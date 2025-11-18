@@ -1,0 +1,11 @@
+{
+    "item.simplemoney.banknote_fiber": "Banknote Fiber",
+    "item.simplemoney.banknote_blank": "Banknote Blank",
+    "item.simplemoney.fresh_bill": "Fresh Bill",
+    "item.simplemoney.money_bill": "Money Bill",
+
+    "tooltip.simplemoney.banknote_fiber.tooltip": "A crude mixture. Requires intense heat for refinement.",
+    "tooltip.simplemoney.banknote_blank.tooltip": "Unprinted, high-quality paper. A crucial chemical agent is missing.",
+    "tooltip.simplemoney.fresh_bill.tooltip": "Still damp from the press. Needs exposure to air and time to set its form.",
+    "tooltip.simplemoney.money_bill.tooltip": "The highest trading value. Recognized by merchants as the standard."
+}

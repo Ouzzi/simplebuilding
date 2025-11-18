@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": "simplemoney:banknote_fiber",
+  "result": {
+    "id": "simplemoney:banknote_blank"
+  },
+  "experience": 2,
+  "cookingtime": 5000
+}

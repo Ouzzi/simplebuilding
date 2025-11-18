@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "simplemoney",
+	"version": "${version}",
+	"name": "simplemoney",
+	"description": "This is a simple money mod.",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://oussama.de/",
+		"sources": "https://github.com/Ouzzi/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/simplemoney/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.simplemoney.Simplemoney"
+		],
+		"fabric-datagen": [
+			"com.simplemoney.SimplemoneyDataGenerator"
+		]
+	},
+	"mixins": [
+		"simplemoney.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.17.3",
+		"minecraft": "~1.21.10",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

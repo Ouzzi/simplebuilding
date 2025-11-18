@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "IDG",
+    "###"
+  ],
+  "key": {
+    "#": "minecraft:paper",
+    "I": "minecraft:iron_nugget",
+    "D": "minecraft:diamond",
+    "G": "minecraft:gold_nugget"
+  },
+  "result": {
+    "id": "simplemoney:banknote_fiber",
+    "count": 1
+  }
+}

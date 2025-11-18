@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#I#",
+    "PPP",
+    "I#I"
+  ],
+  "key": {
+    "#": "minecraft:green_dye",
+    "I": "minecraft:ink_sac",
+    "P": "simplemoney:banknote_blank"
+  },
+  "result": {
+    "id": "simplemoney:fresh_bill",
+    "count": 1
+  }
+}
