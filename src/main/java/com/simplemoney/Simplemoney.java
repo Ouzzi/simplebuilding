@@ -1,5 +1,6 @@
 package com.simplemoney;
 
+import com.simplemoney.items.ModItemGroups;
 import com.simplemoney.items.ModItems;
 import com.simplemoney.recipe.ModRecipes;
 import net.fabricmc.api.ModInitializer;
@@ -66,7 +67,10 @@ public class Simplemoney implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Starting Simplemoney initialization...");
 
-		// Registriert alle Custom Items des Mods.
+        // Registriert alle Item Gruppen (Creative Tabs)
+        ModItemGroups.registerItemGroups();
+
+        // Registriert alle Custom Items des Mods.
 		ModItems.registerModItems();
 
 		// Registriert alle Crafting- und Schmelzrezepte des Mods.

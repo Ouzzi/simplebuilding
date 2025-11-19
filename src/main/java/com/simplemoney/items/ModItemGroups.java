@@ -1,0 +1,32 @@
+package com.simplemoney.items;
+
+import com.simplemoney.Simplemoney;
+import com.simplemoney.items.ModItems;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+
+public class ModItemGroups {
+    public static final ItemGroup MONEY_ITEMS_GROUP = Registry.register(Registries.ITEM_GROUP,
+            Identifier.of(Simplemoney.MOD_ID, "money_items"),
+            FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.MONEY_BILL))
+                    .displayName(Text.translatable("itemgroup.tutorialmod.money_items"))
+                    .entries((displayContext, entries) -> {
+
+                        entries.add(ModItems.BANKNOTE_FIBER);
+                        entries.add(ModItems.BANKNOTE_BLANK);
+                        entries.add(ModItems.FRESH_BILL);
+                        entries.add(ModItems.MONEY_BILL);
+
+
+                    }).build());
+
+
+    public static void registerItemGroups() {
+        Simplemoney.LOGGER.info("Registering Item Groups for " + Simplemoney.MOD_ID);
+    }
+}

@@ -7,5 +7,7 @@
     "tooltip.simplemoney.banknote_fiber.tooltip": "Ein rohes Gemisch. Muss unter großer Hitze verfeinert werden.",
     "tooltip.simplemoney.banknote_blank.tooltip": "Unbedrucktes, hochwertiges Papier. Es fehlt ein wichtiger chemischer Zusatz.",
     "tooltip.simplemoney.fresh_bill.tooltip": "Noch feucht von der Presse. Benötigt Luft und Zeit, um seine Form zu festigen.",
-    "tooltip.simplemoney.money_bill.tooltip": "Der höchste Tauschwert. Wird von Händlern als Standard anerkannt."
+    "tooltip.simplemoney.money_bill.tooltip": "Der höchste Tauschwert. Wird von Händlern als Standard anerkannt.",
+
+    "itemgroup.simplemoney.money_items": "Geld Items"
 }
