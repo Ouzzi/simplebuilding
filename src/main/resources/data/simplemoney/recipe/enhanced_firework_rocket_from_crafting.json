@@ -6,9 +6,9 @@
     "#GM"
   ],
   "key": {
-    "#": { "item": "minecraft:paper" },
-    "G": { "item": "minecraft:gunpowder" },
-    "M": { "item": "simplemoney:phantom_membrane" }
+    "#": "minecraft:paper" ,
+    "G": "minecraft:gunpowder" ,
+    "M": "minecraft:phantom_membrane"
   },
   "result": {
     "id": "simplemoney:enhanced_firework_rocket",

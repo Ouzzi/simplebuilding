@@ -33,7 +33,7 @@ public class EnhancedFireworkRocketItem extends FireworkRocketItem {
             world.spawnEntity(enhancedRocket);
 
             // Sound abspielen (optional)
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, SoundCategory.AMBIENT, 3.0F, 1.0F);
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, SoundCategory.AMBIENT, 2.5F, 1.5F);
 
             if (!user.getAbilities().creativeMode) {
                 // Bei Erfolg ein Item entfernen (Client-Seite macht dies automatisch)

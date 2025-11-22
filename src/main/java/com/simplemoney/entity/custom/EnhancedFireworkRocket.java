@@ -24,7 +24,7 @@ public class EnhancedFireworkRocket extends FireworkRocketEntity {
         super(entityType, world);
         // Setzen Sie Standardwerte, falls die Entity geladen wird und keine Custom-Daten vorhanden sind.
         this.flightDuration = 30;
-        this.speedMultiplier = 3.5;
+        this.speedMultiplier = 15.5;
     }
 
     // --- 2. Der Konstruktor (Für das Spawnen des Items, ohne Elytra-Boost-Logik) ---
@@ -35,7 +35,7 @@ public class EnhancedFireworkRocket extends FireworkRocketEntity {
 
         // Initialisieren Sie Ihre Mod-spezifischen Werte
         this.flightDuration = 30; // Ihre Custom Flugdauer
-        this.speedMultiplier = 3.5; // Ihr Custom Geschwindigkeits-Multiplikator
+        this.speedMultiplier = 15.5; // Ihr Custom Geschwindigkeits-Multiplikator
 
         // Nachbau der Vanilla-Logik für dieses Spawning
         // Diese Zeilen setzen die Lebensdauer und Start-Geschwindigkeit (life, lifeTime, setVelocity)
@@ -70,7 +70,7 @@ public class EnhancedFireworkRocket extends FireworkRocketEntity {
 
         // Initialisieren Sie IHRE Felder HIER (zur Sicherheit, falls sie im vorherigen Aufruf nicht gesetzt wurden)
         this.flightDuration = 30;
-        this.speedMultiplier = 3.5;
+        this.speedMultiplier = 15.5;
     }
 
     // --- Custom Methoden ---
@@ -101,6 +101,6 @@ public class EnhancedFireworkRocket extends FireworkRocketEntity {
         super.readCustomData(view);
         // Laden Sie Ihre eigenen Daten
         this.flightDuration = view.getInt("EnhancedFlightDuration", 30); // Laden oder Default-Wert
-        this.speedMultiplier = view.getDouble("EnhancedSpeedMultiplier", 1.5); // Laden oder Default-Wert
+        this.speedMultiplier = view.getDouble("EnhancedSpeedMultiplier", 15.5); // Laden oder Default-Wert
     }
 }
