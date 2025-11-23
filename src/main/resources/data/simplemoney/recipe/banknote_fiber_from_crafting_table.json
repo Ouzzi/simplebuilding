@@ -1,12 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
+    "IGG",
     "IDG",
-    "###"
+    "IIG"
   ],
   "key": {
-    "#": "minecraft:paper",
     "I": "minecraft:iron_nugget",
     "D": "minecraft:diamond",
     "G": "minecraft:gold_nugget"

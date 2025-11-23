@@ -1,13 +1,13 @@
 package com.simplemoney.items;
 
 import com.simplemoney.Simplemoney;
-import com.simplemoney.items.custom.EnhancedFireworkRocketItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -32,11 +32,25 @@ import static net.minecraft.util.Rarity.*;
  */
 public class ModItems {
 
+
     /**
      * BANKNOTE_FIBER: Die Rohfaser für die Währung.
      * Eigenschaften: Max. Stapelgröße 1 (Einzelstück), Standard-Rarity (COMMON).
      */
-    public static final Item BANKNOTE_FIBER = registerItem("banknote_fiber", setting -> new Item(setting.maxCount(1))
+    public static final Item BANKNOTE_PAPER = registerItem("banknote_paper", setting -> new Item(setting.maxCount(64))
+            {
+                @Override
+                public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+                    textConsumer.accept(Text.translatable("tooltip.simplemoney.banknote_paper.tooltip"));
+                    super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+                }
+            }
+    );
+    /**
+     * BANKNOTE_FIBER: Die Rohfaser für die Währung.
+     * Eigenschaften: Max. Stapelgröße 1 (Einzelstück), Standard-Rarity (COMMON).
+     */
+    public static final Item BANKNOTE_FIBER = registerItem("banknote_fiber", setting -> new Item(setting.maxCount(16))
             {
                 @Override
                 public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
@@ -107,10 +121,6 @@ public class ModItems {
             }
     );
 
-    public static final Item ENHANCED_FIREWORK_ROCKET = registerItem(
-            "enhanced_firework_rocket",setting ->  new EnhancedFireworkRocketItem(setting.maxCount(16)) // Setzen Sie Ihre Item-Einstellungen
-    );
-
 
     /**
      * Registriert ein Item unter einem einfachen Namen und der Mod-ID.
@@ -143,11 +153,11 @@ public class ModItems {
 
         // Fügt alle Währungs-Items zur Standard "Ingredients" Item Group hinzu.
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+            entries.add(BANKNOTE_PAPER);
             entries.add(BANKNOTE_FIBER);
             entries.add(BANKNOTE_BLANK);
             entries.add(FRESH_BILL);
             entries.add(MONEY_BILL);
-            entries.add(ENHANCED_FIREWORK_ROCKET);
         });
     }
 

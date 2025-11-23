@@ -1,10 +1,11 @@
 {
+    "item.simplemoney.banknote_paper": "Banknotenpapier",
     "item.simplemoney.banknote_fiber": "Banknotenfaser",
     "item.simplemoney.banknote_blank": "Banknoten-Rohling",
     "item.simplemoney.fresh_bill": "Frische Banknote",
     "item.simplemoney.money_bill": "Geldschein",
-    "item.simplemoney.enhanced_firework_rocket": "Erweiterte Feuerwerksrakete",
 
+    "tooltip.simplemoney.banknote_paper.tooltip": "Papier aus exotischem Material.",
     "tooltip.simplemoney.banknote_fiber.tooltip": "Ein rohes Gemisch. Muss unter großer Hitze verfeinert werden.",
     "tooltip.simplemoney.banknote_blank.tooltip": "Unbedrucktes, hochwertiges Papier. Es fehlt ein wichtiger chemischer Zusatz.",
     "tooltip.simplemoney.fresh_bill.tooltip": "Noch feucht von der Presse. Benötigt Luft und Zeit, um seine Form zu festigen.",

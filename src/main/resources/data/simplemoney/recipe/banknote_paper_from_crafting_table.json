@@ -1,17 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
-    "MG#",
-    "#GM"
+    "#M#"
   ],
   "key": {
-    "#": "minecraft:paper" ,
-    "G": "minecraft:gunpowder" ,
+    "#": "minecraft:paper",
     "M": "minecraft:phantom_membrane"
   },
   "result": {
-    "id": "simplemoney:enhanced_firework_rocket",
+    "id": "simplemoney:banknote_paper",
     "count": 1
   }
 }

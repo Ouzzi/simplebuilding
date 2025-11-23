@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "simplemoney:item/enhanced_firework_rocket"
+    "layer0": "simplemoney:item/banknote_paper"
   }
 }
