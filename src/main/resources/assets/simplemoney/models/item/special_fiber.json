@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "simplemoney:item/banknote_blank"
+    "layer0": "simplemoney:item/special_fiber"
   }
 }

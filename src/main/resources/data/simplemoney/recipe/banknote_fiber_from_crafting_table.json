@@ -1,17 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "IGG",
-    "IDG",
-    "IIG"
+    "CIC",
+    "GAG",
+    "DGD"
   ],
   "key": {
     "I": "minecraft:iron_nugget",
     "D": "minecraft:diamond",
-    "G": "minecraft:gold_nugget"
+    "G": "minecraft:gold_nugget",
+    "C": "minecraft:copper_nugget",
+    "A": "minecraft:amethyst_shard"
   },
   "result": {
-    "id": "simplemoney:banknote_fiber",
+    "id": "simplemoney:special_fiber",
     "count": 1
   }
 }

@@ -1,13 +1,10 @@
 package com.simplemoney.items;
 
 import com.simplemoney.Simplemoney;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -37,11 +34,11 @@ public class ModItems {
      * BANKNOTE_FIBER: Die Rohfaser für die Währung.
      * Eigenschaften: Max. Stapelgröße 1 (Einzelstück), Standard-Rarity (COMMON).
      */
-    public static final Item BANKNOTE_PAPER = registerItem("banknote_paper", setting -> new Item(setting.maxCount(64))
+    public static final Item SPECIAL_PAPER = registerItem("special_paper", setting -> new Item(setting.maxCount(64))
             {
                 @Override
                 public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-                    textConsumer.accept(Text.translatable("tooltip.simplemoney.banknote_paper.tooltip"));
+                    textConsumer.accept(Text.translatable("tooltip.simplemoney.special_paper.tooltip"));
                     super.appendTooltip(stack, context, displayComponent, textConsumer, type);
                 }
             }
@@ -50,11 +47,11 @@ public class ModItems {
      * BANKNOTE_FIBER: Die Rohfaser für die Währung.
      * Eigenschaften: Max. Stapelgröße 1 (Einzelstück), Standard-Rarity (COMMON).
      */
-    public static final Item BANKNOTE_FIBER = registerItem("banknote_fiber", setting -> new Item(setting.maxCount(16))
+    public static final Item SPECIAL_FIBER = registerItem("special_fiber", setting -> new Item(setting.maxCount(16))
             {
                 @Override
                 public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-                    textConsumer.accept(Text.translatable("tooltip.simplemoney.banknote_fiber.tooltip"));
+                    textConsumer.accept(Text.translatable("tooltip.simplemoney.special_fiber.tooltip"));
                     super.appendTooltip(stack, context, displayComponent, textConsumer, type);
                 }
             }
@@ -63,11 +60,11 @@ public class ModItems {
      * BANKNOTE_BLANK: Der unbedruckte Rohling.
      * Eigenschaften: Rarity UNCOMMON, Max. Stapelgröße 64 (standardmäßig, da maxCount fehlt).
      */
-    public static final Item BANKNOTE_BLANK = registerItem("banknote_blank", setting -> new Item(setting.rarity(UNCOMMON))
+    public static final Item BLANK_NOTE = registerItem("blank_note", setting -> new Item(setting.rarity(UNCOMMON))
             {
                 @Override
                 public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-                    textConsumer.accept(Text.translatable("tooltip.simplemoney.banknote_blank.tooltip"));
+                    textConsumer.accept(Text.translatable("tooltip.simplemoney.blank_note.tooltip"));
                     super.appendTooltip(stack, context, displayComponent, textConsumer, type);
                 }
             }
@@ -76,11 +73,11 @@ public class ModItems {
      * FRESH_BILL: Der frisch gedruckte, aber noch nicht endgültige Geldschein.
      * Eigenschaften: Rarity RARE, Max. Stapelgröße 64 (standardmäßig).
      */
-    public static final Item FRESH_BILL = registerItem("fresh_bill", setting -> new Item(setting.rarity(RARE))
+    public static final Item RAW_BILL = registerItem("raw_bill", setting -> new Item(setting.rarity(RARE))
             {
                 @Override
                 public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-                    textConsumer.accept(Text.translatable("tooltip.simplemoney.fresh_bill.tooltip"));
+                    textConsumer.accept(Text.translatable("tooltip.simplemoney.raw_bill.tooltip"));
                     super.appendTooltip(stack, context, displayComponent, textConsumer, type);
                 }
             }
@@ -110,8 +107,6 @@ public class ModItems {
                 public ActionResult use(World world, PlayerEntity user, Hand hand) {
 
                     if (!world.isClient()) {
-                        // Throw only one item from stack like clicking q
-                        user.dropItem(user.getStackInHand(hand).split(1), false);
                         // Play sound effect for using the money bill
                         world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.PLAYERS, 0.6f, 6.0f);
                     }
@@ -124,7 +119,7 @@ public class ModItems {
 
     /**
      * Registriert ein Item unter einem einfachen Namen und der Mod-ID.
-     * @param name Der Bezeichner des Items (z.B. "banknote_fiber").
+     * @param name Der Bezeichner des Items (z.B. "special_fiber").
      * @param item Das zu registrierende Item-Objekt.
      * @return Das registrierte Item.
      */

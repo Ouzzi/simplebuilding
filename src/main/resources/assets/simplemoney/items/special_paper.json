@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplemoney:item/fresh_bill"
+    "model": "simplemoney:item/special_paper"
   }
 }

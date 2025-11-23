@@ -1,15 +1,15 @@
 {
-    "item.simplemoney.banknote_paper": "Banknote Paper",
-    "item.simplemoney.banknote_fiber": "Banknote Fiber",
-    "item.simplemoney.banknote_blank": "Banknote Blank",
-    "item.simplemoney.fresh_bill": "Fresh Bill",
+    "item.simplemoney.special_paper": "Special Paper",
+    "item.simplemoney.special_fiber": "Special Fiber",
+    "item.simplemoney.blank_note": "Banknote Blank",
+    "item.simplemoney.raw_bill": "Raw Bill",
     "item.simplemoney.money_bill": "Money Bill",
 
-    "tooltip.simplemoney.banknote_paper.tooltip": "Paper made from exotic material.",
-    "tooltip.simplemoney.banknote_fiber.tooltip": "A crude mixture. Requires intense heat for refinement.",
-    "tooltip.simplemoney.banknote_blank.tooltip": "Unprinted, high-quality paper. A crucial chemical agent is missing.",
-    "tooltip.simplemoney.fresh_bill.tooltip": "Still damp from the press. Needs exposure to air and time to set its form.",
-    "tooltip.simplemoney.money_bill.tooltip": "The highest trading value.",
+    "tooltip.simplemoney.special_paper.tooltip": "Paper made from exotic material.",
+    "tooltip.simplemoney.special_fiber.tooltip": "A crude mixture. Requires extreme heat for refinement.",
+    "tooltip.simplemoney.blank_note.tooltip": "Unprinted, high-quality paper.",
+    "tooltip.simplemoney.raw_bill.tooltip": "Still damp from the press.",
+    "tooltip.simplemoney.money_bill.tooltip": "Highest trading value.",
 
-    "itemgroup.simplemoney.money_items": "Money Items"
+    "itemgroup.simplemoney.money_items": "Currency Materials"
 }

@@ -15,10 +15,10 @@ public class ModItemGroups {
             FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.MONEY_BILL))
                     .displayName(Text.translatable("itemgroup.simplemoney.money_items"))
                     .entries((displayContext, entries) -> {
-                        entries.add(ModItems.BANKNOTE_PAPER);
-                        entries.add(ModItems.BANKNOTE_FIBER);
-                        entries.add(ModItems.BANKNOTE_BLANK);
-                        entries.add(ModItems.FRESH_BILL);
+                        entries.add(ModItems.SPECIAL_PAPER);
+                        entries.add(ModItems.SPECIAL_FIBER);
+                        entries.add(ModItems.BLANK_NOTE);
+                        entries.add(ModItems.RAW_BILL);
                         entries.add(ModItems.MONEY_BILL);
                     }).build());
 

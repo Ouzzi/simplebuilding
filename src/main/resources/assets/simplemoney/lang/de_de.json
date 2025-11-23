@@ -1,15 +1,15 @@
 {
-    "item.simplemoney.banknote_paper": "Banknotenpapier",
-    "item.simplemoney.banknote_fiber": "Banknotenfaser",
-    "item.simplemoney.banknote_blank": "Banknoten-Rohling",
-    "item.simplemoney.fresh_bill": "Frische Banknote",
+    "item.simplemoney.special_paper": "Spezial-Papier",
+    "item.simplemoney.special_fiber": "Spezial-Faser",
+    "item.simplemoney.blank_note": "Banknoten-Rohling",
+    "item.simplemoney.raw_bill": "Roher Geldschein",
     "item.simplemoney.money_bill": "Geldschein",
 
-    "tooltip.simplemoney.banknote_paper.tooltip": "Papier aus exotischem Material.",
-    "tooltip.simplemoney.banknote_fiber.tooltip": "Ein rohes Gemisch. Muss unter großer Hitze verfeinert werden.",
-    "tooltip.simplemoney.banknote_blank.tooltip": "Unbedrucktes, hochwertiges Papier. Es fehlt ein wichtiger chemischer Zusatz.",
-    "tooltip.simplemoney.fresh_bill.tooltip": "Noch feucht von der Presse. Benötigt Luft und Zeit, um seine Form zu festigen.",
-    "tooltip.simplemoney.money_bill.tooltip": "Der höchste Tauschwert.",
+    "tooltip.simplemoney.special_paper.tooltip": "Papier aus exotischem Material.",
+    "tooltip.simplemoney.special_fiber.tooltip": "Ein rohes Gemisch. Muss unter extremen Temperaturen veredelt werden.",
+    "tooltip.simplemoney.blank_note.tooltip": "Hochwertiges, unbedrucktes Substrat.",
+    "tooltip.simplemoney.raw_bill.tooltip": "Noch feucht von der Druckpresse.",
+    "tooltip.simplemoney.money_bill.tooltip": "Höchster Tauschwert.",
 
-    "itemgroup.simplemoney.money_items": "Geld Items"
+    "itemgroup.simplemoney.money_items": "Währungs-Materialien"
 }
