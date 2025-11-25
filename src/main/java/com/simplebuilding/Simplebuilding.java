@@ -1,0 +1,75 @@
+package com.simplebuilding;
+
+import com.simplebuilding.component.ModDataComponentTypes;
+import com.simplebuilding.entity.ModEntities;
+import com.simplebuilding.items.ModItemGroups;
+import com.simplebuilding.items.ModItems;
+import com.simplebuilding.particle.ModParticles;
+import com.simplebuilding.recipe.ModRecipes;
+import com.simplebuilding.util.ModLootTableModifiers;
+import com.simplebuilding.util.ModTradeOffers;
+import net.fabricmc.api.ModInitializer;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+/**
+ * Die Hauptklasse für den Simplemoney Mod.
+ * Diese Klasse initialisiert alle Custom Items, Rezepte und registriert
+ * die benutzerdefinierten Handelsangebote für Dorfbewohner (Villager Trades),
+ * wobei die Custom Currency (MONEY_BILL) verwendet wird.
+ * * Implementiert das Fabric ModInitializer Interface.
+ */
+public class Simplebuilding implements ModInitializer {
+	/** Die eindeutige Mod-ID, verwendet für Registrierungen und Logger. */
+	public static final String MOD_ID = "simplebuilding";
+	/** Der Logger für die Protokollierung von Mod-Ereignissen und Debugging. */
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+
+
+	/**
+	 * Die Hauptmethode, die beim Start des Mods von Fabric aufgerufen wird.
+	 * Registriert alle Mod-Komponenten und Handelsangebote.
+	 */
+	@Override
+	public void onInitialize() {
+		LOGGER.info("Starting Simplebuilding initialization...");
+
+        // Registriert alle benutzerdefinierten Entitäten des Mods.
+        ModEntities.registerModEntities();
+
+        // Registriert alle Item Gruppen (Creative Tabs)
+        ModItemGroups.registerItemGroups();
+
+        // Registriert alle Custom Items des Mods.
+		ModItems.registerModItems();
+
+		// Registriert alle Crafting- und Schmelzrezepte des Mods.
+		ModRecipes.registerRecipes();
+
+        // Registriert alle Loot Table Modifikationen des Mods.
+        ModLootTableModifiers.modifyLootTables();
+
+        // Registriert benutzerdefinierte Handelsangebote für Dorfbewohner
+        ModTradeOffers.registerModTradeOffers();
+
+        // Registriert alle benutzerdefinierten Partikel des Mods.
+        ModParticles.registerParticles();
+
+        // Registriert alle benutzerdefinierten Datenkomponenten des Mods.
+        ModDataComponentTypes.registerDataComponentTypes();
+
+	}
+    /*
+        1. eine chisel(, welche mögliche blöcke chiseln lässt, d.h. das was beim stonecutter an blockvarianten möglich ist kann gechiselt werden, also bricks smoth chisled, ...),
+
+        2. building wand (platzierung von blöcken weiter weg möglich), building wand pro (ähnlich zu construction wand, je nach tier 3x3, 5x5, 7x7, 9x9, oder linie 3,5,7,9),
+
+
+        3. building bundle (das selbe wie ein bundle, nur dass man direkt blöcke platzieren kann), bulding bundle color palette (das selbe wie building bundle nur dass zufällig ein block gewählt wird. je nach vertretener menge eine gewichtete zufälligkeit),
+        4. building shulker (analog zu building bundle , upgradable zu colorpalete wenn sneak rechtsclicked mit spezial item). wie starte ich am bessten
+     */
+
+}

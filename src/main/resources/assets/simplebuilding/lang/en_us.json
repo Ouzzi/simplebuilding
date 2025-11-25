@@ -1,0 +1,27 @@
+{
+    "item.simplebuilding.building_bundle": "Building Bundle",
+    "tooltip.simplebuilding.building_bundle.tooltip": "A bundle containing various building materials.",
+
+
+  "item.simplebuilding.stone_chisel": "Stone Chisel",
+  "item.simplebuilding.iron_chisel": "Iron Chisel",
+  "item.simplebuilding.gold_chisel": "Gold Chisel",
+  "item.simplebuilding.diamond_chisel": "Diamond Chisel",
+  "item.simplebuilding.netherite_chisel": "Netherite Chisel",
+
+  "tooltip.simplebuilding.chisel": "Use to shape blocks.",
+  "tooltip.simplebuilding.chisel.shift_down": "Right-click on a transformable block.",
+
+
+  "item.simplebuilding.stone_spatula": "Stone Spatula",
+  "item.simplebuilding.iron_spatula": "Iron Spatula",
+  "item.simplebuilding.gold_spatula": "Gold Spatula",
+  "item.simplebuilding.diamond_spatula": "Diamond Spatula",
+  "item.simplebuilding.netherite_spatula": "Netherite Spatula",
+
+    "tooltip.simplebuilding.spatula": "Use to smooth blocks.",
+    "tooltip.simplebuilding.spatula.shift_down": "Right-click on a transformable block.",
+
+    "itemgroup.simplebuilding.building_items": "Building Items"
+
+}

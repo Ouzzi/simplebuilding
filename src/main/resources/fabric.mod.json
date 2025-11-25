@@ -1,9 +1,9 @@
 {
 	"schemaVersion": 1,
-	"id": "simplemoney",
+	"id": "simplebuilding",
 	"version": "${version}",
-	"name": "simplemoney",
-	"description": "This is a simple money mod.",
+	"name": "simplebuilding",
+	"description": "This is a simple building mod.",
 	"authors": [
 		"Me!"
 	],
@@ -12,18 +12,18 @@
 		"sources": "https://github.com/Ouzzi/fabric-example-mod"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/simplemoney/icon.png",
+	"icon": "assets/simplebuilding/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.simplemoney.Simplemoney"
+          "com.simplebuilding.Simplebuilding"
 		],
 		"fabric-datagen": [
-			"com.simplemoney.SimplemoneyDataGenerator"
+          "com.simplebuilding.SimplebuildingDataGenerator"
 		]
 	},
 	"mixins": [
-		"simplemoney.mixins.json"
+		"simplebuilding.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.17.3",

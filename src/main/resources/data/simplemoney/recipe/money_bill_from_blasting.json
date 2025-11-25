@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": "simplemoney:raw_bill",
-  "result": {
-    "id": "simplemoney:money_bill"
-  },
-  "experience": 10,
-  "cookingtime": 3000
-}
