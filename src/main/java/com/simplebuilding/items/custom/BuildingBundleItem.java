@@ -39,7 +39,7 @@ import java.util.function.Consumer;
 public class BuildingWandItem extends Item {
 
     private int wandSquareDiameter;
-    private SoundEvent chiselSound = SoundEvents.UI_STONECUTTER_TAKE_RESULT;
+    private SoundEvent placeSound = SoundEvents.UI_STONECUTTER_TAKE_RESULT;
 
     private static final int DEFAULT_WAND_SQUARE_DAIAMETER = 1;
 
@@ -89,7 +89,7 @@ public class BuildingWandItem extends Item {
                 context.getStack().damage(1, ((ServerWorld) world), ((ServerPlayerEntity) context.getPlayer()),
                         item -> context.getPlayer().sendEquipmentBreakStatus(item, EquipmentSlot.MAINHAND));
 
-                world.playSound(null, context.getBlockPos(), chiselSound, SoundCategory.BLOCKS, 0.5f, 1.5f);
+                world.playSound(null, context.getBlockPos(), useSound, SoundCategory.BLOCKS, 0.5f, 1.5f);
 
                 ((ServerWorld) world).spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, clickedBlock.getDefaultState()),
                         context.getBlockPos().getX() + 0.5, context.getBlockPos().getY() + 1.0,
@@ -124,8 +124,8 @@ public class BuildingWandItem extends Item {
         super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
-    public void setChiselSound(SoundEvent chiselSound) {
-        this.chiselSound = chiselSound;
+    public void setUseSound(SoundEvent useSound) {
+        this.useSound = useSound;
     }
 
 
