@@ -1,11 +1,10 @@
 package com.simplebuilding.items;
 
 import com.simplebuilding.Simplebuilding;
-import com.simplebuilding.items.custom.BuildingBundleItem;
+import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.ChiselItem;
-import com.simplebuilding.items.custom.ChiselItem.*;
+import com.simplebuilding.items.custom.RangefinderItem;
 import com.simplebuilding.items.custom.SpatulaItem;
-import com.simplebuilding.items.custom.SpatulaItem.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
@@ -45,8 +44,8 @@ public class ModItems {
     private static final int ENCHANTABILITY_DIAMOND = 10;
     private static final int ENCHANTABILITY_NETHERITE = 15;
 
-    private static final int DURABILITY_MULTIPLYER_WAND = 8;
-    private static final int DURABILITY_MULTIPLYER_RANGEFINDER = 8; 
+    private static final int DURABILITY_MULTIPLAYER_WAND = 8;
+    private static final int DURABILITY_MULTIPLAYER_RANGEFINDER = 8; 
     
     private static final int BUILDING_WAND_SQUARE_COPPER = 3;
     private static final int BUILDING_WAND_SQUARE_IRON = 5;
@@ -129,10 +128,19 @@ public class ModItems {
     public static final SpatulaItem DIAMOND_SPATULA = registerSpatula("diamond_spatula", DURABILITY_DIAMOND, SPATULA_MAP_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND);
     public static final SpatulaItem NETHERITE_SPATULA = registerSpatula("netherite_spatula", DURABILITY_NETHERITE, SPATULA_MAP_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE);
 
-    public static final BuildingWandItem IRON_BUILDING_WAND = registerBuildingWand("iron_building_wand", DURABILITY_IRON*DURABILITY_MULTIPLYER_WAND, BUILDING_WAND_SQUARE_IRON, ENCHANTABILITY_IRON);
-    public static final Item BUILDING_CORE = registerItem("building_core",settings -> new Item(settings.maxCount(16)));
+    public static final Item COPPER_BUILDING_CORE = registerItem("copper_building_core",settings -> new Item(settings.maxCount(16)));
+    public static final Item IRON_BUILDING_CORE = registerItem("iron_building_core",settings -> new Item(settings.maxCount(16)));
+    public static final Item GOLD_BUILDING_CORE = registerItem("gold_building_core",settings -> new Item(settings.maxCount(16)));
+    public static final Item DIAMOND_BUILDING_CORE = registerItem("diamond_building_core",settings -> new Item(settings.maxCount(16)));
+    public static final Item NETHERITE_BUILDING_CORE = registerItem("netherite_building_core",settings -> new Item(settings.maxCount(16)));
 
-    public static final RangeFinderItem RANGEFINDER_ITEM = registerItem("rangefinder", settings -> new Item(settings.maxDamage(DURABILITY_NETHERITE*DURABILITY_MULTIPLYER_RANGEFINDER).enchantability(ENCHANTABILITY_NETHERITE)));
+    public static final BuildingWandItem COPPER_BUILDING_WAND = registerBuildingWand("copper_building_wand", DURABILITY_WOOD_STONE* DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_COPPER, ENCHANTABILITY_COPPER);
+    public static final BuildingWandItem IRON_BUILDING_WAND = registerBuildingWand("iron_building_wand", DURABILITY_IRON* DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_IRON, ENCHANTABILITY_IRON);
+    public static final BuildingWandItem GOLD_BUILDING_WAND = registerBuildingWand("gold_building_wand", DURABILITY_GOLD* DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_GOLD, ENCHANTABILITY_GOLD);
+    public static final BuildingWandItem DIAMOND_BUILDING_WAND = registerBuildingWand("diamond_building_wand", DURABILITY_DIAMOND* DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_DIAMOND, ENCHANTABILITY_DIAMOND);
+    public static final BuildingWandItem NETHERITE_BUILDING_WAND = registerBuildingWand("netherite_building_wand", DURABILITY_NETHERITE* DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_NETHERITE, ENCHANTABILITY_NETHERITE);
+
+    public static final RangefinderItem RANGEFINDER_ITEM = (RangefinderItem) registerItem("rangefinder",settings -> new RangefinderItem(settings.maxDamage(DURABILITY_NETHERITE* DURABILITY_MULTIPLAYER_RANGEFINDER).enchantable(ENCHANTABILITY_NETHERITE)));
 
     // --- HILFSMETHODEN ---
 
@@ -159,8 +167,8 @@ public class ModItems {
     }
 
     
-    private static BuildingWand registerChisel(String name, int maxDamage, int wandSquareDiameter, int enchantability) {
-        BuildingWand wand = (BuildingWand) registerItem(name, settings -> new BuildingWand(settings.maxDamage(maxDamage).enchantable(enchantability)));
+    private static BuildingWandItem registerBuildingWand(String name, int maxDamage, int wandSquareDiameter, int enchantability) {
+        BuildingWandItem wand = (BuildingWandItem) registerItem(name, settings -> new BuildingWandItem(settings.maxDamage(maxDamage).enchantable(enchantability)));
         wand.setWandSquareDiameter(wandSquareDiameter);
         return wand;
     }

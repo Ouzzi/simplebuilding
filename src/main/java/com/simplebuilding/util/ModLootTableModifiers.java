@@ -88,7 +88,7 @@ public class ModLootTableModifiers {
                     .conditionally(RandomChanceLootCondition.builder(dropChance))
 
                     // Fügt den Mod-Geldschein als potenziellen Loot-Eintrag hinzu.
-                    .with(ItemEntry.builder(ModItems.BUILDING_BUNDLE))
+                    .with(ItemEntry.builder(ModItems.GOLD_CHISEL))
 
                     // Wendet die Funktion an, um die definierte Item-Anzahl festzulegen.
                     .apply(SetCountLootFunction.builder(countProvider));

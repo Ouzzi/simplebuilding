@@ -42,7 +42,7 @@ public class ModTradeOffers {
         TradeOfferHelper.registerWanderingTraderOffers(factory -> {
             factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL, (entity, random) -> {
                 int moneyBillAmount = random.nextInt(4) + 6;
-                return new TradeOffer(new TradedItem(Items.EMERALD, moneyBillAmount), new ItemStack(ModItems.BUILDING_BUNDLE, 8), 3, 10, 0.1f);
+                return new TradeOffer(new TradedItem(Items.EMERALD, moneyBillAmount), new ItemStack(ModItems.COPPER_CHISEL, 8), 3, 10, 0.1f);
             });
         });
     }

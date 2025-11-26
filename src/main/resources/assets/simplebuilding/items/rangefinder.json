@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "simplebuilding:item/building_bundle"
+    "model": "simplebuilding:item/rangefinder"
   }
 }

@@ -1,44 +1,65 @@
 {
-    "item.simplebuilding.building_bundle": "Building Bundle",
-    "tooltip.simplebuilding.building_bundle.tooltip": "A bundle containing various building materials.",
+  "item.simplebuilding.building_bundle": "Building Bundle",
+  "tooltip.simplebuilding.building_bundle.tooltip": "A bundle containing various building materials.",
 
 
-    "item.simplebuilding.stone_chisel": "Stone Chisel",
-    "item.simplebuilding.iron_chisel": "Iron Chisel",
-    "item.simplebuilding.gold_chisel": "Gold Chisel",
-    "item.simplebuilding.diamond_chisel": "Diamond Chisel",
-    "item.simplebuilding.netherite_chisel": "Netherite Chisel",
+  "item.simplebuilding.stone_chisel": "Stone Chisel",
+  "item.simplebuilding.iron_chisel": "Iron Chisel",
+  "item.simplebuilding.gold_chisel": "Gold Chisel",
+  "item.simplebuilding.diamond_chisel": "Diamond Chisel",
+  "item.simplebuilding.netherite_chisel": "Netherite Chisel",
 
-    "tooltip.simplebuilding.chisel": "Use to shape blocks.",
-    "tooltip.simplebuilding.chisel.shift_down": "Right-click on a transformable block.",
-
-
-    "item.simplebuilding.stone_spatula": "Stone Spatula",
-    "item.simplebuilding.iron_spatula": "Iron Spatula",
-    "item.simplebuilding.gold_spatula": "Gold Spatula",
-    "item.simplebuilding.diamond_spatula": "Diamond Spatula",
-    "item.simplebuilding.netherite_spatula": "Netherite Spatula",
-
-    "tooltip.simplebuilding.spatula": "Use to smooth blocks.",
-    "tooltip.simplebuilding.spatula.shift_down": "Right-click on a transformable block.",
-
-    "itemgroup.simplebuilding.building_items": "Building Items",
+  "tooltip.simplebuilding.chisel": "Use to shape blocks.",
+  "tooltip.simplebuilding.chisel.shift_down": "Right-click on a transformable block.",
 
 
-    "enchantment.simplebuilding.fast_chiseling": "Fast Chiseling",
-    "enchantment.simplebuilding.constructors_touch": "Constructor's Touch",
-    "enchantment.simplebuilding.range": "Range",
+  "item.simplebuilding.stone_spatula": "Stone Spatula",
+  "item.simplebuilding.iron_spatula": "Iron Spatula",
+  "item.simplebuilding.gold_spatula": "Gold Spatula",
+  "item.simplebuilding.diamond_spatula": "Diamond Spatula",
+  "item.simplebuilding.netherite_spatula": "Netherite Spatula",
 
-    "enchantment.simplebuilding.deep_pockets": "Deep Pockets",
-    "enchantment.simplebuilding.master_builder": "Master Builder",
-    "enchantment.simplebuilding.color_palette": "Color Palette",
+  "tooltip.simplebuilding.spatula": "Use to smooth blocks.",
+  "tooltip.simplebuilding.spatula.shift_down": "Right-click on a transformable block.",
 
-    "enchantment.simplebuilding.lightning_striker": "Lightning Striker",
 
-    "container.enchantments": "Enchantments",
-    "enchantment.level.1": "I",
-    "enchantment.level.2": "II",
-    "enchantment.level.3": "III",
-    "enchantment.level.4": "IV",
-    "enchantment.level.5": "V"
+  "item.simplebuilding.copper_building_core": "Copper Building Core",
+  "item.simplebuilding.iron_building_core": "Iron Building Core",
+  "item.simplebuilding.gold_building_core": "Gold Building Core",
+  "item.simplebuilding.diamond_building_core": "Diamond Building Core",
+  "item.simplebuilding.netherite_building_core": "Netherite Building Core",
+
+  "item.simplebuilding.copper_building_wand": "Copper Building Wand",
+  "item.simplebuilding.iron_building_wand": "Iron Building Wand",
+  "item.simplebuilding.gold_building_wand": "Gold Building Wand",
+  "item.simplebuilding.diamond_building_wand": "Diamond Building Wand",
+  "item.simplebuilding.netherite_building_wand": "Netherite Building Wand",
+
+  "tooltip.simplebuilding.building_wand": "Use to place more blocks at once.",
+
+  "message.simplebuilding.set_pos1_first": "1:",
+  "message.simplebuilding.pos1_set": "1:",
+  "message.simplebuilding.pos2_set": "2:",
+
+  "itemgroup.simplebuilding.rangefinder": "Rangefinder",
+
+  "itemgroup.simplebuilding.building_items": "Building Items",
+
+
+  "enchantment.simplebuilding.fast_chiseling": "Fast Chiseling",
+  "enchantment.simplebuilding.constructors_touch": "Constructor's Touch",
+  "enchantment.simplebuilding.range": "Range",
+
+  "enchantment.simplebuilding.deep_pockets": "Deep Pockets",
+  "enchantment.simplebuilding.master_builder": "Master Builder",
+  "enchantment.simplebuilding.color_palette": "Color Palette",
+
+  "enchantment.simplebuilding.lightning_striker": "Lightning Striker",
+
+  "container.enchantments": "Enchantments",
+  "enchantment.level.1": "I",
+  "enchantment.level.2": "II",
+  "enchantment.level.3": "III",
+  "enchantment.level.4": "IV",
+  "enchantment.level.5": "V"
 }

@@ -66,43 +66,41 @@ public class Simplebuilding implements ModInitializer {
 
 	}
     /*
-										0. enchanments:
-											chissel, spatula
-											- constructors touch ( cusom chiel maps for each tier netherite obsidian to crying obsidian; diamond stone to cobble; iron cobble to mossy cobble; stone log to stripped log, ...;
-											chissel, spatula
-											- fast chissel (faster cooldown for chisseltools)
-											chissel, spatula, pickaxe, axe, shulker, bundle
-											- range (bigger range for mining and chissel and bulding tools (bundle, shulker)
-										 shulker, bundle
-											- Quiver enchahant (Pfeile aus bundle oder shulker in den Bogen laden) (entwedert quiver enchant oder master builder enchant) (nicht kombinierbar mit color palete)
-											shulker, bundle, building wand
-											- master builder (places first block of shulker/bundle by right clicking) (building wand allows to pick from other masterbuilder enchanted shulkers or bundles)
-											shulker, bundle, building wand
-											- color palette (changes picking order first block to random but with weighted probability)
+        0. enchanments:
+                chissel, spatula
+            - constructors touch ( cusom chiel maps for each tier netherite obsidian to crying obsidian; diamond stone to cobble; iron cobble to mossy cobble; stone log to stripped log, ...;
+                chissel, spatula
+            - fast chissel (faster cooldown for chisseltools)
+                chissel, spatula, pickaxe, axe, shulker, bundle
+            - range (bigger range for mining and chissel and bulding tools (bundle, shulker)
+                shulker, bundle
+            - Quiver enchahant (Pfeile aus bundle oder shulker in den Bogen laden) (entwedert quiver enchant oder master builder enchant) (nicht kombinierbar mit color palete)
+                shulker, bundle, building wand
+            - master builder (places first block of shulker/bundle by right clicking) (building wand allows to pick from other masterbuilder enchanted shulkers or bundles)
+                shulker, bundle, building wand
+            - color palette (changes picking order first block to random but with weighted probability)
 
 
-        1. eine chisel(, welche mögliche blöcke chiseln lässt, d.h. das was beim stonecutter an blockvarianten möglich ist kann gechiselt werden, also bricks smoth chisled, ...),
-										crafting chissel:
-											- stick + iron nugget + desired material diagonal (ntherite must be upgraded)
-										crafting spatula:
-											- stick + iron nugget + desired material corner (ntherite must be upgraded)
+        1. Chisel, Spatula (welche mögliche blöcke chiseln lässt, d.h. das was beim stonecutter an blockvarianten möglich ist kann gechiselt werden, also bricks smoth chisled, ...),
+            crafting chissel:
+                - stick + iron nugget + desired material diagonal (ntherite must be upgraded)
+            crafting spatula:
+                - stick + iron nugget + desired material corner (ntherite must be upgraded)
 
         2. building wand (platzierung von blöcken weiter weg möglich), building wand pro (ähnlich zu construction wand, je nach tier 3x3, 5x5, 7x7, 9x9, oder linie 3,5,7,9),
-									crafting:
-										- nether star sourounded with desired material -> building core (iron, gold, diamond) (netherite must be upgraded from diamond)
-										- sticks and building core -> building wand  
+            crafting:
+                - nether star sourounded with desired material -> building core (iron, gold, diamond) (netherite must be upgraded from diamond)
+                - sticks and building core -> building wand
 
-								3. mesurement tape 
-									features:
-										- right click for first point, sbeak rightclick second point
-										- tooltip: 1 line first point, 2nd line scnd point, 3rd line result (1d number 2d x*y = square area) 
-										- right click in inventory reset
-
+        3. mesurement tape
+            features:
+                - right click for first point, sbeak rightclick second point
+                - tooltip: 1 line first point, 2nd line scnd point, 3rd line result (1d number 2d x*y = square area)
+                - right click in inventory reset
 
         4. config:
-		        - enable/disable items
-		        - particle effects - shuler aus 0 - 10 max
-
+            - enable/disable items
+            - particle effects - shuler aus 0 - 10 max
      */
 
 }
