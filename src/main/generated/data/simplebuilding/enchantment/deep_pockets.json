@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 2,
+  "description": {
+    "translate": "enchantment.simplebuilding.deep_pockets"
+  },
+  "max_cost": {
+    "base": 40,
+    "per_level_above_first": 8
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 6
+  },
+  "primary_items": "#simplebuilding:bundle_enchantable",
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#simplebuilding:bundle_enchantable",
+  "weight": 5
+}

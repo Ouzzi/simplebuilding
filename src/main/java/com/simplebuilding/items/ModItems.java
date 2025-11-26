@@ -37,6 +37,13 @@ public class ModItems {
     private static final int COOLDOWN_TICKS_DIAMOND = 10;
     private static final int COOLDOWN_TICKS_NETHERITE = 5;
 
+    private static final int ENCHANTABILITY_WOOD_STONE = 15;
+    private static final int ENCHANTABILITY_COPPER = 18;
+    private static final int ENCHANTABILITY_IRON = 14;
+    private static final int ENCHANTABILITY_GOLD = 22;
+    private static final int ENCHANTABILITY_DIAMOND = 10;
+    private static final int ENCHANTABILITY_NETHERITE = 15;
+
     private static Map<Block, Block> mergeMaps(Map<Block, Block> destination, Map<Block, Block> source) {
         Map<Block, Block> result = new HashMap<>(destination);
         result.putAll(source);
@@ -97,19 +104,19 @@ public class ModItems {
 
     // --- 3. ITEM REGISTRIERUNGEN ---
 
-    public static final ChiselItem STONE_CHISEL = registerChisel("stone_chisel", DURABILITY_WOOD_STONE, CHISEL_MAP_STONE, COOLDOWN_TICKS_WOOD_STONE);
-    public static final ChiselItem COPPER_CHISEL = registerChisel("copper_chisel", DURABILITY_WOOD_STONE, CHISEL_MAP_IRON, COOLDOWN_TICKS_IRON);
-    public static final ChiselItem IRON_CHISEL = registerChisel("iron_chisel", DURABILITY_IRON, CHISEL_MAP_IRON, COOLDOWN_TICKS_IRON);
-    public static final ChiselItem GOLD_CHISEL = registerChisel("gold_chisel", DURABILITY_GOLD, CHISEL_MAP_IRON, COOLDOWN_TICKS_GOLD);
-    public static final ChiselItem DIAMOND_CHISEL = registerChisel("diamond_chisel", DURABILITY_DIAMOND, CHISEL_MAP_DIAMOND, COOLDOWN_TICKS_DIAMOND);
-    public static final ChiselItem NETHERITE_CHISEL = registerChisel("netherite_chisel", DURABILITY_NETHERITE, CHISEL_MAP_NETHERITE, COOLDOWN_TICKS_NETHERITE);
+    public static final ChiselItem STONE_CHISEL = registerChisel("stone_chisel", DURABILITY_WOOD_STONE, CHISEL_MAP_STONE, COOLDOWN_TICKS_WOOD_STONE, ENCHANTABILITY_WOOD_STONE);
+    public static final ChiselItem COPPER_CHISEL = registerChisel("copper_chisel", DURABILITY_WOOD_STONE, CHISEL_MAP_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_COPPER);
+    public static final ChiselItem IRON_CHISEL = registerChisel("iron_chisel", DURABILITY_IRON, CHISEL_MAP_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_IRON);
+    public static final ChiselItem GOLD_CHISEL = registerChisel("gold_chisel", DURABILITY_GOLD, CHISEL_MAP_IRON, COOLDOWN_TICKS_GOLD, ENCHANTABILITY_GOLD);
+    public static final ChiselItem DIAMOND_CHISEL = registerChisel("diamond_chisel", DURABILITY_DIAMOND, CHISEL_MAP_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND);
+    public static final ChiselItem NETHERITE_CHISEL = registerChisel("netherite_chisel", DURABILITY_NETHERITE, CHISEL_MAP_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE);
 
-    public static final SpatulaItem STONE_SPATULA = registerSpatula("stone_spatula", DURABILITY_WOOD_STONE, SPATULA_MAP_STONE, COOLDOWN_TICKS_WOOD_STONE);
-    public static final SpatulaItem COPPER_SPATULA = registerSpatula("copper_spatula", DURABILITY_WOOD_STONE, SPATULA_MAP_IRON, COOLDOWN_TICKS_IRON);
-    public static final SpatulaItem IRON_SPATULA = registerSpatula("iron_spatula", DURABILITY_IRON, SPATULA_MAP_IRON, COOLDOWN_TICKS_IRON);
-    public static final SpatulaItem GOLD_SPATULA = registerSpatula("gold_spatula", DURABILITY_GOLD, SPATULA_MAP_IRON, COOLDOWN_TICKS_GOLD);
-    public static final SpatulaItem DIAMOND_SPATULA = registerSpatula("diamond_spatula", DURABILITY_DIAMOND, SPATULA_MAP_DIAMOND, COOLDOWN_TICKS_DIAMOND);
-    public static final SpatulaItem NETHERITE_SPATULA = registerSpatula("netherite_spatula", DURABILITY_NETHERITE, SPATULA_MAP_NETHERITE, COOLDOWN_TICKS_NETHERITE);
+    public static final SpatulaItem STONE_SPATULA = registerSpatula("stone_spatula", DURABILITY_WOOD_STONE, SPATULA_MAP_STONE, COOLDOWN_TICKS_WOOD_STONE, ENCHANTABILITY_WOOD_STONE);
+    public static final SpatulaItem COPPER_SPATULA = registerSpatula("copper_spatula", DURABILITY_WOOD_STONE, SPATULA_MAP_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_COPPER);
+    public static final SpatulaItem IRON_SPATULA = registerSpatula("iron_spatula", DURABILITY_IRON, SPATULA_MAP_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_IRON);
+    public static final SpatulaItem GOLD_SPATULA = registerSpatula("gold_spatula", DURABILITY_GOLD, SPATULA_MAP_IRON, COOLDOWN_TICKS_GOLD, ENCHANTABILITY_GOLD);
+    public static final SpatulaItem DIAMOND_SPATULA = registerSpatula("diamond_spatula", DURABILITY_DIAMOND, SPATULA_MAP_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND);
+    public static final SpatulaItem NETHERITE_SPATULA = registerSpatula("netherite_spatula", DURABILITY_NETHERITE, SPATULA_MAP_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE);
 
 
     public static final Item BUILDING_BUNDLE = registerItem("building_bundle",settings -> new BuildingBundleItem(settings.maxCount(1)));
@@ -121,8 +128,8 @@ public class ModItems {
      * Registriert und mappt eine ChiselItem Instanz.
      * @param cooldownTicks Die Dauer des Cooldowns (in Ticks).
      */
-    private static ChiselItem registerChisel(String name, int maxDamage, Map<Block, Block> transformationMap, int cooldownTicks) {
-        ChiselItem chisel = (ChiselItem) registerItem(name, settings -> new ChiselItem(settings.maxDamage(maxDamage)));
+    private static ChiselItem registerChisel(String name, int maxDamage, Map<Block, Block> transformationMap, int cooldownTicks, int enchantability) {
+        ChiselItem chisel = (ChiselItem) registerItem(name, settings -> new ChiselItem(settings.maxDamage(maxDamage).enchantable(enchantability)));
         chisel.setTransformationMap(transformationMap);
         chisel.setCooldownTicks(cooldownTicks); // NEU: Cooldown setzen
         return chisel;
@@ -132,8 +139,8 @@ public class ModItems {
      * Registriert und mappt eine SpatulaItem Instanz.
      * @param cooldownTicks Die Dauer des Cooldowns (in Ticks).
      */
-    private static SpatulaItem registerSpatula(String name, int maxDamage, Map<Block, Block> transformationMap, int cooldownTicks) {
-        SpatulaItem spatula = (SpatulaItem) registerItem(name, settings -> new SpatulaItem(settings.maxDamage(maxDamage)));
+    private static SpatulaItem registerSpatula(String name, int maxDamage, Map<Block, Block> transformationMap, int cooldownTicks, int enchantability) {
+        SpatulaItem spatula = (SpatulaItem) registerItem(name, settings -> new SpatulaItem(settings.maxDamage(maxDamage).enchantable(enchantability)));
         spatula.setTransformationMap(transformationMap);
         spatula.setCooldownTicks(cooldownTicks); // NEU: Cooldown setzen
         return spatula;

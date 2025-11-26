@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "simplebuilding:lightning_striker",
+    "simplebuilding:fast_chiseling",
+    "simplebuilding:constructors_touch",
+    "simplebuilding:range",
+    "simplebuilding:deep_pockets",
+    "simplebuilding:master_builder",
+    "simplebuilding:color_palette"
+  ]
+}

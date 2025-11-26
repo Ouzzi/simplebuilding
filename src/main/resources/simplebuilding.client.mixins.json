@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ShulkerBoxScreenMixin",
+    "ShulkerBoxScreenHandlerAccessor",
+    "ShulkerBoxBlockEntityRendererMixin",
+    "ShulkerBoxBlockEntityRenderStateMixin"
+  ],
+  "injectors": { "defaultRequire": 1 }
+}

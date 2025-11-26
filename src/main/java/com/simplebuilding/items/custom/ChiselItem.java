@@ -1,10 +1,13 @@
 package com.simplebuilding.items.custom;
 
 import com.simplebuilding.component.ModDataComponentTypes;
+import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.particle.ModParticles;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -13,6 +16,8 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -25,14 +30,15 @@ import net.minecraft.world.World;
 import java.util.Map;
 import java.util.function.Consumer;
 
+// TODO
+// Entchantments:
+// - Fast Chiseling I, II: Reduziert den Cooldown
+// - Constructor's Touch: Fügt weitere Block-Transformationen hinzu
+// - Range I, II: Erlaubt das Chiseln von weiter entfernten Blöcken
+// - Unbreaking I, II, III: Reduziert die Abnutzung
+// - Mending: Repariert den Chisel mit gesammelten XP
+
 public class ChiselItem extends Item {
-    // TODO
-    // Entchantments:
-    // - Fast Chiseling I, II: Reduziert den Cooldown
-    // - Constructor's Touch: Fügt weitere Block-Transformationen hinzu
-    // - Range I, II: Erlaubt das Chiseln von weiter entfernten Blöcken
-    // - Unbreaking I, II, III: Reduziert die Abnutzung
-    // - Mending: Repariert den Chisel mit gesammelten XP
 
     private Map<Block, Block> transformationMap;
     private SoundEvent chiselSound = SoundEvents.UI_STONECUTTER_TAKE_RESULT;
@@ -78,16 +84,23 @@ public class ChiselItem extends Item {
         }
 
         if(this.transformationMap.containsKey(clickedBlock)) {
-            if(!world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
+            if (!world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
+                RegistryWrapper.WrapperLookup registryManager = context.getWorld().getRegistryManager();
+                RegistryEntry<Enchantment> fastChiselingEntry = registryManager
+                        .getOrThrow(net.minecraft.registry.RegistryKeys.ENCHANTMENT)
+                        .getOrThrow(com.simplebuilding.enchantment.ModEnchantments.FAST_CHISELING);
 
-                // --- 1. Block-Transmutation ---
-                world.setBlockState(context.getBlockPos(), this.transformationMap.get(clickedBlock).getDefaultState());
+                int fastChiselingLevel = EnchantmentHelper.getLevel(fastChiselingEntry, context.getStack());
+                int finalCooldownTicks = this.cooldownTicks;
 
-                // --- 2. Cooldown anwenden ---
-                if (
-                        //!player.getAbilities().creativeMode &&
-                        this.cooldownTicks > 0) {
-                    player.getItemCooldownManager().set(new ItemStack(this), this.cooldownTicks);
+                if (fastChiselingLevel > 0) {
+                    // Beispiel: Reduziert Cooldown um 15% pro Level
+                    finalCooldownTicks = Math.max(1, finalCooldownTicks - (finalCooldownTicks * fastChiselingLevel * 15 / 100));
+                }
+
+                // Cooldown setzen (mit neu berechnetem Wert)
+                if (!player.getAbilities().creativeMode && finalCooldownTicks > 0) {
+                    player.getItemCooldownManager().set(new ItemStack(this), finalCooldownTicks);
                 }
 
                 context.getStack().damage(1, ((ServerWorld) world), ((ServerPlayerEntity) context.getPlayer()),
@@ -131,4 +144,6 @@ public class ChiselItem extends Item {
     public void setChiselSound(SoundEvent chiselSound) {
         this.chiselSound = chiselSound;
     }
+
+
 }

@@ -3,6 +3,9 @@
 	"package": "com.simplebuilding.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+      "ShulkerBoxBlockEntityMixin",
+      "ShulkerBoxBlockMixin",
+      "client.ShulkerBoxTickMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

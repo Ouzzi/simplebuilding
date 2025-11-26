@@ -1,6 +1,7 @@
 package com.simplebuilding;
 
 import com.simplebuilding.component.ModDataComponentTypes;
+import com.simplebuilding.enchantment.ModEnchantmentEffects;
 import com.simplebuilding.entity.ModEntities;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
@@ -61,6 +62,8 @@ public class Simplebuilding implements ModInitializer {
         // Registriert alle benutzerdefinierten Datenkomponenten des Mods.
         ModDataComponentTypes.registerDataComponentTypes();
 
+        ModEnchantmentEffects.registerEnchantmentEffects();
+
 	}
     /*
         1. eine chisel(, welche mögliche blöcke chiseln lässt, d.h. das was beim stonecutter an blockvarianten möglich ist kann gechiselt werden, also bricks smoth chisled, ...),
@@ -70,6 +73,14 @@ public class Simplebuilding implements ModInitializer {
 
         3. building bundle (das selbe wie ein bundle, nur dass man direkt blöcke platzieren kann), bulding bundle color palette (das selbe wie building bundle nur dass zufällig ein block gewählt wird. je nach vertretener menge eine gewichtete zufälligkeit),
         4. building shulker (analog zu building bundle , upgradable zu colorpalete wenn sneak rechtsclicked mit spezial item). wie starte ich am bessten
+
+        Enchant bundle/shulker
+        -> Quiver enchahant (Pfeile aus bundle oder shulker in den Bogen laden) (entwedert quiver enchant oder master builder enchant) (nicht kombinierbar mit color palete)
+
+        config:
+        enable/disable items
+        particle effects - shuler aus 0 - 10 max
+
      */
 
 }

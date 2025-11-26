@@ -1,8 +1,44 @@
 {
-    "item.simplebuilding.building_bundle": "Building Bundle",
-    "tooltip.simplebuilding.building_bundle.tooltip": "A bundle containing various building materials.",
-
-    "itemgroup.simplebuilding.building_items": "Building Items"
+  "item.simplebuilding.building_bundle": "Building Bundle",
+  "tooltip.simplebuilding.building_bundle.tooltip": "A bundle containing various building materials.",
 
 
+  "item.simplebuilding.stone_chisel": "Stone Chisel",
+  "item.simplebuilding.iron_chisel": "Iron Chisel",
+  "item.simplebuilding.gold_chisel": "Gold Chisel",
+  "item.simplebuilding.diamond_chisel": "Diamond Chisel",
+  "item.simplebuilding.netherite_chisel": "Netherite Chisel",
+
+  "tooltip.simplebuilding.chisel": "Use to shape blocks.",
+  "tooltip.simplebuilding.chisel.shift_down": "Right-click on a transformable block.",
+
+
+  "item.simplebuilding.stone_spatula": "Stone Spatula",
+  "item.simplebuilding.iron_spatula": "Iron Spatula",
+  "item.simplebuilding.gold_spatula": "Gold Spatula",
+  "item.simplebuilding.diamond_spatula": "Diamond Spatula",
+  "item.simplebuilding.netherite_spatula": "Netherite Spatula",
+
+  "tooltip.simplebuilding.spatula": "Use to smooth blocks.",
+  "tooltip.simplebuilding.spatula.shift_down": "Right-click on a transformable block.",
+
+  "itemgroup.simplebuilding.building_items": "Building Items",
+
+
+  "enchantment.simplebuilding.fast_chiseling": "Fast Chiseling",
+  "enchantment.simplebuilding.constructors_touch": "Constructor's Touch",
+  "enchantment.simplebuilding.range": "Range",
+
+  "enchantment.simplebuilding.deep_pockets": "Deep Pockets",
+  "enchantment.simplebuilding.master_builder": "Master Builder",
+  "enchantment.simplebuilding.color_palette": "Color Palette",
+
+  "enchantment.simplebuilding.lightning_striker": "Lightning Striker",
+
+  "container.enchantments": "Enchantments",
+  "enchantment.level.1": "I",
+  "enchantment.level.2": "II",
+  "enchantment.level.3": "III",
+  "enchantment.level.4": "IV",
+  "enchantment.level.5": "V"
 }

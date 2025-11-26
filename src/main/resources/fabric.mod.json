@@ -18,12 +18,17 @@
 		"main": [
           "com.simplebuilding.Simplebuilding"
 		],
+        "client": [ "com.simplebuilding.SimplebuildingClient" ],
 		"fabric-datagen": [
           "com.simplebuilding.SimplebuildingDataGenerator"
 		]
 	},
 	"mixins": [
-		"simplebuilding.mixins.json"
+		"simplebuilding.mixins.json",
+        {
+          "config": "simplebuilding.client.mixins.json",
+          "environment": "client"
+        }
 	],
 	"depends": {
 		"fabricloader": ">=0.17.3",
