@@ -78,8 +78,7 @@ public class Simplebuilding implements ModInitializer {
 											shulker, bundle, building wand
 											- master builder (places first block of shulker/bundle by right clicking) (building wand allows to pick from other masterbuilder enchanted shulkers or bundles)
 											shulker, bundle, building wand
-											- color palette (changes picking order first block to random)
-
+											- color palette (changes picking order first block to random but with weighted probability)
 
 
         1. eine chisel(, welche mögliche blöcke chiseln lässt, d.h. das was beim stonecutter an blockvarianten möglich ist kann gechiselt werden, also bricks smoth chisled, ...),
@@ -88,18 +87,21 @@ public class Simplebuilding implements ModInitializer {
 										crafting spatula:
 											- stick + iron nugget + desired material corner (ntherite must be upgraded)
 
-
         2. building wand (platzierung von blöcken weiter weg möglich), building wand pro (ähnlich zu construction wand, je nach tier 3x3, 5x5, 7x7, 9x9, oder linie 3,5,7,9),
 									crafting:
 										- nether star sourounded with desired material -> building core (iron, gold, diamond) (netherite must be upgraded from diamond)
 										- sticks and building core -> building wand  
 
-       
+								3. mesurement tape 
+									features:
+										- right click for first point, sbeak rightclick second point
+										- tooltip: 1 line first point, 2nd line scnd point, 3rd line result (1d number 2d x*y = square area) 
+										- right click in inventory reset
 
 
-        config:
-        enable/disable items
-        particle effects - shuler aus 0 - 10 max
+        4. config:
+		        - enable/disable items
+		        - particle effects - shuler aus 0 - 10 max
 
      */
 
