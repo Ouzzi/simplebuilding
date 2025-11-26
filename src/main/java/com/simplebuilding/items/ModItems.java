@@ -46,6 +46,7 @@ public class ModItems {
     private static final int ENCHANTABILITY_NETHERITE = 15;
 
     private static final int DURABILITY_MULTIPLYER_WAND = 8;
+    private static final int DURABILITY_MULTIPLYER_RANGEFINDER = 8; 
     
     private static final int BUILDING_WAND_SQUARE_COPPER = 3;
     private static final int BUILDING_WAND_SQUARE_IRON = 5;
@@ -129,9 +130,9 @@ public class ModItems {
     public static final SpatulaItem NETHERITE_SPATULA = registerSpatula("netherite_spatula", DURABILITY_NETHERITE, SPATULA_MAP_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE);
 
     public static final BuildingWandItem IRON_BUILDING_WAND = registerBuildingWand("iron_building_wand", DURABILITY_IRON*DURABILITY_MULTIPLYER_WAND, BUILDING_WAND_SQUARE_IRON, ENCHANTABILITY_IRON);
-
     public static final Item BUILDING_CORE = registerItem("building_core",settings -> new Item(settings.maxCount(16)));
 
+    public static final RangeFinderItem RANGEFINDER_ITEM = registerItem("rangefinder", settings -> new Item(settings.maxDamage(DURABILITY_NETHERITE*DURABILITY_MULTIPLYER_RANGEFINDER).enchantability(ENCHANTABILITY_NETHERITE)));
 
     // --- HILFSMETHODEN ---
 
