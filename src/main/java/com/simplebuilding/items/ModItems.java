@@ -31,6 +31,7 @@ public class ModItems {
     private static final int DURABILITY_DIAMOND = 256;
     private static final int DURABILITY_NETHERITE = 512;
 
+
     private static final int COOLDOWN_TICKS_WOOD_STONE = 30;
     private static final int COOLDOWN_TICKS_IRON = 25;
     private static final int COOLDOWN_TICKS_GOLD = 20;
@@ -43,6 +44,15 @@ public class ModItems {
     private static final int ENCHANTABILITY_GOLD = 22;
     private static final int ENCHANTABILITY_DIAMOND = 10;
     private static final int ENCHANTABILITY_NETHERITE = 15;
+
+    private static final int DURABILITY_MULTIPLYER_WAND = 8;
+    
+    private static final int BUILDING_WAND_SQUARE_COPPER = 3;
+    private static final int BUILDING_WAND_SQUARE_IRON = 5;
+    private static final int BUILDING_WAND_SQUARE_GOLD = 7;
+    private static final int BUILDING_WAND_SQUARE_DIAMOND = 7;
+    private static final int BUILDING_WAND_SQUARE_NETHERITE = 9;
+
 
     private static Map<Block, Block> mergeMaps(Map<Block, Block> destination, Map<Block, Block> source) {
         Map<Block, Block> result = new HashMap<>(destination);
@@ -118,8 +128,9 @@ public class ModItems {
     public static final SpatulaItem DIAMOND_SPATULA = registerSpatula("diamond_spatula", DURABILITY_DIAMOND, SPATULA_MAP_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND);
     public static final SpatulaItem NETHERITE_SPATULA = registerSpatula("netherite_spatula", DURABILITY_NETHERITE, SPATULA_MAP_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE);
 
+    public static final BuildingWandItem IRON_BUILDING_WAND = registerBuildingWand("iron_building_wand", DURABILITY_IRON*DURABILITY_MULTIPLYER_WAND, BUILDING_WAND_SQUARE_IRON, ENCHANTABILITY_IRON);
 
-    public static final Item BUILDING_BUNDLE = registerItem("building_bundle",settings -> new BuildingBundleItem(settings.maxCount(1)));
+    public static final Item BUILDING_CORE = registerItem("building_core",settings -> new Item(settings.maxCount(16)));
 
 
     // --- HILFSMETHODEN ---
@@ -146,6 +157,12 @@ public class ModItems {
         return spatula;
     }
 
+    
+    private static BuildingWand registerChisel(String name, int maxDamage, int wandSquareDiameter, int enchantability) {
+        BuildingWand wand = (BuildingWand) registerItem(name, settings -> new BuildingWand(settings.maxDamage(maxDamage).enchantable(enchantability)));
+        wand.setWandSquareDiameter(wandSquareDiameter);
+        return wand;
+    }
 
     /**
      * Hilfsmethode zur Registrierung eines Items unter Verwendung einer Funktion,
