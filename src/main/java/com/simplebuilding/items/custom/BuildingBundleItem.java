@@ -3,9 +3,9 @@ package com.simplebuilding.items.custom;
 import net.minecraft.item.BundleItem;
 
 
-public class BuildingBundleItem extends BundleItem {
+public class BuildingWandItem extends Item {
 
-    public BuildingBundleItem(Settings settings) {
+    public BuildingWandItem(Settings settings) {
         super(settings);
     }
 }
