@@ -68,6 +68,10 @@ public class ChiselItem extends Item {
     // iron/copper constructor's touch transformations [mud_bricks, bricks], [all wood -> strippesd wood];
     // gold chisel/spatula transformations [polished_quartz, quartz_pillar, quartz_brick, chiseled_quartz, quartz_block], [tuff, chiseled_tuff, tuff_brick];
     // gold constructor's touch transformations [prismarine, prismarine_bricks], [smooth_stone, stone];
+    // diamond chisel/spatula transformations [blackstone, chissled_blackstone, blackstone_bricks blackstone_cracked_bricks], [basalt, smooth_basalt, polished_basalt] , [polished_deepslate, chissled_deepslate, deepslate_bricks, cracked_deepslate_bricks, deepslate_titles, cracked_deepslate_titles, deepslate, cobbled_deepslate] , [cracked_stone_bricks, cobblestone];
+    // diamond constructor's touch transformations [endstone, endstone_bricks] , [purpur_pillar, purpur_block] , [copperblock, copper_bricks, chiseled_copperblock, coppergate], [dead corals -> cycle trough], [corals -> cycle trough];
+    // netherite chisel/spatula transformations [netherrack, netzer_bricks, cracke_bether_bricks, chiseled_netzer_bricks, netherrack] , [hartz_bricks, chisled_harz_bricks];
+    // netherite constructor's touch transformations [dripstone_block, calcelite_block, tuff_block] , [obsidian, crying_obsidian], [all stems -> stripped stems];
 
 
     public static final Map<Block, Block> CHISEL_MAP_STONE = Map.of(
