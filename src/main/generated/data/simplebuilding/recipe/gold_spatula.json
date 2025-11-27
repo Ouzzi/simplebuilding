@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "minecraft:gold_ingot",
+    "N": "minecraft:gold_nugget",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "   ",
+    "SN ",
+    " M "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:gold_spatula"
+  }
+}

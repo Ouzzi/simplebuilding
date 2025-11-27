@@ -12,11 +12,16 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
+import static com.simplebuilding.items.custom.BuildingWandItem.*;
+import static com.simplebuilding.items.custom.ChiselItem.*;
+import static com.simplebuilding.items.custom.RangefinderItem.DURABILITY_MULTIPLAYER_RANGEFINDER;
 
 /**
  * Verwaltet die Registrierung aller benutzerdefinierten Gegenstände (Items) des Simplemoney Mods.
@@ -24,11 +29,11 @@ import java.util.function.Function;
  */
 public class ModItems {
     // --- Durability Tiers (Angelehnt an Vanilla Tools) ---
-    private static final int DURABILITY_WOOD_STONE = 32;
+    private static final int DURABILITY_WOOD_STONE = 48;
     private static final int DURABILITY_IRON = 64; // Erhöht
     private static final int DURABILITY_GOLD = 32;  // Erhöht
-    private static final int DURABILITY_DIAMOND = 256;
-    private static final int DURABILITY_NETHERITE = 512;
+    private static final int DURABILITY_DIAMOND = 98;
+    private static final int DURABILITY_NETHERITE = 128;
 
 
     private static final int COOLDOWN_TICKS_WOOD_STONE = 30;
@@ -44,75 +49,10 @@ public class ModItems {
     private static final int ENCHANTABILITY_DIAMOND = 10;
     private static final int ENCHANTABILITY_NETHERITE = 15;
 
-    private static final int DURABILITY_MULTIPLAYER_WAND = 8;
-    private static final int DURABILITY_MULTIPLAYER_RANGEFINDER = 8; 
-    
-    private static final int BUILDING_WAND_SQUARE_COPPER = 3;
-    private static final int BUILDING_WAND_SQUARE_IRON = 5;
-    private static final int BUILDING_WAND_SQUARE_GOLD = 7;
-    private static final int BUILDING_WAND_SQUARE_DIAMOND = 7;
-    private static final int BUILDING_WAND_SQUARE_NETHERITE = 9;
 
-
-    private static Map<Block, Block> mergeMaps(Map<Block, Block> destination, Map<Block, Block> source) {
-        Map<Block, Block> result = new HashMap<>(destination);
-        result.putAll(source);
-        return result;
-    }
-
-    private static final Map<Block, Block> CHISEL_MAP_STONE = Map.of(
-            Blocks.STONE, Blocks.STONE_BRICKS,
-            Blocks.STONE_BRICKS, Blocks.CHISELED_STONE_BRICKS,
-            Blocks.SMOOTH_STONE, Blocks.STONE,
-            Blocks.POLISHED_ANDESITE, Blocks.ANDESITE
-    );
-    private static final Map<Block, Block> CHISEL_MAP_IRON_BASE = Map.of(
-            Blocks.IRON_BLOCK, Blocks.IRON_BARS,
-            Blocks.QUARTZ_BLOCK, Blocks.CHISELED_QUARTZ_BLOCK,
-            Blocks.BRICKS, Blocks.CRACKED_STONE_BRICKS // Einfache Rissbildung
-    );
-    private static final Map<Block, Block> CHISEL_MAP_DIAMOND_BASE = Map.of(
-            Blocks.OBSIDIAN, Blocks.CRYING_OBSIDIAN,
-            Blocks.PRISMARINE, Blocks.PRISMARINE_BRICKS,
-            Blocks.BASALT, Blocks.POLISHED_BASALT
-    );
-    private static final Map<Block, Block> CHISEL_MAP_NETHERITE_BASE = Map.of(
-            Blocks.POLISHED_BLACKSTONE, Blocks.BLACKSTONE,
-            Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.BLACKSTONE,
-            Blocks.DEEPSLATE, Blocks.DEEPSLATE_BRICKS,
-            Blocks.DEEPSLATE_BRICKS, Blocks.CRACKED_DEEPSLATE_BRICKS,
-            Blocks.POLISHED_DEEPSLATE, Blocks.DEEPSLATE
-
-    );
-    private static final Map<Block, Block> CHISEL_MAP_IRON = mergeMaps(CHISEL_MAP_STONE, CHISEL_MAP_IRON_BASE);
-    private static final Map<Block, Block> CHISEL_MAP_DIAMOND = mergeMaps(CHISEL_MAP_IRON, CHISEL_MAP_DIAMOND_BASE);
-    private static final Map<Block, Block> CHISEL_MAP_NETHERITE = mergeMaps(CHISEL_MAP_DIAMOND, CHISEL_MAP_NETHERITE_BASE);
-
-    private static final Map<Block, Block> SPATULA_MAP_STONE = Map.of(
-            Blocks.STONE_BRICKS, Blocks.STONE,
-            Blocks.CHISELED_STONE_BRICKS, Blocks.STONE_BRICKS,
-            Blocks.CRACKED_STONE_BRICKS, Blocks.STONE_BRICKS
-    );
-    private static final Map<Block, Block> SPATULA_MAP_IRON_BASE = Map.of(
-            Blocks.IRON_BARS, Blocks.IRON_BLOCK,
-            Blocks.CHISELED_QUARTZ_BLOCK, Blocks.QUARTZ_BLOCK,
-            Blocks.POLISHED_ANDESITE, Blocks.ANDESITE
-    );
-    private static final Map<Block, Block> SPATULA_MAP_DIAMOND_BASE = Map.of(
-            Blocks.CRYING_OBSIDIAN, Blocks.OBSIDIAN,
-            Blocks.PRISMARINE_BRICKS, Blocks.PRISMARINE
-    );
-    private static final Map<Block, Block> SPATULA_MAP_NETHERITE_BASE = Map.of(
-            Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.POLISHED_BLACKSTONE,
-            Blocks.POLISHED_BASALT, Blocks.BASALT
-    );
-
-    private static final Map<Block, Block> SPATULA_MAP_IRON = mergeMaps(SPATULA_MAP_STONE, SPATULA_MAP_IRON_BASE);
-    private static final Map<Block, Block> SPATULA_MAP_DIAMOND = mergeMaps(SPATULA_MAP_IRON, SPATULA_MAP_DIAMOND_BASE);
-    private static final Map<Block, Block> SPATULA_MAP_NETHERITE = mergeMaps(SPATULA_MAP_DIAMOND, SPATULA_MAP_NETHERITE_BASE);
-
-
-    // --- 3. ITEM REGISTRIERUNGEN ---
+    // =================================================================================
+    // 4. ITEM REGISTRIERUNGEN
+    // =================================================================================
 
     public static final ChiselItem STONE_CHISEL = registerChisel("stone_chisel", DURABILITY_WOOD_STONE, CHISEL_MAP_STONE, COOLDOWN_TICKS_WOOD_STONE, ENCHANTABILITY_WOOD_STONE);
     public static final ChiselItem COPPER_CHISEL = registerChisel("copper_chisel", DURABILITY_WOOD_STONE, CHISEL_MAP_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_COPPER);
@@ -140,7 +80,11 @@ public class ModItems {
     public static final BuildingWandItem DIAMOND_BUILDING_WAND = registerBuildingWand("diamond_building_wand", DURABILITY_DIAMOND* DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_DIAMOND, ENCHANTABILITY_DIAMOND);
     public static final BuildingWandItem NETHERITE_BUILDING_WAND = registerBuildingWand("netherite_building_wand", DURABILITY_NETHERITE* DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_NETHERITE, ENCHANTABILITY_NETHERITE);
 
-    public static final RangefinderItem RANGEFINDER_ITEM = (RangefinderItem) registerItem("rangefinder",settings -> new RangefinderItem(settings.maxDamage(DURABILITY_NETHERITE* DURABILITY_MULTIPLAYER_RANGEFINDER).enchantable(ENCHANTABILITY_NETHERITE)));
+    public static final RangefinderItem RANGEFINDER_ITEM = (RangefinderItem) registerItem("rangefinder",
+            settings -> new RangefinderItem(settings.maxDamage(DURABILITY_NETHERITE * DURABILITY_MULTIPLAYER_RANGEFINDER).enchantable(ENCHANTABILITY_NETHERITE), null));
+
+    // 2. Map für die farbigen Rangefinder (für schnellen Zugriff)
+    public static final Map<DyeColor, RangefinderItem> COLORED_RANGEFINDERS = new HashMap<>();
 
     // --- HILFSMETHODEN ---
 
@@ -191,6 +135,18 @@ public class ModItems {
      */
     public static void registerModItems() {
         Simplebuilding.LOGGER.info("Registering Mod Items for " + Simplebuilding.MOD_ID);
+
+        for (DyeColor color : DyeColor.values()) {
+            // FIX: Verwende color.getId() (oder color.asString())
+            String name = "rangefinder_" + color.getId();
+
+            // Registrieren mit der jeweiligen Farbe im Konstruktor
+            RangefinderItem coloredItem = (RangefinderItem) registerItem(name,
+                    settings -> new RangefinderItem(settings.maxDamage(DURABILITY_NETHERITE * DURABILITY_MULTIPLAYER_RANGEFINDER).enchantable(ENCHANTABILITY_NETHERITE), color));
+
+            // In die Map packen (optional, aber nützlich für ItemGroups)
+            COLORED_RANGEFINDERS.put(color, coloredItem);
+        }
     }
 
 }

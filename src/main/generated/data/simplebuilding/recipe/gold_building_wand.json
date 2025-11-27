@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "simplebuilding:gold_building_core",
+    "M": "minecraft:gold_ingot",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " MC",
+    " SM",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:gold_building_wand"
+  }
+}

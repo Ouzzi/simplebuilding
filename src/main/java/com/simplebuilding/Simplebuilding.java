@@ -5,12 +5,21 @@ import com.simplebuilding.enchantment.ModEnchantmentEffects;
 import com.simplebuilding.entity.ModEntities;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.items.custom.RangefinderItem;
 import com.simplebuilding.particle.ModParticles;
 import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.util.ModLootTableModifiers;
 import com.simplebuilding.util.ModTradeOffers;
 import net.fabricmc.api.ModInitializer;
 
+import net.minecraft.block.LeveledCauldronBlock;
+import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DyeColor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,7 +73,50 @@ public class Simplebuilding implements ModInitializer {
 
         ModEnchantmentEffects.registerEnchantmentEffects();
 
+        registerCauldronBehavior();
+
 	}
+
+    private void registerCauldronBehavior() {
+        // Das Verhalten definieren:
+        CauldronBehavior cleanRangefinder = (state, world, pos, player, hand, stack) -> {
+            Item item = stack.getItem();
+
+            // Sicherstellen, dass es ein Rangefinder ist und NICHT der Standard-Rangefinder
+            if (!(item instanceof RangefinderItem) || item == ModItems.RANGEFINDER_ITEM) {
+                return ActionResult.PASS;
+            }
+
+            if (!world.isClient()) {
+                // 1. Erstelle den neuen (Standard) Stack
+                ItemStack newStack = new ItemStack(ModItems.RANGEFINDER_ITEM);
+
+                // 2. WICHTIG: Kopiere die Positionen (Pos1/Pos2), falls vorhanden!
+                if (stack.contains(DataComponentTypes.CUSTOM_DATA)) {
+                    newStack.set(DataComponentTypes.CUSTOM_DATA, stack.get(DataComponentTypes.CUSTOM_DATA));
+                }
+
+                // 3. Dem Spieler geben
+                player.setStackInHand(hand, newStack);
+
+                // 4. Statistik und Kessel-Level senken
+                player.incrementStat(Stats.CLEAN_ARMOR);
+                LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+            }
+
+            // FIX: "ActionResult.success(boolean)" gibt es nicht mehr.
+            // Nutze einfach ActionResult.SUCCESS.
+            return ActionResult.SUCCESS;
+        };
+
+        // Das Verhalten für ALLE farbigen Rangefinder registrieren
+        for (DyeColor color : DyeColor.values()) {
+            Item coloredItem = ModItems.COLORED_RANGEFINDERS.get(color);
+            if (coloredItem != null) {
+                CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(coloredItem, cleanRangefinder);
+            }
+        }
+    }
     /*
         0. enchanments:
                 chissel, spatula, rangefinder

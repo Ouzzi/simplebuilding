@@ -22,7 +22,23 @@ import net.minecraft.world.World;
 
 import java.util.function.Consumer;
 
+// TODO
+// Entchantments:
+// - Color Palette: changes pickmode to random blocks from inventory
+// - Master Builder: links to shulker box or bundle to pick blocks from (requires master builder on item mabe offhand?)
+// - Range I, II: Erlaubt das messen von weiter entfernten Blöcken
+// - Unbreaking I, II, III: Reduziert die Abnutzung
+// - Mending: Repariert den Chisel mit gesammelten XP
+
 public class BuildingWandItem extends Item {
+
+    public static final int BUILDING_WAND_SQUARE_COPPER = 3;
+    public static final int BUILDING_WAND_SQUARE_IRON = 5;
+    public static final int BUILDING_WAND_SQUARE_GOLD = 7;
+    public static final int BUILDING_WAND_SQUARE_DIAMOND = 7;
+    public static final int BUILDING_WAND_SQUARE_NETHERITE = 9;
+
+    public static final int DURABILITY_MULTIPLAYER_WAND = 8;
 
     private int wandSquareDiameter;
     private SoundEvent placeSound = SoundEvents.UI_STONECUTTER_TAKE_RESULT;

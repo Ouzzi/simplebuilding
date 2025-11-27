@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "minecraft:diamond",
+    "N": "minecraft:diamond",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "   ",
+    "NM ",
+    "SN "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:diamond_chisel"
+  }
+}

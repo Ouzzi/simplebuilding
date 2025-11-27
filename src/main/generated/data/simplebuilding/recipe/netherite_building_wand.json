@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "simplebuilding:netherite_building_core",
+    "M": "minecraft:diamond",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " MC",
+    " SM",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:netherite_building_wand"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "simplebuilding:iron_building_core",
+    "M": "minecraft:iron_ingot",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " MC",
+    " SM",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:iron_building_wand"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "minecraft:stone",
+    "N": "minecraft:iron_nugget",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "   ",
+    "SN ",
+    " M "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:stone_spatula"
+  }
+}

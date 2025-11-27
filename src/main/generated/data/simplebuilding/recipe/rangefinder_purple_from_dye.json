@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "simplebuilding:rangefinder",
+    "minecraft:purple_dye"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:rangefinder_purple"
+  }
+}

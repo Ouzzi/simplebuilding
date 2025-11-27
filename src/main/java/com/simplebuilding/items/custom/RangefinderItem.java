@@ -13,17 +13,35 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
+// TODO
+// Entchantments:
+// - Constructor's Touch: bessere ui bzw planes zum visualisueren der markierten Fläche
+// - Range I, II: Erlaubt das messen von weiter entfernten Blöcken
+// - Unbreaking I, II, III: Reduziert die Abnutzung
+// - Mending: Repariert den Chisel mit gesammelten XP
+
 public class RangefinderItem extends Item {
 
-    public RangefinderItem(Settings settings) {
-        super(settings);
+    public static final int DURABILITY_MULTIPLAYER_RANGEFINDER = 8;
+
+    private final DyeColor color;
+
+
+    public RangefinderItem(Settings settings, @Nullable DyeColor color) {        super(settings);
+        this.color = color;
+    }
+
+    public DyeColor getColor() {
+        return this.color;
     }
 
     @Override

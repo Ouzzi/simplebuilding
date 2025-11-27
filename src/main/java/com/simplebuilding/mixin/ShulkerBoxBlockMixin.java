@@ -17,6 +17,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
+
+// TODO
+// Entchantments:
+// - Color Palette: changes pickmode to random blocks from inventory
+// - Master Builder: allows to place blocks by rightclicking (also link to wand functionality?)
+// - Range: increases the range of block placement
+
 @Mixin(ShulkerBoxBlock.class)
 public abstract class ShulkerBoxBlockMixin extends Block {
 

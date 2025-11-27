@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simplebuilding:diamond_building_wand",
+  "result": {
+    "id": "simplebuilding:netherite_building_wand"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}
