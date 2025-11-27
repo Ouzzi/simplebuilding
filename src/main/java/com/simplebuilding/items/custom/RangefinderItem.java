@@ -14,6 +14,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -38,19 +39,32 @@ public class RangefinderItem extends Item {
 
             if (!player.isSneaking()) {
                 nbt.putIntArray("Pos1", new int[]{pos.getX(), pos.getY(), pos.getZ()});
-
-                player.sendMessage(Text.translatable("message.simplebuilding.pos1_set", pos.toShortString()).formatted(Formatting.YELLOW), true);
                 world.playSound(null, pos, SoundEvents.BLOCK_COPPER_STEP, SoundCategory.PLAYERS, 0.3f, 2f);
             } else {
                 nbt.putIntArray("Pos2", new int[]{pos.getX(), pos.getY(), pos.getZ()});
-
-                player.sendMessage(Text.translatable("message.simplebuilding.pos2_set", pos.toShortString()).formatted(Formatting.GREEN), true);
                 world.playSound(null, pos, SoundEvents.BLOCK_COPPER_STEP, SoundCategory.PLAYERS, 0.3f, 1.5f);
             }
 
             stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
         }
         return net.minecraft.util.ActionResult.SUCCESS;
+    }
+
+
+    @Override
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
+        ItemStack stack = user.getStackInHand(hand);
+
+        // Reset bei Shift-Rechtsklick in die Luft
+        if (!world.isClient() && user.isSneaking()) {
+            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
+            world.playSound(null, user.getBlockPos(), SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 0.5f, 1f);
+
+            // Wir geben SUCCESS zurück (entspricht InteractionResultHolder.success(stack).getResult())
+            // Da wir den Stack im Inventar direkt ändern (Referenz), müssen wir ihn nicht zurückgeben.
+            return ActionResult.SUCCESS;
+        }
+        return super.use(world, user, hand);
     }
 
     @Override
@@ -82,7 +96,7 @@ public class RangefinderItem extends Item {
                         if (dy == 1 && (dx == 1 || dz == 1)) {
                             textConsumer.accept(Text.literal("Distance: " + Math.max(dx, dz)).formatted(Formatting.AQUA));
                         } else if (dy == 1) {
-                            textConsumer.accept(Text.literal("Area: " + (dx * dz) + "("+ dx + " x " + dy + ")").formatted(Formatting.AQUA));
+                            textConsumer.accept(Text.literal("Area: " + (dx * dz) + " ("+ dx + " x " + dz + ")").formatted(Formatting.AQUA));
                         } else {
                             textConsumer.accept(Text.literal("Volume: " + (dx * dy * dz) + " ("+ dx + " x " + dy + " x " + dz + ")").formatted(Formatting.AQUA));
                         }

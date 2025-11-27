@@ -41,7 +41,7 @@
   "message.simplebuilding.pos1_set": "1:",
   "message.simplebuilding.pos2_set": "2:",
 
-  "itemgroup.simplebuilding.rangefinder": "Rangefinder",
+  "item.simplebuilding.rangefinder": "Rangefinder",
 
   "itemgroup.simplebuilding.building_items": "Building Items",
 

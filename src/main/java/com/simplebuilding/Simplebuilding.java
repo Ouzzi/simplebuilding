@@ -67,7 +67,7 @@ public class Simplebuilding implements ModInitializer {
 	}
     /*
         0. enchanments:
-                chissel, spatula
+                chissel, spatula, rangefinder
             - constructors touch ( cusom chiel maps for each tier netherite obsidian to crying obsidian; diamond stone to cobble; iron cobble to mossy cobble; stone log to stripped log, ...;
                 chissel, spatula
             - fast chissel (faster cooldown for chisseltools)
