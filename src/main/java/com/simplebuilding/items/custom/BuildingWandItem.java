@@ -24,11 +24,11 @@ import java.util.function.Consumer;
 
 // TODO
 // Entchantments:
-// - Color Palette: changes pickmode to random blocks from inventory
-// - Master Builder: links to shulker box or bundle to pick blocks from (requires master builder on item mabe offhand?)
-// - Range I, II: Erlaubt das messen von weiter entfernten Blöcken
-// - Unbreaking I, II, III: Reduziert die Abnutzung
-// - Mending: Repariert den Chisel mit gesammelten XP
+// - Color Palette: changes pickmode to random blocks from inventory (TODO)
+// - Master Builder: links to shulker box or bundle to pick blocks from (requires master builder on item mabe offhand?) (TODO)
+// - Range I, II: Erlaubt das messen von weiter entfernten Blöcken (TODO)
+// - Unbreaking I, II, III: Reduziert die Abnutzung (done durch vanilla)
+// - Mending: Repariert den Chisel mit gesammelten XP (done durch vanilla)
 
 public class BuildingWandItem extends Item {
 

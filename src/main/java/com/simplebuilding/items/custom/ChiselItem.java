@@ -44,10 +44,10 @@ import java.util.function.Consumer;
 // TODO
 // Entchantments:
 // - Fast Chiseling I, II: Reduziert den Cooldown (done)
-// - Constructor's Touch: Fügt weitere Block-Transformationen hinzu
-// - Range I, II: Erlaubt das Chiseln von weiter entfernten Blöcken
-// - Unbreaking I, II, III: Reduziert die Abnutzung
-// - Mending: Repariert den Chisel mit gesammelten XP
+// - Constructor's Touch: Fügt weitere Block-Transformationen hinzu (TODO)
+// - Range I, II: Erlaubt das Chiseln von weiter entfernten Blöcken (TODO)
+// - Unbreaking I, II, III: Reduziert die Abnutzung (done, wird von Vanilla 'damage' gehandled)
+// - Mending: Repariert den Chisel mit gesammelten XP (done, wird von Vanilla 'damage' gehandled)
 
 public class ChiselItem extends Item {
 
@@ -61,6 +61,14 @@ public class ChiselItem extends Item {
     // =================================================================================
     // 1. STANDARD MAPS (Ohne Enchantment)
     // =================================================================================
+
+    // stone chisel/spatula transformations [smooth_sand_stone, cut_sand_stone, sand_stone, chiseled_sand_stone, sand], [red_sand_stone, cut_red_sand_stone, red_sand_stone, chiseled_red_sand_stone, red_sand], [stone, chiseled_stone];
+    // stone constructor's touch transformations [mud_bricks, packed_mud, mud], [cobblestone, mossy_cobblestone], [all logs -> stripped logs];
+    // iron/copper chisel/spatula transformations [chiseled_stone, stone_bricks, cracked_stone_bricks], [Andesite, polished_andesite], [Diorite, polished_diorite], [Granite, polished_granite], [tuff, polished_tuff];
+    // iron/copper constructor's touch transformations [mud_bricks, bricks], [all wood -> strippesd wood];
+    // gold chisel/spatula transformations [polished_quartz, quartz_pillar, quartz_brick, chiseled_quartz, quartz_block], [tuff, chiseled_tuff, tuff_brick];
+    // gold constructor's touch transformations [prismarine, prismarine_bricks], [smooth_stone, stone];
+
 
     public static final Map<Block, Block> CHISEL_MAP_STONE = Map.of(
             Blocks.STONE, Blocks.STONE_BRICKS,

@@ -24,10 +24,10 @@ import java.util.function.Consumer;
 
 // TODO
 // Entchantments:
-// - Constructor's Touch: bessere ui bzw planes zum visualisueren der markierten Fläche
-// - Range I, II: Erlaubt das messen von weiter entfernten Blöcken
-// - Unbreaking I, II, III: Reduziert die Abnutzung
-// - Mending: Repariert den Chisel mit gesammelten XP
+// - Constructor's Touch: bessere ui bzw planes zum visualisueren der markierten Fläche (TODO bug, ebenen werden nicht richtig angezeigt)
+// - Range I, II: Erlaubt das messen von weiter entfernten Blöcken (TODO)
+// - Unbreaking I, II, III: Reduziert die Abnutzung (done durch vanilla)
+// - Mending: Repariert den Chisel mit gesammelten XP (done durch vanilla)
 
 public class RangefinderItem extends Item {
 
