@@ -44,7 +44,7 @@ import java.util.function.Consumer;
 // TODO
 // Entchantments:
 // - Fast Chiseling I, II: Reduziert den Cooldown (done)
-// - Constructor's Touch: Fügt weitere Block-Transformationen hinzu (TODO)
+// - Constructor's Touch: Fügt weitere Block-Transformationen hinzu (done)
 // - Range I, II: Erlaubt das Chiseln von weiter entfernten Blöcken (TODO)
 // - Unbreaking I, II, III: Reduziert die Abnutzung (done, wird von Vanilla 'damage' gehandled)
 // - Mending: Repariert den Chisel mit gesammelten XP (done, wird von Vanilla 'damage' gehandled)
@@ -110,40 +110,42 @@ public class ChiselItem extends Item {
 
     static {
         // =================================================================================
-        // 1. STONE TIER (Alles Linear)
+        // 1. STONE TIER
         // =================================================================================
 
         // [smooth -> cut -> sand_stone -> chiseled]
-        registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP,
-            Blocks.SMOOTH_SANDSTONE, Blocks.CUT_SANDSTONE, Blocks.SANDSTONE, Blocks.CHISELED_SANDSTONE);
-
+        registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP, Blocks.SMOOTH_SANDSTONE, Blocks.CUT_SANDSTONE, Blocks.SANDSTONE, Blocks.CHISELED_SANDSTONE);
         // [smooth -> cut -> red_sand_stone -> chiseled]
-        registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP,
-            Blocks.SMOOTH_RED_SANDSTONE, Blocks.CUT_RED_SANDSTONE, Blocks.RED_SANDSTONE, Blocks.CHISELED_RED_SANDSTONE);
-
+        registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP, Blocks.SMOOTH_RED_SANDSTONE, Blocks.CUT_RED_SANDSTONE, Blocks.RED_SANDSTONE, Blocks.CHISELED_RED_SANDSTONE);
         // [stone -> chiseled]
         registerLinear(STONE_CHISEL_MAP, STONE_SPATULA_MAP, Blocks.STONE, Blocks.CHISELED_STONE_BRICKS);
 
-        // --- Stone Touch ---
+        // [Mud Bricks -> Packed Mud -> Mud]
         registerLinear(STONE_TOUCH_MAP, STONE_TOUCH_SPATULA_MAP, Blocks.MUD_BRICKS, Blocks.PACKED_MUD, Blocks.MUD);
+        // [Cobblestone -> Mossy Cobblestone]
         registerLinear(STONE_TOUCH_MAP, STONE_TOUCH_SPATULA_MAP, Blocks.COBBLESTONE, Blocks.MOSSY_COBBLESTONE);
+        // [All Logs -> Stripped Logs]
         registerLogs(STONE_TOUCH_MAP, STONE_TOUCH_SPATULA_MAP);
 
         // =================================================================================
         // 2. IRON / COPPER TIER (Alles Linear)
         // =================================================================================
 
-        registerLinear(IRON_CHISEL_MAP, IRON_SPATULA_MAP,
-            Blocks.CHISELED_STONE_BRICKS, Blocks.STONE_BRICKS, Blocks.CRACKED_STONE_BRICKS);
+        // [chiseled -> brick -> cracked]
+        registerLinear(IRON_CHISEL_MAP, IRON_SPATULA_MAP, Blocks.CHISELED_STONE_BRICKS, Blocks.STONE_BRICKS, Blocks.CRACKED_STONE_BRICKS);
 
-        // Polished Variants
+        // [andesite -> polished_andesite]
         registerLinear(IRON_CHISEL_MAP, IRON_SPATULA_MAP, Blocks.POLISHED_ANDESITE, Blocks.ANDESITE);
+        // [diorite -> polished_diorite]
         registerLinear(IRON_CHISEL_MAP, IRON_SPATULA_MAP, Blocks.POLISHED_DIORITE, Blocks.DIORITE);
+        // [granite -> polished_granite]
         registerLinear(IRON_CHISEL_MAP, IRON_SPATULA_MAP, Blocks.POLISHED_GRANITE, Blocks.GRANITE);
+        // [tuff -> polished_tuff]
         registerLinear(IRON_CHISEL_MAP, IRON_SPATULA_MAP, Blocks.POLISHED_TUFF, Blocks.TUFF);
 
-        // --- Iron Touch ---
+        // [Bricks -> Mud Bricks]
         registerLinear(IRON_TOUCH_MAP, IRON_TOUCH_SPATULA_MAP, Blocks.BRICKS, Blocks.MUD_BRICKS);
+        // [All Woods -> Stripped Wood]
         registerWood(IRON_TOUCH_MAP, IRON_TOUCH_SPATULA_MAP);
 
         // =================================================================================
@@ -151,65 +153,64 @@ public class ChiselItem extends Item {
         // =================================================================================
 
         // [smooth -> pillar -> brick -> chiseled -> block] (Updated Order)
-        registerLinear(DIAMOND_CHISEL_MAP, DIAMOND_SPATULA_MAP,
-            Blocks.SMOOTH_QUARTZ, Blocks.QUARTZ_PILLAR, Blocks.QUARTZ_BRICKS, Blocks.CHISELED_QUARTZ_BLOCK, Blocks.QUARTZ_BLOCK);
-
+        registerLinear(DIAMOND_CHISEL_MAP, DIAMOND_SPATULA_MAP, Blocks.SMOOTH_QUARTZ, Blocks.QUARTZ_PILLAR, Blocks.QUARTZ_BRICKS, Blocks.CHISELED_QUARTZ_BLOCK, Blocks.QUARTZ_BLOCK);
         // [tuff -> chiseled -> brick]
         registerLinear(DIAMOND_CHISEL_MAP, DIAMOND_SPATULA_MAP, Blocks.POLISHED_TUFF, Blocks.TUFF, Blocks.CHISELED_TUFF, Blocks.TUFF_BRICKS);
 
-        // --- Gold Touch ---
+        // [Prismarine -> Prismarine Bricks]
         registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, Blocks.PRISMARINE, Blocks.PRISMARINE_BRICKS);
+        // [Smooth Stone -> Stone]
         registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, Blocks.SMOOTH_STONE, Blocks.STONE);
 
         // =================================================================================
         // 4. DIAMOND TIER (Mix Linear & Cyclic)
         // =================================================================================
 
-        registerLinear(DIAMOND_CHISEL_MAP, DIAMOND_SPATULA_MAP, Blocks.POLISHED_BLACKSTONE,
-            Blocks.BLACKSTONE, Blocks.CHISELED_POLISHED_BLACKSTONE, Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS);
-
+        // [Polished Blackstone -> Chiseled Blackstone -> Blackstone Bricks -> Cracked Blackstone Bricks]
+        registerLinear(DIAMOND_CHISEL_MAP, DIAMOND_SPATULA_MAP, Blocks.POLISHED_BLACKSTONE, Blocks.BLACKSTONE, Blocks.CHISELED_POLISHED_BLACKSTONE, Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS);
+        // [Basalt -> Smooth Basalt -> Polished Basalt]
         registerLinear(DIAMOND_CHISEL_MAP, DIAMOND_SPATULA_MAP, Blocks.BASALT, Blocks.SMOOTH_BASALT, Blocks.POLISHED_BASALT);
+        // [Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate]
+        registerLinear(DIAMOND_CHISEL_MAP, DIAMOND_SPATULA_MAP, Blocks.POLISHED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE, Blocks.DEEPSLATE_BRICKS, Blocks.CRACKED_DEEPSLATE_BRICKS, Blocks.DEEPSLATE_TILES, Blocks.CRACKED_DEEPSLATE_TILES, Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
 
-        registerLinear(DIAMOND_CHISEL_MAP, DIAMOND_SPATULA_MAP,
-            Blocks.POLISHED_DEEPSLATE, Blocks.CHISELED_DEEPSLATE, Blocks.DEEPSLATE_BRICKS,
-            Blocks.CRACKED_DEEPSLATE_BRICKS, Blocks.DEEPSLATE_TILES, Blocks.CRACKED_DEEPSLATE_TILES,
-            Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
-
+        // [Cracked Stone Bricks -> Cobblestone]
         registerLinear(DIAMOND_CHISEL_MAP, DIAMOND_SPATULA_MAP, Blocks.CRACKED_STONE_BRICKS, Blocks.COBBLESTONE);
+        // [Tuff -> Chiseled Tuff Bricks]
         registerLinear(DIAMOND_CHISEL_MAP, DIAMOND_SPATULA_MAP, Blocks.TUFF_BRICKS, Blocks.CHISELED_TUFF_BRICKS);
 
-        // --- Diamond Touch ---
+        // [endstone -> endstone_bricks]
         registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, Blocks.END_STONE, Blocks.END_STONE_BRICKS);
+        // [purpur_pillar -> purpur_block]
         registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, Blocks.PURPUR_PILLAR, Blocks.PURPUR_BLOCK);
-        registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP,
-             Blocks.COPPER_BLOCK, Blocks.CUT_COPPER, Blocks.CHISELED_COPPER, Blocks.COPPER_GRATE);
+        // [copper_block -> cut_copper -> chiseled_copper_block -> copper_grate]
+        registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, Blocks.COPPER_BLOCK, Blocks.CUT_COPPER, Blocks.CHISELED_COPPER, Blocks.COPPER_GRATE);
 
-        // Corals (Dead & Alive) -> CYCLIC (Circle)
-        registerCyclic(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP,
-            Blocks.DEAD_BRAIN_CORAL_BLOCK, Blocks.DEAD_BUBBLE_CORAL_BLOCK, Blocks.DEAD_FIRE_CORAL_BLOCK, Blocks.DEAD_HORN_CORAL_BLOCK, Blocks.DEAD_TUBE_CORAL_BLOCK);
-        registerCyclic(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP,
-            Blocks.BRAIN_CORAL_BLOCK, Blocks.BUBBLE_CORAL_BLOCK, Blocks.FIRE_CORAL_BLOCK, Blocks.HORN_CORAL_BLOCK, Blocks.TUBE_CORAL_BLOCK);
+
+        // [Dead Corals] -> CYCLIC (Circle)
+        registerCyclic(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, Blocks.DEAD_BRAIN_CORAL_BLOCK, Blocks.DEAD_BUBBLE_CORAL_BLOCK, Blocks.DEAD_FIRE_CORAL_BLOCK, Blocks.DEAD_HORN_CORAL_BLOCK, Blocks.DEAD_TUBE_CORAL_BLOCK);
+        // [Alive Corals] -> CYCLIC (Circle)
+        registerCyclic(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, Blocks.BRAIN_CORAL_BLOCK, Blocks.BUBBLE_CORAL_BLOCK, Blocks.FIRE_CORAL_BLOCK, Blocks.HORN_CORAL_BLOCK, Blocks.TUBE_CORAL_BLOCK);
 
         // =================================================================================
         // 5. NETHERITE TIER (Mix Linear & Cyclic)
         // =================================================================================
 
-        // Netherrack Chain -> CYCLIC (Circle)
+        // [Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks] -> CYCLIC (Circle)
         registerCyclic(NETHERITE_CHISEL_MAP, NETHERITE_SPATULA_MAP, Blocks.NETHERRACK, Blocks.NETHER_BRICKS, Blocks.CRACKED_NETHER_BRICKS, Blocks.CHISELED_NETHER_BRICKS);
-
-        // Resin Bricks -> Linear
+        // [Resin Bricks -> Chiseled Resin Bricks]
         registerLinear(NETHERITE_CHISEL_MAP, NETHERITE_SPATULA_MAP, Blocks.RESIN_BRICKS, Blocks.CHISELED_RESIN_BRICKS);
-
-        // Sandstone destruction -> Linear
+        // [chiseled_sand_stone -> sand]
         registerLinear(NETHERITE_CHISEL_MAP, NETHERITE_SPATULA_MAP, Blocks.CHISELED_SANDSTONE, Blocks.SAND);
+        // [chiseled_red_sand_stone -> red_sand]
         registerLinear(NETHERITE_CHISEL_MAP, NETHERITE_SPATULA_MAP, Blocks.CHISELED_RED_SANDSTONE, Blocks.RED_SAND);
 
-        // --- Netherite Touch ---
         // [tuff -> calcite -> dripstone] (Updated Order)
         registerLinear(NETHERITE_TOUCH_MAP, NETHERITE_TOUCH_SPATULA_MAP, Blocks.POLISHED_DIORITE, Blocks.DIORITE, Blocks.CALCITE, Blocks.DRIPSTONE_BLOCK);
-
+        // [obsidian -> crying_obsidian]
         registerLinear(NETHERITE_TOUCH_MAP, NETHERITE_TOUCH_SPATULA_MAP, Blocks.OBSIDIAN, Blocks.CRYING_OBSIDIAN);
+        // [All Stems -> Stripped Stems]
         registerStems(NETHERITE_TOUCH_MAP, NETHERITE_TOUCH_SPATULA_MAP);
+        // [Every Concrete & Concrete Powder]
         registerConcrete(NETHERITE_TOUCH_MAP, NETHERITE_TOUCH_SPATULA_MAP);
 
         // =================================================================================

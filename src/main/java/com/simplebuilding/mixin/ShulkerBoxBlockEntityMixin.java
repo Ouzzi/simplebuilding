@@ -64,8 +64,8 @@ public abstract class ShulkerBoxBlockEntityMixin implements IEnchantableShulkerB
             view.read("SimpleBuildingEnchants", ItemEnchantmentsComponent.CODEC)
                     .ifPresent(enchants -> {
                         this.simplebuilding$storedEnchantments = (ItemEnchantmentsComponent) enchants;
-                        // Optional: Log für Erfolg
-                        // System.out.println("readData success: " + enchants);
+                        // DEBUG LOG
+                        System.out.println("SERVER: Loaded Shulker Enchants from NBT: " + enchants);
                     });
         }
     }
@@ -90,6 +90,8 @@ public abstract class ShulkerBoxBlockEntityMixin implements IEnchantableShulkerB
     private void writeCustomEnchants(WriteView view, CallbackInfo ci) {
         if ((Object) this instanceof ShulkerBoxBlockEntity) {
             if (this.simplebuilding$storedEnchantments != null && !this.simplebuilding$storedEnchantments.isEmpty()) {
+                // DEBUG LOG
+                System.out.println("SERVER: Saving Shulker Enchants to NBT: " + this.simplebuilding$storedEnchantments);
                 view.put("SimpleBuildingEnchants", ItemEnchantmentsComponent.CODEC, this.simplebuilding$storedEnchantments);
             }
         }
@@ -111,6 +113,13 @@ public abstract class ShulkerBoxBlockEntityMixin implements IEnchantableShulkerB
                 // Log bestätigt, dass es gesendet wird
             }
             cir.setReturnValue(nbt);
+        }
+    }
+
+    @Inject(method = "toInitialChunkDataNbt", at = @At("RETURN"))
+    private void debugSync(RegistryWrapper.WrapperLookup registryLookup, CallbackInfoReturnable<NbtCompound> cir) {
+        if (this.simplebuilding$storedEnchantments != null && !this.simplebuilding$storedEnchantments.isEmpty()) {
+            System.out.println("NETWORK: Sending Initial Chunk Data for Shulker: " + this.simplebuilding$storedEnchantments);
         }
     }
 

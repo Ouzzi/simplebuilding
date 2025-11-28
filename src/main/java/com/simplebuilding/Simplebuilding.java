@@ -2,6 +2,7 @@ package com.simplebuilding;
 
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantmentEffects;
+import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.entity.ModEntities;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
@@ -103,13 +104,9 @@ public class Simplebuilding implements ModInitializer {
                 player.incrementStat(Stats.CLEAN_ARMOR);
                 LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
             }
-
-            // FIX: "ActionResult.success(boolean)" gibt es nicht mehr.
-            // Nutze einfach ActionResult.SUCCESS.
             return ActionResult.SUCCESS;
         };
 
-        // Das Verhalten für ALLE farbigen Rangefinder registrieren
         for (DyeColor color : DyeColor.values()) {
             Item coloredItem = ModItems.COLORED_RANGEFINDERS.get(color);
             if (coloredItem != null) {
@@ -120,7 +117,7 @@ public class Simplebuilding implements ModInitializer {
     /*
         0. enchanments:
                 chissel, spatula, rangefinder
-            - constructors touch ( cusom chiel maps for each tier netherite obsidian to crying obsidian; diamond stone to cobble; iron cobble to mossy cobble; stone log to stripped log, ...;
+            - constructors touch (custom chiel maps for each tier netherite obsidian to crying obsidian; diamond stone to cobble; iron cobble to mossy cobble; stone log to stripped log, ...;
                 chissel, spatula
             - fast chissel (faster cooldown for chisseltools)
                 chissel, spatula, pickaxe, axe, shulker, bundle
@@ -128,7 +125,7 @@ public class Simplebuilding implements ModInitializer {
                 shulker, bundle
             - Quiver enchahant (Pfeile aus bundle oder shulker in den Bogen laden) (entwedert quiver enchant oder master builder enchant) (nicht kombinierbar mit color palete)
                 shulker, bundle, building wand
-            - master builder (places first block of shulker/bundle by right clicking) (building wand allows to pick from other masterbuilder enchanted shulkers or bundles)
+            - master builder (places first block of shulker/bundle by right-clicking) (building wand allows to pick from other masterbuilder enchanted shulkers or bundles)
                 shulker, bundle, building wand
             - color palette (changes picking order first block to random but with weighted probability)
 
