@@ -34,7 +34,8 @@ import net.minecraft.util.Identifier;
                 > (automatically picks up items while sneaking and in hand))
             9 - break trough, (Treasure enchantment, rare), [slegehammer]
                 > (automatically picks up items while sneaking and in hand))
-
+            10 - radius (5x5 instead of 3x3, not compatible with brak_trough)
+            11 - ignore blocktype (ignores blocktypes while destroying blocks, when noct supporter block double durrability cost, lvl 1 only supportrd blocks, lvl2 also not supported blocks)
 
  */
 
@@ -147,7 +148,7 @@ public class ModEnchantments {
                 AttributeModifierSlot.MAINHAND
         )));
 
-        // 7. QUIVER (Rare/Treasure, Max Level 1, Treasure, Rare) [BUNDLE]
+        // 7. QUIVER (Max Level 1, Treasure, Rare) [BUNDLE]
         register(registerable, QUIVER, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE), // Nur Bundles
                 items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
@@ -159,7 +160,7 @@ public class ModEnchantments {
                 AttributeModifierSlot.MAINHAND
         )));
 
-        // 8. FUNNEL (Common, Max Level 1, Treasure, Rare) [BUNDLE, SHULKER]
+        // 8. FUNNEL (Max Level 1, Treasure, Rare) [BUNDLE, SHULKER]
         register(registerable, FUNNEL, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE), // Nur Bundles/Shulker
                 items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
@@ -170,7 +171,24 @@ public class ModEnchantments {
                 4,
                 AttributeModifierSlot.MAINHAND
         )));
-    }
+        
+        // 9. BREAK_TROUGH (Max Level 1, Treasure, Rare) [SLEDGEHAMMER]
+        register(registerable, FUNNEL, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE), // Nur Bundles/Shulker
+                items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
+                2, // Weight rare
+                1, // Max Level
+                Enchantment.leveledCost(15, 15),
+                Enchantment.leveledCost(55, 15),
+                4,
+                AttributeModifierSlot.MAINHAND
+        )));
+
+        // 10. RADIUS (Max Level 1, Treasure, Rare) [SLEDGEHAMMER]
+
+        // 11. IGNORE_BLOCKTYPE (Max Level 1, Treasure, Rare) [SLEDGEHAMMER]
+    
+}
 
     private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key, Enchantment.Builder builder) {
         registry.register(key, builder.build(key.getValue()));
