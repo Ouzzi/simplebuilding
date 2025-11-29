@@ -3,9 +3,7 @@ package com.simplebuilding.items.custom;
 import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -31,20 +29,18 @@ import java.util.Set;
 public class SledgehammerItem extends PickaxeItem {
 
     public SledgehammerItem(ToolMaterial material, Settings settings) {
-        // Langsamerer Attack Speed (-3.2F), höherer Schaden als normale Pickaxe
-        super(material, settings.attributeModifiers(PickaxeItem.createAttributeModifiers(material, 6.0F, -3.2F)));
+        // Attack Speed -3.0F macht es sehr langsam und wuchtig im Kampf
+        super(material, settings.attributeModifiers(PickaxeItem.createAttributeModifiers(material, 6.0F, -3.0F)));
     }
 
     // =============================================================
-    // 1. Abbau-Geschwindigkeit (Balance)
+    // 1. Abbau-Geschwindigkeit
     // =============================================================
     @Override
     public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
         float baseSpeed = super.getMiningSpeedMultiplier(stack, state);
-        
-        // HINWEIS: In dieser Methode haben wir standardmäßig keinen Zugriff auf den Player,
-        // um "isSneaking" zu prüfen. Für eine exakte 1/5 Logik beim Sneaken bräuchte man
-        // ein Mixin in PlayerEntity. Hier setzen wir den Basis-Malus auf 1/3.
+        // Wir teilen die Geschwindigkeit durch 3, um das Abbauen von 3x3 zu simulieren.
+        // (Für exakte 1/5 Speed beim Sneaken bräuchte man ein Mixin in PlayerEntity)
         return baseSpeed / 3.0f;
     }
 
@@ -53,13 +49,13 @@ public class SledgehammerItem extends PickaxeItem {
     // =============================================================
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-        // Standard Abnutzung für den ersten Block
+        // Standard Abnutzung für den Hauptblock
         if (!world.isClient && state.getHardness(world, pos) != 0.0F) {
             stack.damage(1, miner, EquipmentSlot.MAINHAND);
         }
 
         if (miner instanceof ServerPlayerEntity player && !world.isClient) {
-            // Nur wenn das Werkzeug korrekt für den Block ist (z.B. Stein vs Holz)
+            // Nur wenn das Werkzeug korrekt ist (z.B. Stein vs Holz)
             if (isCorrectForDrops(stack, state)) {
                 breakConnectedArea(world, player, pos, state, stack);
             }
@@ -72,18 +68,17 @@ public class SledgehammerItem extends PickaxeItem {
         // 1. Raycast: Welche Seite des Blocks schauen wir an? (Nötig für 3x3 Ausrichtung)
         Direction sideHit = raycastForSide(player, world);
 
-        // 2. Enchantment Check: Break Through
+        // 2. Enchantment & Sneak Check
         boolean hasBreakThrough = false;
         boolean isSneaking = player.isSneaking();
 
-        // Enchantments abrufen (1.21 Component Style)
-        ItemEnchantmentsComponent enchantments = stack.getEnchantments();
+        // Enchantments sicher abrufen (1.21 Style)
         var registry = world.getRegistryManager();
         var enchantLookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
         var breakThroughKey = enchantLookup.getOptional(ModEnchantments.BREAK_THROUGH);
 
         if (breakThroughKey.isPresent()) {
-            // Prüfen ob das Enchantment auf dem Item ist
+            ItemEnchantmentsComponent enchantments = stack.getEnchantments();
             for (var entry : enchantments.getEnchantmentEntries()) {
                 if (entry.getKey().matchesKey(breakThroughKey.get().getKey().get())) {
                     hasBreakThrough = true;
@@ -92,8 +87,8 @@ public class SledgehammerItem extends PickaxeItem {
             }
         }
 
-        // 3. Logik anwenden
-        // Wenn Sneak + Enchant -> Tiefe 1 (also 2 Layer total), sonst Tiefe 0
+        // 3. Tiefe berechnen
+        // Wenn Sneak + Enchant -> Tiefe 1 (dieser Block + 1 dahinter), sonst 0
         int depth = (hasBreakThrough && isSneaking) ? 1 : 0;
 
         // 4. Flood Fill Algorithmus starten
@@ -105,12 +100,12 @@ public class SledgehammerItem extends PickaxeItem {
 
             BlockState targetState = world.getBlockState(targetPos);
             
-            // Härte-Check: Wir wollen kein Bedrock abbauen, wenn wir Stone minen
-            float hardnessDiff = Math.abs(targetState.getHardness(world, targetPos) - centerState.getHardness(world, centerPos));
-            
-            // Abbauen simulieren (Nutzt den Player, damit XP, Drops und Enchants wirken)
+            // Sicherheits-Check: Keine Blöcke mit völlig anderer Härte (z.B. Bedrock)
+            if (targetState.getHardness(world, targetPos) < 0) continue; 
+
+            // tryBreakBlock nutzt den Spieler für XP, Drops, Fortune, etc.
             if (player.interactionManager.tryBreakBlock(targetPos)) {
-                 // Extra Durability Damage pro abgebautem Block (optional, hier deaktiviert für "Magic Feel" oder aktiviert für Balance)
+                 // Optional: Extra Haltbarkeit pro Block abziehen?
                  // stack.damage(1, player, EquipmentSlot.MAINHAND); 
             }
         }
@@ -127,6 +122,9 @@ public class SledgehammerItem extends PickaxeItem {
         queue.add(center);
         visited.add(center);
 
+        // Wir definieren die erlaubte Box relativ zum Zentrum
+        // Aber der Flood-Fill stellt sicher, dass wir nur verbundene Blöcke finden.
+
         while (!queue.isEmpty()) {
             BlockPos current = queue.poll();
             result.add(current);
@@ -137,7 +135,7 @@ public class SledgehammerItem extends PickaxeItem {
 
                 if (visited.contains(neighbor)) continue;
 
-                // A. Ist der Nachbar innerhalb der geometrischen Box (3x3 bzw 3x3x2)?
+                // A. Ist der Nachbar geometrisch innerhalb der erlaubten Mining-Box?
                 if (!isInBox(center, neighbor, sideHit, extraDepth)) continue;
 
                 // B. Ist es der gleiche Block?
@@ -152,8 +150,8 @@ public class SledgehammerItem extends PickaxeItem {
     }
 
     /**
-     * Prüft, ob ein Block (check) relativ zum Zentrum (center) innerhalb der erlaubten Mining-Box liegt.
-     * Die Box orientiert sich an der Schlag-Richtung (sideHit).
+     * Prüft, ob ein Block (check) relativ zum Zentrum (center) innerhalb der erlaubten 3x3 Box liegt.
+     * Die Orientierung der Box hängt davon ab, welche Seite (sideHit) geschlagen wurde.
      */
     private boolean isInBox(BlockPos center, BlockPos check, Direction sideHit, int extraDepth) {
         int xDiff = check.getX() - center.getX();
@@ -165,46 +163,40 @@ public class SledgehammerItem extends PickaxeItem {
         // Tiefe in Schlagrichtung (0 bis extraDepth)
 
         switch (sideHit) {
-            case UP:   // Schlag von Oben -> Wir graben nach UNTEN (negatives Y)
+            case UP:   // Schlag von Oben -> Tiefe geht ins Negative Y
                 if (Math.abs(xDiff) > 1 || Math.abs(zDiff) > 1) return false;
-                if (yDiff > 0 || yDiff < -extraDepth) return false; 
-                return true;
+                // yDiff muss zwischen 0 und -depth liegen (z.B. 0 und -1)
+                return yDiff <= 0 && yDiff >= -extraDepth;
                 
-            case DOWN: // Schlag von Unten -> Wir graben nach OBEN (positives Y)
+            case DOWN: // Schlag von Unten -> Tiefe geht ins Positive Y
                 if (Math.abs(xDiff) > 1 || Math.abs(zDiff) > 1) return false;
-                if (yDiff < 0 || yDiff > extraDepth) return false;
-                return true;
+                return yDiff >= 0 && yDiff <= extraDepth;
 
-            case NORTH: // Schlag auf Nord-Seite -> Wir graben nach SÜDEN (+Z)
+            case NORTH: // Schlag auf Nord-Seite (-Z) -> Tiefe geht ins Positive Z (in den Block rein)
                 if (Math.abs(xDiff) > 1 || Math.abs(yDiff) > 1) return false;
-                if (zDiff < 0 || zDiff > extraDepth) return false;
-                return true;
+                return zDiff >= 0 && zDiff <= extraDepth;
 
-            case SOUTH: // Schlag auf Süd-Seite -> Wir graben nach NORDEN (-Z)
+            case SOUTH: // Schlag auf Süd-Seite (+Z) -> Tiefe geht ins Negative Z
                 if (Math.abs(xDiff) > 1 || Math.abs(yDiff) > 1) return false;
-                if (zDiff > 0 || zDiff < -extraDepth) return false;
-                return true;
+                return zDiff <= 0 && zDiff >= -extraDepth;
 
-            case WEST: // Schlag auf West-Seite -> Wir graben nach OSTEN (+X)
+            case WEST: // Schlag auf West-Seite (-X) -> Tiefe geht ins Positive X
                 if (Math.abs(yDiff) > 1 || Math.abs(zDiff) > 1) return false;
-                if (xDiff < 0 || xDiff > extraDepth) return false;
-                return true;
+                return xDiff >= 0 && xDiff <= extraDepth;
 
-            case EAST: // Schlag auf Ost-Seite -> Wir graben nach WESTEN (-X)
+            case EAST: // Schlag auf Ost-Seite (+X) -> Tiefe geht ins Negative X
                 if (Math.abs(yDiff) > 1 || Math.abs(zDiff) > 1) return false;
-                if (xDiff > 0 || xDiff < -extraDepth) return false;
-                return true;
+                return xDiff <= 0 && xDiff >= -extraDepth;
         }
         return false;
     }
 
     // =============================================================
-    // Helper: Raycast um die getroffene Seite zu finden
+    // Helper: Raycast
     // =============================================================
     private Direction raycastForSide(PlayerEntity player, World world) {
         Vec3d start = player.getCameraPosVec(1.0F);
         Vec3d rotation = player.getRotationVec(1.0F);
-        // Reichweite 5 Blöcke
         Vec3d end = start.add(rotation.x * 5.0, rotation.y * 5.0, rotation.z * 5.0);
         
         BlockHitResult result = world.raycast(new RaycastContext(
@@ -217,6 +209,6 @@ public class SledgehammerItem extends PickaxeItem {
         if (result.getType() == HitResult.Type.BLOCK) {
             return result.getSide();
         }
-        return Direction.UP; // Fallback
+        return Direction.UP;
     }
 }
