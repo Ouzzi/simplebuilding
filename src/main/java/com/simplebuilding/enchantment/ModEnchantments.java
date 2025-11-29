@@ -32,6 +32,8 @@ import net.minecraft.util.Identifier;
                 > (increases bundle capacity: I = 128, II = 256)
             8 - funnel, (Treasure enchantment, common), [bundle, shulker]
                 > (automatically picks up items while sneaking and in hand))
+            9 - break trough, (Treasure enchantment, rare), [slegehammer]
+                > (automatically picks up items while sneaking and in hand))
 
 
  */
@@ -54,6 +56,10 @@ public class ModEnchantments {
             RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "quiver"));
     public static final RegistryKey<Enchantment> FUNNEL =
             RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "funnel"));
+    public static final RegistryKey<Enchantment> BREAK_THROUGH = 
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "break_through"));
+
+
 
     public static void bootstrap(Registerable<Enchantment> registerable) {
         var items = registerable.getRegistryLookup(RegistryKeys.ITEM);
