@@ -1,21 +1,12 @@
 package com.simplebuilding;
 
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
-import com.simplebuilding.client.render.BlockHighlightRenderer;
-import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.util.BundleTooltipAccessor;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.client.gui.tooltip.BundleTooltipComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.item.BundleItem;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
 public class SimplebuildingClient implements ClientModInitializer {
     @Override

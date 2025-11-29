@@ -46,7 +46,6 @@ public class ModItemGroups {
                         entries.add(ModItems.RANGEFINDER_ITEM);
 
                         for (DyeColor color : DyeColor.values()) {
-                            // Wir holen das Item aus der Map in ModItems
                             Item coloredItem = ModItems.COLORED_RANGEFINDERS.get(color);
                             if (coloredItem != null) {
                                 entries.add(coloredItem);

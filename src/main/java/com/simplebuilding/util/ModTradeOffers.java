@@ -21,6 +21,9 @@ import net.minecraft.village.VillagerProfession;
 
 import java.util.List;
 
+
+// TODO: ADD TRADES [Enchanted Items [chisel/spatula/wand], Enchanted Books, Reinforced Bundle]
+
 public class ModTradeOffers {
     public record WeightedEnchantment(RegistryKey<Enchantment> key, int level, int weight) {}
 

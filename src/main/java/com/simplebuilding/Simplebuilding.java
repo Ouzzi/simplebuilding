@@ -2,33 +2,22 @@ package com.simplebuilding;
 
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantmentEffects;
-import com.simplebuilding.enchantment.ModEnchantments;
-import com.simplebuilding.entity.ModEntities;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.RangefinderItem;
-import com.simplebuilding.items.custom.ReinforcedBundleItem;
-import com.simplebuilding.particle.ModParticles;
 import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.util.ModLootTableModifiers;
 import com.simplebuilding.util.ModTradeOffers;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BundleContentsComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Formatting;
-import org.apache.commons.lang3.math.Fraction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,9 +45,6 @@ public class Simplebuilding implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Starting Simplebuilding initialization...");
 
-        // Registriert alle benutzerdefinierten Entitäten des Mods.
-        ModEntities.registerModEntities();
-
         // Registriert alle Item Gruppen (Creative Tabs)
         ModItemGroups.registerItemGroups();
 
@@ -73,9 +59,6 @@ public class Simplebuilding implements ModInitializer {
 
         // Registriert benutzerdefinierte Handelsangebote für Dorfbewohner
         ModTradeOffers.registerModTradeOffers();
-
-        // Registriert alle benutzerdefinierten Partikel des Mods.
-        ModParticles.registerParticles();
 
         // Registriert alle benutzerdefinierten Datenkomponenten des Mods.
         ModDataComponentTypes.registerDataComponentTypes();

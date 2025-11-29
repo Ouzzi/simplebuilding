@@ -31,6 +31,7 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 
+        // --- 1. RANGEFINDER (Generated / Flach) ---
         itemModelGenerator.register(ModItems.RANGEFINDER_ITEM, Models.GENERATED);
 
         for (DyeColor color : DyeColor.values()) {

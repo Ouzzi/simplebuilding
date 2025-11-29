@@ -2,7 +2,6 @@ package com.simplebuilding.items.custom;
 
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantments;
-import com.simplebuilding.particle.ModParticles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -37,11 +36,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-// TODO
 // Entchantments:
 // - Fast Chiseling I, II: Reduziert den Cooldown (done)
 // - Constructor's Touch: Fügt weitere Block-Transformationen hinzu (done)
-// - Range I, II: Erlaubt das Chiseln von weiter entfernten Blöcken (TODO)
+// - Range I, II: Erlaubt das Chiseln von weiter entfernten Blöcken (done)
 // - Unbreaking I, II, III: Reduziert die Abnutzung (done, wird von Vanilla 'damage' gehandled)
 // - Mending: Repariert den Chisel mit gesammelten XP (done, wird von Vanilla 'damage' gehandled)
 
@@ -325,8 +323,6 @@ public class ChiselItem extends Item {
     private void spawnEffects(ServerWorld world, BlockPos pos, BlockState oldState) {
         world.spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, oldState),
                 pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 8, 0.2, 0.2, 0.2, 0.1);
-        world.spawnParticles(ModParticles.PINK_GARNET_PARTICLE,
-                pos.getX() + 0.5, pos.getY() + 1.1, pos.getZ() + 0.5, 5, 0.1, 0.1, 0.1, 0.05);
     }
 
     // =================================================================================

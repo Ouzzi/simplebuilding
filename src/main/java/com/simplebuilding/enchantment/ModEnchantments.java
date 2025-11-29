@@ -141,9 +141,9 @@ public class ModEnchantments {
                 AttributeModifierSlot.MAINHAND
         )));
 
-        // 7. QUIVER (Rare/Treasure, Max Level 1, Treasure, Rare) [BUNDLE, (SHULKER)]
+        // 7. QUIVER (Rare/Treasure, Max Level 1, Treasure, Rare) [BUNDLE]
         register(registerable, QUIVER, Enchantment.builder(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE), // Nur Bundles/Shulker
+                items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE), // Nur Bundles
                 items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
                 2, // Weight (Rare)
                 1, // Max Level

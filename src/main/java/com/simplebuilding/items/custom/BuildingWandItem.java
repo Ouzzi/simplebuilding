@@ -1,7 +1,6 @@
 package com.simplebuilding.items.custom;
 
 import com.simplebuilding.component.ModDataComponentTypes;
-import com.simplebuilding.particle.ModParticles;
 import net.minecraft.block.Block;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
@@ -29,6 +28,10 @@ import java.util.function.Consumer;
 // - Range I, II: Erlaubt das messen von weiter entfernten Blöcken (TODO)
 // - Unbreaking I, II, III: Reduziert die Abnutzung (done durch vanilla)
 // - Mending: Repariert den Chisel mit gesammelten XP (done durch vanilla)
+
+// Build mechanics:
+// - on top/bottom of block -> place on top/bottom squareDiameter x squareDiameter (only free space, if blocked skip)
+// - on side of block -> place on side squareDiameter x squareDiameter (only free space, if blocked skip)
 
 public class BuildingWandItem extends Item {
 
@@ -76,12 +79,6 @@ public class BuildingWandItem extends Item {
             ((ServerWorld) world).spawnParticles(ParticleTypes.FLAME,
                     context.getBlockPos().getX() + 0.5, context.getBlockPos().getY() + 1.5,
                     context.getBlockPos().getZ() + 0.5, 10, 0, 0, 0, 3);
-
-            if (ModParticles.PINK_GARNET_PARTICLE != null) {
-                ((ServerWorld) world).spawnParticles(ModParticles.PINK_GARNET_PARTICLE,
-                        context.getBlockPos().getX() + 0.5, context.getBlockPos().getY() + 1.0,
-                        context.getBlockPos().getZ() + 0.5, 8, 0, 0, 0, 2);
-            }
 
             context.getStack().set(ModDataComponentTypes.COORDINATES, context.getBlockPos());
         }

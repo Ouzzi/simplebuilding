@@ -107,7 +107,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
 
                 // =================================================================
-                // RANGEFINDER (Antik / Sextant Style)
+                // RANGEFINDER (Antik / Octant Style)
                 // =================================================================
                 createShaped(RecipeCategory.TOOLS, ModItems.RANGEFINDER_ITEM)
                         .pattern(" GC")
@@ -182,6 +182,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .pattern(" M ")
                         .pattern("MNM")
                         .pattern(" M ")
+                        .input('M', material)
+                        .input('N', Items.NETHER_STAR)
+                        .criterion(hasItem(Items.NETHER_STAR), conditionsFromItem(Items.NETHER_STAR))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.MISC, output)
+                        .pattern("M M")
+                        .pattern(" N ")
+                        .pattern("M M")
                         .input('M', material)
                         .input('N', Items.NETHER_STAR)
                         .criterion(hasItem(Items.NETHER_STAR), conditionsFromItem(Items.NETHER_STAR))
