@@ -42,10 +42,12 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .addTag(ModTags.Items.CHISEL_TOOLS);
 
         valueLookupBuilder(ModTags.Items.BUNDLE_ENCHANTABLE)
-                .add(Items.BUNDLE);
+                .add(Items.BUNDLE)
+                .add(ModItems.REINFORCED_BUNDLE);
 
         valueLookupBuilder(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE)
                 .add(Items.BUNDLE)
+                .add(ModItems.REINFORCED_BUNDLE)
                 .add(Items.SHULKER_BOX);
     }
 }

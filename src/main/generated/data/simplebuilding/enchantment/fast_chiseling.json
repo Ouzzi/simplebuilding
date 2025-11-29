@@ -4,13 +4,13 @@
     "translate": "enchantment.simplebuilding.fast_chiseling"
   },
   "max_cost": {
-    "base": 15,
-    "per_level_above_first": 9
+    "base": 20,
+    "per_level_above_first": 10
   },
   "max_level": 2,
   "min_cost": {
     "base": 1,
-    "per_level_above_first": 7
+    "per_level_above_first": 10
   },
   "primary_items": "#simplebuilding:chisel_tools",
   "slots": [

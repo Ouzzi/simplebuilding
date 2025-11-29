@@ -70,5 +70,8 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DIAMOND_BUILDING_WAND, Models.HANDHELD);
         itemModelGenerator.register(ModItems.NETHERITE_BUILDING_WAND, Models.HANDHELD);
 
+        // --- 6. REINFORCED BUNDLES (Generated / Flach) ---
+        itemModelGenerator.register(ModItems.REINFORCED_BUNDLE, Models.GENERATED);
+
     }
 }

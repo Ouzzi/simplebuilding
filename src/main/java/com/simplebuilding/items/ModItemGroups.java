@@ -53,7 +53,9 @@ public class ModItemGroups {
                             }
                         }
 
-                        
+                        entries.add(ModItems.REINFORCED_BUNDLE);
+
+
                     }).build());
 
 

@@ -29,11 +29,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
@@ -216,7 +212,6 @@ public class ChiselItem extends Item {
         // =================================================================================
         // MERGING
         // =================================================================================
-
         FINAL_STONE_FWD = Map.copyOf(STONE_CHISEL_MAP);
         FINAL_STONE_BWD = Map.copyOf(STONE_SPATULA_MAP);
         FINAL_STONE_TOUCH_FWD = merge(STONE_CHISEL_MAP, STONE_TOUCH_MAP);
@@ -282,27 +277,6 @@ public class ChiselItem extends Item {
                 ? ActionResult.SUCCESS : ActionResult.PASS;
     }
 
-    @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        ItemStack stack = user.getStackInHand(hand);
-        RegistryWrapper.WrapperLookup registryManager = world.getRegistryManager();
-        var rangeEntry = getEnchantment(registryManager, ModEnchantments.RANGE);
-
-        if (rangeEntry != null) {
-            int rangeLevel = EnchantmentHelper.getLevel(rangeEntry, stack);
-            if (rangeLevel > 0) {
-                double distance = 4.5d + (rangeLevel * 2.5d);
-                BlockHitResult hitResult = raycast(world, user, RaycastContext.FluidHandling.NONE, distance);
-                if (hitResult.getType() == HitResult.Type.BLOCK) {
-                    if (tryChiselBlock(world, user, hand, hitResult.getBlockPos(), stack)) {
-                        return ActionResult.SUCCESS;
-                    }
-                }
-            }
-        }
-        return super.use(world, user, hand);
-    }
-
     private boolean tryChiselBlock(World world, PlayerEntity player, Hand hand, BlockPos pos, ItemStack stack) {
         if (player.getItemCooldownManager().isCoolingDown(stack)) return false;
 
@@ -359,9 +333,6 @@ public class ChiselItem extends Item {
     // HELPER METHODEN
     // =================================================================================
 
-    /**
-     * Registriert eine LINEARE Kette (Start -> Ende, Ende -> Start).
-     */
     private static void registerLinear(Map<Block, Block> forward, Map<Block, Block> backward, Block... blocks) {
         if (blocks.length < 2) return;
         for (int i = 0; i < blocks.length - 1; i++) {
@@ -372,10 +343,6 @@ public class ChiselItem extends Item {
         }
     }
 
-    /**
-     * Registriert einen ZYKLUS / KREIS (Ende -> Start, Start -> Ende).
-     * Wird für Netherrack und Korallen verwendet.
-     */
     private static void registerCyclic(Map<Block, Block> forward, Map<Block, Block> backward, Block... blocks) {
         if (blocks.length < 2) return;
         for (int i = 0; i < blocks.length; i++) {
@@ -437,21 +404,6 @@ public class ChiselItem extends Item {
         for(int i=0; i < blocks.length; i++) {
             registerLinear(f, b, blocks[i], powders[i]);
         }
-    }
-
-    protected static BlockHitResult raycast(World world, PlayerEntity player, RaycastContext.FluidHandling fluidHandling, double maxDistance) {
-        float pitch = player.getPitch();
-        float yaw = player.getYaw();
-        Vec3d eyePos = player.getEyePos();
-        float f = -net.minecraft.util.math.MathHelper.cos(-yaw * 0.017453292F - 3.1415927F);
-        float g = net.minecraft.util.math.MathHelper.sin(-yaw * 0.017453292F - 3.1415927F);
-        float h = -net.minecraft.util.math.MathHelper.cos(-pitch * 0.017453292F);
-        float i = net.minecraft.util.math.MathHelper.sin(-pitch * 0.017453292F);
-        float j = g * h;
-        float k = i;
-        float l = f * h;
-        Vec3d vec3d2 = eyePos.add((double)j * maxDistance, (double)k * maxDistance, (double)l * maxDistance);
-        return world.raycast(new RaycastContext(eyePos, vec3d2, RaycastContext.ShapeType.OUTLINE, fluidHandling, player));
     }
 
     private RegistryEntry<Enchantment> getEnchantment(RegistryWrapper.WrapperLookup registry, net.minecraft.registry.RegistryKey<Enchantment> key) {

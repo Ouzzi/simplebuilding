@@ -1,21 +1,21 @@
 {
-  "anvil_cost": 1,
+  "anvil_cost": 8,
   "description": {
     "translate": "enchantment.simplebuilding.master_builder"
   },
   "max_cost": {
-    "base": 50,
-    "per_level_above_first": 10
+    "base": 75,
+    "per_level_above_first": 25
   },
   "max_level": 1,
   "min_cost": {
-    "base": 15,
-    "per_level_above_first": 8
+    "base": 25,
+    "per_level_above_first": 25
   },
   "primary_items": "#simplebuilding:extra_inventory_items",
   "slots": [
     "mainhand"
   ],
   "supported_items": "#simplebuilding:extra_inventory_items",
-  "weight": 2
+  "weight": 1
 }

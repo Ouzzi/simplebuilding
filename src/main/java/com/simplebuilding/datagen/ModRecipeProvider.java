@@ -135,6 +135,20 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                 .offerTo(exporter, getRecipeName(resultItem) + "_from_dye");
                     }
                 }
+
+                // =================================================================
+                // REINFORCED BUNDLE
+                // =================================================================
+                createShaped(RecipeCategory.TOOLS, ModItems.REINFORCED_BUNDLE)
+                        .pattern(" S ")
+                        .pattern("NBN")
+                        .pattern("LLL")
+                        .input('L', Items.LEATHER)
+                        .input('B', Items.BUNDLE)
+                        .input('N', Items.COPPER_NUGGET)
+                        .input('S', Items.STRING)
+                        .criterion(hasItem(Items.BUNDLE), conditionsFromItem(Items.BUNDLE))
+                        .offerTo(exporter);
             }
 
             // --- Helper Methods to keep generate() clean ---

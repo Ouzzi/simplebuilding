@@ -15,6 +15,8 @@ import net.minecraft.util.math.BlockPos;
 import java.util.ArrayList;
 import java.util.List;
 
+// HUD Overlay for Rangefinder Item
+// (Textbox)
 public class RangefinderHudOverlay implements HudRenderCallback {
 
     @Override
@@ -22,16 +24,15 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null) return;
 
-        // Prüfen, ob der Spieler den Rangefinder hält (Main oder Offhand)
+        // Is Rangefinder in hand?
         ItemStack stack = client.player.getMainHandStack();
         if (!(stack.getItem() instanceof RangefinderItem)) {
             stack = client.player.getOffHandStack();
             if (!(stack.getItem() instanceof RangefinderItem)) {
-                return; // Nicht in der Hand -> Nichts zeichnen
+                return;
             }
         }
 
-        // Daten auslesen
         NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = nbtData.copyNbt();
 
@@ -59,7 +60,7 @@ public class RangefinderHudOverlay implements HudRenderCallback {
             lines.add("§7Sneak + R-Click to set Pos 2");
         }
 
-        // Berechnung anzeigen, wenn beide Punkte da sind
+        // Distance / Area / Volume
         if (pos1 != null && pos2 != null) {
             int dx = Math.abs(pos1.getX() - pos2.getX()) + 1;
             int dy = Math.abs(pos1.getY() - pos2.getY()) + 1;

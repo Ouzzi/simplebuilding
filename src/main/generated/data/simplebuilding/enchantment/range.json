@@ -1,21 +1,35 @@
 {
-  "anvil_cost": 2,
+  "anvil_cost": 4,
   "description": {
     "translate": "enchantment.simplebuilding.range"
   },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 2.0,
+          "per_level_above_first": 4.0
+        },
+        "attribute": "minecraft:block_interaction_range",
+        "id": "simplebuilding:enchantment.range",
+        "operation": "add_value"
+      }
+    ]
+  },
   "max_cost": {
-    "base": 30,
-    "per_level_above_first": 8
+    "base": 65,
+    "per_level_above_first": 9
   },
   "max_level": 3,
   "min_cost": {
-    "base": 5,
-    "per_level_above_first": 5
+    "base": 15,
+    "per_level_above_first": 9
   },
   "primary_items": "#simplebuilding:chisel_and_mining_tools",
   "slots": [
     "mainhand"
   ],
   "supported_items": "#simplebuilding:chisel_and_mining_tools",
-  "weight": 3
+  "weight": 1
 }

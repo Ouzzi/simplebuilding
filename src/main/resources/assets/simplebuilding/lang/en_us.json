@@ -58,6 +58,9 @@
   "item.simplebuilding.rangefinder_red": "Red Rangefinder",
   "item.simplebuilding.rangefinder_black": "Black Rangefinder",
 
+  "item.simplebuilding.reinforced_bundle": "Reinforced Bundle",
+    "tooltip.simplebuilding.reinforced_bundle": "Can hold more items if enchanted.",
+
   "itemgroup.simplebuilding.building_items": "Building Items",
 
   "enchantment.simplebuilding.fast_chiseling": "Fast Chiseling",
@@ -67,8 +70,8 @@
   "enchantment.simplebuilding.deep_pockets": "Deep Pockets",
   "enchantment.simplebuilding.master_builder": "Master Builder",
   "enchantment.simplebuilding.color_palette": "Color Palette",
+  "enchantment.simplebuilding.funnel": "Item Funnel",
 
-  "enchantment.simplebuilding.lightning_striker": "Lightning Striker",
 
   "container.enchantments": "Enchantments",
   "enchantment.level.1": "I",

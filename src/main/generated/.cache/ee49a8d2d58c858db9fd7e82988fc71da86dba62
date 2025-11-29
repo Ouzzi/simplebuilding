@@ -1,7 +1,7 @@
 // 1.21.10	-999999999-01-01T00:00:00	simplebuilding/Tags for minecraft:item
 d2682a337ecee1446793e3f7209e58a51fedde77 data/minecraft/tags/item/enchantable/durability.json
 d2682a337ecee1446793e3f7209e58a51fedde77 data/minecraft/tags/item/enchantable/vanishing.json
-8549b762563fb8215853150344ef3a20278898f9 data/simplebuilding/tags/item/bundle_enchantable.json
+e4bec64d5334490c42ac2e52fceb3a407e2394e3 data/simplebuilding/tags/item/bundle_enchantable.json
 aef68c3cc5389a0844cba3575a01d963be1478e3 data/simplebuilding/tags/item/chisel_and_mining_tools.json
 15fe907163acd0811c6d2b4897695660e8f41d9a data/simplebuilding/tags/item/chisel_tools.json
-0732297a609fbbd7a5c02bf6be72e23f8e88445d data/simplebuilding/tags/item/extra_inventory_items.json
+599af111eb726bfead87b0022710d589f3f44fb7 data/simplebuilding/tags/item/extra_inventory_items.json

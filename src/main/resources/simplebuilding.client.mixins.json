@@ -3,6 +3,8 @@
   "package": "com.simplebuilding.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "WorldRendererMixin",
+    "BundleTooltipComponentMixin",
     "ShulkerBoxScreenMixin",
     "ShulkerBoxScreenHandlerAccessor",
     "ShulkerBoxBlockEntityRendererMixin",

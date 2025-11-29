@@ -4,6 +4,7 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.ChiselItem;
 import com.simplebuilding.items.custom.RangefinderItem;
+import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -85,6 +86,9 @@ public class ModItems {
             settings -> new RangefinderItem(settings.maxDamage(DURABILITY_NETHERITE * DURABILITY_MULTIPLAYER_RANGEFINDER).enchantable(ENCHANTABILITY_NETHERITE), null));
 
     public static final Map<DyeColor, RangefinderItem> COLORED_RANGEFINDERS = new HashMap<>();
+
+    // Reinforced Bundle
+    public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1)));
 
     // =================================================================================
     // HILFSMETHODEN
