@@ -34,8 +34,10 @@ import net.minecraft.util.Identifier;
                 > (automatically picks up items while sneaking and in hand))
             9 - break trough, (Treasure enchantment, rare), [slegehammer]
                 > (automatically picks up items while sneaking and in hand))
-            10 - radius (5x5 instead of 3x3, not compatible with brak_trough)
-            11 - ignore blocktype (ignores blocktypes while destroying blocks, when noct supporter block double durrability cost, lvl 1 only supportrd blocks, lvl2 also not supported blocks)
+            10 - radius (Treasure enchantment, rare), [slegehammer]
+                 > (5x5 instead of 3x3, not compatible with brak_trough)
+            11 - ignore blocktype (Treasure enchantment, rare), [slegehammer]
+                 > (ignores blocktypes while destroying blocks, when not supported block double durrability cost, lvl 1 only supportrd blocks, lvl2 also not supported blocks)
 
  */
 
@@ -184,10 +186,30 @@ public class ModEnchantments {
                 AttributeModifierSlot.MAINHAND
         )));
 
-        // 10. RADIUS (Max Level 1, Treasure, Rare) [SLEDGEHAMMER]
+        // 10. RADIUS (Max Level 1, Treasure, Very Rare, 5x5 mining) [SLEDGEHAMMER]
+        register(registerable, RADIUS, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.SLEDGEHAMMER),
+                items.getOrThrow(ModTags.Items.SLEDGEHAMMER),
+                1, // Weight (Very Rare)
+                1, // Max Level
+                Enchantment.leveledCost(25, 20),
+                Enchantment.leveledCost(75, 20),
+                8, // Teurer
+                AttributeModifierSlot.MAINHAND
+        )));
 
-        // 11. IGNORE_BLOCKTYPE (Max Level 1, Treasure, Rare) [SLEDGEHAMMER]
-    
+        // 11. IGNORE_BLOCKTYPE (Max Level 2, Treasure, Rare) [SLEDGEHAMMER]
+        register(registerable, IGNORE_BLOCKTYPE, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.SLEDGEHAMMER),
+                items.getOrThrow(ModTags.Items.SLEDGEHAMMER),
+                2, // Weight (Rare)
+                2, // Max Level
+                Enchantment.leveledCost(20, 15),
+                Enchantment.leveledCost(70, 15),
+                4,
+                AttributeModifierSlot.MAINHAND
+        )));
+
 }
 
     private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key, Enchantment.Builder builder) {
