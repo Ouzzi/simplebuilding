@@ -17,27 +17,37 @@ import net.minecraft.util.Identifier;
 /*
     Enchantments:
             1 - constructors touch, (Treasure enchantment, very rare), [chisel, spatula, rangefinder]
+                ~ [Trial Chamber (high), Libary (high), spawner (low), Villager (high)]
                 > (custom chiel maps for each tier netherite obsidian to crying obsidian; diamond stone to cobble; iron cobble to mossy cobble; stone log to stripped log, ...;
             2 - fast chisel, [chisel, spatula]
-                > (faster cooldown for chisel-tools)
+                ~ [Trial Chamber (high), Libary (high), spawner (low), Villager (high)]
+                > (faster  for chisel-tools)
             3 - range, (Treasure enchantment, very rare), [chisel, spatula, pickaxe, axe, shulker, bundle]
+               ~ [Libary (low), end city (high), Villager (high)]
                 > (bigger range for mining and chisel and building tools (bundle, shulker)
             4 - Quiver enchant, (Treasure enchantment, rare), [shulker, bundle]
+                end city, duegon, villager
                 > (Pfeile aus bundle oder shulker in den Bogen laden) (entweder quiver enchant oder master builder enchant) (nicht kombinierbar mit color palette)
             5 - master builder, (Treasure enchantment, very rare), [shulker, bundle, building wand]
+                end, library
                 > (places first block of shulker/bundle by right-clicking) (building wand allows to pick from other master-builder enchanted shulkers or bundles)
             6 - color palette, (Treasure enchantment, rare), [shulker, bundle, building wand]
                 > (changes picking order first block to random but with weighted probability)
             7 - deep pockets, (Treasure enchantment, rare), [bundle]
+                end, deep dark
                 > (increases bundle capacity: I = 128, II = 256)
             8 - funnel, (Treasure enchantment, common), [bundle, shulker]
+                bastion, 
                 > (automatically picks up items while sneaking and in hand))
             9 - break trough, (Treasure enchantment, rare), [slegehammer]
+                trial, bastion
                 > (automatically picks up items while sneaking and in hand))
             10 - radius (Treasure enchantment, rare), [slegehammer]
-                 > (5x5 instead of 3x3, not compatible with brak_trough)
+                 deep dark
+                > (5x5 instead of 3x3, not compatible with brak_trough)
             11 - ignore blocktype (Treasure enchantment, rare), [slegehammer]
-                 > (ignores blocktypes while destroying blocks, when not supported block double durrability cost, lvl 1 only supportrd blocks, lvl2 also not supported blocks)
+                 end
+                > (ignores blocktypes while destroying blocks, when not supported block double durrability cost, lvl 1 only supportrd blocks, lvl2 also not supported blocks)
 
  */
 
