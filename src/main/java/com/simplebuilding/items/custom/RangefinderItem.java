@@ -3,12 +3,15 @@ package com.simplebuilding.items.custom;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -31,12 +34,12 @@ import java.util.function.Consumer;
 
 public class RangefinderItem extends Item {
 
-    public static final int DURABILITY_MULTIPLAYER_RANGEFINDER = 8;
+    public static final int DURABILITY_RANGEFINDER = 64;
 
     private final DyeColor color;
 
-
-    public RangefinderItem(Settings settings, @Nullable DyeColor color) {        super(settings);
+    public RangefinderItem(Settings settings, @Nullable DyeColor color) {
+        super(settings);
         this.color = color;
     }
 
@@ -63,6 +66,13 @@ public class RangefinderItem extends Item {
                 world.playSound(null, pos, SoundEvents.BLOCK_COPPER_STEP, SoundCategory.PLAYERS, 0.3f, 1.5f);
             }
 
+            // --- NEU: Durability abziehen ---
+            if (player != null && !player.getAbilities().creativeMode) {
+                // Zieht 1 Punkt ab. Unbreaking wird automatisch berücksichtigt.
+                stack.damage(1, (ServerWorld) world, (ServerPlayerEntity) player,
+                        item -> player.sendEquipmentBreakStatus(item, context.getHand() == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
+            }
+
             stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
         }
         return net.minecraft.util.ActionResult.SUCCESS;
@@ -78,8 +88,9 @@ public class RangefinderItem extends Item {
             stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
             world.playSound(null, user.getBlockPos(), SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 0.5f, 1f);
 
-            // Wir geben SUCCESS zurück (entspricht InteractionResultHolder.success(stack).getResult())
-            // Da wir den Stack im Inventar direkt ändern (Referenz), müssen wir ihn nicht zurückgeben.
+            // Optional: Auch hier Durability abziehen für den Reset?
+            // Falls ja, Code von oben hier einfügen.
+
             return ActionResult.SUCCESS;
         }
         return super.use(world, user, hand);

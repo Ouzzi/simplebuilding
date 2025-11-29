@@ -1,5 +1,6 @@
 package com.simplebuilding.client.render;
 
+import com.simplebuilding.enchantment.ModEnchantments; // Import nicht vergessen!
 import com.simplebuilding.items.custom.RangefinderItem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
@@ -7,15 +8,18 @@ import net.minecraft.client.util.BufferAllocator;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 
 public class BlockHighlightRenderer {
 
-    // Signatur geändert: Nimmt jetzt Matrix4f statt MatrixStack
+    // Wird vom Mixin aufgerufen
     public static void render(Matrix4f positionMatrix, Camera camera) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null || client.world == null) return;
@@ -29,11 +33,12 @@ public class BlockHighlightRenderer {
         }
 
         if (isRangefinder) {
-            renderHighlights(positionMatrix, camera, stack);
+            renderHighlights(positionMatrix, camera, stack, client.player.isSneaking());
         }
     }
 
-    private static void renderHighlights(Matrix4f positionMatrix, Camera camera, ItemStack stack) {
+    private static void renderHighlights(Matrix4f positionMatrix, Camera camera, ItemStack stack, boolean isSneaking) {
+        // [Daten laden ...]
         NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = nbtData.copyNbt();
 
@@ -42,25 +47,24 @@ public class BlockHighlightRenderer {
 
         if (pos1 == null && pos2 == null) return;
 
-        // WICHTIG: Wir nutzen die übergebene Matrix direkt.
-        // Wir müssen NICHT mehr um die Kameraposition verschieben,
-        // da 'positionMatrix' (vom WorldRenderer) normalerweise bereits relativ zur Kamera ist
-        // ODER absolute Weltkoordinaten erwartet, aber die Projektion das regelt.
+        boolean hasConstructorsTouch = hasEnchantment(stack, MinecraftClient.getInstance(), ModEnchantments.CONSTRUCTORS_TOUCH);
+        boolean showFill;
+        boolean isInverted = false; //TODO Config für Invertierung hinzufügen
 
-        // In 1.21 ist es meistens so: positionMatrix ist die View-Matrix.
-        // Wir müssen die Block-Positionen relativ zur Kamera berechnen.
+        if (hasConstructorsTouch) {
+            showFill = isInverted ? isSneaking : !isSneaking;
+        } else {
+            showFill = false;
+        }
 
+        // --- Rendering Setup ---
         double camX = camera.getPos().x;
         double camY = camera.getPos().y;
         double camZ = camera.getPos().z;
 
-        // Wir erstellen einen temporären Stack nur für das Zeichnen,
-        // pushen die Matrix rein und verschieben dann zu den Koordinaten.
         MatrixStack matrices = new MatrixStack();
         matrices.push();
-        matrices.multiplyPositionMatrix(positionMatrix); // Basis-Matrix übernehmen
-
-        // WICHTIG: Die Verschiebung muss HIER passieren.
+        matrices.multiplyPositionMatrix(positionMatrix);
         matrices.translate(-camX, -camY, -camZ);
 
         BufferAllocator allocator = new BufferAllocator(1536);
@@ -70,48 +74,56 @@ public class BlockHighlightRenderer {
         float r2 = 1.0f; float g2 = 0.85f; float b2 = 0.4f;
         float r3 = 0.8f; float g3 = 0.6f; float b3 = 0.4f;
 
-        // 1. OUTLINES
+        // 1. OUTLINES (Immer sichtbar)
         VertexConsumer lines = consumers.getBuffer(RenderLayer.getLines());
-        if (pos1 != null) drawBoxOutline(matrices, lines, new Box(pos1).expand(0.02), r1, g1, b1, 1.0f);
-        if (pos2 != null) drawBoxOutline(matrices, lines, new Box(pos2).expand(0.02), r2, g2, b2, 1.0f);
-        if (pos1 != null && pos2 != null) drawBoxOutline(matrices, lines, getFullArea(pos1, pos2).expand(0.02), r3, g3, b3, 1.0f);
-        consumers.draw();
+        float lineAlpha = 0.6f;
+        if (pos1 != null) drawBoxOutline(matrices, lines, new Box(pos1).expand(0.02), r1, g1, b1, lineAlpha);
+        if (pos2 != null) drawBoxOutline(matrices, lines, new Box(pos2).expand(0.02), r2, g2, b2, lineAlpha);
+        if (pos1 != null && pos2 != null && showFill) drawBoxOutline(matrices, lines, getFullArea(pos1, pos2).expand(0.02), r3, g3, b3, lineAlpha);
 
-        // 2. FÜLLUNG
-        VertexConsumer fill = consumers.getBuffer(RenderLayer.getDebugFilledBox());
-        if (pos1 != null) drawBoxFillAsTriangles(matrices, fill, new Box(pos1).expand(0.004), r1, g1, b1, 0.3f);
-        if (pos2 != null) drawBoxFillAsTriangles(matrices, fill, new Box(pos2).expand(0.004), r2, g2, b2, 0.3f);
-        if (pos1 != null && pos2 != null) drawBoxFillAsTriangles(matrices, fill, getFullArea(pos1, pos2).expand(0.004), r3, g3, b3, 0.15f);
-        consumers.draw();
+        consumers.draw(RenderLayer.getLines());
+
+        // 2. FÜLLUNGEN (Bedingt sichtbar durch showFill)
+        if (showFill) {
+            VertexConsumer fill = consumers.getBuffer(RenderLayer.getDebugQuads());
+            float alpha = 0.15f;
+            if (pos1 != null) drawBoxFill(matrices, fill, new Box(pos1).expand(0.003), r1, g1, b1, alpha);
+            if (pos2 != null) drawBoxFill(matrices, fill, new Box(pos2).expand(0.006), r2, g2, b2, alpha);
+            if (pos1 != null && pos2 != null) drawBoxFill(matrices, fill, getFullArea(pos1, pos2).expand(0.009), r3, g3, b3, alpha);
+
+            consumers.draw(RenderLayer.getDebugQuads());
+        }
 
         matrices.pop();
     }
 
-    // --- Unveränderte Hilfsmethoden ---
+    // --- Hilfsmethoden ---
+    private static boolean hasEnchantment(ItemStack stack, MinecraftClient client, net.minecraft.registry.RegistryKey<net.minecraft.enchantment.Enchantment> key) {
+        if (client.world == null) return false;
+        var registry = client.world.getRegistryManager();
+        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+        var entry = enchantments.getOptional(key);
+        return entry.isPresent() && EnchantmentHelper.getLevel(entry.get(), stack) > 0;
+    }
 
-    private static void drawBoxFillAsTriangles(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
+    private static void drawBoxFill(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
         Matrix4f matrix = matrices.peek().getPositionMatrix();
         float x1 = (float)box.minX; float y1 = (float)box.minY; float z1 = (float)box.minZ;
         float x2 = (float)box.maxX; float y2 = (float)box.maxY; float z2 = (float)box.maxZ;
 
-        addTriangle(builder, matrix, x1, y1, z1, x2, y1, z1, x2, y1, z2, r, g, b, a);
-        addTriangle(builder, matrix, x1, y1, z1, x2, y1, z2, x1, y1, z2, r, g, b, a);
-        addTriangle(builder, matrix, x1, y2, z2, x2, y2, z2, x2, y2, z1, r, g, b, a);
-        addTriangle(builder, matrix, x1, y2, z2, x2, y2, z1, x1, y2, z1, r, g, b, a);
-        addTriangle(builder, matrix, x1, y1, z1, x1, y2, z1, x2, y2, z1, r, g, b, a);
-        addTriangle(builder, matrix, x1, y1, z1, x2, y2, z1, x2, y1, z1, r, g, b, a);
-        addTriangle(builder, matrix, x2, y1, z2, x2, y2, z2, x1, y2, z2, r, g, b, a);
-        addTriangle(builder, matrix, x2, y1, z2, x1, y2, z2, x1, y1, z2, r, g, b, a);
-        addTriangle(builder, matrix, x1, y1, z2, x1, y2, z2, x1, y2, z1, r, g, b, a);
-        addTriangle(builder, matrix, x1, y1, z2, x1, y2, z1, x1, y1, z1, r, g, b, a);
-        addTriangle(builder, matrix, x2, y1, z1, x2, y2, z1, x2, y2, z2, r, g, b, a);
-        addTriangle(builder, matrix, x2, y1, z1, x2, y2, z2, x2, y1, z2, r, g, b, a);
+        addQuad(builder, matrix, x1, y1, z1, x2, y1, z1, x2, y1, z2, x1, y1, z2, r, g, b, a); // Unten
+        addQuad(builder, matrix, x1, y2, z2, x2, y2, z2, x2, y2, z1, x1, y2, z1, r, g, b, a); // Oben
+        addQuad(builder, matrix, x1, y1, z1, x1, y2, z1, x2, y2, z1, x2, y1, z1, r, g, b, a); // Nord
+        addQuad(builder, matrix, x2, y1, z2, x2, y2, z2, x1, y2, z2, x1, y1, z2, r, g, b, a); // Süd
+        addQuad(builder, matrix, x1, y1, z2, x1, y2, z2, x1, y2, z1, x1, y1, z1, r, g, b, a); // West
+        addQuad(builder, matrix, x2, y1, z1, x2, y2, z1, x2, y2, z2, x2, y1, z2, r, g, b, a); // Ost
     }
 
-    private static void addTriangle(VertexConsumer builder, Matrix4f matrix, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float r, float g, float b, float a) {
+    private static void addQuad(VertexConsumer builder, Matrix4f matrix, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float r, float g, float b, float a) {
         builder.vertex(matrix, x1, y1, z1).color(r, g, b, a);
         builder.vertex(matrix, x2, y2, z2).color(r, g, b, a);
         builder.vertex(matrix, x3, y3, z3).color(r, g, b, a);
+        builder.vertex(matrix, x4, y4, z4).color(r, g, b, a);
     }
 
     private static Box getFullArea(BlockPos p1, BlockPos p2) {

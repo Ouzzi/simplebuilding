@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import static com.simplebuilding.items.custom.BuildingWandItem.*;
-import static com.simplebuilding.items.custom.RangefinderItem.DURABILITY_MULTIPLAYER_RANGEFINDER;
+import static com.simplebuilding.items.custom.RangefinderItem.DURABILITY_RANGEFINDER;
 
 /**
  * Verwaltet die Registrierung aller benutzerdefinierten Gegenstände (Items) des Simplemoney Mods.
@@ -83,7 +83,7 @@ public class ModItems {
 
     // Rangefinder
     public static final RangefinderItem RANGEFINDER_ITEM = (RangefinderItem) registerItem("rangefinder",
-            settings -> new RangefinderItem(settings.maxDamage(DURABILITY_NETHERITE * DURABILITY_MULTIPLAYER_RANGEFINDER).enchantable(ENCHANTABILITY_NETHERITE), null));
+            settings -> new RangefinderItem(settings.maxDamage(DURABILITY_RANGEFINDER).enchantable(ENCHANTABILITY_NETHERITE), null));
 
     public static final Map<DyeColor, RangefinderItem> COLORED_RANGEFINDERS = new HashMap<>();
 
@@ -126,7 +126,7 @@ public class ModItems {
         for (DyeColor color : DyeColor.values()) {
             String name = "rangefinder_" + color.getId();
             RangefinderItem coloredItem = (RangefinderItem) registerItem(name,
-                    settings -> new RangefinderItem(settings.maxDamage(DURABILITY_NETHERITE * DURABILITY_MULTIPLAYER_RANGEFINDER).enchantable(ENCHANTABILITY_NETHERITE), color));
+                    settings -> new RangefinderItem(settings.maxDamage(DURABILITY_NETHERITE * DURABILITY_RANGEFINDER).enchantable(ENCHANTABILITY_NETHERITE), color));
             COLORED_RANGEFINDERS.put(color, coloredItem);
         }
     }

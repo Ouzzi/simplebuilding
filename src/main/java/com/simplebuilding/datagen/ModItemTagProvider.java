@@ -4,6 +4,7 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
@@ -31,23 +32,36 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.DIAMOND_SPATULA)
                 .add(ModItems.NETHERITE_SPATULA);
 
+        var rangefinderBuilder = valueLookupBuilder(ModTags.Items.OCTANTS_ENCHANTABLE)
+                .add(ModItems.RANGEFINDER_ITEM);
+
+        // Alle gefärbten Varianten hinzufügen
+        for (Item coloredRangefinder : ModItems.COLORED_RANGEFINDERS.values()) {
+            rangefinderBuilder.add(coloredRangefinder);
+        }
+
         valueLookupBuilder(ModTags.Items.CHISEL_AND_MINING_TOOLS)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .forceAddTag(ItemTags.MINING_ENCHANTABLE);
 
         valueLookupBuilder(ItemTags.DURABILITY_ENCHANTABLE)
-                .addTag(ModTags.Items.CHISEL_TOOLS);
+                .addTag(ModTags.Items.CHISEL_TOOLS)
+                .addTag(ModTags.Items.OCTANTS_ENCHANTABLE);
 
         valueLookupBuilder(ItemTags.VANISHING_ENCHANTABLE)
                 .addTag(ModTags.Items.CHISEL_TOOLS);
 
         valueLookupBuilder(ModTags.Items.BUNDLE_ENCHANTABLE)
-                .add(Items.BUNDLE)
                 .add(ModItems.REINFORCED_BUNDLE);
 
         valueLookupBuilder(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE)
-                .add(Items.BUNDLE)
                 .add(ModItems.REINFORCED_BUNDLE)
                 .add(Items.SHULKER_BOX);
+
+        valueLookupBuilder(ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE)
+                .add(ModItems.REINFORCED_BUNDLE)
+                .add(Items.SHULKER_BOX)
+                .addTag(ModTags.Items.CHISEL_TOOLS)
+                .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE);
     }
 }

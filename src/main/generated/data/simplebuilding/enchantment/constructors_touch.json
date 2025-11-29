@@ -12,10 +12,10 @@
     "base": 20,
     "per_level_above_first": 10
   },
-  "primary_items": "#simplebuilding:chisel_tools",
+  "primary_items": "#simplebuilding:constructors_touch_enchantable",
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#simplebuilding:chisel_tools",
+  "supported_items": "#simplebuilding:constructors_touch_enchantable",
   "weight": 1
 }

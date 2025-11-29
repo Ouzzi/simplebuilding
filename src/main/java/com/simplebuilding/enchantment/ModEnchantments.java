@@ -74,8 +74,8 @@ public class ModEnchantments {
         // Constructor's Touch (Max Level I, Treasure, Very Rare) [CHISEL, SPATULA]
         register(registerable, CONSTRUCTORS_TOUCH, Enchantment.builder(
                 Enchantment.definition(
-                        items.getOrThrow(ModTags.Items.CHISEL_TOOLS), // Ziel: Tools
-                        items.getOrThrow(ModTags.Items.CHISEL_TOOLS),
+                        items.getOrThrow(ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE), // Ziel: Tools
+                        items.getOrThrow(ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE),
                         1, // Sehr seltene Rarity (oder 10 für selten)
                         1, // Max Level I
                         Enchantment.leveledCost(20, 10),
