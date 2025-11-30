@@ -23,36 +23,36 @@ import net.minecraft.util.Identifier;
             2 fast chisel II,  (Trial/haste, Treasure, very rare), [chisel, spatula]
                 ~ [Trial Chamber (high), Libary (high), spawner (low), Villager (high)]
                 > (faster  for chisel-tools)
-            3 range, (End, Treasure, very rare), [chisel, spatula, pickaxe, axe, shulker, bundle]
-               ~ [Libary (low), end city (high), Villager (high)]
+            3 range II, (End, Treasure, very rare), [chisel, spatula, pickaxe, axe, shulker, bundle]
+                End City II, Library I, Villager I
                 > (bigger range for mining and chisel and building tools (bundle, shulker)
-            4 Quiver enchant, (End, Treasure, rare), [shulker, bundle]
-                end city, duegon, villager
+            4 Quiver I, (End, Treasure, rare), [shulker, bundle]
+                End City I, Library I, Villager I
                 > (Pfeile aus bundle oder shulker in den Bogen laden) (entweder quiver enchant oder master builder enchant) (nicht kombinierbar mit color palette)
-            5 master builder, (End, Treasure, very rare), [shulker, bundle, building wand]
-                end, library
+            5 master builder I, (End, Treasure, very rare), [shulker, bundle, building wand]
+                End City I, Library I, Villager I
                 > (places first block of shulker/bundle by right-clicking) (building wand allows to pick from other master-builder enchanted shulkers or bundles)
-            6 color palette, (Trial, Treasure, rare), [shulker, bundle, building wand]
-                Trial Chamber
+            6 color palette I, (Trial, Treasure, rare), [shulker, bundle, building wand]
+                Trial I
                 > (changes picking order first block to random but with weighted probability)
-            7 deep pockets, (Deep Dark, Treasure, rare), [bundle]
-                Deep Dark
+            7 deep pockets II, (Deep Dark, Treasure, rare), [bundle]
+                Deep Dark II
                 > (increases bundle capacity: I = 128, II = 256)
-            8 funnel, (Nether/Spawner, Treasure, common), [bundle, shulker]
-                Bastion, Fortres
+            8 funnel I, (Nether/Spawner, Treasure, common), [bundle, shulker]
+                Bastion I, Fortres I
                 > (automatically picks up items while sneaking and in hand))
-            9 break trough, (Nether, Treasure, rare), [slegehammer]
-                bastion
+            9 break trough I, (Nether, Treasure, rare), [slegehammer]
+                Bastion I
                 > (automatically picks up items while sneaking and in hand))
-            10 radius (Deep Dark, Treasure, rare), [slegehammer]
-                 deep dark
+            10 radius I, (Deep Dark, Treasure, rare), [slegehammer]
+                 deep dark I
                 > (5x5 instead of 3x3, not compatible with brak_trough)
-            11 ignore blocktype (End, Treasure, rare), [slegehammer]
-                 end ship II, end coity
+            11 ignore blocktype II, (End, Treasure, rare), [slegehammer]
+                 End Ship II, End City I
                 > (ignores blocktypes while destroying blocks, when not supported block double durrability cost, lvl 1 only supportrd blocks, lvl2 also not supported blocks)
-            12 strip miner (Nether, Treasure, very rare), [pickaxe]
-                 nether fortress, villager
-                > (I mines 2 blocks in a row, II mines 3 blocks in a row)
+            12 strip miner III (Nether, Treasure, very rare), [pickaxe]
+                 fortress III, villager II
+                > (I mines 2 blocks in a row, II mines 3 blocks in a row, III mines 5 blochs in a row)
 
  */
 
