@@ -12,6 +12,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 
 /*
@@ -48,6 +49,9 @@ import net.minecraft.util.Identifier;
             11 - ignore blocktype (Treasure enchantment, rare), [slegehammer]
                  end
                 > (ignores blocktypes while destroying blocks, when not supported block double durrability cost, lvl 1 only supportrd blocks, lvl2 also not supported blocks)
+            12 - strip miner (Treasure enchantment, very rare), [pickaxe]
+                 nether fortress, villager
+                > (I mines 2 blocks in a row, II mines 3 blocks in a row)
 
  */
 
@@ -71,6 +75,12 @@ public class ModEnchantments {
             RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "funnel"));
     public static final RegistryKey<Enchantment> BREAK_THROUGH = 
             RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "break_through"));
+    public static final RegistryKey<Enchantment> RADIUS =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "radius"));
+    public static final RegistryKey<Enchantment> IGNORE_BLOCK_TYPE =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "ignore_block_type"));
+    public static final RegistryKey<Enchantment> STRIP_MINER =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "strip_miner"));
 
 
 
@@ -185,9 +195,9 @@ public class ModEnchantments {
         )));
         
         // 9. BREAK_TROUGH (Max Level 1, Treasure, Rare) [SLEDGEHAMMER]
-        register(registerable, FUNNEL, Enchantment.builder(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE), // Nur Bundles/Shulker
-                items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
+        register(registerable, BREAK_THROUGH, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE), // Nur Bundles/Shulker
+                items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
                 2, // Weight rare
                 1, // Max Level
                 Enchantment.leveledCost(15, 15),
@@ -198,8 +208,8 @@ public class ModEnchantments {
 
         // 10. RADIUS (Max Level 1, Treasure, Very Rare, 5x5 mining) [SLEDGEHAMMER]
         register(registerable, RADIUS, Enchantment.builder(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.SLEDGEHAMMER),
-                items.getOrThrow(ModTags.Items.SLEDGEHAMMER),
+                items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
                 1, // Weight (Very Rare)
                 1, // Max Level
                 Enchantment.leveledCost(25, 20),
@@ -209,13 +219,25 @@ public class ModEnchantments {
         )));
 
         // 11. IGNORE_BLOCKTYPE (Max Level 2, Treasure, Rare) [SLEDGEHAMMER]
-        register(registerable, IGNORE_BLOCKTYPE, Enchantment.builder(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.SLEDGEHAMMER),
-                items.getOrThrow(ModTags.Items.SLEDGEHAMMER),
+        register(registerable, IGNORE_BLOCK_TYPE, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
                 2, // Weight (Rare)
                 2, // Max Level
                 Enchantment.leveledCost(20, 15),
                 Enchantment.leveledCost(70, 15),
+                4,
+                AttributeModifierSlot.MAINHAND
+        )));
+
+        // 12. STRIP_MINER (Max Level 2, Treasure, Very Rare, mines multiple blocks in a row) [PICKAXE]
+        register(registerable, STRIP_MINER, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ItemTags.PICKAXES),
+                items.getOrThrow(ItemTags.PICKAXES),
+                1, // Weight (Very Rare)
+                2, // Max Level
+                Enchantment.leveledCost(20, 10),
+                Enchantment.leveledCost(60, 10),
                 4,
                 AttributeModifierSlot.MAINHAND
         )));

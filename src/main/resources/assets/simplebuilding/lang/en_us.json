@@ -34,6 +34,16 @@
   "item.simplebuilding.diamond_building_wand": "Diamond Building Wand",
   "item.simplebuilding.netherite_building_wand": "Netherite Building Wand",
 
+  "item.simplebuilding.sledgehammer": "Sledgehammer",
+  "item.simplebuilding.stone_sledgehammer": "Stone Sledgehammer",
+    "item.simplebuilding.copper_sledgehammer": "Copper Sledgehammer",
+    "item.simplebuilding.iron_sledgehammer": "Iron Sledgehammer",
+    "item.simplebuilding.gold_sledgehammer": "Gold Sledgehammer",
+    "item.simplebuilding.diamond_sledgehammer": "Diamond Sledgehammer",
+    "item.simplebuilding.netherite_sledgehammer": "Netherite Sledgehammer",
+
+    "tooltip.simplebuilding.sledgehammer": "Use to break multiple blocks at once.",
+
   "tooltip.simplebuilding.building_wand": "Use to place more blocks at once.",
 
   "message.simplebuilding.set_pos1_first": "1:",
@@ -61,6 +71,9 @@
   "item.simplebuilding.reinforced_bundle": "Reinforced Bundle",
     "tooltip.simplebuilding.reinforced_bundle": "Can hold more items if enchanted.",
 
+  "item.simplebuilding.reinforced_shulker_box": "Reinforced Shulker Box",
+    "tooltip.simplebuilding.reinforced_shulker_box": "Can hold more items if enchanted.",
+
   "itemgroup.simplebuilding.building_items": "Building Items",
 
   "enchantment.simplebuilding.fast_chiseling": "Fast Chiseling",
@@ -71,6 +84,11 @@
   "enchantment.simplebuilding.master_builder": "Master Builder",
   "enchantment.simplebuilding.color_palette": "Color Palette",
   "enchantment.simplebuilding.funnel": "Item Funnel",
+  "enchantment.simplebuilding.quiver": "Quiver",
+  "enchantment.simplebuilding.break_through": "Break Through",
+  "enchantment.simplebuilding.ignore_block_type": "Ignore Block Type",
+  "enchantment.simplebuilding.radius": "Radius",
+  "enchantment.simplebuilding.strip_miner": "Strip Miner",
 
 
   "container.enchantments": "Enchantments",

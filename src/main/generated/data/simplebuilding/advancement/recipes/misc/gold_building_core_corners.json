@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:diamond_building_core"
+        "recipe": "simplebuilding:gold_building_core_corners"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:diamond_building_core"
+      "simplebuilding:gold_building_core_corners"
     ]
   }
 }

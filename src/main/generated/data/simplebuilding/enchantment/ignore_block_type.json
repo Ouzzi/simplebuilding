@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.simplebuilding.ignore_block_type"
+  },
+  "max_cost": {
+    "base": 70,
+    "per_level_above_first": 15
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 20,
+    "per_level_above_first": 15
+  },
+  "primary_items": "#simplebuilding:sledgehammer_tools",
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#simplebuilding:sledgehammer_tools",
+  "weight": 2
+}

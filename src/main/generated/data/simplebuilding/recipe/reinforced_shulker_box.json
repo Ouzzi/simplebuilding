@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "minecraft:shulker_box",
+    "F": "minecraft:shulker_shell",
+    "L": "simplebuilding:reinforced_bundle",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    " S ",
+    "FBF",
+    "LLL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:reinforced_shulker_box"
+  }
+}

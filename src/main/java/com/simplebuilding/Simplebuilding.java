@@ -1,5 +1,6 @@
 package com.simplebuilding;
 
+import com.simplebuilding.block.ModBlocks;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantmentEffects;
 import com.simplebuilding.items.ModItemGroups;
@@ -45,26 +46,14 @@ public class Simplebuilding implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Starting Simplebuilding initialization...");
 
-        // Registriert alle Item Gruppen (Creative Tabs)
+        ModBlocks.registerModBlocks();
+        ModItems.registerModItems();
         ModItemGroups.registerItemGroups();
-
-        // Registriert alle Custom Items des Mods.
-		ModItems.registerModItems();
-
-		// Registriert alle Crafting- und Schmelzrezepte des Mods.
 		ModRecipes.registerRecipes();
-
-        // Registriert alle Loot Table Modifikationen des Mods.
         ModLootTableModifiers.modifyLootTables();
-
-        // Registriert benutzerdefinierte Handelsangebote für Dorfbewohner
         ModTradeOffers.registerModTradeOffers();
-
-        // Registriert alle benutzerdefinierten Datenkomponenten des Mods.
         ModDataComponentTypes.registerDataComponentTypes();
-
         ModEnchantmentEffects.registerEnchantmentEffects();
-
         registerCauldronBehavior();
 
 	}

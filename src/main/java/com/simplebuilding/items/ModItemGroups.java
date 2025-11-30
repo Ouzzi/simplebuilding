@@ -43,6 +43,13 @@ public class ModItemGroups {
                         entries.add(ModItems.DIAMOND_BUILDING_WAND);
                         entries.add(ModItems.NETHERITE_BUILDING_WAND);
 
+                        entries.add(ModItems.STONE_SLEDGEHAMMER);
+                        entries.add(ModItems.COPPER_SLEDGEHAMMER);
+                        entries.add(ModItems.IRON_SLEDGEHAMMER);
+                        entries.add(ModItems.GOLD_SLEDGEHAMMER);
+                        entries.add(ModItems.DIAMOND_SLEDGEHAMMER);
+                        entries.add(ModItems.NETHERITE_SLEDGEHAMMER);
+
                         entries.add(ModItems.RANGEFINDER_ITEM);
 
                         for (DyeColor color : DyeColor.values()) {
@@ -53,6 +60,7 @@ public class ModItemGroups {
                         }
 
                         entries.add(ModItems.REINFORCED_BUNDLE);
+                        entries.add(ModItems.REINFORCED_SHULKER_BOX);
 
 
                     }).build());

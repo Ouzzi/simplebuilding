@@ -46,7 +46,14 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         valueLookupBuilder(ItemTags.DURABILITY_ENCHANTABLE)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
-                .addTag(ModTags.Items.OCTANTS_ENCHANTABLE);
+                .addTag(ModTags.Items.OCTANTS_ENCHANTABLE)
+                .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
+
+        valueLookupBuilder(ItemTags.MINING_ENCHANTABLE)
+                .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
+
+        valueLookupBuilder(ItemTags.MINING_LOOT_ENCHANTABLE)
+                .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
 
         valueLookupBuilder(ItemTags.VANISHING_ENCHANTABLE)
                 .addTag(ModTags.Items.CHISEL_TOOLS);
@@ -63,5 +70,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(Items.SHULKER_BOX)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE);
+
+        valueLookupBuilder(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
+                .add(ModItems.STONE_SLEDGEHAMMER)
+                .add(ModItems.COPPER_SLEDGEHAMMER)
+                .add(ModItems.IRON_SLEDGEHAMMER)
+                .add(ModItems.GOLD_SLEDGEHAMMER)
+                .add(ModItems.DIAMOND_SLEDGEHAMMER)
+                .add(ModItems.NETHERITE_SLEDGEHAMMER);
     }
 }

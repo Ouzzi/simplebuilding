@@ -1,11 +1,10 @@
 package com.simplebuilding.items;
 
 import com.simplebuilding.Simplebuilding;
-import com.simplebuilding.items.custom.BuildingWandItem;
-import com.simplebuilding.items.custom.ChiselItem;
-import com.simplebuilding.items.custom.RangefinderItem;
-import com.simplebuilding.items.custom.ReinforcedBundleItem;
+import com.simplebuilding.block.ModBlocks;
+import com.simplebuilding.items.custom.*;
 import net.minecraft.item.Item;
+import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -81,14 +80,23 @@ public class ModItems {
     public static final BuildingWandItem DIAMOND_BUILDING_WAND = registerBuildingWand("diamond_building_wand", DURABILITY_DIAMOND * DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_DIAMOND, ENCHANTABILITY_DIAMOND);
     public static final BuildingWandItem NETHERITE_BUILDING_WAND = registerBuildingWand("netherite_building_wand", DURABILITY_NETHERITE * DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_NETHERITE, ENCHANTABILITY_NETHERITE);
 
+    // Sledgehammer
+    public static final SledgehammerItem STONE_SLEDGEHAMMER = registerSledgehammer("stone_sledgehammer", DURABILITY_WOOD_STONE, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE, SledgehammerItem.STONE_ATTACK_DAMAGE, SledgehammerItem.STONE_ATTACK_SPEED);
+    public static final SledgehammerItem COPPER_SLEDGEHAMMER = registerSledgehammer("copper_sledgehammer", DURABILITY_WOOD_STONE, ENCHANTABILITY_COPPER, ToolMaterial.COPPER, SledgehammerItem.COPPER_ATTACK_DAMAGE, SledgehammerItem.COPPER_ATTACK_SPEED);
+    public static final SledgehammerItem IRON_SLEDGEHAMMER = registerSledgehammer("iron_sledgehammer", DURABILITY_IRON, ENCHANTABILITY_IRON, ToolMaterial.IRON, SledgehammerItem.IRON_ATTACK_DAMAGE, SledgehammerItem.IRON_ATTACK_SPEED);
+    public static final SledgehammerItem GOLD_SLEDGEHAMMER = registerSledgehammer("gold_sledgehammer", DURABILITY_GOLD, ENCHANTABILITY_GOLD, ToolMaterial.GOLD, SledgehammerItem.GOLD_ATTACK_DAMAGE, SledgehammerItem.GOLD_ATTACK_SPEED);
+    public static final SledgehammerItem DIAMOND_SLEDGEHAMMER = registerSledgehammer("diamond_sledgehammer", DURABILITY_DIAMOND, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND, SledgehammerItem.DIAMOND_ATTACK_DAMAGE, SledgehammerItem.DIAMOND_ATTACK_SPEED);
+    public static final SledgehammerItem NETHERITE_SLEDGEHAMMER = registerSledgehammer("netherite_sledgehammer", DURABILITY_NETHERITE, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE, SledgehammerItem.NETHERITE_ATTACK_DAMAGE, SledgehammerItem.NETHERITE_ATTACK_SPEED);
+
     // Rangefinder
     public static final RangefinderItem RANGEFINDER_ITEM = (RangefinderItem) registerItem("rangefinder",
             settings -> new RangefinderItem(settings.maxDamage(DURABILITY_RANGEFINDER).enchantable(ENCHANTABILITY_NETHERITE), null));
 
     public static final Map<DyeColor, RangefinderItem> COLORED_RANGEFINDERS = new HashMap<>();
 
-    // Reinforced Bundle
+    // Reinforced Items
     public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1)));
+    public static final Item REINFORCED_SHULKER_BOX = registerItem("reinforced_shulker_box", settings -> new ReinforcedShulkerBoxItem(ModBlocks.REINFORCED_SHULKER_BOX, settings.maxCount(1)));
 
     // =================================================================================
     // HILFSMETHODEN
@@ -112,6 +120,11 @@ public class ModItems {
         BuildingWandItem wand = (BuildingWandItem) registerItem(name, settings -> new BuildingWandItem(settings.maxDamage(maxDamage).enchantable(enchantability)));
         wand.setWandSquareDiameter(wandSquareDiameter);
         return wand;
+    }
+
+    private static SledgehammerItem registerSledgehammer(String name, int durability, int enchantability, ToolMaterial toolMaterial, int attackDamage, float attackSpeed) {
+        SledgehammerItem sledgehammer = (SledgehammerItem) registerItem(name, settings -> new SledgehammerItem(toolMaterial, attackDamage, attackSpeed, settings.maxDamage(durability).enchantable(enchantability)));
+        return sledgehammer;
     }
 
     private static Item registerItem(String name, Function<Item.Settings, Item> function) {

@@ -1,22 +1,12 @@
 package com.simplebuilding.datagen;
 
-import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.*;
-import net.minecraft.client.item.ItemAsset;
-import net.minecraft.client.render.item.model.ConditionItemModel;
-import net.minecraft.client.render.item.model.ItemModel;
-import net.minecraft.client.render.item.property.bool.HasComponentProperty;
-import net.minecraft.client.render.model.json.ModelVariant;
-import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.item.Item;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.Pool;
 
-import java.util.Optional;
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
@@ -71,8 +61,19 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DIAMOND_BUILDING_WAND, Models.HANDHELD);
         itemModelGenerator.register(ModItems.NETHERITE_BUILDING_WAND, Models.HANDHELD);
 
+        // SLEDGEHAMMER
+        itemModelGenerator.register(ModItems.STONE_SLEDGEHAMMER, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.COPPER_SLEDGEHAMMER, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.IRON_SLEDGEHAMMER, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.GOLD_SLEDGEHAMMER, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.DIAMOND_SLEDGEHAMMER, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.NETHERITE_SLEDGEHAMMER, Models.HANDHELD);
+
         // --- 6. REINFORCED BUNDLES (Generated / Flach) ---
         itemModelGenerator.register(ModItems.REINFORCED_BUNDLE, Models.GENERATED);
+
+        // REINFORCED SHULKER BOXES
+        itemModelGenerator.register(ModItems.REINFORCED_SHULKER_BOX, Models.GENERATED);
 
     }
 }

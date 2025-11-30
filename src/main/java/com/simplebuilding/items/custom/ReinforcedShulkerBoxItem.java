@@ -33,9 +33,9 @@ import java.util.function.Consumer;
 
 // Dieses Item verhält sich wie ein Bundle im Inventar,
 // kann aber als Block platziert werden (Shulker Box).
-public class ReinforcedShulkerItem extends BlockItem {
+public class ReinforcedShulkerBoxItem extends BlockItem {
 
-    public ReinforcedShulkerItem(Block block, Settings settings) {
+    public ReinforcedShulkerBoxItem(Block block, Settings settings) {
         super(block, settings);
     }
 

@@ -4,12 +4,11 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -26,23 +25,30 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
-public class SledgehammerItem extends PickaxeItem {
+public class SledgehammerItem extends Item {
 
-    public SledgehammerItem(ToolMaterial material, Settings settings) {
-        // Attack Speed -3.0F macht es sehr langsam und wuchtig im Kampf
-        super(material, settings.attributeModifiers(PickaxeItem.createAttributeModifiers(material, 6.0F, -3.0F)));
+    public static final int STONE_ATTACK_DAMAGE = 3;
+    public static final int COPPER_ATTACK_DAMAGE = 4;
+    public static final int IRON_ATTACK_DAMAGE = 5;
+    public static final int GOLD_ATTACK_DAMAGE = 4;
+    public static final int DIAMOND_ATTACK_DAMAGE = 6;
+    public static final int NETHERITE_ATTACK_DAMAGE = 7;
+
+    public static final float STONE_ATTACK_SPEED = -4.0f;
+    public static final float COPPER_ATTACK_SPEED = -3.8f;
+    public static final float IRON_ATTACK_SPEED = -3.6f;
+    public static final float GOLD_ATTACK_SPEED = -3.4f;
+    public static final float DIAMOND_ATTACK_SPEED = -3.2f;
+    public static final float NETHERITE_ATTACK_SPEED = -2.0f;
+
+    public SledgehammerItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
+        super(settings.pickaxe(material, attackDamage, attackSpeed));
     }
 
     // =============================================================
-    // 1. Abbau-Geschwindigkeit
+    // 1. Abbau-Geschwindigkeit // TODO
     // =============================================================
-    @Override
-    public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-        float baseSpeed = super.getMiningSpeedMultiplier(stack, state);
-        // Wir teilen die Geschwindigkeit durch 3, um das Abbauen von 3x3 zu simulieren.
-        // (Für exakte 1/5 Speed beim Sneaken bräuchte man ein Mixin in PlayerEntity)
-        return baseSpeed / 3.0f;
-    }
+
 
     // =============================================================
     // 2. Die Abbau-Logik (postMine)
@@ -50,11 +56,11 @@ public class SledgehammerItem extends PickaxeItem {
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
         // Standard Abnutzung für den Hauptblock
-        if (!world.isClient && state.getHardness(world, pos) != 0.0F) {
+        if (!world.isClient() && state.getHardness(world, pos) != 0.0F) {
             stack.damage(1, miner, EquipmentSlot.MAINHAND);
         }
 
-        if (miner instanceof ServerPlayerEntity player && !world.isClient) {
+        if (miner instanceof ServerPlayerEntity player && !world.isClient()) {
             // Nur wenn das Werkzeug korrekt ist (z.B. Stein vs Holz)
             if (isCorrectForDrops(stack, state)) {
                 breakConnectedArea(world, player, pos, state, stack);

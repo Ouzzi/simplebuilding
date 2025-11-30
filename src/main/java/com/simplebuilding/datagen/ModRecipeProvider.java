@@ -1,6 +1,5 @@
 package com.simplebuilding.datagen;
 
-import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -12,7 +11,6 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -105,6 +103,26 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
                  .offerTo(exporter, getItemPath(ModItems.NETHERITE_BUILDING_WAND) + "_smithing");
 
+                // =================================================================
+                // SLEDGEHAMMER
+                // =================================================================
+                createSledgehammerRecipe(ModItems.STONE_SLEDGEHAMMER, Items.STONE, Items.IRON_INGOT);
+                createSledgehammerRecipe(ModItems.COPPER_SLEDGEHAMMER, Items.COPPER_INGOT, Items.COPPER_BLOCK);
+                createSledgehammerRecipe(ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, Items.IRON_BLOCK);
+                createSledgehammerRecipe(ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, Items.GOLD_BLOCK);
+                createSledgehammerRecipe(ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, Items.DIAMOND_BLOCK);
+
+                // Netherite Sledgehammer -> Smithing Upgrade
+                SmithingTransformRecipeJsonBuilder.create(
+                        Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                        Ingredient.ofItems(ModItems.DIAMOND_SLEDGEHAMMER),
+                        Ingredient.ofItems(Items.NETHERITE_INGOT),
+                        RecipeCategory.TOOLS,
+                        ModItems.NETHERITE_SLEDGEHAMMER
+                ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
+                 .offerTo(exporter, getItemPath(ModItems.NETHERITE_SLEDGEHAMMER) + "_smithing");
+
+
 
                 // =================================================================
                 // RANGEFINDER (Antik / Octant Style)
@@ -149,6 +167,20 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input('S', Items.STRING)
                         .criterion(hasItem(Items.BUNDLE), conditionsFromItem(Items.BUNDLE))
                         .offerTo(exporter);
+
+                // =================================================================
+                // REINFORCED SHULKER BOX
+                // =================================================================
+                createShaped(RecipeCategory.TOOLS, ModItems.REINFORCED_SHULKER_BOX)
+                        .pattern(" S ")
+                        .pattern("FBF")
+                        .pattern("LLL")
+                        .input('L', ModItems.REINFORCED_BUNDLE)
+                        .input('B', Items.SHULKER_BOX)
+                        .input('F', Items.SHULKER_SHELL)
+                        .input('S', Items.STRING)
+                        .criterion(hasItem(Items.SHULKER_BOX), conditionsFromItem(Items.SHULKER_BOX))
+                        .offerTo(exporter);
             }
 
             // --- Helper Methods to keep generate() clean ---
@@ -185,7 +217,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input('M', material)
                         .input('N', Items.NETHER_STAR)
                         .criterion(hasItem(Items.NETHER_STAR), conditionsFromItem(Items.NETHER_STAR))
-                        .offerTo(exporter);
+                        .offerTo(exporter, getItemPath(output) + "_plus");
                 createShaped(RecipeCategory.MISC, output)
                         .pattern("M M")
                         .pattern(" N ")
@@ -193,7 +225,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input('M', material)
                         .input('N', Items.NETHER_STAR)
                         .criterion(hasItem(Items.NETHER_STAR), conditionsFromItem(Items.NETHER_STAR))
-                        .offerTo(exporter);
+                        .offerTo(exporter, getItemPath(output) + "_corners");
             }
 
             private void createWandRecipe(Item output, Item core, Item material) {
@@ -205,6 +237,18 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input('S', Items.STICK)
                         .input('M', material)
                         .criterion(hasItem(core), conditionsFromItem(core))
+                        .offerTo(exporter);
+            }
+
+            private void createSledgehammerRecipe(Item output, Item material, Item block) {
+                createShaped(RecipeCategory.TOOLS, output)
+                        .pattern("BMM")
+                        .pattern(" S ")
+                        .pattern(" S ")
+                        .input('M', material)
+                        .input('B', block)
+                        .input('S', Items.STICK)
+                        .criterion(hasItem(material), conditionsFromItem(material))
                         .offerTo(exporter);
             }
         };
