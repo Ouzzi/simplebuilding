@@ -1,4 +1,7 @@
+TODO: add ReinforcedShulkerBoxBlockEntity
+
 package com.simplebuilding.items.custom;
+
 
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;

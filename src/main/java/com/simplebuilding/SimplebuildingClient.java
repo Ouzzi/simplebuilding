@@ -1,5 +1,6 @@
 package com.simplebuilding;
 
+import com.simplebuilding.block.entity.ModBlockEntities;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.util.BundleTooltipAccessor;
@@ -7,6 +8,8 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.minecraft.client.gui.tooltip.BundleTooltipComponent;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.block.entity.ShulkerBoxBlockEntityRenderer;
 
 public class SimplebuildingClient implements ClientModInitializer {
     @Override
@@ -29,6 +32,12 @@ public class SimplebuildingClient implements ClientModInitializer {
             }
             return null;
         });
+
+        /* TODO: add ReinforcedShulkerBoxBlockEntity
+        BlockEntityRendererFactories.register(
+                ModBlockEntities.REINFORCED_SHULKER_BOX_ENTITY,
+                ShulkerBoxBlockEntityRenderer::new
+        );*/
     }
 
 }

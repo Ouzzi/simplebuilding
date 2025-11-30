@@ -60,7 +60,9 @@ public class ModItemGroups {
                         }
 
                         entries.add(ModItems.REINFORCED_BUNDLE);
+                        /* TODO: add ReinforcedShulkerBoxBlockEntity
                         entries.add(ModItems.REINFORCED_SHULKER_BOX);
+                         */
 
 
                     }).build());

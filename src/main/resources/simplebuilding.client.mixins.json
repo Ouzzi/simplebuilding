@@ -4,11 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "WorldRendererMixin",
-    "BundleTooltipComponentMixin",
-    "ShulkerBoxScreenMixin",
-    "ShulkerBoxScreenHandlerAccessor",
-    "ShulkerBoxBlockEntityRendererMixin",
-    "ShulkerBoxBlockEntityRenderStateMixin"
+    "BundleTooltipComponentMixin"
   ],
   "injectors": { "defaultRequire": 1 }
 }

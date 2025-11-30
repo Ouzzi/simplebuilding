@@ -1,6 +1,7 @@
 package com.simplebuilding;
 
 import com.simplebuilding.block.ModBlocks;
+import com.simplebuilding.block.entity.ModBlockEntities;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantmentEffects;
 import com.simplebuilding.items.ModItemGroups;
@@ -48,6 +49,7 @@ public class Simplebuilding implements ModInitializer {
 
         ModBlocks.registerModBlocks();
         ModItems.registerModItems();
+        ModBlockEntities.registerBlockEntities();
         ModItemGroups.registerItemGroups();
 		ModRecipes.registerRecipes();
         ModLootTableModifiers.modifyLootTables();

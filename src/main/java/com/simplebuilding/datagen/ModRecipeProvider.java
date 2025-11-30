@@ -171,6 +171,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // REINFORCED SHULKER BOX
                 // =================================================================
+                /* TODO: add ReinforcedShulkerBoxBlockEntity
                 createShaped(RecipeCategory.TOOLS, ModItems.REINFORCED_SHULKER_BOX)
                         .pattern(" S ")
                         .pattern("FBF")
@@ -181,6 +182,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input('S', Items.STRING)
                         .criterion(hasItem(Items.SHULKER_BOX), conditionsFromItem(Items.SHULKER_BOX))
                         .offerTo(exporter);
+                        */
             }
 
             // --- Helper Methods to keep generate() clean ---

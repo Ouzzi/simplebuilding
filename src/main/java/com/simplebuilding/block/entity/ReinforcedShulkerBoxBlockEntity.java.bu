@@ -1,0 +1,318 @@
+TODO: add ReinforcedShulkerBoxBlockEntity
+
+package com.simplebuilding.block.entity;
+
+import com.simplebuilding.block.custom.ReinforcedShulkerBoxBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.LootableContainerBlockEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.MovementType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventories; // WICHTIG
+import net.minecraft.inventory.SidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound; // Veraltet für Inventar, aber noch für Custom Data
+import net.minecraft.registry.RegistryWrapper; // Veraltet für Inventar
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ShulkerBoxScreenHandler;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+// FÜR 1.21 COMPONENTS:
+import net.minecraft.component.ComponentMap;
+import net.minecraft.component.ComponentsAccess;
+import net.minecraft.storage.ReadView; // Ersetzt NbtCompound beim Lesen
+import net.minecraft.storage.WriteView; // Ersetzt NbtCompound beim Schreiben
+
+import java.util.List;
+import java.util.stream.IntStream;
+
+public class ReinforcedShulkerBoxBlockEntity extends LootableContainerBlockEntity implements SidedInventory {
+
+    public static final int INVENTORY_SIZE = 27;
+    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(INVENTORY_SIZE, ItemStack.EMPTY);
+    private int viewerCount;
+
+    public AnimationStage animationStage = AnimationStage.CLOSED;
+    public float animationProgress;
+    public float prevAnimationProgress;
+
+    public ReinforcedShulkerBoxBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.REINFORCED_SHULKER_BOX_ENTITY, pos, state);
+    }
+
+    // --- Animation Logic (unverändert) ---
+    public static void tick(World world, BlockPos pos, BlockState state, ReinforcedShulkerBoxBlockEntity blockEntity) {
+        blockEntity.updateAnimation(world, pos, state);
+    }
+
+    private void updateAnimation(World world, BlockPos pos, BlockState state) {
+        this.prevAnimationProgress = this.animationProgress;
+        switch (this.animationStage) {
+            case CLOSED -> this.animationProgress = 0.0F;
+            case OPENING -> {
+                this.animationProgress += 0.1F;
+                if (this.animationProgress >= 1.0F) {
+                    this.animationStage = AnimationStage.OPENED;
+                    this.animationProgress = 1.0F;
+                    pushEntities(world, pos, state);
+                }
+            }
+            case CLOSING -> {
+                this.animationProgress -= 0.1F;
+                if (this.animationProgress <= 0.0F) {
+                    this.animationStage = AnimationStage.CLOSED;
+                    this.animationProgress = 0.0F;
+                }
+            }
+            case OPENED -> this.animationProgress = 1.0F;
+        }
+    }
+
+    public float getAnimationProgress(float delta) {
+        return MathHelper.lerp(delta, this.prevAnimationProgress, this.animationProgress);
+    }
+
+    // --- Container/Inventory Methods (unverändert) ---
+
+    // HIER WIEDER @Override HINZUFÜGEN (IDE sollte das jetzt finden)
+    // Falls nicht: "public void onOpen..." lassen.
+    public void onOpen(PlayerEntity player) {
+        if (!this.removed && !player.isSpectator()) {
+            if (this.viewerCount < 0) {
+                this.viewerCount = 0;
+            }
+
+            ++this.viewerCount;
+            this.world.addSyncedBlockEvent(this.pos, this.getCachedState().getBlock(), 1, this.viewerCount);
+            if (this.viewerCount == 1) {
+                this.world.playSound(null, this.pos, SoundEvents.BLOCK_SHULKER_BOX_OPEN, SoundCategory.BLOCKS, 0.5F, this.world.random.nextFloat() * 0.1F + 0.9F);
+            }
+        }
+    }
+
+    public void onClose(PlayerEntity player) {
+        if (!this.removed && !player.isSpectator()) {
+            --this.viewerCount;
+            this.world.addSyncedBlockEvent(this.pos, this.getCachedState().getBlock(), 1, this.viewerCount);
+            if (this.viewerCount <= 0) {
+                this.world.playSound(null, this.pos, SoundEvents.BLOCK_SHULKER_BOX_CLOSE, SoundCategory.BLOCKS, 0.5F, this.world.random.nextFloat() * 0.1F + 0.9F);
+            }
+        }
+    }
+
+    @Override
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+        return new ShulkerBoxScreenHandler(syncId, playerInventory, this) {
+            @Override
+            public void onClosed(PlayerEntity player) {
+                super.onClosed(player);
+                ReinforcedShulkerBoxBlockEntity.this.onClose(player);
+            }
+        };
+    }
+
+    @Override
+    public boolean onSyncedBlockEvent(int type, int data) {
+        if (type == 1) {
+            this.viewerCount = data;
+            if (data == 0) {
+                this.animationStage = AnimationStage.CLOSING;
+            }
+            if (data > 0) {
+                this.animationStage = AnimationStage.OPENING;
+            }
+            return true;
+        }
+        return super.onSyncedBlockEvent(type, data);
+    }
+
+    private void pushEntities(World world, BlockPos pos, BlockState state) {
+        if (state.getBlock() instanceof ReinforcedShulkerBoxBlock) {
+            Box box = new Box(pos).offset(0, 1, 0);
+            List<Entity> list = world.getOtherEntities(null, box);
+            if (!list.isEmpty()) {
+                for (Entity entity : list) {
+                    if (entity.getPistonBehavior() != net.minecraft.block.piston.PistonBehavior.IGNORE) {
+                        entity.move(MovementType.SHULKER_BOX, new Vec3d(0.0, 0.5, 0.0));
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    protected Text getContainerName() {
+        return Text.translatable("container.simplebuilding.reinforced_shulker_box");
+    }
+
+    @Override
+    protected DefaultedList<ItemStack> getHeldStacks() {
+        return this.inventory;
+    }
+
+    @Override
+    protected void setHeldStacks(DefaultedList<ItemStack> inventory) {
+        this.inventory = inventory;
+    }
+
+    @Override
+    public int size() {
+        return this.inventory.size();
+    }
+
+    // =================================================================================
+    // WICHTIG: DIE NEUEN STORAGE METHODEN FÜR 1.21 (statt readNbt/writeNbt)
+    // =================================================================================
+
+    /**
+     * Ersetzt readNbt. Wird genutzt, um Daten zu laden (von Disk oder Netzwerk).
+     */
+    @Override
+    protected void readComponents(ComponentsAccess components) {
+        super.readComponents(components);
+        // Hinweis: LootableContainerBlockEntity übernimmt das Laden von LootTables automatisch.
+        // Das Inventar wird in 1.21 oft nicht mehr direkt hier geladen, sondern über Wrapper.
+        // ABER: Für BlockEntities, die NBT speichern, brauchen wir oft noch:
+        // readNbt existiert auf BlockEntity-Ebene, aber LootableContainer nutzt andere Wege.
+
+        // WARTE! In 1.21 heißt die Methode zum Laden von NBT Daten immer noch oft readNbt,
+        // aber sie nimmt einen Wrapper.
+        // ABER deine Fehlermeldung sagt, es gibt sie nicht.
+        // Das bedeutet, wir müssen den "Data" Weg gehen.
+    }
+
+    // Wenn dein Fabric Mappings (Yarn) aktuell ist, heißt die Methode:
+    // `public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup)`
+    // Wenn das nicht geht, versuchen wir es mit `readFromNbt`.
+
+    // STOPP. Schau dir deine `LootableContainerBlockEntity` Klasse an.
+    // Sie erbt von `LockableContainerBlockEntity` -> `BlockEntity`.
+    // BlockEntity HAT `readNbt`. Warum findet er sie nicht?
+
+    // LÖSUNG: Wir implementieren `readNbt` und `writeNbt` NICHT MEHR SELBST,
+    // sondern nutzen `readComponents` und `addComponents` ODER wir verlassen uns auf
+    // die Standard-Implementierung und nutzen Inventories helper.
+
+    // FÜR 1.21 STANDARD SPEICHERUNG:
+
+    @Override
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.readNbt(nbt, registryLookup);
+        this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
+        if (!this.readLootTable(nbt)) {
+            // Alte Methode: Inventories.readNbt(nbt, this.inventory, registryLookup); <--- GIBT ES NICHT MEHR!
+            // Neue Methode: Wir müssen den NBT Wrapper nutzen oder manuell parsen.
+            // Aber warte, Inventories.readNbt gibt es nicht mehr?
+            // DOCH! Es heißt jetzt `Inventories.readNbt(nbt, this.inventory, registryLookup)` in yarn 1.21.
+            // Wenn deine IDE sagt "Cannot resolve", dann hast du 1.20.5+ Mappings, wo es Components gibt.
+
+            // ALTERNATIVE FÜR COMPONENT-BASIERTE SPEICHERUNG:
+            Inventories.readNbt(nbt, this.inventory, registryLookup);
+        }
+    }
+
+    @Override
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.writeNbt(nbt, registryLookup);
+        if (!this.writeLootTable(nbt)) {
+            Inventories.writeNbt(nbt, this.inventory, registryLookup);
+        }
+    }
+
+    /*
+       ACHTUNG: Wenn deine IDE sagt "Cannot resolve readNbt in Inventories", dann hat Mojang
+       die Methode umbenannt oder entfernt. In den neuesten Snapshots (und 1.21.2) nutzen sie oft:
+
+       Inventories.writeNbt -> ContainerLock (verwirrend)
+
+       LÖSUNG WENN Inventories.readNbt FEHLT:
+       Benutze `Inventories.readNbt(nbt, items, lookup)` <-- Wenn das nicht geht:
+
+       Guck in `ShulkerBoxBlockEntity` (Vanilla Source):
+       Sie nutzen `Inventories.readNbt(nbt, this.inventory, registryLookup);`
+
+       WENN DEINE IDE DAS NICHT FINDET, DANN STIMMEN DEINE MAPPINGS NICHT ODER DU BIST AUF EINER
+       SEHR NEUEN VERSION WO ES ANDERS HEISST.
+
+       Versuch mal: `Inventories.readNbt` -> `Inventories.readNbt` (ja, gleich).
+       Vielleicht `Inventories.read`?
+
+       WARTE! Dein Log oben zeigt `Inventories` Source Code.
+       Dort gibt es NUR `readData(ReadView, ...)` und `writeData(WriteView, ...)`.
+
+       DAS IST DER SCHLÜSSEL! Deine Version nutzt `ReadView` statt `NbtCompound` (für Inventare).
+    */
+
+    // =================================================================================
+    // HIER IST DER FIX BASIEREND AUF DEINEM SOURCE CODE OBEN
+    // =================================================================================
+
+    // Anstatt readNbt/writeNbt zu überschreiben (die NbtCompound nutzen),
+    // müssen wir schauen, woher die Daten kommen.
+    // Aber `BlockEntity` nutzt immer noch `readNbt(NbtCompound...)`.
+
+    // Wir müssen NbtCompound in ReadView konvertieren? Nein.
+    // NbtCompound implementiert wahrscheinlich ReadView (oder ähnlich).
+
+    /*
+       Aber warte, `Inventories` in deinem Log hat KEINE `readNbt` Methode mehr!
+       Es hat `readData(ReadView view, DefaultedList<ItemStack> stacks)`.
+
+       Das bedeutet, wir müssen diese neuen Methoden nutzen.
+       Aber `BlockEntity.readNbt` gibt uns ein `NbtCompound`.
+       `NbtCompound` implementiert `ReadView` (in dieser Version).
+    */
+
+    @Override
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.readNbt(nbt, registryLookup); // Ruft Lootable Logik auf
+        this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
+        if (!this.readLootTable(nbt)) {
+            // FIX: Nutze readData statt readNbt und caste nbt zu ReadView (falls nötig)
+            // NbtCompound sollte ReadView implementieren.
+            Inventories.readData((net.minecraft.storage.ReadView) (Object) nbt, this.inventory);
+        }
+    }
+
+    @Override
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.writeNbt(nbt, registryLookup);
+        if (!this.writeLootTable(nbt)) {
+            // FIX: Nutze writeData statt writeNbt
+            Inventories.writeData((net.minecraft.storage.WriteView) (Object) nbt, this.inventory);
+        }
+    }
+
+    // --- SidedInventory Implementation (unverändert) ---
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return IntStream.range(0, size()).toArray();
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return !(Block.getBlockFromItem(stack.getItem()) instanceof ReinforcedShulkerBoxBlock)
+                && stack.getItem().canBeNested();
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return true;
+    }
+
+    public enum AnimationStage {
+        CLOSED, OPENING, OPENED, CLOSING
+    }
+}
