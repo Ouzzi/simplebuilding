@@ -18,22 +18,22 @@ import net.minecraft.util.Identifier;
 /*
     Enchantments:
             1 constructors touch I, (Trial, Treasure, very rare), [chisel, spatula, rangefinder]
-                ~ [Trial Chamber (high), Libary (high), spawner (low), Villager (high)]
+                Trial I, Burried Tresure I
                 > (custom chiel maps for each tier netherite obsidian to crying obsidian; diamond stone to cobble; iron cobble to mossy cobble; stone log to stripped log, ...;
             2 fast chisel II,  (Trial/haste, Treasure, very rare), [chisel, spatula]
-                ~ [Trial Chamber (high), Libary (high), spawner (low), Villager (high)]
+                Buried Treasure II, Spawner II, Villager I
                 > (faster  for chisel-tools)
-            3 range II, (End, Treasure, very rare), [chisel, spatula, pickaxe, axe, shulker, bundle]
-                End City II, Library I, Villager I
+            3 range III, (End, Treasure, very rare), [chisel, spatula, pickaxe, axe, shulker, bundle]
+                End City III, Library II, Villager I
                 > (bigger range for mining and chisel and building tools (bundle, shulker)
             4 Quiver I, (End, Treasure, rare), [shulker, bundle]
-                End City I, Library I, Villager I
+                End City I, Library I
                 > (Pfeile aus bundle oder shulker in den Bogen laden) (entweder quiver enchant oder master builder enchant) (nicht kombinierbar mit color palette)
             5 master builder I, (End, Treasure, very rare), [shulker, bundle, building wand]
                 End City I, Library I, Villager I
                 > (places first block of shulker/bundle by right-clicking) (building wand allows to pick from other master-builder enchanted shulkers or bundles)
-            6 color palette I, (Trial, Treasure, rare), [shulker, bundle, building wand]
-                Trial I
+            6 color palette I, (Pilage, Treasure, rare), [shulker, bundle, building wand]
+                Pillager Outpost I, Villager I
                 > (changes picking order first block to random but with weighted probability)
             7 deep pockets II, (Deep Dark, Treasure, rare), [bundle]
                 Deep Dark II
@@ -45,13 +45,13 @@ import net.minecraft.util.Identifier;
                 Bastion I
                 > (automatically picks up items while sneaking and in hand))
             10 radius I, (Deep Dark, Treasure, rare), [slegehammer]
-                 deep dark I
+                deep dark I
                 > (5x5 instead of 3x3, not compatible with brak_trough)
             11 ignore blocktype II, (End, Treasure, rare), [slegehammer]
                  End Ship II, End City I
                 > (ignores blocktypes while destroying blocks, when not supported block double durrability cost, lvl 1 only supportrd blocks, lvl2 also not supported blocks)
             12 strip miner III (Nether, Treasure, very rare), [pickaxe]
-                 fortress III, villager II
+                Fortress III, villager I
                 > (I mines 2 blocks in a row, II mines 3 blocks in a row, III mines 5 blochs in a row)
 
  */
@@ -231,12 +231,12 @@ public class ModEnchantments {
                 AttributeModifierSlot.MAINHAND
         )));
 
-        // 12. STRIP_MINER (Max Level 2, Treasure, Very Rare, mines multiple blocks in a row) [PICKAXE]
+        // 12. STRIP_MINER (Max Level 3, Treasure, Very Rare, mines multiple blocks in a row) [PICKAXE]
         register(registerable, STRIP_MINER, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ItemTags.PICKAXES),
                 items.getOrThrow(ItemTags.PICKAXES),
                 1, // Weight (Very Rare)
-                2, // Max Level
+                3, // Max Level
                 Enchantment.leveledCost(20, 10),
                 Enchantment.leveledCost(60, 10),
                 4,
