@@ -17,39 +17,40 @@ import net.minecraft.util.Identifier;
 
 /*
     Enchantments:
-            1 - constructors touch, (Treasure enchantment, very rare), [chisel, spatula, rangefinder]
+            1 constructors touch I, (Trial, Treasure, very rare), [chisel, spatula, rangefinder]
                 ~ [Trial Chamber (high), Libary (high), spawner (low), Villager (high)]
                 > (custom chiel maps for each tier netherite obsidian to crying obsidian; diamond stone to cobble; iron cobble to mossy cobble; stone log to stripped log, ...;
-            2 - fast chisel, [chisel, spatula]
+            2 fast chisel II,  (Trial/haste, Treasure, very rare), [chisel, spatula]
                 ~ [Trial Chamber (high), Libary (high), spawner (low), Villager (high)]
                 > (faster  for chisel-tools)
-            3 - range, (Treasure enchantment, very rare), [chisel, spatula, pickaxe, axe, shulker, bundle]
+            3 range, (End, Treasure, very rare), [chisel, spatula, pickaxe, axe, shulker, bundle]
                ~ [Libary (low), end city (high), Villager (high)]
                 > (bigger range for mining and chisel and building tools (bundle, shulker)
-            4 - Quiver enchant, (Treasure enchantment, rare), [shulker, bundle]
+            4 Quiver enchant, (End, Treasure, rare), [shulker, bundle]
                 end city, duegon, villager
                 > (Pfeile aus bundle oder shulker in den Bogen laden) (entweder quiver enchant oder master builder enchant) (nicht kombinierbar mit color palette)
-            5 - master builder, (Treasure enchantment, very rare), [shulker, bundle, building wand]
+            5 master builder, (End, Treasure, very rare), [shulker, bundle, building wand]
                 end, library
                 > (places first block of shulker/bundle by right-clicking) (building wand allows to pick from other master-builder enchanted shulkers or bundles)
-            6 - color palette, (Treasure enchantment, rare), [shulker, bundle, building wand]
+            6 color palette, (Trial, Treasure, rare), [shulker, bundle, building wand]
+                Trial Chamber
                 > (changes picking order first block to random but with weighted probability)
-            7 - deep pockets, (Treasure enchantment, rare), [bundle]
-                end, deep dark
+            7 deep pockets, (Deep Dark, Treasure, rare), [bundle]
+                Deep Dark
                 > (increases bundle capacity: I = 128, II = 256)
-            8 - funnel, (Treasure enchantment, common), [bundle, shulker]
-                bastion, 
+            8 funnel, (Nether/Spawner, Treasure, common), [bundle, shulker]
+                Bastion, Fortres
                 > (automatically picks up items while sneaking and in hand))
-            9 - break trough, (Treasure enchantment, rare), [slegehammer]
-                trial, bastion
+            9 break trough, (Nether, Treasure, rare), [slegehammer]
+                bastion
                 > (automatically picks up items while sneaking and in hand))
-            10 - radius (Treasure enchantment, rare), [slegehammer]
+            10 radius (Deep Dark, Treasure, rare), [slegehammer]
                  deep dark
                 > (5x5 instead of 3x3, not compatible with brak_trough)
-            11 - ignore blocktype (Treasure enchantment, rare), [slegehammer]
-                 end
+            11 ignore blocktype (End, Treasure, rare), [slegehammer]
+                 end ship II, end coity
                 > (ignores blocktypes while destroying blocks, when not supported block double durrability cost, lvl 1 only supportrd blocks, lvl2 also not supported blocks)
-            12 - strip miner (Treasure enchantment, very rare), [pickaxe]
+            12 strip miner (Nether, Treasure, very rare), [pickaxe]
                  nether fortress, villager
                 > (I mines 2 blocks in a row, II mines 3 blocks in a row)
 
