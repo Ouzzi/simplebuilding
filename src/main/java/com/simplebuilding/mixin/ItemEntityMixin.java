@@ -35,7 +35,10 @@ public abstract class ItemEntityMixin extends Entity {
 
         ItemStack itemOnGround = this.getStack();
         if (itemOnGround.isEmpty()) return;
+        
+        System.out.println("item detected");
 
+        
         // 2. Prüfen: Hat er ein Funnel-Bundle in der Hand? (Main oder Offhand)
         for (Hand hand : Hand.values()) {
             ItemStack heldItem = player.getStackInHand(hand);
@@ -59,6 +62,7 @@ public abstract class ItemEntityMixin extends Entity {
         var funnel = enchantments.getOptional(ModEnchantments.FUNNEL);
 
         if (funnel.isEmpty() || EnchantmentHelper.getLevel(funnel.get(), bundleStack) <= 0) {
+            (System.out.println("no funnel enchantment");
             return false;
         }
 
@@ -69,6 +73,7 @@ public abstract class ItemEntityMixin extends Entity {
             // WICHTIG: Die Animation hier triggern, da wir hier Zugriff auf 'this' (ItemEntity) haben!
             player.sendPickup(this, itemToPickup.getCount());
         }
+        System.out.println("bundle tryes to pick up. response -> " + success)
         return success;
     }
 }
