@@ -60,41 +60,33 @@ public class BuildingWandItem extends Item {
         this.wandSquareDiameter = 1;
     }
 
-    public int getWandSquareDiameter() {
-        return this.wandSquareDiameter;
-    }
-
-    public void setWandSquareDiameter(int wandSquareDiameter) {
-        this.wandSquareDiameter = wandSquareDiameter;
-    }
-
     // possible enchantments
-    // surface place (not with bridge) -> changes the placement from plane to surface
-    // base block normal,
-    // surrounding blocks maximal depth diviation from base block 2,
-    // next ring maximum diviation from previous is 1
-    // line place -> placement on ine axis
-    // deafault horizontal to player
-    // when near the block edge front or back change direction to front/back
-    // with surface place same logic but only the line instead a sqare
-    // bridge (not with surface place) -> if placing a block place on the side of the edge of that block a line of blocks
-    // it targeting the front edge, place on the front side, if right the right side and so on
-    // master builder -> if enchanted allows to "connect" with enchanted bundle.
-    // allows to take blocks from masterbuilder enchanted bundle or from hotbar
-    // priority -> enchanted bundle, offhand, hotbar 1-9
-    // range - like other range implementation
-    // unbreaking - vanilla
-    // mending - vanilla
+        // surface place (not with bridge) -> changes the placement from plane to surface
+            // base block normal,
+            // surrounding blocks maximal depth diviation from base block 2,
+            // next ring maximum diviation from previous is 1
+        // line place -> placement on ine axis
+            // deafault horizontal to player
+            // when near the block edge front or back change direction to front/back
+            // with surface place same logic but only the line instead a sqare
+        // bridge (not with surface place) -> if placing a block place on the side of the edge of that block a line of blocks
+            // it targeting the front edge, place on the front side, if right the right side and so on
+        // master builder -> if enchanted allows to "connect" with enchanted bundle.
+            // allows to take blocks from masterbuilder enchanted bundle or from hotbar
+            // priority -> enchanted bundle, offhand, hotbar 1-9
+        // range - like other range implementation
+        // unbreaking - vanilla
+        // mending - vanilla
 
     // how it should work:
-    // first detect the direction (which orientation)
-    // then determine how many blocks can be placed (flood fill)
-    // is dependent from free blocks and how many blocks in offhand (hotbar and ench. bundle when masterbuilder)
-    // visualize what can be placed
-    // on place click place from middleblock with little delay from block to block
-    // damage the ammount of uses not ammount of blocks placed
+        // first detect the direction (which orientation)
+        // then determine how many blocks can be placed (flood fill)
+        // is dependent from free blocks and how many blocks in offhand (hotbar and ench. bundle when masterbuilder)
+        // visualize what can be placed
+        // on place click place from middleblock with little delay from block to block
+        // damage the ammount of uses not ammount of blocks placed
 
-@Override
+    @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         if (context.getHand() != net.minecraft.util.Hand.MAIN_HAND) {
             return ActionResult.PASS;
@@ -136,6 +128,8 @@ public class BuildingWandItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, EquipmentSlot slot) {
+        // place blocks with delay for each layer
+
         if (!(entity instanceof ServerPlayerEntity player)) return;
 
         NbtCompound nbt = getOrInitNbt(stack);
@@ -334,6 +328,8 @@ public class BuildingWandItem extends Item {
 
     // --- Helper für Renderer ---
     public static List<BlockPos> getBuildingPositions(World world, PlayerEntity player, ItemStack wandStack, BlockPos originPos, Direction face, int diameter) {
+        // determines where the blocks should be placed
+
         List<BlockPos> positions = new ArrayList<>();
         int radius = (diameter - 1) / 2;
         boolean isBridge = hasEnchantment(wandStack, world, ModEnchantments.BRIDGE);
@@ -438,6 +434,12 @@ public class BuildingWandItem extends Item {
     }
 
     private MaterialResult findMaterial(PlayerEntity player, ItemStack wandStack, Block targetBlock, boolean hasMasterBuilder) {
+        // Material found when:
+            // material in offhand 
+            // material in hotbar or offhand bundle and wand has master builder entchantment
+            // material in bundle with masterbuilder and wand has master builder entchantment
+        // Priority Order: offhand -> hotbar 1-9 -> inventory 1 - end
+
         World world = player.getEntityWorld();
         ItemStack offHand = player.getOffHandStack();
         if (!offHand.isEmpty()) {
@@ -472,6 +474,9 @@ public class BuildingWandItem extends Item {
     }
 
     private MaterialResult findInBundle(ItemStack bundle, Block targetBlock, ItemStack wand, World world) {
+        // if bundle has color palette, then select random building blocks
+        // else from first to last
+
         boolean hasColorPalette = hasEnchantment(wand, world, ModEnchantments.COLOR_PALETTE);
         BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
         if (contents == null || contents.isEmpty()) return null;
@@ -554,4 +559,13 @@ public class BuildingWandItem extends Item {
     public void setPlaceSound(SoundEvent placeSound) {
         this.placeSound = placeSound;
     }
+
+    public int getWandSquareDiameter() {
+        return this.wandSquareDiameter;
+    }
+
+    public void setWandSquareDiameter(int wandSquareDiameter) {
+        this.wandSquareDiameter = wandSquareDiameter;
+    }
+
 }
