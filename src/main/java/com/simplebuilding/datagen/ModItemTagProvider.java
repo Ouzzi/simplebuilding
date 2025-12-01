@@ -42,7 +42,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         valueLookupBuilder(ModTags.Items.CHISEL_AND_MINING_TOOLS)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
-                .forceAddTag(ItemTags.MINING_ENCHANTABLE);
+                .forceAddTag(ItemTags.MINING_ENCHANTABLE)
+                .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
+                .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE);
 
         valueLookupBuilder(ItemTags.DURABILITY_ENCHANTABLE)
                 .addTag(ModTags.Items.CHISEL_TOOLS)

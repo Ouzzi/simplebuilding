@@ -1,37 +1,36 @@
 package com.simplebuilding.items.custom;
 
 import com.simplebuilding.component.ModDataComponentTypes;
+import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BundleContentsComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
-
-// TODO
-// Entchantments:
-// - Color Palette: changes pickmode to random blocks from inventory (TODO)
-// - Master Builder: links to shulker box or bundle to pick blocks from (requires master builder on item mabe offhand?) (TODO)
-// - Range I, II: Erlaubt das messen von weiter entfernten Blöcken (TODO)
-// - Unbreaking I, II, III: Reduziert die Abnutzung (done durch vanilla)
-// - Mending: Repariert den Chisel mit gesammelten XP (done durch vanilla)
-
-// Build mechanics:
-// - on top/bottom of block -> place on top/bottom squareDiameter x squareDiameter (only free space, if blocked skip)
-// - on side of block -> place on side squareDiameter x squareDiameter (only free space, if blocked skip)
 
 public class BuildingWandItem extends Item {
 
@@ -44,12 +43,15 @@ public class BuildingWandItem extends Item {
     public static final int DURABILITY_MULTIPLAYER_WAND = 8;
 
     private int wandSquareDiameter;
-    private SoundEvent placeSound = SoundEvents.UI_STONECUTTER_TAKE_RESULT;
-    private static final int DEFAULT_WAND_SQUARE_DAIAMETER = 1;
+    private SoundEvent placeSound = SoundEvents.BLOCK_STONE_PLACE;
 
     public BuildingWandItem(Settings settings) {
         super(settings);
-        this.wandSquareDiameter = DEFAULT_WAND_SQUARE_DAIAMETER;
+        this.wandSquareDiameter = 1;
+    }
+
+    public int getWandSquareDiameter() {
+        return this.wandSquareDiameter;
     }
 
     public void setWandSquareDiameter(int wandSquareDiameter) {
@@ -57,43 +59,215 @@ public class BuildingWandItem extends Item {
     }
 
     @Override
-    public net.minecraft.util.ActionResult useOnBlock(ItemUsageContext context) {
+    public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
-        Block clickedBlock = world.getBlockState(context.getBlockPos()).getBlock();
         PlayerEntity player = context.getPlayer();
+        BlockPos clickedPos = context.getBlockPos();
+        Direction clickedFace = context.getSide();
+        ItemStack wandStack = context.getStack();
 
-        if (player != null && player.getItemCooldownManager().isCoolingDown(new ItemStack(this))) {
-            return net.minecraft.util.ActionResult.PASS;
+        if (world.isClient() || player == null) return ActionResult.PASS;
+
+        BlockState stateToExtend = world.getBlockState(clickedPos);
+        Block blockToExtend = stateToExtend.getBlock();
+
+        int radius = (this.wandSquareDiameter - 1) / 2;
+        List<BlockPos> placementPositions = getBuildingPositions(clickedPos, clickedFace, this.wandSquareDiameter);
+
+        int blocksPlaced = 0;
+
+        // Check for Master Builder Enchantment on Wand
+        boolean hasMasterBuilder = hasEnchantment(wandStack, world, ModEnchantments.MASTER_BUILDER);
+
+        for (BlockPos targetPos : placementPositions) {
+            BlockState targetState = world.getBlockState(targetPos);
+            if (!targetState.isReplaceable()) continue;
+
+            // --- Ressourcen finden ---
+            ItemStack stackToPlace = ItemStack.EMPTY;
+            ItemStack sourceStack = ItemStack.EMPTY; // Der Stack, von dem wir abziehen (Inventar oder Bundle)
+            boolean fromBundle = false;
+            int bundleIndex = -1; // Für Bundle removal
+
+            // 1. Offhand Check (Priorität)
+            ItemStack offHandStack = player.getOffHandStack();
+
+            // Logik:
+            // A. Ist Offhand ein Block? -> Nimm diesen.
+            // B. Ist Offhand ein Bundle UND MasterBuilder aktiv? -> Nimm aus Bundle.
+
+            if (offHandStack.getItem() instanceof BlockItem blockItem) {
+                // Direkter Block in Offhand
+                if (blockItem.getBlock() == blockToExtend) { // Sollte es nur denselben Block erweitern?
+                    // Ja, Building Wands erweitern meistens das, was man anklickt.
+                    // Wenn man aber in der Offhand was anderes hat, könnte man das nehmen wollen.
+                    // Konvention: Wenn Offhand Item != clicked Block -> Trotzdem nehmen?
+                    // Lass uns sagen: Wir nehmen das Offhand Item, EGAL was man klickt.
+                    stackToPlace = offHandStack;
+                    sourceStack = offHandStack;
+                    stateToExtend = blockItem.getBlock().getDefaultState(); // State anpassen!
+                }
+            }
+            else if (hasMasterBuilder && offHandStack.getItem() instanceof ReinforcedBundleItem) {
+                // Bundle in Offhand + Master Builder
+                boolean hasColorPalette = hasEnchantment(offHandStack, world, ModEnchantments.COLOR_PALETTE);
+
+                // Suche Block im Bundle
+                BundleContentsComponent contents = offHandStack.get(DataComponentTypes.BUNDLE_CONTENTS);
+                if (contents != null && !contents.isEmpty()) {
+                    if (hasColorPalette) {
+                        // Zufällig
+                        int randomIdx = world.random.nextInt(contents.size());
+                        ItemStack randomStack = contents.get(randomIdx);
+                        if (randomStack.getItem() instanceof BlockItem bi) {
+                            stackToPlace = randomStack;
+                            sourceStack = offHandStack;
+                            fromBundle = true;
+                            bundleIndex = randomIdx;
+                            stateToExtend = bi.getBlock().getDefaultState();
+                        }
+                    } else {
+                        // Erster Block (oder Selected)
+                        int idx = contents.getSelectedStackIndex();
+                        if (idx == -1) idx = 0;
+
+                        // Wir suchen den ERSTEN BlockItem Stack
+                        // (Oder wir nehmen strikt den selektierten?)
+                        // Lass uns den selektierten nehmen.
+                        if (idx < contents.size()) {
+                            ItemStack selectedStack = contents.get(idx);
+                            if (selectedStack.getItem() instanceof BlockItem bi) {
+                                stackToPlace = selectedStack;
+                                sourceStack = offHandStack;
+                                fromBundle = true;
+                                bundleIndex = idx;
+                                stateToExtend = bi.getBlock().getDefaultState();
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 2. Fallback: Inventar (Nur wenn Offhand nichts geliefert hat)
+            if (stackToPlace.isEmpty()) {
+                int slot = findSlotWithBlock(player, blockToExtend);
+                if (slot != -1) {
+                    sourceStack = player.getInventory().getStack(slot);
+                    stackToPlace = sourceStack;
+                }
+            }
+
+            // Wenn immer noch leer -> Abbruch (oder Creative Mode)
+            if (stackToPlace.isEmpty() && !player.getAbilities().creativeMode) {
+                break; // Keine Items mehr
+            }
+
+            // --- Platzieren ---
+            if (world.setBlockState(targetPos, stateToExtend, 3)) {
+                world.playSound(null, targetPos, placeSound, SoundCategory.BLOCKS, 1.0f, 1.0f);
+
+                // Verbrauch
+                if (!player.getAbilities().creativeMode) {
+                    if (fromBundle) {
+                        // Kompliziert: Ein Item aus dem Bundle entfernen
+                        removeOneFromBundle(sourceStack, bundleIndex);
+                    } else {
+                        sourceStack.decrement(1);
+                    }
+                    wandStack.damage(1, (ServerPlayerEntity) player, EquipmentSlot.MAINHAND);
+                }
+                blocksPlaced++;
+            }
         }
 
-        if (!world.isClient() && player instanceof ServerPlayerEntity serverPlayer) {
-            context.getStack().damage(1, ((ServerWorld) world), serverPlayer,
-                    item -> serverPlayer.sendEquipmentBreakStatus(item, EquipmentSlot.MAINHAND));
+        return blocksPlaced > 0 ? ActionResult.SUCCESS : ActionResult.PASS;
+    }
 
-            world.playSound(null, context.getBlockPos(), placeSound, SoundCategory.BLOCKS, 0.5f, 1.5f);
+    // --- Helper für Bundle ---
 
-            ((ServerWorld) world).spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, clickedBlock.getDefaultState()),
-                    context.getBlockPos().getX() + 0.5, context.getBlockPos().getY() + 1.0,
-                    context.getBlockPos().getZ() + 0.5, 5, 0, 0, 0, 1);
+    private void removeOneFromBundle(ItemStack bundle, int indexToRemove) {
+        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+        if (contents == null) return;
 
-            ((ServerWorld) world).spawnParticles(ParticleTypes.FLAME,
-                    context.getBlockPos().getX() + 0.5, context.getBlockPos().getY() + 1.5,
-                    context.getBlockPos().getZ() + 0.5, 10, 0, 0, 0, 3);
-
-            context.getStack().set(ModDataComponentTypes.COORDINATES, context.getBlockPos());
+        List<ItemStack> newItems = new ArrayList<>();
+        int i = 0;
+        for (ItemStack s : contents.iterate()) {
+            if (i == indexToRemove) {
+                ItemStack copy = s.copy();
+                copy.decrement(1);
+                if (!copy.isEmpty()) {
+                    newItems.add(copy);
+                }
+            } else {
+                newItems.add(s.copy());
+            }
+            i++;
         }
-        return net.minecraft.util.ActionResult.SUCCESS;
+        bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
+    }
+
+    private boolean hasEnchantment(ItemStack stack, World world, net.minecraft.registry.RegistryKey<net.minecraft.enchantment.Enchantment> key) {
+        var registry = world.getRegistryManager();
+        var lookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+        var entry = lookup.getOptional(key);
+        return entry.isPresent() && EnchantmentHelper.getLevel(entry.get(), stack) > 0;
+    }
+
+    // --- Platzierungs-Logik ---
+
+    public static List<BlockPos> getBuildingPositions(BlockPos originPos, Direction face, int diameter) {
+        List<BlockPos> positions = new ArrayList<>();
+        int radius = (diameter - 1) / 2;
+
+        // Der Wand erweitert die Fläche.
+        // Wenn ich auf die OBERSEITE (UP) klicke, will ich auf der gleichen Y-Höhe bleiben?
+        // NEIN. Ein Building Wand baut normalerweise *an die Seite dran*, auf die man klickt.
+        // Beispiel: Ich klicke auf die OBERSEITE eines Bodens. Der Wand baut eine 3x3 Schicht OBEN DRAUF.
+
+        // Zentrum der neuen Schicht:
+        BlockPos centerPos = originPos.offset(face);
+
+        for (int u = -radius; u <= radius; u++) {
+            for (int v = -radius; v <= radius; v++) {
+                BlockPos targetPos = null;
+
+                // Koordinaten-Mapping basierend auf der Fläche
+                if (face == Direction.UP || face == Direction.DOWN) {
+                    // Fläche ist X/Z. u=X, v=Z
+                    targetPos = centerPos.add(u, 0, v);
+                }
+                else if (face == Direction.NORTH || face == Direction.SOUTH) {
+                    // Fläche ist X/Y. u=X, v=Y
+                    targetPos = centerPos.add(u, v, 0);
+                }
+                else if (face == Direction.EAST || face == Direction.WEST) {
+                    // Fläche ist Y/Z. u=Z, v=Y (oder andersrum)
+                    targetPos = centerPos.add(0, v, u);
+                }
+
+                if (targetPos != null) {
+                    positions.add(targetPos);
+                }
+            }
+        }
+        return positions;
+    }
+
+    private int findSlotWithBlock(PlayerEntity player, Block blockToFind) {
+        for (int i = 0; i < player.getInventory().size(); i++) {
+            ItemStack stack = player.getInventory().getStack(i);
+            if (!stack.isEmpty() && stack.getItem() instanceof BlockItem blockItem) {
+                if (blockItem.getBlock() == blockToFind) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        if(stack.get(ModDataComponentTypes.COORDINATES) != null) {
-            textConsumer.accept(
-                    Text.literal(stack.get(ModDataComponentTypes.COORDINATES).getX() + ", "
-                            + stack.get(ModDataComponentTypes.COORDINATES).getY() + ", "
-                            + stack.get(ModDataComponentTypes.COORDINATES).getZ())
-            );
-        }
+        textConsumer.accept(Text.translatable("tooltip.simplebuilding.wand_size", (wandSquareDiameter + "x" + wandSquareDiameter)).formatted(net.minecraft.util.Formatting.GRAY));
         super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 

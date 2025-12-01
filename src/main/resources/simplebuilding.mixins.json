@@ -3,6 +3,10 @@
 	"package": "com.simplebuilding.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+      "ItemEntityMixin",
+      "BowItemMixin",
+      "PlayerEntityMixin",
+      "AnvilScreenHandlerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

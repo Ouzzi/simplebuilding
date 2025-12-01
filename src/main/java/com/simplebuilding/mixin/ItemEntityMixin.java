@@ -28,6 +28,8 @@ public abstract class ItemEntityMixin extends Entity {
 
     @Inject(method = "onPlayerCollision", at = @At("HEAD"))
     private void onPlayerCollision(PlayerEntity player, CallbackInfo ci) {
+        System.out.println("onPlayerCollision triggered");
+
         if (this.getEntityWorld().isClient()) return;
 
         // 1. Prüfen: Sneakt der Spieler?
@@ -62,7 +64,7 @@ public abstract class ItemEntityMixin extends Entity {
         var funnel = enchantments.getOptional(ModEnchantments.FUNNEL);
 
         if (funnel.isEmpty() || EnchantmentHelper.getLevel(funnel.get(), bundleStack) <= 0) {
-            (System.out.println("no funnel enchantment");
+            System.out.println("no funnel enchantment");
             return false;
         }
 
@@ -73,7 +75,7 @@ public abstract class ItemEntityMixin extends Entity {
             // WICHTIG: Die Animation hier triggern, da wir hier Zugriff auf 'this' (ItemEntity) haben!
             player.sendPickup(this, itemToPickup.getCount());
         }
-        System.out.println("bundle tryes to pick up. response -> " + success)
+        System.out.println("bundle tryes to pick up. response -> " + success);
         return success;
     }
 }

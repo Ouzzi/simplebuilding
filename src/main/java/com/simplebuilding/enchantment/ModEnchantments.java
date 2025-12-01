@@ -1,12 +1,13 @@
 package com.simplebuilding.enchantment;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.datagen.ModEnchantmentTagProvider;
 import com.simplebuilding.util.ModTags;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
-import net.minecraft.enchantment.effect.AttributeEnchantmentEffect;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.AttributeEnchantmentEffect;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.registry.Registerable;
@@ -58,35 +59,23 @@ import net.minecraft.util.Identifier;
 
 public class ModEnchantments {
     // Keys
-    public static final RegistryKey<Enchantment> FAST_CHISELING =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "fast_chiseling"));
-    public static final RegistryKey<Enchantment> CONSTRUCTORS_TOUCH =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "constructors_touch"));
-    public static final RegistryKey<Enchantment> RANGE =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "range"));
-    public static final RegistryKey<Enchantment> DEEP_POCKETS =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "deep_pockets"));
-    public static final RegistryKey<Enchantment> MASTER_BUILDER =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "master_builder"));
-    public static final RegistryKey<Enchantment> COLOR_PALETTE =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "color_palette"));
-    public static final RegistryKey<Enchantment> QUIVER =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "quiver"));
-    public static final RegistryKey<Enchantment> FUNNEL =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "funnel"));
-    public static final RegistryKey<Enchantment> BREAK_THROUGH = 
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "break_through"));
-    public static final RegistryKey<Enchantment> RADIUS =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "radius"));
-    public static final RegistryKey<Enchantment> IGNORE_BLOCK_TYPE =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "ignore_block_type"));
-    public static final RegistryKey<Enchantment> STRIP_MINER =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "strip_miner"));
-
-
+    public static final RegistryKey<Enchantment> FAST_CHISELING = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "fast_chiseling"));
+    public static final RegistryKey<Enchantment> CONSTRUCTORS_TOUCH = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "constructors_touch"));
+    public static final RegistryKey<Enchantment> RANGE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "range"));
+    public static final RegistryKey<Enchantment> DEEP_POCKETS = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "deep_pockets"));
+    public static final RegistryKey<Enchantment> MASTER_BUILDER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "master_builder"));
+    public static final RegistryKey<Enchantment> COLOR_PALETTE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "color_palette"));
+    public static final RegistryKey<Enchantment> QUIVER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "quiver"));
+    public static final RegistryKey<Enchantment> FUNNEL = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "funnel"));
+    public static final RegistryKey<Enchantment> BREAK_THROUGH = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "break_through"));
+    public static final RegistryKey<Enchantment> RADIUS = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "radius"));
+    public static final RegistryKey<Enchantment> IGNORE_BLOCK_TYPE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "ignore_block_type"));
+    public static final RegistryKey<Enchantment> STRIP_MINER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "strip_miner"));
 
     public static void bootstrap(Registerable<Enchantment> registerable) {
         var items = registerable.getRegistryLookup(RegistryKeys.ITEM);
+
+        var enchantmentsLookup = registerable.getRegistryLookup(RegistryKeys.ENCHANTMENT);
 
         // Fast Chiseling (Max Level III, Common) [CHISEL, SPATULA]
         register(registerable, FAST_CHISELING, Enchantment.builder(
@@ -155,9 +144,11 @@ public class ModEnchantments {
                 1, // Max Level
                 Enchantment.leveledCost(25, 25),
                 Enchantment.leveledCost(75, 25),
-                8, // Sehr teuer im Amboss
+                8, // Teuer
                 AttributeModifierSlot.MAINHAND
-        )));
+        ))
+        // FIX: Variable 'enchantmentsLookup' statt 'entries'
+        .exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.QUIVER_EXCLUSIVE_SET)));
 
         // Color Palette (Max Level I, allows changing block colors when placing from bundle or shulker, Treasure, Rare) [BUNDLE, SHULKER, BUILDING_WAND]
         register(registerable, COLOR_PALETTE, Enchantment.builder(Enchantment.definition(
@@ -169,7 +160,9 @@ public class ModEnchantments {
                 Enchantment.leveledCost(65, 15),
                 4,
                 AttributeModifierSlot.MAINHAND
-        )));
+        ))
+        // FIX: Variable 'enchantmentsLookup'
+        .exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.QUIVER_EXCLUSIVE_SET)));
 
         // 7. QUIVER (Max Level 1, Treasure, Rare) [BUNDLE]
         register(registerable, QUIVER, Enchantment.builder(Enchantment.definition(
@@ -181,7 +174,9 @@ public class ModEnchantments {
                 Enchantment.leveledCost(70, 20),
                 4,
                 AttributeModifierSlot.MAINHAND
-        )));
+        ))
+        // FIX: Variable 'enchantmentsLookup'
+        .exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.BUILDER_EXCLUSIVE_SET)));
 
         // 8. FUNNEL (Max Level 1, Treasure, Rare) [BUNDLE, SHULKER]
         register(registerable, FUNNEL, Enchantment.builder(Enchantment.definition(
@@ -205,7 +200,7 @@ public class ModEnchantments {
                 Enchantment.leveledCost(55, 15),
                 4,
                 AttributeModifierSlot.MAINHAND
-        )));
+        )).exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.RADIUS_EXCLUSIVE_SET)));
 
         // 10. RADIUS (Max Level 1, Treasure, Very Rare, 5x5 mining) [SLEDGEHAMMER]
         register(registerable, RADIUS, Enchantment.builder(Enchantment.definition(
@@ -217,7 +212,7 @@ public class ModEnchantments {
                 Enchantment.leveledCost(75, 20),
                 8, // Teurer
                 AttributeModifierSlot.MAINHAND
-        )));
+        )).exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.BREAK_THROUGH_EXCLUSIVE_SET)));
 
         // 11. IGNORE_BLOCKTYPE (Max Level 2, Treasure, Rare) [SLEDGEHAMMER]
         register(registerable, IGNORE_BLOCK_TYPE, Enchantment.builder(Enchantment.definition(

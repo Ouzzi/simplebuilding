@@ -2,6 +2,8 @@ package com.simplebuilding;
 
 import com.simplebuilding.block.entity.ModBlockEntities;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
+import com.simplebuilding.client.render.BuildingWandOutlineRenderer;
+import com.simplebuilding.client.render.SledgehammerOutlineRenderer;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.util.BundleTooltipAccessor;
 import net.fabricmc.api.ClientModInitializer;
@@ -32,6 +34,9 @@ public class SimplebuildingClient implements ClientModInitializer {
             }
             return null;
         });
+
+        SledgehammerOutlineRenderer.register();
+        BuildingWandOutlineRenderer.register();
 
         /* TODO: add ReinforcedShulkerBoxBlockEntity
         BlockEntityRendererFactories.register(

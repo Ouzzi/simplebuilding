@@ -1,6 +1,8 @@
 {
   "values": [
     "#simplebuilding:chisel_tools",
-    "#minecraft:enchantable/mining"
+    "#minecraft:enchantable/mining",
+    "#simplebuilding:sledgehammer_tools",
+    "#simplebuilding:octants_enchantable"
   ]
 }

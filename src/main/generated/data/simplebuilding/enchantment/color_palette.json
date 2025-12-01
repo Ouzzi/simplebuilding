@@ -3,6 +3,7 @@
   "description": {
     "translate": "enchantment.simplebuilding.color_palette"
   },
+  "exclusive_set": "#simplebuilding:exclusive_set/quiver_group",
   "max_cost": {
     "base": 65,
     "per_level_above_first": 15

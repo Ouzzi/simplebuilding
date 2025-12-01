@@ -10,8 +10,11 @@ import com.simplebuilding.items.custom.RangefinderItem;
 import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.util.ModLootTableModifiers;
 import com.simplebuilding.util.ModTradeOffers;
+import com.simplebuilding.util.SledgehammerUsageEvent;
+import com.simplebuilding.util.StripMinerUsageEvent;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.component.DataComponentTypes;
@@ -58,6 +61,8 @@ public class Simplebuilding implements ModInitializer {
         ModEnchantmentEffects.registerEnchantmentEffects();
         registerCauldronBehavior();
 
+        PlayerBlockBreakEvents.BEFORE.register(new SledgehammerUsageEvent());
+        PlayerBlockBreakEvents.BEFORE.register(new StripMinerUsageEvent());
 	}
 
     private void registerCauldronBehavior() {

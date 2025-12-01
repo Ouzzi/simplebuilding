@@ -3,6 +3,7 @@
   "description": {
     "translate": "enchantment.simplebuilding.quiver"
   },
+  "exclusive_set": "#simplebuilding:exclusive_set/builder_group",
   "max_cost": {
     "base": 70,
     "per_level_above_first": 20
