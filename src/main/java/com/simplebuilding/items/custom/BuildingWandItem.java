@@ -58,10 +58,12 @@ public class BuildingWandItem extends Item {
         this.wandSquareDiameter = wandSquareDiameter;
     }
 
-    // possible enchant
+    // possible enchantments
     // surface place ->
     // line place ->
-    // 
+    // bridge (not with tower) ->
+    // tower (not wirth bridge) ->
+    // mater builder -> 
     // range
     // unbreaking
     // mending
