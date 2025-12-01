@@ -58,6 +58,14 @@ public class BuildingWandItem extends Item {
         this.wandSquareDiameter = wandSquareDiameter;
     }
 
+    // possible enchant
+    // surface place ->
+    // line place ->
+    // 
+    // range
+    // unbreaking
+    // mending
+
     // how it should work:
     // first detect the direction (which orientation)
     // then determine how many blocks can be placed (flood fill)
