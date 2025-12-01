@@ -69,6 +69,7 @@ public class BuildingWandOutlineRenderer {
         double camZ = camPos.z;
 
         VertexConsumer lines = context.consumers().getBuffer(RenderLayer.getLines());
+        VertexConsumer fill = context.consumers().getBuffer(RenderLayer.getDebugQuads());
 
         matrices.push();
 
@@ -98,9 +99,7 @@ public class BuildingWandOutlineRenderer {
 
                 // C. Zeichnen
                 drawBoxOutline(matrices, lines, shrunkBox, r, g, b, a);
-                // todo test this:
                 drawBoxFill(matrices, fill, shrunkBox.expand(-0.003), r1, g1, b1, a1);
-                // drawBoxFill(matrices, fill, new Box(pos1).expand(0.003), r1, g1, b1, alpha);
                 matrices.pop();
             }
         }
@@ -149,6 +148,13 @@ public class BuildingWandOutlineRenderer {
         addQuad(builder, matrix, x2, y1, z2, x2, y2, z2, x1, y2, z2, x1, y1, z2, r, g, b, a); // Süd
         addQuad(builder, matrix, x1, y1, z2, x1, y2, z2, x1, y2, z1, x1, y1, z1, r, g, b, a); // West
         addQuad(builder, matrix, x2, y1, z1, x2, y2, z1, x2, y2, z2, x2, y1, z2, r, g, b, a); // Ost
+    }
+
+    private static void addQuad(VertexConsumer builder, Matrix4f matrix, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float r, float g, float b, float a) {
+        builder.vertex(matrix, x1, y1, z1).color(r, g, b, a);
+        builder.vertex(matrix, x2, y2, z2).color(r, g, b, a);
+        builder.vertex(matrix, x3, y3, z3).color(r, g, b, a);
+        builder.vertex(matrix, x4, y4, z4).color(r, g, b, a);
     }
 
     private static void drawLineWithNormal(VertexConsumer builder, Matrix4f matrix, double x1, double y1, double z1, double x2, double y2, double z2, float r, float g, float b, float a) {
