@@ -49,6 +49,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ItemTags.DURABILITY_ENCHANTABLE)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .addTag(ModTags.Items.OCTANTS_ENCHANTABLE)
+                .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
 
         valueLookupBuilder(ItemTags.MINING_ENCHANTABLE)
@@ -71,6 +72,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.REINFORCED_BUNDLE)
                 .add(Items.SHULKER_BOX)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
+                .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE);
 
         valueLookupBuilder(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
