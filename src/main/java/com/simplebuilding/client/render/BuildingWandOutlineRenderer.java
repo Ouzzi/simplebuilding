@@ -100,6 +100,7 @@ public class BuildingWandOutlineRenderer {
 
                 // C. Zeichnen
                 drawBoxOutline(matrices, lines, shrunkBox, r, g, b, a);
+                drawBoxFill(matrices, lines, shrunkBox, r, g, b, a);
 
                 matrices.pop();
             }
@@ -136,6 +137,19 @@ public class BuildingWandOutlineRenderer {
         drawLineWithNormal(builder, matrix, x2, y1, z1, x2, y2, z1, r, g, b, a);
         drawLineWithNormal(builder, matrix, x2, y1, z2, x2, y2, z2, r, g, b, a);
         drawLineWithNormal(builder, matrix, x1, y1, z2, x1, y2, z2, r, g, b, a);
+    }
+
+    private static void drawBoxFill(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+        float x1 = (float)box.minX; float y1 = (float)box.minY; float z1 = (float)box.minZ;
+        float x2 = (float)box.maxX; float y2 = (float)box.maxY; float z2 = (float)box.maxZ;
+
+        addQuad(builder, matrix, x1, y1, z1, x2, y1, z1, x2, y1, z2, x1, y1, z2, r, g, b, a); // Unten
+        addQuad(builder, matrix, x1, y2, z2, x2, y2, z2, x2, y2, z1, x1, y2, z1, r, g, b, a); // Oben
+        addQuad(builder, matrix, x1, y1, z1, x1, y2, z1, x2, y2, z1, x2, y1, z1, r, g, b, a); // Nord
+        addQuad(builder, matrix, x2, y1, z2, x2, y2, z2, x1, y2, z2, x1, y1, z2, r, g, b, a); // Süd
+        addQuad(builder, matrix, x1, y1, z2, x1, y2, z2, x1, y2, z1, x1, y1, z1, r, g, b, a); // West
+        addQuad(builder, matrix, x2, y1, z1, x2, y2, z1, x2, y2, z2, x2, y1, z2, r, g, b, a); // Ost
     }
 
     private static void drawLineWithNormal(VertexConsumer builder, Matrix4f matrix, double x1, double y1, double z1, double x2, double y2, double z2, float r, float g, float b, float a) {
