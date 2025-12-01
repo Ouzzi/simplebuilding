@@ -58,6 +58,13 @@ public class BuildingWandItem extends Item {
         this.wandSquareDiameter = wandSquareDiameter;
     }
 
+    // how it should work:
+    // first detect the direction (which orientation)
+    // then determine how many blocks can be placed (flood fill)
+    // visualize what can be placed
+    // on place click place from middleblock with little delay
+    // 
+
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
