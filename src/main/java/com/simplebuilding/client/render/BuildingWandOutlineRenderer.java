@@ -73,10 +73,8 @@ public class BuildingWandOutlineRenderer {
         matrices.push();
 
         // Farbe: Cyan/Türkis (R=0, G=1, B=1)
-        float r = 0.1f;
-        float g = 0.1f;
-        float b = 0.1f;
-        float a = 0.3f;
+        float r = 0.1f; float g = 0.1f; float b = 0.1f; float a = 0.3f;
+        float r1 = 1.0f; float g1 = 0.5f; float b1 = 0.3f; float a1 = 0.2f;
 
         // 3. Über alle Ziel-Positionen iterieren und EINZELN zeichnen
         for (BlockPos pos : targetPositions) {
@@ -100,8 +98,8 @@ public class BuildingWandOutlineRenderer {
 
                 // C. Zeichnen
                 drawBoxOutline(matrices, lines, shrunkBox, r, g, b, a);
-                
-                drawBoxFill(matrices, fill, shrunkBox.expand(0.003), r1, g1, b1, a1);
+                // todo test this:
+                drawBoxFill(matrices, fill, shrunkBox.expand(-0.003), r1, g1, b1, a1);
                 // drawBoxFill(matrices, fill, new Box(pos1).expand(0.003), r1, g1, b1, alpha);
                 matrices.pop();
             }
