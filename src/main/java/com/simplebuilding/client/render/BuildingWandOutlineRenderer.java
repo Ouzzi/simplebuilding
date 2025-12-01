@@ -100,8 +100,9 @@ public class BuildingWandOutlineRenderer {
 
                 // C. Zeichnen
                 drawBoxOutline(matrices, lines, shrunkBox, r, g, b, a);
-                drawBoxFill(matrices, lines, shrunkBox, r, g, b, a);
-
+                
+                drawBoxFill(matrices, fill, shrunkBox.expand(0.003), r1, g1, b1, a1);
+                // drawBoxFill(matrices, fill, new Box(pos1).expand(0.003), r1, g1, b1, alpha);
                 matrices.pop();
             }
         }
