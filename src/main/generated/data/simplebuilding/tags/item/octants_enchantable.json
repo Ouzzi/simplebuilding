@@ -1,21 +1,21 @@
 {
   "values": [
     "simplebuilding:rangefinder",
-    "simplebuilding:rangefinder_light_blue",
-    "simplebuilding:rangefinder_blue",
-    "simplebuilding:rangefinder_cyan",
-    "simplebuilding:rangefinder_gray",
-    "simplebuilding:rangefinder_white",
-    "simplebuilding:rangefinder_red",
-    "simplebuilding:rangefinder_lime",
-    "simplebuilding:rangefinder_brown",
-    "simplebuilding:rangefinder_purple",
     "simplebuilding:rangefinder_orange",
-    "simplebuilding:rangefinder_black",
+    "simplebuilding:rangefinder_purple",
     "simplebuilding:rangefinder_magenta",
-    "simplebuilding:rangefinder_light_gray",
-    "simplebuilding:rangefinder_pink",
+    "simplebuilding:rangefinder_green",
+    "simplebuilding:rangefinder_black",
     "simplebuilding:rangefinder_yellow",
-    "simplebuilding:rangefinder_green"
+    "simplebuilding:rangefinder_cyan",
+    "simplebuilding:rangefinder_lime",
+    "simplebuilding:rangefinder_gray",
+    "simplebuilding:rangefinder_pink",
+    "simplebuilding:rangefinder_light_gray",
+    "simplebuilding:rangefinder_red",
+    "simplebuilding:rangefinder_white",
+    "simplebuilding:rangefinder_blue",
+    "simplebuilding:rangefinder_brown",
+    "simplebuilding:rangefinder_light_blue"
   ]
 }

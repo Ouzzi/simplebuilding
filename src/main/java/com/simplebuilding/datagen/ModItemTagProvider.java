@@ -80,5 +80,12 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLD_SLEDGEHAMMER)
                 .add(ModItems.DIAMOND_SLEDGEHAMMER)
                 .add(ModItems.NETHERITE_SLEDGEHAMMER);
+
+        valueLookupBuilder(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
+                .add(ModItems.COPPER_BUILDING_WAND)
+                .add(ModItems.IRON_BUILDING_WAND)
+                .add(ModItems.GOLD_BUILDING_WAND)
+                .add(ModItems.DIAMOND_BUILDING_WAND)
+                .add(ModItems.NETHERITE_BUILDING_WAND);
     }
 }

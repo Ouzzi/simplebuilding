@@ -54,6 +54,24 @@ import net.minecraft.util.Identifier;
             12 strip miner III (Nether, Treasure, very rare), [pickaxe]
                 Fortress III, villager I
                 > (I mines 2 blocks in a row, II mines 3 blocks in a row, III mines 5 blochs in a row)
+            13 surface place I, (Pillage, Treasure, rare), [building wand]
+                Pillager Outpost I, Woodlin Mantion, Villager I
+                > (places blocks on surface instead of plane)
+                    // base block normal,
+                    // surrounding blocks maximal depth diviation from base block 2,
+                    // next ring maximum diviation from previous is 1
+                    //> not with bridge compatible
+            14 bridge I, (end, Treasure, rare), [building wand]
+                End City I, Library I
+                > (if placing a block place on the side of the edge of that block a line of blocks)
+                    // if targeting the front edge, place on the front side, if right the right side and so on
+                    //> not with surface place compatible
+            15 line place I, (Pillage, Treasure, rare), [building wand]
+                Pillager Outpost I, Woodlin Mantion, Villager I
+                > (places a line of blocks in one axis direction depending on player looking direction)
+                    // deafault horizontal to player
+                    // when near the block edge front or back change direction to front/back
+                    // with surface place same logic but only the line instead a sqare
 
  */
 
@@ -71,6 +89,9 @@ public class ModEnchantments {
     public static final RegistryKey<Enchantment> RADIUS = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "radius"));
     public static final RegistryKey<Enchantment> IGNORE_BLOCK_TYPE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "ignore_block_type"));
     public static final RegistryKey<Enchantment> STRIP_MINER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "strip_miner"));
+    public static final RegistryKey<Enchantment> SURFACE_PLACE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "surface_place"));
+    public static final RegistryKey<Enchantment> BRIDGE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "bridge"));
+    public static final RegistryKey<Enchantment> LINE_PLACE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "line_place"));
 
     public static void bootstrap(Registerable<Enchantment> registerable) {
         var items = registerable.getRegistryLookup(RegistryKeys.ITEM);
@@ -234,6 +255,42 @@ public class ModEnchantments {
                 3, // Max Level
                 Enchantment.leveledCost(20, 10),
                 Enchantment.leveledCost(60, 10),
+                4,
+                AttributeModifierSlot.MAINHAND
+        )));
+
+        // 13. SURFACE_PLACE (Max Level 1, Treasure, Rare) [BUILDING_WAND]
+        register(registerable, SURFACE_PLACE, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+                2, // Weight (Rare)
+                1, // Max Level
+                Enchantment.leveledCost(15, 15),
+                Enchantment.leveledCost(55, 15),
+                4,
+                AttributeModifierSlot.MAINHAND
+        )));
+
+        // 14. BRIDGE (Max Level 1, Treasure, Rare) [BUILDING_WAND]
+        register(registerable, BRIDGE, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+                2, // Weight (Rare)
+                1, // Max Level
+                Enchantment.leveledCost(15, 15),
+                Enchantment.leveledCost(55, 15),
+                4,
+                AttributeModifierSlot.MAINHAND
+        )));
+
+        // 15. LINE_PLACE (Max Level 1, Treasure, Rare) [BUILDING_WAND]
+        register(registerable, LINE_PLACE, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+                2, // Weight (Rare)
+                1, // Max Level
+                Enchantment.leveledCost(15, 15),
+                Enchantment.leveledCost(55, 15),
                 4,
                 AttributeModifierSlot.MAINHAND
         )));

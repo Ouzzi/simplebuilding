@@ -49,7 +49,7 @@ public class BuildingWandOutlineRenderer {
 
         // 1. Positionen berechnen
         int diameter = wandItem.getWandSquareDiameter();
-        List<BlockPos> targetPositions = BuildingWandItem.getBuildingPositions(centerPos, face, diameter);
+        List<BlockPos> targetPositions = BuildingWandItem.getBuildingPositions(client.world, player, stack, centerPos, face, diameter);
 
         if (targetPositions.isEmpty()) return true;
 

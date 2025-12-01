@@ -33,6 +33,9 @@
   "item.simplebuilding.gold_building_wand": "Gold Building Wand",
   "item.simplebuilding.diamond_building_wand": "Diamond Building Wand",
   "item.simplebuilding.netherite_building_wand": "Netherite Building Wand",
+  "tooltip.simplebuilding.building_wand.size": "Places a %s x %s area of blocks.",
+  "tooltip.simplebuilding.building_wand.line_size": "Places a line of %s blocks.",
+
 
   "item.simplebuilding.sledgehammer": "Sledgehammer",
   "item.simplebuilding.stone_sledgehammer": "Stone Sledgehammer",
@@ -89,6 +92,12 @@
   "enchantment.simplebuilding.ignore_block_type": "Ignore Block Type",
   "enchantment.simplebuilding.radius": "Radius",
   "enchantment.simplebuilding.strip_miner": "Strip Miner",
+  "enchantment.simplebuilding.surface_place": "Surface Place",
+  "enchantment.simplebuilding.bridge": "Bridge",
+  "enchantment.simplebuilding.line_place": "Line Place",
+
+
+
 
 
   "container.enchantments": "Enchantments",
