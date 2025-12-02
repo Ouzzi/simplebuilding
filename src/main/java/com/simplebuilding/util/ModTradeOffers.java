@@ -1,6 +1,7 @@
 package com.simplebuilding.util;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.component.DataComponentTypes;
@@ -27,7 +28,6 @@ import java.util.List;
 public class ModTradeOffers {
     public record WeightedEnchantment(RegistryKey<Enchantment> key, int level, int weight) {}
 
-    //register trade offers here
     public static void registerModTradeOffers() {
         Simplebuilding.LOGGER.info("Registering Custom Trade Offers for " + Simplebuilding.MOD_ID);
         registerVillagerTrades();
@@ -35,18 +35,89 @@ public class ModTradeOffers {
     }
 
     public static void registerVillagerTrades() {
-        TradeOfferHelper.registerVillagerOffers(VillagerProfession.FLETCHER, 1, factories -> {
-            factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 2), new ItemStack(Items.FIREWORK_ROCKET, 12), 4, 5, 0.05f));
+
+        // --- 1. BIBLIOTHEKAR (LIBRARIAN) - Verkauft Enchanted Books ---
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.LIBRARIAN, 1, factories -> {
+            // Level 1: Common Enchants (Fast Chiseling, Funnel)
+            factories.add((entity, random) -> {
+                List<WeightedEnchantment> pool = List.of(
+                    new WeightedEnchantment(ModEnchantments.FAST_CHISELING, 1, 10),
+                    new WeightedEnchantment(ModEnchantments.FUNNEL, 1, 10)
+                );
+                return new TradeOffer(new TradedItem(Items.EMERALD, 15), createRandomEnchantedBook(entity, random, pool, 0), 5, 5, 0.05f);
+            });
+        });
+
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.LIBRARIAN, 2, factories -> {
+            // Level 2: Surface Place, Line Place
+            factories.add((entity, random) -> {
+                List<WeightedEnchantment> pool = List.of(
+                    new WeightedEnchantment(ModEnchantments.SURFACE_PLACE, 1, 5),
+                    new WeightedEnchantment(ModEnchantments.LINE_PLACE, 1, 5)
+                );
+                return new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, pool, 0), 3, 10, 0.05f);
+            });
+        });
+
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.LIBRARIAN, 3, factories -> {
+            // Level 3: Range, Deep Pockets
+            factories.add((entity, random) -> {
+                List<WeightedEnchantment> pool = List.of(
+                    new WeightedEnchantment(ModEnchantments.RANGE, 1, 5),
+                    new WeightedEnchantment(ModEnchantments.DEEP_POCKETS, 1, 5)
+                );
+                return new TradeOffer(new TradedItem(Items.EMERALD, 32), createRandomEnchantedBook(entity, random, pool, 0), 3, 15, 0.05f);
+            });
+        });
+
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.LIBRARIAN, 5, factories -> {
+            // Level 5 (Master): Master Builder, Strip Miner (Rare)
+            factories.add((entity, random) -> {
+                List<WeightedEnchantment> pool = List.of(
+                    new WeightedEnchantment(ModEnchantments.MASTER_BUILDER, 1, 3),
+                    new WeightedEnchantment(ModEnchantments.STRIP_MINER, 1, 3),
+                    new WeightedEnchantment(ModEnchantments.RADIUS, 1, 3)
+                );
+                return new TradeOffer(new TradedItem(Items.EMERALD, 54), createRandomEnchantedBook(entity, random, pool, 0), 1, 30, 0.05f);
+            });
+        });
+
+        // --- 2. MAURER (MASON) - Verkauft Meißel und Spachtel ---
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 2, factories -> {
+            // Verkauft Iron Chisel
+            factories.add((entity, random) -> new TradeOffer(
+                new TradedItem(Items.EMERALD, 6),
+                new ItemStack(ModItems.IRON_CHISEL, 1),
+                12, 5, 0.05f
+            ));
+        });
+
+        TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 4, factories -> {
+            // Verkauft verzauberte Diamond Tools
+            factories.add((entity, random) -> {
+                List<WeightedEnchantment> pool = List.of(
+                        new WeightedEnchantment(ModEnchantments.FAST_CHISELING, 2, 10),
+                        new WeightedEnchantment(ModEnchantments.CONSTRUCTORS_TOUCH, 1, 2)
+                );
+                return new TradeOffer(
+                    new TradedItem(Items.EMERALD, 24),
+                    createRandomEnchantedItem(entity, random, ModItems.DIAMOND_CHISEL, pool, 50),
+                    3, 20, 0.05f
+                );
+            });
         });
     }
 
-
     public static void registerWanderingTraderTrades() {
+        // Wandering Trader verkauft das Reinforced Bundle oder Building Cores
         TradeOfferHelper.registerWanderingTraderOffers(factory -> {
-            factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL, (entity, random) -> {
-                int moneyBillAmount = random.nextInt(4) + 6;
-                return new TradeOffer(new TradedItem(Items.EMERALD, moneyBillAmount), new ItemStack(ModItems.COPPER_CHISEL, 8), 3, 10, 0.1f);
+            factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> {
+                return new TradeOffer(new TradedItem(Items.EMERALD, 16), new ItemStack(ModItems.REINFORCED_BUNDLE, 1), 1, 15, 0.1f);
             });
+            factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL, (entity, random) -> {
+                return new TradeOffer(new TradedItem(Items.EMERALD, 32), new ItemStack(ModItems.COPPER_BUILDING_CORE, 2), 4, 10, 0.1f);
+            });
+            // Iron building core and gold  56 emeralds
         });
     }
 
@@ -116,7 +187,6 @@ public class ModTradeOffers {
         RegistryEntry<Enchantment> enchantmentEntry = entity.getRegistryManager()
                 .getOrThrow(RegistryKeys.ENCHANTMENT)
                 .getOrThrow(selection.key());
-
         builder.add(enchantmentEntry, selection.level());
     }
 

@@ -3,7 +3,6 @@
     "simplebuilding:reinforced_bundle",
     "minecraft:shulker_box",
     "#simplebuilding:chisel_tools",
-    "#simplebuilding:building_wand_enchantable",
     "#simplebuilding:octants_enchantable"
   ]
 }

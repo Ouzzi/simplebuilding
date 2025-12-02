@@ -434,19 +434,18 @@ public class BuildingWandItem extends Item {
     }
 
     private MaterialResult findMaterial(PlayerEntity player, ItemStack wandStack, Block targetBlock, boolean hasMasterBuilder) {
-        // Material found when:
-            // material in offhand 
-            // material in hotbar or offhand bundle and wand has master builder entchantment
-            // material in bundle with masterbuilder and wand has master builder entchantment
-        // Priority Order: offhand -> hotbar 1-9 -> inventory 1 - end
-
         World world = player.getEntityWorld();
         ItemStack offHand = player.getOffHandStack();
+
+        // 1. PRIO: Offhand
         if (!offHand.isEmpty()) {
+            // A. Bundle in Offhand (nur mit Master Builder) -> Höchste Prio
             if (hasMasterBuilder && offHand.getItem() instanceof ReinforcedBundleItem) {
                 MaterialResult res = findInBundle(offHand, targetBlock, wandStack, world);
-                if (res != null) return res;
-            } else if (offHand.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
+                if (res != null) return res; // Gefunden!
+            }
+            // B. Block in Offhand
+            else if (offHand.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
                 MaterialResult res = new MaterialResult();
                 res.sourceStack = offHand;
                 res.fromBundle = false;
@@ -455,13 +454,20 @@ public class BuildingWandItem extends Item {
             }
         }
 
-        // 2. Hotbar
+        // 2. PRIO: Hotbar Bundles (Master Builder)
+        if (hasMasterBuilder) {
+            for (int i = 0; i < 9; i++) {
+                ItemStack stack = player.getInventory().getStack(i);
+                if (stack.getItem() instanceof ReinforcedBundleItem) {
+                     MaterialResult res = findInBundle(stack, targetBlock, wandStack, world);
+                     if (res != null) return res;
+                }
+            }
+        }
+
+        // 3. PRIO: Hotbar Items
         for (int i = 0; i < 9; i++) {
             ItemStack stack = player.getInventory().getStack(i);
-            if (hasMasterBuilder && stack.getItem() instanceof ReinforcedBundleItem) {
-                MaterialResult res = findInBundle(stack, targetBlock, wandStack, world);
-                if (res != null) return res;
-            }
             if (stack.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
                 MaterialResult res = new MaterialResult();
                 res.sourceStack = stack;
@@ -470,6 +476,7 @@ public class BuildingWandItem extends Item {
                 return res;
             }
         }
+
         return null;
     }
 
@@ -479,39 +486,79 @@ public class BuildingWandItem extends Item {
 
         boolean hasColorPalette = hasEnchantment(wand, world, ModEnchantments.COLOR_PALETTE);
         BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+
         if (contents == null || contents.isEmpty()) return null;
 
+        // --- MODUS 1: COLOR PALETTE (Zufall) ---
         if (hasColorPalette) {
+            // Wir sammeln erst alle Indizes, an denen sich Baublöcke befinden
             List<Integer> validIndices = new ArrayList<>();
             int i = 0;
             for (ItemStack s : contents.iterate()) {
-                if (s.getItem() instanceof BlockItem) validIndices.add(i);
-                i++;
-            }
-            if (validIndices.isEmpty()) return null;
-            int rndIdx = validIndices.get(world.random.nextInt(validIndices.size()));
-            i = 0;
-            for (ItemStack s : contents.iterate()) {
-                if (i == rndIdx && s.getItem() instanceof BlockItem bi) {
-                    MaterialResult res = new MaterialResult();
-                    res.sourceStack = bundle; res.fromBundle = true; res.bundleIndex = rndIdx;
-                    res.stateToPlace = bi.getBlock().getDefaultState();
-                    return res;
+                if (!s.isEmpty() && s.getItem() instanceof BlockItem) {
+                    validIndices.add(i);
                 }
                 i++;
             }
-        } else {
-            int i = 0;
+
+            // Wenn keine Blöcke im Bundle sind -> Abbruch
+            if (validIndices.isEmpty()) return null;
+
+            // Einen zufälligen Index aus der Liste wählen
+            int randomIndex = validIndices.get(world.random.nextInt(validIndices.size()));
+
+            // Das Item an diesem Index holen
+            i = 0;
             for (ItemStack s : contents.iterate()) {
-                if (s.getItem() instanceof BlockItem bi) {
+                if (i == randomIndex && s.getItem() instanceof BlockItem bi) {
                     MaterialResult res = new MaterialResult();
-                    res.sourceStack = bundle; res.fromBundle = true; res.bundleIndex = i;
+                    res.sourceStack = bundle;
+                    res.fromBundle = true;
+                    res.bundleIndex = randomIndex;
                     res.stateToPlace = bi.getBlock().getDefaultState();
                     return res;
                 }
                 i++;
             }
         }
+        // --- MODUS 2: STANDARD (Master Builder Priorität) ---
+        else {
+            int i = 0;
+            int firstValidIndex = -1;
+            BlockItem firstValidBlock = null;
+
+            for (ItemStack s : contents.iterate()) {
+                if (!s.isEmpty() && s.getItem() instanceof BlockItem bi) {
+                    // A. PRIORITÄT: Exakter Match mit dem Zielblock
+                    if (bi.getBlock() == targetBlock) {
+                        MaterialResult res = new MaterialResult();
+                        res.sourceStack = bundle;
+                        res.fromBundle = true;
+                        res.bundleIndex = i;
+                        res.stateToPlace = bi.getBlock().getDefaultState();
+                        return res;
+                    }
+
+                    // B. FALLBACK: Merke dir den ersten gültigen Block, falls wir keinen Match finden
+                    if (firstValidIndex == -1) {
+                        firstValidIndex = i;
+                        firstValidBlock = bi;
+                    }
+                }
+                i++;
+            }
+
+            // Wenn kein exakter Match gefunden wurde, nimm den ersten Block (Fallback)
+            if (firstValidIndex != -1 && firstValidBlock != null) {
+                MaterialResult res = new MaterialResult();
+                res.sourceStack = bundle;
+                res.fromBundle = true;
+                res.bundleIndex = firstValidIndex;
+                res.stateToPlace = firstValidBlock.getBlock().getDefaultState();
+                return res;
+            }
+        }
+
         return null;
     }
 

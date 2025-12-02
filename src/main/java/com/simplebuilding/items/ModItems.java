@@ -96,9 +96,6 @@ public class ModItems {
 
     // Reinforced Items
     public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1)));
-    /* TODO: add ReinforcedShulkerBoxBlockEntity
-    public static final Item REINFORCED_SHULKER_BOX = registerItem("reinforced_shulker_box", settings -> new ReinforcedShulkerBoxItem(ModBlocks.REINFORCED_SHULKER_BOX, settings.maxCount(1)));
-     */
 
     // =================================================================================
     // HILFSMETHODEN

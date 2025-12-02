@@ -1,6 +1,5 @@
 package com.simplebuilding.datagen;
 
-import com.simplebuilding.block.ModBlocks;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -19,22 +18,6 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         Identifier customTexture = Identifier.of("simplebuilding", "block/reinforced_shulker_box");
         TextureMap textureMap = new TextureMap().put(TextureKey.PARTICLE, customTexture);
-
-      /*
-        Identifier blockModelId = Models.TEMPLATE_SHULKER_BOX.upload(
-                ModBlocks.REINFORCED_SHULKER_BOX,
-                textureMap,
-                blockStateModelGenerator.modelCollector
-        );
-
-        blockStateModelGenerator.blockStateCollector.accept(
-                BlockStateModelGenerator.createSingletonBlockState(
-                        ModBlocks.REINFORCED_SHULKER_BOX,
-                        BlockStateModelGenerator.createWeightedVariant(blockModelId)
-                )
-        );
-*/
-
     }
 
     @Override
@@ -91,24 +74,5 @@ public class ModModelProvider extends FabricModelProvider {
         // --- 6. REINFORCED BUNDLES (Generated / Flach) ---
         itemModelGenerator.register(ModItems.REINFORCED_BUNDLE, Models.GENERATED);
 
-
-        /* TODO: add ReinforcedShulkerBoxBlockEntity
-        Identifier textureId = Identifier.of("simplebuilding", "block/reinforced_shulker_box");
-
-        // TextureMap für den Würfel (#all)
-        TextureMap itemTextureMap = new TextureMap().put(TextureKey.ALL, textureId);
-
-        // Upload als CUBE_ALL (3D Würfel)
-        Identifier itemModelId = Models.CUBE_ALL.upload(
-                ModItems.REINFORCED_SHULKER_BOX,
-                itemTextureMap,
-                itemModelGenerator.modelCollector
-        );
-
-        // Zuweisung
-        itemModelGenerator.output.accept(
-                ModItems.REINFORCED_SHULKER_BOX,
-                ItemModels.basic(itemModelId)
-        );*/
     }
 }

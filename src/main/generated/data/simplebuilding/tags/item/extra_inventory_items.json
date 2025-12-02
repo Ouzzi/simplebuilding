@@ -1,6 +1,6 @@
 {
   "values": [
-    "simplebuilding:reinforced_bundle",
-    "minecraft:shulker_box"
+    "#simplebuilding:building_wand_enchantable",
+    "simplebuilding:reinforced_bundle"
   ]
 }

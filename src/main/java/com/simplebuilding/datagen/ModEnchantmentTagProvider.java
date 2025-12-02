@@ -24,10 +24,7 @@ public class ModEnchantmentTagProvider extends FabricTagProvider<Enchantment> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        // KORREKTUR: Nutze builder() statt getOrCreateTagBuilder()
 
-        // Da Enchantments in 1.21 dynamisch sind, fügen wir sie per RegistryKey hinzu.
-        // Wenn ModEnchantments.MASTER_BUILDER ein RegistryKey<Enchantment> ist:
         builder(BUILDER_EXCLUSIVE_SET)
                 .add(ModEnchantments.MASTER_BUILDER)
                 .add(ModEnchantments.COLOR_PALETTE);
@@ -40,5 +37,6 @@ public class ModEnchantmentTagProvider extends FabricTagProvider<Enchantment> {
 
         builder(BREAK_THROUGH_EXCLUSIVE_SET)
                 .add(ModEnchantments.BREAK_THROUGH);
+
     }
 }

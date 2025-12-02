@@ -19,14 +19,6 @@ import java.util.function.Function;
 
 public class ModBlocks {
 
-    /* TODO: add ReinforcedShulkerBoxBlockEntity
-    public static final Block REINFORCED_SHULKER_BOX = registerBlockWithoutBlockItem("reinforced_shulker_box",
-            settings -> new ReinforcedShulkerBoxBlock(
-                    DyeColor.CYAN,
-                    // Wir nehmen die settings (die den Key haben) und kopieren dann die Werte der ShulkerBox hinein
-                    settings.strength(2.0f).resistance(2.0f).nonOpaque()
-            ));
-*/
     private static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> function) {
         // Hier wird der Key gesetzt
         AbstractBlock.Settings settings = AbstractBlock.Settings.create()

@@ -73,9 +73,6 @@ public class ModItemGroups {
 
                         // --- Storage ---
                         entries.add(ModItems.REINFORCED_BUNDLE);
-                        /* TODO: add ReinforcedShulkerBoxBlockEntity
-                        entries.add(ModItems.REINFORCED_SHULKER_BOX);
-                         */
 
                         // --- Enchanted Books ---
                         RegistryWrapper.WrapperLookup lookup = displayContext.lookup();

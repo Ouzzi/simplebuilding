@@ -35,7 +35,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         var rangefinderBuilder = valueLookupBuilder(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(ModItems.RANGEFINDER_ITEM);
 
-        // Alle gefärbten Varianten hinzufügen
         for (Item coloredRangefinder : ModItems.COLORED_RANGEFINDERS.values()) {
             rangefinderBuilder.add(coloredRangefinder);
         }
@@ -65,14 +64,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.REINFORCED_BUNDLE);
 
         valueLookupBuilder(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE)
-                .add(ModItems.REINFORCED_BUNDLE)
-                .add(Items.SHULKER_BOX);
+                .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
+                .add(ModItems.REINFORCED_BUNDLE);
 
         valueLookupBuilder(ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE)
                 .add(ModItems.REINFORCED_BUNDLE)
                 .add(Items.SHULKER_BOX)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
-                .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE);
 
         valueLookupBuilder(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)

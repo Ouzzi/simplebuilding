@@ -107,13 +107,13 @@ public class Simplebuilding implements ModInitializer {
             - constructors touch (custom chiel maps for each tier netherite obsidian to crying obsidian; diamond stone to cobble; iron cobble to mossy cobble; stone log to stripped log, ...;
                 chissel, spatula
             - fast chissel (faster cooldown for chisseltools)
-                chissel, spatula, pickaxe, axe, shulker, bundle
-            - range (bigger range for mining and chissel and bulding tools (bundle, shulker)
-                shulker, bundle
+                chissel, spatula, pickaxe, axe
+            - range (bigger range for mining and chissel and bulding tools (bundle)
+                bundle
             - Quiver enchahant (Pfeile aus bundle oder shulker in den Bogen laden) (entwedert quiver enchant oder master builder enchant) (nicht kombinierbar mit color palete)
-                shulker, bundle, building wand
+                bundle, building wand
             - master builder (places first block of shulker/bundle by right-clicking) (building wand allows to pick from other masterbuilder enchanted shulkers or bundles)
-                shulker, bundle, building wand
+                bundle, building wand
             - color palette (changes picking order first block to random but with weighted probability)
 
 

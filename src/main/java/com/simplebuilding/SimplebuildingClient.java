@@ -37,12 +37,6 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         SledgehammerOutlineRenderer.register();
         BuildingWandOutlineRenderer.register();
-
-        /* TODO: add ReinforcedShulkerBoxBlockEntity
-        BlockEntityRendererFactories.register(
-                ModBlockEntities.REINFORCED_SHULKER_BOX_ENTITY,
-                ShulkerBoxBlockEntityRenderer::new
-        );*/
     }
 
 }
