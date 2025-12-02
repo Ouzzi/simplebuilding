@@ -40,16 +40,16 @@ import net.minecraft.util.Identifier;
                 Deep Dark II
                 > (increases bundle capacity: I = 128, II = 256)
             8 funnel I, (Nether/Spawner, Treasure, common), [bundle, shulker]
-                Bastion I, Fortres I
+                Bastion I, Fortress I, Spawner I, Villager I
                 > (automatically picks up items while sneaking and in hand))
             9 break trough I, (Nether, Treasure, rare), [slegehammer]
-                Bastion I
+                Bastion I, Fortress I, Spawner I
                 > (automatically picks up items while sneaking and in hand))
             10 radius I, (Deep Dark, Treasure, rare), [slegehammer]
-                deep dark I
+                deep dark I, Wandering Trader I
                 > (5x5 instead of 3x3, not compatible with brak_trough)
             11 ignore blocktype II, (End, Treasure, rare), [slegehammer]
-                 End Ship II, End City I
+                 End Ship II, End City I, villager I
                 > (ignores blocktypes while destroying blocks, when not supported block double durrability cost, lvl 1 only supportrd blocks, lvl2 also not supported blocks)
             12 strip miner III (Nether, Treasure, very rare), [pickaxe]
                 Fortress III, villager I
@@ -62,7 +62,7 @@ import net.minecraft.util.Identifier;
                     // next ring maximum diviation from previous is 1
                     //> not with bridge compatible
             14 bridge I, (end, Treasure, rare), [building wand]
-                End City I, Library I
+                End Ship, End City I, Library I, Wandering Trader I
                 > (if placing a block place on the side of the edge of that block a line of blocks)
                     // if targeting the front edge, place on the front side, if right the right side and so on
                     //> not with surface place compatible

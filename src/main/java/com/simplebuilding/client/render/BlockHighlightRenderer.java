@@ -48,7 +48,7 @@ public class BlockHighlightRenderer {
 
         boolean hasConstructorsTouch = hasEnchantment(stack, MinecraftClient.getInstance(), ModEnchantments.CONSTRUCTORS_TOUCH);
         boolean showFill;
-        boolean isInverted = false; //TODO Config für Invertierung hinzufügen
+        boolean isInverted = com.simplebuilding.Simplebuilding.getConfig().tools.invertOctantSneak;
 
         if (hasConstructorsTouch) {
             showFill = isInverted ? isSneaking : !isSneaking;

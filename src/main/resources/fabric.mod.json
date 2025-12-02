@@ -21,7 +21,10 @@
         "client": [ "com.simplebuilding.SimplebuildingClient" ],
 		"fabric-datagen": [
           "com.simplebuilding.SimplebuildingDataGenerator"
-		]
+		],
+        "modmenu": [
+          "com.simplemoney.compat.ModMenuIntegration"
+        ]
 	},
 	"mixins": [
 		"simplebuilding.mixins.json",
