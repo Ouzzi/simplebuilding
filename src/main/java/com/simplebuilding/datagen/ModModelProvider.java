@@ -16,18 +16,16 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        Identifier customTexture = Identifier.of("simplebuilding", "block/reinforced_shulker_box");
-        TextureMap textureMap = new TextureMap().put(TextureKey.PARTICLE, customTexture);
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 
         // --- 1. RANGEFINDER (Generated / Flach) ---
-        itemModelGenerator.register(ModItems.RANGEFINDER_ITEM, Models.GENERATED);
+        itemModelGenerator.register(ModItems.OCTANT, Models.GENERATED);
 
         for (DyeColor color : DyeColor.values()) {
-            Item item = ModItems.COLORED_RANGEFINDERS.get(color);
+            Item item = ModItems.COLORED_OCTANT_ITEMS.get(color);
             if (item != null) {
                 itemModelGenerator.register(item, Models.GENERATED);
             }

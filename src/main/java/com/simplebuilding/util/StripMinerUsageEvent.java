@@ -28,23 +28,12 @@ public class StripMinerUsageEvent implements PlayerBlockBreakEvents.Before {
     public boolean beforeBlockBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
         ItemStack stack = player.getMainHandStack();
 
-        // 1. Grundlegende Checks: Server, Spieler, Spitzhacke
-        if (!(player instanceof ServerPlayerEntity serverPlayer) || !stack.isIn(ItemTags.PICKAXES)) {
-            return true;
-        }
+        if (!(player instanceof ServerPlayerEntity serverPlayer) || !stack.isIn(ItemTags.PICKAXES)) {return true;}
 
-        // Rekursionsschutz
-        if (MINING_BLOCKS.contains(pos)) {
-            return true;
-        }
+        if (MINING_BLOCKS.contains(pos)) {return true;}
 
-        // 2. WICHTIG: Prüfen, ob der Ursprungsblock überhaupt für das Werkzeug geeignet ist.
-        // Wenn ich mit einer Spitzhacke Erde abbaue, soll Strip Miner NICHT auslösen.
-        if (!stack.getItem().isCorrectForDrops(stack, state)) {
-            return true;
-        }
+        if (!stack.getItem().isCorrectForDrops(stack, state)) {return true;}
 
-        // 3. Enchantment Check
         var registry = world.getRegistryManager();
         var enchantLookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
         var stripMinerKey = enchantLookup.getOptional(ModEnchantments.STRIP_MINER);
@@ -55,11 +44,6 @@ public class StripMinerUsageEvent implements PlayerBlockBreakEvents.Before {
         if (level <= 0) return true;
 
         // --- Logik Start ---
-
-        // Berechnung der Tiefe
-        // Level 1 -> +1 Block (Total 2)
-        // Level 2 -> +2 Blöcke (Total 3)
-        // Level 3 -> +4 Blöcke (Total 5)
         int depth = (level == 3) ? 4 : level;
 
         Direction miningDirection = getMiningDirection(player);
@@ -68,37 +52,18 @@ public class StripMinerUsageEvent implements PlayerBlockBreakEvents.Before {
             BlockPos targetPos = pos.offset(miningDirection, i);
             BlockState targetState = world.getBlockState(targetPos);
 
-            // Abbruchbedingungen für den Tunnel:
+            if (targetState.isAir() || targetState.getHardness(world, targetPos) < 0) {break;}
+            if (!stack.getItem().isCorrectForDrops(stack, targetState)) {break;}
 
-            // A. Block ist Luft oder unzerstörbar (Bedrock) -> Tunnel Ende
-            if (targetState.isAir() || targetState.getHardness(world, targetPos) < 0) {
-                break;
-            }
-
-            // B. Block ist NICHT supported (z.B. Erde im Steintunnel) -> Tunnel Ende
-            // isCorrectForDrops prüft, ob das Tool effizient ist / Drops gibt (bei Pickaxe: Stein, Erze, etc.)
-            if (!stack.getItem().isCorrectForDrops(stack, targetState)) {
-                break;
-            }
-
-            // Abbauen
             MINING_BLOCKS.add(targetPos);
-            // tryBreakBlock kümmert sich um Drops, XP und Sound
             boolean broken = serverPlayer.interactionManager.tryBreakBlock(targetPos);
             MINING_BLOCKS.remove(targetPos);
 
             if (broken) {
-                // C. Damage: Pro Block 1 Schaden
                 stack.damage(1, serverPlayer, EquipmentSlot.MAINHAND);
-
-                // Wenn Item kaputt geht, sofort aufhören
-                if (stack.isEmpty()) {
-                    break;
-                }
+                if (stack.isEmpty()) {break;}
             }
         }
-
-        // return true -> Der ursprüngliche Block wird von Vanilla abgebaut (und verursacht dort auch 1 Schaden)
         return true;
     }
 

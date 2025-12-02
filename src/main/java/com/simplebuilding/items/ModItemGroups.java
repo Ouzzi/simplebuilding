@@ -63,9 +63,9 @@ public class ModItemGroups {
                         entries.add(ModItems.NETHERITE_SLEDGEHAMMER);
 
                         // --- Rangefinders ---
-                        entries.add(ModItems.RANGEFINDER_ITEM);
+                        entries.add(ModItems.OCTANT);
                         for (DyeColor color : DyeColor.values()) {
-                            Item coloredItem = ModItems.COLORED_RANGEFINDERS.get(color);
+                            Item coloredItem = ModItems.COLORED_OCTANT_ITEMS.get(color);
                             if (coloredItem != null) {
                                 entries.add(coloredItem);
                             }
@@ -76,8 +76,6 @@ public class ModItemGroups {
 
                         // --- Enchanted Books ---
                         RegistryWrapper.WrapperLookup lookup = displayContext.lookup();
-
-                        // FIX: Use .getOrThrow() (Matches the interface you pasted)
                         RegistryWrapper<Enchantment> enchantmentRegistry = lookup.getOrThrow(RegistryKeys.ENCHANTMENT);
 
                         // 1. Tool Utilities
@@ -120,17 +118,10 @@ public class ModItemGroups {
      */
     private static void addEnchant(ItemGroup.Entries entries, RegistryWrapper<Enchantment> registry, RegistryKey<Enchantment> key, int level) {
         registry.getOptional(key).ifPresent(enchantmentEntry -> {
-            // 1. Create the Book Item
             ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-
-            // 2. Use ItemEnchantmentsComponent to build the stored enchantments
             ItemEnchantmentsComponent.Builder builder = new ItemEnchantmentsComponent.Builder(ItemEnchantmentsComponent.DEFAULT);
             builder.add(enchantmentEntry, level);
-
-            // 3. Set the STORED_ENCHANTMENTS component
             book.set(DataComponentTypes.STORED_ENCHANTMENTS, builder.build());
-
-            // 4. Add to tab
             entries.add(book);
         });
     }

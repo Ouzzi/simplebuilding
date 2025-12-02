@@ -1,6 +1,6 @@
 package com.simplebuilding.client.gui;
 
-import com.simplebuilding.items.custom.RangefinderItem;
+import com.simplebuilding.items.custom.OctantItem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -36,9 +36,9 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         if (client.player == null) return;
 
         ItemStack stack = client.player.getMainHandStack();
-        if (!(stack.getItem() instanceof RangefinderItem)) {
+        if (!(stack.getItem() instanceof OctantItem)) {
             stack = client.player.getOffHandStack();
-            if (!(stack.getItem() instanceof RangefinderItem)) {
+            if (!(stack.getItem() instanceof OctantItem)) {
                 return;
             }
         }

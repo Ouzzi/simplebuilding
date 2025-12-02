@@ -42,38 +42,21 @@ public class SledgehammerItem extends Item {
     @Override
     public float getMiningSpeed(ItemStack stack, BlockState state) {
         float baseSpeed = super.getMiningSpeed(stack, state);
-
-        // Nur anpassen, wenn das Werkzeug effektiv ist
         if (baseSpeed > 1.0F) {
-
-            // Da wir hier keine World/Registry haben, prüfen wir die Komponenten direkt.
             ItemEnchantmentsComponent enchantments = stack.getEnchantments();
 
             boolean hasRadius = false;
             boolean hasBreakThrough = false;
 
-            // Wir iterieren über die Enchants auf dem Item
             for (var entry : enchantments.getEnchantmentEntries()) {
-                if (entry.getKey().matchesKey(ModEnchantments.RADIUS)) {
-                    hasRadius = true;
-                }
-                if (entry.getKey().matchesKey(ModEnchantments.BREAK_THROUGH)) {
-                    hasBreakThrough = true;
-                }
+                if (entry.getKey().matchesKey(ModEnchantments.RADIUS)) {hasRadius = true;}
+                if (entry.getKey().matchesKey(ModEnchantments.BREAK_THROUGH)) {hasBreakThrough = true;}
             }
 
             float divisor = 6.0F; // Default: 3x3 (9 Blöcke) -> 1/6 Speed
-
-            if (hasRadius && hasBreakThrough) {
-                // 5x5x2 = 50 Blöcke (Berechnung: 50 * 2/3 = 33.3)
-                divisor = 33.0F;
-            } else if (hasRadius) {
-                // 5x5 = 25 Blöcke -> 16.0F (wie gewünscht)
-                divisor = 16.0F;
-            } else if (hasBreakThrough) {
-                // 3x3x2 = 18 Blöcke -> 11.0F (wie gewünscht)
-                divisor = 11.0F;
-            }
+            if (hasRadius && hasBreakThrough) { divisor = 33.0F; /* 5x5x2 = 50 Blöcke (Berechnung: 50 * 2/3 = 33.3) */
+            } else if (hasRadius) { divisor = 16.0F; /* 5x5 = 25 Blöcke -> 16.0F (wie gewünscht) */
+            } else if (hasBreakThrough) { divisor = 11.0F; /* 3x3x2 = 18 Blöcke -> 11.0F (wie gewünscht) */ }
 
             return baseSpeed / divisor;
         }
@@ -87,33 +70,22 @@ public class SledgehammerItem extends Item {
         ItemStack stack = player.getMainHandStack();
         BlockState initialState = world.getBlockState(initialPos);
 
-        // 0. CHECK: Ist das Werkzeug für den Ursprungsblock geeignet?
-        if (!stack.getItem().isCorrectForDrops(stack, initialState)) {
-            return positions;
-        }
+        if (!stack.getItem().isCorrectForDrops(stack, initialState)) {return positions;}
 
-        // 1. Blickrichtung
         Direction sideHit = getHitSideFromPlayer(player);
 
-        // 2. Enchantments (Radius & Break Through)
         var registry = world.getRegistryManager();
         var enchantLookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
 
-        // Radius
         var radiusKey = enchantLookup.getOptional(ModEnchantments.RADIUS);
         int range = baseRange;
-        if (radiusKey.isPresent() && EnchantmentHelper.getLevel(radiusKey.get(), stack) > 0) {
-            range += 1; // 5x5 statt 3x3
-        }
+        if (radiusKey.isPresent() && EnchantmentHelper.getLevel(radiusKey.get(), stack) > 0) {range += 1;}
 
-        // Break Through
         var breakThroughKey = enchantLookup.getOptional(ModEnchantments.BREAK_THROUGH);
         int depth = 0;
-        if (breakThroughKey.isPresent() && EnchantmentHelper.getLevel(breakThroughKey.get(), stack) > 0) {
-            depth = 1;
-        }
+        if (breakThroughKey.isPresent() && EnchantmentHelper.getLevel(breakThroughKey.get(), stack) > 0) {depth = 1;}
 
-        // 3. Positionen berechnen
+        // Positionen berechnen
         for(int x = -range; x <= range; x++) {
             for(int y = -range; y <= range; y++) {
                 for(int z = 0; z <= depth; z++) {

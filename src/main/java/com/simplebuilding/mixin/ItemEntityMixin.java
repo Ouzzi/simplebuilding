@@ -32,7 +32,6 @@ public abstract class ItemEntityMixin extends Entity {
 
         if (this.getEntityWorld().isClient()) return;
 
-        // 1. Prüfen: Sneakt der Spieler?
         if (!player.isSneaking()) return;
 
         ItemStack itemOnGround = this.getStack();
@@ -40,14 +39,10 @@ public abstract class ItemEntityMixin extends Entity {
         
         System.out.println("item detected");
 
-        
-        // 2. Prüfen: Hat er ein Funnel-Bundle in der Hand? (Main oder Offhand)
         for (Hand hand : Hand.values()) {
             ItemStack heldItem = player.getStackInHand(hand);
 
-            // Prüfen ob es das richtige Item ist und ob Funnel drauf ist
             if (tryPickupWithBundle(heldItem, itemOnGround, player)) {
-                // Wenn Item aufgenommen wurde, löschen wir das ItemEntity
                 if (itemOnGround.isEmpty()) {
                     this.discard();
                 }
@@ -68,11 +63,9 @@ public abstract class ItemEntityMixin extends Entity {
             return false;
         }
 
-        // Wir rufen die API im Item auf
         boolean success = ((ReinforcedBundleItem) bundleStack.getItem()).tryInsertStackFromWorld(bundleStack, itemToPickup, player);
 
         if (success) {
-            // WICHTIG: Die Animation hier triggern, da wir hier Zugriff auf 'this' (ItemEntity) haben!
             player.sendPickup(this, itemToPickup.getCount());
         }
         System.out.println("bundle tryes to pick up. response -> " + success);

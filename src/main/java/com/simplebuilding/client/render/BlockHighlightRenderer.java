@@ -1,7 +1,7 @@
 package com.simplebuilding.client.render;
 
 import com.simplebuilding.enchantment.ModEnchantments; // Import nicht vergessen!
-import com.simplebuilding.items.custom.RangefinderItem;
+import com.simplebuilding.items.custom.OctantItem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.BufferAllocator;
@@ -14,7 +14,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 
 public class BlockHighlightRenderer {
@@ -25,11 +24,11 @@ public class BlockHighlightRenderer {
         if (client.player == null || client.world == null) return;
 
         ItemStack stack = client.player.getMainHandStack();
-        boolean isRangefinder = stack.getItem() instanceof RangefinderItem;
+        boolean isRangefinder = stack.getItem() instanceof OctantItem;
 
         if (!isRangefinder) {
             stack = client.player.getOffHandStack();
-            isRangefinder = stack.getItem() instanceof RangefinderItem;
+            isRangefinder = stack.getItem() instanceof OctantItem;
         }
 
         if (isRangefinder) {

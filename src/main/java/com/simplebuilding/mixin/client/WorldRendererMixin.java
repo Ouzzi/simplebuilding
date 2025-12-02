@@ -24,7 +24,7 @@ public class WorldRendererMixin {
             RenderTickCounter tickCounter,
             boolean renderBlockOutline,
             Camera camera,
-            Matrix4f positionMatrix, // <--- DAS ist der Schlüssel! Die fertige Matrix.
+            Matrix4f positionMatrix,
             Matrix4f matrix4f,
             Matrix4f projectionMatrix,
             GpuBufferSlice fogBuffer,
@@ -32,8 +32,6 @@ public class WorldRendererMixin {
             boolean renderSky,
             CallbackInfo ci
     ) {
-        // Wir übergeben die fertige Positions-Matrix direkt an unseren Renderer.
-        // Keine manuelle Rotation mehr nötig!
         BlockHighlightRenderer.render(positionMatrix, camera);
     }
 }

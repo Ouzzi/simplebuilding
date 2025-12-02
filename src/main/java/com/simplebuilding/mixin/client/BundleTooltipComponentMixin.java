@@ -47,9 +47,6 @@ public abstract class BundleTooltipComponentMixin implements BundleTooltipAccess
         return Identifier.ofVanilla("container/bundle/bundle_progressbar_fill"); // Blau
     }
 
-    // =========================================================================
-    // 2. BREITE FIX (Der Balken)
-    // =========================================================================
     @Redirect(
             method = "drawProgressBar",
             at = @At(
@@ -68,9 +65,6 @@ public abstract class BundleTooltipComponentMixin implements BundleTooltipAccess
         return MathHelper.clamp(MathHelper.multiplyFraction(occupancy, 94), 0, 94);
     }
 
-    // =========================================================================
-    // 3. LABEL FIX (Text "Full")
-    // =========================================================================
     @Redirect(
             method = "drawProgressBar",
             at = @At(

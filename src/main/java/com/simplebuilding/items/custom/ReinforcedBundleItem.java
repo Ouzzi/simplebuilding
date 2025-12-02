@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.BundleItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipData;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.screen.slot.Slot;
@@ -22,6 +23,7 @@ import org.apache.commons.lang3.math.Fraction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 // TODO: Implement Enchantments [FUNNEL, QUIVER]
@@ -39,51 +41,6 @@ public class ReinforcedBundleItem extends BundleItem {
         return false;
     }
 
-    // =============================================================
-    // API: Funnel Support (Wird vom Mixin aufgerufen)
-    // =============================================================
-    public boolean tryInsertStackFromWorld(ItemStack bundle, ItemStack stackToInsert, PlayerEntity player) {
-        if (!stackToInsert.getItem().canBeNested()) return false;
-
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
-        if (contents == null) contents = BundleContentsComponent.DEFAULT;
-
-        Fraction maxCap = getMaxCapacity(bundle, player);
-
-        // Wir versuchen, das Item einzufügen
-        int added = insertItemIntoBundle(bundle, contents, stackToInsert, maxCap);
-
-        if (added > 0) {
-            // Wir verringern den Stack auf dem Boden
-            stackToInsert.decrement(added);
-            this.playInsertSound(player);
-            // HINWEIS: Die Animation (sendPickup) macht jetzt das Mixin!
-            return true;
-        }
-        return false;
-    }
-
-    // =============================================================
-    // 1. Kapazitäts-Berechnung
-    // =============================================================
-    private Fraction getMaxCapacity(ItemStack stack, PlayerEntity player) {
-        if (player == null || player.getEntityWorld() == null) return Fraction.getFraction(1, 1);
-
-        var registry = player.getEntityWorld().getRegistryManager();
-        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var deepPockets = enchantments.getOptional(ModEnchantments.DEEP_POCKETS);
-
-        if (deepPockets.isPresent()) {
-            int level = EnchantmentHelper.getLevel(deepPockets.get(), stack);
-            if (level == 1) return Fraction.getFraction(2, 1);
-            if (level >= 2) return Fraction.getFraction(4, 1);
-        }
-        return Fraction.getFraction(1, 1);
-    }
-
-    // =============================================================
-    // 2. Interaktion: Bundle in der Hand (Cursor) klickt auf Slot
-    // =============================================================
     @Override
     public boolean onStackClicked(ItemStack bundle, Slot slot, ClickType clickType, PlayerEntity player) {
         if (clickType != ClickType.RIGHT && clickType != ClickType.LEFT) return false;
@@ -93,7 +50,6 @@ public class ReinforcedBundleItem extends BundleItem {
 
         ItemStack itemInSlot = slot.getStack();
 
-        // RECHTS-KLICK auf leeren Slot -> Item HERAUSNEHMEN
         if (clickType == ClickType.RIGHT && itemInSlot.isEmpty()) {
             ItemStack removed = removeSelectedOrFirstItem(bundle, contents);
             if (!removed.isEmpty()) {
@@ -101,9 +57,7 @@ public class ReinforcedBundleItem extends BundleItem {
                 slot.insertStack(removed);
                 return true;
             }
-        }
-        // LINKS-KLICK auf Item -> Item HINEINLEGEN
-        else if (clickType == ClickType.LEFT && !itemInSlot.isEmpty() && itemInSlot.getItem().canBeNested()) {
+        } else if (clickType == ClickType.LEFT && !itemInSlot.isEmpty() && itemInSlot.getItem().canBeNested()) {
             int added = insertItemIntoBundle(bundle, contents, itemInSlot, getMaxCapacity(bundle, player));
             if (added > 0) {
                 this.playInsertSound(player);
@@ -124,7 +78,6 @@ public class ReinforcedBundleItem extends BundleItem {
         BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
         if (contents == null) contents = BundleContentsComponent.DEFAULT;
 
-        // RECHTS-KLICK mit leerer Hand -> Item HERAUSNEHMEN
         if (clickType == ClickType.RIGHT && cursorStack.isEmpty()) {
             ItemStack removed = removeSelectedOrFirstItem(bundle, contents);
             if (!removed.isEmpty()) {
@@ -133,7 +86,6 @@ public class ReinforcedBundleItem extends BundleItem {
                 return true;
             }
         }
-        // LINKS-KLICK mit Item -> Item HINEINLEGEN
         else if (clickType == ClickType.LEFT && !cursorStack.isEmpty() && cursorStack.getItem().canBeNested()) {
             int added = insertItemIntoBundle(bundle, contents, cursorStack, getMaxCapacity(bundle, player));
             if (added > 0) {
@@ -145,9 +97,6 @@ public class ReinforcedBundleItem extends BundleItem {
         return false;
     }
 
-    // =============================================================
-    // 4. Master Builder (Use On Block)
-    // =============================================================
     @Override
     public ActionResult useOnBlock(net.minecraft.item.ItemUsageContext context) {
         PlayerEntity player = context.getPlayer();
@@ -184,7 +133,6 @@ public class ReinforcedBundleItem extends BundleItem {
 
                     if (result.isAccepted()) {
                         if (!player.getAbilities().creativeMode) {
-                            // Entferne genau 1 Item vom (zufällig oder manuell) gewählten Index
                             removeOneItemFromBundle(bundleStack, contents, index);
                         }
                         return result;
@@ -195,9 +143,6 @@ public class ReinforcedBundleItem extends BundleItem {
         return super.useOnBlock(context);
     }
 
-    // =============================================================
-    // 5. Interaktion: Rechtsklick in die Luft (Droppen)
-    // =============================================================
     @Override
     public net.minecraft.util.ActionResult use(net.minecraft.world.World world, PlayerEntity user, net.minecraft.util.Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
@@ -224,9 +169,48 @@ public class ReinforcedBundleItem extends BundleItem {
         return super.use(world, user, hand);
     }
 
-    // =============================================================
-    // LOGIK & HELPER
-    // =============================================================
+    @Override
+    public boolean isItemBarVisible(ItemStack stack) {
+        BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
+        return contents != null && !contents.isEmpty();
+    }
+
+    @Override
+    public int getItemBarStep(ItemStack stack) {
+        BundleContentsComponent data = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
+        if (data == null) return 0;
+        Fraction current = data.getOccupancy();
+        Fraction max = getMaxCapacityForVisuals(stack);
+        float fillLevel = Math.min(1.0f, current.divideBy(max).floatValue());
+        return Math.round(fillLevel * 13.0F);
+    }
+
+    @Override
+    public int getItemBarColor(ItemStack stack) {
+        BundleContentsComponent data = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
+        if (data == null) return super.getItemBarColor(stack);
+        Fraction current = data.getOccupancy();
+        Fraction max = getMaxCapacityForVisuals(stack);
+        float fillLevel = Math.min(1.0f, current.divideBy(max).floatValue());
+        return MathHelper.hsvToRgb(Math.max(0.0F, (1.0F - fillLevel)) / 3.0F, 1.0F, 1.0F);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+    }
+
+    @Override
+    public Optional<TooltipData> getTooltipData(ItemStack stack) {
+        BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
+        if (contents == null) return Optional.empty();
+        int maxCapacity = 64;
+        Fraction frac = getMaxCapacityForVisuals(stack);
+        if (frac.getNumerator() == 2) maxCapacity = 128;
+        if (frac.getNumerator() == 4) maxCapacity = 256;
+        return Optional.of(new ReinforcedBundleTooltipData(contents, maxCapacity));
+    }
+
 
     private boolean hasColorPalette(ItemStack stack, net.minecraft.world.World world) {
         var registry = world.getRegistryManager();
@@ -242,9 +226,6 @@ public class ReinforcedBundleItem extends BundleItem {
         return mb.isPresent() && EnchantmentHelper.getLevel(mb.get(), stack) > 0;
     }
 
-    // =============================================================
-    // LOGIK: Items einfügen
-    // =============================================================
     private int insertItemIntoBundle(ItemStack bundle, BundleContentsComponent contents, ItemStack stackToAdd, Fraction maxCap) {
         if (stackToAdd.isEmpty()) return 0;
 
@@ -289,10 +270,6 @@ public class ReinforcedBundleItem extends BundleItem {
         }
     }
 
-    // =============================================================
-    // LOGIK: Items entfernen (Selection Support)
-    // =============================================================
-
     private ItemStack removeSelectedOrFirstItem(ItemStack bundle, BundleContentsComponent contents) {
         if (contents.isEmpty()) return ItemStack.EMPTY;
 
@@ -332,10 +309,38 @@ public class ReinforcedBundleItem extends BundleItem {
 
         bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
     }
+    public boolean tryInsertStackFromWorld(ItemStack bundle, ItemStack stackToInsert, PlayerEntity player) {
+        if (!stackToInsert.getItem().canBeNested()) return false;
 
-    // =============================================================
-    // VISUALS
-    // =============================================================
+        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+        if (contents == null) contents = BundleContentsComponent.DEFAULT;
+
+        Fraction maxCap = getMaxCapacity(bundle, player);
+
+        int added = insertItemIntoBundle(bundle, contents, stackToInsert, maxCap);
+
+        if (added > 0) {
+            stackToInsert.decrement(added);
+            this.playInsertSound(player);
+            return true;
+        }
+        return false;
+    }
+
+    private Fraction getMaxCapacity(ItemStack stack, PlayerEntity player) {
+        if (player == null || player.getEntityWorld() == null) return Fraction.getFraction(1, 1);
+
+        var registry = player.getEntityWorld().getRegistryManager();
+        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+        var deepPockets = enchantments.getOptional(ModEnchantments.DEEP_POCKETS);
+
+        if (deepPockets.isPresent()) {
+            int level = EnchantmentHelper.getLevel(deepPockets.get(), stack);
+            if (level == 1) return Fraction.getFraction(2, 1);
+            if (level >= 2) return Fraction.getFraction(4, 1);
+        }
+        return Fraction.getFraction(1, 1);
+    }
 
     private Fraction getMaxCapacityForVisuals(ItemStack stack) {
         var enchantments = stack.getEnchantments();
@@ -350,49 +355,6 @@ public class ReinforcedBundleItem extends BundleItem {
             }
         }
         return Fraction.getFraction(1, 1);
-    }
-
-    @Override
-    public boolean isItemBarVisible(ItemStack stack) {
-        BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
-        return contents != null && !contents.isEmpty();
-    }
-
-    @Override
-    public int getItemBarStep(ItemStack stack) {
-        BundleContentsComponent data = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
-        if (data == null) return 0;
-        Fraction current = data.getOccupancy();
-        Fraction max = getMaxCapacityForVisuals(stack);
-        float fillLevel = Math.min(1.0f, current.divideBy(max).floatValue());
-        return Math.round(fillLevel * 13.0F);
-    }
-
-    @Override
-    public int getItemBarColor(ItemStack stack) {
-        BundleContentsComponent data = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
-        if (data == null) return super.getItemBarColor(stack);
-        Fraction current = data.getOccupancy();
-        Fraction max = getMaxCapacityForVisuals(stack);
-        float fillLevel = Math.min(1.0f, current.divideBy(max).floatValue());
-        return MathHelper.hsvToRgb(Math.max(0.0F, (1.0F - fillLevel)) / 3.0F, 1.0F, 1.0F);
-    }
-
-    // Die Tooltip-Methode hier leer lassen (super aufrufen), da wir den Client-Event nutzen!
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-    }
-
-    @Override
-    public java.util.Optional<net.minecraft.item.tooltip.TooltipData> getTooltipData(ItemStack stack) {
-        BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
-        if (contents == null) return java.util.Optional.empty();
-        int maxCapacity = 64;
-        Fraction frac = getMaxCapacityForVisuals(stack);
-        if (frac.getNumerator() == 2) maxCapacity = 128;
-        if (frac.getNumerator() == 4) maxCapacity = 256;
-        return java.util.Optional.of(new ReinforcedBundleTooltipData(contents, maxCapacity));
     }
 
     private void playRemoveOneSound(PlayerEntity entity) {

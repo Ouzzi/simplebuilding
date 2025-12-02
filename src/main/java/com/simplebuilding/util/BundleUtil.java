@@ -23,10 +23,7 @@ public class BundleUtil {
         if (contents == null) return ItemStack.EMPTY;
 
         for (ItemStack s : contents.iterate()) {
-            // Wir prüfen auf Vanilla Pfeil-Typen. (Mod-Pfeile ggf. über Tags prüfen)
-            if (s.getItem() == Items.ARROW || s.getItem() == Items.SPECTRAL_ARROW || s.getItem() == Items.TIPPED_ARROW) {
-                return s;
-            }
+            if (s.getItem() == Items.ARROW || s.getItem() == Items.SPECTRAL_ARROW || s.getItem() == Items.TIPPED_ARROW) {return s;}
         }
         return ItemStack.EMPTY;
     }
@@ -46,18 +43,13 @@ public class BundleUtil {
         boolean foundAndRemoved = false;
 
         for (ItemStack s : contents.iterate()) {
-            // Wir suchen den ersten Pfeil und verringern ihn
             if (!foundAndRemoved && (s.getItem() == Items.ARROW || s.getItem() == Items.SPECTRAL_ARROW || s.getItem() == Items.TIPPED_ARROW)) {
                 ItemStack copy = s.copy();
                 copy.decrement(1);
 
-                if (!copy.isEmpty()) {
-                    newItems.add(copy);
-                }
+                if (!copy.isEmpty()) {newItems.add(copy);}
                 foundAndRemoved = true;
-            } else {
-                newItems.add(s.copy());
-            }
+            } else {newItems.add(s.copy());}
         }
 
         if (foundAndRemoved) {

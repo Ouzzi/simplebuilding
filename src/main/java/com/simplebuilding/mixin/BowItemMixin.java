@@ -20,7 +20,6 @@ public class BowItemMixin {
 
     @Inject(method = "onStoppedUsing", at = @At("RETURN"))
     private void consumeArrowFromBundle(ItemStack stack, World world, LivingEntity user, int remainingUseTicks, CallbackInfoReturnable<Boolean> cir) {
-        // Wenn Schuss fehlgeschlagen (false), abbrechen
         if (!cir.getReturnValue()) return;
 
         if (!(user instanceof PlayerEntity player) || player.getAbilities().creativeMode) return;
@@ -30,10 +29,8 @@ public class BowItemMixin {
 
             if (slotStack.getItem() instanceof ReinforcedBundleItem) {
                 if (hasQuiverEnchantment(slotStack, player)) {
-                    // Prüfen ob Pfeil drin ist (via Utility)
                     ItemStack arrow = BundleUtil.findArrow(slotStack);
                     if (!arrow.isEmpty()) {
-                        // Entfernen (via Utility)
                         if (BundleUtil.removeOneArrow(slotStack)) {
                             return;
                         }

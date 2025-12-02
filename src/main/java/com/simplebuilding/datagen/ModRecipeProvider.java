@@ -53,8 +53,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createSpatulaRecipe(ModItems.IRON_SPATULA, Items.IRON_INGOT, Items.COPPER_INGOT);
                 createSpatulaRecipe(ModItems.GOLD_SPATULA, Items.GOLD_INGOT, Items.COPPER_INGOT);
                 createSpatulaRecipe(ModItems.DIAMOND_SPATULA, Items.DIAMOND, Items.COPPER_INGOT);
-
-                // Netherite Spatula -> Smithing Upgrade
                 SmithingTransformRecipeJsonBuilder.create(
                         Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
                         Ingredient.ofItems(ModItems.DIAMOND_SPATULA),
@@ -72,8 +70,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createCoreRecipe(ModItems.IRON_BUILDING_CORE, Items.IRON_INGOT);
                 createCoreRecipe(ModItems.GOLD_BUILDING_CORE, Items.GOLD_INGOT);
                 createCoreRecipe(ModItems.DIAMOND_BUILDING_CORE, Items.DIAMOND);
-
-                // Netherite Core -> Smithing Upgrade (Diamond Core + Netherite Ingot)
                 SmithingTransformRecipeJsonBuilder.create(
                         Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
                         Ingredient.ofItems(ModItems.DIAMOND_BUILDING_CORE),
@@ -91,8 +87,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createWandRecipe(ModItems.IRON_BUILDING_WAND, ModItems.IRON_BUILDING_CORE, Items.IRON_INGOT);
                 createWandRecipe(ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_BUILDING_CORE, Items.GOLD_INGOT);
                 createWandRecipe(ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_BUILDING_CORE, Items.DIAMOND);
-
-                // Netherite Wand -> Smithing Upgrade (Diamond Wand + Netherite Ingot)
                 SmithingTransformRecipeJsonBuilder.create(
                         Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
                         Ingredient.ofItems(ModItems.DIAMOND_BUILDING_WAND),
@@ -110,8 +104,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createSledgehammerRecipe(ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, Items.IRON_BLOCK);
                 createSledgehammerRecipe(ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, Items.GOLD_BLOCK);
                 createSledgehammerRecipe(ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, Items.DIAMOND_BLOCK);
-
-                // Netherite Sledgehammer -> Smithing Upgrade
                 SmithingTransformRecipeJsonBuilder.create(
                         Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
                         Ingredient.ofItems(ModItems.DIAMOND_SLEDGEHAMMER),
@@ -126,7 +118,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // RANGEFINDER (Antik / Octant Style)
                 // =================================================================
-                createShaped(RecipeCategory.TOOLS, ModItems.RANGEFINDER_ITEM)
+                createShaped(RecipeCategory.TOOLS, ModItems.OCTANT)
                         .pattern(" GL")
                         .pattern("IPG")
                         .pattern("CI ")
@@ -137,16 +129,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input('L', Items.LEAD)
                         .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
                         .offerTo(exporter);
-
-                // Rangefinder Färben
                 for (DyeColor color : DyeColor.values()) {
-                    Item resultItem = ModItems.COLORED_RANGEFINDERS.get(color);
+                    Item resultItem = ModItems.COLORED_OCTANT_ITEMS.get(color);
                     Item dyeItem = getDyeItem(color);
 
                     if (resultItem != null && dyeItem != null) {
 
                         ShapelessRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.TOOLS, resultItem)
-                                .input(ModItems.RANGEFINDER_ITEM)
+                                .input(ModItems.OCTANT)
                                 .input(dyeItem)
                                 .criterion(hasItem(dyeItem), conditionsFromItem(dyeItem))
                                 .offerTo(exporter, getRecipeName(resultItem) + "_from_dye");

@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "M": "minecraft:diamond",
-    "N": "minecraft:diamond",
+    "N": "minecraft:copper_nugget",
     "S": "minecraft:stick"
   },
   "pattern": [

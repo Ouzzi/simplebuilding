@@ -32,11 +32,11 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.DIAMOND_SPATULA)
                 .add(ModItems.NETHERITE_SPATULA);
 
-        var rangefinderBuilder = valueLookupBuilder(ModTags.Items.OCTANTS_ENCHANTABLE)
-                .add(ModItems.RANGEFINDER_ITEM);
+        var octantBuilder = valueLookupBuilder(ModTags.Items.OCTANTS_ENCHANTABLE)
+                .add(ModItems.OCTANT);
 
-        for (Item coloredRangefinder : ModItems.COLORED_RANGEFINDERS.values()) {
-            rangefinderBuilder.add(coloredRangefinder);
+        for (Item coloredRangefinder : ModItems.COLORED_OCTANT_ITEMS.values()) {
+            octantBuilder.add(coloredRangefinder);
         }
 
         valueLookupBuilder(ModTags.Items.CHISEL_AND_MINING_TOOLS)

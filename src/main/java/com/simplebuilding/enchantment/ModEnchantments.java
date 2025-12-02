@@ -18,7 +18,7 @@ import net.minecraft.util.Identifier;
 
 /*
     Enchantments:
-            1 constructors touch I, (Trial, Treasure, very rare), [chisel, spatula, rangefinder]
+            1 constructors touch I, (Trial, Treasure, very rare), [chisel, spatula, octant]
                 Trial I, Burried Tresure I
                 > (custom chiel maps for each tier netherite obsidian to crying obsidian; diamond stone to cobble; iron cobble to mossy cobble; stone log to stripped log, ...;
             2 fast chisel II,  (Trial/haste, Treasure, very rare), [chisel, spatula]

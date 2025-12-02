@@ -1,7 +1,6 @@
 package com.simplebuilding.items;
 
 import com.simplebuilding.Simplebuilding;
-import com.simplebuilding.block.ModBlocks;
 import com.simplebuilding.items.custom.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
@@ -18,7 +17,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import static com.simplebuilding.items.custom.BuildingWandItem.*;
-import static com.simplebuilding.items.custom.RangefinderItem.DURABILITY_RANGEFINDER;
+import static com.simplebuilding.items.custom.OctantItem.DURABILITY_OCTANT;
 
 /**
  * Verwaltet die Registrierung aller benutzerdefinierten Gegenstände (Items) des Simplemoney Mods.
@@ -88,11 +87,11 @@ public class ModItems {
     public static final SledgehammerItem DIAMOND_SLEDGEHAMMER = registerSledgehammer("diamond_sledgehammer", DURABILITY_DIAMOND, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND, SledgehammerItem.DIAMOND_ATTACK_DAMAGE, SledgehammerItem.DIAMOND_ATTACK_SPEED);
     public static final SledgehammerItem NETHERITE_SLEDGEHAMMER = registerSledgehammer("netherite_sledgehammer", DURABILITY_NETHERITE, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE, SledgehammerItem.NETHERITE_ATTACK_DAMAGE, SledgehammerItem.NETHERITE_ATTACK_SPEED);
 
-    // Rangefinder
-    public static final RangefinderItem RANGEFINDER_ITEM = (RangefinderItem) registerItem("rangefinder",
-            settings -> new RangefinderItem(settings.maxDamage(DURABILITY_RANGEFINDER).enchantable(ENCHANTABILITY_NETHERITE), null));
+    // Octants
+    public static final OctantItem OCTANT = (OctantItem) registerItem("octant",
+            settings -> new OctantItem(settings.maxDamage(DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), null));
 
-    public static final Map<DyeColor, RangefinderItem> COLORED_RANGEFINDERS = new HashMap<>();
+    public static final Map<DyeColor, OctantItem> COLORED_OCTANT_ITEMS = new HashMap<>();
 
     // Reinforced Items
     public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1)));
@@ -134,12 +133,12 @@ public class ModItems {
     public static void registerModItems() {
         Simplebuilding.LOGGER.info("Registering Mod Items for " + Simplebuilding.MOD_ID);
 
-        // Farbige Rangefinder registrieren
+        // Farbige Octanten registrieren
         for (DyeColor color : DyeColor.values()) {
-            String name = "rangefinder_" + color.getId();
-            RangefinderItem coloredItem = (RangefinderItem) registerItem(name,
-                    settings -> new RangefinderItem(settings.maxDamage(DURABILITY_NETHERITE * DURABILITY_RANGEFINDER).enchantable(ENCHANTABILITY_NETHERITE), color));
-            COLORED_RANGEFINDERS.put(color, coloredItem);
+            String name = "octant_" + color.getId();
+            OctantItem coloredItem = (OctantItem) registerItem(name,
+                    settings -> new OctantItem(settings.maxDamage(DURABILITY_NETHERITE * DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), color));
+            COLORED_OCTANT_ITEMS.put(color, coloredItem);
         }
     }
 }

@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "M": "minecraft:iron_ingot",
-    "N": "minecraft:iron_nugget",
+    "N": "minecraft:copper_nugget",
     "S": "minecraft:stick"
   },
   "pattern": [

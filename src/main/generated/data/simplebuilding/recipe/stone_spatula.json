@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "M": "minecraft:stone",
-    "N": "minecraft:iron_nugget",
+    "M": "minecraft:cobblestone",
+    "N": "minecraft:copper_ingot",
     "S": "minecraft:stick"
   },
   "pattern": [

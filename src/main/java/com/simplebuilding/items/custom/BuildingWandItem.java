@@ -20,6 +20,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -206,8 +207,9 @@ public class BuildingWandItem extends Item {
 
             BlockState stateToPlace = material != null ? material.stateToPlace : stateToExtend;
 
-            if (world.setBlockState(targetPos, stateToPlace, 3)) {
-                world.playSound(null, targetPos, placeSound, SoundCategory.BLOCKS, 1.0f, 1.0f);
+           if (world.setBlockState(targetPos, stateToPlace, 3)) {
+                BlockSoundGroup soundGroup = stateToPlace.getSoundGroup();
+                world.playSound(null, targetPos, soundGroup.getPlaceSound(), SoundCategory.BLOCKS, (soundGroup.getVolume() + 1.0F) / 2.0F, soundGroup.getPitch() * 0.8F);
 
                 if (!player.getAbilities().creativeMode && material != null) {
                     material.consume();
@@ -219,7 +221,6 @@ public class BuildingWandItem extends Item {
 
         if (currentRadius < maxRadius) {
             nbt.putInt("CurrentRadius", currentRadius + 1);
-            // Delay anpassen (schneller bei Line Place)
             int delay = isLinePlace ? DELAY_TICKS_LINE : DELAY_TICKS;
             nbt.putInt("Timer", delay);
         } else {
@@ -227,6 +228,31 @@ public class BuildingWandItem extends Item {
         }
 
         setNbt(stack, nbt);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        boolean isLinePlace = false;
+
+        if (context.getRegistryLookup() != null) {
+            var registry = context.getRegistryLookup().getOptional(RegistryKeys.ENCHANTMENT);
+            if (registry.isPresent()) {
+                var linePlaceEntry = registry.get().getOptional(ModEnchantments.LINE_PLACE);
+                if (linePlaceEntry.isPresent()) {
+                    isLinePlace = EnchantmentHelper.getLevel(linePlaceEntry.get(), stack) > 0;
+                }
+            }
+        }
+
+        if (isLinePlace) {
+            textConsumer.accept(Text.translatable("tooltip.simplebuilding.building_wand.line_size", wandSquareDiameter)
+                    .formatted(net.minecraft.util.Formatting.GRAY));
+        } else {
+            textConsumer.accept(Text.translatable("tooltip.simplebuilding.building_wand.size", wandSquareDiameter, wandSquareDiameter)
+                    .formatted(net.minecraft.util.Formatting.GRAY));
+        }
+
+        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }
 
 
@@ -246,7 +272,6 @@ public class BuildingWandItem extends Item {
                 else if (hitZ > 0.8) buildDir = Direction.SOUTH;
             }
 
-            // Basis für diesen Schritt
             BlockPos stepCenter = originPos.offset(buildDir, r + 1);
 
             if (linePlace) {
@@ -268,7 +293,7 @@ public class BuildingWandItem extends Item {
                     BlockPos pos = null;
                     if (widthAxis == Direction.Axis.X) pos = stepCenter.add(u, 0, 0);
                     else if (widthAxis == Direction.Axis.Z) pos = stepCenter.add(0, 0, u);
-                    else if (widthAxis == Direction.Axis.Y) pos = stepCenter.add(0, u, 0); // Selten
+                    else if (widthAxis == Direction.Axis.Y) pos = stepCenter.add(0, u, 0);
 
                     if (pos != null) positions.add(pos);
                 }
@@ -280,15 +305,8 @@ public class BuildingWandItem extends Item {
 
         // --- LINE PLACE MODE ---
         if (linePlace) {
-            // Achse bestimmen
             Direction.Axis axis;
-
             if (face.getAxis() == Direction.Axis.Y) {
-                // Boden/Decke:
-                // Standard: Quer zur Blickrichtung (Spieler schaut N -> Linie O/W).
-                // Kanten-Logik: Nah an Kante -> Linie parallel zur Kante? Oder senkrecht?
-                // "near the block edge front or back change direction to front/back"
-                // -> Wenn nah an N/S Kante -> Linie N/S.
                 boolean nearEdgeZ = (hitZ < 0.2 || hitZ > 0.8);
                 boolean nearEdgeX = (hitX < 0.2 || hitX > 0.8);
                 if (nearEdgeZ) axis = Direction.Axis.Z;
@@ -324,108 +342,6 @@ public class BuildingWandItem extends Item {
             }
         }
         return positions;
-    }
-
-    // --- Helper für Renderer ---
-    public static List<BlockPos> getBuildingPositions(World world, PlayerEntity player, ItemStack wandStack, BlockPos originPos, Direction face, int diameter) {
-        // determines where the blocks should be placed
-
-        List<BlockPos> positions = new ArrayList<>();
-        int radius = (diameter - 1) / 2;
-        boolean isBridge = hasEnchantment(wandStack, world, ModEnchantments.BRIDGE);
-        boolean isLinePlace = hasEnchantment(wandStack, world, ModEnchantments.LINE_PLACE);
-        int maxSteps = (isBridge || isLinePlace) ? diameter : radius; // Bei Bridge/Line Place ist r == Länge (Durchmesser)
-
-        // Simuliere HitPos für Client Renderer
-        double hitX = 0.5, hitY = 0.5, hitZ = 0.5;
-        var hit = player.raycast(20, 0, false);
-        if (hit instanceof BlockHitResult bhr) {
-            var vec = bhr.getPos().subtract(originPos.getX(), originPos.getY(), originPos.getZ());
-            hitX = vec.x; hitY = vec.y; hitZ = vec.z;
-        }
-
-        for (int r = 0; r <= maxSteps; r++) {
-            positions.addAll(calculatePositions(world, wandStack, originPos, face, r, player.getHorizontalFacing(), hitX, hitY, hitZ, diameter));
-        }
-        return positions;
-    }
-
-    // --- TOOLTIP (DEIN WUNSCH) ---
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        boolean isLinePlace = false;
-
-        if (context.getRegistryLookup() != null) {
-            var registry = context.getRegistryLookup().getOptional(RegistryKeys.ENCHANTMENT);
-            if (registry.isPresent()) {
-                var linePlaceEntry = registry.get().getOptional(ModEnchantments.LINE_PLACE);
-                if (linePlaceEntry.isPresent()) {
-                    isLinePlace = EnchantmentHelper.getLevel(linePlaceEntry.get(), stack) > 0;
-                }
-            }
-        }
-
-        if (isLinePlace) {
-            textConsumer.accept(Text.translatable("tooltip.simplebuilding.building_wand.line_size", wandSquareDiameter)
-                    .formatted(net.minecraft.util.Formatting.GRAY));
-        } else {
-            textConsumer.accept(Text.translatable("tooltip.simplebuilding.building_wand.size", wandSquareDiameter, wandSquareDiameter)
-                    .formatted(net.minecraft.util.Formatting.GRAY));
-        }
-
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
-    }
-
-    // Angepasste Methode für Server (NBT-basiert)
-    private List<BlockPos> getPositionsForStep(World world, PlayerEntity player, ItemStack wandStack, BlockPos originPos, Direction face, int r, NbtCompound nbt) {
-        // Wir lesen gespeicherte Richtung aus NBT, falls vorhanden (Server), sonst Live (Client/Fallback)
-        Direction playerFacing;
-        if (nbt != null && nbt.contains("PlayerFacing")) {
-            playerFacing = Direction.values()[nbt.getInt("PlayerFacing").orElse(0)];
-        } else {
-            playerFacing = player.getHorizontalFacing();
-        }
-
-        // HitPos für Kanten-Erkennung
-        double hitX = 0.5, hitY = 0.5, hitZ = 0.5;
-        if (nbt != null && nbt.contains("HitX")) {
-            hitX = nbt.getFloat("HitX").orElse(0.5f);
-            hitY = nbt.getFloat("HitY").orElse(0.5f);
-            hitZ = nbt.getFloat("HitZ").orElse(0.5f);
-        } else {
-            // Im Renderer haben wir keinen Zugriff auf HitPos im Detail ohne Raycast,
-            // aber wir können es approximieren oder ignorieren (Mitte).
-            // Für Renderer nutzen wir Live Raycast wenn möglich, sonst Mitte.
-        }
-
-        return calculatePositions(world, wandStack, originPos, face, r, playerFacing, hitX, hitY, hitZ, this.wandSquareDiameter);
-    }
-
-    private static BlockPos getPosOnAxis(BlockPos center, Direction.Axis axis, int offset) {
-        if (axis == Direction.Axis.X) return center.add(offset, 0, 0);
-        if (axis == Direction.Axis.Y) return center.add(0, offset, 0);
-        if (axis == Direction.Axis.Z) return center.add(0, 0, offset);
-        return center;
-    }
-
-    // --- Helper ---
-    private boolean getBlockBoolean(NbtCompound nbt, String key, boolean fallback) {
-        if (!nbt.contains(key)) return fallback;
-        return nbt.getBoolean(key).orElse(fallback);
-    }
-
-    private int getBlockInt(NbtCompound nbt, String key, int fallback) {
-        if (!nbt.contains(key)) return fallback;
-        return nbt.getInt(key).orElse(fallback);
-    }
-
-    private NbtCompound getOrInitNbt(ItemStack stack) {
-        NbtComponent component = stack.get(DataComponentTypes.CUSTOM_DATA);
-        return component != null ? component.copyNbt() : new NbtCompound();
-    }
-
-    private void setNbt(ItemStack stack, NbtCompound nbt) {
-        stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
     }
 
     private static class MaterialResult {
@@ -562,14 +478,6 @@ public class BuildingWandItem extends Item {
         return null;
     }
 
-    private static boolean hasEnchantment(ItemStack stack, World world, net.minecraft.registry.RegistryKey<net.minecraft.enchantment.Enchantment> key) {
-        if (world == null) return false;
-        var registry = world.getRegistryManager();
-        var lookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var entry = lookup.getOptional(key);
-        return entry.isPresent() && EnchantmentHelper.getLevel(entry.get(), stack) > 0;
-    }
-
     private static void removeOneFromBundle(ItemStack bundle, int indexToRemove) {
         BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
         if (contents == null) return;
@@ -589,22 +497,35 @@ public class BuildingWandItem extends Item {
     }
 
 
+    public static List<BlockPos> getBuildingPositions(World world, PlayerEntity player, ItemStack wandStack, BlockPos originPos, Direction face, int diameter) {
+        // determines where the blocks should be placed
 
+        List<BlockPos> positions = new ArrayList<>();
+        int radius = (diameter - 1) / 2;
+        boolean isBridge = hasEnchantment(wandStack, world, ModEnchantments.BRIDGE);
+        boolean isLinePlace = hasEnchantment(wandStack, world, ModEnchantments.LINE_PLACE);
+        int maxSteps = (isBridge || isLinePlace) ? diameter : radius; // Bei Bridge/Line Place ist r == Länge (Durchmesser)
 
-    private int findSlotWithBlock(PlayerEntity player, Block blockToFind) {
-        for (int i = 0; i < player.getInventory().size(); i++) {
-            ItemStack stack = player.getInventory().getStack(i);
-            if (!stack.isEmpty() && stack.getItem() instanceof BlockItem blockItem) {
-                if (blockItem.getBlock() == blockToFind) {
-                    return i;
-                }
-            }
+        // Simuliere HitPos für Client Renderer
+        double hitX = 0.5, hitY = 0.5, hitZ = 0.5;
+        var hit = player.raycast(20, 0, false);
+        if (hit instanceof BlockHitResult bhr) {
+            var vec = bhr.getPos().subtract(originPos.getX(), originPos.getY(), originPos.getZ());
+            hitX = vec.x; hitY = vec.y; hitZ = vec.z;
         }
-        return -1;
+
+        for (int r = 0; r <= maxSteps; r++) {
+            positions.addAll(calculatePositions(world, wandStack, originPos, face, r, player.getHorizontalFacing(), hitX, hitY, hitZ, diameter));
+        }
+        return positions;
     }
 
-    public void setPlaceSound(SoundEvent placeSound) {
-        this.placeSound = placeSound;
+    private static boolean hasEnchantment(ItemStack stack, World world, net.minecraft.registry.RegistryKey<net.minecraft.enchantment.Enchantment> key) {
+        if (world == null) return false;
+        var registry = world.getRegistryManager();
+        var lookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+        var entry = lookup.getOptional(key);
+        return entry.isPresent() && EnchantmentHelper.getLevel(entry.get(), stack) > 0;
     }
 
     public int getWandSquareDiameter() {
@@ -613,6 +534,32 @@ public class BuildingWandItem extends Item {
 
     public void setWandSquareDiameter(int wandSquareDiameter) {
         this.wandSquareDiameter = wandSquareDiameter;
+    }
+
+    private static BlockPos getPosOnAxis(BlockPos center, Direction.Axis axis, int offset) {
+        if (axis == Direction.Axis.X) return center.add(offset, 0, 0);
+        if (axis == Direction.Axis.Y) return center.add(0, offset, 0);
+        if (axis == Direction.Axis.Z) return center.add(0, 0, offset);
+        return center;
+    }
+
+    private boolean getBlockBoolean(NbtCompound nbt, String key, boolean fallback) {
+        if (!nbt.contains(key)) return fallback;
+        return nbt.getBoolean(key).orElse(fallback);
+    }
+
+    private int getBlockInt(NbtCompound nbt, String key, int fallback) {
+        if (!nbt.contains(key)) return fallback;
+        return nbt.getInt(key).orElse(fallback);
+    }
+
+    private NbtCompound getOrInitNbt(ItemStack stack) {
+        NbtComponent component = stack.get(DataComponentTypes.CUSTOM_DATA);
+        return component != null ? component.copyNbt() : new NbtCompound();
+    }
+
+    private void setNbt(ItemStack stack, NbtCompound nbt) {
+        stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
     }
 
 }

@@ -32,7 +32,6 @@ public abstract class PlayerEntityMixin {
 
             if (slotStack.getItem() instanceof ReinforcedBundleItem) {
                 if (hasQuiverEnchantment(slotStack, player)) {
-                    // Nutzung der Utility Klasse
                     ItemStack arrowStack = BundleUtil.findArrow(slotStack);
                     if (!arrowStack.isEmpty()) {
                         cir.setReturnValue(arrowStack.copy());
@@ -47,14 +46,10 @@ public abstract class PlayerEntityMixin {
         PlayerEntity player = (PlayerEntity) (Object) this;
         ItemStack stack = player.getMainHandStack();
 
-        // 1. Performance-Check: Ist es überhaupt eine Spitzhacke?
         if (!stack.isIn(ItemTags.PICKAXES)) {
             return;
         }
 
-        // 2. Logik-Check: Ist das Werkzeug für den Block geeignet?
-        // Wenn ich mit Strip-Miner-Picke auf Erde schlage, soll es nicht langsamer sein,
-        // da Strip Miner dort eh nicht auslöst.
         if (!stack.getItem().isCorrectForDrops(stack, state)) {
             return;
         }
@@ -72,19 +67,14 @@ public abstract class PlayerEntityMixin {
             float originalSpeed = cir.getReturnValue();
             float divisor = 1.0f;
 
-            // Berechnung basierend auf der Anzahl der abgebauten Blöcke:
-            // Level 1: +1 Block  (Total 2) -> Speed / 2
-            // Level 2: +2 Blöcke (Total 3) -> Speed / 3
-            // Level 3: +4 Blöcke (Total 5) -> Speed / 5
 
             switch (level) {
                 case 1 -> divisor = 2.0f;
                 case 2 -> divisor = 3.0f;
                 case 3 -> divisor = 4.0f;
-                default -> divisor = 1.0f; // Fallback
+                default -> divisor = 1.0f;
             }
 
-            // Geschwindigkeit anpassen
             cir.setReturnValue(originalSpeed / divisor);
         }
     }

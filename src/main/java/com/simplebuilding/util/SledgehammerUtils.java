@@ -19,34 +19,17 @@ public class SledgehammerUtils {
         BlockState targetState = world.getBlockState(pos);
         BlockState originState = world.getBlockState(originPos);
 
-        // 1. Grundlegende Checks (Luft, Bedrock, Werkzeug-Effektivität)
-        if (targetState.isAir() || targetState.getHardness(world, pos) < 0) {
-            return false;
-        }
+        if (targetState.isAir() || targetState.getHardness(world, pos) < 0) {return false;}
 
-        // 2. Enchantment "Ignore Block Type" abrufen
         RegistryWrapper.WrapperLookup registry = world.getRegistryManager();
         var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
         var ignoreTypeKey = enchantments.getOptional(ModEnchantments.IGNORE_BLOCK_TYPE);
 
         int ignoreLevel = 0;
-        if (ignoreTypeKey.isPresent()) {
-            ignoreLevel = EnchantmentHelper.getLevel(ignoreTypeKey.get(), stack);
-        }
+        if (ignoreTypeKey.isPresent()) {ignoreLevel = EnchantmentHelper.getLevel(ignoreTypeKey.get(), stack);}
+        if (ignoreLevel >= 2) {return true;}
+        if (ignoreLevel == 1) {return targetState.getBlock() == originState.getBlock() || stack.getItem().isCorrectForDrops(stack, targetState);}
 
-        // 3. Logik anwenden
-        if (ignoreLevel >= 2) {
-            // Level 2: Alles abbauen (außer Bedrock)
-            return true;
-        }
-
-        if (ignoreLevel == 1) {
-            // Level 1: Gleicher Typ ODER "Supported" (Pickaxe Mineable)
-            // Hinweis: isSuitableFor prüft meistens auf Tags
-            return targetState.getBlock() == originState.getBlock() || stack.getItem().isCorrectForDrops(stack, targetState);
-        }
-
-        // Level 0 (Default): Nur EXAKT gleicher Blocktyp
         return targetState.getBlock() == originState.getBlock();
     }
 }

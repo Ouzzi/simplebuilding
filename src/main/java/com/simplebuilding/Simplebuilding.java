@@ -6,7 +6,7 @@ import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantmentEffects;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.RangefinderItem;
+import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.util.ModLootTableModifiers;
 import com.simplebuilding.util.ModTradeOffers;
@@ -66,28 +66,16 @@ public class Simplebuilding implements ModInitializer {
 	}
 
     private void registerCauldronBehavior() {
-        // Das Verhalten definieren:
+        // Rangefinder reinigen:
         CauldronBehavior cleanRangefinder = (state, world, pos, player, hand, stack) -> {
             Item item = stack.getItem();
-
-            // Sicherstellen, dass es ein Rangefinder ist und NICHT der Standard-Rangefinder
-            if (!(item instanceof RangefinderItem) || item == ModItems.RANGEFINDER_ITEM) {
-                return ActionResult.PASS;
-            }
-
+            if (!(item instanceof OctantItem) || item == ModItems.OCTANT) {return ActionResult.PASS;}
             if (!world.isClient()) {
-                // 1. Erstelle den neuen (Standard) Stack
-                ItemStack newStack = new ItemStack(ModItems.RANGEFINDER_ITEM);
-
-                // 2. WICHTIG: Kopiere die Positionen (Pos1/Pos2), falls vorhanden!
+                ItemStack newStack = new ItemStack(ModItems.OCTANT);
                 if (stack.contains(DataComponentTypes.CUSTOM_DATA)) {
                     newStack.set(DataComponentTypes.CUSTOM_DATA, stack.get(DataComponentTypes.CUSTOM_DATA));
                 }
-
-                // 3. Dem Spieler geben
                 player.setStackInHand(hand, newStack);
-
-                // 4. Statistik und Kessel-Level senken
                 player.incrementStat(Stats.CLEAN_ARMOR);
                 LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
             }
@@ -95,12 +83,13 @@ public class Simplebuilding implements ModInitializer {
         };
 
         for (DyeColor color : DyeColor.values()) {
-            Item coloredItem = ModItems.COLORED_RANGEFINDERS.get(color);
+            Item coloredItem = ModItems.COLORED_OCTANT_ITEMS.get(color);
             if (coloredItem != null) {
                 CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(coloredItem, cleanRangefinder);
             }
         }
     }
+
     /*
         0. enchanments:
                 chissel, spatula, rangefinder
