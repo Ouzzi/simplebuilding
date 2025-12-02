@@ -28,11 +28,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // CHISELS (Stick + Material + Nugget/Shard) - DIAGONAL
                 // =================================================================
-                createChiselRecipe(ModItems.STONE_CHISEL, Items.STONE, Items.IRON_NUGGET);
-                createChiselRecipe(ModItems.COPPER_CHISEL, Items.COPPER_INGOT, Items.COPPER_INGOT); // Kupfer hat keine Nuggets -> Ingot
-                createChiselRecipe(ModItems.IRON_CHISEL, Items.IRON_INGOT, Items.IRON_NUGGET);
-                createChiselRecipe(ModItems.GOLD_CHISEL, Items.GOLD_INGOT, Items.GOLD_NUGGET);
-                createChiselRecipe(ModItems.DIAMOND_CHISEL, Items.DIAMOND, Items.DIAMOND); // Diamant hat keine Nuggets
+                createChiselRecipe(ModItems.STONE_CHISEL, Items.COBBLESTONE, Items.COPPER_NUGGET);
+                createChiselRecipe(ModItems.COPPER_CHISEL, Items.COPPER_INGOT, Items.COPPER_NUGGET); // Kupfer hat keine Nuggets -> Ingot
+                createChiselRecipe(ModItems.IRON_CHISEL, Items.IRON_INGOT, Items.COPPER_NUGGET);
+                createChiselRecipe(ModItems.GOLD_CHISEL, Items.GOLD_INGOT, Items.COPPER_NUGGET);
+                createChiselRecipe(ModItems.DIAMOND_CHISEL, Items.DIAMOND, Items.COPPER_NUGGET); // Diamant hat keine Nuggets
 
                 // Netherite Chisel -> Smithing Upgrade
                 SmithingTransformRecipeJsonBuilder.create(
@@ -48,11 +48,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // SPATULAS (Stick + Material + Nugget/Shard) - ECKIG
                 // =================================================================
-                createSpatulaRecipe(ModItems.STONE_SPATULA, Items.STONE, Items.IRON_NUGGET);
+                createSpatulaRecipe(ModItems.STONE_SPATULA, Items.COBBLESTONE, Items.COPPER_INGOT);
                 createSpatulaRecipe(ModItems.COPPER_SPATULA, Items.COPPER_INGOT, Items.COPPER_INGOT);
-                createSpatulaRecipe(ModItems.IRON_SPATULA, Items.IRON_INGOT, Items.IRON_NUGGET);
-                createSpatulaRecipe(ModItems.GOLD_SPATULA, Items.GOLD_INGOT, Items.GOLD_NUGGET);
-                createSpatulaRecipe(ModItems.DIAMOND_SPATULA, Items.DIAMOND, Items.DIAMOND);
+                createSpatulaRecipe(ModItems.IRON_SPATULA, Items.IRON_INGOT, Items.COPPER_INGOT);
+                createSpatulaRecipe(ModItems.GOLD_SPATULA, Items.GOLD_INGOT, Items.COPPER_INGOT);
+                createSpatulaRecipe(ModItems.DIAMOND_SPATULA, Items.DIAMOND, Items.COPPER_INGOT);
 
                 // Netherite Spatula -> Smithing Upgrade
                 SmithingTransformRecipeJsonBuilder.create(
@@ -91,7 +91,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createWandRecipe(ModItems.IRON_BUILDING_WAND, ModItems.IRON_BUILDING_CORE, Items.IRON_INGOT);
                 createWandRecipe(ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_BUILDING_CORE, Items.GOLD_INGOT);
                 createWandRecipe(ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_BUILDING_CORE, Items.DIAMOND);
-                createWandRecipe(ModItems.NETHERITE_BUILDING_WAND, ModItems.NETHERITE_BUILDING_CORE, Items.DIAMOND);
 
                 // Netherite Wand -> Smithing Upgrade (Diamond Wand + Netherite Ingot)
                 SmithingTransformRecipeJsonBuilder.create(
@@ -106,7 +105,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // SLEDGEHAMMER
                 // =================================================================
-                createSledgehammerRecipe(ModItems.STONE_SLEDGEHAMMER, Items.STONE, Items.IRON_INGOT);
+                createSledgehammerRecipe(ModItems.STONE_SLEDGEHAMMER, Items.COBBLESTONE, Items.IRON_INGOT);
                 createSledgehammerRecipe(ModItems.COPPER_SLEDGEHAMMER, Items.COPPER_INGOT, Items.COPPER_BLOCK);
                 createSledgehammerRecipe(ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, Items.IRON_BLOCK);
                 createSledgehammerRecipe(ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, Items.GOLD_BLOCK);
@@ -128,9 +127,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // RANGEFINDER (Antik / Octant Style)
                 // =================================================================
                 createShaped(RecipeCategory.TOOLS, ModItems.RANGEFINDER_ITEM)
-                        .pattern(" GC")
+                        .pattern(" GL")
                         .pattern("IPG")
-                        .pattern(" IL")
+                        .pattern("CI ")
                         .input('I', Items.GOLD_INGOT)
                         .input('G', Items.GOLD_NUGGET)
                         .input('C', Items.COPPER_INGOT)
@@ -204,14 +203,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input('N', Items.NETHER_STAR)
                         .criterion(hasItem(Items.NETHER_STAR), conditionsFromItem(Items.NETHER_STAR))
                         .offerTo(exporter, getItemPath(output) + "_plus");
-                createShaped(RecipeCategory.MISC, output)
-                        .pattern("M M")
-                        .pattern(" N ")
-                        .pattern("M M")
-                        .input('M', material)
-                        .input('N', Items.NETHER_STAR)
-                        .criterion(hasItem(Items.NETHER_STAR), conditionsFromItem(Items.NETHER_STAR))
-                        .offerTo(exporter, getItemPath(output) + "_corners");
             }
 
             private void createWandRecipe(Item output, Item core, Item material) {
