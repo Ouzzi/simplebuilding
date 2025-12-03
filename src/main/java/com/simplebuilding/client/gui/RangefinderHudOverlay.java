@@ -50,7 +50,7 @@ public class RangefinderHudOverlay implements HudRenderCallback {
 
         // --- TITEL LOGIK (Enchantment Check) ---
         Formatting titleColor = stack.hasEnchantments() ? Formatting.AQUA : Formatting.WHITE;
-        lines.add(Text.literal("Rangefinder").formatted(titleColor));
+        lines.add(Text.literal("Octant").formatted(titleColor));
 
         BlockPos pos1 = null;
         BlockPos pos2 = null;

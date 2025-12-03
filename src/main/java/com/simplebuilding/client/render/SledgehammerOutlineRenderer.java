@@ -1,5 +1,6 @@
 package com.simplebuilding.client.render;
 
+import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import com.simplebuilding.util.SledgehammerUtils;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderContext;
@@ -56,25 +57,34 @@ public class SledgehammerOutlineRenderer {
         double camZ = camera.getPos().z;
 
         VertexConsumer lines = context.consumers().getBuffer(RenderLayer.getLines());
+        VertexConsumer fill = context.consumers().getBuffer(RenderLayer.getDebugQuads()); // Für Füllung
 
         matrices.push();
 
-        // Farbe für NACHBARN (z.B. Grau/Rötlich)
-        float r = 0.0f;
-        float g = 0.0f;
-        float b = 0.0f;
-        float a = 0.3f; // Alpha
+        // --- CONFIG ZUGRIFF & FARBEN ---
+
+        // Alpha aus Config laden (0-100) und in 0.0-1.0 umrechnen
+        int opacityPercent = Simplebuilding.getConfig().tools.buildingHighlightOpacity;
+        // Clamping sicherheitshalber (falls Config manuell editiert wurde)
+        opacityPercent = Math.max(0, Math.min(100, opacityPercent));
+
+        float baseAlpha = opacityPercent / 100.0f;
+
+        float r = 0.0f; float g = 0.0f; float b = 0.0f; float a = 0.3f;
+        float r1 = 1.0f; float g1 = 0.5f; float b1 = 0.3f; float a1 = 0.2f * baseAlpha;
+
+        Box totalBounds = null;
 
         for (BlockPos pos : targetPositions) {
-            // WICHTIG: Hauptblock überspringen!
-            // Damit rendern wir ihn hier NICHT mit unserer Farbe.
-            // Da wir am Ende 'return true' machen, rendert Vanilla ihn danach normal.
-            if (pos.equals(centerPos)) continue;
-
-            // Filtern (nur was wirklich abgebaut wird)
             if (!SledgehammerUtils.shouldBreak(client.world, pos, centerPos, stack)) {
                 continue;
             }
+
+            Box blockBox = new Box(pos);
+            if (totalBounds == null) totalBounds = blockBox;
+            else totalBounds = totalBounds.union(blockBox);
+
+            if (pos.equals(centerPos)) continue; // Hauptblock überspringen (Vanilla)
 
             BlockState state = client.world.getBlockState(pos);
             if (state.isAir()) continue;
@@ -85,7 +95,11 @@ public class SledgehammerOutlineRenderer {
             for (Box box : shape.getBoundingBoxes()) {
                 matrices.push();
                 matrices.translate(pos.getX() - camX, pos.getY() - camY, pos.getZ() - camZ);
+
+                // 1. Outline der kleinen Box
                 drawBoxOutline(matrices, lines, box, r, g, b, a);
+                drawBoxFill(matrices, fill, box.expand(0.003), r1, g1, b1, a1);
+
                 matrices.pop();
             }
         }
@@ -94,7 +108,27 @@ public class SledgehammerOutlineRenderer {
         return true;
     }
 
-    // --- Hilfsmethoden (aus deiner Referenz) ---
+    // --- Hilfsmethoden ---
+
+    private static void drawBoxFill(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+        float x1 = (float)box.minX; float y1 = (float)box.minY; float z1 = (float)box.minZ;
+        float x2 = (float)box.maxX; float y2 = (float)box.maxY; float z2 = (float)box.maxZ;
+
+        addQuad(builder, matrix, x1, y1, z1, x2, y1, z1, x2, y1, z2, x1, y1, z2, r, g, b, a); // Unten
+        addQuad(builder, matrix, x1, y2, z2, x2, y2, z2, x2, y2, z1, x1, y2, z1, r, g, b, a); // Oben
+        addQuad(builder, matrix, x1, y1, z1, x1, y2, z1, x2, y2, z1, x2, y1, z1, r, g, b, a); // Nord
+        addQuad(builder, matrix, x2, y1, z2, x2, y2, z2, x1, y2, z2, x1, y1, z2, r, g, b, a); // Süd
+        addQuad(builder, matrix, x1, y1, z2, x1, y2, z2, x1, y2, z1, x1, y1, z1, r, g, b, a); // West
+        addQuad(builder, matrix, x2, y1, z1, x2, y2, z1, x2, y2, z2, x2, y1, z2, r, g, b, a); // Ost
+    }
+
+    private static void addQuad(VertexConsumer builder, Matrix4f matrix, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float r, float g, float b, float a) {
+        builder.vertex(matrix, x1, y1, z1).color(r, g, b, a);
+        builder.vertex(matrix, x2, y2, z2).color(r, g, b, a);
+        builder.vertex(matrix, x3, y3, z3).color(r, g, b, a);
+        builder.vertex(matrix, x4, y4, z4).color(r, g, b, a);
+    }
 
     private static void drawBoxOutline(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
         Matrix4f matrix = matrices.peek().getPositionMatrix();
@@ -124,13 +158,7 @@ public class SledgehammerOutlineRenderer {
         float nx = (float)(x2 - x1); float ny = (float)(y2 - y1); float nz = (float)(z2 - z1);
         float len = (float)Math.sqrt(nx * nx + ny * ny + nz * nz);
         if (len > 0) { nx /= len; ny /= len; nz /= len; }
-
-        builder.vertex(matrix, (float)x1, (float)y1, (float)z1)
-                .color(r, g, b, a)
-                .normal(nx, ny, nz);
-
-        builder.vertex(matrix, (float)x2, (float)y2, (float)z2)
-                .color(r, g, b, a)
-                .normal(nx, ny, nz);
+        builder.vertex(matrix, (float)x1, (float)y1, (float)z1).color(r, g, b, a).normal(nx, ny, nz);
+        builder.vertex(matrix, (float)x2, (float)y2, (float)z2).color(r, g, b, a).normal(nx, ny, nz);
     }
 }

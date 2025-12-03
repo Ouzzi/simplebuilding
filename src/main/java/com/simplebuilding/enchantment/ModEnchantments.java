@@ -16,65 +16,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 
-/*
-    Enchantments:
-            1 constructors touch I, (Trial, Treasure, very rare), [chisel, spatula, octant]
-                Trial I, Burried Tresure I
-                > (custom chiel maps for each tier netherite obsidian to crying obsidian; diamond stone to cobble; iron cobble to mossy cobble; stone log to stripped log, ...;
-            2 fast chisel II,  (Trial/haste, Treasure, very rare), [chisel, spatula]
-                Buried Treasure II, Spawner II, Villager I
-                > (faster  for chisel-tools)
-            3 range III, (End, Treasure, very rare), [chisel, spatula, pickaxe, axe, shulker, bundle]
-                End City III, Library II, Villager I
-                > (bigger range for mining and chisel and building tools (bundle, shulker)
-            4 Quiver I, (End, Treasure, rare), [shulker, bundle]
-                End City I, Library I
-                > (Pfeile aus bundle oder shulker in den Bogen laden) (entweder quiver enchant oder master builder enchant) (nicht kombinierbar mit color palette)
-            5 master builder I, (End, Treasure, very rare), [shulker, bundle, building wand]
-                End City I, Library I, Villager I
-                > (places first block of shulker/bundle by right-clicking) (building wand allows to pick from other master-builder enchanted shulkers or bundles)
-            6 color palette I, (Pilage, Treasure, rare), [shulker, bundle, building wand]
-                Pillager Outpost I, Villager I
-                > (changes picking order first block to random but with weighted probability)
-            7 deep pockets II, (Deep Dark, Treasure, rare), [bundle]
-                Deep Dark II
-                > (increases bundle capacity: I = 128, II = 256)
-            8 funnel I, (Nether/Spawner, Treasure, common), [bundle, shulker]
-                Bastion I, Fortress I, Spawner I, Villager I
-                > (automatically picks up items while sneaking and in hand))
-            9 break trough I, (Nether, Treasure, rare), [slegehammer]
-                Bastion I, Fortress I, Spawner I
-                > (automatically picks up items while sneaking and in hand))
-            10 radius I, (Deep Dark, Treasure, rare), [slegehammer]
-                deep dark I, Wandering Trader I
-                > (5x5 instead of 3x3, not compatible with brak_trough)
-            11 ignore blocktype II, (End, Treasure, rare), [slegehammer]
-                 End Ship II, End City I, villager I
-                > (ignores blocktypes while destroying blocks, when not supported block double durrability cost, lvl 1 only supportrd blocks, lvl2 also not supported blocks)
-            12 strip miner III (Nether, Treasure, very rare), [pickaxe]
-                Fortress III, villager I
-                > (I mines 2 blocks in a row, II mines 3 blocks in a row, III mines 5 blochs in a row)
-            13 surface place I, (Pillage, Treasure, rare), [building wand]
-                Pillager Outpost I, Woodlin Mantion, Villager I
-                > (places blocks on surface instead of plane)
-                    // base block normal,
-                    // surrounding blocks maximal depth diviation from base block 2,
-                    // next ring maximum diviation from previous is 1
-                    //> not with bridge compatible
-            14 bridge I, (end, Treasure, rare), [building wand]
-                End Ship, End City I, Library I, Wandering Trader I
-                > (if placing a block place on the side of the edge of that block a line of blocks)
-                    // if targeting the front edge, place on the front side, if right the right side and so on
-                    //> not with surface place compatible
-            15 line place I, (Pillage, Treasure, rare), [building wand]
-                Pillager Outpost I, Woodlin Mantion, Villager I
-                > (places a line of blocks in one axis direction depending on player looking direction)
-                    // deafault horizontal to player
-                    // when near the block edge front or back change direction to front/back
-                    // with surface place same logic but only the line instead a sqare
-
- */
-
 public class ModEnchantments {
     // Keys
     public static final RegistryKey<Enchantment> FAST_CHISELING = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "fast_chiseling"));

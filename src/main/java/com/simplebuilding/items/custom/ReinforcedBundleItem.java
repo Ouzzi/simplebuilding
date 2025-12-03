@@ -26,10 +26,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-// TODO: Implement Enchantments [FUNNEL, QUIVER]
-// - Quiver: (TODO)
-// - Funnel: (TODO)
-
 public class ReinforcedBundleItem extends BundleItem {
 
     public ReinforcedBundleItem(Settings settings) {

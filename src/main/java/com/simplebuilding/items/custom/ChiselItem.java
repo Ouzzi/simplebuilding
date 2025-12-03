@@ -36,13 +36,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-// Entchantments:
-// - Fast Chiseling I, II: Reduziert den Cooldown (done)
-// - Constructor's Touch: Fügt weitere Block-Transformationen hinzu (done)
-// - Range I, II: Erlaubt das Chiseln von weiter entfernten Blöcken (done)
-// - Unbreaking I, II, III: Reduziert die Abnutzung (done, wird von Vanilla 'damage' gehandled)
-// - Mending: Repariert den Chisel mit gesammelten XP (done, wird von Vanilla 'damage' gehandled)
-
 public class ChiselItem extends Item {
 
     public enum Direction {
@@ -74,8 +67,6 @@ public class ChiselItem extends Item {
     // netherite chisel/spatula transformations [netherrack, netzer_bricks, cracke_bether_bricks, chiseled_netzer_bricks, netherrack (circle)] , [resin_bricks, chisled_resin_bricks], [chiseled_sand_stone, sand], [chiseled_red_sand_stone, red_sand];
     // netherite constructor's touch transformations [tuff_bricks, calcelite_block, dripstone_block] , [obsidian, crying_obsidian], [all stems -> stripped stems], [every concrete, concrete_powder];
 
-    // Chisel = (forewards) transformation from [1] to [2], ...
-    // Spatula = (backwards) transformation from [2] to [1], ...
 
     private static final Map<Block, Block> STONE_CHISEL_MAP = new HashMap<>();
     private static final Map<Block, Block> STONE_SPATULA_MAP = new HashMap<>();

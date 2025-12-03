@@ -23,14 +23,6 @@ import net.minecraft.village.VillagerProfession;
 import java.util.List;
 import java.util.Optional;
 
-
-// Villager Trades:
-// - (chisels, sledgehammers, building wands, Enchanted Books(fast chisel I, range I, master builder I, color palette I, funnel I, Ignore block types I, strip miner I, line place I)
-// - Mason: (Copper Building Core, Diamond Building Core, Copper Building Wand)
-// - Librarian: Enchanted Books (Color Palette I, Fast Chiseling I, Line Place I, Master Builder I, Range I, Funnel I, Ignore Block Type I, Strip Miner I)
-// - Toolsmith: Enchanted Chisels (Fast Chiseling I, II), Enchanted Sledgehammers (Break Through I, Ignore Block Type I, Range I, Unbreaking II, Efficiency III), Enchanted Diamond Pickaxe (Strip Miner I)
-// Wandering Trades: Octant, Reinforced Bundle, Building Cores, Enchanted Books (Bridge I, Radius I, Quiver I)
-
 public class ModTradeOffers {
     public record WeightedEnchantment(RegistryKey<Enchantment> key, int level, int weight) {}
 

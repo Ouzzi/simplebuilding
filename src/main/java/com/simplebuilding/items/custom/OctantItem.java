@@ -25,11 +25,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-// Enchantments:
-// - Constructor's Touch: bessere ui bzw planes zum visualisieren der markierten Fläche (done)
-// - Range I, II: Erlaubt das messen von weiter entfernten Blöcken (done)
-// - Unbreaking I, II, III: Reduziert die Abnutzung (done durch vanilla)
-// - Mending: Repariert den Chisel mit gesammelten XP (done durch vanilla)
 
 public class OctantItem extends Item {
 

@@ -61,32 +61,6 @@ public class BuildingWandItem extends Item {
         this.wandSquareDiameter = 1;
     }
 
-    // possible enchantments
-        // surface place (not with bridge) -> changes the placement from plane to surface
-            // base block normal,
-            // surrounding blocks maximal depth diviation from base block 2,
-            // next ring maximum diviation from previous is 1
-        // line place -> placement on ine axis
-            // deafault horizontal to player
-            // when near the block edge front or back change direction to front/back
-            // with surface place same logic but only the line instead a sqare
-        // bridge (not with surface place) -> if placing a block place on the side of the edge of that block a line of blocks
-            // it targeting the front edge, place on the front side, if right the right side and so on
-        // master builder -> if enchanted allows to "connect" with enchanted bundle.
-            // allows to take blocks from masterbuilder enchanted bundle or from hotbar
-            // priority -> enchanted bundle, offhand, hotbar 1-9
-        // range - like other range implementation
-        // unbreaking - vanilla
-        // mending - vanilla
-
-    // how it should work:
-        // first detect the direction (which orientation)
-        // then determine how many blocks can be placed (flood fill)
-        // is dependent from free blocks and how many blocks in offhand (hotbar and ench. bundle when masterbuilder)
-        // visualize what can be placed
-        // on place click place from middleblock with little delay from block to block
-        // damage the ammount of uses not ammount of blocks placed
-
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         if (context.getHand() != net.minecraft.util.Hand.MAIN_HAND) {

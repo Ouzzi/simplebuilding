@@ -23,7 +23,7 @@
           "com.simplebuilding.SimplebuildingDataGenerator"
 		],
         "modmenu": [
-          "com.simplemoney.compat.ModMenuIntegration"
+          "com.simplebuilding.compat.ModMenuIntegration"
         ]
 	},
 	"mixins": [

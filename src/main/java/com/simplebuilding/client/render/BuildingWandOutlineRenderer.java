@@ -1,5 +1,6 @@
 package com.simplebuilding.client.render;
 
+import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
@@ -73,9 +74,15 @@ public class BuildingWandOutlineRenderer {
 
         matrices.push();
 
+        // --- Config & Farben ---
+        // Opacity aus Config (0-100)
+        int opacityPercent = Simplebuilding.getConfig().tools.buildingHighlightOpacity;
+        opacityPercent = Math.max(0, Math.min(100, opacityPercent));
+        float baseAlpha = opacityPercent / 100.0f;
+
         // Farbe: Cyan/Türkis (R=0, G=1, B=1)
         float r = 0.1f; float g = 0.1f; float b = 0.1f; float a = 0.3f;
-        float r1 = 1.0f; float g1 = 0.5f; float b1 = 0.3f; float a1 = 0.2f;
+        float r1 = 1.0f; float g1 = 0.5f; float b1 = 0.3f; float a1 = 0.2f * baseAlpha;
 
         // 3. Über alle Ziel-Positionen iterieren und EINZELN zeichnen
         for (BlockPos pos : targetPositions) {

@@ -1,5 +1,6 @@
 package com.simplebuilding.client.render;
 
+import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments; // Import nicht vergessen!
 import com.simplebuilding.items.custom.OctantItem;
 import net.minecraft.client.MinecraftClient;
@@ -49,6 +50,9 @@ public class BlockHighlightRenderer {
         boolean hasConstructorsTouch = hasEnchantment(stack, MinecraftClient.getInstance(), ModEnchantments.CONSTRUCTORS_TOUCH);
         boolean showFill;
         boolean isInverted = com.simplebuilding.Simplebuilding.getConfig().tools.invertOctantSneak;
+        int opacityPercent = Simplebuilding.getConfig().tools.buildingHighlightOpacity;
+        opacityPercent = Math.max(0, Math.min(100, opacityPercent));
+        float baseAlpha = opacityPercent / 100.0f;
 
         if (hasConstructorsTouch) {
             showFill = isInverted ? isSneaking : !isSneaking;
@@ -85,7 +89,7 @@ public class BlockHighlightRenderer {
         // 2. FÜLLUNGEN (Bedingt sichtbar durch showFill)
         if (showFill) {
             VertexConsumer fill = consumers.getBuffer(RenderLayer.getDebugQuads());
-            float alpha = 0.15f;
+            float alpha = 0.5f * baseAlpha;
             if (pos1 != null) drawBoxFill(matrices, fill, new Box(pos1).expand(0.003), r1, g1, b1, alpha);
             if (pos2 != null) drawBoxFill(matrices, fill, new Box(pos2).expand(0.006), r2, g2, b2, alpha);
             if (pos1 != null && pos2 != null) drawBoxFill(matrices, fill, getFullArea(pos1, pos2).expand(0.009), r3, g3, b3, alpha);
