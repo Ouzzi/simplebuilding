@@ -99,3 +99,6 @@ public class Simplebuilding implements ModInitializer {
     }
 
 }
+
+// Speedometer soll nun folgendes anzeigenkönnen paralel zum octant overlay:
+// aktuelle geschwindigkeit blöcke pro sekunde , topspeed, durchschnittsgeschwindigkeit

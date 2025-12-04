@@ -1,0 +1,23 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simplebuilding:item/speedometer_00"
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 1 }, "model": "simplebuilding:item/speedometer_01" },
+    { "predicate": { "custom_model_data": 2 }, "model": "simplebuilding:item/speedometer_02" },
+    { "predicate": { "custom_model_data": 3 }, "model": "simplebuilding:item/speedometer_03" },
+    { "predicate": { "custom_model_data": 4 }, "model": "simplebuilding:item/speedometer_04" },
+    { "predicate": { "custom_model_data": 5 }, "model": "simplebuilding:item/speedometer_05" },
+    { "predicate": { "custom_model_data": 6 }, "model": "simplebuilding:item/speedometer_06" },
+    { "predicate": { "custom_model_data": 7 }, "model": "simplebuilding:item/speedometer_07" },
+    { "predicate": { "custom_model_data": 8 }, "model": "simplebuilding:item/speedometer_08" },
+    { "predicate": { "custom_model_data": 9 }, "model": "simplebuilding:item/speedometer_09" },
+    { "predicate": { "custom_model_data": 10 }, "model": "simplebuilding:item/speedometer_10" },
+    { "predicate": { "custom_model_data": 11 }, "model": "simplebuilding:item/speedometer_11" },
+    { "predicate": { "custom_model_data": 12 }, "model": "simplebuilding:item/speedometer_12" },
+    { "predicate": { "custom_model_data": 13 }, "model": "simplebuilding:item/speedometer_13" },
+    { "predicate": { "custom_model_data": 14 }, "model": "simplebuilding:item/speedometer_14" },
+    { "predicate": { "custom_model_data": 15 }, "model": "simplebuilding:item/speedometer_15" }
+  ]
+}

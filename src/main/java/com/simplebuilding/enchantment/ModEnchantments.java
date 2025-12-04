@@ -33,6 +33,8 @@ public class ModEnchantments {
     public static final RegistryKey<Enchantment> SURFACE_PLACE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "surface_place"));
     public static final RegistryKey<Enchantment> BRIDGE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "bridge"));
     public static final RegistryKey<Enchantment> LINE_PLACE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "line_place"));
+    public static final RegistryKey<Enchantment> SWIFT_RIDE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "swift_ride"));
+    public static final RegistryKey<Enchantment> HORSE_JUMP = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "horse_jump"));
 
     public static void bootstrap(Registerable<Enchantment> registerable) {
         var items = registerable.getRegistryLookup(RegistryKeys.ITEM);
@@ -235,6 +237,32 @@ public class ModEnchantments {
                 4,
                 AttributeModifierSlot.MAINHAND
         )));
+
+        // 16. SWIFT_RIDE (Max Level III, Common) [SADDLE]
+        register(registerable, SWIFT_RIDE, Enchantment.builder(
+                Enchantment.definition(
+                        items.getOrThrow(ModTags.Items.SADDLE_ENCHANTABLE), // Ziel: Saddle
+                        items.getOrThrow(ModTags.Items.SADDLE_ENCHANTABLE),
+                        2, // Weight (Rare)
+                        3, // Max Level
+                        Enchantment.leveledCost(15, 10),
+                        Enchantment.leveledCost(65, 10),
+                        4,
+                        AttributeModifierSlot.ARMOR
+                )));
+
+        // 17. HORSE_JUMP (Max Level III, Common) [SADDLE]
+        register(registerable, HORSE_JUMP, Enchantment.builder(
+                Enchantment.definition(
+                        items.getOrThrow(ModTags.Items.HORSE_ARMOR_ENCHANTABLE), // Ziel: Saddle
+                        items.getOrThrow(ModTags.Items.HORSE_ARMOR_ENCHANTABLE),
+                        3, // Weight (Uncommon)
+                        3, // Max Level
+                        Enchantment.leveledCost(20, 10),
+                        Enchantment.leveledCost(70, 10),
+                        4,
+                        AttributeModifierSlot.ARMOR
+                )));
 
 }
 

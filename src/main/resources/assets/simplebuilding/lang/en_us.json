@@ -75,7 +75,10 @@
     "tooltip.simplebuilding.reinforced_bundle": "Can hold more items if enchanted.",
 
   "item.simplebuilding.reinforced_shulker_box": "Reinforced Shulker Box",
-    "tooltip.simplebuilding.reinforced_shulker_box": "Can hold more items if enchanted.",
+  "tooltip.simplebuilding.reinforced_shulker_box": "Can hold more items if enchanted.",
+
+  "item.simplebuilding.speedometer": "Speedometer",
+  "tooltip.simplebuilding.speedometer.tooltip": "Shows the speed of the ridden entity.",
 
   "itemgroup.simplebuilding.building_items": "Building Items",
 
@@ -95,6 +98,10 @@
   "enchantment.simplebuilding.surface_place": "Surface Place",
   "enchantment.simplebuilding.bridge": "Bridge",
   "enchantment.simplebuilding.line_place": "Line Place",
+  "enchantment.simplebuilding.swift_ride": "Swift Ride",
+  "enchantment.simplebuilding.swift_ride.description": "Increases the speed of ridden mobs.",
+  "enchantment.simplebuilding.horse_jump": "Horse Jump",
+  "enchantment.simplebuilding.horse_jump.description": "Increases the jump height of ridden horses.",
 
 
 
@@ -115,5 +122,22 @@
   "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades": "Enable Villager Trades",
   "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades": "Enable Wandering Trader",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges": "Enable Loot Chests",
-  "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.tooltip": "Add items to dungeon/structure chests."
+  "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.tooltip": "Add items to dungeon/structure chests.",
+
+  "text.autoconfig.simplebuilding.option.enchantments": "Enchantment Balancing",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide": "Swift Ride Settings",
+
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier": "Ghast Speed Boost",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier.tooltip": "Speed multiplier per enchantment level for Happy Ghasts (Default: 0.40).",
+
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier": "Horse Speed Boost",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier.tooltip": "Speed multiplier per enchantment level for Horses (Default: 0.12).",
+
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier": "Other Mob Speed Boost",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier.tooltip": "Speed multiplier per enchantment level for Pigs/Striders (Default: 0.15).",
+
+  "text.autoconfig.simplebuilding.option.enchantments.horseJump": "Horse Jump Settings",
+  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier": "Jump Strength Boost",
+  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.tooltip": "Jump strength multiplier per enchantment level on horse armor (Default: 0.20)."
+
 }

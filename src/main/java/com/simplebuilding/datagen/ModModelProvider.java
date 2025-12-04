@@ -16,6 +16,18 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+        for (int i = 0; i < 16; i++) {
+            String num = String.format("%02d", i);
+            Identifier modelId = Identifier.of("simplebuilding", "item/speedometer_" + num);
+            Identifier textureId = Identifier.of("simplebuilding", "item/speedometer_" + num);
+
+            // Erzeugt simple Dateien mit parent: item/generated
+            Models.GENERATED.upload(
+                    modelId,
+                    TextureMap.layer0(textureId),
+                    blockStateModelGenerator.modelCollector
+            );
+        }
     }
 
     @Override
@@ -71,6 +83,10 @@ public class ModModelProvider extends FabricModelProvider {
 
         // --- 6. REINFORCED BUNDLES (Generated / Flach) ---
         itemModelGenerator.register(ModItems.REINFORCED_BUNDLE, Models.GENERATED);
+
+        // --- 7. SPEEDOMETERS (Generated / Flach) ---
+        itemModelGenerator.register(ModItems.SPEEDOMETER, Models.GENERATED);
+
 
     }
 }

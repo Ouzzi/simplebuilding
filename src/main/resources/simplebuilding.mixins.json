@@ -1,17 +1,19 @@
 {
-	"required": true,
-	"package": "com.simplebuilding.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-      "ItemEntityMixin",
-      "BowItemMixin",
-      "PlayerEntityMixin",
-      "AnvilScreenHandlerMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
+  "required": true,
+  "package": "com.simplebuilding.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AnvilScreenHandlerMixin",
+    "BowItemMixin",
+    "ItemEntityMixin",
+    "PlayerEntityMixin",
+    "AbstractHorseEntityAccessor",
+    "SwiftRideTickMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
 	}
 }

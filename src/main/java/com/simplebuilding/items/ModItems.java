@@ -93,6 +93,10 @@ public class ModItems {
 
     public static final Map<DyeColor, OctantItem> COLORED_OCTANT_ITEMS = new HashMap<>();
 
+    // Speedometer
+    public static final Item SPEEDOMETER = registerItem("speedometer", settings -> new Item(settings.maxCount(1)));
+
+
     // Reinforced Items
     public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1)));
 

@@ -71,6 +71,9 @@ public class ModItemGroups {
                             }
                         }
 
+                        // --- Speedometer ---
+                        entries.add(ModItems.SPEEDOMETER);
+
                         // --- Storage ---
                         entries.add(ModItems.REINFORCED_BUNDLE);
 
@@ -100,6 +103,10 @@ public class ModItemGroups {
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.SURFACE_PLACE, 1);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.BRIDGE, 1);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.LINE_PLACE, 1);
+
+                        // 5. Armor Utilities
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.SWIFT_RIDE, 3);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.HORSE_JUMP, 3);
 
                     }).build());
 

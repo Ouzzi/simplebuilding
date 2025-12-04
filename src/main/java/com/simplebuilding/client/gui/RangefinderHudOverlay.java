@@ -1,5 +1,6 @@
 package com.simplebuilding.client.gui;
 
+import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
@@ -24,11 +25,9 @@ public class RangefinderHudOverlay implements HudRenderCallback {
     private static final int BACKGROUND_COLOR = 0xF0100010;
     private static final int BORDER_COLOR_START = 0xF03f0073;
     private static final int BORDER_COLOR_END = 0xF0250061;
-
-    // Custom Text Farben (Deine RGB Werte als Hex)
-    private static final int COLOR_POS_1 = 0xFF7F4C;  // Orange
-    private static final int COLOR_POS_2 = 0xFFD866;  // Gelb
-    private static final int COLOR_RESULT = 0xCC9966; // Mix
+    private static final int COLOR_POS_1 = 0xFF7F4C;
+    private static final int COLOR_POS_2 = 0xFFD866;
+    private static final int COLOR_RESULT = 0xCC9966;
 
     @Override
     public void onHudRender(DrawContext context, RenderTickCounter tickCounter) {
@@ -36,19 +35,27 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         if (client.player == null) return;
 
         ItemStack stack = client.player.getMainHandStack();
-        if (!(stack.getItem() instanceof OctantItem)) {
+        boolean hasOctant = stack.getItem() instanceof OctantItem;
+
+        if (!hasOctant) {
             stack = client.player.getOffHandStack();
-            if (!(stack.getItem() instanceof OctantItem)) {
-                return;
+            if (stack.getItem() instanceof OctantItem) {
+                hasOctant = true;
             }
         }
 
+        if (!hasOctant) return;
+
+        // Check für Speedometer (für Positionierung)
+        ItemStack main = client.player.getMainHandStack();
+        ItemStack off = client.player.getOffHandStack();
+        boolean hasSpeedometer = main.isOf(ModItems.SPEEDOMETER) || off.isOf(ModItems.SPEEDOMETER);
+
+        // --- DATA ---
         NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = nbtData.copyNbt();
-
         List<Text> lines = new ArrayList<>();
 
-        // --- TITEL LOGIK (Enchantment Check) ---
         Formatting titleColor = stack.hasEnchantments() ? Formatting.AQUA : Formatting.WHITE;
         lines.add(Text.literal("Octant").formatted(titleColor));
 
@@ -83,35 +90,27 @@ public class RangefinderHudOverlay implements HudRenderCallback {
             int dz = Math.abs(pos1.getZ() - pos2.getZ()) + 1;
 
             if (dy == 1 && (dx == 1 || dz == 1)) {
-                // Distance
-                lines.add(Text.literal("Distance: " + Math.max(dx, dz) + " blocks")
-                        .setStyle(Style.EMPTY.withColor(COLOR_RESULT)));
+                lines.add(Text.literal("Distance: " + Math.max(dx, dz) + " blocks").setStyle(Style.EMPTY.withColor(COLOR_RESULT)));
             } else if (dy == 1) {
-                // Area
-                lines.add(Text.literal("Area: " + (dx * dz) + " blocks²")
-                        .setStyle(Style.EMPTY.withColor(COLOR_RESULT)));
+                lines.add(Text.literal("Area: " + (dx * dz) + " blocks²").setStyle(Style.EMPTY.withColor(COLOR_RESULT)));
                 lines.add(Text.literal("(" + dx + " x " + dz + ")").formatted(Formatting.GRAY));
             } else {
-                // Volume
-                lines.add(Text.literal("Volume: " + (dx * dy * dz) + " blocks³")
-                        .setStyle(Style.EMPTY.withColor(COLOR_RESULT)));
+                lines.add(Text.literal("Volume: " + (dx * dy * dz) + " blocks³").setStyle(Style.EMPTY.withColor(COLOR_RESULT)));
                 lines.add(Text.literal("(" + dx + " x " + dy + " x " + dz + ")").formatted(Formatting.GRAY));
             }
         }
 
         if (lines.isEmpty()) return;
 
-        // --- RENDERING ---
+        // --- RENDER ---
         TextRenderer textRenderer = client.textRenderer;
         int screenHeight = context.getScaledWindowHeight();
 
-        // Maße berechnen
         int actualTextWidth = 0;
         for (Text line : lines) {
             int w = textRenderer.getWidth(line);
             if (w > actualTextWidth) actualTextWidth = w;
         }
-
         String sampleString = "Pos 2: -8888, 888, -8888";
         int minSafeWidth = textRenderer.getWidth(sampleString);
         int finalContentWidth = Math.max(actualTextWidth, minSafeWidth);
@@ -119,13 +118,9 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         int paddingX = 6;
         int paddingY = 6;
         int lineSpacing = 2;
-        int titleSpacing = 4; // EXTRA ABSTAND UNTER TITEL
+        int titleSpacing = 4;
 
-        // Box Höhe anpassen (Extra Platz für Titel)
-        int totalTextHeight = (lines.size() * textRenderer.fontHeight)
-                            + ((lines.size() - 1) * lineSpacing)
-                            + titleSpacing* (lines.size() > 3 ? 2 : 1); // Hier addieren wir den Extra-Abstand
-
+        int totalTextHeight = (lines.size() * textRenderer.fontHeight) + ((lines.size() - 1) * lineSpacing) + titleSpacing * (lines.size() > 3 ? 2 : 1);
         int boxWidth = finalContentWidth + (paddingX * 2);
         int boxHeight = totalTextHeight + (paddingY * 2);
 
@@ -133,6 +128,12 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         int y = (screenHeight / 2) - (boxHeight / 2);
         int z = 400; // Z-Level (Wichtig für Sortierung, auch wenn drawContext 2D ist, nutzen wir die Reihenfolge)
 
+        // POSITIONIERUNG: Hochrutschen wenn Speedometer da ist
+        if (hasSpeedometer) {
+            y -= 35; // Verschiebung nach OBEN
+        }
+
+        // Background
         context.fill(x + 1, y + 1, x + boxWidth - 1, y + boxHeight - 1, BACKGROUND_COLOR);
         context.fill(x + 1, y, x + boxWidth - 1, y + 1, BACKGROUND_COLOR); // Verschiebung y-1 war falsch im Kontext von fill(y, y+1)
 

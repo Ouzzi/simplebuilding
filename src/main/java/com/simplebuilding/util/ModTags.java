@@ -25,6 +25,8 @@ public class ModTags {
         public static final TagKey<Item> OCTANTS_ENCHANTABLE = createTag("octants_enchantable");
         public static final TagKey<Item> SLEDGEHAMMER_ENCHANTABLE = createTag("sledgehammer_tools");
         public static final TagKey<Item> BUILDING_WAND_ENCHANTABLE = createTag("building_wand_enchantable");
+        public static final TagKey<Item> SADDLE_ENCHANTABLE = createTag("saddle_enchantable");
+        public static final TagKey<Item> HORSE_ARMOR_ENCHANTABLE = createTag("horse_armor_enchantable");
 
 
         private static TagKey<Item> createTag(String name) {

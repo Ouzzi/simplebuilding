@@ -1,6 +1,7 @@
 package com.simplebuilding;
 
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
+import com.simplebuilding.client.gui.SpeedometerHudOverlay;
 import com.simplebuilding.client.render.BuildingWandOutlineRenderer;
 import com.simplebuilding.client.render.SledgehammerOutlineRenderer;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
@@ -14,6 +15,7 @@ public class SimplebuildingClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         HudRenderCallback.EVENT.register(new RangefinderHudOverlay());
+        HudRenderCallback.EVENT.register(new SpeedometerHudOverlay());
 
         TooltipComponentCallback.EVENT.register(data -> {
             if (data instanceof ReinforcedBundleTooltipData reinforcedData) {

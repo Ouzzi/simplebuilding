@@ -1,0 +1,29 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "property": {
+      "type": "minecraft:custom_model_data",
+      "index": 0
+    },
+    "scale": 1.0,
+    "entries": [
+      { "threshold": 0.0,  "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_00" } },
+      { "threshold": 1.0,  "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_01" } },
+      { "threshold": 2.0,  "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_02" } },
+      { "threshold": 3.0,  "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_03" } },
+      { "threshold": 4.0,  "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_04" } },
+      { "threshold": 5.0,  "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_05" } },
+      { "threshold": 6.0,  "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_06" } },
+      { "threshold": 7.0,  "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_07" } },
+      { "threshold": 8.0,  "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_08" } },
+      { "threshold": 9.0,  "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_09" } },
+      { "threshold": 10.0, "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_10" } },
+      { "threshold": 11.0, "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_11" } },
+      { "threshold": 12.0, "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_12" } },
+      { "threshold": 13.0, "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_13" } },
+      { "threshold": 14.0, "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_14" } },
+      { "threshold": 15.0, "model": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_15" } }
+    ],
+    "fallback": { "type": "minecraft:model", "model": "simplebuilding:item/speedometer_00" }
+  }
+}

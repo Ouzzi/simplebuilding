@@ -71,6 +71,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.REINFORCED_BUNDLE)
                 .add(Items.SHULKER_BOX)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
+                .add(ModItems.SPEEDOMETER)
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE);
 
         valueLookupBuilder(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
@@ -87,5 +88,30 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLD_BUILDING_WAND)
                 .add(ModItems.DIAMOND_BUILDING_WAND)
                 .add(ModItems.NETHERITE_BUILDING_WAND);
+
+        valueLookupBuilder(ModTags.Items.SADDLE_ENCHANTABLE)
+                .add(Items.SADDLE)
+                .add(Items.BLACK_HARNESS)
+                .add(Items.BROWN_HARNESS)
+                .add(Items.WHITE_HARNESS)
+                .add(Items.GRAY_HARNESS)
+                .add(Items.LIGHT_GRAY_HARNESS)
+                .add(Items.CYAN_HARNESS)
+                .add(Items.PINK_HARNESS)
+                .add(Items.RED_HARNESS)
+                .add(Items.ORANGE_HARNESS)
+                .add(Items.YELLOW_HARNESS)
+                .add(Items.LIME_HARNESS)
+                .add(Items.GREEN_HARNESS)
+                .add(Items.MAGENTA_HARNESS)
+                .add(Items.PURPLE_HARNESS)
+                .add(Items.BLUE_HARNESS)
+                .add(Items.LIGHT_BLUE_HARNESS);
+
+        valueLookupBuilder(ModTags.Items.HORSE_ARMOR_ENCHANTABLE)
+                .add(Items.LEATHER_HORSE_ARMOR)
+                .add(Items.IRON_HORSE_ARMOR)
+                .add(Items.GOLDEN_HORSE_ARMOR)
+                .add(Items.DIAMOND_HORSE_ARMOR);
     }
 }
