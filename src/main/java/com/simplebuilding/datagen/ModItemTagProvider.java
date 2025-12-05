@@ -60,6 +60,12 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ItemTags.VANISHING_ENCHANTABLE)
                 .addTag(ModTags.Items.CHISEL_TOOLS);
 
+        valueLookupBuilder(ItemTags.ARMOR_ENCHANTABLE)
+                .add(Items.LEATHER_HORSE_ARMOR)
+                .add(Items.IRON_HORSE_ARMOR)
+                .add(Items.GOLDEN_HORSE_ARMOR)
+                .add(Items.DIAMOND_HORSE_ARMOR);
+
         valueLookupBuilder(ModTags.Items.BUNDLE_ENCHANTABLE)
                 .add(ModItems.REINFORCED_BUNDLE);
 

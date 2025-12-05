@@ -97,5 +97,3 @@ public class Simplebuilding implements ModInitializer {
     }
 
 }
-
-// horsearmor enchantable: protection (also other protection types), feather falling;

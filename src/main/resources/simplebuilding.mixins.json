@@ -3,11 +3,13 @@
   "package": "com.simplebuilding.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AbstractHorseEntityAccessor",
     "AnvilScreenHandlerMixin",
     "BowItemMixin",
+    "EnchantmentHelperMixin",
+    "HorseEnchantmentMixin",
     "ItemEntityMixin",
     "PlayerEntityMixin",
-    "AbstractHorseEntityAccessor",
     "SwiftRideTickMixin"
   ],
   "injectors": {
