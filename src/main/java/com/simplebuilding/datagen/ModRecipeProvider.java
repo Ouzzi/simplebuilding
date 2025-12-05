@@ -144,6 +144,20 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 }
 
                 // =================================================================
+                // SPEEDOMETER
+                // =================================================================
+                createShaped(RecipeCategory.TOOLS, ModItems.SPEEDOMETER)
+                        .pattern(" A ")
+                        .pattern("OCO")
+                        .pattern("QQQ")
+                        .input('C', Items.COMPASS)
+                        .input('A', Items.AMETHYST_SHARD)
+                        .input('O', Items.COPPER_INGOT)
+                        .input('Q', Items.QUARTZ)
+                        .criterion(hasItem(Items.COMPASS), conditionsFromItem(Items.COMPASS))
+                        .offerTo(exporter);
+
+                // =================================================================
                 // REINFORCED BUNDLE
                 // =================================================================
                 createShaped(RecipeCategory.TOOLS, ModItems.REINFORCED_BUNDLE)
