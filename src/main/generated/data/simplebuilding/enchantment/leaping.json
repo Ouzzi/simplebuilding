@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.simplebuilding.leaping"
+  },
+  "max_cost": {
+    "base": 70,
+    "per_level_above_first": 10
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 20,
+    "per_level_above_first": 10
+  },
+  "primary_items": "#simplebuilding:horse_armor_enchantable",
+  "slots": [
+    "armor"
+  ],
+  "supported_items": "#simplebuilding:horse_armor_enchantable",
+  "weight": 3
+}

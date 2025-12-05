@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "simplebuilding:item/speedometer_03"
+    "layer0": "simplebuilding:item/velocity-gauge_03"
   }
 }

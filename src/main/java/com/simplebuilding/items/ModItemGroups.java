@@ -41,11 +41,11 @@ public class ModItemGroups {
                         entries.add(ModItems.NETHERITE_SPATULA);
 
                         // --- Building Cores ---
-                        entries.add(ModItems.COPPER_BUILDING_CORE);
-                        entries.add(ModItems.IRON_BUILDING_CORE);
-                        entries.add(ModItems.GOLD_BUILDING_CORE);
-                        entries.add(ModItems.DIAMOND_BUILDING_CORE);
-                        entries.add(ModItems.NETHERITE_BUILDING_CORE);
+                        entries.add(ModItems.COPPER_CORE);
+                        entries.add(ModItems.IRON_CORE);
+                        entries.add(ModItems.GOLD_CORE);
+                        entries.add(ModItems.DIAMOND_CORE);
+                        entries.add(ModItems.NETHERITE_CORE);
 
                         // --- Wands ---
                         entries.add(ModItems.COPPER_BUILDING_WAND);
@@ -72,7 +72,7 @@ public class ModItemGroups {
                         }
 
                         // --- Speedometer ---
-                        entries.add(ModItems.SPEEDOMETER);
+                        entries.add(ModItems.VELOCITY_GAUGE);
 
                         // --- Storage ---
                         entries.add(ModItems.REINFORCED_BUNDLE);
@@ -90,7 +90,7 @@ public class ModItemGroups {
                         // 2. Sledgehammer Specific
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.BREAK_THROUGH, 1);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.RADIUS, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.IGNORE_BLOCK_TYPE, 2);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.OVERRIDE, 2);
 
                         // 3. Bundle/Container Utilities
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.DEEP_POCKETS, 2);
@@ -100,13 +100,13 @@ public class ModItemGroups {
                         // 4. Wand/Construction Utilities
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.MASTER_BUILDER, 1);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.COLOR_PALETTE, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.SURFACE_PLACE, 1);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.COVER, 1);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.BRIDGE, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.LINE_PLACE, 1);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.LINEAR, 1);
 
                         // 5. Armor Utilities
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.SWIFT_RIDE, 3);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.HORSE_JUMP, 3);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.TAILWIND, 3);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.LEAPING, 3);
 
                     }).build());
 

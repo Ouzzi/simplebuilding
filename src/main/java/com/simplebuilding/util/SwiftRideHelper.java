@@ -22,8 +22,8 @@ import java.util.Objects;
 
 public class SwiftRideHelper {
 
-    private static final Identifier BOOST_ID = Identifier.of(Simplebuilding.MOD_ID, "swift_ride_boost");
-    private static final Identifier JUMP_BOOST_ID = Identifier.of(Simplebuilding.MOD_ID, "horse_jump_boost");
+    private static final Identifier BOOST_ID = Identifier.of(Simplebuilding.MOD_ID, "tailwind_boost");
+    private static final Identifier JUMP_BOOST_ID = Identifier.of(Simplebuilding.MOD_ID, "leaping_boost");
     private static int debugTicker = 0;
     private static final boolean DEBUG_ENABLED = true;
 
@@ -38,7 +38,7 @@ public class SwiftRideHelper {
         if (!saddle.isEmpty()) {
              var registry = entity.getEntityWorld().getRegistryManager();
              var lookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-             var key = lookup.getOptional(ModEnchantments.SWIFT_RIDE);
+             var key = lookup.getOptional(ModEnchantments.TAILWIND);
              if (key.isPresent()) {
                  level = EnchantmentHelper.getLevel(key.get(), saddle);
              }
@@ -100,7 +100,7 @@ public class SwiftRideHelper {
 
         var registry = horse.getEntityWorld().getRegistryManager();
         var lookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var key = lookup.getOptional(ModEnchantments.HORSE_JUMP);
+        var key = lookup.getOptional(ModEnchantments.LEAPING);
 
         if (key.isPresent()) {
             int level = EnchantmentHelper.getLevel(key.get(), armor);

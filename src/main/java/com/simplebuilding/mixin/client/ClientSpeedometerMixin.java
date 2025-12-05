@@ -21,7 +21,7 @@ public class ClientSpeedometerMixin {
 
     @Inject(method = "update", at = @At("HEAD"))
     private void injectSpeed(ItemRenderState renderState, ItemStack stack, net.minecraft.item.ItemDisplayContext displayContext, World world, HeldItemContext heldItemContext, int seed, CallbackInfo ci) {
-        if (!stack.isOf(ModItems.SPEEDOMETER)) return;
+        if (!stack.isOf(ModItems.VELOCITY_GAUGE)) return;
 
         Entity entity = heldItemContext != null ? heldItemContext.getEntity() : net.minecraft.client.MinecraftClient.getInstance().player;
         if (entity == null) return;

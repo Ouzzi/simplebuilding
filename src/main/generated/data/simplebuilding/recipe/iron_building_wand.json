@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "C": "simplebuilding:iron_building_core",
+    "C": "simplebuilding:iron_core",
     "M": "minecraft:iron_ingot",
     "S": "minecraft:stick"
   },

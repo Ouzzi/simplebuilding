@@ -28,13 +28,13 @@ public class ModEnchantments {
     public static final RegistryKey<Enchantment> FUNNEL = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "funnel"));
     public static final RegistryKey<Enchantment> BREAK_THROUGH = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "break_through"));
     public static final RegistryKey<Enchantment> RADIUS = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "radius"));
-    public static final RegistryKey<Enchantment> IGNORE_BLOCK_TYPE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "ignore_block_type")); // TODO New name
+    public static final RegistryKey<Enchantment> OVERRIDE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "override"));
     public static final RegistryKey<Enchantment> STRIP_MINER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "strip_miner"));
-    public static final RegistryKey<Enchantment> SURFACE_PLACE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "surface_place")); // TODO New name
+    public static final RegistryKey<Enchantment> COVER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "cover"));
     public static final RegistryKey<Enchantment> BRIDGE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "bridge"));
-    public static final RegistryKey<Enchantment> LINE_PLACE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "line_place")); // TODO New name
-    public static final RegistryKey<Enchantment> SWIFT_RIDE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "swift_ride")); // TODO New name
-    public static final RegistryKey<Enchantment> HORSE_JUMP = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "horse_jump")); // TODO New name
+    public static final RegistryKey<Enchantment> LINEAR = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "linear"));
+    public static final RegistryKey<Enchantment> TAILWIND = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "tailwind"));
+    public static final RegistryKey<Enchantment> LEAPING = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "leaping"));
 
     public static void bootstrap(Registerable<Enchantment> registerable) {
         var items = registerable.getRegistryLookup(RegistryKeys.ITEM);
@@ -179,7 +179,7 @@ public class ModEnchantments {
         )).exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.BREAK_THROUGH_EXCLUSIVE_SET)));
 
         // 11. IGNORE_BLOCKTYPE (Max Level 2, Treasure, Rare) [SLEDGEHAMMER]
-        register(registerable, IGNORE_BLOCK_TYPE, Enchantment.builder(Enchantment.definition(
+        register(registerable, OVERRIDE, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
                 items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
                 2, // Weight (Rare)
@@ -202,8 +202,8 @@ public class ModEnchantments {
                 AttributeModifierSlot.MAINHAND
         )));
 
-        // 13. SURFACE_PLACE (Max Level 1, Treasure, Rare) [BUILDING_WAND]
-        register(registerable, SURFACE_PLACE, Enchantment.builder(Enchantment.definition(
+        // 13. COVER (Max Level 1, Treasure, Rare) [BUILDING_WAND]
+        register(registerable, COVER, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
                 items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
                 2, // Weight (Rare)
@@ -226,8 +226,8 @@ public class ModEnchantments {
                 AttributeModifierSlot.MAINHAND
         )));
 
-        // 15. LINE_PLACE (Max Level 1, Treasure, Rare) [BUILDING_WAND]
-        register(registerable, LINE_PLACE, Enchantment.builder(Enchantment.definition(
+        // 15. LINEAR (Max Level 1, Treasure, Rare) [BUILDING_WAND]
+        register(registerable, LINEAR, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
                 items.getOrThrow(ModTags.Items.BUILDING_WAND_ENCHANTABLE),
                 2, // Weight (Rare)
@@ -238,8 +238,8 @@ public class ModEnchantments {
                 AttributeModifierSlot.MAINHAND
         )));
 
-        // 16. SWIFT_RIDE (Max Level III, Common) [SADDLE]
-        register(registerable, SWIFT_RIDE, Enchantment.builder(
+        // 16. TAILWIND (Max Level III, Common) [SADDLE]
+        register(registerable, TAILWIND, Enchantment.builder(
                 Enchantment.definition(
                         items.getOrThrow(ModTags.Items.SADDLE_ENCHANTABLE), // Ziel: Saddle
                         items.getOrThrow(ModTags.Items.SADDLE_ENCHANTABLE),
@@ -251,8 +251,8 @@ public class ModEnchantments {
                         AttributeModifierSlot.ARMOR
                 )));
 
-        // 17. HORSE_JUMP (Max Level III, Common) [SADDLE]
-        register(registerable, HORSE_JUMP, Enchantment.builder(
+        // 17. LEAPING (Max Level III, Common) [SADDLE]
+        register(registerable, LEAPING, Enchantment.builder(
                 Enchantment.definition(
                         items.getOrThrow(ModTags.Items.HORSE_ARMOR_ENCHANTABLE), // Ziel: Saddle
                         items.getOrThrow(ModTags.Items.HORSE_ARMOR_ENCHANTABLE),

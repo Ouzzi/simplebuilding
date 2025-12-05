@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "C": "simplebuilding:diamond_building_core",
+    "C": "simplebuilding:diamond_core",
     "M": "minecraft:diamond",
     "S": "minecraft:stick"
   },

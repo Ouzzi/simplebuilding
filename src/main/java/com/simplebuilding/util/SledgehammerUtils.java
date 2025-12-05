@@ -23,7 +23,7 @@ public class SledgehammerUtils {
 
         RegistryWrapper.WrapperLookup registry = world.getRegistryManager();
         var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var ignoreTypeKey = enchantments.getOptional(ModEnchantments.IGNORE_BLOCK_TYPE);
+        var ignoreTypeKey = enchantments.getOptional(ModEnchantments.OVERRIDE);
 
         int ignoreLevel = 0;
         if (ignoreTypeKey.isPresent()) {ignoreLevel = EnchantmentHelper.getLevel(ignoreTypeKey.get(), stack);}

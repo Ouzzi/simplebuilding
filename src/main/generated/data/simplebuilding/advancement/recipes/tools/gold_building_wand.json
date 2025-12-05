@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_gold_building_core": {
+    "has_gold_core": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:gold_building_core"
+            "items": "simplebuilding:gold_core"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_gold_building_core"
+      "has_gold_core"
     ]
   ],
   "rewards": {

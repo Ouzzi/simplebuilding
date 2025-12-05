@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "C": "simplebuilding:gold_building_core",
+    "C": "simplebuilding:gold_core",
     "M": "minecraft:gold_ingot",
     "S": "minecraft:stick"
   },

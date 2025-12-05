@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_diamond_building_core": {
+    "has_diamond_core": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:diamond_building_core"
+            "items": "simplebuilding:diamond_core"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_diamond_building_core"
+      "has_diamond_core"
     ]
   ],
   "rewards": {

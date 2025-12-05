@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_copper_building_core": {
+    "has_copper_core": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:copper_building_core"
+            "items": "simplebuilding:copper_core"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_copper_building_core"
+      "has_copper_core"
     ]
   ],
   "rewards": {

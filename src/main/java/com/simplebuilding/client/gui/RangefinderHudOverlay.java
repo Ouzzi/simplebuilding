@@ -49,7 +49,7 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         // Check für Speedometer (für Positionierung)
         ItemStack main = client.player.getMainHandStack();
         ItemStack off = client.player.getOffHandStack();
-        boolean hasSpeedometer = main.isOf(ModItems.SPEEDOMETER) || off.isOf(ModItems.SPEEDOMETER);
+        boolean hasSpeedometer = main.isOf(ModItems.VELOCITY_GAUGE) || off.isOf(ModItems.VELOCITY_GAUGE);
 
         // --- DATA ---
         NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);

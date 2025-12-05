@@ -30,18 +30,18 @@ import java.util.concurrent.CompletableFuture;
 
 // List all Loot Table types:
 // 1. STRONGHOLD LIBRARY CHEST: (RANGE, QUIVER, MASTER_BUILDER, BRIDGE)
-// 2. END CITY: (RANGE, QUIVER, MASTER_BUILDER, IGNORE_BLOCK_TYPES, BRIDGE), (DIAMOND_CHISEL_ENCHANTED, DIAMOND_SPATULA_ENCHANTED,DIAMOND_BUILDING_WAND_ENCHANTED, DIAMOND_SLEDGEHAMMER_ENCHANTED, DIAMOND_BUILDING_CORE)
+// 2. END CITY: (RANGE, QUIVER, MASTER_BUILDER, OVERRIDES, BRIDGE), (DIAMOND_CHISEL_ENCHANTED, DIAMOND_SPATULA_ENCHANTED,DIAMOND_BUILDING_WAND_ENCHANTED, DIAMOND_SLEDGEHAMMER_ENCHANTED, diamond_core)
 // 4. ANCIENT CITY: (DEEP POCKETS, RADIUS), (OCTANT_ENCHANTED, DIAMOND_SLEDGEHAMMER)
-// 5. BASTION: (FUNNEL, BREAK THROUGH, SWIFT_RIDE, HORSE_JUMP), (GOLD_SLEDGEHAMMER, GOLD_BUILDING_CORE, NETHERITE_BUILDING_CORE)
-// 6. NETHER BRIDGE: (FUNNEL, BREAK THROUGH, STRIP_MINER, SWIFT_RIDE), (GOLD_BUILDING_CORE, OCTANT_ENCHANTED)
+// 5. BASTION: (FUNNEL, BREAK THROUGH, TAILWIND, LEAPING), (GOLD_SLEDGEHAMMER, gold_core, NETHERITE_CORE)
+// 6. NETHER BRIDGE: (FUNNEL, BREAK THROUGH, STRIP_MINER, TAILWIND), (gold_core, OCTANT_ENCHANTED)
 // 7. PILLAGER OUTPOST: (COLOR PALETTE, SURFACE PLACE, LINE PLACE), (OCTANT)
-// 8. WOODLAND MANSION: (COLOR PALETTE, SURFACE PLACE, LINE PLACE), (IRON_BUILDING_WAND, IRON_BUILDING_CORE)
+// 8. WOODLAND MANSION: (COLOR PALETTE, SURFACE PLACE, LINE PLACE), (IRON_BUILDING_WAND, iron_core)
 // 9. BURIED TREASURE: (CONSTRUCTORS TOUCH, FAST CHISEL), (GOLD_CHISEL, DIAMOND_SPATULA)
 // 10. SIMPLE DUNGEON: (FAST CHISEL, FUNNEL, BREAK THROUGH), (REINFORCED_BUNDLE)
 // 11. SHIPWRECK TREASURE: (FAST CHISEL), (REINFORCED_BUNDLE)
 // 12. IGLOO: (CONSTRUCTORS TOUCH, FAST CHISEL), (DIAMOND_CHISEL, IRON_SPATULA)
 // 13. ABANDONED MINESHAFT: (FAST CHISEL, STRIP_MINER I), (REINFORCED_BUNDLE_ENCHANTED)
-// 14. VAULT: (CONSTRUCTORS TOUCH, FAST_CHISEL, HORSE_JUMP, SWIFT_RIDE), (DIAMOND_BUILDING_CORE)
+// 14. VAULT: (CONSTRUCTORS TOUCH, FAST_CHISEL, LEAPING, TAILWIND), (diamond_core)
 
 public class ModLootTableProvider extends FabricBlockLootTableProvider {
     public ModLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
@@ -73,18 +73,18 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                 tableBuilder.pool(pool);
             }
 
-            // 2. END CITY (RANGE, QUIVER, MASTER_BUILDER, IGNORE_BLOCK_TYPES, BRIDGE)
+            // 2. END CITY (RANGE, QUIVER, MASTER_BUILDER, OVERRIDES, BRIDGE)
             // + DIAMOND CHISEL/SPATULA
             if (LootTables.END_CITY_TREASURE_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0, 2))
-                        .with(enchantedBook(ModEnchantments.IGNORE_BLOCK_TYPE, 2, enchantments, 10))
+                        .with(enchantedBook(ModEnchantments.OVERRIDE, 2, enchantments, 10))
                         .with(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 5))
                         .with(ItemEntry.builder(ModItems.DIAMOND_CHISEL).weight(5))
                         .with(ItemEntry.builder(ModItems.DIAMOND_SPATULA).weight(5))
                         .with(ItemEntry.builder(ModItems.DIAMOND_BUILDING_WAND).weight(2))
                         .with(ItemEntry.builder(ModItems.DIAMOND_SLEDGEHAMMER).weight(2))
-                        .with(ItemEntry.builder(ModItems.DIAMOND_BUILDING_CORE).weight(2));
+                        .with(ItemEntry.builder(ModItems.DIAMOND_CORE).weight(2));
                 tableBuilder.pool(pool);
             }
 
@@ -106,15 +106,15 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .rolls(UniformLootNumberProvider.create(0, 2))
                         .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 15))
                         .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 10))
-                        .with(enchantedBook(ModEnchantments.SWIFT_RIDE, 1, enchantments, 10))
-                        .with(enchantedBook(ModEnchantments.HORSE_JUMP, 1, enchantments, 5))
+                        .with(enchantedBook(ModEnchantments.TAILWIND, 1, enchantments, 10))
+                        .with(enchantedBook(ModEnchantments.LEAPING, 1, enchantments, 5))
                         .with(ItemEntry.builder(ModItems.GOLD_SLEDGEHAMMER).weight(10))
-                        .with(ItemEntry.builder(ModItems.GOLD_BUILDING_CORE).weight(10))
-                        .with(ItemEntry.builder(ModItems.NETHERITE_BUILDING_CORE).weight(1)); // Sehr selten
+                        .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(10))
+                        .with(ItemEntry.builder(ModItems.NETHERITE_CORE).weight(1)); // Sehr selten
                 tableBuilder.pool(pool);
             }
 
-            // 6. NETHER BRIDGE (FUNNEL, BREAK THROUGH, STRIP_MINER, SWIFT_RIDE)
+            // 6. NETHER BRIDGE (FUNNEL, BREAK THROUGH, STRIP_MINER, TAILWIND)
             if (LootTables.NETHER_BRIDGE_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0, 1))
@@ -122,8 +122,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .with(enchantedBook(ModEnchantments.STRIP_MINER, 2, enchantments, 5))
                         .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 15))
                         .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 10))
-                        .with(enchantedBook(ModEnchantments.SWIFT_RIDE, 1, enchantments, 10))
-                        .with(ItemEntry.builder(ModItems.GOLD_BUILDING_CORE).weight(5))
+                        .with(enchantedBook(ModEnchantments.TAILWIND, 1, enchantments, 10))
+                        .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(5))
                         .with(ItemEntry.builder(ModItems.OCTANT).weight(5));
                 tableBuilder.pool(pool);
             }
@@ -133,8 +133,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0, 1))
                         .with(enchantedBook(ModEnchantments.COLOR_PALETTE, 1, enchantments, 15))
-                        .with(enchantedBook(ModEnchantments.SURFACE_PLACE, 1, enchantments, 15))
-                        .with(enchantedBook(ModEnchantments.LINE_PLACE, 1, enchantments, 15))
+                        .with(enchantedBook(ModEnchantments.COVER, 1, enchantments, 15))
+                        .with(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 15))
                         .with(ItemEntry.builder(ModItems.OCTANT).weight(10));
                 tableBuilder.pool(pool);
             }
@@ -143,10 +143,10 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             if (LootTables.WOODLAND_MANSION_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(1, 2))
-                        .with(enchantedBook(ModEnchantments.SURFACE_PLACE, 1, enchantments, 20))
-                        .with(enchantedBook(ModEnchantments.LINE_PLACE, 1, enchantments, 20))
+                        .with(enchantedBook(ModEnchantments.COVER, 1, enchantments, 20))
+                        .with(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 20))
                         .with(ItemEntry.builder(ModItems.IRON_BUILDING_WAND).weight(10))
-                        .with(ItemEntry.builder(ModItems.IRON_BUILDING_CORE).weight(10));
+                        .with(ItemEntry.builder(ModItems.IRON_CORE).weight(10));
                 tableBuilder.pool(pool);
             }
 
@@ -192,9 +192,9 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                 LootPool.Builder pool = LootPool.builder().rolls(UniformLootNumberProvider.create(0, 1))
                         .with(enchantedBook(ModEnchantments.CONSTRUCTORS_TOUCH, 1, enchantments, 10))
                         .with(enchantedBook(ModEnchantments.FAST_CHISELING, 2, enchantments, 10))
-                        .with(enchantedBook(ModEnchantments.HORSE_JUMP, 1, enchantments, 10))
-                        .with(enchantedBook(ModEnchantments.SWIFT_RIDE, 1, enchantments, 10))
-                        .with(ItemEntry.builder(ModItems.DIAMOND_BUILDING_CORE).weight(2));
+                        .with(enchantedBook(ModEnchantments.LEAPING, 1, enchantments, 10))
+                        .with(enchantedBook(ModEnchantments.TAILWIND, 1, enchantments, 10))
+                        .with(ItemEntry.builder(ModItems.DIAMOND_CORE).weight(2));
                 tableBuilder.pool(pool);
             }
         });

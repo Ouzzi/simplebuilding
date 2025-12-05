@@ -66,11 +66,11 @@ public class ModItems {
     public static final ChiselItem NETHERITE_SPATULA = registerSpatula("netherite_spatula", DURABILITY_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE, "netherite");
 
     // Building Cores
-    public static final Item COPPER_BUILDING_CORE = registerItem("copper_building_core", s -> new Item(s.maxCount(16))); // TODO New name
-    public static final Item IRON_BUILDING_CORE = registerItem("iron_building_core", s -> new Item(s.maxCount(16))); // TODO New name
-    public static final Item GOLD_BUILDING_CORE = registerItem("gold_building_core", s -> new Item(s.maxCount(16))); // TODO New name
-    public static final Item DIAMOND_BUILDING_CORE = registerItem("diamond_building_core", s -> new Item(s.maxCount(16))); // TODO New name
-    public static final Item NETHERITE_BUILDING_CORE = registerItem("netherite_building_core", s -> new Item(s.maxCount(16))); // TODO New name
+    public static final Item COPPER_CORE = registerItem("copper_core", s -> new Item(s.maxCount(16)));
+    public static final Item IRON_CORE = registerItem("iron_core", s -> new Item(s.maxCount(16)));
+    public static final Item GOLD_CORE = registerItem("gold_core", s -> new Item(s.maxCount(16)));
+    public static final Item DIAMOND_CORE = registerItem("diamond_core", s -> new Item(s.maxCount(16)));
+    public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new Item(s.maxCount(16)));
 
     // Wands
     public static final BuildingWandItem COPPER_BUILDING_WAND = registerBuildingWand("copper_building_wand", DURABILITY_WOOD_STONE * DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_COPPER, ENCHANTABILITY_COPPER);
@@ -94,7 +94,7 @@ public class ModItems {
     public static final Map<DyeColor, OctantItem> COLORED_OCTANT_ITEMS = new HashMap<>();
 
     // Speedometer
-    public static final Item SPEEDOMETER = registerItem("speedometer", settings -> new Item(settings.maxCount(1))); // TODO New name
+    public static final Item VELOCITY_GAUGE = registerItem("velocity-gauge", settings -> new Item(settings.maxCount(1)));
 
 
     // Reinforced Items

@@ -20,11 +20,11 @@
   "tooltip.simplebuilding.spatula": "Use to smooth blocks.",
   "tooltip.simplebuilding.spatula.shift_down": "Right-click on a transformable block.",
 
-  "item.simplebuilding.copper_building_core": "Copper Building Core",
-  "item.simplebuilding.iron_building_core": "Iron Building Core",
-  "item.simplebuilding.gold_building_core": "Gold Building Core",
-  "item.simplebuilding.diamond_building_core": "Diamond Building Core",
-  "item.simplebuilding.netherite_building_core": "Netherite Building Core",
+  "item.simplebuilding.copper_core": "Copper Core",
+  "item.simplebuilding.iron_core": "Iron Core",
+  "item.simplebuilding.gold_core": "Gold Core",
+  "item.simplebuilding.diamond_core": "Diamond Core",
+  "item.simplebuilding.netherite_core": "Netherite Core",
 
   "item.simplebuilding.copper_building_wand": "Copper Building Wand",
   "item.simplebuilding.iron_building_wand": "Iron Building Wand",
@@ -75,8 +75,8 @@
   "item.simplebuilding.reinforced_shulker_box": "Reinforced Shulker Box",
   "tooltip.simplebuilding.reinforced_shulker_box": "Can hold more items if enchanted.",
 
-  "item.simplebuilding.speedometer": "Speedometer",
-  "tooltip.simplebuilding.speedometer.tooltip": "Shows the speed of the ridden entity.",
+  "item.simplebuilding.velocity-gauge": "Speedometer",
+  "tooltip.simplebuilding.velocity-gauge.tooltip": "Shows the speed of the ridden entity.",
 
   "itemgroup.simplebuilding.building_items": "Building Items",
 
@@ -87,24 +87,21 @@
   "enchantment.simplebuilding.deep_pockets": "Deep Pockets",
   "enchantment.simplebuilding.master_builder": "Master Builder",
   "enchantment.simplebuilding.color_palette": "Color Palette",
-  "enchantment.simplebuilding.funnel": "Item Funnel",
+  "enchantment.simplebuilding.funnel": "Funnel",
   "enchantment.simplebuilding.quiver": "Quiver",
   "enchantment.simplebuilding.break_through": "Break Through",
-  "enchantment.simplebuilding.ignore_block_type": "Ignore Block Type",
+  "enchantment.simplebuilding.override": "Override",
   "enchantment.simplebuilding.radius": "Radius",
   "enchantment.simplebuilding.strip_miner": "Strip Miner",
-  "enchantment.simplebuilding.surface_place": "Surface Place",
+  "enchantment.simplebuilding.cover": "Cover",
   "enchantment.simplebuilding.bridge": "Bridge",
-  "enchantment.simplebuilding.line_place": "Line Place",
-  "enchantment.simplebuilding.swift_ride": "Swift Ride",
-  "enchantment.simplebuilding.swift_ride.description": "Increases the speed of ridden mobs.",
-  "enchantment.simplebuilding.horse_jump": "Horse Jump",
-  "enchantment.simplebuilding.horse_jump.description": "Increases the jump height of ridden horses.",
+  "enchantment.simplebuilding.linear": "Linear",
+  "enchantment.simplebuilding.tailwind": "Tailwind",
+  "enchantment.simplebuilding.tailwind.description": "Increases the speed of ridden mobs.",
+  "enchantment.simplebuilding.leaping": "Leaping",
+  "enchantment.simplebuilding.leaping.description": "Increases the jump height of ridden horses.",
 
-
-
-
-
+  
   "container.enchantments": "Enchantments",
   "enchantment.level.1": "I",
   "enchantment.level.2": "II",

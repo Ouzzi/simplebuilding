@@ -66,27 +66,27 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // BUILDING CORES (Material + Nether Star)
                 // =================================================================
-                createCoreRecipe(ModItems.COPPER_BUILDING_CORE, Items.COPPER_INGOT);
-                createCoreRecipe(ModItems.IRON_BUILDING_CORE, Items.IRON_INGOT);
-                createCoreRecipe(ModItems.GOLD_BUILDING_CORE, Items.GOLD_INGOT);
-                createCoreRecipe(ModItems.DIAMOND_BUILDING_CORE, Items.DIAMOND);
+                createCoreRecipe(ModItems.COPPER_CORE, Items.COPPER_INGOT);
+                createCoreRecipe(ModItems.IRON_CORE, Items.IRON_INGOT);
+                createCoreRecipe(ModItems.GOLD_CORE, Items.GOLD_INGOT);
+                createCoreRecipe(ModItems.DIAMOND_CORE, Items.DIAMOND);
                 SmithingTransformRecipeJsonBuilder.create(
                         Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                        Ingredient.ofItems(ModItems.DIAMOND_BUILDING_CORE),
+                        Ingredient.ofItems(ModItems.DIAMOND_CORE),
                         Ingredient.ofItems(Items.NETHERITE_INGOT),
                         RecipeCategory.MISC,
-                        ModItems.NETHERITE_BUILDING_CORE
+                        ModItems.NETHERITE_CORE
                 ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
-                 .offerTo(exporter, getItemPath(ModItems.NETHERITE_BUILDING_CORE) + "_smithing");
+                 .offerTo(exporter, getItemPath(ModItems.NETHERITE_CORE) + "_smithing");
 
 
                 // =================================================================
                 // BUILDING WANDS (Stick + Core + Material)
                 // =================================================================
-                createWandRecipe(ModItems.COPPER_BUILDING_WAND, ModItems.COPPER_BUILDING_CORE, Items.COPPER_INGOT);
-                createWandRecipe(ModItems.IRON_BUILDING_WAND, ModItems.IRON_BUILDING_CORE, Items.IRON_INGOT);
-                createWandRecipe(ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_BUILDING_CORE, Items.GOLD_INGOT);
-                createWandRecipe(ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_BUILDING_CORE, Items.DIAMOND);
+                createWandRecipe(ModItems.COPPER_BUILDING_WAND, ModItems.COPPER_CORE, Items.COPPER_INGOT);
+                createWandRecipe(ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE, Items.IRON_INGOT);
+                createWandRecipe(ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE, Items.GOLD_INGOT);
+                createWandRecipe(ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE, Items.DIAMOND);
                 SmithingTransformRecipeJsonBuilder.create(
                         Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
                         Ingredient.ofItems(ModItems.DIAMOND_BUILDING_WAND),
@@ -144,9 +144,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 }
 
                 // =================================================================
-                // SPEEDOMETER
+                // VELOCITY_GAUGE
                 // =================================================================
-                createShaped(RecipeCategory.TOOLS, ModItems.SPEEDOMETER)
+                createShaped(RecipeCategory.TOOLS, ModItems.VELOCITY_GAUGE)
                         .pattern(" A ")
                         .pattern("OCO")
                         .pattern("QQQ")

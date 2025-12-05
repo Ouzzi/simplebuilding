@@ -3,7 +3,7 @@
     "simplebuilding:reinforced_bundle",
     "minecraft:shulker_box",
     "#simplebuilding:chisel_tools",
-    "simplebuilding:speedometer",
+    "simplebuilding:velocity-gauge",
     "#simplebuilding:octants_enchantable"
   ]
 }

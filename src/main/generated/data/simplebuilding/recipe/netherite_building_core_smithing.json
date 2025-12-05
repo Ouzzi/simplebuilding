@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smithing_transform",
-  "addition": "minecraft:netherite_ingot",
-  "base": "simplebuilding:diamond_building_core",
-  "result": {
-    "id": "simplebuilding:netherite_building_core"
-  },
-  "template": "minecraft:netherite_upgrade_smithing_template"
-}

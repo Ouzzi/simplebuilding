@@ -42,7 +42,7 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
         // 1. Prüfen ob Speedometer gehalten wird (Main oder Offhand)
         ItemStack main = client.player.getMainHandStack();
         ItemStack off = client.player.getOffHandStack();
-        boolean hasSpeedometer = main.isOf(ModItems.SPEEDOMETER) || off.isOf(ModItems.SPEEDOMETER);
+        boolean hasSpeedometer = main.isOf(ModItems.VELOCITY_GAUGE) || off.isOf(ModItems.VELOCITY_GAUGE);
 
         if (!hasSpeedometer) {
             if (wasHoldingSpeedometer) {
@@ -79,7 +79,7 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
         List<Text> lines = new ArrayList<>();
 
         // Welcher Stack ist der Speedometer? (Für Enchantment Check)
-        ItemStack activeStack = main.isOf(ModItems.SPEEDOMETER) ? main : off;
+        ItemStack activeStack = main.isOf(ModItems.VELOCITY_GAUGE) ? main : off;
         boolean isEnchanted = activeStack.hasEnchantments();
 
         // Titel Zeile

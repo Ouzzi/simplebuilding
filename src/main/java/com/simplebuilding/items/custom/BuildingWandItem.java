@@ -130,7 +130,7 @@ public class BuildingWandItem extends Item {
 
         // Enchantments für Radius-Anpassung
         boolean isBridge = hasEnchantment(stack, world, ModEnchantments.BRIDGE);
-        boolean isLinePlace = hasEnchantment(stack, world, ModEnchantments.LINE_PLACE);
+        boolean isLinePlace = hasEnchantment(stack, world, ModEnchantments.LINEAR);
 
         if (isBridge || isLinePlace) {
              if (isBridge) maxRadius = this.wandSquareDiameter;
@@ -211,7 +211,7 @@ public class BuildingWandItem extends Item {
         if (context.getRegistryLookup() != null) {
             var registry = context.getRegistryLookup().getOptional(RegistryKeys.ENCHANTMENT);
             if (registry.isPresent()) {
-                var linePlaceEntry = registry.get().getOptional(ModEnchantments.LINE_PLACE);
+                var linePlaceEntry = registry.get().getOptional(ModEnchantments.LINEAR);
                 if (linePlaceEntry.isPresent()) {
                     isLinePlace = EnchantmentHelper.getLevel(linePlaceEntry.get(), stack) > 0;
                 }
@@ -233,7 +233,7 @@ public class BuildingWandItem extends Item {
     private static List<BlockPos> calculatePositions(World world, ItemStack wandStack, BlockPos originPos, Direction face, int r, Direction playerFacing, double hitX, double hitY, double hitZ, int diameter) {
         List<BlockPos> positions = new ArrayList<>();
         boolean isBridge = hasEnchantment(wandStack, world, ModEnchantments.BRIDGE);
-        boolean linePlace = hasEnchantment(wandStack, world, ModEnchantments.LINE_PLACE);
+        boolean linePlace = hasEnchantment(wandStack, world, ModEnchantments.LINEAR);
 
         // --- BRIDGE MODE ---
         if (isBridge) {
@@ -485,7 +485,7 @@ public class BuildingWandItem extends Item {
         List<BlockPos> positions = new ArrayList<>();
         int radius = (diameter - 1) / 2;
         boolean isBridge = hasEnchantment(wandStack, world, ModEnchantments.BRIDGE);
-        boolean isLinePlace = hasEnchantment(wandStack, world, ModEnchantments.LINE_PLACE);
+        boolean isLinePlace = hasEnchantment(wandStack, world, ModEnchantments.LINEAR);
         int maxSteps = (isBridge || isLinePlace) ? diameter : radius; // Bei Bridge/Line Place ist r == Länge (Durchmesser)
 
         // Simuliere HitPos für Client Renderer

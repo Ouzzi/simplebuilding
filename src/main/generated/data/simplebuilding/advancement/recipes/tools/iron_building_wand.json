@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_building_core": {
+    "has_iron_core": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:iron_building_core"
+            "items": "simplebuilding:iron_core"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_iron_building_core"
+      "has_iron_core"
     ]
   ],
   "rewards": {

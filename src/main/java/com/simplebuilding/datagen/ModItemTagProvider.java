@@ -71,7 +71,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.REINFORCED_BUNDLE)
                 .add(Items.SHULKER_BOX)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
-                .add(ModItems.SPEEDOMETER)
+                .add(ModItems.VELOCITY_GAUGE)
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE);
 
         valueLookupBuilder(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)

@@ -31,7 +31,7 @@ public class SledgehammerUsageEvent implements PlayerBlockBreakEvents.Before {
 
             var registry = world.getRegistryManager();
             var enchantLookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-            var ignoreTypeKey = enchantLookup.getOptional(ModEnchantments.IGNORE_BLOCK_TYPE);
+            var ignoreTypeKey = enchantLookup.getOptional(ModEnchantments.OVERRIDE);
 
             int ignoreLevel = 0;
             if (ignoreTypeKey.isPresent()) {ignoreLevel = EnchantmentHelper.getLevel(ignoreTypeKey.get(), mainHandItem);}

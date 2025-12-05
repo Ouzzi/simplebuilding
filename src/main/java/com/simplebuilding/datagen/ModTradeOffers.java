@@ -42,16 +42,16 @@ public class ModTradeOffers {
                 List<WeightedEnchantment> buildingPool = List.of(
                         new WeightedEnchantment(ModEnchantments.COLOR_PALETTE, 1, 30),
                         new WeightedEnchantment(ModEnchantments.FAST_CHISELING, 1, 30),
-                        new WeightedEnchantment(ModEnchantments.LINE_PLACE, 1, 25)
+                        new WeightedEnchantment(ModEnchantments.LINEAR, 1, 25)
                 );
                 factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, buildingPool, 0), 3, 15, 0.3f));
             });
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.LIBRARIAN, 4, factories -> {
                 List<WeightedEnchantment> advancedPool = List.of(
-                        new WeightedEnchantment(ModEnchantments.LINE_PLACE, 1, 25),
-                        new WeightedEnchantment(ModEnchantments.SWIFT_RIDE, 1, 25),
-                        new WeightedEnchantment(ModEnchantments.IGNORE_BLOCK_TYPE, 1, 20),
-                        new WeightedEnchantment(ModEnchantments.HORSE_JUMP, 1, 20)
+                        new WeightedEnchantment(ModEnchantments.LINEAR, 1, 25),
+                        new WeightedEnchantment(ModEnchantments.TAILWIND, 1, 25),
+                        new WeightedEnchantment(ModEnchantments.OVERRIDE, 1, 20),
+                        new WeightedEnchantment(ModEnchantments.LEAPING, 1, 20)
                 );
                 factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, advancedPool, 0), 2, 25, 0.5f));
             });
@@ -61,7 +61,7 @@ public class ModTradeOffers {
                         new WeightedEnchantment(ModEnchantments.RANGE, 1, 10), // Very Rare
                         new WeightedEnchantment(ModEnchantments.FUNNEL, 1, 30),
                         new WeightedEnchantment(ModEnchantments.STRIP_MINER, 1, 20),
-                        new WeightedEnchantment(ModEnchantments.SWIFT_RIDE, 1, 20)
+                        new WeightedEnchantment(ModEnchantments.TAILWIND, 1, 20)
                 );
                 factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, masterPool, 0), 1, 100, 1.0f));
             });
@@ -69,8 +69,8 @@ public class ModTradeOffers {
 
             // 2. MASON (Steinmetz) - Baublöcke & Core Items
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 2, factories -> {
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), new ItemStack(ModItems.COPPER_BUILDING_CORE, 1), 2, 10, 0.1f));
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.NETHERITE_INGOT, 6), new ItemStack(ModItems.DIAMOND_BUILDING_CORE, 1), 2, 15, 0.1f));
+                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), new ItemStack(ModItems.COPPER_CORE, 1), 2, 10, 0.1f));
+                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.NETHERITE_INGOT, 6), new ItemStack(ModItems.DIAMOND_CORE, 1), 2, 15, 0.1f));
             });
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 4, factories -> {
                 factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 62), new ItemStack(ModItems.COPPER_BUILDING_WAND, 1), 1, 20, 0.2f));
@@ -92,7 +92,7 @@ public class ModTradeOffers {
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.TOOLSMITH, 4, factories -> {
                  List<WeightedEnchantment> hammerEnchants = List.of(
                         new WeightedEnchantment(ModEnchantments.BREAK_THROUGH, 1, 5),
-                        new WeightedEnchantment(ModEnchantments.IGNORE_BLOCK_TYPE, 1, 15),
+                        new WeightedEnchantment(ModEnchantments.OVERRIDE, 1, 15),
                         new WeightedEnchantment(ModEnchantments.RANGE, 1, 10),
                         new WeightedEnchantment(Enchantments.UNBREAKING, 2, 50),
                         new WeightedEnchantment(Enchantments.EFFICIENCY, 3, 50)
@@ -126,9 +126,9 @@ public class ModTradeOffers {
 
                 factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 10), new ItemStack(ModItems.OCTANT, 1), 1, 15, 0.1f);});
                 factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 16), new ItemStack(ModItems.REINFORCED_BUNDLE, 1), 1, 15, 0.1f);});
-                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 46), new ItemStack(ModItems.COPPER_BUILDING_CORE, 2), 4, 10, 0.1f);});
-                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 56), new ItemStack(ModItems.IRON_BUILDING_CORE, 2), 4, 10, 0.1f);});
-                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 30), new ItemStack(ModItems.GOLD_BUILDING_CORE, 1), 1, 5, 0.1f);});
+                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 46), new ItemStack(ModItems.COPPER_CORE, 2), 4, 10, 0.1f);});
+                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 56), new ItemStack(ModItems.IRON_CORE, 2), 4, 10, 0.1f);});
+                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 30), new ItemStack(ModItems.GOLD_CORE, 1), 1, 5, 0.1f);});
 
                 factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> {
                     List<WeightedEnchantment> wandPool = List.of(
