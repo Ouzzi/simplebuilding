@@ -7,7 +7,6 @@ import com.simplebuilding.enchantment.ModEnchantmentEffects;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
-import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.util.ModLootTableModifiers;
 import com.simplebuilding.util.SledgehammerUsageEvent;
 import com.simplebuilding.util.StripMinerUsageEvent;
@@ -58,7 +57,6 @@ public class Simplebuilding implements ModInitializer {
 
         ModItems.registerModItems();
         ModItemGroups.registerItemGroups();
-		ModRecipes.registerRecipes();
         ModLootTableModifiers.modifyLootTables();
         ModTradeOffers.registerModTradeOffers();
         ModDataComponentTypes.registerDataComponentTypes();

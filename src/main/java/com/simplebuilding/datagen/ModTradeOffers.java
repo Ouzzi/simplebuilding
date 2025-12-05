@@ -147,7 +147,10 @@ public class ModTradeOffers {
      */
     private static WeightedEnchantment pickWeighted(List<WeightedEnchantment> pool, Random random) {
         int totalWeight = 0;
-        for (WeightedEnchantment e : pool) totalWeight += e.weight();
+                for (WeightedEnchantment e : pool) totalWeight += e.weight();
+        if (totalWeight == 0) {
+            return null;
+        }
         int pick = random.nextInt(totalWeight);
         int currentWeight = 0;
         for (WeightedEnchantment e : pool) {
