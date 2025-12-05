@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -40,6 +41,7 @@ public class BowItemMixin {
         }
     }
 
+    @Unique
     private boolean hasQuiverEnchantment(ItemStack stack, PlayerEntity player) {
         var registry = player.getEntityWorld().getRegistryManager();
         var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);

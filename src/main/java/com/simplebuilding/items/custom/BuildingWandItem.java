@@ -109,7 +109,7 @@ public class BuildingWandItem extends Item {
 
         NbtCompound nbt = getOrInitNbt(stack);
 
-        if (!getBlockBoolean(nbt, "Active", false)) return;
+        if (!getBlockBoolean(nbt)) return;
 
         if (slot != EquipmentSlot.MAINHAND && slot != EquipmentSlot.OFFHAND) {
             nbt.putBoolean("Active", false);
@@ -117,7 +117,7 @@ public class BuildingWandItem extends Item {
             return;
         }
 
-        int timer = getBlockInt(nbt, "Timer", 0);
+        int timer = getBlockInt(nbt, "Timer");
         if (timer > 0) {
             nbt.putInt("Timer", timer - 1);
             setNbt(stack, nbt);
@@ -125,7 +125,7 @@ public class BuildingWandItem extends Item {
         }
 
         // --- Aktion ausführen ---
-        int currentRadius = getBlockInt(nbt, "CurrentRadius", 0);
+        int currentRadius = getBlockInt(nbt, "CurrentRadius");
         int maxRadius = (this.wandSquareDiameter - 1) / 2;
 
         // Enchantments für Radius-Anpassung
@@ -137,17 +137,17 @@ public class BuildingWandItem extends Item {
         }
 
         // Daten laden
-        int ox = getBlockInt(nbt, "OriginX", 0);
-        int oy = getBlockInt(nbt, "OriginY", 0);
-        int oz = getBlockInt(nbt, "OriginZ", 0);
+        int ox = getBlockInt(nbt, "OriginX");
+        int oy = getBlockInt(nbt, "OriginY");
+        int oz = getBlockInt(nbt, "OriginZ");
         BlockPos originPos = new BlockPos(ox, oy, oz);
 
-        int faceInt = getBlockInt(nbt, "Face", 0);
+        int faceInt = getBlockInt(nbt, "Face");
         if (faceInt < 0 || faceInt >= Direction.values().length) faceInt = 0;
         Direction face = Direction.values()[faceInt];
 
         // NBT Daten lesen
-        Direction playerFacing = Direction.values()[getBlockInt(nbt, "PlayerFacing", 0)];
+        Direction playerFacing = Direction.values()[getBlockInt(nbt, "PlayerFacing")];
         double hitX = nbt.getFloat("HitX").orElse(0.5f);
         double hitY = nbt.getFloat("HitY").orElse(0.5f);
         double hitZ = nbt.getFloat("HitZ").orElse(0.5f);
@@ -318,6 +318,14 @@ public class BuildingWandItem extends Item {
         return positions;
     }
 
+    public SoundEvent getPlaceSound() {
+        return placeSound;
+    }
+
+    public void setPlaceSound(SoundEvent placeSound) {
+        this.placeSound = placeSound;
+    }
+
     private static class MaterialResult {
         ItemStack sourceStack; int bundleIndex; boolean fromBundle; BlockState stateToPlace;
         public void consume() { if (fromBundle) removeOneFromBundle(sourceStack, bundleIndex); else sourceStack.decrement(1); }
@@ -439,7 +447,7 @@ public class BuildingWandItem extends Item {
             }
 
             // Wenn kein exakter Match gefunden wurde, nimm den ersten Block (Fallback)
-            if (firstValidIndex != -1 && firstValidBlock != null) {
+            if (firstValidIndex != -1) {
                 MaterialResult res = new MaterialResult();
                 res.sourceStack = bundle;
                 res.fromBundle = true;
@@ -517,14 +525,14 @@ public class BuildingWandItem extends Item {
         return center;
     }
 
-    private boolean getBlockBoolean(NbtCompound nbt, String key, boolean fallback) {
-        if (!nbt.contains(key)) return fallback;
-        return nbt.getBoolean(key).orElse(fallback);
+    private boolean getBlockBoolean(NbtCompound nbt) {
+        if (!nbt.contains("Active")) return false;
+        return nbt.getBoolean("Active").orElse(false);
     }
 
-    private int getBlockInt(NbtCompound nbt, String key, int fallback) {
-        if (!nbt.contains(key)) return fallback;
-        return nbt.getInt(key).orElse(fallback);
+    private int getBlockInt(NbtCompound nbt, String key) {
+        if (!nbt.contains(key)) return 0;
+        return nbt.getInt(key).orElse(0);
     }
 
     private NbtCompound getOrInitNbt(ItemStack stack) {

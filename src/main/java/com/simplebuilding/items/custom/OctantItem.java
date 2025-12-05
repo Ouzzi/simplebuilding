@@ -52,6 +52,7 @@ public class OctantItem extends Item {
             NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
             NbtCompound nbt = nbtData.copyNbt();
 
+            assert player != null;
             if (!player.isSneaking()) {
                 nbt.putIntArray("Pos1", new int[]{pos.getX(), pos.getY(), pos.getZ()});
                 world.playSound(null, pos, SoundEvents.BLOCK_COPPER_STEP, SoundCategory.PLAYERS, 0.3f, 2f);
@@ -60,7 +61,7 @@ public class OctantItem extends Item {
                 world.playSound(null, pos, SoundEvents.BLOCK_COPPER_STEP, SoundCategory.PLAYERS, 0.3f, 1.5f);
             }
 
-            if (player != null && !player.getAbilities().creativeMode) {stack.damage(1, (ServerWorld) world, (ServerPlayerEntity) player, item -> player.sendEquipmentBreakStatus(item, context.getHand() == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));}
+            if (!player.getAbilities().creativeMode) {stack.damage(1, (ServerWorld) world, (ServerPlayerEntity) player, item -> player.sendEquipmentBreakStatus(item, context.getHand() == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));}
 
             stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
         }

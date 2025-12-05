@@ -11,21 +11,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntity.class)
 public abstract class SwiftRideTickMixin {
 
-    // KEIN @Shadow mehr nötig! Wir nutzen den Helper.
-
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
 
-        // Performance-Check: Nur weitermachen, wenn ein Spieler das Entity steuert.
-        if (entity.hasControllingPassenger() && entity.getControllingPassenger() instanceof PlayerEntity) {
-
-            // Ruft die Logik im Helper auf (dort ist der NBT-Hack via Reflection)
-            SwiftRideHelper.applyBoost(entity);
-
-        } else {
-            // Wenn kein Spieler mehr reitet, Boost entfernen
-            SwiftRideHelper.removeBoost(entity);
-        }
+        if (entity.hasControllingPassenger() && entity.getControllingPassenger() instanceof PlayerEntity) {SwiftRideHelper.applyBoost(entity);}
+        else {SwiftRideHelper.removeBoost(entity);}
     }
 }

@@ -15,6 +15,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
+
+import java.util.Objects;
 
 
 public class SwiftRideHelper {
@@ -125,7 +128,7 @@ public class SwiftRideHelper {
         if (attribute != null) {
             if (attribute.getModifier(modifierId) != null) {
                 // Performance: Nichts tun, wenn Wert gleich ist
-                if (Math.abs(attribute.getModifier(modifierId).value() - boostValue) < 0.0001) return;
+                if (Math.abs(Objects.requireNonNull(attribute.getModifier(modifierId)).value() - boostValue) < 0.0001) return;
                 attribute.removeModifier(modifierId);
             }
             attribute.addTemporaryModifier(new EntityAttributeModifier(
@@ -183,7 +186,7 @@ public class SwiftRideHelper {
 
                         // A. Direktes Inventar (SimpleInventory)
                         if (value instanceof net.minecraft.inventory.Inventory inv) {
-                            if (inv.size() > 0) {
+                            if (!inv.isEmpty()) {
                                 ItemStack s = inv.getStack(0); // Slot 0 probieren
                                 if (s.isOf(Items.SADDLE)) return s;
                                 // Alle Slots durchsuchen
@@ -200,8 +203,8 @@ public class SwiftRideHelper {
                         }
 
                         // C. DefaultedList<ItemStack> (So speichern Mobs oft Items intern)
-                        if (value instanceof net.minecraft.util.collection.DefaultedList list) {
-                            if (!list.isEmpty() && list.get(0) instanceof ItemStack) {
+                        if (value instanceof DefaultedList list) {
+                            if (!list.isEmpty() && list.getFirst() instanceof ItemStack) {
                                 for (Object obj : list) {
                                     ItemStack s = (ItemStack) obj;
                                     if (s.isOf(Items.SADDLE)) return s;

@@ -98,6 +98,7 @@ public class ReinforcedBundleItem extends BundleItem {
         PlayerEntity player = context.getPlayer();
         ItemStack bundleStack = context.getStack();
 
+        assert player != null;
         if (hasMasterBuilder(bundleStack, player.getEntityWorld())) {
             BundleContentsComponent contents = bundleStack.get(DataComponentTypes.BUNDLE_CONTENTS);
             if (contents != null && !contents.isEmpty()) {
@@ -251,7 +252,7 @@ public class ReinforcedBundleItem extends BundleItem {
 
     private void addToBundleList(List<ItemStack> list, ItemStack stackToAdd) {
         if (!list.isEmpty()) {
-            ItemStack topStack = list.get(0);
+            ItemStack topStack = list.getFirst();
             if (ItemStack.areItemsAndComponentsEqual(topStack, stackToAdd)) {
                 int available = topStack.getMaxCount() - topStack.getCount();
                 int toMerge = Math.min(available, stackToAdd.getCount());
@@ -262,7 +263,7 @@ public class ReinforcedBundleItem extends BundleItem {
             }
         }
         if (!stackToAdd.isEmpty()) {
-            list.add(0, stackToAdd);
+            list.addFirst(stackToAdd);
         }
     }
 

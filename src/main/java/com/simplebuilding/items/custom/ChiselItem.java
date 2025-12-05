@@ -110,7 +110,7 @@ public class ChiselItem extends Item {
         // [Cobblestone -> Mossy Cobblestone]
         registerLinear(STONE_TOUCH_MAP, STONE_TOUCH_SPATULA_MAP, Blocks.COBBLESTONE, Blocks.MOSSY_COBBLESTONE);
         // [All Logs -> Stripped Logs]
-        registerLogs(STONE_TOUCH_MAP, STONE_TOUCH_SPATULA_MAP);
+        registerLogs();
 
         // =================================================================================
         // 2. IRON / COPPER TIER (Alles Linear)
@@ -131,7 +131,7 @@ public class ChiselItem extends Item {
         // [Bricks -> Mud Bricks]
         registerLinear(IRON_TOUCH_MAP, IRON_TOUCH_SPATULA_MAP, Blocks.BRICKS, Blocks.MUD_BRICKS);
         // [All Woods -> Stripped Wood]
-        registerWood(IRON_TOUCH_MAP, IRON_TOUCH_SPATULA_MAP);
+        registerWood();
 
         // =================================================================================
         // 3. GOLD TIER (Linear)
@@ -194,9 +194,9 @@ public class ChiselItem extends Item {
         // [obsidian -> crying_obsidian]
         registerLinear(NETHERITE_TOUCH_MAP, NETHERITE_TOUCH_SPATULA_MAP, Blocks.OBSIDIAN, Blocks.CRYING_OBSIDIAN);
         // [All Stems -> Stripped Stems]
-        registerStems(NETHERITE_TOUCH_MAP, NETHERITE_TOUCH_SPATULA_MAP);
+        registerStems();
         // [Every Concrete & Concrete Powder]
-        registerConcrete(NETHERITE_TOUCH_MAP, NETHERITE_TOUCH_SPATULA_MAP);
+        registerConcrete();
 
         // =================================================================================
         // MERGING
@@ -228,31 +228,37 @@ public class ChiselItem extends Item {
 
     public ChiselItem(Settings settings, String tier) {
         super(settings);
-        if (tier.equals("stone")) {
-            this.forwardMap = FINAL_STONE_FWD;
-            this.backwardMap = FINAL_STONE_BWD;
-            this.touchForwardMap = FINAL_STONE_TOUCH_FWD;
-            this.touchBackwardMap = FINAL_STONE_TOUCH_BWD;
-        } else if (tier.equals("iron") || tier.equals("copper")) {
-            this.forwardMap = FINAL_IRON_FWD;
-            this.backwardMap = FINAL_IRON_BWD;
-            this.touchForwardMap = FINAL_IRON_TOUCH_FWD;
-            this.touchBackwardMap = FINAL_IRON_TOUCH_BWD;
-        } else if (tier.equals("gold") || tier.equals("diamond")) {
-            this.forwardMap = FINAL_DIAMOND_FWD;
-            this.backwardMap = FINAL_DIAMOND_BWD;
-            this.touchForwardMap = FINAL_DIAMOND_TOUCH_FWD;
-            this.touchBackwardMap = FINAL_DIAMOND_TOUCH_BWD;
-        } else if (tier.equals("netherite")) {
-            this.forwardMap = FINAL_NETHERITE_FWD;
-            this.backwardMap = FINAL_NETHERITE_BWD;
-            this.touchForwardMap = FINAL_NETHERITE_TOUCH_FWD;
-            this.touchBackwardMap = FINAL_NETHERITE_TOUCH_BWD;
-        } else {
-            this.forwardMap = Map.of();
-            this.backwardMap = Map.of();
-            this.touchForwardMap = Map.of();
-            this.touchBackwardMap = Map.of();
+        switch (tier) {
+            case "stone" -> {
+                this.forwardMap = FINAL_STONE_FWD;
+                this.backwardMap = FINAL_STONE_BWD;
+                this.touchForwardMap = FINAL_STONE_TOUCH_FWD;
+                this.touchBackwardMap = FINAL_STONE_TOUCH_BWD;
+            }
+            case "iron", "copper" -> {
+                this.forwardMap = FINAL_IRON_FWD;
+                this.backwardMap = FINAL_IRON_BWD;
+                this.touchForwardMap = FINAL_IRON_TOUCH_FWD;
+                this.touchBackwardMap = FINAL_IRON_TOUCH_BWD;
+            }
+            case "gold", "diamond" -> {
+                this.forwardMap = FINAL_DIAMOND_FWD;
+                this.backwardMap = FINAL_DIAMOND_BWD;
+                this.touchForwardMap = FINAL_DIAMOND_TOUCH_FWD;
+                this.touchBackwardMap = FINAL_DIAMOND_TOUCH_BWD;
+            }
+            case "netherite" -> {
+                this.forwardMap = FINAL_NETHERITE_FWD;
+                this.backwardMap = FINAL_NETHERITE_BWD;
+                this.touchForwardMap = FINAL_NETHERITE_TOUCH_FWD;
+                this.touchBackwardMap = FINAL_NETHERITE_TOUCH_BWD;
+            }
+            default -> {
+                this.forwardMap = Map.of();
+                this.backwardMap = Map.of();
+                this.touchForwardMap = Map.of();
+                this.touchBackwardMap = Map.of();
+            }
         }
     }
 
@@ -262,6 +268,7 @@ public class ChiselItem extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
+        assert context.getPlayer() != null;
         return tryChiselBlock(context.getWorld(), context.getPlayer(), context.getHand(), context.getBlockPos(), context.getStack())
                 ? ActionResult.SUCCESS : ActionResult.PASS;
     }
@@ -346,36 +353,36 @@ public class ChiselItem extends Item {
         return Map.copyOf(result);
     }
 
-    private static void registerLogs(Map<Block, Block> f, Map<Block, Block> b) {
-        registerLinear(f, b, Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
-        registerLinear(f, b, Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
-        registerLinear(f, b, Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
-        registerLinear(f, b, Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
-        registerLinear(f, b, Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
-        registerLinear(f, b, Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
-        registerLinear(f, b, Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
-        registerLinear(f, b, Blocks.CHERRY_LOG, Blocks.STRIPPED_CHERRY_LOG);
-        registerLinear(f, b, Blocks.PALE_OAK_LOG, Blocks.STRIPPED_PALE_OAK_LOG);
+    private static void registerLogs() {
+        registerLinear(ChiselItem.STONE_TOUCH_MAP, ChiselItem.STONE_TOUCH_SPATULA_MAP, Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG);
+        registerLinear(ChiselItem.STONE_TOUCH_MAP, ChiselItem.STONE_TOUCH_SPATULA_MAP, Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG);
+        registerLinear(ChiselItem.STONE_TOUCH_MAP, ChiselItem.STONE_TOUCH_SPATULA_MAP, Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG);
+        registerLinear(ChiselItem.STONE_TOUCH_MAP, ChiselItem.STONE_TOUCH_SPATULA_MAP, Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG);
+        registerLinear(ChiselItem.STONE_TOUCH_MAP, ChiselItem.STONE_TOUCH_SPATULA_MAP, Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);
+        registerLinear(ChiselItem.STONE_TOUCH_MAP, ChiselItem.STONE_TOUCH_SPATULA_MAP, Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG);
+        registerLinear(ChiselItem.STONE_TOUCH_MAP, ChiselItem.STONE_TOUCH_SPATULA_MAP, Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG);
+        registerLinear(ChiselItem.STONE_TOUCH_MAP, ChiselItem.STONE_TOUCH_SPATULA_MAP, Blocks.CHERRY_LOG, Blocks.STRIPPED_CHERRY_LOG);
+        registerLinear(ChiselItem.STONE_TOUCH_MAP, ChiselItem.STONE_TOUCH_SPATULA_MAP, Blocks.PALE_OAK_LOG, Blocks.STRIPPED_PALE_OAK_LOG);
     }
 
-    private static void registerWood(Map<Block, Block> f, Map<Block, Block> b) {
-        registerLinear(f, b, Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
-        registerLinear(f, b, Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
-        registerLinear(f, b, Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
-        registerLinear(f, b, Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
-        registerLinear(f, b, Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
-        registerLinear(f, b, Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
-        registerLinear(f, b, Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
-        registerLinear(f, b, Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD);
-        registerLinear(f, b, Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD);
+    private static void registerWood() {
+        registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD);
+        registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD);
+        registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD);
+        registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD);
+        registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD);
+        registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD);
+        registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD);
+        registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD);
+        registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD);
     }
 
-    private static void registerStems(Map<Block, Block> f, Map<Block, Block> b) {
-        registerLinear(f, b, Blocks.CRIMSON_STEM, Blocks.STRIPPED_CRIMSON_STEM);
-        registerLinear(f, b, Blocks.WARPED_STEM, Blocks.STRIPPED_WARPED_STEM);
+    private static void registerStems() {
+        registerLinear(ChiselItem.NETHERITE_TOUCH_MAP, ChiselItem.NETHERITE_TOUCH_SPATULA_MAP, Blocks.CRIMSON_STEM, Blocks.STRIPPED_CRIMSON_STEM);
+        registerLinear(ChiselItem.NETHERITE_TOUCH_MAP, ChiselItem.NETHERITE_TOUCH_SPATULA_MAP, Blocks.WARPED_STEM, Blocks.STRIPPED_WARPED_STEM);
     }
 
-    private static void registerConcrete(Map<Block, Block> f, Map<Block, Block> b) {
+    private static void registerConcrete() {
         Block[] blocks = {
             Blocks.WHITE_CONCRETE, Blocks.ORANGE_CONCRETE, Blocks.MAGENTA_CONCRETE, Blocks.LIGHT_BLUE_CONCRETE,
             Blocks.YELLOW_CONCRETE, Blocks.LIME_CONCRETE, Blocks.PINK_CONCRETE, Blocks.GRAY_CONCRETE,
@@ -389,7 +396,7 @@ public class ChiselItem extends Item {
             Blocks.BROWN_CONCRETE_POWDER, Blocks.GREEN_CONCRETE_POWDER, Blocks.RED_CONCRETE_POWDER, Blocks.BLACK_CONCRETE_POWDER
         };
         for(int i=0; i < blocks.length; i++) {
-            registerLinear(f, b, blocks[i], powders[i]);
+            registerLinear(ChiselItem.NETHERITE_TOUCH_MAP, ChiselItem.NETHERITE_TOUCH_SPATULA_MAP, blocks[i], powders[i]);
         }
     }
 
@@ -402,6 +409,7 @@ public class ChiselItem extends Item {
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         if(stack.get(ModDataComponentTypes.COORDINATES) != null) {
             BlockPos p = stack.get(ModDataComponentTypes.COORDINATES);
+            assert p != null;
             textConsumer.accept(Text.literal("Last Target: " + p.getX() + ", " + p.getY() + ", " + p.getZ())
                     .formatted(Formatting.GRAY));
         }
