@@ -66,11 +66,11 @@ public class ModItems {
     public static final ChiselItem NETHERITE_SPATULA = registerSpatula("netherite_spatula", DURABILITY_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE, "netherite");
 
     // Building Cores
-    public static final Item COPPER_BUILDING_CORE = registerItem("copper_building_core", s -> new Item(s.maxCount(16)));
-    public static final Item IRON_BUILDING_CORE = registerItem("iron_building_core", s -> new Item(s.maxCount(16)));
-    public static final Item GOLD_BUILDING_CORE = registerItem("gold_building_core", s -> new Item(s.maxCount(16)));
-    public static final Item DIAMOND_BUILDING_CORE = registerItem("diamond_building_core", s -> new Item(s.maxCount(16)));
-    public static final Item NETHERITE_BUILDING_CORE = registerItem("netherite_building_core", s -> new Item(s.maxCount(16)));
+    public static final Item COPPER_BUILDING_CORE = registerItem("copper_building_core", s -> new Item(s.maxCount(16))); // TODO New name
+    public static final Item IRON_BUILDING_CORE = registerItem("iron_building_core", s -> new Item(s.maxCount(16))); // TODO New name
+    public static final Item GOLD_BUILDING_CORE = registerItem("gold_building_core", s -> new Item(s.maxCount(16))); // TODO New name
+    public static final Item DIAMOND_BUILDING_CORE = registerItem("diamond_building_core", s -> new Item(s.maxCount(16))); // TODO New name
+    public static final Item NETHERITE_BUILDING_CORE = registerItem("netherite_building_core", s -> new Item(s.maxCount(16))); // TODO New name
 
     // Wands
     public static final BuildingWandItem COPPER_BUILDING_WAND = registerBuildingWand("copper_building_wand", DURABILITY_WOOD_STONE * DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_COPPER, ENCHANTABILITY_COPPER);
