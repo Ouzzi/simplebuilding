@@ -100,3 +100,8 @@ public class Simplebuilding implements ModInitializer {
 
 // Speedometer soll nun folgendes anzeigenkönnen paralel zum octant overlay:
 // aktuelle geschwindigkeit blöcke pro sekunde , topspeed, durchschnittsgeschwindigkeit
+
+
+// TODO: 
+// - netherite shulker add to existing mod (fire/blast-proof)
+// - new mod - simplecombat : - doublejump enchantment (boots)
