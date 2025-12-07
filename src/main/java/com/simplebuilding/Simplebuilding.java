@@ -108,6 +108,8 @@ public class Simplebuilding implements ModInitializer {
 // - constructors touch on stick to turn into debug stick
 // - move riding related to seperate mod simpleriding
 // - extra horse inventory if storrage upgrade, for example chest saddle
+// - Tweak -> featherfalling doesnt destroy faemlabd
+
 
 // simplecombat features:
 // - doublejump enchantment (boots)
