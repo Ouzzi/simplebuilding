@@ -104,4 +104,18 @@ public class Simplebuilding implements ModInitializer {
 
 // TODO: 
 // - netherite shulker add to existing mod (fire/blast-proof)
-// - new mod - simplecombat : - doublejump enchantment (boots)
+// - multiple book textures as fix in external texture pack
+// - constructors touch on stick to turn into debug stick
+// - move riding related to seperate mod simpleriding
+
+// simplecombat features:
+// - doublejump enchantment (boots)
+// - sword and axe tweak - from sharpness 3 cut trough grass (destroy it)
+// - ?
+
+// simple mods:
+// - simplemoney
+// - simplebuilding (texture fix for ...)
+// - simpleriding (texture fix for ...)
+// - simplecombat (texture fix for ...)
+// - simple tweaks
