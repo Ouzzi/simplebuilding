@@ -107,6 +107,7 @@ public class Simplebuilding implements ModInitializer {
 // - multiple book textures as fix in external texture pack
 // - constructors touch on stick to turn into debug stick
 // - move riding related to seperate mod simpleriding
+// - extra horse inventory if storrage upgrade, for example chest saddle
 
 // simplecombat features:
 // - doublejump enchantment (boots)
