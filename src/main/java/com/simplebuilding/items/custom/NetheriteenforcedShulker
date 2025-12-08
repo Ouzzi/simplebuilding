@@ -1,1 +1,62 @@
-todo
+package com.simplebuilding.items.custom;
+
+import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BundleContentsComponent;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipData;
+import org.apache.commons.lang3.math.Fraction;
+
+import java.util.Optional;
+
+public class NetheriteShulkerItem extends ReinforcedBundleItem {
+
+    // 27 Stacks Kapazität (wie eine Shulker Kiste: 27 Slots * 64 Items)
+    private static final int SHULKER_CAPACITY_STACKS = 27;
+
+    public NetheriteShulkerItem(Settings settings) {
+        super(settings);
+    }
+
+    @Override
+    public boolean canBeNested() {
+        // Verhindert, dass man Shulker in Shulker oder Bundles packt (Infinite Storage Prevention)
+        return false;
+    }
+
+    /**
+     * Überschreibt die maximale Kapazität.
+     * HINWEIS: Stelle sicher, dass getMaxCapacity in ReinforcedBundleItem 'protected' ist!
+     */
+    @Override
+    protected Fraction getMaxCapacity(ItemStack stack, PlayerEntity player) {
+        // Hier geben wir fest 27 Stacks zurück. 
+        // Falls du Enchantments wie "Deep Pockets" auch hier wirken lassen willst,
+        // müsstest du die Logik hier entsprechend addieren.
+        return Fraction.getFraction(SHULKER_CAPACITY_STACKS, 1);
+    }
+
+    /**
+     * Steuert die Füllstandsanzeige (Bar) im Inventar.
+     * HINWEIS: Stelle sicher, dass getMaxCapacityForVisuals in ReinforcedBundleItem 'protected' ist!
+     */
+    @Override
+    protected Fraction getMaxCapacityForVisuals(ItemStack stack) {
+        return Fraction.getFraction(SHULKER_CAPACITY_STACKS, 1);
+    }
+
+    /**
+     * Passt den Tooltip an, damit die korrekte maximale Anzahl (z.B. 1728 Items) angezeigt wird.
+     */
+    @Override
+    public Optional<TooltipData> getTooltipData(ItemStack stack) {
+        BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
+        if (contents == null) return Optional.empty();
+        
+        // Standard Stackgröße (64) * Shulker Kapazität (27) = 1728
+        int maxCapacity = 64 * SHULKER_CAPACITY_STACKS;
+        
+        return Optional.of(new ReinforcedBundleTooltipData(contents, maxCapacity));
+    }
+}
