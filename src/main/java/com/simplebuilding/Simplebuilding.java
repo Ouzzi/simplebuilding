@@ -97,3 +97,28 @@ public class Simplebuilding implements ModInitializer {
     }
 
 }
+
+// Speedometer soll nun folgendes anzeigenkönnen paralel zum octant overlay:
+// aktuelle geschwindigkeit blöcke pro sekunde , topspeed, durchschnittsgeschwindigkeit
+
+
+// TODO:
+// - netherite shulker add to existing mod (fire/blast-proof)
+// - multiple book textures as fix in external texture pack
+// - constructors touch on stick to turn into debug stick
+// - move riding related to seperate mod simpleriding
+// - extra horse inventory if storrage upgrade, for example chest saddle
+// - Tweak -> featherfalling doesnt destroy faemlabd
+
+
+// simplecombat features:
+// - doublejump enchantment (boots)
+// - sword and axe tweak - from sharpness 3 cut trough grass (destroy it)
+// - ?
+
+// simple mods:
+// - simplemoney
+// - simplebuilding (texture fix for ...)
+// - simpleriding (texture fix for ...)
+// - simplecombat (texture fix for ...)
+// - simple tweaks
