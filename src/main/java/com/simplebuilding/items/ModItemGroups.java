@@ -1,7 +1,6 @@
 package com.simplebuilding.items;
 
 import com.simplebuilding.Simplebuilding;
-import com.simplebuilding.block.ModBlocks;
 import com.simplebuilding.enchantment.ModEnchantments;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.component.DataComponentTypes;
@@ -78,7 +77,6 @@ public class ModItemGroups {
                         // --- Storage ---
                         entries.add(ModItems.REINFORCED_BUNDLE);
                         entries.add(ModItems.NETHERITE_BUNDLE);
-                        entries.add(ModBlocks.NETHERITE_SHULKER_BLOCK);
 
                         // --- Enchanted Books ---
                         RegistryWrapper.WrapperLookup lookup = displayContext.lookup();
@@ -106,10 +104,6 @@ public class ModItemGroups {
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.COVER, 1);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.BRIDGE, 1);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.LINEAR, 1);
-
-                        // 5. Armor Utilities
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.TAILWIND, 3);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.LEAPING, 3);
 
                     }).build());
 

@@ -12,7 +12,7 @@
 		"sources": "https://github.com/Ouzzi/fabric-example-mod"
 	},
 	"license": "CC0-1.0",
-	"icon": "icon.png",
+	"icon": "assets/simplebuilding/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [

@@ -7,14 +7,6 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public class ModTags {
-    /*public static class Blocks {
-        public static final TagKey<Block> NEEDS_PINK_GARNET_TOOL = createTag("needs_pink_garnet_tool");
-        public static final TagKey<Block> INCORRECT_FOR_PINK_GARNET_TOOL = createTag("incorrect_for_pink_garnet_tool");
-
-        private static TagKey<Block> createTag(String name) {
-            return TagKey.of(RegistryKeys.BLOCK, Identifier.of(Simplebuilding.MOD_ID, name));
-        }
-    }*/
 
     public static class Items {
         public static final TagKey<Item> CHISEL_TOOLS = createTag("chisel_tools");
@@ -25,8 +17,6 @@ public class ModTags {
         public static final TagKey<Item> OCTANTS_ENCHANTABLE = createTag("octants_enchantable");
         public static final TagKey<Item> SLEDGEHAMMER_ENCHANTABLE = createTag("sledgehammer_tools");
         public static final TagKey<Item> BUILDING_WAND_ENCHANTABLE = createTag("building_wand_enchantable");
-        public static final TagKey<Item> SADDLE_ENCHANTABLE = createTag("saddle_enchantable");
-        public static final TagKey<Item> HORSE_ARMOR_ENCHANTABLE = createTag("horse_armor_enchantable");
 
 
         private static TagKey<Item> createTag(String name) {

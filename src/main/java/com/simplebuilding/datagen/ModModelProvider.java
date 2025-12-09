@@ -1,15 +1,11 @@
 package com.simplebuilding.datagen;
 
-import com.google.gson.JsonObject;
-import com.simplebuilding.block.ModBlocks;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.block.Block;
 import net.minecraft.client.data.*;
 import net.minecraft.item.Item;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
 
 
 public class ModModelProvider extends FabricModelProvider {

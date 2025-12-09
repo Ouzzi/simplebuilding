@@ -1,12 +1,7 @@
 package com.simplebuilding.items;
 
 import com.simplebuilding.Simplebuilding;
-import com.simplebuilding.block.custom.NetheriteShulkerBlock;
 import com.simplebuilding.items.custom.*;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.Registries;

@@ -49,9 +49,7 @@ public class ModTradeOffers {
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.LIBRARIAN, 4, factories -> {
                 List<WeightedEnchantment> advancedPool = List.of(
                         new WeightedEnchantment(ModEnchantments.LINEAR, 1, 25),
-                        new WeightedEnchantment(ModEnchantments.TAILWIND, 1, 25),
-                        new WeightedEnchantment(ModEnchantments.OVERRIDE, 1, 20),
-                        new WeightedEnchantment(ModEnchantments.LEAPING, 1, 20)
+                        new WeightedEnchantment(ModEnchantments.OVERRIDE, 1, 20)
                 );
                 factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, advancedPool, 0), 2, 25, 0.5f));
             });
@@ -60,8 +58,7 @@ public class ModTradeOffers {
                         new WeightedEnchantment(ModEnchantments.MASTER_BUILDER, 1, 10), // Very Rare
                         new WeightedEnchantment(ModEnchantments.RANGE, 1, 10), // Very Rare
                         new WeightedEnchantment(ModEnchantments.FUNNEL, 1, 30),
-                        new WeightedEnchantment(ModEnchantments.STRIP_MINER, 1, 20),
-                        new WeightedEnchantment(ModEnchantments.TAILWIND, 1, 20)
+                        new WeightedEnchantment(ModEnchantments.STRIP_MINER, 1, 20)
                 );
                 factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, masterPool, 0), 1, 100, 1.0f));
             });

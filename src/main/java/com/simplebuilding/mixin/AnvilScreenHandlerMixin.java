@@ -63,41 +63,4 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
         return optional.orElse(null);
     }
 
-    @Inject(method = "updateResult", at = @At("RETURN"))
-    private void restrictHorseArmorEnchants(CallbackInfo ci) {
-        ItemStack output = this.output.getStack(0);
-        if (output.isEmpty()) return;
-
-        if (isHorseArmor(output.getItem())) {
-            var enchantments = EnchantmentHelper.getEnchantments(output);
-
-            for (var entry : enchantments.getEnchantmentEntries()) {
-                RegistryKey<Enchantment> key = entry.getKey().getKey().orElse(null);
-                if (key == null) continue;
-
-                // WHITELIST LOGIK:
-                boolean isAllowed = key.equals(Enchantments.PROTECTION) ||
-                        key.equals(Enchantments.BLAST_PROTECTION) ||
-                        key.equals(Enchantments.FIRE_PROTECTION) ||
-                        key.equals(Enchantments.PROJECTILE_PROTECTION) ||
-                        key.equals(Enchantments.FEATHER_FALLING) ||
-                        key.equals(ModEnchantments.LEAPING);
-
-                if (!isAllowed) {
-                    // Wenn auch nur EIN nicht erlaubtes Enchantment dabei ist -> Ergebnis löschen
-                    this.output.setStack(0, ItemStack.EMPTY);
-                    this.levelCost.set(0);
-                    return;
-                }
-            }
-        }
-    }
-
-    @Unique
-    private boolean isHorseArmor(Item item) {
-        return item == Items.LEATHER_HORSE_ARMOR ||
-                item == Items.IRON_HORSE_ARMOR ||
-                item == Items.GOLDEN_HORSE_ARMOR ||
-                item == Items.DIAMOND_HORSE_ARMOR;
-    }
 }

@@ -1,15 +1,13 @@
 package com.simplebuilding;
 
-import com.simplebuilding.block.ModBlocks;
-import com.simplebuilding.block.entity.ModBlockEntities;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.config.SimplebuildingConfig;
+import com.simplebuilding.datagen.ModLootTableProvider;
 import com.simplebuilding.datagen.ModTradeOffers;
 import com.simplebuilding.enchantment.ModEnchantmentEffects;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
-import com.simplebuilding.util.ModLootTableModifiers;
 import com.simplebuilding.util.SledgehammerUsageEvent;
 import com.simplebuilding.util.StripMinerUsageEvent;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -58,16 +56,14 @@ public class Simplebuilding implements ModInitializer {
         CONFIG = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
 
         ModItems.registerModItems();
-        ModBlocks.registerModBlocks();
 
         ModItemGroups.registerItemGroups();
-        ModLootTableModifiers.modifyLootTables();
+        ModLootTableProvider.modifyLootTables();
         ModTradeOffers.registerModTradeOffers();
         ModDataComponentTypes.registerDataComponentTypes();
         ModEnchantmentEffects.registerEnchantmentEffects();
         registerCauldronBehavior();
 
-        ModBlockEntities.registerBlockEntities();
 
 
         PlayerBlockBreakEvents.BEFORE.register(new SledgehammerUsageEvent());

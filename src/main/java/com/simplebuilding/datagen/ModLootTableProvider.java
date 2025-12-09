@@ -106,8 +106,6 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .rolls(UniformLootNumberProvider.create(0, 2))
                         .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 15))
                         .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 10))
-                        .with(enchantedBook(ModEnchantments.TAILWIND, 1, enchantments, 10))
-                        .with(enchantedBook(ModEnchantments.LEAPING, 1, enchantments, 5))
                         .with(ItemEntry.builder(ModItems.GOLD_SLEDGEHAMMER).weight(10))
                         .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(10))
                         .with(ItemEntry.builder(ModItems.NETHERITE_CORE).weight(1)); // Sehr selten
@@ -122,7 +120,6 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .with(enchantedBook(ModEnchantments.STRIP_MINER, 2, enchantments, 5))
                         .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 15))
                         .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 10))
-                        .with(enchantedBook(ModEnchantments.TAILWIND, 1, enchantments, 10))
                         .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(5))
                         .with(ItemEntry.builder(ModItems.OCTANT).weight(5));
                 tableBuilder.pool(pool);
@@ -192,8 +189,6 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                 LootPool.Builder pool = LootPool.builder().rolls(UniformLootNumberProvider.create(0, 1))
                         .with(enchantedBook(ModEnchantments.CONSTRUCTORS_TOUCH, 1, enchantments, 10))
                         .with(enchantedBook(ModEnchantments.FAST_CHISELING, 2, enchantments, 10))
-                        .with(enchantedBook(ModEnchantments.LEAPING, 1, enchantments, 10))
-                        .with(enchantedBook(ModEnchantments.TAILWIND, 1, enchantments, 10))
                         .with(ItemEntry.builder(ModItems.DIAMOND_CORE).weight(2));
                 tableBuilder.pool(pool);
             }

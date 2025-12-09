@@ -1,5 +1,4 @@
 // 1.21.10	-999999999-01-01T00:00:00	simplebuilding/Tags for minecraft:item
-af378507c1fed70a416e3dd938fd3a95e9d9fe64 data/minecraft/tags/item/enchantable/armor.json
 2ec1ff262f328b4d0418551d1765c33bf6e514f9 data/minecraft/tags/item/enchantable/durability.json
 aaa1971cd363c5baec727778237b123e22afd233 data/minecraft/tags/item/enchantable/mining.json
 aaa1971cd363c5baec727778237b123e22afd233 data/minecraft/tags/item/enchantable/mining_loot.json
@@ -10,7 +9,5 @@ c25dc448ca595819b591124cd5e654d4ab03719b data/simplebuilding/tags/item/chisel_an
 15fe907163acd0811c6d2b4897695660e8f41d9a data/simplebuilding/tags/item/chisel_tools.json
 8e150bc5e96d303c021ab464ac5554060d55894a data/simplebuilding/tags/item/constructors_touch_enchantable.json
 cef043acfda226f3c5eb4066048127d46770f0f4 data/simplebuilding/tags/item/extra_inventory_items.json
-af378507c1fed70a416e3dd938fd3a95e9d9fe64 data/simplebuilding/tags/item/horse_armor_enchantable.json
-ff5e88612bb0040ab264ed0fe2a1799d4ea7dd31 data/simplebuilding/tags/item/octants_enchantable.json
-fa74b7887b05c0a3620e9c6e5df95c14cfe110ed data/simplebuilding/tags/item/saddle_enchantable.json
+3b9ad0ec1e560952508f390c285001643cd31105 data/simplebuilding/tags/item/octants_enchantable.json
 fa92f2e081d2e3b0679643035b171c0c0b04b1af data/simplebuilding/tags/item/sledgehammer_tools.json
