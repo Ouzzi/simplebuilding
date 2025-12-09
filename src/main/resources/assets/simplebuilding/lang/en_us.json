@@ -111,28 +111,27 @@
 
   "text.autoconfig.simplebuilding.option.tools": "Tool Settings",
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak": "Invert Octant Sneak",
-  "text.autoconfig.simplebuilding.option.tools.invertOctantSneak.tooltip": "If true, the Octant renders the filled area when NOT sneaking (with Constructor's Touch).",
+  "text.autoconfig.simplebuilding.option.tools.invertOctantSneak.@Tooltip": "If true, the Octant renders the filled area when NOT sneaking (with Constructor's Touch).",
 
   "text.autoconfig.simplebuilding.option.worldGen": "World Generation & Economy",
   "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades": "Enable Villager Trades",
   "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades": "Enable Wandering Trader",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges": "Enable Loot Chests",
-  "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.tooltip": "Add items to dungeon/structure chests.",
+  "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.@Tooltip": "Add items to dungeon/structure chests.",
 
   "text.autoconfig.simplebuilding.option.enchantments": "Enchantment Balancing",
   "text.autoconfig.simplebuilding.option.enchantments.swiftRide": "Swift Ride Settings",
 
   "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier": "Ghast Speed Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier.tooltip": "Speed multiplier per enchantment level for Happy Ghasts (Default: 0.40).",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier.@Tooltip": "Speed multiplier per enchantment level for Happy Ghasts (Default: 0.40).",
 
   "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier": "Horse Speed Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier.tooltip": "Speed multiplier per enchantment level for Horses (Default: 0.12).",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier.@Tooltip": "Speed multiplier per enchantment level for Horses (Default: 0.12).",
 
   "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier": "Other Mob Speed Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier.tooltip": "Speed multiplier per enchantment level for Pigs/Striders (Default: 0.15).",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier.@Tooltip": "Speed multiplier per enchantment level for Pigs/Striders (Default: 0.15).",
 
   "text.autoconfig.simplebuilding.option.enchantments.horseJump": "Horse Jump Settings",
   "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier": "Jump Strength Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.tooltip": "Jump strength multiplier per enchantment level on horse armor (Default: 0.20)."
-
+  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip": "Jump strength multiplier per enchantment level on horse armor (Default: 0.20)."
 }

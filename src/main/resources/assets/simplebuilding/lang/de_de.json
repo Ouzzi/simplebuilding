@@ -110,27 +110,27 @@
 
   "text.autoconfig.simplebuilding.option.tools": "Werkzeug-Einstellungen",
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak": "Oktant-Schleichen umkehren",
-  "text.autoconfig.simplebuilding.option.tools.invertOctantSneak.tooltip": "Wenn aktiviert, rendert der Oktant den gefüllten Bereich, wenn NICHT geschlichen wird (mit Berührung des Konstrukteurs).",
+  "text.autoconfig.simplebuilding.option.tools.invertOctantSneak.@Tooltip": "Wenn aktiviert, rendert der Oktant den gefüllten Bereich, wenn NICHT geschlichen wird (mit Berührung des Konstrukteurs).",
 
   "text.autoconfig.simplebuilding.option.worldGen": "Weltgenerierung & Wirtschaft",
   "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades": "Dorfbewohner-Handel aktivieren",
   "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades": "Fahrender Händler aktivieren",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges": "Beutetruhen aktivieren",
-  "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.tooltip": "Fügt Gegenstände zu Dungeon-/Strukturtruhen hinzu.",
+  "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.@Tooltip": "Fügt Gegenstände zu Dungeon-/Strukturtruhen hinzu.",
 
   "text.autoconfig.simplebuilding.option.enchantments": "Verzauberungs-Balancing",
   "text.autoconfig.simplebuilding.option.enchantments.swiftRide": "Schneller Ritt Einstellungen",
 
   "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier": "Ghast Geschwindigkeits-Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier.tooltip": "Geschwindigkeitsmultiplikator pro Verzauberungsstufe für Happy Ghasts (Standard: 0.40).",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier.@Tooltip": "Geschwindigkeitsmultiplikator pro Verzauberungsstufe für Happy Ghasts (Standard: 0.40).",
 
   "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier": "Pferde Geschwindigkeits-Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier.tooltip": "Geschwindigkeitsmultiplikator pro Verzauberungsstufe für Pferde (Standard: 0.12).",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier.@Tooltip": "Geschwindigkeitsmultiplikator pro Verzauberungsstufe für Pferde (Standard: 0.12).",
 
   "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier": "Andere Mobs Geschwindigkeits-Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier.tooltip": "Geschwindigkeitsmultiplikator pro Verzauberungsstufe für Schweine/Schreiter (Standard: 0.15).",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier.@Tooltip": "Geschwindigkeitsmultiplikator pro Verzauberungsstufe für Schweine/Schreiter (Standard: 0.15).",
 
   "text.autoconfig.simplebuilding.option.enchantments.horseJump": "Pferdesprung Einstellungen",
   "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier": "Sprungkraft-Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.tooltip": "Sprungkraftmultiplikator pro Verzauberungsstufe auf Pferderüstung (Standard: 0.20)."
+  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip": "Sprungkraftmultiplikator pro Verzauberungsstufe auf Pferderüstung (Standard: 0.20)."
 }
