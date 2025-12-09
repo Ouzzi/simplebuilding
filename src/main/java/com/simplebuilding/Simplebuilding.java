@@ -103,13 +103,13 @@ public class Simplebuilding implements ModInitializer {
 
 
 // TODO:
-// - netherite shulker/bundle add to existing mod (fire/blast-proof)
-// - multiple book textures as fix in external texture pack
+// - netherite bundle add to existing mod (fire/blast-proof)
 // - constructors touch on stick to turn into debug stick
-// - extra horse inventory if storrage upgrade, for example chest saddle
 // - doublejump enchantment (boots)
-// - move riding related to seperate mod simpleriding
 
+// TODO Later:
+// - multiple book textures as fix in external texture pack
+// - extra horse inventory if storrage upgrade, for example chest saddle
 
 // simple mods:
 // - simplemoney
