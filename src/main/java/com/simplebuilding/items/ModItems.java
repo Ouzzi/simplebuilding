@@ -1,7 +1,12 @@
 package com.simplebuilding.items;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.block.custom.NetheriteShulkerBlock;
 import com.simplebuilding.items.custom.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.MapColor;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.Registries;
@@ -100,7 +105,6 @@ public class ModItems {
     // Reinforced Items
     public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1)));
     public static final Item NETHERITE_BUNDLE = registerItem("netherite_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1).fireproof()));
-    public static final Item NETHERITE_SHULKER = registerItem("netherite_shulker", settings -> new NetheriteShulkerItem(settings.maxCount(1).fireproof()));
 
     // =================================================================================
     // HILFSMETHODEN
@@ -145,5 +149,6 @@ public class ModItems {
                     settings -> new OctantItem(settings.maxDamage(DURABILITY_NETHERITE * DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), color));
             COLORED_OCTANT_ITEMS.put(color, coloredItem);
         }
+
     }
 }

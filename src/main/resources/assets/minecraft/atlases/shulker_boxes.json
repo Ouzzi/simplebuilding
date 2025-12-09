@@ -1,0 +1,8 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "simplebuilding:entity/shulker/netherite_shulker"
+    }
+  ]
+}

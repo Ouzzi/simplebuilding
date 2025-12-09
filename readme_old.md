@@ -60,6 +60,7 @@ Enchantment Overview
 | **Funnel** | I | Storage | Auto-pickup items when sneaking. |
 | **Quiver** | I | Storage | Allows Bows to shoot arrows from this container. |
 | **Range** | I | All Tools | Increases interaction range. |
+| **
 
 
 

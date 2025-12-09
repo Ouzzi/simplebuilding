@@ -324,7 +324,7 @@ public class ReinforcedBundleItem extends BundleItem {
         return false;
     }
 
-    private Fraction getMaxCapacity(ItemStack stack, PlayerEntity player) {
+    protected Fraction getMaxCapacity(ItemStack stack, PlayerEntity player) {
         if (player == null || player.getEntityWorld() == null) return Fraction.getFraction(1, 1);
 
         var registry = player.getEntityWorld().getRegistryManager();
@@ -339,7 +339,7 @@ public class ReinforcedBundleItem extends BundleItem {
         return Fraction.getFraction(1, 1);
     }
 
-    private Fraction getMaxCapacityForVisuals(ItemStack stack) {
+    protected Fraction getMaxCapacityForVisuals(ItemStack stack) {
         var enchantments = stack.getEnchantments();
         for (var entry : enchantments.getEnchantmentEntries()) {
             if (entry.getKey().getKey().isPresent()) {

@@ -1,8 +1,11 @@
 package com.simplebuilding.datagen;
 
+import com.google.gson.JsonObject;
+import com.simplebuilding.block.ModBlocks;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.block.Block;
 import net.minecraft.client.data.*;
 import net.minecraft.item.Item;
 import net.minecraft.util.DyeColor;
@@ -10,6 +13,8 @@ import net.minecraft.util.Identifier;
 
 
 public class ModModelProvider extends FabricModelProvider {
+
+
     public ModModelProvider(FabricDataOutput output) {
         super(output);
     }
@@ -71,10 +76,10 @@ public class ModModelProvider extends FabricModelProvider {
 
         // --- 6. REINFORCED BUNDLES (Generated / Flach) ---
         itemModelGenerator.register(ModItems.REINFORCED_BUNDLE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.NETHERITE_BUNDLE, Models.GENERATED);
 
         // --- 7. VELOCITY_GAUGES (Generated / Flach) ---
         itemModelGenerator.register(ModItems.VELOCITY_GAUGE, Models.GENERATED);
-
 
     }
 }
