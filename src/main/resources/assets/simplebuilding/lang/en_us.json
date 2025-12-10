@@ -74,8 +74,8 @@
   "item.simplebuilding.netherite_bundle": "Netherite Bundle",
   "tooltip.simplebuilding.netherite_bundle": "Can hold even more items if enchanted.",
 
-  "item.simplebuilding.velocity-gauge": "Speedometer",
-  "tooltip.simplebuilding.velocity-gauge.tooltip": "Shows the speed of the ridden entity.",
+  "item.simplebuilding.velocity-gauge": "Velocity Gauge",
+  "tooltip.simplebuilding.velocity-gauge.tooltip": "Shows the current speed of the player.",
 
   "itemgroup.simplebuilding.building_items": "Building Items",
 

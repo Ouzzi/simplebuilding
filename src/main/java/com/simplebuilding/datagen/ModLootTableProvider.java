@@ -30,10 +30,10 @@ import java.util.concurrent.CompletableFuture;
 
 // List all Loot Table types:
 // 1. STRONGHOLD LIBRARY CHEST: (RANGE, QUIVER, MASTER_BUILDER, BRIDGE)
-// 2. END CITY: (RANGE, QUIVER, MASTER_BUILDER, OVERRIDES, BRIDGE), (DIAMOND_CHISEL_ENCHANTED, DIAMOND_SPATULA_ENCHANTED,DIAMOND_BUILDING_WAND_ENCHANTED, DIAMOND_SLEDGEHAMMER_ENCHANTED, diamond_core)
+// 2. END CITY: (RANGE, QUIVER, MASTER_BUILDER, OVERRIDES, BRIDGE, DOUBLE_JUMP), (DIAMOND_CHISEL_ENCHANTED, DIAMOND_SPATULA_ENCHANTED,DIAMOND_BUILDING_WAND_ENCHANTED, DIAMOND_SLEDGEHAMMER_ENCHANTED, diamond_core)
 // 4. ANCIENT CITY: (DEEP POCKETS, RADIUS), (OCTANT_ENCHANTED, DIAMOND_SLEDGEHAMMER)
-// 5. BASTION: (FUNNEL, BREAK THROUGH, TAILWIND, LEAPING), (GOLD_SLEDGEHAMMER, gold_core, NETHERITE_CORE)
-// 6. NETHER BRIDGE: (FUNNEL, BREAK THROUGH, STRIP_MINER, TAILWIND), (gold_core, OCTANT_ENCHANTED)
+// 5. BASTION: (FUNNEL, BREAK THROUGH), (GOLD_SLEDGEHAMMER, gold_core, NETHERITE_CORE)
+// 6. NETHER BRIDGE: (FUNNEL, BREAK THROUGH, STRIP_MINER), (gold_core, OCTANT_ENCHANTED)
 // 7. PILLAGER OUTPOST: (COLOR PALETTE, SURFACE PLACE, LINE PLACE), (OCTANT)
 // 8. WOODLAND MANSION: (COLOR PALETTE, SURFACE PLACE, LINE PLACE), (IRON_BUILDING_WAND, iron_core)
 // 9. BURIED TREASURE: (CONSTRUCTORS TOUCH, FAST CHISEL), (GOLD_CHISEL, DIAMOND_SPATULA)
@@ -41,7 +41,7 @@ import java.util.concurrent.CompletableFuture;
 // 11. SHIPWRECK TREASURE: (FAST CHISEL), (REINFORCED_BUNDLE)
 // 12. IGLOO: (CONSTRUCTORS TOUCH, FAST CHISEL), (DIAMOND_CHISEL, IRON_SPATULA)
 // 13. ABANDONED MINESHAFT: (FAST CHISEL, STRIP_MINER I), (REINFORCED_BUNDLE_ENCHANTED)
-// 14. VAULT: (CONSTRUCTORS TOUCH, FAST_CHISEL, LEAPING, TAILWIND), (diamond_core)
+// 14. VAULT: (CONSTRUCTORS TOUCH, FAST_CHISEL, DOUBLE_JUMP I), (diamond_core)
 
 public class ModLootTableProvider extends FabricBlockLootTableProvider {
     public ModLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
@@ -80,6 +80,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .rolls(UniformLootNumberProvider.create(0, 2))
                         .with(enchantedBook(ModEnchantments.OVERRIDE, 2, enchantments, 10))
                         .with(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 5))
+                        .with(enchantedBook(ModEnchantments.DOUBLE_JUMP, 2, enchantments, 5))
                         .with(ItemEntry.builder(ModItems.DIAMOND_CHISEL).weight(5))
                         .with(ItemEntry.builder(ModItems.DIAMOND_SPATULA).weight(5))
                         .with(ItemEntry.builder(ModItems.DIAMOND_BUILDING_WAND).weight(2))
@@ -189,6 +190,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                 LootPool.Builder pool = LootPool.builder().rolls(UniformLootNumberProvider.create(0, 1))
                         .with(enchantedBook(ModEnchantments.CONSTRUCTORS_TOUCH, 1, enchantments, 10))
                         .with(enchantedBook(ModEnchantments.FAST_CHISELING, 2, enchantments, 10))
+                        .with(enchantedBook(ModEnchantments.DOUBLE_JUMP, 1, enchantments, 10))
                         .with(ItemEntry.builder(ModItems.DIAMOND_CORE).weight(2));
                 tableBuilder.pool(pool);
             }

@@ -1,6 +1,8 @@
 # 🏗️ SimpleBuilding
 **(Mod ID: `simplebuilding`)**
 
+![Icon Banner](https://cdn.modrinth.com/data/cached_images/983e18266fd2731fa41a9911d98945837cf2e6bc.png)
+
 SimpleBuilding adds powerful tools and utility items designed to make large-scale construction and terrain modification in Survival Minecraft easier and more enjoyable, while maintaining a vanilla-friendly feel.
 
 ## 🛠️ The Tools
@@ -36,7 +38,7 @@ A measuring tool to help you plan your builds.
 
 ### 🎒 Reinforced Storage
 * **Reinforced Bundle:** Can be enchanted with `Deep Pockets` for massive storage capacity.
-* **Reinforced Shulker Box:** Works with `Master Builder` and `Funnel` enchantments.
+* **Netherite Bundle:** Highest capacity and durability.
 
 ---
 
@@ -70,6 +72,7 @@ SimpleBuilding introduces a massive enchantment system to customize your tools.
 | **Range** | III | Tools | Increases the reach distance for placing/breaking blocks. |
 | **Fast Chiseling** | II | Chisel/Spatula | Reduces cooldown for transformation tools. |
 | **Constructor's Touch** | I | Chisel/Spatula | Enables special transformations (e.g. Netherite Obsidian -> Crying Obsidian). |
+| **Double Jump** | I | Boots | Allows the player to perform a second jump while in mid-air. |
 
 ---
 

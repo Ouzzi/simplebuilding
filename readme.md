@@ -72,6 +72,15 @@ A utility tool for planning.
 
 ![Enchanted Octant](https://cdn.modrinth.com/data/cached_images/a0e870d7bde3c3971311229f699d4fd8e77459d6.png)
 
+Velocity-Gauge
+### 📐 Velocity-Gauge
+A measuring tool display your current movement speed.
+* **Function:** Shows real-time speed in blocks per second (BPS).
+* **Data:** Displays Top Speed and Average Speed.
+* **Enchantments:** *Constructor's Touch* (more data).
+
+![Replace this with a description](https://cdn.modrinth.com/data/cached_images/cf6e3261c03c6c906ca836a93b29247de5a50e0a.png)
+
 ### 🎒 Reinforced Storage
 Upgraded storage options that interact with your tools.
 * **Reinforced Bundle:** High capacity.
@@ -80,7 +89,7 @@ Upgraded storage options that interact with your tools.
     * *Funnel:* Automatically picks up items while sneaking.
     * *Quiver:* Allows Bows to shoot arrows directly from this container.
 
-![Master Builder Places Directly From Bundle](https://cdn.modrinth.com/data/cached_images/573140b9b41a10f62894020e852f20d6a666baf0.png)
+![Master Builder Places Directly From Bundle](https://cdn.modrinth.com/data/cached_images/6c03241765cc6497b36beb4035078e1e159447d1.png)
 
 ---
 
@@ -105,8 +114,10 @@ SimpleBuilding adds a robust system of enchantments to tailor your tools to your
 | **Funnel** | I | Storage                 | Automatically picks up items into the storage when sneaking. |
 | **Quiver** | I | Storage                 | Allows Bows to shoot arrows directly from this container. |
 | **Range** | III | Some Tools              | Increases interaction and mining reach. |
-| **Tailwind** | III | Saddle, Harness         | Increases movement speed. |
-| **Leaping** | III | Horse Armor             | Increases jump height. |
+| **Double Jump** | I | Boots                   | Grants the ability to perform a second jump while in mid-air. |
+
+
+![Boots With Double Jump](https://cdn.modrinth.com/data/cached_images/0bc9e907c489fe2aa1fd44d68cb3dc9e43e0ed16.png)
 
 ---
 
