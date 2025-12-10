@@ -164,30 +164,33 @@ public class BuildingWandItem extends Item {
         boolean hasMasterBuilder = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
         boolean placedAny = false;
 
-        // --- Deviation Logik: Exakt 1 Block Abweichung erlaubt (Löcher füllen) ---
-        // Das bedeutet: Wir prüfen Depth 1 (Ebene) und Depth 2 (1 Block dahinter/tiefer)
-        int maxDeviation = 1;
-
         for (BlockPos rawPos : stepPositions) {
             BlockPos targetPos = null;
-            boolean validSupport = false;
 
-            // Tiefe prüfen (Löcher füllen / Unebenheiten ausgleichen)
-            for (int depth = 1; depth <= maxDeviation + 1; depth++) {
-                BlockPos checkPos = rawPos.offset(face.getOpposite(), depth);
-                BlockState checkState = world.getBlockState(checkPos);
+            if (isCover) {
+                // COVER MODUS: Prüfen, ob eine Oberfläche existiert (Löcher füllen / Terrain folgen)
+                // Deviation skaliert mit dem Radius (1 Block pro Ebene)
+                int maxDeviation = currentRadius;
 
-                // FIX: Validierung gegen PATTERN BLOCK (Origin), nicht gegen Material Block!
-                if (isValidSupport(checkState, patternBlock, isCover)) {
-                    targetPos = checkPos.offset(face);
-                    validSupport = true;
-                    break;
+                for (int depth = 1; depth <= maxDeviation + 1; depth++) {
+                    BlockPos checkPos = rawPos.offset(face.getOpposite(), depth);
+                    BlockState checkState = world.getBlockState(checkPos);
+
+                    // Validierung gegen Pattern Block (nur wenn Oberfläche da ist)
+                    if (isValidSupport(checkState, patternBlock, true)) {
+                        targetPos = checkPos.offset(face);
+                        break;
+                    }
                 }
+            } else {
+                // SQUARE MODUS (Default): Platzieren im Raster, auch in der Luft
+                // Wir nehmen die berechnete Position direkt an, ohne Support-Check.
+                targetPos = rawPos;
             }
 
-            if (!validSupport) continue;
+            // Wenn keine Position gefunden wurde oder der Zielblock nicht ersetzbar ist (z.B. Stein), überspringen
+            if (targetPos == null) continue;
             if (!world.getBlockState(targetPos).isReplaceable()) continue;
-
 
             MaterialResult material = findMaterial(player, stack, materialBlock, hasMasterBuilder);
             if (material == null && !player.getAbilities().creativeMode) {
@@ -238,21 +241,31 @@ public class BuildingWandItem extends Item {
 
         for (int r = 0; r <= maxSteps; r++) {
             List<BlockPos> stepPositions = calculatePositions(world, wandStack, originPos, face, r, player.getHorizontalFacing(), hitX, hitY, hitZ, diameter);
-            int maxDeviation = 1;
 
             for (BlockPos rawPos : stepPositions) {
-                for (int depth = 1; depth <= maxDeviation + 1; depth++) {
-                    BlockPos checkPos = rawPos.offset(face.getOpposite(), depth);
-                    BlockState checkState = world.getBlockState(checkPos);
+                BlockPos targetPos = null;
 
-                    // FIX: Validierung gegen Pattern Block
-                    if (wandItem.isValidSupport(checkState, patternBlock, isCover)) {
-                        BlockPos targetPos = checkPos.offset(face);
-                        if (world.getBlockState(targetPos).isReplaceable()) {
-                            positions.add(targetPos);
+                if (isCover) {
+                    // COVER MODUS: Nur wenn Support da ist (Vorschau muss Logik matchen)
+                    // Deviation skaliert mit dem Radius (1 Block pro Ebene)
+                    int maxDeviation = r;
+
+                    for (int depth = 1; depth <= maxDeviation + 1; depth++) {
+                        BlockPos checkPos = rawPos.offset(face.getOpposite(), depth);
+                        BlockState checkState = world.getBlockState(checkPos);
+
+                        if (wandItem.isValidSupport(checkState, patternBlock, true)) {
+                            targetPos = checkPos.offset(face);
+                            break;
                         }
-                        break;
                     }
+                } else {
+                    // SQUARE MODUS: Auch in der Luft anzeigen
+                    targetPos = rawPos;
+                }
+
+                if (targetPos != null && world.getBlockState(targetPos).isReplaceable()) {
+                    positions.add(targetPos);
                 }
             }
         }

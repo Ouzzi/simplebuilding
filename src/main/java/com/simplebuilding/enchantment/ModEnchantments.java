@@ -211,7 +211,9 @@ public class ModEnchantments {
                 Enchantment.leveledCost(55, 15),
                 4,
                 AttributeModifierSlot.MAINHAND
-        )));
+        ))
+        // IMPLEMENTIERT: Exklusivität gegen Bridge/Linear
+        .exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.COVER_EXCLUSIVE_SET)));
 
         // 14. BRIDGE (Max Level 1, Treasure, Rare) [BUILDING_WAND]
         register(registerable, BRIDGE, Enchantment.builder(Enchantment.definition(
@@ -223,7 +225,9 @@ public class ModEnchantments {
                 Enchantment.leveledCost(55, 15),
                 4,
                 AttributeModifierSlot.MAINHAND
-        )));
+        ))
+        // IMPLEMENTIERT: Exklusivität gegen Cover (kompatibel mit Linear)
+        .exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.WAND_MODIFIER_EXCLUSIVE_SET)));
 
         // 15. LINEAR (Max Level 1, Treasure, Rare) [BUILDING_WAND]
         register(registerable, LINEAR, Enchantment.builder(Enchantment.definition(
@@ -235,7 +239,10 @@ public class ModEnchantments {
                 Enchantment.leveledCost(55, 15),
                 4,
                 AttributeModifierSlot.MAINHAND
-        )));
+        ))
+        // IMPLEMENTIERT: Exklusivität gegen Cover (kompatibel mit Bridge)
+        .exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.WAND_MODIFIER_EXCLUSIVE_SET)));
+
         register(registerable, DOUBLE_JUMP, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ItemTags.FOOT_ARMOR), // Target Boots
                 items.getOrThrow(ItemTags.FOOT_ARMOR),
