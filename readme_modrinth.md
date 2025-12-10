@@ -5,6 +5,8 @@
 
 SimpleBuilding adds powerful tools and utility items designed to make large-scale construction and terrain modification in Survival Minecraft easier and more enjoyable, while maintaining a vanilla-friendly feel.
 
+### [📚 Read the Full Documentation](https://github.com/Ouzzi/simplebuilding)
+
 ## 🛠️ The Tools
 
 ### 🪄 Building Wands
