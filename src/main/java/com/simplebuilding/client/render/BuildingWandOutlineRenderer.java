@@ -48,9 +48,9 @@ public class BuildingWandOutlineRenderer {
         BlockPos centerPos = blockHit.getBlockPos();
         Direction face = blockHit.getSide();
 
-        // 1. Positionen berechnen
+        // 1. Positionen berechnen (Neu: Hit-Result übergeben!)
         int diameter = wandItem.getWandSquareDiameter();
-        List<BlockPos> targetPositions = BuildingWandItem.getBuildingPositions(client.world, player, stack, centerPos, face, diameter);
+        List<BlockPos> targetPositions = BuildingWandItem.getBuildingPositions(client.world, player, stack, centerPos, face, diameter, blockHit);
 
         if (targetPositions.isEmpty()) return true;
 

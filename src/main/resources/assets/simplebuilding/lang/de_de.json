@@ -71,9 +71,8 @@
 
   "item.simplebuilding.reinforced_bundle": "Verstärktes Bündel",
   "tooltip.simplebuilding.reinforced_bundle": "Kann mehr Items halten, wenn verzaubert.",
-
-  "item.simplebuilding.reinforced_shulker_box": "Verstärkte Shulkerkiste",
-  "tooltip.simplebuilding.reinforced_shulker_box": "Kann mehr Items halten, wenn verzaubert.",
+  "item.simplebuilding.netherite_bundle": "Netheritbündel",
+  "tooltip.simplebuilding.netherite_bundle": "Das stärkste Bündel. Kann am meisten Items halten, wenn verzaubert.",
 
   "item.simplebuilding.velocity-gauge": "Tachometer",
   "tooltip.simplebuilding.velocity-gauge.tooltip": "Zeigt die Geschwindigkeit des gerittenen Mobs an.",
@@ -100,6 +99,8 @@
   "enchantment.simplebuilding.tailwind.description": "Erhöht die Geschwindigkeit von gerittenen Mobs.",
   "enchantment.simplebuilding.leaping": "Sprungkraft",
   "enchantment.simplebuilding.leaping.description": "Erhöht die Sprunghöhe von gerittenen Pferden.",
+  "enchantment.simplebuilding.double_jump": "Doppelsprung",
+  "enchantment.simplebuilding.double_jump.description": "Ermöglicht einen weiteren Sprung in der Luft.",
 
   "container.enchantments": "Verzauberungen",
   "enchantment.level.1": "I",

@@ -1,9 +1,11 @@
 {
   "values": [
     "simplebuilding:reinforced_bundle",
+    "simplebuilding:netherite_bundle",
     "minecraft:shulker_box",
     "#simplebuilding:chisel_tools",
     "simplebuilding:velocity-gauge",
-    "#simplebuilding:octants_enchantable"
+    "#simplebuilding:octants_enchantable",
+    "minecraft:stick"
   ]
 }

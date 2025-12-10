@@ -1,6 +1,7 @@
 package com.simplebuilding.items.custom;
 
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BundleContentsComponent;
@@ -64,9 +65,6 @@ public class ReinforcedBundleItem extends BundleItem {
         return false;
     }
 
-    // =============================================================
-    // 3. Interaktion: Item in der Hand (Cursor) klickt auf Bundle im Slot
-    // =============================================================
     @Override
     public boolean onClicked(ItemStack bundle, ItemStack cursorStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
         if (clickType != ClickType.RIGHT && clickType != ClickType.LEFT) return false;
@@ -201,13 +199,13 @@ public class ReinforcedBundleItem extends BundleItem {
     public Optional<TooltipData> getTooltipData(ItemStack stack) {
         BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
         if (contents == null) return Optional.empty();
-        int maxCapacity = 64;
+
+        // Dynamische Berechnung der Kapazität für den Tooltip
         Fraction frac = getMaxCapacityForVisuals(stack);
-        if (frac.getNumerator() == 2) maxCapacity = 128;
-        if (frac.getNumerator() == 4) maxCapacity = 256;
+        int maxCapacity = (int) (frac.doubleValue() * 64);
+
         return Optional.of(new ReinforcedBundleTooltipData(contents, maxCapacity));
     }
-
 
     private boolean hasColorPalette(ItemStack stack, net.minecraft.world.World world) {
         var registry = world.getRegistryManager();
@@ -306,6 +304,7 @@ public class ReinforcedBundleItem extends BundleItem {
 
         bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
     }
+
     public boolean tryInsertStackFromWorld(ItemStack bundle, ItemStack stackToInsert, PlayerEntity player) {
         if (!stackToInsert.getItem().canBeNested()) return false;
 
@@ -325,7 +324,10 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
     protected Fraction getMaxCapacity(ItemStack stack, PlayerEntity player) {
-        if (player == null || player.getEntityWorld() == null) return Fraction.getFraction(1, 1);
+        // Basis: Netherite Bundle hat 2x Kapazität (128 Items), normales 1x (64 Items)
+        Fraction capacity = stack.isOf(ModItems.NETHERITE_BUNDLE) ? Fraction.getFraction(2, 1) : Fraction.getFraction(1, 1);
+
+        if (player == null || player.getEntityWorld() == null) return capacity;
 
         var registry = player.getEntityWorld().getRegistryManager();
         var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
@@ -333,25 +335,28 @@ public class ReinforcedBundleItem extends BundleItem {
 
         if (deepPockets.isPresent()) {
             int level = EnchantmentHelper.getLevel(deepPockets.get(), stack);
-            if (level == 1) return Fraction.getFraction(2, 1);
-            if (level >= 2) return Fraction.getFraction(4, 1);
+            // Multiplikatoren statt fester Werte, damit Netherite Bundle skaliert
+            if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1)); // x2
+            if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1)); // x4
         }
-        return Fraction.getFraction(1, 1);
+        return capacity;
     }
 
     protected Fraction getMaxCapacityForVisuals(ItemStack stack) {
+        Fraction capacity = stack.isOf(ModItems.NETHERITE_BUNDLE) ? Fraction.getFraction(2, 1) : Fraction.getFraction(1, 1);
+
         var enchantments = stack.getEnchantments();
         for (var entry : enchantments.getEnchantmentEntries()) {
             if (entry.getKey().getKey().isPresent()) {
                 String id = entry.getKey().getKey().get().getValue().toString();
                 if (id.contains("deep_pockets")) {
                     int level = entry.getIntValue();
-                    if (level == 1) return Fraction.getFraction(2, 1);
-                    if (level >= 2) return Fraction.getFraction(4, 1);
+                    if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
+                    if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
                 }
             }
         }
-        return Fraction.getFraction(1, 1);
+        return capacity;
     }
 
     private void playRemoveOneSound(PlayerEntity entity) {

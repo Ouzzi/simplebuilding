@@ -105,6 +105,9 @@ public class ModItemGroups {
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.BRIDGE, 1);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.LINEAR, 1);
 
+                        // 5. Armor Utilities
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.DOUBLE_JUMP, 2);
+
                     }).build());
 
     public static void registerItemGroups() {

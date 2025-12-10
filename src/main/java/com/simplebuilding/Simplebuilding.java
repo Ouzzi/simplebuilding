@@ -8,6 +8,7 @@ import com.simplebuilding.enchantment.ModEnchantmentEffects;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
+import com.simplebuilding.util.ModRegistries;
 import com.simplebuilding.util.SledgehammerUsageEvent;
 import com.simplebuilding.util.StripMinerUsageEvent;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -62,6 +63,9 @@ public class Simplebuilding implements ModInitializer {
         ModTradeOffers.registerModTradeOffers();
         ModDataComponentTypes.registerDataComponentTypes();
         ModEnchantmentEffects.registerEnchantmentEffects();
+
+        ModRegistries.registerModStuffs();
+
         registerCauldronBehavior();
 
 
@@ -102,10 +106,6 @@ public class Simplebuilding implements ModInitializer {
 }
 
 
-// TODO:
-// - netherite bundle add to existing mod (fire/blast-proof)
-// - constructors touch on stick to turn into debug stick
-// - doublejump enchantment (boots)
 
 // TODO Later:
 // - multiple book textures as fix in external texture pack
@@ -113,6 +113,6 @@ public class Simplebuilding implements ModInitializer {
 
 // simple mods:
 // - simplemoney
-// - simplebuilding (texture fix for ...)
-// - simpleriding (texture fix for ...)
+// - simplebuilding + (texture fix for ...)
+// - simpleriding + (texture fix for ...)
 // - simple tweaks

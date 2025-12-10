@@ -1,22 +1,26 @@
 package com.simplebuilding.mixin;
 
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity {
@@ -73,4 +77,12 @@ public abstract class ItemEntityMixin extends Entity {
         System.out.println("bundle tryes to pick up. response -> " + success);
         return success;
     }
+
+    @Inject(method = "isImmuneToExplosion", at = @At("HEAD"), cancellable = true)
+    private void isNetheriteBundleImmune(Explosion explosion, CallbackInfoReturnable<Boolean> cir) {
+        if (this.getStack().isOf(ModItems.NETHERITE_BUNDLE)) {
+            cir.setReturnValue(true);
+        }
+    }
+
 }

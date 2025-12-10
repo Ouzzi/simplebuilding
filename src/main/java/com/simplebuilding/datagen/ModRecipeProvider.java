@@ -170,6 +170,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input('S', Items.STRING)
                         .criterion(hasItem(Items.BUNDLE), conditionsFromItem(Items.BUNDLE))
                         .offerTo(exporter);
+
+                SmithingTransformRecipeJsonBuilder.create(
+                                Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                                Ingredient.ofItems(ModItems.REINFORCED_BUNDLE),
+                                Ingredient.ofItems(Items.NETHERITE_INGOT),
+                                RecipeCategory.TOOLS,
+                                ModItems.NETHERITE_BUNDLE
+                        ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
+                        .offerTo(exporter, getItemPath(ModItems.NETHERITE_BUNDLE) + "_smithing");
             }
 
             // --- Helper Methods to keep generate() clean ---

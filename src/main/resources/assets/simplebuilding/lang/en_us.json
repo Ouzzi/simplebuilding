@@ -70,10 +70,9 @@
   "item.simplebuilding.octant_black": "Black Octant",
 
   "item.simplebuilding.reinforced_bundle": "Reinforced Bundle",
-    "tooltip.simplebuilding.reinforced_bundle": "Can hold more items if enchanted.",
-
-  "item.simplebuilding.reinforced_shulker_box": "Reinforced Shulker Box",
-  "tooltip.simplebuilding.reinforced_shulker_box": "Can hold more items if enchanted.",
+  "tooltip.simplebuilding.reinforced_bundle": "Can hold more items if enchanted.",
+  "item.simplebuilding.netherite_bundle": "Netherite Bundle",
+  "tooltip.simplebuilding.netherite_bundle": "Can hold even more items if enchanted.",
 
   "item.simplebuilding.velocity-gauge": "Speedometer",
   "tooltip.simplebuilding.velocity-gauge.tooltip": "Shows the speed of the ridden entity.",
@@ -100,6 +99,8 @@
   "enchantment.simplebuilding.tailwind.description": "Increases the speed of ridden mobs.",
   "enchantment.simplebuilding.leaping": "Leaping",
   "enchantment.simplebuilding.leaping.description": "Increases the jump height of ridden horses.",
+  "enchantment.simplebuilding.double_jump": "Double Jump",
+  "enchantment.simplebuilding.double_jump.description": "Allows the player to perform an additional jump.",
 
   
   "container.enchantments": "Enchantments",
