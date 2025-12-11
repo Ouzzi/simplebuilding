@@ -44,14 +44,16 @@ public class ModTradeOffers {
                         new WeightedEnchantment(ModEnchantments.FAST_CHISELING, 1, 30),
                         new WeightedEnchantment(ModEnchantments.LINEAR, 1, 25)
                 );
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, buildingPool, 0), 3, 15, 0.3f));
+                // FIX: (world, entity, random) statt (entity, random)
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, buildingPool, 0), 3, 15, 0.3f));
             });
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.LIBRARIAN, 4, factories -> {
                 List<WeightedEnchantment> advancedPool = List.of(
                         new WeightedEnchantment(ModEnchantments.LINEAR, 1, 25),
                         new WeightedEnchantment(ModEnchantments.OVERRIDE, 1, 20)
                 );
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, advancedPool, 0), 2, 25, 0.5f));
+                // FIX: (world, entity, random)
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, advancedPool, 0), 2, 25, 0.5f));
             });
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.LIBRARIAN, 5, factories -> {
                 List<WeightedEnchantment> masterPool = List.of(
@@ -60,17 +62,20 @@ public class ModTradeOffers {
                         new WeightedEnchantment(ModEnchantments.FUNNEL, 1, 30),
                         new WeightedEnchantment(ModEnchantments.STRIP_MINER, 1, 20)
                 );
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, masterPool, 0), 1, 100, 1.0f));
+                // FIX: (world, entity, random)
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, masterPool, 0), 1, 100, 1.0f));
             });
 
 
             // 2. MASON (Steinmetz) - Baublöcke & Core Items
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 2, factories -> {
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), new ItemStack(ModItems.COPPER_CORE, 1), 2, 10, 0.1f));
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.NETHERITE_INGOT, 6), new ItemStack(ModItems.DIAMOND_CORE, 1), 2, 15, 0.1f));
+                // FIX: (world, entity, random)
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), new ItemStack(ModItems.COPPER_CORE, 1), 2, 10, 0.1f));
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.NETHERITE_INGOT, 6), new ItemStack(ModItems.DIAMOND_CORE, 1), 2, 15, 0.1f));
             });
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 4, factories -> {
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 62), new ItemStack(ModItems.COPPER_BUILDING_WAND, 1), 1, 20, 0.2f));
+                // FIX: (world, entity, random)
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 62), new ItemStack(ModItems.COPPER_BUILDING_WAND, 1), 1, 20, 0.2f));
             });
 
 
@@ -81,13 +86,14 @@ public class ModTradeOffers {
                         new WeightedEnchantment(ModEnchantments.FAST_CHISELING, 1, 50),
                         new WeightedEnchantment(ModEnchantments.FAST_CHISELING, 2, 30)
                 );
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 6), createRandomEnchantedItem(entity, random, ModItems.IRON_CHISEL, chiselEnchants, 0), 2, 10, 0.2f));
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 6), createRandomEnchantedItem(entity, random, ModItems.COPPER_CHISEL, chiselEnchants, 0), 2, 10, 0.2f));
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 6), createRandomEnchantedItem(entity, random, ModItems.GOLD_CHISEL, chiselEnchants, 0), 2, 10, 0.2f));
+                // FIX: (world, entity, random)
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 6), createRandomEnchantedItem(entity, random, ModItems.IRON_CHISEL, chiselEnchants, 0), 2, 10, 0.2f));
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 6), createRandomEnchantedItem(entity, random, ModItems.COPPER_CHISEL, chiselEnchants, 0), 2, 10, 0.2f));
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 6), createRandomEnchantedItem(entity, random, ModItems.GOLD_CHISEL, chiselEnchants, 0), 2, 10, 0.2f));
             });
             // Expert: Sledgehammers & Mining Enchants
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.TOOLSMITH, 4, factories -> {
-                 List<WeightedEnchantment> hammerEnchants = List.of(
+                List<WeightedEnchantment> hammerEnchants = List.of(
                         new WeightedEnchantment(ModEnchantments.BREAK_THROUGH, 1, 5),
                         new WeightedEnchantment(ModEnchantments.OVERRIDE, 1, 15),
                         new WeightedEnchantment(ModEnchantments.RANGE, 1, 10),
@@ -95,8 +101,9 @@ public class ModTradeOffers {
                         new WeightedEnchantment(Enchantments.EFFICIENCY, 3, 50)
                 );
 
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 28), Optional.of(new TradedItem(Items.DIAMOND_PICKAXE, 1)), createRandomEnchantedItem(entity, random, ModItems.DIAMOND_SLEDGEHAMMER, hammerEnchants, 10), 1, 30, 0.5f));
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 16), Optional.of(new TradedItem(Items.IRON_PICKAXE, 1)), createRandomEnchantedItem(entity, random, ModItems.IRON_SLEDGEHAMMER, hammerEnchants, 10), 1, 30, 0.5f));
+                // FIX: (world, entity, random)
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 28), Optional.of(new TradedItem(Items.DIAMOND_PICKAXE, 1)), createRandomEnchantedItem(entity, random, ModItems.DIAMOND_SLEDGEHAMMER, hammerEnchants, 10), 1, 30, 0.5f));
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 16), Optional.of(new TradedItem(Items.IRON_PICKAXE, 1)), createRandomEnchantedItem(entity, random, ModItems.IRON_SLEDGEHAMMER, hammerEnchants, 10), 1, 30, 0.5f));
             });
             // Master: Strip Miner (Very Rare)
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.TOOLSMITH, 5, factories -> {
@@ -105,7 +112,8 @@ public class ModTradeOffers {
                         new WeightedEnchantment(ModEnchantments.STRIP_MINER, 2, 30),
                         new WeightedEnchantment(ModEnchantments.STRIP_MINER, 3, 10) // Very Rare
                 );
-                factories.add((entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 15), createRandomEnchantedItem(entity, random, Items.DIAMOND_PICKAXE, stripMinerPool, 10), 1, 50, 0.8f));
+                // FIX: (world, entity, random)
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 15), createRandomEnchantedItem(entity, random, Items.DIAMOND_PICKAXE, stripMinerPool, 10), 1, 50, 0.8f));
             });
 
 
@@ -117,17 +125,18 @@ public class ModTradeOffers {
     public static void registerWanderingTraderTrades() {
         if (Simplebuilding.getConfig().worldGen.enableWanderingTrades) {
             TradeOfferHelper.registerWanderingTraderOffers(factory -> {
-                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.BUY_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(ModItems.REINFORCED_BUNDLE, 1), new ItemStack(Items.EMERALD, 12), 1, 10, 0.1f);});
-                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.BUY_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(ModItems.OCTANT, 1), new ItemStack(Items.EMERALD, 8), 3, 5, 0.1f);});
+                // FIX: (world, entity, random)
+                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.BUY_ITEMS_POOL, (world, entity, random) -> {return new TradeOffer(new TradedItem(ModItems.REINFORCED_BUNDLE, 1), new ItemStack(Items.EMERALD, 12), 1, 10, 0.1f);});
+                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.BUY_ITEMS_POOL, (world, entity, random) -> {return new TradeOffer(new TradedItem(ModItems.OCTANT, 1), new ItemStack(Items.EMERALD, 8), 3, 5, 0.1f);});
 
 
-                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 10), new ItemStack(ModItems.OCTANT, 1), 1, 15, 0.1f);});
-                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 16), new ItemStack(ModItems.REINFORCED_BUNDLE, 1), 1, 15, 0.1f);});
-                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 46), new ItemStack(ModItems.COPPER_CORE, 2), 4, 10, 0.1f);});
-                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 56), new ItemStack(ModItems.IRON_CORE, 2), 4, 10, 0.1f);});
-                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 30), new ItemStack(ModItems.GOLD_CORE, 1), 1, 5, 0.1f);});
+                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (world, entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 10), new ItemStack(ModItems.OCTANT, 1), 1, 15, 0.1f);});
+                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (world, entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 16), new ItemStack(ModItems.REINFORCED_BUNDLE, 1), 1, 15, 0.1f);});
+                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL, (world, entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 46), new ItemStack(ModItems.COPPER_CORE, 2), 4, 10, 0.1f);});
+                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_COMMON_ITEMS_POOL, (world, entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 56), new ItemStack(ModItems.IRON_CORE, 2), 4, 10, 0.1f);});
+                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (world, entity, random) -> {return new TradeOffer(new TradedItem(Items.EMERALD, 30), new ItemStack(ModItems.GOLD_CORE, 1), 1, 5, 0.1f);});
 
-                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (entity, random) -> {
+                factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (world, entity, random) -> {
                     List<WeightedEnchantment> wandPool = List.of(
                             new WeightedEnchantment(ModEnchantments.BRIDGE, 1, 30),
                             new WeightedEnchantment(ModEnchantments.RADIUS, 1, 20),
@@ -161,16 +170,18 @@ public class ModTradeOffers {
         ItemStack stack = new ItemStack(item);
         ItemEnchantmentsComponent.Builder builder = new ItemEnchantmentsComponent.Builder(ItemEnchantmentsComponent.DEFAULT);
         WeightedEnchantment firstPick = pickWeighted(pool, random);
-        addEnchantmentToBuilder(entity, builder, firstPick);
-        if (pool.size() > 1 && random.nextInt(100) < chanceForSecond) {
-            WeightedEnchantment secondPick = pickWeighted(pool, random);
-            int attempts = 0;
-            while (secondPick.key().equals(firstPick.key()) && attempts < 10) {
-                secondPick = pickWeighted(pool, random);
-                attempts++;
-            }
-            if (!secondPick.key().equals(firstPick.key())) {
-                addEnchantmentToBuilder(entity, builder, secondPick);
+        if (firstPick != null) {
+            addEnchantmentToBuilder(entity, builder, firstPick);
+            if (pool.size() > 1 && random.nextInt(100) < chanceForSecond) {
+                WeightedEnchantment secondPick = pickWeighted(pool, random);
+                int attempts = 0;
+                while (secondPick != null && secondPick.key().equals(firstPick.key()) && attempts < 10) {
+                    secondPick = pickWeighted(pool, random);
+                    attempts++;
+                }
+                if (secondPick != null && !secondPick.key().equals(firstPick.key())) {
+                    addEnchantmentToBuilder(entity, builder, secondPick);
+                }
             }
         }
         stack.set(DataComponentTypes.ENCHANTMENTS, builder.build());
@@ -189,18 +200,20 @@ public class ModTradeOffers {
         ItemStack stack = new ItemStack(Items.ENCHANTED_BOOK);
         ItemEnchantmentsComponent.Builder builder = new ItemEnchantmentsComponent.Builder(ItemEnchantmentsComponent.DEFAULT);
         WeightedEnchantment firstPick = pickWeighted(pool, random);
-        addEnchantmentToBuilder(entity, builder, firstPick);
+        if (firstPick != null) {
+            addEnchantmentToBuilder(entity, builder, firstPick);
 
-        // 2. Zweite Verzauberung
-        if (pool.size() > 1 && random.nextInt(100) < chanceForSecond) {
-            WeightedEnchantment secondPick = pickWeighted(pool, random);
-            int attempts = 0;
-            while (secondPick.key().equals(firstPick.key()) && attempts < 10) {
-                secondPick = pickWeighted(pool, random);
-                attempts++;
-            }
-            if (!secondPick.key().equals(firstPick.key())) {
-                addEnchantmentToBuilder(entity, builder, secondPick);
+            // 2. Zweite Verzauberung
+            if (pool.size() > 1 && random.nextInt(100) < chanceForSecond) {
+                WeightedEnchantment secondPick = pickWeighted(pool, random);
+                int attempts = 0;
+                while (secondPick != null && secondPick.key().equals(firstPick.key()) && attempts < 10) {
+                    secondPick = pickWeighted(pool, random);
+                    attempts++;
+                }
+                if (secondPick != null && !secondPick.key().equals(firstPick.key())) {
+                    addEnchantmentToBuilder(entity, builder, secondPick);
+                }
             }
         }
 

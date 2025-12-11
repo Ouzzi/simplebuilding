@@ -1,4 +1,4 @@
-// 1.21.10	-999999999-01-01T00:00:00	simplebuilding/Tags for minecraft:item
+// 1.21.11	-999999999-01-01T00:00:00	simplebuilding/Tags for minecraft:item
 2ec1ff262f328b4d0418551d1765c33bf6e514f9 data/minecraft/tags/item/enchantable/durability.json
 aaa1971cd363c5baec727778237b123e22afd233 data/minecraft/tags/item/enchantable/mining.json
 aaa1971cd363c5baec727778237b123e22afd233 data/minecraft/tags/item/enchantable/mining_loot.json
@@ -9,5 +9,5 @@ c25dc448ca595819b591124cd5e654d4ab03719b data/simplebuilding/tags/item/chisel_an
 15fe907163acd0811c6d2b4897695660e8f41d9a data/simplebuilding/tags/item/chisel_tools.json
 b94b60b183baeef18d6daf1102fdbf195e4bf77b data/simplebuilding/tags/item/constructors_touch_enchantable.json
 b96be3774a3726ac3e2c229445322265077d434b data/simplebuilding/tags/item/extra_inventory_items.json
-56777528edae0a4308868730db2ea5eb7dea7a86 data/simplebuilding/tags/item/octants_enchantable.json
+6ebeea51f30f2c911550cf503ff6212429991064 data/simplebuilding/tags/item/octants_enchantable.json
 fa92f2e081d2e3b0679643035b171c0c0b04b1af data/simplebuilding/tags/item/sledgehammer_tools.json

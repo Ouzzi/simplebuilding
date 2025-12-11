@@ -45,7 +45,7 @@ dependencies {
     }
 
     // Mod Menu (damit du den Config-Button im Spiel siehst)
-    modImplementation "com.terraformersmc:modmenu:16.0.0-rc.1"
+    modImplementation "com.terraformersmc:modmenu:17.0.0-alpha.1"
 }
 
 processResources {

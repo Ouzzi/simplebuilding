@@ -8,7 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.state.OutlineRenderState;
 import net.minecraft.client.util.math.MatrixStack;
@@ -20,13 +20,14 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
-import org.joml.Matrix4f;
 
 import java.util.List;
 
+import static com.simplebuilding.util.guiDrawHelper.drawBoxFill;
+import static com.simplebuilding.util.guiDrawHelper.drawBoxOutline;
+
 public class BuildingWandOutlineRenderer {
 
-    // Wie stark die Box geschrumpft werden soll (0.05 = 5% Abstand zum Rand)
     private static final double SHRINK_AMOUNT = 0.25;
 
     public static void register() {
@@ -48,13 +49,12 @@ public class BuildingWandOutlineRenderer {
         BlockPos centerPos = blockHit.getBlockPos();
         Direction face = blockHit.getSide();
 
-        // 1. Positionen berechnen (Neu: Hit-Result übergeben!)
+        // 1. Positionen berechnen
         int diameter = wandItem.getWandSquareDiameter();
         List<BlockPos> targetPositions = BuildingWandItem.getBuildingPositions(client.world, player, stack, centerPos, face, diameter, blockHit);
 
         if (targetPositions.isEmpty()) return true;
 
-        // 2. Form des Originalblocks holen (damit Treppen/Zäune richtig aussehen)
         BlockState stateToCopy = client.world.getBlockState(centerPos);
         if (stateToCopy.isAir()) return true;
 
@@ -64,117 +64,69 @@ public class BuildingWandOutlineRenderer {
         // --- Rendering Setup ---
         MatrixStack matrices = context.matrices();
         Camera camera = client.gameRenderer.getCamera();
-        Vec3d camPos = camera.getPos();
+
+        // KORREKTUR: Nutze getCameraPos() passend zu deiner Camera.class
+        Vec3d camPos = camera.getCameraPos();
+
         double camX = camPos.x;
         double camY = camPos.y;
         double camZ = camPos.z;
 
-        VertexConsumer lines = context.consumers().getBuffer(RenderLayer.getLines());
-        VertexConsumer fill = context.consumers().getBuffer(RenderLayer.getDebugQuads());
-
-        matrices.push();
-
         // --- Config & Farben ---
-        // Opacity aus Config (0-100)
         int opacityPercent = Simplebuilding.getConfig().tools.buildingHighlightOpacity;
         opacityPercent = Math.max(0, Math.min(100, opacityPercent));
         float baseAlpha = opacityPercent / 100.0f;
 
-        // Farbe: Cyan/Türkis (R=0, G=1, B=1)
         float r = 0.1f; float g = 0.1f; float b = 0.1f; float a = 0.3f;
         float r1 = 1.0f; float g1 = 0.5f; float b1 = 0.3f; float a1 = 0.2f * baseAlpha;
 
-        // 3. Über alle Ziel-Positionen iterieren und EINZELN zeichnen
+        // ====================================================================
+        // PASS 1: Nur die LINIE zeichnen (Outlines)
+        // ====================================================================
+        // Nutze RenderLayers.lines() passend zu deiner RenderLayers.class
+        VertexConsumer lines = context.consumers().getBuffer(RenderLayers.lines());
+
+        matrices.push();
         for (BlockPos pos : targetPositions) {
-            // Prüfung: Ist der Platz frei?
             BlockState targetState = client.world.getBlockState(pos);
             if (!targetState.isReplaceable()) continue;
 
-            // Wir holen alle Boxen der Form (falls es eine komplexe Form wie eine Treppe ist)
             for (Box box : baseShape.getBoundingBoxes()) {
-                // A. Box verkleinern (Aesthetic Effect)
                 Box shrunkBox = box.contract(SHRINK_AMOUNT);
-
                 matrices.push();
+                matrices.translate(pos.getX() - camX, pos.getY() - camY, pos.getZ() - camZ);
 
-                // B. Zu der spezifischen Welt-Position verschieben (Minus Kamera)
-                matrices.translate(
-                        pos.getX() - camX,
-                        pos.getY() - camY,
-                        pos.getZ() - camZ
-                );
-
-                // C. Zeichnen
                 drawBoxOutline(matrices, lines, shrunkBox, r, g, b, a);
-                drawBoxFill(matrices, fill, shrunkBox.expand(-0.003), r1, g1, b1, a1);
+
                 matrices.pop();
             }
         }
-
         matrices.pop();
 
-        // false = Wir haben gezeichnet, aber Vanilla soll den Hauptblock trotzdem normal highlighten
-        // (Da wir hier nur die *neuen* Positionen zeichnen und nicht den Ursprungsblock)
+        // ====================================================================
+        // PASS 2: Nur die FÜLLUNG zeichnen (Quads)
+        // ====================================================================
+        // Nutze RenderLayers.debugQuads()
+        VertexConsumer fill = context.consumers().getBuffer(RenderLayers.debugQuads());
+
+        matrices.push();
+        for (BlockPos pos : targetPositions) {
+            BlockState targetState = client.world.getBlockState(pos);
+            if (!targetState.isReplaceable()) continue;
+
+            for (Box box : baseShape.getBoundingBoxes()) {
+                Box shrunkBox = box.contract(SHRINK_AMOUNT);
+                matrices.push();
+                matrices.translate(pos.getX() - camX, pos.getY() - camY, pos.getZ() - camZ);
+
+                drawBoxFill(matrices, fill, shrunkBox.expand(-0.003), r1, g1, b1, a1);
+
+                matrices.pop();
+            }
+        }
+        matrices.pop();
+
         return false;
     }
 
-    // --- Hilfsmethoden (Unverändert) ---
-
-    private static void drawBoxOutline(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
-        double x1 = box.minX; double y1 = box.minY; double z1 = box.minZ;
-        double x2 = box.maxX; double y2 = box.maxY; double z2 = box.maxZ;
-
-        // Unten
-        drawLineWithNormal(builder, matrix, x1, y1, z1, x2, y1, z1, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, y1, z1, x2, y1, z2, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, y1, z2, x1, y1, z2, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x1, y1, z2, x1, y1, z1, r, g, b, a);
-
-        // Oben
-        drawLineWithNormal(builder, matrix, x1, y2, z1, x2, y2, z1, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, y2, z1, x2, y2, z2, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, y2, z2, x1, y2, z2, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x1, y2, z2, x1, y2, z1, r, g, b, a);
-
-        // Vertikal
-        drawLineWithNormal(builder, matrix, x1, y1, z1, x1, y2, z1, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, y1, z1, x2, y2, z1, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, y1, z2, x2, y2, z2, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x1, y1, z2, x1, y2, z2, r, g, b, a);
-    }
-
-    private static void drawBoxFill(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
-        float x1 = (float)box.minX; float y1 = (float)box.minY; float z1 = (float)box.minZ;
-        float x2 = (float)box.maxX; float y2 = (float)box.maxY; float z2 = (float)box.maxZ;
-
-        addQuad(builder, matrix, x1, y1, z1, x2, y1, z1, x2, y1, z2, x1, y1, z2, r, g, b, a); // Unten
-        addQuad(builder, matrix, x1, y2, z2, x2, y2, z2, x2, y2, z1, x1, y2, z1, r, g, b, a); // Oben
-        addQuad(builder, matrix, x1, y1, z1, x1, y2, z1, x2, y2, z1, x2, y1, z1, r, g, b, a); // Nord
-        addQuad(builder, matrix, x2, y1, z2, x2, y2, z2, x1, y2, z2, x1, y1, z2, r, g, b, a); // Süd
-        addQuad(builder, matrix, x1, y1, z2, x1, y2, z2, x1, y2, z1, x1, y1, z1, r, g, b, a); // West
-        addQuad(builder, matrix, x2, y1, z1, x2, y2, z1, x2, y2, z2, x2, y1, z2, r, g, b, a); // Ost
-    }
-
-    private static void addQuad(VertexConsumer builder, Matrix4f matrix, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float r, float g, float b, float a) {
-        builder.vertex(matrix, x1, y1, z1).color(r, g, b, a);
-        builder.vertex(matrix, x2, y2, z2).color(r, g, b, a);
-        builder.vertex(matrix, x3, y3, z3).color(r, g, b, a);
-        builder.vertex(matrix, x4, y4, z4).color(r, g, b, a);
-    }
-
-    private static void drawLineWithNormal(VertexConsumer builder, Matrix4f matrix, double x1, double y1, double z1, double x2, double y2, double z2, float r, float g, float b, float a) {
-        float nx = (float)(x2 - x1); float ny = (float)(y2 - y1); float nz = (float)(z2 - z1);
-        float len = (float)Math.sqrt(nx * nx + ny * ny + nz * nz);
-        if (len > 0) { nx /= len; ny /= len; nz /= len; }
-
-        builder.vertex(matrix, (float)x1, (float)y1, (float)z1)
-                .color(r, g, b, a)
-                .normal(nx, ny, nz);
-
-        builder.vertex(matrix, (float)x2, (float)y2, (float)z2)
-                .color(r, g, b, a)
-                .normal(nx, ny, nz);
-    }
 }
