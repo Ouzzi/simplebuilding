@@ -1,5 +1,4 @@
 {
-
   "item.simplebuilding.stone_chisel": "Steinmeißel",
   "item.simplebuilding.copper_chisel": "Kupfermeißel",
   "item.simplebuilding.iron_chisel": "Eisenmeißel",
@@ -7,8 +6,8 @@
   "item.simplebuilding.diamond_chisel": "Diamantmeißel",
   "item.simplebuilding.netherite_chisel": "Netheritmeißel",
 
-  "tooltip.simplebuilding.chisel": "Nutzen, um Blöcke zu formen.",
-  "tooltip.simplebuilding.chisel.shift_down": "Rechtsklick auf einen transformierbaren Block.",
+  "tooltip.simplebuilding.chisel": "Benutzen, um Blöcke zu formen.",
+  "tooltip.simplebuilding.chisel.shift_down": "Rechtsklick auf einen verformbaren Block.",
 
   "item.simplebuilding.stone_spatula": "Steinspachtel",
   "item.simplebuilding.copper_spatula": "Kupferspachtel",
@@ -17,8 +16,8 @@
   "item.simplebuilding.diamond_spatula": "Diamantspachtel",
   "item.simplebuilding.netherite_spatula": "Netheritspachtel",
 
-  "tooltip.simplebuilding.spatula": "Nutzen, um Blöcke zu glätten.",
-  "tooltip.simplebuilding.spatula.shift_down": "Rechtsklick auf einen transformierbaren Block.",
+  "tooltip.simplebuilding.spatula": "Benutzen, um Blöcke zu glätten.",
+  "tooltip.simplebuilding.spatula.shift_down": "Rechtsklick auf einen verformbaren Block.",
 
   "item.simplebuilding.copper_core": "Kupferkern",
   "item.simplebuilding.iron_core": "Eisenkern",
@@ -26,26 +25,24 @@
   "item.simplebuilding.diamond_core": "Diamantkern",
   "item.simplebuilding.netherite_core": "Netheritkern",
 
-  "item.simplebuilding.copper_building_wand": "Kupferbaustab",
-  "item.simplebuilding.iron_building_wand": "Eisenbaustab",
-  "item.simplebuilding.gold_building_wand": "Goldbaustab",
-  "item.simplebuilding.diamond_building_wand": "Diamantbaustab",
-  "item.simplebuilding.netherite_building_wand": "Netheritbaustab",
-  "tooltip.simplebuilding.building_wand.size": "Platziert eine Fläche von %s x %s Blöcken.",
-  "tooltip.simplebuilding.building_wand.line_size": "Platziert eine Reihe von %s Blöcken.",
-
+  "item.simplebuilding.copper_building_wand": "Kupfer-Baustab",
+  "item.simplebuilding.iron_building_wand": "Eisen-Baustab",
+  "item.simplebuilding.gold_building_wand": "Gold-Baustab",
+  "item.simplebuilding.diamond_building_wand": "Diamant-Baustab",
+  "item.simplebuilding.netherite_building_wand": "Netherit-Baustab",
+  "tooltip.simplebuilding.building_wand.size": "Platziert einen Bereich von %s x %s Blöcken.",
+  "tooltip.simplebuilding.building_wand.line_size": "Platziert eine Linie von %s Blöcken.",
 
   "item.simplebuilding.sledgehammer": "Vorschlaghammer",
-  "item.simplebuilding.stone_sledgehammer": "Steinvorschlaghammer",
-  "item.simplebuilding.copper_sledgehammer": "Kupfervorschlaghammer",
-  "item.simplebuilding.iron_sledgehammer": "Eisenvorschlaghammer",
-  "item.simplebuilding.gold_sledgehammer": "Goldvorschlaghammer",
-  "item.simplebuilding.diamond_sledgehammer": "Diamantvorschlaghammer",
-  "item.simplebuilding.netherite_sledgehammer": "Netheritvorschlaghammer",
+  "item.simplebuilding.stone_sledgehammer": "Stein-Vorschlaghammer",
+  "item.simplebuilding.copper_sledgehammer": "Kupfer-Vorschlaghammer",
+  "item.simplebuilding.iron_sledgehammer": "Eisen-Vorschlaghammer",
+  "item.simplebuilding.gold_sledgehammer": "Gold-Vorschlaghammer",
+  "item.simplebuilding.diamond_sledgehammer": "Diamant-Vorschlaghammer",
+  "item.simplebuilding.netherite_sledgehammer": "Netherit-Vorschlaghammer",
 
-  "tooltip.simplebuilding.sledgehammer": "Nutzen, um mehrere Blöcke auf einmal abzubauen.",
-
-  "tooltip.simplebuilding.building_wand": "Nutzen, um mehr Blöcke auf einmal zu platzieren.",
+  "tooltip.simplebuilding.sledgehammer": "Benutzen, um mehrere Blöcke gleichzeitig abzubauen.",
+  "tooltip.simplebuilding.building_wand": "Benutzen, um mehr Blöcke gleichzeitig zu platzieren.",
 
   "message.simplebuilding.set_pos1_first": "1:",
   "message.simplebuilding.pos1_set": "1:",
@@ -53,7 +50,7 @@
 
   "item.simplebuilding.octant": "Oktant",
   "item.simplebuilding.octant_white": "Weißer Oktant",
-  "item.simplebuilding.octant_orange": "Oranger Oktant",
+  "item.simplebuilding.octant_orange": "Orangefarbener Oktant",
   "item.simplebuilding.octant_magenta": "Magenta Oktant",
   "item.simplebuilding.octant_light_blue": "Hellblauer Oktant",
   "item.simplebuilding.octant_yellow": "Gelber Oktant",
@@ -71,11 +68,16 @@
 
   "item.simplebuilding.reinforced_bundle": "Verstärktes Bündel",
   "tooltip.simplebuilding.reinforced_bundle": "Kann mehr Items halten, wenn verzaubert.",
-  "item.simplebuilding.netherite_bundle": "Netheritbündel",
-  "tooltip.simplebuilding.netherite_bundle": "Das stärkste Bündel. Kann am meisten Items halten, wenn verzaubert.",
+  "item.simplebuilding.netherite_bundle": "Netherit-Bündel",
+  "tooltip.simplebuilding.netherite_bundle": "Kann noch mehr Items halten, wenn verzaubert.",
 
-  "item.simplebuilding.velocity-gauge": "Tachometer",
-  "tooltip.simplebuilding.velocity-gauge.tooltip": "Zeigt die Geschwindigkeit des gerittenen Mobs an.",
+  "item.simplebuilding.quiver": "Köcher",
+  "tooltip.simplebuilding.quiver": "Hält Pfeile. Funktioniert in der Nebenhand oder im Brustpanzer-Slot.",
+  "item.simplebuilding.netherite_quiver": "Netherit-Köcher",
+  "tooltip.simplebuilding.netherite_quiver": "Hält mehr Pfeile. Funktioniert in der Nebenhand oder im Brustpanzer-Slot.",
+
+  "item.simplebuilding.velocity-gauge": "Geschwindigkeitsmesser",
+  "tooltip.simplebuilding.velocity-gauge.tooltip": "Zeigt die aktuelle Geschwindigkeit des Spielers an.",
 
   "itemgroup.simplebuilding.building_items": "Baugegenstände",
 
@@ -92,15 +94,17 @@
   "enchantment.simplebuilding.override": "Überschreiben",
   "enchantment.simplebuilding.radius": "Radius",
   "enchantment.simplebuilding.strip_miner": "Streifenminer",
-  "enchantment.simplebuilding.cover": "Bedeckung",
+  "enchantment.simplebuilding.vein_miner": "Ader-Abbau",
+  "enchantment.simplebuilding.kinetic_protection": "Kinetischer Schutz",
+  "enchantment.simplebuilding.cover": "Abdecken",
   "enchantment.simplebuilding.bridge": "Brücke",
-  "enchantment.simplebuilding.linear": "Linienplatzierung",
+  "enchantment.simplebuilding.linear": "Linear",
   "enchantment.simplebuilding.tailwind": "Rückenwind",
   "enchantment.simplebuilding.tailwind.description": "Erhöht die Geschwindigkeit von gerittenen Mobs.",
-  "enchantment.simplebuilding.leaping": "Sprungkraft",
+  "enchantment.simplebuilding.leaping": "Springen",
   "enchantment.simplebuilding.leaping.description": "Erhöht die Sprunghöhe von gerittenen Pferden.",
   "enchantment.simplebuilding.double_jump": "Doppelsprung",
-  "enchantment.simplebuilding.double_jump.description": "Ermöglicht einen weiteren Sprung in der Luft.",
+  "enchantment.simplebuilding.double_jump.description": "Erlaubt dem Spieler einen zusätzlichen Sprung.",
 
   "container.enchantments": "Verzauberungen",
   "enchantment.level.1": "I",
@@ -109,33 +113,33 @@
   "enchantment.level.4": "IV",
   "enchantment.level.5": "V",
 
-  "text.autoconfig.simplebuilding.option.tools": "Werkzeug-Einstellungen",
-  "text.autoconfig.simplebuilding.option.tools.invertOctantSneak": "Oktant-Schleichen umkehren",
-  "text.autoconfig.simplebuilding.option.tools.invertOctantSneak.@Tooltip": "Wenn aktiviert, rendert der Oktant den gefüllten Bereich, wenn NICHT geschlichen wird (mit Berührung des Konstrukteurs).",
-  "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity": "Baustab-Hervorhebungs-Deckkraft",
-    "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity.@Tooltip": "Die Deckkraft der Hervorhebung, wenn der Baustab verwendet wird (Standard: 0.4).",
+  "text.autoconfig.simplebuilding.option.tools": "Werkzeugeinstellungen",
+  "text.autoconfig.simplebuilding.option.tools.invertOctantSneak": "Oktant Schleichen umkehren",
+  "text.autoconfig.simplebuilding.option.tools.invertOctantSneak.@Tooltip": "Wenn aktiv, zeigt der Oktant den gefüllten Bereich an, wenn man NICHT schleicht (mit Constructor's Touch).",
+  "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity": "Baustab Hervorhebung Deckkraft",
+  "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity.@Tooltip": "Deckkraft der Baustab-Blockhervorhebung (0.0 - 1.0).",
 
   "text.autoconfig.simplebuilding.option.worldGen": "Weltgenerierung & Wirtschaft",
   "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades": "Dorfbewohner-Handel aktivieren",
-    "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades.@Tooltip": "Ermöglicht neue Handelsangebote für Dorfbewohner.",
+  "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades.@Tooltip": "Fügt Meißel- und Baustab-Handel zu Dorfbewohnern hinzu.",
   "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades": "Fahrender Händler aktivieren",
-    "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades.@Tooltip": "Ermöglicht neue Handelsangebote für fahrende Händler.",
+  "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades.@Tooltip": "Fügt Meißel- und Baustab-Handel zum Fahrenden Händler hinzu.",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges": "Beutetruhen aktivieren",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.@Tooltip": "Fügt Gegenstände zu Dungeon-/Strukturtruhen hinzu.",
 
   "text.autoconfig.simplebuilding.option.enchantments": "Verzauberungs-Balancing",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide": "Schneller Ritt Einstellungen",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide": "Rückenwind Einstellungen",
 
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier": "Ghast Geschwindigkeits-Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier.@Tooltip": "Geschwindigkeitsmultiplikator pro Verzauberungsstufe für Happy Ghasts (Standard: 0.40).",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier": "Ghast Geschwindigkeitsboost",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier.@Tooltip": "Geschwindigkeitsmultiplikator pro Verzauberungsstufe für glückliche Ghasts (Standard: 0.40).",
 
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier": "Pferde Geschwindigkeits-Boost",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier": "Pferde Geschwindigkeitsboost",
   "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier.@Tooltip": "Geschwindigkeitsmultiplikator pro Verzauberungsstufe für Pferde (Standard: 0.12).",
 
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier": "Andere Mobs Geschwindigkeits-Boost",
+  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier": "Sonstige Mobs Geschwindigkeitsboost",
   "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier.@Tooltip": "Geschwindigkeitsmultiplikator pro Verzauberungsstufe für Schweine/Schreiter (Standard: 0.15).",
 
   "text.autoconfig.simplebuilding.option.enchantments.horseJump": "Pferdesprung Einstellungen",
-  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier": "Sprungkraft-Boost",
+  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier": "Sprungkraft Boost",
   "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip": "Sprungkraftmultiplikator pro Verzauberungsstufe auf Pferderüstung (Standard: 0.20)."
 }

@@ -112,14 +112,9 @@ public class Simplebuilding implements ModInitializer {
 // TODO Later:
 // - multiple book textures as fix in external texture pack
 // - extra horse inventory if storrage upgrade, for example chest saddle
-
-// - Bundle, leather and string  -> quiver. can hold one stack of arrows.
-// -- in offhand or chest-slot can use arrows from it.
-// -- enchantable like reinforced bundle.
-// -- with quiver enchantment can acess arrows from it wherever in inventory.
-
-// - Vein miner enchantment for pickaxe, axe (level 1 - max 3 blocks, level 2 - max 6 blocks, level 3 - max 9 blocks, level 4 - max 12 blocks, level 5 - max 18 blocks) (only ores not stone)
-// - Enchantment, kinetic Protection exclusive with feather falling, and Protection varriants. appliable to all armor pieces.
+// - drawer enchantment for bundle -> only one item, no different items. example: cobblestone drawer, dirt drawer, wood drawer -> if one item inside, its locked, (first item decides wich item can be stored inside) if empty reset.
+// - Negative Beacon (evil Beacon) that gives negative effects to players in range
+// - Reinforced Beacon that gives more effects or longer effects upgrade the whole beacon system
 
 
 // simple mods:

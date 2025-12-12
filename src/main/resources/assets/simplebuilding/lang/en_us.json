@@ -1,5 +1,4 @@
 {
-
   "item.simplebuilding.stone_chisel": "Stone Chisel",
   "item.simplebuilding.copper_chisel": "Copper Chisel",
   "item.simplebuilding.iron_chisel": "Iron Chisel",
@@ -34,17 +33,15 @@
   "tooltip.simplebuilding.building_wand.size": "Places a %s x %s area of blocks.",
   "tooltip.simplebuilding.building_wand.line_size": "Places a line of %s blocks.",
 
-
   "item.simplebuilding.sledgehammer": "Sledgehammer",
   "item.simplebuilding.stone_sledgehammer": "Stone Sledgehammer",
-    "item.simplebuilding.copper_sledgehammer": "Copper Sledgehammer",
-    "item.simplebuilding.iron_sledgehammer": "Iron Sledgehammer",
-    "item.simplebuilding.gold_sledgehammer": "Gold Sledgehammer",
-    "item.simplebuilding.diamond_sledgehammer": "Diamond Sledgehammer",
-    "item.simplebuilding.netherite_sledgehammer": "Netherite Sledgehammer",
+  "item.simplebuilding.copper_sledgehammer": "Copper Sledgehammer",
+  "item.simplebuilding.iron_sledgehammer": "Iron Sledgehammer",
+  "item.simplebuilding.gold_sledgehammer": "Gold Sledgehammer",
+  "item.simplebuilding.diamond_sledgehammer": "Diamond Sledgehammer",
+  "item.simplebuilding.netherite_sledgehammer": "Netherite Sledgehammer",
 
-    "tooltip.simplebuilding.sledgehammer": "Use to break multiple blocks at once.",
-
+  "tooltip.simplebuilding.sledgehammer": "Use to break multiple blocks at once.",
   "tooltip.simplebuilding.building_wand": "Use to place more blocks at once.",
 
   "message.simplebuilding.set_pos1_first": "1:",
@@ -74,6 +71,11 @@
   "item.simplebuilding.netherite_bundle": "Netherite Bundle",
   "tooltip.simplebuilding.netherite_bundle": "Can hold even more items if enchanted.",
 
+  "item.simplebuilding.quiver": "Quiver",
+  "tooltip.simplebuilding.quiver": "Holds arrows. Works in Offhand or Chest slot.",
+  "item.simplebuilding.netherite_quiver": "Netherite Quiver",
+  "tooltip.simplebuilding.netherite_quiver": "Holds more arrows. Works in Offhand or Chest slot.",
+
   "item.simplebuilding.velocity-gauge": "Velocity Gauge",
   "tooltip.simplebuilding.velocity-gauge.tooltip": "Shows the current speed of the player.",
 
@@ -92,6 +94,8 @@
   "enchantment.simplebuilding.override": "Override",
   "enchantment.simplebuilding.radius": "Radius",
   "enchantment.simplebuilding.strip_miner": "Strip Miner",
+  "enchantment.simplebuilding.vein_miner": "Vein Miner",
+  "enchantment.simplebuilding.kinetic_protection": "Kinetic Protection",
   "enchantment.simplebuilding.cover": "Cover",
   "enchantment.simplebuilding.bridge": "Bridge",
   "enchantment.simplebuilding.linear": "Linear",
@@ -102,7 +106,6 @@
   "enchantment.simplebuilding.double_jump": "Double Jump",
   "enchantment.simplebuilding.double_jump.description": "Allows the player to perform an additional jump.",
 
-  
   "container.enchantments": "Enchantments",
   "enchantment.level.1": "I",
   "enchantment.level.2": "II",

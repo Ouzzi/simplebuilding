@@ -11,6 +11,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
@@ -85,4 +86,51 @@ public abstract class ItemEntityMixin extends Entity {
         }
     }
 
+    @Shadow private int pickupDelay;
+
+    @Inject(method = "onPlayerCollision", at = @At(value = "HEAD"), cancellable = true)
+    private void onPlayerPickup(PlayerEntity player, CallbackInfo ci) {
+        if (this.getEntityWorld().isClient()) return;
+
+        // Pickup Delay prüfen (wie in Vanilla)
+        if (this.pickupDelay == 0) {
+            ItemStack stackOnGround = this.getStack();
+
+            // Inventar des Spielers durchsuchen
+            for (int i = 0; i < player.getInventory().size(); i++) {
+                ItemStack inventoryStack = player.getInventory().getStack(i);
+
+                // Prüfen ob das Item im Inventar ein ReinforcedBundle ist (oder davon erbt, wie Quiver)
+                if (inventoryStack.getItem() instanceof ReinforcedBundleItem bundleItem) {
+
+                    // Prüfen auf FUNNEL Enchantment
+                    if (hasFunnelEnchantment(inventoryStack, player)) {
+
+                        // Versuchen das Item einzufügen
+                        boolean inserted = bundleItem.tryInsertStackFromWorld(inventoryStack, stackOnGround, player);
+
+                        if (inserted) {
+                            // Wenn etwas eingefügt wurde, Statistik erhöhen (optional)
+                            player.increaseStat(Stats.PICKED_UP.getOrCreateStat(stackOnGround.getItem()), stackOnGround.getCount());
+
+                            // Wenn der Stack leer ist (alles eingesaugt), Entity entfernen
+                            if (stackOnGround.isEmpty()) {
+                                this.discard();
+                                ci.cancel(); // Vanilla Pickup abbrechen
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean hasFunnelEnchantment(ItemStack stack, PlayerEntity player) {
+        var registry = player.getEntityWorld().getRegistryManager();
+        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+        var funnel = enchantments.getOptional(ModEnchantments.FUNNEL);
+
+        return funnel.isPresent() && EnchantmentHelper.getLevel(funnel.get(), stack) > 0;
+    }
 }

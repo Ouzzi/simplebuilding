@@ -1,12 +1,15 @@
 package com.simplebuilding.items.custom;
 
+import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BundleContentsComponent;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.ClickType;
@@ -45,42 +48,78 @@ public class QuiverItem extends ReinforcedBundleItem {
         return super.tryInsertStackFromWorld(bundle, stackToInsert, player);
     }
 
-    // --- Capacity Logic (Fixed 1 Stack = 64 items) ---
+    // --- Capacity Logic ---
 
     @Override
     protected Fraction getMaxCapacity(ItemStack stack, PlayerEntity player) {
-        // Der Köcher hält genau 1 Stack (64 Items)
-        return Fraction.ONE;
+        Fraction capacity = stack.isOf(ModItems.NETHERITE_QUIVER) ? Fraction.getFraction(2, 1) : Fraction.getFraction(1, 1);
+
+        if (player == null || player.getEntityWorld() == null) return capacity;
+
+        var registry = player.getEntityWorld().getRegistryManager();
+        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+        var deepPockets = enchantments.getOptional(ModEnchantments.DEEP_POCKETS);
+
+        if (deepPockets.isPresent()) {
+            int level = EnchantmentHelper.getLevel(deepPockets.get(), stack);
+            if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
+            if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
+        }
+        return capacity;
     }
 
     @Override
     protected Fraction getMaxCapacityForVisuals(ItemStack stack) {
-        return Fraction.ONE;
+        Fraction capacity = stack.isOf(ModItems.NETHERITE_QUIVER) ? Fraction.getFraction(2, 1) : Fraction.getFraction(1, 1);
+
+        var enchantments = stack.getEnchantments();
+        for (var entry : enchantments.getEnchantmentEntries()) {
+            if (entry.getKey().getKey().isPresent()) {
+                String id = entry.getKey().getKey().get().getValue().toString();
+                if (id.contains("deep_pockets")) {
+                    int level = entry.getIntValue();
+                    if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
+                    if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
+                }
+            }
+        }
+        return capacity;
     }
 
     // --- Helper Methods for Bow Mixin ---
 
     public static ItemStack findProjectileForBow(PlayerEntity player) {
-        // 1. Check Offhand
+        // 1. Offhand
         ItemStack offhand = player.getOffHandStack();
         if (offhand.getItem() instanceof QuiverItem) {
             ItemStack arrow = findFirstArrow(offhand);
             if (!arrow.isEmpty()) return arrow;
         }
 
-        // 2. Check Chest Slot (EquipmentSlot.CHEST)
+        // 2. Chest Slot
         ItemStack chest = player.getEquippedStack(EquipmentSlot.CHEST);
         if (chest.getItem() instanceof QuiverItem) {
             ItemStack arrow = findFirstArrow(chest);
             if (!arrow.isEmpty()) return arrow;
         }
 
-        // 3. Removed Inventory Scan (Quiver Enchantment removed)
-
+        // 3. Inventar (NUR mit Constructors Touch)
+        // Durchsuchen des gesamten Inventars, damit es überall funktioniert
+        for (int i = 0; i < player.getInventory().size(); i++) {
+            ItemStack stack = player.getInventory().getStack(i);
+            if (stack.getItem() instanceof QuiverItem) {
+                if (hasConstructorsTouchEnchantment(stack, player)) {
+                    ItemStack arrow = findFirstArrow(stack);
+                    if (!arrow.isEmpty()) return arrow;
+                }
+            }
+        }
         return ItemStack.EMPTY;
     }
 
     public static void consumeProjectileForBow(PlayerEntity player) {
+        // Gleiche Reihenfolge wie beim Finden
+
         // 1. Offhand
         ItemStack offhand = player.getOffHandStack();
         if (offhand.getItem() instanceof QuiverItem) {
@@ -92,15 +131,28 @@ public class QuiverItem extends ReinforcedBundleItem {
         if (chest.getItem() instanceof QuiverItem) {
             if (tryConsumeArrow(chest)) return;
         }
+
+        // 3. Inventar (mit Constructors Touch)
+        for (int i = 0; i < player.getInventory().size(); i++) {
+            ItemStack stack = player.getInventory().getStack(i);
+            if (stack.getItem() instanceof QuiverItem) {
+                if (hasConstructorsTouchEnchantment(stack, player)) {
+                    if (tryConsumeArrow(stack)) return;
+                }
+            }
+        }
     }
 
     private static ItemStack findFirstArrow(ItemStack bundle) {
         BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
         if (contents == null || contents.isEmpty()) return ItemStack.EMPTY;
 
-        // Suche nach Pfeilen
         for (ItemStack s : contents.iterate()) {
-            if (s.isIn(ItemTags.ARROWS)) return s;
+            if (s.isIn(ItemTags.ARROWS)) {
+                // WICHTIG: .copy() verhindert, dass Vanilla den Stack im Köcher direkt verändert!
+                // Wenn wir das nicht machen, zieht Vanilla 1 ab, und wir später nochmal 1.
+                return s.copy();
+            }
         }
         return ItemStack.EMPTY;
     }
@@ -130,5 +182,13 @@ public class QuiverItem extends ReinforcedBundleItem {
             return true;
         }
         return false;
+    }
+
+    private static boolean hasConstructorsTouchEnchantment(ItemStack stack, PlayerEntity player) {
+        var registry = player.getEntityWorld().getRegistryManager();
+        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+        var ct = enchantments.getOptional(ModEnchantments.CONSTRUCTORS_TOUCH);
+
+        return ct.isPresent() && EnchantmentHelper.getLevel(ct.get(), stack) > 0;
     }
 }

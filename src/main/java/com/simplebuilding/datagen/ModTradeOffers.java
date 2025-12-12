@@ -110,7 +110,10 @@ public class ModTradeOffers {
                 List<WeightedEnchantment> stripMinerPool = List.of(
                         new WeightedEnchantment(ModEnchantments.STRIP_MINER, 1, 40),
                         new WeightedEnchantment(ModEnchantments.STRIP_MINER, 2, 30),
-                        new WeightedEnchantment(ModEnchantments.STRIP_MINER, 3, 10) // Very Rare
+                        new WeightedEnchantment(ModEnchantments.STRIP_MINER, 3, 10), // Very Rare
+                        new WeightedEnchantment(ModEnchantments.VEIN_MINER, 1, 40),
+                        new WeightedEnchantment(ModEnchantments.VEIN_MINER, 2, 30),
+                        new WeightedEnchantment(ModEnchantments.VEIN_MINER, 3, 10) // Very Rare
                 );
                 // FIX: (world, entity, random)
                 factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 15), createRandomEnchantedItem(entity, random, Items.DIAMOND_PICKAXE, stripMinerPool, 10), 1, 50, 0.8f));

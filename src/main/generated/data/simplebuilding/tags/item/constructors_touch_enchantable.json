@@ -2,6 +2,8 @@
   "values": [
     "simplebuilding:reinforced_bundle",
     "simplebuilding:netherite_bundle",
+    "simplebuilding:quiver",
+    "simplebuilding:netherite_quiver",
     "minecraft:shulker_box",
     "#simplebuilding:chisel_tools",
     "simplebuilding:velocity-gauge",

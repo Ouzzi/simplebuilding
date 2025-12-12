@@ -7,6 +7,7 @@ import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -15,46 +16,48 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BowItem.class)
 public class BowItemMixin {
 
-    // 1. Damit der Bogen überhaupt anfängt zu ziehen (use), gaukeln wir ihm vor, wir hätten einen Pfeil,
-    // falls wir einen im Köcher finden.
+    // ThreadLocal verhindert Konflikte und merkt sich den Status pro Schuss-Vorgang
+    @Unique
+    private final ThreadLocal<Boolean> usedQuiver = ThreadLocal.withInitial(() -> false);
+
+    // 1. "use": Prüft zuerst den Köcher (Priorität!)
     @Redirect(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getProjectileType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack checkQuiverOnUse(PlayerEntity player, ItemStack stack) {
-        ItemStack vanillaProjectile = player.getProjectileType(stack);
-        if (!vanillaProjectile.isEmpty()) return vanillaProjectile;
-
-        // Check Quiver (Offhand/Chest)
         ItemStack quiverArrow = QuiverItem.findProjectileForBow(player);
         if (!quiverArrow.isEmpty()) {
-            return quiverArrow; // Gibt eine Kopie zurück, damit der Check !isEmpty() besteht
+            return quiverArrow;
         }
-        return ItemStack.EMPTY;
+        return player.getProjectileType(stack);
     }
 
-    // 2. Beim Loslassen (onStoppedUsing) prüft Vanilla erneut auf Pfeile.
-    // Wir leiten dies um, um den Köcher-Pfeil zurückzugeben, damit der Schuss ausgelöst wird.
+    // 2. "onStoppedUsing": Prüft zuerst den Köcher und setzt das Flag
     @Redirect(method = "onStoppedUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getProjectileType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack checkQuiverOnStop(PlayerEntity player, ItemStack stack) {
-        ItemStack vanillaProjectile = player.getProjectileType(stack);
-        if (!vanillaProjectile.isEmpty()) return vanillaProjectile;
+        usedQuiver.set(false); // Reset
 
-        return QuiverItem.findProjectileForBow(player);
+        ItemStack quiverArrow = QuiverItem.findProjectileForBow(player);
+        if (!quiverArrow.isEmpty()) {
+            usedQuiver.set(true); // Wir benutzen den Köcher!
+            return quiverArrow;
+        }
+
+        return player.getProjectileType(stack);
     }
 
-    // 3. Verbrauch des Pfeils aus dem Köcher.
+    // 3. Verbrauch: Entfernt den Pfeil NUR, wenn das Flag gesetzt ist
     @Inject(method = "onStoppedUsing", at = @At("RETURN"))
     private void consumeArrowFromQuiver(ItemStack stack, World world, LivingEntity user, int remainingUseTicks, CallbackInfoReturnable<Boolean> cir) {
-        // Nur weitermachen, wenn der Schuss erfolgreich war (true zurückgegeben wurde)
-        if (!cir.getReturnValue()) return;
+        // Abbruch wenn Schuss fehlgeschlagen oder Creative Mode
+        if (!cir.getReturnValue() || !(user instanceof PlayerEntity player) || player.getAbilities().creativeMode) {
+            usedQuiver.set(false);
+            return;
+        }
 
-        if (!(user instanceof PlayerEntity player) || player.getAbilities().creativeMode) return;
-
-        // Wenn Vanilla einen Pfeil gefunden hätte, wäre er bereits verbraucht worden.
-        ItemStack vanillaProjectile = player.getProjectileType(stack);
-
-        // Wenn Vanilla NICHTS findet, aber die Methode erfolgreich war (durch unseren Redirect oben),
-        // dann müssen wir den Pfeil manuell aus dem Köcher entfernen.
-        if (vanillaProjectile.isEmpty()) {
+        // Nur entfernen, wenn wir vorher entschieden haben, den Köcher zu nutzen
+        if (usedQuiver.get()) {
             QuiverItem.consumeProjectileForBow(player);
         }
+
+        usedQuiver.set(false);
     }
 }

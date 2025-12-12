@@ -179,6 +179,26 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                 ModItems.NETHERITE_BUNDLE
                         ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
                         .offerTo(exporter, getItemPath(ModItems.NETHERITE_BUNDLE) + "_smithing");
+
+                createShaped(RecipeCategory.TOOLS, ModItems.QUIVER)
+                        .pattern(" SL")
+                        .pattern("SLN")
+                        .pattern("B  ")
+                        .input('S', Items.STRING)
+                        .input('L', Items.LEATHER)
+                        .input('N', Items.COPPER_NUGGET)
+                        .input('B', Items.BUNDLE)
+                        .criterion(hasItem(Items.BUNDLE), conditionsFromItem(Items.BUNDLE))
+                        .offerTo(exporter);
+
+                SmithingTransformRecipeJsonBuilder.create(
+                                Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                                Ingredient.ofItems(ModItems.QUIVER),
+                                Ingredient.ofItems(Items.NETHERITE_INGOT),
+                                RecipeCategory.TOOLS,
+                                ModItems.NETHERITE_QUIVER
+                        ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
+                        .offerTo(exporter, getItemPath(ModItems.NETHERITE_QUIVER) + "_smithing");
             }
 
             // --- Helper Methods to keep generate() clean ---

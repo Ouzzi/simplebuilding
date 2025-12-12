@@ -62,16 +62,22 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         valueLookupBuilder(ModTags.Items.BUNDLE_ENCHANTABLE)
                 .add(ModItems.REINFORCED_BUNDLE)
-                .add(ModItems.NETHERITE_BUNDLE);
+                .add(ModItems.NETHERITE_BUNDLE)
+                .add(ModItems.QUIVER)
+                .add(ModItems.NETHERITE_QUIVER);
 
         valueLookupBuilder(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE)
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .add(ModItems.REINFORCED_BUNDLE)
-                .add(ModItems.NETHERITE_BUNDLE);
+                .add(ModItems.NETHERITE_BUNDLE)
+                .add(ModItems.QUIVER)
+                .add(ModItems.NETHERITE_QUIVER);
 
         valueLookupBuilder(ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE)
                 .add(ModItems.REINFORCED_BUNDLE)
                 .add(ModItems.NETHERITE_BUNDLE)
+                .add(ModItems.QUIVER)
+                .add(ModItems.NETHERITE_QUIVER)
                 .add(Items.SHULKER_BOX)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .add(ModItems.VELOCITY_GAUGE)
