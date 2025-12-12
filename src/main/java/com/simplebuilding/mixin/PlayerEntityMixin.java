@@ -22,26 +22,6 @@ public abstract class PlayerEntityMixin {
 
     @Shadow public abstract PlayerInventory getInventory();
 
-    @Inject(method = "getProjectileType", at = @At("HEAD"), cancellable = true)
-    private void getProjectileTypeFromBundle(ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
-        if (!(stack.getItem() instanceof net.minecraft.item.BowItem)) return;
-
-        PlayerEntity player = (PlayerEntity) (Object) this;
-
-        for (int i = 0; i < player.getInventory().size(); i++) {
-            ItemStack slotStack = player.getInventory().getStack(i);
-
-            if (slotStack.getItem() instanceof ReinforcedBundleItem) {
-                if (hasQuiverEnchantment(slotStack, player)) {
-                    ItemStack arrowStack = BundleUtil.findArrow(slotStack);
-                    if (!arrowStack.isEmpty()) {
-                        cir.setReturnValue(arrowStack.copy());
-                        return;
-                    }
-                }
-            }
-        }
-    }
     @Inject(method = "getBlockBreakingSpeed", at = @At("RETURN"), cancellable = true)
     private void modifyMiningSpeedForStripMiner(BlockState state, CallbackInfoReturnable<Float> cir) {
         PlayerEntity player = (PlayerEntity) (Object) this;
@@ -76,13 +56,5 @@ public abstract class PlayerEntityMixin {
 
             cir.setReturnValue(originalSpeed / divisor);
         }
-    }
-
-    @Unique
-    private boolean hasQuiverEnchantment(ItemStack stack, PlayerEntity player) {
-        var registry = player.getEntityWorld().getRegistryManager();
-        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var quiver = enchantments.getOptional(ModEnchantments.QUIVER);
-        return quiver.isPresent() && EnchantmentHelper.getLevel(quiver.get(), stack) > 0;
     }
 }

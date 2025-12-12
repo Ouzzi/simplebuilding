@@ -8,12 +8,19 @@ import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentLevelBasedValue;
 import net.minecraft.enchantment.effect.AttributeEnchantmentEffect;
+import net.minecraft.enchantment.effect.value.AddEnchantmentEffect;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.loot.condition.DamageSourcePropertiesLootCondition;
+import net.minecraft.predicate.TagPredicate;
+import net.minecraft.predicate.entity.DamageSourcePredicate;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.EnchantmentTags;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public class ModEnchantments {
@@ -24,7 +31,6 @@ public class ModEnchantments {
     public static final RegistryKey<Enchantment> DEEP_POCKETS = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "deep_pockets"));
     public static final RegistryKey<Enchantment> MASTER_BUILDER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "master_builder"));
     public static final RegistryKey<Enchantment> COLOR_PALETTE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "color_palette"));
-    public static final RegistryKey<Enchantment> QUIVER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "quiver"));
     public static final RegistryKey<Enchantment> FUNNEL = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "funnel"));
     public static final RegistryKey<Enchantment> BREAK_THROUGH = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "break_through"));
     public static final RegistryKey<Enchantment> RADIUS = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "radius"));
@@ -34,11 +40,15 @@ public class ModEnchantments {
     public static final RegistryKey<Enchantment> BRIDGE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "bridge"));
     public static final RegistryKey<Enchantment> LINEAR = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "linear"));
     public static final RegistryKey<Enchantment> DOUBLE_JUMP = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "double_jump"));
+    public static final RegistryKey<Enchantment> VEIN_MINER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "vein_miner"));
+    public static final RegistryKey<Enchantment> KINETIC_PROTECTION = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "kinetic_protection"));
+
+    public static final TagKey<DamageType> KINETIC_DAMAGE_TAG = TagKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(Simplebuilding.MOD_ID, "kinetic_damage"));
 
     public static void bootstrap(Registerable<Enchantment> registerable) {
         var items = registerable.getRegistryLookup(RegistryKeys.ITEM);
-
         var enchantmentsLookup = registerable.getRegistryLookup(RegistryKeys.ENCHANTMENT);
+        var damageTypes = registerable.getRegistryLookup(RegistryKeys.DAMAGE_TYPE);
 
         // Fast Chiseling (Max Level III, Common) [CHISEL, SPATULA]
         register(registerable, FAST_CHISELING, Enchantment.builder(
@@ -109,9 +119,7 @@ public class ModEnchantments {
                 Enchantment.leveledCost(75, 25),
                 8, // Teuer
                 AttributeModifierSlot.MAINHAND
-        ))
-        // FIX: Variable 'enchantmentsLookup' statt 'entries'
-        .exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.QUIVER_EXCLUSIVE_SET)));
+        )));
 
         // Color Palette (Max Level I, allows changing block colors when placing from bundle or shulker, Treasure, Rare) [BUNDLE, SHULKER, BUILDING_WAND]
         register(registerable, COLOR_PALETTE, Enchantment.builder(Enchantment.definition(
@@ -123,23 +131,7 @@ public class ModEnchantments {
                 Enchantment.leveledCost(65, 15),
                 4,
                 AttributeModifierSlot.MAINHAND
-        ))
-        // FIX: Variable 'enchantmentsLookup'
-        .exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.QUIVER_EXCLUSIVE_SET)));
-
-        // 7. QUIVER (Max Level 1, Treasure, Rare) [BUNDLE]
-        register(registerable, QUIVER, Enchantment.builder(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE), // Nur Bundles
-                items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
-                2, // Weight (Rare)
-                1, // Max Level
-                Enchantment.leveledCost(20, 20),
-                Enchantment.leveledCost(70, 20),
-                4,
-                AttributeModifierSlot.MAINHAND
-        ))
-        // FIX: Variable 'enchantmentsLookup'
-        .exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.BUILDER_EXCLUSIVE_SET)));
+        )));
 
         // 8. FUNNEL (Max Level 1, Treasure, Rare) [BUNDLE, SHULKER]
         register(registerable, FUNNEL, Enchantment.builder(Enchantment.definition(
@@ -240,9 +232,9 @@ public class ModEnchantments {
                 4,
                 AttributeModifierSlot.MAINHAND
         ))
-        // IMPLEMENTIERT: Exklusivität gegen Cover (kompatibel mit Bridge)
         .exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.WAND_MODIFIER_EXCLUSIVE_SET)));
 
+        // 16. DOUBLE_JUMP (Max Level 2, Treasure, Rare) [BOOTS]
         register(registerable, DOUBLE_JUMP, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ItemTags.FOOT_ARMOR), // Target Boots
                 items.getOrThrow(ItemTags.FOOT_ARMOR),
@@ -254,6 +246,41 @@ public class ModEnchantments {
                 AttributeModifierSlot.FEET
         )));
 
+        // 17. VEIN_MINER (Max Level 5, Treasure, Very Rare) [PICKAXE, AXE]
+        register(registerable, VEIN_MINER, Enchantment.builder(Enchantment.definition(
+                        items.getOrThrow(ItemTags.MINING_ENCHANTABLE), // Pickaxes, Axes
+                        items.getOrThrow(ItemTags.MINING_ENCHANTABLE),
+                        1, // Weight (Very Rare)
+                        5, // Max Level
+                        Enchantment.leveledCost(20, 10),
+                        Enchantment.leveledCost(70, 10),
+                        4,
+                        AttributeModifierSlot.MAINHAND
+                ))
+                .exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.MINING_EXCLUSIVE_SET)));
+
+        // 18. KINETIC_PROTECTION (Max Level IV, similar to Protection, Weight Rare) [ALL ARMOR]
+        register(registerable, KINETIC_PROTECTION, Enchantment.builder(Enchantment.definition(
+                        items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE), // All Armor
+                        items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
+                        5, // Weight
+                        4, // Max Level
+                        Enchantment.leveledCost(10, 8),
+                        Enchantment.leveledCost(20, 8),
+                        4,
+                        AttributeModifierSlot.ARMOR
+                ))
+                // Exklusivität zu Protection, Blast Prot etc.
+                .exclusiveSet(enchantmentsLookup.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE_SET))
+                // Effekt: Damage Protection mit Bedingung
+                .addEffect(
+                        EnchantmentEffectComponentTypes.DAMAGE_PROTECTION,
+                        new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5f, 2.5f)),
+                        DamageSourcePropertiesLootCondition.builder(
+                                DamageSourcePredicate.Builder.create()
+                                        .tag(TagPredicate.expected(KINETIC_DAMAGE_TAG))
+                        )
+                ));
 }
 
     private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key, Enchantment.Builder builder) {

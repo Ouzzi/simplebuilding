@@ -77,6 +77,8 @@ public class ModItemGroups {
                         // --- Storage ---
                         entries.add(ModItems.REINFORCED_BUNDLE);
                         entries.add(ModItems.NETHERITE_BUNDLE);
+                        entries.add(ModItems.QUIVER);
+                        entries.add(ModItems.NETHERITE_QUIVER);
 
                         // --- Enchanted Books ---
                         RegistryWrapper.WrapperLookup lookup = displayContext.lookup();
@@ -87,6 +89,7 @@ public class ModItemGroups {
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.CONSTRUCTORS_TOUCH, 1);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.RANGE, 3);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.STRIP_MINER, 3);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.VEIN_MINER, 5);
 
                         // 2. Sledgehammer Specific
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.BREAK_THROUGH, 1);
@@ -96,7 +99,6 @@ public class ModItemGroups {
                         // 3. Bundle/Container Utilities
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.DEEP_POCKETS, 2);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.FUNNEL, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.QUIVER, 1);
 
                         // 4. Wand/Construction Utilities
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.MASTER_BUILDER, 1);
@@ -107,6 +109,9 @@ public class ModItemGroups {
 
                         // 5. Armor Utilities
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.DOUBLE_JUMP, 2);
+
+                        // 6. Miscellaneous
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.KINETIC_PROTECTION, 4);
 
                     }).build());
 

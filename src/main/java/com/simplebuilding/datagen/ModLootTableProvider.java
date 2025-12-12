@@ -67,7 +67,6 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0, 1))
                         .with(enchantedBook(ModEnchantments.RANGE, 1, enchantments, 5))
-                        .with(enchantedBook(ModEnchantments.QUIVER, 1, enchantments, 5))
                         .with(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 2))
                         .with(enchantedBook(ModEnchantments.BRIDGE, 1, enchantments, 5));
                 tableBuilder.pool(pool);

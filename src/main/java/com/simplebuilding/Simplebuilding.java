@@ -11,6 +11,7 @@ import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.util.ModRegistries;
 import com.simplebuilding.util.SledgehammerUsageEvent;
 import com.simplebuilding.util.StripMinerUsageEvent;
+import com.simplebuilding.util.VeinMinerUsageEvent;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
@@ -72,6 +73,7 @@ public class Simplebuilding implements ModInitializer {
 
         PlayerBlockBreakEvents.BEFORE.register(new SledgehammerUsageEvent());
         PlayerBlockBreakEvents.BEFORE.register(new StripMinerUsageEvent());
+        PlayerBlockBreakEvents.BEFORE.register(new VeinMinerUsageEvent());
 	}
 
     private void registerCauldronBehavior() {
@@ -110,10 +112,92 @@ public class Simplebuilding implements ModInitializer {
 // TODO Later:
 // - multiple book textures as fix in external texture pack
 // - extra horse inventory if storrage upgrade, for example chest saddle
-// -
+
+// - Bundle, leather and string  -> quiver. can hold one stack of arrows.
+// -- in offhand or chest-slot can use arrows from it.
+// -- enchantable like reinforced bundle.
+// -- with quiver enchantment can acess arrows from it wherever in inventory.
+
+// - Vein miner enchantment for pickaxe, axe (level 1 - max 3 blocks, level 2 - max 6 blocks, level 3 - max 9 blocks, level 4 - max 12 blocks, level 5 - max 18 blocks) (only ores not stone)
+// - Enchantment, kinetic Protection exclusive with feather falling, and Protection varriants. appliable to all armor pieces.
+
 
 // simple mods:
 // - simplemoney
 // - simplebuilding + (texture fix for ...)
 // - simpleriding + (texture fix for ...)
 // - simple tweaks
+
+
+// WTCAH 1.21.11 Missing
+// - [ETF] Entity Texture Features
+// - Recolourful Containers Axiom Fix
+// - TCDCommons API
+// - Fresh Animations
+// - Fresh Animations: Objects
+// - Fresh Animations: Creepers
+// - Fresh Animations: Spiders
+// - Fresh Animations: Details
+// - Fresh Animations: Quivers
+// - Fresh Animations: Emissive
+// - Fresh Animations: Classic Horses
+// - Fresh Animations: Extentions
+// - Architectury API
+// - Controlify (Controller support)
+// - Searchables
+// - Easy Shulker Boxes
+// - Proton Shaders
+// - [EMF] Entity Model Features
+// - pick up notifier
+// - Fusion Connected Blocks
+// - Fusion Block Transitions
+// - My Totem Doll
+// - Xaero's Minimap
+// - itembound: Rebound
+// - Better F3
+// - Fusion (Connected Textures)
+// - Puzzles Lib
+// - Model Gap Fix
+// - Open Parties and Claims
+// - BoatView360
+// - Low On Fire
+// - Xaero's World Map
+// - Fusion Connected Glass
+// - ViaFabricPlus
+// - Just Enough Professions (JEP)
+// - Recolourful Containers GUI + HUD
+// - Held Item Tooltips
+// - Recolourful Containers GUI + HUD (DARK)
+// - Ping Wheel
+// - dependency-icon
+// - Even Better Enchants
+// - do a barrel roll
+// - ledger
+// - claimpoints
+// - BadOptimizations
+// - ModernFix-mVUS
+// - Just Enough Resources (JER)
+// - Enchantment Insights
+// - Blind
+// - Better Advancements
+// - Reese's Sodium Options
+// - Boat Item View
+// - Immersive Hotbar
+// - Cicada
+// - controlling
+// - axiom
+// - Cull Leaves
+// - ServerCore
+// - voxy
+// - no telemetry
+// - dynamic tooltips
+// - better statistics
+// - Chat Calc
+// - Cubes Without Borders
+// - Silk
+// - freecam
+// - NoisiumForked
+// - Just Enough Items (jei)
+// -
+// -
+

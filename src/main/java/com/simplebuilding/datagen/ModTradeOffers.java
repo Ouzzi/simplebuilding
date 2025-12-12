@@ -139,8 +139,7 @@ public class ModTradeOffers {
                 factory.addOffersToPool(TradeOfferHelper.WanderingTraderOffersBuilder.SELL_SPECIAL_ITEMS_POOL, (world, entity, random) -> {
                     List<WeightedEnchantment> wandPool = List.of(
                             new WeightedEnchantment(ModEnchantments.BRIDGE, 1, 30),
-                            new WeightedEnchantment(ModEnchantments.RADIUS, 1, 20),
-                            new WeightedEnchantment(ModEnchantments.QUIVER, 1, 20)
+                            new WeightedEnchantment(ModEnchantments.RADIUS, 1, 20)
                     );
                     return new TradeOffer(new TradedItem(Items.EMERALD, 60), createRandomEnchantedBook(entity, random, wandPool, 0), 1, 10, 0.2f);
                 });

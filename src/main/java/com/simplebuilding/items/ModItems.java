@@ -100,6 +100,9 @@ public class ModItems {
     // Reinforced Items
     public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1)));
     public static final Item NETHERITE_BUNDLE = registerItem("netherite_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1).fireproof()));
+    public static final Item QUIVER = registerItem("quiver", settings -> new QuiverItem(settings.maxCount(1)));
+    public static final Item NETHERITE_QUIVER = registerItem("netherite_quiver", settings -> new QuiverItem(settings.maxCount(1).fireproof()));
+
 
     // =================================================================================
     // HILFSMETHODEN

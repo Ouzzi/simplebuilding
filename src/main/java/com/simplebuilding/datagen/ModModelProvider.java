@@ -73,6 +73,8 @@ public class ModModelProvider extends FabricModelProvider {
         // --- 6. REINFORCED BUNDLES (Generated / Flach) ---
         itemModelGenerator.register(ModItems.REINFORCED_BUNDLE, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_BUNDLE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.QUIVER, Models.GENERATED);
+        itemModelGenerator.register(ModItems.NETHERITE_QUIVER, Models.GENERATED);
 
         // --- 7. VELOCITY_GAUGES (Generated / Flach) ---
         itemModelGenerator.register(ModItems.VELOCITY_GAUGE, Models.GENERATED);

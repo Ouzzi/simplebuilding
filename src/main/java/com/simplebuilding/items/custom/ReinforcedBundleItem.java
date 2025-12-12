@@ -221,7 +221,7 @@ public class ReinforcedBundleItem extends BundleItem {
         return mb.isPresent() && EnchantmentHelper.getLevel(mb.get(), stack) > 0;
     }
 
-    private int insertItemIntoBundle(ItemStack bundle, BundleContentsComponent contents, ItemStack stackToAdd, Fraction maxCap) {
+    protected int insertItemIntoBundle(ItemStack bundle, BundleContentsComponent contents, ItemStack stackToAdd, Fraction maxCap) {
         if (stackToAdd.isEmpty()) return 0;
 
         Fraction currentOccupancy = contents.getOccupancy();
@@ -248,7 +248,7 @@ public class ReinforcedBundleItem extends BundleItem {
         return countToAdd;
     }
 
-    private void addToBundleList(List<ItemStack> list, ItemStack stackToAdd) {
+    protected void addToBundleList(List<ItemStack> list, ItemStack stackToAdd) {
         if (!list.isEmpty()) {
             ItemStack topStack = list.getFirst();
             if (ItemStack.areItemsAndComponentsEqual(topStack, stackToAdd)) {
@@ -265,7 +265,7 @@ public class ReinforcedBundleItem extends BundleItem {
         }
     }
 
-    private ItemStack removeSelectedOrFirstItem(ItemStack bundle, BundleContentsComponent contents) {
+    protected ItemStack removeSelectedOrFirstItem(ItemStack bundle, BundleContentsComponent contents) {
         if (contents.isEmpty()) return ItemStack.EMPTY;
 
         int selectedIndex = contents.getSelectedStackIndex();
@@ -288,7 +288,7 @@ public class ReinforcedBundleItem extends BundleItem {
         return itemToRemove;
     }
 
-    private void removeOneItemFromBundle(ItemStack bundle, BundleContentsComponent contents, int targetIndex) {
+    protected void removeOneItemFromBundle(ItemStack bundle, BundleContentsComponent contents, int targetIndex) {
         if (contents.isEmpty()) return;
 
         List<ItemStack> newItems = new ArrayList<>();
@@ -335,9 +335,8 @@ public class ReinforcedBundleItem extends BundleItem {
 
         if (deepPockets.isPresent()) {
             int level = EnchantmentHelper.getLevel(deepPockets.get(), stack);
-            // Multiplikatoren statt fester Werte, damit Netherite Bundle skaliert
-            if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1)); // x2
-            if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1)); // x4
+            if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
+            if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
         }
         return capacity;
     }
@@ -359,11 +358,11 @@ public class ReinforcedBundleItem extends BundleItem {
         return capacity;
     }
 
-    private void playRemoveOneSound(PlayerEntity entity) {
+    protected void playRemoveOneSound(PlayerEntity entity) {
         entity.playSound(net.minecraft.sound.SoundEvents.ITEM_BUNDLE_REMOVE_ONE, 0.8F, 0.8F + entity.getEntityWorld().getRandom().nextFloat() * 0.4F);
     }
 
-    private void playInsertSound(PlayerEntity entity) {
+    protected void playInsertSound(PlayerEntity entity) {
         entity.playSound(net.minecraft.sound.SoundEvents.ITEM_BUNDLE_INSERT, 0.8F, 0.8F + entity.getEntityWorld().getRandom().nextFloat() * 0.4F);
     }
 }
