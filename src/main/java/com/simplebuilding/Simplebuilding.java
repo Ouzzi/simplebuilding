@@ -110,6 +110,7 @@ public class Simplebuilding implements ModInitializer {
 // TODO Later:
 // - multiple book textures as fix in external texture pack
 // - extra horse inventory if storrage upgrade, for example chest saddle
+// -
 
 // simple mods:
 // - simplemoney

@@ -113,10 +113,14 @@
   "text.autoconfig.simplebuilding.option.tools": "Tool Settings",
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak": "Invert Octant Sneak",
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak.@Tooltip": "If true, the Octant renders the filled area when NOT sneaking (with Constructor's Touch).",
+  "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity": "Building Wand Highlight Opacity",
+  "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity.@Tooltip": "Opacity of the Building Wand block highlight (0.0 - 1.0).",
 
   "text.autoconfig.simplebuilding.option.worldGen": "World Generation & Economy",
   "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades": "Enable Villager Trades",
+  "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades.@Tooltip": "Add chisel and building wand trades to villagers.",
   "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades": "Enable Wandering Trader",
+  "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades.@Tooltip": "Add chisel and building wand trades to wandering traders.",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges": "Enable Loot Chests",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.@Tooltip": "Add items to dungeon/structure chests.",
 

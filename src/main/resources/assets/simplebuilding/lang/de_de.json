@@ -112,10 +112,14 @@
   "text.autoconfig.simplebuilding.option.tools": "Werkzeug-Einstellungen",
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak": "Oktant-Schleichen umkehren",
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak.@Tooltip": "Wenn aktiviert, rendert der Oktant den gefüllten Bereich, wenn NICHT geschlichen wird (mit Berührung des Konstrukteurs).",
+  "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity": "Baustab-Hervorhebungs-Deckkraft",
+    "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity.@Tooltip": "Die Deckkraft der Hervorhebung, wenn der Baustab verwendet wird (Standard: 0.4).",
 
   "text.autoconfig.simplebuilding.option.worldGen": "Weltgenerierung & Wirtschaft",
   "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades": "Dorfbewohner-Handel aktivieren",
+    "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades.@Tooltip": "Ermöglicht neue Handelsangebote für Dorfbewohner.",
   "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades": "Fahrender Händler aktivieren",
+    "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades.@Tooltip": "Ermöglicht neue Handelsangebote für fahrende Händler.",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges": "Beutetruhen aktivieren",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.@Tooltip": "Fügt Gegenstände zu Dungeon-/Strukturtruhen hinzu.",
 

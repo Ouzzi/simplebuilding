@@ -9,7 +9,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.state.OutlineRenderState;
@@ -120,7 +119,7 @@ public class SledgehammerOutlineRenderer {
                 matrices.translate(pos.getX() - camX, pos.getY() - camY, pos.getZ() - camZ);
 
                 // Nur Füllung zeichnen
-                drawBoxFill(matrices, fill, box.expand(0.0003), r1, g1, b1, a1);
+                drawBoxFill(matrices, fill, box.expand(0.003), r1, g1, b1, a1);
 
                 matrices.pop();
             }
