@@ -116,3 +116,12 @@ public class Simplebuilding implements ModInitializer {
 // - simplebuilding + (texture fix for ...)
 // - simpleriding + (texture fix for ...)
 // - simple tweaks
+// - rednamed - custom textures and models (simple)
+// -- library/tool to add custom textures to vanilla via rescouce pack
+// -- provide json and png/s to auto generate custom textures or models
+// -- specified name on specified item can turn the corresponding item to desired texture or model
+// -- handle duplicate names with id and name so everyone can upload a texture without conflict.
+// -- specify tags to easily search in ambos via custom gui.
+// --- gui shows searchbar and grid with textures / models. 
+// --- when a texture / model is clicked than show the recipe above or on right of gui
+// --- recipe appearance: item -> arrow (with name for ambos above) -> desired texture/model
