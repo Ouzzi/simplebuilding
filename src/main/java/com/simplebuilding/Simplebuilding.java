@@ -111,14 +111,16 @@ public class Simplebuilding implements ModInitializer {
 
 // TODO Later:
 // - drawer enchantment for bundle -> only one item, no different items. example: cobblestone drawer, dirt drawer, wood drawer -> if one item inside, its locked, (first item decides wich item can be stored inside) if empty reset.
+
 // - new diamond variant: diamond pebbles (9 in crafting grid = 1 cracked diamond -> blastfurnace to diamond) (crafting pebbles from diamond block rightclick with sledgehammer)
+
 
 // - lapis light - doesent prevent mob spawns but emmits light
 
-// - reinforced copper chest - double stack size (with diamonds)
-// - netherite chest - quadrouple stack size
 // - reinforced hopper - double speed (with diamonds)
 // - netherite hopper - quadrouple speed
+// - reinforced copper chest - double stack size (with diamonds)
+// - netherite chest - quadrouple stack size
 // - reinforced piston - pushes more blocks (block push limit higher (1.5?) ) (with diamonds)
 // - netherite piston - destroys all blocks infront
 // - reinforced blast furnace - 1.25x speed (with diamonds)
