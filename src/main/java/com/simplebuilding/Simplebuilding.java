@@ -116,12 +116,26 @@ public class Simplebuilding implements ModInitializer {
 // - Negative Beacon (evil Beacon) that gives negative effects to players in range
 // - Reinforced Beacon that gives more effects or longer effects upgrade the whole beacon system
 
+// - lapis light - doesent prevent mob spawns but emmits light
+// - reinforced piston - destroys all blocks infront
+// - reinforced shulker - can be enchanted (bigger stack sizes)
+// - netherite shulker double stack size
+// - reinforced copper chest - double stack size
+// - netherite chest - quadrouple stack size
+// - ( copy tool? )
 
 // simple mods:
 // - simplemoney
 // - simplebuilding + (texture fix for ...)
 // - simpleriding + (texture fix for ...)
-// - simple tweaks
+// - simpletweaks
+// -- _young nametag to stop mobs from ageing 
+
+// - simpleindustry
+// –– some farming possibillities
+// -- new block / transformation mechanic
+// -- new material like special fuel or catalysator
+// -- 
 
 
 // WTCAH 1.21.11 Missing
