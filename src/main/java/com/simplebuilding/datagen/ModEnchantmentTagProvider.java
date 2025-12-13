@@ -34,7 +34,7 @@ public class ModEnchantmentTagProvider extends FabricTagProvider<Enchantment> {
 
         builder(BUILDER_EXCLUSIVE_SET)
                 .add(ModEnchantments.MASTER_BUILDER)
-                .add(ModEnchantments.COLOR_PALETTE);
+                .add(ModEnchantments.COLOR_PALETTE).add(ModEnchantments.DRAWER);
 
         builder(RADIUS_EXCLUSIVE_SET)
                 .add(ModEnchantments.RADIUS);

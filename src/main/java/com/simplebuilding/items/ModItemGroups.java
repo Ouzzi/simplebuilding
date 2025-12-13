@@ -112,6 +112,12 @@ public class ModItemGroups {
 
                         // 6. Miscellaneous
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.KINETIC_PROTECTION, 4);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.DRAWER, 1);
+
+                        entries.add(ModItems.DIAMOND_PEBBLE);
+                        entries.add(ModItems.CRACKED_DIAMOND);
+                        entries.add(ModItems.CONSTRUCTION_LIGHT);
+
 
                     }).build());
 

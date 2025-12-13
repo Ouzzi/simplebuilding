@@ -1,7 +1,9 @@
 package com.simplebuilding.items;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.custom.*;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.Registries;
@@ -65,6 +67,11 @@ public class ModItems {
     public static final ChiselItem DIAMOND_SPATULA = registerSpatula("diamond_spatula", DURABILITY_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND, "diamond");
     public static final ChiselItem NETHERITE_SPATULA = registerSpatula("netherite_spatula", DURABILITY_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE, "netherite");
 
+
+    // Diamond Items
+    public static final Item DIAMOND_PEBBLE = registerItem("diamond_pebble", settings -> new Item(settings));
+    public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
+
     // Building Cores
     public static final Item COPPER_CORE = registerItem("copper_core", s -> new Item(s.maxCount(16)));
     public static final Item IRON_CORE = registerItem("iron_core", s -> new Item(s.maxCount(16)));
@@ -102,6 +109,10 @@ public class ModItems {
     public static final Item NETHERITE_BUNDLE = registerItem("netherite_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1).fireproof()));
     public static final Item QUIVER = registerItem("quiver", settings -> new QuiverItem(settings.maxCount(1)));
     public static final Item NETHERITE_QUIVER = registerItem("netherite_quiver", settings -> new QuiverItem(settings.maxCount(1).fireproof()));
+
+    // Block Items
+    public static final Item CONSTRUCTION_LIGHT = registerItem("construction_light", s -> new BlockItem(ModBlocks.CONSTRUCTION_LIGHT, s));
+
 
 
     // =================================================================================

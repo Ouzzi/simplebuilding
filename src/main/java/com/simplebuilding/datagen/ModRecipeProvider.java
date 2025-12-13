@@ -199,6 +199,26 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                 ModItems.NETHERITE_QUIVER
                         ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
                         .offerTo(exporter, getItemPath(ModItems.NETHERITE_QUIVER) + "_smithing");
+
+
+                createShaped(RecipeCategory.MISC, ModItems.CRACKED_DIAMOND)
+                        .pattern("PPP")
+                        .pattern("PPP")
+                        .pattern("PPP")
+                        .input('P', ModItems.DIAMOND_PEBBLE)
+                        .criterion(hasItem(ModItems.DIAMOND_PEBBLE), conditionsFromItem(ModItems.DIAMOND_PEBBLE))
+                        .offerTo(exporter);
+
+                offerBlasting(
+                        java.util.List.of(ModItems.CRACKED_DIAMOND),
+                        RecipeCategory.MISC,
+                        Items.DIAMOND,
+                        1.0f, // XP
+                        100, // Cooking time
+                        "diamond_from_cracked"
+                );
+
+
             }
 
             // --- Helper Methods to keep generate() clean ---

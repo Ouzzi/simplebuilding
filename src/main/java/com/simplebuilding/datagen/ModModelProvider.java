@@ -1,8 +1,10 @@
 package com.simplebuilding.datagen;
 
+import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.block.Block;
 import net.minecraft.client.data.*;
 import net.minecraft.item.Item;
 import net.minecraft.util.DyeColor;
@@ -17,6 +19,11 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+        // Block State und Modell für den Lapis Light Block (Würfel/Cube)
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CONSTRUCTION_LIGHT);
+
+        // Damit das Lapis Light Item im Inventar wie der Block aussieht (parented model):
+        blockStateModelGenerator.registerParentedItemModel(ModBlocks.CONSTRUCTION_LIGHT, ModelIds.getBlockModelId(ModBlocks.CONSTRUCTION_LIGHT));
     }
 
     @Override
@@ -78,6 +85,10 @@ public class ModModelProvider extends FabricModelProvider {
 
         // --- 7. VELOCITY_GAUGES (Generated / Flach) ---
         itemModelGenerator.register(ModItems.VELOCITY_GAUGE, Models.GENERATED);
+
+
+        itemModelGenerator.register(ModItems.DIAMOND_PEBBLE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.CRACKED_DIAMOND, Models.GENERATED);
 
     }
 }

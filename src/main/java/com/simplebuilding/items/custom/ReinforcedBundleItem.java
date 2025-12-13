@@ -224,6 +224,15 @@ public class ReinforcedBundleItem extends BundleItem {
     protected int insertItemIntoBundle(ItemStack bundle, BundleContentsComponent contents, ItemStack stackToAdd, Fraction maxCap) {
         if (stackToAdd.isEmpty()) return 0;
 
+        if (hasDrawer(bundle)) {
+            if (!contents.isEmpty()) {
+                ItemStack firstStack = contents.get(0);
+                if (!ItemStack.areItemsAndComponentsEqual(firstStack, stackToAdd)) {
+                    return 0;
+                }
+            }
+        }
+
         Fraction currentOccupancy = contents.getOccupancy();
         Fraction itemWeight = Fraction.getFraction(1, stackToAdd.getMaxCount());
         Fraction remainingSpace = maxCap.subtract(currentOccupancy);
@@ -246,6 +255,16 @@ public class ReinforcedBundleItem extends BundleItem {
         BundleItem.setSelectedStackIndex(bundle, -1);
         bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
         return countToAdd;
+    }
+
+    private boolean hasDrawer(ItemStack stack) {
+        var enchantments = stack.getEnchantments();
+        for (var entry : enchantments.getEnchantmentEntries()) {
+            if (entry.getKey().matchesKey(ModEnchantments.DRAWER)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected void addToBundleList(List<ItemStack> list, ItemStack stackToAdd) {

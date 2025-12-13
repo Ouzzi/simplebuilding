@@ -1,5 +1,6 @@
 package com.simplebuilding;
 
+import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.datagen.ModLootTableProvider;
@@ -57,6 +58,7 @@ public class Simplebuilding implements ModInitializer {
         AutoConfig.register(SimplebuildingConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
 
+        ModBlocks.registerModBlocks();
         ModItems.registerModItems();
 
         ModItemGroups.registerItemGroups();
@@ -110,12 +112,12 @@ public class Simplebuilding implements ModInitializer {
 
 
 // TODO Later:
-// - drawer enchantment for bundle -> only one item, no different items. example: cobblestone drawer, dirt drawer, wood drawer -> if one item inside, its locked, (first item decides wich item can be stored inside) if empty reset.
+// - drawer enchantment for bundle -> only one item, no different items. example: cobblestone drawer, dirt drawer, wood drawer -> if one item inside, its locked, (first item decides wich item can be stored inside) if empty reset. (not combineable with colorpalete or )
 
 // - new diamond variant: diamond pebbles (9 in crafting grid = 1 cracked diamond -> blastfurnace to diamond) (crafting pebbles from diamond block rightclick with sledgehammer)
 
-
 // - lapis light - doesent prevent mob spawns but emmits light
+
 
 // - reinforced hopper - double speed (with diamonds)
 // - netherite hopper - quadrouple speed

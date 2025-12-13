@@ -42,6 +42,7 @@ public class ModEnchantments {
     public static final RegistryKey<Enchantment> DOUBLE_JUMP = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "double_jump"));
     public static final RegistryKey<Enchantment> VEIN_MINER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "vein_miner"));
     public static final RegistryKey<Enchantment> KINETIC_PROTECTION = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "kinetic_protection"));
+    public static final RegistryKey<Enchantment> DRAWER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "drawer"));
 
     public static final TagKey<DamageType> KINETIC_DAMAGE_TAG = TagKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(Simplebuilding.MOD_ID, "kinetic_damage"));
 
@@ -133,7 +134,7 @@ public class ModEnchantments {
                 AttributeModifierSlot.MAINHAND
         )));
 
-        // 8. FUNNEL (Max Level 1, Treasure, Rare) [BUNDLE, SHULKER]
+        // Funnel
         register(registerable, FUNNEL, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE), // Nur Bundles/Shulker
                 items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
@@ -144,6 +145,19 @@ public class ModEnchantments {
                 4,
                 AttributeModifierSlot.MAINHAND
         )));
+
+        // Drawer (New Feature)
+        register(registerable, DRAWER, Enchantment.builder(Enchantment.definition(
+                        items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
+                        items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
+                        1, // Very Rare
+                        1, // Max Level
+                        Enchantment.leveledCost(25, 25),
+                        Enchantment.leveledCost(75, 25),
+                        8,
+                        AttributeModifierSlot.MAINHAND
+                ))
+                .exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.BUILDER_EXCLUSIVE_SET)));
         
         // 9. BREAK_TROUGH (Max Level 1, Treasure, Rare) [SLEDGEHAMMER]
         register(registerable, BREAK_THROUGH, Enchantment.builder(Enchantment.definition(
@@ -270,17 +284,8 @@ public class ModEnchantments {
                         4,
                         AttributeModifierSlot.ARMOR
                 ))
-                // Exklusivität zu Protection, Blast Prot etc.
                 .exclusiveSet(enchantmentsLookup.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE_SET))
-                // Effekt: Damage Protection mit Bedingung
-                .addEffect(
-                        EnchantmentEffectComponentTypes.DAMAGE_PROTECTION,
-                        new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5f, 2.5f)),
-                        DamageSourcePropertiesLootCondition.builder(
-                                DamageSourcePredicate.Builder.create()
-                                        .tag(TagPredicate.expected(KINETIC_DAMAGE_TAG))
-                        )
-                ));
+                .addEffect(EnchantmentEffectComponentTypes.DAMAGE_PROTECTION, new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5f, 2.5f)), DamageSourcePropertiesLootCondition.builder(DamageSourcePredicate.Builder.create().tag(TagPredicate.expected(KINETIC_DAMAGE_TAG)))));
 }
 
     private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key, Enchantment.Builder builder) {
