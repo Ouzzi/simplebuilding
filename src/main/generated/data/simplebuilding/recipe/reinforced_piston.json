@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "D": "minecraft:diamond",
+    "P": "minecraft:piston",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    "DDD",
+    " P ",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:reinforced_piston"
+  }
+}

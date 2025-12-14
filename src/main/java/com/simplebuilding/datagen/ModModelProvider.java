@@ -24,6 +24,11 @@ public class ModModelProvider extends FabricModelProvider {
 
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CRACKED_DIAMOND_BLOCK);
         blockStateModelGenerator.registerParentedItemModel(ModBlocks.CRACKED_DIAMOND_BLOCK, ModelIds.getBlockModelId(ModBlocks.CRACKED_DIAMOND_BLOCK));
+
+        blockStateModelGenerator.registerCooker(ModBlocks.REINFORCED_BLAST_FURNACE, TexturedModel.ORIENTABLE);
+        blockStateModelGenerator.registerCooker(ModBlocks.NETHERITE_BLAST_FURNACE, TexturedModel.ORIENTABLE);
+        blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_BLAST_FURNACE, ModelIds.getBlockModelId(ModBlocks.REINFORCED_BLAST_FURNACE));
+        blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_BLAST_FURNACE, ModelIds.getBlockModelId(ModBlocks.NETHERITE_BLAST_FURNACE));
     }
 
     @Override
@@ -90,5 +95,13 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DIAMOND_PEBBLE, Models.GENERATED);
         itemModelGenerator.register(ModItems.CRACKED_DIAMOND, Models.GENERATED);
 
+        itemModelGenerator.register(ModItems.REINFORCED_HOPPER, Models.GENERATED);
+        itemModelGenerator.register(ModItems.NETHERITE_HOPPER, Models.GENERATED);
+
+        itemModelGenerator.register(ModItems.REINFORCED_CHEST, Models.GENERATED);
+        itemModelGenerator.register(ModItems.NETHERITE_CHEST, Models.GENERATED);
+
+        itemModelGenerator.register(ModItems.REINFORCED_PISTON, Models.GENERATED);
+        itemModelGenerator.register(ModItems.NETHERITE_PISTON, Models.GENERATED);
     }
 }

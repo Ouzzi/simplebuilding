@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simplebuilding:reinforced_piston",
+  "result": {
+    "id": "simplebuilding:netherite_piston"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

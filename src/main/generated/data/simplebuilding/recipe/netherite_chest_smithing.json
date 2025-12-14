@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simplebuilding:reinforced_chest",
+  "result": {
+    "id": "simplebuilding:netherite_chest"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

@@ -1,6 +1,7 @@
 package com.simplebuilding;
 
 import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.datagen.ModLootTableProvider;
@@ -60,6 +61,8 @@ public class Simplebuilding implements ModInitializer {
 
         ModBlocks.registerModBlocks();
         ModItems.registerModItems();
+
+        ModBlockEntities.registerBlockEntities();
 
         ModItemGroups.registerItemGroups();
         ModLootTableProvider.modifyLootTables();

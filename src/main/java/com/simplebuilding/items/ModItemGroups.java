@@ -33,6 +33,15 @@ public class ModItemGroups {
                         // --- Functional Blocks ---
                         entries.add(ModItems.CONSTRUCTION_LIGHT);
 
+                        // --- Machines & Storage (NEU) ---
+                        entries.add(ModItems.REINFORCED_CHEST);
+                        entries.add(ModItems.NETHERITE_CHEST);
+                        entries.add(ModItems.REINFORCED_HOPPER);
+                        entries.add(ModItems.NETHERITE_HOPPER);
+                        entries.add(ModItems.REINFORCED_BLAST_FURNACE);
+                        entries.add(ModItems.NETHERITE_BLAST_FURNACE);
+                        entries.add(ModItems.REINFORCED_PISTON);
+                        entries.add(ModItems.NETHERITE_PISTON);
 
                         // --- Tools ---
                         entries.add(ModItems.STONE_CHISEL);

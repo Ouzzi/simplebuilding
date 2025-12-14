@@ -29,20 +29,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // CHISELS (Stick + Material + Nugget/Shard) - DIAGONAL
                 // =================================================================
                 createChiselRecipe(ModItems.STONE_CHISEL, Items.COBBLESTONE, Items.COPPER_NUGGET);
-                createChiselRecipe(ModItems.COPPER_CHISEL, Items.COPPER_INGOT, Items.COPPER_NUGGET); // Kupfer hat keine Nuggets -> Ingot
+                createChiselRecipe(ModItems.COPPER_CHISEL, Items.COPPER_INGOT, Items.COPPER_NUGGET);
                 createChiselRecipe(ModItems.IRON_CHISEL, Items.IRON_INGOT, Items.COPPER_NUGGET);
                 createChiselRecipe(ModItems.GOLD_CHISEL, Items.GOLD_INGOT, Items.COPPER_NUGGET);
-                createChiselRecipe(ModItems.DIAMOND_CHISEL, Items.DIAMOND, Items.COPPER_NUGGET); // Diamant hat keine Nuggets
-
-                // Netherite Chisel -> Smithing Upgrade
-                SmithingTransformRecipeJsonBuilder.create(
-                        Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                        Ingredient.ofItems(ModItems.DIAMOND_CHISEL),
-                        Ingredient.ofItems(Items.NETHERITE_INGOT),
-                        RecipeCategory.TOOLS,
-                        ModItems.NETHERITE_CHISEL
-                ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
-                 .offerTo(exporter, getItemPath(ModItems.NETHERITE_CHISEL) + "_smithing");
+                createChiselRecipe(ModItems.DIAMOND_CHISEL, Items.DIAMOND, Items.COPPER_NUGGET);
+                createSmithing(ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, RecipeCategory.TOOLS);
 
 
                 // =================================================================
@@ -53,14 +44,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createSpatulaRecipe(ModItems.IRON_SPATULA, Items.IRON_INGOT, Items.COPPER_INGOT);
                 createSpatulaRecipe(ModItems.GOLD_SPATULA, Items.GOLD_INGOT, Items.COPPER_INGOT);
                 createSpatulaRecipe(ModItems.DIAMOND_SPATULA, Items.DIAMOND, Items.COPPER_INGOT);
-                SmithingTransformRecipeJsonBuilder.create(
-                        Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                        Ingredient.ofItems(ModItems.DIAMOND_SPATULA),
-                        Ingredient.ofItems(Items.NETHERITE_INGOT),
-                        RecipeCategory.TOOLS,
-                        ModItems.NETHERITE_SPATULA
-                ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
-                 .offerTo(exporter, getItemPath(ModItems.NETHERITE_SPATULA) + "_smithing");
+                createSmithing(ModItems.DIAMOND_SPATULA, ModItems.NETHERITE_SPATULA, RecipeCategory.TOOLS);
 
 
                 // =================================================================
@@ -70,6 +54,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createCoreRecipe(ModItems.IRON_CORE, Items.IRON_INGOT);
                 createCoreRecipe(ModItems.GOLD_CORE, Items.GOLD_INGOT);
                 createCoreRecipe(ModItems.DIAMOND_CORE, Items.DIAMOND);
+
                 SmithingTransformRecipeJsonBuilder.create(
                         Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
                         Ingredient.ofItems(ModItems.DIAMOND_CORE),
@@ -87,14 +72,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createWandRecipe(ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE, Items.IRON_INGOT);
                 createWandRecipe(ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE, Items.GOLD_INGOT);
                 createWandRecipe(ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE, Items.DIAMOND);
-                SmithingTransformRecipeJsonBuilder.create(
-                        Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                        Ingredient.ofItems(ModItems.DIAMOND_BUILDING_WAND),
-                        Ingredient.ofItems(Items.NETHERITE_INGOT),
-                        RecipeCategory.TOOLS,
-                        ModItems.NETHERITE_BUILDING_WAND
-                ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
-                 .offerTo(exporter, getItemPath(ModItems.NETHERITE_BUILDING_WAND) + "_smithing");
+                createSmithing(ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, RecipeCategory.TOOLS);
 
                 // =================================================================
                 // SLEDGEHAMMER
@@ -104,15 +82,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createSledgehammerRecipe(ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, Items.IRON_BLOCK);
                 createSledgehammerRecipe(ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, Items.GOLD_BLOCK);
                 createSledgehammerRecipe(ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, Items.DIAMOND_BLOCK);
-                SmithingTransformRecipeJsonBuilder.create(
-                        Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                        Ingredient.ofItems(ModItems.DIAMOND_SLEDGEHAMMER),
-                        Ingredient.ofItems(Items.NETHERITE_INGOT),
-                        RecipeCategory.TOOLS,
-                        ModItems.NETHERITE_SLEDGEHAMMER
-                ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
-                 .offerTo(exporter, getItemPath(ModItems.NETHERITE_SLEDGEHAMMER) + "_smithing");
-
+                createSmithing(ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER, RecipeCategory.TOOLS);
 
 
                 // =================================================================
@@ -171,14 +141,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.BUNDLE), conditionsFromItem(Items.BUNDLE))
                         .offerTo(exporter);
 
-                SmithingTransformRecipeJsonBuilder.create(
-                                Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                                Ingredient.ofItems(ModItems.REINFORCED_BUNDLE),
-                                Ingredient.ofItems(Items.NETHERITE_INGOT),
-                                RecipeCategory.TOOLS,
-                                ModItems.NETHERITE_BUNDLE
-                        ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
-                        .offerTo(exporter, getItemPath(ModItems.NETHERITE_BUNDLE) + "_smithing");
+                createSmithing(ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, RecipeCategory.TOOLS);
+
 
                 createShaped(RecipeCategory.TOOLS, ModItems.QUIVER)
                         .pattern(" SL")
@@ -191,14 +155,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.BUNDLE), conditionsFromItem(Items.BUNDLE))
                         .offerTo(exporter);
 
-                SmithingTransformRecipeJsonBuilder.create(
-                                Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                                Ingredient.ofItems(ModItems.QUIVER),
-                                Ingredient.ofItems(Items.NETHERITE_INGOT),
-                                RecipeCategory.TOOLS,
-                                ModItems.NETHERITE_QUIVER
-                        ).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
-                        .offerTo(exporter, getItemPath(ModItems.NETHERITE_QUIVER) + "_smithing");
+                createSmithing(ModItems.QUIVER, ModItems.NETHERITE_QUIVER, RecipeCategory.TOOLS);
+
 
 
                 createShaped(RecipeCategory.MISC, ModItems.CRACKED_DIAMOND)
@@ -209,14 +167,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ModItems.DIAMOND_PEBBLE), conditionsFromItem(ModItems.DIAMOND_PEBBLE))
                         .offerTo(exporter);
 
-                offerBlasting(
-                        java.util.List.of(ModItems.CRACKED_DIAMOND),
-                        RecipeCategory.MISC,
-                        Items.DIAMOND,
-                        1.0f, // XP
-                        100, // Cooking time
-                        "diamond_from_cracked"
-                );
+                offerBlasting(java.util.List.of(ModItems.CRACKED_DIAMOND), RecipeCategory.MISC, Items.DIAMOND, 1.0f, 100, "diamond_from_cracked");
+
 
                 // Construction light recipe - lapis light
                 createShaped(RecipeCategory.MISC, ModItems.CONSTRUCTION_LIGHT)
@@ -235,14 +187,43 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .pattern("CCC")
                         .pattern("CCC")
                         .input('C', ModItems.CRACKED_DIAMOND)
-                        .criterion(hasItem(ModItems.CRACKED_DIAMOND), conditionsFromItem(ModItems.CRACKED_DIAMOND))
-                        .offerTo(exporter);
-
+                        .criterion(hasItem(ModItems.CRACKED_DIAMOND), conditionsFromItem(ModItems.CRACKED_DIAMOND)).offerTo(exporter);
                 offerShapelessRecipe(ModItems.CRACKED_DIAMOND, ModItems.CRACKED_DIAMOND_BLOCK, "cracked_diamond_from_block", 9);
+
+                // 1. Reinforced Hopper (Hopper + 4 Diamonds)
+                createShaped(RecipeCategory.REDSTONE, ModItems.REINFORCED_HOPPER)
+                        .pattern("D D").pattern("DHD").pattern(" D ")
+                        .input('D', Items.DIAMOND).input('H', Items.HOPPER)
+                        .criterion(hasItem(Items.HOPPER), conditionsFromItem(Items.HOPPER)).offerTo(exporter);
+                // Netherite Hopper (Smithing)
+                createSmithing(ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, RecipeCategory.REDSTONE);
+
+                // 2. Reinforced Chest (Chest + 8 Diamonds surround)
+                createShaped(RecipeCategory.DECORATIONS, ModItems.REINFORCED_CHEST)
+                        .pattern("DDD").pattern("DCD").pattern("DDD")
+                        .input('D', Items.DIAMOND).input('C', Items.CHEST)
+                        .criterion(hasItem(Items.CHEST), conditionsFromItem(Items.CHEST)).offerTo(exporter);
+                // Netherite Chest (Smithing)
+                createSmithing(ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, RecipeCategory.DECORATIONS);
+
+                // 3. Reinforced Piston (Piston + Diamond)
+                createShaped(RecipeCategory.REDSTONE, ModItems.REINFORCED_PISTON)
+                        .pattern("DDD").pattern(" P ").pattern(" R ")
+                        .input('D', Items.DIAMOND).input('P', Items.PISTON).input('R', Items.REDSTONE)
+                        .criterion(hasItem(Items.PISTON), conditionsFromItem(Items.PISTON)).offerTo(exporter);
+                // Netherite Piston (Smithing)
+                createSmithing(ModItems.REINFORCED_PISTON, ModItems.NETHERITE_PISTON, RecipeCategory.REDSTONE);
+
+                // 4. Reinforced Blast Furnace (Blast Furnace + Diamonds)
+                createShaped(RecipeCategory.DECORATIONS, ModItems.REINFORCED_BLAST_FURNACE)
+                        .pattern("DDD").pattern("DBD").pattern("DDD")
+                        .input('D', Items.DIAMOND).input('B', Items.BLAST_FURNACE)
+                        .criterion(hasItem(Items.BLAST_FURNACE), conditionsFromItem(Items.BLAST_FURNACE)).offerTo(exporter);
+                // Netherite Blast Furnace (Smithing)
+                createSmithing(ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE, RecipeCategory.DECORATIONS);
             }
 
-            // --- Helper Methods to keep generate() clean ---
-
+            // --- Helpers ---
             private void createChiselRecipe(Item output, Item material, Item nugget) {
                 createShaped(RecipeCategory.TOOLS, output)
                         .pattern("   ")
@@ -300,6 +281,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input('S', Items.STICK)
                         .criterion(hasItem(material), conditionsFromItem(material))
                         .offerTo(exporter);
+            }
+            private void createSmithing(Item input, Item result, RecipeCategory category) {
+                SmithingTransformRecipeJsonBuilder.create(Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.ofItems(input), Ingredient.ofItems(Items.NETHERITE_INGOT), category, result).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT)).offerTo(exporter, getItemPath(result) + "_smithing");
             }
         };
     }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "D": "minecraft:diamond",
+    "H": "minecraft:hopper"
+  },
+  "pattern": [
+    "D D",
+    "DHD",
+    " D "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:reinforced_hopper"
+  }
+}

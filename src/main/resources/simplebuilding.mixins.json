@@ -6,6 +6,7 @@
     "AnvilScreenHandlerMixin",
     "BowItemMixin",
     "ItemEntityMixin",
+    "PistonHandlerMixin",
     "PlayerEntityMixin"
   ],
   "injectors": {
