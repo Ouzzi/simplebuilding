@@ -218,7 +218,27 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         "diamond_from_cracked"
                 );
 
+                // Construction light recipe - lapis light
+                createShaped(RecipeCategory.MISC, ModItems.CONSTRUCTION_LIGHT)
+                        .pattern("LGL")
+                        .pattern("GTG")
+                        .pattern("LGL")
+                        .input('G', Items.GLASS)
+                        .input('L', Items.LAPIS_LAZULI)
+                        .input('T', Items.TORCH)
+                        .criterion(hasItem(Items.LAPIS_LAZULI), conditionsFromItem(Items.LAPIS_LAZULI))
+                        .offerTo(exporter);
 
+
+                createShaped(RecipeCategory.BUILDING_BLOCKS, ModItems.CRACKED_DIAMOND_BLOCK)
+                        .pattern("CCC")
+                        .pattern("CCC")
+                        .pattern("CCC")
+                        .input('C', ModItems.CRACKED_DIAMOND)
+                        .criterion(hasItem(ModItems.CRACKED_DIAMOND), conditionsFromItem(ModItems.CRACKED_DIAMOND))
+                        .offerTo(exporter);
+
+                offerShapelessRecipe(ModItems.CRACKED_DIAMOND, ModItems.CRACKED_DIAMOND_BLOCK, "cracked_diamond_from_block", 9);
             }
 
             // --- Helper Methods to keep generate() clean ---

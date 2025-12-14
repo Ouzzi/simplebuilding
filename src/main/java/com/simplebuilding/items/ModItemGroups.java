@@ -25,6 +25,15 @@ public class ModItemGroups {
             FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.IRON_SPATULA))
                     .displayName(Text.translatable("itemgroup.simplebuilding.building_items"))
                     .entries((displayContext, entries) -> {
+                        // -- Resources ---
+                        entries.add(ModItems.DIAMOND_PEBBLE);
+                        entries.add(ModItems.CRACKED_DIAMOND);
+                        entries.add(ModItems.CRACKED_DIAMOND_BLOCK);
+
+                        // --- Functional Blocks ---
+                        entries.add(ModItems.CONSTRUCTION_LIGHT);
+
+
                         // --- Tools ---
                         entries.add(ModItems.STONE_CHISEL);
                         entries.add(ModItems.COPPER_CHISEL);
@@ -99,6 +108,7 @@ public class ModItemGroups {
                         // 3. Bundle/Container Utilities
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.DEEP_POCKETS, 2);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.FUNNEL, 1);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.DRAWER, 8);
 
                         // 4. Wand/Construction Utilities
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.MASTER_BUILDER, 1);
@@ -114,9 +124,6 @@ public class ModItemGroups {
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.KINETIC_PROTECTION, 4);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.DRAWER, 1);
 
-                        entries.add(ModItems.DIAMOND_PEBBLE);
-                        entries.add(ModItems.CRACKED_DIAMOND);
-                        entries.add(ModItems.CONSTRUCTION_LIGHT);
 
 
                     }).build());

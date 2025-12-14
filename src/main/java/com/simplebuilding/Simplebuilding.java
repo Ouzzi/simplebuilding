@@ -112,12 +112,8 @@ public class Simplebuilding implements ModInitializer {
 
 
 // TODO Later:
-// - drawer enchantment for bundle -> only one item, no different items. example: cobblestone drawer, dirt drawer, wood drawer -> if one item inside, its locked, (first item decides wich item can be stored inside) if empty reset. (not combineable with colorpalete or )
-
-// - new diamond variant: diamond pebbles (9 in crafting grid = 1 cracked diamond -> blastfurnace to diamond) (crafting pebbles from diamond block rightclick with sledgehammer)
-
-// - lapis light - doesent prevent mob spawns but emmits light
-
+// - drawer 4 enchantment each level increases difrent item filters by one (example: level 3: max 3 different items can be stored)
+// - new diamond block: cracked diamond block - for decoration
 
 // - reinforced hopper - double speed (with diamonds)
 // - netherite hopper - quadrouple speed
@@ -130,7 +126,7 @@ public class Simplebuilding implements ModInitializer {
 
 
 // - later - Negative Beacon (evil Beacon) that gives negative effects to players in range
-// - laterextra horse inventory if storrage upgrade, for example chest saddle
+// - later - extra horse inventory if storrage upgrade, for example chest saddle
 // - later - Reinforced Beacon that gives more effects or longer effects upgrade the whole beacon system
 // - later - multiple book textures as fix in external texture pack
 // - later - reinforced shulker - can be enchanted (bigger stack sizes)

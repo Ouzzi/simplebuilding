@@ -19,11 +19,11 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        // Block State und Modell für den Lapis Light Block (Würfel/Cube)
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CONSTRUCTION_LIGHT);
-
-        // Damit das Lapis Light Item im Inventar wie der Block aussieht (parented model):
         blockStateModelGenerator.registerParentedItemModel(ModBlocks.CONSTRUCTION_LIGHT, ModelIds.getBlockModelId(ModBlocks.CONSTRUCTION_LIGHT));
+
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CRACKED_DIAMOND_BLOCK);
+        blockStateModelGenerator.registerParentedItemModel(ModBlocks.CRACKED_DIAMOND_BLOCK, ModelIds.getBlockModelId(ModBlocks.CRACKED_DIAMOND_BLOCK));
     }
 
     @Override

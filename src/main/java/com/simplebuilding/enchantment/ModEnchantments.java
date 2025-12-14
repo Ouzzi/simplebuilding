@@ -151,7 +151,7 @@ public class ModEnchantments {
                         items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
                         items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
                         1, // Very Rare
-                        1, // Max Level
+                        8, // Max Level
                         Enchantment.leveledCost(25, 25),
                         Enchantment.leveledCost(75, 25),
                         8,

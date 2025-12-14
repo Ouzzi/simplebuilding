@@ -14,12 +14,16 @@ import java.util.function.Function;
 
 public class ModBlocks {
 
-    // Lapis Light: Leuchtet (15), ist durchsichtig (Glas-Basis), erlaubt Spawning
+    // CONSTRUCTION_LIGHT: Leuchtet (15), ist durchsichtig (Glas-Basis), erlaubt Spawning
     public static final Block CONSTRUCTION_LIGHT = registerBlock("construction_light",
             settings -> new Block(settings
                     .luminance(state -> 15)
                     .nonOpaque()
                     .allowsSpawning((state, world, pos, entityType) -> true))
+    );
+
+    public static final Block CRACKED_DIAMOND_BLOCK = registerBlock("cracked_diamond_block",
+            settings -> new Block(settings.requiresTool().strength(5.0F, 6.0F).sounds(net.minecraft.sound.BlockSoundGroup.METAL))
     );
 
     /**
@@ -28,10 +32,7 @@ public class ModBlocks {
     private static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory) {
         Identifier id = Identifier.of(Simplebuilding.MOD_ID, name);
         RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, id);
-
-        // Settings von Glas kopieren und den Key setzen (WICHTIG gegen den Absturz)
-        AbstractBlock.Settings settings = AbstractBlock.Settings.copy(Blocks.GLASS)
-                .registryKey(key);
+        AbstractBlock.Settings settings = AbstractBlock.Settings.copy(Blocks.GLASS).registryKey(key);
 
         Block block = factory.apply(settings);
         return Registry.register(Registries.BLOCK, id, block);

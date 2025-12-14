@@ -224,10 +224,18 @@ public class ReinforcedBundleItem extends BundleItem {
     protected int insertItemIntoBundle(ItemStack bundle, BundleContentsComponent contents, ItemStack stackToAdd, Fraction maxCap) {
         if (stackToAdd.isEmpty()) return 0;
 
-        if (hasDrawer(bundle)) {
-            if (!contents.isEmpty()) {
-                ItemStack firstStack = contents.get(0);
-                if (!ItemStack.areItemsAndComponentsEqual(firstStack, stackToAdd)) {
+        int drawerLevel = getDrawerLevel(bundle);
+
+        if (drawerLevel > 0) {
+            boolean alreadyInBundle = false;
+            for (ItemStack s : contents.iterate()) {
+                if (ItemStack.areItemsAndComponentsEqual(s, stackToAdd)) {
+                    alreadyInBundle = true;
+                    break;
+                }
+            }
+            if (!alreadyInBundle) {
+                if (contents.size() >= drawerLevel) {
                     return 0;
                 }
             }
@@ -257,14 +265,14 @@ public class ReinforcedBundleItem extends BundleItem {
         return countToAdd;
     }
 
-    private boolean hasDrawer(ItemStack stack) {
+    private int getDrawerLevel(ItemStack stack) {
         var enchantments = stack.getEnchantments();
         for (var entry : enchantments.getEnchantmentEntries()) {
             if (entry.getKey().matchesKey(ModEnchantments.DRAWER)) {
-                return true;
+                return entry.getIntValue();
             }
         }
-        return false;
+        return 0;
     }
 
     protected void addToBundleList(List<ItemStack> list, ItemStack stackToAdd) {
