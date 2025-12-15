@@ -48,6 +48,9 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerChest(ModBlocks.REINFORCED_CHEST, ModBlocks.REINFORCED_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/reinforced_chest"), false);
         blockStateModelGenerator.registerChest(ModBlocks.NETHERITE_CHEST, ModBlocks.NETHERITE_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/netherite_chest"), false);
 
+        //blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_CHEST, ModelIds.getBlockModelId(ModBlocks.REINFORCED_CHEST));
+        //blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_CHEST, ModelIds.getBlockModelId(ModBlocks.NETHERITE_CHEST));
+
         // --- 4. Hoppers ---
         registerCustomHopper(blockStateModelGenerator, ModBlocks.REINFORCED_HOPPER);
         registerCustomHopper(blockStateModelGenerator, ModBlocks.NETHERITE_HOPPER);
@@ -55,6 +58,9 @@ public class ModModelProvider extends FabricModelProvider {
         // --- 5. Pistons ---
         // Reinforced Piston is a real Piston (has EXTENDED property)
         registerCustomPiston(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON);
+        blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_PISTON, ModelIds.getBlockModelId(ModBlocks.REINFORCED_PISTON));
+        blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_PISTON, ModelIds.getBlockModelId(ModBlocks.NETHERITE_PISTON));
+
 
         // FIX: Netherite Piston is a "Breaker" (FacingBlock), NOT a PistonBlock (no EXTENDED property).
         // We use registerCubeDirectional or similar for it.
@@ -183,7 +189,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.CRACKED_DIAMOND, Models.GENERATED);
         itemModelGenerator.register(ModItems.REINFORCED_HOPPER, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_HOPPER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.REINFORCED_PISTON, Models.GENERATED);
-        itemModelGenerator.register(ModItems.NETHERITE_PISTON, Models.GENERATED);
+        //itemModelGenerator.register(ModItems.REINFORCED_PISTON, Models.GENERATED);
+        //itemModelGenerator.register(ModItems.NETHERITE_PISTON, Models.GENERATED);
     }
 }

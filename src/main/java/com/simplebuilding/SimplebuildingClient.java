@@ -48,8 +48,8 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         registerDoubleJumpClient();
 
-        BlockEntityRendererRegistry.register(ModBlockEntities.MOD_CHEST_BE, ChestBlockEntityRenderer::new);
-        //BlockEntityRendererRegistry.register(ModBlockEntities.MOD_CHEST_BE, ModChestBlockEntityRenderer::new);
+        //BlockEntityRendererRegistry.register(ModBlockEntities.MOD_CHEST_BE, ChestBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(ModBlockEntities.MOD_CHEST_BE, ModChestBlockEntityRenderer::new);
     }
 
     private void registerDoubleJumpClient() {
