@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "simplebuilding:block/netherite_piston",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "simplebuilding:block/netherite_piston",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "simplebuilding:block/netherite_piston"
+    },
+    "facing=south": {
+      "model": "simplebuilding:block/netherite_piston",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "simplebuilding:block/netherite_piston",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "simplebuilding:block/netherite_piston",
+      "y": 270
+    }
+  }
+}

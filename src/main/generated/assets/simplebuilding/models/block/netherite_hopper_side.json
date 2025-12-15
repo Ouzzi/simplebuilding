@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/hopper_side",
+  "textures": {
+    "bottom": "simplebuilding:block/netherite_hopper_outside",
+    "inside": "simplebuilding:block/netherite_hopper_inside",
+    "side": "simplebuilding:block/netherite_hopper_side",
+    "top": "simplebuilding:block/netherite_hopper_top"
+  }
+}

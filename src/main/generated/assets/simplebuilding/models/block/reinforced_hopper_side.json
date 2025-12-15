@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/hopper_side",
+  "textures": {
+    "bottom": "simplebuilding:block/reinforced_hopper_outside",
+    "inside": "simplebuilding:block/reinforced_hopper_inside",
+    "side": "simplebuilding:block/reinforced_hopper_side",
+    "top": "simplebuilding:block/reinforced_hopper_top"
+  }
+}

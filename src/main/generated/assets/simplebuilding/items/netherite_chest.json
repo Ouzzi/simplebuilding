@@ -1,6 +1,10 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "simplebuilding:item/netherite_chest"
+    "type": "minecraft:special",
+    "base": "simplebuilding:item/netherite_chest",
+    "model": {
+      "type": "minecraft:chest",
+      "texture": "simplebuilding:entity/chest/netherite_chest"
+    }
   }
 }

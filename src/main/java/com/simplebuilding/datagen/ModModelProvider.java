@@ -1,5 +1,6 @@
 package com.simplebuilding.datagen;
 
+import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -7,11 +8,21 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
 import net.minecraft.client.data.*;
 import net.minecraft.item.Item;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
+
+import java.util.Optional;
 
 
 public class ModModelProvider extends FabricModelProvider {
 
+    // --- Custom Model Definitions (da Vanilla Fields fehlen könnten) ---
+    // Wir verweisen auf die Vanilla JSON Dateien
+    private static final Model HOPPER_MODEL = new Model(Optional.of(Identifier.ofVanilla("block/hopper")), Optional.empty(), TextureKey.BOTTOM, TextureKey.TOP, TextureKey.SIDE, TextureKey.INSIDE);
+    private static final Model HOPPER_SIDE_MODEL = new Model(Optional.of(Identifier.ofVanilla("block/hopper_side")), Optional.empty(), TextureKey.BOTTOM, TextureKey.TOP, TextureKey.SIDE, TextureKey.INSIDE);
+    private static final Model PISTON_BASE_MODEL = new Model(Optional.of(Identifier.ofVanilla("block/piston_base")), Optional.empty(), TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.PLATFORM);
 
     public ModModelProvider(FabricDataOutput output) {
         super(output);
@@ -19,16 +30,98 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+        // --- 1. Basic Blocks ---
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CONSTRUCTION_LIGHT);
         blockStateModelGenerator.registerParentedItemModel(ModBlocks.CONSTRUCTION_LIGHT, ModelIds.getBlockModelId(ModBlocks.CONSTRUCTION_LIGHT));
 
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CRACKED_DIAMOND_BLOCK);
         blockStateModelGenerator.registerParentedItemModel(ModBlocks.CRACKED_DIAMOND_BLOCK, ModelIds.getBlockModelId(ModBlocks.CRACKED_DIAMOND_BLOCK));
 
+        // --- 2. Blast Furnaces ---
         blockStateModelGenerator.registerCooker(ModBlocks.REINFORCED_BLAST_FURNACE, TexturedModel.ORIENTABLE);
         blockStateModelGenerator.registerCooker(ModBlocks.NETHERITE_BLAST_FURNACE, TexturedModel.ORIENTABLE);
+        // Register Items
         blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_BLAST_FURNACE, ModelIds.getBlockModelId(ModBlocks.REINFORCED_BLAST_FURNACE));
         blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_BLAST_FURNACE, ModelIds.getBlockModelId(ModBlocks.NETHERITE_BLAST_FURNACE));
+
+        // --- 3. Chests ---
+        blockStateModelGenerator.registerChest(ModBlocks.REINFORCED_CHEST, ModBlocks.REINFORCED_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/reinforced_chest"), false);
+        blockStateModelGenerator.registerChest(ModBlocks.NETHERITE_CHEST, ModBlocks.NETHERITE_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/netherite_chest"), false);
+
+        // --- 4. Hoppers ---
+        registerCustomHopper(blockStateModelGenerator, ModBlocks.REINFORCED_HOPPER);
+        registerCustomHopper(blockStateModelGenerator, ModBlocks.NETHERITE_HOPPER);
+
+        // --- 5. Pistons ---
+        // Reinforced Piston is a real Piston (has EXTENDED property)
+        registerCustomPiston(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON);
+
+        // FIX: Netherite Piston is a "Breaker" (FacingBlock), NOT a PistonBlock (no EXTENDED property).
+        // We use registerCubeDirectional or similar for it.
+        // Or simpler: registerNorthDefaultHorizontalRotatable if it only rotates horizontally,
+        // but Breakers can usually face UP/DOWN.
+        // We'll use a simple cube model that rotates to all 6 directions.
+        registerBreakerBlock(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
+    }
+
+    private void registerCustomHopper(BlockStateModelGenerator generator, Block block) {
+        TextureMap textures = new TextureMap()
+                .put(TextureKey.TOP, TextureMap.getSubId(block, "_top"))
+                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"))
+                .put(TextureKey.INSIDE, TextureMap.getSubId(block, "_inside"))
+                .put(TextureKey.BOTTOM, TextureMap.getSubId(block, "_outside"));
+
+        Identifier modelDown = HOPPER_MODEL.upload(block, textures, generator.modelCollector);
+        // FIX: Suffix "_side" hinzugefügt, damit der Dateiname eindeutig ist
+        Identifier modelSide = HOPPER_SIDE_MODEL.upload(block, "_side", textures, generator.modelCollector);
+
+        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block)
+            .with(BlockStateVariantMap.models(Properties.HOPPER_FACING)
+                .register(Direction.DOWN, BlockStateModelGenerator.createWeightedVariant(modelDown))
+                .register(Direction.NORTH, BlockStateModelGenerator.createWeightedVariant(modelSide))
+                .register(Direction.EAST, BlockStateModelGenerator.createWeightedVariant(modelSide).apply(BlockStateModelGenerator.ROTATE_Y_90))
+                .register(Direction.SOUTH, BlockStateModelGenerator.createWeightedVariant(modelSide).apply(BlockStateModelGenerator.ROTATE_Y_180))
+                .register(Direction.WEST, BlockStateModelGenerator.createWeightedVariant(modelSide).apply(BlockStateModelGenerator.ROTATE_Y_270))
+            ));
+    }
+
+    private void registerCustomPiston(BlockStateModelGenerator generator, Block block) {
+        TextureMap textureMap = new TextureMap()
+                .put(TextureKey.BOTTOM, TextureMap.getSubId(block, "_bottom"))
+                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"))
+                .put(TextureKey.PLATFORM, TextureMap.getSubId(block, "_top"));
+
+        Identifier baseModelId = PISTON_BASE_MODEL.upload(block, "_base", textureMap, generator.modelCollector);
+
+        // This helper expects the block to have Properties.EXTENDED
+        generator.registerPiston(block, BlockStateModelGenerator.createWeightedVariant(baseModelId), textureMap);
+    }
+
+    // New helper for the Netherite Breaker
+    private void registerBreakerBlock(BlockStateModelGenerator generator, Block block) {
+        // We assume it has a texture for each side or uses a cube model
+        // Let's use a directional cube model where FRONT is the "face".
+        TextureMap textureMap = new TextureMap()
+                .put(TextureKey.PARTICLE, TextureMap.getSubId(block, "_side"))
+                .put(TextureKey.DOWN, TextureMap.getSubId(block, "_bottom"))
+                .put(TextureKey.UP, TextureMap.getSubId(block, "_top"))
+                .put(TextureKey.NORTH, TextureMap.getSubId(block, "_front")) // Face
+                .put(TextureKey.SOUTH, TextureMap.getSubId(block, "_side"))
+                .put(TextureKey.EAST, TextureMap.getSubId(block, "_side"))
+                .put(TextureKey.WEST, TextureMap.getSubId(block, "_side"));
+
+        Identifier modelId = Models.CUBE_DIRECTIONAL.upload(block, textureMap, generator.modelCollector);
+
+        // Generate state that rotates the model based on FACING
+        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block)
+            .with(BlockStateVariantMap.models(Properties.FACING)
+                .register(Direction.NORTH, BlockStateModelGenerator.createWeightedVariant(modelId))
+                .register(Direction.SOUTH, BlockStateModelGenerator.createWeightedVariant(modelId).apply(BlockStateModelGenerator.ROTATE_Y_180))
+                .register(Direction.EAST, BlockStateModelGenerator.createWeightedVariant(modelId).apply(BlockStateModelGenerator.ROTATE_Y_90))
+                .register(Direction.WEST, BlockStateModelGenerator.createWeightedVariant(modelId).apply(BlockStateModelGenerator.ROTATE_Y_270))
+                .register(Direction.UP, BlockStateModelGenerator.createWeightedVariant(modelId).apply(BlockStateModelGenerator.ROTATE_X_270))
+                .register(Direction.DOWN, BlockStateModelGenerator.createWeightedVariant(modelId).apply(BlockStateModelGenerator.ROTATE_X_90))
+            ));
     }
 
     @Override
@@ -36,12 +129,9 @@ public class ModModelProvider extends FabricModelProvider {
 
         // --- 1. RANGEFINDER (Generated / Flach) ---
         itemModelGenerator.register(ModItems.OCTANT, Models.GENERATED);
-
         for (DyeColor color : DyeColor.values()) {
             Item item = ModItems.COLORED_OCTANT_ITEMS.get(color);
-            if (item != null) {
-                itemModelGenerator.register(item, Models.GENERATED);
-            }
+            if (item != null) itemModelGenerator.register(item, Models.GENERATED);
         }
 
         // --- 2. CHISELS (Handheld / Werkzeug) ---
@@ -60,14 +150,6 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DIAMOND_SPATULA, Models.HANDHELD);
         itemModelGenerator.register(ModItems.NETHERITE_SPATULA, Models.HANDHELD);
 
-        // --- 4. BUILDING CORES (Generated / Flach) ---
-        itemModelGenerator.register(ModItems.COPPER_CORE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.IRON_CORE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLD_CORE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DIAMOND_CORE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.NETHERITE_CORE, Models.GENERATED);
-
-        // --- 5. BUILDING WANDS (Handheld / Werkzeug) ---
         itemModelGenerator.register(ModItems.COPPER_BUILDING_WAND, Models.HANDHELD);
         itemModelGenerator.register(ModItems.IRON_BUILDING_WAND, Models.HANDHELD);
         itemModelGenerator.register(ModItems.GOLD_BUILDING_WAND, Models.HANDHELD);
@@ -82,7 +164,13 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DIAMOND_SLEDGEHAMMER, Models.HANDHELD);
         itemModelGenerator.register(ModItems.NETHERITE_SLEDGEHAMMER, Models.HANDHELD);
 
-        // --- 6. REINFORCED BUNDLES (Generated / Flach) ---
+        // --- 3. COMPONENTS ---
+        itemModelGenerator.register(ModItems.COPPER_CORE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.IRON_CORE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GOLD_CORE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DIAMOND_CORE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.NETHERITE_CORE, Models.GENERATED);
+
         itemModelGenerator.register(ModItems.REINFORCED_BUNDLE, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_BUNDLE, Models.GENERATED);
         itemModelGenerator.register(ModItems.QUIVER, Models.GENERATED);
@@ -94,13 +182,8 @@ public class ModModelProvider extends FabricModelProvider {
 
         itemModelGenerator.register(ModItems.DIAMOND_PEBBLE, Models.GENERATED);
         itemModelGenerator.register(ModItems.CRACKED_DIAMOND, Models.GENERATED);
-
         itemModelGenerator.register(ModItems.REINFORCED_HOPPER, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_HOPPER, Models.GENERATED);
-
-        itemModelGenerator.register(ModItems.REINFORCED_CHEST, Models.GENERATED);
-        itemModelGenerator.register(ModItems.NETHERITE_CHEST, Models.GENERATED);
-
         itemModelGenerator.register(ModItems.REINFORCED_PISTON, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_PISTON, Models.GENERATED);
     }

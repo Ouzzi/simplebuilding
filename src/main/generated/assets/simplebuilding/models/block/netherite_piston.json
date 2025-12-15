@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube_directional",
+  "textures": {
+    "down": "simplebuilding:block/netherite_piston_bottom",
+    "east": "simplebuilding:block/netherite_piston_side",
+    "north": "simplebuilding:block/netherite_piston_front",
+    "particle": "simplebuilding:block/netherite_piston_side",
+    "south": "simplebuilding:block/netherite_piston_side",
+    "up": "simplebuilding:block/netherite_piston_top",
+    "west": "simplebuilding:block/netherite_piston_side"
+  }
+}

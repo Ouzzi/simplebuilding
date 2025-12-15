@@ -1,5 +1,4 @@
 {
-  "parent": "minecraft:item/template_chest",
   "textures": {
     "particle": "simplebuilding:block/reinforced_chest"
   }
