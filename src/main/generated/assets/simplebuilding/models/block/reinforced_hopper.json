@@ -3,7 +3,7 @@
   "textures": {
     "bottom": "simplebuilding:block/reinforced_hopper_outside",
     "inside": "simplebuilding:block/reinforced_hopper_inside",
-    "side": "simplebuilding:block/reinforced_hopper_side",
+    "side": "simplebuilding:block/reinforced_hopper_outside",
     "top": "simplebuilding:block/reinforced_hopper_top"
   }
 }

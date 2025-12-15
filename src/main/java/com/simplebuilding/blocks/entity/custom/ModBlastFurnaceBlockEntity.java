@@ -7,7 +7,7 @@ import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.BlastFurnaceScreenHandler;
-import net.minecraft.screen.PropertyDelegate; // Import PropertyDelegate
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
@@ -26,50 +26,39 @@ public class ModBlastFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        // FEHLER 1 BEHOBEN: Der Konstruktor erwartet 4 Argumente (inkl. PropertyDelegate)
-        // this.propertyDelegate ist protected in der Superklasse und hier verfügbar.
         return new BlastFurnaceScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
-    public static void tickModified(ServerWorld world, BlockPos pos, BlockState state, ModBlastFurnaceBlockEntity blockEntity) {
-        // Vanilla Tick ausführen
+    public static void tick(ServerWorld world, BlockPos pos, BlockState state, ModBlastFurnaceBlockEntity blockEntity) {
+        // 1. Vanilla Tick ausführen (Macht +1 Fortschritt)
         AbstractFurnaceBlockEntity.tick(world, pos, state, blockEntity);
 
-        // FEHLER 2 & 3 BEHOBEN: Zugriff über propertyDelegate statt private Felder
-        // Index 0 = litTimeRemaining (Brennzeit)
-        // Index 2 = cookingTimeSpent (Fortschritt)
-        // Index 3 = cookingTotalTime (Zielzeit)
+        // 2. Speed Boost
+        PropertyDelegate data = blockEntity.propertyDelegate;
+        int cookTime = data.get(2); // Fortschritt
+        int totalTime = data.get(3); // Ziel (z.B. 100)
+        boolean isBurning = data.get(0) > 0;
 
-        PropertyDelegate delegate = blockEntity.propertyDelegate;
-        boolean isBurning = delegate.get(0) > 0;
-        int cookingTime = delegate.get(2);
-        int totalTime = delegate.get(3);
+        if (isBurning && cookTime > 0 && totalTime > 0) {
+            int extraTicks = 0;
 
-        // Speed Boost Logik
-        if (isBurning && cookingTime > 0) {
-            float multiplier = 1.0f;
-
-            // Sicherer Block-Check
+            // Anpassung: Kleinere Werte sind flüssiger als "10 alle X Ticks"
             if (state.isOf(ModBlocks.NETHERITE_BLAST_FURNACE)) {
-                multiplier = 1.5f;
+                // Extrem schnell: +3 extra pro Tick (insgesamt 4x Speed)
+                extraTicks = 3;
             } else if (state.isOf(ModBlocks.REINFORCED_BLAST_FURNACE)) {
-                multiplier = 1.25f;
+                // Schnell: +1 extra pro Tick (insgesamt 2x Speed)
+                extraTicks = 1;
             }
 
-            // Fortschritt manipulieren (Vanilla macht +1 pro Tick)
-            // 1.25x -> +1 extra alle 4 Ticks
-            if (multiplier == 1.25f && world.getTime() % 4 == 0) {
-                delegate.set(2, cookingTime + 1);
-            }
-            // 1.50x -> +1 extra alle 2 Ticks
-            else if (multiplier == 1.5f && world.getTime() % 2 == 0) {
-                delegate.set(2, cookingTime + 1);
-            }
+            if (extraTicks > 0) {
+                int newCookTime = cookTime + extraTicks;
 
-            // Clamp, damit es nicht über das Ziel hinausschießt (verhindert Grafik-Glitches)
-            int newTime = delegate.get(2);
-            if (newTime >= totalTime) {
-                delegate.set(2, totalTime);
+                if (newCookTime >= totalTime) {
+                    newCookTime = totalTime - 1;
+                }
+
+                data.set(2, newCookTime);
             }
         }
     }

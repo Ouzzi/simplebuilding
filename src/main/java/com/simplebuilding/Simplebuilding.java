@@ -123,9 +123,11 @@ public class Simplebuilding implements ModInitializer {
 // - reinforced copper chest - double stack size (with diamonds)
 // - netherite chest - quadrouple stack size
 // - reinforced piston - pushes more blocks (block push limit higher (1.5?) ) (with diamonds)
-// - netherite piston - destroys all blocks infront
+// - netherite piston - destroys all blocks infront (depending on redstone power strenght 1-15) (for example: 1 - dirt, sand; 15 - obsidian)
 // - reinforced blast furnace - 1.25x speed (with diamonds)
 // - netherite blast furnace - 1.5x speed
+
+// - later - Glass Itemframes, transparent itemframes - doent drop frame when broken exept silk touch.
 
 
 // - later - Negative Beacon (evil Beacon) that gives negative effects to players in range

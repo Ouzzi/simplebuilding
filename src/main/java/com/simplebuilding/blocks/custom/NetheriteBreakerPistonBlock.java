@@ -7,20 +7,21 @@ import net.minecraft.block.FacingBlock;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import org.jspecify.annotations.Nullable; // Wichtig für 1.21
+import org.jetbrains.annotations.Nullable;
 
 public class NetheriteBreakerPistonBlock extends FacingBlock {
-
-    // 1. CODEC Definition (Wichtig für 1.21 Registries)
     public static final MapCodec<NetheriteBreakerPistonBlock> CODEC = createCodec(NetheriteBreakerPistonBlock::new);
+    public static final BooleanProperty TRIGGERED = Properties.TRIGGERED;
 
     public NetheriteBreakerPistonBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));
+        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(TRIGGERED, false));
     }
 
     @Override
@@ -28,11 +29,18 @@ public class NetheriteBreakerPistonBlock extends FacingBlock {
         return CODEC;
     }
 
-    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable BlockPos sourcePos, boolean notify) {
+    //@Override
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
         if (!world.isClient()) {
-            boolean hasPower = world.isReceivingRedstonePower(pos);
-            if (hasPower) {
-                world.scheduleBlockTick(pos, this, 1);
+            boolean hasPower = world.isReceivingRedstonePower(pos) || world.isReceivingRedstonePower(pos.up());
+            boolean isTriggered = state.get(TRIGGERED);
+
+            // Steigende Flanke: Nur feuern, wenn Power jetzt AN ist, aber vorher AUS war
+            if (hasPower && !isTriggered) {
+                world.scheduleBlockTick(pos, this, 4);
+                world.setBlockState(pos, state.with(TRIGGERED, true), 4);
+            } else if (!hasPower && isTriggered) {
+                world.setBlockState(pos, state.with(TRIGGERED, false), 4);
             }
         }
     }
@@ -43,15 +51,15 @@ public class NetheriteBreakerPistonBlock extends FacingBlock {
         BlockPos targetPos = pos.offset(facing);
         BlockState targetState = world.getBlockState(targetPos);
 
+        // Block abbauen, wenn er nicht unzerstörbar ist
         if (!targetState.isAir() && targetState.getHardness(world, targetPos) >= 0) {
-            // Zerstört Block und droppt Items
             world.breakBlock(targetPos, true);
         }
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING, TRIGGERED);
     }
 
     @Override

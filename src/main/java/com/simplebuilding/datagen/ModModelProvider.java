@@ -67,22 +67,21 @@ public class ModModelProvider extends FabricModelProvider {
     private void registerCustomHopper(BlockStateModelGenerator generator, Block block) {
         TextureMap textures = new TextureMap()
                 .put(TextureKey.TOP, TextureMap.getSubId(block, "_top"))
-                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"))
+                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_outside")) // HIER GEÄNDERT
                 .put(TextureKey.INSIDE, TextureMap.getSubId(block, "_inside"))
                 .put(TextureKey.BOTTOM, TextureMap.getSubId(block, "_outside"));
 
         Identifier modelDown = HOPPER_MODEL.upload(block, textures, generator.modelCollector);
-        // FIX: Suffix "_side" hinzugefügt, damit der Dateiname eindeutig ist
         Identifier modelSide = HOPPER_SIDE_MODEL.upload(block, "_side", textures, generator.modelCollector);
 
         generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block)
-            .with(BlockStateVariantMap.models(Properties.HOPPER_FACING)
-                .register(Direction.DOWN, BlockStateModelGenerator.createWeightedVariant(modelDown))
-                .register(Direction.NORTH, BlockStateModelGenerator.createWeightedVariant(modelSide))
-                .register(Direction.EAST, BlockStateModelGenerator.createWeightedVariant(modelSide).apply(BlockStateModelGenerator.ROTATE_Y_90))
-                .register(Direction.SOUTH, BlockStateModelGenerator.createWeightedVariant(modelSide).apply(BlockStateModelGenerator.ROTATE_Y_180))
-                .register(Direction.WEST, BlockStateModelGenerator.createWeightedVariant(modelSide).apply(BlockStateModelGenerator.ROTATE_Y_270))
-            ));
+                .with(BlockStateVariantMap.models(Properties.HOPPER_FACING)
+                        .register(Direction.DOWN, BlockStateModelGenerator.createWeightedVariant(modelDown))
+                        .register(Direction.NORTH, BlockStateModelGenerator.createWeightedVariant(modelSide))
+                        .register(Direction.EAST, BlockStateModelGenerator.createWeightedVariant(modelSide).apply(BlockStateModelGenerator.ROTATE_Y_90))
+                        .register(Direction.SOUTH, BlockStateModelGenerator.createWeightedVariant(modelSide).apply(BlockStateModelGenerator.ROTATE_Y_180))
+                        .register(Direction.WEST, BlockStateModelGenerator.createWeightedVariant(modelSide).apply(BlockStateModelGenerator.ROTATE_Y_270))
+                ));
     }
 
     private void registerCustomPiston(BlockStateModelGenerator generator, Block block) {
@@ -103,10 +102,10 @@ public class ModModelProvider extends FabricModelProvider {
         // Let's use a directional cube model where FRONT is the "face".
         TextureMap textureMap = new TextureMap()
                 .put(TextureKey.PARTICLE, TextureMap.getSubId(block, "_side"))
-                .put(TextureKey.DOWN, TextureMap.getSubId(block, "_bottom"))
-                .put(TextureKey.UP, TextureMap.getSubId(block, "_top"))
-                .put(TextureKey.NORTH, TextureMap.getSubId(block, "_front")) // Face
-                .put(TextureKey.SOUTH, TextureMap.getSubId(block, "_side"))
+                .put(TextureKey.DOWN, TextureMap.getSubId(block, "_side"))
+                .put(TextureKey.UP, TextureMap.getSubId(block, "_side"))
+                .put(TextureKey.NORTH, TextureMap.getSubId(block, "_top")) // Face
+                .put(TextureKey.SOUTH, TextureMap.getSubId(block, "_bottom"))
                 .put(TextureKey.EAST, TextureMap.getSubId(block, "_side"))
                 .put(TextureKey.WEST, TextureMap.getSubId(block, "_side"));
 

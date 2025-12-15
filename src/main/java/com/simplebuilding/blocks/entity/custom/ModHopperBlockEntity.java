@@ -2,6 +2,7 @@ package com.simplebuilding.blocks.entity.custom;
 
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.blocks.custom.ModHopperBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HopperBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -118,13 +119,16 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
                 bl |= booleanSupplier.getAsBoolean();
             }
             if (bl) {
-                // HIER IST DER CUSTOM SPEED:
                 int speed = 8; // Vanilla
-                if (state.getBlock() instanceof ModHopperBlock hopperBlock) {
-                    // Annahme: Dein ModHopperBlock hat eine Methode oder wir prüfen den Namen
-                    if (state.getBlock().getName().getString().contains("Netherite")) speed = 2; // Quad Speed
-                    else speed = 4; // Double Speed
+                Block block = state.getBlock();
+
+                // FIX: Exakte Prüfung auf die Blöcke
+                if (block == com.simplebuilding.blocks.ModBlocks.NETHERITE_HOPPER) {
+                    speed = 2; // 4x schneller als Vanilla (8 / 4 = 2 Ticks)
+                } else if (block == com.simplebuilding.blocks.ModBlocks.REINFORCED_HOPPER) {
+                    speed = 4; // 2x schneller als Vanilla (8 / 2 = 4 Ticks)
                 }
+
                 blockEntity.setTransferCooldown(speed);
                 markDirty(world, pos, state);
                 return true;
