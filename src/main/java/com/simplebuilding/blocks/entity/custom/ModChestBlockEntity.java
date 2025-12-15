@@ -16,44 +16,36 @@ import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.logging.Logger;
-
 public class ModChestBlockEntity extends ChestBlockEntity {
 
     private final DefaultedList<ItemStack> inventory;
 
     public ModChestBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.MOD_CHEST_BE, pos, state);
-        // ZURÜCK AUF 27 SLOTS (Standard Single Chest)
+        // Standard 27 Slots
         this.inventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
     }
 
     @Override
     public int size() {
-        return 27; // Standard Größe
+        return 27;
     }
 
     @Override
     protected Text getContainerName() {
-        if (this.getCachedState().getBlock() instanceof ModChestBlock) {
-            return Text.translatable("container.simplebuilding.reinforced_chest");
-        }
-        return super.getContainerName();
+        return Text.translatable("container.simplebuilding.reinforced_chest");
     }
 
-    // FIX: Stack Limit erhöhen
+    // FIX: Stack Limit erhöhen (128 / 256)
     @Override
     public int getMaxCountPerStack() {
         BlockState state = this.getCachedState();
         if (state.isOf(ModBlocks.NETHERITE_CHEST)) {
-            System.out.println("Getting max count per stack for Netherite Chest");
-            return 256; // 4x Stack Size
+            return 256;
         } else if (state.isOf(ModBlocks.REINFORCED_CHEST)) {
-            System.out.println("Getting max count per stack for Reinforced Chest");
-            return 128; // 2x Stack Size
+            return 128;
         }
-        System.out.println("Getting max count per stack");
-        return 64; // Fallback
+        return 64;
     }
 
     @Override
@@ -82,7 +74,6 @@ public class ModChestBlockEntity extends ChestBlockEntity {
         }
     }
 
-    // ZURÜCK AUF STANDARD SCREEN HANDLER (3 Reihen)
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return GenericContainerScreenHandler.createGeneric9x3(syncId, playerInventory, this);

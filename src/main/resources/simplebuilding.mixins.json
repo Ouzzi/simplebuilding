@@ -5,9 +5,12 @@
   "mixins": [
     "AnvilScreenHandlerMixin",
     "BowItemMixin",
+    "CodecsMixin",
     "ItemEntityMixin",
+    "ItemStackMixin",
     "PistonHandlerMixin",
     "PlayerEntityMixin",
+    "ScreenHandlerMixin",
     "SlotMixin"
   ],
   "injectors": {

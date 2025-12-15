@@ -4,6 +4,7 @@ import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.gui.SpeedometerHudOverlay;
 import com.simplebuilding.client.render.BuildingWandOutlineRenderer;
+import com.simplebuilding.client.render.ModChestBlockEntityRenderer;
 import com.simplebuilding.client.render.SledgehammerOutlineRenderer;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
@@ -48,6 +49,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         registerDoubleJumpClient();
 
         BlockEntityRendererRegistry.register(ModBlockEntities.MOD_CHEST_BE, ChestBlockEntityRenderer::new);
+        //BlockEntityRendererRegistry.register(ModBlockEntities.MOD_CHEST_BE, ModChestBlockEntityRenderer::new);
     }
 
     private void registerDoubleJumpClient() {

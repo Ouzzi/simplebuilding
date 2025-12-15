@@ -3,9 +3,13 @@
   "package": "com.simplebuilding.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "WorldRendererMixin",
     "BundleTooltipComponentMixin",
-    "ClientSpeedometerMixin"
+    "ClientSpeedometerMixin",
+    "WorldRendererMixin"
   ],
-  "injectors": { "defaultRequire": 1 }
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+  ]
 }
