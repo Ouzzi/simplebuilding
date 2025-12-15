@@ -13,15 +13,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Slot.class)
 public abstract class SlotMixin {
+
     @Shadow @Final public Inventory inventory;
-    @Shadow public abstract int getMaxItemCount();
 
     @Inject(method = "getMaxItemCount(Lnet/minecraft/item/ItemStack;)I", at = @At("HEAD"), cancellable = true)
-    private void overrideMaxItemCount(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
-        // Wenn das Inventar unsere Kiste ist, nimm dessen Limit (128/256)
-        // statt das Item-Limit (64).
-        if (this.inventory instanceof ModChestBlockEntity) {
-            cir.setReturnValue(this.inventory.getMaxCountPerStack());
+    private void limitStackSizeByInventory(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
+        if (this.inventory instanceof ModChestBlockEntity modChest) {
+            cir.setReturnValue(modChest.getMaxCountPerStack());
+        }
+        else {
+            if (stack.getItem().getMaxCount() == 64) {
+                cir.setReturnValue(64);
+            }
         }
     }
 }

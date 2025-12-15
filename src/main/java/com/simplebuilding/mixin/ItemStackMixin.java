@@ -10,14 +10,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
-
     @Shadow public abstract Item getItem();
 
-    // Erlaubt zur Laufzeit (im Spiel) mehr als 64 Items im Stack.
+    // Wir müssen das Limit erhöhen, damit die Kiste überhaupt mehr aufnehmen KANN.
+    // Aber wir wollen nicht, dass der Spieler das merkt.
     @Inject(method = "getMaxCount", at = @At("HEAD"), cancellable = true)
     private void allowLargerStacks(CallbackInfoReturnable<Integer> cir) {
         if (this.getItem().getMaxCount() == 64) {
-            cir.setReturnValue(1024); // Limit hochsetzen
+            cir.setReturnValue(1024);
         }
     }
 }
