@@ -115,20 +115,27 @@ public class Simplebuilding implements ModInitializer {
 
 
 // TODO Later:
-// - drawer 4 enchantment each level increases difrent item filters by one (example: level 3: max 3 different items can be stored)
-// - new diamond block: cracked diamond block - for decoration
+// - fix:
+// -- itemtexture custom piston to big
+//
+// -- reinforced piston - crafting
+// -- netherite piston - (depending on redstone power strenght 1-15) (for example: 1 - dirt, sand; 15 - obsidian)
+// -- reinforced hopper - crafting
+// -- netherite hopper - crafting
+// -- reinforced blast furnace - crafting
+// -- netherite blast furnace - crafting
+// -- chest icon no texture but moodel is rendering in hotbar
+// -- chest is acepting UP TO SPECIFIED STACK SIZE, BUT displays max 99 items in GUI
+// -- inventory everywhere accepts 99 items, instead of 64 or 16 ...
+// -- whed middleclicked in creative mode, it gives 1024 items instead of max stack size
+// -- UPDATE LANG FILES
 
-// - reinforced hopper - double speed (with diamonds)
-// - netherite hopper - quadrouple speed
-// - reinforced copper chest - double stack size (with diamonds)
+
 // - netherite chest - quadrouple stack size
-// - reinforced piston - pushes more blocks (block push limit higher (1.5?) ) (with diamonds)
-// - netherite piston - destroys all blocks infront (depending on redstone power strenght 1-15) (for example: 1 - dirt, sand; 15 - obsidian)
-// - reinforced blast furnace - 1.25x speed (with diamonds)
-// - netherite blast furnace - 1.5x speed
+// - reinforced copper chest - double stack size (with diamonds)
+
 
 // - later - Glass Itemframes, transparent itemframes - doent drop frame when broken exept silk touch.
-
 
 // - later - Negative Beacon (evil Beacon) that gives negative effects to players in range
 // - later - extra horse inventory if storrage upgrade, for example chest saddle
@@ -189,9 +196,7 @@ public class Simplebuilding implements ModInitializer {
 // - Fusion Connected Glass
 // - ViaFabricPlus
 // - Just Enough Professions (JEP)
-// - Recolourful Containers GUI + HUD
 // - Held Item Tooltips
-// - Recolourful Containers GUI + HUD (DARK)
 // - Ping Wheel
 // - Even Better Enchants
 // - do a barrel roll
@@ -210,7 +215,6 @@ public class Simplebuilding implements ModInitializer {
 // - controlling
 // - axiom
 // - Cull Leaves
-// - ServerCore
 // - voxy
 // - no telemetry
 // - dynamic tooltips
@@ -224,3 +228,9 @@ public class Simplebuilding implements ModInitializer {
 // -
 // -
 
+
+
+
+// - ServerCore
+// - Recolourful Containers GUI + HUD
+// - Recolourful Containers GUI + HUD (DARK)
