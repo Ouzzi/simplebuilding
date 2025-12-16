@@ -1,10 +1,7 @@
 package com.simplebuilding.blocks;
 
 import com.simplebuilding.Simplebuilding;
-import com.simplebuilding.blocks.custom.ModBlastFurnaceBlock;
-import com.simplebuilding.blocks.custom.ModChestBlock;
-import com.simplebuilding.blocks.custom.ModHopperBlock;
-import com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock;
+import com.simplebuilding.blocks.custom.*;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -48,6 +45,8 @@ public class ModBlocks {
             s -> new ModBlastFurnaceBlock(s.strength(3.5F), 1.25f));
     public static final Block NETHERITE_BLAST_FURNACE = registerBlock("netherite_blast_furnace",
             s -> new ModBlastFurnaceBlock(s.strength(5.0F, 1200.0F), 1.50f));
+    public static final Block NETHERITE_PISTON_HEAD = registerBlock("netherite_piston_head",
+            s -> new NetheritePistonHeadBlock(s.noCollision().dropsNothing()));
 
     /**
      * Registriert einen Block und weist ihm vor der Erstellung den notwendigen RegistryKey zu.
