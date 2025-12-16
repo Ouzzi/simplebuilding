@@ -33,10 +33,12 @@ public class ModBlocks {
             s -> new ModHopperBlock(s.strength(3.0F, 4.8F).nonOpaque(), 1)); // 1 = Speed Multiplier (Basislogik wird im BE handled)
     public static final Block NETHERITE_HOPPER = registerBlock("netherite_hopper",
             s -> new ModHopperBlock(s.strength(5.0F, 1200.0F).nonOpaque(), 2));
-    public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
-            s -> new ModChestBlock(s.strength(2.5F).nonOpaque(), ModChestBlock.Type.REINFORCED));
-    public static final Block NETHERITE_CHEST = registerBlock("netherite_chest",
-            s -> new ModChestBlock(s.strength(5.0F, 1200.0F).nonOpaque(), ModChestBlock.Type.NETHERITE));
+    // todo chest:
+
+    // public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
+    //        s -> new ModChestBlock(s.strength(2.5F).nonOpaque(), ModChestBlock.Type.REINFORCED));
+    // public static final Block NETHERITE_CHEST = registerBlock("netherite_chest",
+    //        s -> new ModChestBlock(s.strength(5.0F, 1200.0F).nonOpaque(), ModChestBlock.Type.NETHERITE));
     public static final Block REINFORCED_PISTON = registerBlock("reinforced_piston",
             s -> new PistonBlock(false, s.strength(1.5F))); // sticky=false
     public static final Block NETHERITE_PISTON = registerBlock("netherite_piston",

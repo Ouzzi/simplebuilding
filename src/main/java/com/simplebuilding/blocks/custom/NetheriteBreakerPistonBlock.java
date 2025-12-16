@@ -26,37 +26,45 @@ public class NetheriteBreakerPistonBlock extends PistonBlock {
     public boolean onSyncedBlockEvent(BlockState state, World world, BlockPos pos, int type, int data) {
         // type 0 = Piston Event (Ausfahren/Einfahren)
         if (type == 0) {
-            // WICHTIG: Wir entfernen hier den "!world.isClient" Check für die Logik!
-            // Der Client muss AUCH wissen, dass der Block zerstört ist, sonst
-            // simuliert er fälschlicherweise ein "Schieben" (Geisterblock).
-
-            // Prüfen ob wir ausfahren (state ist noch eingefahren)
+            // Wir prüfen nur beim Ausfahren
             if (!state.get(EXTENDED)) {
                 Direction facing = state.get(FACING);
                 BlockPos targetPos = pos.offset(facing);
                 BlockState targetState = world.getBlockState(targetPos);
 
-                // Breaker-Logik:
+                // Wenn der Block vor dem Piston kein Bedrock ist und nicht Luft:
                 if (!targetState.isAir() && targetState.getHardness(world, targetPos) >= 0) {
-                    if (targetState.getPistonBehavior() != PistonBehavior.BLOCK) {
-                        // ZERSTÖREN (auf Client UND Server)
-                        // Auf dem Server droppt es Items.
-                        // Auf dem Client setzt es Luft und spielt Partikel/Sound.
-                        world.breakBlock(targetPos, true);
 
-                        // Custom Sound nur auf Server abspielen, um Echo zu vermeiden
-                        // (breakBlock macht schon Standard-Sound)
-                        if (!world.isClient()) {
-                            world.playSound(null, pos, SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.BLOCKS, 0.5f, 0.8f);
+                    // --- Redstone Stärke Logik ---
+                    // Wir holen die Redstone-Power am Piston (0-15).
+                    int power = world.getReceivedRedstonePower(pos);
+
+                    // Obsidian hat Härte 50. Power 15 soll Obsidian brechen können.
+                    // Formel: (Power / 15) * 50
+                    // Power 1  -> Break bis 3.33 (z.B. Stein, Erde, Holz)
+                    // Power 15 -> Break bis 50.0 (Obsidian)
+                    float breakThreshold = (power / 15.0f) * 50.0f;
+                    float blockHardness = targetState.getHardness(world, targetPos);
+
+                    // Nur brechen, wenn das Signal stark genug ist!
+                    if (blockHardness <= breakThreshold) {
+
+                        if (targetState.getPistonBehavior() != PistonBehavior.BLOCK) {
+                            // Zerstören (Client & Server)
+                            world.breakBlock(targetPos, true);
+
+                            if (!world.isClient()) {
+                                world.playSound(null, pos, SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.BLOCKS, 0.5f, 0.8f);
+                            }
                         }
                     }
+                    // Falls Power zu schwach ist, passiert hier nichts (breakBlock wird nicht gerufen).
+                    // Der Piston versucht dann normal auszufahren (super.onSynced...),
+                    // scheitert aber bei Obsidian/unverschiebbaren Blöcken -> Vanilla Verhalten.
                 }
             }
         }
 
-        // Jetzt rufen wir super auf.
-        // Da 'breakBlock' oben nun auf BEIDEN Seiten lief, ist der Weg für den Piston frei.
-        // Er fährt also auf Client und Server einfach nur den Arm aus (Animation), ohne zu schieben.
         return super.onSyncedBlockEvent(state, world, pos, type, data);
     }
 }

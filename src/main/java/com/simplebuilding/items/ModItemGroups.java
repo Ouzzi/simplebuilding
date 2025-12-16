@@ -34,8 +34,10 @@ public class ModItemGroups {
                         entries.add(ModItems.CONSTRUCTION_LIGHT);
 
                         // --- Machines & Storage (NEU) ---
-                        entries.add(ModItems.REINFORCED_CHEST);
-                        entries.add(ModItems.NETHERITE_CHEST);
+                        // todo chest:
+
+                        //  entries.add(ModItems.REINFORCED_CHEST);
+                        // entries.add(ModItems.NETHERITE_CHEST);
                         entries.add(ModItems.REINFORCED_HOPPER);
                         entries.add(ModItems.NETHERITE_HOPPER);
                         entries.add(ModItems.REINFORCED_BLAST_FURNACE);

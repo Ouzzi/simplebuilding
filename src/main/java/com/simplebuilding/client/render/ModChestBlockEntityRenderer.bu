@@ -49,6 +49,8 @@ public class ModChestBlockEntityRenderer implements BlockEntityRenderer<ModChest
         // Super-Aufruf füllt lightmapCoordinates usw.
         BlockEntityRenderer.super.updateRenderState(entity, state, tickDelta, cameraPos, crumblingOverlay);
 
+        /* todo chest
+
         BlockState blockState = entity.hasWorld() ? entity.getCachedState() : ModBlocks.REINFORCED_CHEST.getDefaultState().with(ChestBlock.FACING, Direction.SOUTH);
 
         Direction facing = blockState.contains(ChestBlock.FACING) ? blockState.get(ChestBlock.FACING) : Direction.SOUTH;
@@ -64,6 +66,7 @@ public class ModChestBlockEntityRenderer implements BlockEntityRenderer<ModChest
         } else {
             state.texture = REINFORCED_TEXTURE;
         }
+         */
     }
 
     @Override

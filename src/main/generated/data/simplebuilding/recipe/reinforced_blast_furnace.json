@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "B": "minecraft:blast_furnace",
-    "D": "minecraft:diamond"
+    "D": "simplebuilding:cracked_diamond"
   },
   "pattern": [
     "DDD",

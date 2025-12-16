@@ -190,34 +190,48 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ModItems.CRACKED_DIAMOND), conditionsFromItem(ModItems.CRACKED_DIAMOND)).offerTo(exporter);
                 offerShapelessRecipe(ModItems.CRACKED_DIAMOND, ModItems.CRACKED_DIAMOND_BLOCK, "cracked_diamond_from_block", 9);
 
+                /* todo chest:
+
+                    // 2. Reinforced Chest (Chest + 8 Diamonds surround)
+                    createShaped(RecipeCategory.DECORATIONS, ModItems.REINFORCED_CHEST)
+                            .pattern("DDD").pattern("DCD").pattern("DDD")
+                            .input('D', Items.DIAMOND).input('C', Items.CHEST)
+                            .criterion(hasItem(Items.CHEST), conditionsFromItem(Items.CHEST)).offerTo(exporter);
+                    // Netherite Chest (Smithing)
+                    createSmithing(ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, RecipeCategory.DECORATIONS);
+                */
+
                 // 1. Reinforced Hopper (Hopper + 4 Diamonds)
                 createShaped(RecipeCategory.REDSTONE, ModItems.REINFORCED_HOPPER)
-                        .pattern("D D").pattern("DHD").pattern(" D ")
-                        .input('D', Items.DIAMOND).input('H', Items.HOPPER)
+                        .pattern("DDD")
+                        .pattern("DHD")
+                        .pattern(" D ")
+                        .input('D', ModItems.CRACKED_DIAMOND)
+                        .input('H', Items.HOPPER)
                         .criterion(hasItem(Items.HOPPER), conditionsFromItem(Items.HOPPER)).offerTo(exporter);
                 // Netherite Hopper (Smithing)
                 createSmithing(ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, RecipeCategory.REDSTONE);
 
-                // 2. Reinforced Chest (Chest + 8 Diamonds surround)
-                createShaped(RecipeCategory.DECORATIONS, ModItems.REINFORCED_CHEST)
-                        .pattern("DDD").pattern("DCD").pattern("DDD")
-                        .input('D', Items.DIAMOND).input('C', Items.CHEST)
-                        .criterion(hasItem(Items.CHEST), conditionsFromItem(Items.CHEST)).offerTo(exporter);
-                // Netherite Chest (Smithing)
-                createSmithing(ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, RecipeCategory.DECORATIONS);
 
                 // 3. Reinforced Piston (Piston + Diamond)
                 createShaped(RecipeCategory.REDSTONE, ModItems.REINFORCED_PISTON)
-                        .pattern("DDD").pattern(" P ").pattern(" R ")
-                        .input('D', Items.DIAMOND).input('P', Items.PISTON).input('R', Items.REDSTONE)
+                        .pattern("DDD")
+                        .pattern("IPI")
+                        .pattern("III")
+                        .input('D', ModItems.CRACKED_DIAMOND)
+                        .input('P', Items.PISTON)
+                        .input('I', Items.IRON_INGOT)
                         .criterion(hasItem(Items.PISTON), conditionsFromItem(Items.PISTON)).offerTo(exporter);
                 // Netherite Piston (Smithing)
                 createSmithing(ModItems.REINFORCED_PISTON, ModItems.NETHERITE_PISTON, RecipeCategory.REDSTONE);
 
                 // 4. Reinforced Blast Furnace (Blast Furnace + Diamonds)
                 createShaped(RecipeCategory.DECORATIONS, ModItems.REINFORCED_BLAST_FURNACE)
-                        .pattern("DDD").pattern("DBD").pattern("DDD")
-                        .input('D', Items.DIAMOND).input('B', Items.BLAST_FURNACE)
+                        .pattern("DDD")
+                        .pattern("DBD")
+                        .pattern("DDD")
+                        .input('D', ModItems.CRACKED_DIAMOND)
+                        .input('B', Items.BLAST_FURNACE)
                         .criterion(hasItem(Items.BLAST_FURNACE), conditionsFromItem(Items.BLAST_FURNACE)).offerTo(exporter);
                 // Netherite Blast Furnace (Smithing)
                 createSmithing(ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE, RecipeCategory.DECORATIONS);

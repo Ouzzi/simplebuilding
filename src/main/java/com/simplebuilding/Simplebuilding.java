@@ -115,28 +115,9 @@ public class Simplebuilding implements ModInitializer {
 
 
 // TODO Later:
-// - fix:
-// -- itemtexture custom piston to big
-//
-// -- reinforced piston - crafting
-// -- netherite piston - (depending on redstone power strenght 1-15) (for example: 1 - dirt, sand; 15 - obsidian)
-// -- reinforced hopper - crafting
-// -- netherite hopper - crafting
-// -- reinforced blast furnace - crafting
-// -- netherite blast furnace - crafting
-// -- chest icon no texture but moodel is rendering in hotbar
-// -- chest is acepting UP TO SPECIFIED STACK SIZE, BUT displays max 99 items in GUI
-// -- inventory everywhere accepts 99 items, instead of 64 or 16 ...
-// -- whed middleclicked in creative mode, it gives 1024 items instead of max stack size
-// -- UPDATE LANG FILES
-
-
-// - netherite chest - quadrouple stack size
-// - reinforced copper chest - double stack size (with diamonds)
 
 
 // - later - Glass Itemframes, transparent itemframes - doent drop frame when broken exept silk touch.
-
 // - later - Negative Beacon (evil Beacon) that gives negative effects to players in range
 // - later - extra horse inventory if storrage upgrade, for example chest saddle
 // - later - Reinforced Beacon that gives more effects or longer effects upgrade the whole beacon system
@@ -144,6 +125,14 @@ public class Simplebuilding implements ModInitializer {
 // - later - reinforced shulker - can be enchanted (bigger stack sizes)
 // - later - netherite shulker double stack size
 // - ( copy tool? )
+
+
+// - (later) - netherite chest - quadrouple stack size
+// - (later) - reinforced copper chest - double stack size (with diamonds)
+// -- chest icon no texture but moodel is rendering in hotbar
+// -- chest is acepting UP TO SPECIFIED STACK SIZE, BUT displays max 99 items in GUI
+// -- inventory everywhere accepts 99 items, instead of 64 or 16 ...
+// -- whed middleclicked in creative mode, it gives 1024 items instead of max stack size
 
 
 // simple mods:

@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "D": "minecraft:diamond",
-    "P": "minecraft:piston",
-    "R": "minecraft:redstone"
+    "D": "simplebuilding:cracked_diamond",
+    "I": "minecraft:iron_ingot",
+    "P": "minecraft:piston"
   },
   "pattern": [
     "DDD",
-    " P ",
-    " R "
+    "IPI",
+    "III"
   ],
   "result": {
     "count": 1,

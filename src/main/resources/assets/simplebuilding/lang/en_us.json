@@ -141,5 +141,18 @@
 
   "text.autoconfig.simplebuilding.option.enchantments.horseJump": "Horse Jump Settings",
   "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier": "Jump Strength Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip": "Jump strength multiplier per enchantment level on horse armor (Default: 0.20)."
+  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip": "Jump strength multiplier per enchantment level on horse armor (Default: 0.20).",
+
+  "block.simplebuilding.reinforced_chest": "Reinforced Chest",
+  "block.simplebuilding.netherite_chest": "Netherite Chest",
+
+  "block.simplebuilding.reinforced_hopper": "Reinforced Hopper",
+  "block.simplebuilding.netherite_hopper": "Netherite Hopper",
+
+  "block.simplebuilding.reinforced_piston": "Reinforced Piston",
+  "block.simplebuilding.netherite_piston": "Netherite Piston",
+  "tooltip.simplebuilding.netherite_piston": "Breaks blocks based on Redstone strength (1-15).",
+
+  "block.simplebuilding.reinforced_blast_furnace": "Reinforced Blast Furnace",
+  "block.simplebuilding.netherite_blast_furnace": "Netherite Blast Furnace"
 }

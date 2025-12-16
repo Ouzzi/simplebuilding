@@ -1,6 +1,5 @@
 package com.simplebuilding.datagen;
 
-import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -45,8 +44,10 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_BLAST_FURNACE, ModelIds.getBlockModelId(ModBlocks.NETHERITE_BLAST_FURNACE));
 
         // --- 3. Chests ---
-        blockStateModelGenerator.registerChest(ModBlocks.REINFORCED_CHEST, ModBlocks.REINFORCED_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/reinforced_chest"), false);
-        blockStateModelGenerator.registerChest(ModBlocks.NETHERITE_CHEST, ModBlocks.NETHERITE_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/netherite_chest"), false);
+        // todo chest:
+
+        // blockStateModelGenerator.registerChest(ModBlocks.REINFORCED_CHEST, ModBlocks.REINFORCED_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/reinforced_chest"), false);
+        // blockStateModelGenerator.registerChest(ModBlocks.NETHERITE_CHEST, ModBlocks.NETHERITE_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/netherite_chest"), false);
 
         //blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_CHEST, ModelIds.getBlockModelId(ModBlocks.REINFORCED_CHEST));
         //blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_CHEST, ModelIds.getBlockModelId(ModBlocks.NETHERITE_CHEST));
@@ -59,10 +60,7 @@ public class ModModelProvider extends FabricModelProvider {
         // Reinforced Piston is a real Piston (has EXTENDED property)
         registerCustomPiston(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON);
         registerCustomPiston(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_PISTON, ModelIds.getBlockModelId(ModBlocks.REINFORCED_PISTON));
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_PISTON, ModelIds.getBlockModelId(ModBlocks.NETHERITE_PISTON));
 
-        //registerBreakerBlock(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
     }
 
     private void registerCustomHopper(BlockStateModelGenerator generator, Block block) {
@@ -89,13 +87,20 @@ public class ModModelProvider extends FabricModelProvider {
         TextureMap textureMap = new TextureMap()
                 .put(TextureKey.BOTTOM, TextureMap.getSubId(block, "_bottom"))
                 .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"))
-                .put(TextureKey.PLATFORM, TextureMap.getSubId(block, "_top"));
+                .put(TextureKey.PLATFORM, TextureMap.getSubId(block, "_top"))
+                .put(TextureKey.INSIDE, TextureMap.getSubId(block, "_inner")); // Wichtig für Base
 
         Identifier baseModelId = PISTON_BASE_MODEL.upload(block, "_base", textureMap, generator.modelCollector);
 
-        // This helper expects the block to have Properties.EXTENDED
         generator.registerPiston(block, BlockStateModelGenerator.createWeightedVariant(baseModelId), textureMap);
+        TextureMap inventoryMap = new TextureMap()
+                .put(TextureKey.BOTTOM, TextureMap.getSubId(block, "_bottom"))
+                .put(TextureKey.TOP, TextureMap.getSubId(block, "_top")) // Platform -> Top
+                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"));
 
+        Identifier inventoryModelId = Models.CUBE_BOTTOM_TOP.upload(block, "_inventory", inventoryMap, generator.modelCollector);
+
+        generator.registerParentedItemModel(block, inventoryModelId);
     }
 
     @Override

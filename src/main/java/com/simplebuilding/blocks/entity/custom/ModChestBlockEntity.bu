@@ -1,0 +1,132 @@
+package com.simplebuilding.blocks.entity.custom;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.simplebuilding.blocks.entity.ModBlockEntities;
+import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.util.LargeStackInventory;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.screen.GenericContainerScreenHandler;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
+import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ModChestBlockEntity extends ChestBlockEntity {
+
+    private final LargeStackInventory customInventory;
+
+    public ModChestBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.MOD_CHEST_BE, pos, state);
+
+        int limit = 64;
+        if (state.isOf(ModBlocks.NETHERITE_CHEST)) limit = 256;
+
+        this.customInventory = new LargeStackInventory(27, limit);
+    }
+
+    @Override
+    public int size() {
+        return 27;
+    }
+
+    @Override
+    public int getMaxCountPerStack() {
+        return this.customInventory.getMaxCountPerStack();
+    }
+
+    @Override
+    protected Text getContainerName() {
+        return Text.translatable("container.simplebuilding.reinforced_chest");
+    }
+
+    // --- Custom Persistence ---
+
+    private record StoredItem(int slot, ItemStack stack, int realCount) {
+        public static final Codec<StoredItem> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Codec.INT.fieldOf("Slot").forGetter(StoredItem::slot),
+                // We use UNCOUNTED_CODEC to save item type/nbt without the 64-limit validation
+                ItemStack.UNCOUNTED_CODEC.fieldOf("Item").forGetter(StoredItem::stack),
+                // We save the real count separately
+                Codec.INT.fieldOf("RealCount").forGetter(StoredItem::realCount)
+        ).apply(instance, StoredItem::new));
+    }
+
+    @Override
+    protected void readData(ReadView view) {
+        super.readData(view);
+        this.customInventory.clear();
+
+        // Read using the Codec directly (ReadView supports reading via Codec)
+        view.read("CustomItems", StoredItem.CODEC.listOf()).ifPresent(items -> {
+            for (StoredItem item : items) {
+                if (item.slot >= 0 && item.slot < this.customInventory.size()) {
+                    ItemStack stack = item.stack.copy();
+                    stack.setCount(item.realCount);
+                    this.customInventory.setStack(item.slot, stack);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void writeData(WriteView view) {
+        super.writeData(view);
+
+        List<StoredItem> items = new ArrayList<>();
+        for (int i = 0; i < this.customInventory.size(); ++i) {
+            ItemStack stack = this.customInventory.getStack(i);
+            if (!stack.isEmpty()) {
+                items.add(new StoredItem(i, stack, stack.getCount()));
+            }
+        }
+
+        // Fix: Use MapCodec for writing.
+        // fieldOf("CustomItems") wraps our List Codec into a MapCodec that handles the key.
+        view.put(StoredItem.CODEC.listOf().fieldOf("CustomItems"), items);
+    }
+
+    // --- Bridge ---
+
+    @Override
+    public ItemStack getStack(int slot) {
+        return this.customInventory.getStack(slot);
+    }
+
+    @Override
+    public ItemStack removeStack(int slot, int amount) {
+        ItemStack result = this.customInventory.removeStack(slot, amount);
+        this.markDirty();
+        return result;
+    }
+
+    @Override
+    public ItemStack removeStack(int slot) {
+        ItemStack result = this.customInventory.removeStack(slot);
+        this.markDirty();
+        return result;
+    }
+
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+        this.customInventory.setStack(slot, stack);
+        this.markDirty();
+    }
+
+    @Override
+    public void clear() {
+        this.customInventory.clear();
+    }
+
+    @Override
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+        return GenericContainerScreenHandler.createGeneric9x3(syncId, playerInventory, this);
+    }
+}

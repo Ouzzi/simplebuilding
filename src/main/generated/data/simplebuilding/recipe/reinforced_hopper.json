@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "D": "minecraft:diamond",
+    "D": "simplebuilding:cracked_diamond",
     "H": "minecraft:hopper"
   },
   "pattern": [
-    "D D",
+    "DDD",
     "DHD",
     " D "
   ],
