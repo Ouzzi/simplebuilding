@@ -58,16 +58,11 @@ public class ModModelProvider extends FabricModelProvider {
         // --- 5. Pistons ---
         // Reinforced Piston is a real Piston (has EXTENDED property)
         registerCustomPiston(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON);
+        registerCustomPiston(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
         blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_PISTON, ModelIds.getBlockModelId(ModBlocks.REINFORCED_PISTON));
         blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_PISTON, ModelIds.getBlockModelId(ModBlocks.NETHERITE_PISTON));
 
-
-        // FIX: Netherite Piston is a "Breaker" (FacingBlock), NOT a PistonBlock (no EXTENDED property).
-        // We use registerCubeDirectional or similar for it.
-        // Or simpler: registerNorthDefaultHorizontalRotatable if it only rotates horizontally,
-        // but Breakers can usually face UP/DOWN.
-        // We'll use a simple cube model that rotates to all 6 directions.
-        registerBreakerBlock(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
+        //registerBreakerBlock(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
     }
 
     private void registerCustomHopper(BlockStateModelGenerator generator, Block block) {
@@ -100,33 +95,7 @@ public class ModModelProvider extends FabricModelProvider {
 
         // This helper expects the block to have Properties.EXTENDED
         generator.registerPiston(block, BlockStateModelGenerator.createWeightedVariant(baseModelId), textureMap);
-    }
 
-    // New helper for the Netherite Breaker
-    private void registerBreakerBlock(BlockStateModelGenerator generator, Block block) {
-        // We assume it has a texture for each side or uses a cube model
-        // Let's use a directional cube model where FRONT is the "face".
-        TextureMap textureMap = new TextureMap()
-                .put(TextureKey.PARTICLE, TextureMap.getSubId(block, "_side"))
-                .put(TextureKey.DOWN, TextureMap.getSubId(block, "_side"))
-                .put(TextureKey.UP, TextureMap.getSubId(block, "_side"))
-                .put(TextureKey.NORTH, TextureMap.getSubId(block, "_top")) // Face
-                .put(TextureKey.SOUTH, TextureMap.getSubId(block, "_bottom"))
-                .put(TextureKey.EAST, TextureMap.getSubId(block, "_side"))
-                .put(TextureKey.WEST, TextureMap.getSubId(block, "_side"));
-
-        Identifier modelId = Models.CUBE_DIRECTIONAL.upload(block, textureMap, generator.modelCollector);
-
-        // Generate state that rotates the model based on FACING
-        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block)
-            .with(BlockStateVariantMap.models(Properties.FACING)
-                .register(Direction.NORTH, BlockStateModelGenerator.createWeightedVariant(modelId))
-                .register(Direction.SOUTH, BlockStateModelGenerator.createWeightedVariant(modelId).apply(BlockStateModelGenerator.ROTATE_Y_180))
-                .register(Direction.EAST, BlockStateModelGenerator.createWeightedVariant(modelId).apply(BlockStateModelGenerator.ROTATE_Y_90))
-                .register(Direction.WEST, BlockStateModelGenerator.createWeightedVariant(modelId).apply(BlockStateModelGenerator.ROTATE_Y_270))
-                .register(Direction.UP, BlockStateModelGenerator.createWeightedVariant(modelId).apply(BlockStateModelGenerator.ROTATE_X_270))
-                .register(Direction.DOWN, BlockStateModelGenerator.createWeightedVariant(modelId).apply(BlockStateModelGenerator.ROTATE_X_90))
-            ));
     }
 
     @Override
@@ -189,7 +158,5 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.CRACKED_DIAMOND, Models.GENERATED);
         itemModelGenerator.register(ModItems.REINFORCED_HOPPER, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_HOPPER, Models.GENERATED);
-        //itemModelGenerator.register(ModItems.REINFORCED_PISTON, Models.GENERATED);
-        //itemModelGenerator.register(ModItems.NETHERITE_PISTON, Models.GENERATED);
     }
 }

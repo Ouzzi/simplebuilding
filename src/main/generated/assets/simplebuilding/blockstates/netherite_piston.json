@@ -1,26 +1,49 @@
 {
   "variants": {
-    "facing=down": {
+    "extended=false,facing=down": {
       "model": "simplebuilding:block/netherite_piston",
       "x": 90
     },
-    "facing=east": {
+    "extended=false,facing=east": {
       "model": "simplebuilding:block/netherite_piston",
       "y": 90
     },
-    "facing=north": {
+    "extended=false,facing=north": {
       "model": "simplebuilding:block/netherite_piston"
     },
-    "facing=south": {
+    "extended=false,facing=south": {
       "model": "simplebuilding:block/netherite_piston",
       "y": 180
     },
-    "facing=up": {
+    "extended=false,facing=up": {
       "model": "simplebuilding:block/netherite_piston",
       "x": 270
     },
-    "facing=west": {
+    "extended=false,facing=west": {
       "model": "simplebuilding:block/netherite_piston",
+      "y": 270
+    },
+    "extended=true,facing=down": {
+      "model": "simplebuilding:block/netherite_piston_base",
+      "x": 90
+    },
+    "extended=true,facing=east": {
+      "model": "simplebuilding:block/netherite_piston_base",
+      "y": 90
+    },
+    "extended=true,facing=north": {
+      "model": "simplebuilding:block/netherite_piston_base"
+    },
+    "extended=true,facing=south": {
+      "model": "simplebuilding:block/netherite_piston_base",
+      "y": 180
+    },
+    "extended=true,facing=up": {
+      "model": "simplebuilding:block/netherite_piston_base",
+      "x": 270
+    },
+    "extended=true,facing=west": {
+      "model": "simplebuilding:block/netherite_piston_base",
       "y": 270
     }
   }

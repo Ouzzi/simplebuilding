@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/template_piston",
+  "parent": "minecraft:block/piston_base",
   "textures": {
     "bottom": "simplebuilding:block/netherite_piston_bottom",
     "platform": "simplebuilding:block/netherite_piston_top",
