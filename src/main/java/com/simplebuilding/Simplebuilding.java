@@ -153,16 +153,10 @@ public class Simplebuilding implements ModInitializer {
 // - ledger
 // - claimpoints
 // - Ping Wheel
-// - TCDCommons API
 // - Open Parties and Claims
-// - BadOptimizations
 // - controlling
-// - Cull Leaves
 // - voxy
-// - Reese's Sodium Options
-// - NoisiumForked
 // Client-Side
-// - [ETF] Entity Texture Features
 // - Recolourful Containers Axiom Fix
 // - Fresh Animations
 // - Fresh Animations: Objects
@@ -173,28 +167,21 @@ public class Simplebuilding implements ModInitializer {
 // - Fresh Animations: Emissive
 // - Fresh Animations: Classic Horses
 // - Fresh Animations: Extentions
-// - Architectury API
 // - Controlify (Controller support)
 // - Searchables
 // - Proton Shaders
-// - [EMF] Entity Model Features
 // - Fusion Connected Blocks
 // - Fusion Block Transitions
-// - My Totem Doll
 // - Xaero's Minimap
 // - itembound: Rebound
 // - Better F3
 // - Fusion (Connected Textures)
-// - Puzzles Lib
 // - Model Gap Fix
 // - BoatView360
-// - Low On Fire
 // - Xaero's World Map
 // - Fusion Connected Glass
 // - ViaFabricPlus
 // - Just Enough Professions (JEP)
-// - Held Item Tooltips
-// - Even Better Enchants
 // - do a barrel roll
 // - ModernFix-mVUS
 // - Just Enough Resources (JER)
@@ -203,7 +190,6 @@ public class Simplebuilding implements ModInitializer {
 // - Better Advancements
 // - Immersive Hotbar
 // - Cicada
-// - axiom
 // - no telemetry
 // - dynamic tooltips
 // - better statistics
@@ -218,6 +204,18 @@ public class Simplebuilding implements ModInitializer {
 
 
 
+// - axiom
+// - Puzzles Lib
+// - Even Better Enchants
+// - Low On Fire
+// - [EMF] Entity Model Features
+// - [ETF] Entity Texture Features
+// - Reese's Sodium Options
+// - NoisiumForked
+// - BadOptimizations
+// - Cull Leaves
+// - TCDCommons API
+// - My Totem Doll
 // - Boat Item View
 // - Easy Shulker Boxes
 // - ServerCore

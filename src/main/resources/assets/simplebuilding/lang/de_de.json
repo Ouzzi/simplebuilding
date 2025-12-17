@@ -105,6 +105,8 @@
   "enchantment.simplebuilding.leaping.description": "Erhöht die Sprunghöhe von gerittenen Pferden.",
   "enchantment.simplebuilding.double_jump": "Doppelsprung",
   "enchantment.simplebuilding.double_jump.description": "Erlaubt dem Spieler einen zusätzlichen Sprung.",
+  "enchantment.simplebuilding.drawer": "Schublade",
+  "enchantment.simplebuilding.drawer.description": "Erhöht die Kapazität von Bündeln und Verstärkten Bündeln.",
 
   "container.enchantments": "Verzauberungen",
   "enchantment.level.1": "I",
@@ -144,15 +146,31 @@
   "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip": "Sprungkraftmultiplikator pro Verzauberungsstufe auf Pferderüstung (Standard: 0.20).",
 
   "block.simplebuilding.reinforced_chest": "Verstärkte Truhe",
+  "item.simplebuilding.reinforced_chest": "Verstärkte Truhe",
   "block.simplebuilding.netherite_chest": "Netherit-Truhe",
+    "item.simplebuilding.netherite_chest": "Netherit-Truhe",
 
   "block.simplebuilding.reinforced_hopper": "Verstärkter Trichter",
+  "item.simplebuilding.reinforced_hopper": "Verstärkter Trichter",
   "block.simplebuilding.netherite_hopper": "Netherit-Trichter",
+    "item.simplebuilding.netherite_hopper": "Netherit-Trichter",
 
   "block.simplebuilding.reinforced_piston": "Verstärkter Kolben",
+  "item.simplebuilding.reinforced_piston": "Verstärkter Kolben",
   "block.simplebuilding.netherite_piston": "Netherit-Kolben",
+    "item.simplebuilding.netherite_piston": "Netherit-Kolben",
   "tooltip.simplebuilding.netherite_piston": "Baut Blöcke basierend auf Redstone-Signalstärke ab (1-15).",
 
   "block.simplebuilding.reinforced_blast_furnace": "Verstärkter Hochofen",
-  "block.simplebuilding.netherite_blast_furnace": "Netherit-Hochofen"
+  "container.simplebuilding.reinforced_blast_furnace": "Verstärkter Hochofen",
+    "item.simplebuilding.reinforced_blast_furnace": "Verstärkter Hochofen",
+  "container.simplebuilding.netherite_blast_furnace": "Netherit-Hochofen",
+  "block.simplebuilding.netherite_blast_furnace": "Netherit-Hochofen",
+    "item.simplebuilding.netherite_blast_furnace": "Netherit-Hochofen",
+
+  "item.simplebuilding.construction_light": "Baulicht",
+
+  "item.simplebuilding.diamond_pebble": "Diamant-Splitt",
+  "item.simplebuilding.cracked_diamond": "Rissiger Diamant",
+  "item.simplebuilding.cracked_diamond_block": "Rissiger Diamantblock"
 }

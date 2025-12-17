@@ -105,6 +105,8 @@
   "enchantment.simplebuilding.leaping.description": "Increases the jump height of ridden horses.",
   "enchantment.simplebuilding.double_jump": "Double Jump",
   "enchantment.simplebuilding.double_jump.description": "Allows the player to perform an additional jump.",
+  "enchantment.simplebuilding.drawer": "Drawer",
+  "enchantment.simplebuilding.drawer.description": "Increases the storage capacity of chests and bundles.",
 
   "container.enchantments": "Enchantments",
   "enchantment.level.1": "I",
@@ -144,15 +146,33 @@
   "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip": "Jump strength multiplier per enchantment level on horse armor (Default: 0.20).",
 
   "block.simplebuilding.reinforced_chest": "Reinforced Chest",
+  "item.simplebuilding.reinforced_chest": "Reinforced Chest",
   "block.simplebuilding.netherite_chest": "Netherite Chest",
+    "item.simplebuilding.netherite_chest": "Netherite Chest",
 
   "block.simplebuilding.reinforced_hopper": "Reinforced Hopper",
+    "item.simplebuilding.reinforced_hopper": "Reinforced Hopper",
   "block.simplebuilding.netherite_hopper": "Netherite Hopper",
+    "item.simplebuilding.netherite_hopper": "Netherite Hopper",
 
   "block.simplebuilding.reinforced_piston": "Reinforced Piston",
+  "item.simplebuilding.reinforced_piston": "Reinforced Piston",
   "block.simplebuilding.netherite_piston": "Netherite Piston",
+    "item.simplebuilding.netherite_piston": "Netherite Piston",
   "tooltip.simplebuilding.netherite_piston": "Breaks blocks based on Redstone strength (1-15).",
 
+
   "block.simplebuilding.reinforced_blast_furnace": "Reinforced Blast Furnace",
-  "block.simplebuilding.netherite_blast_furnace": "Netherite Blast Furnace"
+  "container.simplebuilding.reinforced_blast_furnace": "Reinforced Blast Furnace",
+  "item.simplebuilding.reinforced_blast_furnace": "Reinforced Blast Furnace",
+  "container.simplebuilding.netherite_blast_furnace": "Netherite Blast Furnace",
+  "block.simplebuilding.netherite_blast_furnace": "Netherite Blast Furnace",
+    "item.simplebuilding.netherite_blast_furnace": "Netherite Blast Furnace",
+
+  "item.simplebuilding.construction_light": "Construction Light",
+
+  "item.simplebuilding.diamond_pebble": "Diamond Pebble",
+    "item.simplebuilding.cracked_diamond": "Cracked Diamond",
+  "item.simplebuilding.cracked_diamond_block": "Cracked Diamond Block"
+
 }
