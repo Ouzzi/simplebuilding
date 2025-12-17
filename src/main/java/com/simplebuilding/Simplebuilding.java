@@ -149,9 +149,21 @@ public class Simplebuilding implements ModInitializer {
 
 
 // WTCAH 1.21.11 Missing
+// Server-Side
+// - ledger
+// - claimpoints
+// - Ping Wheel
+// - TCDCommons API
+// - Open Parties and Claims
+// - BadOptimizations
+// - controlling
+// - Cull Leaves
+// - voxy
+// - Reese's Sodium Options
+// - NoisiumForked
+// Client-Side
 // - [ETF] Entity Texture Features
 // - Recolourful Containers Axiom Fix
-// - TCDCommons API
 // - Fresh Animations
 // - Fresh Animations: Objects
 // - Fresh Animations: Creepers
@@ -164,10 +176,8 @@ public class Simplebuilding implements ModInitializer {
 // - Architectury API
 // - Controlify (Controller support)
 // - Searchables
-// - Easy Shulker Boxes
 // - Proton Shaders
 // - [EMF] Entity Model Features
-// - pick up notifier
 // - Fusion Connected Blocks
 // - Fusion Block Transitions
 // - My Totem Doll
@@ -177,7 +187,6 @@ public class Simplebuilding implements ModInitializer {
 // - Fusion (Connected Textures)
 // - Puzzles Lib
 // - Model Gap Fix
-// - Open Parties and Claims
 // - BoatView360
 // - Low On Fire
 // - Xaero's World Map
@@ -185,25 +194,16 @@ public class Simplebuilding implements ModInitializer {
 // - ViaFabricPlus
 // - Just Enough Professions (JEP)
 // - Held Item Tooltips
-// - Ping Wheel
 // - Even Better Enchants
 // - do a barrel roll
-// - ledger
-// - claimpoints
-// - BadOptimizations
 // - ModernFix-mVUS
 // - Just Enough Resources (JER)
 // - Enchantment Insights
 // - Blind
 // - Better Advancements
-// - Reese's Sodium Options
-// - Boat Item View
 // - Immersive Hotbar
 // - Cicada
-// - controlling
 // - axiom
-// - Cull Leaves
-// - voxy
 // - no telemetry
 // - dynamic tooltips
 // - better statistics
@@ -211,7 +211,6 @@ public class Simplebuilding implements ModInitializer {
 // - Cubes Without Borders
 // - Silk
 // - freecam
-// - NoisiumForked
 // - Just Enough Items (jei)
 // -
 // -
@@ -219,6 +218,8 @@ public class Simplebuilding implements ModInitializer {
 
 
 
+// - Boat Item View
+// - Easy Shulker Boxes
 // - ServerCore
 // - Recolourful Containers GUI + HUD
 // - Recolourful Containers GUI + HUD (DARK)
