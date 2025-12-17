@@ -5,18 +5,14 @@ import com.simplebuilding.blocks.custom.ModHopperBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HopperBlock;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.Hopper;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.HopperScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.storage.ReadView;
@@ -35,7 +31,6 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
     private int transferCooldown = -1;
     private long lastTickTime;
 
-    // Cache für Slots (Kopie aus Vanilla zur Optimierung)
     private static final int[][] AVAILABLE_SLOTS_CACHE = new int[54][];
 
     public ModHopperBlockEntity(BlockPos pos, BlockState state) {
@@ -43,7 +38,6 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
         this.inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
     }
 
-    // --- NBT (Data) ---
     @Override
     protected void readData(ReadView view) {
         super.readData(view);
@@ -63,7 +57,6 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
         view.putInt("TransferCooldown", this.transferCooldown);
     }
 
-    // --- Standard Container Methods ---
     @Override
     public int size() { return 5; }
 
@@ -95,9 +88,7 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
         return new HopperScreenHandler(syncId, playerInventory, this);
     }
 
-    // --- Custom Logic ---
 
-    // Server Tick (angepasst)
     public static void serverTick(World world, BlockPos pos, BlockState state, ModHopperBlockEntity blockEntity) {
         --blockEntity.transferCooldown;
         blockEntity.lastTickTime = world.getTime();
@@ -119,14 +110,11 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
                 bl |= booleanSupplier.getAsBoolean();
             }
             if (bl) {
-                int speed = 8; // Vanilla
+                int speed = 8;
                 Block block = state.getBlock();
 
-                // FIX: Exakte Prüfung auf die Blöcke
-                if (block == com.simplebuilding.blocks.ModBlocks.NETHERITE_HOPPER) {
-                    speed = 2; // 4x schneller als Vanilla (8 / 4 = 2 Ticks)
-                } else if (block == com.simplebuilding.blocks.ModBlocks.REINFORCED_HOPPER) {
-                    speed = 4; // 2x schneller als Vanilla (8 / 2 = 4 Ticks)
+                if (block == com.simplebuilding.blocks.ModBlocks.NETHERITE_HOPPER) {speed = 2;
+                } else if (block == com.simplebuilding.blocks.ModBlocks.REINFORCED_HOPPER) {speed = 4;
                 }
 
                 blockEntity.setTransferCooldown(speed);
@@ -137,7 +125,6 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
         return false;
     }
 
-    // Insert Logik (Kopie aus Vanilla da private)
     private static boolean insert(World world, BlockPos pos, ModHopperBlockEntity blockEntity) {
         Inventory inventory = getOutputInventory(world, pos, blockEntity);
         if (inventory == null) return false;
@@ -161,7 +148,6 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
         return false;
     }
 
-    // Helper (Kopien oder Wrapper)
     private static @Nullable Inventory getOutputInventory(World world, BlockPos pos, ModHopperBlockEntity blockEntity) {
         return HopperBlockEntity.getInventoryAt(world, pos.offset(stateToFacing(blockEntity.getCachedState())));
     }

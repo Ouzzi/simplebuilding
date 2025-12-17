@@ -5,6 +5,7 @@
   "mixins": [
     "AnvilScreenHandlerMixin",
     "BowItemMixin",
+    "HostileEntityMixin",
     "ItemEntityMixin",
     "PistonBlockMixin",
     "PistonHandlerMixin",

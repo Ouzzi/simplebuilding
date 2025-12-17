@@ -140,7 +140,6 @@ public class Simplebuilding implements ModInitializer {
 // - simplebuilding + (texture fix for ...)
 // - simpleriding + (texture fix for ...)
 // - simpletweaks
-// -- _young nametag to stop mobs from ageing 
 
 // - simpleindustry
 // –– some farming possibillities

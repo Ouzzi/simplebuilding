@@ -2,6 +2,8 @@ package com.simplebuilding.blocks;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.custom.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -16,12 +18,20 @@ import java.util.function.Function;
 
 public class ModBlocks {
 
-    // CONSTRUCTION_LIGHT: Leuchtet (15), ist durchsichtig (Glas-Basis), erlaubt Spawning
+
     public static final Block CONSTRUCTION_LIGHT = registerBlock("construction_light",
-            settings -> new Block(settings
-                    .luminance(state -> 15)
-                    .nonOpaque()
-                    .allowsSpawning((state, world, pos, entityType) -> true))
+            // Wir ignorieren das 'settings' Argument der Factory
+            unused -> new Block(AbstractBlock.Settings.create()
+                    .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(Simplebuilding.MOD_ID, "construction_light")))
+                    .mapColor(net.minecraft.block.MapColor.DIAMOND_BLUE)
+                    .strength(0.3F) // Zerbricht schnell
+                    .sounds(net.minecraft.sound.BlockSoundGroup.GLASS) // Klingt wie Glas
+                    .luminance(state -> 15) // Leuchtet hell
+                    .allowsSpawning((state, world, pos, type) -> true) // Erlaubt Spawns
+                    .solidBlock((state, world, pos) -> true) // WICHTIG: Gilt als voller Block für Mobs
+                    .blockVision((state, world, pos) -> false) // WICHTIG: Lässt Licht durch (optisch)
+                    .suffocates((state, world, pos) -> false) // Man erstickt nicht darin
+            )
     );
 
     public static final Block CRACKED_DIAMOND_BLOCK = registerBlock("cracked_diamond_block",
@@ -57,7 +67,6 @@ public class ModBlocks {
         Identifier id = Identifier.of(Simplebuilding.MOD_ID, name);
         RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, id);
         AbstractBlock.Settings settings = AbstractBlock.Settings.copy(Blocks.GLASS).registryKey(key);
-
         Block block = factory.apply(settings);
         return Registry.register(Registries.BLOCK, id, block);
     }

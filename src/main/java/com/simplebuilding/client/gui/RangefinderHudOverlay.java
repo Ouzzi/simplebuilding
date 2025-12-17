@@ -42,19 +42,15 @@ public class RangefinderHudOverlay implements HudRenderCallback {
 
         if (!hasOctant) return;
 
-        // Octant Item und Farbe holen
         OctantItem octantItem = (OctantItem) stack.getItem();
         DyeColor dyeColor = octantItem.getColor();
 
-        // Farben bestimmen (inkl. Hintergrund)
         guiDrawHelper.ColorTheme theme = guiDrawHelper.getColorTheme(dyeColor);
 
-        // Check für Speedometer (für Positionierung)
         ItemStack main = client.player.getMainHandStack();
         ItemStack off = client.player.getOffHandStack();
         boolean hasSpeedometer = main.isOf(ModItems.VELOCITY_GAUGE) || off.isOf(ModItems.VELOCITY_GAUGE);
 
-        // --- DATA ---
         NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = nbtData.copyNbt();
         List<Text> lines = new ArrayList<>();
@@ -108,7 +104,6 @@ public class RangefinderHudOverlay implements HudRenderCallback {
 
         if (lines.isEmpty()) return;
 
-        // --- RENDER ---
         TextRenderer textRenderer = client.textRenderer;
         int screenHeight = context.getScaledWindowHeight();
 
@@ -133,14 +128,11 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         int x = 10;
         int y = (screenHeight / 2) - (boxHeight / 2);
 
-        // POSITIONIERUNG: Hochrutschen wenn Speedometer da ist
         if (hasSpeedometer) {
             y -= 35;
         }
 
-        // --- HINTERGRUND & RAHMEN ---
-        // Wir nutzen jetzt theme.background statt der Konstante BACKGROUND_COLOR
-
+        // --- BOX RAHMEN ---
         int bg = theme.background();
 
         // Haupt-Hintergrund

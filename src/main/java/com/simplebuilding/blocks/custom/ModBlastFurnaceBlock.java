@@ -52,11 +52,7 @@ public class ModBlastFurnaceBlock extends BlastFurnaceBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        // FIX: Prüfen ob ServerWorld, dann casten und Lambda statt Methodenreferenz nutzen
-        if (world.isClient()) {
-            return null;
-        }
-        return validateTicker(type, ModBlockEntities.MOD_BLAST_FURNACE_BE, (w, pos, st, be) ->
-            ModBlastFurnaceBlockEntity.tick((ServerWorld) w, pos, st, be));
+        if (world.isClient()) {return null;}
+        return validateTicker(type, ModBlockEntities.MOD_BLAST_FURNACE_BE, (w, pos, st, be) -> ModBlastFurnaceBlockEntity.tick((ServerWorld) w, pos, st, be));
     }
 }

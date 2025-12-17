@@ -50,6 +50,14 @@ Measurement tools to help you plan your builds and track your speed.
 * **Reinforced Bundle:** Can be enchanted with `Deep Pockets` for massive storage capacity.
 * **Netherite Bundle:** Highest capacity and durability.
 
+### 🧱 Custom Blocks:
+* **Reinforced Piston:** Stronger pushing capabilities.
+* **Netherite Piston (The Breaker):** Unlike a normal piston, this block **breaks** the block in front of it when activated.
+* **Reinforced Hopper:** Increased transfer speed and item throughput.
+* **Netherite Hopper:** Maximum speed for high-performance sorting systems.
+* **Reinforced & Netherite Blast Furnaces:** Smelt ores and metals at significantly higher speeds than vanilla blast furnaces.
+* **Construction Light:** A bright, industrial light source crafted with Lapis and Glass. Perfect for preventing mob spawns in large halls without spamming torches.
+
 ---
 
 ## ✨ Custom Enchantments

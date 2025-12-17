@@ -21,10 +21,8 @@ import net.minecraft.world.WorldAccess;
 public class NetheritePistonHeadBlock extends FacingBlock {
     public static final MapCodec<NetheritePistonHeadBlock> CODEC = createCodec(NetheritePistonHeadBlock::new);
 
-    // Hitbox für den Piston Arm (ungefähr wie Vanilla)
     protected static final VoxelShape EAST_HEAD_SHAPE = Block.createCuboidShape(0.0D, 6.0D, 6.0D, 16.0D, 10.0D, 10.0D); // Beispielwerte, anpassen!
     protected static final VoxelShape WEST_HEAD_SHAPE = Block.createCuboidShape(0.0D, 6.0D, 6.0D, 16.0D, 10.0D, 10.0D);
-    // ... Definiere Shapes für alle Richtungen für perfekte Hitboxen, oder nutze fullCube() für den Anfang.
 
     public NetheritePistonHeadBlock(Settings settings) {
         super(settings);
@@ -41,8 +39,6 @@ public class NetheritePistonHeadBlock extends FacingBlock {
         builder.add(FACING);
     }
 
-    // WICHTIG: Wenn der Kopf zerstört wird, muss die Basis informiert werden (optional)
-    // Oder andersrum: Wenn der Kopf abgebaut wird, droppt nichts.
     @Override
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient() && player.isCreative()) {
@@ -55,7 +51,6 @@ public class NetheritePistonHeadBlock extends FacingBlock {
         return super.onBreak(world, pos, state, player);
     }
 
-    // Wenn der Block in der Luft schwebt (Basis weg), zerstören
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, net.minecraft.world.WorldView world, net.minecraft.world.tick.ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, net.minecraft.util.math.random.Random random) {
         Direction facing = state.get(FACING);
@@ -73,7 +68,6 @@ public class NetheritePistonHeadBlock extends FacingBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        // Hier korrekte VoxelShape zurückgeben je nach Facing, damit man nicht durchlaufen kann
         return VoxelShapes.fullCube(); // Vorerst voller Block als Platzhalter
     }
 

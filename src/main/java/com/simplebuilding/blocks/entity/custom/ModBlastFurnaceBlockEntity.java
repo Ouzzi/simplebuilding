@@ -30,24 +30,19 @@ public class ModBlastFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
     }
 
     public static void tick(ServerWorld world, BlockPos pos, BlockState state, ModBlastFurnaceBlockEntity blockEntity) {
-        // 1. Vanilla Tick ausführen (Macht +1 Fortschritt)
         AbstractFurnaceBlockEntity.tick(world, pos, state, blockEntity);
 
-        // 2. Speed Boost
         PropertyDelegate data = blockEntity.propertyDelegate;
-        int cookTime = data.get(2); // Fortschritt
-        int totalTime = data.get(3); // Ziel (z.B. 100)
+        int cookTime = data.get(2);
+        int totalTime = data.get(3);
         boolean isBurning = data.get(0) > 0;
 
         if (isBurning && cookTime > 0 && totalTime > 0) {
             int extraTicks = 0;
 
-            // Anpassung: Kleinere Werte sind flüssiger als "10 alle X Ticks"
             if (state.isOf(ModBlocks.NETHERITE_BLAST_FURNACE)) {
-                // Extrem schnell: +3 extra pro Tick (insgesamt 4x Speed)
                 extraTicks = 3;
             } else if (state.isOf(ModBlocks.REINFORCED_BLAST_FURNACE)) {
-                // Schnell: +1 extra pro Tick (insgesamt 2x Speed)
                 extraTicks = 1;
             }
 

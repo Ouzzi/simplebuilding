@@ -8,9 +8,10 @@
 ## ✨ Key Features
 * **🔨 Sledgehammers:** Mine 3x3 areas (or larger!) to clear space quickly.
 * **🪄 Building Wands:** Extend walls, build bridges, or place lines of blocks instantly.
+* **⚙️ Block Breakers:** Netherite Pistons that break blocks based on redstone signal strength.
 * **🏹 Quivers:** Dedicated arrow storage that works from your chestplate slot or offhand.
 * **🗿 Chisels & Spatulas:** Transform blocks in-world (e.g., Stone Bricks → Cracked Bricks) without a Stonecutter.
-* **🎒 Reinforced Storage:** Bundles and Shulker Boxes that hold massive amounts of items.
+* **🎒 Reinforced Storage:** Bundles and Hoppers that hold massive amounts of items.
 * **⛏️ Vein Mining:** Mine entire ore veins or trees with a single break.
 
 ---
@@ -99,6 +100,27 @@ A measuring tool display your current movement speed.
 * **Enchantments:** *Constructor's Touch* (more data).
 
 ![Replace this with a description](https://cdn.modrinth.com/data/cached_images/cf6e3261c03c6c906ca836a93b29247de5a50e0a.png)
+
+
+### ⚙️ Reinforced Machinery & Blocks
+Upgrade your base automation with heavy-duty versions of vanilla blocks.
+
+* **🧱 Block Breakers (Pistons):**
+    * **Reinforced Piston:** Stronger pushing capabilities.
+    * **Netherite Piston (The Breaker):** Unlike a normal piston, this block **breaks** the block in front of it when activated.
+        * *Smart Power:* The mining power depends on the **Redstone Signal Strength** (1-15).
+        * *Signal 1:* Breaks soft blocks (Dirt, Sand).
+        * *Signal 15:* Breaks hard blocks (Obsidian, Ancient Debris).
+
+* **📥 Upgraded Logistics (Hoppers):**
+    * **Reinforced Hopper:** Increased transfer speed and item throughput.
+    * **Netherite Hopper:** Maximum speed for high-performance sorting systems.
+    * 
+* **🔥 Advanced Smelting:**
+    * **Reinforced & Netherite Blast Furnaces:** Smelt ores and metals at significantly higher speeds than vanilla blast furnaces.
+
+* **💡 Utility:**
+    * **Construction Light:** A bright, industrial light source crafted with Lapis and Glass. Perfect for preventing mob spawns in large halls without spamming torches.
 
 ---
 

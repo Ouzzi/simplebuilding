@@ -1,5 +1,6 @@
 package com.simplebuilding;
 
+import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.gui.SpeedometerHudOverlay;
@@ -13,9 +14,12 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.minecraft.client.gui.tooltip.BundleTooltipComponent;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.registry.RegistryKeys;
@@ -46,7 +50,6 @@ public class SimplebuildingClient implements ClientModInitializer {
         BuildingWandOutlineRenderer.register();
 
         registerDoubleJumpClient();
-
         // BlockEntityRendererRegistry.register(ModBlockEntities.MOD_CHEST_BE, ModChestBlockEntityRenderer::new);
     }
 

@@ -38,7 +38,6 @@ public class ModHopperBlock extends HopperBlock {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof ModHopperBlockEntity) {
                 player.openHandledScreen((NamedScreenHandlerFactory)blockEntity);
-                // Optional: Stats update
             }
             return ActionResult.CONSUME;
         }
