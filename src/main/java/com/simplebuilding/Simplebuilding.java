@@ -115,7 +115,9 @@ public class Simplebuilding implements ModInitializer {
 
 
 // TODO Later:
-
+// - reinforced observer - less delay, more range (7 blocks)
+// - netherite observer - no delay, more range (15 blocks)
+// - durrability of sledgehammer, 4x more durable than pickaxe equivalent
 
 // - later - Glass Itemframes, transparent itemframes - doent drop frame when broken exept silk touch.
 // - later - Negative Beacon (evil Beacon) that gives negative effects to players in range
@@ -158,22 +160,12 @@ public class Simplebuilding implements ModInitializer {
 // - voxy
 // Client-Side
 // - Recolourful Containers Axiom Fix
-// - Fresh Animations
-// - Fresh Animations: Objects
-// - Fresh Animations: Creepers
-// - Fresh Animations: Spiders
-// - Fresh Animations: Details
-// - Fresh Animations: Quivers
-// - Fresh Animations: Emissive
-// - Fresh Animations: Classic Horses
-// - Fresh Animations: Extentions
 // - Controlify (Controller support)
 // - Searchables
 // - Proton Shaders
 // - Fusion Connected Blocks
 // - Fusion Block Transitions
 // - Xaero's Minimap
-// - itembound: Rebound
 // - Better F3
 // - Fusion (Connected Textures)
 // - Model Gap Fix
@@ -204,6 +196,16 @@ public class Simplebuilding implements ModInitializer {
 
 
 
+// - itembound: Rebound
+// - Fresh Animations
+// - Fresh Animations: Objects
+// - Fresh Animations: Creepers
+// - Fresh Animations: Spiders
+// - Fresh Animations: Details
+// - Fresh Animations: Quivers
+// - Fresh Animations: Emissive
+// - Fresh Animations: Classic Horses
+// - Fresh Animations: Extentions
 // - axiom
 // - Puzzles Lib
 // - Even Better Enchants
