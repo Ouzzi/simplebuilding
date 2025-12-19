@@ -112,7 +112,8 @@ public class Simplebuilding implements ModInitializer {
 
 }
 
-
+// TODO:
+// - swapper enchant (swaps enchanted toll with fitting tool when sneaking)
 
 // TODO Later:
 // - reinforced observer - less delay, more range (7 blocks)
