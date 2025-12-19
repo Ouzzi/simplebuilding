@@ -49,7 +49,6 @@ public class BuildingWandItem extends Item {
     public static final int BUILDING_WAND_SQUARE_DIAMOND = 7;
     public static final int BUILDING_WAND_SQUARE_NETHERITE = 9;
 
-    public static final int DURABILITY_MULTIPLAYER_WAND = 8;
     public static final int DELAY_TICKS = 6;      // 300ms
     public static final int DELAY_TICKS_LINE = 3; // 150ms
 

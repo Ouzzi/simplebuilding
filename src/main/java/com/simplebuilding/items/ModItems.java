@@ -20,6 +20,7 @@ import java.util.function.Function;
 
 import static com.simplebuilding.items.custom.BuildingWandItem.*;
 import static com.simplebuilding.items.custom.OctantItem.DURABILITY_OCTANT;
+import static com.simplebuilding.items.custom.SledgehammerItem.*;
 
 /**
  * Verwaltet die Registrierung aller benutzerdefinierten Gegenstände (Items) des Simplemoney Mods.
@@ -81,11 +82,11 @@ public class ModItems {
     public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new Item(s.maxCount(16)));
 
     // Wands
-    public static final BuildingWandItem COPPER_BUILDING_WAND = registerBuildingWand("copper_building_wand", DURABILITY_WOOD_STONE * DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_COPPER, ENCHANTABILITY_COPPER);
-    public static final BuildingWandItem IRON_BUILDING_WAND = registerBuildingWand("iron_building_wand", DURABILITY_IRON * DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_IRON, ENCHANTABILITY_IRON);
-    public static final BuildingWandItem GOLD_BUILDING_WAND = registerBuildingWand("gold_building_wand", DURABILITY_GOLD * DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_GOLD, ENCHANTABILITY_GOLD);
-    public static final BuildingWandItem DIAMOND_BUILDING_WAND = registerBuildingWand("diamond_building_wand", DURABILITY_DIAMOND * DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_DIAMOND, ENCHANTABILITY_DIAMOND);
-    public static final BuildingWandItem NETHERITE_BUILDING_WAND = registerBuildingWand("netherite_building_wand", DURABILITY_NETHERITE * DURABILITY_MULTIPLAYER_WAND, BUILDING_WAND_SQUARE_NETHERITE, ENCHANTABILITY_NETHERITE);
+    public static final BuildingWandItem COPPER_BUILDING_WAND = registerBuildingWand("copper_building_wand", DURABILITY_COPPER_SLEDGEHAMMER, BUILDING_WAND_SQUARE_COPPER, ENCHANTABILITY_COPPER);
+    public static final BuildingWandItem IRON_BUILDING_WAND = registerBuildingWand("iron_building_wand", DURABILITY_IRON_SLEDGEHAMMER, BUILDING_WAND_SQUARE_IRON, ENCHANTABILITY_IRON);
+    public static final BuildingWandItem GOLD_BUILDING_WAND = registerBuildingWand("gold_building_wand", DURABILITY_GOLD_SLEDGEHAMMER, BUILDING_WAND_SQUARE_GOLD, ENCHANTABILITY_GOLD);
+    public static final BuildingWandItem DIAMOND_BUILDING_WAND = registerBuildingWand("diamond_building_wand", DURABILITY_DIAMOND_SLEDGEHAMMER, BUILDING_WAND_SQUARE_DIAMOND, ENCHANTABILITY_DIAMOND);
+    public static final BuildingWandItem NETHERITE_BUILDING_WAND = registerBuildingWand("netherite_building_wand", DURABILITY_NETHERITE_SLEDGEHAMMER, BUILDING_WAND_SQUARE_NETHERITE, ENCHANTABILITY_NETHERITE);
 
     // Sledgehammer
     public static final SledgehammerItem STONE_SLEDGEHAMMER = registerSledgehammer("stone_sledgehammer", DURABILITY_WOOD_STONE, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE, SledgehammerItem.STONE_ATTACK_DAMAGE, SledgehammerItem.STONE_ATTACK_SPEED);

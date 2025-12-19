@@ -34,6 +34,13 @@ public class SledgehammerItem extends Item {
     public static final float DIAMOND_ATTACK_SPEED = -2.8f - ATTACK_SPEED_OFFSET;
     public static final float NETHERITE_ATTACK_SPEED = -2.6f - ATTACK_SPEED_OFFSET;
 
+
+    public static final int DURABILITY_COPPER_SLEDGEHAMMER = 190 * 3;
+    public static final int DURABILITY_IRON_SLEDGEHAMMER = 250 * 3;
+    public static final int DURABILITY_GOLD_SLEDGEHAMMER = 32 * 3;
+    public static final int DURABILITY_DIAMOND_SLEDGEHAMMER = 1561 * 3;
+    public static final int DURABILITY_NETHERITE_SLEDGEHAMMER = 2031 * 3;
+
     public SledgehammerItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
         super(settings.pickaxe(material, attackDamage, attackSpeed));
     }

@@ -17,7 +17,8 @@ public class SimplebuildingConfig implements ConfigData {
     public static class Tools {
         @ConfigEntry.Gui.Tooltip
         public boolean invertOctantSneak = false; // Constructor's Touch Invertierung
-        public int buildingHighlightOpacity = 80;
+        public int buildingHighlightOpacity = 10;
+        public int buildingHighlightColor = 0x00FF00;
     }
 
     public static class WorldGen {
