@@ -400,6 +400,30 @@ public class ChiselItem extends Item {
         }
     }
 
+    public boolean canChisel(World world, BlockPos pos, ItemStack stack, PlayerEntity player) {
+        // Cooldown Check (optional: wenn du willst, dass es auch bei Cooldown leuchtet, entferne diese Zeile)
+        if (player.getItemCooldownManager().isCoolingDown(stack)) return false;
+
+        BlockState state = world.getBlockState(pos);
+        Block block = state.getBlock();
+
+        // Enchantment Checks für Constructor's Touch
+        RegistryWrapper.WrapperLookup registryManager = world.getRegistryManager();
+        var touchEntry = getEnchantment(registryManager, ModEnchantments.CONSTRUCTORS_TOUCH);
+        boolean hasConstructorsTouch = touchEntry != null && EnchantmentHelper.getLevel(touchEntry, stack) > 0;
+
+        // Bestimme die korrekte Map basierend auf Richtung und Enchantment
+        Map<Block, Block> currentMap;
+        if (this.chiselDirection == Direction.FORWARD) {
+            currentMap = hasConstructorsTouch ? this.touchForwardMap : this.forwardMap;
+        } else {
+            currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
+        }
+
+        // Ist der Block in der Map?
+        return currentMap.containsKey(block);
+    }
+
     private RegistryEntry<Enchantment> getEnchantment(RegistryWrapper.WrapperLookup registry, net.minecraft.registry.RegistryKey<Enchantment> key) {
         Optional<RegistryEntry.Reference<Enchantment>> optional = registry.getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(key);
         return optional.orElse(null);

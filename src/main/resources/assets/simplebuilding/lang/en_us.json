@@ -87,10 +87,8 @@
 
   "enchantment.simplebuilding.deep_pockets": "Deep Pockets",
   "enchantment.simplebuilding.master_builder": "Master Builder",
-  "enchantment.simplebuilding.color_palette": "Color Palette",
   "enchantment.simplebuilding.funnel": "Funnel",
   "enchantment.simplebuilding.quiver": "Quiver",
-  "enchantment.simplebuilding.break_through": "Break Through",
   "enchantment.simplebuilding.override": "Override",
   "enchantment.simplebuilding.radius": "Radius",
   "enchantment.simplebuilding.strip_miner": "Strip Miner",
@@ -103,10 +101,15 @@
   "enchantment.simplebuilding.tailwind.description": "Increases the speed of ridden mobs.",
   "enchantment.simplebuilding.leaping": "Leaping",
   "enchantment.simplebuilding.leaping.description": "Increases the jump height of ridden horses.",
-  "enchantment.simplebuilding.double_jump": "Double Jump",
-  "enchantment.simplebuilding.double_jump.description": "Allows the player to perform an additional jump.",
   "enchantment.simplebuilding.drawer": "Drawer",
   "enchantment.simplebuilding.drawer.description": "Increases the storage capacity of chests and bundles.",
+  "enchantment.simplebuilding.versatility": "Versatility",
+  "enchantment.simplebuilding.versatility.desc": "Swaps to the best tool when sneaking.",
+
+  "enchantment.simplebuilding.break_through": "Break Through",
+  "enchantment.simplebuilding.color_palette": "Color Palette",
+  "enchantment.simplebuilding.double_jump": "Air Jump",
+  "enchantment.simplebuilding.double_jump.description": "Allows the player to perform an additional jump.",
 
   "container.enchantments": "Enchantments",
   "enchantment.level.1": "I",
@@ -120,6 +123,11 @@
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak.@Tooltip": "If true, the Octant renders the filled area when NOT sneaking (with Constructor's Touch).",
   "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity": "Building Wand Highlight Opacity",
   "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity.@Tooltip": "Opacity of the Building Wand block highlight (0.0 - 1.0).",
+
+  "text.autoconfig.simplebuilding.option.tools.enableToolAnimations": "Enable Tool Animations",
+  "text.autoconfig.simplebuilding.option.tools.enableToolAnimations.@Tooltip": "Toggles custom tool animations like the Chisel rotation.",
+  "text.autoconfig.simplebuilding.option.tools.enableChiselAnimation": "Enable Chisel Animation",
+  "text.autoconfig.simplebuilding.option.tools.enableChiselAnimation.@Tooltip": "Specific toggle for the Chisel visual feedback.",
 
   "text.autoconfig.simplebuilding.option.worldGen": "World Generation & Economy",
   "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades": "Enable Villager Trades",
@@ -148,31 +156,29 @@
   "block.simplebuilding.reinforced_chest": "Reinforced Chest",
   "item.simplebuilding.reinforced_chest": "Reinforced Chest",
   "block.simplebuilding.netherite_chest": "Netherite Chest",
-    "item.simplebuilding.netherite_chest": "Netherite Chest",
+  "item.simplebuilding.netherite_chest": "Netherite Chest",
 
   "block.simplebuilding.reinforced_hopper": "Reinforced Hopper",
-    "item.simplebuilding.reinforced_hopper": "Reinforced Hopper",
+  "item.simplebuilding.reinforced_hopper": "Reinforced Hopper",
   "block.simplebuilding.netherite_hopper": "Netherite Hopper",
-    "item.simplebuilding.netherite_hopper": "Netherite Hopper",
+  "item.simplebuilding.netherite_hopper": "Netherite Hopper",
 
   "block.simplebuilding.reinforced_piston": "Reinforced Piston",
   "item.simplebuilding.reinforced_piston": "Reinforced Piston",
   "block.simplebuilding.netherite_piston": "Netherite Piston",
-    "item.simplebuilding.netherite_piston": "Netherite Piston",
+  "item.simplebuilding.netherite_piston": "Netherite Piston",
   "tooltip.simplebuilding.netherite_piston": "Breaks blocks based on Redstone strength (1-15).",
-
 
   "block.simplebuilding.reinforced_blast_furnace": "Reinforced Blast Furnace",
   "container.simplebuilding.reinforced_blast_furnace": "Reinforced Blast Furnace",
   "item.simplebuilding.reinforced_blast_furnace": "Reinforced Blast Furnace",
   "container.simplebuilding.netherite_blast_furnace": "Netherite Blast Furnace",
   "block.simplebuilding.netherite_blast_furnace": "Netherite Blast Furnace",
-    "item.simplebuilding.netherite_blast_furnace": "Netherite Blast Furnace",
+  "item.simplebuilding.netherite_blast_furnace": "Netherite Blast Furnace",
 
   "item.simplebuilding.construction_light": "Construction Light",
 
   "item.simplebuilding.diamond_pebble": "Diamond Pebble",
-    "item.simplebuilding.cracked_diamond": "Cracked Diamond",
+  "item.simplebuilding.cracked_diamond": "Cracked Diamond",
   "item.simplebuilding.cracked_diamond_block": "Cracked Diamond Block"
-
 }

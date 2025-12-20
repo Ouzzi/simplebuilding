@@ -35,9 +35,8 @@ public class ModItemGroups {
 
                         // --- Machines & Storage (NEU) ---
                         // todo chest:
-
-                        //  entries.add(ModItems.REINFORCED_CHEST);
-                        // entries.add(ModItems.NETHERITE_CHEST);
+                            //  entries.add(ModItems.REINFORCED_CHEST);
+                            // entries.add(ModItems.NETHERITE_CHEST);
                         entries.add(ModItems.REINFORCED_HOPPER);
                         entries.add(ModItems.NETHERITE_HOPPER);
                         entries.add(ModItems.REINFORCED_BLAST_FURNACE);
@@ -110,6 +109,7 @@ public class ModItemGroups {
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.RANGE, 3);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.STRIP_MINER, 3);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.VEIN_MINER, 5);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.VERSATILITY, 2);
 
                         // 2. Sledgehammer Specific
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.BREAK_THROUGH, 1);

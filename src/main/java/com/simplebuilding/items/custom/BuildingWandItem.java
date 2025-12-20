@@ -35,12 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-// TODO:
-//  fix masterbuilder possibele
-//  if something in way stop placing / if no enchantment that allows ignore stop placing
-
-
-
 public class BuildingWandItem extends Item {
 
     public static final int BUILDING_WAND_SQUARE_COPPER = 3;
@@ -55,9 +49,20 @@ public class BuildingWandItem extends Item {
     private int wandSquareDiameter;
     private SoundEvent placeSound = SoundEvents.BLOCK_STONE_PLACE;
 
+    // Helper Klasse für das gefundene Material
     private static class MaterialResult {
-        ItemStack sourceStack; int bundleIndex; boolean fromBundle; BlockState stateToPlace;
-        public void consume() { if (fromBundle) removeOneFromBundle(sourceStack, bundleIndex); else sourceStack.decrement(1); }
+        ItemStack sourceStack;
+        int bundleIndex;
+        boolean fromBundle;
+        BlockState stateToPlace;
+
+        public void consume() {
+            if (fromBundle) {
+                removeOneFromBundle(sourceStack, bundleIndex);
+            } else {
+                sourceStack.decrement(1);
+            }
+        }
     }
 
     public BuildingWandItem(Settings settings) {
@@ -127,7 +132,7 @@ public class BuildingWandItem extends Item {
         boolean isCover = hasEnchantment(stack, world, ModEnchantments.COVER);
 
         if (isBridge || isLinePlace) {
-             if (isBridge) maxRadius = this.wandSquareDiameter;
+            if (isBridge) maxRadius = this.wandSquareDiameter;
         }
 
         int ox = getBlockInt(nbt, "OriginX");
@@ -167,31 +172,26 @@ public class BuildingWandItem extends Item {
             BlockPos targetPos = null;
 
             if (isCover) {
-                // COVER MODUS: Prüfen, ob eine Oberfläche existiert (Löcher füllen / Terrain folgen)
-                // Deviation skaliert mit dem Radius (1 Block pro Ebene)
                 int maxDeviation = currentRadius;
-
                 for (int depth = 1; depth <= maxDeviation + 1; depth++) {
                     BlockPos checkPos = rawPos.offset(face.getOpposite(), depth);
                     BlockState checkState = world.getBlockState(checkPos);
-
-                    // Validierung gegen Pattern Block (nur wenn Oberfläche da ist)
                     if (isValidSupport(checkState, patternBlock, true)) {
                         targetPos = checkPos.offset(face);
                         break;
                     }
                 }
             } else {
-                // SQUARE MODUS (Default): Platzieren im Raster, auch in der Luft
-                // Wir nehmen die berechnete Position direkt an, ohne Support-Check.
                 targetPos = rawPos;
             }
 
-            // Wenn keine Position gefunden wurde oder der Zielblock nicht ersetzbar ist (z.B. Stein), überspringen
             if (targetPos == null) continue;
             if (!world.getBlockState(targetPos).isReplaceable()) continue;
 
+            // FIX: findMaterial muss robust sein
             MaterialResult material = findMaterial(player, stack, materialBlock, hasMasterBuilder);
+
+            // Wenn kein Material gefunden wurde und wir im Survival sind, abbrechen
             if (material == null && !player.getAbilities().creativeMode) {
                 nbt.putBoolean("Active", false);
                 setNbt(stack, nbt);
@@ -203,6 +203,7 @@ public class BuildingWandItem extends Item {
             if (world.setBlockState(targetPos, stateToPlace, 3)) {
                 BlockSoundGroup soundGroup = stateToPlace.getSoundGroup();
                 world.playSound(null, targetPos, soundGroup.getPlaceSound(), SoundCategory.BLOCKS, (soundGroup.getVolume() + 1.0F) / 2.0F, soundGroup.getPitch() * 0.8F);
+
                 if (!player.getAbilities().creativeMode && material != null) {
                     material.consume();
                     stack.damage(1, player, EquipmentSlot.MAINHAND);
@@ -220,6 +221,115 @@ public class BuildingWandItem extends Item {
         setNbt(stack, nbt);
     }
 
+    // --- Helper Methoden ---
+
+    private MaterialResult findMaterial(PlayerEntity player, ItemStack wandStack, Block targetBlock, boolean hasMasterBuilder) {
+        World world = player.getEntityWorld();
+        ItemStack offHand = player.getOffHandStack();
+
+        // 1. Offhand Check (Priorität)
+        if (!offHand.isEmpty()) {
+            // Case A: Normaler Block in Offhand (muss matchen)
+            if (offHand.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
+                MaterialResult res = new MaterialResult();
+                res.sourceStack = offHand;
+                res.fromBundle = false;
+                res.stateToPlace = bi.getBlock().getDefaultState();
+                return res;
+            }
+            // Case B: Bundle in Offhand (nur mit Master Builder)
+            if (hasMasterBuilder && offHand.getItem() instanceof ReinforcedBundleItem) {
+                MaterialResult res = findInBundle(offHand, targetBlock, wandStack, world);
+                if (res != null) return res;
+            }
+        }
+
+        // 2. Inventory Check (Hotbar 0-8)
+        for (int i = 0; i < 9; i++) {
+            ItemStack stack = player.getInventory().getStack(i);
+
+            // Check Block Match
+            if (!stack.isEmpty() && stack.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
+                MaterialResult res = new MaterialResult();
+                res.sourceStack = stack;
+                res.fromBundle = false;
+                res.stateToPlace = bi.getBlock().getDefaultState();
+                return res;
+            }
+
+            // Check Bundle (nur mit Master Builder)
+            if (hasMasterBuilder && !stack.isEmpty() && stack.getItem() instanceof ReinforcedBundleItem) {
+                MaterialResult res = findInBundle(stack, targetBlock, wandStack, world);
+                if (res != null) return res;
+            }
+        }
+        return null;
+    }
+
+    private MaterialResult findInBundle(ItemStack bundle, Block targetBlock, ItemStack wand, World world) {
+        boolean hasColorPalette = hasEnchantment(wand, world, ModEnchantments.COLOR_PALETTE);
+        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+        if (contents == null || contents.isEmpty()) return null;
+
+        if (hasColorPalette) {
+            List<Integer> validIndices = new ArrayList<>();
+            int i = 0;
+            for (ItemStack s : contents.iterate()) {
+                if (!s.isEmpty() && s.getItem() instanceof BlockItem) validIndices.add(i);
+                i++;
+            }
+            if (validIndices.isEmpty()) return null;
+            int randomIndex = validIndices.get(world.random.nextInt(validIndices.size()));
+            i = 0;
+            for (ItemStack s : contents.iterate()) {
+                if (i == randomIndex && s.getItem() instanceof BlockItem bi) {
+                    MaterialResult res = new MaterialResult();
+                    res.sourceStack = bundle;
+                    res.fromBundle = true;
+                    res.bundleIndex = randomIndex;
+                    res.stateToPlace = bi.getBlock().getDefaultState();
+                    return res;
+                }
+                i++;
+            }
+        } else {
+            int i = 0;
+            for (ItemStack s : contents.iterate()) {
+                if (!s.isEmpty() && s.getItem() instanceof BlockItem bi) {
+                    if (bi.getBlock() == targetBlock) {
+                        MaterialResult res = new MaterialResult();
+                        res.sourceStack = bundle;
+                        res.fromBundle = true;
+                        res.bundleIndex = i;
+                        res.stateToPlace = bi.getBlock().getDefaultState();
+                        return res;
+                    }
+                }
+                i++;
+            }
+        }
+        return null;
+    }
+
+    private static void removeOneFromBundle(ItemStack bundle, int indexToRemove) {
+        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+        if (contents == null) return;
+        List<ItemStack> newItems = new ArrayList<>();
+        int i = 0;
+        for (ItemStack s : contents.iterate()) {
+            if (i == indexToRemove) {
+                ItemStack copy = s.copy();
+                copy.decrement(1);
+                if (!copy.isEmpty()) newItems.add(copy);
+            } else {
+                newItems.add(s.copy());
+            }
+            i++;
+        }
+        bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
+    }
+
+    // --- Standard Getter/Setter & Logic (Unverändert) ---
 
     public static List<BlockPos> getBuildingPositions(World world, PlayerEntity player, ItemStack wandStack, BlockPos originPos, Direction face, int diameter, BlockHitResult hitResult) {
         List<BlockPos> positions = new ArrayList<>();
@@ -234,7 +344,6 @@ public class BuildingWandItem extends Item {
         var vec = hitResult.getPos().subtract(originPos.getX(), originPos.getY(), originPos.getZ());
         double hitX = vec.x; double hitY = vec.y; double hitZ = vec.z;
 
-        // Pattern Block (Origin) holen
         BlockState originState = world.getBlockState(originPos);
         Block patternBlock = originState.getBlock();
 
@@ -243,26 +352,19 @@ public class BuildingWandItem extends Item {
 
             for (BlockPos rawPos : stepPositions) {
                 BlockPos targetPos = null;
-
                 if (isCover) {
-                    // COVER MODUS: Nur wenn Support da ist (Vorschau muss Logik matchen)
-                    // Deviation skaliert mit dem Radius (1 Block pro Ebene)
                     int maxDeviation = r;
-
                     for (int depth = 1; depth <= maxDeviation + 1; depth++) {
                         BlockPos checkPos = rawPos.offset(face.getOpposite(), depth);
                         BlockState checkState = world.getBlockState(checkPos);
-
                         if (wandItem.isValidSupport(checkState, patternBlock, true)) {
                             targetPos = checkPos.offset(face);
                             break;
                         }
                     }
                 } else {
-                    // SQUARE MODUS: Auch in der Luft anzeigen
                     targetPos = rawPos;
                 }
-
                 if (targetPos != null && world.getBlockState(targetPos).isReplaceable()) {
                     positions.add(targetPos);
                 }
@@ -308,7 +410,6 @@ public class BuildingWandItem extends Item {
 
         BlockPos centerPos = originPos.offset(face);
 
-        // --- LINE PLACE MODE ---
         if (isLinePlace) {
             Direction.Axis axis;
             if (face.getAxis() == Direction.Axis.Y) {
@@ -346,108 +447,6 @@ public class BuildingWandItem extends Item {
         return positions;
     }
 
-    private MaterialResult findMaterial(PlayerEntity player, ItemStack wandStack, Block targetBlock, boolean hasMasterBuilder) {
-        World world = player.getEntityWorld();
-        ItemStack offHand = player.getOffHandStack();
-        if (!offHand.isEmpty()) {
-            if (hasMasterBuilder && offHand.getItem() instanceof ReinforcedBundleItem) {
-                MaterialResult res = findInBundle(offHand, targetBlock, wandStack, world);
-                if (res != null) return res;
-            } else if (offHand.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
-                MaterialResult res = new MaterialResult();
-                res.sourceStack = offHand;
-                res.fromBundle = false;
-                res.stateToPlace = bi.getBlock().getDefaultState();
-                return res;
-            }
-        }
-        if (hasMasterBuilder) {
-            for (int i = 0; i < 9; i++) {
-                ItemStack stack = player.getInventory().getStack(i);
-                if (stack.getItem() instanceof ReinforcedBundleItem) {
-                     MaterialResult res = findInBundle(stack, targetBlock, wandStack, world);
-                     if (res != null) return res;
-                }
-            }
-        }
-        for (int i = 0; i < 9; i++) {
-            ItemStack stack = player.getInventory().getStack(i);
-            if (stack.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
-                MaterialResult res = new MaterialResult();
-                res.sourceStack = stack;
-                res.fromBundle = false;
-                res.stateToPlace = bi.getBlock().getDefaultState();
-                return res;
-            }
-        }
-        return null;
-    }
-
-    private MaterialResult findInBundle(ItemStack bundle, Block targetBlock, ItemStack wand, World world) {
-        boolean hasColorPalette = hasEnchantment(wand, world, ModEnchantments.COLOR_PALETTE);
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
-        if (contents == null || contents.isEmpty()) return null;
-        if (hasColorPalette) {
-            List<Integer> validIndices = new ArrayList<>();
-            int i = 0;
-            for (ItemStack s : contents.iterate()) {
-                if (!s.isEmpty() && s.getItem() instanceof BlockItem) validIndices.add(i);
-                i++;
-            }
-            if (validIndices.isEmpty()) return null;
-            int randomIndex = validIndices.get(world.random.nextInt(validIndices.size()));
-            i = 0;
-            for (ItemStack s : contents.iterate()) {
-                if (i == randomIndex && s.getItem() instanceof BlockItem bi) {
-                    MaterialResult res = new MaterialResult();
-                    res.sourceStack = bundle;
-                    res.fromBundle = true;
-                    res.bundleIndex = randomIndex;
-                    res.stateToPlace = bi.getBlock().getDefaultState();
-                    return res;
-                }
-                i++;
-            }
-        } else {
-            int i = 0; int firstValidIndex = -1; BlockItem firstValidBlock = null;
-            for (ItemStack s : contents.iterate()) {
-                if (!s.isEmpty() && s.getItem() instanceof BlockItem bi) {
-                    if (bi.getBlock() == targetBlock) {
-                        MaterialResult res = new MaterialResult();
-                        res.sourceStack = bundle;
-                        res.fromBundle = true;
-                        res.bundleIndex = i;
-                        res.stateToPlace = bi.getBlock().getDefaultState();
-                        return res;
-                    }
-                    if (firstValidIndex == -1) { firstValidIndex = i; firstValidBlock = bi; }
-                }
-                i++;
-            }
-            if (firstValidIndex != -1) {
-                MaterialResult res = new MaterialResult();
-                res.sourceStack = bundle;
-                res.fromBundle = true;
-                res.bundleIndex = firstValidIndex;
-                res.stateToPlace = firstValidBlock.getBlock().getDefaultState();
-                return res;
-            }
-        }
-        return null;
-    }
-
-    private static void removeOneFromBundle(ItemStack bundle, int indexToRemove) {
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
-        if (contents == null) return;
-        List<ItemStack> newItems = new ArrayList<>();
-        int i = 0;
-        for (ItemStack s : contents.iterate()) {
-            if (i == indexToRemove) { ItemStack copy = s.copy(); copy.decrement(1); if (!copy.isEmpty()) newItems.add(copy); } else { newItems.add(s.copy()); }
-            i++;
-        }
-        bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
-    }
-
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         boolean isLinePlace = false;
@@ -472,12 +471,8 @@ public class BuildingWandItem extends Item {
     }
     public boolean isValidSupport(BlockState supportState, Block patternBlock, boolean isCover) {
         if (supportState.isAir() || supportState.isLiquid()) return false;
-
-        if (isCover) {
-            return true;
-        } else {
-            return supportState.getBlock() == patternBlock;
-        }
+        if (isCover) return true;
+        return supportState.getBlock() == patternBlock;
     }
 
     public int getWandSquareDiameter() { return this.wandSquareDiameter; }

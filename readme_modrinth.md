@@ -88,10 +88,12 @@ SimpleBuilding introduces a massive enchantment system to customize your tools.
 | **Kinetic Protection** | IV | Armor | Reduces damage taken from flying into walls (Elytra). |
 | **Funnel** | I | Bundle/Shulker | Automatically picks up items into the container when sneaking. |
 | **Deep Pockets** | II | Bundles/Quivers | Significantly increases item capacity. |
+| **Drawer** | III | Chest/Bundle | Drastically increases capacity (up to 256+ items). |
 | **Range** | III | Tools | Increases the reach distance for placing/breaking blocks. |
 | **Fast Chiseling** | II | Chisel/Spatula | Reduces cooldown for transformation tools. |
 | **Constructor's Touch** | I | Chisel/Quiver | Enables special transformations & global inventory access for Quivers. |
 | **Double Jump** | I | Boots | Allows the player to perform a second jump while in mid-air. |
+| **Versatility** | II | Tools | Swaps to the best tool when sneaking (Lvl 1: Hotbar, Lvl 2: Inventory). |
 
 ---
 
@@ -118,5 +120,15 @@ Find tools and enchantments in the world!
 
 ---
 
-**Requires:** Fabric API
-**(Optional):** Mod Menu & Cloth Config for in-game configuration.
+## ⚙️ Config & Compatibility
+
+You can configure many aspects of SimpleBuilding to fit your needs:
+* **Tool Animations:** Toggle visual feedbacks like the Chisel rotation or Sledgehammer cracks.
+* **World Gen:** Disable villager trades or loot table injections if desired.
+
+**(Requires Cloth Config & Mod Menu for in-game configuration)**
+
+---
+
+**Requires:** Fabric API & Cloth Config
+**(Optional):** Mod Menu for in-game configuration

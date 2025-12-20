@@ -190,6 +190,16 @@ Explore the world to find unique items and enchantments in vanilla chests:
 
 ---
 
+## ⚙️ Config & Compatibility
+
+You can configure many aspects of SimpleBuilding to fit your needs:
+* **Tool Animations:** Toggle visual feedbacks like the Chisel rotation or Sledgehammer cracks.
+* **World Gen:** Disable villager trades or loot table injections if desired.
+
+**(Requires Cloth Config & Mod Menu for in-game configuration)**
+
+---
+
 ## 📥 Installation
 
 1.  Install **Minecraft 1.21+**

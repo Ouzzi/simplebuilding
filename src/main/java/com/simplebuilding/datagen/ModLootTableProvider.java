@@ -1,6 +1,7 @@
 package com.simplebuilding.datagen;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -45,6 +46,18 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
+        // Definiert, dass diese Blöcke sich selbst droppen, wenn sie abgebaut werden
+        addDrop(ModBlocks.CONSTRUCTION_LIGHT);
+        addDrop(ModBlocks.CRACKED_DIAMOND_BLOCK);
+
+        addDrop(ModBlocks.REINFORCED_HOPPER);
+        addDrop(ModBlocks.NETHERITE_HOPPER);
+
+        addDrop(ModBlocks.REINFORCED_PISTON);
+        addDrop(ModBlocks.NETHERITE_PISTON);
+
+        addDrop(ModBlocks.REINFORCED_BLAST_FURNACE);
+        addDrop(ModBlocks.NETHERITE_BLAST_FURNACE);
 
     }
 
@@ -64,6 +77,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .rolls(UniformLootNumberProvider.create(0, 1))
                         .with(enchantedBook(ModEnchantments.RANGE, 1, enchantments, 5))
                         .with(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 2))
+                        .with(enchantedBook(ModEnchantments.VERSATILITY, 1, enchantments, 5))
+                        .with(enchantedBook(ModEnchantments.VERSATILITY, 2, enchantments, 2))
                         .with(enchantedBook(ModEnchantments.BRIDGE, 1, enchantments, 5));
                 tableBuilder.pool(pool);
             }
@@ -80,6 +95,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .with(enchantedBook(ModEnchantments.OVERRIDE, 2, enchantments, 10))
                         .with(enchantedBook(ModEnchantments.BRIDGE, 1, enchantments, 5))
                         .with(enchantedBook(ModEnchantments.DOUBLE_JUMP, 2, enchantments, 5))
+                        .with(enchantedBook(ModEnchantments.VERSATILITY, 1, enchantments, 5))
+                        .with(enchantedBook(ModEnchantments.VERSATILITY, 2, enchantments, 2))
                         // Items
                         .with(ItemEntry.builder(ModItems.DIAMOND_CHISEL).weight(5).apply(EnchantRandomlyLootFunction.create()))
                         .with(ItemEntry.builder(ModItems.DIAMOND_SPATULA).weight(5).apply(EnchantRandomlyLootFunction.create()))

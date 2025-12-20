@@ -25,7 +25,7 @@ public class SledgehammerItem extends Item {
     public static final int DIAMOND_ATTACK_DAMAGE = 6;
     public static final int NETHERITE_ATTACK_DAMAGE = 7;
 
-    public static final float ATTACK_SPEED_OFFSET = 1.2f;
+    public static final float ATTACK_SPEED_OFFSET = 0.8f;
 
     public static final float STONE_ATTACK_SPEED = -3.0f - ATTACK_SPEED_OFFSET;
     public static final float COPPER_ATTACK_SPEED = -2.8f - ATTACK_SPEED_OFFSET;

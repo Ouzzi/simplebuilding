@@ -35,8 +35,11 @@ public class ModBlocks {
     );
 
     public static final Block CRACKED_DIAMOND_BLOCK = registerBlock("cracked_diamond_block",
-            settings -> new Block(settings.requiresTool().strength(5.0F, 6.0F).sounds(net.minecraft.sound.BlockSoundGroup.METAL))
-    );
+            unused -> new Block(
+                    AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK)
+                    .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(Simplebuilding.MOD_ID, "cracked_diamond_block")))
+                    .strength(7.0F, 14.0F)
+            ));
 
 
     public static final Block REINFORCED_HOPPER = registerBlock("reinforced_hopper",

@@ -25,24 +25,27 @@ import net.minecraft.util.Identifier;
 
 public class ModEnchantments {
     // Keys
-    public static final RegistryKey<Enchantment> FAST_CHISELING = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "fast_chiseling"));
-    public static final RegistryKey<Enchantment> CONSTRUCTORS_TOUCH = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "constructors_touch"));
-    public static final RegistryKey<Enchantment> RANGE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "range"));
-    public static final RegistryKey<Enchantment> DEEP_POCKETS = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "deep_pockets"));
-    public static final RegistryKey<Enchantment> MASTER_BUILDER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "master_builder"));
+    public static final RegistryKey<Enchantment> FAST_CHISELING = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "fast_chiseling")); // final
+    public static final RegistryKey<Enchantment> CONSTRUCTORS_TOUCH = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "constructors_touch")); // final
+    public static final RegistryKey<Enchantment> RANGE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "range")); // final
+    public static final RegistryKey<Enchantment> DEEP_POCKETS = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "deep_pockets")); // final
+    public static final RegistryKey<Enchantment> MASTER_BUILDER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "master_builder")); // final
+    public static final RegistryKey<Enchantment> FUNNEL = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "funnel")); // final
+    public static final RegistryKey<Enchantment> RADIUS = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "radius")); // final
+    public static final RegistryKey<Enchantment> OVERRIDE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "override")); // final
+    public static final RegistryKey<Enchantment> STRIP_MINER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "strip_miner")); // final
+    public static final RegistryKey<Enchantment> COVER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "cover")); // final
+    public static final RegistryKey<Enchantment> BRIDGE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "bridge")); // final
+    public static final RegistryKey<Enchantment> LINEAR = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "linear")); // final
+    public static final RegistryKey<Enchantment> VEIN_MINER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "vein_miner")); // final
+    public static final RegistryKey<Enchantment> KINETIC_PROTECTION = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "kinetic_protection")); // final
+    public static final RegistryKey<Enchantment> DRAWER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "drawer")); // final
+    public static final RegistryKey<Enchantment> VERSATILITY = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "versatility"));
+
+    // todo new enchantment names
     public static final RegistryKey<Enchantment> COLOR_PALETTE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "color_palette"));
-    public static final RegistryKey<Enchantment> FUNNEL = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "funnel"));
     public static final RegistryKey<Enchantment> BREAK_THROUGH = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "break_through"));
-    public static final RegistryKey<Enchantment> RADIUS = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "radius"));
-    public static final RegistryKey<Enchantment> OVERRIDE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "override"));
-    public static final RegistryKey<Enchantment> STRIP_MINER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "strip_miner"));
-    public static final RegistryKey<Enchantment> COVER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "cover"));
-    public static final RegistryKey<Enchantment> BRIDGE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "bridge"));
-    public static final RegistryKey<Enchantment> LINEAR = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "linear"));
     public static final RegistryKey<Enchantment> DOUBLE_JUMP = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "double_jump"));
-    public static final RegistryKey<Enchantment> VEIN_MINER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "vein_miner"));
-    public static final RegistryKey<Enchantment> KINETIC_PROTECTION = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "kinetic_protection"));
-    public static final RegistryKey<Enchantment> DRAWER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "drawer"));
 
     public static final TagKey<DamageType> KINETIC_DAMAGE_TAG = TagKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(Simplebuilding.MOD_ID, "kinetic_damage"));
 
@@ -286,7 +289,19 @@ public class ModEnchantments {
                 ))
                 .exclusiveSet(enchantmentsLookup.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE_SET))
                 .addEffect(EnchantmentEffectComponentTypes.DAMAGE_PROTECTION, new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(2.5f, 2.5f)), DamageSourcePropertiesLootCondition.builder(DamageSourcePredicate.Builder.create().tag(TagPredicate.expected(KINETIC_DAMAGE_TAG)))));
-}
+
+        register(registerable, VERSATILITY, Enchantment.builder(
+                Enchantment.definition(
+                        items.getOrThrow(ItemTags.MINING_ENCHANTABLE), // Kann auf alle Werkzeuge
+                        1,
+                        2,
+                        Enchantment.leveledCost(15, 0), // Min Cost
+                        Enchantment.leveledCost(65, 0), // Max Cost
+                        4, // Anvil Cost
+                        AttributeModifierSlot.HAND
+                )
+        ));
+    }
 
     private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key, Enchantment.Builder builder) {
         registry.register(key, builder.build(key.getValue()));

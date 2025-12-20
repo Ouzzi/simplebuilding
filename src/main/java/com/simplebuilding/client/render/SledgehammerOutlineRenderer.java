@@ -65,7 +65,7 @@ public class SledgehammerOutlineRenderer {
         float baseAlpha = opacityPercent / 100.0f;
 
         float r = 0.0f; float g = 0.0f; float b = 0.0f; float a = 0.3f;
-        float r1 = 1.0f; float g1 = 0.5f; float b1 = 0.3f; float a1 = 0.2f * baseAlpha;
+        float r1 = 0.5f; float g1 = 0.5f; float b1 = 0.5f; float a1 = 0.3f * baseAlpha;
 
         // ====================================================================
         // PASS 1: NUR OUTLINES (LINIEN)
