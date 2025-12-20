@@ -1,13 +1,6 @@
 ## Changelog:
-- Sledgehammer durability increased to 4x diamond pickaxe
-- Mining animations - added
-- Chisel animation (when block can be chiseled) - added
-- Bugfixes
-- Versatility enchant - added (selects best tool for block when mining and sneaking)
-- Building Wand improvements
 
 ## TODO:
-- swapper enchant (swaps enchanted toll with fitting tool when sneaking)
 
 Later:
 - reinforced observer - less delay, more range (7 blocks)
@@ -33,7 +26,7 @@ Later:
 
 
 ## BUGS:  
-
+- masterbuilder on building wand and on reinforced bundle not working together properly
 
 
 
