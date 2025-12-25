@@ -45,43 +45,43 @@ Later:
 // - Ping Wheel
 // - Open Parties and Claims
 // Client-Side
+// - // - Xaero's Minimap
+// - // - Xaero's World Map
+// - Just Enough Professions (JEP)
+// - Just Enough Resources (JER)
 // - Recolourful Containers Axiom Fix
-// - Controlify (Controller support)
 // - Searchables
 // - Proton Shaders
-// - Fusion Connected Blocks
-// - Fusion Block Transitions
-// - Xaero's Minimap
 // - Better F3
-// - Fusion (Connected Textures)
 // - Model Gap Fix
 // - BoatView360
-// - Xaero's World Map
 // - Fusion Connected Glass
-// - ViaFabricPlus
-// - Just Enough Professions (JEP)
-// - do a barrel roll
-// - ModernFix-mVUS
-// - Just Enough Resources (JER)
-// - Enchantment Insights
 // - Blind
-// - Better Advancements
-// - Immersive Hotbar
-// - Cicada
-// - no telemetry
-// - dynamic tooltips
-// - better statistics
 // - Chat Calc
 // - Cubes Without Borders
 // - Silk
+// -
+// -
+
+
+
+
+// - dynamic tooltips
+// - Cicada
+// - Enchantment Insights
+// - ViaFabricPlus
+// - ModernFix-mVUS
+// - Controlify (Controller support)
+// - better statistics screen
+// - Fusion (Connected Textures)
+// - Fusion Connected Blocks
+// - Fusion Block Transitions
 // - freecam
 // - Just Enough Items (jei)
-// -
-// -
-
-
-
-
+// - no telemetry
+// - Better Advancements
+// - Immersive Hotbar
+// - do a barrel roll
 // - ledger
 // - controlling
 // - voxy
