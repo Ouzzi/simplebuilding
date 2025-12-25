@@ -153,6 +153,8 @@
   "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier": "Jump Strength Boost",
   "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip": "Jump strength multiplier per enchantment level on horse armor (Default: 0.20).",
 
+  "text.autoconfig.simplebuilding.option.tools.buildingHighlightOpacity": "Building Wand Highlight Opacity",
+
   "block.simplebuilding.reinforced_chest": "Reinforced Chest",
   "item.simplebuilding.reinforced_chest": "Reinforced Chest",
   "block.simplebuilding.netherite_chest": "Netherite Chest",
