@@ -18,14 +18,14 @@ import java.util.List;
 
 public class SledgehammerItem extends Item {
 
-    public static final int STONE_ATTACK_DAMAGE = 3;
+    public static final int STONE_ATTACK_DAMAGE = 4;
     public static final int COPPER_ATTACK_DAMAGE = 4;
-    public static final int IRON_ATTACK_DAMAGE = 5;
-    public static final int GOLD_ATTACK_DAMAGE = 4;
-    public static final int DIAMOND_ATTACK_DAMAGE = 6;
-    public static final int NETHERITE_ATTACK_DAMAGE = 7;
+    public static final int IRON_ATTACK_DAMAGE = 6;
+    public static final int GOLD_ATTACK_DAMAGE = 5;
+    public static final int DIAMOND_ATTACK_DAMAGE = 7;
+    public static final int NETHERITE_ATTACK_DAMAGE = 8;
 
-    public static final float ATTACK_SPEED_OFFSET = 0.8f;
+    public static final float ATTACK_SPEED_OFFSET = 0.4f;
 
     public static final float STONE_ATTACK_SPEED = -3.0f - ATTACK_SPEED_OFFSET;
     public static final float COPPER_ATTACK_SPEED = -2.8f - ATTACK_SPEED_OFFSET;
@@ -34,12 +34,14 @@ public class SledgehammerItem extends Item {
     public static final float DIAMOND_ATTACK_SPEED = -2.8f - ATTACK_SPEED_OFFSET;
     public static final float NETHERITE_ATTACK_SPEED = -2.6f - ATTACK_SPEED_OFFSET;
 
+    public static final int DURABILITY_MULTIPLIER_SLEDGEHAMMER = 4;
 
-    public static final int DURABILITY_COPPER_SLEDGEHAMMER = 190 * 3;
-    public static final int DURABILITY_IRON_SLEDGEHAMMER = 250 * 3;
-    public static final int DURABILITY_GOLD_SLEDGEHAMMER = 32 * 3;
-    public static final int DURABILITY_DIAMOND_SLEDGEHAMMER = 1561 * 3;
-    public static final int DURABILITY_NETHERITE_SLEDGEHAMMER = 2031 * 3;
+    public static final int DURABILITY_STONE_SLEDGEHAMMER = 190 * DURABILITY_MULTIPLIER_SLEDGEHAMMER;
+    public static final int DURABILITY_COPPER_SLEDGEHAMMER = 190 * DURABILITY_MULTIPLIER_SLEDGEHAMMER;
+    public static final int DURABILITY_IRON_SLEDGEHAMMER = 250 * DURABILITY_MULTIPLIER_SLEDGEHAMMER;
+    public static final int DURABILITY_GOLD_SLEDGEHAMMER = 32 * DURABILITY_MULTIPLIER_SLEDGEHAMMER;
+    public static final int DURABILITY_DIAMOND_SLEDGEHAMMER = 1561 * DURABILITY_MULTIPLIER_SLEDGEHAMMER;
+    public static final int DURABILITY_NETHERITE_SLEDGEHAMMER = 2031 * DURABILITY_MULTIPLIER_SLEDGEHAMMER;
 
     public SledgehammerItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
         super(settings.pickaxe(material, attackDamage, attackSpeed));

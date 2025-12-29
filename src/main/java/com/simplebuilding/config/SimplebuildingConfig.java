@@ -14,6 +14,9 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public WorldGen worldGen = new WorldGen();
 
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableDoubleJump = true;
+
     public static class Tools {
         @ConfigEntry.Gui.Tooltip
         public boolean invertOctantSneak = false; // Constructor's Touch Invertierung
@@ -23,6 +26,9 @@ public class SimplebuildingConfig implements ConfigData {
         public boolean enableToolAnimations = true; // Hauptschalter
         @ConfigEntry.Gui.Tooltip
         public boolean enableChiselAnimation = true;
+
+        @ConfigEntry.Gui.Tooltip
+        public boolean invertBundleInteractions = false;
     }
 
     public static class WorldGen {
@@ -35,4 +41,6 @@ public class SimplebuildingConfig implements ConfigData {
         @ConfigEntry.Gui.Tooltip
         public boolean enableLootTableChanges = true;
     }
+
+
 }

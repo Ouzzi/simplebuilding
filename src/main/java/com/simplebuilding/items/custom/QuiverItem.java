@@ -8,11 +8,15 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.ClickType;
+import net.minecraft.util.Hand;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.math.Fraction;
 
 import java.util.ArrayList;
@@ -22,6 +26,21 @@ public class QuiverItem extends ReinforcedBundleItem {
 
     public QuiverItem(Settings settings) {
         super(settings);
+    }
+
+    // --- 1. Rechtsklick in die Luft (Angepasst an deine Version) ---
+    @Override
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
+        // In deiner Version gibt 'use' nur ActionResult zurück.
+        // PASS verhindert das Ausschütten.
+        return ActionResult.PASS;
+    }
+
+    // --- 2. Rechtsklick auf einen Block ---
+    @Override
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        // PASS verhindert Interaktion mit Blöcken
+        return ActionResult.PASS;
     }
 
     // --- Interaction Logic Override (Only Arrows) ---
@@ -48,7 +67,7 @@ public class QuiverItem extends ReinforcedBundleItem {
         return super.tryInsertStackFromWorld(bundle, stackToInsert, player);
     }
 
-    // --- Capacity Logic ---
+    // --- Capacity Logic (UPDATED FOR DRAWER) ---
 
     @Override
     protected Fraction getMaxCapacity(ItemStack stack, PlayerEntity player) {
@@ -58,8 +77,20 @@ public class QuiverItem extends ReinforcedBundleItem {
 
         var registry = player.getEntityWorld().getRegistryManager();
         var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var deepPockets = enchantments.getOptional(ModEnchantments.DEEP_POCKETS);
 
+        // 1. DRAWER Logic (Hinzugefügt!)
+        var drawer = enchantments.getOptional(ModEnchantments.DRAWER);
+        if (drawer.isPresent()) {
+            int level = EnchantmentHelper.getLevel(drawer.get(), stack);
+            if (level > 0) {
+                // Formel: (8 + level) / 8 -> Gleiche Steigerung wie beim Bundle
+                Fraction drawerBonus = Fraction.getFraction(8 + level, 8);
+                capacity = capacity.multiplyBy(drawerBonus);
+            }
+        }
+
+        // 2. Deep Pockets Logic
+        var deepPockets = enchantments.getOptional(ModEnchantments.DEEP_POCKETS);
         if (deepPockets.isPresent()) {
             int level = EnchantmentHelper.getLevel(deepPockets.get(), stack);
             if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
@@ -76,10 +107,21 @@ public class QuiverItem extends ReinforcedBundleItem {
         for (var entry : enchantments.getEnchantmentEntries()) {
             if (entry.getKey().getKey().isPresent()) {
                 String id = entry.getKey().getKey().get().getValue().toString();
+
+                // Deep Pockets
                 if (id.contains("deep_pockets")) {
                     int level = entry.getIntValue();
                     if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
                     if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
+                }
+
+                // Drawer (Hinzugefügt!)
+                if (id.contains("drawer")) {
+                    int level = entry.getIntValue();
+                    if (level > 0) {
+                        Fraction drawerBonus = Fraction.getFraction(8 + level, 8);
+                        capacity = capacity.multiplyBy(drawerBonus);
+                    }
                 }
             }
         }
@@ -146,13 +188,8 @@ public class QuiverItem extends ReinforcedBundleItem {
     private static ItemStack findFirstArrow(ItemStack bundle) {
         BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
         if (contents == null || contents.isEmpty()) return ItemStack.EMPTY;
-
         for (ItemStack s : contents.iterate()) {
-            if (s.isIn(ItemTags.ARROWS)) {
-                // WICHTIG: .copy() verhindert, dass Vanilla den Stack im Köcher direkt verändert!
-                // Wenn wir das nicht machen, zieht Vanilla 1 ab, und wir später nochmal 1.
-                return s.copy();
-            }
+            if (s.isIn(ItemTags.ARROWS)) return s.copy();
         }
         return ItemStack.EMPTY;
     }
@@ -168,9 +205,7 @@ public class QuiverItem extends ReinforcedBundleItem {
             if (!found && s.isIn(ItemTags.ARROWS)) {
                 ItemStack copy = s.copy();
                 copy.decrement(1);
-                if (!copy.isEmpty()) {
-                    newItems.add(copy);
-                }
+                if (!copy.isEmpty()) newItems.add(copy);
                 found = true;
             } else {
                 newItems.add(s.copy());
@@ -188,7 +223,6 @@ public class QuiverItem extends ReinforcedBundleItem {
         var registry = player.getEntityWorld().getRegistryManager();
         var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
         var ct = enchantments.getOptional(ModEnchantments.CONSTRUCTORS_TOUCH);
-
         return ct.isPresent() && EnchantmentHelper.getLevel(ct.get(), stack) > 0;
     }
 }

@@ -26,8 +26,12 @@ Later:
 
 
 ## BUGS:  
-- masterbuilder on building wand and on reinforced bundle not working together properly
+- reinforced bundle - should have same ui as normal bundle!
+- funnel only when sneaking! 
+- some enchantments should not be aplicable on some items
+-- color palette and masterbuilder not aplicable on quivers
 
+- masterbuilder on building wand and on reinforced bundle not working together properly
 
 
 ## simple mods to add later:

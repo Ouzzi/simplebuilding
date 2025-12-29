@@ -3,6 +3,7 @@ package com.simplebuilding.mixin.client;
 import com.simplebuilding.util.BundleTooltipAccessor;
 import net.minecraft.client.gui.tooltip.BundleTooltipComponent;
 import net.minecraft.component.type.BundleContentsComponent;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -29,9 +30,6 @@ public abstract class BundleTooltipComponentMixin implements BundleTooltipAccess
         this.capacityScale = scale;
     }
 
-    // =========================================================================
-    // 1. TEXTUR FIX (Blau vs Rot)
-    // =========================================================================
     @Redirect(
             method = "drawProgressBar",
             at = @At(
@@ -40,13 +38,11 @@ public abstract class BundleTooltipComponentMixin implements BundleTooltipAccess
             )
     )
     private Identifier redirectTexture(BundleTooltipComponent instance) {
-        // Wir vergleichen occupancy mit unserem Scale (z.B. 2.0), nicht mit 1.0
         Fraction threshold = Fraction.getFraction((int) capacityScale, 1);
-
         if (this.bundleContents.getOccupancy().compareTo(threshold) >= 0) {
-            return Identifier.ofVanilla("container/bundle/bundle_progressbar_full"); // Rot
+            return Identifier.ofVanilla("container/bundle/bundle_progressbar_full");
         }
-        return Identifier.ofVanilla("container/bundle/bundle_progressbar_fill"); // Blau
+        return Identifier.ofVanilla("container/bundle/bundle_progressbar_fill");
     }
 
     @Redirect(
@@ -58,15 +54,13 @@ public abstract class BundleTooltipComponentMixin implements BundleTooltipAccess
     )
     private int redirectWidth(BundleTooltipComponent instance) {
         Fraction occupancy = this.bundleContents.getOccupancy();
-
-        // occupancy / scale
         if (capacityScale > 1.0f) {
             occupancy = occupancy.divideBy(Fraction.getFraction((int) capacityScale, 1));
         }
-
         return MathHelper.clamp(MathHelper.multiplyFraction(occupancy, 94), 0, 94);
     }
 
+    // --- HIER IST DIE ÄNDERUNG FÜR DEN NAMEN ---
     @Redirect(
             method = "drawProgressBar",
             at = @At(
@@ -79,7 +73,15 @@ public abstract class BundleTooltipComponentMixin implements BundleTooltipAccess
             return Text.translatable("item.minecraft.bundle.empty");
         }
 
-        // Prüfen ob voll relativ zum Scale
+        // 1. Prüfen, ob ein Item ausgewählt ist (durch Scrollen)
+        int selectedIndex = this.bundleContents.getSelectedStackIndex();
+        if (selectedIndex != -1) {
+            ItemStack selectedStack = this.bundleContents.get(selectedIndex);
+            // Gibt den Namen des Items zurück (z.B. "Diamant (32)")
+            return Text.literal(selectedStack.getName().getString() + " x" + selectedStack.getCount());
+        }
+
+        // 2. Ansonsten Standard (Voll oder nichts)
         Fraction threshold = Fraction.getFraction((int) capacityScale, 1);
         if (this.bundleContents.getOccupancy().compareTo(threshold) >= 0) {
             return Text.translatable("item.minecraft.bundle.full");

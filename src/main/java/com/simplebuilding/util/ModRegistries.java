@@ -34,6 +34,7 @@ public class ModRegistries {
         PayloadTypeRegistry.playC2S().register(DoubleJumpPayload.ID, DoubleJumpPayload.CODEC);
 
         // Receiver registrieren
+        // TODO: Configuration check (disable double jump if not enabled)
         ServerPlayNetworking.registerGlobalReceiver(DoubleJumpPayload.ID, (payload, context) -> {
             context.server().execute(() -> {
                 ServerPlayerEntity player = context.player();
@@ -54,7 +55,7 @@ public class ModRegistries {
                         // 2. Haltbarkeit abziehen (2 Punkte), wenn nicht Creative
                         if (!player.isCreative()) {
                             // damage(amount, entity, breakCallback)
-                            bootStack.damage(4, player, EquipmentSlot.FEET);
+                            bootStack.damage(1, player, EquipmentSlot.FEET);
                         }
                     }
                 }

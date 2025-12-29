@@ -1,5 +1,6 @@
 package com.simplebuilding.items.custom;
 
+import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
@@ -38,23 +39,44 @@ public class ReinforcedBundleItem extends BundleItem {
         return false;
     }
 
+    // --- Helper für Click Invertierung ---
+    private ClickType getInsertClick() {
+        // Prüfen ob Invertierung in der Config aktiv ist
+        if (Simplebuilding.getConfig().tools.invertBundleInteractions) {
+            return ClickType.RIGHT;
+        }
+        return ClickType.LEFT;
+    }
+
+    private ClickType getRemoveClick() {
+        if (Simplebuilding.getConfig().tools.invertBundleInteractions) {
+            return ClickType.LEFT;
+        }
+        return ClickType.RIGHT;
+    }
+    // -------------------------------------
+
     @Override
     public boolean onStackClicked(ItemStack bundle, Slot slot, ClickType clickType, PlayerEntity player) {
-        if (clickType != ClickType.RIGHT && clickType != ClickType.LEFT) return false;
+        ClickType insertClick = getInsertClick();
+        ClickType removeClick = getRemoveClick();
+
+        if (clickType != insertClick && clickType != removeClick) return false;
 
         BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
         if (contents == null) contents = BundleContentsComponent.DEFAULT;
 
         ItemStack itemInSlot = slot.getStack();
 
-        if (clickType == ClickType.RIGHT && itemInSlot.isEmpty()) {
+        // Logik angepasst auf dynamische ClickTypes
+        if (clickType == removeClick && itemInSlot.isEmpty()) {
             ItemStack removed = removeSelectedOrFirstItem(bundle, contents);
             if (!removed.isEmpty()) {
                 this.playRemoveOneSound(player);
                 slot.insertStack(removed);
                 return true;
             }
-        } else if (clickType == ClickType.LEFT && !itemInSlot.isEmpty() && itemInSlot.getItem().canBeNested()) {
+        } else if (clickType == insertClick && !itemInSlot.isEmpty() && itemInSlot.getItem().canBeNested()) {
             int added = insertItemIntoBundle(bundle, contents, itemInSlot, getMaxCapacity(bundle, player));
             if (added > 0) {
                 this.playInsertSound(player);
@@ -67,12 +89,15 @@ public class ReinforcedBundleItem extends BundleItem {
 
     @Override
     public boolean onClicked(ItemStack bundle, ItemStack cursorStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
-        if (clickType != ClickType.RIGHT && clickType != ClickType.LEFT) return false;
+        ClickType insertClick = getInsertClick();
+        ClickType removeClick = getRemoveClick();
+
+        if (clickType != insertClick && clickType != removeClick) return false;
 
         BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
         if (contents == null) contents = BundleContentsComponent.DEFAULT;
 
-        if (clickType == ClickType.RIGHT && cursorStack.isEmpty()) {
+        if (clickType == removeClick && cursorStack.isEmpty()) {
             ItemStack removed = removeSelectedOrFirstItem(bundle, contents);
             if (!removed.isEmpty()) {
                 this.playRemoveOneSound(player);
@@ -80,7 +105,7 @@ public class ReinforcedBundleItem extends BundleItem {
                 return true;
             }
         }
-        else if (clickType == ClickType.LEFT && !cursorStack.isEmpty() && cursorStack.getItem().canBeNested()) {
+        else if (clickType == insertClick && !cursorStack.isEmpty() && cursorStack.getItem().canBeNested()) {
             int added = insertItemIntoBundle(bundle, contents, cursorStack, getMaxCapacity(bundle, player));
             if (added > 0) {
                 this.playInsertSound(player);
@@ -221,11 +246,13 @@ public class ReinforcedBundleItem extends BundleItem {
         return mb.isPresent() && EnchantmentHelper.getLevel(mb.get(), stack) > 0;
     }
 
+    //
     protected int insertItemIntoBundle(ItemStack bundle, BundleContentsComponent contents, ItemStack stackToAdd, Fraction maxCap) {
         if (stackToAdd.isEmpty()) return 0;
 
         int drawerLevel = getDrawerLevel(bundle);
 
+        // Drawer Restriction Check: Nur 1 Item-Typ erlaubt
         if (drawerLevel > 0) {
             boolean alreadyInBundle = false;
             for (ItemStack s : contents.iterate()) {
@@ -234,13 +261,14 @@ public class ReinforcedBundleItem extends BundleItem {
                     break;
                 }
             }
-            if (!alreadyInBundle) {
-                if (contents.size() >= drawerLevel) {
-                    return 0;
-                }
+            // Wenn das Item noch nicht im Bundle ist, aber das Bundle nicht leer ist (d.h. ein anderer Typ ist schon drin)
+            // dann darf nichts hinzugefügt werden.
+            if (!alreadyInBundle && !contents.isEmpty()) {
+                return 0;
             }
         }
 
+        // Capacity Check
         Fraction currentOccupancy = contents.getOccupancy();
         Fraction itemWeight = Fraction.getFraction(1, stackToAdd.getMaxCount());
         Fraction remainingSpace = maxCap.subtract(currentOccupancy);
@@ -253,17 +281,63 @@ public class ReinforcedBundleItem extends BundleItem {
 
         if (countToAdd <= 0) return 0;
 
+        // --- NEW SORTING & MERGING LOGIC ---
+
+        // 1. Create a mutable list of current items
         List<ItemStack> newItems = new ArrayList<>();
-        for(ItemStack s : contents.iterate()) newItems.add(s.copy());
+        for (ItemStack s : contents.iterate()) {
+            newItems.add(s.copy());
+        }
 
-        ItemStack toAdd = stackToAdd.copy();
-        toAdd.setCount(countToAdd);
-        addToBundleList(newItems, toAdd);
+        // --- MERGING LOGIC (KORRIGIERT) ---
+        // Wir suchen nach existierenden Stacks, um sie zusammenzufügen und nach oben zu ziehen.
 
+        int totalCount = countToAdd;
+        int maxItemCount = stackToAdd.getMaxCount(); // Normalerweise 64
+
+        // Wir entfernen ALLE existierenden Instanzen dieses Items aus der Liste,
+        // addieren ihre Menge zum "totalCount" und fügen sie dann sauber gestapelt oben wieder ein.
+        // Das ist wichtig für den Drawer, der riesige Mengen halten kann.
+
+        // Rückwärts iterieren ist sicherer beim Entfernen, aber hier nutzen wir removeIf oder sammeln Indizes.
+        // Einfacher: Neue Liste bauen ohne die Matches und Count zählen.
+
+        List<ItemStack> itemsKept = new ArrayList<>();
+
+        for (ItemStack stack : newItems) {
+            if (ItemStack.areItemsAndComponentsEqual(stack, stackToAdd)) {
+                totalCount += stack.getCount();
+            } else {
+                itemsKept.add(stack);
+            }
+        }
+
+        // Jetzt füllen wir die Items ganz oben (Index 0) wieder auf.
+        // Wir teilen "totalCount" in Stacks der Größe 64 auf.
+
+        List<ItemStack> itemsToAddBack = new ArrayList<>();
+        while (totalCount > 0) {
+            int take = Math.min(totalCount, maxItemCount);
+            ItemStack chunk = stackToAdd.copy();
+            chunk.setCount(take);
+            itemsToAddBack.add(chunk); // Zur temporären Liste
+            totalCount -= take;
+        }
+
+        // Da wir an Index 0 (oben) einfügen wollen, fügen wir die neuen Stacks VOR die behaltenen.
+        // itemsToAddBack enthält z.B. [64, 64, 10]. Wir wollen, dass der "angebrochene" Stack (10)
+        // ganz oben liegt, damit er zuerst rausgenommen wird (LIFO - Last In First Out).
+        // Das passiert automatisch, wenn wir sie der Reihe nach an Index 0 einfügen oder als Block davor setzen.
+
+        itemsKept.addAll(0, itemsToAddBack);
+
+        // 4. Update Bundle
         BundleItem.setSelectedStackIndex(bundle, -1);
-        bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
+        bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(itemsKept));
+
         return countToAdd;
     }
+
 
     private int getDrawerLevel(ItemStack stack) {
         var enchantments = stack.getEnchantments();
@@ -358,6 +432,24 @@ public class ReinforcedBundleItem extends BundleItem {
 
         var registry = player.getEntityWorld().getRegistryManager();
         var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+
+        // --- Drawer Logic ---
+        var drawer = enchantments.getOptional(ModEnchantments.DRAWER);
+        if (drawer.isPresent()) {
+            int level = EnchantmentHelper.getLevel(drawer.get(), stack);
+            if (level > 0) {
+                // Formel: Basis * (1 + Level * 0.125)
+                // Beispiel Level 1: 1 * (1 + 0.125) = 1.125
+                // Beispiel Level 8: 1 * (1 + 1.0) = 2.0 (200%)
+
+                // Wir nutzen Brüche: 0.125 = 1/8.
+                // Multiplikator = 1 + (level/8) = (8+level)/8
+                Fraction drawerBonus = Fraction.getFraction(8 + level, 8);
+                capacity = capacity.multiplyBy(drawerBonus);
+            }
+        }
+
+        // --- Deep Pockets Logic ---
         var deepPockets = enchantments.getOptional(ModEnchantments.DEEP_POCKETS);
 
         if (deepPockets.isPresent()) {
@@ -375,10 +467,22 @@ public class ReinforcedBundleItem extends BundleItem {
         for (var entry : enchantments.getEnchantmentEntries()) {
             if (entry.getKey().getKey().isPresent()) {
                 String id = entry.getKey().getKey().get().getValue().toString();
+
+                // Deep Pockets
                 if (id.contains("deep_pockets")) {
                     int level = entry.getIntValue();
                     if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
                     if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
+                }
+
+                // --- Drawer Visuals ---
+                if (id.contains("drawer")) {
+                    int level = entry.getIntValue();
+                    if (level > 0) {
+                        // Gleiche Formel wie oben: (8 + level) / 8
+                        Fraction drawerBonus = Fraction.getFraction(8 + level, 8);
+                        capacity = capacity.multiplyBy(drawerBonus);
+                    }
                 }
             }
         }
