@@ -116,7 +116,7 @@
   "enchantment.simplebuilding.drawer": "Fassungsvermögen",
   "enchantment.simplebuilding.drawer.description": "Erhöht die Lagerkapazität von Truhen und Bündeln.",
   "enchantment.simplebuilding.versatility": "Vielseitigkeit",
-  "enchantment.simplebuilding.versatility.description": "Erlaubt dem Werkzeug, auf mehr Blocktypen zu wirken.",
+  "enchantment.simplebuilding.versatility.description": "Wechselt zum besten tool für den Blocktyp, wenn man schleicht.",
 
   "enchantment.simplebuilding.break_through": "Durchbruch",
   "enchantment.simplebuilding.break_through.description": "Erlaubt dem Vorschlaghammer, Blöcke zu brechen, die normalerweise unzerstörbar sind.",

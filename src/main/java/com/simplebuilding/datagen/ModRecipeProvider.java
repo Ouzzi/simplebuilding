@@ -275,12 +275,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
             private void createWandRecipe(Item output, Item core, Item material) {
                 createShaped(RecipeCategory.TOOLS, output)
-                        .pattern(" MC")
-                        .pattern(" SM")
+                        .pattern("  C")
+                        .pattern(" S ")
                         .pattern("S  ")
                         .input('C', core)
                         .input('S', Items.STICK)
-                        .input('M', material)
                         .criterion(hasItem(core), conditionsFromItem(core))
                         .offerTo(exporter);
             }

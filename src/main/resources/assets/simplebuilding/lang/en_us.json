@@ -116,7 +116,7 @@
   "enchantment.simplebuilding.drawer": "Drawer",
   "enchantment.simplebuilding.drawer.description": "Increases the storage capacity of chests and bundles.",
   "enchantment.simplebuilding.versatility": "Versatility",
-  "enchantment.simplebuilding.versatility.description": "Allows the tool to work on more block types.",
+  "enchantment.simplebuilding.versatility.description": "When sneaking, switches to best tool for the job.",
 
   "enchantment.simplebuilding.break_through": "Break Through",
     "enchantment.simplebuilding.break_through.description": "Allows the sledgehammer to break blocks that are normally unbreakable.",

@@ -444,7 +444,7 @@ public class ReinforcedBundleItem extends BundleItem {
 
                 // Wir nutzen Brüche: 0.125 = 1/8.
                 // Multiplikator = 1 + (level/8) = (8+level)/8
-                Fraction drawerBonus = Fraction.getFraction(8 + level, 8);
+                Fraction drawerBonus = Fraction.getFraction(16 + level, 8);
                 capacity = capacity.multiplyBy(drawerBonus);
             }
         }
@@ -480,7 +480,7 @@ public class ReinforcedBundleItem extends BundleItem {
                     int level = entry.getIntValue();
                     if (level > 0) {
                         // Gleiche Formel wie oben: (8 + level) / 8
-                        Fraction drawerBonus = Fraction.getFraction(8 + level, 8);
+                        Fraction drawerBonus = Fraction.getFraction(16 + level, 8);
                         capacity = capacity.multiplyBy(drawerBonus);
                     }
                 }

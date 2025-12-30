@@ -1,11 +1,20 @@
 ## Changelog:
 
 ## TODO:
+- more chisel durability x
+- chisel should replace spatula (sneak + item in offhand) x
+- stais and slabs with chisel / spatula x
+- sledgehammer - repair cost 
+- sledgehammer - Abbau zeit je nach Abbau Block Menge
+- villager loottables simplebuilding not in game active
+- building core too common (make more rare)
 
 Later:
+- compass in smithing table with item and diamonds - points to different structures (configurable)
+- reinforced/netherit furnace / smoker
 - reinforced observer - less delay, more range (7 blocks)
 - netherite observer - no delay, more range (15 blocks)
-- durrability of sledgehammer, 4x more durable than pickaxe equivalent
+- colored redstone
 
 - later - Glass Itemframes, transparent itemframes - doent drop frame when broken exept silk touch.
 - later - Negative Beacon (evil Beacon) that gives negative effects to players in range

@@ -29,11 +29,11 @@ import static com.simplebuilding.items.custom.SledgehammerItem.*;
 public class ModItems {
 
     // --- Durability & Settings Constants ---
-    private static final int DURABILITY_WOOD_STONE = 48;
-    private static final int DURABILITY_IRON = 64;
-    private static final int DURABILITY_GOLD = 32;
-    private static final int DURABILITY_DIAMOND = 98;
-    private static final int DURABILITY_NETHERITE = 128;
+    private static final int DURABILITY_WOOD_STONE = 48*2;
+    private static final int DURABILITY_IRON = 64*2;
+    private static final int DURABILITY_GOLD = 32*2;
+    private static final int DURABILITY_DIAMOND = 98*2;
+    private static final int DURABILITY_NETHERITE = 128*2;
 
     private static final int COOLDOWN_TICKS_WOOD_STONE = 30;
     private static final int COOLDOWN_TICKS_IRON = 25;
@@ -51,6 +51,7 @@ public class ModItems {
     // =================================================================================
     // ITEM REGISTRIERUNGEN
     // =================================================================================
+
 
     // Chisels (Forward)
     public static final ChiselItem STONE_CHISEL = registerChisel("stone_chisel", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_WOOD_STONE, ENCHANTABILITY_WOOD_STONE, "stone");
@@ -146,6 +147,7 @@ public class ModItems {
         spatula.setCooldownTicks(cooldownTicks);
         spatula.setChiselSound(SoundEvents.BLOCK_SAND_FALL);
         spatula.setChiselDirectionCycle(ChiselItem.Direction.BACKWARD);
+        spatula.setAsDedicatedSpatula(true);
         return spatula;
     }
 

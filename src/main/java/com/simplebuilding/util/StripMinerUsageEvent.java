@@ -48,6 +48,7 @@ public class StripMinerUsageEvent implements PlayerBlockBreakEvents.Before {
 
         Direction miningDirection = getMiningDirection(player);
 
+        int brokenBlocks = 0;
         for (int i = 1; i <= depth; i++) {
             BlockPos targetPos = pos.offset(miningDirection, i);
             BlockState targetState = world.getBlockState(targetPos);
@@ -60,10 +61,25 @@ public class StripMinerUsageEvent implements PlayerBlockBreakEvents.Before {
             MINING_BLOCKS.remove(targetPos);
 
             if (broken) {
-                stack.damage(1, serverPlayer, EquipmentSlot.MAINHAND);
+                brokenBlocks++;
                 if (stack.isEmpty()) {break;}
             }
         }
+
+        if (brokenBlocks > 0) {
+            // Beispiel: Wir wollen ca. 33% Durability sparen (nur 66% Schaden nehmen).
+            // Formel: Wir berechnen den Rabatt.
+            // (brokenBlocks + 1) / 3 sorgt dafür, dass bei 2 Extra-Blöcken 1 Schaden geheilt wird.
+            int damageRefund = (brokenBlocks + 1) / 3;
+
+            if (damageRefund > 0) {
+                // Wir "heilen" das Item, indem wir den Damage-Wert verringern.
+                int currentDamage = stack.getDamage();
+                // Sicherstellen, dass wir nicht unter 0 gehen (Item reparieren über Max hinaus)
+                stack.setDamage(Math.max(0, currentDamage - damageRefund));
+            }
+        }
+
         return true;
     }
 
