@@ -6,9 +6,8 @@
 - stais and slabs with chisel / spatula -x
 - sledgehammer - repair cost -x
 - building core too common (make more rare) -x
-- villager loottables simplebuilding not in game active
-- circle mode for octant / other shapes
-- sneak,shift and scoll to move in view direction
+- sneak,shift and scoll to move in view direction -x
+- circle mode for octant / other shapes (triangle) - Shift + alt + scroll to change shape
 
 Later:
 - compass in smithing table with item and diamonds - points to different structures (configurable)

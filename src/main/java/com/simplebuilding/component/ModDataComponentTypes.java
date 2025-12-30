@@ -10,6 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import java.util.function.UnaryOperator;
 
 public class ModDataComponentTypes {
+    public static final ComponentType<Integer> OFFSET = register("offset", builder -> builder.codec(com.mojang.serialization.Codec.INT));
+
     public static final ComponentType<BlockPos> COORDINATES =
             register("coordinates", builder -> builder.codec(BlockPos.CODEC));
 

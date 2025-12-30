@@ -56,7 +56,8 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         List<Text> lines = new ArrayList<>();
 
         Formatting titleColor = stack.hasEnchantments() ? Formatting.AQUA : Formatting.WHITE;
-        lines.add(Text.literal("Octant").formatted(titleColor));
+
+        lines.add(stack.getName().copy().formatted(titleColor));
 
         BlockPos pos1 = null;
         BlockPos pos2 = null;

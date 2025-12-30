@@ -23,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Locale;
 import java.util.function.Consumer;
 
 
@@ -31,6 +32,24 @@ public class OctantItem extends Item {
     public static final int DURABILITY_OCTANT = 128;
 
     private final DyeColor color;
+
+    public enum SelectionShape {
+        CUBOID,
+        CYLINDER,
+        TRIANGLE,
+        PYRAMID,
+        SPHERE;
+
+        public SelectionShape next() {
+            return values()[(this.ordinal() + 1) % values().length];
+        }
+
+        public String getName() {
+            // Macht aus "CUBOID" -> "Cuboid"
+            String name = name().toLowerCase(Locale.ROOT);
+            return Character.toUpperCase(name.charAt(0)) + name.substring(1);
+        }
+    }
 
     public OctantItem(Settings settings, @Nullable DyeColor color) {
         super(settings);
@@ -80,6 +99,28 @@ public class OctantItem extends Item {
             return ActionResult.SUCCESS;
         }
         return super.use(world, user, hand);
+    }
+
+    @Override
+    public Text getName(ItemStack stack) {
+        Text baseName = super.getName(stack);
+
+        NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
+        NbtCompound nbt = nbtComponent.copyNbt();
+
+        if (nbt.contains("Shape")) {
+            String shapeName = nbt.getString("Shape").orElse("");
+            try {
+                SelectionShape shape = SelectionShape.valueOf(shapeName);
+
+                // Zeige Modus an (außer es ist Standard Cuboid, optional)
+                // Wenn du immer Feedback willst, entferne das 'if'
+                if (shape != SelectionShape.CUBOID) {
+                    return Text.empty().append(baseName).append(Text.literal(" (" + shape.getName() + ")").formatted(Formatting.GRAY));
+                }
+            } catch (Exception e) {}
+        }
+        return baseName;
     }
 
     @Override
