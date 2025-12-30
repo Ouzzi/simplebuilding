@@ -33,22 +33,72 @@ public class OctantItem extends Item {
 
     private final DyeColor color;
 
+    // FIX: Enum erweitert mit einem schönen Namen und der getName() Methode
     public enum SelectionShape {
-        CUBOID,
-        CYLINDER,
-        TRIANGLE,
-        PYRAMID,
-        SPHERE;
+        CUBOID("Cuboid"),
+        CYLINDER("Cylinder"),
+        TRIANGLE("Triangle"),
+        PYRAMID("Pyramid"),
+        SPHERE("Sphere");
 
-        public SelectionShape next() {
-            return values()[(this.ordinal() + 1) % values().length];
+        private final String name;
+
+        SelectionShape(String name) {
+            this.name = name;
         }
 
         public String getName() {
-            // Macht aus "CUBOID" -> "Cuboid"
-            String name = name().toLowerCase(Locale.ROOT);
-            return Character.toUpperCase(name.charAt(0)) + name.substring(1);
+            return name;
         }
+    }
+
+    public void scrollAttribute(ItemStack stack, int amount, boolean isShift, boolean isControl, boolean isAlt, PlayerEntity player) {
+        NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
+        NbtCompound nbt = nbtData.copyNbt();
+
+        // 1. Shift: Formen durchschalten (Shapes)
+        if (isShift) {
+            SelectionShape[] values = SelectionShape.values();
+            String currentName = nbt.getString("Shape").orElse("");
+            int index = 0;
+            // Aktuellen Index finden
+            if (!currentName.isEmpty()) {
+                try {
+                    index = SelectionShape.valueOf(currentName).ordinal();
+                } catch (Exception ignored) {}
+            }
+
+            // Berechnung des neuen Index (funktioniert vorwärts & rückwärts)
+            // (index + amount) % length kann in Java negativ werden, daher "+ length"
+            int newIndex = (index + amount) % values.length;
+            if (newIndex < 0) newIndex += values.length;
+
+            SelectionShape newShape = values[newIndex];
+            nbt.putString("Shape", newShape.name());
+            player.sendMessage(Text.of("Form: " + newShape.name()), true);
+        }
+
+        // 2. Control: Größe/Radius ändern (Beispiel)
+        else if (isControl) {
+            int currentRadius = nbt.getInt("Radius").orElse(5); // Standardwert 5
+            // Hier einfach amount addieren (z.B. +1 oder -1)
+            int newRadius = Math.max(1, currentRadius + amount); // Minimum 1
+            nbt.putInt("Radius", newRadius);
+            player.sendMessage(Text.of("Radius: " + newRadius), true);
+        }
+
+        // 3. Alt: Modus ändern (Beispiel: Replace Mode / Placement Mode)
+        else if (isAlt) {
+            // Beispiel-Logik für einen booleschen Toggle oder ein anderes Enum
+            // Wenn es ein Enum ist, nutze die gleiche Logik wie bei 'Shift' oben.
+            boolean currentMode = nbt.getBoolean("SomeMode").orElse(false);
+            // Bei booleschen Toggles ist die Richtung egal, scrollen toggelt einfach
+            nbt.putBoolean("SomeMode", !currentMode);
+            player.sendMessage(Text.of("Mode: " + (!currentMode ? "An" : "Aus")), true);
+        }
+
+        // Speichern
+        stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
     }
 
     public OctantItem(Settings settings, @Nullable DyeColor color) {

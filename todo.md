@@ -7,8 +7,12 @@
 - sledgehammer - repair cost -x
 - building core too common (make more rare) -x
 - sneak,shift and scoll to move in view direction -x
-- circle mode for octant / other shapes (triangle) - Shift + alt + scroll to change shape
-- feather falling and protection enchantments arent applicable both 
+- circle mode for octant / other shapes (triangle) - Shift + alt + scroll to change shape -x
+- feather falling and protection enchantments arent applicable both on boots -x
+- double jump enabled / disabled option on code! -x
+
+- Einige Formen vor allem die Dreiecke oder die Kreise bzw. Der Zylinder sind nicht geschlossen. Bitte schließen.
+
 
 Later:
 - compass in smithing table with item and diamonds - points to different structures (configurable)

@@ -89,7 +89,7 @@ public class Simplebuilding implements ModInitializer {
         PlayerBlockBreakEvents.BEFORE.register(new VeinMinerUsageEvent());
         AttackBlockCallback.EVENT.register(new VersatilityUsageEvent());
 
-        PayloadTypeRegistry.playC2S().register(com.simplebuilding.networking.OctantScrollPayload.ID, com.simplebuilding.networking.OctantScrollPayload.CODEC);
+        PayloadTypeRegistry.playC2S().register(OctantScrollPayload.ID, OctantScrollPayload.CODEC);
 
         // Receiver Logik
         ServerPlayNetworking.registerGlobalReceiver(OctantScrollPayload.ID, (payload, context) -> {
@@ -118,15 +118,24 @@ public class Simplebuilding implements ModInitializer {
                             } catch (IllegalArgumentException ignored) {}
                         }
 
-                        // Nächsten Modus berechnen (Enum Logik)
-                        OctantItem.SelectionShape nextShape = currentShape.next();
+                        // 2. Nächsten Modus berechnen basierend auf Scroll-Richtung (payload.amount)
+                        OctantItem.SelectionShape[] values = OctantItem.SelectionShape.values();
+                        int currentIndex = currentShape.ordinal();
 
-                        // Speichern
+                        // amount ist +1 (vorwärts) oder -1 (rückwärts)
+                        int nextIndex = (currentIndex + payload.amount()) % values.length;
+
+                        // Java Modulo kann negativ sein, daher Korrektur:
+                        if (nextIndex < 0) nextIndex += values.length;
+
+                        OctantItem.SelectionShape nextShape = values[nextIndex];
+
+                        // 3. Speichern
                         nbt.putString("Shape", nextShape.name());
                         changed = true;
 
-                        // --- VISUELLES FEEDBACK (Actionbar) ---
-                        //player.sendMessage(Text.literal("Shape: " + nextShape.getName()).formatted(Formatting.GOLD, Formatting.BOLD), true);
+                        // Optional: Chat-Nachricht (Feedback)
+                        // player.sendMessage(Text.of("Form: " + nextShape.name()), true);
                     }
 
                     // =================================================================
@@ -149,17 +158,21 @@ public class Simplebuilding implements ModInitializer {
 
                         if (payload.control() && hasPos1) {
                             int[] p1 = nbt.getIntArray("Pos1").orElse(new int[0]);
-                            p1[0] += dx; p1[1] += dy; p1[2] += dz;
-                            nbt.putIntArray("Pos1", p1);
-                            changed = true;
+                            if (p1.length == 3) { // Sicherheitscheck
+                                p1[0] += dx; p1[1] += dy; p1[2] += dz;
+                                nbt.putIntArray("Pos1", p1);
+                                changed = true;
+                            }
                         }
 
                         if (payload.shift()) {
                             if (hasPos2) {
                                 int[] p2 = nbt.getIntArray("Pos2").orElse(new int[0]);
-                                p2[0] += dx; p2[1] += dy; p2[2] += dz;
-                                nbt.putIntArray("Pos2", p2);
-                                changed = true;
+                                if (p2.length == 3) { // Sicherheitscheck
+                                    p2[0] += dx; p2[1] += dy; p2[2] += dz;
+                                    nbt.putIntArray("Pos2", p2);
+                                    changed = true;
+                                }
                             }
                         }
                     }

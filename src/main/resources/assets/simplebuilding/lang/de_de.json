@@ -172,8 +172,8 @@
   "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions": "Bündel-Interaktionen umkehren",
   "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions.@Tooltip": "Wenn wahr, führt Schleichen bei der Verwendung von Bündeln die gegenteilige Aktion aus (Einlegen vs. Entnehmen).",
 
-  "text.autoconfig.simplebuilding.option.disableDoubleJump": "Doppelsprung deaktivieren",
-  "text.autoconfig.simplebuilding.option.tools.disableDoubleJump.@Tooltip": "Wenn wahr, wird die Luftsprung-Verzauberung deaktiviert.",
+  "text.autoconfig.simplebuilding.option.enableDoubleJump": "Doppelsprung aktiviert",
+  "text.autoconfig.simplebuilding.option.tools.enableDoubleJump.@Tooltip": "Ermöglicht dem Spieler, einen zusätzlichen Sprung auszuführen, wenn diese Option aktiviert ist.",
 
   "block.simplebuilding.reinforced_chest": "Verstärkte Truhe",
   "item.simplebuilding.reinforced_chest": "Verstärkte Truhe",

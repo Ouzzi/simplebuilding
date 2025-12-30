@@ -18,113 +18,27 @@ public class guiDrawHelper {
 
     // --- Drawing Methods (Unverändert) ---
 
-    public static void drawCylinderOutline(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
+    /**
+     * Zeichnet eine Linie.
+     * Reihenfolge: Vertex -> Color -> Normal.
+     * Das ist der Standard für 1.21 BufferBuilder.
+     */
+    public static void drawLineWithNormal(VertexConsumer builder, Matrix4f matrix, double x1, double y1, double z1, double x2, double y2, double z2, float r, float g, float b, float a) {
+        float nx = (float)(x2 - x1); float ny = (float)(y2 - y1); float nz = (float)(z2 - z1);
+        float len = (float)Math.sqrt(nx * nx + ny * ny + nz * nz);
+        if (len > 0) { nx /= len; ny /= len; nz /= len; }
 
-        double centerX = box.minX + (box.maxX - box.minX) / 2.0;
-        double centerZ = box.minZ + (box.maxZ - box.minZ) / 2.0;
-        double radiusX = (box.maxX - box.minX) / 2.0;
-        double radiusZ = (box.maxZ - box.minZ) / 2.0;
+        float lineWidth = 4.0f;
 
-        double y1 = box.minY;
-        double y2 = box.maxY;
+        builder.vertex(matrix, (float)x1, (float)y1, (float)z1)
+                .color(r, g, b, a)
+                .normal(nx, ny, nz)
+                .lineWidth(lineWidth);
 
-        int segments = 32; // Feinheit des Kreises
-
-        double prevX = centerX + radiusX;
-        double prevZ = centerZ;
-
-        for (int i = 1; i <= segments; i++) {
-            double angle = (2.0 * Math.PI * i) / segments;
-            double x = centerX + Math.cos(angle) * radiusX;
-            double z = centerZ + Math.sin(angle) * radiusZ;
-
-            // Unten Kreis
-            drawLineWithNormal(builder, matrix, prevX, y1, prevZ, x, y1, z, r, g, b, a);
-            // Oben Kreis
-            drawLineWithNormal(builder, matrix, prevX, y2, prevZ, x, y2, z, r, g, b, a);
-            // Vertikale Verbindung (alle 4 Segmente z.B., oder alle)
-            if (i % 4 == 0) {
-                drawLineWithNormal(builder, matrix, x, y1, z, x, y2, z, r, g, b, a);
-            }
-
-            prevX = x;
-            prevZ = z;
-        }
-    }
-
-    // --- NEU: Pyramide ---
-    public static void drawPyramidOutline(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
-
-        double x1 = box.minX; double z1 = box.minZ;
-        double x2 = box.maxX; double z2 = box.maxZ;
-        double yBase = box.minY;
-
-        // Spitze (Mitte oben)
-        double tipX = x1 + (x2 - x1) / 2.0;
-        double tipZ = z1 + (z2 - z1) / 2.0;
-        double tipY = box.maxY;
-
-        // Basis (Viereck)
-        drawLineWithNormal(builder, matrix, x1, yBase, z1, x2, yBase, z1, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, yBase, z1, x2, yBase, z2, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, yBase, z2, x1, yBase, z2, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x1, yBase, z2, x1, yBase, z1, r, g, b, a);
-
-        // Kanten zur Spitze
-        drawLineWithNormal(builder, matrix, x1, yBase, z1, tipX, tipY, tipZ, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, yBase, z1, tipX, tipY, tipZ, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, yBase, z2, tipX, tipY, tipZ, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x1, yBase, z2, tipX, tipY, tipZ, r, g, b, a);
-    }
-
-    // --- NEU: Kugel (Sphere) - Annäherung durch 3 Kreise ---
-    public static void drawSphereOutline(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
-
-        double cx = box.minX + (box.maxX - box.minX) / 2.0;
-        double cy = box.minY + (box.maxY - box.minY) / 2.0;
-        double cz = box.minZ + (box.maxZ - box.minZ) / 2.0;
-
-        double rx = (box.maxX - box.minX) / 2.0;
-        double ry = (box.maxY - box.minY) / 2.0;
-        double rz = (box.maxZ - box.minZ) / 2.0;
-
-        int segments = 24;
-
-        // Horizontaler Kreis (Äquator)
-        double prevX = cx + rx;
-        double prevZ = cz;
-        for (int i = 1; i <= segments; i++) {
-            double angle = (2 * Math.PI * i) / segments;
-            double x = cx + Math.cos(angle) * rx;
-            double z = cz + Math.sin(angle) * rz;
-            drawLineWithNormal(builder, matrix, prevX, cy, prevZ, x, cy, z, r, g, b, a);
-            prevX = x; prevZ = z;
-        }
-
-        // Vertikaler Kreis (XY)
-        prevX = cx + rx;
-        double prevY = cy;
-        for (int i = 1; i <= segments; i++) {
-            double angle = (2 * Math.PI * i) / segments;
-            double x = cx + Math.cos(angle) * rx;
-            double y = cy + Math.sin(angle) * ry;
-            drawLineWithNormal(builder, matrix, prevX, prevY, cz, x, y, cz, r, g, b, a);
-            prevX = x; prevY = y;
-        }
-
-        // Vertikaler Kreis (ZY)
-        double prevZ2 = cz + rz;
-        prevY = cy;
-        for (int i = 1; i <= segments; i++) {
-            double angle = (2 * Math.PI * i) / segments;
-            double z = cz + Math.cos(angle) * rz;
-            double y = cy + Math.sin(angle) * ry;
-            drawLineWithNormal(builder, matrix, cx, prevY, prevZ2, cx, y, z, r, g, b, a);
-            prevZ2 = z; prevY = y;
-        }
+        builder.vertex(matrix, (float)x2, (float)y2, (float)z2)
+                .color(r, g, b, a)
+                .normal(nx, ny, nz)
+                .lineWidth(lineWidth);
     }
 
     public static void drawBoxOutline(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
@@ -171,23 +85,6 @@ public class guiDrawHelper {
         builder.vertex(matrix, x4, y4, z4).color(r, g, b, a);
     }
 
-    public static void drawLineWithNormal(VertexConsumer builder, Matrix4f matrix, double x1, double y1, double z1, double x2, double y2, double z2, float r, float g, float b, float a) {
-        float nx = (float)(x2 - x1); float ny = (float)(y2 - y1); float nz = (float)(z2 - z1);
-        float len = (float)Math.sqrt(nx * nx + ny * ny + nz * nz);
-        if (len > 0) { nx /= len; ny /= len; nz /= len; }
-
-        float lineWidth = 4.0f;
-
-        builder.vertex(matrix, (float)x1, (float)y1, (float)z1)
-                .color(r, g, b, a)
-                .normal(nx, ny, nz)
-                .lineWidth(lineWidth);
-
-        builder.vertex(matrix, (float)x2, (float)y2, (float)z2)
-                .color(r, g, b, a)
-                .normal(nx, ny, nz)
-                .lineWidth(lineWidth);
-    }
 
     public static void drawQuadFace(MatrixStack matrices, VertexConsumer builder, Box box, Direction face, float r, float g, float b, float a) {
         Matrix4f matrix = matrices.peek().getPositionMatrix();

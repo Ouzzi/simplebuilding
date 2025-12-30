@@ -5,6 +5,7 @@ import com.simplebuilding.client.gui.SpeedometerHudOverlay;
 import com.simplebuilding.client.render.BlockHighlightRenderer;
 import com.simplebuilding.client.render.BuildingWandOutlineRenderer;
 import com.simplebuilding.client.render.SledgehammerOutlineRenderer;
+import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.networking.DoubleJumpPayload;
@@ -85,7 +86,7 @@ public class SimplebuildingClient implements ClientModInitializer {
 
     private void registerDoubleJumpClient() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.player == null) return;
+            if (client.player == null || !Simplebuilding.getConfig().enableDoubleJump) return;
 
             boolean isOnGround = client.player.isOnGround();
             boolean isClimbing = client.player.isClimbing();

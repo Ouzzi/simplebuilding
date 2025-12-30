@@ -58,7 +58,5 @@ public class ModEnchantmentTagProvider extends FabricTagProvider<Enchantment> {
                 .add(ModEnchantments.STRIP_MINER)
                 .add(ModEnchantments.VEIN_MINER);
 
-        builder(EnchantmentTags.ARMOR_EXCLUSIVE_SET)
-                .add(Enchantments.FEATHER_FALLING);
     }
 }

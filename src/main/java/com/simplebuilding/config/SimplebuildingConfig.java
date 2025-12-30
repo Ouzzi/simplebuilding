@@ -20,7 +20,7 @@ public class SimplebuildingConfig implements ConfigData {
     public static class Tools {
         @ConfigEntry.Gui.Tooltip
         public boolean invertOctantSneak = false; // Constructor's Touch Invertierung
-        public int buildingHighlightOpacity = 50;
+        public int buildingHighlightOpacity = 40;
 
         @ConfigEntry.Gui.Tooltip
         public boolean enableToolAnimations = true; // Hauptschalter
