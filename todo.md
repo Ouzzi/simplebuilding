@@ -8,6 +8,7 @@
 - building core too common (make more rare) -x
 - sneak,shift and scoll to move in view direction -x
 - circle mode for octant / other shapes (triangle) - Shift + alt + scroll to change shape
+- feather falling and protection enchantments arent applicable both 
 
 Later:
 - compass in smithing table with item and diamonds - points to different structures (configurable)

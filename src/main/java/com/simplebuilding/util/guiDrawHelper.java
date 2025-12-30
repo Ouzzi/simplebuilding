@@ -11,11 +11,122 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import org.joml.Matrix4f;
 
 public class guiDrawHelper {
 
     // --- Drawing Methods (Unverändert) ---
+
+    public static void drawCylinderOutline(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+
+        double centerX = box.minX + (box.maxX - box.minX) / 2.0;
+        double centerZ = box.minZ + (box.maxZ - box.minZ) / 2.0;
+        double radiusX = (box.maxX - box.minX) / 2.0;
+        double radiusZ = (box.maxZ - box.minZ) / 2.0;
+
+        double y1 = box.minY;
+        double y2 = box.maxY;
+
+        int segments = 32; // Feinheit des Kreises
+
+        double prevX = centerX + radiusX;
+        double prevZ = centerZ;
+
+        for (int i = 1; i <= segments; i++) {
+            double angle = (2.0 * Math.PI * i) / segments;
+            double x = centerX + Math.cos(angle) * radiusX;
+            double z = centerZ + Math.sin(angle) * radiusZ;
+
+            // Unten Kreis
+            drawLineWithNormal(builder, matrix, prevX, y1, prevZ, x, y1, z, r, g, b, a);
+            // Oben Kreis
+            drawLineWithNormal(builder, matrix, prevX, y2, prevZ, x, y2, z, r, g, b, a);
+            // Vertikale Verbindung (alle 4 Segmente z.B., oder alle)
+            if (i % 4 == 0) {
+                drawLineWithNormal(builder, matrix, x, y1, z, x, y2, z, r, g, b, a);
+            }
+
+            prevX = x;
+            prevZ = z;
+        }
+    }
+
+    // --- NEU: Pyramide ---
+    public static void drawPyramidOutline(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+
+        double x1 = box.minX; double z1 = box.minZ;
+        double x2 = box.maxX; double z2 = box.maxZ;
+        double yBase = box.minY;
+
+        // Spitze (Mitte oben)
+        double tipX = x1 + (x2 - x1) / 2.0;
+        double tipZ = z1 + (z2 - z1) / 2.0;
+        double tipY = box.maxY;
+
+        // Basis (Viereck)
+        drawLineWithNormal(builder, matrix, x1, yBase, z1, x2, yBase, z1, r, g, b, a);
+        drawLineWithNormal(builder, matrix, x2, yBase, z1, x2, yBase, z2, r, g, b, a);
+        drawLineWithNormal(builder, matrix, x2, yBase, z2, x1, yBase, z2, r, g, b, a);
+        drawLineWithNormal(builder, matrix, x1, yBase, z2, x1, yBase, z1, r, g, b, a);
+
+        // Kanten zur Spitze
+        drawLineWithNormal(builder, matrix, x1, yBase, z1, tipX, tipY, tipZ, r, g, b, a);
+        drawLineWithNormal(builder, matrix, x2, yBase, z1, tipX, tipY, tipZ, r, g, b, a);
+        drawLineWithNormal(builder, matrix, x2, yBase, z2, tipX, tipY, tipZ, r, g, b, a);
+        drawLineWithNormal(builder, matrix, x1, yBase, z2, tipX, tipY, tipZ, r, g, b, a);
+    }
+
+    // --- NEU: Kugel (Sphere) - Annäherung durch 3 Kreise ---
+    public static void drawSphereOutline(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+
+        double cx = box.minX + (box.maxX - box.minX) / 2.0;
+        double cy = box.minY + (box.maxY - box.minY) / 2.0;
+        double cz = box.minZ + (box.maxZ - box.minZ) / 2.0;
+
+        double rx = (box.maxX - box.minX) / 2.0;
+        double ry = (box.maxY - box.minY) / 2.0;
+        double rz = (box.maxZ - box.minZ) / 2.0;
+
+        int segments = 24;
+
+        // Horizontaler Kreis (Äquator)
+        double prevX = cx + rx;
+        double prevZ = cz;
+        for (int i = 1; i <= segments; i++) {
+            double angle = (2 * Math.PI * i) / segments;
+            double x = cx + Math.cos(angle) * rx;
+            double z = cz + Math.sin(angle) * rz;
+            drawLineWithNormal(builder, matrix, prevX, cy, prevZ, x, cy, z, r, g, b, a);
+            prevX = x; prevZ = z;
+        }
+
+        // Vertikaler Kreis (XY)
+        prevX = cx + rx;
+        double prevY = cy;
+        for (int i = 1; i <= segments; i++) {
+            double angle = (2 * Math.PI * i) / segments;
+            double x = cx + Math.cos(angle) * rx;
+            double y = cy + Math.sin(angle) * ry;
+            drawLineWithNormal(builder, matrix, prevX, prevY, cz, x, y, cz, r, g, b, a);
+            prevX = x; prevY = y;
+        }
+
+        // Vertikaler Kreis (ZY)
+        double prevZ2 = cz + rz;
+        prevY = cy;
+        for (int i = 1; i <= segments; i++) {
+            double angle = (2 * Math.PI * i) / segments;
+            double z = cz + Math.cos(angle) * rz;
+            double y = cy + Math.sin(angle) * ry;
+            drawLineWithNormal(builder, matrix, cx, prevY, prevZ2, cx, y, z, r, g, b, a);
+            prevZ2 = z; prevY = y;
+        }
+    }
+
     public static void drawBoxOutline(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
         Matrix4f matrix = matrices.peek().getPositionMatrix();
         double x1 = box.minX; double y1 = box.minY; double z1 = box.minZ;
@@ -76,6 +187,21 @@ public class guiDrawHelper {
                 .color(r, g, b, a)
                 .normal(nx, ny, nz)
                 .lineWidth(lineWidth);
+    }
+
+    public static void drawQuadFace(MatrixStack matrices, VertexConsumer builder, Box box, Direction face, float r, float g, float b, float a) {
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+        float x1 = (float)box.minX; float y1 = (float)box.minY; float z1 = (float)box.minZ;
+        float x2 = (float)box.maxX; float y2 = (float)box.maxY; float z2 = (float)box.maxZ;
+
+        switch (face) {
+            case DOWN ->  addQuad(builder, matrix, x1, y1, z1, x2, y1, z1, x2, y1, z2, x1, y1, z2, r, g, b, a);
+            case UP ->    addQuad(builder, matrix, x1, y2, z2, x2, y2, z2, x2, y2, z1, x1, y2, z1, r, g, b, a);
+            case NORTH -> addQuad(builder, matrix, x1, y1, z1, x1, y2, z1, x2, y2, z1, x2, y1, z1, r, g, b, a);
+            case SOUTH -> addQuad(builder, matrix, x2, y1, z2, x2, y2, z2, x1, y2, z2, x1, y1, z2, r, g, b, a);
+            case WEST ->  addQuad(builder, matrix, x1, y1, z2, x1, y2, z2, x1, y2, z1, x1, y1, z1, r, g, b, a);
+            case EAST ->  addQuad(builder, matrix, x2, y1, z1, x2, y2, z1, x2, y2, z2, x2, y1, z2, r, g, b, a);
+        }
     }
 
     // --- Helper Methods ---

@@ -107,7 +107,7 @@ public class Simplebuilding implements ModInitializer {
                     // =================================================================
                     // MODUS WECHSELN (Shift + Alt)
                     // =================================================================
-                    if (payload.shift() && payload.alt()) {
+                    if (payload.alt()) {
                         // Aktuellen Modus aus NBT lesen
                         String currentShapeName = nbt.getString("Shape").orElse("");
                         OctantItem.SelectionShape currentShape = OctantItem.SelectionShape.CUBOID;
@@ -132,7 +132,7 @@ public class Simplebuilding implements ModInitializer {
                     // =================================================================
                     // POSITION VERSCHIEBEN (Normal / Shift / Control - OHNE Alt)
                     // =================================================================
-                    else if (!payload.alt()) {
+                    else {
                         // Deine alte Bewegungslogik hier...
                         // (Richtung bestimmen, Pos1/Pos2 berechnen wie gehabt)
 

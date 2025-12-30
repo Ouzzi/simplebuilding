@@ -1,9 +1,8 @@
 package com.simplebuilding;
 
-import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.gui.SpeedometerHudOverlay;
+import com.simplebuilding.client.render.BlockHighlightRenderer;
 import com.simplebuilding.client.render.BuildingWandOutlineRenderer;
 import com.simplebuilding.client.render.SledgehammerOutlineRenderer;
 import com.simplebuilding.enchantment.ModEnchantments;
@@ -12,24 +11,27 @@ import com.simplebuilding.networking.DoubleJumpPayload;
 import com.simplebuilding.util.BundleTooltipAccessor;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.tooltip.BundleTooltipComponent;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
+import org.lwjgl.glfw.GLFW;
 
 public class SimplebuildingClient implements ClientModInitializer {
 
     private boolean jumpKeyPressed = false;
     private int jumpsUsed = 0; // Zähler für Sprünge in der Luft
     private boolean wasOnGround = true; // Status des Spielers im vorherigen Tick
+    public static KeyBinding highlightToggleKey;
+    public static boolean showHighlights = true;
 
     @Override
     public void onInitializeClient() {
@@ -46,11 +48,39 @@ public class SimplebuildingClient implements ClientModInitializer {
             return null;
         });
 
+
+        registerDoubleJumpClient();
+
+        highlightToggleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.simplebuilding.toggle_highlight",
+                GLFW.GLFW_KEY_H,
+                KeyBinding.Category.MISC
+        ));
+
+        // 2. Keybind Logik (Toggle)
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (highlightToggleKey.wasPressed()) {
+                showHighlights = !showHighlights;
+                if (client.player != null) {
+                    client.player.sendMessage(Text.literal("Highlights: " + (showHighlights ? "ON" : "OFF")), true);
+                }
+            }
+        });
+
         SledgehammerOutlineRenderer.register();
         BuildingWandOutlineRenderer.register();
 
-        registerDoubleJumpClient();
+        WorldRenderEvents.END_MAIN.register(context -> {
+            // FIX: Kamera direkt vom Client holen, falls context.camera() nicht verfügbar ist
+            // FIX: context.matrices() statt context.matrixStack() nutzen (je nach API Version)
+            BlockHighlightRenderer.render(
+                    context.matrices().peek().getPositionMatrix(),
+                    MinecraftClient.getInstance().gameRenderer.getCamera()
+            );
+        });
+
         // BlockEntityRendererRegistry.register(ModBlockEntities.MOD_CHEST_BE, ModChestBlockEntityRenderer::new);
+
     }
 
     private void registerDoubleJumpClient() {
@@ -61,17 +91,10 @@ public class SimplebuildingClient implements ClientModInitializer {
             boolean isClimbing = client.player.isClimbing();
             boolean isInWater = client.player.isTouchingWater();
 
-            // Reset Zähler wenn am Boden, kletternd oder im Wasser
             if (isOnGround || isClimbing || isInWater) {
                 jumpsUsed = 0;
             } else {
-                // Input check
                 boolean jumping = client.options.jumpKey.isPressed();
-
-                // Logik:
-                // 1. Taste wurde gerade frisch gedrückt (!jumpKeyPressed)
-                // 2. Spieler war im VORHERIGEN Tick NICHT am Boden (!wasOnGround).
-                //    -> Das verhindert, dass der normale Sprung (Boden -> Luft) sofort als Doppelsprung zählt.
                 if (jumping && !jumpKeyPressed && !wasOnGround) {
                     var registry = client.player.getEntityWorld().getRegistryManager();
                     var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
@@ -79,28 +102,16 @@ public class SimplebuildingClient implements ClientModInitializer {
 
                     if (doubleJump.isPresent()) {
                         int level = EnchantmentHelper.getEquipmentLevel(doubleJump.get(), client.player);
-
-                        // Wenn Level > 0 und wir noch Sprünge übrig haben
                         if (level > 0 && jumpsUsed < level && !client.player.getAbilities().flying) {
-
-                            // Logik für den Sprung
                             Vec3d velocity = client.player.getVelocity();
                             client.player.setVelocity(velocity.x, 0.5, velocity.z);
-
-                            // Fallschaden-Zähler clientseitig resetten für Smoothness
                             client.player.fallDistance = 0;
-
-                            // Zähler erhöhen
                             jumpsUsed++;
-
-                            // Paket an Server senden (für Fallschaden-Reset & Durability)
                             ClientPlayNetworking.send(new DoubleJumpPayload());
                         }
                     }
                 }
             }
-
-            // Status für den nächsten Tick speichern
             jumpKeyPressed = client.options.jumpKey.isPressed();
             wasOnGround = isOnGround;
         });
