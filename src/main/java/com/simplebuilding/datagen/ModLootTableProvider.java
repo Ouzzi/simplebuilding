@@ -75,13 +75,13 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             // (RANGE, QUIVER, MASTER_BUILDER, BRIDGE)
             if (LootTables.STRONGHOLD_LIBRARY_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
-                        .rolls(UniformLootNumberProvider.create(0, 1))
+                        .rolls(UniformLootNumberProvider.create(0, 4))
                         .with(enchantedBook(ModEnchantments.RANGE, 1, enchantments, 2)) // Weight reduziert
                         .with(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 1))
                         .with(enchantedBook(ModEnchantments.VERSATILITY, 1, enchantments, 1))
                         .with(enchantedBook(ModEnchantments.VERSATILITY, 2, enchantments, 1))
                         .with(enchantedBook(ModEnchantments.BRIDGE, 1, enchantments, 1))
-                        .with(EmptyEntry.builder().weight(10)); // 75% Chance auf gar nichts (Niete)
+                        .with(EmptyEntry.builder().weight(10));
                 tableBuilder.pool(pool);
             }
 
@@ -104,7 +104,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .with(ItemEntry.builder(ModItems.DIAMOND_SPATULA).weight(5).apply(EnchantRandomlyLootFunction.create()))
                         .with(ItemEntry.builder(ModItems.DIAMOND_BUILDING_WAND).weight(1).apply(EnchantRandomlyLootFunction.create()))
                         .with(ItemEntry.builder(ModItems.DIAMOND_SLEDGEHAMMER).weight(2).apply(EnchantRandomlyLootFunction.create()))
-                        .with(ItemEntry.builder(ModItems.DIAMOND_CORE).weight(2));
+                        .with(ItemEntry.builder(ModItems.DIAMOND_CORE).weight(1))
+                        .with(EmptyEntry.builder().weight(5));
                 tableBuilder.pool(pool);
             }
 
@@ -113,12 +114,13 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             // (OCTANT_ENCHANTED, DIAMOND_SLEDGEHAMMER, QUIVER_ENCHANTED)
             if (LootTables.ANCIENT_CITY_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
-                        .rolls(UniformLootNumberProvider.create(0, 1))
+                        .rolls(UniformLootNumberProvider.create(0, 2))
                         .with(enchantedBook(ModEnchantments.DEEP_POCKETS, 2, enchantments, 6))
                         .with(enchantedBook(ModEnchantments.RADIUS, 1, enchantments, 4))
                         .with(ItemEntry.builder(ModItems.OCTANT).weight(6).apply(EnchantRandomlyLootFunction.create()))
-                        .with(ItemEntry.builder(ModItems.DIAMOND_SLEDGEHAMMER).weight(6))
-                        .with(ItemEntry.builder(ModItems.QUIVER).weight(3).apply(EnchantRandomlyLootFunction.create()));
+                        .with(ItemEntry.builder(ModItems.DIAMOND_SLEDGEHAMMER).weight(3))
+                        .with(ItemEntry.builder(ModItems.QUIVER).weight(3).apply(EnchantRandomlyLootFunction.create()))
+                        .with(EmptyEntry.builder().weight(2));
                 tableBuilder.pool(pool);
             }
 
@@ -128,10 +130,10 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             if (LootTables.BASTION_TREASURE_CHEST.equals(key) || LootTables.BASTION_OTHER_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0, 2))
-                        .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 3))
-                        .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 4))
-                        .with(ItemEntry.builder(ModItems.GOLD_SLEDGEHAMMER).weight(8))
-                        .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(4))
+                        .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 4))
+                        .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 6))
+                        .with(ItemEntry.builder(ModItems.GOLD_SLEDGEHAMMER).weight(4))
+                        .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(2))
                         .with(ItemEntry.builder(ModItems.NETHERITE_CORE).weight(1))
                         .with(EmptyEntry.builder().weight(12));
                 tableBuilder.pool(pool);
@@ -142,13 +144,13 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             // (gold_core, OCTANT_ENCHANTED)
             if (LootTables.NETHER_BRIDGE_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
-                        .rolls(UniformLootNumberProvider.create(0, 1))
-                        .with(enchantedBook(ModEnchantments.STRIP_MINER, 1, enchantments, 4))
-                        .with(enchantedBook(ModEnchantments.STRIP_MINER, 2, enchantments, 2))
-                        .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 1))
+                        .rolls(UniformLootNumberProvider.create(0, 3))
+                        .with(enchantedBook(ModEnchantments.STRIP_MINER, 1, enchantments, 6))
+                        .with(enchantedBook(ModEnchantments.STRIP_MINER, 2, enchantments, 3))
+                        .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 2))
                         .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 2))
-                        .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(5))
-                        .with(ItemEntry.builder(ModItems.OCTANT).weight(5).apply(EnchantRandomlyLootFunction.create()))
+                        .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(3))
+                        .with(ItemEntry.builder(ModItems.OCTANT).weight(4).apply(EnchantRandomlyLootFunction.create()))
                         .with(EmptyEntry.builder().weight(2));
                 tableBuilder.pool(pool);
             }
@@ -158,12 +160,12 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             // (OCTANT, QUIVER)
             if (LootTables.PILLAGER_OUTPOST_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
-                        .rolls(UniformLootNumberProvider.create(0, 1))
+                        .rolls(UniformLootNumberProvider.create(1, 3))
                         .with(enchantedBook(ModEnchantments.COLOR_PALETTE, 1, enchantments, 10))
-                        .with(enchantedBook(ModEnchantments.COVER, 1, enchantments, 10))
-                        .with(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 10))
-                        .with(ItemEntry.builder(ModItems.OCTANT).weight(6))
-                        .with(ItemEntry.builder(ModItems.QUIVER).weight(6))
+                        .with(enchantedBook(ModEnchantments.COVER, 1, enchantments, 15))
+                        .with(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 15))
+                        .with(ItemEntry.builder(ModItems.OCTANT).weight(4))
+                        .with(ItemEntry.builder(ModItems.QUIVER).weight(4))
                         .with(EmptyEntry.builder().weight(15));
                 tableBuilder.pool(pool);
             }
@@ -173,7 +175,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             // (IRON_BUILDING_WAND, iron_core, QUIVER)
             if (LootTables.WOODLAND_MANSION_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
-                        .rolls(UniformLootNumberProvider.create(1, 2))
+                        .rolls(UniformLootNumberProvider.create(1, 3))
                         .with(enchantedBook(ModEnchantments.COLOR_PALETTE, 1, enchantments, 3))
                         .with(enchantedBook(ModEnchantments.COVER, 1, enchantments, 7))
                         .with(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 7))
@@ -258,10 +260,17 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0, 1))
                         .with(enchantedBook(ModEnchantments.CONSTRUCTORS_TOUCH, 1, enchantments, 2))
-                        .with(enchantedBook(ModEnchantments.FAST_CHISELING, 2, enchantments, 2))
+                        .with(enchantedBook(ModEnchantments.FAST_CHISELING, 2, enchantments, 1))
                         .with(enchantedBook(ModEnchantments.DOUBLE_JUMP, 1, enchantments, 2))
-                        .with(ItemEntry.builder(ModItems.DIAMOND_CORE).weight(6))
-                        .with(EmptyEntry.builder().weight(4));
+                        .with(EmptyEntry.builder().weight(10));
+                tableBuilder.pool(pool);
+            }
+            if (LootTables.TRIAL_CHAMBERS_REWARD_OMINOUS_CHEST.equals(key) || LootTables.TRIAL_CHAMBERS_REWARD_RARE_CHEST.equals(key)) {
+                LootPool.Builder pool = LootPool.builder()
+                        .rolls(UniformLootNumberProvider.create(0, 1))
+                        .with(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 1))
+                        .with(ItemEntry.builder(ModItems.DIAMOND_CORE).weight(1))
+                        .with(EmptyEntry.builder().weight(10));
                 tableBuilder.pool(pool);
             }
         });

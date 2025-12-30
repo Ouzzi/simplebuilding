@@ -28,7 +28,7 @@ import java.util.function.Consumer;
 
 public class OctantItem extends Item {
 
-    public static final int DURABILITY_OCTANT = 64;
+    public static final int DURABILITY_OCTANT = 128;
 
     private final DyeColor color;
 
