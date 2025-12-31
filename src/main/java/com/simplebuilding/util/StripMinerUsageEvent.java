@@ -26,6 +26,11 @@ public class StripMinerUsageEvent implements PlayerBlockBreakEvents.Before {
 
     @Override
     public boolean beforeBlockBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
+        // --- ÄNDERUNG: Nur ausführen, wenn Spieler sneakt ---
+        if (!player.isSneaking()) {
+            return true;
+        }
+
         ItemStack stack = player.getMainHandStack();
 
         if (!(player instanceof ServerPlayerEntity serverPlayer) || !stack.isIn(ItemTags.PICKAXES)) {return true;}
