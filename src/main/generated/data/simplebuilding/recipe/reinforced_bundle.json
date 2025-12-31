@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "simplebuilding:reinforced_bundle",
   "category": "equipment",
   "key": {
     "B": "minecraft:bundle",

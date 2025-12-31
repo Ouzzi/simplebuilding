@@ -7,7 +7,7 @@
   "item.simplebuilding.netherite_chisel": "Netherite Chisel",
 
   "tooltip.simplebuilding.chisel": "Use to shape blocks.",
-  "tooltip.simplebuilding.chisel.shift_down": "Right-click on a transformable block.",
+  "tooltip.simplebuilding.chisel.shift_down": "Right-click on a transformable block. Sneak to reverse.",
 
   "item.simplebuilding.stone_spatula": "Stone Spatula",
   "item.simplebuilding.copper_spatula": "Copper Spatula",

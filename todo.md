@@ -16,11 +16,13 @@
 
 Later:
 - compass in smithing table with item and diamonds - points to different structures (configurable)
+- compass in smithing table with item and diamonds - points to different structures (configurable)
 - reinforced/netherit furnace / smoker
 - reinforced observer - less delay, more range (7 blocks)
 - netherite observer - no delay, more range (15 blocks)
 - colored redstone
 - sledgehammer - Abbau zeit je nach Abbau Block Menge
+- ore detector - Wenn man das Tool hält, macht es Ping-Geräusche oder Partikel, wenn Diamanten in der Nähe (z.B. Radius 16) sind. (modes: alle Erze, nur Diamanten, nur Gold, nur Eisen, benutzerdefiniert)
 
 - later - Glass Itemframes, transparent itemframes - doent drop frame when broken exept silk touch.
 - later - Negative Beacon (evil Beacon) that gives negative effects to players in range
