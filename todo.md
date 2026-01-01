@@ -1,21 +1,11 @@
 ## Changelog:
 
 ## TODO:
-- more chisel durability -x
-- chisel should replace spatula (sneak + item in offhand) -x
-- stais and slabs with chisel / spatula -x
-- sledgehammer - repair cost -x
-- building core too common (make more rare) -x
-- sneak,shift and scoll to move in view direction -x
-- circle mode for octant / other shapes (triangle) - Shift + alt + scroll to change shape -x
-- feather falling and protection enchantments arent applicable both on boots -x
-- double jump enabled / disabled option on code! -x
+
 
 - Einige Formen vor allem die Dreiecke oder die Kreise bzw. Der Zylinder sind nicht geschlossen. Bitte schließen.
 
-
 Later:
-- compass in smithing table with item and diamonds - points to different structures (configurable)
 - reinforced/netherit furnace / smoker
 - reinforced observer - less delay, more range (7 blocks)
 - netherite observer - no delay, more range (15 blocks)
@@ -41,13 +31,28 @@ Later:
 -- whed middleclicked in creative mode, it gives 1024 items instead of max stack size
 
 
-## BUGS:  
-- reinforced bundle - should have same ui as normal bundle!
-- funnel only when sneaking! 
-- some enchantments should not be aplicable on some items
--- color palette and masterbuilder not aplicable on quivers
+## DONE:
+- more chisel durability -x
+- chisel should replace spatula (sneak + item in offhand) -x
+- stais and slabs with chisel / spatula -x
+- sledgehammer - repair cost -x
+- building core too common (make more rare) -x
+- sneak,shift and scoll to move in view direction -x
+- circle mode for octant / other shapes (triangle) - Shift + alt + scroll to change shape -x
+- feather falling and protection enchantments arent applicable both on boots -x
+- double jump enabled / disabled option on code! -x
+- compass in smithing table with item and diamonds - points to different structures (configurable) - Buggy -x
 
+
+## BUGS:  
+- compass in smithing table - not working properly
+
+- reinforced bundle - should have same ui as normal bundle!
 - masterbuilder on building wand and on reinforced bundle not working together properly
+
+- some enchantments should not be aplicable on some items
+  -- color palette and masterbuilder not aplicable on quivers
+
 
 
 ## simple mods to add later:
