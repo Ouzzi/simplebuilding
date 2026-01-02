@@ -81,16 +81,16 @@ public class WorldRendererMixin {
                     BlockState mainState = world.getBlockState(mainPos);
                     List<BlockPos> connectedBlocks = new ArrayList<>();
 
-                    // 1. Sledgehammer Logik
+                    // 1. Sledgehammer Logik (Bleibt wie gehabt)
                     if (isSledgehammer) {
                         connectedBlocks.addAll(SledgehammerItem.getBlocksToBeDestroyed(1, mainPos, player));
                     }
-                    // 2. Strip Miner Logik
-                    else if (hasStripMiner && stack.isIn(ItemTags.PICKAXES)) {
+                    // 2. Strip Miner Logik - NEU: && player.isSneaking()
+                    else if (hasStripMiner && stack.isIn(ItemTags.PICKAXES) && player.isSneaking()) {
                         connectedBlocks.addAll(getStripMinerBlocks(player, stack, mainPos, hasStripMiner ? EnchantmentHelper.getLevel(stripMinerKey.get(), stack) : 0));
                     }
-                    // 3. Vein Miner Logik
-                    else if (hasVeinMiner && (stack.isIn(ItemTags.PICKAXES) || stack.isIn(ItemTags.AXES))) {
+                    // 3. Vein Miner Logik - NEU: && player.isSneaking()
+                    else if (hasVeinMiner && (stack.isIn(ItemTags.PICKAXES) || stack.isIn(ItemTags.AXES)) && player.isSneaking()) {
                         connectedBlocks.addAll(getVeinMinerBlocks(world, mainPos, mainState, hasVeinMiner ? EnchantmentHelper.getLevel(veinMinerKey.get(), stack) : 0, stack));
                     }
 

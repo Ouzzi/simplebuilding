@@ -119,7 +119,8 @@ public class BlockHighlightRenderer {
 
             // Predicate für die jeweilige Form
             Predicate<BlockPos> shapeFunc = switch (shape) {
-                case CYLINDER -> p -> isPointInEllipse(p.getX() + 0.5, p.getZ() + 0.5, bounds);
+                // FIX: Zylinder braucht Y-Check, damit Deckel/Boden gezeichnet werden
+                case CYLINDER -> p -> (p.getY() >= bounds.minY && p.getY() <= bounds.maxY) && isPointInEllipse(p.getX() + 0.5, p.getZ() + 0.5, bounds);
                 case SPHERE -> p -> isPointInEllipsoid(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, bounds);
                 case PYRAMID -> p -> isPointInPyramid(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, bounds);
                 case TRIANGLE -> p -> isPointInPrism(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, bounds);
@@ -272,6 +273,10 @@ public class BlockHighlightRenderer {
 
     private static boolean isPointInPrism(double x, double y, double z, Box b) {
         double wX = b.maxX - b.minX; double h = b.maxY - b.minY; double wZ = b.maxZ - b.minZ;
+
+        // FIX: Y-Grenzen prüfen, sonst wird die Form unendlich nach unten verlängert (und unten nicht geschlossen)
+        if (y < b.minY || y > b.maxY) return false;
+
         boolean alongZ = wZ > wX;
         double progress = (y - b.minY) / h;
         if (alongZ) {

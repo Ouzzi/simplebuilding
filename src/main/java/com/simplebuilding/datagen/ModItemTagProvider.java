@@ -98,5 +98,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLD_BUILDING_WAND)
                 .add(ModItems.DIAMOND_BUILDING_WAND)
                 .add(ModItems.NETHERITE_BUILDING_WAND);
+
+        valueLookupBuilder(ModTags.Items.VEINMINE_ENCHANTABLE)
+                .forceAddTag(ItemTags.PICKAXES)
+                .forceAddTag(ItemTags.AXES);
     }
 }

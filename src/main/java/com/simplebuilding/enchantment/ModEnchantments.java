@@ -42,6 +42,7 @@ public class ModEnchantments {
     public static final RegistryKey<Enchantment> DRAWER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "drawer")); // final
     public static final RegistryKey<Enchantment> VERSATILITY = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "versatility"));
 
+
     // todo new enchantment names
     public static final RegistryKey<Enchantment> COLOR_PALETTE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "color_palette"));
     public static final RegistryKey<Enchantment> BREAK_THROUGH = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "break_through"));
@@ -265,8 +266,8 @@ public class ModEnchantments {
 
         // 17. VEIN_MINER (Max Level 5, Treasure, Very Rare) [PICKAXE, AXE]
         register(registerable, VEIN_MINER, Enchantment.builder(Enchantment.definition(
-                        items.getOrThrow(ItemTags.MINING_ENCHANTABLE), // Pickaxes, Axes
-                        items.getOrThrow(ItemTags.MINING_ENCHANTABLE),
+                        items.getOrThrow(ModTags.Items.VEINMINE_ENCHANTABLE), // Ziel: Tools
+                        items.getOrThrow(ModTags.Items.VEINMINE_ENCHANTABLE),
                         1, // Weight (Very Rare)
                         5, // Max Level
                         Enchantment.leveledCost(20, 10),

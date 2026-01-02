@@ -3,15 +3,14 @@
 ## TODO:
 
 
-- Einige Formen vor allem die Dreiecke oder die Kreise bzw. Der Zylinder sind nicht geschlossen. Bitte schließen.
-
-Later:
+## TODO Later:
 - reinforced/netherit furnace / smoker
 - reinforced observer - less delay, more range (7 blocks)
 - netherite observer - no delay, more range (15 blocks)
 - colored redstone
 - sledgehammer - Abbau zeit je nach Abbau Block Menge
 - ore detector - Wenn man das Tool hält, macht es Ping-Geräusche und Partikel des ores, wenn Diamanten in der Nähe (z.B. Radius 16) sind. (modes: alle Erze, nur Diamanten, nur Gold, nur Eisen, benutzerdefiniert)
+- litelevel item - visualisiert Lichtlevel in der Welt
 
 - later - Glass Itemframes, transparent itemframes - doent drop frame when broken exept silk touch.
 - later - Negative Beacon (evil Beacon) that gives negative effects to players in range
@@ -22,6 +21,8 @@ Later:
 - later - netherite shulker double stack size
 - ( copy tool? )
 
+- Einige Formen vor allem die Dreiecke oder die Kreise bzw. Der Zylinder sind nicht geschlossen. Bitte schließen.
+
 
 - (later) - netherite chest - quadrouple stack size
 - (later) - reinforced copper chest - double stack size (with diamonds)
@@ -29,7 +30,6 @@ Later:
 -- chest is acepting UP TO SPECIFIED STACK SIZE, BUT displays max 99 items in GUI
 -- inventory everywhere accepts 99 items, instead of 64 or 16 ...
 -- whed middleclicked in creative mode, it gives 1024 items instead of max stack size
-
 
 ## DONE:
 - more chisel durability -x
