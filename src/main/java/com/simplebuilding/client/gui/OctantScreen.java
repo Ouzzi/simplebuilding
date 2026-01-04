@@ -12,6 +12,7 @@ import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.Optional;
@@ -20,17 +21,23 @@ import java.util.function.Consumer;
 public class OctantScreen extends Screen {
     private final ItemStack stack;
 
+    // UI Komponenten
     private TextFieldWidget x1Field, y1Field, z1Field;
     private TextFieldWidget x2Field, y2Field, z2Field;
     private TextFieldWidget wField, hField, dField;
     private ButtonWidget shapeButton;
     private ButtonWidget lockButton;
 
+    // Daten
     private OctantItem.SelectionShape currentShape = OctantItem.SelectionShape.CUBOID;
     private BlockPos pos1 = new BlockPos(0, 0, 0);
     private BlockPos pos2 = new BlockPos(0, 0, 0);
     private boolean isLocked = false;
-    private boolean isUpdating = false; // Verhindert Rekursion bei Updates
+    private boolean isUpdating = false;
+
+    // Layout Variablen
+    private int guiLeft;
+    private int guiTop;
 
     public OctantScreen(ItemStack stack) {
         super(Text.translatable("simplebuilding.gui.title"));
@@ -56,115 +63,107 @@ public class OctantScreen extends Screen {
 
     @Override
     protected void init() {
-        int cX = width / 2;
-        // Kompaktes Layout: Wir nutzen weniger vertikalen Platz
-        int startY = 25;
-        int rowH = 18;
-        int groupGap = 22;
+        // --- LAYOUT BERECHNUNG ---
+        // Wir berechnen die absolute Höhe des Inhalts, um ihn vertikal zu zentrieren.
+        // Inhalt: Title(15) + Pos1(35) + Pos2(35) + Size(35) + Shape(25) + Done(20) = ~165px
+        int contentHeight = 175;
+        this.guiLeft = width / 2;
+        this.guiTop = Math.max(10, (height - contentHeight) / 2); // Mindestens 10px von oben
 
-        // --- LOCK BUTTON (Oben Rechts vom Titel, oder Zentriert oben) ---
+        int rowSpacing = 40; // Abstand zwischen den Startpunkten der Gruppen (Label + Felder)
+        int fieldYOffset = 12; // Abstand von Label zu Feld
+
+        // 1. LOCK BUTTON (Oben rechts vom Menü)
         lockButton = ButtonWidget.builder(getLockText(), button -> {
             isLocked = !isLocked;
             button.setMessage(getLockText());
             updateLocalAndSend();
-        }).dimensions(cX + 60, 4, 90, 16).build(); // Kleiner und oben
+        }).dimensions(guiLeft + 60, guiTop - 5, 60, 16).build();
         addDrawableChild(lockButton);
 
-        // --- POS 1 ---
-        // Labels rendern wir in der render() Methode, hier nur die Inputs
-        createRow(cX, startY, pos1.getX(), pos1.getY(), pos1.getZ(),
+        // 2. POS 1 (Start)
+        int y1 = guiTop + 15;
+        createRow(guiLeft, y1 + fieldYOffset, pos1.getX(), pos1.getY(), pos1.getZ(),
                 f -> x1Field=f, f -> y1Field=f, f -> z1Field=f);
 
-        // --- POS 2 ---
-        int pos2Y = startY + rowH + groupGap;
-        createRow(cX, pos2Y, pos2.getX(), pos2.getY(), pos2.getZ(),
+        // 3. POS 2 (Ende)
+        int y2 = y1 + rowSpacing;
+        createRow(guiLeft, y2 + fieldYOffset, pos2.getX(), pos2.getY(), pos2.getZ(),
                 f -> x2Field=f, f -> y2Field=f, f -> z2Field=f);
 
-        // --- SIZE ---
-        int sizeY = pos2Y + rowH + groupGap;
+        // 4. SIZE (Größe)
+        int y3 = y2 + rowSpacing;
         int w = Math.abs(pos2.getX() - pos1.getX()) + 1;
         int h = Math.abs(pos2.getY() - pos1.getY()) + 1;
         int d = Math.abs(pos2.getZ() - pos1.getZ()) + 1;
+        createSizeRow(guiLeft, y3 + fieldYOffset, w, h, d);
 
-        createSizeRow(cX, sizeY, w, h, d);
-
-        // --- SHAPE & CLOSE ---
-        int bottomY = height - 25;
-        shapeButton = ButtonWidget.builder(Text.translatable("simplebuilding.gui.shape", currentShape.getName()), button -> cycleShape())
-                .dimensions(cX - 105, bottomY, 100, 20).build();
+        // 5. SHAPE BUTTON (Form) - Jetzt ÜBER dem Fertig Button
+        int yShape = y3 + rowSpacing + 5;
+        shapeButton = ButtonWidget.builder(getShapeText(), button -> cycleShape())
+                .dimensions(guiLeft - 60, yShape, 120, 20).build();
         addDrawableChild(shapeButton);
 
-        addDrawableChild(ButtonWidget.builder(Text.translatable("simplebuilding.gui.close"), button -> close())
-                .dimensions(cX + 5, bottomY, 100, 20).build());
+        // 6. FERTIG BUTTON (Ganz unten)
+        int yDone = yShape + 24; // Knopf darunter
+        addDrawableChild(ButtonWidget.builder(Text.literal("Fertig"), button -> close())
+                .dimensions(guiLeft - 60, yDone, 120, 20).build());
     }
 
-    // Erstellt eine Zeile mit 3 Eingabefeldern (X, Y, Z) und +/- Buttons
     private void createRow(int cX, int y, int v1, int v2, int v3,
                            Consumer<TextFieldWidget> a1, Consumer<TextFieldWidget> a2, Consumer<TextFieldWidget> a3) {
-        // Wir platzieren X, Y, Z nebeneinander, aber zentriert
-        // Layout: [Label] [Input] [+/-]  |  [Label] [Input] [+/-] ... zu breit.
-        // Kompakt: [Input][+/-]  [Input][+/-]  [Input][+/-]
+        // Kompakte Reihe: [Input][Input][Input] (Buttons integriert? Nein, daneben wird zu breit)
+        // Wir machen:  [Input][+][-]   [Input][+][-]   [Input][+][-]
 
-        int fieldW = 35;
-        int btnW = 12;
-        int spacing = 5;
-        int groupW = fieldW + btnW * 2 + 10; // Breite einer Gruppe (z.B. X)
+        int groupWidth = 55; // Breite eines Blocks (Feld + Buttons)
+        int startX = cX - (int)(groupWidth * 1.5) - 5;
 
-        // Start X Position für das erste Element (X), damit alles zentriert ist
-        int startX = cX - (int)(groupW * 1.5) - spacing;
-
-        createSingleControl(startX, y, v1, a1, false);
-        createSingleControl(startX + groupW, y, v2, a2, false);
-        createSingleControl(startX + groupW * 2, y, v3, a3, false);
+        createControlGroup(startX, y, v1, a1, false);
+        createControlGroup(startX + groupWidth + 5, y, v2, a2, false);
+        createControlGroup(startX + (groupWidth + 5) * 2, y, v3, a3, false);
     }
 
     private void createSizeRow(int cX, int y, int w, int h, int d) {
-        int fieldW = 35;
-        int btnW = 12;
-        int groupW = fieldW + btnW * 2 + 10;
-        int startX = cX - (int)(groupW * 1.5) - spacing();
+        int groupWidth = 55;
+        int startX = cX - (int)(groupWidth * 1.5) - 5;
 
-        createSingleControl(startX, y, w, f -> wField = f, true);
-        createSingleControl(startX + groupW, y, h, f -> hField = f, true);
-        createSingleControl(startX + groupW * 2, y, d, f -> dField = f, true);
+        createControlGroup(startX, y, w, f -> wField = f, true);
+        createControlGroup(startX + groupWidth + 5, y, h, f -> hField = f, true);
+        createControlGroup(startX + (groupWidth + 5) * 2, y, d, f -> dField = f, true);
     }
 
-    private int spacing() { return 5; }
-
-    private void createSingleControl(int x, int y, int val, Consumer<TextFieldWidget> assigner, boolean isSize) {
-        TextFieldWidget field = new TextFieldWidget(textRenderer, x, y, 35, 16, Text.empty());
+    private void createControlGroup(int x, int y, int val, Consumer<TextFieldWidget> assigner, boolean isSize) {
+        // Feld
+        TextFieldWidget field = new TextFieldWidget(textRenderer, x, y, 32, 16, Text.empty());
         field.setText(String.valueOf(val));
         field.setTextPredicate(s -> s.matches("-?\\d*"));
-
-        // WICHTIG: Real-Time Update beim Tippen
         field.setChangedListener(s -> {
             if (!isUpdating) {
                 if (isSize) updatePos2FromSize();
                 else updateLocalAndSend();
             }
         });
-
         assigner.accept(field);
         addDrawableChild(field);
 
-        // Buttons stapeln wir klein übereinander oder nebeneinander?
-        // Nebeneinander ist einfacher zu klicken.
-        ButtonWidget minus = ButtonWidget.builder(Text.literal("-"), b -> adjustField(field, -1, isSize))
-                .dimensions(x + 37, y, 12, 16).build(); // Klein
-        addDrawableChild(minus);
-
+        // Buttons (gestapelt, ganz klein rechts daneben)
+        // + Button
         ButtonWidget plus = ButtonWidget.builder(Text.literal("+"), b -> adjustField(field, 1, isSize))
-                .dimensions(x + 50, y, 12, 16).build(); // Klein
+                .dimensions(x + 33, y, 12, 8).build();
         addDrawableChild(plus);
+
+        // - Button
+        ButtonWidget minus = ButtonWidget.builder(Text.literal("-"), b -> adjustField(field, -1, isSize))
+                .dimensions(x + 33, y + 8, 12, 8).build();
+        addDrawableChild(minus);
     }
 
     private void adjustField(TextFieldWidget field, int delta, boolean isSize) {
         try {
             int val = Integer.parseInt(field.getText());
             val += delta;
-            if (isSize && val < 1) val = 1; // Größe mind. 1
+            if (isSize && val < 1) val = 1;
             field.setText(String.valueOf(val));
-            // Trigger update manuell, da setText den Listener nicht immer feuert (je nach MC Version)
             if (isSize) updatePos2FromSize();
             else updateLocalAndSend();
         } catch (NumberFormatException ignored) {
@@ -173,13 +172,16 @@ public class OctantScreen extends Screen {
     }
 
     private Text getLockText() {
-        return isLocked ? Text.translatable("simplebuilding.gui.locked") : Text.translatable("simplebuilding.gui.unlocked");
+        return isLocked ? Text.literal("🔒").formatted(Formatting.RED) : Text.literal("🔓").formatted(Formatting.GREEN);
     }
 
-    // Berechnet Pos2 basierend auf Pos1 und Size neu
+    private Text getShapeText() {
+        return Text.literal("Form: " + currentShape.getName()).formatted(Formatting.AQUA);
+    }
+
     private void updatePos2FromSize() {
-        if (isUpdating) return;
-        isUpdating = true; // Sperre Loop
+        if (isUpdating || x1Field == null) return;
+        isUpdating = true;
         try {
             int x1 = parse(x1Field); int y1 = parse(y1Field); int z1 = parse(z1Field);
             int w = Math.max(1, parse(wField));
@@ -190,24 +192,17 @@ public class OctantScreen extends Screen {
             y2Field.setText(String.valueOf(y1 + h - 1));
             z2Field.setText(String.valueOf(z1 + d - 1));
 
-            // Jetzt senden wir das Update
-            isUpdating = false; // Sperre aufheben vor Send
-            updateLocalAndSend();
-        } catch (Exception e) {
             isUpdating = false;
-        }
+            updateLocalAndSend();
+        } catch (Exception e) { isUpdating = false; }
     }
 
-    // WICHTIGSTE METHODE:
-    // 1. Schreibt NBT lokal in das Item in der Hand (Renderer sieht es sofort)
-    // 2. Sendet Paket an Server (für dauerhaftes Speichern)
     private void updateLocalAndSend() {
         if (x1Field == null || wField == null) return;
         try {
             BlockPos p1 = new BlockPos(parse(x1Field), parse(y1Field), parse(z1Field));
             BlockPos p2 = new BlockPos(parse(x2Field), parse(y2Field), parse(z2Field));
 
-            // 1. Lokales Update (Client Side Render Update)
             NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
             NbtCompound nbt = nbtData.copyNbt();
             nbt.putIntArray("Pos1", new int[]{p1.getX(), p1.getY(), p1.getZ()});
@@ -216,7 +211,6 @@ public class OctantScreen extends Screen {
             nbt.putBoolean("Locked", isLocked);
             stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
 
-            // 2. Server Update
             ClientPlayNetworking.send(new OctantConfigurePayload(
                     Optional.of(p1), Optional.of(p2), currentShape.name(), isLocked
             ));
@@ -231,45 +225,42 @@ public class OctantScreen extends Screen {
         OctantItem.SelectionShape[] values = OctantItem.SelectionShape.values();
         int index = (currentShape.ordinal() + 1) % values.length;
         currentShape = values[index];
-        shapeButton.setMessage(Text.translatable("simplebuilding.gui.shape", currentShape.getName()));
+        shapeButton.setMessage(getShapeText());
         updateLocalAndSend();
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        // LEICHTER HINTERGRUND (weniger dunkel, kein Blur)
-        context.fill(0, 0, width, height, 0x45000000);
+        // HINTERGRUND: Sehr transparent (nur 15% Deckkraft), KEIN Blur
+        context.fill(0, 0, width, height, 0x25000000);
 
         super.render(context, mouseX, mouseY, delta);
 
-        int cX = width / 2;
-
+        // TEXTE RENDERN
         // Titel
-        context.drawCenteredTextWithShadow(textRenderer, this.title, cX, 8, 0xFFFFFF);
+        context.drawCenteredTextWithShadow(textRenderer, "Octant Konfiguration", guiLeft, guiTop, 0xFFFFFF);
 
-        // Labels über den Gruppen
-        // Koordinaten der Labels müssen zu createRow passen
-        int startY = 25;
-        int rowH = 18;
-        int groupGap = 22;
+        // Gruppen Überschriften (direkt über den Feldern)
+        // Position passend zu init() Logik
+        int rowSpacing = 40;
+        int y1 = guiTop + 15;
 
-        // Helper für zentrierten Text über Input-Reihe
-        drawLabel(context, "simplebuilding.gui.pos1", cX, startY - 10, 0xAAAAAA);
-        drawLabel(context, "simplebuilding.gui.pos2", cX, startY + rowH + groupGap - 10, 0xAAAAAA);
-        drawLabel(context, "simplebuilding.gui.size", cX, startY + (rowH + groupGap)*2 - 10, 0x55FFFF);
+        // "Start Position"
+        context.drawCenteredTextWithShadow(textRenderer, "Start Position (1)", guiLeft, y1, 0xAAAAAA);
 
-        // Optional: Kleine Labels X Y Z über den Feldern zeichnen?
-        // Das könnte überladen wirken. Wir lassen es bei den Gruppen-Headern.
+        // "End Position"
+        context.drawCenteredTextWithShadow(textRenderer, "End Position (2)", guiLeft, y1 + rowSpacing, 0xAAAAAA);
 
+        // "Größe"
+        context.drawCenteredTextWithShadow(textRenderer, "Größe (B x H x T)", guiLeft, y1 + rowSpacing * 2, 0x55FFFF);
+
+        // Lock Tooltip
         if (lockButton.isMouseOver(mouseX, mouseY)) {
-            context.drawTooltip(textRenderer, Text.translatable("simplebuilding.gui.lock_tooltip"), mouseX, mouseY);
+            context.drawTooltip(textRenderer, Text.literal(isLocked ? "Entsperren (Erlaubt Klicken)" : "Sperren (Verhindert Klicken)"), mouseX, mouseY);
         }
     }
 
-    private void drawLabel(DrawContext context, String key, int x, int y, int color) {
-        context.drawCenteredTextWithShadow(textRenderer, Text.translatable(key), x, y, color);
-    }
-
+    // Scrollen Support
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if (handleScroll(x1Field, mouseX, mouseY, verticalAmount)) return true;
