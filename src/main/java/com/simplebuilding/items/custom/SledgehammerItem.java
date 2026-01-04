@@ -64,6 +64,14 @@ public class SledgehammerItem extends Item {
                 if (entry.getKey().matchesKey(ModEnchantments.BREAK_THROUGH)) {hasBreakThrough = true;}
             }
 
+
+            /*
+            - sledgehammer - Abbau zeit je nach Abbau Block Menge - SOLL jeden block der abgebaut wird zeit kosten, also zusammenrechnen
+            - - 0 blocks - 125% speed
+            - - ...
+            - - 25 blocks - 200% speed
+            - - Je
+             */
             float divisor = 6.0F; // Default: 3x3 (9 Blöcke) -> 1/6 Speed
             if (hasRadius && hasBreakThrough) { divisor = 33.0F; /* 5x5x2 = 50 Blöcke (Berechnung: 50 * 2/3 = 33.3) */
             } else if (hasRadius) { divisor = 16.0F; /* 5x5 = 25 Blöcke -> 16.0F (wie gewünscht) */

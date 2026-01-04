@@ -95,12 +95,14 @@ public class Simplebuilding implements ModInitializer {
         // OCTANT - Konfigurations-Payload
         // ================================
         PayloadTypeRegistry.playC2S().register(OctantConfigurePayload.ID, OctantConfigurePayload.CODEC);
+        // WICHTIG: Dies muss in onInitialize stehen!
         ServerPlayNetworking.registerGlobalReceiver(OctantConfigurePayload.ID, (payload, context) -> {
             context.server().execute(() -> {
                 ServerPlayerEntity player = context.player();
                 ItemStack stack = player.getMainHandStack();
 
                 if (stack.getItem() instanceof OctantItem) {
+                    // Daten vom Paket lesen
                     NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
                     NbtCompound nbt = nbtComponent.copyNbt();
 
@@ -111,9 +113,10 @@ public class Simplebuilding implements ModInitializer {
                         nbt.putString("Shape", payload.shapeName());
                     }
 
-                    // NEU: Lock-Status speichern
+                    // HIER IST DER FIX FÜR DAS LOCKING:
                     nbt.putBoolean("Locked", payload.locked());
 
+                    // Daten zurück ins Item schreiben
                     stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
                 }
             });
