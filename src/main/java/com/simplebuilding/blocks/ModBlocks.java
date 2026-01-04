@@ -57,10 +57,25 @@ public class ModBlocks {
             s -> new PistonBlock(false, s.strength(1.5F).sounds(BlockSoundGroup.METAL))); // sticky=false
     public static final Block NETHERITE_PISTON = registerBlock("netherite_piston",
             s -> new NetheriteBreakerPistonBlock(s.strength(5.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE)));
+
+
+    // --- FURNACES ---
+    public static final Block REINFORCED_FURNACE = registerBlock("reinforced_furnace",
+            s -> new ModFurnaceBlock(s.strength(3.5F).sounds(BlockSoundGroup.METAL), 1.25f)); // SpeedMultiplier wird hier nicht direkt genutzt, aber Konstruktor braucht ihn
+    public static final Block NETHERITE_FURNACE = registerBlock("netherite_furnace",
+            s -> new ModFurnaceBlock(s.strength(5.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE), 1.50f));
+    // --- SMOKERS ---
+    public static final Block REINFORCED_SMOKER = registerBlock("reinforced_smoker",
+            s -> new ModSmokerBlock(s.strength(3.5F).sounds(BlockSoundGroup.METAL), 1.25f));
+    public static final Block NETHERITE_SMOKER = registerBlock("netherite_smoker",
+            s -> new ModSmokerBlock(s.strength(5.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE), 1.50f));
+    // --- BLAST FURNACES ---
     public static final Block REINFORCED_BLAST_FURNACE = registerBlock("reinforced_blast_furnace",
             s -> new ModBlastFurnaceBlock(s.strength(3.5F).sounds(BlockSoundGroup.METAL), 1.25f));
     public static final Block NETHERITE_BLAST_FURNACE = registerBlock("netherite_blast_furnace",
             s -> new ModBlastFurnaceBlock(s.strength(5.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE), 1.50f));
+
+
     public static final Block NETHERITE_PISTON_HEAD = registerBlock("netherite_piston_head",
             s -> new NetheritePistonHeadBlock(s.noCollision().dropsNothing().sounds(BlockSoundGroup.NETHERITE)));
 

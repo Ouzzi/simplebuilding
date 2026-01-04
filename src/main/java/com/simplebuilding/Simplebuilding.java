@@ -10,6 +10,7 @@ import com.simplebuilding.enchantment.ModEnchantmentEffects;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
+import com.simplebuilding.networking.OctantConfigurePayload;
 import com.simplebuilding.networking.OctantScrollPayload;
 import com.simplebuilding.util.*;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -89,9 +90,40 @@ public class Simplebuilding implements ModInitializer {
         PlayerBlockBreakEvents.BEFORE.register(new VeinMinerUsageEvent());
         AttackBlockCallback.EVENT.register(new VersatilityUsageEvent());
 
-        PayloadTypeRegistry.playC2S().register(OctantScrollPayload.ID, OctantScrollPayload.CODEC);
 
-        // Receiver Logik
+        // ================================
+        // OCTANT - Konfigurations-Payload
+        // ================================
+        PayloadTypeRegistry.playC2S().register(OctantConfigurePayload.ID, OctantConfigurePayload.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(OctantConfigurePayload.ID, (payload, context) -> {
+            context.server().execute(() -> {
+                ServerPlayerEntity player = context.player();
+                ItemStack stack = player.getMainHandStack();
+
+                if (stack.getItem() instanceof OctantItem) {
+                    NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
+                    NbtCompound nbt = nbtComponent.copyNbt();
+
+                    payload.pos1().ifPresent(p -> nbt.putIntArray("Pos1", new int[]{p.getX(), p.getY(), p.getZ()}));
+                    payload.pos2().ifPresent(p -> nbt.putIntArray("Pos2", new int[]{p.getX(), p.getY(), p.getZ()}));
+
+                    if (payload.shapeName() != null && !payload.shapeName().isEmpty()) {
+                        nbt.putString("Shape", payload.shapeName());
+                    }
+
+                    // NEU: Lock-Status speichern
+                    nbt.putBoolean("Locked", payload.locked());
+
+                    stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+                }
+            });
+        });
+
+
+        // ================================
+        // OCTANT - Scroll-Payload
+        // ================================
+        PayloadTypeRegistry.playC2S().register(OctantScrollPayload.ID, OctantScrollPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(OctantScrollPayload.ID, (payload, context) -> {
             context.server().execute(() -> {
                 ServerPlayerEntity player = context.player();

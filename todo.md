@@ -1,14 +1,14 @@
 ## Changelog:
 
 ## TODO:
+- sledgehammer - Abbau zeit je nach Abbau Block Menge
 
 
 ## TODO Later:
-- reinforced/netherit furnace / smoker
 - reinforced observer - less delay, more range (7 blocks)
 - netherite observer - no delay, more range (15 blocks)
+  - reinforced/netherite dispenser - can use more items (axe, Pickaxe, shovel ...)/ can place blocks
 - colored redstone
-- sledgehammer - Abbau zeit je nach Abbau Block Menge
 - ore detector - Wenn man das Tool hält, macht es Ping-Geräusche und Partikel des ores, wenn Diamanten in der Nähe (z.B. Radius 16) sind. (modes: alle Erze, nur Diamanten, nur Gold, nur Eisen, benutzerdefiniert)
 - litelevel item - visualisiert Lichtlevel in der Welt
 
@@ -24,7 +24,7 @@
 - Einige Formen vor allem die Dreiecke oder die Kreise bzw. Der Zylinder sind nicht geschlossen. Bitte schließen.
 
 
-- (later) - netherite chest - quadrouple stack size
+- (later) - netherite copper chest - quadrouple stack size
 - (later) - reinforced copper chest - double stack size (with diamonds)
 -- chest icon no texture but moodel is rendering in hotbar
 -- chest is acepting UP TO SPECIFIED STACK SIZE, BUT displays max 99 items in GUI

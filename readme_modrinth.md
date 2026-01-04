@@ -24,7 +24,7 @@ Heavy mining tools that break multiple blocks at once. Slower than pickaxes but 
 * **Mining Area:** 3x3 by default.
 * **Enchantments:**
     * `Radius`: Increases area to **5x5**.
-    * `Break Through`: Increases mining **depth**.
+    * `Break Through`: Increases mining **depth** (mines blocks behind the target).
     * `Override`: Allows mining mixed materials (e.g. Stone & Dirt at once).
 
 ### 🏹 Quivers
@@ -43,7 +43,7 @@ Transform blocks in-world without a Stonecutter.
 
 ### 📏 Octant (Rangefinder) & Velocity Gauge
 Measurement tools to help you plan your builds and track your speed.
-* **Octant:** Mark two points to measure distance and area. Available in 16 colors.
+* **Octant:** Mark two points to measure distance and area. Supports various shapes like **Cuboids, Spheres, Cylinders, and Pyramids** to preview builds. Available in 16 colors.
 * **Velocity Gauge:** Displays real-time speed (BPS).
 
 ### 🎒 Reinforced Storage
@@ -51,11 +51,11 @@ Measurement tools to help you plan your builds and track your speed.
 * **Netherite Bundle:** Highest capacity and durability.
 
 ### 🧱 Custom Blocks:
+* **Reinforced & Netherite Furnaces, Smokers & Blast Furnaces:** Cook food and smelt ores at significantly higher speeds (2x for Reinforced, 4x for Netherite).
 * **Reinforced Piston:** Stronger pushing capabilities.
-* **Netherite Piston (The Breaker):** Unlike a normal piston, this block **breaks** the block in front of it when activated.
+* **Netherite Piston (The Breaker):** Unlike a normal piston, this block **breaks** the block in front of it when activated based on signal strength.
 * **Reinforced Hopper:** Increased transfer speed and item throughput.
 * **Netherite Hopper:** Maximum speed for high-performance sorting systems.
-* **Reinforced & Netherite Blast Furnaces:** Smelt ores and metals at significantly higher speeds than vanilla blast furnaces.
 * **Construction Light:** A bright, industrial light source crafted with Lapis and Glass. Perfect for preventing mob spawns in large halls without spamming torches.
 
 ---
@@ -77,7 +77,7 @@ SimpleBuilding introduces a massive enchantment system to customize your tools.
 | Enchantment | Max Lvl | Target | Description |
 | :--- | :---: | :--- | :--- |
 | **Vein Miner** | V | Pickaxe/Axe | Mines connected blocks of the same type (Ores/Logs). |
-| **Strip Miner** | III | Pickaxe | Mines a straight tunnel forward (Depth: 2, 3, or 5 blocks). |
+| **Strip Miner** | III | Pickaxe | Mines a straight tunnel forward (Depth: 2, 3, or 5 blocks) when sneaking. |
 | **Radius** | I | Sledgehammer | Increases mining area from **3x3** to **5x5**. |
 | **Break Through** | I | Sledgehammer | Increases mining depth (mines blocks *behind* the target as well). |
 | **Override** | II | Sledgehammer | Allows the hammer to break mixed materials (Lvl 1: Supported, Lvl 2: Any). |
@@ -88,7 +88,7 @@ SimpleBuilding introduces a massive enchantment system to customize your tools.
 | **Kinetic Protection** | IV | Armor | Reduces damage taken from flying into walls (Elytra). |
 | **Funnel** | I | Bundle/Shulker | Automatically picks up items into the container when sneaking. |
 | **Deep Pockets** | II | Bundles/Quivers | Significantly increases item capacity. |
-| **Drawer** | III | Chest/Bundle | Drastically increases capacity (up to 256+ items). |
+| **Drawer** | III | Chest/Bundle | Drastically increases capacity (up to 256+ items), but locks to one item type. |
 | **Range** | III | Tools | Increases the reach distance for placing/breaking blocks. |
 | **Fast Chiseling** | II | Chisel/Spatula | Reduces cooldown for transformation tools. |
 | **Constructor's Touch** | I | Chisel/Quiver | Enables special transformations & global inventory access for Quivers. |

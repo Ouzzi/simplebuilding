@@ -86,7 +86,7 @@ Never run out of ammo again.
 
 ### 📏 Octant (Rangefinder)
 A utility tool for planning.
-* **Function:** Measure distances and areas between two points.
+* **Function:** Measure distances and areas between two points. Supports various shapes like **Cuboids, Spheres, Cylinders, and Pyramids** to preview builds.
 * **Visuals:** Available in all 16 colors. Custom overlay rendering.
 * **Enchantments:** *Constructor's Touch* (improves visuals/usability).
 
@@ -115,9 +115,10 @@ Upgrade your base automation with heavy-duty versions of vanilla blocks.
 * **📥 Upgraded Logistics (Hoppers):**
     * **Reinforced Hopper:** Increased transfer speed and item throughput.
     * **Netherite Hopper:** Maximum speed for high-performance sorting systems.
-    * 
+
 * **🔥 Advanced Smelting:**
-    * **Reinforced & Netherite Blast Furnaces:** Smelt ores and metals at significantly higher speeds than vanilla blast furnaces.
+    * **Reinforced Furnaces, Smokers & Blast Furnaces:** 2x faster than vanilla.
+    * **Netherite Furnaces, Smokers & Blast Furnaces:** 4x faster than vanilla.
 
 * **💡 Utility:**
     * **Construction Light:** A bright, industrial light source crafted with Lapis and Glass. Perfect for preventing mob spawns in large halls without spamming torches.
@@ -160,11 +161,7 @@ Villagers and Traders are the best way to obtain specific enchantments and cores
 * **Toolsmith:** Sells enchanted Chisels (with *Fast Chiseling*) and Sledgehammers (with *Break Through, Efficiency*).
 
 ### 🦙 Wandering Trader
-Keep an eye out for the trader! He may sell:
-* Octants
-* Reinforced Bundles
-* Building Cores
-* Rare Enchanted Books (*Bridge, Radius, Quiver*)
+Keep an eye out for the trader! He now sells rare **Building Cores**, **Reinforced Bundles**, **Quivers**, and unique high-level enchanted books not found elsewhere.
 
 ---
 

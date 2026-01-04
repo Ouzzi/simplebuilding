@@ -38,11 +38,15 @@ public class ModItemGroups {
                             //  entries.add(ModItems.REINFORCED_CHEST);
                             // entries.add(ModItems.NETHERITE_CHEST);
                         entries.add(ModItems.REINFORCED_HOPPER);
-                        entries.add(ModItems.NETHERITE_HOPPER);
-                        entries.add(ModItems.REINFORCED_BLAST_FURNACE);
-                        entries.add(ModItems.NETHERITE_BLAST_FURNACE);
                         entries.add(ModItems.REINFORCED_PISTON);
                         entries.add(ModItems.NETHERITE_PISTON);
+                        entries.add(ModItems.NETHERITE_HOPPER);
+                        entries.add(ModItems.REINFORCED_FURNACE);
+                        entries.add(ModItems.NETHERITE_FURNACE);
+                        entries.add(ModItems.REINFORCED_SMOKER);
+                        entries.add(ModItems.NETHERITE_SMOKER);
+                        entries.add(ModItems.REINFORCED_BLAST_FURNACE);
+                        entries.add(ModItems.NETHERITE_BLAST_FURNACE);
 
                         // --- Tools ---
                         entries.add(ModItems.STONE_CHISEL);

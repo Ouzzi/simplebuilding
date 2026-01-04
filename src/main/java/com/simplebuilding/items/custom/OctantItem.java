@@ -23,9 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Locale;
 import java.util.function.Consumer;
-
 
 public class OctantItem extends Item {
 
@@ -33,7 +31,6 @@ public class OctantItem extends Item {
 
     private final DyeColor color;
 
-    // FIX: Enum erweitert mit einem schönen Namen und der getName() Methode
     public enum SelectionShape {
         CUBOID("Cuboid"),
         CYLINDER("Cylinder"),
@@ -56,20 +53,24 @@ public class OctantItem extends Item {
         NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = nbtData.copyNbt();
 
+        // Wenn Locked ist, verhindern wir auch das Scrollen der Form, um Verwirrung zu vermeiden
+        // (Optional: Wenn du willst, dass man Form trotz Lock ändern kann, entferne diese Zeile)
+        if (nbt.getBoolean("Locked").orElse(false)) {
+            player.sendMessage(Text.literal("Octant is Locked!").formatted(Formatting.RED), true);
+            return;
+        }
+
         // 1. Shift: Formen durchschalten (Shapes)
         if (isShift) {
             SelectionShape[] values = SelectionShape.values();
             String currentName = nbt.getString("Shape").orElse("");
             int index = 0;
-            // Aktuellen Index finden
             if (!currentName.isEmpty()) {
                 try {
                     index = SelectionShape.valueOf(currentName).ordinal();
                 } catch (Exception ignored) {}
             }
 
-            // Berechnung des neuen Index (funktioniert vorwärts & rückwärts)
-            // (index + amount) % length kann in Java negativ werden, daher "+ length"
             int newIndex = (index + amount) % values.length;
             if (newIndex < 0) newIndex += values.length;
 
@@ -77,27 +78,20 @@ public class OctantItem extends Item {
             nbt.putString("Shape", newShape.name());
             player.sendMessage(Text.of("Form: " + newShape.name()), true);
         }
-
-        // 2. Control: Größe/Radius ändern (Beispiel)
+        // 2. Control: Größe/Radius ändern
         else if (isControl) {
-            int currentRadius = nbt.getInt("Radius").orElse(5); // Standardwert 5
-            // Hier einfach amount addieren (z.B. +1 oder -1)
-            int newRadius = Math.max(1, currentRadius + amount); // Minimum 1
+            int currentRadius = nbt.getInt("Radius").orElse(5);
+            int newRadius = Math.max(1, currentRadius + amount);
             nbt.putInt("Radius", newRadius);
             player.sendMessage(Text.of("Radius: " + newRadius), true);
         }
-
-        // 3. Alt: Modus ändern (Beispiel: Replace Mode / Placement Mode)
+        // 3. Alt: Modus ändern
         else if (isAlt) {
-            // Beispiel-Logik für einen booleschen Toggle oder ein anderes Enum
-            // Wenn es ein Enum ist, nutze die gleiche Logik wie bei 'Shift' oben.
             boolean currentMode = nbt.getBoolean("SomeMode").orElse(false);
-            // Bei booleschen Toggles ist die Richtung egal, scrollen toggelt einfach
             nbt.putBoolean("SomeMode", !currentMode);
             player.sendMessage(Text.of("Mode: " + (!currentMode ? "An" : "Aus")), true);
         }
 
-        // Speichern
         stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
     }
 
@@ -121,6 +115,18 @@ public class OctantItem extends Item {
             NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
             NbtCompound nbt = nbtData.copyNbt();
 
+            // --- NEU: CHECK LOCK STATUS ---
+            // Wenn Locked, verhindern wir das Setzen neuer Koordinaten.
+            if (nbt.getBoolean("Locked").orElse(false)) {
+                if (player != null) {
+                    player.sendMessage(Text.literal("Locked! Press G to unlock.").formatted(Formatting.RED), true);
+                }
+                // Wir geben SUCCESS zurück, damit keine "normale" Block-Interaktion (z.B. Truhe öffnen)
+                // passiert, die den User verwirren könnte, oder PASS, wenn du Truhen öffnen erlauben willst.
+                return ActionResult.SUCCESS;
+            }
+            // ------------------------------
+
             assert player != null;
             if (!player.isSneaking()) {
                 nbt.putIntArray("Pos1", new int[]{pos.getX(), pos.getY(), pos.getZ()});
@@ -130,7 +136,9 @@ public class OctantItem extends Item {
                 world.playSound(null, pos, SoundEvents.BLOCK_COPPER_STEP, SoundCategory.PLAYERS, 0.3f, 1.5f);
             }
 
-            if (!player.getAbilities().creativeMode) {stack.damage(1, (ServerWorld) world, (ServerPlayerEntity) player, item -> player.sendEquipmentBreakStatus(item, context.getHand() == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));}
+            if (!player.getAbilities().creativeMode) {
+                stack.damage(1, (ServerWorld) world, (ServerPlayerEntity) player, item -> player.sendEquipmentBreakStatus(item, context.getHand() == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
+            }
 
             stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
         }
@@ -141,6 +149,14 @@ public class OctantItem extends Item {
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
+
+        // Check Lock vor dem Reset
+        NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
+        // Wir lesen nur, wir kopieren erst wenn wir schreiben wollen
+        if (nbtData.copyNbt().getBoolean("Locked").orElse(false)) {
+             // Wenn Locked, passiert beim Rechtsklick in die Luft nichts (kein Reset)
+             return ActionResult.PASS;
+        }
 
         if (!world.isClient() && user.isSneaking()) {
             stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
@@ -162,9 +178,6 @@ public class OctantItem extends Item {
             String shapeName = nbt.getString("Shape").orElse("");
             try {
                 SelectionShape shape = SelectionShape.valueOf(shapeName);
-
-                // Zeige Modus an (außer es ist Standard Cuboid, optional)
-                // Wenn du immer Feedback willst, entferne das 'if'
                 if (shape != SelectionShape.CUBOID) {
                     return Text.empty().append(baseName).append(Text.literal(" (" + shape.getName() + ")").formatted(Formatting.GRAY));
                 }
@@ -177,6 +190,12 @@ public class OctantItem extends Item {
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = nbtData.copyNbt();
+
+        // --- NEU: Lock Anzeige im Tooltip ---
+        if (nbt.getBoolean("Locked").orElse(false)) {
+            textConsumer.accept(Text.literal(" [LOCKED] ").formatted(Formatting.RED, Formatting.BOLD));
+        }
+        // ------------------------------------
 
         if (nbt.contains("Pos1")) {
             int[] p1 = nbt.getIntArray("Pos1").orElse(new int[0]);

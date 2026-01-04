@@ -260,6 +260,20 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.BLAST_FURNACE), conditionsFromItem(Items.BLAST_FURNACE)).offerTo(exporter);
                 // Netherite Blast Furnace (Smithing)
                 createSmithing(ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE, RecipeCategory.DECORATIONS);
+
+                // 4. Furnace
+                createShaped(RecipeCategory.DECORATIONS, ModItems.REINFORCED_FURNACE)
+                        .pattern("DDD").pattern("DFD").pattern("DDD")
+                        .input('D', ModItems.CRACKED_DIAMOND).input('F', Items.FURNACE)
+                        .criterion(hasItem(Items.FURNACE), conditionsFromItem(Items.FURNACE)).offerTo(exporter);
+                createSmithing(ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, RecipeCategory.DECORATIONS);
+
+                // 5. Smoker
+                createShaped(RecipeCategory.DECORATIONS, ModItems.REINFORCED_SMOKER)
+                        .pattern("DDD").pattern("DSD").pattern("DDD")
+                        .input('D', ModItems.CRACKED_DIAMOND).input('S', Items.SMOKER)
+                        .criterion(hasItem(Items.SMOKER), conditionsFromItem(Items.SMOKER)).offerTo(exporter);
+                createSmithing(ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, RecipeCategory.DECORATIONS);
             }
 
             // --- Helpers ---

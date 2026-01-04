@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "simplebuilding:block/reinforced_smoker_front",
+    "side": "simplebuilding:block/reinforced_smoker_side",
+    "top": "simplebuilding:block/reinforced_smoker_top"
+  }
+}

@@ -1,12 +1,13 @@
 package com.simplebuilding;
 
+import com.simplebuilding.client.gui.OctantScreen;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.gui.SpeedometerHudOverlay;
 import com.simplebuilding.client.render.BlockHighlightRenderer;
 import com.simplebuilding.client.render.BuildingWandOutlineRenderer;
 import com.simplebuilding.client.render.SledgehammerOutlineRenderer;
-import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.networking.DoubleJumpPayload;
 import com.simplebuilding.util.BundleTooltipAccessor;
@@ -29,16 +30,23 @@ import org.lwjgl.glfw.GLFW;
 public class SimplebuildingClient implements ClientModInitializer {
 
     private boolean jumpKeyPressed = false;
-    private int jumpsUsed = 0; // Zähler für Sprünge in der Luft
-    private boolean wasOnGround = true; // Status des Spielers im vorherigen Tick
+    private int jumpsUsed = 0;
+    private boolean wasOnGround = true;
+
+    // Tasten
     public static KeyBinding highlightToggleKey;
     public static boolean showHighlights = true;
+    public static KeyBinding configureOctantKey;
 
     @Override
     public void onInitializeClient() {
+        // --- HUD & Renderer ---
         HudRenderCallback.EVENT.register(new RangefinderHudOverlay());
         HudRenderCallback.EVENT.register(new SpeedometerHudOverlay());
+        SledgehammerOutlineRenderer.register();
+        BuildingWandOutlineRenderer.register();
 
+        // --- Tooltips ---
         TooltipComponentCallback.EVENT.register(data -> {
             if (data instanceof ReinforcedBundleTooltipData reinforcedData) {
                 BundleTooltipComponent component = new BundleTooltipComponent(reinforcedData.contents());
@@ -52,36 +60,61 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         registerDoubleJumpClient();
 
+        // --- Keybindings Registrierung ---
+
+        // 1. Highlight Toggle (Taste H)
         highlightToggleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.simplebuilding.toggle_highlight",
                 GLFW.GLFW_KEY_H,
                 KeyBinding.Category.MISC
         ));
 
-        // 2. Keybind Logik (Toggle)
+        // 2. Octant Config (Taste G) - NEU
+        configureOctantKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.simplebuilding.configure_octant",
+                GLFW.GLFW_KEY_G, // Standard G
+                KeyBinding.Category.MISC
+        ));
+
+        // --- Event Loop (Tick) ---
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+
+            // Logik für Highlight Toggle
             while (highlightToggleKey.wasPressed()) {
                 showHighlights = !showHighlights;
                 if (client.player != null) {
                     client.player.sendMessage(Text.literal("Highlights: " + (showHighlights ? "ON" : "OFF")), true);
                 }
             }
+
+            // Logik für Octant Menü (Taste G)
+            while (configureOctantKey.wasPressed()) {
+                System.out.println("DEBUG: Taste G wurde gedrückt!"); // Check Konsole!
+
+                if (client.player != null) {
+                    var stack = client.player.getMainHandStack();
+                    System.out.println("DEBUG: Item in Hand: " + stack.getItem().getName().getString());
+
+                    // Prüfung: Ist das Item ein Octant?
+                    if (stack.getItem() instanceof OctantItem) {
+                        System.out.println("DEBUG: Es ist ein Octant! Öffne GUI...");
+                        // Öffne den Screen
+                        client.setScreen(new OctantScreen(stack));
+                    } else {
+                        System.out.println("DEBUG: KEIN Octant erkannt.");
+                        client.player.sendMessage(Text.literal("Du musst einen Octant halten!"), true);
+                    }
+                }
+            }
         });
 
-        SledgehammerOutlineRenderer.register();
-        BuildingWandOutlineRenderer.register();
-
+        // --- World Render ---
         WorldRenderEvents.END_MAIN.register(context -> {
-            // FIX: Kamera direkt vom Client holen, falls context.camera() nicht verfügbar ist
-            // FIX: context.matrices() statt context.matrixStack() nutzen (je nach API Version)
             BlockHighlightRenderer.render(
                     context.matrices().peek().getPositionMatrix(),
                     MinecraftClient.getInstance().gameRenderer.getCamera()
             );
         });
-
-        // BlockEntityRendererRegistry.register(ModBlockEntities.MOD_CHEST_BE, ModChestBlockEntityRenderer::new);
-
     }
 
     private void registerDoubleJumpClient() {

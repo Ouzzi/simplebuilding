@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simplebuilding:reinforced_furnace",
+  "result": {
+    "id": "simplebuilding:netherite_furnace"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}
