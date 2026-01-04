@@ -168,7 +168,7 @@ public class ModItems {
     }
 
     private static SledgehammerItem registerSledgehammer(String name, int durability, int enchantability, ToolMaterial toolMaterial, int attackDamage, float attackSpeed) {
-        return (SledgehammerItem) registerItem(name, settings -> new SledgehammerItem(toolMaterial, attackDamage, attackSpeed, settings.maxDamage(durability).enchantable(enchantability)));
+        return (SledgehammerItem) registerItem(name, settings -> new SledgehammerItem(toolMaterial, attackDamage, attackSpeed, durability, settings.maxDamage(durability).enchantable(enchantability)));
     }
 
     private static Item registerItem(String name, Function<Item.Settings, Item> function) {

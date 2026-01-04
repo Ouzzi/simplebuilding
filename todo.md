@@ -2,9 +2,9 @@
 
 ## TODO:
 - die circle und triangle sind nur von unten geschlossen.
-- bitte nun mehr formen und ein variable für rundung. bitte auch eine einstellung fur das togglen von 2d und 3d
-
-- wenn master builder + building wand befüllen von der form (fullmodus - layer on off — hollow on off — from top/bottom/inside left right)
+- 2d shapes 3 buttons - orientation x/y/z
+- mit lang arbeiten - nicht Zilinder, ... sondern lang file
+- wenn master builder + building wand befüllen von der form (fullmodus - layer on off — hollow on off — from top/bottom/inside left right) 
 
 ## TODO Later:
 - reinforced observer - less delay, more range (7 blocks)
@@ -12,7 +12,7 @@
   - reinforced/netherite dispenser - can use more items (axe, Pickaxe, shovel ...)/ can place blocks
 - colored redstone
 - ore detector - Wenn man das Tool hält, macht es Ping-Geräusche und Partikel des ores, wenn Diamanten in der Nähe (z.B. Radius 16) sind. (modes: alle Erze, nur Diamanten, nur Gold, nur Eisen, benutzerdefiniert)
-- litelevel item - visualisiert Lichtlevel in der Welt
+- ligtelevel item - visualisiert Lichtlevel in der Welt
 
 - later - Glass Itemframes, transparent itemframes - doent drop frame when broken exept silk touch.
 - later - Negative Beacon (evil Beacon) that gives negative effects to players in range

@@ -54,31 +54,24 @@ public class BlockHighlightRenderer {
         BlockPos pos1 = getPos(nbt, "Pos1");
         BlockPos pos2 = getPos(nbt, "Pos2");
 
-        // --- Form auslesen ---
-        String shapeName = nbt.getString("Shape").orElse("");
-        OctantItem.SelectionShape shape = OctantItem.SelectionShape.CUBOID; // Default
-        try {
-            if (!shapeName.isEmpty()) shape = OctantItem.SelectionShape.valueOf(shapeName);
-        } catch (Exception ignored) {}
-
         if (pos1 == null && pos2 == null) return;
 
-        boolean isInverted = Simplebuilding.getConfig().tools.invertOctantSneak;
-        int opacityPercent = Simplebuilding.getConfig().tools.buildingHighlightOpacity;
-        boolean hasConstructorsTouch = hasEnchantment(stack, MinecraftClient.getInstance(), ModEnchantments.CONSTRUCTORS_TOUCH);
-        boolean showFill = isInverted ^ hasConstructorsTouch;
+        // Shape und Mode auslesen
+        String shapeName = nbt.getString("Shape", "");
+        OctantItem.SelectionShape shape = OctantItem.SelectionShape.CUBOID;
+        try { if(!shapeName.isEmpty()) shape = OctantItem.SelectionShape.valueOf(shapeName); } catch(Exception ignored){}
 
-        // Deckkraft Berechnung
+        String modeName = nbt.getString("Mode", "");
+        OctantItem.SelectionMode mode = OctantItem.SelectionMode.MODE_3D;
+        try { if(!modeName.isEmpty()) mode = OctantItem.SelectionMode.valueOf(modeName); } catch(Exception ignored){}
+
+        // Farben & Config
+        OctantItem octant = (OctantItem) stack.getItem();
+        RenderColors colors = getRenderColors(octant.getColor());
+        int opacityPercent = Simplebuilding.getConfig().tools.buildingHighlightOpacity;
         float baseAlpha = Math.max(0, Math.min(100, opacityPercent)) / 100.0f;
 
-        // Farben
-        OctantItem octant = (OctantItem) stack.getItem();
-        DyeColor dyeColor = octant.getColor();
-
-        // Holt jetzt 3 Farben: Pos1, Pos2, Area
-        RenderColors colors = getRenderColors(dyeColor);
-
-        // --- Rendering Setup ---
+        // Matrix Setup
         double camX = camera.getCameraPos().x;
         double camY = camera.getCameraPos().y;
         double camZ = camera.getCameraPos().z;
@@ -88,58 +81,64 @@ public class BlockHighlightRenderer {
         matrices.multiplyPositionMatrix(positionMatrix);
         matrices.translate(-camX, -camY, -camZ);
 
-        // FIX: Eigene Allocators für die Layer erstellen, damit sie sich nicht gegenseitig schließen.
         BufferAllocator mainAllocator = new BufferAllocator(2097152);
-
         SequencedMap<RenderLayer, BufferAllocator> layerBuffers = new LinkedHashMap<>();
-        // Wir weisen den Layern eigene Puffer zu:
         layerBuffers.put(RenderLayers.lines(), new BufferAllocator(2097152));
         layerBuffers.put(RenderLayers.debugQuads(), new BufferAllocator(2097152));
-
-        // Provider mit der Map initialisieren
         VertexConsumerProvider.Immediate consumers = VertexConsumerProvider.immediate(layerBuffers, mainAllocator);
-
-        // Jetzt können wir beide Consumer holen und gleichzeitig nutzen
         VertexConsumer lines = consumers.getBuffer(RenderLayers.lines());
         VertexConsumer fill = consumers.getBuffer(RenderLayers.debugQuads());
 
         float lineAlpha = 0.8f;
         float fillAlpha = 0.3f * baseAlpha;
 
-        // --- 1. Kleine Boxen für Pos1/Pos2 (immer sichtbar zur Orientierung) ---
+        // Start/End Marker
         if (pos1 != null) drawBoxOutline(matrices, lines, new Box(pos1).expand(0.001), colors.r1(), colors.g1(), colors.b1(), lineAlpha);
         if (pos2 != null) drawBoxOutline(matrices, lines, new Box(pos2).expand(0.002), colors.r2(), colors.g2(), colors.b2(), lineAlpha);
 
-        // --- Area Highlight je nach Form (NUR wenn Toggle AN ist) ---
-        // Hier wurde 'SimplebuildingClient.showHighlights' hinzugefügt
-        if (pos1 != null && pos2 != null && showFill && SimplebuildingClient.showHighlights) {
-
-            // Berechnung der Bounding Box (der gesamte Bereich)
+        // Voxel Form Rendering
+        if (pos1 != null && pos2 != null && SimplebuildingClient.showHighlights) {
             Box bounds = getFullArea(pos1, pos2);
 
-            // Predicate für die jeweilige Form
+            // Predicate Logic für Formen
             Predicate<BlockPos> shapeFunc = switch (shape) {
-                // FIX: Zylinder braucht Y-Check, damit Deckel/Boden gezeichnet werden
-                case CYLINDER -> p -> (p.getY() >= bounds.minY && p.getY() <= bounds.maxY) && isPointInEllipse(p.getX() + 0.5, p.getZ() + 0.5, bounds);
+                case CYLINDER -> p -> isPointInEllipse(p.getX() + 0.5, p.getZ() + 0.5, bounds);
                 case SPHERE -> p -> isPointInEllipsoid(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, bounds);
                 case PYRAMID -> p -> isPointInPyramid(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, bounds);
                 case TRIANGLE -> p -> isPointInPrism(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, bounds);
-                case CUBOID -> p -> true; // Cuboid ist immer "drin", da wir nur über die BoundingBox iterieren
+                default -> p -> true; // Cuboid
             };
 
-            // Wenn es ein Cuboid ist, nutzen wir die optimierte einfache Box-Methode (kein Voxel-Loop nötig)
-            if (shape == OctantItem.SelectionShape.CUBOID) {
+            // 2D Modus Logic: Wir "flatten" die Logik.
+            // Wenn 2D an ist, zeigen wir nur die unterste Ebene der BoundingBox an
+            // ODER wir machen es hohl. "2D (Flach)" bedeutet oft nur Boden.
+            final OctantItem.SelectionMode finalMode = mode;
+            Predicate<BlockPos> finalFunc = p -> {
+                if (finalMode == OctantItem.SelectionMode.MODE_2D) {
+                    // Im 2D Modus nur Blöcke auf der untersten Ebene (minY) rendern
+                    if (p.getY() != (int)bounds.minY) return false;
+                }
+                return shapeFunc.test(p);
+            };
+
+            // Optimierung für Cuboid in 3D (Standard Box Renderer)
+            if (shape == OctantItem.SelectionShape.CUBOID && mode == OctantItem.SelectionMode.MODE_3D) {
                 drawBoxOutline(matrices, lines, bounds.expand(0.003), colors.r3(), colors.g3(), colors.b3(), lineAlpha);
                 drawBoxFill(matrices, fill, bounds.expand(0.009), colors.r3(), colors.g3(), colors.b3(), fillAlpha);
-            } else {
-                // Für komplexe Formen: Voxel Renderer
-                renderVoxelShape(matrices, lines, fill, bounds, shapeFunc,
-                                 colors.r3(), colors.g3(), colors.b3(), lineAlpha, fillAlpha);
+            }
+            // 2D Cuboid (Fläche)
+            else if (shape == OctantItem.SelectionShape.CUBOID && mode == OctantItem.SelectionMode.MODE_2D) {
+                Box flatBox = new Box(bounds.minX, bounds.minY, bounds.minZ, bounds.maxX, bounds.minY + 1, bounds.maxZ);
+                drawBoxOutline(matrices, lines, flatBox.expand(0.003), colors.r3(), colors.g3(), colors.b3(), lineAlpha);
+                drawBoxFill(matrices, fill, flatBox.expand(0.009), colors.r3(), colors.g3(), colors.b3(), fillAlpha);
+            }
+            else {
+                // Voxel Renderer für komplexe Formen
+                renderVoxelShape(matrices, lines, fill, bounds, finalFunc, colors.r3(), colors.g3(), colors.b3(), lineAlpha, fillAlpha);
             }
         }
 
         consumers.draw();
-
         matrices.pop();
         mainAllocator.close();
         layerBuffers.values().forEach(BufferAllocator::close);

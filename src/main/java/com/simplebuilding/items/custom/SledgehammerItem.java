@@ -34,17 +34,17 @@ public class SledgehammerItem extends Item {
     public static final float DIAMOND_ATTACK_SPEED = -2.8f - ATTACK_SPEED_OFFSET;
     public static final float NETHERITE_ATTACK_SPEED = -2.6f - ATTACK_SPEED_OFFSET;
 
-    public static final int DURABILITY_MULTIPLIER_SLEDGEHAMMER = 4;
+    // TODO: fix durability values - currently it is not multiplied by 4!
+    public static final int BASE_DURABILITY_MULTIPLIER = 4;
+    public static final int DURABILITY_STONE_SLEDGEHAMMER = 190 * BASE_DURABILITY_MULTIPLIER;
+    public static final int DURABILITY_COPPER_SLEDGEHAMMER = 190 * BASE_DURABILITY_MULTIPLIER;
+    public static final int DURABILITY_IRON_SLEDGEHAMMER = 250 * BASE_DURABILITY_MULTIPLIER;
+    public static final int DURABILITY_GOLD_SLEDGEHAMMER = 32 * BASE_DURABILITY_MULTIPLIER;
+    public static final int DURABILITY_DIAMOND_SLEDGEHAMMER = 1561 * BASE_DURABILITY_MULTIPLIER;
+    public static final int DURABILITY_NETHERITE_SLEDGEHAMMER = 2031 * BASE_DURABILITY_MULTIPLIER;
 
-    public static final int DURABILITY_STONE_SLEDGEHAMMER = 190 * DURABILITY_MULTIPLIER_SLEDGEHAMMER;
-    public static final int DURABILITY_COPPER_SLEDGEHAMMER = 190 * DURABILITY_MULTIPLIER_SLEDGEHAMMER;
-    public static final int DURABILITY_IRON_SLEDGEHAMMER = 250 * DURABILITY_MULTIPLIER_SLEDGEHAMMER;
-    public static final int DURABILITY_GOLD_SLEDGEHAMMER = 32 * DURABILITY_MULTIPLIER_SLEDGEHAMMER;
-    public static final int DURABILITY_DIAMOND_SLEDGEHAMMER = 1561 * DURABILITY_MULTIPLIER_SLEDGEHAMMER;
-    public static final int DURABILITY_NETHERITE_SLEDGEHAMMER = 2031 * DURABILITY_MULTIPLIER_SLEDGEHAMMER;
-
-    public SledgehammerItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
-        super(settings.pickaxe(material, attackDamage, attackSpeed));
+    public SledgehammerItem(ToolMaterial material, float attackDamage, float attackSpeed, int durability, Settings settings) {
+        super(settings.pickaxe(material, attackDamage, attackSpeed).maxDamage(durability));
     }
 
     // =============================================================
