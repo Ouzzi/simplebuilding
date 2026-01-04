@@ -1,11 +1,10 @@
 ## Changelog:
 
 ## TODO:
-- sledgehammer - Abbau zeit je nach Abbau Block Menge - SOLL jeden block der abgebaut wird zeit kosten, also zusammenrechnen
-- - 1 blocks - 125% speed
-- - ...
-- - 25 blocks - 200% speed
-- - Je mehr Blöcke, desto schneller der Abbau, bis zu einem Maximum von 200% speed bei 25 Blöcken oder mehr.
+- die circle und triangle sind nur von unten geschlossen.
+- bitte nun mehr formen und ein variable für rundung. bitte auch eine einstellung fur das togglen von 2d und 3d
+
+- wenn master builder + building wand befüllen von der form (fullmodus - layer on off — hollow on off — from top/bottom/inside left right)
 
 ## TODO Later:
 - reinforced observer - less delay, more range (7 blocks)
