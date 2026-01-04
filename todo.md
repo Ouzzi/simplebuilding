@@ -2,7 +2,7 @@
 
 ## TODO:
 - sledgehammer - Abbau zeit je nach Abbau Block Menge - SOLL jeden block der abgebaut wird zeit kosten, also zusammenrechnen
-- - 0 blocks - 125% speed
+- - 1 blocks - 125% speed
 - - ...
 - - 25 blocks - 200% speed
 - - Je mehr Blöcke, desto schneller der Abbau, bis zu einem Maximum von 200% speed bei 25 Blöcken oder mehr.

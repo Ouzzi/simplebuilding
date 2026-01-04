@@ -38,8 +38,8 @@ public class OctantScreen extends Screen {
     // Layout
     private int columnCenterX;
     private int startY;
-    private final int rowSpacing = 40; // Mehr Platz für Text und Felder
-    private final int fieldOffsetY = 12; // Abstand Text -> Feld
+    private final int rowSpacing = 32; // Sehr kompakt
+    private final int fieldOffsetY = 10; // Abstand Text zu Feld
 
     public OctantScreen(ItemStack stack) {
         super(Text.translatable("simplebuilding.gui.title"));
@@ -60,47 +60,47 @@ public class OctantScreen extends Screen {
         if (nbt.contains("Shape")) {
             try { currentShape = OctantItem.SelectionShape.valueOf(nbt.getString("Shape", "CUBOID")); } catch (Exception ignored) {}
         }
-        // FIX: getBoolean mit Default-Wert nutzen
         isLocked = nbt.getBoolean("Locked", false);
     }
 
     @Override
     protected void init() {
         // --- LAYOUT RECHTS ---
-        int menuWidth = 170;
-        this.columnCenterX = width - (menuWidth / 2) - 10; // Rechts angeordnet
+        // Wir nutzen das rechte Drittel.
+        // Breite des Menü-Bereichs ca. 150px
+        int menuWidth = 160;
+        this.columnCenterX = width - (menuWidth / 2) - 20; // 20px Abstand vom rechten Rand
 
         // Vertikal zentrieren
-        int totalHeight = (rowSpacing * 3) + 30 + 30;
+        int totalHeight = (rowSpacing * 3) + 25 + 25; // 3 Gruppen + ShapeZeile + FertigButton
         this.startY = (height - totalHeight) / 2;
 
         // 1. POS 1 (Start)
-        // Felder werden unter dem Text platziert (fieldOffsetY)
         int y1 = startY + fieldOffsetY;
         createRow(columnCenterX, y1, pos1.getX(), pos1.getY(), pos1.getZ(),
                 f -> x1Field=f, f -> y1Field=f, f -> z1Field=f);
 
         // 2. POS 2 (Ende)
-        int y2 = startY + rowSpacing + fieldOffsetY;
+        int y2 = y1 + rowSpacing;
         createRow(columnCenterX, y2, pos2.getX(), pos2.getY(), pos2.getZ(),
                 f -> x2Field=f, f -> y2Field=f, f -> z2Field=f);
 
         // 3. SIZE (Größe)
-        int y3 = startY + rowSpacing * 2 + fieldOffsetY;
+        int y3 = y2 + rowSpacing;
         int w = Math.abs(pos2.getX() - pos1.getX()) + 1;
         int h = Math.abs(pos2.getY() - pos1.getY()) + 1;
         int d = Math.abs(pos2.getZ() - pos1.getZ()) + 1;
         createSizeRow(columnCenterX, y3, w, h, d);
 
-        // 4. SHAPE & LOCK
-        int yShape = y3 + 25;
+        // 4. SHAPE & LOCK (Nebeneinander)
+        int yShape = y3 + rowSpacing + 5;
 
-        // Shape Button
+        // Shape Button (Links in der Gruppe)
         shapeButton = ButtonWidget.builder(getShapeText(), button -> cycleShape())
-                .dimensions(columnCenterX - 65, yShape, 100, 20).build();
+                .dimensions(columnCenterX - 60, yShape, 95, 20).build();
         addDrawableChild(shapeButton);
 
-        // Lock Button
+        // Lock Button (Rechts daneben, kleines Icon)
         lockButton = ButtonWidget.builder(getLockIcon(), button -> {
             isLocked = !isLocked;
             button.setMessage(getLockIcon());
@@ -108,33 +108,34 @@ public class OctantScreen extends Screen {
         }).dimensions(columnCenterX + 40, yShape, 20, 20).build();
         addDrawableChild(lockButton);
 
-        // 5. FERTIG BUTTON
+        // 5. FERTIG BUTTON (Ganz unten)
         int yDone = yShape + 25;
         addDrawableChild(ButtonWidget.builder(Text.literal("Fertig"), button -> close())
-                .dimensions(columnCenterX - 65, yDone, 125, 20).build());
+                .dimensions(columnCenterX - 60, yDone, 120, 20).build());
     }
 
     private void createRow(int cX, int y, int v1, int v2, int v3,
                            Consumer<TextFieldWidget> a1, Consumer<TextFieldWidget> a2, Consumer<TextFieldWidget> a3) {
-        int groupWidth = 52;
-        int startX = cX - (int)(groupWidth * 1.5) - 4;
+        int groupWidth = 50;
+        int startX = cX - (int)(groupWidth * 1.5) - 5;
 
         createControlGroup(startX, y, v1, a1, false);
-        createControlGroup(startX + groupWidth + 4, y, v2, a2, false);
-        createControlGroup(startX + (groupWidth + 4) * 2, y, v3, a3, false);
+        createControlGroup(startX + groupWidth + 5, y, v2, a2, false);
+        createControlGroup(startX + (groupWidth + 5) * 2, y, v3, a3, false);
     }
 
     private void createSizeRow(int cX, int y, int w, int h, int d) {
-        int groupWidth = 52;
-        int startX = cX - (int)(groupWidth * 1.5) - 4;
+        int groupWidth = 50;
+        int startX = cX - (int)(groupWidth * 1.5) - 5;
 
         createControlGroup(startX, y, w, f -> wField = f, true);
-        createControlGroup(startX + groupWidth + 4, y, h, f -> hField = f, true);
-        createControlGroup(startX + (groupWidth + 4) * 2, y, d, f -> dField = f, true);
+        createControlGroup(startX + groupWidth + 5, y, h, f -> hField = f, true);
+        createControlGroup(startX + (groupWidth + 5) * 2, y, d, f -> dField = f, true);
     }
 
     private void createControlGroup(int x, int y, int val, Consumer<TextFieldWidget> assigner, boolean isSize) {
-        TextFieldWidget field = new TextFieldWidget(textRenderer, x, y, 32, 16, Text.empty());
+        // Feld
+        TextFieldWidget field = new TextFieldWidget(textRenderer, x, y, 30, 16, Text.empty());
         field.setText(String.valueOf(val));
         field.setTextPredicate(s -> s.matches("-?\\d*"));
         field.setChangedListener(s -> {
@@ -146,12 +147,13 @@ public class OctantScreen extends Screen {
         assigner.accept(field);
         addDrawableChild(field);
 
+        // Mini Buttons rechts daneben gestapelt
         ButtonWidget plus = ButtonWidget.builder(Text.literal("+"), b -> adjustField(field, 1, isSize))
-                .dimensions(x + 33, y, 12, 8).build();
+                .dimensions(x + 31, y, 12, 8).build();
         addDrawableChild(plus);
 
         ButtonWidget minus = ButtonWidget.builder(Text.literal("-"), b -> adjustField(field, -1, isSize))
-                .dimensions(x + 33, y + 8, 12, 8).build();
+                .dimensions(x + 31, y + 8, 12, 8).build();
         addDrawableChild(minus);
     }
 
@@ -163,15 +165,18 @@ public class OctantScreen extends Screen {
             field.setText(String.valueOf(val));
             if (isSize) updatePos2FromSize();
             else updateLocalAndSend();
-        } catch (NumberFormatException ignored) { field.setText("0"); }
+        } catch (NumberFormatException ignored) {
+            field.setText("0");
+        }
     }
 
     private Text getLockIcon() {
+        // Einfaches Schloss Icon als Text. Rot = Zu, Grün = Offen
         return isLocked ? Text.literal("🔒").formatted(Formatting.RED) : Text.literal("🔓").formatted(Formatting.GREEN);
     }
 
     private Text getShapeText() {
-        return Text.literal(currentShape.getName()).formatted(Formatting.WHITE);
+        return Text.literal("Form: " + currentShape.getName()).formatted(Formatting.AQUA);
     }
 
     private void updatePos2FromSize() {
@@ -193,7 +198,7 @@ public class OctantScreen extends Screen {
     }
 
     private void updateLocalAndSend() {
-        if (x1Field == null) return;
+        if (x1Field == null || wField == null) return;
         try {
             BlockPos p1 = new BlockPos(parse(x1Field), parse(y1Field), parse(z1Field));
             BlockPos p2 = new BlockPos(parse(x2Field), parse(y2Field), parse(z2Field));
@@ -226,35 +231,45 @@ public class OctantScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        // Hintergrund sehr transparent
+        // HINTERGRUND: Fast unsichtbar (0x10... ist sehr transparent)
+        // Wir füllen den ganzen Screen, damit der Hintergrund einheitlich etwas abgedunkelt ist,
+        // aber so schwach, dass man fast alles sieht.
         context.fill(0, 0, width, height, 0x15000000);
+
+        // Optional: Einen etwas dunkleren Streifen nur rechts hinter dem Menü?
+        // context.fill(width - 180, 0, width, height, 0x20000000); // Wenn gewünscht, einkommentieren.
 
         super.render(context, mouseX, mouseY, delta);
 
+        // TEXTE RENDERN (Überschriften)
+        // Wir rendern sie NACH super.render, damit sie sicher oben drauf sind.
+
         // Titel
-        context.drawCenteredTextWithShadow(textRenderer, "Octant", columnCenterX, startY - 20, 0xFFFFFF);
+        context.drawCenteredTextWithShadow(textRenderer, "Octant", columnCenterX, startY - 15, 0xFFFFFF);
 
-        // Labels direkt ÜBER den Gruppen (keine Überlappung)
+        // Labels direkt über den Gruppen
+        // Koordinaten müssen exakt zu init() passen
         int y1 = startY;
-        context.drawCenteredTextWithShadow(textRenderer, "Start (1)", columnCenterX, y1 - 2, 0xAAAAAA);
+        context.drawCenteredTextWithShadow(textRenderer, "Start (1)", columnCenterX, y1, 0xAAAAAA);
 
-        int y2 = startY + rowSpacing;
-        context.drawCenteredTextWithShadow(textRenderer, "Ende (2)", columnCenterX, y2 - 2, 0xAAAAAA);
+        int y2 = y1 + rowSpacing;
+        context.drawCenteredTextWithShadow(textRenderer, "Ende (2)", columnCenterX, y2, 0xAAAAAA);
 
-        int y3 = startY + rowSpacing * 2;
-        context.drawCenteredTextWithShadow(textRenderer, "Größe (B x H x T)", columnCenterX, y3 - 2, 0x55FFFF);
+        int y3 = y2 + rowSpacing;
+        context.drawCenteredTextWithShadow(textRenderer, "Größe", columnCenterX, y3, 0x55FFFF);
 
+        // Tooltip für Lock
         if (lockButton.isMouseOver(mouseX, mouseY)) {
-             context.drawTooltip(textRenderer, Text.literal(isLocked ? "Entsperren" : "Sperren"), mouseX, mouseY);
+            context.drawTooltip(textRenderer, Text.literal(isLocked ? "Entsperren" : "Sperren"), mouseX, mouseY);
         }
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+        // Scroll-Support für alle Felder
         if (handleScroll(x1Field, mouseX, mouseY, verticalAmount)) return true;
         if (handleScroll(y1Field, mouseX, mouseY, verticalAmount)) return true;
         if (handleScroll(z1Field, mouseX, mouseY, verticalAmount)) return true;
-
         if (handleScroll(x2Field, mouseX, mouseY, verticalAmount)) return true;
         if (handleScroll(y2Field, mouseX, mouseY, verticalAmount)) return true;
         if (handleScroll(z2Field, mouseX, mouseY, verticalAmount)) return true;

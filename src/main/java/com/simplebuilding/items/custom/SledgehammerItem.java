@@ -64,20 +64,29 @@ public class SledgehammerItem extends Item {
                 if (entry.getKey().matchesKey(ModEnchantments.BREAK_THROUGH)) {hasBreakThrough = true;}
             }
 
+            // Standard: 3x3 = 9 Blöcke
+            int blockCount = 9;
 
-            /*
-            - sledgehammer - Abbau zeit je nach Abbau Block Menge - SOLL jeden block der abgebaut wird zeit kosten, also zusammenrechnen
-            - - 0 blocks - 125% speed
-            - - ...
-            - - 25 blocks - 200% speed
-            - - Je
-             */
-            float divisor = 6.0F; // Default: 3x3 (9 Blöcke) -> 1/6 Speed
-            if (hasRadius && hasBreakThrough) { divisor = 33.0F; /* 5x5x2 = 50 Blöcke (Berechnung: 50 * 2/3 = 33.3) */
-            } else if (hasRadius) { divisor = 16.0F; /* 5x5 = 25 Blöcke -> 16.0F (wie gewünscht) */
-            } else if (hasBreakThrough) { divisor = 11.0F; /* 3x3x2 = 18 Blöcke -> 11.0F (wie gewünscht) */ }
+            if (hasRadius) {
+                // Radius (5x5) = 25 Blöcke
+                blockCount = 25;
+            }
 
-            return baseSpeed / divisor;
+            if (hasBreakThrough) {
+                // Verdoppelt die Tiefe (x2)
+                blockCount *= 2;
+            }
+
+            // Berechne den Speed-Bonus basierend auf der Menge (Maximal 25 für den Bonus)
+            // 1 Block  = 125% (1.25F)
+            // 25 Blöcke = 200% (2.00F)
+            float cappedCount = Math.min(blockCount, 25);
+            // Linear interpolation: 1.25 + (progress 0..1) * 0.75
+            float speedMultiplier = 1.25F + ((cappedCount - 1) / 24.0F) * 0.75F;
+
+            // Logik: "Jeder Block soll Zeit kosten" -> Wir teilen den (gebufften) Speed durch die Anzahl der Blöcke.
+            // Resultat: Gesamtzeit ist länger als bei einem Block, aber effizienter als einzelne Blöcke nacheinander.
+            return (baseSpeed * speedMultiplier) / (float) blockCount;
         }
         return baseSpeed;
     }
