@@ -89,10 +89,6 @@ public class BlockHighlightRenderer {
         if (pos1 != null && pos2 != null && showFill && SimplebuildingClient.showHighlights) {
             Box bounds = getFullArea(pos1, pos2);
 
-            // Adjust bounds based on 2D Shapes to make them flat 1 block thick if requested by shape type?
-            // Actually, Octant positions define the box. 2D shapes are usually just subsets of that box.
-            // If "RECTANGLE" or "ELLIPSE" is selected, we enforce flat selection on the orientation axis in logic below or just treat it as such.
-
             Predicate<BlockPos> shapeFunc = switch (shape) {
                 // Fix: Uses strict < bounds.maxY to exclude the block above the selection
                 case CYLINDER, ELLIPSE -> p -> {
@@ -100,8 +96,6 @@ public class BlockHighlightRenderer {
                     BlockPos transformed = transformToY(p, orientation);
                     Box tBounds = transformToY(bounds, orientation);
                     // Check Height (Y in transformed space)
-                    // If shape is 2D (Ellipse), we treat it as 1-block thick in transformed Y? Or just normal check?
-                    // "Closed from below" fix: Use < maxY
                     if (transformed.getY() < tBounds.minY || transformed.getY() >= tBounds.maxY) return false;
                     return isPointInEllipse(transformed.getX() + 0.5, transformed.getZ() + 0.5, tBounds);
                 };
@@ -116,15 +110,7 @@ public class BlockHighlightRenderer {
                      Box tBounds = transformToY(bounds, orientation);
                      return isPointInPrism(transformed.getX() + 0.5, transformed.getY() + 0.5, transformed.getZ() + 0.5, tBounds);
                 };
-                case RECTANGLE -> p -> {
-                    // Check if on plane?
-                    // For now Rectangle behaves like Cuboid but implies flat intention.
-                    // If orientation is Y, we might want to check only one Y layer?
-                    // But usually user defines pos1/pos2 flatly for rectangle.
-                    // We just treat as cuboid.
-                    return true;
-                };
-                case CUBOID -> p -> true;
+                case RECTANGLE, CUBOID -> p -> true;
             };
 
             if (shape == OctantItem.SelectionShape.CUBOID || shape == OctantItem.SelectionShape.RECTANGLE) {
@@ -229,7 +215,6 @@ public class BlockHighlightRenderer {
         if (rx <= 0 || rz <= 0) return false;
         return Math.pow(x - cx, 2) / Math.pow(rx, 2) + Math.pow(z - cz, 2) / Math.pow(rz, 2) <= 1.0;
     }
-
     private static boolean isPointInEllipsoid(double x, double y, double z, Box b) {
         double w = b.maxX - b.minX; double h = b.maxY - b.minY; double l = b.maxZ - b.minZ;
         double cx = b.minX + w/2.0; double cy = b.minY + h/2.0; double cz = b.minZ + l/2.0;
@@ -237,19 +222,16 @@ public class BlockHighlightRenderer {
         if (rx<=0||ry<=0||rz<=0) return false;
         return Math.pow(x-cx,2)/Math.pow(rx,2) + Math.pow(y-cy,2)/Math.pow(ry,2) + Math.pow(z-cz,2)/Math.pow(rz,2) <= 1.0;
     }
-
     private static boolean isPointInPyramid(double x, double y, double z, Box b) {
         double w = b.maxX - b.minX; double h = b.maxY - b.minY; double l = b.maxZ - b.minZ;
         double cx = b.minX + w/2.0; double cz = b.minZ + l/2.0;
         double rx = w/2.0; double rz = l/2.0;
-        // Fix: Bounds strict check
         if (y < b.minY || y >= b.maxY) return false;
         double progress = (y - b.minY) / h;
         double crx = rx * (1.0 - progress);
         double crz = rz * (1.0 - progress);
         return Math.abs(x - cx) <= crx && Math.abs(z - cz) <= crz;
     }
-
     private static boolean isPointInPrism(double x, double y, double z, Box b) {
         double wX = b.maxX - b.minX; double h = b.maxY - b.minY; double wZ = b.maxZ - b.minZ;
         if (y < b.minY || y >= b.maxY) return false;

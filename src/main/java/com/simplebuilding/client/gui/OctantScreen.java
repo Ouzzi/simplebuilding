@@ -7,6 +7,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemStack;
@@ -15,6 +16,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -202,6 +204,25 @@ public class OctantScreen extends Screen {
         } catch (Exception ignored) {}
     }
     private int parse(TextFieldWidget f) { try { return Integer.parseInt(f.getText()); } catch (Exception e) { return 0; } }
+
+    // --- Input & Rendering ---
+
+    @Override
+    public boolean keyPressed(KeyInput input) {
+        int keyCode = input.key(); // Key Code aus dem Wrapper holen
+
+        // Schließen mit R oder ESC
+        if (keyCode == GLFW.GLFW_KEY_R || keyCode == GLFW.GLFW_KEY_ESCAPE) {
+            this.close();
+            return true;
+        }
+        return super.keyPressed(input);
+    }
+
+    @Override
+    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
+        // Leer lassen, um den Standard-Blur und den Standard-Hintergrund zu verhindern.
+    }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {

@@ -145,6 +145,15 @@ public class QuiverItem extends ReinforcedBundleItem {
             if (!arrow.isEmpty()) return arrow;
         }
 
+        // 3. wenn in hotbar, dann ohne CT
+        for (int i = 0; i < 9; i++) {
+            ItemStack stack = player.getInventory().getStack(i);
+            if (stack.getItem() instanceof QuiverItem) {
+                ItemStack arrow = findFirstArrow(stack);
+                if (!arrow.isEmpty()) return arrow;
+            }
+        }
+
         // 3. Inventar (NUR mit Constructors Touch)
         // Durchsuchen des gesamten Inventars, damit es überall funktioniert
         for (int i = 0; i < player.getInventory().size(); i++) {

@@ -1,15 +1,19 @@
 ## Changelog:
 
 ## TODO:
-- die circle und triangle sind nur von unten geschlossen.
+- ore detector + netherite ore detector - Wenn man das Tool hält, macht es Ping-Geräusche und Partikel des ores (in richtung nächsten des ores), wenn Diamanten/netherite in der Nähe (z.B. Radius 16/32) sind. (modes: alle Erze, nur Diamanten, nur Gold, nur Eisen, benutzerdefiniert)
+- airjump - nether enchantment
+- 
 
 ## TODO Later:
 - reinforced observer - less delay, more range (7 blocks)
 - netherite observer - no delay, more range (15 blocks)
-  - reinforced/netherite dispenser - can use more items (axe, Pickaxe, shovel ...)/ can place blocks
+- reinforced/netherite dispenser - can use more items (axe, Pickaxe, shovel ...)/ can place blocks
+- reinforced/netherite shield - more durability/ axe disable shield protection - no knockback when blocking, no slowdown when blocking
+- spear enchantment - less hunger when lungeing - stamina
 - colored redstone
-- ore detector - Wenn man das Tool hält, macht es Ping-Geräusche und Partikel des ores, wenn Diamanten in der Nähe (z.B. Radius 16) sind. (modes: alle Erze, nur Diamanten, nur Gold, nur Eisen, benutzerdefiniert)
 - ligtelevel item - visualisiert Lichtlevel in der Welt
+
 
 - later - Glass Itemframes, transparent itemframes - doent drop frame when broken exept silk touch.
 - later - Negative Beacon (evil Beacon) that gives negative effects to players in range
