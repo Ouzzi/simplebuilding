@@ -10,8 +10,16 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.Optional;
 
-// Neues Feld: boolean locked
-public record OctantConfigurePayload(Optional<BlockPos> pos1, Optional<BlockPos> pos2, String shapeName, boolean locked) implements CustomPayload {
+public record OctantConfigurePayload(
+        Optional<BlockPos> pos1,
+        Optional<BlockPos> pos2,
+        String shapeName,
+        boolean locked,
+        int orientationOrdinal, // 0=X, 1=Y, 2=Z
+        boolean hollow,
+        boolean layerMode,
+        String fillOrder
+) implements CustomPayload {
     public static final CustomPayload.Id<OctantConfigurePayload> ID = new CustomPayload.Id<>(Identifier.of(Simplebuilding.MOD_ID, "octant_configure"));
 
     public static final PacketCodec<RegistryByteBuf, OctantConfigurePayload> CODEC = PacketCodec.tuple(
@@ -19,6 +27,10 @@ public record OctantConfigurePayload(Optional<BlockPos> pos1, Optional<BlockPos>
             PacketCodecs.optional(BlockPos.PACKET_CODEC), OctantConfigurePayload::pos2,
             PacketCodecs.STRING, OctantConfigurePayload::shapeName,
             PacketCodecs.BOOLEAN, OctantConfigurePayload::locked,
+            PacketCodecs.INTEGER, OctantConfigurePayload::orientationOrdinal,
+            PacketCodecs.BOOLEAN, OctantConfigurePayload::hollow,
+            PacketCodecs.BOOLEAN, OctantConfigurePayload::layerMode,
+            PacketCodecs.STRING, OctantConfigurePayload::fillOrder,
             OctantConfigurePayload::new
     );
 

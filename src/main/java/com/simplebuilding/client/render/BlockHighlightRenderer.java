@@ -16,7 +16,6 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
 import org.joml.Matrix4f;
 
 import java.util.LinkedHashMap;
@@ -28,23 +27,15 @@ import static com.simplebuilding.util.guiDrawHelper.*;
 public class BlockHighlightRenderer {
 
     public static void render(Matrix4f positionMatrix, Camera camera) {
-        // HINWEIS: Die globale Abfrage hier wurde entfernt, damit Pos1/Pos2 immer gerendert werden können.
-        // Die Prüfung 'SimplebuildingClient.showHighlights' erfolgt jetzt weiter unten nur für die Form.
-
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null || client.world == null) return;
-
         ItemStack stack = client.player.getMainHandStack();
         boolean isRangefinder = stack.getItem() instanceof OctantItem;
-
         if (!isRangefinder) {
             stack = client.player.getOffHandStack();
             isRangefinder = stack.getItem() instanceof OctantItem;
         }
-
-        if (isRangefinder) {
-            renderHighlights(positionMatrix, camera, stack);
-        }
+        if (isRangefinder) renderHighlights(positionMatrix, camera, stack);
     }
 
     private static void renderHighlights(Matrix4f positionMatrix, Camera camera, ItemStack stack) {
@@ -54,24 +45,24 @@ public class BlockHighlightRenderer {
         BlockPos pos1 = getPos(nbt, "Pos1");
         BlockPos pos2 = getPos(nbt, "Pos2");
 
-        if (pos1 == null && pos2 == null) return;
-
-        // Shape und Mode auslesen
         String shapeName = nbt.getString("Shape", "");
         OctantItem.SelectionShape shape = OctantItem.SelectionShape.CUBOID;
-        try { if(!shapeName.isEmpty()) shape = OctantItem.SelectionShape.valueOf(shapeName); } catch(Exception ignored){}
+        try { if (!shapeName.isEmpty()) shape = OctantItem.SelectionShape.valueOf(shapeName); } catch (Exception ignored) {}
 
-        String modeName = nbt.getString("Mode", "");
-        OctantItem.SelectionMode mode = OctantItem.SelectionMode.MODE_3D;
-        try { if(!modeName.isEmpty()) mode = OctantItem.SelectionMode.valueOf(modeName); } catch(Exception ignored){}
+        int orientIdx = nbt.getInt("Orientation", 1); // 0=X, 1=Y, 2=Z
+        Direction.Axis orientation = orientIdx == 0 ? Direction.Axis.X : (orientIdx == 2 ? Direction.Axis.Z : Direction.Axis.Y);
 
-        // Farben & Config
-        OctantItem octant = (OctantItem) stack.getItem();
-        RenderColors colors = getRenderColors(octant.getColor());
+        if (pos1 == null && pos2 == null) return;
+
+        boolean isInverted = Simplebuilding.getConfig().tools.invertOctantSneak;
         int opacityPercent = Simplebuilding.getConfig().tools.buildingHighlightOpacity;
+        boolean hasConstructorsTouch = hasEnchantment(stack, MinecraftClient.getInstance(), ModEnchantments.CONSTRUCTORS_TOUCH);
+        boolean showFill = isInverted ^ hasConstructorsTouch;
         float baseAlpha = Math.max(0, Math.min(100, opacityPercent)) / 100.0f;
 
-        // Matrix Setup
+        OctantItem octant = (OctantItem) stack.getItem();
+        RenderColors colors = getRenderColors(octant.getColor());
+
         double camX = camera.getCameraPos().x;
         double camY = camera.getCameraPos().y;
         double camZ = camera.getCameraPos().z;
@@ -92,69 +83,82 @@ public class BlockHighlightRenderer {
         float lineAlpha = 0.8f;
         float fillAlpha = 0.3f * baseAlpha;
 
-        // Start/End Marker
         if (pos1 != null) drawBoxOutline(matrices, lines, new Box(pos1).expand(0.001), colors.r1(), colors.g1(), colors.b1(), lineAlpha);
         if (pos2 != null) drawBoxOutline(matrices, lines, new Box(pos2).expand(0.002), colors.r2(), colors.g2(), colors.b2(), lineAlpha);
 
-        // Voxel Form Rendering
-        if (pos1 != null && pos2 != null && SimplebuildingClient.showHighlights) {
+        if (pos1 != null && pos2 != null && showFill && SimplebuildingClient.showHighlights) {
             Box bounds = getFullArea(pos1, pos2);
 
-            // Predicate Logic für Formen
+            // Adjust bounds based on 2D Shapes to make them flat 1 block thick if requested by shape type?
+            // Actually, Octant positions define the box. 2D shapes are usually just subsets of that box.
+            // If "RECTANGLE" or "ELLIPSE" is selected, we enforce flat selection on the orientation axis in logic below or just treat it as such.
+
             Predicate<BlockPos> shapeFunc = switch (shape) {
-                case CYLINDER -> p -> isPointInEllipse(p.getX() + 0.5, p.getZ() + 0.5, bounds);
+                // Fix: Uses strict < bounds.maxY to exclude the block above the selection
+                case CYLINDER, ELLIPSE -> p -> {
+                    // Normalize point relative to bounds center
+                    BlockPos transformed = transformToY(p, orientation);
+                    Box tBounds = transformToY(bounds, orientation);
+                    // Check Height (Y in transformed space)
+                    // If shape is 2D (Ellipse), we treat it as 1-block thick in transformed Y? Or just normal check?
+                    // "Closed from below" fix: Use < maxY
+                    if (transformed.getY() < tBounds.minY || transformed.getY() >= tBounds.maxY) return false;
+                    return isPointInEllipse(transformed.getX() + 0.5, transformed.getZ() + 0.5, tBounds);
+                };
                 case SPHERE -> p -> isPointInEllipsoid(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, bounds);
-                case PYRAMID -> p -> isPointInPyramid(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, bounds);
-                case TRIANGLE -> p -> isPointInPrism(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, bounds);
-                default -> p -> true; // Cuboid
+                case PYRAMID -> p -> {
+                     BlockPos transformed = transformToY(p, orientation);
+                     Box tBounds = transformToY(bounds, orientation);
+                     return isPointInPyramid(transformed.getX() + 0.5, transformed.getY() + 0.5, transformed.getZ() + 0.5, tBounds);
+                };
+                case TRIANGLE -> p -> { // Prism
+                     BlockPos transformed = transformToY(p, orientation);
+                     Box tBounds = transformToY(bounds, orientation);
+                     return isPointInPrism(transformed.getX() + 0.5, transformed.getY() + 0.5, transformed.getZ() + 0.5, tBounds);
+                };
+                case RECTANGLE -> p -> {
+                    // Check if on plane?
+                    // For now Rectangle behaves like Cuboid but implies flat intention.
+                    // If orientation is Y, we might want to check only one Y layer?
+                    // But usually user defines pos1/pos2 flatly for rectangle.
+                    // We just treat as cuboid.
+                    return true;
+                };
+                case CUBOID -> p -> true;
             };
 
-            // 2D Modus Logic: Wir "flatten" die Logik.
-            // Wenn 2D an ist, zeigen wir nur die unterste Ebene der BoundingBox an
-            // ODER wir machen es hohl. "2D (Flach)" bedeutet oft nur Boden.
-            final OctantItem.SelectionMode finalMode = mode;
-            Predicate<BlockPos> finalFunc = p -> {
-                if (finalMode == OctantItem.SelectionMode.MODE_2D) {
-                    // Im 2D Modus nur Blöcke auf der untersten Ebene (minY) rendern
-                    if (p.getY() != (int)bounds.minY) return false;
-                }
-                return shapeFunc.test(p);
-            };
-
-            // Optimierung für Cuboid in 3D (Standard Box Renderer)
-            if (shape == OctantItem.SelectionShape.CUBOID && mode == OctantItem.SelectionMode.MODE_3D) {
+            if (shape == OctantItem.SelectionShape.CUBOID || shape == OctantItem.SelectionShape.RECTANGLE) {
                 drawBoxOutline(matrices, lines, bounds.expand(0.003), colors.r3(), colors.g3(), colors.b3(), lineAlpha);
                 drawBoxFill(matrices, fill, bounds.expand(0.009), colors.r3(), colors.g3(), colors.b3(), fillAlpha);
-            }
-            // 2D Cuboid (Fläche)
-            else if (shape == OctantItem.SelectionShape.CUBOID && mode == OctantItem.SelectionMode.MODE_2D) {
-                Box flatBox = new Box(bounds.minX, bounds.minY, bounds.minZ, bounds.maxX, bounds.minY + 1, bounds.maxZ);
-                drawBoxOutline(matrices, lines, flatBox.expand(0.003), colors.r3(), colors.g3(), colors.b3(), lineAlpha);
-                drawBoxFill(matrices, fill, flatBox.expand(0.009), colors.r3(), colors.g3(), colors.b3(), fillAlpha);
-            }
-            else {
-                // Voxel Renderer für komplexe Formen
-                renderVoxelShape(matrices, lines, fill, bounds, finalFunc, colors.r3(), colors.g3(), colors.b3(), lineAlpha, fillAlpha);
+            } else {
+                renderVoxelShape(matrices, lines, fill, bounds, shapeFunc, colors.r3(), colors.g3(), colors.b3(), lineAlpha, fillAlpha);
             }
         }
-
         consumers.draw();
         matrices.pop();
         mainAllocator.close();
         layerBuffers.values().forEach(BufferAllocator::close);
     }
 
+    // --- TRANSFORM HELPERS (Rotate space to Y-up) ---
+    private static BlockPos transformToY(BlockPos p, Direction.Axis orientation) {
+        if (orientation == Direction.Axis.Y) return p;
+        if (orientation == Direction.Axis.X) return new BlockPos(p.getY(), p.getX(), p.getZ()); // Swap X/Y
+        return new BlockPos(p.getX(), p.getZ(), p.getY()); // Swap Z/Y
+    }
+    private static Box transformToY(Box b, Direction.Axis orientation) {
+        if (orientation == Direction.Axis.Y) return b;
+        if (orientation == Direction.Axis.X) return new Box(b.minY, b.minX, b.minZ, b.maxY, b.maxX, b.maxZ);
+        return new Box(b.minX, b.minZ, b.minY, b.maxX, b.maxZ, b.maxY);
+    }
+
     // =================================================================================
     // VOXEL SHAPE LOGIK
     // =================================================================================
 
-    private static void renderVoxelShape(MatrixStack matrices, VertexConsumer lines, VertexConsumer fill,
-                                         Box bounds, Predicate<BlockPos> inShape,
-                                         float r, float g, float b, float la, float fa) {
-
+    private static void renderVoxelShape(MatrixStack matrices, VertexConsumer lines, VertexConsumer fill, Box bounds, Predicate<BlockPos> inShape, float r, float g, float b, float la, float fa) {
         int minX = (int) bounds.minX; int minY = (int) bounds.minY; int minZ = (int) bounds.minZ;
         int maxX = (int) bounds.maxX; int maxY = (int) bounds.maxY; int maxZ = (int) bounds.maxZ;
-
         BlockPos.Mutable pos = new BlockPos.Mutable();
         BlockPos.Mutable neighborPos = new BlockPos.Mutable();
         BlockPos.Mutable diagPos = new BlockPos.Mutable();
@@ -163,43 +167,18 @@ public class BlockHighlightRenderer {
             for (int y = minY; y < maxY; y++) {
                 for (int z = minZ; z < maxZ; z++) {
                     pos.set(x, y, z);
-
-                    // Nur zeichnen, wenn Block Teil der Form ist
                     if (inShape.test(pos)) {
-
-                        // Iteriere alle 6 Seiten
                         for (Direction dir : Direction.values()) {
                             neighborPos.set(pos).move(dir);
-
-                            // Prüfe, ob der Nachbar NICHT Teil der Form ist (d.h. dies ist eine Außenfläche)
                             boolean isSurfaceFace = !inShape.test(neighborPos);
-
                             if (isSurfaceFace) {
-                                // 1. Zeichne die Füllung (Fläche)
                                 drawQuadFace(matrices, fill, new Box(pos).expand(0.002), dir, r, g, b, fa);
-
-                                // 2. Zeichne die Kanten (Outline) - aber nur "echte" Kanten
-                                // Wir prüfen die 4 Kantenrichtungen dieser Fläche.
                                 for (Direction edgeDir : Direction.values()) {
-                                    // Ignoriere die Richtung der Fläche selbst und die gegenüberliegende
                                     if (edgeDir == dir || edgeDir == dir.getOpposite()) continue;
-
-                                    // Nachbar auf der Seite (auf der gleichen Ebene)
                                     BlockPos sideNeighbor = new BlockPos(pos).add(edgeDir.getVector());
-
-                                    // Nachbar "diagonal" drüber (über dem sideNeighbor)
-                                    // neighborPos ist bereits (pos + dir). Wir bewegen es noch um edgeDir.
                                     diagPos.set(neighborPos).move(edgeDir);
-
                                     boolean sideIsShape = inShape.test(sideNeighbor);
                                     boolean diagIsShape = inShape.test(diagPos);
-
-                                    // LOGIK FÜR KANTENZEICHNUNG:
-                                    // Zeichne Linie, wenn:
-                                    // 1. (Konvex) Der Block daneben (side) ist NICHT in der Form.
-                                    // 2. (Konkav) Der Block diagonal drüber IST in der Form (Innenkante).
-                                    // Wenn sideIsShape && !diagIsShape, dann geht die Fläche flach weiter -> KEINE Linie.
-
                                     if (!sideIsShape || diagIsShape) {
                                         drawEdgeLine(matrices, lines, pos, dir, edgeDir, r, g, b, la);
                                     }
@@ -263,7 +242,8 @@ public class BlockHighlightRenderer {
         double w = b.maxX - b.minX; double h = b.maxY - b.minY; double l = b.maxZ - b.minZ;
         double cx = b.minX + w/2.0; double cz = b.minZ + l/2.0;
         double rx = w/2.0; double rz = l/2.0;
-        if (y < b.minY || y > b.maxY) return false;
+        // Fix: Bounds strict check
+        if (y < b.minY || y >= b.maxY) return false;
         double progress = (y - b.minY) / h;
         double crx = rx * (1.0 - progress);
         double crz = rz * (1.0 - progress);
@@ -272,10 +252,7 @@ public class BlockHighlightRenderer {
 
     private static boolean isPointInPrism(double x, double y, double z, Box b) {
         double wX = b.maxX - b.minX; double h = b.maxY - b.minY; double wZ = b.maxZ - b.minZ;
-
-        // FIX: Y-Grenzen prüfen, sonst wird die Form unendlich nach unten verlängert (und unten nicht geschlossen)
-        if (y < b.minY || y > b.maxY) return false;
-
+        if (y < b.minY || y >= b.maxY) return false;
         boolean alongZ = wZ > wX;
         double progress = (y - b.minY) / h;
         if (alongZ) {

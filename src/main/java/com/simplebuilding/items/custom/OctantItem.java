@@ -20,12 +20,10 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 import java.util.function.Consumer;
 
 public class OctantItem extends Item {
@@ -33,28 +31,29 @@ public class OctantItem extends Item {
     public static final int DURABILITY_OCTANT = 128;
     private final DyeColor color;
 
-    // Bestehende Formen
     public enum SelectionShape {
-        CUBOID("Würfel"),
-        CYLINDER("Zylinder"),
-        SPHERE("Kugel"),
-        PYRAMID("Pyramide"),
-        TRIANGLE("Prisma"), // Dreieck/Dach
-        ROUND_ARCH("Rundbogen");
+        CUBOID("simplebuilding.shape.cuboid"),
+        CYLINDER("simplebuilding.shape.cylinder"),
+        TRIANGLE("simplebuilding.shape.triangle"), // Prism
+        PYRAMID("simplebuilding.shape.pyramid"),
+        SPHERE("simplebuilding.shape.sphere"),
+        RECTANGLE("simplebuilding.shape.rectangle"), // 2D Cuboid
+        ELLIPSE("simplebuilding.shape.ellipse"); // 2D Cylinder
 
-        private final String name;
-        SelectionShape(String name) { this.name = name; }
-        public String getName() { return name; }
+        private final String translationKey;
+        SelectionShape(String translationKey) { this.translationKey = translationKey; }
+        public String getTranslationKey() { return translationKey; }
+        public Text getText() { return Text.translatable(translationKey); }
     }
 
-    // NEU: Modus (2D vs 3D)
-    public enum SelectionMode {
-        MODE_3D("3D"),
-        MODE_2D("2D (Flach)");
+    public enum FillOrder {
+        DEFAULT("simplebuilding.order.default"),
+        BOTTOM_UP("simplebuilding.order.bottom_up"),
+        TOP_DOWN("simplebuilding.order.top_down");
 
-        private final String name;
-        SelectionMode(String name) { this.name = name; }
-        public String getName() { return name; }
+        private final String translationKey;
+        FillOrder(String translationKey) { this.translationKey = translationKey; }
+        public Text getText() { return Text.translatable(translationKey); }
     }
 
     public OctantItem(Settings settings, @Nullable DyeColor color) {
@@ -63,48 +62,6 @@ public class OctantItem extends Item {
     }
 
     public DyeColor getColor() { return this.color; }
-
-    // --- SCROLL LOGIK (Angepasst) ---
-    public void scrollAttribute(ItemStack stack, int amount, boolean isShift, boolean isControl, boolean isAlt, PlayerEntity player) {
-        NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        NbtCompound nbt = nbtData.copyNbt();
-
-        if (nbt.getBoolean("Locked", false)) {
-            player.sendMessage(Text.literal("✖ Octant ist gesperrt!").formatted(Formatting.RED), true);
-            return;
-        }
-
-        // Shift: Formen durchschalten
-        if (isShift) {
-            SelectionShape[] values = SelectionShape.values();
-            String currentName = nbt.getString("Shape", "");
-            SelectionShape currentShape = SelectionShape.CUBOID;
-            try { if(!currentName.isEmpty()) currentShape = SelectionShape.valueOf(currentName); } catch (Exception ignored) {}
-
-            int index = (currentShape.ordinal() + amount) % values.length;
-            if (index < 0) index += values.length;
-
-            SelectionShape newShape = values[index];
-            nbt.putString("Shape", newShape.name());
-            player.sendMessage(Text.literal("Form: " + newShape.getName()).formatted(Formatting.AQUA), true);
-        }
-        // Alt: Modus ändern (2D/3D)
-        else if (isAlt) {
-            SelectionMode[] values = SelectionMode.values();
-            String currentModeName = nbt.getString("Mode", "");
-            SelectionMode currentMode = SelectionMode.MODE_3D;
-            try { if(!currentModeName.isEmpty()) currentMode = SelectionMode.valueOf(currentModeName); } catch (Exception ignored) {}
-
-            int index = (currentMode.ordinal() + amount) % values.length;
-            if (index < 0) index += values.length;
-
-            SelectionMode newMode = values[index];
-            nbt.putString("Mode", newMode.name());
-            player.sendMessage(Text.literal("Modus: " + newMode.getName()).formatted(Formatting.YELLOW), true);
-        }
-
-        stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
-    }
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
@@ -119,7 +76,7 @@ public class OctantItem extends Item {
 
             if (nbt.getBoolean("Locked", false)) {
                 if (player != null) {
-                    player.sendMessage(Text.literal("Gesperrt! Drücke G zum Entsperren.").formatted(Formatting.RED), true);
+                    player.sendMessage(Text.translatable("simplebuilding.gui.locked").formatted(Formatting.RED), true);
                 }
                 return ActionResult.SUCCESS;
             }
@@ -128,11 +85,12 @@ public class OctantItem extends Item {
                 if (!player.isSneaking()) {
                     nbt.putIntArray("Pos1", new int[]{pos.getX(), pos.getY(), pos.getZ()});
                     world.playSound(null, pos, SoundEvents.BLOCK_COPPER_STEP, SoundCategory.PLAYERS, 0.3f, 2f);
-                    player.sendMessage(Text.literal("Pos 1 gesetzt").formatted(Formatting.GRAY), true);
                 } else {
                     nbt.putIntArray("Pos2", new int[]{pos.getX(), pos.getY(), pos.getZ()});
                     world.playSound(null, pos, SoundEvents.BLOCK_COPPER_STEP, SoundCategory.PLAYERS, 0.3f, 1.5f);
-                    player.sendMessage(Text.literal("Pos 2 gesetzt").formatted(Formatting.GRAY), true);
+                }
+                if (!player.getAbilities().creativeMode) {
+                    stack.damage(1, (ServerWorld) world, (ServerPlayerEntity) player, item -> player.sendEquipmentBreakStatus(item, context.getHand() == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
                 }
             }
             stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
@@ -143,13 +101,9 @@ public class OctantItem extends Item {
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
-
-        // Check Lock vor dem Reset
         NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-
-        // CHECK LOCK vor Reset
         if (nbtData.copyNbt().getBoolean("Locked", false)) {
-             return ActionResult.PASS; // Nichts tun wenn locked
+             return ActionResult.PASS;
         }
 
         if (!world.isClient() && user.isSneaking()) {
@@ -163,18 +117,15 @@ public class OctantItem extends Item {
     @Override
     public Text getName(ItemStack stack) {
         Text baseName = super.getName(stack);
-
         NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = nbtComponent.copyNbt();
-
         if (nbt.contains("Shape")) {
-            String shapeName = nbt.getString("Shape", "");
             try {
-                SelectionShape shape = SelectionShape.valueOf(shapeName);
+                SelectionShape shape = SelectionShape.valueOf(nbt.getString("Shape", ""));
                 if (shape != SelectionShape.CUBOID) {
-                    return Text.empty().append(baseName).append(Text.literal(" (" + shape.getName() + ")").formatted(Formatting.GRAY));
+                    return Text.empty().append(baseName).append(Text.literal(" (")).append(shape.getText()).append(Text.literal(")").formatted(Formatting.GRAY));
                 }
-            } catch (Exception e) {}
+            } catch (Exception ignored) {}
         }
         return baseName;
     }
@@ -184,9 +135,8 @@ public class OctantItem extends Item {
         NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = nbtData.copyNbt();
 
-        // TOOLTIP LOCK ANZEIGE
         if (nbt.getBoolean("Locked", false)) {
-            textConsumer.accept(Text.literal(" [LOCKED] ").formatted(Formatting.RED, Formatting.BOLD));
+            textConsumer.accept(Text.translatable("simplebuilding.gui.locked").formatted(Formatting.RED, Formatting.BOLD));
         }
 
         if (nbt.contains("Pos1")) {
@@ -194,24 +144,11 @@ public class OctantItem extends Item {
                 if (p1.length == 3) {
                     BlockPos pos1 = new BlockPos(p1[0], p1[1], p1[2]);
                     textConsumer.accept(Text.literal(pos1.toShortString()).formatted(Formatting.YELLOW));
-
                     if (nbt.contains("Pos2")) {
                         nbt.getIntArray("Pos2").ifPresent(p2 -> {
                             if (p2.length == 3) {
                                 BlockPos pos2 = new BlockPos(p2[0], p2[1], p2[2]);
                                 textConsumer.accept(Text.literal(pos2.toShortString()).formatted(Formatting.GREEN));
-
-                                int dx = Math.abs(pos1.getX() - pos2.getX()) + 1;
-                                int dy = Math.abs(pos1.getY() - pos2.getY()) + 1;
-                                int dz = Math.abs(pos1.getZ() - pos2.getZ()) + 1;
-
-                                if (dy == 1 && (dx == 1 || dz == 1)) {
-                                    textConsumer.accept(Text.literal("Distance: " + Math.max(dx, dz)).formatted(Formatting.AQUA));
-                                } else if (dy == 1) {
-                                    textConsumer.accept(Text.literal("Area: " + (dx * dz) + " ("+ dx + " x " + dz + ")").formatted(Formatting.AQUA));
-                                } else {
-                                    textConsumer.accept(Text.literal("Volume: " + (dx * dy * dz) + " ("+ dx + " x " + dy + " x " + dz + ")").formatted(Formatting.AQUA));
-                                }
                             }
                         });
                     }

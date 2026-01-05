@@ -145,22 +145,6 @@
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges": "Enable Loot Chests",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.@Tooltip": "Add items to dungeon/structure chests.",
 
-  "text.autoconfig.simplebuilding.option.enchantments": "Enchantment Balancing",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide": "Swift Ride Settings",
-
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier": "Ghast Speed Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier.@Tooltip": "Speed multiplier per enchantment level for Happy Ghasts (Default: 0.40).",
-
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier": "Horse Speed Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier.@Tooltip": "Speed multiplier per enchantment level for Horses (Default: 0.12).",
-
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier": "Other Mob Speed Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier.@Tooltip": "Speed multiplier per enchantment level for Pigs/Striders (Default: 0.15).",
-
-  "text.autoconfig.simplebuilding.option.enchantments.horseJump": "Horse Jump Settings",
-  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier": "Jump Strength Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip": "Jump strength multiplier per enchantment level on horse armor (Default: 0.20).",
-
   "text.autoconfig.simplebuilding.option.tools.buildingHighlightOpacity": "Building Wand Highlight Opacity",
 
   "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions": "Invert Bundle Interactions",
@@ -214,13 +198,27 @@
 
 
   "simplebuilding.gui.title": "Octant Manager",
-  "simplebuilding.gui.locked": "§c[ GESPERRT ]",
-  "simplebuilding.gui.unlocked": "§a[ ENTSPERRT ]",
-  "simplebuilding.gui.pos1": "Startpunkt (Pos 1)",
-  "simplebuilding.gui.pos2": "Endpunkt (Pos 2)",
-  "simplebuilding.gui.size": "Größe (B x H x T)",
-  "simplebuilding.gui.shape": "Form: %s",
-  "simplebuilding.gui.close": "Fertig",
-  "simplebuilding.gui.lock_tooltip": "Sperrt die Form, um versehentliches Klicken zu verhindern."
+  "simplebuilding.gui.locked": "§c\uD83D\uDD12",
+  "simplebuilding.gui.unlocked": "§a\uD83D\uDD13",
+  "simplebuilding.gui.pos1": "Start (1)",
+  "simplebuilding.gui.pos2": "End (2)",
+  "simplebuilding.gui.size": "Size",
+  "simplebuilding.gui.close": "Done",
+  "simplebuilding.gui.shape": "Shape: %s",
+  "simplebuilding.gui.orientation": "Axis: %s",
+  "simplebuilding.gui.hollow": "Hollow: %s",
+  "simplebuilding.gui.layer": "Layer Mode: %s",
+  "simplebuilding.gui.order": "Order: %s",
 
+  "simplebuilding.shape.cuboid": "Cuboid",
+  "simplebuilding.shape.cylinder": "Cylinder",
+  "simplebuilding.shape.sphere": "Sphere",
+  "simplebuilding.shape.pyramid": "Pyramid",
+  "simplebuilding.shape.triangle": "Prism",
+  "simplebuilding.shape.rectangle": "Rectangle (2D)",
+  "simplebuilding.shape.ellipse": "Ellipse (2D)",
+
+  "simplebuilding.order.default": "Default",
+  "simplebuilding.order.bottom_up": "Bottom Up",
+  "simplebuilding.order.top_down": "Top Down"
 }

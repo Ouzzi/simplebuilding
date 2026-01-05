@@ -2,9 +2,6 @@
 
 ## TODO:
 - die circle und triangle sind nur von unten geschlossen.
-- 2d shapes 3 buttons - orientation x/y/z
-- mit lang arbeiten - nicht Zilinder, ... sondern lang file
-- wenn master builder + building wand befüllen von der form (fullmodus - layer on off — hollow on off — from top/bottom/inside left right) 
 
 ## TODO Later:
 - reinforced observer - less delay, more range (7 blocks)

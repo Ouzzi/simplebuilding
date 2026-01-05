@@ -7,7 +7,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.input.KeyInput;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemStack;
@@ -15,7 +14,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
-import org.lwjgl.glfw.GLFW; // Wichtig für Key-Codes
+import net.minecraft.util.math.Direction;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -23,29 +22,34 @@ import java.util.function.Consumer;
 public class OctantScreen extends Screen {
     private final ItemStack stack;
 
-    // UI Widgets
     private TextFieldWidget x1Field, y1Field, z1Field;
     private TextFieldWidget x2Field, y2Field, z2Field;
     private TextFieldWidget wField, hField, dField;
 
     private ButtonWidget shapeButton;
-    private ButtonWidget modeButton; // NEU: 2D/3D
     private ButtonWidget lockButton;
-    private ButtonWidget doneButton;
+    private ButtonWidget orientationButton;
 
-    // Daten
+    // Fill Settings Buttons
+    private ButtonWidget hollowButton;
+    private ButtonWidget layerModeButton;
+    private ButtonWidget fillOrderButton;
+
     private OctantItem.SelectionShape currentShape = OctantItem.SelectionShape.CUBOID;
-    private OctantItem.SelectionMode currentMode = OctantItem.SelectionMode.MODE_3D;
+    private Direction.Axis currentOrientation = Direction.Axis.Y;
+    private boolean isHollow = false;
+    private boolean isLayerMode = false;
+    private OctantItem.FillOrder currentOrder = OctantItem.FillOrder.DEFAULT;
+
     private BlockPos pos1 = new BlockPos(0, 0, 0);
     private BlockPos pos2 = new BlockPos(0, 0, 0);
     private boolean isLocked = false;
     private boolean isUpdating = false;
 
-    // Layout Konstanten
-    private int panelX;
-    private int panelY;
-    private final int ROW_HEIGHT = 24;
-    private final int LABEL_WIDTH = 40;
+    private int columnCenterX;
+    private int startY;
+    private final int rowSpacing = 28;
+    private final int fieldOffsetY = 10;
 
     public OctantScreen(ItemStack stack) {
         super(Text.translatable("simplebuilding.gui.title"));
@@ -57,269 +61,156 @@ public class OctantScreen extends Screen {
         NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = nbtData.copyNbt();
 
-        if (nbt.contains("Pos1")) {
-            nbt.getIntArray("Pos1").ifPresent(p -> { if(p.length==3) pos1 = new BlockPos(p[0], p[1], p[2]); });
-        }
-        if (nbt.contains("Pos2")) {
-            nbt.getIntArray("Pos2").ifPresent(p -> { if(p.length==3) pos2 = new BlockPos(p[0], p[1], p[2]); });
-        }
+        if (nbt.contains("Pos1")) nbt.getIntArray("Pos1").ifPresent(p -> { if(p.length==3) pos1 = new BlockPos(p[0], p[1], p[2]); });
+        if (nbt.contains("Pos2")) nbt.getIntArray("Pos2").ifPresent(p -> { if(p.length==3) pos2 = new BlockPos(p[0], p[1], p[2]); });
 
-        // Shape laden
-        try { currentShape = OctantItem.SelectionShape.valueOf(nbt.getString("Shape", "")); }
-        catch (Exception e) { currentShape = OctantItem.SelectionShape.CUBOID; }
+        if (nbt.contains("Shape")) try { currentShape = OctantItem.SelectionShape.valueOf(nbt.getString("Shape", OctantItem.SelectionShape.CUBOID.name())); } catch (Exception ignored) {}
 
-        // Mode laden (2D/3D)
-        try { currentMode = OctantItem.SelectionMode.valueOf(nbt.getString("Mode", "")); }
-        catch (Exception e) { currentMode = OctantItem.SelectionMode.MODE_3D; }
+        int orientIdx = nbt.getInt("Orientation", 1); // 0=X, 1=Y, 2=Z
+        if (orientIdx == 0) currentOrientation = Direction.Axis.X;
+        else if (orientIdx == 2) currentOrientation = Direction.Axis.Z;
+        else currentOrientation = Direction.Axis.Y;
+
+        isHollow = nbt.getBoolean("Hollow", false);
+        isLayerMode = nbt.getBoolean("LayerMode", false);
+        try { currentOrder = OctantItem.FillOrder.valueOf(nbt.getString("FillOrder", OctantItem.FillOrder.DEFAULT.name())); } catch (Exception ignored) {}
 
         isLocked = nbt.getBoolean("Locked", false);
     }
 
     @Override
     protected void init() {
-        // Menü auf der rechten Seite, etwas breiter
-        int menuWidth = 190;
-        this.panelX = width - menuWidth - 10;
+        int menuWidth = 160;
+        this.columnCenterX = width - (menuWidth / 2) - 20;
+        // Taller menu now
+        int totalHeight = (rowSpacing * 3) + 25 + 25 + 25 + 25;
+        this.startY = Math.max(10, (height - totalHeight) / 2);
 
-        // Vertikale Zentrierung
-        int contentHeight = (ROW_HEIGHT * 6) + 40; // 3 Zeilen Koords + 2 Zeilen Buttons + Padding
-        this.panelY = (height - contentHeight) / 2;
-
-        int currentY = panelY;
-
-        // --- ZEILE 1: Pos 1 ---
-        // Labels werden in render() gezeichnet, hier nur Widgets
-        createCoordRow(panelX + LABEL_WIDTH, currentY, pos1.getX(), pos1.getY(), pos1.getZ(),
-                f -> x1Field=f, f -> y1Field=f, f -> z1Field=f);
-
-        currentY += ROW_HEIGHT + 5;
-
-        // --- ZEILE 2: Pos 2 ---
-        createCoordRow(panelX + LABEL_WIDTH, currentY, pos2.getX(), pos2.getY(), pos2.getZ(),
-                f -> x2Field=f, f -> y2Field=f, f -> z2Field=f);
-
-        currentY += ROW_HEIGHT + 5;
-
-        // --- ZEILE 3: Größe ---
+        // 1. POS 1
+        createRow(columnCenterX, startY + fieldOffsetY, pos1.getX(), pos1.getY(), pos1.getZ(), f -> x1Field=f, f -> y1Field=f, f -> z1Field=f);
+        // 2. POS 2
+        createRow(columnCenterX, startY + fieldOffsetY + rowSpacing, pos2.getX(), pos2.getY(), pos2.getZ(), f -> x2Field=f, f -> y2Field=f, f -> z2Field=f);
+        // 3. SIZE
         int w = Math.abs(pos2.getX() - pos1.getX()) + 1;
         int h = Math.abs(pos2.getY() - pos1.getY()) + 1;
         int d = Math.abs(pos2.getZ() - pos1.getZ()) + 1;
-        createSizeRow(panelX + LABEL_WIDTH, currentY, w, h, d);
+        createSizeRow(columnCenterX, startY + fieldOffsetY + rowSpacing * 2, w, h, d);
 
-        currentY += ROW_HEIGHT + 15; // Etwas mehr Abstand zu den Buttons
+        int yControls = startY + fieldOffsetY + rowSpacing * 3 + 5;
 
-        // --- ZEILE 4: Shape & Mode (Nebeneinander) ---
-        int buttonWidth = 70;
-
-        // Shape Button (Links)
+        // Shape & Orientation
         shapeButton = ButtonWidget.builder(getShapeText(), b -> cycleShape())
-                .dimensions(panelX + 10, currentY, buttonWidth + 10, 20)
-                .build();
+                .dimensions(columnCenterX - 100, yControls, 125, 20).build();
         addDrawableChild(shapeButton);
 
-        // Mode Button (Rechts)
-        modeButton = ButtonWidget.builder(getModeText(), b -> cycleMode())
-                .dimensions(panelX + 10 + buttonWidth + 15, currentY, buttonWidth - 5, 20)
-                .build();
-        addDrawableChild(modeButton);
+        orientationButton = ButtonWidget.builder(getOrientationText(), b -> cycleOrientation())
+                .dimensions(columnCenterX + 30, yControls, 50, 20).build();
+        addDrawableChild(orientationButton);
 
-        currentY += 25; // Nächste Zeile
+        // Fill Settingse
+        int yFill = yControls + 25;
+        hollowButton = ButtonWidget.builder(getHollowText(), b -> { isHollow = !isHollow; b.setMessage(getHollowText()); updateLocalAndSend(); })
+                .dimensions(columnCenterX - 100, yFill, 75, 20).build();
+        addDrawableChild(hollowButton);
 
-        // --- ZEILE 5: Lock & Fertig ---
-        // Lock Button (Kleines Icon links)
-        lockButton = ButtonWidget.builder(getLockIcon(), b -> {
-            isLocked = !isLocked;
-            b.setMessage(getLockIcon());
-            updateLocalAndSend();
-        }).dimensions(panelX + 10, currentY, 20, 20).build();
+        layerModeButton = ButtonWidget.builder(getLayerText(), b -> { isLayerMode = !isLayerMode; b.setMessage(getLayerText()); updateLocalAndSend(); })
+                .dimensions(columnCenterX - 20, yFill, 100, 20).build();
+        addDrawableChild(layerModeButton);
+
+        int yOrder = yFill + 25;
+        fillOrderButton = ButtonWidget.builder(getOrderText(), b -> cycleOrder())
+                .dimensions(columnCenterX - 100, yOrder, 180, 20).build();
+        addDrawableChild(fillOrderButton);
+
+        int yDone = yOrder + 25;
+
+        lockButton = ButtonWidget.builder(getLockIcon(), b -> { isLocked = !isLocked; b.setMessage(getLockIcon()); updateLocalAndSend(); })
+                .dimensions(columnCenterX - 100, yDone, 25, 20).build();
         addDrawableChild(lockButton);
 
-        // Fertig Button (Daneben, breit)
-        doneButton = ButtonWidget.builder(Text.literal("Fertig"), b -> close())
-                .dimensions(panelX + 35, currentY, 135, 20) // Mehr Platz und Padding
-                .build();
-        addDrawableChild(doneButton);
+        addDrawableChild(ButtonWidget.builder(Text.translatable("simplebuilding.gui.close"), b -> close())
+                .dimensions(columnCenterX - 70, yDone, 150, 20).build());
     }
 
-    // --- Helper für Textfelder ---
-    private void createCoordRow(int x, int y, int v1, int v2, int v3,
-                                Consumer<TextFieldWidget> a1, Consumer<TextFieldWidget> a2, Consumer<TextFieldWidget> a3) {
-        int spacing = 48; // Abstand zwischen den Feldern
-        createControlGroup(x, y, v1, a1, false);
-        createControlGroup(x + spacing, y, v2, a2, false);
-        createControlGroup(x + spacing * 2, y, v3, a3, false);
+    private void createRow(int cX, int y, int v1, int v2, int v3, Consumer<TextFieldWidget> a1, Consumer<TextFieldWidget> a2, Consumer<TextFieldWidget> a3) {
+        int groupWidth = 50;
+        int startX = cX - (int)(groupWidth * 1.5) - 5;
+        createControlGroup(startX, y, v1, a1, false);
+        createControlGroup(startX + groupWidth + 5, y, v2, a2, false);
+        createControlGroup(startX + (groupWidth + 5) * 2, y, v3, a3, false);
     }
-
-    private void createSizeRow(int x, int y, int w, int h, int d) {
-        int spacing = 48;
-        createControlGroup(x, y, w, f -> wField = f, true);
-        createControlGroup(x + spacing, y, h, f -> hField = f, true);
-        createControlGroup(x + spacing * 2, y, d, f -> dField = f, true);
+    private void createSizeRow(int cX, int y, int w, int h, int d) {
+        int groupWidth = 50;
+        int startX = cX - (int)(groupWidth * 1.5) - 5;
+        createControlGroup(startX, y, w, f -> wField = f, true);
+        createControlGroup(startX + groupWidth + 5, y, h, f -> hField = f, true);
+        createControlGroup(startX + (groupWidth + 5) * 2, y, d, f -> dField = f, true);
     }
-
     private void createControlGroup(int x, int y, int val, Consumer<TextFieldWidget> assigner, boolean isSize) {
-        TextFieldWidget field = new TextFieldWidget(textRenderer, x, y, 32, 16, Text.empty());
+        TextFieldWidget field = new TextFieldWidget(textRenderer, x, y, 30, 16, Text.empty());
         field.setText(String.valueOf(val));
-        field.setTextPredicate(s -> s.matches("-?\\d*"));
-        field.setChangedListener(s -> {
-            if (!isUpdating) {
-                if (isSize) updatePos2FromSize(); else updateLocalAndSend();
-            }
-        });
-        assigner.accept(field);
-        addDrawableChild(field);
-
-        // Kleine +/- Buttons
-        // Vertikal gestapelt rechts neben dem Feld
-        int btnX = x + 33;
-        addDrawableChild(ButtonWidget.builder(Text.literal("▴"), b -> adjustField(field, 1, isSize))
-                .dimensions(btnX, y - 1, 12, 9).build());
-        addDrawableChild(ButtonWidget.builder(Text.literal("▾"), b -> adjustField(field, -1, isSize))
-                .dimensions(btnX, y + 8, 12, 9).build());
+        field.setChangedListener(s -> { if (!isUpdating) { if (isSize) updatePos2FromSize(); else updateLocalAndSend(); } });
+        assigner.accept(field); addDrawableChild(field);
+        addDrawableChild(ButtonWidget.builder(Text.literal("+"), b -> adjustField(field, 1, isSize)).dimensions(x + 31, y, 12, 8).build());
+        addDrawableChild(ButtonWidget.builder(Text.literal("-"), b -> adjustField(field, -1, isSize)).dimensions(x + 31, y + 8, 12, 8).build());
     }
-
-    // --- Logik ---
-
-    private void cycleShape() {
-        OctantItem.SelectionShape[] values = OctantItem.SelectionShape.values();
-        int index = (currentShape.ordinal() + 1) % values.length;
-        currentShape = values[index];
-        shapeButton.setMessage(getShapeText());
-        updateLocalAndSend();
-    }
-
-    private void cycleMode() {
-        OctantItem.SelectionMode[] values = OctantItem.SelectionMode.values();
-        int index = (currentMode.ordinal() + 1) % values.length;
-        currentMode = values[index];
-        modeButton.setMessage(getModeText());
-        updateLocalAndSend();
-    }
-
-    private Text getShapeText() { return Text.literal(currentShape.getName()); }
-    private Text getModeText() { return Text.literal(currentMode.getName()); }
-
-    private Text getLockIcon() {
-        return isLocked ? Text.literal("🔒").formatted(Formatting.RED) : Text.literal("🔓").formatted(Formatting.GREEN);
-    }
-
     private void adjustField(TextFieldWidget field, int delta, boolean isSize) {
-        try {
-            int val = Integer.parseInt(field.getText());
-            val += delta;
-            if (isSize && val < 1) val = 1;
-            field.setText(String.valueOf(val));
-            if (isSize) updatePos2FromSize(); else updateLocalAndSend();
-        } catch (NumberFormatException ignored) { field.setText(isSize ? "1" : "0"); }
+        try { int val = Integer.parseInt(field.getText()) + delta; if (isSize && val < 1) val = 1; field.setText(String.valueOf(val)); if (isSize) updatePos2FromSize(); else updateLocalAndSend(); } catch (Exception e) { field.setText("0"); }
     }
+
+    private Text getLockIcon() { return isLocked ? Text.translatable("simplebuilding.gui.locked") : Text.translatable("simplebuilding.gui.unlocked"); }
+    private Text getShapeText() { return currentShape.getText(); }
+    private Text getOrientationText() { return Text.translatable("simplebuilding.gui.orientation", currentOrientation.name()); }
+    private Text getHollowText() { return Text.translatable("simplebuilding.gui.hollow", isHollow ? "ON" : "OFF"); }
+    private Text getLayerText() { return Text.translatable("simplebuilding.gui.layer", isLayerMode ? "ON" : "OFF"); }
+    private Text getOrderText() { return Text.translatable("simplebuilding.gui.order", currentOrder.getText()); }
+
+    private void cycleShape() { currentShape = OctantItem.SelectionShape.values()[(currentShape.ordinal() + 1) % OctantItem.SelectionShape.values().length]; shapeButton.setMessage(getShapeText()); updateLocalAndSend(); }
+    private void cycleOrientation() { currentOrientation = (currentOrientation == Direction.Axis.X) ? Direction.Axis.Y : (currentOrientation == Direction.Axis.Y ? Direction.Axis.Z : Direction.Axis.X); orientationButton.setMessage(getOrientationText()); updateLocalAndSend(); }
+    private void cycleOrder() { currentOrder = OctantItem.FillOrder.values()[(currentOrder.ordinal() + 1) % OctantItem.FillOrder.values().length]; fillOrderButton.setMessage(getOrderText()); updateLocalAndSend(); }
 
     private void updatePos2FromSize() {
         if (isUpdating || x1Field == null) return;
         isUpdating = true;
         try {
-            int x1 = parse(x1Field); int y1 = parse(y1Field); int z1 = parse(z1Field);
-            int w = Math.max(1, parse(wField));
-            int h = Math.max(1, parse(hField));
-            int d = Math.max(1, parse(dField));
-
-            x2Field.setText(String.valueOf(x1 + w - 1));
-            y2Field.setText(String.valueOf(y1 + h - 1));
-            z2Field.setText(String.valueOf(z1 + d - 1));
-
-            isUpdating = false;
-            updateLocalAndSend();
+            int x1 = parse(x1Field), y1 = parse(y1Field), z1 = parse(z1Field);
+            int w = Math.max(1, parse(wField)), h = Math.max(1, parse(hField)), d = Math.max(1, parse(dField));
+            x2Field.setText(String.valueOf(x1 + w - 1)); y2Field.setText(String.valueOf(y1 + h - 1)); z2Field.setText(String.valueOf(z1 + d - 1));
+            isUpdating = false; updateLocalAndSend();
         } catch (Exception e) { isUpdating = false; }
     }
-
     private void updateLocalAndSend() {
         if (x1Field == null) return;
         try {
             BlockPos p1 = new BlockPos(parse(x1Field), parse(y1Field), parse(z1Field));
             BlockPos p2 = new BlockPos(parse(x2Field), parse(y2Field), parse(z2Field));
-
             NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
             NbtCompound nbt = nbtData.copyNbt();
             nbt.putIntArray("Pos1", new int[]{p1.getX(), p1.getY(), p1.getZ()});
             nbt.putIntArray("Pos2", new int[]{p2.getX(), p2.getY(), p2.getZ()});
             nbt.putString("Shape", currentShape.name());
-            nbt.putString("Mode", currentMode.name()); // Neu: Mode speichern
+            nbt.putInt("Orientation", currentOrientation == Direction.Axis.X ? 0 : (currentOrientation == Direction.Axis.Y ? 1 : 2));
             nbt.putBoolean("Locked", isLocked);
+            nbt.putBoolean("Hollow", isHollow);
+            nbt.putBoolean("LayerMode", isLayerMode);
+            nbt.putString("FillOrder", currentOrder.name());
             stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
 
-            // HINWEIS: Payload Klasse muss ggf. angepasst werden um 'Mode' zu senden,
-            // oder du packst es auch dort rein. Hier wird es zumindest lokal im Item gespeichert.
-            ClientPlayNetworking.send(new OctantConfigurePayload(
-                    Optional.of(p1), Optional.of(p2), currentShape.name(), isLocked
-            ));
+            ClientPlayNetworking.send(new OctantConfigurePayload(Optional.of(p1), Optional.of(p2), currentShape.name(), isLocked,
+                    currentOrientation == Direction.Axis.X ? 0 : (currentOrientation == Direction.Axis.Y ? 1 : 2),
+                    isHollow, isLayerMode, currentOrder.name()));
         } catch (Exception ignored) {}
     }
-
-    private int parse(TextFieldWidget f) {
-        try { return Integer.parseInt(f.getText()); } catch (Exception e) { return 0; }
-    }
-
-    // --- Input & Rendering ---
-
-    @Override
-    public boolean keyPressed(KeyInput input) {
-        int keyCode = input.key(); // Key Code aus dem Wrapper holen
-
-        // Schließen mit R oder ESC
-        if (keyCode == GLFW.GLFW_KEY_R || keyCode == GLFW.GLFW_KEY_ESCAPE) {
-            this.close();
-            return true;
-        }
-        return super.keyPressed(input);
-    }
+    private int parse(TextFieldWidget f) { try { return Integer.parseInt(f.getText()); } catch (Exception e) { return 0; } }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        // HINTERGRUND: Sehr transparent (0x10...), damit man die Welt sieht
-        context.fill(0, 0, width, height, 0x10000000);
-
-        // Optional: Dunkler Hintergrund NUR hinter dem Menü für Lesbarkeit
-        int bgPad = 10;
-        int menuWidth = 190;
-        context.fill(panelX - bgPad, panelY - 20, panelX + menuWidth, panelY + (ROW_HEIGHT * 6) + 40, 0x50000000);
-
-        super.render(context, mouseX, mouseY, delta); // Zeichnet Widgets
-
-        // LABELS: Nach super.render() zeichnen, damit sie nicht überdeckt werden
-        int labelColor = 0xFFFFFF; // Weiß
-        int y = panelY + 4; // Text etwas zentrieren relativ zur TextBox
-
-        // Zeile 1: Pos 1
-        context.drawTextWithShadow(textRenderer, "Start", panelX, y, labelColor);
-        drawXYZLabels(context, panelX + LABEL_WIDTH, y);
-
-        y += ROW_HEIGHT + 5;
-
-        // Zeile 2: Pos 2
-        context.drawTextWithShadow(textRenderer, "Ende", panelX, y, labelColor);
-        drawXYZLabels(context, panelX + LABEL_WIDTH, y);
-
-        y += ROW_HEIGHT + 5;
-
-        // Zeile 3: Größe
-        context.drawTextWithShadow(textRenderer, "Größe", panelX, y, 0x55FFFF); // Cyan für Größe
-        drawWHDLabels(context, panelX + LABEL_WIDTH, y);
-    }
-
-    private void drawXYZLabels(DrawContext context, int startX, int y) {
-        int spacing = 48;
-        // Kleine Labels über oder neben den Feldern? Hier einfach davor, da Platz ist.
-        // Falls in den Feldern kein Platz ist, zeichnen wir sie knapp drüber
-        int labelY = y - 10;
-        context.drawTextWithShadow(textRenderer, "X", startX, labelY, 0xFF5555);
-        context.drawTextWithShadow(textRenderer, "Y", startX + spacing, labelY, 0x55FF55);
-        context.drawTextWithShadow(textRenderer, "Z", startX + spacing * 2, labelY, 0x5555FF);
-    }
-
-    private void drawWHDLabels(DrawContext context, int startX, int y) {
-        int spacing = 48;
-        int labelY = y - 10;
-        context.drawTextWithShadow(textRenderer, "W", startX, labelY, 0xAAAAAA);
-        context.drawTextWithShadow(textRenderer, "H", startX + spacing, labelY, 0xAAAAAA);
-        context.drawTextWithShadow(textRenderer, "T", startX + spacing * 2, labelY, 0xAAAAAA);
+        context.fill(0, 0, width, height, 0x15000000);
+        super.render(context, mouseX, mouseY, delta);
+        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("simplebuilding.gui.title"), columnCenterX, startY - 15, 0xFFFFFF);
+        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("simplebuilding.gui.pos1"), columnCenterX, startY, 0xAAAAAA);
+        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("simplebuilding.gui.pos2"), columnCenterX, startY + rowSpacing, 0xAAAAAA);
+        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("simplebuilding.gui.size"), columnCenterX, startY + rowSpacing * 2, 0x55FFFF);
+        if (lockButton.isMouseOver(mouseX, mouseY)) context.drawTooltip(textRenderer, Text.translatable("simplebuilding.gui.lock_tooltip"), mouseX, mouseY);
     }
 }
