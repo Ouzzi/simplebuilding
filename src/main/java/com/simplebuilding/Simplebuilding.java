@@ -9,7 +9,9 @@ import com.simplebuilding.datagen.ModTradeOffers;
 import com.simplebuilding.enchantment.ModEnchantmentEffects;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
+import com.simplebuilding.networking.BuildingWandConfigurePayload;
 import com.simplebuilding.networking.OctantConfigurePayload;
 import com.simplebuilding.networking.OctantScrollPayload;
 import com.simplebuilding.util.*;
@@ -221,6 +223,28 @@ public class Simplebuilding implements ModInitializer {
                         // player.playerScreenHandler.sendContentUpdates();
                         // Aber normalerweise reicht stack.set bei MainHand.
                     }
+                }
+            });
+        });
+
+        // ================================
+        // BUILDING WAND - Konfigurations-Payload
+        // ================================
+        PayloadTypeRegistry.playC2S().register(BuildingWandConfigurePayload.ID, BuildingWandConfigurePayload.CODEC);
+
+        // 2. Server Receiver registrieren
+        ServerPlayNetworking.registerGlobalReceiver(BuildingWandConfigurePayload.ID, (payload, context) -> {
+            context.server().execute(() -> {
+                // Code, der auf dem Server Thread läuft
+                ItemStack stack = context.player().getMainHandStack();
+                if (stack.getItem() instanceof BuildingWandItem) {
+                    // NBT updaten
+                    NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
+                    NbtCompound nbt = nbtComponent.copyNbt();
+
+                    nbt.putBoolean("UseFullInventory", payload.useFullInventory());
+
+                    stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
                 }
             });
         });
