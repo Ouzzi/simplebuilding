@@ -5,26 +5,31 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties; // WICHTIG für Treppen/Slabs
+import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -39,8 +44,6 @@ import java.util.function.Consumer;
 
 public class ChiselItem extends Item {
 
-
-
     public enum Direction {
         FORWARD,
         BACKWARD
@@ -49,6 +52,9 @@ public class ChiselItem extends Item {
     private Direction chiselDirection = Direction.FORWARD;
     private SoundEvent chiselSound = SoundEvents.UI_STONECUTTER_TAKE_RESULT;
     private int cooldownTicks = 100;
+
+    // Wir speichern das Material selbst, da "Item" kein Material hat.
+    private final ToolMaterial material;
 
     private final Map<Block, Block> forwardMap;
     private final Map<Block, Block> backwardMap;
@@ -273,40 +279,101 @@ public class ChiselItem extends Item {
     // KONSTRUKTOR & LOGIK
     // =================================================================================
 
-    public ChiselItem(Settings settings, String tier) {
-        super(settings);
-        switch (tier) {
-            case "stone" -> {
-                this.forwardMap = FINAL_STONE_FWD;
-                this.backwardMap = FINAL_STONE_BWD;
-                this.touchForwardMap = FINAL_STONE_TOUCH_FWD;
-                this.touchBackwardMap = FINAL_STONE_TOUCH_BWD;
-            }
-            case "iron", "copper" -> {
-                this.forwardMap = FINAL_IRON_FWD;
-                this.backwardMap = FINAL_IRON_BWD;
-                this.touchForwardMap = FINAL_IRON_TOUCH_FWD;
-                this.touchBackwardMap = FINAL_IRON_TOUCH_BWD;
-            }
-            case "gold", "diamond" -> {
-                this.forwardMap = FINAL_DIAMOND_FWD;
-                this.backwardMap = FINAL_DIAMOND_BWD;
-                this.touchForwardMap = FINAL_DIAMOND_TOUCH_FWD;
-                this.touchBackwardMap = FINAL_DIAMOND_TOUCH_BWD;
-            }
-            case "netherite" -> {
-                this.forwardMap = FINAL_NETHERITE_FWD;
-                this.backwardMap = FINAL_NETHERITE_BWD;
-                this.touchForwardMap = FINAL_NETHERITE_TOUCH_FWD;
-                this.touchBackwardMap = FINAL_NETHERITE_TOUCH_BWD;
-            }
-            default -> {
-                this.forwardMap = Map.of();
-                this.backwardMap = Map.of();
-                this.touchForwardMap = Map.of();
-                this.touchBackwardMap = Map.of();
+    // ÄNDERUNG: Konstruktor angepasst für MiningToolItem
+    public ChiselItem(ToolMaterial material, Settings settings) {
+        super(settings); // 'Item' Konstruktor
+        this.material = material;
+
+        // Ersetze switch-case mit if-else, da ToolMaterial Objekte sind und kein konstantes Pattern.
+        // Vergleiche Referenzen (== funktioniert für die statischen ToolMaterial Felder).
+
+        if (material == ToolMaterial.STONE) {
+            this.forwardMap = FINAL_STONE_FWD;
+            this.backwardMap = FINAL_STONE_BWD;
+            this.touchForwardMap = FINAL_STONE_TOUCH_FWD;
+            this.touchBackwardMap = FINAL_STONE_TOUCH_BWD;
+        } else if (material == ToolMaterial.COPPER || material == ToolMaterial.IRON) {
+            this.forwardMap = FINAL_IRON_FWD;
+            this.backwardMap = FINAL_IRON_BWD;
+            this.touchForwardMap = FINAL_IRON_TOUCH_FWD;
+            this.touchBackwardMap = FINAL_IRON_TOUCH_BWD;
+        } else if (material == ToolMaterial.GOLD || material == ToolMaterial.DIAMOND) {
+            this.forwardMap = FINAL_DIAMOND_FWD;
+            this.backwardMap = FINAL_DIAMOND_BWD;
+            this.touchForwardMap = FINAL_DIAMOND_TOUCH_FWD;
+            this.touchBackwardMap = FINAL_DIAMOND_TOUCH_BWD;
+        } else if (material == ToolMaterial.NETHERITE) {
+            this.forwardMap = FINAL_NETHERITE_FWD;
+            this.backwardMap = FINAL_NETHERITE_BWD;
+            this.touchForwardMap = FINAL_NETHERITE_TOUCH_FWD;
+            this.touchBackwardMap = FINAL_NETHERITE_TOUCH_BWD;
+        } else {
+            // Fallback
+            this.forwardMap = Map.of();
+            this.backwardMap = Map.of();
+            this.touchForwardMap = Map.of();
+            this.touchBackwardMap = Map.of();
+        }
+    }
+
+    // Material Getter
+    public ToolMaterial getMaterial() {
+        return this.material;
+    }
+
+    // Bestimmt, ob Drops fallen (effektiv gegen Pickaxe, Axe, Shovel Blöcke)
+    @Override
+    public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
+        return state.isIn(BlockTags.PICKAXE_MINEABLE) ||
+                state.isIn(BlockTags.AXE_MINEABLE) ||
+                state.isIn(BlockTags.SHOVEL_MINEABLE);
+    }
+
+    // Berechnet die Abbaugeschwindigkeit
+    @Override
+    public float getMiningSpeed(ItemStack stack, BlockState state) {
+        // 1. Ist das Werkzeug effektiv?
+        if (!isCorrectForDrops(stack, state)) return 1.0f;
+
+        // FIX: benutze material.speed() statt getMiningSpeedMultiplier()
+        // Da ToolMaterial ein Record ist, heißt die Methode so wie das Feld: speed()
+        float materialSpeed = this.material.speed();
+
+        // 3. Fast Chiseling Bonus
+        int fastChiselingLevel = getFastChiselingLevel(stack);
+        float efficiencyBonus = 0.0f;
+
+        if (fastChiselingLevel == 1) {
+            efficiencyBonus = 5.0f; // Effizienz 2 Äquivalent
+        } else if (fastChiselingLevel >= 2) {
+            efficiencyBonus = 17.0f; // Effizienz 4 Äquivalent
+        }
+
+        // 4. Halbe Geschwindigkeit
+        return (materialSpeed + efficiencyBonus) * 0.5f;
+    }
+
+    // Sorgt dafür, dass Haltbarkeit beim normalen Abbauen abgezogen wird
+    @Override
+    public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
+        if (!world.isClient() && state.getHardness(world, pos) != 0.0F) {
+            stack.damage(2, miner, EquipmentSlot.MAINHAND);
+        }
+        return true;
+    }
+
+    private int getFastChiselingLevel(ItemStack stack) {
+        ItemEnchantmentsComponent enchantments = stack.get(DataComponentTypes.ENCHANTMENTS);
+        if (enchantments == null) return 0;
+
+        // Wir iterieren durch alle Enchants auf dem Item
+        for (RegistryEntry<Enchantment> entry : enchantments.getEnchantments()) {
+            // Wir prüfen, ob der Key des Enchantments mit unserem ModEnchantments Key übereinstimmt
+            if (entry.matchesKey(ModEnchantments.FAST_CHISELING)) {
+                return enchantments.getLevel(entry);
             }
         }
+        return 0;
     }
 
     public void setCooldownTicks(int ticks) { this.cooldownTicks = ticks; }

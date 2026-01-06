@@ -128,7 +128,13 @@ public class BuildingWandScreen extends Screen {
 
     @Override
     public boolean keyPressed(KeyInput input) {
-        if (input.key() == GLFW.GLFW_KEY_E || input.key() == GLFW.GLFW_KEY_ESCAPE) {
+        // Hole den KeyCode für den Vergleich mit E und ESC
+        int keyCode = input.key();
+
+        // KORREKTUR: Übergib das 'input' Objekt direkt an matchesKey
+        if (com.simplebuilding.SimplebuildingClient.settingsKey.matchesKey(input)
+                || keyCode == GLFW.GLFW_KEY_E
+                || keyCode == GLFW.GLFW_KEY_ESCAPE) {
             this.close();
             return true;
         }

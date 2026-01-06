@@ -209,10 +209,13 @@ public class OctantScreen extends Screen {
 
     @Override
     public boolean keyPressed(KeyInput input) {
-        int keyCode = input.key(); // Key Code aus dem Wrapper holen
+        // Hole den KeyCode für den Vergleich mit E und ESC
+        int keyCode = input.key();
 
-        // Schließen mit R oder ESC
-        if (keyCode == GLFW.GLFW_KEY_E || keyCode == GLFW.GLFW_KEY_ESCAPE) {
+        // KORREKTUR: Übergib das 'input' Objekt direkt an matchesKey
+        if (com.simplebuilding.SimplebuildingClient.settingsKey.matchesKey(input)
+                || keyCode == GLFW.GLFW_KEY_E
+                || keyCode == GLFW.GLFW_KEY_ESCAPE) {
             this.close();
             return true;
         }

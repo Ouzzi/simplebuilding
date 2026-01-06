@@ -219,5 +219,19 @@
 
   "simplebuilding.order.default": "Standard",
   "simplebuilding.order.bottom_up": "Von unten nach oben",
-  "simplebuilding.order.top_down": "Von oben nach unten"
+  "simplebuilding.order.top_down": "Von oben nach unten",
+
+
+  "key.simplebuilding.settings": "Einstellungsmenü öffnen",
+  "category.simplebuilding.general": "SimpleBuilding",
+
+  "simplebuilding.gui.wand_title": "Baustab Einstellungen",
+  "simplebuilding.gui.wand_settings": "Konfiguration",
+  "simplebuilding.gui.radius": "Radius",
+  "simplebuilding.gui.axis": "Achse",
+  "simplebuilding.gui.on": "AN",
+  "simplebuilding.gui.off": "AUS",
+
+  "simplebuilding.gui.octant_title": "Oktant Einstellungen",
+
 }

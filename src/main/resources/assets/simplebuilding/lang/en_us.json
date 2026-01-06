@@ -220,5 +220,17 @@
 
   "simplebuilding.order.default": "Default",
   "simplebuilding.order.bottom_up": "Bottom Up",
-  "simplebuilding.order.top_down": "Top Down"
+  "simplebuilding.order.top_down": "Top Down",
+
+  "key.simplebuilding.settings": "Open Settings Menu",
+  "category.simplebuilding.general": "SimpleBuilding",
+
+  "simplebuilding.gui.wand_title": "Building Wand Settings",
+  "simplebuilding.gui.wand_settings": "Configuration",
+  "simplebuilding.gui.radius": "Radius",
+  "simplebuilding.gui.axis": "Axis",
+  "simplebuilding.gui.on": "ON",
+  "simplebuilding.gui.off": "OFF",
+
+  "simplebuilding.gui.octant_title": "Octant Settings"
 }
