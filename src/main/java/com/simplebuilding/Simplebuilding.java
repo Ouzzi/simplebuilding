@@ -232,17 +232,17 @@ public class Simplebuilding implements ModInitializer {
         // ================================
         PayloadTypeRegistry.playC2S().register(BuildingWandConfigurePayload.ID, BuildingWandConfigurePayload.CODEC);
 
-        // 2. Server Receiver registrieren
+        // Receiver registrieren
         ServerPlayNetworking.registerGlobalReceiver(BuildingWandConfigurePayload.ID, (payload, context) -> {
             context.server().execute(() -> {
-                // Code, der auf dem Server Thread läuft
                 ItemStack stack = context.player().getMainHandStack();
                 if (stack.getItem() instanceof BuildingWandItem) {
-                    // NBT updaten
                     NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
                     NbtCompound nbt = nbtComponent.copyNbt();
 
-                    nbt.putBoolean("UseFullInventory", payload.useFullInventory());
+                    // Speichere die neuen Einstellungen
+                    nbt.putInt("SettingsRadius", payload.selectedRadius());
+                    nbt.putInt("SettingsAxis", payload.axisMode());
 
                     stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
                 }

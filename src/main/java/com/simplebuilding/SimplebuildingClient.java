@@ -1,5 +1,6 @@
 package com.simplebuilding;
 
+import com.simplebuilding.client.gui.BuildingWandScreen;
 import com.simplebuilding.client.gui.OctantScreen;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.gui.SpeedometerHudOverlay;
@@ -7,6 +8,7 @@ import com.simplebuilding.client.render.BlockHighlightRenderer;
 import com.simplebuilding.client.render.BuildingWandOutlineRenderer;
 import com.simplebuilding.client.render.SledgehammerOutlineRenderer;
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.networking.DoubleJumpPayload;
@@ -22,6 +24,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.tooltip.BundleTooltipComponent;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
@@ -36,7 +39,7 @@ public class SimplebuildingClient implements ClientModInitializer {
     // Tasten
     public static KeyBinding highlightToggleKey;
     public static boolean showHighlights = true;
-    public static KeyBinding configureOctantKey;
+    public static KeyBinding settingsKey;
 
     @Override
     public void onInitializeClient() {
@@ -61,17 +64,13 @@ public class SimplebuildingClient implements ClientModInitializer {
         registerDoubleJumpClient();
 
         // --- Keybindings Registrierung ---
-
-        // 1. Highlight Toggle (Taste H)
         highlightToggleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.simplebuilding.toggle_highlight",
                 GLFW.GLFW_KEY_H,
                 KeyBinding.Category.MISC
         ));
-
-        // 2. Octant Config (Taste G) - NEU
-        configureOctantKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.simplebuilding.configure_octant",
+        settingsKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.simplebuilding.simple_settings",
                 GLFW.GLFW_KEY_G, // Standard G
                 KeyBinding.Category.MISC
         ));
@@ -87,23 +86,28 @@ public class SimplebuildingClient implements ClientModInitializer {
                 }
             }
 
-            // Logik für Octant Menü (Taste G)
-            while (configureOctantKey.wasPressed()) {
-                System.out.println("DEBUG: Taste G wurde gedrückt!"); // Check Konsole!
-
+            while (settingsKey.wasPressed()) {
                 if (client.player != null) {
-                    var stack = client.player.getMainHandStack();
-                    System.out.println("DEBUG: Item in Hand: " + stack.getItem().getName().getString());
+                    ItemStack stack = client.player.getMainHandStack();
 
-                    // Prüfung: Ist das Item ein Octant?
+                    // Fall A: Oktant
                     if (stack.getItem() instanceof OctantItem) {
-                        System.out.println("DEBUG: Es ist ein Octant! Öffne GUI...");
-                        // Öffne den Screen
+                        // Öffne Oktant Menü
                         client.setScreen(new OctantScreen(stack));
-                    } else {
-                        System.out.println("DEBUG: KEIN Octant erkannt.");
-                        client.player.sendMessage(Text.literal("Du musst einen Octant halten!"), true);
                     }
+                    // Fall B: Building Wand
+                    else if (stack.getItem() instanceof BuildingWandItem) {
+                        // Prüfe auf Constructor's Touch Enchantment
+                        var registry = client.world.getRegistryManager();
+                        var lookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+                        var entry = lookup.getOptional(ModEnchantments.CONSTRUCTORS_TOUCH);
+
+                        if (entry.isPresent() && EnchantmentHelper.getLevel(entry.get(), stack) > 0) {
+                            // Öffne Building Wand Menü
+                            client.setScreen(new BuildingWandScreen(stack));
+                        }
+                    }
+                    // Fall C: Kein passendes Item -> Mache nichts (Keine Nachricht senden!)
                 }
             }
         });

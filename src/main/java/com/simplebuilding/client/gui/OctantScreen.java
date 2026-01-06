@@ -212,7 +212,7 @@ public class OctantScreen extends Screen {
         int keyCode = input.key(); // Key Code aus dem Wrapper holen
 
         // Schließen mit R oder ESC
-        if (keyCode == GLFW.GLFW_KEY_R || keyCode == GLFW.GLFW_KEY_ESCAPE) {
+        if (keyCode == GLFW.GLFW_KEY_E || keyCode == GLFW.GLFW_KEY_ESCAPE) {
             this.close();
             return true;
         }
