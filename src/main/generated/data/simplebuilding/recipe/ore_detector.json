@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "C": "minecraft:compass",
+    "G": "minecraft:gold_ingot",
+    "R": "minecraft:redstone",
+    "S": "minecraft:calibrated_sculk_sensor"
+  },
+  "pattern": [
+    " A ",
+    "GCG",
+    "RSR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:ore_detector"
+  }
+}

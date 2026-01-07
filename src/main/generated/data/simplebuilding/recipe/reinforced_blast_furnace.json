@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "redstone",
   "key": {
     "B": "minecraft:blast_furnace",
     "D": "simplebuilding:cracked_diamond"
   },
   "pattern": [
     "DDD",
-    "DBD",
+    "BBB",
     "DDD"
   ],
   "result": {
-    "count": 1,
+    "count": 3,
     "id": "simplebuilding:reinforced_blast_furnace"
   }
 }

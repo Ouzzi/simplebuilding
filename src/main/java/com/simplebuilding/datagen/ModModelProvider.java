@@ -159,6 +159,9 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.NETHERITE_SLEDGEHAMMER, Models.HANDHELD);
 
         // --- CORES & MISC ---
+        itemModelGenerator.register(ModItems.VELOCITY_GAUGE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.ORE_DETECTOR, Models.GENERATED);
+
         itemModelGenerator.register(ModItems.COPPER_CORE, Models.GENERATED);
         itemModelGenerator.register(ModItems.IRON_CORE, Models.GENERATED);
         itemModelGenerator.register(ModItems.GOLD_CORE, Models.GENERATED);
@@ -169,7 +172,6 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.NETHERITE_BUNDLE, Models.GENERATED);
         itemModelGenerator.register(ModItems.QUIVER, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_QUIVER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.VELOCITY_GAUGE, Models.GENERATED);
         itemModelGenerator.register(ModItems.DIAMOND_PEBBLE, Models.GENERATED);
         itemModelGenerator.register(ModItems.CRACKED_DIAMOND, Models.GENERATED);
 

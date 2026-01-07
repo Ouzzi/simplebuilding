@@ -151,7 +151,7 @@
   "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions.@Tooltip": "If true sneaking while using bundles will perform the opposite action (insert vs extract).",
 
   "text.autoconfig.simplebuilding.option.enableDoubleJump": "Enable Double Jump Enchantment",
-  "text.autoconfig.simplebuilding.option.tools.enableDoubleJump.@Tooltip": "Toggles the Double Jump enchantment functionality.",
+  "text.autoconfig.simplebuilding.option.enableDoubleJump.@Tooltip": "Toggles the Double Jump enchantment functionality.",
 
   "block.simplebuilding.reinforced_chest": "Reinforced Chest",
   "item.simplebuilding.reinforced_chest": "Reinforced Chest",

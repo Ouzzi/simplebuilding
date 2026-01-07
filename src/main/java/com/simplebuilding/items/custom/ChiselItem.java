@@ -29,7 +29,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
+import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -385,6 +385,11 @@ public class ChiselItem extends Item {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         assert context.getPlayer() != null;
+        // Vorab-Check ob Client oder Cooldown, spart Rechenleistung
+        if (context.getWorld().isClient() || context.getPlayer().getItemCooldownManager().isCoolingDown(context.getStack())) {
+            return ActionResult.PASS;
+        }
+
         return tryChiselBlock(context.getWorld(), context.getPlayer(), context.getHand(), context.getBlockPos(), context.getStack())
                 ? ActionResult.SUCCESS : ActionResult.PASS;
     }
@@ -396,10 +401,10 @@ public class ChiselItem extends Item {
         Block oldBlock = oldState.getBlock();
 
         RegistryWrapper.WrapperLookup registryManager = world.getRegistryManager();
-        var fastChiselEntry = getEnchantment(registryManager, ModEnchantments.FAST_CHISELING);
-        var touchEntry = getEnchantment(registryManager, ModEnchantments.CONSTRUCTORS_TOUCH);
 
-        int fastChiselingLevel = fastChiselEntry != null ? EnchantmentHelper.getLevel(fastChiselEntry, stack) : 0;
+        // Optimierung: Nur Enchantment abrufen, wenn nötig
+        // Touch brauchen wir für die Map-Auswahl
+        var touchEntry = getEnchantment(registryManager, ModEnchantments.CONSTRUCTORS_TOUCH);
         boolean hasConstructorsTouch = touchEntry != null && EnchantmentHelper.getLevel(touchEntry, stack) > 0;
 
         boolean isSneaking = player.isSneaking();
@@ -427,64 +432,52 @@ public class ChiselItem extends Item {
         }
 
         if (currentMap.containsKey(oldBlock)) {
-            if (!world.isClient()) {
-                Block newBlock = currentMap.get(oldBlock);
+            Block newBlock = currentMap.get(oldBlock);
+            BlockState newState = newBlock.getDefaultState();
 
-                // === WICHTIG: STATE COPYING (Treppen/Slabs/Pillars) ===
-                BlockState newState = newBlock.getDefaultState();
-
-                // Kopiere Ausrichtung (Stairs, Logs, etc.)
-                if (oldState.contains(Properties.HORIZONTAL_FACING) && newState.contains(Properties.HORIZONTAL_FACING)) {
-                    newState = newState.with(Properties.HORIZONTAL_FACING, oldState.get(Properties.HORIZONTAL_FACING));
+            // === OPTIMIERUNG: GENERISCHES KOPIEREN VON PROPERTIES ===
+            // Anstatt jede Property einzeln (FACING, AXIS, etc.) zu prüfen, iterieren wir durch alle.
+            // Das deckt ALLES ab: Waterlogged, Rotation, Open/Closed, HasBottle, etc.
+            for (Property<?> prop : oldState.getProperties()) {
+                if (newState.contains(prop)) {
+                    newState = copyProperty(oldState, newState, prop);
                 }
-                if (oldState.contains(Properties.FACING) && newState.contains(Properties.FACING)) {
-                    newState = newState.with(Properties.FACING, oldState.get(Properties.FACING));
-                }
-                if (oldState.contains(Properties.AXIS) && newState.contains(Properties.AXIS)) {
-                    newState = newState.with(Properties.AXIS, oldState.get(Properties.AXIS));
-                }
-
-                // Kopiere Treppen-Form & Hälfte
-                if (oldState.contains(Properties.BLOCK_HALF) && newState.contains(Properties.BLOCK_HALF)) {
-                    newState = newState.with(Properties.BLOCK_HALF, oldState.get(Properties.BLOCK_HALF));
-                }
-                if (oldState.contains(Properties.STAIR_SHAPE) && newState.contains(Properties.STAIR_SHAPE)) {
-                    newState = newState.with(Properties.STAIR_SHAPE, oldState.get(Properties.STAIR_SHAPE));
-                }
-
-                // Kopiere Slab-Typ (Bottom/Top/Double)
-                if (oldState.contains(Properties.SLAB_TYPE) && newState.contains(Properties.SLAB_TYPE)) {
-                    newState = newState.with(Properties.SLAB_TYPE, oldState.get(Properties.SLAB_TYPE));
-                }
-
-                // Kopiere Waterlogged (wichtig unter Wasser)
-                if (oldState.contains(Properties.WATERLOGGED) && newState.contains(Properties.WATERLOGGED)) {
-                    newState = newState.with(Properties.WATERLOGGED, oldState.get(Properties.WATERLOGGED));
-                }
-
-                world.setBlockState(pos, newState);
-
-                int finalCooldown = this.cooldownTicks;
-                if (fastChiselingLevel > 0) {
-                    finalCooldown = Math.max(1, (int)(finalCooldown * (1.0f - (fastChiselingLevel * 0.2f))));
-                }
-
-                if (!player.getAbilities().creativeMode) {
-                    player.getItemCooldownManager().set(stack, finalCooldown);
-
-                    int damageAmount = isReverseAction ? 2 : 1;
-
-                    stack.damage(damageAmount, (ServerWorld) world, (ServerPlayerEntity) player,
-                            item -> player.sendEquipmentBreakStatus(item, hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
-                }
-
-                world.playSound(null, pos, chiselSound, SoundCategory.BLOCKS, 0.5f, 1.5f);
-                spawnEffects((ServerWorld) world, pos, oldState);
-                stack.set(ModDataComponentTypes.COORDINATES, pos);
             }
+
+            world.setBlockState(pos, newState);
+
+            // Cooldown Berechnung mit Fast Chiseling
+            var fastChiselEntry = getEnchantment(registryManager, ModEnchantments.FAST_CHISELING);
+            int fastChiselingLevel = fastChiselEntry != null ? EnchantmentHelper.getLevel(fastChiselEntry, stack) : 0;
+
+            int finalCooldown = this.cooldownTicks;
+            if (fastChiselingLevel > 0) {
+                finalCooldown = Math.max(1, (int)(finalCooldown * (1.0f - (fastChiselingLevel * 0.2f))));
+            }
+
+            if (!player.getAbilities().creativeMode) {
+                player.getItemCooldownManager().set(stack, finalCooldown);
+                int damageAmount = isReverseAction ? 2 : 1;
+                // Unbreaking Logik ist in stack.damage enthalten
+                stack.damage(damageAmount, (ServerWorld) world, (ServerPlayerEntity) player,
+                        item -> player.sendEquipmentBreakStatus(item, hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
+            }
+
+            // Sound mit leichter Variation (Pitch 0.8 - 1.2) klingt natürlicher
+            float pitch = 1.0F + (world.random.nextFloat() * 0.4F - 0.2F);
+            world.playSound(null, pos, chiselSound, SoundCategory.BLOCKS, 0.5f, pitch);
+
+            spawnEffects((ServerWorld) world, pos, oldState);
+            stack.set(ModDataComponentTypes.COORDINATES, pos);
+
             return true;
         }
         return false;
+    }
+
+    // Generischer Helper für Property Copying (Typensicherheit)
+    private <T extends Comparable<T>> BlockState copyProperty(BlockState from, BlockState to, Property<T> property) {
+        return to.with(property, from.get(property));
     }
 
     private void spawnEffects(ServerWorld world, BlockPos pos, BlockState oldState) {
@@ -592,30 +585,8 @@ public class ChiselItem extends Item {
         BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
 
-        RegistryWrapper.WrapperLookup registryManager = world.getRegistryManager();
-        var touchEntry = getEnchantment(registryManager, ModEnchantments.CONSTRUCTORS_TOUCH);
-        boolean hasConstructorsTouch = touchEntry != null && EnchantmentHelper.getLevel(touchEntry, stack) > 0;
-
-        // Anpassung auch hier für das Highlight:
-        boolean isReverse = player.isSneaking();
-
-        Map<Block, Block> currentMap;
-
-        if (this.isDedicatedSpatula) {
-            if (isReverse) {
-                currentMap = hasConstructorsTouch ? this.touchForwardMap : this.forwardMap;
-            } else {
-                currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
-            }
-        } else {
-            if (isReverse) {
-                currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
-            } else {
-                currentMap = hasConstructorsTouch ? this.touchForwardMap : this.forwardMap;
-            }
-        }
-
-        return currentMap.containsKey(block);
+        return this.forwardMap.containsKey(block) || this.backwardMap.containsKey(block) ||
+               this.touchForwardMap.containsKey(block) || this.touchBackwardMap.containsKey(block);
     }
 
     private RegistryEntry<Enchantment> getEnchantment(RegistryWrapper.WrapperLookup registry, net.minecraft.registry.RegistryKey<Enchantment> key) {

@@ -96,6 +96,7 @@ public class ModItemGroups {
 
                         // --- Speedometer ---
                         entries.add(ModItems.VELOCITY_GAUGE);
+                        entries.add(ModItems.ORE_DETECTOR);
 
                         // --- Storage ---
                         entries.add(ModItems.REINFORCED_BUNDLE);

@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "redstone",
   "key": {
     "D": "simplebuilding:cracked_diamond",
     "S": "minecraft:smoker"
   },
   "pattern": [
     "DDD",
-    "DSD",
+    "SSS",
     "DDD"
   ],
   "result": {
-    "count": 1,
+    "count": 3,
     "id": "simplebuilding:reinforced_smoker"
   }
 }

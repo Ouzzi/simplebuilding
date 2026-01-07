@@ -8,11 +8,11 @@
   },
   "pattern": [
     "DDD",
-    "IPI",
+    "PPP",
     "III"
   ],
   "result": {
-    "count": 1,
+    "count": 3,
     "id": "simplebuilding:reinforced_piston"
   }
 }

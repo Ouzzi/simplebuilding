@@ -2,6 +2,7 @@ package com.simplebuilding.items.custom;
 
 import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.block.BlockState;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,7 +35,6 @@ public class SledgehammerItem extends Item {
     public static final float DIAMOND_ATTACK_SPEED = -2.8f - ATTACK_SPEED_OFFSET;
     public static final float NETHERITE_ATTACK_SPEED = -2.6f - ATTACK_SPEED_OFFSET;
 
-    // TODO: fix durability values - currently it is not multiplied by 4!
     public static final int BASE_DURABILITY_MULTIPLIER = 4;
     public static final int DURABILITY_STONE_SLEDGEHAMMER = 190 * BASE_DURABILITY_MULTIPLIER;
     public static final int DURABILITY_COPPER_SLEDGEHAMMER = 190 * BASE_DURABILITY_MULTIPLIER;
@@ -48,47 +48,48 @@ public class SledgehammerItem extends Item {
     }
 
     // =============================================================
-    // 1. Abbau-Geschwindigkeit (Logik angepasst)
+    // 1. Abbau-Geschwindigkeit
     // =============================================================
     @Override
     public float getMiningSpeed(ItemStack stack, BlockState state) {
         float baseSpeed = super.getMiningSpeed(stack, state);
+
+        // Wenn das Werkzeug effektiv ist, wenden wir nur den "Massen-Bonus" an,
+        // teilen aber NICHT durch die Anzahl der Blöcke. Das macht jetzt das PlayerEntityMixin.
+        // Dadurch bleibt der Basis-Wert hoch genug (> 1.0), damit Minecraft den Efficiency-Zauber anwendet.
         if (baseSpeed > 1.0F) {
-            ItemEnchantmentsComponent enchantments = stack.getEnchantments();
+            int blockCount = getBlockCountForSpeed(stack);
 
-            boolean hasRadius = false;
-            boolean hasBreakThrough = false;
-
-            for (var entry : enchantments.getEnchantmentEntries()) {
-                if (entry.getKey().matchesKey(ModEnchantments.RADIUS)) {hasRadius = true;}
-                if (entry.getKey().matchesKey(ModEnchantments.BREAK_THROUGH)) {hasBreakThrough = true;}
-            }
-
-            // Standard: 3x3 = 9 Blöcke
-            int blockCount = 9;
-
-            if (hasRadius) {
-                // Radius (5x5) = 25 Blöcke
-                blockCount = 25;
-            }
-
-            if (hasBreakThrough) {
-                // Verdoppelt die Tiefe (x2)
-                blockCount *= 2;
-            }
-
-            // Berechne den Speed-Bonus basierend auf der Menge (Maximal 25 für den Bonus)
-            // 1 Block  = 125% (1.25F)
-            // 25 Blöcke = 200% (2.00F)
+            // Speed Buff Logik (125% - 200%) um das Gefühl von Wucht zu geben
             float cappedCount = Math.min(blockCount, 25);
-            // Linear interpolation: 1.25 + (progress 0..1) * 0.75
             float speedMultiplier = 1.25F + ((cappedCount - 1) / 24.0F) * 0.75F;
 
-            // Logik: "Jeder Block soll Zeit kosten" -> Wir teilen den (gebufften) Speed durch die Anzahl der Blöcke.
-            // Resultat: Gesamtzeit ist länger als bei einem Block, aber effizienter als einzelne Blöcke nacheinander.
-            return (baseSpeed * speedMultiplier) / (float) blockCount;
+            return baseSpeed * speedMultiplier;
         }
         return baseSpeed;
+    }
+
+    // Hilfsmethode für das Mixin, um zu wissen durch wie viel geteilt werden muss
+    public static int getBlockCountForSpeed(ItemStack stack) {
+        ItemEnchantmentsComponent enchantments = stack.get(DataComponentTypes.ENCHANTMENTS);
+        if (enchantments == null) return 9; // Standard 3x3
+
+        boolean hasRadius = false;
+        boolean hasBreakThrough = false;
+
+        for (var entry : enchantments.getEnchantmentEntries()) {
+            if (entry.getKey().matchesKey(ModEnchantments.RADIUS)) {hasRadius = true;}
+            if (entry.getKey().matchesKey(ModEnchantments.BREAK_THROUGH)) {hasBreakThrough = true;}
+        }
+
+        int blockCount = 9; // Standard 3x3
+        if (hasRadius) {
+            blockCount = 25; // 5x5
+        }
+        if (hasBreakThrough) {
+            blockCount *= 2; // Doppelte Tiefe
+        }
+        return blockCount;
     }
 
     // --- Core Logic ---

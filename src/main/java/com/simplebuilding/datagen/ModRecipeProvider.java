@@ -183,6 +183,21 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createSmithing(ModItems.QUIVER, ModItems.NETHERITE_QUIVER, RecipeCategory.TOOLS);
 
 
+                // =================================================================
+                // ORE DETECTOR
+                // =================================================================
+                createShaped(RecipeCategory.TOOLS, ModItems.ORE_DETECTOR)
+                        .pattern(" A ")
+                        .pattern("GCG")
+                        .pattern("RSR")
+                        .input('C', Items.COMPASS)        // Kernstück
+                        .input('A', Items.AMETHYST_SHARD) // Sensor/Antenne
+                        .input('G', Items.GOLD_INGOT)     // Hochwertige Schaltung
+                        .input('R', Items.REDSTONE)       // Energie
+                        .input('S', Items.CALIBRATED_SCULK_SENSOR)     // Basis
+                        .criterion(hasItem(Items.COMPASS), conditionsFromItem(Items.COMPASS))
+                        .offerTo(exporter);
+
 
                 createShaped(RecipeCategory.MISC, ModItems.CRACKED_DIAMOND)
                         .pattern("PPP")
@@ -215,65 +230,77 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ModItems.CRACKED_DIAMOND), conditionsFromItem(ModItems.CRACKED_DIAMOND)).offerTo(exporter);
                 offerShapelessRecipe(ModItems.CRACKED_DIAMOND, ModItems.CRACKED_DIAMOND_BLOCK, "cracked_diamond_from_block", 9);
 
-                /* todo chest:
 
-                    // 2. Reinforced Chest (Chest + 8 Diamonds surround)
-                    createShaped(RecipeCategory.DECORATIONS, ModItems.REINFORCED_CHEST)
-                            .pattern("DDD").pattern("DCD").pattern("DDD")
-                            .input('D', Items.DIAMOND).input('C', Items.CHEST)
-                            .criterion(hasItem(Items.CHEST), conditionsFromItem(Items.CHEST)).offerTo(exporter);
-                    // Netherite Chest (Smithing)
-                    createSmithing(ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, RecipeCategory.DECORATIONS);
-                */
-
-                // 1. Reinforced Hopper (Hopper + 4 Diamonds)
-                createShaped(RecipeCategory.REDSTONE, ModItems.REINFORCED_HOPPER)
+                // =================================================================
+                // HOPPER REINFORCED & NETHERITE
+                // =================================================================
+                // 1. Reinforced Hopper
+                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_HOPPER, 6)
+                        .pattern("HHH")
                         .pattern("DDD")
-                        .pattern("DHD")
-                        .pattern(" D ")
+                        .pattern("HHH")
                         .input('D', ModItems.CRACKED_DIAMOND)
                         .input('H', Items.HOPPER)
-                        .criterion(hasItem(Items.HOPPER), conditionsFromItem(Items.HOPPER)).offerTo(exporter);
-                // Netherite Hopper (Smithing)
-                createSmithing(ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, RecipeCategory.REDSTONE);
+                        .criterion(hasItem(Items.HOPPER), conditionsFromItem(Items.HOPPER))
+                        .offerTo(exporter);
+                createBulkUpgrade(ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, RecipeCategory.REDSTONE);
 
 
-                // 3. Reinforced Piston (Piston + Diamond)
-                createShaped(RecipeCategory.REDSTONE, ModItems.REINFORCED_PISTON)
+                // =================================================================
+                // PISTON REINFORCED & NETHERITE
+                // =================================================================
+                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_PISTON, 3)
                         .pattern("DDD")
-                        .pattern("IPI")
+                        .pattern("PPP")
                         .pattern("III")
                         .input('D', ModItems.CRACKED_DIAMOND)
                         .input('P', Items.PISTON)
                         .input('I', Items.IRON_INGOT)
-                        .criterion(hasItem(Items.PISTON), conditionsFromItem(Items.PISTON)).offerTo(exporter);
-                // Netherite Piston (Smithing)
-                createSmithing(ModItems.REINFORCED_PISTON, ModItems.NETHERITE_PISTON, RecipeCategory.REDSTONE);
+                        .criterion(hasItem(Items.PISTON), conditionsFromItem(Items.PISTON))
+                        .offerTo(exporter);
+                createBulkUpgrade(ModItems.REINFORCED_PISTON, ModItems.NETHERITE_PISTON, RecipeCategory.REDSTONE);
 
-                // 4. Reinforced Blast Furnace (Blast Furnace + Diamonds)
-                createShaped(RecipeCategory.DECORATIONS, ModItems.REINFORCED_BLAST_FURNACE)
+
+                // =================================================================
+                // BLAST FURNACE REINFORCED & NETHERITE
+                // =================================================================
+                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_BLAST_FURNACE, 3)
                         .pattern("DDD")
-                        .pattern("DBD")
+                        .pattern("BBB")
                         .pattern("DDD")
                         .input('D', ModItems.CRACKED_DIAMOND)
                         .input('B', Items.BLAST_FURNACE)
-                        .criterion(hasItem(Items.BLAST_FURNACE), conditionsFromItem(Items.BLAST_FURNACE)).offerTo(exporter);
-                // Netherite Blast Furnace (Smithing)
-                createSmithing(ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE, RecipeCategory.DECORATIONS);
+                        .criterion(hasItem(Items.BLAST_FURNACE), conditionsFromItem(Items.BLAST_FURNACE))
+                        .offerTo(exporter);
+                createBulkUpgrade(ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE, RecipeCategory.DECORATIONS);
 
-                // 4. Furnace
-                createShaped(RecipeCategory.DECORATIONS, ModItems.REINFORCED_FURNACE)
-                        .pattern("DDD").pattern("DFD").pattern("DDD")
-                        .input('D', ModItems.CRACKED_DIAMOND).input('F', Items.FURNACE)
-                        .criterion(hasItem(Items.FURNACE), conditionsFromItem(Items.FURNACE)).offerTo(exporter);
-                createSmithing(ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, RecipeCategory.DECORATIONS);
 
-                // 5. Smoker
-                createShaped(RecipeCategory.DECORATIONS, ModItems.REINFORCED_SMOKER)
-                        .pattern("DDD").pattern("DSD").pattern("DDD")
-                        .input('D', ModItems.CRACKED_DIAMOND).input('S', Items.SMOKER)
-                        .criterion(hasItem(Items.SMOKER), conditionsFromItem(Items.SMOKER)).offerTo(exporter);
-                createSmithing(ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, RecipeCategory.DECORATIONS);
+                // =================================================================
+                // FURNACE REINFORCED & NETHERITE
+                // =================================================================
+                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_FURNACE, 3)
+                        .pattern("DDD")
+                        .pattern("FFF")
+                        .pattern("DDD")
+                        .input('D', ModItems.CRACKED_DIAMOND)
+                        .input('F', Items.FURNACE)
+                        .criterion(hasItem(Items.FURNACE), conditionsFromItem(Items.FURNACE))
+                        .offerTo(exporter);
+                createBulkUpgrade(ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, RecipeCategory.DECORATIONS);
+
+
+                // =================================================================
+                // SMOKER REINFORCED & NETHERITE
+                // =================================================================
+                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_SMOKER, 3)
+                        .pattern("DDD")
+                        .pattern("SSS")
+                        .pattern("DDD")
+                        .input('D', ModItems.CRACKED_DIAMOND)
+                        .input('S', Items.SMOKER)
+                        .criterion(hasItem(Items.SMOKER), conditionsFromItem(Items.SMOKER))
+                        .offerTo(exporter);
+                createBulkUpgrade(ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, RecipeCategory.DECORATIONS);
             }
 
             // --- Helpers ---
@@ -282,9 +309,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .pattern("   ")
                         .pattern("NM ")
                         .pattern("SN ")
-                        .input('M', material) // Oben Rechts
-                        .input('S', Items.STICK) // Mitte
-                        .input('N', nugget)   // Unten Links
+                        .input('M', material)
+                        .input('S', Items.STICK)
+                        .input('N', nugget)
                         .criterion(hasItem(material), conditionsFromItem(material))
                         .offerTo(exporter);
             }
@@ -294,9 +321,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .pattern("   ")
                         .pattern("SN ")
                         .pattern(" M ")
-                        .input('M', material) // Oben Mitte
-                        .input('S', Items.STICK) // Mitte
-                        .input('N', nugget)   // Unten Mitte
+                        .input('M', material)
+                        .input('S', Items.STICK)
+                        .input('N', nugget)
                         .criterion(hasItem(material), conditionsFromItem(material))
                         .offerTo(exporter);
             }
@@ -334,8 +361,21 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(material), conditionsFromItem(material))
                         .offerTo(exporter);
             }
+
             private void createSmithing(Item input, Item result, RecipeCategory category) {
                 SmithingTransformRecipeJsonBuilder.create(Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.ofItems(input), Ingredient.ofItems(Items.NETHERITE_INGOT), category, result).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT)).offerTo(exporter, getItemPath(result) + "_smithing");
+            }
+
+            // NEU: Helper für Massen-Upgrade (8 Items + 1 Ingot -> 8 Items)
+            private void createBulkUpgrade(Item input, Item result, RecipeCategory category) {
+                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), category, result, 8)
+                        .pattern("RRR")
+                        .pattern("RNR")
+                        .pattern("RRR")
+                        .input('R', input)
+                        .input('N', Items.NETHERITE_INGOT)
+                        .criterion(hasItem(input), conditionsFromItem(input))
+                        .offerTo(exporter, getItemPath(result) + "_bulk");
             }
         };
     }

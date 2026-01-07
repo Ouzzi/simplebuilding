@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_netherite_ingot": {
+    "has_reinforced_piston": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:netherite_ingot"
+            "items": "simplebuilding:reinforced_piston"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:netherite_smoker_smithing"
+        "recipe": "simplebuilding:netherite_piston_bulk"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_netherite_ingot"
+      "has_reinforced_piston"
     ]
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:netherite_smoker_smithing"
+      "simplebuilding:netherite_piston_bulk"
     ]
   }
 }

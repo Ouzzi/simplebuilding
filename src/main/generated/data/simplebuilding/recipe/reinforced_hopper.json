@@ -6,12 +6,12 @@
     "H": "minecraft:hopper"
   },
   "pattern": [
+    "HHH",
     "DDD",
-    "DHD",
-    " D "
+    "HHH"
   ],
   "result": {
-    "count": 1,
+    "count": 6,
     "id": "simplebuilding:reinforced_hopper"
   }
 }

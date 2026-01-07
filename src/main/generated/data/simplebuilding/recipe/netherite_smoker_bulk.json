@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": "minecraft:netherite_ingot",
+    "R": "simplebuilding:reinforced_smoker"
+  },
+  "pattern": [
+    "RRR",
+    "RNR",
+    "RRR"
+  ],
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:netherite_smoker"
+  }
+}

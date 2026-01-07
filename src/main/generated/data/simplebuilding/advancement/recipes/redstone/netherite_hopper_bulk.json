@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_reinforced_hopper": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:reinforced_hopper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplebuilding:netherite_hopper_bulk"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_reinforced_hopper"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:netherite_hopper_bulk"
+    ]
+  }
+}

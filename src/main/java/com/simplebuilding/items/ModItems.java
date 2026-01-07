@@ -105,7 +105,7 @@ public class ModItems {
 
     // Speedometer
     public static final Item VELOCITY_GAUGE = registerItem("velocity-gauge", settings -> new Item(settings.maxCount(1)));
-
+    public static final Item ORE_DETECTOR = registerItem("ore_detector", settings -> new OreDetectorItem(settings.maxDamage(512))); // Haltbarkeit ist optional, aber nett für Balance
 
     // Reinforced Items
     public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1)));
