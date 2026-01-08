@@ -11,9 +11,11 @@ import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
+import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.networking.BuildingWandConfigurePayload;
 import com.simplebuilding.networking.OctantConfigurePayload;
 import com.simplebuilding.networking.OctantScrollPayload;
+import com.simplebuilding.networking.ReinforcedBundleSelectionPayload;
 import com.simplebuilding.util.*;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -30,6 +32,7 @@ import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
@@ -91,6 +94,27 @@ public class Simplebuilding implements ModInitializer {
         PlayerBlockBreakEvents.BEFORE.register(new StripMinerUsageEvent());
         PlayerBlockBreakEvents.BEFORE.register(new VeinMinerUsageEvent());
         AttackBlockCallback.EVENT.register(new VersatilityUsageEvent());
+
+        // ================================
+        // REINFORCED BUNDLE - Selection Payload
+        // ================================
+        PayloadTypeRegistry.playC2S().register(ReinforcedBundleSelectionPayload.ID, ReinforcedBundleSelectionPayload.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(ReinforcedBundleSelectionPayload.ID, (payload, context) -> {
+            context.server().execute(() -> {
+                ServerPlayerEntity player = context.player();
+                if (player.currentScreenHandler != null) {
+                    // Sicherheit: Prüfen ob Slot ID gültig ist
+                    int slotId = payload.slotId();
+                    if (slotId >= 0 && slotId < player.currentScreenHandler.slots.size()) {
+                        Slot slot = player.currentScreenHandler.getSlot(slotId);
+                        if (slot != null && slot.hasStack() && slot.getStack().getItem() instanceof ReinforcedBundleItem) {
+                            // Verwende unsere neue statische Hilfsmethode
+                            ReinforcedBundleItem.setBundleSelectedItem(slot.getStack(), payload.selectedIndex());
+                        }
+                    }
+                }
+            });
+        });
 
 
         // ================================

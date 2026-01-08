@@ -1,8 +1,10 @@
 package com.simplebuilding.client.gui.tooltip;
 
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
+import com.simplebuilding.networking.ReinforcedBundleSelectionPayload;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.tooltip.TooltipSubmenuHandler;
 import net.minecraft.component.type.BundleContentsComponent;
@@ -49,9 +51,9 @@ public class ReinforcedBundleTooltipSubmenuHandler implements TooltipSubmenuHand
             newIndex = MathHelper.clamp(newIndex, 0, size - 1);
 
             if (newIndex != currentIndex) {
-                // Sende Paket an Server
+                // Sende benutzerdefiniertes Paket an Server
                 if (this.client.getNetworkHandler() != null) {
-                    this.client.getNetworkHandler().sendPacket(new BundleItemSelectedC2SPacket(slotId, newIndex));
+                    ClientPlayNetworking.send(new ReinforcedBundleSelectionPayload(slotId, newIndex));
                 }
                 // Gibt true zurück, damit das Event konsumiert wird (kein normales Inventar-Scrollen)
                 return true;
@@ -69,7 +71,7 @@ public class ReinforcedBundleTooltipSubmenuHandler implements TooltipSubmenuHand
     @Override
     public void reset(Slot slot) {
         if (this.client.getNetworkHandler() != null) {
-            this.client.getNetworkHandler().sendPacket(new BundleItemSelectedC2SPacket(slot.id, -1));
+            ClientPlayNetworking.send(new ReinforcedBundleSelectionPayload(slot.id, -1));
         }
     }
 }

@@ -34,6 +34,14 @@ public class ReinforcedBundleItem extends BundleItem {
         super(settings);
     }
 
+    /**
+     * Öffentliche Hilfsmethode, um den ausgewählten Index im Bundle zu setzen.
+     * Ermöglicht Zugriff auf die protected Methode setSelectedStackIndex für den Packet-Handler.
+     */
+    public static void setBundleSelectedItem(ItemStack stack, int index) {
+        setSelectedStackIndex(stack, index);
+    }
+
     @Override
     public boolean canBeNested() {
         return false;

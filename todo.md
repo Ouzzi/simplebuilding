@@ -1,7 +1,6 @@
 ## Changelog:
 
 ## TODO:
-- ore detector + netherite ore detector - Wenn man das Tool hält, macht es Ping-Geräusche und Partikel des ores (in richtung nächsten des ores), wenn Diamanten/netherite in der Nähe (z.B. Radius 16/32) sind. (modes: alle Erze, nur Diamanten, nur Gold, nur Eisen, benutzerdefiniert)
 - airjump - nether enchantment
 - reinforced tnt - bigger explosion, less damage to players
 - doubleinforced tnt - even bigger explosion, less damage to players
