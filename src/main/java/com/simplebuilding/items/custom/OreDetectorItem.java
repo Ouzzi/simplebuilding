@@ -1,11 +1,13 @@
 package com.simplebuilding.items.custom;
 
+import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,90 +36,100 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class OreDetectorItem extends Item {
 
-    // Balancing Konstanten (Radien)
-    private static final int RANGE_COMMON = 24;    // Kohle, Eisen, Kupfer
-    private static final int RANGE_MEDIUM = 16;    // Gold, Lapis, Redstone
-    private static final int RANGE_RARE = 10;      // Diamant, Smaragd
-    private static final int RANGE_VERY_RARE = 6;  // Netherite (Muss sehr nah sein)
+    // Balancing: "Energie Budget" für die Suche.
+    private static final double BUDGET_COMMON = 24.0;    // Eisen, Kupfer
+    private static final double BUDGET_MEDIUM = 18.0;    // Gold, Redstone
+    private static final double BUDGET_RARE = 16.0;      // Diamant
+    private static final double BUDGET_VERY_RARE = 10.0; // Netherite
 
-    private static final int SCAN_INTERVAL = 20;   // Ping alle 1 Sekunde (20 Ticks)
+    private static final int SCAN_INTERVAL = 20;   // Ping alle 1 Sekunde
 
     private enum DetectMode {
-        IRON(Formatting.GRAY, "Iron", BlockTags.IRON_ORES),
-        GOLD(Formatting.GOLD, "Gold", BlockTags.GOLD_ORES),
-        DIAMOND(Formatting.AQUA, "Diamond", BlockTags.DIAMOND_ORES),
-        NETHERITE(Formatting.DARK_PURPLE, "Netherite", null),
-        ALL(Formatting.WHITE, "All Ores", null),
-        CUSTOM(Formatting.YELLOW, "Custom", null);
+        IRON(Formatting.GRAY, "Iron", BlockTags.IRON_ORES, BUDGET_COMMON),
+        GOLD(Formatting.GOLD, "Gold", BlockTags.GOLD_ORES, BUDGET_MEDIUM),
+        DIAMOND(Formatting.AQUA, "Diamond", BlockTags.DIAMOND_ORES, BUDGET_RARE),
+        NETHERITE(Formatting.DARK_PURPLE, "Netherite", null, BUDGET_VERY_RARE),
+        ALL(Formatting.WHITE, "All Ores", null, BUDGET_COMMON),
+        CUSTOM(Formatting.YELLOW, "Custom", null, BUDGET_COMMON);
 
         final Formatting color;
         final String name;
         final TagKey<Block> tag;
+        final double budget;
 
-        DetectMode(Formatting color, String name, TagKey<Block> tag) {
+        DetectMode(Formatting color, String name, TagKey<Block> tag, double budget) {
             this.color = color;
             this.name = name;
             this.tag = tag;
+            this.budget = budget;
         }
     }
 
     public OreDetectorItem(Settings settings) {
-        super(settings.maxCount(1));
+        super(settings.maxCount(1).maxDamage(1024));
     }
 
     @Override
     public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
         if (!(entity instanceof PlayerEntity player)) return;
 
-        // Nur aktiv, wenn in Main- oder Offhand gehalten
         boolean isHeld = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
         if (!isHeld) return;
 
-        // Zeit-Check (Scannt nur jede Sekunde)
         if (world.getTime() % SCAN_INTERVAL != 0) return;
 
         DetectMode mode = getMode(stack);
-        BlockPos playerPos = player.getBlockPos();
 
-        // 1. Suche starten
-        BlockPos targetPos = findNearestOre(world, playerPos, mode, stack);
+        // FIX: BlockPos.ofFloored statt Vec3d.getBlockPos()
+        BlockPos playerPos = BlockPos.ofFloored(player.getEyePos());
+
+        // 1. Check Enchantment
+        double costMultiplier = 2.0;
+        var registry = world.getRegistryManager();
+        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+        var touchKey = enchantments.getOptional(ModEnchantments.CONSTRUCTORS_TOUCH);
+
+        if (touchKey.isPresent() && EnchantmentHelper.getLevel(touchKey.get(), stack) > 0) {
+            costMultiplier = 1.0;
+        }
+
+        // 2. Suche
+        BlockPos targetPos = findNearestOreWithRaycast(world, player.getEyePos(), mode, stack, costMultiplier);
 
         if (targetPos != null) {
             BlockState targetState = world.getBlockState(targetPos);
-
-            // 2. Distanz berechnen
             double distance = Math.sqrt(playerPos.getSquaredDistance(targetPos));
 
-            // 3. Audio Logic
-            // Pitch variiert leicht je nach Distanz (näher = höher)
             float pitch = (float) (1.8f - (distance / 32.0f));
             pitch = Math.max(0.6f, Math.min(2.0f, pitch));
 
-            // Sound 1: "Ping" Sound (Amethyst) - Das Sonar
             world.playSound(null, targetPos, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.BLOCKS, 0.8f, pitch);
-
-            // Sound 2: "Tech" Sound (Sculk Sensor) - Die Mechanik
             world.playSound(null, targetPos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 0.5f, 2.0f);
-
-            // Sound 3 (NEU): Der Block-Sound selbst (z.B. Stein-Knacken oder Glas-Klirren bei Diamant)
-            // Wir nehmen eine leisere Lautstärke (0.35), damit es subtil im Hintergrund ist.
             SoundEvent blockSound = targetState.getSoundGroup().getBreakSound();
             world.playSound(null, targetPos, blockSound, SoundCategory.BLOCKS, 0.35f, pitch);
 
-            // 4. Visueller "Sonar-Strahl"
             spawnSonarBeam(world, player.getEyePos(), targetPos, targetState);
         }
     }
 
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if (!world.isClient() && user.isSneaking()) {
-            ItemStack stack = user.getStackInHand(hand);
-            cycleMode(stack, user);
+        // WICHTIG: Wir prüfen hier nur auf Sneaking.
+        if (user.isSneaking()) {
+            // Nur auf dem Server führen wir die Logik aus (Modus wechseln)
+            if (!world.isClient()) {
+                ItemStack stack = user.getStackInHand(hand);
+                cycleMode(stack, user);
+            }
+            // ABER: Wir geben auf BEIDEN Seiten SUCCESS zurück.
+            // Das sagt dem Client: "Aktion erfolgreich, spiele Animation, synchronisiere Item".
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
@@ -137,67 +149,100 @@ public class OreDetectorItem extends Item {
                 context.getPlayer().sendMessage(Text.literal("Calibrated to: ").formatted(Formatting.GREEN)
                         .append(state.getBlock().getName().copy().formatted(Formatting.WHITE)), true);
 
-                // Sound-Feedback für Kalibrierung
                 world.playSound(null, context.getBlockPos(), SoundEvents.BLOCK_SCULK_CATALYST_BLOOM, SoundCategory.PLAYERS, 1.0f, 1.0f);
-
-                return ActionResult.SUCCESS;
             }
+            return ActionResult.SUCCESS;
         }
         return super.useOnBlock(context);
     }
 
-    // --- LOGIK & BALANCING ---
+    // --- LOGIK & RAYCAST ---
 
-    private BlockPos findNearestOre(World world, BlockPos start, DetectMode mode, ItemStack stack) {
-        BlockPos nearest = null;
-        double minSqDist = Double.MAX_VALUE;
+    private BlockPos findNearestOreWithRaycast(World world, Vec3d eyesPos, DetectMode mode, ItemStack stack, double costMultiplier) {
+        BlockPos origin = BlockPos.ofFloored(eyesPos);
+        BlockState customTarget = (mode == DetectMode.CUSTOM) ? getCustomBlock(stack, world.getRegistryManager()) : null;
 
-        // Custom Block Lookup vorbereiten
-        BlockState customTarget = null;
-        if (mode == DetectMode.CUSTOM) {
-            customTarget = getCustomBlock(stack, world.getRegistryManager());
-        }
+        int scanRadius = (int) Math.ceil(mode.budget);
+        List<BlockPos> candidates = new ArrayList<>();
 
-        // Maximale Reichweite basierend auf dem Modus bestimmen (Performance & Balance)
-        int searchRadius = getSearchRadiusForMode(mode);
+        for (int x = -scanRadius; x <= scanRadius; x++) {
+            for (int y = -scanRadius; y <= scanRadius; y++) {
+                for (int z = -scanRadius; z <= scanRadius; z++) {
+                    BlockPos checkPos = origin.add(x, y, z);
 
-        for (int x = -searchRadius; x <= searchRadius; x++) {
-            for (int y = -searchRadius; y <= searchRadius; y++) {
-                for (int z = -searchRadius; z <= searchRadius; z++) {
+                    if (origin.getSquaredDistance(checkPos) > scanRadius * scanRadius) continue;
 
-                    BlockPos pos = start.add(x, y, z);
-                    double sqDist = start.getSquaredDistance(pos);
-
-                    // Globale Begrenzung und Optimierung
-                    if (sqDist > (searchRadius * searchRadius)) continue;
-                    if (sqDist >= minSqDist) continue;
-
-                    BlockState state = world.getBlockState(pos);
-
-                    // Hier prüfen wir, ob das Erz gültig ist UND ob es nah genug für seinen Typ ist
-                    if (isValidTargetWithDistance(state, mode, customTarget, Math.sqrt(sqDist))) {
-                        minSqDist = sqDist;
-                        nearest = pos;
+                    BlockState state = world.getBlockState(checkPos);
+                    if (isTarget(state, mode, customTarget)) {
+                        candidates.add(checkPos);
                     }
                 }
             }
         }
-        return nearest;
+
+        candidates.sort(Comparator.comparingDouble(pos -> pos.getSquaredDistance(origin)));
+
+        for (BlockPos candidate : candidates) {
+            if (canReach(world, eyesPos, candidate, mode.budget, costMultiplier)) {
+                return candidate;
+            }
+        }
+
+        return null;
     }
 
-    private boolean isValidTargetWithDistance(BlockState state, DetectMode mode, BlockState customTarget, double distance) {
-        if (state.isAir()) return false;
+    private boolean canReach(World world, Vec3d start, BlockPos target, double budget, double costMultiplier) {
+        Vec3d end = target.toCenterPos();
+        Vec3d vector = end.subtract(start);
+        double distance = vector.length();
+        Vec3d direction = vector.normalize();
 
-        // 1. Ist es überhaupt das gesuchte Erz?
-        boolean isMatch = checkMatch(state, mode, customTarget);
-        if (!isMatch) return false;
+        double accumulatedCost = 0;
+        double stepSize = 0.5;
 
-        // 2. Balance-Check: Ist es nah genug für diesen speziellen Block?
-        int maxDist = getBalancedDistance(state);
-        return distance <= maxDist;
+        for (double d = 0; d < distance; d += stepSize) {
+            Vec3d currentPos = start.add(direction.multiply(d));
+            BlockPos bPos = BlockPos.ofFloored(currentPos);
+
+            if (bPos.equals(target)) break;
+
+            BlockState state = world.getBlockState(bPos);
+
+            double blockDensity = getBlockDensity(state);
+
+            accumulatedCost += (stepSize * blockDensity * costMultiplier);
+
+            if (accumulatedCost > budget) return false;
+        }
+
+        return accumulatedCost <= budget;
     }
 
-    private boolean checkMatch(BlockState state, DetectMode mode, BlockState customTarget) {
+    private double getBlockDensity(BlockState state) {
+        // FIX 1: isOpaqueFullCube() hat keine Argumente mehr
+        if (state.isAir() || !state.isOpaqueFullCube()) {
+            return 1.0;
+        }
+
+        if (state.isOf(Blocks.NETHERRACK)) {
+            return 1.5;
+        }
+
+        if (state.isIn(BlockTags.DEEPSLATE_ORE_REPLACEABLES)
+                || state.isOf(Blocks.BASALT)
+                || state.isOf(Blocks.POLISHED_BASALT)
+                || state.isOf(Blocks.BLACKSTONE)) {
+            return 6.0;
+        }
+
+        if (state.isIn(BlockTags.BASE_STONE_OVERWORLD)) {
+            return 3.0;
+        }
+
+        return 3.0;
+    }
+
+    private boolean isTarget(BlockState state, DetectMode mode, BlockState customTarget) {
         return switch (mode) {
             case IRON -> state.isIn(BlockTags.IRON_ORES);
             case GOLD -> state.isIn(BlockTags.GOLD_ORES);
@@ -212,58 +257,21 @@ public class OreDetectorItem extends Item {
         };
     }
 
-    private int getBalancedDistance(BlockState state) {
-        if (state.isOf(Blocks.ANCIENT_DEBRIS)) return RANGE_VERY_RARE; // Netherite (6)
-
-        if (state.isIn(BlockTags.DIAMOND_ORES) || state.isIn(BlockTags.EMERALD_ORES)) return RANGE_RARE; // Diamant (10)
-
-        if (state.isIn(BlockTags.GOLD_ORES) || state.isIn(BlockTags.LAPIS_ORES) ||
-                state.isIn(BlockTags.REDSTONE_ORES) || state.isOf(Blocks.NETHER_QUARTZ_ORE)) return RANGE_MEDIUM; // Mittel (16)
-
-        return RANGE_COMMON; // Kohle, Eisen, Kupfer, Custom (24)
-    }
-
-    private int getSearchRadiusForMode(DetectMode mode) {
-        // Gibt den maximal möglichen Radius für den Modus zurück für die Loop-Optimierung
-        return switch (mode) {
-            case NETHERITE -> RANGE_VERY_RARE;
-            case DIAMOND -> RANGE_RARE;
-            case ALL, CUSTOM, IRON -> RANGE_COMMON; // Im "ALL" Modus müssen wir weit suchen für Kohle
-            default -> RANGE_MEDIUM;
-        };
-    }
-
-    // --- VISUALS ---
-
     private void spawnSonarBeam(ServerWorld world, Vec3d startPos, BlockPos endPos, BlockState targetState) {
-        // Zielkoordinaten (Mitte des Blocks)
         Vec3d targetCenter = endPos.toCenterPos();
+        Vec3d direction = targetCenter.subtract(startPos).normalize();
+        double distance = startPos.distanceTo(targetCenter);
 
-        // Vektor vom Auge zum Ziel
-        Vec3d direction = targetCenter.subtract(startPos);
-        double distance = direction.length();
-        Vec3d dirNormalized = direction.normalize();
-
-        // Wir zeichnen eine Linie (Beam) aus Partikeln
-        double stepSize = 0.3;
-
+        double stepSize = 0.4;
         for (double d = 0.5; d < distance; d += stepSize) {
-            Vec3d particlePos = startPos.add(dirNormalized.multiply(d));
-
-            // WICHTIG: speed=0 sorgt dafür, dass die Partikel exakt an der Stelle bleiben
+            Vec3d p = startPos.add(direction.multiply(d));
             world.spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, targetState),
-                    particlePos.x, particlePos.y, particlePos.z,
-                    1, // Anzahl pro Punkt
-                    0, 0, 0, // Kein Spread
-                    0 // Keine Geschwindigkeit
-            );
+                    p.x, p.y, p.z, 1, 0, 0, 0, 0);
         }
-
-        // Highlight am Ziel: Eine kleine Explosion aus Glitzer
+        world.spawnParticles(ParticleTypes.END_ROD, targetCenter.x, targetCenter.y, targetCenter.z, 3, 0.1, 0.1, 0.1, 0.02);
         world.spawnParticles(ParticleTypes.WAX_ON, targetCenter.x, targetCenter.y, targetCenter.z, 5, 0.3, 0.3, 0.3, 0.05);
-    }
 
-    // --- NBT / DATA HANDLING ---
+    }
 
     private void cycleMode(ItemStack stack, PlayerEntity player) {
         DetectMode current = getMode(stack);
@@ -274,16 +282,24 @@ public class OreDetectorItem extends Item {
         player.sendMessage(Text.literal("Detector Mode: ").formatted(Formatting.GRAY)
                 .append(Text.literal(next.name).formatted(next.color)), true);
 
-        // Kleines Klick-Geräusch beim Umschalten
         player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 0.5f, 1.5f);
+
+        if (!player.isCreative()) {
+            stack.damage(1, player, EquipmentSlot.MAINHAND);
+        }
     }
 
     private DetectMode getMode(ItemStack stack) {
         NbtCompound nbt = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT).copyNbt();
+        int modeIndex = 0;
+
         if (nbt.contains("Mode")) {
-            return DetectMode.values()[nbt.getInt("Mode", 0)];
+            modeIndex = nbt.getInt("Mode", 0);
         }
-        return DetectMode.ALL;
+
+        modeIndex = Math.max(0, Math.min(DetectMode.values().length - 1, modeIndex));
+
+        return DetectMode.values()[modeIndex];
     }
 
     private void setMode(ItemStack stack, DetectMode mode) {
@@ -301,7 +317,8 @@ public class OreDetectorItem extends Item {
         NbtCompound nbt = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT).copyNbt();
         if (nbt.contains("CustomBlock")) {
             var blockRegistry = registryLookup.getOrThrow(RegistryKeys.BLOCK);
-            return NbtHelper.toBlockState(blockRegistry, nbt.getCompound("CustomBlock").orElse(null));
+            // FIX 2: getCompoundOrEmpty verwenden, um ein NbtCompound (nicht Optional) zu erhalten
+            return NbtHelper.toBlockState(blockRegistry, nbt.getCompoundOrEmpty("CustomBlock"));
         }
         return null;
     }
@@ -315,17 +332,17 @@ public class OreDetectorItem extends Item {
         if (mode == DetectMode.CUSTOM) {
             BlockState custom = getCustomBlock(stack, context.getRegistryLookup());
             if (custom != null) {
-                textConsumer.accept(Text.literal("Calibrated to: ").formatted(Formatting.GRAY)
+                textConsumer.accept(Text.literal("Target: ").formatted(Formatting.GRAY)
                         .append(custom.getBlock().getName().copy().formatted(Formatting.GREEN)));
             } else {
-                textConsumer.accept(Text.literal("Calibrated: None (Sneak-Right-Click a block)").formatted(Formatting.RED));
+                textConsumer.accept(Text.literal("Target: None (Sneak-Use on block)").formatted(Formatting.RED));
             }
         } else {
-            textConsumer.accept(Text.literal("Sneak + Right-Click to cycle modes").formatted(Formatting.DARK_GRAY));
+            textConsumer.accept(Text.literal("Sneak + Use to cycle modes").formatted(Formatting.DARK_GRAY));
         }
 
-        // Info über Reichweiten im Tooltip
         textConsumer.accept(Text.empty());
-        textConsumer.accept(Text.literal("Range: " + getSearchRadiusForMode(mode) + " Blocks").formatted(Formatting.DARK_AQUA));
+        textConsumer.accept(Text.literal("Power: " + (int)mode.budget).formatted(Formatting.DARK_AQUA));
+        textConsumer.accept(Text.literal("Penetrates dense blocks slower.").formatted(Formatting.GRAY));
     }
 }

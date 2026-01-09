@@ -436,6 +436,9 @@ public class ReinforcedBundleItem extends BundleItem {
         // Basis: Netherite Bundle hat 2x Kapazität (128 Items), normales 1x (64 Items)
         Fraction capacity = stack.isOf(ModItems.NETHERITE_BUNDLE) ? Fraction.getFraction(2, 1) : Fraction.getFraction(1, 1);
 
+        // Ergebnis: Normal = 96 Items, Netherite = 192 Items
+        capacity = capacity.multiplyBy(Fraction.getFraction(3, 2));
+
         if (player == null || player.getEntityWorld() == null) return capacity;
 
         var registry = player.getEntityWorld().getRegistryManager();
@@ -470,18 +473,12 @@ public class ReinforcedBundleItem extends BundleItem {
 
     protected Fraction getMaxCapacityForVisuals(ItemStack stack) {
         Fraction capacity = stack.isOf(ModItems.NETHERITE_BUNDLE) ? Fraction.getFraction(2, 1) : Fraction.getFraction(1, 1);
+        capacity = capacity.multiplyBy(Fraction.getFraction(3, 2));
 
         var enchantments = stack.getEnchantments();
         for (var entry : enchantments.getEnchantmentEntries()) {
             if (entry.getKey().getKey().isPresent()) {
                 String id = entry.getKey().getKey().get().getValue().toString();
-
-                // Deep Pockets
-                if (id.contains("deep_pockets")) {
-                    int level = entry.getIntValue();
-                    if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
-                    if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
-                }
 
                 // --- Drawer Visuals ---
                 if (id.contains("drawer")) {
@@ -492,6 +489,13 @@ public class ReinforcedBundleItem extends BundleItem {
                         capacity = capacity.multiplyBy(drawerBonus);
                     }
                 }
+                // Deep Pockets
+                if (id.contains("deep_pockets")) {
+                    int level = entry.getIntValue();
+                    if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
+                    if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
+                }
+
             }
         }
         return capacity;

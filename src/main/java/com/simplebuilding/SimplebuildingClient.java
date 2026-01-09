@@ -4,6 +4,7 @@ import com.simplebuilding.client.gui.BuildingWandScreen;
 import com.simplebuilding.client.gui.OctantScreen;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.gui.SpeedometerHudOverlay;
+import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltipSubmenuHandler;
 import com.simplebuilding.client.render.BlockHighlightRenderer;
 import com.simplebuilding.client.render.BuildingWandOutlineRenderer;
 import com.simplebuilding.client.render.SledgehammerOutlineRenderer;
@@ -40,9 +41,12 @@ public class SimplebuildingClient implements ClientModInitializer {
     public static KeyBinding highlightToggleKey;
     public static boolean showHighlights = true;
     public static KeyBinding settingsKey;
+    public static ReinforcedBundleTooltipSubmenuHandler BUNDLE_HANDLER;
 
     @Override
     public void onInitializeClient() {
+        BUNDLE_HANDLER = new ReinforcedBundleTooltipSubmenuHandler(MinecraftClient.getInstance());
+
         // --- HUD & Renderer ---
         HudRenderCallback.EVENT.register(new RangefinderHudOverlay());
         HudRenderCallback.EVENT.register(new SpeedometerHudOverlay());
@@ -119,6 +123,15 @@ public class SimplebuildingClient implements ClientModInitializer {
                     MinecraftClient.getInstance().gameRenderer.getCamera()
             );
         });
+
+        TooltipComponentCallback.EVENT.register(data -> {
+            if (data instanceof ReinforcedBundleTooltipData bundleData) {
+                // Nutze die Vanilla Bundle Komponente für die Anzeige
+                return new BundleTooltipComponent(bundleData.contents());
+            }
+            return null;
+        });
+
     }
 
     private void registerDoubleJumpClient() {

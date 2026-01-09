@@ -2,16 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "A": "minecraft:amethyst_shard",
     "C": "minecraft:compass",
-    "G": "minecraft:gold_ingot",
-    "R": "minecraft:redstone",
+    "G": "simplebuilding:gold_core",
     "S": "minecraft:calibrated_sculk_sensor"
   },
   "pattern": [
-    " A ",
-    "GCG",
-    "RSR"
+    " S ",
+    " C ",
+    " G "
   ],
   "result": {
     "count": 1,

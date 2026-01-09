@@ -187,14 +187,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // ORE DETECTOR
                 // =================================================================
                 createShaped(RecipeCategory.TOOLS, ModItems.ORE_DETECTOR)
-                        .pattern(" A ")
-                        .pattern("GCG")
-                        .pattern("RSR")
-                        .input('C', Items.COMPASS)        // Kernstück
-                        .input('A', Items.AMETHYST_SHARD) // Sensor/Antenne
-                        .input('G', Items.GOLD_INGOT)     // Hochwertige Schaltung
-                        .input('R', Items.REDSTONE)       // Energie
-                        .input('S', Items.CALIBRATED_SCULK_SENSOR)     // Basis
+                        .pattern(" S ")
+                        .pattern(" C ")
+                        .pattern(" G ")
+                        .input('C', Items.COMPASS)
+                        .input('G', ModItems.GOLD_CORE)
+                        .input('S', Items.CALIBRATED_SCULK_SENSOR)
                         .criterion(hasItem(Items.COMPASS), conditionsFromItem(Items.COMPASS))
                         .offerTo(exporter);
 

@@ -1,6 +1,11 @@
 ## Changelog:
+- oredetector - 1/2 range, and with constructors touch 1/1 range
+- - oredetector uses durability when changing modes
+- - oredetector - new range calculation - distance from player to block in air - full range in air, less range when in blocks
+- - bundles 1.5 more stack size
 
 ## TODO:
+
 - airjump - nether enchantment
 - reinforced tnt - bigger explosion, less damage to players
 - doubleinforced tnt - even bigger explosion, less damage to players

@@ -1,5 +1,6 @@
 package com.simplebuilding.client.gui.tooltip;
 
+import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.networking.ReinforcedBundleSelectionPayload;
 import net.fabricmc.api.EnvType;
@@ -24,9 +25,8 @@ public class ReinforcedBundleTooltipSubmenuHandler implements TooltipSubmenuHand
 
     @Override
     public boolean isApplicableTo(Slot slot) {
-        // Prüft, ob das Item im Slot unser spezielles Bundle ist
-        return slot.hasStack() && slot.getStack().getTooltipData().isPresent()
-                && slot.getStack().getTooltipData().get() instanceof ReinforcedBundleTooltipData;
+        // Das stellt sicher, dass unser Handler nur aktiv wird, wenn die Maus über deinem Bundle ist.
+        return slot.hasStack() && slot.getStack().getItem() instanceof com.simplebuilding.items.custom.ReinforcedBundleItem;
     }
 
     @Override
@@ -39,23 +39,21 @@ public class ReinforcedBundleTooltipSubmenuHandler implements TooltipSubmenuHand
             if (size == 0) return false;
 
             int currentIndex = contents.getSelectedStackIndex();
-            if (currentIndex == -1) {
-                currentIndex = 0;
-            }
+            if (currentIndex == -1) currentIndex = 0;
 
-            // Scroll-Richtung umkehren für intuitiveres Gefühl (optional)
+            // Richtung umkehren für natürliches Scrollen
             int scrollDelta = (int) -vertical;
-            int newIndex = currentIndex + scrollDelta;
-
-            // Index sicherstellen (zwischen 0 und size-1)
-            newIndex = MathHelper.clamp(newIndex, 0, size - 1);
+            int newIndex = MathHelper.clamp(currentIndex + scrollDelta, 0, size - 1);
 
             if (newIndex != currentIndex) {
-                // Sende benutzerdefiniertes Paket an Server
+                // 1. Paket an Server senden (für Logik)
                 if (this.client.getNetworkHandler() != null) {
                     ClientPlayNetworking.send(new ReinforcedBundleSelectionPayload(slotId, newIndex));
                 }
-                // Gibt true zurück, damit das Event konsumiert wird (kein normales Inventar-Scrollen)
+
+                // 2. WICHTIG: Client-Item sofort updaten (für visuelles Feedback im Tooltip)
+                ReinforcedBundleItem.setBundleSelectedItem(stack, newIndex);
+
                 return true;
             }
         }
@@ -64,8 +62,7 @@ public class ReinforcedBundleTooltipSubmenuHandler implements TooltipSubmenuHand
 
     @Override
     public void onMouseClick(Slot slot, SlotActionType actionType) {
-        // Reset Auswahl bei Klick
-        reset(slot);
+        // Reset bei Klick, falls gewünscht, oder leer lassen
     }
 
     @Override

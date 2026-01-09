@@ -127,12 +127,12 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             if (LootTables.BASTION_TREASURE_CHEST.equals(key) || LootTables.BASTION_OTHER_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0, 2))
-                        .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 4))
-                        .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 6))
-                        .with(ItemEntry.builder(ModItems.GOLD_SLEDGEHAMMER).weight(4))
+                        .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 8))
+                        .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 12))
+                        .with(ItemEntry.builder(ModItems.GOLD_SLEDGEHAMMER).weight(8))
                         .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(2))
                         .with(ItemEntry.builder(ModItems.NETHERITE_CORE).weight(1))
-                        .with(EmptyEntry.builder().weight(12));
+                        .with(EmptyEntry.builder().weight(24));
                 tableBuilder.pool(pool);
             }
 
@@ -141,14 +141,14 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             // (gold_core, OCTANT_ENCHANTED)
             if (LootTables.NETHER_BRIDGE_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
-                        .rolls(UniformLootNumberProvider.create(0, 3))
+                        .rolls(UniformLootNumberProvider.create(0, 2))
                         .with(enchantedBook(ModEnchantments.STRIP_MINER, 1, enchantments, 6))
                         .with(enchantedBook(ModEnchantments.STRIP_MINER, 2, enchantments, 3))
                         .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 2))
                         .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 2))
-                        .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(3))
-                        .with(ItemEntry.builder(ModItems.OCTANT).weight(4).apply(EnchantRandomlyLootFunction.create()))
-                        .with(EmptyEntry.builder().weight(2));
+                        .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(1))
+                        .with(ItemEntry.builder(ModItems.OCTANT).weight(3).apply(EnchantRandomlyLootFunction.create()))
+                        .with(EmptyEntry.builder().weight(3));
                 tableBuilder.pool(pool);
             }
 
@@ -179,7 +179,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .with(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 8))
                         .with(ItemEntry.builder(ModItems.IRON_BUILDING_WAND).weight(15))
                         .with(ItemEntry.builder(ModItems.IRON_CORE).weight(10))
-                        .with(ItemEntry.builder(ModItems.QUIVER).weight(3));
+                        .with(ItemEntry.builder(ModItems.QUIVER).weight(3))
+                        .with(EmptyEntry.builder().weight(5));
                 tableBuilder.pool(pool);
             }
 
@@ -246,7 +247,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .with(enchantedBook(ModEnchantments.FAST_CHISELING, 1, enchantments, 2))
                         .with(enchantedBook(ModEnchantments.STRIP_MINER, 1, enchantments, 10))
                         .with(enchantedBook(ModEnchantments.STRIP_MINER, 3, enchantments, 5))
-                        .with(enchantedBook(ModEnchantments.VEIN_MINER, 3, enchantments, 5))
+                        .with(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 4))
                         .with(ItemEntry.builder(ModItems.REINFORCED_BUNDLE).weight(10).apply(EnchantRandomlyLootFunction.create()))
                         .with(EmptyEntry.builder().weight(20));
                 tableBuilder.pool(pool);
@@ -268,7 +269,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .rolls(UniformLootNumberProvider.create(0, 1))
                         .with(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 15))
                         .with(enchantedBook(ModEnchantments.DOUBLE_JUMP, 1, enchantments, 10))
-                        .with(ItemEntry.builder(ModItems.DIAMOND_CORE).weight(5))
+                        .with(ItemEntry.builder(ModItems.DIAMOND_CORE).weight(2))
                         .with(EmptyEntry.builder().weight(25));
                 tableBuilder.pool(pool);
             }
