@@ -12,10 +12,7 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
-import com.simplebuilding.networking.BuildingWandConfigurePayload;
-import com.simplebuilding.networking.OctantConfigurePayload;
-import com.simplebuilding.networking.OctantScrollPayload;
-import com.simplebuilding.networking.ReinforcedBundleSelectionPayload;
+import com.simplebuilding.networking.*;
 import com.simplebuilding.util.*;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -288,6 +285,24 @@ public class Simplebuilding implements ModInitializer {
         // 2. Disconnect Event: Lichtreste entfernen
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             DynamicLightHandler.onDisconnect(handler.player);
+        });
+
+
+        // ================================
+        // TRIM BENEFIT - Aktivierungs-Payload
+        // ================================
+        // 1. Payload registrieren (C2S = Client to Server)
+        PayloadTypeRegistry.playC2S().register(TrimBenefitPayload.ID, TrimBenefitPayload.CODEC);
+
+        // 2. Server-Empfänger registrieren
+        ServerPlayNetworking.registerGlobalReceiver(TrimBenefitPayload.ID, (payload, context) -> {
+            // Wir führen das auf dem Server-Thread aus
+            context.server().execute(() -> {
+                if (context.player() instanceof TrimBenefitUser user) {
+                    // Hier speichern wir die Einstellung des Clients im Spieler-Objekt auf dem Server
+                    user.simplebuilding$setTrimBenefitsEnabled(payload.enabled());
+                }
+            });
         });
 	}
 

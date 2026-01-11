@@ -4,6 +4,7 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.util.BundleUtil; // Import!
+import com.simplebuilding.util.TrimBenefitUser;
 import com.simplebuilding.util.TrimEffectUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -22,7 +23,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin {
+public abstract class PlayerEntityMixin implements TrimBenefitUser {
+
+    @Unique
+    private boolean simplebuilding$trimBenefitsEnabled = true;
+
+    @Override
+    public boolean simplebuilding$areTrimBenefitsEnabled() {
+        return this.simplebuilding$trimBenefitsEnabled;
+    }
+
+    @Override
+    public void simplebuilding$setTrimBenefitsEnabled(boolean enabled) {
+        this.simplebuilding$trimBenefitsEnabled = enabled;
+    }
 
     @Shadow public abstract PlayerInventory getInventory();
 

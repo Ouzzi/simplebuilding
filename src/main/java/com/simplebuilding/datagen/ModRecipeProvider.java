@@ -158,6 +158,20 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .offerTo(exporter);
 
                 // =================================================================
+                // MAGNET
+                // =================================================================
+                createShaped(RecipeCategory.TOOLS, ModItems.MAGNET)
+                        .pattern(" IR")
+                        .pattern("ILI")
+                        .pattern("BI ")
+                        .input('L', Items.LODESTONE)
+                        .input('I', Items.IRON_INGOT)
+                        .input('R', Items.REDSTONE)
+                        .input('B', Items.LAPIS_LAZULI)
+                        .criterion(hasItem(Items.LODESTONE), conditionsFromItem(Items.LODESTONE))
+                        .offerTo(exporter);
+
+                // =================================================================
                 // REINFORCED BUNDLE
                 // =================================================================
                 java.util.Map<Character, Ingredient> bundleKeys = java.util.Map.of(

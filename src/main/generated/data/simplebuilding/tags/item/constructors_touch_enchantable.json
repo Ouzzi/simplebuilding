@@ -9,6 +9,7 @@
     "#simplebuilding:building_wand_enchantable",
     "simplebuilding:velocity-gauge",
     "simplebuilding:ore_detector",
+    "simplebuilding:magnet",
     "#simplebuilding:octants_enchantable",
     "minecraft:stick"
   ]

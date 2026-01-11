@@ -8,15 +8,19 @@ import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltipSubmenuHandl
 import com.simplebuilding.client.render.BlockHighlightRenderer;
 import com.simplebuilding.client.render.BuildingWandOutlineRenderer;
 import com.simplebuilding.client.render.SledgehammerOutlineRenderer;
+import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.networking.DoubleJumpPayload;
+import com.simplebuilding.networking.TrimBenefitPayload;
 import com.simplebuilding.util.BundleTooltipAccessor;
+import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
@@ -132,6 +136,13 @@ public class SimplebuildingClient implements ClientModInitializer {
             return null;
         });
 
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+            SimplebuildingConfig config = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
+            boolean wantsBenefits = config.enableArmorTrimBenefits;
+
+            // Paket senden
+            ClientPlayNetworking.send(new TrimBenefitPayload(wantsBenefits));
+        });
     }
 
     private void registerDoubleJumpClient() {

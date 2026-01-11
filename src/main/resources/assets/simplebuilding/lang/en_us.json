@@ -76,6 +76,12 @@
   "item.simplebuilding.netherite_quiver": "Netherite Quiver",
   "tooltip.simplebuilding.netherite_quiver": "Holds more arrows. Works in Offhand or Chest slot.",
 
+  "item.simplebuilding.magnet": "Magnet",
+  "tooltip.simplebuilding.magnet.filtering": "Filtering: %s",
+  "tooltip.simplebuilding.magnet.no_filter": "No Filter active",
+  "tooltip.simplebuilding.magnet.clear": "Sneak + Right Click to clear filter",
+  "tooltip.simplebuilding.magnet.hand": "Works in Mainhand or Offhand",
+
   "item.simplebuilding.velocity-gauge": "Velocity Gauge",
   "tooltip.simplebuilding.velocity-gauge.tooltip": "Shows the current speed of the player.",
 
@@ -191,11 +197,20 @@
   "item.simplebuilding.netherite_smoker": "Netherite Smoker",
 
   "item.simplebuilding.construction_light": "Construction Light",
+  "block.simplebuilding.construction_light": "Construction Light",
 
   "item.simplebuilding.diamond_pebble": "Diamond Pebble",
   "item.simplebuilding.cracked_diamond": "Cracked Diamond",
   "item.simplebuilding.cracked_diamond_block": "Cracked Diamond Block",
+  "block.simplebuilding.cracked_diamond_block": "Cracked Diamond Block",
 
+  "item.simplebuilding.glowing_trim_template": "Light Armor Trim",
+  "trim_pattern.simplebuilding.glowing": "Glowing Trim",
+  "upgrade.simplebuilding.glowing_upgrade": "Glowing Armor Upgrade",
+  "item.minecraft.smithing_template.glowing_trim_template.applies_to": "Armor",
+  "item.minecraft.smithing_template.glowing_trim_template.ingredients": "Glow Ink Sac",
+  "item.minecraft.smithing_template.glowing_trim_template.base_slot_description": "Add armor",
+  "item.minecraft.smithing_template.glowing_trim_template.additions_slot_description": "Add Glow Ink Sac",
 
   "simplebuilding.gui.title": "Octant Manager",
   "simplebuilding.gui.locked": "§c\uD83D\uDD12",
@@ -232,5 +247,8 @@
   "simplebuilding.gui.on": "ON",
   "simplebuilding.gui.off": "OFF",
 
-  "simplebuilding.gui.octant_title": "Octant Settings"
+  "simplebuilding.gui.octant_title": "Octant Settings",
+
+  "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits": "Enable Armor Trim Benefits",
+  "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits.@Tooltip": "If disabled, you will not receive gameplay bonuses (like water breathing) from armor trims."
 }

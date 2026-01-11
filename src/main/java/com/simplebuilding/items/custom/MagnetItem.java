@@ -14,7 +14,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -33,23 +35,34 @@ import java.util.function.Consumer;
 public class MagnetItem extends Item {
 
     private static final String FILTER_KEY = "MagnetFilter";
-    // Basis-Reichweite etwas erhöht
-    private static final double BASE_RANGE = 5.0;
+    private static final double BASE_RANGE = 4.0;
     private static final double BOOSTED_RANGE = 8.0;
 
     public MagnetItem(Settings settings) {
         super(settings);
     }
 
+    // WICHTIG: Dies ist die korrekte Signatur für deine Version (laut deiner Item.java)
+    // ServerWorld statt World, EquipmentSlot statt int slot.
     @Override
     public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
+        // Da der Parameter schon ServerWorld ist, brauchen wir kein isClient Check mehr.
+
         if (!(entity instanceof PlayerEntity player)) return;
 
-        // Prüfen, ob das Item aktiv gehalten wird (Main oder Offhand)
-        boolean isHeld = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
-        if (!isHeld) return;
+        // Prüfen ob Item in Main- oder Offhand ist.
+        // slot kann null sein, daher Vorsicht.
+        boolean isHeldMain = slot == EquipmentSlot.MAINHAND;
+        boolean isHeldOff = slot == EquipmentSlot.OFFHAND;
 
-        // Shift deaktiviert den Magneten
+        // Sicherheitshalber prüfen wir auch das Inventar, falls slot null ist
+        if (!isHeldMain && !isHeldOff) {
+            if (player.getMainHandStack() == stack) isHeldMain = true;
+            else if (player.getOffHandStack() == stack) isHeldOff = true;
+            else return; // Nicht in der Hand
+        }
+
+        // Shift deaktiviert
         if (player.isSneaking()) return;
 
         boolean hasEnchantment = hasConstructorsTouch(stack, world);
@@ -57,60 +70,53 @@ public class MagnetItem extends Item {
         String filterId = getFilterId(stack);
 
         // Box um den Spieler
-        double x = player.getX();
-        double y = player.getY();
-        double z = player.getZ();
-        Box box = new Box(x - range, y - range, z - range, x + range, y + range, z + range);
-
+        Box box = player.getBoundingBox().expand(range);
         List<ItemEntity> items = world.getEntitiesByClass(ItemEntity.class, box, itemEntity -> true);
 
         for (ItemEntity itemEntity : items) {
-            if (itemEntity.cannotPickup() || itemEntity.getOwner() != null) continue;
+            if (itemEntity.isRemoved() || itemEntity.getStack().isEmpty()) continue;
 
+            // Filter Check
             if (filterId != null && !filterId.isEmpty()) {
                 String itemId = net.minecraft.registry.Registries.ITEM.getId(itemEntity.getStack().getItem()).toString();
-                if (!filterId.equals(itemId)) {
-                    continue;
-                }
+                if (!filterId.equals(itemId)) continue;
             }
 
-            // --- PHYSIK LOGIK ---
+            // --- PHYSIK ---
+            // Wir nutzen getEyePos() wie von dir gewünscht
+            Vec3d targetPos = player.getEyePos().subtract(0, 0.5, 0);
 
-            // Zielposition: Spieler-Mitte (leicht erhöht, damit Items nicht in den Füßen stecken)
-            Vec3d targetPos = new Vec3d(x, y + 0.5, z);
+            // Item Position (ItemEntity hat kein getEyePos, wir nehmen getX/Y/Z)
             Vec3d itemPos = new Vec3d(itemEntity.getX(), itemEntity.getY(), itemEntity.getZ());
-            Vec3d vecToPlayer = targetPos.subtract(itemPos);
-            double distanceSq = vecToPlayer.lengthSquared();
 
-            // Wenn weiter weg als 1 Block: Anziehen
+            Vec3d vec = targetPos.subtract(itemPos);
+            double distanceSq = vec.lengthSquared();
+
             if (distanceSq > 1.0) {
-                // Geschwindigkeit der Anziehung (0.45 ist relativ stark)
-                Vec3d pullForce = vecToPlayer.normalize().multiply(0.45);
-
-                // Aktuelle Geschwindigkeit holen
+                // Anziehen
+                Vec3d pull = vec.normalize().multiply(0.10);
                 Vec3d currentVel = itemEntity.getVelocity();
 
-                // Neue Geschwindigkeit berechnen:
-                // Wir dämpfen die alte Geschwindigkeit (0.85), damit sie nicht durch die Gegend fliegen,
-                // und addieren die Zugkraft.
-                Vec3d newVel = currentVel.multiply(0.85).add(pullForce);
+                // Neue Velocity berechnen
+                Vec3d newVel = currentVel.multiply(0.80).add(pull);
 
-                // Wenn das Item am Boden liegt, geben wir einen "Hopser" nach oben,
-                // um die Bodenreibung zu brechen.
                 if (itemEntity.isOnGround()) {
                     newVel = newVel.add(0, 0.15, 0);
                 }
 
-                // SetVelocity markiert das Entity automatisch als "updated"
                 itemEntity.setVelocity(newVel);
-            }
-            // Wenn sehr nah (< 1 Block): Stark bremsen ("verweilen")
-            else {
-                itemEntity.setVelocity(itemEntity.getVelocity().multiply(0.5));
+            } else {
+                // Bremsen
+                itemEntity.setVelocity(itemEntity.getVelocity().multiply(0.2));
             }
 
-            // Pickup Delay auf 0 setzen, damit man es sofort einsammeln kann
+            // Pickup Delay resetten
             itemEntity.setPickupDelay(0);
+
+            // Update an Clients senden
+            world.getPlayers().stream()
+                    .filter(p -> p.squaredDistanceTo(itemEntity) < 64 * 64)
+                    .forEach(p -> ((ServerPlayerEntity)p).networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(itemEntity)));
         }
     }
 
@@ -122,8 +128,6 @@ public class MagnetItem extends Item {
     @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-
-        // Shift-Rechtsklick -> Filter löschen
         if (player.isSneaking()) {
             if (!world.isClient()) {
                 setFilterId(stack, null);
@@ -132,7 +136,6 @@ public class MagnetItem extends Item {
             }
             return ActionResult.SUCCESS;
         }
-
         return ActionResult.PASS;
     }
 
@@ -144,27 +147,21 @@ public class MagnetItem extends Item {
         } else {
             tooltip.accept(Text.literal("No Filter active").formatted(Formatting.GRAY));
         }
-
-        tooltip.accept(Text.literal("Sneak + Right Click to clear filter").formatted(Formatting.DARK_GRAY));
-        tooltip.accept(Text.literal("Works in Mainhand or Offhand").formatted(Formatting.BLUE));
+        tooltip.accept(Text.literal("Sneak + Right Click to clear").formatted(Formatting.DARK_GRAY));
     }
 
     private void setFilterId(ItemStack stack, String id) {
         NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = nbtComponent.copyNbt();
-
-        if (id == null) {
-            nbt.remove(FILTER_KEY);
-        } else {
-            nbt.putString(FILTER_KEY, id);
-        }
-
+        if (id == null) nbt.remove(FILTER_KEY);
+        else nbt.putString(FILTER_KEY, id);
         stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
     }
 
     private String getFilterId(ItemStack stack) {
         NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = nbtComponent.copyNbt();
+        // Hier den leeren String als Default, falls getString einen braucht
         if (nbt.contains(FILTER_KEY)) {
             return nbt.getString(FILTER_KEY, "");
         }
@@ -174,7 +171,6 @@ public class MagnetItem extends Item {
     private boolean hasConstructorsTouch(ItemStack stack, World world) {
         var registry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
         var enchantmentEntry = registry.getOptional(ModEnchantments.CONSTRUCTORS_TOUCH);
-
         if (enchantmentEntry.isPresent()) {
             return EnchantmentHelper.getLevel(enchantmentEntry.get(), stack) > 0;
         }

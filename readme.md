@@ -3,173 +3,169 @@
 
 ![Version](https://img.shields.io/badge/Version-1.21-green) ![Loader](https://img.shields.io/badge/Loader-Fabric-blue)
 
-**SimpleBuilding** is a vanilla-friendly expansion designed to take the tediousness out of large-scale construction and mining. It introduces powerful tools like **Sledgehammers** for excavation and **Building Wands** for rapid placement, along with a suite of utility enchantments and upgraded storage options. No complex machinery—just better tools for better builds.
+**SimpleBuilding** expands Minecraft's construction capabilities while maintaining a vanilla-friendly feel. It introduces powerful tools, new mechanics, and quality-of-life improvements designed for large-scale building and excavation projects. Whether you're clearing a mountain, building a massive wall, or decorating your base, SimpleBuilding provides the right tool for the job.
 
-## ✨ Key Features
-* **🔨 Sledgehammers:** Mine 3x3 areas (or larger!) to clear space quickly.
-* **🪄 Building Wands:** Extend walls, build bridges, or place lines of blocks instantly.
-* **⚙️ Block Breakers:** Netherite Pistons that break blocks based on redstone signal strength.
-* **🏹 Quivers:** Dedicated arrow storage that works from your chestplate slot or offhand.
-* **🗿 Chisels & Spatulas:** Transform blocks in-world (e.g., Stone Bricks → Cracked Bricks) without a Stonecutter.
-* **🎒 Reinforced Storage:** Bundles and Hoppers that hold massive amounts of items.
-* **⛏️ Vein Mining:** Mine entire ore veins or trees with a single break.
+## ✨ Core Features
+* **Heavy Excavation:** Sledgehammers clear 3x3 areas or more.
+* **Rapid Construction:** Building Wands place blocks in grids, lines, or complex shapes.
+* **In-World Editing:** Chisels and Spatulas transform blocks without a UI.
+* **Utility Items:** Magnets, Rangefinders (Octant), Velocity Gauges, and Quivers.
+* **Advanced Storage:** High-capacity Bundles and faster processing blocks.
+* **Enchantment Suite:** Over 15 unique enchantments tailored for building and mining.
 
 ---
 
-## 🛠️ Item Overview
+## 🛠️ Tools & Equipment
+
+### 🪄 Building Wands
+The essential tool for builders. Extend a face of blocks instantly using materials from your inventory.
+* **Usage:** Right-click on a block face to extend it. Sneak + Scroll to change modes (if enchanted).
+* **Tiers:**
+    * **Copper:** 3x3 Grid (Max 9 blocks)
+    * **Iron:** 5x5 Grid (Max 25 blocks)
+    * **Gold / Diamond:** 7x7 Grid (Max 49 blocks)
+    * **Netherite:** 9x9 Grid (Max 81 blocks)
+* **Key Enchantments:** `Linear` (Line placement), `Cover` (Surface placement), `Bridge` (Air placement), `Master Builder` (Pull from bundle).
+
+![Building Wand Overlay](https://cdn.modrinth.com/data/cached_images/a4c4c702d2480a7a621e7d4cc8e66871b7bc5593.png)
+
+### 🔨 Sledgehammers
+Heavy mining tools designed for clearing space.
+* **Function:** Mines a **3x3** area by default.
+* **Durability & Speed:** High durability but slower mining speed than a pickaxe to balance its power.
+* **Tiers:** Stone, Copper, Iron, Gold, Diamond, Netherite.
+* **Key Enchantments:** `Radius` (Expands to 5x5), `Break Through` (Mines depth/layers), `Override` (Mines mixed block types).
+
+![Sledgehammer Visual](https://cdn.modrinth.com/data/cached_images/df15396a49b78c057b453ac74dc8e4b28d3fe1cb.png)
 
 ### 🗿 Transformation Tools: Chisel & Spatula
 Modify blocks directly in the world without needing a Stonecutter.
 * **Chisel:** Cycles block variants **forward** (e.g., Stone $\rightarrow$ Stone Bricks $\rightarrow$ Chiseled Stone Bricks).
 * **Spatula:** Cycles block variants **backward**.
-* **Supported Enchantments:**
-    * *Fast Chiseling:* Reduces the cooldown between uses.
-    * *Constructor's Touch:* Enables special transformations (e.g., Logs $\rightarrow$ Stripped Logs, or Stone $\rightarrow$ Smooth Stone).
+* **Integration:** Works on most vanilla blocks (Logs, Stone, Sandstone, Quartz, etc.).
+* **Key Enchantments:** `Fast Chiseling` (Cooldown reduction), `Constructor's Touch` (Unlock special transformations like Stripped Logs or Smooth Stone).
 
 | Default Chisel Map | Constructor's Chisel Map |
 | :---: | :---: |
 | ![Default Map](https://cdn.modrinth.com/data/cached_images/a1ba5574dd6ee4ae1a15be792232180a1c6e7202.png) | ![Constructors Map](https://cdn.modrinth.com/data/cached_images/0511963208785dad4556472f7a6bd45f50c2640a.png) |
 
-### 🔨 Sledgehammer
-A heavy mining tool designed to clear areas quickly.
-* **Default Area:** Mines a **3x3** area centered on the target block.
-* **Balancing:** Slower mining speed than a pickaxe to balance its power.
-* **Tiers:** Stone, Copper, Iron, Gold, Diamond, Netherite.
-* **Supported Enchantments:**
-    * *Radius:* Increases mining area to **5x5**.
-    * *Break Through:* Increases the mining **depth** (mines blocks behind the target).
-    * *Override:*
-        * **Lvl I:** Mines different materials if supported (e.g., Stone + Coal Ore).
-        * **Lvl II:** Mines **any** block in the radius (except unbreakable).
-
-![Sledgehammer Visual](https://cdn.modrinth.com/data/cached_images/df15396a49b78c057b453ac74dc8e4b28d3fe1cb.png)
-
-### 🔮 Building Cores
-Endgame crafting components required to craft Building Wands.
-* **Tiers:** Copper, Iron, Gold, Diamond, Netherite.
-
-
-### 🪄 Building Wands
-The ultimate tool for builders. Extends the face of a block using materials from your inventory.
-* **Tiers & Range:**
-    * **Copper:** 3x3
-    * **Iron:** 5x5
-    * **Gold / Diamond:** 7x7
-    * **Netherite:** 9x9
-* **Supported Enchantments:**
-    * *Linear:* Forces placement in a single line instead of a grid.
-    * *Bridge:* Extends blocks into the air from the edge of a block.
-    * *Cover:* Places blocks following the surface terrain contour.
-    * *Master Builder:* Pulls blocks from an enchanted Bundle/Shulker Box.
-    * *Color Palette:* Randomizes blocks (requires Bundle).
-
-![Building Wand Overlay](https://cdn.modrinth.com/data/cached_images/a4c4c702d2480a7a621e7d4cc8e66871b7bc5593.png)
+### 🧲 The Magnet
+A customizable utility for efficient resource gathering.
+* **Basic Use:** Pulls nearby items towards the player when held in Mainhand or Offhand.
+* **Sneak to Disable:** Hold Shift to temporarily stop the magnet (useful for dropping items).
+* **Advanced Features (with *Constructor's Touch*):**
+    * **Increased Range:** Pulls items from further away (~9 blocks).
+    * **Item Filtering:** Right-click an **Item Frame** containing an item to set a filter. The magnet will now *only* attract that specific item.
+    * **Clear Filter:** Sneak + Right-click air.
 
 ### 🏹 Quivers
-Never run out of ammo again.
-* **Function:** Holds arrows. Automatically supplies your bow when equipped in the **Offhand** or **Chestplate Slot**.
-* **Variants:**
-    * **Standard Quiver:** Holds 1 Stack (64 arrows). Crafted with a Bundle, Leather, and String.
-    * **Netherite Quiver:** Holds 2 Stacks (128 arrows). Fireproof. Crafted via Smithing.
-* **Enchantment Interaction:**
-    * *Deep Pockets:* Multiplies capacity (Lvl 1: x2, Lvl 2: x4).
-    * *Constructor's Touch:* Allows the bow to access arrows from the Quiver even if it sits **anywhere** in your inventory.
-
-### 🎒 Reinforced Storage
-* **Reinforced Bundle:** Higher capacity than vanilla bundles.
-* **Netherite Bundle:** Double the capacity of the Reinforced Bundle and fireproof.
-* **Enchantments:**
-    * *Deep Pockets:* Drastically increases capacity (up to 256 items for Reinforced, more for Netherite).
-    * *Funnel:* Automatically picks up items while sneaking.
-
-![Master Builder Places Directly From Bundle](https://cdn.modrinth.com/data/cached_images/6c03241765cc6497b36beb4035078e1e159447d1.png)
+Dedicated arrow storage to free up inventory space.
+* **Function:** Automatically supplies arrows to your bow when equipped in the **Offhand** or **Chestplate Slot**.
+* **Standard Quiver:** Holds 64 arrows.
+* **Netherite Quiver:** Holds 128 arrows and is fireproof.
+* **Key Enchantments:** `Deep Pockets` (Multiplies capacity), `Constructor's Touch` (Access arrows from *any* inventory slot).
 
 ### 📏 Octant (Rangefinder)
-A utility tool for planning.
-* **Function:** Measure distances and areas between two points. Supports various shapes like **Cuboids, Spheres, Cylinders, and Pyramids** to preview builds.
-* **Visuals:** Available in all 16 colors. Custom overlay rendering.
-* **Enchantments:** *Constructor's Touch* (improves visuals/usability).
+A measurement and planning tool.
+* **Measure:** Right-click two points to measure distance and area.
+* **Preview:** Renders 3D wireframes of shapes like **Cuboids, Spheres, Cylinders, Pyramids, and Triangles**.
+* **Visuals:** Available in 16 colors.
+* **Key Enchantments:** `Constructor's Touch` (Always-on preview without sneaking).
 
 ![Enchanted Octant](https://cdn.modrinth.com/data/cached_images/a0e870d7bde3c3971311229f699d4fd8e77459d6.png)
 
-Velocity-Gauge
-### 📐 Velocity-Gauge
-A measuring tool display your current movement speed.
-* **Function:** Shows real-time speed in blocks per second (BPS).
-* **Data:** Displays Top Speed and Average Speed.
-* **Enchantments:** *Constructor's Touch* (more data).
-
-![Replace this with a description](https://cdn.modrinth.com/data/cached_images/cf6e3261c03c6c906ca836a93b29247de5a50e0a.png)
-
-
-### ⚙️ Reinforced Machinery & Blocks
-Upgrade your base automation with heavy-duty versions of vanilla blocks.
-
-* **🧱 Block Breakers (Pistons):**
-    * **Reinforced Piston:** Stronger pushing capabilities.
-    * **Netherite Piston (The Breaker):** Unlike a normal piston, this block **breaks** the block in front of it when activated.
-        * *Smart Power:* The mining power depends on the **Redstone Signal Strength** (1-15).
-        * *Signal 1:* Breaks soft blocks (Dirt, Sand).
-        * *Signal 15:* Breaks hard blocks (Obsidian, Ancient Debris).
-
-* **📥 Upgraded Logistics (Hoppers):**
-    * **Reinforced Hopper:** Increased transfer speed and item throughput.
-    * **Netherite Hopper:** Maximum speed for high-performance sorting systems.
-
-* **🔥 Advanced Smelting:**
-    * **Reinforced Furnaces, Smokers & Blast Furnaces:** 2x faster than vanilla.
-    * **Netherite Furnaces, Smokers & Blast Furnaces:** 4x faster than vanilla.
-
-* **💡 Utility:**
-    * **Construction Light:** A bright, industrial light source crafted with Lapis and Glass. Perfect for preventing mob spawns in large halls without spamming torches.
+### 📐 Velocity Gauge
+* **Display:** Shows real-time speed in Blocks Per Second (m/s) above the hotbar.
+* **Advanced Stats:** With *Constructor's Touch*, it also displays Top Speed and Average Speed.
 
 ---
 
-## ✨ Enchantment Guide
+## 🧱 Blocks & Aesthetics
 
-| Enchantment | Max Lvl | Target Tool | Effect / Description |
+### ✨ Glowing Armor Trims
+Make your armor stand out in the dark!
+* **Function:** Adds an emissive (glowing) effect to armor trims, similar to Glow Squid or Enderman eyes. The armor itself does not emit light levels, but remains fully visible in darkness.
+* **Crafting:** Combine **Armor Piece** + **Glowing Trim Template** + **Glow Ink Sac** in a Smithing Table.
+
+### 💡 Construction Light
+An industrial floodlight for large builds.
+* **Recipe:** Glass, Lapis Lazuli, Torches.
+* **Properties:** Emits Light Level 15. Looks like a modern work light. Great for lighting up large halls or caves during construction without placing hundreds of torches.
+
+### ⚙️ Reinforced Machinery
+Upgraded versions of vanilla utility blocks.
+* **Reinforced / Netherite Furnaces:** Smelt items 2x / 4x faster.
+* **Reinforced / Netherite Hoppers:** Transfer items significantly faster.
+* **Reinforced / Netherite Chests & Bundles:** Hold more items. Compatible with `Deep Pockets` and `Drawer` enchantments.
+
+### 🧱 The Breaker (Netherite Piston)
+A specialized piston that breaks blocks instead of pushing them.
+* **Smart Power:** The mining tier depends on the **Redstone Signal Strength** (1-15).
+    * **Signal 1-5:** Breaks soft blocks (Dirt, Sand, Wood).
+    * **Signal 6-10:** Breaks stone-tier blocks.
+    * **Signal 15:** Breaks obsidian and ancient debris.
+
+---
+
+## 🔮 Enchantment Guide
+
+SimpleBuilding adds a comprehensive enchantment system to customize your tools.
+
+### 🏗️ Construction Enchantments
+| Enchantment | Max Lvl | Target | Description |
 | :--- | :---: | :--- | :--- |
-| **Vein Miner** | V | Pickaxe, Axe | Mines connected blocks of the same type (Ores/Logs). **Lvl 1:** 3 blocks ... **Lvl 5:** 18 blocks. |
-| **Strip Miner** | III | Pickaxe | Mines a straight tunnel forward (Depth: 2, 3, or 5 blocks). |
-| **Kinetic Protection** | IV | Armor | Reduces damage taken from flying into walls (Elytra). |
-| **Fast Chiseling** | II | Chisel, Spatula | Reduces the cooldown between uses. |
-| **Constructor's Touch** | I | Tools, Octant, Quiver | Enables special block transformations, improved Octant visuals, and global inventory access for Quivers. |
-| **Radius** | I | Sledgehammer | Increases mining area from **3x3** to **5x5**. |
-| **Break Through** | I | Sledgehammer | Increases the **depth** of mining blocks. |
-| **Override** | II | Sledgehammer | **I:** Mines supported materials. **II:** Mines *any* block type in range. |
-| **Linear** | I | Building Wand | Forces block placement along a single axis (Line). |
+| **Linear** | I | Building Wand | Forces block placement along a single axis (Line Mode). |
 | **Bridge** | I | Building Wand | Allows placing blocks into the air relative to the face (Bridging). |
 | **Cover** | I | Building Wand | Places blocks following the surface terrain contour. |
 | **Master Builder** | I | Wand, Storage | Links Wands to enchanted Bundles/Shulkers to pull blocks directly from them. |
 | **Color Palette** | I | Wand, Storage | Randomizes block placement using blocks inside the storage container. |
-| **Deep Pockets** | II | Bundle, Quiver | Increases capacity (Multiplies base storage). |
-| **Funnel** | I | Storage | Automatically picks up items into the storage when sneaking. |
-| **Range** | III | Tools | Increases interaction and mining reach. |
-| **Double Jump** | I | Boots | Grants the ability to perform a second jump while in mid-air. |
 
-![Boots With Double Jump](https://cdn.modrinth.com/data/cached_images/0bc9e907c489fe2aa1fd44d68cb3dc9e43e0ed16.png)
+### ⛏️ Mining Enchantments
+| Enchantment | Max Lvl | Target | Description |
+| :--- | :---: | :--- | :--- |
+| **Vein Miner** | V | Pickaxe, Axe | Mines connected blocks of the same type (Ores/Logs). **Lvl 1:** 3 blocks ... **Lvl 5:** 18 blocks. |
+| **Strip Miner** | III | Pickaxe | Mines a straight tunnel forward (Depth: 2, 3, or 5 blocks) when sneaking. |
+| **Radius** | I | Sledgehammer | Increases mining area from **3x3** to **5x5**. |
+| **Break Through** | I | Sledgehammer | Increases the **depth** of mining (mines blocks behind the target). |
+| **Override** | II | Sledgehammer | **I:** Mines supported mixed materials. **II:** Mines *any* block type in range. |
+
+### 🎒 Utility Enchantments
+| Enchantment | Max Lvl | Target | Description |
+| :--- | :---: | :--- | :--- |
+| **Deep Pockets** | II | Bundle, Quiver | Drastically increases item capacity. |
+| **Funnel** | I | Storage | Automatically picks up items into the storage container when sneaking. |
+| **Drawer** | III | Chest, Bundle | Increases capacity massively (up to 256+ items), but locks storage to a **single item type**. |
+| **Fast Chiseling** | II | Chisel, Spatula | Reduces the cooldown between uses. |
+| **Constructor's Touch** | I | Various | **Magnet:** Filter/Range. **Octant:** Always-on preview. **Quiver:** Global access. **Chisel:** Special blocks. |
+| **Range** | III | Tools | Increases interaction and mining reach distance. |
+| **Kinetic Protection** | IV | Armor | Reduces damage taken from flying into walls (Elytra). |
+| **Double Jump** | I | Boots | Grants the ability to perform a second jump while in mid-air. |
+| **Versatility** | II | Tools | Automatically swaps to the best tool for the block you are looking at when sneaking. |
 
 ---
 
-## 🤝 Trading Guide
+## 🤝 Trading & Economy
 
-Villagers and Traders are the best way to obtain specific enchantments and cores.
+SimpleBuilding integrates into the vanilla economy, making villagers more useful.
 
 ### 🧑‍🌾 Villager Professions
-* **Mason:** Sells Building Cores (Copper/Diamond) and Copper Building Wands.
-* **Librarian:** Sells enchanted books specifically for this mod (e.g., *Color Palette, Line Place, Master Builder*).
-* **Toolsmith:** Sells enchanted Chisels (with *Fast Chiseling*) and Sledgehammers (with *Break Through, Efficiency*).
+* **Mason:** Sells **Building Cores** (Copper/Diamond) and **Building Wands**.
+* **Librarian:** Sells enchanted books specifically for this mod (e.g., *Color Palette, Linear, Master Builder*).
+* **Toolsmith:** Sells enchanted **Chisels** (with *Fast Chiseling*) and **Sledgehammers**.
 
 ### 🦙 Wandering Trader
-Keep an eye out for the trader! He now sells rare **Building Cores**, **Reinforced Bundles**, **Quivers**, and unique high-level enchanted books not found elsewhere.
+The Wandering Trader now sells unique items that are hard to craft:
+* **Building Cores** (Iron, Gold)
+* **Reinforced Bundles** & **Quivers**
+* **High-Level Enchanted Books** (rarely)
 
 ---
 
 ## 🌍 Loot Generation
 
-Explore the world to find unique items and enchantments in vanilla chests:
+Explore the world to find powerful gear in vanilla structures:
 
-| Structure | Loot Category | Specific Items / Enchantments found here |
+| Structure | Loot Category | Specific Items found here |
 | :--- | :--- | :--- |
 | **Stronghold Library** | 📚 Knowledge | *Range, Quiver, Master Builder, Bridge* |
 | **End City** | 🌌 End Tech | *Override, Master Builder, Double Jump*<br>Diamond Gear, Diamond Core |
@@ -179,33 +175,32 @@ Explore the world to find unique items and enchantments in vanilla chests:
 | **Pillager Outpost** | ⚔️ Raid | *Color Palette, Cover, Linear*<br>Octant, Quiver |
 | **Woodland Mansion** | 🌲 Mansion | *Color Palette, Cover, Linear, **Vein Miner IV***<br>Iron Wand/Core, Quiver |
 | **Buried Treasure** | 🏴‍☠️ Pirate | *Constructor's Touch, Fast Chiseling*<br>Gold Chisel, Diamond Spatula |
-| **Dungeon** | 🕸️ Underground | *Fast Chiseling, Funnel, Break Through, **Vein Miner II***<br>Reinforced Bundle |
-| **Mineshaft** | ⛏️ Mining | *Fast Chiseling, Strip Miner, **Vein Miner III***<br>Enchanted Reinforced Bundle |
-| **Shipwreck** | ⚓ Ocean | *Fast Chiseling*<br>Reinforced Bundle |
-| **Igloo** | ❄️ Ice | *Constructor's Touch, Fast Chiseling*<br>Diamond Chisel, Iron Spatula |
+| **Dungeon / Mineshaft** | 🕸️ Underground | *Fast Chiseling, Strip Miner, Vein Miner*<br>Reinforced Bundles |
 | **Trial Vault** | 🗝️ Trial | *Constructor's Touch, Fast Chiseling, Double Jump*<br>Diamond Core |
 
 ---
 
-## ⚙️ Config & Compatibility
+## ⚙️ Configuration
 
-You can configure many aspects of SimpleBuilding to fit your needs:
-* **Tool Animations:** Toggle visual feedbacks like the Chisel rotation or Sledgehammer cracks.
-* **World Gen:** Disable villager trades or loot table injections if desired.
+The mod is highly configurable via **Mod Menu** and **Cloth Config**.
 
-**(Requires Cloth Config & Mod Menu for in-game configuration)**
+* **Visuals:** Toggle tool animations (Chisel rotation, Sledgehammer crack).
+* **Gameplay:** Enable/Disable Double Jump, adjust magnet range.
+* **World Gen:** Toggle Villager trades or Loot Table injections to fit your modpack's balance.
 
 ---
 
-## 📥 Installation
+## 📥 Installation & Requirements
 
-1.  Install **Minecraft 1.21+**
-2.  Install the latest **Fabric Loader**.
-3.  Download **Fabric API** and put it in your `mods` folder.
-4.  Download **SimpleBuilding** and put it in your `mods` folder.
+1.  Install **Minecraft 1.21+**.
+2.  Install **Fabric Loader**.
+3.  Install **Fabric API** (Required).
+4.  Install **Cloth Config** (Required for settings).
+5.  *(Optional)* Install **Mod Menu** to access settings in-game.
+6.  Download **SimpleBuilding** and place it in the `mods` folder.
 
 ---
 
 ## ⚖️ License
 
-This mod is available under the MIT License. Feel free to include it in your modpacks!
+This mod is available under the MIT License. You are free to include it in your modpacks, edit it, or use it as a base for your own projects.

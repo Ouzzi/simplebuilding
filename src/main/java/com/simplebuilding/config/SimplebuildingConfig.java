@@ -17,6 +17,9 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableDoubleJump = true;
 
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableArmorTrimBenefits = true;
+
     public static class Tools {
         @ConfigEntry.Gui.Tooltip
         public boolean invertOctantSneak = false; // Constructor's Touch Invertierung
