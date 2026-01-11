@@ -10,11 +10,18 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
+
+    // WICHTIG: Diesen Tag manuell definieren, da er in 1.21.2+ Code fehlt
+    private static final TagKey<Item> TRIM_TEMPLATES = TagKey.of(RegistryKeys.ITEM, Identifier.ofVanilla("trim_templates"));
+
     public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
@@ -24,6 +31,29 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         return new RecipeGenerator(wrapperLookup, recipeExporter) {
             @Override
             public void generate() {
+
+                // ---------------------------------------------------------
+                // WICHTIG: Registry Zugriff für Tags vorbereiten (für 1.21.2+)
+                // ---------------------------------------------------------
+                RegistryWrapper.Impl<Item> itemRegistry = registries.getOrThrow(RegistryKeys.ITEM);
+
+                // =================================================================
+                // FIX: DUMMY REZEPT FÜR SCHMIEDETISCH (Glowing Ink)
+                // =================================================================
+                // Wir erstellen Ingredients über die Registry (ofTag statt fromTag)
+                Ingredient templateIngredient = Ingredient.ofTag(itemRegistry.getOrThrow(TRIM_TEMPLATES));
+                Ingredient armorIngredient = Ingredient.ofTag(itemRegistry.getOrThrow(ItemTags.TRIMMABLE_ARMOR));
+
+                SmithingTransformRecipeJsonBuilder.create(
+                        templateIngredient,                     // Slot 1: Jedes Template (damit auch deins geht)
+                        armorIngredient,                        // Slot 2: Rüstung
+                        Ingredient.ofItems(Items.GLOW_INK_SAC), // Slot 3: Leuchttinte
+                        RecipeCategory.MISC,
+                        ModItems.GLOWING_TRIM_TEMPLATE          // Dummy Output (wird vom Mixin überschrieben)
+                )
+                .criterion("has_glowing_template", conditionsFromItem(ModItems.GLOWING_TRIM_TEMPLATE))
+                .offerTo(exporter, "glowing_armor_upgrade_dummy");
+
 
                 // =================================================================
                 // CHISELS (Stick + Material + Nugget/Shard) - DIAGONAL
@@ -299,6 +329,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.SMOKER), conditionsFromItem(Items.SMOKER))
                         .offerTo(exporter);
                 createBulkUpgrade(ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, RecipeCategory.DECORATIONS);
+
             }
 
             // --- Helpers ---

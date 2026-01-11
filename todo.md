@@ -2,7 +2,7 @@
 
 ## TODO:
 
-
+- item magnet - magnetizes items in a certain radius to player - items move slowly to player when in radius
 
 
 

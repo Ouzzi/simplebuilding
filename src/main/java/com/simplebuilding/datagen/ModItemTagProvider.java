@@ -6,8 +6,11 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -106,10 +109,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .forceAddTag(ItemTags.PICKAXES)
                 .forceAddTag(ItemTags.AXES);
 
-        valueLookupBuilder(ModTags.Items.TRIM_TEMPLATES)
+        TagKey<Item> TRIM_TEMPLATES = TagKey.of(RegistryKeys.ITEM, Identifier.ofVanilla("trim_templates"));
+
+        valueLookupBuilder(TRIM_TEMPLATES)
                 .add(ModItems.GLOWING_TRIM_TEMPLATE);
 
-        valueLookupBuilder(ModTags.Items.TRIM_MATERIALS)
+        // Optional: Damit der Leuchtbeutel generell als "Trim Material" erkannt wird (hilft bei der GUI-Validierung)
+        valueLookupBuilder(ItemTags.TRIM_MATERIALS)
                 .add(Items.GLOW_INK_SAC);
 
 

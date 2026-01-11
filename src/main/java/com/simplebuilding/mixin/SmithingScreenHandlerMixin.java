@@ -25,26 +25,43 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
         super(type, syncId, playerInventory, context, slotsManager);
     }
 
-    // Nur die Output-Logik bleibt hier
     @Inject(method = "updateResult", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$customSmithingLogic(CallbackInfo ci) {
+        // Zugriff auf die Eingabe-Slots
         ItemStack templateStack = this.input.getStack(0);
         ItemStack armorStack = this.input.getStack(1);
         ItemStack materialStack = this.input.getStack(2);
 
+        // Prüfen, ob unsere spezifische Kombination vorliegt
         if (templateStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE) && materialStack.isOf(Items.GLOW_INK_SAC)) {
 
-            boolean isArmor = armorStack.isIn(ItemTags.TRIMMABLE_ARMOR)
-                    || armorStack.get(DataComponentTypes.EQUIPPABLE) != null;
+            // Prüfen, ob das Item im mittleren Slot gültig ist (Rüstung)
+            boolean isValidArmor = !armorStack.isEmpty() && (
+                    armorStack.isIn(ItemTags.TRIMMABLE_ARMOR) ||
+                            armorStack.get(DataComponentTypes.EQUIPPABLE) != null
+            );
 
-            if (isArmor && !armorStack.isEmpty()) {
+            if (isValidArmor) {
                 int currentLevel = GlowingTrimUtils.getGlowLevel(armorStack);
 
+                // Nur upgraden, wenn das Limit noch nicht erreicht ist
                 if (currentLevel < 5) {
                     ItemStack outputStack = armorStack.copy();
+                    // Erhöht den Glow-Level im NBT des Output-Stacks
                     GlowingTrimUtils.incrementGlowLevel(outputStack);
 
+                    // Wir setzen 1 Item als Output (die Menge der Rüstung ist meist 1)
+                    outputStack.setCount(1);
+
+                    // Das Ergebnis in den Output-Slot setzen
                     this.output.setStack(0, outputStack);
+
+                    // WICHTIG: Das Callback abbrechen, damit Minecrafts Vanilla-Logik
+                    // (die sonst "nichts" oder das "Dummy-Item" produzieren würde) nicht läuft.
+                    ci.cancel();
+                } else {
+                    // Wenn Level 5 erreicht ist, kein Output (oder man erlaubt es, aber erhöht nicht mehr)
+                    this.output.setStack(0, ItemStack.EMPTY);
                     ci.cancel();
                 }
             }
