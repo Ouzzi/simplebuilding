@@ -87,6 +87,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .add(ModItems.VELOCITY_GAUGE)
                 .add(ModItems.ORE_DETECTOR)
+                .add(ModItems.MAGNET)
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(Items.STICK);
 
