@@ -108,5 +108,10 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         valueLookupBuilder(ModTags.Items.TRIM_TEMPLATES)
                 .add(ModItems.GLOWING_TRIM_TEMPLATE);
+
+        valueLookupBuilder(ModTags.Items.TRIM_MATERIALS)
+                .add(Items.GLOW_INK_SAC);
+
+
     }
 }
