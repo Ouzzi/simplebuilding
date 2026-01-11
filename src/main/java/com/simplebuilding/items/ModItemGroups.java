@@ -97,6 +97,7 @@ public class ModItemGroups {
                         // --- Speedometer ---
                         entries.add(ModItems.VELOCITY_GAUGE);
                         entries.add(ModItems.ORE_DETECTOR);
+                        entries.add(ModItems.MAGNET);
 
                         // --- Storage ---
                         entries.add(ModItems.REINFORCED_BUNDLE);
@@ -140,7 +141,8 @@ public class ModItemGroups {
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.KINETIC_PROTECTION, 4);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.DRAWER, 1);
 
-
+                        // 7. Armor Trim
+                        entries.add(ModItems.GLOWING_TRIM_TEMPLATE);
 
                     }).build());
 

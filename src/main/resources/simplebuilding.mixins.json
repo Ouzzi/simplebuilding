@@ -8,6 +8,7 @@
     "ForgingScreenHandlerMixin",
     "HostileEntityMixin",
     "ItemEntityMixin",
+    "ItemFrameEntityMixin",
     "ItemMixin",
     "LivingEntityMixin",
     "PistonBlockMixin",

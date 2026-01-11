@@ -161,6 +161,7 @@ public class ModModelProvider extends FabricModelProvider {
         // --- CORES & MISC ---
         itemModelGenerator.register(ModItems.VELOCITY_GAUGE, Models.GENERATED);
         itemModelGenerator.register(ModItems.ORE_DETECTOR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MAGNET, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.COPPER_CORE, Models.GENERATED);
         itemModelGenerator.register(ModItems.IRON_CORE, Models.GENERATED);
