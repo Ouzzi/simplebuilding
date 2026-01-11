@@ -1,30 +1,51 @@
 package com.simplebuilding.util;
 
-import com.simplebuilding.Simplebuilding; // Import für Logger
+import com.simplebuilding.Simplebuilding;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.component.DataComponentTypes;
+import com.simplebuilding.util.TrimBenefitUser;
 
 public class TrimEffectUtil {
 
-    public static int getTrimCount(LivingEntity entity, String patternPath) {
-        int count = 0;
+    public static float getTrimCount(LivingEntity entity, String patternPath) {
+        // 1. Config-Check
+        if (entity instanceof TrimBenefitUser user && !user.simplebuilding$areTrimBenefitsEnabled()) {
+            return 0f;
+        }
+
+        float score = 0f;
+
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
                 ItemStack stack = entity.getEquippedStack(slot);
+
                 var optionalTrim = stack.get(DataComponentTypes.TRIM);
+
                 if (optionalTrim != null) {
-                    String id = optionalTrim.pattern().value().assetId().getPath();
-                    if (id.contains(patternPath)) {
-                        count++;
+                    // Pattern Check
+                    String patternId = optionalTrim.pattern().value().assetId().getPath();
+                    if (patternId.contains(patternPath)) {
+
+                        // FIX: Wir nutzen den Registry-Key statt .assetName()
+                        // Das funktioniert immer, egal wie die Methode in der Klasse heißt.
+                        String materialName = optionalTrim.material().getKey()
+                                .map(key -> key.getValue().getPath()) // Gibt z.B. "netherite" oder "diamond" zurück
+                                .orElse("");
+
+                        if (materialName.equals("netherite")) {
+                            score += 1.5f; // Bonus
+                        } else {
+                            score += 1.0f; // Standard
+                        }
                     }
                 }
             }
         }
-        return count;
+        return score;
     }
 
     public static float modifyDamage(LivingEntity entity, float amount, DamageSource source) {
@@ -33,7 +54,7 @@ public class TrimEffectUtil {
 
         // Sentry: Projektile
         if (source.isIn(DamageTypeTags.IS_PROJECTILE)) {
-            int count = getTrimCount(entity, "sentry");
+            float count = getTrimCount(entity, "sentry");
             if (count > 0) {
                 multiplier -= (count * 0.015f);
                 activeTrim = "Sentry";
@@ -42,7 +63,7 @@ public class TrimEffectUtil {
 
         // Vex: Magie
         if (source.getName().equals("magic") || source.getName().equals("indirectMagic") || (source.getSource() instanceof net.minecraft.entity.mob.VexEntity)) {
-            int count = getTrimCount(entity, "vex");
+            float count = getTrimCount(entity, "vex");
             if (count > 0) {
                 multiplier -= (count * 0.02f);
                 activeTrim = "Vex";
@@ -51,7 +72,7 @@ public class TrimEffectUtil {
 
         // Wild: Kakteen/Beeren
         if (source.getName().equals("cactus") || source.getName().equals("sweetBerryBush")) {
-            int count = getTrimCount(entity, "wild");
+            float count = getTrimCount(entity, "wild");
             if (count > 0) {
                 multiplier -= (count * 0.025f);
                 activeTrim = "Wild";
@@ -60,7 +81,7 @@ public class TrimEffectUtil {
 
         // Dune: Explosion
         if (source.isIn(DamageTypeTags.IS_EXPLOSION)) {
-            int count = getTrimCount(entity, "dune");
+            float count = getTrimCount(entity, "dune");
             if (count > 0) {
                 multiplier -= (count * 0.015f);
                 activeTrim = "Dune";
@@ -69,7 +90,7 @@ public class TrimEffectUtil {
 
         // Spire: Fallschaden
         if (source.isIn(DamageTypeTags.IS_FALL)) {
-            int count = getTrimCount(entity, "spire");
+            float count = getTrimCount(entity, "spire");
             if (count > 0) {
                 multiplier -= (count * 0.02f);
                 activeTrim = "Spire";
@@ -78,20 +99,15 @@ public class TrimEffectUtil {
 
         // Eye: Enderperle / Fall
         if (source.isIn(DamageTypeTags.IS_FALL) && (source.getName().contains("fall") || source.getName().contains("ender"))) {
-            int count = getTrimCount(entity, "eye");
+            float count = getTrimCount(entity, "eye");
             if (count > 0) {
                 multiplier -= (count * 0.015f);
                 activeTrim = "Eye";
             }
         }
 
-        // --- DEBUG LOG ---
-        if (multiplier < 1.0f) {
-            float reduction = (1.0f - multiplier) * 100;
-            float newDamage = amount * multiplier;
-            // Nutze Simplebuilding.LOGGER oder System.out
-            Simplebuilding.LOGGER.info("Trim Bonus Active: {}! Damage reduced by {}% ({} -> {})", activeTrim, String.format("%.1f", reduction), amount, newDamage);
-        }
+        // Sicherheitsbegrenzung: Max 80% Schaden reduzieren, nie negativ
+        if (multiplier < 0.2f) multiplier = 0.2f;
 
         return Math.max(0, amount * multiplier);
     }

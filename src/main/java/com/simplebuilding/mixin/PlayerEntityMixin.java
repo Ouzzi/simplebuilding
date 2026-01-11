@@ -81,7 +81,7 @@ public abstract class PlayerEntityMixin implements TrimBenefitUser {
     private void simplebuilding$modifyExhaustion(float exhaustion, CallbackInfo ci) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         if (player.isSprinting()) {
-            int wayfinderCount = TrimEffectUtil.getTrimCount(player, "wayfinder");
+            float wayfinderCount = TrimEffectUtil.getTrimCount(player, "wayfinder");
             if (wayfinderCount > 0) {
                 // Reduziere Erschöpfung um 3% pro Teil
                 float reduction = 1.0f - (wayfinderCount * 0.03f);
@@ -96,7 +96,7 @@ public abstract class PlayerEntityMixin implements TrimBenefitUser {
     private float simplebuilding$reduceExhaustion(float exhaustion) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         if (player.isSprinting()) {
-            int count = TrimEffectUtil.getTrimCount(player, "wayfinder");
+            float count = TrimEffectUtil.getTrimCount(player, "wayfinder");
             if (count > 0) {
                 float reduction = (count * 0.03f); // 3% pro Teil
                 float newExhaustion = exhaustion * (1.0f - reduction);

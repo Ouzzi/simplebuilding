@@ -27,7 +27,7 @@ public abstract class LivingEntityMixin {
     @Inject(method = "getNextAirUnderwater", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$modifyAir(int air, CallbackInfoReturnable<Integer> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;
-        int coastCount = TrimEffectUtil.getTrimCount(entity, "coast");
+        float coastCount = TrimEffectUtil.getTrimCount(entity, "coast");
         if (coastCount > 0) {
             if (entity.getRandom().nextFloat() < (coastCount * 0.10f)) {
                 Simplebuilding.LOGGER.info("Trim Bonus Active: Coast! Air consumption prevented.");
@@ -42,7 +42,7 @@ public abstract class LivingEntityMixin {
         LivingEntity entity = (LivingEntity) (Object) this;
         if (!entity.getEntityWorld().isClient() && entity.age % 20 == 0) {
             if (entity.hasStatusEffect(StatusEffects.WITHER)) {
-                int ribCount = TrimEffectUtil.getTrimCount(entity, "rib");
+                float ribCount = TrimEffectUtil.getTrimCount(entity, "rib");
                 if (ribCount > 0) {
                     StatusEffectInstance effect = entity.getStatusEffect(StatusEffects.WITHER);
                     if (effect != null && effect.getDuration() < (ribCount * 20)) {

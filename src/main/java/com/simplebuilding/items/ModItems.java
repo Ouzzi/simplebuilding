@@ -26,6 +26,7 @@ import java.util.function.Function;
 import static com.simplebuilding.items.custom.BuildingWandItem.*;
 import static com.simplebuilding.items.custom.OctantItem.DURABILITY_OCTANT;
 import static com.simplebuilding.items.custom.SledgehammerItem.*;
+import static net.minecraft.util.Rarity.UNCOMMON;
 
 /**
  * Verwaltet die Registrierung aller benutzerdefinierten Gegenstände (Items) des Simplemoney Mods.
@@ -111,7 +112,7 @@ public class ModItems {
     // Speedometer
     public static final Item VELOCITY_GAUGE = registerItem("velocity-gauge", settings -> new Item(settings.maxCount(1)));
     public static final Item ORE_DETECTOR = registerItem("ore_detector", settings -> new OreDetectorItem(settings.maxDamage(512))); // Haltbarkeit ist optional, aber nett für Balance
-    public static final Item MAGNET = registerItem("magnet", settings -> new MagnetItem(settings.maxCount(1)));
+    public static final Item MAGNET = registerItem("magnet", settings -> new MagnetItem(settings.maxCount(1).rarity(UNCOMMON)));
 
     // Reinforced Items
     public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1)));
