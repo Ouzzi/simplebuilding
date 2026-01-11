@@ -18,6 +18,7 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.screen.*;
@@ -297,37 +298,58 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
     }
 
 
+    // --- 3. GLOWING TRIM UPGRADE LOGIC ---
     @Inject(method = "updateResult", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$glowingUpgradeLogic(CallbackInfo ci) {
         ItemStack leftStack = this.input.getStack(0);
         ItemStack rightStack = this.input.getStack(1);
 
-        // Prüfen: Links Rüstung, Rechts unser Glowing Template
-        if (!leftStack.isEmpty() && rightStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE)) {
+        // Abbruch, wenn Slots leer sind
+        if (leftStack.isEmpty() || rightStack.isEmpty()) return;
 
-            boolean isArmor = leftStack.isIn(net.minecraft.registry.tag.ItemTags.TRIMMABLE_ARMOR)
-                    || leftStack.get(DataComponentTypes.EQUIPPABLE) != null;
+        // REGEL: Wir erlauben entweder unser Template ODER Glow Ink Sac (Vanille Item Frame Logik)
+        boolean isGlowInk = rightStack.isOf(Items.GLOW_INK_SAC);
+        boolean isTemplate = rightStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE);
 
-            if (isArmor) {
-                int currentLevel = GlowingTrimUtils.getGlowLevel(leftStack);
+        if (!isGlowInk && !isTemplate) return;
 
-                // Nur upgraden, wenn noch nicht Max Level (5)
-                if (currentLevel < 5) {
-                    ItemStack output = leftStack.copy();
+        // REGEL: Das linke Item muss Rüstung sein (oder equippable)
+        // Wir nutzen Tags/Components um "ArmorItem" Fehler zu vermeiden
+        boolean isArmor = leftStack.isIn(ItemTags.TRIMMABLE_ARMOR)
+                || leftStack.get(DataComponentTypes.EQUIPPABLE) != null;
 
-                    // Level erhöhen mit unserer Utility
-                    GlowingTrimUtils.incrementGlowLevel(output);
+        if (isArmor) {
+            int currentLevel = GlowingTrimUtils.getGlowLevel(leftStack);
 
-                    // Ergebnis in den Output Slot (Slot 2) setzen
-                    this.output.setStack(0, output);
+            // Nur upgraden, wenn noch nicht Max Level (5)
+            if (currentLevel < 5) {
+                ItemStack output = leftStack.copy();
 
-                    // Kosten setzen (z.B. 5 Level)
-                    this.levelCost.set(5 * (currentLevel + 1));
-                    this.repairItemUsage = 1; // Verbraucht 1 Template
+                // Level erhöhen
+                GlowingTrimUtils.incrementGlowLevel(output);
 
-                    // Mixin abbrechen, damit Vanilla Logik das nicht überschreibt
-                    ci.cancel();
+                // Namensänderung beibehalten (wichtig, da wir Vanilla Logik überschreiben)
+                if (this.newItemName != null && !this.newItemName.isBlank()) {
+                    if (!this.newItemName.equals(leftStack.getName().getString())) {
+                        output.set(DataComponentTypes.CUSTOM_NAME, Text.literal(this.newItemName));
+                    }
+                } else if (leftStack.contains(DataComponentTypes.CUSTOM_NAME)) {
+                    // Name behalten, wenn er nicht geändert wurde
+                    output.set(DataComponentTypes.CUSTOM_NAME, leftStack.getName());
                 }
+
+                // Ergebnis setzen
+                this.output.setStack(0, output);
+
+                // Kosten berechnen
+                // Level 1 kostet 2, Level 5 kostet 10 (Beispiel)
+                this.levelCost.set((currentLevel + 1) * 2);
+
+                // Ein Item verbrauchen
+                this.repairItemUsage = 1;
+
+                // Vanilla Logik abbrechen, damit unser Ergebnis bleibt
+                ci.cancel();
             }
         }
     }

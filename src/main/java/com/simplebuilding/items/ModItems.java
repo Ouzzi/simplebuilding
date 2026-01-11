@@ -148,19 +148,19 @@ public class ModItems {
     public static final Item NETHERITE_SMOKER = registerItem("netherite_smoker", s -> new BlockItem(ModBlocks.NETHERITE_SMOKER, s.fireproof()));
 
     // Trim Templates
-    public static final Item GLOWING_TRIM_TEMPLATE = registerItem("glowing_trim_template", settings -> new SmithingTemplateItem(
-            Text.literal("Add Radiance").formatted(Formatting.GRAY), // Applies To Text
-            Text.literal("Glowing Material").formatted(Formatting.GRAY), // Ingredients Text
-            Text.literal("Apply to Armor").formatted(Formatting.GRAY), // Base Slot Description
-            Text.literal("Add Glow Ink").formatted(Formatting.GRAY), // Additions Slot Description
-            List.of(
+    public static final Item GLOWING_TRIM_TEMPLATE = registerItem("glowing_trim_template", settings -> new net.minecraft.item.SmithingTemplateItem(
+            Text.literal("Add Radiance").formatted(Formatting.GRAY),
+            Text.literal("Glowing Material").formatted(Formatting.GRAY),
+            Text.literal("Apply to Armor").formatted(Formatting.GRAY),
+            Text.literal("Add Glow Ink").formatted(Formatting.GRAY),
+            java.util.List.of(
                     Identifier.of(Simplebuilding.MOD_ID, "item/empty_slot_helmet"),
                     Identifier.of(Simplebuilding.MOD_ID, "item/empty_slot_chestplate"),
                     Identifier.of(Simplebuilding.MOD_ID, "item/empty_slot_leggings"),
                     Identifier.of(Simplebuilding.MOD_ID, "item/empty_slot_boots")
-            ), // Empty Base Slot Textures
-            List.of(Identifier.of(Simplebuilding.MOD_ID, "item/empty_slot_ingot")), // Empty Additions Slot Textures
-            settings.maxCount(64) // Settings (ganz am Ende!)
+            ),
+            java.util.List.of(Identifier.of(Simplebuilding.MOD_ID, "item/empty_slot_ingot")),
+            settings.maxCount(64)
     ));
 
     // =================================================================================

@@ -105,5 +105,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ModTags.Items.VEINMINE_ENCHANTABLE)
                 .forceAddTag(ItemTags.PICKAXES)
                 .forceAddTag(ItemTags.AXES);
+
+        valueLookupBuilder(ModTags.Items.TRIM_TEMPLATES)
+                .add(ModItems.GLOWING_TRIM_TEMPLATE);
     }
 }

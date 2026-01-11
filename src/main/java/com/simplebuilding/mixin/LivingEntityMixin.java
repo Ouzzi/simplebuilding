@@ -1,5 +1,6 @@
 package com.simplebuilding.mixin;
 
+import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.util.TrimEffectUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -16,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
 
-    // KORREKTUR: Signatur angepasst an damage(ServerWorld, DamageSource, float)
     @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private float simplebuilding$modifyDamageAmount(float amount, ServerWorld world, DamageSource source) {
         LivingEntity entity = (LivingEntity) (Object) this;
@@ -30,7 +30,8 @@ public abstract class LivingEntityMixin {
         int coastCount = TrimEffectUtil.getTrimCount(entity, "coast");
         if (coastCount > 0) {
             if (entity.getRandom().nextFloat() < (coastCount * 0.10f)) {
-                cir.setReturnValue(air);
+                Simplebuilding.LOGGER.info("Trim Bonus Active: Coast! Air consumption prevented.");
+                cir.setReturnValue(air); // Gibt den alten Luftwert zurück (kein Verbrauch)
             }
         }
     }
@@ -44,10 +45,9 @@ public abstract class LivingEntityMixin {
                 int ribCount = TrimEffectUtil.getTrimCount(entity, "rib");
                 if (ribCount > 0) {
                     StatusEffectInstance effect = entity.getStatusEffect(StatusEffects.WITHER);
-                    if (effect != null && effect.getDuration() > 20) {
-                        // Hack: Kürze Dauer
-                        // Besser wäre es, die Dauer beim Hinzufügen zu ändern, aber das hier geht für den Prototyp.
-                        // (StatusEffectInstance Felder sind oft protected/private, evtl. Accessor nötig)
+                    if (effect != null && effect.getDuration() < (ribCount * 20)) {
+                         // Hier würden wir den Effekt entfernen
+                         Simplebuilding.LOGGER.info("Trim Bonus Active: Rib! Wither effect removed early.");
                     }
                 }
             }

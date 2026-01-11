@@ -21,9 +21,11 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -271,6 +273,21 @@ public class Simplebuilding implements ModInitializer {
                     stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
                 }
             });
+        });
+
+        // 1. Tick Event: Licht aktualisieren
+        ServerTickEvents.END_SERVER_TICK.register(server -> {
+            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+                // Performance: Nur alle 2 Ticks updaten, reicht für Licht
+                if (server.getTicks() % 2 == 0) {
+                    DynamicLightHandler.tick(player);
+                }
+            }
+        });
+
+        // 2. Disconnect Event: Lichtreste entfernen
+        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
+            DynamicLightHandler.onDisconnect(handler.player);
         });
 	}
 

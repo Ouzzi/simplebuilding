@@ -12,7 +12,8 @@
     "PistonBlockMixin",
     "PistonHandlerMixin",
     "PistonHeadBlockMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "SmithingScreenHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

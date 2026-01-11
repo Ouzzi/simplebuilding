@@ -1,5 +1,6 @@
 package com.simplebuilding.mixin;
 
+import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.util.BundleUtil; // Import!
@@ -83,7 +84,15 @@ public abstract class PlayerEntityMixin {
         if (player.isSprinting()) {
             int count = TrimEffectUtil.getTrimCount(player, "wayfinder");
             if (count > 0) {
-                return exhaustion * (1.0f - (count * 0.03f));
+                float reduction = (count * 0.03f); // 3% pro Teil
+                float newExhaustion = exhaustion * (1.0f - reduction);
+
+                // Debug Log (nur wenn Erschöpfung > 0, um Spam zu minimieren)
+                if (exhaustion > 0) {
+                     Simplebuilding.LOGGER.info("Trim Bonus Active: Wayfinder! Exhaustion reduced by {}% ({} -> {})", (int)(reduction * 100), exhaustion, newExhaustion);
+                }
+
+                return newExhaustion;
             }
         }
         return exhaustion;
