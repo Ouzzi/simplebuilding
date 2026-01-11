@@ -88,9 +88,9 @@ public class Simplebuilding implements ModInitializer {
 
         registerCauldronBehavior();
 
-
-
         PlayerBlockBreakEvents.BEFORE.register(new SledgehammerUsageEvent());
+        SledgehammerEntityInteraction.register();
+
         PlayerBlockBreakEvents.BEFORE.register(new StripMinerUsageEvent());
         PlayerBlockBreakEvents.BEFORE.register(new VeinMinerUsageEvent());
         AttackBlockCallback.EVENT.register(new VersatilityUsageEvent());

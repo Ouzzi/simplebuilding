@@ -5,16 +5,21 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.custom.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.SmithingTemplateItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.resource.featuretoggle.FeatureFlag;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -141,6 +146,22 @@ public class ModItems {
     // Smoker (NEU)
     public static final Item REINFORCED_SMOKER = registerItem("reinforced_smoker", s -> new BlockItem(ModBlocks.REINFORCED_SMOKER, s));
     public static final Item NETHERITE_SMOKER = registerItem("netherite_smoker", s -> new BlockItem(ModBlocks.NETHERITE_SMOKER, s.fireproof()));
+
+    // Trim Templates
+    public static final Item GLOWING_TRIM_TEMPLATE = registerItem("glowing_trim_template", settings -> new SmithingTemplateItem(
+            Text.literal("Add Radiance").formatted(Formatting.GRAY), // Applies To Text
+            Text.literal("Glowing Material").formatted(Formatting.GRAY), // Ingredients Text
+            Text.literal("Apply to Armor").formatted(Formatting.GRAY), // Base Slot Description
+            Text.literal("Add Glow Ink").formatted(Formatting.GRAY), // Additions Slot Description
+            List.of(
+                    Identifier.of(Simplebuilding.MOD_ID, "item/empty_slot_helmet"),
+                    Identifier.of(Simplebuilding.MOD_ID, "item/empty_slot_chestplate"),
+                    Identifier.of(Simplebuilding.MOD_ID, "item/empty_slot_leggings"),
+                    Identifier.of(Simplebuilding.MOD_ID, "item/empty_slot_boots")
+            ), // Empty Base Slot Textures
+            List.of(Identifier.of(Simplebuilding.MOD_ID, "item/empty_slot_ingot")), // Empty Additions Slot Textures
+            settings.maxCount(64) // Settings (ganz am Ende!)
+    ));
 
     // =================================================================================
     // HILFSMETHODEN

@@ -3,6 +3,7 @@ package com.simplebuilding.mixin;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.util.BundleUtil; // Import!
+import com.simplebuilding.util.TrimEffectUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,6 +16,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
@@ -56,5 +59,33 @@ public abstract class PlayerEntityMixin {
 
             cir.setReturnValue(originalSpeed / divisor);
         }
+    }
+
+    // --- WAYFINDER (Hunger beim Sprinten) ---
+    @Inject(method = "addExhaustion", at = @At("HEAD"), cancellable = true)
+    private void simplebuilding$modifyExhaustion(float exhaustion, CallbackInfo ci) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+        if (player.isSprinting()) {
+            int wayfinderCount = TrimEffectUtil.getTrimCount(player, "wayfinder");
+            if (wayfinderCount > 0) {
+                // Reduziere Erschöpfung um 3% pro Teil
+                float reduction = 1.0f - (wayfinderCount * 0.03f);
+                // Da wir addExhaustion nicht direkt ändern können ohne Accessor/Shadow,
+                // rufen wir hier super auf (schwierig in Mixin) oder wir brechen ab und rufen mit neuem Wert auf?
+                // Besser: @ModifyVariable
+            }
+        }
+    }
+
+    @ModifyVariable(method = "addExhaustion", at = @At("HEAD"), argsOnly = true)
+    private float simplebuilding$reduceExhaustion(float exhaustion) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+        if (player.isSprinting()) {
+            int count = TrimEffectUtil.getTrimCount(player, "wayfinder");
+            if (count > 0) {
+                return exhaustion * (1.0f - (count * 0.03f));
+            }
+        }
+        return exhaustion;
     }
 }

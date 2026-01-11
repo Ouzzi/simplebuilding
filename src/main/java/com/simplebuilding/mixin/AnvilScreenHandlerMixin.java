@@ -2,7 +2,9 @@ package com.simplebuilding.mixin;
 
 import com.mojang.datafixers.util.Pair;
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.SledgehammerItem;
+import com.simplebuilding.util.GlowingTrimUtils;
 import com.simplebuilding.util.StructureConfig;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.LodestoneTrackerComponent;
@@ -290,6 +292,42 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
             } else {
                 // CLIENT LOGIK: Nur abbrechen
                 ci.cancel();
+            }
+        }
+    }
+
+
+    @Inject(method = "updateResult", at = @At("HEAD"), cancellable = true)
+    private void simplebuilding$glowingUpgradeLogic(CallbackInfo ci) {
+        ItemStack leftStack = this.input.getStack(0);
+        ItemStack rightStack = this.input.getStack(1);
+
+        // Prüfen: Links Rüstung, Rechts unser Glowing Template
+        if (!leftStack.isEmpty() && rightStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE)) {
+
+            boolean isArmor = leftStack.isIn(net.minecraft.registry.tag.ItemTags.TRIMMABLE_ARMOR)
+                    || leftStack.get(DataComponentTypes.EQUIPPABLE) != null;
+
+            if (isArmor) {
+                int currentLevel = GlowingTrimUtils.getGlowLevel(leftStack);
+
+                // Nur upgraden, wenn noch nicht Max Level (5)
+                if (currentLevel < 5) {
+                    ItemStack output = leftStack.copy();
+
+                    // Level erhöhen mit unserer Utility
+                    GlowingTrimUtils.incrementGlowLevel(output);
+
+                    // Ergebnis in den Output Slot (Slot 2) setzen
+                    this.output.setStack(0, output);
+
+                    // Kosten setzen (z.B. 5 Level)
+                    this.levelCost.set(5 * (currentLevel + 1));
+                    this.repairItemUsage = 1; // Verbraucht 1 Template
+
+                    // Mixin abbrechen, damit Vanilla Logik das nicht überschreibt
+                    ci.cancel();
+                }
             }
         }
     }

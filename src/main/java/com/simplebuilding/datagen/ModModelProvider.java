@@ -178,5 +178,7 @@ public class ModModelProvider extends FabricModelProvider {
         // Hoppers hier auch, da Generated Item Model für Inventory
         itemModelGenerator.register(ModItems.REINFORCED_HOPPER, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_HOPPER, Models.GENERATED);
+
+        itemModelGenerator.register(ModItems.GLOWING_TRIM_TEMPLATE, Models.GENERATED);
     }
 }
