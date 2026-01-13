@@ -3,65 +3,82 @@ package com.simplebuilding.recipe;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.items.ModItems;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SmithingRecipe;
+import net.minecraft.recipe.*;
+import net.minecraft.recipe.input.SmithingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
-import java.util.stream.Stream;
+
+import java.util.List;
+import java.util.Optional;
 
 public class UpgradeSmithingRecipe implements SmithingRecipe {
-    private final Ingredient base;      // Die Rüstung
-    private final Ingredient template;  // Dein Template (Glowing oder Emitting)
-    private final Ingredient addition;  // Das Material (z.B. Glow Ink Sac oder Copper)
+    private final Optional<Ingredient> template;
+    private final Ingredient base;
+    private final Optional<Ingredient> addition;
 
-    public UpgradeSmithingRecipe(Ingredient template, Ingredient base, Ingredient addition) {
+    public UpgradeSmithingRecipe(Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition) {
         this.template = template;
         this.base = base;
         this.addition = addition;
     }
 
+    // FIX 1: Richtige Methode für Placement nutzen
     @Override
-    public boolean matches(net.minecraft.inventory.SmithingRecipeInput input, World world) {
-        // Prüfen, ob alle Slots passen
-        return this.template.test(input.template()) && this.base.test(input.base()) && this.addition.test(input.addition());
+    public IngredientPlacement getIngredientPlacement() {
+        // Wir erstellen eine Liste aus den 3 Zutaten (Template, Base, Addition)
+        return IngredientPlacement.forMultipleSlots(List.of(
+                this.template,
+                Optional.of(this.base),
+                this.addition
+        ));
     }
 
     @Override
-    public ItemStack craft(net.minecraft.inventory.SmithingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
+    public boolean matches(SmithingRecipeInput input, World world) {
+        return Ingredient.matches(this.template, input.template()) &&
+                this.base.test(input.base()) &&
+                Ingredient.matches(this.addition, input.addition());
+    }
+
+    @Override
+    public ItemStack craft(SmithingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack baseStack = input.base();
         ItemStack templateStack = input.template();
 
-        // Wir kopieren die Rüstung (inklusive Enchants, Trims, Namen...)
         ItemStack result = baseStack.copy();
 
-        // 1. Fall: Glowing Template (Visuell)
+        // Logik für Glowing Upgrade
         if (templateStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE)) {
-            // Setze den VISUAL_GLOW Schalter auf true
             result.set(ModDataComponentTypes.VISUAL_GLOW, true);
         }
-        
-        // 2. Fall: Emitting Template (Lichtquelle)
+        // Logik für Light Source Upgrade
         if (templateStack.isOf(ModItems.EMITTING_TRIM_TEMPLATE)) {
-            // Setze den LIGHT_SOURCE Schalter auf true
             result.set(ModDataComponentTypes.LIGHT_SOURCE, true);
         }
 
         return result;
     }
 
+    // FIX 2: getResult() komplett ENTFERNT (da es im Interface nicht mehr existiert)
+
+    // FIX 3: Rückgabetyp angepasst (? extends SmithingRecipe)
     @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
-        return ItemStack.EMPTY; // Wird für Smithing nicht direkt benötigt, da dynamisch
+    public RecipeSerializer<? extends SmithingRecipe> getSerializer() {
+        return ModRecipes.UPGRADE_SMITHING_SERIALIZER;
     }
 
     @Override
-    public boolean fits(int width, int height) {
-        return width * height >= 2;
+    public Optional<Ingredient> template() {
+        return this.template;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.UPGRADE_SMITHING_SERIALIZER; // Das erstellen wir gleich
+    public Ingredient base() {
+        return this.base;
+    }
+
+    @Override
+    public Optional<Ingredient> addition() {
+        return this.addition;
     }
 }

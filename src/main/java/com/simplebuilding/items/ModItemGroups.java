@@ -143,6 +143,7 @@ public class ModItemGroups {
 
                         // 7. Armor Trim
                         entries.add(ModItems.GLOWING_TRIM_TEMPLATE);
+                        entries.add(ModItems.EMITTING_TRIM_TEMPLATE);
 
                     }).build());
 

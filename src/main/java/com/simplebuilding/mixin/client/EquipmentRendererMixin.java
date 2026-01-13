@@ -5,6 +5,7 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.util.GlowingTrimUtils;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.entity.equipment.EquipmentRenderer;
+import net.minecraft.item.ItemStack; // Import benötigt
 import net.minecraft.item.equipment.trim.ArmorTrim;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,25 +14,21 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(EquipmentRenderer.class)
 public class EquipmentRendererMixin {
 
-    /**
-     * Wir nutzen ModifyVariable, um das Licht-Level (light) zu ändern.
-     * Der Ankerpunkt (@At) ist der Aufruf von "getArmorTrims".
-     * Dieser Aufruf passiert NUR im Code-Block für Armor Trims.
-     */
     @ModifyVariable(
             method = "render(Lnet/minecraft/client/render/entity/equipment/EquipmentModel$LayerType;Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;ILnet/minecraft/util/Identifier;II)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/render/TexturedRenderLayers;getArmorTrims(Z)Lnet/minecraft/client/render/RenderLayer;"
             ),
-            argsOnly = true, // 'light' ist ein Argument der Methode
-            ordinal = 0      // Es ist das erste Argument vom Typ 'int' (Index 8 in der Signatur, aber ordinal 0 für ints)
+            argsOnly = true,
+            ordinal = 0
     )
-    private int makeTrimGlow(int light, @Local(ordinal = 0) ArmorTrim armorTrim) {
-        // Wenn ein Trim vorhanden ist UND es unser Glowing Trim ist -> MAX LICHT
-        Simplebuilding.LOGGER.info("Making Trim Glow");
-        boolean hasTrim = armorTrim != null;
-        if (hasTrim && GlowingTrimUtils.hasVisualGlow(armorTrim)) {
+    // Wir holen uns zusätzlich den ItemStack mit @Local(argsOnly = true)
+    private int makeTrimGlow(int light, @Local(ordinal = 0) ArmorTrim armorTrim, @Local(argsOnly = true) ItemStack stack) {
+
+        // Prüfen: Gibt es einen Trim UND hat das Item das "Glow"-Upgrade?
+        if (armorTrim != null && GlowingTrimUtils.hasVisualGlow(stack)) {
+            // Simplebuilding.LOGGER.info("Making Trim Glow for " + stack.getItem().getName().getString());
             return LightmapTextureManager.MAX_LIGHT_COORDINATE;
         }
         return light;

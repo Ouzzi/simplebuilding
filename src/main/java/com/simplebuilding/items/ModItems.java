@@ -149,37 +149,24 @@ public class ModItems {
     public static final Item REINFORCED_SMOKER = registerItem("reinforced_smoker", s -> new BlockItem(ModBlocks.REINFORCED_SMOKER, s));
     public static final Item NETHERITE_SMOKER = registerItem("netherite_smoker", s -> new BlockItem(ModBlocks.NETHERITE_SMOKER, s.fireproof()));
 
+    // TODO: use lang files for text components
     // Trim Templates
     public static final Item GLOWING_TRIM_TEMPLATE = registerItem("glowing_trim_template", settings -> new SmithingTemplateItem(
             Text.literal("Add Radiance").formatted(Formatting.GRAY),
             Text.literal("Glowing Material").formatted(Formatting.GRAY),
             Text.literal("Apply to Armor").formatted(Formatting.GRAY),
             Text.literal("Add Glow Ink").formatted(Formatting.GRAY),
-            // 1. Liste: Rüstungs-Icons (NEUE Pfade für 1.21.2+)
-            java.util.List.of(
-                    Identifier.ofVanilla("container/slot/helmet"),
-                    Identifier.ofVanilla("container/slot/chestplate"),
-                    Identifier.ofVanilla("container/slot/leggings"),
-                    Identifier.ofVanilla("container/slot/boots")
-            ),
-            // 2. Liste: Material-Icons (NEUE Pfade für 1.21.2+)
-            // Hier wählen wir passende Icons für Tinte/Staub
-            java.util.List.of(
-                    Identifier.ofVanilla("container/slot/ingot"),
-                    Identifier.ofVanilla("container/slot/lapis_lazuli"),
-                    Identifier.ofVanilla("container/slot/redstone_dust")
-            ),
+            java.util.List.of(Identifier.ofVanilla("container/slot/helmet"), Identifier.ofVanilla("container/slot/chestplate"), Identifier.ofVanilla("container/slot/leggings"), Identifier.ofVanilla("container/slot/boots")),
+            java.util.List.of(Identifier.ofVanilla("container/slot/ingot"), Identifier.ofVanilla("container/slot/lapis_lazuli"), Identifier.ofVanilla("container/slot/redstone_dust")),
             settings.maxCount(64)
     ));
-
-
     public static final Item EMITTING_TRIM_TEMPLATE = registerItem("emitting_trim_template", settings -> new SmithingTemplateItem(
             Text.literal("Light-source").formatted(Formatting.GOLD),
             Text.literal("Light function").formatted(Formatting.GRAY),
             Text.literal("Emits light").formatted(Formatting.GRAY),
             Text.literal("Add Material").formatted(Formatting.GRAY),
             List.of(Identifier.ofVanilla("container/slot/helmet"), Identifier.ofVanilla("container/slot/chestplate"), Identifier.ofVanilla("container/slot/leggings"), Identifier.ofVanilla("container/slot/boots")),
-            List.of(Identifier.ofVanilla("container/slot/ingot")), // Oder Redstone Dust Icon
+            java.util.List.of(Identifier.ofVanilla("container/slot/ingot"), Identifier.ofVanilla("container/slot/lapis_lazuli"), Identifier.ofVanilla("container/slot/redstone_dust")),
             settings.maxCount(64)
     ));
 

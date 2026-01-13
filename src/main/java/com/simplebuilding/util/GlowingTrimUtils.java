@@ -5,9 +5,7 @@ import com.simplebuilding.component.ModDataComponentTypes;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.equipment.trim.ArmorTrim;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.Identifier;
 
 public class GlowingTrimUtils {
     public static final String GLOW_LEVEL_KEY = "SimpleBuildingGlowLevel";
@@ -27,20 +25,19 @@ public class GlowingTrimUtils {
             int newLevel = current + 1;
             nbt.putInt(GLOW_LEVEL_KEY, newLevel);
             stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
-
-            // Logger (Deebok)
             Simplebuilding.LOGGER.info("Applied Glowing Upgrade! New Level: " + newLevel + "/5");
         }
     }
 
-
-    public static boolean hasVisualGlow(ArmorTrim armorTrim) {
-        if (armorTrim.isEmpty()) return false;
-        return armorTrim.getOrDefault(ModDataComponentTypes.VISUAL_GLOW, false);
+    // WICHTIG: Parameter ist jetzt ItemStack!
+    public static boolean hasVisualGlow(ItemStack stack) {
+        if (stack.isEmpty()) return false;
+        return stack.getOrDefault(ModDataComponentTypes.VISUAL_GLOW, false);
     }
 
-    public static boolean hasLightEmission(ArmorTrim stack) {
-        if (armorTrim.isEmpty()) return false;
-        return armorTrim.getOrDefault(ModDataComponentTypes.LIGHT_SOURCE, false);
+    // WICHTIG: Parameter ist jetzt ItemStack!
+    public static boolean hasLightEmission(ItemStack stack) {
+        if (stack.isEmpty()) return false;
+        return stack.getOrDefault(ModDataComponentTypes.LIGHT_SOURCE, false);
     }
 }

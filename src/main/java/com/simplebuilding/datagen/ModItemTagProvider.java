@@ -113,7 +113,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         TagKey<Item> TRIM_TEMPLATES = TagKey.of(RegistryKeys.ITEM, Identifier.ofVanilla("trim_templates"));
 
         valueLookupBuilder(TRIM_TEMPLATES)
-                .add(ModItems.GLOWING_TRIM_TEMPLATE);
+                .add(ModItems.GLOWING_TRIM_TEMPLATE)
+                .add(ModItems.EMITTING_TRIM_TEMPLATE);
 
         // Optional: Damit der Leuchtbeutel generell als "Trim Material" erkannt wird (hilft bei der GUI-Validierung)
         valueLookupBuilder(ItemTags.TRIM_MATERIALS)
