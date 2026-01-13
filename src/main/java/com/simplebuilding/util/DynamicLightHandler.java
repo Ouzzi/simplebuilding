@@ -38,6 +38,7 @@ public class DynamicLightHandler {
         }
 
         // Maximale Lichtstärke in Minecraft ist 15
+        // int lightLevel = Math.min(15, totalRadiance * 3);
         int lightLevel = Math.min(15, totalRadiance * 3);
 
         // Alte Position abrufen

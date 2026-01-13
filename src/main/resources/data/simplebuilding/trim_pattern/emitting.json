@@ -1,0 +1,8 @@
+{
+  "asset_id": "simplebuilding:emitting",
+  "description": {
+    "translate": "trim_pattern.simplebuilding.emitting"
+  },
+  "decal": false,
+  "template_item": "simplebuilding:emitting_trim_template"
+}

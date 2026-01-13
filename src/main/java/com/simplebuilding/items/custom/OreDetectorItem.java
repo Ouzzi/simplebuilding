@@ -110,10 +110,10 @@ public class OreDetectorItem extends Item {
             float pitch = (float) (1.8f - (distance / 32.0f));
             pitch = Math.max(0.6f, Math.min(2.0f, pitch));
 
-            world.playSound(null, targetPos, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.BLOCKS, 0.8f, pitch);
-            world.playSound(null, targetPos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 0.5f, 2.0f);
+            world.playSound(null, targetPos, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.BLOCKS, 0.9f, pitch);
+            world.playSound(null, targetPos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 0.6f, 2.0f);
             SoundEvent blockSound = targetState.getSoundGroup().getBreakSound();
-            world.playSound(null, targetPos, blockSound, SoundCategory.BLOCKS, 0.35f, pitch);
+            world.playSound(null, targetPos, blockSound, SoundCategory.BLOCKS, 0.55f, pitch);
 
             spawnSonarBeam(world, player.getEyePos(), targetPos, targetState);
         }

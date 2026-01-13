@@ -1,0 +1,8 @@
+{
+  "asset_id": "simplebuilding:glowing",
+  "description": {
+    "translate": "trim_pattern.simplebuilding.glowing"
+  },
+  "decal": false,
+  "template_item": "simplebuilding:glowing_trim_template"
+}

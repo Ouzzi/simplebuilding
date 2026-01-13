@@ -172,6 +172,17 @@ public class ModItems {
             settings.maxCount(64)
     ));
 
+
+    public static final Item EMITTING_TRIM_TEMPLATE = registerItem("emitting_trim_template", settings -> new SmithingTemplateItem(
+            Text.literal("Light-source").formatted(Formatting.GOLD),
+            Text.literal("Light function").formatted(Formatting.GRAY),
+            Text.literal("Emits light").formatted(Formatting.GRAY),
+            Text.literal("Add Material").formatted(Formatting.GRAY),
+            List.of(Identifier.ofVanilla("container/slot/helmet"), Identifier.ofVanilla("container/slot/chestplate"), Identifier.ofVanilla("container/slot/leggings"), Identifier.ofVanilla("container/slot/boots")),
+            List.of(Identifier.ofVanilla("container/slot/ingot")), // Oder Redstone Dust Icon
+            settings.maxCount(64)
+    ));
+
     // =================================================================================
     // HILFSMETHODEN
     // =================================================================================

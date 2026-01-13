@@ -1,15 +1,25 @@
 ## Changelog:
+- magnet shift right-click message to reset shouldnt give chat message if nothing to reset
 
 ## TODO:
 
-- item magnet - magnetizes items in a certain radius to player - items move slowly to player when in radius
+- new item magnet texture
+- bundle/quiver gui improvements
+- - berter tooltips 
+- - plus icon like vanilla - green when same item is already in bundle, yellow when different item is in bundle, no plus icon when full, red when item can be added but not completly
+
+- chisel sometimes chisels when not wanted
 
 
+- sledgehammer should be customizable in a gui - toggle radius, break trough entchantments
+- sledgehammer sneak to break only one block/ radius minus 2 blocks
+
+- glowing armor trims 
+
+- building wand - all wand enchantments possible on it - mode togglable via gui  
+- building wand - master-builder minimal faster placing
 
 
-- airjump - nether enchantment
-- reinforced tnt - bigger explosion, less damage to players
-- doubleinforced tnt - even bigger explosion, less damage to players
 - 
 
 ## TODO Later:
@@ -21,6 +31,8 @@
 - colored redstone
 - ligtelevel item - visualisiert Lichtlevel in der Welt
 
+- reinforced tnt - bigger explosion, less damage to players
+- doubleinforced tnt - even bigger explosion, less damage to players
 
 - later - Glass Itemframes, transparent itemframes - doent drop frame when broken exept silk touch.
 - later - Negative Beacon (evil Beacon) that gives negative effects to players in range
@@ -31,7 +43,6 @@
 - later - netherite shulker double stack size
 - ( copy tool? )
 
-- Einige Formen vor allem die Dreiecke oder die Kreise bzw. Der Zylinder sind nicht geschlossen. Bitte schließen.
 
 
 - (later) - netherite copper chest - quadrouple stack size

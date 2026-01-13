@@ -128,7 +128,7 @@ public class MagnetItem extends Item {
     @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if (player.isSneaking()) {
+        if (player.isSneaking() && getFilterId(stack) != null) {
             if (!world.isClient()) {
                 setFilterId(stack, null);
                 player.sendMessage(Text.literal("Magnet Filter cleared.").formatted(Formatting.YELLOW), true);

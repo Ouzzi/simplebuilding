@@ -452,7 +452,7 @@ public class ChiselItem extends Item {
 
             int finalCooldown = this.cooldownTicks;
             if (fastChiselingLevel > 0) {
-                finalCooldown = Math.max(1, (int)(finalCooldown * (1.0f - (fastChiselingLevel * 0.2f))));
+                finalCooldown = Math.max(1, (int)(finalCooldown * (1.0f - (fastChiselingLevel * 0.3f))));
             }
 
             if (!player.getAbilities().creativeMode) {

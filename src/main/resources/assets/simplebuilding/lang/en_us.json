@@ -250,5 +250,7 @@
   "simplebuilding.gui.octant_title": "Octant Settings",
 
   "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits": "Enable Armor Trim Benefits",
-  "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits.@Tooltip": "If disabled, you will not receive gameplay bonuses (like water breathing) from armor trims."
+  "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits.@Tooltip": "If disabled, you will not receive gameplay bonuses (like water breathing) from armor trims.",
+
+  "trim_pattern.simplebuilding.emitting": "Emitting Pattern"
 }
