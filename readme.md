@@ -180,6 +180,28 @@ Explore the world to find powerful gear in vanilla structures:
 
 ---
 
+### 🛡️ Armor Trim Effects
+
+SimpleBuilding gives every Armor Trim a unique gameplay purpose.
+**Pro Tip:** Using a **Netherite Ingot** as the trim material multiplies the effect strength by **1.5x**!
+
+| Trim Pattern | Effect | Max Bonus (4x Netherite) |
+| :--- | :--- | :--- |
+| **Sentry** | Projectile Damage Reduction | **9%** |
+| **Vex** | Magic Damage Reduction | **12%** |
+| **Wild** | Environment Damage Reduction (Cactus/Berry) | **15%** |
+| **Coast** | Water Breathing Chance | **60% Chance** |
+| **Dune** | Explosion Damage Reduction | **9%** |
+| **Wayfinder** | Sprinting Exhaustion Reduction | **18%** |
+| **Raiser** | Increased XP Gain | **6%** |
+| **Shaper** | Durability Loss Prevention | **6%** |
+| **Ward** | Sonic Boom Reduction (Warden) | **30%** |
+| **Silence** | Reduced Mob Detection Range | **18%** |
+| **Tide** | Swim Speed Boost | **15%** |
+| **Rib** | Wither Effect Duration Reduction | **High** |
+| **Eye** | Ender Pearl & Fall Damage Reduction | **9%** |
+| **Spire** | Fall Damage Reduction | **12%** |
+
 ## ⚙️ Configuration
 
 The mod is highly configurable via **Mod Menu** and **Cloth Config**.

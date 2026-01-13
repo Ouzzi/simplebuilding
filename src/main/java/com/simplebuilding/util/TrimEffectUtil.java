@@ -30,16 +30,15 @@ public class TrimEffectUtil {
                     String patternId = optionalTrim.pattern().value().assetId().getPath();
                     if (patternId.contains(patternPath)) {
 
-                        // FIX: Wir nutzen den Registry-Key statt .assetName()
-                        // Das funktioniert immer, egal wie die Methode in der Klasse heißt.
+                        // Netherite Bonus (1.5x)
                         String materialName = optionalTrim.material().getKey()
-                                .map(key -> key.getValue().getPath()) // Gibt z.B. "netherite" oder "diamond" zurück
+                                .map(key -> key.getValue().getPath())
                                 .orElse("");
 
                         if (materialName.equals("netherite")) {
-                            score += 1.5f; // Bonus
+                            score += 1.5f;
                         } else {
-                            score += 1.0f; // Standard
+                            score += 1.0f;
                         }
                     }
                 }
@@ -106,8 +105,25 @@ public class TrimEffectUtil {
             }
         }
 
-        // Sicherheitsbegrenzung: Max 80% Schaden reduzieren, nie negativ
+        // --- NEU: WARD (Warden / Sonic Boom Schutz) ---
+        // Funktioniert gegen Sonic Boom und Warden-Angriffe
+        if (source.getName().equals("sonic_boom") || (source.getAttacker() instanceof net.minecraft.entity.mob.WardenEntity)) {
+             float count = getTrimCount(entity, "ward");
+             if (count > 0) {
+                 // 5% Schutz pro Teil -> mit Netherite 7.5%
+                 multiplier -= (count * 0.05f);
+                 activeTrim = "Ward";
+             }
+        }
+
+        // Sicherheitsbegrenzung
         if (multiplier < 0.2f) multiplier = 0.2f;
+
+        if (multiplier < 1.0f) {
+            // Optionales Logging
+             // float reduction = (1.0f - multiplier) * 100;
+             // Simplebuilding.LOGGER.info("Trim Bonus Active: {}! Reduced by {}%", activeTrim, reduction);
+        }
 
         return Math.max(0, amount * multiplier);
     }

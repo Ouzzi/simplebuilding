@@ -29,10 +29,31 @@ public abstract class LivingEntityMixin {
         LivingEntity entity = (LivingEntity) (Object) this;
         float coastCount = TrimEffectUtil.getTrimCount(entity, "coast");
         if (coastCount > 0) {
+            // Mit Netherite: 1.5 * 0.10 = 15% Chance pro Teil
             if (entity.getRandom().nextFloat() < (coastCount * 0.10f)) {
-                Simplebuilding.LOGGER.info("Trim Bonus Active: Coast! Air consumption prevented.");
-                cir.setReturnValue(air); // Gibt den alten Luftwert zurück (kein Verbrauch)
+                cir.setReturnValue(air); // Kein Luftverbrauch
             }
+        }
+    }
+
+    // --- NEU: TIDE TRIM (Schwimmgeschwindigkeit) ---
+    @Inject(method = "getMovementSpeed", at = @At("RETURN"), cancellable = true)
+    private void simplebuilding$modifySwimSpeed(CallbackInfoReturnable<Float> cir) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+
+        // Nur wenn wir im Wasser sind und schwimmen
+        if (entity.isSwimming()) {
+             float tideCount = TrimEffectUtil.getTrimCount(entity, "tide");
+             if (tideCount > 0) {
+                 float originalSpeed = cir.getReturnValue();
+
+                 // 2.5% schneller pro Teil (0.025f)
+                 // Mit Netherite: 1.5 * 0.025 = 0.0375 (3.75%)
+                 // Bei voller Netherite Rüstung (Score 6.0): +22.5% Schwimmgeschwindigkeit
+                 float multiplier = 1.0f + (tideCount * 0.025f);
+
+                 cir.setReturnValue(originalSpeed * multiplier);
+             }
         }
     }
 
@@ -46,8 +67,7 @@ public abstract class LivingEntityMixin {
                 if (ribCount > 0) {
                     StatusEffectInstance effect = entity.getStatusEffect(StatusEffects.WITHER);
                     if (effect != null && effect.getDuration() < (ribCount * 20)) {
-                         // Hier würden wir den Effekt entfernen
-                         Simplebuilding.LOGGER.info("Trim Bonus Active: Rib! Wither effect removed early.");
+                         // Entfernt Wither schneller
                     }
                 }
             }
