@@ -30,7 +30,7 @@ public class ItemMixin {
             CallbackInfo ci
     ) {
         // 1. Glowing Level anzeigen (Radiance)
-        int glowLevel = GlowingTrimUtils.getGlowLevel(stack);
+        int glowLevel = GlowingTrimUtils.getEmissionLevel(stack);
         if (glowLevel > 0) {
             textConsumer.accept(Text.empty()); // Leerzeile
             textConsumer.accept(Text.literal("Radiance Level: " + glowLevel + "/5").formatted(Formatting.GOLD));

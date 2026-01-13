@@ -73,4 +73,23 @@ public abstract class LivingEntityMixin {
             }
         }
     }
+
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void simplebuilding$materialTickEffects(CallbackInfo ci) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+
+        // Nur Server-Side und alle paar Sekunden, um Performance zu sparen
+        if (!entity.getEntityWorld().isClient() && entity.age % 200 == 0) {
+
+            // AMETHYST: Magische Resonanz
+            // Heilt den Spieler langsam, wenn er Amethyst Trims trägt.
+            int amethystCount = TrimEffectUtil.getMaterialCount(entity, "amethyst");
+            if (amethystCount > 0 && entity.getHealth() < entity.getMaxHealth()) {
+                if (entity.getRandom().nextFloat() < (amethystCount * 0.15f)) {
+                    entity.heal(1.0f);
+                }
+            }
+        }
+    }
 }

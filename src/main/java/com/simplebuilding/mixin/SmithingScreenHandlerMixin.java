@@ -37,18 +37,14 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
             boolean isValidArmor = isValidArmor(armorStack);
 
             if (isValidArmor) {
-                int currentLevel = GlowingTrimUtils.getGlowLevel(armorStack);
-                if (currentLevel < 5) {
+                boolean hasVisualGlow = GlowingTrimUtils.hasVisualGlow(armorStack);
+                if (!hasVisualGlow) {
                     ItemStack outputStack = armorStack.copy();
-                    // Erhöht den Glow-Level im NBT des Output-Stacks
-                    GlowingTrimUtils.incrementGlowLevel(outputStack);
-                    // Wir setzen 1 Item als Output (die Menge der Rüstung ist meist 1)
+                    GlowingTrimUtils.setVisualGlow(outputStack, true);
                     outputStack.setCount(1);
-                    // Das Ergebnis in den Output-Slot setzen
                     this.output.setStack(0, outputStack);
                     ci.cancel();
                 } else {
-                    // Wenn Level 5 erreicht ist, kein Output (oder man erlaubt es, aber erhöht nicht mehr)
                     this.output.setStack(0, ItemStack.EMPTY);
                     ci.cancel();
                 }
@@ -60,11 +56,11 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
             boolean isValidArmor = isValidArmor(armorStack);
 
             if (isValidArmor) {
-                int currentLevel = GlowingTrimUtils.getGlowLevel(armorStack);
+                int currentLevel = GlowingTrimUtils.getEmissionLevel(armorStack);
                 if (currentLevel < 5) {
                     ItemStack outputStack = armorStack.copy();
-                    // Erhöht den Emitting-Level im NBT des Output-Stacks
-                    GlowingTrimUtils.incrementGlowLevel(outputStack);
+                    // Erhöht den Glow-Level im NBT des Output-Stacks
+                    GlowingTrimUtils.incrementEmissionLevel(outputStack);
                     // Wir setzen 1 Item als Output (die Menge der Rüstung ist meist 1)
                     outputStack.setCount(1);
                     // Das Ergebnis in den Output-Slot setzen

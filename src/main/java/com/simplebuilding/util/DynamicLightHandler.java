@@ -1,6 +1,5 @@
 package com.simplebuilding.util;
 
-import com.simplebuilding.items.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LightBlock;
@@ -17,34 +16,32 @@ import java.util.Map;
 import java.util.UUID;
 
 public class DynamicLightHandler {
-    // Speichert die letzte Position des Lichts für jeden Spieler
     private static final Map<UUID, BlockPos> lightSources = new HashMap<>();
 
     public static void tick(PlayerEntity player) {
-        if (player.getEntityWorld().isClient()) return; // Nur Server-seitig für echtes Licht
+        if (player.getEntityWorld().isClient()) return;
         if (!(player instanceof ServerPlayerEntity)) return;
 
         World world = player.getEntityWorld();
         UUID uuid = player.getUuid();
-        BlockPos currentPos = player.getBlockPos().up(); // Kopfhöhe
+        BlockPos currentPos = player.getBlockPos().up(); // Kopfhöhe für bessere Ausleuchtung
 
-        // 1. Berechne das Licht-Level basierend auf der Rüstung
-        int totalRadiance = 0;
+        // 1. Berechne das Licht-Level NUR basierend auf Emission (nicht Visual Glow)
+        int totalEmissionPoints = 0;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
                 ItemStack stack = player.getEquippedStack(slot);
-                totalRadiance += GlowingTrimUtils.getGlowLevel(stack);
+                // WICHTIG: Hier rufen wir jetzt getEmissionLevel auf
+                totalEmissionPoints += GlowingTrimUtils.getEmissionLevel(stack);
             }
         }
 
-        // Maximale Lichtstärke in Minecraft ist 15
-        // int lightLevel = Math.min(15, totalRadiance * 3);
-        int lightLevel = Math.min(15, totalRadiance * 3);
+        // Berechnung: Ein Level bringt 3 Lichtpunkte -> 5 Upgrades = 15 (Max)
+        int lightLevel = Math.min(15, totalEmissionPoints * 3);
 
-        // Alte Position abrufen
         BlockPos oldPos = lightSources.get(uuid);
 
-        // 2. Aufräumen (Wenn wir uns bewegt haben oder kein Licht mehr haben)
+        // 2. Aufräumen (Wenn bewegt oder Licht aus)
         if (oldPos != null && !oldPos.equals(currentPos)) {
             removeLight(world, oldPos);
             lightSources.remove(uuid);
@@ -52,31 +49,29 @@ public class DynamicLightHandler {
 
         // 3. Neues Licht setzen
         if (lightLevel > 0) {
-            // Nur setzen, wenn der Block Luft oder Wasser ist (nichts überschreiben!)
             BlockState currentState = world.getBlockState(currentPos);
             boolean isWater = currentState.getFluidState().isIn(FluidTags.WATER);
 
+            // Wir setzen Licht nur in Luft oder Wasser (um nichts zu zerstören)
             if (currentState.isAir() || (isWater && currentState.getFluidState().isStill())) {
-                // Wenn wir schon ein Licht an dieser Stelle haben, prüfen wir, ob das Level stimmt
+
+                // Prüfen ob wir updaten müssen (nur wenn Level sich ändert)
                 if (currentState.isOf(Blocks.LIGHT)) {
-                    int currentLight = currentState.get(LightBlock.LEVEL_15);
-                    if (currentLight != lightLevel) {
+                    int currentLightInBlock = currentState.get(LightBlock.LEVEL_15);
+                    if (currentLightInBlock != lightLevel) {
                         world.setBlockState(currentPos, Blocks.LIGHT.getDefaultState()
                                 .with(LightBlock.LEVEL_15, lightLevel)
                                 .with(LightBlock.WATERLOGGED, isWater), 3);
                     }
                 } else {
-                    // Setze neuen Lichtblock
                     world.setBlockState(currentPos, Blocks.LIGHT.getDefaultState()
                             .with(LightBlock.LEVEL_15, lightLevel)
                             .with(LightBlock.WATERLOGGED, isWater), 3);
                 }
-                
-                // Speichern, damit wir es später löschen können
                 lightSources.put(uuid, currentPos);
             }
         } else if (oldPos != null) {
-            // Wenn Radiance 0 ist, aber noch ein alter Block existiert -> Löschen
+            // Wenn Lichtlevel auf 0 gefallen ist, altes Licht entfernen
             removeLight(world, oldPos);
             lightSources.remove(uuid);
         }
@@ -92,8 +87,7 @@ public class DynamicLightHandler {
             }
         }
     }
-    
-    // Aufräumen wenn Spieler den Server verlässt
+
     public static void onDisconnect(ServerPlayerEntity player) {
         BlockPos pos = lightSources.remove(player.getUuid());
         if (pos != null) {

@@ -47,6 +47,30 @@ public class TrimEffectUtil {
         return score;
     }
 
+    // NEU: Methode um Material-Teile zu zählen (unabhängig vom Pattern)
+    public static int getMaterialCount(LivingEntity entity, String materialPath) {
+        if (entity instanceof TrimBenefitUser user && !user.simplebuilding$areTrimBenefitsEnabled()) {
+            return 0;
+        }
+
+        int count = 0;
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
+                ItemStack stack = entity.getEquippedStack(slot);
+                var optionalTrim = stack.get(DataComponentTypes.TRIM);
+
+                if (optionalTrim != null) {
+                    // Wir prüfen hier nur das Material
+                    String materialId = optionalTrim.material().getKey().map(key -> key.getValue().getPath()).orElse("");
+                    if (materialId.contains(materialPath)) {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
     public static float modifyDamage(LivingEntity entity, float amount, DamageSource source) {
         float multiplier = 1.0f;
         String activeTrim = "";
@@ -114,6 +138,37 @@ public class TrimEffectUtil {
                  multiplier -= (count * 0.05f);
                  activeTrim = "Ward";
              }
+        }
+
+        // 1. DIAMANT: Harte Schale
+        // Diamant Trims geben flache Schadensreduktion gegen ALLES (außer Void/Starve).
+        // 2.5% pro Teil -> 10% bei vollem Set.
+        if (!source.isIn(DamageTypeTags.BYPASSES_ARMOR)) {
+            int diamondCount = getMaterialCount(entity, "diamond");
+            if (diamondCount > 0) {
+                multiplier -= (diamondCount * 0.025f);
+                // Logging optional
+            }
+        }
+
+        // 2. GOLD: Magische Dämpfung
+        // Gold ist weich, aber magisch leitfähig. Reduziert Magieschaden deutlich.
+        // 5% pro Teil -> 20% bei vollem Set.
+        if (source.getName().equals("magic") || source.getName().equals("indirectMagic") || source.getName().equals("dragonBreath")) {
+            int goldCount = getMaterialCount(entity, "gold");
+            if (goldCount > 0) {
+                multiplier -= (goldCount * 0.05f);
+            }
+        }
+
+        // 3. IRON (optional): Wucht-Resistenz
+        // Gut gegen Explosionen oder Mob-Angriffe (nicht Magie).
+        // Hier als Beispiel, falls gewünscht.
+        if (!source.isIn(DamageTypeTags.IS_EXPLOSION) && !source.isIn(DamageTypeTags.BYPASSES_ARMOR)) {
+            int ironCount = getMaterialCount(entity, "iron");
+            if (ironCount > 0) {
+                multiplier -= (ironCount * 0.03f);
+            }
         }
 
         // Sicherheitsbegrenzung
