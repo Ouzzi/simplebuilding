@@ -3,6 +3,7 @@ package com.simplebuilding.recipe;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.items.ModItems;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.input.SmithingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
@@ -38,17 +39,20 @@ public class UpgradeSmithingRecipe implements SmithingRecipe {
     public ItemStack craft(SmithingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
         ItemStack baseStack = input.base();
         ItemStack templateStack = input.template();
+        ItemStack additionStack = input.addition();
 
-        // Kopiere das Item (inklusive Enchants, Namen, altem Trim)
+        // Kopie der Rüstung erstellen
         ItemStack result = baseStack.copy();
 
-        // Wenn Glowing Template genutzt wird -> Visueller Effekt an
-        if (templateStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE)) {
+        // 1. Fall: Glowing Template (Visuelles Leuchten des Trims)
+        if (templateStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE) && additionStack.isOf(Items.GLOW_INK_SAC)) {
+            // Setze die Komponente auf TRUE
             result.set(ModDataComponentTypes.VISUAL_GLOW, true);
         }
 
-        // Wenn Emitting Template genutzt wird -> Lichtquelle an
-        if (templateStack.isOf(ModItems.EMITTING_TRIM_TEMPLATE)) {
+        // 2. Fall: Emitting Template (Lichtquelle)
+        if (templateStack.isOf(ModItems.EMITTING_TRIM_TEMPLATE) && additionStack.isOf(Items.GLOWSTONE_DUST)) {
+            // Setze die Komponente auf TRUE
             result.set(ModDataComponentTypes.LIGHT_SOURCE, true);
         }
 

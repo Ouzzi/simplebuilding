@@ -34,7 +34,7 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
 
         // Prüfen, ob unsere spezifische Kombination vorliegt für glowing trim upgrade
         if (templateStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE) && materialStack.isOf(Items.GLOW_INK_SAC)) {
-            boolean isValidArmor = isValidArmor(templateStack);
+            boolean isValidArmor = isValidArmor(armorStack);
 
             if (isValidArmor) {
                 int currentLevel = GlowingTrimUtils.getGlowLevel(armorStack);

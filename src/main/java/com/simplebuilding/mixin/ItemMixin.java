@@ -1,5 +1,6 @@
 package com.simplebuilding.mixin;
 
+import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.util.GlowingTrimUtils;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -13,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 @Mixin(Item.class)
@@ -122,6 +124,26 @@ public class ItemMixin {
             else if (id.contains("bolt")) { // Trial Chambers
                 textConsumer.accept(Text.literal("Trim Bonus: Kinetic Response").formatted(Formatting.GOLD));
             }
+        }
+    }
+
+    @Inject(method = "appendTooltip", at = @At("HEAD"))
+    private void simplebuilding$addUpgradeTooltips(
+            ItemStack stack,
+            Item.TooltipContext context,
+            TooltipDisplayComponent displayComponent,
+            Consumer<Text> textConsumer,
+            TooltipType type,
+            CallbackInfo ci
+    ) {
+        // Prüfen auf Visual Glow
+        if (Boolean.TRUE.equals(stack.get(ModDataComponentTypes.VISUAL_GLOW))) {
+            textConsumer.accept(Text.literal("✨ Glowing Trim").formatted(Formatting.AQUA));
+        }
+
+        // Prüfen auf Light Source
+        if (Boolean.TRUE.equals(stack.get(ModDataComponentTypes.LIGHT_SOURCE))) {
+            textConsumer.accept(Text.literal("💡 Emits Light").formatted(Formatting.GOLD));
         }
     }
 }
