@@ -25,8 +25,7 @@ public class EquipmentRendererMixin {
     )
     // Wir holen uns zusätzlich den ItemStack mit @Local(argsOnly = true)
     private int makeTrimGlow(int light, @Local(ordinal = 0) ArmorTrim armorTrim, @Local(argsOnly = true) ItemStack stack) {
-
-        // Prüfen: Gibt es einen Trim UND hat das Item das "Glow"-Upgrade?
+        // Leuchtet nur, wenn ein Trim da ist UND das "Visual Glow" Upgrade installiert wurde
         if (armorTrim != null && GlowingTrimUtils.hasVisualGlow(stack)) {
             // Simplebuilding.LOGGER.info("Making Trim Glow for " + stack.getItem().getName().getString());
             return LightmapTextureManager.MAX_LIGHT_COORDINATE;

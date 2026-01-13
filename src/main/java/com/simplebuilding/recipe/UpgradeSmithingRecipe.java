@@ -22,15 +22,9 @@ public class UpgradeSmithingRecipe implements SmithingRecipe {
         this.addition = addition;
     }
 
-    // FIX 1: Richtige Methode für Placement nutzen
     @Override
     public IngredientPlacement getIngredientPlacement() {
-        // Wir erstellen eine Liste aus den 3 Zutaten (Template, Base, Addition)
-        return IngredientPlacement.forMultipleSlots(List.of(
-                this.template,
-                Optional.of(this.base),
-                this.addition
-        ));
+        return IngredientPlacement.forMultipleSlots(List.of(this.template, Optional.of(this.base), this.addition));
     }
 
     @Override
@@ -45,13 +39,15 @@ public class UpgradeSmithingRecipe implements SmithingRecipe {
         ItemStack baseStack = input.base();
         ItemStack templateStack = input.template();
 
+        // Kopiere das Item (inklusive Enchants, Namen, altem Trim)
         ItemStack result = baseStack.copy();
 
-        // Logik für Glowing Upgrade
+        // Wenn Glowing Template genutzt wird -> Visueller Effekt an
         if (templateStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE)) {
             result.set(ModDataComponentTypes.VISUAL_GLOW, true);
         }
-        // Logik für Light Source Upgrade
+
+        // Wenn Emitting Template genutzt wird -> Lichtquelle an
         if (templateStack.isOf(ModItems.EMITTING_TRIM_TEMPLATE)) {
             result.set(ModDataComponentTypes.LIGHT_SOURCE, true);
         }
@@ -59,26 +55,15 @@ public class UpgradeSmithingRecipe implements SmithingRecipe {
         return result;
     }
 
-    // FIX 2: getResult() komplett ENTFERNT (da es im Interface nicht mehr existiert)
-
-    // FIX 3: Rückgabetyp angepasst (? extends SmithingRecipe)
     @Override
     public RecipeSerializer<? extends SmithingRecipe> getSerializer() {
         return ModRecipes.UPGRADE_SMITHING_SERIALIZER;
     }
 
     @Override
-    public Optional<Ingredient> template() {
-        return this.template;
-    }
-
+    public Optional<Ingredient> template() { return this.template; }
     @Override
-    public Ingredient base() {
-        return this.base;
-    }
-
+    public Ingredient base() { return this.base; }
     @Override
-    public Optional<Ingredient> addition() {
-        return this.addition;
-    }
+    public Optional<Ingredient> addition() { return this.addition; }
 }

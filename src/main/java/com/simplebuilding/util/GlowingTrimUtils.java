@@ -29,13 +29,13 @@ public class GlowingTrimUtils {
         }
     }
 
-    // WICHTIG: Parameter ist jetzt ItemStack!
+    // Hat das Item das "Glowing" Upgrade? (RGB)
     public static boolean hasVisualGlow(ItemStack stack) {
         if (stack.isEmpty()) return false;
         return stack.getOrDefault(ModDataComponentTypes.VISUAL_GLOW, false);
     }
 
-    // WICHTIG: Parameter ist jetzt ItemStack!
+    // Hat das Item das "Emitting" Upgrade? (Lichtquelle)
     public static boolean hasLightEmission(ItemStack stack) {
         if (stack.isEmpty()) return false;
         return stack.getOrDefault(ModDataComponentTypes.LIGHT_SOURCE, false);

@@ -53,10 +53,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 )
                 .criterion("has_glowing_template", conditionsFromItem(ModItems.GLOWING_TRIM_TEMPLATE))
                 .offerTo(exporter, "glowing_armor_upgrade_dummy");
+
                 SmithingTransformRecipeJsonBuilder.create(
                         templateIngredient,                     // Slot 1: Jedes Template (damit auch deins geht)
                         armorIngredient,                        // Slot 2: Rüstung
-                        Ingredient.ofItems(Items.GLOW_INK_SAC), // Slot 3: Leuchttinte
+                        Ingredient.ofItems(Items.GLOWSTONE_DUST), // Slot 3: Leuchttinte
                         RecipeCategory.MISC,
                         ModItems.EMITTING_TRIM_TEMPLATE          // Dummy Output (wird vom Mixin überschrieben)
                 )
