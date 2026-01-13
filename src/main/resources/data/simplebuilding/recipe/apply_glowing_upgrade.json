@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:smithing_trim",
+  "type": "simplebuilding:upgrade_smithing",
   "template": {
     "item": "simplebuilding:glowing_trim_template"
   },
@@ -7,9 +7,6 @@
     "tag": "minecraft:trimmable_armor"
   },
   "addition": {
-    "tag": "minecraft:trim_materials"
-  },
-  "pattern": {
-    "id": "simplebuilding:glowing"
+    "item": "minecraft:glow_ink_sac"
   }
 }

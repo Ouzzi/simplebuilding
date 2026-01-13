@@ -30,9 +30,10 @@ public class EquipmentRendererMixin {
     private int makeTrimGlow(int light, @Local(ordinal = 0) ArmorTrim armorTrim) {
         // Wenn ein Trim vorhanden ist UND es unser Glowing Trim ist -> MAX LICHT
         Simplebuilding.LOGGER.info("Making Trim Glow");
-        if (armorTrim != null && GlowingTrimUtils.isVisualGlowingTrim(armorTrim)) {
-            return LightmapTextureManager.MAX_LIGHT_COORDINATE; // 15728880 (Fullbright)
+        boolean hasTrim = armorTrim != null;
+        if (hasTrim && GlowingTrimUtils.hasVisualGlow(armorTrim)) {
+            return LightmapTextureManager.MAX_LIGHT_COORDINATE;
         }
-        return light; // Sonst normales Licht
+        return light;
     }
 }
