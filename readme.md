@@ -202,6 +202,26 @@ SimpleBuilding gives every Armor Trim a unique gameplay purpose.
 | **Eye** | Ender Pearl & Fall Damage Reduction | **9%** |
 | **Spire** | Fall Damage Reduction | **12%** |
 
+
+### Armor Trim Material Bonuses
+
+Each material used for an armor trim grants the wearer specific bonuses. The effects stack for each armor piece equipped with the same material.
+
+| Material | Bonus (per piece) | Set Bonus (4 pieces) | Effect Name | Description / Condition |
+| :--- | :--- | :--- | :--- | :--- |
+| **Diamond** | **-2.5%** Damage | **-10%** Damage | **Hard Shell** | Reduces almost all damage (except Void/Starvation). The best all-around protection. |
+| **Gold** | **-5.0%** Magic Dmg | **-20%** Magic Dmg | **Magic Dampening** | Strong protection against Magic, Potions, Dragon Breath, and Wither effect. |
+| **Iron** | **-3.0%** Physical Dmg | **-12%** Physical Dmg | **Blunt Resistance** | Reduces damage from direct attacks (Mobs, Players), but not from Explosions or Magic. |
+| **Copper** | **-5.0%** Lightning Dmg | **-20%** Lightning Dmg | **Lightning Rod** | Specific protection against Lightning strikes and electrically charged attacks. |
+| **Emerald** | **-3.0%** vs Illagers | **-12%** vs Illagers | **Illager Resistance** | Reduces damage from Pillagers, Vindicators, Evokers, Vexes, and Ravagers. |
+| **Quartz** | **-3.0%** Fire Dmg | **-12%** Fire Dmg | **Heat Shield** | Active when taking damage from Fire, Lava, or Magma Blocks. |
+| **Amethyst** | **-3.0%** Sonic Dmg | **-12%** Sonic Dmg | **Resonance** | Specific protection against the Warden's "Sonic Boom" attack. |
+| **Redstone** | **-3.0%** Projectiles | **-12%** Projectiles | **Trap Awareness** | Protects against arrows, tridents, and other projectiles (ideal against dispenser traps). |
+| **Lapis** | **-3.0%** Magic/Witch | **-12%** Magic/Witch | **Curse Dampening** | Reduces damage from Witches and general magic (similar to Gold, but weaker/more specific). |
+| **Netherite** | **+50%** Pattern Effect | **+50%** Pattern Effect | **Pattern Boost** | Amplifies the effect of the **Trim Pattern** by 1.5x (e.g., Sentry, Vex). |
+
+--- 
+
 ## ⚙️ Configuration
 
 The mod is highly configurable via **Mod Menu** and **Cloth Config**.

@@ -8,6 +8,8 @@ import com.simplebuilding.util.TrimBenefitUser;
 import com.simplebuilding.util.TrimEffectUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -151,7 +153,25 @@ public abstract class PlayerEntityMixin implements TrimBenefitUser {
             // +0.5 Luck pro Teil (Standard Luck ist 0)
             // Ein "Glück des Meeres" Level ist ca +1.0 Luck.
             // Volle Smaragd-Rüstung = +2.0 Luck (Wie Luck II Trank).
-            cir.setReturnValue(currentLuck + (emeraldCount * 0.4f));
+            cir.setReturnValue(currentLuck + (emeraldCount * 0.5f));
+        }
+    }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void simplebuilding$updateSpeedAttribute(CallbackInfo ci) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+
+        // Performance: Nicht jeden Tick Attribute ändern, wenn es nicht sein muss.
+        // Minecraft Attribute modifiers sind aber der saubere Weg.
+        // Einfache Variante: Wir prüfen alle 20 Ticks (1 Sekunde).
+        if (player.age % 20 != 0) return;
+
+        // Redstone erhöht Geschwindigkeit leicht
+        int redstoneCount = TrimEffectUtil.getMaterialCount(player, "redstone");
+        int copperCount = TrimEffectUtil.getMaterialCount(player, "copper");
+        int speedMaterial = redstoneCount + copperCount;
+        if (speedMaterial >= 2) { // Mindestens 2 Teile für Speed 1
+             player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 40, 0, false, false, false));
         }
     }
 }

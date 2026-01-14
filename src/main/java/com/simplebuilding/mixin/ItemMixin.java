@@ -33,8 +33,8 @@ public class ItemMixin {
         int glowLevel = GlowingTrimUtils.getEmissionLevel(stack);
         if (glowLevel > 0) {
             textConsumer.accept(Text.empty()); // Leerzeile
-            textConsumer.accept(Text.literal("Radiance Level: " + glowLevel + "/5").formatted(Formatting.GOLD));
-            textConsumer.accept(Text.literal(" Light Level: " + (glowLevel * 3)).formatted(Formatting.DARK_GRAY));
+            textConsumer.accept(Text.translatable("tooltip.simplebuilding.radiance_level", glowLevel).formatted(Formatting.GOLD));
+            textConsumer.accept(Text.translatable("tooltip.simplebuilding.light_level", (glowLevel * 3)).formatted(Formatting.DARK_GRAY));
         }
 
         // 2. Armor Trim Boni anzeigen
@@ -44,11 +44,54 @@ public class ItemMixin {
         if (optionalTrim != null) {
             // Wir holen den Pfad der Pattern-ID (z.B. "sentry", "vex", etc.)
             String id = optionalTrim.pattern().value().assetId().getPath();
+            String materialId = optionalTrim.material().getKey().map(key -> key.getValue().getPath()).orElse("");
+            System.out.println("Trim ID: " + id + ", Material ID: " + materialId);
 
-            // Leerzeile vor den Boni sieht oft besser aus
-            if (glowLevel == 0) { // Nur wenn nicht schon durch Radiance eine da ist
-                // textConsumer.accept(Text.empty()); // Optional: Leerzeile einfügen
+            if (glowLevel == 0) {
+                textConsumer.accept(Text.empty());
             }
+
+            if (materialId.contains("diamond")) {
+                textConsumer.accept(Text.literal("Material: Hard Shell (-2.5% Dmg)").formatted(Formatting.AQUA));
+            }
+            else if (materialId.contains("gold")) {
+                textConsumer.accept(Text.literal("Material: Magic Dampening (-5%)").formatted(Formatting.GOLD));
+            }
+            else if (materialId.contains("iron")) {
+                textConsumer.accept(Text.literal("Material: Blunt Resistance (-3%)").formatted(Formatting.GRAY));
+            }
+            else if (materialId.contains("netherite")) {
+                textConsumer.accept(Text.literal("Material: Pattern Boost (+50%)").formatted(Formatting.DARK_GRAY));
+            }
+            // -- NEUE MATERIALIEN --
+            else if (materialId.contains("emerald")) {
+                // Smaragd: Oft mit Handel oder Illagern verbunden. Vorschlag: Schutz gegen Illager.
+                textConsumer.accept(Text.literal("Material: Illager Resistance (-3%)").formatted(Formatting.DARK_GREEN));
+            }
+            else if (materialId.contains("copper")) {
+                // Kupfer: Leitet Blitz. Vorschlag: Blitzschutz oder Wasser-Affinität (Oxidierung).
+                textConsumer.accept(Text.literal("Material: Lightning Rod (-5% Ltn)").formatted(Formatting.GOLD));
+            }
+            else if (materialId.contains("redstone")) { // Tippfehler korrigiert (war 'readstone')
+                // Redstone: Fallen/Mechanik. Vorschlag: Schutz gegen Fallen (Pfeile aus Dispensern etc).
+                textConsumer.accept(Text.literal("Material: Trap Awareness (-3%)").formatted(Formatting.RED));
+            }
+            else if (materialId.contains("quartz")) {
+                // Quarz: Nether. Vorschlag: Feuerschutz.
+                textConsumer.accept(Text.literal("Material: Heat Shield (-3% Fire)").formatted(Formatting.WHITE));
+            }
+            else if (materialId.contains("amethyst")) {
+                // Amethyst: Schall/Vibration. Vorschlag: Ähnlich wie Ward (Sonic Boom Schutz).
+                textConsumer.accept(Text.literal("Material: Resonance Shield (-3%)").formatted(Formatting.LIGHT_PURPLE));
+            }
+            else if (materialId.contains("lapis")) {
+                // Lapis: Verzauberung/Glück. Schwer als Dmg-Reduction. Vorschlag: "Bad Omen" oder Magie-Resistenz (wie Gold).
+                textConsumer.accept(Text.literal("Material: Curse Dampening (-3%)").formatted(Formatting.BLUE));
+            }
+
+
+
+        // ---------------------------
 
             // --- Overworld & Strukturen ---
 
@@ -138,12 +181,12 @@ public class ItemMixin {
     ) {
         // Prüfen auf Visual Glow
         if (Boolean.TRUE.equals(stack.get(ModDataComponentTypes.VISUAL_GLOW))) {
-            textConsumer.accept(Text.literal("✨ Glowing Trim").formatted(Formatting.AQUA));
+            textConsumer.accept(Text.translatable("tooltip.simplebuilding.glowing_trim").formatted(Formatting.AQUA));
         }
 
         // Prüfen auf Light Source
         if (Boolean.TRUE.equals(stack.get(ModDataComponentTypes.LIGHT_SOURCE))) {
-            textConsumer.accept(Text.literal("💡 Emits Light").formatted(Formatting.GOLD));
+            textConsumer.accept(Text.translatable("tooltip.simplebuilding.emits_light").formatted(Formatting.GOLD));
         }
     }
 }

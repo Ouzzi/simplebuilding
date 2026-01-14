@@ -1,7 +1,8 @@
 ## Changelog:
-- magnet shift right-click message to reset shouldnt give chat message if nothing to reset
 
 ## TODO:
+
+- bundle ctrl click to lock - display lock icon (similar to plus icon when adding items)
 
 - new item magnet texture
 - bundle/quiver gui improvements
@@ -12,15 +13,12 @@
 
 
 - sledgehammer should be customizable in a gui - toggle radius, break trough entchantments
-- sledgehammer sneak to break only one block/ radius minus 2 blocks
 
-- glowing armor trims 
 
 - building wand - all wand enchantments possible on it - mode togglable via gui  
 - building wand - master-builder minimal faster placing
 
 
-- 
 
 ## TODO Later:
 - reinforced observer - less delay, more range (7 blocks)
@@ -44,7 +42,6 @@
 - ( copy tool? )
 
 
-
 - (later) - netherite copper chest - quadrouple stack size
 - (later) - reinforced copper chest - double stack size (with diamonds)
 -- chest icon no texture but moodel is rendering in hotbar
@@ -53,16 +50,6 @@
 -- whed middleclicked in creative mode, it gives 1024 items instead of max stack size
 
 ## DONE:
-- more chisel durability -x
-- chisel should replace spatula (sneak + item in offhand) -x
-- stais and slabs with chisel / spatula -x
-- sledgehammer - repair cost -x
-- building core too common (make more rare) -x
-- sneak,shift and scoll to move in view direction -x
-- circle mode for octant / other shapes (triangle) - Shift + alt + scroll to change shape -x
-- feather falling and protection enchantments arent applicable both on boots -x
-- double jump enabled / disabled option on code! -x
-- compass in smithing table with item and diamonds - points to different structures (configurable) - Buggy -x
 
 
 ## BUGS:  

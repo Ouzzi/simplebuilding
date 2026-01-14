@@ -340,11 +340,6 @@ public class BuildingWandItem extends Item {
         ItemStack wandStack = context.getStack();
 
         if (player == null) return ActionResult.PASS;
-
-        // ENTFERNT: Die Logik für Sneak + Touch -> GUI öffnen.
-        // Das passiert jetzt über den KeyBinding im Client.
-
-        // Standard Building Wand Logic (Nur Server-seitig relevant für das Setzen von NBT)
         if (world.isClient()) return ActionResult.SUCCESS;
 
         // Prüfen, ob wir überhaupt ein Material haben, bevor wir starten

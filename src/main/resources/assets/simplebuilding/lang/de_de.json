@@ -204,7 +204,6 @@
   "item.simplebuilding.cracked_diamond_block": "Rissiger Diamantblock",
   "block.simplebuilding.cracked_diamond_block": "Rissiger Diamantblock",
 
-  "item.simplebuilding.glowing_trim_template": "Licht Rüstungsverzierung",
   "trim_pattern.simplebuilding.glowing": "Leuchtverzierung",
   "upgrade.simplebuilding.glowing_upgrade": "Leuchtendes Rüstungsupgrade",
   "item.minecraft.smithing_template.glowing_trim_template.applies_to": "Rüstung",
@@ -250,5 +249,24 @@
   "simplebuilding.gui.octant_title": "Oktant-Einstellungen",
 
   "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits": "Rüstungsbesatz-Vorteile aktivieren",
-  "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits.@Tooltip": "Wenn deaktiviert, erhältst du keine Gameplay-Boni (z.B. Wasseratmung) durch Rüstungsbesätze."
+  "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits.@Tooltip": "Wenn deaktiviert, erhältst du keine Gameplay-Boni (z.B. Wasseratmung) durch Rüstungsbesätze.",
+  "item.simplebuilding.glowing_trim_template": "Leuchtende Schmiedevorlage",
+  "item.simplebuilding.emitting_trim_template": "Strahlende Schmiedevorlage",
+
+  "tooltip.simplebuilding.glowing_trim": "✨ Leuchtender Besatz",
+  "tooltip.simplebuilding.emits_light": "💡 Spendet Licht",
+  "tooltip.simplebuilding.radiance_level": "Strahlkraft: %s/5",
+  "tooltip.simplebuilding.light_level": " Lichtlevel: %s",
+
+  "upgrade.simplebuilding.glowing_trim_upgrade": "Leucht-Upgrade",
+  "upgrade.simplebuilding.glowing_trim_applies_to": "Verzierte Rüstung",
+  "upgrade.simplebuilding.glowing_trim_ingredients": "Leuchttintenbeutel",
+  "upgrade.simplebuilding.glowing_trim_base_slot_description": "Rüstung mit Besatz hinzufügen",
+  "upgrade.simplebuilding.glowing_trim_additions_slot_description": "Leuchttintenbeutel hinzufügen",
+
+  "upgrade.simplebuilding.emitting_trim_upgrade": "Lichtquellen-Upgrade",
+  "upgrade.simplebuilding.emitting_trim_applies_to": "Leuchtende Rüstung",
+  "upgrade.simplebuilding.emitting_trim_ingredients": "Glowstone-Staub",
+  "upgrade.simplebuilding.emitting_trim_base_slot_description": "Leuchtende Rüstung hinzufügen",
+  "upgrade.simplebuilding.emitting_trim_additions_slot_description": "Glowstone-Staub hinzufügen"
 }

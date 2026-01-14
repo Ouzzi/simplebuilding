@@ -101,18 +101,17 @@ public class SledgehammerItem extends Item {
 
         if (!stack.getItem().isCorrectForDrops(stack, initialState)) {return positions;}
 
+        boolean isPlayerSneaking = player.isSneaking();
         Direction sideHit = getHitSideFromPlayer(player);
 
         var registry = world.getRegistryManager();
         var enchantLookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
 
         var radiusKey = enchantLookup.getOptional(ModEnchantments.RADIUS);
-        int range = baseRange;
-        if (radiusKey.isPresent() && EnchantmentHelper.getLevel(radiusKey.get(), stack) > 0) {range += 1;}
+        int range = baseRange + ((!isPlayerSneaking && radiusKey.isPresent()) ? EnchantmentHelper.getLevel(radiusKey.get(), stack) : 0);
 
         var breakThroughKey = enchantLookup.getOptional(ModEnchantments.BREAK_THROUGH);
-        int depth = 0;
-        if (breakThroughKey.isPresent() && EnchantmentHelper.getLevel(breakThroughKey.get(), stack) > 0) {depth = 1;}
+        int depth = 1 + ((!isPlayerSneaking && breakThroughKey.isPresent()) ? EnchantmentHelper.getLevel(breakThroughKey.get(), stack) : 0);
 
         // Positionen berechnen
         for(int x = -range; x <= range; x++) {

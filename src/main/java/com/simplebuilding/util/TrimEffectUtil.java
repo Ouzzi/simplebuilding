@@ -5,6 +5,8 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.mob.IllagerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.DamageTypeTags;
 import com.simplebuilding.util.TrimBenefitUser;
@@ -154,7 +156,7 @@ public class TrimEffectUtil {
         // 2. GOLD: Magische Dämpfung
         // Gold ist weich, aber magisch leitfähig. Reduziert Magieschaden deutlich.
         // 5% pro Teil -> 20% bei vollem Set.
-        if (source.getName().equals("magic") || source.getName().equals("indirectMagic") || source.getName().equals("dragonBreath")) {
+        if (source.isOf(DamageTypes.MAGIC) || source.isOf(DamageTypes.INDIRECT_MAGIC) || source.isOf(DamageTypes.DRAGON_BREATH) || source.isOf(DamageTypes.WITHER)) {
             int goldCount = getMaterialCount(entity, "gold");
             if (goldCount > 0) {
                 multiplier -= (goldCount * 0.05f);
@@ -169,6 +171,42 @@ public class TrimEffectUtil {
             if (ironCount > 0) {
                 multiplier -= (ironCount * 0.03f);
             }
+        }
+
+        // 1. SMARAGD: Illager-Resistenz
+        if (source.getAttacker() instanceof IllagerEntity) {
+            int emeraldCount = getMaterialCount(entity, "emerald");
+            if (emeraldCount > 0) multiplier -= (emeraldCount * 0.03f);
+        }
+
+        // 2. KUPFER: Blitzschutz
+        if (source.getName().equals("lightningBolt")) {
+            int copperCount = getMaterialCount(entity, "copper");
+            if (copperCount > 0) multiplier -= (copperCount * 0.05f);
+        }
+
+        // 3. QUARZ: Feuerschutz
+        if (source.isIn(DamageTypeTags.IS_FIRE)) {
+            int quartzCount = getMaterialCount(entity, "quartz");
+            if (quartzCount > 0) multiplier -= (quartzCount * 0.03f);
+        }
+
+        // 4. AMETHYST: Sonic Boom / Schall
+        if (source.getName().equals("sonic_boom")) {
+            int amethystCount = getMaterialCount(entity, "amethyst");
+            if (amethystCount > 0) multiplier -= (amethystCount * 0.03f);
+        }
+
+        // 5. REDSTONE: Fallen / Projektile (Allgemein)
+        if (source.isIn(DamageTypeTags.IS_PROJECTILE)) {
+            int redstoneCount = getMaterialCount(entity, "redstone"); // ACHTUNG: Schreibweise "redstone", nicht "readstone"
+            if (redstoneCount > 0) multiplier -= (redstoneCount * 0.03f);
+        }
+
+        // 6. LAPIS: Magie-Resistenz (ähnlich wie Gold, aber schwächer/anders) oder Hexen-Schutz
+        if (source.getSource() instanceof net.minecraft.entity.mob.WitchEntity || source.getName().equals("magic")) {
+            int lapisCount = getMaterialCount(entity, "lapis");
+            if (lapisCount > 0) multiplier -= (lapisCount * 0.03f);
         }
 
         // Sicherheitsbegrenzung

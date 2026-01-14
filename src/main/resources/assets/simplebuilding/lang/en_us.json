@@ -204,7 +204,6 @@
   "item.simplebuilding.cracked_diamond_block": "Cracked Diamond Block",
   "block.simplebuilding.cracked_diamond_block": "Cracked Diamond Block",
 
-  "item.simplebuilding.glowing_trim_template": "Light Armor Trim",
   "trim_pattern.simplebuilding.glowing": "Glowing Trim",
   "upgrade.simplebuilding.glowing_upgrade": "Glowing Armor Upgrade",
   "item.minecraft.smithing_template.glowing_trim_template.applies_to": "Armor",
@@ -252,5 +251,24 @@
   "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits": "Enable Armor Trim Benefits",
   "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits.@Tooltip": "If disabled, you will not receive gameplay bonuses (like water breathing) from armor trims.",
 
-  "trim_pattern.simplebuilding.emitting": "Emitting Pattern"
+  "trim_pattern.simplebuilding.emitting": "Emitting Pattern",
+  "item.simplebuilding.glowing_trim_template": "Glowing Trim Upgrade Template",
+  "item.simplebuilding.emitting_trim_template": "Emitting Trim Upgrade Template",
+
+  "tooltip.simplebuilding.glowing_trim": "✨ Glowing Trim",
+  "tooltip.simplebuilding.emits_light": "💡 Emits Light",
+  "tooltip.simplebuilding.radiance_level": "Radiance Level: %s/5",
+  "tooltip.simplebuilding.light_level": " Light Level: %s",
+
+  "upgrade.simplebuilding.glowing_trim_upgrade": "Glowing Trim Upgrade",
+  "upgrade.simplebuilding.glowing_trim_applies_to": "Trimmed Armor",
+  "upgrade.simplebuilding.glowing_trim_ingredients": "Glow Ink Sac",
+  "upgrade.simplebuilding.glowing_trim_base_slot_description": "Add armor with Trim",
+  "upgrade.simplebuilding.glowing_trim_additions_slot_description": "Add Glow Ink Sac",
+
+  "upgrade.simplebuilding.emitting_trim_upgrade": "Emitting Trim Upgrade",
+  "upgrade.simplebuilding.emitting_trim_applies_to": "Glowing Armor",
+  "upgrade.simplebuilding.emitting_trim_ingredients": "Glowstone Dust",
+  "upgrade.simplebuilding.emitting_trim_base_slot_description": "Add Glowing Armor",
+  "upgrade.simplebuilding.emitting_trim_additions_slot_description": "Add Glowstone Dust"
 }
