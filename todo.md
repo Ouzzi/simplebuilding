@@ -32,7 +32,6 @@
 - reinforced tnt - bigger explosion, less damage to players
 - doubleinforced tnt - even bigger explosion, less damage to players
 
-- later - Glass Itemframes, transparent itemframes - doent drop frame when broken exept silk touch.
 - later - Negative Beacon (evil Beacon) that gives negative effects to players in range
 - later - extra horse inventory if storrage upgrade, for example chest saddle
 - later - Reinforced Beacon that gives more effects or longer effects upgrade the whole beacon system

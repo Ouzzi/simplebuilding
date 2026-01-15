@@ -3,9 +3,9 @@
   "package": "com.simplebuilding.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "EquipmentRendererMixin",
     "BundleTooltipComponentMixin",
     "ClientSpeedometerMixin",
+    "EquipmentRendererMixin",
     "WorldRendererMixin"
   ],
   "injectors": {
@@ -14,6 +14,7 @@
   "client": [
     "HandledScreenMixin",
     "HeldItemRendererMixin",
+    "ItemFrameEntityRendererMixin",
     "MouseMixin"
   ]
 }
