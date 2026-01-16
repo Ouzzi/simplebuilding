@@ -25,12 +25,17 @@ public class EquipmentRendererMixin {
     )
     private int makeTrimGlow(int light, @Local(ordinal = 0) ArmorTrim armorTrim, @Local(argsOnly = true) ItemStack stack) {
         if (armorTrim == null) return light;
+
+        // Level abrufen (0, 1 oder 2)
         int level = GlowingTrimUtils.getGlowLevel(stack);
 
         if (level > 0) {
+            // LEVEL 1: Statisches, volles Leuchten
             if (level == 1) {
                 return LightmapTextureManager.MAX_LIGHT_COORDINATE;
             }
+
+            // LEVEL 2: Pulsierendes "Überladen"-Leuchten
             if (level >= 2) {
                 return simplebuilding$calculatePulsingLight();
             }
@@ -39,14 +44,17 @@ public class EquipmentRendererMixin {
         return light;
     }
 
-    // Hilfsmethode für den Pulsier-Effekt
     @Unique
     private int simplebuilding$calculatePulsingLight() {
-        double speed = 100.0;
-
+        // Schnelles, energetisches Flackern
+        double speed = 80.0;
         double offset = Math.sin(System.currentTimeMillis() / speed);
-        if (offset > 0.8) {
-            return LightmapTextureManager.pack(13, 13); // Etwas dunkler (13 statt 15)
+
+        // Meistens volle Helligkeit (15), aber kurze "Aussetzer" auf 13
+        if (offset > 0.7) {
+            // Lightmap Pack: (BlockLight << 4) | (SkyLight << 20)
+            // Wir nutzen hier 13 für Block und Sky statt 15
+            return LightmapTextureManager.pack(13, 13);
         }
 
         return LightmapTextureManager.MAX_LIGHT_COORDINATE;

@@ -45,9 +45,20 @@ public class UpgradeSmithingRecipe implements SmithingRecipe {
         ItemStack result = baseStack.copy();
 
         // 1. Fall: Glowing Template (Visuelles Leuchten des Trims)
+        // Hier implementieren wir die Stufen-Logik (Level 1 -> Level 2)
         if (templateStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE) && additionStack.isOf(Items.GLOW_INK_SAC)) {
-            // Setze die Komponente auf TRUE
-            result.set(ModDataComponentTypes.VISUAL_GLOW, true);
+            // Lese das aktuelle Level aus (Standard ist 0)
+            int currentLevel = baseStack.getOrDefault(ModDataComponentTypes.GLOW_LEVEL, 0);
+
+            // Wenn das Level noch unter 2 ist, erhöhen wir es
+            if (currentLevel < 2) {
+                result.set(ModDataComponentTypes.GLOW_LEVEL, currentLevel + 1);
+            } else {
+                // Wenn es schon Level 2 (oder höher) ist, geben wir nichts zurück (Rezept ungültig/nichts passiert)
+                // Oder wir geben das Item unverändert zurück (Materialverschwendung).
+                // ItemStack.EMPTY sorgt dafür, dass man es nicht craften kann, wenn es schon max ist.
+                return ItemStack.EMPTY;
+            }
         }
 
         // 2. Fall: Emitting Template (Lichtquelle)

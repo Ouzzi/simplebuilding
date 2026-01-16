@@ -29,13 +29,13 @@ public class ItemMixin {
             TooltipType type,
             CallbackInfo ci
     ) {
-        // 1. Glowing Level anzeigen (Radiance)
-        int glowLevel = GlowingTrimUtils.getEmissionLevel(stack);
-        if (glowLevel > 0) {
-            textConsumer.accept(Text.empty()); // Leerzeile
-            textConsumer.accept(Text.translatable("tooltip.simplebuilding.radiance_level", glowLevel).formatted(Formatting.GOLD));
-            textConsumer.accept(Text.translatable("tooltip.simplebuilding.light_level", (glowLevel * 3)).formatted(Formatting.DARK_GRAY));
-        }
+        // 1. Glowing und Emitting Level anzeigen (Radiance)
+        int emittingLevel = GlowingTrimUtils.getEmissionLevel(stack);
+        int glowLevel = GlowingTrimUtils.getGlowLevel(stack);
+        if (emittingLevel > 0 || glowLevel > 0) {textConsumer.accept(Text.empty());}
+        if (emittingLevel > 0) {textConsumer.accept(Text.translatable("tooltip.simplebuilding.radiance_level", emittingLevel).formatted(Formatting.GOLD));}
+        if (glowLevel > 0) {textConsumer.accept(Text.translatable("tooltip.simplebuilding.glow_level", glowLevel).formatted(Formatting.AQUA));}
+
 
         // 2. Armor Trim Boni anzeigen
         // Wir prüfen sicherheitshalber, ob das Item überhaupt eine Trim-Komponente hat.
@@ -47,7 +47,7 @@ public class ItemMixin {
             String materialId = optionalTrim.material().getKey().map(key -> key.getValue().getPath()).orElse("");
             System.out.println("Trim ID: " + id + ", Material ID: " + materialId);
 
-            if (glowLevel == 0) {
+            if (emittingLevel == 0) {
                 textConsumer.accept(Text.empty());
             }
 
