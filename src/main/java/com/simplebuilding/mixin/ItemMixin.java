@@ -32,9 +32,10 @@ public class ItemMixin {
         // 1. Glowing und Emitting Level anzeigen (Radiance)
         int emittingLevel = GlowingTrimUtils.getEmissionLevel(stack);
         int glowLevel = GlowingTrimUtils.getGlowLevel(stack);
-        if (emittingLevel > 0 || glowLevel > 0) {textConsumer.accept(Text.empty());}
         if (emittingLevel > 0) {textConsumer.accept(Text.translatable("tooltip.simplebuilding.radiance_level", emittingLevel).formatted(Formatting.GOLD));}
-        if (glowLevel > 0) {textConsumer.accept(Text.translatable("tooltip.simplebuilding.glow_level", glowLevel).formatted(Formatting.AQUA));}
+        if (glowLevel > 0) {
+            textConsumer.accept(Text.translatable(glowLevel == 2 ? "tooltip.simplebuilding.glow_level_2" : "tooltip.simplebuilding.glow_level", glowLevel).formatted(Formatting.AQUA));
+        }
 
 
         // 2. Armor Trim Boni anzeigen
@@ -47,9 +48,7 @@ public class ItemMixin {
             String materialId = optionalTrim.material().getKey().map(key -> key.getValue().getPath()).orElse("");
             System.out.println("Trim ID: " + id + ", Material ID: " + materialId);
 
-            if (emittingLevel == 0) {
-                textConsumer.accept(Text.empty());
-            }
+            if (emittingLevel > 0 || glowLevel > 0) {textConsumer.accept(Text.empty());}
 
             if (materialId.contains("diamond")) {
                 textConsumer.accept(Text.literal("Material: Hard Shell (-2.5% Dmg)").formatted(Formatting.AQUA));
@@ -170,23 +169,4 @@ public class ItemMixin {
         }
     }
 
-    @Inject(method = "appendTooltip", at = @At("HEAD"))
-    private void simplebuilding$addUpgradeTooltips(
-            ItemStack stack,
-            Item.TooltipContext context,
-            TooltipDisplayComponent displayComponent,
-            Consumer<Text> textConsumer,
-            TooltipType type,
-            CallbackInfo ci
-    ) {
-        // Prüfen auf Visual Glow
-        if (Boolean.TRUE.equals(stack.get(ModDataComponentTypes.VISUAL_GLOW))) {
-            textConsumer.accept(Text.translatable("tooltip.simplebuilding.glowing_trim").formatted(Formatting.AQUA));
-        }
-
-        // Prüfen auf Light Source
-        if (Boolean.TRUE.equals(stack.get(ModDataComponentTypes.LIGHT_SOURCE))) {
-            textConsumer.accept(Text.translatable("tooltip.simplebuilding.emits_light").formatted(Formatting.GOLD));
-        }
-    }
 }

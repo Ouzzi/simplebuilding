@@ -256,6 +256,8 @@
   "tooltip.simplebuilding.glowing_trim": "✨ Leuchtender Besatz",
   "tooltip.simplebuilding.emits_light": "💡 Spendet Licht",
   "tooltip.simplebuilding.radiance_level": "Strahlkraft: %s/5",
+  "tooltip.simplebuilding.glow_level": "Leuchtend",
+  "tooltip.simplebuilding.glow_level_2": "Leuchtend II",
   "tooltip.simplebuilding.light_level": " Lichtlevel: %s",
 
   "upgrade.simplebuilding.glowing_trim_upgrade": "Leucht-Upgrade",

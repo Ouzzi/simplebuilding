@@ -69,9 +69,15 @@ public class GlowingTrimUtils {
     public static int getGlowLevel(ItemStack stack) {
         if (stack.isEmpty()) return 0;
 
+        // 1. Prüfe auf das neue Level-System
         Integer level = stack.get(ModDataComponentTypes.GLOW_LEVEL);
         if (level != null && level > 0) {
             return level;
+        }
+
+        // 2. Fallback: Alte Items mit Boolean gelten als Level 1
+        if (Boolean.TRUE.equals(stack.get(ModDataComponentTypes.VISUAL_GLOW))) {
+            return 1;
         }
 
         return 0;

@@ -258,6 +258,8 @@
   "tooltip.simplebuilding.glowing_trim": "✨ Glowing Trim",
   "tooltip.simplebuilding.emits_light": "💡 Emits Light",
   "tooltip.simplebuilding.radiance_level": "Radiance Level: %s/5",
+  "tooltip.simplebuilding.glow_level": "Glowing",
+  "tooltip.simplebuilding.glow_level_2": "Glowing II",
   "tooltip.simplebuilding.light_level": " Light Level: %s",
 
   "upgrade.simplebuilding.glowing_trim_upgrade": "Glowing Trim Upgrade",

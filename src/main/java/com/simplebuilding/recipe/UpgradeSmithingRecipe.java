@@ -2,6 +2,7 @@ package com.simplebuilding.recipe;
 
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.GlowingTrimUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
@@ -44,26 +45,28 @@ public class UpgradeSmithingRecipe implements SmithingRecipe {
         // Kopie der Rüstung erstellen
         ItemStack result = baseStack.copy();
 
-        // 1. Fall: Glowing Template (Visuelles Leuchten des Trims)
-        // Hier implementieren wir die Stufen-Logik (Level 1 -> Level 2)
+        // 1. Fall: Glowing Template (Visuelles Leuchten)
+        // Logik: Erhöhe das Level, wenn es noch nicht max (2) ist
         if (templateStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE) && additionStack.isOf(Items.GLOW_INK_SAC)) {
-            // Lese das aktuelle Level aus (Standard ist 0)
-            int currentLevel = baseStack.getOrDefault(ModDataComponentTypes.GLOW_LEVEL, 0);
 
-            // Wenn das Level noch unter 2 ist, erhöhen wir es
+            // Wir nutzen unsere Utils, um das aktuelle Level (auch von alten Items) zu holen
+            int currentLevel = GlowingTrimUtils.getGlowLevel(baseStack);
+
             if (currentLevel < 2) {
+                // Erhöhe Level um 1
                 result.set(ModDataComponentTypes.GLOW_LEVEL, currentLevel + 1);
+
+                // Sauberkeit: Entferne das alte Boolean-Flag, da wir jetzt Integer nutzen
+                result.remove(ModDataComponentTypes.VISUAL_GLOW);
             } else {
-                // Wenn es schon Level 2 (oder höher) ist, geben wir nichts zurück (Rezept ungültig/nichts passiert)
-                // Oder wir geben das Item unverändert zurück (Materialverschwendung).
-                // ItemStack.EMPTY sorgt dafür, dass man es nicht craften kann, wenn es schon max ist.
+                // Wenn schon Level 2 ist, geht es nicht weiter -> Kein Ergebnis
                 return ItemStack.EMPTY;
             }
         }
 
         // 2. Fall: Emitting Template (Lichtquelle)
         if (templateStack.isOf(ModItems.EMITTING_TRIM_TEMPLATE) && additionStack.isOf(Items.GLOWSTONE_DUST)) {
-            // Setze die Komponente auf TRUE
+            // Setze die Lichtquellen-Komponente
             result.set(ModDataComponentTypes.LIGHT_SOURCE, true);
         }
 
