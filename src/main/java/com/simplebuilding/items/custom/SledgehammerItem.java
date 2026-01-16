@@ -111,7 +111,8 @@ public class SledgehammerItem extends Item {
         int range = baseRange + ((!isPlayerSneaking && radiusKey.isPresent()) ? EnchantmentHelper.getLevel(radiusKey.get(), stack) : 0);
 
         var breakThroughKey = enchantLookup.getOptional(ModEnchantments.BREAK_THROUGH);
-        int depth = 1 + ((!isPlayerSneaking && breakThroughKey.isPresent()) ? EnchantmentHelper.getLevel(breakThroughKey.get(), stack) : 0);
+        int depth = ((!isPlayerSneaking && breakThroughKey.isPresent()) ? EnchantmentHelper.getLevel(breakThroughKey.get(), stack) : 0);
+        System.out.println("Sledgehammer - Range: " + range + ", Depth: " + depth + ", Sneaking: " + isPlayerSneaking + ", SideHit: " + sideHit);
 
         // Positionen berechnen
         for(int x = -range; x <= range; x++) {

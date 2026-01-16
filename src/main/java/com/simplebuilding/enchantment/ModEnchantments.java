@@ -168,7 +168,7 @@ public class ModEnchantments {
                 items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE), // Nur Bundles/Shulker
                 items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
                 2, // Weight rare
-                1, // Max Level
+                2, // Max Level
                 Enchantment.leveledCost(15, 15),
                 Enchantment.leveledCost(55, 15),
                 4,
