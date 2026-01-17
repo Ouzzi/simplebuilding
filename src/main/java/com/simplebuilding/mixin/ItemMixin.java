@@ -46,7 +46,6 @@ public class ItemMixin {
             // Wir holen den Pfad der Pattern-ID (z.B. "sentry", "vex", etc.)
             String id = optionalTrim.pattern().value().assetId().getPath();
             String materialId = optionalTrim.material().getKey().map(key -> key.getValue().getPath()).orElse("");
-            System.out.println("Trim ID: " + id + ", Material ID: " + materialId);
 
             if (emittingLevel > 0 || glowLevel > 0) {textConsumer.accept(Text.empty());}
 

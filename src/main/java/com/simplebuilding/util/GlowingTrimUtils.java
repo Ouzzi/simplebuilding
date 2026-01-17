@@ -82,4 +82,9 @@ public class GlowingTrimUtils {
 
         return 0;
     }
+
+    public  static void setGlowLevel(ItemStack stack, int level) {
+        if (stack.isEmpty()) return;
+        stack.set(ModDataComponentTypes.GLOW_LEVEL, level);
+    }
 }

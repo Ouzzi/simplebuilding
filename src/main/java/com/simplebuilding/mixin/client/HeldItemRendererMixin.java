@@ -1,6 +1,7 @@
 package com.simplebuilding.mixin.client;
 
 import com.simplebuilding.items.custom.ChiselItem;
+import com.simplebuilding.items.custom.SledgehammerItem;
 import me.shedaniel.autoconfig.AutoConfig;
 import com.simplebuilding.config.SimplebuildingConfig;
 import net.fabricmc.api.EnvType;
@@ -10,6 +11,7 @@ import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -30,7 +32,6 @@ public class HeldItemRendererMixin {
 
     @Shadow @Final private MinecraftClient client;
 
-    // Wir speichern den Animations-Fortschritt (0.0 bis 1.0) für beide Hände
     @Unique private float mainHandChiselProgress = 0.0F;
     @Unique private float offHandChiselProgress = 0.0F;
 
@@ -54,32 +55,41 @@ public class HeldItemRendererMixin {
             int light,
             CallbackInfo ci
     ) {
-        // 1. Config Check
         SimplebuildingConfig config = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
-        // Wenn Animationen aus sind, verhalten wir uns so, als wäre das Ziel immer 0
         boolean animationsEnabled = config.tools.enableToolAnimations && config.tools.enableChiselAnimation;
-
-        // 2. Ziel-Zustand ermitteln (1.0 = Aktiv/Valid, 0.0 = Inaktiv)
         float targetProgress = 0.0F;
 
-        if (animationsEnabled && item.getItem() instanceof ChiselItem chiselItem) {
+        if (animationsEnabled) {
             HitResult hit = this.client.crosshairTarget;
+
             if (hit instanceof BlockHitResult blockHit) {
-                // Prüfen ob der Block gechiselt werden kann
-                if (chiselItem.canChisel(this.client.world, blockHit.getBlockPos(), item, player)) {
-                    targetProgress = 1.0F;
+                // CHISEL
+                if (item.getItem() instanceof ChiselItem chiselItem) {
+                    // canChisel prüft jetzt GENAU auf Sneaking + Map + Enchantment
+                    if (chiselItem.canChisel(this.client.world, blockHit.getBlockPos(), item, player)) {
+                        targetProgress = 1.0F;
+                    }
+                }
+                // SLEDGEHAMMER
+                else if (item.getItem() instanceof SledgehammerItem sledgehammerItem) {
+                    net.minecraft.util.math.Vec3d relativeHit = blockHit.getPos().subtract(net.minecraft.util.math.Vec3d.of(blockHit.getBlockPos()));
+                    if (sledgehammerItem.getTransformationState(
+                            this.client.world.getBlockState(blockHit.getBlockPos()),
+                            blockHit.getSide(),
+                            relativeHit,
+                            (PlayerEntity)player,
+                            item
+                    ) != null) {
+                        targetProgress = 1.0F;
+                    }
                 }
             }
         }
 
-        // 3. Interpolation (Smoothness)
-        // Wir nähern den aktuellen Wert langsam dem Zielwert an.
-        // 0.15F bestimmt die Geschwindigkeit (höher = schneller).
         float smoothingSpeed = 0.15F;
 
         if (hand == Hand.MAIN_HAND) {
             this.mainHandChiselProgress += (targetProgress - this.mainHandChiselProgress) * smoothingSpeed;
-            // Transformation anwenden, wenn Fortschritt sichtbar ist (> 0.001)
             if (this.mainHandChiselProgress > 0.001F) {
                 this.applyChiselTransform(matrices, this.mainHandChiselProgress);
             }
@@ -91,12 +101,8 @@ public class HeldItemRendererMixin {
         }
     }
 
-    /**
-     * Wendet die Rotation und Position basierend auf dem Fortschritt an.
-     */
     @Unique
     private void applyChiselTransform(MatrixStack matrices, float progress) {
-        // Die Werte werden mit 'progress' multipliziert, um von 0 bis zum vollen Effekt zu blenden
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-15.0F * progress));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-10.0F * progress));
         matrices.translate(0.05 * progress, 0.05 * progress, 0.05 * progress);

@@ -37,13 +37,14 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
             boolean isValidArmor = isValidArmor(armorStack);
 
             if (isValidArmor) {
-                boolean hasVisualGlow = GlowingTrimUtils.hasVisualGlow(armorStack);
-                if (!hasVisualGlow) {
+                int currentLevel = GlowingTrimUtils.getGlowLevel(armorStack);
+                if (currentLevel < 2) {
                     ItemStack outputStack = armorStack.copy();
-                    GlowingTrimUtils.setVisualGlow(outputStack, true);
+                    GlowingTrimUtils.setGlowLevel(outputStack, currentLevel + 1);
                     outputStack.setCount(1);
                     this.output.setStack(0, outputStack);
                     ci.cancel();
+                    return;
                 } else {
                     this.output.setStack(0, ItemStack.EMPTY);
                     ci.cancel();

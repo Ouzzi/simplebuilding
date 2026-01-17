@@ -84,6 +84,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.NETHERITE_QUIVER)
                 .add(Items.SHULKER_BOX)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
+                .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .add(ModItems.VELOCITY_GAUGE)
                 .add(ModItems.ORE_DETECTOR)

@@ -2,9 +2,9 @@ package com.simplebuilding.items.custom;
 
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantments;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
+import net.minecraft.block.enums.BlockHalf;
+import net.minecraft.block.enums.SlabType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -29,12 +29,15 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
@@ -159,6 +162,9 @@ public class ChiselItem extends Item {
 
         // [All Woods -> Stripped Wood]
         registerWood();
+
+        registerWoodVariants(IRON_CHISEL_MAP, IRON_SPATULA_MAP);
+        registerNetherWoodVariants(IRON_TOUCH_MAP, IRON_TOUCH_SPATULA_MAP);
 
         // =================================================================================
         // 3. GOLD TIER (Linear)
@@ -390,11 +396,14 @@ public class ChiselItem extends Item {
             return ActionResult.PASS;
         }
 
-        return tryChiselBlock(context.getWorld(), context.getPlayer(), context.getHand(), context.getBlockPos(), context.getStack())
+
+        Vec3d relativeHit = context.getHitPos().subtract(Vec3d.of(context.getBlockPos()));
+
+        return tryChiselBlock(context.getWorld(), context.getPlayer(), context.getHand(), context.getBlockPos(), context.getStack(), context.getSide(), relativeHit)
                 ? ActionResult.SUCCESS : ActionResult.PASS;
     }
 
-    private boolean tryChiselBlock(World world, PlayerEntity player, Hand hand, BlockPos pos, ItemStack stack) {
+    private boolean tryChiselBlock(World world, PlayerEntity player, Hand hand, BlockPos pos, ItemStack stack, net.minecraft.util.math.Direction side, Vec3d relativeHit) {
         if (player.getItemCooldownManager().isCoolingDown(stack)) return false;
 
         BlockState oldState = world.getBlockState(pos);
@@ -435,14 +444,15 @@ public class ChiselItem extends Item {
             Block newBlock = currentMap.get(oldBlock);
             BlockState newState = newBlock.getDefaultState();
 
-            // === OPTIMIERUNG: GENERISCHES KOPIEREN VON PROPERTIES ===
-            // Anstatt jede Property einzeln (FACING, AXIS, etc.) zu prüfen, iterieren wir durch alle.
-            // Das deckt ALLES ab: Waterlogged, Rotation, Open/Closed, HasBottle, etc.
+            // 1. Properties kopieren (Waterlogged, etc.)
             for (Property<?> prop : oldState.getProperties()) {
                 if (newState.contains(prop)) {
                     newState = copyProperty(oldState, newState, prop);
                 }
             }
+
+            // Intuitive Ausrichtung anwenden
+            newState = applyIntuitiveOrientation(newState, side, relativeHit, player);
 
             world.setBlockState(pos, newState);
 
@@ -538,6 +548,55 @@ public class ChiselItem extends Item {
         registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD);
         registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD);
     }
+    private static void registerWoodVariants(Map<Block, Block> forward, Map<Block, Block> backward) {
+        // Oak
+        registerLinear(forward, backward, Blocks.OAK_PLANKS, Blocks.OAK_STAIRS);
+        registerLinear(forward, backward, Blocks.OAK_STAIRS, Blocks.OAK_SLAB);
+        // Spruce
+        registerLinear(forward, backward, Blocks.SPRUCE_PLANKS, Blocks.SPRUCE_STAIRS);
+        registerLinear(forward, backward, Blocks.SPRUCE_STAIRS, Blocks.SPRUCE_SLAB);
+
+        // Birch
+        registerLinear(forward, backward, Blocks.BIRCH_PLANKS, Blocks.BIRCH_STAIRS);
+        registerLinear(forward, backward, Blocks.BIRCH_STAIRS, Blocks.BIRCH_SLAB);
+
+        // Jungle
+        registerLinear(forward, backward, Blocks.JUNGLE_PLANKS, Blocks.JUNGLE_STAIRS);
+        registerLinear(forward, backward, Blocks.JUNGLE_STAIRS, Blocks.JUNGLE_SLAB);
+
+        // Acacia
+        registerLinear(forward, backward, Blocks.ACACIA_PLANKS, Blocks.ACACIA_STAIRS);
+        registerLinear(forward, backward, Blocks.ACACIA_STAIRS, Blocks.ACACIA_SLAB);
+
+        // Dark Oak
+        registerLinear(forward, backward, Blocks.DARK_OAK_PLANKS, Blocks.DARK_OAK_STAIRS);
+        registerLinear(forward, backward, Blocks.DARK_OAK_STAIRS, Blocks.DARK_OAK_SLAB);
+
+        // Mangrove
+        registerLinear(forward, backward, Blocks.MANGROVE_PLANKS, Blocks.MANGROVE_STAIRS);
+        registerLinear(forward, backward, Blocks.MANGROVE_STAIRS, Blocks.MANGROVE_SLAB);
+
+        // Cherry
+        registerLinear(forward, backward, Blocks.CHERRY_PLANKS, Blocks.CHERRY_STAIRS);
+        registerLinear(forward, backward, Blocks.CHERRY_STAIRS, Blocks.CHERRY_SLAB);
+        // Bamboo
+        registerLinear(forward, backward, Blocks.BAMBOO_PLANKS, Blocks.BAMBOO_STAIRS);
+        registerLinear(forward, backward, Blocks.BAMBOO_STAIRS, Blocks.BAMBOO_SLAB);
+        // Pale Oak
+        registerLinear(forward, backward, Blocks.PALE_OAK_PLANKS, Blocks.PALE_OAK_STAIRS);
+        registerLinear(forward, backward, Blocks.PALE_OAK_STAIRS, Blocks.PALE_OAK_SLAB);
+    }
+
+    // Registriert Planks -> Stairs -> Slab für Nether Hölzer (Crimson/Warped)
+    private static void registerNetherWoodVariants(Map<Block, Block> forward, Map<Block, Block> backward) {
+        // Crimson
+        registerLinear(forward, backward, Blocks.CRIMSON_PLANKS, Blocks.CRIMSON_STAIRS);
+        registerLinear(forward, backward, Blocks.CRIMSON_STAIRS, Blocks.CRIMSON_SLAB);
+
+        // Warped
+        registerLinear(forward, backward, Blocks.WARPED_PLANKS, Blocks.WARPED_STAIRS);
+        registerLinear(forward, backward, Blocks.WARPED_STAIRS, Blocks.WARPED_SLAB);
+    }
 
     private static void registerAndesiteDioriteGranite() {
         // Andesite
@@ -580,13 +639,43 @@ public class ChiselItem extends Item {
     }
 
     public boolean canChisel(World world, BlockPos pos, ItemStack stack, PlayerEntity player) {
+        // 1. Cooldown Check
         if (player.getItemCooldownManager().isCoolingDown(stack)) return false;
 
         BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
 
-        return this.forwardMap.containsKey(block) || this.backwardMap.containsKey(block) ||
-               this.touchForwardMap.containsKey(block) || this.touchBackwardMap.containsKey(block);
+        // 2. Enchantment Check
+        RegistryWrapper.WrapperLookup registryManager = world.getRegistryManager();
+        var touchEntry = getEnchantment(registryManager, ModEnchantments.CONSTRUCTORS_TOUCH);
+        boolean hasConstructorsTouch = touchEntry != null && EnchantmentHelper.getLevel(touchEntry, stack) > 0;
+
+        boolean isSneaking = player.isSneaking();
+        Map<Block, Block> currentMap;
+
+        // 3. Map Auswahl (Exakt dieselbe Logik wie in tryChiselBlock)
+        if (this.isDedicatedSpatula) {
+            // Spatel Logik
+            if (isSneaking) {
+                currentMap = hasConstructorsTouch ? this.touchForwardMap : this.forwardMap;
+            } else {
+                currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
+            }
+        } else {
+            // Meißel Logik
+            if (isSneaking) {
+                // Sneaken beim Meißel = Rückwärts.
+                // Das erfordert zwingend eine Backward-Map.
+                currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
+            } else {
+                // Nicht Sneaken = Vorwärts
+                currentMap = hasConstructorsTouch ? this.touchForwardMap : this.forwardMap;
+            }
+        }
+
+        // 4. Prüfung: Ist der Block in der AKTUELLEN Map?
+        // Wenn ich sneake, aber der Block ist nur in der Forward-Map, gibt das hier false zurück -> Keine Animation.
+        return currentMap.containsKey(block);
     }
 
     private RegistryEntry<Enchantment> getEnchantment(RegistryWrapper.WrapperLookup registry, net.minecraft.registry.RegistryKey<Enchantment> key) {
@@ -603,5 +692,82 @@ public class ChiselItem extends Item {
                     .formatted(Formatting.GRAY));
         }
         super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+    }
+
+    public static BlockState applyIntuitiveOrientation(BlockState state, net.minecraft.util.math.Direction side, Vec3d hit, PlayerEntity player) {
+        // Toleranz für "Mitte" (z.B. 0.2 bedeutet 20% Randbereich auf jeder Seite)
+        double margin = 0.25;
+
+        // Lokale Koordinaten (0.0 bis 1.0)
+        double x = hit.x;
+        double y = hit.y;
+        double z = hit.z;
+        net.minecraft.util.math.Direction orientation = side;
+        boolean isEdge = false;
+
+        if (side.getAxis() == net.minecraft.util.math.Direction.Axis.Y) { // Oben oder Unten geklickt
+            if (x < margin) { orientation = net.minecraft.util.math.Direction.WEST; isEdge = true; }
+            else if (x > 1 - margin) { orientation = net.minecraft.util.math.Direction.EAST; isEdge = true; }
+            else if (z < margin) { orientation = net.minecraft.util.math.Direction.NORTH; isEdge = true; }
+            else if (z > 1 - margin) { orientation = net.minecraft.util.math.Direction.SOUTH; isEdge = true; }
+        }
+        else if (side.getAxis() == net.minecraft.util.math.Direction.Axis.X) { // Ost oder West geklickt
+            if (y < margin) { orientation = net.minecraft.util.math.Direction.DOWN; isEdge = true; }
+            else if (y > 1 - margin) { orientation = net.minecraft.util.math.Direction.UP; isEdge = true; }
+            else if (z < margin) { orientation = net.minecraft.util.math.Direction.NORTH; isEdge = true; }
+            else if (z > 1 - margin) { orientation = net.minecraft.util.math.Direction.SOUTH; isEdge = true; }
+        }
+        else if (side.getAxis() == net.minecraft.util.math.Direction.Axis.Z) { // Nord oder Süd geklickt
+            if (y < margin) { orientation = net.minecraft.util.math.Direction.DOWN; isEdge = true; }
+            else if (y > 1 - margin) { orientation = net.minecraft.util.math.Direction.UP; isEdge = true; }
+            else if (x < margin) { orientation = net.minecraft.util.math.Direction.WEST; isEdge = true; }
+            else if (x > 1 - margin) { orientation = net.minecraft.util.math.Direction.EAST; isEdge = true; }
+        }
+
+        // --- ANWENDUNG AUF BLÖCKE ---
+
+        // 1. Pillars (Logs, Quartz Pillar, etc.)
+        if (state.contains(PillarBlock.AXIS)) {
+            net.minecraft.util.math.Direction.Axis axis;
+            if (isEdge) {
+                axis = orientation.getAxis();
+            } else {
+                axis = side.getAxis();
+            }
+            return state.with(PillarBlock.AXIS, axis);
+        }
+
+        // 2. Stairs (Treppen)
+        if (state.contains(StairsBlock.FACING)) {
+            net.minecraft.util.math.Direction facing;
+            if (isEdge && orientation.getAxis().isHorizontal()) {
+                facing = orientation.getOpposite();
+            } else {
+                facing = player.getHorizontalFacing();
+            }
+            state = state.with(StairsBlock.FACING, facing);
+
+            // Half (Oben/Unten)
+            BlockHalf half;
+            if ((side == net.minecraft.util.math.Direction.UP && !isEdge) || (y < 0.5 && !isEdge)) {
+                half = BlockHalf.BOTTOM;
+            } else if ((side == net.minecraft.util.math.Direction.DOWN && !isEdge) || (y > 0.5 && !isEdge)) {
+                half = BlockHalf.TOP;
+            } else {
+                if (y > 0.5) half = BlockHalf.TOP; else half = BlockHalf.BOTTOM;
+            }
+            if (orientation == net.minecraft.util.math.Direction.UP) half = BlockHalf.BOTTOM;
+            if (orientation == net.minecraft.util.math.Direction.DOWN) half = BlockHalf.TOP;
+
+            state = state.with(StairsBlock.HALF, half);
+            return state;
+        }
+
+        // 3. Rods (End Rods, Lightning Rods, etc.)
+        if (state.contains(Properties.FACING)) {
+            return state.with(Properties.FACING, isEdge ? orientation : side);
+        }
+
+        return state;
     }
 }
