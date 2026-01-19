@@ -58,12 +58,10 @@ public class CountBasedSmithingRecipe implements SmithingRecipe {
         ItemStack inputStack = input.base();
         ItemStack resultStack = this.result.copy();
 
-        // WICHTIG: Komponenten (Enchantments, Name, etc.) übernehmen
-        resultStack.applyComponentsFrom(inputStack.getComponents());
+        resultStack.applyChanges(inputStack.getComponentChanges());
 
         return resultStack;
     }
-
     // HINWEIS: 'getResult' wurde in 1.21.2+ aus dem Recipe Interface entfernt und darf nicht mehr überschrieben werden.
 
     // --- SmithingRecipe Interface Methoden ---

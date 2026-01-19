@@ -1,7 +1,7 @@
 {
   "type": "simplebuilding:count_based_smithing",
   "addition": "minecraft:iron_ingot",
-  "addition_count": 6,
+  "addition_count": 12,
   "base": "simplebuilding:copper_sledgehammer",
   "result": {
     "count": 1,
