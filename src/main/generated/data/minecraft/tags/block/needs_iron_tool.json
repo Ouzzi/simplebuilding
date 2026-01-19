@@ -1,8 +1,5 @@
 {
   "values": [
-    "simplebuilding:cracked_diamond_block",
-    "simplebuilding:reinforced_hopper",
-    "simplebuilding:reinforced_blast_furnace",
-    "simplebuilding:reinforced_piston"
+    "simplebuilding:cracked_diamond_block"
   ]
 }

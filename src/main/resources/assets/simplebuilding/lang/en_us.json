@@ -272,5 +272,13 @@
   "upgrade.simplebuilding.emitting_trim_applies_to": "Glowing Armor",
   "upgrade.simplebuilding.emitting_trim_ingredients": "Glowstone Dust",
   "upgrade.simplebuilding.emitting_trim_base_slot_description": "Add Glowing Armor",
-  "upgrade.simplebuilding.emitting_trim_additions_slot_description": "Add Glowstone Dust"
+  "upgrade.simplebuilding.emitting_trim_additions_slot_description": "Add Glowstone Dust",
+
+  "item.simplebuilding.basic_upgrade_template": "Basic Upgrade Template",
+  "item.simplebuilding.basic_upgrade_template.applies_to": "Pickaxe, Axe, Shovel, Hoe, Sword, Hammer, Excavator",
+  "item.simplebuilding.basic_upgrade_template.ingredients": "Iron, Gold, Diamond Ingots",
+  "item.simplebuilding.basic_upgrade_template.upgrade_description": "Upgrade Tool Tier",
+  "upgrade.simplebuilding.count_based": "Tier Upgrade"
+
+
 }

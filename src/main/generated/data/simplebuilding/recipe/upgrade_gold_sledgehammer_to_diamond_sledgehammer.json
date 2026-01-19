@@ -1,0 +1,11 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:diamond",
+  "addition_count": 6,
+  "base": "simplebuilding:gold_sledgehammer",
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:diamond_sledgehammer"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

@@ -145,6 +145,8 @@ public class ModItemGroups {
                         entries.add(ModItems.GLOWING_TRIM_TEMPLATE);
                         entries.add(ModItems.EMITTING_TRIM_TEMPLATE);
 
+                        entries.add(ModItems.BASIC_UPGRADE_TEMPLATE);
+
                     }).build());
 
     public static void registerItemGroups() {

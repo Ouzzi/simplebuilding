@@ -222,6 +222,29 @@ Each material used for an armor trim grants the wearer specific bonuses. The eff
 
 --- 
 
+## 🔧 Basic Upgrade System
+
+Upgrade your tools to the next tier without losing their enchantments, names, or durability!
+
+### Features
+* **Keep Your Data:** Upgrading a tool preserves all NBT data (Enchantments, Custom Names, etc.).
+* **One Template for All:** The **Basic Upgrade Template** works for Wood → Stone → Iron → Gold → Diamond.
+* **Fair Cost System (The "Tax"):** Upgrading is slightly more expensive than crafting a new tool.
+    * **Formula:** `Crafting Cost + 1 Material`
+    * *Example:* Upgrading an Iron Pickaxe (usually costs 3 Iron) to Diamond requires **4 Diamonds**.
+* **Mod Compatibility:** Works with vanilla tools and SimpleBuilding tools (Hammers, Chisels, etc.).
+
+### How to use
+1.  **Find:** Locate the **Basic Upgrade Template** in Dungeons, Mineshafts, or Village Toolsmith chests.
+2.  **Duplicate:** Craft a copy using 1 Template + 1 Iron Block + 7 Gold Ingots.
+3.  **Smithing Table:**
+    * **Slot 1:** Basic Upgrade Template
+    * **Slot 2:** Your Tool (e.g., Iron Pickaxe)
+    * **Slot 3:** The Material Stack (e.g., 4 Diamonds)
+    * *Note:* You must put the exact required amount or more in the slot. The Smithing Table will consume the required amount.
+
+---
+
 ## ⚙️ Configuration
 
 The mod is highly configurable via **Mod Menu** and **Cloth Config**.

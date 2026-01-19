@@ -7,6 +7,10 @@
     "simplebuilding:netherite_blast_furnace",
     "simplebuilding:reinforced_piston",
     "simplebuilding:netherite_piston",
-    "simplebuilding:netherite_piston_head"
+    "simplebuilding:netherite_piston_head",
+    "simplebuilding:reinforced_furnace",
+    "simplebuilding:netherite_furnace",
+    "simplebuilding:reinforced_smoker",
+    "simplebuilding:netherite_smoker"
   ]
 }

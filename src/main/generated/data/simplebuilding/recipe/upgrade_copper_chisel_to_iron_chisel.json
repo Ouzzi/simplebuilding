@@ -1,0 +1,11 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:iron_ingot",
+  "addition_count": 2,
+  "base": "simplebuilding:copper_chisel",
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:iron_chisel"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

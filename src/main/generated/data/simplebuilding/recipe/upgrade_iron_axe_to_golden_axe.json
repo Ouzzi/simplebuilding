@@ -1,0 +1,11 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:gold_ingot",
+  "addition_count": 4,
+  "base": "minecraft:iron_axe",
+  "result": {
+    "count": 1,
+    "id": "minecraft:golden_axe"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

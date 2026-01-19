@@ -1,0 +1,11 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:cobblestone",
+  "addition_count": 4,
+  "base": "minecraft:wooden_pickaxe",
+  "result": {
+    "count": 1,
+    "id": "minecraft:stone_pickaxe"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

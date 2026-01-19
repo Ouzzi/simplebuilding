@@ -403,9 +403,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createUpgradeRecipe(exporter, ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL, Items.DIAMOND, 2);
 
                 // Sledgehammer (Crafting: 5 -> Upgrade: 6)
-                createUpgradeRecipe(exporter, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, 6);
-                createUpgradeRecipe(exporter, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, 6);
-                createUpgradeRecipe(exporter, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, 6);
+                createUpgradeRecipe(exporter, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, 12);
+                createUpgradeRecipe(exporter, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, 12);
+                createUpgradeRecipe(exporter, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, 12);
             }
 
             // --- Helpers ---
@@ -495,10 +495,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     private void createUpgradeRecipe(RecipeExporter exporter, Item base, Item result, Item material, int count) {
         Identifier recipeId = Identifier.of(Simplebuilding.MOD_ID, "upgrade_" + getItemName(base) + "_to_" + getItemName(result));
 
-        // FIX: Identifier in einen RegistryKey umwandeln
+        // In 1.21.2+ braucht 'accept' einen RegistryKey
         RegistryKey<Recipe<?>> recipeKey = RegistryKey.of(RegistryKeys.RECIPE, recipeId);
 
-        // Wir bauen das Rezept manuell
         CountBasedSmithingRecipe recipe = new CountBasedSmithingRecipe(
                 Ingredient.ofItems(ModItems.BASIC_UPGRADE_TEMPLATE),
                 Ingredient.ofItems(base),
@@ -507,7 +506,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 count
         );
 
-        // Exportieren mit Advancements
         exporter.accept(recipeKey, recipe, exporter.getAdvancementBuilder()
                 .criterion("has_template", InventoryChangedCriterion.Conditions.items(ModItems.BASIC_UPGRADE_TEMPLATE))
                 .build(Identifier.of(Simplebuilding.MOD_ID, "recipes/misc/" + recipeId.getPath())));

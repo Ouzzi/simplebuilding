@@ -46,15 +46,9 @@ public class CountBasedSmithingRecipe implements SmithingRecipe {
 
     @Override
     public boolean matches(SmithingRecipeInput input, World world) {
-        // 1. Template prüfen
-        if (!this.template.test(input.template())) {
-            return false;
-        }
-        // 2. Basis-Item prüfen
-        if (!this.base.test(input.base())) {
-            return false;
-        }
-        // 3. Addition-Item prüfen UND Menge checken
+        if (!this.template.test(input.template())) return false;
+        if (!this.base.test(input.base())) return false;
+
         ItemStack additionStack = input.addition();
         return this.addition.test(additionStack) && additionStack.getCount() >= this.additionCount;
     }

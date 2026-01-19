@@ -1,0 +1,11 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:diamond",
+  "addition_count": 2,
+  "base": "simplebuilding:gold_chisel",
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:diamond_chisel"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

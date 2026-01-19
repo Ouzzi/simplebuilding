@@ -270,5 +270,11 @@
   "upgrade.simplebuilding.emitting_trim_applies_to": "Leuchtende Rüstung",
   "upgrade.simplebuilding.emitting_trim_ingredients": "Glowstone-Staub",
   "upgrade.simplebuilding.emitting_trim_base_slot_description": "Leuchtende Rüstung hinzufügen",
-  "upgrade.simplebuilding.emitting_trim_additions_slot_description": "Glowstone-Staub hinzufügen"
+  "upgrade.simplebuilding.emitting_trim_additions_slot_description": "Glowstone-Staub hinzufügen",
+
+  "item.simplebuilding.basic_upgrade_template": "Basis-Upgrade-Vorlage",
+  "item.simplebuilding.basic_upgrade_template.applies_to": "Spitzhacke, Axt, Schaufel, Hacke, Schwert, Hammer, Excavator",
+  "item.simplebuilding.basic_upgrade_template.ingredients": "Eisen, Gold, Diamant",
+  "item.simplebuilding.basic_upgrade_template.upgrade_description": "Werkzeugstufe aufwerten",
+  "upgrade.simplebuilding.count_based": "Stufen-Aufwertung"
 }

@@ -182,5 +182,7 @@ public class ModModelProvider extends FabricModelProvider {
 
         itemModelGenerator.register(ModItems.GLOWING_TRIM_TEMPLATE, Models.GENERATED);
         itemModelGenerator.register(ModItems.EMITTING_TRIM_TEMPLATE, Models.GENERATED);
+
+        itemModelGenerator.register(ModItems.BASIC_UPGRADE_TEMPLATE, Models.GENERATED);
     }
 }

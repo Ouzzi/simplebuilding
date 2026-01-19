@@ -16,7 +16,15 @@ import java.util.Optional;
 
 public class ModRecipes {
 
-    public static final RecipeSerializer<CountBasedSmithingRecipe> COUNT_BASED_SMITHING_SERIALIZER = Registry.register(
+    // Zuerst nur deklarieren
+    public static RecipeSerializer<CountBasedSmithingRecipe> COUNT_BASED_SMITHING_SERIALIZER;
+    public static RecipeType<CountBasedSmithingRecipe> COUNT_BASED_SMITHING;
+
+    public static void registerRecipes() {
+        Simplebuilding.LOGGER.info("Registering Recipes for " + Simplebuilding.MOD_ID);
+
+        // Dann hier registrieren
+        COUNT_BASED_SMITHING_SERIALIZER = Registry.register(
             Registries.RECIPE_SERIALIZER,
             Identifier.of(Simplebuilding.MOD_ID, "count_based_smithing"),
             new RecipeSerializer<CountBasedSmithingRecipe>() {
@@ -24,15 +32,14 @@ public class ModRecipes {
                 public MapCodec<CountBasedSmithingRecipe> codec() {
                     return CountBasedSmithingRecipe.CODEC;
                 }
-
                 @Override
                 public PacketCodec<RegistryByteBuf, CountBasedSmithingRecipe> packetCodec() {
                     return CountBasedSmithingRecipe.PACKET_CODEC;
                 }
             }
-    );
+        );
 
-    public static final RecipeType<CountBasedSmithingRecipe> COUNT_BASED_SMITHING = Registry.register(
+        COUNT_BASED_SMITHING = Registry.register(
             Registries.RECIPE_TYPE,
             Identifier.of(Simplebuilding.MOD_ID, "count_based_smithing"),
             new RecipeType<CountBasedSmithingRecipe>() {
@@ -41,6 +48,7 @@ public class ModRecipes {
                     return "count_based_smithing";
                 }
             });
+    }
 
 
     public static final RecipeSerializer<UpgradeSmithingRecipe> UPGRADE_SMITHING_SERIALIZER = Registry.register(
@@ -81,8 +89,4 @@ public class ModRecipes {
                 }
             }
     );
-
-    public static void registerRecipes() {
-        Simplebuilding.LOGGER.info("Registering Mod Recipes for " + Simplebuilding.MOD_ID);
-    }
 }

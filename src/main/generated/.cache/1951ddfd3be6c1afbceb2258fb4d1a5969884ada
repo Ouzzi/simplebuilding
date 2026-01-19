@@ -1,4 +1,4 @@
 // 1.21.11	-999999999-01-01T00:00:00	simplebuilding/Tags for minecraft:block
-89c698d9daf5e89069337818a63107a171589e9e data/minecraft/tags/block/mineable/pickaxe.json
-259a0602134c91412db47f3dbd3753204473d26b data/minecraft/tags/block/needs_diamond_tool.json
-573c9832a864bfd07ea48b1749959083c167bf2c data/minecraft/tags/block/needs_iron_tool.json
+2eb01e7acb3cde3e0161ec5fc13c7af8805185ac data/minecraft/tags/block/mineable/pickaxe.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/minecraft/tags/block/needs_diamond_tool.json
+4629c17ec76ec87270c64bfafa799b89b11cc9b8 data/minecraft/tags/block/needs_iron_tool.json

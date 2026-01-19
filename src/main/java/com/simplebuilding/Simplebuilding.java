@@ -13,6 +13,7 @@ import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.networking.*;
+import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.util.*;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -82,6 +83,8 @@ public class Simplebuilding implements ModInitializer {
         ModTradeOffers.registerModTradeOffers();
         ModDataComponentTypes.registerDataComponentTypes();
         ModEnchantmentEffects.registerEnchantmentEffects();
+
+        ModRecipes.registerRecipes();
 
         ModRegistries.registerModStuffs();
 
