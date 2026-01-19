@@ -56,9 +56,16 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
 
         addDrop(ModBlocks.REINFORCED_PISTON);
         addDrop(ModBlocks.NETHERITE_PISTON);
+        addDrop(ModBlocks.NETHERITE_PISTON_HEAD);
 
         addDrop(ModBlocks.REINFORCED_BLAST_FURNACE);
         addDrop(ModBlocks.NETHERITE_BLAST_FURNACE);
+
+        addDrop(ModBlocks.REINFORCED_FURNACE);
+        addDrop(ModBlocks.NETHERITE_FURNACE);
+
+        addDrop(ModBlocks.REINFORCED_SMOKER);
+        addDrop(ModBlocks.NETHERITE_SMOKER);
 
     }
 
@@ -209,6 +216,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 10))
                         .with(enchantedBook(ModEnchantments.VEIN_MINER, 2, enchantments, 15))
                         .with(ItemEntry.builder(ModItems.REINFORCED_BUNDLE).weight(10))
+                        .with(ItemEntry.builder(ModItems.BASIC_UPGRADE_TEMPLATE).weight(1))
                         .with(EmptyEntry.builder().weight(30));
                 tableBuilder.pool(pool);
             }

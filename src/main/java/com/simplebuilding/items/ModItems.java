@@ -170,6 +170,8 @@ public class ModItems {
             settings.maxCount(64)
     ));
 
+    public static final Item BASIC_UPGRADE_TEMPLATE = registerItem("basic_upgrade_template", settings -> new Item(settings.maxCount(64)));
+
     // =================================================================================
     // HILFSMETHODEN
     // =================================================================================

@@ -15,29 +15,28 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        // 1. Der Block soll mit einer Spitzhacke abbaubar sein
+        // 1. Der Block soll mit einer Spitzhacke SCHNELLER abbaubar sein
+        // Das behalten wir bei.
         valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlocks.CRACKED_DIAMOND_BLOCK)
-                // Hier auch deine anderen Blöcke hinzufügen:
                 .add(ModBlocks.REINFORCED_HOPPER)
                 .add(ModBlocks.NETHERITE_HOPPER)
                 .add(ModBlocks.REINFORCED_BLAST_FURNACE)
                 .add(ModBlocks.NETHERITE_BLAST_FURNACE)
                 .add(ModBlocks.REINFORCED_PISTON)
                 .add(ModBlocks.NETHERITE_PISTON)
-                .add(ModBlocks.NETHERITE_PISTON_HEAD);
+                .add(ModBlocks.NETHERITE_PISTON_HEAD)
+                .add(ModBlocks.REINFORCED_FURNACE)
+                .add(ModBlocks.NETHERITE_FURNACE)
+                .add(ModBlocks.REINFORCED_SMOKER)
+                .add(ModBlocks.NETHERITE_SMOKER);
+
 
         // 2. Er benötigt mindestens ein Eisenwerkzeug (wie Diamantblock)
         valueLookupBuilder(BlockTags.NEEDS_IRON_TOOL)
-                .add(ModBlocks.CRACKED_DIAMOND_BLOCK)
-                .add(ModBlocks.REINFORCED_HOPPER)
-                .add(ModBlocks.REINFORCED_BLAST_FURNACE)
-                .add(ModBlocks.REINFORCED_PISTON);
+                .add(ModBlocks.CRACKED_DIAMOND_BLOCK);
 
         // Optional: Netherite Sachen benötigen Diamantwerkzeug?
-        valueLookupBuilder(BlockTags.NEEDS_DIAMOND_TOOL)
-                .add(ModBlocks.NETHERITE_HOPPER)
-                .add(ModBlocks.NETHERITE_BLAST_FURNACE)
-                .add(ModBlocks.NETHERITE_PISTON);
+        valueLookupBuilder(BlockTags.NEEDS_DIAMOND_TOOL);
     }
 }
