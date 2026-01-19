@@ -416,7 +416,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             }
 
             private void createSmithing(Item input, Item result, RecipeCategory category) {
-                SmithingTransformRecipeJsonBuilder.create(Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.ofItems(input), Ingredient.ofItems(Items.NETHERITE_INGOT), category, result).criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT)).offerTo(exporter, getItemPath(result) + "_smithing");
+                SmithingTransformRecipeJsonBuilder.create(Ingredient.ofItems(
+                        Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                        Ingredient.ofItems(input),
+                        Ingredient.ofItems(Items.NETHERITE_INGOT),
+                        category,
+                        result)
+                        .criterion("has_netherite_ingot", conditionsFromItem(Items.NETHERITE_INGOT))
+                        .offerTo(exporter, getItemPath(result) + "_smithing");
             }
 
             // NEU: Helper für Massen-Upgrade (8 Items + 1 Ingot -> 8 Items)

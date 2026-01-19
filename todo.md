@@ -1,10 +1,39 @@
 ## Changelog:
 
 ## TODO:
+- Basic upgrade templates  (Stone-Iron-Gold-Diamond)
+- - one item and material to upgrade a tool from one tier to another - smithing table recipe
+- - all tool data and enchantments are kept
+- - upgradeable: pickaxe, axe, shovel, hoe, sword, chisel, sledgehammer.
+- - upgrade recepie reuires the base tool + material ingot + upgrade template - smithing table (some require more ingots, like pickaxe 3 iron ingots to upgrade from copper to iron,...)
+- - upgrade templates must be find in loot chests - reproducable in by crafting - basic upgrade template + 7 gold + iron block
 
-- bundle ctrl click to lock - display lock icon (similar to plus icon when adding items)
+- implement echocompass as mirror or simmilar (exactly like eco compas functionality but with these changes)
+- - custom mirror enchantment: transdimentional (works in nether and end as well)
+- - implement range (range enchantment can increase range from 128 to 512 to 1024 to 2048 blocks)
+- - netherite mirror - (range is automatically doubled)
+- - durabillity is 3 but can be restored with mending enchantment (requires a lot of xp to repair) (can't break)
+- - can be crafted: 
+  "AGA",
+  "GNG",
+  "LGA"
+  "G": "minecraft:gold_ingot",
+  "A": "ancient_glass",
+  "N": "minecraft:nether_star",
+  "L": "Blazerod"
+- - new dungeon type with custom vaults (contains: ancient glass, basic upgrade templates)
 
-- new item magnet texture
+
+- display a charge/fuel/durrabillity gui component
+
+- bundle hotkey (and inside e inventory openable per intuitive methode like clicking with controll on bundle) - opens bundle menu: all bundles in inventory (max 9 displayed in top row), doublechest like layout with inside items and switch able to other bundles to manage easier
+
+- netherritehopper upgrade to upgrade to selective netherrite hopper: every slot can be toggled to be a filter (with ghosstitem inside
+
+- new item magnet texture -> like tune fork but mor magnet looking
+- - rename magnet to attractor
+- - durabillity mechanic - loses durrability when picking up items (can't break) - can be fully recharged when rightcliched on lodestone block
+
 - bundle/quiver gui improvements
 - - berter tooltips 
 - - plus icon like vanilla - green when same item is already in bundle, yellow when different item is in bundle, no plus icon when full, red when item can be added but not completly
