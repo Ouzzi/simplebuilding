@@ -62,10 +62,9 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
                     // Wenn wir mehr als 1 Item verbrauchen müssen (Vanilla zieht 1 automatisch ab)
                     if (countToConsume > 1) {
                         ItemStack additionStack = this.input.getStack(2);
-                        // Sicherstellen, dass wir nicht ins Negative gehen
-                        if (additionStack.getCount() >= countToConsume) {
-                            // Wir ziehen 'countToConsume - 1' ab, da Vanilla den ersten schon abzieht
-                            additionStack.decrement(countToConsume - 1);
+                        if (additionStack.getCount() >= countToConsume - 1) {
+                             // Hier decrement wir manuell den Rest
+                             additionStack.decrement(countToConsume - 1);
                         }
                     }
                 }

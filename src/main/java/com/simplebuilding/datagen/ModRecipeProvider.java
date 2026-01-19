@@ -2,14 +2,19 @@ package com.simplebuilding.datagen;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.recipe.CountBasedSmithingRecipe;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.data.recipe.*;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
@@ -366,35 +371,41 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ModItems.BASIC_UPGRADE_TEMPLATE), conditionsFromItem(ModItems.BASIC_UPGRADE_TEMPLATE)).offerTo(exporter);
 
 
-                // 2. UPGRADE REZEPTE (Beispiele)
-                // Helper Methode für übersichtlichen Code (müsstest du in der Klasse anlegen oder direkt schreiben)
-                createUpgradeRecipe(exporter, Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.COBBLESTONE, 4); // 3 (Craft) + 1 (Tax)
+                // Spitzhacken (Crafting: 3 -> Upgrade: 4)
+                createUpgradeRecipe(exporter, Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.COBBLESTONE, 4);
                 createUpgradeRecipe(exporter, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 4);
-                createUpgradeRecipe(exporter, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.GOLD_INGOT, 4); // User wollte Iron -> Gold -> Diamond?
+                createUpgradeRecipe(exporter, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.GOLD_INGOT, 4);
                 createUpgradeRecipe(exporter, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.DIAMOND, 4);
-                createUpgradeRecipe(exporter, Items.COPPER_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 4); // Copper -> Iron
+                createUpgradeRecipe(exporter, Items.COPPER_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 4);
 
-                // Äxte (Crafting 3 -> Upgrade 4)
+                // Äxte (Crafting: 3 -> Upgrade: 4)
                 createUpgradeRecipe(exporter, Items.WOODEN_AXE, Items.STONE_AXE, Items.COBBLESTONE, 4);
                 createUpgradeRecipe(exporter, Items.STONE_AXE, Items.IRON_AXE, Items.IRON_INGOT, 4);
-                // ... usw für Gold/Diamond ...
+                createUpgradeRecipe(exporter, Items.IRON_AXE, Items.GOLDEN_AXE, Items.GOLD_INGOT, 4);
+                createUpgradeRecipe(exporter, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.DIAMOND, 4);
 
-                // Schwerter / Hacken (Crafting 2 -> Upgrade 3)
-                createUpgradeRecipe(exporter, Items.IRON_SWORD, Items.DIAMOND_SWORD, Items.DIAMOND, 3);
-                createUpgradeRecipe(exporter, Items.IRON_HOE, Items.DIAMOND_HOE, Items.DIAMOND, 3);
+                // Schwerter / Hacken (Crafting: 2 -> Upgrade: 3)
+                createUpgradeRecipe(exporter, Items.WOODEN_SWORD, Items.STONE_SWORD, Items.COBBLESTONE, 3);
+                createUpgradeRecipe(exporter, Items.STONE_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 3);
+                createUpgradeRecipe(exporter, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.GOLD_INGOT, 3);
+                createUpgradeRecipe(exporter, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD, Items.DIAMOND, 3);
 
-                // Schaufeln (Crafting 1 -> Upgrade 2)
-                createUpgradeRecipe(exporter, Items.IRON_SHOVEL, Items.DIAMOND_SHOVEL, Items.DIAMOND, 2);
+                // Schaufeln (Crafting: 1 -> Upgrade: 2)
+                createUpgradeRecipe(exporter, Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.COBBLESTONE, 2);
+                createUpgradeRecipe(exporter, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
+                createUpgradeRecipe(exporter, Items.IRON_SHOVEL, Items.GOLDEN_SHOVEL, Items.GOLD_INGOT, 2);
+                createUpgradeRecipe(exporter, Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL, Items.DIAMOND, 2);
 
-                // Mod Items
-                // Chisel (Crafting 1 Ingot? -> Upgrade 2)
+                // Mod Tools (Beispiele)
+                // Chisel (Crafting: 1 -> Upgrade: 2)
                 createUpgradeRecipe(exporter, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, Items.IRON_INGOT, 2);
                 createUpgradeRecipe(exporter, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL, Items.GOLD_INGOT, 2);
                 createUpgradeRecipe(exporter, ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL, Items.DIAMOND, 2);
-                createUpgradeRecipe(exporter, ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, Items.NETHERITE_INGOT, 2); // Wenn gewünscht auch hier
 
-                // Sledgehammer (Annahme Crafting 5 -> Upgrade 6)
+                // Sledgehammer (Crafting: 5 -> Upgrade: 6)
                 createUpgradeRecipe(exporter, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(exporter, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, 6);
+                createUpgradeRecipe(exporter, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, 6);
             }
 
             // --- Helpers ---
@@ -482,27 +493,24 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private void createUpgradeRecipe(RecipeExporter exporter, Item base, Item result, Item material, int count) {
-        // Da wir keinen direkten JsonBuilder für Custom Recipes haben, nutzen wir einen simplen Ansatz
-        // oder wir schreiben eine kleine Builder Klasse. Hier simulieren wir den Export für das Custom Rezept.
-
         Identifier recipeId = Identifier.of(Simplebuilding.MOD_ID, "upgrade_" + getItemName(base) + "_to_" + getItemName(result));
 
-        // Wir nutzen hier ComplexRecipeJsonBuilder oder bauen das JSON manuell,
-        // da Standard-Builder nicht unsere "addition_count" unterstützen.
-        // Für Fabric DataGen muss man oft eine eigene Builder-Klasse schreiben.
-        // Kurzform: Du musst sicherstellen, dass das JSON so aussieht:
-    /*
-    {
-      "type": "simplebuilding:count_based_smithing",
-      "template": { "item": "simplebuilding:basic_upgrade_template" },
-      "base": { "item": "minecraft:iron_pickaxe" },
-      "addition": { "item": "minecraft:diamond" },
-      "result": { "id": "minecraft:diamond_pickaxe" },
-      "addition_count": 4
-    }
-    */
-        // Da der Code hier zu lang wird für einen Builder, stelle sicher, dass du dies via JSON generierst
-        // oder einen CustomBuilder implementierst.
+        // FIX: Identifier in einen RegistryKey umwandeln
+        RegistryKey<Recipe<?>> recipeKey = RegistryKey.of(RegistryKeys.RECIPE, recipeId);
+
+        // Wir bauen das Rezept manuell
+        CountBasedSmithingRecipe recipe = new CountBasedSmithingRecipe(
+                Ingredient.ofItems(ModItems.BASIC_UPGRADE_TEMPLATE),
+                Ingredient.ofItems(base),
+                Ingredient.ofItems(material),
+                new ItemStack(result),
+                count
+        );
+
+        // Exportieren mit Advancements
+        exporter.accept(recipeKey, recipe, exporter.getAdvancementBuilder()
+                .criterion("has_template", InventoryChangedCriterion.Conditions.items(ModItems.BASIC_UPGRADE_TEMPLATE))
+                .build(Identifier.of(Simplebuilding.MOD_ID, "recipes/misc/" + recipeId.getPath())));
     }
 
     private String getItemName(Item item) {
