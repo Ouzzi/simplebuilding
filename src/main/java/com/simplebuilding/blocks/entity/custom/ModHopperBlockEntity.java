@@ -86,14 +86,15 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
 
             // Wenn Filter aktiviert wird und Item drin liegt -> Ghost setzen
             if (filterModes[slot] != HopperFilterMode.NONE && !this.getStack(slot).isEmpty()) {
-                setGhostItem(slot, this.getStack(slot));
+                setGhostItemInternal(slot, this.getStack(slot)); // Nutzt interne Methode ohne doppeltes Sync
             }
 
-            markDirty();
+            updateListeners(); // WICHTIG: Client informieren
         }
     }
 
-    public void setGhostItem(int slot, ItemStack stack) {
+    // Hilfsmethode um Code-Dopplung zu vermeiden
+    private void setGhostItemInternal(int slot, ItemStack stack) {
         if (slot >= 0 && slot < 5) {
             if (stack.isEmpty()) {
                 ghostItems.set(slot, ItemStack.EMPTY);
@@ -104,6 +105,20 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
             }
             markDirty();
         }
+    }
+
+    // Diese Methode sorgt dafür, dass das GUI sofort aktualisiert wird
+    private void updateListeners() {
+        markDirty();
+        if (world != null && !world.isClient()) {
+            world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+        }
+    }
+
+
+    public void setGhostItem(int slot, ItemStack stack) {
+        setGhostItemInternal(slot, stack);
+        updateListeners(); // WICHTIG: Client informieren
     }
 
     public ItemStack getGhostItem(int slot) {
