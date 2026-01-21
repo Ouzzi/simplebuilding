@@ -1,9 +1,6 @@
 package com.simplebuilding;
 
-import com.simplebuilding.client.gui.BuildingWandScreen;
-import com.simplebuilding.client.gui.OctantScreen;
-import com.simplebuilding.client.gui.RangefinderHudOverlay;
-import com.simplebuilding.client.gui.SpeedometerHudOverlay;
+import com.simplebuilding.client.gui.*;
 import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltipSubmenuHandler;
 import com.simplebuilding.client.render.BlockHighlightRenderer;
 import com.simplebuilding.client.render.BuildingWandOutlineRenderer;
@@ -26,6 +23,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.gui.tooltip.BundleTooltipComponent;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -143,6 +141,8 @@ public class SimplebuildingClient implements ClientModInitializer {
             // Paket senden
             ClientPlayNetworking.send(new TrimBenefitPayload(wantsBenefits));
         });
+
+        HandledScreens.register(ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER, NetheriteHopperScreen::new);
     }
 
     private void registerDoubleJumpClient() {

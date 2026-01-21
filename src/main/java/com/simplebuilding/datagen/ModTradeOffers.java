@@ -59,11 +59,18 @@ public class ModTradeOffers {
                 List<WeightedEnchantment> masterPool = List.of(
                         new WeightedEnchantment(ModEnchantments.MASTER_BUILDER, 1, 10), // Very Rare
                         new WeightedEnchantment(ModEnchantments.RANGE, 1, 10), // Very Rare
+                        new WeightedEnchantment(ModEnchantments.RANGE, 2, 10),
+                        new WeightedEnchantment(ModEnchantments.RANGE, 3, 3),
                         new WeightedEnchantment(ModEnchantments.FUNNEL, 1, 30),
-                        new WeightedEnchantment(ModEnchantments.STRIP_MINER, 1, 20)
+                        new WeightedEnchantment(ModEnchantments.STRIP_MINER, 1, 20),
+                        new WeightedEnchantment(ModEnchantments.STRIP_MINER, 2, 10),
+                        new WeightedEnchantment(ModEnchantments.STRIP_MINER, 3, 5),
+                        new WeightedEnchantment(ModEnchantments.VEIN_MINER, 1, 10),
+                        new WeightedEnchantment(ModEnchantments.VEIN_MINER, 2, 7),
+                        new WeightedEnchantment(ModEnchantments.VEIN_MINER, 3, 5)
                 );
                 // FIX: (world, entity, random)
-                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, masterPool, 0), 1, 100, 1.0f));
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), createRandomEnchantedBook(entity, random, masterPool, 10), 1, 100, 1.0f));
             });
 
 
@@ -102,8 +109,8 @@ public class ModTradeOffers {
                 );
 
                 // FIX: (world, entity, random)
-                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 28), Optional.of(new TradedItem(Items.DIAMOND_PICKAXE, 1)), createRandomEnchantedItem(entity, random, ModItems.DIAMOND_SLEDGEHAMMER, hammerEnchants, 10), 1, 30, 0.5f));
-                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 16), Optional.of(new TradedItem(Items.IRON_PICKAXE, 1)), createRandomEnchantedItem(entity, random, ModItems.IRON_SLEDGEHAMMER, hammerEnchants, 10), 1, 30, 0.5f));
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 28), Optional.of(new TradedItem(Items.DIAMOND_PICKAXE, 1)), createRandomEnchantedItem(entity, random, ModItems.DIAMOND_SLEDGEHAMMER, hammerEnchants, 15), 1, 30, 0.5f));
+                factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 16), Optional.of(new TradedItem(Items.IRON_PICKAXE, 1)), createRandomEnchantedItem(entity, random, ModItems.IRON_SLEDGEHAMMER, hammerEnchants, 1), 1, 30, 0.5f));
             });
             // Master: Strip Miner (Very Rare)
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.TOOLSMITH, 5, factories -> {

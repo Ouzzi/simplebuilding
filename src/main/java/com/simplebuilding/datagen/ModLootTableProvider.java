@@ -82,7 +82,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             if (LootTables.STRONGHOLD_LIBRARY_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0, 5))
-                        .with(enchantedBook(ModEnchantments.RANGE, 1, enchantments, 2)) // Weight reduziert
+                        .with(enchantedBook(ModEnchantments.RANGE, 2, enchantments, 2))
                         .with(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 1))
                         .with(enchantedBook(ModEnchantments.VERSATILITY, 1, enchantments, 1))
                         .with(enchantedBook(ModEnchantments.VERSATILITY, 2, enchantments, 1))
@@ -178,11 +178,12 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             // (IRON_BUILDING_WAND, iron_core, QUIVER)
             if (LootTables.WOODLAND_MANSION_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
-                        .rolls(UniformLootNumberProvider.create(1, 3))
+                        .rolls(UniformLootNumberProvider.create(1, 4))
                         .with(enchantedBook(ModEnchantments.COLOR_PALETTE, 1, enchantments, 3))
                         .with(enchantedBook(ModEnchantments.COVER, 1, enchantments, 7))
                         .with(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 7))
-                        .with(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 8))
+                        .with(enchantedBook(ModEnchantments.VEIN_MINER, 5, enchantments, 8))
+                        .with(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 2))
                         .with(ItemEntry.builder(ModItems.IRON_BUILDING_WAND).weight(15))
                         .with(ItemEntry.builder(ModItems.IRON_CORE).weight(10))
                         .with(ItemEntry.builder(ModItems.QUIVER).weight(3))
@@ -213,6 +214,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .with(enchantedBook(ModEnchantments.FAST_CHISELING, 1, enchantments, 5))
                         .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 10))
                         .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 10))
+                        .with(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 5))
+                        .with(enchantedBook(ModEnchantments.VEIN_MINER, 3, enchantments, 10))
                         .with(enchantedBook(ModEnchantments.VEIN_MINER, 2, enchantments, 15))
                         .with(ItemEntry.builder(ModItems.REINFORCED_BUNDLE).weight(10))
                         .with(ItemEntry.builder(ModItems.BASIC_UPGRADE_TEMPLATE).weight(1))
@@ -254,7 +257,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .with(enchantedBook(ModEnchantments.FAST_CHISELING, 1, enchantments, 2))
                         .with(enchantedBook(ModEnchantments.STRIP_MINER, 1, enchantments, 10))
                         .with(enchantedBook(ModEnchantments.STRIP_MINER, 3, enchantments, 5))
-                        .with(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 4))
+                        .with(enchantedBook(ModEnchantments.VEIN_MINER, 3, enchantments, 2))
+                        .with(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 5))
                         .with(ItemEntry.builder(ModItems.REINFORCED_BUNDLE).weight(10).apply(EnchantRandomlyLootFunction.create()))
                         .with(EmptyEntry.builder().weight(20));
                 tableBuilder.pool(pool);

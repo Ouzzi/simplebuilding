@@ -2,11 +2,13 @@ package com.simplebuilding;
 
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
+import com.simplebuilding.blocks.entity.custom.NetheriteHopperBlockEntity;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.datagen.ModLootTableProvider;
 import com.simplebuilding.datagen.ModTradeOffers;
 import com.simplebuilding.enchantment.ModEnchantmentEffects;
+import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BuildingWandItem;
@@ -14,6 +16,7 @@ import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.networking.*;
 import com.simplebuilding.recipe.ModRecipes;
+import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.util.*;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -28,10 +31,13 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BundleContentsComponent;
 import net.minecraft.component.type.NbtComponent;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
@@ -43,6 +49,9 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -304,6 +313,105 @@ public class Simplebuilding implements ModInitializer {
                 if (context.player() instanceof TrimBenefitUser user) {
                     // Hier speichern wir die Einstellung des Clients im Spieler-Objekt auf dem Server
                     user.simplebuilding$setTrimBenefitsEnabled(payload.enabled());
+                }
+            });
+        });
+
+
+        // ================================
+        // MASTER BUILDER PICK - Item Pick Payload
+        // ================================
+        PayloadTypeRegistry.playC2S().register(MasterBuilderPickPayload.ID, MasterBuilderPickPayload.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(MasterBuilderPickPayload.ID, (payload, context) -> {
+            ServerPlayerEntity player = context.player();
+            ItemStack requestedItem = payload.itemToPick();
+
+            context.server().execute(() -> {
+                var inv = player.getInventory();
+                var registryManager = player.getRegistryManager();
+                // FIX: get -> getOrThrow
+                var enchantRegistry = registryManager.getOrThrow(RegistryKeys.ENCHANTMENT);
+                // FIX: getEntry -> getOptional (für RegistryKey)
+                var masterBuilderEntry = enchantRegistry.getOptional(ModEnchantments.MASTER_BUILDER);
+
+                if (masterBuilderEntry.isEmpty()) return;
+
+                for (int i = 0; i < inv.size(); i++) {
+                    ItemStack bundleStack = inv.getStack(i);
+                    if (bundleStack.getItem() instanceof ReinforcedBundleItem &&
+                            EnchantmentHelper.getLevel(masterBuilderEntry.get(), bundleStack) > 0) {
+
+                        BundleContentsComponent contents = bundleStack.get(DataComponentTypes.BUNDLE_CONTENTS);
+                        if (contents != null) {
+
+                            // FIX: Wir konvertieren den Inhalt in eine normale Liste,
+                            // da der Builder keine Lese-Methoden wie get(i) hat.
+                            List<ItemStack> stacks = new ArrayList<>();
+                            contents.iterate().forEach(s -> stacks.add(s.copy()));
+
+                            ItemStack foundStack = ItemStack.EMPTY;
+                            BundleContentsComponent.Builder builder = new BundleContentsComponent.Builder(contents);
+                            int indexToRemove = -1;
+
+                            // Jetzt können wir normal iterieren
+                            for (int j = 0; j < stacks.size(); j++) {
+                                if (ItemStack.areItemsEqual(stacks.get(j), requestedItem)) {
+                                    indexToRemove = j;
+                                    foundStack = stacks.get(j); // Wir nehmen den Stack
+                                    break;
+                                }
+                            }
+
+                            if (indexToRemove != -1) {
+                                // FIX: selectedSlot ist privat, nutze den Getter
+                                int selectedSlot = inv.getSelectedSlot();
+                                // FIX: player.getMainHandStack() statt inv.getMainHandStack()
+                                ItemStack currentHandStack = player.getMainHandStack();
+
+                                // Platz-Logik
+                                if (currentHandStack.isEmpty()) {
+                                    stacks.remove(indexToRemove); // Aus Liste entfernen
+                                    bundleStack.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(stacks)); // Bundle updaten
+                                    inv.setStack(selectedSlot, foundStack); // Item geben
+                                } else {
+                                    int emptySlot = inv.getEmptySlot();
+                                    if (emptySlot != -1) {
+                                        stacks.remove(indexToRemove); // Aus Liste entfernen
+                                        bundleStack.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(stacks)); // Bundle updaten
+                                        inv.setStack(emptySlot, currentHandStack); // Altes Item weglegen
+                                        inv.setStack(selectedSlot, foundStack); // Neues Item geben
+                                    } else {
+                                        return;
+                                    }
+                                }
+                                player.playSound(net.minecraft.sound.SoundEvents.ITEM_BUNDLE_REMOVE_ONE, 1.0f, 1.0f);
+                                inv.markDirty();
+                                player.playerScreenHandler.sendContentUpdates();
+                                return;
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+
+
+        // ================================
+        // NETHERITE HOPPER - Filtermodus Umschalten Payload
+        // ================================
+        PayloadTypeRegistry.playC2S().register(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC);
+
+        ServerPlayNetworking.registerGlobalReceiver(ToggleHopperFilterPayload.ID, (payload, context) -> {
+            context.server().execute(() -> {
+                ServerPlayerEntity player = context.player();
+                if (player.currentScreenHandler instanceof NetheriteHopperScreenHandler handler) {
+                    NetheriteHopperBlockEntity be = handler.getBlockEntity();
+                    // Prüfen ob Spieler darf (Reichweite etc wird meist vom Handler geprüft)
+                    be.toggleFilterMode(payload.slotIndex());
+
+                    // Optional: Feedback Sound
+                    player.playSound(net.minecraft.sound.SoundEvents.UI_BUTTON_CLICK.value(), 0.5f, 1.0f);
                 }
             });
         });

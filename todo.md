@@ -1,6 +1,4 @@
 ## Changelog:
-
-## TODO:
 - Basic upgrade templates  (Stone-Iron-Gold-Diamond)
 - - one item and material to upgrade a tool from one tier to another - smithing table recipe
 - - all tool data and enchantments are kept
@@ -8,11 +6,28 @@
 - - upgrade recepie reuires the base tool + material ingot + upgrade template - smithing table (some require more ingots, like pickaxe 3 iron ingots to upgrade from copper to iron,...)
 - - upgrade templates must be find in loot chests - reproducable in by crafting - basic upgrade template + 7 gold + iron block
 
+- veinmine too rare in loot chests
+- magnet range enchantment - increases range of item pickup
+- masterbuilder on bundle can let you by mouswheel click on block (select block from inventory) get swap into hotbar or next empty slot in hotbar
+
+## BUGS:
+
+
+
+### Later:
+- reinforced bundle - should have same ui as normal bundle!
+- masterbuilder on building wand and on reinforced bundle not working together properly
+- chisel sometimes chisels when not wanted
+- compass in smithing table - not working properly
+
+ 
+## TODO:
+
 - implement echocompass as mirror or simmilar (exactly like eco compas functionality but with these changes)
-- - custom mirror enchantment: transdimentional (works in nether and end as well)
+- - custom mirror enchantment: transdimensional (works in nether and end as well)
 - - implement range (range enchantment can increase range from 128 to 512 to 1024 to 2048 blocks)
 - - netherite mirror - (range is automatically doubled)
-- - durabillity is 3 but can be restored with mending enchantment (requires a lot of xp to repair) (can't break)
+- - durability is 3 but can be restored with mending enchantment (requires a lot of xp to repair) (can't break)
 - - can be crafted: 
   "AGA",
   "GNG",
@@ -24,25 +39,24 @@
 - - new dungeon type with custom vaults (contains: ancient glass, basic upgrade templates)
 
 
+
 - display a charge/fuel/durrabillity gui component
 
 - bundle hotkey (and inside e inventory openable per intuitive methode like clicking with controll on bundle) - opens bundle menu: all bundles in inventory (max 9 displayed in top row), doublechest like layout with inside items and switch able to other bundles to manage easier
 
-- netherritehopper upgrade to upgrade to selective netherrite hopper: every slot can be toggled to be a filter (with ghosstitem inside
+- netherritehopper upgrade to upgrade to selective netherrite hopper: every slot can be toggled to be a filter (with ghosstitem inside)
 
 - new item magnet texture -> like tune fork but mor magnet looking
 - - rename magnet to attractor
 - - durabillity mechanic - loses durrability when picking up items (can't break) - can be fully recharged when rightcliched on lodestone block
 
 - bundle/quiver gui improvements
-- - berter tooltips 
+- - beter tooltips 
 - - plus icon like vanilla - green when same item is already in bundle, yellow when different item is in bundle, no plus icon when full, red when item can be added but not completly
 
-- chisel sometimes chisels when not wanted
 
 
 - sledgehammer should be customizable in a gui - toggle radius, break trough entchantments
-
 
 - building wand - all wand enchantments possible on it - mode togglable via gui  
 - building wand - master-builder minimal faster placing
@@ -80,14 +94,6 @@
 ## DONE:
 
 
-## BUGS:  
-- compass in smithing table - not working properly
-
-- reinforced bundle - should have same ui as normal bundle!
-- masterbuilder on building wand and on reinforced bundle not working together properly
-
-- some enchantments should not be aplicable on some items
-  -- color palette and masterbuilder not aplicable on quivers
 
 
 

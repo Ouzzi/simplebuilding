@@ -37,6 +37,7 @@ public class MagnetItem extends Item {
     private static final String FILTER_KEY = "MagnetFilter";
     private static final double BASE_RANGE = 4.0;
     private static final double BOOSTED_RANGE = 8.0;
+    private static final double RANGE_ENCHANTMENT_BOOST = 2.0;
 
     public MagnetItem(Settings settings) {
         super(settings);
@@ -62,15 +63,26 @@ public class MagnetItem extends Item {
             else return; // Nicht in der Hand
         }
 
-        // Shift deaktiviert
+        // Shift deaktiviert den Magneten
         if (player.isSneaking()) return;
 
-        boolean hasEnchantment = hasConstructorsTouch(stack, world);
-        double range = hasEnchantment ? BOOSTED_RANGE : BASE_RANGE;
+        // --- REICHWEITEN BERECHNUNG ---
+        boolean hasConstructors = hasConstructorsTouch(stack, world);
+        int rangeLevel = getMagnetRangeLevel(stack, world);
+
+        // Basis Reichweite (4.0 oder 8.0 durch Constructors Touch)
+        double currentRange = hasConstructors ? BOOSTED_RANGE : BASE_RANGE;
+
+        // Plus Enchantment Boost (z.B. Level 3 * 2.0 = +6.0 Blöcke)
+        if (rangeLevel > 0) {
+            currentRange += (rangeLevel * RANGE_ENCHANTMENT_BOOST);
+        }
+        // ------------------------------
+
         String filterId = getFilterId(stack);
 
         // Box um den Spieler
-        Box box = player.getBoundingBox().expand(range);
+        Box box = player.getBoundingBox().expand(currentRange);
         List<ItemEntity> items = world.getEntitiesByClass(ItemEntity.class, box, itemEntity -> true);
 
         for (ItemEntity itemEntity : items) {
@@ -175,5 +187,16 @@ public class MagnetItem extends Item {
             return EnchantmentHelper.getLevel(enchantmentEntry.get(), stack) > 0;
         }
         return false;
+    }
+
+    // Neue Helper Methode für das Range Enchantment
+    private int getMagnetRangeLevel(ItemStack stack, World world) {
+        var registry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
+        // Wir gehen davon aus, dass ModEnchantments.RANGE registriert ist (siehe deine JSON Dateien)
+        var enchantmentEntry = registry.getOptional(ModEnchantments.RANGE);
+        if (enchantmentEntry.isPresent()) {
+            return EnchantmentHelper.getLevel(enchantmentEntry.get(), stack);
+        }
+        return 0;
     }
 }
