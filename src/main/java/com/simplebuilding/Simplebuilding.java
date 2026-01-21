@@ -373,16 +373,16 @@ public class Simplebuilding implements ModInitializer {
 
                                 // Platz-Logik
                                 if (currentHandStack.isEmpty()) {
-                                    stacks.remove(indexToRemove); // Aus Liste entfernen
-                                    bundleStack.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(stacks)); // Bundle updaten
-                                    inv.setStack(selectedSlot, foundStack); // Item geben
+                                    stacks.remove(indexToRemove);
+                                    bundleStack.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(stacks));
+                                    inv.setStack(selectedSlot, foundStack);
                                 } else {
                                     int emptySlot = inv.getEmptySlot();
                                     if (emptySlot != -1) {
-                                        stacks.remove(indexToRemove); // Aus Liste entfernen
-                                        bundleStack.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(stacks)); // Bundle updaten
-                                        inv.setStack(emptySlot, currentHandStack); // Altes Item weglegen
-                                        inv.setStack(selectedSlot, foundStack); // Neues Item geben
+                                        stacks.remove(indexToRemove);
+                                        bundleStack.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(stacks));
+                                        inv.setStack(emptySlot, currentHandStack);
+                                        inv.setStack(selectedSlot, foundStack);
                                     } else {
                                         return;
                                     }
@@ -407,20 +407,19 @@ public class Simplebuilding implements ModInitializer {
 
         ServerPlayNetworking.registerGlobalReceiver(ToggleHopperFilterPayload.ID, (payload, context) -> {
             context.server().execute(() -> {
-                // Prüfen auf ModHopperScreenHandler (Basisklasse)
+                // KORREKTUR: Zugriff auf NetheriteHopperBlockEntity und entfernen von payload.slotIndex()
                 if (context.player().currentScreenHandler instanceof ModHopperScreenHandler handler) {
-                    ModHopperBlockEntity be = handler.getBlockEntity();
-                    if (be != null) {
-                        // KORRIGIERT: toggleFilterMode statt toggleFilter
-                        be.toggleFilterMode(payload.slotIndex());
-                        be.markDirty();
+                    // Wir casten hier auf NetheriteHopperBlockEntity, da die toggleFilterMode() Methode dort definiert ist
+                    if (handler.getBlockEntity() instanceof NetheriteHopperBlockEntity netheriteBe) {
+                        netheriteBe.toggleFilterMode(); // Keine Argumente mehr
+                        netheriteBe.markDirty();
                         ((net.minecraft.server.world.ServerWorld)context.player().getEntityWorld())
-                                .getChunkManager().markForUpdate(be.getPos());
+                                .getChunkManager().markForUpdate(netheriteBe.getPos());
                     }
                 }
             });
         });
-	}
+    }
 
     private void registerCauldronBehavior() {
         // Rangefinder reinigen:

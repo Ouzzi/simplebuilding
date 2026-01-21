@@ -12,22 +12,19 @@ import net.minecraft.storage.WriteView;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.Arrays;
-
-public class NetheriteHopperBlockEntity extends HopperBlockEntity {
+// WICHTIG: Erbt nun von ModHopperBlockEntity, um Typ-Konflikte im ScreenHandler zu vermeiden
+public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
 
     private final DefaultedList<ItemStack> ghostItems = DefaultedList.ofSize(5, ItemStack.EMPTY);
-    private final HopperFilterMode[] filterModes = new HopperFilterMode[5];
+    // ÄNDERUNG: Nur noch ein globaler Filter-Modus statt Array
+    private HopperFilterMode currentFilterMode = HopperFilterMode.NONE;
 
     public NetheriteHopperBlockEntity(BlockPos pos, BlockState state) {
         super(pos, state);
-        // Initialisiere Arrays um NullPointer zu vermeiden
-        Arrays.fill(filterModes, HopperFilterMode.NONE);
     }
 
     @Override
     public BlockEntityType<?> getType() {
-        // FIX 1: Der Name in ModBlockEntities ist MOD_HOPPER_BE
         return ModBlockEntities.MOD_HOPPER_BE;
     }
 
@@ -35,23 +32,25 @@ public class NetheriteHopperBlockEntity extends HopperBlockEntity {
 
     @Override
     public boolean isValid(int slot, ItemStack stack) {
+        // Wenn Filter deaktiviert ist (NONE), verhält er sich wie ein normaler Hopper
+        if (currentFilterMode == HopperFilterMode.NONE) {
+            return true;
+        }
+
         if (slot >= 0 && slot < 5) {
-            HopperFilterMode mode = filterModes[slot];
-
-            if (mode == HopperFilterMode.NONE) {
-                return true;
-            }
-
             ItemStack ghost = ghostItems.get(slot);
+
+            // Wenn ein Filter aktiv ist, aber KEIN Ghost Item definiert wurde:
+            // Standardverhalten: Nichts darf rein (da nichts matcht).
             if (ghost.isEmpty()) {
-                // Wenn Filter an ist, aber kein Ghost Item gesetzt, lassen wir nichts rein (oder true, je nach Design)
-                return true;
+                return false;
             }
 
-            // FIX 2: EXACT existiert nicht im Enum, 'WHITELIST' ist das Äquivalent
-            if (mode == HopperFilterMode.WHITELIST) {
+            if (currentFilterMode == HopperFilterMode.WHITELIST) {
+                // Exakter Match (Item + Komponenten/NBT)
                 return ItemStack.areItemsAndComponentsEqual(ghost, stack);
-            } else if (mode == HopperFilterMode.TYPE) {
+            } else if (currentFilterMode == HopperFilterMode.TYPE) {
+                // Nur der Item-Typ (z.B. Eisenbarren = Eisenbarren, egal welcher Name)
                 return ghost.getItem() == stack.getItem();
             }
         }
@@ -60,11 +59,10 @@ public class NetheriteHopperBlockEntity extends HopperBlockEntity {
 
     // --- INTERAKTION ---
 
-    public void toggleFilterMode(int slot) {
-        if (slot >= 0 && slot < 5) {
-            filterModes[slot] = filterModes[slot].next();
-            markDirty();
-        }
+    public void toggleFilterMode() {
+        // Zyklisch durchschalten: NONE -> WHITELIST -> TYPE -> NONE ...
+        this.currentFilterMode = this.currentFilterMode.next();
+        markDirty();
     }
 
     public void setGhostItem(int slot, ItemStack stack) {
@@ -87,11 +85,9 @@ public class NetheriteHopperBlockEntity extends HopperBlockEntity {
         return ItemStack.EMPTY;
     }
 
-    public HopperFilterMode getFilterMode(int slot) {
-        if (slot >= 0 && slot < 5) {
-            return filterModes[slot];
-        }
-        return HopperFilterMode.NONE;
+    // Helper für GUI und Logik (Global)
+    public HopperFilterMode getFilterMode() {
+        return this.currentFilterMode;
     }
 
     // --- NBT (1.21 API) ---
@@ -100,20 +96,14 @@ public class NetheriteHopperBlockEntity extends HopperBlockEntity {
     protected void writeData(WriteView view) {
         super.writeData(view);
 
-        // Filter Modi als Int-Array speichern
-        int[] modesAsInt = new int[5];
-        for (int i = 0; i < 5; i++) {
-            modesAsInt[i] = filterModes[i].ordinal();
-        }
-        view.putIntArray("FilterModes", modesAsInt);
+        // Speichere den globalen Modus als Integer
+        view.putInt("FilterMode", currentFilterMode.ordinal());
 
         // Ghost Items speichern
-        // Wir erstellen einen Sub-View (Compound) für die Items und nutzen Inventories Helper
-        WriteView ghostView = view.get("GhostItems"); // oder .getOrCreateView("GhostItems") je nach Mapping
+        WriteView ghostView = view.get("GhostItems");
         if (ghostView != null) {
             Inventories.writeData(ghostView, ghostItems);
         } else {
-            // Fallback: Manuell speichern via Codec, falls Inventories nicht mit WriteView kompatibel ist
             view.put("GhostItems", ItemStack.CODEC.listOf(), ghostItems);
         }
     }
@@ -122,18 +112,16 @@ public class NetheriteHopperBlockEntity extends HopperBlockEntity {
     protected void readData(ReadView view) {
         super.readData(view);
 
-        // FIX 3: getOptionalReadView statt Casting auf NbtCompound
+        // Ghost Items laden
         view.getOptionalReadView("GhostItems").ifPresent(ghostView -> {
-            // Versuche Inventories.readData
             try {
                 Inventories.readData(ghostView, ghostItems);
             } catch (Exception e) {
-                // Fallback: Wenn Struktur anders ist (z.B. List Codec)
                 ghostItems.clear();
             }
         });
 
-        // Fallback Lesen über Codec falls Inventories fehlschlägt oder nicht genutzt wurde
+        // Fallback Codec
         if (ghostItems.stream().allMatch(ItemStack::isEmpty)) {
             view.read("GhostItems", ItemStack.CODEC.listOf()).ifPresent(list -> {
                 for (int i = 0; i < list.size() && i < ghostItems.size(); i++) {
@@ -142,15 +130,13 @@ public class NetheriteHopperBlockEntity extends HopperBlockEntity {
             });
         }
 
-        // FIX 4: getOptionalIntArray statt readIntArray
-        view.getOptionalIntArray("FilterModes").ifPresent(array -> {
-            for (int i = 0; i < 5 && i < array.length; i++) {
-                int ordinal = array[i];
-                if (ordinal >= 0 && ordinal < HopperFilterMode.values().length) {
-                    filterModes[i] = HopperFilterMode.values()[ordinal];
-                }
+        // Globalen Modus laden
+        view.getOptionalInt("FilterMode").ifPresent(ordinal -> {
+            if (ordinal >= 0 && ordinal < HopperFilterMode.values().length) {
+                currentFilterMode = HopperFilterMode.values()[ordinal];
+            } else {
+                currentFilterMode = HopperFilterMode.NONE;
             }
         });
     }
-
 }
