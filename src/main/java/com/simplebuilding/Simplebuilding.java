@@ -405,16 +405,15 @@ public class Simplebuilding implements ModInitializer {
         // ================================
         PayloadTypeRegistry.playC2S().register(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC);
 
-        // Payload empfangen
         ServerPlayNetworking.registerGlobalReceiver(ToggleHopperFilterPayload.ID, (payload, context) -> {
             context.server().execute(() -> {
+                // Prüfen auf ModHopperScreenHandler (Basisklasse)
                 if (context.player().currentScreenHandler instanceof ModHopperScreenHandler handler) {
                     ModHopperBlockEntity be = handler.getBlockEntity();
                     if (be != null) {
-                        be.toggleFilter(payload.slotIndex());
-                        // Wichtig: Client informieren über Änderung (für Button Farben oder Ghost Logic)
+                        // KORRIGIERT: toggleFilterMode statt toggleFilter
+                        be.toggleFilterMode(payload.slotIndex());
                         be.markDirty();
-                        // Erzwinge Update an Clients (sehr wichtig für GUI Sync!)
                         ((net.minecraft.server.world.ServerWorld)context.player().getEntityWorld())
                                 .getChunkManager().markForUpdate(be.getPos());
                     }
