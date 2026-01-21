@@ -152,4 +152,5 @@ public class NetheriteHopperBlockEntity extends HopperBlockEntity {
             }
         });
     }
+
 }

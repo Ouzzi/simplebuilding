@@ -11,7 +11,10 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.text.StyleSpriteSource;
 import net.minecraft.text.Text;
+import net.minecraft.util.ClickType;
 import net.minecraft.util.Identifier;
 
 public class NetheriteHopperScreen extends HandledScreen<NetheriteHopperScreenHandler> {

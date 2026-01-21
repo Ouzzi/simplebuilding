@@ -144,6 +144,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         });
 
         HandledScreens.register(ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER, NetheriteHopperScreen::new);
+
     }
 
     private void registerDoubleJumpClient() {

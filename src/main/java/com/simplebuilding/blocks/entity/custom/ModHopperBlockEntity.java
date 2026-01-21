@@ -245,9 +245,10 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
 
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new HopperScreenHandler(syncId, playerInventory, this);
+        // FIX: Übergebe 'this' zweimal (einmal als Inventory, einmal als ModHopperBlockEntity)
+        // NetheriteHopperScreenHandler(int, PlayerInventory, Inventory, ModHopperBlockEntity)
+        return new com.simplebuilding.screen.NetheriteHopperScreenHandler(syncId, playerInventory, this, this);
     }
-
 
     @Override
     public int size() { return 5; }
