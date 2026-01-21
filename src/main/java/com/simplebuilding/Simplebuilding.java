@@ -2,6 +2,7 @@ package com.simplebuilding;
 
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
+import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.blocks.entity.custom.NetheriteHopperBlockEntity;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.config.SimplebuildingConfig;
@@ -16,6 +17,7 @@ import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.networking.*;
 import com.simplebuilding.recipe.ModRecipes;
+import com.simplebuilding.screen.ModHopperScreenHandler;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.util.*;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -40,6 +42,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -402,16 +405,19 @@ public class Simplebuilding implements ModInitializer {
         // ================================
         PayloadTypeRegistry.playC2S().register(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC);
 
+        // Payload empfangen
         ServerPlayNetworking.registerGlobalReceiver(ToggleHopperFilterPayload.ID, (payload, context) -> {
             context.server().execute(() -> {
-                ServerPlayerEntity player = context.player();
-                if (player.currentScreenHandler instanceof NetheriteHopperScreenHandler handler) {
-                    NetheriteHopperBlockEntity be = handler.getBlockEntity();
-                    // Prüfen ob Spieler darf (Reichweite etc wird meist vom Handler geprüft)
-                    be.toggleFilterMode(payload.slotIndex());
-
-                    // Optional: Feedback Sound
-                    player.playSound(net.minecraft.sound.SoundEvents.UI_BUTTON_CLICK.value(), 0.5f, 1.0f);
+                if (context.player().currentScreenHandler instanceof ModHopperScreenHandler handler) {
+                    ModHopperBlockEntity be = handler.getBlockEntity();
+                    if (be != null) {
+                        be.toggleFilter(payload.slotIndex());
+                        // Wichtig: Client informieren über Änderung (für Button Farben oder Ghost Logic)
+                        be.markDirty();
+                        // Erzwinge Update an Clients (sehr wichtig für GUI Sync!)
+                        ((net.minecraft.server.world.ServerWorld)context.player().getEntityWorld())
+                                .getChunkManager().markForUpdate(be.getPos());
+                    }
                 }
             });
         });

@@ -24,7 +24,9 @@ public class ModBlockEntities {
         MOD_HOPPER_BE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
                 Identifier.of(Simplebuilding.MOD_ID, "mod_hopper"),
                 FabricBlockEntityTypeBuilder.create(ModHopperBlockEntity::new,
-                        ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER).build());
+                        ModBlocks.REINFORCED_HOPPER,
+                        ModBlocks.NETHERITE_HOPPER
+                ).build());
 
         /* todo chest:
 
