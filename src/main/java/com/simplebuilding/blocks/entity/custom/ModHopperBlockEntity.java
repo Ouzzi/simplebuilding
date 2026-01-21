@@ -2,7 +2,9 @@ package com.simplebuilding.blocks.entity.custom;
 
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
+import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.util.HopperFilterMode;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HopperBlock;
@@ -18,12 +20,15 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.HopperScreenHandler;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
@@ -37,63 +42,86 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
-public class ModHopperBlockEntity extends LootableContainerBlockEntity implements Hopper {
+// WICHTIG: "implements ExtendedScreenHandlerFactory" hinzufügen!
+public class ModHopperBlockEntity extends LootableContainerBlockEntity implements Hopper, ExtendedScreenHandlerFactory {
+
     private DefaultedList<ItemStack> inventory;
     // Ghost Items und Filter Modes
     private final DefaultedList<ItemStack> ghostItems = DefaultedList.ofSize(5, ItemStack.EMPTY);
-    private final HopperFilterMode[] filterModes = new HopperFilterMode[5];
+
+    // Globaler Filter Modus (Passend zu deinem einen Button in der GUI)
+    private HopperFilterMode currentFilterMode = HopperFilterMode.NONE;
 
     private int transferCooldown = -1;
     private long lastTickTime;
+
+    // Für Synchronisation mit ScreenHandler
+    protected final PropertyDelegate propertyDelegate;
 
     private static final int[][] AVAILABLE_SLOTS_CACHE = new int[54][];
 
     public ModHopperBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.MOD_HOPPER_BE, pos, state);
         this.inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
-        Arrays.fill(this.filterModes, HopperFilterMode.NONE);
+
+        // Delegate initialisieren
+        this.propertyDelegate = new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return index == 0 ? currentFilterMode.ordinal() : 0;
+            }
+
+            @Override
+            public void set(int index, int value) {
+                if (index == 0) {
+                    currentFilterMode = HopperFilterMode.values()[value % HopperFilterMode.values().length];
+                    markDirty();
+                }
+            }
+
+            @Override
+            public int size() {
+                return 1;
+            }
+        };
     }
 
     // --- Filter & Ghost Logic ---
 
     @Override
     public boolean isValid(int slot, ItemStack stack) {
-        HopperFilterMode mode = filterModes[slot];
-
-        if (mode == HopperFilterMode.NONE) {
+        // Wenn Filter aus ist, alles erlauben
+        if (currentFilterMode == HopperFilterMode.NONE) {
             return true;
         }
 
-        ItemStack ghost = ghostItems.get(slot);
-        if (ghost.isEmpty()) {
-            return true;
-        }
+        // Slot-spezifische Prüfung
+        if (slot >= 0 && slot < 5) {
+            ItemStack ghost = ghostItems.get(slot);
 
-        if (mode == HopperFilterMode.WHITELIST) {
-            return ItemStack.areItemsAndComponentsEqual(stack, ghost);
-        } else if (mode == HopperFilterMode.TYPE) {
-            return stack.isOf(ghost.getItem());
+            // Wenn Ghost Item leer ist, darf in diesem Modus nichts rein
+            if (ghost.isEmpty()) {
+                return false;
+            }
+
+            if (currentFilterMode == HopperFilterMode.WHITELIST) {
+                // Exakter Match
+                return ItemStack.areItemsAndComponentsEqual(stack, ghost);
+            } else if (currentFilterMode == HopperFilterMode.TYPE) {
+                // Nur Item Typ
+                return stack.isOf(ghost.getItem());
+            }
         }
 
         return true;
     }
 
-
-
-    public void toggleFilterMode(int slot) {
-        if (slot >= 0 && slot < 5) {
-            filterModes[slot] = filterModes[slot].next();
-
-            // Wenn Filter aktiviert wird und Item drin liegt -> Ghost setzen
-            if (filterModes[slot] != HopperFilterMode.NONE && !this.getStack(slot).isEmpty()) {
-                setGhostItemInternal(slot, this.getStack(slot)); // Nutzt interne Methode ohne doppeltes Sync
-            }
-
-            updateListeners(); // WICHTIG: Client informieren
-        }
+    // Wird vom Packet aufgerufen (Button Klick)
+    public void toggleFilterMode() {
+        this.currentFilterMode = this.currentFilterMode.next();
+        updateListeners();
     }
 
-    // Hilfsmethode um Code-Dopplung zu vermeiden
     private void setGhostItemInternal(int slot, ItemStack stack) {
         if (slot >= 0 && slot < 5) {
             if (stack.isEmpty()) {
@@ -116,10 +144,6 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
     }
 
 
-    public void setGhostItem(int slot, ItemStack stack) {
-        setGhostItemInternal(slot, stack);
-        updateListeners(); // WICHTIG: Client informieren
-    }
 
     public ItemStack getGhostItem(int slot) {
         if (slot >= 0 && slot < 5) {
@@ -128,11 +152,12 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
         return ItemStack.EMPTY;
     }
 
-    public HopperFilterMode getFilterMode(int slot) {
-        if (slot >= 0 && slot < 5) {
-            return filterModes[slot];
-        }
-        return HopperFilterMode.NONE;
+    public HopperFilterMode getFilterMode() {
+        return this.currentFilterMode;
+    }
+
+    public PropertyDelegate getPropertyDelegate() {
+        return this.propertyDelegate;
     }
 
     // --- READ / WRITE DATA ---
@@ -150,15 +175,8 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
             Inventories.readData(ghostView, this.ghostItems);
         });
 
-        // KORRIGIERT: Filter Modes lesen
-        view.getOptionalIntArray("FilterModes").ifPresent(array -> {
-            for (int i = 0; i < 5 && i < array.length; i++) {
-                int ordinal = array[i];
-                if (ordinal >= 0 && ordinal < HopperFilterMode.values().length) {
-                    filterModes[i] = HopperFilterMode.values()[ordinal];
-                }
-            }
-        });
+        // Filter Mode lesen
+        this.currentFilterMode = HopperFilterMode.values()[view.getInt("FilterMode", 0)];
 
         this.transferCooldown = view.getInt("TransferCooldown", -1);
     }
@@ -170,17 +188,16 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
             Inventories.writeData(view, this.inventory);
         }
 
-        // KORRIGIERT: Ghost Items schreiben
-        WriteView ghostView = view.get("GhostItems"); // oder create/put wenn nötig, 'get' liefert oft den Sub-Writer
-        Inventories.writeData(ghostView, this.ghostItems);
-
-        // KORRIGIERT: Filter Modes schreiben
-        int[] modesAsInt = new int[5];
-        for (int i = 0; i < 5; i++) {
-            modesAsInt[i] = filterModes[i].ordinal();
+        WriteView ghostView = view.get("GhostItems"); // Achtung: Hängt von deiner Implementation von WriteView ab
+        // Falls .get() null liefert, müsste man ggf. view.put(...) nutzen.
+        // Ich übernehme hier deine Logik, aber idealerweise nutzt man NBT für komplexe Strukturen.
+        // Da du unten toInitialChunkDataNbt hast, scheint das Speichern hier evtl. custom zu sein?
+        // Standard Vanilla wäre Inventories.writeNbt(nbt, items).
+        if(ghostView != null) {
+             Inventories.writeData(ghostView, this.ghostItems);
         }
-        view.putIntArray("FilterModes", modesAsInt);
 
+        view.putInt("FilterMode", currentFilterMode.ordinal());
         view.putInt("TransferCooldown", this.transferCooldown);
     }
 
@@ -197,11 +214,9 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
         // Wir nutzen super implementation als Basis
         NbtCompound nbt = super.toInitialChunkDataNbt(registryLookup);
 
-        int[] modes = new int[5];
-        for (int i = 0; i < 5; i++) modes[i] = filterModes[i].ordinal();
-        nbt.putIntArray("FilterModes", modes);
+        nbt.putInt("FilterMode", currentFilterMode.ordinal());
 
-        // Ghost Items manuell serialisieren für Client Sync
+        // Ghost Items serialisieren für Client
         NbtCompound ghostRoot = new NbtCompound();
         NbtList ghostList = new NbtList();
         for (int i = 0; i < ghostItems.size(); i++) {
@@ -230,6 +245,13 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
 
 
     @Override
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+        // Hier wird der Server-Konstruktor aufgerufen
+        return new NetheriteHopperScreenHandler(syncId, playerInventory, this, this);
+    }
+
+
+    @Override
     public boolean canBlockFromAbove() {
         return false;
     }
@@ -244,13 +266,6 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
     protected void setHeldStacks(DefaultedList<ItemStack> inventory) { this.inventory = inventory; }
 
     @Override
-    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        // FIX: Übergebe 'this' zweimal (einmal als Inventory, einmal als ModHopperBlockEntity)
-        // NetheriteHopperScreenHandler(int, PlayerInventory, Inventory, ModHopperBlockEntity)
-        return new com.simplebuilding.screen.NetheriteHopperScreenHandler(syncId, playerInventory, this, this);
-    }
-
-    @Override
     public int size() { return 5; }
 
     @Override
@@ -261,13 +276,20 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
 
     @Override
     public double getHopperZ() { return (double)this.pos.getZ() + 0.5D; }
+
     @Override
     public void setStack(int slot, ItemStack stack) {
         super.setStack(slot, stack);
-        if (!stack.isEmpty()) {
-            ItemStack ghost = stack.copy();
-            ghost.setCount(1);
-            ghostItems.set(slot, ghost);
+        // Automatisches Setzen des Ghost Items beim Einlegen (Optional, wie du es wolltest)
+        if (!stack.isEmpty() && currentFilterMode != HopperFilterMode.NONE) {
+             // Nur setzen wenn leer? Oder immer überschreiben?
+             // Hier einfach mal checken ob slot leer ist:
+             if(ghostItems.get(slot).isEmpty()) {
+                ItemStack ghost = stack.copy();
+                ghost.setCount(1);
+                ghostItems.set(slot, ghost);
+                markDirty(); // Sync Nötig? Eigentlich nur Server-Side Logic
+             }
         }
     }
 
@@ -376,4 +398,35 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
 
     private void setTransferCooldown(int transferCooldown) { this.transferCooldown = transferCooldown; }
     private boolean needsCooldown() { return this.transferCooldown > 0; }
+
+    // Diese Methode wird vom Server aufgerufen
+    public void setGhostItem(int slot, ItemStack stack) {
+        setGhostItemInternal(slot, stack);
+
+        // WICHTIG: Sende Update an alle Spieler, die zuschauen (Tracking)
+        if (world != null && !world.isClient()) {
+            net.fabricmc.fabric.api.networking.v1.PlayerLookup.tracking(this).forEach(player -> {
+                net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, new com.simplebuilding.networking.SyncHopperGhostItemPayload(pos, slot, stack));
+            });
+        }
+        markDirty();
+    }
+
+    // Neue Methode nur für den Client (um Endlosschleifen zu vermeiden)
+    public void setGhostItemClient(int slot, ItemStack stack) {
+        if (slot >= 0 && slot < 5) {
+            if (stack.isEmpty()) {
+                ghostItems.set(slot, ItemStack.EMPTY);
+            } else {
+                ItemStack copy = stack.copy();
+                copy.setCount(1);
+                ghostItems.set(slot, copy);
+            }
+        }
+    }
+
+    @Override
+    public Object getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
+        return this.pos;
+    }
 }

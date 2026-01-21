@@ -276,5 +276,8 @@
   "item.simplebuilding.basic_upgrade_template.applies_to": "Spitzhacke, Axt, Schaufel, Hacke, Schwert, Hammer, Excavator",
   "item.simplebuilding.basic_upgrade_template.ingredients": "Eisen, Gold, Diamant",
   "item.simplebuilding.basic_upgrade_template.upgrade_description": "Werkzeugstufe aufwerten",
-  "upgrade.simplebuilding.count_based": "Stufen-Aufwertung"
+  "upgrade.simplebuilding.count_based": "Stufen-Aufwertung",
+  "item.simplebuilding.ore_detector": "Erzdetektor",
+  "tooltip.simplebuilding.ore_detector": "Zeigt die Nähe zu Erzen an.",
+  "trim_pattern.simplebuilding.emitting": "Strahlender Besatz"
 }

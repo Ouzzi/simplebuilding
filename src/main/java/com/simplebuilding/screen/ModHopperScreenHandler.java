@@ -31,7 +31,7 @@ public class ModHopperScreenHandler extends HopperScreenHandler {
     public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
         // Prüfen ob Klick im Hopper Inventar (Slots 0-4)
         if (slotIndex >= 0 && slotIndex < 5 && blockEntity != null) {
-            HopperFilterMode mode = blockEntity.getFilterMode(slotIndex);
+            HopperFilterMode mode = blockEntity.getFilterMode();
 
             // Nur wenn Filter NICHT 'None' ist, greifen wir ein
             if (mode != HopperFilterMode.NONE) {

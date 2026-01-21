@@ -1,5 +1,6 @@
 package com.simplebuilding;
 
+import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.client.gui.*;
 import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltipSubmenuHandler;
 import com.simplebuilding.client.render.BlockHighlightRenderer;
@@ -11,6 +12,8 @@ import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.networking.DoubleJumpPayload;
+import com.simplebuilding.networking.ModMessages;
+import com.simplebuilding.networking.SyncHopperGhostItemPayload;
 import com.simplebuilding.networking.TrimBenefitPayload;
 import com.simplebuilding.screen.ModScreenHandlers;
 import com.simplebuilding.util.BundleTooltipAccessor;
@@ -23,6 +26,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.gui.tooltip.BundleTooltipComponent;
@@ -68,6 +72,15 @@ public class SimplebuildingClient implements ClientModInitializer {
         });
 
 
+        TooltipComponentCallback.EVENT.register(data -> {
+            if (data instanceof ReinforcedBundleTooltipData bundleData) {
+                // Nutze die Vanilla Bundle Komponente für die Anzeige
+                return new BundleTooltipComponent(bundleData.contents());
+            }
+            return null;
+        });
+
+
         registerDoubleJumpClient();
 
         // --- Keybindings Registrierung ---
@@ -84,8 +97,6 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         // --- Event Loop (Tick) ---
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-
-            // Logik für Highlight Toggle
             while (highlightToggleKey.wasPressed()) {
                 showHighlights = !showHighlights;
                 if (client.player != null) {
@@ -96,25 +107,16 @@ public class SimplebuildingClient implements ClientModInitializer {
             while (settingsKey.wasPressed()) {
                 if (client.player != null) {
                     ItemStack stack = client.player.getMainHandStack();
-
-                    // Fall A: Oktant
                     if (stack.getItem() instanceof OctantItem) {
-                        // Öffne Oktant Menü
                         client.setScreen(new OctantScreen(stack));
-                    }
-                    // Fall B: Building Wand
-                    else if (stack.getItem() instanceof BuildingWandItem) {
-                        // Prüfe auf Constructor's Touch Enchantment
+                    } else if (stack.getItem() instanceof BuildingWandItem) {
                         var registry = client.world.getRegistryManager();
                         var lookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
                         var entry = lookup.getOptional(ModEnchantments.CONSTRUCTORS_TOUCH);
-
                         if (entry.isPresent() && EnchantmentHelper.getLevel(entry.get(), stack) > 0) {
-                            // Öffne Building Wand Menü
                             client.setScreen(new BuildingWandScreen(stack));
                         }
                     }
-                    // Fall C: Kein passendes Item -> Mache nichts (Keine Nachricht senden!)
                 }
             }
         });
@@ -127,14 +129,6 @@ public class SimplebuildingClient implements ClientModInitializer {
             );
         });
 
-        TooltipComponentCallback.EVENT.register(data -> {
-            if (data instanceof ReinforcedBundleTooltipData bundleData) {
-                // Nutze die Vanilla Bundle Komponente für die Anzeige
-                return new BundleTooltipComponent(bundleData.contents());
-            }
-            return null;
-        });
-
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             SimplebuildingConfig config = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
             boolean wantsBenefits = config.enableArmorTrimBenefits;
@@ -145,6 +139,21 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         HandledScreens.register(ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER, NetheriteHopperScreen::new);
 
+        // --- NETZWERK REGISTRIERUNG CLIENT-SEITE (WICHTIG!) ---
+        // Bevor wir einen Receiver registrieren können, müssen wir dem Client sagen,
+        // dass dieses Paket existiert (S2C = Server To Client).
+        PayloadTypeRegistry.playS2C().register(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC);
+
+        // Jetzt den Receiver registrieren
+        ClientPlayNetworking.registerGlobalReceiver(SyncHopperGhostItemPayload.ID, (payload, context) -> {
+            context.client().execute(() -> {
+                if (context.client().world != null) {
+                    if (context.client().world.getBlockEntity(payload.pos()) instanceof ModHopperBlockEntity blockEntity) {
+                        blockEntity.setGhostItemClient(payload.slot(), payload.stack());
+                    }
+                }
+            });
+        });
     }
 
     private void registerDoubleJumpClient() {

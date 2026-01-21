@@ -26,6 +26,7 @@ import java.util.function.Function;
 import static com.simplebuilding.items.custom.BuildingWandItem.*;
 import static com.simplebuilding.items.custom.OctantItem.DURABILITY_OCTANT;
 import static com.simplebuilding.items.custom.SledgehammerItem.*;
+import static net.minecraft.util.Rarity.RARE;
 import static net.minecraft.util.Rarity.UNCOMMON;
 
 /**
@@ -111,14 +112,14 @@ public class ModItems {
 
     // Speedometer
     public static final Item VELOCITY_GAUGE = registerItem("velocity-gauge", settings -> new Item(settings.maxCount(1)));
-    public static final Item ORE_DETECTOR = registerItem("ore_detector", settings -> new OreDetectorItem(settings.maxDamage(512))); // Haltbarkeit ist optional, aber nett für Balance
+    public static final Item ORE_DETECTOR = registerItem("ore_detector", settings -> new OreDetectorItem(settings.maxDamage(512).rarity(RARE)));
     public static final Item MAGNET = registerItem("magnet", settings -> new MagnetItem(settings.maxCount(1).rarity(UNCOMMON)));
 
     // Reinforced Items
     public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1)));
-    public static final Item NETHERITE_BUNDLE = registerItem("netherite_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1).fireproof()));
+    public static final Item NETHERITE_BUNDLE = registerItem("netherite_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1).fireproof().rarity(UNCOMMON)));
     public static final Item QUIVER = registerItem("quiver", settings -> new QuiverItem(settings.maxCount(1)));
-    public static final Item NETHERITE_QUIVER = registerItem("netherite_quiver", settings -> new QuiverItem(settings.maxCount(1).fireproof()));
+    public static final Item NETHERITE_QUIVER = registerItem("netherite_quiver", settings -> new QuiverItem(settings.maxCount(1).fireproof().rarity(UNCOMMON)));
 
     // Block Items
     public static final Item CONSTRUCTION_LIGHT = registerItem("construction_light", s -> new BlockItem(ModBlocks.CONSTRUCTION_LIGHT, s));
@@ -158,7 +159,7 @@ public class ModItems {
             Text.literal("Add Glow Ink").formatted(Formatting.GRAY),
             java.util.List.of(Identifier.ofVanilla("container/slot/helmet"), Identifier.ofVanilla("container/slot/chestplate"), Identifier.ofVanilla("container/slot/leggings"), Identifier.ofVanilla("container/slot/boots")),
             java.util.List.of(Identifier.ofVanilla("container/slot/ingot"), Identifier.ofVanilla("container/slot/lapis_lazuli"), Identifier.ofVanilla("container/slot/redstone_dust")),
-            settings.maxCount(64)
+            settings.maxCount(64).rarity(RARE)
     ));
     public static final Item EMITTING_TRIM_TEMPLATE = registerItem("emitting_trim_template", settings -> new SmithingTemplateItem(
             Text.literal("Light-source").formatted(Formatting.GOLD),
@@ -167,10 +168,10 @@ public class ModItems {
             Text.literal("Add Material").formatted(Formatting.GRAY),
             List.of(Identifier.ofVanilla("container/slot/helmet"), Identifier.ofVanilla("container/slot/chestplate"), Identifier.ofVanilla("container/slot/leggings"), Identifier.ofVanilla("container/slot/boots")),
             java.util.List.of(Identifier.ofVanilla("container/slot/ingot"), Identifier.ofVanilla("container/slot/lapis_lazuli"), Identifier.ofVanilla("container/slot/redstone_dust")),
-            settings.maxCount(64)
+            settings.maxCount(64).rarity(RARE)
     ));
 
-    public static final Item BASIC_UPGRADE_TEMPLATE = registerItem("basic_upgrade_template", settings -> new Item(settings.maxCount(64)));
+    public static final Item BASIC_UPGRADE_TEMPLATE = registerItem("basic_upgrade_template", settings -> new Item(settings.maxCount(64).rarity(UNCOMMON)));
 
     // =================================================================================
     // HILFSMETHODEN

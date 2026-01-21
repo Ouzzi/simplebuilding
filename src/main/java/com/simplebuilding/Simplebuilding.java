@@ -403,22 +403,7 @@ public class Simplebuilding implements ModInitializer {
         // ================================
         // NETHERITE HOPPER - Filtermodus Umschalten Payload
         // ================================
-        PayloadTypeRegistry.playC2S().register(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC);
-
-        ServerPlayNetworking.registerGlobalReceiver(ToggleHopperFilterPayload.ID, (payload, context) -> {
-            context.server().execute(() -> {
-                // KORREKTUR: Zugriff auf NetheriteHopperBlockEntity und entfernen von payload.slotIndex()
-                if (context.player().currentScreenHandler instanceof ModHopperScreenHandler handler) {
-                    // Wir casten hier auf NetheriteHopperBlockEntity, da die toggleFilterMode() Methode dort definiert ist
-                    if (handler.getBlockEntity() instanceof NetheriteHopperBlockEntity netheriteBe) {
-                        netheriteBe.toggleFilterMode(); // Keine Argumente mehr
-                        netheriteBe.markDirty();
-                        ((net.minecraft.server.world.ServerWorld)context.player().getEntityWorld())
-                                .getChunkManager().markForUpdate(netheriteBe.getPos());
-                    }
-                }
-            });
-        });
+        ModMessages.registerC2SPackets();
     }
 
     private void registerCauldronBehavior() {

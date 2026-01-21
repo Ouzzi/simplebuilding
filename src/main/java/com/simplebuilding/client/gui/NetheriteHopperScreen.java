@@ -1,5 +1,6 @@
 package com.simplebuilding.client.gui;
 
+import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.blocks.entity.custom.NetheriteHopperBlockEntity;
 import com.simplebuilding.networking.SetHopperGhostItemPayload;
@@ -17,7 +18,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NetheriteHopperScreen extends HandledScreen<NetheriteHopperScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of("textures/gui/container/hopper.png");
@@ -39,104 +44,85 @@ public class NetheriteHopperScreen extends HandledScreen<NetheriteHopperScreenHa
         // Button erstellen (Text lassen wir leer, wir zeichnen das Icon selber drüber)
         this.filterButton = this.addDrawableChild(ButtonWidget.builder(Text.empty(), btn -> {
             ClientPlayNetworking.send(new ToggleHopperFilterPayload());
-        })
-        .dimensions(buttonX, buttonY, 18, 18)
-        .build());
+        }).dimensions(buttonX, buttonY, 18, 18).build());
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
-        drawMouseoverTooltip(context, mouseX, mouseY);
+        super.render(context, mouseX, mouseY, delta); // Zeichnet Slots und Items
+        drawMouseoverTooltip(context, mouseX, mouseY); // Zeichnet Tooltip des echten Items
 
-        // Update Button Text/Tooltip basierend auf aktuellem Status
-        if (this.handler.getBlockEntity() instanceof NetheriteHopperBlockEntity be) {
-            HopperFilterMode mode = be.getFilterMode();
+        HopperFilterMode mode = this.handler.getSyncedFilterMode();
 
-            // --- Button Overlay Rendern (Icon/Text) ---
-            // Wir rendern manuell über den Button an dessen Position
+        // 1. Label
+        context.drawText(this.textRenderer, Text.literal("Filter:"), this.filterButton.getX() - 2, this.filterButton.getY() - 12, 0xFF404040, false);
 
-            // Icon Position (zentriert im 18x18 Button)
-            int iconX = this.filterButton.getX() + 1;
-            int iconY = this.filterButton.getY() + 1;
+        // 2. Button Overlay
+        if (mode == HopperFilterMode.NONE) {
+            context.drawItem(new ItemStack(Items.BARRIER), this.filterButton.getX() + 1, this.filterButton.getY() + 1);
+        } else {
+            String text = (mode == HopperFilterMode.WHITELIST) ? "✔" : "T";
+            int color = (mode == HopperFilterMode.WHITELIST) ? 0xFF55FF55 : 0xFFFFAA00;
+            int textWidth = this.textRenderer.getWidth(text);
+            context.drawText(this.textRenderer, text, this.filterButton.getX() + (18 - textWidth) / 2, this.filterButton.getY() + 5, color, true);
+        }
 
-            // KORREKTUR: Keine Matrix-Translation mehr (Z-Achse wird durch Zeichenreihenfolge bestimmt)
+        if (this.filterButton.isHovered()) {
+            context.drawTooltip(this.textRenderer, mode.getText(), mouseX, mouseY);
+        }
 
-            if (mode == HopperFilterMode.NONE) {
-                // "Parkverbot" -> Barriere Item rendern
-                context.drawItem(new ItemStack(Items.BARRIER), iconX, iconY);
-            } else {
-                // Text rendern für die anderen Modi
-                String text = (mode == HopperFilterMode.WHITELIST) ? "✔" : "T";
-                int color = mode.getColor();
+    // 3. Ghost Items & Farb-Overlay
+    // WICHTIG: Damit 'getBlockEntity()' hier funktioniert, beachte Schritt 2!
+    if (this.handler.getBlockEntity() instanceof ModHopperBlockEntity be && mode != HopperFilterMode.NONE) {
+        for (int i = 0; i < 5; i++) {
+            Slot slot = this.handler.slots.get(i);
+            ItemStack ghostStack = be.getGhostItem(i); // Holt das Ghost Item aus der BlockEntity
 
-                // Text zentrieren
-                int textWidth = this.textRenderer.getWidth(text);
-                int textX = this.filterButton.getX() + (this.filterButton.getWidth() - textWidth) / 2;
-                int textY = this.filterButton.getY() + (this.filterButton.getHeight() - 8) / 2;
+            // Wenn ein Filter gesetzt ist (Ghost Stack nicht leer)
+            if (!ghostStack.isEmpty()) {
+                int slotX = this.x + slot.x;
+                int slotY = this.y + slot.y;
 
-                context.drawText(this.textRenderer, text, textX, textY, color, true);
-            }
-            context.getMatrices().popMatrix();
+                // A) Oranges Overlay zeichnen (0x60 = Transparenz, FFAA00 = Orange)
+                context.fill(slotX, slotY, slotX + 16, slotY + 16, 0x60FFAA00);
 
-            // Tooltip für den Button setzen (wird angezeigt, wenn Maus drüber ist)
-            if (this.filterButton.isHovered()) {
-                context.drawTooltip(this.textRenderer, mode.getText(), mouseX, mouseY);
-            }
+                // B) Ghost Item zeichnen (nur wenn Slot physikalisch leer ist)
+                if (slot.getStack().isEmpty()) {
+                    context.drawItem(ghostStack, slotX, slotY);
 
-            // --- Ghost Items rendern ---
-            if (mode != HopperFilterMode.NONE) {
-                for(int i = 0; i < 5; i++) {
-                    // Wir greifen sicherheitshalber über die Slots auf das echte Item zu
-                    // Annahme: Die ersten 5 Slots im Handler gehören dem Hopper
-                    ItemStack realStack = ItemStack.EMPTY;
-                    if (i < this.handler.slots.size()) {
-                        realStack = this.handler.slots.get(i).getStack();
-                    }
-
-                    ItemStack ghostStack = be.getGhostItem(i);
-
-                    // Nur rendern, wenn der Slot leer ist, aber ein Ghost Item gesetzt ist
-                    if (realStack.isEmpty() && !ghostStack.isEmpty()) {
-                        int slotX = this.x + 44 + (i * 18);
-                        int slotY = this.y + 20;
-
-                        // Item rendern (Draw Order sorgt für Sichtbarkeit über dem Hintergrund)
-                        context.drawItem(ghostStack, slotX, slotY);
-
-                        // Grauer Schleier darüber
-                        context.fill(slotX, slotY, slotX + 16, slotY + 16, 0x60808080);
-
-                        // Tooltip
-                        if (isPointWithinBounds(44 + (i * 18), 20, 16, 16, mouseX, mouseY)) {
-                            context.drawItemTooltip(this.textRenderer, ghostStack, mouseX, mouseY);
-                        }
+                    // Manuelles Tooltip für Ghost Item
+                    if (isPointWithinBounds(slot.x, slot.y, 16, 16, mouseX, mouseY)) {
+                        List<Text> tooltip = new ArrayList<>();
+                        tooltip.add(Text.literal("Filtered Item:").formatted(Formatting.GOLD));
+                        tooltip.add(ghostStack.getName());
+                        context.drawTooltip(this.textRenderer, tooltip, mouseX, mouseY);
                     }
                 }
             }
         }
     }
+}
 
     // FIX FÜR GLITCH: Abfangen der Klicks auf die Slots, um Ghost Items zu setzen
     @Override
     public boolean mouseClicked(Click click, boolean doubled) {
-        if (this.handler.getBlockEntity() instanceof NetheriteHopperBlockEntity be) {
-            // Nur wenn Filter aktiv ist, greifen wir in die Logik ein
-            if (be.getFilterMode() != HopperFilterMode.NONE) {
+        // Nutzen der synchronisierten Daten
+        if (this.handler.getSyncedFilterMode() != HopperFilterMode.NONE) {
+            Slot hoveredSlot = this.getSlotAt(click.x(), click.y());
 
-                // Wir nutzen click.x() und click.y() aus dem Record
-                Slot hoveredSlot = this.getSlotAt(click.x(), click.y());
+            // Nur eingreifen, wenn wir auf einen der 5 Hopper-Slots klicken
+            if (hoveredSlot != null && hoveredSlot.getIndex() < 5) {
+                ItemStack cursorStack = this.handler.getCursorStack();
 
-                // Prüfen ob Klick auf Hopper-Slot (Index < 5)
-                if (hoveredSlot != null && hoveredSlot.getIndex() < 5) {
+                // Senden des Pakets (jetzt crash-sicher auch mit leerem Stack)
+                ClientPlayNetworking.send(new SetHopperGhostItemPayload(hoveredSlot.getIndex(), cursorStack));
 
-                    ItemStack cursorStack = this.handler.getCursorStack();
-                    ClientPlayNetworking.send(new SetHopperGhostItemPayload(hoveredSlot.getIndex(), cursorStack));
-
-                    // WICHTIG: return true verhindert, dass "super.mouseClicked" aufgerufen wird.
-                    // Das verhindert, dass das Item "echt" in den Slot gelegt wird, was den visuellen Glitch behebt.
-                    return true;
+                // Client-seitiges Update für sofortiges Feedback
+                if (this.handler.getBlockEntity() instanceof ModHopperBlockEntity be) {
+                    be.setGhostItemClient(hoveredSlot.getIndex(), cursorStack);
                 }
+
+                return true; // Event konsumieren, damit kein echtes Item gelegt wird
             }
         }
         return super.mouseClicked(click, doubled);

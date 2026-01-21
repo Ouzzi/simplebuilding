@@ -66,6 +66,9 @@
   "item.simplebuilding.octant_red": "Red Octant",
   "item.simplebuilding.octant_black": "Black Octant",
 
+  "item.simplebuilding.ore_detector": "Ore Detector",
+  "tooltip.simplebuilding.ore_detector": "Detects nearby ores and minerals.",
+
   "item.simplebuilding.reinforced_bundle": "Reinforced Bundle",
   "tooltip.simplebuilding.reinforced_bundle": "Can hold more items if enchanted.",
   "item.simplebuilding.netherite_bundle": "Netherite Bundle",
