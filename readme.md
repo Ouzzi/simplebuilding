@@ -78,6 +78,15 @@ A measurement and planning tool.
 * **Display:** Shows real-time speed in Blocks Per Second (m/s) above the hotbar.
 * **Advanced Stats:** With *Constructor's Touch*, it also displays Top Speed and Average Speed.
 
+### 🔄 The Rotator
+A precision wrench for adjusting block orientations without breaking them.
+* **Smart Rotation:**
+    * **Center Click:** Rotates the block around the axis you are looking at (like a clock hand).
+    * **Edge Click:** "Tips" the block over towards the clicked edge.
+* **Precision:** Sneak + Click rotates in the opposite direction.
+* **Compatibility:** Works on Logs, Pillars, Pistons, Observers, Slabs, Stairs, Glazed Terracotta, and more.
+* **Enchantable:** Accepts `Unbreaking` and `Mending`.
+
 ---
 
 ## 🧱 Blocks & Aesthetics
@@ -219,6 +228,23 @@ Each material used for an armor trim grants the wearer specific bonuses. The eff
 | **Redstone** | **-3.0%** Projectiles | **-12%** Projectiles | **Trap Awareness** | Protects against arrows, tridents, and other projectiles (ideal against dispenser traps). |
 | **Lapis** | **-3.0%** Magic/Witch | **-12%** Magic/Witch | **Curse Dampening** | Reduces damage from Witches and general magic (similar to Gold, but weaker/more specific). |
 | **Netherite** | **+50%** Pattern Effect | **+50%** Pattern Effect | **Pattern Boost** | Amplifies the effect of the **Trim Pattern** by 1.5x (e.g., Sentry, Vex). |
+
+
+## 📈 Trim Mastery: Progression System
+
+SimpleBuilding introduces a dynamic RPG-like progression system for Armor Trims. Your trim bonuses are not static—they grow with you!
+
+* **Dynamic Multiplier:** The strength of your trim effects (Damage Reduction, Speed, Luck, etc.) scales based on two factors:
+    1.  **XP Level:** Scales linearly from Level 0 to 100.
+    2.  **Survival Stats:** Increases based on blocks traveled and mobs defeated since your last death.
+* **Softcore Penalty:** Dying resets your "Survival Multiplier", temporarily weakening your trim buffs until you regain your footing. Your XP Level multiplier remains (unless you lose levels).
+* **Live Feedback:** Hover over any trimmed armor piece to see the **exact** percentage bonus calculated for your current state.
+
+### 📖 In-Game Reference Guide
+Don't want to memorize all these effects?
+* Open the **Smithing Table**.
+* Click the **Animated Trim Button** on the left side.
+* A complete reference screen will open, showing all active effects, material bonuses, and your current power multiplier.
 
 --- 
 

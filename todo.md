@@ -15,6 +15,17 @@
 - - - alway alongthe axis you clicked on exept clicking on the outer rim of the face (maybe 1px from end) - then it rotates around the axis perpendicular to the face
 - - can be enchanted with durability and unbreaking
 
+
+- Armor trims:
+- - add leveling system to amortrims (low level small benifits, high level big benefits)
+- - the higher the new experience value better the benifits (multiplyer)
+- - calculation - base value * xplevel multipler * experience multipler
+- - xplevel multipler: mimimum .10 of full effect at level 1 maximum 1.0 at level 100 (linear calculation)
+- - experience multipler: other calculation method - since death distance traveled and mobs killed calculate a value which multiplys the effect
+- - - (example: 1000 blocks traveled = 0.1 multiplier, 10000 blocks traveled = 1.0 multiplier, same for mobs killed - 100 mobs = 0.1 multiplier, 1000 mobs = 1.0 multiplier) - the higher value of both calculations is used
+- - - no maximum, more like exponential negative curve - the more you do the less you get (example: first 1000 blocks = 0.1 multiplier, next 9000 blocks = 0.9 multiplier, next 90000 blocks = 0.09 multiplier, next 900000 blocks = 0.009 multiplier, ... )
+
+
 ## BUGS:
 
 
@@ -27,16 +38,6 @@
 
  
 ## TODO:
-
-
-- Armor trims:
-- - add leveling system to amortrims (low level small benifits, high level big benefits) 
-- - the higher the new experience value better the benifits (multiplyer) 
-- - calculation - base value * xplevel multipler * experience multipler
-- - xplevel multipler: mimimum .10 of full effect at level 1 maximum 1.0 at level 100 (linear calculation)
-- - experience multipler: other calculation method - since death distance traveled and mobs killed calculate a value which multiplys the effect 
-- - - (example: 1000 blocks traveled = 0.1 multiplier, 10000 blocks traveled = 1.0 multiplier, same for mobs killed - 100 mobs = 0.1 multiplier, 1000 mobs = 1.0 multiplier) - the higher value of both calculations is used
-- - - no maximum, more like exponential negative curve - the more you do the less you get (example: first 1000 blocks = 0.1 multiplier, next 9000 blocks = 0.9 multiplier, next 90000 blocks = 0.09 multiplier, next 900000 blocks = 0.009 multiplier, ... )
 
     
 - Sniffer
