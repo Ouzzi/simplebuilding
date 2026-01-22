@@ -20,6 +20,11 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableArmorTrimBenefits = true;
 
+    @ConfigEntry.Gui.Tooltip
+    public static double trimBenefitBaseMultiplier = 2.0;
+    @ConfigEntry.Gui.Tooltip
+    public static double maxMultiplierLimit = 10.0;
+
     public static class Tools {
         @ConfigEntry.Gui.Tooltip
         public boolean invertOctantSneak = false; // Constructor's Touch Invertierung

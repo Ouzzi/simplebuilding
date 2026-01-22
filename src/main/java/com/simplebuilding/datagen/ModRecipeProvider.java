@@ -188,6 +188,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.LODESTONE), conditionsFromItem(Items.LODESTONE))
                         .offerTo(exporter);
 
+                createShaped(RecipeCategory.TOOLS, ModItems.ROTATOR)
+                        .pattern(" I ")
+                        .pattern("IEI")
+                        .pattern("II ")
+                        .input('I', Items.IRON_INGOT)
+                        .input('E', Items.ENDER_PEARL)
+                        .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                        .offerTo(exporter);
+
                 // =================================================================
                 // REINFORCED BUNDLE
                 // =================================================================

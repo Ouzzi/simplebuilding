@@ -4,6 +4,7 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.blocks.entity.custom.NetheriteHopperBlockEntity;
+import com.simplebuilding.command.ModCommands;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.datagen.ModLootTableProvider;
@@ -404,6 +405,9 @@ public class Simplebuilding implements ModInitializer {
         // NETHERITE HOPPER - Filtermodus Umschalten Payload
         // ================================
         ModMessages.registerC2SPackets();
+
+
+        ModCommands.register();
     }
 
     private void registerCauldronBehavior() {

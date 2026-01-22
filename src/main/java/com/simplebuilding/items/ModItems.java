@@ -114,7 +114,7 @@ public class ModItems {
     public static final Item VELOCITY_GAUGE = registerItem("velocity-gauge", settings -> new Item(settings.maxCount(1)));
     public static final Item ORE_DETECTOR = registerItem("ore_detector", settings -> new OreDetectorItem(settings.maxDamage(512).rarity(RARE)));
     public static final Item MAGNET = registerItem("magnet", settings -> new MagnetItem(settings.maxCount(1).rarity(UNCOMMON)));
-
+    public static final Item ROTATOR = registerItem("rotator", settings -> new RotatorItem(settings.maxDamage(1024).maxCount(1)));
     // Reinforced Items
     public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1)));
     public static final Item NETHERITE_BUNDLE = registerItem("netherite_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1).fireproof().rarity(UNCOMMON)));

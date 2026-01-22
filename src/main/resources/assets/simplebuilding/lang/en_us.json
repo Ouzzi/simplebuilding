@@ -25,6 +25,9 @@
   "item.simplebuilding.diamond_core": "Diamond Core",
   "item.simplebuilding.netherite_core": "Netherite Core",
 
+  "item.simplebuilding.rotator": "Rotator",
+  "tooltip.simplebuilding.rotator": "Use to rotate blocks.",
+
   "item.simplebuilding.copper_building_wand": "Copper Building Wand",
   "item.simplebuilding.iron_building_wand": "Iron Building Wand",
   "item.simplebuilding.gold_building_wand": "Gold Building Wand",

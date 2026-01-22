@@ -1,15 +1,12 @@
 package com.simplebuilding.mixin;
 
-import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
-import com.simplebuilding.items.custom.ReinforcedBundleItem;
-import com.simplebuilding.util.BundleUtil; // Import!
 import com.simplebuilding.util.TrimBenefitUser;
 import com.simplebuilding.util.TrimEffectUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -78,100 +75,53 @@ public abstract class PlayerEntityMixin implements TrimBenefitUser {
         }
     }
 
-    // --- WAYFINDER (Hunger beim Sprinten) ---
-    @Inject(method = "addExhaustion", at = @At("HEAD"), cancellable = true)
-    private void simplebuilding$modifyExhaustion(float exhaustion, CallbackInfo ci) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
-        if (player.isSprinting()) {
-            float wayfinderCount = TrimEffectUtil.getTrimCount(player, "wayfinder");
-            if (wayfinderCount > 0) {
-                // Reduziere Erschöpfung um 3% pro Teil
-                float reduction = 1.0f - (wayfinderCount * 0.03f);
-                // Da wir addExhaustion nicht direkt ändern können ohne Accessor/Shadow,
-                // rufen wir hier super auf (schwierig in Mixin) oder wir brechen ab und rufen mit neuem Wert auf?
-                // Besser: @ModifyVariable
-            }
-        }
-    }
-
+    // --- HUNGER / EXHAUSTION ---
     @ModifyVariable(method = "addExhaustion", at = @At("HEAD"), argsOnly = true)
     private float simplebuilding$reduceExhaustion(float exhaustion) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         if (player.isSprinting()) {
-            float count = TrimEffectUtil.getTrimCount(player, "wayfinder");
-            if (count > 0) {
-                float reduction = (count * 0.03f); // 3% pro Teil
-                float newExhaustion = exhaustion * (1.0f - reduction);
-
-                // Debug Log (nur wenn Erschöpfung > 0, um Spam zu minimieren)
-                if (exhaustion > 0) {
-                     Simplebuilding.LOGGER.info("Trim Bonus Active: Wayfinder! Exhaustion reduced by {}% ({} -> {})", (int)(reduction * 100), exhaustion, newExhaustion);
-                }
-
-                return newExhaustion;
+            // Nutzt jetzt den zentralen Rechner mit Multiplikator
+            float reductionPct = TrimEffectUtil.getExhaustionReduction(player);
+            if (reductionPct > 0) {
+                return exhaustion * (1.0f - reductionPct);
             }
         }
         return exhaustion;
     }
 
-    // --- NEU: LAPIS / QUARTZ (XP Boost) ---
-    // Funktioniert beim Aufsammeln von XP Orbs
+    // --- XP BOOST ---
     @ModifyVariable(method = "addExperience", at = @At("HEAD"), argsOnly = true)
     private int simplebuilding$modifyXpGain(int experience) {
         PlayerEntity player = (PlayerEntity) (Object) this;
+        if (experience <= 0) return experience;
 
-        // LAPIS oder QUARTZ: Weisheit
-        // Quartz wird oft mit Nether/XP assoziiert, Lapis mit Enchanting.
-        int lapisCount = TrimEffectUtil.getMaterialCount(player, "lapis");
-        int quartzCount = TrimEffectUtil.getMaterialCount(player, "quartz");
-
-        int totalMaterialCount = lapisCount + quartzCount;
-
-        if (totalMaterialCount > 0 && experience > 0) {
-            // +10% XP pro Teil
-            float bonusFactor = 1.0f + (totalMaterialCount * 0.10f);
-            return Math.round(experience * bonusFactor);
+        float multiplier = TrimEffectUtil.getXPMultiplier(player);
+        if (multiplier > 1.0f) {
+            return Math.round(experience * multiplier);
         }
-
         return experience;
     }
 
-    // --- NEU: SMARAGD (Glück / Luck) ---
-    // Das Glücks-Attribut beeinflusst Loot-Tabellen (Angeln, Kisten).
-    // Um das sauber zu machen, müssten wir eigentlich Attributes modifizieren.
-    // Eine einfachere Variante, die oft genutzt wird, ist beim Angeln direkt einzugreifen,
-    // aber Minecraft berechnet Luck dynamisch.
-    // Wir können hier einfach den Rückgabewert von getLuck() modifizieren!
-
+    // --- LUCK ---
     @Inject(method = "getLuck", at = @At("RETURN"), cancellable = true)
     private void simplebuilding$modifyLuck(CallbackInfoReturnable<Float> cir) {
         PlayerEntity player = (PlayerEntity) (Object) this;
-        int emeraldCount = TrimEffectUtil.getMaterialCount(player, "emerald");
-
-        if (emeraldCount > 0) {
-            float currentLuck = cir.getReturnValue();
-            // +0.5 Luck pro Teil (Standard Luck ist 0)
-            // Ein "Glück des Meeres" Level ist ca +1.0 Luck.
-            // Volle Smaragd-Rüstung = +2.0 Luck (Wie Luck II Trank).
-            cir.setReturnValue(currentLuck + (emeraldCount * 0.5f));
+        float bonus = TrimEffectUtil.getLuckBonus(player);
+        if (bonus > 0) {
+            cir.setReturnValue(cir.getReturnValue() + bonus);
         }
     }
 
-    @Inject(method = "tick", at = @At("TAIL"))
-    private void simplebuilding$updateSpeedAttribute(CallbackInfo ci) {
+    // --- MOVEMENT SPEED (Bolt / Redstone) ---
+    @Inject(method = "getMovementSpeed", at = @At("RETURN"), cancellable = true)
+    private void simplebuilding$modifyWalkSpeed(CallbackInfoReturnable<Float> cir) {
         PlayerEntity player = (PlayerEntity) (Object) this;
-
-        // Performance: Nicht jeden Tick Attribute ändern, wenn es nicht sein muss.
-        // Minecraft Attribute modifiers sind aber der saubere Weg.
-        // Einfache Variante: Wir prüfen alle 20 Ticks (1 Sekunde).
-        if (player.age % 20 != 0) return;
-
-        // Redstone erhöht Geschwindigkeit leicht
-        int redstoneCount = TrimEffectUtil.getMaterialCount(player, "redstone");
-        int copperCount = TrimEffectUtil.getMaterialCount(player, "copper");
-        int speedMaterial = redstoneCount + copperCount;
-        if (speedMaterial >= 2) { // Mindestens 2 Teile für Speed 1
-             player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 40, 0, false, false, false));
+        // Nur an Land anwenden, Schwimmen ist separat im LivingEntityMixin
+        if (!player.isSwimming() && !player.isGliding()) {
+            float mult = TrimEffectUtil.getLandSpeedMultiplier(player);
+            if (mult > 1.0f) {
+                cir.setReturnValue(cir.getReturnValue() * mult);
+            }
         }
     }
 }

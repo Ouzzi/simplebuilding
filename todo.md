@@ -10,6 +10,11 @@
 - magnet range enchantment - increases range of item pickup
 - masterbuilder on bundle can let you by mouswheel click on block (select block from inventory) get swap into hotbar or next empty slot in hotbar
 
+- add wrench item which rotates blocks  named rotator
+- - rotates item when rightclicked on block, shift rightclick rotates backwards
+- - - alway alongthe axis you clicked on exept clicking on the outer rim of the face (maybe 1px from end) - then it rotates around the axis perpendicular to the face
+- - can be enchanted with durability and unbreaking
+
 ## BUGS:
 
 
@@ -23,16 +28,6 @@
  
 ## TODO:
 
-- add wrench item which rotates blocks  named rotator
-- - rotates item when rightclicked on block, shift rightclick rotates backwards
-- - - alway alongthe axis you clicked on exept clicking on the outer rim of the face (maybe 1px from end) - then it rotates around the axis perpendicular to the face
-- - can be enchanted with durability and unbreaking
-- - crafted:
-- "  I",
-- " S ",
-- "S  ",
-- "I": "minecraft:iron_ingot",
-- "S": "minecraft:stick",
 
 - Armor trims:
 - - add leveling system to amortrims (low level small benifits, high level big benefits) 
@@ -45,7 +40,14 @@
 
     
 - Sniffer
-- - add use to ancient seeds and flowers and more diggaable flowers for sniffer (catflower anti creeper, dogflower anti skeleton, voidflower anti enderman, fireflower anti blaze, iceflower anti witch, lightflower anti spider)
+- - add use to ancient seeds and flowers and more diggaable flowers for sniffer 
+- - - catflower - scares creepers away in radius of 8 blocks
+- - - dogflower - scares skeletons away in radius of 8 blocks
+- - - voidflower - scares endermen away in radius of 8 blocks
+- - - breezeflower - scares blazes away in radius of 8 blocks
+- - - iceflower - scares witches away in radius of 8 blocks
+- - - blazeflower - scares spiders away in radius of 8 blocks
+
 
 - implement echocompass as mirror or simmilar (exactly like eco compas functionality but with these changes)
 - - custom mirror enchantment: transdimensional (works in nether and end as well)

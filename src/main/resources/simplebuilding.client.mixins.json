@@ -16,6 +16,7 @@
     "HeldItemRendererMixin",
     "ItemFrameEntityRendererMixin",
     "MinecraftClientMixin",
-    "MouseMixin"
+    "MouseMixin",
+    "SmithingScreenMixin"
   ]
 }

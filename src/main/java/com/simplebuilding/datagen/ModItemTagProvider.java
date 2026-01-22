@@ -52,6 +52,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .addTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(ModItems.ORE_DETECTOR)
+                .add(ModItems.ROTATOR)
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
 

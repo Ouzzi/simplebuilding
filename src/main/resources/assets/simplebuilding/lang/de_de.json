@@ -279,5 +279,7 @@
   "upgrade.simplebuilding.count_based": "Stufen-Aufwertung",
   "item.simplebuilding.ore_detector": "Erzdetektor",
   "tooltip.simplebuilding.ore_detector": "Zeigt die Nähe zu Erzen an.",
-  "trim_pattern.simplebuilding.emitting": "Strahlender Besatz"
+  "trim_pattern.simplebuilding.emitting": "Strahlender Besatz",
+  "item.simplebuilding.rotator": "Rotator",
+    "tooltip.simplebuilding.rotator": "Dreht Blöcke ohne Abbau.",
 }

@@ -98,6 +98,7 @@ public class ModItemGroups {
                         entries.add(ModItems.VELOCITY_GAUGE);
                         entries.add(ModItems.ORE_DETECTOR);
                         entries.add(ModItems.MAGNET);
+                        entries.add(ModItems.ROTATOR);
 
                         // --- Storage ---
                         entries.add(ModItems.REINFORCED_BUNDLE);

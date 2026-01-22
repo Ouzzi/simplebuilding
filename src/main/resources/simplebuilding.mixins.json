@@ -16,13 +16,14 @@
     "PistonHandlerMixin",
     "PistonHeadBlockMixin",
     "PlayerEntityMixin",
-    "SmithingScreenHandlerMixin"
+    "SmithingScreenHandlerMixin",
+    "SurvivalTracerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "overwrites": {
     "requireAnnotations": true
-	}
+  }
 }
 
