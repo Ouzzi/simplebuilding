@@ -1,4 +1,4 @@
-package com.simplebuilding.mixin;
+package com.simplebuilding.mixin.client;
 
 import com.simplebuilding.util.GlowingTrimUtils;
 import com.simplebuilding.util.TrimEffectUtil;

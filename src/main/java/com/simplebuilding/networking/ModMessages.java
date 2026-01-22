@@ -1,20 +1,23 @@
 package com.simplebuilding.networking;
 
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.screen.ModHopperScreenHandler;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.item.ItemStack;
 
 public class ModMessages {
 
     public static void registerC2SPackets() {
-        // --- Client -> Server Pakete ---
+        // 1. Registrierung der Typen (Muss vor dem Senden/Empfangen passieren)
+        // Client -> Server
         PayloadTypeRegistry.playC2S().register(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC);
         PayloadTypeRegistry.playC2S().register(SetHopperGhostItemPayload.ID, SetHopperGhostItemPayload.CODEC);
 
-        // Receiver für Toggle
+        // Server -> Client (WICHTIG!)
+        PayloadTypeRegistry.playS2C().register(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC);
+
+        // 2. Receiver registrieren (Nur für C2S auf dem Server)
         ServerPlayNetworking.registerGlobalReceiver(ToggleHopperFilterPayload.ID, (payload, context) -> {
             context.server().execute(() -> {
                 if (context.player().currentScreenHandler instanceof ModHopperScreenHandler screenHandler) {
@@ -37,11 +40,5 @@ public class ModMessages {
                 }
             });
         });
-    }
-
-    public static void registerS2CPackets() {
-        // --- Server -> Client Pakete ---
-        // Hier registrieren wir das neue Sync Paket
-        PayloadTypeRegistry.playS2C().register(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC);
     }
 }

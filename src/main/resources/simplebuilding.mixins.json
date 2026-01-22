@@ -10,7 +10,6 @@
     "HostileEntityMixin",
     "ItemEntityMixin",
     "ItemFrameEntityMixin",
-    "ItemMixin",
     "LivingEntityMixin",
     "PistonBlockMixin",
     "PistonHandlerMixin",

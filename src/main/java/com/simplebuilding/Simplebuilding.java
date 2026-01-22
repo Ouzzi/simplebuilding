@@ -19,6 +19,7 @@ import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.networking.*;
 import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.screen.ModHopperScreenHandler;
+import com.simplebuilding.screen.ModScreenHandlers;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.util.*;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -85,6 +86,9 @@ public class Simplebuilding implements ModInitializer {
 
         AutoConfig.register(SimplebuildingConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
+
+
+        ModScreenHandlers.registerScreenHandlers();
 
         ModBlocks.registerModBlocks();
         ModItems.registerModItems();

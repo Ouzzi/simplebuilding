@@ -6,6 +6,7 @@
     "BundleTooltipComponentMixin",
     "ClientSpeedometerMixin",
     "EquipmentRendererMixin",
+    "ItemMixin",
     "WorldRendererMixin"
   ],
   "injectors": {

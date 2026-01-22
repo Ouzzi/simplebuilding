@@ -140,9 +140,6 @@ public class SimplebuildingClient implements ClientModInitializer {
         HandledScreens.register(ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER, NetheriteHopperScreen::new);
 
         // --- NETZWERK REGISTRIERUNG CLIENT-SEITE (WICHTIG!) ---
-        // Bevor wir einen Receiver registrieren können, müssen wir dem Client sagen,
-        // dass dieses Paket existiert (S2C = Server To Client).
-        PayloadTypeRegistry.playS2C().register(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC);
 
         // Jetzt den Receiver registrieren
         ClientPlayNetworking.registerGlobalReceiver(SyncHopperGhostItemPayload.ID, (payload, context) -> {
