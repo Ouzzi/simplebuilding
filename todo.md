@@ -38,7 +38,7 @@
 
  
 ## TODO:
-
+- Reinforced hopper umbenennen 14 hopper plus nametag plus smithing template -> 14 filtered hopper -> filtered netherite hopper
     
 - Sniffer
 - - add use to ancient seeds and flowers and more diggaable flowers for sniffer 
@@ -48,6 +48,11 @@
 - - - breezeflower - scares blazes away in radius of 8 blocks
 - - - iceflower - scares witches away in radius of 8 blocks
 - - - blazeflower - scares spiders away in radius of 8 blocks
+- - when sniffing gives 1-3 of items insted of 1
+- - iimplement ancient dye which is crafted from ancient flowers 
+- - - tourch and other flower get corresponding ancient dyes
+- - - new flowers also get it ( cat-,dog-, ... flowers)
+
 
 
 - implement echocompass as mirror or simmilar (exactly like eco compas functionality but with these changes)
