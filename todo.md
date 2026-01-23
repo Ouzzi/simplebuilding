@@ -39,6 +39,35 @@
  
 ## TODO:
 
+- new item magnet texture -> like tune fork but mor magnet looking
+- - rename magnet to attractor
+- - durabillity mechanic - loses durrability when picking up items (can't break) - can be fully recharged when rightcliched on lodestone block
+
+
+
+- implement echocompass as mirror or simmilar (exactly like eco compas functionality but with these changes)
+- - custom mirror enchantment: transdimensional (works in nether and end as well)
+- - implement range (range enchantment can increase range from 128 to 512 to 1024 to 2048 blocks)
+- - netherite mirror - (range is automatically doubled)
+- - durability is 3 but can be restored with mending enchantment (requires a lot of xp to repair) (can't break)
+- - can be crafted:
+    "AGA",
+    "GNG",
+    "LGA"
+    "G": "minecraft:gold_ingot",
+    "A": "ancient_glass",
+    "N": "minecraft:nether_star",
+    "L": "Blazerod"
+- - new dungeon type with custom vaults (contains: ancient glass, basic upgrade templates)
+
+
+
+- add enderscape armortrim effect (if mod named enderscape is installed - give armor wich habe applyed enderscape armortrim an affect fitting to the mod )
+
+
+
+
+
 - End Dimension:
 - - add enderite material (stronger than netherite, but rarer)
 - - - upgrade Mechanic for enderite tools
@@ -48,11 +77,10 @@
 - - - enderite scrap findable in end cities loot chests (rare)
 - - new void protection mechanic - protection from void damage (like frost walker for lava)
 - - - enderite armor gets void protection effect I per pice -> total IV slower void damage
-    
 
 
 - Sniffer
-- - add use to ancient seeds and flowers and more diggaable flowers for sniffer 
+- - add use to ancient seeds and flowers and more diggaable flowers for sniffer
 - - - catflower - scares creepers away in radius of 8 blocks
 - - - dogflower - scares skeletons away in radius of 8 blocks
 - - - voidflower - scares endermen away in radius of 8 blocks
@@ -60,43 +88,19 @@
 - - - iceflower - scares witches away in radius of 8 blocks
 - - - blazeflower - scares spiders away in radius of 8 blocks
 - - when sniffing gives 1-3 of items insted of 1
-- - iimplement ancient dye which is crafted from ancient flowers 
+- - iimplement ancient dye which is crafted from ancient flowers
 - - - tourch and other flower get corresponding ancient dyes
 - - - new flowers also get it ( cat-,dog-, ... flowers)
-
-
-
-- implement echocompass as mirror or simmilar (exactly like eco compas functionality but with these changes)
-- - custom mirror enchantment: transdimensional (works in nether and end as well)
-- - implement range (range enchantment can increase range from 128 to 512 to 1024 to 2048 blocks)
-- - netherite mirror - (range is automatically doubled)
-- - durability is 3 but can be restored with mending enchantment (requires a lot of xp to repair) (can't break)
-- - can be crafted: 
-  "AGA",
-  "GNG",
-  "LGA"
-  "G": "minecraft:gold_ingot",
-  "A": "ancient_glass",
-  "N": "minecraft:nether_star",
-  "L": "Blazerod"
-- - new dungeon type with custom vaults (contains: ancient glass, basic upgrade templates)
-
-
 
 - display a charge/fuel/durrabillity gui component
 
 - bundle hotkey (and inside e inventory openable per intuitive methode like clicking with controll on bundle) - opens bundle menu: all bundles in inventory (max 9 displayed in top row), doublechest like layout with inside items and switch able to other bundles to manage easier
 
-- netherritehopper upgrade to upgrade to selective netherrite hopper: every slot can be toggled to be a filter (with ghosstitem inside)
 
-- new item magnet texture -> like tune fork but mor magnet looking
-- - rename magnet to attractor
-- - durabillity mechanic - loses durrability when picking up items (can't break) - can be fully recharged when rightcliched on lodestone block
 
 - bundle/quiver gui improvements
 - - beter tooltips 
 - - plus icon like vanilla - green when same item is already in bundle, yellow when different item is in bundle, no plus icon when full, red when item can be added but not completly
-
 
 
 - sledgehammer should be customizable in a gui - toggle radius, break trough entchantments
