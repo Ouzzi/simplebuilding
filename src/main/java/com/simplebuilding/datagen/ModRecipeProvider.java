@@ -200,38 +200,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // REINFORCED BUNDLE
                 // =================================================================
-                java.util.Map<Character, Ingredient> bundleKeys = java.util.Map.of(
-                        'L', Ingredient.ofItems(Items.LEATHER),
-                        'B', Ingredient.ofItems(Items.BUNDLE),
-                        'N', Ingredient.ofItems(Items.COPPER_NUGGET),
-                        'S', Ingredient.ofItems(Items.STRING)
-                );
+                createShaped(RecipeCategory.TOOLS, ModItems.REINFORCED_BUNDLE)
+                        .pattern(" S ")
+                        .pattern("NBN")
+                        .pattern("LLL")
+                        .input('S', Items.STRING)
+                        .input('N', Items.COPPER_NUGGET)
+                        .input('B', Items.BUNDLE)
+                        .input('L', Items.LEATHER)
+                        .criterion( hasItem(Items.BUNDLE), conditionsFromItem(Items.BUNDLE))
+                        .offerTo(exporter);
 
-                java.util.List<String> bundlePattern = java.util.List.of(
-                        " S ",
-                        "NBN",
-                        "LLL"
-                );
-
-                net.minecraft.recipe.RawShapedRecipe rawRecipe = net.minecraft.recipe.RawShapedRecipe.create(bundleKeys, bundlePattern);
-
-                com.simplebuilding.recipe.ReinforcedBundleRecipe customRecipe = new com.simplebuilding.recipe.ReinforcedBundleRecipe(
-                        "",
-                        net.minecraft.recipe.book.CraftingRecipeCategory.EQUIPMENT,
-                        rawRecipe,
-                        new net.minecraft.item.ItemStack(ModItems.REINFORCED_BUNDLE)
-                );
-
-                net.minecraft.util.Identifier recipeId = net.minecraft.util.Identifier.of(com.simplebuilding.Simplebuilding.MOD_ID, getRecipeName(ModItems.REINFORCED_BUNDLE));
-                net.minecraft.registry.RegistryKey<net.minecraft.recipe.Recipe<?>> recipeKey = net.minecraft.registry.RegistryKey.of(net.minecraft.registry.RegistryKeys.RECIPE, recipeId);
-
-                exporter.accept(
-                        recipeKey,
-                        customRecipe,
-                        exporter.getAdvancementBuilder()
-                                .criterion("has_bundle", conditionsFromItem(Items.BUNDLE))
-                                .build(recipeId.withPrefixedPath("recipes/" + RecipeCategory.TOOLS.getName() + "/"))
-                );
 
                 createSmithing(ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, RecipeCategory.TOOLS);
 
