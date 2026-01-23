@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_hopper": {
+    "has_reinforced_hopper": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:hopper"
+            "items": "simplebuilding:reinforced_hopper"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:reinforced_hopper"
+        "recipe": "simplebuilding:netherite_hopper_from_crafting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_hopper"
+      "has_reinforced_hopper"
     ]
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:reinforced_hopper"
+      "simplebuilding:netherite_hopper_from_crafting"
     ]
   }
 }

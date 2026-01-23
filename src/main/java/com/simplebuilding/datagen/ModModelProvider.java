@@ -185,5 +185,9 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.EMITTING_TRIM_TEMPLATE, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.BASIC_UPGRADE_TEMPLATE, Models.GENERATED);
+
+        itemModelGenerator.register(ModItems.NETHERITE_NUGGET, Models.GENERATED);
+        itemModelGenerator.register(ModItems.NETHERITE_APPLE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.NETHERITE_CARROT, Models.GENERATED);
     }
 }

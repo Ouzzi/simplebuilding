@@ -18,6 +18,7 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.function.EnchantRandomlyLootFunction;
 import net.minecraft.loot.function.SetComponentsLootFunction;
+import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -117,12 +118,14 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             // (OCTANT_ENCHANTED, DIAMOND_SLEDGEHAMMER, QUIVER_ENCHANTED)
             if (LootTables.ANCIENT_CITY_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
-                        .rolls(UniformLootNumberProvider.create(0, 2))
+                        .rolls(UniformLootNumberProvider.create(0, 3))
                         .with(enchantedBook(ModEnchantments.DEEP_POCKETS, 2, enchantments, 6))
                         .with(enchantedBook(ModEnchantments.RADIUS, 1, enchantments, 4))
                         .with(ItemEntry.builder(ModItems.OCTANT).weight(6).apply(EnchantRandomlyLootFunction.create()))
                         .with(ItemEntry.builder(ModItems.DIAMOND_SLEDGEHAMMER).weight(3))
                         .with(ItemEntry.builder(ModItems.QUIVER).weight(3).apply(EnchantRandomlyLootFunction.create()))
+                        .with(ItemEntry.builder(ModItems.NETHERITE_APPLE).weight(2))
+                        .with(ItemEntry.builder(ModItems.NETHERITE_NUGGET).weight(1).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3))))
                         .with(EmptyEntry.builder().weight(2));
                 tableBuilder.pool(pool);
             }
@@ -132,13 +135,16 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             // (GOLD_SLEDGEHAMMER, gold_core, NETHERITE_CORE)
             if (LootTables.BASTION_TREASURE_CHEST.equals(key) || LootTables.BASTION_OTHER_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
-                        .rolls(UniformLootNumberProvider.create(0, 2))
-                        .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 8))
-                        .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 12))
-                        .with(ItemEntry.builder(ModItems.GOLD_SLEDGEHAMMER).weight(8))
+                        .rolls(UniformLootNumberProvider.create(0, 3))
+                        .with(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 6))
+                        .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 8))
+                        .with(ItemEntry.builder(ModItems.GOLD_SLEDGEHAMMER).weight(6))
                         .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(2))
                         .with(ItemEntry.builder(ModItems.NETHERITE_CORE).weight(1))
-                        .with(EmptyEntry.builder().weight(24));
+                        .with(ItemEntry.builder(ModItems.NETHERITE_NUGGET).weight(15).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 5))))
+                        .with(ItemEntry.builder(ModItems.NETHERITE_CARROT).weight(5))
+                        .with(ItemEntry.builder(ModItems.GOLD_SLEDGEHAMMER).weight(8))
+                        .with(EmptyEntry.builder().weight(20));
                 tableBuilder.pool(pool);
             }
 
@@ -154,6 +160,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .with(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 2))
                         .with(ItemEntry.builder(ModItems.GOLD_CORE).weight(1))
                         .with(ItemEntry.builder(ModItems.OCTANT).weight(3).apply(EnchantRandomlyLootFunction.create()))
+                        .with(ItemEntry.builder(ModItems.NETHERITE_NUGGET).weight(6).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3))))
+                        .with(ItemEntry.builder(ModItems.NETHERITE_CARROT).weight(2).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 5))))
                         .with(EmptyEntry.builder().weight(3));
                 tableBuilder.pool(pool);
             }
@@ -281,6 +289,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .with(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 15))
                         .with(enchantedBook(ModEnchantments.DOUBLE_JUMP, 1, enchantments, 10))
                         .with(ItemEntry.builder(ModItems.DIAMOND_CORE).weight(2))
+                        .with(ItemEntry.builder(ModItems.NETHERITE_APPLE).weight(2))
                         .with(EmptyEntry.builder().weight(25));
                 tableBuilder.pool(pool);
             }

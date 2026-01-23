@@ -283,14 +283,23 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // 1. Reinforced Hopper
                 ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_HOPPER, 6)
-                        .pattern("HHH")
+                        .pattern("HNH")
                         .pattern("DDD")
                         .pattern("HHH")
                         .input('D', ModItems.CRACKED_DIAMOND)
                         .input('H', Items.HOPPER)
+                        .input('N', Items.NAME_TAG)
                         .criterion(hasItem(Items.HOPPER), conditionsFromItem(Items.HOPPER))
-                        .offerTo(exporter);
-                createBulkUpgrade(ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, RecipeCategory.REDSTONE);
+                        .offerTo(exporter, "reinforced_hopper_from_crafting");
+
+                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.NETHERITE_HOPPER)
+                        .pattern("H")
+                        .pattern("N")
+                        .pattern("H")
+                        .input('H', ModItems.REINFORCED_HOPPER)
+                        .input('N', ModItems.NETHERITE_NUGGET)
+                        .criterion(hasItem(ModItems.REINFORCED_HOPPER), conditionsFromItem(ModItems.REINFORCED_HOPPER))
+                        .offerTo(exporter, "netherite_hopper_from_crafting");
 
 
                 // =================================================================
@@ -358,6 +367,50 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input('C', Items.IRON_BLOCK) // Iron Block Core
                         .criterion(hasItem(ModItems.BASIC_UPGRADE_TEMPLATE), conditionsFromItem(ModItems.BASIC_UPGRADE_TEMPLATE)).offerTo(exporter);
 
+
+                // =================================================================
+                // NETHERITE NUGGET <-> INGOT RECIPES
+                // =================================================================
+                createShapeless(RecipeCategory.MISC, ModItems.NETHERITE_NUGGET, 9)
+                        .input(Items.NETHERITE_INGOT)
+                        .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT))
+                        .criterion(hasItem(ModItems.NETHERITE_NUGGET), conditionsFromItem(ModItems.NETHERITE_NUGGET))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.MISC, Items.NETHERITE_INGOT)
+                        .pattern("NNN")
+                        .pattern("NNN")
+                        .pattern("NNN")
+                        .input('N', ModItems.NETHERITE_NUGGET)
+                        .criterion(hasItem(ModItems.NETHERITE_NUGGET), conditionsFromItem(ModItems.NETHERITE_NUGGET))
+                        .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT))
+                        .offerTo(exporter);
+
+
+                // =================================================================
+                // NETHERITE FOOD RECIPES
+                // =================================================================
+                createShaped(RecipeCategory.FOOD, ModItems.NETHERITE_CARROT)
+                        .pattern(" N ")
+                        .pattern("NCN")
+                        .pattern(" N ")
+                        .input('N', ModItems.NETHERITE_NUGGET)
+                        .input('C', Items.CARROT)
+                        .criterion(hasItem(ModItems.NETHERITE_NUGGET), conditionsFromItem(ModItems.NETHERITE_NUGGET))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.FOOD, ModItems.NETHERITE_APPLE)
+                        .pattern("NNN")
+                        .pattern("NAN")
+                        .pattern("NNN")
+                        .input('N', ModItems.NETHERITE_NUGGET)
+                        .input('A', Items.APPLE)
+                        .criterion(hasItem(ModItems.NETHERITE_NUGGET), conditionsFromItem(ModItems.NETHERITE_NUGGET))
+                        .offerTo(exporter);
+
+
+
+                // =================================================================
+                // UPGRADE RECIPES FÜR WERKZEUGE
+                // =================================================================
 
                 // Spitzhacken (Crafting: 3 -> Upgrade: 4)
                 createUpgradeRecipe(exporter, Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.COBBLESTONE, 4);
@@ -469,11 +522,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             // NEU: Helper für Massen-Upgrade (8 Items + 1 Ingot -> 8 Items)
             private void createBulkUpgrade(Item input, Item result, RecipeCategory category) {
                 ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), category, result, 8)
-                        .pattern("RRR")
-                        .pattern("RNR")
-                        .pattern("RRR")
+                        .pattern("NR")
+                        .pattern("RR")
                         .input('R', input)
-                        .input('N', Items.NETHERITE_INGOT)
+                        .input('N', ModItems.NETHERITE_NUGGET)
                         .criterion(hasItem(input), conditionsFromItem(input))
                         .offerTo(exporter, getItemPath(result) + "_bulk");
             }

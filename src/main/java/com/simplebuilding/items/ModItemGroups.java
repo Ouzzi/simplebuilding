@@ -29,6 +29,9 @@ public class ModItemGroups {
                         entries.add(ModItems.DIAMOND_PEBBLE);
                         entries.add(ModItems.CRACKED_DIAMOND);
                         entries.add(ModItems.CRACKED_DIAMOND_BLOCK);
+                        entries.add(ModItems.NETHERITE_NUGGET);
+                        entries.add(ModItems.NETHERITE_APPLE);
+                        entries.add(ModItems.NETHERITE_CARROT);
 
                         // --- Functional Blocks ---
                         entries.add(ModItems.CONSTRUCTION_LIGHT);

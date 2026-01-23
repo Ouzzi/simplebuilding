@@ -3,10 +3,11 @@
   "category": "redstone",
   "key": {
     "D": "simplebuilding:cracked_diamond",
-    "H": "minecraft:hopper"
+    "H": "minecraft:hopper",
+    "N": "minecraft:name_tag"
   },
   "pattern": [
-    "HHH",
+    "HNH",
     "DDD",
     "HHH"
   ],

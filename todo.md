@@ -30,7 +30,7 @@
 
 
 
-### Later:
+### Bugs Later:
 - reinforced bundle - should have same ui as normal bundle!
 - masterbuilder on building wand and on reinforced bundle not working together properly
 - chisel sometimes chisels when not wanted
@@ -38,8 +38,19 @@
 
  
 ## TODO:
-- Reinforced hopper umbenennen 14 hopper plus nametag plus smithing template -> 14 filtered hopper -> filtered netherite hopper
+
+- End Dimension:
+- - add enderite material (stronger than netherite, but rarer)
+- - - upgrade Mechanic for enderite tools
+- - - new enderite armor and tools (only craftable via upgrade mechanic)
+- - - new enderite block (craftable via 9 enderite ingots)
+- - - enderite ingot craftable via smelting enderite scrap
+- - - enderite scrap findable in end cities loot chests (rare)
+- - new void protection mechanic - protection from void damage (like frost walker for lava)
+- - - enderite armor gets void protection effect I per pice -> total IV slower void damage
     
+
+
 - Sniffer
 - - add use to ancient seeds and flowers and more diggaable flowers for sniffer 
 - - - catflower - scares creepers away in radius of 8 blocks

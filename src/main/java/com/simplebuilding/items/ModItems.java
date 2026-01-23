@@ -3,10 +3,17 @@ package com.simplebuilding.items;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.custom.*;
+import net.minecraft.component.type.ConsumableComponent;
+import net.minecraft.component.type.ConsumableComponents;
+import net.minecraft.component.type.FoodComponent;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SmithingTemplateItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
+import net.minecraft.item.consume.UseAction;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -77,10 +84,49 @@ public class ModItems {
     public static final ChiselItem NETHERITE_SPATULA = registerSpatula("netherite_spatula", DURABILITY_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE);
 
 
-    // Diamond Items
+    // Diamond/Netherite Components
     public static final Item DIAMOND_PEBBLE = registerItem("diamond_pebble", settings -> new Item(settings));
     public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
     public static final Item CRACKED_DIAMOND_BLOCK = registerItem("cracked_diamond_block", settings -> new BlockItem(ModBlocks.CRACKED_DIAMOND_BLOCK, settings)); // todo: wie diamond_block nur härter
+    public static final Item NETHERITE_NUGGET = registerItem("netherite_nugget", settings -> new Item(settings));
+
+
+    // Netherite Food
+    public static final FoodComponent NETHERITE_CARROT_FOOD = new FoodComponent.Builder()
+            .nutrition(6)
+            .saturationModifier(1.2f)
+            .alwaysEdible()
+            .build();
+
+    public static final FoodComponent NETHERITE_APPLE_FOOD = new FoodComponent.Builder()
+            .nutrition(8)
+            .saturationModifier(1.5f)
+            .alwaysEdible()
+            .build();
+
+    public static ConsumableComponent createNetheriteFoodEffects(boolean isApple) {
+        ConsumableComponent.Builder builder = ConsumableComponent.builder()
+                .useAction(UseAction.EAT)
+                .consumeSeconds(1.6f);
+
+        if (isApple) {
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 4800, 0), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 1200, 0), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 600, 1), 1.0f));
+        } else {
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 2400, 0), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 2400, 0), 1.0f));
+        }
+
+        return builder.build();
+    }
+
+    public static final Item NETHERITE_CARROT = registerItem("netherite_carrot",
+            settings -> new Item(settings.food(NETHERITE_CARROT_FOOD, createNetheriteFoodEffects(false)).fireproof()));
+
+    public static final Item NETHERITE_APPLE = registerItem("netherite_apple",
+            settings -> new Item(settings.food(NETHERITE_APPLE_FOOD, createNetheriteFoodEffects(true)).fireproof()));
+
 
     // Building Cores
     public static final Item COPPER_CORE = registerItem("copper_core", s -> new Item(s.maxCount(16)));

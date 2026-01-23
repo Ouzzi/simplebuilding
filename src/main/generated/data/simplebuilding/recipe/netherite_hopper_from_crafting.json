@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "N": "minecraft:netherite_ingot",
-    "R": "simplebuilding:reinforced_hopper"
+    "H": "simplebuilding:reinforced_hopper",
+    "N": "simplebuilding:netherite_nugget"
   },
   "pattern": [
-    "RRR",
-    "RNR",
-    "RRR"
+    "H",
+    "N",
+    "H"
   ],
   "result": {
-    "count": 8,
+    "count": 1,
     "id": "simplebuilding:netherite_hopper"
   }
 }
