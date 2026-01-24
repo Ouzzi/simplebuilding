@@ -39,6 +39,13 @@
  
 ## TODO:
 
+- add echoshard as trim material, galaxy/void trim texture
+
+- 2 end materials, both have raroty of netherite or slightly rarer
+- - 1. only on the bottom of end terrain
+- - 2. only on surface of end terrain
+- - upgrade mechanic slighly diffrent from netherite
+
 - new item magnet texture -> like tune fork but mor magnet looking
 - - rename magnet to attractor
 - - durabillity mechanic - loses durrability when picking up items (can't break) - can be fully recharged when rightcliched on lodestone block
