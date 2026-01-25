@@ -120,6 +120,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         // Optional: Damit der Leuchtbeutel generell als "Trim Material" erkannt wird (hilft bei der GUI-Validierung)
         valueLookupBuilder(ItemTags.TRIM_MATERIALS)
+                .add(ModItems.ASTRALIT_DUST)
+                .add(ModItems.NIHILITH_SHARD)
+                .add(ModItems.ENDERITE_INGOT)
                 .add(Items.GLOW_INK_SAC)
                 .add(Items.GLOWSTONE_DUST);
 

@@ -77,6 +77,22 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         // Enderite Block -> Droppt sich selbst
         addDrop(ModBlocks.ENDERITE_BLOCK);
 
+        addDrop(ModBlocks.POLISHED_END_STONE);
+        addDrop(ModBlocks.PURPUR_QUARTZ_CHECKER);
+        addDrop(ModBlocks.LAPIS_QUARTZ_CHECKER);
+        addDrop(ModBlocks.BLACKSTONE_QUARTZ_CHECKER);
+        addDrop(ModBlocks.RESIN_QUARTZ_CHECKER);
+
+        addDrop(ModBlocks.ASTRAL_PURPUR_BLOCK);
+        addDrop(ModBlocks.NIHIL_PURPUR_BLOCK);
+        addDrop(ModBlocks.ASTRAL_END_STONE);
+        addDrop(ModBlocks.NIHIL_END_STONE);
+
+        addDrop(ModBlocks.SUSPENDED_SAND);
+        addDrop(ModBlocks.SUSPENDED_GRAVEL);
+        addDrop(ModBlocks.LEVITATING_SAND);
+        addDrop(ModBlocks.LEVITATING_GRAVEL);
+
     }
 
     public static void modifyLootTables() {

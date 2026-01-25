@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "minecraft:blackstone",
+    "Q": "minecraft:quartz_block"
+  },
+  "pattern": [
+    "BQ",
+    "QB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "simplebuilding:blackstone_quartz_checker"
+  }
+}

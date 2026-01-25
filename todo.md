@@ -47,7 +47,7 @@
 
 - add echoshard as trim material, galaxy/void trim texture
 
-
+- override higher tier lets sleadgehanmmer also be used as shovel, axe and hoe with biggwer radius (like a multi tool) 
 
 
 - new item magnet texture -> like tune fork but mor magnet looking
@@ -249,3 +249,26 @@
 
 
 Name des Updates: "Echoes of the Void" (Echos der Leere)1. Die Materialien (Die Dualitäts-Mechanik)Anders als im Nether, wo man nur ein Material (Antiker Schrott) sucht, verlangt das End die Vereinigung von "Oben" und "Unten". Dies ist die neue Mechanik: Dual-Synthese.A. Material 1: Void-Sediment (Das "Unten")Name: Nihilith (lat. nihil = nichts).Fundort: Generiert nur an der absoluten Unterseite der End-Inseln (Y = 0 bis Y = 20).Gefahr: Um es abzubauen, muss der Spieler riskieren, in die Leere zu fallen. Man muss sich unter die Inseln bauen oder mit Elytren sehr präzise navigieren.Aussehen: Ein tiefschwarzer Stein, der Licht "schluckt" (dunkler als Deepslate), mit feinen Rissen, die die Leere zeigen.Drop: Droppt Nihilith-Splitter.B. Material 2: Astralit (Das "Oben")Name: Astralit.Fundort: Generiert nur offen an der Oberfläche der End-Inseln, aber extrem selten (ähnlich wie Smaragde in Bergen, aber seltener).Enderscape Integration: In Enderscape-Biomen (wie den Celestial Plains) könnte die Rate leicht erhöht sein, um die Erkundung der Mod-Biome zu belohnen.Aussehen: Ein purpur-leuchtendes Erz (Magenta Ore), das wie ein kleiner Sternenhimmel funkelt.Drop: Droppt Astralit-Staub.2. Die Verarbeitung (Der "Enderite"-Prozess)Hier weichen wir leicht von Netherite ab, um Komplexität zu schaffen.Synthese (Crafting):Du benötigst beide Komponenten, um die instabile Materie zu binden.Rezept: 4x Nihilith-Splitter + 4x Astralit-Staub + 1x Enderperle (als Bindemittel in der Mitte) = 1x Rohes Enderite (Raw Enderite).Warum: Das zwingt den Spieler, sowohl die Oberfläche zu erkunden als auch die riskante Unterseite abzubauen.Veredelung (Schmelzen):Rohes Enderite wird im Hochofen (Blast Furnace) geschmolzen $\rightarrow$ Enderite Schrott (Enderite Scrap).Loot-Table Integration: Enderite Schrott kann sehr selten (ca. 2-5% Chance) in End City Truhen gefunden werden.Der Barren (Ingot):Rezept: 4x Enderite Schrott + 4x Netherite Barren? NEIN. Das wäre zu teuer und würde Netherite entwerten.Besseres Rezept: 4x Enderite Schrott + 4x Diamanten (oder Nebulite aus Enderscape, falls Hard-Dependency gewünscht ist, sonst bleib bei Diamanten für Vanilla-Feel) = 1x Enderite Barren.3. Das Upgrade & Die AusrüstungDas Upgrade erfolgt über den Schmiedetisch (Smithing Table), benötigt aber eine neue Schmiedevorlage.Das Item: Enderite-Schmiedevorlage (Void Template).Fundort: Garantiert in der Schatzkiste eines Endschiffs (wo die Elytren sind), oder Drop vom Ender Dragon (wiederbelebt). Duplizierbar mit Diamanten und Endstein.Der Prozess:[Schmiedevorlage] + [Netherite-Rüstung/Werkzeug] + [Enderite Barren] = Enderite-Gegenstand.Die Werte (Balance)Enderite soll sich mächtig anfühlen, aber nicht das Spiel brechen ("Power Creep" vermeiden).Haltbarkeit: +20% gegenüber Netherite.Abbaugeschwindigkeit: Identisch zu Netherite (Netherite ist schon fast "Insta-Mine").Schaden: +1 Angriffsschaden gegenüber Netherite.Feuerresistenz: Behält die Eigenschaft von Netherite (verbrennt nicht in Lava).Despawn: Enderite-Items despawnen nicht, wenn sie in die Leere (Void) geworfen werden. Sie schweben bei Y=0 oder teleportieren sich nach oben auf den nächsten festen Block (ähnlich wie Chorusfrüchte).4. Die neue Mechanik: Void Protection (Leeren-Schutz)Das ist das Kern-Feature ("Selling Point").Funktionsweise:Normalerweise stirbt man im Void (Y < -64) extrem schnell (ca. 4 Schaden pro halbe Sekunde). Rüstung schützt dagegen nicht.Enderite-Rüstung ändert das physikalische Gesetz.Der Effekt: Wenn der Spieler Enderite-Rüstung trägt, wird der Schaden durch die Leere nicht mehr als "Void Damage" (absolut), sondern als regulärer Schaden berechnet, der durch Rüstungswert und Verzauberung (Schutz IV) reduziert werden kann.Der Set-Bonus (Skalierung):1 Teil: Schaden wird um 10% reduziert.2 Teile: Schaden wird um 25% reduziert + Leichter "Slow Falling" Effekt im Void.3 Teile: Schaden wird um 50% reduziert.4 Teile (Full Set): "Void Walker" Status.Du nimmst nur noch alle 2 Sekunden 1 Herz Schaden im Void.Dies gibt dir genug Zeit, um eine Enderperle zu werfen, Raketen mit Elytren zu nutzen oder dich hochzubauen. Es ist keine Unsterblichkeit, aber eine zweite Chance.5. Enderite Block & DekorationCrafting: 9x Enderite Barren.Eigenschaft: Ein Block, der aussieht wie ein Stück des Nachthimmels.Beacon-Basis: Kann für Beacons genutzt werden.Besondere Eigenschaft: Wenn er mit Redstone gepowert wird, verhindert er das Spawnen von Endermans in einem Radius von 64 Blöcken (Enderman-Schutzschild für Basen).Zusammenfassung für die Umsetzung (Roadmap)World Gen (Java/Json):Erstelle Config-Files für die World-Gen.Nihilith: Konfiguriere Ore-Gen als "Upside Down" (nur exposed zur Luft unten).Astralit: Konfiguriere Ore-Gen wie "Emeralds" im End-Biome (Enderscape kompatibel machen durch Tagging der Biome).Item Registrierung:Scrap, Ingot, Template, Raw Item.Mixin / Event Handler (Void Protection):Du musst in den DamageSource Code oder den PlayerEntity Tick-Code eingreifen.Prüfe: if (player.getY() < minimumY && player.hasEnderiteArmor()).Reduziere den Schaden oder negiere ihn periodisch.Loot Tables:In chests/end_city_treasure.json den Enderite Scrap und das Template hinzufügen.Dieses Konzept bewahrt das "Vanilla-Feeling" (Mining, Crafting, Upgrading), fügt aber durch die Positionierung der Erze (Oben/Unten) ein neues Gameplay-Element hinzu, das perfekt zur vertikalen Natur des Ends und Modifikationen wie Enderscape passt.
+
+
+1. Neue Blöcke:
+
+- purpur/Lapis/Blackstone/resin block with quarz/  - checker block
+
+- polished endstone
+
+- purpur block/ polished endstone (8) with astral_powder/nihil_shard -> new block 8 astral/nihil purpur block and astral/nihil endstone
+
+- sand/gravel (8) + astral_powder -> reverse gravity (upwards)
+
+- sand/gravel (8) + nihilith_shard -> no gravity
+
+
+
+2. neue rüstungs materialien:  (nihilit shard, astralit powder, enderite ingot)
+
+auch fähigkeiten mit implementieren und zur rezept seite des smithing tables hinzufügen
+
+
+
+3. neue items: enderite bundel, enderite quiver, enderite apple, enderrite carrot - (like netherite variants)!

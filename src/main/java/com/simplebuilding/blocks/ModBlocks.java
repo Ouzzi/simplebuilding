@@ -17,6 +17,39 @@ import java.util.function.Function;
 public class ModBlocks {
 
 
+    // --- 1. DECORATION BLOCKS ---
+    public static final Block POLISHED_END_STONE = registerBlock("polished_end_stone",
+            unused -> new Block(AbstractBlock.Settings.create()
+                    .mapColor(MapColor.PALE_YELLOW)
+                    .requiresTool()
+                    .strength(3.0F, 9.0F)
+                    .sounds(BlockSoundGroup.STONE)
+                    .registryKey(keyOf("polished_end_stone")))); // <--- FIX
+
+    // Checker Blocks
+    public static final Block PURPUR_QUARTZ_CHECKER = registerBlock("purpur_quartz_checker", unused -> new Block(AbstractBlock.Settings.copy(Blocks.PURPUR_BLOCK).registryKey(keyOf("purpur_quartz_checker"))));
+
+    public static final Block LAPIS_QUARTZ_CHECKER = registerBlock("lapis_quartz_checker", unused -> new Block(AbstractBlock.Settings.copy(Blocks.LAPIS_BLOCK).registryKey(keyOf("lapis_quartz_checker"))));
+
+    public static final Block BLACKSTONE_QUARTZ_CHECKER = registerBlock("blackstone_quartz_checker", unused -> new Block(AbstractBlock.Settings.copy(Blocks.POLISHED_BLACKSTONE).registryKey(keyOf("blackstone_quartz_checker"))));
+
+    public static final Block RESIN_QUARTZ_CHECKER = registerBlock("resin_quartz_checker", unused -> new Block(AbstractBlock.Settings.copy(Blocks.RESIN_BRICKS).registryKey(keyOf("resin_quartz_checker"))));
+
+
+    // --- 2. ASTRAL & NIHIL VARIANTS ---
+    public static final Block ASTRAL_PURPUR_BLOCK = registerBlock("astral_purpur_block", unused -> new Block(AbstractBlock.Settings.copy(Blocks.PURPUR_BLOCK).luminance(state -> 10).registryKey(keyOf("astral_purpur_block"))));
+    public static final Block NIHIL_PURPUR_BLOCK = registerBlock("nihil_purpur_block", unused -> new Block(AbstractBlock.Settings.copy(Blocks.PURPUR_BLOCK).registryKey(keyOf("nihil_purpur_block"))));
+    public static final Block ASTRAL_END_STONE = registerBlock("astral_end_stone", unused -> new Block(AbstractBlock.Settings.copy(POLISHED_END_STONE).luminance(state -> 10).registryKey(keyOf("astral_end_stone"))));
+    public static final Block NIHIL_END_STONE = registerBlock("nihil_end_stone", unused -> new Block(AbstractBlock.Settings.copy(POLISHED_END_STONE).registryKey(keyOf("nihil_end_stone"))));
+
+
+    // --- 3. GRAVITY BLOCKS ---
+    public static final Block SUSPENDED_SAND = registerBlock("suspended_sand", unused -> new Block(AbstractBlock.Settings.copy(Blocks.SAND).noCollision().registryKey(keyOf("suspended_sand"))));
+    public static final Block SUSPENDED_GRAVEL = registerBlock("suspended_gravel", unused -> new Block(AbstractBlock.Settings.copy(Blocks.GRAVEL).registryKey(keyOf("suspended_gravel"))));
+    public static final Block LEVITATING_SAND = registerBlock("levitating_sand", unused -> new Block(AbstractBlock.Settings.copy(Blocks.SAND).registryKey(keyOf("levitating_sand"))));
+    public static final Block LEVITATING_GRAVEL = registerBlock("levitating_gravel", unused -> new Block(AbstractBlock.Settings.copy(Blocks.GRAVEL).registryKey(keyOf("levitating_gravel"))));
+
+    // --- 4. INDUSTRIAL BLOCKS ---
     public static final Block CONSTRUCTION_LIGHT = registerBlock("construction_light",
             // Wir ignorieren das 'settings' Argument der Factory
             unused -> new Block(AbstractBlock.Settings.create()
@@ -40,41 +73,30 @@ public class ModBlocks {
             ));
 
 
-    public static final Block REINFORCED_HOPPER = registerBlock("reinforced_hopper",
-            s -> new ModHopperBlock(s.strength(3.0F, 4.8F).nonOpaque().sounds(BlockSoundGroup.METAL), 1)); // 1 = Speed Multiplier (Basislogik wird im BE handled)
-    public static final Block NETHERITE_HOPPER = registerBlock("netherite_hopper",
-            s -> new ModHopperBlock(s.strength(5.0F, 1200.0F).nonOpaque().sounds(BlockSoundGroup.NETHERITE), 2));
+    public static final Block REINFORCED_HOPPER = registerBlock("reinforced_hopper", s -> new ModHopperBlock(s.strength(3.0F, 4.8F).nonOpaque().sounds(BlockSoundGroup.METAL), 1)); // 1 = Speed Multiplier (Basislogik wird im BE handled)
+    public static final Block NETHERITE_HOPPER = registerBlock("netherite_hopper", s -> new ModHopperBlock(s.strength(5.0F, 1200.0F).nonOpaque().sounds(BlockSoundGroup.NETHERITE), 2));
     // todo chest:
 
     // public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest",
     //        s -> new ModChestBlock(s.strength(2.5F).nonOpaque(), ModChestBlock.Type.REINFORCED));
     // public static final Block NETHERITE_CHEST = registerBlock("netherite_chest",
     //        s -> new ModChestBlock(s.strength(5.0F, 1200.0F).nonOpaque(), ModChestBlock.Type.NETHERITE));
-    public static final Block REINFORCED_PISTON = registerBlock("reinforced_piston",
-            s -> new PistonBlock(false, s.strength(1.5F).sounds(BlockSoundGroup.METAL))); // sticky=false
-    public static final Block NETHERITE_PISTON = registerBlock("netherite_piston",
-            s -> new NetheriteBreakerPistonBlock(s.strength(5.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE)));
+    public static final Block REINFORCED_PISTON = registerBlock("reinforced_piston", s -> new PistonBlock(false, s.strength(1.5F).sounds(BlockSoundGroup.METAL))); // sticky=false
+    public static final Block NETHERITE_PISTON = registerBlock("netherite_piston", s -> new NetheriteBreakerPistonBlock(s.strength(5.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE)));
 
 
     // --- FURNACES ---
-    public static final Block REINFORCED_FURNACE = registerBlock("reinforced_furnace",
-            s -> new ModFurnaceBlock(s.strength(3.5F).sounds(BlockSoundGroup.METAL), 1.25f)); // SpeedMultiplier wird hier nicht direkt genutzt, aber Konstruktor braucht ihn
-    public static final Block NETHERITE_FURNACE = registerBlock("netherite_furnace",
-            s -> new ModFurnaceBlock(s.strength(5.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE), 1.50f));
+    public static final Block REINFORCED_FURNACE = registerBlock("reinforced_furnace", s -> new ModFurnaceBlock(s.strength(3.5F).sounds(BlockSoundGroup.METAL), 1.25f)); // SpeedMultiplier wird hier nicht direkt genutzt, aber Konstruktor braucht ihn
+    public static final Block NETHERITE_FURNACE = registerBlock("netherite_furnace", s -> new ModFurnaceBlock(s.strength(5.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE), 1.50f));
     // --- SMOKERS ---
-    public static final Block REINFORCED_SMOKER = registerBlock("reinforced_smoker",
-            s -> new ModSmokerBlock(s.strength(3.5F).sounds(BlockSoundGroup.METAL), 1.25f));
-    public static final Block NETHERITE_SMOKER = registerBlock("netherite_smoker",
-            s -> new ModSmokerBlock(s.strength(5.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE), 1.50f));
+    public static final Block REINFORCED_SMOKER = registerBlock("reinforced_smoker", s -> new ModSmokerBlock(s.strength(3.5F).sounds(BlockSoundGroup.METAL), 1.25f));
+    public static final Block NETHERITE_SMOKER = registerBlock("netherite_smoker", s -> new ModSmokerBlock(s.strength(5.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE), 1.50f));
     // --- BLAST FURNACES ---
-    public static final Block REINFORCED_BLAST_FURNACE = registerBlock("reinforced_blast_furnace",
-            s -> new ModBlastFurnaceBlock(s.strength(3.5F).sounds(BlockSoundGroup.METAL), 1.25f));
-    public static final Block NETHERITE_BLAST_FURNACE = registerBlock("netherite_blast_furnace",
-            s -> new ModBlastFurnaceBlock(s.strength(5.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE), 1.50f));
+    public static final Block REINFORCED_BLAST_FURNACE = registerBlock("reinforced_blast_furnace", s -> new ModBlastFurnaceBlock(s.strength(3.5F).sounds(BlockSoundGroup.METAL), 1.25f));
+    public static final Block NETHERITE_BLAST_FURNACE = registerBlock("netherite_blast_furnace", s -> new ModBlastFurnaceBlock(s.strength(5.0F, 1200.0F).sounds(BlockSoundGroup.NETHERITE), 1.50f));
 
 
-    public static final Block NETHERITE_PISTON_HEAD = registerBlock("netherite_piston_head",
-            s -> new NetheritePistonHeadBlock(s.noCollision().dropsNothing().sounds(BlockSoundGroup.NETHERITE)));
+    public static final Block NETHERITE_PISTON_HEAD = registerBlock("netherite_piston_head", s -> new NetheritePistonHeadBlock(s.noCollision().dropsNothing().sounds(BlockSoundGroup.NETHERITE)));
 
     public static final Block ENDERITE_BLOCK = registerBlock("enderite_block",
             unused -> new Block(AbstractBlock.Settings.create()

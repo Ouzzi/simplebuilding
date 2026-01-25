@@ -30,6 +30,24 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.POLISHED_END_STONE);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.PURPUR_QUARTZ_CHECKER);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.LAPIS_QUARTZ_CHECKER);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.BLACKSTONE_QUARTZ_CHECKER);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.RESIN_QUARTZ_CHECKER);
+
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.ASTRAL_PURPUR_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.NIHIL_PURPUR_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.ASTRAL_END_STONE);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.NIHIL_END_STONE);
+
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.SUSPENDED_SAND);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.SUSPENDED_GRAVEL);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.LEVITATING_SAND);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.LEVITATING_GRAVEL);
+
+
         // --- 1. Basic Blocks ---
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CONSTRUCTION_LIGHT);
         blockStateModelGenerator.registerParentedItemModel(ModBlocks.CONSTRUCTION_LIGHT, ModelIds.getBlockModelId(ModBlocks.CONSTRUCTION_LIGHT));
@@ -243,5 +261,10 @@ public class ModModelProvider extends FabricModelProvider {
                     itemModelGenerator.modelCollector
             );
         }
+
+        itemModelGenerator.register(ModItems.ENDERITE_BUNDLE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.ENDERITE_QUIVER, Models.GENERATED);
+        itemModelGenerator.register(ModItems.ENDERITE_APPLE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.ENDERITE_CARROT, Models.GENERATED);
     }
 }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_purpur_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:purpur_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplebuilding:purpur_quartz_checker"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_purpur_block"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:purpur_quartz_checker"
+    ]
+  }
+}

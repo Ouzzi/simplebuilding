@@ -71,6 +71,33 @@ public class ModItems {
     // ITEM REGISTRIERUNGEN
     // =================================================================================
 
+    // --- NEW ENDERITE GEAR ---
+    // Enderite Bundle (Voidproof, höhere Kapazität müsste im BundleItem Logik angepasst werden)
+    public static final Item ENDERITE_BUNDLE = registerItem("enderite_bundle",
+            settings -> new ReinforcedBundleItem(settings.maxCount(1).fireproof().rarity(net.minecraft.util.Rarity.EPIC)));
+
+    // Enderite Quiver
+    public static final Item ENDERITE_QUIVER = registerItem("enderite_quiver",
+            settings -> new QuiverItem(settings.maxCount(1).fireproof().rarity(net.minecraft.util.Rarity.EPIC)));
+
+
+    // --- BLOCK ITEMS (Automatisch registrieren oder hier manuell) ---
+    // Falls du eine Loop hast, gut. Sonst manuell:
+    public static final Item POLISHED_END_STONE = registerItem("polished_end_stone", s -> new BlockItem(ModBlocks.POLISHED_END_STONE, s));
+    public static final Item PURPUR_QUARTZ_CHECKER = registerItem("purpur_quartz_checker", s -> new BlockItem(ModBlocks.PURPUR_QUARTZ_CHECKER, s));
+    public static final Item LAPIS_QUARTZ_CHECKER = registerItem("lapis_quartz_checker", s -> new BlockItem(ModBlocks.LAPIS_QUARTZ_CHECKER, s));
+    public static final Item BLACKSTONE_QUARTZ_CHECKER = registerItem("blackstone_quartz_checker", s -> new BlockItem(ModBlocks.BLACKSTONE_QUARTZ_CHECKER, s));
+    public static final Item RESIN_QUARTZ_CHECKER = registerItem("resin_quartz_checker", s -> new BlockItem(ModBlocks.RESIN_QUARTZ_CHECKER, s));
+
+    public static final Item ASTRAL_PURPUR_BLOCK = registerItem("astral_purpur_block", s -> new BlockItem(ModBlocks.ASTRAL_PURPUR_BLOCK, s));
+    public static final Item NIHIL_PURPUR_BLOCK = registerItem("nihil_purpur_block", s -> new BlockItem(ModBlocks.NIHIL_PURPUR_BLOCK, s));
+    public static final Item ASTRAL_END_STONE = registerItem("astral_end_stone", s -> new BlockItem(ModBlocks.ASTRAL_END_STONE, s));
+    public static final Item NIHIL_END_STONE = registerItem("nihil_end_stone", s -> new BlockItem(ModBlocks.NIHIL_END_STONE, s));
+
+    public static final Item SUSPENDED_SAND = registerItem("suspended_sand", s -> new BlockItem(ModBlocks.SUSPENDED_SAND, s));
+    public static final Item SUSPENDED_GRAVEL = registerItem("suspended_gravel", s -> new BlockItem(ModBlocks.SUSPENDED_GRAVEL, s));
+    public static final Item LEVITATING_SAND = registerItem("levitating_sand", s -> new BlockItem(ModBlocks.LEVITATING_SAND, s));
+    public static final Item LEVITATING_GRAVEL = registerItem("levitating_gravel", s -> new BlockItem(ModBlocks.LEVITATING_GRAVEL, s));
 
     // Upgrade Templates
     public static final Item BASIC_UPGRADE_TEMPLATE = registerItem("basic_upgrade_template", settings -> new Item(settings.maxCount(64).rarity(UNCOMMON)));
@@ -212,6 +239,8 @@ public class ModItems {
     // =================================================================================
     public static final FoodComponent NETHERITE_CARROT_FOOD = new FoodComponent.Builder().nutrition(6).saturationModifier(1.2f).alwaysEdible().build();
     public static final FoodComponent NETHERITE_APPLE_FOOD = new FoodComponent.Builder().nutrition(8).saturationModifier(1.5f).alwaysEdible().build();
+    public static final FoodComponent ENDERITE_CARROT_FOOD = new FoodComponent.Builder().nutrition(10).saturationModifier(1.8f).alwaysEdible().build();
+    public static final FoodComponent ENDERITE_APPLE_FOOD = new FoodComponent.Builder().nutrition(12).saturationModifier(2.0f).alwaysEdible().build();
 
     public static ConsumableComponent createNetheriteFoodEffects(boolean isApple) {
         ConsumableComponent.Builder builder = ConsumableComponent.builder().useAction(UseAction.EAT).consumeSeconds(1.6f);
@@ -227,8 +256,25 @@ public class ModItems {
         return builder.build();
     }
 
+    public static ConsumableComponent createEnderiteFoodEffects(boolean isApple) {
+        ConsumableComponent.Builder builder = ConsumableComponent.builder().useAction(UseAction.EAT).consumeSeconds(1.6f);
+        if (isApple) {
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 400, 1), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 3000, 0), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 3000, 0), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 2400, 3), 1.0f));
+        } else {
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 6000, 0), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.SPEED, 1200, 1), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 1200, 1), 1.0f));
+        }
+        return builder.build();
+    }
+
     public static final Item NETHERITE_CARROT = registerItem("netherite_carrot", settings -> new Item(settings.food(NETHERITE_CARROT_FOOD, createNetheriteFoodEffects(false)).fireproof()));
     public static final Item NETHERITE_APPLE = registerItem("netherite_apple", settings -> new Item(settings.food(NETHERITE_APPLE_FOOD, createNetheriteFoodEffects(true)).fireproof()));
+    public static final Item ENDERITE_CARROT = registerItem("enderite_carrot", settings -> new Item(settings.food(ENDERITE_CARROT_FOOD, createEnderiteFoodEffects(false)).fireproof()));
+    public static final Item ENDERITE_APPLE = registerItem("enderite_apple", settings -> new Item(settings.food(ENDERITE_APPLE_FOOD, createEnderiteFoodEffects(true)).fireproof()));
 
 
 

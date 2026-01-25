@@ -34,6 +34,17 @@ public class ModItemGroups {
                         entries.add(ModItems.NETHERITE_APPLE);
                         entries.add(ModItems.NETHERITE_CARROT);
 
+                        entries.add(ModItems.NIHILITH_SHARD);
+                        entries.add(ModItems.ASTRALIT_DUST);
+                        entries.add(ModItems.RAW_ENDERITE);
+                        entries.add(ModItems.ENDERITE_SCRAP);
+                        entries.add(ModItems.ENDERITE_INGOT);
+
+                        // -- Food (New) --
+                        entries.add(ModItems.ENDERITE_APPLE);
+                        entries.add(ModItems.ENDERITE_CARROT);
+
+                        // --- Ores & Raw Blocks ---
                         entries.add(ModItems.NIHILITH_ORE_ITEM);
                         entries.add(ModItems.ASTRALIT_ORE_ITEM);
                         entries.add(ModItems.ENDERITE_BLOCK_ITEM);
@@ -41,10 +52,27 @@ public class ModItemGroups {
                         // --- Functional Blocks ---
                         entries.add(ModItems.CONSTRUCTION_LIGHT);
 
-                        // --- Machines & Storage (NEU) ---
-                        // todo chest:
-                            //  entries.add(ModItems.REINFORCED_CHEST);
-                            // entries.add(ModItems.NETHERITE_CHEST);
+                        // --- Decoration Blocks (New) ---
+                        entries.add(ModItems.POLISHED_END_STONE);
+                        entries.add(ModItems.PURPUR_QUARTZ_CHECKER);
+                        entries.add(ModItems.LAPIS_QUARTZ_CHECKER);
+                        entries.add(ModItems.BLACKSTONE_QUARTZ_CHECKER);
+                        entries.add(ModItems.RESIN_QUARTZ_CHECKER);
+
+                        // --- Astral / Nihil Blocks ---
+                        entries.add(ModItems.ASTRAL_PURPUR_BLOCK);
+                        entries.add(ModItems.NIHIL_PURPUR_BLOCK);
+                        entries.add(ModItems.ASTRAL_END_STONE);
+                        entries.add(ModItems.NIHIL_END_STONE);
+
+                        // --- Gravity Blocks ---
+                        entries.add(ModItems.SUSPENDED_SAND);
+                        entries.add(ModItems.SUSPENDED_GRAVEL);
+                        entries.add(ModItems.LEVITATING_SAND);
+                        entries.add(ModItems.LEVITATING_GRAVEL);
+
+                        // --- Machines & Storage ---
+                        // todo chest: entries.add(ModItems.REINFORCED_CHEST);
                         entries.add(ModItems.REINFORCED_HOPPER);
                         entries.add(ModItems.REINFORCED_PISTON);
                         entries.add(ModItems.NETHERITE_PISTON);
@@ -128,8 +156,10 @@ public class ModItemGroups {
                         // --- Storage ---
                         entries.add(ModItems.REINFORCED_BUNDLE);
                         entries.add(ModItems.NETHERITE_BUNDLE);
+                        entries.add(ModItems.ENDERITE_BUNDLE);
                         entries.add(ModItems.QUIVER);
                         entries.add(ModItems.NETHERITE_QUIVER);
+                        entries.add(ModItems.ENDERITE_QUIVER);
 
                         // --- Enchanted Books ---
                         RegistryWrapper.WrapperLookup lookup = displayContext.lookup();

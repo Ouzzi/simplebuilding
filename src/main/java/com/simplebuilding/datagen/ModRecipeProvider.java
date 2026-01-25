@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.data.recipe.*;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
@@ -510,6 +511,79 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                             enderiteItems.get(i)
                     );
                 }
+
+                // --- POLISHED END STONE ---
+                createShaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_END_STONE, 4)
+                        .pattern("SS")
+                        .pattern("SS")
+                        .input('S', Items.END_STONE)
+                        .criterion(hasItem(Items.END_STONE), conditionsFromItem(Items.END_STONE))
+                        .offerTo(exporter);
+
+                // --- CHECKER BLOCKS ---
+                createCheckerRecipe(exporter, ModBlocks.PURPUR_QUARTZ_CHECKER, Items.PURPUR_BLOCK);
+                createCheckerRecipe(exporter, ModBlocks.LAPIS_QUARTZ_CHECKER, Items.LAPIS_BLOCK);
+                createCheckerRecipe(exporter, ModBlocks.BLACKSTONE_QUARTZ_CHECKER, Items.BLACKSTONE);
+                // Resin Placeholder (z.B. Red Nether Bricks)
+                createCheckerRecipe(exporter, ModBlocks.RESIN_QUARTZ_CHECKER, Items.RED_NETHER_BRICKS);
+
+                // --- ASTRAL / NIHIL BLOCKS (8 Block + 1 Powder/Shard) ---
+                createCoatingRecipe(exporter, ModBlocks.ASTRAL_PURPUR_BLOCK, Items.PURPUR_BLOCK, ModItems.ASTRALIT_DUST);
+                createCoatingRecipe(exporter, ModBlocks.NIHIL_PURPUR_BLOCK, Items.PURPUR_BLOCK, ModItems.NIHILITH_SHARD);
+                createCoatingRecipe(exporter, ModBlocks.ASTRAL_END_STONE, ModBlocks.POLISHED_END_STONE, ModItems.ASTRALIT_DUST);
+                createCoatingRecipe(exporter, ModBlocks.NIHIL_END_STONE, ModBlocks.POLISHED_END_STONE, ModItems.NIHILITH_SHARD);
+
+                // --- GRAVITY BLOCKS ---
+                // Nihilith -> No Gravity (Suspended)
+                createCoatingRecipe(exporter, ModBlocks.SUSPENDED_SAND, Items.SAND, ModItems.NIHILITH_SHARD);
+                createCoatingRecipe(exporter, ModBlocks.SUSPENDED_GRAVEL, Items.GRAVEL, ModItems.NIHILITH_SHARD);
+
+                // Astralit -> Reverse Gravity (Levitating/Upwards)
+                createCoatingRecipe(exporter, ModBlocks.LEVITATING_SAND, Items.SAND, ModItems.ASTRALIT_DUST);
+                createCoatingRecipe(exporter, ModBlocks.LEVITATING_GRAVEL, Items.GRAVEL, ModItems.ASTRALIT_DUST);
+
+                // --- ENDERITE ITEMS (Smithing Upgrades) ---
+                // Bundle
+                createSmithingTransform(exporter, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_BUNDLE);
+                // Quiver
+                createSmithingTransform(exporter, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_QUIVER);
+
+                // Food (Crafting, da man Essen normalerweise nicht schmiedet, aber du wolltest "like Netheite Variants")
+                // Netherite Apple ist meist Crafting (Gold Apple + Netherite Ingot).
+                createShapeless(RecipeCategory.FOOD, ModItems.ENDERITE_APPLE)
+                        .input(ModItems.NETHERITE_APPLE)
+                        .input(ModItems.ENDERITE_INGOT)
+                        .criterion(hasItem(ModItems.ENDERITE_INGOT), conditionsFromItem(ModItems.ENDERITE_INGOT))
+                        .offerTo(exporter);
+
+                createShapeless(RecipeCategory.FOOD, ModItems.ENDERITE_CARROT)
+                        .input(ModItems.NETHERITE_CARROT)
+                        .input(ModItems.ENDERITE_INGOT)
+                        .criterion(hasItem(ModItems.ENDERITE_INGOT), conditionsFromItem(ModItems.ENDERITE_INGOT))
+                        .offerTo(exporter);
+            }
+
+            // Helper für Checker (4 Base + 4 Quartz)
+            private void createCheckerRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible base) {
+                createShaped(RecipeCategory.BUILDING_BLOCKS, output, 4)
+                        .pattern("BQ")
+                        .pattern("QB")
+                        .input('B', base)
+                        .input('Q', Items.QUARTZ_BLOCK)
+                        .criterion(hasItem(base), conditionsFromItem(base))
+                        .offerTo(exporter);
+            }
+
+            // Helper für Coating (8 Base + 1 Material)
+            private void createCoatingRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible base, ItemConvertible material) {
+                createShaped(RecipeCategory.BUILDING_BLOCKS, output, 8)
+                        .pattern("BBB")
+                        .pattern("BMB")
+                        .pattern("BBB")
+                        .input('B', base)
+                        .input('M', material)
+                        .criterion(hasItem(material), conditionsFromItem(material))
+                        .offerTo(exporter);
             }
 
             // --- Helpers ---
