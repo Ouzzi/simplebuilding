@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": "minecraft:diamond",
+    "S": "simplebuilding:enderite_scrap"
+  },
+  "pattern": [
+    "SDS",
+    "DSD",
+    "SDS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:enderite_ingot"
+  }
+}

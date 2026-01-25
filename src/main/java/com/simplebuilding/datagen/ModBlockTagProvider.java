@@ -36,7 +36,21 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         valueLookupBuilder(BlockTags.NEEDS_IRON_TOOL)
                 .add(ModBlocks.CRACKED_DIAMOND_BLOCK);
 
-        // Optional: Netherite Sachen benötigen Diamantwerkzeug?
-        valueLookupBuilder(BlockTags.NEEDS_DIAMOND_TOOL);
+
+        // Pickaxe Mineable
+        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
+                .add(ModBlocks.NIHILITH_ORE)
+                .add(ModBlocks.ASTRALIT_ORE)
+                .add(ModBlocks.ENDERITE_BLOCK);
+
+        // Needs Diamond Tool (oder Netherite)
+        valueLookupBuilder(BlockTags.NEEDS_DIAMOND_TOOL)
+                .add(ModBlocks.NIHILITH_ORE)
+                .add(ModBlocks.ASTRALIT_ORE)
+                .add(ModBlocks.ENDERITE_BLOCK);
+
+        // BEACON BASE (Wichtig für dein Feature)
+        valueLookupBuilder(BlockTags.BEACON_BASE_BLOCKS)
+                .add(ModBlocks.ENDERITE_BLOCK);
     }
 }

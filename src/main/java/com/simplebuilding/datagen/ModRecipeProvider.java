@@ -1,6 +1,7 @@
 package com.simplebuilding.datagen;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -22,6 +23,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
@@ -447,9 +449,82 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createUpgradeRecipe(exporter, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, 12);
                 createUpgradeRecipe(exporter, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, 12);
                 createUpgradeRecipe(exporter, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, 12);
+
+
+
+                // --- 1. Synthese: Raw Enderite (4 Shards + 4 Dust + 1 Pearl) ---
+                // Shapeless Rezept
+                createShapeless(RecipeCategory.MISC, ModItems.RAW_ENDERITE)
+                        .input(ModItems.NIHILITH_SHARD, 4)
+                        .input(ModItems.ASTRALIT_DUST, 4)
+                        .input(Items.ENDER_PEARL)
+                        .criterion(hasItem(ModItems.NIHILITH_SHARD), conditionsFromItem(ModItems.NIHILITH_SHARD))
+                        .criterion(hasItem(ModItems.ASTRALIT_DUST), conditionsFromItem(ModItems.ASTRALIT_DUST))
+                        .offerTo(exporter, "raw_enderite_synthesis");
+
+                // --- 2. Schmelzen: Raw -> Scrap ---
+                offerBlasting(List.of(ModItems.RAW_ENDERITE), RecipeCategory.MISC, ModItems.ENDERITE_SCRAP, 2.0f, 200, "enderite_scrap");
+
+                // --- 3. Barren: Enderite Ingot (4 Scrap + 4 Diamond) ---
+                // Hinweis: Du wolltest Diamanten statt Netherite, um Netherite nicht zu entwerten.
+                createShaped(RecipeCategory.MISC, ModItems.ENDERITE_INGOT)
+                        .pattern("SDS")
+                        .pattern("DSD")
+                        .pattern("SDS") // Oder SSS / D D / SSS, hier ein Schachbrettmuster
+                        .input('S', ModItems.ENDERITE_SCRAP)
+                        .input('D', Items.DIAMOND)
+                        .criterion(hasItem(ModItems.ENDERITE_SCRAP), conditionsFromItem(ModItems.ENDERITE_SCRAP))
+                        .offerTo(exporter, "enderite_ingot_from_scrap");
+
+                // --- 4. Enderite Block ---
+                offerReversibleCompactingRecipes(RecipeCategory.BUILDING_BLOCKS, ModItems.ENDERITE_INGOT, RecipeCategory.DECORATIONS, ModBlocks.ENDERITE_BLOCK);
+
+                // --- 5. Duplizierung des Templates ---
+                createShaped(RecipeCategory.MISC, ModItems.ENDERITE_UPGRADE_TEMPLATE, 2)
+                        .pattern("ATA")
+                        .pattern("AEA")
+                        .pattern("AAA")
+                        .input('A', Items.DIAMOND) // 7 Diamonds
+                        .input('E', Items.END_STONE) // End Stone
+                        .input('T', ModItems.ENDERITE_UPGRADE_TEMPLATE)
+                        .criterion(hasItem(ModItems.ENDERITE_UPGRADE_TEMPLATE), conditionsFromItem(ModItems.ENDERITE_UPGRADE_TEMPLATE)).offerTo(exporter);
+
+                // --- 6. Smithing Upgrades (Netherite -> Enderite) ---
+                List<Item> netheriteItems = List.of(
+                        Items.NETHERITE_SWORD, Items.NETHERITE_PICKAXE, Items.NETHERITE_AXE, Items.NETHERITE_SHOVEL, Items.NETHERITE_HOE,
+                        Items.NETHERITE_HELMET, Items.NETHERITE_CHESTPLATE, Items.NETHERITE_LEGGINGS, Items.NETHERITE_BOOTS,
+                        ModItems.NETHERITE_CORE, ModItems.NETHERITE_CHISEL, ModItems.NETHERITE_BUILDING_WAND, ModItems.NETHERITE_SLEDGEHAMMER
+                );
+                List<Item> enderiteItems = List.of(
+                        ModItems.ENDERITE_SWORD, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_AXE, ModItems.ENDERITE_SHOVEL, ModItems.ENDERITE_HOE,
+                        ModItems.ENDERITE_HELMET, ModItems.ENDERITE_CHESTPLATE, ModItems.ENDERITE_LEGGINGS, ModItems.ENDERITE_BOOTS,
+                        ModItems.ENDERITE_CORE, ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, ModItems.ENDERITE_SLEDGEHAMMER
+                );
+
+                for (int i = 0; i < netheriteItems.size(); i++) {
+                    createSmithingTransform(exporter,
+                            ModItems.ENDERITE_UPGRADE_TEMPLATE,
+                            netheriteItems.get(i),
+                            ModItems.ENDERITE_INGOT,
+                            RecipeCategory.COMBAT, // Kategorie ggf. anpassen je nach Item
+                            enderiteItems.get(i)
+                    );
+                }
             }
 
             // --- Helpers ---
+            private void createSmithingTransform(RecipeExporter exporter, Item template, Item base, Item addition, RecipeCategory category, Item result) {
+                SmithingTransformRecipeJsonBuilder.create(
+                                Ingredient.ofItems(template),
+                                Ingredient.ofItems(base),
+                                Ingredient.ofItems(addition),
+                                category,
+                                result
+                        )
+                        .criterion(hasItem(addition), conditionsFromItem(addition))
+                        .offerTo(exporter, getItemPath(result) + "_smithing");
+            }
+
             private void createChiselRecipe(Item output, Item material, Item nugget) {
                 createShaped(RecipeCategory.TOOLS, output)
                         .pattern("   ")

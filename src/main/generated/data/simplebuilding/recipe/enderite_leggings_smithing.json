@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplebuilding:enderite_ingot",
+  "base": "minecraft:netherite_leggings",
+  "result": {
+    "id": "simplebuilding:enderite_leggings"
+  },
+  "template": "simplebuilding:enderite_upgrade_template"
+}

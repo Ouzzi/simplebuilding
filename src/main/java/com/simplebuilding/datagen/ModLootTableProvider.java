@@ -19,6 +19,7 @@ import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.function.EnchantRandomlyLootFunction;
 import net.minecraft.loot.function.SetComponentsLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.loot.provider.number.BinomialLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -67,6 +68,15 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.REINFORCED_SMOKER);
         addDrop(ModBlocks.NETHERITE_SMOKER);
 
+        // Nihilith Ore -> Droppt Shard
+        addDrop(ModBlocks.NIHILITH_ORE, oreDrops(ModBlocks.NIHILITH_ORE, ModItems.NIHILITH_SHARD));
+
+        // Astralit Ore -> Droppt Dust
+        addDrop(ModBlocks.ASTRALIT_ORE, oreDrops(ModBlocks.ASTRALIT_ORE, ModItems.ASTRALIT_DUST));
+
+        // Enderite Block -> Droppt sich selbst
+        addDrop(ModBlocks.ENDERITE_BLOCK);
+
     }
 
     public static void modifyLootTables() {
@@ -96,6 +106,19 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             // (RANGE, QUIVER, MASTER_BUILDER, OVERRIDES, BRIDGE, DOUBLE_JUMP)
             // (DIAMOND_CHISEL_ENCHANTED, DIAMOND_SPATULA_ENCHANTED, DIAMOND_BUILDING_WAND_ENCHANTED, DIAMOND_SLEDGEHAMMER_ENCHANTED, diamond_core)
             if (LootTables.END_CITY_TREASURE_CHEST.equals(key)) {
+
+                // Pool für Scrap (selten)
+                tableBuilder.pool(LootPool.builder()
+                        .with(ItemEntry.builder(ModItems.ENDERITE_SCRAP))
+                        .rolls(BinomialLootNumberProvider.create(1, 0.15f)) // 15% Chance
+                        .build());
+
+                // Pool für Template (garantiert oder sehr häufig)
+                tableBuilder.pool(LootPool.builder()
+                        .with(ItemEntry.builder(ModItems.ENDERITE_UPGRADE_TEMPLATE))
+                        .rolls(BinomialLootNumberProvider.create(1, 0.5f)) // 50% Chance pro Kiste
+                        .build());
+
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0, 4))
                         // Books

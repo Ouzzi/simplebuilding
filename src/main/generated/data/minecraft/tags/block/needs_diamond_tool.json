@@ -1,3 +1,7 @@
 {
-  "values": []
+  "values": [
+    "simplebuilding:nihilith_ore",
+    "simplebuilding:astralit_ore",
+    "simplebuilding:enderite_block"
+  ]
 }

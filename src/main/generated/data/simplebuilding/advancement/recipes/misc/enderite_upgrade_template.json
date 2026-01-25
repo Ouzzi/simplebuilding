@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_enderite_upgrade_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_upgrade_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplebuilding:enderite_upgrade_template"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_enderite_upgrade_template"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:enderite_upgrade_template"
+    ]
+  }
+}
