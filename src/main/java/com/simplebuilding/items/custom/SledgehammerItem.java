@@ -44,6 +44,7 @@ public class SledgehammerItem extends Item {
     public static final int GOLD_ATTACK_DAMAGE = 5;
     public static final int DIAMOND_ATTACK_DAMAGE = 7;
     public static final int NETHERITE_ATTACK_DAMAGE = 8;
+    public static final int ENDERITE_ATTACK_DAMAGE = 9;
 
     public static final float ATTACK_SPEED_OFFSET = 0.4f;
 
@@ -53,6 +54,7 @@ public class SledgehammerItem extends Item {
     public static final float GOLD_ATTACK_SPEED = -2.8f - ATTACK_SPEED_OFFSET;
     public static final float DIAMOND_ATTACK_SPEED = -2.8f - ATTACK_SPEED_OFFSET;
     public static final float NETHERITE_ATTACK_SPEED = -2.6f - ATTACK_SPEED_OFFSET;
+    public static final float ENDERITE_ATTACK_SPEED = -2.4f - ATTACK_SPEED_OFFSET;
 
     public static final int BASE_DURABILITY_MULTIPLIER = 4;
     public static final int DURABILITY_STONE_SLEDGEHAMMER = 190 * BASE_DURABILITY_MULTIPLIER;
@@ -61,6 +63,7 @@ public class SledgehammerItem extends Item {
     public static final int DURABILITY_GOLD_SLEDGEHAMMER = 32 * BASE_DURABILITY_MULTIPLIER;
     public static final int DURABILITY_DIAMOND_SLEDGEHAMMER = 1561 * BASE_DURABILITY_MULTIPLIER;
     public static final int DURABILITY_NETHERITE_SLEDGEHAMMER = 2031 * BASE_DURABILITY_MULTIPLIER;
+    public static final int DURABILITY_ENDERITE_SLEDGEHAMMER = 2500 * BASE_DURABILITY_MULTIPLIER;
 
     private final ToolMaterial material;
 

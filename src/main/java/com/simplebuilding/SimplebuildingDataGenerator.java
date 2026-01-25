@@ -2,6 +2,7 @@ package com.simplebuilding;
 
 import com.simplebuilding.datagen.*;
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.util.ModWorldGen;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
@@ -19,12 +20,14 @@ public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModRecipeProvider::new);
         pack.addProvider(ModRegistryDataGenerator::new);
         pack.addProvider(ModEnchantmentTagProvider::new);
-
+        pack.addProvider(ModWorldGenerator::new);
     }
 
     @Override
     public void buildRegistry(RegistryBuilder registryBuilder) {
         registryBuilder.addRegistry(RegistryKeys.ENCHANTMENT, ModEnchantments::bootstrap);
 
+        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModWorldGen::bootstrapConfiguredFeatures);
+        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModWorldGen::bootstrapPlacedFeatures);
     }
 }

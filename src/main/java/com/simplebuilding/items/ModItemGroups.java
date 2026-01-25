@@ -1,6 +1,7 @@
 package com.simplebuilding.items;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.enchantment.ModEnchantments;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.component.DataComponentTypes;
@@ -33,6 +34,10 @@ public class ModItemGroups {
                         entries.add(ModItems.NETHERITE_APPLE);
                         entries.add(ModItems.NETHERITE_CARROT);
 
+                        entries.add(ModItems.NIHILITH_ORE_ITEM);
+                        entries.add(ModItems.ASTRALIT_ORE_ITEM);
+                        entries.add(ModItems.ENDERITE_BLOCK_ITEM);
+
                         // --- Functional Blocks ---
                         entries.add(ModItems.CONSTRUCTION_LIGHT);
 
@@ -58,6 +63,7 @@ public class ModItemGroups {
                         entries.add(ModItems.GOLD_CHISEL);
                         entries.add(ModItems.DIAMOND_CHISEL);
                         entries.add(ModItems.NETHERITE_CHISEL);
+                        entries.add(ModItems.ENDERITE_CHISEL);
 
                         entries.add(ModItems.STONE_SPATULA);
                         entries.add(ModItems.COPPER_SPATULA);
@@ -66,12 +72,26 @@ public class ModItemGroups {
                         entries.add(ModItems.DIAMOND_SPATULA);
                         entries.add(ModItems.NETHERITE_SPATULA);
 
+                        // --- NEW: Enderite Tools ---
+                        entries.add(ModItems.ENDERITE_SWORD);
+                        entries.add(ModItems.ENDERITE_PICKAXE);
+                        entries.add(ModItems.ENDERITE_AXE);
+                        entries.add(ModItems.ENDERITE_SHOVEL);
+                        entries.add(ModItems.ENDERITE_HOE);
+
+                        // --- NEW: Enderite Armor ---
+                        entries.add(ModItems.ENDERITE_HELMET);
+                        entries.add(ModItems.ENDERITE_CHESTPLATE);
+                        entries.add(ModItems.ENDERITE_LEGGINGS);
+                        entries.add(ModItems.ENDERITE_BOOTS);
+
                         // --- Building Cores ---
                         entries.add(ModItems.COPPER_CORE);
                         entries.add(ModItems.IRON_CORE);
                         entries.add(ModItems.GOLD_CORE);
                         entries.add(ModItems.DIAMOND_CORE);
                         entries.add(ModItems.NETHERITE_CORE);
+                        entries.add(ModItems.ENDERITE_CORE);
 
                         // --- Wands ---
                         entries.add(ModItems.COPPER_BUILDING_WAND);
@@ -79,6 +99,7 @@ public class ModItemGroups {
                         entries.add(ModItems.GOLD_BUILDING_WAND);
                         entries.add(ModItems.DIAMOND_BUILDING_WAND);
                         entries.add(ModItems.NETHERITE_BUILDING_WAND);
+                        entries.add(ModItems.ENDERITE_BUILDING_WAND);
 
                         // --- Sledgehammers ---
                         entries.add(ModItems.STONE_SLEDGEHAMMER);
@@ -87,6 +108,7 @@ public class ModItemGroups {
                         entries.add(ModItems.GOLD_SLEDGEHAMMER);
                         entries.add(ModItems.DIAMOND_SLEDGEHAMMER);
                         entries.add(ModItems.NETHERITE_SLEDGEHAMMER);
+                        entries.add(ModItems.ENDERITE_SLEDGEHAMMER);
 
                         // --- Rangefinders ---
                         entries.add(ModItems.OCTANT);
@@ -150,6 +172,8 @@ public class ModItemGroups {
                         entries.add(ModItems.EMITTING_TRIM_TEMPLATE);
 
                         entries.add(ModItems.BASIC_UPGRADE_TEMPLATE);
+                        entries.add(ModItems.ENDERITE_UPGRADE_TEMPLATE); // NEW
+
 
                     }).build());
 

@@ -40,8 +40,9 @@ public class BuildingWandItem extends Item {
     public static final int BUILDING_WAND_SQUARE_COPPER = 3; // Radius 1
     public static final int BUILDING_WAND_SQUARE_IRON = 5;   // Radius 2
     public static final int BUILDING_WAND_SQUARE_GOLD = 7;   // Radius 3
-    public static final int BUILDING_WAND_SQUARE_DIAMOND = 7; // Radius 3
-    public static final int BUILDING_WAND_SQUARE_NETHERITE = 9; // Radius 4
+    public static final int BUILDING_WAND_SQUARE_DIAMOND = 9; // Radius 3
+    public static final int BUILDING_WAND_SQUARE_NETHERITE = 11; // Radius 4
+    public static final int BUILDING_WAND_SQUARE_ENDERITE = 13;
 
     public static final int DELAY_TICKS = 4; // Etwas schneller
     public static final int DELAY_TICKS_LINE = 2;

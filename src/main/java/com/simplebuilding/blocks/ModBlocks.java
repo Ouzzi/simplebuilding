@@ -4,10 +4,7 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.custom.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.PistonBlock;
+import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -79,6 +76,27 @@ public class ModBlocks {
     public static final Block NETHERITE_PISTON_HEAD = registerBlock("netherite_piston_head",
             s -> new NetheritePistonHeadBlock(s.noCollision().dropsNothing().sounds(BlockSoundGroup.NETHERITE)));
 
+    public static final Block ENDERITE_BLOCK = registerBlock("enderite_block",
+            unused -> new Block(AbstractBlock.Settings.create()
+                    .registryKey(keyOf("enderite_block")) // <--- DIESE ZEILE HAT GEFEHLT
+                    .mapColor(MapColor.BLACK)
+                    .requiresTool()
+                    .strength(50.0f, 1200.0f)
+                    .sounds(BlockSoundGroup.NETHERITE)));
+
+    public static final Block NIHILITH_ORE = registerBlock("nihilith_ore",
+            unused -> new Block(AbstractBlock.Settings.copy(Blocks.END_STONE)
+                    .registryKey(keyOf("nihilith_ore")) // <--- DIESE ZEILE HAT GEFEHLT
+                    .strength(25.0f, 1200.0f)
+                    .requiresTool()));
+
+    public static final Block ASTRALIT_ORE = registerBlock("astralit_ore",
+            unused -> new Block(AbstractBlock.Settings.copy(Blocks.END_STONE)
+                    .registryKey(keyOf("astralit_ore"))
+                    .strength(20.0f, 1200.0f)
+                    .luminance(state -> 5)
+                    .requiresTool()));
+
     /**
      * Registriert einen Block und weist ihm vor der Erstellung den notwendigen RegistryKey zu.
      */
@@ -92,5 +110,9 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         Simplebuilding.LOGGER.info("Registering Mod Blocks for " + Simplebuilding.MOD_ID);
+    }
+
+    private static RegistryKey<Block> keyOf(String name) {
+        return RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(Simplebuilding.MOD_ID, name));
     }
 }

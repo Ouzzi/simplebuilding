@@ -1,14 +1,21 @@
 package com.simplebuilding.mixin;
 
+import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.TrimEffectUtil;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -106,5 +113,38 @@ public abstract class LivingEntityMixin {
         if (mult < 1.0f) {
             cir.setReturnValue(cir.getReturnValue() * mult);
         }
+    }
+
+    @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
+    private void modifyVoidDamage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (source.isOf(DamageTypes.OUT_OF_WORLD) && (Object) this instanceof PlayerEntity player) {
+
+            int enderitePieces = 0;
+            // FIX: Nutze getInventory().armor statt getArmorItems() (da getArmorItems Iterable ist, inventory Liste)
+            for (EquipmentSlot slot : new EquipmentSlot[]{EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD}) {
+                ItemStack stack = player.getEquippedStack(slot);
+                if (isEnderiteArmor(stack.getItem())) {
+                    enderitePieces++;
+                }
+            }
+
+            if (enderitePieces > 0) {
+                int damageInterval = 10;
+                if (enderitePieces == 1) damageInterval = 20;
+                if (enderitePieces == 2) damageInterval = 40;
+                if (enderitePieces == 3) damageInterval = 60;
+                if (enderitePieces == 4) damageInterval = 100;
+
+                if (player.age % damageInterval != 0) {
+                    cir.setReturnValue(false);
+                }
+            }
+        }
+    }
+
+    @Unique
+    private boolean isEnderiteArmor(Item item) {
+        return item == ModItems.ENDERITE_BOOTS || item == ModItems.ENDERITE_LEGGINGS
+                || item == ModItems.ENDERITE_CHESTPLATE || item == ModItems.ENDERITE_HELMET;
     }
 }

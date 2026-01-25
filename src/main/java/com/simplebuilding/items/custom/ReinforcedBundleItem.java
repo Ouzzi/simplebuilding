@@ -30,6 +30,8 @@ import java.util.function.Consumer;
 
 public class ReinforcedBundleItem extends BundleItem {
 
+    private static final int DRAWER_MAX_TYPES = 5;
+
     public ReinforcedBundleItem(Settings settings) {
         super(settings);
     }
@@ -262,19 +264,35 @@ public class ReinforcedBundleItem extends BundleItem {
 
         // Drawer Restriction Check: Nur 1 Item-Typ erlaubt
         if (drawerLevel > 0) {
-            boolean alreadyInBundle = false;
-            for (ItemStack s : contents.iterate()) {
-                if (ItemStack.areItemsAndComponentsEqual(s, stackToAdd)) {
-                    alreadyInBundle = true;
+        boolean alreadyInBundle = false;
+        int uniqueTypesCount = 0;
+
+        // Wir zählen die einzigartigen Typen im Bundle
+        List<ItemStack> distinctItems = new ArrayList<>();
+        for (ItemStack s : contents.iterate()) {
+            boolean isNewType = true;
+            for (ItemStack distinct : distinctItems) {
+                if (ItemStack.areItemsAndComponentsEqual(s, distinct)) {
+                    isNewType = false;
                     break;
                 }
             }
-            // Wenn das Item noch nicht im Bundle ist, aber das Bundle nicht leer ist (d.h. ein anderer Typ ist schon drin)
-            // dann darf nichts hinzugefügt werden.
-            if (!alreadyInBundle && !contents.isEmpty()) {
-                return 0;
+            if (isNewType) {
+                distinctItems.add(s);
+                uniqueTypesCount++;
+            }
+
+            // Check, ob unser neues Item schon dabei ist
+            if (ItemStack.areItemsAndComponentsEqual(s, stackToAdd)) {
+                alreadyInBundle = true;
             }
         }
+
+        // REGEL: Wenn das Item NEU ist (nicht im Bundle) UND wir schon 5 oder mehr Typen haben -> Blockieren
+        if (!alreadyInBundle && uniqueTypesCount >= DRAWER_MAX_TYPES) {
+            return 0;
+        }
+    }
 
         // Capacity Check
         Fraction currentOccupancy = contents.getOccupancy();
@@ -507,5 +525,33 @@ public class ReinforcedBundleItem extends BundleItem {
 
     protected void playInsertSound(PlayerEntity entity) {
         entity.playSound(net.minecraft.sound.SoundEvents.ITEM_BUNDLE_INSERT, 0.8F, 0.8F + entity.getEntityWorld().getRandom().nextFloat() * 0.4F);
+    }
+
+    public boolean canAutoPickup(ItemStack bundle, ItemStack itemOnGround, net.minecraft.world.World world) {
+        var registry = world.getRegistryManager();
+        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+        var funnel = enchantments.getOptional(ModEnchantments.FUNNEL);
+
+        if (funnel.isEmpty()) return false;
+
+        int level = EnchantmentHelper.getLevel(funnel.get(), bundle);
+
+        if (level <= 0) return false; // Kein Funnel
+
+        if (level == 1) {
+            // LEVEL 1: Nur aufheben, wenn Item schon im Bundle ist (Filter)
+            BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+            if (contents == null) return false;
+
+            for (ItemStack s : contents.iterate()) {
+                if (ItemStack.areItemsAndComponentsEqual(s, itemOnGround)) {
+                    return true; // Match gefunden, darf aufheben
+                }
+            }
+            return false; // Nicht im Bundle, liegen lassen
+        }
+
+        // LEVEL 2+: Alles aufheben (wie bisher)
+        return true;
     }
 }

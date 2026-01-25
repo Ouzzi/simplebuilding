@@ -22,6 +22,7 @@ import com.simplebuilding.screen.ModHopperScreenHandler;
 import com.simplebuilding.screen.ModScreenHandlers;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.util.*;
+import com.simplebuilding.world.gen.ModOreGeneration;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
@@ -90,12 +91,12 @@ public class Simplebuilding implements ModInitializer {
 
         ModScreenHandlers.registerScreenHandlers();
 
+        ModItemGroups.registerItemGroups();
         ModBlocks.registerModBlocks();
         ModItems.registerModItems();
 
         ModBlockEntities.registerBlockEntities();
 
-        ModItemGroups.registerItemGroups();
         ModLootTableProvider.modifyLootTables();
         ModTradeOffers.registerModTradeOffers();
         ModDataComponentTypes.registerDataComponentTypes();
@@ -412,6 +413,7 @@ public class Simplebuilding implements ModInitializer {
 
 
         ModCommands.register();
+        ModOreGeneration.generateOres();
     }
 
     private void registerCauldronBehavior() {

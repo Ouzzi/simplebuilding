@@ -1,8 +1,10 @@
 package com.simplebuilding;
 
+import com.mojang.serialization.Codec;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.client.gui.*;
 import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltipSubmenuHandler;
+import com.simplebuilding.client.property.EnchantmentModelProperty;
 import com.simplebuilding.client.render.BlockHighlightRenderer;
 import com.simplebuilding.client.render.BuildingWandOutlineRenderer;
 import com.simplebuilding.client.render.SledgehammerOutlineRenderer;
@@ -31,10 +33,18 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.gui.tooltip.BundleTooltipComponent;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.render.item.model.SelectItemModel;
+import net.minecraft.client.render.item.property.select.SelectProperties;
+import net.minecraft.client.render.item.property.select.SelectProperty;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.glfw.GLFW;
 
@@ -49,6 +59,8 @@ public class SimplebuildingClient implements ClientModInitializer {
     public static boolean showHighlights = true;
     public static KeyBinding settingsKey;
     public static ReinforcedBundleTooltipSubmenuHandler BUNDLE_HANDLER;
+
+    public static SelectProperty.Type<EnchantmentModelProperty, String> ENCHANTMENT_PROPERTY_TYPE;
 
     @Override
     public void onInitializeClient() {
@@ -151,6 +163,16 @@ public class SimplebuildingClient implements ClientModInitializer {
                 }
             });
         });
+
+        ENCHANTMENT_PROPERTY_TYPE = SelectProperty.Type.create(
+                EnchantmentModelProperty.CODEC, // Dein MapCodec
+                Codec.STRING                    // Der Wert-Codec (String für "vein_miner" etc.)
+        );
+        SelectProperties.ID_MAPPER.put(
+                Identifier.of(Simplebuilding.MOD_ID, "enchant_type"),
+                ENCHANTMENT_PROPERTY_TYPE
+        );
+
     }
 
     private void registerDoubleJumpClient() {

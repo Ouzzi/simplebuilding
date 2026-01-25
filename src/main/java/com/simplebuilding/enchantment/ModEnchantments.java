@@ -42,7 +42,6 @@ public class ModEnchantments {
     public static final RegistryKey<Enchantment> DRAWER = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "drawer")); // final
     public static final RegistryKey<Enchantment> VERSATILITY = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "versatility"));
 
-
     // todo new enchantment names
     public static final RegistryKey<Enchantment> COLOR_PALETTE = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "color_palette"));
     public static final RegistryKey<Enchantment> BREAK_THROUGH = RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "break_through"));
@@ -143,7 +142,7 @@ public class ModEnchantments {
                 items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE), // Nur Bundles/Shulker
                 items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
                 2, // Weight rare
-                1, // Max Level
+                2, // Max Level
                 Enchantment.leveledCost(15, 15),
                 Enchantment.leveledCost(55, 15),
                 4,

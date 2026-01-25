@@ -3,21 +3,23 @@ package com.simplebuilding.items;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.custom.*;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.ConsumableComponents;
+import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.SmithingTemplateItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.*;
 import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
 import net.minecraft.item.consume.UseAction;
+import net.minecraft.item.equipment.ArmorMaterial;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.resource.featuretoggle.FeatureFlag;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -48,12 +50,14 @@ public class ModItems {
     private static final int DURABILITY_GOLD = 32*4;
     private static final int DURABILITY_DIAMOND = 98*4;
     private static final int DURABILITY_NETHERITE = 128*4;
+    private static final int DURABILITY_ENDERITE = 150*4;
 
     private static final int COOLDOWN_TICKS_WOOD_STONE = 30;
     private static final int COOLDOWN_TICKS_IRON = 25;
     private static final int COOLDOWN_TICKS_GOLD = 20;
     private static final int COOLDOWN_TICKS_DIAMOND = 10;
     private static final int COOLDOWN_TICKS_NETHERITE = 5;
+    private static final int COOLDOWN_TICKS_ENDERITE = 4;
 
     private static final int ENCHANTABILITY_WOOD_STONE = 15;
     private static final int ENCHANTABILITY_COPPER = 18;
@@ -61,71 +65,34 @@ public class ModItems {
     private static final int ENCHANTABILITY_GOLD = 22;
     private static final int ENCHANTABILITY_DIAMOND = 10;
     private static final int ENCHANTABILITY_NETHERITE = 15;
+    private static final int ENCHANTABILITY_ENDERITE = 18;
 
     // =================================================================================
     // ITEM REGISTRIERUNGEN
     // =================================================================================
 
 
-    // Chisels (Forward)
-    public static final ChiselItem STONE_CHISEL = registerChisel("stone_chisel", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_WOOD_STONE, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE);
-    public static final ChiselItem COPPER_CHISEL = registerChisel("copper_chisel", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_IRON, ENCHANTABILITY_COPPER, ToolMaterial.COPPER);
-    public static final ChiselItem IRON_CHISEL = registerChisel("iron_chisel", DURABILITY_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_IRON, ToolMaterial.IRON);
-    public static final ChiselItem GOLD_CHISEL = registerChisel("gold_chisel", DURABILITY_GOLD, COOLDOWN_TICKS_GOLD, ENCHANTABILITY_GOLD, ToolMaterial.GOLD);
-    public static final ChiselItem DIAMOND_CHISEL = registerChisel("diamond_chisel", DURABILITY_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND);
-    public static final ChiselItem NETHERITE_CHISEL = registerChisel("netherite_chisel", DURABILITY_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE);
+    // Upgrade Templates
+    public static final Item BASIC_UPGRADE_TEMPLATE = registerItem("basic_upgrade_template", settings -> new Item(settings.maxCount(64).rarity(UNCOMMON)));
+    public static final Item ENDERITE_UPGRADE_TEMPLATE = registerItem("enderite_upgrade_template", s -> new Item(s));
 
-    // Spatulas (Backward)
-    public static final ChiselItem STONE_SPATULA = registerSpatula("stone_spatula", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_WOOD_STONE, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE);
-    public static final ChiselItem COPPER_SPATULA = registerSpatula("copper_spatula", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_IRON, ENCHANTABILITY_COPPER, ToolMaterial.COPPER);
-    public static final ChiselItem IRON_SPATULA = registerSpatula("iron_spatula", DURABILITY_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_IRON, ToolMaterial.IRON);
-    public static final ChiselItem GOLD_SPATULA = registerSpatula("gold_spatula", DURABILITY_GOLD, COOLDOWN_TICKS_GOLD, ENCHANTABILITY_GOLD, ToolMaterial.GOLD);
-    public static final ChiselItem DIAMOND_SPATULA = registerSpatula("diamond_spatula", DURABILITY_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND);
-    public static final ChiselItem NETHERITE_SPATULA = registerSpatula("netherite_spatula", DURABILITY_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE);
-
-
-    // Diamond/Netherite Components
+    // Materials and Blocks Components
     public static final Item DIAMOND_PEBBLE = registerItem("diamond_pebble", settings -> new Item(settings));
     public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
     public static final Item CRACKED_DIAMOND_BLOCK = registerItem("cracked_diamond_block", settings -> new BlockItem(ModBlocks.CRACKED_DIAMOND_BLOCK, settings)); // todo: wie diamond_block nur härter
     public static final Item NETHERITE_NUGGET = registerItem("netherite_nugget", settings -> new Item(settings));
 
+    public static final Item NIHILITH_SHARD = registerItem("nihilith_shard", s -> new Item(s)); // Fix: s nutzen!
+    public static final Item ASTRALIT_DUST = registerItem("astralit_dust", s -> new Item(s));   // Fix: s nutzen!
+    public static final Item RAW_ENDERITE = registerItem("raw_enderite", s -> new Item(s));     // Fix: s nutzen!
+    public static final Item ENDERITE_SCRAP = registerItem("enderite_scrap", s -> new Item(s.fireproof()));
+    public static final Item ENDERITE_INGOT = registerItem("enderite_ingot", s -> new Item(s.fireproof()));
 
-    // Netherite Food
-    public static final FoodComponent NETHERITE_CARROT_FOOD = new FoodComponent.Builder()
-            .nutrition(6)
-            .saturationModifier(1.2f)
-            .alwaysEdible()
-            .build();
+    public static final Item ENDERITE_BLOCK_ITEM = registerItem("enderite_block", s -> new BlockItem(ModBlocks.ENDERITE_BLOCK, s));
+    public static final Item NIHILITH_ORE_ITEM = registerItem("nihilith_ore", s -> new BlockItem(ModBlocks.NIHILITH_ORE, s));
+    public static final Item ASTRALIT_ORE_ITEM = registerItem("astralit_ore", s -> new BlockItem(ModBlocks.ASTRALIT_ORE, s));
 
-    public static final FoodComponent NETHERITE_APPLE_FOOD = new FoodComponent.Builder()
-            .nutrition(8)
-            .saturationModifier(1.5f)
-            .alwaysEdible()
-            .build();
-
-    public static ConsumableComponent createNetheriteFoodEffects(boolean isApple) {
-        ConsumableComponent.Builder builder = ConsumableComponent.builder()
-                .useAction(UseAction.EAT)
-                .consumeSeconds(1.6f);
-
-        if (isApple) {
-            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 4800, 0), 1.0f));
-            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 1200, 0), 1.0f));
-            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 600, 1), 1.0f));
-        } else {
-            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 2400, 0), 1.0f));
-            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 2400, 0), 1.0f));
-        }
-
-        return builder.build();
-    }
-
-    public static final Item NETHERITE_CARROT = registerItem("netherite_carrot",
-            settings -> new Item(settings.food(NETHERITE_CARROT_FOOD, createNetheriteFoodEffects(false)).fireproof()));
-
-    public static final Item NETHERITE_APPLE = registerItem("netherite_apple",
-            settings -> new Item(settings.food(NETHERITE_APPLE_FOOD, createNetheriteFoodEffects(true)).fireproof()));
+    public static final Item CONSTRUCTION_LIGHT = registerItem("construction_light", s -> new BlockItem(ModBlocks.CONSTRUCTION_LIGHT, s));
 
 
     // Building Cores
@@ -134,14 +101,23 @@ public class ModItems {
     public static final Item GOLD_CORE = registerItem("gold_core", s -> new Item(s.maxCount(16)));
     public static final Item DIAMOND_CORE = registerItem("diamond_core", s -> new Item(s.maxCount(16)));
     public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new Item(s.maxCount(16)));
+    public static final Item ENDERITE_CORE = registerItem("enderite_core", s -> new Item(s.maxCount(16)));
 
+    // =================================================================================
+    // TOOLS
+    // =================================================================================
+    public static final Item ENDERITE_SWORD = registerItem("enderite_sword", s -> new Item(ModToolMaterials.ENDERITE.applySwordSettings(s.fireproof(), 3.0F, -2.4F)));
+    public static final Item ENDERITE_PICKAXE = registerItem("enderite_pickaxe", s -> new Item(ModToolMaterials.ENDERITE.applyToolSettings(s.fireproof(), BlockTags.PICKAXE_MINEABLE, 1.0F, -2.8F, 0.0F)));
+    public static final Item ENDERITE_AXE = registerItem("enderite_axe", s -> new Item(ModToolMaterials.ENDERITE.applyToolSettings(s.fireproof(), BlockTags.AXE_MINEABLE, 5.0F, -3.0F, 0.0F)));
+    public static final Item ENDERITE_SHOVEL = registerItem("enderite_shovel", s -> new Item(ModToolMaterials.ENDERITE.applyToolSettings(s.fireproof(), BlockTags.SHOVEL_MINEABLE, 1.5F, -3.0F, 0.0F)));
+    public static final Item ENDERITE_HOE = registerItem("enderite_hoe", s -> new Item(ModToolMaterials.ENDERITE.applyToolSettings(s.fireproof(), BlockTags.HOE_MINEABLE, -4.0F, 0.0F, 0.0F)));
     // Wands
     public static final BuildingWandItem COPPER_BUILDING_WAND = registerBuildingWand("copper_building_wand", DURABILITY_COPPER_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_COPPER, ENCHANTABILITY_COPPER);
     public static final BuildingWandItem IRON_BUILDING_WAND = registerBuildingWand("iron_building_wand", DURABILITY_IRON_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_IRON, ENCHANTABILITY_IRON);
     public static final BuildingWandItem GOLD_BUILDING_WAND = registerBuildingWand("gold_building_wand", DURABILITY_GOLD_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_GOLD, ENCHANTABILITY_GOLD);
     public static final BuildingWandItem DIAMOND_BUILDING_WAND = registerBuildingWand("diamond_building_wand", DURABILITY_DIAMOND_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_DIAMOND, ENCHANTABILITY_DIAMOND);
     public static final BuildingWandItem NETHERITE_BUILDING_WAND = registerBuildingWand("netherite_building_wand", DURABILITY_NETHERITE_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_NETHERITE, ENCHANTABILITY_NETHERITE);
-
+    public static final BuildingWandItem ENDERITE_BUILDING_WAND = registerBuildingWand("enderite_building_wand", DURABILITY_ENDERITE_SLEDGEHAMMER * 2, BUILDING_WAND_SQUARE_ENDERITE, ENCHANTABILITY_ENDERITE);
     // Sledgehammer
     public static final SledgehammerItem STONE_SLEDGEHAMMER = registerSledgehammer("stone_sledgehammer", DURABILITY_STONE_SLEDGEHAMMER, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE, SledgehammerItem.STONE_ATTACK_DAMAGE, SledgehammerItem.STONE_ATTACK_SPEED);
     public static final SledgehammerItem COPPER_SLEDGEHAMMER = registerSledgehammer("copper_sledgehammer", DURABILITY_COPPER_SLEDGEHAMMER, ENCHANTABILITY_COPPER, ToolMaterial.COPPER, SledgehammerItem.COPPER_ATTACK_DAMAGE, SledgehammerItem.COPPER_ATTACK_SPEED);
@@ -149,55 +125,56 @@ public class ModItems {
     public static final SledgehammerItem GOLD_SLEDGEHAMMER = registerSledgehammer("gold_sledgehammer", DURABILITY_GOLD_SLEDGEHAMMER, ENCHANTABILITY_GOLD, ToolMaterial.GOLD, SledgehammerItem.GOLD_ATTACK_DAMAGE, SledgehammerItem.GOLD_ATTACK_SPEED);
     public static final SledgehammerItem DIAMOND_SLEDGEHAMMER = registerSledgehammer("diamond_sledgehammer", DURABILITY_DIAMOND_SLEDGEHAMMER, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND, SledgehammerItem.DIAMOND_ATTACK_DAMAGE, SledgehammerItem.DIAMOND_ATTACK_SPEED);
     public static final SledgehammerItem NETHERITE_SLEDGEHAMMER = registerSledgehammer("netherite_sledgehammer", DURABILITY_NETHERITE_SLEDGEHAMMER, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE, SledgehammerItem.NETHERITE_ATTACK_DAMAGE, SledgehammerItem.NETHERITE_ATTACK_SPEED);
-
-    // Octants
-    public static final OctantItem OCTANT = (OctantItem) registerItem("octant",
-            settings -> new OctantItem(settings.maxDamage(DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), null));
-
-    public static final Map<DyeColor, OctantItem> COLORED_OCTANT_ITEMS = new HashMap<>();
-
-    // Speedometer
+    public static final SledgehammerItem ENDERITE_SLEDGEHAMMER = registerSledgehammer("enderite_sledgehammer", DURABILITY_ENDERITE_SLEDGEHAMMER, ENCHANTABILITY_ENDERITE, ModToolMaterials.ENDERITE, SledgehammerItem.ENDERITE_ATTACK_DAMAGE, SledgehammerItem.ENDERITE_ATTACK_SPEED);
+    // Chisels (Forward)
+    public static final ChiselItem STONE_CHISEL = registerChisel("stone_chisel", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_WOOD_STONE, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE);
+    public static final ChiselItem COPPER_CHISEL = registerChisel("copper_chisel", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_IRON, ENCHANTABILITY_COPPER, ToolMaterial.COPPER);
+    public static final ChiselItem IRON_CHISEL = registerChisel("iron_chisel", DURABILITY_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_IRON, ToolMaterial.IRON);
+    public static final ChiselItem GOLD_CHISEL = registerChisel("gold_chisel", DURABILITY_GOLD, COOLDOWN_TICKS_GOLD, ENCHANTABILITY_GOLD, ToolMaterial.GOLD);
+    public static final ChiselItem DIAMOND_CHISEL = registerChisel("diamond_chisel", DURABILITY_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND);
+    public static final ChiselItem NETHERITE_CHISEL = registerChisel("netherite_chisel", DURABILITY_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE);
+    public static final ChiselItem ENDERITE_CHISEL = registerChisel("enderite_chisel", DURABILITY_ENDERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_ENDERITE, ModToolMaterials.ENDERITE);
+    // Spatulas (Backward)
+    public static final ChiselItem STONE_SPATULA = registerSpatula("stone_spatula", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_WOOD_STONE, ENCHANTABILITY_WOOD_STONE, ToolMaterial.STONE);
+    public static final ChiselItem COPPER_SPATULA = registerSpatula("copper_spatula", DURABILITY_WOOD_STONE, COOLDOWN_TICKS_IRON, ENCHANTABILITY_COPPER, ToolMaterial.COPPER);
+    public static final ChiselItem IRON_SPATULA = registerSpatula("iron_spatula", DURABILITY_IRON, COOLDOWN_TICKS_IRON, ENCHANTABILITY_IRON, ToolMaterial.IRON);
+    public static final ChiselItem GOLD_SPATULA = registerSpatula("gold_spatula", DURABILITY_GOLD, COOLDOWN_TICKS_GOLD, ENCHANTABILITY_GOLD, ToolMaterial.GOLD);
+    public static final ChiselItem DIAMOND_SPATULA = registerSpatula("diamond_spatula", DURABILITY_DIAMOND, COOLDOWN_TICKS_DIAMOND, ENCHANTABILITY_DIAMOND, ToolMaterial.DIAMOND);
+    public static final ChiselItem NETHERITE_SPATULA = registerSpatula("netherite_spatula", DURABILITY_NETHERITE, COOLDOWN_TICKS_NETHERITE, ENCHANTABILITY_NETHERITE, ToolMaterial.NETHERITE);
+    // Gadgets
     public static final Item VELOCITY_GAUGE = registerItem("velocity-gauge", settings -> new Item(settings.maxCount(1)));
     public static final Item ORE_DETECTOR = registerItem("ore_detector", settings -> new OreDetectorItem(settings.maxDamage(512).rarity(RARE)));
     public static final Item MAGNET = registerItem("magnet", settings -> new MagnetItem(settings.maxCount(1).rarity(UNCOMMON)));
     public static final Item ROTATOR = registerItem("rotator", settings -> new RotatorItem(settings.maxDamage(1024).maxCount(1)));
+    public static final OctantItem OCTANT = (OctantItem) registerItem("octant", settings -> new OctantItem(settings.maxDamage(DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), null));
+    public static final Map<DyeColor, OctantItem> COLORED_OCTANT_ITEMS = new HashMap<>();
+
+    // =================================================================================
     // Reinforced Items
+    // =================================================================================
     public static final Item REINFORCED_BUNDLE = registerItem("reinforced_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1)));
     public static final Item NETHERITE_BUNDLE = registerItem("netherite_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1).fireproof().rarity(UNCOMMON)));
     public static final Item QUIVER = registerItem("quiver", settings -> new QuiverItem(settings.maxCount(1)));
     public static final Item NETHERITE_QUIVER = registerItem("netherite_quiver", settings -> new QuiverItem(settings.maxCount(1).fireproof().rarity(UNCOMMON)));
 
-    // Block Items
-    public static final Item CONSTRUCTION_LIGHT = registerItem("construction_light", s -> new BlockItem(ModBlocks.CONSTRUCTION_LIGHT, s));
-
-    // Hoppers
+    // Reinforced Block Items
+    // Todo: public static final Item REINFORCED_CHEST = registerItem("reinforced_chest", s -> new BlockItem(ModBlocks.REINFORCED_CHEST, s));
+    // Todo: public static final Item NETHERITE_CHEST = registerItem("netherite_chest", s -> new BlockItem(ModBlocks.NETHERITE_CHEST, s.fireproof()));
     public static final Item REINFORCED_HOPPER = registerItem("reinforced_hopper", s -> new BlockItem(ModBlocks.REINFORCED_HOPPER, s));
     public static final Item NETHERITE_HOPPER = registerItem("netherite_hopper", s -> new BlockItem(ModBlocks.NETHERITE_HOPPER, s.fireproof()));
-
-    // Chests Todo:
-    // public static final Item REINFORCED_CHEST = registerItem("reinforced_chest", s -> new BlockItem(ModBlocks.REINFORCED_CHEST, s));
-    // public static final Item NETHERITE_CHEST = registerItem("netherite_chest", s -> new BlockItem(ModBlocks.NETHERITE_CHEST, s.fireproof()));
-
-    // Pistons
     public static final Item REINFORCED_PISTON = registerItem("reinforced_piston", s -> new BlockItem(ModBlocks.REINFORCED_PISTON, s));
     public static final Item NETHERITE_PISTON = registerItem("netherite_piston", s -> new BlockItem(ModBlocks.NETHERITE_PISTON, s.fireproof()));
-
-    // Furnaces
-    // --- FURNACES (Cooking) ---
-    // Blast Furnace
     public static final Item REINFORCED_BLAST_FURNACE = registerItem("reinforced_blast_furnace", s -> new BlockItem(ModBlocks.REINFORCED_BLAST_FURNACE, s));
     public static final Item NETHERITE_BLAST_FURNACE = registerItem("netherite_blast_furnace", s -> new BlockItem(ModBlocks.NETHERITE_BLAST_FURNACE, s.fireproof()));
-
-    // Standard Furnace (NEU)
     public static final Item REINFORCED_FURNACE = registerItem("reinforced_furnace", s -> new BlockItem(ModBlocks.REINFORCED_FURNACE, s));
     public static final Item NETHERITE_FURNACE = registerItem("netherite_furnace", s -> new BlockItem(ModBlocks.NETHERITE_FURNACE, s.fireproof()));
-
-    // Smoker (NEU)
     public static final Item REINFORCED_SMOKER = registerItem("reinforced_smoker", s -> new BlockItem(ModBlocks.REINFORCED_SMOKER, s));
     public static final Item NETHERITE_SMOKER = registerItem("netherite_smoker", s -> new BlockItem(ModBlocks.NETHERITE_SMOKER, s.fireproof()));
 
+    // =================================================================================
     // TODO: use lang files for text components
     // Trim Templates
+    // =================================================================================
     public static final Item GLOWING_TRIM_TEMPLATE = registerItem("glowing_trim_template", settings -> new SmithingTemplateItem(
             Text.literal("Add Radiance").formatted(Formatting.GRAY),
             Text.literal("Glowing Material").formatted(Formatting.GRAY),
@@ -217,11 +194,73 @@ public class ModItems {
             settings.maxCount(64).rarity(RARE)
     ));
 
-    public static final Item BASIC_UPGRADE_TEMPLATE = registerItem("basic_upgrade_template", settings -> new Item(settings.maxCount(64).rarity(UNCOMMON)));
+
+
+
+    // =================================================================================
+    // ARMOR (Nur mit 'Item' und Components via Helper)
+    // =================================================================================
+
+    public static final Item ENDERITE_HELMET = registerArmor("enderite_helmet", ModArmorMaterials.ENDERITE, EquipmentType.HELMET, 42);
+    public static final Item ENDERITE_CHESTPLATE = registerArmor("enderite_chestplate", ModArmorMaterials.ENDERITE, EquipmentType.CHESTPLATE, 42);
+    public static final Item ENDERITE_LEGGINGS = registerArmor("enderite_leggings", ModArmorMaterials.ENDERITE, EquipmentType.LEGGINGS, 42);
+    public static final Item ENDERITE_BOOTS = registerArmor("enderite_boots", ModArmorMaterials.ENDERITE, EquipmentType.BOOTS, 42);
+
+
+    // =================================================================================
+    // Food
+    // =================================================================================
+    public static final FoodComponent NETHERITE_CARROT_FOOD = new FoodComponent.Builder().nutrition(6).saturationModifier(1.2f).alwaysEdible().build();
+    public static final FoodComponent NETHERITE_APPLE_FOOD = new FoodComponent.Builder().nutrition(8).saturationModifier(1.5f).alwaysEdible().build();
+
+    public static ConsumableComponent createNetheriteFoodEffects(boolean isApple) {
+        ConsumableComponent.Builder builder = ConsumableComponent.builder().useAction(UseAction.EAT).consumeSeconds(1.6f);
+        if (isApple) {
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 4800, 0), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 1200, 0), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 600, 1), 1.0f));
+        } else {
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 2400, 0), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 2400, 0), 1.0f));
+        }
+
+        return builder.build();
+    }
+
+    public static final Item NETHERITE_CARROT = registerItem("netherite_carrot", settings -> new Item(settings.food(NETHERITE_CARROT_FOOD, createNetheriteFoodEffects(false)).fireproof()));
+    public static final Item NETHERITE_APPLE = registerItem("netherite_apple", settings -> new Item(settings.food(NETHERITE_APPLE_FOOD, createNetheriteFoodEffects(true)).fireproof()));
+
+
+
+
 
     // =================================================================================
     // HILFSMETHODEN
     // =================================================================================
+
+    private static Item registerArmor(String name, ArmorMaterial material, EquipmentType type, int durabilityMultiplier) {
+        return registerItem(name, settings -> {
+            // 1. Basis Settings
+            settings.fireproof();
+            settings.maxDamage(type.getMaxDamage(durabilityMultiplier));
+            settings.repairable(material.repairIngredient()); // Reparatur-Item setzen
+
+            // 2. Attribute (Rüstungsschutz etc.)
+            // Wir nutzen die Methode aus deinem ArmorMaterial Record
+            settings.attributeModifiers(material.createAttributeModifiers(type));
+
+            // 3. Equippable Component (Damit man es anziehen kann)
+            // Das ist der Ersatz für die ArmorItem-Logik in 1.21.3+
+            settings.component(DataComponentTypes.EQUIPPABLE,
+                    EquippableComponent.builder(type.getEquipmentSlot())
+                            .equipSound(material.equipSound())
+                            .model(material.assetId()) // Verweist auf den EquipmentAsset Key
+                            .build()
+            );
+
+            return new Item(settings);
+        });
+    }
 
     private static ChiselItem registerChisel(String name, int maxDamage, int cooldownTicks, int enchantability, ToolMaterial tier) {
         ChiselItem chisel = (ChiselItem) registerItem(name, settings -> new ChiselItem(tier, settings.maxDamage(maxDamage).enchantable(enchantability)));
