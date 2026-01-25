@@ -408,7 +408,18 @@ public class Simplebuilding implements ModInitializer {
             });
         });
 
+        PayloadTypeRegistry.playC2S().register(SpaceKeyPayload.ID, SpaceKeyPayload.CODEC);
 
+        ServerPlayNetworking.registerGlobalReceiver(SpaceKeyPayload.ID, (payload, context) -> {
+            // Auf dem Server Thread ausführen
+            context.server().execute(() -> {
+                ServerPlayerEntity player = context.player();
+                // Setze den Status im Spieler via Interface
+                if (player instanceof ISpaceKeyTracker tracker) {
+                    tracker.simplebuilding$setSpacePressed(payload.pressed());
+                }
+            });
+        });
 
         // ================================
         // NETHERITE HOPPER - Filtermodus Umschalten Payload

@@ -13,10 +13,7 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
-import com.simplebuilding.networking.DoubleJumpPayload;
-import com.simplebuilding.networking.ModMessages;
-import com.simplebuilding.networking.SyncHopperGhostItemPayload;
-import com.simplebuilding.networking.TrimBenefitPayload;
+import com.simplebuilding.networking.*;
 import com.simplebuilding.screen.ModScreenHandlers;
 import com.simplebuilding.util.BundleTooltipAccessor;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -61,6 +58,7 @@ public class SimplebuildingClient implements ClientModInitializer {
     public static ReinforcedBundleTooltipSubmenuHandler BUNDLE_HANDLER;
 
     public static SelectProperty.Type<EnchantmentModelProperty, String> ENCHANTMENT_PROPERTY_TYPE;
+    private boolean wasJumpPressed = false;
 
     @Override
     public void onInitializeClient() {
@@ -172,6 +170,18 @@ public class SimplebuildingClient implements ClientModInitializer {
                 Identifier.of(Simplebuilding.MOD_ID, "enchant_type"),
                 ENCHANTMENT_PROPERTY_TYPE
         );
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (client.player != null) {
+                boolean isJumpPressed = client.options.jumpKey.isPressed();
+
+                // Nur senden, wenn sich der Status ändert (Bandbreite sparen)
+                if (isJumpPressed != wasJumpPressed) {
+                    ClientPlayNetworking.send(new SpaceKeyPayload(isJumpPressed));
+                    wasJumpPressed = isJumpPressed;
+                }
+            }
+        });
 
     }
 

@@ -1,17 +1,22 @@
 package com.simplebuilding.mixin;
 
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.ISpaceKeyTracker;
 import com.simplebuilding.util.TrimBenefitUser;
 import com.simplebuilding.util.TrimEffectUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -22,11 +27,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin implements TrimBenefitUser {
+public abstract class PlayerEntityMixin extends LivingEntity implements TrimBenefitUser, ISpaceKeyTracker {
+
+    // Konstruktor ist notwendig, da wir von LivingEntity erben
+    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
+    }
+
+    // =============================================================
+    // FELDER
+    // =============================================================
 
     @Unique
     private boolean simplebuilding$trimBenefitsEnabled = true;
 
+    @Unique
+    private boolean simplebuilding$spacePressed = false;
+
+    @Shadow
+    public abstract PlayerInventory getInventory();
+
+    // =============================================================
+    // INTERFACE IMPLEMENTIERUNGEN
+    // =============================================================
+
+    // --- TrimBenefitUser ---
     @Override
     public boolean simplebuilding$areTrimBenefitsEnabled() {
         return this.simplebuilding$trimBenefitsEnabled;
@@ -37,7 +62,55 @@ public abstract class PlayerEntityMixin implements TrimBenefitUser {
         this.simplebuilding$trimBenefitsEnabled = enabled;
     }
 
-    @Shadow public abstract PlayerInventory getInventory();
+    // --- ISpaceKeyTracker (NEU) ---
+    @Override
+    public boolean simplebuilding$isSpacePressed() {
+        return this.simplebuilding$spacePressed;
+    }
+
+    @Override
+    public void simplebuilding$setSpacePressed(boolean pressed) {
+        this.simplebuilding$spacePressed = pressed;
+    }
+
+    // =============================================================
+    // NEUE LOGIK: ENDERITE SLOW FALL
+    // =============================================================
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void tickEnderiteEffects(CallbackInfo ci) {
+        if (!this.getEntityWorld().isClient()) {
+            int enderiteCount = 0;
+
+            // Wir iterieren über die 4 Rüstungsslots (36 bis 39)
+            // oder nutzen getEquippedStack(EquipmentSlot) vom LivingEntity (das wir erben!)
+
+            // Variante A: Über getEquippedStack (Sauberer, da wir LivingEntity sind)
+            if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.FEET))) enderiteCount++;
+            if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.LEGS))) enderiteCount++;
+            if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.CHEST))) enderiteCount++;
+            if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.HEAD))) enderiteCount++;
+
+            // Logik: Mindestens 2 Teile UND Spieler fällt UND Leertaste gedrückt
+            if (enderiteCount >= 2 && !this.isOnGround() && this.getVelocity().y < -0.1) {
+                if (this.simplebuilding$isSpacePressed()) {
+                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 2, 0, false, false, false));
+                }
+            }
+        }
+    }
+
+    @Unique
+    private boolean isEnderite(ItemStack stack) {
+        return stack.getItem() == ModItems.ENDERITE_BOOTS ||
+                stack.getItem() == ModItems.ENDERITE_LEGGINGS ||
+                stack.getItem() == ModItems.ENDERITE_CHESTPLATE ||
+                stack.getItem() == ModItems.ENDERITE_HELMET;
+    }
+
+    // =============================================================
+    // BESTEHENDE LOGIK (Strip Miner, Trims, Luck etc.)
+    // =============================================================
 
     @Inject(method = "getBlockBreakingSpeed", at = @At("RETURN"), cancellable = true)
     private void modifyMiningSpeedForStripMiner(BlockState state, CallbackInfoReturnable<Float> cir) {
@@ -124,4 +197,5 @@ public abstract class PlayerEntityMixin implements TrimBenefitUser {
             }
         }
     }
+
 }
