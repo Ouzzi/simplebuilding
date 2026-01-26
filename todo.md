@@ -35,6 +35,7 @@
 ## BUGS:
 - deep pockets too common in loot chests
 
+- astralith, nihilith and enderite ingot as trim material give no effect - add effects later
 
 ### Bugs Later:
 - reinforced bundle - should have same ui as normal bundle!
@@ -272,3 +273,4 @@ auch fähigkeiten mit implementieren und zur rezept seite des smithing tables hi
 
 
 3. neue items: enderite bundel, enderite quiver, enderite apple, enderrite carrot - (like netherite variants)!
+

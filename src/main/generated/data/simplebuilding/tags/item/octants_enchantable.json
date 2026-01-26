@@ -1,21 +1,21 @@
 {
   "values": [
     "simplebuilding:octant",
-    "simplebuilding:octant_blue",
-    "simplebuilding:octant_lime",
     "simplebuilding:octant_light_gray",
-    "simplebuilding:octant_red",
+    "simplebuilding:octant_purple",
     "simplebuilding:octant_cyan",
-    "simplebuilding:octant_magenta",
-    "simplebuilding:octant_orange",
     "simplebuilding:octant_black",
-    "simplebuilding:octant_yellow",
-    "simplebuilding:octant_gray",
-    "simplebuilding:octant_green",
-    "simplebuilding:octant_light_blue",
     "simplebuilding:octant_pink",
-    "simplebuilding:octant_brown",
+    "simplebuilding:octant_blue",
     "simplebuilding:octant_white",
-    "simplebuilding:octant_purple"
+    "simplebuilding:octant_lime",
+    "simplebuilding:octant_gray",
+    "simplebuilding:octant_magenta",
+    "simplebuilding:octant_green",
+    "simplebuilding:octant_brown",
+    "simplebuilding:octant_orange",
+    "simplebuilding:octant_light_blue",
+    "simplebuilding:octant_red",
+    "simplebuilding:octant_yellow"
   ]
 }

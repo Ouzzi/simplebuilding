@@ -71,15 +71,6 @@ public class ModItems {
     // ITEM REGISTRIERUNGEN
     // =================================================================================
 
-    // --- NEW ENDERITE GEAR ---
-    // Enderite Bundle (Voidproof, höhere Kapazität müsste im BundleItem Logik angepasst werden)
-    public static final Item ENDERITE_BUNDLE = registerItem("enderite_bundle",
-            settings -> new ReinforcedBundleItem(settings.maxCount(1).fireproof().rarity(net.minecraft.util.Rarity.EPIC)));
-
-    // Enderite Quiver
-    public static final Item ENDERITE_QUIVER = registerItem("enderite_quiver",
-            settings -> new QuiverItem(settings.maxCount(1).fireproof().rarity(net.minecraft.util.Rarity.EPIC)));
-
 
     // --- BLOCK ITEMS (Automatisch registrieren oder hier manuell) ---
     // Falls du eine Loop hast, gut. Sonst manuell:
@@ -183,6 +174,8 @@ public class ModItems {
     public static final Item NETHERITE_BUNDLE = registerItem("netherite_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1).fireproof().rarity(UNCOMMON)));
     public static final Item QUIVER = registerItem("quiver", settings -> new QuiverItem(settings.maxCount(1)));
     public static final Item NETHERITE_QUIVER = registerItem("netherite_quiver", settings -> new QuiverItem(settings.maxCount(1).fireproof().rarity(UNCOMMON)));
+    public static final Item ENDERITE_BUNDLE = registerItem("enderite_bundle", settings -> new ReinforcedBundleItem(settings.maxCount(1).fireproof().rarity(net.minecraft.util.Rarity.EPIC)));
+    public static final Item ENDERITE_QUIVER = registerItem("enderite_quiver", settings -> new QuiverItem(settings.maxCount(1).fireproof().rarity(net.minecraft.util.Rarity.EPIC)));
 
     // Reinforced Block Items
     // Todo: public static final Item REINFORCED_CHEST = registerItem("reinforced_chest", s -> new BlockItem(ModBlocks.REINFORCED_CHEST, s));

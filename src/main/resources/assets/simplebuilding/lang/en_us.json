@@ -284,7 +284,58 @@
   "item.simplebuilding.basic_upgrade_template.applies_to": "Pickaxe, Axe, Shovel, Hoe, Sword, Hammer, Excavator",
   "item.simplebuilding.basic_upgrade_template.ingredients": "Iron, Gold, Diamond Ingots",
   "item.simplebuilding.basic_upgrade_template.upgrade_description": "Upgrade Tool Tier",
-  "upgrade.simplebuilding.count_based": "Tier Upgrade"
+  "upgrade.simplebuilding.count_based": "Tier Upgrade",
 
+  "block.simplebuilding.polished_end_stone": "Polished End Stone",
+  "block.simplebuilding.purpur_quartz_checker": "Purpur Quartz Checker",
+  "block.simplebuilding.lapis_quartz_checker": "Lapis Quartz Checker",
+  "block.simplebuilding.blackstone_quartz_checker": "Blackstone Quartz Checker",
+  "block.simplebuilding.resin_quartz_checker": "Resin Quartz Checker",
+
+  "block.simplebuilding.astral_purpur_block": "Astral Purpur Block",
+  "block.simplebuilding.nihil_purpur_block": "Nihil Purpur Block",
+  "block.simplebuilding.astral_end_stone": "Astral End Stone",
+  "block.simplebuilding.nihil_end_stone": "Nihil End Stone",
+
+  "block.simplebuilding.suspended_sand": "Suspended Sand",
+  "block.simplebuilding.suspended_gravel": "Suspended Gravel",
+  "block.simplebuilding.levitating_sand": "Levitating Sand",
+  "block.simplebuilding.levitating_gravel": "Levitating Gravel",
+
+  "block.simplebuilding.nihilith_ore": "Nihilith Ore",
+  "block.simplebuilding.astralit_ore": "Astralit Ore",
+
+  "item.simplebuilding.astralit_dust": "Astralit Dust",
+  "item.simplebuilding.nihilith_shard": "Nihilith Shard",
+
+  "item.simplebuilding.raw_enderite": "Raw Enderite",
+  "item.simplebuilding.enderite_scrap": "Enderite Scrap",
+  "item.simplebuilding.enderite_ingot": "Enderite Ingot",
+
+  "item.simplebuilding.enderite_sword": "Enderite Sword",
+  "item.simplebuilding.enderite_shovel": "Enderite Shovel",
+  "item.simplebuilding.enderite_pickaxe": "Enderite Pickaxe",
+  "item.simplebuilding.enderite_axe": "Enderite Axe",
+  "item.simplebuilding.enderite_hoe": "Enderite Hoe",
+
+  "item.simplebuilding.neterite_apple": "Neterite Apple",
+  "item.simplebuilding.enderite_apple": "Enderite Apple",
+  "item.simplebuilding.neterite_carrot": "Neterite Carrot",
+  "item.simplebuilding.enderite_carrot": "Enderite Carrot",
+  "item.simplebuilding.netherite_nugget": "Netherite Nugget",
+
+
+
+  "item.simplebuilding.enderite_helmet": "Enderite Helmet",
+  "item.simplebuilding.enderite_chestplate": "Enderite Chestplate",
+  "item.simplebuilding.enderite_leggings": "Enderite Leggings",
+  "item.simplebuilding.enderite_boots": "Enderite Boots",
+
+  "item.simplebuilding.enderite_upgrade_template": "Enderite Upgrade Template",
+  "upgrade.simplebuilding.enderite_upgrade": "Enderite Upgrade",
+  "item.minecraft.smithing_template.enderite_upgrade.applies_to": "Netherite Equipment",
+  "item.minecraft.smithing_template.enderite_upgrade.ingredients": "Enderite Ingot",
+  "item.minecraft.smithing_template.enderite_upgrade.base_slot_description": "Add netherite armor, weapon or tool",
+  "item.minecraft.smithing_template.enderite_upgrade.additions_slot_description": "Add Enderite Ingot"
 
 }

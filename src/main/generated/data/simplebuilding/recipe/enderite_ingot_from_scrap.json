@@ -3,11 +3,12 @@
   "category": "misc",
   "key": {
     "D": "minecraft:diamond",
+    "N": "minecraft:netherite_ingot",
     "S": "simplebuilding:enderite_scrap"
   },
   "pattern": [
     "SDS",
-    "DSD",
+    "DND",
     "SDS"
   ],
   "result": {

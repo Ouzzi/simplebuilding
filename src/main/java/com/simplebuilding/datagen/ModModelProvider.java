@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
 import net.minecraft.client.data.*;
 import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
@@ -32,10 +33,11 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
 
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.POLISHED_END_STONE);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.PURPUR_QUARTZ_CHECKER);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.LAPIS_QUARTZ_CHECKER);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.BLACKSTONE_QUARTZ_CHECKER);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.RESIN_QUARTZ_CHECKER);
+
+        registerMirroredChecker(blockStateModelGenerator, ModBlocks.PURPUR_QUARTZ_CHECKER);
+        registerMirroredChecker(blockStateModelGenerator, ModBlocks.LAPIS_QUARTZ_CHECKER);
+        registerMirroredChecker(blockStateModelGenerator, ModBlocks.BLACKSTONE_QUARTZ_CHECKER);
+        registerMirroredChecker(blockStateModelGenerator, ModBlocks.RESIN_QUARTZ_CHECKER);
 
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.ASTRAL_PURPUR_BLOCK);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.NIHIL_PURPUR_BLOCK);
@@ -266,5 +268,31 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.ENDERITE_QUIVER, Models.GENERATED);
         itemModelGenerator.register(ModItems.ENDERITE_APPLE, Models.GENERATED);
         itemModelGenerator.register(ModItems.ENDERITE_CARROT, Models.GENERATED);
+    }
+
+    private void registerMirroredChecker(BlockStateModelGenerator generator, Block block) {
+        Identifier blockId = Registries.BLOCK.getId(block);
+        String name = blockId.getPath();
+
+        // Pfad zur normalen Textur: block/blockname
+        Identifier normalTexture = Identifier.of(Simplebuilding.MOD_ID, "block/" + name);
+        // Pfad zur gespiegelten Textur: block/blockname_mirror
+        Identifier mirrorTexture = Identifier.of(Simplebuilding.MOD_ID, "block/" + name + "_mirror");
+
+        // Wir definieren manuell, welche Seite welche Textur bekommt
+        TextureMap textureMap = new TextureMap()
+                .put(TextureKey.PARTICLE, normalTexture)
+                .put(TextureKey.UP, normalTexture)    // Oben: Normal
+                .put(TextureKey.DOWN, normalTexture)  // Unten: Normal
+                .put(TextureKey.EAST, normalTexture)  // Rechts: Normal
+                .put(TextureKey.WEST, normalTexture)  // Links: Normal
+                .put(TextureKey.NORTH, mirrorTexture) // Vorne: Gespiegelt
+                .put(TextureKey.SOUTH, mirrorTexture);// Hinten: Gespiegelt
+
+        // Modell erstellen (CUBE = voller Würfel mit 6 Seiten-Definitionen)
+        Identifier modelId = Models.CUBE.upload(block, textureMap, generator.modelCollector);
+
+        // WICHTIG: Die ID muss in einen WeightedVariant umgewandelt werden!
+        generator.registerAxisRotated(block, BlockStateModelGenerator.createWeightedVariant(modelId));
     }
 }

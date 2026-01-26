@@ -1,6 +1,12 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "all": "simplebuilding:block/purpur_quartz_checker"
+    "down": "simplebuilding:block/purpur_quartz_checker",
+    "east": "simplebuilding:block/purpur_quartz_checker",
+    "north": "simplebuilding:block/purpur_quartz_checker_mirror",
+    "particle": "simplebuilding:block/purpur_quartz_checker",
+    "south": "simplebuilding:block/purpur_quartz_checker_mirror",
+    "up": "simplebuilding:block/purpur_quartz_checker",
+    "west": "simplebuilding:block/purpur_quartz_checker"
   }
 }

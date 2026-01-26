@@ -470,8 +470,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // Hinweis: Du wolltest Diamanten statt Netherite, um Netherite nicht zu entwerten.
                 createShaped(RecipeCategory.MISC, ModItems.ENDERITE_INGOT)
                         .pattern("SDS")
-                        .pattern("DSD")
-                        .pattern("SDS") // Oder SSS / D D / SSS, hier ein Schachbrettmuster
+                        .pattern("DND")
+                        .pattern("SDS")
+                        .input('N', Items.NETHERITE_INGOT)
                         .input('S', ModItems.ENDERITE_SCRAP)
                         .input('D', Items.DIAMOND)
                         .criterion(hasItem(ModItems.ENDERITE_SCRAP), conditionsFromItem(ModItems.ENDERITE_SCRAP))
