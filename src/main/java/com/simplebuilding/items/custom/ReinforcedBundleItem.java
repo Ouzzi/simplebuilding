@@ -46,7 +46,7 @@ public class ReinforcedBundleItem extends BundleItem {
 
     @Override
     public boolean canBeNested() {
-        return false;
+        return true;
     }
 
     // --- Helper für Click Invertierung ---

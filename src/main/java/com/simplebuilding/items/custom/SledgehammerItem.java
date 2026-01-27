@@ -124,8 +124,8 @@ public class SledgehammerItem extends Item {
         // Relativer Hit Vector
         Vec3d relativeHit = context.getHitPos().subtract(Vec3d.of(pos));
 
-        // Wir rufen getTransformationState auf. Die Reverse-Logik (Sneak + Enchant) wird dort geprüft.
-        BlockState transformState = getTransformationState(state, context.getSide(), relativeHit, player, stack);
+        // FIX: pos übergeben
+        BlockState transformState = getTransformationState(state, pos, context.getSide(), relativeHit, player, stack);
 
         if (transformState != null) {
             if (player != null) {
@@ -155,8 +155,8 @@ public class SledgehammerItem extends Item {
             // Relativer Hit Vector berechnen
             Vec3d relativeHit = hitResult.getPos().subtract(Vec3d.of(pos));
 
-            // Transformation abrufen
-            BlockState newState = getTransformationState(state, side, relativeHit, player, stack);
+            // Transformation abrufen (FIX: pos übergeben)
+            BlockState newState = getTransformationState(state, pos, side, relativeHit, player, stack);
 
             if (newState != null) {
                 if (!world.isClient()) {
@@ -219,9 +219,14 @@ public class SledgehammerItem extends Item {
     }
 
     // WICHTIG: Diese Methode muss PUBLIC sein für das Mixin!
-    public BlockState getTransformationState(BlockState state, Direction side, Vec3d hit, PlayerEntity player, ItemStack stack) {
+    // FIX: Parameter BlockPos pos hinzugefügt
+    public BlockState getTransformationState(BlockState state, BlockPos pos, Direction side, Vec3d hit, PlayerEntity player, ItemStack stack) {
         Block block = state.getBlock();
         World world = player.getEntityWorld();
+
+        if (world == null) {
+            return null;
+        }
 
         // STRIKTE TRENNUNG:
         if (player.isSneaking()) {
@@ -265,7 +270,8 @@ public class SledgehammerItem extends Item {
             // === NICHT SNEAKING = FORWARD ===
 
             // 1. Block -> Stairs
-            if (state.isFullCube(null, null)) {
+            // FIX: world und pos an isFullCube übergeben, statt null
+            if (state.isFullCube(world, pos)) {
                 String id = net.minecraft.registry.Registries.BLOCK.getId(block).getPath();
                 Optional<Block> stairs = net.minecraft.registry.Registries.BLOCK.getOptionalValue(
                         net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), id + "_stairs")

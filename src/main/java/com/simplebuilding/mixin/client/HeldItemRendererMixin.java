@@ -75,6 +75,7 @@ public class HeldItemRendererMixin {
                     net.minecraft.util.math.Vec3d relativeHit = blockHit.getPos().subtract(net.minecraft.util.math.Vec3d.of(blockHit.getBlockPos()));
                     if (sledgehammerItem.getTransformationState(
                             this.client.world.getBlockState(blockHit.getBlockPos()),
+                            blockHit.getBlockPos(), // FIX: Position übergeben
                             blockHit.getSide(),
                             relativeHit,
                             (PlayerEntity)player,
