@@ -3,9 +3,21 @@
   "package": "com.simplebuilding.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "WorldRendererMixin",
     "BundleTooltipComponentMixin",
-    "ClientSpeedometerMixin"
+    "ClientSpeedometerMixin",
+    "EquipmentRendererMixin",
+    "ItemMixin",
+    "WorldRendererMixin"
   ],
-  "injectors": { "defaultRequire": 1 }
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "HandledScreenMixin",
+    "HeldItemRendererMixin",
+    "ItemFrameEntityRendererMixin",
+    "MinecraftClientMixin",
+    "MouseMixin",
+    "SmithingScreenMixin"
+  ]
 }

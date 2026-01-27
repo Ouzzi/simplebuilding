@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cracked_diamond_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:cracked_diamond_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplebuilding:cracked_diamond_from_cracked_diamond_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cracked_diamond_block"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:cracked_diamond_from_cracked_diamond_block"
+    ]
+  }
+}

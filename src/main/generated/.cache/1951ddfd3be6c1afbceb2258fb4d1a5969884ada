@@ -1,0 +1,5 @@
+// 1.21.11	-999999999-01-01T00:00:00	simplebuilding/Tags for minecraft:block
+b71607210795b1a622b0572b5b9b868df013a259 data/minecraft/tags/block/beacon_base_blocks.json
+7bcadb858d2a2aed0e96f58ad20937b422212afe data/minecraft/tags/block/mineable/pickaxe.json
+df7184ff2ecd4d596ec021d7fea5df1702349c54 data/minecraft/tags/block/needs_diamond_tool.json
+4629c17ec76ec87270c64bfafa799b89b11cc9b8 data/minecraft/tags/block/needs_iron_tool.json

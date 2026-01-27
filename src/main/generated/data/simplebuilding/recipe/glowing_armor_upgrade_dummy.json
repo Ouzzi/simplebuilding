@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:glow_ink_sac",
+  "base": "#minecraft:trimmable_armor",
+  "result": {
+    "id": "simplebuilding:glowing_trim_template"
+  },
+  "template": "#minecraft:trim_templates"
+}

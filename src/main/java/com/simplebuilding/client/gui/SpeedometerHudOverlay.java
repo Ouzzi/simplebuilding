@@ -65,8 +65,17 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
         double velY = client.player.getVelocity().y;
         double velZ = client.player.getVelocity().z;
 
+        // FIX: Wenn der Spieler auf dem Boden steht, ignorieren wir die vertikale Schwerkraft.
+        // Sonst wird permanent ca. 1.6 b/s angezeigt.
+        if (client.player.isOnGround()) {
+            velY = 0;
+        }
+
         double speedPerTick = Math.sqrt(velX * velX + velY * velY + velZ * velZ);
         double speedBps = speedPerTick * 20.0; // Blocks per Second
+
+        // Rundungsfehler bei sehr kleinen Werten filtern (z.B. 0.00001 b/s beim Stehenbleiben)
+        if (speedBps < 0.05) speedBps = 0.0;
 
         if (speedBps > topSpeed) topSpeed = speedBps;
         if (speedBps > 0.1) {
@@ -151,14 +160,12 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
 
         // POSITIONIERUNG ANPASSEN
         if (hasOctant) {
-            // Wenn Octant da ist, rutschen wir ein Stück runter
-            // Nicht zu tief, damit sie schön untereinander kleben
             y += 35;
         }
 
         // Draw Box
         context.fill(x + 1, y + 1, x + boxWidth - 1, y + boxHeight - 1, BACKGROUND_COLOR);
-        context.fill(x + 1, y, x + boxWidth - 1, y + 1, BACKGROUND_COLOR); // Top fix
+        context.fill(x + 1, y, x + boxWidth - 1, y + 1, BACKGROUND_COLOR);
 
         // Borders
         context.fill(x + 1, y - 1, x + boxWidth - 1, y, BACKGROUND_COLOR);

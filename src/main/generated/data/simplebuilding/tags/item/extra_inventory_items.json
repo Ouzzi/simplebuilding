@@ -2,6 +2,8 @@
   "values": [
     "#simplebuilding:building_wand_enchantable",
     "simplebuilding:reinforced_bundle",
-    "simplebuilding:netherite_bundle"
+    "simplebuilding:netherite_bundle",
+    "simplebuilding:quiver",
+    "simplebuilding:netherite_quiver"
   ]
 }

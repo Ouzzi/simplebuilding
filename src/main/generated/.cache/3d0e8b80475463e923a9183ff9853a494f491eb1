@@ -1,0 +1,5 @@
+// 1.21.11	-999999999-01-01T00:00:00	simplebuilding/simplebuilding World Generator
+23736a623ef90826a90d4d3a30f82269aa5bb7ad data/simplebuilding/worldgen/configured_feature/astralit_ore.json
+67e01de39519fb98496e3ef749df784c2991fc78 data/simplebuilding/worldgen/configured_feature/nihilith_ore.json
+60e33ba5e0d93c914763f3bf779d74421282aff8 data/simplebuilding/worldgen/placed_feature/astralit_ore_placed.json
+08b5f57f76fc010821f55705c12d7b38b04e8af0 data/simplebuilding/worldgen/placed_feature/nihilith_ore_placed.json

@@ -1,0 +1,11 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:iron_ingot",
+  "addition_count": 4,
+  "base": "minecraft:stone_pickaxe",
+  "result": {
+    "count": 1,
+    "id": "minecraft:iron_pickaxe"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

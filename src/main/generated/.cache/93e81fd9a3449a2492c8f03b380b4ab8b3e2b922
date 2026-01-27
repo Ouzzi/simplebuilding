@@ -1,7 +1,7 @@
-// 1.21.10	-999999999-01-01T00:00:00	simplebuilding/Tags for minecraft:enchantment
+// 1.21.11	-999999999-01-01T00:00:00	simplebuilding/Tags for minecraft:enchantment
 69d4e2e0a8bd89b827a1930b3b7bf61b1351498b data/simplebuilding/tags/enchantment/exclusive_set/break_through_group.json
-12ccd0d20778285e450ad5b87796696fbedcf252 data/simplebuilding/tags/enchantment/exclusive_set/builder_group.json
+2c926871fd0f0a2797c0b6608f7784bda663990c data/simplebuilding/tags/enchantment/exclusive_set/builder_group.json
 e83f79de8fd2290c9a10589c7ec3df0b8de5db12 data/simplebuilding/tags/enchantment/exclusive_set/cover_group.json
-43983bc6dac3a9b8dfe8f6dfcb51a3f9082414b2 data/simplebuilding/tags/enchantment/exclusive_set/quiver_group.json
+45f3089608c031c146dcde9582000fc5ff17cff2 data/simplebuilding/tags/enchantment/exclusive_set/mining.json
 9de56ca7c820906c6ac96319f2908c6f057b6007 data/simplebuilding/tags/enchantment/exclusive_set/radius_group.json
 b958e1f74d53ee741351b91782ae6f832187cb0e data/simplebuilding/tags/enchantment/exclusive_set/wand_modifier_group.json

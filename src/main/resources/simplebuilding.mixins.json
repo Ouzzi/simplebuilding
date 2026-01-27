@@ -4,14 +4,27 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AnvilScreenHandlerMixin",
+    "BlockAttachedEntityTickMixin",
     "BowItemMixin",
+    "BrushItemMixin",
+    "EnderiteItemMixin",
+    "EndermanSpawnMixin",
+    "HostileEntityMixin",
     "ItemEntityMixin",
-    "PlayerEntityMixin"
+    "ItemFrameEntityMixin",
+    "LivingEntityMixin",
+    "PistonBlockMixin",
+    "PistonHandlerMixin",
+    "PistonHeadBlockMixin",
+    "PlayerEntityMixin",
+    "SmithingScreenHandlerMixin",
+    "SurvivalTracerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "overwrites": {
     "requireAnnotations": true
-	}
+  }
 }
+

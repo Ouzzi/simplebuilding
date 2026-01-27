@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "D": "simplebuilding:cracked_diamond",
+    "I": "minecraft:iron_ingot",
+    "P": "minecraft:piston"
+  },
+  "pattern": [
+    "DDD",
+    "PPP",
+    "III"
+  ],
+  "result": {
+    "count": 3,
+    "id": "simplebuilding:reinforced_piston"
+  }
+}

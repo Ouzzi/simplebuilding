@@ -6,8 +6,11 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -48,6 +51,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ItemTags.DURABILITY_ENCHANTABLE)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .addTag(ModTags.Items.OCTANTS_ENCHANTABLE)
+                .add(ModItems.ORE_DETECTOR)
+                .add(ModItems.ROTATOR)
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
 
@@ -62,19 +67,29 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         valueLookupBuilder(ModTags.Items.BUNDLE_ENCHANTABLE)
                 .add(ModItems.REINFORCED_BUNDLE)
-                .add(ModItems.NETHERITE_BUNDLE);
+                .add(ModItems.NETHERITE_BUNDLE)
+                .add(ModItems.QUIVER)
+                .add(ModItems.NETHERITE_QUIVER);
 
         valueLookupBuilder(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE)
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .add(ModItems.REINFORCED_BUNDLE)
-                .add(ModItems.NETHERITE_BUNDLE);
+                .add(ModItems.NETHERITE_BUNDLE)
+                .add(ModItems.QUIVER)
+                .add(ModItems.NETHERITE_QUIVER);
 
         valueLookupBuilder(ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE)
                 .add(ModItems.REINFORCED_BUNDLE)
                 .add(ModItems.NETHERITE_BUNDLE)
+                .add(ModItems.QUIVER)
+                .add(ModItems.NETHERITE_QUIVER)
                 .add(Items.SHULKER_BOX)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
+                .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
+                .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .add(ModItems.VELOCITY_GAUGE)
+                .add(ModItems.ORE_DETECTOR)
+                .add(ModItems.MAGNET)
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(Items.STICK);
 
@@ -92,5 +107,25 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLD_BUILDING_WAND)
                 .add(ModItems.DIAMOND_BUILDING_WAND)
                 .add(ModItems.NETHERITE_BUILDING_WAND);
+
+        valueLookupBuilder(ModTags.Items.VEINMINE_ENCHANTABLE)
+                .forceAddTag(ItemTags.PICKAXES)
+                .forceAddTag(ItemTags.AXES);
+
+        TagKey<Item> TRIM_TEMPLATES = TagKey.of(RegistryKeys.ITEM, Identifier.ofVanilla("trim_templates"));
+
+        valueLookupBuilder(TRIM_TEMPLATES)
+                .add(ModItems.GLOWING_TRIM_TEMPLATE)
+                .add(ModItems.EMITTING_TRIM_TEMPLATE);
+
+        // Optional: Damit der Leuchtbeutel generell als "Trim Material" erkannt wird (hilft bei der GUI-Validierung)
+        valueLookupBuilder(ItemTags.TRIM_MATERIALS)
+                .add(ModItems.ASTRALIT_DUST)
+                .add(ModItems.NIHILITH_SHARD)
+                .add(ModItems.ENDERITE_INGOT)
+                .add(Items.GLOW_INK_SAC)
+                .add(Items.GLOWSTONE_DUST);
+
+
     }
 }

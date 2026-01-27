@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "simplebuilding:block/lapis_quartz_checker",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "simplebuilding:block/lapis_quartz_checker"
+    },
+    "axis=z": {
+      "model": "simplebuilding:block/lapis_quartz_checker",
+      "x": 90
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:cobblestone",
+  "addition_count": 2,
+  "base": "minecraft:wooden_shovel",
+  "result": {
+    "count": 1,
+    "id": "minecraft:stone_shovel"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

@@ -1,0 +1,22 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "simplebuilding:enchant_type",
+    "cases": [
+      { "when": "vein_miner", "model": { "type": "minecraft:model", "model": "simplebuilding:item/enchanted_book_vein_miner" } },
+      { "when": "deep_pockets", "model": { "type": "minecraft:model", "model": "simplebuilding:item/enchanted_book_deep_pockets" } },
+      { "when": "strip_miner", "model": { "type": "minecraft:model", "model": "simplebuilding:item/enchanted_book_strip_miner" } },
+      { "when": "versatility", "model": { "type": "minecraft:model", "model": "simplebuilding:item/enchanted_book_versatility" } },
+      { "when": "drawer", "model": { "type": "minecraft:model", "model": "simplebuilding:item/enchanted_book_drawer" } },
+      { "when": "kinetic_protection", "model": { "type": "minecraft:model", "model": "simplebuilding:item/enchanted_book_kinetic_protection" } },
+      { "when": "double_jump", "model": { "type": "minecraft:model", "model": "simplebuilding:item/enchanted_book_double_jump" } },
+      { "when": "override", "model": { "type": "minecraft:model", "model": "simplebuilding:item/enchanted_book_override" } },
+      { "when": "funnel", "model": { "type": "minecraft:model", "model": "simplebuilding:item/enchanted_book_funnel" } },
+      { "when": "range", "model": { "type": "minecraft:model", "model": "simplebuilding:item/enchanted_book_range" } }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "minecraft:item/enchanted_book"
+    }
+  }
+}

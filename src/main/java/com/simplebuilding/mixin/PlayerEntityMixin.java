@@ -1,47 +1,117 @@
 package com.simplebuilding.mixin;
 
 import com.simplebuilding.enchantment.ModEnchantments;
-import com.simplebuilding.items.custom.ReinforcedBundleItem;
-import com.simplebuilding.util.BundleUtil; // Import!
+import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.ISpaceKeyTracker;
+import com.simplebuilding.util.TrimBenefitUser;
+import com.simplebuilding.util.TrimEffectUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin {
+public abstract class PlayerEntityMixin extends LivingEntity implements TrimBenefitUser, ISpaceKeyTracker {
 
-    @Shadow public abstract PlayerInventory getInventory();
+    // Konstruktor ist notwendig, da wir von LivingEntity erben
+    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
+    }
 
-    @Inject(method = "getProjectileType", at = @At("HEAD"), cancellable = true)
-    private void getProjectileTypeFromBundle(ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
-        if (!(stack.getItem() instanceof net.minecraft.item.BowItem)) return;
+    // =============================================================
+    // FELDER
+    // =============================================================
 
-        PlayerEntity player = (PlayerEntity) (Object) this;
+    @Unique
+    private boolean simplebuilding$trimBenefitsEnabled = true;
 
-        for (int i = 0; i < player.getInventory().size(); i++) {
-            ItemStack slotStack = player.getInventory().getStack(i);
+    @Unique
+    private boolean simplebuilding$spacePressed = false;
 
-            if (slotStack.getItem() instanceof ReinforcedBundleItem) {
-                if (hasQuiverEnchantment(slotStack, player)) {
-                    ItemStack arrowStack = BundleUtil.findArrow(slotStack);
-                    if (!arrowStack.isEmpty()) {
-                        cir.setReturnValue(arrowStack.copy());
-                        return;
-                    }
+    @Shadow
+    public abstract PlayerInventory getInventory();
+
+    // =============================================================
+    // INTERFACE IMPLEMENTIERUNGEN
+    // =============================================================
+
+    // --- TrimBenefitUser ---
+    @Override
+    public boolean simplebuilding$areTrimBenefitsEnabled() {
+        return this.simplebuilding$trimBenefitsEnabled;
+    }
+
+    @Override
+    public void simplebuilding$setTrimBenefitsEnabled(boolean enabled) {
+        this.simplebuilding$trimBenefitsEnabled = enabled;
+    }
+
+    // --- ISpaceKeyTracker (NEU) ---
+    @Override
+    public boolean simplebuilding$isSpacePressed() {
+        return this.simplebuilding$spacePressed;
+    }
+
+    @Override
+    public void simplebuilding$setSpacePressed(boolean pressed) {
+        this.simplebuilding$spacePressed = pressed;
+    }
+
+    // =============================================================
+    // NEUE LOGIK: ENDERITE SLOW FALL
+    // =============================================================
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void tickEnderiteEffects(CallbackInfo ci) {
+        if (!this.getEntityWorld().isClient()) {
+            int enderiteCount = 0;
+
+            // Wir iterieren über die 4 Rüstungsslots (36 bis 39)
+            // oder nutzen getEquippedStack(EquipmentSlot) vom LivingEntity (das wir erben!)
+
+            // Variante A: Über getEquippedStack (Sauberer, da wir LivingEntity sind)
+            if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.FEET))) enderiteCount++;
+            if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.LEGS))) enderiteCount++;
+            if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.CHEST))) enderiteCount++;
+            if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.HEAD))) enderiteCount++;
+
+            // Logik: Mindestens 2 Teile UND Spieler fällt UND Leertaste gedrückt
+            if (enderiteCount >= 2 && !this.isOnGround() && this.getVelocity().y < -0.1) {
+                if (this.simplebuilding$isSpacePressed()) {
+                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 2, 0, false, false, false));
                 }
             }
         }
     }
+
+    @Unique
+    private boolean isEnderite(ItemStack stack) {
+        return stack.getItem() == ModItems.ENDERITE_BOOTS ||
+                stack.getItem() == ModItems.ENDERITE_LEGGINGS ||
+                stack.getItem() == ModItems.ENDERITE_CHESTPLATE ||
+                stack.getItem() == ModItems.ENDERITE_HELMET;
+    }
+
+    // =============================================================
+    // BESTEHENDE LOGIK (Strip Miner, Trims, Luck etc.)
+    // =============================================================
+
     @Inject(method = "getBlockBreakingSpeed", at = @At("RETURN"), cancellable = true)
     private void modifyMiningSpeedForStripMiner(BlockState state, CallbackInfoReturnable<Float> cir) {
         PlayerEntity player = (PlayerEntity) (Object) this;
@@ -78,11 +148,54 @@ public abstract class PlayerEntityMixin {
         }
     }
 
-    @Unique
-    private boolean hasQuiverEnchantment(ItemStack stack, PlayerEntity player) {
-        var registry = player.getEntityWorld().getRegistryManager();
-        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var quiver = enchantments.getOptional(ModEnchantments.QUIVER);
-        return quiver.isPresent() && EnchantmentHelper.getLevel(quiver.get(), stack) > 0;
+    // --- HUNGER / EXHAUSTION ---
+    @ModifyVariable(method = "addExhaustion", at = @At("HEAD"), argsOnly = true)
+    private float simplebuilding$reduceExhaustion(float exhaustion) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+        if (player.isSprinting()) {
+            // Nutzt jetzt den zentralen Rechner mit Multiplikator
+            float reductionPct = TrimEffectUtil.getExhaustionReduction(player);
+            if (reductionPct > 0) {
+                return exhaustion * (1.0f - reductionPct);
+            }
+        }
+        return exhaustion;
     }
+
+    // --- XP BOOST ---
+    @ModifyVariable(method = "addExperience", at = @At("HEAD"), argsOnly = true)
+    private int simplebuilding$modifyXpGain(int experience) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+        if (experience <= 0) return experience;
+
+        float multiplier = TrimEffectUtil.getXPMultiplier(player);
+        if (multiplier > 1.0f) {
+            return Math.round(experience * multiplier);
+        }
+        return experience;
+    }
+
+    // --- LUCK ---
+    @Inject(method = "getLuck", at = @At("RETURN"), cancellable = true)
+    private void simplebuilding$modifyLuck(CallbackInfoReturnable<Float> cir) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+        float bonus = TrimEffectUtil.getLuckBonus(player);
+        if (bonus > 0) {
+            cir.setReturnValue(cir.getReturnValue() + bonus);
+        }
+    }
+
+    // --- MOVEMENT SPEED (Bolt / Redstone) ---
+    @Inject(method = "getMovementSpeed", at = @At("RETURN"), cancellable = true)
+    private void simplebuilding$modifyWalkSpeed(CallbackInfoReturnable<Float> cir) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+        // Nur an Land anwenden, Schwimmen ist separat im LivingEntityMixin
+        if (!player.isSwimming() && !player.isGliding()) {
+            float mult = TrimEffectUtil.getLandSpeedMultiplier(player);
+            if (mult > 1.0f) {
+                cir.setReturnValue(cir.getReturnValue() * mult);
+            }
+        }
+    }
+
 }

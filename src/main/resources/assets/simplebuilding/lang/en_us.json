@@ -1,5 +1,4 @@
 {
-
   "item.simplebuilding.stone_chisel": "Stone Chisel",
   "item.simplebuilding.copper_chisel": "Copper Chisel",
   "item.simplebuilding.iron_chisel": "Iron Chisel",
@@ -8,7 +7,7 @@
   "item.simplebuilding.netherite_chisel": "Netherite Chisel",
 
   "tooltip.simplebuilding.chisel": "Use to shape blocks.",
-  "tooltip.simplebuilding.chisel.shift_down": "Right-click on a transformable block.",
+  "tooltip.simplebuilding.chisel.shift_down": "Right-click on a transformable block. Sneak to reverse.",
 
   "item.simplebuilding.stone_spatula": "Stone Spatula",
   "item.simplebuilding.copper_spatula": "Copper Spatula",
@@ -26,6 +25,9 @@
   "item.simplebuilding.diamond_core": "Diamond Core",
   "item.simplebuilding.netherite_core": "Netherite Core",
 
+  "item.simplebuilding.rotator": "Rotator",
+  "tooltip.simplebuilding.rotator": "Use to rotate blocks.",
+
   "item.simplebuilding.copper_building_wand": "Copper Building Wand",
   "item.simplebuilding.iron_building_wand": "Iron Building Wand",
   "item.simplebuilding.gold_building_wand": "Gold Building Wand",
@@ -34,17 +36,15 @@
   "tooltip.simplebuilding.building_wand.size": "Places a %s x %s area of blocks.",
   "tooltip.simplebuilding.building_wand.line_size": "Places a line of %s blocks.",
 
-
   "item.simplebuilding.sledgehammer": "Sledgehammer",
   "item.simplebuilding.stone_sledgehammer": "Stone Sledgehammer",
-    "item.simplebuilding.copper_sledgehammer": "Copper Sledgehammer",
-    "item.simplebuilding.iron_sledgehammer": "Iron Sledgehammer",
-    "item.simplebuilding.gold_sledgehammer": "Gold Sledgehammer",
-    "item.simplebuilding.diamond_sledgehammer": "Diamond Sledgehammer",
-    "item.simplebuilding.netherite_sledgehammer": "Netherite Sledgehammer",
+  "item.simplebuilding.copper_sledgehammer": "Copper Sledgehammer",
+  "item.simplebuilding.iron_sledgehammer": "Iron Sledgehammer",
+  "item.simplebuilding.gold_sledgehammer": "Gold Sledgehammer",
+  "item.simplebuilding.diamond_sledgehammer": "Diamond Sledgehammer",
+  "item.simplebuilding.netherite_sledgehammer": "Netherite Sledgehammer",
 
-    "tooltip.simplebuilding.sledgehammer": "Use to break multiple blocks at once.",
-
+  "tooltip.simplebuilding.sledgehammer": "Use to break multiple blocks at once.",
   "tooltip.simplebuilding.building_wand": "Use to place more blocks at once.",
 
   "message.simplebuilding.set_pos1_first": "1:",
@@ -69,10 +69,24 @@
   "item.simplebuilding.octant_red": "Red Octant",
   "item.simplebuilding.octant_black": "Black Octant",
 
+  "item.simplebuilding.ore_detector": "Ore Detector",
+  "tooltip.simplebuilding.ore_detector": "Detects nearby ores and minerals.",
+
   "item.simplebuilding.reinforced_bundle": "Reinforced Bundle",
   "tooltip.simplebuilding.reinforced_bundle": "Can hold more items if enchanted.",
   "item.simplebuilding.netherite_bundle": "Netherite Bundle",
   "tooltip.simplebuilding.netherite_bundle": "Can hold even more items if enchanted.",
+
+  "item.simplebuilding.quiver": "Quiver",
+  "tooltip.simplebuilding.quiver": "Holds arrows. Works in Offhand or Chest slot.",
+  "item.simplebuilding.netherite_quiver": "Netherite Quiver",
+  "tooltip.simplebuilding.netherite_quiver": "Holds more arrows. Works in Offhand or Chest slot.",
+
+  "item.simplebuilding.magnet": "Magnet",
+  "tooltip.simplebuilding.magnet.filtering": "Filtering: %s",
+  "tooltip.simplebuilding.magnet.no_filter": "No Filter active",
+  "tooltip.simplebuilding.magnet.clear": "Sneak + Right Click to clear filter",
+  "tooltip.simplebuilding.magnet.hand": "Works in Mainhand or Offhand",
 
   "item.simplebuilding.velocity-gauge": "Velocity Gauge",
   "tooltip.simplebuilding.velocity-gauge.tooltip": "Shows the current speed of the player.",
@@ -84,25 +98,39 @@
   "enchantment.simplebuilding.range": "Range",
 
   "enchantment.simplebuilding.deep_pockets": "Deep Pockets",
+  "enchantment.simplebuilding.deep_pockets.description": "Increases the capacity of bundles.",
   "enchantment.simplebuilding.master_builder": "Master Builder",
-  "enchantment.simplebuilding.color_palette": "Color Palette",
+  "enchantment.simplebuilding.master_builder.description": "Places blocks directly from your bundle.",
   "enchantment.simplebuilding.funnel": "Funnel",
-  "enchantment.simplebuilding.quiver": "Quiver",
-  "enchantment.simplebuilding.break_through": "Break Through",
+  "enchantment.simplebuilding.funnel.description": "Automatically funnels items into your bundle.",
   "enchantment.simplebuilding.override": "Override",
+  "enchantment.simplebuilding.override.description": "Allows mining of blocks which are normally not supported by the sledgehammer.",
   "enchantment.simplebuilding.radius": "Radius",
+  "enchantment.simplebuilding.radius.description": "Increases the area of effect for sledgehammers.",
   "enchantment.simplebuilding.strip_miner": "Strip Miner",
+  "enchantment.simplebuilding.strip_miner.description": "Mines a tunnel when sneaking.",
+  "enchantment.simplebuilding.vein_miner": "Vein Miner",
+  "enchantment.simplebuilding.vein_miner.description": "Mines all connected ores of the same type when sneaking.",
+  "enchantment.simplebuilding.kinetic_protection": "Kinetic Protection",
+  "enchantment.simplebuilding.kinetic_protection.description": "Reduces kinetic damage.",
   "enchantment.simplebuilding.cover": "Cover",
+  "enchantment.simplebuilding.cover.description": "Places blocks on the surface you're looking at.",
   "enchantment.simplebuilding.bridge": "Bridge",
+  "enchantment.simplebuilding.bridge.description": "Places blocks in front of you.",
   "enchantment.simplebuilding.linear": "Linear",
-  "enchantment.simplebuilding.tailwind": "Tailwind",
-  "enchantment.simplebuilding.tailwind.description": "Increases the speed of ridden mobs.",
-  "enchantment.simplebuilding.leaping": "Leaping",
-  "enchantment.simplebuilding.leaping.description": "Increases the jump height of ridden horses.",
-  "enchantment.simplebuilding.double_jump": "Double Jump",
+  "enchantment.simplebuilding.linear.description": "Places blocks in a straight line when sneaking.",
+  "enchantment.simplebuilding.drawer": "Drawer",
+  "enchantment.simplebuilding.drawer.description": "Increases the storage capacity of chests and bundles, but locks to the specific item.",
+  "enchantment.simplebuilding.versatility": "Versatility",
+  "enchantment.simplebuilding.versatility.description": "When sneaking, switches to best tool for the job.",
+
+  "enchantment.simplebuilding.break_through": "Break Through",
+  "enchantment.simplebuilding.break_through.description": "Allows the sledgehammer to break a second layer of blocks.",
+  "enchantment.simplebuilding.color_palette": "Color Palette",
+  "enchantment.simplebuilding.color_palette.description": "Randomizes block placement.",
+  "enchantment.simplebuilding.double_jump": "Air Jump",
   "enchantment.simplebuilding.double_jump.description": "Allows the player to perform an additional jump.",
 
-  
   "container.enchantments": "Enchantments",
   "enchantment.level.1": "I",
   "enchantment.level.2": "II",
@@ -113,26 +141,201 @@
   "text.autoconfig.simplebuilding.option.tools": "Tool Settings",
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak": "Invert Octant Sneak",
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak.@Tooltip": "If true, the Octant renders the filled area when NOT sneaking (with Constructor's Touch).",
+  "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity": "Building Wand Highlight Opacity",
+  "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity.@Tooltip": "Opacity of the Building Wand block highlight (0.0 - 1.0).",
+
+  "text.autoconfig.simplebuilding.option.tools.enableToolAnimations": "Enable Tool Animations",
+  "text.autoconfig.simplebuilding.option.tools.enableToolAnimations.@Tooltip": "Toggles custom tool animations like the Chisel rotation.",
+  "text.autoconfig.simplebuilding.option.tools.enableChiselAnimation": "Enable Chisel Animation",
+  "text.autoconfig.simplebuilding.option.tools.enableChiselAnimation.@Tooltip": "Specific toggle for the Chisel visual feedback.",
 
   "text.autoconfig.simplebuilding.option.worldGen": "World Generation & Economy",
   "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades": "Enable Villager Trades",
+  "text.autoconfig.simplebuilding.option.worldGen.enableVillagerTrades.@Tooltip": "Add chisel and building wand trades to villagers.",
   "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades": "Enable Wandering Trader",
+  "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades.@Tooltip": "Add chisel and building wand trades to wandering traders.",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges": "Enable Loot Chests",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.@Tooltip": "Add items to dungeon/structure chests.",
 
-  "text.autoconfig.simplebuilding.option.enchantments": "Enchantment Balancing",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide": "Swift Ride Settings",
+  "text.autoconfig.simplebuilding.option.tools.buildingHighlightOpacity": "Building Wand Highlight Opacity",
 
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier": "Ghast Speed Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.ghastSpeedMultiplier.@Tooltip": "Speed multiplier per enchantment level for Happy Ghasts (Default: 0.40).",
+  "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions": "Invert Bundle Interactions",
+  "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions.@Tooltip": "If true sneaking while using bundles will perform the opposite action (insert vs extract).",
 
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier": "Horse Speed Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.horseSpeedMultiplier.@Tooltip": "Speed multiplier per enchantment level for Horses (Default: 0.12).",
+  "text.autoconfig.simplebuilding.option.enableDoubleJump": "Enable Double Jump Enchantment",
+  "text.autoconfig.simplebuilding.option.enableDoubleJump.@Tooltip": "Toggles the Double Jump enchantment functionality.",
 
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier": "Other Mob Speed Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.swiftRide.otherSpeedMultiplier.@Tooltip": "Speed multiplier per enchantment level for Pigs/Striders (Default: 0.15).",
+  "block.simplebuilding.reinforced_chest": "Reinforced Chest",
+  "item.simplebuilding.reinforced_chest": "Reinforced Chest",
+  "block.simplebuilding.netherite_chest": "Netherite Chest",
+  "item.simplebuilding.netherite_chest": "Netherite Chest",
 
-  "text.autoconfig.simplebuilding.option.enchantments.horseJump": "Horse Jump Settings",
-  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier": "Jump Strength Boost",
-  "text.autoconfig.simplebuilding.option.enchantments.horseJump.jumpStrengthMultiplier.@Tooltip": "Jump strength multiplier per enchantment level on horse armor (Default: 0.20)."
+  "block.simplebuilding.reinforced_hopper": "Reinforced Hopper",
+  "item.simplebuilding.reinforced_hopper": "Reinforced Hopper",
+  "block.simplebuilding.netherite_hopper": "Netherite Hopper",
+  "item.simplebuilding.netherite_hopper": "Netherite Hopper",
+
+  "block.simplebuilding.reinforced_piston": "Reinforced Piston",
+  "item.simplebuilding.reinforced_piston": "Reinforced Piston",
+  "block.simplebuilding.netherite_piston": "Netherite Piston",
+  "item.simplebuilding.netherite_piston": "Netherite Piston",
+  "tooltip.simplebuilding.netherite_piston": "Breaks blocks based on Redstone strength (1-15).",
+
+  "block.simplebuilding.reinforced_blast_furnace": "Reinforced Blast Furnace",
+  "container.simplebuilding.reinforced_blast_furnace": "Reinforced Blast Furnace",
+  "item.simplebuilding.reinforced_blast_furnace": "Reinforced Blast Furnace",
+  "container.simplebuilding.netherite_blast_furnace": "Netherite Blast Furnace",
+  "block.simplebuilding.netherite_blast_furnace": "Netherite Blast Furnace",
+  "item.simplebuilding.netherite_blast_furnace": "Netherite Blast Furnace",
+
+  "block.simplebuilding.reinforced_furnace": "Reinforced Furnace",
+  "container.simplebuilding.reinforced_furnace": "Reinforced Furnace",
+  "item.simplebuilding.reinforced_furnace": "Reinforced Furnace",
+  "container.simplebuilding.netherite_furnace": "Netherite Furnace",
+  "block.simplebuilding.netherite_furnace": "Netherite Furnace",
+  "item.simplebuilding.netherite_furnace": "Netherite Furnace",
+
+  "block.simplebuilding.reinforced_smoker": "Reinforced Smoker",
+  "container.simplebuilding.reinforced_smoker": "Reinforced Smoker",
+  "item.simplebuilding.reinforced_smoker": "Reinforced Smoker",
+  "container.simplebuilding.netherite_smoker": "Netherite Smoker",
+  "block.simplebuilding.netherite_smoker": "Netherite Smoker",
+  "item.simplebuilding.netherite_smoker": "Netherite Smoker",
+
+  "item.simplebuilding.construction_light": "Construction Light",
+  "block.simplebuilding.construction_light": "Construction Light",
+
+  "item.simplebuilding.diamond_pebble": "Diamond Pebble",
+  "item.simplebuilding.cracked_diamond": "Cracked Diamond",
+  "item.simplebuilding.cracked_diamond_block": "Cracked Diamond Block",
+  "block.simplebuilding.cracked_diamond_block": "Cracked Diamond Block",
+
+  "trim_pattern.simplebuilding.glowing": "Glowing Trim",
+  "upgrade.simplebuilding.glowing_upgrade": "Glowing Armor Upgrade",
+  "item.minecraft.smithing_template.glowing_trim_template.applies_to": "Armor",
+  "item.minecraft.smithing_template.glowing_trim_template.ingredients": "Glow Ink Sac",
+  "item.minecraft.smithing_template.glowing_trim_template.base_slot_description": "Add armor",
+  "item.minecraft.smithing_template.glowing_trim_template.additions_slot_description": "Add Glow Ink Sac",
+
+  "simplebuilding.gui.title": "Octant Manager",
+  "simplebuilding.gui.locked": "§c\uD83D\uDD12",
+  "simplebuilding.gui.unlocked": "§a\uD83D\uDD13",
+  "simplebuilding.gui.pos1": "Start (1)",
+  "simplebuilding.gui.pos2": "End (2)",
+  "simplebuilding.gui.size": "Size",
+  "simplebuilding.gui.close": "Done",
+  "simplebuilding.gui.shape": "Shape: %s",
+  "simplebuilding.gui.orientation": "Axis: %s",
+  "simplebuilding.gui.hollow": "Hollow: %s",
+  "simplebuilding.gui.layer": "Layer Mode: %s",
+  "simplebuilding.gui.order": "Order: %s",
+
+  "simplebuilding.shape.cuboid": "Cuboid",
+  "simplebuilding.shape.cylinder": "Cylinder",
+  "simplebuilding.shape.sphere": "Sphere",
+  "simplebuilding.shape.pyramid": "Pyramid",
+  "simplebuilding.shape.triangle": "Prism",
+  "simplebuilding.shape.rectangle": "Rectangle (2D)",
+  "simplebuilding.shape.ellipse": "Ellipse (2D)",
+
+  "simplebuilding.order.default": "Default",
+  "simplebuilding.order.bottom_up": "Bottom Up",
+  "simplebuilding.order.top_down": "Top Down",
+
+  "key.simplebuilding.settings": "Open Settings Menu",
+  "category.simplebuilding.general": "SimpleBuilding",
+
+  "simplebuilding.gui.wand_title": "Building Wand Settings",
+  "simplebuilding.gui.wand_settings": "Configuration",
+  "simplebuilding.gui.radius": "Radius",
+  "simplebuilding.gui.axis": "Axis",
+  "simplebuilding.gui.on": "ON",
+  "simplebuilding.gui.off": "OFF",
+
+  "simplebuilding.gui.octant_title": "Octant Settings",
+
+  "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits": "Enable Armor Trim Benefits",
+  "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits.@Tooltip": "If disabled, you will not receive gameplay bonuses (like water breathing) from armor trims.",
+
+  "trim_pattern.simplebuilding.emitting": "Emitting Pattern",
+  "item.simplebuilding.glowing_trim_template": "Glowing Trim Upgrade Template",
+  "item.simplebuilding.emitting_trim_template": "Emitting Trim Upgrade Template",
+
+  "tooltip.simplebuilding.glowing_trim": "✨ Glowing Trim",
+  "tooltip.simplebuilding.emits_light": "💡 Emits Light",
+  "tooltip.simplebuilding.radiance_level": "Radiance Level: %s/5",
+  "tooltip.simplebuilding.glow_level": "Glowing",
+  "tooltip.simplebuilding.glow_level_2": "Glowing II",
+  "tooltip.simplebuilding.light_level": " Light Level: %s",
+
+  "upgrade.simplebuilding.glowing_trim_upgrade": "Glowing Trim Upgrade",
+  "upgrade.simplebuilding.glowing_trim_applies_to": "Trimmed Armor",
+  "upgrade.simplebuilding.glowing_trim_ingredients": "Glow Ink Sac",
+  "upgrade.simplebuilding.glowing_trim_base_slot_description": "Add armor with Trim",
+  "upgrade.simplebuilding.glowing_trim_additions_slot_description": "Add Glow Ink Sac",
+
+  "upgrade.simplebuilding.emitting_trim_upgrade": "Emitting Trim Upgrade",
+  "upgrade.simplebuilding.emitting_trim_applies_to": "Glowing Armor",
+  "upgrade.simplebuilding.emitting_trim_ingredients": "Glowstone Dust",
+  "upgrade.simplebuilding.emitting_trim_base_slot_description": "Add Glowing Armor",
+  "upgrade.simplebuilding.emitting_trim_additions_slot_description": "Add Glowstone Dust",
+
+  "item.simplebuilding.basic_upgrade_template": "Basic Upgrade Template",
+  "item.simplebuilding.basic_upgrade_template.applies_to": "Pickaxe, Axe, Shovel, Hoe, Sword, Hammer, Excavator",
+  "item.simplebuilding.basic_upgrade_template.ingredients": "Iron, Gold, Diamond Ingots",
+  "item.simplebuilding.basic_upgrade_template.upgrade_description": "Upgrade Tool Tier",
+  "upgrade.simplebuilding.count_based": "Tier Upgrade",
+
+  "block.simplebuilding.polished_end_stone": "Polished End Stone",
+  "block.simplebuilding.purpur_quartz_checker": "Purpur Quartz Checker",
+  "block.simplebuilding.lapis_quartz_checker": "Lapis Quartz Checker",
+  "block.simplebuilding.blackstone_quartz_checker": "Blackstone Quartz Checker",
+  "block.simplebuilding.resin_quartz_checker": "Resin Quartz Checker",
+
+  "block.simplebuilding.astral_purpur_block": "Astral Purpur Block",
+  "block.simplebuilding.nihil_purpur_block": "Nihil Purpur Block",
+  "block.simplebuilding.astral_end_stone": "Astral End Stone",
+  "block.simplebuilding.nihil_end_stone": "Nihil End Stone",
+
+  "block.simplebuilding.suspended_sand": "Suspended Sand",
+  "block.simplebuilding.suspended_gravel": "Suspended Gravel",
+  "block.simplebuilding.levitating_sand": "Levitating Sand",
+  "block.simplebuilding.levitating_gravel": "Levitating Gravel",
+
+  "block.simplebuilding.nihilith_ore": "Nihilith Ore",
+  "block.simplebuilding.astralit_ore": "Astralit Ore",
+
+  "item.simplebuilding.astralit_dust": "Astralit Dust",
+  "item.simplebuilding.nihilith_shard": "Nihilith Shard",
+
+  "item.simplebuilding.raw_enderite": "Raw Enderite",
+  "item.simplebuilding.enderite_scrap": "Enderite Scrap",
+  "item.simplebuilding.enderite_ingot": "Enderite Ingot",
+
+  "item.simplebuilding.enderite_sword": "Enderite Sword",
+  "item.simplebuilding.enderite_shovel": "Enderite Shovel",
+  "item.simplebuilding.enderite_pickaxe": "Enderite Pickaxe",
+  "item.simplebuilding.enderite_axe": "Enderite Axe",
+  "item.simplebuilding.enderite_hoe": "Enderite Hoe",
+
+  "item.simplebuilding.neterite_apple": "Neterite Apple",
+  "item.simplebuilding.enderite_apple": "Enderite Apple",
+  "item.simplebuilding.neterite_carrot": "Neterite Carrot",
+  "item.simplebuilding.enderite_carrot": "Enderite Carrot",
+  "item.simplebuilding.netherite_nugget": "Netherite Nugget",
+
+
+
+  "item.simplebuilding.enderite_helmet": "Enderite Helmet",
+  "item.simplebuilding.enderite_chestplate": "Enderite Chestplate",
+  "item.simplebuilding.enderite_leggings": "Enderite Leggings",
+  "item.simplebuilding.enderite_boots": "Enderite Boots",
+
+  "item.simplebuilding.enderite_upgrade_template": "Enderite Upgrade Template",
+  "upgrade.simplebuilding.enderite_upgrade": "Enderite Upgrade",
+  "item.minecraft.smithing_template.enderite_upgrade.applies_to": "Netherite Equipment",
+  "item.minecraft.smithing_template.enderite_upgrade.ingredients": "Enderite Ingot",
+  "item.minecraft.smithing_template.enderite_upgrade.base_slot_description": "Add netherite armor, weapon or tool",
+  "item.minecraft.smithing_template.enderite_upgrade.additions_slot_description": "Add Enderite Ingot"
+
 }

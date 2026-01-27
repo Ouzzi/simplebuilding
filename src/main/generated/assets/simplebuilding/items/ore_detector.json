@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "simplebuilding:item/ore_detector"
+  }
+}

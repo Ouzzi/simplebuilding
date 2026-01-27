@@ -1,6 +1,7 @@
 package com.simplebuilding.items;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.enchantment.ModEnchantments;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.component.DataComponentTypes;
@@ -25,6 +26,64 @@ public class ModItemGroups {
             FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.IRON_SPATULA))
                     .displayName(Text.translatable("itemgroup.simplebuilding.building_items"))
                     .entries((displayContext, entries) -> {
+                        // -- Resources ---
+                        entries.add(ModItems.DIAMOND_PEBBLE);
+                        entries.add(ModItems.CRACKED_DIAMOND);
+                        entries.add(ModItems.CRACKED_DIAMOND_BLOCK);
+                        entries.add(ModItems.NETHERITE_NUGGET);
+                        entries.add(ModItems.NETHERITE_APPLE);
+                        entries.add(ModItems.NETHERITE_CARROT);
+
+                        entries.add(ModItems.NIHILITH_SHARD);
+                        entries.add(ModItems.ASTRALIT_DUST);
+                        entries.add(ModItems.RAW_ENDERITE);
+                        entries.add(ModItems.ENDERITE_SCRAP);
+                        entries.add(ModItems.ENDERITE_INGOT);
+
+                        // -- Food (New) --
+                        entries.add(ModItems.ENDERITE_APPLE);
+                        entries.add(ModItems.ENDERITE_CARROT);
+
+                        // --- Ores & Raw Blocks ---
+                        entries.add(ModItems.NIHILITH_ORE_ITEM);
+                        entries.add(ModItems.ASTRALIT_ORE_ITEM);
+                        entries.add(ModItems.ENDERITE_BLOCK_ITEM);
+
+                        // --- Functional Blocks ---
+                        entries.add(ModItems.CONSTRUCTION_LIGHT);
+
+                        // --- Decoration Blocks (New) ---
+                        entries.add(ModItems.POLISHED_END_STONE);
+                        entries.add(ModItems.PURPUR_QUARTZ_CHECKER);
+                        entries.add(ModItems.LAPIS_QUARTZ_CHECKER);
+                        entries.add(ModItems.BLACKSTONE_QUARTZ_CHECKER);
+                        entries.add(ModItems.RESIN_QUARTZ_CHECKER);
+
+                        // --- Astral / Nihil Blocks ---
+                        entries.add(ModItems.ASTRAL_PURPUR_BLOCK);
+                        entries.add(ModItems.NIHIL_PURPUR_BLOCK);
+                        entries.add(ModItems.ASTRAL_END_STONE);
+                        entries.add(ModItems.NIHIL_END_STONE);
+
+                        // --- Gravity Blocks ---
+                        entries.add(ModItems.SUSPENDED_SAND);
+                        entries.add(ModItems.SUSPENDED_GRAVEL);
+                        entries.add(ModItems.LEVITATING_SAND);
+                        entries.add(ModItems.LEVITATING_GRAVEL);
+
+                        // --- Machines & Storage ---
+                        // todo chest: entries.add(ModItems.REINFORCED_CHEST);
+                        entries.add(ModItems.REINFORCED_HOPPER);
+                        entries.add(ModItems.REINFORCED_PISTON);
+                        entries.add(ModItems.NETHERITE_PISTON);
+                        entries.add(ModItems.NETHERITE_HOPPER);
+                        entries.add(ModItems.REINFORCED_FURNACE);
+                        entries.add(ModItems.NETHERITE_FURNACE);
+                        entries.add(ModItems.REINFORCED_SMOKER);
+                        entries.add(ModItems.NETHERITE_SMOKER);
+                        entries.add(ModItems.REINFORCED_BLAST_FURNACE);
+                        entries.add(ModItems.NETHERITE_BLAST_FURNACE);
+
                         // --- Tools ---
                         entries.add(ModItems.STONE_CHISEL);
                         entries.add(ModItems.COPPER_CHISEL);
@@ -32,6 +91,7 @@ public class ModItemGroups {
                         entries.add(ModItems.GOLD_CHISEL);
                         entries.add(ModItems.DIAMOND_CHISEL);
                         entries.add(ModItems.NETHERITE_CHISEL);
+                        entries.add(ModItems.ENDERITE_CHISEL);
 
                         entries.add(ModItems.STONE_SPATULA);
                         entries.add(ModItems.COPPER_SPATULA);
@@ -40,12 +100,26 @@ public class ModItemGroups {
                         entries.add(ModItems.DIAMOND_SPATULA);
                         entries.add(ModItems.NETHERITE_SPATULA);
 
+                        // --- NEW: Enderite Tools ---
+                        entries.add(ModItems.ENDERITE_SWORD);
+                        entries.add(ModItems.ENDERITE_PICKAXE);
+                        entries.add(ModItems.ENDERITE_AXE);
+                        entries.add(ModItems.ENDERITE_SHOVEL);
+                        entries.add(ModItems.ENDERITE_HOE);
+
+                        // --- NEW: Enderite Armor ---
+                        entries.add(ModItems.ENDERITE_HELMET);
+                        entries.add(ModItems.ENDERITE_CHESTPLATE);
+                        entries.add(ModItems.ENDERITE_LEGGINGS);
+                        entries.add(ModItems.ENDERITE_BOOTS);
+
                         // --- Building Cores ---
                         entries.add(ModItems.COPPER_CORE);
                         entries.add(ModItems.IRON_CORE);
                         entries.add(ModItems.GOLD_CORE);
                         entries.add(ModItems.DIAMOND_CORE);
                         entries.add(ModItems.NETHERITE_CORE);
+                        entries.add(ModItems.ENDERITE_CORE);
 
                         // --- Wands ---
                         entries.add(ModItems.COPPER_BUILDING_WAND);
@@ -53,6 +127,7 @@ public class ModItemGroups {
                         entries.add(ModItems.GOLD_BUILDING_WAND);
                         entries.add(ModItems.DIAMOND_BUILDING_WAND);
                         entries.add(ModItems.NETHERITE_BUILDING_WAND);
+                        entries.add(ModItems.ENDERITE_BUILDING_WAND);
 
                         // --- Sledgehammers ---
                         entries.add(ModItems.STONE_SLEDGEHAMMER);
@@ -61,6 +136,7 @@ public class ModItemGroups {
                         entries.add(ModItems.GOLD_SLEDGEHAMMER);
                         entries.add(ModItems.DIAMOND_SLEDGEHAMMER);
                         entries.add(ModItems.NETHERITE_SLEDGEHAMMER);
+                        entries.add(ModItems.ENDERITE_SLEDGEHAMMER);
 
                         // --- Rangefinders ---
                         entries.add(ModItems.OCTANT);
@@ -73,10 +149,17 @@ public class ModItemGroups {
 
                         // --- Speedometer ---
                         entries.add(ModItems.VELOCITY_GAUGE);
+                        entries.add(ModItems.ORE_DETECTOR);
+                        entries.add(ModItems.MAGNET);
+                        entries.add(ModItems.ROTATOR);
 
                         // --- Storage ---
                         entries.add(ModItems.REINFORCED_BUNDLE);
                         entries.add(ModItems.NETHERITE_BUNDLE);
+                        entries.add(ModItems.ENDERITE_BUNDLE);
+                        entries.add(ModItems.QUIVER);
+                        entries.add(ModItems.NETHERITE_QUIVER);
+                        entries.add(ModItems.ENDERITE_QUIVER);
 
                         // --- Enchanted Books ---
                         RegistryWrapper.WrapperLookup lookup = displayContext.lookup();
@@ -87,6 +170,8 @@ public class ModItemGroups {
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.CONSTRUCTORS_TOUCH, 1);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.RANGE, 3);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.STRIP_MINER, 3);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.VEIN_MINER, 5);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.VERSATILITY, 2);
 
                         // 2. Sledgehammer Specific
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.BREAK_THROUGH, 1);
@@ -96,7 +181,7 @@ public class ModItemGroups {
                         // 3. Bundle/Container Utilities
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.DEEP_POCKETS, 2);
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.FUNNEL, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.QUIVER, 1);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.DRAWER, 8);
 
                         // 4. Wand/Construction Utilities
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.MASTER_BUILDER, 1);
@@ -107,6 +192,18 @@ public class ModItemGroups {
 
                         // 5. Armor Utilities
                         addEnchant(entries, enchantmentRegistry, ModEnchantments.DOUBLE_JUMP, 2);
+
+                        // 6. Miscellaneous
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.KINETIC_PROTECTION, 4);
+                        addEnchant(entries, enchantmentRegistry, ModEnchantments.DRAWER, 1);
+
+                        // 7. Armor Trim
+                        entries.add(ModItems.GLOWING_TRIM_TEMPLATE);
+                        entries.add(ModItems.EMITTING_TRIM_TEMPLATE);
+
+                        entries.add(ModItems.BASIC_UPGRADE_TEMPLATE);
+                        entries.add(ModItems.ENDERITE_UPGRADE_TEMPLATE); // NEW
+
 
                     }).build());
 

@@ -1,0 +1,62 @@
+package com.simplebuilding.util;
+
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ItemStack;
+
+public class LargeStackInventory extends SimpleInventory {
+    private final int maxStackSize;
+
+    public LargeStackInventory(int size, int maxStackSize) {
+        super(size);
+        this.maxStackSize = maxStackSize;
+    }
+
+    @Override
+    public int getMaxCountPerStack() {
+        return this.maxStackSize;
+    }
+
+    // Dieser Hack ist notwendig: SimpleInventory nutzt intern DefaultedList<ItemStack>.
+    // ItemStack selbst hat kein Limit im Objekt gespeichert, sondern fragt das Item.
+    // Aber wenn wir setStack aufrufen, müssen wir sicherstellen, dass nichts gekappt wird.
+
+    @Override
+    public ItemStack addStack(ItemStack stack) {
+        ItemStack itemStack = stack.copy();
+        this.addToExistingSlot(itemStack);
+        if (itemStack.isEmpty()) {
+            return ItemStack.EMPTY;
+        } else {
+            this.addToNewSlot(itemStack);
+            return itemStack.isEmpty() ? ItemStack.EMPTY : itemStack;
+        }
+    }
+
+    // Wir müssen die Logik zum Hinzufügen überschreiben, damit sie 64 ignoriert
+    private void addToExistingSlot(ItemStack stack) {
+        for (int i = 0; i < this.size(); ++i) {
+            ItemStack existing = this.getStack(i);
+            if (ItemStack.areItemsAndComponentsEqual(existing, stack)) {
+                int transfer = Math.min(stack.getCount(), this.getMaxCountPerStack() - existing.getCount());
+                if (transfer > 0) {
+                    existing.increment(transfer);
+                    stack.decrement(transfer);
+                    this.markDirty();
+                }
+            }
+            if (stack.isEmpty()) break;
+        }
+    }
+
+    private void addToNewSlot(ItemStack stack) {
+        for (int i = 0; i < this.size(); ++i) {
+            if (this.getStack(i).isEmpty()) {
+                // Hier ist der Trick: Wir setzen den Stack direkt, ohne Limits zu prüfen
+                this.setStack(i, stack.copy());
+                stack.setCount(0);
+                this.markDirty();
+                break;
+            }
+        }
+    }
+}

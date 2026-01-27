@@ -1,0 +1,11 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:gold_ingot",
+  "addition_count": 2,
+  "base": "minecraft:iron_shovel",
+  "result": {
+    "count": 1,
+    "id": "minecraft:golden_shovel"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

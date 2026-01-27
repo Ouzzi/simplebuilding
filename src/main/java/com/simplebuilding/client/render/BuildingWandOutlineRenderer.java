@@ -1,39 +1,36 @@
 package com.simplebuilding.client.render;
 
-import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.state.OutlineRenderState;
+import net.minecraft.client.render.*;
+import net.minecraft.client.render.block.BlockRenderManager;
+import net.minecraft.client.render.model.BakedQuad;
+import net.minecraft.client.render.model.BlockModelPart;
+import net.minecraft.client.render.model.BlockStateModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.shape.VoxelShape;
-import org.joml.Matrix4f;
+import net.minecraft.util.math.random.Random;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BuildingWandOutlineRenderer {
-
-    // Wie stark die Box geschrumpft werden soll (0.05 = 5% Abstand zum Rand)
-    private static final double SHRINK_AMOUNT = 0.25;
 
     public static void register() {
         WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register(BuildingWandOutlineRenderer::onBlockOutline);
     }
 
-    private static boolean onBlockOutline(WorldRenderContext context, OutlineRenderState outlineRenderState) {
+    private static boolean onBlockOutline(WorldRenderContext context, net.minecraft.client.render.state.OutlineRenderState outlineRenderState) {
         MinecraftClient client = MinecraftClient.getInstance();
         ClientPlayerEntity player = client.player;
 
@@ -48,133 +45,119 @@ public class BuildingWandOutlineRenderer {
         BlockPos centerPos = blockHit.getBlockPos();
         Direction face = blockHit.getSide();
 
-        // 1. Positionen berechnen (Neu: Hit-Result übergeben!)
         int diameter = wandItem.getWandSquareDiameter();
-        List<BlockPos> targetPositions = BuildingWandItem.getBuildingPositions(client.world, player, stack, centerPos, face, diameter, blockHit);
 
-        if (targetPositions.isEmpty()) return true;
+        // Hole Map (Pos -> BlockState)
+        Map<BlockPos, BlockState> previewMap = BuildingWandItem.getPreviewStates(client.world, player, stack, centerPos, face, diameter);
 
-        // 2. Form des Originalblocks holen (damit Treppen/Zäune richtig aussehen)
-        BlockState stateToCopy = client.world.getBlockState(centerPos);
-        if (stateToCopy.isAir()) return true;
+        if (previewMap.isEmpty()) return true;
 
-        VoxelShape baseShape = stateToCopy.getOutlineShape(client.world, centerPos);
-        if (baseShape.isEmpty()) return true;
-
-        // --- Rendering Setup ---
         MatrixStack matrices = context.matrices();
         Camera camera = client.gameRenderer.getCamera();
-        Vec3d camPos = camera.getPos();
+        Vec3d camPos = camera.getCameraPos();
         double camX = camPos.x;
         double camY = camPos.y;
         double camZ = camPos.z;
 
-        VertexConsumer lines = context.consumers().getBuffer(RenderLayer.getLines());
-        VertexConsumer fill = context.consumers().getBuffer(RenderLayer.getDebugQuads());
+        BlockRenderManager blockRenderManager = client.getBlockRenderManager();
+        VertexConsumerProvider consumers = context.consumers();
 
         matrices.push();
 
-        // --- Config & Farben ---
-        // Opacity aus Config (0-100)
-        int opacityPercent = Simplebuilding.getConfig().tools.buildingHighlightOpacity;
-        opacityPercent = Math.max(0, Math.min(100, opacityPercent));
-        float baseAlpha = opacityPercent / 100.0f;
+        VertexConsumer baseConsumer = consumers.getBuffer(RenderLayers.translucentMovingBlock());
+        VertexConsumer ghostConsumer = new TranslucentVertexConsumer(baseConsumer, 180);
 
-        // Farbe: Cyan/Türkis (R=0, G=1, B=1)
-        float r = 0.1f; float g = 0.1f; float b = 0.1f; float a = 0.3f;
-        float r1 = 1.0f; float g1 = 0.5f; float b1 = 0.3f; float a1 = 0.2f * baseAlpha;
+        // Eine wiederverwendbare Liste und Random Instanz
+        List<BlockModelPart> parts = new ArrayList<>();
+        Random random = Random.create();
 
-        // 3. Über alle Ziel-Positionen iterieren und EINZELN zeichnen
-        for (BlockPos pos : targetPositions) {
-            // Prüfung: Ist der Platz frei?
-            BlockState targetState = client.world.getBlockState(pos);
-            if (!targetState.isReplaceable()) continue;
+        // Iteriere über die Map
+        for (Map.Entry<BlockPos, BlockState> entry : previewMap.entrySet()) {
+            BlockPos pos = entry.getKey();
+            BlockState renderState = entry.getValue();
 
-            // Wir holen alle Boxen der Form (falls es eine komplexe Form wie eine Treppe ist)
-            for (Box box : baseShape.getBoundingBoxes()) {
-                // A. Box verkleinern (Aesthetic Effect)
-                Box shrunkBox = box.contract(SHRINK_AMOUNT);
+            if (!client.world.getBlockState(pos).isReplaceable()) continue;
 
-                matrices.push();
+            matrices.push();
+            matrices.translate(pos.getX() - camX, pos.getY() - camY, pos.getZ() - camZ);
 
-                // B. Zu der spezifischen Welt-Position verschieben (Minus Kamera)
-                matrices.translate(
-                        pos.getX() - camX,
-                        pos.getY() - camY,
-                        pos.getZ() - camZ
-                );
+            // Skalierung für "Ghost" Effekt
+            float scale = 0.5f;
+            matrices.translate(0.5, 0.5, 0.5);
+            matrices.scale(scale, scale, scale);
+            matrices.translate(-0.5, -0.5, -0.5);
 
-                // C. Zeichnen
-                drawBoxOutline(matrices, lines, shrunkBox, r, g, b, a);
-                drawBoxFill(matrices, fill, shrunkBox.expand(-0.003), r1, g1, b1, a1);
-                matrices.pop();
-            }
+            // --- NEUE LOGIK FÜR 1.21 MODEL RENDERING ---
+
+            // 1. Model holen
+            BlockStateModel model = blockRenderManager.getModel(renderState);
+
+            // 2. Seed setzen
+            long seed = renderState.getRenderingSeed(pos);
+            random.setSeed(seed);
+
+            // 3. Parts generieren
+            parts.clear();
+            model.addParts(random, parts);
+
+            // 4. Rendern mit der Liste von Parts
+            blockRenderManager.getModelRenderer().render(
+                    client.world,
+                    parts,          // Liste der Teile
+                    renderState,
+                    pos,
+                    matrices,
+                    ghostConsumer,
+                    false,          // kein Culling für Vorschau meist besser oder 'true' wenn gewünscht
+                    OverlayTexture.DEFAULT_UV
+            );
+            // ---------------------------------------------
+
+            matrices.pop();
         }
 
         matrices.pop();
 
-        // false = Wir haben gezeichnet, aber Vanilla soll den Hauptblock trotzdem normal highlighten
-        // (Da wir hier nur die *neuen* Positionen zeichnen und nicht den Ursprungsblock)
-        return false;
+        return true;
     }
 
-    // --- Hilfsmethoden (Unverändert) ---
+    private static class TranslucentVertexConsumer implements VertexConsumer {
+        private final VertexConsumer parent;
+        private final int alphaInt;
+        private final float alphaFloat;
 
-    private static void drawBoxOutline(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
-        double x1 = box.minX; double y1 = box.minY; double z1 = box.minZ;
-        double x2 = box.maxX; double y2 = box.maxY; double z2 = box.maxZ;
+        public TranslucentVertexConsumer(VertexConsumer parent, int alpha) {
+            this.parent = parent;
+            this.alphaInt = alpha;
+            this.alphaFloat = alpha / 255.0f;
+        }
 
-        // Unten
-        drawLineWithNormal(builder, matrix, x1, y1, z1, x2, y1, z1, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, y1, z1, x2, y1, z2, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, y1, z2, x1, y1, z2, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x1, y1, z2, x1, y1, z1, r, g, b, a);
+        @Override public VertexConsumer vertex(float x, float y, float z) { parent.vertex(x, y, z); return this; }
 
-        // Oben
-        drawLineWithNormal(builder, matrix, x1, y2, z1, x2, y2, z1, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, y2, z1, x2, y2, z2, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, y2, z2, x1, y2, z2, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x1, y2, z2, x1, y2, z1, r, g, b, a);
+        @Override
+        public VertexConsumer color(int red, int green, int blue, int alpha) {
+            parent.color(red, green, blue, this.alphaInt);
+            return this;
+        }
 
-        // Vertikal
-        drawLineWithNormal(builder, matrix, x1, y1, z1, x1, y2, z1, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, y1, z1, x2, y2, z1, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x2, y1, z2, x2, y2, z2, r, g, b, a);
-        drawLineWithNormal(builder, matrix, x1, y1, z2, x1, y2, z2, r, g, b, a);
-    }
+        @Override
+        public VertexConsumer color(int color) {
+            int r = (color >> 16) & 0xFF;
+            int g = (color >> 8) & 0xFF;
+            int b = color & 0xFF;
+            return this.color(r, g, b, 255);
+        }
 
-    private static void drawBoxFill(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
-        float x1 = (float)box.minX; float y1 = (float)box.minY; float z1 = (float)box.minZ;
-        float x2 = (float)box.maxX; float y2 = (float)box.maxY; float z2 = (float)box.maxZ;
+        @Override public VertexConsumer texture(float u, float v) { parent.texture(u, v); return this; }
+        @Override public VertexConsumer overlay(int u, int v) { parent.overlay(u, v); return this; }
+        @Override public VertexConsumer light(int u, int v) { parent.light(u, v); return this; }
+        @Override public VertexConsumer normal(float x, float y, float z) { parent.normal(x, y, z); return this; }
 
-        addQuad(builder, matrix, x1, y1, z1, x2, y1, z1, x2, y1, z2, x1, y1, z2, r, g, b, a); // Unten
-        addQuad(builder, matrix, x1, y2, z2, x2, y2, z2, x2, y2, z1, x1, y2, z1, r, g, b, a); // Oben
-        addQuad(builder, matrix, x1, y1, z1, x1, y2, z1, x2, y2, z1, x2, y1, z1, r, g, b, a); // Nord
-        addQuad(builder, matrix, x2, y1, z2, x2, y2, z2, x1, y2, z2, x1, y1, z2, r, g, b, a); // Süd
-        addQuad(builder, matrix, x1, y1, z2, x1, y2, z2, x1, y2, z1, x1, y1, z1, r, g, b, a); // West
-        addQuad(builder, matrix, x2, y1, z1, x2, y2, z1, x2, y2, z2, x2, y1, z2, r, g, b, a); // Ost
-    }
+        @Override
+        public void quad(MatrixStack.Entry matrixEntry, BakedQuad quad, float red, float green, float blue, float alpha, int light, int overlay) {
+            parent.quad(matrixEntry, quad, red, green, blue, this.alphaFloat, light, overlay);
+        }
 
-    private static void addQuad(VertexConsumer builder, Matrix4f matrix, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float r, float g, float b, float a) {
-        builder.vertex(matrix, x1, y1, z1).color(r, g, b, a);
-        builder.vertex(matrix, x2, y2, z2).color(r, g, b, a);
-        builder.vertex(matrix, x3, y3, z3).color(r, g, b, a);
-        builder.vertex(matrix, x4, y4, z4).color(r, g, b, a);
-    }
-
-    private static void drawLineWithNormal(VertexConsumer builder, Matrix4f matrix, double x1, double y1, double z1, double x2, double y2, double z2, float r, float g, float b, float a) {
-        float nx = (float)(x2 - x1); float ny = (float)(y2 - y1); float nz = (float)(z2 - z1);
-        float len = (float)Math.sqrt(nx * nx + ny * ny + nz * nz);
-        if (len > 0) { nx /= len; ny /= len; nz /= len; }
-
-        builder.vertex(matrix, (float)x1, (float)y1, (float)z1)
-                .color(r, g, b, a)
-                .normal(nx, ny, nz);
-
-        builder.vertex(matrix, (float)x2, (float)y2, (float)z2)
-                .color(r, g, b, a)
-                .normal(nx, ny, nz);
+        public VertexConsumer lineWidth(float width) { return this; }
     }
 }
