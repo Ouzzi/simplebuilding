@@ -4,12 +4,14 @@ import com.simplebuilding.networking.SurvivalSyncPayload;
 import com.simplebuilding.networking.TrimDataPayload;
 import com.simplebuilding.util.SurvivalTracerAccessor;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
-import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,97 +21,128 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayerEntity.class)
 public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
 
-    @Unique private int baselineDistanceWalked = 0;
-    @Unique private int baselineMobsKilled = 0;
-    @Unique private int baselineTimePlayed = 0;
+    @Unique private int totalHostileKills = 0;
+    @Unique private int totalPassiveKills = 0;
 
-    // --- Accessor Implementierung ---
-    @Override public int simplebuilding$getBaseDistance() { return baselineDistanceWalked; }
-    @Override public int simplebuilding$getBaseKills() { return baselineMobsKilled; }
-    @Override public int simplebuilding$getBaseTime() { return baselineTimePlayed; }
+    @Unique private int baseDist = 0;
+    @Unique private int baseTime = 0;
+    @Unique private int baseHostile = 0;
+    @Unique private int basePassive = 0;
+    @Unique private int baseDamage = 0; // NEU
+
+    // Accessor
+    @Override public int simplebuilding$getBaseDistance() { return baseDist; }
+    @Override public int simplebuilding$getBaseTime() { return baseTime; }
+    @Override public int simplebuilding$getBaseHostileKills() { return baseHostile; }
+    @Override public int simplebuilding$getBasePassiveKills() { return basePassive; }
+    @Override public int simplebuilding$getBaseDamageTaken() { return baseDamage; }
 
     @Override
-    public void simplebuilding$setBaseValues(int dist, int kills, int time) {
-        this.baselineDistanceWalked = dist;
-        this.baselineMobsKilled = kills;
-        this.baselineTimePlayed = time;
+    public void simplebuilding$setBaseValues(int dist, int time, int hostile, int passive, int damage) {
+        this.baseDist = dist;
+        this.baseTime = time;
+        this.baseHostile = hostile;
+        this.basePassive = passive;
+        this.baseDamage = damage;
     }
 
-    // Server braucht diese Felder nicht speichern, da er die echten Stats hat
+    // Server Live-Werte (Dummy für Interface, echte Werte kommen aus Logic)
     @Override public int simplebuilding$getCurrentDistance() { return 0; }
-    @Override public int simplebuilding$getCurrentKills() { return 0; }
     @Override public int simplebuilding$getCurrentTime() { return 0; }
-    @Override public void simplebuilding$setCurrentValues(int dist, int kills, int time) { }
+    @Override public int simplebuilding$getCurrentHostileKills() { return totalHostileKills; }
+    @Override public int simplebuilding$getCurrentPassiveKills() { return totalPassiveKills; }
+    @Override public int simplebuilding$getCurrentDamageTaken() { return 0; } // Live aus Stats
+    @Override public void simplebuilding$setCurrentValues(int dist, int time, int hostile, int passive, int damage) {}
 
-    @Override
-    public void simplebuilding$syncTrimData() {
-        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-        // WICHTIG: Prüfen, ob der Spieler verbunden ist, um Crash beim Laden zu verhindern!
-        if (player.networkHandler != null && ServerPlayNetworking.canSend(player, TrimDataPayload.ID)) {
-            ServerPlayNetworking.send(player, new TrimDataPayload(baselineDistanceWalked, baselineMobsKilled, baselineTimePlayed));
+    // Kill Tracking
+    @Inject(method = "updateKilledAdvancementCriterion", at = @At("HEAD"))
+    private void onUpdateKilledAdvancementCriterion(Entity entityKilled, DamageSource damageSource, CallbackInfo ci) {
+        if (entityKilled == null) return;
+        SpawnGroup group = entityKilled.getType().getSpawnGroup();
+        if (group == SpawnGroup.MONSTER) {
+            totalHostileKills++;
+        } else if (group == SpawnGroup.CREATURE || group == SpawnGroup.AMBIENT || group == SpawnGroup.WATER_CREATURE || group == SpawnGroup.UNDERGROUND_WATER_CREATURE || group == SpawnGroup.AXOLOTLS) {
+            totalPassiveKills++;
         }
     }
 
-    // --- Ticker für Live-Update ---
+    // Sync
+    @Override
+    public void simplebuilding$syncTrimData() {
+        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+        if (player.networkHandler != null && ServerPlayNetworking.canSend(player, TrimDataPayload.ID)) {
+            ServerPlayNetworking.send(player, new TrimDataPayload(baseDist, baseTime, baseHostile, basePassive, baseDamage));
+        }
+    }
+
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$onTick(CallbackInfo ci) {
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-
-        // Sende Update jede Sekunde (20 Ticks)
         if (player.age % 20 == 0 && player.networkHandler != null) {
             int currentDist = getStatTotalDistance(player);
-            // Kills temporär 0 wie besprochen, oder echte Logik wenn verfügbar
-            int currentKills = 0;
             int currentTime = player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME));
+            int currentDamage = player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.DAMAGE_TAKEN));
 
             if (ServerPlayNetworking.canSend(player, SurvivalSyncPayload.ID)) {
-                ServerPlayNetworking.send(player, new SurvivalSyncPayload(currentDist, currentKills, currentTime));
+                ServerPlayNetworking.send(player, new SurvivalSyncPayload(currentDist, currentTime, totalHostileKills, totalPassiveKills, currentDamage));
             }
         }
     }
 
-    // --- Bestehende NBT & Respawn Logik (wie zuvor) ---
+    // NBT
     @Inject(method = "writeCustomData", at = @At("TAIL"))
     public void writeSurvivalData(WriteView view, CallbackInfo ci) {
-        NbtCompound survivalTag = new NbtCompound();
-        survivalTag.putInt("BaseWalk", baselineDistanceWalked);
-        survivalTag.putInt("BaseKills", baselineMobsKilled);
-        survivalTag.putInt("BaseTime", baselineTimePlayed);
+        NbtCompound nbt = new NbtCompound();
+        nbt.putInt("BaseDist", baseDist);
+        nbt.putInt("BaseTime", baseTime);
+        nbt.putInt("BaseHostile", baseHostile);
+        nbt.putInt("BasePassive", basePassive);
+        nbt.putInt("BaseDamage", baseDamage);
 
-        view.put("SimpleBuildingSurvival", NbtCompound.CODEC, survivalTag);
+        nbt.putInt("TotalHostile", totalHostileKills);
+        nbt.putInt("TotalPassive", totalPassiveKills);
+        view.put("SimpleBuildingData", NbtCompound.CODEC, nbt);
     }
 
     @Inject(method = "readCustomData", at = @At("TAIL"))
     public void readSurvivalData(ReadView view, CallbackInfo ci) {
-        view.read("SimpleBuildingSurvival", NbtCompound.CODEC).ifPresent(tag -> {
-            this.baselineDistanceWalked = tag.getInt("BaseWalk", 0);
-            this.baselineMobsKilled = tag.getInt("BaseKills", 0);
-            this.baselineTimePlayed = tag.getInt("BaseTime", 0);
-
-            // FIX: Hier KEIN Sync senden! Der Spieler ist noch nicht fertig geladen.
-            // Der Sync passiert jetzt beim "Join"-Event (siehe ModMessages.java).
+        view.read("SimpleBuildingData", NbtCompound.CODEC).ifPresent(nbt -> {
+            baseDist = nbt.getInt("BaseDist", 0);
+            baseTime = nbt.getInt("BaseTime", 0);
+            baseHostile = nbt.getInt("BaseHostile", 0);
+            basePassive = nbt.getInt("BasePassive", 0);
+            baseDamage = nbt.getInt("BaseDamage", 0);
+            totalHostileKills = nbt.getInt("TotalHostile", 0);
+            totalPassiveKills = nbt.getInt("TotalPassive", 0);
         });
     }
 
     @Inject(method = "copyFrom", at = @At("TAIL"))
     public void onRespawn(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
         SurvivalTracerAccessor oldAccessor = (SurvivalTracerAccessor) oldPlayer;
-
         if (!alive) {
+            // Reset
             ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-            this.baselineDistanceWalked = getStatTotalDistance(player);
+            this.baseDist = getStatTotalDistance(player);
+            this.baseTime = player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME));
+            this.baseDamage = player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.DAMAGE_TAKEN));
 
-            // Platzhalter für Kills, um Crash zu vermeiden (Stats.MOB_KILLS ist kein einzelner Stat)
-            this.baselineMobsKilled = 0;
-
-            this.baselineTimePlayed = player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME));
+            this.totalHostileKills = oldAccessor.simplebuilding$getCurrentHostileKills();
+            this.totalPassiveKills = oldAccessor.simplebuilding$getCurrentPassiveKills();
+            this.baseHostile = this.totalHostileKills;
+            this.basePassive = this.totalPassiveKills;
         } else {
-            this.baselineDistanceWalked = oldAccessor.simplebuilding$getBaseDistance();
-            this.baselineMobsKilled = oldAccessor.simplebuilding$getBaseKills();
-            this.baselineTimePlayed = oldAccessor.simplebuilding$getBaseTime();
+            // Keep
+            this.baseDist = oldAccessor.simplebuilding$getBaseDistance();
+            this.baseTime = oldAccessor.simplebuilding$getBaseTime();
+            this.baseHostile = oldAccessor.simplebuilding$getBaseHostileKills();
+            this.basePassive = oldAccessor.simplebuilding$getBasePassiveKills();
+            this.baseDamage = oldAccessor.simplebuilding$getBaseDamageTaken();
+
+            this.totalHostileKills = oldAccessor.simplebuilding$getCurrentHostileKills();
+            this.totalPassiveKills = oldAccessor.simplebuilding$getCurrentPassiveKills();
         }
-        // Sync wird beim Join/Respawn separat getriggert oder hier:
-        // simplebuilding$syncTrimData(); // Optional, da Join Event es meist auch macht
+        this.simplebuilding$syncTrimData();
     }
 
     @Unique

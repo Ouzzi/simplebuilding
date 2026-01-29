@@ -1,17 +1,23 @@
 package com.simplebuilding.util;
 
 public interface SurvivalTracerAccessor {
-    // Basis-Werte (Snapshot beim Tod)
+    // Basis-Werte
     int simplebuilding$getBaseDistance();
-    int simplebuilding$getBaseKills();
     int simplebuilding$getBaseTime();
-    void simplebuilding$setBaseValues(int dist, int kills, int time);
+    int simplebuilding$getBaseHostileKills();
+    int simplebuilding$getBasePassiveKills();
+    int simplebuilding$getBaseDamageTaken(); // NEU
 
-    // NEU: Aktuelle Live-Werte (vom Server gesendet)
+    void simplebuilding$setBaseValues(int dist, int time, int hostile, int passive, int damage);
+
+    // Live-Werte
     int simplebuilding$getCurrentDistance();
-    int simplebuilding$getCurrentKills();
     int simplebuilding$getCurrentTime();
-    void simplebuilding$setCurrentValues(int dist, int kills, int time);
+    int simplebuilding$getCurrentHostileKills();
+    int simplebuilding$getCurrentPassiveKills();
+    int simplebuilding$getCurrentDamageTaken(); // NEU
+
+    void simplebuilding$setCurrentValues(int dist, int time, int hostile, int passive, int damage);
 
     default void simplebuilding$syncTrimData() {}
 }

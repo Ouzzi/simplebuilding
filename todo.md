@@ -35,7 +35,13 @@
 ## BUGS:
 - deep pockets too common in loot chests
 
+- sleadgehammer anvil ->zwei mit modenchantments kombinieren führrt zu verlust von einem enchantment
+
+
 - astralith, nihilith and enderite ingot as trim material give no effect - add effects later
+- - Astralit - jumpheight
+- - Nihilith - faster falling when shifting? 
+- - Enderite - 4x multiplicator like netherite trim
 
 ### Bugs Later:
 - reinforced bundle - should have same ui as normal bundle!

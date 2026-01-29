@@ -44,29 +44,35 @@ public class ModMessages {
             });
         });
 
-        PayloadTypeRegistry.playS2C().register(TrimDataPayload.ID, TrimDataPayload.CODEC);
 
+        // Base Data
+        PayloadTypeRegistry.playS2C().register(TrimDataPayload.ID, TrimDataPayload.CODEC);
         ClientPlayNetworking.registerGlobalReceiver(TrimDataPayload.ID, (payload, context) -> {
             context.client().execute(() -> {
                 if (context.player() instanceof SurvivalTracerAccessor accessor) {
-                    accessor.simplebuilding$setBaseValues(payload.baseDist(), payload.baseKills(), payload.baseTime());
+                    accessor.simplebuilding$setBaseValues(
+                            payload.baseDist(), payload.baseTime(),
+                            payload.baseHostile(), payload.basePassive(), payload.baseDamage()
+                    );
                 }
             });
         });
 
+        // Live Data
         PayloadTypeRegistry.playS2C().register(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC);
         ClientPlayNetworking.registerGlobalReceiver(SurvivalSyncPayload.ID, (payload, context) -> {
             context.client().execute(() -> {
                 if (context.player() instanceof SurvivalTracerAccessor accessor) {
-                    // Speichere die empfangenen Live-Werte im Client-Spieler
-                    accessor.simplebuilding$setCurrentValues(payload.currentDist(), payload.currentKills(), payload.currentTime());
+                    accessor.simplebuilding$setCurrentValues(
+                            payload.currentDist(), payload.currentTime(),
+                            payload.currentHostile(), payload.currentPassive(), payload.currentDamage()
+                    );
                 }
             });
         });
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             if (handler.player instanceof SurvivalTracerAccessor accessor) {
-                // Hier ist der Spieler verbunden, Sync ist sicher
                 accessor.simplebuilding$syncTrimData();
             }
         });

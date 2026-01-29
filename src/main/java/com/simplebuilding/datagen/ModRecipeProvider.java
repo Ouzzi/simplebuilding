@@ -285,7 +285,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // HOPPER REINFORCED & NETHERITE
                 // =================================================================
                 // 1. Reinforced Hopper
-                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_HOPPER, 6)
+                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_HOPPER, 5)
                         .pattern("HNH")
                         .pattern("DDD")
                         .pattern("HHH")
@@ -295,7 +295,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.HOPPER), conditionsFromItem(Items.HOPPER))
                         .offerTo(exporter, "reinforced_hopper_from_crafting");
 
-                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.NETHERITE_HOPPER)
+                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.NETHERITE_HOPPER, 2)
                         .pattern("H")
                         .pattern("N")
                         .pattern("H")
@@ -308,9 +308,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // PISTON REINFORCED & NETHERITE
                 // =================================================================
-                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_PISTON, 3)
+                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_PISTON, 2)
                         .pattern("DDD")
-                        .pattern("PPP")
+                        .pattern("PIP")
                         .pattern("III")
                         .input('D', ModItems.CRACKED_DIAMOND)
                         .input('P', Items.PISTON)
@@ -671,7 +671,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
             // NEU: Helper für Massen-Upgrade (8 Items + 1 Ingot -> 8 Items)
             private void createBulkUpgrade(Item input, Item result, RecipeCategory category) {
-                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), category, result, 8)
+                ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), category, result, 3)
                         .pattern("NR")
                         .pattern("RR")
                         .input('R', input)

@@ -126,6 +126,10 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(Items.GLOW_INK_SAC)
                 .add(Items.GLOWSTONE_DUST);
 
-
+        valueLookupBuilder(ItemTags.TRIMMABLE_ARMOR)
+                .add(ModItems.ENDERITE_HELMET)
+                .add(ModItems.ENDERITE_CHESTPLATE)
+                .add(ModItems.ENDERITE_LEGGINGS)
+                .add(ModItems.ENDERITE_BOOTS);
     }
 }

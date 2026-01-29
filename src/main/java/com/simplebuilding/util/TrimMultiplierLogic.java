@@ -1,24 +1,20 @@
 package com.simplebuilding.util;
 
-import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.config.SimplebuildingConfig;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.stat.Stat;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class TrimMultiplierLogic {
 
-    // Nimmt jetzt PlayerEntity statt ServerPlayerEntity
     public static double getMultiplier(PlayerEntity player) {
         double xpMult = calculateXPMultiplier(player);
         double survivalMult = calculateSurvivalMultiplier(player);
+        double combatMult = calculateCombatMultiplier(player);
         double globalMult = SimplebuildingConfig.trimBenefitBaseMultiplier;
 
-        return globalMult * xpMult * survivalMult;
+        return globalMult * xpMult * survivalMult * combatMult;
     }
 
     public static double calculateXPMultiplier(PlayerEntity player) {
@@ -29,50 +25,67 @@ public class TrimMultiplierLogic {
 
     public static double calculateSurvivalMultiplier(PlayerEntity player) {
         int baseDist = 0;
-        int baseKills = 0;
         int baseTime = 0;
-
         int currentDist = 0;
-        int currentKills = 0;
         int currentTime = 0;
 
-        // Versuche, Daten via Accessor zu holen (funktioniert auf Client und Server, wenn Mixins greifen)
         if (player instanceof SurvivalTracerAccessor accessor) {
             baseDist = accessor.simplebuilding$getBaseDistance();
-            baseKills = accessor.simplebuilding$getBaseKills();
             baseTime = accessor.simplebuilding$getBaseTime();
 
-            // FIX: Auf dem Client lesen wir die gesyncten Werte, auf dem Server berechnen wir sie frisch
             if (player.getEntityWorld().isClient()) {
                 currentDist = accessor.simplebuilding$getCurrentDistance();
-                currentKills = accessor.simplebuilding$getCurrentKills();
                 currentTime = accessor.simplebuilding$getCurrentTime();
             } else {
-                // Server-Logik
                 currentDist = getStatTotalDistance(player);
-                currentKills = 0; // Platzhalter
-                currentTime = getStat(player, Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME));
-            }
-        } else {
-            // Fallback, falls Mixin fehlschlägt (sollte nicht passieren)
-            if (player.getEntityWorld().isClient()) {
-                currentDist = getStatTotalDistance(player);
-                currentTime = getStat(player, Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME));
+                currentTime = getStat(player, Stats.PLAY_TIME);
             }
         }
 
         int distSinceDeath = Math.max(0, currentDist - baseDist);
-        int killsSinceDeath = Math.max(0, currentKills - baseKills);
         int timeSinceDeath = Math.max(0, currentTime - baseTime);
 
-        // Debugging im Tooltip oder Logger könnte hier helfen, wenn es immer noch 0 ist
-        // System.out.println("Dist: " + distSinceDeath + " Time: " + timeSinceDeath);
-
         double distFactor = calculateCurve(distSinceDeath, 4000.0);
-        double killFactor = calculateCurve(killsSinceDeath, 250.0);
         double timeFactor = calculateCurve(timeSinceDeath, 72000.0);
 
-        return Math.max(distFactor, Math.max(killFactor, timeFactor));
+        return Math.max(distFactor, timeFactor);
+    }
+
+    public static double calculateCombatMultiplier(PlayerEntity player) {
+        int baseHostile = 0;
+        int basePassive = 0;
+        int baseDamage = 0;
+        int curHostile = 0;
+        int curPassive = 0;
+        int curDamage = 0;
+
+        // FIX: Nur Accessor Interface nutzen, kein illegaler Mixin-Cast!
+        if (player instanceof SurvivalTracerAccessor accessor) {
+            baseHostile = accessor.simplebuilding$getBaseHostileKills();
+            basePassive = accessor.simplebuilding$getBasePassiveKills();
+            baseDamage = accessor.simplebuilding$getBaseDamageTaken();
+
+            if (player.getEntityWorld().isClient()) {
+                curHostile = accessor.simplebuilding$getCurrentHostileKills();
+                curPassive = accessor.simplebuilding$getCurrentPassiveKills();
+                curDamage = accessor.simplebuilding$getCurrentDamageTaken();
+            } else if (player instanceof ServerPlayerEntity serverPlayer) {
+                curHostile = accessor.simplebuilding$getCurrentHostileKills();
+                curPassive = accessor.simplebuilding$getCurrentPassiveKills();
+                curDamage = serverPlayer.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.DAMAGE_TAKEN));
+            }
+        }
+
+        int hostileSinceDeath = Math.max(0, curHostile - baseHostile);
+        int passiveSinceDeath = Math.max(0, curPassive - basePassive);
+        int damageSinceDeath = Math.max(0, curDamage - baseDamage);
+
+        // Score: Kills + (Damage Taken / 10). Damage taken gibt Punkte (Kampferfahrung)
+        // Damage Taken Stat ist meist x10 (also 20 = 2 Herzen?), hier nehmen wir den rohen Wert.
+        // Ein bisschen Schaden einzustecken hilft dem Multiplikator.
+        double combatScore = (hostileSinceDeath * 1.0) + (passiveSinceDeath * 0.2) + (damageSinceDeath * 0.05);
+
+        return calculateCurve(combatScore, 100.0);
     }
 
     private static double calculateCurve(double input, double scale) {
@@ -80,23 +93,16 @@ public class TrimMultiplierLogic {
     }
 
     private static int getStatTotalDistance(PlayerEntity player) {
-        System.out.println("Total Distance Stats for player " + player.getName().getString() + ": Walked: " +
-                getStat(player, Stats.CUSTOM.getOrCreateStat(Stats.WALK_ONE_CM)) + ", Sprinted: " +
-                getStat(player, Stats.CUSTOM.getOrCreateStat(Stats.SPRINT_ONE_CM)) + ", Crouched: " +
-                getStat(player, Stats.CUSTOM.getOrCreateStat(Stats.CROUCH_ONE_CM)) + ", Flown: " +
-                getStat(player, Stats.CUSTOM.getOrCreateStat(Stats.FLY_ONE_CM)) + ", Climbed: " +
-                getStat(player, Stats.CUSTOM.getOrCreateStat(Stats.CLIMB_ONE_CM))
-        );
-        return getStat(player, Stats.CUSTOM.getOrCreateStat(Stats.WALK_ONE_CM)) / 100
-                + getStat(player, Stats.CUSTOM.getOrCreateStat(Stats.SPRINT_ONE_CM)) / 100
-                + getStat(player, Stats.CUSTOM.getOrCreateStat(Stats.CROUCH_ONE_CM)) / 100
-                + getStat(player, Stats.CUSTOM.getOrCreateStat(Stats.FLY_ONE_CM)) / 100
-                + getStat(player, Stats.CUSTOM.getOrCreateStat(Stats.CLIMB_ONE_CM)) / 100;
+        return getStat(player, Stats.WALK_ONE_CM) / 100
+             + getStat(player, Stats.SPRINT_ONE_CM) / 100
+             + getStat(player, Stats.CROUCH_ONE_CM) / 100
+             + getStat(player, Stats.FLY_ONE_CM) / 100
+             + getStat(player, Stats.CLIMB_ONE_CM) / 100;
     }
 
-    private static int getStat(PlayerEntity player, Stat<?> stat) {
+    private static int getStat(PlayerEntity player, net.minecraft.util.Identifier stat) {
         if (player instanceof ServerPlayerEntity serverPlayer) {
-            return serverPlayer.getStatHandler().getStat(stat);
+            return serverPlayer.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(stat));
         }
         return 0;
     }

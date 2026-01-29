@@ -34,58 +34,30 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
         super(entityType, world);
     }
 
-    // =============================================================
-    // FELDER
-    // =============================================================
+    @Unique private boolean simplebuilding$trimBenefitsEnabled = true;
+    @Unique private boolean simplebuilding$spacePressed = false;
+    @Shadow public abstract PlayerInventory getInventory();
 
-    @Unique
-    private boolean simplebuilding$trimBenefitsEnabled = true;
+    @Override public boolean simplebuilding$areTrimBenefitsEnabled() { return this.simplebuilding$trimBenefitsEnabled; }
+    @Override public void simplebuilding$setTrimBenefitsEnabled(boolean enabled) { this.simplebuilding$trimBenefitsEnabled = enabled; }
+    @Override public boolean simplebuilding$isSpacePressed() { return this.simplebuilding$spacePressed; }
+    @Override public void simplebuilding$setSpacePressed(boolean pressed) { this.simplebuilding$spacePressed = pressed; }
 
-    @Unique
-    private boolean simplebuilding$spacePressed = false;
-
-    @Shadow
-    public abstract PlayerInventory getInventory();
-
-    // =============================================================
-    // INTERFACE IMPLEMENTIERUNGEN
-    // =============================================================
-
-    // --- TrimBenefitUser ---
-    @Override
-    public boolean simplebuilding$areTrimBenefitsEnabled() {
-        return this.simplebuilding$trimBenefitsEnabled;
-    }
-
-    @Override
-    public void simplebuilding$setTrimBenefitsEnabled(boolean enabled) {
-        this.simplebuilding$trimBenefitsEnabled = enabled;
-    }
-
-    // --- ISpaceKeyTracker (NEU) ---
-    @Override
-    public boolean simplebuilding$isSpacePressed() {
-        return this.simplebuilding$spacePressed;
-    }
-
-    @Override
-    public void simplebuilding$setSpacePressed(boolean pressed) {
-        this.simplebuilding$spacePressed = pressed;
-    }
-
-    // =============================================================
-    // NEUE LOGIK: ENDERITE SLOW FALL
-    // =============================================================
-
+    // --- TICK LOGIK ---
     @Inject(method = "tick", at = @At("TAIL"))
-    private void tickEnderiteEffects(CallbackInfo ci) {
+    private void simplebuilding$tickLogic(CallbackInfo ci) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+
+        // 1. Trim Effekte (Stasis, Astralit Jump Boost)
+        TrimEffectUtil.tick(player);
+
+        // 2. Nihilith Gravity (Client & Server für prediction)
+        TrimEffectUtil.handleNihilithGravity(player);
+
+        // 3. Enderite Slow Fall (Server-Side)
         if (!this.getEntityWorld().isClient()) {
             int enderiteCount = 0;
 
-            // Wir iterieren über die 4 Rüstungsslots (36 bis 39)
-            // oder nutzen getEquippedStack(EquipmentSlot) vom LivingEntity (das wir erben!)
-
-            // Variante A: Über getEquippedStack (Sauberer, da wir LivingEntity sind)
             if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.FEET))) enderiteCount++;
             if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.LEGS))) enderiteCount++;
             if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.CHEST))) enderiteCount++;
@@ -108,22 +80,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
                 stack.getItem() == ModItems.ENDERITE_HELMET;
     }
 
-    // =============================================================
-    // BESTEHENDE LOGIK (Strip Miner, Trims, Luck etc.)
-    // =============================================================
+    // --- BESTEHENDE MIXINS ---
 
     @Inject(method = "getBlockBreakingSpeed", at = @At("RETURN"), cancellable = true)
     private void modifyMiningSpeedForStripMiner(BlockState state, CallbackInfoReturnable<Float> cir) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         ItemStack stack = player.getMainHandStack();
-
-        if (!stack.isIn(ItemTags.PICKAXES)) {
-            return;
-        }
-
-        if (!stack.getItem().isCorrectForDrops(stack, state)) {
-            return;
-        }
+        if (!stack.isIn(ItemTags.PICKAXES) || !stack.getItem().isCorrectForDrops(stack, state)) return;
 
         var registry = player.getEntityWorld().getRegistryManager();
         var enchantLookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);

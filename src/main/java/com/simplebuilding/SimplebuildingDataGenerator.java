@@ -2,6 +2,7 @@ package com.simplebuilding;
 
 import com.simplebuilding.datagen.*;
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.trim.ModTrimMaterials;
 import com.simplebuilding.util.ModWorldGen;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -29,5 +30,8 @@ public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
 
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModWorldGen::bootstrapConfiguredFeatures);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModWorldGen::bootstrapPlacedFeatures);
+
+        // NEU: Trim Materials registrieren!
+        registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, ModTrimMaterials::bootstrap);
     }
 }
