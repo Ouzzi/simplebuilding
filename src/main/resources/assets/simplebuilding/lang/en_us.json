@@ -5,6 +5,7 @@
   "item.simplebuilding.gold_chisel": "Gold Chisel",
   "item.simplebuilding.diamond_chisel": "Diamond Chisel",
   "item.simplebuilding.netherite_chisel": "Netherite Chisel",
+  "item.simplebuilding.enderite_chisel": "Enderite Chisel",
 
   "tooltip.simplebuilding.chisel": "Use to shape blocks.",
   "tooltip.simplebuilding.chisel.shift_down": "Right-click on a transformable block. Sneak to reverse.",
@@ -24,6 +25,7 @@
   "item.simplebuilding.gold_core": "Gold Core",
   "item.simplebuilding.diamond_core": "Diamond Core",
   "item.simplebuilding.netherite_core": "Netherite Core",
+  "item.simplebuilding.enderite_core": "Enderite Core",
 
   "item.simplebuilding.rotator": "Rotator",
   "tooltip.simplebuilding.rotator": "Use to rotate blocks.",
@@ -33,6 +35,7 @@
   "item.simplebuilding.gold_building_wand": "Gold Building Wand",
   "item.simplebuilding.diamond_building_wand": "Diamond Building Wand",
   "item.simplebuilding.netherite_building_wand": "Netherite Building Wand",
+    "item.simplebuilding.enderite_building_wand": "Enderite Building Wand",
   "tooltip.simplebuilding.building_wand.size": "Places a %s x %s area of blocks.",
   "tooltip.simplebuilding.building_wand.line_size": "Places a line of %s blocks.",
 
@@ -43,6 +46,7 @@
   "item.simplebuilding.gold_sledgehammer": "Gold Sledgehammer",
   "item.simplebuilding.diamond_sledgehammer": "Diamond Sledgehammer",
   "item.simplebuilding.netherite_sledgehammer": "Netherite Sledgehammer",
+  "item.simplebuilding.enderite_sledgehammer": "Enderite Sledgehammer",
 
   "tooltip.simplebuilding.sledgehammer": "Use to break multiple blocks at once.",
   "tooltip.simplebuilding.building_wand": "Use to place more blocks at once.",
@@ -76,11 +80,16 @@
   "tooltip.simplebuilding.reinforced_bundle": "Can hold more items if enchanted.",
   "item.simplebuilding.netherite_bundle": "Netherite Bundle",
   "tooltip.simplebuilding.netherite_bundle": "Can hold even more items if enchanted.",
+  "item.simplebuilding.enderite_bundle": "Enderite Bundle",
+    "tooltip.simplebuilding.enderite_bundle": "Can hold the most items if enchanted.",
 
   "item.simplebuilding.quiver": "Quiver",
   "tooltip.simplebuilding.quiver": "Holds arrows. Works in Offhand or Chest slot.",
   "item.simplebuilding.netherite_quiver": "Netherite Quiver",
   "tooltip.simplebuilding.netherite_quiver": "Holds more arrows. Works in Offhand or Chest slot.",
+
+  "item.simplebuilding.enderite_quiver": "Enderite Quiver",
+    "tooltip.simplebuilding.enderite_quiver": "Holds the most arrows. Works in Offhand or Chest slot.",
 
   "item.simplebuilding.magnet": "Magnet",
   "tooltip.simplebuilding.magnet.filtering": "Filtering: %s",
@@ -318,12 +327,28 @@
   "item.simplebuilding.enderite_axe": "Enderite Axe",
   "item.simplebuilding.enderite_hoe": "Enderite Hoe",
 
-  "item.simplebuilding.neterite_apple": "Neterite Apple",
+  "item.simplebuilding.netherite_apple": "Neterite Apple",
   "item.simplebuilding.enderite_apple": "Enderite Apple",
-  "item.simplebuilding.neterite_carrot": "Neterite Carrot",
+  "item.simplebuilding.netherite_carrot": "Neterite Carrot",
   "item.simplebuilding.enderite_carrot": "Enderite Carrot",
   "item.simplebuilding.netherite_nugget": "Netherite Nugget",
 
+  "item.simplebuilding.nithilith_ore": "Nithilith Ore",
+  "item.simplebuilding.astralit_ore": "Astralit Ore",
+  "item.simplebuilding.enderite_block": "Enderite Block",
+  "item.simplebuilding.polished_endstone": "Polished End Stone",
+  "item.simplebuilding.purpur_quartz_checker": "Purpur Quartz Checker",
+  "item.simplebuilding.purpur_lapis_checker": "Lapis Quartz Checker",
+  "item.simplebuilding.blackstone_quartz_checker": "Blackstone Quartz Checker",
+  "item.simplebuilding.resin_quartz_checker": "Resin Quartz Checker",
+  "item.simplebuilding.astral_purpur_block": "Astral Purpur Block",
+  "item.simplebuilding.nihil_purpur_block": "Nihil Purpur Block",
+  "item.simplebuilding.astral_end_stone": "Astral End Stone",
+    "item.simplebuilding.nihil_end_stone": "Nihil End Stone",
+  "item.simplebuilding.suspended_sand": "Suspended Sand",
+    "item.simplebuilding.suspended_gravel": "Suspended Gravel",
+    "item.simplebuilding.levitating_sand": "Levitating Sand",
+    "item.simplebuilding.levitating_gravel": "Levitating Gravel",
 
 
   "item.simplebuilding.enderite_helmet": "Enderite Helmet",

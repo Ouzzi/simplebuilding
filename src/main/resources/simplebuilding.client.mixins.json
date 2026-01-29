@@ -13,8 +13,10 @@
     "defaultRequire": 1
   },
   "client": [
+    "ClientSurvivalTracerMixin",
     "HandledScreenMixin",
     "HeldItemRendererMixin",
+    "InventoryScreenMixin",
     "ItemFrameEntityRendererMixin",
     "MinecraftClientMixin",
     "MouseMixin",

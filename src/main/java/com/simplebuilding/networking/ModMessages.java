@@ -1,6 +1,9 @@
 package com.simplebuilding.networking;
 
+import com.simplebuilding.util.SurvivalTracerAccessor;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
@@ -39,6 +42,33 @@ public class ModMessages {
                     }
                 }
             });
+        });
+
+        PayloadTypeRegistry.playS2C().register(TrimDataPayload.ID, TrimDataPayload.CODEC);
+
+        ClientPlayNetworking.registerGlobalReceiver(TrimDataPayload.ID, (payload, context) -> {
+            context.client().execute(() -> {
+                if (context.player() instanceof SurvivalTracerAccessor accessor) {
+                    accessor.simplebuilding$setBaseValues(payload.baseDist(), payload.baseKills(), payload.baseTime());
+                }
+            });
+        });
+
+        PayloadTypeRegistry.playS2C().register(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC);
+        ClientPlayNetworking.registerGlobalReceiver(SurvivalSyncPayload.ID, (payload, context) -> {
+            context.client().execute(() -> {
+                if (context.player() instanceof SurvivalTracerAccessor accessor) {
+                    // Speichere die empfangenen Live-Werte im Client-Spieler
+                    accessor.simplebuilding$setCurrentValues(payload.currentDist(), payload.currentKills(), payload.currentTime());
+                }
+            });
+        });
+
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            if (handler.player instanceof SurvivalTracerAccessor accessor) {
+                // Hier ist der Spieler verbunden, Sync ist sicher
+                accessor.simplebuilding$syncTrimData();
+            }
         });
     }
 }
