@@ -268,6 +268,19 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.ENDERITE_QUIVER, Models.GENERATED);
         itemModelGenerator.register(ModItems.ENDERITE_APPLE, Models.GENERATED);
         itemModelGenerator.register(ModItems.ENDERITE_CARROT, Models.GENERATED);
+
+        // --- NEW: Enchanted Food Models (Reuse existing textures) ---
+        // Dies sorgt dafür, dass enchanted_netherite_apple die Textur von netherite_apple nutzt, etc.
+        Models.GENERATED.upload(
+                ModelIds.getItemModelId(ModItems.ENCHANTED_NETHERITE_APPLE),
+                TextureMap.layer0(Identifier.of(Simplebuilding.MOD_ID, "item/netherite_apple")),
+                itemModelGenerator.modelCollector
+        );
+        Models.GENERATED.upload(
+                ModelIds.getItemModelId(ModItems.ENCHANTED_ENDERITE_APPLE),
+                TextureMap.layer0(Identifier.of(Simplebuilding.MOD_ID, "item/enderite_apple")),
+                itemModelGenerator.modelCollector
+        );
     }
 
     private void registerMirroredChecker(BlockStateModelGenerator generator, Block block) {

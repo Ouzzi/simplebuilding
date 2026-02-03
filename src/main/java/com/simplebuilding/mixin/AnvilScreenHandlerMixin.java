@@ -67,6 +67,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
             // FALL A: HAMMER + HAMMER
             if (rightStack.getItem() instanceof SledgehammerItem) {
+                // 1. Haltbarkeit berechnen (Deine bestehende Logik)
                 int leftDurability = leftStack.getMaxDamage() - leftStack.getDamage();
                 int rightDurability = rightStack.getMaxDamage() - rightStack.getDamage();
 
@@ -80,16 +81,53 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
                 result.setDamage(newDamage);
                 result.set(DataComponentTypes.REPAIR_COST, 0);
 
+                // 2. VERZAUBERUNGEN KOMBINIEREN (NEU HINZUGEFÜGT)
+                // Wir holen die Enchants von links und rechts
+                var leftEnchants = EnchantmentHelper.getEnchantments(leftStack);
+                var rightEnchants = EnchantmentHelper.getEnchantments(rightStack);
+
+                // Builder starten mit den Enchants vom linken Item
+                net.minecraft.component.type.ItemEnchantmentsComponent.Builder builder = new net.minecraft.component.type.ItemEnchantmentsComponent.Builder(leftEnchants);
+
+                // Durch alle Enchants des rechten Items iterieren
+                for (var entry : rightEnchants.getEnchantmentEntries()) {
+                    RegistryEntry<Enchantment> enchantment = entry.getKey();
+                    int rightLevel = entry.getIntValue();
+                    int leftLevel = leftEnchants.getLevel(enchantment);
+
+                    // Vanilla Amboss-Logik für Level-Berechnung
+                    int newLevel = leftLevel;
+                    if (leftLevel == rightLevel) {
+                        newLevel = rightLevel + 1;
+                    } else {
+                        newLevel = Math.max(leftLevel, rightLevel);
+                    }
+
+                    // Max Level des Enchantments beachten
+                    if (newLevel > enchantment.value().getMaxLevel()) {
+                        newLevel = enchantment.value().getMaxLevel();
+                    }
+
+                    // Enchantment setzen
+                    builder.set(enchantment, newLevel);
+                }
+
+                // FIX: "set" statt "setEnchantments"
+                EnchantmentHelper.set(result, builder.build());
+
+                // 3. Restliche Logik (Renaming, Kosten, Output)
                 handleRenaming(leftStack, result);
 
                 this.output.setStack(0, result);
+
+                // Kostenberechnung könnte man hier noch verfeinern basierend auf Enchants,
+                // aber für dein Mod-Design scheint 1 Level okay zu sein.
                 this.levelCost.set(1);
                 this.repairItemUsage = 1;
 
                 ci.cancel();
             }
-            // FALL B: HAMMER + MATERIAL (KORRIGIERT)
-            // Nutze leftStack.canRepairWith(rightStack) - Methode von ItemStack!
+            // FALL B: HAMMER + MATERIAL (Bleibt wie gehabt, da hier keine Enchants vom Material kommen)
             else if (leftStack.isDamaged() && leftStack.canRepairWith(rightStack)) {
                 ItemStack result = leftStack.copy();
 

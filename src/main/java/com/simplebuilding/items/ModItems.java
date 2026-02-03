@@ -241,6 +241,7 @@ public class ModItems {
             builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 4800, 0), 1.0f));
             builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 1200, 0), 1.0f));
             builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 600, 1), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 200, 1), 1.0f));
         } else {
             builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 2400, 0), 1.0f));
             builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 2400, 0), 1.0f));
@@ -256,20 +257,56 @@ public class ModItems {
             builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 3000, 0), 1.0f));
             builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 3000, 0), 1.0f));
             builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 2400, 3), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.HEALTH_BOOST, 2400, 2), 1.0f));
         } else {
             builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 6000, 0), 1.0f));
             builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.SPEED, 1200, 1), 1.0f));
             builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 1200, 1), 1.0f));
+            builder.consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.SATURATION, 1, 0), 1.0f));
         }
         return builder.build();
     }
+
+    public static ConsumableComponent createEnchantedNetheriteFoodEffects() {
+        return ConsumableComponent.builder().useAction(UseAction.EAT).consumeSeconds(1.6f)
+                // Deutlich stärkere Effekte als der normale Netherite Apfel
+                .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 800, 1), 1.0f)) // Regeneration II (40s)
+                .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 6000, 0), 1.0f))  // Resistance I (5min)
+                .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 0), 1.0f)) // Fire Res (5min)
+                .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 2400, 3), 1.0f)) // Absorption IV (2min, 8 extra Herzen)
+                .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 2400, 1), 1.0f))   // Strength II (2min)
+                .build();
+    }
+
+    public static ConsumableComponent createEnchantedEnderiteFoodEffects() {
+        return ConsumableComponent.builder().useAction(UseAction.EAT).consumeSeconds(1.6f)
+                // Massive Effekte für das Endgame
+                .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 1200, 2), 1.0f)) // Regeneration III (60s)
+                .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 6000, 1), 1.0f))  // Resistance II (5min)
+                .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 12000, 0), 1.0f)) // Fire Res (10min)
+                .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 3600, 4), 1.0f)) // Absorption V (3min, 10 extra Herzen)
+                .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.HEALTH_BOOST, 3600, 4), 1.0f)) // Health Boost V (3min)
+                .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 6000, 0), 1.0f)) // Night Vision (5min)
+                .build();
+    }
+
 
     public static final Item NETHERITE_CARROT = registerItem("netherite_carrot", settings -> new Item(settings.food(NETHERITE_CARROT_FOOD, createNetheriteFoodEffects(false)).fireproof()));
     public static final Item NETHERITE_APPLE = registerItem("netherite_apple", settings -> new Item(settings.food(NETHERITE_APPLE_FOOD, createNetheriteFoodEffects(true)).fireproof()));
     public static final Item ENDERITE_CARROT = registerItem("enderite_carrot", settings -> new Item(settings.food(ENDERITE_CARROT_FOOD, createEnderiteFoodEffects(false)).fireproof()));
     public static final Item ENDERITE_APPLE = registerItem("enderite_apple", settings -> new Item(settings.food(ENDERITE_APPLE_FOOD, createEnderiteFoodEffects(true)).fireproof()));
 
+    public static final Item ENCHANTED_NETHERITE_APPLE = registerItem("enchanted_netherite_apple", settings -> new Item(settings
+            .food(NETHERITE_APPLE_FOOD, createEnchantedNetheriteFoodEffects())
+            .fireproof()
+            .rarity(net.minecraft.util.Rarity.EPIC)
+            .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true))); // Aktiviert den Schimmer
 
+    public static final Item ENCHANTED_ENDERITE_APPLE = registerItem("enchanted_enderite_apple", settings -> new Item(settings
+            .food(ENDERITE_APPLE_FOOD, createEnchantedEnderiteFoodEffects())
+            .fireproof()
+            .rarity(net.minecraft.util.Rarity.EPIC)
+            .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
 
 
 

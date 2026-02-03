@@ -172,7 +172,7 @@ public class ModEnchantments {
                 Enchantment.leveledCost(55, 15),
                 4,
                 AttributeModifierSlot.MAINHAND
-        )).exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.RADIUS_EXCLUSIVE_SET)));
+        )));
 
         // 10. RADIUS (Max Level 1, Treasure, Very Rare, 5x5 mining) [SLEDGEHAMMER]
         register(registerable, RADIUS, Enchantment.builder(Enchantment.definition(
@@ -184,7 +184,7 @@ public class ModEnchantments {
                 Enchantment.leveledCost(75, 20),
                 8, // Teurer
                 AttributeModifierSlot.MAINHAND
-        )).exclusiveSet(enchantmentsLookup.getOrThrow(ModEnchantmentTagProvider.BREAK_THROUGH_EXCLUSIVE_SET)));
+        )));
 
         // 11. IGNORE_BLOCKTYPE (Max Level 2, Treasure, Rare) [SLEDGEHAMMER]
         register(registerable, OVERRIDE, Enchantment.builder(Enchantment.definition(

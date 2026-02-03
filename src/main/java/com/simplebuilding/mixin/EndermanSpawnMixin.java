@@ -26,7 +26,8 @@ public abstract class EndermanSpawnMixin {
             // 2. Nur bei natürlichem Spawning prüfen (Performance & Logic)
             if (spawnReason == SpawnReason.NATURAL || spawnReason == SpawnReason.CHUNK_GENERATION) {
 
-                // Radius festlegen (16-32 ist sicher für Performance)
+                // ACHTUNG: Radius 64 = 2.146.689 Checks pro Spawn! Das ist extrem viel.
+                // Ich empfehle max 32 (ca. 260k Checks) oder noch besser 16, wenn möglich.
                 int radius = 64;
 
                 // Bereich scannen
@@ -34,6 +35,15 @@ public abstract class EndermanSpawnMixin {
                 BlockPos end = pos.add(radius, radius, radius);
 
                 for (BlockPos p : BlockPos.iterate(start, end)) {
+
+                    // --- FIX ANFANG ---
+                    // WICHTIG: Prüfen, ob der Chunk geladen ist, BEVOR wir den Block abfragen.
+                    // Verhindert den Watchdog Crash durch synchrones Chunk-Laden.
+                    if (!world.toServerWorld().isChunkLoaded(p.getX() >> 4, p.getZ() >> 4)) {
+                        continue; // Überspringe ungeladene Chunks
+                    }
+                    // --- FIX ENDE ---
+
                     // Prüfen auf Enderite Block
                     if (world.getBlockState(p).isOf(ModBlocks.ENDERITE_BLOCK)) {
                         // Prüfen ob gepowert

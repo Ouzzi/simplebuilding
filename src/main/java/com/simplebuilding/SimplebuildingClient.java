@@ -16,6 +16,7 @@ import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.networking.*;
 import com.simplebuilding.screen.ModScreenHandlers;
 import com.simplebuilding.util.BundleTooltipAccessor;
+import com.simplebuilding.util.SurvivalTracerAccessor;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -81,15 +82,16 @@ public class SimplebuildingClient implements ClientModInitializer {
             return null;
         });
 
-
-        TooltipComponentCallback.EVENT.register(data -> {
+        // Dieser zweite Handler ist redundant, da der erste bereits greift, wenn data instanceof ReinforcedBundleTooltipData ist.
+        // Ich lasse ihn hier stehen, falls du eine Fallback-Logik hattest, aber eigentlich reicht einer.
+        /* TooltipComponentCallback.EVENT.register(data -> {
             if (data instanceof ReinforcedBundleTooltipData bundleData) {
                 // Nutze die Vanilla Bundle Komponente für die Anzeige
                 return new BundleTooltipComponent(bundleData.contents());
             }
             return null;
         });
-
+        */
 
         registerDoubleJumpClient();
 
@@ -149,18 +151,8 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         HandledScreens.register(ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER, NetheriteHopperScreen::new);
 
-        // --- NETZWERK REGISTRIERUNG CLIENT-SEITE (WICHTIG!) ---
-
-        // Jetzt den Receiver registrieren
-        ClientPlayNetworking.registerGlobalReceiver(SyncHopperGhostItemPayload.ID, (payload, context) -> {
-            context.client().execute(() -> {
-                if (context.client().world != null) {
-                    if (context.client().world.getBlockEntity(payload.pos()) instanceof ModHopperBlockEntity blockEntity) {
-                        blockEntity.setGhostItemClient(payload.slot(), payload.stack());
-                    }
-                }
-            });
-        });
+        // --- NETZWERK REGISTRIERUNG CLIENT-SEITE ---
+        registerClientReceivers();
 
         ENCHANTMENT_PROPERTY_TYPE = SelectProperty.Type.create(
                 EnchantmentModelProperty.CODEC, // Dein MapCodec
@@ -182,7 +174,43 @@ public class SimplebuildingClient implements ClientModInitializer {
                 }
             }
         });
+    }
 
+    private void registerClientReceivers() {
+        // Sync Hopper Ghost Item
+        ClientPlayNetworking.registerGlobalReceiver(SyncHopperGhostItemPayload.ID, (payload, context) -> {
+            context.client().execute(() -> {
+                if (context.client().world != null) {
+                    if (context.client().world.getBlockEntity(payload.pos()) instanceof ModHopperBlockEntity blockEntity) {
+                        blockEntity.setGhostItemClient(payload.slot(), payload.stack());
+                    }
+                }
+            });
+        });
+
+        // Trim Data (Hierhin verschoben von ModMessages)
+        ClientPlayNetworking.registerGlobalReceiver(TrimDataPayload.ID, (payload, context) -> {
+            context.client().execute(() -> {
+                if (context.player() instanceof SurvivalTracerAccessor accessor) {
+                    accessor.simplebuilding$setBaseValues(
+                            payload.baseDist(), payload.baseTime(),
+                            payload.baseHostile(), payload.basePassive(), payload.baseDamage()
+                    );
+                }
+            });
+        });
+
+        // Live Data (Hierhin verschoben von ModMessages)
+        ClientPlayNetworking.registerGlobalReceiver(SurvivalSyncPayload.ID, (payload, context) -> {
+            context.client().execute(() -> {
+                if (context.player() instanceof SurvivalTracerAccessor accessor) {
+                    accessor.simplebuilding$setCurrentValues(
+                            payload.currentDist(), payload.currentTime(),
+                            payload.currentHostile(), payload.currentPassive(), payload.currentDamage()
+                    );
+                }
+            });
+        });
     }
 
     private void registerDoubleJumpClient() {

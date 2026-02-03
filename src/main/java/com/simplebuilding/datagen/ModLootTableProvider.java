@@ -29,9 +29,9 @@ import java.util.concurrent.CompletableFuture;
 
 // List all Loot Table types:
 // 1. STRONGHOLD LIBRARY CHEST: (RANGE, QUIVER, MASTER_BUILDER, BRIDGE)
-// 2. END CITY: (RANGE, QUIVER, MASTER_BUILDER, OVERRIDES, BRIDGE, DOUBLE_JUMP), (DIAMOND_CHISEL_ENCHANTED, DIAMOND_SPATULA_ENCHANTED,DIAMOND_BUILDING_WAND_ENCHANTED, DIAMOND_SLEDGEHAMMER_ENCHANTED, diamond_core)
-// 4. ANCIENT CITY: (DEEP POCKETS, RADIUS), (OCTANT_ENCHANTED, DIAMOND_SLEDGEHAMMER, QUIVER_ENCHANTED)
-// 5. BASTION: (FUNNEL, BREAK THROUGH), (GOLD_SLEDGEHAMMER, gold_core, NETHERITE_CORE)
+// 2. END CITY: (RANGE, QUIVER, MASTER_BUILDER, OVERRIDES, BRIDGE, DOUBLE_JUMP), (DIAMOND_CHISEL_ENCHANTED, DIAMOND_SPATULA_ENCHANTED,DIAMOND_BUILDING_WAND_ENCHANTED, DIAMOND_SLEDGEHAMMER_ENCHANTED, diamond_core, ENCHANTED_ENDERITE_APPLE)
+// 4. ANCIENT CITY: (DEEP POCKETS, RADIUS), (OCTANT_ENCHANTED, DIAMOND_SLEDGEHAMMER, QUIVER_ENCHANTED, ENCHANTED_NETHERITE_APPLE)
+// 5. BASTION: (FUNNEL, BREAK THROUGH), (GOLD_SLEDGEHAMMER, gold_core, NETHERITE_CORE, ENCHANTED_NETHERITE_APPLE)
 // 6. NETHER BRIDGE: (FUNNEL, BREAK THROUGH, STRIP_MINER), (gold_core, OCTANT_ENCHANTED)
 // 7. PILLAGER OUTPOST: (COLOR PALETTE, SURFACE PLACE, LINE PLACE), (OCTANT, QUIVER)
 // 8. WOODLAND MANSION: (COLOR PALETTE, SURFACE PLACE, LINE PLACE, VEIN_MINER IV), (IRON_BUILDING_WAND, iron_core, QUIVER)
@@ -40,7 +40,7 @@ import java.util.concurrent.CompletableFuture;
 // 11. SHIPWRECK TREASURE: (FAST CHISEL), (REINFORCED_BUNDLE)
 // 12. IGLOO: (CONSTRUCTORS TOUCH, FAST CHISEL), (DIAMOND_CHISEL, IRON_SPATULA)
 // 13. ABANDONED MINESHAFT: (FAST CHISEL, STRIP_MINER I, VEIN_MINER III), (REINFORCED_BUNDLE_ENCHANTED)
-// 14. VAULT: (CONSTRUCTORS TOUCH, FAST_CHISEL, DOUBLE_JUMP I), (diamond_core)
+// 14. VAULT: (CONSTRUCTORS TOUCH, FAST_CHISEL, DOUBLE_JUMP I), (diamond_core, ENCHANTED_NETHERITE_APPLE)
 
 public class ModLootTableProvider extends FabricBlockLootTableProvider {
     public ModLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
@@ -148,6 +148,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         // Items
                         .with(ItemEntry.builder(ModItems.DIAMOND_BUILDING_WAND).weight(10).apply(EnchantRandomlyLootFunction.create()))
                         .with(ItemEntry.builder(ModItems.DIAMOND_SLEDGEHAMMER).weight(20).apply(EnchantRandomlyLootFunction.create()))
+                        .with(ItemEntry.builder(ModItems.ENCHANTED_ENDERITE_APPLE).weight(1))
                         .with(EmptyEntry.builder().weight(40));
                 tableBuilder.pool(pool);
             }
@@ -158,14 +159,15 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             if (LootTables.ANCIENT_CITY_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0, 3))
-                        .with(enchantedBook(ModEnchantments.DEEP_POCKETS, 2, enchantments, 6))
+                        .with(enchantedBook(ModEnchantments.DEEP_POCKETS, 2, enchantments, 5))
                         .with(enchantedBook(ModEnchantments.RADIUS, 1, enchantments, 4))
                         .with(ItemEntry.builder(ModItems.OCTANT).weight(6).apply(EnchantRandomlyLootFunction.create()))
                         .with(ItemEntry.builder(ModItems.DIAMOND_SLEDGEHAMMER).weight(3))
                         .with(ItemEntry.builder(ModItems.QUIVER).weight(3).apply(EnchantRandomlyLootFunction.create()))
                         .with(ItemEntry.builder(ModItems.NETHERITE_APPLE).weight(2))
-                        .with(ItemEntry.builder(ModItems.NETHERITE_NUGGET).weight(1).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3))))
-                        .with(EmptyEntry.builder().weight(2));
+                        .with(ItemEntry.builder(ModItems.ENCHANTED_NETHERITE_APPLE).weight(1))
+                        .with(ItemEntry.builder(ModItems.NETHERITE_NUGGET).weight(3).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3))))
+                        .with(EmptyEntry.builder().weight(3));
                 tableBuilder.pool(pool);
             }
 
@@ -182,6 +184,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                         .with(ItemEntry.builder(ModItems.NETHERITE_CORE).weight(1))
                         .with(ItemEntry.builder(ModItems.NETHERITE_NUGGET).weight(15).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 5))))
                         .with(ItemEntry.builder(ModItems.NETHERITE_CARROT).weight(5))
+                        .with(ItemEntry.builder(ModItems.ENCHANTED_NETHERITE_APPLE).weight(1))
                         .with(ItemEntry.builder(ModItems.GOLD_SLEDGEHAMMER).weight(8))
                         .with(EmptyEntry.builder().weight(20));
                 tableBuilder.pool(pool);
@@ -325,11 +328,12 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             if (LootTables.TRIAL_CHAMBERS_REWARD_OMINOUS_CHEST.equals(key) || LootTables.TRIAL_CHAMBERS_REWARD_RARE_CHEST.equals(key)) {
                 LootPool.Builder pool = LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(0, 1))
-                        .with(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 15))
-                        .with(enchantedBook(ModEnchantments.DOUBLE_JUMP, 1, enchantments, 10))
+                        .with(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 10))
+                        .with(enchantedBook(ModEnchantments.DOUBLE_JUMP, 1, enchantments, 7))
                         .with(ItemEntry.builder(ModItems.DIAMOND_CORE).weight(2))
                         .with(ItemEntry.builder(ModItems.NETHERITE_APPLE).weight(2))
-                        .with(EmptyEntry.builder().weight(25));
+                        .with(ItemEntry.builder(ModItems.ENCHANTED_NETHERITE_APPLE).weight(1))
+                        .with(EmptyEntry.builder().weight(35));
                 tableBuilder.pool(pool);
             }
         });

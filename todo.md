@@ -32,16 +32,17 @@
 
 - funnel 2 allows only items already in bundle to be picked up (no new item types)
 
-## BUGS:
 - deep pockets too common in loot chests
-
-- sleadgehammer anvil ->zwei mit modenchantments kombinieren führrt zu verlust von einem enchantment
-
 
 - astralith, nihilith and enderite ingot as trim material give no effect - add effects later
 - - Astralit - jumpheight
-- - Nihilith - faster falling when shifting? 
+- - Nihilith - faster falling when shifting?
 - - Enderite - 4x multiplicator like netherite trim
+
+## BUGS:
+
+- sleadgehammer anvil ->zwei mit modenchantments kombinieren führrt zu verlust von einem enchantment
+
 
 ### Bugs Later:
 - reinforced bundle - should have same ui as normal bundle!
@@ -51,6 +52,12 @@
 
  
 ## TODO:
+
+- add new trial spawner/ vauklt/ vaultkey
+- - new mob which is a boss mob - must be built like wither (small and big variant) 
+- - - drops new vault key (small - for basic vaults, big - for advanced vaults)
+- - - either one can be done in ominous version (harder) trial omen effect/bad omen effect should trigger the ominous version 
+- - - drops new vault key and new loot item (
 
 - add echoshard as trim material, galaxy/void trim texture
 

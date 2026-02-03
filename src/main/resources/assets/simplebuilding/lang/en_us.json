@@ -265,6 +265,11 @@
 
   "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits": "Enable Armor Trim Benefits",
   "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits.@Tooltip": "If disabled, you will not receive gameplay bonuses (like water breathing) from armor trims.",
+  "text.autoconfig.simplebuilding.option.trimBenefitBaseMultiplier": "Trim Benefit Base Multiplier",
+  "text.autoconfig.simplebuilding.option.trimBenefitBaseMultiplier.@Tooltip": "Base multiplier for armor trim benefits. Higher values increase the effectiveness of armor trims.",
+    "text.autoconfig.simplebuilding.option.maxMultiplierLimit": "Max Multiplier Limit",
+  "text.autoconfig.simplebuilding.option.maxMultiplierLimit.@Tooltip": "Maximum limit for the trim benefit multiplier. Prevents excessive stacking of benefits from multiple trims.",
+
 
   "trim_pattern.simplebuilding.emitting": "Emitting Pattern",
   "item.simplebuilding.glowing_trim_template": "Glowing Trim Upgrade Template",

@@ -3,5 +3,6 @@
   "description": {
     "color": "#FFFF55",
     "translate": "trim_material.simplebuilding.astralit"
-  }
+  },
+  "ingredient": "simplebuilding:astralit_dust"
 }
