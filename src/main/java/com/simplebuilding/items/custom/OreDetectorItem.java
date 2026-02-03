@@ -41,6 +41,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static com.simplebuilding.util.EnchantmentHelper.getEnchantmentLevel;
+import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
+
 public class OreDetectorItem extends Item {
 
     // Balancing: "Energie Budget" für die Suche.
@@ -90,13 +93,11 @@ public class OreDetectorItem extends Item {
         // FIX: BlockPos.ofFloored statt Vec3d.getBlockPos()
         BlockPos playerPos = BlockPos.ofFloored(player.getEyePos());
 
-        // 1. Check Enchantment
+        // 1. Check Enchantment todo refactor to enchantmentHelper
         double costMultiplier = 2.0;
-        var registry = world.getRegistryManager();
-        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var touchKey = enchantments.getOptional(ModEnchantments.CONSTRUCTORS_TOUCH);
+        boolean hasConstructorsTouch = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH);
 
-        if (touchKey.isPresent() && EnchantmentHelper.getLevel(touchKey.get(), stack) > 0) {
+        if (hasConstructorsTouch) {
             costMultiplier = 1.0;
         }
 
@@ -121,15 +122,11 @@ public class OreDetectorItem extends Item {
 
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        // WICHTIG: Wir prüfen hier nur auf Sneaking.
         if (user.isSneaking()) {
-            // Nur auf dem Server führen wir die Logik aus (Modus wechseln)
             if (!world.isClient()) {
                 ItemStack stack = user.getStackInHand(hand);
                 cycleMode(stack, user);
             }
-            // ABER: Wir geben auf BEIDEN Seiten SUCCESS zurück.
-            // Das sagt dem Client: "Aktion erfolgreich, spiele Animation, synchronisiere Item".
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
@@ -155,8 +152,6 @@ public class OreDetectorItem extends Item {
         }
         return super.useOnBlock(context);
     }
-
-    // --- LOGIK & RAYCAST ---
 
     private BlockPos findNearestOreWithRaycast(World world, Vec3d eyesPos, DetectMode mode, ItemStack stack, double costMultiplier) {
         BlockPos origin = BlockPos.ofFloored(eyesPos);
@@ -219,7 +214,6 @@ public class OreDetectorItem extends Item {
     }
 
     private double getBlockDensity(BlockState state) {
-        // FIX 1: isOpaqueFullCube() hat keine Argumente mehr
         if (state.isAir() || !state.isOpaqueFullCube()) {
             return 1.0;
         }

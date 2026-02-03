@@ -51,9 +51,13 @@ public class SledgehammerUsageEvent implements PlayerBlockBreakEvents.Before {
                     if (targetState.getBlock() == originState.getBlock()) {shouldBreak = true;}
                 }
                 else if (ignoreLevel == 1) {
-                    if (targetState.getBlock() == originState.getBlock() || mainHandItem.isSuitableFor(targetState)) {shouldBreak = true;}
+                    if (targetState.getBlock() == originState.getBlock() || mainHandItem.getItem().isCorrectForDrops(mainHandItem, targetState)) {shouldBreak = true;}
                 }
-                else if (ignoreLevel >= 2) {shouldBreak = true;}
+                else if (ignoreLevel >= 2) {
+                    if (mainHandItem.getItem().isCorrectForDrops(mainHandItem, targetState) || targetState.getBlock() == originState.getBlock()) {
+                        shouldBreak = true;
+                    }
+                }
 
                 if (shouldBreak) {
                     HARVESTED_BLOCKS.add(position);
@@ -63,7 +67,7 @@ public class SledgehammerUsageEvent implements PlayerBlockBreakEvents.Before {
                     HARVESTED_BLOCKS.remove(position);
 
                     if (wasBroken) {
-                        boolean isSuitable = mainHandItem.isSuitableFor(targetState);
+                        boolean isSuitable = mainHandItem.getItem().isCorrectForDrops(mainHandItem, targetState);
                         int damageAmount = isSuitable ? 1 : 2;
 
                         mainHandItem.damage(damageAmount, serverPlayer, EquipmentSlot.MAINHAND);

@@ -22,28 +22,23 @@ import org.apache.commons.lang3.math.Fraction;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.simplebuilding.util.EnchantmentHelper.hasConstructorsTouchEnchantment;
+
 public class QuiverItem extends ReinforcedBundleItem {
 
     public QuiverItem(Settings settings) {
         super(settings);
     }
 
-    // --- 1. Rechtsklick in die Luft (Angepasst an deine Version) ---
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        // In deiner Version gibt 'use' nur ActionResult zurück.
-        // PASS verhindert das Ausschütten.
         return ActionResult.PASS;
     }
 
-    // --- 2. Rechtsklick auf einen Block ---
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        // PASS verhindert Interaktion mit Blöcken
         return ActionResult.PASS;
     }
-
-    // --- Interaction Logic Override (Only Arrows) ---
 
     @Override
     public boolean onStackClicked(ItemStack bundle, Slot slot, ClickType clickType, PlayerEntity player) {
@@ -66,8 +61,6 @@ public class QuiverItem extends ReinforcedBundleItem {
         if (!stackToInsert.isIn(ItemTags.ARROWS)) return false;
         return super.tryInsertStackFromWorld(bundle, stackToInsert, player);
     }
-
-    // --- Capacity Logic (UPDATED FOR DRAWER) ---
 
     @Override
     protected Fraction getMaxCapacity(ItemStack stack, PlayerEntity player) {
@@ -127,8 +120,6 @@ public class QuiverItem extends ReinforcedBundleItem {
         }
         return capacity;
     }
-
-    // --- Helper Methods for Bow Mixin ---
 
     public static ItemStack findProjectileForBow(PlayerEntity player) {
         // 1. Offhand
@@ -228,10 +219,4 @@ public class QuiverItem extends ReinforcedBundleItem {
         return false;
     }
 
-    private static boolean hasConstructorsTouchEnchantment(ItemStack stack, PlayerEntity player) {
-        var registry = player.getEntityWorld().getRegistryManager();
-        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var ct = enchantments.getOptional(ModEnchantments.CONSTRUCTORS_TOUCH);
-        return ct.isPresent() && EnchantmentHelper.getLevel(ct.get(), stack) > 0;
-    }
 }

@@ -45,6 +45,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import static com.simplebuilding.util.EnchantmentHelper.*;
+
 public class ChiselItem extends Item {
 
     public enum Direction {
@@ -346,7 +348,7 @@ public class ChiselItem extends Item {
         float materialSpeed = this.material.speed();
 
         // 3. Fast Chiseling Bonus
-        int fastChiselingLevel = getFastChiselingLevel(stack);
+        int fastChiselingLevel = getEnchantmentLevel(stack, null, ModEnchantments.FAST_CHISELING);
         float efficiencyBonus = 0.0f;
 
         if (fastChiselingLevel == 1) {
@@ -409,12 +411,7 @@ public class ChiselItem extends Item {
         BlockState oldState = world.getBlockState(pos);
         Block oldBlock = oldState.getBlock();
 
-        RegistryWrapper.WrapperLookup registryManager = world.getRegistryManager();
-
-        // Optimierung: Nur Enchantment abrufen, wenn nötig
-        // Touch brauchen wir für die Map-Auswahl
-        var touchEntry = getEnchantment(registryManager, ModEnchantments.CONSTRUCTORS_TOUCH);
-        boolean hasConstructorsTouch = touchEntry != null && EnchantmentHelper.getLevel(touchEntry, stack) > 0;
+        var hasConstructorsTouch = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH);
 
         boolean isSneaking = player.isSneaking();
         boolean isReverseAction = false;
@@ -457,8 +454,8 @@ public class ChiselItem extends Item {
             world.setBlockState(pos, newState);
 
             // Cooldown Berechnung mit Fast Chiseling
-            var fastChiselEntry = getEnchantment(registryManager, ModEnchantments.FAST_CHISELING);
-            int fastChiselingLevel = fastChiselEntry != null ? EnchantmentHelper.getLevel(fastChiselEntry, stack) : 0;
+
+            int fastChiselingLevel = getEnchantmentLevel(stack, world, ModEnchantments.FAST_CHISELING);
 
             int finalCooldown = this.cooldownTicks;
             if (fastChiselingLevel > 0) {
@@ -548,6 +545,7 @@ public class ChiselItem extends Item {
         registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD);
         registerLinear(ChiselItem.IRON_TOUCH_MAP, ChiselItem.IRON_TOUCH_SPATULA_MAP, Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD);
     }
+
     private static void registerWoodVariants(Map<Block, Block> forward, Map<Block, Block> backward) {
         // Oak
         registerLinear(forward, backward, Blocks.OAK_PLANKS, Blocks.OAK_STAIRS);
@@ -587,7 +585,6 @@ public class ChiselItem extends Item {
         registerLinear(forward, backward, Blocks.PALE_OAK_STAIRS, Blocks.PALE_OAK_SLAB);
     }
 
-    // Registriert Planks -> Stairs -> Slab für Nether Hölzer (Crimson/Warped)
     private static void registerNetherWoodVariants(Map<Block, Block> forward, Map<Block, Block> backward) {
         // Crimson
         registerLinear(forward, backward, Blocks.CRIMSON_PLANKS, Blocks.CRIMSON_STAIRS);
@@ -645,42 +642,25 @@ public class ChiselItem extends Item {
         BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
 
-        // 2. Enchantment Check
-        RegistryWrapper.WrapperLookup registryManager = world.getRegistryManager();
-        var touchEntry = getEnchantment(registryManager, ModEnchantments.CONSTRUCTORS_TOUCH);
-        boolean hasConstructorsTouch = touchEntry != null && EnchantmentHelper.getLevel(touchEntry, stack) > 0;
+        boolean hasConstructorsTouch = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH);
 
         boolean isSneaking = player.isSneaking();
         Map<Block, Block> currentMap;
 
-        // 3. Map Auswahl (Exakt dieselbe Logik wie in tryChiselBlock)
         if (this.isDedicatedSpatula) {
-            // Spatel Logik
             if (isSneaking) {
                 currentMap = hasConstructorsTouch ? this.touchForwardMap : this.forwardMap;
             } else {
                 currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
             }
         } else {
-            // Meißel Logik
             if (isSneaking) {
-                // Sneaken beim Meißel = Rückwärts.
-                // Das erfordert zwingend eine Backward-Map.
                 currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
             } else {
-                // Nicht Sneaken = Vorwärts
                 currentMap = hasConstructorsTouch ? this.touchForwardMap : this.forwardMap;
             }
         }
-
-        // 4. Prüfung: Ist der Block in der AKTUELLEN Map?
-        // Wenn ich sneake, aber der Block ist nur in der Forward-Map, gibt das hier false zurück -> Keine Animation.
         return currentMap.containsKey(block);
-    }
-
-    private RegistryEntry<Enchantment> getEnchantment(RegistryWrapper.WrapperLookup registry, net.minecraft.registry.RegistryKey<Enchantment> key) {
-        Optional<RegistryEntry.Reference<Enchantment>> optional = registry.getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(key);
-        return optional.orElse(null);
     }
 
     @Override

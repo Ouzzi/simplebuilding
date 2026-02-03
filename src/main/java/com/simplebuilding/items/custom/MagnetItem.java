@@ -32,6 +32,8 @@ import org.jspecify.annotations.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static com.simplebuilding.util.EnchantmentHelper.*;
+
 public class MagnetItem extends Item {
 
     private static final String FILTER_KEY = "MagnetFilter";
@@ -43,8 +45,6 @@ public class MagnetItem extends Item {
         super(settings);
     }
 
-    // WICHTIG: Dies ist die korrekte Signatur für deine Version (laut deiner Item.java)
-    // ServerWorld statt World, EquipmentSlot statt int slot.
     @Override
     public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
         // Da der Parameter schon ServerWorld ist, brauchen wir kein isClient Check mehr.
@@ -68,7 +68,7 @@ public class MagnetItem extends Item {
 
         // --- REICHWEITEN BERECHNUNG ---
         boolean hasConstructors = hasConstructorsTouch(stack, world);
-        int rangeLevel = getMagnetRangeLevel(stack, world);
+        int rangeLevel = getEnchantmentLevel(stack, world, ModEnchantments.RANGE);
 
         // Basis Reichweite (4.0 oder 8.0 durch Constructors Touch)
         double currentRange = hasConstructors ? BOOSTED_RANGE : BASE_RANGE;
@@ -178,25 +178,5 @@ public class MagnetItem extends Item {
             return nbt.getString(FILTER_KEY, "");
         }
         return null;
-    }
-
-    private boolean hasConstructorsTouch(ItemStack stack, World world) {
-        var registry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
-        var enchantmentEntry = registry.getOptional(ModEnchantments.CONSTRUCTORS_TOUCH);
-        if (enchantmentEntry.isPresent()) {
-            return EnchantmentHelper.getLevel(enchantmentEntry.get(), stack) > 0;
-        }
-        return false;
-    }
-
-    // Neue Helper Methode für das Range Enchantment
-    private int getMagnetRangeLevel(ItemStack stack, World world) {
-        var registry = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
-        // Wir gehen davon aus, dass ModEnchantments.RANGE registriert ist (siehe deine JSON Dateien)
-        var enchantmentEntry = registry.getOptional(ModEnchantments.RANGE);
-        if (enchantmentEntry.isPresent()) {
-            return EnchantmentHelper.getLevel(enchantmentEntry.get(), stack);
-        }
-        return 0;
     }
 }

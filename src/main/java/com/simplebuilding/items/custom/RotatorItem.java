@@ -152,34 +152,17 @@ public class RotatorItem extends Item {
         Direction currentFacing = state.get(prop);
         Collection<Direction> validDirections = prop.getValues();
 
-        // 1. Rand-Klick (Kippen)
         if (rimDirection != null) {
-            // Prio 1: Kippen in Richtung des Rands
             if (validDirections.contains(rimDirection)) return state.with(prop, rimDirection);
-            // Prio 2: Kippen weg vom Rand
             if (validDirections.contains(rimDirection.getOpposite())) return state.with(prop, rimDirection.getOpposite());
         }
 
-        // 2. Zentrum-Klick (Roll)
-        // Rotiere um die Achse der Fläche, auf die geklickt wurde.
-
-        // Beispiel: Piston schaut UP. Ich klicke auf die Seite (NORTH).
-        // Piston soll sich jetzt im Kreis drehen (UP -> EAST -> DOWN -> WEST).
-        // Das ist eine Rotation um die X-Achse (da wir auf Z schauen).
-
-        // WICHTIG: Wenn der Block parallel zur Klick-Achse liegt (Piston schaut NORTH, wir klicken NORTH),
-        // dann rotieren wir ihn "um sich selbst" (Uhrzeigersinn).
 
         Direction nextFacing = rotateAroundAxis(currentFacing, clickedFace.getAxis(), isSneaking);
 
-        // Spezialfall: Wenn Rotation keine Änderung bringt (weil Block auf Achse liegt),
-        // erzwingen wir eine Änderung zur "nächsten" Seite.
         if (nextFacing == currentFacing && validDirections.size() > 1) {
-            // Wenn ich Piston (NORTH) von vorne anklicke, soll er nicht NORTH bleiben.
-            // Er soll z.B. UP werden.
             nextFacing = getStandardRotationStart(clickedFace.getAxis(), validDirections);
 
-            // Wenn wir zufällig wieder beim alten landen, nimm den nächsten in der Liste.
             if (nextFacing == currentFacing) {
                 nextFacing = cycleDirectionList(currentFacing, isSneaking, validDirections);
             }

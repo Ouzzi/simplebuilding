@@ -2,9 +2,6 @@ package com.simplebuilding.items.custom;
 
 import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.BlockHalf;
-import net.minecraft.block.enums.SlabType;
-import net.minecraft.block.enums.StairShape;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -23,10 +20,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -35,6 +29,9 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.simplebuilding.util.EnchantmentHelper.getOverrideLevel;
+import static com.simplebuilding.util.EnchantmentHelper.hasConstructorsTouch;
 
 public class SledgehammerItem extends Item {
 
@@ -72,17 +69,43 @@ public class SledgehammerItem extends Item {
         this.material = material;
     }
 
-    // Getter für das Material
     public ToolMaterial getMaterial() {
         return this.material;
     }
 
-    // =============================================================
-    // 1. Abbau-Geschwindigkeit
-    // =============================================================
+    @Override
+    public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
+        // Standard-Verhalten (Pickaxe)
+        if (super.isCorrectForDrops(stack, state)) {
+            return true;
+        }
+
+        // Wenn Override Level >= 2, erlaube auch Axt, Schaufel und Hacke
+        if (getOverrideLevel(stack) >= 2) {
+            if (state.isIn(BlockTags.AXE_MINEABLE) ||
+                state.isIn(BlockTags.SHOVEL_MINEABLE) ||
+                state.isIn(BlockTags.HOE_MINEABLE)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public float getMiningSpeed(ItemStack stack, BlockState state) {
         float baseSpeed = super.getMiningSpeed(stack, state);
+
+        // 2. NEU: Wenn Speed langsam ist (1.0f), aber Override II aktiv ist -> Setze vollen Speed
+        if (baseSpeed <= 1.0F && getOverrideLevel(stack) >= 2) {
+             if (state.isIn(BlockTags.AXE_MINEABLE) ||
+                 state.isIn(BlockTags.SHOVEL_MINEABLE) ||
+                 state.isIn(BlockTags.HOE_MINEABLE)) {
+                 // Setze die Geschwindigkeit auf die des Materials (z.B. Diamant-Speed)
+                 baseSpeed = this.material.speed();
+            }
+        }
+
+        // 3. Deine existierende Multiplier-Logik (unverändert, nutzt jetzt aber den korrigierten baseSpeed)
         if (baseSpeed > 1.0F) {
             int blockCount = getBlockCountForSpeed(stack);
             float cappedCount = Math.min(blockCount, 25);
@@ -108,10 +131,6 @@ public class SledgehammerItem extends Item {
         if (hasBreakThrough) blockCount *= 2;
         return blockCount;
     }
-
-    // =============================================================
-    // NEU: Transformations-Logik (Block -> Stairs -> Slab)
-    // =============================================================
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
@@ -206,20 +225,6 @@ public class SledgehammerItem extends Item {
         return UseAction.BOW;
     }
 
-    // --- Helper: Hat das Item Constructor's Touch? ---
-    private boolean hasConstructorsTouch(ItemStack stack, World world) {
-        var registry = world.getRegistryManager().getOptional(RegistryKeys.ENCHANTMENT);
-        if (registry.isPresent()) {
-            var entry = registry.get().getOptional(ModEnchantments.CONSTRUCTORS_TOUCH);
-            if (entry.isPresent()) {
-                return EnchantmentHelper.getLevel(entry.get(), stack) > 0;
-            }
-        }
-        return false;
-    }
-
-    // WICHTIG: Diese Methode muss PUBLIC sein für das Mixin!
-    // FIX: Parameter BlockPos pos hinzugefügt
     public BlockState getTransformationState(BlockState state, BlockPos pos, Direction side, Vec3d hit, PlayerEntity player, ItemStack stack) {
         Block block = state.getBlock();
         World world = player.getEntityWorld();
@@ -299,7 +304,6 @@ public class SledgehammerItem extends Item {
         return null;
     }
 
-    // --- Core Logic (Bestehend) ---
     public static List<BlockPos> getBlocksToBeDestroyed(int baseRange, BlockPos initialPos, PlayerEntity player) {
         List<BlockPos> positions = new ArrayList<>();
         World world = player.getEntityWorld();
@@ -359,4 +363,6 @@ public class SledgehammerItem extends Item {
         if (pitch > 60) return Direction.UP;
         return player.getHorizontalFacing().getOpposite();
     }
+
+
 }

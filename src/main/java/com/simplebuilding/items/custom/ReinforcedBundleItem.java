@@ -19,6 +19,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ClickType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.math.Fraction;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+
+import static com.simplebuilding.util.EnchantmentHelper.*;
 
 public class ReinforcedBundleItem extends BundleItem {
 
@@ -132,14 +135,17 @@ public class ReinforcedBundleItem extends BundleItem {
         ItemStack bundleStack = context.getStack();
 
         assert player != null;
-        if (hasMasterBuilder(bundleStack, player.getEntityWorld())) {
+
+        boolean hasMasterBuilder = hasEnchantment(bundleStack, player.getEntityWorld(), ModEnchantments.MASTER_BUILDER);
+        if (hasMasterBuilder) {
             BundleContentsComponent contents = bundleStack.get(DataComponentTypes.BUNDLE_CONTENTS);
             if (contents != null && !contents.isEmpty()) {
 
                 int index = contents.getSelectedStackIndex();
                 if (index == -1 || index >= contents.size()) index = 0;
 
-                if (hasColorPalette(bundleStack, player.getEntityWorld())) {
+                boolean hasColorPalette = hasEnchantment(bundleStack, player.getEntityWorld(), ModEnchantments.COLOR_PALETTE);
+                if (hasColorPalette) {
                     index = player.getEntityWorld().getRandom().nextInt(contents.size());
                 }
 
@@ -174,7 +180,7 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
     @Override
-    public net.minecraft.util.ActionResult use(net.minecraft.world.World world, PlayerEntity user, net.minecraft.util.Hand hand) {
+    public ActionResult use(net.minecraft.world.World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
         BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
 
@@ -242,25 +248,10 @@ public class ReinforcedBundleItem extends BundleItem {
         return Optional.of(new ReinforcedBundleTooltipData(contents, maxCapacity));
     }
 
-    private boolean hasColorPalette(ItemStack stack, net.minecraft.world.World world) {
-        var registry = world.getRegistryManager();
-        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var cp = enchantments.getOptional(ModEnchantments.COLOR_PALETTE);
-        return cp.isPresent() && EnchantmentHelper.getLevel(cp.get(), stack) > 0;
-    }
-
-    private boolean hasMasterBuilder(ItemStack stack, net.minecraft.world.World world) {
-        var registry = world.getRegistryManager();
-        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var mb = enchantments.getOptional(ModEnchantments.MASTER_BUILDER);
-        return mb.isPresent() && EnchantmentHelper.getLevel(mb.get(), stack) > 0;
-    }
-
-    //
     protected int insertItemIntoBundle(ItemStack bundle, BundleContentsComponent contents, ItemStack stackToAdd, Fraction maxCap) {
         if (stackToAdd.isEmpty()) return 0;
 
-        int drawerLevel = getDrawerLevel(bundle);
+        int drawerLevel = getEnchantmentLevel(bundle, null, ModEnchantments.DRAWER);
 
         // Drawer Restriction Check: Nur 1 Item-Typ erlaubt
         if (drawerLevel > 0) {
@@ -362,17 +353,6 @@ public class ReinforcedBundleItem extends BundleItem {
         bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(itemsKept));
 
         return countToAdd;
-    }
-
-
-    private int getDrawerLevel(ItemStack stack) {
-        var enchantments = stack.getEnchantments();
-        for (var entry : enchantments.getEnchantmentEntries()) {
-            if (entry.getKey().matchesKey(ModEnchantments.DRAWER)) {
-                return entry.getIntValue();
-            }
-        }
-        return 0;
     }
 
     protected void addToBundleList(List<ItemStack> list, ItemStack stackToAdd) {

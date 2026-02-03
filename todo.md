@@ -39,9 +39,10 @@
 - - Nihilith - faster falling when shifting?
 - - Enderite - 4x multiplicator like netherite trim
 
+- sleadgehammer anvil ->zwei mit modenchantments kombinieren führrt zu verlust von einem enchantment
+
 ## BUGS:
 
-- sleadgehammer anvil ->zwei mit modenchantments kombinieren führrt zu verlust von einem enchantment
 
 
 ### Bugs Later:
@@ -53,6 +54,8 @@
  
 ## TODO:
 
+- override higher tier lets sleadgehanmmer also be used as shovel, axe and hoe with biggwer radius (like a multi tool)
+
 - add new trial spawner/ vauklt/ vaultkey
 - - new mob which is a boss mob - must be built like wither (small and big variant) 
 - - - drops new vault key (small - for basic vaults, big - for advanced vaults)
@@ -60,8 +63,6 @@
 - - - drops new vault key and new loot item (
 
 - add echoshard as trim material, galaxy/void trim texture
-
-- override higher tier lets sleadgehanmmer also be used as shovel, axe and hoe with biggwer radius (like a multi tool) 
 
 
 - new item magnet texture -> like tune fork but mor magnet looking
@@ -109,6 +110,7 @@
 - - - enderite scrap findable in end cities loot chests (rare)
 - - new void protection mechanic - protection from void damage (like frost walker for lava)
 - - - enderite armor gets void protection effect I per pice -> total IV slower void damage
+
 
 
 - Sniffer

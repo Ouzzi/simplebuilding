@@ -35,6 +35,8 @@ import net.minecraft.world.World;
 
 import java.util.*;
 
+import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
+
 public class BuildingWandItem extends Item {
 
     public static final int BUILDING_WAND_SQUARE_COPPER = 3; // Radius 1
@@ -69,8 +71,6 @@ public class BuildingWandItem extends Item {
     public int getWandSquareDiameter() {
         return this.maxDiameter;
     }
-
-    // --- Material Finding Logic (Priorität: Offhand -> Hotbar -> Inventory) ---
 
     /**
      * Gibt eine Map zurück, die jeder Position den BlockState zuweist, der dort platziert würde.
@@ -201,8 +201,6 @@ public class BuildingWandItem extends Item {
         return null;
     }
 
-    // --- Bestehende Server Logic (Unverändert wichtig für das tatsächliche Platzieren) ---
-
     private MaterialResult findFirstBuildingBlock(PlayerEntity player, ItemStack wandStack, boolean hasMasterBuilder) {
         World world = player.getEntityWorld();
 
@@ -226,7 +224,6 @@ public class BuildingWandItem extends Item {
         return null;
     }
 
-    // Prüft, ob ein Stack ein Block oder ein gültiges Bundle ist, und gibt das Resultat zurück
     private MaterialResult checkStackIsBlock(ItemStack stack, ItemStack wandStack, World world, boolean wandHasMasterBuilder) {
         if (stack.isEmpty()) return null;
 
@@ -268,12 +265,6 @@ public class BuildingWandItem extends Item {
         }
         return null;
     }
-
-    // Für den tatsächlichen Bauvorgang, wenn Color Palette aktiv ist,
-    // müssen wir hier zufällig wählen oder den spezifischen Block suchen.
-    // Da "InventoryTick" Positionen abarbeitet, nutzen wir hier eine vereinfachte Logik:
-    // Wenn Color Palette aktiv ist, suchen wir irgendeinen Block.
-    // Wenn nicht, suchen wir den spezifischen "TargetBlock".
 
     private MaterialResult findMaterialForPlacement(PlayerEntity player, ItemStack wand, Block targetBlock, boolean wandHasMasterBuilder, boolean colorPaletteActive) {
         // Wenn Color Palette aktiv ist, ist targetBlock egal, wir nehmen den nächsten verfügbaren.
@@ -329,8 +320,6 @@ public class BuildingWandItem extends Item {
         }
         return null;
     }
-
-    // --- Interaction ---
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
@@ -441,9 +430,6 @@ public class BuildingWandItem extends Item {
         setNbt(stack, nbt);
     }
 
-    // --- Calculation Logic ---
-
-    // Statische Methode für Renderer und Logic
     public static List<BlockPos> getBuildingPositions(World world, PlayerEntity player, ItemStack wandStack, BlockPos originPos, Direction face, int maxDiameter, BlockHitResult hitResult) {
         // NBT lesen für Settings
         NbtComponent comp = wandStack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
@@ -518,8 +504,6 @@ public class BuildingWandItem extends Item {
         };
     }
 
-    // --- Helper ---
-
     private static void removeOneFromBundle(ItemStack bundle, int indexToRemove) {
         BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
         if (contents == null) return;
@@ -531,14 +515,6 @@ public class BuildingWandItem extends Item {
             i++;
         }
         bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
-    }
-
-    private static boolean hasEnchantment(ItemStack stack, World world, net.minecraft.registry.RegistryKey<net.minecraft.enchantment.Enchantment> key) {
-        if (world == null) return false;
-        var registry = world.getRegistryManager();
-        var lookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var entry = lookup.getOptional(key);
-        return entry.isPresent() && EnchantmentHelper.getLevel(entry.get(), stack) > 0;
     }
 
     private boolean getBlockBoolean(NbtCompound nbt) { if (!nbt.contains("Active")) return false; return nbt.getBoolean("Active", false); }
