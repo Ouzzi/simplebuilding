@@ -90,10 +90,8 @@ public class OreDetectorItem extends Item {
 
         DetectMode mode = getMode(stack);
 
-        // FIX: BlockPos.ofFloored statt Vec3d.getBlockPos()
         BlockPos playerPos = BlockPos.ofFloored(player.getEyePos());
 
-        // 1. Check Enchantment todo refactor to enchantmentHelper
         double costMultiplier = 2.0;
         boolean hasConstructorsTouch = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH);
 
@@ -307,15 +305,18 @@ public class OreDetectorItem extends Item {
     }
 
     private BlockState getCustomBlock(ItemStack stack, RegistryWrapper.WrapperLookup registryLookup) {
-        if (registryLookup == null) return null;
-        NbtCompound nbt = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT).copyNbt();
-        if (nbt.contains("CustomBlock")) {
-            var blockRegistry = registryLookup.getOrThrow(RegistryKeys.BLOCK);
-            // FIX 2: getCompoundOrEmpty verwenden, um ein NbtCompound (nicht Optional) zu erhalten
+    if (registryLookup == null) return null;
+    NbtCompound nbt = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT).copyNbt();
+    if (nbt.contains("CustomBlock")) {
+        var blockRegistry = registryLookup.getOrThrow(RegistryKeys.BLOCK);
+        try {
             return NbtHelper.toBlockState(blockRegistry, nbt.getCompoundOrEmpty("CustomBlock"));
+        } catch (Exception e) {
+            return null;
         }
-        return null;
     }
+    return null;
+}
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {

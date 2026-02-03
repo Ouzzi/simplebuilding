@@ -61,18 +61,16 @@ public class SledgehammerUsageEvent implements PlayerBlockBreakEvents.Before {
 
                 if (shouldBreak) {
                     HARVESTED_BLOCKS.add(position);
-
-                    boolean wasBroken = serverPlayer.interactionManager.tryBreakBlock(position);
-
-                    HARVESTED_BLOCKS.remove(position);
-
-                    if (wasBroken) {
-                        boolean isSuitable = mainHandItem.getItem().isCorrectForDrops(mainHandItem, targetState);
-                        int damageAmount = isSuitable ? 1 : 2;
-
-                        mainHandItem.damage(damageAmount, serverPlayer, EquipmentSlot.MAINHAND);
-
-                        if (mainHandItem.isEmpty()) {break;}
+                    try {
+                        boolean wasBroken = serverPlayer.interactionManager.tryBreakBlock(position);
+                            if (wasBroken) {
+                                boolean isSuitable = mainHandItem.getItem().isCorrectForDrops(mainHandItem, targetState);
+                                int damageAmount = isSuitable ? 1 : 2;
+                                mainHandItem.damage(damageAmount, serverPlayer, EquipmentSlot.MAINHAND);
+                                if (mainHandItem.isEmpty()) { break; }
+                        }
+                    } finally {
+                        HARVESTED_BLOCKS.remove(position);
                     }
                 }
             }
