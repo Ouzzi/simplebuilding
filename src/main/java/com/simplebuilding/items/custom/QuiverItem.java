@@ -22,7 +22,7 @@ import org.apache.commons.lang3.math.Fraction;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.simplebuilding.util.EnchantmentHelper.hasConstructorsTouchEnchantment;
+import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 
 public class QuiverItem extends ReinforcedBundleItem {
 
@@ -150,7 +150,8 @@ public class QuiverItem extends ReinforcedBundleItem {
         for (int i = 0; i < player.getInventory().size(); i++) {
             ItemStack stack = player.getInventory().getStack(i);
             if (stack.getItem() instanceof QuiverItem) {
-                if (hasConstructorsTouchEnchantment(stack, player)) {
+                boolean hasConstructorsTouch = hasEnchantment(stack, player.getEntityWorld(), ModEnchantments.CONSTRUCTORS_TOUCH);
+                if (hasConstructorsTouch) {
                     ItemStack arrow = findFirstArrow(stack);
                     if (!arrow.isEmpty()) return arrow;
                 }
@@ -178,7 +179,8 @@ public class QuiverItem extends ReinforcedBundleItem {
         for (int i = 0; i < player.getInventory().size(); i++) {
             ItemStack stack = player.getInventory().getStack(i);
             if (stack.getItem() instanceof QuiverItem) {
-                if (hasConstructorsTouchEnchantment(stack, player)) {
+                boolean hasConstructorsTouch = hasEnchantment(stack, player.getEntityWorld(), ModEnchantments.CONSTRUCTORS_TOUCH);
+                if (hasConstructorsTouch) {
                     if (tryConsumeArrow(stack)) return;
                 }
             }

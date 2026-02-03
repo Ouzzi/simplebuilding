@@ -3,7 +3,6 @@
   "description": {
     "translate": "enchantment.simplebuilding.break_through"
   },
-  "exclusive_set": "#simplebuilding:exclusive_set/radius_group",
   "max_cost": {
     "base": 55,
     "per_level_above_first": 15

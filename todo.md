@@ -42,7 +42,7 @@
 - sleadgehammer anvil ->zwei mit modenchantments kombinieren führrt zu verlust von einem enchantment
 
 ## BUGS:
-
+- inventory trim benefits button and gui layoutshift...
 
 
 ### Bugs Later:

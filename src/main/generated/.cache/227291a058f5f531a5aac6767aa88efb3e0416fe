@@ -1,5 +1,5 @@
 // 1.21.11	-999999999-01-01T00:00:00	simplebuilding/
-f6972807e348ef1db474e10e65ed403e5bf312ad data/simplebuilding/enchantment/break_through.json
+4c8f9eb81f4b639293fb4ceb34f488f17773bb15 data/simplebuilding/enchantment/break_through.json
 705dccd54c76fa5ab08a5f105559196c371e9716 data/simplebuilding/enchantment/bridge.json
 08db11e93fe6d5acde9f6e79efd0a66fc9d3e7ad data/simplebuilding/enchantment/color_palette.json
 c4826c784ea08d2a47765afb97e8c68818b97ee3 data/simplebuilding/enchantment/constructors_touch.json
@@ -13,7 +13,7 @@ fd8e2062e8b28282a7d52051651b18c272bb2b5e data/simplebuilding/enchantment/kinetic
 002adf7bf77945cbbf5d18c18fc78a2fc2adb764 data/simplebuilding/enchantment/linear.json
 3a4484f1457edf1e04d51dc0afbdff6bda3bc6ca data/simplebuilding/enchantment/master_builder.json
 4a5865587740aa558a88aa8a162ca8202e450134 data/simplebuilding/enchantment/override.json
-191fb90b34cb07fc79f4f829870827ffa7781654 data/simplebuilding/enchantment/radius.json
+0b5a4e8d8aaf8d232cd37e9d2add1b5baa258386 data/simplebuilding/enchantment/radius.json
 65be78eb7771f29feebeb3a292cb29a137f5aa9d data/simplebuilding/enchantment/range.json
 0f635f0f7744afb50ee152fc088894de0d7bf004 data/simplebuilding/enchantment/strip_miner.json
 c9697965e1fae34076002174c84c1e63fd1d18f3 data/simplebuilding/enchantment/vein_miner.json
