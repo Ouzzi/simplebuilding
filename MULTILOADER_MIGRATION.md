@@ -17,6 +17,12 @@ Current state:
 - NeoForge metadata template: neoforge/src/main/resources/META-INF/neoforge.mods.toml
 - Resource expansion in subproject builds injects mod id and version at build time.
 - Forge/NeoForge metadata now also inject loader and Minecraft version ranges from gradle.properties.
+- Forge/NeoForge modules now include optional compileOnly loader dependencies controlled by `forge_version` and `neoforge_version`.
+- New validation/status tasks:
+   - `:forge:loaderStatus`
+   - `:neoforge:loaderStatus`
+   - `:forge:requireLoaderVersion`
+   - `:neoforge:requireLoaderVersion`
 - Common init class added: common/src/main/java/com/simplebuilding/common/SimplebuildingCommon.java
 - Common bootstrap added: common/src/main/java/com/simplebuilding/common/SimplebuildingBootstrap.java
 - Common startup plan added: common/src/main/java/com/simplebuilding/common/SimplebuildingStartupPlan.java

@@ -4,6 +4,19 @@ plugins {
 
 description = 'Forge loader module scaffold'
 
+def forgeVersion = project.findProperty('forge_version')?.toString() ?: '0.0.0'
+def minecraftVersion = project.findProperty('minecraft_version')?.toString() ?: '1.21.11'
+def forgeCoordinate = "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
+def forgeDependencyEnabled = forgeVersion != '0.0.0'
+
+repositories {
+    maven {
+        name = 'Forge'
+        url = 'https://maven.minecraftforge.net/'
+    }
+    mavenCentral()
+}
+
 group = rootProject.group
 version = rootProject.version
 
@@ -16,6 +29,10 @@ java {
 
 dependencies {
     implementation project(':common')
+
+    if (forgeDependencyEnabled) {
+        compileOnly forgeCoordinate
+    }
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -37,10 +54,32 @@ tasks.named('jar').configure {
     archiveClassifier = 'forge'
 }
 
+tasks.register('loaderStatus') {
+    group = 'migration'
+    description = 'Shows whether Forge dependency coordinates are configured.'
+    doLast {
+        println "Forge dependency enabled: ${forgeDependencyEnabled}"
+        println "Forge coordinate: ${forgeCoordinate}"
+        if (!forgeDependencyEnabled) {
+            println 'Set forge_version in gradle.properties to enable compileOnly Forge dependency.'
+        }
+    }
+}
+
+tasks.register('requireLoaderVersion') {
+    group = 'migration'
+    description = 'Fails when forge_version is still placeholder.'
+    doLast {
+        if (!forgeDependencyEnabled) {
+            throw new GradleException('forge_version is 0.0.0. Set a real Forge version in gradle.properties.')
+        }
+    }
+}
+
 tasks.register('portStatus') {
     group = 'migration'
     description = 'Shows current Forge migration status.'
     doLast {
-        println 'Forge module scaffold exists. Wire ForgeGradle/Architectury next and port loader-specific entrypoints.'
+        println 'Forge scaffold with optional compileOnly dependency is ready. Next: real Forge plugin wiring and @Mod bootstrap.'
     }
 }

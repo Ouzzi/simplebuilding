@@ -4,6 +4,18 @@ plugins {
 
 description = 'NeoForge loader module scaffold'
 
+def neoforgeVersion = project.findProperty('neoforge_version')?.toString() ?: '0.0.0'
+def neoforgeCoordinate = "net.neoforged:neoforge:${neoforgeVersion}"
+def neoforgeDependencyEnabled = neoforgeVersion != '0.0.0'
+
+repositories {
+    maven {
+        name = 'NeoForged'
+        url = 'https://maven.neoforged.net/releases/'
+    }
+    mavenCentral()
+}
+
 group = rootProject.group
 version = rootProject.version
 
@@ -16,6 +28,10 @@ java {
 
 dependencies {
     implementation project(':common')
+
+    if (neoforgeDependencyEnabled) {
+        compileOnly neoforgeCoordinate
+    }
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -37,10 +53,32 @@ tasks.named('jar').configure {
     archiveClassifier = 'neoforge'
 }
 
+tasks.register('loaderStatus') {
+    group = 'migration'
+    description = 'Shows whether NeoForge dependency coordinates are configured.'
+    doLast {
+        println "NeoForge dependency enabled: ${neoforgeDependencyEnabled}"
+        println "NeoForge coordinate: ${neoforgeCoordinate}"
+        if (!neoforgeDependencyEnabled) {
+            println 'Set neoforge_version in gradle.properties to enable compileOnly NeoForge dependency.'
+        }
+    }
+}
+
+tasks.register('requireLoaderVersion') {
+    group = 'migration'
+    description = 'Fails when neoforge_version is still placeholder.'
+    doLast {
+        if (!neoforgeDependencyEnabled) {
+            throw new GradleException('neoforge_version is 0.0.0. Set a real NeoForge version in gradle.properties.')
+        }
+    }
+}
+
 tasks.register('portStatus') {
     group = 'migration'
     description = 'Shows current NeoForge migration status.'
     doLast {
-        println 'NeoForge module scaffold exists. Wire NeoForge tooling next and port loader-specific entrypoints.'
+        println 'NeoForge scaffold with optional compileOnly dependency is ready. Next: real NeoForge plugin wiring and @Mod bootstrap.'
     }
 }
