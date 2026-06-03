@@ -21,10 +21,14 @@ dependencies {
 tasks.named('processResources', ProcessResources).configure {
     inputs.property 'modVersion', project.version
     inputs.property 'modId', project.archives_base_name
+    inputs.property 'loaderVersionRange', project.forge_loader_version_range
+    inputs.property 'minecraftVersionRange', project.minecraft_version_range
     filesMatching('META-INF/mods.toml') {
         expand(
             modVersion: project.version,
-            modId: project.archives_base_name
+            modId: project.archives_base_name,
+            loaderVersionRange: project.forge_loader_version_range,
+            minecraftVersionRange: project.minecraft_version_range
         )
     }
 }

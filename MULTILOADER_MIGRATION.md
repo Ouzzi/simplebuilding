@@ -10,9 +10,13 @@ Current state:
 - gradle.properties now contains placeholder properties:
   - forge_version
   - neoforge_version
+   - forge_loader_version_range
+   - neoforge_loader_version_range
+   - minecraft_version_range
 - Forge metadata template: forge/src/main/resources/META-INF/mods.toml
 - NeoForge metadata template: neoforge/src/main/resources/META-INF/neoforge.mods.toml
 - Resource expansion in subproject builds injects mod id and version at build time.
+- Forge/NeoForge metadata now also inject loader and Minecraft version ranges from gradle.properties.
 - Common init class added: common/src/main/java/com/simplebuilding/common/SimplebuildingCommon.java
 - Common bootstrap added: common/src/main/java/com/simplebuilding/common/SimplebuildingBootstrap.java
 - Common startup plan added: common/src/main/java/com/simplebuilding/common/SimplebuildingStartupPlan.java

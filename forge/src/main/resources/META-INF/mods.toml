@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[0,)"
+loaderVersion="${loaderVersionRange}"
 license="CC0-1.0"
 
 [[mods]]
@@ -20,6 +20,6 @@ side="BOTH"
 [[dependencies.${modId}]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.21,1.22)"
+versionRange="${minecraftVersionRange}"
 ordering="NONE"
 side="BOTH"
