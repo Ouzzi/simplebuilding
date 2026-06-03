@@ -4,12 +4,34 @@ plugins {
 
 description = 'NeoForge loader module scaffold'
 
-def neoforgeVersionChannel = project.findProperty('neoforge_version_channel')?.toString() ?: 'fixed'
-def neoforgeVersionFixed = project.findProperty('neoforge_version_fixed')?.toString() ?: null
-def neoforgeVersionLatest = project.findProperty('neoforge_version_latest')?.toString() ?: null
-def neoforgeVersionLegacy = project.findProperty('neoforge_version')?.toString() ?: '0.0.0'
+def versionProfile = project.findProperty('versionProfile')?.toString()
+def versionProfileProps = new Properties()
+
+if (versionProfile) {
+    def profileFile = rootProject.file("profiles/${versionProfile}.properties")
+    if (!profileFile.exists()) {
+        throw new GradleException("Version profile not found: ${profileFile}")
+    }
+    profileFile.withInputStream { versionProfileProps.load(it) }
+}
+
+def resolveSetting = { String key, String defaultValue = null ->
+    if (versionProfileProps.containsKey(key)) {
+        return versionProfileProps.getProperty(key)
+    }
+    def fromProject = project.findProperty(key)
+    return fromProject != null ? fromProject.toString() : defaultValue
+}
+
+def neoforgeVersionChannel = resolveSetting('neoforge_version_channel', 'fixed')
+def neoforgeVersionFixed = resolveSetting('neoforge_version_fixed', null)
+def neoforgeVersionLatest = resolveSetting('neoforge_version_latest', null)
+def neoforgeVersionLegacy = resolveSetting('neoforge_version', '0.0.0')
 
 def neoforgeVersion = neoforgeVersionChannel == 'latest' ? (neoforgeVersionLatest ?: neoforgeVersionLegacy) : (neoforgeVersionFixed ?: neoforgeVersionLegacy)
+def neoforgeLoaderVersionRange = resolveSetting('neoforge_loader_version_range', '[0,)')
+def minecraftVersionRange = resolveSetting('minecraft_version_range', '[1.21.11,1.22)')
+
 def neoforgeCoordinate = "net.neoforged:neoforge:${neoforgeVersion}"
 def neoforgeDependencyEnabled = neoforgeVersion != '0.0.0'
 
@@ -42,14 +64,14 @@ dependencies {
 tasks.named('processResources', ProcessResources).configure {
     inputs.property 'modVersion', project.version
     inputs.property 'modId', project.archives_base_name
-    inputs.property 'loaderVersionRange', project.neoforge_loader_version_range
-    inputs.property 'minecraftVersionRange', project.minecraft_version_range
+    inputs.property 'loaderVersionRange', neoforgeLoaderVersionRange
+    inputs.property 'minecraftVersionRange', minecraftVersionRange
     filesMatching('META-INF/neoforge.mods.toml') {
         expand(
             modVersion: project.version,
             modId: project.archives_base_name,
-            loaderVersionRange: project.neoforge_loader_version_range,
-            minecraftVersionRange: project.minecraft_version_range
+            loaderVersionRange: neoforgeLoaderVersionRange,
+            minecraftVersionRange: minecraftVersionRange
         )
     }
 }
@@ -62,6 +84,7 @@ tasks.register('loaderStatus') {
     group = 'migration'
     description = 'Shows whether NeoForge dependency coordinates are configured.'
     doLast {
+        println "Version profile: ${versionProfile ?: '(none)'}"
         println "NeoForge version channel: ${neoforgeVersionChannel}"
         println "NeoForge dependency enabled: ${neoforgeDependencyEnabled}"
         println "NeoForge coordinate: ${neoforgeCoordinate}"

@@ -4,13 +4,35 @@ plugins {
 
 description = 'Forge loader module scaffold'
 
-def forgeVersionChannel = project.findProperty('forge_version_channel')?.toString() ?: 'fixed'
-def forgeVersionFixed = project.findProperty('forge_version_fixed')?.toString() ?: null
-def forgeVersionLatest = project.findProperty('forge_version_latest')?.toString() ?: null
-def forgeVersionLegacy = project.findProperty('forge_version')?.toString() ?: '0.0.0'
+def versionProfile = project.findProperty('versionProfile')?.toString()
+def versionProfileProps = new Properties()
+
+if (versionProfile) {
+    def profileFile = rootProject.file("profiles/${versionProfile}.properties")
+    if (!profileFile.exists()) {
+        throw new GradleException("Version profile not found: ${profileFile}")
+    }
+    profileFile.withInputStream { versionProfileProps.load(it) }
+}
+
+def resolveSetting = { String key, String defaultValue = null ->
+    if (versionProfileProps.containsKey(key)) {
+        return versionProfileProps.getProperty(key)
+    }
+    def fromProject = project.findProperty(key)
+    return fromProject != null ? fromProject.toString() : defaultValue
+}
+
+def forgeVersionChannel = resolveSetting('forge_version_channel', 'fixed')
+def forgeVersionFixed = resolveSetting('forge_version_fixed', null)
+def forgeVersionLatest = resolveSetting('forge_version_latest', null)
+def forgeVersionLegacy = resolveSetting('forge_version', '0.0.0')
 
 def forgeVersion = forgeVersionChannel == 'latest' ? (forgeVersionLatest ?: forgeVersionLegacy) : (forgeVersionFixed ?: forgeVersionLegacy)
-def minecraftVersion = project.findProperty('minecraft_version')?.toString() ?: '1.21.11'
+def minecraftVersion = resolveSetting('minecraft_version', '1.21.11')
+def forgeLoaderVersionRange = resolveSetting('forge_loader_version_range', '[0,)')
+def minecraftVersionRange = resolveSetting('minecraft_version_range', '[1.21.11,1.22)')
+
 def forgeCoordinate = "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
 def forgeDependencyEnabled = forgeVersion != '0.0.0'
 
@@ -43,14 +65,14 @@ dependencies {
 tasks.named('processResources', ProcessResources).configure {
     inputs.property 'modVersion', project.version
     inputs.property 'modId', project.archives_base_name
-    inputs.property 'loaderVersionRange', project.forge_loader_version_range
-    inputs.property 'minecraftVersionRange', project.minecraft_version_range
+    inputs.property 'loaderVersionRange', forgeLoaderVersionRange
+    inputs.property 'minecraftVersionRange', minecraftVersionRange
     filesMatching('META-INF/mods.toml') {
         expand(
             modVersion: project.version,
             modId: project.archives_base_name,
-            loaderVersionRange: project.forge_loader_version_range,
-            minecraftVersionRange: project.minecraft_version_range
+            loaderVersionRange: forgeLoaderVersionRange,
+            minecraftVersionRange: minecraftVersionRange
         )
     }
 }
@@ -63,6 +85,7 @@ tasks.register('loaderStatus') {
     group = 'migration'
     description = 'Shows whether Forge dependency coordinates are configured.'
     doLast {
+        println "Version profile: ${versionProfile ?: '(none)'}"
         println "Forge version channel: ${forgeVersionChannel}"
         println "Forge dependency enabled: ${forgeDependencyEnabled}"
         println "Forge coordinate: ${forgeCoordinate}"

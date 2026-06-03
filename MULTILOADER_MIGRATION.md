@@ -31,6 +31,8 @@ Current state:
    - `:neoforge:loaderStatus`
    - `:forge:requireLoaderVersion`
    - `:neoforge:requireLoaderVersion`
+   - `:listVersionProfiles`
+- Optional profile switch via `-PversionProfile=<name>` loads overrides from `profiles/<name>.properties`.
 - Common init class added: common/src/main/java/com/simplebuilding/common/SimplebuildingCommon.java
 - Common bootstrap added: common/src/main/java/com/simplebuilding/common/SimplebuildingBootstrap.java
 - Common startup plan added: common/src/main/java/com/simplebuilding/common/SimplebuildingStartupPlan.java
