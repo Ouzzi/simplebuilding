@@ -15,6 +15,7 @@ Current state:
 - Resource expansion in subproject builds injects mod id and version at build time.
 - Common init class added: common/src/main/java/com/simplebuilding/common/SimplebuildingCommon.java
 - Common bootstrap added: common/src/main/java/com/simplebuilding/common/SimplebuildingBootstrap.java
+- Common startup plan added: common/src/main/java/com/simplebuilding/common/SimplebuildingStartupPlan.java
 - Fabric root now calls common init during startup.
 - Loader Java entrypoint stubs added:
    - forge/src/main/java/com/simplebuilding/forge/SimplebuildingForgeEntrypoint.java
@@ -37,13 +38,6 @@ Current state:
    - fabric
    - forge
    - neoforge
-
-## Push/auth note
-Push failed earlier because HTTPS auth token was missing/invalid.
-Use either:
-- GitHub CLI auth login, or
-- SSH remote (git@github.com:...), or
-- HTTPS with a valid PAT.
 
 ## Useful commands
 - ./gradlew tasks

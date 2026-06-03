@@ -6,6 +6,7 @@ import com.simplebuilding.command.ModCommands;
 import com.simplebuilding.common.SimplebuildingBootstrap;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.common.SimplebuildingCommon;
+import com.simplebuilding.common.SimplebuildingStartupPlan;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.datagen.ModLootTableProvider;
 import com.simplebuilding.datagen.ModTradeOffers;
@@ -50,13 +51,25 @@ public class Simplebuilding implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Starting Simplebuilding initialization...");
-        LOGGER.info(SimplebuildingBootstrap.initialize("fabric", () -> {
-            // Fabric-specific bootstrap hook lives in this module.
-        }));
+        LOGGER.info(SimplebuildingBootstrap.initialize("fabric", buildStartupPlan()));
+    }
 
+    private SimplebuildingStartupPlan buildStartupPlan() {
+        return SimplebuildingStartupPlan.builder()
+            .configure(this::configure)
+            .registerContent(this::registerContent)
+            .registerEvents(this::registerGameplayEvents)
+            .registerNetworking(this::registerNetworking)
+            .finalizeBootstrap(this::registerFinalBootstrap)
+            .build();
+    }
+
+    private void configure() {
         AutoConfig.register(SimplebuildingConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
+    }
 
+    private void registerContent() {
         ModScreenHandlers.registerScreenHandlers();
         ModItemGroups.registerItemGroups();
         ModBlocks.registerModBlocks();
@@ -69,36 +82,34 @@ public class Simplebuilding implements ModInitializer {
         ModRecipes.registerRecipes();
         ModRegistries.registerModStuffs();
         LegacySpatulaMigration.register();
-
         registerCauldronBehavior();
+    }
 
+    private void registerGameplayEvents() {
         PlayerBlockBreakEvents.BEFORE.register(new SledgehammerUsageEvent());
         SledgehammerEntityInteraction.register();
         PlayerBlockBreakEvents.BEFORE.register(new StripMinerUsageEvent());
         PlayerBlockBreakEvents.BEFORE.register(new VeinMinerUsageEvent());
         AttackBlockCallback.EVENT.register(new VersatilityUsageEvent());
 
-        // 1. Tick Event: Licht aktualisieren
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-                // Performance: Nur alle 2 Ticks updaten, reicht für Licht
                 if (server.getTicks() % 2 == 0) {
                     DynamicLightHandler.tick(player);
                 }
             }
         });
 
-        // 2. Disconnect Event: Lichtreste entfernen
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             DynamicLightHandler.onDisconnect(handler.player);
         });
+    }
 
-        // ================================
-        // NETZWERK REGISTRIERUNG
-        // ================================
-        // Alle Payloads und Receiver werden jetzt zentral hier registriert:
+    private void registerNetworking() {
         ModMessages.registerC2SPackets();
+    }
 
+    private void registerFinalBootstrap() {
         ModCommands.register();
         ModOreGeneration.generateOres();
     }

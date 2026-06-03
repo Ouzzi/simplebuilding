@@ -7,6 +7,6 @@ public final class SimplebuildingCommon {
     }
 
     public static synchronized String initialize(String loader) {
-        return SimplebuildingBootstrap.initialize(loader, null);
+        return SimplebuildingBootstrap.initialize(loader, SimplebuildingStartupPlan.builder().build());
     }
 }

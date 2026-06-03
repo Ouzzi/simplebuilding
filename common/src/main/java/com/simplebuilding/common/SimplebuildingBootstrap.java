@@ -10,9 +10,15 @@ public final class SimplebuildingBootstrap {
     }
 
     public static synchronized String initialize(String loader, Runnable loaderHook) {
+        return initialize(loader, SimplebuildingStartupPlan.builder()
+            .configure(loaderHook)
+            .build());
+    }
+
+    public static synchronized String initialize(String loader, SimplebuildingStartupPlan startupPlan) {
         boolean firstInitializationForLoader = INITIALIZED_LOADERS.add(loader);
-        if (firstInitializationForLoader && loaderHook != null) {
-            loaderHook.run();
+        if (firstInitializationForLoader && startupPlan != null) {
+            startupPlan.run();
         }
 
         if (firstInitializationForLoader) {
