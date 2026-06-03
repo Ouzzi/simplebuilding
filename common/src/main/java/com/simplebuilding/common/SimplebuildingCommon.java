@@ -6,6 +6,10 @@ public final class SimplebuildingCommon {
     private SimplebuildingCommon() {
     }
 
+    public static synchronized String initialize(SimplebuildingLoader loader) {
+        return SimplebuildingBootstrap.initialize(loader, SimplebuildingStartupPlan.builder().build());
+    }
+
     public static synchronized String initialize(String loader) {
         return SimplebuildingBootstrap.initialize(loader, SimplebuildingStartupPlan.builder().build());
     }

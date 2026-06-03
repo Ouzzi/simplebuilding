@@ -9,10 +9,18 @@ public final class SimplebuildingBootstrap {
     private SimplebuildingBootstrap() {
     }
 
+    public static synchronized String initialize(SimplebuildingLoader loader, Runnable loaderHook) {
+        return initialize(loader.id(), loaderHook);
+    }
+
     public static synchronized String initialize(String loader, Runnable loaderHook) {
         return initialize(loader, SimplebuildingStartupPlan.builder()
             .configure(loaderHook)
             .build());
+    }
+
+    public static synchronized String initialize(SimplebuildingLoader loader, SimplebuildingStartupPlan startupPlan) {
+        return initialize(loader.id(), startupPlan);
     }
 
     public static synchronized String initialize(String loader, SimplebuildingStartupPlan startupPlan) {

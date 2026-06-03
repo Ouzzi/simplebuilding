@@ -16,10 +16,14 @@ Current state:
 - Common init class added: common/src/main/java/com/simplebuilding/common/SimplebuildingCommon.java
 - Common bootstrap added: common/src/main/java/com/simplebuilding/common/SimplebuildingBootstrap.java
 - Common startup plan added: common/src/main/java/com/simplebuilding/common/SimplebuildingStartupPlan.java
+- Common loader enum added: common/src/main/java/com/simplebuilding/common/SimplebuildingLoader.java
 - Fabric root now calls common init during startup.
 - Loader Java entrypoint stubs added:
    - forge/src/main/java/com/simplebuilding/forge/SimplebuildingForgeEntrypoint.java
    - neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeEntrypoint.java
+- Loader bootstrap adapters added:
+   - forge/src/main/java/com/simplebuilding/forge/SimplebuildingForgeModBootstrap.java
+   - neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeModBootstrap.java
 - Verified successfully: ./gradlew :common:build :forge:build :neoforge:build
 
 ## Recommended next migration steps

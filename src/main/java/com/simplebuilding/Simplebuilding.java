@@ -6,6 +6,7 @@ import com.simplebuilding.command.ModCommands;
 import com.simplebuilding.common.SimplebuildingBootstrap;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.common.SimplebuildingCommon;
+import com.simplebuilding.common.SimplebuildingLoader;
 import com.simplebuilding.common.SimplebuildingStartupPlan;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.datagen.ModLootTableProvider;
@@ -51,7 +52,7 @@ public class Simplebuilding implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Starting Simplebuilding initialization...");
-        LOGGER.info(SimplebuildingBootstrap.initialize("fabric", buildStartupPlan()));
+        LOGGER.info(SimplebuildingBootstrap.initialize(SimplebuildingLoader.FABRIC, buildStartupPlan()));
     }
 
     private SimplebuildingStartupPlan buildStartupPlan() {
