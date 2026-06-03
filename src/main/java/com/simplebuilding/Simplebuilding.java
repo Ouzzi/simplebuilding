@@ -4,6 +4,7 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.command.ModCommands;
 import com.simplebuilding.component.ModDataComponentTypes;
+import com.simplebuilding.common.SimplebuildingCommon;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.datagen.ModLootTableProvider;
 import com.simplebuilding.datagen.ModTradeOffers;
@@ -48,6 +49,7 @@ public class Simplebuilding implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Starting Simplebuilding initialization...");
+        LOGGER.info(SimplebuildingCommon.initialize("fabric"));
 
         AutoConfig.register(SimplebuildingConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
