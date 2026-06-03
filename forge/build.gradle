@@ -1,0 +1,13 @@
+plugins {
+    id 'base'
+}
+
+description = 'Forge loader module scaffold'
+
+tasks.register('portStatus') {
+    group = 'migration'
+    description = 'Shows current Forge migration status.'
+    doLast {
+        println 'Forge module scaffold exists. Wire ForgeGradle/Architectury next and port loader-specific entrypoints.'
+    }
+}

@@ -1,0 +1,13 @@
+plugins {
+    id 'base'
+}
+
+description = 'NeoForge loader module scaffold'
+
+tasks.register('portStatus') {
+    group = 'migration'
+    description = 'Shows current NeoForge migration status.'
+    doLast {
+        println 'NeoForge module scaffold exists. Wire NeoForge tooling next and port loader-specific entrypoints.'
+    }
+}

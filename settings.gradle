@@ -8,3 +8,9 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
+
+rootProject.name = 'simplebuilding'
+
+include 'common'
+include 'forge'
+include 'neoforge'

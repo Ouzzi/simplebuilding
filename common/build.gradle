@@ -1,0 +1,13 @@
+plugins {
+    id 'base'
+}
+
+description = 'Shared cross-loader sources (scaffold)'
+
+tasks.register('portStatus') {
+    group = 'migration'
+    description = 'Shows current multiloader migration status for common code.'
+    doLast {
+        println 'Common module scaffold exists. Move cross-loader logic from root Fabric sources into common gradually.'
+    }
+}
