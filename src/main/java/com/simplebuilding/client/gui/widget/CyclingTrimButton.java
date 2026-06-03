@@ -3,7 +3,6 @@ package com.simplebuilding.client.gui.widget;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
 
 import java.util.List;
 

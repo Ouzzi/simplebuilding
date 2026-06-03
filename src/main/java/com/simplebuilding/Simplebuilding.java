@@ -63,6 +63,7 @@ public class Simplebuilding implements ModInitializer {
         ModEnchantmentEffects.registerEnchantmentEffects();
         ModRecipes.registerRecipes();
         ModRegistries.registerModStuffs();
+        LegacySpatulaMigration.register();
 
         registerCauldronBehavior();
 

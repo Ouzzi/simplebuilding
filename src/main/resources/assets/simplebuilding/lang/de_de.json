@@ -9,16 +9,6 @@
   "tooltip.simplebuilding.chisel": "Benutzen, um Blöcke zu formen.",
   "tooltip.simplebuilding.chisel.shift_down": "Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.",
 
-  "item.simplebuilding.stone_spatula": "Steinspachtel",
-  "item.simplebuilding.copper_spatula": "Kupferspachtel",
-  "item.simplebuilding.iron_spatula": "Eisenspachtel",
-  "item.simplebuilding.gold_spatula": "Goldspachtel",
-  "item.simplebuilding.diamond_spatula": "Diamantspachtel",
-  "item.simplebuilding.netherite_spatula": "Netheritspachtel",
-
-  "tooltip.simplebuilding.spatula": "Benutzen, um Blöcke zu glätten.",
-  "tooltip.simplebuilding.spatula.shift_down": "Rechtsklick auf einen formbaren Block.",
-
   "item.simplebuilding.copper_core": "Kupferkern",
   "item.simplebuilding.iron_core": "Eisenkern",
   "item.simplebuilding.gold_core": "Goldkern",
@@ -135,8 +125,8 @@
   "text.autoconfig.simplebuilding.option.tools": "Werkzeugeinstellungen",
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak": "Oktant Schleichen umkehren",
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak.@Tooltip": "Wenn wahr, zeigt der Oktant die Fläche an, wenn NICHT geschlichen wird (mit Konstrukteurs-Händchen).",
-  "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity": "Baustab Hervorhebung Deckkraft",
-  "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity.@Tooltip": "Deckkraft der Baustab-Vorschau (0.0 - 1.0).",
+  "text.autoconfig.simplebuilding.option.tools.buildingHighlightOpacity": "Baustab Hervorhebung Deckkraft",
+  "text.autoconfig.simplebuilding.option.tools.buildingHighlightOpacity.@Tooltip": "Deckkraft der Baustab-Vorschau (0.0 - 1.0).",
 
   "text.autoconfig.simplebuilding.option.tools.enableToolAnimations": "Werkzeuganimationen aktivieren",
   "text.autoconfig.simplebuilding.option.tools.enableToolAnimations.@Tooltip": "Schaltet eigene Animationen wie die Meißel-Rotation an/aus.",
@@ -150,8 +140,6 @@
   "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades.@Tooltip": "Fügt Meißel- und Baustab-Handel zum Fahrenden Händler hinzu.",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges": "Beutetruhen aktivieren",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.@Tooltip": "Fügt Items zu Dungeon-/Strukturtruhen hinzu.",
-
-  "text.autoconfig.simplebuilding.option.tools.buildingHighlightOpacity": "Baustab Hervorhebung Deckkraft",
 
   "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions": "Bündel-Interaktion umkehren",
   "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions.@Tooltip": "Wenn wahr, führt Schleichen bei Bündeln die gegenteilige Aktion aus (Einfügen vs Entnehmen).",
@@ -202,6 +190,7 @@
   "item.simplebuilding.diamond_pebble": "Diamantkiesel",
   "item.simplebuilding.cracked_diamond": "Rissiger Diamant",
   "item.simplebuilding.cracked_diamond_block": "Rissiger Diamantblock",
+  "item.simplebuilding.enderite_nugget": "Enderiten-Nugget",
   "block.simplebuilding.cracked_diamond_block": "Rissiger Diamantblock",
 
   "trim_pattern.simplebuilding.glowing": "Leuchtverzierung",
@@ -220,9 +209,15 @@
   "simplebuilding.gui.close": "Fertig",
   "simplebuilding.gui.shape": "Form: %s",
   "simplebuilding.gui.orientation": "Achse: %s",
+  "simplebuilding.gui.figure": "Figur: %s",
   "simplebuilding.gui.hollow": "Hohl: %s",
   "simplebuilding.gui.layer": "Ebenenmodus: %s",
   "simplebuilding.gui.order": "Reihenfolge: %s",
+  "simplebuilding.gui.lock_tooltip": "Aktuelle Auswahl sperren/entsperren",
+  "simplebuilding.gui.page_next": "Seite >",
+  "simplebuilding.gui.page_prev": "< Seite",
+  "simplebuilding.gui.page_selection": "Seite 1/2: Auswahl",
+  "simplebuilding.gui.page_settings": "Seite 2/2: Fuellen",
 
   "simplebuilding.shape.cuboid": "Quader",
   "simplebuilding.shape.cylinder": "Zylinder",
@@ -237,7 +232,19 @@
   "simplebuilding.order.top_down": "Von Oben nach Unten",
 
   "key.simplebuilding.settings": "Einstellungsmenü öffnen",
+  "key.simplebuilding.toggle_highlight": "Hervorhebungen umschalten",
+  "key.simplebuilding.toggle_octant_figure": "Oktant-Figur umschalten",
+  "key.simplebuilding.simple_settings": "Werkzeug-Einstellungen öffnen",
   "category.simplebuilding.general": "SimpleBuilding",
+  "category.simplebuilding.simplemods": "SimpleMods",
+  "key.categories.simplebuilding.simplemods": "SimpleMods",
+
+  "simplebuilding.axis.pos_x": "+X",
+  "simplebuilding.axis.pos_y": "+Y",
+  "simplebuilding.axis.pos_z": "+Z",
+  "simplebuilding.axis.neg_x": "-X",
+  "simplebuilding.axis.neg_y": "-Y",
+  "simplebuilding.axis.neg_z": "-Z",
 
   "simplebuilding.gui.wand_title": "Baustab-Einstellungen",
   "simplebuilding.gui.wand_settings": "Konfiguration",
@@ -252,6 +259,7 @@
   "text.autoconfig.simplebuilding.option.enableArmorTrimBenefits.@Tooltip": "Wenn deaktiviert, erhältst du keine Gameplay-Boni (z.B. Wasseratmung) durch Rüstungsbesätze.",
   "item.simplebuilding.glowing_trim_template": "Leuchtende Schmiedevorlage",
   "item.simplebuilding.emitting_trim_template": "Strahlende Schmiedevorlage",
+  "item.simplebuilding.enderite_spear": "Enderit-Speer",
 
   "tooltip.simplebuilding.glowing_trim": "✨ Leuchtender Besatz",
   "tooltip.simplebuilding.emits_light": "💡 Spendet Licht",
@@ -281,5 +289,9 @@
   "tooltip.simplebuilding.ore_detector": "Zeigt die Nähe zu Erzen an.",
   "trim_pattern.simplebuilding.emitting": "Strahlender Besatz",
   "item.simplebuilding.rotator": "Rotator",
-    "tooltip.simplebuilding.rotator": "Dreht Blöcke ohne Abbau.",
+  "tooltip.simplebuilding.rotator": "Dreht Blöcke ohne Abbau.",
+
+  "trim_material.simplebuilding.enderite": "Enderit",
+  "trim_material.simplebuilding.astralit": "Astralit",
+  "trim_material.simplebuilding.nihilith": "Nihilith"
 }

@@ -21,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class RangefinderHudOverlay implements HudRenderCallback {
 
 
@@ -29,6 +30,7 @@ public class RangefinderHudOverlay implements HudRenderCallback {
     public void onHudRender(DrawContext context, RenderTickCounter tickCounter) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null) return;
+        if (client.currentScreen instanceof OctantScreen) return;
 
         ItemStack stack = client.player.getMainHandStack();
         boolean hasOctant = stack.getItem() instanceof OctantItem;

@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ModSmokerBlock extends SmokerBlock {
+    @SuppressWarnings("unused")
     private final float speedMultiplier;
 
     public ModSmokerBlock(Settings settings, float speedMultiplier) {

@@ -232,6 +232,7 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         super.appendTooltip(stack, context, displayComponent, textConsumer, type);
     }

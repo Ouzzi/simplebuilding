@@ -18,6 +18,7 @@ public class NetheriteBreakerPistonBlock extends PistonBlock {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public MapCodec<PistonBlock> getCodec() {
         return (MapCodec<PistonBlock>) (Object) CODEC;
     }

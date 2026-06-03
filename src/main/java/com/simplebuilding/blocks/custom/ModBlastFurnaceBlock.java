@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ModBlastFurnaceBlock extends BlastFurnaceBlock {
+    @SuppressWarnings("unused")
     private final float speedMultiplier;
 
     public ModBlastFurnaceBlock(Settings settings, float speedMultiplier) {

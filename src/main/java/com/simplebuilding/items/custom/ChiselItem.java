@@ -4,12 +4,7 @@ import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BlockHalf;
-import net.minecraft.block.enums.SlabType;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,9 +15,6 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -36,13 +28,11 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 import static com.simplebuilding.util.EnchantmentHelper.*;
@@ -54,6 +44,7 @@ public class ChiselItem extends Item {
         BACKWARD
     }
 
+    @SuppressWarnings("unused")
     private Direction chiselDirection = Direction.FORWARD;
     private SoundEvent chiselSound = SoundEvents.UI_STONECUTTER_TAKE_RESULT;
     private int cooldownTicks = 100;
@@ -370,20 +361,6 @@ public class ChiselItem extends Item {
         return true;
     }
 
-    private int getFastChiselingLevel(ItemStack stack) {
-        ItemEnchantmentsComponent enchantments = stack.get(DataComponentTypes.ENCHANTMENTS);
-        if (enchantments == null) return 0;
-
-        // Wir iterieren durch alle Enchants auf dem Item
-        for (RegistryEntry<Enchantment> entry : enchantments.getEnchantments()) {
-            // Wir prüfen, ob der Key des Enchantments mit unserem ModEnchantments Key übereinstimmt
-            if (entry.matchesKey(ModEnchantments.FAST_CHISELING)) {
-                return enchantments.getLevel(entry);
-            }
-        }
-        return 0;
-    }
-
     public void setCooldownTicks(int ticks) { this.cooldownTicks = ticks; }
     public void setChiselSound(SoundEvent chiselSound) { this.chiselSound = chiselSound; }
     public void setChiselDirectionCycle(Direction direction) { this.chiselDirection = direction; }
@@ -664,6 +641,7 @@ public class ChiselItem extends Item {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         if(stack.get(ModDataComponentTypes.COORDINATES) != null) {
             BlockPos p = stack.get(ModDataComponentTypes.COORDINATES);

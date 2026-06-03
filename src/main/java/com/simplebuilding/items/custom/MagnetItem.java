@@ -4,7 +4,6 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
@@ -15,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -40,6 +38,7 @@ public class MagnetItem extends Item {
     private static final double BASE_RANGE = 4.0;
     private static final double BOOSTED_RANGE = 8.0;
     private static final double RANGE_ENCHANTMENT_BOOST = 2.0;
+    private static final double SYNC_DISTANCE_SQ = 64 * 64;
 
     public MagnetItem(Settings settings) {
         super(settings);
@@ -47,88 +46,87 @@ public class MagnetItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
-        // Da der Parameter schon ServerWorld ist, brauchen wir kein isClient Check mehr.
-
         if (!(entity instanceof PlayerEntity player)) return;
 
-        // Prüfen ob Item in Main- oder Offhand ist.
-        // slot kann null sein, daher Vorsicht.
-        boolean isHeldMain = slot == EquipmentSlot.MAINHAND;
-        boolean isHeldOff = slot == EquipmentSlot.OFFHAND;
-
-        // Sicherheitshalber prüfen wir auch das Inventar, falls slot null ist
-        if (!isHeldMain && !isHeldOff) {
-            if (player.getMainHandStack() == stack) isHeldMain = true;
-            else if (player.getOffHandStack() == stack) isHeldOff = true;
-            else return; // Nicht in der Hand
-        }
+        if (!isHeldInHand(player, stack, slot)) return;
 
         // Shift deaktiviert den Magneten
         if (player.isSneaking()) return;
 
-        // --- REICHWEITEN BERECHNUNG ---
-        boolean hasConstructors = hasConstructorsTouch(stack, world);
-        int rangeLevel = getEnchantmentLevel(stack, world, ModEnchantments.RANGE);
-
-        // Basis Reichweite (4.0 oder 8.0 durch Constructors Touch)
-        double currentRange = hasConstructors ? BOOSTED_RANGE : BASE_RANGE;
-
-        // Plus Enchantment Boost (z.B. Level 3 * 2.0 = +6.0 Blöcke)
-        if (rangeLevel > 0) {
-            currentRange += (rangeLevel * RANGE_ENCHANTMENT_BOOST);
-        }
-        // ------------------------------
+        double currentRange = getCurrentRange(stack, world);
 
         String filterId = getFilterId(stack);
 
-        // Box um den Spieler
         Box box = player.getBoundingBox().expand(currentRange);
         List<ItemEntity> items = world.getEntitiesByClass(ItemEntity.class, box, itemEntity -> true);
+        Vec3d targetPos = player.getEyePos().subtract(0, 0.5, 0);
 
         for (ItemEntity itemEntity : items) {
             if (itemEntity.isRemoved() || itemEntity.getStack().isEmpty()) continue;
 
-            // Filter Check
-            if (filterId != null && !filterId.isEmpty()) {
-                String itemId = net.minecraft.registry.Registries.ITEM.getId(itemEntity.getStack().getItem()).toString();
-                if (!filterId.equals(itemId)) continue;
-            }
+            if (!passesFilter(itemEntity, filterId)) continue;
 
-            // --- PHYSIK ---
-            // Wir nutzen getEyePos() wie von dir gewünscht
-            Vec3d targetPos = player.getEyePos().subtract(0, 0.5, 0);
-
-            // Item Position (ItemEntity hat kein getEyePos, wir nehmen getX/Y/Z)
-            Vec3d itemPos = new Vec3d(itemEntity.getX(), itemEntity.getY(), itemEntity.getZ());
-
-            Vec3d vec = targetPos.subtract(itemPos);
-            double distanceSq = vec.lengthSquared();
-
-            if (distanceSq > 1.0) {
-                // Anziehen
-                Vec3d pull = vec.normalize().multiply(0.10);
-                Vec3d currentVel = itemEntity.getVelocity();
-
-                // Neue Velocity berechnen
-                Vec3d newVel = currentVel.multiply(0.80).add(pull);
-
-                if (itemEntity.isOnGround()) {
-                    newVel = newVel.add(0, 0.15, 0);
-                }
-
-                itemEntity.setVelocity(newVel);
-            } else {
-                // Bremsen
-                itemEntity.setVelocity(itemEntity.getVelocity().multiply(0.2));
-            }
+            applyMagnetForce(itemEntity, targetPos);
 
             // Pickup Delay resetten
             itemEntity.setPickupDelay(0);
 
-            // Update an Clients senden
-            world.getPlayers().stream()
-                    .filter(p -> p.squaredDistanceTo(itemEntity) < 64 * 64)
-                    .forEach(p -> ((ServerPlayerEntity)p).networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(itemEntity)));
+            syncVelocityToNearbyPlayers(world, itemEntity);
+        }
+    }
+
+    private static boolean isHeldInHand(PlayerEntity player, ItemStack stack, @Nullable EquipmentSlot slot) {
+        if (slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND) {
+            return true;
+        }
+
+        return player.getMainHandStack() == stack || player.getOffHandStack() == stack;
+    }
+
+    private static double getCurrentRange(ItemStack stack, ServerWorld world) {
+        double range = hasConstructorsTouch(stack, world) ? BOOSTED_RANGE : BASE_RANGE;
+        int rangeLevel = getEnchantmentLevel(stack, world, ModEnchantments.RANGE);
+        if (rangeLevel > 0) {
+            range += (rangeLevel * RANGE_ENCHANTMENT_BOOST);
+        }
+        return range;
+    }
+
+    private static boolean passesFilter(ItemEntity itemEntity, @Nullable String filterId) {
+        if (filterId == null || filterId.isEmpty()) {
+            return true;
+        }
+
+        String itemId = net.minecraft.registry.Registries.ITEM.getId(itemEntity.getStack().getItem()).toString();
+        return filterId.equals(itemId);
+    }
+
+    private static void applyMagnetForce(ItemEntity itemEntity, Vec3d targetPos) {
+        Vec3d itemPos = new Vec3d(itemEntity.getX(), itemEntity.getY(), itemEntity.getZ());
+        Vec3d vec = targetPos.subtract(itemPos);
+        double distanceSq = vec.lengthSquared();
+
+        if (distanceSq > 1.0) {
+            Vec3d pull = vec.normalize().multiply(0.10);
+            Vec3d newVel = itemEntity.getVelocity().multiply(0.80).add(pull);
+
+            if (itemEntity.isOnGround()) {
+                newVel = newVel.add(0, 0.15, 0);
+            }
+
+            itemEntity.setVelocity(newVel);
+            return;
+        }
+
+        itemEntity.setVelocity(itemEntity.getVelocity().multiply(0.2));
+    }
+
+    private static void syncVelocityToNearbyPlayers(ServerWorld world, ItemEntity itemEntity) {
+        EntityVelocityUpdateS2CPacket packet = new EntityVelocityUpdateS2CPacket(itemEntity);
+        for (ServerPlayerEntity serverPlayer : world.getPlayers()) {
+            if (serverPlayer.squaredDistanceTo(itemEntity) < SYNC_DISTANCE_SQ) {
+                serverPlayer.networkHandler.sendPacket(packet);
+            }
         }
     }
 
@@ -152,6 +150,7 @@ public class MagnetItem extends Item {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent component, Consumer<Text> tooltip, TooltipType type) {
         String filter = getFilterId(stack);
         if (filter != null && !filter.isEmpty()) {

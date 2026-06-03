@@ -5,8 +5,6 @@ import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.util.HopperFilterMode;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.PropertyDelegate; // Wichtig
 import net.minecraft.storage.ReadView;

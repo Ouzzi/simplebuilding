@@ -62,6 +62,6 @@ public class LevitatingBlock extends Block {
 
     public static boolean canLevitateInto(BlockState state) {
         // Hier definieren, wo der Sand "hineinschweben" kann (Luft, Wasser, Lava, Gras)
-        return state.isAir() || state.isLiquid() || state.isReplaceable();
+        return state.isAir() || !state.getFluidState().isEmpty() || state.isReplaceable();
     }
 }

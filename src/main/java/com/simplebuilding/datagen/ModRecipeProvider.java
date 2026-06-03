@@ -87,17 +87,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
 
                 // =================================================================
-                // SPATULAS (Stick + Material + Nugget/Shard) - ECKIG
-                // =================================================================
-                createSpatulaRecipe(ModItems.STONE_SPATULA, Items.COBBLESTONE, Items.COPPER_INGOT);
-                createSpatulaRecipe(ModItems.COPPER_SPATULA, Items.COPPER_INGOT, Items.COPPER_INGOT);
-                createSpatulaRecipe(ModItems.IRON_SPATULA, Items.IRON_INGOT, Items.COPPER_INGOT);
-                createSpatulaRecipe(ModItems.GOLD_SPATULA, Items.GOLD_INGOT, Items.COPPER_INGOT);
-                createSpatulaRecipe(ModItems.DIAMOND_SPATULA, Items.DIAMOND, Items.COPPER_INGOT);
-                createSmithing(ModItems.DIAMOND_SPATULA, ModItems.NETHERITE_SPATULA, RecipeCategory.TOOLS);
-
-
-                // =================================================================
                 // BUILDING CORES (Material + Nether Star)
                 // =================================================================
                 createCoreRecipe(ModItems.COPPER_CORE, Items.COPPER_INGOT);
@@ -388,6 +377,20 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT))
                         .offerTo(exporter);
 
+                createShapeless(RecipeCategory.MISC, ModItems.ENDERITE_NUGGET, 9)
+                        .input(ModItems.ENDERITE_INGOT)
+                        .criterion(hasItem(ModItems.ENDERITE_INGOT), conditionsFromItem(ModItems.ENDERITE_INGOT))
+                        .criterion(hasItem(ModItems.ENDERITE_NUGGET), conditionsFromItem(ModItems.ENDERITE_NUGGET))
+                        .offerTo(exporter, "enderite_nugget_from_ingot");
+                createShaped(RecipeCategory.MISC, ModItems.ENDERITE_INGOT)
+                        .pattern("NNN")
+                        .pattern("NNN")
+                        .pattern("NNN")
+                        .input('N', ModItems.ENDERITE_NUGGET)
+                        .criterion(hasItem(ModItems.ENDERITE_NUGGET), conditionsFromItem(ModItems.ENDERITE_NUGGET))
+                        .criterion(hasItem(ModItems.ENDERITE_INGOT), conditionsFromItem(ModItems.ENDERITE_INGOT))
+                        .offerTo(exporter, "enderite_ingot_from_nugget");
+
 
                 // =================================================================
                 // NETHERITE FOOD RECIPES
@@ -407,6 +410,23 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input('N', ModItems.NETHERITE_NUGGET)
                         .input('A', Items.APPLE)
                         .criterion(hasItem(ModItems.NETHERITE_NUGGET), conditionsFromItem(ModItems.NETHERITE_NUGGET))
+                        .offerTo(exporter);
+
+                createShaped(RecipeCategory.FOOD, ModItems.ENDERITE_CARROT)
+                        .pattern(" N ")
+                        .pattern("NCN")
+                        .pattern(" N ")
+                        .input('N', ModItems.ENDERITE_NUGGET)
+                        .input('C', Items.CARROT)
+                        .criterion(hasItem(ModItems.ENDERITE_NUGGET), conditionsFromItem(ModItems.ENDERITE_NUGGET))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.FOOD, ModItems.ENDERITE_APPLE)
+                        .pattern("NNN")
+                        .pattern("NAN")
+                        .pattern("NNN")
+                        .input('N', ModItems.ENDERITE_NUGGET)
+                        .input('A', Items.APPLE)
+                        .criterion(hasItem(ModItems.ENDERITE_NUGGET), conditionsFromItem(ModItems.ENDERITE_NUGGET))
                         .offerTo(exporter);
 
 
@@ -548,20 +568,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createSmithingTransform(exporter, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_BUNDLE);
                 // Quiver
                 createSmithingTransform(exporter, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_QUIVER);
-
-                // Food (Crafting, da man Essen normalerweise nicht schmiedet, aber du wolltest "like Netheite Variants")
-                // Netherite Apple ist meist Crafting (Gold Apple + Netherite Ingot).
-                createShapeless(RecipeCategory.FOOD, ModItems.ENDERITE_APPLE)
-                        .input(ModItems.NETHERITE_APPLE)
-                        .input(ModItems.ENDERITE_INGOT)
-                        .criterion(hasItem(ModItems.ENDERITE_INGOT), conditionsFromItem(ModItems.ENDERITE_INGOT))
-                        .offerTo(exporter);
-
-                createShapeless(RecipeCategory.FOOD, ModItems.ENDERITE_CARROT)
-                        .input(ModItems.NETHERITE_CARROT)
-                        .input(ModItems.ENDERITE_INGOT)
-                        .criterion(hasItem(ModItems.ENDERITE_INGOT), conditionsFromItem(ModItems.ENDERITE_INGOT))
-                        .offerTo(exporter);
             }
 
             // Helper für Checker (4 Base + 4 Quartz)
@@ -605,18 +611,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .pattern("   ")
                         .pattern("NM ")
                         .pattern("SN ")
-                        .input('M', material)
-                        .input('S', Items.STICK)
-                        .input('N', nugget)
-                        .criterion(hasItem(material), conditionsFromItem(material))
-                        .offerTo(exporter);
-            }
-
-            private void createSpatulaRecipe(Item output, Item material, Item nugget) {
-                createShaped(RecipeCategory.TOOLS, output)
-                        .pattern("   ")
-                        .pattern("SN ")
-                        .pattern(" M ")
                         .input('M', material)
                         .input('S', Items.STICK)
                         .input('N', nugget)

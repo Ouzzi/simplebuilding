@@ -1,8 +1,6 @@
 package com.simplebuilding.client.gui;
 
-import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
-import com.simplebuilding.blocks.entity.custom.NetheriteHopperBlockEntity;
 import com.simplebuilding.networking.SetHopperGhostItemPayload;
 import com.simplebuilding.networking.ToggleHopperFilterPayload;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;

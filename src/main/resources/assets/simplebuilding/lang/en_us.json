@@ -10,16 +10,6 @@
   "tooltip.simplebuilding.chisel": "Use to shape blocks.",
   "tooltip.simplebuilding.chisel.shift_down": "Right-click on a transformable block. Sneak to reverse.",
 
-  "item.simplebuilding.stone_spatula": "Stone Spatula",
-  "item.simplebuilding.copper_spatula": "Copper Spatula",
-  "item.simplebuilding.iron_spatula": "Iron Spatula",
-  "item.simplebuilding.gold_spatula": "Gold Spatula",
-  "item.simplebuilding.diamond_spatula": "Diamond Spatula",
-  "item.simplebuilding.netherite_spatula": "Netherite Spatula",
-
-  "tooltip.simplebuilding.spatula": "Use to smooth blocks.",
-  "tooltip.simplebuilding.spatula.shift_down": "Right-click on a transformable block.",
-
   "item.simplebuilding.copper_core": "Copper Core",
   "item.simplebuilding.iron_core": "Iron Core",
   "item.simplebuilding.gold_core": "Gold Core",
@@ -150,8 +140,8 @@
   "text.autoconfig.simplebuilding.option.tools": "Tool Settings",
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak": "Invert Octant Sneak",
   "text.autoconfig.simplebuilding.option.tools.invertOctantSneak.@Tooltip": "If true, the Octant renders the filled area when NOT sneaking (with Constructor's Touch).",
-  "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity": "Building Wand Highlight Opacity",
-  "text.autoconfig.simplebuilding.option.tools.BuildingHighlightOpacity.@Tooltip": "Opacity of the Building Wand block highlight (0.0 - 1.0).",
+  "text.autoconfig.simplebuilding.option.tools.buildingHighlightOpacity": "Building Wand Highlight Opacity",
+  "text.autoconfig.simplebuilding.option.tools.buildingHighlightOpacity.@Tooltip": "Opacity of the Building Wand block highlight (0.0 - 1.0).",
 
   "text.autoconfig.simplebuilding.option.tools.enableToolAnimations": "Enable Tool Animations",
   "text.autoconfig.simplebuilding.option.tools.enableToolAnimations.@Tooltip": "Toggles custom tool animations like the Chisel rotation.",
@@ -165,8 +155,6 @@
   "text.autoconfig.simplebuilding.option.worldGen.enableWanderingTrades.@Tooltip": "Add chisel and building wand trades to wandering traders.",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges": "Enable Loot Chests",
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.@Tooltip": "Add items to dungeon/structure chests.",
-
-  "text.autoconfig.simplebuilding.option.tools.buildingHighlightOpacity": "Building Wand Highlight Opacity",
 
   "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions": "Invert Bundle Interactions",
   "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions.@Tooltip": "If true sneaking while using bundles will perform the opposite action (insert vs extract).",
@@ -217,6 +205,7 @@
   "item.simplebuilding.diamond_pebble": "Diamond Pebble",
   "item.simplebuilding.cracked_diamond": "Cracked Diamond",
   "item.simplebuilding.cracked_diamond_block": "Cracked Diamond Block",
+  "item.simplebuilding.enderite_nugget": "Enderite Nugget",
   "block.simplebuilding.cracked_diamond_block": "Cracked Diamond Block",
 
   "trim_pattern.simplebuilding.glowing": "Glowing Trim",
@@ -235,9 +224,15 @@
   "simplebuilding.gui.close": "Done",
   "simplebuilding.gui.shape": "Shape: %s",
   "simplebuilding.gui.orientation": "Axis: %s",
+  "simplebuilding.gui.figure": "Figure: %s",
   "simplebuilding.gui.hollow": "Hollow: %s",
   "simplebuilding.gui.layer": "Layer Mode: %s",
   "simplebuilding.gui.order": "Order: %s",
+  "simplebuilding.gui.lock_tooltip": "Lock/Unlock current selection",
+  "simplebuilding.gui.page_next": "Page >",
+  "simplebuilding.gui.page_prev": "< Page",
+  "simplebuilding.gui.page_selection": "Page 1/2: Selection",
+  "simplebuilding.gui.page_settings": "Page 2/2: Fill Settings",
 
   "simplebuilding.shape.cuboid": "Cuboid",
   "simplebuilding.shape.cylinder": "Cylinder",
@@ -252,7 +247,19 @@
   "simplebuilding.order.top_down": "Top Down",
 
   "key.simplebuilding.settings": "Open Settings Menu",
+  "key.simplebuilding.toggle_highlight": "Toggle Highlights",
+  "key.simplebuilding.toggle_octant_figure": "Toggle Octant Figure",
+  "key.simplebuilding.simple_settings": "Open Tool Settings",
   "category.simplebuilding.general": "SimpleBuilding",
+  "category.simplebuilding.simplemods": "SimpleMods",
+  "key.categories.simplebuilding.simplemods": "SimpleMods",
+
+  "simplebuilding.axis.pos_x": "+X",
+  "simplebuilding.axis.pos_y": "+Y",
+  "simplebuilding.axis.pos_z": "+Z",
+  "simplebuilding.axis.neg_x": "-X",
+  "simplebuilding.axis.neg_y": "-Y",
+  "simplebuilding.axis.neg_z": "-Z",
 
   "simplebuilding.gui.wand_title": "Building Wand Settings",
   "simplebuilding.gui.wand_settings": "Configuration",
@@ -327,6 +334,7 @@
   "item.simplebuilding.enderite_ingot": "Enderite Ingot",
 
   "item.simplebuilding.enderite_sword": "Enderite Sword",
+  "item.simplebuilding.enderite_spear": "Enderite Spear",
   "item.simplebuilding.enderite_shovel": "Enderite Shovel",
   "item.simplebuilding.enderite_pickaxe": "Enderite Pickaxe",
   "item.simplebuilding.enderite_axe": "Enderite Axe",
@@ -366,6 +374,10 @@
   "item.minecraft.smithing_template.enderite_upgrade.applies_to": "Netherite Equipment",
   "item.minecraft.smithing_template.enderite_upgrade.ingredients": "Enderite Ingot",
   "item.minecraft.smithing_template.enderite_upgrade.base_slot_description": "Add netherite armor, weapon or tool",
-  "item.minecraft.smithing_template.enderite_upgrade.additions_slot_description": "Add Enderite Ingot"
+  "item.minecraft.smithing_template.enderite_upgrade.additions_slot_description": "Add Enderite Ingot",
+
+  "trim_material.simplebuilding.enderite": "Enderite",
+  "trim_material.simplebuilding.astralit": "Astralit",
+  "trim_material.simplebuilding.nihilith": "Nihilith"
 
 }

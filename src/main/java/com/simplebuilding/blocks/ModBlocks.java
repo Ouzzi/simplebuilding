@@ -2,8 +2,6 @@ package com.simplebuilding.blocks;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.custom.*;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

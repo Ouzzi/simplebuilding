@@ -26,25 +26,23 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.gui.tooltip.BundleTooltipComponent;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.render.item.model.SelectItemModel;
 import net.minecraft.client.render.item.property.select.SelectProperties;
 import net.minecraft.client.render.item.property.select.SelectProperty;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.glfw.GLFW;
+
+import static com.simplebuilding.util.EnchantmentHelper.getEnchantmentLevel;
+import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 
 public class SimplebuildingClient implements ClientModInitializer {
 
@@ -53,7 +51,9 @@ public class SimplebuildingClient implements ClientModInitializer {
     private boolean wasOnGround = true;
 
     // Tasten
+    public static final KeyBinding.Category KEY_CATEGORY_SIMPLEMODS = KeyBinding.Category.create(Identifier.of(Simplebuilding.MOD_ID, "simplemods"));
     public static KeyBinding highlightToggleKey;
+    public static KeyBinding octantFigureToggleKey;
     public static boolean showHighlights = true;
     public static KeyBinding settingsKey;
     public static ReinforcedBundleTooltipSubmenuHandler BUNDLE_HANDLER;
@@ -62,6 +62,7 @@ public class SimplebuildingClient implements ClientModInitializer {
     private boolean wasJumpPressed = false;
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onInitializeClient() {
         BUNDLE_HANDLER = new ReinforcedBundleTooltipSubmenuHandler(MinecraftClient.getInstance());
 
@@ -98,13 +99,20 @@ public class SimplebuildingClient implements ClientModInitializer {
         // --- Keybindings Registrierung ---
         highlightToggleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.simplebuilding.toggle_highlight",
-                GLFW.GLFW_KEY_H,
-                KeyBinding.Category.MISC
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_H,
+            KEY_CATEGORY_SIMPLEMODS
+        ));
+        octantFigureToggleKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "key.simplebuilding.toggle_octant_figure",
+            InputUtil.Type.KEYSYM,
+            InputUtil.UNKNOWN_KEY.getCode(),
+            KEY_CATEGORY_SIMPLEMODS
         ));
         settingsKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.simplebuilding.simple_settings",
                 GLFW.GLFW_KEY_G, // Standard G
-                KeyBinding.Category.MISC
+            KEY_CATEGORY_SIMPLEMODS
         ));
 
         // --- Event Loop (Tick) ---
@@ -116,16 +124,20 @@ public class SimplebuildingClient implements ClientModInitializer {
                 }
             }
 
+            while (octantFigureToggleKey.wasPressed()) {
+                showHighlights = !showHighlights;
+                if (client.player != null) {
+                    client.player.sendMessage(Text.literal("Octant Figure: " + (showHighlights ? "ON" : "OFF")), true);
+                }
+            }
+
             while (settingsKey.wasPressed()) {
                 if (client.player != null) {
                     ItemStack stack = client.player.getMainHandStack();
                     if (stack.getItem() instanceof OctantItem) {
                         client.setScreen(new OctantScreen(stack));
                     } else if (stack.getItem() instanceof BuildingWandItem) {
-                        var registry = client.world.getRegistryManager();
-                        var lookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-                        var entry = lookup.getOptional(ModEnchantments.CONSTRUCTORS_TOUCH);
-                        if (entry.isPresent() && EnchantmentHelper.getLevel(entry.get(), stack) > 0) {
+                        if (client.world != null && hasEnchantment(stack, client.world, ModEnchantments.CONSTRUCTORS_TOUCH)) {
                             client.setScreen(new BuildingWandScreen(stack));
                         }
                     }
@@ -226,24 +238,30 @@ public class SimplebuildingClient implements ClientModInitializer {
             } else {
                 boolean jumping = client.options.jumpKey.isPressed();
                 if (jumping && !jumpKeyPressed && !wasOnGround) {
-                    var registry = client.player.getEntityWorld().getRegistryManager();
-                    var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-                    var doubleJump = enchantments.getOptional(ModEnchantments.DOUBLE_JUMP);
-
-                    if (doubleJump.isPresent()) {
-                        int level = EnchantmentHelper.getEquipmentLevel(doubleJump.get(), client.player);
-                        if (level > 0 && jumpsUsed < level && !client.player.getAbilities().flying) {
-                            Vec3d velocity = client.player.getVelocity();
-                            client.player.setVelocity(velocity.x, 0.5, velocity.z);
-                            client.player.fallDistance = 0;
-                            jumpsUsed++;
-                            ClientPlayNetworking.send(new DoubleJumpPayload());
-                        }
+                    int level = getDoubleJumpLevel(client.player);
+                    if (level > 0 && jumpsUsed < level && !client.player.getAbilities().flying) {
+                        Vec3d velocity = client.player.getVelocity();
+                        client.player.setVelocity(velocity.x, 0.5, velocity.z);
+                        client.player.fallDistance = 0;
+                        jumpsUsed++;
+                        ClientPlayNetworking.send(new DoubleJumpPayload());
                     }
                 }
             }
             jumpKeyPressed = client.options.jumpKey.isPressed();
             wasOnGround = isOnGround;
         });
+    }
+
+    private static int getDoubleJumpLevel(net.minecraft.entity.player.PlayerEntity player) {
+        int maxLevel = 0;
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack equipped = player.getEquippedStack(slot);
+            int level = getEnchantmentLevel(equipped, player.getEntityWorld(), ModEnchantments.DOUBLE_JUMP);
+            if (level > maxLevel) {
+                maxLevel = level;
+            }
+        }
+        return maxLevel;
     }
 }

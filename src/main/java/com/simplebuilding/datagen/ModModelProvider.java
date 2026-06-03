@@ -2,6 +2,7 @@ package com.simplebuilding.datagen;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.items.ModArmorMaterials;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -168,14 +169,6 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.NETHERITE_CHISEL, Models.HANDHELD);
         itemModelGenerator.register(ModItems.ENDERITE_CHISEL, Models.HANDHELD); // NEW
 
-        // --- 3. SPATULAS ---
-        itemModelGenerator.register(ModItems.STONE_SPATULA, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.COPPER_SPATULA, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.IRON_SPATULA, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.GOLD_SPATULA, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.DIAMOND_SPATULA, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.NETHERITE_SPATULA, Models.HANDHELD);
-
         // --- WANDS ---
         itemModelGenerator.register(ModItems.COPPER_BUILDING_WAND, Models.HANDHELD);
         itemModelGenerator.register(ModItems.IRON_BUILDING_WAND, Models.HANDHELD);
@@ -200,11 +193,11 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.ENDERITE_SHOVEL, Models.HANDHELD);
         itemModelGenerator.register(ModItems.ENDERITE_HOE, Models.HANDHELD);
 
-        // --- NEW: ENDERITE ARMOR (GENERATED) ---
-        itemModelGenerator.register(ModItems.ENDERITE_HELMET, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDERITE_CHESTPLATE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDERITE_LEGGINGS, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDERITE_BOOTS, Models.GENERATED);
+        // --- NEW: ENDERITE ARMOR (TRIM-AWARE) ---
+        itemModelGenerator.registerArmor(ModItems.ENDERITE_HELMET, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerator.HELMET_TRIM_ID_PREFIX, false);
+        itemModelGenerator.registerArmor(ModItems.ENDERITE_CHESTPLATE, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerator.CHESTPLATE_TRIM_ID_PREFIX, false);
+        itemModelGenerator.registerArmor(ModItems.ENDERITE_LEGGINGS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerator.LEGGINGS_TRIM_ID_PREFIX, false);
+        itemModelGenerator.registerArmor(ModItems.ENDERITE_BOOTS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerator.BOOTS_TRIM_ID_PREFIX, false);
 
         // --- NEW: ENDERITE MATERIALS (GENERATED) ---
         itemModelGenerator.register(ModItems.ENDERITE_CORE, Models.GENERATED);
@@ -245,11 +238,14 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.BASIC_UPGRADE_TEMPLATE, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.NETHERITE_NUGGET, Models.GENERATED);
+        itemModelGenerator.register(ModItems.ENDERITE_NUGGET, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_APPLE, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_CARROT, Models.GENERATED);
 
 
         String[] enchants = {
+                "fast_chiseling", "constructors_touch", "color_palette", "master_builder",
+                "break_through", "radius", "cover", "bridge", "linear",
                 "vein_miner", "deep_pockets", "strip_miner", "versatility",
                 "drawer", "kinetic_protection", "double_jump", "override",
                 "funnel", "range"

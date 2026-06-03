@@ -2,9 +2,7 @@ package com.simplebuilding.mixin;
 
 import com.mojang.datafixers.util.Pair;
 import com.simplebuilding.enchantment.ModEnchantments;
-import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.SledgehammerItem;
-import com.simplebuilding.util.GlowingTrimUtils;
 import com.simplebuilding.util.StructureConfig;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.LodestoneTrackerComponent;
@@ -18,7 +16,6 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.screen.*;

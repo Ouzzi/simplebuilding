@@ -1,11 +1,8 @@
 package com.simplebuilding.items;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.item.Item;
 
 public class ModToolMaterials {
 

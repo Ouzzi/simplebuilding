@@ -2,7 +2,6 @@ package com.simplebuilding.mixin;
 
 import com.simplebuilding.blocks.ModBlocks;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.PistonHeadBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

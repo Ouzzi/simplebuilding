@@ -1,0 +1,16 @@
+{
+  "tools": {
+    "invertOctantSneak": false,
+    "buildingHighlightOpacity": 40,
+    "enableToolAnimations": true,
+    "enableChiselAnimation": true,
+    "invertBundleInteractions": false
+  },
+  "worldGen": {
+    "enableVillagerTrades": true,
+    "enableWanderingTrades": true,
+    "enableLootTableChanges": true
+  },
+  "enableDoubleJump": true,
+  "enableArmorTrimBenefits": true
+}

@@ -1,6 +1,5 @@
 package com.simplebuilding.util;
 
-import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;

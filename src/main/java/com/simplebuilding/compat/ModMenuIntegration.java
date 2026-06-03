@@ -11,7 +11,7 @@ import net.fabricmc.api.Environment;
 public class ModMenuIntegration implements ModMenuApi {
 
     @Override
-    @SuppressWarnings("deprecation") // AutoConfig ist sicher auf dem Client, Warnung ignorieren
+    @SuppressWarnings("removal") // AutoConfig ist sicher auf dem Client, Warnung ignorieren
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return parent -> AutoConfig.getConfigScreen(SimplebuildingConfig.class, parent).get();
     }

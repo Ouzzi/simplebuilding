@@ -10,6 +10,14 @@ base {
 	archivesName = project.archives_base_name
 }
 
+sourceSets {
+	main {
+		resources {
+			srcDir "src/main/generated"
+		}
+	}
+}
+
 repositories {
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
@@ -18,10 +26,10 @@ repositories {
 	// for more information about repositories.
 
     // Cloth Config Repository
-    maven { url "https://maven.shedaniel.me/" }
+	maven { url = "https://maven.shedaniel.me/" }
 
     // Mod Menu Repository
-    maven { url "https://maven.terraformersmc.com/releases/" }
+	maven { url = "https://maven.terraformersmc.com/releases/" }
 }
 
 fabricApi {
@@ -46,6 +54,11 @@ dependencies {
 
     // Mod Menu (damit du den Config-Button im Spiel siehst)
     modImplementation "com.terraformersmc:modmenu:17.0.0-alpha.1"
+
+	// Test dependencies
+	testImplementation "org.junit.jupiter:junit-jupiter:5.11.4"
+	testImplementation "com.google.code.gson:gson:2.11.0"
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 }
 
 processResources {
@@ -58,6 +71,10 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
+}
+
+test {
+	useJUnitPlatform()
 }
 
 java {

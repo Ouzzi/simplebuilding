@@ -44,6 +44,15 @@ public record EnchantmentModelProperty() implements SelectProperty<String> {
         var reg = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
 
         // Deine Liste
+        if (enchants.getLevel(reg.getOrThrow(ModEnchantments.FAST_CHISELING)) > 0) return "fast_chiseling";
+        if (enchants.getLevel(reg.getOrThrow(ModEnchantments.CONSTRUCTORS_TOUCH)) > 0) return "constructors_touch";
+        if (enchants.getLevel(reg.getOrThrow(ModEnchantments.COLOR_PALETTE)) > 0) return "color_palette";
+        if (enchants.getLevel(reg.getOrThrow(ModEnchantments.MASTER_BUILDER)) > 0) return "master_builder";
+        if (enchants.getLevel(reg.getOrThrow(ModEnchantments.BREAK_THROUGH)) > 0) return "break_through";
+        if (enchants.getLevel(reg.getOrThrow(ModEnchantments.RADIUS)) > 0) return "radius";
+        if (enchants.getLevel(reg.getOrThrow(ModEnchantments.COVER)) > 0) return "cover";
+        if (enchants.getLevel(reg.getOrThrow(ModEnchantments.BRIDGE)) > 0) return "bridge";
+        if (enchants.getLevel(reg.getOrThrow(ModEnchantments.LINEAR)) > 0) return "linear";
         if (enchants.getLevel(reg.getOrThrow(ModEnchantments.VEIN_MINER)) > 0) return "vein_miner";
         if (enchants.getLevel(reg.getOrThrow(ModEnchantments.DEEP_POCKETS)) > 0) return "deep_pockets";
         if (enchants.getLevel(reg.getOrThrow(ModEnchantments.STRIP_MINER)) > 0) return "strip_miner";

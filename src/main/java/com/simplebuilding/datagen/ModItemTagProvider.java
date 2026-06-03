@@ -27,13 +27,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.IRON_CHISEL)
                 .add(ModItems.GOLD_CHISEL)
                 .add(ModItems.DIAMOND_CHISEL)
-                .add(ModItems.NETHERITE_CHISEL)
-                .add(ModItems.STONE_SPATULA)
-                .add(ModItems.COPPER_SPATULA)
-                .add(ModItems.IRON_SPATULA)
-                .add(ModItems.GOLD_SPATULA)
-                .add(ModItems.DIAMOND_SPATULA)
-                .add(ModItems.NETHERITE_SPATULA);
+                .add(ModItems.NETHERITE_CHISEL);
 
         var octantBuilder = valueLookupBuilder(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(ModItems.OCTANT);
@@ -53,6 +47,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .addTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(ModItems.ORE_DETECTOR)
                 .add(ModItems.ROTATOR)
+                .add(ModItems.ENDERITE_SPEAR)
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
 

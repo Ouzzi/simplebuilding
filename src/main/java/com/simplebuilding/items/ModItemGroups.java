@@ -1,7 +1,6 @@
 package com.simplebuilding.items;
 
 import com.simplebuilding.Simplebuilding;
-import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.enchantment.ModEnchantments;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.component.DataComponentTypes;
@@ -23,7 +22,7 @@ import net.minecraft.util.Identifier;
 public class ModItemGroups {
     public static final ItemGroup BUILDING_ITEMS_GROUP = Registry.register(Registries.ITEM_GROUP,
             Identifier.of(Simplebuilding.MOD_ID, "building_items"),
-            FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.IRON_SPATULA))
+            FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.IRON_CHISEL))
                     .displayName(Text.translatable("itemgroup.simplebuilding.building_items"))
                     .entries((displayContext, entries) -> {
                         // -- Resources ---
@@ -31,6 +30,7 @@ public class ModItemGroups {
                         entries.add(ModItems.CRACKED_DIAMOND);
                         entries.add(ModItems.CRACKED_DIAMOND_BLOCK);
                         entries.add(ModItems.NETHERITE_NUGGET);
+                        entries.add(ModItems.ENDERITE_NUGGET);
                         entries.add(ModItems.NETHERITE_APPLE);
                         entries.add(ModItems.NETHERITE_CARROT);
 
@@ -93,15 +93,9 @@ public class ModItemGroups {
                         entries.add(ModItems.NETHERITE_CHISEL);
                         entries.add(ModItems.ENDERITE_CHISEL);
 
-                        entries.add(ModItems.STONE_SPATULA);
-                        entries.add(ModItems.COPPER_SPATULA);
-                        entries.add(ModItems.IRON_SPATULA);
-                        entries.add(ModItems.GOLD_SPATULA);
-                        entries.add(ModItems.DIAMOND_SPATULA);
-                        entries.add(ModItems.NETHERITE_SPATULA);
-
                         // --- NEW: Enderite Tools ---
                         entries.add(ModItems.ENDERITE_SWORD);
+                        entries.add(ModItems.ENDERITE_SPEAR);
                         entries.add(ModItems.ENDERITE_PICKAXE);
                         entries.add(ModItems.ENDERITE_AXE);
                         entries.add(ModItems.ENDERITE_SHOVEL);
@@ -166,36 +160,35 @@ public class ModItemGroups {
                         RegistryWrapper<Enchantment> enchantmentRegistry = lookup.getOrThrow(RegistryKeys.ENCHANTMENT);
 
                         // 1. Tool Utilities
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.FAST_CHISELING, 2);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.CONSTRUCTORS_TOUCH, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.RANGE, 3);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.STRIP_MINER, 3);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.VEIN_MINER, 5);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.VERSATILITY, 2);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.FAST_CHISELING);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.CONSTRUCTORS_TOUCH);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.RANGE);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.STRIP_MINER);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.VEIN_MINER);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.VERSATILITY);
 
                         // 2. Sledgehammer Specific
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.BREAK_THROUGH, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.RADIUS, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.OVERRIDE, 2);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.BREAK_THROUGH);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.RADIUS);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.OVERRIDE);
 
                         // 3. Bundle/Container Utilities
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.DEEP_POCKETS, 2);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.FUNNEL, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.DRAWER, 8);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.DEEP_POCKETS);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.FUNNEL);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.DRAWER);
 
                         // 4. Wand/Construction Utilities
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.MASTER_BUILDER, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.COLOR_PALETTE, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.COVER, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.BRIDGE, 1);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.LINEAR, 1);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.MASTER_BUILDER);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.COLOR_PALETTE);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.COVER);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.BRIDGE);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.LINEAR);
 
                         // 5. Armor Utilities
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.DOUBLE_JUMP, 2);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.DOUBLE_JUMP);
 
                         // 6. Miscellaneous
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.KINETIC_PROTECTION, 4);
-                        addEnchant(entries, enchantmentRegistry, ModEnchantments.DRAWER, 1);
+                        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.KINETIC_PROTECTION);
 
                         // 7. Armor Trim
                         entries.add(ModItems.GLOWING_TRIM_TEMPLATE);
@@ -211,20 +204,11 @@ public class ModItemGroups {
         Simplebuilding.LOGGER.info("Registering Item Groups for " + Simplebuilding.MOD_ID);
     }
 
-    /**
-     * Helper method to add an Enchanted Book to the Creative Tab.
-     * Checks if the enchantment exists in the registry wrapper before adding.
-     *
-     * @param entries The ItemGroup entries list
-     * @param registry The Enchantment Registry Wrapper
-     * @param key The Registry Key of the custom enchantment
-     * @param level The level of the enchantment to display on the book
-     */
-    private static void addEnchant(ItemGroup.Entries entries, RegistryWrapper<Enchantment> registry, RegistryKey<Enchantment> key, int level) {
+    private static void addEnchantAtMax(ItemGroup.Entries entries, RegistryWrapper<Enchantment> registry, RegistryKey<Enchantment> key) {
         registry.getOptional(key).ifPresent(enchantmentEntry -> {
             ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
             ItemEnchantmentsComponent.Builder builder = new ItemEnchantmentsComponent.Builder(ItemEnchantmentsComponent.DEFAULT);
-            builder.add(enchantmentEntry, level);
+            builder.add(enchantmentEntry, enchantmentEntry.value().getMaxLevel());
             book.set(DataComponentTypes.STORED_ENCHANTMENTS, builder.build());
             entries.add(book);
         });

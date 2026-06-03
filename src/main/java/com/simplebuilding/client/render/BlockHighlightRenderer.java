@@ -12,7 +12,6 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -49,8 +48,15 @@ public class BlockHighlightRenderer {
         OctantItem.SelectionShape shape = OctantItem.SelectionShape.CUBOID;
         try { if (!shapeName.isEmpty()) shape = OctantItem.SelectionShape.valueOf(shapeName); } catch (Exception ignored) {}
 
-        int orientIdx = nbt.getInt("Orientation", 1); // 0=X, 1=Y, 2=Z
-        Direction.Axis orientation = orientIdx == 0 ? Direction.Axis.X : (orientIdx == 2 ? Direction.Axis.Z : Direction.Axis.Y);
+        int orientIdx = nbt.getInt("Orientation", 1); // 0=+X, 1=+Y, 2=+Z, 3=-X, 4=-Y, 5=-Z
+        Direction orientation = switch (orientIdx) {
+            case 0 -> Direction.EAST;
+            case 2 -> Direction.SOUTH;
+            case 3 -> Direction.WEST;
+            case 4 -> Direction.DOWN;
+            case 5 -> Direction.NORTH;
+            default -> Direction.UP;
+        };
 
         if (pos1 == null && pos2 == null) return;
 
@@ -93,21 +99,21 @@ public class BlockHighlightRenderer {
                 // Fix: Uses strict < bounds.maxY to exclude the block above the selection
                 case CYLINDER, ELLIPSE -> p -> {
                     // Normalize point relative to bounds center
-                    BlockPos transformed = transformToY(p, orientation);
-                    Box tBounds = transformToY(bounds, orientation);
+                    Box tBounds = transformToY(bounds, orientation.getAxis());
+                    BlockPos transformed = transformToY(p, orientation, tBounds);
                     // Check Height (Y in transformed space)
                     if (transformed.getY() < tBounds.minY || transformed.getY() >= tBounds.maxY) return false;
                     return isPointInEllipse(transformed.getX() + 0.5, transformed.getZ() + 0.5, tBounds);
                 };
                 case SPHERE -> p -> isPointInEllipsoid(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, bounds);
                 case PYRAMID -> p -> {
-                     BlockPos transformed = transformToY(p, orientation);
-                     Box tBounds = transformToY(bounds, orientation);
+                     Box tBounds = transformToY(bounds, orientation.getAxis());
+                     BlockPos transformed = transformToY(p, orientation, tBounds);
                      return isPointInPyramid(transformed.getX() + 0.5, transformed.getY() + 0.5, transformed.getZ() + 0.5, tBounds);
                 };
                 case TRIANGLE -> p -> { // Prism
-                     BlockPos transformed = transformToY(p, orientation);
-                     Box tBounds = transformToY(bounds, orientation);
+                     Box tBounds = transformToY(bounds, orientation.getAxis());
+                     BlockPos transformed = transformToY(p, orientation, tBounds);
                      return isPointInPrism(transformed.getX() + 0.5, transformed.getY() + 0.5, transformed.getZ() + 0.5, tBounds);
                 };
                 case RECTANGLE, CUBOID -> p -> true;
@@ -127,10 +133,19 @@ public class BlockHighlightRenderer {
     }
 
     // --- TRANSFORM HELPERS (Rotate space to Y-up) ---
-    private static BlockPos transformToY(BlockPos p, Direction.Axis orientation) {
-        if (orientation == Direction.Axis.Y) return p;
-        if (orientation == Direction.Axis.X) return new BlockPos(p.getY(), p.getX(), p.getZ()); // Swap X/Y
-        return new BlockPos(p.getX(), p.getZ(), p.getY()); // Swap Z/Y
+    private static BlockPos transformToY(BlockPos p, Direction orientation, Box transformedBounds) {
+        BlockPos transformed = switch (orientation.getAxis()) {
+            case Y -> p;
+            case X -> new BlockPos(p.getY(), p.getX(), p.getZ());
+            case Z -> new BlockPos(p.getX(), p.getZ(), p.getY());
+        };
+
+        if (orientation.getDirection() == Direction.AxisDirection.NEGATIVE) {
+            int flippedY = (int) (transformedBounds.minY + transformedBounds.maxY - 1 - transformed.getY());
+            return new BlockPos(transformed.getX(), flippedY, transformed.getZ());
+        }
+
+        return transformed;
     }
     private static Box transformToY(Box b, Direction.Axis orientation) {
         if (orientation == Direction.Axis.Y) return b;

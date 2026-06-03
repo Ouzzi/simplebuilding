@@ -20,12 +20,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.HopperScreenHandler;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -38,12 +36,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 // WICHTIG: "implements ExtendedScreenHandlerFactory" hinzufügen!
-public class ModHopperBlockEntity extends LootableContainerBlockEntity implements Hopper, ExtendedScreenHandlerFactory {
+public class ModHopperBlockEntity extends LootableContainerBlockEntity implements Hopper, ExtendedScreenHandlerFactory<BlockPos> {
 
     private DefaultedList<ItemStack> inventory;
     // Ghost Items und Filter Modes
@@ -53,6 +49,7 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
     private HopperFilterMode currentFilterMode = HopperFilterMode.NONE;
 
     private int transferCooldown = -1;
+    @SuppressWarnings("unused")
     private long lastTickTime;
 
     // Für Synchronisation mit ScreenHandler
@@ -426,7 +423,7 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
     }
 
     @Override
-    public Object getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
+    public BlockPos getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
         return this.pos;
     }
 }

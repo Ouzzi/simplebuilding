@@ -52,7 +52,6 @@ public class ModEnchantments {
     public static void bootstrap(Registerable<Enchantment> registerable) {
         var items = registerable.getRegistryLookup(RegistryKeys.ITEM);
         var enchantmentsLookup = registerable.getRegistryLookup(RegistryKeys.ENCHANTMENT);
-        var damageTypes = registerable.getRegistryLookup(RegistryKeys.DAMAGE_TYPE);
 
         // Fast Chiseling (Max Level III, Common) [CHISEL, SPATULA]
         register(registerable, FAST_CHISELING, Enchantment.builder(

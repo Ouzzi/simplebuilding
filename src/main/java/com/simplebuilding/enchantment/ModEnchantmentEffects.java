@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 public class ModEnchantmentEffects {
 
 
+    @SuppressWarnings("unused")
     private static MapCodec<? extends EnchantmentEntityEffect> registerEntityEffect(String name,
                                                                                     MapCodec<? extends EnchantmentEntityEffect> codec) {
         return Registry.register(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Identifier.of(Simplebuilding.MOD_ID, name), codec);

@@ -5,12 +5,6 @@
     "simplebuilding:iron_chisel",
     "simplebuilding:gold_chisel",
     "simplebuilding:diamond_chisel",
-    "simplebuilding:netherite_chisel",
-    "simplebuilding:stone_spatula",
-    "simplebuilding:copper_spatula",
-    "simplebuilding:iron_spatula",
-    "simplebuilding:gold_spatula",
-    "simplebuilding:diamond_spatula",
-    "simplebuilding:netherite_spatula"
+    "simplebuilding:netherite_chisel"
   ]
 }

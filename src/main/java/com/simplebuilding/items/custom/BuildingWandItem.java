@@ -1,15 +1,12 @@
 package com.simplebuilding.items.custom;
 
-import com.simplebuilding.client.gui.BuildingWandScreen;
 import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BundleContentsComponent;
 import net.minecraft.component.type.NbtComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,13 +16,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -83,14 +77,10 @@ public class BuildingWandItem extends Item {
         NbtComponent comp = wandStack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = comp.copyNbt();
         int maxTierRadius = (maxDiameter - 1) / 2;
-        int userRadius = nbt.contains("SettingsRadius") ? nbt.getInt("SettingsRadius", maxTierRadius) : maxTierRadius;
-        if (userRadius > maxTierRadius) userRadius = maxTierRadius;
+        int userRadius = getConfiguredRadius(nbt, maxTierRadius);
         int axisMode = nbt.getInt("SettingsAxis", 0);
 
-        List<BlockPos> positions = new ArrayList<>();
-        for (int r = 0; r <= userRadius; r++) {
-            positions.addAll(calculatePositions(originPos, face, r, axisMode));
-        }
+        List<BlockPos> positions = collectPlacementPositions(originPos, face, userRadius, axisMode);
 
         if (positions.isEmpty()) return previewMap;
 
@@ -125,21 +115,35 @@ public class BuildingWandItem extends Item {
         return previewMap;
     }
 
+    private static int getConfiguredRadius(NbtCompound nbt, int maxTierRadius) {
+        int userRadius = nbt.contains("SettingsRadius") ? nbt.getInt("SettingsRadius", maxTierRadius) : maxTierRadius;
+        if (userRadius < 0) return 0;
+        return Math.min(userRadius, maxTierRadius);
+    }
+
+    private static List<BlockPos> collectPlacementPositions(BlockPos originPos, Direction face, int userRadius, int axisMode) {
+        List<BlockPos> positions = new ArrayList<>();
+        for (int r = 0; r <= userRadius; r++) {
+            positions.addAll(calculatePositions(originPos, face, r, axisMode));
+        }
+        return positions;
+    }
+
     // Client-Helper: Findet den ersten BlockState, ohne ItemStack zu verändern
     private static BlockState findFirstBlockStateClient(PlayerEntity player, ItemStack wandStack, boolean hasMasterBuilder) {
         World world = player.getEntityWorld();
         // 1. Offhand
-        BlockState off = checkStackIsBlockState(player.getOffHandStack(), wandStack, world, hasMasterBuilder);
+        BlockState off = checkStackIsBlockState(player.getOffHandStack(), world, hasMasterBuilder);
         if (off != null) return off;
         // 2. Hotbar
         for (int i = 0; i < 9; i++) {
-            BlockState res = checkStackIsBlockState(player.getInventory().getStack(i), wandStack, world, hasMasterBuilder);
+            BlockState res = checkStackIsBlockState(player.getInventory().getStack(i), world, hasMasterBuilder);
             if (res != null) return res;
         }
         // 3. Inv
         if (hasMasterBuilder) {
             for (int i = 9; i < player.getInventory().getMainStacks().size(); i++) {
-                BlockState res = checkStackIsBlockState(player.getInventory().getStack(i), wandStack, world, hasMasterBuilder);
+                BlockState res = checkStackIsBlockState(player.getInventory().getStack(i), world, hasMasterBuilder);
                 if (res != null) return res;
             }
         }
@@ -153,16 +157,16 @@ public class BuildingWandItem extends Item {
 
         // Helper Lambda oder Loop
         // Offhand
-        collectBlocksFromStack(player.getOffHandStack(), wandStack, world, hasMasterBuilder, blocks);
+        collectBlocksFromStack(player.getOffHandStack(), world, hasMasterBuilder, blocks);
         // Main Inventory
         int limit = hasMasterBuilder ? player.getInventory().getMainStacks().size() : 9;
         for (int i = 0; i < limit; i++) {
-            collectBlocksFromStack(player.getInventory().getStack(i), wandStack, world, hasMasterBuilder, blocks);
+            collectBlocksFromStack(player.getInventory().getStack(i), world, hasMasterBuilder, blocks);
         }
         return blocks;
     }
 
-    private static void collectBlocksFromStack(ItemStack stack, ItemStack wand, World world, boolean masterBuilder, List<BlockState> list) {
+    private static void collectBlocksFromStack(ItemStack stack, World world, boolean masterBuilder, List<BlockState> list) {
         if (stack.isEmpty()) return;
         if (stack.getItem() instanceof BlockItem bi) {
             list.add(bi.getBlock().getDefaultState());
@@ -181,7 +185,7 @@ public class BuildingWandItem extends Item {
         }
     }
 
-    private static BlockState checkStackIsBlockState(ItemStack stack, ItemStack wandStack, World world, boolean wandHasMasterBuilder) {
+    private static BlockState checkStackIsBlockState(ItemStack stack, World world, boolean wandHasMasterBuilder) {
         if (stack.isEmpty()) return null;
         if (stack.getItem() instanceof BlockItem bi) {
             return bi.getBlock().getDefaultState();
@@ -205,26 +209,26 @@ public class BuildingWandItem extends Item {
         World world = player.getEntityWorld();
 
         // 1. Offhand
-        MaterialResult offHandRes = checkStackIsBlock(player.getOffHandStack(), wandStack, world, hasMasterBuilder);
+        MaterialResult offHandRes = checkStackIsBlock(player.getOffHandStack(), world, hasMasterBuilder);
         if (offHandRes != null) return offHandRes;
 
         // 2. Hotbar (0-8)
         for (int i = 0; i < 9; i++) {
-            MaterialResult res = checkStackIsBlock(player.getInventory().getStack(i), wandStack, world, hasMasterBuilder);
+            MaterialResult res = checkStackIsBlock(player.getInventory().getStack(i), world, hasMasterBuilder);
             if (res != null) return res;
         }
 
         // 3. Main Inventory (nur wenn Master Builder)
         if (hasMasterBuilder) {
             for (int i = 9; i < player.getInventory().getMainStacks().size(); i++) {
-                MaterialResult res = checkStackIsBlock(player.getInventory().getStack(i), wandStack, world, hasMasterBuilder);
+                MaterialResult res = checkStackIsBlock(player.getInventory().getStack(i), world, hasMasterBuilder);
                 if (res != null) return res;
             }
         }
         return null;
     }
 
-    private MaterialResult checkStackIsBlock(ItemStack stack, ItemStack wandStack, World world, boolean wandHasMasterBuilder) {
+    private MaterialResult checkStackIsBlock(ItemStack stack, World world, boolean wandHasMasterBuilder) {
         if (stack.isEmpty()) return null;
 
         // Ist es ein Block?

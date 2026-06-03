@@ -10,7 +10,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.tooltip.TooltipSubmenuHandler;
 import net.minecraft.component.type.BundleContentsComponent;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.c2s.play.BundleItemSelectedC2SPacket;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.math.MathHelper;

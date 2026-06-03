@@ -3,11 +3,12 @@ package com.simplebuilding.items;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.custom.*;
+import com.simplebuilding.trim.ModTrimMaterials;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ConsumableComponent;
-import net.minecraft.component.type.ConsumableComponents;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.component.type.FoodComponent;
+import net.minecraft.component.type.ProvidesTrimMaterialComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
@@ -20,7 +21,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.resource.featuretoggle.FeatureFlag;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
@@ -57,7 +57,6 @@ public class ModItems {
     private static final int COOLDOWN_TICKS_GOLD = 20;
     private static final int COOLDOWN_TICKS_DIAMOND = 10;
     private static final int COOLDOWN_TICKS_NETHERITE = 5;
-    private static final int COOLDOWN_TICKS_ENDERITE = 4;
 
     private static final int ENCHANTABILITY_WOOD_STONE = 15;
     private static final int ENCHANTABILITY_COPPER = 18;
@@ -99,12 +98,17 @@ public class ModItems {
     public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
     public static final Item CRACKED_DIAMOND_BLOCK = registerItem("cracked_diamond_block", settings -> new BlockItem(ModBlocks.CRACKED_DIAMOND_BLOCK, settings)); // todo: wie diamond_block nur härter
     public static final Item NETHERITE_NUGGET = registerItem("netherite_nugget", settings -> new Item(settings));
+    public static final Item ENDERITE_NUGGET = registerItem("enderite_nugget", settings -> new Item(settings.fireproof()));
 
-    public static final Item NIHILITH_SHARD = registerItem("nihilith_shard", s -> new Item(s)); // Fix: s nutzen!
-    public static final Item ASTRALIT_DUST = registerItem("astralit_dust", s -> new Item(s));   // Fix: s nutzen!
+        public static final Item NIHILITH_SHARD = registerItem("nihilith_shard", s -> new Item(s
+            .component(DataComponentTypes.PROVIDES_TRIM_MATERIAL, new ProvidesTrimMaterialComponent(ModTrimMaterials.NIHILITH))));
+        public static final Item ASTRALIT_DUST = registerItem("astralit_dust", s -> new Item(s
+            .component(DataComponentTypes.PROVIDES_TRIM_MATERIAL, new ProvidesTrimMaterialComponent(ModTrimMaterials.ASTRALIT))));
     public static final Item RAW_ENDERITE = registerItem("raw_enderite", s -> new Item(s));     // Fix: s nutzen!
     public static final Item ENDERITE_SCRAP = registerItem("enderite_scrap", s -> new Item(s.fireproof()));
-    public static final Item ENDERITE_INGOT = registerItem("enderite_ingot", s -> new Item(s.fireproof()));
+        public static final Item ENDERITE_INGOT = registerItem("enderite_ingot", s -> new Item(s
+            .fireproof()
+            .component(DataComponentTypes.PROVIDES_TRIM_MATERIAL, new ProvidesTrimMaterialComponent(ModTrimMaterials.ENDERITE))));
 
     public static final Item ENDERITE_BLOCK_ITEM = registerItem("enderite_block", s -> new BlockItem(ModBlocks.ENDERITE_BLOCK, s));
     public static final Item NIHILITH_ORE_ITEM = registerItem("nihilith_ore", s -> new BlockItem(ModBlocks.NIHILITH_ORE, s));
@@ -125,6 +129,10 @@ public class ModItems {
     // TOOLS
     // =================================================================================
     public static final Item ENDERITE_SWORD = registerItem("enderite_sword", s -> new Item(ModToolMaterials.ENDERITE.applySwordSettings(s.fireproof(), 3.0F, -2.4F)));
+    public static final Item ENDERITE_SPEAR = registerItem("enderite_spear", s -> new Item(s
+            .fireproof()
+            // Mirror vanilla spear setup so the item receives actual spear mechanics/components.
+            .spear(ModToolMaterials.ENDERITE, 1.15F, 1.2F, 0.4F, 2.5F, 7.0F, 5.5F, 5.1F, 8.75F, 4.6F)));
     public static final Item ENDERITE_PICKAXE = registerItem("enderite_pickaxe", s -> new Item(ModToolMaterials.ENDERITE.applyToolSettings(s.fireproof(), BlockTags.PICKAXE_MINEABLE, 1.0F, -2.8F, 0.0F)));
     public static final Item ENDERITE_AXE = registerItem("enderite_axe", s -> new Item(ModToolMaterials.ENDERITE.applyToolSettings(s.fireproof(), BlockTags.AXE_MINEABLE, 5.0F, -3.0F, 0.0F)));
     public static final Item ENDERITE_SHOVEL = registerItem("enderite_shovel", s -> new Item(ModToolMaterials.ENDERITE.applyToolSettings(s.fireproof(), BlockTags.SHOVEL_MINEABLE, 1.5F, -3.0F, 0.0F)));
@@ -232,8 +240,8 @@ public class ModItems {
     // =================================================================================
     public static final FoodComponent NETHERITE_CARROT_FOOD = new FoodComponent.Builder().nutrition(6).saturationModifier(1.2f).alwaysEdible().build();
     public static final FoodComponent NETHERITE_APPLE_FOOD = new FoodComponent.Builder().nutrition(8).saturationModifier(1.5f).alwaysEdible().build();
-    public static final FoodComponent ENDERITE_CARROT_FOOD = new FoodComponent.Builder().nutrition(10).saturationModifier(1.8f).alwaysEdible().build();
-    public static final FoodComponent ENDERITE_APPLE_FOOD = new FoodComponent.Builder().nutrition(12).saturationModifier(2.0f).alwaysEdible().build();
+    public static final FoodComponent ENDERITE_CARROT_FOOD = new FoodComponent.Builder().nutrition(12).saturationModifier(2.4f).alwaysEdible().build();
+    public static final FoodComponent ENDERITE_APPLE_FOOD = new FoodComponent.Builder().nutrition(14).saturationModifier(3.0f).alwaysEdible().build();
 
     public static ConsumableComponent createNetheriteFoodEffects(boolean isApple) {
         ConsumableComponent.Builder builder = ConsumableComponent.builder().useAction(UseAction.EAT).consumeSeconds(1.6f);

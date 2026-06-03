@@ -22,15 +22,21 @@ import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import com.simplebuilding.enchantment.ModEnchantments; // Importe behalten für Events
-import net.minecraft.enchantment.EnchantmentHelper; // Importe behalten für Events
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 
 public class ModRegistries {
 
@@ -64,6 +70,7 @@ public class ModRegistries {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public PacketCodec<RegistryByteBuf, ReinforcedBundleRecipe> packetCodec() {
             return PACKET_CODEC;
         }
@@ -79,13 +86,7 @@ public class ModRegistries {
         // Constructor's Touch
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
             ItemStack stack = player.getStackInHand(hand);
-            var registry = world.getRegistryManager();
-            var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-            var constructorsTouch = enchantments.getOptional(ModEnchantments.CONSTRUCTORS_TOUCH);
-
-            if (constructorsTouch.isPresent() &&
-                    EnchantmentHelper.getLevel(constructorsTouch.get(), stack) > 0 &&
-                    stack.isOf(Items.STICK)) {
+            if (hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH) && stack.isOf(Items.STICK)) {
 
                 if (!world.isClient()) {
                     BlockState state = world.getBlockState(hitResult.getBlockPos());
@@ -94,7 +95,11 @@ public class ModRegistries {
                         Property<?> property = properties.iterator().next();
                         BlockState newState = cycleState(state, property, player.isSneaking());
                         world.setBlockState(hitResult.getBlockPos(), newState, 18);
-                        player.sendMessage(Text.of("§7" + property.getName() + ": §f" + newState.get(property).toString()), true);
+                        Text message = Text.literal(property.getName() + ": ").formatted(Formatting.GRAY)
+                                .append(Text.literal(String.valueOf(newState.get(property))).formatted(Formatting.WHITE));
+                        if (player instanceof ServerPlayerEntity serverPlayer) {
+                            serverPlayer.sendMessageToClient(message, true);
+                        }
                     }
                 }
                 return ActionResult.SUCCESS;
@@ -109,7 +114,7 @@ public class ModRegistries {
                 BlockState state = world.getBlockState(hitResult.getBlockPos());
                 if (state.isOf(Blocks.DIAMOND_BLOCK)) {
                     if (!world.isClient()) {
-                        world.breakBlock(hitResult.getBlockPos(), false);
+                        world.breakBlock(hitResult.getBlockPos(), false, player);
                         int totalPebbles = 81;
                         while (totalPebbles > 0) {
                             int batch = Math.min(totalPebbles, 64);
@@ -121,7 +126,10 @@ public class ModRegistries {
                         }
                         world.playSound(null, hitResult.getBlockPos(), SoundEvents.BLOCK_METAL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
                         if (!player.isCreative()) {
-                            stack.damage(1, player, EquipmentSlot.MAINHAND);
+                            if (player instanceof ServerPlayerEntity serverPlayer && world instanceof ServerWorld serverWorld) {
+                                stack.damage(1, serverWorld, serverPlayer,
+                                        item -> serverPlayer.sendEquipmentBreakStatus(item, EquipmentSlot.MAINHAND));
+                            }
                         }
                     }
                     return ActionResult.SUCCESS;
@@ -136,13 +144,23 @@ public class ModRegistries {
     }
 
     private static <T> T cycle(Iterable<T> elements, T current, boolean inverse) {
-        if (inverse) return com.google.common.collect.Iterables.getLast(elements);
-        java.util.Iterator<T> it = elements.iterator();
-        while (it.hasNext()) {
-            if (it.next().equals(current)) {
-                if (it.hasNext()) return it.next();
-            }
+        List<T> values = new ArrayList<>();
+        for (T value : elements) {
+            values.add(value);
         }
-        return elements.iterator().next();
+
+        if (values.isEmpty()) {
+            return current;
+        }
+
+        int index = values.indexOf(current);
+        if (index < 0) {
+            return inverse ? values.get(values.size() - 1) : values.get(0);
+        }
+
+        int nextIndex = inverse
+                ? (index - 1 + values.size()) % values.size()
+                : (index + 1) % values.size();
+        return values.get(nextIndex);
     }
 }

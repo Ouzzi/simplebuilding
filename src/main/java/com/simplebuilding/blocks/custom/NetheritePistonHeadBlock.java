@@ -16,7 +16,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 
 public class NetheritePistonHeadBlock extends FacingBlock {
     public static final MapCodec<NetheritePistonHeadBlock> CODEC = createCodec(NetheritePistonHeadBlock::new);

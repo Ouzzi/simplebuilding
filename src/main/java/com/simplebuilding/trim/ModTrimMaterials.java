@@ -1,6 +1,5 @@
 package com.simplebuilding.trim;
 
-import com.simplebuilding.items.ModItems;
 import net.minecraft.item.equipment.trim.ArmorTrimAssets;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
 import net.minecraft.registry.Registerable;
@@ -11,8 +10,6 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-
-import java.util.Map;
 
 public class ModTrimMaterials {
 

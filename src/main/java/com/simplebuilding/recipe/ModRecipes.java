@@ -12,8 +12,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-import java.util.Optional;
-
 public class ModRecipes {
 
     // Zuerst nur deklarieren
@@ -33,6 +31,7 @@ public class ModRecipes {
                     return CountBasedSmithingRecipe.CODEC;
                 }
                 @Override
+                @SuppressWarnings("deprecation")
                 public PacketCodec<RegistryByteBuf, CountBasedSmithingRecipe> packetCodec() {
                     return CountBasedSmithingRecipe.PACKET_CODEC;
                 }
@@ -84,6 +83,7 @@ public class ModRecipes {
                 }
 
                 @Override
+                @SuppressWarnings("deprecation")
                 public PacketCodec<RegistryByteBuf, UpgradeSmithingRecipe> packetCodec() {
                     return PACKET_CODEC;
                 }

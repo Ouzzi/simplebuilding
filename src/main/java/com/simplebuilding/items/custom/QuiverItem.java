@@ -123,38 +123,25 @@ public class QuiverItem extends ReinforcedBundleItem {
 
     public static ItemStack findProjectileForBow(PlayerEntity player) {
         // 1. Offhand
-        ItemStack offhand = player.getOffHandStack();
-        if (offhand.getItem() instanceof QuiverItem) {
-            ItemStack arrow = findFirstArrow(offhand);
-            if (!arrow.isEmpty()) return arrow;
-        }
+        ItemStack arrow = findArrowInQuiver(player.getOffHandStack());
+        if (!arrow.isEmpty()) return arrow;
 
         // 2. Chest Slot
-        ItemStack chest = player.getEquippedStack(EquipmentSlot.CHEST);
-        if (chest.getItem() instanceof QuiverItem) {
-            ItemStack arrow = findFirstArrow(chest);
+        arrow = findArrowInQuiver(player.getEquippedStack(EquipmentSlot.CHEST));
+        if (!arrow.isEmpty()) return arrow;
+
+        // 3. Hotbar (ohne Constructors Touch)
+        for (int i = 0; i < 9; i++) {
+            arrow = findArrowInQuiver(player.getInventory().getStack(i));
             if (!arrow.isEmpty()) return arrow;
         }
 
-        // 3. wenn in hotbar, dann ohne CT
-        for (int i = 0; i < 9; i++) {
-            ItemStack stack = player.getInventory().getStack(i);
-            if (stack.getItem() instanceof QuiverItem) {
-                ItemStack arrow = findFirstArrow(stack);
+        // 4. Restliches Inventar (nur mit Constructors Touch)
+        for (int i = 9; i < player.getInventory().size(); i++) {
+            ItemStack quiver = player.getInventory().getStack(i);
+            if (isRemoteQuiver(quiver, player)) {
+                arrow = findFirstArrow(quiver);
                 if (!arrow.isEmpty()) return arrow;
-            }
-        }
-
-        // 3. Inventar (NUR mit Constructors Touch)
-        // Durchsuchen des gesamten Inventars, damit es überall funktioniert
-        for (int i = 0; i < player.getInventory().size(); i++) {
-            ItemStack stack = player.getInventory().getStack(i);
-            if (stack.getItem() instanceof QuiverItem) {
-                boolean hasConstructorsTouch = hasEnchantment(stack, player.getEntityWorld(), ModEnchantments.CONSTRUCTORS_TOUCH);
-                if (hasConstructorsTouch) {
-                    ItemStack arrow = findFirstArrow(stack);
-                    if (!arrow.isEmpty()) return arrow;
-                }
             }
         }
         return ItemStack.EMPTY;
@@ -164,27 +151,33 @@ public class QuiverItem extends ReinforcedBundleItem {
         // Gleiche Reihenfolge wie beim Finden
 
         // 1. Offhand
-        ItemStack offhand = player.getOffHandStack();
-        if (offhand.getItem() instanceof QuiverItem) {
-            if (tryConsumeArrow(offhand)) return;
-        }
+        if (tryConsumeArrow(player.getOffHandStack())) return;
 
         // 2. Chest
-        ItemStack chest = player.getEquippedStack(EquipmentSlot.CHEST);
-        if (chest.getItem() instanceof QuiverItem) {
-            if (tryConsumeArrow(chest)) return;
+        if (tryConsumeArrow(player.getEquippedStack(EquipmentSlot.CHEST))) return;
+
+        // 3. Hotbar (ohne Constructors Touch)
+        for (int i = 0; i < 9; i++) {
+            if (tryConsumeArrow(player.getInventory().getStack(i))) return;
         }
 
-        // 3. Inventar (mit Constructors Touch)
-        for (int i = 0; i < player.getInventory().size(); i++) {
-            ItemStack stack = player.getInventory().getStack(i);
-            if (stack.getItem() instanceof QuiverItem) {
-                boolean hasConstructorsTouch = hasEnchantment(stack, player.getEntityWorld(), ModEnchantments.CONSTRUCTORS_TOUCH);
-                if (hasConstructorsTouch) {
-                    if (tryConsumeArrow(stack)) return;
-                }
+        // 4. Restliches Inventar (nur mit Constructors Touch)
+        for (int i = 9; i < player.getInventory().size(); i++) {
+            ItemStack quiver = player.getInventory().getStack(i);
+            if (isRemoteQuiver(quiver, player) && tryConsumeArrow(quiver)) {
+                return;
             }
         }
+    }
+
+    private static ItemStack findArrowInQuiver(ItemStack stack) {
+        if (!(stack.getItem() instanceof QuiverItem)) return ItemStack.EMPTY;
+        return findFirstArrow(stack);
+    }
+
+    private static boolean isRemoteQuiver(ItemStack stack, PlayerEntity player) {
+        return stack.getItem() instanceof QuiverItem
+                && hasEnchantment(stack, player.getEntityWorld(), ModEnchantments.CONSTRUCTORS_TOUCH);
     }
 
     private static ItemStack findFirstArrow(ItemStack bundle) {
@@ -197,6 +190,8 @@ public class QuiverItem extends ReinforcedBundleItem {
     }
 
     private static boolean tryConsumeArrow(ItemStack bundle) {
+        if (!(bundle.getItem() instanceof QuiverItem)) return false;
+
         BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
         if (contents == null || contents.isEmpty()) return false;
 

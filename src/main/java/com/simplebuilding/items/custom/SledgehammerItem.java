@@ -137,6 +137,10 @@ public class SledgehammerItem extends Item {
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
         PlayerEntity player = context.getPlayer();
+        if (player == null) {
+            return ActionResult.PASS;
+        }
+
         ItemStack stack = context.getStack();
         BlockState state = world.getBlockState(pos);
 
@@ -228,10 +232,6 @@ public class SledgehammerItem extends Item {
     public BlockState getTransformationState(BlockState state, BlockPos pos, Direction side, Vec3d hit, PlayerEntity player, ItemStack stack) {
         Block block = state.getBlock();
         World world = player.getEntityWorld();
-
-        if (world == null) {
-            return null;
-        }
 
         // STRIKTE TRENNUNG:
         if (player.isSneaking()) {

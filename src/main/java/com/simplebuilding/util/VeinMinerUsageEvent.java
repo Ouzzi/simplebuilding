@@ -68,7 +68,7 @@ public class VeinMinerUsageEvent implements PlayerBlockBreakEvents.Before {
             if (stack.isEmpty()) break;
 
             MINED_BLOCKS.add(targetPos);
-            boolean broken = serverPlayer.interactionManager.tryBreakBlock(targetPos);
+            serverPlayer.interactionManager.tryBreakBlock(targetPos);
             MINED_BLOCKS.remove(targetPos);
         }
 

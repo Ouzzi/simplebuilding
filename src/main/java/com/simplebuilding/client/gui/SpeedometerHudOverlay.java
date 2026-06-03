@@ -15,6 +15,7 @@ import net.minecraft.util.Formatting;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class SpeedometerHudOverlay implements HudRenderCallback {
 
     // Farben (Lila Theme wie Octant)

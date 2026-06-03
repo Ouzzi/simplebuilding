@@ -1,6 +1,5 @@
 package com.simplebuilding.networking;
 
-import com.simplebuilding.Simplebuilding;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;

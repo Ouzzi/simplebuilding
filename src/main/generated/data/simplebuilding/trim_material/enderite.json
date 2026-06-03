@@ -3,5 +3,8 @@
   "description": {
     "color": "#111111",
     "translate": "trim_material.simplebuilding.enderite"
+  },
+  "override_armor_assets": {
+    "simplebuilding:enderite": "enderite_darker"
   }
 }

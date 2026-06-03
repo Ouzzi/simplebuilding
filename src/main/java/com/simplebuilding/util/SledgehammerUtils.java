@@ -1,7 +1,6 @@
 package com.simplebuilding.util;
 
 import com.simplebuilding.enchantment.ModEnchantments;
-import com.simplebuilding.items.custom.SledgehammerItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;

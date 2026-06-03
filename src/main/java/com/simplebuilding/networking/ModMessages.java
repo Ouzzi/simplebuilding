@@ -2,7 +2,6 @@ package com.simplebuilding.networking;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
-import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
@@ -167,6 +166,12 @@ public class ModMessages {
                         nbt.putString("Shape", payload.shapeName());
                     }
                     nbt.putBoolean("Locked", payload.locked());
+                    nbt.putInt("Orientation", payload.orientationOrdinal());
+                    nbt.putBoolean("Hollow", payload.hollow());
+                    nbt.putBoolean("LayerMode", payload.layerMode());
+                    if (payload.fillOrder() != null && !payload.fillOrder().isEmpty()) {
+                        nbt.putString("FillOrder", payload.fillOrder());
+                    }
                     stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
                 }
             });

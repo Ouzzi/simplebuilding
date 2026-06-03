@@ -1,13 +1,11 @@
 package com.simplebuilding.items.custom;
 
 import com.simplebuilding.enchantment.ModEnchantments;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,7 +20,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -36,12 +33,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 import java.util.function.Consumer;
 
-import static com.simplebuilding.util.EnchantmentHelper.getEnchantmentLevel;
 import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 
 public class OreDetectorItem extends Item {
@@ -55,22 +48,20 @@ public class OreDetectorItem extends Item {
     private static final int SCAN_INTERVAL = 20;   // Ping alle 1 Sekunde
 
     private enum DetectMode {
-        IRON(Formatting.GRAY, "Iron", BlockTags.IRON_ORES, BUDGET_COMMON),
-        GOLD(Formatting.GOLD, "Gold", BlockTags.GOLD_ORES, BUDGET_MEDIUM),
-        DIAMOND(Formatting.AQUA, "Diamond", BlockTags.DIAMOND_ORES, BUDGET_RARE),
-        NETHERITE(Formatting.DARK_PURPLE, "Netherite", null, BUDGET_VERY_RARE),
-        ALL(Formatting.WHITE, "All Ores", null, BUDGET_COMMON),
-        CUSTOM(Formatting.YELLOW, "Custom", null, BUDGET_COMMON);
+        IRON(Formatting.GRAY, "Iron", BUDGET_COMMON),
+        GOLD(Formatting.GOLD, "Gold", BUDGET_MEDIUM),
+        DIAMOND(Formatting.AQUA, "Diamond", BUDGET_RARE),
+        NETHERITE(Formatting.DARK_PURPLE, "Netherite", BUDGET_VERY_RARE),
+        ALL(Formatting.WHITE, "All Ores", BUDGET_COMMON),
+        CUSTOM(Formatting.YELLOW, "Custom", BUDGET_COMMON);
 
         final Formatting color;
         final String name;
-        final TagKey<Block> tag;
         final double budget;
 
-        DetectMode(Formatting color, String name, TagKey<Block> tag, double budget) {
+        DetectMode(Formatting color, String name, double budget) {
             this.color = color;
             this.name = name;
-            this.tag = tag;
             this.budget = budget;
         }
     }
@@ -83,8 +74,7 @@ public class OreDetectorItem extends Item {
     public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
         if (!(entity instanceof PlayerEntity player)) return;
 
-        boolean isHeld = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
-        if (!isHeld) return;
+        if (!isHeldInHands(slot)) return;
 
         if (world.getTime() % SCAN_INTERVAL != 0) return;
 
@@ -92,12 +82,7 @@ public class OreDetectorItem extends Item {
 
         BlockPos playerPos = BlockPos.ofFloored(player.getEyePos());
 
-        double costMultiplier = 2.0;
-        boolean hasConstructorsTouch = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH);
-
-        if (hasConstructorsTouch) {
-            costMultiplier = 1.0;
-        }
+        double costMultiplier = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH) ? 1.0 : 2.0;
 
         // 2. Suche
         BlockPos targetPos = findNearestOreWithRaycast(world, player.getEyePos(), mode, stack, costMultiplier);
@@ -105,9 +90,7 @@ public class OreDetectorItem extends Item {
         if (targetPos != null) {
             BlockState targetState = world.getBlockState(targetPos);
             double distance = Math.sqrt(playerPos.getSquaredDistance(targetPos));
-
-            float pitch = (float) (1.8f - (distance / 32.0f));
-            pitch = Math.max(0.6f, Math.min(2.0f, pitch));
+            float pitch = getPingPitch(distance);
 
             world.playSound(null, targetPos, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.BLOCKS, 0.9f, pitch);
             world.playSound(null, targetPos, SoundEvents.BLOCK_SCULK_SENSOR_CLICKING, SoundCategory.BLOCKS, 0.6f, 2.0f);
@@ -116,6 +99,15 @@ public class OreDetectorItem extends Item {
 
             spawnSonarBeam(world, player.getEyePos(), targetPos, targetState);
         }
+    }
+
+    private static boolean isHeldInHands(@Nullable EquipmentSlot slot) {
+        return slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
+    }
+
+    private static float getPingPitch(double distance) {
+        float pitch = (float) (1.8f - (distance / 32.0f));
+        return Math.max(0.6f, Math.min(2.0f, pitch));
     }
 
     @Override
@@ -156,32 +148,30 @@ public class OreDetectorItem extends Item {
         BlockState customTarget = (mode == DetectMode.CUSTOM) ? getCustomBlock(stack, world.getRegistryManager()) : null;
 
         int scanRadius = (int) Math.ceil(mode.budget);
-        List<BlockPos> candidates = new ArrayList<>();
+        double maxScanDistanceSq = scanRadius * scanRadius;
+        BlockPos bestTarget = null;
+        double bestDistanceSq = Double.MAX_VALUE;
 
         for (int x = -scanRadius; x <= scanRadius; x++) {
             for (int y = -scanRadius; y <= scanRadius; y++) {
                 for (int z = -scanRadius; z <= scanRadius; z++) {
                     BlockPos checkPos = origin.add(x, y, z);
 
-                    if (origin.getSquaredDistance(checkPos) > scanRadius * scanRadius) continue;
+                    double distanceSq = origin.getSquaredDistance(checkPos);
+                    if (distanceSq > maxScanDistanceSq || distanceSq >= bestDistanceSq) continue;
 
                     BlockState state = world.getBlockState(checkPos);
-                    if (isTarget(state, mode, customTarget)) {
-                        candidates.add(checkPos);
+                    if (!isTarget(state, mode, customTarget)) continue;
+
+                    if (canReach(world, eyesPos, checkPos, mode.budget, costMultiplier)) {
+                        bestTarget = checkPos;
+                        bestDistanceSq = distanceSq;
                     }
                 }
             }
         }
 
-        candidates.sort(Comparator.comparingDouble(pos -> pos.getSquaredDistance(origin)));
-
-        for (BlockPos candidate : candidates) {
-            if (canReach(world, eyesPos, candidate, mode.budget, costMultiplier)) {
-                return candidate;
-            }
-        }
-
-        return null;
+        return bestTarget;
     }
 
     private boolean canReach(World world, Vec3d start, BlockPos target, double budget, double costMultiplier) {
@@ -212,7 +202,7 @@ public class OreDetectorItem extends Item {
     }
 
     private double getBlockDensity(BlockState state) {
-        if (state.isAir() || !state.isOpaqueFullCube()) {
+        if (state.isAir() || !state.isOpaque()) {
             return 1.0;
         }
 
@@ -282,7 +272,7 @@ public class OreDetectorItem extends Item {
     }
 
     private DetectMode getMode(ItemStack stack) {
-        NbtCompound nbt = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT).copyNbt();
+        NbtCompound nbt = getCustomData(stack);
         int modeIndex = 0;
 
         if (nbt.contains("Mode")) {
@@ -305,20 +295,26 @@ public class OreDetectorItem extends Item {
     }
 
     private BlockState getCustomBlock(ItemStack stack, RegistryWrapper.WrapperLookup registryLookup) {
-    if (registryLookup == null) return null;
-    NbtCompound nbt = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT).copyNbt();
-    if (nbt.contains("CustomBlock")) {
-        var blockRegistry = registryLookup.getOrThrow(RegistryKeys.BLOCK);
-        try {
-            return NbtHelper.toBlockState(blockRegistry, nbt.getCompoundOrEmpty("CustomBlock"));
-        } catch (Exception e) {
-            return null;
+        if (registryLookup == null) return null;
+
+        NbtCompound nbt = getCustomData(stack);
+        if (nbt.contains("CustomBlock")) {
+            var blockRegistry = registryLookup.getOrThrow(RegistryKeys.BLOCK);
+            try {
+                return NbtHelper.toBlockState(blockRegistry, nbt.getCompoundOrEmpty("CustomBlock"));
+            } catch (Exception e) {
+                return null;
+            }
         }
+        return null;
     }
-    return null;
-}
+
+    private static NbtCompound getCustomData(ItemStack stack) {
+        return stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT).copyNbt();
+    }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         DetectMode mode = getMode(stack);
         textConsumer.accept(Text.literal("Mode: ").formatted(Formatting.GRAY)
