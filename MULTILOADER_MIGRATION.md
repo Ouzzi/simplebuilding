@@ -8,8 +8,14 @@ Current state:
 ## What was set up
 - settings.gradle now includes common, forge, neoforge.
 - gradle.properties now contains placeholder properties:
-  - forge_version
-  - neoforge_version
+   - forge_version_channel (`fixed` or `latest`)
+   - forge_version_fixed
+   - forge_version_latest
+   - neoforge_version_channel (`fixed` or `latest`)
+   - neoforge_version_fixed
+   - neoforge_version_latest
+   - forge_version (legacy fallback)
+   - neoforge_version (legacy fallback)
    - forge_loader_version_range
    - neoforge_loader_version_range
    - minecraft_version_range
@@ -18,6 +24,8 @@ Current state:
 - Resource expansion in subproject builds injects mod id and version at build time.
 - Forge/NeoForge metadata now also inject loader and Minecraft version ranges from gradle.properties.
 - Forge/NeoForge modules now include optional compileOnly loader dependencies controlled by `forge_version` and `neoforge_version`.
+- Forge/NeoForge modules now support channel-based dependency selection (fixed vs latest-in-line).
+- Default remains disabled (`0.0.0`) until you set a resolvable loader artifact version from the target Maven.
 - New validation/status tasks:
    - `:forge:loaderStatus`
    - `:neoforge:loaderStatus`

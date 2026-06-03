@@ -4,7 +4,12 @@ plugins {
 
 description = 'Forge loader module scaffold'
 
-def forgeVersion = project.findProperty('forge_version')?.toString() ?: '0.0.0'
+def forgeVersionChannel = project.findProperty('forge_version_channel')?.toString() ?: 'fixed'
+def forgeVersionFixed = project.findProperty('forge_version_fixed')?.toString() ?: null
+def forgeVersionLatest = project.findProperty('forge_version_latest')?.toString() ?: null
+def forgeVersionLegacy = project.findProperty('forge_version')?.toString() ?: '0.0.0'
+
+def forgeVersion = forgeVersionChannel == 'latest' ? (forgeVersionLatest ?: forgeVersionLegacy) : (forgeVersionFixed ?: forgeVersionLegacy)
 def minecraftVersion = project.findProperty('minecraft_version')?.toString() ?: '1.21.11'
 def forgeCoordinate = "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
 def forgeDependencyEnabled = forgeVersion != '0.0.0'
@@ -58,10 +63,11 @@ tasks.register('loaderStatus') {
     group = 'migration'
     description = 'Shows whether Forge dependency coordinates are configured.'
     doLast {
+        println "Forge version channel: ${forgeVersionChannel}"
         println "Forge dependency enabled: ${forgeDependencyEnabled}"
         println "Forge coordinate: ${forgeCoordinate}"
         if (!forgeDependencyEnabled) {
-            println 'Set forge_version in gradle.properties to enable compileOnly Forge dependency.'
+            println 'Set forge_version_fixed (or legacy forge_version) in gradle.properties to enable compileOnly Forge dependency.'
         }
     }
 }
@@ -71,7 +77,7 @@ tasks.register('requireLoaderVersion') {
     description = 'Fails when forge_version is still placeholder.'
     doLast {
         if (!forgeDependencyEnabled) {
-            throw new GradleException('forge_version is 0.0.0. Set a real Forge version in gradle.properties.')
+            throw new GradleException('Forge dependency is disabled. Configure forge_version_fixed or forge_version.')
         }
     }
 }

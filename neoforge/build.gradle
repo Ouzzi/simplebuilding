@@ -4,7 +4,12 @@ plugins {
 
 description = 'NeoForge loader module scaffold'
 
-def neoforgeVersion = project.findProperty('neoforge_version')?.toString() ?: '0.0.0'
+def neoforgeVersionChannel = project.findProperty('neoforge_version_channel')?.toString() ?: 'fixed'
+def neoforgeVersionFixed = project.findProperty('neoforge_version_fixed')?.toString() ?: null
+def neoforgeVersionLatest = project.findProperty('neoforge_version_latest')?.toString() ?: null
+def neoforgeVersionLegacy = project.findProperty('neoforge_version')?.toString() ?: '0.0.0'
+
+def neoforgeVersion = neoforgeVersionChannel == 'latest' ? (neoforgeVersionLatest ?: neoforgeVersionLegacy) : (neoforgeVersionFixed ?: neoforgeVersionLegacy)
 def neoforgeCoordinate = "net.neoforged:neoforge:${neoforgeVersion}"
 def neoforgeDependencyEnabled = neoforgeVersion != '0.0.0'
 
@@ -57,10 +62,11 @@ tasks.register('loaderStatus') {
     group = 'migration'
     description = 'Shows whether NeoForge dependency coordinates are configured.'
     doLast {
+        println "NeoForge version channel: ${neoforgeVersionChannel}"
         println "NeoForge dependency enabled: ${neoforgeDependencyEnabled}"
         println "NeoForge coordinate: ${neoforgeCoordinate}"
         if (!neoforgeDependencyEnabled) {
-            println 'Set neoforge_version in gradle.properties to enable compileOnly NeoForge dependency.'
+            println 'Set neoforge_version_fixed (or legacy neoforge_version) in gradle.properties to enable compileOnly NeoForge dependency.'
         }
     }
 }
@@ -70,7 +76,7 @@ tasks.register('requireLoaderVersion') {
     description = 'Fails when neoforge_version is still placeholder.'
     doLast {
         if (!neoforgeDependencyEnabled) {
-            throw new GradleException('neoforge_version is 0.0.0. Set a real NeoForge version in gradle.properties.')
+            throw new GradleException('NeoForge dependency is disabled. Configure neoforge_version_fixed or neoforge_version.')
         }
     }
 }
