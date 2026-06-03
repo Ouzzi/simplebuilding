@@ -14,6 +14,7 @@ Current state:
 - NeoForge metadata template: neoforge/src/main/resources/META-INF/neoforge.mods.toml
 - Resource expansion in subproject builds injects mod id and version at build time.
 - Common init class added: common/src/main/java/com/simplebuilding/common/SimplebuildingCommon.java
+- Common bootstrap added: common/src/main/java/com/simplebuilding/common/SimplebuildingBootstrap.java
 - Fabric root now calls common init during startup.
 - Loader Java entrypoint stubs added:
    - forge/src/main/java/com/simplebuilding/forge/SimplebuildingForgeEntrypoint.java

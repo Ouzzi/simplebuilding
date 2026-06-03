@@ -1,16 +1,12 @@
 package com.simplebuilding.common;
 
 public final class SimplebuildingCommon {
-    private static boolean initialized;
+    public static final String MOD_ID = "simplebuilding";
 
     private SimplebuildingCommon() {
     }
 
     public static synchronized String initialize(String loader) {
-        if (initialized) {
-            return "Simplebuilding common already initialized (" + loader + ")";
-        }
-        initialized = true;
-        return "Simplebuilding common initialized for " + loader;
+        return SimplebuildingBootstrap.initialize(loader, null);
     }
 }

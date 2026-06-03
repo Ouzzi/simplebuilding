@@ -3,6 +3,7 @@ package com.simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.command.ModCommands;
+import com.simplebuilding.common.SimplebuildingBootstrap;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.common.SimplebuildingCommon;
 import com.simplebuilding.config.SimplebuildingConfig;
@@ -41,7 +42,7 @@ import org.slf4j.LoggerFactory;
  * Die Hauptklasse für den Simplebuilding Mod.
  */
 public class Simplebuilding implements ModInitializer {
-    public static final String MOD_ID = "simplebuilding";
+    public static final String MOD_ID = SimplebuildingCommon.MOD_ID;
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     private static SimplebuildingConfig CONFIG;
@@ -49,7 +50,9 @@ public class Simplebuilding implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Starting Simplebuilding initialization...");
-        LOGGER.info(SimplebuildingCommon.initialize("fabric"));
+        LOGGER.info(SimplebuildingBootstrap.initialize("fabric", () -> {
+            // Fabric-specific bootstrap hook lives in this module.
+        }));
 
         AutoConfig.register(SimplebuildingConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
