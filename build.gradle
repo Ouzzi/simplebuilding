@@ -137,3 +137,29 @@ tasks.register('listVersionProfiles') {
 		println 'Use with: ./gradlew :neoforge:loaderStatus -PversionProfile=<profile-name>'
 	}
 }
+
+tasks.register('matrixBaseline') {
+	group = 'migration'
+	description = 'Runs baseline loader status checks without version profile override.'
+	dependsOn ':forge:loaderStatus', ':neoforge:loaderStatus'
+}
+
+tasks.register('matrixNeoforge26FixedStatus', Exec) {
+	group = 'migration'
+	description = 'Runs NeoForge loader status with profile neoforge-26-fixed.'
+	workingDir rootDir
+	commandLine 'cmd', '/c', 'gradlew.bat', ':neoforge:loaderStatus', '-PversionProfile=neoforge-26-fixed'
+}
+
+tasks.register('matrixNeoforge26LatestStatus', Exec) {
+	group = 'migration'
+	description = 'Runs NeoForge loader status with profile neoforge-26-latest.'
+	workingDir rootDir
+	commandLine 'cmd', '/c', 'gradlew.bat', ':neoforge:loaderStatus', '-PversionProfile=neoforge-26-latest'
+}
+
+tasks.register('matrixStatus') {
+	group = 'migration'
+	description = 'Runs baseline and profile-based NeoForge loader status matrix checks.'
+	dependsOn 'matrixBaseline', 'matrixNeoforge26FixedStatus', 'matrixNeoforge26LatestStatus'
+}
