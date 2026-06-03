@@ -1,8 +1,37 @@
 plugins {
-    id 'base'
+    id 'java'
 }
 
 description = 'Forge loader module scaffold'
+
+group = rootProject.group
+version = rootProject.version
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
+}
+
+dependencies {
+    implementation project(':common')
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    inputs.property 'modVersion', project.version
+    inputs.property 'modId', project.archives_base_name
+    filesMatching('META-INF/mods.toml') {
+        expand(
+            modVersion: project.version,
+            modId: project.archives_base_name
+        )
+    }
+}
+
+tasks.named('jar').configure {
+    archiveClassifier = 'forge'
+}
 
 tasks.register('portStatus') {
     group = 'migration'

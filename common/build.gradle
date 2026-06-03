@@ -1,8 +1,18 @@
 plugins {
-    id 'base'
+    id 'java-library'
 }
 
 description = 'Shared cross-loader sources (scaffold)'
+
+group = rootProject.group
+version = rootProject.version
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
+}
 
 tasks.register('portStatus') {
     group = 'migration'

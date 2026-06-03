@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[0,)"
+license="CC0-1.0"
+
+[[mods]]
+modId="${modId}"
+version="${modVersion}"
+displayName="simplebuilding"
+description='''
+SimpleBuilding (Forge scaffold).
+'''
+
+[[dependencies.${modId}]]
+modId="forge"
+mandatory=true
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.21,1.22)"
+ordering="NONE"
+side="BOTH"
