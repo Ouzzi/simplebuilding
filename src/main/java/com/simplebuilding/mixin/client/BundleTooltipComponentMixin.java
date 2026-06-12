@@ -60,7 +60,7 @@ public abstract class BundleTooltipComponentMixin implements BundleTooltipAccess
         return MathHelper.clamp(MathHelper.multiplyFraction(occupancy, 94), 0, 94);
     }
 
-    // --- HIER IST DIE ÄNDERUNG FÜR DEN NAMEN ---
+    // --- HIER IST DIE Ã„NDERUNG FÃœR DEN NAMEN ---
     @Redirect(
             method = "drawProgressBar",
             at = @At(
@@ -73,11 +73,11 @@ public abstract class BundleTooltipComponentMixin implements BundleTooltipAccess
             return Text.translatable("item.minecraft.bundle.empty");
         }
 
-        // 1. Prüfen, ob ein Item ausgewählt ist (durch Scrollen)
+        // 1. PrÃ¼fen, ob ein Item ausgewÃ¤hlt ist (durch Scrollen)
         int selectedIndex = this.bundleContents.getSelectedStackIndex();
         if (selectedIndex != -1) {
             ItemStack selectedStack = this.bundleContents.get(selectedIndex);
-            // Gibt den Namen des Items zurück (z.B. "Diamant (32)")
+            // Gibt den Namen des Items zurÃ¼ck (z.B. "Diamant (32)")
             return Text.literal(selectedStack.getName().getString() + " x" + selectedStack.getCount());
         }
 

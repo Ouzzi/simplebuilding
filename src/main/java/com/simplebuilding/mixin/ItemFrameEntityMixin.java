@@ -12,7 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ItemFrameEntityMixin {
 
     @Shadow public abstract ItemStack getHeldItemStack();
-    // Keine Shadow Methoden für setInvisible/isInvisible nötig, wir nutzen Casts
+    // Keine Shadow Methoden fÃ¼r setInvisible/isInvisible nÃ¶tig, wir nutzen Casts
 
     @Unique
     private boolean simplebuilding$locked = false;
@@ -67,7 +67,7 @@ public abstract class ItemFrameEntityMixin {
         // SNEAK INTERAKTIONEN
         if (player.isSneaking()) {
 
-            // 1. LOCKEN (Glas) - Höchste Priorität
+            // 1. LOCKEN (Glas) - HÃ¶chste PrioritÃ¤t
             if (handStack.isOf(Items.GLASS_PANE) && !this.getHeldItemStack().isEmpty() && !this.simplebuilding$locked) {
                 if (!isClient) {
                     this.simplebuilding$locked = true;
@@ -129,7 +129,7 @@ public abstract class ItemFrameEntityMixin {
             }
             if (hasEnchantment && !this.getHeldItemStack().isEmpty()) {
                 if (!isClient) {
-                    String itemId = net.minecraft.registry.Registries.ITEM.getId(this.getHeldItemStack().getItem()).toString();
+                    String itemId = net.minecraft.util.registry.Registries.ITEM.getId(this.getHeldItemStack().getItem()).toString();
                     NbtComponent nbtComponent = handStack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
                     NbtCompound nbt = nbtComponent.copyNbt();
                     nbt.putString("MagnetFilter", itemId);

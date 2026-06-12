@@ -6,7 +6,7 @@ import net.minecraft.block.LightBlock;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.util.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -24,7 +24,7 @@ public class DynamicLightHandler {
 
         World world = player.getEntityWorld();
         UUID uuid = player.getUuid();
-        BlockPos currentPos = player.getBlockPos().up(); // Kopfhöhe für bessere Ausleuchtung
+        BlockPos currentPos = player.getBlockPos().up(); // KopfhÃ¶he fÃ¼r bessere Ausleuchtung
 
         // 1. Berechne das Licht-Level NUR basierend auf Emission (nicht Visual Glow)
         int totalEmissionPoints = 0;
@@ -41,7 +41,7 @@ public class DynamicLightHandler {
 
         BlockPos oldPos = lightSources.get(uuid);
 
-        // 2. Aufräumen (Wenn bewegt oder Licht aus)
+        // 2. AufrÃ¤umen (Wenn bewegt oder Licht aus)
         if (oldPos != null && !oldPos.equals(currentPos)) {
             removeLight(world, oldPos);
             lightSources.remove(uuid);
@@ -52,10 +52,10 @@ public class DynamicLightHandler {
             BlockState currentState = world.getBlockState(currentPos);
             boolean isWater = currentState.getFluidState().isIn(FluidTags.WATER);
 
-            // Wir setzen Licht nur in Luft oder Wasser (um nichts zu zerstören)
+            // Wir setzen Licht nur in Luft oder Wasser (um nichts zu zerstÃ¶ren)
             if (currentState.isAir() || (isWater && currentState.getFluidState().isStill())) {
 
-                // Prüfen ob wir updaten müssen (nur wenn Level sich ändert)
+                // PrÃ¼fen ob wir updaten mÃ¼ssen (nur wenn Level sich Ã¤ndert)
                 if (currentState.isOf(Blocks.LIGHT)) {
                     int currentLightInBlock = currentState.get(LightBlock.LEVEL_15);
                     if (currentLightInBlock != lightLevel) {

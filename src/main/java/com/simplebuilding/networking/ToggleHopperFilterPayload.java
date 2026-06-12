@@ -10,7 +10,7 @@ public record ToggleHopperFilterPayload() implements CustomPayload {
 
     // Die eindeutige ID des Pakets
     public static final CustomPayload.Id<ToggleHopperFilterPayload> ID =
-            new CustomPayload.Id<>(Identifier.of("simplebuilding", "toggle_filter"));
+            new CustomPayload.Id<>(new Identifier("simplebuilding", "toggle_filter"));
 
     // Der Codec, um das Paket zu verpacken (es ist leer, da wir nur ein Signal brauchen)
     public static final PacketCodec<RegistryByteBuf, ToggleHopperFilterPayload> CODEC =

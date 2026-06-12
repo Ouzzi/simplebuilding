@@ -9,9 +9,9 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.registry.tag.ItemTags;
 import net.minecraft.network.packet.s2c.play.UpdateSelectedSlotS2CPacket;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -75,12 +75,12 @@ public class VersatilityUsageEvent implements AttackBlockCallback {
             if (bestSlot < 9) {
                 inv.setSelectedSlot(bestSlot);
 
-                // Client über den Slot-Wechsel informieren
+                // Client Ã¼ber den Slot-Wechsel informieren
                 if (player instanceof ServerPlayerEntity serverPlayer) {
                     serverPlayer.networkHandler.sendPacket(new UpdateSelectedSlotS2CPacket(bestSlot));
                 }
             }
-            // Fall 2: Das bessere Item ist im Inventar (9-35) -> Nur bei Level 2 möglich
+            // Fall 2: Das bessere Item ist im Inventar (9-35) -> Nur bei Level 2 mÃ¶glich
             else {
                 int currentSlot = inv.getSelectedSlot();
                 ItemStack stackInHand = inv.getStack(currentSlot);
@@ -101,7 +101,7 @@ public class VersatilityUsageEvent implements AttackBlockCallback {
     }
 
     /**
-     * Berechnet einen Score für ein Werkzeug basierend auf Effektivität und Typ-Präferenz.
+     * Berechnet einen Score fÃ¼r ein Werkzeug basierend auf EffektivitÃ¤t und Typ-PrÃ¤ferenz.
      * Score = Speed + Bonus
      */
     private float getToolScore(ItemStack stack, BlockState state) {
@@ -114,24 +114,24 @@ public class VersatilityUsageEvent implements AttackBlockCallback {
         // Fallback: Manchmal ist speed 1.0 trotz suitability, wir nehmen den Speed als Basis.
         float score = speed;
 
-        // --- PRIORITÄTEN SYSTEM ---
+        // --- PRIORITÃ„TEN SYSTEM ---
 
-        // 1. Chisel (Meißel): Niedrigste Priorität (Bonus 0).
-        // WICHTIG: Zuerst prüfen, da Chisel oft auch im Pickaxe-Tag ist.
+        // 1. Chisel (MeiÃŸel): Niedrigste PrioritÃ¤t (Bonus 0).
+        // WICHTIG: Zuerst prÃ¼fen, da Chisel oft auch im Pickaxe-Tag ist.
         if (stack.getItem() instanceof ChiselItem) {
             score += 0f;
         }
-        // 2. Sledgehammer: Höchste Priorität für Stein (Bonus 2000).
+        // 2. Sledgehammer: HÃ¶chste PrioritÃ¤t fÃ¼r Stein (Bonus 2000).
         else if (stack.getItem() instanceof SledgehammerItem) {
             score += 2000f;
         }
-        // 3. Standard-Werkzeuge (Spitzhacke, Axt, Schaufel): Hohe Priorität (Bonus 1000).
+        // 3. Standard-Werkzeuge (Spitzhacke, Axt, Schaufel): Hohe PrioritÃ¤t (Bonus 1000).
         else if (stack.isIn(ItemTags.PICKAXES) ||
                  stack.isIn(ItemTags.AXES) ||
                  stack.isIn(ItemTags.SHOVELS)) {
             score += 1000f;
         }
-        // 4. Sonstige geeignete Items (z.B. Schere, Schwert): Mittlere Priorität.
+        // 4. Sonstige geeignete Items (z.B. Schere, Schwert): Mittlere PrioritÃ¤t.
         else {
             score += 500f;
         }

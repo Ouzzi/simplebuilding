@@ -17,9 +17,9 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryWrapper;
+import net.minecraft.util.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -39,7 +39,7 @@ import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 
 public class OreDetectorItem extends Item {
 
-    // Balancing: "Energie Budget" für die Suche.
+    // Balancing: "Energie Budget" fÃ¼r die Suche.
     private static final double BUDGET_COMMON = 24.0;    // Eisen, Kupfer
     private static final double BUDGET_MEDIUM = 18.0;    // Gold, Redstone
     private static final double BUDGET_RARE = 16.0;      // Diamant

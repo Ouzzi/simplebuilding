@@ -25,10 +25,10 @@ public class BlockAttachedEntityTickMixin {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$tickBrush(CallbackInfo ci) {
-        // Wir prüfen: Ist das Entity ein ItemFrame UND implementiert es unser Interface?
+        // Wir prÃ¼fen: Ist das Entity ein ItemFrame UND implementiert es unser Interface?
         if ((Object) this instanceof ItemFrameEntity frame && (Object) this instanceof LockedFrameExtensions extensions) {
 
-            // Nur weitermachen, wenn gerade ein Spieler am Bürsten ist
+            // Nur weitermachen, wenn gerade ein Spieler am BÃ¼rsten ist
             if (extensions.simplebuilding$getBrushingPlayer() != null) {
                 World world = frame.getEntityWorld();
 
@@ -36,7 +36,7 @@ public class BlockAttachedEntityTickMixin {
                     PlayerEntity player = world.getPlayerByUuid(extensions.simplebuilding$getBrushingPlayer());
 
                     // --- Validierung ---
-                    // Existiert der Spieler? Lebt er? Sneakt er? Hält er Pinsel? Benutzt er ihn?
+                    // Existiert der Spieler? Lebt er? Sneakt er? HÃ¤lt er Pinsel? Benutzt er ihn?
                     boolean valid = player != null
                             && player.isAlive()
                             && player.isSneaking()
@@ -44,7 +44,7 @@ public class BlockAttachedEntityTickMixin {
                             && player.isUsingItem();
 
                     if (valid) {
-                        // Prüfen, ob der Spieler noch halbwegs auf das Frame schaut und nah genug ist
+                        // PrÃ¼fen, ob der Spieler noch halbwegs auf das Frame schaut und nah genug ist
                         Vec3d eyePos = player.getEyePos();
                         Vec3d targetCenter = frame.getBoundingBox().getCenter();
                         double distSq = eyePos.squaredDistanceTo(targetCenter);
@@ -52,7 +52,7 @@ public class BlockAttachedEntityTickMixin {
                         Vec3d targetDir = targetCenter.subtract(eyePos).normalize();
                         double dot = lookDir.dotProduct(targetDir);
 
-                        // Wenn weiter weg als 5 Blöcke (25 sq) oder Winkel zu groß -> Abbruch
+                        // Wenn weiter weg als 5 BlÃ¶cke (25 sq) oder Winkel zu groÃŸ -> Abbruch
                         if (distSq > 25.0 || dot < 0.6) {
                             valid = false;
                         }
@@ -64,7 +64,7 @@ public class BlockAttachedEntityTickMixin {
                         return;
                     }
 
-                    // --- Prozess läuft weiter ---
+                    // --- Prozess lÃ¤uft weiter ---
                     extensions.simplebuilding$incrementBrushingTicks();
                     int ticks = extensions.simplebuilding$getBrushingTicks();
 

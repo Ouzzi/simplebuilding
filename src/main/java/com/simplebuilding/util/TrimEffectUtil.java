@@ -11,7 +11,7 @@ import net.minecraft.entity.mob.IllagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.equipment.trim.ArmorTrim;
-import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.util.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity; // Wichtig
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
@@ -22,20 +22,20 @@ public class TrimEffectUtil {
 
     /**
      * Holt den dynamischen Multiplikator basierend auf XP und Survival-Stats.
-     * Wenn der Spieler kein ServerPlayer ist (z.B. Client-Side Berechnung für Tooltips),
-     * geben wir 1.0 zurück oder einen Schätzwert.
+     * Wenn der Spieler kein ServerPlayer ist (z.B. Client-Side Berechnung fÃ¼r Tooltips),
+     * geben wir 1.0 zurÃ¼ck oder einen SchÃ¤tzwert.
      */
     public static float getGlobalMultiplier(LivingEntity entity) {
         if (entity instanceof ServerPlayerEntity serverPlayer) {
             return (float) TrimMultiplierLogic.getMultiplier(serverPlayer);
         }
-        // Fallback für Client/Mobs: 20% Effektivität (damit man im Tooltip sieht, dass was passiert)
+        // Fallback fÃ¼r Client/Mobs: 20% EffektivitÃ¤t (damit man im Tooltip sieht, dass was passiert)
         // Oder 1.0f, wenn du willst, dass Mobs die volle Power haben.
         return 0.2f;
     }
 
     /**
-     * Zählt, wie viele Teile den Trim haben.
+     * ZÃ¤hlt, wie viele Teile den Trim haben.
      * Netherite als Material gibt 1.5 Punkte, andere 1.0.
      */
     public static float getTrimCount(LivingEntity entity, String patternPath) {
@@ -55,9 +55,9 @@ public class TrimEffectUtil {
                         String materialName = optionalTrim.material().getKey()
                                 .map(key -> key.getValue().getPath()).orElse("");
 
-                        // Material Boni für Trim-Effektivität
+                        // Material Boni fÃ¼r Trim-EffektivitÃ¤t
                         if (materialName.contains("enderite")) {
-                            score += 3.5f; // Enderite: Extrem starker Boost für Pattern-Effekte
+                            score += 3.5f; // Enderite: Extrem starker Boost fÃ¼r Pattern-Effekte
                         } else if (materialName.contains("netherite")) {
                             score += 1.75f; // Netherite: Starker Boost
                         } else {
@@ -71,7 +71,7 @@ public class TrimEffectUtil {
     }
 
     /**
-     * Zählt, wie viele Teile ein bestimmtes Material haben (unabhängig vom Pattern).
+     * ZÃ¤hlt, wie viele Teile ein bestimmtes Material haben (unabhÃ¤ngig vom Pattern).
      */
     public static int getMaterialCount(LivingEntity entity, String materialPath) {
         if (entity instanceof TrimBenefitUser user && !user.simplebuilding$areTrimBenefitsEnabled()) {
@@ -95,10 +95,10 @@ public class TrimEffectUtil {
 
     // --- TICK LOGIC (Server-Side Effects) ---
 
-    private static final Identifier ENDERSCAPE_STASIS_PATTERN = Identifier.of("enderscape", "stasis");
+    private static final Identifier ENDERSCAPE_STASIS_PATTERN = new Identifier("enderscape", "stasis");
 
     public static void tick(PlayerEntity player) {
-        // Nur Server-Logik für Status-Effekte
+        // Nur Server-Logik fÃ¼r Status-Effekte
         if (!player.getEntityWorld().isClient()) {
             double multiplier = TrimMultiplierLogic.getMultiplier(player);
 
@@ -126,7 +126,7 @@ public class TrimEffectUtil {
     }
 
     // --- MOVEMENT LOGIC (Nihilith) ---
-    // Wird vom PlayerEntityMixin aufgerufen (Client & Server für flüssige Bewegung)
+    // Wird vom PlayerEntityMixin aufgerufen (Client & Server fÃ¼r flÃ¼ssige Bewegung)
     public static void handleNihilithGravity(PlayerEntity player) {
         int nihilithPieces = getMaterialCount(player, "nihilith");
 
@@ -223,7 +223,7 @@ public class TrimEffectUtil {
 
         // --- NEUE MATERIALIEN ---
 
-        // Enderite: All-Round Tank (ähnlich wie Ward Pattern, aber als Material)
+        // Enderite: All-Round Tank (Ã¤hnlich wie Ward Pattern, aber als Material)
         // Reduziert ALLEN Schaden signifikant.
         int enderiteParts = getMaterialCount(entity, "enderite");
         if (enderiteParts > 0) {
@@ -232,7 +232,7 @@ public class TrimEffectUtil {
         }
 
         // Astralit & Nihilith haben Movement Effekte, aber wir geben ihnen
-        // auch eine kleine physische Resistenz (wie Diamant aber schwächer), damit sie nicht nutzlos im Kampf sind.
+        // auch eine kleine physische Resistenz (wie Diamant aber schwÃ¤cher), damit sie nicht nutzlos im Kampf sind.
         if (!source.isIn(DamageTypeTags.BYPASSES_ARMOR)) {
             int astralParts = getMaterialCount(entity, "astralit");
             int nihilParts = getMaterialCount(entity, "nihilith");
@@ -253,7 +253,7 @@ public class TrimEffectUtil {
 
     // --- UTIL GETTER ---
 
-    // (Deine existierenden Getter bleiben unverändert)
+    // (Deine existierenden Getter bleiben unverÃ¤ndert)
     public static float getSwimSpeedMultiplier(LivingEntity entity) {
         float progressMult = getGlobalMultiplier(entity);
         float tideCount = getTrimCount(entity, "tide");

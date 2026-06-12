@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ItemFrameEntityRendererMixin {
 
     // Wir nutzen jetzt 'updateRenderState' statt 'render'.
-    // Hier werden die Daten vom Entity (Server) für den Renderer (Client) vorbereitet.
+    // Hier werden die Daten vom Entity (Server) fÃ¼r den Renderer (Client) vorbereitet.
     @Inject(method = "updateRenderState", at = @At("TAIL"))
     private void simplebuilding$forceVisibleIfEmpty(ItemFrameEntity entity, ItemFrameEntityRenderState state, float tickDelta, CallbackInfo ci) {
         // Wenn das Item Frame leer ist, erzwingen wir die Sichtbarkeit im Render-Status.

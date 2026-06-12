@@ -4,8 +4,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.registry.tag.BlockTags;
+import net.minecraft.util.registry.tag.ItemTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -34,7 +34,7 @@ public class MiningUtils {
         boolean isPickaxe = stack.isIn(ItemTags.PICKAXES);
         boolean isAxe = stack.isIn(ItemTags.AXES);
 
-        // Validierung: Nur Erze bei Spitzhacken, nur Holz bei Äxten
+        // Validierung: Nur Erze bei Spitzhacken, nur Holz bei Ã„xten
         if (isPickaxe && !isOre(targetState)) return Collections.emptyList();
         if (isAxe && !targetState.isIn(BlockTags.LOGS)) return Collections.emptyList();
 
@@ -51,8 +51,8 @@ public class MiningUtils {
         Queue<BlockPos> queue = new LinkedList<>();
         Set<BlockPos> visited = new HashSet<>();
 
-        // Startblock zur Queue hinzufügen, aber nicht zur 'found'-Liste (das macht die Logik unten)
-        // Normalerweise zählt VeinMiner den abgebauten Block mit.
+        // Startblock zur Queue hinzufÃ¼gen, aber nicht zur 'found'-Liste (das macht die Logik unten)
+        // Normalerweise zÃ¤hlt VeinMiner den abgebauten Block mit.
         queue.add(startPos);
         visited.add(startPos);
         found.add(startPos);
@@ -77,7 +77,7 @@ public class MiningUtils {
                                 if (found.size() >= maxBlocks) break;
                             }
                             // Optional: Deepslate-Varianten erkennen (z.B. Coal Ore und Deepslate Coal Ore)
-                            // Das erfordert komplexere Logik oder Tags. Fürs erste reicht der Block-Vergleich.
+                            // Das erfordert komplexere Logik oder Tags. FÃ¼rs erste reicht der Block-Vergleich.
                         }
                     }
                     if (found.size() >= maxBlocks) break;
@@ -86,10 +86,10 @@ public class MiningUtils {
             }
         }
 
-        // Entferne den Startblock aus der Rückgabeliste, da WorldRendererMixin nur *zusätzliche* Blöcke rendern will?
-        // Im Mixin iterierst du über die Liste und renderst Damage.
+        // Entferne den Startblock aus der RÃ¼ckgabeliste, da WorldRendererMixin nur *zusÃ¤tzliche* BlÃ¶cke rendern will?
+        // Im Mixin iterierst du Ã¼ber die Liste und renderst Damage.
         // Der Spieler baut den Startblock bereits ab (Vanilla Damage Render).
-        // Also entfernen wir den Startblock aus der Liste für das Rendering / Logic.
+        // Also entfernen wir den Startblock aus der Liste fÃ¼r das Rendering / Logic.
         found.remove(startPos);
 
         return found;
@@ -112,7 +112,7 @@ public class MiningUtils {
                 state.isIn(BlockTags.LAPIS_ORES) ||
                 state.isIn(BlockTags.DIAMOND_ORES) ||
                 state.isIn(BlockTags.EMERALD_ORES) ||
-                state.isOf(Blocks.NETHER_QUARTZ_ORE) || // Manueller Check für Quarz
-                state.isOf(Blocks.ANCIENT_DEBRIS);       // Optional: Antiker Schutt als Erz zählen
+                state.isOf(Blocks.NETHER_QUARTZ_ORE) || // Manueller Check fÃ¼r Quarz
+                state.isOf(Blocks.ANCIENT_DEBRIS);       // Optional: Antiker Schutt als Erz zÃ¤hlen
     }
 }

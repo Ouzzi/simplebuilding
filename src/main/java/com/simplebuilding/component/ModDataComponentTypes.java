@@ -1,35 +1,18 @@
 package com.simplebuilding.component;
 
-import com.mojang.serialization.Codec;
-import com.simplebuilding.Simplebuilding;
-import net.minecraft.component.ComponentType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-
-import java.util.function.UnaryOperator;
-
-public class ModDataComponentTypes {
-    public static final ComponentType<Integer> OFFSET = register("offset", builder -> builder.codec(Codec.INT));
-
-    public static final ComponentType<Integer> GLOW_LEVEL = register("glow_level", builder -> builder.codec(Codec.INT));
-
-    // NEU: Visueller Glow (RGB Effekt)
-    public static final ComponentType<Boolean> VISUAL_GLOW = register("visual_glow", builder -> builder.codec(Codec.BOOL));
-
-    // NEU: Lichtquelle (Fackel-Effekt)
-    public static final ComponentType<Boolean> LIGHT_SOURCE = register("light_source", builder -> builder.codec(Codec.BOOL));
-
-    public static final ComponentType<BlockPos> COORDINATES =
-            register("coordinates", builder -> builder.codec(BlockPos.CODEC));
-
-
-    private static <T> ComponentType<T> register(String name, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
-        return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(Simplebuilding.MOD_ID, name), (builderOperator.apply(ComponentType.builder())).build());
+public final class ModDataComponentTypes {
+    private ModDataComponentTypes() {
     }
 
+    public static final String NBT_OFFSET = "sb_offset";
+    public static final String NBT_GLOW_LEVEL = "sb_glow_level";
+    public static final String NBT_VISUAL_GLOW = "sb_visual_glow";
+    public static final String NBT_LIGHT_SOURCE = "sb_light_source";
+    public static final String NBT_COORD_X = "sb_coord_x";
+    public static final String NBT_COORD_Y = "sb_coord_y";
+    public static final String NBT_COORD_Z = "sb_coord_z";
+
     public static void registerDataComponentTypes() {
-        Simplebuilding.LOGGER.info("Registering Data Component Types for " + Simplebuilding.MOD_ID);
+        // 1.19.2 backport: no-op, values are stored in ItemStack NBT.
     }
 }

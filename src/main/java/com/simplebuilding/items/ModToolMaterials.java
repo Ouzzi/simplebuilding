@@ -1,8 +1,8 @@
 package com.simplebuilding.items;
 
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.registry.tag.BlockTags;
+import net.minecraft.util.registry.tag.ItemTags;
 
 public class ModToolMaterials {
 
@@ -17,6 +17,6 @@ public class ModToolMaterials {
     );
 
     // Hinweis: Wenn du dein eigenes Reparatur-Item (Enderite Ingot) nutzen willst,
-    // musst du erst einen Tag dafür erstellen oder die ToolMaterial Klasse ignorieren und die Werte manuell setzen.
-    // Aber für den Anfang nutzen wir Netherite Repair Items oder erstellen später einen Tag.
+    // musst du erst einen Tag dafÃ¼r erstellen oder die ToolMaterial Klasse ignorieren und die Werte manuell setzen.
+    // Aber fÃ¼r den Anfang nutzen wir Netherite Repair Items oder erstellen spÃ¤ter einen Tag.
 }

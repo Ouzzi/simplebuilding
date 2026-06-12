@@ -10,18 +10,18 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.registry.Registries;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 public class ModItemGroups {
     public static final ItemGroup BUILDING_ITEMS_GROUP = Registry.register(Registries.ITEM_GROUP,
-            Identifier.of(Simplebuilding.MOD_ID, "building_items"),
+            new Identifier(Simplebuilding.MOD_ID, "building_items"),
             FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.IRON_CHISEL))
                     .displayName(Text.translatable("itemgroup.simplebuilding.building_items"))
                     .entries((displayContext, entries) -> {
@@ -214,3 +214,4 @@ public class ModItemGroups {
         });
     }
 }
+

@@ -8,7 +8,7 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 
 public record ReinforcedBundleSelectionPayload(int slotId, int selectedIndex) implements CustomPayload {
-    public static final CustomPayload.Id<ReinforcedBundleSelectionPayload> ID = new CustomPayload.Id<>(Identifier.of(Simplebuilding.MOD_ID, "bundle_selection"));
+    public static final CustomPayload.Id<ReinforcedBundleSelectionPayload> ID = new CustomPayload.Id<>(new Identifier(Simplebuilding.MOD_ID, "bundle_selection"));
     
     public static final PacketCodec<RegistryByteBuf, ReinforcedBundleSelectionPayload> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, ReinforcedBundleSelectionPayload::slotId,

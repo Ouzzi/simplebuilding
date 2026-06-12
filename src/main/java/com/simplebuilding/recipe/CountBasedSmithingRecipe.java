@@ -10,7 +10,7 @@ import net.minecraft.recipe.IngredientPlacement;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SmithingRecipe;
 import net.minecraft.recipe.input.SmithingRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.registry.RegistryWrapper;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -62,7 +62,7 @@ public class CountBasedSmithingRecipe implements SmithingRecipe {
 
         return resultStack;
     }
-    // HINWEIS: 'getResult' wurde in 1.21.2+ aus dem Recipe Interface entfernt und darf nicht mehr überschrieben werden.
+    // HINWEIS: 'getResult' wurde in 1.21.2+ aus dem Recipe Interface entfernt und darf nicht mehr Ã¼berschrieben werden.
 
     // --- SmithingRecipe Interface Methoden ---
 
@@ -81,10 +81,10 @@ public class CountBasedSmithingRecipe implements SmithingRecipe {
         return Optional.of(this.addition);
     }
 
-    // --- IngredientPlacement (Korrigiert für 1.21.2+) ---
+    // --- IngredientPlacement (Korrigiert fÃ¼r 1.21.2+) ---
     @Override
     public IngredientPlacement getIngredientPlacement() {
-        // Die Methode heißt "forMultipleSlots", nicht "forMultiple"
+        // Die Methode heiÃŸt "forMultipleSlots", nicht "forMultiple"
         return IngredientPlacement.forMultipleSlots(List.of(
                 Optional.of(this.template),
                 Optional.of(this.base),

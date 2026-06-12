@@ -27,7 +27,7 @@ public class NetheriteBreakerPistonBlock extends PistonBlock {
     public boolean onSyncedBlockEvent(BlockState state, World world, BlockPos pos, int type, int data) {
         // type 0 = Piston Event (Ausfahren/Einfahren)
         if (type == 0) {
-            // Wir prüfen nur beim Ausfahren
+            // Wir prÃ¼fen nur beim Ausfahren
             if (!state.get(EXTENDED)) {
                 Direction facing = state.get(FACING);
                 BlockPos targetPos = pos.offset(facing);

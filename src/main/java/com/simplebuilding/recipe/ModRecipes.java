@@ -8,8 +8,8 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.util.registry.Registries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModRecipes {
@@ -24,7 +24,7 @@ public class ModRecipes {
         // Dann hier registrieren
         COUNT_BASED_SMITHING_SERIALIZER = Registry.register(
             Registries.RECIPE_SERIALIZER,
-            Identifier.of(Simplebuilding.MOD_ID, "count_based_smithing"),
+            new Identifier(Simplebuilding.MOD_ID, "count_based_smithing"),
             new RecipeSerializer<CountBasedSmithingRecipe>() {
                 @Override
                 public MapCodec<CountBasedSmithingRecipe> codec() {
@@ -40,7 +40,7 @@ public class ModRecipes {
 
         COUNT_BASED_SMITHING = Registry.register(
             Registries.RECIPE_TYPE,
-            Identifier.of(Simplebuilding.MOD_ID, "count_based_smithing"),
+            new Identifier(Simplebuilding.MOD_ID, "count_based_smithing"),
             new RecipeType<CountBasedSmithingRecipe>() {
                 @Override
                 public String toString() {
@@ -52,12 +52,12 @@ public class ModRecipes {
 
     public static final RecipeSerializer<UpgradeSmithingRecipe> UPGRADE_SMITHING_SERIALIZER = Registry.register(
             Registries.RECIPE_SERIALIZER,
-            Identifier.of(Simplebuilding.MOD_ID, "upgrade_smithing"),
+            new Identifier(Simplebuilding.MOD_ID, "upgrade_smithing"),
             new RecipeSerializer<UpgradeSmithingRecipe>() {
 
                 // MAP CODEC
                 private final MapCodec<UpgradeSmithingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                        // In 1.21 nutzen wir Ingredient.CODEC (oder OPTIONAL_CODEC wenn verfügbar)
+                        // In 1.21 nutzen wir Ingredient.CODEC (oder OPTIONAL_CODEC wenn verfÃ¼gbar)
                         Ingredient.CODEC.optionalFieldOf("template").forGetter(UpgradeSmithingRecipe::template),
                         Ingredient.CODEC.fieldOf("base").forGetter(UpgradeSmithingRecipe::base),
                         Ingredient.CODEC.optionalFieldOf("addition").forGetter(UpgradeSmithingRecipe::addition)

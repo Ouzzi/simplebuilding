@@ -10,8 +10,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.tag.ItemTags;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ClickType;
@@ -71,7 +71,7 @@ public class QuiverItem extends ReinforcedBundleItem {
         var registry = player.getEntityWorld().getRegistryManager();
         var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
 
-        // 1. DRAWER Logic (Hinzugefügt!)
+        // 1. DRAWER Logic (HinzugefÃ¼gt!)
         var drawer = enchantments.getOptional(ModEnchantments.DRAWER);
         if (drawer.isPresent()) {
             int level = EnchantmentHelper.getLevel(drawer.get(), stack);
@@ -108,7 +108,7 @@ public class QuiverItem extends ReinforcedBundleItem {
                     if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
                 }
 
-                // Drawer (Hinzugefügt!)
+                // Drawer (HinzugefÃ¼gt!)
                 if (id.contains("drawer")) {
                     int level = entry.getIntValue();
                     if (level > 0) {

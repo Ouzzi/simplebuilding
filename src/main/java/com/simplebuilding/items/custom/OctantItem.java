@@ -1,14 +1,11 @@
 package com.simplebuilding.items.custom;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -23,7 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Consumer;
+import java.util.List;
 
 public class OctantItem extends Item {
 
@@ -70,10 +67,9 @@ public class OctantItem extends Item {
         ItemStack stack = context.getStack();
 
         if (!world.isClient()) {
-            NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-            NbtCompound nbt = nbtData.copyNbt();
+            NbtCompound nbt = getOrCreateNbt(stack);
 
-            if (nbt.getBoolean("Locked", false)) {
+            if (nbt.getBoolean("Locked")) {
                 if (player != null) {
                     player.sendMessage(Text.translatable("simplebuilding.gui.locked").formatted(Formatting.RED), true);
                 }
@@ -89,10 +85,12 @@ public class OctantItem extends Item {
                     world.playSound(null, pos, SoundEvents.BLOCK_COPPER_STEP, SoundCategory.PLAYERS, 0.3f, 1.5f);
                 }
                 if (!player.getAbilities().creativeMode) {
-                    stack.damage(1, (ServerWorld) world, (ServerPlayerEntity) player, item -> player.sendEquipmentBreakStatus(item, context.getHand() == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
+                    stack.damage(1, (ServerPlayerEntity) player, p ->
+                        p.sendEquipmentBreakStatus(context.getHand() == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND)
+                    );
                 }
             }
-            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+            stack.setNbt(nbt);
         }
         return ActionResult.SUCCESS;
     }
@@ -100,14 +98,14 @@ public class OctantItem extends Item {
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
-        NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        if (nbtData.copyNbt().getBoolean("Locked", false)) {
+        NbtCompound nbt = getOrCreateNbt(stack);
+        if (nbt.getBoolean("Locked")) {
              return ActionResult.PASS;
         }
 
         if (!world.isClient() && user.isSneaking()) {
-            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-            world.playSound(null, user.getBlockPos(), SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 0.5f, 1f);
+            stack.setNbt(null);
+            world.playSound(null, user.getBlockPos(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 0.5f, 1f);
             return ActionResult.SUCCESS;
         }
         return super.use(world, user, hand);
@@ -116,11 +114,10 @@ public class OctantItem extends Item {
     @Override
     public Text getName(ItemStack stack) {
         Text baseName = super.getName(stack);
-        NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        NbtCompound nbt = nbtComponent.copyNbt();
+        NbtCompound nbt = getOrCreateNbt(stack);
         if (nbt.contains("Shape")) {
             try {
-                SelectionShape shape = SelectionShape.valueOf(nbt.getString("Shape", ""));
+                SelectionShape shape = SelectionShape.valueOf(nbt.getString("Shape"));
                 if (shape != SelectionShape.CUBOID) {
                     return Text.empty().append(baseName).append(Text.literal(" (")).append(shape.getText()).append(Text.literal(")").formatted(Formatting.GRAY));
                 }
@@ -131,31 +128,33 @@ public class OctantItem extends Item {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        NbtCompound nbt = nbtData.copyNbt();
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        NbtCompound nbt = getOrCreateNbt(stack);
 
-        if (nbt.getBoolean("Locked", false)) {
-            textConsumer.accept(Text.translatable("simplebuilding.gui.locked").formatted(Formatting.RED, Formatting.BOLD));
+        if (nbt.getBoolean("Locked")) {
+            tooltip.add(Text.translatable("simplebuilding.gui.locked").formatted(Formatting.RED, Formatting.BOLD));
         }
 
         if (nbt.contains("Pos1")) {
-            nbt.getIntArray("Pos1").ifPresent(p1 -> {
-                if (p1.length == 3) {
-                    BlockPos pos1 = new BlockPos(p1[0], p1[1], p1[2]);
-                    textConsumer.accept(Text.literal(pos1.toShortString()).formatted(Formatting.YELLOW));
-                    if (nbt.contains("Pos2")) {
-                        nbt.getIntArray("Pos2").ifPresent(p2 -> {
-                            if (p2.length == 3) {
-                                BlockPos pos2 = new BlockPos(p2[0], p2[1], p2[2]);
-                                textConsumer.accept(Text.literal(pos2.toShortString()).formatted(Formatting.GREEN));
-                            }
-                        });
+            int[] p1 = nbt.getIntArray("Pos1");
+            if (p1.length == 3) {
+                BlockPos pos1 = new BlockPos(p1[0], p1[1], p1[2]);
+                tooltip.add(Text.literal(pos1.toShortString()).formatted(Formatting.YELLOW));
+                if (nbt.contains("Pos2")) {
+                    int[] p2 = nbt.getIntArray("Pos2");
+                    if (p2.length == 3) {
+                        BlockPos pos2 = new BlockPos(p2[0], p2[1], p2[2]);
+                        tooltip.add(Text.literal(pos2.toShortString()).formatted(Formatting.GREEN));
                     }
                 }
-            });
+            }
         }
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+        super.appendTooltip(stack, world, tooltip, context);
+    }
+
+    private static NbtCompound getOrCreateNbt(ItemStack stack) {
+        NbtCompound nbt = stack.getNbt();
+        return nbt == null ? new NbtCompound() : nbt;
     }
 }
 

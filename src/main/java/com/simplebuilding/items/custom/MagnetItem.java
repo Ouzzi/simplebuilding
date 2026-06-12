@@ -97,7 +97,7 @@ public class MagnetItem extends Item {
             return true;
         }
 
-        String itemId = net.minecraft.registry.Registries.ITEM.getId(itemEntity.getStack().getItem()).toString();
+        String itemId = net.minecraft.util.registry.Registries.ITEM.getId(itemEntity.getStack().getItem()).toString();
         return filterId.equals(itemId);
     }
 

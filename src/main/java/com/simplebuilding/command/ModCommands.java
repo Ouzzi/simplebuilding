@@ -24,14 +24,14 @@ public class ModCommands {
                                             .executes(context -> {
                                                 double newValue = DoubleArgumentType.getDouble(context, "value");
                                                 SimplebuildingConfig.trimBenefitBaseMultiplier = newValue;
-                                                context.getSource().sendFeedback(() -> Text.literal("§aTrim Multiplier gesetzt auf: " + newValue), true);
+                                                context.getSource().sendFeedback(() -> Text.literal("Â§aTrim Multiplier gesetzt auf: " + newValue), true);
                                                 return 1;
                                             })
                                     )
                             )
                             .then(CommandManager.literal("getTrimMultiplier")
                                     .executes(context -> {
-                                        context.getSource().sendFeedback(() -> Text.literal("§eAktueller Trim Multiplier: " + SimplebuildingConfig.trimBenefitBaseMultiplier), false);
+                                        context.getSource().sendFeedback(() -> Text.literal("Â§eAktueller Trim Multiplier: " + SimplebuildingConfig.trimBenefitBaseMultiplier), false);
                                         return 1;
                                     })
                             )

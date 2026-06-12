@@ -13,11 +13,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.StructureTags;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryWrapper;
+import net.minecraft.util.registry.entry.RegistryEntry;
+import net.minecraft.util.registry.tag.StructureTags;
+import net.minecraft.util.registry.tag.TagKey;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.ForgingSlotsManager;
 import net.minecraft.server.world.ServerWorld;
@@ -78,7 +78,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
                 result.setDamage(newDamage);
                 result.set(DataComponentTypes.REPAIR_COST, 0);
 
-                // 2. VERZAUBERUNGEN KOMBINIEREN (NEU HINZUGEFÜGT)
+                // 2. VERZAUBERUNGEN KOMBINIEREN (NEU HINZUGEFÃœGT)
                 // Wir holen die Enchants von links und rechts
                 var leftEnchants = EnchantmentHelper.getEnchantments(leftStack);
                 var rightEnchants = EnchantmentHelper.getEnchantments(rightStack);
@@ -92,7 +92,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
                     int rightLevel = entry.getIntValue();
                     int leftLevel = leftEnchants.getLevel(enchantment);
 
-                    // Vanilla Amboss-Logik für Level-Berechnung
+                    // Vanilla Amboss-Logik fÃ¼r Level-Berechnung
                     int newLevel = leftLevel;
                     if (leftLevel == rightLevel) {
                         newLevel = rightLevel + 1;
@@ -117,8 +117,8 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
                 this.output.setStack(0, result);
 
-                // Kostenberechnung könnte man hier noch verfeinern basierend auf Enchants,
-                // aber für dein Mod-Design scheint 1 Level okay zu sein.
+                // Kostenberechnung kÃ¶nnte man hier noch verfeinern basierend auf Enchants,
+                // aber fÃ¼r dein Mod-Design scheint 1 Level okay zu sein.
                 this.levelCost.set(1);
                 this.repairItemUsage = 1;
 
@@ -207,7 +207,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
     }
 
     @Unique
-    private RegistryEntry<Enchantment> getEnchantment(RegistryWrapper.WrapperLookup registry, net.minecraft.registry.RegistryKey<Enchantment> key) {
+    private RegistryEntry<Enchantment> getEnchantment(RegistryWrapper.WrapperLookup registry, net.minecraft.util.registry.RegistryKey<Enchantment> key) {
         Optional<RegistryEntry.Reference<Enchantment>> optional = registry.getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(key);
         return optional.orElse(null);
     }
@@ -216,19 +216,19 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
     // FIX: Wir definieren die Tags explizit, um sicherzugehen, dass sie existieren.
     // In Vanilla 1.21 sind dies die korrekten Tag-IDs (JSON-Dateien in data/minecraft/tags/worldgen/structure/)
-    @Unique private static final TagKey<Structure> ANCIENT_CITY_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "ancient_city"));
-    @Unique private static final TagKey<Structure> BASTION_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "bastion_remnant"));
-    @Unique private static final TagKey<Structure> FORTRESS_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "fortress"));
-    @Unique private static final TagKey<Structure> OUTPOST_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "pillager_outpost"));
-    @Unique private static final TagKey<Structure> END_CITY_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "end_city"));
-    @Unique private static final TagKey<Structure> MINESHAFT_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "mineshaft"));
-    @Unique private static final TagKey<Structure> VILLAGE_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "village"));
-    @Unique private static final TagKey<Structure> SHIPWRECK_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "shipwreck"));
-    @Unique private static final TagKey<Structure> IGLOO_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "igloo"));
-    @Unique private static final TagKey<Structure> DESERT_PYRAMID_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "desert_pyramid"));
-    @Unique private static final TagKey<Structure> JUNGLE_PYRAMID_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "jungle_pyramid"));
-    @Unique private static final TagKey<Structure> SWAMP_HUT_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "swamp_hut"));
-    @Unique private static final TagKey<Structure> STRONGHOLD_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "stronghold"));
+    @Unique private static final TagKey<Structure> ANCIENT_CITY_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "ancient_city"));
+    @Unique private static final TagKey<Structure> BASTION_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "bastion_remnant"));
+    @Unique private static final TagKey<Structure> FORTRESS_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "fortress"));
+    @Unique private static final TagKey<Structure> OUTPOST_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "pillager_outpost"));
+    @Unique private static final TagKey<Structure> END_CITY_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "end_city"));
+    @Unique private static final TagKey<Structure> MINESHAFT_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "mineshaft"));
+    @Unique private static final TagKey<Structure> VILLAGE_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "village"));
+    @Unique private static final TagKey<Structure> SHIPWRECK_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "shipwreck"));
+    @Unique private static final TagKey<Structure> IGLOO_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "igloo"));
+    @Unique private static final TagKey<Structure> DESERT_PYRAMID_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "desert_pyramid"));
+    @Unique private static final TagKey<Structure> JUNGLE_PYRAMID_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "jungle_pyramid"));
+    @Unique private static final TagKey<Structure> SWAMP_HUT_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "swamp_hut"));
+    @Unique private static final TagKey<Structure> STRONGHOLD_TAG = TagKey.of(RegistryKeys.STRUCTURE, new Identifier("minecraft", "stronghold"));
 
     @Unique
     private static final Map<Item, StructureConfig> STRUCTURE_RECIPES = Map.ofEntries(
@@ -274,7 +274,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
                 // Sicherstellen, dass der Tag existiert
                 if (structureListOptional.isPresent()) {
-                    // FIX: Radius auf 300 (4800 Blöcke) erhöht!
+                    // FIX: Radius auf 300 (4800 BlÃ¶cke) erhÃ¶ht!
                     Pair<BlockPos, RegistryEntry<Structure>> foundPair = serverWorld.getChunkManager().getChunkGenerator().locateStructure(
                             serverWorld,
                             structureListOptional.get(),

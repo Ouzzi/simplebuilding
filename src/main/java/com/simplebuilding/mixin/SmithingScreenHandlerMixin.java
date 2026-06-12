@@ -12,7 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.recipe.input.SmithingRecipeInput;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.registry.tag.ItemTags;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
@@ -39,7 +39,7 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
     private void onTakeOutputCustom(PlayerEntity player, ItemStack stack, CallbackInfo ci) {
         World world = player.getEntityWorld();
 
-        // Logik nur auf dem Server ausführen (ServerRecipeManager existiert nur dort)
+        // Logik nur auf dem Server ausfÃ¼hren (ServerRecipeManager existiert nur dort)
         if (world instanceof ServerWorld serverWorld) {
 
             // Wir casten den Manager zur Server-Implementation, die 'getFirstMatch' besitzt
@@ -51,7 +51,7 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
                         this.input.getStack(2)
                 );
 
-                // Jetzt können wir getFirstMatch aufrufen
+                // Jetzt kÃ¶nnen wir getFirstMatch aufrufen
                 Optional<RecipeEntry<CountBasedSmithingRecipe>> match = serverRecipeManager
                         .getFirstMatch(ModRecipes.COUNT_BASED_SMITHING, input, world);
 
@@ -59,7 +59,7 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
                     CountBasedSmithingRecipe recipe = match.get().value();
                     int countToConsume = recipe.getAdditionCount();
 
-                    // Wenn wir mehr als 1 Item verbrauchen müssen (Vanilla zieht 1 automatisch ab)
+                    // Wenn wir mehr als 1 Item verbrauchen mÃ¼ssen (Vanilla zieht 1 automatisch ab)
                     if (countToConsume > 1) {
                         ItemStack additionStack = this.input.getStack(2);
                         if (additionStack.getCount() >= countToConsume - 1) {
@@ -79,7 +79,7 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
         ItemStack armorStack = this.input.getStack(1);
         ItemStack materialStack = this.input.getStack(2);
 
-        // Prüfen, ob unsere spezifische Kombination vorliegt für glowing trim upgrade
+        // PrÃ¼fen, ob unsere spezifische Kombination vorliegt fÃ¼r glowing trim upgrade
         if (templateStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE) && materialStack.isOf(Items.GLOW_INK_SAC)) {
             boolean isValidArmor = isValidArmor(armorStack);
 
@@ -99,7 +99,7 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
             }
         }
 
-        // Prüfen, ob unsere spezifische Kombination vorliegt für emitting trim upgrade
+        // PrÃ¼fen, ob unsere spezifische Kombination vorliegt fÃ¼r emitting trim upgrade
         if (templateStack.isOf(ModItems.EMITTING_TRIM_TEMPLATE) && materialStack.isOf(Items.GLOWSTONE_DUST)) {
             boolean isValidArmor = isValidArmor(armorStack);
 
@@ -107,15 +107,15 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
                 int currentLevel = GlowingTrimUtils.getEmissionLevel(armorStack);
                 if (currentLevel < 5) {
                     ItemStack outputStack = armorStack.copy();
-                    // Erhöht den Glow-Level im NBT des Output-Stacks
+                    // ErhÃ¶ht den Glow-Level im NBT des Output-Stacks
                     GlowingTrimUtils.incrementEmissionLevel(outputStack);
-                    // Wir setzen 1 Item als Output (die Menge der Rüstung ist meist 1)
+                    // Wir setzen 1 Item als Output (die Menge der RÃ¼stung ist meist 1)
                     outputStack.setCount(1);
                     // Das Ergebnis in den Output-Slot setzen
                     this.output.setStack(0, outputStack);
                     ci.cancel();
                 } else {
-                    // Wenn Level 5 erreicht ist, kein Output (oder man erlaubt es, aber erhöht nicht mehr)
+                    // Wenn Level 5 erreicht ist, kein Output (oder man erlaubt es, aber erhÃ¶ht nicht mehr)
                     this.output.setStack(0, ItemStack.EMPTY);
                     ci.cancel();
                 }

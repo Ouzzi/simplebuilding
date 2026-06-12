@@ -9,8 +9,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.tag.TagKey;
 import net.minecraft.screen.SmithingScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -52,12 +52,12 @@ public abstract class SmithingScreenMixin extends ForgingScreen<SmithingScreenHa
                 }
             }
 
-            // 2. Explizit SimpleBuilding Enderite Trim hinzufügen (falls nicht im Tag)
-            tryAddStack(trimTemplates, Identifier.of("simplebuilding", "enderite_armor_trim_smithing_template"));
+            // 2. Explizit SimpleBuilding Enderite Trim hinzufÃ¼gen (falls nicht im Tag)
+            tryAddStack(trimTemplates, new Identifier("simplebuilding", "enderite_armor_trim_smithing_template"));
 
-            // 3. Enderscape Support (Dynamisch prüfen)
+            // 3. Enderscape Support (Dynamisch prÃ¼fen)
             if (FabricLoader.getInstance().isModLoaded("enderscape")) {
-                tryAddStack(trimTemplates, Identifier.of("enderscape", "stasis_armor_trim_smithing_template"));
+                tryAddStack(trimTemplates, new Identifier("enderscape", "stasis_armor_trim_smithing_template"));
             }
         }
 
@@ -68,7 +68,7 @@ public abstract class SmithingScreenMixin extends ForgingScreen<SmithingScreenHa
 
         this.addDrawableChild(new CyclingTrimButton(btnX, btnY, 20, 20, trimTemplates, button -> {
             if (this.client != null) {
-                // Hier übergeben wir den aktuellen Screen als Parent, damit man mit "ESC" zurückkommt
+                // Hier Ã¼bergeben wir den aktuellen Screen als Parent, damit man mit "ESC" zurÃ¼ckkommt
                 this.client.setScreen(new TrimReferenceScreen(this));
             }
         }));

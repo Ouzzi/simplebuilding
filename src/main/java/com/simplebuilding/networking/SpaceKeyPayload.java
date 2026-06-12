@@ -8,7 +8,7 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 
 public record SpaceKeyPayload(boolean pressed) implements CustomPayload {
-    public static final CustomPayload.Id<SpaceKeyPayload> ID = new CustomPayload.Id<>(Identifier.of(Simplebuilding.MOD_ID, "space_key"));
+    public static final CustomPayload.Id<SpaceKeyPayload> ID = new CustomPayload.Id<>(new Identifier(Simplebuilding.MOD_ID, "space_key"));
     public static final PacketCodec<RegistryByteBuf, SpaceKeyPayload> CODEC = PacketCodec.tuple(
             PacketCodecs.BOOLEAN, SpaceKeyPayload::pressed,
             SpaceKeyPayload::new

@@ -24,15 +24,15 @@ public class MouseMixin {
             if (client.player.getMainHandStack().getItem() instanceof OctantItem) {
 
                 // --- FIX: Lock Check ---
-                // Prüfen, ob das Item "locked" ist. Wenn ja, erlauben wir kein Scrollen über das Item
-                // und lassen das Event ganz normal weiterlaufen (z.B. für Hotbar-Wechsel) oder brechen ab.
-                // Laut Anforderung soll das Verstellen per Tasten NICHT möglich sein.
+                // PrÃ¼fen, ob das Item "locked" ist. Wenn ja, erlauben wir kein Scrollen Ã¼ber das Item
+                // und lassen das Event ganz normal weiterlaufen (z.B. fÃ¼r Hotbar-Wechsel) oder brechen ab.
+                // Laut Anforderung soll das Verstellen per Tasten NICHT mÃ¶glich sein.
 
                 NbtComponent nbt = client.player.getMainHandStack().getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
                 if (nbt.copyNbt().getBoolean("Locked", false)) {
                     // Wenn gelockt, ignorieren wir die Shift/Ctrl-Logik hier einfach.
-                    // Das Event wird NICHT gecancelt, d.h. normales Minecraft Verhalten (Hotbar scrollen) ist möglich,
-                    // aber die Octant-Werte ändern sich nicht.
+                    // Das Event wird NICHT gecancelt, d.h. normales Minecraft Verhalten (Hotbar scrollen) ist mÃ¶glich,
+                    // aber die Octant-Werte Ã¤ndern sich nicht.
                     return;
                 }
                 // -----------------------

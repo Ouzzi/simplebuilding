@@ -7,9 +7,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.tag.BlockTags;
+import net.minecraft.util.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -23,7 +23,7 @@ public class VeinMinerUsageEvent implements PlayerBlockBreakEvents.Before {
 
     @Override
     public boolean beforeBlockBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
-        // --- ÄNDERUNG: Nur ausführen, wenn Spieler sneakt ---
+        // --- Ã„NDERUNG: Nur ausfÃ¼hren, wenn Spieler sneakt ---
         if (!player.isSneaking()) {
             return true;
         }

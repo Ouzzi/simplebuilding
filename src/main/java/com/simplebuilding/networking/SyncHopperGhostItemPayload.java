@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 public record SyncHopperGhostItemPayload(BlockPos pos, int slot, ItemStack stack) implements CustomPayload {
     
     public static final CustomPayload.Id<SyncHopperGhostItemPayload> ID = 
-        new CustomPayload.Id<>(Identifier.of("simplebuilding", "sync_hopper_ghost_item"));
+        new CustomPayload.Id<>(new Identifier("simplebuilding", "sync_hopper_ghost_item"));
 
     public static final PacketCodec<RegistryByteBuf, SyncHopperGhostItemPayload> CODEC = PacketCodec.tuple(
         BlockPos.PACKET_CODEC, SyncHopperGhostItemPayload::pos,

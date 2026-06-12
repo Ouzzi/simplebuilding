@@ -20,7 +20,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryKeys;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 
@@ -38,7 +38,7 @@ public class ModMessages {
         }
         registered = true;
 
-        // --- 1. REGISTRIERUNG DER PAYLOAD-TYPEN (Beide Seiten müssen diese kennen) ---
+        // --- 1. REGISTRIERUNG DER PAYLOAD-TYPEN (Beide Seiten mÃ¼ssen diese kennen) ---
 
         // Client -> Server (C2S)
         PayloadTypeRegistry.playC2S().register(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC);
@@ -60,7 +60,7 @@ public class ModMessages {
 
         // --- 2. SERVER-RECEIVER ---
 
-        // Double Jump (Mit Logik aus ModRegistries übertragen!)
+        // Double Jump (Mit Logik aus ModRegistries Ã¼bertragen!)
         ServerPlayNetworking.registerGlobalReceiver(DoubleJumpPayload.ID, (payload, context) -> {
             context.server().execute(() -> {
                 ServerPlayerEntity player = context.player();
@@ -71,9 +71,9 @@ public class ModMessages {
                 if (doubleJump.isPresent()) {
                     ItemStack bootStack = player.getEquippedStack(EquipmentSlot.FEET);
 
-                    // Prüfen, ob die Schuhe die Verzauberung haben
+                    // PrÃ¼fen, ob die Schuhe die Verzauberung haben
                     if (EnchantmentHelper.getLevel(doubleJump.get(), bootStack) > 0) {
-                        // 1. Fallschaden zurücksetzen
+                        // 1. Fallschaden zurÃ¼cksetzen
                         player.fallDistance = 0;
 
                         // 2. Haltbarkeit abziehen (1 Punkt), wenn nicht Creative
@@ -86,9 +86,9 @@ public class ModMessages {
         });
 
         // ... [Restliche Receiver wie zuvor: Hopper, SpaceKey, TrimBenefit, Bundle, Octant, Wand, MasterBuilder etc.] ...
-        // (Ich kürze das hier ab, kopiere einfach den Rest deiner alten ModMessages.java ab "Hopper Filter" hier hin)
+        // (Ich kÃ¼rze das hier ab, kopiere einfach den Rest deiner alten ModMessages.java ab "Hopper Filter" hier hin)
 
-        registerOtherReceivers(); // Platzhalter für deine restlichen Receiver aus der vorherigen Datei
+        registerOtherReceivers(); // Platzhalter fÃ¼r deine restlichen Receiver aus der vorherigen Datei
 
         // Events
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {

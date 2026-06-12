@@ -7,8 +7,8 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -20,12 +20,12 @@ import java.util.Set;
 
 public class StripMinerUsageEvent implements PlayerBlockBreakEvents.Before {
 
-    // Verhindert, dass das Event durch sich selbst (tryBreakBlock) rekursiv ausgelöst wird
+    // Verhindert, dass das Event durch sich selbst (tryBreakBlock) rekursiv ausgelÃ¶st wird
     private static final Set<BlockPos> MINING_BLOCKS = new HashSet<>();
 
     @Override
     public boolean beforeBlockBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
-        // --- ÄNDERUNG: Nur ausführen, wenn Spieler sneakt ---
+        // --- Ã„NDERUNG: Nur ausfÃ¼hren, wenn Spieler sneakt ---
         if (!player.isSneaking()) {
             return true;
         }
@@ -73,13 +73,13 @@ public class StripMinerUsageEvent implements PlayerBlockBreakEvents.Before {
         if (brokenBlocks > 0) {
             // Beispiel: Wir wollen ca. 33% Durability sparen (nur 66% Schaden nehmen).
             // Formel: Wir berechnen den Rabatt.
-            // (brokenBlocks + 1) / 3 sorgt dafür, dass bei 2 Extra-Blöcken 1 Schaden geheilt wird.
+            // (brokenBlocks + 1) / 3 sorgt dafÃ¼r, dass bei 2 Extra-BlÃ¶cken 1 Schaden geheilt wird.
             int damageRefund = (brokenBlocks + 1) / 3;
 
             if (damageRefund > 0) {
                 // Wir "heilen" das Item, indem wir den Damage-Wert verringern.
                 int currentDamage = stack.getDamage();
-                // Sicherstellen, dass wir nicht unter 0 gehen (Item reparieren über Max hinaus)
+                // Sicherstellen, dass wir nicht unter 0 gehen (Item reparieren Ã¼ber Max hinaus)
                 stack.setDamage(Math.max(0, currentDamage - damageRefund));
             }
         }

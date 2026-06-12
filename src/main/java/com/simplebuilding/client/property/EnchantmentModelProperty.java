@@ -13,13 +13,13 @@ import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryKeys;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public record EnchantmentModelProperty() implements SelectProperty<String> {
 
-    // Codec für die Property-Deklaration selbst (leer, da keine Felder im Record)
+    // Codec fÃ¼r die Property-Deklaration selbst (leer, da keine Felder im Record)
     public static final MapCodec<EnchantmentModelProperty> CODEC = MapCodec.unit(new EnchantmentModelProperty());
 
     @Override
@@ -31,7 +31,7 @@ public record EnchantmentModelProperty() implements SelectProperty<String> {
     public String getValue(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed, ItemDisplayContext context) {
         ItemEnchantmentsComponent enchants = stack.get(DataComponentTypes.STORED_ENCHANTMENTS);
 
-        // Fallback für normale Items (nicht Enchanted Books)
+        // Fallback fÃ¼r normale Items (nicht Enchanted Books)
         if (enchants == null) {
             enchants = stack.get(DataComponentTypes.ENCHANTMENTS);
         }

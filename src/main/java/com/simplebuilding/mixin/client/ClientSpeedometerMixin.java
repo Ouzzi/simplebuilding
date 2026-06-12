@@ -34,7 +34,7 @@ public class ClientSpeedometerMixin {
 
         // Wir skalieren den Speed so, dass er in den Bereich passt.
         // Angenommen, 0.0 = Stand, 1.0 = Sehr schnell.
-        // Wir multiplizieren mit 20, damit wir einen Float-Wert haben, den wir im JSON abfragen können.
+        // Wir multiplizieren mit 20, damit wir einen Float-Wert haben, den wir im JSON abfragen kÃ¶nnen.
         float speedValue = (float) (speed * 20.0f);
 
         // Wir speichern diesen Float im CustomModelData (Index 0)

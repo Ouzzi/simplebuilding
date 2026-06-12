@@ -23,12 +23,12 @@ public class ModHopperScreenHandler extends HopperScreenHandler {
     public ModHopperScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, ModHopperBlockEntity blockEntity) {
         super(syncId, playerInventory, inventory);
         this.blockEntity = blockEntity;
-        // Falls du einen eigenen ScreenHandlerType hast, hier überschreiben, sonst Vanilla Typ nutzen
+        // Falls du einen eigenen ScreenHandlerType hast, hier Ã¼berschreiben, sonst Vanilla Typ nutzen
     }
 
     @Override
     public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
-        // Prüfen ob Klick im Hopper Inventar (Slots 0-4)
+        // PrÃ¼fen ob Klick im Hopper Inventar (Slots 0-4)
         if (slotIndex >= 0 && slotIndex < 5 && blockEntity != null) {
             HopperFilterMode mode = blockEntity.getFilterMode();
 
@@ -37,7 +37,7 @@ public class ModHopperScreenHandler extends HopperScreenHandler {
                 ItemStack cursor = getCursorStack();
                 
                 // Klick mit Item -> Setze Ghost
-                // Klick ohne Item -> Lösche Ghost
+                // Klick ohne Item -> LÃ¶sche Ghost
                 if (actionType == SlotActionType.PICKUP) {
                     blockEntity.setGhostItem(slotIndex, cursor.isEmpty() ? ItemStack.EMPTY : cursor);
                     // Abbrechen, damit Item nicht wirklich reingelegt wird

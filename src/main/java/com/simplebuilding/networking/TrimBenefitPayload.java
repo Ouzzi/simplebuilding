@@ -8,7 +8,7 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 
 public record TrimBenefitPayload(boolean enabled) implements CustomPayload {
-    public static final Id<TrimBenefitPayload> ID = new Id<>(Identifier.of(Simplebuilding.MOD_ID, "trim_benefits_sync"));
+    public static final Id<TrimBenefitPayload> ID = new Id<>(new Identifier(Simplebuilding.MOD_ID, "trim_benefits_sync"));
     
     public static final PacketCodec<RegistryByteBuf, TrimBenefitPayload> CODEC = PacketCodec.tuple(
             PacketCodecs.BOOLEAN, TrimBenefitPayload::enabled,

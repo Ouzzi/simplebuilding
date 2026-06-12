@@ -71,7 +71,7 @@ public class BuildingWandOutlineRenderer {
         List<BlockModelPart> parts = new ArrayList<>();
         Random random = Random.create();
 
-        // Iteriere über die Map
+        // Iteriere Ã¼ber die Map
         for (Map.Entry<BlockPos, BlockState> entry : previewMap.entrySet()) {
             BlockPos pos = entry.getKey();
             BlockState renderState = entry.getValue();
@@ -81,13 +81,13 @@ public class BuildingWandOutlineRenderer {
             matrices.push();
             matrices.translate(pos.getX() - camX, pos.getY() - camY, pos.getZ() - camZ);
 
-            // Skalierung für "Ghost" Effekt
+            // Skalierung fÃ¼r "Ghost" Effekt
             float scale = 0.5f;
             matrices.translate(0.5, 0.5, 0.5);
             matrices.scale(scale, scale, scale);
             matrices.translate(-0.5, -0.5, -0.5);
 
-            // --- NEUE LOGIK FÜR 1.21 MODEL RENDERING ---
+            // --- NEUE LOGIK FÃœR 1.21 MODEL RENDERING ---
 
             // 1. Model holen
             BlockStateModel model = blockRenderManager.getModel(renderState);
@@ -108,7 +108,7 @@ public class BuildingWandOutlineRenderer {
                     pos,
                     matrices,
                     ghostConsumer,
-                    false,          // kein Culling für Vorschau meist besser oder 'true' wenn gewünscht
+                    false,          // kein Culling fÃ¼r Vorschau meist besser oder 'true' wenn gewÃ¼nscht
                     OverlayTexture.DEFAULT_UV
             );
             // ---------------------------------------------

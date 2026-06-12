@@ -21,9 +21,9 @@ import net.minecraft.loot.function.SetComponentsLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.BinomialLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -49,7 +49,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        // Definiert, dass diese Blöcke sich selbst droppen, wenn sie abgebaut werden
+        // Definiert, dass diese BlÃ¶cke sich selbst droppen, wenn sie abgebaut werden
         addDrop(ModBlocks.CONSTRUCTION_LIGHT);
         addDrop(ModBlocks.CRACKED_DIAMOND_BLOCK);
 
@@ -123,13 +123,13 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
             // (DIAMOND_CHISEL_ENCHANTED, DIAMOND_SPATULA_ENCHANTED, DIAMOND_BUILDING_WAND_ENCHANTED, DIAMOND_SLEDGEHAMMER_ENCHANTED, diamond_core)
             if (LootTables.END_CITY_TREASURE_CHEST.equals(key)) {
 
-                // Pool für Scrap (selten)
+                // Pool fÃ¼r Scrap (selten)
                 tableBuilder.pool(LootPool.builder()
                         .with(ItemEntry.builder(ModItems.ENDERITE_SCRAP))
                         .rolls(BinomialLootNumberProvider.create(1, 0.15f)) // 15% Chance
                         .build());
 
-                // Pool für Template (garantiert oder sehr häufig)
+                // Pool fÃ¼r Template (garantiert oder sehr hÃ¤ufig)
                 tableBuilder.pool(LootPool.builder()
                         .with(ItemEntry.builder(ModItems.ENDERITE_UPGRADE_TEMPLATE))
                         .rolls(BinomialLootNumberProvider.create(1, 0.5f)) // 50% Chance pro Kiste

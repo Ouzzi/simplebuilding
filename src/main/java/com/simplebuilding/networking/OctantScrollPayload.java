@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 
 // Neu: boolean shift, boolean control
 public record OctantScrollPayload(int amount, boolean shift, boolean control, boolean alt) implements CustomPayload {
-    public static final CustomPayload.Id<OctantScrollPayload> ID = new CustomPayload.Id<>(Identifier.of(Simplebuilding.MOD_ID, "octant_scroll"));
+    public static final CustomPayload.Id<OctantScrollPayload> ID = new CustomPayload.Id<>(new Identifier(Simplebuilding.MOD_ID, "octant_scroll"));
 
     public static final PacketCodec<RegistryByteBuf, OctantScrollPayload> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, OctantScrollPayload::amount,

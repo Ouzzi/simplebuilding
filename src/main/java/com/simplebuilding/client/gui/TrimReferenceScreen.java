@@ -2,16 +2,17 @@ package com.simplebuilding.client.gui;
 
 import com.simplebuilding.util.TrimMultiplierLogic;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +36,10 @@ public class TrimReferenceScreen extends Screen {
         if (MinecraftClient.getInstance().player != null) {
             this.playerMultiplier = TrimMultiplierLogic.getMultiplier(MinecraftClient.getInstance().player);
         }
-
         populateEntries();
     }
 
     private void populateEntries() {
-        // --- HEADER ---
         String multText = String.format("Current Resonance: %.2fx", playerMultiplier);
         addHeader("--- MATERIALS (Base -> Current) ---");
         addHeader(multText);
@@ -56,15 +55,12 @@ public class TrimReferenceScreen extends Screen {
         addDynamicMaterial(Items.AMETHYST_SHARD, "Amethyst: Resonance", Formatting.LIGHT_PURPLE, 25.0, "Regen Chance");
         addDynamicMaterial(Items.LAPIS_LAZULI, "Lapis: Wisdom", Formatting.BLUE, 5.0, "XP Gain Boost");
 
-        // --- NEW MOD MATERIALS ---
         tryAddModMaterial("simplebuilding", "astralit_dust", "Astralit", Formatting.YELLOW, 0.0, "Jump Boost (Height)");
         tryAddModMaterial("simplebuilding", "nihilith_shard", "Nihilith", Formatting.DARK_PURPLE, 0.0, "Gravity Pull (Sneak in Air)");
         tryAddModMaterial("simplebuilding", "enderite_ingot", "Enderite", Formatting.DARK_PURPLE, 10.0, "Void Shield (4x Pattern Boost!)");
 
-
         entries.add(new ReferenceEntry(ItemStack.EMPTY, Text.empty(), Text.empty(), false));
 
-        // --- PATTERNS ---
         addHeader("--- TRIM PATTERNS (Scalable Effects) ---");
         addDynamicTrim(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE, "Sentry", Formatting.GRAY, 5.0, "Projectile Dampening");
         addDynamicTrim(Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE, "Vex", Formatting.DARK_AQUA, 6.0, "Magic Dampening");
@@ -88,7 +84,6 @@ public class TrimReferenceScreen extends Screen {
         tryAddModTrim("enderscape", "stasis_armor_trim_smithing_template", "Stasis", Formatting.LIGHT_PURPLE, 5.0, "End Statis Effect");
     }
 
-    // Hilfsmethode für dynamische Anzeige
     private void addDynamicMaterial(Item item, String name, Formatting color, double baseValue, String statName) {
         double currentVal = baseValue * playerMultiplier;
 
@@ -96,14 +91,12 @@ public class TrimReferenceScreen extends Screen {
         Text info;
 
         if (baseValue > 0) {
-            // Zeigt: "Damage: 1.5% -> 2.1%"
             info = Text.literal(statName + ": ")
                     .formatted(Formatting.GRAY)
                     .append(Text.literal(String.format("%.1f%%", baseValue)).formatted(Formatting.YELLOW))
                     .append(Text.literal(" -> ").formatted(Formatting.DARK_GRAY))
                     .append(Text.literal(String.format("%.1f%%", currentVal)).formatted(Formatting.GREEN, Formatting.BOLD));
         } else {
-            // Für Special Effects ohne Zahlenwert
             info = Text.literal(statName).formatted(Formatting.GRAY);
         }
 
@@ -111,10 +104,7 @@ public class TrimReferenceScreen extends Screen {
     }
 
     private void tryAddModMaterial(String namespace, String path, String name, Formatting color, double baseValue, String statName) {
-        if (MinecraftClient.getInstance().world == null) return;
-        Optional<Item> item = MinecraftClient.getInstance().world.getRegistryManager()
-                .getOptional(RegistryKeys.ITEM)
-                .flatMap(reg -> reg.getOptionalValue(Identifier.of(namespace, path)));
+        Optional<Item> item = Registry.ITEM.getOrEmpty(new Identifier(namespace, path));
         item.ifPresent(value -> addDynamicMaterial(value, name, color, baseValue, statName));
     }
 
@@ -123,12 +113,7 @@ public class TrimReferenceScreen extends Screen {
     }
 
     private void tryAddModTrim(String namespace, String path, String name, Formatting color, double baseValue, String statName) {
-        if (MinecraftClient.getInstance().world == null) return;
-
-        Optional<Item> item = MinecraftClient.getInstance().world.getRegistryManager()
-                .getOptional(RegistryKeys.ITEM)
-                .flatMap(reg -> reg.getOptionalValue(Identifier.of(namespace, path)));
-
+        Optional<Item> item = Registry.ITEM.getOrEmpty(new Identifier(namespace, path));
         item.ifPresent(value -> addDynamicTrim(value, name, color, baseValue, statName));
     }
 
@@ -147,32 +132,27 @@ public class TrimReferenceScreen extends Screen {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        context.fillGradient(0, 0, this.width, this.height, 0xC0101010, 0xD0101010);
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        DrawableHelper.fillGradient(matrices, 0, 0, this.width, this.height, 0xC0101010, 0xD0101010);
 
         int startY = 15 - scrollOffset;
         int y = startY;
 
-        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 5, 0xFFFFFFFF);
+        DrawableHelper.drawCenteredText(matrices, this.textRenderer, this.title, this.width / 2, 5, 0xFFFFFFFF);
 
         for (ReferenceEntry entry : entries) {
-            // Nur sichtbare Elemente rendern
             if (y > -rowHeight && y < this.height - 30) {
                 if (entry.isHeader) {
-                    context.drawCenteredTextWithShadow(this.textRenderer, entry.text, this.width / 2, y + 10, 0xFFFFFFFF);
+                    DrawableHelper.drawCenteredText(matrices, this.textRenderer, entry.text, this.width / 2, y + 10, 0xFFFFFFFF);
                 } else if (!entry.icon.isEmpty()) {
                     int centerX = this.width / 2;
                     int iconX = centerX - 100;
 
-                    // Icon
-                    context.drawItem(entry.icon, iconX, y);
+                    this.itemRenderer.renderInGuiWithOverrides(entry.icon, iconX, y);
+                    this.textRenderer.drawWithShadow(matrices, entry.text, iconX + 22, y - 1, 0xFFFFFFFF);
 
-                    // Titel (z.B. "Diamond: Hard Shell")
-                    context.drawTextWithShadow(this.textRenderer, entry.text, iconX + 22, y - 1, 0xFFFFFFFF);
-
-                    // Stats Zeile (z.B. "Resist: 1.5% -> 2.1%")
                     if (entry.info != null) {
-                        context.drawText(this.textRenderer, entry.info, iconX + 22, y + 10, 0xFFDDDDDD, false);
+                        this.textRenderer.draw(matrices, entry.info, iconX + 22, y + 10, 0xFFDDDDDD);
                     }
                 }
             }
@@ -180,18 +160,18 @@ public class TrimReferenceScreen extends Screen {
         }
 
         if (maxScroll > 0) {
-            int scrollBarH = (int)((float)(this.height - 40) * ((float)(this.height - 40) / (entries.size() * rowHeight)));
-            int scrollBarY = 30 + (int)((float)scrollOffset / maxScroll * (this.height - 40 - scrollBarH));
-            context.fill(this.width - 6, 30, this.width - 2, this.height - 10, 0x40000000);
-            context.fill(this.width - 6, scrollBarY, this.width - 2, scrollBarY + scrollBarH, 0xFF808080);
+            int scrollBarH = (int) ((float) (this.height - 40) * ((float) (this.height - 40) / (entries.size() * rowHeight)));
+            int scrollBarY = 30 + (int) ((float) scrollOffset / maxScroll * (this.height - 40 - scrollBarH));
+            DrawableHelper.fill(matrices, this.width - 6, 30, this.width - 2, this.height - 10, 0x40000000);
+            DrawableHelper.fill(matrices, this.width - 6, scrollBarY, this.width - 2, scrollBarY + scrollBarH, 0xFF808080);
         }
 
-        super.render(context, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
-        this.scrollOffset = Math.max(0, Math.min(this.maxScroll, (int) (this.scrollOffset - verticalAmount * 20)));
+    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+        this.scrollOffset = Math.max(0, Math.min(this.maxScroll, (int) (this.scrollOffset - amount * 20)));
         return true;
     }
 

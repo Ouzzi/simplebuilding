@@ -27,9 +27,9 @@ public class SledgehammerEntityInteraction {
                 if (entity instanceof ItemFrameEntity itemFrame) {
                     ItemStack frameStack = itemFrame.getHeldItemStack();
 
-                    // Check: Ist im Frame ein Item mit Armor Trim? (Templates sind Items, wir prüfen hier Templates)
-                    // Da Armor Trims technisch Templates sind, prüfen wir auf das Item Tag oder Klasse.
-                    // Vereinfachung: Wir prüfen, ob es ein Smithing Template ist.
+                    // Check: Ist im Frame ein Item mit Armor Trim? (Templates sind Items, wir prÃ¼fen hier Templates)
+                    // Da Armor Trims technisch Templates sind, prÃ¼fen wir auf das Item Tag oder Klasse.
+                    // Vereinfachung: Wir prÃ¼fen, ob es ein Smithing Template ist.
                     if (isTrimTemplate(frameStack)) {
                         
                         // Transformation!
@@ -59,9 +59,9 @@ public class SledgehammerEntityInteraction {
                 if (entity instanceof ItemFrameEntity itemFrame) {
                     ItemStack frameStack = itemFrame.getHeldItemStack();
 
-                    // Check: Ist im Frame ein Item mit Armor Trim? (Templates sind Items, wir prüfen hier Templates)
-                    // Da Armor Trims technisch Templates sind, prüfen wir auf das Item Tag oder Klasse.
-                    // Vereinfachung: Wir prüfen, ob es ein Smithing Template ist.
+                    // Check: Ist im Frame ein Item mit Armor Trim? (Templates sind Items, wir prÃ¼fen hier Templates)
+                    // Da Armor Trims technisch Templates sind, prÃ¼fen wir auf das Item Tag oder Klasse.
+                    // Vereinfachung: Wir prÃ¼fen, ob es ein Smithing Template ist.
                     if (isTrimTemplate(frameStack)) {
 
                         // Transformation!
@@ -90,7 +90,7 @@ public class SledgehammerEntityInteraction {
     }
 
     private static boolean isTrimTemplate(ItemStack stack) {
-        // Prüft auf Vanilla Trim Templates oder deine Mod Templates
+        // PrÃ¼ft auf Vanilla Trim Templates oder deine Mod Templates
         String path = stack.getItem().toString();
         return path.contains("trim_smithing_template");
     }

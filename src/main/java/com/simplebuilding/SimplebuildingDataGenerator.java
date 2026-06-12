@@ -6,8 +6,8 @@ import com.simplebuilding.trim.ModTrimMaterials;
 import com.simplebuilding.util.ModWorldGen;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryBuilder;
+import net.minecraft.util.registry.RegistryKeys;
 
 public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
 	@Override
@@ -35,3 +35,4 @@ public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, ModTrimMaterials::bootstrap);
     }
 }
+

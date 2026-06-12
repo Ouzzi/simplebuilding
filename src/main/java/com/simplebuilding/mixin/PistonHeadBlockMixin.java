@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PistonHeadBlock.class)
 public class PistonHeadBlockMixin {
 
-    // Diese Methode prüft, ob der Piston Head überleben darf.
+    // Diese Methode prÃ¼ft, ob der Piston Head Ã¼berleben darf.
     // Wir haken uns ein und sagen "JA", wenn es unser Piston ist.
     @Inject(method = "canPlaceAt", at = @At("HEAD"), cancellable = true)
     private void allowCustomPistons(BlockState state, net.minecraft.world.WorldView world, net.minecraft.util.math.BlockPos pos, CallbackInfoReturnable<Boolean> cir) {

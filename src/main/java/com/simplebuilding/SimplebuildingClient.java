@@ -1,10 +1,7 @@
 package com.simplebuilding;
 
-import com.mojang.serialization.Codec;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.client.gui.*;
-import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltipSubmenuHandler;
-import com.simplebuilding.client.property.EnchantmentModelProperty;
 import com.simplebuilding.client.render.BlockHighlightRenderer;
 import com.simplebuilding.client.render.BuildingWandOutlineRenderer;
 import com.simplebuilding.client.render.SledgehammerOutlineRenderer;
@@ -30,11 +27,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.gui.tooltip.BundleTooltipComponent;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.render.item.property.select.SelectProperties;
-import net.minecraft.client.render.item.property.select.SelectProperty;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
@@ -51,21 +45,16 @@ public class SimplebuildingClient implements ClientModInitializer {
     private boolean wasOnGround = true;
 
     // Tasten
-    public static final KeyBinding.Category KEY_CATEGORY_SIMPLEMODS = KeyBinding.Category.create(Identifier.of(Simplebuilding.MOD_ID, "simplemods"));
+    public static final KeyBinding.Category KEY_CATEGORY_SIMPLEMODS = KeyBinding.Category.create(new Identifier(Simplebuilding.MOD_ID, "simplemods"));
     public static KeyBinding highlightToggleKey;
     public static KeyBinding octantFigureToggleKey;
     public static boolean showHighlights = true;
     public static KeyBinding settingsKey;
-    public static ReinforcedBundleTooltipSubmenuHandler BUNDLE_HANDLER;
-
-    public static SelectProperty.Type<EnchantmentModelProperty, String> ENCHANTMENT_PROPERTY_TYPE;
     private boolean wasJumpPressed = false;
 
     @Override
     @SuppressWarnings("deprecation")
     public void onInitializeClient() {
-        BUNDLE_HANDLER = new ReinforcedBundleTooltipSubmenuHandler(MinecraftClient.getInstance());
-
         // --- HUD & Renderer ---
         HudRenderCallback.EVENT.register(new RangefinderHudOverlay());
         HudRenderCallback.EVENT.register(new SpeedometerHudOverlay());
@@ -87,7 +76,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Ich lasse ihn hier stehen, falls du eine Fallback-Logik hattest, aber eigentlich reicht einer.
         /* TooltipComponentCallback.EVENT.register(data -> {
             if (data instanceof ReinforcedBundleTooltipData bundleData) {
-                // Nutze die Vanilla Bundle Komponente für die Anzeige
+                // Nutze die Vanilla Bundle Komponente fÃ¼r die Anzeige
                 return new BundleTooltipComponent(bundleData.contents());
             }
             return null;
@@ -166,20 +155,11 @@ public class SimplebuildingClient implements ClientModInitializer {
         // --- NETZWERK REGISTRIERUNG CLIENT-SEITE ---
         registerClientReceivers();
 
-        ENCHANTMENT_PROPERTY_TYPE = SelectProperty.Type.create(
-                EnchantmentModelProperty.CODEC, // Dein MapCodec
-                Codec.STRING                    // Der Wert-Codec (String für "vein_miner" etc.)
-        );
-        SelectProperties.ID_MAPPER.put(
-                Identifier.of(Simplebuilding.MOD_ID, "enchant_type"),
-                ENCHANTMENT_PROPERTY_TYPE
-        );
-
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
                 boolean isJumpPressed = client.options.jumpKey.isPressed();
 
-                // Nur senden, wenn sich der Status ändert (Bandbreite sparen)
+                // Nur senden, wenn sich der Status Ã¤ndert (Bandbreite sparen)
                 if (isJumpPressed != wasJumpPressed) {
                     ClientPlayNetworking.send(new SpaceKeyPayload(isJumpPressed));
                     wasJumpPressed = isJumpPressed;

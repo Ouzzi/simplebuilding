@@ -30,7 +30,7 @@ def neoforgeVersionLegacy = resolveSetting('neoforge_version', '0.0.0')
 
 def neoforgeVersion = neoforgeVersionChannel == 'latest' ? (neoforgeVersionLatest ?: neoforgeVersionLegacy) : (neoforgeVersionFixed ?: neoforgeVersionLegacy)
 def neoforgeLoaderVersionRange = resolveSetting('neoforge_loader_version_range', '[0,)')
-def minecraftVersionRange = resolveSetting('minecraft_version_range', '[1.21.11,1.22)')
+def minecraftVersionRange = resolveSetting('minecraft_version_range', '[1.19.2,1.20)')
 
 def neoforgeCoordinate = "net.neoforged:neoforge:${neoforgeVersion}"
 def neoforgeDependencyEnabled = neoforgeVersion != '0.0.0'
@@ -48,7 +48,7 @@ version = rootProject.version
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)
     }
     withSourcesJar()
 }

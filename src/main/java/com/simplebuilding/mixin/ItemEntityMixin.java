@@ -42,14 +42,14 @@ public abstract class ItemEntityMixin extends Entity {
     private void onPlayerCollision(PlayerEntity player, CallbackInfo ci) {
         if (this.getEntityWorld().isClient()) return;
 
-        // Wenn du möchtest, dass es auch beim Fliegen funktioniert (ohne Sneaken),
-        // müsstest du diese Zeile entfernen oder anpassen:
+        // Wenn du mÃ¶chtest, dass es auch beim Fliegen funktioniert (ohne Sneaken),
+        // mÃ¼sstest du diese Zeile entfernen oder anpassen:
         if (player.isSneaking()) return;
 
         ItemStack itemOnGround = this.getStack();
         if (itemOnGround.isEmpty()) return;
 
-        // 1. Suche in den HÄNDEN (höchste Priorität)
+        // 1. Suche in den HÃ„NDEN (hÃ¶chste PrioritÃ¤t)
         for (Hand hand : Hand.values()) {
             ItemStack heldItem = player.getStackInHand(hand);
             if (tryPickupWithBundle(heldItem, itemOnGround, player)) {
@@ -72,14 +72,14 @@ public abstract class ItemEntityMixin extends Entity {
 
     @Unique
     private boolean tryPickupWithBundle(ItemStack bundleStack, ItemStack itemToPickup, PlayerEntity player) {
-        // Prüfen, ob es ein ReinforcedBundle ist
+        // PrÃ¼fen, ob es ein ReinforcedBundle ist
         if (bundleStack.getItem() instanceof ReinforcedBundleItem bundleItem) {
 
             // --- NEUE LOGIK ---
             // Wir nutzen die Methode aus dem Item, die Level 1 (Filter) und Level 2 (Alles) unterscheidet.
             if (bundleItem.canAutoPickup(bundleStack, itemToPickup, player.getEntityWorld())) {
 
-                // Wenn erlaubt, versuchen wir das Item einzufügen (Drawer-Logik passiert hier drin)
+                // Wenn erlaubt, versuchen wir das Item einzufÃ¼gen (Drawer-Logik passiert hier drin)
                 return bundleItem.tryInsertStackFromWorld(bundleStack, itemToPickup, player);
             }
         }
@@ -102,7 +102,7 @@ public abstract class ItemEntityMixin extends Entity {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void floatInVoid(CallbackInfo ci) {
-        // Prüfe ob es ein Enderite Item ist
+        // PrÃ¼fe ob es ein Enderite Item ist
         if (isEnderiteItem(this.getStack().getItem())) {
             // Wenn wir im Void sind (z.B. unter Y = -64 oder World Bottom)
             if (this.getY() < this.getEntityWorld().getBottomY()) {

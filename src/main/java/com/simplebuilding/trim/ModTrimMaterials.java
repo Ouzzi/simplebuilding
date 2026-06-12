@@ -2,9 +2,9 @@ package com.simplebuilding.trim;
 
 import net.minecraft.item.equipment.trim.ArmorTrimAssets;
 import net.minecraft.item.equipment.trim.ArmorTrimMaterial;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.registry.Registerable;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.registry.RegistryKeys;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -18,7 +18,7 @@ public class ModTrimMaterials {
     public static final RegistryKey<ArmorTrimMaterial> ENDERITE = of("enderite");
 
     public static void bootstrap(Registerable<ArmorTrimMaterial> context) {
-        // itemModelIndex (der float Wert) wurde entfernt, wir übergeben nur noch Style/Farbe
+        // itemModelIndex (der float Wert) wurde entfernt, wir Ã¼bergeben nur noch Style/Farbe
         register(context, ASTRALIT, Style.EMPTY.withColor(TextColor.fromRgb(0xFFFF55)));
         register(context, NIHILITH, Style.EMPTY.withColor(TextColor.fromRgb(0xAA00AA)));
         register(context, ENDERITE, Style.EMPTY.withColor(TextColor.fromRgb(0x111111)));
@@ -38,6 +38,6 @@ public class ModTrimMaterials {
     }
 
     private static RegistryKey<ArmorTrimMaterial> of(String name) {
-        return RegistryKey.of(RegistryKeys.TRIM_MATERIAL, Identifier.of("simplebuilding", name));
+        return RegistryKey.of(RegistryKeys.TRIM_MATERIAL, new Identifier("simplebuilding", name));
     }
 }

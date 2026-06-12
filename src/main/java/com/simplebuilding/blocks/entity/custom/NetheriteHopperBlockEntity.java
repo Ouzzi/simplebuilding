@@ -1,6 +1,6 @@
 package com.simplebuilding.blocks.entity.custom;
 
-import com.simplebuilding.Simplebuilding; // Sicherstellen, dass deine Main-Klasse importiert ist für Logger
+import com.simplebuilding.Simplebuilding; // Sicherstellen, dass deine Main-Klasse importiert ist fÃ¼r Logger
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.util.HopperFilterMode;
 import net.minecraft.block.BlockState;
@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
 
     private final DefaultedList<ItemStack> ghostItems = DefaultedList.ofSize(5, ItemStack.EMPTY);
-    // ÄNDERUNG: Nur noch ein globaler Filter-Modus statt Array
+    // Ã„NDERUNG: Nur noch ein globaler Filter-Modus statt Array
     private HopperFilterMode currentFilterMode = HopperFilterMode.NONE;
 
     // Der PropertyDelegate synchronisiert Integers automatisch zwischen Server und Client ScreenHandler
@@ -57,7 +57,7 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
 
     @Override
     public boolean isValid(int slot, ItemStack stack) {
-        // Wenn Filter deaktiviert ist (NONE), verhält er sich wie ein normaler Hopper
+        // Wenn Filter deaktiviert ist (NONE), verhÃ¤lt er sich wie ein normaler Hopper
         if (currentFilterMode == HopperFilterMode.NONE) {
             return true;
         }
@@ -95,7 +95,7 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
         if (slot >= 0 && slot < 5) {
             if (stack.isEmpty()) {
                 ghostItems.set(slot, ItemStack.EMPTY);
-                Simplebuilding.LOGGER.info("Ghost Item Slot " + slot + " gelöscht");
+                Simplebuilding.LOGGER.info("Ghost Item Slot " + slot + " gelÃ¶scht");
             } else {
                 ItemStack copy = stack.copy();
                 copy.setCount(1);
@@ -113,7 +113,7 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
         return ItemStack.EMPTY;
     }
 
-    // Helper für GUI und Logik (Global)
+    // Helper fÃ¼r GUI und Logik (Global)
     public HopperFilterMode getFilterMode() {
         return this.currentFilterMode;
     }
@@ -132,11 +132,11 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
         view.putInt("FilterMode", currentFilterMode.ordinal());
 
         // Inventories.writeNbt ist der Standard, ich passe es an deine Struktur an,
-        // falls writeData eine eigene Implementation von dir ist, nutze Inventories Helper falls möglich.
-        // Hier nutzen wir deine Logik, fügen aber Logs hinzu.
+        // falls writeData eine eigene Implementation von dir ist, nutze Inventories Helper falls mÃ¶glich.
+        // Hier nutzen wir deine Logik, fÃ¼gen aber Logs hinzu.
         WriteView ghostView = view.get("GhostItems");
         if (ghostView == null) {
-            // Dies ist abhängig von deiner API, normalerweise erstellt man einen neuen Compound
+            // Dies ist abhÃ¤ngig von deiner API, normalerweise erstellt man einen neuen Compound
             // Ich lasse deine Implementation, da ich die API "WriteView" nicht im Detail kenne (vermutlich Custom oder Snapshot)
             view.put("GhostItems", ItemStack.CODEC.listOf(), ghostItems);
         }

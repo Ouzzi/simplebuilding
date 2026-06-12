@@ -8,9 +8,9 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 
 public record SetHopperGhostItemPayload(int slotIndex, ItemStack stack) implements CustomPayload {
-    public static final CustomPayload.Id<SetHopperGhostItemPayload> ID = new CustomPayload.Id<>(Identifier.of("simplebuilding", "set_hopper_ghost_item"));
+    public static final CustomPayload.Id<SetHopperGhostItemPayload> ID = new CustomPayload.Id<>(new Identifier("simplebuilding", "set_hopper_ghost_item"));
 
-    // FIX: ItemStack.OPTIONAL_PACKET_CODEC verwenden, damit auch leere Stacks (Löschen) erlaubt sind!
+    // FIX: ItemStack.OPTIONAL_PACKET_CODEC verwenden, damit auch leere Stacks (LÃ¶schen) erlaubt sind!
     public static final PacketCodec<RegistryByteBuf, SetHopperGhostItemPayload> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, SetHopperGhostItemPayload::slotIndex,
             ItemStack.OPTIONAL_PACKET_CODEC, SetHopperGhostItemPayload::stack,

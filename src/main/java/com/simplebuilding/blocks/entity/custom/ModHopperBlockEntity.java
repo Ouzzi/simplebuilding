@@ -23,7 +23,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -38,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BooleanSupplier;
 
-// WICHTIG: "implements ExtendedScreenHandlerFactory" hinzufügen!
+// WICHTIG: "implements ExtendedScreenHandlerFactory" hinzufÃ¼gen!
 public class ModHopperBlockEntity extends LootableContainerBlockEntity implements Hopper, ExtendedScreenHandlerFactory<BlockPos> {
 
     private DefaultedList<ItemStack> inventory;
@@ -52,7 +52,7 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
     @SuppressWarnings("unused")
     private long lastTickTime;
 
-    // Für Synchronisation mit ScreenHandler
+    // FÃ¼r Synchronisation mit ScreenHandler
     protected final PropertyDelegate propertyDelegate;
 
     private static final int[][] AVAILABLE_SLOTS_CACHE = new int[54][];
@@ -92,7 +92,7 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
             return true;
         }
 
-        // Slot-spezifische Prüfung
+        // Slot-spezifische PrÃ¼fung
         if (slot >= 0 && slot < 5) {
             ItemStack ghost = ghostItems.get(slot);
 
@@ -132,7 +132,7 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
         }
     }
 
-    // Diese Methode sorgt dafür, dass das GUI sofort aktualisiert wird
+    // Diese Methode sorgt dafÃ¼r, dass das GUI sofort aktualisiert wird
     private void updateListeners() {
         markDirty();
         if (world != null && !world.isClient()) {
@@ -185,11 +185,11 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
             Inventories.writeData(view, this.inventory);
         }
 
-        WriteView ghostView = view.get("GhostItems"); // Achtung: Hängt von deiner Implementation von WriteView ab
-        // Falls .get() null liefert, müsste man ggf. view.put(...) nutzen.
-        // Ich übernehme hier deine Logik, aber idealerweise nutzt man NBT für komplexe Strukturen.
+        WriteView ghostView = view.get("GhostItems"); // Achtung: HÃ¤ngt von deiner Implementation von WriteView ab
+        // Falls .get() null liefert, mÃ¼sste man ggf. view.put(...) nutzen.
+        // Ich Ã¼bernehme hier deine Logik, aber idealerweise nutzt man NBT fÃ¼r komplexe Strukturen.
         // Da du unten toInitialChunkDataNbt hast, scheint das Speichern hier evtl. custom zu sein?
-        // Standard Vanilla wäre Inventories.writeNbt(nbt, items).
+        // Standard Vanilla wÃ¤re Inventories.writeNbt(nbt, items).
         if(ghostView != null) {
              Inventories.writeData(ghostView, this.ghostItems);
         }
@@ -213,7 +213,7 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
 
         nbt.putInt("FilterMode", currentFilterMode.ordinal());
 
-        // Ghost Items serialisieren für Client
+        // Ghost Items serialisieren fÃ¼r Client
         NbtCompound ghostRoot = new NbtCompound();
         NbtList ghostList = new NbtList();
         for (int i = 0; i < ghostItems.size(); i++) {
@@ -222,7 +222,7 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
                 NbtCompound itemTag = new NbtCompound();
                 itemTag.putByte("Slot", (byte)i);
                 try {
-                    // Item encode via Codec für Client
+                    // Item encode via Codec fÃ¼r Client
                     NbtElement stackTag = ItemStack.CODEC.encodeStart(NbtOps.INSTANCE, stack).getOrThrow();
                     if (stackTag instanceof NbtCompound stackCompound) {
                         itemTag.copyFrom(stackCompound);
@@ -279,13 +279,13 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
         super.setStack(slot, stack);
         // Automatisches Setzen des Ghost Items beim Einlegen (Optional, wie du es wolltest)
         if (!stack.isEmpty() && currentFilterMode != HopperFilterMode.NONE) {
-             // Nur setzen wenn leer? Oder immer überschreiben?
+             // Nur setzen wenn leer? Oder immer Ã¼berschreiben?
              // Hier einfach mal checken ob slot leer ist:
              if(ghostItems.get(slot).isEmpty()) {
                 ItemStack ghost = stack.copy();
                 ghost.setCount(1);
                 ghostItems.set(slot, ghost);
-                markDirty(); // Sync Nötig? Eigentlich nur Server-Side Logic
+                markDirty(); // Sync NÃ¶tig? Eigentlich nur Server-Side Logic
              }
         }
     }
@@ -409,7 +409,7 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
         markDirty();
     }
 
-    // Neue Methode nur für den Client (um Endlosschleifen zu vermeiden)
+    // Neue Methode nur fÃ¼r den Client (um Endlosschleifen zu vermeiden)
     public void setGhostItemClient(int slot, ItemStack stack) {
         if (slot >= 0 && slot < 5) {
             if (stack.isEmpty()) {

@@ -20,7 +20,7 @@ public class BowItemMixin {
     @Unique
     private final ThreadLocal<Boolean> usedQuiver = ThreadLocal.withInitial(() -> false);
 
-    // 1. "use": Prüft zuerst den Köcher (Priorität!)
+    // 1. "use": PrÃ¼ft zuerst den KÃ¶cher (PrioritÃ¤t!)
     @Redirect(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getProjectileType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack checkQuiverOnUse(PlayerEntity player, ItemStack stack) {
         ItemStack quiverArrow = QuiverItem.findProjectileForBow(player);
@@ -30,14 +30,14 @@ public class BowItemMixin {
         return player.getProjectileType(stack);
     }
 
-    // 2. "onStoppedUsing": Prüft zuerst den Köcher und setzt das Flag
+    // 2. "onStoppedUsing": PrÃ¼ft zuerst den KÃ¶cher und setzt das Flag
     @Redirect(method = "onStoppedUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getProjectileType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack checkQuiverOnStop(PlayerEntity player, ItemStack stack) {
         usedQuiver.set(false); // Reset
 
         ItemStack quiverArrow = QuiverItem.findProjectileForBow(player);
         if (!quiverArrow.isEmpty()) {
-            usedQuiver.set(true); // Wir benutzen den Köcher!
+            usedQuiver.set(true); // Wir benutzen den KÃ¶cher!
             return quiverArrow;
         }
 
@@ -53,7 +53,7 @@ public class BowItemMixin {
             return;
         }
 
-        // Nur entfernen, wenn wir vorher entschieden haben, den Köcher zu nutzen
+        // Nur entfernen, wenn wir vorher entschieden haben, den KÃ¶cher zu nutzen
         if (usedQuiver.get()) {
             QuiverItem.consumeProjectileForBow(player);
         }

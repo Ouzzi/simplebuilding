@@ -20,7 +20,7 @@ public record OctantConfigurePayload(
         boolean layerMode,
         String fillOrder
 ) implements CustomPayload {
-    public static final CustomPayload.Id<OctantConfigurePayload> ID = new CustomPayload.Id<>(Identifier.of(Simplebuilding.MOD_ID, "octant_configure"));
+    public static final CustomPayload.Id<OctantConfigurePayload> ID = new CustomPayload.Id<>(new Identifier(Simplebuilding.MOD_ID, "octant_configure"));
 
     public static final PacketCodec<RegistryByteBuf, OctantConfigurePayload> CODEC = PacketCodec.tuple(
             PacketCodecs.optional(BlockPos.PACKET_CODEC), OctantConfigurePayload::pos1,

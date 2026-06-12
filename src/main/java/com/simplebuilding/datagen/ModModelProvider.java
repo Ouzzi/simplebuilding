@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
 import net.minecraft.client.data.*;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
+import net.minecraft.util.registry.Registries;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
@@ -20,7 +20,7 @@ import java.util.Optional;
 
 public class ModModelProvider extends FabricModelProvider {
 
-    // --- Custom Model Definitions (da Vanilla Fields fehlen könnten) ---
+    // --- Custom Model Definitions (da Vanilla Fields fehlen kÃ¶nnten) ---
     // Wir verweisen auf die Vanilla JSON Dateien
     private static final Model HOPPER_MODEL = new Model(Optional.of(Identifier.ofVanilla("block/hopper")), Optional.empty(), TextureKey.BOTTOM, TextureKey.TOP, TextureKey.SIDE, TextureKey.INSIDE);
     private static final Model HOPPER_SIDE_MODEL = new Model(Optional.of(Identifier.ofVanilla("block/hopper_side")), Optional.empty(), TextureKey.BOTTOM, TextureKey.TOP, TextureKey.SIDE, TextureKey.INSIDE);
@@ -92,8 +92,8 @@ public class ModModelProvider extends FabricModelProvider {
         // --- 3. Chests ---
         // todo chest:
 
-        // blockStateModelGenerator.registerChest(ModBlocks.REINFORCED_CHEST, ModBlocks.REINFORCED_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/reinforced_chest"), false);
-        // blockStateModelGenerator.registerChest(ModBlocks.NETHERITE_CHEST, ModBlocks.NETHERITE_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/netherite_chest"), false);
+        // blockStateModelGenerator.registerChest(ModBlocks.REINFORCED_CHEST, ModBlocks.REINFORCED_CHEST, new Identifier(Simplebuilding.MOD_ID, "entity/chest/reinforced_chest"), false);
+        // blockStateModelGenerator.registerChest(ModBlocks.NETHERITE_CHEST, ModBlocks.NETHERITE_CHEST, new Identifier(Simplebuilding.MOD_ID, "entity/chest/netherite_chest"), false);
 
         //blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_CHEST, ModelIds.getBlockModelId(ModBlocks.REINFORCED_CHEST));
         //blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_CHEST, ModelIds.getBlockModelId(ModBlocks.NETHERITE_CHEST));
@@ -228,7 +228,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DIAMOND_PEBBLE, Models.GENERATED);
         itemModelGenerator.register(ModItems.CRACKED_DIAMOND, Models.GENERATED);
 
-        // Hoppers hier auch, da Generated Item Model für Inventory
+        // Hoppers hier auch, da Generated Item Model fÃ¼r Inventory
         itemModelGenerator.register(ModItems.REINFORCED_HOPPER, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_HOPPER, Models.GENERATED);
 
@@ -252,9 +252,9 @@ public class ModModelProvider extends FabricModelProvider {
         };
 
         for (String suffix : enchants) {
-            Identifier textureId = Identifier.of(Simplebuilding.MOD_ID, "item/enchanted_book_" + suffix);
+            Identifier textureId = new Identifier(Simplebuilding.MOD_ID, "item/enchanted_book_" + suffix);
             Models.GENERATED.upload(
-                    Identifier.of(Simplebuilding.MOD_ID, "item/enchanted_book_" + suffix),
+                    new Identifier(Simplebuilding.MOD_ID, "item/enchanted_book_" + suffix),
                     TextureMap.layer0(textureId),
                     itemModelGenerator.modelCollector
             );
@@ -266,15 +266,15 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.ENDERITE_CARROT, Models.GENERATED);
 
         // --- NEW: Enchanted Food Models (Reuse existing textures) ---
-        // Dies sorgt dafür, dass enchanted_netherite_apple die Textur von netherite_apple nutzt, etc.
+        // Dies sorgt dafÃ¼r, dass enchanted_netherite_apple die Textur von netherite_apple nutzt, etc.
         Models.GENERATED.upload(
                 ModelIds.getItemModelId(ModItems.ENCHANTED_NETHERITE_APPLE),
-                TextureMap.layer0(Identifier.of(Simplebuilding.MOD_ID, "item/netherite_apple")),
+                TextureMap.layer0(new Identifier(Simplebuilding.MOD_ID, "item/netherite_apple")),
                 itemModelGenerator.modelCollector
         );
         Models.GENERATED.upload(
                 ModelIds.getItemModelId(ModItems.ENCHANTED_ENDERITE_APPLE),
-                TextureMap.layer0(Identifier.of(Simplebuilding.MOD_ID, "item/enderite_apple")),
+                TextureMap.layer0(new Identifier(Simplebuilding.MOD_ID, "item/enderite_apple")),
                 itemModelGenerator.modelCollector
         );
     }
@@ -284,9 +284,9 @@ public class ModModelProvider extends FabricModelProvider {
         String name = blockId.getPath();
 
         // Pfad zur normalen Textur: block/blockname
-        Identifier normalTexture = Identifier.of(Simplebuilding.MOD_ID, "block/" + name);
+        Identifier normalTexture = new Identifier(Simplebuilding.MOD_ID, "block/" + name);
         // Pfad zur gespiegelten Textur: block/blockname_mirror
-        Identifier mirrorTexture = Identifier.of(Simplebuilding.MOD_ID, "block/" + name + "_mirror");
+        Identifier mirrorTexture = new Identifier(Simplebuilding.MOD_ID, "block/" + name + "_mirror");
 
         // Wir definieren manuell, welche Seite welche Textur bekommt
         TextureMap textureMap = new TextureMap()
@@ -298,7 +298,7 @@ public class ModModelProvider extends FabricModelProvider {
                 .put(TextureKey.NORTH, mirrorTexture) // Vorne: Gespiegelt
                 .put(TextureKey.SOUTH, mirrorTexture);// Hinten: Gespiegelt
 
-        // Modell erstellen (CUBE = voller Würfel mit 6 Seiten-Definitionen)
+        // Modell erstellen (CUBE = voller WÃ¼rfel mit 6 Seiten-Definitionen)
         Identifier modelId = Models.CUBE.upload(block, textureMap, generator.modelCollector);
 
         // WICHTIG: Die ID muss in einen WeightedVariant umgewandelt werden!

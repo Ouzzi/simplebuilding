@@ -3,8 +3,8 @@ package com.simplebuilding.datagen;
 import com.simplebuilding.blocks.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.util.registry.RegistryWrapper;
+import net.minecraft.util.registry.tag.BlockTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -32,7 +32,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.NETHERITE_SMOKER);
 
 
-        // 2. Er benötigt mindestens ein Eisenwerkzeug (wie Diamantblock)
+        // 2. Er benÃ¶tigt mindestens ein Eisenwerkzeug (wie Diamantblock)
         valueLookupBuilder(BlockTags.NEEDS_IRON_TOOL)
                 .add(ModBlocks.CRACKED_DIAMOND_BLOCK);
 
@@ -49,7 +49,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.ASTRALIT_ORE)
                 .add(ModBlocks.ENDERITE_BLOCK);
 
-        // BEACON BASE (Wichtig für dein Feature)
+        // BEACON BASE (Wichtig fÃ¼r dein Feature)
         valueLookupBuilder(BlockTags.BEACON_BASE_BLOCKS)
                 .add(ModBlocks.ENDERITE_BLOCK);
     }

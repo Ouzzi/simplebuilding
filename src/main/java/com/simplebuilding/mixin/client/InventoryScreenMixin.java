@@ -28,7 +28,7 @@ public abstract class InventoryScreenMixin extends HandledScreen<PlayerScreenHan
     @Unique
     private ButtonWidget trimInfoButton;
     @Unique
-    private boolean isStatsVisible = false; // Standardmäßig ausgeblendet
+    private boolean isStatsVisible = false; // StandardmÃ¤ÃŸig ausgeblendet
 
     public InventoryScreenMixin(PlayerScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
         super(screenHandler, playerInventory, text);
@@ -88,7 +88,7 @@ public abstract class InventoryScreenMixin extends HandledScreen<PlayerScreenHan
         int lineHeight = 13;
         int colorText = 0xFF404040;
 
-        // --- L (Grün) ---
+        // --- L (GrÃ¼n) ---
         context.drawText(this.textRenderer, Text.literal("L").formatted(Formatting.DARK_GREEN, Formatting.BOLD), colLabelX, currentY, 0xFFFFFFFF, false);
         context.drawText(this.textRenderer, String.format("%.2f", xpMult), colValX, currentY, colorText, false);
         currentY += lineHeight;

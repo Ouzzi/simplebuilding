@@ -15,12 +15,12 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.registry.Registries;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryWrapper;
+import net.minecraft.util.registry.tag.ItemTags;
+import net.minecraft.util.registry.tag.TagKey;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
@@ -43,33 +43,33 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             public void generate() {
 
                 // ---------------------------------------------------------
-                // WICHTIG: Registry Zugriff für Tags vorbereiten (für 1.21.2+)
+                // WICHTIG: Registry Zugriff fÃ¼r Tags vorbereiten (fÃ¼r 1.21.2+)
                 // ---------------------------------------------------------
                 RegistryWrapper.Impl<Item> itemRegistry = registries.getOrThrow(RegistryKeys.ITEM);
 
                 // =================================================================
-                // FIX: DUMMY REZEPT FÜR SCHMIEDETISCH (Glowing Ink)
+                // FIX: DUMMY REZEPT FÃœR SCHMIEDETISCH (Glowing Ink)
                 // =================================================================
-                // Wir erstellen Ingredients über die Registry (ofTag statt fromTag)
+                // Wir erstellen Ingredients Ã¼ber die Registry (ofTag statt fromTag)
                 Ingredient templateIngredient = Ingredient.ofTag(itemRegistry.getOrThrow(TRIM_TEMPLATES));
                 Ingredient armorIngredient = Ingredient.ofTag(itemRegistry.getOrThrow(ItemTags.TRIMMABLE_ARMOR));
 
                 SmithingTransformRecipeJsonBuilder.create(
                         templateIngredient,                     // Slot 1: Jedes Template (damit auch deins geht)
-                        armorIngredient,                        // Slot 2: Rüstung
+                        armorIngredient,                        // Slot 2: RÃ¼stung
                         Ingredient.ofItems(Items.GLOW_INK_SAC), // Slot 3: Leuchttinte
                         RecipeCategory.MISC,
-                        ModItems.GLOWING_TRIM_TEMPLATE          // Dummy Output (wird vom Mixin überschrieben)
+                        ModItems.GLOWING_TRIM_TEMPLATE          // Dummy Output (wird vom Mixin Ã¼berschrieben)
                 )
                 .criterion("has_glowing_template", conditionsFromItem(ModItems.GLOWING_TRIM_TEMPLATE))
                 .offerTo(exporter, "glowing_armor_upgrade_dummy");
 
                 SmithingTransformRecipeJsonBuilder.create(
                         templateIngredient,                     // Slot 1: Jedes Template (damit auch deins geht)
-                        armorIngredient,                        // Slot 2: Rüstung
+                        armorIngredient,                        // Slot 2: RÃ¼stung
                         Ingredient.ofItems(Items.GLOWSTONE_DUST), // Slot 3: Leuchttinte
                         RecipeCategory.MISC,
-                        ModItems.EMITTING_TRIM_TEMPLATE          // Dummy Output (wird vom Mixin überschrieben)
+                        ModItems.EMITTING_TRIM_TEMPLATE          // Dummy Output (wird vom Mixin Ã¼berschrieben)
                 )
                 .criterion("has_emitting_template", conditionsFromItem(ModItems.EMITTING_TRIM_TEMPLATE))
                 .offerTo(exporter, "emitting_armor_upgrade_dummy");
@@ -432,7 +432,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
 
                 // =================================================================
-                // UPGRADE RECIPES FÜR WERKZEUGE
+                // UPGRADE RECIPES FÃœR WERKZEUGE
                 // =================================================================
 
                 // Spitzhacken (Crafting: 3 -> Upgrade: 4)
@@ -442,7 +442,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createUpgradeRecipe(exporter, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.DIAMOND, 4);
                 createUpgradeRecipe(exporter, Items.COPPER_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 4);
 
-                // Äxte (Crafting: 3 -> Upgrade: 4)
+                // Ã„xte (Crafting: 3 -> Upgrade: 4)
                 createUpgradeRecipe(exporter, Items.WOODEN_AXE, Items.STONE_AXE, Items.COBBLESTONE, 4);
                 createUpgradeRecipe(exporter, Items.STONE_AXE, Items.IRON_AXE, Items.IRON_INGOT, 4);
                 createUpgradeRecipe(exporter, Items.IRON_AXE, Items.GOLDEN_AXE, Items.GOLD_INGOT, 4);
@@ -570,7 +570,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createSmithingTransform(exporter, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_QUIVER);
             }
 
-            // Helper für Checker (4 Base + 4 Quartz)
+            // Helper fÃ¼r Checker (4 Base + 4 Quartz)
             private void createCheckerRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible base) {
                 createShaped(RecipeCategory.BUILDING_BLOCKS, output, 4)
                         .pattern("BQ")
@@ -581,7 +581,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .offerTo(exporter);
             }
 
-            // Helper für Coating (8 Base + 1 Material)
+            // Helper fÃ¼r Coating (8 Base + 1 Material)
             private void createCoatingRecipe(RecipeExporter exporter, ItemConvertible output, ItemConvertible base, ItemConvertible material) {
                 createShaped(RecipeCategory.BUILDING_BLOCKS, output, 8)
                         .pattern("BBB")
@@ -663,7 +663,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .offerTo(exporter, getItemPath(result) + "_smithing");
             }
 
-            // NEU: Helper für Massen-Upgrade (8 Items + 1 Ingot -> 8 Items)
+            // NEU: Helper fÃ¼r Massen-Upgrade (8 Items + 1 Ingot -> 8 Items)
             private void createBulkUpgrade(Item input, Item result, RecipeCategory category) {
                 ShapedRecipeJsonBuilder.create(registries.getOrThrow(RegistryKeys.ITEM), category, result, 3)
                         .pattern("NR")
@@ -677,7 +677,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private void createUpgradeRecipe(RecipeExporter exporter, Item base, Item result, Item material, int count) {
-        Identifier recipeId = Identifier.of(Simplebuilding.MOD_ID, "upgrade_" + getItemName(base) + "_to_" + getItemName(result));
+        Identifier recipeId = new Identifier(Simplebuilding.MOD_ID, "upgrade_" + getItemName(base) + "_to_" + getItemName(result));
 
         // In 1.21.2+ braucht 'accept' einen RegistryKey
         RegistryKey<Recipe<?>> recipeKey = RegistryKey.of(RegistryKeys.RECIPE, recipeId);
@@ -692,7 +692,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         exporter.accept(recipeKey, recipe, exporter.getAdvancementBuilder()
                 .criterion("has_template", InventoryChangedCriterion.Conditions.items(ModItems.BASIC_UPGRADE_TEMPLATE))
-                .build(Identifier.of(Simplebuilding.MOD_ID, "recipes/misc/" + recipeId.getPath())));
+                .build(new Identifier(Simplebuilding.MOD_ID, "recipes/misc/" + recipeId.getPath())));
     }
 
     private String getItemName(Item item) {
@@ -725,3 +725,4 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         };
     }
 }
+

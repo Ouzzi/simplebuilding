@@ -27,7 +27,7 @@ public abstract class LivingEntityMixin {
     @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private float simplebuilding$modifyDamageAmount(float amount, ServerWorld world, DamageSource source) {
         LivingEntity entity = (LivingEntity) (Object) this;
-        // Ruft die große Logic-Methode in TrimEffectUtil auf
+        // Ruft die groÃŸe Logic-Methode in TrimEffectUtil auf
         return TrimEffectUtil.modifyDamage(entity, amount, source);
     }
 

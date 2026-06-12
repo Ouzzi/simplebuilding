@@ -16,11 +16,11 @@ import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.EquipmentType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.util.registry.Registries;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.tag.BlockTags;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
@@ -39,8 +39,8 @@ import static net.minecraft.util.Rarity.RARE;
 import static net.minecraft.util.Rarity.UNCOMMON;
 
 /**
- * Verwaltet die Registrierung aller benutzerdefinierten Gegenstände (Items) des Simplemoney Mods.
- * Definiert die Eigenschaften der Währungskomponenten und des endgültigen Geldscheins.
+ * Verwaltet die Registrierung aller benutzerdefinierten GegenstÃ¤nde (Items) des Simplemoney Mods.
+ * Definiert die Eigenschaften der WÃ¤hrungskomponenten und des endgÃ¼ltigen Geldscheins.
  */
 public class ModItems {
 
@@ -96,7 +96,7 @@ public class ModItems {
     // Materials and Blocks Components
     public static final Item DIAMOND_PEBBLE = registerItem("diamond_pebble", settings -> new Item(settings));
     public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
-    public static final Item CRACKED_DIAMOND_BLOCK = registerItem("cracked_diamond_block", settings -> new BlockItem(ModBlocks.CRACKED_DIAMOND_BLOCK, settings)); // todo: wie diamond_block nur härter
+    public static final Item CRACKED_DIAMOND_BLOCK = registerItem("cracked_diamond_block", settings -> new BlockItem(ModBlocks.CRACKED_DIAMOND_BLOCK, settings)); // todo: wie diamond_block nur hÃ¤rter
     public static final Item NETHERITE_NUGGET = registerItem("netherite_nugget", settings -> new Item(settings));
     public static final Item ENDERITE_NUGGET = registerItem("enderite_nugget", settings -> new Item(settings.fireproof()));
 
@@ -277,7 +277,7 @@ public class ModItems {
 
     public static ConsumableComponent createEnchantedNetheriteFoodEffects() {
         return ConsumableComponent.builder().useAction(UseAction.EAT).consumeSeconds(1.6f)
-                // Deutlich stärkere Effekte als der normale Netherite Apfel
+                // Deutlich stÃ¤rkere Effekte als der normale Netherite Apfel
                 .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 800, 1), 1.0f)) // Regeneration II (40s)
                 .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 6000, 0), 1.0f))  // Resistance I (5min)
                 .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 0), 1.0f)) // Fire Res (5min)
@@ -288,7 +288,7 @@ public class ModItems {
 
     public static ConsumableComponent createEnchantedEnderiteFoodEffects() {
         return ConsumableComponent.builder().useAction(UseAction.EAT).consumeSeconds(1.6f)
-                // Massive Effekte für das Endgame
+                // Massive Effekte fÃ¼r das Endgame
                 .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 1200, 2), 1.0f)) // Regeneration III (60s)
                 .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 6000, 1), 1.0f))  // Resistance II (5min)
                 .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 12000, 0), 1.0f)) // Fire Res (10min)
@@ -329,12 +329,12 @@ public class ModItems {
             settings.maxDamage(type.getMaxDamage(durabilityMultiplier));
             settings.repairable(material.repairIngredient()); // Reparatur-Item setzen
 
-            // 2. Attribute (Rüstungsschutz etc.)
+            // 2. Attribute (RÃ¼stungsschutz etc.)
             // Wir nutzen die Methode aus deinem ArmorMaterial Record
             settings.attributeModifiers(material.createAttributeModifiers(type));
 
             // 3. Equippable Component (Damit man es anziehen kann)
-            // Das ist der Ersatz für die ArmorItem-Logik in 1.21.3+
+            // Das ist der Ersatz fÃ¼r die ArmorItem-Logik in 1.21.3+
             settings.component(DataComponentTypes.EQUIPPABLE,
                     EquippableComponent.builder(type.getEquipmentSlot())
                             .equipSound(material.equipSound())
@@ -372,8 +372,8 @@ public class ModItems {
     }
 
     private static Item registerItem(String name, Function<Item.Settings, Item> function) {
-        return Registry.register(Registries.ITEM, Identifier.of(Simplebuilding.MOD_ID, name),
-                function.apply(new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Simplebuilding.MOD_ID, name)))));
+        return Registry.register(Registries.ITEM, new Identifier(Simplebuilding.MOD_ID, name),
+                function.apply(new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, new Identifier(Simplebuilding.MOD_ID, name)))));
     }
 
     public static void registerModItems() {

@@ -98,7 +98,7 @@ public class SledgehammerOutlineRenderer {
         // Pass 1 Ende. Der 'lines' Buffer kann nun intern geflusht werden.
 
         // ====================================================================
-        // PASS 2: NUR FÜLLUNG (QUADS)
+        // PASS 2: NUR FÃœLLUNG (QUADS)
         // ====================================================================
         // Neuen Buffer holen.
         VertexConsumer fill = context.consumers().getBuffer(RenderLayers.debugQuads());
@@ -118,7 +118,7 @@ public class SledgehammerOutlineRenderer {
                 matrices.push();
                 matrices.translate(pos.getX() - camX, pos.getY() - camY, pos.getZ() - camZ);
 
-                // Nur Füllung zeichnen
+                // Nur FÃ¼llung zeichnen
                 drawBoxFill(matrices, fill, box.expand(0.003), r1, g1, b1, a1);
 
                 matrices.pop();

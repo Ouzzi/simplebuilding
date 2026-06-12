@@ -9,7 +9,7 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.registry.RegistryWrapper;
 
 public class ReinforcedBundleRecipe extends ShapedRecipe {
     private final ItemStack resultStack;

@@ -25,14 +25,14 @@ public abstract class EnderiteItemMixin extends Entity {
     private void onTick(CallbackInfo ci) {
         if (this.getEntityWorld().isClient()) return;
 
-        // Prüfen ob wir im Void sind (z.B. Y < -30 im End, normal ist 0)
+        // PrÃ¼fen ob wir im Void sind (z.B. Y < -30 im End, normal ist 0)
         if (this.getY() < 0) {
             ItemStack stack = this.getStack();
             
-            // Liste der geschützten Items
+            // Liste der geschÃ¼tzten Items
             boolean isEnderite = stack.getItem() == ModItems.ENDERITE_INGOT 
                     || stack.getItem() == ModItems.ENDERITE_SCRAP
-                    || stack.getName().getString().contains("Enderite"); // Einfacher Check für Tools/Rüstung
+                    || stack.getName().getString().contains("Enderite"); // Einfacher Check fÃ¼r Tools/RÃ¼stung
 
             if (isEnderite) {
                 // Physik manipulieren: Schweben lassen

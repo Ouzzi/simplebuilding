@@ -3,10 +3,10 @@ package com.simplebuilding.blocks;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.custom.*;
 import net.minecraft.block.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.registry.Registries;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -24,14 +24,14 @@ public class ModBlocks {
     public static final Block CONSTRUCTION_LIGHT = registerBlock("construction_light",
             // Wir ignorieren das 'settings' Argument der Factory
             unused -> new Block(AbstractBlock.Settings.create()
-                    .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(Simplebuilding.MOD_ID, "construction_light")))
+                    .registryKey(RegistryKey.of(RegistryKeys.BLOCK, new Identifier(Simplebuilding.MOD_ID, "construction_light")))
                     .mapColor(net.minecraft.block.MapColor.DIAMOND_BLUE)
                     .strength(0.3F) // Zerbricht schnell
                     .sounds(net.minecraft.sound.BlockSoundGroup.GLASS) // Klingt wie Glas
                     .luminance(state -> 15) // Leuchtet hell
                     .allowsSpawning((state, world, pos, type) -> true) // Erlaubt Spawns
-                    .solidBlock((state, world, pos) -> true) // WICHTIG: Gilt als voller Block für Mobs
-                    .blockVision((state, world, pos) -> false) // WICHTIG: Lässt Licht durch (optisch)
+                    .solidBlock((state, world, pos) -> true) // WICHTIG: Gilt als voller Block fÃ¼r Mobs
+                    .blockVision((state, world, pos) -> false) // WICHTIG: LÃ¤sst Licht durch (optisch)
                     .suffocates((state, world, pos) -> false) // Man erstickt nicht darin
             )
     );
@@ -39,7 +39,7 @@ public class ModBlocks {
     public static final Block CRACKED_DIAMOND_BLOCK = registerBlock("cracked_diamond_block",
             unused -> new Block(
                     AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK)
-                    .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(Simplebuilding.MOD_ID, "cracked_diamond_block")))
+                    .registryKey(RegistryKey.of(RegistryKeys.BLOCK, new Identifier(Simplebuilding.MOD_ID, "cracked_diamond_block")))
                     .strength(7.0F, 14.0F)
             ));
 
@@ -89,7 +89,7 @@ public class ModBlocks {
      * Registriert einen Block und weist ihm vor der Erstellung den notwendigen RegistryKey zu.
      */
     private static Block registerBlock(String name, Function<AbstractBlock.Settings, Block> factory) {
-        Identifier id = Identifier.of(Simplebuilding.MOD_ID, name);
+        Identifier id = new Identifier(Simplebuilding.MOD_ID, name);
         RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, id);
         AbstractBlock.Settings settings = AbstractBlock.Settings.copy(Blocks.GLASS).registryKey(key);
         Block block = factory.apply(settings);
@@ -101,6 +101,6 @@ public class ModBlocks {
     }
 
     private static RegistryKey<Block> keyOf(String name) {
-        return RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(Simplebuilding.MOD_ID, name));
+        return RegistryKey.of(RegistryKeys.BLOCK, new Identifier(Simplebuilding.MOD_ID, name));
     }
 }

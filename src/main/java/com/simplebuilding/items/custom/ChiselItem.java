@@ -15,7 +15,7 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.util.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -278,13 +278,13 @@ public class ChiselItem extends Item {
     // KONSTRUKTOR & LOGIK
     // =================================================================================
 
-    // ÄNDERUNG: Konstruktor angepasst für MiningToolItem
+    // Ã„NDERUNG: Konstruktor angepasst fÃ¼r MiningToolItem
     public ChiselItem(ToolMaterial material, Settings settings) {
         super(settings); // 'Item' Konstruktor
         this.material = material;
 
         // Ersetze switch-case mit if-else, da ToolMaterial Objekte sind und kein konstantes Pattern.
-        // Vergleiche Referenzen (== funktioniert für die statischen ToolMaterial Felder).
+        // Vergleiche Referenzen (== funktioniert fÃ¼r die statischen ToolMaterial Felder).
 
         if (material == ToolMaterial.STONE) {
             this.forwardMap = FINAL_STONE_FWD;
@@ -320,7 +320,7 @@ public class ChiselItem extends Item {
         return this.material;
     }
 
-    // Bestimmt, ob Drops fallen (effektiv gegen Pickaxe, Axe, Shovel Blöcke)
+    // Bestimmt, ob Drops fallen (effektiv gegen Pickaxe, Axe, Shovel BlÃ¶cke)
     @Override
     public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
         return state.isIn(BlockTags.PICKAXE_MINEABLE) ||
@@ -335,7 +335,7 @@ public class ChiselItem extends Item {
         if (!isCorrectForDrops(stack, state)) return 1.0f;
 
         // FIX: benutze material.speed() statt getMiningSpeedMultiplier()
-        // Da ToolMaterial ein Record ist, heißt die Methode so wie das Feld: speed()
+        // Da ToolMaterial ein Record ist, heiÃŸt die Methode so wie das Feld: speed()
         float materialSpeed = this.material.speed();
 
         // 3. Fast Chiseling Bonus
@@ -343,16 +343,16 @@ public class ChiselItem extends Item {
         float efficiencyBonus = 0.0f;
 
         if (fastChiselingLevel == 1) {
-            efficiencyBonus = 5.0f; // Effizienz 2 Äquivalent
+            efficiencyBonus = 5.0f; // Effizienz 2 Ã„quivalent
         } else if (fastChiselingLevel >= 2) {
-            efficiencyBonus = 17.0f; // Effizienz 4 Äquivalent
+            efficiencyBonus = 17.0f; // Effizienz 4 Ã„quivalent
         }
 
         // 4. Halbe Geschwindigkeit
         return (materialSpeed + efficiencyBonus) * 0.5f;
     }
 
-    // Sorgt dafür, dass Haltbarkeit beim normalen Abbauen abgezogen wird
+    // Sorgt dafÃ¼r, dass Haltbarkeit beim normalen Abbauen abgezogen wird
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
         if (!world.isClient() && state.getHardness(world, pos) != 0.0F) {
@@ -396,17 +396,17 @@ public class ChiselItem extends Item {
         Map<Block, Block> currentMap;
 
         if (this.isDedicatedSpatula) {
-            // Spatel Logik: Standard ist Rückwärts
+            // Spatel Logik: Standard ist RÃ¼ckwÃ¤rts
             if (isSneaking) {
-                // Spatel + Sneak = Vorwärts? (Optional, aktuell nicht gefordert, aber logisch)
+                // Spatel + Sneak = VorwÃ¤rts? (Optional, aktuell nicht gefordert, aber logisch)
                 currentMap = hasConstructorsTouch ? this.touchForwardMap : this.forwardMap;
             } else {
                 currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
             }
         } else {
-            // Meißel Logik: Standard ist Vorwärts
+            // MeiÃŸel Logik: Standard ist VorwÃ¤rts
             if (isSneaking) {
-                // Meißel + Sneak = Rückwärts ("Entchisseln") -> TEUER!
+                // MeiÃŸel + Sneak = RÃ¼ckwÃ¤rts ("Entchisseln") -> TEUER!
                 currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
                 isReverseAction = true;
             } else {
@@ -447,7 +447,7 @@ public class ChiselItem extends Item {
                         item -> player.sendEquipmentBreakStatus(item, hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
             }
 
-            // Sound mit leichter Variation (Pitch 0.8 - 1.2) klingt natürlicher
+            // Sound mit leichter Variation (Pitch 0.8 - 1.2) klingt natÃ¼rlicher
             float pitch = 1.0F + (world.random.nextFloat() * 0.4F - 0.2F);
             world.playSound(null, pos, chiselSound, SoundCategory.BLOCKS, 0.5f, pitch);
 
@@ -459,7 +459,7 @@ public class ChiselItem extends Item {
         return false;
     }
 
-    // Generischer Helper für Property Copying (Typensicherheit)
+    // Generischer Helper fÃ¼r Property Copying (Typensicherheit)
     private <T extends Comparable<T>> BlockState copyProperty(BlockState from, BlockState to, Property<T> property) {
         return to.with(property, from.get(property));
     }
@@ -653,7 +653,7 @@ public class ChiselItem extends Item {
     }
 
     public static BlockState applyIntuitiveOrientation(BlockState state, net.minecraft.util.math.Direction side, Vec3d hit, PlayerEntity player) {
-        // Toleranz für "Mitte" (z.B. 0.2 bedeutet 20% Randbereich auf jeder Seite)
+        // Toleranz fÃ¼r "Mitte" (z.B. 0.2 bedeutet 20% Randbereich auf jeder Seite)
         double margin = 0.25;
 
         // Lokale Koordinaten (0.0 bis 1.0)
@@ -675,14 +675,14 @@ public class ChiselItem extends Item {
             else if (z < margin) { orientation = net.minecraft.util.math.Direction.NORTH; isEdge = true; }
             else if (z > 1 - margin) { orientation = net.minecraft.util.math.Direction.SOUTH; isEdge = true; }
         }
-        else if (side.getAxis() == net.minecraft.util.math.Direction.Axis.Z) { // Nord oder Süd geklickt
+        else if (side.getAxis() == net.minecraft.util.math.Direction.Axis.Z) { // Nord oder SÃ¼d geklickt
             if (y < margin) { orientation = net.minecraft.util.math.Direction.DOWN; isEdge = true; }
             else if (y > 1 - margin) { orientation = net.minecraft.util.math.Direction.UP; isEdge = true; }
             else if (x < margin) { orientation = net.minecraft.util.math.Direction.WEST; isEdge = true; }
             else if (x > 1 - margin) { orientation = net.minecraft.util.math.Direction.EAST; isEdge = true; }
         }
 
-        // --- ANWENDUNG AUF BLÖCKE ---
+        // --- ANWENDUNG AUF BLÃ–CKE ---
 
         // 1. Pillars (Logs, Quartz Pillar, etc.)
         if (state.contains(PillarBlock.AXIS)) {

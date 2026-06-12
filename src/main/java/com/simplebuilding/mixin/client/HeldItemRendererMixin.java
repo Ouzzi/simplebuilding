@@ -64,7 +64,7 @@ public class HeldItemRendererMixin {
             if (hit instanceof BlockHitResult blockHit) {
                 // CHISEL
                 if (item.getItem() instanceof ChiselItem chiselItem) {
-                    // canChisel prüft jetzt GENAU auf Sneaking + Map + Enchantment
+                    // canChisel prÃ¼ft jetzt GENAU auf Sneaking + Map + Enchantment
                     if (chiselItem.canChisel(this.client.world, blockHit.getBlockPos(), item, player)) {
                         targetProgress = 1.0F;
                     }
@@ -74,7 +74,7 @@ public class HeldItemRendererMixin {
                     net.minecraft.util.math.Vec3d relativeHit = blockHit.getPos().subtract(net.minecraft.util.math.Vec3d.of(blockHit.getBlockPos()));
                     if (sledgehammerItem.getTransformationState(
                             this.client.world.getBlockState(blockHit.getBlockPos()),
-                            blockHit.getBlockPos(), // FIX: Position übergeben
+                            blockHit.getBlockPos(), // FIX: Position Ã¼bergeben
                             blockHit.getSide(),
                             relativeHit,
                             (PlayerEntity)player,

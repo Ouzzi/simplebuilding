@@ -3,9 +3,9 @@ package com.simplebuilding.util;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import net.minecraft.block.Blocks;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.registry.Registerable;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.registry.RegistryKeys;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
@@ -31,7 +31,7 @@ public class ModWorldGen {
         // Astralit: Kleine Ader (3), da es wertvoll sein soll
         register(context, ASTRALIT_ORE_KEY, Feature.ORE, new OreFeatureConfig(endStoneReplaceables, ModBlocks.ASTRALIT_ORE.getDefaultState(), 3));
 
-        // Nihilith: Etwas größere Ader (5), damit man sie besser sieht, wenn sie an der Decke hängt
+        // Nihilith: Etwas grÃ¶ÃŸere Ader (5), damit man sie besser sieht, wenn sie an der Decke hÃ¤ngt
         register(context, NIHILITH_ORE_KEY, Feature.ORE, new OreFeatureConfig(endStoneReplaceables, ModBlocks.NIHILITH_ORE.getDefaultState(), 5));
     }
 
@@ -39,13 +39,13 @@ public class ModWorldGen {
         var configuredFeatureRegistry = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
         // --- ASTRALIT (Oben / Surface) ---
-        // STATUS: War zu häufig.
+        // STATUS: War zu hÃ¤ufig.
         // FIX: Nur in jedem 8. Chunk EINEN Versuch.
         register(context, ASTRALIT_ORE_PLACED_KEY, configuredFeatureRegistry.getOrThrow(ASTRALIT_ORE_KEY),
                 List.of(
                         // Rarity 8: Nur 12.5% Wahrscheinlichkeit pro Chunk (ca. jeder 8. Chunk)
                         RarityFilterPlacementModifier.of(2),
-                        // Count 1: Nur 1 Versuch, wenn der Chunk ausgewählt wurde.
+                        // Count 1: Nur 1 Versuch, wenn der Chunk ausgewÃ¤hlt wurde.
                         CountPlacementModifier.of(1),
                         SquarePlacementModifier.of(),
                         PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
@@ -55,14 +55,14 @@ public class ModWorldGen {
 
         // --- NIHILITH (Unten / Void Exposed) ---
         // STATUS: War zu selten.
-        // FIX: Kein RarityFilter mehr, dafür massiv viele Versuche ("Brute Force").
+        // FIX: Kein RarityFilter mehr, dafÃ¼r massiv viele Versuche ("Brute Force").
         register(context, NIHILITH_ORE_PLACED_KEY, configuredFeatureRegistry.getOrThrow(NIHILITH_ORE_KEY),
                 List.of(
                         // Count 160: Wir brauchen extrem viele Versuche, um die "Kruste" von unten zu treffen.
-                        // 98% dieser Versuche schlagen fehl, das ist normal. Übrig bleiben ca. 1-2 Adern pro Chunk.
+                        // 98% dieser Versuche schlagen fehl, das ist normal. Ãœbrig bleiben ca. 1-2 Adern pro Chunk.
                         CountPlacementModifier.of(13),
                         SquarePlacementModifier.of(),
-                        // Y=0 bis 60: Konzentriert sich auf die untere Hälfte der Inseln.
+                        // Y=0 bis 60: Konzentriert sich auf die untere HÃ¤lfte der Inseln.
                         HeightRangePlacementModifier.uniform(YOffset.fixed(0), YOffset.fixed(60)),
                         // Bedingung: Block UNTEN muss Luft sein
                         BlockFilterPlacementModifier.of(BlockPredicate.replaceable(Direction.DOWN.getVector())),
@@ -71,11 +71,11 @@ public class ModWorldGen {
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerConfiguredKey(String name) {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(Simplebuilding.MOD_ID, name));
+        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, new Identifier(Simplebuilding.MOD_ID, name));
     }
 
     public static RegistryKey<PlacedFeature> registerPlacedKey(String name) {
-        return RegistryKey.of(RegistryKeys.PLACED_FEATURE, Identifier.of(Simplebuilding.MOD_ID, name));
+        return RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(Simplebuilding.MOD_ID, name));
     }
 
     private static <FC extends FeatureConfig, F extends Feature<FC>> void register(Registerable<ConfiguredFeature<?, ?>> context,
@@ -84,7 +84,7 @@ public class ModWorldGen {
     }
 
     private static void register(Registerable<PlacedFeature> context, RegistryKey<PlacedFeature> key,
-                                 net.minecraft.registry.entry.RegistryEntry<ConfiguredFeature<?, ?>> configuration,
+                                 net.minecraft.util.registry.entry.RegistryEntry<ConfiguredFeature<?, ?>> configuration,
                                  List<PlacementModifier> modifiers) {
         context.register(key, new PlacedFeature(configuration, List.copyOf(modifiers)));
     }

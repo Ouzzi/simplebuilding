@@ -7,7 +7,7 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 
 public record TrimDataPayload(int baseDist, int baseTime, int baseHostile, int basePassive, int baseDamage) implements CustomPayload {
-    public static final CustomPayload.Id<TrimDataPayload> ID = new CustomPayload.Id<>(Identifier.of("simplebuilding", "trim_data_sync"));
+    public static final CustomPayload.Id<TrimDataPayload> ID = new CustomPayload.Id<>(new Identifier("simplebuilding", "trim_data_sync"));
 
     public static final PacketCodec<RegistryByteBuf, TrimDataPayload> CODEC = PacketCodec.tuple(
             PacketCodecs.INTEGER, TrimDataPayload::baseDist,

@@ -20,8 +20,8 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.BlockBreakingInfo;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.tag.ItemTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
@@ -46,7 +46,7 @@ public class WorldRendererMixin {
     // --- Cache Felder ---
     @Unique private BlockPos simplebuilding$lastMainPos = null;
     @Unique private List<BlockPos> simplebuilding$cachedConnectedBlocks = new ArrayList<>();
-    // Hilft zu erkennen, ob sich das Tool geändert hat (z.B. Wechsel auf andere Pickaxe)
+    // Hilft zu erkennen, ob sich das Tool geÃ¤ndert hat (z.B. Wechsel auf andere Pickaxe)
     @Unique private ItemStack simplebuilding$lastToolStack = ItemStack.EMPTY;
 
     @Inject(method = "render", at = @At(value = "RETURN"))
@@ -93,8 +93,8 @@ public class WorldRendererMixin {
                     List<BlockPos> connectedBlocks;
 
                     // --- CACHING LOGIC ---
-                    // Wir prüfen: Ist es der gleiche Block wie im letzten Frame?
-                    // Und ist es das gleiche Item? (Falls Spieler Item swappt während Abbau - unwahrscheinlich aber möglich)
+                    // Wir prÃ¼fen: Ist es der gleiche Block wie im letzten Frame?
+                    // Und ist es das gleiche Item? (Falls Spieler Item swappt wÃ¤hrend Abbau - unwahrscheinlich aber mÃ¶glich)
                     boolean isCacheValid = mainPos.equals(simplebuilding$lastMainPos)
                             && ItemStack.areItemsEqual(stack, simplebuilding$lastToolStack);
 
@@ -134,7 +134,7 @@ public class WorldRendererMixin {
                         // Validierung (schnell)
                         if (isSledgehammer && !SledgehammerUtils.shouldBreak(this.world, targetPos, mainPos, stack)) continue;
                         // Bei Vein/Strip Miner wurde die Validierung schon in MiningUtils gemacht,
-                        // aber wir prüfen sicherheitshalber ob der Block noch existiert (Air check)
+                        // aber wir prÃ¼fen sicherheitshalber ob der Block noch existiert (Air check)
                         if (!isSledgehammer && world.getBlockState(targetPos).isAir()) continue;
 
                         BlockState state = this.world.getBlockState(targetPos);

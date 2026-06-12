@@ -11,7 +11,7 @@ import net.minecraft.component.type.BundleContentsComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryKeys;
 import net.minecraft.util.hit.HitResult;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,7 +37,7 @@ public abstract class MinecraftClientMixin {
             var state = this.player.getEntityWorld().getBlockState(blockHit.getBlockPos());
 
             // FIX: 'getPickStack' ist protected in AbstractBlock.
-            // Wir nutzen new ItemStack, da wir später nur den Item-Typ vergleichen (ItemStack.areItemsEqual).
+            // Wir nutzen new ItemStack, da wir spÃ¤ter nur den Item-Typ vergleichen (ItemStack.areItemsEqual).
             targetStack = new ItemStack(state.getBlock());
 
         } else if (this.crosshairTarget.getType() == HitResult.Type.ENTITY) {
@@ -59,7 +59,7 @@ public abstract class MinecraftClientMixin {
             if (stack.getItem() instanceof ReinforcedBundleItem) {
                 // FIX: get -> getOrThrow
                 var registry = this.player.getEntityWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
-                // FIX: getEntry -> getOptional (für RegistryKey)
+                // FIX: getEntry -> getOptional (fÃ¼r RegistryKey)
                 var masterBuilderEntry = registry.getOptional(ModEnchantments.MASTER_BUILDER);
 
                 if (masterBuilderEntry.isPresent() && EnchantmentHelper.getLevel(masterBuilderEntry.get(), stack) > 0) {

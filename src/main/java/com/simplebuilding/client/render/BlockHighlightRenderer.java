@@ -205,7 +205,7 @@ public class BlockHighlightRenderer {
         if (face == Direction.WEST) x2 = x1;
         if (face == Direction.EAST) x1 = x2;
 
-        // Kante einschränken
+        // Kante einschrÃ¤nken
         if (edgeDir == Direction.DOWN)  y2 = y1;
         if (edgeDir == Direction.UP)    y1 = y2;
         if (edgeDir == Direction.NORTH) z2 = z1;
@@ -213,8 +213,8 @@ public class BlockHighlightRenderer {
         if (edgeDir == Direction.WEST)  x2 = x1;
         if (edgeDir == Direction.EAST)  x1 = x2;
 
-        // Reset der Achse, die die Linie bildet (damit sie Länge 1 hat)
-        // Die Linie verläuft entlang der Achse, die weder face noch edgeDir ist.
+        // Reset der Achse, die die Linie bildet (damit sie LÃ¤nge 1 hat)
+        // Die Linie verlÃ¤uft entlang der Achse, die weder face noch edgeDir ist.
         if (face.getAxis() != Direction.Axis.X && edgeDir.getAxis() != Direction.Axis.X) { x1 = pos.getX(); x2 = pos.getX() + 1; }
         if (face.getAxis() != Direction.Axis.Y && edgeDir.getAxis() != Direction.Axis.Y) { y1 = pos.getY(); y2 = pos.getY() + 1; }
         if (face.getAxis() != Direction.Axis.Z && edgeDir.getAxis() != Direction.Axis.Z) { z1 = pos.getZ(); z2 = pos.getZ() + 1; }

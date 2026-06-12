@@ -75,7 +75,7 @@ public class RotatorItem extends Item {
             if (z < margin) return Direction.NORTH;
             if (z > 1 - margin) return Direction.SOUTH;
         }
-        else if (face.getAxis() == Direction.Axis.Z) { // Nord/Süd
+        else if (face.getAxis() == Direction.Axis.Z) { // Nord/SÃ¼d
             if (y < margin) return Direction.DOWN;
             if (y > 1 - margin) return Direction.UP;
             if (x < margin) return Direction.WEST;
@@ -120,7 +120,7 @@ public class RotatorItem extends Item {
         }
 
         // 2. Zentrum-Klick: Wechsel zwischen der geklickten Achse und der aktuellen.
-        // Das fühlt sich am natürlichsten an.
+        // Das fÃ¼hlt sich am natÃ¼rlichsten an.
         // Wenn ich auf die Seite (X) eines stehenden Stammes (Y) klicke -> Stamm wird X.
         // Wenn er schon X ist -> Stamm wird Y (oder Z, je nach dritter Dimension).
 
@@ -133,7 +133,7 @@ public class RotatorItem extends Item {
         if (currentAxis != clickedAxis) {
             return state.with(Properties.AXIS, clickedAxis);
         } else {
-            // Block zeigt bereits auf uns zu (oder weg). Wir rotieren zur nächsten Achse.
+            // Block zeigt bereits auf uns zu (oder weg). Wir rotieren zur nÃ¤chsten Achse.
             // Zyklus: X -> Y -> Z -> X
             return state.with(Properties.AXIS, nextAxis(currentAxis));
         }
@@ -184,7 +184,7 @@ public class RotatorItem extends Item {
     }
 
     private Direction getStandardRotationStart(Direction.Axis axis, Collection<Direction> valid) {
-        // Prio-Liste für Startwerte, wenn man auf Pole klickt
+        // Prio-Liste fÃ¼r Startwerte, wenn man auf Pole klickt
         List<Direction> preference;
         if (axis == Direction.Axis.Y) preference = List.of(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
         else if (axis == Direction.Axis.X) preference = List.of(Direction.UP, Direction.NORTH, Direction.DOWN, Direction.SOUTH);

@@ -46,7 +46,7 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
         this.baseDamage = damage;
     }
 
-    // Server Live-Werte (Dummy für Interface, echte Werte kommen aus Logic)
+    // Server Live-Werte (Dummy fÃ¼r Interface, echte Werte kommen aus Logic)
     @Override public int simplebuilding$getCurrentDistance() { return 0; }
     @Override public int simplebuilding$getCurrentTime() { return 0; }
     @Override public int simplebuilding$getCurrentHostileKills() { return totalHostileKills; }

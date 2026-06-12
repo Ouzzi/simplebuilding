@@ -14,7 +14,7 @@ import net.minecraft.item.BundleItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipData;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryKeys;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -40,8 +40,8 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
     /**
-     * Öffentliche Hilfsmethode, um den ausgewählten Index im Bundle zu setzen.
-     * Ermöglicht Zugriff auf die protected Methode setSelectedStackIndex für den Packet-Handler.
+     * Ã–ffentliche Hilfsmethode, um den ausgewÃ¤hlten Index im Bundle zu setzen.
+     * ErmÃ¶glicht Zugriff auf die protected Methode setSelectedStackIndex fÃ¼r den Packet-Handler.
      */
     public static void setBundleSelectedItem(ItemStack stack, int index) {
         setSelectedStackIndex(stack, index);
@@ -52,9 +52,9 @@ public class ReinforcedBundleItem extends BundleItem {
         return true;
     }
 
-    // --- Helper für Click Invertierung ---
+    // --- Helper fÃ¼r Click Invertierung ---
     private ClickType getInsertClick() {
-        // Prüfen ob Invertierung in der Config aktiv ist
+        // PrÃ¼fen ob Invertierung in der Config aktiv ist
         if (Simplebuilding.getConfig().tools.invertBundleInteractions) {
             return ClickType.RIGHT;
         }
@@ -242,7 +242,7 @@ public class ReinforcedBundleItem extends BundleItem {
         BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
         if (contents == null) return Optional.empty();
 
-        // Dynamische Berechnung der Kapazität für den Tooltip
+        // Dynamische Berechnung der KapazitÃ¤t fÃ¼r den Tooltip
         Fraction frac = getMaxCapacityForVisuals(stack);
         int maxCapacity = (int) (frac.doubleValue() * 64);
 
@@ -259,7 +259,7 @@ public class ReinforcedBundleItem extends BundleItem {
         boolean alreadyInBundle = false;
         int uniqueTypesCount = 0;
 
-        // Wir zählen die einzigartigen Typen im Bundle
+        // Wir zÃ¤hlen die einzigartigen Typen im Bundle
         List<ItemStack> distinctItems = new ArrayList<>();
         for (ItemStack s : contents.iterate()) {
             boolean isNewType = true;
@@ -308,17 +308,17 @@ public class ReinforcedBundleItem extends BundleItem {
         }
 
         // --- MERGING LOGIC (KORRIGIERT) ---
-        // Wir suchen nach existierenden Stacks, um sie zusammenzufügen und nach oben zu ziehen.
+        // Wir suchen nach existierenden Stacks, um sie zusammenzufÃ¼gen und nach oben zu ziehen.
 
         int totalCount = countToAdd;
         int maxItemCount = stackToAdd.getMaxCount(); // Normalerweise 64
 
         // Wir entfernen ALLE existierenden Instanzen dieses Items aus der Liste,
-        // addieren ihre Menge zum "totalCount" und fügen sie dann sauber gestapelt oben wieder ein.
-        // Das ist wichtig für den Drawer, der riesige Mengen halten kann.
+        // addieren ihre Menge zum "totalCount" und fÃ¼gen sie dann sauber gestapelt oben wieder ein.
+        // Das ist wichtig fÃ¼r den Drawer, der riesige Mengen halten kann.
 
-        // Rückwärts iterieren ist sicherer beim Entfernen, aber hier nutzen wir removeIf oder sammeln Indizes.
-        // Einfacher: Neue Liste bauen ohne die Matches und Count zählen.
+        // RÃ¼ckwÃ¤rts iterieren ist sicherer beim Entfernen, aber hier nutzen wir removeIf oder sammeln Indizes.
+        // Einfacher: Neue Liste bauen ohne die Matches und Count zÃ¤hlen.
 
         List<ItemStack> itemsKept = new ArrayList<>();
 
@@ -330,22 +330,22 @@ public class ReinforcedBundleItem extends BundleItem {
             }
         }
 
-        // Jetzt füllen wir die Items ganz oben (Index 0) wieder auf.
-        // Wir teilen "totalCount" in Stacks der Größe 64 auf.
+        // Jetzt fÃ¼llen wir die Items ganz oben (Index 0) wieder auf.
+        // Wir teilen "totalCount" in Stacks der GrÃ¶ÃŸe 64 auf.
 
         List<ItemStack> itemsToAddBack = new ArrayList<>();
         while (totalCount > 0) {
             int take = Math.min(totalCount, maxItemCount);
             ItemStack chunk = stackToAdd.copy();
             chunk.setCount(take);
-            itemsToAddBack.add(chunk); // Zur temporären Liste
+            itemsToAddBack.add(chunk); // Zur temporÃ¤ren Liste
             totalCount -= take;
         }
 
-        // Da wir an Index 0 (oben) einfügen wollen, fügen wir die neuen Stacks VOR die behaltenen.
-        // itemsToAddBack enthält z.B. [64, 64, 10]. Wir wollen, dass der "angebrochene" Stack (10)
+        // Da wir an Index 0 (oben) einfÃ¼gen wollen, fÃ¼gen wir die neuen Stacks VOR die behaltenen.
+        // itemsToAddBack enthÃ¤lt z.B. [64, 64, 10]. Wir wollen, dass der "angebrochene" Stack (10)
         // ganz oben liegt, damit er zuerst rausgenommen wird (LIFO - Last In First Out).
-        // Das passiert automatisch, wenn wir sie der Reihe nach an Index 0 einfügen oder als Block davor setzen.
+        // Das passiert automatisch, wenn wir sie der Reihe nach an Index 0 einfÃ¼gen oder als Block davor setzen.
 
         itemsKept.addAll(0, itemsToAddBack);
 
@@ -432,7 +432,7 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
     protected Fraction getMaxCapacity(ItemStack stack, PlayerEntity player) {
-        // Basis: Netherite Bundle hat 2x Kapazität (128 Items), normales 1x (64 Items)
+        // Basis: Netherite Bundle hat 2x KapazitÃ¤t (128 Items), normales 1x (64 Items)
         Fraction capacity = stack.isOf(ModItems.NETHERITE_BUNDLE) ? Fraction.getFraction(2, 1) : Fraction.getFraction(1, 1);
 
         // Ergebnis: Normal = 96 Items, Netherite = 192 Items
@@ -452,7 +452,7 @@ public class ReinforcedBundleItem extends BundleItem {
                 // Beispiel Level 1: 1 * (1 + 0.125) = 1.125
                 // Beispiel Level 8: 1 * (1 + 1.0) = 2.0 (200%)
 
-                // Wir nutzen Brüche: 0.125 = 1/8.
+                // Wir nutzen BrÃ¼che: 0.125 = 1/8.
                 // Multiplikator = 1 + (level/8) = (8+level)/8
                 Fraction drawerBonus = Fraction.getFraction(16 + level, 8);
                 capacity = capacity.multiplyBy(drawerBonus);

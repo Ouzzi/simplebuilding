@@ -6,10 +6,7 @@ import com.simplebuilding.util.guiDrawHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Style;
@@ -17,6 +14,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +25,7 @@ public class RangefinderHudOverlay implements HudRenderCallback {
 
 
     @Override
-    public void onHudRender(DrawContext context, RenderTickCounter tickCounter) {
+    public void onHudRender(MatrixStack matrices, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null) return;
         if (client.currentScreen instanceof OctantScreen) return;
@@ -53,8 +51,10 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         ItemStack off = client.player.getOffHandStack();
         boolean hasSpeedometer = main.isOf(ModItems.VELOCITY_GAUGE) || off.isOf(ModItems.VELOCITY_GAUGE);
 
-        NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        NbtCompound nbt = nbtData.copyNbt();
+        NbtCompound nbt = stack.getNbt();
+        if (nbt == null) {
+            nbt = new NbtCompound();
+        }
         List<Text> lines = new ArrayList<>();
 
         Formatting titleColor = stack.hasEnchantments() ? Formatting.AQUA : Formatting.WHITE;
@@ -65,7 +65,7 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         BlockPos pos2 = null;
 
         if (nbt.contains("Pos1")) {
-            int[] p1 = nbt.getIntArray("Pos1").orElse(new int[0]);
+            int[] p1 = nbt.getIntArray("Pos1");
             if (p1.length == 3) {
                 pos1 = new BlockPos(p1[0], p1[1], p1[2]);
                 lines.add(Text.literal("Pos 1: " + pos1.getX() + ", " + pos1.getY() + ", " + pos1.getZ())
@@ -76,7 +76,7 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         }
 
         if (nbt.contains("Pos2")) {
-            int[] p2 = nbt.getIntArray("Pos2").orElse(new int[0]);
+            int[] p2 = nbt.getIntArray("Pos2");
             if (p2.length == 3) {
                 pos2 = new BlockPos(p2[0], p2[1], p2[2]);
                 lines.add(Text.literal("Pos 2: " + pos2.getX() + ", " + pos2.getY() + ", " + pos2.getZ())
@@ -97,10 +97,10 @@ public class RangefinderHudOverlay implements HudRenderCallback {
             if (dy == 1 && (dx == 1 || dz == 1)) {
                 lines.add(Text.literal("Distance: " + Math.max(dx, dz) + " blocks").setStyle(Style.EMPTY.withColor(resultColor)));
             } else if (dy == 1) {
-                lines.add(Text.literal("Area: " + (dx * dz) + " blocks²").setStyle(Style.EMPTY.withColor(resultColor)));
+                lines.add(Text.literal("Area: " + (dx * dz) + " blocksÂ²").setStyle(Style.EMPTY.withColor(resultColor)));
                 lines.add(Text.literal("(" + dx + " x " + dz + ")").formatted(Formatting.GRAY));
             } else {
-                lines.add(Text.literal("Volume: " + (dx * dy * dz) + " blocks³").setStyle(Style.EMPTY.withColor(resultColor)));
+                lines.add(Text.literal("Volume: " + (dx * dy * dz) + " blocksÂ³").setStyle(Style.EMPTY.withColor(resultColor)));
                 lines.add(Text.literal("(" + dx + " x " + dy + " x " + dz + ")").formatted(Formatting.GRAY));
             }
         }
@@ -108,7 +108,7 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         if (lines.isEmpty()) return;
 
         TextRenderer textRenderer = client.textRenderer;
-        int screenHeight = context.getScaledWindowHeight();
+        int screenHeight = client.getWindow().getScaledHeight();
 
         int actualTextWidth = 0;
         for (Text line : lines) {
@@ -139,34 +139,34 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         int bg = theme.background();
 
         // Haupt-Hintergrund
-        context.fill(x + 1, y + 1, x + boxWidth - 1, y + boxHeight - 1, bg);
-        context.fill(x + 1, y, x + boxWidth - 1, y + 1, bg);
+        DrawableHelper.fill(matrices, x + 1, y + 1, x + boxWidth - 1, y + boxHeight - 1, bg);
+        DrawableHelper.fill(matrices, x + 1, y, x + boxWidth - 1, y + 1, bg);
 
-        // Hintergrund "Schatten" für den Rahmen
-        context.fill(x + 1, y - 1, x + boxWidth - 1, y, bg);
-        context.fill(x + 1, y + boxHeight, x + boxWidth - 1, y + boxHeight + 1, bg);
-        context.fill(x - 1, y + 1, x, y + boxHeight - 1, bg);
-        context.fill(x + boxWidth, y + 1, x + boxWidth + 1, y + boxHeight - 1, bg);
+        // Hintergrund "Schatten" fÃ¼r den Rahmen
+        DrawableHelper.fill(matrices, x + 1, y - 1, x + boxWidth - 1, y, bg);
+        DrawableHelper.fill(matrices, x + 1, y + boxHeight, x + boxWidth - 1, y + boxHeight + 1, bg);
+        DrawableHelper.fill(matrices, x - 1, y + 1, x, y + boxHeight - 1, bg);
+        DrawableHelper.fill(matrices, x + boxWidth, y + 1, x + boxWidth + 1, y + boxHeight - 1, bg);
 
         // Ecken
-        context.fillGradient(x + boxWidth - 1, y, x + boxWidth, y + 1, bg, bg);
-        context.fillGradient(x, y, x + 1, y + 1, bg, bg);
-        context.fillGradient(x + boxWidth - 1, y + boxHeight - 1, x + boxWidth, y + boxHeight, bg, bg);
-        context.fillGradient(x, y + boxHeight - 1, x + 1, y + boxHeight, bg, bg);
+        DrawableHelper.fillGradient(matrices, x + boxWidth - 1, y, x + boxWidth, y + 1, bg, bg);
+        DrawableHelper.fillGradient(matrices, x, y, x + 1, y + 1, bg, bg);
+        DrawableHelper.fillGradient(matrices, x + boxWidth - 1, y + boxHeight - 1, x + boxWidth, y + boxHeight, bg, bg);
+        DrawableHelper.fillGradient(matrices, x, y + boxHeight - 1, x + 1, y + boxHeight, bg, bg);
 
         // 2. Farbiger Rahmen (Lines)
         // Nutzt theme.borderStart und theme.borderEnd
-        context.fillGradient(x + 1, y, x + boxWidth - 1, y + 1, theme.borderStart(), theme.borderStart());
-        context.fillGradient(x + 1, y + boxHeight - 1, x + boxWidth - 1, y + boxHeight, theme.borderEnd(), theme.borderEnd());
-        context.fillGradient(x, y + 1, x + 1, y + boxHeight - 1, theme.borderStart(), theme.borderEnd());
-        context.fillGradient(x + boxWidth - 1, y + 1, x + boxWidth, y + boxHeight - 1, theme.borderStart(), theme.borderEnd());
+        DrawableHelper.fillGradient(matrices, x + 1, y, x + boxWidth - 1, y + 1, theme.borderStart(), theme.borderStart());
+        DrawableHelper.fillGradient(matrices, x + 1, y + boxHeight - 1, x + boxWidth - 1, y + boxHeight, theme.borderEnd(), theme.borderEnd());
+        DrawableHelper.fillGradient(matrices, x, y + 1, x + 1, y + boxHeight - 1, theme.borderStart(), theme.borderEnd());
+        DrawableHelper.fillGradient(matrices, x + boxWidth - 1, y + 1, x + boxWidth, y + boxHeight - 1, theme.borderStart(), theme.borderEnd());
 
         // --- TEXT ---
         int textY = y + paddingY;
 
         for (int i = 0; i < lines.size(); i++) {
             Text line = lines.get(i);
-            context.drawTextWithShadow(textRenderer, line, x + paddingX, textY, 0xFFFFFFFF);
+            textRenderer.drawWithShadow(matrices, line, x + paddingX, textY, 0xFFFFFFFF);
             textY += textRenderer.fontHeight + lineSpacing;
             if (i == 0 || i == 2) textY += titleSpacing;
         }

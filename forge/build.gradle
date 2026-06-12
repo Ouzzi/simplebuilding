@@ -29,9 +29,9 @@ def forgeVersionLatest = resolveSetting('forge_version_latest', null)
 def forgeVersionLegacy = resolveSetting('forge_version', '0.0.0')
 
 def forgeVersion = forgeVersionChannel == 'latest' ? (forgeVersionLatest ?: forgeVersionLegacy) : (forgeVersionFixed ?: forgeVersionLegacy)
-def minecraftVersion = resolveSetting('minecraft_version', '1.21.11')
+def minecraftVersion = resolveSetting('minecraft_version', '1.19.2')
 def forgeLoaderVersionRange = resolveSetting('forge_loader_version_range', '[0,)')
-def minecraftVersionRange = resolveSetting('minecraft_version_range', '[1.21.11,1.22)')
+def minecraftVersionRange = resolveSetting('minecraft_version_range', '[1.19.2,1.20)')
 
 def forgeCoordinate = "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
 def forgeDependencyEnabled = forgeVersion != '0.0.0'
@@ -49,7 +49,7 @@ version = rootProject.version
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)
     }
     withSourcesJar()
 }

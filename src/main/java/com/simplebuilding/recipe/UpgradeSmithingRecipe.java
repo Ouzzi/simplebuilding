@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.input.SmithingRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.registry.RegistryWrapper;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -42,18 +42,18 @@ public class UpgradeSmithingRecipe implements SmithingRecipe {
         ItemStack templateStack = input.template();
         ItemStack additionStack = input.addition();
 
-        // Kopie der Rüstung erstellen
+        // Kopie der RÃ¼stung erstellen
         ItemStack result = baseStack.copy();
 
         // 1. Fall: Glowing Template (Visuelles Leuchten)
-        // Logik: Erhöhe das Level, wenn es noch nicht max (2) ist
+        // Logik: ErhÃ¶he das Level, wenn es noch nicht max (2) ist
         if (templateStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE) && additionStack.isOf(Items.GLOW_INK_SAC)) {
 
             // Wir nutzen unsere Utils, um das aktuelle Level (auch von alten Items) zu holen
             int currentLevel = GlowingTrimUtils.getGlowLevel(baseStack);
 
             if (currentLevel < 2) {
-                // Erhöhe Level um 1
+                // ErhÃ¶he Level um 1
                 result.set(ModDataComponentTypes.GLOW_LEVEL, currentLevel + 1);
 
                 // Sauberkeit: Entferne das alte Boolean-Flag, da wir jetzt Integer nutzen

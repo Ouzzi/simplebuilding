@@ -20,14 +20,14 @@ public abstract class EndermanSpawnMixin {
     @Inject(method = "canSpawnInDark", at = @At("HEAD"), cancellable = true)
     private static void checkEnderiteShield(EntityType<? extends HostileEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random, CallbackInfoReturnable<Boolean> cir) {
 
-        // 1. Wir prüfen, ob es überhaupt ein Enderman ist
+        // 1. Wir prÃ¼fen, ob es Ã¼berhaupt ein Enderman ist
         if (type == EntityType.ENDERMAN) {
 
-            // 2. Nur bei natürlichem Spawning prüfen (Performance & Logic)
+            // 2. Nur bei natÃ¼rlichem Spawning prÃ¼fen (Performance & Logic)
             if (spawnReason == SpawnReason.NATURAL || spawnReason == SpawnReason.CHUNK_GENERATION) {
 
                 // ACHTUNG: Radius 64 = 2.146.689 Checks pro Spawn! Das ist extrem viel.
-                // Ich empfehle max 32 (ca. 260k Checks) oder noch besser 16, wenn möglich.
+                // Ich empfehle max 32 (ca. 260k Checks) oder noch besser 16, wenn mÃ¶glich.
                 int radius = 64;
 
                 // Bereich scannen
@@ -37,16 +37,16 @@ public abstract class EndermanSpawnMixin {
                 for (BlockPos p : BlockPos.iterate(start, end)) {
 
                     // --- FIX ANFANG ---
-                    // WICHTIG: Prüfen, ob der Chunk geladen ist, BEVOR wir den Block abfragen.
+                    // WICHTIG: PrÃ¼fen, ob der Chunk geladen ist, BEVOR wir den Block abfragen.
                     // Verhindert den Watchdog Crash durch synchrones Chunk-Laden.
                     if (!world.toServerWorld().isChunkLoaded(p.getX() >> 4, p.getZ() >> 4)) {
-                        continue; // Überspringe ungeladene Chunks
+                        continue; // Ãœberspringe ungeladene Chunks
                     }
                     // --- FIX ENDE ---
 
-                    // Prüfen auf Enderite Block
+                    // PrÃ¼fen auf Enderite Block
                     if (world.getBlockState(p).isOf(ModBlocks.ENDERITE_BLOCK)) {
-                        // Prüfen ob gepowert
+                        // PrÃ¼fen ob gepowert
                         if (world.getReceivedRedstonePower(p) > 0) {
                             // Wenn ja: Spawn verbieten!
                             cir.setReturnValue(false);

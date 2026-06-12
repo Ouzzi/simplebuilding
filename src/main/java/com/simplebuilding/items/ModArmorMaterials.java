@@ -4,9 +4,9 @@ import com.simplebuilding.Simplebuilding;
 import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.item.equipment.EquipmentAsset;
 import net.minecraft.item.equipment.EquipmentType;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.registry.tag.ItemTags;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import java.util.EnumMap;
@@ -18,7 +18,7 @@ public class ModArmorMaterials {
             RegistryKey.ofRegistry(Identifier.ofVanilla("equipment_asset"));
 
     public static final RegistryKey<EquipmentAsset> ENDERITE_ASSET_KEY =
-            RegistryKey.of(ASSET_REGISTRY_KEY, Identifier.of(Simplebuilding.MOD_ID, "enderite"));
+            RegistryKey.of(ASSET_REGISTRY_KEY, new Identifier(Simplebuilding.MOD_ID, "enderite"));
 
     public static final ArmorMaterial ENDERITE = new ArmorMaterial(
             42,

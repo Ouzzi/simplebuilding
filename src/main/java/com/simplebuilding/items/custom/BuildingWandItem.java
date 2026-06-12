@@ -15,7 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
+import net.minecraft.util.registry.Registries;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
@@ -43,7 +43,7 @@ public class BuildingWandItem extends Item {
     public static final int DELAY_TICKS = 4; // Etwas schneller
     public static final int DELAY_TICKS_LINE = 2;
 
-    private int maxDiameter; // Maximaler Durchmesser (Tier-abhängig)
+    private int maxDiameter; // Maximaler Durchmesser (Tier-abhÃ¤ngig)
 
     private static class MaterialResult {
         ItemStack sourceStack;
@@ -67,8 +67,8 @@ public class BuildingWandItem extends Item {
     }
 
     /**
-     * Gibt eine Map zurück, die jeder Position den BlockState zuweist, der dort platziert würde.
-     * Berücksichtigt Color Palette (Zufall) und Inventar-Priorität.
+     * Gibt eine Map zurÃ¼ck, die jeder Position den BlockState zuweist, der dort platziert wÃ¼rde.
+     * BerÃ¼cksichtigt Color Palette (Zufall) und Inventar-PrioritÃ¤t.
      */
     public static Map<BlockPos, BlockState> getPreviewStates(World world, PlayerEntity player, ItemStack wandStack, BlockPos originPos, Direction face, int maxDiameter) {
         Map<BlockPos, BlockState> previewMap = new HashMap<>();
@@ -88,20 +88,20 @@ public class BuildingWandItem extends Item {
         boolean hasColorPalette = hasEnchantment(wandStack, world, ModEnchantments.COLOR_PALETTE);
 
         if (hasColorPalette) {
-            // --- Color Palette Logic: Sammle ALLE Blöcke und verteile sie zufällig ---
+            // --- Color Palette Logic: Sammle ALLE BlÃ¶cke und verteile sie zufÃ¤llig ---
             List<BlockState> palette = findAllBuildingBlocks(player, wandStack, hasMasterBuilder);
 
             if (palette.isEmpty()) return previewMap;
 
             for (BlockPos pos : positions) {
-                // Nutze die Position als Seed für Determinismus (kein Flackern)
+                // Nutze die Position als Seed fÃ¼r Determinismus (kein Flackern)
                 long seed = pos.asLong();
                 int index = Math.abs((int)(seed % palette.size()));
                 previewMap.put(pos, palette.get(index));
             }
 
         } else {
-            // --- Standard Logic: Erster gefundener Block für alle ---
+            // --- Standard Logic: Erster gefundener Block fÃ¼r alle ---
             // WICHTIG: Hier rufen wir die statische Client-taugliche Suche auf
             BlockState state = findFirstBlockStateClient(player, wandStack, hasMasterBuilder);
 
@@ -129,7 +129,7 @@ public class BuildingWandItem extends Item {
         return positions;
     }
 
-    // Client-Helper: Findet den ersten BlockState, ohne ItemStack zu verändern
+    // Client-Helper: Findet den ersten BlockState, ohne ItemStack zu verÃ¤ndern
     private static BlockState findFirstBlockStateClient(PlayerEntity player, ItemStack wandStack, boolean hasMasterBuilder) {
         World world = player.getEntityWorld();
         // 1. Offhand
@@ -150,7 +150,7 @@ public class BuildingWandItem extends Item {
         return null;
     }
 
-    // Hilfsmethode: Holt ALLE Baublöcke für Color Palette
+    // Hilfsmethode: Holt ALLE BaublÃ¶cke fÃ¼r Color Palette
     private static List<BlockState> findAllBuildingBlocks(PlayerEntity player, ItemStack wandStack, boolean hasMasterBuilder) {
         List<BlockState> blocks = new ArrayList<>();
         World world = player.getEntityWorld();
@@ -243,7 +243,7 @@ public class BuildingWandItem extends Item {
         // Ist es ein Bundle?
         if (stack.getItem() instanceof ReinforcedBundleItem) {
             boolean bundleHasMasterBuilder = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
-            // Bundles dürfen genutzt werden, wenn Wand ODER Bundle MasterBuilder hat
+            // Bundles dÃ¼rfen genutzt werden, wenn Wand ODER Bundle MasterBuilder hat
             if (wandHasMasterBuilder || bundleHasMasterBuilder) {
                 return findFirstBlockInBundle(stack);
             }
@@ -271,7 +271,7 @@ public class BuildingWandItem extends Item {
     }
 
     private MaterialResult findMaterialForPlacement(PlayerEntity player, ItemStack wand, Block targetBlock, boolean wandHasMasterBuilder, boolean colorPaletteActive) {
-        // Wenn Color Palette aktiv ist, ist targetBlock egal, wir nehmen den nächsten verfügbaren.
+        // Wenn Color Palette aktiv ist, ist targetBlock egal, wir nehmen den nÃ¤chsten verfÃ¼gbaren.
         if (colorPaletteActive) {
             return findFirstBuildingBlock(player, wand, wandHasMasterBuilder);
         } else {
@@ -336,7 +336,7 @@ public class BuildingWandItem extends Item {
         if (player == null) return ActionResult.PASS;
         if (world.isClient()) return ActionResult.SUCCESS;
 
-        // Prüfen, ob wir überhaupt ein Material haben, bevor wir starten
+        // PrÃ¼fen, ob wir Ã¼berhaupt ein Material haben, bevor wir starten
         boolean hasMasterBuilder = hasEnchantment(wandStack, world, ModEnchantments.MASTER_BUILDER);
         MaterialResult preview = findFirstBuildingBlock(player, wandStack, hasMasterBuilder);
 
@@ -435,7 +435,7 @@ public class BuildingWandItem extends Item {
     }
 
     public static List<BlockPos> getBuildingPositions(World world, PlayerEntity player, ItemStack wandStack, BlockPos originPos, Direction face, int maxDiameter, BlockHitResult hitResult) {
-        // NBT lesen für Settings
+        // NBT lesen fÃ¼r Settings
         NbtComponent comp = wandStack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
         NbtCompound nbt = comp.copyNbt();
 
@@ -445,7 +445,7 @@ public class BuildingWandItem extends Item {
 
         int axisMode = nbt.getInt("SettingsAxis", 0);
 
-        // Wir berechnen ALLE Positionen auf einmal für den Renderer
+        // Wir berechnen ALLE Positionen auf einmal fÃ¼r den Renderer
         List<BlockPos> allPositions = new ArrayList<>();
         for (int r = 0; r <= userRadius; r++) {
             allPositions.addAll(calculatePositions(originPos, face, r, axisMode));
@@ -461,8 +461,8 @@ public class BuildingWandItem extends Item {
 
         // Achsen-Logik
         // 0 = Face-Aligned (Standard Wand Verhalten: Plane perpendicular to Face)
-        // 1 = X Plane (Baut entlang Y/Z, flach auf X) - unüblich für "Wand", eher "Octant", aber gewünscht.
-        //     Wenn User X wählt, will er wahrscheinlich eine Wand auf der X-Achse bauen.
+        // 1 = X Plane (Baut entlang Y/Z, flach auf X) - unÃ¼blich fÃ¼r "Wand", eher "Octant", aber gewÃ¼nscht.
+        //     Wenn User X wÃ¤hlt, will er wahrscheinlich eine Wand auf der X-Achse bauen.
         //     Hier interpretieren wir "Axis X" als: Baut in der Ebene definiert durch Y und Z (Normal = X).
         // 2 = Y Plane (Baut Boden/Decke, Ebene X/Z).
         // 3 = Z Plane (Baut Wand, Ebene X/Y).
@@ -473,7 +473,7 @@ public class BuildingWandItem extends Item {
         else if (axisMode == 3) buildAxis = Direction.Axis.Z;
         else buildAxis = face.getAxis(); // Default: Achse der Blickrichtung
 
-        // Um eine Fläche zu füllen, iterieren wir über die beiden ANDEREN Achsen.
+        // Um eine FlÃ¤che zu fÃ¼llen, iterieren wir Ã¼ber die beiden ANDEREN Achsen.
         // currentRadius definiert den Ring (Hohlquadrat) dieses Schrittes.
 
         int r = currentRadius;
@@ -482,13 +482,13 @@ public class BuildingWandItem extends Item {
             return positions;
         }
 
-        // Iteriere von -r bis +r für beide Offset-Achsen
+        // Iteriere von -r bis +r fÃ¼r beide Offset-Achsen
         // Wir nehmen nur den Rand (Ring), wenn wir Tick-basiert bauen
-        // Da die Methode aber "StepPositions" heißt, generieren wir hier den Rand für Radius r.
+        // Da die Methode aber "StepPositions" heiÃŸt, generieren wir hier den Rand fÃ¼r Radius r.
 
         for (int u = -r; u <= r; u++) {
             for (int v = -r; v <= r; v++) {
-                // Nur den Rand hinzufügen (Optimierung für Animation/Ticking)
+                // Nur den Rand hinzufÃ¼gen (Optimierung fÃ¼r Animation/Ticking)
                 if (Math.abs(u) != r && Math.abs(v) != r) continue;
 
                 BlockPos offset = getOffsetForAxis(buildAxis, u, v);

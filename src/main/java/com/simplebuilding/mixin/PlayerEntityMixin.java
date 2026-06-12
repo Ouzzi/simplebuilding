@@ -14,8 +14,8 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.tag.ItemTags;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -51,7 +51,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
         // 1. Trim Effekte (Stasis, Astralit Jump Boost)
         TrimEffectUtil.tick(player);
 
-        // 2. Nihilith Gravity (Client & Server für prediction)
+        // 2. Nihilith Gravity (Client & Server fÃ¼r prediction)
         TrimEffectUtil.handleNihilithGravity(player);
 
         // 3. Enderite Slow Fall (Server-Side)
@@ -63,7 +63,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
             if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.CHEST))) enderiteCount++;
             if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.HEAD))) enderiteCount++;
 
-            // Logik: Mindestens 2 Teile UND Spieler fällt UND Leertaste gedrückt
+            // Logik: Mindestens 2 Teile UND Spieler fÃ¤llt UND Leertaste gedrÃ¼ckt
             if (enderiteCount >= 2 && !this.isOnGround() && this.getVelocity().y < -0.1) {
                 if (this.simplebuilding$isSpacePressed()) {
                     this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 2, 0, false, false, false));

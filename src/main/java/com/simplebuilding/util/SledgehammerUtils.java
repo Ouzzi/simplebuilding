@@ -4,15 +4,15 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class SledgehammerUtils {
 
     /**
-     * Prüft, ob ein Block basierend auf den Enchantments des Hammers abgebaut werden soll.
+     * PrÃ¼ft, ob ein Block basierend auf den Enchantments des Hammers abgebaut werden soll.
      */
     public static boolean shouldBreak(World world, BlockPos pos, BlockPos originPos, ItemStack stack) {
         BlockState targetState = world.getBlockState(pos);

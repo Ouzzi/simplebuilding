@@ -24,7 +24,7 @@ public class ReinforcedBundleTooltipSubmenuHandler implements TooltipSubmenuHand
 
     @Override
     public boolean isApplicableTo(Slot slot) {
-        // Das stellt sicher, dass unser Handler nur aktiv wird, wenn die Maus über deinem Bundle ist.
+        // Das stellt sicher, dass unser Handler nur aktiv wird, wenn die Maus Ã¼ber deinem Bundle ist.
         return slot.hasStack() && slot.getStack().getItem() instanceof com.simplebuilding.items.custom.ReinforcedBundleItem;
     }
 
@@ -40,17 +40,17 @@ public class ReinforcedBundleTooltipSubmenuHandler implements TooltipSubmenuHand
             int currentIndex = contents.getSelectedStackIndex();
             if (currentIndex == -1) currentIndex = 0;
 
-            // Richtung umkehren für natürliches Scrollen
+            // Richtung umkehren fÃ¼r natÃ¼rliches Scrollen
             int scrollDelta = (int) -vertical;
             int newIndex = MathHelper.clamp(currentIndex + scrollDelta, 0, size - 1);
 
             if (newIndex != currentIndex) {
-                // 1. Paket an Server senden (für Logik)
+                // 1. Paket an Server senden (fÃ¼r Logik)
                 if (this.client.getNetworkHandler() != null) {
                     ClientPlayNetworking.send(new ReinforcedBundleSelectionPayload(slotId, newIndex));
                 }
 
-                // 2. WICHTIG: Client-Item sofort updaten (für visuelles Feedback im Tooltip)
+                // 2. WICHTIG: Client-Item sofort updaten (fÃ¼r visuelles Feedback im Tooltip)
                 ReinforcedBundleItem.setBundleSelectedItem(stack, newIndex);
 
                 return true;
@@ -61,7 +61,7 @@ public class ReinforcedBundleTooltipSubmenuHandler implements TooltipSubmenuHand
 
     @Override
     public void onMouseClick(Slot slot, SlotActionType actionType) {
-        // Reset bei Klick, falls gewünscht, oder leer lassen
+        // Reset bei Klick, falls gewÃ¼nscht, oder leer lassen
     }
 
     @Override

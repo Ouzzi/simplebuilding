@@ -20,8 +20,8 @@ import net.minecraft.recipe.RawShapedRecipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.util.registry.Registries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -31,7 +31,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
-import com.simplebuilding.enchantment.ModEnchantments; // Importe behalten für Events
+import com.simplebuilding.enchantment.ModEnchantments; // Importe behalten fÃ¼r Events
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +79,7 @@ public class ModRegistries {
     public static void registerModStuffs() {
         registerEvents();
         // registerNetworking(); <--- ENTFERNT! Das macht jetzt ModMessages.
-        Registry.register(Registries.RECIPE_SERIALIZER, Identifier.of(Simplebuilding.MOD_ID, "reinforced_bundle"), REINFORCED_BUNDLE_SERIALIZER);
+        Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(Simplebuilding.MOD_ID, "reinforced_bundle"), REINFORCED_BUNDLE_SERIALIZER);
     }
 
     private static void registerEvents() {

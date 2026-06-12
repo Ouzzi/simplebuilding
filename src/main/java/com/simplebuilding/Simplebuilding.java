@@ -4,7 +4,6 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.command.ModCommands;
 import com.simplebuilding.common.SimplebuildingBootstrap;
-import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.common.SimplebuildingCommon;
 import com.simplebuilding.common.SimplebuildingLoader;
 import com.simplebuilding.common.SimplebuildingStartupPlan;
@@ -29,7 +28,6 @@ import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -41,7 +39,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * Die Hauptklasse für den Simplebuilding Mod.
+ * Die Hauptklasse fÃ¼r den Simplebuilding Mod.
  */
 public class Simplebuilding implements ModInitializer {
     public static final String MOD_ID = SimplebuildingCommon.MOD_ID;
@@ -78,7 +76,6 @@ public class Simplebuilding implements ModInitializer {
         ModBlockEntities.registerBlockEntities();
         ModLootTableProvider.modifyLootTables();
         ModTradeOffers.registerModTradeOffers();
-        ModDataComponentTypes.registerDataComponentTypes();
         ModEnchantmentEffects.registerEnchantmentEffects();
         ModRecipes.registerRecipes();
         ModRegistries.registerModStuffs();
@@ -122,8 +119,8 @@ public class Simplebuilding implements ModInitializer {
             if (!(item instanceof OctantItem) || item == ModItems.OCTANT) {return ActionResult.PASS;}
             if (!world.isClient()) {
                 ItemStack newStack = new ItemStack(ModItems.OCTANT);
-                if (stack.contains(DataComponentTypes.CUSTOM_DATA)) {
-                    newStack.set(DataComponentTypes.CUSTOM_DATA, stack.get(DataComponentTypes.CUSTOM_DATA));
+                if (stack.hasNbt()) {
+                    newStack.setNbt(stack.getNbt() == null ? null : stack.getNbt().copy());
                 }
                 player.setStackInHand(hand, newStack);
                 player.incrementStat(Stats.CLEAN_ARMOR);

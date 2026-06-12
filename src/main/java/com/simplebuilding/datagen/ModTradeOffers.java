@@ -12,9 +12,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.entry.RegistryEntry;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradedItem;
@@ -37,7 +37,7 @@ public class ModTradeOffers {
     public static void registerVillagerTrades() {
         if (Simplebuilding.getConfig().worldGen.enableVillagerTrades) {
 
-            // 1. LIBRARIAN (Bibliothekar) - Bücher für Building & Utility
+            // 1. LIBRARIAN (Bibliothekar) - BÃ¼cher fÃ¼r Building & Utility
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.LIBRARIAN, 3, factories -> {
                 List<WeightedEnchantment> buildingPool = List.of(
                         new WeightedEnchantment(ModEnchantments.COLOR_PALETTE, 1, 30),
@@ -74,7 +74,7 @@ public class ModTradeOffers {
             });
 
 
-            // 2. MASON (Steinmetz) - Baublöcke & Core Items
+            // 2. MASON (Steinmetz) - BaublÃ¶cke & Core Items
             TradeOfferHelper.registerVillagerOffers(VillagerProfession.MASON, 2, factories -> {
                 // FIX: (world, entity, random)
                 factories.add((world, entity, random) -> new TradeOffer(new TradedItem(Items.EMERALD, 25), new ItemStack(ModItems.COPPER_CORE, 1), 2, 10, 0.1f));
@@ -158,7 +158,7 @@ public class ModTradeOffers {
     }
 
     /**
-     * Hilfsmethode: Zieht eine zufällige Verzauberung basierend auf dem Gewicht.
+     * Hilfsmethode: Zieht eine zufÃ¤llige Verzauberung basierend auf dem Gewicht.
      */
     private static WeightedEnchantment pickWeighted(List<WeightedEnchantment> pool, Random random) {
         int totalWeight = 0;
@@ -224,7 +224,7 @@ public class ModTradeOffers {
             }
         }
 
-        // WICHTIG: Bei Büchern nutzen wir STORED_ENCHANTMENTS
+        // WICHTIG: Bei BÃ¼chern nutzen wir STORED_ENCHANTMENTS
         stack.set(DataComponentTypes.STORED_ENCHANTMENTS, builder.build());
         return stack;
     }

@@ -30,7 +30,7 @@ public class ItemMixin {
             TooltipType type,
             CallbackInfo ci
     ) {
-        // Client-Side Check für den Player (für Multiplikator)
+        // Client-Side Check fÃ¼r den Player (fÃ¼r Multiplikator)
         PlayerEntity player = MinecraftClient.getInstance().player;
         if (player == null) return;
 
@@ -84,7 +84,7 @@ public class ItemMixin {
                 textConsumer.accept(Text.literal(String.format("Material: Lightning Rod (-%.1f%% Ltn)", val)).formatted(Formatting.GOLD));
             }
             else if (materialId.contains("redstone")) {
-                float val = 1.5f * mult; // Speed Bonus (grob geschätzt für Tooltip)
+                float val = 1.5f * mult; // Speed Bonus (grob geschÃ¤tzt fÃ¼r Tooltip)
                 textConsumer.accept(Text.literal(String.format("Material: Trap Awareness (+%.1f%% Speed)", val)).formatted(Formatting.RED));
             }
             else if (materialId.contains("quartz")) {

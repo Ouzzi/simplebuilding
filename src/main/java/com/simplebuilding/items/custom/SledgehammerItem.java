@@ -16,8 +16,8 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
@@ -105,7 +105,7 @@ public class SledgehammerItem extends Item {
             }
         }
 
-        // 3. Deine existierende Multiplier-Logik (unverändert, nutzt jetzt aber den korrigierten baseSpeed)
+        // 3. Deine existierende Multiplier-Logik (unverÃ¤ndert, nutzt jetzt aber den korrigierten baseSpeed)
         if (baseSpeed > 1.0F) {
             int blockCount = getBlockCountForSpeed(stack);
             float cappedCount = Math.min(blockCount, 25);
@@ -147,7 +147,7 @@ public class SledgehammerItem extends Item {
         // Relativer Hit Vector
         Vec3d relativeHit = context.getHitPos().subtract(Vec3d.of(pos));
 
-        // FIX: pos übergeben
+        // FIX: pos Ã¼bergeben
         BlockState transformState = getTransformationState(state, pos, context.getSide(), relativeHit, player, stack);
 
         if (transformState != null) {
@@ -178,14 +178,14 @@ public class SledgehammerItem extends Item {
             // Relativer Hit Vector berechnen
             Vec3d relativeHit = hitResult.getPos().subtract(Vec3d.of(pos));
 
-            // Transformation abrufen (FIX: pos übergeben)
+            // Transformation abrufen (FIX: pos Ã¼bergeben)
             BlockState newState = getTransformationState(state, pos, side, relativeHit, player, stack);
 
             if (newState != null) {
                 if (!world.isClient()) {
                     world.setBlockState(pos, newState);
 
-                    // Sound: Verwende den Break-Sound des Blocks, klingt natürlicher
+                    // Sound: Verwende den Break-Sound des Blocks, klingt natÃ¼rlicher
                     world.playSound(null, pos, state.getSoundGroup().getBreakSound(), SoundCategory.BLOCKS, 1.0f, 0.8f);
 
                     ((ServerWorld) world).spawnParticles(
@@ -195,7 +195,7 @@ public class SledgehammerItem extends Item {
                     );
 
                     if (!player.isCreative()) {
-                        // Prüfen ob Reverse Action (teurer)
+                        // PrÃ¼fen ob Reverse Action (teurer)
                         boolean isReverse = player.isSneaking() && hasConstructorsTouch(stack, world);
                         int damage = isReverse ? 2 : 1;
                         stack.damage(damage, player, EquipmentSlot.MAINHAND);
@@ -244,10 +244,10 @@ public class SledgehammerItem extends Item {
 
             // 2. Slab -> Stairs
             if (block instanceof SlabBlock) {
-                String id = net.minecraft.registry.Registries.BLOCK.getId(block).getPath();
+                String id = net.minecraft.util.registry.Registries.BLOCK.getId(block).getPath();
                 String baseName = id.replace("_slab", "");
-                Optional<Block> stairs = net.minecraft.registry.Registries.BLOCK.getOptionalValue(
-                        net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), baseName + "_stairs")
+                Optional<Block> stairs = net.minecraft.util.registry.Registries.BLOCK.getOptionalValue(
+                        net.minecraft.util.new Identifier(net.minecraft.util.registry.Registries.BLOCK.getId(block).getNamespace(), baseName + "_stairs")
                 );
                 if (stairs.isPresent()) {
                     BlockState stairState = stairs.get().getDefaultState();
@@ -257,14 +257,14 @@ public class SledgehammerItem extends Item {
 
             // 3. Stairs -> Block
             if (block instanceof StairsBlock) {
-                String id = net.minecraft.registry.Registries.BLOCK.getId(block).getPath();
+                String id = net.minecraft.util.registry.Registries.BLOCK.getId(block).getPath();
                 String baseName = id.replace("_stairs", "");
-                Optional<Block> fullBlock = net.minecraft.registry.Registries.BLOCK.getOptionalValue(
-                        net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), baseName)
+                Optional<Block> fullBlock = net.minecraft.util.registry.Registries.BLOCK.getOptionalValue(
+                        net.minecraft.util.new Identifier(net.minecraft.util.registry.Registries.BLOCK.getId(block).getNamespace(), baseName)
                 );
-                // Fallbacks prüfen (plural 's' oder '_planks')
-                if (fullBlock.isEmpty()) fullBlock = net.minecraft.registry.Registries.BLOCK.getOptionalValue(net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), baseName + "s"));
-                if (fullBlock.isEmpty()) fullBlock = net.minecraft.registry.Registries.BLOCK.getOptionalValue(net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), baseName + "_planks"));
+                // Fallbacks prÃ¼fen (plural 's' oder '_planks')
+                if (fullBlock.isEmpty()) fullBlock = net.minecraft.util.registry.Registries.BLOCK.getOptionalValue(net.minecraft.util.new Identifier(net.minecraft.util.registry.Registries.BLOCK.getId(block).getNamespace(), baseName + "s"));
+                if (fullBlock.isEmpty()) fullBlock = net.minecraft.util.registry.Registries.BLOCK.getOptionalValue(net.minecraft.util.new Identifier(net.minecraft.util.registry.Registries.BLOCK.getId(block).getNamespace(), baseName + "_planks"));
 
                 if (fullBlock.isPresent()) {
                     return fullBlock.get().getDefaultState();
@@ -275,11 +275,11 @@ public class SledgehammerItem extends Item {
             // === NICHT SNEAKING = FORWARD ===
 
             // 1. Block -> Stairs
-            // FIX: world und pos an isFullCube übergeben, statt null
+            // FIX: world und pos an isFullCube Ã¼bergeben, statt null
             if (state.isFullCube(world, pos)) {
-                String id = net.minecraft.registry.Registries.BLOCK.getId(block).getPath();
-                Optional<Block> stairs = net.minecraft.registry.Registries.BLOCK.getOptionalValue(
-                        net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), id + "_stairs")
+                String id = net.minecraft.util.registry.Registries.BLOCK.getId(block).getPath();
+                Optional<Block> stairs = net.minecraft.util.registry.Registries.BLOCK.getOptionalValue(
+                        net.minecraft.util.new Identifier(net.minecraft.util.registry.Registries.BLOCK.getId(block).getNamespace(), id + "_stairs")
                 );
                 if (stairs.isPresent()) {
                     BlockState stairState = stairs.get().getDefaultState();
@@ -289,10 +289,10 @@ public class SledgehammerItem extends Item {
 
             // 2. Stairs -> Slab
             if (block instanceof StairsBlock) {
-                String id = net.minecraft.registry.Registries.BLOCK.getId(block).getPath();
+                String id = net.minecraft.util.registry.Registries.BLOCK.getId(block).getPath();
                 String baseName = id.replace("_stairs", "");
-                Optional<Block> slab = net.minecraft.registry.Registries.BLOCK.getOptionalValue(
-                        net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), baseName + "_slab")
+                Optional<Block> slab = net.minecraft.util.registry.Registries.BLOCK.getOptionalValue(
+                        net.minecraft.util.new Identifier(net.minecraft.util.registry.Registries.BLOCK.getId(block).getNamespace(), baseName + "_slab")
                 );
                 if (slab.isPresent()) {
                     BlockState slabState = slab.get().getDefaultState();

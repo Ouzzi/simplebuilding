@@ -18,14 +18,14 @@ public abstract class HandledScreenMixin extends Screen {
         super(title);
     }
 
-    // Zugriff auf die geschützte Methode in HandledScreen, um Handler hinzuzufügen
+    // Zugriff auf die geschÃ¼tzte Methode in HandledScreen, um Handler hinzuzufÃ¼gen
     @Shadow
     protected abstract void addTooltipSubmenuHandler(TooltipSubmenuHandler handler);
 
     /**
      * Wir injizieren uns in die 'init' Methode.
-     * Dort fügt Vanilla seinen Bundle-Handler hinzu. Wir fügen einfach unseren dazu.
-     * Minecraft geht dann beim Scrollen die Liste durch und prüft 'isApplicableTo'.
+     * Dort fÃ¼gt Vanilla seinen Bundle-Handler hinzu. Wir fÃ¼gen einfach unseren dazu.
+     * Minecraft geht dann beim Scrollen die Liste durch und prÃ¼ft 'isApplicableTo'.
      */
     @Inject(method = "init", at = @At("TAIL"))
     private void simplebuilding$addCustomBundleHandler(CallbackInfo ci) {

@@ -35,7 +35,7 @@ public class EquipmentRendererMixin {
                 return LightmapTextureManager.MAX_LIGHT_COORDINATE;
             }
 
-            // LEVEL 2: Pulsierendes "Überladen"-Leuchten
+            // LEVEL 2: Pulsierendes "Ãœberladen"-Leuchten
             if (level >= 2) {
                 return simplebuilding$calculatePulsingLight();
             }
@@ -46,7 +46,7 @@ public class EquipmentRendererMixin {
 
     @Unique
     private int simplebuilding$calculatePulsingLight() {
-        // 1. Geschwindigkeit erhöhen
+        // 1. Geschwindigkeit erhÃ¶hen
         // Ein Divisor von 1000.0 ergab einen Zyklus von >6 Sekunden.
         // Ein Divisor von 150.0 ergibt ca. 1 Sekunde pro Puls -> wirkt "energetisch".
         double speedDivisor = 500.0;
@@ -59,7 +59,7 @@ public class EquipmentRendererMixin {
         double normalized = (sine + 1.0) / 2.0;
 
         // 4. Lichtbereich definieren
-        // TIPP: Wenn wir von 0 bis 15 gehen, sind die Sprünge visuell sehr hart.
+        // TIPP: Wenn wir von 0 bis 15 gehen, sind die SprÃ¼nge visuell sehr hart.
         // Wenn wir von 5 bis 15 gehen, wirkt das "Leuchten" stabiler, aber pulsiert immer noch deutlich.
         // Ich habe es hier auf 1 bis 15 gesetzt, damit es nicht ganz schwarz wird (was wie ein Bug aussieht).
         double minLight = 1.0;
@@ -68,7 +68,7 @@ public class EquipmentRendererMixin {
         // 5. Wert berechnen
         double val = minLight + (normalized * (maxLight - minLight));
 
-        // 6. RUNDEN statt abschneiden (WICHTIG für weiche Übergänge)
+        // 6. RUNDEN statt abschneiden (WICHTIG fÃ¼r weiche ÃœbergÃ¤nge)
         // 14.9 wird zu 15, nicht zu 14.
         int lightValue = (int) Math.round(val);
 

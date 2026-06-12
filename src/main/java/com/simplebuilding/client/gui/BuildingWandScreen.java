@@ -3,12 +3,10 @@ package com.simplebuilding.client.gui;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.networking.BuildingWandConfigurePayload;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.input.KeyInput;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
@@ -48,8 +46,10 @@ public class BuildingWandScreen extends Screen {
     }
 
     private void loadDataFromStack() {
-        NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        NbtCompound nbt = nbtData.copyNbt();
+        NbtCompound nbt = stack.getNbt();
+        if (nbt == null) {
+            nbt = new NbtCompound();
+        }
 
         // Lade Radius (Default ist maxRadius, wenn noch nicht gesetzt)
         if (nbt.contains("SettingsRadius")) {
@@ -72,7 +72,7 @@ public class BuildingWandScreen extends Screen {
 
         // --- Radius Button ---
         addDrawableChild(ButtonWidget.builder(getRadiusText(), b -> {
-                    // Zyklisch erhöhen: 0 -> 1 -> ... -> Max -> 0
+                    // Zyklisch erhÃ¶hen: 0 -> 1 -> ... -> Max -> 0
                     currentRadius++;
                     if (currentRadius > maxRadiusForTier) currentRadius = 0;
                     b.setMessage(getRadiusText());
@@ -115,11 +115,13 @@ public class BuildingWandScreen extends Screen {
 
     private void updateLocalAndSend() {
         try {
-            NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-            NbtCompound nbt = nbtData.copyNbt();
+            NbtCompound nbt = stack.getNbt();
+            if (nbt == null) {
+                nbt = new NbtCompound();
+            }
             nbt.putInt("SettingsRadius", currentRadius);
             nbt.putInt("SettingsAxis", axisMode);
-            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+            stack.setNbt(nbt);
 
             // Sende Paket an Server
             ClientPlayNetworking.send(new BuildingWandConfigurePayload(currentRadius, axisMode));
@@ -127,24 +129,20 @@ public class BuildingWandScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(KeyInput input) {
-        // Hole den KeyCode für den Vergleich mit E und ESC
-        int keyCode = input.key();
-
-        // KORREKTUR: Übergib das 'input' Objekt direkt an matchesKey
-        if (com.simplebuilding.SimplebuildingClient.settingsKey.matchesKey(input)
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (com.simplebuilding.SimplebuildingClient.settingsKey.matchesKey(keyCode, scanCode)
                 || keyCode == GLFW.GLFW_KEY_E
                 || keyCode == GLFW.GLFW_KEY_ESCAPE) {
             this.close();
             return true;
         }
-        return super.keyPressed(input);
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        context.fill(0, 0, width, height, 0x15000000);
-        super.render(context, mouseX, mouseY, delta);
-        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("simplebuilding.gui.wand_settings"), columnCenterX, startY - 20, 0xFFFFFF);
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        DrawableHelper.fill(matrices, 0, 0, width, height, 0x15000000);
+        super.render(matrices, mouseX, mouseY, delta);
+        textRenderer.drawWithShadow(matrices, Text.translatable("simplebuilding.gui.wand_settings"), columnCenterX - (textRenderer.getWidth(Text.translatable("simplebuilding.gui.wand_settings")) / 2f), startY - 20, 0xFFFFFF);
     }
 }

@@ -5,8 +5,8 @@ import com.simplebuilding.items.custom.OctantItem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -27,7 +27,7 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
     private static final int COLOR_SPEED = 0xFF7F4C; // Orange
     private static final int COLOR_STATS = 0xFFAAAAAA; // Grau
     private static final int COLOR_DANGER = 0xFFFF5555; // Rot
-    private static final int COLOR_SAFE   = 0xFF55FF55; // Grün
+    private static final int COLOR_SAFE   = 0xFF55FF55; // GrÃ¼n
 
     // --- SESSION DATEN ---
     private static double topSpeed = 0.0;
@@ -36,11 +36,11 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
     private static boolean wasHoldingSpeedometer = false;
 
     @Override
-    public void onHudRender(DrawContext context, RenderTickCounter tickCounter) {
+    public void onHudRender(MatrixStack matrices, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null) return;
 
-        // 1. Prüfen ob Speedometer gehalten wird (Main oder Offhand)
+        // 1. PrÃ¼fen ob Speedometer gehalten wird (Main oder Offhand)
         ItemStack main = client.player.getMainHandStack();
         ItemStack off = client.player.getOffHandStack();
         boolean hasSpeedometer = main.isOf(ModItems.VELOCITY_GAUGE) || off.isOf(ModItems.VELOCITY_GAUGE);
@@ -57,8 +57,8 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
         }
         wasHoldingSpeedometer = true;
 
-        // 2. Prüfen ob Octant gehalten wird (für Positionierung)
-        // Wir prüfen, ob eines der Items eine Instanz von OctantItem ist
+        // 2. PrÃ¼fen ob Octant gehalten wird (fÃ¼r Positionierung)
+        // Wir prÃ¼fen, ob eines der Items eine Instanz von OctantItem ist
         boolean hasOctant = (main.getItem() instanceof OctantItem) || (off.getItem() instanceof OctantItem);
 
         // --- BERECHNUNG ---
@@ -88,7 +88,7 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
         // --- TEXT ZUSAMMENSTELLEN ---
         List<Text> lines = new ArrayList<>();
 
-        // Welcher Stack ist der Speedometer? (Für Enchantment Check)
+        // Welcher Stack ist der Speedometer? (FÃ¼r Enchantment Check)
         ItemStack activeStack = main.isOf(ModItems.VELOCITY_GAUGE) ? main : off;
         boolean isEnchanted = activeStack.hasEnchantments();
 
@@ -108,14 +108,14 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
             if (isFlying) {
                 // Symbol je nach Gefahr
                 boolean danger = speedBps > 15.0;
-                Text symbol = Text.literal(danger ? "⚠ " : "✔ ")
+                Text symbol = Text.literal(danger ? "âš  " : "âœ” ")
                         .setStyle(Style.EMPTY.withColor(danger ? COLOR_DANGER : COLOR_SAFE).withBold(true));
 
                 // Stats Text ("Top: 20.1 Avg: 15.0") in Grau
                 Text stats = Text.literal(String.format("Top: %.1f  Avg: %.1f", topSpeed, avgSpeed))
                         .setStyle(Style.EMPTY.withColor(COLOR_STATS));
 
-                // Zusammenbauen: "⚠ Top: ... Avg: ..."
+                // Zusammenbauen: "âš  Top: ... Avg: ..."
                 lines.add(Text.empty().append(symbol).append(stats));
             }
             else {
@@ -132,7 +132,7 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
 
         // --- RENDERING ---
         TextRenderer textRenderer = client.textRenderer;
-        int screenHeight = context.getScaledWindowHeight();
+        int screenHeight = client.getWindow().getScaledHeight();
 
         // Breite berechnen
         int actualTextWidth = 0;
@@ -165,32 +165,32 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
         }
 
         // Draw Box
-        context.fill(x + 1, y + 1, x + boxWidth - 1, y + boxHeight - 1, BACKGROUND_COLOR);
-        context.fill(x + 1, y, x + boxWidth - 1, y + 1, BACKGROUND_COLOR);
+        DrawableHelper.fill(matrices, x + 1, y + 1, x + boxWidth - 1, y + boxHeight - 1, BACKGROUND_COLOR);
+        DrawableHelper.fill(matrices, x + 1, y, x + boxWidth - 1, y + 1, BACKGROUND_COLOR);
 
         // Borders
-        context.fill(x + 1, y - 1, x + boxWidth - 1, y, BACKGROUND_COLOR);
-        context.fill(x + 1, y + boxHeight, x + boxWidth - 1, y + boxHeight + 1, BACKGROUND_COLOR);
-        context.fill(x - 1, y + 1, x, y + boxHeight - 1, BACKGROUND_COLOR);
-        context.fill(x + boxWidth, y + 1, x + boxWidth + 1, y + boxHeight - 1, BACKGROUND_COLOR);
+        DrawableHelper.fill(matrices, x + 1, y - 1, x + boxWidth - 1, y, BACKGROUND_COLOR);
+        DrawableHelper.fill(matrices, x + 1, y + boxHeight, x + boxWidth - 1, y + boxHeight + 1, BACKGROUND_COLOR);
+        DrawableHelper.fill(matrices, x - 1, y + 1, x, y + boxHeight - 1, BACKGROUND_COLOR);
+        DrawableHelper.fill(matrices, x + boxWidth, y + 1, x + boxWidth + 1, y + boxHeight - 1, BACKGROUND_COLOR);
 
         // Hintergrund Border Ecken
-        context.fillGradient(x + boxWidth - 1, y, x + boxWidth, y + 1, BACKGROUND_COLOR, BACKGROUND_COLOR);
-        context.fillGradient(x, y, x + 1, y + 1, BACKGROUND_COLOR, BACKGROUND_COLOR);
-        context.fillGradient(x + boxWidth - 1, y + boxHeight - 1, x + boxWidth, y + boxHeight, BACKGROUND_COLOR, BACKGROUND_COLOR);
-        context.fillGradient(x, y + boxHeight - 1, x + 1, y + boxHeight, BACKGROUND_COLOR, BACKGROUND_COLOR);
+        DrawableHelper.fillGradient(matrices, x + boxWidth - 1, y, x + boxWidth, y + 1, BACKGROUND_COLOR, BACKGROUND_COLOR);
+        DrawableHelper.fillGradient(matrices, x, y, x + 1, y + 1, BACKGROUND_COLOR, BACKGROUND_COLOR);
+        DrawableHelper.fillGradient(matrices, x + boxWidth - 1, y + boxHeight - 1, x + boxWidth, y + boxHeight, BACKGROUND_COLOR, BACKGROUND_COLOR);
+        DrawableHelper.fillGradient(matrices, x, y + boxHeight - 1, x + 1, y + boxHeight, BACKGROUND_COLOR, BACKGROUND_COLOR);
 
         // Gradient Border
-        context.fillGradient(x + 1, y, x + boxWidth - 1, y + 1, BORDER_COLOR_START, BORDER_COLOR_START);
-        context.fillGradient(x + 1, y + boxHeight - 1, x + boxWidth - 1, y + boxHeight, BORDER_COLOR_END, BORDER_COLOR_END);
-        context.fillGradient(x, y + 1, x + 1, y + boxHeight - 1, BORDER_COLOR_START, BORDER_COLOR_END);
-        context.fillGradient(x + boxWidth - 1, y + 1, x + boxWidth, y + boxHeight - 1, BORDER_COLOR_START, BORDER_COLOR_END);
+        DrawableHelper.fillGradient(matrices, x + 1, y, x + boxWidth - 1, y + 1, BORDER_COLOR_START, BORDER_COLOR_START);
+        DrawableHelper.fillGradient(matrices, x + 1, y + boxHeight - 1, x + boxWidth - 1, y + boxHeight, BORDER_COLOR_END, BORDER_COLOR_END);
+        DrawableHelper.fillGradient(matrices, x, y + 1, x + 1, y + boxHeight - 1, BORDER_COLOR_START, BORDER_COLOR_END);
+        DrawableHelper.fillGradient(matrices, x + boxWidth - 1, y + 1, x + boxWidth, y + boxHeight - 1, BORDER_COLOR_START, BORDER_COLOR_END);
 
         // Draw Text
         int textY = y + paddingY;
         for (int i = 0; i < lines.size(); i++) {
             Text line = lines.get(i);
-            context.drawTextWithShadow(textRenderer, line, x + paddingX, textY, 0xFFFFFFFF);
+            textRenderer.drawWithShadow(matrices, line, x + paddingX, textY, 0xFFFFFFFF);
             textY += textRenderer.fontHeight + lineSpacing;
             if (i == 0) textY += titleSpacing;
         }

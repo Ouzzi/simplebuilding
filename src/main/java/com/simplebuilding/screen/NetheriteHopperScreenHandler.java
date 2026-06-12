@@ -17,13 +17,13 @@ public class NetheriteHopperScreenHandler extends ModHopperScreenHandler {
     private final World world;
     private final BlockPos pos;
 
-    // ÄNDERUNG 1: Client Constructor akzeptiert jetzt BlockPos direkt
+    // Ã„NDERUNG 1: Client Constructor akzeptiert jetzt BlockPos direkt
     public NetheriteHopperScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos pos) {
         this(syncId, playerInventory, new SimpleInventory(5), null, new ArrayPropertyDelegate(1), pos);
     }
 
     // 2. Server Constructor
-    // Dieser wird aufgerufen, wenn der Server das GUI öffnet.
+    // Dieser wird aufgerufen, wenn der Server das GUI Ã¶ffnet.
     public NetheriteHopperScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, ModHopperBlockEntity blockEntity) {
         this(syncId, playerInventory, inventory, blockEntity,
              blockEntity.getPropertyDelegate(),
@@ -45,7 +45,7 @@ public class NetheriteHopperScreenHandler extends ModHopperScreenHandler {
         return ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER;
     }
 
-    // ÄNDERUNG 2: Rückgabetyp korrigiert (ModHopperBlockEntity statt BlockEntity)
+    // Ã„NDERUNG 2: RÃ¼ckgabetyp korrigiert (ModHopperBlockEntity statt BlockEntity)
     // Damit passt es zur Override-Regel der Elternklasse.
     @Override
     public ModHopperBlockEntity getBlockEntity() {

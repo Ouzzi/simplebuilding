@@ -3,8 +3,8 @@ package com.simplebuilding.datagen;
 import com.simplebuilding.Simplebuilding;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.registry.RegistryKeys;
+import net.minecraft.util.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -15,12 +15,12 @@ public class ModWorldGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        // Hier fügen wir die Keys hinzu, die wir in ModWorldGen definiert haben.
+        // Hier fÃ¼gen wir die Keys hinzu, die wir in ModWorldGen definiert haben.
         // Da die Bootstraps bereits beim Initialisieren des RegistryBuilders laufen,
-        // müssen wir hier nur sicherstellen, dass wir die richtigen Referenzen hinzufügen.
+        // mÃ¼ssen wir hier nur sicherstellen, dass wir die richtigen Referenzen hinzufÃ¼gen.
         
         // Da wir die Bootstraps in 'DataGeneration.java' registrieren (siehe unten),
-        // fügt dieser Provider alles automatisch hinzu, was in der Registry ist.
+        // fÃ¼gt dieser Provider alles automatisch hinzu, was in der Registry ist.
         entries.addAll(registries.getOrThrow(RegistryKeys.CONFIGURED_FEATURE));
         entries.addAll(registries.getOrThrow(RegistryKeys.PLACED_FEATURE));
     }
