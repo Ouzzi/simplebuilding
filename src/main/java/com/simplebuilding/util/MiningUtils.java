@@ -1,42 +1,41 @@
 package com.simplebuilding.util;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-
 import java.util.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class MiningUtils {
 
-    public static List<BlockPos> getStripMinerBlocks(World world, BlockPos startPos, PlayerEntity player, ItemStack stack, int level) {
+    public static List<BlockPos> getStripMinerBlocks(Level world, BlockPos startPos, Player player, ItemStack stack, int level) {
         List<BlockPos> found = new ArrayList<>();
         int depth = (level == 3) ? 4 : level;
         Direction miningDirection = getMiningDirection(player);
 
         for (int i = 1; i <= depth; i++) {
-            BlockPos targetPos = startPos.offset(miningDirection, i);
+            BlockPos targetPos = startPos.relative(miningDirection, i);
             BlockState targetState = world.getBlockState(targetPos);
 
-            if (targetState.isAir() || targetState.getHardness(world, targetPos) < 0) break;
-            if (!stack.getItem().isCorrectForDrops(stack, targetState)) break;
+            if (targetState.isAir() || targetState.getDestroySpeed(world, targetPos) < 0) break;
+            if (!stack.getItem().isCorrectToolForDrops(stack, targetState)) break;
             found.add(targetPos);
         }
         return found;
     }
 
-    public static List<BlockPos> getVeinMinerBlocks(World world, BlockPos startPos, BlockState targetState, int level, ItemStack stack) {
-        boolean isPickaxe = stack.isIn(ItemTags.PICKAXES);
-        boolean isAxe = stack.isIn(ItemTags.AXES);
+    public static List<BlockPos> getVeinMinerBlocks(Level world, BlockPos startPos, BlockState targetState, int level, ItemStack stack) {
+        boolean isPickaxe = stack.is(ItemTags.PICKAXES);
+        boolean isAxe = stack.is(ItemTags.AXES);
 
         // Validierung: Nur Erze bei Spitzhacken, nur Holz bei Äxten
         if (isPickaxe && !isOre(targetState)) return Collections.emptyList();
-        if (isAxe && !targetState.isIn(BlockTags.LOGS)) return Collections.emptyList();
+        if (isAxe && !targetState.is(BlockTags.LOGS)) return Collections.emptyList();
 
         int maxBlocks = switch (level) {
             case 1 -> 3;
@@ -65,7 +64,7 @@ public class MiningUtils {
                     for (int z = -1; z <= 1; z++) {
                         if (x == 0 && y == 0 && z == 0) continue;
 
-                        BlockPos neighbor = current.add(x, y, z);
+                        BlockPos neighbor = current.offset(x, y, z);
                         if (!visited.contains(neighbor)) {
                             visited.add(neighbor); // Sofort markieren
                             BlockState neighborState = world.getBlockState(neighbor);
@@ -95,24 +94,24 @@ public class MiningUtils {
         return found;
     }
 
-    public static Direction getMiningDirection(PlayerEntity player) {
-        float pitch = player.getPitch();
+    public static Direction getMiningDirection(Player player) {
+        float pitch = player.getXRot();
         if (pitch < -60) return Direction.UP;
         if (pitch > 60) return Direction.DOWN;
-        return player.getHorizontalFacing();
+        return player.getDirection();
     }
 
     public static boolean isOre(BlockState state) {
         // Vanilla Tags nutzen. Hinweis: GOLD_ORES beinhaltet in Vanilla auch Nether Gold Ore.
-        return state.isIn(BlockTags.COAL_ORES) ||
-                state.isIn(BlockTags.IRON_ORES) ||
-                state.isIn(BlockTags.COPPER_ORES) ||
-                state.isIn(BlockTags.GOLD_ORES) ||
-                state.isIn(BlockTags.REDSTONE_ORES) ||
-                state.isIn(BlockTags.LAPIS_ORES) ||
-                state.isIn(BlockTags.DIAMOND_ORES) ||
-                state.isIn(BlockTags.EMERALD_ORES) ||
-                state.isOf(Blocks.NETHER_QUARTZ_ORE) || // Manueller Check für Quarz
-                state.isOf(Blocks.ANCIENT_DEBRIS);       // Optional: Antiker Schutt als Erz zählen
+        return state.is(BlockTags.COAL_ORES) ||
+                state.is(BlockTags.IRON_ORES) ||
+                state.is(BlockTags.COPPER_ORES) ||
+                state.is(BlockTags.GOLD_ORES) ||
+                state.is(BlockTags.REDSTONE_ORES) ||
+                state.is(BlockTags.LAPIS_ORES) ||
+                state.is(BlockTags.DIAMOND_ORES) ||
+                state.is(BlockTags.EMERALD_ORES) ||
+                state.is(Blocks.NETHER_QUARTZ_ORE) || // Manueller Check für Quarz
+                state.is(Blocks.ANCIENT_DEBRIS);       // Optional: Antiker Schutt als Erz zählen
     }
 }

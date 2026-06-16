@@ -1,31 +1,39 @@
 package com.simplebuilding.items.custom;
 
 import com.simplebuilding.enchantment.ModEnchantments;
-import net.minecraft.block.*;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.consume.UseAction;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-
+import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.SledgehammerUtils;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -64,8 +72,8 @@ public class SledgehammerItem extends Item {
 
     private final ToolMaterial material;
 
-    public SledgehammerItem(ToolMaterial material, float attackDamage, float attackSpeed, int durability, Settings settings) {
-        super(settings.pickaxe(material, attackDamage, attackSpeed).maxDamage(durability));
+    public SledgehammerItem(ToolMaterial material, float attackDamage, float attackSpeed, int durability, Properties settings) {
+        super(settings.pickaxe(material, attackDamage, attackSpeed).durability(durability));
         this.material = material;
     }
 
@@ -74,17 +82,17 @@ public class SledgehammerItem extends Item {
     }
 
     @Override
-    public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
+    public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
         // Standard-Verhalten (Pickaxe)
-        if (super.isCorrectForDrops(stack, state)) {
+        if (super.isCorrectToolForDrops(stack, state)) {
             return true;
         }
 
         // Wenn Override Level >= 2, erlaube auch Axt, Schaufel und Hacke
         if (getOverrideLevel(stack) >= 2) {
-            if (state.isIn(BlockTags.AXE_MINEABLE) ||
-                state.isIn(BlockTags.SHOVEL_MINEABLE) ||
-                state.isIn(BlockTags.HOE_MINEABLE)) {
+            if (state.is(BlockTags.MINEABLE_WITH_AXE) ||
+                state.is(BlockTags.MINEABLE_WITH_SHOVEL) ||
+                state.is(BlockTags.MINEABLE_WITH_HOE)) {
                 return true;
             }
         }
@@ -92,14 +100,14 @@ public class SledgehammerItem extends Item {
     }
 
     @Override
-    public float getMiningSpeed(ItemStack stack, BlockState state) {
-        float baseSpeed = super.getMiningSpeed(stack, state);
+    public float getDestroySpeed(ItemStack stack, BlockState state) {
+        float baseSpeed = super.getDestroySpeed(stack, state);
 
         // 2. NEU: Wenn Speed langsam ist (1.0f), aber Override II aktiv ist -> Setze vollen Speed
         if (baseSpeed <= 1.0F && getOverrideLevel(stack) >= 2) {
-             if (state.isIn(BlockTags.AXE_MINEABLE) ||
-                 state.isIn(BlockTags.SHOVEL_MINEABLE) ||
-                 state.isIn(BlockTags.HOE_MINEABLE)) {
+             if (state.is(BlockTags.MINEABLE_WITH_AXE) ||
+                 state.is(BlockTags.MINEABLE_WITH_SHOVEL) ||
+                 state.is(BlockTags.MINEABLE_WITH_HOE)) {
                  // Setze die Geschwindigkeit auf die des Materials (z.B. Diamant-Speed)
                  baseSpeed = this.material.speed();
             }
@@ -116,15 +124,15 @@ public class SledgehammerItem extends Item {
     }
 
     public static int getBlockCountForSpeed(ItemStack stack) {
-        ItemEnchantmentsComponent enchantments = stack.get(DataComponentTypes.ENCHANTMENTS);
+        ItemEnchantments enchantments = stack.get(DataComponents.ENCHANTMENTS);
         if (enchantments == null) return 9;
 
         boolean hasRadius = false;
         boolean hasBreakThrough = false;
 
-        for (var entry : enchantments.getEnchantmentEntries()) {
-            if (entry.getKey().matchesKey(ModEnchantments.RADIUS)) {hasRadius = true;}
-            if (entry.getKey().matchesKey(ModEnchantments.BREAK_THROUGH)) {hasBreakThrough = true;}
+        for (var entry : enchantments.entrySet()) {
+            if (entry.getKey().is(ModEnchantments.RADIUS)) {hasRadius = true;}
+            if (entry.getKey().is(ModEnchantments.BREAK_THROUGH)) {hasBreakThrough = true;}
         }
         int blockCount = 9;
         if (hasRadius) blockCount = 25;
@@ -133,72 +141,84 @@ public class SledgehammerItem extends Item {
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        World world = context.getWorld();
-        BlockPos pos = context.getBlockPos();
-        PlayerEntity player = context.getPlayer();
+    public InteractionResult useOn(UseOnContext context) {
+        Level world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        Player player = context.getPlayer();
         if (player == null) {
-            return ActionResult.PASS;
+            return InteractionResult.PASS;
         }
 
-        ItemStack stack = context.getStack();
+        ItemStack stack = context.getItemInHand();
         BlockState state = world.getBlockState(pos);
 
+        if (state.is(net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK)) {
+            player.startUsingItem(context.getHand());
+            return InteractionResult.CONSUME;
+        }
+
         // Relativer Hit Vector
-        Vec3d relativeHit = context.getHitPos().subtract(Vec3d.of(pos));
+        Vec3 relativeHit = context.getClickLocation().subtract(Vec3.atLowerCornerOf(pos));
 
         // FIX: pos übergeben
-        BlockState transformState = getTransformationState(state, pos, context.getSide(), relativeHit, player, stack);
+        BlockState transformState = getTransformationState(state, pos, context.getClickedFace(), relativeHit, player, stack);
 
         if (transformState != null) {
             if (player != null) {
-                player.setCurrentHand(context.getHand());
+                player.startUsingItem(context.getHand());
             }
-            return ActionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 
     @Override
-    public boolean onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+    public boolean releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
         return false; // Nichts tun, wenn vorzeitig abgebrochen
     }
 
     @Override
-    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        if (!(user instanceof PlayerEntity player)) return stack;
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
+        if (!(user instanceof Player player)) return stack;
 
-        var hitResult = player.raycast(5.0, 0.0f, false);
-        if (hitResult.getType() == net.minecraft.util.hit.HitResult.Type.BLOCK) {
-            BlockPos pos = ((net.minecraft.util.hit.BlockHitResult)hitResult).getBlockPos();
+        var hitResult = player.pick(5.0, 0.0f, false);
+        if (hitResult.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) {
+            BlockPos pos = ((net.minecraft.world.phys.BlockHitResult)hitResult).getBlockPos();
             BlockState state = world.getBlockState(pos);
-            Direction side = ((net.minecraft.util.hit.BlockHitResult)hitResult).getSide();
+            Direction side = ((net.minecraft.world.phys.BlockHitResult)hitResult).getDirection();
 
             // Relativer Hit Vector berechnen
-            Vec3d relativeHit = hitResult.getPos().subtract(Vec3d.of(pos));
+            Vec3 relativeHit = hitResult.getLocation().subtract(Vec3.atLowerCornerOf(pos));
 
             // Transformation abrufen (FIX: pos übergeben)
             BlockState newState = getTransformationState(state, pos, side, relativeHit, player, stack);
 
+            if (state.is(net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK)) {
+                if (!world.isClientSide()) {
+                    crushDiamondBlock((ServerLevel) world, pos, player, stack);
+                }
+                return stack;
+            }
+
             if (newState != null) {
-                if (!world.isClient()) {
-                    world.setBlockState(pos, newState);
+                if (!world.isClientSide()) {
+                    world.setBlockAndUpdate(pos, newState);
 
                     // Sound: Verwende den Break-Sound des Blocks, klingt natürlicher
-                    world.playSound(null, pos, state.getSoundGroup().getBreakSound(), SoundCategory.BLOCKS, 1.0f, 0.8f);
+                    world.playSound(null, pos, state.getSoundType().getBreakSound(), SoundSource.BLOCKS, 1.0f, 0.8f);
 
-                    ((ServerWorld) world).spawnParticles(
-                            new BlockStateParticleEffect(ParticleTypes.BLOCK, state),
+                    ((ServerLevel) world).sendParticles(
+                            new BlockParticleOption(ParticleTypes.BLOCK, state),
                             pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
                             20, 0.25, 0.25, 0.25, 0.05
                     );
 
                     if (!player.isCreative()) {
                         // Prüfen ob Reverse Action (teurer)
-                        boolean isReverse = player.isSneaking() && hasConstructorsTouch(stack, world);
+                        boolean isReverse = player.isShiftKeyDown() && hasConstructorsTouch(stack, world);
                         int damage = isReverse ? 2 : 1;
-                        stack.damage(damage, player, EquipmentSlot.MAINHAND);
+                        stack.hurtAndBreak(damage, player, EquipmentSlot.MAINHAND);
                     }
                 }
             }
@@ -207,14 +227,14 @@ public class SledgehammerItem extends Item {
     }
 
     @Override
-    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
+    public int getUseDuration(ItemStack stack, LivingEntity user) {
         float baseTime = 20.0f;
         int efficiencyLevel = 0;
-        var registry = user.getRegistryManager().getOptional(RegistryKeys.ENCHANTMENT);
+        var registry = user.registryAccess().lookup(Registries.ENCHANTMENT);
         if (registry.isPresent()) {
-            var efficiencyEntry = registry.get().getOptional(Enchantments.EFFICIENCY);
+            var efficiencyEntry = registry.get().get(Enchantments.EFFICIENCY);
              if (efficiencyEntry.isPresent()) {
-                 efficiencyLevel = EnchantmentHelper.getLevel(efficiencyEntry.get(), stack);
+                 efficiencyLevel = EnchantmentHelper.getItemEnchantmentLevel(efficiencyEntry.get(), stack);
              }
         }
 
@@ -225,16 +245,16 @@ public class SledgehammerItem extends Item {
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
+    public ItemUseAnimation getUseAnimation(ItemStack stack) {
+        return ItemUseAnimation.BOW;
     }
 
-    public BlockState getTransformationState(BlockState state, BlockPos pos, Direction side, Vec3d hit, PlayerEntity player, ItemStack stack) {
+    public BlockState getTransformationState(BlockState state, BlockPos pos, Direction side, Vec3 hit, Player player, ItemStack stack) {
         Block block = state.getBlock();
-        World world = player.getEntityWorld();
+        Level world = player.level();
 
         // STRIKTE TRENNUNG:
-        if (player.isSneaking()) {
+        if (player.isShiftKeyDown()) {
             // === SNEAKING = REVERSE ===
 
             // 1. Voraussetzung: Constructor's Touch
@@ -244,30 +264,30 @@ public class SledgehammerItem extends Item {
 
             // 2. Slab -> Stairs
             if (block instanceof SlabBlock) {
-                String id = net.minecraft.registry.Registries.BLOCK.getId(block).getPath();
+                String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath();
                 String baseName = id.replace("_slab", "");
-                Optional<Block> stairs = net.minecraft.registry.Registries.BLOCK.getOptionalValue(
-                        net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), baseName + "_stairs")
+                Optional<Block> stairs = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace(), baseName + "_stairs")
                 );
                 if (stairs.isPresent()) {
-                    BlockState stairState = stairs.get().getDefaultState();
+                    BlockState stairState = stairs.get().defaultBlockState();
                     return ChiselItem.applyIntuitiveOrientation(stairState, side, hit, player);
                 }
             }
 
             // 3. Stairs -> Block
-            if (block instanceof StairsBlock) {
-                String id = net.minecraft.registry.Registries.BLOCK.getId(block).getPath();
+            if (block instanceof StairBlock) {
+                String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath();
                 String baseName = id.replace("_stairs", "");
-                Optional<Block> fullBlock = net.minecraft.registry.Registries.BLOCK.getOptionalValue(
-                        net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), baseName)
+                Optional<Block> fullBlock = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace(), baseName)
                 );
                 // Fallbacks prüfen (plural 's' oder '_planks')
-                if (fullBlock.isEmpty()) fullBlock = net.minecraft.registry.Registries.BLOCK.getOptionalValue(net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), baseName + "s"));
-                if (fullBlock.isEmpty()) fullBlock = net.minecraft.registry.Registries.BLOCK.getOptionalValue(net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), baseName + "_planks"));
+                if (fullBlock.isEmpty()) fullBlock = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace(), baseName + "s"));
+                if (fullBlock.isEmpty()) fullBlock = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace(), baseName + "_planks"));
 
                 if (fullBlock.isPresent()) {
-                    return fullBlock.get().getDefaultState();
+                    return fullBlock.get().defaultBlockState();
                 }
             }
 
@@ -276,26 +296,26 @@ public class SledgehammerItem extends Item {
 
             // 1. Block -> Stairs
             // FIX: world und pos an isFullCube übergeben, statt null
-            if (state.isFullCube(world, pos)) {
-                String id = net.minecraft.registry.Registries.BLOCK.getId(block).getPath();
-                Optional<Block> stairs = net.minecraft.registry.Registries.BLOCK.getOptionalValue(
-                        net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), id + "_stairs")
+            if (state.isCollisionShapeFullBlock(world, pos)) {
+                String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath();
+                Optional<Block> stairs = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace(), id + "_stairs")
                 );
                 if (stairs.isPresent()) {
-                    BlockState stairState = stairs.get().getDefaultState();
+                    BlockState stairState = stairs.get().defaultBlockState();
                     return ChiselItem.applyIntuitiveOrientation(stairState, side, hit, player);
                 }
             }
 
             // 2. Stairs -> Slab
-            if (block instanceof StairsBlock) {
-                String id = net.minecraft.registry.Registries.BLOCK.getId(block).getPath();
+            if (block instanceof StairBlock) {
+                String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath();
                 String baseName = id.replace("_stairs", "");
-                Optional<Block> slab = net.minecraft.registry.Registries.BLOCK.getOptionalValue(
-                        net.minecraft.util.Identifier.of(net.minecraft.registry.Registries.BLOCK.getId(block).getNamespace(), baseName + "_slab")
+                Optional<Block> slab = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
+                        net.minecraft.resources.Identifier.fromNamespaceAndPath(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace(), baseName + "_slab")
                 );
                 if (slab.isPresent()) {
-                    BlockState slabState = slab.get().getDefaultState();
+                    BlockState slabState = slab.get().defaultBlockState();
                     return ChiselItem.applyIntuitiveOrientation(slabState, side, hit, player);
                 }
             }
@@ -304,25 +324,33 @@ public class SledgehammerItem extends Item {
         return null;
     }
 
-    public static List<BlockPos> getBlocksToBeDestroyed(int baseRange, BlockPos initialPos, PlayerEntity player) {
+    public static List<BlockPos> getBlocksToBeDestroyed(int baseRange, BlockPos initialPos, Player player) {
         List<BlockPos> positions = new ArrayList<>();
-        World world = player.getEntityWorld();
-        ItemStack stack = player.getMainHandStack();
+        Level world = player.level();
+        ItemStack stack = player.getMainHandItem();
         BlockState initialState = world.getBlockState(initialPos);
 
-        if (!stack.getItem().isCorrectForDrops(stack, initialState)) {return positions;}
+        if (!(stack.getItem() instanceof SledgehammerItem)) {
+            return positions;
+        }
+        if (initialState.isAir() || initialState.getDestroySpeed(world, initialPos) < 0.0F) {
+            return positions;
+        }
+        if (!SledgehammerUtils.canMineOrigin(world, initialPos, stack)) {
+            return positions;
+        }
 
-        boolean isPlayerSneaking = player.isSneaking();
+        boolean isPlayerSneaking = player.isShiftKeyDown();
         Direction sideHit = getHitSideFromPlayer(player);
 
-        var registry = world.getRegistryManager();
-        var enchantLookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+        var registry = world.registryAccess();
+        var enchantLookup = registry.lookupOrThrow(Registries.ENCHANTMENT);
 
-        var radiusKey = enchantLookup.getOptional(ModEnchantments.RADIUS);
-        int range = baseRange + ((!isPlayerSneaking && radiusKey.isPresent()) ? EnchantmentHelper.getLevel(radiusKey.get(), stack) : 0);
+        var radiusKey = enchantLookup.get(ModEnchantments.RADIUS);
+        int range = baseRange + ((!isPlayerSneaking && radiusKey.isPresent()) ? EnchantmentHelper.getItemEnchantmentLevel(radiusKey.get(), stack) : 0);
 
-        var breakThroughKey = enchantLookup.getOptional(ModEnchantments.BREAK_THROUGH);
-        int depth = ((!isPlayerSneaking && breakThroughKey.isPresent()) ? EnchantmentHelper.getLevel(breakThroughKey.get(), stack) : 0);
+        var breakThroughKey = enchantLookup.get(ModEnchantments.BREAK_THROUGH);
+        int depth = ((!isPlayerSneaking && breakThroughKey.isPresent()) ? EnchantmentHelper.getItemEnchantmentLevel(breakThroughKey.get(), stack) : 0);
 
         // Positionen berechnen
         for(int x = -range; x <= range; x++) {
@@ -337,15 +365,15 @@ public class SledgehammerItem extends Item {
 
                     if (sideHit == Direction.DOWN || sideHit == Direction.UP) {
                         int depthOffset = (sideHit == Direction.UP) ? -z : z;
-                        targetPos = initialPos.add(x, depthOffset, y);
+                        targetPos = initialPos.offset(x, depthOffset, y);
                     }
                     else if (sideHit == Direction.NORTH || sideHit == Direction.SOUTH) {
                         int depthOffset = (sideHit == Direction.NORTH) ? z : -z;
-                        targetPos = initialPos.add(x, y, depthOffset);
+                        targetPos = initialPos.offset(x, y, depthOffset);
                     }
                     else if (sideHit == Direction.EAST || sideHit == Direction.WEST) {
                         int depthOffset = (sideHit == Direction.WEST) ? z : -z;
-                        targetPos = initialPos.add(depthOffset, y, x);
+                        targetPos = initialPos.offset(depthOffset, y, x);
                     }
 
                     if (targetPos != null) {
@@ -357,11 +385,40 @@ public class SledgehammerItem extends Item {
         return positions;
     }
 
-    private static Direction getHitSideFromPlayer(PlayerEntity player) {
-        float pitch = player.getPitch();
+    private static void crushDiamondBlock(ServerLevel world, BlockPos pos, Player player, ItemStack stack) {
+        if (!world.getBlockState(pos).is(Blocks.DIAMOND_BLOCK)) {
+            return;
+        }
+
+        world.destroyBlock(pos, false, player);
+
+        int totalPebbles = 81;
+        while (totalPebbles > 0) {
+            int batch = Math.min(totalPebbles, 64);
+            ItemEntity itemEntity = new ItemEntity(
+                    world,
+                    pos.getX() + 0.5,
+                    pos.getY() + 0.5,
+                    pos.getZ() + 0.5,
+                    new ItemStack(ModItems.DIAMOND_PEBBLE, batch)
+            );
+            world.addFreshEntity(itemEntity);
+            totalPebbles -= batch;
+        }
+
+        world.playSound(null, pos, SoundEvents.METAL_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+
+        if (!player.isCreative()) {
+            stack.hurtAndBreak(1, world, (ServerPlayer) player,
+                    item -> player.onEquippedItemBroken(item, EquipmentSlot.MAINHAND));
+        }
+    }
+
+    private static Direction getHitSideFromPlayer(Player player) {
+        float pitch = player.getXRot();
         if (pitch < -60) return Direction.DOWN;
         if (pitch > 60) return Direction.UP;
-        return player.getHorizontalFacing().getOpposite();
+        return player.getDirection().getOpposite();
     }
 
 

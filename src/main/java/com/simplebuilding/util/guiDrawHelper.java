@@ -1,16 +1,16 @@
 package com.simplebuilding.util;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.phys.AABB;
 import org.joml.Matrix4f;
 
 public class guiDrawHelper {
@@ -29,19 +29,19 @@ public class guiDrawHelper {
 
         float lineWidth = 4.0f;
 
-        builder.vertex(matrix, (float)x1, (float)y1, (float)z1)
-                .color(r, g, b, a)
-                .normal(nx, ny, nz)
-                .lineWidth(lineWidth);
+        builder.addVertex(matrix, (float)x1, (float)y1, (float)z1)
+                .setColor(r, g, b, a)
+                .setNormal(nx, ny, nz)
+                .setLineWidth(lineWidth);
 
-        builder.vertex(matrix, (float)x2, (float)y2, (float)z2)
-                .color(r, g, b, a)
-                .normal(nx, ny, nz)
-                .lineWidth(lineWidth);
+        builder.addVertex(matrix, (float)x2, (float)y2, (float)z2)
+                .setColor(r, g, b, a)
+                .setNormal(nx, ny, nz)
+                .setLineWidth(lineWidth);
     }
 
-    public static void drawBoxOutline(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
+    public static void drawBoxOutline(PoseStack matrices, VertexConsumer builder, AABB box, float r, float g, float b, float a) {
+        Matrix4f matrix = matrices.last().pose();
         double x1 = box.minX; double y1 = box.minY; double z1 = box.minZ;
         double x2 = box.maxX; double y2 = box.maxY; double z2 = box.maxZ;
 
@@ -64,8 +64,8 @@ public class guiDrawHelper {
         drawLineWithNormal(builder, matrix, x1, y1, z2, x1, y2, z2, r, g, b, a);
     }
 
-    public static void drawBoxFill(MatrixStack matrices, VertexConsumer builder, Box box, float r, float g, float b, float a) {
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
+    public static void drawBoxFill(PoseStack matrices, VertexConsumer builder, AABB box, float r, float g, float b, float a) {
+        Matrix4f matrix = matrices.last().pose();
         float x1 = (float)box.minX; float y1 = (float)box.minY; float z1 = (float)box.minZ;
         float x2 = (float)box.maxX; float y2 = (float)box.maxY; float z2 = (float)box.maxZ;
 
@@ -78,15 +78,15 @@ public class guiDrawHelper {
     }
 
     public static void addQuad(VertexConsumer builder, Matrix4f matrix, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float r, float g, float b, float a) {
-        builder.vertex(matrix, x1, y1, z1).color(r, g, b, a);
-        builder.vertex(matrix, x2, y2, z2).color(r, g, b, a);
-        builder.vertex(matrix, x3, y3, z3).color(r, g, b, a);
-        builder.vertex(matrix, x4, y4, z4).color(r, g, b, a);
+        builder.addVertex(matrix, x1, y1, z1).setColor(r, g, b, a);
+        builder.addVertex(matrix, x2, y2, z2).setColor(r, g, b, a);
+        builder.addVertex(matrix, x3, y3, z3).setColor(r, g, b, a);
+        builder.addVertex(matrix, x4, y4, z4).setColor(r, g, b, a);
     }
 
 
-    public static void drawQuadFace(MatrixStack matrices, VertexConsumer builder, Box box, Direction face, float r, float g, float b, float a) {
-        Matrix4f matrix = matrices.peek().getPositionMatrix();
+    public static void drawQuadFace(PoseStack matrices, VertexConsumer builder, AABB box, Direction face, float r, float g, float b, float a) {
+        Matrix4f matrix = matrices.last().pose();
         float x1 = (float)box.minX; float y1 = (float)box.minY; float z1 = (float)box.minZ;
         float x2 = (float)box.maxX; float y2 = (float)box.maxY; float z2 = (float)box.maxZ;
 
@@ -102,21 +102,21 @@ public class guiDrawHelper {
 
     // --- Helper Methods ---
 
-    public static boolean hasEnchantment(ItemStack stack, MinecraftClient client, net.minecraft.registry.RegistryKey<net.minecraft.enchantment.Enchantment> key) {
-        if (client.world == null) return false;
-        var registry = client.world.getRegistryManager();
-        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var entry = enchantments.getOptional(key);
-        return entry.isPresent() && EnchantmentHelper.getLevel(entry.get(), stack) > 0;
+    public static boolean hasEnchantment(ItemStack stack, Minecraft client, net.minecraft.resources.ResourceKey<net.minecraft.world.item.enchantment.Enchantment> key) {
+        if (client.level == null) return false;
+        var registry = client.level.registryAccess();
+        var enchantments = registry.lookupOrThrow(Registries.ENCHANTMENT);
+        var entry = enchantments.get(key);
+        return entry.isPresent() && EnchantmentHelper.getItemEnchantmentLevel(entry.get(), stack) > 0;
     }
 
-    public static Box getFullArea(BlockPos p1, BlockPos p2) {
+    public static AABB getFullArea(BlockPos p1, BlockPos p2) {
         int minX = Math.min(p1.getX(), p2.getX()); int minY = Math.min(p1.getY(), p2.getY()); int minZ = Math.min(p1.getZ(), p2.getZ());
         int maxX = Math.max(p1.getX(), p2.getX()) + 1; int maxY = Math.max(p1.getY(), p2.getY()) + 1; int maxZ = Math.max(p1.getZ(), p2.getZ()) + 1;
-        return new Box(minX, minY, minZ, maxX, maxY, maxZ);
+        return new AABB(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
-    public static BlockPos getPos(NbtCompound nbt, String key) {
+    public static BlockPos getPos(CompoundTag nbt, String key) {
         if (nbt.contains(key)) {
             int[] arr = nbt.getIntArray(key).orElse(new int[0]);
             if (arr.length == 3) return new BlockPos(arr[0], arr[1], arr[2]);

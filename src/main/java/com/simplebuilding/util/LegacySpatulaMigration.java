@@ -1,63 +1,56 @@
 package com.simplebuilding.util;
 
 import com.simplebuilding.items.ModItems;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Box;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
 
 public final class LegacySpatulaMigration {
 
-    private static final Box WORLD_SCAN_BOX = new Box(-30000000.0, -64.0, -30000000.0, 30000000.0, 320.0, 30000000.0);
+    private static final AABB WORLD_SCAN_BOX = new AABB(-30000000.0, -64.0, -30000000.0, 30000000.0, 320.0, 30000000.0);
 
     private LegacySpatulaMigration() {
     }
 
-    public static void register() {
-        ServerLifecycleEvents.SERVER_STARTED.register(LegacySpatulaMigration::migrateWorlds);
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> migratePlayer(handler.player));
-    }
-
-    private static void migrateWorlds(MinecraftServer server) {
-        for (ServerWorld world : server.getWorlds()) {
-            for (ItemEntity itemEntity : world.getEntitiesByClass(ItemEntity.class, WORLD_SCAN_BOX, entity -> true)) {
-                ItemStack converted = convertStack(itemEntity.getStack());
-                if (converted != itemEntity.getStack()) {
-                    itemEntity.setStack(converted);
+    public static void migrateWorlds(MinecraftServer server) {
+        for (ServerLevel world : server.getAllLevels()) {
+            for (ItemEntity itemEntity : world.getEntitiesOfClass(ItemEntity.class, WORLD_SCAN_BOX, entity -> true)) {
+                ItemStack converted = convertStack(itemEntity.getItem());
+                if (converted != itemEntity.getItem()) {
+                    itemEntity.setItem(converted);
                 }
             }
         }
     }
 
-    private static void migratePlayer(ServerPlayerEntity player) {
+    public static void migratePlayer(ServerPlayer player) {
         migrateInventory(player.getInventory());
 
-        ScreenHandler handler = player.currentScreenHandler;
+        AbstractContainerMenu handler = player.containerMenu;
         if (handler != null) {
             for (Slot slot : handler.slots) {
-                ItemStack stack = slot.getStack();
+                ItemStack stack = slot.getItem();
                 ItemStack converted = convertStack(stack);
                 if (converted != stack) {
-                    slot.setStack(converted);
+                    slot.setByPlayer(converted);
                 }
             }
         }
     }
 
-    private static void migrateInventory(Inventory inventory) {
-        for (int slotIndex = 0; slotIndex < inventory.size(); slotIndex++) {
-            ItemStack stack = inventory.getStack(slotIndex);
+    private static void migrateInventory(Container inventory) {
+        for (int slotIndex = 0; slotIndex < inventory.getContainerSize(); slotIndex++) {
+            ItemStack stack = inventory.getItem(slotIndex);
             ItemStack converted = convertStack(stack);
             if (converted != stack) {
-                inventory.setStack(slotIndex, converted);
+                inventory.setItem(slotIndex, converted);
             }
         }
     }
@@ -73,7 +66,7 @@ public final class LegacySpatulaMigration {
         }
 
         ItemStack converted = new ItemStack(target, stack.getCount());
-        converted.applyChanges(stack.getComponentChanges());
+        converted.applyComponentsAndValidate(stack.getComponentsPatch());
         return converted;
     }
 

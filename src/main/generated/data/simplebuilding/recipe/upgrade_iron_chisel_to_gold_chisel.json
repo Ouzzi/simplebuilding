@@ -4,7 +4,6 @@
   "addition_count": 2,
   "base": "simplebuilding:iron_chisel",
   "result": {
-    "count": 1,
     "id": "simplebuilding:gold_chisel"
   },
   "template": "simplebuilding:basic_upgrade_template"

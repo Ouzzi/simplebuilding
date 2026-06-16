@@ -4,30 +4,31 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BundleContentsComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.StackReference;
-import net.minecraft.item.BundleItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipData;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ClickType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.math.Fraction;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.SlotAccess;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.BundleItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.phys.BlockHitResult;
 
 import static com.simplebuilding.util.EnchantmentHelper.*;
 
@@ -35,7 +36,27 @@ public class ReinforcedBundleItem extends BundleItem {
 
     private static final int DRAWER_MAX_TYPES = 5;
 
-    public ReinforcedBundleItem(Settings settings) {
+    private static Fraction bundleWeight(BundleContents contents) {
+        return contents.weight().getOrThrow();
+    }
+
+    private static ItemStack templateAsStack(ItemStackTemplate template) {
+        return template.create();
+    }
+
+    private static List<ItemStackTemplate> stacksAsTemplates(List<ItemStack> stacks) {
+        return stacks.stream().map(ItemStackTemplate::fromNonEmptyStack).toList();
+    }
+
+    private static List<ItemStack> itemsAsStacks(BundleContents contents) {
+        return contents.items().stream().map(ItemStackTemplate::create).toList();
+    }
+
+    private static ItemStack getItemAt(BundleContents contents, int index) {
+        return templateAsStack(contents.items().get(index));
+    }
+
+    public ReinforcedBundleItem(Properties settings) {
         super(settings);
     }
 
@@ -44,56 +65,56 @@ public class ReinforcedBundleItem extends BundleItem {
      * Ermöglicht Zugriff auf die protected Methode setSelectedStackIndex für den Packet-Handler.
      */
     public static void setBundleSelectedItem(ItemStack stack, int index) {
-        setSelectedStackIndex(stack, index);
+        toggleSelectedItem(stack, index);
     }
 
     @Override
-    public boolean canBeNested() {
+    public boolean canFitInsideContainerItems() {
         return true;
     }
 
     // --- Helper für Click Invertierung ---
-    private ClickType getInsertClick() {
+    private ClickAction getInsertClick() {
         // Prüfen ob Invertierung in der Config aktiv ist
         if (Simplebuilding.getConfig().tools.invertBundleInteractions) {
-            return ClickType.RIGHT;
+            return ClickAction.SECONDARY;
         }
-        return ClickType.LEFT;
+        return ClickAction.PRIMARY;
     }
 
-    private ClickType getRemoveClick() {
+    private ClickAction getRemoveClick() {
         if (Simplebuilding.getConfig().tools.invertBundleInteractions) {
-            return ClickType.LEFT;
+            return ClickAction.PRIMARY;
         }
-        return ClickType.RIGHT;
+        return ClickAction.SECONDARY;
     }
     // -------------------------------------
 
     @Override
-    public boolean onStackClicked(ItemStack bundle, Slot slot, ClickType clickType, PlayerEntity player) {
-        ClickType insertClick = getInsertClick();
-        ClickType removeClick = getRemoveClick();
+    public boolean overrideStackedOnOther(ItemStack bundle, Slot slot, ClickAction clickAction, Player player) {
+        ClickAction insertClick = getInsertClick();
+        ClickAction removeClick = getRemoveClick();
 
-        if (clickType != insertClick && clickType != removeClick) return false;
+        if (clickAction != insertClick && clickAction != removeClick) return false;
 
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
-        if (contents == null) contents = BundleContentsComponent.DEFAULT;
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
+        if (contents == null) contents = BundleContents.EMPTY;
 
-        ItemStack itemInSlot = slot.getStack();
+        ItemStack itemInSlot = slot.getItem();
 
         // Logik angepasst auf dynamische ClickTypes
-        if (clickType == removeClick && itemInSlot.isEmpty()) {
+        if (clickAction == removeClick && itemInSlot.isEmpty()) {
             ItemStack removed = removeSelectedOrFirstItem(bundle, contents);
             if (!removed.isEmpty()) {
                 this.playRemoveOneSound(player);
-                slot.insertStack(removed);
+                slot.safeInsert(removed);
                 return true;
             }
-        } else if (clickType == insertClick && !itemInSlot.isEmpty() && itemInSlot.getItem().canBeNested()) {
+        } else if (clickAction == insertClick && !itemInSlot.isEmpty() && itemInSlot.getItem().canFitInsideContainerItems()) {
             int added = insertItemIntoBundle(bundle, contents, itemInSlot, getMaxCapacity(bundle, player));
             if (added > 0) {
                 this.playInsertSound(player);
-                itemInSlot.decrement(added);
+                itemInSlot.shrink(added);
                 return true;
             }
         }
@@ -101,16 +122,16 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
     @Override
-    public boolean onClicked(ItemStack bundle, ItemStack cursorStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
-        ClickType insertClick = getInsertClick();
-        ClickType removeClick = getRemoveClick();
+    public boolean overrideOtherStackedOnMe(ItemStack bundle, ItemStack cursorStack, Slot slot, ClickAction clickAction, Player player, SlotAccess cursorStackReference) {
+        ClickAction insertClick = getInsertClick();
+        ClickAction removeClick = getRemoveClick();
 
-        if (clickType != insertClick && clickType != removeClick) return false;
+        if (clickAction != insertClick && clickAction != removeClick) return false;
 
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
-        if (contents == null) contents = BundleContentsComponent.DEFAULT;
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
+        if (contents == null) contents = BundleContents.EMPTY;
 
-        if (clickType == removeClick && cursorStack.isEmpty()) {
+        if (clickAction == removeClick && cursorStack.isEmpty()) {
             ItemStack removed = removeSelectedOrFirstItem(bundle, contents);
             if (!removed.isEmpty()) {
                 this.playRemoveOneSound(player);
@@ -118,11 +139,11 @@ public class ReinforcedBundleItem extends BundleItem {
                 return true;
             }
         }
-        else if (clickType == insertClick && !cursorStack.isEmpty() && cursorStack.getItem().canBeNested()) {
+        else if (clickAction == insertClick && !cursorStack.isEmpty() && cursorStack.getItem().canFitInsideContainerItems()) {
             int added = insertItemIntoBundle(bundle, contents, cursorStack, getMaxCapacity(bundle, player));
             if (added > 0) {
                 this.playInsertSound(player);
-                cursorStack.decrement(added);
+                cursorStack.shrink(added);
                 return true;
             }
         }
@@ -130,45 +151,45 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
     @Override
-    public ActionResult useOnBlock(net.minecraft.item.ItemUsageContext context) {
-        PlayerEntity player = context.getPlayer();
-        ItemStack bundleStack = context.getStack();
+    public InteractionResult useOn(net.minecraft.world.item.context.UseOnContext context) {
+        Player player = context.getPlayer();
+        ItemStack bundleStack = context.getItemInHand();
 
         assert player != null;
 
-        boolean hasMasterBuilder = hasEnchantment(bundleStack, player.getEntityWorld(), ModEnchantments.MASTER_BUILDER);
+        boolean hasMasterBuilder = hasEnchantment(bundleStack, player.level(), ModEnchantments.MASTER_BUILDER);
         if (hasMasterBuilder) {
-            BundleContentsComponent contents = bundleStack.get(DataComponentTypes.BUNDLE_CONTENTS);
+            BundleContents contents = bundleStack.get(DataComponents.BUNDLE_CONTENTS);
             if (contents != null && !contents.isEmpty()) {
 
-                int index = contents.getSelectedStackIndex();
+                int index = contents.getSelectedItemIndex();
                 if (index == -1 || index >= contents.size()) index = 0;
 
-                boolean hasColorPalette = hasEnchantment(bundleStack, player.getEntityWorld(), ModEnchantments.COLOR_PALETTE);
+                boolean hasColorPalette = hasEnchantment(bundleStack, player.level(), ModEnchantments.COLOR_PALETTE);
                 if (hasColorPalette) {
-                    index = player.getEntityWorld().getRandom().nextInt(contents.size());
+                    index = player.level().getRandom().nextInt(contents.size());
                 }
 
-                ItemStack blockToPlace = contents.get(index).copy();
+                ItemStack blockToPlace = getItemAt(contents, index).copy();
 
-                if (blockToPlace.getItem() instanceof net.minecraft.item.BlockItem blockItem) {
-                    net.minecraft.item.ItemUsageContext blockContext = new net.minecraft.item.ItemUsageContext(
-                            context.getWorld(),
+                if (blockToPlace.getItem() instanceof net.minecraft.world.item.BlockItem blockItem) {
+                    net.minecraft.world.item.context.UseOnContext blockContext = new net.minecraft.world.item.context.UseOnContext(
+                            context.getLevel(),
                             context.getPlayer(),
                             context.getHand(),
                             blockToPlace,
                             new BlockHitResult(
-                                    context.getHitPos(),
-                                    context.getSide(),
-                                    context.getBlockPos(),
+                                    context.getClickLocation(),
+                                    context.getClickedFace(),
+                                    context.getClickedPos(),
                                     false
                             )
                     );
 
-                    ActionResult result = blockItem.useOnBlock(blockContext);
+                    InteractionResult result = blockItem.useOn(blockContext);
 
-                    if (result.isAccepted()) {
-                        if (!player.getAbilities().creativeMode) {
+                    if (result.consumesAction()) {
+                        if (!player.getAbilities().instabuild) {
                             removeOneItemFromBundle(bundleStack, contents, index);
                         }
                         return result;
@@ -176,70 +197,70 @@ public class ReinforcedBundleItem extends BundleItem {
                 }
             }
         }
-        return super.useOnBlock(context);
+        return super.useOn(context);
     }
 
     @Override
-    public ActionResult use(net.minecraft.world.World world, PlayerEntity user, Hand hand) {
-        ItemStack stack = user.getStackInHand(hand);
-        BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
+    public InteractionResult use(net.minecraft.world.level.Level world, Player user, InteractionHand hand) {
+        ItemStack stack = user.getItemInHand(hand);
+        BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
 
         if (contents != null && !contents.isEmpty()) {
-            int index = contents.getSelectedStackIndex();
+            int index = contents.getSelectedItemIndex();
             if (index == -1 || index >= contents.size()) index = 0;
 
-            ItemStack itemToDrop = contents.get(index);
+            ItemStack itemToDrop = getItemAt(contents, index);
 
-            if (itemToDrop.getItem() instanceof net.minecraft.item.BlockItem) {
-                return net.minecraft.util.ActionResult.FAIL;
+            if (itemToDrop.getItem() instanceof net.minecraft.world.item.BlockItem) {
+                return net.minecraft.world.InteractionResult.FAIL;
             }
 
-            if (!world.isClient()) {
+            if (!world.isClientSide()) {
                 ItemStack removed = removeSelectedOrFirstItem(stack, contents);
-                user.dropItem(removed, true);
+                user.drop(removed, true);
                 this.playRemoveOneSound(user);
             }
-            return net.minecraft.util.ActionResult.SUCCESS;
+            return net.minecraft.world.InteractionResult.SUCCESS;
         }
 
         return super.use(world, user, hand);
     }
 
     @Override
-    public boolean isItemBarVisible(ItemStack stack) {
-        BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
+    public boolean isBarVisible(ItemStack stack) {
+        BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
         return contents != null && !contents.isEmpty();
     }
 
     @Override
-    public int getItemBarStep(ItemStack stack) {
-        BundleContentsComponent data = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
+    public int getBarWidth(ItemStack stack) {
+        BundleContents data = stack.get(DataComponents.BUNDLE_CONTENTS);
         if (data == null) return 0;
-        Fraction current = data.getOccupancy();
+        Fraction current = bundleWeight(data);
         Fraction max = getMaxCapacityForVisuals(stack);
         float fillLevel = Math.min(1.0f, current.divideBy(max).floatValue());
         return Math.round(fillLevel * 13.0F);
     }
 
     @Override
-    public int getItemBarColor(ItemStack stack) {
-        BundleContentsComponent data = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
-        if (data == null) return super.getItemBarColor(stack);
-        Fraction current = data.getOccupancy();
+    public int getBarColor(ItemStack stack) {
+        BundleContents data = stack.get(DataComponents.BUNDLE_CONTENTS);
+        if (data == null) return super.getBarColor(stack);
+        Fraction current = bundleWeight(data);
         Fraction max = getMaxCapacityForVisuals(stack);
         float fillLevel = Math.min(1.0f, current.divideBy(max).floatValue());
-        return MathHelper.hsvToRgb(Math.max(0.0F, (1.0F - fillLevel)) / 3.0F, 1.0F, 1.0F);
+        return Mth.hsvToRgb(Math.max(0.0F, (1.0F - fillLevel)) / 3.0F, 1.0F, 1.0F);
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
+        super.appendHoverText(stack, context, displayComponent, textConsumer, type);
     }
 
     @Override
-    public Optional<TooltipData> getTooltipData(ItemStack stack) {
-        BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
+    public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+        BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
         if (contents == null) return Optional.empty();
 
         // Dynamische Berechnung der Kapazität für den Tooltip
@@ -249,10 +270,10 @@ public class ReinforcedBundleItem extends BundleItem {
         return Optional.of(new ReinforcedBundleTooltipData(contents, maxCapacity));
     }
 
-    protected int insertItemIntoBundle(ItemStack bundle, BundleContentsComponent contents, ItemStack stackToAdd, Fraction maxCap) {
+    protected int insertItemIntoBundle(ItemStack bundle, BundleContents contents, ItemStack stackToAdd, Fraction maxCap) {
         if (stackToAdd.isEmpty()) return 0;
 
-        int drawerLevel = getEnchantmentLevel(bundle, null, ModEnchantments.DRAWER);
+        int drawerLevel = getDrawerLevel(bundle);
 
         // Drawer Restriction Check: Nur 1 Item-Typ erlaubt
         if (drawerLevel > 0) {
@@ -261,10 +282,10 @@ public class ReinforcedBundleItem extends BundleItem {
 
         // Wir zählen die einzigartigen Typen im Bundle
         List<ItemStack> distinctItems = new ArrayList<>();
-        for (ItemStack s : contents.iterate()) {
+        for (ItemStack s : itemsAsStacks(contents)) {
             boolean isNewType = true;
             for (ItemStack distinct : distinctItems) {
-                if (ItemStack.areItemsAndComponentsEqual(s, distinct)) {
+                if (ItemStack.isSameItemSameComponents(s, distinct)) {
                     isNewType = false;
                     break;
                 }
@@ -275,7 +296,7 @@ public class ReinforcedBundleItem extends BundleItem {
             }
 
             // Check, ob unser neues Item schon dabei ist
-            if (ItemStack.areItemsAndComponentsEqual(s, stackToAdd)) {
+            if (ItemStack.isSameItemSameComponents(s, stackToAdd)) {
                 alreadyInBundle = true;
             }
         }
@@ -287,13 +308,13 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
         // Capacity Check
-        Fraction currentOccupancy = contents.getOccupancy();
-        Fraction itemWeight = Fraction.getFraction(1, stackToAdd.getMaxCount());
+        Fraction currentOccupancy = bundleWeight(contents);
+        Fraction itemWeight = Fraction.getFraction(1, stackToAdd.getMaxStackSize());
         Fraction remainingSpace = maxCap.subtract(currentOccupancy);
 
         if (remainingSpace.compareTo(itemWeight) < 0) return 0;
 
-        int maxStackSize = stackToAdd.getMaxCount();
+        int maxStackSize = stackToAdd.getMaxStackSize();
         int countThatFits = (int) remainingSpace.multiplyBy(Fraction.getFraction(maxStackSize, 1)).doubleValue();
         int countToAdd = Math.min(stackToAdd.getCount(), countThatFits);
 
@@ -303,7 +324,7 @@ public class ReinforcedBundleItem extends BundleItem {
 
         // 1. Create a mutable list of current items
         List<ItemStack> newItems = new ArrayList<>();
-        for (ItemStack s : contents.iterate()) {
+        for (ItemStack s : itemsAsStacks(contents)) {
             newItems.add(s.copy());
         }
 
@@ -311,7 +332,7 @@ public class ReinforcedBundleItem extends BundleItem {
         // Wir suchen nach existierenden Stacks, um sie zusammenzufügen und nach oben zu ziehen.
 
         int totalCount = countToAdd;
-        int maxItemCount = stackToAdd.getMaxCount(); // Normalerweise 64
+        int maxItemCount = stackToAdd.getMaxStackSize(); // Normalerweise 64
 
         // Wir entfernen ALLE existierenden Instanzen dieses Items aus der Liste,
         // addieren ihre Menge zum "totalCount" und fügen sie dann sauber gestapelt oben wieder ein.
@@ -323,7 +344,7 @@ public class ReinforcedBundleItem extends BundleItem {
         List<ItemStack> itemsKept = new ArrayList<>();
 
         for (ItemStack stack : newItems) {
-            if (ItemStack.areItemsAndComponentsEqual(stack, stackToAdd)) {
+            if (ItemStack.isSameItemSameComponents(stack, stackToAdd)) {
                 totalCount += stack.getCount();
             } else {
                 itemsKept.add(stack);
@@ -350,8 +371,8 @@ public class ReinforcedBundleItem extends BundleItem {
         itemsKept.addAll(0, itemsToAddBack);
 
         // 4. Update Bundle
-        BundleItem.setSelectedStackIndex(bundle, -1);
-        bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(itemsKept));
+        BundleItem.toggleSelectedItem(bundle, -1);
+        bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(stacksAsTemplates(itemsKept)));
 
         return countToAdd;
     }
@@ -359,12 +380,12 @@ public class ReinforcedBundleItem extends BundleItem {
     protected void addToBundleList(List<ItemStack> list, ItemStack stackToAdd) {
         if (!list.isEmpty()) {
             ItemStack topStack = list.getFirst();
-            if (ItemStack.areItemsAndComponentsEqual(topStack, stackToAdd)) {
-                int available = topStack.getMaxCount() - topStack.getCount();
+            if (ItemStack.isSameItemSameComponents(topStack, stackToAdd)) {
+                int available = topStack.getMaxStackSize() - topStack.getCount();
                 int toMerge = Math.min(available, stackToAdd.getCount());
                 if (toMerge > 0) {
-                    topStack.increment(toMerge);
-                    stackToAdd.decrement(toMerge);
+                    topStack.grow(toMerge);
+                    stackToAdd.shrink(toMerge);
                 }
             }
         }
@@ -373,80 +394,89 @@ public class ReinforcedBundleItem extends BundleItem {
         }
     }
 
-    protected ItemStack removeSelectedOrFirstItem(ItemStack bundle, BundleContentsComponent contents) {
+    protected ItemStack removeSelectedOrFirstItem(ItemStack bundle, BundleContents contents) {
         if (contents.isEmpty()) return ItemStack.EMPTY;
 
-        int selectedIndex = contents.getSelectedStackIndex();
+        int selectedIndex = contents.getSelectedItemIndex();
         if (selectedIndex == -1) selectedIndex = 0;
         if (selectedIndex >= contents.size()) selectedIndex = 0;
 
-        ItemStack itemToRemove = contents.get(selectedIndex).copy();
+        ItemStack itemToRemove = getItemAt(contents, selectedIndex).copy();
 
         List<ItemStack> newItems = new ArrayList<>();
         int i = 0;
-        for (ItemStack s : contents.iterate()) {
+        for (ItemStack s : itemsAsStacks(contents)) {
             if (i != selectedIndex) {
                 newItems.add(s.copy());
             }
             i++;
         }
 
-        BundleItem.setSelectedStackIndex(bundle, -1);
-        bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
+        BundleItem.toggleSelectedItem(bundle, -1);
+        bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(stacksAsTemplates(newItems)));
         return itemToRemove;
     }
 
-    protected void removeOneItemFromBundle(ItemStack bundle, BundleContentsComponent contents, int targetIndex) {
+    protected void removeOneItemFromBundle(ItemStack bundle, BundleContents contents, int targetIndex) {
         if (contents.isEmpty()) return;
 
         List<ItemStack> newItems = new ArrayList<>();
-        for (ItemStack s : contents.iterate()) newItems.add(s.copy());
+        for (ItemStack s : itemsAsStacks(contents)) newItems.add(s.copy());
 
         if (targetIndex < newItems.size()) {
             ItemStack targetStack = newItems.get(targetIndex);
-            targetStack.decrement(1);
+            targetStack.shrink(1);
             if (targetStack.isEmpty()) {
                 newItems.remove(targetIndex);
             }
         }
 
-        bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
+        bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(stacksAsTemplates(newItems)));
     }
 
-    public boolean tryInsertStackFromWorld(ItemStack bundle, ItemStack stackToInsert, PlayerEntity player) {
-        if (!stackToInsert.getItem().canBeNested()) return false;
+    public boolean tryInsertStackFromWorld(ItemStack bundle, ItemStack stackToInsert, Player player) {
+        if (!stackToInsert.getItem().canFitInsideContainerItems()) return false;
 
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
-        if (contents == null) contents = BundleContentsComponent.DEFAULT;
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
+        if (contents == null) contents = BundleContents.EMPTY;
 
         Fraction maxCap = getMaxCapacity(bundle, player);
 
         int added = insertItemIntoBundle(bundle, contents, stackToInsert, maxCap);
 
         if (added > 0) {
-            stackToInsert.decrement(added);
+            stackToInsert.shrink(added);
             this.playInsertSound(player);
             return true;
         }
         return false;
     }
 
-    protected Fraction getMaxCapacity(ItemStack stack, PlayerEntity player) {
-        // Basis: Netherite Bundle hat 2x Kapazität (128 Items), normales 1x (64 Items)
-        Fraction capacity = stack.isOf(ModItems.NETHERITE_BUNDLE) ? Fraction.getFraction(2, 1) : Fraction.getFraction(1, 1);
+    protected Fraction getTierCapacityMultiplier(ItemStack stack) {
+        if (stack.is(ModItems.ENDERITE_BUNDLE)) {
+            return Fraction.getFraction(3, 1);
+        }
+        if (stack.is(ModItems.NETHERITE_BUNDLE)) {
+            return Fraction.getFraction(2, 1);
+        }
+        return Fraction.getFraction(1, 1);
+    }
 
-        // Ergebnis: Normal = 96 Items, Netherite = 192 Items
+    protected Fraction getMaxCapacity(ItemStack stack, Player player) {
+        Fraction capacity = getTierCapacityMultiplier(stack);
+
+        // Ergebnis: Normal = 96, Netherite = 192, Enderite = 288 Items
         capacity = capacity.multiplyBy(Fraction.getFraction(3, 2));
 
-        if (player == null || player.getEntityWorld() == null) return capacity;
+        if (player == null || player.level() == null) return capacity;
 
-        var registry = player.getEntityWorld().getRegistryManager();
-        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+        var registry = player.level().registryAccess();
+        var enchantments = registry.lookupOrThrow(Registries.ENCHANTMENT);
 
         // --- Drawer Logic ---
-        var drawer = enchantments.getOptional(ModEnchantments.DRAWER);
+        var drawer = enchantments.get(ModEnchantments.DRAWER);
         if (drawer.isPresent()) {
-            int level = EnchantmentHelper.getLevel(drawer.get(), stack);
+            int level = EnchantmentHelper.getItemEnchantmentLevel(drawer.get(), stack);
             if (level > 0) {
                 // Formel: Basis * (1 + Level * 0.125)
                 // Beispiel Level 1: 1 * (1 + 0.125) = 1.125
@@ -460,10 +490,10 @@ public class ReinforcedBundleItem extends BundleItem {
         }
 
         // --- Deep Pockets Logic ---
-        var deepPockets = enchantments.getOptional(ModEnchantments.DEEP_POCKETS);
+        var deepPockets = enchantments.get(ModEnchantments.DEEP_POCKETS);
 
         if (deepPockets.isPresent()) {
-            int level = EnchantmentHelper.getLevel(deepPockets.get(), stack);
+            int level = EnchantmentHelper.getItemEnchantmentLevel(deepPockets.get(), stack);
             if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
             if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
         }
@@ -471,13 +501,13 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
     protected Fraction getMaxCapacityForVisuals(ItemStack stack) {
-        Fraction capacity = stack.isOf(ModItems.NETHERITE_BUNDLE) ? Fraction.getFraction(2, 1) : Fraction.getFraction(1, 1);
+        Fraction capacity = getTierCapacityMultiplier(stack);
         capacity = capacity.multiplyBy(Fraction.getFraction(3, 2));
 
         var enchantments = stack.getEnchantments();
-        for (var entry : enchantments.getEnchantmentEntries()) {
-            if (entry.getKey().getKey().isPresent()) {
-                String id = entry.getKey().getKey().get().getValue().toString();
+        for (var entry : enchantments.entrySet()) {
+            if (entry.getKey().unwrapKey().isPresent()) {
+                String id = entry.getKey().unwrapKey().get().identifier().toString();
 
                 // --- Drawer Visuals ---
                 if (id.contains("drawer")) {
@@ -500,32 +530,32 @@ public class ReinforcedBundleItem extends BundleItem {
         return capacity;
     }
 
-    protected void playRemoveOneSound(PlayerEntity entity) {
-        entity.playSound(net.minecraft.sound.SoundEvents.ITEM_BUNDLE_REMOVE_ONE, 0.8F, 0.8F + entity.getEntityWorld().getRandom().nextFloat() * 0.4F);
+    protected void playRemoveOneSound(Player entity) {
+        entity.playSound(net.minecraft.sounds.SoundEvents.BUNDLE_REMOVE_ONE, 0.8F, 0.8F + entity.level().getRandom().nextFloat() * 0.4F);
     }
 
-    protected void playInsertSound(PlayerEntity entity) {
-        entity.playSound(net.minecraft.sound.SoundEvents.ITEM_BUNDLE_INSERT, 0.8F, 0.8F + entity.getEntityWorld().getRandom().nextFloat() * 0.4F);
+    protected void playInsertSound(Player entity) {
+        entity.playSound(net.minecraft.sounds.SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + entity.level().getRandom().nextFloat() * 0.4F);
     }
 
-    public boolean canAutoPickup(ItemStack bundle, ItemStack itemOnGround, net.minecraft.world.World world) {
-        var registry = world.getRegistryManager();
-        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var funnel = enchantments.getOptional(ModEnchantments.FUNNEL);
+    public boolean canAutoPickup(ItemStack bundle, ItemStack itemOnGround, net.minecraft.world.level.Level world) {
+        var registry = world.registryAccess();
+        var enchantments = registry.lookupOrThrow(Registries.ENCHANTMENT);
+        var funnel = enchantments.get(ModEnchantments.FUNNEL);
 
         if (funnel.isEmpty()) return false;
 
-        int level = EnchantmentHelper.getLevel(funnel.get(), bundle);
+        int level = EnchantmentHelper.getItemEnchantmentLevel(funnel.get(), bundle);
 
         if (level <= 0) return false; // Kein Funnel
 
         if (level == 1) {
             // LEVEL 1: Nur aufheben, wenn Item schon im Bundle ist (Filter)
-            BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+            BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
             if (contents == null) return false;
 
-            for (ItemStack s : contents.iterate()) {
-                if (ItemStack.areItemsAndComponentsEqual(s, itemOnGround)) {
+            for (ItemStack s : itemsAsStacks(contents)) {
+                if (ItemStack.isSameItemSameComponents(s, itemOnGround)) {
                     return true; // Match gefunden, darf aufheben
                 }
             }

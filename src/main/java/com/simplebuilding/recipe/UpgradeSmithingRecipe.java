@@ -3,13 +3,14 @@ package com.simplebuilding.recipe;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.GlowingTrimUtils;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.input.SmithingRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.world.World;
-
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SmithingRecipe;
+import net.minecraft.world.item.crafting.SmithingRecipeInput;
+import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,19 +26,19 @@ public class UpgradeSmithingRecipe implements SmithingRecipe {
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
-        return IngredientPlacement.forMultipleSlots(List.of(this.template, Optional.of(this.base), this.addition));
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.createFromOptionals(List.of(this.template, Optional.of(this.base), this.addition));
     }
 
     @Override
-    public boolean matches(SmithingRecipeInput input, World world) {
-        return Ingredient.matches(this.template, input.template()) &&
+    public boolean matches(SmithingRecipeInput input, Level world) {
+        return Ingredient.testOptionalIngredient(this.template, input.template()) &&
                 this.base.test(input.base()) &&
-                Ingredient.matches(this.addition, input.addition());
+                Ingredient.testOptionalIngredient(this.addition, input.addition());
     }
 
     @Override
-    public ItemStack craft(SmithingRecipeInput input, RegistryWrapper.WrapperLookup lookup) {
+    public ItemStack assemble(SmithingRecipeInput input) {
         ItemStack baseStack = input.base();
         ItemStack templateStack = input.template();
         ItemStack additionStack = input.addition();
@@ -47,7 +48,7 @@ public class UpgradeSmithingRecipe implements SmithingRecipe {
 
         // 1. Fall: Glowing Template (Visuelles Leuchten)
         // Logik: Erhöhe das Level, wenn es noch nicht max (2) ist
-        if (templateStack.isOf(ModItems.GLOWING_TRIM_TEMPLATE) && additionStack.isOf(Items.GLOW_INK_SAC)) {
+        if (templateStack.is(ModItems.GLOWING_TRIM_TEMPLATE) && additionStack.is(Items.GLOW_INK_SAC)) {
 
             // Wir nutzen unsere Utils, um das aktuelle Level (auch von alten Items) zu holen
             int currentLevel = GlowingTrimUtils.getGlowLevel(baseStack);
@@ -65,7 +66,7 @@ public class UpgradeSmithingRecipe implements SmithingRecipe {
         }
 
         // 2. Fall: Emitting Template (Lichtquelle)
-        if (templateStack.isOf(ModItems.EMITTING_TRIM_TEMPLATE) && additionStack.isOf(Items.GLOWSTONE_DUST)) {
+        if (templateStack.is(ModItems.EMITTING_TRIM_TEMPLATE) && additionStack.is(Items.GLOWSTONE_DUST)) {
             // Setze die Lichtquellen-Komponente
             result.set(ModDataComponentTypes.LIGHT_SOURCE, true);
         }
@@ -74,14 +75,24 @@ public class UpgradeSmithingRecipe implements SmithingRecipe {
     }
 
     @Override
+    public String group() {
+        return "";
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
     public RecipeSerializer<? extends SmithingRecipe> getSerializer() {
         return ModRecipes.UPGRADE_SMITHING_SERIALIZER;
     }
 
     @Override
-    public Optional<Ingredient> template() { return this.template; }
+    public Optional<Ingredient> templateIngredient() { return this.template; }
     @Override
-    public Ingredient base() { return this.base; }
+    public Ingredient baseIngredient() { return this.base; }
     @Override
-    public Optional<Ingredient> addition() { return this.addition; }
+    public Optional<Ingredient> additionIngredient() { return this.addition; }
 }

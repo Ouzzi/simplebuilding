@@ -13,17 +13,17 @@ import com.simplebuilding.util.TrimBenefitUser;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BundleContentsComponent;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.network.ServerPlayerEntity;
-
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,44 +41,44 @@ public class ModMessages {
         // --- 1. REGISTRIERUNG DER PAYLOAD-TYPEN (Beide Seiten müssen diese kennen) ---
 
         // Client -> Server (C2S)
-        PayloadTypeRegistry.playC2S().register(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(SetHopperGhostItemPayload.ID, SetHopperGhostItemPayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(SpaceKeyPayload.ID, SpaceKeyPayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(DoubleJumpPayload.ID, DoubleJumpPayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(TrimBenefitPayload.ID, TrimBenefitPayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(ReinforcedBundleSelectionPayload.ID, ReinforcedBundleSelectionPayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(OctantConfigurePayload.ID, OctantConfigurePayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(OctantScrollPayload.ID, OctantScrollPayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(BuildingWandConfigurePayload.ID, BuildingWandConfigurePayload.CODEC);
-        PayloadTypeRegistry.playC2S().register(MasterBuilderPickPayload.ID, MasterBuilderPickPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ToggleHopperFilterPayload.ID, ToggleHopperFilterPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(SetHopperGhostItemPayload.ID, SetHopperGhostItemPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(SpaceKeyPayload.ID, SpaceKeyPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(DoubleJumpPayload.ID, DoubleJumpPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(TrimBenefitPayload.ID, TrimBenefitPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ReinforcedBundleSelectionPayload.ID, ReinforcedBundleSelectionPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(OctantConfigurePayload.ID, OctantConfigurePayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(OctantScrollPayload.ID, OctantScrollPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(BuildingWandConfigurePayload.ID, BuildingWandConfigurePayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(MasterBuilderPickPayload.ID, MasterBuilderPickPayload.CODEC);
 
 
         // Server -> Client (S2C)
-        PayloadTypeRegistry.playS2C().register(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC);
-        PayloadTypeRegistry.playS2C().register(TrimDataPayload.ID, TrimDataPayload.CODEC);
-        PayloadTypeRegistry.playS2C().register(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(TrimDataPayload.ID, TrimDataPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC);
 
         // --- 2. SERVER-RECEIVER ---
 
         // Double Jump (Mit Logik aus ModRegistries übertragen!)
         ServerPlayNetworking.registerGlobalReceiver(DoubleJumpPayload.ID, (payload, context) -> {
             context.server().execute(() -> {
-                ServerPlayerEntity player = context.player();
-                var registry = player.getEntityWorld().getRegistryManager();
-                var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-                var doubleJump = enchantments.getOptional(ModEnchantments.DOUBLE_JUMP);
+                ServerPlayer player = context.player();
+                var registry = player.level().registryAccess();
+                var enchantments = registry.lookupOrThrow(Registries.ENCHANTMENT);
+                var doubleJump = enchantments.get(ModEnchantments.DOUBLE_JUMP);
 
                 if (doubleJump.isPresent()) {
-                    ItemStack bootStack = player.getEquippedStack(EquipmentSlot.FEET);
+                    ItemStack bootStack = player.getItemBySlot(EquipmentSlot.FEET);
 
                     // Prüfen, ob die Schuhe die Verzauberung haben
-                    if (EnchantmentHelper.getLevel(doubleJump.get(), bootStack) > 0) {
+                    if (EnchantmentHelper.getItemEnchantmentLevel(doubleJump.get(), bootStack) > 0) {
                         // 1. Fallschaden zurücksetzen
                         player.fallDistance = 0;
 
                         // 2. Haltbarkeit abziehen (1 Punkt), wenn nicht Creative
                         if (!player.isCreative()) {
-                            bootStack.damage(1, player, EquipmentSlot.FEET);
+                            bootStack.hurtAndBreak(1, player, EquipmentSlot.FEET);
                         }
                     }
                 }
@@ -102,7 +102,7 @@ public class ModMessages {
     private static void registerOtherReceivers() {
          ServerPlayNetworking.registerGlobalReceiver(ToggleHopperFilterPayload.ID, (payload, context) -> {
             context.server().execute(() -> {
-                if (context.player().currentScreenHandler instanceof ModHopperScreenHandler screenHandler) {
+                if (context.player().containerMenu instanceof ModHopperScreenHandler screenHandler) {
                     if (screenHandler.getBlockEntity() instanceof ModHopperBlockEntity blockEntity) {
                         blockEntity.toggleFilterMode();
                     }
@@ -112,7 +112,7 @@ public class ModMessages {
 
         ServerPlayNetworking.registerGlobalReceiver(SetHopperGhostItemPayload.ID, (payload, context) -> {
             context.server().execute(() -> {
-                if (context.player().currentScreenHandler instanceof ModHopperScreenHandler screenHandler) {
+                if (context.player().containerMenu instanceof ModHopperScreenHandler screenHandler) {
                     if (screenHandler.getBlockEntity() instanceof ModHopperBlockEntity blockEntity) {
                         blockEntity.setGhostItem(payload.slotIndex(), payload.stack());
                     }
@@ -140,13 +140,13 @@ public class ModMessages {
 
         ServerPlayNetworking.registerGlobalReceiver(ReinforcedBundleSelectionPayload.ID, (payload, context) -> {
             context.server().execute(() -> {
-                ServerPlayerEntity player = context.player();
-                if (player.currentScreenHandler != null) {
+                ServerPlayer player = context.player();
+                if (player.containerMenu != null) {
                     int slotId = payload.slotId();
-                    if (slotId >= 0 && slotId < player.currentScreenHandler.slots.size()) {
-                        Slot slot = player.currentScreenHandler.getSlot(slotId);
-                        if (slot != null && slot.hasStack() && slot.getStack().getItem() instanceof ReinforcedBundleItem) {
-                            ReinforcedBundleItem.setBundleSelectedItem(slot.getStack(), payload.selectedIndex());
+                    if (slotId >= 0 && slotId < player.containerMenu.slots.size()) {
+                        Slot slot = player.containerMenu.getSlot(slotId);
+                        if (slot != null && slot.hasItem() && slot.getItem().getItem() instanceof ReinforcedBundleItem) {
+                            ReinforcedBundleItem.setBundleSelectedItem(slot.getItem(), payload.selectedIndex());
                         }
                     }
                 }
@@ -156,10 +156,10 @@ public class ModMessages {
         // Octant Configure
         ServerPlayNetworking.registerGlobalReceiver(OctantConfigurePayload.ID, (payload, context) -> {
             context.server().execute(() -> {
-                ItemStack stack = context.player().getMainHandStack();
+                ItemStack stack = context.player().getMainHandItem();
                 if (stack.getItem() instanceof OctantItem) {
-                    NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-                    NbtCompound nbt = nbtComponent.copyNbt();
+                    CustomData nbtComponent = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+                    CompoundTag nbt = nbtComponent.copyTag();
                     payload.pos1().ifPresent(p -> nbt.putIntArray("Pos1", new int[]{p.getX(), p.getY(), p.getZ()}));
                     payload.pos2().ifPresent(p -> nbt.putIntArray("Pos2", new int[]{p.getX(), p.getY(), p.getZ()}));
                     if (payload.shapeName() != null && !payload.shapeName().isEmpty()) {
@@ -172,7 +172,7 @@ public class ModMessages {
                     if (payload.fillOrder() != null && !payload.fillOrder().isEmpty()) {
                         nbt.putString("FillOrder", payload.fillOrder());
                     }
-                    stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+                    stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
                 }
             });
         });
@@ -180,11 +180,11 @@ public class ModMessages {
         // Octant Scroll
         ServerPlayNetworking.registerGlobalReceiver(OctantScrollPayload.ID, (payload, context) -> {
             context.server().execute(() -> {
-                ServerPlayerEntity player = context.player();
-                ItemStack stack = player.getMainHandStack();
+                ServerPlayer player = context.player();
+                ItemStack stack = player.getMainHandItem();
                 if (stack.getItem() instanceof OctantItem) {
-                    NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-                    NbtCompound nbt = nbtComponent.copyNbt();
+                    CustomData nbtComponent = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+                    CompoundTag nbt = nbtComponent.copyTag();
                     boolean changed = false;
 
                     if (payload.alt()) {
@@ -199,12 +199,12 @@ public class ModMessages {
                         nbt.putString("Shape", values[nextIndex].name());
                         changed = true;
                     } else {
-                        net.minecraft.util.math.Direction direction = player.getHorizontalFacing();
-                        if (player.getPitch() < -60) direction = net.minecraft.util.math.Direction.UP;
-                        else if (player.getPitch() > 60) direction = net.minecraft.util.math.Direction.DOWN;
-                        int dx = direction.getOffsetX() * payload.amount();
-                        int dy = direction.getOffsetY() * payload.amount();
-                        int dz = direction.getOffsetZ() * payload.amount();
+                        net.minecraft.core.Direction direction = player.getDirection();
+                        if (player.getXRot() < -60) direction = net.minecraft.core.Direction.UP;
+                        else if (player.getXRot() > 60) direction = net.minecraft.core.Direction.DOWN;
+                        int dx = direction.getStepX() * payload.amount();
+                        int dy = direction.getStepY() * payload.amount();
+                        int dz = direction.getStepZ() * payload.amount();
 
                         if (payload.control() && nbt.contains("Pos1")) {
                             int[] p1 = nbt.getIntArray("Pos1").orElse(new int[0]);
@@ -215,7 +215,7 @@ public class ModMessages {
                             if (p2.length == 3) { p2[0] += dx; p2[1] += dy; p2[2] += dz; nbt.putIntArray("Pos2", p2); changed = true; }
                         }
                     }
-                    if (changed) stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+                    if (changed) stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
                 }
             });
         });
@@ -223,40 +223,40 @@ public class ModMessages {
         // Building Wand Config
         ServerPlayNetworking.registerGlobalReceiver(BuildingWandConfigurePayload.ID, (payload, context) -> {
             context.server().execute(() -> {
-                ItemStack stack = context.player().getMainHandStack();
+                ItemStack stack = context.player().getMainHandItem();
                 if (stack.getItem() instanceof BuildingWandItem) {
-                    NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-                    NbtCompound nbt = nbtComponent.copyNbt();
+                    CustomData nbtComponent = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+                    CompoundTag nbt = nbtComponent.copyTag();
                     nbt.putInt("SettingsRadius", payload.selectedRadius());
                     nbt.putInt("SettingsAxis", payload.axisMode());
-                    stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+                    stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
                 }
             });
         });
 
         // Master Builder Pick
         ServerPlayNetworking.registerGlobalReceiver(MasterBuilderPickPayload.ID, (payload, context) -> {
-            ServerPlayerEntity player = context.player();
+            ServerPlayer player = context.player();
             ItemStack requestedItem = payload.itemToPick();
             context.server().execute(() -> {
                 var inv = player.getInventory();
-                var registryManager = player.getRegistryManager();
-                var enchantRegistry = registryManager.getOrThrow(RegistryKeys.ENCHANTMENT);
-                var masterBuilderEntry = enchantRegistry.getOptional(ModEnchantments.MASTER_BUILDER);
+                var registryManager = player.registryAccess();
+                var enchantRegistry = registryManager.lookupOrThrow(Registries.ENCHANTMENT);
+                var masterBuilderEntry = enchantRegistry.get(ModEnchantments.MASTER_BUILDER);
                 if (masterBuilderEntry.isEmpty()) return;
 
-                for (int i = 0; i < inv.size(); i++) {
-                    ItemStack bundleStack = inv.getStack(i);
+                for (int i = 0; i < inv.getContainerSize(); i++) {
+                    ItemStack bundleStack = inv.getItem(i);
                     if (bundleStack.getItem() instanceof ReinforcedBundleItem &&
-                            EnchantmentHelper.getLevel(masterBuilderEntry.get(), bundleStack) > 0) {
-                        BundleContentsComponent contents = bundleStack.get(DataComponentTypes.BUNDLE_CONTENTS);
+                            EnchantmentHelper.getItemEnchantmentLevel(masterBuilderEntry.get(), bundleStack) > 0) {
+                        BundleContents contents = bundleStack.get(DataComponents.BUNDLE_CONTENTS);
                         if (contents != null) {
                             List<ItemStack> stacks = new ArrayList<>();
-                            contents.iterate().forEach(s -> stacks.add(s.copy()));
+                            contents.items().forEach(s -> stacks.add(s.create()));
                             ItemStack foundStack = ItemStack.EMPTY;
                             int indexToRemove = -1;
                             for (int j = 0; j < stacks.size(); j++) {
-                                if (ItemStack.areItemsEqual(stacks.get(j), requestedItem)) {
+                                if (ItemStack.isSameItem(stacks.get(j), requestedItem)) {
                                     indexToRemove = j;
                                     foundStack = stacks.get(j);
                                     break;
@@ -264,23 +264,23 @@ public class ModMessages {
                             }
                             if (indexToRemove != -1) {
                                 int selectedSlot = inv.getSelectedSlot();
-                                ItemStack currentHandStack = player.getMainHandStack();
+                                ItemStack currentHandStack = player.getMainHandItem();
                                 if (currentHandStack.isEmpty()) {
                                     stacks.remove(indexToRemove);
-                                    bundleStack.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(stacks));
-                                    inv.setStack(selectedSlot, foundStack);
+                                    bundleStack.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(stacks.stream().map(ItemStackTemplate::fromNonEmptyStack).toList()));
+                                    inv.setItem(selectedSlot, foundStack);
                                 } else {
-                                    int emptySlot = inv.getEmptySlot();
+                                    int emptySlot = inv.getFreeSlot();
                                     if (emptySlot != -1) {
                                         stacks.remove(indexToRemove);
-                                        bundleStack.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(stacks));
-                                        inv.setStack(emptySlot, currentHandStack);
-                                        inv.setStack(selectedSlot, foundStack);
+                                        bundleStack.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(stacks.stream().map(ItemStackTemplate::fromNonEmptyStack).toList()));
+                                        inv.setItem(emptySlot, currentHandStack);
+                                        inv.setItem(selectedSlot, foundStack);
                                     } else return;
                                 }
-                                player.playSound(net.minecraft.sound.SoundEvents.ITEM_BUNDLE_REMOVE_ONE, 1.0f, 1.0f);
-                                inv.markDirty();
-                                player.playerScreenHandler.sendContentUpdates();
+                                player.playSound(net.minecraft.sounds.SoundEvents.BUNDLE_REMOVE_ONE, 1.0f, 1.0f);
+                                inv.setChanged();
+                                player.inventoryMenu.broadcastChanges();
                                 return;
                             }
                         }

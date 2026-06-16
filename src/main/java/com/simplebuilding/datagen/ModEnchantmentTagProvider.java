@@ -2,33 +2,32 @@ package com.simplebuilding.datagen;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.enchantment.Enchantment;
 import java.util.concurrent.CompletableFuture;
 
-public class ModEnchantmentTagProvider extends FabricTagProvider<Enchantment> {
+public class ModEnchantmentTagProvider extends FabricTagsProvider<Enchantment> {
 
-    public static final TagKey<Enchantment> BUILDER_EXCLUSIVE_SET = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of("simplebuilding", "exclusive_set/builder_group"));
-    public static final TagKey<Enchantment> RADIUS_EXCLUSIVE_SET = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of("simplebuilding", "exclusive_set/radius_group"));
-    public static final TagKey<Enchantment> BREAK_THROUGH_EXCLUSIVE_SET = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of("simplebuilding", "exclusive_set/break_through_group"));
+    public static final TagKey<Enchantment> BUILDER_EXCLUSIVE_SET = TagKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath("simplebuilding", "exclusive_set/builder_group"));
+    public static final TagKey<Enchantment> RADIUS_EXCLUSIVE_SET = TagKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath("simplebuilding", "exclusive_set/radius_group"));
+    public static final TagKey<Enchantment> BREAK_THROUGH_EXCLUSIVE_SET = TagKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath("simplebuilding", "exclusive_set/break_through_group"));
 
-    public static final TagKey<Enchantment> COVER_EXCLUSIVE_SET = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of("simplebuilding", "exclusive_set/cover_group"));
-    public static final TagKey<Enchantment> WAND_MODIFIER_EXCLUSIVE_SET = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of("simplebuilding", "exclusive_set/wand_modifier_group"));
+    public static final TagKey<Enchantment> COVER_EXCLUSIVE_SET = TagKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath("simplebuilding", "exclusive_set/cover_group"));
+    public static final TagKey<Enchantment> WAND_MODIFIER_EXCLUSIVE_SET = TagKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath("simplebuilding", "exclusive_set/wand_modifier_group"));
 
-    public static final TagKey<Enchantment> MINING_EXCLUSIVE_SET = TagKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Simplebuilding.MOD_ID, "exclusive_set/mining"));
+    public static final TagKey<Enchantment> MINING_EXCLUSIVE_SET = TagKey.create(Registries.ENCHANTMENT, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "exclusive_set/mining"));
 
-    public ModEnchantmentTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output, RegistryKeys.ENCHANTMENT, registriesFuture);
+    public ModEnchantmentTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(output, Registries.ENCHANTMENT, registriesFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+    protected void addTags(HolderLookup.Provider wrapperLookup) {
 
         builder(BUILDER_EXCLUSIVE_SET)
                 .add(ModEnchantments.MASTER_BUILDER)

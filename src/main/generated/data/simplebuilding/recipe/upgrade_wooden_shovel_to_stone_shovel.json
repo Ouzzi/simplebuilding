@@ -4,7 +4,6 @@
   "addition_count": 2,
   "base": "minecraft:wooden_shovel",
   "result": {
-    "count": 1,
     "id": "minecraft:stone_shovel"
   },
   "template": "simplebuilding:basic_upgrade_template"

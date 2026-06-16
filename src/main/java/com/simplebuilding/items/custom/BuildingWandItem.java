@@ -1,33 +1,33 @@
 package com.simplebuilding.items.custom;
 
 import com.simplebuilding.enchantment.ModEnchantments;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BundleContentsComponent;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-
 import java.util.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 
@@ -50,10 +50,10 @@ public class BuildingWandItem extends Item {
         int bundleIndex;
         boolean fromBundle;
         BlockState stateToPlace;
-        public void consume() { if (fromBundle) removeOneFromBundle(sourceStack, bundleIndex); else sourceStack.decrement(1); }
+        public void consume() { if (fromBundle) removeOneFromBundle(sourceStack, bundleIndex); else sourceStack.shrink(1); }
     }
 
-    public BuildingWandItem(Settings settings) {
+    public BuildingWandItem(Properties settings) {
         super(settings);
         this.maxDiameter = 3; // Standard (Copper), sollte extern gesetzt werden
     }
@@ -70,15 +70,15 @@ public class BuildingWandItem extends Item {
      * Gibt eine Map zurück, die jeder Position den BlockState zuweist, der dort platziert würde.
      * Berücksichtigt Color Palette (Zufall) und Inventar-Priorität.
      */
-    public static Map<BlockPos, BlockState> getPreviewStates(World world, PlayerEntity player, ItemStack wandStack, BlockPos originPos, Direction face, int maxDiameter) {
+    public static Map<BlockPos, BlockState> getPreviewStates(Level world, Player player, ItemStack wandStack, BlockPos originPos, Direction face, int maxDiameter) {
         Map<BlockPos, BlockState> previewMap = new HashMap<>();
 
         // 1. Positionen berechnen
-        NbtComponent comp = wandStack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        NbtCompound nbt = comp.copyNbt();
+        CustomData comp = wandStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        CompoundTag nbt = comp.copyTag();
         int maxTierRadius = (maxDiameter - 1) / 2;
         int userRadius = getConfiguredRadius(nbt, maxTierRadius);
-        int axisMode = nbt.getInt("SettingsAxis", 0);
+        int axisMode = nbt.getIntOr("SettingsAxis", 0);
 
         List<BlockPos> positions = collectPlacementPositions(originPos, face, userRadius, axisMode);
 
@@ -115,8 +115,8 @@ public class BuildingWandItem extends Item {
         return previewMap;
     }
 
-    private static int getConfiguredRadius(NbtCompound nbt, int maxTierRadius) {
-        int userRadius = nbt.contains("SettingsRadius") ? nbt.getInt("SettingsRadius", maxTierRadius) : maxTierRadius;
+    private static int getConfiguredRadius(CompoundTag nbt, int maxTierRadius) {
+        int userRadius = nbt.contains("SettingsRadius") ? nbt.getIntOr("SettingsRadius", maxTierRadius) : maxTierRadius;
         if (userRadius < 0) return 0;
         return Math.min(userRadius, maxTierRadius);
     }
@@ -130,20 +130,20 @@ public class BuildingWandItem extends Item {
     }
 
     // Client-Helper: Findet den ersten BlockState, ohne ItemStack zu verändern
-    private static BlockState findFirstBlockStateClient(PlayerEntity player, ItemStack wandStack, boolean hasMasterBuilder) {
-        World world = player.getEntityWorld();
+    private static BlockState findFirstBlockStateClient(Player player, ItemStack wandStack, boolean hasMasterBuilder) {
+        Level world = player.level();
         // 1. Offhand
-        BlockState off = checkStackIsBlockState(player.getOffHandStack(), world, hasMasterBuilder);
+        BlockState off = checkStackIsBlockState(player.getOffhandItem(), world, hasMasterBuilder);
         if (off != null) return off;
         // 2. Hotbar
         for (int i = 0; i < 9; i++) {
-            BlockState res = checkStackIsBlockState(player.getInventory().getStack(i), world, hasMasterBuilder);
+            BlockState res = checkStackIsBlockState(player.getInventory().getItem(i), world, hasMasterBuilder);
             if (res != null) return res;
         }
         // 3. Inv
         if (hasMasterBuilder) {
-            for (int i = 9; i < player.getInventory().getMainStacks().size(); i++) {
-                BlockState res = checkStackIsBlockState(player.getInventory().getStack(i), world, hasMasterBuilder);
+            for (int i = 9; i < player.getInventory().getNonEquipmentItems().size(); i++) {
+                BlockState res = checkStackIsBlockState(player.getInventory().getItem(i), world, hasMasterBuilder);
                 if (res != null) return res;
             }
         }
@@ -151,33 +151,34 @@ public class BuildingWandItem extends Item {
     }
 
     // Hilfsmethode: Holt ALLE Baublöcke für Color Palette
-    private static List<BlockState> findAllBuildingBlocks(PlayerEntity player, ItemStack wandStack, boolean hasMasterBuilder) {
+    private static List<BlockState> findAllBuildingBlocks(Player player, ItemStack wandStack, boolean hasMasterBuilder) {
         List<BlockState> blocks = new ArrayList<>();
-        World world = player.getEntityWorld();
+        Level world = player.level();
 
         // Helper Lambda oder Loop
         // Offhand
-        collectBlocksFromStack(player.getOffHandStack(), world, hasMasterBuilder, blocks);
+        collectBlocksFromStack(player.getOffhandItem(), world, hasMasterBuilder, blocks);
         // Main Inventory
-        int limit = hasMasterBuilder ? player.getInventory().getMainStacks().size() : 9;
+        int limit = hasMasterBuilder ? player.getInventory().getNonEquipmentItems().size() : 9;
         for (int i = 0; i < limit; i++) {
-            collectBlocksFromStack(player.getInventory().getStack(i), world, hasMasterBuilder, blocks);
+            collectBlocksFromStack(player.getInventory().getItem(i), world, hasMasterBuilder, blocks);
         }
         return blocks;
     }
 
-    private static void collectBlocksFromStack(ItemStack stack, World world, boolean masterBuilder, List<BlockState> list) {
+    private static void collectBlocksFromStack(ItemStack stack, Level world, boolean masterBuilder, List<BlockState> list) {
         if (stack.isEmpty()) return;
         if (stack.getItem() instanceof BlockItem bi) {
-            list.add(bi.getBlock().getDefaultState());
+            list.add(bi.getBlock().defaultBlockState());
         } else if (stack.getItem() instanceof ReinforcedBundleItem) {
             boolean bundleHasMB = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
             if (masterBuilder || bundleHasMB) {
-                BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
+                BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
                 if (contents != null) {
-                    for (ItemStack s : contents.iterate()) {
+                    for (ItemStackTemplate template : contents.items()) {
+                        ItemStack s = template.create();
                         if (s.getItem() instanceof BlockItem bi) {
-                            list.add(bi.getBlock().getDefaultState());
+                            list.add(bi.getBlock().defaultBlockState());
                         }
                     }
                 }
@@ -185,19 +186,20 @@ public class BuildingWandItem extends Item {
         }
     }
 
-    private static BlockState checkStackIsBlockState(ItemStack stack, World world, boolean wandHasMasterBuilder) {
+    private static BlockState checkStackIsBlockState(ItemStack stack, Level world, boolean wandHasMasterBuilder) {
         if (stack.isEmpty()) return null;
         if (stack.getItem() instanceof BlockItem bi) {
-            return bi.getBlock().getDefaultState();
+            return bi.getBlock().defaultBlockState();
         }
         if (stack.getItem() instanceof ReinforcedBundleItem) {
             boolean bundleHasMasterBuilder = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
             if (wandHasMasterBuilder || bundleHasMasterBuilder) {
-                BundleContentsComponent contents = stack.get(DataComponentTypes.BUNDLE_CONTENTS);
+                BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
                 if (contents != null && !contents.isEmpty()) {
                     // Nimmt den ersten Block aus dem Bundle
-                    for (ItemStack s : contents.iterate()) {
-                        if (s.getItem() instanceof BlockItem bi) return bi.getBlock().getDefaultState();
+                    for (ItemStackTemplate template : contents.items()) {
+                        ItemStack s = template.create();
+                        if (s.getItem() instanceof BlockItem bi) return bi.getBlock().defaultBlockState();
                     }
                 }
             }
@@ -205,30 +207,30 @@ public class BuildingWandItem extends Item {
         return null;
     }
 
-    private MaterialResult findFirstBuildingBlock(PlayerEntity player, ItemStack wandStack, boolean hasMasterBuilder) {
-        World world = player.getEntityWorld();
+    private MaterialResult findFirstBuildingBlock(Player player, ItemStack wandStack, boolean hasMasterBuilder) {
+        Level world = player.level();
 
         // 1. Offhand
-        MaterialResult offHandRes = checkStackIsBlock(player.getOffHandStack(), world, hasMasterBuilder);
+        MaterialResult offHandRes = checkStackIsBlock(player.getOffhandItem(), world, hasMasterBuilder);
         if (offHandRes != null) return offHandRes;
 
         // 2. Hotbar (0-8)
         for (int i = 0; i < 9; i++) {
-            MaterialResult res = checkStackIsBlock(player.getInventory().getStack(i), world, hasMasterBuilder);
+            MaterialResult res = checkStackIsBlock(player.getInventory().getItem(i), world, hasMasterBuilder);
             if (res != null) return res;
         }
 
         // 3. Main Inventory (nur wenn Master Builder)
         if (hasMasterBuilder) {
-            for (int i = 9; i < player.getInventory().getMainStacks().size(); i++) {
-                MaterialResult res = checkStackIsBlock(player.getInventory().getStack(i), world, hasMasterBuilder);
+            for (int i = 9; i < player.getInventory().getNonEquipmentItems().size(); i++) {
+                MaterialResult res = checkStackIsBlock(player.getInventory().getItem(i), world, hasMasterBuilder);
                 if (res != null) return res;
             }
         }
         return null;
     }
 
-    private MaterialResult checkStackIsBlock(ItemStack stack, World world, boolean wandHasMasterBuilder) {
+    private MaterialResult checkStackIsBlock(ItemStack stack, Level world, boolean wandHasMasterBuilder) {
         if (stack.isEmpty()) return null;
 
         // Ist es ein Block?
@@ -236,7 +238,7 @@ public class BuildingWandItem extends Item {
             MaterialResult res = new MaterialResult();
             res.sourceStack = stack;
             res.fromBundle = false;
-            res.stateToPlace = bi.getBlock().getDefaultState();
+            res.stateToPlace = bi.getBlock().defaultBlockState();
             return res;
         }
 
@@ -252,17 +254,18 @@ public class BuildingWandItem extends Item {
     }
 
     private MaterialResult findFirstBlockInBundle(ItemStack bundle) {
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
         if (contents == null || contents.isEmpty()) return null;
 
         int i = 0;
-        for (ItemStack s : contents.iterate()) {
+        for (ItemStackTemplate template : contents.items()) {
+            ItemStack s = template.create();
             if (!s.isEmpty() && s.getItem() instanceof BlockItem bi) {
                 MaterialResult res = new MaterialResult();
                 res.sourceStack = bundle;
                 res.fromBundle = true;
                 res.bundleIndex = i;
-                res.stateToPlace = bi.getBlock().getDefaultState();
+                res.stateToPlace = bi.getBlock().defaultBlockState();
                 return res;
             }
             i++;
@@ -270,7 +273,7 @@ public class BuildingWandItem extends Item {
         return null;
     }
 
-    private MaterialResult findMaterialForPlacement(PlayerEntity player, ItemStack wand, Block targetBlock, boolean wandHasMasterBuilder, boolean colorPaletteActive) {
+    private MaterialResult findMaterialForPlacement(Player player, ItemStack wand, Block targetBlock, boolean wandHasMasterBuilder, boolean colorPaletteActive) {
         // Wenn Color Palette aktiv ist, ist targetBlock egal, wir nehmen den nächsten verfügbaren.
         if (colorPaletteActive) {
             return findFirstBuildingBlock(player, wand, wandHasMasterBuilder);
@@ -279,31 +282,31 @@ public class BuildingWandItem extends Item {
         }
     }
 
-    private MaterialResult findSpecificMaterial(PlayerEntity player, ItemStack wand, Block targetBlock, boolean wandHasMasterBuilder) {
-        World world = player.getEntityWorld();
+    private MaterialResult findSpecificMaterial(Player player, ItemStack wand, Block targetBlock, boolean wandHasMasterBuilder) {
+        Level world = player.level();
 
-        ItemStack offHand = player.getOffHandStack();
+        ItemStack offHand = player.getOffhandItem();
         MaterialResult offRes = checkStackForSpecificBlock(offHand, targetBlock, wand, world, wandHasMasterBuilder);
         if (offRes != null) return offRes;
 
         for (int i = 0; i < 9; i++) {
-            MaterialResult res = checkStackForSpecificBlock(player.getInventory().getStack(i), targetBlock, wand, world, wandHasMasterBuilder);
+            MaterialResult res = checkStackForSpecificBlock(player.getInventory().getItem(i), targetBlock, wand, world, wandHasMasterBuilder);
             if (res != null) return res;
         }
 
         if (wandHasMasterBuilder) {
-            for (int i = 9; i < player.getInventory().getMainStacks().size(); i++) {
-                MaterialResult res = checkStackForSpecificBlock(player.getInventory().getStack(i), targetBlock, wand, world, wandHasMasterBuilder);
+            for (int i = 9; i < player.getInventory().getNonEquipmentItems().size(); i++) {
+                MaterialResult res = checkStackForSpecificBlock(player.getInventory().getItem(i), targetBlock, wand, world, wandHasMasterBuilder);
                 if (res != null) return res;
             }
         }
         return null;
     }
 
-    private MaterialResult checkStackForSpecificBlock(ItemStack stack, Block targetBlock, ItemStack wandStack, World world, boolean wandHasMasterBuilder) {
+    private MaterialResult checkStackForSpecificBlock(ItemStack stack, Block targetBlock, ItemStack wandStack, Level world, boolean wandHasMasterBuilder) {
         if (stack.isEmpty()) return null;
         if (stack.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
-            MaterialResult res = new MaterialResult(); res.sourceStack = stack; res.fromBundle = false; res.stateToPlace = bi.getBlock().getDefaultState(); return res;
+            MaterialResult res = new MaterialResult(); res.sourceStack = stack; res.fromBundle = false; res.stateToPlace = bi.getBlock().defaultBlockState(); return res;
         }
         if (stack.getItem() instanceof ReinforcedBundleItem) {
             boolean bundleHasMasterBuilder = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
@@ -313,12 +316,13 @@ public class BuildingWandItem extends Item {
     }
 
     private MaterialResult findInBundleSpecific(ItemStack bundle, Block targetBlock) {
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
         if (contents == null || contents.isEmpty()) return null;
         int i = 0;
-        for (ItemStack s : contents.iterate()) {
+        for (ItemStackTemplate template : contents.items()) {
+            ItemStack s = template.create();
             if (!s.isEmpty() && s.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
-                MaterialResult res = new MaterialResult(); res.sourceStack = bundle; res.fromBundle = true; res.bundleIndex = i; res.stateToPlace = bi.getBlock().getDefaultState(); return res;
+                MaterialResult res = new MaterialResult(); res.sourceStack = bundle; res.fromBundle = true; res.bundleIndex = i; res.stateToPlace = bi.getBlock().defaultBlockState(); return res;
             }
             i++;
         }
@@ -326,26 +330,26 @@ public class BuildingWandItem extends Item {
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        if (context.getHand() != Hand.MAIN_HAND) return ActionResult.PASS;
-        World world = context.getWorld();
-        PlayerEntity player = context.getPlayer();
-        BlockPos clickedPos = context.getBlockPos();
-        ItemStack wandStack = context.getStack();
+    public InteractionResult useOn(UseOnContext context) {
+        if (context.getHand() != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
+        Level world = context.getLevel();
+        Player player = context.getPlayer();
+        BlockPos clickedPos = context.getClickedPos();
+        ItemStack wandStack = context.getItemInHand();
 
-        if (player == null) return ActionResult.PASS;
-        if (world.isClient()) return ActionResult.SUCCESS;
+        if (player == null) return InteractionResult.PASS;
+        if (world.isClientSide()) return InteractionResult.SUCCESS;
 
         // Prüfen, ob wir überhaupt ein Material haben, bevor wir starten
         boolean hasMasterBuilder = hasEnchantment(wandStack, world, ModEnchantments.MASTER_BUILDER);
         MaterialResult preview = findFirstBuildingBlock(player, wandStack, hasMasterBuilder);
 
-        if (preview == null && !player.getAbilities().creativeMode) return ActionResult.FAIL;
+        if (preview == null && !player.getAbilities().instabuild) return InteractionResult.FAIL;
 
         Block buildBlock = preview != null ? preview.stateToPlace.getBlock() : Blocks.AIR;
 
-        Direction clickedFace = context.getSide();
-        NbtCompound nbt = getOrInitNbt(wandStack);
+        Direction clickedFace = context.getClickedFace();
+        CompoundTag nbt = getOrInitNbt(wandStack);
         nbt.putBoolean("Active", true);
         nbt.putInt("CurrentRadius", 0);
         nbt.putInt("Timer", 0);
@@ -353,19 +357,19 @@ public class BuildingWandItem extends Item {
         nbt.putInt("OriginY", clickedPos.getY());
         nbt.putInt("OriginZ", clickedPos.getZ());
         nbt.putInt("Face", clickedFace.ordinal());
-        nbt.putInt("BuildBlockRawId", Registries.BLOCK.getRawId(buildBlock));
+        nbt.putInt("BuildBlockRawId", BuiltInRegistries.BLOCK.getId(buildBlock));
 
-        var hitPos = context.getHitPos().subtract(clickedPos.getX(), clickedPos.getY(), clickedPos.getZ());
+        var hitPos = context.getClickLocation().subtract(clickedPos.getX(), clickedPos.getY(), clickedPos.getZ());
         nbt.putFloat("HitX", (float) hitPos.x); nbt.putFloat("HitY", (float) hitPos.y); nbt.putFloat("HitZ", (float) hitPos.z);
         setNbt(wandStack, nbt);
 
-        return ActionResult.CONSUME;
+        return InteractionResult.CONSUME;
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, EquipmentSlot slot) {
-        if (!(entity instanceof ServerPlayerEntity player)) return;
-        NbtCompound nbt = getOrInitNbt(stack);
+    public void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, EquipmentSlot slot) {
+        if (!(entity instanceof ServerPlayer player)) return;
+        CompoundTag nbt = getOrInitNbt(stack);
         if (!getBlockBoolean(nbt)) return;
 
         if (slot != EquipmentSlot.MAINHAND && slot != EquipmentSlot.OFFHAND) { nbt.putBoolean("Active", false); setNbt(stack, nbt); return; }
@@ -374,7 +378,7 @@ public class BuildingWandItem extends Item {
         if (timer > 0) { nbt.putInt("Timer", timer - 1); setNbt(stack, nbt); return; }
 
         int maxTierRadius = (this.maxDiameter - 1) / 2;
-        int userRadius = nbt.contains("SettingsRadius") ? nbt.getInt("SettingsRadius", maxTierRadius) : maxTierRadius;
+        int userRadius = nbt.contains("SettingsRadius") ? nbt.getIntOr("SettingsRadius", maxTierRadius) : maxTierRadius;
         if (userRadius > maxTierRadius) userRadius = maxTierRadius;
 
         int currentRadius = getBlockInt(nbt, "CurrentRadius");
@@ -387,8 +391,8 @@ public class BuildingWandItem extends Item {
         BlockPos originPos = new BlockPos(ox, oy, oz);
         Direction face = Direction.values()[getBlockInt(nbt, "Face")];
 
-        int blockId = nbt.getInt("BuildBlockRawId", Registries.BLOCK.getRawId(Blocks.AIR));
-        Block targetBlock = Registries.BLOCK.get(blockId);
+        int blockId = nbt.getIntOr("BuildBlockRawId", BuiltInRegistries.BLOCK.getId(Blocks.AIR));
+        Block targetBlock = BuiltInRegistries.BLOCK.byId(blockId);
 
         // Wenn kein Color Palette, brauchen wir einen festen Block
         if (!hasColorPalette && targetBlock == Blocks.AIR) {
@@ -398,29 +402,29 @@ public class BuildingWandItem extends Item {
         }
 
         // Settings
-        int axisMode = nbt.getInt("SettingsAxis", 0);
+        int axisMode = nbt.getIntOr("SettingsAxis", 0);
 
         // Positionen berechnen
         List<BlockPos> stepPositions = calculatePositions(originPos, face, currentRadius, axisMode);
 
         for (BlockPos rawPos : stepPositions) {
-            if (!world.getBlockState(rawPos).isReplaceable()) continue;
+            if (!world.getBlockState(rawPos).canBeReplaced()) continue;
 
             // Finde Material: Bei Color Palette irgendeins, sonst spezifisch
             MaterialResult material = findMaterialForPlacement(player, stack, targetBlock, hasMasterBuilder, hasColorPalette);
 
-            if (material == null && !player.getAbilities().creativeMode) {
+            if (material == null && !player.getAbilities().instabuild) {
                 nbt.putBoolean("Active", false); setNbt(stack, nbt); return;
             }
 
-            BlockState stateToPlace = material != null ? material.stateToPlace : (hasColorPalette ? Blocks.STONE.getDefaultState() : targetBlock.getDefaultState());
+            BlockState stateToPlace = material != null ? material.stateToPlace : (hasColorPalette ? Blocks.STONE.defaultBlockState() : targetBlock.defaultBlockState());
 
-            if (world.setBlockState(rawPos, stateToPlace, 3)) {
-                BlockSoundGroup soundGroup = stateToPlace.getSoundGroup();
-                world.playSound(null, rawPos, soundGroup.getPlaceSound(), SoundCategory.BLOCKS, (soundGroup.getVolume() + 1.0F) / 2.0F, soundGroup.getPitch() * 0.8F);
-                if (!player.getAbilities().creativeMode && material != null) {
+            if (world.setBlock(rawPos, stateToPlace, 3)) {
+                SoundType soundGroup = stateToPlace.getSoundType();
+                world.playSound(null, rawPos, soundGroup.getPlaceSound(), SoundSource.BLOCKS, (soundGroup.getVolume() + 1.0F) / 2.0F, soundGroup.getPitch() * 0.8F);
+                if (!player.getAbilities().instabuild && material != null) {
                     material.consume();
-                    stack.damage(1, player, EquipmentSlot.MAINHAND);
+                    stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                 }
             }
         }
@@ -434,16 +438,16 @@ public class BuildingWandItem extends Item {
         setNbt(stack, nbt);
     }
 
-    public static List<BlockPos> getBuildingPositions(World world, PlayerEntity player, ItemStack wandStack, BlockPos originPos, Direction face, int maxDiameter, BlockHitResult hitResult) {
+    public static List<BlockPos> getBuildingPositions(Level world, Player player, ItemStack wandStack, BlockPos originPos, Direction face, int maxDiameter, BlockHitResult hitResult) {
         // NBT lesen für Settings
-        NbtComponent comp = wandStack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        NbtCompound nbt = comp.copyNbt();
+        CustomData comp = wandStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        CompoundTag nbt = comp.copyTag();
 
         int maxTierRadius = (maxDiameter - 1) / 2;
-        int userRadius = nbt.contains("SettingsRadius") ? nbt.getInt("SettingsRadius", maxTierRadius) : maxTierRadius;
+        int userRadius = nbt.contains("SettingsRadius") ? nbt.getIntOr("SettingsRadius", maxTierRadius) : maxTierRadius;
         if (userRadius > maxTierRadius) userRadius = maxTierRadius;
 
-        int axisMode = nbt.getInt("SettingsAxis", 0);
+        int axisMode = nbt.getIntOr("SettingsAxis", 0);
 
         // Wir berechnen ALLE Positionen auf einmal für den Renderer
         List<BlockPos> allPositions = new ArrayList<>();
@@ -457,7 +461,7 @@ public class BuildingWandItem extends Item {
         List<BlockPos> positions = new ArrayList<>();
 
         // Basis-Punkt: Ein Block VOR der geklickten Seite (dort wo platziert wird)
-        BlockPos placeOrigin = originPos.offset(face);
+        BlockPos placeOrigin = originPos.relative(face);
 
         // Achsen-Logik
         // 0 = Face-Aligned (Standard Wand Verhalten: Plane perpendicular to Face)
@@ -492,7 +496,7 @@ public class BuildingWandItem extends Item {
                 if (Math.abs(u) != r && Math.abs(v) != r) continue;
 
                 BlockPos offset = getOffsetForAxis(buildAxis, u, v);
-                positions.add(placeOrigin.add(offset));
+                positions.add(placeOrigin.offset(offset));
             }
         }
 
@@ -509,20 +513,21 @@ public class BuildingWandItem extends Item {
     }
 
     private static void removeOneFromBundle(ItemStack bundle, int indexToRemove) {
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
         if (contents == null) return;
         List<ItemStack> newItems = new ArrayList<>();
         int i = 0;
-        for (ItemStack s : contents.iterate()) {
-            if (i == indexToRemove) { ItemStack copy = s.copy(); copy.decrement(1); if (!copy.isEmpty()) newItems.add(copy); }
+        for (ItemStackTemplate template : contents.items()) {
+            ItemStack s = template.create();
+            if (i == indexToRemove) { ItemStack copy = s.copy(); copy.shrink(1); if (!copy.isEmpty()) newItems.add(copy); }
             else { newItems.add(s.copy()); }
             i++;
         }
-        bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
+        bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(newItems.stream().map(ItemStackTemplate::fromNonEmptyStack).toList()));
     }
 
-    private boolean getBlockBoolean(NbtCompound nbt) { if (!nbt.contains("Active")) return false; return nbt.getBoolean("Active", false); }
-    private int getBlockInt(NbtCompound nbt, String key) { if (!nbt.contains(key)) return 0; return nbt.getInt(key, 0); }
-    private NbtCompound getOrInitNbt(ItemStack stack) { NbtComponent component = stack.get(DataComponentTypes.CUSTOM_DATA); return component != null ? component.copyNbt() : new NbtCompound(); }
-    private void setNbt(ItemStack stack, NbtCompound nbt) { stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt)); }
+    private boolean getBlockBoolean(CompoundTag nbt) { if (!nbt.contains("Active")) return false; return nbt.getBooleanOr("Active", false); }
+    private int getBlockInt(CompoundTag nbt, String key) { if (!nbt.contains(key)) return 0; return nbt.getIntOr(key, 0); }
+    private CompoundTag getOrInitNbt(ItemStack stack) { CustomData component = stack.get(DataComponents.CUSTOM_DATA); return component != null ? component.copyTag() : new CompoundTag(); }
+    private void setNbt(ItemStack stack, CompoundTag nbt) { stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt)); }
 }

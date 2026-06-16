@@ -6,8 +6,8 @@ import com.simplebuilding.trim.ModTrimMaterials;
 import com.simplebuilding.util.ModWorldGen;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 
 public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
 	@Override
@@ -25,13 +25,13 @@ public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
     }
 
     @Override
-    public void buildRegistry(RegistryBuilder registryBuilder) {
-        registryBuilder.addRegistry(RegistryKeys.ENCHANTMENT, ModEnchantments::bootstrap);
+    public void buildRegistry(RegistrySetBuilder registryBuilder) {
+        registryBuilder.add(Registries.ENCHANTMENT, ModEnchantments::bootstrap);
 
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModWorldGen::bootstrapConfiguredFeatures);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModWorldGen::bootstrapPlacedFeatures);
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, ModWorldGen::bootstrapConfiguredFeatures);
+        registryBuilder.add(Registries.PLACED_FEATURE, ModWorldGen::bootstrapPlacedFeatures);
 
         // NEU: Trim Materials registrieren!
-        registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, ModTrimMaterials::bootstrap);
+        registryBuilder.add(Registries.TRIM_MATERIAL, ModTrimMaterials::bootstrap);
     }
 }

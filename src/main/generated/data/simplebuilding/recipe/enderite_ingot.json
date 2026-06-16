@@ -1,16 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "N": "simplebuilding:enderite_nugget"
-  },
-  "pattern": [
-    "NNN",
-    "NNN",
-    "NNN"
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "simplebuilding:enderite_block"
   ],
   "result": {
-    "count": 1,
+    "count": 9,
     "id": "simplebuilding:enderite_ingot"
   }
 }

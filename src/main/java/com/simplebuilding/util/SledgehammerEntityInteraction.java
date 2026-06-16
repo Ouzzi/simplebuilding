@@ -2,95 +2,80 @@ package com.simplebuilding.util;
 
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.SledgehammerItem;
-import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.decoration.ItemFrameEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 
-public class SledgehammerEntityInteraction {
-    public static void register() {
-        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
-            if (world.isClient()) return ActionResult.PASS;
-            if (hand != Hand.MAIN_HAND) return ActionResult.PASS;
+public final class SledgehammerEntityInteraction {
+    private SledgehammerEntityInteraction() {
+    }
 
-            ItemStack mainStack = player.getMainHandStack();
-            ItemStack offStack = player.getOffHandStack();
+    public static InteractionResult handleAttackEntity(Player player, Level world, InteractionHand hand, Entity entity) {
+        if (world.isClientSide()) return InteractionResult.PASS;
+        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
 
-            // Glowing Trim Template Recipe
-            if (mainStack.getItem() instanceof SledgehammerItem && offStack.isOf(Items.GLOW_INK_SAC)) {
-                if (entity instanceof ItemFrameEntity itemFrame) {
-                    ItemStack frameStack = itemFrame.getHeldItemStack();
+        ItemStack mainStack = player.getMainHandItem();
+        ItemStack offStack = player.getOffhandItem();
 
-                    // Check: Ist im Frame ein Item mit Armor Trim? (Templates sind Items, wir prüfen hier Templates)
-                    // Da Armor Trims technisch Templates sind, prüfen wir auf das Item Tag oder Klasse.
-                    // Vereinfachung: Wir prüfen, ob es ein Smithing Template ist.
-                    if (isTrimTemplate(frameStack)) {
-                        
-                        // Transformation!
-                        itemFrame.setHeldItemStack(new ItemStack(ModItems.GLOWING_TRIM_TEMPLATE), true);
-                        
-                        // Kosten abziehen
-                        if (!player.isCreative()) {
-                            offStack.decrement(1);
-                            mainStack.damage(1, player, EquipmentSlot.MAINHAND);
-                        }
+        if (mainStack.getItem() instanceof SledgehammerItem && offStack.is(Items.GLOW_INK_SAC)) {
+            if (entity instanceof ItemFrame itemFrame) {
+                ItemStack frameStack = itemFrame.getItem();
 
-                        // Effekte - Sound and Particles
-                        world.playSound(null, itemFrame.getBlockPos(), SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, SoundCategory.BLOCKS, 1.0f, 1.5f);
-                        world.playSound(null, itemFrame.getBlockPos(), SoundEvents.ITEM_GLOW_INK_SAC_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                if (isTrimTemplate(frameStack)) {
+                    itemFrame.setItem(new ItemStack(ModItems.GLOWING_TRIM_TEMPLATE), true);
 
-                        world.addParticleClient(net.minecraft.particle.ParticleTypes.GLOW, itemFrame.getX(), itemFrame.getY(), itemFrame.getZ(), 0.0, 0.1, 0.0);
-                        world.addParticleClient(ParticleTypes.GLOW_SQUID_INK, itemFrame.getX(), itemFrame.getY(), itemFrame.getZ(), 0.0, 0.1, 0.0);
-
-                        
-                        return ActionResult.SUCCESS;
+                    if (!player.isCreative()) {
+                        offStack.shrink(1);
+                        mainStack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                     }
+
+                    world.playSound(null, itemFrame.blockPosition(), SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0f, 1.5f);
+                    world.playSound(null, itemFrame.blockPosition(), SoundEvents.GLOW_INK_SAC_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
+
+                    world.addParticle(ParticleTypes.GLOW, itemFrame.getX(), itemFrame.getY(), itemFrame.getZ(), 0.0, 0.1, 0.0);
+                    world.addParticle(ParticleTypes.GLOW_SQUID_INK, itemFrame.getX(), itemFrame.getY(), itemFrame.getZ(), 0.0, 0.1, 0.0);
+
+                    return InteractionResult.SUCCESS;
                 }
             }
+        }
 
-            // Emitting Trim Template Recipe
-            if (mainStack.getItem() instanceof SledgehammerItem && offStack.isOf(Items.GLOWSTONE_DUST)) {
-                if (entity instanceof ItemFrameEntity itemFrame) {
-                    ItemStack frameStack = itemFrame.getHeldItemStack();
+        if (mainStack.getItem() instanceof SledgehammerItem && offStack.is(Items.GLOWSTONE_DUST)) {
+            if (entity instanceof ItemFrame itemFrame) {
+                ItemStack frameStack = itemFrame.getItem();
 
-                    // Check: Ist im Frame ein Item mit Armor Trim? (Templates sind Items, wir prüfen hier Templates)
-                    // Da Armor Trims technisch Templates sind, prüfen wir auf das Item Tag oder Klasse.
-                    // Vereinfachung: Wir prüfen, ob es ein Smithing Template ist.
-                    if (isTrimTemplate(frameStack)) {
+                if (isTrimTemplate(frameStack)) {
+                    itemFrame.setItem(new ItemStack(ModItems.EMITTING_TRIM_TEMPLATE), true);
 
-                        // Transformation!
-                        itemFrame.setHeldItemStack(new ItemStack(ModItems.EMITTING_TRIM_TEMPLATE), true);
-
-                        // Kosten abziehen
-                        if (!player.isCreative()) {
-                            offStack.decrement(1);
-                            mainStack.damage(1, player, EquipmentSlot.MAINHAND);
-                        }
-
-                        // Effekte - Sound and Particles
-                        world.playSound(null, itemFrame.getBlockPos(), SoundEvents.BLOCK_AMETHYST_BLOCK_HIT, SoundCategory.BLOCKS, 1.0f, 1.5f);
-                        world.playSound(null, itemFrame.getBlockPos(), SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.BLOCKS, 1.0f, 1.0f);
-
-                        world.addParticleClient(net.minecraft.particle.ParticleTypes.GLOW, itemFrame.getX(), itemFrame.getY(), itemFrame.getZ(), 0.0, 0.1, 0.0);
-                        world.addParticleClient(ParticleTypes.LARGE_SMOKE, itemFrame.getX(), itemFrame.getY(), itemFrame.getZ(), 0.0, 0.1, 0.0);
-
-                        return ActionResult.SUCCESS;
+                    if (!player.isCreative()) {
+                        offStack.shrink(1);
+                        mainStack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                     }
+
+                    world.playSound(null, itemFrame.blockPosition(), SoundEvents.AMETHYST_BLOCK_HIT, SoundSource.BLOCKS, 1.0f, 1.5f);
+                    world.playSound(null, itemFrame.blockPosition(), SoundEvents.BLAZE_SHOOT, SoundSource.BLOCKS, 1.0f, 1.0f);
+
+                    world.addParticle(ParticleTypes.GLOW, itemFrame.getX(), itemFrame.getY(), itemFrame.getZ(), 0.0, 0.1, 0.0);
+                    world.addParticle(ParticleTypes.LARGE_SMOKE, itemFrame.getX(), itemFrame.getY(), itemFrame.getZ(), 0.0, 0.1, 0.0);
+
+                    return InteractionResult.SUCCESS;
                 }
             }
+        }
 
-            return ActionResult.PASS;
-        });
+        return InteractionResult.PASS;
     }
 
     private static boolean isTrimTemplate(ItemStack stack) {
-        // Prüft auf Vanilla Trim Templates oder deine Mod Templates
         String path = stack.getItem().toString();
         return path.contains("trim_smithing_template");
     }

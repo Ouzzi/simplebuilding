@@ -5,18 +5,18 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.ISpaceKeyTracker;
 import com.simplebuilding.util.TrimBenefitUser;
 import com.simplebuilding.util.TrimEffectUtil;
-import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.world.World;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -26,17 +26,17 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements TrimBenefitUser, ISpaceKeyTracker {
 
     // Konstruktor ist notwendig, da wir von LivingEntity erben
-    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level world) {
         super(entityType, world);
     }
 
     @Unique private boolean simplebuilding$trimBenefitsEnabled = true;
     @Unique private boolean simplebuilding$spacePressed = false;
-    @Shadow public abstract PlayerInventory getInventory();
+    @Shadow public abstract Inventory getInventory();
 
     @Override public boolean simplebuilding$areTrimBenefitsEnabled() { return this.simplebuilding$trimBenefitsEnabled; }
     @Override public void simplebuilding$setTrimBenefitsEnabled(boolean enabled) { this.simplebuilding$trimBenefitsEnabled = enabled; }
@@ -46,7 +46,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
     // --- TICK LOGIK ---
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$tickLogic(CallbackInfo ci) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
+        Player player = (Player) (Object) this;
 
         // 1. Trim Effekte (Stasis, Astralit Jump Boost)
         TrimEffectUtil.tick(player);
@@ -55,18 +55,18 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
         TrimEffectUtil.handleNihilithGravity(player);
 
         // 3. Enderite Slow Fall (Server-Side)
-        if (!this.getEntityWorld().isClient()) {
+        if (!this.level().isClientSide()) {
             int enderiteCount = 0;
 
-            if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.FEET))) enderiteCount++;
-            if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.LEGS))) enderiteCount++;
-            if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.CHEST))) enderiteCount++;
-            if (isEnderite(this.getEquippedStack(net.minecraft.entity.EquipmentSlot.HEAD))) enderiteCount++;
+            if (isEnderite(this.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET))) enderiteCount++;
+            if (isEnderite(this.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS))) enderiteCount++;
+            if (isEnderite(this.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST))) enderiteCount++;
+            if (isEnderite(this.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD))) enderiteCount++;
 
             // Logik: Mindestens 2 Teile UND Spieler fällt UND Leertaste gedrückt
-            if (enderiteCount >= 2 && !this.isOnGround() && this.getVelocity().y < -0.1) {
+            if (enderiteCount >= 2 && !this.onGround() && this.getDeltaMovement().y < -0.1) {
                 if (this.simplebuilding$isSpacePressed()) {
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 2, 0, false, false, false));
+                    this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 2, 0, false, false, false));
                 }
             }
         }
@@ -82,19 +82,19 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
 
     // --- BESTEHENDE MIXINS ---
 
-    @Inject(method = "getBlockBreakingSpeed", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getDestroySpeed", at = @At("RETURN"), cancellable = true)
     private void modifyMiningSpeedForStripMiner(BlockState state, CallbackInfoReturnable<Float> cir) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
-        ItemStack stack = player.getMainHandStack();
-        if (!stack.isIn(ItemTags.PICKAXES) || !stack.getItem().isCorrectForDrops(stack, state)) return;
+        Player player = (Player) (Object) this;
+        ItemStack stack = player.getMainHandItem();
+        if (!stack.is(ItemTags.PICKAXES) || !stack.getItem().isCorrectToolForDrops(stack, state)) return;
 
-        var registry = player.getEntityWorld().getRegistryManager();
-        var enchantLookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var stripMinerKey = enchantLookup.getOptional(ModEnchantments.STRIP_MINER);
+        var registry = player.level().registryAccess();
+        var enchantLookup = registry.lookupOrThrow(Registries.ENCHANTMENT);
+        var stripMinerKey = enchantLookup.get(ModEnchantments.STRIP_MINER);
 
         if (stripMinerKey.isEmpty()) return;
 
-        int level = EnchantmentHelper.getLevel(stripMinerKey.get(), stack);
+        int level = EnchantmentHelper.getItemEnchantmentLevel(stripMinerKey.get(), stack);
 
         if (level > 0) {
             float originalSpeed = cir.getReturnValue();
@@ -112,9 +112,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
     }
 
     // --- HUNGER / EXHAUSTION ---
-    @ModifyVariable(method = "addExhaustion", at = @At("HEAD"), argsOnly = true)
+    @ModifyVariable(method = "causeFoodExhaustion", at = @At("HEAD"), argsOnly = true)
     private float simplebuilding$reduceExhaustion(float exhaustion) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
+        Player player = (Player) (Object) this;
         if (player.isSprinting()) {
             // Nutzt jetzt den zentralen Rechner mit Multiplikator
             float reductionPct = TrimEffectUtil.getExhaustionReduction(player);
@@ -126,9 +126,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
     }
 
     // --- XP BOOST ---
-    @ModifyVariable(method = "addExperience", at = @At("HEAD"), argsOnly = true)
+    @ModifyVariable(method = "giveExperiencePoints", at = @At("HEAD"), argsOnly = true)
     private int simplebuilding$modifyXpGain(int experience) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
+        Player player = (Player) (Object) this;
         if (experience <= 0) return experience;
 
         float multiplier = TrimEffectUtil.getXPMultiplier(player);
@@ -141,7 +141,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
     // --- LUCK ---
     @Inject(method = "getLuck", at = @At("RETURN"), cancellable = true)
     private void simplebuilding$modifyLuck(CallbackInfoReturnable<Float> cir) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
+        Player player = (Player) (Object) this;
         float bonus = TrimEffectUtil.getLuckBonus(player);
         if (bonus > 0) {
             cir.setReturnValue(cir.getReturnValue() + bonus);
@@ -149,11 +149,11 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
     }
 
     // --- MOVEMENT SPEED (Bolt / Redstone) ---
-    @Inject(method = "getMovementSpeed", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getSpeed", at = @At("RETURN"), cancellable = true)
     private void simplebuilding$modifyWalkSpeed(CallbackInfoReturnable<Float> cir) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
+        Player player = (Player) (Object) this;
         // Nur an Land anwenden, Schwimmen ist separat im LivingEntityMixin
-        if (!player.isSwimming() && !player.isGliding()) {
+        if (!player.isSwimming() && !player.isFallFlying()) {
             float mult = TrimEffectUtil.getLandSpeedMultiplier(player);
             if (mult > 1.0f) {
                 cir.setReturnValue(cir.getReturnValue() * mult);

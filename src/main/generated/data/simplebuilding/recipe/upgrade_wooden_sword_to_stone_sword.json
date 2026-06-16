@@ -4,7 +4,6 @@
   "addition_count": 3,
   "base": "minecraft:wooden_sword",
   "result": {
-    "count": 1,
     "id": "minecraft:stone_sword"
   },
   "template": "simplebuilding:basic_upgrade_template"

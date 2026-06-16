@@ -2,17 +2,17 @@ package com.simplebuilding.mixin;
 
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.TrimEffectUtil;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,15 +24,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
 
-    @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true, ordinal = 0)
-    private float simplebuilding$modifyDamageAmount(float amount, ServerWorld world, DamageSource source) {
+    @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true, ordinal = 0)
+    private float simplebuilding$modifyDamageAmount(float amount, ServerLevel world, DamageSource source) {
         LivingEntity entity = (LivingEntity) (Object) this;
         // Ruft die große Logic-Methode in TrimEffectUtil auf
         return TrimEffectUtil.modifyDamage(entity, amount, source);
     }
 
     // --- SWIM SPEED (Tide) ---
-    @Inject(method = "getMovementSpeed", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getSpeed", at = @At("RETURN"), cancellable = true)
     private void simplebuilding$modifySwimSpeed(CallbackInfoReturnable<Float> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;
 
@@ -47,7 +47,7 @@ public abstract class LivingEntityMixin {
 
 
 
-    @Inject(method = "getNextAirUnderwater", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "decreaseAirSupply", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$modifyAir(int air, CallbackInfoReturnable<Integer> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;
 
@@ -64,14 +64,14 @@ public abstract class LivingEntityMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$tickEffects(CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
-        if (!entity.getEntityWorld().isClient() && entity.age % 20 == 0) {
-            if (entity.hasStatusEffect(StatusEffects.WITHER)) {
+        if (!entity.level().isClientSide() && entity.tickCount % 20 == 0) {
+            if (entity.hasEffect(MobEffects.WITHER)) {
                 int reduction = TrimEffectUtil.getWitherReductionAmount(entity);
                 if (reduction > 0) {
-                    StatusEffectInstance effect = entity.getStatusEffect(StatusEffects.WITHER);
+                    MobEffectInstance effect = entity.getEffect(MobEffects.WITHER);
                     // Wenn Restzeit klein ist, entfernen
                     if (effect != null && effect.getDuration() <= reduction) {
-                        entity.removeStatusEffect(StatusEffects.WITHER);
+                        entity.removeEffect(MobEffects.WITHER);
                     } else if (effect != null) {
                         // Leider kann man Duration nicht einfach setzen ohne Accessor.
                         // Workaround: Wir heilen den Wither-Schaden einfach gegen.
@@ -87,7 +87,7 @@ public abstract class LivingEntityMixin {
     private void simplebuilding$materialTickEffects(CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
 
-        if (!entity.getEntityWorld().isClient() && entity.age % 200 == 0) { // Alle 10 Sekunden
+        if (!entity.level().isClientSide() && entity.tickCount % 200 == 0) { // Alle 10 Sekunden
 
             float chance = TrimEffectUtil.getAmethystHealChance(entity);
 
@@ -103,7 +103,7 @@ public abstract class LivingEntityMixin {
     // Wir nutzen "getAttackDistanceScalingFactor", da "getVisibilityTo" nicht existiert.
     // Diese Methode berechnet Faktoren wie Sneaking (0.8) oder MobHeads (0.5).
     // Wir multiplizieren unseren Stealth-Faktor dazu.
-    @Inject(method = "getAttackDistanceScalingFactor", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getVisibilityPercent", at = @At("RETURN"), cancellable = true)
     private void simplebuilding$modifyVisibility(Entity observer, CallbackInfoReturnable<Double> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;
         float mult = TrimEffectUtil.getStealthMultiplier(entity);
@@ -114,14 +114,14 @@ public abstract class LivingEntityMixin {
         }
     }
 
-    @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
-    private void modifyVoidDamage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (source.isOf(DamageTypes.OUT_OF_WORLD) && (Object) this instanceof PlayerEntity player) {
+    @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
+    private void modifyVoidDamage(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (source.is(DamageTypes.FELL_OUT_OF_WORLD) && (Object) this instanceof Player player) {
 
             int enderitePieces = 0;
             // FIX: Nutze getInventory().armor statt getArmorItems() (da getArmorItems Iterable ist, inventory Liste)
             for (EquipmentSlot slot : new EquipmentSlot[]{EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD}) {
-                ItemStack stack = player.getEquippedStack(slot);
+                ItemStack stack = player.getItemBySlot(slot);
                 if (isEnderiteArmor(stack.getItem())) {
                     enderitePieces++;
                 }
@@ -134,7 +134,7 @@ public abstract class LivingEntityMixin {
                 if (enderitePieces == 3) damageInterval = 60;
                 if (enderitePieces == 4) damageInterval = 100;
 
-                if (player.age % damageInterval != 0) {
+                if (player.tickCount % damageInterval != 0) {
                     cir.setReturnValue(false);
                 }
             }

@@ -1,23 +1,23 @@
 package com.simplebuilding.networking;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 
 // Diese Klasse ist der Briefumschlag, der vom Client zum Server geschickt wird
-public record ToggleHopperFilterPayload() implements CustomPayload {
+public record ToggleHopperFilterPayload() implements CustomPacketPayload {
 
     // Die eindeutige ID des Pakets
-    public static final CustomPayload.Id<ToggleHopperFilterPayload> ID =
-            new CustomPayload.Id<>(Identifier.of("simplebuilding", "toggle_filter"));
+    public static final CustomPacketPayload.Type<ToggleHopperFilterPayload> ID =
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath("simplebuilding", "toggle_filter"));
 
     // Der Codec, um das Paket zu verpacken (es ist leer, da wir nur ein Signal brauchen)
-    public static final PacketCodec<RegistryByteBuf, ToggleHopperFilterPayload> CODEC =
-            PacketCodec.unit(new ToggleHopperFilterPayload());
+    public static final StreamCodec<RegistryFriendlyByteBuf, ToggleHopperFilterPayload> CODEC =
+            StreamCodec.unit(new ToggleHopperFilterPayload());
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> getId() {
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 }

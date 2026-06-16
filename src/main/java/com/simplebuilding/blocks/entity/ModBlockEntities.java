@@ -7,10 +7,10 @@ import com.simplebuilding.blocks.entity.custom.ModFurnaceBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModSmokerBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class ModBlockEntities {
 
@@ -21,8 +21,8 @@ public class ModBlockEntities {
     public static BlockEntityType<ModSmokerBlockEntity> MOD_SMOKER_BE;
 
     public static void registerBlockEntities() {
-        MOD_HOPPER_BE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                Identifier.of(Simplebuilding.MOD_ID, "mod_hopper"),
+        MOD_HOPPER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_hopper"),
                 FabricBlockEntityTypeBuilder.create(ModHopperBlockEntity::new,
                         ModBlocks.REINFORCED_HOPPER,
                         ModBlocks.NETHERITE_HOPPER
@@ -36,18 +36,18 @@ public class ModBlockEntities {
                         ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST).build());
          */
 
-        MOD_BLAST_FURNACE_BE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                Identifier.of(Simplebuilding.MOD_ID, "mod_blast_furnace"),
+        MOD_BLAST_FURNACE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_blast_furnace"),
                 FabricBlockEntityTypeBuilder.create(ModBlastFurnaceBlockEntity::new,
                         ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE).build());
 
-        MOD_FURNACE_BE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                Identifier.of(Simplebuilding.MOD_ID, "mod_furnace"),
+        MOD_FURNACE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_furnace"),
                 FabricBlockEntityTypeBuilder.create(ModFurnaceBlockEntity::new,
                         ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE).build());
 
-        MOD_SMOKER_BE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                Identifier.of(Simplebuilding.MOD_ID, "mod_smoker"),
+        MOD_SMOKER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_smoker"),
                 FabricBlockEntityTypeBuilder.create(ModSmokerBlockEntity::new,
                         ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER).build());
     }

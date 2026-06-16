@@ -4,30 +4,34 @@ import com.mojang.datafixers.util.Pair;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import com.simplebuilding.util.StructureConfig;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.LodestoneTrackerComponent;
-import net.minecraft.component.type.LoreComponent;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.StructureTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.screen.*;
-import net.minecraft.screen.slot.ForgingSlotsManager;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.StringHelper;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.GlobalPos;
-import net.minecraft.world.gen.structure.Structure;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.StructureTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.StringUtil;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AnvilMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.inventory.ItemCombinerMenu;
+import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ItemLore;
+import net.minecraft.world.item.component.LodestoneTracker;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,22 +45,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Mixin(AnvilScreenHandler.class)
-public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
+@Mixin(AnvilMenu.class)
+public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
 
-    @Shadow private int repairItemUsage;
-    @Shadow @Final private Property levelCost;
-    @Shadow @Nullable private String newItemName;
+    @Shadow private int repairItemCountCost;
+    @Shadow @Final private DataSlot cost;
+    @Shadow @Nullable private String itemName;
 
-    public AnvilScreenHandlerMixin(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, ForgingSlotsManager forgingSlotsManager) {
+    public AnvilScreenHandlerMixin(@Nullable MenuType<?> type, int syncId, Inventory playerInventory, ContainerLevelAccess context, ItemCombinerMenuSlotDefinition forgingSlotsManager) {
         super(type, syncId, playerInventory, context, forgingSlotsManager);
     }
 
     // --- 1. SLEDGEHAMMER CUSTOM LOGIC (HEAD) ---
-    @Inject(method = "updateResult", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "createResult", at = @At("HEAD"), cancellable = true)
     private void updateResultHead(CallbackInfo ci) {
-        ItemStack leftStack = this.input.getStack(0);
-        ItemStack rightStack = this.input.getStack(1);
+        ItemStack leftStack = this.inputSlots.getItem(0);
+        ItemStack rightStack = this.inputSlots.getItem(1);
 
         if (leftStack.isEmpty()) return;
 
@@ -65,8 +69,8 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
             // FALL A: HAMMER + HAMMER
             if (rightStack.getItem() instanceof SledgehammerItem) {
                 // 1. Haltbarkeit berechnen (Deine bestehende Logik)
-                int leftDurability = leftStack.getMaxDamage() - leftStack.getDamage();
-                int rightDurability = rightStack.getMaxDamage() - rightStack.getDamage();
+                int leftDurability = leftStack.getMaxDamage() - leftStack.getDamageValue();
+                int rightDurability = rightStack.getMaxDamage() - rightStack.getDamageValue();
 
                 int bonus = (int) (leftStack.getMaxDamage() * 0.12f);
                 int combinedDurability = leftDurability + rightDurability + bonus;
@@ -75,20 +79,20 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
                 if (newDamage < 0) newDamage = 0;
 
                 ItemStack result = leftStack.copy();
-                result.setDamage(newDamage);
-                result.set(DataComponentTypes.REPAIR_COST, 0);
+                result.setDamageValue(newDamage);
+                result.set(DataComponents.REPAIR_COST, 0);
 
                 // 2. VERZAUBERUNGEN KOMBINIEREN (NEU HINZUGEFÜGT)
                 // Wir holen die Enchants von links und rechts
-                var leftEnchants = EnchantmentHelper.getEnchantments(leftStack);
-                var rightEnchants = EnchantmentHelper.getEnchantments(rightStack);
+                var leftEnchants = EnchantmentHelper.getEnchantmentsForCrafting(leftStack);
+                var rightEnchants = EnchantmentHelper.getEnchantmentsForCrafting(rightStack);
 
                 // Builder starten mit den Enchants vom linken Item
-                net.minecraft.component.type.ItemEnchantmentsComponent.Builder builder = new net.minecraft.component.type.ItemEnchantmentsComponent.Builder(leftEnchants);
+                net.minecraft.world.item.enchantment.ItemEnchantments.Mutable builder = new net.minecraft.world.item.enchantment.ItemEnchantments.Mutable(leftEnchants);
 
                 // Durch alle Enchants des rechten Items iterieren
-                for (var entry : rightEnchants.getEnchantmentEntries()) {
-                    RegistryEntry<Enchantment> enchantment = entry.getKey();
+                for (var entry : rightEnchants.entrySet()) {
+                    Holder<Enchantment> enchantment = entry.getKey();
                     int rightLevel = entry.getIntValue();
                     int leftLevel = leftEnchants.getLevel(enchantment);
 
@@ -110,29 +114,29 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
                 }
 
                 // FIX: "set" statt "setEnchantments"
-                EnchantmentHelper.set(result, builder.build());
+                EnchantmentHelper.setEnchantments(result, builder.toImmutable());
 
                 // 3. Restliche Logik (Renaming, Kosten, Output)
                 handleRenaming(leftStack, result);
 
-                this.output.setStack(0, result);
+                this.resultSlots.setItem(0, result);
 
                 // Kostenberechnung könnte man hier noch verfeinern basierend auf Enchants,
                 // aber für dein Mod-Design scheint 1 Level okay zu sein.
-                this.levelCost.set(1);
-                this.repairItemUsage = 1;
+                this.cost.set(1);
+                this.repairItemCountCost = 1;
 
                 ci.cancel();
             }
             // FALL B: HAMMER + MATERIAL (Bleibt wie gehabt, da hier keine Enchants vom Material kommen)
-            else if (leftStack.isDamaged() && leftStack.canRepairWith(rightStack)) {
+            else if (leftStack.isDamaged() && leftStack.isValidRepairItem(rightStack)) {
                 ItemStack result = leftStack.copy();
 
                 // Teilen durch 11 statt 4
                 int repairPerItem = result.getMaxDamage() / 11;
                 if (repairPerItem <= 0) repairPerItem = 1;
 
-                int damage = result.getDamage();
+                int damage = result.getDamageValue();
                 int materialsUsed = 0;
                 int materialsAvailable = rightStack.getCount();
 
@@ -142,51 +146,51 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
                 }
 
                 if (damage < 0) damage = 0;
-                result.setDamage(damage);
+                result.setDamageValue(damage);
 
-                this.repairItemUsage = materialsUsed;
+                this.repairItemCountCost = materialsUsed;
 
                 int cost = materialsUsed;
                 if (handleRenaming(leftStack, result)) {
                     cost += 1;
                 }
 
-                result.set(DataComponentTypes.REPAIR_COST, 0);
+                result.set(DataComponents.REPAIR_COST, 0);
 
                 if (cost <= 0) cost = 1;
-                this.levelCost.set(Math.min(cost, 39));
+                this.cost.set(Math.min(cost, 39));
 
-                this.output.setStack(0, result);
+                this.resultSlots.setItem(0, result);
                 ci.cancel();
             }
         }
     }
 
     // --- 2. GENERAL FIXES & RESTRICTIONS (RETURN) ---
-    @Inject(method = "updateResult", at = @At("RETURN"))
+    @Inject(method = "createResult", at = @At("RETURN"))
     private void applyAnvilTweaks(CallbackInfo ci) {
-        ItemStack outputStack = this.output.getStack(0);
+        ItemStack outputStack = this.resultSlots.getItem(0);
 
         if (outputStack.isEmpty()) return;
 
         // A) SLEDGEHAMMER REPAIR COST FIX
         if (outputStack.getItem() instanceof SledgehammerItem) {
-            outputStack.set(DataComponentTypes.REPAIR_COST, 0);
-            if (this.levelCost.get() >= 40) this.levelCost.set(39);
+            outputStack.set(DataComponents.REPAIR_COST, 0);
+            if (this.cost.get() >= 40) this.cost.set(39);
         }
 
         // B) COLOR PALETTE RESTRICTION
-        RegistryWrapper.WrapperLookup registryManager = this.player.getEntityWorld().getRegistryManager();
+        HolderLookup.Provider registryManager = this.player.level().registryAccess();
         var colorPaletteEntry = getEnchantment(registryManager, ModEnchantments.COLOR_PALETTE);
         var masterBuilderEntry = getEnchantment(registryManager, ModEnchantments.MASTER_BUILDER);
 
         if (colorPaletteEntry != null && masterBuilderEntry != null) {
-            int colorPaletteLevel = EnchantmentHelper.getLevel(colorPaletteEntry, outputStack);
-            int masterBuilderLevel = EnchantmentHelper.getLevel(masterBuilderEntry, outputStack);
+            int colorPaletteLevel = EnchantmentHelper.getItemEnchantmentLevel(colorPaletteEntry, outputStack);
+            int masterBuilderLevel = EnchantmentHelper.getItemEnchantmentLevel(masterBuilderEntry, outputStack);
 
             if (colorPaletteLevel > 0 && masterBuilderLevel <= 0) {
-                this.output.setStack(0, ItemStack.EMPTY);
-                this.levelCost.set(0);
+                this.resultSlots.setItem(0, ItemStack.EMPTY);
+                this.cost.set(0);
             }
         }
     }
@@ -194,21 +198,21 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
     @Unique
     private boolean handleRenaming(ItemStack original, ItemStack result) {
         boolean renamed = false;
-        if (this.newItemName != null && !StringHelper.isBlank(this.newItemName)) {
-            if (!this.newItemName.equals(original.getName().getString())) {
-                result.set(DataComponentTypes.CUSTOM_NAME, Text.literal(this.newItemName));
+        if (this.itemName != null && !StringUtil.isBlank(this.itemName)) {
+            if (!this.itemName.equals(original.getHoverName().getString())) {
+                result.set(DataComponents.CUSTOM_NAME, Component.literal(this.itemName));
                 renamed = true;
             }
-        } else if (original.contains(DataComponentTypes.CUSTOM_NAME)) {
-            result.remove(DataComponentTypes.CUSTOM_NAME);
+        } else if (original.has(DataComponents.CUSTOM_NAME)) {
+            result.remove(DataComponents.CUSTOM_NAME);
             renamed = true;
         }
         return renamed;
     }
 
     @Unique
-    private RegistryEntry<Enchantment> getEnchantment(RegistryWrapper.WrapperLookup registry, net.minecraft.registry.RegistryKey<Enchantment> key) {
-        Optional<RegistryEntry.Reference<Enchantment>> optional = registry.getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(key);
+    private Holder<Enchantment> getEnchantment(HolderLookup.Provider registry, net.minecraft.resources.ResourceKey<Enchantment> key) {
+        Optional<Holder.Reference<Enchantment>> optional = registry.lookupOrThrow(Registries.ENCHANTMENT).get(key);
         return optional.orElse(null);
     }
 
@@ -216,69 +220,69 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
     // FIX: Wir definieren die Tags explizit, um sicherzugehen, dass sie existieren.
     // In Vanilla 1.21 sind dies die korrekten Tag-IDs (JSON-Dateien in data/minecraft/tags/worldgen/structure/)
-    @Unique private static final TagKey<Structure> ANCIENT_CITY_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "ancient_city"));
-    @Unique private static final TagKey<Structure> BASTION_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "bastion_remnant"));
-    @Unique private static final TagKey<Structure> FORTRESS_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "fortress"));
-    @Unique private static final TagKey<Structure> OUTPOST_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "pillager_outpost"));
-    @Unique private static final TagKey<Structure> END_CITY_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "end_city"));
-    @Unique private static final TagKey<Structure> MINESHAFT_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "mineshaft"));
-    @Unique private static final TagKey<Structure> VILLAGE_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "village"));
-    @Unique private static final TagKey<Structure> SHIPWRECK_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "shipwreck"));
-    @Unique private static final TagKey<Structure> IGLOO_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "igloo"));
-    @Unique private static final TagKey<Structure> DESERT_PYRAMID_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "desert_pyramid"));
-    @Unique private static final TagKey<Structure> JUNGLE_PYRAMID_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "jungle_pyramid"));
-    @Unique private static final TagKey<Structure> SWAMP_HUT_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "swamp_hut"));
-    @Unique private static final TagKey<Structure> STRONGHOLD_TAG = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("minecraft", "stronghold"));
+    @Unique private static final TagKey<Structure> ANCIENT_CITY_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "ancient_city"));
+    @Unique private static final TagKey<Structure> BASTION_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "bastion_remnant"));
+    @Unique private static final TagKey<Structure> FORTRESS_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "fortress"));
+    @Unique private static final TagKey<Structure> OUTPOST_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "pillager_outpost"));
+    @Unique private static final TagKey<Structure> END_CITY_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "end_city"));
+    @Unique private static final TagKey<Structure> MINESHAFT_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "mineshaft"));
+    @Unique private static final TagKey<Structure> VILLAGE_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "village"));
+    @Unique private static final TagKey<Structure> SHIPWRECK_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "shipwreck"));
+    @Unique private static final TagKey<Structure> IGLOO_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "igloo"));
+    @Unique private static final TagKey<Structure> DESERT_PYRAMID_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "desert_pyramid"));
+    @Unique private static final TagKey<Structure> JUNGLE_PYRAMID_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "jungle_pyramid"));
+    @Unique private static final TagKey<Structure> SWAMP_HUT_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "swamp_hut"));
+    @Unique private static final TagKey<Structure> STRONGHOLD_TAG = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath("minecraft", "stronghold"));
 
     @Unique
     private static final Map<Item, StructureConfig> STRUCTURE_RECIPES = Map.ofEntries(
             // Bestehende
-            Map.entry(Items.ECHO_SHARD,       new StructureConfig(ANCIENT_CITY_TAG, "Ancient City Locator", Formatting.DARK_AQUA)),
-            Map.entry(Items.TOTEM_OF_UNDYING, new StructureConfig(StructureTags.ON_WOODLAND_EXPLORER_MAPS, "Mansion Seeker", Formatting.DARK_GREEN)),
-            Map.entry(Items.HEART_OF_THE_SEA, new StructureConfig(StructureTags.ON_OCEAN_EXPLORER_MAPS, "Monument Tracker", Formatting.AQUA)),
-            Map.entry(Items.BLAZE_ROD,        new StructureConfig(FORTRESS_TAG, "Fortress Finder", Formatting.RED)),
-            Map.entry(Items.GOLD_BLOCK,       new StructureConfig(BASTION_TAG, "Bastion Compass", Formatting.GOLD)),
-            Map.entry(Items.TRIAL_KEY,        new StructureConfig(StructureTags.ON_TRIAL_CHAMBERS_MAPS, "Trial Key Compass", Formatting.LIGHT_PURPLE)),
-            Map.entry(Items.OMINOUS_BOTTLE,   new StructureConfig(OUTPOST_TAG, "Outpost Tracker", Formatting.GRAY)),
+            Map.entry(Items.ECHO_SHARD,       new StructureConfig(ANCIENT_CITY_TAG, "Ancient City Locator", ChatFormatting.DARK_AQUA)),
+            Map.entry(Items.TOTEM_OF_UNDYING, new StructureConfig(StructureTags.ON_WOODLAND_EXPLORER_MAPS, "Mansion Seeker", ChatFormatting.DARK_GREEN)),
+            Map.entry(Items.HEART_OF_THE_SEA, new StructureConfig(StructureTags.ON_OCEAN_EXPLORER_MAPS, "Monument Tracker", ChatFormatting.AQUA)),
+            Map.entry(Items.BLAZE_ROD,        new StructureConfig(FORTRESS_TAG, "Fortress Finder", ChatFormatting.RED)),
+            Map.entry(Items.GOLD_BLOCK,       new StructureConfig(BASTION_TAG, "Bastion Compass", ChatFormatting.GOLD)),
+            Map.entry(Items.TRIAL_KEY,        new StructureConfig(StructureTags.ON_TRIAL_CHAMBERS_MAPS, "Trial Key Compass", ChatFormatting.LIGHT_PURPLE)),
+            Map.entry(Items.OMINOUS_BOTTLE,   new StructureConfig(OUTPOST_TAG, "Outpost Tracker", ChatFormatting.GRAY)),
 
             // Neue Strukturen (Balanced Kosten)
-            Map.entry(Items.CHORUS_FRUIT,     new StructureConfig(END_CITY_TAG, "End City Compass", Formatting.LIGHT_PURPLE)), // Nur im End!
-            Map.entry(Items.RAIL,             new StructureConfig(MINESHAFT_TAG, "Mineshaft Detector", Formatting.DARK_GRAY)),
-            Map.entry(Items.EMERALD,          new StructureConfig(VILLAGE_TAG, "Village Finder", Formatting.GREEN)),
-            Map.entry(Items.PRISMARINE_SHARD, new StructureConfig(SHIPWRECK_TAG, "Shipwreck Sensor", Formatting.BLUE)),
-            Map.entry(Items.SNOW_BLOCK,       new StructureConfig(IGLOO_TAG, "Igloo Compass", Formatting.WHITE)),
-            Map.entry(Items.CHISELED_SANDSTONE, new StructureConfig(DESERT_PYRAMID_TAG, "Desert Pyramid Compass", Formatting.GOLD)),
-            Map.entry(Items.MOSSY_COBBLESTONE, new StructureConfig(JUNGLE_PYRAMID_TAG, "Jungle Temple Compass", Formatting.DARK_GREEN)),
-            Map.entry(Items.SLIME_BALL,       new StructureConfig(SWAMP_HUT_TAG, "Witch Hut Tracker", Formatting.DARK_PURPLE)),
-            Map.entry(Items.ENDER_EYE,        new StructureConfig(STRONGHOLD_TAG, "Stronghold Locator", Formatting.DARK_PURPLE))
+            Map.entry(Items.CHORUS_FRUIT,     new StructureConfig(END_CITY_TAG, "End City Compass", ChatFormatting.LIGHT_PURPLE)), // Nur im End!
+            Map.entry(Items.RAIL,             new StructureConfig(MINESHAFT_TAG, "Mineshaft Detector", ChatFormatting.DARK_GRAY)),
+            Map.entry(Items.EMERALD,          new StructureConfig(VILLAGE_TAG, "Village Finder", ChatFormatting.GREEN)),
+            Map.entry(Items.PRISMARINE_SHARD, new StructureConfig(SHIPWRECK_TAG, "Shipwreck Sensor", ChatFormatting.BLUE)),
+            Map.entry(Items.SNOW_BLOCK,       new StructureConfig(IGLOO_TAG, "Igloo Compass", ChatFormatting.WHITE)),
+            Map.entry(Items.CHISELED_SANDSTONE, new StructureConfig(DESERT_PYRAMID_TAG, "Desert Pyramid Compass", ChatFormatting.GOLD)),
+            Map.entry(Items.MOSSY_COBBLESTONE, new StructureConfig(JUNGLE_PYRAMID_TAG, "Jungle Temple Compass", ChatFormatting.DARK_GREEN)),
+            Map.entry(Items.SLIME_BALL,       new StructureConfig(SWAMP_HUT_TAG, "Witch Hut Tracker", ChatFormatting.DARK_PURPLE)),
+            Map.entry(Items.ENDER_EYE,        new StructureConfig(STRONGHOLD_TAG, "Stronghold Locator", ChatFormatting.DARK_PURPLE))
     );
 
-    @Inject(method = "updateResult", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "createResult", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$createStructureCompass(CallbackInfo ci) {
-        ItemStack leftStack = this.input.getStack(0);
-        ItemStack rightStack = this.input.getStack(1);
+        ItemStack leftStack = this.inputSlots.getItem(0);
+        ItemStack rightStack = this.inputSlots.getItem(1);
 
-        if (!leftStack.isOf(Items.COMPASS)) return;
+        if (!leftStack.is(Items.COMPASS)) return;
 
         if (STRUCTURE_RECIPES.containsKey(rightStack.getItem())) {
 
             // SERVER LOGIK
-            if (this.player.getEntityWorld() instanceof ServerWorld serverWorld) {
+            if (this.player.level() instanceof ServerLevel serverWorld) {
                 StructureConfig config = STRUCTURE_RECIPES.get(rightStack.getItem());
 
-                var structureListOptional = serverWorld.getStructureAccessor().getRegistryManager()
-                        .getOrThrow(RegistryKeys.STRUCTURE)
-                        .getOptional(config.tag());
+                var structureListOptional = serverWorld.structureManager().registryAccess()
+                        .lookupOrThrow(Registries.STRUCTURE)
+                        .get(config.tag());
 
                 BlockPos foundPos = null;
 
                 // Sicherstellen, dass der Tag existiert
                 if (structureListOptional.isPresent()) {
                     // FIX: Radius auf 300 (4800 Blöcke) erhöht!
-                    Pair<BlockPos, RegistryEntry<Structure>> foundPair = serverWorld.getChunkManager().getChunkGenerator().locateStructure(
+                    Pair<BlockPos, Holder<Structure>> foundPair = serverWorld.getChunkSource().getGenerator().findNearestMapStructure(
                             serverWorld,
                             structureListOptional.get(),
-                            this.player.getBlockPos(),
+                            this.player.blockPosition(),
                             300,
                             false
                     );
@@ -291,37 +295,37 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
                 if (foundPos != null) {
                     // --- GEFUNDEN ---
                     ItemStack outputStack = new ItemStack(Items.COMPASS);
-                    GlobalPos targetPos = GlobalPos.create(serverWorld.getRegistryKey(), foundPos);
+                    GlobalPos targetPos = GlobalPos.of(serverWorld.dimension(), foundPos);
 
-                    outputStack.set(DataComponentTypes.LODESTONE_TRACKER, new LodestoneTrackerComponent(Optional.of(targetPos), true));
+                    outputStack.set(DataComponents.LODESTONE_TRACKER, new LodestoneTracker(Optional.of(targetPos), true));
 
-                    if (this.newItemName != null && !this.newItemName.isBlank()) {
-                        outputStack.set(DataComponentTypes.CUSTOM_NAME, Text.literal(this.newItemName));
+                    if (this.itemName != null && !this.itemName.isBlank()) {
+                        outputStack.set(DataComponents.CUSTOM_NAME, Component.literal(this.itemName));
                     } else {
-                        outputStack.set(DataComponentTypes.CUSTOM_NAME, Text.literal(config.name()).formatted(config.color()));
+                        outputStack.set(DataComponents.CUSTOM_NAME, Component.literal(config.name()).withStyle(config.color()));
                     }
 
-                    outputStack.set(DataComponentTypes.LORE, new LoreComponent(List.of(
-                            Text.literal("Dimension: " + serverWorld.getRegistryKey().getValue().getPath()).formatted(Formatting.DARK_GRAY)
+                    outputStack.set(DataComponents.LORE, new ItemLore(List.of(
+                            Component.literal("Dimension: " + serverWorld.dimension().identifier().getPath()).withStyle(ChatFormatting.DARK_GRAY)
                     )));
 
-                    outputStack.set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true);
+                    outputStack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
 
-                    this.output.setStack(0, outputStack);
-                    this.levelCost.set(29);
-                    this.repairItemUsage = 1;
+                    this.resultSlots.setItem(0, outputStack);
+                    this.cost.set(29);
+                    this.repairItemCountCost = 1;
                 } else {
                     // --- NICHT GEFUNDEN ---
                     ItemStack failStack = new ItemStack(Items.COMPASS);
-                    failStack.set(DataComponentTypes.CUSTOM_NAME, Text.literal("Kein Signal in Reichweite").formatted(Formatting.RED));
-                    failStack.set(DataComponentTypes.LORE, new LoreComponent(List.of(
-                            Text.literal("Struktur zu weit entfernt oder").formatted(Formatting.GRAY),
-                            Text.literal("falsche Dimension.").formatted(Formatting.GRAY)
+                    failStack.set(DataComponents.CUSTOM_NAME, Component.literal("Kein Signal in Reichweite").withStyle(ChatFormatting.RED));
+                    failStack.set(DataComponents.LORE, new ItemLore(List.of(
+                            Component.literal("Struktur zu weit entfernt oder").withStyle(ChatFormatting.GRAY),
+                            Component.literal("falsche Dimension.").withStyle(ChatFormatting.GRAY)
                     )));
 
-                    this.output.setStack(0, failStack);
-                    this.levelCost.set(0);
-                    this.repairItemUsage = 0;
+                    this.resultSlots.setItem(0, failStack);
+                    this.cost.set(0);
+                    this.repairItemCountCost = 0;
                 }
                 ci.cancel();
 

@@ -2,79 +2,90 @@ package com.simplebuilding.items.custom;
 
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BundleContentsComponent;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.StackReference;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ClickType;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
 import org.apache.commons.lang3.math.Fraction;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.SlotAccess;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
 
 import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 
 public class QuiverItem extends ReinforcedBundleItem {
 
-    public QuiverItem(Settings settings) {
+    public QuiverItem(Properties settings) {
         super(settings);
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        return ActionResult.PASS;
+    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+        return InteractionResult.PASS;
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        return ActionResult.PASS;
+    public InteractionResult useOn(UseOnContext context) {
+        return InteractionResult.PASS;
     }
 
     @Override
-    public boolean onStackClicked(ItemStack bundle, Slot slot, ClickType clickType, PlayerEntity player) {
-        if (clickType == ClickType.LEFT && !slot.getStack().isEmpty()) {
-            if (!slot.getStack().isIn(ItemTags.ARROWS)) return false;
+    public boolean overrideStackedOnOther(ItemStack bundle, Slot slot, ClickAction ClickAction, Player player) {
+        if (ClickAction == ClickAction.PRIMARY && !slot.getItem().isEmpty()) {
+            if (!slot.getItem().is(ItemTags.ARROWS)) return false;
         }
-        return super.onStackClicked(bundle, slot, clickType, player);
+        return super.overrideStackedOnOther(bundle, slot, ClickAction, player);
     }
 
     @Override
-    public boolean onClicked(ItemStack bundle, ItemStack cursorStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
-        if (clickType == ClickType.LEFT && !cursorStack.isEmpty()) {
-            if (!cursorStack.isIn(ItemTags.ARROWS)) return false;
+    public boolean overrideOtherStackedOnMe(ItemStack bundle, ItemStack cursorStack, Slot slot, ClickAction ClickAction, Player player, SlotAccess cursorStackReference) {
+        if (ClickAction == ClickAction.PRIMARY && !cursorStack.isEmpty()) {
+            if (!cursorStack.is(ItemTags.ARROWS)) return false;
         }
-        return super.onClicked(bundle, cursorStack, slot, clickType, player, cursorStackReference);
+        return super.overrideOtherStackedOnMe(bundle, cursorStack, slot, ClickAction, player, cursorStackReference);
     }
 
     @Override
-    public boolean tryInsertStackFromWorld(ItemStack bundle, ItemStack stackToInsert, PlayerEntity player) {
-        if (!stackToInsert.isIn(ItemTags.ARROWS)) return false;
+    public boolean tryInsertStackFromWorld(ItemStack bundle, ItemStack stackToInsert, Player player) {
+        if (!stackToInsert.is(ItemTags.ARROWS)) return false;
         return super.tryInsertStackFromWorld(bundle, stackToInsert, player);
     }
 
+    protected Fraction getTierCapacityMultiplier(ItemStack stack) {
+        if (stack.is(ModItems.ENDERITE_QUIVER)) {
+            return Fraction.getFraction(3, 1);
+        }
+        if (stack.is(ModItems.NETHERITE_QUIVER)) {
+            return Fraction.getFraction(2, 1);
+        }
+        return Fraction.getFraction(1, 1);
+    }
+
     @Override
-    protected Fraction getMaxCapacity(ItemStack stack, PlayerEntity player) {
-        Fraction capacity = stack.isOf(ModItems.NETHERITE_QUIVER) ? Fraction.getFraction(2, 1) : Fraction.getFraction(1, 1);
+    protected Fraction getMaxCapacity(ItemStack stack, Player player) {
+        Fraction capacity = getTierCapacityMultiplier(stack);
 
-        if (player == null || player.getEntityWorld() == null) return capacity;
+        if (player == null || player.level() == null) return capacity;
 
-        var registry = player.getEntityWorld().getRegistryManager();
-        var enchantments = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
+        var registry = player.level().registryAccess();
+        var enchantments = registry.lookupOrThrow(Registries.ENCHANTMENT);
 
         // 1. DRAWER Logic (Hinzugefügt!)
-        var drawer = enchantments.getOptional(ModEnchantments.DRAWER);
+        var drawer = enchantments.get(ModEnchantments.DRAWER);
         if (drawer.isPresent()) {
-            int level = EnchantmentHelper.getLevel(drawer.get(), stack);
+            int level = EnchantmentHelper.getItemEnchantmentLevel(drawer.get(), stack);
             if (level > 0) {
                 // Formel: (8 + level) / 8 -> Gleiche Steigerung wie beim Bundle
                 Fraction drawerBonus = Fraction.getFraction(16 + level, 8);
@@ -83,9 +94,9 @@ public class QuiverItem extends ReinforcedBundleItem {
         }
 
         // 2. Deep Pockets Logic
-        var deepPockets = enchantments.getOptional(ModEnchantments.DEEP_POCKETS);
+        var deepPockets = enchantments.get(ModEnchantments.DEEP_POCKETS);
         if (deepPockets.isPresent()) {
-            int level = EnchantmentHelper.getLevel(deepPockets.get(), stack);
+            int level = EnchantmentHelper.getItemEnchantmentLevel(deepPockets.get(), stack);
             if (level == 1) capacity = capacity.multiplyBy(Fraction.getFraction(2, 1));
             if (level >= 2) capacity = capacity.multiplyBy(Fraction.getFraction(4, 1));
         }
@@ -94,12 +105,12 @@ public class QuiverItem extends ReinforcedBundleItem {
 
     @Override
     protected Fraction getMaxCapacityForVisuals(ItemStack stack) {
-        Fraction capacity = stack.isOf(ModItems.NETHERITE_QUIVER) ? Fraction.getFraction(2, 1) : Fraction.getFraction(1, 1);
+        Fraction capacity = getTierCapacityMultiplier(stack);
 
         var enchantments = stack.getEnchantments();
-        for (var entry : enchantments.getEnchantmentEntries()) {
-            if (entry.getKey().getKey().isPresent()) {
-                String id = entry.getKey().getKey().get().getValue().toString();
+        for (var entry : enchantments.entrySet()) {
+            if (entry.getKey().unwrapKey().isPresent()) {
+                String id = entry.getKey().unwrapKey().get().identifier().toString();
 
                 // Deep Pockets
                 if (id.contains("deep_pockets")) {
@@ -121,24 +132,24 @@ public class QuiverItem extends ReinforcedBundleItem {
         return capacity;
     }
 
-    public static ItemStack findProjectileForBow(PlayerEntity player) {
+    public static ItemStack findProjectileForBow(Player player) {
         // 1. Offhand
-        ItemStack arrow = findArrowInQuiver(player.getOffHandStack());
+        ItemStack arrow = findArrowInQuiver(player.getOffhandItem());
         if (!arrow.isEmpty()) return arrow;
 
         // 2. Chest Slot
-        arrow = findArrowInQuiver(player.getEquippedStack(EquipmentSlot.CHEST));
+        arrow = findArrowInQuiver(player.getItemBySlot(EquipmentSlot.CHEST));
         if (!arrow.isEmpty()) return arrow;
 
         // 3. Hotbar (ohne Constructors Touch)
         for (int i = 0; i < 9; i++) {
-            arrow = findArrowInQuiver(player.getInventory().getStack(i));
+            arrow = findArrowInQuiver(player.getInventory().getItem(i));
             if (!arrow.isEmpty()) return arrow;
         }
 
         // 4. Restliches Inventar (nur mit Constructors Touch)
-        for (int i = 9; i < player.getInventory().size(); i++) {
-            ItemStack quiver = player.getInventory().getStack(i);
+        for (int i = 9; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack quiver = player.getInventory().getItem(i);
             if (isRemoteQuiver(quiver, player)) {
                 arrow = findFirstArrow(quiver);
                 if (!arrow.isEmpty()) return arrow;
@@ -147,23 +158,23 @@ public class QuiverItem extends ReinforcedBundleItem {
         return ItemStack.EMPTY;
     }
 
-    public static void consumeProjectileForBow(PlayerEntity player) {
+    public static void consumeProjectileForBow(Player player) {
         // Gleiche Reihenfolge wie beim Finden
 
         // 1. Offhand
-        if (tryConsumeArrow(player.getOffHandStack())) return;
+        if (tryConsumeArrow(player.getOffhandItem())) return;
 
         // 2. Chest
-        if (tryConsumeArrow(player.getEquippedStack(EquipmentSlot.CHEST))) return;
+        if (tryConsumeArrow(player.getItemBySlot(EquipmentSlot.CHEST))) return;
 
         // 3. Hotbar (ohne Constructors Touch)
         for (int i = 0; i < 9; i++) {
-            if (tryConsumeArrow(player.getInventory().getStack(i))) return;
+            if (tryConsumeArrow(player.getInventory().getItem(i))) return;
         }
 
         // 4. Restliches Inventar (nur mit Constructors Touch)
-        for (int i = 9; i < player.getInventory().size(); i++) {
-            ItemStack quiver = player.getInventory().getStack(i);
+        for (int i = 9; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack quiver = player.getInventory().getItem(i);
             if (isRemoteQuiver(quiver, player) && tryConsumeArrow(quiver)) {
                 return;
             }
@@ -175,16 +186,17 @@ public class QuiverItem extends ReinforcedBundleItem {
         return findFirstArrow(stack);
     }
 
-    private static boolean isRemoteQuiver(ItemStack stack, PlayerEntity player) {
+    private static boolean isRemoteQuiver(ItemStack stack, Player player) {
         return stack.getItem() instanceof QuiverItem
-                && hasEnchantment(stack, player.getEntityWorld(), ModEnchantments.CONSTRUCTORS_TOUCH);
+                && hasEnchantment(stack, player.level(), ModEnchantments.CONSTRUCTORS_TOUCH);
     }
 
     private static ItemStack findFirstArrow(ItemStack bundle) {
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
         if (contents == null || contents.isEmpty()) return ItemStack.EMPTY;
-        for (ItemStack s : contents.iterate()) {
-            if (s.isIn(ItemTags.ARROWS)) return s.copy();
+        for (ItemStackTemplate template : contents.items()) {
+            ItemStack s = template.create();
+            if (s.is(ItemTags.ARROWS)) return s.copy();
         }
         return ItemStack.EMPTY;
     }
@@ -192,25 +204,26 @@ public class QuiverItem extends ReinforcedBundleItem {
     private static boolean tryConsumeArrow(ItemStack bundle) {
         if (!(bundle.getItem() instanceof QuiverItem)) return false;
 
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
         if (contents == null || contents.isEmpty()) return false;
 
-        List<ItemStack> newItems = new ArrayList<>();
+        List<ItemStackTemplate> newItems = new ArrayList<>();
         boolean found = false;
 
-        for (ItemStack s : contents.iterate()) {
-            if (!found && s.isIn(ItemTags.ARROWS)) {
+        for (ItemStackTemplate template : contents.items()) {
+            ItemStack s = template.create();
+            if (!found && s.is(ItemTags.ARROWS)) {
                 ItemStack copy = s.copy();
-                copy.decrement(1);
-                if (!copy.isEmpty()) newItems.add(copy);
+                copy.shrink(1);
+                if (!copy.isEmpty()) newItems.add(ItemStackTemplate.fromNonEmptyStack(copy));
                 found = true;
             } else {
-                newItems.add(s.copy());
+                newItems.add(ItemStackTemplate.fromNonEmptyStack(s));
             }
         }
 
         if (found) {
-            bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
+            bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(newItems));
             return true;
         }
         return false;

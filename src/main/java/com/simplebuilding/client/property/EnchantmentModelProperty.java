@@ -2,48 +2,49 @@ package com.simplebuilding.client.property;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
-import com.simplebuilding.SimplebuildingClient;
 import com.simplebuilding.enchantment.ModEnchantments;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.render.item.property.select.SelectProperty;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import org.jetbrains.annotations.Nullable;
 
-@Environment(EnvType.CLIENT)
-public record EnchantmentModelProperty() implements SelectProperty<String> {
+public record EnchantmentModelProperty() implements SelectItemModelProperty<String> {
 
-    // Codec für die Property-Deklaration selbst (leer, da keine Felder im Record)
+    public static SelectItemModelProperty.Type<EnchantmentModelProperty, String> PROPERTY_TYPE;
+
     public static final MapCodec<EnchantmentModelProperty> CODEC = MapCodec.unit(new EnchantmentModelProperty());
 
     @Override
-    public Type<? extends SelectProperty<String>, String> getType() {
-        return SimplebuildingClient.ENCHANTMENT_PROPERTY_TYPE;
+    public Type<? extends SelectItemModelProperty<String>, String> type() {
+        return PROPERTY_TYPE;
     }
 
     @Override
-    public String getValue(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed, ItemDisplayContext context) {
-        ItemEnchantmentsComponent enchants = stack.get(DataComponentTypes.STORED_ENCHANTMENTS);
+    public String get(ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed, ItemDisplayContext context) {
+        ItemEnchantments enchants = stack.get(DataComponents.STORED_ENCHANTMENTS);
 
-        // Fallback für normale Items (nicht Enchanted Books)
         if (enchants == null) {
-            enchants = stack.get(DataComponentTypes.ENCHANTMENTS);
+            enchants = stack.get(DataComponents.ENCHANTMENTS);
         }
 
-        if (enchants == null) return "none";
+        if (enchants == null) {
+            return "none";
+        }
 
-        if (world == null && entity != null) world = (ClientWorld) entity.getEntityWorld();
-        if (world == null) return "none";
+        if (world == null && entity != null) {
+            world = (ClientLevel) entity.level();
+        }
+        if (world == null) {
+            return "none";
+        }
 
-        var reg = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
+        var reg = world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
 
-        // Deine Liste
         if (enchants.getLevel(reg.getOrThrow(ModEnchantments.FAST_CHISELING)) > 0) return "fast_chiseling";
         if (enchants.getLevel(reg.getOrThrow(ModEnchantments.CONSTRUCTORS_TOUCH)) > 0) return "constructors_touch";
         if (enchants.getLevel(reg.getOrThrow(ModEnchantments.COLOR_PALETTE)) > 0) return "color_palette";
@@ -67,7 +68,6 @@ public record EnchantmentModelProperty() implements SelectProperty<String> {
         return "none";
     }
 
-    // WICHTIG: Das ist die Methode, die dein Source Code verlangt
     @Override
     public Codec<String> valueCodec() {
         return Codec.STRING;

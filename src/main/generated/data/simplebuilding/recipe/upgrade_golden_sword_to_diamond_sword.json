@@ -4,7 +4,6 @@
   "addition_count": 3,
   "base": "minecraft:golden_sword",
   "result": {
-    "count": 1,
     "id": "minecraft:diamond_sword"
   },
   "template": "simplebuilding:basic_upgrade_template"

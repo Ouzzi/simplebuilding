@@ -1,32 +1,30 @@
 package com.simplebuilding.client.gui.widget;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.item.ItemStack;
-
 import java.util.List;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.world.item.ItemStack;
 
-public class CyclingTrimButton extends ButtonWidget {
+public class CyclingTrimButton extends Button {
     private final List<ItemStack> items;
     private final int switchInterval;
 
-    public CyclingTrimButton(int x, int y, int width, int height, List<ItemStack> items, PressAction onPress) {
-        // FIX: Text.literal("") statt Text.empty()
-        super(x, y, width, height, net.minecraft.text.Text.empty(), onPress, DEFAULT_NARRATION_SUPPLIER);
+    public CyclingTrimButton(int x, int y, int width, int height, List<ItemStack> items, OnPress onPress) {
+        super(x, y, width, height, net.minecraft.network.chat.Component.empty(), onPress, DEFAULT_NARRATION);
         this.items = items;
         this.switchInterval = 1000;
     }
 
     @Override
-    protected void drawIcon(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.drawButton(context);
+    protected void extractContents(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+        this.extractDefaultSprite(context);
 
         if (!items.isEmpty()) {
             long time = System.currentTimeMillis();
             int index = (int) ((time / switchInterval) % items.size());
 
             ItemStack currentStack = items.get(index);
-            context.drawItem(currentStack, this.getX() + 2, this.getY() + 2);
+            context.item(currentStack, this.getX() + 2, this.getY() + 2);
         }
     }
 }

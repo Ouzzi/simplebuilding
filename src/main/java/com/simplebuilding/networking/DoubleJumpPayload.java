@@ -1,17 +1,17 @@
 package com.simplebuilding.networking;
 
 import com.simplebuilding.Simplebuilding;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 
-public record DoubleJumpPayload() implements CustomPayload {
-    public static final CustomPayload.Id<DoubleJumpPayload> ID = new CustomPayload.Id<>(Identifier.of(Simplebuilding.MOD_ID, "double_jump"));
-    public static final PacketCodec<RegistryByteBuf, DoubleJumpPayload> CODEC = PacketCodec.unit(new DoubleJumpPayload());
+public record DoubleJumpPayload() implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<DoubleJumpPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "double_jump"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, DoubleJumpPayload> CODEC = StreamCodec.unit(new DoubleJumpPayload());
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> getId() {
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 }

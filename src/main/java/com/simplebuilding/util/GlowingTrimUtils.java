@@ -2,10 +2,10 @@ package com.simplebuilding.util;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.component.ModDataComponentTypes;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 
 public class GlowingTrimUtils {
     // Wir nennen den Key "Emission", um Verwirrung mit dem visuellen "Glow" zu vermeiden
@@ -25,19 +25,19 @@ public class GlowingTrimUtils {
         // boolean hasUpgrade = stack.getOrDefault(ModDataComponentTypes.LIGHT_SOURCE, false);
         // if (!hasUpgrade) return 0;
 
-        NbtComponent component = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        return component.copyNbt().getInt(EMISSION_LEVEL_KEY, 0); // Default 0
+        CustomData component = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        return component.copyTag().getIntOr(EMISSION_LEVEL_KEY, 0); // Default 0
     }
 
     public static void incrementEmissionLevel(ItemStack stack) {
-        NbtComponent component = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        NbtCompound nbt = component.copyNbt();
-        int current = nbt.getInt(EMISSION_LEVEL_KEY, 0);
+        CustomData component = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        CompoundTag nbt = component.copyTag();
+        int current = nbt.getIntOr(EMISSION_LEVEL_KEY, 0);
 
         if (current < 5) {
             int newLevel = current + 1;
             nbt.putInt(EMISSION_LEVEL_KEY, newLevel);
-            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
 
             // Optional: Setze auch die LIGHT_SOURCE Component auf true, damit man es leicht abfragen kann
             // stack.set(ModDataComponentTypes.LIGHT_SOURCE, true);

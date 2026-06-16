@@ -8,29 +8,29 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import com.simplebuilding.recipe.ReinforcedBundleRecipe;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.RawShapedRecipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Property;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapedRecipePattern;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 import com.simplebuilding.enchantment.ModEnchantments; // Importe behalten für Events
 
 import java.util.ArrayList;
@@ -41,106 +41,63 @@ import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 public class ModRegistries {
 
     // --- Serializer Definition ---
-    public static final RecipeSerializer<ReinforcedBundleRecipe> REINFORCED_BUNDLE_SERIALIZER = new RecipeSerializer<ReinforcedBundleRecipe>() {
-        private static final MapCodec<ReinforcedBundleRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Codec.STRING.optionalFieldOf("group", "").forGetter(ShapedRecipe::getGroup),
-                CraftingRecipeCategory.CODEC.fieldOf("category").orElse(CraftingRecipeCategory.MISC).forGetter(ShapedRecipe::getCategory),
-                RawShapedRecipe.CODEC.forGetter(recipe -> ((ReinforcedBundleRecipe)recipe).getRaw()),
-                ItemStack.CODEC.fieldOf("result").forGetter(ReinforcedBundleRecipe::getResultStack)
-        ).apply(instance, ReinforcedBundleRecipe::new));
-
-        public static final PacketCodec<RegistryByteBuf, ReinforcedBundleRecipe> PACKET_CODEC = PacketCodec.ofStatic(
-                (buf, recipe) -> {
-                    buf.writeString(recipe.getGroup());
-                    buf.writeEnumConstant(recipe.getCategory());
-                    RawShapedRecipe.PACKET_CODEC.encode(buf, recipe.getRaw());
-                    ItemStack.PACKET_CODEC.encode(buf, recipe.getResultStack());
-                },
-                buf -> new ReinforcedBundleRecipe(
-                        buf.readString(),
-                        buf.readEnumConstant(CraftingRecipeCategory.class),
-                        RawShapedRecipe.PACKET_CODEC.decode(buf),
-                        ItemStack.PACKET_CODEC.decode(buf)
-                )
-        );
-
-        @Override
-        public MapCodec<ReinforcedBundleRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        @SuppressWarnings("deprecation")
-        public PacketCodec<RegistryByteBuf, ReinforcedBundleRecipe> packetCodec() {
-            return PACKET_CODEC;
-        }
-    };
+    public static final RecipeSerializer<ReinforcedBundleRecipe> REINFORCED_BUNDLE_SERIALIZER = new RecipeSerializer<>(
+            RecordCodecBuilder.mapCodec(instance -> instance.group(
+                    Codec.STRING.optionalFieldOf("group", "").forGetter(ShapedRecipe::group),
+                    CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(ShapedRecipe::category),
+                    ShapedRecipePattern.MAP_CODEC.forGetter(recipe -> ((ReinforcedBundleRecipe) recipe).getRaw()),
+                    ItemStack.CODEC.fieldOf("result").forGetter(ReinforcedBundleRecipe::getResultStack)
+            ).apply(instance, ReinforcedBundleRecipe::new)),
+            StreamCodec.of(
+                    (buf, recipe) -> {
+                        buf.writeUtf(recipe.group());
+                        buf.writeEnum(recipe.category());
+                        ShapedRecipePattern.STREAM_CODEC.encode(buf, recipe.getRaw());
+                        ItemStack.STREAM_CODEC.encode(buf, recipe.getResultStack());
+                    },
+                    buf -> new ReinforcedBundleRecipe(
+                            buf.readUtf(),
+                            buf.readEnum(CraftingBookCategory.class),
+                            ShapedRecipePattern.STREAM_CODEC.decode(buf),
+                            ItemStack.STREAM_CODEC.decode(buf)
+                    )
+            )
+    );
 
     public static void registerModStuffs() {
         registerEvents();
         // registerNetworking(); <--- ENTFERNT! Das macht jetzt ModMessages.
-        Registry.register(Registries.RECIPE_SERIALIZER, Identifier.of(Simplebuilding.MOD_ID, "reinforced_bundle"), REINFORCED_BUNDLE_SERIALIZER);
+        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "reinforced_bundle"), REINFORCED_BUNDLE_SERIALIZER);
     }
 
     private static void registerEvents() {
         // Constructor's Touch
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-            ItemStack stack = player.getStackInHand(hand);
-            if (hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH) && stack.isOf(Items.STICK)) {
+            ItemStack stack = player.getItemInHand(hand);
+            if (hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH) && stack.is(Items.STICK)) {
 
-                if (!world.isClient()) {
+                if (!world.isClientSide()) {
                     BlockState state = world.getBlockState(hitResult.getBlockPos());
                     var properties = state.getProperties();
                     if (!properties.isEmpty()) {
                         Property<?> property = properties.iterator().next();
-                        BlockState newState = cycleState(state, property, player.isSneaking());
-                        world.setBlockState(hitResult.getBlockPos(), newState, 18);
-                        Text message = Text.literal(property.getName() + ": ").formatted(Formatting.GRAY)
-                                .append(Text.literal(String.valueOf(newState.get(property))).formatted(Formatting.WHITE));
-                        if (player instanceof ServerPlayerEntity serverPlayer) {
-                            serverPlayer.sendMessageToClient(message, true);
+                        BlockState newState = cycleState(state, property, player.isShiftKeyDown());
+                        world.setBlock(hitResult.getBlockPos(), newState, 18);
+                        Component message = Component.literal(property.getName() + ": ").withStyle(ChatFormatting.GRAY)
+                                .append(Component.literal(String.valueOf(newState.getValue(property))).withStyle(ChatFormatting.WHITE));
+                        if (player instanceof ServerPlayer serverPlayer) {
+                            serverPlayer.sendSystemMessage(message);
                         }
                     }
                 }
-                return ActionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
-            return ActionResult.PASS;
-        });
-
-        // Sledgehammer Diamond Block
-        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-            ItemStack stack = player.getStackInHand(hand);
-            if (stack.getItem() instanceof SledgehammerItem) {
-                BlockState state = world.getBlockState(hitResult.getBlockPos());
-                if (state.isOf(Blocks.DIAMOND_BLOCK)) {
-                    if (!world.isClient()) {
-                        world.breakBlock(hitResult.getBlockPos(), false, player);
-                        int totalPebbles = 81;
-                        while (totalPebbles > 0) {
-                            int batch = Math.min(totalPebbles, 64);
-                            ItemEntity itemEntity = new ItemEntity(world,
-                                    hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z,
-                                    new ItemStack(ModItems.DIAMOND_PEBBLE, batch));
-                            world.spawnEntity(itemEntity);
-                            totalPebbles -= batch;
-                        }
-                        world.playSound(null, hitResult.getBlockPos(), SoundEvents.BLOCK_METAL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
-                        if (!player.isCreative()) {
-                            if (player instanceof ServerPlayerEntity serverPlayer && world instanceof ServerWorld serverWorld) {
-                                stack.damage(1, serverWorld, serverPlayer,
-                                        item -> serverPlayer.sendEquipmentBreakStatus(item, EquipmentSlot.MAINHAND));
-                            }
-                        }
-                    }
-                    return ActionResult.SUCCESS;
-                }
-            }
-            return ActionResult.PASS;
+            return InteractionResult.PASS;
         });
     }
 
     private static <T extends Comparable<T>> BlockState cycleState(BlockState state, Property<T> property, boolean inverse) {
-        return state.with(property, cycle(property.getValues(), state.get(property), inverse));
+        return state.setValue(property, cycle(property.getPossibleValues(), state.getValue(property), inverse));
     }
 
     private static <T> T cycle(Iterable<T> elements, T current, boolean inverse) {

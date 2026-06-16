@@ -3,40 +3,33 @@ package com.simplebuilding.client.gui;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.util.guiDrawHelper;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("deprecation")
-public class RangefinderHudOverlay implements HudRenderCallback {
+public class RangefinderHudOverlay {
 
-
-
-    @Override
-    public void onHudRender(DrawContext context, RenderTickCounter tickCounter) {
-        MinecraftClient client = MinecraftClient.getInstance();
+    public static void render(GuiGraphicsExtractor context) {
+        Minecraft client = Minecraft.getInstance();
         if (client.player == null) return;
-        if (client.currentScreen instanceof OctantScreen) return;
+        if (client.screen instanceof OctantScreen) return;
 
-        ItemStack stack = client.player.getMainHandStack();
+        ItemStack stack = client.player.getMainHandItem();
         boolean hasOctant = stack.getItem() instanceof OctantItem;
 
         if (!hasOctant) {
-            stack = client.player.getOffHandStack();
+            stack = client.player.getOffhandItem();
             if (stack.getItem() instanceof OctantItem) {
                 hasOctant = true;
             }
@@ -49,17 +42,17 @@ public class RangefinderHudOverlay implements HudRenderCallback {
 
         guiDrawHelper.ColorTheme theme = guiDrawHelper.getColorTheme(dyeColor);
 
-        ItemStack main = client.player.getMainHandStack();
-        ItemStack off = client.player.getOffHandStack();
-        boolean hasSpeedometer = main.isOf(ModItems.VELOCITY_GAUGE) || off.isOf(ModItems.VELOCITY_GAUGE);
+        ItemStack main = client.player.getMainHandItem();
+        ItemStack off = client.player.getOffhandItem();
+        boolean hasSpeedometer = main.is(ModItems.VELOCITY_GAUGE) || off.is(ModItems.VELOCITY_GAUGE);
 
-        NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        NbtCompound nbt = nbtData.copyNbt();
-        List<Text> lines = new ArrayList<>();
+        CustomData nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        CompoundTag nbt = nbtData.copyTag();
+        List<Component> lines = new ArrayList<>();
 
-        Formatting titleColor = stack.hasEnchantments() ? Formatting.AQUA : Formatting.WHITE;
+        ChatFormatting titleColor = stack.isEnchanted() ? ChatFormatting.AQUA : ChatFormatting.WHITE;
 
-        lines.add(stack.getName().copy().formatted(titleColor));
+        lines.add(stack.getHoverName().copy().withStyle(titleColor));
 
         BlockPos pos1 = null;
         BlockPos pos2 = null;
@@ -68,22 +61,22 @@ public class RangefinderHudOverlay implements HudRenderCallback {
             int[] p1 = nbt.getIntArray("Pos1").orElse(new int[0]);
             if (p1.length == 3) {
                 pos1 = new BlockPos(p1[0], p1[1], p1[2]);
-                lines.add(Text.literal("Pos 1: " + pos1.getX() + ", " + pos1.getY() + ", " + pos1.getZ())
+                lines.add(Component.literal("Pos 1: " + pos1.getX() + ", " + pos1.getY() + ", " + pos1.getZ())
                         .setStyle(Style.EMPTY.withColor(theme.pos1())));
             }
         } else {
-            lines.add(Text.literal("Right-Click block to set Pos 1").formatted(Formatting.GRAY));
+            lines.add(Component.literal("Right-Click block to set Pos 1").withStyle(ChatFormatting.GRAY));
         }
 
         if (nbt.contains("Pos2")) {
             int[] p2 = nbt.getIntArray("Pos2").orElse(new int[0]);
             if (p2.length == 3) {
                 pos2 = new BlockPos(p2[0], p2[1], p2[2]);
-                lines.add(Text.literal("Pos 2: " + pos2.getX() + ", " + pos2.getY() + ", " + pos2.getZ())
+                lines.add(Component.literal("Pos 2: " + pos2.getX() + ", " + pos2.getY() + ", " + pos2.getZ())
                         .setStyle(Style.EMPTY.withColor(theme.pos2())));
             }
         } else if (pos1 != null) {
-            lines.add(Text.literal("Sneak + R-Click to set Pos 2").formatted(Formatting.GRAY));
+            lines.add(Component.literal("Sneak + R-Click to set Pos 2").withStyle(ChatFormatting.GRAY));
         }
 
         if (pos1 != null && pos2 != null) {
@@ -95,28 +88,28 @@ public class RangefinderHudOverlay implements HudRenderCallback {
             int resultColor = theme.pos1();
 
             if (dy == 1 && (dx == 1 || dz == 1)) {
-                lines.add(Text.literal("Distance: " + Math.max(dx, dz) + " blocks").setStyle(Style.EMPTY.withColor(resultColor)));
+                lines.add(Component.literal("Distance: " + Math.max(dx, dz) + " blocks").setStyle(Style.EMPTY.withColor(resultColor)));
             } else if (dy == 1) {
-                lines.add(Text.literal("Area: " + (dx * dz) + " blocks²").setStyle(Style.EMPTY.withColor(resultColor)));
-                lines.add(Text.literal("(" + dx + " x " + dz + ")").formatted(Formatting.GRAY));
+                lines.add(Component.literal("Area: " + (dx * dz) + " blocks²").setStyle(Style.EMPTY.withColor(resultColor)));
+                lines.add(Component.literal("(" + dx + " x " + dz + ")").withStyle(ChatFormatting.GRAY));
             } else {
-                lines.add(Text.literal("Volume: " + (dx * dy * dz) + " blocks³").setStyle(Style.EMPTY.withColor(resultColor)));
-                lines.add(Text.literal("(" + dx + " x " + dy + " x " + dz + ")").formatted(Formatting.GRAY));
+                lines.add(Component.literal("Volume: " + (dx * dy * dz) + " blocks³").setStyle(Style.EMPTY.withColor(resultColor)));
+                lines.add(Component.literal("(" + dx + " x " + dy + " x " + dz + ")").withStyle(ChatFormatting.GRAY));
             }
         }
 
         if (lines.isEmpty()) return;
 
-        TextRenderer textRenderer = client.textRenderer;
-        int screenHeight = context.getScaledWindowHeight();
+        Font textRenderer = client.font;
+        int screenHeight = context.guiHeight();
 
         int actualTextWidth = 0;
-        for (Text line : lines) {
-            int w = textRenderer.getWidth(line);
+        for (Component line : lines) {
+            int w = textRenderer.width(line);
             if (w > actualTextWidth) actualTextWidth = w;
         }
         String sampleString = "Pos 2: -8888, 888, -8888";
-        int minSafeWidth = textRenderer.getWidth(sampleString);
+        int minSafeWidth = textRenderer.width(sampleString);
         int finalContentWidth = Math.max(actualTextWidth, minSafeWidth);
 
         int paddingX = 6;
@@ -124,7 +117,7 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         int lineSpacing = 2;
         int titleSpacing = 4;
 
-        int totalTextHeight = (lines.size() * textRenderer.fontHeight) + ((lines.size() - 1) * lineSpacing) + titleSpacing * (lines.size() > 3 ? 2 : 1);
+        int totalTextHeight = (lines.size() * textRenderer.lineHeight) + ((lines.size() - 1) * lineSpacing) + titleSpacing * (lines.size() > 3 ? 2 : 1);
         int boxWidth = finalContentWidth + (paddingX * 2);
         int boxHeight = totalTextHeight + (paddingY * 2);
 
@@ -165,9 +158,9 @@ public class RangefinderHudOverlay implements HudRenderCallback {
         int textY = y + paddingY;
 
         for (int i = 0; i < lines.size(); i++) {
-            Text line = lines.get(i);
-            context.drawTextWithShadow(textRenderer, line, x + paddingX, textY, 0xFFFFFFFF);
-            textY += textRenderer.fontHeight + lineSpacing;
+            Component line = lines.get(i);
+            context.text(textRenderer, line, x + paddingX, textY, 0xFFFFFFFF, true);
+            textY += textRenderer.lineHeight + lineSpacing;
             if (i == 0 || i == 2) textY += titleSpacing;
         }
     }

@@ -1,55 +1,56 @@
 package com.simplebuilding.util;
 
 import com.simplebuilding.enchantment.ModEnchantments;
-import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class VeinMinerUsageEvent implements PlayerBlockBreakEvents.Before {
+public final class VeinMinerUsageEvent {
 
     private static final Set<BlockPos> MINED_BLOCKS = new HashSet<>();
 
-    @Override
-    public boolean beforeBlockBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
+    private VeinMinerUsageEvent() {
+    }
+
+    public static boolean handleBeforeBlockBreak(Level world, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
         // --- ÄNDERUNG: Nur ausführen, wenn Spieler sneakt ---
-        if (!player.isSneaking()) {
+        if (!player.isShiftKeyDown()) {
             return true;
         }
 
-        ItemStack stack = player.getMainHandStack();
+        ItemStack stack = player.getMainHandItem();
 
-        if (!(player instanceof ServerPlayerEntity serverPlayer)) return true;
+        if (!(player instanceof ServerPlayer serverPlayer)) return true;
         if (MINED_BLOCKS.contains(pos)) return true;
-        if (!stack.getItem().isCorrectForDrops(stack, state)) return true;
+        if (!stack.getItem().isCorrectToolForDrops(stack, state)) return true;
 
-        boolean isPickaxe = stack.isIn(ItemTags.PICKAXES);
-        boolean isAxe = stack.isIn(ItemTags.AXES);
+        boolean isPickaxe = stack.is(ItemTags.PICKAXES);
+        boolean isAxe = stack.is(ItemTags.AXES);
         if (!isPickaxe && !isAxe) return true;
 
-        var registry = world.getRegistryManager();
-        var enchantLookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var veinMinerKey = enchantLookup.getOptional(ModEnchantments.VEIN_MINER);
+        var registry = world.registryAccess();
+        var enchantLookup = registry.lookupOrThrow(Registries.ENCHANTMENT);
+        var veinMinerKey = enchantLookup.get(ModEnchantments.VEIN_MINER);
 
         if (veinMinerKey.isEmpty()) return true;
 
-        int level = EnchantmentHelper.getLevel(veinMinerKey.get(), stack);
+        int level = EnchantmentHelper.getItemEnchantmentLevel(veinMinerKey.get(), stack);
         if (level <= 0) return true;
 
         // Logik: Nur Erze (Pickaxe) oder Logs (Axt)
         if (isPickaxe && !isOre(state)) return true;
-        if (isAxe && !state.isIn(BlockTags.LOGS)) return true;
+        if (isAxe && !state.is(BlockTags.LOGS)) return true;
 
         int maxBlocks = switch (level) {
             case 1 -> 3;
@@ -68,14 +69,14 @@ public class VeinMinerUsageEvent implements PlayerBlockBreakEvents.Before {
             if (stack.isEmpty()) break;
 
             MINED_BLOCKS.add(targetPos);
-            serverPlayer.interactionManager.tryBreakBlock(targetPos);
+            serverPlayer.gameMode.destroyBlock(targetPos);
             MINED_BLOCKS.remove(targetPos);
         }
 
         return true;
     }
 
-    private List<BlockPos> findConnectedBlocks(World world, BlockPos startPos, BlockState targetState, int maxCount) {
+    private static List<BlockPos> findConnectedBlocks(Level world, BlockPos startPos, BlockState targetState, int maxCount) {
         List<BlockPos> found = new ArrayList<>();
         Queue<BlockPos> queue = new LinkedList<>();
         Set<BlockPos> visited = new HashSet<>();
@@ -92,7 +93,7 @@ public class VeinMinerUsageEvent implements PlayerBlockBreakEvents.Before {
                     for (int z = -1; z <= 1; z++) {
                         if (x == 0 && y == 0 && z == 0) continue;
 
-                        BlockPos neighbor = current.add(x, y, z);
+                        BlockPos neighbor = current.offset(x, y, z);
                         if (!visited.contains(neighbor)) {
                             BlockState neighborState = world.getBlockState(neighbor);
                             if (neighborState.getBlock() == targetState.getBlock()) {
@@ -112,14 +113,14 @@ public class VeinMinerUsageEvent implements PlayerBlockBreakEvents.Before {
         return found;
     }
 
-    private boolean isOre(BlockState state) {
-        return state.isIn(BlockTags.COAL_ORES) ||
-                state.isIn(BlockTags.IRON_ORES) ||
-                state.isIn(BlockTags.COPPER_ORES) ||
-                state.isIn(BlockTags.GOLD_ORES) ||
-                state.isIn(BlockTags.REDSTONE_ORES) ||
-                state.isIn(BlockTags.LAPIS_ORES) ||
-                state.isIn(BlockTags.DIAMOND_ORES) ||
-                state.isIn(BlockTags.EMERALD_ORES);
+    private static boolean isOre(BlockState state) {
+        return state.is(BlockTags.COAL_ORES) ||
+                state.is(BlockTags.IRON_ORES) ||
+                state.is(BlockTags.COPPER_ORES) ||
+                state.is(BlockTags.GOLD_ORES) ||
+                state.is(BlockTags.REDSTONE_ORES) ||
+                state.is(BlockTags.LAPIS_ORES) ||
+                state.is(BlockTags.DIAMOND_ORES) ||
+                state.is(BlockTags.EMERALD_ORES);
     }
 }

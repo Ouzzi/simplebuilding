@@ -2,48 +2,39 @@ package com.simplebuilding.client.gui;
 
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("deprecation")
-public class SpeedometerHudOverlay implements HudRenderCallback {
+public class SpeedometerHudOverlay {
 
-    // Farben (Lila Theme wie Octant)
     private static final int BACKGROUND_COLOR = 0xF0100010;
     private static final int BORDER_COLOR_START = 0xF03f0073;
     private static final int BORDER_COLOR_END = 0xF0250061;
+    private static final int COLOR_SPEED = 0xFF7F4C;
+    private static final int COLOR_STATS = 0xFFAAAAAA;
+    private static final int COLOR_DANGER = 0xFFFF5555;
+    private static final int COLOR_SAFE = 0xFF55FF55;
 
-    // Text Farben
-    private static final int COLOR_SPEED = 0xFF7F4C; // Orange
-    private static final int COLOR_STATS = 0xFFAAAAAA; // Grau
-    private static final int COLOR_DANGER = 0xFFFF5555; // Rot
-    private static final int COLOR_SAFE   = 0xFF55FF55; // Grün
-
-    // --- SESSION DATEN ---
     private static double topSpeed = 0.0;
     private static double speedSum = 0.0;
     private static long tickCount = 0;
     private static boolean wasHoldingSpeedometer = false;
 
-    @Override
-    public void onHudRender(DrawContext context, RenderTickCounter tickCounter) {
-        MinecraftClient client = MinecraftClient.getInstance();
+    public static void render(GuiGraphicsExtractor context) {
+        Minecraft client = Minecraft.getInstance();
         if (client.player == null) return;
 
         // 1. Prüfen ob Speedometer gehalten wird (Main oder Offhand)
-        ItemStack main = client.player.getMainHandStack();
-        ItemStack off = client.player.getOffHandStack();
-        boolean hasSpeedometer = main.isOf(ModItems.VELOCITY_GAUGE) || off.isOf(ModItems.VELOCITY_GAUGE);
+        ItemStack main = client.player.getMainHandItem();
+        ItemStack off = client.player.getOffhandItem();
+        boolean hasSpeedometer = main.is(ModItems.VELOCITY_GAUGE) || off.is(ModItems.VELOCITY_GAUGE);
 
         if (!hasSpeedometer) {
             if (wasHoldingSpeedometer) {
@@ -62,13 +53,13 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
         boolean hasOctant = (main.getItem() instanceof OctantItem) || (off.getItem() instanceof OctantItem);
 
         // --- BERECHNUNG ---
-        double velX = client.player.getVelocity().x;
-        double velY = client.player.getVelocity().y;
-        double velZ = client.player.getVelocity().z;
+        double velX = client.player.getDeltaMovement().x;
+        double velY = client.player.getDeltaMovement().y;
+        double velZ = client.player.getDeltaMovement().z;
 
         // FIX: Wenn der Spieler auf dem Boden steht, ignorieren wir die vertikale Schwerkraft.
         // Sonst wird permanent ca. 1.6 b/s angezeigt.
-        if (client.player.isOnGround()) {
+        if (client.player.onGround()) {
             velY = 0;
         }
 
@@ -86,58 +77,58 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
         double avgSpeed = tickCount > 0 ? (speedSum / tickCount) : 0.0;
 
         // --- TEXT ZUSAMMENSTELLEN ---
-        List<Text> lines = new ArrayList<>();
+        List<Component> lines = new ArrayList<>();
 
         // Welcher Stack ist der Speedometer? (Für Enchantment Check)
-        ItemStack activeStack = main.isOf(ModItems.VELOCITY_GAUGE) ? main : off;
-        boolean isEnchanted = activeStack.hasEnchantments();
+        ItemStack activeStack = main.is(ModItems.VELOCITY_GAUGE) ? main : off;
+        boolean isEnchanted = activeStack.isEnchanted();
 
         // Titel Zeile
-        Formatting titleColor = isEnchanted ? Formatting.AQUA : Formatting.WHITE;
-        lines.add(Text.literal("Speedometer").formatted(titleColor));
+        ChatFormatting titleColor = isEnchanted ? ChatFormatting.AQUA : ChatFormatting.WHITE;
+        lines.add(Component.literal("Speedometer").withStyle(titleColor));
 
         // Zeile 1: Aktueller Speed
-        lines.add(Text.literal(String.format("%.1f b/s", speedBps))
+        lines.add(Component.literal(String.format("%.1f b/s", speedBps))
                 .setStyle(Style.EMPTY.withColor(COLOR_SPEED)));
 
         // Zeile 2 & 3: Extras (Nur wenn Enchanted / Constructor's Touch)
         if (isEnchanted) {
             // FIX: Wir nutzen getFlag(7) statt isFallFlying(), da das immer existiert (Flag 7 = Elytra Glide)
-            boolean isFlying = client.player.isGliding();
+            boolean isFlying = client.player.isFallFlying();
 
             if (isFlying) {
                 // Symbol je nach Gefahr
                 boolean danger = speedBps > 15.0;
-                Text symbol = Text.literal(danger ? "⚠ " : "✔ ")
+                Component symbol = Component.literal(danger ? "⚠ " : "✔ ")
                         .setStyle(Style.EMPTY.withColor(danger ? COLOR_DANGER : COLOR_SAFE).withBold(true));
 
                 // Stats Text ("Top: 20.1 Avg: 15.0") in Grau
-                Text stats = Text.literal(String.format("Top: %.1f  Avg: %.1f", topSpeed, avgSpeed))
+                Component stats = Component.literal(String.format("Top: %.1f  Avg: %.1f", topSpeed, avgSpeed))
                         .setStyle(Style.EMPTY.withColor(COLOR_STATS));
 
                 // Zusammenbauen: "⚠ Top: ... Avg: ..."
-                lines.add(Text.empty().append(symbol).append(stats));
+                lines.add(Component.empty().append(symbol).append(stats));
             }
             else {
-                lines.add(Text.literal(String.format("Top: %.1f  Avg: %.1f", topSpeed, avgSpeed))
+                lines.add(Component.literal(String.format("Top: %.1f  Avg: %.1f", topSpeed, avgSpeed))
                         .setStyle(Style.EMPTY.withColor(COLOR_STATS)));
                 double xBps = Math.abs(velX * 20);
                 double zBps = Math.abs(velZ * 20);
                 String vecText = String.format("X: %.1f  Z: %.1f", xBps, zBps);
-                lines.add(Text.literal(vecText).formatted(Formatting.GRAY));
+                lines.add(Component.literal(vecText).withStyle(ChatFormatting.GRAY));
             }
         }
 
         if (lines.isEmpty()) return;
 
         // --- RENDERING ---
-        TextRenderer textRenderer = client.textRenderer;
-        int screenHeight = context.getScaledWindowHeight();
+        Font textRenderer = client.font;
+        int screenHeight = context.guiHeight();
 
         // Breite berechnen
         int actualTextWidth = 0;
-        for (Text line : lines) {
-            int w = textRenderer.getWidth(line);
+        for (Component line : lines) {
+            int w = textRenderer.width(line);
             if (w > actualTextWidth) actualTextWidth = w;
         }
 
@@ -149,7 +140,7 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
         int lineSpacing = 2;
         int titleSpacing = 4;
 
-        int totalTextHeight = (lines.size() * textRenderer.fontHeight)
+        int totalTextHeight = (lines.size() * textRenderer.lineHeight)
                 + ((lines.size() - 1) * lineSpacing)
                 + titleSpacing;
 
@@ -189,9 +180,9 @@ public class SpeedometerHudOverlay implements HudRenderCallback {
         // Draw Text
         int textY = y + paddingY;
         for (int i = 0; i < lines.size(); i++) {
-            Text line = lines.get(i);
-            context.drawTextWithShadow(textRenderer, line, x + paddingX, textY, 0xFFFFFFFF);
-            textY += textRenderer.fontHeight + lineSpacing;
+            Component line = lines.get(i);
+            context.text(textRenderer, line, x + paddingX, textY, 0xFFFFFFFF);
+            textY += textRenderer.lineHeight + lineSpacing;
             if (i == 0) textY += titleSpacing;
         }
     }

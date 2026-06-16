@@ -3,45 +3,52 @@ package com.simplebuilding.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.simplebuilding.Simplebuilding;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 
 public class ModRecipes {
 
-    // Zuerst nur deklarieren
     public static RecipeSerializer<CountBasedSmithingRecipe> COUNT_BASED_SMITHING_SERIALIZER;
     public static RecipeType<CountBasedSmithingRecipe> COUNT_BASED_SMITHING;
+
+    private static final MapCodec<UpgradeSmithingRecipe> UPGRADE_SMITHING_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Ingredient.CODEC.optionalFieldOf("template").forGetter(UpgradeSmithingRecipe::templateIngredient),
+            Ingredient.CODEC.fieldOf("base").forGetter(UpgradeSmithingRecipe::baseIngredient),
+            Ingredient.CODEC.optionalFieldOf("addition").forGetter(UpgradeSmithingRecipe::additionIngredient)
+    ).apply(instance, UpgradeSmithingRecipe::new));
+
+    private static final StreamCodec<RegistryFriendlyByteBuf, UpgradeSmithingRecipe> UPGRADE_SMITHING_STREAM_CODEC = StreamCodec.of(
+            (buf, recipe) -> {
+                Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buf, recipe.templateIngredient());
+                Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.baseIngredient());
+                Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buf, recipe.additionIngredient());
+            },
+            buf -> new UpgradeSmithingRecipe(
+                    Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buf),
+                    Ingredient.CONTENTS_STREAM_CODEC.decode(buf),
+                    Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buf)
+            )
+    );
 
     public static void registerRecipes() {
         Simplebuilding.LOGGER.info("Registering Recipes for " + Simplebuilding.MOD_ID);
 
-        // Dann hier registrieren
         COUNT_BASED_SMITHING_SERIALIZER = Registry.register(
-            Registries.RECIPE_SERIALIZER,
-            Identifier.of(Simplebuilding.MOD_ID, "count_based_smithing"),
-            new RecipeSerializer<CountBasedSmithingRecipe>() {
-                @Override
-                public MapCodec<CountBasedSmithingRecipe> codec() {
-                    return CountBasedSmithingRecipe.CODEC;
-                }
-                @Override
-                @SuppressWarnings("deprecation")
-                public PacketCodec<RegistryByteBuf, CountBasedSmithingRecipe> packetCodec() {
-                    return CountBasedSmithingRecipe.PACKET_CODEC;
-                }
-            }
+            BuiltInRegistries.RECIPE_SERIALIZER,
+            Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "count_based_smithing"),
+            new RecipeSerializer<>(CountBasedSmithingRecipe.CODEC, CountBasedSmithingRecipe.STREAM_CODEC)
         );
 
         COUNT_BASED_SMITHING = Registry.register(
-            Registries.RECIPE_TYPE,
-            Identifier.of(Simplebuilding.MOD_ID, "count_based_smithing"),
-            new RecipeType<CountBasedSmithingRecipe>() {
+            BuiltInRegistries.RECIPE_TYPE,
+            Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "count_based_smithing"),
+            new RecipeType<>() {
                 @Override
                 public String toString() {
                     return "count_based_smithing";
@@ -49,44 +56,9 @@ public class ModRecipes {
             });
     }
 
-
     public static final RecipeSerializer<UpgradeSmithingRecipe> UPGRADE_SMITHING_SERIALIZER = Registry.register(
-            Registries.RECIPE_SERIALIZER,
-            Identifier.of(Simplebuilding.MOD_ID, "upgrade_smithing"),
-            new RecipeSerializer<UpgradeSmithingRecipe>() {
-
-                // MAP CODEC
-                private final MapCodec<UpgradeSmithingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                        // In 1.21 nutzen wir Ingredient.CODEC (oder OPTIONAL_CODEC wenn verfügbar)
-                        Ingredient.CODEC.optionalFieldOf("template").forGetter(UpgradeSmithingRecipe::template),
-                        Ingredient.CODEC.fieldOf("base").forGetter(UpgradeSmithingRecipe::base),
-                        Ingredient.CODEC.optionalFieldOf("addition").forGetter(UpgradeSmithingRecipe::addition)
-                ).apply(instance, UpgradeSmithingRecipe::new));
-
-                // PACKET CODEC (Netzwerk)
-                private final PacketCodec<RegistryByteBuf, UpgradeSmithingRecipe> PACKET_CODEC = PacketCodec.ofStatic(
-                        (buf, recipe) -> {
-                            Ingredient.OPTIONAL_PACKET_CODEC.encode(buf, recipe.template());
-                            Ingredient.PACKET_CODEC.encode(buf, recipe.base());
-                            Ingredient.OPTIONAL_PACKET_CODEC.encode(buf, recipe.addition());
-                        },
-                        buf -> new UpgradeSmithingRecipe(
-                                Ingredient.OPTIONAL_PACKET_CODEC.decode(buf),
-                                Ingredient.PACKET_CODEC.decode(buf),
-                                Ingredient.OPTIONAL_PACKET_CODEC.decode(buf)
-                        )
-                );
-
-                @Override
-                public MapCodec<UpgradeSmithingRecipe> codec() {
-                    return CODEC;
-                }
-
-                @Override
-                @SuppressWarnings("deprecation")
-                public PacketCodec<RegistryByteBuf, UpgradeSmithingRecipe> packetCodec() {
-                    return PACKET_CODEC;
-                }
-            }
+            BuiltInRegistries.RECIPE_SERIALIZER,
+            Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "upgrade_smithing"),
+            new RecipeSerializer<>(UPGRADE_SMITHING_CODEC, UPGRADE_SMITHING_STREAM_CODEC)
     );
 }

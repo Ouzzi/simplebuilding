@@ -1,11 +1,11 @@
 package com.simplebuilding.mixin.client;
 
 import com.simplebuilding.util.SurvivalTracerAccessor;
-import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.player.LocalPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(ClientPlayerEntity.class)
+@Mixin(LocalPlayer.class)
 public class ClientSurvivalTracerMixin implements SurvivalTracerAccessor {
     @Unique private int baseDist = 0;
     @Unique private int baseTime = 0;

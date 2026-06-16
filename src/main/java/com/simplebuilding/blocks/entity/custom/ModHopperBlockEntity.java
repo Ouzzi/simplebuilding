@@ -4,46 +4,45 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.util.HopperFilterMode;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HopperBlock;
-import net.minecraft.block.entity.Hopper;
-import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
+import com.simplebuilding.platform.PlatformServices;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.text.Text;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HopperBlock;
+import net.minecraft.world.level.block.entity.Hopper;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BooleanSupplier;
 
-// WICHTIG: "implements ExtendedScreenHandlerFactory" hinzufügen!
-public class ModHopperBlockEntity extends LootableContainerBlockEntity implements Hopper, ExtendedScreenHandlerFactory<BlockPos> {
+public class ModHopperBlockEntity extends RandomizableContainerBlockEntity implements Hopper {
 
-    private DefaultedList<ItemStack> inventory;
+    private NonNullList<ItemStack> inventory;
     // Ghost Items und Filter Modes
-    private final DefaultedList<ItemStack> ghostItems = DefaultedList.ofSize(5, ItemStack.EMPTY);
+    private final NonNullList<ItemStack> ghostItems = NonNullList.withSize(5, ItemStack.EMPTY);
 
     // Globaler Filter Modus (Passend zu deinem einen Button in der GUI)
     private HopperFilterMode currentFilterMode = HopperFilterMode.NONE;
@@ -53,16 +52,16 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
     private long lastTickTime;
 
     // Für Synchronisation mit ScreenHandler
-    protected final PropertyDelegate propertyDelegate;
+    protected final ContainerData propertyDelegate;
 
     private static final int[][] AVAILABLE_SLOTS_CACHE = new int[54][];
 
     public ModHopperBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.MOD_HOPPER_BE, pos, state);
-        this.inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
+        this.inventory = NonNullList.withSize(5, ItemStack.EMPTY);
 
         // Delegate initialisieren
-        this.propertyDelegate = new PropertyDelegate() {
+        this.propertyDelegate = new ContainerData() {
             @Override
             public int get(int index) {
                 return index == 0 ? currentFilterMode.ordinal() : 0;
@@ -72,12 +71,12 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
             public void set(int index, int value) {
                 if (index == 0) {
                     currentFilterMode = HopperFilterMode.values()[value % HopperFilterMode.values().length];
-                    markDirty();
+                    setChanged();
                 }
             }
 
             @Override
-            public int size() {
+            public int getCount() {
                 return 1;
             }
         };
@@ -86,7 +85,7 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
     // --- Filter & Ghost Logic ---
 
     @Override
-    public boolean isValid(int slot, ItemStack stack) {
+    public boolean canPlaceItem(int slot, ItemStack stack) {
         // Wenn Filter aus ist, alles erlauben
         if (currentFilterMode == HopperFilterMode.NONE) {
             return true;
@@ -103,10 +102,10 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
 
             if (currentFilterMode == HopperFilterMode.WHITELIST) {
                 // Exakter Match
-                return ItemStack.areItemsAndComponentsEqual(stack, ghost);
+                return ItemStack.isSameItemSameComponents(stack, ghost);
             } else if (currentFilterMode == HopperFilterMode.TYPE) {
                 // Nur Item Typ
-                return stack.isOf(ghost.getItem());
+                return stack.is(ghost.getItem());
             }
         }
 
@@ -128,15 +127,15 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
                 copy.setCount(1);
                 ghostItems.set(slot, copy);
             }
-            markDirty();
+            setChanged();
         }
     }
 
     // Diese Methode sorgt dafür, dass das GUI sofort aktualisiert wird
     private void updateListeners() {
-        markDirty();
-        if (world != null && !world.isClient()) {
-            world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+        setChanged();
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         }
     }
 
@@ -153,45 +152,45 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
         return this.currentFilterMode;
     }
 
-    public PropertyDelegate getPropertyDelegate() {
+    public ContainerData getPropertyDelegate() {
         return this.propertyDelegate;
     }
 
     // --- READ / WRITE DATA ---
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
-        this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        if (!this.readLootTable(view)) {
-            Inventories.readData(view, this.inventory);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
+        this.inventory = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        if (!this.tryLoadLootTable(view)) {
+            ContainerHelper.loadAllItems(view, this.inventory);
         }
 
         // KORRIGIERT: Ghost Items lesen
-        view.getOptionalReadView("GhostItems").ifPresent(ghostView -> {
-            Inventories.readData(ghostView, this.ghostItems);
+        view.child("GhostItems").ifPresent(ghostView -> {
+            ContainerHelper.loadAllItems(ghostView, this.ghostItems);
         });
 
         // Filter Mode lesen
-        this.currentFilterMode = HopperFilterMode.values()[view.getInt("FilterMode", 0)];
+        this.currentFilterMode = HopperFilterMode.values()[view.getIntOr("FilterMode", 0)];
 
-        this.transferCooldown = view.getInt("TransferCooldown", -1);
+        this.transferCooldown = view.getIntOr("TransferCooldown", -1);
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
-        if (!this.writeLootTable(view)) {
-            Inventories.writeData(view, this.inventory);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
+        if (!this.trySaveLootTable(view)) {
+            ContainerHelper.saveAllItems(view, this.inventory);
         }
 
-        WriteView ghostView = view.get("GhostItems"); // Achtung: Hängt von deiner Implementation von WriteView ab
+        ValueOutput ghostView = view.child("GhostItems"); // Achtung: Hängt von deiner Implementation von WriteView ab
         // Falls .get() null liefert, müsste man ggf. view.put(...) nutzen.
         // Ich übernehme hier deine Logik, aber idealerweise nutzt man NBT für komplexe Strukturen.
         // Da du unten toInitialChunkDataNbt hast, scheint das Speichern hier evtl. custom zu sein?
         // Standard Vanilla wäre Inventories.writeNbt(nbt, items).
         if(ghostView != null) {
-             Inventories.writeData(ghostView, this.ghostItems);
+             ContainerHelper.saveAllItems(ghostView, this.ghostItems);
         }
 
         view.putInt("FilterMode", currentFilterMode.ordinal());
@@ -202,30 +201,30 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
 
     @Nullable
     @Override
-    public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
+    public CompoundTag getUpdateTag(HolderLookup.Provider registryLookup) {
         // Wir nutzen super implementation als Basis
-        NbtCompound nbt = super.toInitialChunkDataNbt(registryLookup);
+        CompoundTag nbt = super.getUpdateTag(registryLookup);
 
         nbt.putInt("FilterMode", currentFilterMode.ordinal());
 
         // Ghost Items serialisieren für Client
-        NbtCompound ghostRoot = new NbtCompound();
-        NbtList ghostList = new NbtList();
+        CompoundTag ghostRoot = new CompoundTag();
+        ListTag ghostList = new ListTag();
         for (int i = 0; i < ghostItems.size(); i++) {
             ItemStack stack = ghostItems.get(i);
             if (!stack.isEmpty()) {
-                NbtCompound itemTag = new NbtCompound();
+                CompoundTag itemTag = new CompoundTag();
                 itemTag.putByte("Slot", (byte)i);
                 try {
                     // Item encode via Codec für Client
-                    NbtElement stackTag = ItemStack.CODEC.encodeStart(NbtOps.INSTANCE, stack).getOrThrow();
-                    if (stackTag instanceof NbtCompound stackCompound) {
-                        itemTag.copyFrom(stackCompound);
+                    Tag stackTag = ItemStack.CODEC.encodeStart(NbtOps.INSTANCE, stack).getOrThrow();
+                    if (stackTag instanceof CompoundTag stackCompound) {
+                        itemTag.merge(stackCompound);
                     }
                     ghostList.add(itemTag);
                 } catch (Exception ignored) { }
@@ -242,41 +241,45 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
 
 
     @Override
-    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+    protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
+        return createScreenMenu(syncId, playerInventory);
+    }
+
+    public AbstractContainerMenu createScreenMenu(int syncId, Inventory playerInventory) {
         // Hier wird der Server-Konstruktor aufgerufen
         return new NetheriteHopperScreenHandler(syncId, playerInventory, this, this);
     }
 
 
     @Override
-    public boolean canBlockFromAbove() {
+    public boolean isGridAligned() {
         return false;
     }
 
     @Override
-    protected Text getContainerName() { return Text.translatable("container.hopper"); }
+    protected Component getDefaultName() { return Component.translatable("container.hopper"); }
 
     @Override
-    protected DefaultedList<ItemStack> getHeldStacks() { return inventory; }
+    protected NonNullList<ItemStack> getItems() { return inventory; }
 
     @Override
-    protected void setHeldStacks(DefaultedList<ItemStack> inventory) { this.inventory = inventory; }
+    protected void setItems(NonNullList<ItemStack> inventory) { this.inventory = inventory; }
 
     @Override
-    public int size() { return 5; }
+    public int getContainerSize() { return 5; }
 
     @Override
-    public double getHopperX() { return (double)this.pos.getX() + 0.5D; }
+    public double getLevelX() { return (double)this.worldPosition.getX() + 0.5D; }
 
     @Override
-    public double getHopperY() { return (double)this.pos.getY() + 0.5D; }
+    public double getLevelY() { return (double)this.worldPosition.getY() + 0.5D; }
 
     @Override
-    public double getHopperZ() { return (double)this.pos.getZ() + 0.5D; }
+    public double getLevelZ() { return (double)this.worldPosition.getZ() + 0.5D; }
 
     @Override
-    public void setStack(int slot, ItemStack stack) {
-        super.setStack(slot, stack);
+    public void setItem(int slot, ItemStack stack) {
+        super.setItem(slot, stack);
         // Automatisches Setzen des Ghost Items beim Einlegen (Optional, wie du es wolltest)
         if (!stack.isEmpty() && currentFilterMode != HopperFilterMode.NONE) {
              // Nur setzen wenn leer? Oder immer überschreiben?
@@ -285,24 +288,24 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
                 ItemStack ghost = stack.copy();
                 ghost.setCount(1);
                 ghostItems.set(slot, ghost);
-                markDirty(); // Sync Nötig? Eigentlich nur Server-Side Logic
+                setChanged(); // Sync Nötig? Eigentlich nur Server-Side Logic
              }
         }
     }
 
-    public static void serverTick(World world, BlockPos pos, BlockState state, ModHopperBlockEntity blockEntity) {
+    public static void serverTick(Level world, BlockPos pos, BlockState state, ModHopperBlockEntity blockEntity) {
         --blockEntity.transferCooldown;
-        blockEntity.lastTickTime = world.getTime();
+        blockEntity.lastTickTime = world.getGameTime();
         if (!blockEntity.needsCooldown()) {
             blockEntity.setTransferCooldown(0);
-            insertAndExtract(world, pos, state, blockEntity, () -> HopperBlockEntity.extract(world, blockEntity));
+            insertAndExtract(world, pos, state, blockEntity, () -> HopperBlockEntity.suckInItems(world, blockEntity));
         }
     }
 
-    private static boolean insertAndExtract(World world, BlockPos pos, BlockState state, ModHopperBlockEntity blockEntity, BooleanSupplier booleanSupplier) {
-        if (world.isClient()) return false;
+    private static boolean insertAndExtract(Level world, BlockPos pos, BlockState state, ModHopperBlockEntity blockEntity, BooleanSupplier booleanSupplier) {
+        if (world.isClientSide()) return false;
 
-        if (!blockEntity.needsCooldown() && state.get(HopperBlock.ENABLED)) {
+        if (!blockEntity.needsCooldown() && state.getValue(HopperBlock.ENABLED)) {
             boolean bl = false;
             if (!blockEntity.isEmpty()) {
                 bl = insert(world, pos, blockEntity);
@@ -320,63 +323,63 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
                 }
 
                 blockEntity.setTransferCooldown(speed);
-                markDirty(world, pos, state);
+                setChanged(world, pos, state);
                 return true;
             }
         }
         return false;
     }
 
-    private static boolean insert(World world, BlockPos pos, ModHopperBlockEntity blockEntity) {
-        Inventory inventory = getOutputInventory(world, pos, blockEntity);
+    private static boolean insert(Level world, BlockPos pos, ModHopperBlockEntity blockEntity) {
+        Container inventory = getOutputInventory(world, pos, blockEntity);
         if (inventory == null) return false;
 
-        Direction direction = stateToFacing(blockEntity.getCachedState()).getOpposite();
+        Direction direction = stateToFacing(blockEntity.getBlockState()).getOpposite();
         if (isInventoryFull(inventory, direction)) return false;
 
-        for (int i = 0; i < blockEntity.size(); ++i) {
-            ItemStack itemStack = blockEntity.getStack(i);
+        for (int i = 0; i < blockEntity.getContainerSize(); ++i) {
+            ItemStack itemStack = blockEntity.getItem(i);
             if (!itemStack.isEmpty()) {
                 int count = itemStack.getCount();
-                ItemStack itemStack2 = HopperBlockEntity.transfer(blockEntity, inventory, blockEntity.removeStack(i, 1), direction);
+                ItemStack itemStack2 = HopperBlockEntity.addItem(blockEntity, inventory, blockEntity.removeItem(i, 1), direction);
                 if (itemStack2.isEmpty()) {
-                    inventory.markDirty();
+                    inventory.setChanged();
                     return true;
                 }
                 itemStack.setCount(count);
-                if (count == 1) blockEntity.setStack(i, itemStack);
+                if (count == 1) blockEntity.setItem(i, itemStack);
             }
         }
         return false;
     }
 
-    private static @Nullable Inventory getOutputInventory(World world, BlockPos pos, ModHopperBlockEntity blockEntity) {
-        return HopperBlockEntity.getInventoryAt(world, pos.offset(stateToFacing(blockEntity.getCachedState())));
+    private static @Nullable Container getOutputInventory(Level world, BlockPos pos, ModHopperBlockEntity blockEntity) {
+        return HopperBlockEntity.getContainerAt(world, pos.relative(stateToFacing(blockEntity.getBlockState())));
     }
 
     private static Direction stateToFacing(BlockState state) {
-        return state.get(HopperBlock.FACING);
+        return state.getValue(HopperBlock.FACING);
     }
 
     private boolean isFull() {
         for (ItemStack itemStack : this.inventory) {
-            if (itemStack.isEmpty() || itemStack.getCount() != itemStack.getMaxCount()) return false;
+            if (itemStack.isEmpty() || itemStack.getCount() != itemStack.getMaxStackSize()) return false;
         }
         return true;
     }
 
-    private static boolean isInventoryFull(Inventory inventory, Direction direction) {
+    private static boolean isInventoryFull(Container inventory, Direction direction) {
         int[] slots = getAvailableSlots(inventory, direction);
         for (int i : slots) {
-            ItemStack itemStack = inventory.getStack(i);
-            if (itemStack.getCount() < itemStack.getMaxCount()) return false;
+            ItemStack itemStack = inventory.getItem(i);
+            if (itemStack.getCount() < itemStack.getMaxStackSize()) return false;
         }
         return true;
     }
 
-    private static int[] getAvailableSlots(Inventory inventory, Direction side) {
-        if (inventory instanceof SidedInventory sided) return sided.getAvailableSlots(side);
-        int i = inventory.size();
+    private static int[] getAvailableSlots(Container inventory, Direction side) {
+        if (inventory instanceof WorldlyContainer sided) return sided.getSlotsForFace(side);
+        int i = inventory.getContainerSize();
         if (i < AVAILABLE_SLOTS_CACHE.length) {
             int[] cache = AVAILABLE_SLOTS_CACHE[i];
             if (cache != null) return cache;
@@ -401,12 +404,10 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
         setGhostItemInternal(slot, stack);
 
         // WICHTIG: Sende Update an alle Spieler, die zuschauen (Tracking)
-        if (world != null && !world.isClient()) {
-            net.fabricmc.fabric.api.networking.v1.PlayerLookup.tracking(this).forEach(player -> {
-                net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, new com.simplebuilding.networking.SyncHopperGhostItemPayload(pos, slot, stack));
-            });
+        if (level != null && !level.isClientSide()) {
+            PlatformServices.broadcastHopperGhostItem(this, slot, stack);
         }
-        markDirty();
+        setChanged();
     }
 
     // Neue Methode nur für den Client (um Endlosschleifen zu vermeiden)
@@ -420,10 +421,5 @@ public class ModHopperBlockEntity extends LootableContainerBlockEntity implement
                 ghostItems.set(slot, copy);
             }
         }
-    }
-
-    @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
-        return this.pos;
     }
 }

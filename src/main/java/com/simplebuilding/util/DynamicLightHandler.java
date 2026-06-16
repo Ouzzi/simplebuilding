@@ -1,36 +1,35 @@
 package com.simplebuilding.util;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LightBlock;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LightBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class DynamicLightHandler {
     private static final Map<UUID, BlockPos> lightSources = new HashMap<>();
 
-    public static void tick(PlayerEntity player) {
-        if (player.getEntityWorld().isClient()) return;
-        if (!(player instanceof ServerPlayerEntity)) return;
+    public static void tick(Player player) {
+        if (player.level().isClientSide()) return;
+        if (!(player instanceof ServerPlayer)) return;
 
-        World world = player.getEntityWorld();
-        UUID uuid = player.getUuid();
-        BlockPos currentPos = player.getBlockPos().up(); // Kopfhöhe für bessere Ausleuchtung
+        Level world = player.level();
+        UUID uuid = player.getUUID();
+        BlockPos currentPos = player.blockPosition().above(); // Kopfhöhe für bessere Ausleuchtung
 
         // 1. Berechne das Licht-Level NUR basierend auf Emission (nicht Visual Glow)
         int totalEmissionPoints = 0;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
-                ItemStack stack = player.getEquippedStack(slot);
+                ItemStack stack = player.getItemBySlot(slot);
                 // WICHTIG: Hier rufen wir jetzt getEmissionLevel auf
                 totalEmissionPoints += GlowingTrimUtils.getEmissionLevel(stack);
             }
@@ -50,23 +49,23 @@ public class DynamicLightHandler {
         // 3. Neues Licht setzen
         if (lightLevel > 0) {
             BlockState currentState = world.getBlockState(currentPos);
-            boolean isWater = currentState.getFluidState().isIn(FluidTags.WATER);
+            boolean isWater = currentState.getFluidState().is(FluidTags.WATER);
 
             // Wir setzen Licht nur in Luft oder Wasser (um nichts zu zerstören)
-            if (currentState.isAir() || (isWater && currentState.getFluidState().isStill())) {
+            if (currentState.isAir() || (isWater && currentState.getFluidState().isSource())) {
 
                 // Prüfen ob wir updaten müssen (nur wenn Level sich ändert)
-                if (currentState.isOf(Blocks.LIGHT)) {
-                    int currentLightInBlock = currentState.get(LightBlock.LEVEL_15);
+                if (currentState.is(Blocks.LIGHT)) {
+                    int currentLightInBlock = currentState.getValue(LightBlock.LEVEL);
                     if (currentLightInBlock != lightLevel) {
-                        world.setBlockState(currentPos, Blocks.LIGHT.getDefaultState()
-                                .with(LightBlock.LEVEL_15, lightLevel)
-                                .with(LightBlock.WATERLOGGED, isWater), 3);
+                        world.setBlock(currentPos, Blocks.LIGHT.defaultBlockState()
+                                .setValue(LightBlock.LEVEL, lightLevel)
+                                .setValue(LightBlock.WATERLOGGED, isWater), 3);
                     }
                 } else {
-                    world.setBlockState(currentPos, Blocks.LIGHT.getDefaultState()
-                            .with(LightBlock.LEVEL_15, lightLevel)
-                            .with(LightBlock.WATERLOGGED, isWater), 3);
+                    world.setBlock(currentPos, Blocks.LIGHT.defaultBlockState()
+                            .setValue(LightBlock.LEVEL, lightLevel)
+                            .setValue(LightBlock.WATERLOGGED, isWater), 3);
                 }
                 lightSources.put(uuid, currentPos);
             }
@@ -77,21 +76,21 @@ public class DynamicLightHandler {
         }
     }
 
-    private static void removeLight(World world, BlockPos pos) {
+    private static void removeLight(Level world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        if (state.isOf(Blocks.LIGHT)) {
-            if (state.get(LightBlock.WATERLOGGED)) {
-                world.setBlockState(pos, Blocks.WATER.getDefaultState(), 3);
+        if (state.is(Blocks.LIGHT)) {
+            if (state.getValue(LightBlock.WATERLOGGED)) {
+                world.setBlock(pos, Blocks.WATER.defaultBlockState(), 3);
             } else {
-                world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+                world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
             }
         }
     }
 
-    public static void onDisconnect(ServerPlayerEntity player) {
-        BlockPos pos = lightSources.remove(player.getUuid());
+    public static void onDisconnect(ServerPlayer player) {
+        BlockPos pos = lightSources.remove(player.getUUID());
         if (pos != null) {
-            removeLight(player.getEntityWorld(), pos);
+            removeLight(player.level(), pos);
         }
     }
 }

@@ -20,22 +20,31 @@ import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.screen.ModScreenHandlers;
 import com.simplebuilding.util.*;
 import com.simplebuilding.world.gen.ModOreGeneration;
+import com.simplebuilding.platform.ModEnvironment;
+import com.simplebuilding.platform.PlatformServices;
+import com.simplebuilding.platform.PlayerPacketSender;
+import com.simplebuilding.networking.SyncHopperGhostItemPayload;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.minecraft.block.LeveledCauldronBlock;
-import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DyeColor;
+import com.simplebuilding.mixin.CauldronInteractionDispatcherAccessor;
+import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.cauldron.CauldronInteractions;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +60,7 @@ public class Simplebuilding implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        ModEnvironment.setModLoadedCheck(modId -> FabricLoader.getInstance().isModLoaded(modId));
         LOGGER.info("Starting Simplebuilding initialization...");
         LOGGER.info(SimplebuildingBootstrap.initialize(SimplebuildingLoader.FABRIC, buildStartupPlan()));
     }
@@ -82,20 +92,26 @@ public class Simplebuilding implements ModInitializer {
         ModEnchantmentEffects.registerEnchantmentEffects();
         ModRecipes.registerRecipes();
         ModRegistries.registerModStuffs();
-        LegacySpatulaMigration.register();
+        ServerLifecycleEvents.SERVER_STARTED.register(LegacySpatulaMigration::migrateWorlds);
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> LegacySpatulaMigration.migratePlayer(handler.player));
         registerCauldronBehavior();
     }
 
     private void registerGameplayEvents() {
-        PlayerBlockBreakEvents.BEFORE.register(new SledgehammerUsageEvent());
-        SledgehammerEntityInteraction.register();
-        PlayerBlockBreakEvents.BEFORE.register(new StripMinerUsageEvent());
-        PlayerBlockBreakEvents.BEFORE.register(new VeinMinerUsageEvent());
-        AttackBlockCallback.EVENT.register(new VersatilityUsageEvent());
+        PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) ->
+                SledgehammerUsageEvent.handleBeforeBlockBreak(world, player, pos, state, blockEntity));
+        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) ->
+                SledgehammerEntityInteraction.handleAttackEntity(player, world, hand, entity));
+        PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) ->
+                StripMinerUsageEvent.handleBeforeBlockBreak(world, player, pos, state, blockEntity));
+        PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) ->
+                VeinMinerUsageEvent.handleBeforeBlockBreak(world, player, pos, state, blockEntity));
+        AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) ->
+                VersatilityUsageEvent.handleAttackBlock(player, world, hand, pos, direction));
 
         ServerTickEvents.END_SERVER_TICK.register(server -> {
-            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-                if (server.getTicks() % 2 == 0) {
+            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+                if (server.getTickCount() % 2 == 0) {
                     DynamicLightHandler.tick(player);
                 }
             }
@@ -107,6 +123,20 @@ public class Simplebuilding implements ModInitializer {
     }
 
     private void registerNetworking() {
+        PlatformServices.setPlayerPacketSender(new PlayerPacketSender() {
+            @Override
+            public boolean canSend(ServerPlayer player, net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<?> type) {
+                return net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.canSend(player, type);
+            }
+
+            @Override
+            public void send(ServerPlayer player, net.minecraft.network.protocol.common.custom.CustomPacketPayload payload) {
+                net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, payload);
+            }
+        });
+        PlatformServices.setHopperSync((blockEntity, slot, stack) -> net.fabricmc.fabric.api.networking.v1.PlayerLookup.tracking(blockEntity)
+                .forEach(player -> net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(
+                        player, new SyncHopperGhostItemPayload(blockEntity.getBlockPos(), slot, stack))));
         ModMessages.registerC2SPackets();
     }
 
@@ -117,25 +147,25 @@ public class Simplebuilding implements ModInitializer {
 
     private void registerCauldronBehavior() {
         // Rangefinder reinigen:
-        CauldronBehavior cleanRangefinder = (state, world, pos, player, hand, stack) -> {
+        CauldronInteraction cleanRangefinder = (state, world, pos, player, hand, stack) -> {
             Item item = stack.getItem();
-            if (!(item instanceof OctantItem) || item == ModItems.OCTANT) {return ActionResult.PASS;}
-            if (!world.isClient()) {
+            if (!(item instanceof OctantItem) || item == ModItems.OCTANT) {return InteractionResult.PASS;}
+            if (!world.isClientSide()) {
                 ItemStack newStack = new ItemStack(ModItems.OCTANT);
-                if (stack.contains(DataComponentTypes.CUSTOM_DATA)) {
-                    newStack.set(DataComponentTypes.CUSTOM_DATA, stack.get(DataComponentTypes.CUSTOM_DATA));
+                if (stack.has(DataComponents.CUSTOM_DATA)) {
+                    newStack.set(DataComponents.CUSTOM_DATA, stack.get(DataComponents.CUSTOM_DATA));
                 }
-                player.setStackInHand(hand, newStack);
-                player.incrementStat(Stats.CLEAN_ARMOR);
-                LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
+                player.setItemInHand(hand, newStack);
+                player.awardStat(Stats.CLEAN_ARMOR);
+                LayeredCauldronBlock.lowerFillLevel(state, world, pos);
             }
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         };
 
         for (DyeColor color : DyeColor.values()) {
             Item coloredItem = ModItems.COLORED_OCTANT_ITEMS.get(color);
             if (coloredItem != null) {
-                CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put(coloredItem, cleanRangefinder);
+                ((CauldronInteractionDispatcherAccessor) (Object) CauldronInteractions.WATER).simplebuilding$put(coloredItem, cleanRangefinder);
             }
         }
     }

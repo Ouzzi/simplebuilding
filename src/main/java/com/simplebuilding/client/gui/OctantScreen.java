@@ -1,22 +1,22 @@
 package com.simplebuilding.client.gui;
 
-import com.simplebuilding.SimplebuildingClient;
+import com.simplebuilding.client.ClientState;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.networking.OctantConfigurePayload;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.input.KeyInput;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import com.simplebuilding.platform.ClientNetworking;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
@@ -31,24 +31,24 @@ public class OctantScreen extends Screen {
 
     private final ItemStack stack;
 
-    private TextFieldWidget x1Field, y1Field, z1Field;
-    private TextFieldWidget x2Field, y2Field, z2Field;
-    private TextFieldWidget wField, hField, dField;
+    private EditBox x1Field, y1Field, z1Field;
+    private EditBox x2Field, y2Field, z2Field;
+    private EditBox wField, hField, dField;
 
-    private ButtonWidget shapeButton;
-    private ButtonWidget lockButton;
-    private ButtonWidget orientationButton;
-    private ButtonWidget figureToggleButton;
-    private ButtonWidget pageButton;
-    private ButtonWidget doneButton;
+    private Button shapeButton;
+    private Button lockButton;
+    private Button orientationButton;
+    private Button figureToggleButton;
+    private Button pageButton;
+    private Button doneButton;
 
     // Fill Settings Buttons
-    private ButtonWidget hollowButton;
-    private ButtonWidget layerModeButton;
-    private ButtonWidget fillOrderButton;
+    private Button hollowButton;
+    private Button layerModeButton;
+    private Button fillOrderButton;
 
-    private final List<ClickableWidget> pageOneWidgets = new ArrayList<>();
-    private final List<ClickableWidget> pageTwoWidgets = new ArrayList<>();
+    private final List<AbstractWidget> pageOneWidgets = new ArrayList<>();
+    private final List<AbstractWidget> pageTwoWidgets = new ArrayList<>();
 
     private OctantItem.SelectionShape currentShape = OctantItem.SelectionShape.CUBOID;
     private OrientationMode currentOrientation = OrientationMode.POS_Y;
@@ -123,28 +123,28 @@ public class OctantScreen extends Screen {
     }
 
     public OctantScreen(ItemStack stack) {
-        super(Text.translatable("simplebuilding.gui.title"));
+        super(Component.translatable("simplebuilding.gui.title"));
         this.stack = stack;
         loadDataFromStack();
     }
 
     private void loadDataFromStack() {
-        NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        NbtCompound nbt = nbtData.copyNbt();
+        CustomData nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        CompoundTag nbt = nbtData.copyTag();
 
         if (nbt.contains("Pos1")) nbt.getIntArray("Pos1").ifPresent(p -> { if(p.length==3) pos1 = new BlockPos(p[0], p[1], p[2]); });
         if (nbt.contains("Pos2")) nbt.getIntArray("Pos2").ifPresent(p -> { if(p.length==3) pos2 = new BlockPos(p[0], p[1], p[2]); });
 
-        if (nbt.contains("Shape")) try { currentShape = OctantItem.SelectionShape.valueOf(nbt.getString("Shape", OctantItem.SelectionShape.CUBOID.name())); } catch (Exception ignored) {}
+        if (nbt.contains("Shape")) try { currentShape = OctantItem.SelectionShape.valueOf(nbt.getStringOr("Shape", OctantItem.SelectionShape.CUBOID.name())); } catch (Exception ignored) {}
 
-        int orientIdx = nbt.getInt("Orientation", 1);
+        int orientIdx = nbt.getIntOr("Orientation", 1);
         currentOrientation = OrientationMode.fromNbtIndex(orientIdx);
 
-        isHollow = nbt.getBoolean("Hollow", false);
-        isLayerMode = nbt.getBoolean("LayerMode", false);
-        try { currentOrder = OctantItem.FillOrder.valueOf(nbt.getString("FillOrder", OctantItem.FillOrder.DEFAULT.name())); } catch (Exception ignored) {}
+        isHollow = nbt.getBooleanOr("Hollow", false);
+        isLayerMode = nbt.getBooleanOr("LayerMode", false);
+        try { currentOrder = OctantItem.FillOrder.valueOf(nbt.getStringOr("FillOrder", OctantItem.FillOrder.DEFAULT.name())); } catch (Exception ignored) {}
 
-        isLocked = nbt.getBoolean("Locked", false);
+        isLocked = nbt.getBooleanOr("Locked", false);
     }
 
     @Override
@@ -181,31 +181,31 @@ public class OctantScreen extends Screen {
         int yControls = contentTop + ROW_SPACING * 3 + 2;
 
         // Shape & Orientation
-        shapeButton = ButtonWidget.builder(getShapeText(), b -> cycleShape())
-            .dimensions(contentLeft, yControls, 125, BUTTON_HEIGHT).build();
+        shapeButton = Button.builder(getShapeText(), b -> cycleShape())
+            .bounds(contentLeft, yControls, 125, BUTTON_HEIGHT).build();
         addPageOneWidget(shapeButton);
 
-        orientationButton = ButtonWidget.builder(getOrientationText(), b -> cycleOrientation())
-            .dimensions(contentLeft + 130, yControls, 50, BUTTON_HEIGHT).build();
+        orientationButton = Button.builder(getOrientationText(), b -> cycleOrientation())
+            .bounds(contentLeft + 130, yControls, 50, BUTTON_HEIGHT).build();
         addPageOneWidget(orientationButton);
 
         int yFill = contentTop;
-        hollowButton = ButtonWidget.builder(getHollowText(), b -> { isHollow = !isHollow; b.setMessage(getHollowText()); updateLocalAndSend(); })
-            .dimensions(contentLeft, yFill, 88, BUTTON_HEIGHT).build();
+        hollowButton = Button.builder(getHollowText(), b -> { isHollow = !isHollow; b.setMessage(getHollowText()); updateLocalAndSend(); })
+            .bounds(contentLeft, yFill, 88, BUTTON_HEIGHT).build();
         addPageTwoWidget(hollowButton);
 
-        layerModeButton = ButtonWidget.builder(getLayerText(), b -> { isLayerMode = !isLayerMode; b.setMessage(getLayerText()); updateLocalAndSend(); })
-            .dimensions(contentLeft + 92, yFill, 88, BUTTON_HEIGHT).build();
+        layerModeButton = Button.builder(getLayerText(), b -> { isLayerMode = !isLayerMode; b.setMessage(getLayerText()); updateLocalAndSend(); })
+            .bounds(contentLeft + 92, yFill, 88, BUTTON_HEIGHT).build();
         addPageTwoWidget(layerModeButton);
 
         int yOrder = yFill + BUTTON_STEP;
-        fillOrderButton = ButtonWidget.builder(getOrderText(), b -> cycleOrder())
-            .dimensions(contentLeft, yOrder, 180, BUTTON_HEIGHT).build();
+        fillOrderButton = Button.builder(getOrderText(), b -> cycleOrder())
+            .bounds(contentLeft, yOrder, 180, BUTTON_HEIGHT).build();
         addPageTwoWidget(fillOrderButton);
 
         int yFigure = yOrder + BUTTON_STEP;
-        figureToggleButton = ButtonWidget.builder(getFigureText(), b -> toggleFigure())
-            .dimensions(contentLeft, yFigure, 180, BUTTON_HEIGHT).build();
+        figureToggleButton = Button.builder(getFigureText(), b -> toggleFigure())
+            .bounds(contentLeft, yFigure, 180, BUTTON_HEIGHT).build();
         addPageTwoWidget(figureToggleButton);
 
         this.hudSummaryY = yControls + BUTTON_STEP + 2;
@@ -218,23 +218,23 @@ public class OctantScreen extends Screen {
 
         int bottomX = contentLeft;
 
-        lockButton = ButtonWidget.builder(getLockIcon(), b -> { isLocked = !isLocked; b.setMessage(getLockIcon()); updateLocalAndSend(); })
-            .dimensions(bottomX, yDone, LOCK_BUTTON_WIDTH, BUTTON_HEIGHT).build();
-        addDrawableChild(lockButton);
+        lockButton = Button.builder(getLockIcon(), b -> { isLocked = !isLocked; b.setMessage(getLockIcon()); updateLocalAndSend(); })
+            .bounds(bottomX, yDone, LOCK_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+        addRenderableWidget(lockButton);
 
-        pageButton = ButtonWidget.builder(getPageButtonText(), b -> togglePage())
-            .dimensions(bottomX + LOCK_BUTTON_WIDTH + 5, yDone, PAGE_BUTTON_WIDTH, BUTTON_HEIGHT).build();
-        addDrawableChild(pageButton);
+        pageButton = Button.builder(getPageButtonText(), b -> togglePage())
+            .bounds(bottomX + LOCK_BUTTON_WIDTH + 5, yDone, PAGE_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+        addRenderableWidget(pageButton);
 
-        doneButton = addDrawableChild(ButtonWidget.builder(Text.translatable("simplebuilding.gui.close"), b -> close())
-            .dimensions(bottomX + LOCK_BUTTON_WIDTH + 5 + PAGE_BUTTON_WIDTH + 5, yDone, DONE_BUTTON_WIDTH, BUTTON_HEIGHT).build());
+        doneButton = addRenderableWidget(Button.builder(Component.translatable("simplebuilding.gui.close"), b -> onClose())
+            .bounds(bottomX + LOCK_BUTTON_WIDTH + 5 + PAGE_BUTTON_WIDTH + 5, yDone, DONE_BUTTON_WIDTH, BUTTON_HEIGHT).build());
 
         updateFooterLayout();
 
         updatePageVisibility();
     }
 
-        private void createRow(int y, int v1, int v2, int v3, Consumer<TextFieldWidget> a1, Consumer<TextFieldWidget> a2, Consumer<TextFieldWidget> a3) {
+        private void createRow(int y, int v1, int v2, int v3, Consumer<EditBox> a1, Consumer<EditBox> a2, Consumer<EditBox> a3) {
         createControlGroup(rowStartX, y, v1, a1, false);
         createControlGroup(rowStartX + GROUP_WIDTH + GROUP_GAP, y, v2, a2, false);
         createControlGroup(rowStartX + (GROUP_WIDTH + GROUP_GAP) * 2, y, v3, a3, false);
@@ -244,33 +244,33 @@ public class OctantScreen extends Screen {
         createControlGroup(rowStartX + GROUP_WIDTH + GROUP_GAP, y, h, f -> hField = f, true);
         createControlGroup(rowStartX + (GROUP_WIDTH + GROUP_GAP) * 2, y, d, f -> dField = f, true);
     }
-    private void createControlGroup(int x, int y, int val, Consumer<TextFieldWidget> assigner, boolean isSize) {
-        TextFieldWidget field = new TextFieldWidget(textRenderer, x, y, 24, 14, Text.empty());
-        field.setText(String.valueOf(val));
-        field.setChangedListener(s -> { if (!isUpdating) { if (isSize) updatePos2FromSize(); else updateLocalAndSend(); } });
+    private void createControlGroup(int x, int y, int val, Consumer<EditBox> assigner, boolean isSize) {
+        EditBox field = new EditBox(font, x, y, 24, 14, Component.empty());
+        field.setValue(String.valueOf(val));
+        field.setResponder(s -> { if (!isUpdating) { if (isSize) updatePos2FromSize(); else updateLocalAndSend(); } });
         assigner.accept(field);
         addPageOneWidget(field);
-        addPageOneWidget(ButtonWidget.builder(Text.literal("+"), b -> adjustField(field, 1, isSize)).dimensions(x + 25, y, 10, 7).build());
-        addPageOneWidget(ButtonWidget.builder(Text.literal("-"), b -> adjustField(field, -1, isSize)).dimensions(x + 25, y + 7, 10, 7).build());
+        addPageOneWidget(Button.builder(Component.literal("+"), b -> adjustField(field, 1, isSize)).bounds(x + 25, y, 10, 7).build());
+        addPageOneWidget(Button.builder(Component.literal("-"), b -> adjustField(field, -1, isSize)).bounds(x + 25, y + 7, 10, 7).build());
     }
-    private void adjustField(TextFieldWidget field, int delta, boolean isSize) {
-        try { int val = Integer.parseInt(field.getText()) + delta; if (isSize && val < 1) val = 1; field.setText(String.valueOf(val)); if (isSize) updatePos2FromSize(); else updateLocalAndSend(); } catch (Exception e) { field.setText("0"); }
+    private void adjustField(EditBox field, int delta, boolean isSize) {
+        try { int val = Integer.parseInt(field.getValue()) + delta; if (isSize && val < 1) val = 1; field.setValue(String.valueOf(val)); if (isSize) updatePos2FromSize(); else updateLocalAndSend(); } catch (Exception e) { field.setValue("0"); }
     }
 
-    private Text getLockIcon() { return isLocked ? Text.translatable("simplebuilding.gui.locked") : Text.translatable("simplebuilding.gui.unlocked"); }
-    private Text getShapeText() { return currentShape.getText(); }
-    private Text getOrientationText() { return Text.translatable("simplebuilding.gui.orientation", Text.translatable(currentOrientation.labelKey)); }
-    private Text getHollowText() { return Text.translatable("simplebuilding.gui.hollow", isHollow ? "ON" : "OFF"); }
-    private Text getLayerText() { return Text.translatable("simplebuilding.gui.layer", isLayerMode ? "ON" : "OFF"); }
-    private Text getOrderText() { return Text.translatable("simplebuilding.gui.order", currentOrder.getText()); }
-    private Text getFigureText() { return Text.translatable("simplebuilding.gui.figure", Text.translatable(SimplebuildingClient.showHighlights ? "simplebuilding.gui.on" : "simplebuilding.gui.off")); }
-    private Text getPageButtonText() { return currentPage == MenuPage.SELECTION ? Text.literal(">> Settings") : Text.literal("<< Selection"); }
-    private Text getPageLabelText() { return currentPage == MenuPage.SELECTION ? Text.literal("Page 1/2: Selection") : Text.literal("Page 2/2: Fill Settings"); }
+    private Component getLockIcon() { return isLocked ? Component.translatable("simplebuilding.gui.locked") : Component.translatable("simplebuilding.gui.unlocked"); }
+    private Component getShapeText() { return currentShape.getText(); }
+    private Component getOrientationText() { return Component.translatable("simplebuilding.gui.orientation", Component.translatable(currentOrientation.labelKey)); }
+    private Component getHollowText() { return Component.translatable("simplebuilding.gui.hollow", isHollow ? "ON" : "OFF"); }
+    private Component getLayerText() { return Component.translatable("simplebuilding.gui.layer", isLayerMode ? "ON" : "OFF"); }
+    private Component getOrderText() { return Component.translatable("simplebuilding.gui.order", currentOrder.getText()); }
+    private Component getFigureText() { return Component.translatable("simplebuilding.gui.figure", Component.translatable(ClientState.showHighlights ? "simplebuilding.gui.on" : "simplebuilding.gui.off")); }
+    private Component getPageButtonText() { return currentPage == MenuPage.SELECTION ? Component.literal(">> Settings") : Component.literal("<< Selection"); }
+    private Component getPageLabelText() { return currentPage == MenuPage.SELECTION ? Component.literal("Page 1/2: Selection") : Component.literal("Page 2/2: Fill Settings"); }
 
     private void cycleShape() { currentShape = OctantItem.SelectionShape.values()[(currentShape.ordinal() + 1) % OctantItem.SelectionShape.values().length]; shapeButton.setMessage(getShapeText()); updateLocalAndSend(); }
     private void cycleOrientation() { currentOrientation = currentOrientation.next(); orientationButton.setMessage(getOrientationText()); updateLocalAndSend(); }
     private void cycleOrder() { currentOrder = OctantItem.FillOrder.values()[(currentOrder.ordinal() + 1) % OctantItem.FillOrder.values().length]; fillOrderButton.setMessage(getOrderText()); updateLocalAndSend(); }
-    private void toggleFigure() { SimplebuildingClient.showHighlights = !SimplebuildingClient.showHighlights; figureToggleButton.setMessage(getFigureText()); }
+    private void toggleFigure() { ClientState.showHighlights = !ClientState.showHighlights; figureToggleButton.setMessage(getFigureText()); }
     private void togglePage() {
         currentPage = currentPage == MenuPage.SELECTION ? MenuPage.SETTINGS : MenuPage.SELECTION;
         pageButton.setMessage(getPageButtonText());
@@ -289,24 +289,24 @@ public class OctantScreen extends Screen {
 
     private void updatePageVisibility() {
         boolean isSelection = currentPage == MenuPage.SELECTION;
-        for (ClickableWidget widget : pageOneWidgets) {
+        for (AbstractWidget widget : pageOneWidgets) {
             widget.visible = isSelection;
             widget.active = isSelection;
         }
-        for (ClickableWidget widget : pageTwoWidgets) {
+        for (AbstractWidget widget : pageTwoWidgets) {
             widget.visible = !isSelection;
             widget.active = !isSelection;
         }
     }
 
-    private <T extends ClickableWidget> T addPageOneWidget(T widget) {
+    private <T extends AbstractWidget> T addPageOneWidget(T widget) {
         pageOneWidgets.add(widget);
-        return addDrawableChild(widget);
+        return addRenderableWidget(widget);
     }
 
-    private <T extends ClickableWidget> T addPageTwoWidget(T widget) {
+    private <T extends AbstractWidget> T addPageTwoWidget(T widget) {
         pageTwoWidgets.add(widget);
-        return addDrawableChild(widget);
+        return addRenderableWidget(widget);
     }
 
     private void updatePos2FromSize() {
@@ -315,7 +315,7 @@ public class OctantScreen extends Screen {
         try {
             int x1 = parse(x1Field), y1 = parse(y1Field), z1 = parse(z1Field);
             int w = Math.max(1, parse(wField)), h = Math.max(1, parse(hField)), d = Math.max(1, parse(dField));
-            x2Field.setText(String.valueOf(x1 + w - 1)); y2Field.setText(String.valueOf(y1 + h - 1)); z2Field.setText(String.valueOf(z1 + d - 1));
+            x2Field.setValue(String.valueOf(x1 + w - 1)); y2Field.setValue(String.valueOf(y1 + h - 1)); z2Field.setValue(String.valueOf(z1 + d - 1));
             isUpdating = false; updateLocalAndSend();
         } catch (Exception e) { isUpdating = false; }
     }
@@ -324,8 +324,8 @@ public class OctantScreen extends Screen {
         try {
             BlockPos p1 = new BlockPos(parse(x1Field), parse(y1Field), parse(z1Field));
             BlockPos p2 = new BlockPos(parse(x2Field), parse(y2Field), parse(z2Field));
-            NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-            NbtCompound nbt = nbtData.copyNbt();
+            CustomData nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+            CompoundTag nbt = nbtData.copyTag();
             nbt.putIntArray("Pos1", new int[]{p1.getX(), p1.getY(), p1.getZ()});
             nbt.putIntArray("Pos2", new int[]{p2.getX(), p2.getY(), p2.getZ()});
             nbt.putString("Shape", currentShape.name());
@@ -334,19 +334,19 @@ public class OctantScreen extends Screen {
             nbt.putBoolean("Hollow", isHollow);
             nbt.putBoolean("LayerMode", isLayerMode);
             nbt.putString("FillOrder", currentOrder.name());
-            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
 
-            ClientPlayNetworking.send(new OctantConfigurePayload(Optional.of(p1), Optional.of(p2), currentShape.name(), isLocked,
+            ClientNetworking.send(new OctantConfigurePayload(Optional.of(p1), Optional.of(p2), currentShape.name(), isLocked,
                     currentOrientation.nbtIndex,
                     isHollow, isLayerMode, currentOrder.name()));
         } catch (Exception ignored) {}
     }
-    private int parse(TextFieldWidget f) { try { return Integer.parseInt(f.getText()); } catch (Exception e) { return 0; } }
+    private int parse(EditBox f) { try { return Integer.parseInt(f.getValue()); } catch (Exception e) { return 0; } }
 
     // --- Input & Rendering ---
 
     @Override
-    public boolean keyPressed(KeyInput input) {
+    public boolean keyPressed(KeyEvent input) {
         if (setMovementKeyPressed(input, true)) {
             return false;
         }
@@ -355,54 +355,54 @@ public class OctantScreen extends Screen {
         int keyCode = input.key();
 
         // KORREKTUR: Übergib das 'input' Objekt direkt an matchesKey
-        if (com.simplebuilding.SimplebuildingClient.settingsKey.matchesKey(input)
+        if (ClientState.settingsKey.matches(input)
                 || keyCode == GLFW.GLFW_KEY_E
                 || keyCode == GLFW.GLFW_KEY_ESCAPE) {
-            this.close();
+            this.onClose();
             return true;
         }
         return super.keyPressed(input);
     }
 
     @Override
-    public boolean keyReleased(KeyInput input) {
+    public boolean keyReleased(KeyEvent input) {
         if (setMovementKeyPressed(input, false)) {
             return false;
         }
         return super.keyReleased(input);
     }
 
-    private boolean setMovementKeyPressed(KeyInput input, boolean pressed) {
-        if (client == null || client.options == null) {
+    private boolean setMovementKeyPressed(KeyEvent input, boolean pressed) {
+        if (minecraft == null || minecraft.options == null) {
             return false;
         }
 
-        if (client.options.forwardKey.matchesKey(input)) {
-            client.options.forwardKey.setPressed(pressed);
+        if (minecraft.options.keyUp.matches(input)) {
+            minecraft.options.keyUp.setDown(pressed);
             return true;
         }
-        if (client.options.backKey.matchesKey(input)) {
-            client.options.backKey.setPressed(pressed);
+        if (minecraft.options.keyDown.matches(input)) {
+            minecraft.options.keyDown.setDown(pressed);
             return true;
         }
-        if (client.options.leftKey.matchesKey(input)) {
-            client.options.leftKey.setPressed(pressed);
+        if (minecraft.options.keyLeft.matches(input)) {
+            minecraft.options.keyLeft.setDown(pressed);
             return true;
         }
-        if (client.options.rightKey.matchesKey(input)) {
-            client.options.rightKey.setPressed(pressed);
+        if (minecraft.options.keyRight.matches(input)) {
+            minecraft.options.keyRight.setDown(pressed);
             return true;
         }
-        if (client.options.jumpKey.matchesKey(input)) {
-            client.options.jumpKey.setPressed(pressed);
+        if (minecraft.options.keyJump.matches(input)) {
+            minecraft.options.keyJump.setDown(pressed);
             return true;
         }
-        if (client.options.sneakKey.matchesKey(input)) {
-            client.options.sneakKey.setPressed(pressed);
+        if (minecraft.options.keyShift.matches(input)) {
+            minecraft.options.keyShift.setDown(pressed);
             return true;
         }
-        if (client.options.sprintKey.matchesKey(input)) {
-            client.options.sprintKey.setPressed(pressed);
+        if (minecraft.options.keySprint.matches(input)) {
+            minecraft.options.keySprint.setDown(pressed);
             return true;
         }
 
@@ -410,12 +410,12 @@ public class OctantScreen extends Screen {
     }
 
     @Override
-    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void extractBackground(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
         // Keep transparent world background.
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
         context.fill(0, 0, width, height, 0x15000000);
 
         context.fill(panelX + 1, panelY + 1, panelX + panelWidth - 1, panelY + panelHeight - 1, PANEL_BG);
@@ -434,7 +434,7 @@ public class OctantScreen extends Screen {
         context.fillGradient(panelX, panelY + 1, panelX + 1, panelY + panelHeight - 1, PANEL_BORDER_START, PANEL_BORDER_END);
         context.fillGradient(panelX + panelWidth - 1, panelY + 1, panelX + panelWidth, panelY + panelHeight - 1, PANEL_BORDER_START, PANEL_BORDER_END);
 
-        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("simplebuilding.gui.title"), columnCenterX, panelY + 6, 0xFF66FFFF);
+        context.centeredText(font, Component.translatable("simplebuilding.gui.title"), columnCenterX, panelY + 6, 0xFF66FFFF);
         // Requested: hide page subtitle line for a cleaner header.
 
         if (currentPage == MenuPage.SELECTION) {
@@ -442,21 +442,21 @@ public class OctantScreen extends Screen {
             drawInlineHudSummary(context);
         }
 
-        super.render(context, mouseX, mouseY, delta);
-        if (lockButton.isMouseOver(mouseX, mouseY)) context.drawTooltip(textRenderer, Text.translatable("simplebuilding.gui.lock_tooltip"), mouseX, mouseY);
+        super.extractRenderState(context, mouseX, mouseY, delta);
+        if (lockButton.isMouseOver(mouseX, mouseY)) context.setTooltipForNextFrame(font, Component.translatable("simplebuilding.gui.lock_tooltip"), mouseX, mouseY);
     }
 
-    private void drawInputLabels(DrawContext context) {
+    private void drawInputLabels(GuiGraphicsExtractor context) {
         int row1Y = startY + FIELD_OFFSET_Y;
         int row2Y = row1Y + ROW_SPACING;
         int row3Y = row2Y + ROW_SPACING;
 
-        context.drawTextWithShadow(textRenderer, Text.literal("P1"), panelX + 8, row1Y + 3, 0xFFFFD15A);
-        context.drawTextWithShadow(textRenderer, Text.literal("P2"), panelX + 8, row2Y + 3, 0xFFD4E56A);
-        context.drawTextWithShadow(textRenderer, Text.literal("SZ"), panelX + 8, row3Y + 3, 0xFF55FFFF);
+        context.text(font, Component.literal("P1"), panelX + 8, row1Y + 3, 0xFFFFD15A);
+        context.text(font, Component.literal("P2"), panelX + 8, row2Y + 3, 0xFFD4E56A);
+        context.text(font, Component.literal("SZ"), panelX + 8, row3Y + 3, 0xFF55FFFF);
     }
 
-    private void drawInlineHudSummary(DrawContext context) {
+    private void drawInlineHudSummary(GuiGraphicsExtractor context) {
         int boxX = panelX + 8;
         int boxY = hudSummaryY;
         int boxW = panelWidth - 16;
@@ -470,11 +470,11 @@ public class OctantScreen extends Screen {
         int dy = Math.abs(p1.getY() - p2.getY()) + 1;
         int dz = Math.abs(p1.getZ() - p2.getZ()) + 1;
 
-        context.drawTextWithShadow(textRenderer,
-                Text.literal("Pos 1: " + p1.getX() + ", " + p1.getY() + ", " + p1.getZ()),
+        context.text(font,
+                Component.literal("Pos 1: " + p1.getX() + ", " + p1.getY() + ", " + p1.getZ()),
             boxX + 4, boxY + 3, 0xFFFFD15A);
-        context.drawTextWithShadow(textRenderer,
-                Text.literal("Pos 2: " + p2.getX() + ", " + p2.getY() + ", " + p2.getZ()),
+        context.text(font,
+                Component.literal("Pos 2: " + p2.getX() + ", " + p2.getY() + ", " + p2.getZ()),
             boxX + 4, boxY + 12, 0xFFD4E56A);
 
         String metric;
@@ -489,14 +489,14 @@ public class OctantScreen extends Screen {
             dims = "(" + dx + " x " + dy + " x " + dz + ")";
         }
 
-        context.drawTextWithShadow(textRenderer, Text.literal(metric), boxX + 4, boxY + 21, 0xFFFFD15A);
+        context.text(font, Component.literal(metric), boxX + 4, boxY + 21, 0xFFFFD15A);
         if (dims != null) {
-            context.drawTextWithShadow(textRenderer, Text.literal(dims), boxX + 4, boxY + 30, 0xFFB0B0B0);
+            context.text(font, Component.literal(dims), boxX + 4, boxY + 30, 0xFFB0B0B0);
         }
     }
 
     @Override
-    public boolean shouldPause() {
+    public boolean isPauseScreen() {
         return false;
     }
 }

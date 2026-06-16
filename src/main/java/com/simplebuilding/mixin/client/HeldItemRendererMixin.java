@@ -3,20 +3,19 @@ package com.simplebuilding.mixin.client;
 import com.simplebuilding.items.custom.ChiselItem;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import me.shedaniel.autoconfig.AutoConfig;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
 import com.simplebuilding.config.SimplebuildingConfig;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.item.HeldItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.RotationAxis;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.ItemInHandRenderer;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,32 +24,31 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.CLIENT)
-@Mixin(HeldItemRenderer.class)
+@Mixin(ItemInHandRenderer.class)
 public class HeldItemRendererMixin {
 
-    @Shadow @Final private MinecraftClient client;
+    @Shadow @Final private Minecraft minecraft;
 
     @Unique private float mainHandChiselProgress = 0.0F;
     @Unique private float offHandChiselProgress = 0.0F;
 
     @Inject(
-            method = "renderFirstPersonItem",
+            method = "renderArmWithItem",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/render/item/HeldItemRenderer;renderItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemDisplayContext;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/command/OrderedRenderCommandQueue;I)V"
+                    target = "Lnet/minecraft/client/renderer/ItemInHandRenderer;renderItem(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemDisplayContext;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;I)V"
             )
     )
     private void onRenderFirstPersonItem(
-            AbstractClientPlayerEntity player,
+            AbstractClientPlayer player,
             float tickProgress,
             float pitch,
-            Hand hand,
+            InteractionHand hand,
             float swingProgress,
             ItemStack item,
             float equipProgress,
-            MatrixStack matrices,
-            OrderedRenderCommandQueue orderedRenderCommandQueue,
+            PoseStack matrices,
+            SubmitNodeCollector orderedRenderCommandQueue,
             int light,
             CallbackInfo ci
     ) {
@@ -59,25 +57,25 @@ public class HeldItemRendererMixin {
         float targetProgress = 0.0F;
 
         if (animationsEnabled) {
-            HitResult hit = this.client.crosshairTarget;
+            HitResult hit = this.minecraft.hitResult;
 
             if (hit instanceof BlockHitResult blockHit) {
                 // CHISEL
                 if (item.getItem() instanceof ChiselItem chiselItem) {
                     // canChisel prüft jetzt GENAU auf Sneaking + Map + Enchantment
-                    if (chiselItem.canChisel(this.client.world, blockHit.getBlockPos(), item, player)) {
+                    if (chiselItem.canChisel(this.minecraft.level, blockHit.getBlockPos(), item, player)) {
                         targetProgress = 1.0F;
                     }
                 }
                 // SLEDGEHAMMER
                 else if (item.getItem() instanceof SledgehammerItem sledgehammerItem) {
-                    net.minecraft.util.math.Vec3d relativeHit = blockHit.getPos().subtract(net.minecraft.util.math.Vec3d.of(blockHit.getBlockPos()));
+                    net.minecraft.world.phys.Vec3 relativeHit = blockHit.getLocation().subtract(net.minecraft.world.phys.Vec3.atLowerCornerOf(blockHit.getBlockPos()));
                     if (sledgehammerItem.getTransformationState(
-                            this.client.world.getBlockState(blockHit.getBlockPos()),
+                            this.minecraft.level.getBlockState(blockHit.getBlockPos()),
                             blockHit.getBlockPos(), // FIX: Position übergeben
-                            blockHit.getSide(),
+                            blockHit.getDirection(),
                             relativeHit,
-                            (PlayerEntity)player,
+                            (Player)player,
                             item
                     ) != null) {
                         targetProgress = 1.0F;
@@ -88,7 +86,7 @@ public class HeldItemRendererMixin {
 
         float smoothingSpeed = 0.15F;
 
-        if (hand == Hand.MAIN_HAND) {
+        if (hand == InteractionHand.MAIN_HAND) {
             this.mainHandChiselProgress += (targetProgress - this.mainHandChiselProgress) * smoothingSpeed;
             if (this.mainHandChiselProgress > 0.001F) {
                 this.applyChiselTransform(matrices, this.mainHandChiselProgress);
@@ -102,9 +100,9 @@ public class HeldItemRendererMixin {
     }
 
     @Unique
-    private void applyChiselTransform(MatrixStack matrices, float progress) {
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-15.0F * progress));
-        matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-10.0F * progress));
+    private void applyChiselTransform(PoseStack matrices, float progress) {
+        matrices.mulPose(Axis.YP.rotationDegrees(-15.0F * progress));
+        matrices.mulPose(Axis.XP.rotationDegrees(-10.0F * progress));
         matrices.translate(0.05 * progress, 0.05 * progress, 0.05 * progress);
     }
 }

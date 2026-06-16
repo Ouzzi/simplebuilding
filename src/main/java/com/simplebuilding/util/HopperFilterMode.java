@@ -1,22 +1,22 @@
 package com.simplebuilding.util;
 
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 
 public enum HopperFilterMode {
-    NONE(Text.literal("Disabled").formatted(Formatting.RED), Formatting.RED.getColorValue()),
-    WHITELIST(Text.literal("Exact Match").formatted(Formatting.GREEN), Formatting.GREEN.getColorValue()),
-    TYPE(Text.literal("Type Match").formatted(Formatting.YELLOW), Formatting.YELLOW.getColorValue());
+    NONE(Component.literal("Disabled").withStyle(ChatFormatting.RED), ChatFormatting.RED.getColor()),
+    WHITELIST(Component.literal("Exact Match").withStyle(ChatFormatting.GREEN), ChatFormatting.GREEN.getColor()),
+    TYPE(Component.literal("Type Match").withStyle(ChatFormatting.YELLOW), ChatFormatting.YELLOW.getColor());
 
-    private final Text text;
+    private final Component text;
     private final int color;
 
-    HopperFilterMode(Text text, Integer color) {
+    HopperFilterMode(Component text, Integer color) {
         this.text = text;
         this.color = color != null ? color : 0xFFFFFF;
     }
 
-    public Text getText() {
+    public Component getText() {
         return text;
     }
 

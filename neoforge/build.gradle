@@ -1,113 +1,137 @@
 plugins {
-    id 'java'
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.141'
 }
 
-description = 'NeoForge loader module scaffold'
-
-def versionProfile = project.findProperty('versionProfile')?.toString()
-def versionProfileProps = new Properties()
-
-if (versionProfile) {
-    def profileFile = rootProject.file("profiles/${versionProfile}.properties")
-    if (!profileFile.exists()) {
-        throw new GradleException("Version profile not found: ${profileFile}")
-    }
-    profileFile.withInputStream { versionProfileProps.load(it) }
-}
+description = 'NeoForge loader module for SimpleBuilding'
 
 def resolveSetting = { String key, String defaultValue = null ->
-    if (versionProfileProps.containsKey(key)) {
-        return versionProfileProps.getProperty(key)
-    }
     def fromProject = project.findProperty(key)
     return fromProject != null ? fromProject.toString() : defaultValue
 }
 
-def neoforgeVersionChannel = resolveSetting('neoforge_version_channel', 'fixed')
-def neoforgeVersionFixed = resolveSetting('neoforge_version_fixed', null)
-def neoforgeVersionLatest = resolveSetting('neoforge_version_latest', null)
-def neoforgeVersionLegacy = resolveSetting('neoforge_version', '0.0.0')
-
-def neoforgeVersion = neoforgeVersionChannel == 'latest' ? (neoforgeVersionLatest ?: neoforgeVersionLegacy) : (neoforgeVersionFixed ?: neoforgeVersionLegacy)
-def neoforgeLoaderVersionRange = resolveSetting('neoforge_loader_version_range', '[0,)')
-def minecraftVersionRange = resolveSetting('minecraft_version_range', '[1.21.11,1.22)')
-
-def neoforgeCoordinate = "net.neoforged:neoforge:${neoforgeVersion}"
-def neoforgeDependencyEnabled = neoforgeVersion != '0.0.0'
-
-repositories {
-    maven {
-        name = 'NeoForged'
-        url = 'https://maven.neoforged.net/releases/'
-    }
-    mavenCentral()
-}
+def neoVersion = resolveSetting('neo_version', '26.1.2.75')
+def minecraftVersionRange = resolveSetting('minecraft_version_range', '[26.1.2,26.2)')
 
 group = rootProject.group
 version = rootProject.version
 
+base {
+    archivesName = "${rootProject.archives_base_name}-neoforge"
+}
+
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
     withSourcesJar()
 }
 
+// Shared game code from the Fabric root module + NeoForge-specific adapters in this module.
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir rootProject.layout.projectDirectory.dir('src/main/java')
+            exclude { details ->
+                def path = details.file.absolutePath.replace('\\', '/')
+                def isRootFabricSource = path.contains('/simplebuilding/src/main/java/')
+                def relative = details.relativePath.pathString
+                if (!isRootFabricSource) {
+                    return false
+                }
+                return relative == 'com/simplebuilding/Simplebuilding.java'
+                        || relative == 'com/simplebuilding/SimplebuildingClient.java'
+                        || relative == 'com/simplebuilding/SimplebuildingDataGenerator.java'
+                        || relative.startsWith('com/simplebuilding/compat/')
+                        || relative.startsWith('com/simplebuilding/datagen/')
+                        || relative == 'com/simplebuilding/platform/HopperMenus.java'
+                        || relative == 'com/simplebuilding/screen/ModScreenHandlers.java'
+                        || relative == 'com/simplebuilding/command/ModCommands.java'
+                        || relative == 'com/simplebuilding/util/ModRegistries.java'
+                        || relative == 'com/simplebuilding/recipe/ModRecipes.java'
+                        || relative == 'com/simplebuilding/networking/ModMessages.java'
+                        || relative == 'com/simplebuilding/items/ModItemGroups.java'
+                        || relative == 'com/simplebuilding/blocks/entity/ModBlockEntities.java'
+                        || relative == 'com/simplebuilding/world/gen/ModOreGeneration.java'
+            }
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir rootProject.layout.projectDirectory.dir('src/main/resources')
+            srcDir rootProject.layout.projectDirectory.dir('src/main/generated')
+            exclude 'fabric.mod.json'
+        }
+    }
+}
+
+neoForge {
+    version = neoVersion
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.archives_base_name
+        }
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.archives_base_name
+        }
+        data {
+            clientData()
+            programArguments.addAll '--mod', project.archives_base_name, '--all',
+                    '--output', file('src/generated/resources/').absolutePath,
+                    '--existing', rootProject.file('src/main/resources/').absolutePath,
+                    '--existing', rootProject.file('src/main/generated/').absolutePath
+        }
+        configureEach {
+            logLevel = org.slf4j.event.Level.INFO
+        }
+    }
+
+    mods {
+        "${archives_base_name}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+repositories {
+    maven { url = 'https://maven.shedaniel.me/' }
+}
+
 dependencies {
     implementation project(':common')
-
-    if (neoforgeDependencyEnabled) {
-        compileOnly neoforgeCoordinate
-    }
+    implementation 'me.shedaniel.cloth:cloth-config-neoforge:26.1.154'
 }
 
 tasks.named('processResources', ProcessResources).configure {
-    inputs.property 'modVersion', project.version
-    inputs.property 'modId', project.archives_base_name
-    inputs.property 'loaderVersionRange', neoforgeLoaderVersionRange
-    inputs.property 'minecraftVersionRange', minecraftVersionRange
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    def replaceProperties = [
+            modVersion           : project.version,
+            modId                : project.archives_base_name,
+            loaderVersionRange   : resolveSetting('neoforge_loader_version_range', '[11,)'),
+            minecraftVersionRange: minecraftVersionRange,
+    ]
+    inputs.properties replaceProperties
     filesMatching('META-INF/neoforge.mods.toml') {
-        expand(
-            modVersion: project.version,
-            modId: project.archives_base_name,
-            loaderVersionRange: neoforgeLoaderVersionRange,
-            minecraftVersionRange: minecraftVersionRange
-        )
+        expand replaceProperties
     }
+}
+
+tasks.withType(Jar).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.named('jar').configure {
-    archiveClassifier = 'neoforge'
-}
-
-tasks.register('loaderStatus') {
-    group = 'migration'
-    description = 'Shows whether NeoForge dependency coordinates are configured.'
-    doLast {
-        println "Version profile: ${versionProfile ?: '(none)'}"
-        println "NeoForge version channel: ${neoforgeVersionChannel}"
-        println "NeoForge dependency enabled: ${neoforgeDependencyEnabled}"
-        println "NeoForge coordinate: ${neoforgeCoordinate}"
-        if (!neoforgeDependencyEnabled) {
-            println 'Set neoforge_version_fixed (or legacy neoforge_version) in gradle.properties to enable compileOnly NeoForge dependency.'
-        }
-    }
-}
-
-tasks.register('requireLoaderVersion') {
-    group = 'migration'
-    description = 'Fails when neoforge_version is still placeholder.'
-    doLast {
-        if (!neoforgeDependencyEnabled) {
-            throw new GradleException('NeoForge dependency is disabled. Configure neoforge_version_fixed or neoforge_version.')
-        }
-    }
-}
-
-tasks.register('portStatus') {
-    group = 'migration'
-    description = 'Shows current NeoForge migration status.'
-    doLast {
-        println 'NeoForge scaffold with optional compileOnly dependency is ready. Next: real NeoForge plugin wiring and @Mod bootstrap.'
+    manifest {
+        attributes([
+                'Specification-Title'     : 'simplebuilding',
+                'Specification-Vendor'    : 'simplebuilding',
+                'Specification-Version'   : project.version,
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.version,
+        ])
     }
 }

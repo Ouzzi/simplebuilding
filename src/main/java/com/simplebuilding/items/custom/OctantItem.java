@@ -1,29 +1,29 @@
 package com.simplebuilding.items.custom;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 
 public class OctantItem extends Item {
 
@@ -42,7 +42,7 @@ public class OctantItem extends Item {
         private final String translationKey;
         SelectionShape(String translationKey) { this.translationKey = translationKey; }
         public String getTranslationKey() { return translationKey; }
-        public Text getText() { return Text.translatable(translationKey); }
+        public Component getText() { return Component.translatable(translationKey); }
     }
 
     public enum FillOrder {
@@ -52,10 +52,10 @@ public class OctantItem extends Item {
 
         private final String translationKey;
         FillOrder(String translationKey) { this.translationKey = translationKey; }
-        public Text getText() { return Text.translatable(translationKey); }
+        public Component getText() { return Component.translatable(translationKey); }
     }
 
-    public OctantItem(Settings settings, @Nullable DyeColor color) {
+    public OctantItem(Properties settings, @Nullable DyeColor color) {
         super(settings);
         this.color = color;
     }
@@ -63,66 +63,66 @@ public class OctantItem extends Item {
     public DyeColor getColor() { return this.color; }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        World world = context.getWorld();
-        BlockPos pos = context.getBlockPos();
-        PlayerEntity player = context.getPlayer();
-        ItemStack stack = context.getStack();
+    public InteractionResult useOn(UseOnContext context) {
+        Level world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        Player player = context.getPlayer();
+        ItemStack stack = context.getItemInHand();
 
-        if (!world.isClient()) {
-            NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-            NbtCompound nbt = nbtData.copyNbt();
+        if (!world.isClientSide()) {
+            CustomData nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+            CompoundTag nbt = nbtData.copyTag();
 
-            if (nbt.getBoolean("Locked", false)) {
+            if (nbt.getBooleanOr("Locked", false)) {
                 if (player != null) {
-                    player.sendMessage(Text.translatable("simplebuilding.gui.locked").formatted(Formatting.RED), true);
+                    player.sendSystemMessage(Component.translatable("simplebuilding.gui.locked").withStyle(ChatFormatting.RED));
                 }
-                return ActionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
 
             if (player != null) {
-                if (!player.isSneaking()) {
+                if (!player.isShiftKeyDown()) {
                     nbt.putIntArray("Pos1", new int[]{pos.getX(), pos.getY(), pos.getZ()});
-                    world.playSound(null, pos, SoundEvents.BLOCK_COPPER_STEP, SoundCategory.PLAYERS, 0.3f, 2f);
+                    world.playSound(null, pos, SoundEvents.COPPER_STEP, SoundSource.PLAYERS, 0.3f, 2f);
                 } else {
                     nbt.putIntArray("Pos2", new int[]{pos.getX(), pos.getY(), pos.getZ()});
-                    world.playSound(null, pos, SoundEvents.BLOCK_COPPER_STEP, SoundCategory.PLAYERS, 0.3f, 1.5f);
+                    world.playSound(null, pos, SoundEvents.COPPER_STEP, SoundSource.PLAYERS, 0.3f, 1.5f);
                 }
-                if (!player.getAbilities().creativeMode) {
-                    stack.damage(1, (ServerWorld) world, (ServerPlayerEntity) player, item -> player.sendEquipmentBreakStatus(item, context.getHand() == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
+                if (!player.getAbilities().instabuild) {
+                    stack.hurtAndBreak(1, (ServerLevel) world, (ServerPlayer) player, item -> player.onEquippedItemBroken(item, context.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
                 }
             }
-            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        ItemStack stack = user.getStackInHand(hand);
-        NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        if (nbtData.copyNbt().getBoolean("Locked", false)) {
-             return ActionResult.PASS;
+    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+        ItemStack stack = user.getItemInHand(hand);
+        CustomData nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        if (nbtData.copyTag().getBooleanOr("Locked", false)) {
+             return InteractionResult.PASS;
         }
 
-        if (!world.isClient() && user.isSneaking()) {
-            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-            world.playSound(null, user.getBlockPos(), SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 0.5f, 1f);
-            return ActionResult.SUCCESS;
+        if (!world.isClientSide() && user.isShiftKeyDown()) {
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+            world.playSound(null, user.blockPosition(), SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 0.5f, 1f);
+            return InteractionResult.SUCCESS;
         }
         return super.use(world, user, hand);
     }
 
     @Override
-    public Text getName(ItemStack stack) {
-        Text baseName = super.getName(stack);
-        NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        NbtCompound nbt = nbtComponent.copyNbt();
+    public Component getName(ItemStack stack) {
+        Component baseName = super.getName(stack);
+        CustomData nbtComponent = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        CompoundTag nbt = nbtComponent.copyTag();
         if (nbt.contains("Shape")) {
             try {
-                SelectionShape shape = SelectionShape.valueOf(nbt.getString("Shape", ""));
+                SelectionShape shape = SelectionShape.valueOf(nbt.getStringOr("Shape", ""));
                 if (shape != SelectionShape.CUBOID) {
-                    return Text.empty().append(baseName).append(Text.literal(" (")).append(shape.getText()).append(Text.literal(")").formatted(Formatting.GRAY));
+                    return Component.empty().append(baseName).append(Component.literal(" (")).append(shape.getText()).append(Component.literal(")").withStyle(ChatFormatting.GRAY));
                 }
             } catch (Exception ignored) {}
         }
@@ -131,31 +131,31 @@ public class OctantItem extends Item {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        NbtComponent nbtData = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT);
-        NbtCompound nbt = nbtData.copyNbt();
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
+        CustomData nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        CompoundTag nbt = nbtData.copyTag();
 
-        if (nbt.getBoolean("Locked", false)) {
-            textConsumer.accept(Text.translatable("simplebuilding.gui.locked").formatted(Formatting.RED, Formatting.BOLD));
+        if (nbt.getBooleanOr("Locked", false)) {
+            textConsumer.accept(Component.translatable("simplebuilding.gui.locked").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (nbt.contains("Pos1")) {
             nbt.getIntArray("Pos1").ifPresent(p1 -> {
                 if (p1.length == 3) {
                     BlockPos pos1 = new BlockPos(p1[0], p1[1], p1[2]);
-                    textConsumer.accept(Text.literal(pos1.toShortString()).formatted(Formatting.YELLOW));
+                    textConsumer.accept(Component.literal(pos1.toShortString()).withStyle(ChatFormatting.YELLOW));
                     if (nbt.contains("Pos2")) {
                         nbt.getIntArray("Pos2").ifPresent(p2 -> {
                             if (p2.length == 3) {
                                 BlockPos pos2 = new BlockPos(p2[0], p2[1], p2[2]);
-                                textConsumer.accept(Text.literal(pos2.toShortString()).formatted(Formatting.GREEN));
+                                textConsumer.accept(Component.literal(pos2.toShortString()).withStyle(ChatFormatting.GREEN));
                             }
                         });
                     }
                 }
             });
         }
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+        super.appendHoverText(stack, context, displayComponent, textConsumer, type);
     }
 }
 

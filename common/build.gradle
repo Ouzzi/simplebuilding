@@ -4,14 +4,22 @@ plugins {
 
 description = 'Shared cross-loader sources (scaffold)'
 
+repositories {
+    mavenCentral()
+}
+
 group = rootProject.group
 version = rootProject.version
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
     withSourcesJar()
+}
+
+dependencies {
+    api 'org.slf4j:slf4j-api:2.0.16'
 }
 
 tasks.register('portStatus') {

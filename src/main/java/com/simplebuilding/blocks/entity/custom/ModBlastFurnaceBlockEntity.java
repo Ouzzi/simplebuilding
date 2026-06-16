@@ -1,17 +1,17 @@
 package com.simplebuilding.blocks.entity.custom;
 
 import com.simplebuilding.blocks.entity.ModBlockEntities;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.BlastFurnaceMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import com.simplebuilding.blocks.ModBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.screen.BlastFurnaceScreenHandler;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
 
 public class ModBlastFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
 
@@ -20,19 +20,19 @@ public class ModBlastFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
     }
 
     @Override
-    protected Text getContainerName() {
-        return Text.translatable("container.simplebuilding.reinforced_blast_furnace");
+    protected Component getDefaultName() {
+        return Component.translatable("container.simplebuilding.reinforced_blast_furnace");
     }
 
     @Override
-    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new BlastFurnaceScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+    protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
+        return new BlastFurnaceMenu(syncId, playerInventory, this, this.dataAccess);
     }
 
-    public static void tick(ServerWorld world, BlockPos pos, BlockState state, ModBlastFurnaceBlockEntity blockEntity) {
-        AbstractFurnaceBlockEntity.tick(world, pos, state, blockEntity);
+    public static void tick(ServerLevel world, BlockPos pos, BlockState state, ModBlastFurnaceBlockEntity blockEntity) {
+        AbstractFurnaceBlockEntity.serverTick(world, pos, state, blockEntity);
 
-        PropertyDelegate data = blockEntity.propertyDelegate;
+        ContainerData data = blockEntity.dataAccess;
         int cookTime = data.get(2);
         int totalTime = data.get(3);
         boolean isBurning = data.get(0) > 0;
@@ -40,9 +40,9 @@ public class ModBlastFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         if (isBurning && cookTime > 0 && totalTime > 0) {
             int extraTicks = 0;
 
-            if (state.isOf(ModBlocks.NETHERITE_BLAST_FURNACE)) {
+            if (state.is(ModBlocks.NETHERITE_BLAST_FURNACE)) {
                 extraTicks = 3;
-            } else if (state.isOf(ModBlocks.REINFORCED_BLAST_FURNACE)) {
+            } else if (state.is(ModBlocks.REINFORCED_BLAST_FURNACE)) {
                 extraTicks = 1;
             }
 

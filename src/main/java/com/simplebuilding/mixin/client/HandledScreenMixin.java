@@ -1,26 +1,26 @@
 package com.simplebuilding.mixin.client;
 
 import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltipSubmenuHandler;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.tooltip.TooltipSubmenuHandler;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.ItemSlotMouseAction;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(HandledScreen.class)
+@Mixin(AbstractContainerScreen.class)
 public abstract class HandledScreenMixin extends Screen {
 
-    protected HandledScreenMixin(Text title) {
+    protected HandledScreenMixin(Component title) {
         super(title);
     }
 
-    // Zugriff auf die geschützte Methode in HandledScreen, um Handler hinzuzufügen
+    // Zugriff auf die geschützte Methode in AbstractContainerScreen, um Handler hinzuzufügen
     @Shadow
-    protected abstract void addTooltipSubmenuHandler(TooltipSubmenuHandler handler);
+    protected abstract void addItemSlotMouseAction(ItemSlotMouseAction handler);
 
     /**
      * Wir injizieren uns in die 'init' Methode.
@@ -29,8 +29,8 @@ public abstract class HandledScreenMixin extends Screen {
      */
     @Inject(method = "init", at = @At("TAIL"))
     private void simplebuilding$addCustomBundleHandler(CallbackInfo ci) {
-        if (this.client != null) {
-            this.addTooltipSubmenuHandler(new ReinforcedBundleTooltipSubmenuHandler(this.client));
+        if (this.minecraft != null) {
+            this.addItemSlotMouseAction(new ReinforcedBundleTooltipSubmenuHandler(this.minecraft));
         }
     }
 }

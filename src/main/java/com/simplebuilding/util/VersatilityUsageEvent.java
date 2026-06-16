@@ -3,40 +3,41 @@ package com.simplebuilding.util;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.ChiselItem;
 import com.simplebuilding.items.custom.SledgehammerItem;
-import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
-import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.network.packet.s2c.play.UpdateSelectedSlotS2CPacket;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.protocol.game.ClientboundSetHeldSlotPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class VersatilityUsageEvent implements AttackBlockCallback {
+public final class VersatilityUsageEvent {
 
-    @Override
-    public ActionResult interact(PlayerEntity player, World world, Hand hand, BlockPos pos, Direction direction) {
+    private VersatilityUsageEvent() {
+    }
+
+    public static InteractionResult handleAttackBlock(Player player, Level world, InteractionHand hand, BlockPos pos, Direction direction) {
         // Nur Server-seitig und nur wenn geschlichen wird
-        if (world.isClient() || !player.isSneaking()) return ActionResult.PASS;
+        if (world.isClientSide() || !player.isShiftKeyDown()) return InteractionResult.PASS;
 
-        ItemStack currentStack = player.getMainHandStack();
+        ItemStack currentStack = player.getMainHandItem();
 
         // Hat das Item das Enchantment?
-        var registry = world.getRegistryManager();
-        var enchantLookup = registry.getOrThrow(RegistryKeys.ENCHANTMENT);
-        var versatilityKey = enchantLookup.getOptional(ModEnchantments.VERSATILITY);
+        var registry = world.registryAccess();
+        var enchantLookup = registry.lookupOrThrow(Registries.ENCHANTMENT);
+        var versatilityKey = enchantLookup.get(ModEnchantments.VERSATILITY);
 
-        if (versatilityKey.isEmpty()) return ActionResult.PASS;
+        if (versatilityKey.isEmpty()) return InteractionResult.PASS;
 
-        int level = EnchantmentHelper.getLevel(versatilityKey.get(), currentStack);
-        if (level <= 0) return ActionResult.PASS;
+        int level = EnchantmentHelper.getItemEnchantmentLevel(versatilityKey.get(), currentStack);
+        if (level <= 0) return InteractionResult.PASS;
 
         BlockState state = world.getBlockState(pos);
 
@@ -46,7 +47,7 @@ public class VersatilityUsageEvent implements AttackBlockCallback {
         int bestSlot = -1;
         float bestScore = currentScore;
 
-        PlayerInventory inv = player.getInventory();
+        Inventory inv = player.getInventory();
 
         // Level 1: Nur Hotbar (0-8)
         // Level 2: Gesamtes Inventar (0-35)
@@ -55,7 +56,7 @@ public class VersatilityUsageEvent implements AttackBlockCallback {
         for (int i = 0; i < searchRange; i++) {
             if (i == inv.getSelectedSlot()) continue;
 
-            ItemStack stackInSlot = inv.getStack(i);
+            ItemStack stackInSlot = inv.getItem(i);
             if (stackInSlot.isEmpty()) continue;
 
             // 2. Bewerte jedes Item im Inventar
@@ -76,41 +77,41 @@ public class VersatilityUsageEvent implements AttackBlockCallback {
                 inv.setSelectedSlot(bestSlot);
 
                 // Client über den Slot-Wechsel informieren
-                if (player instanceof ServerPlayerEntity serverPlayer) {
-                    serverPlayer.networkHandler.sendPacket(new UpdateSelectedSlotS2CPacket(bestSlot));
+                if (player instanceof ServerPlayer serverPlayer) {
+                    serverPlayer.connection.send(new ClientboundSetHeldSlotPacket(bestSlot));
                 }
             }
             // Fall 2: Das bessere Item ist im Inventar (9-35) -> Nur bei Level 2 möglich
             else {
                 int currentSlot = inv.getSelectedSlot();
-                ItemStack stackInHand = inv.getStack(currentSlot);
-                ItemStack stackInStorage = inv.getStack(bestSlot);
+                ItemStack stackInHand = inv.getItem(currentSlot);
+                ItemStack stackInStorage = inv.getItem(bestSlot);
 
                 // Items tauschen
-                inv.setStack(currentSlot, stackInStorage);
-                inv.setStack(bestSlot, stackInHand);
+                inv.setItem(currentSlot, stackInStorage);
+                inv.setItem(bestSlot, stackInHand);
 
                 // Inventar-Updates an den Client senden
-                if (player instanceof ServerPlayerEntity serverPlayer) {
-                    serverPlayer.currentScreenHandler.sendContentUpdates();
+                if (player instanceof ServerPlayer serverPlayer) {
+                    serverPlayer.containerMenu.broadcastChanges();
                 }
             }
         }
 
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 
     /**
      * Berechnet einen Score für ein Werkzeug basierend auf Effektivität und Typ-Präferenz.
      * Score = Speed + Bonus
      */
-    private float getToolScore(ItemStack stack, BlockState state) {
+    private static float getToolScore(ItemStack stack, BlockState state) {
         if (stack.isEmpty()) return -1f;
 
         // Wenn das Item den Block nicht abbauen kann (keine Drops/falsches Tool), ist es nutzlos.
-        if (!stack.isSuitableFor(state)) return -1f;
+        if (!stack.isCorrectToolForDrops(state)) return -1f;
 
-        float speed = stack.getMiningSpeedMultiplier(state);
+        float speed = stack.getDestroySpeed(state);
         // Fallback: Manchmal ist speed 1.0 trotz suitability, wir nehmen den Speed als Basis.
         float score = speed;
 
@@ -126,9 +127,9 @@ public class VersatilityUsageEvent implements AttackBlockCallback {
             score += 2000f;
         }
         // 3. Standard-Werkzeuge (Spitzhacke, Axt, Schaufel): Hohe Priorität (Bonus 1000).
-        else if (stack.isIn(ItemTags.PICKAXES) ||
-                 stack.isIn(ItemTags.AXES) ||
-                 stack.isIn(ItemTags.SHOVELS)) {
+        else if (stack.is(ItemTags.PICKAXES) ||
+                 stack.is(ItemTags.AXES) ||
+                 stack.is(ItemTags.SHOVELS)) {
             score += 1000f;
         }
         // 4. Sonstige geeignete Items (z.B. Schere, Schwert): Mittlere Priorität.

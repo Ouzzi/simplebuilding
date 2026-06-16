@@ -78,13 +78,6 @@
           "model": "simplebuilding:item/enderite_leggings_resin_trim"
         },
         "when": "minecraft:resin"
-      },
-      {
-        "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/enderite_leggings_enderite_trim"
-        },
-        "when": "simplebuilding:enderite"
       }
     ],
     "fallback": {

@@ -1,7 +1,7 @@
 package com.simplebuilding.util;
 
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.gen.structure.Structure;
+import net.minecraft.ChatFormatting;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.levelgen.structure.Structure;
 
-public record StructureConfig(TagKey<Structure> tag, String name, Formatting color) {}
+public record StructureConfig(TagKey<Structure> tag, String name, ChatFormatting color) {}

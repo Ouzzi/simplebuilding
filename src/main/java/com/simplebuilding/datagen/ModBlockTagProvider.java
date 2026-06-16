@@ -1,23 +1,22 @@
 package com.simplebuilding.datagen;
 
 import com.simplebuilding.blocks.ModBlocks;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.BlockTags;
-
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.BlockTags;
 import java.util.concurrent.CompletableFuture;
 
-public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
-    public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
+    public ModBlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup arg) {
+    protected void addTags(HolderLookup.Provider arg) {
         // 1. Der Block soll mit einer Spitzhacke SCHNELLER abbaubar sein
         // Das behalten wir bei.
-        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.CRACKED_DIAMOND_BLOCK)
                 .add(ModBlocks.REINFORCED_HOPPER)
                 .add(ModBlocks.NETHERITE_HOPPER)
@@ -38,7 +37,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 
         // Pickaxe Mineable
-        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(ModBlocks.NIHILITH_ORE)
                 .add(ModBlocks.ASTRALIT_ORE)
                 .add(ModBlocks.ENDERITE_BLOCK);

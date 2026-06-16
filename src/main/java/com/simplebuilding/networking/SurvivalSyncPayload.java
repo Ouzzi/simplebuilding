@@ -1,23 +1,23 @@
 package com.simplebuilding.networking;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 
-public record SurvivalSyncPayload(int currentDist, int currentTime, int currentHostile, int currentPassive, int currentDamage) implements CustomPayload {
-    public static final CustomPayload.Id<SurvivalSyncPayload> ID = new CustomPayload.Id<>(Identifier.of("simplebuilding", "survival_sync"));
+public record SurvivalSyncPayload(int currentDist, int currentTime, int currentHostile, int currentPassive, int currentDamage) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<SurvivalSyncPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath("simplebuilding", "survival_sync"));
 
-    public static final PacketCodec<RegistryByteBuf, SurvivalSyncPayload> CODEC = PacketCodec.tuple(
-            PacketCodecs.INTEGER, SurvivalSyncPayload::currentDist,
-            PacketCodecs.INTEGER, SurvivalSyncPayload::currentTime,
-            PacketCodecs.INTEGER, SurvivalSyncPayload::currentHostile,
-            PacketCodecs.INTEGER, SurvivalSyncPayload::currentPassive,
-            PacketCodecs.INTEGER, SurvivalSyncPayload::currentDamage,
+    public static final StreamCodec<RegistryFriendlyByteBuf, SurvivalSyncPayload> CODEC = StreamCodec.composite(
+            ByteBufCodecs.INT, SurvivalSyncPayload::currentDist,
+            ByteBufCodecs.INT, SurvivalSyncPayload::currentTime,
+            ByteBufCodecs.INT, SurvivalSyncPayload::currentHostile,
+            ByteBufCodecs.INT, SurvivalSyncPayload::currentPassive,
+            ByteBufCodecs.INT, SurvivalSyncPayload::currentDamage,
             SurvivalSyncPayload::new
     );
 
     @Override
-    public Id<? extends CustomPayload> getId() { return ID; }
+    public Type<? extends CustomPacketPayload> type() { return ID; }
 }

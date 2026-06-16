@@ -78,13 +78,6 @@
           "model": "simplebuilding:item/enderite_boots_resin_trim"
         },
         "when": "minecraft:resin"
-      },
-      {
-        "model": {
-          "type": "minecraft:model",
-          "model": "simplebuilding:item/enderite_boots_enderite_trim"
-        },
-        "when": "simplebuilding:enderite"
       }
     ],
     "fallback": {

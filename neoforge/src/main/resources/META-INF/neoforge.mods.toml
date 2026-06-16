@@ -2,24 +2,38 @@ modLoader="javafml"
 loaderVersion="${loaderVersionRange}"
 license="CC0-1.0"
 
+[[mixins]]
+config="simplebuilding.mixins.json"
+
+[[mixins]]
+config="simplebuilding.client.mixins.json"
+
 [[mods]]
 modId="${modId}"
 version="${modVersion}"
-displayName="simplebuilding"
+displayName="SimpleBuilding"
 description='''
-SimpleBuilding (NeoForge scaffold).
+SimpleBuilding for NeoForge 26.1.2
 '''
+authors="simplebuilding"
 
 [[dependencies.${modId}]]
 modId="neoforge"
-mandatory=true
-versionRange="[0,)"
+type="required"
+versionRange="[26,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.${modId}]]
 modId="minecraft"
-mandatory=true
+type="required"
 versionRange="${minecraftVersionRange}"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
+modId="cloth_config"
+type="optional"
+versionRange="[26,)"
 ordering="NONE"
 side="BOTH"

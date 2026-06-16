@@ -1,26 +1,26 @@
 package com.simplebuilding.networking;
 
 import com.simplebuilding.Simplebuilding;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 
 // Neu: boolean shift, boolean control
-public record OctantScrollPayload(int amount, boolean shift, boolean control, boolean alt) implements CustomPayload {
-    public static final CustomPayload.Id<OctantScrollPayload> ID = new CustomPayload.Id<>(Identifier.of(Simplebuilding.MOD_ID, "octant_scroll"));
+public record OctantScrollPayload(int amount, boolean shift, boolean control, boolean alt) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<OctantScrollPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "octant_scroll"));
 
-    public static final PacketCodec<RegistryByteBuf, OctantScrollPayload> CODEC = PacketCodec.tuple(
-            PacketCodecs.INTEGER, OctantScrollPayload::amount,
-            PacketCodecs.BOOLEAN, OctantScrollPayload::shift,
-            PacketCodecs.BOOLEAN, OctantScrollPayload::control,
-            PacketCodecs.BOOLEAN, OctantScrollPayload::alt,
+    public static final StreamCodec<RegistryFriendlyByteBuf, OctantScrollPayload> CODEC = StreamCodec.composite(
+            ByteBufCodecs.INT, OctantScrollPayload::amount,
+            ByteBufCodecs.BOOL, OctantScrollPayload::shift,
+            ByteBufCodecs.BOOL, OctantScrollPayload::control,
+            ByteBufCodecs.BOOL, OctantScrollPayload::alt,
             OctantScrollPayload::new
     );
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> getId() {
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 }

@@ -3,51 +3,48 @@ package com.simplebuilding.client.gui.tooltip;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.networking.ReinforcedBundleSelectionPayload;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.tooltip.TooltipSubmenuHandler;
-import net.minecraft.component.type.BundleContentsComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.util.math.MathHelper;
+import com.simplebuilding.platform.ClientNetworking;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ItemSlotMouseAction;
+import net.minecraft.util.Mth;
+import net.minecraft.world.inventory.ContainerInput;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.BundleContents;
 
-@Environment(EnvType.CLIENT)
-public class ReinforcedBundleTooltipSubmenuHandler implements TooltipSubmenuHandler {
-    private final MinecraftClient client;
+public class ReinforcedBundleTooltipSubmenuHandler implements ItemSlotMouseAction {
+    private final Minecraft client;
 
-    public ReinforcedBundleTooltipSubmenuHandler(MinecraftClient client) {
+    public ReinforcedBundleTooltipSubmenuHandler(Minecraft client) {
         this.client = client;
     }
 
     @Override
-    public boolean isApplicableTo(Slot slot) {
+    public boolean matches(Slot slot) {
         // Das stellt sicher, dass unser Handler nur aktiv wird, wenn die Maus über deinem Bundle ist.
-        return slot.hasStack() && slot.getStack().getItem() instanceof com.simplebuilding.items.custom.ReinforcedBundleItem;
+        return slot.hasItem() && slot.getItem().getItem() instanceof com.simplebuilding.items.custom.ReinforcedBundleItem;
     }
 
     @Override
-    public boolean onScroll(double horizontal, double vertical, int slotId, ItemStack stack) {
-        var data = stack.getTooltipData();
+    public boolean onMouseScrolled(double horizontal, double vertical, int slotId, ItemStack stack) {
+        var data = stack.getTooltipImage();
         if (data.isPresent() && data.get() instanceof ReinforcedBundleTooltipData reinforcedData) {
-            BundleContentsComponent contents = reinforcedData.contents();
+            BundleContents contents = reinforcedData.contents();
             int size = contents.size();
 
             if (size == 0) return false;
 
-            int currentIndex = contents.getSelectedStackIndex();
-            if (currentIndex == -1) currentIndex = 0;
+            int currentIndex = contents.getSelectedItemIndex();
+            if (currentIndex == BundleContents.NO_SELECTED_ITEM_INDEX) currentIndex = 0;
 
             // Richtung umkehren für natürliches Scrollen
             int scrollDelta = (int) -vertical;
-            int newIndex = MathHelper.clamp(currentIndex + scrollDelta, 0, size - 1);
+            int newIndex = Mth.clamp(currentIndex + scrollDelta, 0, size - 1);
 
             if (newIndex != currentIndex) {
                 // 1. Paket an Server senden (für Logik)
-                if (this.client.getNetworkHandler() != null) {
-                    ClientPlayNetworking.send(new ReinforcedBundleSelectionPayload(slotId, newIndex));
+                if (this.client.getConnection() != null) {
+                    ClientNetworking.send(new ReinforcedBundleSelectionPayload(slotId, newIndex));
                 }
 
                 // 2. WICHTIG: Client-Item sofort updaten (für visuelles Feedback im Tooltip)
@@ -59,15 +56,14 @@ public class ReinforcedBundleTooltipSubmenuHandler implements TooltipSubmenuHand
         return false;
     }
 
-    @Override
-    public void onMouseClick(Slot slot, SlotActionType actionType) {
+    public void onSlotClicked(Slot slot, ContainerInput actionType) {
         // Reset bei Klick, falls gewünscht, oder leer lassen
     }
 
     @Override
-    public void reset(Slot slot) {
-        if (this.client.getNetworkHandler() != null) {
-            ClientPlayNetworking.send(new ReinforcedBundleSelectionPayload(slot.id, -1));
+    public void onStopHovering(Slot slot) {
+        if (this.client.getConnection() != null) {
+            ClientNetworking.send(new ReinforcedBundleSelectionPayload(slot.index, -1));
         }
     }
 }

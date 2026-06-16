@@ -1,20 +1,20 @@
 package com.simplebuilding.util;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.IllagerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.equipment.trim.ArmorTrim;
-import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.server.network.ServerPlayerEntity; // Wichtig
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.illager.AbstractIllager;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.trim.ArmorTrim;
+import net.minecraft.world.phys.Vec3;
 
 public class TrimEffectUtil {
 
@@ -26,7 +26,7 @@ public class TrimEffectUtil {
      * geben wir 1.0 zurück oder einen Schätzwert.
      */
     public static float getGlobalMultiplier(LivingEntity entity) {
-        if (entity instanceof ServerPlayerEntity serverPlayer) {
+        if (entity instanceof ServerPlayer serverPlayer) {
             return (float) TrimMultiplierLogic.getMultiplier(serverPlayer);
         }
         // Fallback für Client/Mobs: 20% Effektivität (damit man im Tooltip sieht, dass was passiert)
@@ -46,14 +46,14 @@ public class TrimEffectUtil {
         float score = 0f;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
-                ItemStack stack = entity.getEquippedStack(slot);
-                var optionalTrim = stack.get(DataComponentTypes.TRIM);
+                ItemStack stack = entity.getItemBySlot(slot);
+                var optionalTrim = stack.get(DataComponents.TRIM);
 
                 if (optionalTrim != null) {
                     String patternId = optionalTrim.pattern().value().assetId().getPath();
                     if (patternId.contains(patternPath)) {
-                        String materialName = optionalTrim.material().getKey()
-                                .map(key -> key.getValue().getPath()).orElse("");
+                        String materialName = optionalTrim.material().unwrapKey()
+                                .map(key -> key.identifier().getPath()).orElse("");
 
                         // Material Boni für Trim-Effektivität
                         if (materialName.contains("enderite")) {
@@ -80,10 +80,10 @@ public class TrimEffectUtil {
         int count = 0;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
-                ItemStack stack = entity.getEquippedStack(slot);
-                var optionalTrim = stack.get(DataComponentTypes.TRIM);
+                ItemStack stack = entity.getItemBySlot(slot);
+                var optionalTrim = stack.get(DataComponents.TRIM);
                 if (optionalTrim != null) {
-                    String materialId = optionalTrim.material().getKey().map(key -> key.getValue().getPath()).orElse("");
+                    String materialId = optionalTrim.material().unwrapKey().map(key -> key.identifier().getPath()).orElse("");
                     if (materialId.contains(materialPath)) {
                         count++;
                     }
@@ -95,11 +95,11 @@ public class TrimEffectUtil {
 
     // --- TICK LOGIC (Server-Side Effects) ---
 
-    private static final Identifier ENDERSCAPE_STASIS_PATTERN = Identifier.of("enderscape", "stasis");
+    private static final Identifier ENDERSCAPE_STASIS_PATTERN = Identifier.fromNamespaceAndPath("enderscape", "stasis");
 
-    public static void tick(PlayerEntity player) {
+    public static void tick(Player player) {
         // Nur Server-Logik für Status-Effekte
-        if (!player.getEntityWorld().isClient()) {
+        if (!player.level().isClientSide()) {
             double multiplier = TrimMultiplierLogic.getMultiplier(player);
 
             // 1. Stasis Trim Check
@@ -119,7 +119,7 @@ public class TrimEffectUtil {
                 else if (jumpScore >= 2.0) amplifier = 0; // Jump Boost I
 
                 if (amplifier >= 0) {
-                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 40, amplifier, true, false, true));
+                     player.addEffect(new MobEffectInstance(MobEffects.JUMP_BOOST, 40, amplifier, true, false, true));
                 }
             }
         }
@@ -127,28 +127,28 @@ public class TrimEffectUtil {
 
     // --- MOVEMENT LOGIC (Nihilith) ---
     // Wird vom PlayerEntityMixin aufgerufen (Client & Server für flüssige Bewegung)
-    public static void handleNihilithGravity(PlayerEntity player) {
+    public static void handleNihilithGravity(Player player) {
         int nihilithPieces = getMaterialCount(player, "nihilith");
 
-        if (nihilithPieces > 0 && player.isSneaking() && !player.isOnGround() && !player.getAbilities().flying) {
-            Vec3d velocity = player.getVelocity();
+        if (nihilithPieces > 0 && player.isShiftKeyDown() && !player.onGround() && !player.getAbilities().flying) {
+            Vec3 velocity = player.getDeltaMovement();
             double downwardForce = 0.08 * nihilithPieces;
 
             if (velocity.y > -2.0) {
                 // addVelocity setzt intern 'velocityModified = true', daher brauchen wir es hier nicht manuell.
-                player.addVelocity(0, -downwardForce, 0);
+                player.push(0, -downwardForce, 0);
             }
         }
     }
 
-    private static int countTrimById(PlayerEntity player, Identifier patternId) {
+    private static int countTrimById(Player player, Identifier patternId) {
         int count = 0;
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
-                ItemStack stack = player.getEquippedStack(slot);
+                ItemStack stack = player.getItemBySlot(slot);
                 if (stack.isEmpty()) continue;
-                ArmorTrim trim = stack.get(DataComponentTypes.TRIM);
-                if (trim != null && trim.pattern().matchesId(patternId)) {
+                ArmorTrim trim = stack.get(DataComponents.TRIM);
+                if (trim != null && trim.pattern().is(patternId)) {
                     count++;
                 }
             }
@@ -156,7 +156,7 @@ public class TrimEffectUtil {
         return count;
     }
 
-    private static void applyStasisEffect(PlayerEntity player, double multiplier, int pieces) {
+    private static void applyStasisEffect(Player player, double multiplier, int pieces) {
         double powerScore = multiplier * pieces;
         int amplifier = -1;
         if (powerScore >= 15.0) amplifier = 2;
@@ -164,7 +164,7 @@ public class TrimEffectUtil {
         else if (powerScore >= 2.0) amplifier = 0;
 
         if (amplifier >= 0) {
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 80, amplifier, true, false, true));
+            player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 80, amplifier, true, false, true));
         }
     }
 
@@ -178,45 +178,45 @@ public class TrimEffectUtil {
 
         // A. TRIM PATTERNS
         // ... (Deine bestehenden Pattern-Logiken bleiben hier gleich) ...
-        if (source.isIn(DamageTypeTags.IS_PROJECTILE)) multiplier -= calculateReduction(entity, "sentry", 0.05f, progressMult);
-        if (source.isOf(DamageTypes.MAGIC) || source.isOf(DamageTypes.INDIRECT_MAGIC) || (source.getSource() instanceof net.minecraft.entity.mob.VexEntity)) multiplier -= calculateReduction(entity, "vex", 0.06f, progressMult);
-        if (source.getName().equals("cactus") || source.getName().equals("sweetBerryBush") || source.getName().equals("stalagmite")) multiplier -= calculateReduction(entity, "wild", 0.10f, progressMult);
-        if (source.isIn(DamageTypeTags.IS_EXPLOSION)) multiplier -= calculateReduction(entity, "dune", 0.08f, progressMult);
-        if (source.isOf(DamageTypes.DROWN)) multiplier -= calculateReduction(entity, "coast", 0.10f, progressMult);
+        if (source.is(DamageTypeTags.IS_PROJECTILE)) multiplier -= calculateReduction(entity, "sentry", 0.05f, progressMult);
+        if (source.is(DamageTypes.MAGIC) || source.is(DamageTypes.INDIRECT_MAGIC) || (source.getDirectEntity() instanceof net.minecraft.world.entity.monster.Vex)) multiplier -= calculateReduction(entity, "vex", 0.06f, progressMult);
+        if (source.getMsgId().equals("cactus") || source.getMsgId().equals("sweetBerryBush") || source.getMsgId().equals("stalagmite")) multiplier -= calculateReduction(entity, "wild", 0.10f, progressMult);
+        if (source.is(DamageTypeTags.IS_EXPLOSION)) multiplier -= calculateReduction(entity, "dune", 0.08f, progressMult);
+        if (source.is(DamageTypes.DROWN)) multiplier -= calculateReduction(entity, "coast", 0.10f, progressMult);
         multiplier -= calculateReduction(entity, "ward", 0.03f, progressMult);
-        if (source.getName().equals("sonic_boom")) multiplier -= calculateReduction(entity, "silence", 0.20f, progressMult);
-        if (source.isIn(DamageTypeTags.IS_FIRE)) multiplier -= calculateReduction(entity, "snout", 0.05f, progressMult);
-        if (source.isOf(DamageTypes.WITHER)) multiplier -= calculateReduction(entity, "rib", 0.10f, progressMult);
-        if (source.isOf(DamageTypes.DRAGON_BREATH)) multiplier -= calculateReduction(entity, "eye", 0.10f, progressMult);
-        if (source.isIn(DamageTypeTags.IS_FALL)) multiplier -= calculateReduction(entity, "spire", 0.08f, progressMult);
-        if (source.getSource() != null && source.getSource().getType().toString().contains("wind_charge")) multiplier -= calculateReduction(entity, "flow", 0.10f, progressMult);
-        if (source.isOf(DamageTypes.LIGHTNING_BOLT)) multiplier -= calculateReduction(entity, "bolt", 0.25f, progressMult);
+        if (source.getMsgId().equals("sonic_boom")) multiplier -= calculateReduction(entity, "silence", 0.20f, progressMult);
+        if (source.is(DamageTypeTags.IS_FIRE)) multiplier -= calculateReduction(entity, "snout", 0.05f, progressMult);
+        if (source.is(DamageTypes.WITHER)) multiplier -= calculateReduction(entity, "rib", 0.10f, progressMult);
+        if (source.is(DamageTypes.DRAGON_BREATH)) multiplier -= calculateReduction(entity, "eye", 0.10f, progressMult);
+        if (source.is(DamageTypeTags.IS_FALL)) multiplier -= calculateReduction(entity, "spire", 0.08f, progressMult);
+        if (source.getDirectEntity() != null && source.getDirectEntity().getType().toString().contains("wind_charge")) multiplier -= calculateReduction(entity, "flow", 0.10f, progressMult);
+        if (source.is(DamageTypes.LIGHTNING_BOLT)) multiplier -= calculateReduction(entity, "bolt", 0.25f, progressMult);
 
         // B. TRIM MATERIALS
         // --- Vanilla Materials ---
-        if (!source.isIn(DamageTypeTags.BYPASSES_ARMOR)) {
+        if (!source.is(DamageTypeTags.BYPASSES_ARMOR)) {
             int diamondParts = getMaterialCount(entity, "diamond");
             if (diamondParts > 0) multiplier -= (diamondParts * 0.03f * progressMult);
         }
-        if (source.isOf(DamageTypes.MAGIC) || source.isOf(DamageTypes.INDIRECT_MAGIC)) {
+        if (source.is(DamageTypes.MAGIC) || source.is(DamageTypes.INDIRECT_MAGIC)) {
             int goldParts = getMaterialCount(entity, "gold");
             int lapisParts = getMaterialCount(entity, "lapis");
             if (goldParts > 0) multiplier -= (goldParts * 0.06f * progressMult);
             if (lapisParts > 0) multiplier -= (lapisParts * 0.04f * progressMult);
         }
-        if (source.isIn(DamageTypeTags.IS_PROJECTILE)) {
+        if (source.is(DamageTypeTags.IS_PROJECTILE)) {
             int ironParts = getMaterialCount(entity, "iron");
             if (ironParts > 0) multiplier -= (ironParts * 0.05f * progressMult);
         }
-        if (source.getAttacker() instanceof IllagerEntity) {
+        if (source.getEntity() instanceof AbstractIllager) {
             int emeraldParts = getMaterialCount(entity, "emerald");
             if (emeraldParts > 0) multiplier -= (emeraldParts * 0.08f * progressMult);
         }
-        if (source.isIn(DamageTypeTags.BYPASSES_ENCHANTMENTS) || source.getAttacker() instanceof net.minecraft.entity.boss.WitherEntity) {
+        if (source.is(DamageTypeTags.BYPASSES_ENCHANTMENTS) || source.getEntity() instanceof net.minecraft.world.entity.boss.wither.WitherBoss) {
             int netheriteParts = getMaterialCount(entity, "netherite");
             if (netheriteParts > 0) multiplier -= (netheriteParts * 0.05f * progressMult);
         }
-        if(source.isIn(DamageTypeTags.IS_FIRE)) {
+        if(source.is(DamageTypeTags.IS_FIRE)) {
             int quartzParts = getMaterialCount(entity, "quartz");
             if(quartzParts > 0) multiplier -= (quartzParts * 0.05f * progressMult);
         }
@@ -233,7 +233,7 @@ public class TrimEffectUtil {
 
         // Astralit & Nihilith haben Movement Effekte, aber wir geben ihnen
         // auch eine kleine physische Resistenz (wie Diamant aber schwächer), damit sie nicht nutzlos im Kampf sind.
-        if (!source.isIn(DamageTypeTags.BYPASSES_ARMOR)) {
+        if (!source.is(DamageTypeTags.BYPASSES_ARMOR)) {
             int astralParts = getMaterialCount(entity, "astralit");
             int nihilParts = getMaterialCount(entity, "nihilith");
             if (astralParts > 0) multiplier -= (astralParts * 0.02f * progressMult);
@@ -269,14 +269,14 @@ public class TrimEffectUtil {
         if (redstoneCount > 0) bonus += (redstoneCount * 0.03f);
         return 1.0f + (bonus * progressMult);
     }
-    public static float getExhaustionReduction(PlayerEntity player) {
+    public static float getExhaustionReduction(Player player) {
         float progressMult = getGlobalMultiplier(player);
         float wayfinderCount = getTrimCount(player, "wayfinder");
         if (wayfinderCount <= 0) return 0f;
         float reduction = wayfinderCount * 0.10f * progressMult;
         return Math.min(reduction, 1.0f);
     }
-    public static float getXPMultiplier(PlayerEntity player) {
+    public static float getXPMultiplier(Player player) {
         float progressMult = getGlobalMultiplier(player);
         float raiserCount = getTrimCount(player, "raiser");
         int lapisCount = getMaterialCount(player, "lapis");
@@ -287,7 +287,7 @@ public class TrimEffectUtil {
         baseBonus += (quartzCount * 0.05f);
         return 1.0f + (baseBonus * progressMult);
     }
-    public static float getLuckBonus(PlayerEntity player) {
+    public static float getLuckBonus(Player player) {
         float progressMult = getGlobalMultiplier(player);
         float hostCount = getTrimCount(player, "host");
         int emeraldCount = getMaterialCount(player, "emerald");

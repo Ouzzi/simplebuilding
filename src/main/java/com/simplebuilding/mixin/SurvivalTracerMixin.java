@@ -2,23 +2,23 @@ package com.simplebuilding.mixin;
 
 import com.simplebuilding.networking.SurvivalSyncPayload;
 import com.simplebuilding.networking.TrimDataPayload;
+import com.simplebuilding.platform.PlatformServices;
 import com.simplebuilding.util.SurvivalTracerAccessor;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.stat.Stats;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerPlayerEntity.class)
+@Mixin(ServerPlayer.class)
 public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
 
     @Unique private int totalHostileKills = 0;
@@ -55,13 +55,13 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
     @Override public void simplebuilding$setCurrentValues(int dist, int time, int hostile, int passive, int damage) {}
 
     // Kill Tracking
-    @Inject(method = "updateKilledAdvancementCriterion", at = @At("HEAD"))
+    @Inject(method = "awardKillScore", at = @At("HEAD"))
     private void onUpdateKilledAdvancementCriterion(Entity entityKilled, DamageSource damageSource, CallbackInfo ci) {
         if (entityKilled == null) return;
-        SpawnGroup group = entityKilled.getType().getSpawnGroup();
-        if (group == SpawnGroup.MONSTER) {
+        MobCategory group = entityKilled.getType().getCategory();
+        if (group == MobCategory.MONSTER) {
             totalHostileKills++;
-        } else if (group == SpawnGroup.CREATURE || group == SpawnGroup.AMBIENT || group == SpawnGroup.WATER_CREATURE || group == SpawnGroup.UNDERGROUND_WATER_CREATURE || group == SpawnGroup.AXOLOTLS) {
+        } else if (group == MobCategory.CREATURE || group == MobCategory.AMBIENT || group == MobCategory.WATER_CREATURE || group == MobCategory.UNDERGROUND_WATER_CREATURE || group == MobCategory.AXOLOTLS) {
             totalPassiveKills++;
         }
     }
@@ -69,30 +69,30 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
     // Sync
     @Override
     public void simplebuilding$syncTrimData() {
-        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-        if (player.networkHandler != null && ServerPlayNetworking.canSend(player, TrimDataPayload.ID)) {
-            ServerPlayNetworking.send(player, new TrimDataPayload(baseDist, baseTime, baseHostile, basePassive, baseDamage));
+        ServerPlayer player = (ServerPlayer) (Object) this;
+        if (player.connection != null && PlatformServices.canSendToPlayer(player, TrimDataPayload.ID)) {
+            PlatformServices.sendToPlayer(player, new TrimDataPayload(baseDist, baseTime, baseHostile, basePassive, baseDamage));
         }
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$onTick(CallbackInfo ci) {
-        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-        if (player.age % 20 == 0 && player.networkHandler != null) {
+        ServerPlayer player = (ServerPlayer) (Object) this;
+        if (player.tickCount % 20 == 0 && player.connection != null) {
             int currentDist = getStatTotalDistance(player);
-            int currentTime = player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME));
-            int currentDamage = player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.DAMAGE_TAKEN));
+            int currentTime = player.getStats().getValue(Stats.CUSTOM.get(Stats.PLAY_TIME));
+            int currentDamage = player.getStats().getValue(Stats.CUSTOM.get(Stats.DAMAGE_TAKEN));
 
-            if (ServerPlayNetworking.canSend(player, SurvivalSyncPayload.ID)) {
-                ServerPlayNetworking.send(player, new SurvivalSyncPayload(currentDist, currentTime, totalHostileKills, totalPassiveKills, currentDamage));
+            if (PlatformServices.canSendToPlayer(player, SurvivalSyncPayload.ID)) {
+                PlatformServices.sendToPlayer(player, new SurvivalSyncPayload(currentDist, currentTime, totalHostileKills, totalPassiveKills, currentDamage));
             }
         }
     }
 
     // NBT
-    @Inject(method = "writeCustomData", at = @At("TAIL"))
-    public void writeSurvivalData(WriteView view, CallbackInfo ci) {
-        NbtCompound nbt = new NbtCompound();
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    public void writeSurvivalData(ValueOutput view, CallbackInfo ci) {
+        CompoundTag nbt = new CompoundTag();
         nbt.putInt("BaseDist", baseDist);
         nbt.putInt("BaseTime", baseTime);
         nbt.putInt("BaseHostile", baseHostile);
@@ -101,31 +101,31 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
 
         nbt.putInt("TotalHostile", totalHostileKills);
         nbt.putInt("TotalPassive", totalPassiveKills);
-        view.put("SimpleBuildingData", NbtCompound.CODEC, nbt);
+        view.store("SimpleBuildingData", CompoundTag.CODEC, nbt);
     }
 
-    @Inject(method = "readCustomData", at = @At("TAIL"))
-    public void readSurvivalData(ReadView view, CallbackInfo ci) {
-        view.read("SimpleBuildingData", NbtCompound.CODEC).ifPresent(nbt -> {
-            baseDist = nbt.getInt("BaseDist", 0);
-            baseTime = nbt.getInt("BaseTime", 0);
-            baseHostile = nbt.getInt("BaseHostile", 0);
-            basePassive = nbt.getInt("BasePassive", 0);
-            baseDamage = nbt.getInt("BaseDamage", 0);
-            totalHostileKills = nbt.getInt("TotalHostile", 0);
-            totalPassiveKills = nbt.getInt("TotalPassive", 0);
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    public void readSurvivalData(ValueInput view, CallbackInfo ci) {
+        view.read("SimpleBuildingData", CompoundTag.CODEC).ifPresent(nbt -> {
+            baseDist = nbt.getIntOr("BaseDist", 0);
+            baseTime = nbt.getIntOr("BaseTime", 0);
+            baseHostile = nbt.getIntOr("BaseHostile", 0);
+            basePassive = nbt.getIntOr("BasePassive", 0);
+            baseDamage = nbt.getIntOr("BaseDamage", 0);
+            totalHostileKills = nbt.getIntOr("TotalHostile", 0);
+            totalPassiveKills = nbt.getIntOr("TotalPassive", 0);
         });
     }
 
-    @Inject(method = "copyFrom", at = @At("TAIL"))
-    public void onRespawn(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
+    @Inject(method = "restoreFrom", at = @At("TAIL"))
+    public void onRespawn(ServerPlayer oldPlayer, boolean alive, CallbackInfo ci) {
         SurvivalTracerAccessor oldAccessor = (SurvivalTracerAccessor) oldPlayer;
         if (!alive) {
             // Reset
-            ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+            ServerPlayer player = (ServerPlayer) (Object) this;
             this.baseDist = getStatTotalDistance(player);
-            this.baseTime = player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME));
-            this.baseDamage = player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.DAMAGE_TAKEN));
+            this.baseTime = player.getStats().getValue(Stats.CUSTOM.get(Stats.PLAY_TIME));
+            this.baseDamage = player.getStats().getValue(Stats.CUSTOM.get(Stats.DAMAGE_TAKEN));
 
             this.totalHostileKills = oldAccessor.simplebuilding$getCurrentHostileKills();
             this.totalPassiveKills = oldAccessor.simplebuilding$getCurrentPassiveKills();
@@ -146,11 +146,11 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
     }
 
     @Unique
-    private int getStatTotalDistance(ServerPlayerEntity player) {
-        return player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.WALK_ONE_CM)) / 100
-                + player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.SPRINT_ONE_CM)) / 100
-                + player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.CROUCH_ONE_CM)) / 100
-                + player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.FLY_ONE_CM)) / 100
-                + player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.CLIMB_ONE_CM)) / 100;
+    private int getStatTotalDistance(ServerPlayer player) {
+        return player.getStats().getValue(Stats.CUSTOM.get(Stats.WALK_ONE_CM)) / 100
+                + player.getStats().getValue(Stats.CUSTOM.get(Stats.SPRINT_ONE_CM)) / 100
+                + player.getStats().getValue(Stats.CUSTOM.get(Stats.CROUCH_ONE_CM)) / 100
+                + player.getStats().getValue(Stats.CUSTOM.get(Stats.FLY_ONE_CM)) / 100
+                + player.getStats().getValue(Stats.CUSTOM.get(Stats.CLIMB_ONE_CM)) / 100;
     }
 }

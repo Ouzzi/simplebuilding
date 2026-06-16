@@ -1,59 +1,57 @@
 package com.simplebuilding.util;
 
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BundleContentsComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.BundleContents;
 
 public class BundleUtil {
 
-    /**
-     * Sucht nach einem Pfeil im Bundle.
-     * @param bundle Das Bundle Item
-     * @return Den gefundenen Pfeil-Stack oder ItemStack.EMPTY
-     */
     public static ItemStack findArrow(ItemStack bundle) {
         if (!(bundle.getItem() instanceof ReinforcedBundleItem)) return ItemStack.EMPTY;
 
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
         if (contents == null) return ItemStack.EMPTY;
 
-        for (ItemStack s : contents.iterate()) {
-            if (s.getItem() == Items.ARROW || s.getItem() == Items.SPECTRAL_ARROW || s.getItem() == Items.TIPPED_ARROW) {return s;}
+        for (ItemStackTemplate template : contents.items()) {
+            ItemStack s = template.create();
+            if (s.getItem() == Items.ARROW || s.getItem() == Items.SPECTRAL_ARROW || s.getItem() == Items.TIPPED_ARROW) {
+                return s;
+            }
         }
         return ItemStack.EMPTY;
     }
 
-    /**
-     * Entfernt genau einen Pfeil aus dem Bundle.
-     * @param bundle Das Bundle Item
-     * @return true, wenn ein Pfeil entfernt wurde
-     */
     public static boolean removeOneArrow(ItemStack bundle) {
         if (!(bundle.getItem() instanceof ReinforcedBundleItem)) return false;
 
-        BundleContentsComponent contents = bundle.get(DataComponentTypes.BUNDLE_CONTENTS);
+        BundleContents contents = bundle.get(DataComponents.BUNDLE_CONTENTS);
         if (contents == null || contents.isEmpty()) return false;
 
-        List<ItemStack> newItems = new ArrayList<>();
+        List<ItemStackTemplate> newItems = new ArrayList<>();
         boolean foundAndRemoved = false;
 
-        for (ItemStack s : contents.iterate()) {
+        for (ItemStackTemplate template : contents.items()) {
+            ItemStack s = template.create();
             if (!foundAndRemoved && (s.getItem() == Items.ARROW || s.getItem() == Items.SPECTRAL_ARROW || s.getItem() == Items.TIPPED_ARROW)) {
                 ItemStack copy = s.copy();
-                copy.decrement(1);
+                copy.shrink(1);
 
-                if (!copy.isEmpty()) {newItems.add(copy);}
+                if (!copy.isEmpty()) {
+                    newItems.add(ItemStackTemplate.fromNonEmptyStack(copy));
+                }
                 foundAndRemoved = true;
-            } else {newItems.add(s.copy());}
+            } else {
+                newItems.add(ItemStackTemplate.fromNonEmptyStack(s));
+            }
         }
 
         if (foundAndRemoved) {
-            bundle.set(DataComponentTypes.BUNDLE_CONTENTS, new BundleContentsComponent(newItems));
+            bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(newItems));
             return true;
         }
         return false;

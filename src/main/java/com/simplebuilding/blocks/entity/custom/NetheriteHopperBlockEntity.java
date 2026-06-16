@@ -3,30 +3,30 @@ package com.simplebuilding.blocks.entity.custom;
 import com.simplebuilding.Simplebuilding; // Sicherstellen, dass deine Main-Klasse importiert ist für Logger
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.util.HopperFilterMode;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate; // Wichtig
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 // WICHTIG: Erbt nun von ModHopperBlockEntity, um Typ-Konflikte im ScreenHandler zu vermeiden
 public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
 
-    private final DefaultedList<ItemStack> ghostItems = DefaultedList.ofSize(5, ItemStack.EMPTY);
+    private final NonNullList<ItemStack> ghostItems = NonNullList.withSize(5, ItemStack.EMPTY);
     // ÄNDERUNG: Nur noch ein globaler Filter-Modus statt Array
     private HopperFilterMode currentFilterMode = HopperFilterMode.NONE;
 
     // Der PropertyDelegate synchronisiert Integers automatisch zwischen Server und Client ScreenHandler
-    protected final PropertyDelegate propertyDelegate;
+    protected final ContainerData propertyDelegate;
 
     public NetheriteHopperBlockEntity(BlockPos pos, BlockState state) {
         super(pos, state);
 
         // Delegate definieren
-        this.propertyDelegate = new PropertyDelegate() {
+        this.propertyDelegate = new ContainerData() {
             @Override
             public int get(int index) {
                 // Index 0 ist unser FilterMode
@@ -37,12 +37,12 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
             public void set(int index, int value) {
                 if (index == 0) {
                     currentFilterMode = HopperFilterMode.values()[value % HopperFilterMode.values().length];
-                    markDirty();
+                    setChanged();
                 }
             }
 
             @Override
-            public int size() {
+            public int getCount() {
                 return 1; // Wir haben 1 Wert zu synchronisieren
             }
         };
@@ -56,7 +56,7 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
     // --- FILTER LOGIK ---
 
     @Override
-    public boolean isValid(int slot, ItemStack stack) {
+    public boolean canPlaceItem(int slot, ItemStack stack) {
         // Wenn Filter deaktiviert ist (NONE), verhält er sich wie ein normaler Hopper
         if (currentFilterMode == HopperFilterMode.NONE) {
             return true;
@@ -73,7 +73,7 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
 
             if (currentFilterMode == HopperFilterMode.WHITELIST) {
                 // Exakter Match (Item + Komponenten/NBT)
-                return ItemStack.areItemsAndComponentsEqual(ghost, stack);
+                return ItemStack.isSameItemSameComponents(ghost, stack);
             } else if (currentFilterMode == HopperFilterMode.TYPE) {
                 // Nur der Item-Typ (z.B. Eisenbarren = Eisenbarren, egal welcher Name)
                 return ghost.getItem() == stack.getItem();
@@ -87,7 +87,7 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
     public void toggleFilterMode() {
         // Zyklisch durchschalten: NONE -> WHITELIST -> TYPE -> NONE ...
         this.currentFilterMode = this.currentFilterMode.next();
-        markDirty();
+        setChanged();
         Simplebuilding.LOGGER.info("Filter Mode gewechselt zu: " + this.currentFilterMode);
     }
 
@@ -100,9 +100,9 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
                 ItemStack copy = stack.copy();
                 copy.setCount(1);
                 ghostItems.set(slot, copy);
-                Simplebuilding.LOGGER.info("Ghost Item Slot " + slot + " gesetzt: " + copy.getItem().getName().getString());
+                Simplebuilding.LOGGER.info("Ghost Item Slot " + slot + " gesetzt: " + copy.getHoverName().getString());
             }
-            markDirty();
+            setChanged();
         }
     }
 
@@ -118,15 +118,15 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
         return this.currentFilterMode;
     }
 
-    public PropertyDelegate getPropertyDelegate() {
+    public ContainerData getPropertyDelegate() {
         return this.propertyDelegate;
     }
 
     // --- NBT (1.21 API) ---
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         // Speichere den globalen Modus als Integer
         view.putInt("FilterMode", currentFilterMode.ordinal());
@@ -134,19 +134,19 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
         // Inventories.writeNbt ist der Standard, ich passe es an deine Struktur an,
         // falls writeData eine eigene Implementation von dir ist, nutze Inventories Helper falls möglich.
         // Hier nutzen wir deine Logik, fügen aber Logs hinzu.
-        WriteView ghostView = view.get("GhostItems");
+        ValueOutput ghostView = view.child("GhostItems");
         if (ghostView == null) {
             // Dies ist abhängig von deiner API, normalerweise erstellt man einen neuen Compound
             // Ich lasse deine Implementation, da ich die API "WriteView" nicht im Detail kenne (vermutlich Custom oder Snapshot)
-            view.put("GhostItems", ItemStack.CODEC.listOf(), ghostItems);
+            view.store("GhostItems", ItemStack.CODEC.listOf(), ghostItems);
         }
 
         Simplebuilding.LOGGER.info("NBT Gespeichert: Mode=" + currentFilterMode);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
         // Codec Laden
         view.read("GhostItems", ItemStack.CODEC.listOf()).ifPresent(list -> {
@@ -156,7 +156,7 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
             }
         });
 
-        view.getOptionalInt("FilterMode").ifPresent(ordinal -> {
+        view.getInt("FilterMode").ifPresent(ordinal -> {
             if (ordinal >= 0 && ordinal < HopperFilterMode.values().length) {
                 currentFilterMode = HopperFilterMode.values()[ordinal];
             } else {
@@ -168,8 +168,8 @@ public class NetheriteHopperBlockEntity extends ModHopperBlockEntity {
     }
 
     @Override
-    public net.minecraft.network.packet.Packet<net.minecraft.network.listener.ClientPlayPacketListener> toUpdatePacket() {
-        return net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket.create(this);
+    public net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.game.ClientGamePacketListener> getUpdatePacket() {
+        return net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket.create(this);
     }
 
 }

@@ -2,10 +2,10 @@ package com.simplebuilding.enchantment;
 
 import com.mojang.serialization.MapCodec;
 import com.simplebuilding.Simplebuilding;
-import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
 
 public class ModEnchantmentEffects {
 
@@ -13,7 +13,7 @@ public class ModEnchantmentEffects {
     @SuppressWarnings("unused")
     private static MapCodec<? extends EnchantmentEntityEffect> registerEntityEffect(String name,
                                                                                     MapCodec<? extends EnchantmentEntityEffect> codec) {
-        return Registry.register(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Identifier.of(Simplebuilding.MOD_ID, name), codec);
+        return Registry.register(BuiltInRegistries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name), codec);
     }
 
     public static void registerEnchantmentEffects() {

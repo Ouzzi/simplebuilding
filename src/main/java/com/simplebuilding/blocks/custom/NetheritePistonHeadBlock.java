@@ -2,76 +2,76 @@ package com.simplebuilding.blocks.custom;
 
 import com.mojang.serialization.MapCodec;
 import com.simplebuilding.blocks.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FacingBlock;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class NetheritePistonHeadBlock extends FacingBlock {
-    public static final MapCodec<NetheritePistonHeadBlock> CODEC = createCodec(NetheritePistonHeadBlock::new);
+public class NetheritePistonHeadBlock extends DirectionalBlock {
+    public static final MapCodec<NetheritePistonHeadBlock> CODEC = simpleCodec(NetheritePistonHeadBlock::new);
 
-    protected static final VoxelShape EAST_HEAD_SHAPE = Block.createCuboidShape(0.0D, 6.0D, 6.0D, 16.0D, 10.0D, 10.0D); // Beispielwerte, anpassen!
-    protected static final VoxelShape WEST_HEAD_SHAPE = Block.createCuboidShape(0.0D, 6.0D, 6.0D, 16.0D, 10.0D, 10.0D);
+    protected static final VoxelShape EAST_HEAD_SHAPE = Block.box(0.0D, 6.0D, 6.0D, 16.0D, 10.0D, 10.0D); // Beispielwerte, anpassen!
+    protected static final VoxelShape WEST_HEAD_SHAPE = Block.box(0.0D, 6.0D, 6.0D, 16.0D, 10.0D, 10.0D);
 
-    public NetheritePistonHeadBlock(Settings settings) {
+    public NetheritePistonHeadBlock(Properties settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
     @Override
-    protected MapCodec<? extends FacingBlock> getCodec() {
+    protected MapCodec<? extends DirectionalBlock> codec() {
         return CODEC;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
 
     @Override
-    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient() && player.isCreative()) {
-            BlockPos behindPos = pos.offset(state.get(FACING).getOpposite());
+    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+        if (!world.isClientSide() && player.isCreative()) {
+            BlockPos behindPos = pos.relative(state.getValue(FACING).getOpposite());
             BlockState behindState = world.getBlockState(behindPos);
-            if (behindState.isOf(ModBlocks.NETHERITE_PISTON)) {
-                world.setBlockState(behindPos, behindState.with(NetheriteBreakerPistonBlock.EXTENDED, false), 3);
+            if (behindState.is(ModBlocks.NETHERITE_PISTON)) {
+                world.setBlock(behindPos, behindState.setValue(NetheriteBreakerPistonBlock.EXTENDED, false), 3);
             }
         }
-        return super.onBreak(world, pos, state, player);
+        return super.playerWillDestroy(world, pos, state, player);
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, net.minecraft.world.WorldView world, net.minecraft.world.tick.ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, net.minecraft.util.math.random.Random random) {
-        Direction facing = state.get(FACING);
-        if (direction == facing.getOpposite() && !state.canPlaceAt(world, pos)) {
-            return Blocks.AIR.getDefaultState();
+    public BlockState updateShape(BlockState state, net.minecraft.world.level.LevelReader world, net.minecraft.world.level.ScheduledTickAccess tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, net.minecraft.util.RandomSource random) {
+        Direction facing = state.getValue(FACING);
+        if (direction == facing.getOpposite() && !state.canSurvive(world, pos)) {
+            return Blocks.AIR.defaultBlockState();
         }
-        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+        return super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, net.minecraft.world.WorldView world, BlockPos pos) {
-        BlockState backState = world.getBlockState(pos.offset(state.get(FACING).getOpposite()));
-        return backState.isOf(ModBlocks.NETHERITE_PISTON) && backState.get(NetheriteBreakerPistonBlock.EXTENDED);
+    public boolean canSurvive(BlockState state, net.minecraft.world.level.LevelReader world, BlockPos pos) {
+        BlockState backState = world.getBlockState(pos.relative(state.getValue(FACING).getOpposite()));
+        return backState.is(ModBlocks.NETHERITE_PISTON) && backState.getValue(NetheriteBreakerPistonBlock.EXTENDED);
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.fullCube(); // Vorerst voller Block als Platzhalter
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return Shapes.block(); // Vorerst voller Block als Platzhalter
     }
 
     @Override
-    public ItemStack getPickStack(net.minecraft.world.WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+    public ItemStack getCloneItemStack(net.minecraft.world.level.LevelReader world, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(ModBlocks.NETHERITE_PISTON); // Pick Block gibt die Basis
     }
 }

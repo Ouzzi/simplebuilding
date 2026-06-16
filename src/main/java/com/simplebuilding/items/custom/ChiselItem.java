@@ -2,35 +2,39 @@ package com.simplebuilding.items.custom;
 
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantments;
-import net.minecraft.block.*;
-import net.minecraft.block.enums.BlockHalf;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import com.simplebuilding.items.ModToolMaterials;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.Vec3;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -279,7 +283,7 @@ public class ChiselItem extends Item {
     // =================================================================================
 
     // ÄNDERUNG: Konstruktor angepasst für MiningToolItem
-    public ChiselItem(ToolMaterial material, Settings settings) {
+    public ChiselItem(ToolMaterial material, Properties settings) {
         super(settings); // 'Item' Konstruktor
         this.material = material;
 
@@ -301,7 +305,7 @@ public class ChiselItem extends Item {
             this.backwardMap = FINAL_DIAMOND_BWD;
             this.touchForwardMap = FINAL_DIAMOND_TOUCH_FWD;
             this.touchBackwardMap = FINAL_DIAMOND_TOUCH_BWD;
-        } else if (material == ToolMaterial.NETHERITE) {
+        } else if (material == ToolMaterial.NETHERITE || material == ModToolMaterials.ENDERITE) {
             this.forwardMap = FINAL_NETHERITE_FWD;
             this.backwardMap = FINAL_NETHERITE_BWD;
             this.touchForwardMap = FINAL_NETHERITE_TOUCH_FWD;
@@ -322,24 +326,24 @@ public class ChiselItem extends Item {
 
     // Bestimmt, ob Drops fallen (effektiv gegen Pickaxe, Axe, Shovel Blöcke)
     @Override
-    public boolean isCorrectForDrops(ItemStack stack, BlockState state) {
-        return state.isIn(BlockTags.PICKAXE_MINEABLE) ||
-                state.isIn(BlockTags.AXE_MINEABLE) ||
-                state.isIn(BlockTags.SHOVEL_MINEABLE);
+    public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
+        return state.is(BlockTags.MINEABLE_WITH_PICKAXE) ||
+                state.is(BlockTags.MINEABLE_WITH_AXE) ||
+                state.is(BlockTags.MINEABLE_WITH_SHOVEL);
     }
 
     // Berechnet die Abbaugeschwindigkeit
     @Override
-    public float getMiningSpeed(ItemStack stack, BlockState state) {
+    public float getDestroySpeed(ItemStack stack, BlockState state) {
         // 1. Ist das Werkzeug effektiv?
-        if (!isCorrectForDrops(stack, state)) return 1.0f;
+        if (!isCorrectToolForDrops(stack, state)) return 1.0f;
 
         // FIX: benutze material.speed() statt getMiningSpeedMultiplier()
         // Da ToolMaterial ein Record ist, heißt die Methode so wie das Feld: speed()
         float materialSpeed = this.material.speed();
 
         // 3. Fast Chiseling Bonus
-        int fastChiselingLevel = getEnchantmentLevel(stack, null, ModEnchantments.FAST_CHISELING);
+        int fastChiselingLevel = getFastChiselingLevel(stack);
         float efficiencyBonus = 0.0f;
 
         if (fastChiselingLevel == 1) {
@@ -354,9 +358,9 @@ public class ChiselItem extends Item {
 
     // Sorgt dafür, dass Haltbarkeit beim normalen Abbauen abgezogen wird
     @Override
-    public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-        if (!world.isClient() && state.getHardness(world, pos) != 0.0F) {
-            stack.damage(2, miner, EquipmentSlot.MAINHAND);
+    public boolean mineBlock(ItemStack stack, Level world, BlockState state, BlockPos pos, LivingEntity miner) {
+        if (!world.isClientSide() && state.getDestroySpeed(world, pos) != 0.0F) {
+            stack.hurtAndBreak(2, miner, EquipmentSlot.MAINHAND);
         }
         return true;
     }
@@ -368,29 +372,43 @@ public class ChiselItem extends Item {
     public void setAsDedicatedSpatula(boolean value) { this.isDedicatedSpatula = value; }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        assert context.getPlayer() != null;
-        // Vorab-Check ob Client oder Cooldown, spart Rechenleistung
-        if (context.getWorld().isClient() || context.getPlayer().getItemCooldownManager().isCoolingDown(context.getStack())) {
-            return ActionResult.PASS;
+    public InteractionResult useOn(UseOnContext context) {
+        Player player = context.getPlayer();
+        if (player == null) {
+            return InteractionResult.PASS;
         }
 
+        if (context.getLevel().isClientSide()) {
+            if (player.getCooldowns().isOnCooldown(context.getItemInHand())) {
+                return InteractionResult.PASS;
+            }
+            Block block = context.getLevel().getBlockState(context.getClickedPos()).getBlock();
+            if (this.forwardMap.containsKey(block) || this.backwardMap.containsKey(block)
+                    || this.touchForwardMap.containsKey(block) || this.touchBackwardMap.containsKey(block)) {
+                return InteractionResult.SUCCESS;
+            }
+            return InteractionResult.PASS;
+        }
 
-        Vec3d relativeHit = context.getHitPos().subtract(Vec3d.of(context.getBlockPos()));
+        if (player.getCooldowns().isOnCooldown(context.getItemInHand())) {
+            return InteractionResult.PASS;
+        }
 
-        return tryChiselBlock(context.getWorld(), context.getPlayer(), context.getHand(), context.getBlockPos(), context.getStack(), context.getSide(), relativeHit)
-                ? ActionResult.SUCCESS : ActionResult.PASS;
+        Vec3 relativeHit = context.getClickLocation().subtract(Vec3.atLowerCornerOf(context.getClickedPos()));
+
+        return tryChiselBlock(context.getLevel(), player, context.getHand(), context.getClickedPos(), context.getItemInHand(), context.getClickedFace(), relativeHit)
+                ? InteractionResult.SUCCESS_SERVER : InteractionResult.PASS;
     }
 
-    private boolean tryChiselBlock(World world, PlayerEntity player, Hand hand, BlockPos pos, ItemStack stack, net.minecraft.util.math.Direction side, Vec3d relativeHit) {
-        if (player.getItemCooldownManager().isCoolingDown(stack)) return false;
+    private boolean tryChiselBlock(Level world, Player player, InteractionHand hand, BlockPos pos, ItemStack stack, net.minecraft.core.Direction side, Vec3 relativeHit) {
+        if (player.getCooldowns().isOnCooldown(stack)) return false;
 
         BlockState oldState = world.getBlockState(pos);
         Block oldBlock = oldState.getBlock();
 
         var hasConstructorsTouch = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH);
 
-        boolean isSneaking = player.isSneaking();
+        boolean isSneaking = player.isShiftKeyDown();
         boolean isReverseAction = false;
 
         Map<Block, Block> currentMap;
@@ -416,11 +434,11 @@ public class ChiselItem extends Item {
 
         if (currentMap.containsKey(oldBlock)) {
             Block newBlock = currentMap.get(oldBlock);
-            BlockState newState = newBlock.getDefaultState();
+            BlockState newState = newBlock.defaultBlockState();
 
             // 1. Properties kopieren (Waterlogged, etc.)
             for (Property<?> prop : oldState.getProperties()) {
-                if (newState.contains(prop)) {
+                if (newState.hasProperty(prop)) {
                     newState = copyProperty(oldState, newState, prop);
                 }
             }
@@ -428,30 +446,30 @@ public class ChiselItem extends Item {
             // Intuitive Ausrichtung anwenden
             newState = applyIntuitiveOrientation(newState, side, relativeHit, player);
 
-            world.setBlockState(pos, newState);
+            world.setBlockAndUpdate(pos, newState);
 
             // Cooldown Berechnung mit Fast Chiseling
 
-            int fastChiselingLevel = getEnchantmentLevel(stack, world, ModEnchantments.FAST_CHISELING);
+            int fastChiselingLevel = getFastChiselingLevel(stack);
 
             int finalCooldown = this.cooldownTicks;
             if (fastChiselingLevel > 0) {
                 finalCooldown = Math.max(1, (int)(finalCooldown * (1.0f - (fastChiselingLevel * 0.3f))));
             }
 
-            if (!player.getAbilities().creativeMode) {
-                player.getItemCooldownManager().set(stack, finalCooldown);
+            if (!player.getAbilities().instabuild) {
+                player.getCooldowns().addCooldown(stack, finalCooldown);
                 int damageAmount = isReverseAction ? 2 : 1;
                 // Unbreaking Logik ist in stack.damage enthalten
-                stack.damage(damageAmount, (ServerWorld) world, (ServerPlayerEntity) player,
-                        item -> player.sendEquipmentBreakStatus(item, hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
+                stack.hurtAndBreak(damageAmount, (ServerLevel) world, (ServerPlayer) player,
+                        item -> player.onEquippedItemBroken(item, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
             }
 
             // Sound mit leichter Variation (Pitch 0.8 - 1.2) klingt natürlicher
-            float pitch = 1.0F + (world.random.nextFloat() * 0.4F - 0.2F);
-            world.playSound(null, pos, chiselSound, SoundCategory.BLOCKS, 0.5f, pitch);
+            float pitch = 1.0F + (world.getRandom().nextFloat() * 0.4F - 0.2F);
+            world.playSound(null, pos, chiselSound, SoundSource.BLOCKS, 0.5f, pitch);
 
-            spawnEffects((ServerWorld) world, pos, oldState);
+            spawnEffects((ServerLevel) world, pos, oldState);
             stack.set(ModDataComponentTypes.COORDINATES, pos);
 
             return true;
@@ -461,11 +479,11 @@ public class ChiselItem extends Item {
 
     // Generischer Helper für Property Copying (Typensicherheit)
     private <T extends Comparable<T>> BlockState copyProperty(BlockState from, BlockState to, Property<T> property) {
-        return to.with(property, from.get(property));
+        return to.setValue(property, from.getValue(property));
     }
 
-    private void spawnEffects(ServerWorld world, BlockPos pos, BlockState oldState) {
-        world.spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, oldState),
+    private void spawnEffects(ServerLevel world, BlockPos pos, BlockState oldState) {
+        world.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, oldState),
                 pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 8, 0.2, 0.2, 0.2, 0.1);
     }
 
@@ -612,16 +630,16 @@ public class ChiselItem extends Item {
         }
     }
 
-    public boolean canChisel(World world, BlockPos pos, ItemStack stack, PlayerEntity player) {
+    public boolean canChisel(Level world, BlockPos pos, ItemStack stack, Player player) {
         // 1. Cooldown Check
-        if (player.getItemCooldownManager().isCoolingDown(stack)) return false;
+        if (player.getCooldowns().isOnCooldown(stack)) return false;
 
         BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
 
         boolean hasConstructorsTouch = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH);
 
-        boolean isSneaking = player.isSneaking();
+        boolean isSneaking = player.isShiftKeyDown();
         Map<Block, Block> currentMap;
 
         if (this.isDedicatedSpatula) {
@@ -642,17 +660,17 @@ public class ChiselItem extends Item {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
         if(stack.get(ModDataComponentTypes.COORDINATES) != null) {
             BlockPos p = stack.get(ModDataComponentTypes.COORDINATES);
             assert p != null;
-            textConsumer.accept(Text.literal("Last Target: " + p.getX() + ", " + p.getY() + ", " + p.getZ())
-                    .formatted(Formatting.GRAY));
+            textConsumer.accept(Component.literal("Last Target: " + p.getX() + ", " + p.getY() + ", " + p.getZ())
+                    .withStyle(ChatFormatting.GRAY));
         }
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+        super.appendHoverText(stack, context, displayComponent, textConsumer, type);
     }
 
-    public static BlockState applyIntuitiveOrientation(BlockState state, net.minecraft.util.math.Direction side, Vec3d hit, PlayerEntity player) {
+    public static BlockState applyIntuitiveOrientation(BlockState state, net.minecraft.core.Direction side, Vec3 hit, Player player) {
         // Toleranz für "Mitte" (z.B. 0.2 bedeutet 20% Randbereich auf jeder Seite)
         double margin = 0.25;
 
@@ -660,70 +678,70 @@ public class ChiselItem extends Item {
         double x = hit.x;
         double y = hit.y;
         double z = hit.z;
-        net.minecraft.util.math.Direction orientation = side;
+        net.minecraft.core.Direction orientation = side;
         boolean isEdge = false;
 
-        if (side.getAxis() == net.minecraft.util.math.Direction.Axis.Y) { // Oben oder Unten geklickt
-            if (x < margin) { orientation = net.minecraft.util.math.Direction.WEST; isEdge = true; }
-            else if (x > 1 - margin) { orientation = net.minecraft.util.math.Direction.EAST; isEdge = true; }
-            else if (z < margin) { orientation = net.minecraft.util.math.Direction.NORTH; isEdge = true; }
-            else if (z > 1 - margin) { orientation = net.minecraft.util.math.Direction.SOUTH; isEdge = true; }
+        if (side.getAxis() == net.minecraft.core.Direction.Axis.Y) { // Oben oder Unten geklickt
+            if (x < margin) { orientation = net.minecraft.core.Direction.WEST; isEdge = true; }
+            else if (x > 1 - margin) { orientation = net.minecraft.core.Direction.EAST; isEdge = true; }
+            else if (z < margin) { orientation = net.minecraft.core.Direction.NORTH; isEdge = true; }
+            else if (z > 1 - margin) { orientation = net.minecraft.core.Direction.SOUTH; isEdge = true; }
         }
-        else if (side.getAxis() == net.minecraft.util.math.Direction.Axis.X) { // Ost oder West geklickt
-            if (y < margin) { orientation = net.minecraft.util.math.Direction.DOWN; isEdge = true; }
-            else if (y > 1 - margin) { orientation = net.minecraft.util.math.Direction.UP; isEdge = true; }
-            else if (z < margin) { orientation = net.minecraft.util.math.Direction.NORTH; isEdge = true; }
-            else if (z > 1 - margin) { orientation = net.minecraft.util.math.Direction.SOUTH; isEdge = true; }
+        else if (side.getAxis() == net.minecraft.core.Direction.Axis.X) { // Ost oder West geklickt
+            if (y < margin) { orientation = net.minecraft.core.Direction.DOWN; isEdge = true; }
+            else if (y > 1 - margin) { orientation = net.minecraft.core.Direction.UP; isEdge = true; }
+            else if (z < margin) { orientation = net.minecraft.core.Direction.NORTH; isEdge = true; }
+            else if (z > 1 - margin) { orientation = net.minecraft.core.Direction.SOUTH; isEdge = true; }
         }
-        else if (side.getAxis() == net.minecraft.util.math.Direction.Axis.Z) { // Nord oder Süd geklickt
-            if (y < margin) { orientation = net.minecraft.util.math.Direction.DOWN; isEdge = true; }
-            else if (y > 1 - margin) { orientation = net.minecraft.util.math.Direction.UP; isEdge = true; }
-            else if (x < margin) { orientation = net.minecraft.util.math.Direction.WEST; isEdge = true; }
-            else if (x > 1 - margin) { orientation = net.minecraft.util.math.Direction.EAST; isEdge = true; }
+        else if (side.getAxis() == net.minecraft.core.Direction.Axis.Z) { // Nord oder Süd geklickt
+            if (y < margin) { orientation = net.minecraft.core.Direction.DOWN; isEdge = true; }
+            else if (y > 1 - margin) { orientation = net.minecraft.core.Direction.UP; isEdge = true; }
+            else if (x < margin) { orientation = net.minecraft.core.Direction.WEST; isEdge = true; }
+            else if (x > 1 - margin) { orientation = net.minecraft.core.Direction.EAST; isEdge = true; }
         }
 
         // --- ANWENDUNG AUF BLÖCKE ---
 
         // 1. Pillars (Logs, Quartz Pillar, etc.)
-        if (state.contains(PillarBlock.AXIS)) {
-            net.minecraft.util.math.Direction.Axis axis;
+        if (state.hasProperty(RotatedPillarBlock.AXIS)) {
+            net.minecraft.core.Direction.Axis axis;
             if (isEdge) {
                 axis = orientation.getAxis();
             } else {
                 axis = side.getAxis();
             }
-            return state.with(PillarBlock.AXIS, axis);
+            return state.setValue(RotatedPillarBlock.AXIS, axis);
         }
 
         // 2. Stairs (Treppen)
-        if (state.contains(StairsBlock.FACING)) {
-            net.minecraft.util.math.Direction facing;
+        if (state.hasProperty(StairBlock.FACING)) {
+            net.minecraft.core.Direction facing;
             if (isEdge && orientation.getAxis().isHorizontal()) {
                 facing = orientation.getOpposite();
             } else {
-                facing = player.getHorizontalFacing();
+                facing = player.getDirection();
             }
-            state = state.with(StairsBlock.FACING, facing);
+            state = state.setValue(StairBlock.FACING, facing);
 
             // Half (Oben/Unten)
-            BlockHalf half;
-            if ((side == net.minecraft.util.math.Direction.UP && !isEdge) || (y < 0.5 && !isEdge)) {
-                half = BlockHalf.BOTTOM;
-            } else if ((side == net.minecraft.util.math.Direction.DOWN && !isEdge) || (y > 0.5 && !isEdge)) {
-                half = BlockHalf.TOP;
+            Half half;
+            if ((side == net.minecraft.core.Direction.UP && !isEdge) || (y < 0.5 && !isEdge)) {
+                half = Half.BOTTOM;
+            } else if ((side == net.minecraft.core.Direction.DOWN && !isEdge) || (y > 0.5 && !isEdge)) {
+                half = Half.TOP;
             } else {
-                if (y > 0.5) half = BlockHalf.TOP; else half = BlockHalf.BOTTOM;
+                if (y > 0.5) half = Half.TOP; else half = Half.BOTTOM;
             }
-            if (orientation == net.minecraft.util.math.Direction.UP) half = BlockHalf.BOTTOM;
-            if (orientation == net.minecraft.util.math.Direction.DOWN) half = BlockHalf.TOP;
+            if (orientation == net.minecraft.core.Direction.UP) half = Half.BOTTOM;
+            if (orientation == net.minecraft.core.Direction.DOWN) half = Half.TOP;
 
-            state = state.with(StairsBlock.HALF, half);
+            state = state.setValue(StairBlock.HALF, half);
             return state;
         }
 
         // 3. Rods (End Rods, Lightning Rods, etc.)
-        if (state.contains(Properties.FACING)) {
-            return state.with(Properties.FACING, isEdge ? orientation : side);
+        if (state.hasProperty(BlockStateProperties.FACING)) {
+            return state.setValue(BlockStateProperties.FACING, isEdge ? orientation : side);
         }
 
         return state;

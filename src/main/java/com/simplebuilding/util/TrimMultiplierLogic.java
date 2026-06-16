@@ -1,14 +1,14 @@
 package com.simplebuilding.util;
 
 import com.simplebuilding.config.SimplebuildingConfig;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 
 public class TrimMultiplierLogic {
 
-    public static double getMultiplier(PlayerEntity player) {
+    public static double getMultiplier(Player player) {
         double xpMult = calculateXPMultiplier(player);
         double survivalMult = calculateSurvivalMultiplier(player);
         double combatMult = calculateCombatMultiplier(player);
@@ -17,13 +17,13 @@ public class TrimMultiplierLogic {
         return globalMult * xpMult * survivalMult * combatMult;
     }
 
-    public static double calculateXPMultiplier(PlayerEntity player) {
+    public static double calculateXPMultiplier(Player player) {
         int level = player.experienceLevel;
         double result = 0.1d + ((double) level / 100.0d) * 0.9d;
-        return MathHelper.clamp(result, 0.1d, 1.0d);
+        return Mth.clamp(result, 0.1d, 1.0d);
     }
 
-    public static double calculateSurvivalMultiplier(PlayerEntity player) {
+    public static double calculateSurvivalMultiplier(Player player) {
         int baseDist = 0;
         int baseTime = 0;
         int currentDist = 0;
@@ -33,7 +33,7 @@ public class TrimMultiplierLogic {
             baseDist = accessor.simplebuilding$getBaseDistance();
             baseTime = accessor.simplebuilding$getBaseTime();
 
-            if (player.getEntityWorld().isClient()) {
+            if (player.level().isClientSide()) {
                 currentDist = accessor.simplebuilding$getCurrentDistance();
                 currentTime = accessor.simplebuilding$getCurrentTime();
             } else {
@@ -51,7 +51,7 @@ public class TrimMultiplierLogic {
         return Math.max(distFactor, timeFactor);
     }
 
-    public static double calculateCombatMultiplier(PlayerEntity player) {
+    public static double calculateCombatMultiplier(Player player) {
         int baseHostile = 0;
         int basePassive = 0;
         int baseDamage = 0;
@@ -65,14 +65,14 @@ public class TrimMultiplierLogic {
             basePassive = accessor.simplebuilding$getBasePassiveKills();
             baseDamage = accessor.simplebuilding$getBaseDamageTaken();
 
-            if (player.getEntityWorld().isClient()) {
+            if (player.level().isClientSide()) {
                 curHostile = accessor.simplebuilding$getCurrentHostileKills();
                 curPassive = accessor.simplebuilding$getCurrentPassiveKills();
                 curDamage = accessor.simplebuilding$getCurrentDamageTaken();
-            } else if (player instanceof ServerPlayerEntity serverPlayer) {
+            } else if (player instanceof ServerPlayer serverPlayer) {
                 curHostile = accessor.simplebuilding$getCurrentHostileKills();
                 curPassive = accessor.simplebuilding$getCurrentPassiveKills();
-                curDamage = serverPlayer.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.DAMAGE_TAKEN));
+                curDamage = serverPlayer.getStats().getValue(Stats.CUSTOM.get(Stats.DAMAGE_TAKEN));
             }
         }
 
@@ -92,7 +92,7 @@ public class TrimMultiplierLogic {
         return 0.1d + 0.9d * (1.0d - Math.exp(-input / scale));
     }
 
-    private static int getStatTotalDistance(PlayerEntity player) {
+    private static int getStatTotalDistance(Player player) {
         return getStat(player, Stats.WALK_ONE_CM) / 100
              + getStat(player, Stats.SPRINT_ONE_CM) / 100
              + getStat(player, Stats.CROUCH_ONE_CM) / 100
@@ -100,9 +100,9 @@ public class TrimMultiplierLogic {
              + getStat(player, Stats.CLIMB_ONE_CM) / 100;
     }
 
-    private static int getStat(PlayerEntity player, net.minecraft.util.Identifier stat) {
-        if (player instanceof ServerPlayerEntity serverPlayer) {
-            return serverPlayer.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(stat));
+    private static int getStat(Player player, net.minecraft.resources.Identifier stat) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            return serverPlayer.getStats().getValue(Stats.CUSTOM.get(stat));
         }
         return 0;
     }

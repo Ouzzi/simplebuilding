@@ -5,119 +5,111 @@ import com.simplebuilding.networking.SetHopperGhostItemPayload;
 import com.simplebuilding.networking.ToggleHopperFilterPayload;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.util.HopperFilterMode;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.gui.Click;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-
+import com.simplebuilding.platform.ClientNetworking;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NetheriteHopperScreen extends HandledScreen<NetheriteHopperScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.of("textures/gui/container/hopper.png");
-    private ButtonWidget filterButton;
+public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopperScreenHandler> {
+    private static final Identifier TEXTURE = Identifier.withDefaultNamespace("textures/gui/container/hopper.png");
+    private Button filterButton;
 
-    public NetheriteHopperScreen(NetheriteHopperScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
-        this.backgroundHeight = 133;
-        this.playerInventoryTitleY = this.backgroundHeight - 94;
+    public NetheriteHopperScreen(NetheriteHopperScreenHandler handler, Inventory inventory, Component title) {
+        super(handler, inventory, title, 176, 133);
+        this.inventoryLabelY = this.imageHeight - 94;
     }
 
     @Override
     protected void init() {
         super.init();
         // Positionierung: Rechts neben den 5 Slots
-        int buttonX = this.x + 44 + (5 * 18) + 4;
-        int buttonY = this.y + 19;
+        int buttonX = this.leftPos + 44 + (5 * 18) + 4;
+        int buttonY = this.topPos + 19;
 
         // Button erstellen (Text lassen wir leer, wir zeichnen das Icon selber drüber)
-        this.filterButton = this.addDrawableChild(ButtonWidget.builder(Text.empty(), btn -> {
-            ClientPlayNetworking.send(new ToggleHopperFilterPayload());
-        }).dimensions(buttonX, buttonY, 18, 18).build());
+        this.filterButton = this.addRenderableWidget(Button.builder(Component.empty(), btn -> {
+            ClientNetworking.send(new ToggleHopperFilterPayload());
+        }).bounds(buttonX, buttonY, 18, 18).build());
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta); // Zeichnet Slots und Items
-        drawMouseoverTooltip(context, mouseX, mouseY); // Zeichnet Tooltip des echten Items
+    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(context, mouseX, mouseY, delta);
 
-        HopperFilterMode mode = this.handler.getSyncedFilterMode();
+        HopperFilterMode mode = this.menu.getSyncedFilterMode();
 
         // 1. Label
-        context.drawText(this.textRenderer, Text.literal("Filter:"), this.filterButton.getX() - 2, this.filterButton.getY() - 12, 0xFF404040, false);
+        context.text(this.font, Component.literal("Filter:"), this.filterButton.getX() - 2, this.filterButton.getY() - 12, 0xFF404040, false);
 
         // 2. Button Overlay
         if (mode == HopperFilterMode.NONE) {
-            context.drawItem(new ItemStack(Items.BARRIER), this.filterButton.getX() + 1, this.filterButton.getY() + 1);
+            context.item(new ItemStack(Items.BARRIER), this.filterButton.getX() + 1, this.filterButton.getY() + 1);
         } else {
             String text = (mode == HopperFilterMode.WHITELIST) ? "✔" : "T";
             int color = (mode == HopperFilterMode.WHITELIST) ? 0xFF55FF55 : 0xFFFFAA00;
-            int textWidth = this.textRenderer.getWidth(text);
-            context.drawText(this.textRenderer, text, this.filterButton.getX() + (18 - textWidth) / 2, this.filterButton.getY() + 5, color, true);
+            int textWidth = this.font.width(text);
+            context.text(this.font, text, this.filterButton.getX() + (18 - textWidth) / 2, this.filterButton.getY() + 5, color, true);
         }
 
         if (this.filterButton.isHovered()) {
-            context.drawTooltip(this.textRenderer, mode.getText(), mouseX, mouseY);
+            context.setTooltipForNextFrame(this.font, mode.getText(), mouseX, mouseY);
         }
 
-    // 3. Ghost Items & Farb-Overlay
-    // WICHTIG: Damit 'getBlockEntity()' hier funktioniert, beachte Schritt 2!
-    if (this.handler.getBlockEntity() instanceof ModHopperBlockEntity be && mode != HopperFilterMode.NONE) {
-        for (int i = 0; i < 5; i++) {
-            Slot slot = this.handler.slots.get(i);
-            ItemStack ghostStack = be.getGhostItem(i); // Holt das Ghost Item aus der BlockEntity
+        // 3. Ghost Items & Farb-Overlay
+        if (this.menu.getBlockEntity() instanceof ModHopperBlockEntity be && mode != HopperFilterMode.NONE) {
+            for (int i = 0; i < 5; i++) {
+                Slot slot = this.menu.slots.get(i);
+                ItemStack ghostStack = be.getGhostItem(i);
 
-            // Wenn ein Filter gesetzt ist (Ghost Stack nicht leer)
-            if (!ghostStack.isEmpty()) {
-                int slotX = this.x + slot.x;
-                int slotY = this.y + slot.y;
+                if (!ghostStack.isEmpty()) {
+                    int slotX = this.leftPos + slot.x;
+                    int slotY = this.topPos + slot.y;
 
-                // A) Oranges Overlay zeichnen (0x60 = Transparenz, FFAA00 = Orange)
-                context.fill(slotX, slotY, slotX + 16, slotY + 16, 0x60FFAA00);
+                    context.fill(slotX, slotY, slotX + 16, slotY + 16, 0x60FFAA00);
 
-                // B) Ghost Item zeichnen (nur wenn Slot physikalisch leer ist)
-                if (slot.getStack().isEmpty()) {
-                    context.drawItem(ghostStack, slotX, slotY);
+                    if (slot.getItem().isEmpty()) {
+                        context.item(ghostStack, slotX, slotY);
 
-                    // Manuelles Tooltip für Ghost Item
-                    if (isPointWithinBounds(slot.x, slot.y, 16, 16, mouseX, mouseY)) {
-                        List<Text> tooltip = new ArrayList<>();
-                        tooltip.add(Text.literal("Filtered Item:").formatted(Formatting.GOLD));
-                        tooltip.add(ghostStack.getName());
-                        context.drawTooltip(this.textRenderer, tooltip, mouseX, mouseY);
+                        if (isHovering(slot.x, slot.y, 16, 16, mouseX, mouseY)) {
+                            List<Component> tooltip = new ArrayList<>();
+                            tooltip.add(Component.literal("Filtered Item:").withStyle(ChatFormatting.GOLD));
+                            tooltip.add(ghostStack.getHoverName());
+                            context.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
+                        }
                     }
                 }
             }
         }
     }
-}
 
     // FIX FÜR GLITCH: Abfangen der Klicks auf die Slots, um Ghost Items zu setzen
     @Override
-    public boolean mouseClicked(Click click, boolean doubled) {
+    public boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
         // Nutzen der synchronisierten Daten
-        if (this.handler.getSyncedFilterMode() != HopperFilterMode.NONE) {
-            Slot hoveredSlot = this.getSlotAt(click.x(), click.y());
+        if (this.menu.getSyncedFilterMode() != HopperFilterMode.NONE) {
+            Slot hoveredSlot = this.getHoveredSlot(click.x(), click.y());
 
             // Nur eingreifen, wenn wir auf einen der 5 Hopper-Slots klicken
-            if (hoveredSlot != null && hoveredSlot.getIndex() < 5) {
-                ItemStack cursorStack = this.handler.getCursorStack();
+            if (hoveredSlot != null && hoveredSlot.getContainerSlot() < 5) {
+                ItemStack cursorStack = this.menu.getCarried();
 
                 // Senden des Pakets (jetzt crash-sicher auch mit leerem Stack)
-                ClientPlayNetworking.send(new SetHopperGhostItemPayload(hoveredSlot.getIndex(), cursorStack));
+                ClientNetworking.send(new SetHopperGhostItemPayload(hoveredSlot.getContainerSlot(), cursorStack));
 
                 // Client-seitiges Update für sofortiges Feedback
-                if (this.handler.getBlockEntity() instanceof ModHopperBlockEntity be) {
-                    be.setGhostItemClient(hoveredSlot.getIndex(), cursorStack);
+                if (this.menu.getBlockEntity() instanceof ModHopperBlockEntity be) {
+                    be.setGhostItemClient(hoveredSlot.getContainerSlot(), cursorStack);
                 }
 
                 return true; // Event konsumieren, damit kein echtes Item gelegt wird
@@ -126,9 +118,9 @@ public class NetheriteHopperScreen extends HandledScreen<NetheriteHopperScreenHa
         return super.mouseClicked(click, doubled);
     }
 
-    private Slot getSlotAt(double x, double y) {
-        for (Slot slot : this.handler.slots) {
-            if (this.isPointWithinBounds(slot.x, slot.y, 16, 16, x, y)) {
+    private Slot getHoveredSlot(double x, double y) {
+        for (Slot slot : this.menu.slots) {
+            if (this.isHovering(slot.x, slot.y, 16, 16, x, y)) {
                 return slot;
             }
         }
@@ -136,9 +128,8 @@ public class NetheriteHopperScreen extends HandledScreen<NetheriteHopperScreenHa
     }
 
     @Override
-    protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        int i = (this.width - this.backgroundWidth) / 2;
-        int j = (this.height - this.backgroundHeight) / 2;
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
+    public void extractBackground(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+        super.extractBackground(context, mouseX, mouseY, delta);
+        context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
     }
 }
