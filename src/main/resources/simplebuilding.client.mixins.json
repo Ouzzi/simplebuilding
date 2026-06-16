@@ -2,20 +2,19 @@
   "required": true,
   "package": "com.simplebuilding.mixin.client",
   "compatibilityLevel": "JAVA_25",
-  "mixins": [
-    "ClientSpeedometerMixin",
-    "ItemMixin"
-  ],
+  "mixins": [],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
     "BundleTooltipComponentMixin",
+    "ClientSpeedometerMixin",
     "ClientSurvivalTracerMixin",
     "HandledScreenMixin",
     "HeldItemRendererMixin",
     "InventoryScreenMixin",
     "ItemFrameEntityRendererMixin",
+    "ItemMixin",
     "MinecraftClientMixin",
     "MouseMixin",
     "SmithingScreenMixin"

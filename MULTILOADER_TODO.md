@@ -33,9 +33,7 @@ Folgende Subsysteme sind auf NeoForge **funktional vollständig** verdrahtet (ke
 
 ### 🔴 BLOCKER
 
-- [ ] **B1 – Dedicated-Server-Crash durch Client-Mixin.** In `simplebuilding.client.mixins.json` steht `ClientSpeedometerMixin` (Ziel: client-only `ItemModelResolver`) im gemeinsamen `mixins`-Array statt im `client`-Array. Fabric gated die ganze Config auf `environment: client`; NeoForge lädt sie **beidseitig** → harter Crash beim Start eines NeoForge-**Dedicated-Servers**. (Singleplayer/Client laufen.)
-  `simplebuilding.client.mixins.json:5-8` → verschieben nach `client:`-Array.
-  _(Nebenbefund: `ItemMixin` im selben Array ist nur ein Code-Smell, kein Crash.)_
+- [x] **B1 – Dedicated-Server-Crash durch Client-Mixin.** ✅ **BEHOBEN** — `ClientSpeedometerMixin` und `ItemMixin` vom gemeinsamen `mixins`-Array ins side-gated `client`-Array verschoben (`simplebuilding.client.mixins.json`). NeoForge/Forge-Dedicated-Server laden sie nun nicht mehr serverseitig. (Laufzeit noch ungetestet, aber die Crash-Ursache ist beseitigt.)
 
 ### 🟠 HIGH
 
