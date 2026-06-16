@@ -1,74 +1,55 @@
-# Multiloader Migration (Fabric + Forge + NeoForge)
+# Multiloader Setup (Fabric + NeoForge current · Forge legacy)
 
-Current state:
-- Root project remains the working Fabric build.
-- New modules were added: common, forge, neoforge.
-- Forge and NeoForge modules now build as standalone Java subprojects with loader metadata templates.
+_Stand: 2026-06-16 (Minecraft 26.1.2)._
 
-## What was set up
-- settings.gradle now includes common, forge, neoforge.
-- gradle.properties now contains placeholder properties:
-   - forge_version_channel (`fixed` or `latest`)
-   - forge_version_fixed
-   - forge_version_latest
-   - neoforge_version_channel (`fixed` or `latest`)
-   - neoforge_version_fixed
-   - neoforge_version_latest
-   - forge_version (legacy fallback)
-   - neoforge_version (legacy fallback)
-   - forge_loader_version_range
-   - neoforge_loader_version_range
-   - minecraft_version_range
-- Forge metadata template: forge/src/main/resources/META-INF/mods.toml
-- NeoForge metadata template: neoforge/src/main/resources/META-INF/neoforge.mods.toml
-- Resource expansion in subproject builds injects mod id and version at build time.
-- Forge/NeoForge metadata now also inject loader and Minecraft version ranges from gradle.properties.
-- Forge/NeoForge modules now include optional compileOnly loader dependencies controlled by `forge_version` and `neoforge_version`.
-- Forge/NeoForge modules now support channel-based dependency selection (fixed vs latest-in-line).
-- Default remains disabled (`0.0.0`) until you set a resolvable loader artifact version from the target Maven.
-- New validation/status tasks:
-   - `:forge:loaderStatus`
-   - `:neoforge:loaderStatus`
-   - `:forge:requireLoaderVersion`
-   - `:neoforge:requireLoaderVersion`
-   - `:listVersionProfiles`
-   - `:matrixBaseline`
-   - `:matrixNeoforge26FixedStatus`
-   - `:matrixNeoforge26LatestStatus`
-   - `:matrixStatus`
-- Optional profile switch via `-PversionProfile=<name>` loads overrides from `profiles/<name>.properties`.
-- Common init class added: common/src/main/java/com/simplebuilding/common/SimplebuildingCommon.java
-- Common bootstrap added: common/src/main/java/com/simplebuilding/common/SimplebuildingBootstrap.java
-- Common startup plan added: common/src/main/java/com/simplebuilding/common/SimplebuildingStartupPlan.java
-- Common loader enum added: common/src/main/java/com/simplebuilding/common/SimplebuildingLoader.java
-- Fabric root now calls common init during startup.
-- Loader Java entrypoint stubs added:
-   - forge/src/main/java/com/simplebuilding/forge/SimplebuildingForgeEntrypoint.java
-   - neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeEntrypoint.java
-- Loader bootstrap adapters added:
-   - forge/src/main/java/com/simplebuilding/forge/SimplebuildingForgeModBootstrap.java
-   - neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeModBootstrap.java
-- Verified successfully: ./gradlew :common:build :forge:build :neoforge:build
+## Loader-Status
 
-## Recommended next migration steps
-1. Keep root Fabric fully green (build + runClient).
-2. Move cross-loader logic into common gradually:
-   - registries, pure logic/util classes
-   - networking abstractions
-   - data/codec logic independent of loader APIs
-3. Introduce loader adapters:
-   - forge module for Forge-specific bootstrap/hooks
-   - neoforge module for NeoForge-specific bootstrap/hooks
-4. Add real loader plugins and dependencies for Forge and NeoForge.
-5. Port entrypoint/bootstrap classes for each loader.
-6. Pin actual loader versions in gradle.properties for your target MC line.
-7. Add CI matrix jobs:
-   - fabric
-   - forge
-   - neoforge
+| Loader | Rolle | Modul | Tooling | Build |
+|--------|-------|-------|---------|-------|
+| **Fabric** | ✅ **aktuell / primär** | root (`src/main/java`) | Fabric Loom 1.16 | grün (+ Test) |
+| **NeoForge** | ✅ **aktuell** | `:neoforge` | NeoForge ModDevGradle 2.0 | grün (JAR) |
+| **Forge** | 🗄️ **Legacy / Best-Effort** | `:forge` | ForgeGradle 7 | grün (JAR) |
 
-## Useful commands
-- ./gradlew tasks
-- ./gradlew :common:portStatus
-- ./gradlew :forge:portStatus
-- ./gradlew :neoforge:portStatus
+> **Forge ist Legacy.** Es baut mit und bleibt erhalten, hat aber heute geringe
+> Relevanz. Aktiv gepflegt und als Zielplattform behandelt werden **Fabric** und
+> **NeoForge**. Forge-spezifische Lücken (kein Config-GUI, kein In-Welt-Highlight,
+> keine HUD-Overlays) werden bewusst nicht priorisiert — Details in
+> `MULTILOADER_TODO.md`, Abschnitt 5.
+
+## Architektur
+
+- **root** = Fabric-Mod. Enthält den gesamten geteilten Spielcode unter
+  `src/main/java/com/simplebuilding/**`.
+- **`:common`** = winziger loader-agnostischer Bootstrap (`SimplebuildingCommon`,
+  `SimplebuildingBootstrap`, `SimplebuildingStartupPlan`, `SimplebuildingLoader`).
+- **`:neoforge`** und **`:forge`** rekompilieren denselben Root-Spielcode und
+  liefern jeweils loader-spezifische Adapter (Entrypoint, Registries, Events,
+  Networking, Client) sowie die Loader-Metadaten.
+- Alle drei Loader bauen in **einem** Gradle-9.4.1-Build.
+
+## Bauen
+
+```
+./gradlew build                 # baut alle drei Loader (Fabric + NeoForge + Forge)
+./gradlew :build                # nur Fabric (root) + Test
+./gradlew :neoforge:build       # nur NeoForge
+./gradlew :forge:build          # nur Forge (Legacy)
+```
+
+JAR-Ausgaben:
+- Fabric: `build/libs/simplebuilding-<version>.jar`
+- NeoForge: `neoforge/build/libs/simplebuilding-neoforge-<version>.jar`
+- Forge (Legacy): `forge/build/libs/simplebuilding-forge-<version>.jar`
+
+## Wichtige Tooling-Fakten (warum es so aufgebaut ist)
+
+- MinecraftForge 26.1.2 baut **nur** mit **ForgeGradle 7** (`[7.0.17,8)`); FG6
+  unterstützt kein Gradle 9, ModDevGradle-legacyforge nur Forge ≤ 1.20.1.
+- cloth-config hat **keinen** Forge-Build für die MC-26.x-Linie → das `:forge`-Modul
+  bündelt einen minimalen `me.shedaniel.autoconfig`-Shim (nur Default-Werte).
+
+## Laufzeit-Status
+
+⚠️ **Noch kein Loader wurde tatsächlich gestartet** (kein `runClient`/`runServer`).
+Alle Aussagen basieren auf erfolgreichem Build + Code-Analyse. Offene
+Laufzeit-Verifikation und bekannte Lücken: siehe `MULTILOADER_TODO.md`.

@@ -2,6 +2,8 @@
 
 _Erstellt: 2026-06-16. Grundlage: echter Gradle-Build aller Module + Subsystem-Lückenanalyse (Fabric-Wiring vs. NeoForge-Wiring)._
 
+> **Loader-Rollen:** **Fabric** + **NeoForge** = aktuell / priorisiert. **Forge** = 🗄️ **Legacy** (baut mit, aber geringe Relevanz; Lücken in Abschnitt 5 werden bewusst nicht priorisiert). Siehe `MULTILOADER_MIGRATION.md`.
+
 ## 1. Build- & Testergebnis (tatsächlich ausgeführt)
 
 | Modul | Befehl | Ergebnis |
@@ -70,7 +72,11 @@ Folgende Subsysteme sind auf NeoForge **funktional vollständig** verdrahtet (ke
 
 ---
 
-## 5. Forge-Loader – Implementierungsstand (NEU, 2026-06-16)
+## 5. Forge-Loader (🗄️ LEGACY) – Implementierungsstand (NEU, 2026-06-16)
+
+> Forge wird als **Legacy** geführt. Es baut und funktioniert grundsätzlich, wird
+> aber nicht aktiv gepflegt. Die offenen F-Punkte unten sind **niedrige Priorität**
+> — sie blockieren die aktuellen Loader (Fabric/NeoForge) nicht.
 
 **Tooling:** MinecraftForge 26.1.2 baut nur mit **ForgeGradle 7** (`[7.0.17,8)`), das als einziges FG Gradle 9 unterstützt. `:forge` ist ein Subprojekt im einheitlichen Build (FG7 koexistiert mit Loom + NeoForge-moddev). ForgeGradle 6 (Gradle 8) und ModDevGradle-legacyforge (nur ≤1.20.1) funktionieren **nicht** für 26.1.2 — empirisch bestätigt.
 

@@ -3,7 +3,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '[7.0.17,8)'
 }
 
-description = 'MinecraftForge loader module for SimpleBuilding'
+description = 'MinecraftForge loader module for SimpleBuilding (LEGACY / best-effort; Fabric + NeoForge are the current loaders)'
 
 def resolveSetting = { String key, String defaultValue = null ->
     def fromProject = project.findProperty(key)

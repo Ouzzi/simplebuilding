@@ -20,8 +20,12 @@ pluginManagement {
 rootProject.name = 'simplebuilding'
 
 include 'common'
-include 'neoforge'
-include 'forge'
-// Forge uses ForgeGradle 7 (the only FG that supports Gradle 9 + MC 26.1.2),
-// applied to the :forge subproject. Loom (root) and NeoForge moddev (:neoforge)
-// each apply their own loader plugin to their own subproject.
+
+// Current / actively maintained loaders:
+include 'neoforge'   // NeoForge (ModDevGradle) — current
+
+// Legacy loader (low relevance today; kept building but not prioritised):
+include 'forge'      // MinecraftForge (ForgeGradle 7) — legacy / best-effort
+
+// The root project itself is the Fabric loader (current), built with Loom.
+// Each subproject applies its own loader plugin; all build under Gradle 9.
