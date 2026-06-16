@@ -20,8 +20,14 @@ import com.simplebuilding.util.EnchantmentHelper;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.serialization.Codec;
 import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.ConfigManager;
+import me.shedaniel.autoconfig.gui.ConfigScreenProvider;
+import me.shedaniel.autoconfig.gui.DefaultGuiProviders;
+import me.shedaniel.autoconfig.gui.DefaultGuiTransformers;
+import me.shedaniel.autoconfig.gui.registry.GuiRegistry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
 import net.minecraft.network.chat.Component;
@@ -31,8 +37,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
@@ -56,7 +64,10 @@ public final class SimplebuildingNeoForgeClient {
     private boolean wasOnGround = true;
     private boolean wasJumpPressed = false;
 
-    public SimplebuildingNeoForgeClient(IEventBus modEventBus) {
+    public SimplebuildingNeoForgeClient(IEventBus modEventBus, ModContainer modContainer) {
+        // Config button in the NeoForge mods list -> opens the cloth AutoConfig GUI.
+        modContainer.registerExtensionPoint(IConfigScreenFactory.class,
+                (container, parent) -> buildConfigScreen(parent));
         modEventBus.addListener(this::onClientSetup);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerMenus);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerKeys);
@@ -71,6 +82,17 @@ public final class SimplebuildingNeoForgeClient {
 
     private void onClientSetup(FMLClientSetupEvent event) {
         ClientNetworking.setSender(ClientPacketDistributor::sendToServer);
+    }
+
+    private static Screen buildConfigScreen(Screen parent) {
+        // cloth-config-neoforge exposes no AutoConfig.getConfigScreen (unlike the Fabric
+        // variant / ModMenu path), so build the AutoConfig GUI directly from the config
+        // manager + the default GUI registry.
+        @SuppressWarnings("unchecked")
+        ConfigManager<SimplebuildingConfig> manager =
+                (ConfigManager<SimplebuildingConfig>) AutoConfig.getConfigHolder(SimplebuildingConfig.class);
+        GuiRegistry registry = DefaultGuiTransformers.apply(DefaultGuiProviders.apply(new GuiRegistry()));
+        return new ConfigScreenProvider<>(manager, registry, parent).get();
     }
 
     public static void registerMenus(RegisterMenuScreensEvent event) {
