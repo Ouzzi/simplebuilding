@@ -20,5 +20,8 @@ pluginManagement {
 rootProject.name = 'simplebuilding'
 
 include 'common'
-include 'forge'
 include 'neoforge'
+include 'forge'
+// Forge uses ForgeGradle 7 (the only FG that supports Gradle 9 + MC 26.1.2),
+// applied to the :forge subproject. Loom (root) and NeoForge moddev (:neoforge)
+// each apply their own loader plugin to their own subproject.

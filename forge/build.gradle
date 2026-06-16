@@ -1,114 +1,131 @@
 plugins {
     id 'java'
+    id 'net.minecraftforge.gradle' version '[7.0.17,8)'
 }
 
-description = 'Forge loader module scaffold'
-
-def versionProfile = project.findProperty('versionProfile')?.toString()
-def versionProfileProps = new Properties()
-
-if (versionProfile) {
-    def profileFile = rootProject.file("profiles/${versionProfile}.properties")
-    if (!profileFile.exists()) {
-        throw new GradleException("Version profile not found: ${profileFile}")
-    }
-    profileFile.withInputStream { versionProfileProps.load(it) }
-}
+description = 'MinecraftForge loader module for SimpleBuilding'
 
 def resolveSetting = { String key, String defaultValue = null ->
-    if (versionProfileProps.containsKey(key)) {
-        return versionProfileProps.getProperty(key)
-    }
     def fromProject = project.findProperty(key)
     return fromProject != null ? fromProject.toString() : defaultValue
 }
 
-def forgeVersionChannel = resolveSetting('forge_version_channel', 'fixed')
-def forgeVersionFixed = resolveSetting('forge_version_fixed', null)
-def forgeVersionLatest = resolveSetting('forge_version_latest', null)
-def forgeVersionLegacy = resolveSetting('forge_version', '0.0.0')
-
-def forgeVersion = forgeVersionChannel == 'latest' ? (forgeVersionLatest ?: forgeVersionLegacy) : (forgeVersionFixed ?: forgeVersionLegacy)
-def minecraftVersion = resolveSetting('minecraft_version', '1.21.11')
-def forgeLoaderVersionRange = resolveSetting('forge_loader_version_range', '[0,)')
-def minecraftVersionRange = resolveSetting('minecraft_version_range', '[1.21.11,1.22)')
-
-def forgeCoordinate = "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
-def forgeDependencyEnabled = forgeVersion != '0.0.0'
-
-repositories {
-    maven {
-        name = 'Forge'
-        url = 'https://maven.minecraftforge.net/'
-    }
-    mavenCentral()
-}
+def forgeVersion = resolveSetting('forge_version_fixed', '64.0.9')
+def minecraftVersion = resolveSetting('minecraft_version', '26.1.2')
+def forgeLoaderVersionRange = resolveSetting('forge_loader_version_range', '[64,)')
+def minecraftVersionRange = resolveSetting('minecraft_version_range', '[26.1.2,26.2)')
 
 group = rootProject.group
 version = rootProject.version
 
+base {
+    archivesName = "${rootProject.archives_base_name}-forge"
+}
+
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
     withSourcesJar()
 }
 
+// Shared game code from the Fabric root module + Forge-specific adapters in this
+// module. Mirrors the neoforge module: the same root sources are recompiled here,
+// excluding the Fabric/loader-specific entrypoints that this module re-provides.
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir rootProject.layout.projectDirectory.dir('src/main/java')
+            exclude { details ->
+                def path = details.file.absolutePath.replace('\\', '/')
+                def isRootFabricSource = path.contains('/simplebuilding/src/main/java/')
+                def relative = details.relativePath.pathString
+                if (!isRootFabricSource) {
+                    return false
+                }
+                return relative == 'com/simplebuilding/Simplebuilding.java'
+                        || relative == 'com/simplebuilding/SimplebuildingClient.java'
+                        || relative == 'com/simplebuilding/SimplebuildingDataGenerator.java'
+                        || relative.startsWith('com/simplebuilding/compat/')
+                        || relative.startsWith('com/simplebuilding/datagen/')
+                        || relative == 'com/simplebuilding/platform/HopperMenus.java'
+                        || relative == 'com/simplebuilding/screen/ModScreenHandlers.java'
+                        || relative == 'com/simplebuilding/command/ModCommands.java'
+                        || relative == 'com/simplebuilding/util/ModRegistries.java'
+                        || relative == 'com/simplebuilding/recipe/ModRecipes.java'
+                        || relative == 'com/simplebuilding/networking/ModMessages.java'
+                        || relative == 'com/simplebuilding/items/ModItemGroups.java'
+                        || relative == 'com/simplebuilding/blocks/entity/ModBlockEntities.java'
+                        || relative == 'com/simplebuilding/world/gen/ModOreGeneration.java'
+            }
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir rootProject.layout.projectDirectory.dir('src/main/resources')
+            srcDir rootProject.layout.projectDirectory.dir('src/main/generated')
+            exclude 'fabric.mod.json'
+        }
+    }
+}
+
+minecraft {
+    runs {
+        configureEach {
+            workingDir = layout.projectDirectory.dir('run')
+            systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
+            systemProperty 'forge.enabledGameTestNamespaces', rootProject.archives_base_name
+        }
+        register('client')
+        register('server') {
+            args '--nogui'
+        }
+    }
+}
+
+repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    maven { url = 'https://maven.shedaniel.me/' }
+    mavenCentral()
+}
+
 dependencies {
     implementation project(':common')
-
-    if (forgeDependencyEnabled) {
-        compileOnly forgeCoordinate
-    }
+    implementation minecraft.dependency("net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}")
+    // NOTE: cloth-config has no MinecraftForge build for the 26.x line (Fabric +
+    // NeoForge only). A minimal me.shedaniel.autoconfig shim is bundled in this
+    // module (see src/main/java/me/shedaniel/autoconfig) so the shared config code
+    // compiles and runs on Forge with default values (no config GUI/persistence).
 }
 
 tasks.named('processResources', ProcessResources).configure {
-    inputs.property 'modVersion', project.version
-    inputs.property 'modId', project.archives_base_name
-    inputs.property 'loaderVersionRange', forgeLoaderVersionRange
-    inputs.property 'minecraftVersionRange', minecraftVersionRange
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    def replaceProperties = [
+            modVersion           : project.version,
+            modId                : rootProject.archives_base_name,
+            loaderVersionRange   : forgeLoaderVersionRange,
+            minecraftVersionRange: minecraftVersionRange,
+    ]
+    inputs.properties replaceProperties
     filesMatching('META-INF/mods.toml') {
-        expand(
-            modVersion: project.version,
-            modId: project.archives_base_name,
-            loaderVersionRange: forgeLoaderVersionRange,
-            minecraftVersionRange: minecraftVersionRange
-        )
+        expand replaceProperties
     }
+}
+
+tasks.withType(Jar).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.named('jar').configure {
-    archiveClassifier = 'forge'
-}
-
-tasks.register('loaderStatus') {
-    group = 'migration'
-    description = 'Shows whether Forge dependency coordinates are configured.'
-    doLast {
-        println "Version profile: ${versionProfile ?: '(none)'}"
-        println "Forge version channel: ${forgeVersionChannel}"
-        println "Forge dependency enabled: ${forgeDependencyEnabled}"
-        println "Forge coordinate: ${forgeCoordinate}"
-        if (!forgeDependencyEnabled) {
-            println 'Set forge_version_fixed (or legacy forge_version) in gradle.properties to enable compileOnly Forge dependency.'
-        }
-    }
-}
-
-tasks.register('requireLoaderVersion') {
-    group = 'migration'
-    description = 'Fails when forge_version is still placeholder.'
-    doLast {
-        if (!forgeDependencyEnabled) {
-            throw new GradleException('Forge dependency is disabled. Configure forge_version_fixed or forge_version.')
-        }
-    }
-}
-
-tasks.register('portStatus') {
-    group = 'migration'
-    description = 'Shows current Forge migration status.'
-    doLast {
-        println 'Forge scaffold with optional compileOnly dependency is ready. Next: real Forge plugin wiring and @Mod bootstrap.'
+    manifest {
+        attributes([
+                'Specification-Title'   : 'simplebuilding',
+                'Specification-Vendor'  : 'simplebuilding',
+                'Specification-Version' : project.version,
+                'Implementation-Title'  : project.name,
+                'Implementation-Version': project.version,
+        ])
     }
 }
