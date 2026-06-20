@@ -55,6 +55,7 @@ import org.lwjgl.glfw.GLFW;
 
 @Mod(value = Simplebuilding.MOD_ID, dist = Dist.CLIENT)
 public final class SimplebuildingNeoForgeClient {
+    @SuppressWarnings("deprecation") // KeyMapping.Category.register(Identifier) — same call Fabric uses
     public static final KeyMapping.Category KEY_CATEGORY_SIMPLEMODS = KeyMapping.Category.register(
             Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "simplemods"));
     public static SelectItemModelProperty.Type<EnchantmentModelProperty, String> ENCHANTMENT_PROPERTY_TYPE;

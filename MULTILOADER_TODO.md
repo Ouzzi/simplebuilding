@@ -50,12 +50,12 @@ Folgende Subsysteme sind auf NeoForge **funktional vollständig** verdrahtet (ke
 
 ### 🟢 LOW (Aufräumen / kosmetisch)
 
-- [ ] **L1 – Deprecation:** `KeyMapping.Category.register(Identifier)` in `SimplebuildingNeoForgeClient.java:50` (Fabric versteckt es mit `@SuppressWarnings`). Rein kosmetisch.
+- [x] **L1 – Deprecation:** ✅ **BEHOBEN** — `@SuppressWarnings("deprecation")` an `KEY_CATEGORY_SIMPLEMODS` in `SimplebuildingNeoForgeClient` (wie Fabric). Warnung weg.
 - [x] **L2 – Repo-Müll:** ✅ **BEHOBEN** — getrackte javap-Dumps (`tmp_*.txt`, ~4,5 MB) entfernt, untracked `compile-*.txt` / `.tmp-fabric*` gelöscht, `.gitignore` um diese Muster ergänzt. (`*.bu`-Dateien bewusst behalten — deaktivierter Code.)
 - [ ] **L3 – `loom_version=1.16-SNAPSHOT`** → auf Release-Version pinnen (Reproduzierbarkeit).
 - [ ] **L4 – `neoforge.mods.toml`** ohne `logoFile`/URLs → kein Icon/Metadaten in der Mod-Liste.
-- [ ] **L5 – `ModEnchantmentEffects.registerEnchantmentEffects()` ist auf BEIDEN Loadern ein No-Op** (Helper nie aufgerufen) – evtl. latenter Altbug, nicht NeoForge-spezifisch. Prüfen.
-- [ ] **L6 – Tote Mixins** `WorldRendererMixin`, `EquipmentRendererMixin` (leer, in keiner Config) – entfernen.
+- [x] **L5 – `ModEnchantmentEffects` No-Op** ✅ **GEPRÜFT – kein Bug.** Bewusster leerer Platzhalter; der Mod registriert keine eigenen `EnchantmentEntityEffect`-Typen (Effekte laufen über Mixins/Events). Auf allen Loadern identisch → keine Aktion.
+- [x] **L6 – „Tote" Mixins** ✅ **GEPRÜFT – behalten.** `WorldRendererMixin`/`EquipmentRendererMixin` sind leer, aber **kein** Müll: unfertiges Scaffolding für geplante Render-Hooks (Mining-Highlight bzw. Glowing-Trim), referenziert per Kommentar in `MiningUtils`/`GlowingTrimUtils`. Nicht entfernen.
 - [ ] **L7 – Fragile Registrierung:** NeoForge verlässt sich auf Class-Loading-Seiteneffekte (Static-Init) und implizite Lifecycle-Reihenfolge in `assignStaticFields()`. Funktioniert, aber ohne Guard.
 - [ ] **L8 – Payloads ohne `.optional()`** auf NeoForge → könnte Verbindungen mit abweichender Version ablehnen.
 - [ ] **L9 – Ore-Biome-Targeting** `foundInTheEnd()` (Fabric) vs. `#minecraft:is_end` (NeoForge) – nur bei modded End-Biomen unterschiedlich.
