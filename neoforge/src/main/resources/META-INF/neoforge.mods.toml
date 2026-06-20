@@ -16,6 +16,8 @@ description='''
 SimpleBuilding for NeoForge 26.1.2
 '''
 authors="simplebuilding"
+displayURL="https://azarfane.de/"
+logoFile="assets/simplebuilding/icon.png"
 
 [[dependencies.${modId}]]
 modId="neoforge"
