@@ -2,6 +2,7 @@ package com.simplebuilding.neoforge;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
+import com.simplebuilding.client.DoubleJumpController;
 import com.simplebuilding.client.gui.BuildingWandScreen;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.client.gui.OctantScreen;
@@ -60,9 +61,6 @@ public final class SimplebuildingNeoForgeClient {
             Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "simplemods"));
     public static SelectItemModelProperty.Type<EnchantmentModelProperty, String> ENCHANTMENT_PROPERTY_TYPE;
 
-    private boolean jumpKeyPressed = false;
-    private int jumpsUsed = 0;
-    private boolean wasOnGround = true;
     private boolean wasJumpPressed = false;
 
     public SimplebuildingNeoForgeClient(IEventBus modEventBus, ModContainer modContainer) {
@@ -177,26 +175,8 @@ public final class SimplebuildingNeoForgeClient {
             wasJumpPressed = isJumpPressed;
         }
 
-        if (Simplebuilding.getConfig().enableDoubleJump) {
-            boolean isOnGround = client.player.onGround();
-            boolean isClimbing = client.player.onClimbable();
-            boolean isInWater = client.player.isInWater();
-            boolean jumping = client.options.keyJump.isDown();
-            if (isOnGround || isClimbing || isInWater) {
-                jumpsUsed = 0;
-            } else if (jumping && !jumpKeyPressed && !wasOnGround) {
-                int level = getDoubleJumpLevel(client.player);
-                if (level > 0 && jumpsUsed < level && !client.player.getAbilities().flying) {
-                    Vec3 velocity = client.player.getDeltaMovement();
-                    client.player.setDeltaMovement(velocity.x, 0.5, velocity.z);
-                    client.player.fallDistance = 0;
-                    jumpsUsed++;
-                    ClientNetworking.send(new DoubleJumpPayload());
-                }
-            }
-            jumpKeyPressed = jumping;
-            wasOnGround = isOnGround;
-        }
+        // Shared air-jump + level-dependent cooldown logic (see DoubleJumpController).
+        DoubleJumpController.tick(client);
     }
 
     private void onRenderLevelAfterTranslucentBlocks(RenderLevelStageEvent.AfterTranslucentBlocks event) {
@@ -206,14 +186,4 @@ public final class SimplebuildingNeoForgeClient {
         );
     }
 
-    private static int getDoubleJumpLevel(net.minecraft.world.entity.player.Player player) {
-        int maxLevel = 0;
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            int level = EnchantmentHelper.getEnchantmentLevel(player.getItemBySlot(slot), player.level(), ModEnchantments.DOUBLE_JUMP);
-            if (level > maxLevel) {
-                maxLevel = level;
-            }
-        }
-        return maxLevel;
-    }
 }

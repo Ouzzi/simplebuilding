@@ -1,6 +1,7 @@
 package com.simplebuilding.neoforge;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.client.gui.DoubleJumpHudOverlay;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.gui.SpeedometerHudOverlay;
 import com.simplebuilding.client.render.BlockOutlineSupport;
@@ -25,6 +26,11 @@ public final class NeoForgeClientHooks {
                 Identifier.fromNamespaceAndPath("minecraft", "chat"),
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "speedometer_hud"),
                 (extractor, deltaTracker) -> SpeedometerHudOverlay.render(extractor)
+        );
+        event.registerAbove(
+                Identifier.fromNamespaceAndPath("minecraft", "chat"),
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "air_jump_cooldown_hud"),
+                (extractor, deltaTracker) -> DoubleJumpHudOverlay.render(extractor)
         );
     }
 

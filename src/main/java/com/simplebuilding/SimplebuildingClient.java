@@ -18,6 +18,7 @@ import com.simplebuilding.screen.ModScreenHandlers;
 import com.simplebuilding.util.BundleTooltipAccessor;
 import com.simplebuilding.util.SurvivalTracerAccessor;
 import com.simplebuilding.client.ClientState;
+import com.simplebuilding.client.DoubleJumpController;
 import com.simplebuilding.platform.ClientNetworking;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.api.ClientModInitializer;
@@ -46,10 +47,6 @@ import static com.simplebuilding.util.EnchantmentHelper.getEnchantmentLevel;
 import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 
 public class SimplebuildingClient implements ClientModInitializer {
-
-    private boolean jumpKeyPressed = false;
-    private int jumpsUsed = 0;
-    private boolean wasOnGround = true;
 
     // Tasten
     public static final KeyMapping.Category KEY_CATEGORY_SIMPLEMODS = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "simplemods"));
@@ -119,6 +116,11 @@ public class SimplebuildingClient implements ClientModInitializer {
                 VanillaHudElements.CHAT,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "speedometer_hud"),
                 (context, tickCounter) -> SpeedometerHudOverlay.render(context)
+        );
+        HudElementRegistry.attachElementBefore(
+                VanillaHudElements.CHAT,
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "air_jump_cooldown_hud"),
+                (context, tickCounter) -> DoubleJumpHudOverlay.render(context)
         );
         LevelRenderEvents.BEFORE_BLOCK_OUTLINE.register((context, outlineRenderState) ->
                 BlockOutlineSupport.suppressVanillaBlockOutline());
@@ -215,42 +217,7 @@ public class SimplebuildingClient implements ClientModInitializer {
     }
 
     private void registerDoubleJumpClient() {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.player == null || !Simplebuilding.getConfig().enableDoubleJump) return;
-
-            boolean isOnGround = client.player.onGround();
-            boolean isClimbing = client.player.onClimbable();
-            boolean isInWater = client.player.isInWater();
-
-            if (isOnGround || isClimbing || isInWater) {
-                jumpsUsed = 0;
-            } else {
-                boolean jumping = client.options.keyJump.isDown();
-                if (jumping && !jumpKeyPressed && !wasOnGround) {
-                    int level = getDoubleJumpLevel(client.player);
-                    if (level > 0 && jumpsUsed < level && !client.player.getAbilities().flying) {
-                        Vec3 velocity = client.player.getDeltaMovement();
-                        client.player.setDeltaMovement(velocity.x, 0.5, velocity.z);
-                        client.player.fallDistance = 0;
-                        jumpsUsed++;
-                        ClientNetworking.send(new DoubleJumpPayload());
-                    }
-                }
-            }
-            jumpKeyPressed = client.options.keyJump.isDown();
-            wasOnGround = isOnGround;
-        });
-    }
-
-    private static int getDoubleJumpLevel(net.minecraft.world.entity.player.Player player) {
-        int maxLevel = 0;
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            ItemStack equipped = player.getItemBySlot(slot);
-            int level = getEnchantmentLevel(equipped, player.level(), ModEnchantments.DOUBLE_JUMP);
-            if (level > maxLevel) {
-                maxLevel = level;
-            }
-        }
-        return maxLevel;
+        // Shared air-jump + level-dependent cooldown logic (see DoubleJumpController).
+        ClientTickEvents.END_CLIENT_TICK.register(DoubleJumpController::tick);
     }
 }

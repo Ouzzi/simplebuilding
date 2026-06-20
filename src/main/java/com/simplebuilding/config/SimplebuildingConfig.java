@@ -17,6 +17,10 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableDoubleJump = true;
 
+    // Air-jump cooldown (ticks) at DOUBLE_JUMP level 1; level 2 uses half of this. 20 ticks = 1s.
+    @ConfigEntry.Gui.Tooltip
+    public int airJumpCooldownTicks = 100;
+
     @ConfigEntry.Gui.Tooltip
     public boolean enableArmorTrimBenefits = true;
 
