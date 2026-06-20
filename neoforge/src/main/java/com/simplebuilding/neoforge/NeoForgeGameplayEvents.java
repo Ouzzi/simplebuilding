@@ -42,6 +42,11 @@ public final class NeoForgeGameplayEvents {
 
     @SubscribeEvent
     public static void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
+        // Only the initial click — LeftClickBlock also fires every tick while mining
+        // is held; Fabric's AttackBlockCallback fires once per attack (M2).
+        if (event.getAction() != PlayerInteractEvent.LeftClickBlock.Action.START) {
+            return;
+        }
         VersatilityUsageEvent.handleAttackBlock(
                 event.getEntity(),
                 event.getLevel(),

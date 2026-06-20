@@ -42,7 +42,7 @@ Folgende Subsysteme sind auf NeoForge **funktional vollständig** verdrahtet (ke
 ### 🟡 MEDIUM
 
 - [x] **M1 – Kein Config-Screen auf NeoForge.** ✅ **BEHOBEN** — `SimplebuildingNeoForgeClient` registriert jetzt einen `IConfigScreenFactory`-Extension-Point (über die `ModContainer`) und baut den cloth-AutoConfig-Screen direkt aus `ConfigManager` + Default-GUI-Registry (cloth-config-neoforge hat kein `AutoConfig.getConfigScreen`). → „Config"-Button erscheint in der NeoForge-Mod-Liste. (Laufzeit noch ungetestet.)
-- [ ] **M2 – Versatility feuert bei NeoForge bei jedem Mining-Tick.** `onLeftClickBlock` filtert nicht auf `event.getAction()` → ggf. wiederholte Inventar-Swaps während des Abbauens, abweichend von Fabric. `NeoForgeGameplayEvents.java:43-52`
+- [x] **M2 – Versatility feuert bei NeoForge bei jedem Mining-Tick.** ✅ **BEHOBEN** — `onLeftClickBlock` filtert jetzt auf `Action.START` (initialer Klick), entspricht Fabrics „einmal pro Angriff". In NeoForge **und** Forge angewendet.
 - [x] **M3 – Inkonsistente Versionsnummern.** ✅ **BEHOBEN** — `profiles/*.properties` und die READMEs auf 26.1.2 / neo 26.1.2.75 / forge 64.0.9 / Java 25 angeglichen (Stand stimmt jetzt mit `gradle.properties` und dem Build überein).
 - [ ] **M4 – NeoForge ignoriert Version-Profile.** `neoforge/build.gradle` liest keine `profiles/*.properties` → `matrixStatus`/`-PversionProfile` schalten die NeoForge-Version **nicht** wirklich um (beworbenes Feature wirkungslos). `neoforge/build.gradle:8-14`
 - [ ] **M5 – NeoForge-Datagen erzeugt nichts.** `data`-Run existiert, aber kein `GatherDataEvent`/Provider registriert → No-Op. Aktuell unkritisch, weil NeoForge die Fabric-generierten Assets aus `src/main/generated` mitnutzt. `neoforge/build.gradle:81-87`
