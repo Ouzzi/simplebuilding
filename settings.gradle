@@ -5,10 +5,6 @@ pluginManagement {
 			url = 'https://maven.fabricmc.net/'
 		}
 		maven {
-			name = 'Forge'
-			url = 'https://maven.minecraftforge.net/'
-		}
-		maven {
 			name = 'NeoForged'
 			url = 'https://maven.neoforged.net/releases/'
 		}
@@ -20,12 +16,6 @@ pluginManagement {
 rootProject.name = 'simplebuilding'
 
 include 'common'
-
-// Current / actively maintained loaders:
-include 'neoforge'   // NeoForge (ModDevGradle) — current
-
-// Legacy loader (low relevance today; kept building but not prioritised):
-include 'forge'      // MinecraftForge (ForgeGradle 7) — legacy / best-effort
-
-// The root project itself is the Fabric loader (current), built with Loom.
-// Each subproject applies its own loader plugin; all build under Gradle 9.
+include 'neoforge'
+// Loaders: Fabric (root project, Fabric Loom) + NeoForge (:neoforge, ModDevGradle).
+// Each applies its own loader plugin to its own project; both build under Gradle 9.

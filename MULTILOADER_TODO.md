@@ -1,94 +1,51 @@
-# Multiloader Migration – Test- & To-do-Status
+# Multiloader – Test- & To-do-Status
 
-_Erstellt: 2026-06-16. Grundlage: echter Gradle-Build aller Module + Subsystem-Lückenanalyse (Fabric-Wiring vs. NeoForge-Wiring)._
-
-> **Loader-Rollen:** **Fabric** + **NeoForge** = aktuell / priorisiert. **Forge** = 🗄️ **Legacy** (baut mit, aber geringe Relevanz; Lücken in Abschnitt 5 werden bewusst nicht priorisiert). Siehe `MULTILOADER_MIGRATION.md`.
+_Stand: 2026-06-16. Loader: **Fabric** (root) + **NeoForge** (`:neoforge`). Eine experimentelle Forge-Implementierung wurde wieder entfernt (geringe Relevanz)._
 
 ## 1. Build- & Testergebnis (tatsächlich ausgeführt)
 
 | Modul | Befehl | Ergebnis |
 |------|--------|----------|
 | **Fabric** (root) | `gradlew :build` | ✅ Build + Test (`LanguageFilesTest`) grün |
-| **NeoForge** | `gradlew :neoforge:build` | ✅ kompiliert + JAR, 1 Deprecation-Warnung |
+| **NeoForge** | `gradlew :neoforge:build` | ✅ kompiliert + JAR |
 | **common** | `gradlew :common:build` | ✅ grün |
-| **Forge** | `gradlew :forge:build` | ✅ kompiliert + JAR (NEU implementiert, s. Abschnitt 5) |
-| **Gesamt** | `gradlew build` | ✅ baut alle drei Loader (H1 behoben) |
+| **Gesamt** | `gradlew build` | ✅ baut beide Loader + Test grün |
 
-> ⚠️ **Wichtigster Vorbehalt:** Es wurde **nichts zur Laufzeit getestet** (kein `runClient` / `runServer` / `data` auf irgendeinem Loader ausgeführt). Alles basiert auf Build + Code-Analyse. Weder NeoForge noch Forge wurde **je tatsächlich gestartet**.
+> ⚠️ **Wichtigster Vorbehalt:** **NeoForge wurde noch nie tatsächlich gestartet** (kein `runClient` / `runServer` / `data`). Alles unten basiert auf erfolgreichem Build + Code-Analyse, nicht auf In-Game-Verhalten.
 
-> 🆕 **Update 2026-06-16:** Forge wurde implementiert (Commits `fc730e1`, `766c8e4`). Alle drei Loader (Fabric + NeoForge + Forge) bauen in **einem** Gradle-9.4.1-Build via ForgeGradle 7. Details + Forge-spezifische offene Punkte in **Abschnitt 5**.
+## 2. Was funktioniert (NeoForge-Parität bestätigt – compile/analyse)
 
-## 2. Was funktioniert (NeoForge-Parität bestätigt)
-
-Folgende Subsysteme sind auf NeoForge **funktional vollständig** verdrahtet (kein echtes Feature-Loch):
+Auf NeoForge funktional vollständig verdrahtet (kein echtes Feature-Loch):
 - **Core-Registry** (Blocks, Items, Block-Entities, Data-Components, Screen-Handler, Recipes, Item-Gruppen) – via `RegisterEvent` + `DeferredRegister`.
 - **Gameplay-Events** (Sledgehammer, StripMiner, VeinMiner, Versatility, DynamicLight, Spatula-Migration) – via `@EventBusSubscriber`.
 - **Networking** (alle 10 C2S + 3 S2C Payloads, PlatformServices, ClientNetworking).
 - **Loot / Trades / Worldgen / Commands** – via NeoForge-Events + `biome_modifier`-JSONs (2 Erze = 2 JSONs).
-- **Client** (Keybinds, HUD-Overlays, Menü-Screen, Tooltip, Item-Model-Property, Block-Highlight, S2C-Receiver) – alle korrekt portiert.
-
----
+- **Client** (Keybinds, HUD-Overlays, Menü-Screen, Tooltip, Item-Model-Property, Block-Highlight, S2C-Receiver, **Config-Screen**).
 
 ## 3. Offene Punkte – nach Priorität
 
-### 🔴 BLOCKER
+### ✅ Erledigt in dieser Session
+- **B1** – Dedicated-Server-Crash-Mixin (Client-Mixins ins side-gated `client`-Array).
+- **M1** – NeoForge In-Game-Config-Screen (`IConfigScreenFactory` + cloth AutoConfig-GUI).
+- **M2** – Versatility nur beim initialen Klick (`Action.START`), nicht pro Mining-Tick.
+- **M3** – Versionsangleichung (READMEs auf MC 26.1.2 / Java 25 / Loader 0.19.3 / Mod 1.3.1).
+- **M4** – Obsolete Version-Profile + Matrix-Tasks entfernt (`profiles/`, `matrix*`/`listVersionProfiles` in `build.gradle`) — die Mechanik war wirkungslos.
+- **M6** – Alle Quellen committet, Working-Tree sauber.
+- **L1** – Deprecation-Warnung (`KeyMapping.Category`) unterdrückt.
+- **L2** – Repo-Müll entfernt (~4,5 MB javap-Dumps), `.gitignore` ergänzt.
+- **L5** – `ModEnchantmentEffects`-No-Op geprüft → kein Bug (bewusster Platzhalter).
+- **L6** – „tote" Mixins geprüft → behalten (geplantes Render-Scaffolding, kein Müll).
 
-- [x] **B1 – Dedicated-Server-Crash durch Client-Mixin.** ✅ **BEHOBEN** — `ClientSpeedometerMixin` und `ItemMixin` vom gemeinsamen `mixins`-Array ins side-gated `client`-Array verschoben (`simplebuilding.client.mixins.json`). NeoForge/Forge-Dedicated-Server laden sie nun nicht mehr serverseitig. (Laufzeit noch ungetestet, aber die Crash-Ursache ist beseitigt.)
+### 🟡 MEDIUM – offen
+- [ ] **M5 – NeoForge-Datagen erzeugt nichts.** `data`-Run existiert, aber kein `GatherDataEvent`/Provider registriert → No-Op. Unkritisch, weil NeoForge die Fabric-generierten Assets aus `src/main/generated` mitnutzt. `neoforge/build.gradle`
 
-### 🟠 HIGH
-
-- [x] **H1 – `gradlew build` scheitert wegen Forge-Toolchain.** ✅ **BEHOBEN** — `forge/build.gradle` komplett ersetzt (ForgeGradle 7, Java-25-Toolchain, echtes Forge 26.1.2). `gradlew build` baut jetzt alle drei Loader grün.
-
-### 🟡 MEDIUM
-
-- [x] **M1 – Kein Config-Screen auf NeoForge.** ✅ **BEHOBEN** — `SimplebuildingNeoForgeClient` registriert jetzt einen `IConfigScreenFactory`-Extension-Point (über die `ModContainer`) und baut den cloth-AutoConfig-Screen direkt aus `ConfigManager` + Default-GUI-Registry (cloth-config-neoforge hat kein `AutoConfig.getConfigScreen`). → „Config"-Button erscheint in der NeoForge-Mod-Liste. (Laufzeit noch ungetestet.)
-- [x] **M2 – Versatility feuert bei NeoForge bei jedem Mining-Tick.** ✅ **BEHOBEN** — `onLeftClickBlock` filtert jetzt auf `Action.START` (initialer Klick), entspricht Fabrics „einmal pro Angriff". In NeoForge **und** Forge angewendet.
-- [x] **M3 – Inkonsistente Versionsnummern.** ✅ **BEHOBEN** — `profiles/*.properties` und die READMEs auf 26.1.2 / neo 26.1.2.75 / forge 64.0.9 / Java 25 angeglichen (Stand stimmt jetzt mit `gradle.properties` und dem Build überein).
-- [ ] **M4 – NeoForge ignoriert Version-Profile.** `neoforge/build.gradle` liest keine `profiles/*.properties` → `matrixStatus`/`-PversionProfile` schalten die NeoForge-Version **nicht** wirklich um (beworbenes Feature wirkungslos). `neoforge/build.gradle:8-14`
-- [ ] **M5 – NeoForge-Datagen erzeugt nichts.** `data`-Run existiert, aber kein `GatherDataEvent`/Provider registriert → No-Op. Aktuell unkritisch, weil NeoForge die Fabric-generierten Assets aus `src/main/generated` mitnutzt. `neoforge/build.gradle:81-87`
-- [x] **M6 – ~635 uncommittete Änderungen.** ✅ **BEHOBEN** — alle Quellen (NeoForge + Forge + common) sind committet; Working-Tree sauber.
-
-### 🟢 LOW (Aufräumen / kosmetisch)
-
-- [x] **L1 – Deprecation:** ✅ **BEHOBEN** — `@SuppressWarnings("deprecation")` an `KEY_CATEGORY_SIMPLEMODS` in `SimplebuildingNeoForgeClient` (wie Fabric). Warnung weg.
-- [x] **L2 – Repo-Müll:** ✅ **BEHOBEN** — getrackte javap-Dumps (`tmp_*.txt`, ~4,5 MB) entfernt, untracked `compile-*.txt` / `.tmp-fabric*` gelöscht, `.gitignore` um diese Muster ergänzt. (`*.bu`-Dateien bewusst behalten — deaktivierter Code.)
-- [ ] **L3 – `loom_version=1.16-SNAPSHOT`** → auf Release-Version pinnen (Reproduzierbarkeit).
+### 🟢 LOW – offen (kosmetisch / minimal)
+- [ ] **L3 – `loom_version=1.16-SNAPSHOT`** → auf Release-Version pinnen (Reproduzierbarkeit; vor dem Pinnen verfügbare Loom-Plugin-Version prüfen).
 - [ ] **L4 – `neoforge.mods.toml`** ohne `logoFile`/URLs → kein Icon/Metadaten in der Mod-Liste.
-- [x] **L5 – `ModEnchantmentEffects` No-Op** ✅ **GEPRÜFT – kein Bug.** Bewusster leerer Platzhalter; der Mod registriert keine eigenen `EnchantmentEntityEffect`-Typen (Effekte laufen über Mixins/Events). Auf allen Loadern identisch → keine Aktion.
-- [x] **L6 – „Tote" Mixins** ✅ **GEPRÜFT – behalten.** `WorldRendererMixin`/`EquipmentRendererMixin` sind leer, aber **kein** Müll: unfertiges Scaffolding für geplante Render-Hooks (Mining-Highlight bzw. Glowing-Trim), referenziert per Kommentar in `MiningUtils`/`GlowingTrimUtils`. Nicht entfernen.
 - [ ] **L7 – Fragile Registrierung:** NeoForge verlässt sich auf Class-Loading-Seiteneffekte (Static-Init) und implizite Lifecycle-Reihenfolge in `assignStaticFields()`. Funktioniert, aber ohne Guard.
 - [ ] **L8 – Payloads ohne `.optional()`** auf NeoForge → könnte Verbindungen mit abweichender Version ablehnen.
 - [ ] **L9 – Ore-Biome-Targeting** `foundInTheEnd()` (Fabric) vs. `#minecraft:is_end` (NeoForge) – nur bei modded End-Biomen unterschiedlich.
 
----
+## 4. Der eigentliche verbleibende Schritt
 
-## 4. Entscheidungen, die DU treffen musst
-
-- **E1 – Forge: fixen oder fallen lassen?** ✅ **ENTSCHIEDEN/ERLEDIGT** — Forge 26.1.2 existiert doch (`net.minecraftforge:forge:26.1.2-64.0.9`) und wurde implementiert (ForgeGradle 7). Siehe Abschnitt 5.
-- **E2 – Server-Support nötig?** Wenn ja, ist B1 ein echter Blocker (gilt für NeoForge **und** Forge). Wenn nur Client/Singleplayer, niedrigere Dringlichkeit.
-- **E3 – Reihenfolge:** Vorschlag – jetzt alle drei Loader tatsächlich starten (`runClient`/`runServer`), B1 fixen, dann Forge-Client-Rest (Abschnitt 5) + M-Punkte.
-
----
-
-## 5. Forge-Loader (🗄️ LEGACY) – Implementierungsstand (NEU, 2026-06-16)
-
-> Forge wird als **Legacy** geführt. Es baut und funktioniert grundsätzlich, wird
-> aber nicht aktiv gepflegt. Die offenen F-Punkte unten sind **niedrige Priorität**
-> — sie blockieren die aktuellen Loader (Fabric/NeoForge) nicht.
-
-**Tooling:** MinecraftForge 26.1.2 baut nur mit **ForgeGradle 7** (`[7.0.17,8)`), das als einziges FG Gradle 9 unterstützt. `:forge` ist ein Subprojekt im einheitlichen Build (FG7 koexistiert mit Loom + NeoForge-moddev). ForgeGradle 6 (Gradle 8) und ModDevGradle-legacyforge (nur ≤1.20.1) funktionieren **nicht** für 26.1.2 — empirisch bestätigt.
-
-**✅ Implementiert & kompiliert (gegen echtes Forge 26.1.2 / EventBus 7):**
-- Registries (Blocks/Items/BE/Menus/Recipes/CreativeTab) via `DeferredRegister`/`RegisterEvent`
-- Gameplay-Events (Sledgehammer/StripMiner/VeinMiner/Versatility, DynamicLight, Spatula) via `@Mod.EventBusSubscriber`
-- Loot, Commands, Worldgen (`forge:add_features`-Biome-JSONs)
-- Networking (alle 10 C2S + 3 S2C Payloads) via `PayloadChannel`
-- Client: Keybinds, Menü-Screen, Tooltip, Client-Tick (Doublejump/Spacekey), Login-Trim, Outline-Suppression
-- `mods.toml` (+ Mixin-Configs), `@Mod`-Entry
-
-**⚠️ Forge-spezifische offene Punkte / Risiken:**
-- [ ] **F1 – Config nur Defaults.** cloth-config hat keinen Forge-Build für MC 26.x → ein minimaler `me.shedaniel.autoconfig`-Shim liefert nur Default-Werte (keine GUI, keine Persistenz). `forge/src/main/java/me/shedaniel/autoconfig/`
-- [ ] **F2 – In-Welt-Build-Highlight fehlt.** Forge hat kein `RenderLevelStageEvent` → `BlockHighlightRenderer.renderInWorld` ist auf Forge nicht verdrahtet (Kern-Feature des Building-Wand). Braucht eigenen Forge-Render-Hook.
-- [ ] **F3 – HUD-Overlays (Rangefinder/Speedometer) nicht verdrahtet.** Forges `AddGuiOverlayLayersEvent` hat andere API als NeoForge.
-- [ ] **F4 – `enchant_type` Item-Model-Property nicht verdrahtet** (kein Forge-Registrierungs-Event; kosmetisch).
-- [ ] **F5 – Laufzeit komplett ungetestet.** Besonders zu verifizieren: EventBus-7-Cancellation per `boolean`-Rückgabe (Gameplay/Highlight), `PayloadChannel`-Korrektheit, Loot ohne `HolderLookup.Provider` (`null` übergeben), `mods.toml`-Format.
+⚠️ **Laufzeittest.** Alle statischen/Build-/Analyse-Punkte sind erledigt. Was fehlt, ist die echte In-Game-Verifikation — NeoForge zum ersten Mal starten (`gradlew :neoforge:runClient`, ggf. `:neoforge:runServer`) und prüfen, dass Registrierung, Events, Networking, Config-Screen und Rendering tatsächlich laufen.

@@ -46,7 +46,7 @@ fast_chiseling, constructors_touch, range, deep_pockets, master_builder, funnel,
 ## Requirements
 
 - Minecraft 26.1.2
-- Fabric Loader 0.19.3+ (with Fabric API) or NeoForge 26.1.2.75 — Forge 26.1.2-64.0.9 is legacy/best-effort
+- Fabric Loader 0.19.3+ (with Fabric API) or NeoForge 26.1.2.75
 - Java 25
 
 Recommended:

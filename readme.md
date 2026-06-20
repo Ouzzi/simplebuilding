@@ -8,7 +8,7 @@ Diese Readme ist die vollstaendige, aktualisierte Referenz fuer Features, Items,
 ## Version und Anforderungen
 
 - Minecraft: 26.1.2
-- Loader: Fabric Loader 0.19.3+ oder NeoForge 26.1.2.75 (Forge 26.1.2-64.0.9 als Legacy)
+- Loader: Fabric Loader 0.19.3+ oder NeoForge 26.1.2.75
 - Fabric API: 0.150.0+26.1.2
 - Java: 25
 - Mod Version: 1.3.1
