@@ -38,3 +38,11 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
+
+# debug / temp scratch output (not source)
+
+tmp_*.txt
+compile-*.txt
+build-*.log
+*-build.log
+.tmp-fabric*/

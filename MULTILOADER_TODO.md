@@ -46,12 +46,12 @@ Folgende Subsysteme sind auf NeoForge **funktional vollständig** verdrahtet (ke
 - [x] **M3 – Inkonsistente Versionsnummern.** ✅ **BEHOBEN** — `profiles/*.properties` und die READMEs auf 26.1.2 / neo 26.1.2.75 / forge 64.0.9 / Java 25 angeglichen (Stand stimmt jetzt mit `gradle.properties` und dem Build überein).
 - [ ] **M4 – NeoForge ignoriert Version-Profile.** `neoforge/build.gradle` liest keine `profiles/*.properties` → `matrixStatus`/`-PversionProfile` schalten die NeoForge-Version **nicht** wirklich um (beworbenes Feature wirkungslos). `neoforge/build.gradle:8-14`
 - [ ] **M5 – NeoForge-Datagen erzeugt nichts.** `data`-Run existiert, aber kein `GatherDataEvent`/Provider registriert → No-Op. Aktuell unkritisch, weil NeoForge die Fabric-generierten Assets aus `src/main/generated` mitnutzt. `neoforge/build.gradle:81-87`
-- [ ] **M6 – ~635 uncommittete Änderungen.** Neue NeoForge-Quellen (`SimplebuildingNeoForge.java`, `NeoForgeGameplayEvents.java` …) sind **untracked** → Verlustrisiko. Empfehlung: bald committen.
+- [x] **M6 – ~635 uncommittete Änderungen.** ✅ **BEHOBEN** — alle Quellen (NeoForge + Forge + common) sind committet; Working-Tree sauber.
 
 ### 🟢 LOW (Aufräumen / kosmetisch)
 
 - [ ] **L1 – Deprecation:** `KeyMapping.Category.register(Identifier)` in `SimplebuildingNeoForgeClient.java:50` (Fabric versteckt es mit `@SuppressWarnings`). Rein kosmetisch.
-- [ ] **L2 – Repo-Müll:** `tmp_items_javap.txt` (~2 MB), `tmp_*.txt`, `*.bu`, `compile-errors*.txt`, `build-*.log`, `.tmp-fabric/` sind weder ignoriert noch sinnvoll – `.gitignore` ergänzen + entfernen.
+- [x] **L2 – Repo-Müll:** ✅ **BEHOBEN** — getrackte javap-Dumps (`tmp_*.txt`, ~4,5 MB) entfernt, untracked `compile-*.txt` / `.tmp-fabric*` gelöscht, `.gitignore` um diese Muster ergänzt. (`*.bu`-Dateien bewusst behalten — deaktivierter Code.)
 - [ ] **L3 – `loom_version=1.16-SNAPSHOT`** → auf Release-Version pinnen (Reproduzierbarkeit).
 - [ ] **L4 – `neoforge.mods.toml`** ohne `logoFile`/URLs → kein Icon/Metadaten in der Mod-Liste.
 - [ ] **L5 – `ModEnchantmentEffects.registerEnchantmentEffects()` ist auf BEIDEN Loadern ein No-Op** (Helper nie aufgerufen) – evtl. latenter Altbug, nicht NeoForge-spezifisch. Prüfen.
