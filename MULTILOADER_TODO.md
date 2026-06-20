@@ -11,7 +11,7 @@ _Stand: 2026-06-16. Loader: **Fabric** (root) + **NeoForge** (`:neoforge`). Eine
 | **common** | `gradlew :common:build` | ✅ grün |
 | **Gesamt** | `gradlew build` | ✅ baut beide Loader + Test grün |
 
-> ⚠️ **Wichtigster Vorbehalt:** **NeoForge wurde noch nie tatsächlich gestartet** (kein `runClient` / `runServer` / `data`). Alles unten basiert auf erfolgreichem Build + Code-Analyse, nicht auf In-Game-Verhalten.
+> ✅ **Laufzeittest bestanden (2026-06-16):** `gradlew :neoforge:runClient` lädt sauber bis ins Hauptmenü — alle Registrierungen liefen, `Simplebuilding common initialized for neoforge`, **keine** Errors/Exceptions/Mixin-Fehler. (Client-Start validiert; Gameplay/Server noch nicht systematisch durchgespielt.)
 
 ## 2. Was funktioniert (NeoForge-Parität bestätigt – compile/analyse)
 
@@ -46,6 +46,11 @@ Auf NeoForge funktional vollständig verdrahtet (kein echtes Feature-Loch):
 - [x] **L8 – Payloads „required"** ✅ **BEWERTET – by design.** SimpleBuilding ist ein Inhalts-Mod, der ohnehin auf beiden Seiten installiert sein muss; `required` (kein `.optional()`) ist hier korrekt, nicht ein Bug.
 - [x] **L9 – Ore-Biome-Targeting** ✅ **BEWERTET – akzeptabel.** `foundInTheEnd()` vs. `#minecraft:is_end` decken sich für das Vanilla-End; Abweichung nur bei modded End-Biomen ohne `is_end`-Tag → vernachlässigbar.
 
-## 4. Der eigentliche verbleibende Schritt
+## 4. Laufzeit
 
-⚠️ **Laufzeittest.** Alle statischen/Build-/Analyse-Punkte sind erledigt. Was fehlt, ist die echte In-Game-Verifikation — NeoForge zum ersten Mal starten (`gradlew :neoforge:runClient`, ggf. `:neoforge:runServer`) und prüfen, dass Registrierung, Events, Networking, Config-Screen und Rendering tatsächlich laufen.
+✅ **NeoForge-Client startet sauber** (`gradlew :neoforge:runClient`, 2026-06-16): FML erkennt den Mod, alle Registrierungen + `common initialized` laufen, Textur-Atlanten/Sound/Resource-Reload (inkl. `mod/cloth_config`) OK, **0 Errors/Exceptions/Mixin-Fehler**, Hauptmenü erreicht.
+
+Noch nicht systematisch in-game durchgespielt (optional, am echten Client): eine Welt erstellen und Gameplay prüfen — Items/Blöcke im Creative-Tab, Building-Wand + Highlight, Hopper-Menü, Doublejump, Config-Screen-Button, Trim-Boni. Sowie optional `:neoforge:runServer` (Dedicated-Server, prüft den B1-Fix real).
+
+### Kosmetik (optional)
+- [ ] Ressourcen-Warnungen: Ordner `backup 1/` unter `src/main/resources/assets/simplebuilding/textures/block/` hat ein Leerzeichen im Pfad → ungültige ResourceLocation, wird ignoriert (harmlos, geteilt mit Fabric). Ordner umbenennen/entfernen, um die WARN-Spam zu beseitigen.
