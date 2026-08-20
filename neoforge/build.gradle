@@ -33,9 +33,11 @@ sourceSets {
         java {
             srcDir 'src/main/java'
             srcDir rootProject.layout.projectDirectory.dir('src/main/java')
+            def rootJavaDir = rootProject.layout.projectDirectory.dir('src/main/java').asFile.absolutePath.replace('\\', '/')
             exclude { details ->
                 def path = details.file.absolutePath.replace('\\', '/')
-                def isRootFabricSource = path.contains('/simplebuilding/src/main/java/')
+                // Gegen das echte Root-Quellverzeichnis prüfen (pfadunabhängig, funktioniert auch in git worktrees)
+                def isRootFabricSource = path.startsWith(rootJavaDir + '/')
                 def relative = details.relativePath.pathString
                 if (!isRootFabricSource) {
                     return false

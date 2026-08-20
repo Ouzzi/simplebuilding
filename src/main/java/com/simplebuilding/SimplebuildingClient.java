@@ -8,6 +8,8 @@ import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltipSubmenuHandl
 import com.simplebuilding.client.property.EnchantmentModelProperty;
 import com.simplebuilding.client.render.BlockHighlightRenderer;
 import com.simplebuilding.client.render.BlockOutlineSupport;
+import com.simplebuilding.client.render.BuildingWandPreviewRenderer;
+import com.simplebuilding.client.render.MultiBlockBreakingSupport;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.BuildingWandItem;
@@ -145,6 +147,17 @@ public class SimplebuildingClient implements ClientModInitializer {
                     Minecraft.getInstance().gameRenderer.getMainCamera()
             );
         });
+
+        // Building-Wand-Ghost-Vorschau: nach dem transluzenten Terrain zeichnen
+        LevelRenderEvents.AFTER_TRANSLUCENT_TERRAIN.register(context ->
+                BuildingWandPreviewRenderer.render(
+                        context.poseStack(),
+                        context.levelState().cameraRenderState.pos
+                ));
+
+        // Abbau-Risse auf allen verbundenen Blöcken (Sledgehammer, Strip Miner, Vein Miner)
+        LevelRenderEvents.END_EXTRACTION.register(context ->
+                MultiBlockBreakingSupport.extractExtraBreakingStates(context.levelState(), context.level()));
 
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             SimplebuildingConfig config = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
