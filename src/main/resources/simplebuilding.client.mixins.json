@@ -10,6 +10,7 @@
     "BundleTooltipComponentMixin",
     "ClientSpeedometerMixin",
     "ClientSurvivalTracerMixin",
+    "EquipmentRendererMixin",
     "HandledScreenMixin",
     "HeldItemRendererMixin",
     "InventoryScreenMixin",

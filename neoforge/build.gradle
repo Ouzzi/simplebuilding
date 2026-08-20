@@ -28,14 +28,14 @@ java {
 }
 
 // Shared game code from the Fabric root module + NeoForge-specific adapters in this module.
+def rootFabricJavaDir = rootProject.layout.projectDirectory.dir('src/main/java').asFile.toPath()
 sourceSets {
     main {
         java {
             srcDir 'src/main/java'
             srcDir rootProject.layout.projectDirectory.dir('src/main/java')
             exclude { details ->
-                def path = details.file.absolutePath.replace('\\', '/')
-                def isRootFabricSource = path.contains('/simplebuilding/src/main/java/')
+                def isRootFabricSource = details.file.toPath().startsWith(rootFabricJavaDir)
                 def relative = details.relativePath.pathString
                 if (!isRootFabricSource) {
                     return false
