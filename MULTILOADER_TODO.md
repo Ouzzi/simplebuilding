@@ -53,4 +53,4 @@ Auf NeoForge funktional vollständig verdrahtet (kein echtes Feature-Loch):
 Noch nicht systematisch in-game durchgespielt (optional, am echten Client): eine Welt erstellen und Gameplay prüfen — Items/Blöcke im Creative-Tab, Building-Wand + Highlight, Hopper-Menü, Doublejump, Config-Screen-Button, Trim-Boni. Sowie optional `:neoforge:runServer` (Dedicated-Server, prüft den B1-Fix real).
 
 ### Kosmetik (optional)
-- [ ] Ressourcen-Warnungen: Ordner `backup 1/` unter `src/main/resources/assets/simplebuilding/textures/block/` hat ein Leerzeichen im Pfad → ungültige ResourceLocation, wird ignoriert (harmlos, geteilt mit Fabric). Ordner umbenennen/entfernen, um die WARN-Spam zu beseitigen.
+- [x] Ressourcen-Warnungen: Ordner `backup 1/` unter `src/main/resources/assets/simplebuilding/textures/block/` hat ein Leerzeichen im Pfad → ungültige ResourceLocation, wird ignoriert (harmlos, geteilt mit Fabric). Erledigt (2026-08-20): PNGs unterscheiden sich von den aktiven Texturen → nach `art/dev-textures/checker-backup/` verschoben; außerdem 3 versehentlich committete JARs (~15 MB) aus `textures/item/` entfernt.
