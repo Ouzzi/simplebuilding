@@ -1,41 +1,25 @@
 package com.simplebuilding.client.render;
 
-import com.simplebuilding.items.custom.OctantItem;
-import com.simplebuilding.items.custom.SledgehammerItem;
-import com.simplebuilding.util.SledgehammerUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
-
+/**
+ * Decides whether the vanilla block selection outline should be hidden while one of the mod's own
+ * highlights is on screen.
+ *
+ * <p>The answer is always "no", matching the pre-multiloader behaviour: both mod renderers in
+ * {@link BlockHighlightRenderer} deliberately leave the targeted block alone — the sledgehammer pass
+ * skips {@code centerPos}, and the octant pass bails out entirely until a position is set — because
+ * they rely on vanilla to outline whatever the player is actually looking at. Suppressing it left the
+ * targeted block with no outline at all, which was especially bad for a fresh octant: the player has
+ * to aim at pos1 with no selection feedback whatsoever.
+ *
+ * <p>Kept as a hook (rather than dropping the event registrations) so both loaders keep a single
+ * place to opt into suppression should a future highlight actually replace the targeted block.
+ */
 public final class BlockOutlineSupport {
     private BlockOutlineSupport() {
     }
 
     /** Suppress vanilla block selection outline when a custom highlight is drawn instead. */
     public static boolean suppressVanillaBlockOutline() {
-        Minecraft client = Minecraft.getInstance();
-        if (client.player == null || client.level == null) {
-            return false;
-        }
-
-        ItemStack mainHand = client.player.getMainHandItem();
-        if (mainHand.getItem() instanceof SledgehammerItem) {
-            HitResult hit = client.hitResult;
-            if (hit instanceof BlockHitResult blockHit && hit.getType() == HitResult.Type.BLOCK) {
-                BlockPos center = blockHit.getBlockPos();
-                if (SledgehammerUtils.canMineOrigin(client.level, center, mainHand)) {
-                    return !SledgehammerItem.getBlocksToBeDestroyed(1, center, client.player).isEmpty();
-                }
-            }
-            return false;
-        }
-
-        if (mainHand.getItem() instanceof OctantItem) {
-            return true;
-        }
-
-        return client.player.getOffhandItem().getItem() instanceof OctantItem;
+        return false;
     }
 }
