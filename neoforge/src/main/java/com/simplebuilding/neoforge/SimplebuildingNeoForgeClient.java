@@ -8,6 +8,8 @@ import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.client.gui.OctantScreen;
 import com.simplebuilding.client.property.EnchantmentModelProperty;
 import com.simplebuilding.client.render.BlockHighlightRenderer;
+import com.simplebuilding.client.render.BuildingWandPreviewRenderer;
+import com.simplebuilding.client.render.MultiBlockBreakingSupport;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.BuildingWandItem;
@@ -48,6 +50,7 @@ import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactori
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.ExtractLevelRenderStateEvent;
 import net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
@@ -75,6 +78,7 @@ public final class SimplebuildingNeoForgeClient {
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerTooltipComponents);
         NeoForge.EVENT_BUS.addListener(this::onClientTick);
         NeoForge.EVENT_BUS.addListener(this::onRenderLevelAfterTranslucentBlocks);
+        NeoForge.EVENT_BUS.addListener(this::onExtractLevelRenderState);
         NeoForge.EVENT_BUS.addListener(this::onPlayerLogin);
         NeoForge.EVENT_BUS.addListener(NeoForgeClientHooks::onBlockOutlineExtract);
     }
@@ -184,6 +188,16 @@ public final class SimplebuildingNeoForgeClient {
                 event.getPoseStack(),
                 event.getLevelRenderState().cameraRenderState.pos
         );
+        BuildingWandPreviewRenderer.render(
+                event.getPoseStack(),
+                event.getLevelRenderState().cameraRenderState.pos
+        );
+    }
+
+    // Abbau-Risse auf allen verbundenen Blöcken (Sledgehammer, Strip Miner, Vein Miner);
+    // das Event feuert nach der Vanilla-Extraktion der Breaking-States.
+    private void onExtractLevelRenderState(ExtractLevelRenderStateEvent event) {
+        MultiBlockBreakingSupport.extractExtraBreakingStates(event.getRenderState(), event.getLevel());
     }
 
 }
