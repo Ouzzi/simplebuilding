@@ -133,7 +133,7 @@ public class OreDetectorItem extends Item {
                 setMode(stack, DetectMode.CUSTOM);
                 setCustomBlock(stack, state);
 
-                context.getPlayer().sendSystemMessage(Component.literal("Calibrated to: ").withStyle(ChatFormatting.GREEN)
+                context.getPlayer().sendOverlayMessage(Component.literal("Calibrated to: ").withStyle(ChatFormatting.GREEN)
                         .append(state.getBlock().getName().copy().withStyle(ChatFormatting.WHITE)));
 
                 world.playSound(null, context.getClickedPos(), SoundEvents.SCULK_CATALYST_BLOOM, SoundSource.PLAYERS, 1.0f, 1.0f);
@@ -261,7 +261,7 @@ public class OreDetectorItem extends Item {
         DetectMode next = modes[(current.ordinal() + 1) % modes.length];
         setMode(stack, next);
 
-        player.sendSystemMessage(Component.literal("Detector Mode: ").withStyle(ChatFormatting.GRAY)
+        player.sendOverlayMessage(Component.literal("Detector Mode: ").withStyle(ChatFormatting.GRAY)
                 .append(Component.literal(next.name).withStyle(next.color)));
 
         player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 0.5f, 1.5f);

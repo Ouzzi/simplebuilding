@@ -75,7 +75,7 @@ public class OctantItem extends Item {
 
             if (nbt.getBooleanOr("Locked", false)) {
                 if (player != null) {
-                    player.sendSystemMessage(Component.translatable("simplebuilding.gui.locked").withStyle(ChatFormatting.RED));
+                    player.sendOverlayMessage(Component.translatable("simplebuilding.gui.locked").withStyle(ChatFormatting.RED));
                 }
                 return InteractionResult.SUCCESS;
             }

@@ -141,7 +141,7 @@ public class MagnetItem extends Item {
         if (player.isShiftKeyDown() && getFilterId(stack) != null) {
             if (!world.isClientSide()) {
                 setFilterId(stack, null);
-                player.sendSystemMessage(Component.literal("Magnet Filter cleared.").withStyle(ChatFormatting.YELLOW));
+                player.sendOverlayMessage(Component.literal("Magnet Filter cleared.").withStyle(ChatFormatting.YELLOW));
                 world.playSound(null, player.blockPosition(), SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 0.5f, 1.0f);
             }
             return InteractionResult.SUCCESS;

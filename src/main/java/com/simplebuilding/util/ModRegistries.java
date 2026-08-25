@@ -86,7 +86,7 @@ public class ModRegistries {
                         Component message = Component.literal(property.getName() + ": ").withStyle(ChatFormatting.GRAY)
                                 .append(Component.literal(String.valueOf(newState.getValue(property))).withStyle(ChatFormatting.WHITE));
                         if (player instanceof ServerPlayer serverPlayer) {
-                            serverPlayer.sendSystemMessage(message);
+                            serverPlayer.sendOverlayMessage(message);
                         }
                     }
                 }

@@ -83,14 +83,14 @@ public class SimplebuildingClient implements ClientModInitializer {
             while (ClientState.highlightToggleKey.consumeClick()) {
                 ClientState.showHighlights = !ClientState.showHighlights;
                 if (client.player != null) {
-                    client.player.sendSystemMessage(Component.literal("Highlights: " + (ClientState.showHighlights ? "ON" : "OFF")));
+                    client.player.sendOverlayMessage(Component.literal("Highlights: " + (ClientState.showHighlights ? "ON" : "OFF")));
                 }
             }
 
             while (ClientState.octantFigureToggleKey.consumeClick()) {
                 ClientState.showHighlights = !ClientState.showHighlights;
                 if (client.player != null) {
-                    client.player.sendSystemMessage(Component.literal("Octant Figure: " + (ClientState.showHighlights ? "ON" : "OFF")));
+                    client.player.sendOverlayMessage(Component.literal("Octant Figure: " + (ClientState.showHighlights ? "ON" : "OFF")));
                 }
             }
 
