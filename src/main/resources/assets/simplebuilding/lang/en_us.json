@@ -161,6 +161,8 @@
 
   "text.autoconfig.simplebuilding.option.enableDoubleJump": "Enable Double Jump Enchantment",
   "text.autoconfig.simplebuilding.option.enableDoubleJump.@Tooltip": "Toggles the Double Jump enchantment functionality.",
+  "text.autoconfig.simplebuilding.option.airJumpCooldownTicks": "Air Jump Cooldown (Ticks)",
+  "text.autoconfig.simplebuilding.option.airJumpCooldownTicks.@Tooltip": "Cooldown between air jumps at Double Jump level 1, in ticks (20 ticks = 1s). Level 2 uses half of this value.",
 
   "block.simplebuilding.reinforced_chest": "Reinforced Chest",
   "item.simplebuilding.reinforced_chest": "Reinforced Chest",

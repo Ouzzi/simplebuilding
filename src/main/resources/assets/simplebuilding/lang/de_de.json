@@ -146,6 +146,8 @@
 
   "text.autoconfig.simplebuilding.option.enableDoubleJump": "Luftsprung-Verzauberung aktivieren",
   "text.autoconfig.simplebuilding.option.enableDoubleJump.@Tooltip": "Schaltet die Funktionalität der Luftsprung-Verzauberung an/aus.",
+  "text.autoconfig.simplebuilding.option.airJumpCooldownTicks": "Luftsprung-Abklingzeit (Ticks)",
+  "text.autoconfig.simplebuilding.option.airJumpCooldownTicks.@Tooltip": "Abklingzeit zwischen Luftsprüngen bei Luftsprung-Stufe 1, in Ticks (20 Ticks = 1s). Stufe 2 nutzt die Hälfte dieses Werts.",
 
   "block.simplebuilding.reinforced_chest": "Verstärkte Truhe",
   "item.simplebuilding.reinforced_chest": "Verstärkte Truhe",

@@ -125,7 +125,7 @@ public class SimplebuildingClient implements ClientModInitializer {
                 (context, tickCounter) -> DoubleJumpHudOverlay.render(context)
         );
         LevelRenderEvents.BEFORE_BLOCK_OUTLINE.register((context, outlineRenderState) ->
-                BlockOutlineSupport.suppressVanillaBlockOutline());
+                !BlockOutlineSupport.suppressVanillaBlockOutline());
 
         // --- Tooltips ---
         ClientTooltipComponentCallback.EVENT.register(data -> {

@@ -37,6 +37,8 @@ JAR-Ausgaben:
 
 ## Laufzeit-Status
 
-⚠️ **NeoForge wurde noch nicht tatsächlich gestartet** (kein `runClient`/`runServer`).
-Alle Aussagen basieren auf erfolgreichem Build + Code-Analyse. Bekannte offene
-Punkte: siehe `MULTILOADER_TODO.md`.
+✅ **Beide Loader wurden real gestartet:**
+- NeoForge: `gradlew :neoforge:runClient` lief am 2026-06-16 sauber bis ins Hauptmenü (0 Errors/Mixin-Fehler).
+- Fabric: `gradlew :runClient` lief am 2026-08-20 sauber bis in eine geladene Welt (alle Registrierungen, 0 Mixin-/Registry-Fehler).
+
+Bekannte offene Punkte: siehe `MULTILOADER_TODO.md`.
