@@ -54,14 +54,22 @@ Auf NeoForge funktional vollständig verdrahtet (kein echtes Feature-Loch):
 
 Noch nicht systematisch in-game durchgespielt (optional, am echten Client): eine Welt erstellen und Gameplay prüfen — Items/Blöcke im Creative-Tab, Building-Wand + Highlight, Hopper-Menü, Doublejump, Config-Screen-Button, Trim-Boni. Sowie optional `:neoforge:runServer` (Dedicated-Server, prüft den B1-Fix real).
 
-### Paritäts-Audit 1.21.11 ↔ Multiloader (2026-08-20, Fabric-Fokus)
-Vollständiges Feature-Audit durchgeführt (10 Domänen, verifiziert): Kern-Gameplay, Blöcke, Netzwerk, Daten und Config sind vollständig portiert. **6 verifizierte Regressionen**, Fixes laufen in separaten Sessions:
-- [ ] Trim-Glow auf getragener Rüstung (`EquipmentRendererMixin` leerer Stub, nicht registriert)
-- [ ] Villager-/Wandering-Trades komplett entfallen (`ModTradeOffers`-Stub; `data/simplebuilding/villager_trade/` existiert nicht; Config-Schalter dadurch tot)
-- [ ] Fabric: Vanilla-Blockauswahl-Outline invertiert unterdrückt (`SimplebuildingClient` `BEFORE_BLOCK_OUTLINE` ohne Negation)
-- [ ] Building-Wand-Ghost-Vorschau fehlt (`getPreviewStates` ohne Aufrufer)
-- [ ] Multi-Block-Abbau-Risse (Sledgehammer/Strip-/Vein-Miner) fehlen (`WorldRendererMixin` leerer Stub)
-- [ ] Statusmeldungen im Chat statt Actionbar (`sendSystemMessage` statt `displayClientMessage(msg, true)`, ~10 Stellen)
+### Paritäts-Audit 1.21.11 <-> Multiloader (2026-08-20/25, Fabric-Fokus)
+Vollständiges Feature-Audit (10 Domänen, verifiziert): Kern-Gameplay, Blöcke, Netzwerk, Daten und Config sind vollständig portiert. **6 verifizierte Regressionen** — alle behoben und auf `claude/integration-check` zusammengeführt (`gradlew build` grün für beide Loader, Fabric-`runClient` sauber gebootet):
+- [x] Trim-Glow auf getragener Rüstung — `EquipmentRendererMixin` neu implementiert + registriert (f854b8d); Mixin-Anwendung im Fabric-Log belegt.
+- [x] Villager-/Wandering-Trades — 20 datengetriebene Trade-JSONs + 11 Tag-Merges, Loot-Funktion `simplebuilding:weighted_enchant`, Config-Gate via Resource-Condition (6f658db). **Fabric vollständig**; NeoForge siehe offene Punkte.
+- [x] Fabric-Outline invertiert — Negation ergänzt (0e3421a).
+- [x] Building-Wand-Ghost-Vorschau — `BuildingWandPreviewRenderer` (29e3ed6).
+- [x] Multi-Block-Abbau-Risse — `MultiBlockBreakingSupport`, leerer `WorldRendererMixin` entfernt (29e3ed6).
+- [x] Statusmeldungen Actionbar statt Chat — 13 Stellen auf `sendOverlayMessage` (1ce1d0d). **Fabric vollständig**; NeoForge siehe offene Punkte.
+- [x] Nachgelagert gefunden: Vanilla-Outline wurde auf dem anvisierten Block ganz unterdrückt, obwohl beide Mod-Renderer ihn bewusst auslassen — 1.21.11-Verhalten wiederhergestellt (3f0a827).
+
+Aufgeräumt: `backup 1/` nach `checker-backup/` außerhalb der Ressourcen verschoben + 3 verirrte Fremd-JARs entfernt (e253ac3) — **Mod-JAR 15,3 MB auf 1,2 MB**, Ressourcen-Fehlerspam beim Start weg.
+
+### Offen aus dem Audit (NeoForge-seitig)
+- [ ] **Config-Gate der Trades wirkt auf NeoForge nicht** — `fabric:load_conditions` wird dort ignoriert, `enableVillagerTrades`/`enableWanderingTrades` bleiben auf NeoForge wirkungslos. NeoForge-Pendant (eigene Condition oder Event-Filter) nötig.
+- [ ] **Actionbar-Fix auf NeoForge unvollständig** — 3 Meldungen laufen dort weiterhin über den Chat (Constructor's Touch, Highlights-Toggle, Octant-Figure-Toggle), weil die NeoForge-Adapter eigene Kopien der Meldungen halten.
+- [ ] **`ConfigResourceCondition` liegt im Paket `datagen`** — für NeoForge vom Quell-Filter ausgeschlossen; als Laufzeitklasse gehört sie nicht dorthin.
 
 ### Kosmetik (optional)
 - [x] Ressourcen-Warnungen: Ordner `backup 1/` unter `src/main/resources/assets/simplebuilding/textures/block/` hat ein Leerzeichen im Pfad → ungültige ResourceLocation, wird ignoriert (harmlos, geteilt mit Fabric). Erledigt (2026-08-20): PNGs unterscheiden sich von den aktiven Texturen → nach `art/dev-textures/checker-backup/` verschoben; außerdem 3 versehentlich committete JARs (~15 MB) aus `textures/item/` entfernt.
