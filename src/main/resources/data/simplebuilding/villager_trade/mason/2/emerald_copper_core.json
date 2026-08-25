@@ -1,0 +1,10 @@
+{
+  "fabric:load_conditions": [
+    { "condition": "simplebuilding:config", "flag": "enableVillagerTrades" }
+  ],
+  "wants": { "id": "minecraft:emerald", "count": 25 },
+  "gives": { "id": "simplebuilding:copper_core" },
+  "max_uses": 2,
+  "xp": 10,
+  "reputation_discount": 0.1
+}

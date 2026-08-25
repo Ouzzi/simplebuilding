@@ -1,0 +1,24 @@
+{
+  "fabric:load_conditions": [
+    { "condition": "simplebuilding:config", "flag": "enableVillagerTrades" }
+  ],
+  "wants": { "id": "minecraft:emerald", "count": 15 },
+  "gives": { "id": "minecraft:diamond_pickaxe" },
+  "given_item_modifiers": [
+    {
+      "function": "simplebuilding:weighted_enchant",
+      "second_chance": 0.1,
+      "pool": [
+        { "enchantment": "simplebuilding:strip_miner", "level": 1, "weight": 40 },
+        { "enchantment": "simplebuilding:strip_miner", "level": 2, "weight": 30 },
+        { "enchantment": "simplebuilding:strip_miner", "level": 3, "weight": 10 },
+        { "enchantment": "simplebuilding:vein_miner", "level": 1, "weight": 40 },
+        { "enchantment": "simplebuilding:vein_miner", "level": 2, "weight": 30 },
+        { "enchantment": "simplebuilding:vein_miner", "level": 3, "weight": 10 }
+      ]
+    }
+  ],
+  "max_uses": 1,
+  "xp": 50,
+  "reputation_discount": 0.8
+}
