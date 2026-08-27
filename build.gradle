@@ -54,7 +54,7 @@ dependencies {
     }
 
     // Mod Menu (damit du den Config-Button im Spiel siehst)
-    implementation "com.terraformersmc:modmenu:18.0.0-alpha.8"
+    implementation "com.terraformersmc:modmenu:20.0.1"
 
 	// Test dependencies
 	testImplementation "org.junit.jupiter:junit-jupiter:5.11.4"
