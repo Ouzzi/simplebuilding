@@ -10,8 +10,8 @@ def resolveSetting = { String key, String defaultValue = null ->
     return fromProject != null ? fromProject.toString() : defaultValue
 }
 
-def neoVersion = resolveSetting('neo_version', '26.1.2.75')
-def minecraftVersionRange = resolveSetting('minecraft_version_range', '[26.1.2,26.2)')
+def neoVersion = resolveSetting('neo_version', '26.2.0.69')
+def minecraftVersionRange = resolveSetting('minecraft_version_range', '[26.2,26.3)')
 
 group = rootProject.group
 version = rootProject.version
@@ -103,7 +103,7 @@ repositories {
 
 dependencies {
     implementation project(':common')
-    implementation 'me.shedaniel.cloth:cloth-config-neoforge:26.1.154'
+    implementation 'me.shedaniel.cloth:cloth-config-neoforge:26.2.155'
 }
 
 tasks.named('processResources', ProcessResources).configure {

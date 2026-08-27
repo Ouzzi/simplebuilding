@@ -3,6 +3,7 @@ package com.simplebuilding.util;
 import java.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Player;
@@ -103,14 +104,17 @@ public class MiningUtils {
 
     public static boolean isOre(BlockState state) {
         // Vanilla Tags nutzen. Hinweis: GOLD_ORES beinhaltet in Vanilla auch Nether Gold Ore.
-        return state.is(BlockTags.COAL_ORES) ||
-                state.is(BlockTags.IRON_ORES) ||
-                state.is(BlockTags.COPPER_ORES) ||
-                state.is(BlockTags.GOLD_ORES) ||
-                state.is(BlockTags.REDSTONE_ORES) ||
-                state.is(BlockTags.LAPIS_ORES) ||
-                state.is(BlockTags.DIAMOND_ORES) ||
-                state.is(BlockTags.EMERALD_ORES) ||
+        // MC 26.2: Die Erz-Tags leben jetzt als Block/Item-Paare in BlockItemTags.
+        // BlockItemTags.X.block() liefert exakt denselben TagKey wie frueher BlockTags.X
+        // (minecraft:coal_ores usw. - Tag-Daten unveraendert).
+        return state.is(BlockItemTags.COAL_ORES.block()) ||
+                state.is(BlockItemTags.IRON_ORES.block()) ||
+                state.is(BlockItemTags.COPPER_ORES.block()) ||
+                state.is(BlockItemTags.GOLD_ORES.block()) ||
+                state.is(BlockItemTags.REDSTONE_ORES.block()) ||
+                state.is(BlockItemTags.LAPIS_ORES.block()) ||
+                state.is(BlockItemTags.DIAMOND_ORES.block()) ||
+                state.is(BlockItemTags.EMERALD_ORES.block()) ||
                 state.is(Blocks.NETHER_QUARTZ_ORE) || // Manueller Check für Quarz
                 state.is(Blocks.ANCIENT_DEBRIS);       // Optional: Antiker Schutt als Erz zählen
     }

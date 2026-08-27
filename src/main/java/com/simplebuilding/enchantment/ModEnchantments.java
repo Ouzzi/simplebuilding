@@ -3,8 +3,10 @@ package com.simplebuilding.enchantment;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantmentTags;
 import com.simplebuilding.util.ModTags;
-import net.minecraft.advancements.criterion.DamageSourcePredicate;
-import net.minecraft.advancements.criterion.TagPredicate;
+// MC 26.2: Paket net.minecraft.advancements.criterion -> net.minecraft.advancements.predicates
+// (reiner Paketumzug, Signaturen von DamageSourcePredicate.Builder und TagPredicate unveraendert)
+import net.minecraft.advancements.predicates.DamageSourcePredicate;
+import net.minecraft.advancements.predicates.TagPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;

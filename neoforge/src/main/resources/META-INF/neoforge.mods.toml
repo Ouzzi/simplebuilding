@@ -13,7 +13,7 @@ modId="${modId}"
 version="${modVersion}"
 displayName="SimpleBuilding"
 description='''
-SimpleBuilding for NeoForge 26.1.2
+SimpleBuilding for NeoForge 26.2
 '''
 authors="simplebuilding"
 displayURL="https://azarfane.de/"

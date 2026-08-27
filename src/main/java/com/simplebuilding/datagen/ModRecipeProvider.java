@@ -6,7 +6,9 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+// MC 26.2: Kriterien-Trigger wurden von net.minecraft.advancements.criterion nach
+// net.minecraft.advancements.triggers verschoben (Criterion liegt jetzt ebenfalls dort).
+import net.minecraft.advancements.triggers.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -121,7 +123,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // SLEDGEHAMMER
                 // =================================================================
                 createSledgehammerRecipe(ModItems.STONE_SLEDGEHAMMER, Items.COBBLESTONE, Items.IRON_INGOT);
-                createSledgehammerRecipe(ModItems.COPPER_SLEDGEHAMMER, Items.COPPER_INGOT, Items.COPPER_BLOCK);
+                // MC 26.2: Items.COPPER_BLOCK ist jetzt eine WeatheringCopperCollection<Item>.
+                // weathering().unaffected() liefert das unverwitterte, ungewachste minecraft:copper_block
+                // (identisch zum frueheren Items.COPPER_BLOCK) - so macht es auch der VanillaRecipeProvider.
+                createSledgehammerRecipe(ModItems.COPPER_SLEDGEHAMMER, Items.COPPER_INGOT, Items.COPPER_BLOCK.weathering().unaffected());
                 createSledgehammerRecipe(ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, Items.IRON_BLOCK);
                 createSledgehammerRecipe(ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, Items.GOLD_BLOCK);
                 createSledgehammerRecipe(ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, Items.DIAMOND_BLOCK);
@@ -714,24 +719,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         return "SimpleBuilding Recipes";
     }
 
+    // MC 26.2: Die 16 Einzelfelder Items.<COLOR>_DYE gibt es nicht mehr; die Farbvarianten
+    // stecken jetzt in Items.DYE (ColorCollection<Item>). ColorCollection.pick(DyeColor) ist
+    // exakt derselbe Switch ueber DyeColor wie zuvor (white()..black()), also verhaltensgleich.
     private Item getDyeItem(DyeColor color) {
-        return switch (color) {
-            case WHITE -> Items.WHITE_DYE;
-            case ORANGE -> Items.ORANGE_DYE;
-            case MAGENTA -> Items.MAGENTA_DYE;
-            case LIGHT_BLUE -> Items.LIGHT_BLUE_DYE;
-            case YELLOW -> Items.YELLOW_DYE;
-            case LIME -> Items.LIME_DYE;
-            case PINK -> Items.PINK_DYE;
-            case GRAY -> Items.GRAY_DYE;
-            case LIGHT_GRAY -> Items.LIGHT_GRAY_DYE;
-            case CYAN -> Items.CYAN_DYE;
-            case PURPLE -> Items.PURPLE_DYE;
-            case BLUE -> Items.BLUE_DYE;
-            case BROWN -> Items.BROWN_DYE;
-            case GREEN -> Items.GREEN_DYE;
-            case RED -> Items.RED_DYE;
-            case BLACK -> Items.BLACK_DYE;
-        };
+        return Items.DYE.pick(color);
     }
 }

@@ -46,3 +46,4 @@ compile-*.txt
 build-*.log
 *-build.log
 .tmp-fabric*/
+javac.*.args

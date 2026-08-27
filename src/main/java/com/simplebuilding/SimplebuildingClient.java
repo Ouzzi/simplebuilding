@@ -98,10 +98,10 @@ public class SimplebuildingClient implements ClientModInitializer {
                 if (client.player != null) {
                     ItemStack stack = client.player.getMainHandItem();
                     if (stack.getItem() instanceof OctantItem) {
-                        client.setScreen(new OctantScreen(stack));
+                        client.gui.setScreen(new OctantScreen(stack));
                     } else if (stack.getItem() instanceof BuildingWandItem) {
                         if (client.level != null && hasEnchantment(stack, client.level, ModEnchantments.CONSTRUCTORS_TOUCH)) {
-                            client.setScreen(new BuildingWandScreen(stack));
+                            client.gui.setScreen(new BuildingWandScreen(stack));
                         }
                     }
                 }
@@ -141,19 +141,22 @@ public class SimplebuildingClient implements ClientModInitializer {
         registerDoubleJumpClient();
 
         // --- World Render ---
-        LevelRenderEvents.END_MAIN.register(context -> {
+        // Seit MC 26.2 wird Geometrie nicht mehr direkt gezeichnet, sondern über den
+        // SubmitNodeCollector eingereicht; END_MAIN/AFTER_TRANSLUCENT_TERRAIN kämen dafür
+        // zu spät. Beide Renderer hängen deshalb an COLLECT_SUBMITS, in einem Handler,
+        // damit die Reihenfolge (Highlights vor Wand-Vorschau) festgelegt bleibt.
+        LevelRenderEvents.COLLECT_SUBMITS.register(context -> {
             BlockHighlightRenderer.renderInWorld(
+                    context.submitNodeCollector(),
                     context.poseStack(),
-                    Minecraft.getInstance().gameRenderer.getMainCamera()
+                    Minecraft.getInstance().gameRenderer.mainCamera()
+            );
+            BuildingWandPreviewRenderer.render(
+                    context.submitNodeCollector(),
+                    context.poseStack(),
+                    context.levelState().cameraRenderState.pos
             );
         });
-
-        // Building-Wand-Ghost-Vorschau: nach dem transluzenten Terrain zeichnen
-        LevelRenderEvents.AFTER_TRANSLUCENT_TERRAIN.register(context ->
-                BuildingWandPreviewRenderer.render(
-                        context.poseStack(),
-                        context.levelState().cameraRenderState.pos
-                ));
 
         // Abbau-Risse auf allen verbundenen Blöcken (Sledgehammer, Strip Miner, Vein Miner)
         LevelRenderEvents.END_EXTRACTION.register(context ->

@@ -18,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -175,7 +176,9 @@ public class OreDetectorItem extends Item {
     }
 
     private boolean canReach(Level world, Vec3 start, BlockPos target, double budget, double costMultiplier) {
-        Vec3 end = target.getCenter();
+        // MC 26.2: BlockPos.getCenter() entfiel; Vec3.atCenterOf(Vec3i) ist der identische Ersatz
+        // (die alte Methode delegierte 1:1 dorthin).
+        Vec3 end = Vec3.atCenterOf(target);
         Vec3 vector = end.subtract(start);
         double distance = vector.length();
         Vec3 direction = vector.normalize();
@@ -224,23 +227,29 @@ public class OreDetectorItem extends Item {
         return 3.0;
     }
 
+    // MC 26.2: Die gepaarten Block-/Item-Tags liegen jetzt in BlockItemTags (BlockItemTagId).
+    // BlockTags behielt nur noch die von Vanilla-Code benutzten Erz-Konstanten; die uebrigen
+    // (coal/lapis/redstone/diamond/emerald) sind dort weggefallen. BlockItemTags.X.block() liefert
+    // exakt denselben TagKey wie frueher BlockTags.X (BlockTags initialisiert sich selbst daraus),
+    // die Tag-IDs und -Inhalte in data/minecraft/tags/block sind unveraendert.
     private boolean isTarget(BlockState state, DetectMode mode, BlockState customTarget) {
         return switch (mode) {
-            case IRON -> state.is(BlockTags.IRON_ORES);
-            case GOLD -> state.is(BlockTags.GOLD_ORES);
-            case DIAMOND -> state.is(BlockTags.DIAMOND_ORES);
+            case IRON -> state.is(BlockItemTags.IRON_ORES.block());
+            case GOLD -> state.is(BlockItemTags.GOLD_ORES.block());
+            case DIAMOND -> state.is(BlockItemTags.DIAMOND_ORES.block());
             case NETHERITE -> state.is(Blocks.ANCIENT_DEBRIS);
-            case ALL -> state.is(BlockTags.COAL_ORES) || state.is(BlockTags.IRON_ORES) ||
-                    state.is(BlockTags.COPPER_ORES) || state.is(BlockTags.GOLD_ORES) ||
-                    state.is(BlockTags.REDSTONE_ORES) || state.is(BlockTags.LAPIS_ORES) ||
-                    state.is(BlockTags.DIAMOND_ORES) || state.is(BlockTags.EMERALD_ORES) ||
+            case ALL -> state.is(BlockItemTags.COAL_ORES.block()) || state.is(BlockItemTags.IRON_ORES.block()) ||
+                    state.is(BlockItemTags.COPPER_ORES.block()) || state.is(BlockItemTags.GOLD_ORES.block()) ||
+                    state.is(BlockItemTags.REDSTONE_ORES.block()) || state.is(BlockItemTags.LAPIS_ORES.block()) ||
+                    state.is(BlockItemTags.DIAMOND_ORES.block()) || state.is(BlockItemTags.EMERALD_ORES.block()) ||
                     state.is(Blocks.ANCIENT_DEBRIS) || state.is(Blocks.NETHER_QUARTZ_ORE);
             case CUSTOM -> customTarget != null && state.is(customTarget.getBlock());
         };
     }
 
     private void spawnSonarBeam(ServerLevel world, Vec3 startPos, BlockPos endPos, BlockState targetState) {
-        Vec3 targetCenter = endPos.getCenter();
+        // MC 26.2: siehe canReach() — BlockPos.getCenter() -> Vec3.atCenterOf(Vec3i)
+        Vec3 targetCenter = Vec3.atCenterOf(endPos);
         Vec3 direction = targetCenter.subtract(startPos).normalize();
         double distance = startPos.distanceTo(targetCenter);
 

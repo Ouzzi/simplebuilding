@@ -1,6 +1,5 @@
 package com.simplebuilding.client.render;
 
-import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.QuadInstance;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -10,8 +9,7 @@ import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
 import net.minecraft.client.renderer.rendertype.RenderType;
@@ -21,6 +19,7 @@ import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,16 +28,14 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.SequencedMap;
 
 /**
  * Zeichnet die transluzente Ghost-Block-Vorschau des Building Wand
  * (Platzierungspositionen aus {@link BuildingWandItem#getPreviewStates}).
- * Loader-neutral: Fabric ruft dies über LevelRenderEvents.AFTER_TRANSLUCENT_TERRAIN auf,
- * NeoForge über RenderLevelStageEvent.AfterTranslucentBlocks.
+ * Loader-neutral: die Geometrie wird ab 26.2 über das Submit-Node-System eingereicht
+ * (Fabric: LevelRenderEvents.COLLECT_SUBMITS, NeoForge: entsprechendes Submit-Event).
  */
 public final class BuildingWandPreviewRenderer {
 
@@ -50,7 +47,7 @@ public final class BuildingWandPreviewRenderer {
     }
 
     /** Pose stack is camera-relative; world positions are translated by -cameraPos before drawing. */
-    public static void render(PoseStack poseStack, Vec3 cameraPos) {
+    public static void render(SubmitNodeCollector collector, PoseStack poseStack, Vec3 cameraPos) {
         Minecraft client = Minecraft.getInstance();
         LocalPlayer player = client.player;
         ClientLevel level = client.level;
@@ -74,17 +71,9 @@ public final class BuildingWandPreviewRenderer {
             return;
         }
 
-        ByteBufferBuilder mainAllocator = new ByteBufferBuilder(2097152);
-        SequencedMap<RenderType, ByteBufferBuilder> layerBuffers = new LinkedHashMap<>();
-        layerBuffers.put(RenderTypes.translucentMovingBlock(), new ByteBufferBuilder(2097152));
-        MultiBufferSource.BufferSource consumers = MultiBufferSource.immediateWithBuffers(layerBuffers, mainAllocator);
-        VertexConsumer buffer = consumers.getBuffer(RenderTypes.translucentMovingBlock());
-
+        RenderType renderType = RenderTypes.translucentMovingBlock();
         BlockColors blockColors = client.getBlockColors();
-        QuadInstance quadInstance = new QuadInstance();
-        quadInstance.setOverlayCoords(OverlayTexture.NO_OVERLAY);
         RandomSource random = RandomSource.create();
-        List<BlockStateModelPart> parts = new ArrayList<>();
 
         for (Map.Entry<BlockPos, BlockState> entry : previewMap.entrySet()) {
             BlockPos pos = entry.getKey();
@@ -102,27 +91,28 @@ public final class BuildingWandPreviewRenderer {
             poseStack.scale(GHOST_SCALE, GHOST_SCALE, GHOST_SCALE);
             poseStack.translate(-0.5, -0.5, -0.5);
 
-            quadInstance.setLightCoords(LevelRenderer.getLightCoords(level, pos));
+            // Pro Position ein eigener Submit-Node: submitCustomGeometry kopiert die aktuelle Pose,
+            // der Zeichen-Callback läuft später mit dem VertexConsumer der RenderType-Gruppe.
+            QuadInstance quadInstance = new QuadInstance();
+            quadInstance.setOverlayCoords(OverlayTexture.NO_OVERLAY);
+            quadInstance.setLightCoords(LightCoordsUtil.getLightCoords(level, pos));
 
             BlockStateModel model = client.getModelManager().getBlockStateModelSet().get(renderState);
             random.setSeed(renderState.getSeed(pos));
-            parts.clear();
+            List<BlockStateModelPart> parts = new ArrayList<>();
             model.collectParts(random, parts);
 
-            PoseStack.Pose pose = poseStack.last();
-            for (BlockStateModelPart part : parts) {
-                for (Direction direction : DIRECTIONS) {
-                    putQuads(part.getQuads(direction), pose, quadInstance, renderState, level, pos, blockColors, buffer);
+            collector.submitCustomGeometry(poseStack, renderType, (pose, buffer) -> {
+                for (BlockStateModelPart part : parts) {
+                    for (Direction direction : DIRECTIONS) {
+                        putQuads(part.getQuads(direction), pose, quadInstance, renderState, level, pos, blockColors, buffer);
+                    }
+                    putQuads(part.getQuads(null), pose, quadInstance, renderState, level, pos, blockColors, buffer);
                 }
-                putQuads(part.getQuads(null), pose, quadInstance, renderState, level, pos, blockColors, buffer);
-            }
+            });
 
             poseStack.popPose();
         }
-
-        consumers.endBatch();
-        mainAllocator.close();
-        layerBuffers.values().forEach(ByteBufferBuilder::close);
     }
 
     private static void putQuads(List<BakedQuad> quads, PoseStack.Pose pose, QuadInstance quadInstance,

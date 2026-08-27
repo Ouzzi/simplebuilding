@@ -69,7 +69,7 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
         this.addRenderableWidget(new CyclingTrimButton(btnX, btnY, 20, 20, trimTemplates, button -> {
             if (this.minecraft != null) {
                 // Hier übergeben wir den aktuellen Screen als Parent, damit man mit "ESC" zurückkommt
-                this.minecraft.setScreen(new TrimReferenceScreen(this));
+                this.minecraft.gui.setScreen(new TrimReferenceScreen(this));
             }
         }));
     }

@@ -52,7 +52,7 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.ExtractLevelRenderStateEvent;
 import net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.event.SubmitCustomGeometryEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.common.NeoForge;
 import org.lwjgl.glfw.GLFW;
@@ -77,7 +77,7 @@ public final class SimplebuildingNeoForgeClient {
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerSelectItemProperties);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerTooltipComponents);
         NeoForge.EVENT_BUS.addListener(this::onClientTick);
-        NeoForge.EVENT_BUS.addListener(this::onRenderLevelAfterTranslucentBlocks);
+        NeoForge.EVENT_BUS.addListener(this::onSubmitCustomGeometry);
         NeoForge.EVENT_BUS.addListener(this::onExtractLevelRenderState);
         NeoForge.EVENT_BUS.addListener(this::onPlayerLogin);
         NeoForge.EVENT_BUS.addListener(NeoForgeClientHooks::onBlockOutlineExtract);
@@ -166,10 +166,10 @@ public final class SimplebuildingNeoForgeClient {
         while (ClientState.settingsKey != null && ClientState.settingsKey.consumeClick()) {
             ItemStack stack = client.player.getMainHandItem();
             if (stack.getItem() instanceof OctantItem) {
-                client.setScreen(new OctantScreen(stack));
+                client.setScreenAndShow(new OctantScreen(stack));
             } else if (stack.getItem() instanceof BuildingWandItem && client.level != null
                     && EnchantmentHelper.hasEnchantment(stack, client.level, ModEnchantments.CONSTRUCTORS_TOUCH)) {
-                client.setScreen(new BuildingWandScreen(stack));
+                client.setScreenAndShow(new BuildingWandScreen(stack));
             }
         }
 
@@ -183,12 +183,16 @@ public final class SimplebuildingNeoForgeClient {
         DoubleJumpController.tick(client);
     }
 
-    private void onRenderLevelAfterTranslucentBlocks(RenderLevelStageEvent.AfterTranslucentBlocks event) {
+    // Seit MC 26.2 wird Geometrie über den SubmitNodeCollector eingereicht; RenderLevelStageEvent
+    // verweist dafür selbst auf SubmitCustomGeometryEvent.
+    private void onSubmitCustomGeometry(SubmitCustomGeometryEvent event) {
         BlockHighlightRenderer.renderInWorldWithCamera(
+                event.getSubmitNodeCollector(),
                 event.getPoseStack(),
                 event.getLevelRenderState().cameraRenderState.pos
         );
         BuildingWandPreviewRenderer.render(
+                event.getSubmitNodeCollector(),
                 event.getPoseStack(),
                 event.getLevelRenderState().cameraRenderState.pos
         );

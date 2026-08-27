@@ -20,7 +20,7 @@ public class MouseMixin {
     private void onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
         Minecraft client = Minecraft.getInstance();
 
-        if (client.player != null && client.screen == null) {
+        if (client.player != null && client.gui.screen() == null) {
             if (client.player.getMainHandItem().getItem() instanceof OctantItem) {
 
                 // --- FIX: Lock Check ---

@@ -9,8 +9,7 @@ import com.simplebuilding.util.SledgehammerUtils;
 import com.simplebuilding.util.guiDrawHelper.RenderColors;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,29 +23,26 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.joml.Matrix4f;
 
+import java.util.Arrays;
 import java.util.List;
 
-import java.util.LinkedHashMap;
-import java.util.SequencedMap;
 import java.util.function.Predicate;
 
 import static com.simplebuilding.util.guiDrawHelper.*;
 
-import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 public class BlockHighlightRenderer {
 
     /** Fabric: subtract camera position so world-space boxes render at the correct location. */
-    public static void renderInWorld(PoseStack poseStack, Camera camera) {
-        renderInWorldWithCamera(poseStack, camera.position());
+    public static void renderInWorld(SubmitNodeCollector collector, PoseStack poseStack, Camera camera) {
+        renderInWorldWithCamera(collector, poseStack, camera.position());
     }
 
     /** NeoForge 26: pose stack is camera-relative; subtract camera before drawing world-space boxes. */
-    public static void renderInWorldWithCamera(PoseStack poseStack, Vec3 cameraPos) {
+    public static void renderInWorldWithCamera(SubmitNodeCollector collector, PoseStack poseStack, Vec3 cameraPos) {
         Minecraft client = Minecraft.getInstance();
         if (client.player == null || client.level == null) {
             return;
@@ -58,32 +54,15 @@ public class BlockHighlightRenderer {
 
             ItemStack octantStack = findOctantStack();
             if (!octantStack.isEmpty()) {
-                drawOctantHighlights(poseStack, octantStack);
+                drawOctantHighlights(collector, poseStack, octantStack);
             }
 
             ItemStack sledgeStack = findSledgehammerStack();
             if (!sledgeStack.isEmpty()) {
-                drawSledgehammerHighlights(poseStack, sledgeStack);
+                drawSledgehammerHighlights(collector, poseStack, sledgeStack);
             }
         } finally {
             poseStack.popPose();
-        }
-    }
-
-    @Deprecated
-    public static void render(Matrix4f positionMatrix, Camera camera) {
-        ItemStack stack = findOctantStack();
-        if (stack.isEmpty()) {
-            return;
-        }
-        PoseStack matrices = new PoseStack();
-        matrices.pushPose();
-        matrices.mulPose(positionMatrix);
-        matrices.translate(-camera.position().x, -camera.position().y, -camera.position().z);
-        try {
-            drawOctantHighlights(matrices, stack);
-        } finally {
-            matrices.popPose();
         }
     }
 
@@ -109,7 +88,7 @@ public class BlockHighlightRenderer {
         return stack.getItem() instanceof SledgehammerItem ? stack : ItemStack.EMPTY;
     }
 
-    private static void drawSledgehammerHighlights(PoseStack matrices, ItemStack stack) {
+    private static void drawSledgehammerHighlights(SubmitNodeCollector collector, PoseStack matrices, ItemStack stack) {
         Minecraft client = Minecraft.getInstance();
         HitResult hit = client.hitResult;
         if (!(hit instanceof BlockHitResult blockHit) || hit.getType() != HitResult.Type.BLOCK) {
@@ -127,13 +106,8 @@ public class BlockHighlightRenderer {
         float lineAlpha = 0.3f;
         float fillAlpha = 0.3f * baseAlpha;
 
-        ByteBufferBuilder mainAllocator = new ByteBufferBuilder(2097152);
-        SequencedMap<RenderType, ByteBufferBuilder> layerBuffers = new LinkedHashMap<>();
-        layerBuffers.put(RenderTypes.lines(), new ByteBufferBuilder(2097152));
-        layerBuffers.put(RenderTypes.debugQuads(), new ByteBufferBuilder(2097152));
-        MultiBufferSource.BufferSource consumers = MultiBufferSource.immediateWithBuffers(layerBuffers, mainAllocator);
-        VertexConsumer lines = consumers.getBuffer(RenderTypes.lines());
-        VertexConsumer fill = consumers.getBuffer(RenderTypes.debugQuads());
+        RecordedGeometry lines = new RecordedGeometry(true);
+        RecordedGeometry fill = new RecordedGeometry(false);
 
         for (BlockPos pos : targetPositions) {
             if (!SledgehammerUtils.shouldBreak(client.level, pos, centerPos, stack)) {
@@ -162,12 +136,10 @@ public class BlockHighlightRenderer {
             }
         }
 
-        consumers.endBatch();
-        mainAllocator.close();
-        layerBuffers.values().forEach(ByteBufferBuilder::close);
+        submit(collector, matrices, lines, fill);
     }
 
-    private static void drawOctantHighlights(PoseStack matrices, ItemStack stack) {
+    private static void drawOctantHighlights(SubmitNodeCollector collector, PoseStack matrices, ItemStack stack) {
         CustomData nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
         CompoundTag nbt = nbtData.copyTag();
 
@@ -199,13 +171,8 @@ public class BlockHighlightRenderer {
         OctantItem octant = (OctantItem) stack.getItem();
         RenderColors colors = getRenderColors(octant.getColor());
 
-        ByteBufferBuilder mainAllocator = new ByteBufferBuilder(2097152);
-        SequencedMap<RenderType, ByteBufferBuilder> layerBuffers = new LinkedHashMap<>();
-        layerBuffers.put(RenderTypes.lines(), new ByteBufferBuilder(2097152));
-        layerBuffers.put(RenderTypes.debugQuads(), new ByteBufferBuilder(2097152));
-        MultiBufferSource.BufferSource consumers = MultiBufferSource.immediateWithBuffers(layerBuffers, mainAllocator);
-        VertexConsumer lines = consumers.getBuffer(RenderTypes.lines());
-        VertexConsumer fill = consumers.getBuffer(RenderTypes.debugQuads());
+        RecordedGeometry lines = new RecordedGeometry(true);
+        RecordedGeometry fill = new RecordedGeometry(false);
 
         float lineAlpha = 0.8f;
         float fillAlpha = 0.3f * baseAlpha;
@@ -247,9 +214,21 @@ public class BlockHighlightRenderer {
                 renderVoxelShape(matrices, lines, fill, bounds, shapeFunc, colors.r3(), colors.g3(), colors.b3(), lineAlpha, fillAlpha);
             }
         }
-        consumers.endBatch();
-        mainAllocator.close();
-        layerBuffers.values().forEach(ByteBufferBuilder::close);
+        submit(collector, matrices, lines, fill);
+    }
+
+    /**
+     * Reicht die gesammelte Geometrie an das Submit-Node-System (26.2) weiter.
+     * Ersetzt {@code MultiBufferSource.immediateWithBuffers(...) + endBatch()}: die Reihenfolge
+     * bleibt "erst Linien, dann Füllflächen", genau wie beim alten SequencedMap-Puffer.
+     */
+    private static void submit(SubmitNodeCollector collector, PoseStack matrices, RecordedGeometry lines, RecordedGeometry fill) {
+        if (!lines.isEmpty()) {
+            collector.submitCustomGeometry(matrices, RenderTypes.lines(), (pose, buffer) -> lines.replay(buffer));
+        }
+        if (!fill.isEmpty()) {
+            collector.submitCustomGeometry(matrices, RenderTypes.debugQuads(), (pose, buffer) -> fill.replay(buffer));
+        }
     }
 
     // --- TRANSFORM HELPERS (Rotate space to Y-up) ---
@@ -378,6 +357,139 @@ public class BlockHighlightRenderer {
         } else {
             double cz = b.minZ + wZ / 2.0;
             return Math.abs(z - cz) <= (wZ / 2.0) * (1.0 - progress);
+        }
+    }
+
+    /**
+     * Puffert Vertices, bis das Submit-Node-System den echten {@link VertexConsumer} bereitstellt.
+     * <p>
+     * Ab 26.2 gibt es keinen Immediate-Puffer mehr: {@code SubmitNodeCollector.submitCustomGeometry}
+     * ruft den Zeichen-Callback erst später in der Render-Phase auf und liefert dann erst den
+     * VertexConsumer der jeweiligen RenderType-Gruppe. Da die Geometrie für Linien und Füllflächen
+     * in einem gemeinsamen Durchlauf entsteht (siehe {@link #renderVoxelShape}), wird sie hier
+     * einmalig aufgezeichnet und in den beiden Callbacks nur noch abgespielt.
+     * <p>
+     * Aufgezeichnet werden die bereits mit {@code matrices.last().pose()} transformierten
+     * Positionen (die Default-Methode {@code addVertex(Matrix4fc, ...)} rechnet vor dem Aufruf von
+     * {@link #addVertex(float, float, float)} um) — das Ergebnis ist damit vertex-identisch zum
+     * bisherigen Immediate-Puffer.
+     */
+    private static final class RecordedGeometry implements VertexConsumer {
+
+        private static final int INITIAL_CAPACITY = 256;
+
+        /** true für RenderTypes.lines() (Position/Farbe/Normale/Linienbreite), false für debugQuads() (Position/Farbe). */
+        private final boolean withNormals;
+
+        private float[] positions = new float[3 * INITIAL_CAPACITY];
+        private int[] colors = new int[INITIAL_CAPACITY];
+        private float[] normals;
+        private float[] lineWidths;
+        private int vertexCount;
+
+        RecordedGeometry(boolean withNormals) {
+            this.withNormals = withNormals;
+            if (withNormals) {
+                this.normals = new float[3 * INITIAL_CAPACITY];
+                this.lineWidths = new float[INITIAL_CAPACITY];
+            }
+        }
+
+        boolean isEmpty() {
+            return vertexCount == 0;
+        }
+
+        private void grow() {
+            int capacity = colors.length * 2;
+            positions = Arrays.copyOf(positions, capacity * 3);
+            colors = Arrays.copyOf(colors, capacity);
+            if (withNormals) {
+                normals = Arrays.copyOf(normals, capacity * 3);
+                lineWidths = Arrays.copyOf(lineWidths, capacity);
+            }
+        }
+
+        @Override
+        public VertexConsumer addVertex(float x, float y, float z) {
+            if (vertexCount == colors.length) {
+                grow();
+            }
+            int base = vertexCount * 3;
+            positions[base] = x;
+            positions[base + 1] = y;
+            positions[base + 2] = z;
+            colors[vertexCount] = 0xFFFFFFFF;
+            if (withNormals) {
+                normals[base] = 0.0f;
+                normals[base + 1] = 0.0f;
+                normals[base + 2] = 0.0f;
+                lineWidths[vertexCount] = 1.0f;
+            }
+            vertexCount++;
+            return this;
+        }
+
+        @Override
+        public VertexConsumer setColor(int r, int g, int b, int a) {
+            if (vertexCount > 0) {
+                colors[vertexCount - 1] = (a & 255) << 24 | (r & 255) << 16 | (g & 255) << 8 | (b & 255);
+            }
+            return this;
+        }
+
+        @Override
+        public VertexConsumer setColor(int argb) {
+            if (vertexCount > 0) {
+                colors[vertexCount - 1] = argb;
+            }
+            return this;
+        }
+
+        @Override
+        public VertexConsumer setUv(float u, float v) {
+            return this;
+        }
+
+        @Override
+        public VertexConsumer setUv1(int u, int v) {
+            return this;
+        }
+
+        @Override
+        public VertexConsumer setUv2(int u, int v) {
+            return this;
+        }
+
+        @Override
+        public VertexConsumer setNormal(float nx, float ny, float nz) {
+            if (withNormals && vertexCount > 0) {
+                int base = (vertexCount - 1) * 3;
+                normals[base] = nx;
+                normals[base + 1] = ny;
+                normals[base + 2] = nz;
+            }
+            return this;
+        }
+
+        @Override
+        public VertexConsumer setLineWidth(float width) {
+            if (withNormals && vertexCount > 0) {
+                lineWidths[vertexCount - 1] = width;
+            }
+            return this;
+        }
+
+        void replay(VertexConsumer out) {
+            for (int vertex = 0; vertex < vertexCount; vertex++) {
+                int base = vertex * 3;
+                int argb = colors[vertex];
+                VertexConsumer written = out.addVertex(positions[base], positions[base + 1], positions[base + 2])
+                        .setColor((argb >> 16) & 255, (argb >> 8) & 255, argb & 255, (argb >>> 24) & 255);
+                if (withNormals) {
+                    written.setNormal(normals[base], normals[base + 1], normals[base + 2])
+                            .setLineWidth(lineWidths[vertex]);
+                }
+            }
         }
     }
 }

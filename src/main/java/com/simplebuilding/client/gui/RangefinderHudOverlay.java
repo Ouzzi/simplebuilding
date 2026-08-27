@@ -23,7 +23,7 @@ public class RangefinderHudOverlay {
     public static void render(GuiGraphicsExtractor context) {
         Minecraft client = Minecraft.getInstance();
         if (client.player == null) return;
-        if (client.screen instanceof OctantScreen) return;
+        if (client.gui.screen() instanceof OctantScreen) return;
 
         ItemStack stack = client.player.getMainHandItem();
         boolean hasOctant = stack.getItem() instanceof OctantItem;

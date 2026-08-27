@@ -30,12 +30,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WeatheringCopperCollection;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.Vec3;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -216,9 +218,11 @@ public class ChiselItem extends Item {
         registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, Blocks.PURPUR_SLAB, Blocks.PURPUR_SLAB);
 
         // [copper_block -> cut_copper -> chiseled_copper_block -> copper_grate]
-        registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, Blocks.COPPER_BLOCK, Blocks.CUT_COPPER, Blocks.CHISELED_COPPER, Blocks.COPPER_GRATE);
-        registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, Blocks.CUT_COPPER_STAIRS, Blocks.CUT_COPPER_STAIRS); // Only cut has stairs
-        registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, Blocks.CUT_COPPER_SLAB, Blocks.CUT_COPPER_SLAB);
+        // MC 26.2: Kupferbloecke stehen in Blocks nur noch als WeatheringCopperCollection; plain(...)
+        // liefert die unverwitterte, ungewachste Variante -- also exakt die frueheren Konstanten.
+        registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, plain(Blocks.COPPER_BLOCK), plain(Blocks.CUT_COPPER), plain(Blocks.CHISELED_COPPER), plain(Blocks.COPPER_GRATE));
+        registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, plain(Blocks.CUT_COPPER_STAIRS), plain(Blocks.CUT_COPPER_STAIRS)); // Only cut has stairs
+        registerLinear(DIAMOND_TOUCH_MAP, DIAMOND_TOUCH_SPATULA_MAP, plain(Blocks.CUT_COPPER_SLAB), plain(Blocks.CUT_COPPER_SLAB));
 
 
         // [Dead Corals] -> CYCLIC (Circle)
@@ -491,6 +495,16 @@ public class ChiselItem extends Item {
     // HELPER METHODEN
     // =================================================================================
 
+    /**
+     * MC 26.2: Kupfer-Bloecke werden in {@link Blocks} als {@link WeatheringCopperCollection}
+     * gefuehrt (weathering()/waxed() x unaffected/exposed/weathered/oxidized). Der Praefix der
+     * weathering-unaffected-Variante ist leer, sie entspricht damit 1:1 der alten Konstante
+     * (z.B. Blocks.COPPER_BLOCK == minecraft:copper_block).
+     */
+    private static Block plain(WeatheringCopperCollection<Block> copper) {
+        return copper.weathering().unaffected();
+    }
+
     private static void registerLinear(Map<Block, Block> forward, Map<Block, Block> backward, Block... blocks) {
         if (blocks.length < 2) return;
         for (int i = 0; i < blocks.length - 1; i++) {
@@ -613,20 +627,15 @@ public class ChiselItem extends Item {
     }
 
     private static void registerConcrete() {
-        Block[] blocks = {
-            Blocks.WHITE_CONCRETE, Blocks.ORANGE_CONCRETE, Blocks.MAGENTA_CONCRETE, Blocks.LIGHT_BLUE_CONCRETE,
-            Blocks.YELLOW_CONCRETE, Blocks.LIME_CONCRETE, Blocks.PINK_CONCRETE, Blocks.GRAY_CONCRETE,
-            Blocks.LIGHT_GRAY_CONCRETE, Blocks.CYAN_CONCRETE, Blocks.PURPLE_CONCRETE, Blocks.BLUE_CONCRETE,
-            Blocks.BROWN_CONCRETE, Blocks.GREEN_CONCRETE, Blocks.RED_CONCRETE, Blocks.BLACK_CONCRETE
-        };
-        Block[] powders = {
-            Blocks.WHITE_CONCRETE_POWDER, Blocks.ORANGE_CONCRETE_POWDER, Blocks.MAGENTA_CONCRETE_POWDER, Blocks.LIGHT_BLUE_CONCRETE_POWDER,
-            Blocks.YELLOW_CONCRETE_POWDER, Blocks.LIME_CONCRETE_POWDER, Blocks.PINK_CONCRETE_POWDER, Blocks.GRAY_CONCRETE_POWDER,
-            Blocks.LIGHT_GRAY_CONCRETE_POWDER, Blocks.CYAN_CONCRETE_POWDER, Blocks.PURPLE_CONCRETE_POWDER, Blocks.BLUE_CONCRETE_POWDER,
-            Blocks.BROWN_CONCRETE_POWDER, Blocks.GREEN_CONCRETE_POWDER, Blocks.RED_CONCRETE_POWDER, Blocks.BLACK_CONCRETE_POWDER
-        };
-        for(int i=0; i < blocks.length; i++) {
-            registerLinear(ChiselItem.NETHERITE_TOUCH_MAP, ChiselItem.NETHERITE_TOUCH_SPATULA_MAP, blocks[i], powders[i]);
+        // MC 26.2: Die 16 Farbvarianten liegen als ColorCollection<Block> vor (Blocks.CONCRETE /
+        // Blocks.CONCRETE_POWDER); die Einzelkonstanten Blocks.WHITE_CONCRETE usw. entfielen.
+        // asList() liefert white, orange, magenta, light_blue, yellow, lime, pink, gray, light_gray,
+        // cyan, purple, blue, brown, green, red, black -- exakt die bisherige Array-Reihenfolge,
+        // die Farbpaarung Beton <-> Betonpulver bleibt also unveraendert.
+        List<Block> blocks = Blocks.CONCRETE.asList();
+        List<Block> powders = Blocks.CONCRETE_POWDER.asList();
+        for(int i=0; i < blocks.size(); i++) {
+            registerLinear(ChiselItem.NETHERITE_TOUCH_MAP, ChiselItem.NETHERITE_TOUCH_SPATULA_MAP, blocks.get(i), powders.get(i));
         }
     }
 

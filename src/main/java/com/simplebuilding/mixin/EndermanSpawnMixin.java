@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +22,8 @@ public abstract class EndermanSpawnMixin {
     private static void checkEnderiteShield(EntityType<? extends Monster> type, ServerLevelAccessor world, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random, CallbackInfoReturnable<Boolean> cir) {
 
         // 1. Wir prüfen, ob es überhaupt ein Enderman ist
-        if (type == EntityType.ENDERMAN) {
+        // MC 26.2: Die EntityType-Konstanten wurden aus EntityType nach EntityTypes ausgelagert.
+        if (type == EntityTypes.ENDERMAN) {
 
             // 2. Nur bei natürlichem Spawning prüfen (Performance & Logic)
             if (spawnReason == EntitySpawnReason.NATURAL || spawnReason == EntitySpawnReason.CHUNK_GENERATION) {
