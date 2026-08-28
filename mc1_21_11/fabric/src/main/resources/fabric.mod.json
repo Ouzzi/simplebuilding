@@ -24,6 +24,14 @@
 		],
         "modmenu": [
           "com.simplebuilding.compat.ModMenuIntegration"
+        ],
+        "fabric-gametest": [
+          "com.simplebuilding.gametest.SmokeGameTest",
+          "com.simplebuilding.gametest.TradeAndMigrationGameTest",
+          "com.simplebuilding.gametest.ToolBehaviourGameTest",
+          "com.simplebuilding.gametest.BlockBehaviourGameTest",
+          "com.simplebuilding.gametest.DataIntegrityGameTest",
+          "com.simplebuilding.gametest.TradeRegistryGameTest"
         ]
 	},
 	"mixins": [

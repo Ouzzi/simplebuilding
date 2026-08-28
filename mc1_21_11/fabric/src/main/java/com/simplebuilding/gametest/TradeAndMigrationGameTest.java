@@ -4,31 +4,19 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 
 /**
- * Fabric adapter for the trade and migration tests.
- *
- * <p>This class holds no test logic. Every method delegates to the loader-neutral body in
- * {@link TradeAndMigrationTests}; the annotation only restates the runner parameters, and the tick
- * budgets are shared constants so they cannot drift from the shared catalogue in
- * {@link SimpleBuildingGameTests}.
- *
- * <p>Registered through the {@code fabric-gametest} entrypoint in {@code fabric.mod.json}.
- * Class and method names are load bearing: Fabric derives the test id from them.
+ * Fabric adapter for the trade and migration tests (MC 1.21.11 line). No logic here; see
+ * {@link TradeAndMigrationTests}.
  */
 public final class TradeAndMigrationGameTest {
 
     @GameTest
-    public void allModTradesAreLoadedIntoTheDatapackRegistry(GameTestHelper helper) {
-        TradeAndMigrationTests.allModTradesAreLoadedIntoTheDatapackRegistry(helper);
+    public void modTradesAreMergedIntoTheVillagerTradePools(GameTestHelper helper) {
+        TradeAndMigrationTests.modTradesAreMergedIntoTheVillagerTradePools(helper);
     }
 
     @GameTest
-    public void modTradesAreMergedIntoTheVanillaTradePools(GameTestHelper helper) {
-        TradeAndMigrationTests.modTradesAreMergedIntoTheVanillaTradePools(helper);
-    }
-
-    @GameTest
-    public void professionTradeSetsResolveTheModTrades(GameTestHelper helper) {
-        TradeAndMigrationTests.professionTradeSetsResolveTheModTrades(helper);
+    public void modTradesAreMergedIntoTheWanderingTraderPools(GameTestHelper helper) {
+        TradeAndMigrationTests.modTradesAreMergedIntoTheWanderingTraderPools(helper);
     }
 
     @GameTest
@@ -39,6 +27,11 @@ public final class TradeAndMigrationGameTest {
     @GameTest(maxTicks = TradeAndMigrationTests.MASON_VILLAGER_MAX_TICKS)
     public void masonVillagerCanRollAModTrade(GameTestHelper helper) {
         TradeAndMigrationTests.masonVillagerCanRollAModTrade(helper);
+    }
+
+    @GameTest(maxTicks = TradeAndMigrationTests.WANDERING_TRADER_MAX_TICKS)
+    public void wanderingTraderCanRollAModTrade(GameTestHelper helper) {
+        TradeAndMigrationTests.wanderingTraderCanRollAModTrade(helper);
     }
 
     @GameTest

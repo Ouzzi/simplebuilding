@@ -14,6 +14,7 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.platform.ModEnvironment;
 import com.simplebuilding.mixin.CauldronInteractionDispatcherAccessor;
+import com.simplebuilding.neoforge.gametest.NeoForgeGameTests;
 import com.simplebuilding.neoforge.networking.NeoForgeNetworkRegistration;
 import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.screen.ModScreenHandlers;
@@ -43,6 +44,7 @@ public final class SimplebuildingNeoForge {
         modEventBus.addListener(NeoForgeRegistryBootstrap::onRegister);
         modEventBus.addListener(this::commonSetup);
         NeoForgeNetworkRegistration.registerPlatformServices();
+        NeoForgeGameTests.register(modEventBus);
         configure();
     }
 

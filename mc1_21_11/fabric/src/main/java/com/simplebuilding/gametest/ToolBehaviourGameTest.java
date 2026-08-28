@@ -5,15 +5,9 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.level.block.Rotation;
 
 /**
- * Fabric adapter for the tool behaviour tests.
- *
- * <p>This class holds no test logic. Every method delegates to the loader-neutral body in
- * {@link ToolBehaviourTests}; the annotation only restates the runner parameters, and the tick
- * budgets are shared constants so they cannot drift from the shared catalogue in
- * {@link SimpleBuildingGameTests}.
- *
- * <p>Registered through the {@code fabric-gametest} entrypoint in {@code fabric.mod.json}.
- * Class and method names are load bearing: Fabric derives the test id from them.
+ * Fabric adapter for the tool behaviour tests (MC 1.21.11 line). No logic here; see
+ * {@link ToolBehaviourTests}. Every test is pinned to an unrotated structure because several of
+ * them depend on absolute directions (player facing, mining direction).
  */
 public final class ToolBehaviourGameTest {
 

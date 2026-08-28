@@ -34,6 +34,21 @@ fabricApi {
 	}
 }
 
+// Automated in-game tests. Runs a headless server, loads the mod, executes every registered
+// GameTest and fails the build on the first failing one. Same shape as the 26.2 root project;
+// task name here is :mc1_21_11:fabric:runGametest.
+loom {
+	runs {
+		gametest {
+			server()
+			name = "Game Test 1.21.11"
+			vmArg "-Dfabric-api.gametest"
+			vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory.get()}/junit.xml"
+			runDir "build/gametest"
+		}
+	}
+}
+
 repositories {
 	maven { url = "https://maven.shedaniel.me/" }
 	maven { url = "https://maven.terraformersmc.com/releases/" }
@@ -53,6 +68,14 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 	modImplementation "com.terraformersmc:modmenu:${project.mc11_modmenu_version}"
+
+	// In-game test framework. Unlike the 26.2 root project, which can use a plain
+	// 'implementation' because its Fabric API artifacts are already in the official
+	// namespace, the 1.21.11 module has to remap this one as well: the published
+	// fabric-gametest-api-v1 for 1.21.11 is intermediary-namespaced (its @GameTest
+	// annotation declares 'net.minecraft.class_2470 rotation()'), so without
+	// modImplementation the annotation could not even be referenced from Mojang-mapped code.
+	modImplementation fabricApi.module("fabric-gametest-api-v1", project.mc11_fabric_version)
 }
 
 java {

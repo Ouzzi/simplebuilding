@@ -58,6 +58,14 @@ neoForge {
             programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.archives_base_name
         }
+        // Headless in-game test run: NeoForge's 'gameTestServer' run type boots
+        // net.minecraft.gametest.Main, which accepts --tests (namespaced wildcard selector)
+        // and --report (junit-style XML). Task name: :mc1_21_11:neoforge:runGameTest
+        gameTest {
+            type = 'gameTestServer'
+            programArguments.addAll '--tests', "${project.archives_base_name}:*",
+                    '--report', layout.buildDirectory.file('neoforge-junit.xml').get().asFile.absolutePath
+        }
         data {
             clientData()
             programArguments.addAll '--mod', project.archives_base_name, '--all',

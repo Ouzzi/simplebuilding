@@ -13,6 +13,7 @@ import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.platform.ModEnvironment;
+import com.simplebuilding.neoforge.gametest.NeoForgeGameTests;
 import com.simplebuilding.neoforge.networking.NeoForgeNetworkRegistration;
 import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.screen.ModScreenHandlers;
@@ -38,6 +39,7 @@ public final class SimplebuildingNeoForge {
     public SimplebuildingNeoForge(IEventBus modEventBus, ModContainer modContainer) {
         ModEnvironment.setModLoadedCheck(modId -> ModList.get().isLoaded(modId));
         NeoForgeModRegistries.register(modEventBus);
+        NeoForgeGameTests.register(modEventBus);
         modEventBus.addListener(NeoForgeRegistryBootstrap::onRegister);
         modEventBus.addListener(this::commonSetup);
         NeoForgeNetworkRegistration.registerPlatformServices();

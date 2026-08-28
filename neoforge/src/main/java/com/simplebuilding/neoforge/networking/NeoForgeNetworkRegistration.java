@@ -28,7 +28,12 @@ public final class NeoForgeNetworkRegistration {
         PlatformServices.setPlayerPacketSender(new PlayerPacketSender() {
             @Override
             public boolean canSend(ServerPlayer player, CustomPacketPayload.Type<?> type) {
-                return player.connection != null;
+                // A non-null connection is not enough: NeoForge refuses to send a modded
+                // payload over a connection that never negotiated the channel and throws
+                // UnsupportedOperationException from NetworkRegistry.checkPacket. Ask the
+                // listener whether the channel exists, which is the counterpart of Fabric's
+                // ServerPlayNetworking.canSend(player, type).
+                return player.connection != null && player.connection.hasChannel(type);
             }
 
             @Override
