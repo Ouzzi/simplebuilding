@@ -1,0 +1,120 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.141'
+}
+
+description = 'NeoForge loader module for SimpleBuilding, Minecraft 1.21.11 line'
+
+def resolveSetting = { String key, String defaultValue = null ->
+    def fromProject = project.findProperty(key)
+    return fromProject != null ? fromProject.toString() : defaultValue
+}
+
+def neoVersion = resolveSetting('mc11_neoforge_version', '21.11.45')
+def minecraftVersionRange = resolveSetting('mc11_minecraft_version_range', '[1.21.11,1.22)')
+
+group = rootProject.group
+version = rootProject.version
+
+base {
+    archivesName = "${rootProject.archives_base_name}-1.21.11-neoforge"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
+}
+
+// Loader-neutral game code from common/src/shared/java + NeoForge-specific adapters here.
+// No exclude filter needed: the shared tree contains nothing loader-specific, so every
+// loader compiles all of it against its own Minecraft jar.
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/shared/java')
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/fabric/src/main/resources')
+            srcDir rootProject.layout.projectDirectory.dir('src/main/generated')
+            exclude 'fabric.mod.json'
+        }
+    }
+}
+
+neoForge {
+    version = neoVersion
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.archives_base_name
+        }
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.archives_base_name
+        }
+        data {
+            clientData()
+            programArguments.addAll '--mod', project.archives_base_name, '--all',
+                    '--output', file('src/generated/resources/').absolutePath,
+                    '--existing', rootProject.file('mc1_21_11/fabric/src/main/resources/').absolutePath,
+                    '--existing', rootProject.file('src/main/generated/').absolutePath
+        }
+        configureEach {
+            logLevel = org.slf4j.event.Level.INFO
+        }
+    }
+
+    mods {
+        "${archives_base_name}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+repositories {
+    maven { url = 'https://maven.shedaniel.me/' }
+}
+
+dependencies {
+    implementation project(':common')
+    implementation "me.shedaniel.cloth:cloth-config-neoforge:${project.mc11_cloth_version}"
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    def replaceProperties = [
+            modVersion           : project.version,
+            modId                : project.archives_base_name,
+            // javafml-Version = Specification-Version des fmlloader-Jars.
+            // NeoForge 21.11.45 zieht net.neoforged.fancymodloader:loader:10.0.36 (Spec-Version 10),
+            // die 26.2-Linie dagegen 11.x -- deshalb hier NICHT neoforge_loader_version_range ([11,)).
+            loaderVersionRange   : resolveSetting('mc11_neoforge_loader_version_range', '[10,)'),
+            minecraftVersionRange: minecraftVersionRange,
+    ]
+    inputs.properties replaceProperties
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand replaceProperties
+    }
+}
+
+tasks.withType(Jar).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.named('jar').configure {
+    manifest {
+        attributes([
+                'Specification-Title'     : 'simplebuilding',
+                'Specification-Vendor'    : 'simplebuilding',
+                'Specification-Version'   : project.version,
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.version,
+        ])
+    }
+}

@@ -1,0 +1,46 @@
+modLoader="javafml"
+loaderVersion="${loaderVersionRange}"
+license="CC0-1.0"
+
+[[mixins]]
+config="simplebuilding.mixins.json"
+
+[[mixins]]
+config="simplebuilding.client.mixins.json"
+
+# Oeffnet LevelRenderer#submitNodeStorage; NeoForge 21.11.45 hat noch kein
+# SubmitCustomGeometryEvent (siehe SimplebuildingNeoForgeClient#onRenderLevelStage).
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
+
+[[mods]]
+modId="${modId}"
+version="${modVersion}"
+displayName="SimpleBuilding"
+description='''
+SimpleBuilding for NeoForge 21.11 (Minecraft 1.21.11)
+'''
+authors="simplebuilding"
+displayURL="https://azarfane.de/"
+logoFile="assets/simplebuilding/icon.png"
+
+[[dependencies.${modId}]]
+modId="neoforge"
+type="required"
+versionRange="[21.11,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
+modId="minecraft"
+type="required"
+versionRange="${minecraftVersionRange}"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
+modId="cloth_config"
+type="optional"
+versionRange="[21.11,)"
+ordering="NONE"
+side="BOTH"
