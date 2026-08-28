@@ -66,10 +66,19 @@ Vollständiges Feature-Audit (10 Domänen, verifiziert): Kern-Gameplay, Blöcke,
 
 Aufgeräumt: `backup 1/` nach `checker-backup/` außerhalb der Ressourcen verschoben + 3 verirrte Fremd-JARs entfernt (e253ac3) — **Mod-JAR 15,3 MB auf 1,2 MB**, Ressourcen-Fehlerspam beim Start weg.
 
-### Offen aus dem Audit (NeoForge-seitig)
-- [ ] **Config-Gate der Trades wirkt auf NeoForge nicht** — `fabric:load_conditions` wird dort ignoriert, `enableVillagerTrades`/`enableWanderingTrades` bleiben auf NeoForge wirkungslos. NeoForge-Pendant (eigene Condition oder Event-Filter) nötig.
-- [ ] **Actionbar-Fix auf NeoForge unvollständig** — 3 Meldungen laufen dort weiterhin über den Chat (Constructor's Touch, Highlights-Toggle, Octant-Figure-Toggle), weil die NeoForge-Adapter eigene Kopien der Meldungen halten.
-- [ ] **`ConfigResourceCondition` liegt im Paket `datagen`** — für NeoForge vom Quell-Filter ausgeschlossen; als Laufzeitklasse gehört sie nicht dorthin.
+### Aus dem Audit (NeoForge-seitig) — ERLEDIGT 2026-08-27
+- [x] **Config-Gate der Trades wirkt jetzt auch auf NeoForge** — `villager_trade` ist eine
+  Datapack-Registry aus `RegistryDataLoader.WORLDGEN_REGISTRIES`, und NeoForge patcht genau
+  diesen Ladeweg auf `ConditionalOps`: eine nicht erfüllte Bedingung lässt den Eintrag ganz
+  weg. Neue `ConfigLoadCondition` (ICondition) unter demselben Namen `simplebuilding:config`
+  wie die Fabric-Condition; alle 20 Trade-JSONs tragen jetzt beide Bedingungsblöcke mit
+  identischem Flag.
+- [x] **Statusmeldungen** — die drei bekannten Chat-statt-Actionbar-Stellen behoben; zusätzlich
+  eine vierte gefunden (Rotator-Meldung in `ModRegistriesNeoForge`). NeoForge hat jetzt null
+  `sendSystemMessage`-Aufrufe. Ursache angegangen: Toggle-Key- und Constructor's-Touch-Logik
+  liegen im gemeinsamen Baum, beide Loader lesen aus einer Quelle.
+- [x] **`ConfigResourceCondition`** aus dem Paket `datagen` nach `com.simplebuilding.condition`
+  verschoben — sie ist eine Laufzeitklasse (läuft beim Laden der Datenpakete).
 
 ### Kosmetik (optional)
 - [x] Ressourcen-Warnungen: Ordner `backup 1/` unter `src/main/resources/assets/simplebuilding/textures/block/` hat ein Leerzeichen im Pfad → ungültige ResourceLocation, wird ignoriert (harmlos, geteilt mit Fabric). Erledigt (2026-08-20): PNGs unterscheiden sich von den aktiven Texturen → nach `art/dev-textures/checker-backup/` verschoben; außerdem 3 versehentlich committete JARs (~15 MB) aus `textures/item/` entfernt.
