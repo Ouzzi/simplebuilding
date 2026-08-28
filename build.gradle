@@ -42,6 +42,29 @@ fabricApi {
 	configureDataGeneration {
 		client = true
 	}
+
+	// Client-side in-game tests: drive a real client, create a world, join it and
+	// assert on what is actually on screen. This is the only way to cover the
+	// in-world renderers, which a headless server test can never reach.
+	configureTests {
+		createSourceSet = true
+		modId = "simplebuilding-test"
+		enableGameTests = false
+	}
+}
+
+// Automated in-game tests. Runs a headless server, loads the mod, executes every
+// registered GameTest and fails the build on the first failing one.
+loom {
+	runs {
+		gametest {
+			server()
+			name = "Game Test"
+			vmArg "-Dfabric-api.gametest"
+			vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory.get()}/junit.xml"
+			runDir "build/gametest"
+		}
+	}
 }
 
 dependencies {
@@ -61,6 +84,9 @@ dependencies {
 
     // Mod Menu (damit du den Config-Button im Spiel siehst)
     implementation "com.terraformersmc:modmenu:20.0.1"
+
+	// In-game test framework
+	implementation fabricApi.module("fabric-gametest-api-v1", project.fabric_version)
 
 	// Test dependencies
 	testImplementation "org.junit.jupiter:junit-jupiter:5.11.4"
