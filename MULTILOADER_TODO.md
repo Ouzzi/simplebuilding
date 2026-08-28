@@ -118,8 +118,10 @@ alten Yarn-Branch hochgezogen). Verzeichnis `mc1_21_11/` mit `shared/java` + `fa
 - [x] Villager-/Wandering-Trades — code-basiert (Fabric: TradeOfferHelper, NeoForge:
   eigene Events), alle 20 Trades der 26.2-Linie, Tabelle und Zufallslogik einmal im
   gemeinsamen Baum. Beide Config-Gates wirken hier auf BEIDEN Loadern.
-- [ ] **Datagen nur aus 26.2 kopiert, nicht neu erzeugt** — einige Datenformate
-  unterscheiden sich zwischen den Versionen; die Datagen dieser Linie sollte laufen.
+- [x] **Datagen der Linie laeuft eigenstaendig** (2026-08-27) — `fabricApi.configureDataGeneration`
+  aktiviert, `:mc1_21_11:fabric:runDatagen` erzeugt die Daten aus den eigenen Providern.
+  663 Dateien rein, 663 raus; die einzigen 54 Abweichungen sind kosmetisch (53 Rezepte mit
+  explizitem `"count": 1`, ein Tag nur in anderer Reihenfolge).
 - [ ] **Kein Gameplay-Test** — bisher nur Boot-Tests auf beiden Loadern.
 - [ ] Kosmetik: 6 Spatula-Items sind bewusst ohne Modell registriert (fuer
   `LegacySpatulaMigration`) und erzeugen beim Start "No model loaded"-Warnungen.
