@@ -28,6 +28,12 @@ sourceSets {
 	}
 }
 
+fabricApi {
+	configureDataGeneration {
+		client = true
+	}
+}
+
 repositories {
 	maven { url = "https://maven.shedaniel.me/" }
 	maven { url = "https://maven.terraformersmc.com/releases/" }
