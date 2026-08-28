@@ -18,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import com.simplebuilding.enchantment.ModEnchantments;
@@ -60,7 +59,7 @@ public abstract class ItemFrameEntityMixin {
 
     // --- INTERAKTIONEN ---
     @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
-    private void simplebuilding$onInteract(Player player, InteractionHand hand, Vec3 hitPos, CallbackInfoReturnable<InteractionResult> cir) {
+    private void simplebuilding$onInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack handStack = player.getItemInHand(hand);
         boolean isClient = player.level().isClientSide();
         ItemFrame itemFrame = (ItemFrame) (Object) this;
