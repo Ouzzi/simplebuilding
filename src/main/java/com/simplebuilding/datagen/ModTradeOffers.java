@@ -1,6 +1,7 @@
 package com.simplebuilding.datagen;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.condition.ConfigResourceCondition;
 import com.simplebuilding.loot.ModLootFunctions;
 
 /**

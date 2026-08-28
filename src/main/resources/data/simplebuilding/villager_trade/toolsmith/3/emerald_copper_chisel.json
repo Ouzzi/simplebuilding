@@ -2,6 +2,9 @@
   "fabric:load_conditions": [
     { "condition": "simplebuilding:config", "flag": "enableVillagerTrades" }
   ],
+  "neoforge:conditions": [
+    { "type": "simplebuilding:config", "flag": "enableVillagerTrades" }
+  ],
   "wants": { "id": "minecraft:emerald", "count": 6 },
   "gives": { "id": "simplebuilding:copper_chisel" },
   "given_item_modifiers": [

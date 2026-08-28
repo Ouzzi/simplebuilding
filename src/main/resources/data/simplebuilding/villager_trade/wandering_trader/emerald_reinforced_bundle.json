@@ -2,6 +2,9 @@
   "fabric:load_conditions": [
     { "condition": "simplebuilding:config", "flag": "enableWanderingTrades" }
   ],
+  "neoforge:conditions": [
+    { "type": "simplebuilding:config", "flag": "enableWanderingTrades" }
+  ],
   "wants": { "id": "minecraft:emerald", "count": 16 },
   "gives": { "id": "simplebuilding:reinforced_bundle" },
   "max_uses": 1,

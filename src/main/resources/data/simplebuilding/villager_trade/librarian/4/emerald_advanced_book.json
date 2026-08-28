@@ -2,6 +2,9 @@
   "fabric:load_conditions": [
     { "condition": "simplebuilding:config", "flag": "enableVillagerTrades" }
   ],
+  "neoforge:conditions": [
+    { "type": "simplebuilding:config", "flag": "enableVillagerTrades" }
+  ],
   "wants": { "id": "minecraft:emerald", "count": 25 },
   "gives": { "id": "minecraft:enchanted_book" },
   "given_item_modifiers": [

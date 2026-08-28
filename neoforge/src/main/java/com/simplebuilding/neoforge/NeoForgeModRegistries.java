@@ -35,8 +35,10 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.function.Supplier;
 
@@ -70,6 +72,16 @@ public final class NeoForgeModRegistries {
             DeferredRegister.create(Registries.RECIPE_TYPE, Simplebuilding.MOD_ID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Simplebuilding.MOD_ID);
+    /**
+     * NeoForges Bedingungs-System fuer Datapack-Eintraege. Hierueber wird
+     * {@code simplebuilding:config} als Gegenstueck zur Fabric-Resource-Condition registriert,
+     * damit enableVillagerTrades/enableWanderingTrades auch auf NeoForge greifen.
+     */
+    public static final DeferredRegister<MapCodec<? extends ICondition>> CONDITION_CODECS =
+            DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, Simplebuilding.MOD_ID);
+
+    public static final Supplier<MapCodec<ConfigLoadCondition>> CONFIG_CONDITION =
+            CONDITION_CODECS.register("config", () -> ConfigLoadCondition.CODEC);
 
     public static final Supplier<MenuType<NetheriteHopperScreenHandler>> NETHERITE_HOPPER_MENU =
             MENUS.register("netherite_hopper", () -> IMenuTypeExtension.create(
@@ -142,6 +154,7 @@ public final class NeoForgeModRegistries {
         RECIPE_SERIALIZERS.register(modEventBus);
         RECIPE_TYPES.register(modEventBus);
         CREATIVE_TABS.register(modEventBus);
+        CONDITION_CODECS.register(modEventBus);
     }
 
     public static void assignStaticFields() {

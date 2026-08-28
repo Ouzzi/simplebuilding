@@ -2,6 +2,9 @@
   "fabric:load_conditions": [
     { "condition": "simplebuilding:config", "flag": "enableVillagerTrades" }
   ],
+  "neoforge:conditions": [
+    { "type": "simplebuilding:config", "flag": "enableVillagerTrades" }
+  ],
   "wants": { "id": "minecraft:emerald", "count": 16 },
   "additional_wants": { "id": "minecraft:iron_pickaxe", "count": 1 },
   "gives": { "id": "simplebuilding:iron_sledgehammer" },

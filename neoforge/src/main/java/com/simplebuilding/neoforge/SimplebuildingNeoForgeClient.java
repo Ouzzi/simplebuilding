@@ -2,6 +2,7 @@ package com.simplebuilding.neoforge;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
+import com.simplebuilding.client.ClientToggleKeys;
 import com.simplebuilding.client.DoubleJumpController;
 import com.simplebuilding.client.gui.BuildingWandScreen;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
@@ -33,7 +34,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
@@ -155,14 +155,9 @@ public final class SimplebuildingNeoForgeClient {
             return;
         }
 
-        while (ClientState.highlightToggleKey != null && ClientState.highlightToggleKey.consumeClick()) {
-            ClientState.showHighlights = !ClientState.showHighlights;
-            client.player.sendSystemMessage(Component.literal("Highlights: " + (ClientState.showHighlights ? "ON" : "OFF")));
-        }
-        while (ClientState.octantFigureToggleKey != null && ClientState.octantFigureToggleKey.consumeClick()) {
-            ClientState.showHighlights = !ClientState.showHighlights;
-            client.player.sendSystemMessage(Component.literal("Octant Figure: " + (ClientState.showHighlights ? "ON" : "OFF")));
-        }
+        // Shared with Fabric (see ClientToggleKeys) — both toggles report on the actionbar.
+        ClientToggleKeys.tick(client);
+
         while (ClientState.settingsKey != null && ClientState.settingsKey.consumeClick()) {
             ItemStack stack = client.player.getMainHandItem();
             if (stack.getItem() instanceof OctantItem) {

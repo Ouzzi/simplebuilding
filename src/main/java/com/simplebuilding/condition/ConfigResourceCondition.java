@@ -1,4 +1,4 @@
-package com.simplebuilding.datagen;
+package com.simplebuilding.condition;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

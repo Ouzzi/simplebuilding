@@ -1,6 +1,7 @@
 package com.simplebuilding.neoforge;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.util.ConstructorsTouchInteraction;
 import com.simplebuilding.util.LegacySpatulaMigration;
 import com.simplebuilding.util.SledgehammerEntityInteraction;
 import com.simplebuilding.util.*;
@@ -61,7 +62,9 @@ public final class NeoForgeGameplayEvents {
         if (event.getHand() != InteractionHand.MAIN_HAND || event.getLevel().isClientSide()) {
             return;
         }
-        InteractionResult result = ModRegistriesNeoForge.handleUseBlock(
+        // Shared with Fabric (see ConstructorsTouchInteraction) so the actionbar readout
+        // cannot diverge between loaders again.
+        InteractionResult result = ConstructorsTouchInteraction.handleUseBlock(
                 event.getEntity(),
                 event.getLevel(),
                 event.getHand(),
