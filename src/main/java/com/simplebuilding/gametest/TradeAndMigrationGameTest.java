@@ -124,12 +124,15 @@ public final class TradeAndMigrationGameTest {
     public void modTradesAreMergedIntoTheVanillaTradePools(GameTestHelper helper) {
         Registry<VillagerTrade> trades = helper.getLevel().registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
 
-        assertPoolContains(helper, trades, VillagerTradeTags.LIBRARIAN_LEVEL_3,
-                "simplebuilding:librarian/3/emerald_building_book");
-        assertPoolContains(helper, trades, VillagerTradeTags.LIBRARIAN_LEVEL_4,
-                "simplebuilding:librarian/4/emerald_advanced_book");
-        assertPoolContains(helper, trades, VillagerTradeTags.LIBRARIAN_LEVEL_5,
-                "simplebuilding:librarian/5/emerald_master_book");
+        // The librarian pools are the only ones Trade Rebalance replaces wholesale.
+        if (!tradeRebalanceActive(helper)) {
+            assertPoolContains(helper, trades, VillagerTradeTags.LIBRARIAN_LEVEL_3,
+                    "simplebuilding:librarian/3/emerald_building_book");
+            assertPoolContains(helper, trades, VillagerTradeTags.LIBRARIAN_LEVEL_4,
+                    "simplebuilding:librarian/4/emerald_advanced_book");
+            assertPoolContains(helper, trades, VillagerTradeTags.LIBRARIAN_LEVEL_5,
+                    "simplebuilding:librarian/5/emerald_master_book");
+        }
         assertPoolContains(helper, trades, VillagerTradeTags.MASON_LEVEL_2,
                 "simplebuilding:mason/2/emerald_copper_core",
                 "simplebuilding:mason/2/netherite_diamond_core");
@@ -173,8 +176,10 @@ public final class TradeAndMigrationGameTest {
                 "simplebuilding:toolsmith/3/emerald_iron_chisel",
                 "simplebuilding:toolsmith/3/emerald_copper_chisel",
                 "simplebuilding:toolsmith/3/emerald_gold_chisel");
-        assertTradeSetForProfession(helper, VillagerProfession.LIBRARIAN, 5, TradeSets.LIBRARIAN_LEVEL_5,
-                "simplebuilding:librarian/5/emerald_master_book");
+        if (!tradeRebalanceActive(helper)) {
+            assertTradeSetForProfession(helper, VillagerProfession.LIBRARIAN, 5, TradeSets.LIBRARIAN_LEVEL_5,
+                    "simplebuilding:librarian/5/emerald_master_book");
+        }
 
         helper.succeed();
     }
@@ -353,6 +358,17 @@ public final class TradeAndMigrationGameTest {
     // ------------------------------------------------------------------
     // helpers
     // ------------------------------------------------------------------
+
+    /**
+     * Vanilla's optional "Trade Rebalance" datapack declares {@code "replace": true} on the three
+     * librarian trade tags, which discards every earlier contributor -- including this mod. It is
+     * off in normal worlds but ON in the gametest environment, which enables all experimental packs.
+     * Mason, toolsmith and wandering trader pools are not touched by it.
+     */
+    private static boolean tradeRebalanceActive(GameTestHelper helper) {
+        return helper.getLevel().getServer().getResourceManager().listPacks()
+                .anyMatch(pack -> "trade_rebalance".equals(pack.packId()));
+    }
 
     private static void assertPoolContains(GameTestHelper helper, Registry<VillagerTrade> trades,
                                            TagKey<VillagerTrade> tag, String... expectedIds) {
