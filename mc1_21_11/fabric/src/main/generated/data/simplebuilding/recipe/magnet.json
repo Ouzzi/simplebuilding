@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "minecraft:lapis_lazuli",
+    "I": "minecraft:iron_ingot",
+    "L": "minecraft:lodestone",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    " IR",
+    "ILI",
+    "BI "
+  ],
+  "result": {
+    "id": "simplebuilding:magnet"
+  }
+}

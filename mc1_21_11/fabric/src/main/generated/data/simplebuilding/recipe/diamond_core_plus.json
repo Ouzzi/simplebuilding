@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "minecraft:diamond",
+    "N": "minecraft:nether_star"
+  },
+  "pattern": [
+    " M ",
+    "MNM",
+    " M "
+  ],
+  "result": {
+    "id": "simplebuilding:diamond_core"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "minecraft:carrot",
+    "N": "simplebuilding:enderite_nugget"
+  },
+  "pattern": [
+    " N ",
+    "NCN",
+    " N "
+  ],
+  "result": {
+    "id": "simplebuilding:enderite_carrot"
+  }
+}

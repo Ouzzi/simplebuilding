@@ -39,7 +39,7 @@ sourceSets {
         resources {
             srcDir 'src/main/resources'
             srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/fabric/src/main/resources')
-            srcDir rootProject.layout.projectDirectory.dir('src/main/generated')
+            srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/fabric/src/main/generated')
             exclude 'fabric.mod.json'
         }
     }
@@ -63,7 +63,7 @@ neoForge {
             programArguments.addAll '--mod', project.archives_base_name, '--all',
                     '--output', file('src/generated/resources/').absolutePath,
                     '--existing', rootProject.file('mc1_21_11/fabric/src/main/resources/').absolutePath,
-                    '--existing', rootProject.file('src/main/generated/').absolutePath
+                    '--existing', rootProject.file('mc1_21_11/fabric/src/main/generated/').absolutePath
         }
         configureEach {
             logLevel = org.slf4j.event.Level.INFO

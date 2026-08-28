@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "simplebuilding:block/netherite_smoker_front",
+    "side": "simplebuilding:block/netherite_smoker_side",
+    "top": "simplebuilding:block/netherite_smoker_top"
+  }
+}

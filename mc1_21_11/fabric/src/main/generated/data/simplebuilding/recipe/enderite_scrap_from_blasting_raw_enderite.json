@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 2.0,
+  "group": "enderite_scrap",
+  "ingredient": "simplebuilding:raw_enderite",
+  "result": {
+    "id": "simplebuilding:enderite_scrap"
+  }
+}

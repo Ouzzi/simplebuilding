@@ -1,0 +1,10 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:iron_ingot",
+  "addition_count": 2,
+  "base": "minecraft:stone_shovel",
+  "result": {
+    "id": "minecraft:iron_shovel"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

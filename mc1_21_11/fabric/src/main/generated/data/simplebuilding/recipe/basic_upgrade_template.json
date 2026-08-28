@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:gold_ingot",
+    "B": "simplebuilding:basic_upgrade_template",
+    "C": "minecraft:iron_block"
+  },
+  "pattern": [
+    "ABA",
+    "ACA",
+    "AAA"
+  ],
+  "result": {
+    "count": 2,
+    "id": "simplebuilding:basic_upgrade_template"
+  }
+}

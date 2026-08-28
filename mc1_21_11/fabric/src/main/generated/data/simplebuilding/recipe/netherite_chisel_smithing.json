@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simplebuilding:diamond_chisel",
+  "result": {
+    "id": "simplebuilding:netherite_chisel"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

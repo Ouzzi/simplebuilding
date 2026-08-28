@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": "minecraft:cobblestone",
+    "N": "minecraft:copper_nugget",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "   ",
+    "NM ",
+    "SN "
+  ],
+  "result": {
+    "id": "simplebuilding:stone_chisel"
+  }
+}

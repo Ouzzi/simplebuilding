@@ -1,0 +1,10 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:diamond",
+  "addition_count": 4,
+  "base": "minecraft:golden_pickaxe",
+  "result": {
+    "id": "minecraft:diamond_pickaxe"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

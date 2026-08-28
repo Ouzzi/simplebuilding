@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "minecraft:purpur_block",
+    "M": "simplebuilding:astralit_dust"
+  },
+  "pattern": [
+    "BBB",
+    "BMB",
+    "BBB"
+  ],
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:astral_purpur_block"
+  }
+}

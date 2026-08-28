@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "minecraft:gold_block",
+    "M": "minecraft:gold_ingot",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "BMM",
+    " S ",
+    " S "
+  ],
+  "result": {
+    "id": "simplebuilding:gold_sledgehammer"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:diamond",
+  "addition_count": 2,
+  "base": "minecraft:golden_shovel",
+  "result": {
+    "id": "minecraft:diamond_shovel"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

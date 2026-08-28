@@ -19,6 +19,12 @@ sourceSets {
 			// the two Minecraft versions differ in real APIs, not just mappings.
 			srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/shared/java')
 		}
+		resources {
+			// Datagen output for this Minecraft line. Copied from the 26.2 tree as a
+			// starting point; re-run this module's datagen to regenerate it properly,
+			// because some data formats differ between the two versions.
+			srcDir 'src/main/generated'
+		}
 	}
 }
 

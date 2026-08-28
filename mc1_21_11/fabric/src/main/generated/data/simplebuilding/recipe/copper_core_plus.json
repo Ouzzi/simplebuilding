@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "minecraft:copper_ingot",
+    "N": "minecraft:nether_star"
+  },
+  "pattern": [
+    " M ",
+    "MNM",
+    " M "
+  ],
+  "result": {
+    "id": "simplebuilding:copper_core"
+  }
+}

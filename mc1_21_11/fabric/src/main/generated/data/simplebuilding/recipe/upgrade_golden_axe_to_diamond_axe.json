@@ -1,0 +1,10 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:diamond",
+  "addition_count": 4,
+  "base": "minecraft:golden_axe",
+  "result": {
+    "id": "minecraft:diamond_axe"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

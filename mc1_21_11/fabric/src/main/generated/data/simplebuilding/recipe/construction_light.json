@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": "minecraft:glass",
+    "L": "minecraft:lapis_lazuli",
+    "T": "minecraft:torch"
+  },
+  "pattern": [
+    "LGL",
+    "GTG",
+    "LGL"
+  ],
+  "result": {
+    "id": "simplebuilding:construction_light"
+  }
+}

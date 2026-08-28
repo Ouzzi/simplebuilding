@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "cracked_diamond_from_block",
+  "ingredients": [
+    "simplebuilding:cracked_diamond_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "simplebuilding:cracked_diamond"
+  }
+}
