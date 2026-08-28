@@ -43,4 +43,9 @@ public final class DataIntegrityGameTest {
     public void modEnchantmentTagsResolveToTheExpectedEntries(GameTestHelper helper) {
         DataIntegrityTests.modEnchantmentTagsResolveToTheExpectedEntries(helper);
     }
+
+    @GameTest
+    public void voidProtectedTagIsLanguageIndependent(GameTestHelper helper) {
+        DataIntegrityTests.voidProtectedTagIsLanguageIndependent(helper);
+    }
 }

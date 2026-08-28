@@ -1,6 +1,6 @@
 package com.simplebuilding.mixin;
 
-import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.ModTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -34,12 +34,13 @@ public abstract class EnderiteItemMixin extends Entity {
 
         ItemStack stack = this.getItem();
 
-        // Liste der geschützten Items
-        boolean isEnderite = stack.getItem() == ModItems.ENDERITE_INGOT
-                || stack.getItem() == ModItems.ENDERITE_SCRAP
-                || stack.getHoverName().getString().contains("Enderite"); // Einfacher Check für Tools/Rüstung
+        // Geschuetzt wird ueber den Item-Tag simplebuilding:void_protected. Der frueher hier
+        // stehende Check auf den Anzeigenamen ("Enderite" in getHoverName()) war sprachabhaengig:
+        // in jeder nicht-englischen Lokalisierung griff der Schutz nicht, und ein im Amboss
+        // umbenanntes Fremditem wurde faelschlich geschuetzt.
+        boolean isVoidProtected = stack.typeHolder().is(ModTags.Items.VOID_PROTECTED);
 
-        if (isEnderite) {
+        if (isVoidProtected) {
             // Physik manipulieren: Schweben lassen
             this.setDeltaMovement(0, 0, 0);
             this.setNoGravity(true);

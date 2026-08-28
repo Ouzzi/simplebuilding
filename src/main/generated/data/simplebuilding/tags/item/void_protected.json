@@ -1,0 +1,28 @@
+{
+  "values": [
+    "simplebuilding:enderite_apple",
+    "simplebuilding:enderite_axe",
+    "simplebuilding:enderite_block",
+    "simplebuilding:enderite_boots",
+    "simplebuilding:enderite_building_wand",
+    "simplebuilding:enderite_bundle",
+    "simplebuilding:enderite_carrot",
+    "simplebuilding:enderite_chestplate",
+    "simplebuilding:enderite_chisel",
+    "simplebuilding:enderite_core",
+    "simplebuilding:enderite_helmet",
+    "simplebuilding:enderite_hoe",
+    "simplebuilding:enderite_ingot",
+    "simplebuilding:enderite_leggings",
+    "simplebuilding:enderite_nugget",
+    "simplebuilding:enderite_pickaxe",
+    "simplebuilding:enderite_quiver",
+    "simplebuilding:enderite_scrap",
+    "simplebuilding:enderite_shovel",
+    "simplebuilding:enderite_sledgehammer",
+    "simplebuilding:enderite_spear",
+    "simplebuilding:enderite_sword",
+    "simplebuilding:enderite_upgrade_template",
+    "simplebuilding:raw_enderite"
+  ]
+}

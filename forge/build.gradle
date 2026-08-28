@@ -47,6 +47,37 @@ sourceSets {
     }
 }
 
+// Run-Konfigurationen sind hier standardmaessig ABGESCHALTET. Warum:
+//
+// ForgeGradle 7.0.36 legt fuer JEDEN `minecraft.runs`-Eintrag zwei Tasks an: die
+// Run-Task selbst (Typ SlimeLauncherExec) und -- bedingungslos, siehe
+// SlimeLauncherExec.register(), die SlimeLauncherEclipseConfiguration.register()
+// direkt mitaufruft -- eine Eclipse-Run-Config-Task `genEclipseRun<Run>For<Dep>`.
+// Beide Typen loesen SCHON IM KONSTRUKTOR das "Slime Launcher"-Tool auf, und das
+// verlangt ueber SharedUtil.launcherForStrictly(toolchains, 8) zwingend ein
+// Java-8-Toolchain. Ohne installiertes JDK 8 scheitert damit bereits das ERSTELLEN
+// der Task -- und in der Folge jede Task-Auflistung (`gradlew tasks`,
+// `gradlew tasks --all`), weil Gradles TaskReportTask alle registrierten Tasks
+// realisiert:
+//     Could not create task ':forge:genEclipseRunClientForForge'.
+//      > Could not create task of type 'SlimeLauncherEclipseConfiguration'.
+//         > Cannot find a Java installation ... matching: {languageVersion=8, ...}
+//
+// ForgeGradle bietet keinen Schalter, um nur die IDE-/Eclipse-Tasks abzuwaehlen,
+// und ein lazy registrierter Gradle-Task laesst sich nachtraeglich nicht mehr
+// entfernen (tasks.replace() verweigert einen inkompatiblen Ersatztyp). Der
+// einzige saubere Hebel ist deshalb, gar keine Runs zu registrieren.
+//
+// KOSTEN: :forge:runClient / :forge:runServer und die generierten
+// Eclipse-Run-Configs gibt es nicht mehr. Das kostet nichts Funktionierendes --
+// :forge:runClient scheiterte hier mit exakt demselben Java-8-Toolchain-Fehler --,
+// und das forge-Modul ist ohnehin zurueckgestellt (MULTILOADER_TODO.md, Abschnitt
+// "Forge: ZURUECKGESTELLT"): es soll nur weiter bauen, nicht laufen. Fabric und
+// NeoForge sind davon nicht beruehrt.
+//
+// Wer ein JDK 8 installiert hat, schaltet die Runs mit -Pforge_runs=true wieder ein.
+def forgeRunsEnabled = Boolean.parseBoolean(resolveSetting('forge_runs', 'false'))
+
 minecraft {
     runs {
         configureEach {
@@ -54,9 +85,11 @@ minecraft {
             systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
             systemProperty 'forge.enabledGameTestNamespaces', rootProject.archives_base_name
         }
-        register('client')
-        register('server') {
-            args '--nogui'
+        if (forgeRunsEnabled) {
+            register('client')
+            register('server') {
+                args '--nogui'
+            }
         }
     }
 }

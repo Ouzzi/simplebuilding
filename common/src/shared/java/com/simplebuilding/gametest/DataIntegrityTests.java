@@ -6,13 +6,16 @@ import com.simplebuilding.enchantment.ModEnchantmentTags;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
+import com.simplebuilding.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
@@ -23,6 +26,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -38,11 +42,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Data integrity checks against the running server.
@@ -404,6 +410,92 @@ public final class DataIntegrityTests {
 
         helper.assertTrue(problems.isEmpty(), "enchantment tag problems: " + problems);
         helper.succeed();
+    }
+
+    // =================================================================================
+    // 8. Void protection
+    // =================================================================================
+
+    /**
+     * {@code EnderiteItemMixin} keeps enderite gear from being lost in the void. It used to
+     * recognise that gear by display name ({@code getHoverName().getString().contains("Enderite")}),
+     * which failed in both directions: in any non-English locale nothing was protected at all, and
+     * any foreign item renamed to "Enderite" in an anvil was. The mixin now reads the
+     * {@code simplebuilding:void_protected} item tag, and this test pins both directions.
+     */
+    public static void voidProtectedTagIsLanguageIndependent(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+
+        // 1. The loaded tag must hold exactly what the datagen rule selects from the registry.
+        //    A missing/stale tag JSON, or a new enderite item added after the last datagen run,
+        //    shows up here.
+        Set<Identifier> actual = new TreeSet<>(Comparator.comparing(Identifier::toString));
+        for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(ModTags.Items.VOID_PROTECTED)) {
+            holder.unwrapKey().ifPresent(key -> actual.add(key.identifier()));
+        }
+        Set<Identifier> expected = new TreeSet<>(Comparator.comparing(Identifier::toString));
+        for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            if (ModTags.Items.isVoidProtectedByRule(id)) {
+                expected.add(id);
+            }
+        }
+        helper.assertTrue(!expected.isEmpty(), "the void protection rule selects no item at all");
+        if (!actual.equals(expected)) {
+            Set<Identifier> missing = new TreeSet<>(Comparator.comparing(Identifier::toString));
+            missing.addAll(expected);
+            missing.removeAll(actual);
+            Set<Identifier> unexpected = new TreeSet<>(Comparator.comparing(Identifier::toString));
+            unexpected.addAll(actual);
+            unexpected.removeAll(expected);
+            problems.add(ModTags.Items.VOID_PROTECTED.location() + " is missing " + missing
+                    + " and additionally contains " + unexpected + " (datagen not re-run?)");
+        }
+
+        // 2. Hard anchors, spelled out instead of derived, so a rule that quietly stops matching
+        //    anything cannot make step 1 pass trivially.
+        for (Item item : List.of(
+                ModItems.ENDERITE_INGOT,
+                ModItems.ENDERITE_SCRAP,
+                ModItems.RAW_ENDERITE,
+                ModItems.ENDERITE_NUGGET,
+                ModItems.ENDERITE_PICKAXE,
+                ModItems.ENDERITE_SWORD,
+                ModItems.ENDERITE_HELMET,
+                ModItems.ENDERITE_BLOCK_ITEM)) {
+            if (!isVoidProtected(new ItemStack(item))) {
+                problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not covered by "
+                        + ModTags.Items.VOID_PROTECTED.location());
+            }
+        }
+
+        // 3. The regression itself: a protected item keeps its protection under a display name
+        //    that contains no "Enderite" at all -- this is what every non-English locale looks like.
+        ItemStack localized = new ItemStack(ModItems.ENDERITE_INGOT);
+        localized.set(DataComponents.CUSTOM_NAME, Component.literal("Enderit-Barren"));
+        if (localized.getHoverName().getString().contains("Enderite")) {
+            problems.add("test setup broken: the localized name still contains \"Enderite\"");
+        }
+        if (!isVoidProtected(localized)) {
+            problems.add("an enderite ingot loses its void protection under a non-English name");
+        }
+
+        // 4. The other direction: renaming a foreign item in an anvil must not buy protection.
+        ItemStack impostor = new ItemStack(Items.DIRT);
+        impostor.set(DataComponents.CUSTOM_NAME, Component.literal("Enderite Ingot"));
+        if (!impostor.getHoverName().getString().contains("Enderite")) {
+            problems.add("test setup broken: the impostor name does not contain \"Enderite\"");
+        }
+        if (isVoidProtected(impostor)) {
+            problems.add("minecraft:dirt renamed to \"Enderite Ingot\" is treated as void protected");
+        }
+
+        helper.assertTrue(problems.isEmpty(), "void protection problems: " + problems);
+        helper.succeed();
+    }
+
+    /** Exactly the test {@code EnderiteItemMixin} performs on the dropped stack. */
+    private static boolean isVoidProtected(ItemStack stack) {
+        return stack.typeHolder().is(ModTags.Items.VOID_PROTECTED);
     }
 
     // =================================================================================

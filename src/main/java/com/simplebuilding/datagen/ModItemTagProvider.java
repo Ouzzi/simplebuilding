@@ -13,6 +13,9 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import java.util.Comparator;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
@@ -138,5 +141,29 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.ENDERITE_CHESTPLATE))
                 .add(key(ModItems.ENDERITE_LEGGINGS))
                 .add(key(ModItems.ENDERITE_BOOTS));
+
+        addVoidProtected();
+    }
+
+    /**
+     * Befuellt {@link ModTags.Items#VOID_PROTECTED} deterministisch aus der Item-Registry statt
+     * aus einer handgepflegten Liste: alles, was
+     * {@link ModTags.Items#isVoidProtectedByRule(Identifier)} akzeptiert. Neue Enderite-Items
+     * sind damit automatisch gegen den Void geschuetzt, ohne dass jemand daran denken muss --
+     * und der Mixin braucht keinen sprachabhaengigen Check auf den Anzeigenamen mehr.
+     */
+    private void addVoidProtected() {
+        // Sortiert, damit die erzeugte JSON unabhaengig von der Registrierungsreihenfolge ist.
+        Set<Identifier> ids = new TreeSet<>(Comparator.comparing(Identifier::toString));
+        for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            if (ModTags.Items.isVoidProtectedByRule(id)) {
+                ids.add(id);
+            }
+        }
+
+        var voidProtected = builder(ModTags.Items.VOID_PROTECTED);
+        for (Identifier id : ids) {
+            voidProtected.add(ResourceKey.create(Registries.ITEM, id));
+        }
     }
 }
