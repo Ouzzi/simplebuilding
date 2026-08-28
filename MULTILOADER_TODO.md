@@ -97,3 +97,21 @@ NeoForge-Modul):
 - [ ] **Weniger HUD-Verdrahtung als NeoForge** (`AddGuiOverlayLayersEvent`).
 - [ ] **Nie zur Laufzeit gestartet** — auch nicht vor der Entfernung in dbdffdf.
   Ein `runClient`/`runServer`-Durchlauf steht komplett aus.
+
+## MC-1.21.11-Linie (Stand 2026-08-27)
+
+Zweite unterstuetzte Minecraft-Version, aus der 26.2-Linie heruntergeportet (nicht aus dem
+alten Yarn-Branch hochgezogen). Verzeichnis `mc1_21_11/` mit `shared/java` + `fabric` +
+`neoforge`. Ein einziger `gradlew build` erzeugt beide Minecraft-Versionen.
+
+- [x] Fabric 1.21.11 — baut, Client bootet bis ins Hauptmenue.
+- [x] NeoForge 1.21.11 (21.11.45) — baut, Client bootet.
+- [x] Villager-/Wandering-Trades — code-basiert (Fabric: TradeOfferHelper, NeoForge:
+  eigene Events), alle 20 Trades der 26.2-Linie, Tabelle und Zufallslogik einmal im
+  gemeinsamen Baum. Beide Config-Gates wirken hier auf BEIDEN Loadern.
+- [ ] **Datagen nur aus 26.2 kopiert, nicht neu erzeugt** — einige Datenformate
+  unterscheiden sich zwischen den Versionen; die Datagen dieser Linie sollte laufen.
+- [ ] **Kein Gameplay-Test** — bisher nur Boot-Tests auf beiden Loadern.
+- [ ] Kosmetik: 6 Spatula-Items sind bewusst ohne Modell registriert (fuer
+  `LegacySpatulaMigration`) und erzeugen beim Start "No model loaded"-Warnungen.
+  Betrifft beide Minecraft-Versionen.
