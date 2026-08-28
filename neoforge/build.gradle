@@ -27,34 +27,14 @@ java {
     withSourcesJar()
 }
 
-// Shared game code from the Fabric root module + NeoForge-specific adapters in this module.
-def rootFabricJavaDir = rootProject.layout.projectDirectory.dir('src/main/java').asFile.toPath()
+// Loader-neutral game code from common/src/shared/java + NeoForge-specific adapters here.
+// No exclude filter needed: the shared tree contains nothing loader-specific, so every
+// loader compiles all of it against its own Minecraft jar.
 sourceSets {
     main {
         java {
             srcDir 'src/main/java'
-            srcDir rootProject.layout.projectDirectory.dir('src/main/java')
-            exclude { details ->
-                def isRootFabricSource = details.file.toPath().startsWith(rootFabricJavaDir)
-                def relative = details.relativePath.pathString
-                if (!isRootFabricSource) {
-                    return false
-                }
-                return relative == 'com/simplebuilding/Simplebuilding.java'
-                        || relative == 'com/simplebuilding/SimplebuildingClient.java'
-                        || relative == 'com/simplebuilding/SimplebuildingDataGenerator.java'
-                        || relative.startsWith('com/simplebuilding/compat/')
-                        || relative.startsWith('com/simplebuilding/datagen/')
-                        || relative == 'com/simplebuilding/platform/HopperMenus.java'
-                        || relative == 'com/simplebuilding/screen/ModScreenHandlers.java'
-                        || relative == 'com/simplebuilding/command/ModCommands.java'
-                        || relative == 'com/simplebuilding/util/ModRegistries.java'
-                        || relative == 'com/simplebuilding/recipe/ModRecipes.java'
-                        || relative == 'com/simplebuilding/networking/ModMessages.java'
-                        || relative == 'com/simplebuilding/items/ModItemGroups.java'
-                        || relative == 'com/simplebuilding/blocks/entity/ModBlockEntities.java'
-                        || relative == 'com/simplebuilding/world/gen/ModOreGeneration.java'
-            }
+            srcDir rootProject.layout.projectDirectory.dir('common/src/shared/java')
         }
         resources {
             srcDir 'src/main/resources'

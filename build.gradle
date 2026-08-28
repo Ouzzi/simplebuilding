@@ -12,6 +12,12 @@ base {
 
 sourceSets {
 	main {
+		java {
+			// Loader-neutral game code lives in common/src/shared/java and is compiled by
+			// every loader module against its own Minecraft jar. Only Fabric-specific
+			// classes (entrypoints, registration, datagen) stay in this module's src/main/java.
+			srcDir "common/src/shared/java"
+		}
 		resources {
 			srcDir "src/main/generated"
 		}
