@@ -2,7 +2,8 @@ package com.simplebuilding.common;
 
 public enum SimplebuildingLoader {
     FABRIC("fabric"),
-    NEOFORGE("neoforge");
+    NEOFORGE("neoforge"),
+    FORGE("forge");
 
     private final String id;
 
