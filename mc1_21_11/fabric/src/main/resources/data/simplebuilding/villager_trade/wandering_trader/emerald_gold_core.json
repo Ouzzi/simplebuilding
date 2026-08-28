@@ -1,0 +1,10 @@
+{
+  "fabric:load_conditions": [
+    { "condition": "simplebuilding:config", "flag": "enableWanderingTrades" }
+  ],
+  "wants": { "id": "minecraft:emerald", "count": 30 },
+  "gives": { "id": "simplebuilding:gold_core" },
+  "max_uses": 1,
+  "xp": 5,
+  "reputation_discount": 0.1
+}

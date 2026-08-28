@@ -11,9 +11,11 @@ repositories {
 group = rootProject.group
 version = rootProject.version
 
+// Targets Java 21, the floor across both supported Minecraft lines (1.21.11 needs 21,
+// 26.2 needs 25). Java 25 modules can consume these classes; the reverse would not work.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
+        languageVersion = JavaLanguageVersion.of(21)
     }
     withSourcesJar()
 }

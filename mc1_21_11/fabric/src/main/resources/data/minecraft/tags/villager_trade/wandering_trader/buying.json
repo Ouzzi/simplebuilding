@@ -1,0 +1,6 @@
+{
+  "values": [
+    { "id": "simplebuilding:wandering_trader/reinforced_bundle_emerald", "required": false },
+    { "id": "simplebuilding:wandering_trader/octant_emerald", "required": false }
+  ]
+}

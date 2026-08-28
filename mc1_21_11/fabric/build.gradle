@@ -1,0 +1,60 @@
+plugins {
+	id 'fabric-loom'
+}
+
+// Second supported Minecraft version. Unlike 26.x, 1.21.11 does not ship in the
+// official namespace, so Mojang mappings have to be requested explicitly. It also
+// targets Java 21, not 25.
+version = rootProject.version
+group = rootProject.group
+
+base {
+	archivesName = "${rootProject.archives_base_name}-${project.mc11_minecraft_version}"
+}
+
+sourceSets {
+	main {
+		java {
+			// Down-ported copy of the shared game code. The 26.2 tree cannot be reused:
+			// the two Minecraft versions differ in real APIs, not just mappings.
+			srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/shared/java')
+		}
+	}
+}
+
+repositories {
+	maven { url = "https://maven.shedaniel.me/" }
+	maven { url = "https://maven.terraformersmc.com/releases/" }
+}
+
+dependencies {
+	implementation project(":common")
+	minecraft "com.mojang:minecraft:${project.mc11_minecraft_version}"
+	mappings loom.officialMojangMappings()
+	// 1.21.11 artifacts are published against the intermediary namespace, so unlike the
+	// 26.2 line they have to go through Loom's remapper (modImplementation) before they
+	// can be compiled against Mojang mappings.
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.mc11_fabric_version}"
+
+	modImplementation("me.shedaniel.cloth:cloth-config-fabric:${project.mc11_cloth_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+	modImplementation "com.terraformersmc:modmenu:${project.mc11_modmenu_version}"
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 21
+	// While the down-port is in progress the module produces far more than javac's
+	// default 100 diagnostics. Once the limit is hit javac stops resolving and starts
+	// reporting bogus follow-up errors (e.g. "package org.spongepowered.asm.mixin does
+	// not exist" although sponge-mixin is on the compile classpath), which sends the
+	// port down the wrong track. Raise the cap so the diagnostics stay truthful.
+	it.options.compilerArgs.addAll(['-Xmaxerrs', '5000'])
+}
