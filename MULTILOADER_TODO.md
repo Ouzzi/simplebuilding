@@ -73,3 +73,27 @@ Aufgeräumt: `backup 1/` nach `checker-backup/` außerhalb der Ressourcen versch
 
 ### Kosmetik (optional)
 - [x] Ressourcen-Warnungen: Ordner `backup 1/` unter `src/main/resources/assets/simplebuilding/textures/block/` hat ein Leerzeichen im Pfad → ungültige ResourceLocation, wird ignoriert (harmlos, geteilt mit Fabric). Erledigt (2026-08-20): PNGs unterscheiden sich von den aktiven Texturen → nach `art/dev-textures/checker-backup/` verschoben; außerdem 3 versehentlich committete JARs (~15 MB) aus `textures/item/` entfernt.
+
+## Forge: ZURUECKGESTELLT (Entscheidung 2026-08-27)
+
+**Forge wird vorerst NICHT weiterverfolgt.** Das Modul bleibt im Repo und baut gruen
+(`gradlew :forge:build`, MC 26.2 / Forge 26.2-65.1.3 / ForgeGradle 7.0.36), damit der
+Wiedereinstieg jederzeit moeglich ist — es wird aber nicht auf Feature-Paritaet
+gebracht und nicht ausgeliefert. Aktive Loader sind **Fabric und NeoForge**.
+
+Was bei einem spaeteren Wiedereinstieg offen ist (belegt durch Vergleich mit dem
+NeoForge-Modul):
+- [ ] **Keiner der drei In-Welt-Renderer ist verdrahtet** — `BlockHighlightRenderer`,
+  `BuildingWandPreviewRenderer` und `MultiBlockBreakingSupport` kommen im Forge-Modul
+  nicht vor. Auf Forge fehlen damit Sledgehammer-/Octant-Highlights, die
+  Building-Wand-Ghost-Vorschau und die Abbau-Risse auf Mehrfachbloecken.
+  Erschwerend: MC 26.2 reicht Geometrie ueber `SubmitNodeCollector` ein; Forge 65.1.3
+  hat kein offensichtliches Pendant zu NeoForges `SubmitCustomGeometryEvent`
+  (Kandidat waere `AddFramePassEvent`, sonst ein eigener Mixin).
+- [ ] **Kein Config-Screen** — NeoForge nutzt `IConfigScreenFactory` + cloth AutoConfig.
+  `cloth-config` gibt es fuer Fabric und NeoForge, fuer Forge vermutlich nicht; dann
+  waere `ForgeConfigSpec` + eigener Screen noetig. Achtung: `SimplebuildingConfig` und
+  `HeldItemRendererMixin` liegen im gemeinsamen Baum und nutzen `me.shedaniel`-Klassen.
+- [ ] **Weniger HUD-Verdrahtung als NeoForge** (`AddGuiOverlayLayersEvent`).
+- [ ] **Nie zur Laufzeit gestartet** — auch nicht vor der Entfernung in dbdffdf.
+  Ein `runClient`/`runServer`-Durchlauf steht komplett aus.
