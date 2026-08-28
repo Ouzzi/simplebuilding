@@ -30,7 +30,6 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.TradeSet;
 import net.minecraft.world.item.trading.TradeSets;
 import net.minecraft.world.item.trading.VillagerTrade;
-import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -269,15 +268,27 @@ public final class TradeAndMigrationGameTest {
      * Player-side migration: stacks in the inventory and in the open container menu are
      * rewritten to the matching chisel, keeping the stack size and the component patch;
      * items that are not legacy spatulas must be left completely alone.
+     *
+     * <p>The mock player has to be a <em>connected</em> one: writing into the crafting grid makes
+     * vanilla run {@code CraftingMenu#slotChangedCraftingGrid}, which unconditionally dereferences
+     * {@code ServerPlayer#connection}. That matches production, where the migration only ever runs
+     * from the join event and therefore always sees a player with a network handler.
      */
     @GameTest
     public void legacySpatulasInPlayerInventoryBecomeChisels(GameTestHelper helper) {
-        ServerPlayer player = (ServerPlayer) helper.makeMockServerPlayer(GameType.SURVIVAL);
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
 
-        ItemStack stoneSpatula = new ItemStack(ModItems.STONE_SPATULA, 7);
+        // Spatulas and chisels are damageable tools, so a damaged one is always a single item;
+        // the damage component itself refuses to apply to anything bigger than one.
+        ItemStack stoneSpatula = new ItemStack(ModItems.STONE_SPATULA, 1);
         stoneSpatula.set(DataComponents.DAMAGE, 5);
         stoneSpatula.set(DataComponents.CUSTOM_NAME, Component.literal("Grandpa's tool"));
         player.getInventory().setItem(0, stoneSpatula);
+
+        // The stack size is covered separately, on a stack without components to validate.
+        ItemStack copperSpatulas = new ItemStack(ModItems.COPPER_SPATULA, 3);
+        player.getInventory().setItem(1, copperSpatulas);
 
         ItemStack netheriteSpatula = new ItemStack(ModItems.NETHERITE_SPATULA, 1);
         player.getInventory().setItem(3, netheriteSpatula);
@@ -289,7 +300,7 @@ public final class TradeAndMigrationGameTest {
         player.getInventory().setItem(5, vanilla);
 
         // A spatula that only lives in the open menu (crafting grid slot), not in the inventory.
-        ItemStack menuSpatula = new ItemStack(ModItems.GOLD_SPATULA, 2);
+        ItemStack menuSpatula = new ItemStack(ModItems.GOLD_SPATULA, 1);
         player.containerMenu.getSlot(InventoryMenu.CRAFT_SLOT_START).set(menuSpatula);
 
         LegacySpatulaMigration.migratePlayer(player);
@@ -297,10 +308,15 @@ public final class TradeAndMigrationGameTest {
         ItemStack migrated = player.getInventory().getItem(0);
         helper.assertTrue(migrated.is(ModItems.STONE_CHISEL),
                 "stone_spatula should have become stone_chisel, was " + migrated);
-        helper.assertValueEqual(migrated.getCount(), 7, "migrated stack size");
+        helper.assertValueEqual(migrated.getCount(), 1, "migrated stack size");
         helper.assertValueEqual(migrated.get(DataComponents.DAMAGE), 5, "migrated damage component");
         helper.assertValueEqual(migrated.get(DataComponents.CUSTOM_NAME),
                 Component.literal("Grandpa's tool"), "migrated custom name component");
+
+        ItemStack migratedStack = player.getInventory().getItem(1);
+        helper.assertTrue(migratedStack.is(ModItems.COPPER_CHISEL),
+                "copper_spatula should have become copper_chisel, was " + migratedStack);
+        helper.assertValueEqual(migratedStack.getCount(), 3, "migrated multi item stack size");
 
         helper.assertTrue(player.getInventory().getItem(3).is(ModItems.NETHERITE_CHISEL),
                 "netherite_spatula should have become netherite_chisel, was "
@@ -316,7 +332,7 @@ public final class TradeAndMigrationGameTest {
         ItemStack migratedMenuStack = player.containerMenu.getSlot(InventoryMenu.CRAFT_SLOT_START).getItem();
         helper.assertTrue(migratedMenuStack.is(ModItems.GOLD_CHISEL),
                 "gold_spatula in the open menu should have become gold_chisel, was " + migratedMenuStack);
-        helper.assertValueEqual(migratedMenuStack.getCount(), 2, "migrated menu stack size");
+        helper.assertValueEqual(migratedMenuStack.getCount(), 1, "migrated menu stack size");
 
         helper.succeed();
     }
@@ -327,28 +343,42 @@ public final class TradeAndMigrationGameTest {
      */
     @GameTest(maxTicks = 60)
     public void legacySpatulaItemEntityIsRewrittenInPlace(GameTestHelper helper) {
-        BlockPos pos = new BlockPos(1, 2, 1);
-        ItemEntity dropped = helper.spawnItem(ModItems.DIAMOND_SPATULA, pos);
+        // Two entities on purpose: the damage component only validates on a single item, so
+        // "components survive" and "stack size survives" cannot be checked on the same stack.
+        ItemEntity damaged = helper.spawnItem(ModItems.DIAMOND_SPATULA, new BlockPos(1, 2, 1));
+        ItemStack legacyDamaged = new ItemStack(ModItems.DIAMOND_SPATULA, 1);
+        legacyDamaged.set(DataComponents.DAMAGE, 42);
+        legacyDamaged.set(DataComponents.CUSTOM_NAME, Component.literal("Old flattener"));
+        damaged.setItem(legacyDamaged);
 
-        ItemStack legacy = new ItemStack(ModItems.DIAMOND_SPATULA, 3);
-        legacy.set(DataComponents.DAMAGE, 42);
-        dropped.setItem(legacy);
+        ItemEntity multiple = helper.spawnItem(ModItems.IRON_SPATULA, new BlockPos(5, 2, 1));
+        multiple.setItem(new ItemStack(ModItems.IRON_SPATULA, 3));
 
         ItemEntity control = helper.spawnItem(net.minecraft.world.item.Items.STICK, new BlockPos(3, 2, 3));
 
         helper.startSequence()
                 .thenIdle(2)
                 .thenExecute(() -> {
-                    helper.assertTrue(dropped.isAlive(), "the dropped spatula entity vanished before migration");
+                    helper.assertTrue(damaged.isAlive(), "the dropped spatula entity vanished before migration");
+                    helper.assertTrue(multiple.isAlive(), "the dropped spatula stack vanished before migration");
                     LegacySpatulaMigration.migrateWorlds(helper.getLevel().getServer());
                 })
                 .thenExecute(() -> {
-                    ItemStack after = dropped.getItem();
+                    ItemStack after = damaged.getItem();
                     helper.assertTrue(after.is(ModItems.DIAMOND_CHISEL),
                             "the item entity should now carry a diamond_chisel, was " + after);
-                    helper.assertValueEqual(after.getCount(), 3, "item entity stack size after migration");
+                    helper.assertValueEqual(after.getCount(), 1, "item entity stack size after migration");
                     helper.assertValueEqual(after.get(DataComponents.DAMAGE), 42,
                             "item entity damage component after migration");
+                    helper.assertValueEqual(after.get(DataComponents.CUSTOM_NAME),
+                            Component.literal("Old flattener"), "item entity custom name after migration");
+
+                    ItemStack afterStack = multiple.getItem();
+                    helper.assertTrue(afterStack.is(ModItems.IRON_CHISEL),
+                            "the item entity should now carry an iron_chisel, was " + afterStack);
+                    helper.assertValueEqual(afterStack.getCount(), 3,
+                            "item entity stack size of the multi item stack after migration");
+
                     helper.assertTrue(control.getItem().is(net.minecraft.world.item.Items.STICK),
                             "an unrelated item entity must not be rewritten");
                 })

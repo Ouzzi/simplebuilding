@@ -272,6 +272,15 @@ public final class ToolBehaviourGameTest {
     /**
      * A magnet in the main hand drags loose items to the player until they are picked up,
      * while items outside its range stay where they dropped.
+     *
+     * <p>The magnet runs in {@code Item#inventoryTick}, which vanilla only reaches through
+     * {@code ServerGamePacketListenerImpl#tick()} -> {@code ServerPlayer#doTick()} ->
+     * {@code Player#aiStep()} -> {@code Inventory#tick()} - the same call chain that also
+     * performs the item pickup. A gametest mock player is added to the level (so
+     * {@code ServerPlayer#tick()} runs), but its connection is never registered with the
+     * {@code ServerConnectionListener}, so nobody pumps that listener and the player half of
+     * the tick never happens. The test therefore ticks the connection itself, exactly like a
+     * real server would; without it neither the inventory nor the pickup would ever run.
      */
     @GameTest(rotation = Rotation.NONE, maxTicks = 200)
     public void magnetPullsNearbyItemsAndIgnoresDistantOnes(GameTestHelper helper) {
@@ -281,18 +290,23 @@ public final class ToolBehaviourGameTest {
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.MAGNET));
 
         // 3 blocks away: inside the magnet's base range, far outside the vanilla pickup radius.
-        helper.spawnItem(Items.DIAMOND, new Vec3(4.5, 1.5, 1.5));
+        ItemEntity nearby = helper.spawnItem(Items.DIAMOND, new Vec3(4.5, 1.5, 1.5));
         // 6 blocks away on both horizontal axes: outside the magnet's range.
         ItemEntity outOfRange = helper.spawnItem(Items.GOLD_INGOT, new Vec3(7.5, 1.5, 7.5));
         double parkedX = outOfRange.getX();
         double parkedZ = outOfRange.getZ();
 
         helper.succeedWhen(() -> {
+            // See the javadoc: the mock player's connection is never pumped by the gametest
+            // server, so the vanilla player tick has to be driven from here.
+            player.connection.tick();
+
             helper.assertTrue(outOfRange.isAlive(), "the out of range item vanished");
             double drift = Math.max(Math.abs(outOfRange.getX() - parkedX), Math.abs(outOfRange.getZ() - parkedZ));
             helper.assertTrue(drift < 0.5, "the magnet moved an item that is out of range");
             helper.assertTrue(player.getInventory().contains(stack -> stack.is(Items.DIAMOND)),
-                    "the magnet did not pull the nearby item into the player");
+                    "the magnet did not pull the nearby item into the player; the item is still at "
+                            + nearby.position() + " with motion " + nearby.getDeltaMovement());
         });
     }
 

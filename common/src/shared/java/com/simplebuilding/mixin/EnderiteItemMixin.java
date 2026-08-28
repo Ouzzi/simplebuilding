@@ -25,25 +25,29 @@ public abstract class EnderiteItemMixin extends Entity {
     private void onTick(CallbackInfo ci) {
         if (this.level().isClientSide()) return;
 
-        // Prüfen ob wir im Void sind (z.B. Y < -30 im End, normal ist 0)
-        if (this.getY() < 0) {
-            ItemStack stack = this.getItem();
-            
-            // Liste der geschützten Items
-            boolean isEnderite = stack.getItem() == ModItems.ENDERITE_INGOT 
-                    || stack.getItem() == ModItems.ENDERITE_SCRAP
-                    || stack.getHoverName().getString().contains("Enderite"); // Einfacher Check für Tools/Rüstung
+        // Der Void beginnt unterhalb der Bauhoehe der Dimension, nicht bei Y=0. Feste Konstanten
+        // (frueher 0 bzw. -10) stammen aus der Zeit vor 1.18: seitdem liegt der Overworld-Boden
+        // bei -64, wodurch jedes Enderite-Item unterhalb von Y=0 schweben blieb und ab Y=-10 nach
+        // Y=5 teleportiert wurde - also mitten im normalen Abbaubereich.
+        int minY = this.level().getMinY();
+        if (this.getY() >= minY) return;
 
-            if (isEnderite) {
-                // Physik manipulieren: Schweben lassen
-                this.setDeltaMovement(0, 0, 0);
-                this.setNoGravity(true);
-                
-                // Teleportieren zu sicherem Y, wenn zu tief (optional, z.B. Y=5)
-                if (this.getY() < -10) {
-                    this.setPos(this.getX(), 5, this.getZ());
-                    this.setDeltaMovement(0, 0, 0); // Reset Velocity nach TP
-                }
+        ItemStack stack = this.getItem();
+
+        // Liste der geschützten Items
+        boolean isEnderite = stack.getItem() == ModItems.ENDERITE_INGOT
+                || stack.getItem() == ModItems.ENDERITE_SCRAP
+                || stack.getHoverName().getString().contains("Enderite"); // Einfacher Check für Tools/Rüstung
+
+        if (isEnderite) {
+            // Physik manipulieren: Schweben lassen
+            this.setDeltaMovement(0, 0, 0);
+            this.setNoGravity(true);
+
+            // Teleportieren zu sicherem Y, wenn zu tief (Vanilla loescht das Item bei minY - 64)
+            if (this.getY() < minY - 10) {
+                this.setPos(this.getX(), minY + 5, this.getZ());
+                this.setDeltaMovement(0, 0, 0); // Reset Velocity nach TP
             }
         }
     }
