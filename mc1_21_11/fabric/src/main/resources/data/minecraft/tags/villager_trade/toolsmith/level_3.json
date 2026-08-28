@@ -1,7 +1,0 @@
-{
-  "values": [
-    { "id": "simplebuilding:toolsmith/3/emerald_iron_chisel", "required": false },
-    { "id": "simplebuilding:toolsmith/3/emerald_copper_chisel", "required": false },
-    { "id": "simplebuilding:toolsmith/3/emerald_gold_chisel", "required": false }
-  ]
-}

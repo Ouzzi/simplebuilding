@@ -3,9 +3,9 @@ package com.simplebuilding.loot;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.simplebuilding.trade.WeightedPicker;
 import java.util.List;
 import net.minecraft.core.Holder;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -59,9 +59,11 @@ public class WeightedEnchantFunction extends LootItemConditionalFunction {
 
     @Override
     public ItemStack run(ItemStack itemStack, LootContext context) {
-        RandomSource random = context.getRandom();
-        PoolEntry first = pickWeighted(random);
-        if (first == null) {
+        // Auswahl-Logik liegt in com.simplebuilding.trade.WeightedPicker, damit die
+        // code-registrierten Trades der 1.21.11-Linie exakt dieselbe Verteilung nutzen.
+        List<PoolEntry> picks = WeightedPicker.pickOneOrTwo(
+                this.pool, PoolEntry::weight, PoolEntry::enchantment, this.secondChance, context.getRandom());
+        if (picks.isEmpty()) {
             return itemStack;
         }
 
@@ -69,45 +71,11 @@ public class WeightedEnchantFunction extends LootItemConditionalFunction {
             itemStack = itemStack.transmuteCopy(Items.ENCHANTED_BOOK);
         }
 
-        PoolEntry second = null;
-        if (this.pool.size() > 1 && random.nextFloat() < this.secondChance) {
-            second = pickWeighted(random);
-            int attempts = 0;
-            while (second != null && second.enchantment().equals(first.enchantment()) && attempts < 10) {
-                second = pickWeighted(random);
-                attempts++;
-            }
-            if (second != null && second.enchantment().equals(first.enchantment())) {
-                second = null;
-            }
-        }
-
-        PoolEntry secondPick = second;
         EnchantmentHelper.updateEnchantments(itemStack, enchantments -> {
-            enchantments.set(first.enchantment(), first.level());
-            if (secondPick != null) {
-                enchantments.set(secondPick.enchantment(), secondPick.level());
+            for (PoolEntry pick : picks) {
+                enchantments.set(pick.enchantment(), pick.level());
             }
         });
         return itemStack;
-    }
-
-    private PoolEntry pickWeighted(RandomSource random) {
-        int totalWeight = 0;
-        for (PoolEntry entry : this.pool) {
-            totalWeight += entry.weight();
-        }
-        if (totalWeight <= 0) {
-            return null;
-        }
-        int pick = random.nextInt(totalWeight);
-        int currentWeight = 0;
-        for (PoolEntry entry : this.pool) {
-            currentWeight += entry.weight();
-            if (pick < currentWeight) {
-                return entry;
-            }
-        }
-        return this.pool.get(0);
     }
 }

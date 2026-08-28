@@ -1,8 +1,0 @@
-{
-  "values": [
-    { "id": "simplebuilding:wandering_trader/emerald_octant", "required": false },
-    { "id": "simplebuilding:wandering_trader/emerald_reinforced_bundle", "required": false },
-    { "id": "simplebuilding:wandering_trader/emerald_gold_core", "required": false },
-    { "id": "simplebuilding:wandering_trader/emerald_wand_book", "required": false }
-  ]
-}

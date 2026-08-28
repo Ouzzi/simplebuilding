@@ -1,6 +1,0 @@
-{
-  "values": [
-    { "id": "simplebuilding:wandering_trader/emerald_copper_cores", "required": false },
-    { "id": "simplebuilding:wandering_trader/emerald_iron_cores", "required": false }
-  ]
-}
