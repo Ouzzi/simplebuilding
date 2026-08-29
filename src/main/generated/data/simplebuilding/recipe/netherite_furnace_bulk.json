@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "N": "simplebuilding:netherite_nugget",
     "R": "simplebuilding:reinforced_furnace"

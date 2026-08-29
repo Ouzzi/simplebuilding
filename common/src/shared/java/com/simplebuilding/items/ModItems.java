@@ -57,6 +57,7 @@ import net.minecraft.world.item.equipment.ArmorType;
 
 
 
+import java.util.EnumMap;
 import java.util.HashMap;
 
 import java.util.List;
@@ -349,7 +350,10 @@ public class ModItems {
 
     public static final OctantItem OCTANT = (OctantItem) registerItem("octant", settings -> new OctantItem(settings.durability(DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), null));
 
-    public static final Map<DyeColor, OctantItem> COLORED_OCTANT_ITEMS = new HashMap<>();
+    // EnumMap, not HashMap: datagen iterates this to build the octants_enchantable tag, and a
+    // HashMap keyed by an enum orders by identity hash -- i.e. differently on every JVM run,
+    // which made the generated tag churn on every datagen run.
+    public static final Map<DyeColor, OctantItem> COLORED_OCTANT_ITEMS = new EnumMap<>(DyeColor.class);
 
 
 
