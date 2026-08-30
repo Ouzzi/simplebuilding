@@ -17,7 +17,10 @@ SimpleBuilding for NeoForge 26.2
 '''
 authors="simplebuilding"
 displayURL="https://azarfane.de/"
-logoFile="assets/simplebuilding/icon.png"
+# Square icon for the mod list. NeoForge 26.2 deprecated `logoFile` and shows a warning
+# screen before the main menu if it is used; `iconFile` is the square-icon successor.
+# The 1.21.11 line keeps logoFile -- NeoForge 21.11.45 has no such warning and no iconFile.
+iconFile="assets/simplebuilding/icon.png"
 
 [[dependencies.${modId}]]
 modId="neoforge"
