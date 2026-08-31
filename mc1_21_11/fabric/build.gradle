@@ -32,6 +32,17 @@ fabricApi {
 	configureDataGeneration {
 		client = true
 	}
+
+	// Client-side in-game tests, same shape as the 26.2 root project: drive a real client,
+	// create a world, join it and assert on what is actually on screen. This is the only way
+	// to cover the in-world renderers, which a headless server test can never reach.
+	// Task name here is :mc1_21_11:fabric:runClientGameTest.
+	// No eula = true: the client tests never start a dedicated server, so none is needed.
+	configureTests {
+		createSourceSet = true
+		modId = "simplebuilding-test"
+		enableGameTests = false
+	}
 }
 
 // Automated in-game tests. Runs a headless server, loads the mod, executes every registered
@@ -45,6 +56,28 @@ loom {
 			vmArg "-Dfabric-api.gametest"
 			vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory.get()}/junit.xml"
 			runDir "build/gametest"
+		}
+
+		// Created by fabricApi.configureTests above (hence named(), not a new block).
+		//
+		// The packet synchronizer of fabric-client-gametest-api-v1 4.3.5 - the version that
+		// belongs to Fabric API 0.141.6+1.21.11 - deadlocks itself while a singleplayer world is
+		// being joined: the server thread waits in NetworkSynchronizer.waitForPacketHandlers for a
+		// serverbound packet it counted as in-flight, times out after 10 s and kills the run with
+		// "Detected interfacing with packets at a lower level" / "Network synchronizer in invalid
+		// state". Measured on this machine: 2 of 6 runs died that way, at a different world join
+		// each time, always before "Player0 joined the game" - i.e. before any test code or any
+		// mod packet is involved (the mod's only join-time packet is sent from
+		// ClientPlayConnectionEvents.JOIN, which never fired). The 26.2 line runs 6.0.0 and is not
+		// affected.
+		//
+		// Turning the synchronizer off is what the harness itself recommends in that message, and
+		// it costs these tests nothing: none of them relies on "the command's packets are handled
+		// by the end of this tick". Every step waits for the client's own state instead
+		// (RendererTestScene.awaitOnClient / assertAimedAt), and every screenshot is taken only
+		// after the trigger condition has been asserted on the client.
+		named("clientGameTest") {
+			vmArg "-Dfabric.client.gametest.disableNetworkSynchronizer=true"
 		}
 	}
 }
@@ -76,6 +109,29 @@ dependencies {
 	// annotation declares 'net.minecraft.class_2470 rotation()'), so without
 	// modImplementation the annotation could not even be referenced from Mojang-mapped code.
 	modImplementation fabricApi.module("fabric-gametest-api-v1", project.mc11_fabric_version)
+
+	// Client in-game test framework. fabricApi.module() reads the fabric-api POM for
+	// mc11_fabric_version and resolves 0.141.6+1.21.11 -> fabric-client-gametest-api-v1
+	// 4.3.5+bfe9fcf43e (the 26.2 line uses 6.0.0+515ac5339e, hence the API differences the
+	// ported tests have to bridge).
+	// modImplementation, not implementation: the published 4.3.5 artifact is
+	// intermediary-namespaced (ClientGameTestContext.runOnClient takes a
+	// FailableConsumer<class_310, E>), so without Loom's remapper its API could not be
+	// referenced from this module's Mojang-mapped sources at all.
+	modImplementation fabricApi.module("fabric-client-gametest-api-v1", project.mc11_fabric_version)
+}
+
+// Same placeholder expansion as the 26.2 root project. Without it the module ships a
+// fabric.mod.json whose version literally reads "${version}", which Fabric Loader cannot parse
+// as SemVer ("Mod simplebuilding uses the version ${version} which isn't compatible with
+// Loader's extended semantic version format"), so every dependency range against simplebuilding
+// silently loses its ordering.
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": inputs.properties.version
+	}
 }
 
 java {
