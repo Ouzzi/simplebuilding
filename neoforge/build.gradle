@@ -43,18 +43,84 @@ sourceSets {
             exclude 'fabric.mod.json'
         }
     }
+
+    // Automated in-world renderer proof (see src/clientGameTest/java/.../clienttest).
+    // Deliberately its own source set AND its own mod: 'jar' only packs sourceSets.main,
+    // so none of this can ever reach a shipped artifact. It sees main's classes so the
+    // test can call the mod's own items/renderers directly.
+    clientGameTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+configurations {
+    clientGameTestImplementation.extendsFrom implementation
+    clientGameTestRuntimeOnly.extendsFrom runtimeOnly
 }
 
 neoForge {
     version = neoVersion
 
+    mods {
+        "${archives_base_name}" {
+            sourceSet sourceSets.main
+        }
+        "${archives_base_name}clienttest" {
+            sourceSet sourceSets.clientGameTest
+        }
+    }
+}
+
+// Minecraft/NeoForge on the test source set's compile+runtime classpath.
+neoForge.addModdingDependenciesTo(sourceSets.clientGameTest)
+
+def mainMod = neoForge.mods.getByName(project.archives_base_name.toString())
+def clientTestMod = neoForge.mods.getByName(project.archives_base_name.toString() + 'clienttest')
+
+// The renderer proof runs unattended in a throwaway game directory, so NeoForge would greet it
+// with its "mods loaded with N warning(s)" screen (cloth_config still uses the deprecated
+// logoFile property) and nothing would ever reach the main menu. Same switch the checked-in
+// neoforge/run/config uses; NeoForge fills in the remaining defaults on startup.
+def seedClientGameTestConfig = tasks.register('seedClientGameTestConfig') {
+    description = 'Writes the NeoForge client config the automated renderer proof needs.'
+    def configFile = layout.buildDirectory.file('run/clientGameTest/config/neoforge-client.toml')
+    outputs.upToDateWhen { false }
+    doLast {
+        def file = configFile.get().asFile
+        file.parentFile.mkdirs()
+        def text = file.exists() ? file.text : ''
+        if (text.contains('showLoadWarnings')) {
+            file.text = text.replaceAll(/(?m)^showLoadWarnings\s*=.*$/, 'showLoadWarnings = false')
+        } else {
+            file.text = 'showLoadWarnings = false\n' + text
+        }
+    }
+}
+
+neoForge {
     runs {
         client {
             client()
+            loadedMods = [mainMod]
             systemProperty 'neoforge.enabledGameTestNamespaces', project.archives_base_name
+        }
+        // Automated renderer proof: boots a real client, builds a fixed scene, compares
+        // screenshots and then halts the JVM itself (exit 0 = proven, != 0 = not proven).
+        // Task name: :neoforge:runClientGameTest
+        clientGameTest {
+            client()
+            sourceSet = sourceSets.clientGameTest
+            loadedMods = [mainMod, clientTestMod]
+            gameDirectory = layout.buildDirectory.dir('run/clientGameTest')
+            taskBefore seedClientGameTestConfig
+            systemProperty 'simplebuilding.clienttest', 'true'
+            // Fixed window size -> fixed screenshot size -> fixed pixel thresholds.
+            programArguments.addAll '--width', '854', '--height', '480'
         }
         server {
             server()
+            loadedMods = [mainMod]
             programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.archives_base_name
         }
@@ -63,6 +129,7 @@ neoForge {
         // and --report (junit-style XML). Task name: :neoforge:runGameTest
         gameTest {
             type = 'gameTestServer'
+            loadedMods = [mainMod]
             programArguments.addAll '--tests', "${project.archives_base_name}:*",
                     '--report', layout.buildDirectory.file('neoforge-junit.xml').get().asFile.absolutePath
             // No 'neoforge.enabledGameTestNamespaces' here: that property is not read
@@ -71,6 +138,7 @@ neoForge {
         }
         data {
             clientData()
+            loadedMods = [mainMod]
             programArguments.addAll '--mod', project.archives_base_name, '--all',
                     '--output', file('src/generated/resources/').absolutePath,
                     '--existing', rootProject.file('src/main/resources/').absolutePath,
@@ -78,12 +146,6 @@ neoForge {
         }
         configureEach {
             logLevel = org.slf4j.event.Level.INFO
-        }
-    }
-
-    mods {
-        "${archives_base_name}" {
-            sourceSet sourceSets.main
         }
     }
 }

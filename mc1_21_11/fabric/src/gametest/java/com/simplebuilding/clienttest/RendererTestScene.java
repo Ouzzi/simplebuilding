@@ -83,14 +83,21 @@ final class RendererTestScene {
     static void build(ClientGameTestContext context, TestSingleplayerContext singleplayer,
                       String wallBlockId, String gameMode) {
         String[] commands = {
-                "gamerule doDaylightCycle false",
-                "gamerule doWeatherCycle false",
-                "gamerule doMobSpawning false",
-                "gamerule doPatrolSpawning false",
-                "gamerule doTraderSpawning false",
-                "gamerule doFireTick false",
-                "gamerule mobGriefing false",
-                "gamerule randomTickSpeed 0",
+                // Both 1.21.11 and 26.2 use the snake_case game rule ids; the camelCase names
+                // that used to stand here do not exist any more and every one of these eight
+                // commands was silently a no-op, because the client gametest API's runCommand
+                // goes through Commands.performPrefixedCommand, which swallows the brigadier
+                // error instead of reporting it.
+                "gamerule advance_time false",
+                "gamerule advance_weather false",
+                "gamerule spawn_mobs false",
+                "gamerule spawn_monsters false",
+                "gamerule spawn_phantoms false",
+                "gamerule spawn_patrols false",
+                "gamerule spawn_wandering_traders false",
+                "gamerule fire_spread_radius_around_player 0",
+                "gamerule mob_griefing false",
+                "gamerule random_tick_speed 0",
                 "time set noon",
                 "weather clear",
                 "gamemode " + gameMode + " @a",

@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[11,)"
+license="CC0-1.0"
+
+# Test-only mod. It lives in its own source set (src/clientGameTest) and is only added to
+# the :neoforge:runClientGameTest run configuration, so it can never end up in a shipped jar.
+[[mods]]
+modId="simplebuildingclienttest"
+version="1.0.0"
+displayName="SimpleBuilding Client Renderer Proof"
+description='''
+Automated in-world renderer proof for the NeoForge client. Inert unless the system property
+simplebuilding.clienttest is set to true.
+'''
+authors="simplebuilding"
+
+[[dependencies.simplebuildingclienttest]]
+modId="neoforge"
+type="required"
+versionRange="[26,)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.simplebuildingclienttest]]
+modId="simplebuilding"
+type="required"
+versionRange="[0,)"
+ordering="AFTER"
+side="CLIENT"
