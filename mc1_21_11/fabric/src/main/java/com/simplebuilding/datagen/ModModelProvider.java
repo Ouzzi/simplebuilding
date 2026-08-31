@@ -278,18 +278,14 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CARROT, ModelTemplates.FLAT_ITEM);
 
-        // --- NEW: Enchanted Food Models (Reuse existing textures) ---
-        // Dies sorgt dafür, dass enchanted_netherite_apple die Textur von netherite_apple nutzt, etc.
-        ModelTemplates.FLAT_ITEM.create(
-                ModelLocationUtils.getModelLocation(ModItems.ENCHANTED_NETHERITE_APPLE),
-                TextureMapping.layer0(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "item/netherite_apple")),
-                itemModelGenerator.modelOutput
-        );
-        ModelTemplates.FLAT_ITEM.create(
-                ModelLocationUtils.getModelLocation(ModItems.ENCHANTED_ENDERITE_APPLE),
-                TextureMapping.layer0(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "item/enderite_apple")),
-                itemModelGenerator.modelOutput
-        );
+        // Die verzauberten Aepfel borgen sich die Textur ihrer gewoehnlichen Variante.
+        // Wichtig ist die ZWEIARMIGE generateFlatItem-Variante: sie schreibt nicht nur das Modell
+        // unter models/item/, sondern auch die seit MC 1.21.4 noetige Item-Definition unter
+        // assets/simplebuilding/items/. Ohne die zeigt der Client "No model loaded for default
+        // item model ID" und rendert das Platzhaltermodell - und beide Aepfel sind ueber
+        // ModLootTableModifications erreichbar, der Fehler waere also sichtbar gewesen.
+        itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_APPLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM);
     }
 
     private void registerMirroredChecker(BlockModelGenerators generator, Block block) {
