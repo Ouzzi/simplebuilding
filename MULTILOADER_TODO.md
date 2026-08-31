@@ -1,17 +1,24 @@
 # Multiloader – Test- & To-do-Status
 
-_Stand: 2026-06-16. Loader: **Fabric** (root) + **NeoForge** (`:neoforge`). Eine experimentelle Forge-Implementierung wurde wieder entfernt (geringe Relevanz)._
+_Stand: **2026-08-31**. Zwei Minecraft-Linien (**26.2** und **1.21.11**), je zwei aktive Loader
+(**Fabric** + **NeoForge**) = vier Ziele. Forge liegt bewusst still (siehe unten)._
 
-## 1. Build- & Testergebnis (tatsächlich ausgeführt)
+## 1. Build- & Testergebnis (tatsächlich ausgeführt, nicht abgeleitet)
 
-| Modul | Befehl | Ergebnis |
-|------|--------|----------|
-| **Fabric** (root) | `gradlew :build` | ✅ Build + Test (`LanguageFilesTest`) grün |
-| **NeoForge** | `gradlew :neoforge:build` | ✅ kompiliert + JAR |
-| **common** | `gradlew :common:build` | ✅ grün |
-| **Gesamt** | `gradlew build` | ✅ baut beide Loader + Test grün |
+| Ziel | In-Game-Tests | Renderer-Nachweis (Client) |
+|------|---------------|----------------------------|
+| Fabric 26.2 | ✅ 45/45 (`:runGametest`) | ✅ `:runClientGameTest` |
+| Fabric 1.21.11 | ✅ 45/45 (`:mc1_21_11:fabric:runGametest`) | ✅ `:mc1_21_11:fabric:runClientGameTest` |
+| NeoForge 26.2 | ✅ 44/44 (`:neoforge:runGameTest`) | ✅ `:neoforge:runClientGameTest` |
+| NeoForge 1.21.11 | ✅ 44/44 (`:mc1_21_11:neoforge:runGameTest`) | ✅ `:mc1_21_11:neoforge:runClientGameTest` |
 
-> ✅ **Laufzeittest bestanden (2026-06-16):** `gradlew :neoforge:runClient` lädt sauber bis ins Hauptmenü — alle Registrierungen liefen, `Simplebuilding common initialized for neoforge`, **keine** Errors/Exceptions/Mixin-Fehler. (Client-Start validiert; Gameplay/Server noch nicht systematisch durchgespielt.)
+44 Testkörper liegen in **einem** gemeinsamen Katalog (`SimpleBuildingGameTests`) je Minecraft-Linie;
+die Loader registrieren dieselben Körper über dünne Adapter. Fabric zählt einen Test mehr, weil dort
+ein zusätzlicher loaderspezifischer Fall registriert ist.
+
+Der Renderer-Nachweis vergleicht Screenshots gegen einen gemessenen Rauschboden (0/409920 Pixel) mit
+Gegenprobe; die Abbau-Risse werden stattdessen über die Render-States zurückgelesen, weil Abbaupartikel
+zufällig sind. **Nicht** bewiesen: dass die Pixel *richtig aussehen* – es gibt kein Referenzbild.
 
 ## 2. Was funktioniert (NeoForge-Parität bestätigt – compile/analyse)
 
@@ -39,7 +46,20 @@ Auf NeoForge funktional vollständig verdrahtet (kein echtes Feature-Loch):
 ### 🟡 MEDIUM – offen
 - [ ] **M5 – NeoForge-Datagen erzeugt nichts.** `data`-Run existiert, aber kein `GatherDataEvent`/Provider registriert → No-Op. Unkritisch, weil NeoForge die Fabric-generierten Assets aus `src/main/generated` mitnutzt. `neoforge/build.gradle`
 
+- [ ] **Manueller Spieldurchlauf.** Kein automatisierter Test kann beurteilen, ob sich die Mod
+  *richtig anfühlt*. Steht auf allen vier Zielen aus und kann nur der Mensch erledigen.
+- [ ] **Nicht abgedeckte Bereiche der Testsuite** (bewusste Grenzen, keine Fehler):
+  Renderer-*Korrektheit*, Config-Kombinationen, echtes Mehrspieler-Setup, Zusammenspiel mit
+  fremden Mods, Leistung.
+
 ### 🟢 LOW – offen (kosmetisch / minimal)
+- [ ] **Fabric-Loader auf 0.19.3 festgenagelt** statt 0.19.4 — 0.19.4 brachte eine MixinExtras-
+  Unverträglichkeit. Bei der nächsten MixinExtras-Aktualisierung erneut versuchen. `gradle.properties`
+- [ ] **`makeMockServerPlayerInLevel` ist `@Deprecated(forRemoval)`** und trägt die halbe Testsuite.
+  Wenn Mojang es entfernt, brauchen die Tests einen eigenen Mock-Spieler.
+- [ ] **cloth_config nutzt das veraltete `logoFile`** → NeoForge zeigt beim Start einen Warnbildschirm.
+  Fremdbibliothek, von uns nicht behebbar; die Testläufe unterdrücken den Bildschirm über
+  `showLoadWarnings = false`. Unsere eigene Warnung ist behoben (`iconFile`).
 - [x] **L3 – `loom_version=1.16-SNAPSHOT`** ✅ **BEHOBEN (2026-08-20)** — auf Release `1.16.3` gepinnt (die Version, auf die der SNAPSHOT zuletzt auflöste; per maven.fabricmc.net verifiziert), Build weiterhin grün.
 - [x] **L4 – `neoforge.mods.toml` Metadaten** ✅ **BEHOBEN** — `logoFile="assets/simplebuilding/icon.png"` (im JAR vorhanden, verifiziert) + `displayURL` ergänzt → Icon/Link in der NeoForge-Mod-Liste.
 - [x] **L7 – Fragile Registrierung** ✅ **BEWERTET – keine Aktion.** Static-Init + implizite Lifecycle-Reihenfolge funktionieren in der aktuellen NeoForge-Lifecycle (RegisterEvent vor FMLCommonSetup). Strukturelle Anmerkung, kein Fehler; ein Guard wäre Nice-to-have, kein Muss.
