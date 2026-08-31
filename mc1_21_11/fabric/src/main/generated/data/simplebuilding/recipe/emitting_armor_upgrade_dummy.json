@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:glowstone_dust",
+  "base": "#minecraft:trimmable_armor",
+  "result": {
+    "id": "simplebuilding:emitting_trim_template"
+  },
+  "template": "#minecraft:trim_templates"
+}

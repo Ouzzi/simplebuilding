@@ -1,0 +1,13 @@
+{
+  "fabric:load_conditions": [
+    { "condition": "simplebuilding:config", "flag": "enableWanderingTrades" }
+  ],
+  "neoforge:conditions": [
+    { "type": "simplebuilding:config", "flag": "enableWanderingTrades" }
+  ],
+  "wants": { "id": "simplebuilding:reinforced_bundle", "count": 1 },
+  "gives": { "id": "minecraft:emerald", "count": 12 },
+  "max_uses": 1,
+  "xp": 10,
+  "reputation_discount": 0.1
+}

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "A": "minecraft:apple",
     "N": "simplebuilding:enderite_nugget"
@@ -11,7 +10,6 @@
     "NNN"
   ],
   "result": {
-    "count": 1,
     "id": "simplebuilding:enderite_apple"
   }
 }

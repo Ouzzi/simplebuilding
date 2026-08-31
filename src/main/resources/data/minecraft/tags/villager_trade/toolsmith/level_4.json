@@ -1,0 +1,6 @@
+{
+  "values": [
+    { "id": "simplebuilding:toolsmith/4/emerald_diamond_sledgehammer", "required": false },
+    { "id": "simplebuilding:toolsmith/4/emerald_iron_sledgehammer", "required": false }
+  ]
+}

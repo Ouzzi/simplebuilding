@@ -5,16 +5,26 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModArmorMaterials;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.block.Block;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.*;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplate;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import java.util.Optional;
 
 
@@ -22,70 +32,70 @@ public class ModModelProvider extends FabricModelProvider {
 
     // --- Custom Model Definitions (da Vanilla Fields fehlen könnten) ---
     // Wir verweisen auf die Vanilla JSON Dateien
-    private static final Model HOPPER_MODEL = new Model(Optional.of(Identifier.ofVanilla("block/hopper")), Optional.empty(), TextureKey.BOTTOM, TextureKey.TOP, TextureKey.SIDE, TextureKey.INSIDE);
-    private static final Model HOPPER_SIDE_MODEL = new Model(Optional.of(Identifier.ofVanilla("block/hopper_side")), Optional.empty(), TextureKey.BOTTOM, TextureKey.TOP, TextureKey.SIDE, TextureKey.INSIDE);
-    private static final Model PISTON_BASE_MODEL = new Model(Optional.of(Identifier.ofVanilla("block/piston_base")), Optional.empty(), TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.PLATFORM);
+    private static final ModelTemplate HOPPER_MODEL = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("block/hopper")), Optional.empty(), TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, TextureSlot.INSIDE);
+    private static final ModelTemplate HOPPER_SIDE_MODEL = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("block/hopper_side")), Optional.empty(), TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, TextureSlot.INSIDE);
+    private static final ModelTemplate PISTON_BASE_MODEL = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("block/piston_base")), Optional.empty(), TextureSlot.BOTTOM, TextureSlot.SIDE, TextureSlot.PLATFORM);
 
-    public ModModelProvider(FabricDataOutput output) {
+    public ModModelProvider(FabricPackOutput output) {
         super(output);
     }
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+    public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
 
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.POLISHED_END_STONE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.POLISHED_END_STONE);
 
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.PURPUR_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.LAPIS_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.BLACKSTONE_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.RESIN_QUARTZ_CHECKER);
 
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.ASTRAL_PURPUR_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.NIHIL_PURPUR_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.ASTRAL_END_STONE);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.NIHIL_END_STONE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRAL_PURPUR_BLOCK);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.NIHIL_PURPUR_BLOCK);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRAL_END_STONE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.NIHIL_END_STONE);
 
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.SUSPENDED_SAND);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.SUSPENDED_GRAVEL);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.LEVITATING_SAND);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.LEVITATING_GRAVEL);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.SUSPENDED_SAND);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.SUSPENDED_GRAVEL);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.LEVITATING_SAND);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.LEVITATING_GRAVEL);
 
 
         // --- 1. Basic Blocks ---
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CONSTRUCTION_LIGHT);
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.CONSTRUCTION_LIGHT, ModelIds.getBlockModelId(ModBlocks.CONSTRUCTION_LIGHT));
+        blockStateModelGenerator.createTrivialCube(ModBlocks.CONSTRUCTION_LIGHT);
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.CONSTRUCTION_LIGHT, ModelLocationUtils.getModelLocation(ModBlocks.CONSTRUCTION_LIGHT));
 
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CRACKED_DIAMOND_BLOCK);
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.CRACKED_DIAMOND_BLOCK, ModelIds.getBlockModelId(ModBlocks.CRACKED_DIAMOND_BLOCK));
+        blockStateModelGenerator.createTrivialCube(ModBlocks.CRACKED_DIAMOND_BLOCK);
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.CRACKED_DIAMOND_BLOCK, ModelLocationUtils.getModelLocation(ModBlocks.CRACKED_DIAMOND_BLOCK));
 
         // --- NEW: Enderite Blocks ---
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.ENDERITE_BLOCK);
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.ENDERITE_BLOCK, ModelIds.getBlockModelId(ModBlocks.ENDERITE_BLOCK));
+        blockStateModelGenerator.createTrivialCube(ModBlocks.ENDERITE_BLOCK);
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ENDERITE_BLOCK, ModelLocationUtils.getModelLocation(ModBlocks.ENDERITE_BLOCK));
 
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.NIHILITH_ORE);
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.NIHILITH_ORE, ModelIds.getBlockModelId(ModBlocks.NIHILITH_ORE));
+        blockStateModelGenerator.createTrivialCube(ModBlocks.NIHILITH_ORE);
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NIHILITH_ORE, ModelLocationUtils.getModelLocation(ModBlocks.NIHILITH_ORE));
 
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.ASTRALIT_ORE);
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.ASTRALIT_ORE, ModelIds.getBlockModelId(ModBlocks.ASTRALIT_ORE));
+        blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRALIT_ORE);
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ASTRALIT_ORE, ModelLocationUtils.getModelLocation(ModBlocks.ASTRALIT_ORE));
 
 
         // --- 2. Blast Furnaces ---
-        blockStateModelGenerator.registerCooker(ModBlocks.REINFORCED_BLAST_FURNACE, TexturedModel.ORIENTABLE);
-        blockStateModelGenerator.registerCooker(ModBlocks.NETHERITE_BLAST_FURNACE, TexturedModel.ORIENTABLE);
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_BLAST_FURNACE, ModelIds.getBlockModelId(ModBlocks.REINFORCED_BLAST_FURNACE));
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_BLAST_FURNACE, ModelIds.getBlockModelId(ModBlocks.NETHERITE_BLAST_FURNACE));
+        blockStateModelGenerator.createFurnace(ModBlocks.REINFORCED_BLAST_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
+        blockStateModelGenerator.createFurnace(ModBlocks.NETHERITE_BLAST_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.REINFORCED_BLAST_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.REINFORCED_BLAST_FURNACE));
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NETHERITE_BLAST_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.NETHERITE_BLAST_FURNACE));
 
         // --- Standard Furnaces ---
-        blockStateModelGenerator.registerCooker(ModBlocks.REINFORCED_FURNACE, TexturedModel.ORIENTABLE);
-        blockStateModelGenerator.registerCooker(ModBlocks.NETHERITE_FURNACE, TexturedModel.ORIENTABLE);
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_FURNACE, ModelIds.getBlockModelId(ModBlocks.REINFORCED_FURNACE));
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_FURNACE, ModelIds.getBlockModelId(ModBlocks.NETHERITE_FURNACE));
+        blockStateModelGenerator.createFurnace(ModBlocks.REINFORCED_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
+        blockStateModelGenerator.createFurnace(ModBlocks.NETHERITE_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.REINFORCED_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.REINFORCED_FURNACE));
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NETHERITE_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.NETHERITE_FURNACE));
 
         // --- Smokers ---
-        blockStateModelGenerator.registerCooker(ModBlocks.REINFORCED_SMOKER, TexturedModel.ORIENTABLE);
-        blockStateModelGenerator.registerCooker(ModBlocks.NETHERITE_SMOKER, TexturedModel.ORIENTABLE);
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_SMOKER, ModelIds.getBlockModelId(ModBlocks.REINFORCED_SMOKER));
-        blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_SMOKER, ModelIds.getBlockModelId(ModBlocks.NETHERITE_SMOKER));
+        blockStateModelGenerator.createFurnace(ModBlocks.REINFORCED_SMOKER, TexturedModel.ORIENTABLE_ONLY_TOP);
+        blockStateModelGenerator.createFurnace(ModBlocks.NETHERITE_SMOKER, TexturedModel.ORIENTABLE_ONLY_TOP);
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.REINFORCED_SMOKER, ModelLocationUtils.getModelLocation(ModBlocks.REINFORCED_SMOKER));
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NETHERITE_SMOKER, ModelLocationUtils.getModelLocation(ModBlocks.NETHERITE_SMOKER));
 
 
 
@@ -106,141 +116,141 @@ public class ModModelProvider extends FabricModelProvider {
         // Reinforced Piston is a real Piston (has EXTENDED property)
         registerCustomPiston(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON);
         registerCustomPiston(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.NETHERITE_PISTON_HEAD);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.NETHERITE_PISTON_HEAD);
 
     }
 
-    private void registerCustomHopper(BlockStateModelGenerator generator, Block block) {
-        TextureMap textures = new TextureMap()
-                .put(TextureKey.TOP, TextureMap.getSubId(block, "_top"))
-                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_outside"))
-                .put(TextureKey.INSIDE, TextureMap.getSubId(block, "_inside"))
-                .put(TextureKey.BOTTOM, TextureMap.getSubId(block, "_outside"));
+    private void registerCustomHopper(BlockModelGenerators generator, Block block) {
+        TextureMapping textures = new TextureMapping()
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_outside"))
+                .put(TextureSlot.INSIDE, TextureMapping.getBlockTexture(block, "_inside"))
+                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, "_outside"));
 
-        Identifier modelDown = HOPPER_MODEL.upload(block, textures, generator.modelCollector);
-        Identifier modelSide = HOPPER_SIDE_MODEL.upload(block, "_side", textures, generator.modelCollector);
+        Identifier modelDown = HOPPER_MODEL.create(block, textures, generator.modelOutput);
+        Identifier modelSide = HOPPER_SIDE_MODEL.createWithSuffix(block, "_side", textures, generator.modelOutput);
 
-        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block)
-                .with(BlockStateVariantMap.models(Properties.HOPPER_FACING)
-                        .register(Direction.DOWN, BlockStateModelGenerator.createWeightedVariant(modelDown))
-                        .register(Direction.NORTH, BlockStateModelGenerator.createWeightedVariant(modelSide))
-                        .register(Direction.EAST, BlockStateModelGenerator.createWeightedVariant(modelSide).apply(BlockStateModelGenerator.ROTATE_Y_90))
-                        .register(Direction.SOUTH, BlockStateModelGenerator.createWeightedVariant(modelSide).apply(BlockStateModelGenerator.ROTATE_Y_180))
-                        .register(Direction.WEST, BlockStateModelGenerator.createWeightedVariant(modelSide).apply(BlockStateModelGenerator.ROTATE_Y_270))
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block)
+                .with(PropertyDispatch.initial(BlockStateProperties.FACING_HOPPER)
+                        .select(Direction.DOWN, BlockModelGenerators.plainVariant(modelDown))
+                        .select(Direction.NORTH, BlockModelGenerators.plainVariant(modelSide))
+                        .select(Direction.EAST, BlockModelGenerators.plainVariant(modelSide).with(BlockModelGenerators.Y_ROT_90))
+                        .select(Direction.SOUTH, BlockModelGenerators.plainVariant(modelSide).with(BlockModelGenerators.Y_ROT_180))
+                        .select(Direction.WEST, BlockModelGenerators.plainVariant(modelSide).with(BlockModelGenerators.Y_ROT_270))
                 ));
     }
 
-    private void registerCustomPiston(BlockStateModelGenerator generator, Block block) {
-        TextureMap textureMap = new TextureMap()
-                .put(TextureKey.BOTTOM, TextureMap.getSubId(block, "_bottom"))
-                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"))
-                .put(TextureKey.PLATFORM, TextureMap.getSubId(block, "_top"))
-                .put(TextureKey.INSIDE, TextureMap.getSubId(block, "_inner"));
+    private void registerCustomPiston(BlockModelGenerators generator, Block block) {
+        TextureMapping textureMap = new TextureMapping()
+                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, "_bottom"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side"))
+                .put(TextureSlot.PLATFORM, TextureMapping.getBlockTexture(block, "_top"))
+                .put(TextureSlot.INSIDE, TextureMapping.getBlockTexture(block, "_inner"));
 
-        Identifier baseModelId = PISTON_BASE_MODEL.upload(block, "_base", textureMap, generator.modelCollector);
+        Identifier baseModelId = PISTON_BASE_MODEL.createWithSuffix(block, "_base", textureMap, generator.modelOutput);
 
-        generator.registerPiston(block, BlockStateModelGenerator.createWeightedVariant(baseModelId), textureMap);
-        TextureMap inventoryMap = new TextureMap()
-                .put(TextureKey.BOTTOM, TextureMap.getSubId(block, "_bottom"))
-                .put(TextureKey.TOP, TextureMap.getSubId(block, "_top"))
-                .put(TextureKey.SIDE, TextureMap.getSubId(block, "_side"));
+        generator.createPistonVariant(block, BlockModelGenerators.plainVariant(baseModelId), textureMap);
+        TextureMapping inventoryMap = new TextureMapping()
+                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, "_bottom"))
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side"));
 
-        Identifier inventoryModelId = Models.CUBE_BOTTOM_TOP.upload(block, "_inventory", inventoryMap, generator.modelCollector);
+        Identifier inventoryModelId = ModelTemplates.CUBE_BOTTOM_TOP.createWithSuffix(block, "_inventory", inventoryMap, generator.modelOutput);
 
-        generator.registerParentedItemModel(block, inventoryModelId);
+        generator.registerSimpleItemModel(block, inventoryModelId);
     }
 
     @Override
-    public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+    public void generateItemModels(ItemModelGenerators itemModelGenerator) {
 
         // --- 1. RANGEFINDER (Generated / Flach) ---
-        itemModelGenerator.register(ModItems.OCTANT, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.OCTANT, ModelTemplates.FLAT_ITEM);
         for (DyeColor color : DyeColor.values()) {
             Item item = ModItems.COLORED_OCTANT_ITEMS.get(color);
-            if (item != null) itemModelGenerator.register(item, Models.GENERATED);
+            if (item != null) itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
         }
 
         // --- 2. CHISELS ---
-        itemModelGenerator.register(ModItems.STONE_CHISEL, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.COPPER_CHISEL, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.IRON_CHISEL, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.GOLD_CHISEL, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.DIAMOND_CHISEL, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.NETHERITE_CHISEL, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.ENDERITE_CHISEL, Models.HANDHELD); // NEW
+        itemModelGenerator.generateFlatItem(ModItems.STONE_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.COPPER_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.IRON_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLD_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DIAMOND_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM); // NEW
 
         // --- WANDS ---
-        itemModelGenerator.register(ModItems.COPPER_BUILDING_WAND, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.IRON_BUILDING_WAND, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.GOLD_BUILDING_WAND, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.DIAMOND_BUILDING_WAND, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.NETHERITE_BUILDING_WAND, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.ENDERITE_BUILDING_WAND, Models.HANDHELD); // NEW
+        itemModelGenerator.generateFlatItem(ModItems.COPPER_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.IRON_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLD_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DIAMOND_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM); // NEW
 
         // --- SLEDGEHAMMERS ---
-        itemModelGenerator.register(ModItems.STONE_SLEDGEHAMMER, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.COPPER_SLEDGEHAMMER, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.IRON_SLEDGEHAMMER, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.GOLD_SLEDGEHAMMER, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.DIAMOND_SLEDGEHAMMER, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.NETHERITE_SLEDGEHAMMER, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.ENDERITE_SLEDGEHAMMER, Models.HANDHELD); // NEW
+        itemModelGenerator.generateFlatItem(ModItems.STONE_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.COPPER_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.IRON_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLD_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DIAMOND_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SLEDGEHAMMER, ModelTemplates.FLAT_HANDHELD_ITEM); // NEW
 
         // --- NEW: ENDERITE TOOLS (HANDHELD) ---
-        itemModelGenerator.register(ModItems.ENDERITE_SWORD, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.ENDERITE_PICKAXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.ENDERITE_AXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.ENDERITE_SHOVEL, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.ENDERITE_HOE, Models.HANDHELD);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_PICKAXE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_AXE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SHOVEL, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
 
         // --- NEW: ENDERITE ARMOR (TRIM-AWARE) ---
-        itemModelGenerator.registerArmor(ModItems.ENDERITE_HELMET, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerator.HELMET_TRIM_ID_PREFIX, false);
-        itemModelGenerator.registerArmor(ModItems.ENDERITE_CHESTPLATE, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerator.CHESTPLATE_TRIM_ID_PREFIX, false);
-        itemModelGenerator.registerArmor(ModItems.ENDERITE_LEGGINGS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerator.LEGGINGS_TRIM_ID_PREFIX, false);
-        itemModelGenerator.registerArmor(ModItems.ENDERITE_BOOTS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerator.BOOTS_TRIM_ID_PREFIX, false);
+        itemModelGenerator.generateTrimmableItem(ModItems.ENDERITE_HELMET, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_HELMET, false);
+        itemModelGenerator.generateTrimmableItem(ModItems.ENDERITE_CHESTPLATE, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_CHESTPLATE, false);
+        itemModelGenerator.generateTrimmableItem(ModItems.ENDERITE_LEGGINGS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_LEGGINGS, false);
+        itemModelGenerator.generateTrimmableItem(ModItems.ENDERITE_BOOTS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_BOOTS, false);
 
         // --- NEW: ENDERITE MATERIALS (GENERATED) ---
-        itemModelGenerator.register(ModItems.ENDERITE_CORE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.RAW_ENDERITE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDERITE_INGOT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDERITE_SCRAP, Models.GENERATED);
-        itemModelGenerator.register(ModItems.NIHILITH_SHARD, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ASTRALIT_DUST, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDERITE_UPGRADE_TEMPLATE, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CORE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.RAW_ENDERITE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_INGOT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SCRAP, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NIHILITH_SHARD, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ASTRALIT_DUST, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_UPGRADE_TEMPLATE, ModelTemplates.FLAT_ITEM);
 
 
         // --- CORES & MISC ---
-        itemModelGenerator.register(ModItems.VELOCITY_GAUGE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ORE_DETECTOR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.MAGNET, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ROTATOR, Models.HANDHELD);
+        itemModelGenerator.generateFlatItem(ModItems.VELOCITY_GAUGE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ORE_DETECTOR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MAGNET, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ROTATOR, ModelTemplates.FLAT_HANDHELD_ITEM);
 
-        itemModelGenerator.register(ModItems.COPPER_CORE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.IRON_CORE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLD_CORE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DIAMOND_CORE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.NETHERITE_CORE, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.COPPER_CORE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.IRON_CORE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLD_CORE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DIAMOND_CORE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CORE, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.register(ModItems.REINFORCED_BUNDLE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.NETHERITE_BUNDLE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.QUIVER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.NETHERITE_QUIVER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DIAMOND_PEBBLE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.CRACKED_DIAMOND, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.REINFORCED_BUNDLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_BUNDLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.QUIVER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_QUIVER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DIAMOND_PEBBLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.CRACKED_DIAMOND, ModelTemplates.FLAT_ITEM);
 
         // Hoppers hier auch, da Generated Item Model für Inventory
-        itemModelGenerator.register(ModItems.REINFORCED_HOPPER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.NETHERITE_HOPPER, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.REINFORCED_HOPPER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_HOPPER, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.register(ModItems.GLOWING_TRIM_TEMPLATE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.EMITTING_TRIM_TEMPLATE, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.GLOWING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.EMITTING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.register(ModItems.BASIC_UPGRADE_TEMPLATE, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.BASIC_UPGRADE_TEMPLATE, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.register(ModItems.NETHERITE_NUGGET, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDERITE_NUGGET, Models.GENERATED);
-        itemModelGenerator.register(ModItems.NETHERITE_APPLE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.NETHERITE_CARROT, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_NUGGET, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_NUGGET, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_APPLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CARROT, ModelTemplates.FLAT_ITEM);
 
 
         String[] enchants = {
@@ -252,56 +262,55 @@ public class ModModelProvider extends FabricModelProvider {
         };
 
         for (String suffix : enchants) {
-            Identifier textureId = Identifier.of(Simplebuilding.MOD_ID, "item/enchanted_book_" + suffix);
-            Models.GENERATED.upload(
-                    Identifier.of(Simplebuilding.MOD_ID, "item/enchanted_book_" + suffix),
-                    TextureMap.layer0(textureId),
-                    itemModelGenerator.modelCollector
+            Identifier textureId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "item/enchanted_book_" + suffix);
+            ModelTemplates.FLAT_ITEM.create(
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "item/enchanted_book_" + suffix),
+                    TextureMapping.layer0(new Material(textureId)),
+                    itemModelGenerator.modelOutput
             );
         }
 
-        itemModelGenerator.register(ModItems.ENDERITE_BUNDLE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDERITE_QUIVER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDERITE_APPLE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDERITE_CARROT, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_BUNDLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_QUIVER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CARROT, ModelTemplates.FLAT_ITEM);
 
-        // --- NEW: Enchanted Food Models (Reuse existing textures) ---
-        // Dies sorgt dafür, dass enchanted_netherite_apple die Textur von netherite_apple nutzt, etc.
-        Models.GENERATED.upload(
-                ModelIds.getItemModelId(ModItems.ENCHANTED_NETHERITE_APPLE),
-                TextureMap.layer0(Identifier.of(Simplebuilding.MOD_ID, "item/netherite_apple")),
-                itemModelGenerator.modelCollector
-        );
-        Models.GENERATED.upload(
-                ModelIds.getItemModelId(ModItems.ENCHANTED_ENDERITE_APPLE),
-                TextureMap.layer0(Identifier.of(Simplebuilding.MOD_ID, "item/enderite_apple")),
-                itemModelGenerator.modelCollector
-        );
+        // Die verzauberten Aepfel borgen sich die Textur ihrer gewoehnlichen Variante.
+        // Wichtig ist die ZWEIARMIGE generateFlatItem-Variante: sie schreibt nicht nur das Modell
+        // unter models/item/, sondern auch die seit MC 1.21.4 noetige Item-Definition unter
+        // assets/simplebuilding/items/. Ohne die zeigt der Client "No model loaded for default
+        // item model ID" und rendert das Platzhaltermodell - und beide Aepfel sind ueber
+        // ModLootTableModifications erreichbar, der Fehler waere also sichtbar gewesen.
+        itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_APPLE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM);
     }
 
-    private void registerMirroredChecker(BlockStateModelGenerator generator, Block block) {
-        Identifier blockId = Registries.BLOCK.getId(block);
+    private void registerMirroredChecker(BlockModelGenerators generator, Block block) {
+        Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
         String name = blockId.getPath();
 
         // Pfad zur normalen Textur: block/blockname
-        Identifier normalTexture = Identifier.of(Simplebuilding.MOD_ID, "block/" + name);
+        Identifier normalTexture = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/" + name);
         // Pfad zur gespiegelten Textur: block/blockname_mirror
-        Identifier mirrorTexture = Identifier.of(Simplebuilding.MOD_ID, "block/" + name + "_mirror");
+        Identifier mirrorTexture = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/" + name + "_mirror");
 
         // Wir definieren manuell, welche Seite welche Textur bekommt
-        TextureMap textureMap = new TextureMap()
-                .put(TextureKey.PARTICLE, normalTexture)
-                .put(TextureKey.UP, normalTexture)    // Oben: Normal
-                .put(TextureKey.DOWN, normalTexture)  // Unten: Normal
-                .put(TextureKey.EAST, normalTexture)  // Rechts: Normal
-                .put(TextureKey.WEST, normalTexture)  // Links: Normal
-                .put(TextureKey.NORTH, mirrorTexture) // Vorne: Gespiegelt
-                .put(TextureKey.SOUTH, mirrorTexture);// Hinten: Gespiegelt
+        Material normalMaterial = new Material(normalTexture);
+        Material mirrorMaterial = new Material(mirrorTexture);
+
+        TextureMapping textureMap = new TextureMapping()
+                .put(TextureSlot.PARTICLE, normalMaterial)
+                .put(TextureSlot.UP, normalMaterial)
+                .put(TextureSlot.DOWN, normalMaterial)
+                .put(TextureSlot.EAST, normalMaterial)
+                .put(TextureSlot.WEST, normalMaterial)
+                .put(TextureSlot.NORTH, mirrorMaterial)
+                .put(TextureSlot.SOUTH, mirrorMaterial);
 
         // Modell erstellen (CUBE = voller Würfel mit 6 Seiten-Definitionen)
-        Identifier modelId = Models.CUBE.upload(block, textureMap, generator.modelCollector);
+        Identifier modelId = ModelTemplates.CUBE.create(block, textureMap, generator.modelOutput);
 
         // WICHTIG: Die ID muss in einen WeightedVariant umgewandelt werden!
-        generator.registerAxisRotated(block, BlockStateModelGenerator.createWeightedVariant(modelId));
+        generator.createAxisAlignedPillarBlockCustomModel(block, BlockModelGenerators.plainVariant(modelId));
     }
 }

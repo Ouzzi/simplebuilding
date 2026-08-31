@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_reinforced_smoker": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:reinforced_smoker"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplebuilding:netherite_smoker_bulk"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_reinforced_smoker"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:netherite_smoker_bulk"
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "id": "simplebuilding",
+  "version": "${version}",
+  "name": "simplebuilding",
+  "description": "This is a simple building mod.",
+  "authors": [
+    "Me!"
+  ],
+  "contact": {
+    "homepage": "https://azarfane.de/",
+    "sources": "https://github.com/Ouzzi/fabric-example-mod"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/simplebuilding/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.simplebuilding.Simplebuilding"
+    ],
+    "client": [
+      "com.simplebuilding.SimplebuildingClient"
+    ],
+    "fabric-datagen": [
+      "com.simplebuilding.SimplebuildingDataGenerator"
+    ],
+    "modmenu": [
+      "com.simplebuilding.compat.ModMenuIntegration"
+    ],
+    "fabric-gametest": [
+      "com.simplebuilding.gametest.SmokeGameTest",
+      "com.simplebuilding.gametest.TradeAndMigrationGameTest",
+      "com.simplebuilding.gametest.ToolBehaviourGameTest",
+      "com.simplebuilding.gametest.BlockBehaviourGameTest",
+      "com.simplebuilding.gametest.DataIntegrityGameTest",
+      "com.simplebuilding.gametest.TradeRegistryGameTest",
+      "com.simplebuilding.gametest.NetworkHandlerGameTest",
+      "com.simplebuilding.gametest.ItemBehaviourGameTest"
+    ]
+  },
+  "mixins": [
+    "simplebuilding.mixins.json",
+    {
+      "config": "simplebuilding.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.2",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

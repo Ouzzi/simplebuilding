@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "minecraft:diamond_block",
+    "M": "minecraft:diamond",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "BMM",
+    " S ",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:diamond_sledgehammer"
+  }
+}

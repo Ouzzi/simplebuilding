@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version "${loom_version}"
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
 }
 
@@ -12,6 +12,12 @@ base {
 
 sourceSets {
 	main {
+		java {
+			// Loader-neutral game code lives in common/src/shared/java and is compiled by
+			// every loader module against its own Minecraft jar. Only Fabric-specific
+			// classes (entrypoints, registration, datagen) stay in this module's src/main/java.
+			srcDir "common/src/shared/java"
+		}
 		resources {
 			srcDir "src/main/generated"
 		}
@@ -36,24 +42,51 @@ fabricApi {
 	configureDataGeneration {
 		client = true
 	}
+
+	// Client-side in-game tests: drive a real client, create a world, join it and
+	// assert on what is actually on screen. This is the only way to cover the
+	// in-world renderers, which a headless server test can never reach.
+	configureTests {
+		createSourceSet = true
+		modId = "simplebuilding-test"
+		enableGameTests = false
+	}
+}
+
+// Automated in-game tests. Runs a headless server, loads the mod, executes every
+// registered GameTest and fails the build on the first failing one.
+loom {
+	runs {
+		gametest {
+			server()
+			name = "Game Test"
+			vmArg "-Dfabric-api.gametest"
+			vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory.get()}/junit.xml"
+			runDir "build/gametest"
+		}
+	}
 }
 
 dependencies {
+	implementation project(':common')
+
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Cloth Config API (für das Config System)
-    modApi("me.shedaniel.cloth:cloth-config-fabric:21.11.150") {
+    implementation("me.shedaniel.cloth:cloth-config-fabric:26.2.155") {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
     // Mod Menu (damit du den Config-Button im Spiel siehst)
-    modImplementation "com.terraformersmc:modmenu:17.0.0-alpha.1"
+    implementation "com.terraformersmc:modmenu:20.0.1"
+
+	// In-game test framework
+	implementation fabricApi.module("fabric-gametest-api-v1", project.fabric_version)
 
 	// Test dependencies
 	testImplementation "org.junit.jupiter:junit-jupiter:5.11.4"
@@ -70,7 +103,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 25
 }
 
 test {
@@ -83,8 +116,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 jar {
@@ -112,3 +145,4 @@ publishing {
 		// retrieving dependencies.
 	}
 }
+

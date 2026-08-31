@@ -1,0 +1,245 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.141'
+}
+
+description = 'NeoForge loader module for SimpleBuilding, Minecraft 1.21.11 line'
+
+def resolveSetting = { String key, String defaultValue = null ->
+    def fromProject = project.findProperty(key)
+    return fromProject != null ? fromProject.toString() : defaultValue
+}
+
+def neoVersion = resolveSetting('mc11_neoforge_version', '21.11.45')
+def minecraftVersionRange = resolveSetting('mc11_minecraft_version_range', '[1.21.11,1.22)')
+
+group = rootProject.group
+version = rootProject.version
+
+base {
+    archivesName = "${rootProject.archives_base_name}-1.21.11-neoforge"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
+}
+
+// Loader-neutral game code from common/src/shared/java + NeoForge-specific adapters here.
+// No exclude filter needed: the shared tree contains nothing loader-specific, so every
+// loader compiles all of it against its own Minecraft jar.
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/shared/java')
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/fabric/src/main/resources')
+            srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/fabric/src/main/generated')
+            exclude 'fabric.mod.json'
+        }
+    }
+
+    // Automated in-world renderer proof (see src/clientGameTest/java/.../clienttest).
+    // Deliberately its own source set AND its own mod: 'jar' only packs sourceSets.main,
+    // so none of this can ever reach a shipped artifact. It sees main's classes so the
+    // test can call the mod's own items/renderers directly.
+    clientGameTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+configurations {
+    clientGameTestImplementation.extendsFrom implementation
+    clientGameTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
+neoForge {
+    version = neoVersion
+
+    mods {
+        "${archives_base_name}" {
+            sourceSet sourceSets.main
+        }
+        "${archives_base_name}clienttest" {
+            sourceSet sourceSets.clientGameTest
+        }
+    }
+}
+
+// Minecraft/NeoForge on the test source set's compile+runtime classpath.
+neoForge.addModdingDependenciesTo(sourceSets.clientGameTest)
+
+def mainMod = neoForge.mods.getByName(project.archives_base_name.toString())
+def clientTestMod = neoForge.mods.getByName(project.archives_base_name.toString() + 'clienttest')
+
+// The verdict of the run. RendererProofRun writes it as its very last action before halting the
+// JVM; see verifyClientGameTestResult below for why the build reads it from here instead of from
+// the process exit code.
+def rendererProofResult = layout.buildDirectory.file('run/clientGameTest/screenshots/RESULT.txt')
+
+// The renderer proof runs unattended in a throwaway game directory, so NeoForge would greet it
+// with its "mods loaded with N warning(s)" screen and nothing would ever reach the main menu.
+// Same switch the checked-in mc1_21_11/neoforge/run/config uses; NeoForge fills in the
+// remaining defaults on startup. This task also clears the previous run's verdict.
+def seedClientGameTestConfig = tasks.register('seedClientGameTestConfig') {
+    description = 'Writes the NeoForge client config the automated renderer proof needs.'
+    def configFile = layout.buildDirectory.file('run/clientGameTest/config/neoforge-client.toml')
+    def resultFile = rendererProofResult
+    outputs.upToDateWhen { false }
+    doLast {
+        def file = configFile.get().asFile
+        file.parentFile.mkdirs()
+        def text = file.exists() ? file.text : ''
+        if (text.contains('showLoadWarnings')) {
+            file.text = text.replaceAll(/(?m)^showLoadWarnings\s*=.*$/, 'showLoadWarnings = false')
+        } else {
+            file.text = 'showLoadWarnings = false\n' + text
+        }
+
+        // A stale verdict from a previous run must never be able to pass for this one.
+        resultFile.get().asFile.delete()
+    }
+}
+
+// Why the verdict is read from a file and not from the exit code.
+//
+// RendererProofRun ends with Runtime.halt(0) on success and Runtime.halt(1) on failure, and on
+// the 26.2 module (JDK 25) that exit code arrives at Gradle intact. On this module the client
+// runs on JDK 21, and there the process consistently dies during its native teardown after the
+// halt: Gradle sees exit value -1073740791 (Windows NTSTATUS 0xC0000409, "fail fast") no matter
+// which code was passed to halt. That happens strictly AFTER the last assertion and after the
+// verdict has been printed and written - but it makes the exit code useless as a verdict.
+//
+// So the run task is allowed to end with any exit status and this task decides instead. It is
+// not weaker: the file is written by the same code path that computes the verdict, it is deleted
+// before every run, and anything that keeps the run from finishing (an early crash, a hang that
+// gets killed from outside, a failed assertion) leaves either no file at all or a "RESULT: FAIL"
+// in it. All three cases fail the build.
+def verifyClientGameTestResult = tasks.register('verifyClientGameTestResult') {
+    description = 'Fails the build unless the renderer proof wrote a PASS verdict.'
+    def resultFile = rendererProofResult
+    outputs.upToDateWhen { false }
+    doLast {
+        def file = resultFile.get().asFile
+
+        if (!file.exists()) {
+            throw new GradleException("The renderer proof did not write a verdict (${file}). "
+                    + "The client never reached the end of the script - see the run's log and "
+                    + "build/run/clientGameTest/screenshots for how far it got.")
+        }
+
+        def verdict = file.text.trim()
+
+        if (!verdict.startsWith('RESULT: PASS')) {
+            throw new GradleException("Renderer proof failed:\n" + verdict)
+        }
+
+        logger.lifecycle(verdict)
+    }
+}
+
+neoForge {
+    runs {
+        client {
+            client()
+            loadedMods = [mainMod]
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.archives_base_name
+        }
+        // Automated renderer proof: boots a real client, builds a fixed scene, compares
+        // screenshots, writes its verdict and then halts the JVM itself.
+        // Task name: :mc1_21_11:neoforge:runClientGameTest
+        clientGameTest {
+            client()
+            sourceSet = sourceSets.clientGameTest
+            loadedMods = [mainMod, clientTestMod]
+            gameDirectory = layout.buildDirectory.dir('run/clientGameTest')
+            taskBefore seedClientGameTestConfig
+            systemProperty 'simplebuilding.clienttest', 'true'
+            // Fixed window size -> fixed screenshot size -> fixed pixel thresholds.
+            programArguments.addAll '--width', '854', '--height', '480'
+        }
+        server {
+            server()
+            loadedMods = [mainMod]
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.archives_base_name
+        }
+        // Headless in-game test run: NeoForge's 'gameTestServer' run type boots
+        // net.minecraft.gametest.Main, which accepts --tests (namespaced wildcard selector)
+        // and --report (junit-style XML). Task name: :mc1_21_11:neoforge:runGameTest
+        gameTest {
+            type = 'gameTestServer'
+            loadedMods = [mainMod]
+            programArguments.addAll '--tests', "${project.archives_base_name}:*",
+                    '--report', layout.buildDirectory.file('neoforge-junit.xml').get().asFile.absolutePath
+        }
+        data {
+            clientData()
+            loadedMods = [mainMod]
+            programArguments.addAll '--mod', project.archives_base_name, '--all',
+                    '--output', file('src/generated/resources/').absolutePath,
+                    '--existing', rootProject.file('mc1_21_11/fabric/src/main/resources/').absolutePath,
+                    '--existing', rootProject.file('mc1_21_11/fabric/src/main/generated/').absolutePath
+        }
+        configureEach {
+            logLevel = org.slf4j.event.Level.INFO
+        }
+    }
+}
+
+repositories {
+    maven { url = 'https://maven.shedaniel.me/' }
+}
+
+dependencies {
+    implementation project(':common')
+    implementation "me.shedaniel.cloth:cloth-config-neoforge:${project.mc11_cloth_version}"
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    def replaceProperties = [
+            modVersion           : project.version,
+            modId                : project.archives_base_name,
+            // javafml-Version = Specification-Version des fmlloader-Jars.
+            // NeoForge 21.11.45 zieht net.neoforged.fancymodloader:loader:10.0.36 (Spec-Version 10),
+            // die 26.2-Linie dagegen 11.x -- deshalb hier NICHT neoforge_loader_version_range ([11,)).
+            loaderVersionRange   : resolveSetting('mc11_neoforge_loader_version_range', '[10,)'),
+            minecraftVersionRange: minecraftVersionRange,
+    ]
+    inputs.properties replaceProperties
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand replaceProperties
+    }
+}
+
+tasks.withType(Jar).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.named('jar').configure {
+    manifest {
+        attributes([
+                'Specification-Title'     : 'simplebuilding',
+                'Specification-Vendor'    : 'simplebuilding',
+                'Specification-Version'   : project.version,
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.version,
+        ])
+    }
+}
+
+// See verifyClientGameTestResult above: the client halts itself, the exit status of that halt is
+// not trustworthy on this JDK/Windows combination, and the verdict is taken from the file the run
+// writes instead. finalizedBy (not dependsOn/finalizer-free) so the check also runs when the run
+// task itself reports a failure.
+tasks.named('runClientGameTest', JavaExec).configure {
+    ignoreExitValue = true
+    finalizedBy verifyClientGameTestResult
+}

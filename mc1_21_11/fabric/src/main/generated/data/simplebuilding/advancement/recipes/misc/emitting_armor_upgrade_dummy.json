@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_emitting_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:emitting_trim_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplebuilding:emitting_armor_upgrade_dummy"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_emitting_template"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:emitting_armor_upgrade_dummy"
+    ]
+  }
+}

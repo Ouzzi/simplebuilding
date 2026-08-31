@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nihilith_shard": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:nihilith_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplebuilding:nihil_purpur_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nihilith_shard"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:nihil_purpur_block"
+    ]
+  }
+}

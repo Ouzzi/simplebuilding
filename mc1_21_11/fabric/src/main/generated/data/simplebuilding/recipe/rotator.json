@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "E": "minecraft:ender_pearl",
+    "I": "minecraft:iron_ingot"
+  },
+  "pattern": [
+    " I ",
+    "IEI",
+    "II "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:rotator"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "simplebuilding:diamond_core",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "  C",
+    " S ",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:diamond_building_wand"
+  }
+}

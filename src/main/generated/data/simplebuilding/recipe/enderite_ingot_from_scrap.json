@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "D": "minecraft:diamond",
     "N": "minecraft:netherite_ingot",
@@ -12,7 +11,6 @@
     "SDS"
   ],
   "result": {
-    "count": 1,
     "id": "simplebuilding:enderite_ingot"
   }
 }

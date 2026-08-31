@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "simplebuilding-test",
+  "version": "1.0.0",
+  "name": "SimpleBuilding Client Tests",
+  "description": "Automated in-game client tests. Never shipped.",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-client-gametest": [
+      "com.simplebuilding.clienttest.SmokeClientGameTest",
+      "com.simplebuilding.clienttest.BlockHighlightClientGameTest",
+      "com.simplebuilding.clienttest.BuildingWandPreviewClientGameTest",
+      "com.simplebuilding.clienttest.MultiBlockBreakingClientGameTest",
+      "com.simplebuilding.clienttest.ModScreensClientGameTest"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "simplebuilding": "*"
+  }
+}

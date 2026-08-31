@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "M": "minecraft:gold_ingot",
     "N": "minecraft:nether_star"
@@ -11,7 +10,6 @@
     " M "
   ],
   "result": {
-    "count": 1,
     "id": "simplebuilding:gold_core"
   }
 }

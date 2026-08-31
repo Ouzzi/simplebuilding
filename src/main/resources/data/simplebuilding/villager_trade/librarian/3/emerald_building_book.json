@@ -1,0 +1,23 @@
+{
+  "fabric:load_conditions": [
+    { "condition": "simplebuilding:config", "flag": "enableVillagerTrades" }
+  ],
+  "neoforge:conditions": [
+    { "type": "simplebuilding:config", "flag": "enableVillagerTrades" }
+  ],
+  "wants": { "id": "minecraft:emerald", "count": 25 },
+  "gives": { "id": "minecraft:enchanted_book" },
+  "given_item_modifiers": [
+    {
+      "function": "simplebuilding:weighted_enchant",
+      "pool": [
+        { "enchantment": "simplebuilding:color_palette", "level": 1, "weight": 30 },
+        { "enchantment": "simplebuilding:fast_chiseling", "level": 1, "weight": 30 },
+        { "enchantment": "simplebuilding:linear", "level": 1, "weight": 25 }
+      ]
+    }
+  ],
+  "max_uses": 3,
+  "xp": 15,
+  "reputation_discount": 0.3
+}

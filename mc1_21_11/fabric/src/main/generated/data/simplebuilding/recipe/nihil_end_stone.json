@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "simplebuilding:polished_end_stone",
+    "M": "simplebuilding:nihilith_shard"
+  },
+  "pattern": [
+    "BBB",
+    "BMB",
+    "BBB"
+  ],
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:nihil_end_stone"
+  }
+}

@@ -4,7 +4,25 @@ pluginManagement {
 			name = 'Fabric'
 			url = 'https://maven.fabricmc.net/'
 		}
+		maven {
+			name = 'NeoForged'
+			url = 'https://maven.neoforged.net/releases/'
+		}
+		maven {
+			name = 'MinecraftForge'
+			url = 'https://maven.minecraftforge.net/'
+		}
 		mavenCentral()
 		gradlePluginPortal()
 	}
 }
+
+rootProject.name = 'simplebuilding'
+
+include 'common'
+include 'neoforge'
+include 'forge'
+include 'mc1_21_11:fabric'
+include 'mc1_21_11:neoforge'
+// Loaders: Fabric (root project, Fabric Loom) + NeoForge (:neoforge, ModDevGradle).
+// Each applies its own loader plugin to its own project; both build under Gradle 9.

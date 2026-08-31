@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "C": "minecraft:carrot",
     "N": "simplebuilding:netherite_nugget"
@@ -11,7 +10,6 @@
     " N "
   ],
   "result": {
-    "count": 1,
     "id": "simplebuilding:netherite_carrot"
   }
 }

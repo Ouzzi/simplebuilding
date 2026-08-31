@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "C": "minecraft:compass",
+    "O": "minecraft:copper_ingot",
+    "Q": "minecraft:quartz"
+  },
+  "pattern": [
+    " A ",
+    "OCO",
+    "QQQ"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:velocity-gauge"
+  }
+}

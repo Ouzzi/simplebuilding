@@ -1,0 +1,142 @@
+plugins {
+    id 'java'
+    id 'net.minecraftforge.gradle' version '7.0.36'
+}
+
+description = 'MinecraftForge loader module for SimpleBuilding (LEGACY / best-effort; Fabric + NeoForge are the current loaders)'
+
+def resolveSetting = { String key, String defaultValue = null ->
+    def fromProject = project.findProperty(key)
+    return fromProject != null ? fromProject.toString() : defaultValue
+}
+
+def forgeVersion = resolveSetting('forge_version_fixed', '64.0.9')
+def minecraftVersion = resolveSetting('minecraft_version', '26.1.2')
+def forgeLoaderVersionRange = resolveSetting('forge_loader_version_range', '[64,)')
+def minecraftVersionRange = resolveSetting('minecraft_version_range', '[26.1.2,26.2)')
+
+group = rootProject.group
+version = rootProject.version
+
+base {
+    archivesName = "${rootProject.archives_base_name}-forge"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+    withSourcesJar()
+}
+
+// Shared game code from the Fabric root module + Forge-specific adapters in this
+// module. Mirrors the neoforge module: the same root sources are recompiled here,
+// excluding the Fabric/loader-specific entrypoints that this module re-provides.
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir rootProject.layout.projectDirectory.dir('common/src/shared/java')
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir rootProject.layout.projectDirectory.dir('src/main/resources')
+            srcDir rootProject.layout.projectDirectory.dir('src/main/generated')
+            exclude 'fabric.mod.json'
+        }
+    }
+}
+
+// Run-Konfigurationen sind hier standardmaessig ABGESCHALTET. Warum:
+//
+// ForgeGradle 7.0.36 legt fuer JEDEN `minecraft.runs`-Eintrag zwei Tasks an: die
+// Run-Task selbst (Typ SlimeLauncherExec) und -- bedingungslos, siehe
+// SlimeLauncherExec.register(), die SlimeLauncherEclipseConfiguration.register()
+// direkt mitaufruft -- eine Eclipse-Run-Config-Task `genEclipseRun<Run>For<Dep>`.
+// Beide Typen loesen SCHON IM KONSTRUKTOR das "Slime Launcher"-Tool auf, und das
+// verlangt ueber SharedUtil.launcherForStrictly(toolchains, 8) zwingend ein
+// Java-8-Toolchain. Ohne installiertes JDK 8 scheitert damit bereits das ERSTELLEN
+// der Task -- und in der Folge jede Task-Auflistung (`gradlew tasks`,
+// `gradlew tasks --all`), weil Gradles TaskReportTask alle registrierten Tasks
+// realisiert:
+//     Could not create task ':forge:genEclipseRunClientForForge'.
+//      > Could not create task of type 'SlimeLauncherEclipseConfiguration'.
+//         > Cannot find a Java installation ... matching: {languageVersion=8, ...}
+//
+// ForgeGradle bietet keinen Schalter, um nur die IDE-/Eclipse-Tasks abzuwaehlen,
+// und ein lazy registrierter Gradle-Task laesst sich nachtraeglich nicht mehr
+// entfernen (tasks.replace() verweigert einen inkompatiblen Ersatztyp). Der
+// einzige saubere Hebel ist deshalb, gar keine Runs zu registrieren.
+//
+// KOSTEN: :forge:runClient / :forge:runServer und die generierten
+// Eclipse-Run-Configs gibt es nicht mehr. Das kostet nichts Funktionierendes --
+// :forge:runClient scheiterte hier mit exakt demselben Java-8-Toolchain-Fehler --,
+// und das forge-Modul ist ohnehin zurueckgestellt (MULTILOADER_TODO.md, Abschnitt
+// "Forge: ZURUECKGESTELLT"): es soll nur weiter bauen, nicht laufen. Fabric und
+// NeoForge sind davon nicht beruehrt.
+//
+// Wer ein JDK 8 installiert hat, schaltet die Runs mit -Pforge_runs=true wieder ein.
+def forgeRunsEnabled = Boolean.parseBoolean(resolveSetting('forge_runs', 'false'))
+
+minecraft {
+    runs {
+        configureEach {
+            workingDir = layout.projectDirectory.dir('run')
+            systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
+            systemProperty 'forge.enabledGameTestNamespaces', rootProject.archives_base_name
+        }
+        if (forgeRunsEnabled) {
+            register('client')
+            register('server') {
+                args '--nogui'
+            }
+        }
+    }
+}
+
+repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    maven { url = 'https://maven.shedaniel.me/' }
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+    implementation minecraft.dependency("net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}")
+    // NOTE: cloth-config has no MinecraftForge build for the 26.x line (Fabric +
+    // NeoForge only). A minimal me.shedaniel.autoconfig shim is bundled in this
+    // module (see src/main/java/me/shedaniel/autoconfig) so the shared config code
+    // compiles and runs on Forge with default values (no config GUI/persistence).
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    def replaceProperties = [
+            modVersion           : project.version,
+            modId                : rootProject.archives_base_name,
+            loaderVersionRange   : forgeLoaderVersionRange,
+            minecraftVersionRange: minecraftVersionRange,
+    ]
+    inputs.properties replaceProperties
+    filesMatching('META-INF/mods.toml') {
+        expand replaceProperties
+    }
+}
+
+tasks.withType(Jar).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.named('jar').configure {
+    manifest {
+        attributes([
+                'Specification-Title'   : 'simplebuilding',
+                'Specification-Vendor'  : 'simplebuilding',
+                'Specification-Version' : project.version,
+                'Implementation-Title'  : project.name,
+                'Implementation-Version': project.version,
+        ])
+    }
+}

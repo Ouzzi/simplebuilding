@@ -5,7 +5,7 @@
 
 Build bigger. Mine faster. Keep it survival-friendly.
 
-SimpleBuilding is a Fabric mod for Minecraft 1.21.11 focused on practical building gameplay:
+SimpleBuilding is a Fabric & NeoForge mod for Minecraft 26.1.2 focused on practical building gameplay:
 - High-impact construction tools
 - Better inventory flow
 - Endgame progression (Enderite, Astralit, Nihilith)
@@ -45,10 +45,9 @@ fast_chiseling, constructors_touch, range, deep_pockets, master_builder, funnel,
 
 ## Requirements
 
-- Minecraft 1.21.11
-- Fabric Loader 0.18.4+
-- Fabric API
-- Java 21
+- Minecraft 26.1.2
+- Fabric Loader 0.19.3+ (with Fabric API) or NeoForge 26.1.2.75
+- Java 25
 
 Recommended:
 - Mod Menu

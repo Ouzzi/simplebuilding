@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "minecraft:compass",
+    "G": "simplebuilding:gold_core",
+    "S": "minecraft:calibrated_sculk_sensor"
+  },
+  "pattern": [
+    " S ",
+    " C ",
+    " G "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:ore_detector"
+  }
+}
