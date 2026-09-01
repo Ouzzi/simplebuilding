@@ -34,10 +34,6 @@ import net.minecraft.world.phys.Vec3;
  * valid") before, so a port could break what any of them <em>does</em> without a single test
  * turning red.
  *
- * <p>The mock player is handed back explicitly at the end of every test rather than through
- * {@code runBeforeTestEnd}: MC 1.21.11 has no such hook, and doing it the same way in both
- * copies of this file keeps the two Minecraft lines from drifting apart any further than the
- * API differences already force them to.
  */
 public final class ItemBehaviourTests {
 
@@ -85,7 +81,8 @@ public final class ItemBehaviourTests {
         helper.assertTrue(logAxis(helper, log) == Direction.Axis.Z,
                 "clicking the north rim did not align the log along Z, got " + logAxis(helper, log));
 
-        finish(helper, player);
+        MockPlayers.remove(helper, player);
+        helper.succeed();
     }
 
     /**
@@ -122,7 +119,8 @@ public final class ItemBehaviourTests {
                 "the rotator claimed to have rotated plain stone, result was " + result);
         helper.assertBlockPresent(Blocks.STONE, stone);
 
-        finish(helper, player);
+        MockPlayers.remove(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -158,7 +156,8 @@ public final class ItemBehaviourTests {
                         .tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, 8), player),
                 "the reinforced bundle refused stone");
 
-        finish(helper, player);
+        MockPlayers.remove(helper, player);
+        helper.succeed();
     }
 
     /**
@@ -192,7 +191,8 @@ public final class ItemBehaviourTests {
         helper.assertTrue(drawer > plain,
                 "Drawer did not raise the capacity (" + drawer + " vs " + plain + ")");
 
-        finish(helper, player);
+        MockPlayers.remove(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -238,7 +238,8 @@ public final class ItemBehaviourTests {
                 "the detector stored the wrong custom block: " + nbt.getCompoundOrEmpty("CustomBlock"));
 
         player.setShiftKeyDown(false);
-        finish(helper, player);
+        MockPlayers.remove(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -295,7 +296,8 @@ public final class ItemBehaviourTests {
                 "sneak-using the octant in the air did not clear the selection");
 
         player.setShiftKeyDown(false);
-        finish(helper, player);
+        MockPlayers.remove(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -349,6 +351,7 @@ public final class ItemBehaviourTests {
                     "the wand built the plane without paying for it out of the inventory");
 
             MockPlayers.remove(helper, player);
+
         });
     }
 
@@ -368,10 +371,6 @@ public final class ItemBehaviourTests {
         return player;
     }
 
-    private static void finish(GameTestHelper helper, ServerPlayer player) {
-        MockPlayers.remove(helper, player);
-        helper.succeed();
-    }
 
     /**
      * Right clicks a block face at a precise spot on that face. The offset is given inside the

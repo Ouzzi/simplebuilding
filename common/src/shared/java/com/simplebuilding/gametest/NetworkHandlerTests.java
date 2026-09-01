@@ -104,7 +104,7 @@ public final class NetworkHandlerTests {
         ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), player);
         helper.assertTrue(player.fallDistance == 7.5F, "a barefoot player got an air jump");
 
-        finish(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -140,7 +140,7 @@ public final class NetworkHandlerTests {
         helper.assertTrue(!trimUser.simplebuilding$areTrimBenefitsEnabled(),
                 "disabling the armour trim benefits never reached the server");
 
-        finish(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -168,7 +168,7 @@ public final class NetworkHandlerTests {
         helper.assertTrue(customData(notAWand).isEmpty(),
                 "the wand settings were written onto an unrelated item");
 
-        finish(helper, player);
+        helper.succeed();
     }
 
     /** The octant screen sends its whole state in one payload; all of it has to land in the item. */
@@ -198,7 +198,7 @@ public final class NetworkHandlerTests {
         helper.assertTrue(nbt.getString("FillOrder").orElse("").equals(fillOrder),
                 "the fill order was not stored");
 
-        finish(helper, player);
+        helper.succeed();
     }
 
     /**
@@ -253,7 +253,7 @@ public final class NetworkHandlerTests {
         helper.assertTrue(Arrays.equals(intArray(customData(octant), "Pos1"), new int[]{10, 17, 30}),
                 "looking down did not move the first corner downwards");
 
-        finish(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -314,7 +314,7 @@ public final class NetworkHandlerTests {
         helper.assertTrue(player.getMainHandItem().isEmpty(),
                 "an unenchanted bundle handed out its content anyway");
 
-        finish(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -326,14 +326,13 @@ public final class NetworkHandlerTests {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         Vec3 pos = helper.absoluteVec(new Vec3(1.5, 1.0, 1.5));
         player.snapTo(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+        // Hand the player back no matter how the test ends. A leaked mock player keeps the
+        // player list non-empty and the gametest server then stalls on shutdown - a failing
+        // test would cost minutes of wall clock instead of seconds.
+        helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
         return player;
     }
 
-    /** Hands the mock player back and reports success; see {@link #mockPlayer}. */
-    private static void finish(GameTestHelper helper, ServerPlayer player) {
-        helper.getLevel().getServer().getPlayerList().remove(player);
-        helper.succeed();
-    }
 
     private static void look(ServerPlayer player, float yRot, float xRot) {
         player.snapTo(player.getX(), player.getY(), player.getZ(), yRot, xRot);

@@ -134,9 +134,19 @@ public class Simplebuilding implements ModInitializer {
                 net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, payload);
             }
         });
-        PlatformServices.setHopperSync((blockEntity, slot, stack) -> net.fabricmc.fabric.api.networking.v1.PlayerLookup.tracking(blockEntity)
-                .forEach(player -> net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(
-                        player, new SyncHopperGhostItemPayload(blockEntity.getBlockPos(), slot, stack))));
+        // The canSend guard is not cosmetic here: NeoForge refuses to send a payload over a
+        // connection that has not negotiated the channel and throws from inside
+        // ModHopperBlockEntity#setGhostItem. Fabric is permissive, so the same code path used to
+        // behave differently on the two loaders. Filtering on both keeps them identical.
+        PlatformServices.setHopperSync((blockEntity, slot, stack) -> {
+            var payload = new SyncHopperGhostItemPayload(blockEntity.getBlockPos(), slot, stack);
+            for (net.minecraft.server.level.ServerPlayer player
+                    : net.fabricmc.fabric.api.networking.v1.PlayerLookup.tracking(blockEntity)) {
+                if (PlatformServices.canSendToPlayer(player, SyncHopperGhostItemPayload.ID)) {
+                    net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player, payload);
+                }
+            }
+        });
         ModMessages.registerC2SPackets();
     }
 

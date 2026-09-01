@@ -35,7 +35,9 @@
       "com.simplebuilding.gametest.DataIntegrityGameTest",
       "com.simplebuilding.gametest.TradeRegistryGameTest",
       "com.simplebuilding.gametest.NetworkHandlerGameTest",
-      "com.simplebuilding.gametest.ItemBehaviourGameTest"
+      "com.simplebuilding.gametest.ItemBehaviourGameTest",
+      "com.simplebuilding.gametest.EnchantmentEffectGameTest",
+      "com.simplebuilding.gametest.HopperAndTrimGameTest"
     ]
   },
   "mixins": [

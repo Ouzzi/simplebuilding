@@ -85,7 +85,7 @@ public final class ItemBehaviourTests {
         helper.assertTrue(logAxis(helper, log) == Direction.Axis.Z,
                 "clicking the north rim did not align the log along Z, got " + logAxis(helper, log));
 
-        finish(helper, player);
+        helper.succeed();
     }
 
     /**
@@ -122,7 +122,7 @@ public final class ItemBehaviourTests {
                 "the rotator claimed to have rotated plain stone, result was " + result);
         helper.assertBlockPresent(Blocks.STONE, stone);
 
-        finish(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -158,7 +158,7 @@ public final class ItemBehaviourTests {
                         .tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, 8), player),
                 "the reinforced bundle refused stone");
 
-        finish(helper, player);
+        helper.succeed();
     }
 
     /**
@@ -192,7 +192,7 @@ public final class ItemBehaviourTests {
         helper.assertTrue(drawer > plain,
                 "Drawer did not raise the capacity (" + drawer + " vs " + plain + ")");
 
-        finish(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -238,7 +238,7 @@ public final class ItemBehaviourTests {
                 "the detector stored the wrong custom block: " + nbt.getCompoundOrEmpty("CustomBlock"));
 
         player.setShiftKeyDown(false);
-        finish(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -295,7 +295,7 @@ public final class ItemBehaviourTests {
                 "sneak-using the octant in the air did not clear the selection");
 
         player.setShiftKeyDown(false);
-        finish(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -348,7 +348,6 @@ public final class ItemBehaviourTests {
             helper.assertTrue(player.getInventory().countItem(Items.STONE) < 64,
                     "the wand built the plane without paying for it out of the inventory");
 
-            helper.getLevel().getServer().getPlayerList().remove(player);
         });
     }
 
@@ -369,10 +368,6 @@ public final class ItemBehaviourTests {
         return player;
     }
 
-    private static void finish(GameTestHelper helper, ServerPlayer player) {
-        helper.getLevel().getServer().getPlayerList().remove(player);
-        helper.succeed();
-    }
 
     /**
      * Right clicks a block face at a precise spot on that face. The offset is given inside the

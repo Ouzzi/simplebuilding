@@ -104,7 +104,8 @@ public final class NetworkHandlerTests {
         ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), player);
         helper.assertTrue(player.fallDistance == 7.5F, "a barefoot player got an air jump");
 
-        finish(helper, player);
+        MockPlayers.remove(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -140,7 +141,8 @@ public final class NetworkHandlerTests {
         helper.assertTrue(!trimUser.simplebuilding$areTrimBenefitsEnabled(),
                 "disabling the armour trim benefits never reached the server");
 
-        finish(helper, player);
+        MockPlayers.remove(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -168,7 +170,8 @@ public final class NetworkHandlerTests {
         helper.assertTrue(customData(notAWand).isEmpty(),
                 "the wand settings were written onto an unrelated item");
 
-        finish(helper, player);
+        MockPlayers.remove(helper, player);
+        helper.succeed();
     }
 
     /** The octant screen sends its whole state in one payload; all of it has to land in the item. */
@@ -198,7 +201,8 @@ public final class NetworkHandlerTests {
         helper.assertTrue(nbt.getString("FillOrder").orElse("").equals(fillOrder),
                 "the fill order was not stored");
 
-        finish(helper, player);
+        MockPlayers.remove(helper, player);
+        helper.succeed();
     }
 
     /**
@@ -253,7 +257,8 @@ public final class NetworkHandlerTests {
         helper.assertTrue(Arrays.equals(intArray(customData(octant), "Pos1"), new int[]{10, 17, 30}),
                 "looking down did not move the first corner downwards");
 
-        finish(helper, player);
+        MockPlayers.remove(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -314,7 +319,8 @@ public final class NetworkHandlerTests {
         helper.assertTrue(player.getMainHandItem().isEmpty(),
                 "an unenchanted bundle handed out its content anyway");
 
-        finish(helper, player);
+        MockPlayers.remove(helper, player);
+        helper.succeed();
     }
 
     // =====================================================================================
@@ -328,11 +334,6 @@ public final class NetworkHandlerTests {
         return player;
     }
 
-    /** Hands the mock player back and reports success; see {@link #mockPlayer}. */
-    private static void finish(GameTestHelper helper, ServerPlayer player) {
-        MockPlayers.remove(helper, player);
-        helper.succeed();
-    }
 
     private static void look(ServerPlayer player, float yRot, float xRot) {
         player.snapTo(player.getX(), player.getY(), player.getZ(), yRot, xRot);
