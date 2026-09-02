@@ -184,6 +184,17 @@ a.slot:hover { border-color: var(--accent); text-decoration: none; }
 main { overflow-wrap: anywhere; }
 .hero-tex { width: 128px; height: 128px; background: var(--slot-bg); border: 1px solid var(--slot-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex: none; text-align: center; color: var(--muted); font-size: .8rem; padding: .4rem; }
 .hero-tex img { width: 96px; height: 96px; image-rendering: pixelated; image-rendering: crisp-edges; }
+
+/* 3D-Ansicht eines Blocks: drei Flaechen, per CSS-Transform zum Wuerfel
+   gestellt - kein WebGL und kein Build noetig. Die Abstufung der Helligkeit
+   ahmt die Beleuchtung im Spiel nach, damit die Kanten sichtbar bleiben,
+   wenn alle drei Flaechen dieselbe Textur tragen. */
+.hero-tex.is-cube { perspective: 640px; }
+.cube { width: 72px; height: 72px; position: relative; transform-style: preserve-3d; transform: rotateX(-20deg) rotateY(-45deg); }
+.cube span { position: absolute; inset: 0; background-size: 100% 100%; background-repeat: no-repeat; image-rendering: pixelated; image-rendering: crisp-edges; }
+.cube .f-top { transform: rotateX(90deg) translateZ(36px); }
+.cube .f-front { transform: translateZ(36px); filter: brightness(.88); }
+.cube .f-side { transform: rotateY(90deg) translateZ(36px); filter: brightness(.72); }
 .hero .en { color: var(--muted); font-size: 1.05rem; }
 .hero .idline { margin: .4rem 0; }
 .hero .idline code { font-size: .9rem; }
@@ -964,7 +975,25 @@ function idLink(id, hint) {
   var href = hrefFor(id, hint);
   return href ? '<a href="' + esc(href) + '"><code>' + esc(id) + '</code></a>' : '<code>' + esc(id) + '</code>';
 }
-function textureOf(id) { var i = IX.items.get(id), b = IX.blocks.get(id); return (i && i.texture) || (b && b.texture) || null; }
+/* Vanilla-Texturen legt generate.py flach unter einem Namen je Id ab, deshalb
+   reicht die Konvention und es braucht keine Tabelle in den Daten. Fehlt die
+   Datei (Generator noch nie gelaufen), faengt der error-Handler das Bild ab
+   und ersetzt es durch die Textkachel. */
+function vanillaTexture(id) { return 'assets/textures/minecraft/' + pathOf(id) + '.png'; }
+/* Isometrischer Wuerfel aus den drei Flaechen, die generate.py aus dem
+   Blockmodell gezogen hat. Fehlen sie - Trichter, Kolben, alles ohne
+   Wuerfelform -, faellt die Seite auf die flache Textur zurueck. */
+function cubeHtml(faces) {
+  if (!isObj(faces) || !faces.top || !faces.side || !faces.front) return '';
+  function face(cls, src) { return '<span class="' + cls + '" style="background-image:url(' + esc(encodeURI(src)) + ')"></span>'; }
+  return '<div class="cube">' + face('f-top', faces.top) + face('f-front', faces.front) + face('f-side', faces.side) + '</div>';
+}
+function textureOf(id) {
+  var i = IX.items.get(id), b = IX.blocks.get(id);
+  var own = (i && i.texture) || (b && b.texture) || null;
+  if (own) return own;
+  return isVanilla(id) ? vanillaTexture(id) : null;
+}
 function shortTag(ref) { var p = pathOf(ref); return p; }
 function slotHtml(ref, count, opts) {
   opts = opts || {};
@@ -1398,7 +1427,10 @@ function entryPage(id, kind) {
   var de = nameDe(e), en = nameEn(e), main = nameOf(e) || prettyFromId(id), alt = nameAlt(e);
   var tex = textureOf(id);
   var h = crumbs([{ label: isBlock ? T('navBlocks') : T('navItems'), href: '#/' + kind }, { label: main }]);
-  h += '<div class="hero"><div class="hero-tex">' + (tex ? '<img src="' + esc(tex) + '" alt="' + esc(main) + '" data-name="' + esc(main) + '">' : T('noTexture')) + '</div><div>';
+  var cube = isBlock ? cubeHtml(e.faces) : '';
+  h += '<div class="hero"><div class="hero-tex' + (cube ? ' is-cube' : '') + '">'
+     + (cube || (tex ? '<img src="' + esc(tex) + '" alt="' + esc(main) + '" data-name="' + esc(main) + '">' : T('noTexture')))
+     + '</div><div>';
   h += '<h1>' + esc(main) + '</h1>';
   if (alt && alt !== main) h += '<div class="en">' + esc(alt) + ' <span class="tiny">(' + (LANG === 'de' ? 'en_us' : 'de_de') + ')</span></div>';
   else if (!de && en) h += '<div class="en tiny">' + esc(T('nameOnlyEn')) + '</div>';

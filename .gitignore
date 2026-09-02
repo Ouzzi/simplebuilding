@@ -54,3 +54,7 @@ src/main/generated/.cache/
 
 # Client gametest run directory
 build/run/
+
+# Vanilla-Texturen, die wiki/generate.py aus dem Minecraft-Client-Jar zieht.
+# Mojang-Assets gehoeren nicht ins Repository; ein Generatorlauf holt sie lokal.
+wiki/assets/textures/minecraft/

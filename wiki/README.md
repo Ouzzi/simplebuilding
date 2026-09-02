@@ -26,6 +26,8 @@ Das ist der Kern des Aufbaus, deshalb ausführlich.
 |---|---|
 | Items, Blöcke, Namen | `src/main/resources/assets/simplebuilding/lang/*.json` |
 | Texturen | `src/main/generated/assets/simplebuilding/models/**` → `textures/**` |
+| 3D-Ansicht der Blöcke | dieselben Blockmodelle: Ober-, Seiten- und Vorderseite je Block |
+| Vanilla-Texturen der Zutaten | `minecraft-client.jar` im Gradle-Cache (nicht im Repo, s. u.) |
 | Rezepte | `src/main/generated/data/simplebuilding/recipe/**` |
 | Loot-Tabellen | `src/main/generated/data/simplebuilding/loot_table/**` |
 | Handel | `src/main/resources/data/simplebuilding/villager_trade/**` |
@@ -61,6 +63,39 @@ Zwei Dinge dazu:
 * `src/main/generated` ist ein Ressourcenverzeichnis, deshalb schließt
   `processResources` in `build.gradle` `wiki/**` aus – der Export ist eine
   Bauzeit-Zutat und gehört nicht ins Mod-Jar.
+
+### 3D-Ansicht der Blöcke
+
+Der Generator zieht aus jedem Blockmodell die drei sichtbaren Flächen
+(`top`, `side`, `front`) und legt sie als `faces` an den Blockeintrag. Die App
+stellt daraus per CSS-Transform einen isometrischen Würfel – kein WebGL, kein
+Build. Nur würfelartige Modelle bekommen einen (`cube_all`, `cube`,
+`orientable`, `cube_bottom_top`, …); Trichter, Kolben und Kolbenköpfe haben eine
+Form, die drei Quadrate nicht abbilden, und behalten die flache Textur. Aktuell
+sind das 23 von 29 Blöcken.
+
+### Vanilla-Texturen
+
+Zutaten wie `minecraft:stick` erschienen früher als Textkachel, weil Mojangs
+Assets nicht im Repository liegen – und dort auch nicht hingehören. Der
+Generator holt sich deshalb **nur die tatsächlich referenzierten** Vanilla-Ids
+aus dem Client-Jar im Gradle-Cache
+(`~/.gradle/caches/fabric-loom/<version>/minecraft-client.jar`) und legt sie
+flach unter `wiki/assets/textures/minecraft/<name>.png` ab. Das Verzeichnis steht
+in `.gitignore`.
+
+Zwei Folgen davon:
+
+* Ein frisch geklontes Wiki zeigt diese Zutaten erst nach einem
+  `python wiki/generate.py`-Lauf; bis dahin bleibt es bei der Textkachel.
+* Die Zuordnung steht **nicht** in der erzeugten JSON, sondern folgt der
+  Konvention „ein Bild je Id". Sonst hinge `--check` am Vorhandensein des
+  Gradle-Caches und schlüge auf einem Rechner fehl, der die Mod nie gebaut hat.
+
+Wo eine Id weder `item/<name>.png` noch `block/<name>.png` hat (Ofen, Kolben,
+Kompass), wird ihr Modell gelesen und dessen erste vorhandene Texturreferenz
+genommen. Übrig bleibt derzeit genau eine Id: `minecraft:fly_into_wall` – ein
+Schadenstyp aus einem Tag, der zu Recht kein Bild hat.
 
 Noch nicht dabei ist die Bündel-Kapazität: Sie hängt an
 `ReinforcedBundleItem.getTierCapacityMultiplier(ItemStack)`, und im Datagen lässt

@@ -7775,6 +7775,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/astral_end_stone.png",
+        "side": "assets/textures/block/astral_end_stone.png",
+        "front": "assets/textures/block/astral_end_stone.png"
+      },
       "lootTable": "simplebuilding:blocks/astral_end_stone",
       "drops": [
         "simplebuilding:astral_end_stone"
@@ -7792,6 +7797,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/astral_purpur_block.png",
+        "side": "assets/textures/block/astral_purpur_block.png",
+        "front": "assets/textures/block/astral_purpur_block.png"
+      },
       "lootTable": "simplebuilding:blocks/astral_purpur_block",
       "drops": [
         "simplebuilding:astral_purpur_block"
@@ -7807,6 +7817,11 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/astralit_ore.png",
+        "side": "assets/textures/block/astralit_ore.png",
+        "front": "assets/textures/block/astralit_ore.png"
+      },
       "lootTable": "simplebuilding:blocks/astralit_ore",
       "drops": [
         "simplebuilding:astralit_dust",
@@ -7825,6 +7840,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/blackstone_quartz_checker.png",
+        "side": "assets/textures/block/blackstone_quartz_checker.png",
+        "front": "assets/textures/block/blackstone_quartz_checker_mirror.png"
+      },
       "lootTable": "simplebuilding:blocks/blackstone_quartz_checker",
       "drops": [
         "simplebuilding:blackstone_quartz_checker"
@@ -7843,6 +7863,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/construction_light.png",
+        "side": "assets/textures/block/construction_light.png",
+        "front": "assets/textures/block/construction_light.png"
+      },
       "lootTable": "simplebuilding:blocks/construction_light",
       "drops": [
         "simplebuilding:construction_light"
@@ -7863,6 +7888,11 @@ window.WIKI_DATA = {
         "simplebuilding:cracked_diamond_from_cracked_diamond_block"
       ],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/cracked_diamond_block.png",
+        "side": "assets/textures/block/cracked_diamond_block.png",
+        "front": "assets/textures/block/cracked_diamond_block.png"
+      },
       "lootTable": "simplebuilding:blocks/cracked_diamond_block",
       "drops": [
         "simplebuilding:cracked_diamond_block"
@@ -7880,6 +7910,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/lapis_quartz_checker.png",
+        "side": "assets/textures/block/lapis_quartz_checker.png",
+        "front": "assets/textures/block/lapis_quartz_checker_mirror.png"
+      },
       "lootTable": "simplebuilding:blocks/lapis_quartz_checker",
       "drops": [
         "simplebuilding:lapis_quartz_checker"
@@ -7897,6 +7932,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/levitating_gravel.png",
+        "side": "assets/textures/block/levitating_gravel.png",
+        "front": "assets/textures/block/levitating_gravel.png"
+      },
       "lootTable": "simplebuilding:blocks/levitating_gravel",
       "drops": [
         "simplebuilding:levitating_gravel"
@@ -7953,6 +7993,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/levitating_sand.png",
+        "side": "assets/textures/block/levitating_sand.png",
+        "front": "assets/textures/block/levitating_sand.png"
+      },
       "lootTable": "simplebuilding:blocks/levitating_sand",
       "drops": [
         "simplebuilding:levitating_sand"
@@ -8009,6 +8054,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/netherite_blast_furnace_top.png",
+        "side": "assets/textures/block/netherite_blast_furnace_side.png",
+        "front": "assets/textures/block/netherite_blast_furnace_front.png"
+      },
       "lootTable": "simplebuilding:blocks/netherite_blast_furnace",
       "drops": [
         "simplebuilding:netherite_blast_furnace"
@@ -8089,6 +8139,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/netherite_furnace_top.png",
+        "side": "assets/textures/block/netherite_furnace_side.png",
+        "front": "assets/textures/block/netherite_furnace_front.png"
+      },
       "lootTable": "simplebuilding:blocks/netherite_furnace",
       "drops": [
         "simplebuilding:netherite_furnace"
@@ -8300,6 +8355,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/netherite_smoker_top.png",
+        "side": "assets/textures/block/netherite_smoker_side.png",
+        "front": "assets/textures/block/netherite_smoker_front.png"
+      },
       "lootTable": "simplebuilding:blocks/netherite_smoker",
       "drops": [
         "simplebuilding:netherite_smoker"
@@ -8367,6 +8427,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/nihil_end_stone.png",
+        "side": "assets/textures/block/nihil_end_stone.png",
+        "front": "assets/textures/block/nihil_end_stone.png"
+      },
       "lootTable": "simplebuilding:blocks/nihil_end_stone",
       "drops": [
         "simplebuilding:nihil_end_stone"
@@ -8384,6 +8449,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/nihil_purpur_block.png",
+        "side": "assets/textures/block/nihil_purpur_block.png",
+        "front": "assets/textures/block/nihil_purpur_block.png"
+      },
       "lootTable": "simplebuilding:blocks/nihil_purpur_block",
       "drops": [
         "simplebuilding:nihil_purpur_block"
@@ -8399,6 +8469,11 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/nihilith_ore.png",
+        "side": "assets/textures/block/nihilith_ore.png",
+        "front": "assets/textures/block/nihilith_ore.png"
+      },
       "lootTable": "simplebuilding:blocks/nihilith_ore",
       "drops": [
         "simplebuilding:nihilith_ore",
@@ -8420,6 +8495,11 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_end_stone"
       ],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/polished_end_stone.png",
+        "side": "assets/textures/block/polished_end_stone.png",
+        "front": "assets/textures/block/polished_end_stone.png"
+      },
       "lootTable": "simplebuilding:blocks/polished_end_stone",
       "drops": [
         "simplebuilding:polished_end_stone"
@@ -8437,6 +8517,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/purpur_quartz_checker.png",
+        "side": "assets/textures/block/purpur_quartz_checker.png",
+        "front": "assets/textures/block/purpur_quartz_checker_mirror.png"
+      },
       "lootTable": "simplebuilding:blocks/purpur_quartz_checker",
       "drops": [
         "simplebuilding:purpur_quartz_checker"
@@ -8457,6 +8542,11 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_blast_furnace_bulk"
       ],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/reinforced_blast_furnace_top.png",
+        "side": "assets/textures/block/reinforced_blast_furnace_side.png",
+        "front": "assets/textures/block/reinforced_blast_furnace_front.png"
+      },
       "lootTable": "simplebuilding:blocks/reinforced_blast_furnace",
       "drops": [
         "simplebuilding:reinforced_blast_furnace"
@@ -8537,6 +8627,11 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_furnace_bulk"
       ],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/reinforced_furnace_top.png",
+        "side": "assets/textures/block/reinforced_furnace_side.png",
+        "front": "assets/textures/block/reinforced_furnace_front.png"
+      },
       "lootTable": "simplebuilding:blocks/reinforced_furnace",
       "drops": [
         "simplebuilding:reinforced_furnace"
@@ -8743,6 +8838,11 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_smoker_bulk"
       ],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/reinforced_smoker_top.png",
+        "side": "assets/textures/block/reinforced_smoker_side.png",
+        "front": "assets/textures/block/reinforced_smoker_front.png"
+      },
       "lootTable": "simplebuilding:blocks/reinforced_smoker",
       "drops": [
         "simplebuilding:reinforced_smoker"
@@ -8808,6 +8908,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/resin_quartz_checker.png",
+        "side": "assets/textures/block/resin_quartz_checker.png",
+        "front": "assets/textures/block/resin_quartz_checker_mirror.png"
+      },
       "lootTable": "simplebuilding:blocks/resin_quartz_checker",
       "drops": [
         "simplebuilding:resin_quartz_checker"
@@ -8825,6 +8930,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/suspended_gravel.png",
+        "side": "assets/textures/block/suspended_gravel.png",
+        "front": "assets/textures/block/suspended_gravel.png"
+      },
       "lootTable": "simplebuilding:blocks/suspended_gravel",
       "drops": [
         "simplebuilding:suspended_gravel"
@@ -8873,6 +8983,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/suspended_sand.png",
+        "side": "assets/textures/block/suspended_sand.png",
+        "front": "assets/textures/block/suspended_sand.png"
+      },
       "lootTable": "simplebuilding:blocks/suspended_sand",
       "drops": [
         "simplebuilding:suspended_sand"

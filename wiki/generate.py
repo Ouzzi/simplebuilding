@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import zipfile
 import os
 import fnmatch
 import re
@@ -50,6 +51,7 @@ LINES = {
         "resource_assets": "src/main/resources/assets/simplebuilding",
         "config": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
         "item_properties": "src/main/generated/wiki/items.json",
+        "client_jar_version": "26.2",
     },
     "1.21.11": {
         "generated_data": "mc1_21_11/fabric/src/main/generated/data/simplebuilding",
@@ -58,6 +60,7 @@ LINES = {
         "resource_assets": "mc1_21_11/fabric/src/main/resources/assets/simplebuilding",
         "config": "mc1_21_11/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
         "item_properties": "mc1_21_11/fabric/src/main/generated/wiki/items.json",
+        "client_jar_version": "1.21.11",
     },
 }
 
@@ -154,19 +157,88 @@ def texture_for(roots: dict, kind: str, item_id: str) -> str | None:
     candidates.append(f"{NS}:{kind}/{name}")
 
     for candidate in candidates:
-        if not is_ours(candidate):
+        copied = copy_own_texture(roots, candidate)
+        if copied:
+            return copied
+    return None
+
+
+def copy_own_texture(roots: dict, reference: str) -> str | None:
+    """
+    Copy one of this mod's textures into wiki/assets and return its path
+    relative to the wiki folder.
+
+    Copied rather than referenced through "../": a path that climbs out of the
+    wiki folder breaks the moment the folder is served or copied on its own,
+    and a wiki that only works from inside the repo checkout is not much of a
+    wiki.
+    """
+    if not is_ours(reference):
+        return None
+    png = REPO / roots["resource_assets"] / "textures" / (short(reference) + ".png")
+    if not png.exists():
+        return None
+    target = WIKI / "assets" / "textures" / (short(reference) + ".png")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    payload = png.read_bytes()
+    if not target.exists() or target.read_bytes() != payload:
+        target.write_bytes(payload)
+    return target.relative_to(WIKI).as_posix()
+
+
+# Modelle, aus denen sich ein Wuerfel zeichnen laesst. Alles andere - Trichter,
+# Kolben, Kolbenkopf - hat eine Form, die drei Quadrate nicht abbilden; dort
+# bleibt es bei der flachen Textur.
+CUBE_PARENTS = {
+    "minecraft:block/cube_all",
+    "minecraft:block/cube",
+    "minecraft:block/cube_column",
+    "minecraft:block/cube_bottom_top",
+    "minecraft:block/cube_top",
+    "minecraft:block/orientable",
+    "minecraft:block/orientable_with_bottom",
+}
+
+
+def block_faces(roots: dict, block_id: str) -> dict | None:
+    """
+    Die drei sichtbaren Flaechen eines isometrischen Wuerfels: Oberseite,
+    Seite, Vorderseite. Die App zeichnet daraus per CSS-Transform einen
+    Wuerfel - kein WebGL, kein Build.
+
+    Nur fuer wuerfelartige Modelle; sonst None, damit die App auf die flache
+    Textur zurueckfaellt.
+    """
+    name = short(block_id)
+    for model_dir in (REPO / roots["generated_assets"] / "models" / "block",
+                      REPO / roots["resource_assets"] / "models" / "block"):
+        model_path = model_dir / f"{name}.json"
+        if not model_path.exists():
             continue
-        png = REPO / roots["resource_assets"] / "textures" / (short(candidate) + ".png")
-        if png.exists():
-            # Copied into wiki/assets rather than referenced through "../": a path that
-            # climbs out of the wiki folder breaks the moment the folder is served or
-            # copied on its own, and a wiki that only works from inside the repo checkout
-            # is not much of a wiki.
-            target = WIKI / "assets" / "textures" / (short(candidate) + ".png")
-            target.parent.mkdir(parents=True, exist_ok=True)
-            if not target.exists() or target.read_bytes() != png.read_bytes():
-                target.write_bytes(png.read_bytes())
-            return target.relative_to(WIKI).as_posix()
+        try:
+            model = read_json(model_path)
+        except json.JSONDecodeError:
+            return None
+        if model.get("parent") not in CUBE_PARENTS:
+            return None
+        textures = model.get("textures", {})
+
+        def pick(*keys):
+            for key in keys:
+                value = textures.get(key)
+                if isinstance(value, str):
+                    return value
+            return None
+
+        top = pick("top", "up", "end", "all")
+        side = pick("side", "west", "south", "all")
+        front = pick("front", "north", "side", "west", "all")
+        if not (top and side and front):
+            return None
+        faces = {"top": copy_own_texture(roots, top),
+                 "side": copy_own_texture(roots, side),
+                 "front": copy_own_texture(roots, front)}
+        return faces if all(faces.values()) else None
     return None
 
 
@@ -536,6 +608,9 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
             if props:
                 entry["properties"] = props
             if kind == "block":
+                faces = block_faces(roots, identifier)
+                if faces:
+                    entry["faces"] = faces
                 table = loot_by_block.get(name)
                 if table:
                     entry["lootTable"] = table["id"]
@@ -544,6 +619,108 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
         return entries
 
     return build("item", f"item.{NS}."), build("block", f"block.{NS}.")
+
+
+# ---------------------------------------------------------------------------
+# vanilla textures
+# ---------------------------------------------------------------------------
+
+VANILLA_TEXTURE_DIR = "assets/textures/minecraft"
+
+
+def vanilla_ids(recipes, loot_tables, trades, tags) -> set[str]:
+    """Every minecraft: id the wiki actually shows in a slot."""
+    found: set[str] = set()
+
+    def add(value):
+        identifier = value if isinstance(value, str) else (value or {}).get("id")
+        if isinstance(identifier, str) and identifier.startswith("minecraft:"):
+            found.add(identifier)
+
+    for recipe in recipes:
+        add(recipe["result"].get("id"))
+        for ingredient in recipe["ingredients"]:
+            add(ingredient)
+    for table in loot_tables:
+        for pool in table["pools"]:
+            for item in pool["items"]:
+                add(item)
+    for trade in trades:
+        for stack in (trade["wants"], trade["alsoWants"], trade["gives"]):
+            add(stack)
+    for tag in tags:
+        for value in tag["values"]:
+            add(value)
+    return found
+
+
+def copy_vanilla_textures(roots: dict, ids: set[str]) -> dict:
+    """
+    Pull the referenced vanilla textures out of the Minecraft client jar in the
+    Gradle cache into wiki/assets/textures/minecraft/.
+
+    Mojang's assets do not belong in the repository, so the folder is in
+    .gitignore and a fresh clone shows text tiles until generate.py has run
+    once. Everything is written flat under one name per id: the app therefore
+    builds the path by convention and needs no lookup table, which keeps the
+    generated JSON independent of whether the Gradle cache happens to exist -
+    otherwise --check would fail on a machine that has never built the mod.
+
+    Item textures win over block textures where both exist: a slot shows the
+    item icon.
+    """
+    version = roots.get("client_jar_version")
+    jar = Path.home() / ".gradle" / "caches" / "fabric-loom" / str(version) / "minecraft-client.jar"
+    state = {"jar": str(jar), "present": jar.exists(), "referenced": len(ids), "copied": 0, "missing": []}
+    if not jar.exists():
+        state["missing"] = sorted(ids)
+        return state
+
+    out_dir = WIKI / "assets" / "textures" / "minecraft"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(jar) as archive:
+        names = set(archive.namelist())
+        def texture_entries(name: str):
+            """
+            Direct hit first: most ids are item/<name>.png or block/<name>.png.
+            Blocks with per face textures (furnace, piston, quartz_block) and
+            items with a numbered model (compass) have neither, so their model
+            is read and its first existing texture reference wins - the same
+            approach texture_for() already uses for this mod's own blocks.
+            """
+            for folder in ("item", "block"):
+                yield f"assets/minecraft/textures/{folder}/{name}.png"
+            for folder in ("item", "block"):
+                model_entry = f"assets/minecraft/models/{folder}/{name}.json"
+                if model_entry not in names:
+                    continue
+                try:
+                    model = json.loads(archive.read(model_entry).decode("utf-8"))
+                except (json.JSONDecodeError, UnicodeDecodeError):
+                    continue
+                textures = model.get("textures", {})
+                ordered = [textures[k] for k in ("layer0", "all", "front", "side", "top", "end", "particle")
+                           if isinstance(textures.get(k), str)]
+                ordered += [v for v in textures.values() if isinstance(v, str)]
+                for reference in ordered:
+                    yield f"assets/minecraft/textures/{short(reference)}.png"
+            # Animierte Items (Kompass, Uhr) haben nur nummerierte Einzelbilder.
+            yield f"assets/minecraft/textures/item/{name}_00.png"
+
+        for identifier in sorted(ids):
+            name = short(identifier)
+            for entry in texture_entries(name):
+                if entry not in names:
+                    continue
+                payload = archive.read(entry)
+                target = out_dir / f"{name}.png"
+                if not target.exists() or target.read_bytes() != payload:
+                    target.write_bytes(payload)
+                state["copied"] += 1
+                break
+            else:
+                state["missing"].append(identifier)
+    return state
 
 
 # ---------------------------------------------------------------------------
@@ -615,6 +792,12 @@ def build(line: str) -> tuple[dict, list[str]]:
     enchantments = collect_enchantments(roots, lang)
     tags = collect_tags(roots)
     config = collect_config(roots, lang)
+    # Vanilla-Texturen aus dem Client-Jar holen, damit Zutaten wie
+    # minecraft:stick nicht als Textkachel erscheinen. Bewusst nicht im
+    # Payload: der Jar-Pfad ist maschinenabhaengig und der Cache kann fehlen -
+    # beides wuerde checkWiki zwischen Rechnern flattern lassen.
+    vanilla = copy_vanilla_textures(roots, vanilla_ids(recipes, loot_tables, trades, tags))
+
     item_properties = load_item_properties(roots)
     items, blocks = collect_items_and_blocks(roots, lang, recipes, loot_tables, trades, item_properties)
 
@@ -716,7 +899,7 @@ def build(line: str) -> tuple[dict, list[str]]:
         },
         "undocumented": undocumented,
     }
-    return data, undocumented
+    return data, undocumented, vanilla
 
 
 def main() -> int:
@@ -731,7 +914,7 @@ def main() -> int:
                              "the Gradle checkWiki task runs.")
     args = parser.parse_args()
 
-    data, undocumented = build(args.line)
+    data, undocumented, vanilla = build(args.line)
     payload = json.dumps(data, indent=2, ensure_ascii=False, sort_keys=False)
 
     props_state = data["generatedFrom"]["itemProperties"]
@@ -764,6 +947,17 @@ def main() -> int:
     if missing_props:
         print(f"WARNING: {props_state['source']} is missing - item properties are omitted.")
         print("         Run  gradlew runDatagen  to export them from the item registry.")
+
+    if vanilla["present"]:
+        print(f"Vanilla textures: {vanilla['copied']} of {vanilla['referenced']} referenced ids "
+              f"copied into wiki/{VANILLA_TEXTURE_DIR}/")
+        if vanilla["missing"]:
+            print(f"  no texture in the client jar for: {', '.join(vanilla['missing'][:8])}"
+                  + (" ..." if len(vanilla["missing"]) > 8 else ""))
+    else:
+        print(f"WARNING: no Minecraft client jar at {vanilla['jar']}")
+        print(f"         {vanilla['referenced']} vanilla ingredients stay text tiles. "
+              "Build the mod once so Gradle downloads it.")
 
     write_atomic(WIKI / "data" / "simplebuilding.json", payload + "\n")
     write_atomic(WIKI / "data" / "simplebuilding.js",
