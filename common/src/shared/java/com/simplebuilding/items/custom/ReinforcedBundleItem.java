@@ -22,6 +22,7 @@ import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.BundleItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.TooltipFlag;
@@ -453,20 +454,41 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
     protected Fraction getTierCapacityMultiplier(ItemStack stack) {
-        if (stack.is(ModItems.ENDERITE_BUNDLE)) {
+        return getTierCapacityMultiplier(stack.getItem());
+    }
+
+    /**
+     * Dieselbe Stufentabelle ohne Stack. Im Datagen laesst sich keiner bauen:
+     * der ItemStack-Konstruktor liest ab MC 26.2 die Komponenten, die dort noch
+     * nicht gebunden sind. Der Wiki-Export braucht die Stufe trotzdem, und eine
+     * zweite Tabelle im Generator waere eine zweite Wahrheit.
+     */
+    protected Fraction getTierCapacityMultiplier(Item item) {
+        if (item == ModItems.ENDERITE_BUNDLE) {
             return Fraction.getFraction(3, 1);
         }
-        if (stack.is(ModItems.NETHERITE_BUNDLE)) {
+        if (item == ModItems.NETHERITE_BUNDLE) {
             return Fraction.getFraction(2, 1);
         }
         return Fraction.getFraction(1, 1);
     }
 
-    protected Fraction getMaxCapacity(ItemStack stack, Player player) {
-        Fraction capacity = getTierCapacityMultiplier(stack);
+    /**
+     * Grundkapazitaet als Bruch eines Vanilla-Buendels, ohne Verzauberungen.
+     * Buendel fassen das 1,5-fache ihrer Stufe; Koecher ueberschreiben das.
+     */
+    protected Fraction getBaseCapacity(Item item) {
+        return getTierCapacityMultiplier(item).multiplyBy(Fraction.getFraction(3, 2));
+    }
 
+    /** Grundkapazitaet in Gegenstaenden bei 64er-Stapeln - fuer den Wiki-Export. */
+    public int getBaseCapacityItems() {
+        return getBaseCapacity(this).multiplyBy(Fraction.getFraction(64, 1)).intValue();
+    }
+
+    protected Fraction getMaxCapacity(ItemStack stack, Player player) {
         // Ergebnis: Normal = 96, Netherite = 192, Enderite = 288 Items
-        capacity = capacity.multiplyBy(Fraction.getFraction(3, 2));
+        Fraction capacity = getBaseCapacity(stack.getItem());
 
         if (player == null || player.level() == null) return capacity;
 
@@ -501,8 +523,7 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
     protected Fraction getMaxCapacityForVisuals(ItemStack stack) {
-        Fraction capacity = getTierCapacityMultiplier(stack);
-        capacity = capacity.multiplyBy(Fraction.getFraction(3, 2));
+        Fraction capacity = getBaseCapacity(stack.getItem());
 
         var enchantments = stack.getEnchantments();
         for (var entry : enchantments.entrySet()) {

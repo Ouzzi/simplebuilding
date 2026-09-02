@@ -77,23 +77,18 @@ ist.
     Ob das für die größere Netherit-Variante stimmt, konnte ich nicht sicher
     entscheiden; deshalb steht dazu nichts im Wiki.
 
-## Zwei Baustellen im Wiki-Werkzeug
+## Erledigt am 2026-09-03
 
-15. **Bündel-Kapazität fehlt im Datagen-Export.** Sie hängt an
-    `getTierCapacityMultiplier(ItemStack)`, und im Datagen lässt sich ab MC 26.2
-    kein `ItemStack` bauen – dessen Konstruktor liest Komponenten, die dort noch
-    nicht gebunden sind. Sauber wäre eine verhaltensgleiche Umstellung auf eine
-    item- statt stackbasierte Stufenabfrage in `ReinforcedBundleItem` und
-    `QuiverItem` (vier Dateien, beide Bäume). Die Werte 96/192/288 stehen bis
-    dahin im Fließtext.
-16. **`implementedIn` erkennt „wirkt im Code" über eine Verbotsliste.**
-    `generate.py:353` scannt nur `common/src/shared` und schließt sechs
-    Dateinamen aus. Heute stimmt jedes Urteil – alle 19 Verzauberungen wurden
-    einzeln gegen den Java-Baum geprüft. Aber eine neue Datei, die alle
-    Verzauberungen in einer Schleife erwähnt, kippt schlagartig *alle* auf
-    „code", auch `cover` und `bridge`; und eine Verzauberung, die nur in einem
-    Loader-Modul implementiert wäre, gälte als nicht implementiert. Eine
-    Erlaubnisliste plus Scan der Loader-Bäume wäre robuster.
+- **Bündel-Kapazität** steht jetzt im Datagen-Export: `ReinforcedBundleItem`
+  schlägt die Stufe item- statt stackbasiert nach, `QuiverItem` überschreibt die
+  Grundkapazität. Werte: 96/192/288 (Bündel), 64/128/192 (Köcher) – deckungsgleich
+  mit dem Fließtext. Die In-Game-Suite bleibt bei 54/54.
+- **`implementedIn`-Erkennung gehärtet:** alle Codewurzeln inklusive Loader-Module,
+  Ausschlüsse über repo-relative Pfade statt Namensfragmente, und eine gemessene
+  Schwelle, die eine neu hinzukommende Katalogdatei meldet statt alle
+  Verzauberungen auf „wirkt" zu kippen. Die Urteile blieben unverändert.
+- **`manual.draft.json` gelöscht** – Rohernte der Vorgängersession, seit dem
+  zweisprachigen Umbau überholt und von nichts mehr referenziert.
 
 ## Arbeitsweise, die der Nutzer erwartet
 

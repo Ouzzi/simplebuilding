@@ -16,6 +16,7 @@ import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.context.UseOnContext;
@@ -62,19 +63,26 @@ public class QuiverItem extends ReinforcedBundleItem {
         return super.tryInsertStackFromWorld(bundle, stackToInsert, player);
     }
 
-    protected Fraction getTierCapacityMultiplier(ItemStack stack) {
-        if (stack.is(ModItems.ENDERITE_QUIVER)) {
+    @Override
+    protected Fraction getTierCapacityMultiplier(Item item) {
+        if (item == ModItems.ENDERITE_QUIVER) {
             return Fraction.getFraction(3, 1);
         }
-        if (stack.is(ModItems.NETHERITE_QUIVER)) {
+        if (item == ModItems.NETHERITE_QUIVER) {
             return Fraction.getFraction(2, 1);
         }
         return Fraction.getFraction(1, 1);
     }
 
+    /** Koecher bekommen den 1,5-Faktor des Buendels NICHT: 64 / 128 / 192 Pfeile. */
+    @Override
+    protected Fraction getBaseCapacity(Item item) {
+        return getTierCapacityMultiplier(item);
+    }
+
     @Override
     protected Fraction getMaxCapacity(ItemStack stack, Player player) {
-        Fraction capacity = getTierCapacityMultiplier(stack);
+        Fraction capacity = getBaseCapacity(stack.getItem());
 
         if (player == null || player.level() == null) return capacity;
 
@@ -104,7 +112,7 @@ public class QuiverItem extends ReinforcedBundleItem {
 
     @Override
     protected Fraction getMaxCapacityForVisuals(ItemStack stack) {
-        Fraction capacity = getTierCapacityMultiplier(stack);
+        Fraction capacity = getBaseCapacity(stack.getItem());
 
         var enchantments = stack.getEnchantments();
         for (var entry : enchantments.entrySet()) {

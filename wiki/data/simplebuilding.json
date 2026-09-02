@@ -4188,6 +4188,7 @@
       "usedIn": [],
       "trades": [],
       "properties": {
+        "bundleCapacityItems": 288,
         "maxStackSize": 1
       },
       "note": {
@@ -4669,6 +4670,7 @@
       "usedIn": [],
       "trades": [],
       "properties": {
+        "bundleCapacityItems": 192,
         "maxStackSize": 1
       },
       "note": {
@@ -7222,6 +7224,7 @@
       ],
       "trades": [],
       "properties": {
+        "bundleCapacityItems": 192,
         "maxStackSize": 1
       },
       "note": {
@@ -7896,6 +7899,7 @@
       ],
       "trades": [],
       "properties": {
+        "bundleCapacityItems": 128,
         "maxStackSize": 1
       },
       "note": {
@@ -9094,6 +9098,7 @@
       ],
       "trades": [],
       "properties": {
+        "bundleCapacityItems": 64,
         "maxStackSize": 1
       },
       "note": {
@@ -9356,6 +9361,7 @@
         "simplebuilding:wandering_trader/reinforced_bundle_emerald"
       ],
       "properties": {
+        "bundleCapacityItems": 96,
         "maxStackSize": 1
       },
       "note": {

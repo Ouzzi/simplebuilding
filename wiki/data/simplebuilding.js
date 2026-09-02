@@ -4191,6 +4191,7 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "properties": {
+        "bundleCapacityItems": 288,
         "maxStackSize": 1
       },
       "note": {
@@ -4672,6 +4673,7 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "properties": {
+        "bundleCapacityItems": 192,
         "maxStackSize": 1
       },
       "note": {
@@ -7225,6 +7227,7 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "properties": {
+        "bundleCapacityItems": 192,
         "maxStackSize": 1
       },
       "note": {
@@ -7899,6 +7902,7 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "properties": {
+        "bundleCapacityItems": 128,
         "maxStackSize": 1
       },
       "note": {
@@ -9097,6 +9101,7 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "properties": {
+        "bundleCapacityItems": 64,
         "maxStackSize": 1
       },
       "note": {
@@ -9359,6 +9364,7 @@ window.WIKI_DATA = {
         "simplebuilding:wandering_trader/reinforced_bundle_emerald"
       ],
       "properties": {
+        "bundleCapacityItems": 96,
         "maxStackSize": 1
       },
       "note": {

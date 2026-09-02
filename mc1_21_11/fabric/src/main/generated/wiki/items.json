@@ -138,6 +138,7 @@
       "wandSquareDiameter": 13
     },
     {
+      "bundleCapacityItems": 288,
       "id": "simplebuilding:enderite_bundle",
       "maxStackSize": 1
     },
@@ -197,6 +198,7 @@
       "maxStackSize": 1
     },
     {
+      "bundleCapacityItems": 192,
       "id": "simplebuilding:enderite_quiver",
       "maxStackSize": 1
     },
@@ -338,6 +340,7 @@
       "wandSquareDiameter": 11
     },
     {
+      "bundleCapacityItems": 192,
       "id": "simplebuilding:netherite_bundle",
       "maxStackSize": 1
     },
@@ -369,6 +372,7 @@
       "id": "simplebuilding:netherite_piston"
     },
     {
+      "bundleCapacityItems": 128,
       "id": "simplebuilding:netherite_quiver",
       "maxStackSize": 1
     },
@@ -517,6 +521,7 @@
       "id": "simplebuilding:purpur_quartz_checker"
     },
     {
+      "bundleCapacityItems": 64,
       "id": "simplebuilding:quiver",
       "maxStackSize": 1
     },
@@ -527,6 +532,7 @@
       "id": "simplebuilding:reinforced_blast_furnace"
     },
     {
+      "bundleCapacityItems": 96,
       "id": "simplebuilding:reinforced_bundle",
       "maxStackSize": 1
     },

@@ -74,6 +74,26 @@ Build. Nur würfelartige Modelle bekommen einen (`cube_all`, `cube`,
 Form, die drei Quadrate nicht abbilden, und behalten die flache Textur. Aktuell
 sind das 23 von 29 Blöcken.
 
+### Wirkt eine Verzauberung? (`implementedIn`)
+
+Die meisten Verzauberungen dieser Mod haben keinen datengetriebenen Effekt –
+Aderabbau, Radius, Vielseitigkeit und andere liegen ganz im Java-Code. `effects: {}`
+in der JSON sagt also nichts darüber aus, ob sie wirken. Der Generator sucht
+deshalb zusätzlich nach `ModEnchantments.X` im Spiel-Code und setzt
+`implementedIn` auf `data`, `code`, `both` oder `none`.
+
+Zwei Vorkehrungen halten das ehrlich:
+
+* Gescannt werden **alle** Codewurzeln der Linie, auch die Loader-Module. Eine nur
+  dort implementierte Verzauberung galt vorher als nicht implementiert.
+* Dateien, die jede Verzauberung nennen, ohne ihr Verhalten zu geben – Registrierung,
+  Kreativ-Tab, Loot, Modellauswahl –, stehen in `CATALOGUE_FILES`. Und weil so eine
+  Datei jederzeit neu dazukommen kann (Tooltip-Anbieter, JEI-Anbindung), gilt
+  zusätzlich: Wer mehr als `CATALOGUE_SHARE` (60 %) aller Verzauberungen nennt, wird
+  als Katalog gewertet und **gemeldet**, statt stillschweigend alle auf „wirkt" zu
+  kippen. Gemessene Trennung: die bekannten Kataloge nennen 89–100 % der
+  Verzauberungen, die größte echte Spiel-Code-Datei 37 %.
+
 ### Vanilla-Texturen
 
 Zutaten wie `minecraft:stick` erschienen früher als Textkachel, weil Mojangs
@@ -97,12 +117,13 @@ Kompass), wird ihr Modell gelesen und dessen erste vorhandene Texturreferenz
 genommen. Übrig bleibt derzeit genau eine Id: `minecraft:fly_into_wall` – ein
 Schadenstyp aus einem Tag, der zu Recht kein Bild hat.
 
-Noch nicht dabei ist die Bündel-Kapazität: Sie hängt an
-`ReinforcedBundleItem.getTierCapacityMultiplier(ItemStack)`, und im Datagen lässt
-sich kein `ItemStack` bauen – dessen Konstruktor liest die Komponenten, die dort
-noch nicht gebunden sind. Ohne Stack ginge es nur, indem man die Stufentabelle im
-Provider nachbaut, also mit einer zweiten Wahrheit. Die Kapazitäten stehen bis
-dahin im Fließtext (96 / 192 / 288).
+Auch die Bündel- und Köcher-Kapazität kommt von dort. Sie hing an
+`getTierCapacityMultiplier(ItemStack)`, und im Datagen lässt sich kein `ItemStack`
+bauen – dessen Konstruktor liest ab MC 26.2 die dort noch nicht gebundenen
+Komponenten. `ReinforcedBundleItem` schlägt die Stufe deshalb item- statt
+stackbasiert nach und die Stack-Variante delegiert dorthin, also bleibt es bei
+einer Tabelle. `QuiverItem` überschreibt die Grundkapazität, weil Köcher den
+1,5-Faktor der Bündel nicht bekommen: 64/128/192 statt 96/192/288.
 
 **Das Einzige, was von Hand gepflegt wird, ist `wiki/manual.json`:** Fließtext, den keine
 Datei der Mod enthält – was ein Werkzeug *tut*, wie man es bedient, was sich je Stufe ändert.

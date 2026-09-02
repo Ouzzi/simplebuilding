@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.ChiselItem;
+import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -29,7 +30,7 @@ import java.util.concurrent.CompletableFuture;
  * Schreibt die tatsächlichen Item-Eigenschaften aus der Registry nach
  * {@code src/main/generated/wiki/items.json}, damit {@code wiki/generate.py}
  * Haltbarkeit, Stapelgröße, Verzauberbarkeit, Angriffswerte,
- * Zauberstab-Durchmesser und Meißel-Abklingzeit zeigen kann.
+ * Zauberstab-Durchmesser, Meißel-Abklingzeit und Bündel-Kapazität zeigen kann.
  *
  * <p>Warum aus der Registry und nicht per Textsuche in {@code ModItems.java}:
  * Die Registry ist die eine Wahrheit. Wer dort eine Konstante ändert, ändert Mod
@@ -132,13 +133,13 @@ public class WikiDataProvider implements DataProvider {
             o.addProperty("cooldownTicks", chisel.getCooldownTicks());
             o.addProperty("dedicatedSpatula", chisel.isDedicatedSpatula());
         }
-        // Bündel-Kapazität fehlt bewusst: sie ergibt sich aus
-        // ReinforcedBundleItem.getTierCapacityMultiplier(ItemStack), und im
-        // Datagen lässt sich kein ItemStack bauen - ItemStack liest im
-        // Konstruktor die Komponenten, die hier noch nicht gebunden sind.
-        // Ohne Stack ginge es nur, indem man die Stufentabelle im Provider
-        // nachbaut, und das wäre genau die zweite Wahrheit, die dieser Export
-        // vermeiden soll. Siehe wiki/HANDOFF.md.
+        if (item instanceof ReinforcedBundleItem bundle) {
+            // getBaseCapacityItems() kommt ohne ItemStack aus - im Datagen
+            // liesse sich keiner bauen, weil dessen Konstruktor die noch nicht
+            // gebundenen Komponenten liest. QuiverItem ueberschreibt die
+            // Methode mit seiner eigenen Staffelung.
+            o.addProperty("bundleCapacityItems", bundle.getBaseCapacityItems());
+        }
         return o;
     }
 

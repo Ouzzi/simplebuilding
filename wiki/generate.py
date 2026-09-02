@@ -52,6 +52,12 @@ LINES = {
         "config": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
         "item_properties": "src/main/generated/wiki/items.json",
         "client_jar_version": "26.2",
+        "code_roots": [
+            "common/src/shared/java/com/simplebuilding",
+            "src/main/java/com/simplebuilding",
+            "neoforge/src/main/java/com/simplebuilding",
+            "forge/src/main/java/com/simplebuilding",
+        ],
     },
     "1.21.11": {
         "generated_data": "mc1_21_11/fabric/src/main/generated/data/simplebuilding",
@@ -61,6 +67,11 @@ LINES = {
         "config": "mc1_21_11/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
         "item_properties": "mc1_21_11/fabric/src/main/generated/wiki/items.json",
         "client_jar_version": "1.21.11",
+        "code_roots": [
+            "mc1_21_11/shared/java/com/simplebuilding",
+            "mc1_21_11/fabric/src/main/java/com/simplebuilding",
+            "mc1_21_11/neoforge/src/main/java/com/simplebuilding",
+        ],
     },
 }
 
@@ -457,35 +468,77 @@ def collect_trades(roots: dict) -> list[dict]:
 # enchantments
 # ---------------------------------------------------------------------------
 
-def enchantments_used_in_code(roots: dict) -> set[str]:
+# Dateien, die jede Verzauberung nennen, ohne ihr Verhalten zu geben:
+# Registrierung, Kreativ-Tab, Loot und die Item-Modell-Auswahl. Pfade relativ
+# zum Repo, damit ein Arbeitsverzeichnis, dessen Name zufaellig "datagen" oder
+# "gametest" enthaelt, nicht den ganzen Scan verschluckt.
+CATALOGUE_FILES = (
+    "enchantment/ModEnchantments.java",
+    "items/ModItemGroupsContent.java",
+    "loot/ModLootTableModifications.java",
+    "client/property/EnchantmentModelProperty.java",
+)
+
+# Anteil aller Verzauberungen, ab dem eine Datei als Katalog gilt, auch wenn sie
+# oben nicht steht. Gemessen: die bekannten Kataloge nennen 17 bis 19 von 19
+# (89-100 %), die groesste echte Spiel-Code-Datei (util/EnchantmentHelper.java)
+# nennt 7 (37 %). Die Schwelle liegt bewusst dazwischen, damit eine neu
+# hinzukommende Katalogdatei - Tooltip-Anbieter, JEI-Anbindung - nicht stillschweigend
+# alle Verzauberungen auf "implementiert" kippt.
+CATALOGUE_SHARE = 0.6
+
+
+def enchantments_used_in_code(roots: dict, known: set[str]) -> tuple[set[str], list[str]]:
     """
-    Enchantment ids that some gameplay code actually reads. Most of this mod's
-    enchantments have no data-driven effect at all - Vein Miner, Radius, Versatility
-    and friends live entirely in Java - so "effects: {}" in the JSON says nothing
-    about whether they work. Registration, creative tab, loot and the item model
-    property are excluded: those mention every enchantment without giving it a
-    behaviour, which is exactly the false signal this guards against.
+    Verzauberungen, die Spiel-Code tatsaechlich ausliest, plus Warnungen.
+
+    Die meisten Verzauberungen dieser Mod haben ueberhaupt keinen
+    datengetriebenen Effekt - Aderabbau, Radius, Vielseitigkeit und andere liegen
+    ganz im Java-Code -, deshalb sagt "effects: {}" in der JSON nichts darueber,
+    ob sie wirken. Registrierung, Kreativ-Tab, Loot und Modellauswahl nennen
+    dagegen jede Verzauberung, ohne ihr Verhalten zu geben; genau dieses
+    Fehlsignal faengt CATALOGUE_FILES bzw. CATALOGUE_SHARE ab.
+
+    Gescannt werden alle Codewurzeln der Linie, auch die Loader-Module: eine nur
+    dort implementierte Verzauberung galt frueher als nicht implementiert.
     """
-    shared = REPO / Path(roots["config"]).parents[1]
-    skip = ("gametest", "ModEnchantments.java", "ModItemGroupsContent", "LootTableModifications",
-            "EnchantmentModelProperty", "datagen")
-    used = set()
-    for path in shared.rglob("*.java"):
-        posix = path.as_posix()
-        if any(part in posix for part in skip):
+    used: set[str] = set()
+    warnings: list[str] = []
+    total = max(1, len(known))
+
+    for rel_root in roots.get("code_roots", []):
+        root = REPO / rel_root
+        if not root.exists():
+            warnings.append(f"code root is missing, enchantments implemented there look inert: {rel_root}")
             continue
-        text = path.read_text(encoding="utf-8", errors="replace")
-        for const in re.findall(r"ModEnchantments\.([A-Z_]+)", text):
-            used.add(const.lower())
-    return used
+        for path in sorted(root.rglob("*.java")):
+            relative = path.relative_to(REPO).as_posix()
+            if "/gametest/" in relative or "/datagen/" in relative:
+                continue
+            if relative.endswith(CATALOGUE_FILES):
+                continue
+            text = path.read_text(encoding="utf-8", errors="replace")
+            names = {c.lower() for c in re.findall(r"ModEnchantments\.([A-Z_]+)", text)}
+            hits = names & known
+            if not hits:
+                continue
+            if len(hits) / total >= CATALOGUE_SHARE:
+                warnings.append(
+                    f"{relative} mentions {len(hits)} of {total} enchantments - counted as a catalogue, "
+                    "not as behaviour. If it really implements them, raise CATALOGUE_SHARE; if it is a "
+                    "catalogue, add it to CATALOGUE_FILES.")
+                continue
+            used |= hits
+    return used, warnings
 
 
-def collect_enchantments(roots: dict, lang: dict) -> list[dict]:
+def collect_enchantments(roots: dict, lang: dict) -> tuple[list[dict], list[str]]:
     out = []
     root = REPO / roots["generated_data"] / "enchantment"
     if not root.exists():
-        return out
-    used_in_code = enchantments_used_in_code(roots)
+        return out, ["no enchantment data - has datagen run?"]
+    known = {path.stem for path in root.glob("*.json")}
+    used_in_code, warnings = enchantments_used_in_code(roots, known)
     for path in sorted(root.glob("*.json")):
         data = read_json(path)
         name = path.stem
@@ -508,7 +561,7 @@ def collect_enchantments(roots: dict, lang: dict) -> list[dict]:
             "hasEffect": bool(effects) or in_code,
             "source": rel(path),
         })
-    return out
+    return out, warnings
 
 
 # ---------------------------------------------------------------------------
@@ -822,7 +875,7 @@ def build(line: str) -> tuple[dict, list[str]]:
     recipes = collect_recipes(roots)
     loot_tables = collect_loot_tables(roots)
     trades = collect_trades(roots)
-    enchantments = collect_enchantments(roots, lang)
+    enchantments, enchantment_warnings = collect_enchantments(roots, lang)
     tags = collect_tags(roots)
     config = collect_config(roots, lang)
     # Vanilla-Texturen aus dem Client-Jar holen, damit Zutaten wie
@@ -958,7 +1011,7 @@ def build(line: str) -> tuple[dict, list[str]]:
         "undocumented": undocumented,
         "incompleteProse": incomplete,
     }
-    return data, undocumented, vanilla, incomplete
+    return data, undocumented, vanilla, incomplete, enchantment_warnings
 
 
 def main() -> int:
@@ -973,8 +1026,11 @@ def main() -> int:
                              "the Gradle checkWiki task runs.")
     args = parser.parse_args()
 
-    data, undocumented, vanilla, incomplete = build(args.line)
+    data, undocumented, vanilla, incomplete, enchantment_warnings = build(args.line)
     payload = json.dumps(data, indent=2, ensure_ascii=False, sort_keys=False)
+
+    for warning in enchantment_warnings:
+        print("WARNING (enchantment detection):", warning)
 
     props_state = data["generatedFrom"]["itemProperties"]
     missing_props = not props_state["present"]
