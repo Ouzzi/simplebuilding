@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,6 +72,8 @@ li { margin: .15rem 0; }
 .search input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
 .search kbd { position: absolute; right: .5rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: .72rem; pointer-events: none; }
 .topmeta { margin-left: auto; color: var(--muted); font-size: .82rem; display: flex; gap: .7rem; flex-wrap: wrap; white-space: nowrap; }
+.langsel { flex: none; padding: .3rem .45rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font: inherit; font-size: .82rem; cursor: pointer; }
+.langsel:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
 
 /* Layout */
 .layout { display: flex; align-items: flex-start; }
@@ -200,13 +202,14 @@ mark { background: var(--warn-bg); color: inherit; padding: 0 .1em; border-radiu
   <header class="topbar">
     <a class="brand" href="#/" id="brand">SimpleBuilding Wiki</a>
     <div class="search">
-      <input id="q" type="search" placeholder="Suchen: Name, Id, Text …" autocomplete="off" spellcheck="false" aria-label="Volltextsuche">
+      <input id="q" type="search" autocomplete="off" spellcheck="false">
       <kbd>/</kbd>
     </div>
     <div class="topmeta" id="topmeta"></div>
+    <select class="langsel" id="lang"><option value="en">English</option><option value="de">Deutsch</option></select>
   </header>
   <div class="layout">
-    <nav class="sidebar" id="sidebar" aria-label="Bereiche"></nav>
+    <nav class="sidebar" id="sidebar"></nav>
     <main id="main"></main>
   </div>
 </div>
@@ -238,8 +241,582 @@ function prettyFromId(id) {
 }
 function nsOf(id) { var s = String(id || '').replace(/^#/, ''); var i = s.indexOf(':'); return i < 0 ? '' : s.slice(0, i); }
 function pathOf(id) { var s = String(id || '').replace(/^#/, ''); var i = s.indexOf(':'); return i < 0 ? s : s.slice(i + 1); }
-function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
-function fmtNum(x) { var n = Number(x); if (!isFinite(n)) return String(x); return String(Math.round(n * 100) / 100).replace('.', ','); }
+
+/* ------------------------------------------------------------------ */
+/* Sprache der Oberfläche                                             */
+/* ------------------------------------------------------------------ */
+/* Englisch ist die Hauptsprache, Deutsch die Übersetzung. Die Wahl    */
+/* liegt in localStorage und wird ohne Neuladen umgeschaltet.          */
+var LANG_STORE = 'simplebuilding-wiki-lang';
+var LANGS = ['en', 'de'];
+var LANG_NAMES = { en: 'English', de: 'Deutsch' };
+var LANG = (function () {
+  try {
+    var stored = window.localStorage ? window.localStorage.getItem(LANG_STORE) : null;
+    if (LANGS.indexOf(stored) >= 0) return stored;
+  } catch (err) { /* privater Modus oder file:// ohne Storage: Standard nehmen */ }
+  return 'en';
+})();
+function otherLang() { return LANG === 'de' ? 'en' : 'de'; }
+
+var STR = {
+en: {
+  /* Kopf und Navigation */
+  searchPlaceholder: 'Search: name, id, text …',
+  searchAria: 'Full-text search',
+  sidebarAria: 'Sections',
+  langAria: 'Interface language',
+  navOverview: 'Overview', navItems: 'Items', navBlocks: 'Blocks', navRecipes: 'Recipes',
+  navLoot: 'Loot tables', navTrades: 'Trades', navEnchantments: 'Enchantments',
+  navTags: 'Tags', navConfig: 'Config',
+  navFeatureCount: '{0} features',
+  sbNote: 'Generated from the mod’s own data: <code>{0}</code>',
+  metaData: 'Data: {0}',
+  metaDataTitle: 'Data state of this wiki build',
+
+  /* Verweise und Slots */
+  refExtTag: 'external tag (not defined by this mod)',
+  refExtVanilla: 'Vanilla Minecraft',
+  refExtUnknown: 'not in the wiki data',
+  slotEmpty: 'empty',
+  slotTitleTag: 'Tag {0}',
+  texNotFound: 'texture not<br>found',
+  noTexture: 'no texture<br>found',
+
+  /* Prosa */
+  srcSource: 'Source:',
+  srcFoundIn: 'Backed by:',
+  srcNoteKey: 'Note key in',
+  hintNoTextLead: 'No description yet',
+  hintNoTextTail: '. The prose lives in <code>wiki/manual.json</code>.',
+  proseOtherLangOnly: 'This text is only available in German so far.',
+  boxControls: 'Controls',
+  headingTiers: 'Tiers',
+  boxCaveats: 'Caveats',
+  thTier: 'Tier',
+  thDifference: 'Difference',
+  featureNoSummary: 'No description yet.',
+  headingRelated: 'Related',
+
+  /* Rezepte */
+  'recipe.minecraft:crafting_shaped': 'Crafting Table (shaped)',
+  'recipe.minecraft:crafting_shapeless': 'Crafting Table (shapeless)',
+  'recipe.minecraft:smithing_transform': 'Smithing Table',
+  'recipe.minecraft:smithing_trim': 'Smithing Table (trim)',
+  'recipe.simplebuilding:count_based_smithing': 'Smithing Table (count-based)',
+  'recipe.minecraft:blasting': 'Blast Furnace',
+  'recipe.minecraft:smelting': 'Furnace',
+  'recipe.minecraft:smoking': 'Smoker',
+  'recipe.minecraft:campfire_cooking': 'Campfire',
+  'recipe.minecraft:stonecutting': 'Stonecutter',
+  unknown: 'unknown',
+  slotResult: 'Result',
+  slotResultUnknown: 'Result?',
+  shapedKeyMissing: 'Key {0} missing',
+  slotTemplate: 'Template', slotBase: 'Base', slotAddition: 'Addition', slotInput: 'Input',
+  cookTicks: '{0} ticks ({1} s)',
+  cookTicksDefault: '{0} ticks ({1} s, default)',
+  cookNoXp: 'no XP given',
+  metaDuration: 'Duration: {0}',
+  metaExperience: 'Experience: {0}',
+  badgeCategory: 'Category: {0}',
+  badgeGroup: 'Group: {0}',
+  footResult: 'Result:',
+  footIngredients: 'Ingredients:',
+  orSep: 'or',
+  filterRecipes: 'Filter recipes …',
+  noRecipes: 'No recipes.',
+  kvType: 'Type', kvCategory: 'Category', kvGroup: 'Group',
+
+  /* Handel */
+  'prof.librarian': 'Librarian', 'prof.mason': 'Mason', 'prof.toolsmith': 'Toolsmith',
+  'prof.weaponsmith': 'Weaponsmith', 'prof.armorer': 'Armorer', 'prof.farmer': 'Farmer',
+  'prof.fisherman': 'Fisherman', 'prof.shepherd': 'Shepherd', 'prof.fletcher': 'Fletcher',
+  'prof.cleric': 'Cleric', 'prof.cartographer': 'Cartographer', 'prof.leatherworker': 'Leatherworker',
+  'prof.butcher': 'Butcher', 'prof.wandering_trader': 'Wandering Trader',
+  'lvl.1': 'Novice', 'lvl.2': 'Apprentice', 'lvl.3': 'Journeyman', 'lvl.4': 'Expert', 'lvl.5': 'Master',
+  levelNone: 'no tier',
+  levelPrefix: 'Tier {0}',
+  headingEnchPool: 'Enchantment pool',
+  enchPoolHint: '(one is picked at random)',
+  thEnchantment: 'Enchantment', thLevel: 'Level', thWeight: 'Weight', thShare: 'Share', thSum: 'Total',
+  slotPrice: 'Price', slotAlso: 'plus', slotGoods: 'Goods',
+  kvWants: 'Wants', kvGives: 'Gives', kvMaxUses: 'Max. uses',
+  kvTraderXp: 'Experience (trader)',
+  kvDiscount: 'Discount factor',
+  kvDiscountHint: '(price multiplier from reputation/demand)',
+  kvConfig: 'Config',
+  noCondition: 'no condition',
+  tradeFor: 'for',
+  enchantmentOne: 'enchantment', enchantmentMany: 'enchantments',
+  inPool: 'in the pool',
+  tradesIntro: 'Offers from villagers and the wandering trader, grouped by profession and tier.',
+  tradesToggle: ' Can be switched off with {0}.',
+  noTrades: 'No trade offers.',
+
+  /* Loot */
+  'cond.minecraft:survives_explosion': 'survives explosion',
+  'cond.minecraft:match_tool': 'tool matches',
+  'cond.minecraft:random_chance': 'random chance',
+  'cond.minecraft:killed_by_player': 'killed by player',
+  'cond.minecraft:table_bonus': 'table bonus (luck)',
+  'cond.minecraft:block_state_property': 'block state',
+  'cond.minecraft:inverted': 'inverted',
+  'cond.minecraft:any_of': 'any of',
+  'cond.minecraft:all_of': 'all of',
+  'func.minecraft:set_count': 'set count',
+  'func.minecraft:explosion_decay': 'explosion decay',
+  'func.minecraft:apply_bonus': 'bonus (luck)',
+  'func.minecraft:copy_components': 'copy components',
+  'func.minecraft:copy_name': 'copy name',
+  'func.minecraft:copy_state': 'copy state',
+  'func.minecraft:set_contents': 'set contents',
+  'func.minecraft:limit_count': 'limit count',
+  lootNotInData: 'Loot table not in the data.',
+  badgeLoot: 'Loot',
+  badgeKind: 'Kind: {0}',
+  lootNoPools: 'No pools – this block drops nothing.',
+  poolLine: 'Pool {0} · rolls: {1}',
+  bonusRolls: ' · bonus rolls: {0}',
+  noEntries: 'no entries',
+  kvConditions: 'Conditions', kvFunctions: 'Functions',
+  none: 'none',
+  dropsPrefix: 'Drops: {0}',
+  nothing: 'nothing',
+  poolOne: 'pool', poolMany: 'pools',
+  belongsToBlock: 'Belongs to block',
+
+  /* Verzauberungen */
+  'slot.mainhand': 'main hand', 'slot.offhand': 'off hand', 'slot.hand': 'hand (both)',
+  'slot.feet': 'feet', 'slot.legs': 'legs', 'slot.chest': 'chest', 'slot.head': 'head',
+  'slot.armor': 'armor', 'slot.body': 'body', 'slot.any': 'any', 'slot.saddle': 'saddle',
+  maxLevelPrefix: 'max. level {0}',
+  badgeNotImplemented: 'not implemented',
+  badgeEffectData: 'effect in the data',
+  badgeEffectCode: 'effect in Java code',
+  badgeEffectBoth: 'effect in data + code',
+  badgeEffectUnknown: 'effect unknown',
+  badgeNotImplementedLong: 'not implemented – implementedIn: "none"',
+  badgeEffectDataLong: 'effect in the data – implementedIn: "data"',
+  badgeEffectCodeLong: 'effect in Java code – implementedIn: "code"',
+  badgeEffectBothLong: 'effect in data + code – implementedIn: "both"',
+  enchIntro: 'Enchantments marked red are registered but not implemented (<code>implementedIn: "none"</code>): they carry no effect component in the data, and no Java game code reads them. All the others take effect through the data (<code>"data"</code>), through the mod’s Java code (<code>"code"</code>), or through both (<code>"both"</code>).',
+  boxNotImplTitle: 'Not implemented',
+  boxNotImplBody: 'This enchantment is registered and obtainable, but it is not implemented (<code>implementedIn: "none"</code>): its generated definition carries no effect component (<code>effects: []</code>), and the generator finds no place in the Java game code that reads it. An enchanted item behaves exactly like an unenchanted one. The data half is pinned down by the gametest <code>coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown</code>, which fails the moment an effect component is added. The one exception is cosmetic: the item model selector (<code>EnchantmentModelProperty</code>) does read the enchantment and shows its own texture.',
+  boxCodeTitle: 'Behaviour lives in Java code',
+  boxCodeBody: 'This enchantment deliberately carries no effect component in the data (<code>effects: []</code>). Its behaviour lives in the mod’s Java code, which the generator checked for (<code>implementedIn: "code"</code>). “No effect components” therefore does not mean “no effect”.',
+  kvMaxLevel: 'Max. level',
+  kvWeight: 'Weight',
+  kvWeightHint: '(rarity at the enchanting table, higher = more common)',
+  kvAnvilCost: 'Anvil cost',
+  kvSlots: 'Slots',
+  kvSupportedItems: 'Supported items',
+  kvPrimaryItems: 'Primary items',
+  likeSupported: 'same as supported',
+  kvExclusiveSet: 'Exclusive set',
+  noneCombinable: 'none – combines with everything',
+  kvEffectComponents: 'Effect components (data)',
+  kvImplementedIn: 'Implemented in',
+  'impl.data': 'the data (effect components)',
+  'impl.code': 'the mod’s Java code',
+  'impl.both': 'data and Java code',
+  'impl.none': 'nowhere – not implemented',
+  'impl.unknown': 'unknown',
+  effNoneCode: 'none – the behaviour lives in Java code',
+  effNoneNotImpl: 'none – not implemented',
+  noDescLang: 'No description in the language files.',
+  hintEnchNoProse: 'effect and controls are missing',
+  secEnchantableOn: 'Enchantable on',
+  secInTrades: 'In trades',
+  notInTrade: 'Not part of any trade offer.',
+  secProperties: 'Properties',
+
+  /* Tags */
+  emptyTag: 'Empty tag.',
+  thValue: 'Value', thId: 'Id',
+  badgeTag: 'Tag',
+  badgeOptional: 'optional (required: false)',
+  badgeRegistry: 'Registry: {0}',
+  valueOne: 'value', valueMany: 'values',
+  tagsIntro: 'Tags are referenced in recipes and enchantments as <code>#namespace:path</code>; the registry (item, enchantment, …) is part of the file path.',
+  badgeReplaceTrue: 'replace: true – replaces the tag entirely instead of adding to it',
+  badgeReplaceFalse: 'replace: false – adds to existing values',
+  secValues: 'Values',
+  secUsedBy: 'Used by',
+  secContainedInTags: 'Contained in tags',
+  tagUnused: 'Not referenced anywhere in the wiki data.',
+
+  /* Konfiguration */
+  configIntro: 'From <code>SimplebuildingConfig.java</code>. Change these in the mod’s config file, not here.',
+  noOptions: 'No options.',
+  thName: 'Name', thTypeCol: 'Type', thDefault: 'Default', thTooltip: 'Tooltip', thNote: 'Note', thRelation: 'Relates to',
+  tradeOne: 'trade', tradeMany: 'trades',
+
+  /* Items und Blöcke */
+  badgeCustomBehaviour: 'custom behaviour',
+  badgeAlsoBlock: 'also a block',
+  badgeDrops: 'drops {0}',
+  badgeNoText: 'no text',
+  badgeItem: 'Item', badgeBlock: 'Block',
+  badgeNoProse: 'no prose',
+  badgeAlsoAsBlock: 'also as a block →',
+  badgeAsItem: 'as an item →',
+  nameOnlyEn: 'only en_us · no German translation',
+  secDescription: 'Description',
+  hintCustomBehaviour: 'this thing has custom behaviour that should be explained',
+  hintPlainBlock: 'plain building block – recipe and drop are below',
+  secCrafting: 'Crafting',
+  recipeNotInData: 'Recipe <code>{0}</code> is not in the data.',
+  noRecipe: 'No recipe in the data.',
+  secUsedIn: 'Used in',
+  notAnIngredient: 'Not an ingredient in any recipe.',
+  secTrades: 'Trades',
+  tradeNotInData: 'Trade <code>{0}</code> is not in the data.',
+  notTraded: 'Not traded by any villager.',
+  lootNotInDataOne: 'Loot table <code>{0}</code> is not in the data.',
+  noLootTable: 'No loot table in the data',
+  noLootTableTail: ' – the block drops nothing according to datagen, or the table is built at runtime',
+  secDrops: 'Drops',
+  secDropsFrom: 'Drops from',
+  secInTags: 'In tags',
+  secFeatures: 'Features',
+
+  /* Listen, Übersicht, Suche */
+  filterPlaceholder: 'Filter list …',
+  filterAria: 'Filter list',
+  noEntriesList: 'No entries.',
+  filterEmpty: 'Nothing matches the filter.',
+  andJoin: 'and',
+  loadersPrefix: 'Loaders: {0}',
+  parkedPrefix: ' · parked: {0}',
+  boxDataState: 'Data state',
+  kvMcLine: 'Minecraft line',
+  kvGenerator: 'Generator',
+  kvRegenerate: 'Regenerate',
+  kvHint: 'Note',
+  undocOne: 'entry', undocMany: 'entries',
+  undocSuffix: 'without prose',
+  undocBody: 'These things have custom behaviour but no description in <code>wiki/manual.json</code> yet, which is why <code>gradlew check</code> fails.',
+  undocShow: 'Show list ({0})',
+  allDocumented: 'Every entry with custom behaviour has prose.',
+  featuresEmpty: 'No description yet – there are no features in <code>wiki/manual.json</code>.',
+  titleSearch: 'Search',
+  searchHint: 'Type a term in the box above – names (en/de), ids and prose are searched.',
+  hitOne: 'hit', hitMany: 'hits',
+  searchResultsFor: '{0} for “{1}”',
+  searchNothing: 'Nothing found. Try a shorter term, or the English id form (e.g. <code>sledgehammer</code>).',
+
+  /* Nicht gefunden, Fehler */
+  wordSection: 'Section', wordFeature: 'Feature', wordItem: 'Item', wordBlock: 'Block',
+  wordRecipe: 'Recipe', wordLootTable: 'Loot table', wordTrade: 'Trade',
+  wordEnchantment: 'Enchantment', wordTag: 'Tag',
+  notFoundTitle: '{0} not found',
+  notFoundBody: '<code>{0}</code> does not exist in the wiki data.',
+  notFoundSearch: 'Search for “{0}”',
+  notFoundOverview: 'To the overview',
+  noDataTitle: 'No data',
+  noDataBody: '<p><code>wiki/data/simplebuilding.js</code> was not loaded, or it does not set <code>window.WIKI_DATA</code>.</p><p>Generate it with <code>python wiki/generate.py</code> in the repository root, then reload this page.</p>',
+  docTitleNoData: 'SimpleBuilding Wiki – no data',
+  renderError: 'Error while building the page',
+  titleError: 'Error',
+  titleNotFound: 'Not found',
+  emptyPage: 'This page is empty – <a href="#/">back to the overview</a>.',
+  titleRecipePrefix: 'Recipe {0}',
+  titleLootPrefix: 'Loot {0}',
+  titleTradePrefix: 'Trade {0}',
+  titleTagPrefix: 'Tag {0}'
+},
+de: {
+  /* Kopf und Navigation */
+  searchPlaceholder: 'Suchen: Name, Id, Text …',
+  searchAria: 'Volltextsuche',
+  sidebarAria: 'Bereiche',
+  langAria: 'Sprache der Oberfläche',
+  navOverview: 'Übersicht', navItems: 'Items', navBlocks: 'Blöcke', navRecipes: 'Rezepte',
+  navLoot: 'Loot-Tabellen', navTrades: 'Handel', navEnchantments: 'Verzauberungen',
+  navTags: 'Tags', navConfig: 'Konfiguration',
+  navFeatureCount: '{0} Features',
+  sbNote: 'Erzeugt aus den Daten der Mod: <code>{0}</code>',
+  metaData: 'Daten: {0}',
+  metaDataTitle: 'Datenstand dieser Wiki-Erzeugung',
+
+  /* Verweise und Slots */
+  refExtTag: 'externer Tag (nicht in der Mod definiert)',
+  refExtVanilla: 'Vanilla-Minecraft',
+  refExtUnknown: 'nicht in den Wiki-Daten',
+  slotEmpty: 'leer',
+  slotTitleTag: 'Tag {0}',
+  texNotFound: 'Textur nicht<br>gefunden',
+  noTexture: 'keine Textur<br>gefunden',
+
+  /* Prosa */
+  srcSource: 'Quelle:',
+  srcFoundIn: 'Belegt in:',
+  srcNoteKey: 'Notiz-Schlüssel in',
+  hintNoTextLead: 'Noch ohne Beschreibung',
+  hintNoTextTail: '. Der Fließtext wird in <code>wiki/manual.json</code> gepflegt.',
+  proseOtherLangOnly: 'Dieser Text liegt bisher nur auf Englisch vor.',
+  boxControls: 'Bedienung',
+  headingTiers: 'Stufen',
+  boxCaveats: 'Zu beachten',
+  thTier: 'Stufe',
+  thDifference: 'Unterschied',
+  featureNoSummary: 'Noch ohne Beschreibung.',
+  headingRelated: 'Dazugehörig',
+
+  /* Rezepte */
+  'recipe.minecraft:crafting_shaped': 'Werkbank (geformt)',
+  'recipe.minecraft:crafting_shapeless': 'Werkbank (formlos)',
+  'recipe.minecraft:smithing_transform': 'Schmiedetisch',
+  'recipe.minecraft:smithing_trim': 'Schmiedetisch (Verzierung)',
+  'recipe.simplebuilding:count_based_smithing': 'Schmiedetisch (mengenbasiert)',
+  'recipe.minecraft:blasting': 'Schmelzofen',
+  'recipe.minecraft:smelting': 'Ofen',
+  'recipe.minecraft:smoking': 'Räucherofen',
+  'recipe.minecraft:campfire_cooking': 'Lagerfeuer',
+  'recipe.minecraft:stonecutting': 'Steinsäge',
+  unknown: 'unbekannt',
+  slotResult: 'Ergebnis',
+  slotResultUnknown: 'Ergebnis?',
+  shapedKeyMissing: 'Schlüssel {0} fehlt',
+  slotTemplate: 'Vorlage', slotBase: 'Basis', slotAddition: 'Zusatz', slotInput: 'Eingang',
+  cookTicks: '{0} Ticks ({1} s)',
+  cookTicksDefault: '{0} Ticks ({1} s, Standard)',
+  cookNoXp: 'keine XP-Angabe',
+  metaDuration: 'Dauer: {0}',
+  metaExperience: 'Erfahrung: {0}',
+  badgeCategory: 'Kategorie: {0}',
+  badgeGroup: 'Gruppe: {0}',
+  footResult: 'Ergebnis:',
+  footIngredients: 'Zutaten:',
+  orSep: 'oder',
+  filterRecipes: 'Rezepte filtern …',
+  noRecipes: 'Keine Rezepte.',
+  kvType: 'Typ', kvCategory: 'Kategorie', kvGroup: 'Gruppe',
+
+  /* Handel */
+  'prof.librarian': 'Bibliothekar', 'prof.mason': 'Steinmetz', 'prof.toolsmith': 'Werkzeugschmied',
+  'prof.weaponsmith': 'Waffenschmied', 'prof.armorer': 'Rüstungsschmied', 'prof.farmer': 'Bauer',
+  'prof.fisherman': 'Fischer', 'prof.shepherd': 'Schäfer', 'prof.fletcher': 'Pfeilmacher',
+  'prof.cleric': 'Geistlicher', 'prof.cartographer': 'Kartograf', 'prof.leatherworker': 'Gerber',
+  'prof.butcher': 'Metzger', 'prof.wandering_trader': 'Fahrender Händler',
+  'lvl.1': 'Neuling', 'lvl.2': 'Lehrling', 'lvl.3': 'Geselle', 'lvl.4': 'Experte', 'lvl.5': 'Meister',
+  levelNone: 'ohne Stufe',
+  levelPrefix: 'Stufe {0}',
+  headingEnchPool: 'Verzauberungs-Pool',
+  enchPoolHint: '(eine wird zufällig gewählt)',
+  thEnchantment: 'Verzauberung', thLevel: 'Stufe', thWeight: 'Gewicht', thShare: 'Anteil', thSum: 'Summe',
+  slotPrice: 'Preis', slotAlso: 'dazu', slotGoods: 'Ware',
+  kvWants: 'Verlangt', kvGives: 'Gibt', kvMaxUses: 'Max. Nutzungen',
+  kvTraderXp: 'Erfahrung (Händler)',
+  kvDiscount: 'Rabatt-Faktor',
+  kvDiscountHint: '(Preis-Multiplikator bei Reputation/Nachfrage)',
+  kvConfig: 'Konfiguration',
+  noCondition: 'keine Bedingung',
+  tradeFor: 'für',
+  enchantmentOne: 'Verzauberung', enchantmentMany: 'Verzauberungen',
+  inPool: 'im Pool',
+  tradesIntro: 'Angebote von Dorfbewohnern und dem fahrenden Händler, gruppiert nach Beruf und Stufe.',
+  tradesToggle: ' Abschaltbar über {0}.',
+  noTrades: 'Keine Handelsangebote.',
+
+  /* Loot */
+  'cond.minecraft:survives_explosion': 'überlebt Explosion',
+  'cond.minecraft:match_tool': 'Werkzeug passt',
+  'cond.minecraft:random_chance': 'Zufallschance',
+  'cond.minecraft:killed_by_player': 'vom Spieler getötet',
+  'cond.minecraft:table_bonus': 'Tabellen-Bonus (Glück)',
+  'cond.minecraft:block_state_property': 'Blockzustand',
+  'cond.minecraft:inverted': 'invertiert',
+  'cond.minecraft:any_of': 'eine von',
+  'cond.minecraft:all_of': 'alle von',
+  'func.minecraft:set_count': 'Anzahl setzen',
+  'func.minecraft:explosion_decay': 'Explosionsverlust',
+  'func.minecraft:apply_bonus': 'Bonus (Glück)',
+  'func.minecraft:copy_components': 'Komponenten kopieren',
+  'func.minecraft:copy_name': 'Namen kopieren',
+  'func.minecraft:copy_state': 'Zustand kopieren',
+  'func.minecraft:set_contents': 'Inhalt setzen',
+  'func.minecraft:limit_count': 'Anzahl begrenzen',
+  lootNotInData: 'Loot-Tabelle nicht in den Daten.',
+  badgeLoot: 'Loot',
+  badgeKind: 'Art: {0}',
+  lootNoPools: 'Keine Pools – dieser Block lässt nichts fallen.',
+  poolLine: 'Pool {0} · Würfe: {1}',
+  bonusRolls: ' · Bonuswürfe: {0}',
+  noEntries: 'keine Einträge',
+  kvConditions: 'Bedingungen', kvFunctions: 'Funktionen',
+  none: 'keine',
+  dropsPrefix: 'Drops: {0}',
+  nothing: 'nichts',
+  poolOne: 'Pool', poolMany: 'Pools',
+  belongsToBlock: 'Gehört zu Block',
+
+  /* Verzauberungen */
+  'slot.mainhand': 'Haupthand', 'slot.offhand': 'Nebenhand', 'slot.hand': 'Hand (beide)',
+  'slot.feet': 'Füße', 'slot.legs': 'Beine', 'slot.chest': 'Brust', 'slot.head': 'Kopf',
+  'slot.armor': 'Rüstung', 'slot.body': 'Körper', 'slot.any': 'beliebig', 'slot.saddle': 'Sattel',
+  maxLevelPrefix: 'max. Stufe {0}',
+  badgeNotImplemented: 'nicht implementiert',
+  badgeEffectData: 'Effekt in den Daten',
+  badgeEffectCode: 'Effekt im Java-Code',
+  badgeEffectBoth: 'Effekt in Daten + Code',
+  badgeEffectUnknown: 'Wirkung unbekannt',
+  badgeNotImplementedLong: 'nicht implementiert – implementedIn: "none"',
+  badgeEffectDataLong: 'Effekt in den Daten – implementedIn: "data"',
+  badgeEffectCodeLong: 'Effekt im Java-Code – implementedIn: "code"',
+  badgeEffectBothLong: 'Effekt in Daten + Code – implementedIn: "both"',
+  enchIntro: 'Rot markierte Verzauberungen sind registriert, aber nicht implementiert (<code>implementedIn: "none"</code>): Sie tragen weder eine Effekt-Komponente in den Daten, noch liest sie irgendein Java-Spielcode aus. Alle übrigen wirken über die Daten (<code>"data"</code>), über den Java-Code der Mod (<code>"code"</code>) oder über beides (<code>"both"</code>).',
+  boxNotImplTitle: 'Nicht implementiert',
+  boxNotImplBody: 'Diese Verzauberung ist registriert und erhältlich, aber nicht implementiert (<code>implementedIn: "none"</code>): Ihre erzeugte Definition trägt keine Effekt-Komponente (<code>effects: []</code>), und der Generator findet keine Stelle im Java-Spielcode, die sie ausliest. Verzaubert verhält sich das Item genau wie unverzaubert. Die Datenhälfte hält der Gametest <code>coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown</code> fest, der fehlschlägt, sobald eine Effekt-Komponente dazukommt. Einzige Ausnahme ist die Optik: Die Item-Modell-Auswahl (<code>EnchantmentModelProperty</code>) liest die Verzauberung und zeigt eine eigene Textur.',
+  boxCodeTitle: 'Wirkung im Java-Code',
+  boxCodeBody: 'Diese Verzauberung trägt bewusst keine Effekt-Komponente in den Daten (<code>effects: []</code>). Ihre Wirkung liegt im Java-Code der Mod, den der Generator geprüft hat (<code>implementedIn: "code"</code>). „Keine Effekt-Komponenten“ heißt hier also nicht „ohne Wirkung“.',
+  kvMaxLevel: 'Max. Stufe',
+  kvWeight: 'Gewicht',
+  kvWeightHint: '(Seltenheit am Zaubertisch, höher = häufiger)',
+  kvAnvilCost: 'Amboss-Kosten',
+  kvSlots: 'Slots',
+  kvSupportedItems: 'Unterstützte Items',
+  kvPrimaryItems: 'Primäre Items',
+  likeSupported: 'wie unterstützte',
+  kvExclusiveSet: 'Ausschluss-Gruppe',
+  noneCombinable: 'keine – kombinierbar mit allen',
+  kvEffectComponents: 'Effekt-Komponenten (Daten)',
+  kvImplementedIn: 'Implementiert in',
+  'impl.data': 'den Daten (Effekt-Komponenten)',
+  'impl.code': 'dem Java-Code der Mod',
+  'impl.both': 'Daten und Java-Code',
+  'impl.none': 'nirgends – nicht implementiert',
+  'impl.unknown': 'unbekannt',
+  effNoneCode: 'keine – die Wirkung liegt im Java-Code',
+  effNoneNotImpl: 'keine – nicht implementiert',
+  noDescLang: 'Keine Beschreibung in den Sprachdateien.',
+  hintEnchNoProse: 'Wirkung und Bedienung fehlen',
+  secEnchantableOn: 'Verzauberbar auf',
+  secInTrades: 'Im Handel',
+  notInTrade: 'In keinem Handelsangebot.',
+  secProperties: 'Eigenschaften',
+
+  /* Tags */
+  emptyTag: 'Leerer Tag.',
+  thValue: 'Wert', thId: 'Id',
+  badgeTag: 'Tag',
+  badgeOptional: 'optional (required: false)',
+  badgeRegistry: 'Registry: {0}',
+  valueOne: 'Wert', valueMany: 'Werte',
+  tagsIntro: 'Tags werden in Rezepten und Verzauberungen als <code>#namespace:pfad</code> referenziert; die Registry (item, enchantment, …) steht im Dateipfad.',
+  badgeReplaceTrue: 'replace: true – ersetzt den Tag komplett statt zu ergänzen',
+  badgeReplaceFalse: 'replace: false – ergänzt bestehende Werte',
+  secValues: 'Werte',
+  secUsedBy: 'Verwendet von',
+  secContainedInTags: 'Enthalten in Tags',
+  tagUnused: 'Wird in den Wiki-Daten nirgends referenziert.',
+
+  /* Konfiguration */
+  configIntro: 'Aus <code>SimplebuildingConfig.java</code>. Änderungen erfolgen in der Konfigurationsdatei der Mod, nicht hier.',
+  noOptions: 'Keine Optionen.',
+  thName: 'Name', thTypeCol: 'Typ', thDefault: 'Standard', thTooltip: 'Tooltip', thNote: 'Notiz', thRelation: 'Bezug',
+  tradeOne: 'Handel', tradeMany: 'Handel',
+
+  /* Items und Blöcke */
+  badgeCustomBehaviour: 'eigenes Verhalten',
+  badgeAlsoBlock: 'auch Block',
+  badgeDrops: 'droppt {0}',
+  badgeNoText: 'ohne Text',
+  badgeItem: 'Item', badgeBlock: 'Block',
+  badgeNoProse: 'ohne Fließtext',
+  badgeAlsoAsBlock: 'auch als Block →',
+  badgeAsItem: 'als Item →',
+  nameOnlyEn: 'nur en_us · keine deutsche Übersetzung',
+  secDescription: 'Beschreibung',
+  hintCustomBehaviour: 'dieses Ding hat eigenes Verhalten, das erklärt werden sollte',
+  hintPlainBlock: 'reiner Baustein – Rezept und Drop stehen unten',
+  secCrafting: 'Herstellung',
+  recipeNotInData: 'Rezept <code>{0}</code> ist nicht in den Daten.',
+  noRecipe: 'Kein Rezept in den Daten.',
+  secUsedIn: 'Verwendet in',
+  notAnIngredient: 'In keinem Rezept als Zutat.',
+  secTrades: 'Handel',
+  tradeNotInData: 'Handel <code>{0}</code> ist nicht in den Daten.',
+  notTraded: 'Wird von keinem Dorfbewohner gehandelt.',
+  lootNotInDataOne: 'Loot-Tabelle <code>{0}</code> ist nicht in den Daten.',
+  noLootTable: 'Keine Loot-Tabelle in den Daten',
+  noLootTableTail: ' – der Block droppt laut Datagen nichts, oder die Tabelle wird zur Laufzeit gebaut',
+  secDrops: 'Drops',
+  secDropsFrom: 'Fällt aus',
+  secInTags: 'In Tags',
+  secFeatures: 'Features',
+
+  /* Listen, Übersicht, Suche */
+  filterPlaceholder: 'Liste filtern …',
+  filterAria: 'Liste filtern',
+  noEntriesList: 'Keine Einträge.',
+  filterEmpty: 'Nichts passt zum Filter.',
+  andJoin: 'und',
+  loadersPrefix: 'Loader: {0}',
+  parkedPrefix: ' · geparkt: {0}',
+  boxDataState: 'Datenstand',
+  kvMcLine: 'Minecraft-Linie',
+  kvGenerator: 'Generator',
+  kvRegenerate: 'Neu erzeugen',
+  kvHint: 'Hinweis',
+  undocOne: 'Eintrag', undocMany: 'Einträge',
+  undocSuffix: 'ohne Fließtext',
+  undocBody: 'Diese Dinge haben eigenes Verhalten, aber noch keine Beschreibung in <code>wiki/manual.json</code>. <code>gradlew check</code> schlägt deshalb fehl.',
+  undocShow: 'Liste anzeigen ({0})',
+  allDocumented: 'Alle Einträge mit eigenem Verhalten haben Fließtext.',
+  featuresEmpty: 'Noch ohne Beschreibung – es sind keine Features in <code>wiki/manual.json</code> hinterlegt.',
+  titleSearch: 'Suche',
+  searchHint: 'Suchbegriff oben eingeben – gesucht wird in Namen (en/de), Ids und Fließtext.',
+  hitOne: 'Treffer', hitMany: 'Treffer',
+  searchResultsFor: '{0} für „{1}“',
+  searchNothing: 'Nichts gefunden. Tipp: kürzere Begriffe oder die englische Id-Form (z. B. <code>sledgehammer</code>).',
+
+  /* Nicht gefunden, Fehler */
+  wordSection: 'Bereich', wordFeature: 'Feature', wordItem: 'Item', wordBlock: 'Block',
+  wordRecipe: 'Rezept', wordLootTable: 'Loot-Tabelle', wordTrade: 'Handel',
+  wordEnchantment: 'Verzauberung', wordTag: 'Tag',
+  notFoundTitle: '{0} nicht gefunden',
+  notFoundBody: '<code>{0}</code> gibt es in den Wiki-Daten nicht.',
+  notFoundSearch: 'Nach „{0}“ suchen',
+  notFoundOverview: 'Zur Übersicht',
+  noDataTitle: 'Keine Daten',
+  noDataBody: '<p><code>wiki/data/simplebuilding.js</code> wurde nicht geladen oder setzt <code>window.WIKI_DATA</code> nicht.</p><p>Erzeugen mit <code>python wiki/generate.py</code> im Repo-Wurzelverzeichnis, dann diese Seite neu laden.</p>',
+  docTitleNoData: 'SimpleBuilding Wiki – keine Daten',
+  renderError: 'Fehler beim Aufbau der Seite',
+  titleError: 'Fehler',
+  titleNotFound: 'Nicht gefunden',
+  emptyPage: 'Diese Seite ist leer – <a href="#/">zur Übersicht</a>.',
+  titleRecipePrefix: 'Rezept {0}',
+  titleLootPrefix: 'Loot {0}',
+  titleTradePrefix: 'Handel {0}',
+  titleTagPrefix: 'Tag {0}'
+}
+};
+
+/* T('key') liefert den Text der aktiven Sprache; fehlt er, faellt es auf
+   Englisch zurueck. Weitere Argumente ersetzen {0}, {1}, ... */
+function T(key) {
+  var dict = STR[LANG] || STR.en;
+  var s = dict[key];
+  if (s == null) s = STR.en[key];
+  if (s == null) return String(key);
+  for (var i = 1; i < arguments.length; i++) s = s.split('{' + (i - 1) + '}').join(String(arguments[i]));
+  return s;
+}
+/* Wie T(), aber schlaegt den Schluessel aus Praefix + Id nach und faellt auf
+   prettyFromId zurueck, wenn es keinen Eintrag gibt. */
+function tId(prefix, id, fallback) {
+  var key = prefix + String(id == null ? '' : id);
+  var dict = STR[LANG] || STR.en;
+  if (dict[key] != null) return dict[key];
+  if (STR.en[key] != null) return STR.en[key];
+  return fallback == null ? prettyFromId(id || T('unknown')) : fallback;
+}
+/* Zaehlwort: plural(3, 'poolOne', 'poolMany') -> "3 pools" / "3 Pools" */
+function plural(n, oneKey, manyKey) { return n + ' ' + T(n === 1 ? oneKey : manyKey); }
+/* Dezimaltrennzeichen haengt an der Sprache. */
+function fmtNum(x) { var n = Number(x); if (!isFinite(n)) return String(x); var s = String(Math.round(n * 100) / 100); return LANG === 'de' ? s.replace('.', ',') : s; }
 
 /* ------------------------------------------------------------------ */
 /* Daten und Indizes                                                  */
@@ -319,9 +896,13 @@ function resolveTag(ref, registryHint) {
 /* ------------------------------------------------------------------ */
 /* Namen, Links, Slots                                                */
 /* ------------------------------------------------------------------ */
-function nameDe(e) { var n = e && e.name; return isObj(n) ? (n.de_de || '') : (typeof n === 'string' ? n : ''); }
-function nameEn(e) { var n = e && e.name; return isObj(n) ? (n.en_us || '') : ''; }
-function nameOf(e) { if (!e) return ''; var n = e.name; if (isObj(n)) { return n.de_de || n.en_us || Object.keys(n).map(function (k) { return n[k]; }).filter(Boolean)[0] || ''; } return typeof n === 'string' ? n : (e.title || ''); }
+function nameIn(e, lang) { var n = e && e.name; if (isObj(n)) return n[lang === 'de' ? 'de_de' : 'en_us'] || ''; return typeof n === 'string' ? n : ''; }
+function nameDe(e) { return nameIn(e, 'de'); }
+function nameEn(e) { return nameIn(e, 'en'); }
+/* Name in der gewaehlten Sprache; fehlt er, die andere, dann irgendeiner. */
+function nameOf(e) { if (!e) return ''; var n = e.name; if (isObj(n)) { return nameIn(e, LANG) || nameIn(e, otherLang()) || Object.keys(n).map(function (k) { return n[k]; }).filter(Boolean)[0] || ''; } return typeof n === 'string' ? n : (e.title || ''); }
+/* Name in der jeweils anderen Sprache - fuer die Zusatzzeile. */
+function nameAlt(e) { return nameIn(e, otherLang()); }
 function entryFor(id) { return IX.items.get(id) || IX.blocks.get(id) || IX.ench.get(id) || null; }
 function displayName(id) { if (!id) return '?'; if (id.charAt(0) === '#') return id; var e = entryFor(id); return (e && nameOf(e)) || prettyFromId(id); }
 function isVanilla(id) { return nsOf(id) === 'minecraft'; }
@@ -348,7 +929,7 @@ function refLink(id, opts) {
   var showId = !isTag && !opts.noId && label !== id;
   var inner = '<span class="ref-name">' + esc(label) + '</span>' + (showId ? '<code class="ref-id">' + esc(id) + '</code>' : '');
   if (href) return '<a class="ref" href="' + esc(href) + '" title="' + esc(id) + '">' + inner + '</a>';
-  var ext = isTag ? 'externer Tag (nicht in der Mod definiert)' : (isVanilla(id) ? 'Vanilla-Minecraft' : 'nicht in den Wiki-Daten');
+  var ext = isTag ? T('refExtTag') : (isVanilla(id) ? T('refExtVanilla') : T('refExtUnknown'));
   return '<span class="ref ref-ext" title="' + esc(id + ' – ' + ext) + '">' + inner + '</span>';
 }
 function idLink(id, hint) {
@@ -361,7 +942,7 @@ function slotHtml(ref, count, opts) {
   opts = opts || {};
   var alts = arr(ref).map(function (a) { if (isObj(a)) { return a.tag ? '#' + a.tag : String(a.id || a.item || ''); } return a == null ? '' : String(a); }).filter(Boolean);
   var cls = 'slot' + (opts.cls ? ' ' + opts.cls : '');
-  if (!alts.length) return '<span class="' + cls + ' slot-empty" title="leer"></span>';
+  if (!alts.length) return '<span class="' + cls + ' slot-empty" title="' + esc(T('slotEmpty')) + '"></span>';
   var first = alts[0];
   var href = hrefFor(first, opts.hint);
   var body;
@@ -373,7 +954,7 @@ function slotHtml(ref, count, opts) {
     if (tex) body = '<img src="' + esc(tex) + '" alt="' + esc(displayName(first)) + '" data-name="' + esc(displayName(first)) + '" loading="lazy">';
     else { cls += ' slot-plain'; body = '<span class="slot-text">' + esc(displayName(first)) + '</span>'; }
   }
-  var title = alts.map(function (a) { return a.charAt(0) === '#' ? 'Tag ' + a : displayName(a) + ' (' + a + ')'; }).join('  |  ');
+  var title = alts.map(function (a) { return a.charAt(0) === '#' ? T('slotTitleTag', a) : displayName(a) + ' (' + a + ')'; }).join('  |  ');
   var c = num(count, 1);
   var cnt = c > 1 ? '<span class="slot-count">' + c + '</span>' : '';
   var alt = alts.length > 1 ? '<span class="slot-alt">+' + (alts.length - 1) + '</span>' : '';
@@ -388,49 +969,66 @@ function section(title, body, opts) {
   opts = opts || {};
   return '<section class="section" id="' + esc(opts.id || '') + '"><h2>' + esc(title) + (opts.count != null ? ' <span class="muted tiny">(' + opts.count + ')</span>' : '') + '</h2>' + body + '</section>';
 }
-function sourceLine(src) { return src ? '<div class="src">Quelle: <code>' + esc(src) + '</code></div>' : ''; }
+function sourceLine(src) { return src ? '<div class="src">' + esc(T('srcSource')) + ' <code>' + esc(src) + '</code></div>' : ''; }
 function hintNoText(what) {
-  return '<p class="hint">Noch ohne Beschreibung' + (what ? ' – ' + esc(what) : '') + '. Der Fließtext wird in <code>wiki/manual.json</code> gepflegt.</p>';
+  return '<p class="hint">' + T('hintNoTextLead') + (what ? ' – ' + esc(what) : '') + T('hintNoTextTail') + '</p>';
 }
 function listHtml(items, cls) { return '<ul' + (cls ? ' class="' + cls + '"' : '') + '>' + items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; }
 
 /* ------------------------------------------------------------------ */
 /* Prosa (note / feature)                                             */
 /* ------------------------------------------------------------------ */
+/* manual.json wird zweisprachig ({en: {...}, de: {...}}); bis dahin sind die
+   Notizen flach und deutsch. localised() waehlt die passende Fassung und sagt,
+   ob nur die andere Sprache vorlag. */
+function localised(n) {
+  if (!isObj(n)) return { v: null, fallback: false };
+  if (isObj(n.en) || isObj(n.de)) {
+    if (isObj(n[LANG])) return { v: n[LANG], fallback: false };
+    var o = otherLang();
+    if (isObj(n[o])) return { v: n[o], fallback: true };
+    return { v: null, fallback: false };
+  }
+  return { v: n, fallback: LANG !== 'de' };   /* flache Altform ist deutsch */
+}
 function noteHasContent(n) {
-  return isObj(n) && (strs([n.summary]).length || strs(n.details).length || strs(n.controls).length || strs(n.tiers).length || strs(n.caveats).length);
+  var v = localised(n).v;
+  return isObj(v) && (strs([v.summary]).length || strs(v.details).length || strs(v.controls).length || strs(v.tiers).length || strs(v.caveats).length);
 }
 function tiersTable(tiers) {
   var rows = tiers.map(function (t) { var i = t.indexOf(':'); return i > 0 && i < 40 ? [t.slice(0, i).trim(), t.slice(i + 1).trim()] : [null, t]; });
   var twoCol = rows.some(function (r) { return r[0] !== null; });
-  var h = '<div class="table-wrap"><table class="table"><thead><tr>' + (twoCol ? '<th>Stufe</th>' : '') + '<th>Unterschied</th></tr></thead><tbody>';
+  var h = '<div class="table-wrap"><table class="table"><thead><tr>' + (twoCol ? '<th>' + esc(T('thTier')) + '</th>' : '') + '<th>' + esc(T('thDifference')) + '</th></tr></thead><tbody>';
   rows.forEach(function (r) { h += '<tr>' + (twoCol ? '<td><strong>' + esc(r[0] || '') + '</strong></td>' : '') + '<td>' + esc(r[1]) + '</td></tr>'; });
   return h + '</tbody></table></div>';
 }
 function sourcesList(src) {
   if (!src.length) return '';
-  return '<div class="src">Belegt in: ' + src.map(function (s) { return '<code>' + esc(s) + '</code>'; }).join(' ') + '</div>';
+  return '<div class="src">' + esc(T('srcFoundIn')) + ' ' + src.map(function (s) { return '<code>' + esc(s) + '</code>'; }).join(' ') + '</div>';
 }
 function noteBlock(note, what) {
   if (!noteHasContent(note)) return hintNoText(what);
-  var h = '';
-  if (strs([note.summary]).length) h += '<p class="lead">' + esc(note.summary) + '</p>';
-  var det = strs(note.details); if (det.length) h += listHtml(det);
-  var ctl = strs(note.controls); if (ctl.length) h += '<div class="box box-controls"><div class="box-title">Bedienung</div>' + listHtml(ctl) + '</div>';
-  var tiers = strs(note.tiers); if (tiers.length) h += '<h3>Stufen</h3>' + tiersTable(tiers);
-  var cav = strs(note.caveats); if (cav.length) h += '<div class="box box-caveat"><div class="box-title">Zu beachten</div>' + listHtml(cav) + '</div>';
-  h += sourcesList(strs(note.sources));
-  if (note.key) h += '<div class="src">Notiz-Schlüssel in <code>manual.json</code>: <code>' + esc(note.key) + '</code></div>';
+  var loc = localised(note), n = loc.v;
+  var h = loc.fallback ? '<p class="hint tiny">' + esc(T('proseOtherLangOnly')) + '</p>' : '';
+  if (strs([n.summary]).length) h += '<p class="lead">' + esc(n.summary) + '</p>';
+  var det = strs(n.details); if (det.length) h += listHtml(det);
+  var ctl = strs(n.controls); if (ctl.length) h += '<div class="box box-controls"><div class="box-title">' + esc(T('boxControls')) + '</div>' + listHtml(ctl) + '</div>';
+  var tiers = strs(n.tiers); if (tiers.length) h += '<h3>' + esc(T('headingTiers')) + '</h3>' + tiersTable(tiers);
+  var cav = strs(n.caveats); if (cav.length) h += '<div class="box box-caveat"><div class="box-title">' + esc(T('boxCaveats')) + '</div>' + listHtml(cav) + '</div>';
+  h += sourcesList(strs(note.sources).length ? strs(note.sources) : strs(n.sources));
+  if (note.key) h += '<div class="src">' + esc(T('srcNoteKey')) + ' <code>manual.json</code>: <code>' + esc(note.key) + '</code></div>';
   return h;
 }
 function featureCard(f, full) {
   if (!isObj(f)) return '';
-  var title = f.title || prettyFromId(f.id || 'feature');
+  var loc = localised(f), fl = isObj(loc.v) ? loc.v : {};
+  var title = fl.title || f.title || prettyFromId(f.id || 'feature');
   var h = '<article class="card" id="feature-' + esc(f.id || '') + '">';
   h += full ? '<h1>' + esc(title) + '</h1>' : '<h2 style="border:0;padding:0;margin-bottom:.3rem"><a href="#/features/' + esc(f.id || '') + '">' + esc(title) + '</a></h2>';
-  if (strs([f.summary]).length) h += '<p class="lead">' + esc(f.summary) + '</p>'; else h += '<p class="hint">Noch ohne Beschreibung.</p>';
-  var det = strs(f.details); if (det.length) h += listHtml(det);
-  var rel = strs(f.related); if (rel.length) h += '<h3>Dazugehörig</h3><div class="reflist">' + rel.map(function (r) { return refLink(r); }).join('') + '</div>';
+  if (loc.fallback) h += '<p class="hint tiny">' + esc(T('proseOtherLangOnly')) + '</p>';
+  if (strs([fl.summary]).length) h += '<p class="lead">' + esc(fl.summary) + '</p>'; else h += '<p class="hint">' + esc(T('featureNoSummary')) + '</p>';
+  var det = strs(fl.details); if (det.length) h += listHtml(det);
+  var rel = strs(f.related); if (rel.length) h += '<h3>' + esc(T('headingRelated')) + '</h3><div class="reflist">' + rel.map(function (r) { return refLink(r); }).join('') + '</div>';
   h += sourcesList(strs(f.sources));
   return h + '</article>';
 }
@@ -438,20 +1036,10 @@ function featureCard(f, full) {
 /* ------------------------------------------------------------------ */
 /* Rezepte                                                            */
 /* ------------------------------------------------------------------ */
-var RECIPE_TYPES = {
-  'minecraft:crafting_shaped': 'Werkbank (geformt)',
-  'minecraft:crafting_shapeless': 'Werkbank (formlos)',
-  'minecraft:smithing_transform': 'Schmiedetisch',
-  'minecraft:smithing_trim': 'Schmiedetisch (Verzierung)',
-  'simplebuilding:count_based_smithing': 'Schmiedetisch (mengenbasiert)',
-  'minecraft:blasting': 'Schmelzofen',
-  'minecraft:smelting': 'Ofen',
-  'minecraft:smoking': 'Räucherofen',
-  'minecraft:campfire_cooking': 'Lagerfeuer',
-  'minecraft:stonecutting': 'Steinsäge'
-};
+/* Reihenfolge der Gruppen auf der Rezeptseite; die Beschriftung kommt aus STR. */
+var RECIPE_TYPE_ORDER = ['minecraft:crafting_shaped', 'minecraft:crafting_shapeless', 'minecraft:smithing_transform', 'minecraft:smithing_trim', 'simplebuilding:count_based_smithing', 'minecraft:blasting', 'minecraft:smelting', 'minecraft:smoking', 'minecraft:campfire_cooking', 'minecraft:stonecutting'];
 var COOK_DEFAULT = { 'minecraft:blasting': 100, 'minecraft:smelting': 200, 'minecraft:smoking': 100, 'minecraft:campfire_cooking': 600 };
-function recipeTypeLabel(t) { return RECIPE_TYPES[t] || prettyFromId(t || 'unbekannt'); }
+function recipeTypeLabel(type) { return tId('recipe.', type, prettyFromId(type || T('unknown'))); }
 function recipeKind(t) {
   t = String(t || '');
   if (/crafting_shaped$/.test(t)) return 'shaped';
@@ -462,7 +1050,7 @@ function recipeKind(t) {
 }
 function resultSlot(r) {
   var s = normStack(r.result);
-  return s ? slotCol(s.id, s.count, 'Ergebnis' + (s.count > 1 ? ' ×' + s.count : ''), { cls: 'slot-result' }) : slotCol(null, 1, 'Ergebnis?', { cls: 'slot-result' });
+  return s ? slotCol(s.id, s.count, T('slotResult') + (s.count > 1 ? ' ×' + s.count : ''), { cls: 'slot-result' }) : slotCol(null, 1, T('slotResultUnknown'), { cls: 'slot-result' });
 }
 function ingredientCounts(r) {
   var counts = new Map(); // key -> {ref, n}
@@ -493,7 +1081,7 @@ function renderShaped(r) {
     for (var x = 0; x < n; x++) {
       var ch = (pattern[y] || '').charAt(x);
       if (!ch || ch === ' ') h += slotHtml(null);
-      else if (key[ch] == null) h += '<span class="slot slot-plain" title="Schlüssel ' + esc(ch) + ' fehlt"><span class="slot-text">' + esc(ch) + ' ?</span></span>';
+      else if (key[ch] == null) h += '<span class="slot slot-plain" title="' + esc(T('shapedKeyMissing', ch)) + '"><span class="slot-text">' + esc(ch) + ' ?</span></span>';
       else h += slotHtml(key[ch]);
     }
   }
@@ -509,7 +1097,7 @@ function renderShapeless(r) {
 function renderSmithing(r) {
   var s = isObj(r.slots) ? r.slots : {};
   var addN = Math.max(1, num(r.addition_count, 1));
-  var h = '<div class="slotrow">' + slotCol(s.template, 1, 'Vorlage') + '<span class="plus">+</span>' + slotCol(s.base, 1, 'Basis') + '<span class="plus">+</span>' + slotCol(s.addition, addN, 'Zusatz' + (addN > 1 ? ' ×' + addN : '')) + '</div>';
+  var h = '<div class="slotrow">' + slotCol(s.template, 1, T('slotTemplate')) + '<span class="plus">+</span>' + slotCol(s.base, 1, T('slotBase')) + '<span class="plus">+</span>' + slotCol(s.addition, addN, T('slotAddition') + (addN > 1 ? ' ×' + addN : '')) + '</div>';
   h += '<span class="arrow">→</span>' + resultSlot(r);
   return h;
 }
@@ -518,10 +1106,10 @@ function renderCooking(r) {
   var input = s.ingredient != null ? s.ingredient : r.ingredients;
   var ticks = r.cookingtime != null ? num(r.cookingtime, 0) : null;
   var def = COOK_DEFAULT[r.type];
-  var timeTxt = ticks != null ? ticks + ' Ticks (' + fmtNum(ticks / 20) + ' s)' : (def != null ? def + ' Ticks (' + fmtNum(def / 20) + ' s, Standard)' : 'unbekannt');
-  var xp = r.experience != null ? fmtNum(r.experience) + ' XP' : 'keine XP-Angabe';
-  var h = slotCol(input, 1, 'Eingang') + '<span class="arrow">→</span>' + resultSlot(r);
-  h += '<div class="recipe-meta"><span>' + esc(recipeTypeLabel(r.type)) + '</span><span>Dauer: ' + esc(timeTxt) + '</span><span>Erfahrung: ' + esc(xp) + '</span></div>';
+  var timeTxt = ticks != null ? T('cookTicks', ticks, fmtNum(ticks / 20)) : (def != null ? T('cookTicksDefault', def, fmtNum(def / 20)) : T('unknown'));
+  var xp = r.experience != null ? fmtNum(r.experience) + ' XP' : T('cookNoXp');
+  var h = slotCol(input, 1, T('slotInput')) + '<span class="arrow">→</span>' + resultSlot(r);
+  h += '<div class="recipe-meta"><span>' + esc(recipeTypeLabel(r.type)) + '</span><span>' + esc(T('metaDuration', timeTxt)) + '</span><span>' + esc(T('metaExperience', xp)) + '</span></div>';
   return h;
 }
 function renderGeneric(r) {
@@ -535,13 +1123,13 @@ function recipeCard(r, opts) {
   var body = kind === 'shaped' ? renderShaped(r) : kind === 'shapeless' ? renderShapeless(r) : kind === 'smithing' ? renderSmithing(r) : kind === 'cooking' ? renderCooking(r) : renderGeneric(r);
   var res = normStack(r.result);
   var h = '<article class="recipe" id="recipe-' + esc(r.id) + '">';
-  h += '<div class="recipe-head">' + badge(recipeTypeLabel(r.type)) + (r.category ? badge('Kategorie: ' + r.category) : '') + (r.group ? badge('Gruppe: ' + r.group) : '');
+  h += '<div class="recipe-head">' + badge(recipeTypeLabel(r.type)) + (r.category ? badge(T('badgeCategory', r.category)) : '') + (r.group ? badge(T('badgeGroup', r.group)) : '');
   h += (opts.noLink ? '<code>' + esc(r.id) + '</code>' : '<a href="#/recipes/' + esc(r.id) + '"><code>' + esc(r.id) + '</code></a>') + '</div>';
   h += '<div class="recipe-body">' + body + '</div>';
   var ic = ingredientCounts(r);
   h += '<div class="recipe-foot">';
-  if (res) h += 'Ergebnis: ' + (res.count > 1 ? res.count + '× ' : '') + refLink(res.id) + '<br>';
-  if (ic.length) h += 'Zutaten: <span class="reflist">' + ic.map(function (e) { return '<span>' + (e.n > 1 ? e.n + '× ' : '') + e.ref.map(function (x) { return refLink(x, { hint: 'item' }); }).join(' <em class="muted">oder</em> ') + '</span>'; }).join('') + '</span>';
+  if (res) h += esc(T('footResult')) + ' ' + (res.count > 1 ? res.count + '× ' : '') + refLink(res.id) + '<br>';
+  if (ic.length) h += esc(T('footIngredients')) + ' <span class="reflist">' + ic.map(function (e) { return '<span>' + (e.n > 1 ? e.n + '× ' : '') + e.ref.map(function (x) { return refLink(x, { hint: 'item' }); }).join(' <em class="muted">' + esc(T('orSep')) + '</em> ') + '</span>'; }).join('') + '</span>';
   h += '</div>';
   if (!opts.noSource) h += sourceLine(r.source);
   return h + '</article>';
@@ -560,81 +1148,81 @@ function recipeRow(r) {
 /* ------------------------------------------------------------------ */
 /* Handel                                                             */
 /* ------------------------------------------------------------------ */
-var PROFESSIONS = { librarian: 'Bibliothekar', mason: 'Steinmetz', toolsmith: 'Werkzeugschmied', weaponsmith: 'Waffenschmied', armorer: 'Rüstungsschmied', farmer: 'Bauer', fisherman: 'Fischer', shepherd: 'Schäfer', fletcher: 'Pfeilmacher', cleric: 'Geistlicher', cartographer: 'Kartograf', leatherworker: 'Gerber', butcher: 'Metzger', wandering_trader: 'Fahrender Händler' };
-var LEVELS = { 1: 'Neuling', 2: 'Lehrling', 3: 'Geselle', 4: 'Experte', 5: 'Meister' };
-function professionLabel(p) { return PROFESSIONS[p] || prettyFromId(p || 'unbekannt'); }
-function levelLabel(l) { if (l == null || l === '') return 'ohne Stufe'; return 'Stufe ' + l + (LEVELS[l] ? ' · ' + LEVELS[l] : ''); }
+function professionLabel(p) { return tId('prof.', p, prettyFromId(p || T('unknown'))); }
+function levelLabel(l) {
+  if (l == null || l === '') return T('levelNone');
+  var name = tId('lvl.', l, '');
+  return T('levelPrefix', l) + (name ? ' · ' + name : '');
+}
 function stackText(s) { return s ? (s.count > 1 ? s.count + '× ' : '') + refLink(s.id) : '<span class="muted">–</span>'; }
 function poolTable(pool) {
   var rows = arr(pool).filter(isObj);
   if (!rows.length) return '';
   var total = rows.reduce(function (a, p) { return a + Math.max(0, num(p.weight, 0)); }, 0);
-  var h = '<h3>Verzauberungs-Pool <span class="muted tiny">(eine wird zufällig gewählt)</span></h3><div class="table-wrap"><table class="table"><thead><tr><th>Verzauberung</th><th class="num">Stufe</th><th class="num">Gewicht</th><th class="num">Anteil</th><th></th></tr></thead><tbody>';
+  var h = '<h3>' + esc(T('headingEnchPool')) + ' <span class="muted tiny">' + esc(T('enchPoolHint')) + '</span></h3><div class="table-wrap"><table class="table"><thead><tr><th>' + esc(T('thEnchantment')) + '</th><th class="num">' + esc(T('thLevel')) + '</th><th class="num">' + esc(T('thWeight')) + '</th><th class="num">' + esc(T('thShare')) + '</th><th></th></tr></thead><tbody>';
   rows.forEach(function (p) {
     var w = Math.max(0, num(p.weight, 0)); var pct = total > 0 ? w / total * 100 : 0;
     var e = IX.ench.get(p.enchantment);
-    h += '<tr><td>' + refLink(p.enchantment || '?') + (e && e.hasEffect === false ? ' ' + badge('ohne Wirkung', 'danger') : '') + '</td><td class="num">' + esc(p.level != null ? p.level : '–') + '</td><td class="num">' + esc(w) + '</td><td class="num">' + fmtNum(Math.round(pct * 10) / 10) + ' %</td><td><div class="pool-bar"><i style="width:' + Math.max(0, Math.min(100, pct)) + '%"></i></div></td></tr>';
+    h += '<tr><td>' + refLink(p.enchantment || '?') + (e && implOf(e) === 'none' ? ' ' + badge(T('badgeNotImplemented'), 'danger') : '') + '</td><td class="num">' + esc(p.level != null ? p.level : '–') + '</td><td class="num">' + esc(w) + '</td><td class="num">' + fmtNum(Math.round(pct * 10) / 10) + ' %</td><td><div class="pool-bar"><i style="width:' + Math.max(0, Math.min(100, pct)) + '%"></i></div></td></tr>';
   });
-  h += '<tr><td class="muted">Summe</td><td></td><td class="num muted">' + total + '</td><td class="num muted">100 %</td><td></td></tr>';
+  h += '<tr><td class="muted">' + esc(T('thSum')) + '</td><td></td><td class="num muted">' + total + '</td><td class="num muted">100 %</td><td></td></tr>';
   return h + '</tbody></table></div>';
 }
-function tradeCard(t, opts) {
+function tradeCard(tr, opts) {
   opts = opts || {};
-  if (!isObj(t)) return '';
-  var wants = normStack(t.wants), also = normStack(t.alsoWants), gives = normStack(t.gives);
-  var h = '<article class="card trade' + (opts.highlight ? ' highlight' : '') + '" id="trade-' + esc(t.id) + '">';
-  h += '<div class="recipe-head">' + badge(professionLabel(t.profession) + ' · ' + levelLabel(t.level)) + (opts.noLink ? '<code>' + esc(t.id) + '</code>' : '<a href="#/trades/' + esc(t.id) + '"><code>' + esc(t.id) + '</code></a>') + '</div>';
-  h += '<div class="recipe-body"><div class="slotrow">' + slotCol(wants ? wants.id : null, wants ? wants.count : 1, 'Preis' + (wants && wants.count > 1 ? ' ×' + wants.count : ''));
-  if (also) h += '<span class="plus">+</span>' + slotCol(also.id, also.count, 'dazu' + (also.count > 1 ? ' ×' + also.count : ''));
-  h += '</div><span class="arrow">→</span>' + slotCol(gives ? gives.id : null, gives ? gives.count : 1, 'Ware' + (gives && gives.count > 1 ? ' ×' + gives.count : ''), { cls: 'slot-result' }) + '</div>';
+  if (!isObj(tr)) return '';
+  var wants = normStack(tr.wants), also = normStack(tr.alsoWants), gives = normStack(tr.gives);
+  var h = '<article class="card trade' + (opts.highlight ? ' highlight' : '') + '" id="trade-' + esc(tr.id) + '">';
+  h += '<div class="recipe-head">' + badge(professionLabel(tr.profession) + ' · ' + levelLabel(tr.level)) + (opts.noLink ? '<code>' + esc(tr.id) + '</code>' : '<a href="#/trades/' + esc(tr.id) + '"><code>' + esc(tr.id) + '</code></a>') + '</div>';
+  h += '<div class="recipe-body"><div class="slotrow">' + slotCol(wants ? wants.id : null, wants ? wants.count : 1, T('slotPrice') + (wants && wants.count > 1 ? ' ×' + wants.count : ''));
+  if (also) h += '<span class="plus">+</span>' + slotCol(also.id, also.count, T('slotAlso') + (also.count > 1 ? ' ×' + also.count : ''));
+  h += '</div><span class="arrow">→</span>' + slotCol(gives ? gives.id : null, gives ? gives.count : 1, T('slotGoods') + (gives && gives.count > 1 ? ' ×' + gives.count : ''), { cls: 'slot-result' }) + '</div>';
   h += '<dl class="kv">';
-  h += '<dt>Verlangt</dt><dd>' + stackText(wants) + (also ? ' + ' + stackText(also) : '') + '</dd>';
-  h += '<dt>Gibt</dt><dd>' + stackText(gives) + '</dd>';
-  h += '<dt>Max. Nutzungen</dt><dd>' + esc(t.maxUses != null ? t.maxUses : '–') + '</dd>';
-  h += '<dt>Erfahrung (Händler)</dt><dd>' + esc(t.xp != null ? t.xp + ' XP' : '–') + '</dd>';
-  h += '<dt>Rabatt-Faktor</dt><dd>' + esc(t.reputationDiscount != null ? fmtNum(t.reputationDiscount) : '–') + ' <span class="muted tiny">(Preis-Multiplikator bei Reputation/Nachfrage)</span></dd>';
-  var flags = strs(t.configFlags);
-  h += '<dt>Konfiguration</dt><dd>' + (flags.length ? flags.map(function (f) { return '<a href="#/config/' + esc(f) + '"><code>' + esc(f) + '</code></a>'; }).join(' ') : '<span class="muted">keine Bedingung</span>') + '</dd>';
+  h += '<dt>' + esc(T('kvWants')) + '</dt><dd>' + stackText(wants) + (also ? ' + ' + stackText(also) : '') + '</dd>';
+  h += '<dt>' + esc(T('kvGives')) + '</dt><dd>' + stackText(gives) + '</dd>';
+  h += '<dt>' + esc(T('kvMaxUses')) + '</dt><dd>' + esc(tr.maxUses != null ? tr.maxUses : '–') + '</dd>';
+  h += '<dt>' + esc(T('kvTraderXp')) + '</dt><dd>' + esc(tr.xp != null ? tr.xp + ' XP' : '–') + '</dd>';
+  h += '<dt>' + esc(T('kvDiscount')) + '</dt><dd>' + esc(tr.reputationDiscount != null ? fmtNum(tr.reputationDiscount) : '–') + ' <span class="muted tiny">' + esc(T('kvDiscountHint')) + '</span></dd>';
+  var flags = strs(tr.configFlags);
+  h += '<dt>' + esc(T('kvConfig')) + '</dt><dd>' + (flags.length ? flags.map(function (f) { return '<a href="#/config/' + esc(f) + '"><code>' + esc(f) + '</code></a>'; }).join(' ') : '<span class="muted">' + esc(T('noCondition')) + '</span>') + '</dd>';
   h += '</dl>';
-  h += poolTable(t.enchantmentPool);
-  h += sourceLine(t.source);
+  h += poolTable(tr.enchantmentPool);
+  h += sourceLine(tr.source);
   return h + '</article>';
 }
-function tradeRow(t) {
-  var gives = normStack(t.gives), wants = normStack(t.wants);
-  return '<a class="row" href="#/trades/' + esc(t.id) + '">' + slotHtml(gives ? gives.id : null, gives ? gives.count : 1, { noLink: true }) +
+function tradeRow(tr) {
+  var gives = normStack(tr.gives), wants = normStack(tr.wants);
+  return '<a class="row" href="#/trades/' + esc(tr.id) + '">' + slotHtml(gives ? gives.id : null, gives ? gives.count : 1, { noLink: true }) +
     '<div class="row-main"><div class="row-title">' + esc(gives ? displayName(gives.id) : '?') + (gives && gives.count > 1 ? ' <span class="muted">×' + gives.count + '</span>' : '') + '</div>' +
-    '<div class="row-sub">für ' + esc(wants ? wants.count + '× ' + displayName(wants.id) : '?') + ' · ' + esc(professionLabel(t.profession)) + ', ' + esc(levelLabel(t.level)) + '</div></div>' +
-    '<div class="row-right">' + (arr(t.enchantmentPool).length ? badge(plural(arr(t.enchantmentPool).length, 'Verzauberung', 'Verzauberungen') + ' im Pool') : '') + '</div></a>';
+    '<div class="row-sub">' + esc(T('tradeFor')) + ' ' + esc(wants ? wants.count + '× ' + displayName(wants.id) : '?') + ' · ' + esc(professionLabel(tr.profession)) + ', ' + esc(levelLabel(tr.level)) + '</div></div>' +
+    '<div class="row-right">' + (arr(tr.enchantmentPool).length ? badge(plural(arr(tr.enchantmentPool).length, 'enchantmentOne', 'enchantmentMany') + ' ' + T('inPool')) : '') + '</div></a>';
 }
 
 /* ------------------------------------------------------------------ */
 /* Loot                                                               */
 /* ------------------------------------------------------------------ */
-var COND_LABELS = { 'minecraft:survives_explosion': 'überlebt Explosion', 'minecraft:match_tool': 'Werkzeug passt', 'minecraft:random_chance': 'Zufallschance', 'minecraft:killed_by_player': 'vom Spieler getötet', 'minecraft:table_bonus': 'Tabellen-Bonus (Glück)', 'minecraft:block_state_property': 'Blockzustand', 'minecraft:inverted': 'invertiert', 'minecraft:any_of': 'eine von', 'minecraft:all_of': 'alle von' };
-var FUNC_LABELS = { 'minecraft:set_count': 'Anzahl setzen', 'minecraft:explosion_decay': 'Explosionsverlust', 'minecraft:apply_bonus': 'Bonus (Glück)', 'minecraft:copy_components': 'Komponenten kopieren', 'minecraft:copy_name': 'Namen kopieren', 'minecraft:copy_state': 'Zustand kopieren', 'minecraft:set_contents': 'Inhalt setzen', 'minecraft:limit_count': 'Anzahl begrenzen' };
-function labelOf(x, map) {
+function labelOf(x, prefix) {
   var id = typeof x === 'string' ? x : (isObj(x) ? String(x.condition || x.function || x.id || x.type || JSON.stringify(x)) : String(x));
-  var l = map[id];
+  var l = tId(prefix, id, '');
   return l ? '<span title="' + esc(id) + '">' + esc(l) + ' <code>' + esc(id) + '</code></span>' : '<code>' + esc(id) + '</code>';
 }
 function lootBlock(l, opts) {
   opts = opts || {};
-  if (!isObj(l)) return '<p class="hint">Loot-Tabelle nicht in den Daten.</p>';
+  if (!isObj(l)) return '<p class="hint">' + esc(T('lootNotInData')) + '</p>';
   var pools = arr(l.pools);
   var h = '<div class="card" id="loot-' + esc(l.id) + '">';
-  h += '<div class="recipe-head">' + badge(l.type ? prettyFromId(l.type) : 'Loot') + (l.kind ? badge('Art: ' + l.kind) : '') + (opts.noLink ? '<code>' + esc(l.id) + '</code>' : '<a href="#/loot/' + esc(l.id) + '"><code>' + esc(l.id) + '</code></a>') + '</div>';
-  if (!pools.length) h += '<p class="hint">Keine Pools – dieser Block lässt nichts fallen.</p>';
+  h += '<div class="recipe-head">' + badge(l.type ? prettyFromId(l.type) : T('badgeLoot')) + (l.kind ? badge(T('badgeKind', l.kind)) : '') + (opts.noLink ? '<code>' + esc(l.id) + '</code>' : '<a href="#/loot/' + esc(l.id) + '"><code>' + esc(l.id) + '</code></a>') + '</div>';
+  if (!pools.length) h += '<p class="hint">' + esc(T('lootNoPools')) + '</p>';
   pools.forEach(function (p, i) {
     p = isObj(p) ? p : {};
     var items = arr(p.items).map(normStack).filter(Boolean);
     h += '<div style="margin:.6rem 0 .8rem">';
-    h += '<div class="tiny muted" style="margin-bottom:.3rem">Pool ' + (i + 1) + ' · Würfe: ' + esc(p.rolls != null ? (isObj(p.rolls) ? JSON.stringify(p.rolls) : fmtNum(p.rolls)) : '1') + (p.bonusRolls != null ? ' · Bonuswürfe: ' + esc(fmtNum(p.bonusRolls)) : '') + '</div>';
-    h += '<div class="slotrow">' + (items.length ? items.map(function (s) { return slotCol(s.id, s.count, displayName(s.id)); }).join('') : '<span class="hint">keine Einträge</span>') + '</div>';
+    h += '<div class="tiny muted" style="margin-bottom:.3rem">' + esc(T('poolLine', i + 1, p.rolls != null ? (isObj(p.rolls) ? JSON.stringify(p.rolls) : fmtNum(p.rolls)) : '1')) + (p.bonusRolls != null ? esc(T('bonusRolls', fmtNum(p.bonusRolls))) : '') + '</div>';
+    h += '<div class="slotrow">' + (items.length ? items.map(function (s) { return slotCol(s.id, s.count, displayName(s.id)); }).join('') : '<span class="hint">' + esc(T('noEntries')) + '</span>') + '</div>';
     if (items.length) h += '<div class="reflist" style="margin-top:.4rem">' + items.map(function (s) { return refLink(s.id); }).join('') + '</div>';
     var conds = arr(p.conditions), funcs = arr(p.functions);
-    h += '<dl class="kv tiny"><dt>Bedingungen</dt><dd>' + (conds.length ? conds.map(function (c) { return labelOf(c, COND_LABELS); }).join(', ') : '<span class="muted">keine</span>') + '</dd>';
-    h += '<dt>Funktionen</dt><dd>' + (funcs.length ? funcs.map(function (f) { return labelOf(f, FUNC_LABELS); }).join(', ') : '<span class="muted">keine</span>') + '</dd></dl>';
+    h += '<dl class="kv tiny"><dt>' + esc(T('kvConditions')) + '</dt><dd>' + (conds.length ? conds.map(function (c) { return labelOf(c, 'cond.'); }).join(', ') : '<span class="muted">' + esc(T('none')) + '</span>') + '</dd>';
+    h += '<dt>' + esc(T('kvFunctions')) + '</dt><dd>' + (funcs.length ? funcs.map(function (f) { return labelOf(f, 'func.'); }).join(', ') : '<span class="muted">' + esc(T('none')) + '</span>') + '</dd></dl>';
     h += '</div>';
   });
   h += sourceLine(l.source);
@@ -645,27 +1233,49 @@ function lootRow(l) {
   var owner = null; IX.lootOfBlock.forEach(function (lid, bid) { if (lid === l.id) owner = bid; });
   return '<a class="row" href="#/loot/' + esc(l.id) + '" data-s="' + esc(norm(l.id + ' ' + items.map(function (s) { return displayName(s.id); }).join(' '))) + '">' +
     slotHtml(owner || (items[0] && items[0].id) || null, 1, { noLink: true }) +
-    '<div class="row-main"><div class="row-title">' + esc(owner ? displayName(owner) : prettyFromId(l.id)) + '</div><div class="row-sub">Drops: ' + esc(items.length ? items.map(function (s) { return displayName(s.id); }).join(', ') : 'nichts') + '</div><div class="row-sub"><code>' + esc(l.id) + '</code></div></div>' +
-    '<div class="row-right">' + badge(plural(arr(l.pools).length, 'Pool', 'Pools')) + '</div></a>';
+    '<div class="row-main"><div class="row-title">' + esc(owner ? displayName(owner) : prettyFromId(l.id)) + '</div><div class="row-sub">' + esc(T('dropsPrefix', items.length ? items.map(function (s) { return displayName(s.id); }).join(', ') : T('nothing'))) + '</div><div class="row-sub"><code>' + esc(l.id) + '</code></div></div>' +
+    '<div class="row-right">' + badge(plural(arr(l.pools).length, 'poolOne', 'poolMany')) + '</div></a>';
 }
 
 /* ------------------------------------------------------------------ */
 /* Verzauberungen                                                     */
 /* ------------------------------------------------------------------ */
-var SLOT_LABELS = { mainhand: 'Haupthand', offhand: 'Nebenhand', hand: 'Hand (beide)', feet: 'Füße', legs: 'Beine', chest: 'Brust', head: 'Kopf', armor: 'Rüstung', body: 'Körper', any: 'beliebig', saddle: 'Sattel' };
-function slotLabel(s) { return SLOT_LABELS[s] ? SLOT_LABELS[s] + ' (' + s + ')' : String(s); }
+function slotLabel(s) { var l = tId('slot.', s, ''); return l ? l + ' (' + s + ')' : String(s); }
+/* Punkt 5: der Generator sagt, wo eine Verzauberung wirkt - data | code |
+   both | none. Aeltere Daten kennen nur hasEffect; daraus laesst sich
+   hoechstens "nirgends" oder "unbekannt" ableiten. */
+function implOf(e) {
+  if (!isObj(e)) return 'unknown';
+  if (typeof e.implementedIn === 'string' && e.implementedIn) return e.implementedIn;
+  if (e.hasEffect === false) return 'none';
+  return 'unknown';
+}
+function implBadge(e, long) {
+  var i = implOf(e);
+  if (i === 'none') return badge(T(long ? 'badgeNotImplementedLong' : 'badgeNotImplemented'), 'danger');
+  if (i === 'data') return badge(T(long ? 'badgeEffectDataLong' : 'badgeEffectData'), 'ok');
+  if (i === 'code') return badge(T(long ? 'badgeEffectCodeLong' : 'badgeEffectCode'), 'ok');
+  if (i === 'both') return badge(T(long ? 'badgeEffectBothLong' : 'badgeEffectBoth'), 'ok');
+  return long ? badge(T('badgeEffectUnknown')) : '';
+}
 function enchDescription(e) {
   var d = e.description;
   var out = [];
-  if (isObj(d)) { if (strs([d.de_de]).length) out.push({ l: 'de_de', t: d.de_de }); if (strs([d.en_us]).length) out.push({ l: 'en_us', t: d.en_us }); Object.keys(d).forEach(function (k) { if (k !== 'de_de' && k !== 'en_us' && strs([d[k]]).length) out.push({ l: k, t: d[k] }); }); }
+  if (isObj(d)) {
+    var first = LANG === 'de' ? 'de_de' : 'en_us', second = LANG === 'de' ? 'en_us' : 'de_de';
+    if (strs([d[first]]).length) out.push({ l: first, t: d[first] });
+    if (strs([d[second]]).length) out.push({ l: second, t: d[second] });
+    Object.keys(d).forEach(function (k) { if (k !== 'de_de' && k !== 'en_us' && strs([d[k]]).length) out.push({ l: k, t: d[k] }); });
+  }
   else if (typeof d === 'string' && d.trim()) out.push({ l: '', t: d });
   return out;
 }
 function enchRow(e) {
+  var main = nameOf(e) || prettyFromId(e.id), alt = nameAlt(e);
   return '<a class="row" href="#/enchantments/' + esc(e.id) + '" data-s="' + esc(norm(e.id + ' ' + nameDe(e) + ' ' + nameEn(e))) + '">' +
-    '<div class="row-main"><div class="row-title">' + esc(nameOf(e) || prettyFromId(e.id)) + (nameEn(e) && nameEn(e) !== nameOf(e) ? ' <span class="en">· ' + esc(nameEn(e)) + '</span>' : '') + '</div>' +
-    '<div class="row-sub">max. Stufe ' + esc(e.maxLevel != null ? e.maxLevel : '?') + ' · ' + esc(typeof e.supportedItems === 'string' ? e.supportedItems : '–') + '</div><div class="row-sub"><code>' + esc(e.id) + '</code></div></div>' +
-    '<div class="row-right">' + (e.hasEffect === false ? badge('ohne Wirkung', 'danger') : (e.hasEffect === true ? badge('mit Effekt', 'ok') : '')) + '</div></a>';
+    '<div class="row-main"><div class="row-title">' + esc(main) + (alt && alt !== main ? ' <span class="en">· ' + esc(alt) + '</span>' : '') + '</div>' +
+    '<div class="row-sub">' + esc(T('maxLevelPrefix', e.maxLevel != null ? e.maxLevel : '?')) + ' · ' + esc(typeof e.supportedItems === 'string' ? e.supportedItems : '–') + '</div><div class="row-sub"><code>' + esc(e.id) + '</code></div></div>' +
+    '<div class="row-right">' + implBadge(e, false) + '</div></a>';
 }
 
 /* ------------------------------------------------------------------ */
@@ -679,286 +1289,301 @@ function pageOverview() {
   var undoc = strs(D.undocumented);
   var undocCount = num(counts.undocumented, undoc.length);
   var h = '<h1>' + esc(MOD.name || MODID) + ' <span class="muted" style="font-weight:400">' + esc(MOD.version ? 'v' + MOD.version : '') + '</span></h1>';
-  h += '<p class="muted">Minecraft ' + esc(arr(MOD.minecraftLines).join(' und ') || '?') + ' · Loader: ' + esc(arr(MOD.loaders).join(', ') || '?') + (arr(MOD.parkedLoaders).length ? ' · geparkt: ' + esc(arr(MOD.parkedLoaders).join(', ')) : '') + '</p>';
+  h += '<p class="muted">Minecraft ' + esc(arr(MOD.minecraftLines).join(' ' + T('andJoin') + ' ') || '?') + ' · ' + esc(T('loadersPrefix', arr(MOD.loaders).join(', ') || '?')) + (arr(MOD.parkedLoaders).length ? esc(T('parkedPrefix', arr(MOD.parkedLoaders).join(', '))) : '') + '</p>';
 
-  h += '<div class="box box-info"><div class="box-title">Datenstand</div>';
-  h += '<dl class="kv" style="margin:.2rem 0"><dt>Minecraft-Linie</dt><dd>' + esc(g.line || '?') + '</dd><dt>Generator</dt><dd><code>' + esc(g.generator || '?') + '</code></dd><dt>Neu erzeugen</dt><dd><code>' + esc(g.howToRegenerate || '?') + '</code></dd>' + (g.warning ? '<dt>Hinweis</dt><dd class="muted tiny">' + esc(g.warning) + '</dd>' : '') + '</dl></div>';
+  h += '<div class="box box-info"><div class="box-title">' + esc(T('boxDataState')) + '</div>';
+  h += '<dl class="kv" style="margin:.2rem 0"><dt>' + esc(T('kvMcLine')) + '</dt><dd>' + esc(g.line || '?') + '</dd><dt>' + esc(T('kvGenerator')) + '</dt><dd><code>' + esc(g.generator || '?') + '</code></dd><dt>' + esc(T('kvRegenerate')) + '</dt><dd><code>' + esc(g.howToRegenerate || '?') + '</code></dd>' + (g.warning ? '<dt>' + esc(T('kvHint')) + '</dt><dd class="muted tiny">' + esc(g.warning) + '</dd>' : '') + '</dl></div>';
 
-  var tiles = [['items', 'Items', arr(D.items).length], ['blocks', 'Blöcke', arr(D.blocks).length], ['recipes', 'Rezepte', arr(D.recipes).length], ['loot', 'Loot-Tabellen', arr(D.lootTables).length], ['trades', 'Handel', arr(D.trades).length], ['enchantments', 'Verzauberungen', arr(D.enchantments).length], ['tags', 'Tags', arr(D.tags).length], ['config', 'Konfiguration', arr(D.config).length]];
+  var tiles = [['items', T('navItems'), arr(D.items).length], ['blocks', T('navBlocks'), arr(D.blocks).length], ['recipes', T('navRecipes'), arr(D.recipes).length], ['loot', T('navLoot'), arr(D.lootTables).length], ['trades', T('navTrades'), arr(D.trades).length], ['enchantments', T('navEnchantments'), arr(D.enchantments).length], ['tags', T('navTags'), arr(D.tags).length], ['config', T('navConfig'), arr(D.config).length]];
   h += '<div class="tile-list" style="margin:1rem 0">' + tiles.map(function (t) { return '<a class="tile" href="#/' + t[0] + '"><div class="big">' + t[2] + '</div><div class="lbl">' + esc(t[1]) + '</div></a>'; }).join('') + '</div>';
 
   if (undocCount > 0) {
-    h += '<div class="box box-caveat"><div class="box-title">' + plural(undocCount, 'Eintrag', 'Einträge') + ' ohne Fließtext</div>';
-    h += '<p style="margin:.2rem 0 .4rem">Diese Dinge haben eigenes Verhalten, aber noch keine Beschreibung in <code>wiki/manual.json</code>. <code>gradlew check</code> schlägt deshalb fehl.</p>';
-    if (undoc.length) h += '<details><summary>Liste anzeigen (' + undoc.length + ')</summary><div class="reflist" style="margin-top:.5rem">' + undoc.map(function (id) { return refLink(id); }).join('') + '</div></details>';
+    h += '<div class="box box-caveat"><div class="box-title">' + esc(plural(undocCount, 'undocOne', 'undocMany') + ' ' + T('undocSuffix')) + '</div>';
+    h += '<p style="margin:.2rem 0 .4rem">' + T('undocBody') + '</p>';
+    if (undoc.length) h += '<details><summary>' + esc(T('undocShow', undoc.length)) + '</summary><div class="reflist" style="margin-top:.5rem">' + undoc.map(function (id) { return refLink(id); }).join('') + '</div></details>';
     h += '</div>';
   } else {
-    h += '<p class="tiny muted">Alle Einträge mit eigenem Verhalten haben Fließtext.</p>';
+    h += '<p class="tiny muted">' + esc(T('allDocumented')) + '</p>';
   }
 
   var feats = arr(D.features).filter(isObj);
-  h += section('Features', feats.length ? feats.map(function (f) { return featureCard(f, false); }).join('') : '<p class="hint">Noch ohne Beschreibung – es sind keine Features in <code>wiki/manual.json</code> hinterlegt.</p>', { count: feats.length });
+  h += section(T('secFeatures'), feats.length ? feats.map(function (f) { return featureCard(f, false); }).join('') : '<p class="hint">' + T('featuresEmpty') + '</p>', { count: feats.length });
   return h;
 }
 function pageFeature(id) {
   var f = IX.features.get(id);
-  if (!f) return notFound('Feature', id);
-  return crumbs([{ label: 'Übersicht', href: '#/' }, { label: 'Features' }]) + featureCard(f, true);
+  if (!f) return notFound(T('wordFeature'), id);
+  return crumbs([{ label: T('navOverview'), href: '#/' }, { label: T('secFeatures') }]) + featureCard(f, true);
 }
 
 function listPage(title, rows, opts) {
   opts = opts || {};
-  var h = '<div class="listhead"><h1>' + esc(title) + ' <span class="muted tiny" style="font-weight:400">' + rows.length + '</span></h1>' + (rows.length > 8 ? '<input type="search" data-filter placeholder="Liste filtern …" aria-label="Liste filtern">' : '') + '</div>';
+  var h = '<div class="listhead"><h1>' + esc(title) + ' <span class="muted tiny" style="font-weight:400">' + rows.length + '</span></h1>' + (rows.length > 8 ? '<input type="search" data-filter placeholder="' + esc(T('filterPlaceholder')) + '" aria-label="' + esc(T('filterAria')) + '">' : '') + '</div>';
   if (opts.intro) h += opts.intro;
-  h += rows.length ? '<div class="rows" data-filter-target>' + rows.join('') + '</div>' : '<p class="hint">Keine Einträge.</p>';
-  h += '<p class="hint" data-filter-empty hidden>Nichts passt zum Filter.</p>';
+  h += rows.length ? '<div class="rows" data-filter-target>' + rows.join('') + '</div>' : '<p class="hint">' + esc(T('noEntriesList')) + '</p>';
+  h += '<p class="hint" data-filter-empty hidden>' + esc(T('filterEmpty')) + '</p>';
   return h;
 }
 function entryRow(e, kind) {
   var isBlock = kind === 'blocks';
   var badges = [];
-  if (e.hasCustomBehaviour) badges.push(badge('eigenes Verhalten', 'ok'));
-  if (!isBlock && IX.blocks.has(e.id)) badges.push(badge('auch Block'));
-  if (isBlock && arr(e.drops).length) badges.push(badge('droppt ' + arr(e.drops).length));
-  if (!noteHasContent(e.note) && e.hasCustomBehaviour) badges.push(badge('ohne Text', 'warn'));
-  var de = nameDe(e), en = nameEn(e), main = de || en || prettyFromId(e.id);
+  if (e.hasCustomBehaviour) badges.push(badge(T('badgeCustomBehaviour'), 'ok'));
+  if (!isBlock && IX.blocks.has(e.id)) badges.push(badge(T('badgeAlsoBlock')));
+  if (isBlock && arr(e.drops).length) badges.push(badge(T('badgeDrops', arr(e.drops).length)));
+  if (!noteHasContent(e.note) && e.hasCustomBehaviour) badges.push(badge(T('badgeNoText'), 'warn'));
+  var de = nameDe(e), en = nameEn(e), main = nameOf(e) || prettyFromId(e.id), alt = nameAlt(e);
   return '<a class="row" href="#/' + kind + '/' + esc(e.id) + '" data-s="' + esc(norm(e.id + ' ' + de + ' ' + en)) + '">' + slotHtml(e.id, 1, { noLink: true }) +
-    '<div class="row-main"><div class="row-title">' + esc(main) + (de && en && en !== de ? ' <span class="en">· ' + esc(en) + '</span>' : '') + '</div><div class="row-sub"><code>' + esc(e.id) + '</code></div></div>' +
+    '<div class="row-main"><div class="row-title">' + esc(main) + (alt && alt !== main ? ' <span class="en">· ' + esc(alt) + '</span>' : '') + '</div><div class="row-sub"><code>' + esc(e.id) + '</code></div></div>' +
     '<div class="row-right">' + badges.join('') + '</div></a>';
 }
-function sortedByName(list) { return arr(list).filter(isObj).slice().sort(function (a, b) { return norm(nameOf(a) || a.id).localeCompare(norm(nameOf(b) || b.id), 'de'); }); }
+function sortedByName(list) { return arr(list).filter(isObj).slice().sort(function (a, b) { return norm(nameOf(a) || a.id).localeCompare(norm(nameOf(b) || b.id), LANG); }); }
 
-function pageItems() { return listPage('Items', sortedByName(D.items).map(function (e) { return entryRow(e, 'items'); })); }
-function pageBlocks() { return listPage('Blöcke', sortedByName(D.blocks).map(function (e) { return entryRow(e, 'blocks'); })); }
+function pageItems() { return listPage(T('navItems'), sortedByName(D.items).map(function (e) { return entryRow(e, 'items'); })); }
+function pageBlocks() { return listPage(T('navBlocks'), sortedByName(D.blocks).map(function (e) { return entryRow(e, 'blocks'); })); }
 
 function entryPage(id, kind) {
   var isBlock = kind === 'blocks';
   var e = isBlock ? IX.blocks.get(id) : IX.items.get(id);
-  if (!e) return notFound(isBlock ? 'Block' : 'Item', id);
-  var de = nameDe(e), en = nameEn(e), main = de || en || prettyFromId(id);
+  if (!e) return notFound(isBlock ? T('wordBlock') : T('wordItem'), id);
+  var de = nameDe(e), en = nameEn(e), main = nameOf(e) || prettyFromId(id), alt = nameAlt(e);
   var tex = textureOf(id);
-  var h = crumbs([{ label: isBlock ? 'Blöcke' : 'Items', href: '#/' + kind }, { label: main }]);
-  h += '<div class="hero"><div class="hero-tex">' + (tex ? '<img src="' + esc(tex) + '" alt="' + esc(main) + '" data-name="' + esc(main) + '">' : 'keine Textur<br>gefunden') + '</div><div>';
+  var h = crumbs([{ label: isBlock ? T('navBlocks') : T('navItems'), href: '#/' + kind }, { label: main }]);
+  h += '<div class="hero"><div class="hero-tex">' + (tex ? '<img src="' + esc(tex) + '" alt="' + esc(main) + '" data-name="' + esc(main) + '">' : T('noTexture')) + '</div><div>';
   h += '<h1>' + esc(main) + '</h1>';
-  if (de && en && en !== de) h += '<div class="en">' + esc(en) + ' <span class="tiny">(en_us)</span></div>';
-  else if (!de && en) h += '<div class="en tiny">nur en_us · keine deutsche Übersetzung</div>';
+  if (alt && alt !== main) h += '<div class="en">' + esc(alt) + ' <span class="tiny">(' + (LANG === 'de' ? 'en_us' : 'de_de') + ')</span></div>';
+  else if (!de && en) h += '<div class="en tiny">' + esc(T('nameOnlyEn')) + '</div>';
   h += '<div class="idline"><code>' + esc(id) + '</code></div>';
   var badges = [];
-  badges.push(badge(isBlock ? 'Block' : 'Item'));
-  if (e.hasCustomBehaviour) badges.push(badge('eigenes Verhalten', 'ok'));
-  if (e.hasCustomBehaviour && !noteHasContent(e.note)) badges.push(badge('ohne Fließtext', 'warn'));
-  if (!isBlock && IX.blocks.has(id)) badges.push('<a class="badge" href="#/blocks/' + esc(id) + '">auch als Block →</a>');
-  if (isBlock && IX.items.has(id)) badges.push('<a class="badge" href="#/items/' + esc(id) + '">als Item →</a>');
+  badges.push(badge(isBlock ? T('badgeBlock') : T('badgeItem')));
+  if (e.hasCustomBehaviour) badges.push(badge(T('badgeCustomBehaviour'), 'ok'));
+  if (e.hasCustomBehaviour && !noteHasContent(e.note)) badges.push(badge(T('badgeNoProse'), 'warn'));
+  if (!isBlock && IX.blocks.has(id)) badges.push('<a class="badge" href="#/blocks/' + esc(id) + '">' + esc(T('badgeAlsoAsBlock')) + '</a>');
+  if (isBlock && IX.items.has(id)) badges.push('<a class="badge" href="#/items/' + esc(id) + '">' + esc(T('badgeAsItem')) + '</a>');
   h += '<div class="badges">' + badges.join('') + '</div>';
   h += '</div></div>';
 
-  h += section('Beschreibung', noteBlock(e.note, e.hasCustomBehaviour ? 'dieses Ding hat eigenes Verhalten, das erklärt werden sollte' : 'reiner Baustein, Rezept und Drop stehen unten'));
+  h += section(T('secDescription'), noteBlock(e.note, e.hasCustomBehaviour ? T('hintCustomBehaviour') : T('hintPlainBlock')));
 
   var crafted = strs(e.craftedBy);
-  h += section('Herstellung', crafted.length ? crafted.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeCard(r) : '<p class="hint">Rezept <code>' + esc(rid) + '</code> ist nicht in den Daten.</p>'; }).join('') : '<p class="hint">Kein Rezept in den Daten.</p>', { count: crafted.length });
+  h += section(T('secCrafting'), crafted.length ? crafted.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeCard(r) : '<p class="hint">' + T('recipeNotInData', esc(rid)) + '</p>'; }).join('') : '<p class="hint">' + esc(T('noRecipe')) + '</p>', { count: crafted.length });
 
   var used = strs(e.usedIn);
-  h += section('Verwendet in', used.length ? '<div class="rows">' + used.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeRow(r) : '<div class="row"><code>' + esc(rid) + '</code></div>'; }).join('') + '</div>' : '<p class="hint">In keinem Rezept als Zutat.</p>', { count: used.length });
+  h += section(T('secUsedIn'), used.length ? '<div class="rows">' + used.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeRow(r) : '<div class="row"><code>' + esc(rid) + '</code></div>'; }).join('') + '</div>' : '<p class="hint">' + esc(T('notAnIngredient')) + '</p>', { count: used.length });
 
   var trades = strs(e.trades);
-  h += section('Handel', trades.length ? trades.map(function (tid) { var t = IX.trades.get(tid); return t ? tradeCard(t) : '<p class="hint">Handel <code>' + esc(tid) + '</code> ist nicht in den Daten.</p>'; }).join('') : '<p class="hint">Wird von keinem Dorfbewohner gehandelt.</p>', { count: trades.length });
+  h += section(T('secTrades'), trades.length ? trades.map(function (tid) { var tc = IX.trades.get(tid); return tc ? tradeCard(tc) : '<p class="hint">' + T('tradeNotInData', esc(tid)) + '</p>'; }).join('') : '<p class="hint">' + esc(T('notTraded')) + '</p>', { count: trades.length });
 
   if (isBlock) {
     var lt = e.lootTable ? IX.loot.get(e.lootTable) : null;
     var drops = strs(e.drops);
     var body = '';
-    if (drops.length) body += '<p>Drops: <span class="reflist">' + drops.map(function (d) { return refLink(d); }).join('') + '</span></p>';
+    if (drops.length) body += '<p>' + esc(T('dropsPrefix', '')) + '<span class="reflist">' + drops.map(function (d) { return refLink(d); }).join('') + '</span></p>';
     if (lt) body += lootBlock(lt);
-    else if (e.lootTable) body += '<p class="hint">Loot-Tabelle <code>' + esc(e.lootTable) + '</code> ist nicht in den Daten.</p>';
-    else body += '<p class="hint">Keine Loot-Tabelle in den Daten' + (drops.length ? '' : ' – der Block droppt laut Datagen nichts, oder die Tabelle wird zur Laufzeit gebaut') + '.</p>';
-    h += section('Drops', body);
+    else if (e.lootTable) body += '<p class="hint">' + T('lootNotInDataOne', esc(e.lootTable)) + '</p>';
+    else body += '<p class="hint">' + esc(T('noLootTable')) + (drops.length ? '' : esc(T('noLootTableTail'))) + '.</p>';
+    h += section(T('secDrops'), body);
   }
   var dropsFrom = (IX.dropsOf.get(id) || []).filter(function (lid) { return !(isBlock && lid === e.lootTable); });
-  if (dropsFrom.length) h += section('Fällt aus', '<div class="rows">' + dropsFrom.map(function (lid) { return lootRow(IX.loot.get(lid)); }).join('') + '</div>', { count: dropsFrom.length });
+  if (dropsFrom.length) h += section(T('secDropsFrom'), '<div class="rows">' + dropsFrom.map(function (lid) { return lootRow(IX.loot.get(lid)); }).join('') + '</div>', { count: dropsFrom.length });
 
   var inTags = IX.tagsContaining.get(id) || [];
-  if (inTags.length) h += section('In Tags', '<div class="reflist">' + inTags.map(function (tid) { return '<a href="#/tags/' + esc(tid) + '"><code>' + esc(tid) + '</code></a>'; }).join('') + '</div>', { count: inTags.length });
+  if (inTags.length) h += section(T('secInTags'), '<div class="reflist">' + inTags.map(function (tid) { return '<a href="#/tags/' + esc(tid) + '"><code>' + esc(tid) + '</code></a>'; }).join('') + '</div>', { count: inTags.length });
 
   var feats = arr(D.features).filter(function (f) { return isObj(f) && strs(f.related).indexOf(id) >= 0; });
-  if (feats.length) h += section('Features', '<div class="reflist">' + feats.map(function (f) { return '<a href="#/features/' + esc(f.id) + '">' + esc(f.title || f.id) + '</a>'; }).join('') + '</div>');
+  if (feats.length) h += section(T('secFeatures'), '<div class="reflist">' + feats.map(function (f) { return '<a href="#/features/' + esc(f.id) + '">' + esc(featureTitle(f)) + '</a>'; }).join('') + '</div>');
   return h;
 }
 
 function pageRecipes() {
   var groups = new Map();
   arr(D.recipes).filter(isObj).forEach(function (r) { var k = r.type || 'unbekannt'; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(r); });
-  var order = Object.keys(RECIPE_TYPES); var keys = Array.from(groups.keys()).sort(function (a, b) { var ia = order.indexOf(a), ib = order.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b); });
-  var h = '<div class="listhead"><h1>Rezepte <span class="muted tiny" style="font-weight:400">' + arr(D.recipes).length + '</span></h1><input type="search" data-filter placeholder="Rezepte filtern …" aria-label="Rezepte filtern"></div>';
-  if (!keys.length) h += '<p class="hint">Keine Rezepte.</p>';
+  var order = RECIPE_TYPE_ORDER; var keys = Array.from(groups.keys()).sort(function (a, b) { var ia = order.indexOf(a), ib = order.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b); });
+  var h = '<div class="listhead"><h1>' + esc(T('navRecipes')) + ' <span class="muted tiny" style="font-weight:400">' + arr(D.recipes).length + '</span></h1><input type="search" data-filter placeholder="' + esc(T('filterRecipes')) + '" aria-label="' + esc(T('filterRecipes')) + '"></div>';
+  if (!keys.length) h += '<p class="hint">' + esc(T('noRecipes')) + '</p>';
   keys.forEach(function (k) {
-    var rows = groups.get(k).slice().sort(function (a, b) { var ra = normStack(a.result), rb = normStack(b.result); return norm(ra ? displayName(ra.id) : a.id).localeCompare(norm(rb ? displayName(rb.id) : b.id), 'de'); });
+    var rows = groups.get(k).slice().sort(function (a, b) { var ra = normStack(a.result), rb = normStack(b.result); return norm(ra ? displayName(ra.id) : a.id).localeCompare(norm(rb ? displayName(rb.id) : b.id), LANG); });
     h += section(recipeTypeLabel(k) + ' ', '<div class="tiny muted" style="margin:-.5rem 0 .5rem"><code>' + esc(k) + '</code></div><div class="rows" data-filter-target>' + rows.map(recipeRow).join('') + '</div>', { count: rows.length });
   });
-  h += '<p class="hint" data-filter-empty hidden>Nichts passt zum Filter.</p>';
+  h += '<p class="hint" data-filter-empty hidden>' + esc(T('filterEmpty')) + '</p>';
   return h;
 }
 function pageRecipe(id) {
   var r = IX.recipes.get(id);
-  if (!r) return notFound('Rezept', id);
+  if (!r) return notFound(T('wordRecipe'), id);
   var res = normStack(r.result);
-  var h = crumbs([{ label: 'Rezepte', href: '#/recipes' }, { label: res ? displayName(res.id) : id }]);
+  var h = crumbs([{ label: T('navRecipes'), href: '#/recipes' }, { label: res ? displayName(res.id) : id }]);
   h += '<h1>' + esc(res ? displayName(res.id) : prettyFromId(id)) + ' <span class="muted" style="font-weight:400;font-size:1rem">' + esc(recipeTypeLabel(r.type)) + '</span></h1><div class="idline"><code>' + esc(id) + '</code></div>';
   h += recipeCard(r, { noLink: true });
-  h += '<dl class="kv"><dt>Typ</dt><dd><code>' + esc(r.type || '?') + '</code></dd><dt>Kategorie</dt><dd>' + esc(r.category || '–') + '</dd><dt>Gruppe</dt><dd>' + esc(r.group || '–') + '</dd></dl>';
+  h += '<dl class="kv"><dt>' + esc(T('kvType')) + '</dt><dd><code>' + esc(r.type || '?') + '</code></dd><dt>' + esc(T('kvCategory')) + '</dt><dd>' + esc(r.category || '–') + '</dd><dt>' + esc(T('kvGroup')) + '</dt><dd>' + esc(r.group || '–') + '</dd></dl>';
   return h;
 }
 
-function pageLoot() { return listPage('Loot-Tabellen', arr(D.lootTables).filter(isObj).slice().sort(function (a, b) { return a.id.localeCompare(b.id); }).map(lootRow)); }
+function pageLoot() { return listPage(T('navLoot'), arr(D.lootTables).filter(isObj).slice().sort(function (a, b) { return a.id.localeCompare(b.id); }).map(lootRow)); }
 function pageLootOne(id) {
   var l = IX.loot.get(id);
-  if (!l) return notFound('Loot-Tabelle', id);
+  if (!l) return notFound(T('wordLootTable'), id);
   var owner = null; IX.lootOfBlock.forEach(function (lid, bid) { if (lid === id) owner = bid; });
-  var h = crumbs([{ label: 'Loot-Tabellen', href: '#/loot' }, { label: owner ? displayName(owner) : prettyFromId(id) }]);
+  var h = crumbs([{ label: T('navLoot'), href: '#/loot' }, { label: owner ? displayName(owner) : prettyFromId(id) }]);
   h += '<h1>' + esc(owner ? displayName(owner) : prettyFromId(id)) + '</h1><div class="idline"><code>' + esc(id) + '</code></div>';
-  if (owner) h += '<p>Gehört zu Block ' + refLink(owner) + '</p>';
+  if (owner) h += '<p>' + esc(T('belongsToBlock')) + ' ' + refLink(owner) + '</p>';
   h += lootBlock(l, { noLink: true });
   return h;
 }
 
 function pageTrades() {
   var by = new Map();
-  arr(D.trades).filter(isObj).forEach(function (t) { var p = t.profession || 'unbekannt'; if (!by.has(p)) by.set(p, new Map()); var lv = t.level == null ? '' : String(t.level); if (!by.get(p).has(lv)) by.get(p).set(lv, []); by.get(p).get(lv).push(t); });
+  arr(D.trades).filter(isObj).forEach(function (tr) { var p = tr.profession || 'unknown'; if (!by.has(p)) by.set(p, new Map()); var lv = tr.level == null ? '' : String(tr.level); if (!by.get(p).has(lv)) by.get(p).set(lv, []); by.get(p).get(lv).push(tr); });
   var flags = Object.keys(IX.tradesWithFlag.size ? Object.fromEntries(IX.tradesWithFlag) : {});
-  var h = '<h1>Handel <span class="muted tiny" style="font-weight:400">' + arr(D.trades).length + '</span></h1>';
-  h += '<p class="muted">Angebote von Dorfbewohnern und dem fahrenden Händler, gruppiert nach Beruf und Stufe.' + (flags.length ? ' Abschaltbar über ' + flags.map(function (f) { return '<a href="#/config/' + esc(f) + '"><code>' + esc(f) + '</code></a>'; }).join(', ') + '.' : '') + '</p>';
-  if (!by.size) h += '<p class="hint">Keine Handelsangebote.</p>';
+  var h = '<h1>' + esc(T('navTrades')) + ' <span class="muted tiny" style="font-weight:400">' + arr(D.trades).length + '</span></h1>';
+  h += '<p class="muted">' + esc(T('tradesIntro')) + (flags.length ? T('tradesToggle', flags.map(function (f) { return '<a href="#/config/' + esc(f) + '"><code>' + esc(f) + '</code></a>'; }).join(', ')) : '') + '</p>';
+  if (!by.size) h += '<p class="hint">' + esc(T('noTrades')) + '</p>';
   Array.from(by.keys()).sort().forEach(function (p) {
     var levels = Array.from(by.get(p).keys()).sort(function (a, b) { return num(a, 99) - num(b, 99); });
-    var body = levels.map(function (lv) { return '<h3>' + esc(levelLabel(lv === '' ? null : lv)) + '</h3>' + by.get(p).get(lv).map(function (t) { return tradeCard(t); }).join(''); }).join('');
+    var body = levels.map(function (lv) { return '<h3>' + esc(levelLabel(lv === '' ? null : lv)) + '</h3>' + by.get(p).get(lv).map(function (tc) { return tradeCard(tc); }).join(''); }).join('');
     var n = levels.reduce(function (a, lv) { return a + by.get(p).get(lv).length; }, 0);
     h += section(professionLabel(p) + ' ', '<div class="tiny muted" style="margin:-.5rem 0 .3rem"><code>' + esc(p) + '</code></div>' + body, { count: n, id: 'prof-' + p });
   });
   return h;
 }
 function pageTrade(id) {
-  var t = IX.trades.get(id);
-  if (!t) return notFound('Handel', id);
-  var gives = normStack(t.gives);
-  var h = crumbs([{ label: 'Handel', href: '#/trades' }, { label: professionLabel(t.profession), href: '#/trades' }, { label: gives ? displayName(gives.id) : id }]);
-  h += '<h1>' + esc(gives ? displayName(gives.id) : prettyFromId(id)) + ' <span class="muted" style="font-weight:400;font-size:1rem">' + esc(professionLabel(t.profession)) + ', ' + esc(levelLabel(t.level)) + '</span></h1><div class="idline"><code>' + esc(id) + '</code></div>';
-  h += tradeCard(t, { noLink: true });
+  var tr = IX.trades.get(id);
+  if (!tr) return notFound(T('wordTrade'), id);
+  var gives = normStack(tr.gives);
+  var h = crumbs([{ label: T('navTrades'), href: '#/trades' }, { label: professionLabel(tr.profession), href: '#/trades' }, { label: gives ? displayName(gives.id) : id }]);
+  h += '<h1>' + esc(gives ? displayName(gives.id) : prettyFromId(id)) + ' <span class="muted" style="font-weight:400;font-size:1rem">' + esc(professionLabel(tr.profession)) + ', ' + esc(levelLabel(tr.level)) + '</span></h1><div class="idline"><code>' + esc(id) + '</code></div>';
+  h += tradeCard(tr, { noLink: true });
   return h;
 }
 
 function pageEnchantments() {
-  return listPage('Verzauberungen', sortedByName(D.enchantments).map(enchRow), { intro: '<p class="muted tiny">Rot markierte Verzauberungen sind registriert, haben laut Daten aber keinen Effekt (<code>hasEffect: false</code>).</p>' });
+  return listPage(T('navEnchantments'), sortedByName(D.enchantments).map(enchRow), { intro: '<p class="muted tiny">' + T('enchIntro') + '</p>' });
 }
 function pageEnchantment(id) {
   var e = IX.ench.get(id);
-  if (!e) return notFound('Verzauberung', id);
-  var main = nameOf(e) || prettyFromId(id), en = nameEn(e);
-  var h = crumbs([{ label: 'Verzauberungen', href: '#/enchantments' }, { label: main }]);
+  if (!e) return notFound(T('wordEnchantment'), id);
+  var main = nameOf(e) || prettyFromId(id), alt = nameAlt(e);
+  var impl = implOf(e);
+  var h = crumbs([{ label: T('navEnchantments'), href: '#/enchantments' }, { label: main }]);
   h += '<h1>' + esc(main) + '</h1>';
-  if (en && en !== main) h += '<div class="en muted">' + esc(en) + ' <span class="tiny">(en_us)</span></div>';
+  if (alt && alt !== main) h += '<div class="en muted">' + esc(alt) + ' <span class="tiny">(' + (LANG === 'de' ? 'en_us' : 'de_de') + ')</span></div>';
   h += '<div class="idline"><code>' + esc(id) + '</code></div>';
-  h += '<div class="badges">' + (e.hasEffect === false ? badge('ohne Wirkung – hasEffect: false', 'danger') : e.hasEffect === true ? badge('mit Effekt', 'ok') : badge('Wirkung unbekannt')) + (noteHasContent(e.note) ? '' : badge('ohne Fließtext', 'warn')) + '</div>';
-  if (e.hasEffect === false) h += '<div class="box box-danger"><div class="box-title">Ohne Wirkung</div>Diese Verzauberung ist in den Daten ohne Effekt-Komponenten registriert (<code>effects: []</code>). Ob sie im Code über Ereignisse wirkt, steht nur im Fließtext – ist keiner da, tut sie nach Datenlage nichts.</div>';
+  h += '<div class="badges">' + implBadge(e, true) + (noteHasContent(e.note) ? '' : badge(T('badgeNoProse'), 'warn')) + '</div>';
+  if (impl === 'none') h += '<div class="box box-danger"><div class="box-title">' + esc(T('boxNotImplTitle')) + '</div>' + T('boxNotImplBody') + '</div>';
+  else if (impl === 'code') h += '<div class="box box-info"><div class="box-title">' + esc(T('boxCodeTitle')) + '</div>' + T('boxCodeBody') + '</div>';
 
   var descs = enchDescription(e);
-  h += section('Beschreibung', (descs.length ? descs.map(function (d) { return '<p class="lead">' + esc(d.t) + (d.l ? ' <span class="muted tiny">(' + esc(d.l) + ')</span>' : '') + '</p>'; }).join('') : '<p class="hint">Keine Beschreibung in den Sprachdateien.</p>') + noteBlock(e.note, 'Wirkung und Bedienung fehlen'));
+  h += section(T('secDescription'), (descs.length ? descs.map(function (d) { return '<p class="lead">' + esc(d.t) + (d.l ? ' <span class="muted tiny">(' + esc(d.l) + ')</span>' : '') + '</p>'; }).join('') : '<p class="hint">' + esc(T('noDescLang')) + '</p>') + noteBlock(e.note, T('hintEnchNoProse')));
 
   var kv = '<dl class="kv">';
-  kv += '<dt>Max. Stufe</dt><dd>' + esc(e.maxLevel != null ? e.maxLevel : '–') + '</dd>';
-  kv += '<dt>Gewicht</dt><dd>' + esc(e.weight != null ? e.weight : '–') + ' <span class="muted tiny">(Seltenheit am Zaubertisch, höher = häufiger)</span></dd>';
-  kv += '<dt>Amboss-Kosten</dt><dd>' + esc(e.anvilCost != null ? e.anvilCost : '–') + '</dd>';
-  kv += '<dt>Slots</dt><dd>' + (arr(e.slots).length ? arr(e.slots).map(function (s) { return esc(slotLabel(s)); }).join(', ') : '–') + '</dd>';
-  kv += '<dt>Unterstützte Items</dt><dd>' + (e.supportedItems ? refLink(e.supportedItems, { hint: 'item' }) : '–') + '</dd>';
-  kv += '<dt>Primäre Items</dt><dd>' + (e.primaryItems ? refLink(e.primaryItems, { hint: 'item' }) : '<span class="muted">wie unterstützte</span>') + '</dd>';
-  kv += '<dt>Ausschluss-Gruppe</dt><dd>' + (e.exclusiveSet ? refLink(e.exclusiveSet, { hint: 'enchantment' }) : '<span class="muted">keine – kombinierbar mit allen</span>') + '</dd>';
-  kv += '<dt>Effekte</dt><dd>' + (arr(e.effects).length ? arr(e.effects).map(function (x) { return '<code>' + esc(typeof x === 'string' ? x : JSON.stringify(x)) + '</code>'; }).join(' ') : '<span class="muted">keine</span>') + '</dd>';
+  kv += '<dt>' + esc(T('kvMaxLevel')) + '</dt><dd>' + esc(e.maxLevel != null ? e.maxLevel : '–') + '</dd>';
+  kv += '<dt>' + esc(T('kvWeight')) + '</dt><dd>' + esc(e.weight != null ? e.weight : '–') + ' <span class="muted tiny">' + esc(T('kvWeightHint')) + '</span></dd>';
+  kv += '<dt>' + esc(T('kvAnvilCost')) + '</dt><dd>' + esc(e.anvilCost != null ? e.anvilCost : '–') + '</dd>';
+  kv += '<dt>' + esc(T('kvSlots')) + '</dt><dd>' + (arr(e.slots).length ? arr(e.slots).map(function (s) { return esc(slotLabel(s)); }).join(', ') : '–') + '</dd>';
+  kv += '<dt>' + esc(T('kvSupportedItems')) + '</dt><dd>' + (e.supportedItems ? refLink(e.supportedItems, { hint: 'item' }) : '–') + '</dd>';
+  kv += '<dt>' + esc(T('kvPrimaryItems')) + '</dt><dd>' + (e.primaryItems ? refLink(e.primaryItems, { hint: 'item' }) : '<span class="muted">' + esc(T('likeSupported')) + '</span>') + '</dd>';
+  kv += '<dt>' + esc(T('kvExclusiveSet')) + '</dt><dd>' + (e.exclusiveSet ? refLink(e.exclusiveSet, { hint: 'enchantment' }) : '<span class="muted">' + esc(T('noneCombinable')) + '</span>') + '</dd>';
+  kv += '<dt>' + esc(T('kvImplementedIn')) + '</dt><dd>' + esc(T('impl.' + (impl === 'unknown' ? 'unknown' : impl))) + '</dd>';
+  kv += '<dt>' + esc(T('kvEffectComponents')) + '</dt><dd>' + (arr(e.effects).length ? arr(e.effects).map(function (x) { return '<code>' + esc(typeof x === 'string' ? x : JSON.stringify(x)) + '</code>'; }).join(' ') : '<span class="muted">' + esc(impl === 'code' ? T('effNoneCode') : impl === 'none' ? T('effNoneNotImpl') : T('none')) + '</span>') + '</dd>';
   kv += '</dl>' + sourceLine(e.source);
-  h += section('Eigenschaften', kv);
+  h += section(T('secProperties'), kv);
 
   var sup = typeof e.supportedItems === 'string' ? resolveTag(e.supportedItems, 'item') : null;
-  if (sup) h += section('Verzauberbar auf', tagValuesHtml(sup, 'item'), { count: arr(sup.values).length });
+  if (sup) h += section(T('secEnchantableOn'), tagValuesHtml(sup, 'item'), { count: arr(sup.values).length });
 
-  var tr = IX.tradesWithEnch.get(id) || [];
-  h += section('Im Handel', tr.length ? '<div class="rows">' + tr.map(function (tid) { return tradeRow(IX.trades.get(tid)); }).join('') + '</div>' : '<p class="hint">In keinem Handelsangebot.</p>', { count: tr.length });
+  var trs = IX.tradesWithEnch.get(id) || [];
+  h += section(T('secInTrades'), trs.length ? '<div class="rows">' + trs.map(function (tid) { return tradeRow(IX.trades.get(tid)); }).join('') + '</div>' : '<p class="hint">' + esc(T('notInTrade')) + '</p>', { count: trs.length });
 
   var inTags = IX.tagsContaining.get(id) || [];
-  if (inTags.length) h += section('In Tags', '<div class="reflist">' + inTags.map(function (tid) { return '<a href="#/tags/' + esc(tid) + '"><code>' + esc(tid) + '</code></a>'; }).join('') + '</div>', { count: inTags.length });
+  if (inTags.length) h += section(T('secInTags'), '<div class="reflist">' + inTags.map(function (tid) { return '<a href="#/tags/' + esc(tid) + '"><code>' + esc(tid) + '</code></a>'; }).join('') + '</div>', { count: inTags.length });
   return h;
 }
 
-function tagValuesHtml(t, registry) {
-  var vals = arr(t.values);
-  if (!vals.length) return '<p class="hint">Leerer Tag.</p>';
-  var h = '<div class="table-wrap"><table class="table"><thead><tr><th>Wert</th><th>Id</th><th></th></tr></thead><tbody>';
+function tagValuesHtml(tg, registry) {
+  var vals = arr(tg.values);
+  if (!vals.length) return '<p class="hint">' + esc(T('emptyTag')) + '</p>';
+  var h = '<div class="table-wrap"><table class="table"><thead><tr><th>' + esc(T('thValue')) + '</th><th>' + esc(T('thId')) + '</th><th></th></tr></thead><tbody>';
   vals.forEach(function (v) {
     var id = tagValueId(v); var req = isObj(v) && v.required === false;
     var isT = id.charAt(0) === '#';
-    h += '<tr><td>' + (isT ? '' : slotHtml(id, 1, { cls: '' }) + ' ') + refLink(id, { noId: true, hint: registry }) + '</td><td>' + idLink(id, registry) + '</td><td>' + (isT ? badge('Tag') : '') + (req ? ' ' + badge('optional (required: false)', 'warn') : '') + '</td></tr>';
+    h += '<tr><td>' + (isT ? '' : slotHtml(id, 1, { cls: '' }) + ' ') + refLink(id, { noId: true, hint: registry }) + '</td><td>' + idLink(id, registry) + '</td><td>' + (isT ? badge(T('badgeTag')) : '') + (req ? ' ' + badge(T('badgeOptional'), 'warn') : '') + '</td></tr>';
   });
   return h + '</tbody></table></div>';
 }
 function pageTags() {
-  var rows = arr(D.tags).filter(isObj).slice().sort(function (a, b) { return a.id.localeCompare(b.id); }).map(function (t) {
-    var info = tagRefOf(t);
-    return '<a class="row" href="#/tags/' + esc(t.id) + '" data-s="' + esc(norm(t.id + ' ' + info.ref + ' ' + arr(t.values).map(tagValueId).join(' '))) + '">' +
-      '<div class="row-main"><div class="row-title"><code>' + esc(info.ref) + '</code></div><div class="row-sub">' + esc(t.id) + ' · ' + esc(arr(t.values).map(function (v) { var id = tagValueId(v); return id.charAt(0) === '#' ? id : displayName(id); }).join(', ')) + '</div></div>' +
-      '<div class="row-right">' + badge('Registry: ' + (info.registry || '?')) + badge(plural(arr(t.values).length, 'Wert', 'Werte')) + (t.replace ? badge('replace', 'warn') : '') + '</div></a>';
+  var rows = arr(D.tags).filter(isObj).slice().sort(function (a, b) { return a.id.localeCompare(b.id); }).map(function (tg) {
+    var info = tagRefOf(tg);
+    return '<a class="row" href="#/tags/' + esc(tg.id) + '" data-s="' + esc(norm(tg.id + ' ' + info.ref + ' ' + arr(tg.values).map(tagValueId).join(' '))) + '">' +
+      '<div class="row-main"><div class="row-title"><code>' + esc(info.ref) + '</code></div><div class="row-sub">' + esc(tg.id) + ' · ' + esc(arr(tg.values).map(function (v) { var id = tagValueId(v); return id.charAt(0) === '#' ? id : displayName(id); }).join(', ')) + '</div></div>' +
+      '<div class="row-right">' + badge(T('badgeRegistry', info.registry || '?')) + badge(plural(arr(tg.values).length, 'valueOne', 'valueMany')) + (tg.replace ? badge('replace', 'warn') : '') + '</div></a>';
   });
-  return listPage('Tags', rows, { intro: '<p class="muted tiny">Tags werden in Rezepten und Verzauberungen als <code>#namespace:pfad</code> referenziert; die Registry (item, enchantment, …) steht im Dateipfad.</p>' });
+  return listPage(T('navTags'), rows, { intro: '<p class="muted tiny">' + T('tagsIntro') + '</p>' });
 }
 function pageTag(id) {
-  var t = IX.tags.get(id) || resolveTag(id);
-  if (!t) return notFound('Tag', id);
-  var info = tagRefOf(t);
-  var h = crumbs([{ label: 'Tags', href: '#/tags' }, { label: info.ref }]);
-  h += '<h1><code style="font-size:1.2rem">' + esc(info.ref) + '</code></h1><div class="idline"><code>' + esc(t.id) + '</code></div>';
-  h += '<div class="badges">' + badge('Registry: ' + (info.registry || '?')) + (t.replace ? badge('replace: true – ersetzt den Tag komplett statt zu ergänzen', 'warn') : badge('replace: false – ergänzt bestehende Werte')) + '</div>';
-  h += section('Werte', tagValuesHtml(t, info.registry), { count: arr(t.values).length });
+  var tg = IX.tags.get(id) || resolveTag(id);
+  if (!tg) return notFound(T('wordTag'), id);
+  var info = tagRefOf(tg);
+  var h = crumbs([{ label: T('navTags'), href: '#/tags' }, { label: info.ref }]);
+  h += '<h1><code style="font-size:1.2rem">' + esc(info.ref) + '</code></h1><div class="idline"><code>' + esc(tg.id) + '</code></div>';
+  h += '<div class="badges">' + badge(T('badgeRegistry', info.registry || '?')) + (tg.replace ? badge(T('badgeReplaceTrue'), 'warn') : badge(T('badgeReplaceFalse'))) + '</div>';
+  h += section(T('secValues'), tagValuesHtml(tg, info.registry), { count: arr(tg.values).length });
   var usedByEnch = IX.enchUsingTag.get(info.ref) || [];
   var usedByRecipes = IX.recipesUsingTag.get(info.ref) || [];
   var usedByTags = IX.tagsContaining.get(info.ref) || [];
   var body = '';
-  if (usedByEnch.length) body += '<h3>Verzauberungen</h3><div class="rows">' + usedByEnch.map(function (eid) { return enchRow(IX.ench.get(eid)); }).join('') + '</div>';
-  if (usedByRecipes.length) body += '<h3>Rezepte</h3><div class="rows">' + usedByRecipes.map(function (rid) { return recipeRow(IX.recipes.get(rid)); }).join('') + '</div>';
-  if (usedByTags.length) body += '<h3>Enthalten in Tags</h3><div class="reflist">' + usedByTags.map(function (tid) { return '<a href="#/tags/' + esc(tid) + '"><code>' + esc(tid) + '</code></a>'; }).join('') + '</div>';
-  h += section('Verwendet von', body || '<p class="hint">Wird in den Wiki-Daten nirgends referenziert.</p>');
-  h += sourceLine(t.source);
+  if (usedByEnch.length) body += '<h3>' + esc(T('navEnchantments')) + '</h3><div class="rows">' + usedByEnch.map(function (eid) { return enchRow(IX.ench.get(eid)); }).join('') + '</div>';
+  if (usedByRecipes.length) body += '<h3>' + esc(T('navRecipes')) + '</h3><div class="rows">' + usedByRecipes.map(function (rid) { return recipeRow(IX.recipes.get(rid)); }).join('') + '</div>';
+  if (usedByTags.length) body += '<h3>' + esc(T('secContainedInTags')) + '</h3><div class="reflist">' + usedByTags.map(function (tid) { return '<a href="#/tags/' + esc(tid) + '"><code>' + esc(tid) + '</code></a>'; }).join('') + '</div>';
+  h += section(T('secUsedBy'), body || '<p class="hint">' + esc(T('tagUnused')) + '</p>');
+  h += sourceLine(tg.source);
   return h;
 }
 
 function pageConfig(highlightName) {
   var rows = arr(D.config).filter(isObj);
-  var h = '<h1>Konfiguration <span class="muted tiny" style="font-weight:400">' + rows.length + '</span></h1>';
-  h += '<p class="muted tiny">Aus <code>SimplebuildingConfig.java</code>. Änderungen erfolgen in der Konfigurationsdatei der Mod, nicht hier.</p>';
-  if (!rows.length) return h + '<p class="hint">Keine Optionen.</p>';
-  h += '<div class="table-wrap"><table class="table"><thead><tr><th>Name</th><th>Typ</th><th>Standard</th><th>Tooltip</th><th>Notiz</th><th>Bezug</th></tr></thead><tbody>';
+  var h = '<h1>' + esc(T('navConfig')) + ' <span class="muted tiny" style="font-weight:400">' + rows.length + '</span></h1>';
+  h += '<p class="muted tiny">' + T('configIntro') + '</p>';
+  if (!rows.length) return h + '<p class="hint">' + esc(T('noOptions')) + '</p>';
+  h += '<div class="table-wrap"><table class="table"><thead><tr><th>' + esc(T('thName')) + '</th><th>' + esc(T('thTypeCol')) + '</th><th>' + esc(T('thDefault')) + '</th><th>' + esc(T('thTooltip')) + '</th><th>' + esc(T('thNote')) + '</th><th>' + esc(T('thRelation')) + '</th></tr></thead><tbody>';
   rows.forEach(function (c) {
     var tr = IX.tradesWithFlag.get(c.name) || [];
-    h += '<tr id="cfg-' + esc(c.name) + '"' + (c.name === highlightName ? ' class="highlight"' : '') + '><td><a href="#/config/' + esc(c.name) + '"><code>' + esc(c.name) + '</code></a></td><td>' + esc(c.type || '–') + '</td><td><code>' + esc(c.default != null ? c.default : '–') + '</code></td><td>' + (strs([c.tooltip]).length ? esc(c.tooltip) : '<span class="muted">–</span>') + '</td><td>' + (strs([c.note]).length ? esc(c.note) : '<span class="muted">–</span>') + '</td><td>' + (tr.length ? '<a href="#/trades">' + plural(tr.length, 'Handel', 'Handel') + '</a>' : '<span class="muted">–</span>') + '</td></tr>';
+    h += '<tr id="cfg-' + esc(c.name) + '"' + (c.name === highlightName ? ' class="highlight"' : '') + '><td><a href="#/config/' + esc(c.name) + '"><code>' + esc(c.name) + '</code></a></td><td>' + esc(c.type || '–') + '</td><td><code>' + esc(c.default != null ? c.default : '–') + '</code></td><td>' + (strs([c.tooltip]).length ? esc(c.tooltip) : '<span class="muted">–</span>') + '</td><td>' + (strs([c.note]).length ? esc(c.note) : '<span class="muted">–</span>') + '</td><td>' + (tr.length ? '<a href="#/trades">' + esc(plural(tr.length, 'tradeOne', 'tradeMany')) + '</a>' : '<span class="muted">–</span>') + '</td></tr>';
   });
   return h + '</tbody></table></div>';
 }
 
 function notFound(what, id) {
   var q = String(id || '').split(':').pop().split('/').pop();
-  return '<div class="notfound"><h1>' + esc(what) + ' nicht gefunden</h1><p><code>' + esc(id) + '</code> gibt es in den Wiki-Daten nicht.</p><p><a href="#/search/' + encodeURIComponent(q) + '">Nach „' + esc(q) + '“ suchen</a> · <a href="#/">Zur Übersicht</a></p></div>';
+  return '<div class="notfound"><h1>' + esc(T('notFoundTitle', what)) + '</h1><p>' + T('notFoundBody', esc(id)) + '</p><p><a href="#/search/' + encodeURIComponent(q) + '">' + esc(T('notFoundSearch', q)) + '</a> · <a href="#/">' + esc(T('notFoundOverview')) + '</a></p></div>';
 }
 
 /* ------------------------------------------------------------------ */
 /* Suche                                                              */
 /* ------------------------------------------------------------------ */
 var SEARCH = [];
-var SECTION_LABELS = { features: 'Features', items: 'Items', blocks: 'Blöcke', recipes: 'Rezepte', loot: 'Loot-Tabellen', trades: 'Handel', enchantments: 'Verzauberungen', tags: 'Tags', config: 'Konfiguration' };
-function noteText(n) { if (!isObj(n)) return ''; return [n.summary].concat(arr(n.details), arr(n.controls), arr(n.tiers), arr(n.caveats)).filter(Boolean).join(' '); }
+var SECTION_ORDER = ['features', 'items', 'blocks', 'recipes', 'loot', 'trades', 'enchantments', 'tags', 'config'];
+var SECTION_KEYS = { features: 'secFeatures', items: 'navItems', blocks: 'navBlocks', recipes: 'navRecipes', loot: 'navLoot', trades: 'navTrades', enchantments: 'navEnchantments', tags: 'navTags', config: 'navConfig' };
+function sectionLabel(s) { return T(SECTION_KEYS[s] || 'unknown'); }
+/* Titel eines Features in der gewaehlten Sprache. */
+function featureTitle(f) { if (!isObj(f)) return ''; var v = localised(f).v; return (isObj(v) && v.title) || f.title || prettyFromId(f.id || 'feature'); }
+/* Fuer den Suchindex: beide Sprachfassungen, damit ein Treffer nicht davon
+   abhaengt, welche Sprache gerade eingestellt ist. */
+function noteText(n) {
+  if (!isObj(n)) return '';
+  var parts = [];
+  function take(o) { if (isObj(o)) parts.push([o.summary].concat(arr(o.details), arr(o.controls), arr(o.tiers), arr(o.caveats)).filter(Boolean).join(' ')); }
+  if (isObj(n.en) || isObj(n.de)) { take(n.en); take(n.de); } else take(n);
+  return parts.join(' ');
+}
 function buildSearch() {
   if (!D) return;
   function add(section, id, title, sub, text, href) { SEARCH.push({ section: section, id: String(id), title: String(title || ''), sub: String(sub || ''), text: norm([title, sub, text].join(' ')), ntitle: norm(title), nid: norm(id), href: href }); }
-  arr(D.features).filter(isObj).forEach(function (f) { add('features', f.id, f.title || f.id, f.summary || '', arr(f.details).join(' ') + ' ' + arr(f.related).join(' '), '#/features/' + f.id); });
+  arr(D.features).filter(isObj).forEach(function (f) { var fv = localised(f).v || {}; add('features', f.id, featureTitle(f) || f.id, fv.summary || f.summary || '', noteText(f) + ' ' + arr(f.related).join(' '), '#/features/' + f.id); });
   arr(D.items).filter(isObj).forEach(function (e) { add('items', e.id, nameOf(e) || prettyFromId(e.id), [nameEn(e) !== nameOf(e) ? nameEn(e) : '', e.id].filter(Boolean).join(' · '), noteText(e.note), '#/items/' + e.id); });
   arr(D.blocks).filter(isObj).forEach(function (e) { add('blocks', e.id, nameOf(e) || prettyFromId(e.id), [nameEn(e) !== nameOf(e) ? nameEn(e) : '', e.id].filter(Boolean).join(' · '), noteText(e.note) + ' ' + arr(e.drops).join(' '), '#/blocks/' + e.id); });
   arr(D.recipes).filter(isObj).forEach(function (r) { var res = normStack(r.result); var ings = allIngredientRefs(r); add('recipes', r.id, (res ? displayName(res.id) : r.id) + ' (' + recipeTypeLabel(r.type) + ')', r.id, ings.map(function (i) { return displayName(i) + ' ' + i; }).join(' ') + ' ' + (r.group || ''), '#/recipes/' + r.id); });
   arr(D.lootTables).filter(isObj).forEach(function (l) { var items = []; arr(l.pools).forEach(function (p) { arr(p && p.items).forEach(function (it) { var s = normStack(it); if (s) items.push(displayName(s.id) + ' ' + s.id); }); }); add('loot', l.id, prettyFromId(l.id), l.id, items.join(' '), '#/loot/' + l.id); });
   arr(D.trades).filter(isObj).forEach(function (t) { var g = normStack(t.gives), w = normStack(t.wants); add('trades', t.id, (g ? displayName(g.id) : t.id) + ' – ' + professionLabel(t.profession) + ', ' + levelLabel(t.level), t.id, [g && g.id, w && displayName(w.id), w && w.id, t.profession].concat(arr(t.enchantmentPool).map(function (p) { return isObj(p) ? displayName(p.enchantment) + ' ' + p.enchantment : ''; }), strs(t.configFlags)).filter(Boolean).join(' '), '#/trades/' + t.id); });
-  arr(D.enchantments).filter(isObj).forEach(function (e) { add('enchantments', e.id, nameOf(e) || prettyFromId(e.id), [nameEn(e) !== nameOf(e) ? nameEn(e) : '', e.id].filter(Boolean).join(' · '), enchDescription(e).map(function (d) { return d.t; }).join(' ') + ' ' + noteText(e.note) + ' ' + [e.supportedItems, e.exclusiveSet].join(' ') + (e.hasEffect === false ? ' ohne wirkung' : ''), '#/enchantments/' + e.id); });
+  arr(D.enchantments).filter(isObj).forEach(function (e) { add('enchantments', e.id, nameOf(e) || prettyFromId(e.id), [nameEn(e) !== nameOf(e) ? nameEn(e) : '', e.id].filter(Boolean).join(' · '), enchDescription(e).map(function (d) { return d.t; }).join(' ') + ' ' + noteText(e.note) + ' ' + [e.supportedItems, e.exclusiveSet].join(' ') + ' implemented-in-' + implOf(e) + (implOf(e) === 'none' ? ' not implemented nicht implementiert ohne wirkung' : ''), '#/enchantments/' + e.id); });
   arr(D.tags).filter(isObj).forEach(function (t) { var info = tagRefOf(t); add('tags', t.id, info.ref, t.id, arr(t.values).map(function (v) { var id = tagValueId(v); return id + ' ' + displayName(id); }).join(' '), '#/tags/' + t.id); });
   arr(D.config).filter(isObj).forEach(function (c) { add('config', c.name, c.name, [c.type, c.default].filter(Boolean).join(' = '), [c.tooltip, c.note].filter(Boolean).join(' '), '#/config/' + c.name); });
 }
@@ -979,27 +1604,54 @@ function search(q) {
     }
     out.push({ e: e, score: score });
   });
-  out.sort(function (a, b) { return b.score - a.score || a.e.title.localeCompare(b.e.title, 'de'); });
+  out.sort(function (a, b) { return b.score - a.score || a.e.title.localeCompare(b.e.title, LANG); });
   return out;
 }
+/* Die Tokens sind normalisiert (klein, ohne Akzente, ss statt ss-Ligatur),
+   der Text nicht. Deshalb wird der Text zeichenweise normalisiert und dabei
+   die Zuordnung auf die Originalstellen mitgefuehrt - sonst bleiben Treffer
+   mit Umlauten unmarkiert. */
+function normMap(text) {
+  var out = '', idx = [];
+  for (var i = 0; i < text.length; i++) {
+    var piece = norm(text.charAt(i));
+    for (var j = 0; j < piece.length; j++) { out += piece.charAt(j); idx.push(i); }
+  }
+  idx.push(text.length);
+  return { n: out, idx: idx };
+}
 function highlight(text, tokens) {
-  var h = esc(text);
-  tokens.forEach(function (t) { if (t.length < 2) return; var re = new RegExp('(' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'); h = h.replace(re, '<mark>$1</mark>'); });
-  return h;
+  text = String(text == null ? '' : text);
+  var m = normMap(text), marks = [];
+  tokens.forEach(function (tok) {
+    if (!tok || tok.length < 2) return;
+    var from = 0, at;
+    while ((at = m.n.indexOf(tok, from)) >= 0) { marks.push([m.idx[at], m.idx[at + tok.length]]); from = at + tok.length; }
+  });
+  if (!marks.length) return esc(text);
+  marks.sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; });
+  var merged = [];
+  marks.forEach(function (r) {
+    var last = merged[merged.length - 1];
+    if (last && r[0] <= last[1]) last[1] = Math.max(last[1], r[1]); else merged.push([r[0], r[1]]);
+  });
+  var h = '', pos = 0;
+  merged.forEach(function (r) { h += esc(text.slice(pos, r[0])) + '<mark>' + esc(text.slice(r[0], r[1])) + '</mark>'; pos = r[1]; });
+  return h + esc(text.slice(pos));
 }
 function pageSearch(q) {
   q = String(q || '').trim();
-  var h = '<h1>Suche</h1>';
-  if (!q) return h + '<p class="hint">Suchbegriff oben eingeben – gesucht wird in Namen (de/en), Ids und Fließtext.</p>';
+  var h = '<h1>' + esc(T('titleSearch')) + '</h1>';
+  if (!q) return h + '<p class="hint">' + esc(T('searchHint')) + '</p>';
   var res = search(q);
   var tokens = norm(q).split(/\s+/).filter(Boolean);
-  h += '<p class="muted">' + plural(res.length, 'Treffer', 'Treffer') + ' für „' + esc(q) + '“</p>';
-  if (!res.length) return h + '<p class="hint">Nichts gefunden. Tipp: kürzere Begriffe oder die englische Id-Form (z. B. <code>sledgehammer</code>).</p>';
+  h += '<p class="muted">' + esc(T('searchResultsFor', plural(res.length, 'hitOne', 'hitMany'), q)) + '</p>';
+  if (!res.length) return h + '<p class="hint">' + T('searchNothing') + '</p>';
   var groups = new Map();
   res.forEach(function (r) { if (!groups.has(r.e.section)) groups.set(r.e.section, []); groups.get(r.e.section).push(r.e); });
-  Object.keys(SECTION_LABELS).forEach(function (sec) {
+  SECTION_ORDER.forEach(function (sec) {
     var list = groups.get(sec); if (!list) return;
-    h += '<div class="search-group">' + section(SECTION_LABELS[sec], '<div class="rows">' + list.map(function (e) {
+    h += '<div class="search-group">' + section(sectionLabel(sec), '<div class="rows">' + list.map(function (e) {
       var tex = (sec === 'items' || sec === 'blocks') ? slotHtml(e.id, 1, { noLink: true }) : '';
       return '<a class="row" href="' + esc(e.href) + '">' + tex + '<div class="row-main"><div class="row-title">' + highlight(e.title, tokens) + '</div><div class="row-sub">' + highlight(e.sub, tokens) + '</div></div></a>';
     }).join('') + '</div>', { count: list.length }) + '</div>';
@@ -1014,16 +1666,18 @@ var $main = document.getElementById('main');
 var $side = document.getElementById('sidebar');
 var $q = document.getElementById('q');
 var $meta = document.getElementById('topmeta');
+var $lang = document.getElementById('lang');
+/* label kommt aus STR, damit der Sprachwechsel die Leiste mitnimmt. */
 var NAV = [
-  { key: 'overview', label: 'Übersicht', href: '#/', count: function () { return arr(D.features).length ? arr(D.features).length + ' Features' : null; } },
-  { key: 'items', label: 'Items', count: function () { return arr(D.items).length; } },
-  { key: 'blocks', label: 'Blöcke', count: function () { return arr(D.blocks).length; } },
-  { key: 'recipes', label: 'Rezepte', count: function () { return arr(D.recipes).length; } },
-  { key: 'loot', label: 'Loot-Tabellen', count: function () { return arr(D.lootTables).length; } },
-  { key: 'trades', label: 'Handel', count: function () { return arr(D.trades).length; } },
-  { key: 'enchantments', label: 'Verzauberungen', count: function () { return arr(D.enchantments).length; } },
-  { key: 'tags', label: 'Tags', count: function () { return arr(D.tags).length; } },
-  { key: 'config', label: 'Konfiguration', count: function () { return arr(D.config).length; } }
+  { key: 'overview', labelKey: 'navOverview', href: '#/', count: function () { return arr(D.features).length ? T('navFeatureCount', arr(D.features).length) : null; } },
+  { key: 'items', labelKey: 'navItems', count: function () { return arr(D.items).length; } },
+  { key: 'blocks', labelKey: 'navBlocks', count: function () { return arr(D.blocks).length; } },
+  { key: 'recipes', labelKey: 'navRecipes', count: function () { return arr(D.recipes).length; } },
+  { key: 'loot', labelKey: 'navLoot', count: function () { return arr(D.lootTables).length; } },
+  { key: 'trades', labelKey: 'navTrades', count: function () { return arr(D.trades).length; } },
+  { key: 'enchantments', labelKey: 'navEnchantments', count: function () { return arr(D.enchantments).length; } },
+  { key: 'tags', labelKey: 'navTags', count: function () { return arr(D.tags).length; } },
+  { key: 'config', labelKey: 'navConfig', count: function () { return arr(D.config).length; } }
 ];
 function parseHash() {
   var h = location.hash || '';
@@ -1039,44 +1693,44 @@ function renderSidebar(active) {
   if (!D) { $side.innerHTML = ''; return; }
   $side.innerHTML = NAV.map(function (n) {
     var c = n.count ? n.count() : null;
-    return '<a href="' + esc(n.href || '#/' + n.key) + '" class="' + (n.key === active ? 'active' : '') + '">' + esc(n.label) + (c != null ? '<span class="n">' + esc(c) + '</span>' : '') + '</a>';
-  }).join('') + '<div class="sb-note">Erzeugt aus den Daten der Mod: <code>' + esc((D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py') + '</code></div>';
+    return '<a href="' + esc(n.href || '#/' + n.key) + '" class="' + (n.key === active ? 'active' : '') + '">' + esc(T(n.labelKey)) + (c != null ? '<span class="n">' + esc(c) + '</span>' : '') + '</a>';
+  }).join('') + '<div class="sb-note">' + T('sbNote', esc((D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</div>';
 }
 function renderMeta() {
   if (!D) { $meta.innerHTML = ''; return; }
   var g = isObj(D.generatedFrom) ? D.generatedFrom : {};
-  $meta.innerHTML = '<span>' + esc(MOD.version ? 'v' + MOD.version : '') + '</span><span>MC ' + esc(arr(MOD.minecraftLines).join(' / ') || '?') + '</span><span>' + esc(arr(MOD.loaders).join(' + ') || '') + '</span>' + (g.line ? '<span title="Datenstand dieser Wiki-Erzeugung">Daten: ' + esc(g.line) + '</span>' : '');
+  $meta.innerHTML = '<span>' + esc(MOD.version ? 'v' + MOD.version : '') + '</span><span>MC ' + esc(arr(MOD.minecraftLines).join(' / ') || '?') + '</span><span>' + esc(arr(MOD.loaders).join(' + ') || '') + '</span>' + (g.line ? '<span title="' + esc(T('metaDataTitle')) + '">' + esc(T('metaData', g.line)) + '</span>' : '');
   document.getElementById('brand').innerHTML = esc(MOD.name || 'SimpleBuilding') + ' <small>Wiki</small>';
 }
 function render() {
   if (!D) {
-    $main.innerHTML = '<div class="box box-danger"><div class="box-title">Keine Daten</div><p><code>wiki/data/simplebuilding.js</code> wurde nicht geladen oder setzt <code>window.WIKI_DATA</code> nicht.</p><p>Erzeugen mit <code>python wiki/generate.py</code> im Repo-Wurzelverzeichnis, dann diese Seite neu laden.</p></div>';
-    document.title = 'SimpleBuilding Wiki – keine Daten';
+    $main.innerHTML = '<div class="box box-danger"><div class="box-title">' + esc(T('noDataTitle')) + '</div>' + T('noDataBody') + '</div>';
+    document.title = T('docTitleNoData');
     return;
   }
   var r = parseHash();
   var html = '', title = '', active = r.section;
   try {
     switch (r.section) {
-      case 'overview': case '': html = pageOverview(); title = 'Übersicht'; active = 'overview'; break;
-      case 'features': html = pageFeature(r.id); title = (IX.features.get(r.id) || {}).title || 'Feature'; active = 'overview'; break;
-      case 'items': html = r.id ? entryPage(r.id, 'items') : pageItems(); title = r.id ? displayName(r.id) : 'Items'; break;
-      case 'blocks': html = r.id ? entryPage(r.id, 'blocks') : pageBlocks(); title = r.id ? displayName(r.id) : 'Blöcke'; break;
-      case 'recipes': html = r.id ? pageRecipe(r.id) : pageRecipes(); title = r.id ? 'Rezept ' + r.id : 'Rezepte'; break;
-      case 'loot': html = r.id ? pageLootOne(r.id) : pageLoot(); title = r.id ? 'Loot ' + r.id : 'Loot-Tabellen'; break;
-      case 'trades': html = r.id ? pageTrade(r.id) : pageTrades(); title = r.id ? 'Handel ' + r.id : 'Handel'; break;
-      case 'enchantments': html = r.id ? pageEnchantment(r.id) : pageEnchantments(); title = r.id ? displayName(r.id) : 'Verzauberungen'; break;
-      case 'tags': html = r.id ? pageTag(r.id) : pageTags(); title = r.id ? 'Tag ' + r.id : 'Tags'; break;
-      case 'config': html = pageConfig(r.id); title = 'Konfiguration'; break;
-      case 'search': html = pageSearch(r.id); title = 'Suche'; active = ''; if (document.activeElement !== $q) $q.value = r.id || ''; break;
-      default: html = notFound('Bereich', r.section); title = 'Nicht gefunden'; active = '';
+      case 'overview': case '': html = pageOverview(); title = T('navOverview'); active = 'overview'; break;
+      case 'features': html = pageFeature(r.id); title = featureTitle(IX.features.get(r.id)) || T('wordFeature'); active = 'overview'; break;
+      case 'items': html = r.id ? entryPage(r.id, 'items') : pageItems(); title = r.id ? displayName(r.id) : T('navItems'); break;
+      case 'blocks': html = r.id ? entryPage(r.id, 'blocks') : pageBlocks(); title = r.id ? displayName(r.id) : T('navBlocks'); break;
+      case 'recipes': html = r.id ? pageRecipe(r.id) : pageRecipes(); title = r.id ? T('titleRecipePrefix', r.id) : T('navRecipes'); break;
+      case 'loot': html = r.id ? pageLootOne(r.id) : pageLoot(); title = r.id ? T('titleLootPrefix', r.id) : T('navLoot'); break;
+      case 'trades': html = r.id ? pageTrade(r.id) : pageTrades(); title = r.id ? T('titleTradePrefix', r.id) : T('navTrades'); break;
+      case 'enchantments': html = r.id ? pageEnchantment(r.id) : pageEnchantments(); title = r.id ? displayName(r.id) : T('navEnchantments'); break;
+      case 'tags': html = r.id ? pageTag(r.id) : pageTags(); title = r.id ? T('titleTagPrefix', r.id) : T('navTags'); break;
+      case 'config': html = pageConfig(r.id); title = T('navConfig'); break;
+      case 'search': html = pageSearch(r.id); title = T('titleSearch'); active = ''; if (document.activeElement !== $q) $q.value = r.id || ''; break;
+      default: html = notFound(T('wordSection'), r.section); title = T('titleNotFound'); active = '';
     }
   } catch (err) {
-    html = '<div class="box box-danger"><div class="box-title">Fehler beim Aufbau der Seite</div><p>' + esc(err && err.message ? err.message : String(err)) + '</p><p><a href="#/">Zur Übersicht</a></p></div>';
-    title = 'Fehler';
+    html = '<div class="box box-danger"><div class="box-title">' + esc(T('renderError')) + '</div><p>' + esc(err && err.message ? err.message : String(err)) + '</p><p><a href="#/">' + esc(T('notFoundOverview')) + '</a></p></div>';
+    title = T('titleError');
     if (window.console) console.error(err);
   }
-  if (!html) html = '<div class="notfound">Diese Seite ist leer – <a href="#/">zur Übersicht</a>.</div>';
+  if (!html) html = '<div class="notfound">' + T('emptyPage') + '</div>';
   $main.innerHTML = html;
   renderSidebar(active);
   document.title = (title ? title + ' – ' : '') + (MOD.name || 'SimpleBuilding') + ' Wiki';
@@ -1094,7 +1748,7 @@ $main.addEventListener('error', function (ev) {
   if (!img || img.tagName !== 'IMG') return;
   var name = img.getAttribute('data-name') || img.getAttribute('alt') || '?';
   var parent = img.parentNode;
-  if (parent && parent.classList && parent.classList.contains('hero-tex')) { parent.innerHTML = 'Textur nicht<br>gefunden'; return; }
+  if (parent && parent.classList && parent.classList.contains('hero-tex')) { parent.innerHTML = T('texNotFound'); return; }
   var span = document.createElement('span'); span.className = 'slot-text'; span.textContent = name;
   if (parent && parent.classList) parent.classList.add('slot-plain');
   img.replaceWith(span);
@@ -1140,7 +1794,37 @@ document.addEventListener('keydown', function (ev) {
 });
 
 window.addEventListener('hashchange', render);
+
+/* Beschriftungen ausserhalb von #main und der Seitenleiste - die schreibt
+   render() nicht, sie muessen von Hand nachgezogen werden. */
+function applyStaticText() {
+  document.documentElement.lang = LANG;
+  $q.placeholder = T('searchPlaceholder');
+  $q.setAttribute('aria-label', T('searchAria'));
+  $side.setAttribute('aria-label', T('sidebarAria'));
+  $lang.setAttribute('aria-label', T('langAria'));
+  $lang.value = LANG;
+}
+/* Sprachwechsel ohne Neuladen. Die Reihenfolge zaehlt: der Suchindex muss
+   neu stehen, bevor render() eine Suchseite zeichnet, und buildSearch haengt
+   an, statt zu ersetzen - ohne das Leeren waechst der Index bei jedem Wechsel. */
+function setLang(next) {
+  if (LANGS.indexOf(next) < 0 || next === LANG) return;
+  LANG = next;
+  try { if (window.localStorage) window.localStorage.setItem(LANG_STORE, LANG); }
+  catch (err) { /* ohne Storage gilt die Wahl nur fuer diese Sitzung */ }
+  applyStaticText();
+  SEARCH.length = 0;
+  buildSearch();
+  renderMeta();
+  var y = window.pageYOffset || 0;
+  render();
+  window.scrollTo(0, y);   /* render() springt sonst an den Seitenanfang */
+}
+$lang.addEventListener('change', function () { setLang($lang.value); });
+
 buildIndex();
+applyStaticText();
 buildSearch();
 renderMeta();
 render();
