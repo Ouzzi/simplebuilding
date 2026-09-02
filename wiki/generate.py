@@ -92,6 +92,39 @@ def short(identifier: str) -> str:
     return identifier.split(":", 1)[-1] if identifier else identifier
 
 
+LANGUAGES = ("en", "de")
+PROSE_FIELDS = ("title", "summary", "details", "controls", "tiers", "caveats")
+
+
+def has_prose(block) -> bool:
+    """True as soon as one prose field carries text."""
+    if not isinstance(block, dict):
+        return False
+    for field in PROSE_FIELDS:
+        value = block.get(field)
+        if isinstance(value, str) and value.strip():
+            return True
+        if isinstance(value, list) and any(str(item).strip() for item in value):
+            return True
+    return False
+
+
+def prose_languages(entry) -> set[str]:
+    """
+    Which languages a manual.json entry actually carries text in.
+
+    The file is bilingual: {"en": {...}, "de": {...}, "sources": [...]}. The
+    older flat shape - prose fields directly on the entry - was German, so it
+    still counts as German. That keeps a half migrated file honest instead of
+    reporting the whole wiki as undocumented.
+    """
+    if not isinstance(entry, dict):
+        return set()
+    if any(isinstance(entry.get(lang), dict) for lang in LANGUAGES):
+        return {lang for lang in LANGUAGES if has_prose(entry.get(lang))}
+    return {"de"} if has_prose(entry) else set()
+
+
 def is_ours(identifier: str) -> bool:
     return isinstance(identifier, str) and identifier.startswith(NS + ":")
 
@@ -837,13 +870,37 @@ def build(line: str) -> tuple[dict, list[str]]:
         for entry in collection:
             entry["hasCustomBehaviour"] = entry["id"] in behavioural
 
-    undocumented = sorted({
-        entry["id"]
-        for collection in (items, blocks, enchantments)
-        for entry in collection
-        if not note_for(entry["id"])[1]
-        and (entry["id"] in behavioural or entry in enchantments)
-    })
+    # Zwei getrennte Maengel: gar keine Prosa, oder Prosa in nur einer Sprache.
+    # Der zweite Fall waere frueher unsichtbar geblieben und haette eine halb
+    # uebersetzte Seite als fertig gemeldet.
+    undocumented: list[str] = []
+    incomplete: dict[str, list[str]] = {}
+
+    def record(identifier: str, entry) -> None:
+        languages = prose_languages(entry)
+        if not languages:
+            undocumented.append(identifier)
+            return
+        missing = [lang for lang in LANGUAGES if lang not in languages]
+        if missing:
+            incomplete[identifier] = missing
+
+    for collection in (items, blocks, enchantments):
+        for entry in collection:
+            identifier = entry["id"]
+            if not (identifier in behavioural or collection is enchantments):
+                continue
+            note, found = note_for(identifier)
+            record(identifier, note if found else None)
+
+    # Ohne Praefix: die App loest eine Feature-Id ueber IX.features zu
+    # #/features/<id> auf, ein "feature:"-Praefix waere ein toter Verweis.
+    for feature in manual.get("features", []):
+        if isinstance(feature, dict) and feature.get("id"):
+            record(feature["id"], feature)
+
+    undocumented = sorted(set(undocumented))
+    incomplete = dict(sorted(incomplete.items()))
 
     properties = {}
     props_path = REPO / "gradle.properties"
@@ -896,10 +953,12 @@ def build(line: str) -> tuple[dict, list[str]]:
             "config": len(config),
             "features": len(manual.get("features", [])),
             "undocumented": len(undocumented),
+            "incompleteProse": len(incomplete),
         },
         "undocumented": undocumented,
+        "incompleteProse": incomplete,
     }
-    return data, undocumented, vanilla
+    return data, undocumented, vanilla, incomplete
 
 
 def main() -> int:
@@ -914,7 +973,7 @@ def main() -> int:
                              "the Gradle checkWiki task runs.")
     args = parser.parse_args()
 
-    data, undocumented, vanilla = build(args.line)
+    data, undocumented, vanilla, incomplete = build(args.line)
     payload = json.dumps(data, indent=2, ensure_ascii=False, sort_keys=False)
 
     props_state = data["generatedFrom"]["itemProperties"]
@@ -939,7 +998,14 @@ def main() -> int:
             for identifier in undocumented:
                 print("   -", identifier)
             print("Fix: describe them in wiki/manual.json, then  python wiki/generate.py")
-        if stale or undocumented or missing_props:
+        if incomplete:
+            print(f"{len(incomplete)} entries have prose in only one language:")
+            for identifier, missing in list(incomplete.items())[:20]:
+                print(f"   - {identifier}  (missing: {', '.join(missing)})")
+            if len(incomplete) > 20:
+                print(f"   ... and {len(incomplete) - 20} more")
+            print("Fix: the wiki is bilingual - every entry needs an \"en\" and a \"de\" block.")
+        if stale or undocumented or incomplete or missing_props:
             return 1
         print("wiki: up to date, everything documented.")
         return 0

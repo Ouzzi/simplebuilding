@@ -523,6 +523,9 @@ en: {
   undocSuffix: 'without prose',
   undocBody: 'These things have custom behaviour but no description in <code>wiki/manual.json</code> yet, which is why <code>gradlew check</code> fails.',
   undocShow: 'Show list ({0})',
+  incompleteOne: 'entry', incompleteMany: 'entries',
+  incompleteSuffix: 'in only one language',
+  incompleteBody: 'The wiki is bilingual. These entries have prose in one language only, so a reader in the other language sees the fallback notice. <code>gradlew check</code> fails on them.',
   allDocumented: 'Every entry with custom behaviour has prose.',
   featuresEmpty: 'No description yet – there are no features in <code>wiki/manual.json</code>.',
   titleSearch: 'Search',
@@ -803,6 +806,9 @@ de: {
   undocSuffix: 'ohne Fließtext',
   undocBody: 'Diese Dinge haben eigenes Verhalten, aber noch keine Beschreibung in <code>wiki/manual.json</code>. <code>gradlew check</code> schlägt deshalb fehl.',
   undocShow: 'Liste anzeigen ({0})',
+  incompleteOne: 'Eintrag', incompleteMany: 'Einträge',
+  incompleteSuffix: 'nur in einer Sprache',
+  incompleteBody: 'Das Wiki ist zweisprachig. Diese Einträge haben nur in einer Sprache Fließtext; in der anderen sieht der Leser den Rückfallhinweis. <code>gradlew check</code> schlägt deshalb fehl.',
   allDocumented: 'Alle Einträge mit eigenem Verhalten haben Fließtext.',
   featuresEmpty: 'Noch ohne Beschreibung – es sind keine Features in <code>wiki/manual.json</code> hinterlegt.',
   titleSearch: 'Suche',
@@ -1361,6 +1367,18 @@ function pageOverview() {
     h += '</div>';
   } else {
     h += '<p class="tiny muted">' + esc(T('allDocumented')) + '</p>';
+  }
+
+  /* Prosa, die es nur in einer Sprache gibt - seit das Wiki zweisprachig ist,
+     waere das sonst unsichtbar und eine halb uebersetzte Seite gaelte als fertig. */
+  var partial = isObj(D.incompleteProse) ? D.incompleteProse : {};
+  var partialIds = Object.keys(partial);
+  if (partialIds.length) {
+    h += '<div class="box box-caveat"><div class="box-title">' + esc(plural(partialIds.length, 'incompleteOne', 'incompleteMany') + ' ' + T('incompleteSuffix')) + '</div>';
+    h += '<p style="margin:.2rem 0 .4rem">' + T('incompleteBody') + '</p>';
+    h += '<details><summary>' + esc(T('undocShow', partialIds.length)) + '</summary><div class="reflist" style="margin-top:.5rem">' + partialIds.map(function (id) {
+      return '<span>' + refLink(id) + ' <span class="muted tiny">(' + esc(arr(partial[id]).join(', ')) + ')</span></span>';
+    }).join('') + '</div></details></div>';
   }
 
   var feats = arr(D.features).filter(isObj);
