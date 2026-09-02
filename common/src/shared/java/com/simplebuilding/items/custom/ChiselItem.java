@@ -370,10 +370,14 @@ public class ChiselItem extends Item {
     }
 
     public void setCooldownTicks(int ticks) { this.cooldownTicks = ticks; }
+    /** Fuer den Wiki-Export (WikiDataProvider): die Abklingzeit dieser Stufe. */
+    public int getCooldownTicks() { return this.cooldownTicks; }
     public void setChiselSound(SoundEvent chiselSound) { this.chiselSound = chiselSound; }
     public void setChiselDirectionCycle(Direction direction) { this.chiselDirection = direction; }
     private boolean isDedicatedSpatula = false;
     public void setAsDedicatedSpatula(boolean value) { this.isDedicatedSpatula = value; }
+    /** Fuer den Wiki-Export: unterscheidet Spachtel von Meissel. */
+    public boolean isDedicatedSpatula() { return this.isDedicatedSpatula; }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {

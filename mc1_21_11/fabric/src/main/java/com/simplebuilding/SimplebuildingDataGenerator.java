@@ -6,6 +6,7 @@ import com.simplebuilding.trim.ModTrimMaterials;
 import com.simplebuilding.util.ModWorldGen;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 
@@ -22,6 +23,11 @@ public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModRegistryDataGenerator::new);
         pack.addProvider(ModEnchantmentTagProvider::new);
         pack.addProvider(ModWorldGenerator::new);
+        // Item-Eigenschaften aus der Registry fuer wiki/generate.py
+        // Explizit typisiert: eine Methodenreferenz waere mehrdeutig, weil der
+        // Konstruktor auf PackOutput sowohl auf DataProvider.Factory als auch
+        // auf Pack.Factory passt.
+        pack.addProvider((FabricDataOutput out) -> new WikiDataProvider(out));
     }
 
     @Override
