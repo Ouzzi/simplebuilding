@@ -152,35 +152,49 @@ Stufe kann mit ihrem exakten Schlüssel überschrieben werden.
 
 ### Aufbau von `manual.json`
 
+Die Datei ist **zweisprachig**: jeder Eintrag trägt einen `en`- und einen
+`de`-Block. `sources` und `related` stehen sprachneutral daneben, damit jede
+Quellenangabe genau einmal dasteht.
+
 ```json
 {
   "features": [
     {
       "id": "sledgehammer",
-      "title": "Vorschlaghammer",
-      "summary": "Zwei bis drei Sätze.",
-      "details": ["ein Stichpunkt, eine Behauptung"],
       "related": ["simplebuilding:diamond_sledgehammer"],
-      "sources": ["common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java"]
+      "sources": ["common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java"],
+      "en": { "title": "Sledgehammer", "summary": "Two or three sentences.", "details": ["one bullet, one claim"] },
+      "de": { "title": "Vorschlaghammer", "summary": "Zwei bis drei Sätze.", "details": ["ein Stichpunkt, eine Behauptung"] }
     }
   ],
   "notes": {
     "*_sledgehammer": {
-      "summary": "Ein Satz.",
-      "details": ["..."],
-      "controls": ["Rechtsklick: ..."],
-      "tiers": ["Kupfer: ...", "Eisen: ..."],
-      "caveats": ["..."],
-      "sources": ["..."]
-    },
-    "magnet": { "summary": "...", "details": [], "sources": [] }
+      "sources": ["..."],
+      "en": { "summary": "...", "details": [], "controls": [], "tiers": [], "caveats": [] },
+      "de": { "summary": "...", "details": [], "controls": [], "tiers": [], "caveats": [] }
+    }
   }
 }
 ```
 
 Jede Behauptung in `details`, `controls`, `tiers` und `caveats` soll sich im Code belegen
-lassen; `sources` nennt die Dateien. Das ist keine Formalie – die Erstfassung wurde
+lassen; `sources` nennt die Dateien. Das ist keine Formalie – jede Fassung wurde
 Behauptung für Behauptung gegen den Code geprüft, und so soll es bleiben.
+
+**Die englische Fassung ist keine Übersetzung.** Sie wurde aus demselben Code
+geschrieben wie die deutsche; die jeweils andere Sprache dient nur als
+Gegenprobe: gleiche Behauptungen, gleiche Zahlen. Wer einen Eintrag ändert,
+ändert beide Sprachen – sonst schlägt der Lauf fehl:
+
+```
+N entries have prose in only one language:
+   - simplebuilding:magnet  (missing: en)
+```
+
+Bis alle Einträge umgestellt waren, galt die alte flache Form (Prosafelder
+direkt am Eintrag) als Deutsch. Diese Nachsicht steht noch in
+`prose_languages()`; eine Datei, die versehentlich in die alte Form zurückfällt,
+wird deshalb als „nur Deutsch" gemeldet statt als undokumentiert.
 
 ### Beide Minecraft-Linien
 

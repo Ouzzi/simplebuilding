@@ -1,150 +1,107 @@
-# Übergabe: SimpleBuilding Wiki
+# Wiki: Stand und offene Befunde
 
-Stand 2026-09-02. Diese Datei ist für die Session gedacht, die das Wiki fertigstellt.
-Lies sie zuerst, dann `wiki/README.md`, dann die Punkte unter „Feedback" – das ist die Arbeit.
+Stand 2026-09-02. Die sechs Punkte aus dem Feedback sind umgesetzt; diese Datei
+hält fest, **was gebaut wurde** und **was beim Durchleuchten des Codes
+aufgefallen ist**. Der Pflegeprozess steht in `wiki/README.md` – dort nachlesen,
+bevor etwas geändert wird.
 
-## Was schon steht
+## Erledigt
 
-| Baustein | Datei | Zustand |
+| # | Punkt | Wie gelöst |
 |---|---|---|
-| Generator | `wiki/generate.py` | fertig; liest Items, Blöcke, Rezepte, Loot, Handel, Verzauberungen, Tags, Config aus der Mod. `--check` und `--strict` vorhanden. |
-| Build-Haken | `build.gradle` → Task `checkWiki`, hängt an `check` | fertig; schlägt fehl, wenn `wiki/data` veraltet ist oder etwas ohne Prosa ist |
-| Daten | `wiki/data/simplebuilding.json` + `.js` | generiert, nie von Hand anfassen |
-| Texturen | `wiki/assets/textures/**` | vom Generator aus dem Mod kopiert, damit `wiki/` in sich geschlossen ist |
-| App | `wiki/index.html` | eine Datei, Vanilla-JS, kein Build. Von einem Agenten gebaut und im Browser durchgeklickt. **Oberfläche derzeit Deutsch – soll Englisch werden, s. u.** |
-| Prosa | `wiki/manual.json` | **49 Notizen + 26 Kapitel (inkl. `welcome`, `getting_started`), alle auf Deutsch**, jede Behauptung von einem zweiten Agenten gegen den Code geprüft (111 unbelegte Behauptungen gestrichen). Rohergebnis inkl. gestrichener Behauptungen und App-Bericht: `wiki/manual.draft.json`. |
-| Anleitung | `wiki/README.md` | Pflegeprozess, Schema von `manual.json` |
+| 1+2 | Haltbarkeit und Co. fehlten, sollen zentral änderbar sein | Datagen-Provider `WikiDataProvider` schreibt die **tatsächlichen** Werte aus der Item-Registry nach `src/main/generated/wiki/items.json`; `generate.py` hängt sie an jedes Item, die App zeigt sie als Abschnitt „Eigenschaften". Eine Konstante ändern + `gradlew runDatagen` genügt. |
+| 3 | 3D-Ansicht der Blöcke | Ober-, Seiten- und Vorderseite aus dem Blockmodell, isometrischer Würfel per CSS-Transform. 23 von 29 Blöcken; Trichter und Kolben behalten die flache Textur. |
+| 4a | Englisch als Hauptsprache, Deutsch als Auswahl | `STR`-Wörterbuch (en/de) hinter `T()`, Dropdown oben rechts, `localStorage`, Umschalten ohne Neuladen. Auch Namensauflösung, Sortierung, Dezimaltrennzeichen und Mehrzahl hängen an der Sprache. |
+| 4b | Prosa zweisprachig | `manual.json` trägt je Eintrag `en` und `de`. Die englische Fassung ist **keine Übersetzung**, sondern aus demselben Code geschrieben; `--check` fordert beide Sprachen. |
+| 5 | „ohne Wirkung" an fast allen Verzauberungen | Die App wertete weiter `hasEffect` aus. Jetzt entscheidet `implementedIn` (`data`/`code`/`both`/`none`) mit eigenem Badge, eigener Zeile und erklärendem Kasten. Rot steht nur noch an `cover` und `bridge`. |
+| 6 | Vanilla-Texturen fehlten | `generate.py` zieht die referenzierten Vanilla-Ids aus dem Client-Jar im Gradle-Cache nach `wiki/assets/textures/minecraft/` (in `.gitignore`). 96 von 97 Ids bekommen ein Bild. |
 
-`python wiki/generate.py --check` ist **grün**: Daten aktuell, alles mit eigenem Verhalten hat Prosa.
+## Offene Befunde in der Mod
 
-App-Bericht des Agenten (vollständig in `manual.draft.json` → `appReport`): alle neun Bereiche,
-Hash-Routing, Suche mit `/`-Kürzel, Rezeptgitter, Handel mit Pool-Prozenten, hell/dunkel, responsiv;
-im Browser durchgeklickt, null Konsolenfehler. Der Nutzer hat die Seite bereits per Doppelklick
-geöffnet und Feedback zum Inhalt gegeben – `file://` funktioniert also in der Praxis; die App
-verarbeitet sowohl die alten `../src/…`- als auch die neuen `assets/…`-Texturpfade.
+Nicht Teil des Wikis. Alles hier ist am Code oder am Bytecode nachgeprüft, wenn
+nicht ausdrücklich anders vermerkt. Der Nutzer entscheidet, was davon ein Fehler
+ist.
 
-## Feedback des Nutzers – das ist die To-do-Liste
+### Sichtbar im Spiel
 
-Wörtlich aus dem Chat, mit Einordnung und Umsetzungsvorschlag.
+1. **Zwei Items ohne Namen.** `enchanted_netherite_apple` und
+   `enchanted_enderite_apple` haben in *keiner* Sprachdatei einen Eintrag,
+   liegen aber über `ModLootTableModifications` in End-City-, Ancient-City-,
+   Bastion- und Vault-Truhen und haben Item-Modelle. Wer einen findet, sieht
+   `item.simplebuilding.enchanted_netherite_apple`.
+2. **Tippfehler:** `en_us.json` nennt `netherite_apple` „**Neterite** Apple".
+3. **Farbige Oktanten mit 65 536 Haltbarkeit.** `ModItems.java:748` rechnet
+   `DURABILITY_NETHERITE * DURABILITY_OCTANT` = 512 × 128; der einfache Oktant
+   hat 128. Faktor 512 – vermutlich war eine Summe oder nur eine der beiden
+   Konstanten gemeint.
+4. **Rotator und Erzdetektor lassen sich nicht am Zaubertisch verzaubern**, weil
+   ihre Registrierung kein `enchantable(...)` setzt (`ModItems.java:345`, `:349`)
+   – anders als jedes andere Werkzeug der Mod. Der Rotator steht trotzdem im Tag
+   `DURABILITY_ENCHANTABLE`. Nur der Amboss mit Buch funktioniert.
+5. **Befehlsausgaben sind fest deutsch.** `/simplebuilding config
+   setTrimMultiplier` und `getTrimMultiplier` antworten mit hartcodierten
+   deutschen Zeichenketten (`ModCommands.java:27,34`) – auffällig, seit Mod und
+   Wiki englischsprachig sind.
 
-### 1. „bei den items fehlt durability falls die items welche haben"
+### Tote oder widersprüchliche Stellen
 
-Haltbarkeit (und ebenso Angriffsschaden, Abbaugeschwindigkeit, Verzauberbarkeit, Stapelgröße,
-Zauberstab-Durchmesser) steht nirgends in den Wiki-Daten, weil sie nicht in JSON-Dateien liegt,
-sondern in Java-Konstanten (`ModItems.java`: `DURABILITY_*`, `ENCHANTABILITY_*`,
-`BUILDING_WAND_SQUARE_*` in `BuildingWandItem.java`).
+6. **`cover` und `bridge`** sind registriert, erhältlich (bridge sogar im
+   Wanderhändler-Pool) und ohne jede Wirkung. Einzige Ausnahme: die
+   Item-Modell-Auswahl liest sie und zeigt eine eigene Textur.
+7. **`speedMultiplier`** ist in allen drei Ofenklassen deklariert und wird nie
+   gelesen; die Beschleunigung kommt aus `extraTicks`.
+8. **Sechs Sprachschlüssel ohne Item:** `netherite_chest`, `reinforced_chest`,
+   `nithilith_ore` (Tippfehler für `nihilith_ore`?), `polished_endstone` (vs.
+   `polished_end_stone`), `purpur_lapis_checker`, `sledgehammer`.
+9. **68 Schlüssel fehlen in `de_de.json`** gegenüber `en_us.json` (Enderit-Reihe,
+   Konfigurationstexte). Kein Fehler – Minecraft fällt auf Englisch zurück –,
+   aber eine Übersetzungslücke.
+10. **Zwei Mixins für denselben Zweck:** `ItemEntityMixin.floatInVoid` arbeitet
+    mit einer hartcodierten Enderit-Liste samt TODO, während `EnderiteItemMixin`
+    dasselbe tagbasiert löst. Beide sind registriert.
+11. **`TrimReferenceScreen.java:86`** und `SmithingScreenMixin.java:56` schlagen
+    `simplebuilding:enderite_armor_trim_smithing_template` nach – dieses Item ist
+    nirgends registriert.
+12. **`TrimEffectUtil`** vergleicht Besatzmuster und -materialien mit
+    `String.contains`. Ein Fremdmod-Material, dessen Pfad „iron" oder „gold"
+    enthält, bekäme die Vanilla-Boni.
 
-### 2. „bitte solche variablen so einrichten dass sie zentral geändert werden können und sowohl im mod als auch in der seite automatisch angepasst werden"
+### Nur teilweise geprüft
 
-**Empfohlene Lösung – Datagen-Export, nicht Java-Parsen:** Ein Datagen-Provider
-(`WikiDataProvider`, neben den bestehenden in `src/main/java/com/simplebuilding/datagen/`),
-der beim gewohnten `gradlew runDatagen` die *tatsächlichen* Item-Eigenschaften aus der
-Registry nach `src/main/generated/wiki/items.json` schreibt: `maxDamage`, `maxStackSize`,
-Angriffsschaden/-geschwindigkeit aus den Attribut-Modifiern, Verzauberbarkeit, bei
-Zauberstäben `getWandSquareDiameter()`, bei Bündeln die Kapazitätsstufe. Der Generator liest
-diese Datei ein und hängt sie an jedes Item.
+13. **Luftsprung auf Forge:** `ForgeClientGameEvents.java:87` merkt sich
+    `wasOnGround` allein aus `onGround()`, während der geteilte
+    `DoubleJumpController` auch Klettern und Wasser mitzählt. Das ist ein
+    Verhaltensunterschied zwischen den Loadern, kein Wiki-Fehler.
+14. **`NetheriteHopperScreen.mouseClicked:104`** prüft
+    `hoveredSlot.getContainerSlot() < 5` – ein Index innerhalb des Behälters.
+    Ob das für die größere Netherit-Variante stimmt, konnte ich nicht sicher
+    entscheiden; deshalb steht dazu nichts im Wiki.
 
-Warum so: Die Registry *ist* die zentrale Definition. Wer eine Konstante in `ModItems.java`
-ändert, ändert Mod und Wiki mit einem Datagen-Lauf – ohne Parser, der bei jeder
-Umformatierung bricht, und ohne zweite Wahrheit. Beide Minecraft-Linien haben Datagen.
+## Zwei Baustellen im Wiki-Werkzeug
 
-Zweitbeste Lösung, falls schnell nötig: `generate.py` parst die `DURABILITY_*`-Konstanten
-und die `registerSledgehammer("…", DURABILITY_X * 2, …)`-Aufrufe per Regex – so, wie es
-heute schon die Config-Klasse parst.
-
-### 3. „bei den blöcken fehlt die 3d textur, also eine 3d ansicht aus einem winkel"
-
-Vorschlag: isometrischer Würfel rein clientseitig. Der Generator liefert pro Block statt
-einer Textur ein Objekt `{top, side, front}` aus dem Blockmodell (`models/block/<id>.json`:
-`top`/`side`/`front`/`all`/`end`), die App zeichnet daraus per CSS-3D-Transform (drei
-`<img>` mit `image-rendering: pixelated`, `transform: rotateX(-30deg) rotateY(45deg)` o. ä.)
-einen Würfel. Für Blöcke mit komplexem Modell (Kolben, Trichter, Öfen mit Vorderseite)
-reicht Vorderseite + Oberseite + Seite; bei Nicht-Würfeln (Kolbenkopf) Rückfall auf die
-flache Textur. Kein Build, kein WebGL nötig.
-
-### 4. „die sprache hab ich noch nicht gefunden, also main soll englisch sein und de als dropdown übersetzung"
-
-Zwei Teile:
-
-**a) Oberfläche der App** (`index.html`): Beschriftungen auf Englisch, oben ein Dropdown
-`EN | DE`, Wahl in `localStorage` merken. Item-Namen gibt es bereits in beiden Sprachen
-(`name.en_us` / `name.de_de` in den Daten).
-
-**b) Prosa:** `manual.json` von flach auf zweisprachig umstellen:
-```json
-"magnet": {
-  "en": { "summary": "…", "details": [], "controls": [], "tiers": [], "caveats": [] },
-  "de": { "summary": "…", "details": [], "controls": [], "tiers": [], "caveats": [] },
-  "sources": ["…"]
-}
-```
-Kapitel (`features`) genauso mit `en`/`de` für `title`, `summary`, `details`.
-Die deutsche Fassung ist fertig und geprüft; die englische muss erzeugt werden – am
-saubersten mit demselben Muster wie die deutsche: je Familie ein Agent, der aus dem
-**Code** schreibt (nicht aus dem Deutschen übersetzt), und ein Gegenprüfer. Die deutsche
-Fassung dient dann als Vergleich: gleiche Behauptungen, gleiche Zahlen. Der Generator muss
-`note_for()` und die `--check`-Prüfung auf „beide Sprachen vorhanden" erweitern.
-
-### 5. „viele dinge sind noch nicht ausgefüllt, verzauberungen bspw. stehen da mit ohne wirkung und items ohne beschreibung"
-
-Zwei Ursachen, beide inzwischen behoben bzw. erklärt:
-
-- **„ohne Wirkung" an fast allen Verzauberungen war ein Generator-Fehler.** `hasEffect`
-  wurde nur aus den JSON-`effects` abgeleitet – die meisten Verzauberungen dieser Mod wirken
-  aber im Java-Code (Vein Miner, Radius, Versatility …). Behoben: der Generator prüft jetzt
-  zusätzlich, ob Spielcode die Verzauberung liest, und liefert `implementedIn` =
-  `data | code | both | none`. **Wirklich ohne Wirkung sind nur `cover` und `bridge`** –
-  das ist ein echter Befund (nie implementiert, siehe Testsuite
-  `coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown`), und das Badge soll dort bleiben.
-- **Items ohne Beschreibung:** `manual.json` war zum Zeitpunkt des Anschauens noch leer,
-  weil der Workflow lief. Inzwischen befüllt (49 Notizen). Reine Baublöcke haben absichtlich
-  keine Prosa – Rezept und Drop beschreiben sie. Falls der Nutzer auch dafür Text will:
-  `generate.py`, Funktion `behavioural_ids`, entscheidet, was Prosa *fordert*; Prosa für
-  Baublöcke kann man trotzdem jederzeit in `manual.json` ergänzen.
-
-### 6. „vanilla texturen fehlen"
-
-Zutaten wie `minecraft:stick` erscheinen im Rezeptgitter als Textkachel, weil Vanilla-
-Texturen nicht im Repo liegen. Sie stecken im Client-Jar im Gradle-Cache
-(`~/.gradle/caches/fabric-loom/26.2/minecraft-client.jar`, Pfad
-`assets/minecraft/textures/{item,block}/*.png`). Vorschlag: `generate.py` zieht **nur die
-in Rezepten, Handel und Tags referenzierten** Vanilla-Ids aus dem Jar nach
-`wiki/assets/textures/minecraft/…`. Hinweis zur Einordnung: Mojang-Assets gehören nicht ins
-Repo – das Verzeichnis in `.gitignore` aufnehmen und im README erklären, dass ein
-`generate.py`-Lauf sie lokal beschafft. Trade-off: ein frisch geklontes Wiki zeigt sie erst
-nach einem Lauf.
-
-## Bekannte Auffälligkeiten in der Mod (aus der Wiki-Erstellung)
-
-Nicht Teil des Wikis, aber beim Durchleuchten des Codes aufgefallen; der Nutzer
-entscheidet:
-
-- `cover` und `bridge`: Verzauberungen ohne jede Wirkung (s. o.).
-- Öfen/Räucheröfen/Schmelzöfen: Feld `speedMultiplier` ist deklariert (`@SuppressWarnings("unused")`),
-  wird aber nie gelesen; die Beschleunigung kommt aus `extraTicks`. Toter Code, kein Fehler.
-- Sprachdatei `en_us.json` enthält vier Item-Schlüssel ohne Textur/Modell: `nithilith_ore`
-  (vermutlich Tippfehler für `nihilith_ore`), `polished_endstone` (vs. `polished_end_stone`),
-  `purpur_lapis_checker`, `sledgehammer`. Entweder verwaiste Schlüssel oder fehlende Items.
-- Rotator hat keine `enchantable(...)`-Einstellung, anders als die übrigen Werkzeuge.
-
-## Reihenfolge, die ich vorschlage
-
-1. Branch `feature/wiki` auschecken (dort liegt alles), `python wiki/generate.py --check` –
-   muss grün sein.
-2. Punkt 5 prüfen (Badge nur noch bei cover/bridge), Punkt 4a (englische Oberfläche +
-   Dropdown) – kleine, sichtbare Fortschritte zuerst.
-3. Punkt 2 (Datagen-Export) – dann fällt Punkt 1 automatisch mit ab.
-4. Punkt 4b (englische Prosa per Agenten, gegengeprüft), `manual.json` zweisprachig,
-   `--check` auf beide Sprachen erweitern.
-5. Punkt 3 (3D-Würfel) und Punkt 6 (Vanilla-Texturen).
-6. `gradlew check` grün, Merge auf `master` ohne PR (so will es der Nutzer).
+15. **Bündel-Kapazität fehlt im Datagen-Export.** Sie hängt an
+    `getTierCapacityMultiplier(ItemStack)`, und im Datagen lässt sich ab MC 26.2
+    kein `ItemStack` bauen – dessen Konstruktor liest Komponenten, die dort noch
+    nicht gebunden sind. Sauber wäre eine verhaltensgleiche Umstellung auf eine
+    item- statt stackbasierte Stufenabfrage in `ReinforcedBundleItem` und
+    `QuiverItem` (vier Dateien, beide Bäume). Die Werte 96/192/288 stehen bis
+    dahin im Fließtext.
+16. **`implementedIn` erkennt „wirkt im Code" über eine Verbotsliste.**
+    `generate.py:353` scannt nur `common/src/shared` und schließt sechs
+    Dateinamen aus. Heute stimmt jedes Urteil – alle 19 Verzauberungen wurden
+    einzeln gegen den Java-Baum geprüft. Aber eine neue Datei, die alle
+    Verzauberungen in einer Schleife erwähnt, kippt schlagartig *alle* auf
+    „code", auch `cover` und `bridge`; und eine Verzauberung, die nur in einem
+    Loader-Modul implementiert wäre, gälte als nicht implementiert. Eine
+    Erlaubnisliste plus Scan der Loader-Bäume wäre robuster.
 
 ## Arbeitsweise, die der Nutzer erwartet
 
 - Jede Behauptung im Wiki muss im Code stehen. Nicht raten. Gegenprüfen.
-- Keine Fehlalarme: bevor etwas als Mod-Fehler gemeldet wird, Testumgebung ausschließen
-  (Mock-Spieler ist immer Kreativmodus; Fabric registriert Gametests nur über den Entrypoint).
-- Bei langen Läufen nicht blind warten: Prozesse und Protokolle prüfen, hängende Java-
-  Prozesse aufräumen, bevor ein Client-Test wiederholt wird.
+- Keine Fehlalarme: bevor etwas als Mod-Fehler gemeldet wird, Testumgebung
+  ausschließen (Mock-Spieler ist immer Kreativmodus; Fabric registriert
+  Gametests nur über den Entrypoint).
+- Bei langen Läufen nicht blind warten: Prozesse und Protokolle prüfen. Achtung
+  auf Windows: `gradlew … | tail` verschluckt den Rückgabewert von Gradle – ohne
+  `set -o pipefail` sieht ein fehlgeschlagener Build wie ein Erfolg aus.
 - Merge direkt auf `master`, kein PR.
-- Er testet selbst im Spiel und schildert Auffälligkeiten – die kommen als nächstes.
