@@ -110,6 +110,30 @@ test {
 	useJUnitPlatform()
 }
 
+// The wiki under wiki/ is generated out of the mod's own data files, so it can only be
+// wrong in one way: someone changed the mod and did not regenerate. This task turns
+// that into a build failure instead of a stale page nobody notices. It writes nothing;
+// it only compares what the mod would generate now with what is committed, and lists
+// anything in the game that wiki/manual.json does not describe.
+//   fix:   python wiki/generate.py        (regenerate)
+//   skip:  gradlew build -PskipWiki       (only if python is unavailable on this machine)
+tasks.register('checkWiki', Exec) {
+	group = 'verification'
+	description = 'Fails when wiki/data is out of date with the mod or something is undocumented.'
+	workingDir = rootDir
+	commandLine project.findProperty('wikiPython') ?: 'python', 'wiki/generate.py', '--check'
+	onlyIf { !project.hasProperty('skipWiki') }
+	inputs.dir('wiki')
+	inputs.dir('src/main/generated')
+	inputs.dir('src/main/resources/data')
+	inputs.dir('src/main/resources/assets/simplebuilding/lang')
+	inputs.file('common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java')
+	inputs.file('common/src/shared/java/com/simplebuilding/items/ModItems.java')
+	inputs.file('common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java')
+	outputs.upToDateWhen { false }
+}
+tasks.named('check') { dependsOn 'checkWiki' }
+
 java {
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
