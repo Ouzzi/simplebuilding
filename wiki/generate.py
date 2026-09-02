@@ -49,6 +49,7 @@ LINES = {
         "resource_data": "src/main/resources/data/simplebuilding",
         "resource_assets": "src/main/resources/assets/simplebuilding",
         "config": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+        "item_properties": "src/main/generated/wiki/items.json",
     },
     "1.21.11": {
         "generated_data": "mc1_21_11/fabric/src/main/generated/data/simplebuilding",
@@ -56,6 +57,7 @@ LINES = {
         "resource_data": "mc1_21_11/fabric/src/main/resources/data/simplebuilding",
         "resource_assets": "mc1_21_11/fabric/src/main/resources/assets/simplebuilding",
         "config": "mc1_21_11/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+        "item_properties": "mc1_21_11/fabric/src/main/generated/wiki/items.json",
     },
 }
 
@@ -466,8 +468,32 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
 # items and blocks
 # ---------------------------------------------------------------------------
 
-def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trades):
+def load_item_properties(roots: dict) -> dict:
+    """
+    Die tatsaechlichen Item-Eigenschaften, die WikiDataProvider beim Datagen-Lauf
+    aus der Registry schreibt: Haltbarkeit, Stapelgroesse, Verzauberbarkeit,
+    Angriffswerte, Zauberstab-Durchmesser, Meissel-Abklingzeit, Buendel-Kapazitaet.
+
+    Diese Zahlen stehen in Java-Konstanten, nicht in Datendateien - deshalb der
+    Umweg ueber die Registry statt eines Parsers, der bei jeder Umformatierung
+    braeche. Fehlt die Datei (Datagen noch nicht gelaufen), wird das Wiki
+    trotzdem erzeugt, nur ohne diese Angaben; --check macht daraus einen Fehler.
+    """
+    path = REPO / roots["item_properties"]
+    if not path.exists():
+        return {}
+    payload = read_json(path)
+    out = {}
+    for entry in payload.get("items", []):
+        identifier = entry.get("id")
+        if identifier:
+            out[identifier] = {k: v for k, v in entry.items() if k != "id"}
+    return out
+
+
+def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trades, item_properties=None):
     en = lang.get("en_us", {})
+    item_properties = item_properties or {}
 
     recipes_by_result: dict[str, list[str]] = {}
     recipes_by_ingredient: dict[str, list[str]] = {}
@@ -506,6 +532,9 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
                 "usedIn": sorted(recipes_by_ingredient.get(identifier, [])),
                 "trades": sorted(trades_by_item.get(identifier, [])),
             }
+            props = item_properties.get(identifier)
+            if props:
+                entry["properties"] = props
             if kind == "block":
                 table = loot_by_block.get(name)
                 if table:
@@ -586,7 +615,8 @@ def build(line: str) -> tuple[dict, list[str]]:
     enchantments = collect_enchantments(roots, lang)
     tags = collect_tags(roots)
     config = collect_config(roots, lang)
-    items, blocks = collect_items_and_blocks(roots, lang, recipes, loot_tables, trades)
+    item_properties = load_item_properties(roots)
+    items, blocks = collect_items_and_blocks(roots, lang, recipes, loot_tables, trades, item_properties)
 
     manual_path = WIKI / "manual.json"
     manual = read_json(manual_path) if manual_path.exists() else {"features": [], "notes": {}}
@@ -648,6 +678,12 @@ def build(line: str) -> tuple[dict, list[str]]:
             "howToRegenerate": "python wiki/generate.py",
             "warning": "Generated file - do not edit by hand. Every section below is read "
                        "out of the mod's own data files; edit the mod, then regenerate.",
+            "itemProperties": {
+                "source": roots["item_properties"],
+                "present": bool(item_properties),
+                "count": len(item_properties),
+                "howToRegenerate": "gradlew runDatagen",
+            },
         },
         "mod": {
             "id": NS,
@@ -698,10 +734,19 @@ def main() -> int:
     data, undocumented = build(args.line)
     payload = json.dumps(data, indent=2, ensure_ascii=False, sort_keys=False)
 
+    props_state = data["generatedFrom"]["itemProperties"]
+    missing_props = not props_state["present"]
+
     if args.check:
         target = WIKI / "data" / "simplebuilding.json"
         current = target.read_text(encoding="utf-8") if target.exists() else ""
         stale = current != payload + "\n"
+        if missing_props:
+            print(f"{props_state['source']} is MISSING.")
+            print("Durability, stack size, enchantability, attack values, wand diameter,")
+            print("chisel cooldown and bundle capacity live in Java constants, not in data")
+            print("files; WikiDataProvider exports them from the item registry.")
+            print("Fix:  gradlew runDatagen   then  python wiki/generate.py")
         if stale:
             print("wiki/data/simplebuilding.json is OUT OF DATE with the mod.")
             print("Items, recipes, loot, trades, enchantments, tags or config changed and the")
@@ -711,10 +756,14 @@ def main() -> int:
             for identifier in undocumented:
                 print("   -", identifier)
             print("Fix: describe them in wiki/manual.json, then  python wiki/generate.py")
-        if stale or undocumented:
+        if stale or undocumented or missing_props:
             return 1
         print("wiki: up to date, everything documented.")
         return 0
+
+    if missing_props:
+        print(f"WARNING: {props_state['source']} is missing - item properties are omitted.")
+        print("         Run  gradlew runDatagen  to export them from the item registry.")
 
     write_atomic(WIKI / "data" / "simplebuilding.json", payload + "\n")
     write_atomic(WIKI / "data" / "simplebuilding.js",

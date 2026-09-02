@@ -32,9 +32,42 @@ Das ist der Kern des Aufbaus, deshalb ausführlich.
 | Verzauberungen | `src/main/generated/data/simplebuilding/enchantment/*.json` |
 | Tags | `.../tags/**` (generiert und Ressourcen) |
 | Konfiguration | `common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java` |
+| Haltbarkeit, Stapelgröße, Verzauberbarkeit, Angriffswerte, Zauberstab-Durchmesser, Meißel-Abklingzeit | `src/main/generated/wiki/items.json` – vom Datagen-Provider `WikiDataProvider` aus der **Item-Registry** geschrieben |
 | Welche Items eigenes Verhalten haben | Registrierungen in `ModItems.java` / `ModBlocks.java` gegen die Klassen in `items/custom/` und `blocks/custom/` |
 
 Ändert sich die Mod, ändert sich beim nächsten Lauf die Doku – automatisch.
+
+### Zahlen, die in Java-Konstanten stehen
+
+Haltbarkeit und Verwandtes liegen in keiner Datendatei, sondern in Konstanten in
+`ModItems.java`. Statt diese Datei zu parsen – was bei jeder Umformatierung bräche –
+schreibt der Datagen-Provider
+`src/main/java/com/simplebuilding/datagen/WikiDataProvider.java` beim gewohnten
+`gradlew runDatagen` die **tatsächlichen** Werte aus der Item-Registry nach
+`src/main/generated/wiki/items.json`. Wer eine Konstante ändert, ändert Mod und
+Wiki mit einem Datagen-Lauf.
+
+Das ist nicht dasselbe wie die Konstante: Minecraft überschreibt manche Werte.
+`Item.Properties.pickaxe(...)` setzt `enchantable(...)` auf den Wert des
+ToolMaterial zurück, weshalb der Stein-Vorschlaghammer trotz
+`ENCHANTABILITY_WOOD_STONE = 15` mit **5** verzaubert wird. Das Wiki zeigt, was
+das Spiel benutzt.
+
+Zwei Dinge dazu:
+
+* `python wiki/generate.py --check` **schlägt fehl**, wenn die Datei fehlt, und
+  nennt `gradlew runDatagen`. Ein normaler Lauf erzeugt das Wiki trotzdem, warnt
+  aber und lässt die Eigenschaften weg.
+* `src/main/generated` ist ein Ressourcenverzeichnis, deshalb schließt
+  `processResources` in `build.gradle` `wiki/**` aus – der Export ist eine
+  Bauzeit-Zutat und gehört nicht ins Mod-Jar.
+
+Noch nicht dabei ist die Bündel-Kapazität: Sie hängt an
+`ReinforcedBundleItem.getTierCapacityMultiplier(ItemStack)`, und im Datagen lässt
+sich kein `ItemStack` bauen – dessen Konstruktor liest die Komponenten, die dort
+noch nicht gebunden sind. Ohne Stack ginge es nur, indem man die Stufentabelle im
+Provider nachbaut, also mit einer zweiten Wahrheit. Die Kapazitäten stehen bis
+dahin im Fließtext (96 / 192 / 288).
 
 **Das Einzige, was von Hand gepflegt wird, ist `wiki/manual.json`:** Fließtext, den keine
 Datei der Mod enthält – was ein Werkzeug *tut*, wie man es bedient, was sich je Stufe ändert.
@@ -65,6 +98,7 @@ Fließtext also von selbst ein.
 
 ```bash
 # 1. Mod ändern, Datagen laufen lassen wie gewohnt
+#    (schreibt auch src/main/generated/wiki/items.json)
 gradlew runDatagen
 
 # 2. Wiki neu erzeugen

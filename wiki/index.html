@@ -463,6 +463,20 @@ en: {
   badgeAsItem: 'as an item →',
   nameOnlyEn: 'only en_us · no German translation',
   secDescription: 'Description',
+  propDurability: 'Durability',
+  propMaxStackSize: 'Stack size',
+  propEnchantability: 'Enchantability',
+  propAttackDamage: 'Attack damage',
+  propAttackSpeed: 'Attack speed',
+  propAttackSpeedHint: '(attacks per second)',
+  propWandDiameter: 'Wand square',
+  propCooldown: 'Cooldown',
+  propBundleCapacity: 'Capacity',
+  propSpatula: 'Dedicated spatula',
+  propSquare: '{0} × {1} blocks',
+  propItems: '{0} items',
+  propYes: 'yes',
+  propSource: 'Read out of the item registry by <code>WikiDataProvider</code> during <code>gradlew runDatagen</code> – these are the values the game actually uses.',
   hintCustomBehaviour: 'this thing has custom behaviour that should be explained',
   hintPlainBlock: 'plain building block – recipe and drop are below',
   secCrafting: 'Crafting',
@@ -729,6 +743,20 @@ de: {
   badgeAsItem: 'als Item →',
   nameOnlyEn: 'nur en_us · keine deutsche Übersetzung',
   secDescription: 'Beschreibung',
+  propDurability: 'Haltbarkeit',
+  propMaxStackSize: 'Stapelgröße',
+  propEnchantability: 'Verzauberbarkeit',
+  propAttackDamage: 'Angriffsschaden',
+  propAttackSpeed: 'Angriffsgeschwindigkeit',
+  propAttackSpeedHint: '(Angriffe pro Sekunde)',
+  propWandDiameter: 'Zauberstab-Quadrat',
+  propCooldown: 'Abklingzeit',
+  propBundleCapacity: 'Kapazität',
+  propSpatula: 'Reine Spachtel',
+  propSquare: '{0} × {1} Blöcke',
+  propItems: '{0} Gegenstände',
+  propYes: 'ja',
+  propSource: 'Beim <code>gradlew runDatagen</code> von <code>WikiDataProvider</code> aus der Item-Registry gelesen – es sind die Werte, mit denen das Spiel tatsächlich rechnet.',
   hintCustomBehaviour: 'dieses Ding hat eigenes Verhalten, das erklärt werden sollte',
   hintPlainBlock: 'reiner Baustein – Rezept und Drop stehen unten',
   secCrafting: 'Herstellung',
@@ -1341,6 +1369,28 @@ function sortedByName(list) { return arr(list).filter(isObj).slice().sort(functi
 function pageItems() { return listPage(T('navItems'), sortedByName(D.items).map(function (e) { return entryRow(e, 'items'); })); }
 function pageBlocks() { return listPage(T('navBlocks'), sortedByName(D.blocks).map(function (e) { return entryRow(e, 'blocks'); })); }
 
+/* Zahlen aus der Item-Registry (WikiDataProvider -> wiki/generate.py).
+   Fehlt der Datagen-Export, fehlt properties und der Abschnitt entfaellt. */
+function propertiesSection(e) {
+  var p = e && e.properties;
+  if (!isObj(p)) return '';
+  var rows = '';
+  function row(labelKey, value, hintKey) {
+    rows += '<dt>' + esc(T(labelKey)) + '</dt><dd>' + value + (hintKey ? ' <span class="muted tiny">' + esc(T(hintKey)) + '</span>' : '') + '</dd>';
+  }
+  if (p.durability != null) row('propDurability', esc(fmtNum(p.durability)));
+  if (p.maxStackSize != null) row('propMaxStackSize', esc(fmtNum(p.maxStackSize)));
+  if (p.attackDamage != null) row('propAttackDamage', esc(fmtNum(p.attackDamage)));
+  if (p.attackSpeed != null) row('propAttackSpeed', esc(fmtNum(p.attackSpeed)), 'propAttackSpeedHint');
+  if (p.enchantability != null) row('propEnchantability', esc(fmtNum(p.enchantability)));
+  if (p.wandSquareDiameter != null) row('propWandDiameter', esc(T('propSquare', p.wandSquareDiameter, p.wandSquareDiameter)));
+  if (p.cooldownTicks != null) row('propCooldown', esc(T('cookTicks', p.cooldownTicks, fmtNum(p.cooldownTicks / 20))));
+  if (p.bundleCapacityItems != null) row('propBundleCapacity', esc(T('propItems', p.bundleCapacityItems)));
+  if (p.dedicatedSpatula === true) row('propSpatula', esc(T('propYes')));
+  if (!rows) return '';
+  return section(T('secProperties'), '<dl class="kv">' + rows + '</dl><div class="src">' + T('propSource') + '</div>');
+}
+
 function entryPage(id, kind) {
   var isBlock = kind === 'blocks';
   var e = isBlock ? IX.blocks.get(id) : IX.items.get(id);
@@ -1363,6 +1413,7 @@ function entryPage(id, kind) {
   h += '</div></div>';
 
   h += section(T('secDescription'), noteBlock(e.note, e.hasCustomBehaviour ? T('hintCustomBehaviour') : T('hintPlainBlock')));
+  h += propertiesSection(e);
 
   var crafted = strs(e.craftedBy);
   h += section(T('secCrafting'), crafted.length ? crafted.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeCard(r) : '<p class="hint">' + T('recipeNotInData', esc(rid)) + '</p>'; }).join('') : '<p class="hint">' + esc(T('noRecipe')) + '</p>', { count: crafted.length });

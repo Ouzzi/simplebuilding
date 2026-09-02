@@ -7,7 +7,13 @@ window.WIKI_DATA = {
     "line": "26.2",
     "generator": "wiki/generate.py",
     "howToRegenerate": "python wiki/generate.py",
-    "warning": "Generated file - do not edit by hand. Every section below is read out of the mod's own data files; edit the mod, then regenerate."
+    "warning": "Generated file - do not edit by hand. Every section below is read out of the mod's own data files; edit the mod, then regenerate.",
+    "itemProperties": {
+      "source": "src/main/generated/wiki/items.json",
+      "present": true,
+      "count": 116,
+      "howToRegenerate": "gradlew runDatagen"
+    }
   },
   "mod": {
     "id": "simplebuilding",
@@ -1814,6 +1820,12 @@ window.WIKI_DATA = {
       "trades": [
         "simplebuilding:mason/4/emerald_copper_building_wand"
       ],
+      "properties": {
+        "durability": 1520,
+        "enchantability": 18,
+        "maxStackSize": 1,
+        "wandSquareDiameter": 3
+      },
       "note": {
         "summary": "Der Baustab platziert mit einem Rechtsklick auf eine Blockseite eine ganze quadratische Fläche aus Blöcken deines Inventars; die Stufe (Kupfer bis Enderit) bestimmt, wie groß diese Fläche höchstens wird.",
         "details": [
@@ -1970,6 +1982,13 @@ window.WIKI_DATA = {
       "trades": [
         "simplebuilding:toolsmith/3/emerald_copper_chisel"
       ],
+      "properties": {
+        "cooldownTicks": 25,
+        "dedicatedSpatula": false,
+        "durability": 192,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Meißel ist ein Handwerkzeug in sieben Materialstufen, das einen angeklickten Block Schritt für Schritt in verwandte Varianten umformt (etwa Stein zu gemeißelten Steinziegeln) und beim Schleichen denselben Weg wieder zurückgeht.",
         "details": [
@@ -2114,6 +2133,9 @@ window.WIKI_DATA = {
         "simplebuilding:mason/2/emerald_copper_core",
         "simplebuilding:wandering_trader/emerald_copper_cores"
       ],
+      "properties": {
+        "maxStackSize": 16
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -2130,6 +2152,13 @@ window.WIKI_DATA = {
         "simplebuilding:upgrade_copper_sledgehammer_to_iron_sledgehammer"
       ],
       "trades": [],
+      "properties": {
+        "attackDamage": 6.0,
+        "attackSpeed": 0.8,
+        "durability": 760,
+        "enchantability": 13,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
         "details": [
@@ -2327,6 +2356,12 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_building_wand_smithing"
       ],
       "trades": [],
+      "properties": {
+        "durability": 12488,
+        "enchantability": 10,
+        "maxStackSize": 1,
+        "wandSquareDiameter": 9
+      },
       "note": {
         "summary": "Der Baustab platziert mit einem Rechtsklick auf eine Blockseite eine ganze quadratische Fläche aus Blöcken deines Inventars; die Stufe (Kupfer bis Enderit) bestimmt, wie groß diese Fläche höchstens wird.",
         "details": [
@@ -2482,6 +2517,13 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_chisel_smithing"
       ],
       "trades": [],
+      "properties": {
+        "cooldownTicks": 10,
+        "dedicatedSpatula": false,
+        "durability": 392,
+        "enchantability": 10,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Meißel ist ein Handwerkzeug in sieben Materialstufen, das einen angeklickten Block Schritt für Schritt in verwandte Varianten umformt (etwa Stein zu gemeißelten Steinziegeln) und beim Schleichen denselben Weg wieder zurückgeht.",
         "details": [
@@ -2626,6 +2668,9 @@ window.WIKI_DATA = {
       "trades": [
         "simplebuilding:mason/2/netherite_diamond_core"
       ],
+      "properties": {
+        "maxStackSize": 16
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -2659,6 +2704,13 @@ window.WIKI_DATA = {
       "trades": [
         "simplebuilding:toolsmith/4/emerald_diamond_sledgehammer"
       ],
+      "properties": {
+        "attackDamage": 11.0,
+        "attackSpeed": 0.8,
+        "durability": 6244,
+        "enchantability": 10,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
         "details": [
@@ -2841,6 +2893,13 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "attackDamage": 11.0,
+        "attackSpeed": 1.0,
+        "durability": 2530,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -2869,6 +2928,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 546,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -2882,6 +2946,12 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 20000,
+        "enchantability": 18,
+        "maxStackSize": 1,
+        "wandSquareDiameter": 13
+      },
       "note": {
         "summary": "Der Baustab platziert mit einem Rechtsklick auf eine Blockseite eine ganze quadratische Fläche aus Blöcken deines Inventars; die Stufe (Kupfer bis Enderit) bestimmt, wie groß diese Fläche höchstens wird.",
         "details": [
@@ -3033,6 +3103,9 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Das Enderite Bundle ist die höchste Bündelstufe mit dreifacher Grundkapazität, Feuerfestigkeit und Schutz vor dem Verlust im Void, lässt sich auf normalem Weg aber nicht mit den Bündel-Verzauberungen versehen.",
         "details": [
@@ -3109,6 +3182,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 672,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -3122,6 +3200,13 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "cooldownTicks": 5,
+        "dedicatedSpatula": false,
+        "durability": 600,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Meißel ist ein Handwerkzeug in sieben Materialstufen, das einen angeklickten Block Schritt für Schritt in verwandte Varianten umformt (etwa Stein zu gemeißelten Steinziegeln) und beim Schleichen denselben Weg wieder zurückgeht.",
         "details": [
@@ -3260,6 +3345,9 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -3273,6 +3361,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 462,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -3286,6 +3379,13 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "attackDamage": 2.0,
+        "attackSpeed": 4.0,
+        "durability": 2530,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -3332,6 +3432,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 630,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -3363,6 +3468,13 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "attackDamage": 7.0,
+        "attackSpeed": 1.2,
+        "durability": 2530,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -3376,6 +3488,9 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Enderite Quiver ist die höchste Köcher-Stufe: aus dem Netherit-Köcher geschmiedet, mit Kapazitätsfaktor 3, fireResistant(), Seltenheit EPIC und als fallengelassener Gegenstand über das Tag void_protected vor dem Sturz in die Leere geschützt.",
         "details": [
@@ -3449,6 +3564,13 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "attackDamage": 7.5,
+        "attackSpeed": 1.0,
+        "durability": 2530,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -3462,6 +3584,13 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "attackDamage": 15.0,
+        "attackSpeed": 1.2,
+        "durability": 10000,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
         "details": [
@@ -3616,6 +3745,13 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "attackDamage": 6.0,
+        "attackSpeed": 0.87,
+        "durability": 2530,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -3629,6 +3765,13 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "attackDamage": 9.0,
+        "attackSpeed": 1.6,
+        "durability": 2530,
+        "enchantability": 18,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -3687,6 +3830,12 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 256,
+        "enchantability": 22,
+        "maxStackSize": 1,
+        "wandSquareDiameter": 7
+      },
       "note": {
         "summary": "Der Baustab platziert mit einem Rechtsklick auf eine Blockseite eine ganze quadratische Fläche aus Blöcken deines Inventars; die Stufe (Kupfer bis Enderit) bestimmt, wie groß diese Fläche höchstens wird.",
         "details": [
@@ -3844,6 +3993,13 @@ window.WIKI_DATA = {
       "trades": [
         "simplebuilding:toolsmith/3/emerald_gold_chisel"
       ],
+      "properties": {
+        "cooldownTicks": 20,
+        "dedicatedSpatula": false,
+        "durability": 128,
+        "enchantability": 22,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Meißel ist ein Handwerkzeug in sieben Materialstufen, das einen angeklickten Block Schritt für Schritt in verwandte Varianten umformt (etwa Stein zu gemeißelten Steinziegeln) und beim Schleichen denselben Weg wieder zurückgeht.",
         "details": [
@@ -3988,6 +4144,9 @@ window.WIKI_DATA = {
       "trades": [
         "simplebuilding:wandering_trader/emerald_gold_core"
       ],
+      "properties": {
+        "maxStackSize": 16
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -4005,6 +4164,13 @@ window.WIKI_DATA = {
         "simplebuilding:upgrade_gold_sledgehammer_to_diamond_sledgehammer"
       ],
       "trades": [],
+      "properties": {
+        "attackDamage": 6.0,
+        "attackSpeed": 0.8,
+        "durability": 128,
+        "enchantability": 22,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
         "details": [
@@ -4161,6 +4327,12 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 2000,
+        "enchantability": 14,
+        "maxStackSize": 1,
+        "wandSquareDiameter": 5
+      },
       "note": {
         "summary": "Der Baustab platziert mit einem Rechtsklick auf eine Blockseite eine ganze quadratische Fläche aus Blöcken deines Inventars; die Stufe (Kupfer bis Enderit) bestimmt, wie groß diese Fläche höchstens wird.",
         "details": [
@@ -4318,6 +4490,13 @@ window.WIKI_DATA = {
       "trades": [
         "simplebuilding:toolsmith/3/emerald_iron_chisel"
       ],
+      "properties": {
+        "cooldownTicks": 25,
+        "dedicatedSpatula": false,
+        "durability": 256,
+        "enchantability": 14,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Meißel ist ein Handwerkzeug in sieben Materialstufen, das einen angeklickten Block Schritt für Schritt in verwandte Varianten umformt (etwa Stein zu gemeißelten Steinziegeln) und beim Schleichen denselben Weg wieder zurückgeht.",
         "details": [
@@ -4461,6 +4640,9 @@ window.WIKI_DATA = {
       "trades": [
         "simplebuilding:wandering_trader/emerald_iron_cores"
       ],
+      "properties": {
+        "maxStackSize": 16
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -4480,6 +4662,13 @@ window.WIKI_DATA = {
       "trades": [
         "simplebuilding:toolsmith/4/emerald_iron_sledgehammer"
       ],
+      "properties": {
+        "attackDamage": 9.0,
+        "attackSpeed": 0.6,
+        "durability": 1000,
+        "enchantability": 14,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
         "details": [
@@ -4739,6 +4928,9 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Magnet ist ein nicht stapelbares Handwerkzeug ohne Haltbarkeit, das herumliegende Items in einem Bereich von 4 Blöcken um deine Hitbox zu dir zieht, solange du ihn in der Haupt- oder Nebenhand hältst, und mit der Verzauberung Berührung des Konstrukteurs über einen Rahmen auf eine einzelne Item-Sorte gefiltert werden kann.",
         "details": [
@@ -4916,6 +5108,12 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_building_wand_smithing"
       ],
       "trades": [],
+      "properties": {
+        "durability": 16248,
+        "enchantability": 15,
+        "maxStackSize": 1,
+        "wandSquareDiameter": 11
+      },
       "note": {
         "summary": "Der Baustab platziert mit einem Rechtsklick auf eine Blockseite eine ganze quadratische Fläche aus Blöcken deines Inventars; die Stufe (Kupfer bis Enderit) bestimmt, wie groß diese Fläche höchstens wird.",
         "details": [
@@ -5070,6 +5268,9 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_bundle_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Das Netherit-Bündel ist die Schmiedetisch-Aufwertung des Verstärkten Bündels mit doppelter Grundkapazität, Feuerfestigkeit und Explosionsschutz als fallengelassener Gegenstand.",
         "details": [
@@ -5156,6 +5357,13 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_chisel_smithing"
       ],
       "trades": [],
+      "properties": {
+        "cooldownTicks": 5,
+        "dedicatedSpatula": false,
+        "durability": 512,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Meißel ist ein Handwerkzeug in sieben Materialstufen, das einen angeklickten Block Schritt für Schritt in verwandte Varianten umformt (etwa Stein zu gemeißelten Steinziegeln) und beim Schleichen denselben Weg wieder zurückgeht.",
         "details": [
@@ -5297,6 +5505,9 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_core_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -5534,6 +5745,9 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_quiver_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Netherit-Köcher ist die Schmiedetisch-Aufwertung des Köchers mit Kapazitätsfaktor 2, gesetzter fireResistant()-Eigenschaft und der Seltenheit UNCOMMON.",
         "details": [
@@ -5588,6 +5802,13 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_sledgehammer_smithing"
       ],
       "trades": [],
+      "properties": {
+        "attackDamage": 13.0,
+        "attackSpeed": 1.0,
+        "durability": 8124,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
         "details": [
@@ -5882,6 +6103,11 @@ window.WIKI_DATA = {
         "simplebuilding:wandering_trader/emerald_octant",
         "simplebuilding:wandering_trader/octant_emerald"
       ],
+      "properties": {
+        "durability": 128,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Oktant ist ein Mess- und Planungswerkzeug: Du markierst zwei Eckpunkte in der Welt, siehst Abstand, Fläche oder Volumen im HUD und kannst dir die Auswahl als Quader, Zylinder, Kugel, Pyramide oder Prisma in der Welt vorzeichnen lassen.",
         "details": [
@@ -6010,6 +6236,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6024,6 +6255,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6038,6 +6274,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6052,6 +6293,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6066,6 +6312,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6080,6 +6331,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6094,6 +6350,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6108,6 +6369,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6122,6 +6388,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6136,6 +6407,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6150,6 +6426,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6164,6 +6445,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6178,6 +6464,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6192,6 +6483,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6206,6 +6502,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6220,6 +6521,11 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 65536,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -6234,6 +6540,10 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 1024,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Erzdetektor ist ein Handwerkzeug, das im Sekundentakt das nächstgelegene erreichbare Erz um dich herum mit einem Ton und einer Partikelspur anzeigt, solange du es in der Hand hältst.",
         "details": [
@@ -6366,6 +6676,9 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_quiver_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Köcher ist ein verstärktes Bündel (Unterklasse von ReinforcedBundleItem), das per Klick und beim Aufsaugen nur Pfeile (Tag minecraft:arrows) annimmt und dem Bogen beim Spannen und Loslassen automatisch Pfeile liefert.",
         "details": [
@@ -6551,6 +6864,9 @@ window.WIKI_DATA = {
         "simplebuilding:wandering_trader/emerald_reinforced_bundle",
         "simplebuilding:wandering_trader/reinforced_bundle_emerald"
       ],
+      "properties": {
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Das Verstärkte Bündel ist ein aufgerüstetes Bündel mit 1,5-facher Kapazität, das im Inventar per Mausrad einen Eintrag auswählen lässt und die Grundlage für die Bündel-Verzauberungen Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette bildet.",
         "details": [
@@ -6950,6 +7266,10 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "durability": 1024,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Rotator ist ein Werkzeug, mit dem man ausrichtbare Blöcke (Stämme, Öfen, Kolben, Trichter und ähnliche) per Rechtsklick an Ort und Stelle drehen kann, ohne sie abzubauen.",
         "details": [
@@ -7040,6 +7360,13 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "cooldownTicks": 30,
+        "dedicatedSpatula": false,
+        "durability": 192,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Meißel ist ein Handwerkzeug in sieben Materialstufen, das einen angeklickten Block Schritt für Schritt in verwandte Varianten umformt (etwa Stein zu gemeißelten Steinziegeln) und beim Schleichen denselben Weg wieder zurückgeht.",
         "details": [
@@ -7179,6 +7506,13 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "attackDamage": 6.0,
+        "attackSpeed": 0.6,
+        "durability": 760,
+        "enchantability": 5,
+        "maxStackSize": 1
+      },
       "note": {
         "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
         "details": [
@@ -7423,6 +7757,9 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "hasCustomBehaviour": false
     }
   ],

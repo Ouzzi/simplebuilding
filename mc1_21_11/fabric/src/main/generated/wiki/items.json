@@ -1,0 +1,590 @@
+{
+  "generator": "com.simplebuilding.datagen.WikiDataProvider",
+  "items": [
+    {
+      "id": "simplebuilding:astral_end_stone"
+    },
+    {
+      "id": "simplebuilding:astral_purpur_block"
+    },
+    {
+      "id": "simplebuilding:astralit_dust"
+    },
+    {
+      "id": "simplebuilding:astralit_ore"
+    },
+    {
+      "id": "simplebuilding:basic_upgrade_template"
+    },
+    {
+      "id": "simplebuilding:blackstone_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:construction_light"
+    },
+    {
+      "durability": 1520,
+      "enchantability": 18,
+      "id": "simplebuilding:copper_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 3
+    },
+    {
+      "cooldownTicks": 25,
+      "dedicatedSpatula": false,
+      "durability": 192,
+      "enchantability": 18,
+      "id": "simplebuilding:copper_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:copper_core",
+      "maxStackSize": 16
+    },
+    {
+      "attackDamage": 6.0,
+      "attackSpeed": 0.8,
+      "durability": 760,
+      "enchantability": 13,
+      "id": "simplebuilding:copper_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 25,
+      "dedicatedSpatula": true,
+      "durability": 192,
+      "enchantability": 18,
+      "id": "simplebuilding:copper_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:cracked_diamond"
+    },
+    {
+      "id": "simplebuilding:cracked_diamond_block"
+    },
+    {
+      "durability": 12488,
+      "enchantability": 10,
+      "id": "simplebuilding:diamond_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 9
+    },
+    {
+      "cooldownTicks": 10,
+      "dedicatedSpatula": false,
+      "durability": 392,
+      "enchantability": 10,
+      "id": "simplebuilding:diamond_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:diamond_core",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:diamond_pebble"
+    },
+    {
+      "attackDamage": 11.0,
+      "attackSpeed": 0.8,
+      "durability": 6244,
+      "enchantability": 10,
+      "id": "simplebuilding:diamond_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 10,
+      "dedicatedSpatula": true,
+      "durability": 392,
+      "enchantability": 10,
+      "id": "simplebuilding:diamond_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:emitting_trim_template"
+    },
+    {
+      "id": "simplebuilding:enchanted_enderite_apple"
+    },
+    {
+      "id": "simplebuilding:enchanted_netherite_apple"
+    },
+    {
+      "id": "simplebuilding:enderite_apple"
+    },
+    {
+      "attackDamage": 11.0,
+      "attackSpeed": 1.0,
+      "durability": 2530,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_axe",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_block"
+    },
+    {
+      "durability": 546,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_boots",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 20000,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 13
+    },
+    {
+      "id": "simplebuilding:enderite_bundle",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_carrot"
+    },
+    {
+      "durability": 672,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_chestplate",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 5,
+      "dedicatedSpatula": false,
+      "durability": 600,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_core",
+      "maxStackSize": 16
+    },
+    {
+      "durability": 462,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_helmet",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 2.0,
+      "attackSpeed": 4.0,
+      "durability": 2530,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_hoe",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_ingot"
+    },
+    {
+      "durability": 630,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_leggings",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_nugget"
+    },
+    {
+      "attackDamage": 7.0,
+      "attackSpeed": 1.2,
+      "durability": 2530,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_pickaxe",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_quiver",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_scrap"
+    },
+    {
+      "attackDamage": 7.5,
+      "attackSpeed": 1.0,
+      "durability": 2530,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_shovel",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 15.0,
+      "attackSpeed": 1.2,
+      "durability": 10000,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 6.0,
+      "attackSpeed": 0.87,
+      "durability": 2530,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_spear",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 9.0,
+      "attackSpeed": 1.6,
+      "durability": 2530,
+      "enchantability": 18,
+      "id": "simplebuilding:enderite_sword",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_upgrade_template"
+    },
+    {
+      "id": "simplebuilding:glowing_trim_template"
+    },
+    {
+      "durability": 256,
+      "enchantability": 22,
+      "id": "simplebuilding:gold_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 7
+    },
+    {
+      "cooldownTicks": 20,
+      "dedicatedSpatula": false,
+      "durability": 128,
+      "enchantability": 22,
+      "id": "simplebuilding:gold_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:gold_core",
+      "maxStackSize": 16
+    },
+    {
+      "attackDamage": 6.0,
+      "attackSpeed": 0.8,
+      "durability": 128,
+      "enchantability": 22,
+      "id": "simplebuilding:gold_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 20,
+      "dedicatedSpatula": true,
+      "durability": 128,
+      "enchantability": 22,
+      "id": "simplebuilding:gold_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 2000,
+      "enchantability": 14,
+      "id": "simplebuilding:iron_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 5
+    },
+    {
+      "cooldownTicks": 25,
+      "dedicatedSpatula": false,
+      "durability": 256,
+      "enchantability": 14,
+      "id": "simplebuilding:iron_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:iron_core",
+      "maxStackSize": 16
+    },
+    {
+      "attackDamage": 9.0,
+      "attackSpeed": 0.6,
+      "durability": 1000,
+      "enchantability": 14,
+      "id": "simplebuilding:iron_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 25,
+      "dedicatedSpatula": true,
+      "durability": 256,
+      "enchantability": 14,
+      "id": "simplebuilding:iron_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:lapis_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:levitating_gravel"
+    },
+    {
+      "id": "simplebuilding:levitating_sand"
+    },
+    {
+      "id": "simplebuilding:magnet",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_apple"
+    },
+    {
+      "id": "simplebuilding:netherite_blast_furnace"
+    },
+    {
+      "durability": 16248,
+      "enchantability": 15,
+      "id": "simplebuilding:netherite_building_wand",
+      "maxStackSize": 1,
+      "wandSquareDiameter": 11
+    },
+    {
+      "id": "simplebuilding:netherite_bundle",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_carrot"
+    },
+    {
+      "cooldownTicks": 5,
+      "dedicatedSpatula": false,
+      "durability": 512,
+      "enchantability": 15,
+      "id": "simplebuilding:netherite_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_core",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:netherite_furnace"
+    },
+    {
+      "id": "simplebuilding:netherite_hopper"
+    },
+    {
+      "id": "simplebuilding:netherite_nugget"
+    },
+    {
+      "id": "simplebuilding:netherite_piston"
+    },
+    {
+      "id": "simplebuilding:netherite_quiver",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 13.0,
+      "attackSpeed": 1.0,
+      "durability": 8124,
+      "enchantability": 15,
+      "id": "simplebuilding:netherite_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:netherite_smoker"
+    },
+    {
+      "cooldownTicks": 5,
+      "dedicatedSpatula": true,
+      "durability": 512,
+      "enchantability": 15,
+      "id": "simplebuilding:netherite_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:nihil_end_stone"
+    },
+    {
+      "id": "simplebuilding:nihil_purpur_block"
+    },
+    {
+      "id": "simplebuilding:nihilith_ore"
+    },
+    {
+      "id": "simplebuilding:nihilith_shard"
+    },
+    {
+      "durability": 128,
+      "enchantability": 15,
+      "id": "simplebuilding:octant",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_black",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_blue",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_brown",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_cyan",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_gray",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_green",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_light_blue",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_light_gray",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_lime",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_magenta",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_orange",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_pink",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_purple",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_red",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_white",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 65536,
+      "enchantability": 15,
+      "id": "simplebuilding:octant_yellow",
+      "maxStackSize": 1
+    },
+    {
+      "durability": 1024,
+      "id": "simplebuilding:ore_detector",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:polished_end_stone"
+    },
+    {
+      "id": "simplebuilding:purpur_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:quiver",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:raw_enderite"
+    },
+    {
+      "id": "simplebuilding:reinforced_blast_furnace"
+    },
+    {
+      "id": "simplebuilding:reinforced_bundle",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:reinforced_furnace"
+    },
+    {
+      "id": "simplebuilding:reinforced_hopper"
+    },
+    {
+      "id": "simplebuilding:reinforced_piston"
+    },
+    {
+      "id": "simplebuilding:reinforced_smoker"
+    },
+    {
+      "id": "simplebuilding:resin_quartz_checker"
+    },
+    {
+      "durability": 1024,
+      "id": "simplebuilding:rotator",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 30,
+      "dedicatedSpatula": false,
+      "durability": 192,
+      "enchantability": 15,
+      "id": "simplebuilding:stone_chisel",
+      "maxStackSize": 1
+    },
+    {
+      "attackDamage": 6.0,
+      "attackSpeed": 0.6,
+      "durability": 760,
+      "enchantability": 5,
+      "id": "simplebuilding:stone_sledgehammer",
+      "maxStackSize": 1
+    },
+    {
+      "cooldownTicks": 30,
+      "dedicatedSpatula": true,
+      "durability": 192,
+      "enchantability": 15,
+      "id": "simplebuilding:stone_spatula",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:suspended_gravel"
+    },
+    {
+      "id": "simplebuilding:suspended_sand"
+    },
+    {
+      "id": "simplebuilding:velocity-gauge",
+      "maxStackSize": 1
+    }
+  ],
+  "note": "Aus der Item-Registry erzeugt (gradlew runDatagen) - nicht von Hand aendern.",
+  "schema": 1
+}
