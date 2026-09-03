@@ -4,6 +4,7 @@ import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.simplebuilding.config.SimplebuildingConfig;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.commands.Commands;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
 public class ModCommands {
@@ -24,14 +25,14 @@ public class ModCommands {
                                             .executes(context -> {
                                                 double newValue = DoubleArgumentType.getDouble(context, "value");
                                                 SimplebuildingConfig.trimBenefitBaseMultiplier = newValue;
-                                                context.getSource().sendSuccess(() -> Component.literal("§aTrim Multiplier gesetzt auf: " + newValue), true);
+                                                context.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.trim_multiplier.set", newValue).withStyle(ChatFormatting.GREEN), true);
                                                 return 1;
                                             })
                                     )
                             )
                             .then(Commands.literal("getTrimMultiplier")
                                     .executes(context -> {
-                                        context.getSource().sendSuccess(() -> Component.literal("§eAktueller Trim Multiplier: " + SimplebuildingConfig.trimBenefitBaseMultiplier), false);
+                                        context.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.trim_multiplier.get", SimplebuildingConfig.trimBenefitBaseMultiplier).withStyle(ChatFormatting.YELLOW), false);
                                         return 1;
                                     })
                             )

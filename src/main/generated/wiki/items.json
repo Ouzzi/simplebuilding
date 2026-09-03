@@ -1,4 +1,35 @@
 {
+  "blocks": [
+    "simplebuilding:reinforced_piston",
+    "simplebuilding:resin_quartz_checker",
+    "simplebuilding:nihilith_ore",
+    "simplebuilding:cracked_diamond_block",
+    "simplebuilding:netherite_furnace",
+    "simplebuilding:nihil_end_stone",
+    "simplebuilding:reinforced_blast_furnace",
+    "simplebuilding:netherite_hopper",
+    "simplebuilding:polished_end_stone",
+    "simplebuilding:netherite_piston",
+    "simplebuilding:netherite_blast_furnace",
+    "simplebuilding:reinforced_furnace",
+    "simplebuilding:netherite_smoker",
+    "simplebuilding:suspended_sand",
+    "simplebuilding:nihil_purpur_block",
+    "simplebuilding:astral_end_stone",
+    "simplebuilding:netherite_piston_head",
+    "simplebuilding:reinforced_smoker",
+    "simplebuilding:levitating_gravel",
+    "simplebuilding:construction_light",
+    "simplebuilding:astralit_ore",
+    "simplebuilding:astral_purpur_block",
+    "simplebuilding:reinforced_hopper",
+    "simplebuilding:enderite_block",
+    "simplebuilding:suspended_gravel",
+    "simplebuilding:levitating_sand",
+    "simplebuilding:blackstone_quartz_checker",
+    "simplebuilding:lapis_quartz_checker",
+    "simplebuilding:purpur_quartz_checker"
+  ],
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
   "items": [
     {
@@ -414,103 +445,104 @@
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_black",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_blue",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_brown",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_cyan",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_gray",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_green",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_light_blue",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_light_gray",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_lime",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_magenta",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_orange",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_pink",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_purple",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_red",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_white",
       "maxStackSize": 1
     },
     {
-      "durability": 65536,
+      "durability": 128,
       "enchantability": 15,
       "id": "simplebuilding:octant_yellow",
       "maxStackSize": 1
     },
     {
       "durability": 1024,
+      "enchantability": 15,
       "id": "simplebuilding:ore_detector",
       "maxStackSize": 1
     },
@@ -553,6 +585,7 @@
     },
     {
       "durability": 1024,
+      "enchantability": 15,
       "id": "simplebuilding:rotator",
       "maxStackSize": 1
     },

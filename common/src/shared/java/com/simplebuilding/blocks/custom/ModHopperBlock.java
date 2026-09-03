@@ -18,12 +18,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class ModHopperBlock extends HopperBlock {
-    @SuppressWarnings("unused")
-    private final int speedMultiplier; // 1 = Double Speed (Cooldown 4), 2 = Quadruple (Cooldown 2)
-
-    public ModHopperBlock(Properties settings, int speedMultiplier) {
+    public ModHopperBlock(Properties settings) {
         super(settings);
-        this.speedMultiplier = speedMultiplier;
     }
 
     @Nullable

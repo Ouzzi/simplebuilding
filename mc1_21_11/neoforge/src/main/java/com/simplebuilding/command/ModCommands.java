@@ -3,6 +3,7 @@ package com.simplebuilding.command;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import net.minecraft.commands.Commands;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -30,14 +31,14 @@ public final class ModCommands {
                                         .executes(context -> {
                                             double newValue = DoubleArgumentType.getDouble(context, "value");
                                             SimplebuildingConfig.trimBenefitBaseMultiplier = newValue;
-                                            context.getSource().sendSuccess(() -> Component.literal("Trim Multiplier gesetzt auf: " + newValue), true);
+                                            context.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.trim_multiplier.set", newValue).withStyle(ChatFormatting.GREEN), true);
                                             return 1;
                                         })
                                 )
                         )
                         .then(Commands.literal("getTrimMultiplier")
                                 .executes(context -> {
-                                    context.getSource().sendSuccess(() -> Component.literal("Aktueller Trim Multiplier: " + SimplebuildingConfig.trimBenefitBaseMultiplier), false);
+                                    context.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.trim_multiplier.get", SimplebuildingConfig.trimBenefitBaseMultiplier).withStyle(ChatFormatting.YELLOW), false);
                                     return 1;
                                 })
                         )

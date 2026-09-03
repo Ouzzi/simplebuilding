@@ -83,7 +83,6 @@ public class TrimReferenceScreen extends Screen {
         addDynamicTrim(Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE, "Flow", ChatFormatting.WHITE, 10.0, "Aerial Agility");
         addDynamicTrim(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE, "Bolt", ChatFormatting.YELLOW, 25.0, "Kinetic Response");
 
-        tryAddModTrim("simplebuilding", "enderite_armor_trim_smithing_template", "Enderite", ChatFormatting.DARK_PURPLE, 10.0, "Void Protection");
         tryAddModTrim("enderscape", "stasis_armor_trim_smithing_template", "Stasis", ChatFormatting.LIGHT_PURPLE, 5.0, "End Statis Effect");
     }
 

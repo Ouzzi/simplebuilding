@@ -18,12 +18,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class ModBlastFurnaceBlock extends BlastFurnaceBlock {
-    @SuppressWarnings("unused")
-    private final float speedMultiplier;
-
-    public ModBlastFurnaceBlock(Properties settings, float speedMultiplier) {
+    public ModBlastFurnaceBlock(Properties settings) {
         super(settings);
-        this.speedMultiplier = speedMultiplier;
     }
 
     @Nullable

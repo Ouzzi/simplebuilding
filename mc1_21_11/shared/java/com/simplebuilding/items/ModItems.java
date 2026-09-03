@@ -342,11 +342,11 @@ public class ModItems {
 
     public static final Item VELOCITY_GAUGE = registerItem("velocity-gauge", settings -> new Item(settings.stacksTo(1)));
 
-    public static final Item ORE_DETECTOR = registerItem("ore_detector", settings -> new OreDetectorItem(settings.durability(512).rarity(RARE)));
+    public static final Item ORE_DETECTOR = registerItem("ore_detector", settings -> new OreDetectorItem(settings.enchantable(ENCHANTABILITY_NETHERITE).rarity(RARE)));
 
     public static final Item MAGNET = registerItem("magnet", settings -> new MagnetItem(settings.stacksTo(1).rarity(UNCOMMON)));
 
-    public static final Item ROTATOR = registerItem("rotator", settings -> new RotatorItem(settings.durability(1024).stacksTo(1)));
+    public static final Item ROTATOR = registerItem("rotator", settings -> new RotatorItem(settings.durability(1024).stacksTo(1).enchantable(ENCHANTABILITY_NETHERITE)));
 
     public static final OctantItem OCTANT = (OctantItem) registerItem("octant", settings -> new OctantItem(settings.durability(DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), null));
 
@@ -745,7 +745,7 @@ public class ModItems {
 
             OctantItem coloredItem = (OctantItem) registerItem(name,
 
-                    settings -> new OctantItem(settings.durability(DURABILITY_NETHERITE * DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), color));
+                    settings -> new OctantItem(settings.durability(DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), color));
 
             COLORED_OCTANT_ITEMS.put(color, coloredItem);
 

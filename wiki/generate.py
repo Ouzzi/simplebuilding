@@ -649,9 +649,41 @@ def load_item_properties(roots: dict) -> dict:
     return out
 
 
-def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trades, item_properties=None):
+# Absichtlich ohne Namen: die sechs Spatel sind Altlasten fuer
+# LegacySpatulaMigration - kein Rezept, kein Kreativ-Tab, nie im Spielerbesitz.
+# Sie sollen die Warnung unten nicht zu Rauschen machen.
+DELIBERATELY_UNNAMED = {f"{NS}:{tier}_spatula"
+                        for tier in ("stone", "copper", "iron", "gold", "diamond", "netherite")}
+
+
+def registered_ids(roots: dict) -> tuple[set[str], set[str]] | None:
+    """
+    Was tatsaechlich in der Registry steht - Items und Bloecke -, aus dem
+    Datagen-Export.
+
+    Das Wiki leitet seine Listen aus den Sprachschluesseln ab, und die
+    ueberleben es, wenn eine Registrierung auskommentiert wird: die beiden
+    Truhen sind auskommentierte TODOs, hatten aber weiter ihren
+    block.*-Schluessel und standen dadurch als Bloecke im Wiki, die es im Spiel
+    nicht gibt. None, solange der Export fehlt - dann wird nichts gefiltert.
+    """
+    path = REPO / roots["item_properties"]
+    if not path.exists():
+        return None
+    payload = read_json(path)
+    items = {entry["id"] for entry in payload.get("items", []) if entry.get("id")}
+    blocks = set(payload.get("blocks", []))
+    if not items and not blocks:
+        return None
+    return items, blocks
+
+
+def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trades,
+                             item_properties=None, registered=None):
     en = lang.get("en_us", {})
     item_properties = item_properties or {}
+    phantom: list[str] = []
+    unnamed: list[str] = []
 
     recipes_by_result: dict[str, list[str]] = {}
     recipes_by_ingredient: dict[str, list[str]] = {}
@@ -677,6 +709,13 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
             if "." in name:  # sub keys such as .desc
                 continue
             identifier = f"{NS}:{name}"
+            if registered is not None:
+                known = registered[1] if kind == "block" else registered[0]
+                if identifier not in known:
+                    # Sprachschluessel ohne Registrierung: nicht listen, sonst
+                    # behauptet das Wiki etwas, das es im Spiel nicht gibt.
+                    phantom.append(f"{kind} {identifier}")
+                    continue
             # A block item usually has no item model of its own - its icon IS the block -
             # so fall back to the block texture before giving up.
             texture = texture_for(roots, kind, identifier)
@@ -704,7 +743,18 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
             entries.append(entry)
         return entries
 
-    return build("item", f"item.{NS}."), build("block", f"block.{NS}.")
+    items, blocks = build("item", f"item.{NS}."), build("block", f"block.{NS}.")
+
+    # Gegenrichtung: registriert, aber ohne Sprachschluessel. Solche Dinge zeigen
+    # im Spiel ihren rohen Uebersetzungsschluessel und fehlen hier ganz.
+    if registered is not None:
+        for identifier in sorted(registered[0] - {e["id"] for e in items} - DELIBERATELY_UNNAMED):
+            if identifier not in {e["id"] for e in blocks}:
+                unnamed.append(f"item {identifier}")
+        for identifier in sorted(registered[1] - {e["id"] for e in blocks}):
+            unnamed.append(f"block {identifier}")
+
+    return items, blocks, sorted(phantom), unnamed
 
 
 # ---------------------------------------------------------------------------
@@ -885,7 +935,9 @@ def build(line: str) -> tuple[dict, list[str]]:
     vanilla = copy_vanilla_textures(roots, vanilla_ids(recipes, loot_tables, trades, tags))
 
     item_properties = load_item_properties(roots)
-    items, blocks = collect_items_and_blocks(roots, lang, recipes, loot_tables, trades, item_properties)
+    registered = registered_ids(roots)
+    items, blocks, phantom, unnamed = collect_items_and_blocks(
+        roots, lang, recipes, loot_tables, trades, item_properties, registered)
 
     manual_path = WIKI / "manual.json"
     manual = read_json(manual_path) if manual_path.exists() else {"features": [], "notes": {}}
@@ -1011,7 +1063,7 @@ def build(line: str) -> tuple[dict, list[str]]:
         "undocumented": undocumented,
         "incompleteProse": incomplete,
     }
-    return data, undocumented, vanilla, incomplete, enchantment_warnings
+    return data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed
 
 
 def main() -> int:
@@ -1026,11 +1078,15 @@ def main() -> int:
                              "the Gradle checkWiki task runs.")
     args = parser.parse_args()
 
-    data, undocumented, vanilla, incomplete, enchantment_warnings = build(args.line)
+    data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed = build(args.line)
     payload = json.dumps(data, indent=2, ensure_ascii=False, sort_keys=False)
 
     for warning in enchantment_warnings:
         print("WARNING (enchantment detection):", warning)
+    for entry in phantom:
+        print(f"NOTE: {entry} has a language key but is not registered - left out of the wiki.")
+    for entry in unnamed:
+        print(f"WARNING: {entry} is registered but has no language key - it shows its raw key in game.")
 
     props_state = data["generatedFrom"]["itemProperties"]
     missing_props = not props_state["present"]

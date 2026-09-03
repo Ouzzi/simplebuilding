@@ -100,11 +100,23 @@ public class WikiDataProvider implements DataProvider {
             items.add(describe(entry.getKey(), entry.getValue(), components.get(entry.getKey())));
         }
 
+        // Auch die registrierten Bloecke: das Wiki leitet seine Blockliste aus den
+        // Sprachschluesseln ab und zeigte dadurch Bloecke, die es gar nicht gibt
+        // (auskommentierte TODOs mit vorhandenem block.*-Schluessel).
+        JsonArray blocks = new JsonArray();
+        for (var entry : BuiltInRegistries.BLOCK.entrySet()) {
+            Identifier id = entry.getKey().identifier();
+            if (Simplebuilding.MOD_ID.equals(id.getNamespace())) {
+                blocks.add(id.toString());
+            }
+        }
+
         JsonObject root = new JsonObject();
         root.addProperty("schema", 1);
         root.addProperty("generator", getClass().getName());
         root.addProperty("note", "Aus der Item-Registry erzeugt (gradlew runDatagen) - nicht von Hand aendern.");
         root.add("items", items);
+        root.add("blocks", blocks);
 
         Path path = this.output.getOutputFolder().resolve("wiki").resolve("items.json");
         return DataProvider.saveStable(cache, root, path);

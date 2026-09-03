@@ -53,7 +53,6 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
             }
 
             // 2. Explizit SimpleBuilding Enderite Trim hinzufügen (falls nicht im Tag)
-            tryAddStack(trimTemplates, Identifier.fromNamespaceAndPath("simplebuilding", "enderite_armor_trim_smithing_template"));
 
             // 3. Enderscape Support (Dynamisch prüfen)
             if (ModEnvironment.isModLoaded("enderscape")) {

@@ -110,7 +110,6 @@ public final class ModTradeDefinitions {
 
     private static EnchantmentPool wandBookPool() {
         return EnchantmentPool.of(
-                EnchantmentPool.entry(ModEnchantments.BRIDGE, 1, 30),
                 EnchantmentPool.entry(ModEnchantments.RADIUS, 1, 20));
     }
 

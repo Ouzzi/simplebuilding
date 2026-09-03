@@ -12,7 +12,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -100,36 +99,4 @@ public abstract class ItemEntityMixin extends Entity {
     }
 
 
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void floatInVoid(CallbackInfo ci) {
-        // Prüfe ob es ein Enderite Item ist
-        if (isEnderiteItem(this.getItem().getItem())) {
-            // Wenn wir im Void sind (z.B. unter Y = -64 oder World Bottom)
-            if (this.getY() < this.level().getMinY()) {
-
-                // Setze Bewegung auf 0 und schwebe langsam nach oben oder bleibe stehen
-                Vec3 velocity = this.getDeltaMovement();
-                this.setDeltaMovement(velocity.x * 0.9, 0.1, velocity.z * 0.9); // Schwebt langsam hoch
-
-                // Setze Position hard, falls zu tief, damit es nicht despawned (Despawn ist meist bei -64 - 64)
-                if (this.getY() < this.level().getMinY() - 10) {
-                    this.setPos(this.getX(), this.level().getMinY() + 5, this.getZ());
-                    this.setDeltaMovement(0, 0, 0);
-                }
-
-                // Verhindere Despawn Timer
-                this.setNoGravity(true);
-            } else {
-                this.setNoGravity(false);
-            }
-        }
-    }
-
-    @Unique
-    private boolean isEnderiteItem(Item item) {
-        // Liste aller Enderite Items
-        return item == ModItems.ENDERITE_INGOT || item == ModItems.ENDERITE_SCRAP
-                || item == ModItems.ENDERITE_SWORD || item == ModItems.ENDERITE_PICKAXE
-                /* ... Armor etc ... TODO */;
-    }
 }

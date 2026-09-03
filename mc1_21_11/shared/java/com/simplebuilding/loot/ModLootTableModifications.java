@@ -39,7 +39,7 @@ if (!Simplebuilding.getConfig().worldGen.enableLootTableChanges) {
             var enchantments = registry.lookupOrThrow(Registries.ENCHANTMENT);
 
             // 1. STRONGHOLD LIBRARY CHEST
-            // (RANGE, QUIVER, MASTER_BUILDER, BRIDGE)
+            // (RANGE, QUIVER, MASTER_BUILDER)
             if (BuiltInLootTables.STRONGHOLD_LIBRARY.equals(key)) {
                 LootPool.Builder pool = LootPool.lootPool()
                         .setRolls(UniformGenerator.between(0, 5))
@@ -47,13 +47,12 @@ if (!Simplebuilding.getConfig().worldGen.enableLootTableChanges) {
                         .add(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 1))
                         .add(enchantedBook(ModEnchantments.VERSATILITY, 1, enchantments, 1))
                         .add(enchantedBook(ModEnchantments.VERSATILITY, 2, enchantments, 1))
-                        .add(enchantedBook(ModEnchantments.BRIDGE, 1, enchantments, 1))
                         .add(EmptyLootItem.emptyItem().setWeight(10));
                 editor.addPool(pool);
             }
 
             // 2. END CITY TREASURE CHEST
-            // (RANGE, QUIVER, MASTER_BUILDER, OVERRIDES, BRIDGE, DOUBLE_JUMP)
+            // (RANGE, QUIVER, MASTER_BUILDER, OVERRIDES, DOUBLE_JUMP)
             // (DIAMOND_CHISEL_ENCHANTED, DIAMOND_SPATULA_ENCHANTED, DIAMOND_BUILDING_WAND_ENCHANTED, DIAMOND_SLEDGEHAMMER_ENCHANTED, diamond_core)
             if (BuiltInLootTables.END_CITY_TREASURE.equals(key)) {
 
@@ -75,7 +74,6 @@ if (!Simplebuilding.getConfig().worldGen.enableLootTableChanges) {
                         .add(enchantedBook(ModEnchantments.RANGE, 3, enchantments, 10))
                         .add(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 10))
                         .add(enchantedBook(ModEnchantments.OVERRIDE, 2, enchantments, 10))
-                        .add(enchantedBook(ModEnchantments.BRIDGE, 1, enchantments, 10))
                         .add(enchantedBook(ModEnchantments.DOUBLE_JUMP, 2, enchantments, 10))
                         .add(enchantedBook(ModEnchantments.VERSATILITY, 1, enchantments, 10))
                         .add(enchantedBook(ModEnchantments.VERSATILITY, 2, enchantments, 10))
