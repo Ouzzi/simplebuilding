@@ -23,6 +23,9 @@ import com.simplebuilding.client.ClientState;
 import com.simplebuilding.client.DoubleJumpController;
 import com.simplebuilding.platform.ClientNetworking;
 import me.shedaniel.autoconfig.AutoConfig;
+import com.simplebuilding.entity.ModEntities;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -60,6 +63,9 @@ public class SimplebuildingClient implements ClientModInitializer {
     @SuppressWarnings("deprecation")
     public void onInitializeClient() {
         ClientNetworking.setSender(ClientPlayNetworking::send);
+
+        // Der aufsteigende Block wird wie fallender Sand gezeichnet.
+        EntityRendererRegistry.register(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
         ClientState.highlightToggleKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.simplebuilding.toggle_highlight",
             InputConstants.Type.KEYSYM,

@@ -13,6 +13,7 @@ import com.simplebuilding.datagen.ModLootTableProvider;
 import com.simplebuilding.datagen.ModTradeOffers;
 import com.simplebuilding.enchantment.ModEnchantmentEffects;
 import com.simplebuilding.items.ModItemGroups;
+import com.simplebuilding.entity.ModEntities;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.networking.ModMessages;
@@ -83,6 +84,7 @@ public class Simplebuilding implements ModInitializer {
         ModItemGroups.registerItemGroups();
         ModBlocks.registerModBlocks();
         ModItems.registerModItems();
+        ModEntities.registerModEntities();
         ModBlockEntities.registerBlockEntities();
         ModLootTableProvider.modifyLootTables();
         ModTradeOffers.registerModTradeOffers();

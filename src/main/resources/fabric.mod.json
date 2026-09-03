@@ -37,7 +37,14 @@
       "com.simplebuilding.gametest.NetworkHandlerGameTest",
       "com.simplebuilding.gametest.ItemBehaviourGameTest",
       "com.simplebuilding.gametest.EnchantmentEffectGameTest",
-      "com.simplebuilding.gametest.HopperAndTrimGameTest"
+      "com.simplebuilding.gametest.HopperAndTrimGameTest",
+      "com.simplebuilding.gametest.BuildingEnchantmentGameTest",
+      "com.simplebuilding.gametest.ConsumptionAndDurabilityGameTest",
+      "com.simplebuilding.gametest.VeinAndStripMinerGameTest",
+      "com.simplebuilding.gametest.ProtectionAndRangeGameTest",
+      "com.simplebuilding.gametest.TrimEffectGameTest",
+      "com.simplebuilding.gametest.OreGenAndItemFrameGameTest",
+      "com.simplebuilding.gametest.ConfigOptionGameTest"
     ]
   },
   "mixins": [

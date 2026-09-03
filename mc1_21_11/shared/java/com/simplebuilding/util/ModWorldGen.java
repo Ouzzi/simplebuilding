@@ -50,10 +50,10 @@ public class ModWorldGen {
 
         // --- ASTRALIT (Oben / Surface) ---
         // STATUS: War zu häufig.
-        // FIX: Nur in jedem 8. Chunk EINEN Versuch.
+        // FIX: Nur in jedem zweiten Chunk EINEN Versuch.
         register(context, ASTRALIT_ORE_PLACED_KEY, configuredFeatureRegistry.getOrThrow(ASTRALIT_ORE_KEY),
                 List.of(
-                        // Rarity 8: Nur 12.5% Wahrscheinlichkeit pro Chunk (ca. jeder 8. Chunk)
+                        // Rarity 2: 50% Wahrscheinlichkeit pro Chunk (ca. jeder zweite Chunk)
                         RarityFilter.onAverageOnceEvery(2),
                         // Count 1: Nur 1 Versuch, wenn der Chunk ausgewählt wurde.
                         CountPlacement.of(1),
@@ -68,8 +68,8 @@ public class ModWorldGen {
         // FIX: Kein RarityFilter mehr, dafür massiv viele Versuche ("Brute Force").
         register(context, NIHILITH_ORE_PLACED_KEY, configuredFeatureRegistry.getOrThrow(NIHILITH_ORE_KEY),
                 List.of(
-                        // Count 160: Wir brauchen extrem viele Versuche, um die "Kruste" von unten zu treffen.
-                        // 98% dieser Versuche schlagen fehl, das ist normal. Übrig bleiben ca. 1-2 Adern pro Chunk.
+                        // Count 13: 13 Versuche pro Chunk, um die "Kruste" von unten zu treffen.
+                        // Der Großteil davon schlägt am BlockPredicateFilter unten fehl, das ist normal.
                         CountPlacement.of(13),
                         InSquarePlacement.spread(),
                         // Y=0 bis 60: Konzentriert sich auf die untere Hälfte der Inseln.

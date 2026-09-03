@@ -1,9 +1,12 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.entity.LevitatingBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -15,8 +18,10 @@ import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Server side behaviour tests for the mod's blocks and block entities.
@@ -46,8 +51,19 @@ public final class BlockBehaviourTests {
     /** Tick budget for {@link #suspendedSandAndGravelStayInPlaceWhileVanillaOnesFall}. */
     public static final int SUSPENDED_FALLING_BLOCK_MAX_TICKS = 60;
 
-    /** Tick budget for {@link #levitatingSandAndGravelRiseUpwardsInsteadOfStayingPut}. */
+    /** Tick budget shared by the three levitating block tests. */
     public static final int LEVITATING_BLOCK_MAX_TICKS = 80;
+
+    /**
+     * Distance between the three height samples in
+     * {@link #levitatingSandAndGravelRiseAsAnAcceleratingEntity}.
+     *
+     * <p>Six ticks is chosen so the block is still inside the 8 block test room when the last
+     * sample is taken. The block spends two ticks on the ground before it becomes an entity, so
+     * the three samples are taken after roughly 4, 10 and 16 entity ticks, at about 0.4, 2.1 and
+     * 4.9 blocks of rise. Sampling later would measure a block that has already left the room.
+     */
+    private static final int RISE_SAMPLE_INTERVAL = 6;
 
     /** Slot layout of {@link AbstractFurnaceBlockEntity}: input / fuel / result. */
     private static final int FURNACE_INPUT = 0;
@@ -333,10 +349,12 @@ public final class BlockBehaviourTests {
     }
 
     /**
-     * Levitating sand and gravel climb upwards on their own scheduled ticks, leaving air behind.
-     * A vanilla sand block placed on the same floor is used as the control that does not move.
+     * Levitating sand and gravel must turn into a rising entity and ACCELERATE, the way vanilla
+     * sand accelerates while falling. Would break if the block ever went back to teleporting
+     * itself one position per scheduled tick: that moves at a constant rate, so the second
+     * measured interval would not be longer than the first.
      */
-    public static void levitatingSandAndGravelRiseUpwardsInsteadOfStayingPut(GameTestHelper helper) {
+    public static void levitatingSandAndGravelRiseAsAnAcceleratingEntity(GameTestHelper helper) {
         BlockPos levitatingSandStart = new BlockPos(1, 1, 1);
         BlockPos levitatingGravelStart = new BlockPos(3, 1, 1);
         BlockPos controlSand = new BlockPos(5, 1, 1);
@@ -349,23 +367,112 @@ public final class BlockBehaviourTests {
         helper.setBlock(levitatingGravelStart, ModBlocks.LEVITATING_GRAVEL);
         helper.setBlock(controlSand, Blocks.SAND);
 
+        double[] firstSample = new double[1];
+        double[] secondSample = new double[1];
+
         helper.startSequence()
-                .thenExecuteAfter(40, () -> {
+                .thenExecuteAfter(RISE_SAMPLE_INTERVAL, () -> {
+                    // Der Block ist verschwunden und fliegt jetzt als Entity.
                     helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, levitatingSandStart);
                     helper.assertBlockNotPresent(ModBlocks.LEVITATING_GRAVEL, levitatingGravelStart);
-
-                    int sandY = findBlockInColumn(helper, ModBlocks.LEVITATING_SAND, 1, 1);
-                    int gravelY = findBlockInColumn(helper, ModBlocks.LEVITATING_GRAVEL, 3, 1);
-
-                    helper.assertTrue(sandY >= levitatingSandStart.getY() + 3,
-                            "levitating sand should have climbed at least three blocks, found at y=" + sandY);
-                    helper.assertTrue(gravelY >= levitatingGravelStart.getY() + 3,
-                            "levitating gravel should have climbed at least three blocks, found at y=" + gravelY);
-
-                    // Control: an ordinary sand block on the same floor does not move.
+                    helper.assertTrue(risingEntities(helper).size() >= 2,
+                            "levitating sand and gravel should each have become a rising entity");
+                    firstSample[0] = highestRisingEntity(helper);
+                })
+                .thenExecuteAfter(RISE_SAMPLE_INTERVAL, () -> secondSample[0] = highestRisingEntity(helper))
+                .thenExecuteAfter(RISE_SAMPLE_INTERVAL, () -> {
+                    double thirdSample = highestRisingEntity(helper);
+                    double firstInterval = secondSample[0] - firstSample[0];
+                    double secondInterval = thirdSample - secondSample[0];
+                    helper.assertTrue(firstInterval > 0.0D,
+                            "the rising entity should have gained height, gained " + firstInterval);
+                    helper.assertTrue(secondInterval > firstInterval,
+                            "the rise has to accelerate like falling sand: first interval "
+                                    + firstInterval + ", second " + secondInterval);
+                    // Kontrolle: gewoehnlicher Sand auf demselben Boden bewegt sich nicht.
                     helper.assertBlockPresent(Blocks.SAND, controlSand);
                 })
+                .thenExecute(() -> risingEntities(helper).forEach(LevitatingBlockEntity::discard))
                 .thenSucceed();
+    }
+
+    /**
+     * A rising block that runs into a ceiling has to turn back into a block in the free cell
+     * below it - the mirror image of sand landing on the ground. Would break if the entity kept
+     * the inherited landing rule, which is gated on onGround() and never fires while rising.
+     */
+    public static void levitatingSandTurnsBackIntoABlockUnderACeiling(GameTestHelper helper) {
+        BlockPos start = new BlockPos(1, 1, 1);
+        BlockPos ceiling = new BlockPos(1, 5, 1);
+        BlockPos expected = ceiling.below();
+
+        helper.setBlock(new BlockPos(1, 0, 1), Blocks.STONE);
+        helper.setBlock(ceiling, Blocks.STONE);
+        helper.setBlock(start, ModBlocks.LEVITATING_SAND);
+
+        helper.startSequence()
+                .thenWaitUntil(() -> helper.assertBlockPresent(ModBlocks.LEVITATING_SAND, expected))
+                .thenExecute(() -> {
+                    helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, start);
+                    List<LevitatingBlockEntity> left = risingEntities(helper);
+                    helper.assertTrue(left.isEmpty(),
+                            "the entity should be gone once it turned back into a block, still here: "
+                                    + left.stream().map(e -> e.blockPosition().toString()).toList());
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * At the BUILD LIMIT the rising block breaks and drops as an item - the mirror image of sand
+     * being lost in the void. The entity is spawned close to the top of the world, because a test
+     * structure never reaches that height on its own.
+     *
+     * <p>Would break if the build-limit branch were removed, or if vanilla's {@code time > 100}
+     * gate were reintroduced: the entity would then sail well past the limit before dropping.
+     */
+    public static void levitatingSandDropsAsAnItemAtTheBuildLimit(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos anchor = helper.absolutePos(new BlockPos(1, 1, 1));
+        // Knapp unter das Baulimit setzen: ein paar Bloecke Anlauf reichen.
+        BlockPos high = new BlockPos(anchor.getX(), level.getMaxY() - 3, anchor.getZ());
+
+        LevitatingBlockEntity entity =
+                LevitatingBlockEntity.rise(level, high, ModBlocks.LEVITATING_SAND.defaultBlockState());
+
+        helper.startSequence()
+                .thenWaitUntil(() -> {
+                    helper.assertTrue(!entity.isAlive(),
+                            "the rising entity should be gone once it passed the build limit");
+                    helper.assertTrue(!droppedSand(level, high).isEmpty(),
+                            "no sand item dropped at the build limit");
+                })
+                .thenExecute(() -> {
+                    // Der Gegenstand wuerde sonst quer durch die Welt auf die naechste
+                    // Teststruktur fallen; die Entity selbst ist hier schon weg.
+                    entity.discard();
+                    droppedSand(level, high).forEach(ItemEntity::discard);
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * Rising entities inside THIS test's structure. The bounds are deliberately not inflated:
+     * game test structures stand a few blocks apart, so any margin here would also pick up the
+     * entities of the neighbouring levitating test and make the result depend on the order the
+     * tests happen to run in.
+     */
+    private static List<LevitatingBlockEntity> risingEntities(GameTestHelper helper) {
+        return helper.getLevel().getEntitiesOfClass(LevitatingBlockEntity.class, helper.getBounds());
+    }
+
+    private static double highestRisingEntity(GameTestHelper helper) {
+        return risingEntities(helper).stream()
+                .mapToDouble(LevitatingBlockEntity::getY).max().orElse(Double.NaN);
+    }
+
+    private static List<ItemEntity> droppedSand(ServerLevel level, BlockPos near) {
+        return level.getEntitiesOfClass(ItemEntity.class, new AABB(near).inflate(64.0D),
+                item -> item.getItem().is(ModBlocks.LEVITATING_SAND.asItem()));
     }
 
     // ------------------------------------------------------------------
@@ -451,14 +558,4 @@ public final class BlockBehaviourTests {
         }
     }
 
-    /** Returns the lowest y (test relative) above y=1 at which the given block sits, or -1. */
-    private static int findBlockInColumn(GameTestHelper helper, Block block, int x, int z) {
-        for (int y = 2; y <= 24; y++) {
-            BlockState state = helper.getBlockState(new BlockPos(x, y, z));
-            if (state.is(block)) {
-                return y;
-            }
-        }
-        return -1;
-    }
 }

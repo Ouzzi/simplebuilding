@@ -51,7 +51,13 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("block_behaviour_game_test_suspended_sand_and_gravel_stay_in_place_while_vanilla_ones_fall", BlockBehaviourTests::suspendedSandAndGravelStayInPlaceWhileVanillaOnesFall)
                     .maxTicks(BlockBehaviourTests.SUSPENDED_FALLING_BLOCK_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("block_behaviour_game_test_levitating_sand_and_gravel_rise_upwards_instead_of_staying_put", BlockBehaviourTests::levitatingSandAndGravelRiseUpwardsInsteadOfStayingPut)
+            GameTestSpec.named("block_behaviour_game_test_levitating_sand_and_gravel_rise_as_an_accelerating_entity", BlockBehaviourTests::levitatingSandAndGravelRiseAsAnAcceleratingEntity)
+                    .maxTicks(BlockBehaviourTests.LEVITATING_BLOCK_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("block_behaviour_game_test_levitating_sand_turns_back_into_a_block_under_a_ceiling", BlockBehaviourTests::levitatingSandTurnsBackIntoABlockUnderACeiling)
+                    .maxTicks(BlockBehaviourTests.LEVITATING_BLOCK_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("block_behaviour_game_test_levitating_sand_drops_as_an_item_at_the_build_limit", BlockBehaviourTests::levitatingSandDropsAsAnItemAtTheBuildLimit)
                     .maxTicks(BlockBehaviourTests.LEVITATING_BLOCK_MAX_TICKS)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_mod_item_is_in_the_item_registry", DataIntegrityTests::everyModItemIsInTheItemRegistry)

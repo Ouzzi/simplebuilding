@@ -1,5 +1,6 @@
 package com.simplebuilding.forge;
 
+import com.simplebuilding.entity.ModEntities;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.items.ModItems;
@@ -22,6 +23,7 @@ public final class ForgeRegistryBootstrap {
             if (!blocksInitialized) {
                 blocksInitialized = true;
                 ModBlocks.registerModBlocks();
+                ModEntities.registerModEntities();
             }
             return;
         }

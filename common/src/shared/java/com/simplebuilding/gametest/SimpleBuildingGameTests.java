@@ -54,7 +54,13 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("block_behaviour_game_test_suspended_sand_and_gravel_stay_in_place_while_vanilla_ones_fall", BlockBehaviourTests::suspendedSandAndGravelStayInPlaceWhileVanillaOnesFall)
                     .maxTicks(BlockBehaviourTests.SUSPENDED_FALLING_BLOCK_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("block_behaviour_game_test_levitating_sand_and_gravel_rise_upwards_instead_of_staying_put", BlockBehaviourTests::levitatingSandAndGravelRiseUpwardsInsteadOfStayingPut)
+            GameTestSpec.named("block_behaviour_game_test_levitating_sand_and_gravel_rise_as_an_accelerating_entity", BlockBehaviourTests::levitatingSandAndGravelRiseAsAnAcceleratingEntity)
+                    .maxTicks(BlockBehaviourTests.LEVITATING_BLOCK_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("block_behaviour_game_test_levitating_sand_turns_back_into_a_block_under_a_ceiling", BlockBehaviourTests::levitatingSandTurnsBackIntoABlockUnderACeiling)
+                    .maxTicks(BlockBehaviourTests.LEVITATING_BLOCK_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("block_behaviour_game_test_levitating_sand_drops_as_an_item_at_the_build_limit", BlockBehaviourTests::levitatingSandDropsAsAnItemAtTheBuildLimit)
                     .maxTicks(BlockBehaviourTests.LEVITATING_BLOCK_MAX_TICKS)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_mod_item_is_in_the_item_registry", DataIntegrityTests::everyModItemIsInTheItemRegistry)
@@ -167,6 +173,105 @@ public final class SimpleBuildingGameTests {
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("hopper_and_trim_game_test_trim_multiplier_follows_the_experience_curve_and_the_configured_base", HopperAndTrimTests::trimMultiplierFollowsTheExperienceCurveAndTheConfiguredBase)
+                    .build(),
+            GameTestSpec.named("building_enchantment_game_test_constructors_touch_unlocks_the_extra_chisel_tables_in_both_directions", BuildingEnchantmentTests::constructorsTouchUnlocksTheExtraChiselTablesInBothDirections)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("building_enchantment_game_test_constructors_touch_stick_cycles_the_first_block_state_property", BuildingEnchantmentTests::constructorsTouchStickCyclesTheFirstBlockStateProperty)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("building_enchantment_game_test_fast_chiseling_shortens_the_cooldown_and_speeds_up_mining", BuildingEnchantmentTests::fastChiselingShortensTheCooldownAndSpeedsUpMining)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("building_enchantment_game_test_color_palette_spreads_the_carried_blocks_over_the_wand_preview", BuildingEnchantmentTests::colorPaletteSpreadsTheCarriedBlocksOverTheWandPreview)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("building_enchantment_game_test_color_palette_keeps_the_wand_building_when_one_block_runs_out", BuildingEnchantmentTests::colorPaletteKeepsTheWandBuildingWhenOneBlockRunsOut)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("building_enchantment_game_test_linear_only_shortens_the_wand_step_delay", BuildingEnchantmentTests::linearOnlyShortensTheWandStepDelay)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("consumption_and_durability_game_test_chisel_charges_durability_and_cooldown_only_outside_creative", ConsumptionAndDurabilityTests::chiselChargesDurabilityAndCooldownOnlyOutsideCreative)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("consumption_and_durability_game_test_octant_and_rotator_spend_one_point_of_wear_per_accepted_click", ConsumptionAndDurabilityTests::octantAndRotatorSpendOnePointOfWearPerAcceptedClick)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("consumption_and_durability_game_test_building_wand_bills_one_block_and_one_point_of_wear_per_placement", ConsumptionAndDurabilityTests::buildingWandBillsOneBlockAndOnePointOfWearPerPlacement)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("consumption_and_durability_game_test_sledgehammer_secondary_use_wears_down_only_the_survival_player", ConsumptionAndDurabilityTests::sledgehammerSecondaryUseWearsDownOnlyTheSurvivalPlayer)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("consumption_and_durability_game_test_double_jump_boots_wear_down_for_the_survival_player", ConsumptionAndDurabilityTests::doubleJumpBootsWearDownForTheSurvivalPlayer)
+                    .build(),
+            GameTestSpec.named("vein_and_strip_miner_game_test_vein_miner_breaks_the_whole_vein_through_the_block_break_event", VeinAndStripMinerTests::veinMinerBreaksTheWholeVeinThroughTheBlockBreakEvent)
+                    .maxTicks(VeinAndStripMinerTests.DROP_MAX_TICKS)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("vein_and_strip_miner_game_test_vein_miner_follows_logs_with_an_axe_through_the_block_break_event", VeinAndStripMinerTests::veinMinerFollowsLogsWithAnAxeThroughTheBlockBreakEvent)
+                    .maxTicks(VeinAndStripMinerTests.DROP_MAX_TICKS)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("vein_and_strip_miner_game_test_vein_miner_refuses_non_ores_and_too_weak_pickaxes_and_diverges_from_the_highlight_on_quartz", VeinAndStripMinerTests::veinMinerRefusesNonOresAndTooWeakPickaxesAndDivergesFromTheHighlightOnQuartz)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("vein_and_strip_miner_game_test_strip_miner_tunnels_along_the_facing_and_refunds_durability_through_the_block_break_event", VeinAndStripMinerTests::stripMinerTunnelsAlongTheFacingAndRefundsDurabilityThroughTheBlockBreakEvent)
+                    .maxTicks(VeinAndStripMinerTests.DROP_MAX_TICKS)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("protection_and_range_game_test_kinetic_protection_scales_with_level_and_only_covers_its_own_damage_types", ProtectionAndRangeTests::kineticProtectionScalesWithLevelAndOnlyCoversItsOwnDamageTypes)
+                    .build(),
+            GameTestSpec.named("protection_and_range_game_test_kinetic_protection_actually_reduces_the_damage_the_player_takes", ProtectionAndRangeTests::kineticProtectionActuallyReducesTheDamageThePlayerTakes)
+                    .build(),
+            GameTestSpec.named("protection_and_range_game_test_range_adds_block_interaction_reach_in_the_main_hand_only", ProtectionAndRangeTests::rangeAddsBlockInteractionReachInTheMainHandOnly)
+                    .build(),
+            GameTestSpec.named("protection_and_range_game_test_void_protection_lifts_enderite_back_into_the_world_while_other_items_are_lost", ProtectionAndRangeTests::voidProtectionLiftsEnderiteBackIntoTheWorldWhileOtherItemsAreLost)
+                    .maxTicks(ProtectionAndRangeTests.VOID_PROTECTION_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("trim_effect_game_test_trim_counts_follow_the_pattern_and_material_matching", TrimEffectTests::trimCountsFollowThePatternAndMaterialMatching)
+                    .build(),
+            GameTestSpec.named("trim_effect_game_test_damage_reduction_follows_the_pattern_and_keeps_its_floor", TrimEffectTests::damageReductionFollowsThePatternAndKeepsItsFloor)
+                    .build(),
+            GameTestSpec.named("trim_effect_game_test_utility_bonuses_are_neutral_until_the_matching_trim_is_worn", TrimEffectTests::utilityBonusesAreNeutralUntilTheMatchingTrimIsWorn)
+                    .build(),
+            GameTestSpec.named("trim_effect_game_test_benefit_gate_switches_every_trim_effect_off", TrimEffectTests::benefitGateSwitchesEveryTrimEffectOff)
+                    .build(),
+            GameTestSpec.named("trim_effect_game_test_astralit_jump_boost_crosses_its_thresholds_on_tick", TrimEffectTests::astralitJumpBoostCrossesItsThresholdsOnTick)
+                    .build(),
+            GameTestSpec.named("trim_effect_game_test_nihilith_pulls_down_the_sneaking_airborne_player", TrimEffectTests::nihilithPullsDownTheSneakingAirbornePlayer)
+                    .build(),
+            GameTestSpec.named("trim_effect_game_test_trim_bonuses_reach_the_player_through_the_mixins", TrimEffectTests::trimBonusesReachThePlayerThroughTheMixins)
+                    .build(),
+            GameTestSpec.named("ore_gen_and_item_frame_game_test_end_ore_features_carry_the_right_ore_block_and_vein_size", OreGenAndItemFrameTests::endOreFeaturesCarryTheRightOreBlockAndVeinSize)
+                    .build(),
+            GameTestSpec.named("ore_gen_and_item_frame_game_test_end_ore_placement_differs_between_astralit_and_nihilith", OreGenAndItemFrameTests::endOrePlacementDiffersBetweenAstralitAndNihilith)
+                    .build(),
+            GameTestSpec.named("ore_gen_and_item_frame_game_test_both_end_ores_reach_the_end_biomes_and_stay_out_of_the_overworld", OreGenAndItemFrameTests::bothEndOresReachTheEndBiomesAndStayOutOfTheOverworld)
+                    .build(),
+            GameTestSpec.named("ore_gen_and_item_frame_game_test_glass_pane_locks_the_frame_and_the_lock_survives_the_save_round_trip", OreGenAndItemFrameTests::glassPaneLocksTheFrameAndTheLockSurvivesTheSaveRoundTrip)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("ore_gen_and_item_frame_game_test_shears_hide_the_frame_and_the_lock_takes_priority_over_them", OreGenAndItemFrameTests::shearsHideTheFrameAndTheLockTakesPriorityOverThem)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("ore_gen_and_item_frame_game_test_survival_players_pay_for_the_lock_and_cannot_break_the_locked_frame", OreGenAndItemFrameTests::survivalPlayersPayForTheLockAndCannotBreakTheLockedFrame)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("ore_gen_and_item_frame_game_test_constructors_touch_magnet_takes_its_filter_from_the_framed_item", OreGenAndItemFrameTests::constructorsTouchMagnetTakesItsFilterFromTheFramedItem)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("ore_gen_and_item_frame_game_test_brush_reveal_is_wired_to_an_interface_nothing_implements", OreGenAndItemFrameTests::brushRevealIsWiredToAnInterfaceNothingImplements)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_bundle_click_inversion_follows_the_configured_option", ConfigOptionTests::bundleClickInversionFollowsTheConfiguredOption)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_loot_table_changes_stop_when_the_option_is_switched_off", ConfigOptionTests::lootTableChangesStopWhenTheOptionIsSwitchedOff)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders", ConfigOptionTests::tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_every_config_option_keeps_its_persisted_name_and_default", ConfigOptionTests::everyConfigOptionKeepsItsPersistedNameAndDefault)
                     .build());
 
     private SimpleBuildingGameTests() {

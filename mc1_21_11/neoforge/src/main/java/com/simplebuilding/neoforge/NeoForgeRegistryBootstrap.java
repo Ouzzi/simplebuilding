@@ -2,6 +2,7 @@ package com.simplebuilding.neoforge;
 
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.component.ModDataComponentTypes;
+import com.simplebuilding.entity.ModEntities;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.loot.ModLootFunctions;
 import net.minecraft.core.registries.Registries;
@@ -18,6 +19,7 @@ public final class NeoForgeRegistryBootstrap {
             if (!blocksInitialized) {
                 blocksInitialized = true;
                 ModBlocks.registerModBlocks();
+                ModEntities.registerModEntities();
             }
             return;
         }

@@ -47,7 +47,17 @@ public final class BlockBehaviourGameTest {
     }
 
     @GameTest(maxTicks = BlockBehaviourTests.LEVITATING_BLOCK_MAX_TICKS)
-    public void levitatingSandAndGravelRiseUpwardsInsteadOfStayingPut(GameTestHelper helper) {
-        BlockBehaviourTests.levitatingSandAndGravelRiseUpwardsInsteadOfStayingPut(helper);
+    public void levitatingSandAndGravelRiseAsAnAcceleratingEntity(GameTestHelper helper) {
+        BlockBehaviourTests.levitatingSandAndGravelRiseAsAnAcceleratingEntity(helper);
+    }
+
+    @GameTest(maxTicks = BlockBehaviourTests.LEVITATING_BLOCK_MAX_TICKS)
+    public void levitatingSandTurnsBackIntoABlockUnderACeiling(GameTestHelper helper) {
+        BlockBehaviourTests.levitatingSandTurnsBackIntoABlockUnderACeiling(helper);
+    }
+
+    @GameTest(maxTicks = BlockBehaviourTests.LEVITATING_BLOCK_MAX_TICKS)
+    public void levitatingSandDropsAsAnItemAtTheBuildLimit(GameTestHelper helper) {
+        BlockBehaviourTests.levitatingSandDropsAsAnItemAtTheBuildLimit(helper);
     }
 }

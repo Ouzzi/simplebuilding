@@ -1166,6 +1166,8 @@
         "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/NetheritePistonHeadBlock.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java",
+        "common/src/shared/java/com/simplebuilding/entity/LevitatingBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/entity/ModEntities.java",
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
         "common/src/shared/java/com/simplebuilding/mixin/PistonBlockMixin.java",
         "common/src/shared/java/com/simplebuilding/mixin/PistonHandlerMixin.java",
@@ -1197,11 +1199,13 @@
           "Both pistons are in the mineable/pickaxe tag; the Netherite Piston has hardness 5 and blast resistance 1200 and its item is fire resistant, while the Reinforced Piston has hardness 1.5.",
           "The block \"netherite_piston_head\" is registered but placed by no code, and it has neither an item nor a loot table.",
           "Suspended Sand and Suspended Gravel (8 Sand/Gravel + 1 Nihilith Shard each = 8) are ordinary blocks with no falling logic; Suspended Sand additionally has no collision box.",
-          "Levitating Sand and Levitating Gravel (8 Sand/Gravel + 1 Astralit Dust each = 8) climb one block upwards every 2 ticks, through air, fluids and replaceable blocks, until a solid block or the top of the world stops them; remove the obstacle and they keep rising. They never come back down on their own.",
+          "Levitating Sand and Levitating Gravel (8 Sand/Gravel + 1 Astralit Dust each = 8) fall upwards: two ticks after being placed, and again whenever a neighbour changes and the space above is free, the block turns into a levitating_block entity and rises. The entity uses vanilla's falling-block physics with the sign of gravity flipped (v = 0.98 x v + 0.04 per tick, limit 2 blocks per tick), so it starts slowly and accelerates exactly like falling sand.",
+          "A rising block that runs into a ceiling turns back into a block in the free space below it - the mirror image of sand landing on the ground. If it cannot be placed there, it drops as an item. Remove the obstacle again and it carries on rising; the blocks never come back down on their own.",
+          "Above the build limit the rising block breaks and drops as an item, the way falling sand is lost in the void. Unlike vanilla, there is no 100 tick grace period before that happens, so the block breaks at the limit instead of about 115 blocks above it.",
           "All six blocks that have an item sit in the \"Building Items\" creative group (\"SimpleBuilding Items\" in German); in the code the pistons are filed under \"Machines & Storage\" and the sand/gravel under \"Gravity Blocks\".",
           "None of the four sand and gravel variants is in any tool tag the mod generates.",
           "The Netherite Piston tooltip present in the language files is displayed by no code.",
-          "Game tests prove it: a 13-block column is only pushable by the Reinforced Piston, the Netherite Piston destroys stone at full signal strength, the suspended blocks stay in mid-air, and the levitating blocks climb at least three blocks in 40 ticks."
+          "Game tests prove it: a 13-block column is only pushable by the Reinforced Piston, the Netherite Piston destroys stone at full signal strength, the suspended blocks stay in mid-air, the levitating blocks rise measurably faster over each of three samples (which a constant-rate movement could not do), turn back into a block under a ceiling, and drop as an item at the build limit."
         ]
       },
       "de": {
@@ -1214,11 +1218,13 @@
           "Beide Kolben sind im Tag mineable/pickaxe; der Netheritkolben hat Härte 5 und Explosionswiderstand 1200, sein Item ist feuerfest; der Verstärkte Kolben hat Härte 1,5.",
           "Der Block „netherite_piston_head“ ist registriert, wird aber von keinem Code platziert und hat weder Item noch Beutetabelle.",
           "Suspended Sand und Suspended Gravel (je 8 Sand/Kies + 1 Nihilith Shard = 8 Stück) sind gewöhnliche Blöcke ohne Fall-Logik; Suspended Sand hat zusätzlich keine Kollision.",
-          "Levitating Sand und Levitating Gravel (je 8 Sand/Kies + 1 Astralit Dust = 8 Stück) steigen alle 2 Ticks um einen Block nach oben, durch Luft, Flüssigkeiten und ersetzbare Blöcke, bis ein fester Block oder der obere Weltrand sie stoppt; wird das Hindernis entfernt, steigen sie weiter. Sie kommen nie von selbst wieder herunter.",
+          "Levitating Sand und Levitating Gravel (je 8 Sand/Kies + 1 Astralit Dust = 8 Stück) fallen nach oben: zwei Ticks nach dem Setzen – und erneut, sobald sich ein Nachbar ändert und der Platz darüber frei ist – wird aus dem Block eine levitating_block-Entity, die aufsteigt. Sie benutzt Vanillas Fallphysik mit umgedrehtem Vorzeichen der Schwerkraft (v = 0,98 × v + 0,04 pro Tick, Grenzwert 2 Blöcke pro Tick) und beschleunigt daher genauso wie fallender Sand.",
+          "Stößt ein aufsteigender Block an eine Decke, wird er in der freien Zelle darunter wieder zum Block – das Spiegelbild von Sand, der auf dem Boden landet. Passt er dort nicht hin, fällt er als Gegenstand. Wird das Hindernis entfernt, steigt er weiter; von selbst kommen die Blöcke nie wieder herunter.",
+          "Über dem Baulimit zerbricht der aufsteigende Block und fällt als Gegenstand, so wie fallender Sand in der Leere verloren geht. Anders als bei Vanilla gibt es davor keine Schonfrist von 100 Ticks, der Block zerbricht also am Limit statt rund 115 Blöcke darüber.",
           "Alle sechs Blöcke mit Item liegen im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“); im Code sind die Kolben unter „Machines & Storage“ und Sand/Kies unter „Gravity Blocks“ einsortiert.",
           "Die vier Sand- und Kiesvarianten stehen in keinem vom Mod erzeugten Werkzeug-Tag.",
           "Der in den Sprachdateien vorhandene Tooltip zum Netheritkolben wird von keinem Code angezeigt.",
-          "Spieltests belegen: 13er-Säule nur mit Verstärktem Kolben schiebbar, Netheritkolben zerstört Stein bei voller Signalstärke, Suspended-Blöcke bleiben in der Luft, Levitating-Blöcke steigen in 40 Ticks mindestens drei Blöcke."
+          "Spieltests belegen: 13er-Säule nur mit Verstärktem Kolben schiebbar, Netheritkolben zerstört Stein bei voller Signalstärke, Suspended-Blöcke bleiben in der Luft, Levitating-Blöcke legen über drei Messpunkte hinweg jeweils mehr Strecke zurück (was eine gleichförmige Bewegung nicht könnte), werden unter einer Decke wieder zum Block und fallen am Baulimit als Gegenstand."
         ]
       }
     },

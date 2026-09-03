@@ -279,6 +279,7 @@
   "block.simplebuilding.suspended_gravel": "Schwebender Kies",
   "block.simplebuilding.levitating_sand": "Aufsteigender Sand",
   "block.simplebuilding.levitating_gravel": "Aufsteigender Kies",
+  "entity.simplebuilding.levitating_block": "Aufsteigender Block",
   "block.simplebuilding.nihilith_ore": "Nihilith-Erz",
   "block.simplebuilding.astralit_ore": "Astralit-Erz",
   "item.simplebuilding.astralit_dust": "Astralitstaub",

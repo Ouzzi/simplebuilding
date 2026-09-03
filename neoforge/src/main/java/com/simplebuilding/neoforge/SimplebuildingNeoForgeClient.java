@@ -38,9 +38,12 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
+import com.simplebuilding.entity.ModEntities;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -70,6 +73,7 @@ public final class SimplebuildingNeoForgeClient {
         // Config button in the NeoForge mods list -> opens the cloth AutoConfig GUI.
         modContainer.registerExtensionPoint(IConfigScreenFactory.class,
                 (container, parent) -> buildConfigScreen(parent));
+        modEventBus.addListener(SimplebuildingNeoForgeClient::registerEntityRenderers);
         modEventBus.addListener(this::onClientSetup);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerMenus);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerKeys);
@@ -81,6 +85,11 @@ public final class SimplebuildingNeoForgeClient {
         NeoForge.EVENT_BUS.addListener(this::onExtractLevelRenderState);
         NeoForge.EVENT_BUS.addListener(this::onPlayerLogin);
         NeoForge.EVENT_BUS.addListener(NeoForgeClientHooks::onBlockOutlineExtract);
+    }
+
+    /** Der aufsteigende Block wird wie fallender Sand gezeichnet. */
+    public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {
