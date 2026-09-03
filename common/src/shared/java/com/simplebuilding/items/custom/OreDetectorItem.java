@@ -79,14 +79,10 @@ public class OreDetectorItem extends Item {
 
         if (world.getGameTime() % SCAN_INTERVAL != 0) return;
 
-        DetectMode mode = getMode(stack);
-
         BlockPos playerPos = BlockPos.containing(player.getEyePosition());
 
-        double costMultiplier = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH) ? 1.0 : 2.0;
-
         // 2. Suche
-        BlockPos targetPos = findNearestOreWithRaycast(world, player.getEyePosition(), mode, stack, costMultiplier);
+        BlockPos targetPos = findTarget(world, stack, player.getEyePosition());
 
         if (targetPos != null) {
             BlockState targetState = world.getBlockState(targetPos);
@@ -104,6 +100,21 @@ public class OreDetectorItem extends Item {
 
     private static boolean isHeldInHands(@Nullable EquipmentSlot slot) {
         return slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
+    }
+
+    /**
+     * Der Block, auf den dieser Detektor mit {@code stack} von {@code eyesPos} aus anschlagen
+     * wuerde, oder {@code null}, wenn nichts zugleich in Reichweite und erreichbar ist.
+     *
+     * <p>Aus {@link #inventoryTick} herausgezogen, damit die Suche ueberhaupt pruefbar ist:
+     * alles, was der Tick mit dem Ergebnis noch anstellt, sind Toene und Partikel, und die
+     * verschluckt die Verbindung eines Test-Spielers. Der Tick ruft weiterhin nur diese
+     * Methode, es gibt also keinen zweiten Suchpfad. Siehe {@code OreDetectorTests}.
+     */
+    @Nullable
+    public BlockPos findTarget(ServerLevel world, ItemStack stack, Vec3 eyesPos) {
+        double costMultiplier = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH) ? 1.0 : 2.0;
+        return findNearestOreWithRaycast(world, eyesPos, getMode(stack), stack, costMultiplier);
     }
 
     private static float getPingPitch(double distance) {

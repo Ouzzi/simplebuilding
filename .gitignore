@@ -75,3 +75,9 @@ testing/data/
 # Python-Bytecode der Werkzeuge unter tools/
 __pycache__/
 *.pyc
+
+# Arbeitsdateien der Werkzeugkette (Lueckenlisten, Zwischenstaende). .claude/launch.json
+# ist versioniert, der Rest nicht.
+.claude/tmp/
+.claude/worktrees/
+.claude/settings.local.json

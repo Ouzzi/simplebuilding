@@ -44,7 +44,12 @@
       "com.simplebuilding.gametest.ProtectionAndRangeGameTest",
       "com.simplebuilding.gametest.TrimEffectGameTest",
       "com.simplebuilding.gametest.OreGenAndItemFrameGameTest",
-      "com.simplebuilding.gametest.ConfigOptionGameTest"
+      "com.simplebuilding.gametest.ConfigOptionGameTest",
+      "com.simplebuilding.gametest.DynamicLightGameTest",
+      "com.simplebuilding.gametest.OreDetectorGameTest",
+      "com.simplebuilding.gametest.QuiverGameTest",
+      "com.simplebuilding.gametest.RotatorGameTest",
+      "com.simplebuilding.gametest.MagnetGameTest"
     ]
   },
   "mixins": [

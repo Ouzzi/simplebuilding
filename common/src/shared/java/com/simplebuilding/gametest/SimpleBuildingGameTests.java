@@ -272,6 +272,82 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders", ConfigOptionTests::tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders)
                     .build(),
             GameTestSpec.named("config_option_game_test_every_config_option_keeps_its_persisted_name_and_default", ConfigOptionTests::everyConfigOptionKeepsItsPersistedNameAndDefault)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_two_level_counters_keep_their_own_storage_and_caps", DynamicLightTests::theTwoLevelCountersKeepTheirOwnStorageAndCaps)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_both_smithing_upgrades_add_one_level_per_step_and_stop_at_their_cap", DynamicLightTests::bothSmithingUpgradesAddOneLevelPerStepAndStopAtTheirCap)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_smithing_upgrade_only_fires_for_armour_and_the_matching_material", DynamicLightTests::theSmithingUpgradeOnlyFiresForArmourAndTheMatchingMaterial)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_smithing_table_takes_the_mod_templates_and_keeps_the_vanilla_ones", DynamicLightTests::theSmithingTableTakesTheModTemplatesAndKeepsTheVanillaOnes)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_worn_emission_levels_add_up_into_the_light_block_over_the_players_head", DynamicLightTests::wornEmissionLevelsAddUpIntoTheLightBlockOverThePlayersHead)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_light_block_only_replaces_air_or_water_sources_and_puts_the_water_back", DynamicLightTests::theLightBlockOnlyReplacesAirOrWaterSourcesAndPutsTheWaterBack)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_light_follows_the_player_and_goes_out_with_the_armour", DynamicLightTests::theLightFollowsThePlayerAndGoesOutWithTheArmour)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_server_tick_wiring_lights_the_wearer_on_its_own", DynamicLightTests::theServerTickWiringLightsTheWearerOnItsOwn)
+                    .maxTicks(DynamicLightTests.TICK_WIRING_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_detector_reports_the_nearest_target_inside_its_budget", OreDetectorTests::detectorReportsTheNearestTargetInsideItsBudget)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_detector_modes_match_their_ore_tags", OreDetectorTests::detectorModesMatchTheirOreTags)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_dense_blocks_shorten_the_beam_more_than_soft_ones", OreDetectorTests::denseBlocksShortenTheBeamMoreThanSoftOnes)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_constructors_touch_doubles_the_reach_through_solid_rock", OreDetectorTests::constructorsTouchDoublesTheReachThroughSolidRock)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_sneak_clicking_calibrates_the_detector_and_plain_clicks_do_not", OreDetectorTests::sneakClickingCalibratesTheDetectorAndPlainClicksDoNot)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_mode_switch_is_free_in_creative_and_the_tool_stays_unstackable", OreDetectorTests::modeSwitchIsFreeInCreativeAndTheToolStaysUnstackable)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_tooltip_names_every_mode_with_its_power_and_target", OreDetectorTests::tooltipNamesEveryModeWithItsPowerAndTarget)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_arrow_filter_holds_for_clicks_and_the_inverted_binding_slips_past_it", QuiverTests::arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_capacity_drops_the_bundle_bonus_and_follows_tier_and_enchantments", QuiverTests::capacityDropsTheBundleBonusAndFollowsTierAndEnchantments)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_bar_width_follows_the_same_capacity_the_filling_uses", QuiverTests::barWidthFollowsTheSameCapacityTheFillingUses)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_bow_takes_the_topmost_arrow_and_searches_offhand_chest_hotbar_then_backpack", QuiverTests::bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_bow_consumes_one_arrow_from_the_quiver_that_supplied_it", QuiverTests::bowConsumesOneArrowFromTheQuiverThatSuppliedIt)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_bow_shoots_from_the_quiver_and_bills_it_outside_creative_only", QuiverTests::bowShootsFromTheQuiverAndBillsItOutsideCreativeOnly)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_netherite_quiver_burns_in_an_explosion_while_the_netherite_bundle_survives", QuiverTests::netheriteQuiverBurnsInAnExplosionWhileTheNetheriteBundleSurvives)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_log_axis_cycles_through_all_three_axes_and_ignores_sneaking", RotatorTests::logAxisCyclesThroughAllThreeAxesAndIgnoresSneaking)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_rim_is_the_outer_eighth_of_every_face_and_nowhere_inside", RotatorTests::rimIsTheOuterEighthOfEveryFaceAndNowhereInside)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_facing_blocks_turn_one_quarter_around_the_clicked_axis_or_jump_to_its_start", RotatorTests::facingBlocksTurnOneQuarterAroundTheClickedAxisOrJumpToItsStart)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_rim_aims_facing_blocks_at_the_rim_its_opposite_or_the_next_valid_value", RotatorTests::rimAimsFacingBlocksAtTheRimItsOppositeOrTheNextValidValue)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_sixteen_step_blocks_step_once_in_the_middle_and_four_times_at_the_rim", RotatorTests::sixteenStepBlocksStepOnceInTheMiddleAndFourTimesAtTheRim)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_wears_out_at_its_rated_durability_and_takes_durability_enchantments", RotatorTests::wearsOutAtItsRatedDurabilityAndTakesDurabilityEnchantments)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_crafting_takes_five_iron_and_one_ender_pearl_in_that_shape", RotatorTests::craftingTakesFiveIronAndOneEnderPearlInThatShape)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_magnet_only_runs_for_players_holding_it_and_stops_while_sneaking", MagnetTests::magnetOnlyRunsForPlayersHoldingItAndStopsWhileSneaking)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_magnet_in_the_off_hand_drags_loose_items_into_the_inventory", MagnetTests::magnetInTheOffHandDragsLooseItemsIntoTheInventory)
+                    .maxTicks(MagnetTests.OFF_HAND_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_magnet_pull_follows_the_acceleration_and_braking_curve", MagnetTests::magnetPullFollowsTheAccelerationAndBrakingCurve)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_magnet_reach_is_four_blocks_and_constructors_touch_widens_it", MagnetTests::magnetReachIsFourBlocksAndConstructorsTouchWidensIt)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_magnet_filter_matches_the_full_registry_id_and_nothing_else", MagnetTests::magnetFilterMatchesTheFullRegistryIdAndNothingElse)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_sneak_right_click_clears_the_filter_and_the_tooltip_follows", MagnetTests::sneakRightClickClearsTheFilterAndTheTooltipFollows)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_the_magnet_recipe_still_crafts_from_its_documented_pattern", MagnetTests::theMagnetRecipeStillCraftsFromItsDocumentedPattern)
                     .build());
 
     private SimpleBuildingGameTests() {
