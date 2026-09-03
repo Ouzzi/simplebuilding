@@ -49,7 +49,11 @@
       "com.simplebuilding.gametest.OreDetectorGameTest",
       "com.simplebuilding.gametest.QuiverGameTest",
       "com.simplebuilding.gametest.RotatorGameTest",
-      "com.simplebuilding.gametest.MagnetGameTest"
+      "com.simplebuilding.gametest.MagnetGameTest",
+      "com.simplebuilding.gametest.TrimBonusGameTest",
+      "com.simplebuilding.gametest.TrimWiringGameTest",
+      "com.simplebuilding.gametest.ReinforcedBundleGameTest",
+      "com.simplebuilding.gametest.BundleWiringGameTest"
     ]
   },
   "mixins": [

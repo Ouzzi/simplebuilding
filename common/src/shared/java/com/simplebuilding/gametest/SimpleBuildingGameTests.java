@@ -348,6 +348,76 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("magnet_game_test_sneak_right_click_clears_the_filter_and_the_tooltip_follows", MagnetTests::sneakRightClickClearsTheFilterAndTheTooltipFollows)
                     .build(),
             GameTestSpec.named("magnet_game_test_the_magnet_recipe_still_crafts_from_its_documented_pattern", MagnetTests::theMagnetRecipeStillCraftsFromItsDocumentedPattern)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_tag_keyed_patterns_cover_the_whole_damage_family", TrimBonusTests::tagKeyedPatternsCoverTheWholeDamageFamily)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_exactly_keyed_patterns_ignore_their_neighbours", TrimBonusTests::exactlyKeyedPatternsIgnoreTheirNeighbours)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_magic_is_softened_by_the_vex_pattern_and_the_gold_and_lapis_materials", TrimBonusTests::magicIsSoftenedByTheVexPatternAndTheGoldAndLapisMaterials)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_wild_and_silence_ride_on_the_damage_message_id", TrimBonusTests::wildAndSilenceRideOnTheDamageMessageId)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_flow_reads_the_type_name_of_the_projectile_that_landed", TrimBonusTests::flowReadsTheTypeNameOfTheProjectileThatLanded)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_armour_bypassing_hits_skip_the_three_physical_materials", TrimBonusTests::armourBypassingHitsSkipTheThreePhysicalMaterials)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_iron_and_quartz_materials_add_to_their_own_patterns", TrimBonusTests::ironAndQuartzMaterialsAddToTheirOwnPatterns)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_attacker_keyed_materials_read_the_entity_behind_the_hit", TrimBonusTests::attackerKeyedMaterialsReadTheEntityBehindTheHit)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_survival_factor_tracks_distance_and_time_since_the_last_death", TrimWiringTests::theSurvivalFactorTracksDistanceAndTimeSinceTheLastDeath)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_combat_factor_weighs_kills_and_damage_by_mob_category", TrimWiringTests::theCombatFactorWeighsKillsAndDamageByMobCategory)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_tracker_survives_the_save_and_rebases_only_on_death", TrimWiringTests::theTrackerSurvivesTheSaveAndRebasesOnlyOnDeath)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_player_mixin_delivers_speed_hunger_and_experience_behind_its_guards", TrimWiringTests::thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_every_server_side_hit_runs_through_the_trim_damage_modifier", TrimWiringTests::everyServerSideHitRunsThroughTheTrimDamageModifier)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_coast_holds_the_air_supply_and_silence_lowers_the_visibility", TrimWiringTests::coastHoldsTheAirSupplyAndSilenceLowersTheVisibility)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_tick_driven_trim_effects_fire_on_their_own_cadence", TrimWiringTests::theTickDrivenTrimEffectsFireOnTheirOwnCadence)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_three_trim_materials_keep_their_colours_and_their_tags", TrimWiringTests::theThreeTrimMaterialsKeepTheirColoursAndTheirTags)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_trim_multiplier_command_guards_its_range_and_its_permission", TrimWiringTests::theTrimMultiplierCommandGuardsItsRangeAndItsPermission)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_insertion_stops_at_the_brim_and_weighs_by_stack_size", ReinforcedBundleTests::insertionStopsAtTheBrimAndWeighsByStackSize)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_insertion_turns_away_what_cannot_go_into_container_items", ReinforcedBundleTests::insertionTurnsAwayWhatCannotGoIntoContainerItems)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_insertion_merges_equal_stacks_and_pushes_them_to_the_top", ReinforcedBundleTests::insertionMergesEqualStacksAndPushesThemToTheTop)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_drawer_caps_the_bundle_at_five_kinds", ReinforcedBundleTests::drawerCapsTheBundleAtFiveKinds)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_the_selected_entry_is_the_one_that_comes_out", ReinforcedBundleTests::theSelectedEntryIsTheOneThatComesOut)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_right_click_throws_the_selected_stack_but_never_blocks", ReinforcedBundleTests::rightClickThrowsTheSelectedStackButNeverBlocks)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_master_builder_places_from_the_bundle_and_color_palette_scatters_it", ReinforcedBundleTests::masterBuilderPlacesFromTheBundleAndColorPaletteScattersIt)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_capacity_follows_tier_and_enchantments_and_matches_the_wiki_export", ReinforcedBundleTests::capacityFollowsTierAndEnchantmentsAndMatchesTheWikiExport)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_bar_and_tooltip_read_the_same_capacity_the_filling_uses", ReinforcedBundleTests::barAndTooltipReadTheSameCapacityTheFillingUses)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_funnel_bundle_sweeps_up_drops_on_touch_unless_the_player_sneaks", BundleWiringTests::funnelBundleSweepsUpDropsOnTouchUnlessThePlayerSneaks)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_netherite_bundle_on_the_ground_survives_fire_and_explosions", BundleWiringTests::netheriteBundleOnTheGroundSurvivesFireAndExplosions)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_bundle_packets_only_touch_the_slots_they_own", BundleWiringTests::bundlePacketsOnlyTouchTheSlotsTheyOwn)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_anvil_blanks_the_result_for_colour_palette_without_master_builder", BundleWiringTests::anvilBlanksTheResultForColourPaletteWithoutMasterBuilder)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_building_wand_builds_from_the_bundle_and_pays_one_piece_per_block", BundleWiringTests::buildingWandBuildsFromTheBundleAndPaysOnePiecePerBlock)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_bundle_recipes_craft_the_base_and_upgrade_it_tier_by_tier", BundleWiringTests::bundleRecipesCraftTheBaseAndUpgradeItTierByTier)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_wandering_trader_sells_and_buys_the_reinforced_bundle", BundleWiringTests::wanderingTraderSellsAndBuysTheReinforcedBundle)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_reinforced_bundle_sits_in_dungeon_shipwreck_and_mineshaft_loot", BundleWiringTests::reinforcedBundleSitsInDungeonShipwreckAndMineshaftLoot)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_container_enchantments_accept_the_bundles_they_are_meant_for", BundleWiringTests::containerEnchantmentsAcceptTheBundlesTheyAreMeantFor)
                     .build());
 
     private SimpleBuildingGameTests() {
