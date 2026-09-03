@@ -62,6 +62,15 @@ loom {
 			name = "Game Test"
 			vmArg "-Dfabric-api.gametest"
 			vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory.get()}/junit.xml"
+			// Selektive Laeufe: ./gradlew <task> -PgametestFilter="simplebuilding:block_behaviour_*".
+			// Fabric waehlt ueber eine JVM-Eigenschaft aus, nicht ueber ein Programmargument wie
+			// NeoForge; der Name steht in GameTestSystemProperties von fabric-gametest-api-v1.
+			// Ein LEERER Filter wird bewusst nicht gesetzt: der Laeufer wuerde dann gegen einen
+			// Leerstring pruefen statt gegen "alles", und der Lauf waere still leer.
+			def gametestFilter = project.findProperty('gametestFilter')
+			if (gametestFilter) {
+				vmArg "-Dfabric-api.gametest.filter=${gametestFilter}"
+			}
 			runDir "build/gametest"
 		}
 	}

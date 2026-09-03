@@ -54,7 +54,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("block_behaviour_game_test_levitating_sand_and_gravel_rise_as_an_accelerating_entity", BlockBehaviourTests::levitatingSandAndGravelRiseAsAnAcceleratingEntity)
                     .maxTicks(BlockBehaviourTests.LEVITATING_BLOCK_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("block_behaviour_game_test_levitating_sand_turns_back_into_a_block_under_a_ceiling", BlockBehaviourTests::levitatingSandTurnsBackIntoABlockUnderACeiling)
+            GameTestSpec.named("block_behaviour_game_test_levitating_sand_turns_back_into_ablock_under_aceiling", BlockBehaviourTests::levitatingSandTurnsBackIntoABlockUnderACeiling)
                     .maxTicks(BlockBehaviourTests.LEVITATING_BLOCK_MAX_TICKS)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_levitating_sand_drops_as_an_item_at_the_build_limit", BlockBehaviourTests::levitatingSandDropsAsAnItemAtTheBuildLimit)

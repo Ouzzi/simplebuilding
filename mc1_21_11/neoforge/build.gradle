@@ -176,7 +176,10 @@ neoForge {
         gameTest {
             type = 'gameTestServer'
             loadedMods = [mainMod]
-            programArguments.addAll '--tests', "${project.archives_base_name}:*",
+            // Selektive Laeufe: ./gradlew <task> -PgametestFilter="simplebuilding:block_behaviour_*".
+            // Ohne die Eigenschaft bleibt es beim bisherigen "alles aus diesem Namensraum".
+            programArguments.addAll '--tests',
+                    (project.findProperty('gametestFilter') ?: "${project.archives_base_name}:*").toString(),
                     '--report', layout.buildDirectory.file('neoforge-junit.xml').get().asFile.absolutePath
         }
         data {

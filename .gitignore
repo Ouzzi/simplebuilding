@@ -65,3 +65,13 @@ wiki/assets/textures/minecraft/
 art/alt-textures/original/
 art/alt-textures/alternativ/
 art/alt-textures/gallery-data.js
+
+# Aufzeichnungen der Testlaeufe (tools/testrunner/run.py). Die Oberflaeche
+# testing/index.html gehoert ins Repo, die Laufdaten nicht: sie entstehen bei
+# jedem Lauf neu und wuerden jeden Commit mit Rauschen fuellen.
+testing/runs/
+testing/data/
+
+# Python-Bytecode der Werkzeuge unter tools/
+__pycache__/
+*.pyc
