@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SimpleBuilding – Textur-Vorschläge</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #f4f3ef; --panel: #fff; --text: #1f2328; --muted: #646b73;
+  --border: #d8dbe0; --accent: #2c6e4f; --accent-soft: #e4f1e9;
+  --slot: #e9e8e3; --slot-line: #c6c3bb;
+  --warn-bg: #fff5e1; --warn-border: #dfae52; --warn-text: #5f4100;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141618; --panel: #1d2023; --text: #e4e6e8; --muted: #9ba3ab;
+    --border: #2e343a; --accent: #7cc39a; --accent-soft: #1e2e26;
+    --slot: #282c31; --slot-line: #3d434a;
+    --warn-bg: #362b12; --warn-border: #8a6a2a; --warn-text: #f1d99f;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.5;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 15px; }
+header { position: sticky; top: 0; z-index: 5; background: var(--panel);
+  border-bottom: 1px solid var(--border); padding: .6rem 1.2rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+h1 { font-size: 1.05rem; margin: 0; white-space: nowrap; }
+h1 small { color: var(--muted); font-weight: 400; margin-left: .4rem; font-size: .8rem; }
+input[type=search], select { padding: .4rem .6rem; border: 1px solid var(--border);
+  border-radius: 6px; background: var(--bg); color: var(--text); font: inherit; font-size: .88rem; }
+input[type=search] { min-width: 220px; flex: 1; max-width: 420px; }
+label { color: var(--muted); font-size: .82rem; display: inline-flex; align-items: center; gap: .35rem; }
+main { padding: 1.2rem; max-width: 1500px; margin: 0 auto; }
+.intro { background: var(--panel); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0; padding: .8rem 1rem; margin-bottom: 1.2rem; }
+.intro p { margin: .35rem 0; }
+.intro code { background: var(--slot); padding: .08em .35em; border-radius: 4px; font-size: .86em; }
+.note { background: var(--warn-bg); border-left-color: var(--warn-border); color: var(--warn-text); }
+h2 { font-size: .95rem; margin: 1.8rem 0 .7rem; padding-bottom: .3rem;
+  border-bottom: 1px solid var(--border); color: var(--muted);
+  text-transform: uppercase; letter-spacing: .05em; }
+h2 span { text-transform: none; letter-spacing: 0; }
+/* Spaltenbreite kommt aus dem Zoom (siehe render): sonst laeuft die Seite bei
+   grosser Vergroesserung waagerecht ueber. */
+.grid { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fill, minmax(var(--col, 230px), 1fr)); }
+.pair { flex-wrap: wrap; }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+  padding: .6rem; display: flex; flex-direction: column; gap: .45rem; }
+.card.flag { border-color: var(--warn-border); box-shadow: 0 0 0 1px var(--warn-border) inset; }
+.pair { display: flex; gap: .5rem; justify-content: center; align-items: flex-start; }
+.cell { display: flex; flex-direction: column; align-items: center; gap: .25rem; }
+.cell span { font-size: .68rem; color: var(--muted); letter-spacing: .03em; text-transform: uppercase; }
+.frame { background: var(--slot); border: 1px solid var(--slot-line); border-radius: 5px;
+  display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.frame img { image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+.name { font-size: .78rem; word-break: break-all; }
+.rule { font-size: .72rem; color: var(--muted); }
+.empty { color: var(--muted); font-style: italic; padding: 2rem 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Textur-Vorschläge <small id="count"></small></h1>
+  <input id="q" type="search" placeholder="Filtern: Dateiname …" autocomplete="off" spellcheck="false">
+  <label>Gruppe
+    <select id="grp"><option value="">alle</option></select>
+  </label>
+  <label>Größe
+    <select id="zoom">
+      <option value="3">3×</option>
+      <option value="4" selected>4×</option>
+      <option value="6">6×</option>
+      <option value="8">8×</option>
+    </select>
+  </label>
+</header>
+
+<main>
+  <div class="intro">
+    <p><strong>Das sind Vorschläge zum Anschauen – nichts davon ist im Spiel.</strong>
+      Die Dateien liegen unter <code>art/alt-textures/alternativ/</code> und werden von
+      keinem Modell und keiner Ressource referenziert.</p>
+    <p>Wie sie entstanden sind: Form und Schattierung bleiben Pixel für Pixel unangetastet.
+      Verändert wird nur die Farbidentität – gerechnet wird in HSV, Helligkeit und
+      Transparenz bleiben gleich. Deshalb bleibt die Pixelgrafik lesbar, und deshalb sind
+      es <em>Farbvorschläge</em>, keine neu gezeichneten Motive.</p>
+  </div>
+  <div class="intro note">
+    <p><strong>Ein Befund nebenbei:</strong> <code>levitating_sand</code>,
+      <code>suspended_sand</code>, <code>levitating_gravel</code> und
+      <code>suspended_gravel</code> sind <em>byte-identische Kopien der Vanilla-Texturen</em>.
+      Im Spiel lassen sich diese Blöcke also nicht von gewöhnlichem Sand und Kies
+      unterscheiden – bei Blöcken, deren ganzer Sinn die veränderte Schwerkraft ist.
+      Sie sind unten hervorgehoben und haben als Einzige ein eigenes Motiv statt nur
+      einer Farbdrehung bekommen.</p>
+  </div>
+  <div id="out"></div>
+</main>
+
+<script src="gallery-data.js"></script>
+<script>
+(function () {
+  'use strict';
+  var DATA = Array.isArray(window.ALT_DATA) ? window.ALT_DATA : [];
+  var FLAGGED = ['block/levitating_sand.png', 'block/suspended_sand.png',
+                 'block/levitating_gravel.png', 'block/suspended_gravel.png'];
+
+  var $out = document.getElementById('out');
+  var $q = document.getElementById('q');
+  var $grp = document.getElementById('grp');
+  var $zoom = document.getElementById('zoom');
+  var $count = document.getElementById('count');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  Array.from(new Set(DATA.map(function (r) { return r.gruppe; }))).sort().forEach(function (g) {
+    var o = document.createElement('option');
+    o.value = o.textContent = g;
+    $grp.appendChild(o);
+  });
+
+  /* Grosse Bilder (Kisten, Rüstung, Bahnen) würden bei festem Faktor die Spalte
+     sprengen - deshalb wird der Faktor für sie gedeckelt statt die Karte zu dehnen. */
+  function scaleFor(row, factor) {
+    var max = 200;
+    var f = Math.min(factor, max / Math.max(row.w, row.h));
+    return Math.max(1, f);
+  }
+
+  function cell(label, src, row, factor) {
+    var f = scaleFor(row, factor);
+    var w = Math.round(row.w * f), h = Math.round(row.h * f);
+    return '<div class="cell"><span>' + esc(label) + '</span>' +
+      '<div class="frame" style="width:' + (w + 8) + 'px;height:' + (h + 8) + 'px">' +
+      '<img src="' + esc(src) + '" alt="' + esc(label + ' ' + row.rel) + '" ' +
+      'width="' + w + '" height="' + h + '" loading="lazy"></div></div>';
+  }
+
+  function render() {
+    var q = $q.value.trim().toLowerCase();
+    var grp = $grp.value;
+    var factor = Number($zoom.value);
+    var rows = DATA.filter(function (r) {
+      return (!grp || r.gruppe === grp) && (!q || r.rel.toLowerCase().indexOf(q) >= 0);
+    });
+    $count.textContent = rows.length + ' von ' + DATA.length;
+
+    if (!rows.length) { $out.innerHTML = '<p class="empty">Nichts passt zum Filter.</p>'; return; }
+
+    var groups = {};
+    rows.forEach(function (r) { (groups[r.gruppe] = groups[r.gruppe] || []).push(r); });
+
+    /* Breiteste sichtbare Kachel bestimmt die Spalte: zwei Bilder plus Rahmen,
+       Abstand und Kartenrand. Ohne das schiebt ein 8x vergroessertes 64er-Bild
+       die Karte aus ihrer Spalte und die Seite bekommt einen Querbalken. */
+    var widest = rows.reduce(function (m, r) { return Math.max(m, Math.round(r.w * scaleFor(r, factor))); }, 16);
+    var col = Math.max(230, widest * 2 + 40);
+
+    $out.innerHTML = Object.keys(groups).sort().map(function (g) {
+      return '<h2>' + esc(g) + ' <span>(' + groups[g].length + ')</span></h2>' +
+        '<div class="grid" style="--col:' + col + 'px">' +
+        groups[g].map(function (r) {
+          var flagged = FLAGGED.indexOf(r.rel) >= 0;
+          return '<div class="card' + (flagged ? ' flag' : '') + '">' +
+            '<div class="pair">' +
+              cell('original', 'original/' + r.rel, r, factor) +
+              cell('Vorschlag', 'alternativ/' + r.rel, r, factor) +
+            '</div>' +
+            '<div class="name">' + esc(r.rel) + ' <span class="rule">· ' + r.w + '×' + r.h + '</span></div>' +
+            '<div class="rule">' + esc(r.regel) + '</div>' +
+          '</div>';
+        }).join('') + '</div>';
+    }).join('');
+  }
+
+  $q.addEventListener('input', render);
+  $grp.addEventListener('change', render);
+  $zoom.addEventListener('change', render);
+  render();
+})();
+</script>
+</body>
+</html>

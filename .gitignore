@@ -58,3 +58,10 @@ build/run/
 # Vanilla-Texturen, die wiki/generate.py aus dem Minecraft-Client-Jar zieht.
 # Mojang-Assets gehoeren nicht ins Repository; ein Generatorlauf holt sie lokal.
 wiki/assets/textures/minecraft/
+
+# Die erzeugten Textur-Vorschlaege unter art/alt-textures/: 602 PNG (~1,9 MB),
+# davon die Haelfte Kopien von Dateien, die schon im Repo liegen. Das Werkzeug
+# ist versioniert, das Ergebnis nicht - ein Lauf von generate.py stellt es her.
+art/alt-textures/original/
+art/alt-textures/alternativ/
+art/alt-textures/gallery-data.js

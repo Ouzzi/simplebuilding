@@ -4,8 +4,30 @@
     {
       "name": "wiki",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8765", "--bind", "127.0.0.1", "--directory", "wiki"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8765",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "wiki"
+      ],
       "port": 8765
+    },
+    {
+      "name": "alt-texturen",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8766",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "art/alt-textures"
+      ],
+      "port": 8766
     }
   ]
 }

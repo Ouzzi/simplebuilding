@@ -6605,7 +6605,8 @@ window.WIKI_DATA = {
             "It never comes back down on its own; there is no code that makes it fall.",
             "If it rises into water or lava it replaces the fluid at the new position; the old position is set to air, not to the displaced fluid.",
             "No flint drop like ordinary gravel: the loot table only drops the block itself.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster."
+            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
+            "Its texture is a byte-for-byte copy of the vanilla gravel texture (assets/minecraft/textures/block/gravel.png), so in the world the block cannot be told apart from ordinary gravel."
           ]
         },
         "de": {
@@ -6630,7 +6631,8 @@ window.WIKI_DATA = {
             "Er kommt nie von selbst wieder herunter; es gibt keinen Code, der ihn fallen lässt.",
             "Steigt er in Wasser oder Lava hinein, ersetzt er die Flüssigkeit an der neuen Position; die alte Position wird auf Luft gesetzt, nicht auf die verdrängte Flüssigkeit.",
             "Kein Feuerstein-Drop wie bei normalem Kies: Die Beutetabelle lässt nur den Block selbst fallen.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“)."
+            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
+            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Kiestextur (assets/minecraft/textures/block/gravel.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
           ]
         },
         "sources": [
@@ -6683,7 +6685,8 @@ window.WIKI_DATA = {
           "caveats": [
             "It never comes back down on its own; there is no code that makes it fall.",
             "If it rises into water or lava it replaces the fluid at the new position; the old position is set to air, not to the displaced fluid.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster."
+            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
+            "Its texture is a byte-for-byte copy of the vanilla sand texture (assets/minecraft/textures/block/sand.png), so in the world the block cannot be told apart from ordinary sand."
           ]
         },
         "de": {
@@ -6707,7 +6710,8 @@ window.WIKI_DATA = {
           "caveats": [
             "Er kommt nie von selbst wieder herunter; es gibt keinen Code, der ihn fallen lässt.",
             "Steigt er in Wasser oder Lava hinein, ersetzt er die Flüssigkeit an der neuen Position; die alte Position wird auf Luft gesetzt, nicht auf die verdrängte Flüssigkeit.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“)."
+            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
+            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Sandtextur (assets/minecraft/textures/block/sand.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
           ]
         },
         "sources": [
@@ -10468,7 +10472,8 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No flint drop like ordinary gravel: the loot table only drops the block itself.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster."
+            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
+            "Its texture is a byte-for-byte copy of the vanilla gravel texture (assets/minecraft/textures/block/gravel.png), so in the world the block cannot be told apart from ordinary gravel."
           ]
         },
         "de": {
@@ -10486,7 +10491,8 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Feuerstein-Drop wie bei normalem Kies: Die Beutetabelle lässt nur den Block selbst fallen.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“)."
+            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
+            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Kiestextur (assets/minecraft/textures/block/gravel.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
           ]
         },
         "sources": [
@@ -10532,7 +10538,8 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Unlike Suspended Gravel, this block has no collision box; you cannot stand on it.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster."
+            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
+            "Its texture is a byte-for-byte copy of the vanilla sand texture (assets/minecraft/textures/block/sand.png), so in the world the block cannot be told apart from ordinary sand."
           ]
         },
         "de": {
@@ -10550,7 +10557,8 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Im Gegensatz zum Suspended Gravel hat dieser Block keine Kollision; man kann nicht darauf stehen.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“)."
+            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
+            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Sandtextur (assets/minecraft/textures/block/sand.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
           ]
         },
         "sources": [
@@ -10818,7 +10826,8 @@ window.WIKI_DATA = {
             "It never comes back down on its own; there is no code that makes it fall.",
             "If it rises into water or lava it replaces the fluid at the new position; the old position is set to air, not to the displaced fluid.",
             "No flint drop like ordinary gravel: the loot table only drops the block itself.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster."
+            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
+            "Its texture is a byte-for-byte copy of the vanilla gravel texture (assets/minecraft/textures/block/gravel.png), so in the world the block cannot be told apart from ordinary gravel."
           ]
         },
         "de": {
@@ -10843,7 +10852,8 @@ window.WIKI_DATA = {
             "Er kommt nie von selbst wieder herunter; es gibt keinen Code, der ihn fallen lässt.",
             "Steigt er in Wasser oder Lava hinein, ersetzt er die Flüssigkeit an der neuen Position; die alte Position wird auf Luft gesetzt, nicht auf die verdrängte Flüssigkeit.",
             "Kein Feuerstein-Drop wie bei normalem Kies: Die Beutetabelle lässt nur den Block selbst fallen.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“)."
+            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
+            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Kiestextur (assets/minecraft/textures/block/gravel.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
           ]
         },
         "sources": [
@@ -10905,7 +10915,8 @@ window.WIKI_DATA = {
           "caveats": [
             "It never comes back down on its own; there is no code that makes it fall.",
             "If it rises into water or lava it replaces the fluid at the new position; the old position is set to air, not to the displaced fluid.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster."
+            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
+            "Its texture is a byte-for-byte copy of the vanilla sand texture (assets/minecraft/textures/block/sand.png), so in the world the block cannot be told apart from ordinary sand."
           ]
         },
         "de": {
@@ -10929,7 +10940,8 @@ window.WIKI_DATA = {
           "caveats": [
             "Er kommt nie von selbst wieder herunter; es gibt keinen Code, der ihn fallen lässt.",
             "Steigt er in Wasser oder Lava hinein, ersetzt er die Flüssigkeit an der neuen Position; die alte Position wird auf Luft gesetzt, nicht auf die verdrängte Flüssigkeit.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“)."
+            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
+            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Sandtextur (assets/minecraft/textures/block/sand.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
           ]
         },
         "sources": [
@@ -12203,7 +12215,8 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No flint drop like ordinary gravel: the loot table only drops the block itself.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster."
+            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
+            "Its texture is a byte-for-byte copy of the vanilla gravel texture (assets/minecraft/textures/block/gravel.png), so in the world the block cannot be told apart from ordinary gravel."
           ]
         },
         "de": {
@@ -12221,7 +12234,8 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Feuerstein-Drop wie bei normalem Kies: Die Beutetabelle lässt nur den Block selbst fallen.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“)."
+            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
+            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Kiestextur (assets/minecraft/textures/block/gravel.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Kies unterscheiden."
           ]
         },
         "sources": [
@@ -12276,7 +12290,8 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Unlike Suspended Gravel, this block has no collision box; you cannot stand on it.",
-            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster."
+            "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
+            "Its texture is a byte-for-byte copy of the vanilla sand texture (assets/minecraft/textures/block/sand.png), so in the world the block cannot be told apart from ordinary sand."
           ]
         },
         "de": {
@@ -12294,7 +12309,8 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Im Gegensatz zum Suspended Gravel hat dieser Block keine Kollision; man kann nicht darauf stehen.",
-            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“)."
+            "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
+            "Seine Textur ist eine byte-genaue Kopie der Vanilla-Sandtextur (assets/minecraft/textures/block/sand.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
           ]
         },
         "sources": [
