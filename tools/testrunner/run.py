@@ -360,7 +360,19 @@ def run_target(
     unexpected = sorted(ran_ids - expected)
 
     error = None
-    if timed_out:
+    warning = None
+    complete = report["fresh"] and not missing and not unexpected and bool(report["tests"])
+    if timed_out and complete:
+        # A timeout on top of a fresh, complete report is not a hung run: the tests all ran and
+        # are accounted for. The usual cause is the machine sleeping mid run - one run in this
+        # repo reported "8h 44m" for a target that takes 48 seconds awake. Calling that a hang
+        # would send the next person hunting for a deadlock that is not there.
+        warning = (
+            f"Der Lauf brauchte laenger als die Zeitgrenze von {timeout}s, hat aber einen "
+            "vollstaendigen und frischen Bericht geschrieben - vermutlich hat der Rechner "
+            "zwischendurch geschlafen. Die Tests selbst sind ausgewertet."
+        )
+    elif timed_out:
         error = f"Zeitgrenze von {timeout}s ueberschritten - der Lauf wurde abgebrochen"
     elif exit_code != 0 and not report["tests"]:
         # Gradle failed before any test ran: task unknown, compile error, and so on.
@@ -397,6 +409,7 @@ def run_target(
         "unexpected": unexpected,
         "tests": report["tests"],
         "error": error,
+        "warning": warning,
     }
 
 
@@ -440,6 +453,7 @@ def execute(
                     "unexpected": [],
                     "tests": [],
                     "error": None,
+                    "warning": None,
                 }
             )
     order = {t.id: i for i, t in enumerate(TARGETS)}
@@ -567,6 +581,8 @@ def print_table(record: dict) -> None:
     print()
 
     for target in record["targets"]:
+        if target.get("warning"):
+            print(f"  HINWEIS {target['label']}: {target['warning']}")
         if target["error"]:
             print(f"  FEHLER {target['label']}: {target['error']}")
         for test in target["tests"]:

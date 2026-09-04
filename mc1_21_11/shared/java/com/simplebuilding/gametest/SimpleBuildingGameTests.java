@@ -265,6 +265,372 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("config_option_game_test_loot_table_changes_stop_when_the_option_is_switched_off", ConfigOptionTests::lootTableChangesStopWhenTheOptionIsSwitchedOff)
                     .build(),
             GameTestSpec.named("config_option_game_test_every_config_option_keeps_its_persisted_name_and_default", ConfigOptionTests::everyConfigOptionKeepsItsPersistedNameAndDefault)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_two_level_counters_keep_their_own_storage_and_caps", DynamicLightTests::theTwoLevelCountersKeepTheirOwnStorageAndCaps)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_both_smithing_upgrades_add_one_level_per_step_and_stop_at_their_cap", DynamicLightTests::bothSmithingUpgradesAddOneLevelPerStepAndStopAtTheirCap)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_smithing_upgrade_only_fires_for_armour_and_the_matching_material", DynamicLightTests::theSmithingUpgradeOnlyFiresForArmourAndTheMatchingMaterial)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_smithing_table_takes_the_mod_templates_and_keeps_the_vanilla_ones", DynamicLightTests::theSmithingTableTakesTheModTemplatesAndKeepsTheVanillaOnes)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_worn_emission_levels_add_up_into_the_light_block_over_the_players_head", DynamicLightTests::wornEmissionLevelsAddUpIntoTheLightBlockOverThePlayersHead)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_light_block_only_replaces_air_or_water_sources_and_puts_the_water_back", DynamicLightTests::theLightBlockOnlyReplacesAirOrWaterSourcesAndPutsTheWaterBack)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_light_follows_the_player_and_goes_out_with_the_armour", DynamicLightTests::theLightFollowsThePlayerAndGoesOutWithTheArmour)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_server_tick_wiring_lights_the_wearer_on_its_own", DynamicLightTests::theServerTickWiringLightsTheWearerOnItsOwn)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_detector_reports_the_nearest_target_inside_its_budget", OreDetectorTests::detectorReportsTheNearestTargetInsideItsBudget)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_detector_modes_match_their_ore_tags", OreDetectorTests::detectorModesMatchTheirOreTags)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_dense_blocks_shorten_the_beam_more_than_soft_ones", OreDetectorTests::denseBlocksShortenTheBeamMoreThanSoftOnes)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_constructors_touch_doubles_the_reach_through_solid_rock", OreDetectorTests::constructorsTouchDoublesTheReachThroughSolidRock)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_sneak_clicking_calibrates_the_detector_and_plain_clicks_do_not", OreDetectorTests::sneakClickingCalibratesTheDetectorAndPlainClicksDoNot)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_mode_switch_is_free_in_creative_and_the_tool_stays_unstackable", OreDetectorTests::modeSwitchIsFreeInCreativeAndTheToolStaysUnstackable)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_tooltip_names_every_mode_with_its_power_and_target", OreDetectorTests::tooltipNamesEveryModeWithItsPowerAndTarget)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_arrow_filter_holds_for_clicks_and_the_inverted_binding_slips_past_it", QuiverTests::arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_capacity_drops_the_bundle_bonus_and_follows_tier_and_enchantments", QuiverTests::capacityDropsTheBundleBonusAndFollowsTierAndEnchantments)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_bar_width_follows_the_same_capacity_the_filling_uses", QuiverTests::barWidthFollowsTheSameCapacityTheFillingUses)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_bow_takes_the_topmost_arrow_and_searches_offhand_chest_hotbar_then_backpack", QuiverTests::bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_bow_consumes_one_arrow_from_the_quiver_that_supplied_it", QuiverTests::bowConsumesOneArrowFromTheQuiverThatSuppliedIt)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_bow_shoots_from_the_quiver_and_bills_it_outside_creative_only", QuiverTests::bowShootsFromTheQuiverAndBillsItOutsideCreativeOnly)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_netherite_quiver_burns_in_an_explosion_while_the_netherite_bundle_survives", QuiverTests::netheriteQuiverBurnsInAnExplosionWhileTheNetheriteBundleSurvives)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_log_axis_cycles_through_all_three_axes_and_ignores_sneaking", RotatorTests::logAxisCyclesThroughAllThreeAxesAndIgnoresSneaking)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_rim_is_the_outer_eighth_of_every_face_and_nowhere_inside", RotatorTests::rimIsTheOuterEighthOfEveryFaceAndNowhereInside)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_facing_blocks_turn_one_quarter_around_the_clicked_axis_or_jump_to_its_start", RotatorTests::facingBlocksTurnOneQuarterAroundTheClickedAxisOrJumpToItsStart)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_rim_aims_facing_blocks_at_the_rim_its_opposite_or_the_next_valid_value", RotatorTests::rimAimsFacingBlocksAtTheRimItsOppositeOrTheNextValidValue)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_sixteen_step_blocks_step_once_in_the_middle_and_four_times_at_the_rim", RotatorTests::sixteenStepBlocksStepOnceInTheMiddleAndFourTimesAtTheRim)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_wears_out_at_its_rated_durability_and_takes_durability_enchantments", RotatorTests::wearsOutAtItsRatedDurabilityAndTakesDurabilityEnchantments)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_crafting_takes_five_iron_and_one_ender_pearl_in_that_shape", RotatorTests::craftingTakesFiveIronAndOneEnderPearlInThatShape)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_magnet_only_runs_for_players_holding_it_and_stops_while_sneaking", MagnetTests::magnetOnlyRunsForPlayersHoldingItAndStopsWhileSneaking)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_magnet_in_the_off_hand_drags_loose_items_into_the_inventory", MagnetTests::magnetInTheOffHandDragsLooseItemsIntoTheInventory)
+                    .maxTicks(MagnetTests.OFF_HAND_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_magnet_pull_follows_the_acceleration_and_braking_curve", MagnetTests::magnetPullFollowsTheAccelerationAndBrakingCurve)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_magnet_reach_is_four_blocks_and_constructors_touch_widens_it", MagnetTests::magnetReachIsFourBlocksAndConstructorsTouchWidensIt)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_magnet_filter_matches_the_full_registry_id_and_nothing_else", MagnetTests::magnetFilterMatchesTheFullRegistryIdAndNothingElse)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_sneak_right_click_clears_the_filter_and_the_tooltip_follows", MagnetTests::sneakRightClickClearsTheFilterAndTheTooltipFollows)
+                    .build(),
+            GameTestSpec.named("magnet_game_test_the_magnet_recipe_still_crafts_from_its_documented_pattern", MagnetTests::theMagnetRecipeStillCraftsFromItsDocumentedPattern)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_tag_keyed_patterns_cover_the_whole_damage_family", TrimBonusTests::tagKeyedPatternsCoverTheWholeDamageFamily)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_exactly_keyed_patterns_ignore_their_neighbours", TrimBonusTests::exactlyKeyedPatternsIgnoreTheirNeighbours)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_magic_is_softened_by_the_vex_pattern_and_the_gold_and_lapis_materials", TrimBonusTests::magicIsSoftenedByTheVexPatternAndTheGoldAndLapisMaterials)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_wild_and_silence_ride_on_the_damage_message_id", TrimBonusTests::wildAndSilenceRideOnTheDamageMessageId)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_flow_reads_the_type_name_of_the_projectile_that_landed", TrimBonusTests::flowReadsTheTypeNameOfTheProjectileThatLanded)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_armour_bypassing_hits_skip_the_three_physical_materials", TrimBonusTests::armourBypassingHitsSkipTheThreePhysicalMaterials)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_iron_and_quartz_materials_add_to_their_own_patterns", TrimBonusTests::ironAndQuartzMaterialsAddToTheirOwnPatterns)
+                    .build(),
+            GameTestSpec.named("trim_bonus_game_test_attacker_keyed_materials_read_the_entity_behind_the_hit", TrimBonusTests::attackerKeyedMaterialsReadTheEntityBehindTheHit)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_survival_factor_tracks_distance_and_time_since_the_last_death", TrimWiringTests::theSurvivalFactorTracksDistanceAndTimeSinceTheLastDeath)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_combat_factor_weighs_kills_and_damage_by_mob_category", TrimWiringTests::theCombatFactorWeighsKillsAndDamageByMobCategory)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_tracker_survives_the_save_and_rebases_only_on_death", TrimWiringTests::theTrackerSurvivesTheSaveAndRebasesOnlyOnDeath)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_player_mixin_delivers_speed_hunger_and_experience_behind_its_guards", TrimWiringTests::thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_every_server_side_hit_runs_through_the_trim_damage_modifier", TrimWiringTests::everyServerSideHitRunsThroughTheTrimDamageModifier)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_coast_holds_the_air_supply_and_silence_lowers_the_visibility", TrimWiringTests::coastHoldsTheAirSupplyAndSilenceLowersTheVisibility)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_tick_driven_trim_effects_fire_on_their_own_cadence", TrimWiringTests::theTickDrivenTrimEffectsFireOnTheirOwnCadence)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_three_trim_materials_keep_their_colours_and_their_tags", TrimWiringTests::theThreeTrimMaterialsKeepTheirColoursAndTheirTags)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_trim_multiplier_command_guards_its_range_and_its_permission", TrimWiringTests::theTrimMultiplierCommandGuardsItsRangeAndItsPermission)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_insertion_stops_at_the_brim_and_weighs_by_stack_size", ReinforcedBundleTests::insertionStopsAtTheBrimAndWeighsByStackSize)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_insertion_turns_away_what_cannot_go_into_container_items", ReinforcedBundleTests::insertionTurnsAwayWhatCannotGoIntoContainerItems)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_insertion_merges_equal_stacks_and_pushes_them_to_the_top", ReinforcedBundleTests::insertionMergesEqualStacksAndPushesThemToTheTop)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_drawer_caps_the_bundle_at_five_kinds", ReinforcedBundleTests::drawerCapsTheBundleAtFiveKinds)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_the_selected_entry_is_the_one_that_comes_out", ReinforcedBundleTests::theSelectedEntryIsTheOneThatComesOut)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_right_click_throws_the_selected_stack_but_never_blocks", ReinforcedBundleTests::rightClickThrowsTheSelectedStackButNeverBlocks)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_master_builder_places_from_the_bundle_and_color_palette_scatters_it", ReinforcedBundleTests::masterBuilderPlacesFromTheBundleAndColorPaletteScattersIt)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_capacity_follows_tier_and_enchantments_and_matches_the_wiki_export", ReinforcedBundleTests::capacityFollowsTierAndEnchantmentsAndMatchesTheWikiExport)
+                    .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_bar_and_tooltip_read_the_same_capacity_the_filling_uses", ReinforcedBundleTests::barAndTooltipReadTheSameCapacityTheFillingUses)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_funnel_bundle_sweeps_up_drops_on_touch_unless_the_player_sneaks", BundleWiringTests::funnelBundleSweepsUpDropsOnTouchUnlessThePlayerSneaks)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_netherite_bundle_on_the_ground_survives_fire_and_explosions", BundleWiringTests::netheriteBundleOnTheGroundSurvivesFireAndExplosions)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_bundle_packets_only_touch_the_slots_they_own", BundleWiringTests::bundlePacketsOnlyTouchTheSlotsTheyOwn)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_anvil_blanks_the_result_for_colour_palette_without_master_builder", BundleWiringTests::anvilBlanksTheResultForColourPaletteWithoutMasterBuilder)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_building_wand_builds_from_the_bundle_and_pays_one_piece_per_block", BundleWiringTests::buildingWandBuildsFromTheBundleAndPaysOnePiecePerBlock)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_bundle_recipes_craft_the_base_and_upgrade_it_tier_by_tier", BundleWiringTests::bundleRecipesCraftTheBaseAndUpgradeItTierByTier)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_wandering_trader_sells_and_buys_the_reinforced_bundle", BundleWiringTests::wanderingTraderSellsAndBuysTheReinforcedBundle)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_reinforced_bundle_sits_in_dungeon_shipwreck_and_mineshaft_loot", BundleWiringTests::reinforcedBundleSitsInDungeonShipwreckAndMineshaftLoot)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_container_enchantments_accept_the_bundles_they_are_meant_for", BundleWiringTests::containerEnchantmentsAcceptTheBundlesTheyAreMeantFor)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_field_skips_air_gaps_and_unbreakable_blocks", SledgehammerTests::sledgehammerFieldSkipsAirGapsAndUnbreakableBlocks)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_refuses_the_whole_field_when_the_origin_is_out_of_reach", SledgehammerTests::sledgehammerRefusesTheWholeFieldWhenTheOriginIsOutOfReach)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_bills_one_durability_per_block_and_two_for_the_wrong_tool", SledgehammerTests::sledgehammerBillsOneDurabilityPerBlockAndTwoForTheWrongTool)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_stops_the_swing_when_the_hammer_breaks", SledgehammerTests::sledgehammerStopsTheSwingWhenTheHammerBreaks)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_field_plane_and_depth_follow_the_look_direction", SledgehammerTests::sledgehammerFieldPlaneAndDepthFollowTheLookDirection)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_right_click_charges_only_on_blocks_it_can_reshape", SledgehammerTests::sledgehammerRightClickChargesOnlyOnBlocksItCanReshape)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_reshapes_full_blocks_stairs_and_slabs", SledgehammerTests::sledgehammerReshapesFullBlocksStairsAndSlabs)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_speed_and_block_count_scale_with_its_enchantments", SledgehammerTests::sledgehammerSpeedAndBlockCountScaleWithItsEnchantments)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_charge_time_shortens_with_material_and_efficiency", SledgehammerTests::sledgehammerChargeTimeShortensWithMaterialAndEfficiency)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_turns_framed_trim_templates_glowing", SledgehammerTests::sledgehammerTurnsFramedTrimTemplatesGlowing)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_spatula_runs_forward_while_sneaking_and_chisel_runs_backward", ChiselTests::spatulaRunsForwardWhileSneakingAndChiselRunsBackward)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_tier_tables_are_inherited_upwards_and_shared_in_pairs", ChiselTests::tierTablesAreInheritedUpwardsAndSharedInPairs)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_netherite_tier_cycles_the_nether_brick_family", ChiselTests::netheriteTierCyclesTheNetherBrickFamily)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_cooldown_ticks_follow_the_tier_table", ChiselTests::cooldownTicksFollowTheTierTable)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_shared_properties_survive_and_self_mappings_reorient", ChiselTests::sharedPropertiesSurviveAndSelfMappingsReorient)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_intuitive_orientation_derives_the_edge_direction", ChiselTests::intuitiveOrientationDerivesTheEdgeDirection)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_chiselled_pillars_and_stairs_take_the_click_orientation", ChiselTests::chiselledPillarsAndStairsTakeTheClickOrientation)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_chisel_mines_at_half_material_speed", ChiselTests::chiselMinesAtHalfMaterialSpeed)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_last_target_is_stored_and_shown_in_the_tooltip", ChiselTests::lastTargetIsStoredAndShownInTheTooltip)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_smithing_upgrades_carry_wear_name_and_enchantments", ChiselTests::smithingUpgradesCarryWearNameAndEnchantments)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_vein_miner_spends_its_per_level_budget_and_stops_when_the_tool_breaks", MiningEnchantmentTests::veinMinerSpendsItsPerLevelBudgetAndStopsWhenTheToolBreaks)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_vein_miner_and_strip_miner_ignore_tools_and_blocks_outside_their_gates", MiningEnchantmentTests::veinMinerAndStripMinerIgnoreToolsAndBlocksOutsideTheirGates)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_strip_miner_digs_upwards_only_past_the_steep_pitch_threshold", MiningEnchantmentTests::stripMinerDigsUpwardsOnlyPastTheSteepPitchThreshold)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_strip_miner_divides_the_player_destroy_speed_per_level", MiningEnchantmentTests::stripMinerDividesThePlayerDestroySpeedPerLevel)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_versatility_refuses_candidates_that_cannot_harvest_the_block", MiningEnchantmentTests::versatilityRefusesCandidatesThatCannotHarvestTheBlock)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_versatility_prefers_the_hammer_and_ranks_the_chisel_last", MiningEnchantmentTests::versatilityPrefersTheHammerAndRanksTheChiselLast)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_mining_enchantment_tags_hold_exactly_what_they_declare", MiningEnchantmentTests::miningEnchantmentTagsHoldExactlyWhatTheyDeclare)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_mining_enchantment_books_and_the_diamond_hammer_sit_in_their_loot_pools", MiningEnchantmentTests::miningEnchantmentBooksAndTheDiamondHammerSitInTheirLootPools)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_mining_pickaxe_trade_always_carries_an_enchantment_from_its_pool", MiningEnchantmentTests::miningPickaxeTradeAlwaysCarriesAnEnchantmentFromItsPool)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_creative_tab_offers_every_mining_enchantment_book_at_max_level", MiningEnchantmentTests::creativeTabOffersEveryMiningEnchantmentBookAtMaxLevel)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_reinforced_piston_moves_eighteen_blocks_while_the_netherite_one_keeps_vanillas_twelve", GravityBlockTests::reinforcedPistonMovesEighteenBlocksWhileTheNetheriteOneKeepsVanillasTwelve)
+                    .maxTicks(GravityBlockTests.PUSH_LIMIT_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_netherite_piston_breaks_only_what_the_signal_strength_can_afford", GravityBlockTests::netheritePistonBreaksOnlyWhatTheSignalStrengthCanAfford)
+                    .maxTicks(GravityBlockTests.BREAK_THRESHOLD_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_mod_pistons_are_not_sticky_and_use_the_vanilla_head", GravityBlockTests::modPistonsAreNotStickyAndUseTheVanillaHead)
+                    .maxTicks(GravityBlockTests.RETRACTION_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_extended_mod_pistons_cannot_be_shoved_by_other_pistons", GravityBlockTests::extendedModPistonsCannotBeShovedByOtherPistons)
+                    .maxTicks(GravityBlockTests.PISTON_VERSUS_PISTON_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_levitating_sand_leaves_on_vanillas_schedule_and_rises_on_its_curve", GravityBlockTests::levitatingSandLeavesOnVanillasScheduleAndRisesOnItsCurve)
+                    .maxTicks(GravityBlockTests.RISE_CURVE_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_levitating_sand_waits_under_the_ceiling_until_the_way_up_is_free", GravityBlockTests::levitatingSandWaitsUnderTheCeilingUntilTheWayUpIsFree)
+                    .maxTicks(GravityBlockTests.CEILING_WAIT_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_blocked_landing_spots_drop_the_block_or_keep_it_flying", GravityBlockTests::blockedLandingSpotsDropTheBlockOrKeepItFlying)
+                    .maxTicks(GravityBlockTests.BLOCKED_LANDING_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_suspended_sand_lets_items_through_while_suspended_gravel_holds_them", GravityBlockTests::suspendedSandLetsItemsThroughWhileSuspendedGravelHoldsThem)
+                    .maxTicks(GravityBlockTests.COLLISION_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_gravity_blocks_and_pistons_carry_their_registered_strength_and_tags", GravityBlockTests::gravityBlocksAndPistonsCarryTheirRegisteredStrengthAndTags)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_gravity_block_recipes_craft_from_their_documented_patterns", GravityBlockTests::gravityBlockRecipesCraftFromTheirDocumentedPatterns)
+                    .build(),
+            GameTestSpec.named("hopper_game_test_redstone_power_stops_every_hopper_transfer", HopperTests::redstonePowerStopsEveryHopperTransfer)
+                    .maxTicks(HopperTests.REDSTONE_LOCK_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("hopper_game_test_filter_items_are_stored_as_single_count_copies_and_can_be_cleared", HopperTests::filterItemsAreStoredAsSingleCountCopiesAndCanBeCleared)
+                    .build(),
+            GameTestSpec.named("hopper_game_test_the_mode_delegate_reads_and_writes_the_filter_mode", HopperTests::theModeDelegateReadsAndWritesTheFilterMode)
+                    .build(),
+            GameTestSpec.named("hopper_game_test_the_filter_learns_its_ghost_from_the_first_item_that_is_placed", HopperTests::theFilterLearnsItsGhostFromTheFirstItemThatIsPlaced)
+                    .build(),
+            GameTestSpec.named("hopper_game_test_hopper_configuration_survives_the_save_and_load_round_trip", HopperTests::hopperConfigurationSurvivesTheSaveAndLoadRoundTrip)
+                    .build(),
+            GameTestSpec.named("hopper_game_test_the_update_tag_carries_mode_and_filter_items_to_the_client", HopperTests::theUpdateTagCarriesModeAndFilterItemsToTheClient)
+                    .build(),
+            GameTestSpec.named("hopper_game_test_hopper_menu_opens_on_use_and_filter_clicks_never_store_the_item", HopperTests::hopperMenuOpensOnUseAndFilterClicksNeverStoreTheItem)
+                    .build(),
+            GameTestSpec.named("hopper_game_test_hopper_blocks_carry_their_registered_strength_sound_and_tags", HopperTests::hopperBlocksCarryTheirRegisteredStrengthSoundAndTags)
+                    .build(),
+            GameTestSpec.named("hopper_game_test_hopper_recipes_craft_from_their_documented_patterns", HopperTests::hopperRecipesCraftFromTheirDocumentedPatterns)
+                    .build(),
+            GameTestSpec.named("hopper_game_test_both_hoppers_drop_themselves_when_broken", HopperTests::bothHoppersDropThemselvesWhenBroken)
+                    .maxTicks(HopperTests.HOPPER_DROP_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("world_and_player_game_test_end_ores_drop_their_dust_and_follow_fortune_while_silk_touch_keeps_the_ore", WorldAndPlayerTests::endOresDropTheirDustAndFollowFortuneWhileSilkTouchKeepsTheOre)
+                    .build(),
+            GameTestSpec.named("world_and_player_game_test_end_ore_blocks_keep_their_strength_light_and_diamond_tool_requirement", WorldAndPlayerTests::endOreBlocksKeepTheirStrengthLightAndDiamondToolRequirement)
+                    .build(),
+            GameTestSpec.named("world_and_player_game_test_breaking_an_end_ore_awards_three_to_seven_experience", WorldAndPlayerTests::breakingAnEndOreAwardsThreeToSevenExperience)
+                    .build(),
+            GameTestSpec.named("world_and_player_game_test_locked_frames_still_answer_the_magnet_while_other_sneak_clicks_fall_through", WorldAndPlayerTests::lockedFramesStillAnswerTheMagnetWhileOtherSneakClicksFallThrough)
+                    .build(),
+            GameTestSpec.named("world_and_player_game_test_the_double_jump_enchantment_keeps_its_levels_weight_costs_and_boot_slot", WorldAndPlayerTests::theDoubleJumpEnchantmentKeepsItsLevelsWeightCostsAndBootSlot)
+                    .build(),
+            GameTestSpec.named("world_and_player_game_test_the_server_only_credits_the_boots_for_an_air_jump", WorldAndPlayerTests::theServerOnlyCreditsTheBootsForAnAirJump)
+                    .build(),
+            GameTestSpec.named("world_and_player_game_test_enderite_armour_swallows_void_damage_except_on_its_interval_tick", WorldAndPlayerTests::enderiteArmourSwallowsVoidDamageExceptOnItsIntervalTick)
+                    .build(),
+            GameTestSpec.named("world_and_player_game_test_enderite_slow_fall_needs_two_pieces_falling_speed_and_the_jump_key", WorldAndPlayerTests::enderiteSlowFallNeedsTwoPiecesFallingSpeedAndTheJumpKey)
+                    .build(),
+            GameTestSpec.named("world_and_player_game_test_mod_loot_pools_keep_their_exact_count_and_the_air_jump_book_weights", WorldAndPlayerTests::modLootPoolsKeepTheirExactCountAndTheAirJumpBookWeights)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_off_hand_click_is_passed_on_and_the_wand_stops_outside_both_hands", BuildingWandTests::offHandClickIsPassedOnAndTheWandStopsOutsideBothHands)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_clicked_face_sets_the_plane_until_an_axis_mode_overrides_it", BuildingWandTests::clickedFaceSetsThePlaneUntilAnAxisModeOverridesIt)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_wand_tier_caps_the_radius_setting_and_sizes_the_plane", BuildingWandTests::wandTierCapsTheRadiusSettingAndSizesThePlane)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_material_search_prefers_the_off_hand_and_only_master_builder_reaches_the_backpack", BuildingWandTests::materialSearchPrefersTheOffHandAndOnlyMasterBuilderReachesTheBackpack)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_wand_armed_without_material_searches_again_and_palette_falls_back_to_stone", BuildingWandTests::wandArmedWithoutMaterialSearchesAgainAndPaletteFallsBackToStone)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_wand_enchantments_only_stick_to_the_wands_in_their_item_tag", BuildingWandTests::wandEnchantmentsOnlyStickToTheWandsInTheirItemTag)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_wand_recipes_craft_the_lower_tiers_and_forge_the_upper_ones", BuildingWandTests::wandRecipesCraftTheLowerTiersAndForgeTheUpperOnes)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_iron_wand_drops_in_the_mansion_and_the_diamond_wand_in_the_end_city", BuildingWandTests::ironWandDropsInTheMansionAndTheDiamondWandInTheEndCity)
+                    .build(),
+            GameTestSpec.named("wand_enchantment_game_test_master_builder_opens_the_backpack_and_the_bundles_inside_it_to_the_wand", WandEnchantmentTests::masterBuilderOpensTheBackpackAndTheBundlesInsideItToTheWand)
+                    .build(),
+            GameTestSpec.named("wand_enchantment_game_test_master_builder_moves_the_preview_sources_the_same_way_it_moves_the_placement", WandEnchantmentTests::masterBuilderMovesThePreviewSourcesTheSameWayItMovesThePlacement)
+                    .build(),
+            GameTestSpec.named("wand_enchantment_game_test_fast_chiseling_never_pushes_the_chisel_cooldown_below_one_tick", WandEnchantmentTests::fastChiselingNeverPushesTheChiselCooldownBelowOneTick)
+                    .build(),
+            GameTestSpec.named("wand_enchantment_game_test_the_building_enchantments_reach_every_tool_whose_code_reads_them", WandEnchantmentTests::theBuildingEnchantmentsReachEveryToolWhoseCodeReadsThem)
+                    .build(),
+            GameTestSpec.named("wand_enchantment_game_test_building_enchantment_books_sit_in_the_structure_chests_they_belong_to", WandEnchantmentTests::buildingEnchantmentBooksSitInTheStructureChestsTheyBelongTo)
+                    .build(),
+            GameTestSpec.named("wand_enchantment_game_test_librarian_book_trades_hand_out_only_the_enchantments_they_declare", WandEnchantmentTests::librarianBookTradesHandOutOnlyTheEnchantmentsTheyDeclare)
+                    .build(),
+            GameTestSpec.named("storage_enchantment_game_test_funnel_filter_decides_what_the_touch_sweeps_up", StorageEnchantmentTests::funnelFilterDecidesWhatTheTouchSweepsUp)
+                    .build(),
+            GameTestSpec.named("storage_enchantment_game_test_drawer_kind_cap_holds_against_the_funnel_too", StorageEnchantmentTests::drawerKindCapHoldsAgainstTheFunnelToo)
+                    .build(),
+            GameTestSpec.named("storage_enchantment_game_test_funnel_quiver_sweeps_arrows_only_and_stops_at_its_brim", StorageEnchantmentTests::funnelQuiverSweepsArrowsOnlyAndStopsAtItsBrim)
+                    .build(),
+            GameTestSpec.named("storage_enchantment_game_test_drawer_and_deep_pockets_multiply_on_the_same_container", StorageEnchantmentTests::drawerAndDeepPocketsMultiplyOnTheSameContainer)
+                    .build(),
+            GameTestSpec.named("storage_enchantment_game_test_storage_books_sit_in_the_chests_they_are_meant_for", StorageEnchantmentTests::storageBooksSitInTheChestsTheyAreMeantFor)
+                    .build(),
+            GameTestSpec.named("storage_enchantment_game_test_loot_quivers_carry_one_of_the_container_enchantments", StorageEnchantmentTests::lootQuiversCarryOneOfTheContainerEnchantments)
+                    .build(),
+            GameTestSpec.named("octant_game_test_all_octant_colours_share_durability_and_their_paint", OctantTests::allOctantColoursShareDurabilityAndTheirPaint)
+                    .build(),
+            GameTestSpec.named("octant_game_test_air_clicks_only_reset_an_unlocked_octant_while_sneaking", OctantTests::airClicksOnlyResetAnUnlockedOctantWhileSneaking)
+                    .build(),
+            GameTestSpec.named("octant_game_test_shape_catalogue_is_fixed_and_the_chosen_shape_shows_in_the_name", OctantTests::shapeCatalogueIsFixedAndTheChosenShapeShowsInTheName)
+                    .build(),
+            GameTestSpec.named("octant_game_test_octant_tooltip_lists_the_lock_and_both_corners", OctantTests::octantTooltipListsTheLockAndBothCorners)
+                    .build(),
+            GameTestSpec.named("octant_game_test_octant_scroll_packets_only_ever_touch_the_main_hand", OctantTests::octantScrollPacketsOnlyEverTouchTheMainHand)
+                    .build(),
+            GameTestSpec.named("octant_game_test_dyeing_recipes_produce_every_coloured_octant", OctantTests::dyeingRecipesProduceEveryColouredOctant)
+                    .build(),
+            GameTestSpec.named("octant_game_test_water_cauldron_washes_the_colour_off_an_octant", OctantTests::waterCauldronWashesTheColourOffAnOctant)
+                    .build(),
+            GameTestSpec.named("octant_game_test_chest_octants_are_enchanted_in_the_two_dangerous_chests_only", OctantTests::chestOctantsAreEnchantedInTheTwoDangerousChestsOnly)
+                    .build(),
+            GameTestSpec.named("octant_game_test_the_octant_only_measures_and_places_nothing", OctantTests::theOctantOnlyMeasuresAndPlacesNothing)
+                    .build(),
+            GameTestSpec.named("furnace_game_test_boost_only_runs_while_the_furnace_burns_and_cooks", FurnaceTests::boostOnlyRunsWhileTheFurnaceBurnsAndCooks)
+                    .maxTicks(FurnaceTests.BOOST_GUARD_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("furnace_game_test_progress_cools_down_at_the_vanilla_rate_once_the_fuel_is_spent", FurnaceTests::progressCoolsDownAtTheVanillaRateOnceTheFuelIsSpent)
+                    .maxTicks(FurnaceTests.COOL_DOWN_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("furnace_game_test_boost_never_pushes_cooking_progress_to_the_full_cook_time", FurnaceTests::boostNeverPushesCookingProgressToTheFullCookTime)
+                    .maxTicks(FurnaceTests.COOK_CAP_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("furnace_game_test_every_tier_opens_the_menu_of_its_vanilla_counterpart", FurnaceTests::everyTierOpensTheMenuOfItsVanillaCounterpart)
+                    .build(),
+            GameTestSpec.named("furnace_game_test_furnace_blocks_carry_their_registered_hardness_resistance_and_tags", FurnaceTests::furnaceBlocksCarryTheirRegisteredHardnessResistanceAndTags)
+                    .build(),
+            GameTestSpec.named("furnace_game_test_only_netherite_furnace_items_survive_lava", FurnaceTests::onlyNetheriteFurnaceItemsSurviveLava)
+                    .build(),
+            GameTestSpec.named("furnace_game_test_all_six_furnaces_drop_themselves_when_broken", FurnaceTests::allSixFurnacesDropThemselvesWhenBroken)
+                    .maxTicks(FurnaceTests.DROP_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("furnace_game_test_furnace_recipes_keep_their_book_category_and_reject_near_miss_grids", FurnaceTests::furnaceRecipesKeepTheirBookCategoryAndRejectNearMissGrids)
+                    .build(),
+            GameTestSpec.named("furnace_game_test_one_coal_feeds_several_netherite_smelts_where_vanilla_manages_one", FurnaceTests::oneCoalFeedsSeveralNetheriteSmeltsWhereVanillaManagesOne)
+                    .maxTicks(FurnaceTests.FUEL_PARITY_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("trade_offer_game_test_master_book_trade_draws_every_enchantment_in_its_pool", TradeOfferTests::masterBookTradeDrawsEveryEnchantmentInItsPool)
+                    .build(),
+            GameTestSpec.named("trade_offer_game_test_weighted_enchant_honours_its_second_chance_setting", TradeOfferTests::weightedEnchantHonoursItsSecondChanceSetting)
+                    .build(),
+            GameTestSpec.named("trade_offer_game_test_weighted_enchant_turns_plain_books_into_enchanted_books", TradeOfferTests::weightedEnchantTurnsPlainBooksIntoEnchantedBooks)
+                    .build(),
+            GameTestSpec.named("trade_offer_game_test_weighted_enchant_ignores_pools_without_any_weight", TradeOfferTests::weightedEnchantIgnoresPoolsWithoutAnyWeight)
+                    .build(),
+            GameTestSpec.named("trade_offer_game_test_spatulas_in_containers_survive_the_world_scan", TradeOfferTests::spatulasInContainersSurviveTheWorldScan)
+                    .build(),
+            GameTestSpec.named("trade_offer_game_test_no_recipe_references_the_legacy_spatulas", TradeOfferTests::noRecipeReferencesTheLegacySpatulas)
                     .build());
 
     private SimpleBuildingGameTests() {
