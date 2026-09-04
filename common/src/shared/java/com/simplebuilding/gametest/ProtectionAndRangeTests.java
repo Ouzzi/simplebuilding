@@ -17,6 +17,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -66,6 +67,28 @@ public final class ProtectionAndRangeTests {
      * really means the mixin acted.
      */
     private static final int VOID_RESCUE_DEPTH = 70;
+
+    /**
+     * The depth at which the mixin stops letting the item float and lifts it back into the world
+     * ({@code getY() < minY - 10}). Not a number this test chooses - it is read off
+     * {@code EnderiteItemMixin} - but it is the number the two probes below sit around.
+     */
+    private static final int VOID_RESCUE_THRESHOLD_DEPTH = 10;
+
+    /**
+     * One block short of the threshold: has to float. Together with the probe below it brackets
+     * the threshold, which neither {@link #VOID_FLOAT_DEPTH} nor {@link #VOID_RESCUE_DEPTH} does -
+     * both sit far away from it, so the threshold could be moved anywhere between them and this
+     * test would not notice, leaving every protected item that lands in that band hanging
+     * weightless and out of reach forever.
+     */
+    private static final int VOID_JUST_ABOVE_THRESHOLD_DEPTH = VOID_RESCUE_THRESHOLD_DEPTH - 1;
+
+    /** One block past the threshold: has to be lifted back, even though vanilla would keep it. */
+    private static final int VOID_JUST_BELOW_THRESHOLD_DEPTH = VOID_RESCUE_THRESHOLD_DEPTH + 1;
+
+    /** Where the rescue puts the item: this many blocks above the world floor. */
+    private static final int VOID_RESCUE_TARGET_HEIGHT = 5;
 
     /** Damage dealt in {@link #kineticProtectionActuallyReducesTheDamageThePlayerTakes}. */
     private static final float HIT_DAMAGE = 10.0F;
@@ -243,6 +266,15 @@ public final class ProtectionAndRangeTests {
      * <p>Note on the modifier id: vanilla appends {@code "/" + slot} to the id declared in the
      * enchantment, so the id seen here is {@code simplebuilding:enchantment.range/mainhand}. Only
      * the half this mod owns is asserted.
+     *
+     * <p>The third step is about <em>which items</em> may carry all of that.
+     * {@code ItemStack#enchant} never asks, so every measurement above works on a chisel that
+     * might long have fallen out of the enchantment's item tag. Range hangs on
+     * {@code #simplebuilding:chisel_and_mining_tools}, and the octants reach it only through the
+     * nested {@code #simplebuilding:octants_enchantable} - one deleted line in the tag provider
+     * and the whole octant family can no longer be given reach, with every number in this test
+     * still correct. {@code Enchantment#canEnchant} is what the anvil asks, so that is what is
+     * asked here, for the plain octant and for all sixteen dyed ones.
      */
     public static void rangeAddsBlockInteractionReachInTheMainHandOnly(GameTestHelper helper) {
         // Setup guard: the loop below goes up to RANGE_MAX_LEVEL and ItemStack#enchant does not
@@ -283,6 +315,27 @@ public final class ProtectionAndRangeTests {
                     "Range " + enchantLevel + " grants reach from the off hand as well");
         }
 
+        // --- who is allowed to carry it: the anvil's own question, item by item ---
+        Enchantment range = enchantment(helper, ModEnchantments.RANGE).value();
+        helper.assertTrue(range.canEnchant(plainTool),
+                "Range cannot be put on the diamond chisel any more, so every number measured "
+                        + "above was measured on an item the player can no longer enchant");
+        helper.assertTrue(range.canEnchant(new ItemStack(ModItems.OCTANT)),
+                "Range cannot be put on the octant; it reaches "
+                        + "#simplebuilding:chisel_and_mining_tools only through the nested "
+                        + "#simplebuilding:octants_enchantable, and that link is gone");
+        helper.assertValueEqual(ModItems.COLORED_OCTANT_ITEMS.size(), DyeColor.values().length,
+                "test setup broken: number of dyed octants registered - with none of them the loop "
+                        + "below would check nothing");
+        for (Item coloredOctant : ModItems.COLORED_OCTANT_ITEMS.values()) {
+            helper.assertTrue(range.canEnchant(new ItemStack(coloredOctant)),
+                    "Range cannot be put on " + coloredOctant + ", so the dyed octants dropped out "
+                            + "of #simplebuilding:octants_enchantable while the plain one stayed");
+        }
+        helper.assertTrue(!range.canEnchant(new ItemStack(Items.DIAMOND_HELMET)),
+                "Range can be put on a diamond helmet, so its item tag accepts everything and the "
+                        + "answers above say nothing about the chisel or the octant");
+
         // --- and now the whole way through to the player's attribute map ---
         ServerPlayer player = mockPlayer(helper);
         player.setItemSlot(EquipmentSlot.MAINHAND, plainTool);
@@ -312,7 +365,7 @@ public final class ProtectionAndRangeTests {
      * {@code ItemEntity#tick}, i.e. before {@code Entity#checkBelowWorld} gets its turn - and
      * until now only the <em>contents</em> of the tag were ever tested.
      *
-     * <p>Four items are dropped at the same time, and each one pins down a different half of the
+     * <p>Six items are dropped at the same time, and each one pins down a different part of the
      * mixin. Everything is expressed relative to {@code level.getMinY()} on purpose: the bug that
      * once lived here was a set of pre-1.18 constants ({@code y < 0} to start floating,
      * {@code y < -10} to rescue, rescue target {@code y = 5}). With the world floor at -64 that
@@ -330,7 +383,20 @@ public final class ProtectionAndRangeTests {
      *   <li>protected but still inside the world at a negative y: has to keep its gravity and
      *       stay where it was dropped. This is the case the old {@code y < 0} constant got
      *       wrong.</li>
+     *   <li>protected, one block above and one block below the rescue threshold: the first has to
+     *       float where it is, the second has to be lifted back. Those two are what pin the
+     *       threshold itself. The four cases above straddle it by 5 and by 70 blocks, so the
+     *       threshold could be moved anywhere in between and all of them would still behave
+     *       exactly as asserted -- while every protected item that lands in that band would hang
+     *       weightless below the world for good, unreachable for the player.</li>
      * </ul>
+     *
+     * <p>The rescue height is asserted twice: once loosely (inside the world), once against
+     * {@code minY + 5} with a block of slack. The loose bound alone leaves {@code minY + 15}
+     * green. The slack is there because the item is measured a few ticks after the rescue: today
+     * it stays exactly where the mixin put it -- the rescue leaves {@code noGravity} switched on,
+     * so nothing moves it -- but a version that switches gravity back on would let it fall about
+     * 0.6 blocks in {@link #VOID_SETTLE_TICKS} ticks, and that is not a moved rescue target.
      */
     public static void voidProtectionLiftsEnderiteBackIntoTheWorldWhileOtherItemsAreLost(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -346,8 +412,16 @@ public final class ProtectionAndRangeTests {
         helper.assertTrue(VOID_FLOAT_DEPTH < 64 && VOID_RESCUE_DEPTH > 64,
                 "test setup broken: the float depth has to stay inside vanilla's 64 block margin "
                         + "and the rescue depth has to be outside it");
+        helper.assertTrue(VOID_JUST_ABOVE_THRESHOLD_DEPTH < VOID_RESCUE_THRESHOLD_DEPTH
+                        && VOID_JUST_BELOW_THRESHOLD_DEPTH > VOID_RESCUE_THRESHOLD_DEPTH
+                        && VOID_JUST_BELOW_THRESHOLD_DEPTH < 64,
+                "test setup broken: the two threshold probes have to sit on either side of the "
+                        + "rescue threshold and both inside vanilla's 64 block margin, otherwise "
+                        + "one of them is measuring vanilla's deletion instead of the mixin");
 
-        // Four separate columns inside the room's footprint, so nothing can merge with anything.
+        // Six separate columns inside the room's footprint, at least two blocks apart, so that
+        // nothing can merge with anything - ItemEntity#mergeWithNeighbours works on a box half a
+        // block wide.
         double floatingY = minY - VOID_FLOAT_DEPTH;
         double deepY = minY - VOID_RESCUE_DEPTH;
         // 20 blocks above the world floor: negative in the overworld (-44), a good 8 blocks of
@@ -359,10 +433,17 @@ public final class ProtectionAndRangeTests {
                         + "inside the world (that is the case the old y < 0 constant got wrong), "
                         + "but the world floor is " + minY + " so it would sit at " + insideY);
 
+        // The two probes that bracket the threshold, one block on either side of it.
+        double justAboveY = minY - VOID_JUST_ABOVE_THRESHOLD_DEPTH;
+        double justBelowY = minY - VOID_JUST_BELOW_THRESHOLD_DEPTH;
+        double rescueTargetY = minY + VOID_RESCUE_TARGET_HEIGHT;
+
         ItemEntity floating = dropAt(helper, ModItems.ENDERITE_INGOT, 1.5, floatingY, 1.5);
         ItemEntity rescued = dropAt(helper, ModItems.ENDERITE_INGOT, 3.5, deepY, 1.5);
         ItemEntity doomed = dropAt(helper, Items.DIAMOND, 5.5, deepY, 1.5);
         ItemEntity insideWorld = dropAt(helper, ModItems.ENDERITE_INGOT, 3.5, insideY, 5.5);
+        ItemEntity justAbove = dropAt(helper, ModItems.ENDERITE_INGOT, 1.5, justAboveY, 3.5);
+        ItemEntity justBelow = dropAt(helper, ModItems.ENDERITE_INGOT, 5.5, justBelowY, 3.5);
 
         helper.startSequence()
                 .thenExecuteAfter(VOID_SETTLE_TICKS, () -> {
@@ -389,6 +470,12 @@ public final class ProtectionAndRangeTests {
                                     + ", five blocks above the world floor, but it is at y=" + rescued.getY()
                                     + "; a fixed rescue height instead of one derived from getMinY() is "
                                     + "exactly the pre-1.18 bug this test exists for");
+                    helper.assertTrue(Math.abs(rescued.getY() - rescueTargetY) < 1.0,
+                            "the rescue put the enderite ingot at y=" + rescued.getY() + " instead of y="
+                                    + rescueTargetY + " (" + VOID_RESCUE_TARGET_HEIGHT + " blocks above the "
+                                    + "world floor " + minY + "); the target height moved, and everything "
+                                    + "between the floor and the first solid block is still 'inside the "
+                                    + "world' as far as the bounds above are concerned");
 
                     // --- 3. an item outside the tag: the void keeps it ---
                     helper.assertTrue(doomed.isRemoved(),
@@ -410,6 +497,27 @@ public final class ProtectionAndRangeTests {
                             "an enderite ingot inside the world at y=" + insideY + " drifted to y="
                                     + insideWorld.getY() + "; " + VOID_SETTLE_TICKS + " ticks of free fall "
                                     + "are worth well under one block");
+
+                    // --- 5. one block above the rescue threshold: float, do not lift ---
+                    helper.assertTrue(justAbove.isAlive() && justAbove.isNoGravity(),
+                            "an enderite ingot at y=" + justAboveY + " is below the world floor and has to "
+                                    + "be caught; it is alive=" + justAbove.isAlive() + ", weightless="
+                                    + justAbove.isNoGravity());
+                    helper.assertTrue(Math.abs(justAbove.getY() - justAboveY) < 0.1,
+                            "an enderite ingot " + VOID_JUST_ABOVE_THRESHOLD_DEPTH + " blocks below the "
+                                    + "world floor was lifted to y=" + justAbove.getY() + "; the rescue is "
+                                    + "supposed to start one block deeper, at " + VOID_RESCUE_THRESHOLD_DEPTH
+                                    + " blocks, so the threshold has moved up");
+
+                    // --- 6. one block below it: lift, do not leave it hanging ---
+                    helper.assertTrue(justBelow.isAlive(),
+                            "an enderite ingot at y=" + justBelowY + " was removed instead of rescued");
+                    helper.assertTrue(Math.abs(justBelow.getY() - rescueTargetY) < 1.0,
+                            "an enderite ingot " + VOID_JUST_BELOW_THRESHOLD_DEPTH + " blocks below the "
+                                    + "world floor stayed at y=" + justBelow.getY() + " instead of coming "
+                                    + "back to y=" + rescueTargetY + "; the rescue threshold has moved "
+                                    + "deeper, and everything between " + VOID_RESCUE_THRESHOLD_DEPTH
+                                    + " blocks and the new one floats out of reach forever");
                 })
                 .thenSucceed();
     }

@@ -4,6 +4,7 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.enchantment.ModEnchantmentTags;
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.items.ModItemGroupsContent;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.util.ModTags;
@@ -23,8 +24,10 @@ import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -43,7 +46,11 @@ import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.util.context.ContextMap;
 
 import java.lang.reflect.Field;
@@ -68,7 +75,16 @@ import java.util.TreeSet;
  * recipe pointing at an item that is not in the registry, or a datapack registry entry that
  * never made it out of the bootstrap.
  *
- * <h2>Known defect</h2>
+ * <h2>Known defects</h2>
+ *
+ * <p><b>The two enchanted apples cannot be reached in creative.</b>
+ * {@code simplebuilding:enchanted_netherite_apple} and {@code simplebuilding:enchanted_enderite_apple}
+ * are registered, are handed out by four loot pools and have no recipe, but
+ * {@code ModItemGroupsContent#populate} never offers them - the only two mod items with no path
+ * into a creative inventory at all. Vanilla puts its own enchanted golden apple in a tab, so this
+ * looks like a forgotten line rather than a decision. {@link #ITEMS_NOT_IN_THE_CREATIVE_TAB} names
+ * them, next to the six spatulas that are left out on purpose, so the tab check can be green
+ * without stating that today's answer is the right one.
  *
  * <p>{@code ModRecipeProvider} builds every sledgehammer from one block, two pieces of the tier's
  * material and two sticks - except the stone one: {@code createSledgehammerRecipe(STONE_SLEDGEHAMMER,
@@ -93,6 +109,93 @@ public final class DataIntegrityTests {
     /** Blocks registered with {@code noLootTable()}. */
     private static final Set<String> BLOCKS_WITHOUT_LOOT_TABLE = Set.of("netherite_piston_head");
 
+    /**
+     * The blocks that do <em>not</em> drop themselves, and what they drop instead without Silk
+     * Touch. Every other mod block is a {@code dropSelf}, so its expectation is derived from its
+     * own block item rather than listed here; see {@link #everyModBlockLootTableLoads}.
+     */
+    private static final Map<String, Item> ORE_DROPS = Map.of(
+            "nihilith_ore", ModItems.NIHILITH_SHARD,
+            "astralit_ore", ModItems.ASTRALIT_DUST);
+
+    /**
+     * The item tag each mod enchantment's {@code supported_items} has to point at - the single
+     * argument in {@code ModEnchantments} that decides what a player may put it on.
+     *
+     * <p>Listed rather than derived on purpose: reading the answer out of {@code ModEnchantments}
+     * would move with any change made there, which is exactly the change this is here to catch.
+     * A new enchantment has to be added here, and {@link #modEnchantmentsArePresentInTheDatapackRegistry}
+     * fails until it is.
+     */
+    private static final Map<ResourceKey<Enchantment>, TagKey<Item>> SUPPORTED_ITEM_TAGS = Map.ofEntries(
+            Map.entry(ModEnchantments.FAST_CHISELING, ModTags.Items.CHISEL_TOOLS),
+            Map.entry(ModEnchantments.CONSTRUCTORS_TOUCH, ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE),
+            Map.entry(ModEnchantments.RANGE, ModTags.Items.CHISEL_AND_MINING_TOOLS),
+            Map.entry(ModEnchantments.DEEP_POCKETS, ModTags.Items.BUNDLE_ENCHANTABLE),
+            Map.entry(ModEnchantments.FUNNEL, ModTags.Items.BUNDLE_ENCHANTABLE),
+            Map.entry(ModEnchantments.DRAWER, ModTags.Items.BUNDLE_ENCHANTABLE),
+            Map.entry(ModEnchantments.MASTER_BUILDER, ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE),
+            Map.entry(ModEnchantments.COLOR_PALETTE, ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE),
+            Map.entry(ModEnchantments.BREAK_THROUGH, ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
+            Map.entry(ModEnchantments.RADIUS, ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
+            Map.entry(ModEnchantments.OVERRIDE, ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
+            Map.entry(ModEnchantments.COVER, ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+            Map.entry(ModEnchantments.BRIDGE, ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+            Map.entry(ModEnchantments.LINEAR, ModTags.Items.BUILDING_WAND_ENCHANTABLE),
+            Map.entry(ModEnchantments.VEIN_MINER, ModTags.Items.VEINMINE_ENCHANTABLE),
+            Map.entry(ModEnchantments.STRIP_MINER, ItemTags.PICKAXES),
+            Map.entry(ModEnchantments.DOUBLE_JUMP, ItemTags.FOOT_ARMOR),
+            Map.entry(ModEnchantments.KINETIC_PROTECTION, ItemTags.ARMOR_ENCHANTABLE),
+            Map.entry(ModEnchantments.VERSATILITY, ItemTags.MINING_ENCHANTABLE));
+
+    /** How often each block loot table is rolled when its drops are read. */
+    private static final int BLOCK_LOOT_ROLLS = 8;
+
+    /** Seed for those rolls, so a failure is reproducible instead of a coin flip. */
+    private static final long BLOCK_LOOT_SEED = 20260904L;
+
+    /**
+     * Items the mod registers but deliberately keeps out of its creative tab.
+     *
+     * <p>The six spatulas are the legacy half of the chisel rename: they stay in the registry so
+     * that {@code simplebuilding:*_spatula} stacks in existing worlds keep resolving, but a player
+     * starting today is meant to find only the chisels. That one is on purpose.
+     *
+     * <p>The two enchanted apples are not - see the class javadoc's known defect. They are listed
+     * here so that {@link #everyModItemIsInTheItemRegistry} can be green without either cementing
+     * their absence as correct or hiding it: the list is checked in both directions, so the day
+     * one of them is added to the tab this constant has to be edited, and the note above it read.
+     *
+     * <p>Every other registered mod item has to be offered by {@code ModItemGroupsContent}.
+     */
+    private static final Set<String> ITEMS_NOT_IN_THE_CREATIVE_TAB = Set.of(
+            "stone_spatula",
+            "copper_spatula",
+            "iron_spatula",
+            "gold_spatula",
+            "diamond_spatula",
+            "netherite_spatula",
+            "enchanted_netherite_apple",
+            "enchanted_enderite_apple");
+
+    /**
+     * Registry ids that exist for the sake of worlds that were saved with an older version, spelled
+     * out because their whole point is the exact string.
+     *
+     * <p>{@link #everyModItemIsInTheItemRegistry} derives everything else it checks from
+     * {@code ModItems}, in both directions, so a rename moves expectation and reality together and
+     * passes. For these six that is precisely the failure: a stack of
+     * {@code simplebuilding:stone_spatula} in a saved inventory is matched by id, and renaming the
+     * registration deletes it on the next world load without a word.
+     */
+    private static final Set<String> LEGACY_ITEM_IDS = Set.of(
+            "stone_spatula",
+            "copper_spatula",
+            "iron_spatula",
+            "gold_spatula",
+            "diamond_spatula",
+            "netherite_spatula");
+
     private record DropCase(BlockPos pos, Block block, Item expectedDrop) {
     }
 
@@ -108,6 +211,32 @@ public final class DataIntegrityTests {
     // 1. Item registry
     // =================================================================================
 
+    /**
+     * Three claims about the mod's items, because they need the same walk over {@code ModItems}.
+     *
+     * <p><b>Registration</b>, in both directions: every declared item has a registry entry in the
+     * mod's namespace and resolves back to the same instance, and no {@code simplebuilding} entry
+     * exists that {@code ModItems} cannot reach.
+     *
+     * <p><b>The ids that migrations depend on.</b> The walk above derives its expectation from
+     * {@code ModItems} itself, so a renamed registration moves both sides together and passes -
+     * while every saved stack under the old id silently disappears on the next world load.
+     * {@link #LEGACY_ITEM_IDS} therefore spells the ids of the six legacy spatulas out.
+     *
+     * <p><b>Reachability in creative.</b> Registration is not the same thing as being findable:
+     * {@code ModItemGroupsContent#populate} is the mod's only creative tab, it is a flat list of
+     * {@code entries.accept(...)} calls, and deleting a line there takes an item out of the game
+     * for every creative player without failing anything else. The tab is driven here - it is
+     * plain server side code - and every registered mod item has to come out of it, except the
+     * ones {@link #ITEMS_NOT_IN_THE_CREATIVE_TAB} names and explains. The exception list is
+     * checked in both directions too, so an item that is added to the tab later cannot stay listed
+     * as deliberately absent.
+     *
+     * <p>What breaks it: a renamed, removed or double registered item; a colored octant lost from
+     * the {@code DyeColor} loop; a legacy spatula id renamed; a dropped {@code entries.accept}
+     * line; or a {@code populate} that throws or returns early - the last one shows up as every
+     * item at once.
+     */
     public static void everyModItemIsInTheItemRegistry(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
         Set<Identifier> declared = new HashSet<>();
@@ -146,6 +275,43 @@ public final class DataIntegrityTests {
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             if (MOD_ID.equals(id.getNamespace()) && !declared.contains(id)) {
                 problems.add(id + " is registered but is not reachable from ModItems");
+            }
+        }
+
+        // The ids saved worlds match their stacks against, by the literal string.
+        for (String path : new TreeSet<>(LEGACY_ITEM_IDS)) {
+            Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, path);
+            if (!BuiltInRegistries.ITEM.containsKey(id)) {
+                problems.add(id + " is no longer registered; it is a legacy id, so every stack of it "
+                        + "in an existing world is dropped without a word on the next load");
+            }
+        }
+
+        // Being registered is not the same as being reachable: the creative tab is the only place
+        // a player can take a mod item from without a recipe or a chest.
+        List<ItemStack> offered = new ArrayList<>();
+        ModItemGroupsContent.populate(
+                (CreativeModeTab.Output) (stack, visibility) -> offered.add(stack),
+                helper.getLevel().registryAccess());
+        helper.assertTrue(!offered.isEmpty(),
+                "ModItemGroupsContent.populate offered no entries at all, so the tab checks below "
+                        + "could not fail");
+
+        Set<Item> inTheTab = new HashSet<>();
+        for (ItemStack stack : offered) {
+            inTheTab.add(stack.getItem());
+        }
+        Set<Identifier> declaredInOrder = new TreeSet<>(Comparator.comparing(Identifier::toString));
+        declaredInOrder.addAll(declared);
+        for (Identifier id : declaredInOrder) {
+            Item item = BuiltInRegistries.ITEM.getValue(id);
+            boolean expected = !ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath());
+            if (expected && !inTheTab.contains(item)) {
+                problems.add(id + " is registered but ModItemGroupsContent never offers it, so it "
+                        + "cannot be taken out of the creative inventory at all");
+            } else if (!expected && inTheTab.contains(item)) {
+                problems.add(id + " is offered in the creative tab but is listed in "
+                        + "ITEMS_NOT_IN_THE_CREATIVE_TAB as deliberately left out; drop it from that list");
             }
         }
 
@@ -224,9 +390,17 @@ public final class DataIntegrityTests {
      * nothing, which is what separates "the pattern still is what it says" from "the recipe merely
      * still exists".
      *
-     * <p>That is twelve of the mod's roughly 130 recipes. Everything else here - wands, octants,
-     * the enderite armour and tools, the block and nugget conversions - is still covered only by
-     * the dangling reference walk above, which says nothing about their shape. Naming that is
+     * <p>The same treatment is given to the three families whose <em>output count</em> is part of
+     * the deal - a player crafts five reinforced hoppers, two netherite hoppers and three of every
+     * reinforced or netherite furnace at a time - and to the quiver, whose smithing chain nothing
+     * else touched. A count is the easiest thing in a recipe file to change by accident and the
+     * hardest to notice, so every one of them is asserted, not just the result item.
+     *
+     * <p>That is twenty-four of the mod's roughly 130 recipes. Everything else here - wands,
+     * octants, the enderite armour and tools, the block and nugget conversions - is still covered
+     * only by the dangling reference walk above, which says nothing about their shape; the three
+     * bundle recipes have a home of their own in
+     * {@link BundleWiringTests#bundleRecipesCraftTheBaseAndUpgradeItTierByTier}. Naming that is
      * more useful than implying the whole recipe tree is pinned.
      *
      * <p>The stone sledgehammer is the one recipe whose corner slot is checked only for being
@@ -370,6 +544,59 @@ public final class DataIntegrityTests {
                 ModItems.ENDERITE_INGOT,
                 "the enderite chisel upgrade under the netherite template", shapes);
 
+        // Quiver: a vanilla bundle, two string, two leather and a copper nugget, then the same two
+        // smithing steps the bundles use. Nothing else in the suite looks at these three files.
+        assertShapedRecipe(helper, modRecipes, "quiver", ModItems.QUIVER, 1,
+                new String[]{" SL", "SLN", "B  "},
+                Map.of('S', Items.STRING, 'L', Items.LEATHER, 'N', Items.COPPER_NUGGET, 'B', Items.BUNDLE),
+                shapes);
+        assertSmithingRecipe(helper, modRecipes, "netherite_quiver_smithing",
+                Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.QUIVER, Items.NETHERITE_INGOT,
+                ModItems.NETHERITE_QUIVER, shapes);
+        assertSmithingRecipe(helper, modRecipes, "enderite_quiver_smithing",
+                ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_INGOT,
+                ModItems.ENDERITE_QUIVER, shapes);
+        assertNoSmithingRecipe(helper, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.QUIVER,
+                ModItems.ENDERITE_INGOT,
+                "the enderite quiver upgrade straight from the plain quiver", shapes);
+
+        // Hoppers: five at a time out of five vanilla hoppers, a name tag and three cracked
+        // diamonds; two netherite ones out of two of those and a netherite nugget.
+        assertShapedRecipe(helper, modRecipes, "reinforced_hopper_from_crafting", ModItems.REINFORCED_HOPPER, 5,
+                new String[]{"HNH", "DDD", "HHH"},
+                Map.of('H', Items.HOPPER, 'N', Items.NAME_TAG, 'D', ModItems.CRACKED_DIAMOND), shapes);
+        assertShapedRecipe(helper, modRecipes, "netherite_hopper_from_crafting", ModItems.NETHERITE_HOPPER, 2,
+                new String[]{"H", "N", "H"},
+                Map.of('H', ModItems.REINFORCED_HOPPER, 'N', ModItems.NETHERITE_NUGGET), shapes);
+
+        // The name tag is what makes the hopper recipe cost something; a stick may not stand in.
+        assertNoCraftingRecipe(helper, new String[]{"HNH", "DDD", "HHH"},
+                Map.of('H', Items.HOPPER, 'N', Items.STICK, 'D', ModItems.CRACKED_DIAMOND),
+                "the reinforced hopper grid with a stick where the name tag belongs", shapes);
+
+        // The six furnace blocks: three at a time from three vanilla appliances and six cracked
+        // diamonds, three netherite ones from three of those and a netherite nugget.
+        String[] appliancePattern = {"DDD", "AAA", "DDD"};
+        assertShapedRecipe(helper, modRecipes, "reinforced_furnace", ModItems.REINFORCED_FURNACE, 3,
+                appliancePattern, Map.of('D', ModItems.CRACKED_DIAMOND, 'A', Items.FURNACE), shapes);
+        assertShapedRecipe(helper, modRecipes, "reinforced_smoker", ModItems.REINFORCED_SMOKER, 3,
+                appliancePattern, Map.of('D', ModItems.CRACKED_DIAMOND, 'A', Items.SMOKER), shapes);
+        assertShapedRecipe(helper, modRecipes, "reinforced_blast_furnace", ModItems.REINFORCED_BLAST_FURNACE, 3,
+                appliancePattern, Map.of('D', ModItems.CRACKED_DIAMOND, 'A', Items.BLAST_FURNACE), shapes);
+
+        String[] bulkPattern = {"NR", "RR"};
+        assertShapedRecipe(helper, modRecipes, "netherite_furnace_bulk", ModItems.NETHERITE_FURNACE, 3,
+                bulkPattern, Map.of('N', ModItems.NETHERITE_NUGGET, 'R', ModItems.REINFORCED_FURNACE), shapes);
+        assertShapedRecipe(helper, modRecipes, "netherite_smoker_bulk", ModItems.NETHERITE_SMOKER, 3,
+                bulkPattern, Map.of('N', ModItems.NETHERITE_NUGGET, 'R', ModItems.REINFORCED_SMOKER), shapes);
+        assertShapedRecipe(helper, modRecipes, "netherite_blast_furnace_bulk", ModItems.NETHERITE_BLAST_FURNACE, 3,
+                bulkPattern, Map.of('N', ModItems.NETHERITE_NUGGET, 'R', ModItems.REINFORCED_BLAST_FURNACE), shapes);
+
+        // One reinforced furnace short of the 2x2: the upgrade may not get cheaper by accident.
+        assertNoCraftingRecipe(helper, new String[]{"NR", "R "},
+                Map.of('N', ModItems.NETHERITE_NUGGET, 'R', ModItems.REINFORCED_FURNACE),
+                "a netherite furnace grid with only two reinforced furnaces", shapes);
+
         helper.assertTrue(shapes.isEmpty(), "recipe shape problems: " + shapes);
         helper.succeed();
     }
@@ -383,6 +610,17 @@ public final class DataIntegrityTests {
      */
     private static void assertShapedRecipe(GameTestHelper helper, Map<Identifier, RecipeHolder<?>> modRecipes,
                                            String path, Item result, String[] pattern,
+                                           Map<Character, Item> key, List<String> problems) {
+        assertShapedRecipe(helper, modRecipes, path, result, 1, pattern, key, problems);
+    }
+
+    /**
+     * The same check for a recipe that yields more than one item. The count is asserted rather
+     * than ignored: "five reinforced hoppers per craft" is a balance decision a player feels, and
+     * a {@code "count"} edited from 5 to 1 touches no ingredient and no pattern.
+     */
+    private static void assertShapedRecipe(GameTestHelper helper, Map<Identifier, RecipeHolder<?>> modRecipes,
+                                           String path, Item result, int count, String[] pattern,
                                            Map<Character, Item> key, List<String> problems) {
         Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, path);
         if (!modRecipes.containsKey(id)) {
@@ -405,9 +643,9 @@ public final class DataIntegrityTests {
         }
 
         ItemStack crafted = matched.get().value().assemble(input);
-        if (!crafted.is(result) || crafted.getCount() != 1) {
+        if (!crafted.is(result) || crafted.getCount() != count) {
             problems.add(id + ": crafts " + crafted.getCount() + "x" + BuiltInRegistries.ITEM.getKey(crafted.getItem())
-                    + " instead of one " + BuiltInRegistries.ITEM.getKey(result));
+                    + " instead of " + count + "x" + BuiltInRegistries.ITEM.getKey(result));
         }
     }
 
@@ -533,6 +771,28 @@ public final class DataIntegrityTests {
     // 4. Loot tables
     // =================================================================================
 
+    /**
+     * Every mod block's loot table: that it exists, that it is the block's own, that the server
+     * loaded it - and what falls out of it.
+     *
+     * <p>The first three were all this test used to do, and they are blind to the one edit that
+     * matters to a player: a table named {@code blocks/netherite_hopper} that yields dirt still
+     * exists, is still the block's own and still loads. So each table is <em>rolled</em> here,
+     * with an empty tool, and the set of items it produces has to be exactly the one item the
+     * block is supposed to give. That expectation is derived, not copied: for all but the two ores
+     * it is the block's own {@code BlockItem}, which is the promise {@code dropSelf} makes, and
+     * {@link #ORE_DROPS} names the two that trade themselves for a resource.
+     *
+     * <p>The empty tool is deliberate - it is what makes the ore tables take the branch a player
+     * without Silk Touch gets. {@link #brokenModBlocksDropTheirExpectedItem} covers the other end
+     * of the same promise for four blocks: that breaking one in the world really goes through this
+     * table.
+     *
+     * <p>What breaks it: a block that loses its table or inherits a foreign one through
+     * {@code Properties.ofFullCopy}, a table that stops loading, a drop entry swapped for another
+     * item, an ore that starts dropping its own block without Silk Touch, or a second entry added
+     * next to the intended one.
+     */
     public static void everyModBlockLootTableLoads(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         ReloadableServerRegistries.Holder lootRegistries = server.reloadableRegistries();
@@ -565,13 +825,52 @@ public final class DataIntegrityTests {
                 continue;
             }
 
-            if (lootRegistries.getLootTable(lootKey.get()) == LootTable.EMPTY) {
+            LootTable table = lootRegistries.getLootTable(lootKey.get());
+            if (table == LootTable.EMPTY) {
                 problems.add(actual + " did not load (server resolved it to LootTable.EMPTY)");
+                continue;
+            }
+
+            // What the table actually hands over. Rolled a few times so a table that only
+            // sometimes drops the wrong thing cannot slip through on one lucky draw.
+            Item expectedDrop = ORE_DROPS.containsKey(blockId.getPath())
+                    ? ORE_DROPS.get(blockId.getPath())
+                    : BuiltInRegistries.ITEM.getValue(blockId);
+            Set<Identifier> dropped = rollBlockLoot(helper, block, table);
+            Set<Identifier> wanted = Set.of(BuiltInRegistries.ITEM.getKey(expectedDrop));
+            if (!dropped.equals(wanted)) {
+                problems.add(actual + " drops " + dropped + " instead of " + wanted
+                        + " when the block is broken with an empty hand");
             }
         }
 
         helper.assertTrue(problems.isEmpty(), "block loot table problems: " + problems);
         helper.succeed();
+    }
+
+    /**
+     * Rolls one block loot table with an empty tool and returns the distinct items it produced.
+     *
+     * <p>The seed is fixed so a failure is the same on every machine, and the roll goes through
+     * the real {@code LootTable} the server loaded rather than reading the json, so the entry, its
+     * conditions and its functions are all covered at once.
+     */
+    private static Set<Identifier> rollBlockLoot(GameTestHelper helper, Block block, LootTable table) {
+        LootParams params = new LootParams.Builder(helper.getLevel())
+                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(helper.absolutePos(BlockPos.ZERO)))
+                .withParameter(LootContextParams.BLOCK_STATE, block.defaultBlockState())
+                .withParameter(LootContextParams.TOOL, ItemStack.EMPTY)
+                .create(LootContextParamSets.BLOCK);
+
+        Set<Identifier> dropped = new TreeSet<>(Comparator.comparing(Identifier::toString));
+        for (int roll = 0; roll < BLOCK_LOOT_ROLLS; roll++) {
+            for (ItemStack stack : table.getRandomItems(params, BLOCK_LOOT_SEED + roll)) {
+                if (!stack.isEmpty()) {
+                    dropped.add(BuiltInRegistries.ITEM.getKey(stack.getItem()));
+                }
+            }
+        }
+        return dropped;
     }
 
     // =================================================================================
@@ -606,6 +905,27 @@ public final class DataIntegrityTests {
     // 6. Enchantments (a datapack registry)
     // =================================================================================
 
+    /**
+     * Every mod enchantment reached the datapack registry, and every one of them still points at
+     * the item tag it is meant to point at.
+     *
+     * <p>"Its tag resolved to something" was all this used to ask, and that is blind to the whole
+     * decision: which items an enchantment may go on is a single {@code items.getOrThrow(...)}
+     * argument in {@code ModEnchantments}, and swapping Deep Pockets from
+     * {@code simplebuilding:bundle_enchantable} to {@code minecraft:pickaxes} leaves a non-empty
+     * tag with nothing but bound holders behind. {@link #SUPPORTED_ITEM_TAGS} therefore names the
+     * tag each enchantment hangs on, and the check reads it back off the loaded enchantment.
+     *
+     * <p>The tag key, not its contents: what is <em>in</em> those tags is
+     * {@code ModItemTagProvider}'s business and is pinned where the behaviour is - see
+     * {@link BundleWiringTests#containerEnchantmentsAcceptTheBundlesTheyAreMeantFor} for the two
+     * container tags. This is the wire between the two, and it is checked for all of them.
+     *
+     * <p>What breaks it: an enchantment missing from the registry or loaded without a key in
+     * {@code ModEnchantments}, an item tag that no longer resolves, an enchantment re-pointed at a
+     * different tag, or a new enchantment added without deciding - here, on purpose - what it may
+     * be put on.
+     */
     public static void modEnchantmentsArePresentInTheDatapackRegistry(GameTestHelper helper) {
         Registry<Enchantment> registry = helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
         List<ResourceKey<Enchantment>> declaredKeys = declaredModEnchantmentKeys();
@@ -631,6 +951,22 @@ public final class DataIntegrityTests {
                 if (!itemHolder.isBound()) {
                     problems.add(key.identifier() + " supports the unbound item " + itemHolder.getRegisteredName());
                 }
+            }
+
+            // Which tag it is, not just that some tag answered.
+            TagKey<Item> expectedTag = SUPPORTED_ITEM_TAGS.get(key);
+            if (expectedTag == null) {
+                problems.add(key.identifier() + " is not listed in SUPPORTED_ITEM_TAGS, so nothing says "
+                        + "which items it is meant to be allowed on");
+                continue;
+            }
+            Optional<TagKey<Item>> actualTag = supported.unwrapKey();
+            if (actualTag.isEmpty()) {
+                problems.add(key.identifier() + " no longer hangs on an item tag at all but on a fixed "
+                        + "list of items; " + expectedTag.location() + " was expected");
+            } else if (!expectedTag.equals(actualTag.get())) {
+                problems.add(key.identifier() + " may be put on " + actualTag.get().location()
+                        + " instead of " + expectedTag.location());
             }
         }
 
@@ -701,10 +1037,20 @@ public final class DataIntegrityTests {
      * {@code simplebuilding.mixins.json} altogether - and every enderite ingot would fall into the
      * void all the same.
      *
-     * <p>Second, the tag's <em>upper</em> bound. Step 1 compares the shipped tag against
+     * <p>Second, the tag's <em>bounds</em>. Step 1 compares the shipped tag against
      * {@code ModTags.Items.isVoidProtectedByRule}, which is the very method the datagen fills it
-     * with, so widening that rule and re-running datagen would move both sides together. The
-     * spelled out list of items that must <em>not</em> be protected is what makes that visible.
+     * with, so it can only catch a stale tag json - widening or narrowing that rule and re-running
+     * datagen would move both sides together. Step 1b therefore states the rule a second time, in
+     * this file, in words: every {@code simplebuilding} item whose registry path begins with
+     * {@code enderite_}, plus {@code raw_enderite}, and nothing else. Changing
+     * {@code VOID_PROTECTED_PATH_PREFIX} or adding to {@code VOID_PROTECTED_EXTRA_PATHS} now has
+     * to be a decision made here as well. The spelled out lists of items that must and must not be
+     * protected are the third, coarsest net under both.
+     *
+     * <p>The list of anchors is not a sample of one family: the enderite bundle and quiver are on
+     * it because they are the two protected items whose registry path is the only thing putting
+     * them there - rename {@code enderite_bundle} to {@code bundle_enderite} and it drops out of
+     * the tag while the rule and the tag still agree with each other.
      */
     public static void voidProtectedTagIsLanguageIndependent(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
@@ -734,6 +1080,22 @@ public final class DataIntegrityTests {
                     + " and additionally contains " + unexpected + " (datagen not re-run?)");
         }
 
+        // 1b. The same comparison against the rule as this file states it, so that changing the
+        //     rule in ModTags and re-running datagen cannot move expectation and reality together.
+        Set<Identifier> byWrittenRule = new TreeSet<>(Comparator.comparing(Identifier::toString));
+        for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            if (MOD_ID.equals(id.getNamespace())
+                    && (id.getPath().startsWith("enderite_") || "raw_enderite".equals(id.getPath()))) {
+                byWrittenRule.add(id);
+            }
+        }
+        if (!actual.equals(byWrittenRule)) {
+            problems.add(ModTags.Items.VOID_PROTECTED.location() + " holds " + actual
+                    + ", but the rule this test states - every simplebuilding item whose path starts "
+                    + "with \"enderite_\", plus raw_enderite - selects " + byWrittenRule
+                    + "; the void protection rule was changed, which is a decision that belongs here too");
+        }
+
         // 2. Hard anchors, spelled out instead of derived, so a rule that quietly stops matching
         //    anything cannot make step 1 pass trivially.
         for (Item item : List.of(
@@ -744,7 +1106,12 @@ public final class DataIntegrityTests {
                 ModItems.ENDERITE_PICKAXE,
                 ModItems.ENDERITE_SWORD,
                 ModItems.ENDERITE_HELMET,
-                ModItems.ENDERITE_BLOCK_ITEM)) {
+                ModItems.ENDERITE_BLOCK_ITEM,
+                ModItems.ENDERITE_BUNDLE,
+                ModItems.ENDERITE_QUIVER,
+                ModItems.ENDERITE_SLEDGEHAMMER,
+                ModItems.ENDERITE_BUILDING_WAND,
+                ModItems.ENDERITE_UPGRADE_TEMPLATE)) {
             if (!isVoidProtected(new ItemStack(item))) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not covered by "
                         + ModTags.Items.VOID_PROTECTED.location());

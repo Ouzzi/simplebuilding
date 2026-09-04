@@ -57,7 +57,15 @@
       "com.simplebuilding.gametest.SledgehammerGameTest",
       "com.simplebuilding.gametest.ChiselGameTest",
       "com.simplebuilding.gametest.MiningEnchantmentGameTest",
-      "com.simplebuilding.gametest.GravityBlockGameTest"
+      "com.simplebuilding.gametest.GravityBlockGameTest",
+      "com.simplebuilding.gametest.HopperGameTest",
+      "com.simplebuilding.gametest.WorldAndPlayerGameTest",
+      "com.simplebuilding.gametest.BuildingWandGameTest",
+      "com.simplebuilding.gametest.WandEnchantmentGameTest",
+      "com.simplebuilding.gametest.StorageEnchantmentGameTest",
+      "com.simplebuilding.gametest.OctantGameTest",
+      "com.simplebuilding.gametest.FurnaceGameTest",
+      "com.simplebuilding.gametest.TradeOfferGameTest"
     ]
   },
   "mixins": [

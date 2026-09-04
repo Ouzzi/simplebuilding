@@ -1,5 +1,6 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.config.SimplebuildingConfig;
@@ -10,10 +11,13 @@ import com.simplebuilding.screen.ModHopperScreenHandler;
 import com.simplebuilding.util.HopperFilterMode;
 import com.simplebuilding.util.TrimMultiplierLogic;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -31,6 +35,9 @@ public final class HopperAndTrimTests {
 
     private static final BlockPos HOPPER_POS = new BlockPos(2, 1, 2);
 
+    /** Second hopper: the other block that has to be covered by the same block entity type. */
+    private static final BlockPos REINFORCED_POS = new BlockPos(4, 1, 2);
+
     // =====================================================================================
     // HOPPER FILTER
     // =====================================================================================
@@ -40,9 +47,35 @@ public final class HopperAndTrimTests {
      * whole stack including components; Type Match only compares the item. A slot whose ghost is
      * empty must reject everything once a filter is on - otherwise an unconfigured slot would
      * quietly behave as if the filter were off.
+     *
+     * <p>Before any of that, the block entity itself: its registered id, and the two blocks the
+     * type accepts. Nothing else in the suite reads either. The id is not a cosmetic name - it is
+     * the key every placed hopper is saved under, and the valid block set is what
+     * {@code BlockEntityType#create} checks before it hands a saved block entity back. Change
+     * either and every hopper in an existing world loses its block entity the next time the world
+     * loads, taking its inventory and its filter settings with it, while a fresh test world - where
+     * every hopper is placed, never loaded - notices nothing at all.
      */
     public static void hopperFilterModesGateWhatMayEnter(GameTestHelper helper) {
         ModHopperBlockEntity hopper = placeHopper(helper);
+
+        // --- one block entity type, under the id the save format uses ---
+        Identifier savedAs = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(hopper.getType());
+        Identifier expected = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_hopper");
+        helper.assertTrue(expected.equals(savedAs),
+                "the mod hopper block entity is registered as " + savedAs + " instead of " + expected
+                        + "; every hopper already built in a world is saved under that id and loses its "
+                        + "contents when it changes");
+
+        // The reinforced hopper builds the same block entity - getBlockEntity fails the test if it
+        // builds none or a different one - and the type has to accept both blocks.
+        helper.setBlock(REINFORCED_POS, ModBlocks.REINFORCED_HOPPER);
+        BlockEntityType<?> type = helper.getBlockEntity(REINFORCED_POS, ModHopperBlockEntity.class).getType();
+        helper.assertTrue(type == hopper.getType(), "the two mod hoppers use different block entity types");
+        helper.assertTrue(type.isValid(helper.getBlockState(REINFORCED_POS)),
+                savedAs + " does not accept the reinforced hopper, so its block entity is dropped on load");
+        helper.assertTrue(type.isValid(helper.getBlockState(HOPPER_POS)),
+                savedAs + " does not accept the netherite hopper, so its block entity is dropped on load");
 
         ItemStack stone = new ItemStack(Items.STONE);
         ItemStack dirt = new ItemStack(Items.DIRT);
@@ -94,6 +127,15 @@ public final class HopperAndTrimTests {
      * Both hopper payloads are only allowed to act while that hopper's screen is actually open.
      * Without the guard any client could retune a hopper it is not looking at, from anywhere in
      * the world.
+     *
+     * <p><b>And a filter item is a placeholder, not the stack that arrived.</b> The payload is
+     * client input: the stack inside it may hold any count, and the server object must not stay
+     * connected to it. {@code ModHopperBlockEntity#setGhostItemInternal} therefore stores a copy
+     * shrunk to one item. Both halves are checked here, because the earlier version of this test
+     * sent a stack that already held exactly one item and only asked which item came back - which
+     * is true of the incoming stack itself, so "store the payload as it is" passed. That would put
+     * a stack of 64 into the filter row of the screen and leave the server holding an object the
+     * network layer still owns.
      */
     public static void hopperPayloadsOnlyActOnAnOpenHopperMenu(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -117,13 +159,24 @@ public final class HopperAndTrimTests {
         helper.assertTrue(hopper.getFilterMode() == HopperFilterMode.WHITELIST,
                 "the toggle payload did not reach the open hopper, mode is " + hopper.getFilterMode());
 
-        ModMessageHandlers.handleSetHopperGhostItem(
-                new SetHopperGhostItemPayload(2, new ItemStack(Items.DIAMOND)), player);
+        // A whole stack, so "count 1" cannot be inherited from the payload.
+        ItemStack sent = new ItemStack(Items.DIAMOND, 16);
+        ModMessageHandlers.handleSetHopperGhostItem(new SetHopperGhostItemPayload(2, sent), player);
         helper.assertTrue(hopper.getGhostItem(2).is(Items.DIAMOND),
                 "the ghost item payload did not reach the open hopper, slot 2 holds "
                         + hopper.getGhostItem(2));
+        helper.assertTrue(hopper.getGhostItem(2).getCount() == 1,
+                "a filter item is a placeholder and has to be stored as a single item, but slot 2 holds "
+                        + hopper.getGhostItem(2).getCount());
         helper.assertTrue(hopper.getGhostItem(0).isEmpty(),
                 "the ghost item landed in the wrong slot");
+
+        // The stored filter has to be the hopper's own object: changing the stack the payload
+        // carried must not reach into the block entity.
+        sent.setCount(64);
+        helper.assertTrue(hopper.getGhostItem(2).getCount() == 1,
+                "the hopper stored the payload's own stack instead of a copy, so writing to it from "
+                        + "outside changed the filter to " + hopper.getGhostItem(2).getCount() + " items");
 
         player.containerMenu = player.inventoryMenu;
         helper.succeed();

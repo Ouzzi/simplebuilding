@@ -209,6 +209,13 @@ public final class ConsumptionAndDurabilityTests {
      * rotator's {@code hurtAndBreak} moving outside the {@code newState != state} branch, or the
      * octant charging for a click it rejected because it is locked.
      *
+     * <p>The refused octant click is also checked for the value it <em>returns</em>, not only for
+     * what it cost. A locked octant answers {@code SUCCESS}, which swallows the click; the free
+     * click and the swallowed click are two separate promises and only one of them is about
+     * durability. Answering {@code PASS} instead would cost nothing either - and would let the
+     * click fall through to the ordinary block interaction behind it, so a locked octant would
+     * start placing blocks and opening chests.
+     *
      * <p>The rotator has no creative guard of its own - it relies on vanilla refusing to damage a
      * creative player's tool. Its creative assertion therefore only pins that the wear still goes
      * through {@code ItemStack#hurtAndBreak} rather than being written into the damage component by
@@ -236,9 +243,15 @@ public final class ConsumptionAndDurabilityTests {
         CompoundTag locked = customData(octant);
         locked.putBoolean("Locked", true);
         octant.set(DataComponents.CUSTOM_DATA, CustomData.of(locked));
-        useOn(helper, player, octant, corner, Direction.UP, TOP_CENTRE);
+        InteractionResult refusedByLock = useOn(helper, player, octant, corner, Direction.UP, TOP_CENTRE);
         helper.assertValueEqual(octant.getDamageValue(), 2,
                 "a locked octant billed the player for a click it refused");
+        // The click has to be eaten, not handed on: PASS would cost nothing either, and would let
+        // the block behind the locked octant take the interaction instead.
+        helper.assertTrue(refusedByLock == InteractionResult.SUCCESS,
+                "a locked octant answered " + refusedByLock + " instead of SUCCESS, so the refused "
+                        + "click falls through to the block behind it - a locked octant would place "
+                        + "blocks and open containers");
 
         // --- creative: the corner is still stored, the octant stays pristine ---
         player.getAbilities().instabuild = true;
@@ -385,6 +398,12 @@ public final class ConsumptionAndDurabilityTests {
      * Touch - losing its double price; and the reverse direction happening <em>without</em>
      * Constructor's Touch, which is asserted here as "nothing changed and nothing was charged".
      *
+     * <p>Both directions are walked over the whole ladder, not just its outer rung. The hammer
+     * goes full block -&gt; stairs -&gt; slab forwards and slab -&gt; stairs -&gt; full block back,
+     * and in {@code getTransformationState} the "stairs to slab" and "slab to stairs" branches sit
+     * <em>in front of</em> the two the older cases reached - so they could be deleted outright
+     * while every stairs case still passed.
+     *
      * <p>The reverse direction is walked on three stairs blocks, not one. Turning a stairs block
      * back into a full block is a name lookup with two fallbacks: {@code stone_stairs} finds
      * {@code stone} directly, but {@code brick_stairs} only resolves through {@code <name>s} and
@@ -447,6 +466,33 @@ public final class ConsumptionAndDurabilityTests {
                 Blocks.BRICK_STAIRS, Blocks.BRICKS, "<name>s");
         assertReverseToFullBlock(helper, level, survival, touchHammer, target,
                 Blocks.OAK_STAIRS, Blocks.OAK_PLANKS, "<name>_planks");
+
+        // --- the middle rung of the ladder, in both directions ---
+        // The hammer walks full block -> stairs -> slab forwards and slab -> stairs -> full block
+        // back. Only the outer rung was ever driven, so the two "stairs <-> slab" branches - the
+        // first one each direction reaches, sitting in front of the branches above - could be
+        // deleted with every assertion so far still passing.
+        helper.setBlock(target, Blocks.STONE_SLAB);
+        survival.setShiftKeyDown(true);
+        survival.setItemInHand(InteractionHand.MAIN_HAND, touchHammer);
+        int wearBeforeSlab = touchHammer.getDamageValue();
+        touchHammer.getItem().finishUsingItem(touchHammer, level, survival);
+
+        helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
+        helper.assertValueEqual(touchHammer.getDamageValue(), wearBeforeSlab + 2,
+                "turning a slab back into a stairs block did not cost the reverse direction's two points");
+
+        // A hammer of its own for the forward step, so the durability the crush half counts on
+        // further down is not moved by this case.
+        ItemStack stepHammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        survival.setShiftKeyDown(false);
+        survival.setItemInHand(InteractionHand.MAIN_HAND, stepHammer);
+        stepHammer.getItem().finishUsingItem(stepHammer, level, survival);
+
+        helper.assertBlockPresent(Blocks.STONE_SLAB, target);
+        helper.assertValueEqual(stepHammer.getDamageValue(), 1,
+                "the forward step from a stairs block to a slab either did not happen or cost the "
+                        + "reverse direction's price");
 
         // Hand the target back the way the creative half below expects to find it.
         helper.setBlock(target, Blocks.STONE);

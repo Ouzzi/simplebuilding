@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -299,12 +300,40 @@ public final class ToolBehaviourTests {
 
     /**
      * The chisel walks a block forward through the transformation map, the spatula walks the
-     * very same step backwards again.
+     * very same step backwards again - and sneaking swaps both of them round.
+     *
+     * <p><strong>What actually makes a spatula a spatula.</strong> {@code ModItems} sets two
+     * things on every spatula: {@code setChiselDirectionCycle(BACKWARD)} and
+     * {@code setAsDedicatedSpatula(true)}. Only the second one does anything. The
+     * {@code chiselDirection} field the first one writes carries
+     * {@code @SuppressWarnings("unused")} and has no reader in any of the three source trees; the
+     * reversal is decided by {@code isDedicatedSpatula} in {@code tryChiselBlock} and again in
+     * {@code canChisel}. The flag is therefore asserted directly here, so the claim "a spatula is
+     * a chisel with its cycle reversed" is anchored to the switch that is really thrown rather
+     * than to a line that can be deleted without any effect. The dead setter itself is recorded
+     * under the known defects in {@link ChiselTests}; no test can go red for it.
+     *
+     * <p>Sneaking is driven on both tools because it selects a different map on each of them, and
+     * the spatula's sneaking branch had no case at all: the chisel goes backwards when sneaking,
+     * the spatula goes forwards. A spatula that lost that branch would run its backward map twice
+     * and simply refuse the second click.
+     *
+     * <p><strong>What breaks this test:</strong> the forward or backward map losing the stone
+     * entry, {@code isDedicatedSpatula} no longer being set on the spatula (or being set on the
+     * chisel), and either tool's {@code isSneaking} branch collapsing into the other one.
      */
     public static void chiselAndSpatulaTransformBlockInBothDirections(GameTestHelper helper) {
         BlockPos target = new BlockPos(3, 1, 3);
         helper.setBlock(target, Blocks.STONE);
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 5.5), 0.0F, 30.0F);
+        player.setShiftKeyDown(false);
+
+        // The switch the reversal really hangs on, in both directions.
+        helper.assertTrue(ModItems.STONE_SPATULA.isDedicatedSpatula(),
+                "the stone spatula is no longer flagged as a dedicated spatula, so it runs the "
+                        + "chisel's forward map and the two tools do the same thing");
+        helper.assertFalse(ModItems.STONE_CHISEL.isDedicatedSpatula(),
+                "the stone chisel is flagged as a dedicated spatula, so it now runs backwards");
 
         InteractionResult forward = useItemOnBlock(helper, player, new ItemStack(ModItems.STONE_CHISEL), target);
         helper.assertTrue(forward != InteractionResult.PASS, "stone chisel did not act on stone");
@@ -314,6 +343,23 @@ public final class ToolBehaviourTests {
         helper.assertTrue(backward != InteractionResult.PASS, "stone spatula did not act on chiseled stone bricks");
         helper.assertBlockPresent(Blocks.STONE, target);
 
+        // --- sneaking swaps both tools round ---
+        player.setShiftKeyDown(true);
+
+        InteractionResult sneakingSpatula =
+                useItemOnBlock(helper, player, new ItemStack(ModItems.STONE_SPATULA), target);
+        helper.assertTrue(sneakingSpatula != InteractionResult.PASS,
+                "a sneaking stone spatula refused stone, result was " + sneakingSpatula
+                        + "; its sneaking branch is supposed to run the forward map");
+        helper.assertBlockPresent(Blocks.CHISELED_STONE_BRICKS, target);
+
+        InteractionResult sneakingChisel =
+                useItemOnBlock(helper, player, new ItemStack(ModItems.STONE_CHISEL), target);
+        helper.assertTrue(sneakingChisel != InteractionResult.PASS,
+                "a sneaking stone chisel refused chiseled stone bricks, result was " + sneakingChisel);
+        helper.assertBlockPresent(Blocks.STONE, target);
+
+        player.setShiftKeyDown(false);
         helper.succeed();
     }
 
@@ -532,12 +578,144 @@ public final class ToolBehaviourTests {
      * {@code ServerConnectionListener}, so nobody pumps that listener and the player half of
      * the tick never happens. The test therefore ticks the connection itself, exactly like a
      * real server would; without it neither the inventory nor the pickup would ever run.
+     *
+     * <h2>The four things measured before that</h2>
+     *
+     * <p>"The diamond ended up in the inventory" is a very forgiving statement: it holds for any
+     * pull that is at least roughly right and at least roughly far enough. Four properties of the
+     * magnet cannot fail it at all, so they are driven first, one {@code inventoryTick} at a time,
+     * with the level standing still - which makes the resulting motion vector exact rather than
+     * "somewhere near the player after a while".
+     *
+     * <ul>
+     *   <li><strong>Only a held magnet pulls.</strong> {@code inventoryTick} runs for
+     *       <em>every</em> inventory slot, so without its {@code isHeldInHand} guard a magnet
+     *       lying in the backpack would vacuum the world up for as long as it is carried. The
+     *       phase drives the real {@code Inventory#tick()}, which is what passes a {@code null}
+     *       equipment slot for every slot but the selected one.</li>
+     *   <li><strong>The pull is the documented one.</strong> A 0.10 nudge towards the player, on
+     *       top of 80% of whatever motion the item already had, plus a 0.15 lift while the item
+     *       rests on the ground - that lift is what carries an item over a block edge instead of
+     *       grinding it against one. None of the three numbers changes whether the item arrives,
+     *       so nothing else in the suite can hold them.</li>
+     *   <li><strong>The pickup delay is cleared.</strong> Items spawned by a test have no delay to
+     *       begin with, so this only shows on an item that has one - the case the line exists for
+     *       is a player sucking back what they just threw, which vanilla puts a 40 tick delay
+     *       on.</li>
+     *   <li><strong>Where the base range ends.</strong> The two probes below straddle the computed
+     *       edge of the magnet's box by 0.15 of a block, which pins the base range of 4.0 to
+     *       within that. The pair used by the pickup run further down is 3 and roughly 8.5 blocks
+     *       out and leaves the range free to be anything between about 2.8 and 5.7.</li>
+     * </ul>
+     *
+     * <p><strong>Not covered:</strong> the boosted range a Constructor's Touch magnet gets and the
+     * Range enchantment's step on top of it - both reach further than the 8 block test room, so
+     * their edge cannot be straddled here. The filter path has its own test in
+     * {@code OreGenAndItemFrameTests}.
      */
     public static void magnetPullsNearbyItemsAndIgnoresDistantOnes(GameTestHelper helper) {
         fillLayer(helper, 0, 0, 7, 0, 7, Blocks.STONE);
 
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5), 0.0F, 0.0F);
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.MAGNET));
+        player.setShiftKeyDown(false);
+
+        // --- a magnet that is not held does nothing at all ---
+        // Driven through the real Inventory#tick, because that is what decides which equipment
+        // slot the item hook is handed: MAINHAND for the selected slot, null for every other one.
+        ItemEntity backpackProbe = helper.spawnItem(Items.IRON_INGOT, new Vec3(4.5, 1.5, 1.5));
+        backpackProbe.setDeltaMovement(Vec3.ZERO);
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        player.getInventory().setItem(5, new ItemStack(ModItems.MAGNET));
+        for (int tick = 0; tick < 5; tick++) {
+            player.getInventory().tick();
+        }
+        helper.assertTrue(backpackProbe.getDeltaMovement().lengthSqr() == 0.0,
+                "a magnet lying in the backpack pulled an item, its motion is now "
+                        + backpackProbe.getDeltaMovement() + "; inventoryTick runs for every slot, so "
+                        + "without the held-in-hand check a stored magnet never stops working");
+
+        // The control for it: the same driver, the same probe, the magnet moved into the selected
+        // slot. Without this, "nothing moved" would pass just as well if Inventory#tick had never
+        // reached the item in the first place.
+        player.getInventory().setItem(5, ItemStack.EMPTY);
+        player.getInventory().setItem(0, new ItemStack(ModItems.MAGNET));
+        player.getInventory().tick();
+        helper.assertTrue(backpackProbe.getDeltaMovement().lengthSqr() > 0.0,
+                "the same magnet in the selected slot did not pull the probe either, so the phase "
+                        + "above states nothing about the held-in-hand check - the inventory tick "
+                        + "never reached the item at all");
+        backpackProbe.discard();
+        player.getInventory().clearContent();
+
+        ItemStack heldMagnet = new ItemStack(ModItems.MAGNET);
+        player.setItemInHand(InteractionHand.MAIN_HAND, heldMagnet);
+
+        // --- the pull force itself, one tick at a time ---
+        ItemEntity forceProbe = helper.spawnItem(Items.IRON_INGOT, new Vec3(4.5, 1.5, 1.5));
+        Vec3 magnetTarget = player.getEyePosition().subtract(0.0, 0.5, 0.0);
+        Vec3 pull = magnetTarget.subtract(forceProbe.position()).normalize().scale(0.10);
+
+        forceProbe.setDeltaMovement(Vec3.ZERO);
+        forceProbe.setOnGround(false);
+        tickMagnet(helper, player, heldMagnet);
+        assertMotion(helper, forceProbe.getDeltaMovement(), pull,
+                "an item at rest, pulled once: the 0.10 nudge towards the player");
+
+        // The same nudge again, this time on an item that is already drifting sideways - which is
+        // the only way to see the 0.80 damping the magnet applies to the old motion.
+        Vec3 sideways = new Vec3(0.0, 0.0, 1.0);
+        forceProbe.setDeltaMovement(sideways);
+        forceProbe.setOnGround(false);
+        tickMagnet(helper, player, heldMagnet);
+        assertMotion(helper, forceProbe.getDeltaMovement(), sideways.scale(0.80).add(pull),
+                "a drifting item: 80% of what it had plus the nudge");
+
+        // On the ground the magnet adds a lift, or the item would be dragged into the block edge
+        // in front of it and stay there.
+        forceProbe.setDeltaMovement(Vec3.ZERO);
+        forceProbe.setOnGround(true);
+        tickMagnet(helper, player, heldMagnet);
+        assertMotion(helper, forceProbe.getDeltaMovement(), pull.add(0.0, 0.15, 0.0),
+                "an item resting on the ground: the nudge plus the 0.15 lift over the block edge");
+        forceProbe.discard();
+
+        // --- the pickup delay is reset, which is what makes the magnet work on your own drops ---
+        ItemEntity justThrown = helper.spawnItem(Items.IRON_INGOT, new Vec3(4.5, 1.5, 1.5));
+        justThrown.setPickUpDelay(40);
+        helper.assertTrue(justThrown.hasPickUpDelay(),
+                "the probe took no pickup delay, so the assertion below would prove nothing");
+        tickMagnet(helper, player, heldMagnet);
+        helper.assertFalse(justThrown.hasPickUpDelay(),
+                "the magnet left the pickup delay in place; an item the player just threw would be "
+                        + "dragged to their feet and bounce there for two seconds");
+        justThrown.discard();
+
+        // --- where the base range ends ---
+        // The magnet collects every item whose own box touches player.getBoundingBox().inflate(range),
+        // so along x that edge sits half the player's width plus the range plus half the item's
+        // width from the player's centre. Both halves are measured off the entities themselves.
+        ItemEntity ruler = helper.spawnItem(Items.IRON_INGOT, new Vec3(1.5, 1.5, 1.5));
+        double itemHalfWidth = ruler.getBoundingBox().getXsize() / 2.0;
+        ruler.discard();
+        double edge = 1.5 + player.getBoundingBox().getXsize() / 2.0 + 4.0 + itemHalfWidth;
+
+        ItemEntity justInside = helper.spawnItem(Items.IRON_INGOT, new Vec3(edge - 0.15, 1.5, 1.5));
+        ItemEntity justOutside = helper.spawnItem(Items.IRON_INGOT, new Vec3(edge + 0.15, 1.5, 1.5));
+        justInside.setDeltaMovement(Vec3.ZERO);
+        justInside.setOnGround(false);
+        justOutside.setDeltaMovement(Vec3.ZERO);
+        justOutside.setOnGround(false);
+        tickMagnet(helper, player, heldMagnet);
+
+        helper.assertTrue(justInside.getDeltaMovement().lengthSqr() > 0.0,
+                "an item 0.15 of a block inside the magnet's base range was not pulled; the range "
+                        + "shrank below 4.0");
+        helper.assertTrue(justOutside.getDeltaMovement().lengthSqr() == 0.0,
+                "an item 0.15 of a block outside the magnet's base range was pulled anyway, its "
+                        + "motion is " + justOutside.getDeltaMovement() + "; the range grew past 4.0");
+        justInside.discard();
+        justOutside.discard();
 
         // 3 blocks away: inside the magnet's base range, far outside the vanilla pickup radius.
         ItemEntity nearby = helper.spawnItem(Items.DIAMOND, new Vec3(4.5, 1.5, 1.5));
@@ -568,6 +746,21 @@ public final class ToolBehaviourTests {
      * Creates a fully connected mock server player, moves it into the test room and makes
      * sure it leaves the server again once the test is over.
      */
+    /**
+     * Runs the magnet's own item hook exactly once, for a magnet held in the main hand. The level
+     * is not ticked in between, so the item entities keep their positions and the motion the
+     * magnet writes can be compared against an exact expected vector.
+     */
+    private static void tickMagnet(GameTestHelper helper, ServerPlayer player, ItemStack magnet) {
+        magnet.getItem().inventoryTick(magnet, helper.getLevel(), player, EquipmentSlot.MAINHAND);
+    }
+
+    /** Compares two motion vectors; the magnet computes in doubles, so this is a near-equality. */
+    private static void assertMotion(GameTestHelper helper, Vec3 actual, Vec3 expected, String what) {
+        helper.assertTrue(actual.distanceTo(expected) < 1.0E-6,
+                what + ": the magnet set the motion to " + actual + " instead of " + expected);
+    }
+
     private static ServerPlayer mockPlayer(GameTestHelper helper, Vec3 relativePos, float yRot, float xRot) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         Vec3 pos = helper.absoluteVec(relativePos);

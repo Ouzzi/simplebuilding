@@ -30,6 +30,18 @@ import java.util.List;
  * re-stating a constant from the mod source: the furnace tests time how long a real
  * smelt takes, the hopper test times how long real item transfers take, and the
  * piston test actually pushes a block line that exceeds the vanilla limit of 12.
+ *
+ * <p><b>Where the boundaries live.</b> For the pistons and the gravity blocks this class is
+ * deliberately the coarse layer - "a reinforced piston moves a column a vanilla one refuses",
+ * "the netherite piston breaks the stone in front at full signal", "levitating sand rises as an
+ * accelerating entity". The numbers behind those claims - the push limit of 18 against 19, the
+ * {@code (signal / 15) * 50} threshold, the two ticks of lead time, the rise curve and the
+ * landing branches - are measured in {@link GravityBlockTests}, which exists for exactly that
+ * and says so in its own javadoc. Restating them here would only duplicate that class; the
+ * protection lives there, and a change to either half belongs in both files.
+ *
+ * <p>The hopper test is the exception: the transfer cooldown of the mod hoppers and the
+ * direction a hopper delivers into are covered nowhere else, so they are pinned here.
  */
 public final class BlockBehaviourTests {
 
@@ -72,6 +84,12 @@ public final class BlockBehaviourTests {
 
     /** Number of items that must arrive in the destination chest before a hopper is "timed". */
     private static final int HOPPER_SAMPLE_SIZE = 5;
+
+    /** The four hopper stacks of {@link #reinforcedAndNetheriteHoppersMoveItemsFasterThanVanilla}. */
+    private static final int HOPPER_VANILLA = 0;
+    private static final int HOPPER_REINFORCED = 1;
+    private static final int HOPPER_NETHERITE = 2;
+    private static final int HOPPER_SIDEWAYS = 3;
 
     // ------------------------------------------------------------------
     // Furnaces
@@ -196,41 +214,96 @@ public final class BlockBehaviourTests {
     // ------------------------------------------------------------------
 
     /**
-     * Three identical chest -> hopper -> chest stacks are built next to each other. The test
-     * times how long each hopper needs to move {@value #HOPPER_SAMPLE_SIZE} items into the
-     * lower chest, which exposes the shorter transfer cooldown of the mod hoppers.
+     * Three identical chest -&gt; hopper -&gt; chest stacks are built next to each other, plus a
+     * fourth stack whose hopper is turned sideways. The test times how long each hopper needs to
+     * move {@value #HOPPER_SAMPLE_SIZE} items into the container it points at, which exposes both
+     * the shorter transfer cooldown of the mod hoppers and the direction they deliver into.
+     *
+     * <p><b>The cadence, not only the finish line.</b> A hopper moves exactly one item per
+     * cooldown, so the ticks between two arrivals in the destination chest <em>are</em> that
+     * cooldown - measured in the room, not copied out of {@code ModHopperBlockEntity}. The vanilla
+     * stack standing next to them supplies the reference, and the two mod hoppers are pinned as
+     * fractions of it: the reinforced one has to deliver twice as often as vanilla, the netherite
+     * one four times. Measured on NeoForge 26.2, the arrival ticks are 9/17/25/33/41 for the
+     * vanilla stack, 5/9/13/17/21 for the reinforced one and 3/5/7/9/11 for the netherite one -
+     * every eight, four and two ticks. Timing only the fifth item cannot pin any of that:
+     * "arrives earlier" holds for every cooldown that is merely smaller, and for the reinforced
+     * hopper there was no number at all.
+     *
+     * <p><b>The fourth stack is about direction.</b> The other three hoppers point DOWN, where
+     * "the container the hopper points at" and "the container below the hopper" are the same
+     * cell, so nothing here could tell the two apart. The sideways hopper separates them: its
+     * target chest stands beside it, a decoy chest stands below it, and the decoy has to stay
+     * empty.
+     *
+     * <p>What breaks this test: any other cooldown in
+     * {@code ModHopperBlockEntity#insertAndExtract} for either mod hopper, and a
+     * {@code stateToFacing} that stops reading {@code HopperBlock.FACING} - a hopper that always
+     * inserts downwards passes every "faster than vanilla" comparison below.
      */
     public static void reinforcedAndNetheriteHoppersMoveItemsFasterThanVanilla(GameTestHelper helper) {
         BlockPos vanilla = new BlockPos(1, 2, 1);
         BlockPos reinforced = new BlockPos(3, 2, 1);
         BlockPos netherite = new BlockPos(5, 2, 1);
+        BlockPos sideways = new BlockPos(2, 2, 4);
+        BlockPos sidewaysTarget = new BlockPos(3, 2, 4);
+        BlockPos sidewaysDecoy = sideways.below();
 
         buildHopperStack(helper, vanilla, Blocks.HOPPER);
         buildHopperStack(helper, reinforced, ModBlocks.REINFORCED_HOPPER);
         buildHopperStack(helper, netherite, ModBlocks.NETHERITE_HOPPER);
+        buildSidewaysHopperStack(helper, sideways, sidewaysTarget, ModBlocks.NETHERITE_HOPPER);
 
-        int[] finished = newTimings(3);
+        int[] finished = newTimings(4);
+        int[][] arrivals = {
+                newTimings(HOPPER_SAMPLE_SIZE), newTimings(HOPPER_SAMPLE_SIZE),
+                newTimings(HOPPER_SAMPLE_SIZE), newTimings(HOPPER_SAMPLE_SIZE),
+        };
         helper.onEachTick(() -> {
-            recordHopperThroughput(helper, vanilla.below(), finished, 0);
-            recordHopperThroughput(helper, reinforced.below(), finished, 1);
-            recordHopperThroughput(helper, netherite.below(), finished, 2);
+            recordHopperThroughput(helper, vanilla.below(), finished, arrivals[HOPPER_VANILLA], HOPPER_VANILLA);
+            recordHopperThroughput(helper, reinforced.below(), finished, arrivals[HOPPER_REINFORCED], HOPPER_REINFORCED);
+            recordHopperThroughput(helper, netherite.below(), finished, arrivals[HOPPER_NETHERITE], HOPPER_NETHERITE);
+            recordHopperThroughput(helper, sidewaysTarget, finished, arrivals[HOPPER_SIDEWAYS], HOPPER_SIDEWAYS);
         });
 
         helper.startSequence()
                 .thenWaitUntil(() -> helper.assertTrue(allTimed(finished),
-                        "every hopper should have delivered " + HOPPER_SAMPLE_SIZE + " items, timings: "
+                        "every hopper should have delivered " + HOPPER_SAMPLE_SIZE
+                                + " items into the container it points at, timings: "
                                 + Arrays.toString(finished)))
                 .thenExecute(() -> {
-                    helper.assertTrue(finished[2] < finished[1],
+                    helper.assertTrue(finished[HOPPER_NETHERITE] < finished[HOPPER_REINFORCED],
                             "netherite hopper should be faster than the reinforced one, timings: "
                                     + Arrays.toString(finished));
-                    helper.assertTrue(finished[1] < finished[0],
+                    helper.assertTrue(finished[HOPPER_REINFORCED] < finished[HOPPER_VANILLA],
                             "reinforced hopper should be faster than the vanilla one, timings: "
                                     + Arrays.toString(finished));
                     // Cooldown 2 vs. 8 ticks; require at least a factor of two to stay robust.
-                    helper.assertTrue(finished[0] >= finished[2] * 2,
+                    helper.assertTrue(finished[HOPPER_VANILLA] >= finished[HOPPER_NETHERITE] * 2,
                             "netherite hopper should need at most half the time of the vanilla hopper, timings: "
                                     + Arrays.toString(finished));
+
+                    // --- the cooldowns themselves, as the distance between two arrivals ---
+                    int vanillaPeriod = transferPeriod(helper, arrivals[HOPPER_VANILLA], "the vanilla hopper");
+                    int reinforcedPeriod =
+                            transferPeriod(helper, arrivals[HOPPER_REINFORCED], "the reinforced hopper");
+                    int netheritePeriod =
+                            transferPeriod(helper, arrivals[HOPPER_NETHERITE], "the netherite hopper");
+
+                    helper.assertTrue(reinforcedPeriod * 2 == vanillaPeriod,
+                            "the reinforced hopper has to move an item twice as often as a vanilla one, but it "
+                                    + "delivers every " + reinforcedPeriod + " ticks against vanilla's "
+                                    + vanillaPeriod + ", arrival ticks: " + Arrays.deepToString(arrivals));
+                    helper.assertTrue(netheritePeriod * 4 == vanillaPeriod,
+                            "the netherite hopper has to move an item four times as often as a vanilla one, but "
+                                    + "it delivers every " + netheritePeriod + " ticks against vanilla's "
+                                    + vanillaPeriod + ", arrival ticks: " + Arrays.deepToString(arrivals));
+
+                    // --- and the sideways hopper delivered beside itself, not below itself ---
+                    helper.assertTrue(countItems(helper, sidewaysDecoy) == 0,
+                            "the sideways hopper ignored its FACING and dropped "
+                                    + countItems(helper, sidewaysDecoy)
+                                    + " items into the chest below it instead of the one it points at");
                 })
                 .thenSucceed();
     }
@@ -372,9 +445,14 @@ public final class BlockBehaviourTests {
 
         helper.startSequence()
                 .thenExecuteAfter(RISE_SAMPLE_INTERVAL, () -> {
-                    // Der Block ist verschwunden und fliegt jetzt als Entity.
+                    // Der Block ist verschwunden und fliegt jetzt als Entity. Die Startzelle muss
+                    // LUFT sein, nicht irgendetwas: rise() ersetzt den Block durch seinen
+                    // Fluidzustand, und der ist fuer beide Bloecke leer, weil keiner von beiden
+                    // WATERLOGGED kennt. "nicht mehr da" allein wuerde jeden Ersatzblock durchlassen.
                     helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, levitatingSandStart);
                     helper.assertBlockNotPresent(ModBlocks.LEVITATING_GRAVEL, levitatingGravelStart);
+                    helper.assertBlockPresent(Blocks.AIR, levitatingSandStart);
+                    helper.assertBlockPresent(Blocks.AIR, levitatingGravelStart);
                     helper.assertTrue(risingEntities(helper).size() >= 2,
                             "levitating sand and gravel should each have become a rising entity");
                     firstSample[0] = highestRisingEntity(helper);
@@ -528,13 +606,74 @@ public final class BlockBehaviourTests {
         source.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
     }
 
-    private static void recordHopperThroughput(GameTestHelper helper, BlockPos chestPos, int[] timings, int index) {
-        if (timings[index] >= 0) {
-            return;
+    /** Builds source chest -&gt; hopper -&gt; target chest beside it, plus a decoy chest below it. */
+    private static void buildSidewaysHopperStack(GameTestHelper helper, BlockPos hopperPos,
+                                                 BlockPos targetPos, Block hopper) {
+        helper.setBlock(targetPos, Blocks.CHEST);
+        // The cell every other hopper in this test delivers into. Nothing may arrive here.
+        helper.setBlock(hopperPos.below(), Blocks.CHEST);
+        helper.setBlock(hopperPos, hopper.defaultBlockState()
+                .setValue(HopperBlock.FACING, facingBetween(helper, hopperPos, targetPos))
+                .setValue(HopperBlock.ENABLED, Boolean.TRUE));
+        helper.setBlock(hopperPos.above(), Blocks.CHEST);
+
+        ChestBlockEntity source = helper.getBlockEntity(hopperPos.above(), ChestBlockEntity.class);
+        source.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+    }
+
+    /**
+     * The absolute direction leading from {@code from} to {@code to}. A block state stores an
+     * absolute direction while the test writes structure relative positions; the two only agree
+     * as long as the structure is placed unrotated, so the direction is read off the two absolute
+     * positions instead of being assumed.
+     */
+    private static Direction facingBetween(GameTestHelper helper, BlockPos from, BlockPos to) {
+        BlockPos absoluteFrom = helper.absolutePos(from);
+        BlockPos absoluteTo = helper.absolutePos(to);
+        Direction found = null;
+        for (Direction direction : Direction.values()) {
+            if (absoluteFrom.relative(direction).equals(absoluteTo)) {
+                found = direction;
+            }
         }
-        if (countItems(helper, chestPos) >= HOPPER_SAMPLE_SIZE) {
+        helper.assertTrue(found != null, from + " and " + to + " are not neighbours, so no hopper can "
+                + "point from one to the other");
+        return found;
+    }
+
+    /**
+     * Records the tick of every single arrival, and the tick the stack is "timed" at.
+     *
+     * <p>The per item ticks are what carries the cooldown: a hopper moves one item per cooldown,
+     * so the distance between two arrivals is the cooldown itself.
+     */
+    private static void recordHopperThroughput(GameTestHelper helper, BlockPos chestPos,
+                                               int[] timings, int[] arrivals, int index) {
+        int delivered = countItems(helper, chestPos);
+        for (int item = 0; item < arrivals.length && item < delivered; item++) {
+            if (arrivals[item] < 0) {
+                arrivals[item] = (int) helper.getTick();
+            }
+        }
+        if (timings[index] < 0 && delivered >= HOPPER_SAMPLE_SIZE) {
             timings[index] = (int) helper.getTick();
         }
+    }
+
+    /**
+     * The number of ticks between two arrivals, which is the transfer cooldown of that hopper.
+     * The cadence has to be constant, otherwise the number would not mean anything - so that is
+     * asserted before it is returned.
+     */
+    private static int transferPeriod(GameTestHelper helper, int[] arrivals, String what) {
+        int period = arrivals[1] - arrivals[0];
+        helper.assertTrue(period > 0,
+                what + " delivered more than one item in a tick, arrival ticks: " + Arrays.toString(arrivals));
+        for (int item = 2; item < arrivals.length; item++) {
+            helper.assertTrue(arrivals[item] - arrivals[item - 1] == period,
+                    what + " did not deliver at a constant rate, arrival ticks: " + Arrays.toString(arrivals));
+        }
+        return period;
     }
 
     private static int countItems(GameTestHelper helper, BlockPos chestPos) {

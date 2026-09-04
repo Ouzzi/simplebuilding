@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.config.SimplebuildingConfig;
+import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.loot.ModLootTableModifications;
@@ -21,6 +22,7 @@ import java.util.TreeSet;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -93,58 +95,182 @@ public final class ConfigOptionTests {
     private static final String VILLAGER_FLAG = "enableVillagerTrades";
     private static final String WANDERING_FLAG = "enableWanderingTrades";
 
-    /** Vanilla loot tables the mod hands pools to. */
+    /**
+     * Every vanilla loot table the mod hands pools to - all sixteen keys
+     * {@code ModLootTableModifications.apply} names, not a sample of them.
+     *
+     * <p>The list has to be complete, because it is what the switched-off half of
+     * {@link #lootTableChangesStopWhenTheOptionIsSwitchedOff} walks. A table missing from here is
+     * a table whose block could be moved above the config guard - or deleted outright - without
+     * anything going red.
+     */
     private static final List<ResourceKey<LootTable>> MODIFIED_TABLES = List.of(
             BuiltInLootTables.STRONGHOLD_LIBRARY,
             BuiltInLootTables.END_CITY_TREASURE,
             BuiltInLootTables.ANCIENT_CITY,
             BuiltInLootTables.BASTION_TREASURE,
+            BuiltInLootTables.BASTION_OTHER,
             BuiltInLootTables.NETHER_BRIDGE,
+            BuiltInLootTables.PILLAGER_OUTPOST,
             BuiltInLootTables.WOODLAND_MANSION,
+            BuiltInLootTables.BURIED_TREASURE,
             BuiltInLootTables.SIMPLE_DUNGEON,
-            BuiltInLootTables.ABANDONED_MINESHAFT);
+            BuiltInLootTables.SHIPWRECK_TREASURE,
+            BuiltInLootTables.IGLOO_CHEST,
+            BuiltInLootTables.ABANDONED_MINESHAFT,
+            BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON,
+            BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE,
+            BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS);
+
+    /** The bastion pool, which one condition hands to both {@code BASTION_*} keys. */
+    private static final Set<String> BASTION_LOOT = Set.of(
+            book(ModEnchantments.FUNNEL, 1),
+            book(ModEnchantments.BREAK_THROUGH, 1),
+            id(ModItems.GOLD_SLEDGEHAMMER),
+            id(ModItems.GOLD_CORE),
+            id(ModItems.NETHERITE_CORE),
+            id(ModItems.NETHERITE_NUGGET),
+            id(ModItems.NETHERITE_CARROT),
+            id(ModItems.ENCHANTED_NETHERITE_APPLE));
+
+    /** The vault pool behind {@code TRIAL_CHAMBERS_REWARD_COMMON} - and the rare vault. */
+    private static final Set<String> VAULT_COMMON_LOOT = Set.of(
+            book(ModEnchantments.CONSTRUCTORS_TOUCH, 1),
+            book(ModEnchantments.FAST_CHISELING, 2));
+
+    /** The vault pool behind {@code TRIAL_CHAMBERS_REWARD_OMINOUS} - and the rare vault. */
+    private static final Set<String> VAULT_OMINOUS_LOOT = Set.of(
+            book(ModEnchantments.MASTER_BUILDER, 1),
+            book(ModEnchantments.DOUBLE_JUMP, 1),
+            id(ModItems.DIAMOND_CORE),
+            id(ModItems.NETHERITE_APPLE),
+            id(ModItems.ENCHANTED_NETHERITE_APPLE));
 
     /**
-     * The enchanted books of the two mining enchantments, and the chest each one is supposed to
-     * be findable in, as {@code <enchantment id>@<level>}.
+     * What each of those tables has to be able to hand out, written as
+     * {@code <enchantment id>@<level>} for an enchanted book and as the plain registry id for
+     * every other item.
      *
-     * <p>These four tables are the entire supply of Vein Miner and Strip Miner books in the game:
-     * neither enchantment is in the enchanting table, and only Strip Miner appears in a trade. A
-     * pool that quietly lost its book entry still counts as a pool, so counting pools says
-     * nothing about it - hence the roll below.
+     * <p>Counting pools is only half a promise. A pool that quietly lost an entry is still a pool,
+     * and outside a handful of items with a home of their own - the reinforced bundle
+     * ({@code BundleWiringTests}), the mining books here - nothing in the suite ever looked inside
+     * a mod loot pool. Every entry below is therefore <em>rolled</em> out of the table: deleting
+     * one {@code .add(...)} line, swapping the item behind it or moving an enchanted book down a
+     * level turns this red, while the pool count and the config switch stay exactly as they were.
+     *
+     * <p>The sets are lower bounds, not equality: adding an entry to a pool is not a regression and
+     * does not have to be listed here. Removing one is, and is what this catches.
+     *
+     * <p>For the two mining enchantments these tables are the entire supply in the game - neither
+     * is in the enchanting table, and only Strip Miner appears in a trade at all.
      */
-    private static final Map<ResourceKey<LootTable>, Set<String>> EXPECTED_MINING_BOOKS = Map.of(
-            BuiltInLootTables.NETHER_BRIDGE, Set.of(
-                    "simplebuilding:strip_miner@1",
-                    "simplebuilding:strip_miner@2"),
-            BuiltInLootTables.WOODLAND_MANSION, Set.of(
-                    "simplebuilding:vein_miner@4",
-                    "simplebuilding:vein_miner@5"),
-            BuiltInLootTables.SIMPLE_DUNGEON, Set.of(
-                    "simplebuilding:vein_miner@2",
-                    "simplebuilding:vein_miner@3",
-                    "simplebuilding:vein_miner@4"),
-            BuiltInLootTables.ABANDONED_MINESHAFT, Set.of(
-                    "simplebuilding:strip_miner@1",
-                    "simplebuilding:strip_miner@3",
-                    "simplebuilding:vein_miner@3",
-                    "simplebuilding:vein_miner@4"));
+    private static final Map<ResourceKey<LootTable>, Set<String>> EXPECTED_LOOT = Map.ofEntries(
+            Map.entry(BuiltInLootTables.STRONGHOLD_LIBRARY, Set.of(
+                    book(ModEnchantments.RANGE, 2),
+                    book(ModEnchantments.MASTER_BUILDER, 1),
+                    book(ModEnchantments.VERSATILITY, 1),
+                    book(ModEnchantments.VERSATILITY, 2))),
+            Map.entry(BuiltInLootTables.END_CITY_TREASURE, Set.of(
+                    // the two pre built pools - the only place addBuiltPool is used at all
+                    id(ModItems.ENDERITE_SCRAP),
+                    id(ModItems.ENDERITE_UPGRADE_TEMPLATE),
+                    book(ModEnchantments.RANGE, 3),
+                    book(ModEnchantments.MASTER_BUILDER, 1),
+                    book(ModEnchantments.OVERRIDE, 2),
+                    book(ModEnchantments.DOUBLE_JUMP, 2),
+                    book(ModEnchantments.VERSATILITY, 1),
+                    book(ModEnchantments.VERSATILITY, 2),
+                    id(ModItems.DIAMOND_BUILDING_WAND),
+                    id(ModItems.DIAMOND_SLEDGEHAMMER),
+                    id(ModItems.ENCHANTED_ENDERITE_APPLE))),
+            Map.entry(BuiltInLootTables.ANCIENT_CITY, Set.of(
+                    book(ModEnchantments.DEEP_POCKETS, 2),
+                    book(ModEnchantments.RADIUS, 1),
+                    id(ModItems.OCTANT),
+                    id(ModItems.DIAMOND_SLEDGEHAMMER),
+                    id(ModItems.QUIVER),
+                    id(ModItems.NETHERITE_APPLE),
+                    id(ModItems.ENCHANTED_NETHERITE_APPLE),
+                    id(ModItems.NETHERITE_NUGGET))),
+            Map.entry(BuiltInLootTables.BASTION_TREASURE, BASTION_LOOT),
+            // The same pool, reached through the second half of the same condition. Rolling it is
+            // what makes deleting "|| BASTION_OTHER.equals(key)" a red test.
+            Map.entry(BuiltInLootTables.BASTION_OTHER, BASTION_LOOT),
+            Map.entry(BuiltInLootTables.NETHER_BRIDGE, Set.of(
+                    book(ModEnchantments.STRIP_MINER, 1),
+                    book(ModEnchantments.STRIP_MINER, 2),
+                    book(ModEnchantments.FUNNEL, 1),
+                    book(ModEnchantments.BREAK_THROUGH, 1),
+                    id(ModItems.GOLD_CORE),
+                    id(ModItems.OCTANT),
+                    id(ModItems.NETHERITE_NUGGET),
+                    id(ModItems.NETHERITE_CARROT))),
+            Map.entry(BuiltInLootTables.PILLAGER_OUTPOST, Set.of(
+                    book(ModEnchantments.COLOR_PALETTE, 1),
+                    book(ModEnchantments.COVER, 1),
+                    book(ModEnchantments.LINEAR, 1),
+                    id(ModItems.OCTANT),
+                    id(ModItems.QUIVER))),
+            Map.entry(BuiltInLootTables.WOODLAND_MANSION, Set.of(
+                    book(ModEnchantments.COLOR_PALETTE, 1),
+                    book(ModEnchantments.COVER, 1),
+                    book(ModEnchantments.LINEAR, 1),
+                    book(ModEnchantments.VEIN_MINER, 4),
+                    book(ModEnchantments.VEIN_MINER, 5),
+                    id(ModItems.IRON_BUILDING_WAND),
+                    id(ModItems.IRON_CORE),
+                    id(ModItems.QUIVER))),
+            Map.entry(BuiltInLootTables.BURIED_TREASURE, Set.of(
+                    book(ModEnchantments.CONSTRUCTORS_TOUCH, 1),
+                    book(ModEnchantments.FAST_CHISELING, 2),
+                    id(ModItems.GOLD_CHISEL),
+                    id(ModItems.DIAMOND_CHISEL))),
+            Map.entry(BuiltInLootTables.SIMPLE_DUNGEON, Set.of(
+                    book(ModEnchantments.FAST_CHISELING, 1),
+                    book(ModEnchantments.FUNNEL, 1),
+                    book(ModEnchantments.BREAK_THROUGH, 1),
+                    book(ModEnchantments.VEIN_MINER, 2),
+                    book(ModEnchantments.VEIN_MINER, 3),
+                    book(ModEnchantments.VEIN_MINER, 4),
+                    id(ModItems.REINFORCED_BUNDLE),
+                    id(ModItems.BASIC_UPGRADE_TEMPLATE))),
+            Map.entry(BuiltInLootTables.SHIPWRECK_TREASURE, Set.of(
+                    book(ModEnchantments.FAST_CHISELING, 1),
+                    id(ModItems.REINFORCED_BUNDLE))),
+            Map.entry(BuiltInLootTables.IGLOO_CHEST, Set.of(
+                    book(ModEnchantments.CONSTRUCTORS_TOUCH, 1),
+                    book(ModEnchantments.FAST_CHISELING, 1),
+                    id(ModItems.DIAMOND_CHISEL))),
+            Map.entry(BuiltInLootTables.ABANDONED_MINESHAFT, Set.of(
+                    book(ModEnchantments.FAST_CHISELING, 1),
+                    book(ModEnchantments.STRIP_MINER, 1),
+                    book(ModEnchantments.STRIP_MINER, 3),
+                    book(ModEnchantments.VEIN_MINER, 3),
+                    book(ModEnchantments.VEIN_MINER, 4),
+                    id(ModItems.REINFORCED_BUNDLE))),
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON, VAULT_COMMON_LOOT),
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, VAULT_OMINOUS_LOOT),
+            // The rare vault is the one key both vault conditions match, so it gets both pools.
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, union(VAULT_COMMON_LOOT, VAULT_OMINOUS_LOOT)));
 
     /**
-     * How often each recorded pool is rolled when looking for those books.
+     * How often each recorded pool is rolled when looking for the entries above.
      *
-     * <p>The thinnest of the wanted entries is {@code vein_miner@3} in the abandoned mineshaft: it
-     * carries 2 of that pool's 54 weight, and the pool rolls {@code between(0, 2)} times, so one
-     * draw hits it with probability 2/54 and this many draws are worth about 19 expected hits.
-     * That is the <em>worst</em> case; the mansion's {@code vein_miner@4} (2 of 60, but 1 to 4
-     * rolls) is worth about 43. Missing a wanted book by chance is therefore far below one in a
-     * million even before the fixed seed below, which pins the outcome to the same answer on
-     * every machine.
+     * <p>The thinnest wanted entry decides this number. That is the enchanted netherite apple in
+     * the ominous vault: 1 of that pool's 57 weight, drawn {@code between(0, 1)} times, so this
+     * many rolls are worth about 18 expected hits and missing it by chance is one in a hundred
+     * million. Runner up is the basic upgrade template in the simple dungeon (1 of 96, rolled
+     * {@code between(0, 2)}) at about 21. Everything else in {@link #EXPECTED_LOOT} sits far above
+     * that - the mansion's iron building wand is worth about 320.
+     *
+     * <p>Those margins are the reason a thin entry may be listed at all; they are computed from
+     * the weights in {@code ModLootTableModifications}, so a balance change that makes an entry
+     * much rarer has to be reflected here.
      */
-    private static final int BOOK_ROLLS = 512;
+    private static final int POOL_ROLLS = 2048;
 
     /** Seed for the loot rolls, so a failure is reproducible instead of a coin flip. */
-    private static final long BOOK_ROLL_SEED = 20260904L;
+    private static final long POOL_ROLL_SEED = 20260904L;
 
     /** Vanilla loot tables the mod must never touch - the control group for the recorder. */
     private static final List<ResourceKey<LootTable>> UNTOUCHED_TABLES = List.of(
@@ -192,6 +318,16 @@ public final class ConfigOptionTests {
      * interaction methods, so the toggle works when the bundle is picked up but not when it lies
      * in the inventory; or a gate that stops seeing config changes at all, in which case the
      * inverted half fails exactly as the player's toggle would.
+     *
+     * <p><b>The insert click on a bundle that is nearly full</b> is driven once per binding on top
+     * of that, through both interaction methods. Every other case here offers eight stone to an
+     * empty bundle, where "the bundle took everything" and "the bundle took what fit" look the
+     * same; that hid the one line in each method that decides what happens to the rest. Both count
+     * the insert with {@code shrink(added)}, and {@code insertItemIntoBundle} returns less than the
+     * offered amount as soon as the room runs out. With the whole offer swallowed instead, a click
+     * on a 64 stack with room for 32 would delete the other 32 in front of the player - so the
+     * partial case checks the leftover in the slot and on the cursor, both derived from a measured
+     * capacity rather than a copied number.
      */
     public static void bundleClickInversionFollowsTheConfiguredOption(GameTestHelper helper) {
         SimplebuildingConfig config = liveConfig(helper);
@@ -212,6 +348,8 @@ public final class ConfigOptionTests {
             assertCursorEmptyClick(helper, player, ClickAction.SECONDARY, true, "off / cursor / right click");
             assertCursorEmptyClick(helper, player, ClickAction.PRIMARY, false, "off / cursor / left click");
 
+            assertPartialFillClick(helper, player, ClickAction.PRIMARY, "off");
+
             // --- switched on: exactly the other way round ---
             setBundleInversion(helper, true);
             assertSlotFillClick(helper, player, ClickAction.SECONDARY, true, "inverted / right click");
@@ -223,6 +361,8 @@ public final class ConfigOptionTests {
             assertCursorFillClick(helper, player, ClickAction.PRIMARY, false, "inverted / cursor / left click");
             assertCursorEmptyClick(helper, player, ClickAction.PRIMARY, true, "inverted / cursor / left click");
             assertCursorEmptyClick(helper, player, ClickAction.SECONDARY, false, "inverted / cursor / right click");
+
+            assertPartialFillClick(helper, player, ClickAction.SECONDARY, "inverted");
         } finally {
             Simplebuilding.getConfig().tools.invertBundleInteractions = original;
         }
@@ -244,26 +384,25 @@ public final class ConfigOptionTests {
      * long happened by the time a gametest runs, so the test drives that entry point directly with
      * a recording editor instead of reloading the world.
      *
-     * <p>Eight tables are driven rather than one, and the end city is checked on both editor
-     * paths. That is what separates "the guard is gone" from "the guard moved into one branch": a
-     * gate that only still covers the stronghold would let the end city, ancient city and bastion
-     * pools through and fail here. The two vanilla tables the mod never touches are recorded in
-     * the switched-on state and have to come back empty - they prove the recorder reports zero
-     * when nothing is added, so the switched-off half cannot pass merely because the recorder
-     * broke.
+     * <p>All sixteen tables are driven rather than a sample, and the end city is checked on both
+     * editor paths. That is what separates "the guard is gone" from "the guard moved into one
+     * branch": a gate that only still covers the four tables an earlier version of this test knew
+     * about would let the nether fortress, the mineshaft, the igloo and the trial chambers through
+     * and fail here. The two vanilla tables the mod never touches are recorded in the switched-on
+     * state and have to come back empty - they prove the recorder reports zero when nothing is
+     * added, so the switched-off half cannot pass merely because the recorder broke.
      *
      * <p>Counting pools is only half the promise, though. A pool that lost an entry is still a
-     * pool, so the four tables that carry the mining enchantment books are additionally
-     * <em>rolled</em> - {@link #EXPECTED_MINING_BOOKS} names the enchantment and the level each
-     * chest has to be able to hand out, and the rolls have to produce every one of them. That is
-     * the only coverage those books have: deleting a single {@code enchantedBook(...)} line
-     * leaves the pool non-empty, the option still switches it off and on, and nothing else in the
-     * suite ever looks inside.
+     * pool, so every table is additionally <em>rolled</em>: {@link #EXPECTED_LOOT} names the books
+     * and items each chest has to be able to hand out, and {@link #POOL_ROLLS} draws have to
+     * produce every one of them. For most of those entries this is their only coverage - deleting
+     * a single {@code .add(...)} line leaves the pool non-empty, the option still switches it off
+     * and on, and nothing else in the suite ever looks inside.
      *
      * <p>What breaks it: deleting the guard, so a player who switched the mod's loot off finds mod
-     * books in a stronghold library anyway; moving the guard inside one of the branches; a table
-     * quietly losing its pools while the option is on; or a mining book losing its entry, its
-     * level or its whole chest.
+     * books in a stronghold library anyway; moving the guard inside one of the branches, or
+     * putting an ungated table block above it; a table quietly losing its pools while the option
+     * is on; or any listed entry losing its item, its level or its whole chest.
      */
     public static void lootTableChangesStopWhenTheOptionIsSwitchedOff(GameTestHelper helper) {
         SimplebuildingConfig config = liveConfig(helper);
@@ -292,15 +431,24 @@ public final class ConfigOptionTests {
                         "pools added to " + tableName(key) + ", a table the mod does not touch");
             }
 
-            // --- and what is in those pools: the mining books, rolled out of them for real ---
-            for (Map.Entry<ResourceKey<LootTable>, Set<String>> wanted : EXPECTED_MINING_BOOKS.entrySet()) {
-                Set<String> rolled = rollEnchantedBooks(helper, recordPools(wanted.getKey(), registries));
-                for (String book : wanted.getValue()) {
-                    helper.assertTrue(rolled.contains(book),
-                            tableName(wanted.getKey()) + " never handed out " + book + " in " + BOOK_ROLLS
-                                    + " rolls; the books it did hand out were " + rolled);
+            // --- and what is in those pools, rolled out of them for real ---
+            List<String> missing = new ArrayList<>();
+            for (ResourceKey<LootTable> key : MODIFIED_TABLES) {
+                Set<String> wanted = EXPECTED_LOOT.get(key);
+                helper.assertTrue(wanted != null,
+                        tableName(key) + " is driven for its pool count but nothing is expected out of "
+                                + "it; add its entries to EXPECTED_LOOT or the pool could be emptied");
+                Set<String> rolled = rollContents(helper, recordPools(key, registries));
+                for (String entry : wanted) {
+                    if (!rolled.contains(entry)) {
+                        missing.add(tableName(key) + " never handed out " + entry + " in " + POOL_ROLLS
+                                + " rolls; what it did hand out was " + rolled);
+                    }
                 }
             }
+            helper.assertTrue(missing.isEmpty(),
+                    "the mod loot pools no longer contain what they are documented to contain:\n"
+                            + String.join("\n", missing));
 
             // --- switched off: nothing at all, on either path ---
             setLootTableChanges(helper, false);
@@ -655,6 +803,97 @@ public final class ConfigOptionTests {
         }
     }
 
+    // --- the partial insert, on both interaction paths ---
+
+    /**
+     * One insert click on a bundle that has room for only part of the offered stack, driven
+     * through both interaction methods. Everything else in this test offers eight stone to an
+     * empty bundle and therefore never reaches the branch where the bundle takes less than it was
+     * given.
+     *
+     * <p>Nothing is copied out of the item: the capacity is measured on a scratch bundle first,
+     * the room left after one 64 stack and the expected leftover are derived from that
+     * measurement, and the setup guard states the assumption that derivation rests on. A balance
+     * change to the capacity table moves the numbers with it instead of turning this red.
+     */
+    private static void assertPartialFillClick(GameTestHelper helper, ServerPlayer player,
+                                               ClickAction insertClick, String what) {
+        int capacity = measureStoneCapacity(helper, player);
+        helper.assertTrue(capacity > 64 && capacity < 128,
+                what + " / partial: setup guard - a reinforced bundle takes " + capacity + " stone, so "
+                        + "one vanilla stack no longer leaves a remainder between 1 and 63 and this case "
+                        + "would stop being a partial insert at all");
+        int room = capacity - 64;
+        int leftOver = 64 - room;
+
+        // --- bundle on the cursor, the offered stack lying in the slot ---
+        ItemStack onCursor = nearlyFullBundle(helper, player, what);
+        SimpleContainer container = new SimpleContainer(1);
+        container.setItem(0, new ItemStack(Items.STONE, 64));
+        Slot slot = new Slot(container, 0, 0, 0);
+
+        helper.assertTrue(((ReinforcedBundleItem) onCursor.getItem())
+                        .overrideStackedOnOther(onCursor, slot, insertClick, player),
+                what + " / partial / slot: the insert click was not handled although " + room
+                        + " more stone still fit");
+        helper.assertValueEqual(countInBundle(onCursor, Items.STONE), capacity,
+                what + " / partial / slot: stone inside the bundle - it may take only the " + room
+                        + " that fit");
+        helper.assertValueEqual(slot.getItem().getCount(), leftOver,
+                what + " / partial / slot: stone left in the slot - the bundle took " + room + " of 64, "
+                        + "so the other " + leftOver + " have to stay where the player put them");
+
+        // --- the offered stack on the cursor, the bundle lying in the slot ---
+        ItemStack inSlot = nearlyFullBundle(helper, player, what);
+        ItemStack cursor = new ItemStack(Items.STONE, 64);
+        SimpleContainer holder = new SimpleContainer(1);
+        holder.setItem(0, inSlot);
+        Slot bundleSlot = new Slot(holder, 0, 0, 0);
+        ItemStack[] cursorSlot = {cursor};
+
+        helper.assertTrue(((ReinforcedBundleItem) inSlot.getItem()).overrideOtherStackedOnMe(
+                        inSlot, cursor, bundleSlot, insertClick, player,
+                        SlotAccess.of(() -> cursorSlot[0], stack -> cursorSlot[0] = stack)),
+                what + " / partial / cursor: the insert click was not handled although " + room
+                        + " more stone still fit");
+        helper.assertValueEqual(countInBundle(inSlot, Items.STONE), capacity,
+                what + " / partial / cursor: stone inside the bundle - it may take only the " + room
+                        + " that fit");
+        helper.assertValueEqual(cursor.getCount(), leftOver,
+                what + " / partial / cursor: stone left on the cursor - the bundle took " + room
+                        + " of 64, so the other " + leftOver + " have to stay on the cursor");
+    }
+
+    /**
+     * How much stone a fresh reinforced bundle holds, measured by filling one until it refuses.
+     * The world pickup path is used because it carries no config gate, so the measurement cannot
+     * depend on the option under test.
+     */
+    private static int measureStoneCapacity(GameTestHelper helper, ServerPlayer player) {
+        ItemStack scratch = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ReinforcedBundleItem item = (ReinforcedBundleItem) scratch.getItem();
+        for (int offer = 0; offer < 16; offer++) {
+            if (!item.tryInsertStackFromWorld(scratch, new ItemStack(Items.STONE, 64), player)) {
+                break;
+            }
+        }
+        int capacity = countInBundle(scratch, Items.STONE);
+        helper.assertTrue(capacity > 0,
+                "a fresh reinforced bundle took no stone at all, so nothing below can be measured");
+        return capacity;
+    }
+
+    /** A reinforced bundle holding exactly one vanilla stack of stone, so a little room is left. */
+    private static ItemStack nearlyFullBundle(GameTestHelper helper, ServerPlayer player, String what) {
+        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ReinforcedBundleItem item = (ReinforcedBundleItem) bundle.getItem();
+        helper.assertTrue(item.tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, 64), player),
+                what + " / partial: could not put the first 64 stone into the bundle to begin with");
+        helper.assertValueEqual(countInBundle(bundle, Items.STONE), 64,
+                what + " / partial: stone in the bundle after the world pickup that sets this case up");
+        return bundle;
+    }
+
     /**
      * A reinforced bundle holding eight stone. Filled through the world pickup path on purpose:
      * that one carries no config gate, so the setup cannot quietly depend on the option under test.
@@ -697,33 +936,56 @@ public final class ConfigOptionTests {
     }
 
     /**
-     * Rolls every pool the mod handed to one table and returns the enchanted books that came out,
-     * as {@code <enchantment id>@<level>}.
+     * Rolls every pool the mod handed to one table and returns what came out: the registry id of
+     * each item, plus {@code <enchantment id>@<level>} for every enchantment stored on an
+     * enchanted book.
      *
      * <p>Rolling rather than reading: {@code LootPool} keeps its entries private, and going
      * through {@code addRandomItems} is what a chest does anyway - it covers the entry, its
      * {@code set_components} function and the level inside that component in one step. The seed
-     * is fixed, so the same pool always produces the same answer here.
+     * is fixed and the context is rebuilt per table, so the same pool always produces the same
+     * answer here, on every machine.
      */
-    private static Set<String> rollEnchantedBooks(GameTestHelper helper, PoolRecorder recorder) {
+    private static Set<String> rollContents(GameTestHelper helper, PoolRecorder recorder) {
         LootParams params = new LootParams.Builder(helper.getLevel()).create(LootContextParamSets.EMPTY);
         LootContext context = new LootContext.Builder(params)
-                .withOptionalRandomSeed(BOOK_ROLL_SEED)
+                .withOptionalRandomSeed(POOL_ROLL_SEED)
                 .create(Optional.empty());
 
-        Set<String> books = new TreeSet<>();
+        Set<String> seen = new TreeSet<>();
         for (LootPool pool : recorder.pools) {
-            for (int roll = 0; roll < BOOK_ROLLS; roll++) {
+            for (int roll = 0; roll < POOL_ROLLS; roll++) {
                 pool.addRandomItems(stack -> {
+                    Identifier itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
+                    if (itemId != null) {
+                        seen.add(itemId.toString());
+                    }
                     ItemEnchantments stored = stack.getOrDefault(
                             DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY);
                     for (Holder<Enchantment> enchantment : stored.keySet()) {
-                        books.add(enchantment.getRegisteredName() + "@" + stored.getLevel(enchantment));
+                        seen.add(enchantment.getRegisteredName() + "@" + stored.getLevel(enchantment));
                     }
                 }, context);
             }
         }
-        return books;
+        return seen;
+    }
+
+    /** How {@link #EXPECTED_LOOT} spells a plain item: its registry id. */
+    private static String id(Item item) {
+        return BuiltInRegistries.ITEM.getKey(item).toString();
+    }
+
+    /** How {@link #EXPECTED_LOOT} spells an enchanted book: {@code <enchantment id>@<level>}. */
+    private static String book(ResourceKey<Enchantment> enchantment, int level) {
+        return enchantment.identifier() + "@" + level;
+    }
+
+    /** The two vault pools the rare vault receives together. */
+    private static Set<String> union(Set<String> first, Set<String> second) {
+        Set<String> both = new TreeSet<>(first);
+        both.addAll(second);
+        return Set.copyOf(both);
     }
 
     /**

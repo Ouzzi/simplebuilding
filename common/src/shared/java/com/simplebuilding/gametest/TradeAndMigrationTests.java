@@ -1,5 +1,6 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.mojang.authlib.GameProfile;
 import com.simplebuilding.util.LegacySpatulaMigration;
@@ -31,6 +32,7 @@ import net.minecraft.world.entity.npc.villager.VillagerData;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
@@ -45,8 +47,10 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -65,6 +69,27 @@ import java.util.UUID;
  * Everything here runs against the live server registries / a live level, so a broken
  * datapack path, a wrong tag id or a codec mismatch fails the test instead of passing
  * silently.
+ *
+ * <p><strong>On the world scan:</strong> {@link LegacySpatulaMigration#migrateWorlds} runs one
+ * {@code AABB(-30000000, -64, -30000000, 30000000, 320, 30000000)} query per level. Its x/z reach
+ * is exercised by where these tests themselves stand: {@code GameTestServer} drops the structures
+ * at a random x/z inside its {@code TEST_POSITION_RANGE} of +/-14,999,992 blocks (observed runs:
+ * {@code -14836127, -59, -13751102} and {@code 11052073, -59, 14884053}), so the case below
+ * already sits millions of blocks from the origin and a box shrunk around the origin fails it.
+ *
+ * <p><strong>Known defect (mod), measured 2026-09-04:</strong> that one query per level is
+ * expensive, and under load it stops finding what it should. Vanilla's
+ * {@code EntitySectionStorage#forEachAccessibleNonEmptySection} walks <em>every</em> section x
+ * from {@code minX} to {@code maxX}, which for this box is 3,750,002 sorted set range lookups per
+ * level and per call. An earlier version of the case below put a second spatula in the Nether and
+ * force loaded its chunk for that; of six runs, five ended with {@code migrateWorlds} rewriting
+ * nothing at all - not even the item entities in the gametest's own level, which
+ * {@code getEntitiesOfClass} had returned for a two block box in the same tick, and which a second
+ * {@code migrateWorlds} call milliseconds later did rewrite. The five were the runs in which that
+ * Nether chunk had to be generated ("Can't keep up! Running 2580ms or 51 ticks behind" in the
+ * server log); the one run whose chunk was already on disk passed. The mod is not changed from
+ * here, so the case below stays inside the level the gametest runs in and the dimension loop stays
+ * uncovered.
  */
 public final class TradeAndMigrationTests {
 
@@ -79,28 +104,66 @@ public final class TradeAndMigrationTests {
 
     private static final String NAMESPACE = "simplebuilding";
 
-    /** All 20 trade files under {@code data/simplebuilding/villager_trade/}. */
-    private static final List<String> EXPECTED_TRADE_IDS = List.of(
-            "simplebuilding:librarian/3/emerald_building_book",
-            "simplebuilding:librarian/4/emerald_advanced_book",
-            "simplebuilding:librarian/5/emerald_master_book",
-            "simplebuilding:mason/2/emerald_copper_core",
-            "simplebuilding:mason/2/netherite_diamond_core",
-            "simplebuilding:mason/4/emerald_copper_building_wand",
-            "simplebuilding:toolsmith/3/emerald_iron_chisel",
-            "simplebuilding:toolsmith/3/emerald_copper_chisel",
-            "simplebuilding:toolsmith/3/emerald_gold_chisel",
-            "simplebuilding:toolsmith/4/emerald_diamond_sledgehammer",
-            "simplebuilding:toolsmith/4/emerald_iron_sledgehammer",
-            "simplebuilding:toolsmith/5/emerald_mining_pickaxe",
-            "simplebuilding:wandering_trader/emerald_copper_cores",
-            "simplebuilding:wandering_trader/emerald_iron_cores",
-            "simplebuilding:wandering_trader/emerald_gold_core",
-            "simplebuilding:wandering_trader/emerald_octant",
-            "simplebuilding:wandering_trader/emerald_reinforced_bundle",
-            "simplebuilding:wandering_trader/emerald_wand_book",
-            "simplebuilding:wandering_trader/octant_emerald",
-            "simplebuilding:wandering_trader/reinforced_bundle_emerald");
+    /**
+     * One shipped trade file, spelled as the numbers a player reads in the trade window. Every
+     * field comes straight out of {@code data/simplebuilding/villager_trade/<path>.json}:
+     * {@code wants} (item + count), {@code additional_wants} (the second cost slot, {@code null}
+     * when the file has none), {@code gives} (item + count), {@code max_uses}, {@code xp} and
+     * {@code reputation_discount}.
+     *
+     * <p>{@code reputation_discount} arrives as {@link MerchantOffer#getPriceMultiplier()}: vanilla's
+     * {@code VillagerTrade#getOffer} feeds the field into that constructor argument. It is the
+     * factor a villager's gossip and Hero of the Village discount the price by, so a trade that
+     * quietly loses it stays a working trade and just stops rewarding reputation.
+     */
+    private record TradeRow(String path, Item wants, int wantCount,
+                            Item alsoWants, int alsoWantCount,
+                            Item gives, int giveCount,
+                            int maxUses, int xp, float reputationDiscount) {
+
+        /** A trade with a single cost slot - eighteen of the twenty. */
+        static TradeRow of(String path, Item wants, int wantCount, Item gives, int giveCount,
+                           int maxUses, int xp, float reputationDiscount) {
+            return new TradeRow(path, wants, wantCount, null, 0, gives, giveCount,
+                    maxUses, xp, reputationDiscount);
+        }
+
+        String id() {
+            return NAMESPACE + ":" + path;
+        }
+    }
+
+    /**
+     * All 20 trade files under {@code data/simplebuilding/villager_trade/}, with the content of
+     * each one. Read off the json files, not off the wiki - {@link #tradeDefinitionsProduceTheExpectedOffers}
+     * builds every row into a real {@link MerchantOffer} and compares it field by field.
+     */
+    private static final List<TradeRow> TRADE_TABLE = List.of(
+            TradeRow.of("librarian/3/emerald_building_book", Items.EMERALD, 25, Items.ENCHANTED_BOOK, 1, 3, 15, 0.3F),
+            TradeRow.of("librarian/4/emerald_advanced_book", Items.EMERALD, 25, Items.ENCHANTED_BOOK, 1, 2, 25, 0.5F),
+            TradeRow.of("librarian/5/emerald_master_book", Items.EMERALD, 25, Items.ENCHANTED_BOOK, 1, 1, 100, 1.0F),
+            TradeRow.of("mason/2/emerald_copper_core", Items.EMERALD, 25, ModItems.COPPER_CORE, 1, 2, 10, 0.1F),
+            TradeRow.of("mason/2/netherite_diamond_core", Items.NETHERITE_INGOT, 6, ModItems.DIAMOND_CORE, 1, 2, 15, 0.1F),
+            TradeRow.of("mason/4/emerald_copper_building_wand", Items.EMERALD, 62, ModItems.COPPER_BUILDING_WAND, 1, 1, 20, 0.2F),
+            TradeRow.of("toolsmith/3/emerald_iron_chisel", Items.EMERALD, 6, ModItems.IRON_CHISEL, 1, 2, 10, 0.2F),
+            TradeRow.of("toolsmith/3/emerald_copper_chisel", Items.EMERALD, 6, ModItems.COPPER_CHISEL, 1, 2, 10, 0.2F),
+            TradeRow.of("toolsmith/3/emerald_gold_chisel", Items.EMERALD, 6, ModItems.GOLD_CHISEL, 1, 2, 10, 0.2F),
+            new TradeRow("toolsmith/4/emerald_diamond_sledgehammer", Items.EMERALD, 28,
+                    Items.DIAMOND_PICKAXE, 1, ModItems.DIAMOND_SLEDGEHAMMER, 1, 1, 30, 0.5F),
+            new TradeRow("toolsmith/4/emerald_iron_sledgehammer", Items.EMERALD, 16,
+                    Items.IRON_PICKAXE, 1, ModItems.IRON_SLEDGEHAMMER, 1, 1, 30, 0.5F),
+            TradeRow.of("toolsmith/5/emerald_mining_pickaxe", Items.EMERALD, 15, Items.DIAMOND_PICKAXE, 1, 1, 50, 0.8F),
+            TradeRow.of("wandering_trader/emerald_copper_cores", Items.EMERALD, 46, ModItems.COPPER_CORE, 2, 4, 10, 0.1F),
+            TradeRow.of("wandering_trader/emerald_iron_cores", Items.EMERALD, 56, ModItems.IRON_CORE, 2, 4, 10, 0.1F),
+            TradeRow.of("wandering_trader/emerald_gold_core", Items.EMERALD, 30, ModItems.GOLD_CORE, 1, 1, 5, 0.1F),
+            TradeRow.of("wandering_trader/emerald_octant", Items.EMERALD, 10, ModItems.OCTANT, 1, 1, 15, 0.1F),
+            TradeRow.of("wandering_trader/emerald_reinforced_bundle", Items.EMERALD, 16, ModItems.REINFORCED_BUNDLE, 1, 1, 15, 0.1F),
+            TradeRow.of("wandering_trader/emerald_wand_book", Items.EMERALD, 60, Items.ENCHANTED_BOOK, 1, 1, 10, 0.2F),
+            TradeRow.of("wandering_trader/octant_emerald", ModItems.OCTANT, 1, Items.EMERALD, 8, 3, 5, 0.1F),
+            TradeRow.of("wandering_trader/reinforced_bundle_emerald", ModItems.REINFORCED_BUNDLE, 1, Items.EMERALD, 12, 1, 10, 0.1F));
+
+    /** The ids of all 20 trade files, derived from {@link #TRADE_TABLE} so both cannot drift apart. */
+    private static final List<String> EXPECTED_TRADE_IDS = TRADE_TABLE.stream().map(TradeRow::id).toList();
 
     /**
      * The {@code weighted_enchant} pool of the three toolsmith chisel trades, as
@@ -111,13 +174,67 @@ public final class TradeAndMigrationTests {
             "simplebuilding:fast_chiseling@1",
             "simplebuilding:fast_chiseling@2");
 
-    /** The same for {@code toolsmith/4/emerald_iron_sledgehammer}, which also has a second chance. */
+    /** The same for both {@code toolsmith/4} sledgehammers, which also have a second chance. */
     private static final Set<String> SLEDGEHAMMER_ENCHANT_POOL = Set.of(
             "simplebuilding:break_through@1",
             "simplebuilding:override@1",
             "simplebuilding:range@1",
             "minecraft:unbreaking@2",
             "minecraft:efficiency@3");
+
+    /** {@code librarian/3/emerald_building_book}. */
+    private static final Set<String> BUILDING_BOOK_POOL = Set.of(
+            "simplebuilding:color_palette@1",
+            "simplebuilding:fast_chiseling@1",
+            "simplebuilding:linear@1");
+
+    /** {@code librarian/4/emerald_advanced_book}. */
+    private static final Set<String> ADVANCED_BOOK_POOL = Set.of(
+            "simplebuilding:linear@1",
+            "simplebuilding:override@1");
+
+    /** {@code librarian/5/emerald_master_book} - the only place Master Builder is sold. */
+    private static final Set<String> MASTER_BOOK_POOL = Set.of(
+            "simplebuilding:master_builder@1",
+            "simplebuilding:range@1",
+            "simplebuilding:range@2",
+            "simplebuilding:range@3",
+            "simplebuilding:funnel@1",
+            "simplebuilding:strip_miner@1",
+            "simplebuilding:strip_miner@2",
+            "simplebuilding:strip_miner@3",
+            "simplebuilding:vein_miner@1",
+            "simplebuilding:vein_miner@2",
+            "simplebuilding:vein_miner@3");
+
+    /** {@code toolsmith/5/emerald_mining_pickaxe}. */
+    private static final Set<String> MINING_PICKAXE_POOL = Set.of(
+            "simplebuilding:strip_miner@1",
+            "simplebuilding:strip_miner@2",
+            "simplebuilding:strip_miner@3",
+            "simplebuilding:vein_miner@1",
+            "simplebuilding:vein_miner@2",
+            "simplebuilding:vein_miner@3");
+
+    /** {@code wandering_trader/emerald_wand_book} - the only place Radius is sold. */
+    private static final Set<String> WAND_BOOK_POOL = Set.of("simplebuilding:radius@1");
+
+    /**
+     * Every trade whose json carries a {@code simplebuilding:weighted_enchant} function, with the
+     * enchantment/level pairs that file offers. Ten of the twenty trades hand out an enchanted
+     * result; the other ten must not be in here.
+     */
+    private static final Map<String, Set<String>> ENCHANT_POOLS = Map.ofEntries(
+            Map.entry("librarian/3/emerald_building_book", BUILDING_BOOK_POOL),
+            Map.entry("librarian/4/emerald_advanced_book", ADVANCED_BOOK_POOL),
+            Map.entry("librarian/5/emerald_master_book", MASTER_BOOK_POOL),
+            Map.entry("toolsmith/3/emerald_iron_chisel", CHISEL_ENCHANT_POOL),
+            Map.entry("toolsmith/3/emerald_copper_chisel", CHISEL_ENCHANT_POOL),
+            Map.entry("toolsmith/3/emerald_gold_chisel", CHISEL_ENCHANT_POOL),
+            Map.entry("toolsmith/4/emerald_iron_sledgehammer", SLEDGEHAMMER_ENCHANT_POOL),
+            Map.entry("toolsmith/4/emerald_diamond_sledgehammer", SLEDGEHAMMER_ENCHANT_POOL),
+            Map.entry("toolsmith/5/emerald_mining_pickaxe", MINING_PICKAXE_POOL),
+            Map.entry("wandering_trader/emerald_wand_book", WAND_BOOK_POOL));
 
     // ------------------------------------------------------------------
     // (a) trades
@@ -128,6 +245,9 @@ public final class TradeAndMigrationTests {
      * registry of the running server. A file that fails to parse (wrong codec field,
      * unknown item, broken loot function) is silently dropped by the loader, so this
      * catches exactly that class of regression.
+     *
+     * <p><strong>What breaks this test:</strong> a renamed or deleted trade file, a json the codec
+     * rejects, and a stray namespace typo that adds an entry nobody expects.
      */
     public static void allModTradesAreLoadedIntoTheDatapackRegistry(GameTestHelper helper) {
         Registry<VillagerTrade> trades = helper.getLevel().registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
@@ -153,6 +273,11 @@ public final class TradeAndMigrationTests {
      * The tag files under {@code data/minecraft/tags/villager_trade/**} have to <em>merge</em>
      * into the vanilla pools: our entries must be in there, and the vanilla entries must
      * still be in there (a missing {@code "replace": false} would wipe them).
+     *
+     * <p><strong>What breaks this test:</strong> a trade id dropped from a tag file, a tag file
+     * that sets {@code "replace": true}, or a tag written under the wrong id. It says nothing
+     * about the <em>content</em> of a trade - that is
+     * {@link #tradeDefinitionsProduceTheExpectedOffers}'s job.
      */
     public static void modTradesAreMergedIntoTheVanillaTradePools(GameTestHelper helper) {
         Registry<VillagerTrade> trades = helper.getLevel().registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
@@ -217,54 +342,48 @@ public final class TradeAndMigrationTests {
     }
 
     /**
-     * Turns shipped trade definitions into actual {@link MerchantOffer}s and checks the numbers
-     * that came out of the JSON: wanted item + count, optional second cost, given item + count,
-     * max uses, xp - and the enchantment the offer's {@code given_item_modifiers} put on the
-     * result. This is what a player would see in the trade GUI.
+     * Turns every shipped trade definition into an actual {@link MerchantOffer} and checks the
+     * numbers that came out of the JSON: wanted item + count, the second cost slot (item + count,
+     * or the guarantee that there is none), given item + count, max uses, xp, the reputation
+     * discount - and the enchantment the offer's {@code given_item_modifiers} put on the result.
+     * This is what a player would see in the trade GUI.
      *
      * <p>Every other trade test in this file only ever asks whether a trade id sits in the right
      * pool. That leaves the entire content of a trade file free to change: the price, the number
      * of uses, the experience, and above all the {@code simplebuilding:weighted_enchant} function
      * - a merchant handing out plain, unenchanted tools looks exactly like a working merchant from
-     * the outside. So both trades that carry that function are built here.
+     * the outside. So all twenty trades are built here, not a sample of them: a sample leaves the
+     * unsampled files free to be repriced, and that is precisely how the wand, the octant and both
+     * reinforced bundle trades stayed unpinned.
      *
      * <p>The enchantment is asserted as "at least one, and every one of them out of the pool the
      * json declares, at the level it declares" rather than as one fixed pick. The function draws
      * weighted from that pool; pinning a single outcome would pin {@link #tradeContext}'s seed
      * instead of the trade.
+     *
+     * <p><strong>What breaks this test:</strong> any edit to a number in any
+     * {@code data/simplebuilding/villager_trade/**.json} - price, result count, {@code max_uses},
+     * {@code xp}, {@code reputation_discount}, an {@code additional_wants} that appears, vanishes
+     * or changes its count - and any change that empties or re-pools a {@code weighted_enchant}
+     * modifier.
      */
     public static void tradeDefinitionsProduceTheExpectedOffers(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         Villager villager = helper.spawnWithNoFreeWill(EntityTypes.VILLAGER, new BlockPos(1, 2, 1));
         LootContext context = tradeContext(helper, villager);
 
-        // mason/2/emerald_copper_core: 25 emeralds -> 1 copper core, 2 uses, 10 xp.
-        MerchantOffer core = offerOf(helper, level, "simplebuilding:mason/2/emerald_copper_core", context);
-        assertOffer(helper, core, "mason/2/emerald_copper_core",
-                net.minecraft.world.item.Items.EMERALD, 25, ModItems.COPPER_CORE, 1, 2, 10);
-        helper.assertTrue(core.getCostB().isEmpty(),
-                "mason/2/emerald_copper_core must not have a second cost item");
+        Map<String, MerchantOffer> offers = new LinkedHashMap<>();
+        for (TradeRow expected : TRADE_TABLE) {
+            MerchantOffer offer = offerOf(helper, level, expected.id(), context);
+            assertOffer(helper, offer, expected);
+            offers.put(expected.path(), offer);
+        }
 
-        // wandering_trader/octant_emerald is a buying trade: 1 octant -> 8 emeralds.
-        MerchantOffer buying = offerOf(helper, level, "simplebuilding:wandering_trader/octant_emerald", context);
-        assertOffer(helper, buying, "wandering_trader/octant_emerald",
-                ModItems.OCTANT, 1, net.minecraft.world.item.Items.EMERALD, 8, 3, 5);
-
-        // toolsmith/4/emerald_iron_sledgehammer uses "additional_wants" -> second cost slot.
-        MerchantOffer sledgehammer =
-                offerOf(helper, level, "simplebuilding:toolsmith/4/emerald_iron_sledgehammer", context);
-        assertOffer(helper, sledgehammer, "toolsmith/4/emerald_iron_sledgehammer",
-                net.minecraft.world.item.Items.EMERALD, 16, ModItems.IRON_SLEDGEHAMMER, 1, 1, 30);
-        helper.assertTrue(sledgehammer.getCostB().is(net.minecraft.world.item.Items.IRON_PICKAXE),
-                "toolsmith/4/emerald_iron_sledgehammer second cost should be an iron pickaxe, was "
-                        + sledgehammer.getCostB());
-        assertOfferEnchantments(helper, sledgehammer, "toolsmith/4/emerald_iron_sledgehammer",
-                SLEDGEHAMMER_ENCHANT_POOL);
-
-        // toolsmith/3: the three chisels, 6 emeralds each, and every one of them Fast Chiseling.
-        assertChiselTrade(helper, level, context, "toolsmith/3/emerald_copper_chisel", ModItems.COPPER_CHISEL);
-        assertChiselTrade(helper, level, context, "toolsmith/3/emerald_iron_chisel", ModItems.IRON_CHISEL);
-        assertChiselTrade(helper, level, context, "toolsmith/3/emerald_gold_chisel", ModItems.GOLD_CHISEL);
+        for (Map.Entry<String, Set<String>> enchanted : ENCHANT_POOLS.entrySet()) {
+            MerchantOffer offer = offers.get(enchanted.getKey());
+            helper.assertTrue(offer != null, "no offer was built for " + enchanted.getKey());
+            assertOfferEnchantments(helper, offer, enchanted.getKey(), enchanted.getValue());
+        }
 
         helper.succeed();
     }
@@ -319,6 +438,12 @@ public final class TradeAndMigrationTests {
      * rewritten to the matching chisel, keeping the stack size and the component patch;
      * items that are not legacy spatulas must be left completely alone.
      *
+     * <p>"The component patch" is asserted with four components on one stack, not with the two
+     * that are easy to reach: {@code LegacySpatulaMigration#convertStack} copies the whole patch
+     * in one call, so a rewrite that copies a hand-picked list of components instead would keep
+     * damage and name and silently drop the enchantments an old spatula was carrying - and an
+     * enchanted spatula is exactly the kind that survives in an old world.
+     *
      * <p>The mock player has to be a <em>connected</em> one: writing into the crafting grid makes
      * vanilla run {@code CraftingMenu#slotChangedCraftingGrid}, which unconditionally dereferences
      * {@code ServerPlayer#connection}. That matches production, where the migration only ever runs
@@ -334,16 +459,26 @@ public final class TradeAndMigrationTests {
      * <p><strong>Not covered:</strong> the second half of that wiring, the server start hook that
      * runs {@link LegacySpatulaMigration#migrateWorlds}. It fires once, long before any gametest
      * body runs, and a shared gametest cannot re-enter a server start on either loader.
+     *
+     * <p><strong>What breaks this test:</strong> dropping the inventory loop, the menu loop, the
+     * component copy or a single entry of the spatula/chisel mapping; converting an item that is
+     * not a legacy spatula; and removing either loader's join listener.
      */
     public static void legacySpatulasInPlayerInventoryBecomeChisels(GameTestHelper helper) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
+
+        Holder<Enchantment> fastChiseling = enchantment(helper, ModEnchantments.FAST_CHISELING);
 
         // Spatulas and chisels are damageable tools, so a damaged one is always a single item;
         // the damage component itself refuses to apply to anything bigger than one.
         ItemStack stoneSpatula = new ItemStack(ModItems.STONE_SPATULA, 1);
         stoneSpatula.set(DataComponents.DAMAGE, 5);
         stoneSpatula.set(DataComponents.CUSTOM_NAME, Component.literal("Grandpa's tool"));
+        // Two more components, both of them things a player would notice losing: the enchantment
+        // an old spatula was carrying and the anvil cost it has accumulated.
+        stoneSpatula.set(DataComponents.REPAIR_COST, 7);
+        stoneSpatula.enchant(fastChiseling, 2);
         player.getInventory().setItem(0, stoneSpatula);
 
         // The stack size is covered separately, on a stack without components to validate.
@@ -356,7 +491,7 @@ public final class TradeAndMigrationTests {
         // Untouched control: already-migrated item plus a vanilla item.
         ItemStack alreadyChisel = new ItemStack(ModItems.IRON_CHISEL, 1);
         player.getInventory().setItem(4, alreadyChisel);
-        ItemStack vanilla = new ItemStack(net.minecraft.world.item.Items.DIAMOND, 12);
+        ItemStack vanilla = new ItemStack(Items.DIAMOND, 12);
         player.getInventory().setItem(5, vanilla);
 
         // A spatula that only lives in the open menu (crafting grid slot), not in the inventory.
@@ -372,6 +507,11 @@ public final class TradeAndMigrationTests {
         helper.assertValueEqual(migrated.get(DataComponents.DAMAGE), 5, "migrated damage component");
         helper.assertValueEqual(migrated.get(DataComponents.CUSTOM_NAME),
                 Component.literal("Grandpa's tool"), "migrated custom name component");
+        helper.assertValueEqual(migrated.get(DataComponents.REPAIR_COST), 7,
+                "migrated repair cost component");
+        helper.assertValueEqual(EnchantmentHelper.getEnchantmentsForCrafting(migrated).getLevel(fastChiseling), 2,
+                "Fast Chiseling level on the migrated chisel - an enchanted spatula must not come "
+                        + "back as a plain tool");
 
         ItemStack migratedStack = player.getInventory().getItem(1);
         helper.assertTrue(migratedStack.is(ModItems.COPPER_CHISEL),
@@ -384,7 +524,7 @@ public final class TradeAndMigrationTests {
 
         helper.assertTrue(player.getInventory().getItem(4).is(ModItems.IRON_CHISEL),
                 "an existing iron_chisel must survive the migration untouched");
-        helper.assertTrue(player.getInventory().getItem(5).is(net.minecraft.world.item.Items.DIAMOND),
+        helper.assertTrue(player.getInventory().getItem(5).is(Items.DIAMOND),
                 "a vanilla stack must survive the migration untouched");
         helper.assertValueEqual(player.getInventory().getItem(5).getCount(), 12,
                 "vanilla stack size after migration");
@@ -409,6 +549,21 @@ public final class TradeAndMigrationTests {
     /**
      * World-side migration: a loose spatula lying on the ground is rewritten in place, so the
      * same {@link ItemEntity} now carries the chisel with the original count and components.
+     *
+     * <p>Both entities are asserted to be visible to {@code getEntitiesOfClass} in the same tick
+     * the migration runs, because that is the lookup the migration itself uses: without that
+     * precondition a red result here could be the harness rather than the mod (see the known
+     * defect in the class javadoc).
+     *
+     * <p><strong>Not covered:</strong> that the scan visits <em>every</em> dimension
+     * ({@code server.getAllLevels()}, LegacySpatulaMigration.java:23). A spatula in the Nether
+     * needs a chunk force loaded there, and the chunk generation that costs left the very same
+     * {@code migrateWorlds} call finding nothing at all - see the known defect above. Restricting
+     * the mod to {@code server.overworld()} therefore still passes this test.
+     *
+     * <p><strong>What breaks this test:</strong> dropping the {@code setItem} write-back, the
+     * component copy (damage, name, enchantment and repair cost are all asserted), or a single
+     * entry of the spatula/chisel mapping; converting item entities that carry something else.
      */
     public static void legacySpatulaItemEntityIsRewrittenInPlace(GameTestHelper helper) {
         // Two entities on purpose: the damage component only validates on a single item, so
@@ -417,21 +572,34 @@ public final class TradeAndMigrationTests {
         ItemStack legacyDamaged = new ItemStack(ModItems.DIAMOND_SPATULA, 1);
         legacyDamaged.set(DataComponents.DAMAGE, 42);
         legacyDamaged.set(DataComponents.CUSTOM_NAME, Component.literal("Old flattener"));
+        legacyDamaged.set(DataComponents.REPAIR_COST, 3);
+        Holder<Enchantment> fastChiseling = enchantment(helper, ModEnchantments.FAST_CHISELING);
+        legacyDamaged.enchant(fastChiseling, 1);
         damaged.setItem(legacyDamaged);
 
         ItemEntity multiple = helper.spawnItem(ModItems.IRON_SPATULA, new BlockPos(5, 2, 1));
         multiple.setItem(new ItemStack(ModItems.IRON_SPATULA, 3));
 
-        ItemEntity control = helper.spawnItem(net.minecraft.world.item.Items.STICK, new BlockPos(3, 2, 3));
+        ItemEntity control = helper.spawnItem(Items.STICK, new BlockPos(3, 2, 3));
 
         helper.startSequence()
                 .thenIdle(2)
                 .thenExecute(() -> {
                     helper.assertTrue(damaged.isAlive(), "the dropped spatula entity vanished before migration");
                     helper.assertTrue(multiple.isAlive(), "the dropped spatula stack vanished before migration");
+                    // Findable the way the migration finds them, or a red test below would be
+                    // about the harness and not about the migration.
+                    assertVisibleToTheLevelLookup(helper, damaged);
+                    assertVisibleToTheLevelLookup(helper, multiple);
                     LegacySpatulaMigration.migrateWorlds(helper.getLevel().getServer());
                 })
                 .thenExecute(() -> {
+                    // Checked before the item: a rewritten stack on an entity the level has thrown
+                    // away would say nothing, and a dropped entity has to name itself as the cause.
+                    helper.assertTrue(damaged.isAlive(),
+                            "the level dropped the spatula item entity during the migration, so what "
+                                    + "it carries now proves nothing");
+
                     ItemStack after = damaged.getItem();
                     helper.assertTrue(after.is(ModItems.DIAMOND_CHISEL),
                             "the item entity should now carry a diamond_chisel, was " + after);
@@ -440,6 +608,12 @@ public final class TradeAndMigrationTests {
                             "item entity damage component after migration");
                     helper.assertValueEqual(after.get(DataComponents.CUSTOM_NAME),
                             Component.literal("Old flattener"), "item entity custom name after migration");
+                    helper.assertValueEqual(after.get(DataComponents.REPAIR_COST), 3,
+                            "item entity repair cost after migration");
+                    helper.assertValueEqual(
+                            EnchantmentHelper.getEnchantmentsForCrafting(after).getLevel(fastChiseling), 1,
+                            "Fast Chiseling level on the rewritten item entity - a dropped enchanted "
+                                    + "spatula must not come back as a plain tool");
 
                     ItemStack afterStack = multiple.getItem();
                     helper.assertTrue(afterStack.is(ModItems.IRON_CHISEL),
@@ -447,7 +621,7 @@ public final class TradeAndMigrationTests {
                     helper.assertValueEqual(afterStack.getCount(), 3,
                             "item entity stack size of the multi item stack after migration");
 
-                    helper.assertTrue(control.getItem().is(net.minecraft.world.item.Items.STICK),
+                    helper.assertTrue(control.getItem().is(Items.STICK),
                             "an unrelated item entity must not be rewritten");
                 })
                 .thenSucceed();
@@ -458,11 +632,19 @@ public final class TradeAndMigrationTests {
     // ------------------------------------------------------------------
 
     /**
-     * Vanilla's optional "Trade Rebalance" datapack declares {@code "replace": true} on the three
-     * librarian trade tags, which discards every earlier contributor -- including this mod. It is
-     * off in normal worlds but ON in the gametest environment, which enables all experimental packs.
-     * Mason, toolsmith and wandering trader pools are not touched by it.
+     * The migration collects its entities with {@code getEntitiesOfClass}. If that lookup cannot
+     * see an entity, a case built on it would pass or fail for a reason that is not the mod's - so
+     * this is asserted right before the migration runs, in the same tick.
      */
+    private static void assertVisibleToTheLevelLookup(GameTestHelper helper, ItemEntity entity) {
+        ServerLevel level = (ServerLevel) entity.level();
+        List<ItemEntity> visible = level.getEntitiesOfClass(ItemEntity.class,
+                entity.getBoundingBox().inflate(2.0), candidate -> candidate == entity);
+        helper.assertTrue(!visible.isEmpty(),
+                "the item entity in " + level.dimension().identifier() + " is not visible to that "
+                        + "level's own entity lookup, so this case would prove nothing");
+    }
+
     /**
      * Builds a player that is already carrying {@code carried} and logs it into the running
      * server. Both loaders raise their "player joined" event from
@@ -502,6 +684,12 @@ public final class TradeAndMigrationTests {
         return player;
     }
 
+    /**
+     * Vanilla's optional "Trade Rebalance" datapack declares {@code "replace": true} on the three
+     * librarian trade tags, which discards every earlier contributor -- including this mod. It is
+     * off in normal worlds but ON in the gametest environment, which enables all experimental packs.
+     * Mason, toolsmith and wandering trader pools are not touched by it.
+     */
     private static boolean tradeRebalanceActive(GameTestHelper helper) {
         return helper.getLevel().getServer().getResourceManager().listPacks()
                 .anyMatch(pack -> "trade_rebalance".equals(pack.packId()));
@@ -571,20 +759,6 @@ public final class TradeAndMigrationTests {
     }
 
     /**
-     * One of the three toolsmith chisel trades: 6 emeralds for one chisel, two uses, 10 xp, and a
-     * Fast Chiseling enchantment out of its pool. All three files are identical apart from the
-     * chisel they hand over, so all three are asserted - a single one would leave the other two
-     * free to be repriced.
-     */
-    private static void assertChiselTrade(GameTestHelper helper, ServerLevel level, LootContext context,
-                                          String path, Item chisel) {
-        MerchantOffer offer = offerOf(helper, level, NAMESPACE + ":" + path, context);
-        assertOffer(helper, offer, path, net.minecraft.world.item.Items.EMERALD, 6, chisel, 1, 2, 10);
-        helper.assertTrue(offer.getCostB().isEmpty(), path + " must not have a second cost item");
-        assertOfferEnchantments(helper, offer, path, CHISEL_ENCHANT_POOL);
-    }
-
-    /**
      * The enchantments {@code simplebuilding:weighted_enchant} put on a trade's result, as
      * {@code <enchantment id>@<level>}. At least one is required - an empty result is exactly what
      * an emptied {@code WeightedEnchantFunction#run} produces - and each one has to be in the pool
@@ -606,22 +780,40 @@ public final class TradeAndMigrationTests {
         }
     }
 
-    private static void assertOffer(GameTestHelper helper, MerchantOffer offer, String id,
-                                    Item wantedItem, int wantedCount,
-                                    Item givenItem, int givenCount,
-                                    int maxUses, int xp) {
+    /** Every number of one trade, against the row that was read off its json file. */
+    private static void assertOffer(GameTestHelper helper, MerchantOffer offer, TradeRow expected) {
+        String id = expected.path();
+
         ItemStack costA = offer.getBaseCostA();
-        helper.assertTrue(costA.is(wantedItem),
-                id + ": expected cost item " + wantedItem + ", was " + costA);
-        helper.assertValueEqual(costA.getCount(), wantedCount, id + ": cost count");
+        helper.assertTrue(costA.is(expected.wants()),
+                id + ": expected cost item " + expected.wants() + ", was " + costA);
+        helper.assertValueEqual(costA.getCount(), expected.wantCount(), id + ": cost count");
+
+        ItemStack costB = offer.getCostB();
+        if (expected.alsoWants() == null) {
+            helper.assertTrue(costB.isEmpty(),
+                    id + ": must not have a second cost item, but the offer asks for " + costB);
+        } else {
+            helper.assertTrue(costB.is(expected.alsoWants()),
+                    id + ": expected second cost item " + expected.alsoWants() + ", was " + costB);
+            helper.assertValueEqual(costB.getCount(), expected.alsoWantCount(), id + ": second cost count");
+        }
 
         ItemStack result = offer.getResult();
-        helper.assertTrue(result.is(givenItem),
-                id + ": expected result item " + givenItem + ", was " + result);
-        helper.assertValueEqual(result.getCount(), givenCount, id + ": result count");
+        helper.assertTrue(result.is(expected.gives()),
+                id + ": expected result item " + expected.gives() + ", was " + result);
+        helper.assertValueEqual(result.getCount(), expected.giveCount(), id + ": result count");
 
-        helper.assertValueEqual(offer.getMaxUses(), maxUses, id + ": max uses");
-        helper.assertValueEqual(offer.getXp(), xp, id + ": trade xp");
+        helper.assertValueEqual(offer.getMaxUses(), expected.maxUses(), id + ": max uses");
+        helper.assertValueEqual(offer.getXp(), expected.xp(), id + ": trade xp");
+
+        float discount = offer.getPriceMultiplier();
+        helper.assertTrue(Math.abs(discount - expected.reputationDiscount()) < 1.0e-6F,
+                id + ": expected reputation_discount " + expected.reputationDiscount() + ", was " + discount);
+    }
+
+    private static Holder<Enchantment> enchantment(GameTestHelper helper, ResourceKey<Enchantment> key) {
+        return helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);
     }
 
     private static void setProfession(GameTestHelper helper, Villager villager,

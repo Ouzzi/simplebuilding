@@ -5,22 +5,31 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.util.SledgehammerUsageEvent;
 import com.simplebuilding.util.VersatilityUsageEvent;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -41,6 +50,9 @@ public final class EnchantmentEffectTests {
 
     /** Centre of the horizontal block field the sledgehammer tests mine. */
     private static final BlockPos HAMMER_CENTRE = new BlockPos(3, 2, 3);
+
+    /** Upper bound for the building wand tick loop, so a wand that never finishes fails instead of hanging. */
+    private static final int WAND_TICK_CAP = 60;
 
     // =====================================================================================
     // SLEDGEHAMMER: RADIUS AND BREAK THROUGH
@@ -359,6 +371,16 @@ public final class EnchantmentEffectTests {
      * effect, which is the point at which a real behaviour test has to be written for it. It is
      * <em>not</em> an assertion that the current state is correct - it is a marker that the two
      * are unfinished.
+     *
+     * <p>"Inert" is asserted from both sides, because the two sides can be finished separately.
+     * The <em>data</em> side is the empty effect list below. The <em>code</em> side is a real
+     * building wand run: the same plane is built three times, once with a plain wand and once with
+     * each enchantment, and all three runs have to agree on every position they filled, on how
+     * many ticks they took and on how many blocks they spent. An effect written into
+     * {@code BuildingWandItem} rather than into the enchantment JSON - a wider radius, an extra
+     * layer, a different pace - leaves the effect list empty and would pass the data half without
+     * a word; this is the half that can see it. What it cannot see is an effect on some item other
+     * than the wand, which is the only one the two are applicable to today.
      */
     public static void coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown(GameTestHelper helper) {
         for (ResourceKey<Enchantment> key : List.of(ModEnchantments.COVER, ModEnchantments.BRIDGE)) {
@@ -367,7 +389,37 @@ public final class EnchantmentEffectTests {
                     key.identifier() + " grew an effect. That is good news, but it now needs a real "
                             + "behaviour test - replace this marker with one.");
         }
+
+        // --- the code side: the wand has to behave identically with and without them ---
+        ServerPlayer player = mockPlayer(helper, 0.0F);
+        // Every payment the wand makes sits behind instabuild, so the block count below only
+        // measures anything with it cleared.
+        player.getAbilities().instabuild = false;
+        BlockPos anchor = new BlockPos(3, 1, 3);
+
+        WandRun plain = runWandOnce(helper, player, wandWithRadiusOne(helper, null), anchor);
+        helper.assertValueEqual(plain.placed().size(), 9,
+                "the unenchanted wand did not build the 3x3 its radius setting asks for, it placed "
+                        + plain.placed().size() + " blocks - the comparisons below would prove nothing");
+
+        for (ResourceKey<Enchantment> key : List.of(ModEnchantments.COVER, ModEnchantments.BRIDGE)) {
+            WandRun enchantedRun = runWandOnce(helper, player, wandWithRadiusOne(helper, key), anchor);
+            String name = String.valueOf(key.identifier());
+            helper.assertValueEqual(enchantedRun.placed(), plain.placed(),
+                    name + " changed which blocks the wand places. That is a real feature now, so "
+                            + "this marker has to be replaced by a test that states what it does.");
+            helper.assertValueEqual(enchantedRun.ticks(), plain.ticks(),
+                    name + " changed how long the wand takes (" + enchantedRun.ticks() + " ticks "
+                            + "against " + plain.ticks() + "), so it is no longer inert.");
+            helper.assertValueEqual(enchantedRun.spent(), plain.spent(),
+                    name + " changed how many blocks the wand spends, so it is no longer inert.");
+        }
+
         helper.succeed();
+    }
+
+    /** What one building wand run did: how long it took, what it filled and what it cost. */
+    private record WandRun(int ticks, Set<BlockPos> placed, int spent) {
     }
 
     // =====================================================================================
@@ -456,5 +508,92 @@ public final class EnchantmentEffectTests {
 
     private static Holder<Enchantment> enchantment(GameTestHelper helper, ResourceKey<Enchantment> key) {
         return helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);
+    }
+
+    /**
+     * A diamond building wand pinned to radius 1, optionally carrying one enchantment. The radius
+     * is written into the wand's own settings so the expected plane is a 3x3 rather than whatever
+     * the tier happens to allow, and the enchantment is verified to have landed on the stack -
+     * comparing an "enchanted" run against a plain one proves nothing if the two stacks are the
+     * same.
+     */
+    private static ItemStack wandWithRadiusOne(GameTestHelper helper, ResourceKey<Enchantment> key) {
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        CompoundTag settings = wand.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        settings.putInt("SettingsRadius", 1);
+        settings.putInt("SettingsAxis", 0);
+        wand.set(DataComponents.CUSTOM_DATA, CustomData.of(settings));
+
+        if (key != null) {
+            Holder<Enchantment> holder = enchantment(helper, key);
+            wand.enchant(holder, 1);
+            helper.assertTrue(EnchantmentHelper.getItemEnchantmentLevel(holder, wand) > 0,
+                    key.identifier() + " could not be put on a building wand at all, so the run it "
+                            + "is compared with would be a second plain run");
+        }
+        return wand;
+    }
+
+    /**
+     * Arms the wand on the top face of {@code anchor} and drives its own {@code inventoryTick}
+     * until it switches itself off, then reads back what it built.
+     *
+     * <p>The build window is cleared first and the supplies are handed out fresh, so several runs
+     * can share one anchor and be compared position for position. The wand's item hook is called
+     * directly rather than through a player tick: a gametest server never pumps a mock player's
+     * connection, and this way the whole build happens inside one test tick.
+     */
+    private static WandRun runWandOnce(GameTestHelper helper, ServerPlayer player, ItemStack wand,
+                                       BlockPos anchor) {
+        for (int dx = -3; dx <= 3; dx++) {
+            for (int dy = 1; dy <= 3; dy++) {
+                for (int dz = -3; dz <= 3; dz++) {
+                    helper.setBlock(anchor.offset(dx, dy, dz), Blocks.AIR);
+                }
+            }
+        }
+        helper.setBlock(anchor, Blocks.STONE);
+
+        ItemStack supplies = new ItemStack(Items.OAK_PLANKS, 64);
+        player.getInventory().clearContent();
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        player.getInventory().setSelectedSlot(0);
+        player.getInventory().setItem(0, wand);
+        player.getInventory().setItem(1, supplies);
+
+        BlockPos absolute = helper.absolutePos(anchor);
+        BlockHitResult hit = new BlockHitResult(
+                new Vec3(absolute.getX() + 0.5, absolute.getY() + 1.0, absolute.getZ() + 0.5),
+                Direction.UP, absolute, false);
+        player.setItemInHand(InteractionHand.MAIN_HAND, wand);
+        InteractionResult armed = wand.getItem().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit));
+        helper.assertTrue(armed == InteractionResult.CONSUME,
+                "the wand did not arm itself on the clicked face, it returned " + armed);
+
+        int ticks = 0;
+        while (wandIsActive(wand) && ticks < WAND_TICK_CAP) {
+            wand.getItem().inventoryTick(wand, helper.getLevel(), player, EquipmentSlot.MAINHAND);
+            ticks++;
+        }
+        helper.assertTrue(ticks < WAND_TICK_CAP,
+                "the wand was still building after " + WAND_TICK_CAP + " inventory ticks");
+
+        Set<BlockPos> placed = new HashSet<>();
+        for (int dx = -3; dx <= 3; dx++) {
+            for (int dy = 1; dy <= 3; dy++) {
+                for (int dz = -3; dz <= 3; dz++) {
+                    BlockPos offset = new BlockPos(dx, dy, dz);
+                    if (!helper.getBlockState(anchor.offset(dx, dy, dz)).isAir()) {
+                        placed.add(offset);
+                    }
+                }
+            }
+        }
+        return new WandRun(ticks, placed, 64 - supplies.getCount());
+    }
+
+    private static boolean wandIsActive(ItemStack wand) {
+        return wand.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY)
+                .copyTag().getBooleanOr("Active", false);
     }
 }
