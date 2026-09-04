@@ -1,7 +1,9 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.items.ModItems;
+import com.mojang.authlib.GameProfile;
 import com.simplebuilding.util.LegacySpatulaMigration;
+import io.netty.channel.embedded.EmbeddedChannel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -9,11 +11,16 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.tags.TagKey;
 import net.minecraft.tags.VillagerTradeTags;
 import net.minecraft.util.Unit;
@@ -24,6 +31,9 @@ import net.minecraft.world.entity.npc.villager.VillagerData;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.TradeSet;
@@ -39,6 +49,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * In-game coverage for the two mechanics that were rewritten for the 26.2 line:
@@ -62,6 +73,9 @@ public final class TradeAndMigrationTests {
 
     /** Tick budget for {@link #legacySpatulaItemEntityIsRewrittenInPlace}. */
     public static final int LEGACY_ITEM_ENTITY_MAX_TICKS = 60;
+
+    /** Hotbar slot the login migration case puts its legacy spatula in. */
+    private static final int LOGIN_SLOT = 8;
 
     private static final String NAMESPACE = "simplebuilding";
 
@@ -87,6 +101,23 @@ public final class TradeAndMigrationTests {
             "simplebuilding:wandering_trader/emerald_wand_book",
             "simplebuilding:wandering_trader/octant_emerald",
             "simplebuilding:wandering_trader/reinforced_bundle_emerald");
+
+    /**
+     * The {@code weighted_enchant} pool of the three toolsmith chisel trades, as
+     * {@code <enchantment id>@<level>} - see
+     * {@code data/simplebuilding/villager_trade/toolsmith/3/emerald_*_chisel.json}.
+     */
+    private static final Set<String> CHISEL_ENCHANT_POOL = Set.of(
+            "simplebuilding:fast_chiseling@1",
+            "simplebuilding:fast_chiseling@2");
+
+    /** The same for {@code toolsmith/4/emerald_iron_sledgehammer}, which also has a second chance. */
+    private static final Set<String> SLEDGEHAMMER_ENCHANT_POOL = Set.of(
+            "simplebuilding:break_through@1",
+            "simplebuilding:override@1",
+            "simplebuilding:range@1",
+            "minecraft:unbreaking@2",
+            "minecraft:efficiency@3");
 
     // ------------------------------------------------------------------
     // (a) trades
@@ -186,9 +217,21 @@ public final class TradeAndMigrationTests {
     }
 
     /**
-     * Turns two shipped trade definitions into actual {@link MerchantOffer}s and checks the
-     * numbers that came out of the JSON: wanted item + count, optional second cost,
-     * given item + count, max uses and xp. This is what a player would see in the trade GUI.
+     * Turns shipped trade definitions into actual {@link MerchantOffer}s and checks the numbers
+     * that came out of the JSON: wanted item + count, optional second cost, given item + count,
+     * max uses, xp - and the enchantment the offer's {@code given_item_modifiers} put on the
+     * result. This is what a player would see in the trade GUI.
+     *
+     * <p>Every other trade test in this file only ever asks whether a trade id sits in the right
+     * pool. That leaves the entire content of a trade file free to change: the price, the number
+     * of uses, the experience, and above all the {@code simplebuilding:weighted_enchant} function
+     * - a merchant handing out plain, unenchanted tools looks exactly like a working merchant from
+     * the outside. So both trades that carry that function are built here.
+     *
+     * <p>The enchantment is asserted as "at least one, and every one of them out of the pool the
+     * json declares, at the level it declares" rather than as one fixed pick. The function draws
+     * weighted from that pool; pinning a single outcome would pin {@link #tradeContext}'s seed
+     * instead of the trade.
      */
     public static void tradeDefinitionsProduceTheExpectedOffers(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -215,6 +258,13 @@ public final class TradeAndMigrationTests {
         helper.assertTrue(sledgehammer.getCostB().is(net.minecraft.world.item.Items.IRON_PICKAXE),
                 "toolsmith/4/emerald_iron_sledgehammer second cost should be an iron pickaxe, was "
                         + sledgehammer.getCostB());
+        assertOfferEnchantments(helper, sledgehammer, "toolsmith/4/emerald_iron_sledgehammer",
+                SLEDGEHAMMER_ENCHANT_POOL);
+
+        // toolsmith/3: the three chisels, 6 emeralds each, and every one of them Fast Chiseling.
+        assertChiselTrade(helper, level, context, "toolsmith/3/emerald_copper_chisel", ModItems.COPPER_CHISEL);
+        assertChiselTrade(helper, level, context, "toolsmith/3/emerald_iron_chisel", ModItems.IRON_CHISEL);
+        assertChiselTrade(helper, level, context, "toolsmith/3/emerald_gold_chisel", ModItems.GOLD_CHISEL);
 
         helper.succeed();
     }
@@ -273,6 +323,17 @@ public final class TradeAndMigrationTests {
      * vanilla run {@code CraftingMenu#slotChangedCraftingGrid}, which unconditionally dereferences
      * {@code ServerPlayer#connection}. That matches production, where the migration only ever runs
      * from the join event and therefore always sees a player with a network handler.
+     *
+     * <p>The last step puts the player through a second login instead of calling the migration by
+     * hand, because that is the part nothing else covers: both loaders register the migration on
+     * their "player joined" event ({@code ServerPlayConnectionEvents.JOIN} on Fabric, a
+     * {@code PlayerEvent.PlayerLoggedInEvent} handler on NeoForge), both fire it from
+     * {@code PlayerList#placeNewPlayer}, and deleting either registration would leave every
+     * assertion above green while no old spatula in any world is ever converted again.
+     *
+     * <p><strong>Not covered:</strong> the second half of that wiring, the server start hook that
+     * runs {@link LegacySpatulaMigration#migrateWorlds}. It fires once, long before any gametest
+     * body runs, and a shared gametest cannot re-enter a server start on either loader.
      */
     public static void legacySpatulasInPlayerInventoryBecomeChisels(GameTestHelper helper) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
@@ -332,6 +393,15 @@ public final class TradeAndMigrationTests {
         helper.assertTrue(migratedMenuStack.is(ModItems.GOLD_CHISEL),
                 "gold_spatula in the open menu should have become gold_chisel, was " + migratedMenuStack);
         helper.assertValueEqual(migratedMenuStack.getCount(), 1, "migrated menu stack size");
+
+        // --- and now the hook that is supposed to call all of that in a real game ---
+        ServerPlayer joining = logIn(helper, new ItemStack(ModItems.STONE_SPATULA, 2));
+
+        ItemStack afterLogin = joining.getInventory().getItem(LOGIN_SLOT);
+        helper.assertTrue(afterLogin.is(ModItems.STONE_CHISEL),
+                "logging in left the spatula in the inventory alone (it is " + afterLogin + "); the "
+                        + "mod's join listener is gone, so the migration never runs outside this test");
+        helper.assertValueEqual(afterLogin.getCount(), 2, "stack size after the login migration");
 
         helper.succeed();
     }
@@ -393,6 +463,45 @@ public final class TradeAndMigrationTests {
      * off in normal worlds but ON in the gametest environment, which enables all experimental packs.
      * Mason, toolsmith and wandering trader pools are not touched by it.
      */
+    /**
+     * Builds a player that is already carrying {@code carried} and logs it into the running
+     * server. Both loaders raise their "player joined" event from
+     * {@code PlayerList#placeNewPlayer}, so this is the loader neutral way to reach the listener
+     * the migration is registered on.
+     *
+     * <p>The ingredients are vanilla's own, copied from
+     * {@code GameTestHelper#makeMockServerPlayerInLevel}: a {@link ServerPlayer} on this level, a
+     * fresh {@link Connection} on an {@link EmbeddedChannel} and an initial listener cookie. The
+     * player is built by hand rather than through that helper only because the item has to be in
+     * the inventory <em>before</em> the login, and the helper constructs and logs in in one step.
+     * {@code placeNewPlayer} reads no saved player data, so what is set here is exactly what the
+     * join event sees.
+     *
+     * <p>Handed back to the player list at the end of the test like every other mock player in
+     * this suite - one that stays behind keeps the list non-empty and stalls the gametest server
+     * on shutdown.
+     */
+    @SuppressWarnings("resource")
+    private static ServerPlayer logIn(GameTestHelper helper, ItemStack carried) {
+        MinecraftServer server = helper.getLevel().getServer();
+        ServerPlayer player = new ServerPlayer(server, helper.getLevel(),
+                new GameProfile(UUID.randomUUID(), "test-migration-player"),
+                ClientInformation.createDefault());
+        player.getInventory().setItem(LOGIN_SLOT, carried);
+        helper.assertTrue(player.getInventory().getItem(LOGIN_SLOT).is(carried.getItem()),
+                "the item was not in the inventory before the login, so the login proves nothing");
+
+        Connection connection = new Connection(PacketFlow.SERVERBOUND);
+        new EmbeddedChannel(connection);
+        server.getPlayerList().placeNewPlayer(connection, player,
+                CommonListenerCookie.createInitial(player.getGameProfile(), false));
+        helper.runBeforeTestEnd(() -> server.getPlayerList().remove(player));
+
+        helper.assertTrue(server.getPlayerList().getPlayers().contains(player),
+                "the player never made it into the player list, so no join event was fired");
+        return player;
+    }
+
     private static boolean tradeRebalanceActive(GameTestHelper helper) {
         return helper.getLevel().getServer().getResourceManager().listPacks()
                 .anyMatch(pack -> "trade_rebalance".equals(pack.packId()));
@@ -459,6 +568,42 @@ public final class TradeAndMigrationTests {
         MerchantOffer offer = trade.getOffer(context);
         helper.assertTrue(offer != null, "trade " + id + " produced no offer");
         return offer;
+    }
+
+    /**
+     * One of the three toolsmith chisel trades: 6 emeralds for one chisel, two uses, 10 xp, and a
+     * Fast Chiseling enchantment out of its pool. All three files are identical apart from the
+     * chisel they hand over, so all three are asserted - a single one would leave the other two
+     * free to be repriced.
+     */
+    private static void assertChiselTrade(GameTestHelper helper, ServerLevel level, LootContext context,
+                                          String path, Item chisel) {
+        MerchantOffer offer = offerOf(helper, level, NAMESPACE + ":" + path, context);
+        assertOffer(helper, offer, path, net.minecraft.world.item.Items.EMERALD, 6, chisel, 1, 2, 10);
+        helper.assertTrue(offer.getCostB().isEmpty(), path + " must not have a second cost item");
+        assertOfferEnchantments(helper, offer, path, CHISEL_ENCHANT_POOL);
+    }
+
+    /**
+     * The enchantments {@code simplebuilding:weighted_enchant} put on a trade's result, as
+     * {@code <enchantment id>@<level>}. At least one is required - an empty result is exactly what
+     * an emptied {@code WeightedEnchantFunction#run} produces - and each one has to be in the pool
+     * the trade json declares.
+     */
+    private static void assertOfferEnchantments(GameTestHelper helper, MerchantOffer offer, String id,
+                                                Set<String> pool) {
+        ItemStack result = offer.getResult();
+        ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(result);
+        helper.assertTrue(!enchantments.isEmpty(),
+                id + ": the merchant hands out an unenchanted " + result.getItem()
+                        + "; its weighted_enchant modifier did nothing");
+
+        for (Holder<Enchantment> enchantment : enchantments.keySet()) {
+            String drawn = enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment);
+            helper.assertTrue(pool.contains(drawn),
+                    id + ": the merchant put " + drawn + " on the tool, which is not one of the "
+                            + "enchantment/level pairs its json offers (" + pool + ")");
+        }
     }
 
     private static void assertOffer(GameTestHelper helper, MerchantOffer offer, String id,

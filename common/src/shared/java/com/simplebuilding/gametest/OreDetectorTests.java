@@ -608,8 +608,20 @@ public final class OreDetectorTests {
                 "the detector reported " + what + ", which is beyond what it can pay for");
     }
 
+    /**
+     * A position for a failure message, as an offset from the structure origin.
+     *
+     * <p>Not {@code helper.relativePos}: that is not the inverse of {@code absolutePos}. It builds
+     * the counter rotation as {@code rotation.getRotated(CLOCKWISE_180)}, which for
+     * {@code Rotation.NONE} turns the position by 180 degrees instead of leaving it alone, so it
+     * reports a mirrored x and z. Harmless in a message, but a mirrored coordinate is exactly the
+     * wrong thing to hand someone who is already looking for a bug.
+     */
     private static String describe(GameTestHelper helper, BlockPos absolute) {
-        return absolute == null ? "nothing at all" : (helper.relativePos(absolute) + " (relative)");
+        if (absolute == null) {
+            return "nothing at all";
+        }
+        return absolute.subtract(helper.absolutePos(BlockPos.ZERO)) + " (relative to the room)";
     }
 
     /** Clears the 3x3 corridor around the sight line so nothing survives from a previous step. */

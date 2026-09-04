@@ -15,8 +15,10 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -33,9 +35,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -91,7 +98,53 @@ public final class ConfigOptionTests {
             BuiltInLootTables.STRONGHOLD_LIBRARY,
             BuiltInLootTables.END_CITY_TREASURE,
             BuiltInLootTables.ANCIENT_CITY,
-            BuiltInLootTables.BASTION_TREASURE);
+            BuiltInLootTables.BASTION_TREASURE,
+            BuiltInLootTables.NETHER_BRIDGE,
+            BuiltInLootTables.WOODLAND_MANSION,
+            BuiltInLootTables.SIMPLE_DUNGEON,
+            BuiltInLootTables.ABANDONED_MINESHAFT);
+
+    /**
+     * The enchanted books of the two mining enchantments, and the chest each one is supposed to
+     * be findable in, as {@code <enchantment id>@<level>}.
+     *
+     * <p>These four tables are the entire supply of Vein Miner and Strip Miner books in the game:
+     * neither enchantment is in the enchanting table, and only Strip Miner appears in a trade. A
+     * pool that quietly lost its book entry still counts as a pool, so counting pools says
+     * nothing about it - hence the roll below.
+     */
+    private static final Map<ResourceKey<LootTable>, Set<String>> EXPECTED_MINING_BOOKS = Map.of(
+            BuiltInLootTables.NETHER_BRIDGE, Set.of(
+                    "simplebuilding:strip_miner@1",
+                    "simplebuilding:strip_miner@2"),
+            BuiltInLootTables.WOODLAND_MANSION, Set.of(
+                    "simplebuilding:vein_miner@4",
+                    "simplebuilding:vein_miner@5"),
+            BuiltInLootTables.SIMPLE_DUNGEON, Set.of(
+                    "simplebuilding:vein_miner@2",
+                    "simplebuilding:vein_miner@3",
+                    "simplebuilding:vein_miner@4"),
+            BuiltInLootTables.ABANDONED_MINESHAFT, Set.of(
+                    "simplebuilding:strip_miner@1",
+                    "simplebuilding:strip_miner@3",
+                    "simplebuilding:vein_miner@3",
+                    "simplebuilding:vein_miner@4"));
+
+    /**
+     * How often each recorded pool is rolled when looking for those books.
+     *
+     * <p>The thinnest of the wanted entries is {@code vein_miner@3} in the abandoned mineshaft: it
+     * carries 2 of that pool's 54 weight, and the pool rolls {@code between(0, 2)} times, so one
+     * draw hits it with probability 2/54 and this many draws are worth about 19 expected hits.
+     * That is the <em>worst</em> case; the mansion's {@code vein_miner@4} (2 of 60, but 1 to 4
+     * rolls) is worth about 43. Missing a wanted book by chance is therefore far below one in a
+     * million even before the fixed seed below, which pins the outcome to the same answer on
+     * every machine.
+     */
+    private static final int BOOK_ROLLS = 512;
+
+    /** Seed for the loot rolls, so a failure is reproducible instead of a coin flip. */
+    private static final long BOOK_ROLL_SEED = 20260904L;
 
     /** Vanilla loot tables the mod must never touch - the control group for the recorder. */
     private static final List<ResourceKey<LootTable>> UNTOUCHED_TABLES = List.of(
@@ -191,16 +244,26 @@ public final class ConfigOptionTests {
      * long happened by the time a gametest runs, so the test drives that entry point directly with
      * a recording editor instead of reloading the world.
      *
-     * <p>Four tables are driven rather than one, and the end city is checked on both editor paths.
-     * That is what separates "the guard is gone" from "the guard moved into one branch": a gate
-     * that only still covers the stronghold would let the end city, ancient city and bastion pools
-     * through and fail here. The two vanilla tables the mod never touches are recorded in the
-     * switched-on state and have to come back empty - they prove the recorder reports zero when
-     * nothing is added, so the switched-off half cannot pass merely because the recorder broke.
+     * <p>Eight tables are driven rather than one, and the end city is checked on both editor
+     * paths. That is what separates "the guard is gone" from "the guard moved into one branch": a
+     * gate that only still covers the stronghold would let the end city, ancient city and bastion
+     * pools through and fail here. The two vanilla tables the mod never touches are recorded in
+     * the switched-on state and have to come back empty - they prove the recorder reports zero
+     * when nothing is added, so the switched-off half cannot pass merely because the recorder
+     * broke.
+     *
+     * <p>Counting pools is only half the promise, though. A pool that lost an entry is still a
+     * pool, so the four tables that carry the mining enchantment books are additionally
+     * <em>rolled</em> - {@link #EXPECTED_MINING_BOOKS} names the enchantment and the level each
+     * chest has to be able to hand out, and the rolls have to produce every one of them. That is
+     * the only coverage those books have: deleting a single {@code enchantedBook(...)} line
+     * leaves the pool non-empty, the option still switches it off and on, and nothing else in the
+     * suite ever looks inside.
      *
      * <p>What breaks it: deleting the guard, so a player who switched the mod's loot off finds mod
-     * books in a stronghold library anyway; moving the guard inside one of the branches; or a
-     * table quietly losing its pools while the option is on.
+     * books in a stronghold library anyway; moving the guard inside one of the branches; a table
+     * quietly losing its pools while the option is on; or a mining book losing its entry, its
+     * level or its whole chest.
      */
     public static void lootTableChangesStopWhenTheOptionIsSwitchedOff(GameTestHelper helper) {
         SimplebuildingConfig config = liveConfig(helper);
@@ -227,6 +290,16 @@ public final class ConfigOptionTests {
             for (ResourceKey<LootTable> key : UNTOUCHED_TABLES) {
                 helper.assertValueEqual(recordPools(key, registries).total(), 0,
                         "pools added to " + tableName(key) + ", a table the mod does not touch");
+            }
+
+            // --- and what is in those pools: the mining books, rolled out of them for real ---
+            for (Map.Entry<ResourceKey<LootTable>, Set<String>> wanted : EXPECTED_MINING_BOOKS.entrySet()) {
+                Set<String> rolled = rollEnchantedBooks(helper, recordPools(wanted.getKey(), registries));
+                for (String book : wanted.getValue()) {
+                    helper.assertTrue(rolled.contains(book),
+                            tableName(wanted.getKey()) + " never handed out " + book + " in " + BOOK_ROLLS
+                                    + " rolls; the books it did hand out were " + rolled);
+                }
             }
 
             // --- switched off: nothing at all, on either path ---
@@ -623,19 +696,55 @@ public final class ConfigOptionTests {
         return "the loot table " + key.identifier();
     }
 
-    /** Counts the pools the mod offers, keeping the two editor paths apart. */
+    /**
+     * Rolls every pool the mod handed to one table and returns the enchanted books that came out,
+     * as {@code <enchantment id>@<level>}.
+     *
+     * <p>Rolling rather than reading: {@code LootPool} keeps its entries private, and going
+     * through {@code addRandomItems} is what a chest does anyway - it covers the entry, its
+     * {@code set_components} function and the level inside that component in one step. The seed
+     * is fixed, so the same pool always produces the same answer here.
+     */
+    private static Set<String> rollEnchantedBooks(GameTestHelper helper, PoolRecorder recorder) {
+        LootParams params = new LootParams.Builder(helper.getLevel()).create(LootContextParamSets.EMPTY);
+        LootContext context = new LootContext.Builder(params)
+                .withOptionalRandomSeed(BOOK_ROLL_SEED)
+                .create(Optional.empty());
+
+        Set<String> books = new TreeSet<>();
+        for (LootPool pool : recorder.pools) {
+            for (int roll = 0; roll < BOOK_ROLLS; roll++) {
+                pool.addRandomItems(stack -> {
+                    ItemEnchantments stored = stack.getOrDefault(
+                            DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY);
+                    for (Holder<Enchantment> enchantment : stored.keySet()) {
+                        books.add(enchantment.getRegisteredName() + "@" + stored.getLevel(enchantment));
+                    }
+                }, context);
+            }
+        }
+        return books;
+    }
+
+    /**
+     * Counts the pools the mod offers, keeping the two editor paths apart, and keeps them so
+     * their contents can be rolled afterwards.
+     */
     private static final class PoolRecorder implements ModLootTableModifications.Editor {
+        private final List<LootPool> pools = new ArrayList<>();
         private int builders;
         private int built;
 
         @Override
         public void addPool(LootPool.Builder pool) {
             this.builders++;
+            this.pools.add(pool.build());
         }
 
         @Override
         public void addBuiltPool(LootPool pool) {
             this.built++;
+            this.pools.add(pool);
         }
 
         int total() {

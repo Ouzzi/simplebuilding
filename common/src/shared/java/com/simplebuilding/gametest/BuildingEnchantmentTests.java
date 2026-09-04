@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
@@ -97,16 +98,27 @@ public final class BuildingEnchantmentTests {
      *       extras, so a stone chisel must refuse it even while enchanted. If the tier gate
      *       were lost, the cheapest chisel in the game would do everything the most expensive
      *       one does.</li>
+     *   <li><strong>The tiers stack upwards.</strong> Every tier's table is built as
+     *       {@code merge(the tier below, its own entries)}, in both the plain and the touch
+     *       direction. A diamond chisel therefore still has to do the stone tier's work - if
+     *       those merges were replaced by the bare per tier maps, the expensive tools would
+     *       quietly stop being able to chisel stone at all, and a test that only ever uses each
+     *       tier on its own entries would not notice.</li>
      * </ul>
      *
      * <p>Each step also cross checks {@code ChiselItem#canChisel} against what the click really
      * did. Those two methods repeat the same map selection logic in two places; when they drift,
-     * the client side highlight promises a transformation the click then refuses.
+     * the client side highlight promises a transformation the click then refuses. The cooldown
+     * is the third such branch and gets a case of its own at the end: every other step clears the
+     * cooldown first, so without it {@code canChisel}'s {@code isOnCooldown} early return would
+     * never once be executed while it is actually true.
      *
      * <p><strong>What breaks this test:</strong> dropping the {@code hasConstructorsTouch}
      * ternaries in {@code tryChiselBlock} or {@code canChisel}, replacing {@code merge(plain,
-     * extras)} with the bare extras map, wiring every tier to the same pair of maps, losing the
-     * {@code isSneaking} branch, or charging the reverse step the same as the forward one.
+     * extras)} with the bare extras map, dropping the {@code merge(lower tier, own entries)} that
+     * chains the tiers, wiring every tier to the same pair of maps, losing the
+     * {@code isSneaking} branch, charging the reverse step the same as the forward one, or
+     * deleting the cooldown check from {@code canChisel} alone.
      */
     public static void constructorsTouchUnlocksTheExtraChiselTablesInBothDirections(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -190,6 +202,24 @@ public final class BuildingEnchantmentTests {
         helper.assertValueEqual(bricks, Blocks.END_STONE_BRICKS,
                 "the diamond tier's Constructor's Touch extras are gone, end stone became " + bricks);
 
+        // --- the gate only points one way: the higher tier keeps the lower tier's work ---
+        // Stone -> chiseled stone bricks is a stone tier entry and cobblestone -> mossy cobblestone
+        // a stone tier Constructor's Touch extra. Both have to survive all the way up through the
+        // merge chain, or every chisel above the cheapest one loses the bulk of its table.
+        helper.setBlock(plain, Blocks.STONE);
+        Block diamondOnStone = chiselAt(helper, player, diamondChisel, plain, false,
+                "plain diamond chisel on stone");
+        helper.assertValueEqual(diamondOnStone, Blocks.CHISELED_STONE_BRICKS,
+                "the diamond tier's ordinary table no longer merges the tiers below it; stone became "
+                        + diamondOnStone + " instead of chiseled stone bricks");
+
+        helper.setBlock(mossy, Blocks.COBBLESTONE);
+        Block diamondMoss = chiselAt(helper, player, touchedDiamondChisel, mossy, false,
+                "touched diamond chisel on cobblestone");
+        helper.assertValueEqual(diamondMoss, Blocks.MOSSY_COBBLESTONE,
+                "the diamond tier's Constructor's Touch table no longer merges the tiers below it; "
+                        + "cobblestone became " + diamondMoss + " instead of mossy cobblestone");
+
         // --- the sneaking chisel step costs double, which is the whole balancing of "unchiselling" ---
         ItemStack forwardTool = enchanted(helper, ModItems.STONE_CHISEL, ModEnchantments.CONSTRUCTORS_TOUCH, 1);
         helper.setBlock(mossy, Blocks.COBBLESTONE);
@@ -220,6 +250,31 @@ public final class BuildingEnchantmentTests {
         helper.assertValueEqual(touchedSpatula.getDamageValue(), 1,
                 "the spatula started paying the sneaking chisel's double cost; isReverseAction leaked "
                         + "out of the chisel branch");
+
+        // --- the cooldown belongs to canChisel as much as to the click ---
+        // This is the one case that does not clear the cooldown first. Without it the
+        // isOnCooldown early return in canChisel is never once taken while it is true, and
+        // deleting it would leave the block highlight promising a transformation for the whole
+        // length of the cooldown that useOn then answers with PASS.
+        ItemStack busyChisel = new ItemStack(ModItems.STONE_CHISEL);
+        helper.setBlock(plain, Blocks.STONE);
+        Block firstClick = chiselAt(helper, player, busyChisel, plain, false, "cooldown probe, first click");
+        helper.assertValueEqual(firstClick, Blocks.CHISELED_STONE_BRICKS,
+                "the cooldown probe chiselled nothing, so there is no cooldown to measure against");
+        helper.assertTrue(player.getCooldowns().isOnCooldown(busyChisel),
+                "the chisel put itself on no cooldown at all, so the branch below is unreachable");
+
+        helper.setBlock(plain, Blocks.STONE);
+        boolean promisedWhileBusy = ((ChiselItem) busyChisel.getItem())
+                .canChisel(helper.getLevel(), helper.absolutePos(plain), busyChisel, player);
+        helper.assertFalse(promisedWhileBusy,
+                "canChisel promises a transformation while the chisel is still on cooldown; the "
+                        + "highlight lights up for a click the item then refuses");
+        Block swallowed = chiselWhileOnCooldown(helper, player, busyChisel, plain,
+                "cooldown probe, second click");
+        helper.assertValueEqual(swallowed, Blocks.STONE,
+                "a chisel on cooldown transformed the block anyway, it became " + swallowed);
+        clearCooldown(player, busyChisel);
 
         player.setShiftKeyDown(false);
         helper.succeed();
@@ -341,16 +396,27 @@ public final class BuildingEnchantmentTests {
      * {@code float} product, not exact percentages, and a test that mirrors the formula cannot
      * notice the formula changing.
      *
-     * <p>The mining side is asserted as a delta on top of the unenchanted speed, so it pins the
-     * two bonus constants without pinning vanilla's stone tool speed. The bonus must also stay
-     * behind the "is this tool effective here" check - otherwise an enchanted chisel would tear
-     * through blocks it has no business mining.
+     * <p>Every tier is drained, not just the stone one. The cooldown is the whole difference
+     * between the tiers as a working tool, it is a different constant per tier, and the only
+     * other reader of {@code getCooldownTicks} is the wiki export - so a tier whose constant was
+     * retuned to anything at all had nothing to fail against.
+     *
+     * <p>The mining side pins the halving against a <em>measured</em> reference rather than
+     * against the mod's own material: whatever a vanilla stone tool is worth on stone, the stone
+     * chisel has to be worth exactly half of it. Stating only the enchantment bonus as a delta
+     * would leave {@code material.speed() * 0.5f} free to become anything, because both the plain
+     * and the enchanted measurement would move together. The same halved speed is then asserted
+     * on an axe block and on a shovel block, which are the other two thirds of the chisel's
+     * "correct tool" claim, and on glass, which is in none of the three tags and must stay at the
+     * bare hand's 1.0.
      *
      * <p><strong>What breaks this test:</strong> never calling {@code addCooldown}, dropping the
      * {@code fastChiselingLevel > 0} branch, reading the level from a different enchantment
-     * (every level would then measure 30 ticks), retuning the {@code 0.3f} step, changing the
-     * {@code 5.0f}/{@code 17.0f} mining bonuses or the {@code * 0.5f} halving, or moving the
-     * bonus in front of the {@code isCorrectToolForDrops} early return.
+     * (every level would then measure 30 ticks), retuning the {@code 0.3f} step or any tier's
+     * cooldown constant, changing the {@code 5.0f}/{@code 17.0f} mining bonuses or the
+     * {@code * 0.5f} halving, dropping the axe or shovel tag from
+     * {@code ChiselItem#isCorrectToolForDrops}, or moving the bonus in front of the
+     * {@code isCorrectToolForDrops} early return.
      */
     public static void fastChiselingShortensTheCooldownAndSpeedsUpMining(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -375,27 +441,79 @@ public final class BuildingEnchantmentTests {
         helper.assertValueEqual(twoCooldown, 11,
                 "Fast Chiseling II did not take 60% off the cooldown");
 
-        // --- mining speed: +5 and +17 raw, halved like the rest of the chisel's speed ---
+        // --- the whole staircase of tier cooldowns, each one drained the same way ---
+        assertTierCooldown(helper, player, ModItems.STONE_CHISEL, 30, target);
+        assertTierCooldown(helper, player, ModItems.COPPER_CHISEL, 25, target);
+        assertTierCooldown(helper, player, ModItems.IRON_CHISEL, 25, target);
+        assertTierCooldown(helper, player, ModItems.GOLD_CHISEL, 20, target);
+        assertTierCooldown(helper, player, ModItems.DIAMOND_CHISEL, 10, target);
+        assertTierCooldown(helper, player, ModItems.NETHERITE_CHISEL, 5, target);
+        assertTierCooldown(helper, player, ModItems.ENDERITE_CHISEL, 5, target);
+
+        // --- mining speed: half the material speed, plus +5 and +17 raw for the enchantment ---
         BlockState stone = Blocks.STONE.defaultBlockState();
+        BlockState planks = Blocks.OAK_PLANKS.defaultBlockState();
+        BlockState dirt = Blocks.DIRT.defaultBlockState();
+        BlockState glass = Blocks.GLASS.defaultBlockState();
+
+        // Measured off vanilla instead of read out of the mod: a stone pickaxe on stone is worth
+        // exactly ToolMaterial.STONE's speed, and the chisel has to come out at half of that.
+        float vanillaStoneToolSpeed = new ItemStack(Items.STONE_PICKAXE).getDestroySpeed(stone);
+        helper.assertTrue(vanillaStoneToolSpeed > 1.0F,
+                "a vanilla stone pickaxe no longer mines stone faster than a bare hand (" + vanillaStoneToolSpeed
+                        + "), so it cannot serve as the reference for the chisel's material speed");
+        float halvedMaterial = vanillaStoneToolSpeed * 0.5F;
+
         float plainSpeed = chisel.getDestroySpeed(new ItemStack(chisel), stone);
         float oneSpeed = chisel.getDestroySpeed(enchanted(helper, chisel, ModEnchantments.FAST_CHISELING, 1), stone);
         float twoSpeed = chisel.getDestroySpeed(enchanted(helper, chisel, ModEnchantments.FAST_CHISELING, 2), stone);
 
-        helper.assertTrue(plainSpeed > 1.0F,
-                "the chisel is not treated as an effective tool on stone any more, speed is " + plainSpeed);
+        assertSpeed(helper, plainSpeed, halvedMaterial,
+                "an unenchanted stone chisel on stone (half of a vanilla stone tool's " + vanillaStoneToolSpeed + ")");
         assertSpeed(helper, oneSpeed, plainSpeed + 2.5F, "Fast Chiseling I");
         assertSpeed(helper, twoSpeed, plainSpeed + 8.5F, "Fast Chiseling II");
 
+        // --- the chisel is the correct tool for pickaxe, axe AND shovel blocks, at the same speed ---
+        helper.assertTrue(chisel.isCorrectToolForDrops(new ItemStack(chisel), stone),
+                "the chisel stopped being the correct tool for a pickaxe block");
+        helper.assertTrue(chisel.isCorrectToolForDrops(new ItemStack(chisel), planks),
+                "the chisel stopped being the correct tool for an axe block, so it drops nothing there");
+        helper.assertTrue(chisel.isCorrectToolForDrops(new ItemStack(chisel), dirt),
+                "the chisel stopped being the correct tool for a shovel block, so it drops nothing there");
+        assertSpeed(helper, chisel.getDestroySpeed(new ItemStack(chisel), planks), halvedMaterial,
+                "an unenchanted stone chisel on oak planks (mineable with an axe)");
+        assertSpeed(helper, chisel.getDestroySpeed(new ItemStack(chisel), dirt), halvedMaterial,
+                "an unenchanted stone chisel on dirt (mineable with a shovel)");
+
         // --- and none of that leaks onto blocks the chisel is not effective on ---
-        BlockState glass = Blocks.GLASS.defaultBlockState();
-        helper.assertTrue(chisel.getDestroySpeed(new ItemStack(chisel), glass) == 1.0F,
+        helper.assertFalse(chisel.isCorrectToolForDrops(new ItemStack(chisel), glass),
                 "glass gained a mineable tag, so it no longer works as the ineffective control "
                         + "block here - pick another untagged block");
+        helper.assertTrue(chisel.getDestroySpeed(new ItemStack(chisel), glass) == 1.0F,
+                "the chisel mines glass at " + chisel.getDestroySpeed(new ItemStack(chisel), glass)
+                        + " although it is the wrong tool for it");
         helper.assertTrue(chisel.getDestroySpeed(
                         enchanted(helper, chisel, ModEnchantments.FAST_CHISELING, 2), glass) == 1.0F,
                 "Fast Chiseling speeds up a block the chisel cannot mine");
 
         helper.succeed();
+    }
+
+    /**
+     * Chisels once with one tier and drains the cooldown that click imposed, then cross checks it
+     * against {@code getCooldownTicks}. Measured rather than read: a tier that stopped calling
+     * {@code addCooldown}, or that puts a different number in than it reports, fails here even
+     * though its getter still answers correctly.
+     */
+    private static void assertTierCooldown(GameTestHelper helper, ServerPlayer player,
+                                           ChiselItem chisel, int expected, BlockPos target) {
+        String name = String.valueOf(BuiltInRegistries.ITEM.getKey(chisel));
+        int measured = chiselAndDrainCooldown(helper, player, new ItemStack(chisel), target);
+        helper.assertValueEqual(measured, expected,
+                name + " no longer holds the player for " + expected + " ticks between two transformations");
+        helper.assertValueEqual(chisel.getCooldownTicks(), measured,
+                name + " imposes a different cooldown than getCooldownTicks() reports, so the wiki "
+                        + "export and the game disagree");
     }
 
     // =====================================================================================
@@ -651,16 +769,32 @@ public final class BuildingEnchantmentTests {
     /**
      * Right clicks the top face of a block with a chisel or spatula and returns the block that is
      * there afterwards. Any cooldown left over from an earlier step is cleared first, so every
-     * case starts from the same state instead of being silently swallowed by the previous one.
-     *
-     * <p>On the way through it compares {@code ChiselItem#canChisel} - the predicate the client
-     * highlight uses - with what the click actually did. The two repeat the same map selection
-     * in two places and have to agree.
+     * case starts from the same state instead of being silently swallowed by the previous one -
+     * which is exactly why the cooldown itself needs {@link #chiselWhileOnCooldown}.
      */
     private static Block chiselAt(GameTestHelper helper, ServerPlayer player, ItemStack chisel,
                                   BlockPos relativePos, boolean sneaking, String what) {
-        player.setShiftKeyDown(sneaking);
         clearCooldown(player, chisel);
+        return chiselClick(helper, player, chisel, relativePos, sneaking, what);
+    }
+
+    /**
+     * The same click as {@link #chiselAt}, but with whatever cooldown the item is under left in
+     * place - the only way to run {@code canChisel}'s cooldown branch while it is actually true.
+     */
+    private static Block chiselWhileOnCooldown(GameTestHelper helper, ServerPlayer player,
+                                               ItemStack chisel, BlockPos relativePos, String what) {
+        return chiselClick(helper, player, chisel, relativePos, false, what);
+    }
+
+    /**
+     * Right clicks the top face and compares {@code ChiselItem#canChisel} - the predicate the
+     * client highlight uses - with what the click actually did. The two repeat the same map
+     * selection plus the same cooldown check in two places and have to agree.
+     */
+    private static Block chiselClick(GameTestHelper helper, ServerPlayer player, ItemStack chisel,
+                                     BlockPos relativePos, boolean sneaking, String what) {
+        player.setShiftKeyDown(sneaking);
         BlockPos pos = helper.absolutePos(relativePos);
 
         boolean predicted = ((ChiselItem) chisel.getItem()).canChisel(helper.getLevel(), pos, chisel, player);
@@ -842,7 +976,7 @@ public final class BuildingEnchantmentTests {
 
     private static void assertSpeed(GameTestHelper helper, float actual, float expected, String what) {
         helper.assertTrue(Math.abs(actual - expected) < 1.0E-4F,
-                what + " changed the chisel's mining speed to " + actual + " instead of " + expected);
+                what + ": the chisel's mining speed is " + actual + " instead of " + expected);
     }
 
     private static void setLogAxis(GameTestHelper helper, BlockPos pos, Direction.Axis axis) {

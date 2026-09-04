@@ -89,37 +89,102 @@ public final class EnchantmentEffectTests {
     }
 
     /**
-     * Break Through adds layers behind the mined face. The player looks straight down, so the
-     * extra layer is the one below. Sneaking suppresses it for the same reason as Radius.
+     * Break Through adds layers <em>behind the mined face</em>, and which way "behind" points is
+     * decided by the side the player hit: {@code SledgehammerItem#getBlocksToBeDestroyed} maps the
+     * hit side onto one of three axes and takes the sign from it. Each of those mappings is its
+     * own line in that method, so each one is driven here:
+     *
+     * <ul>
+     *   <li>looking down - hit side {@code UP}, the extra layers go downwards,</li>
+     *   <li>looking up - hit side {@code DOWN}, they go upwards,</li>
+     *   <li>facing south - hit side {@code NORTH}, they go south (+z),</li>
+     *   <li>facing west - hit side {@code EAST}, they go west (-x).</li>
+     * </ul>
+     *
+     * <p>The two horizontal cases carry different sign expressions in the source and are checked
+     * from opposite sides on purpose: a single horizontal case would pass just as happily if both
+     * branches dug towards the player instead of away from them.
+     *
+     * <p>Depth is pinned at both registered levels. Break Through is registered with a max level
+     * of 2 in {@code ModEnchantments} (the "Max Level 1" comment above that registration is
+     * wrong), so level I has to stop after exactly one extra layer and level II after exactly two.
+     *
+     * <p>Sneaking suppresses it for the same reason as Radius: it is the player's only way to take
+     * a plain face with an enchanted hammer.
+     *
+     * <p>What breaks it: losing the sneak gate, reading the level from anywhere but the held
+     * stack, clamping the depth (the level II case comes up a layer short), letting the depth grow
+     * past the level (the "one layer only" and "two layers only" survivors go), flipping the sign
+     * in either horizontal branch or deleting the branch outright (the extra layer lands on the
+     * wrong side of the origin, or nowhere), and collapsing {@code (sideHit == UP) ? -z : z} to a
+     * constant (the look-up case then digs into the floor instead of the ceiling).
      */
     public static void breakThroughAddsLayersBehindTheMinedFace(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, 90.0F);
 
         // --- without it, the layer below survives ---
-        fillLayer(helper, 2, 1, 5, 1, 5, Blocks.STONE);
-        fillLayer(helper, 1, 1, 5, 1, 5, Blocks.STONE);
+        fillCube(helper, 1, 5, 1, 2, 1, 5, Blocks.STONE);
         player.setShiftKeyDown(false);
         swing(helper, player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
         helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(1, -1, 0));
 
         // --- with Break Through I, the layer below goes as well ---
-        fillLayer(helper, 2, 1, 5, 1, 5, Blocks.STONE);
-        fillLayer(helper, 1, 1, 5, 1, 5, Blocks.STONE);
+        fillCube(helper, 1, 5, 0, 2, 1, 5, Blocks.STONE);
         swing(helper, player, hammerWith(helper, ModEnchantments.BREAK_THROUGH, 1));
 
         helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(1, 0, 0));
         helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(1, -1, 0));
         helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(0, -1, 0));
+        // Exactly one extra layer: the second one below is level II's, and without this the depth
+        // could be wired to the maximum level instead of the level on the stack.
+        helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(0, -2, 0));
 
         // --- sneaking cancels it ---
-        fillLayer(helper, 2, 1, 5, 1, 5, Blocks.STONE);
-        fillLayer(helper, 1, 1, 5, 1, 5, Blocks.STONE);
+        fillCube(helper, 1, 5, 0, 2, 1, 5, Blocks.STONE);
         player.setShiftKeyDown(true);
         swing(helper, player, hammerWith(helper, ModEnchantments.BREAK_THROUGH, 1));
 
         helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(1, 0, 0));
         helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(1, -1, 0));
         player.setShiftKeyDown(false);
+
+        // --- looking up: hit side DOWN, so the layers go up - and level II reaches two of them ---
+        aim(player, 0.0F, -90.0F);
+        fillCube(helper, 1, 5, 1, 5, 1, 5, Blocks.STONE);
+        swing(helper, player, hammerWith(helper, ModEnchantments.BREAK_THROUGH, 2));
+
+        helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(0, 1, 0));
+        helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(0, 2, 0));
+        helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(1, 2, 0));
+        // Two layers and no more ...
+        helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(0, 3, 0));
+        // ... and they were taken above the face, not below it.
+        helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(0, -1, 0));
+
+        // --- facing south: hit side NORTH, so the extra layer is the one further south ---
+        aim(player, 0.0F, 0.0F);
+        helper.assertTrue(player.getDirection() == Direction.SOUTH,
+                "the mock player is not facing south, so this case would no longer pin the "
+                        + "north/south branch of the hit side");
+        fillCube(helper, 1, 5, 1, 3, 1, 5, Blocks.STONE);
+        swing(helper, player, hammerWith(helper, ModEnchantments.BREAK_THROUGH, 1));
+
+        helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(0, 0, 1));
+        helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(1, 1, 1));
+        // The block on the player's side of the face is not "behind" anything and must stand.
+        helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(0, 0, -1));
+
+        // --- facing west: hit side EAST, the branch with the other sign ---
+        aim(player, 90.0F, 0.0F);
+        helper.assertTrue(player.getDirection() == Direction.WEST,
+                "the mock player is not facing west, so this case would no longer pin the "
+                        + "east/west branch of the hit side");
+        fillCube(helper, 1, 5, 1, 3, 1, 5, Blocks.STONE);
+        swing(helper, player, hammerWith(helper, ModEnchantments.BREAK_THROUGH, 1));
+
+        helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(-1, 0, 0));
+        helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(-1, 1, 1));
+        helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(1, 0, 0));
 
         helper.succeed();
     }
@@ -130,8 +195,20 @@ public final class EnchantmentEffectTests {
 
     /**
      * Versatility swaps a better tool into the hand when the player sneak-hits a block. Level I
-     * may only look through the hotbar, level II through the whole inventory - that difference
-     * is the entire point of the second level, so both are checked.
+     * may only look through the hotbar, level II through the whole inventory - that difference is
+     * the entire point of the second level, so both are checked, and both are checked at their
+     * <em>boundaries</em>: slot 8 (last hotbar slot) and slot 9 (first slot past it) for level I,
+     * slot 35 (last inventory slot) for level II. Cases well inside each range prove only that the
+     * search runs at all; narrowing {@code searchRange} to a handful of slots would leave them
+     * green while most of the player's inventory silently dropped out of reach.
+     *
+     * <p><b>What this test cannot reach.</b> The handler opens with
+     * {@code if (world.isClientSide() || !player.isShiftKeyDown())}. Only the sneak half of that
+     * line is testable here: {@code helper.getLevel()} is always a {@code ServerLevel}, so
+     * {@code isClientSide()} is constantly false and an assertion about it could not fail no
+     * matter what the mod did. The guard is not decoration - Fabric hangs this handler on
+     * {@code AttackBlockCallback}, which also fires client side - it is simply out of reach of a
+     * gametest, and no assertion below should be read as covering it.
      */
     public static void versatilitySwapsInTheBetterToolWhileSneaking(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, 0.0F);
@@ -159,11 +236,27 @@ public final class EnchantmentEffectTests {
         helper.assertTrue(player.getInventory().getItem(0).is(Items.DIAMOND_SHOVEL),
                 "Versatility I moved items around instead of just changing the selection");
 
+        // --- Versatility I, pickaxe in the LAST hotbar slot: the whole hotbar is in range ---
+        arm(player, 0, versatilityShovel(helper, 1), 8, new ItemStack(Items.DIAMOND_PICKAXE));
+        attack(helper, player, absolute);
+        helper.assertTrue(player.getMainHandItem().is(Items.DIAMOND_PICKAXE),
+                "Versatility I stopped short of the last hotbar slot, hand holds "
+                        + player.getMainHandItem());
+        helper.assertTrue(player.getInventory().getSelectedSlot() == 8,
+                "Versatility I did not move the selected slot to the pickaxe in slot 8");
+
         // --- Versatility I, pickaxe outside the hotbar: must NOT be found ---
         arm(player, 0, versatilityShovel(helper, 1), 20, new ItemStack(Items.DIAMOND_PICKAXE));
         attack(helper, player, absolute);
         helper.assertTrue(player.getMainHandItem().is(Items.DIAMOND_SHOVEL),
                 "Versatility I reached past the hotbar, which is level II's job; hand holds "
+                        + player.getMainHandItem());
+
+        // --- Versatility I, pickaxe in the FIRST slot past the hotbar: the exact boundary ---
+        arm(player, 0, versatilityShovel(helper, 1), 9, new ItemStack(Items.DIAMOND_PICKAXE));
+        attack(helper, player, absolute);
+        helper.assertTrue(player.getMainHandItem().is(Items.DIAMOND_SHOVEL),
+                "Versatility I reached one slot past the hotbar, hand holds "
                         + player.getMainHandItem());
 
         // --- Versatility II: the same pickaxe is found and swapped into the hand ---
@@ -174,6 +267,15 @@ public final class EnchantmentEffectTests {
                         + player.getMainHandItem());
         helper.assertTrue(player.getInventory().getItem(20).is(Items.DIAMOND_SHOVEL),
                 "Versatility II did not park the shovel in the slot the pickaxe came from");
+
+        // --- Versatility II, pickaxe in the LAST inventory slot: all 36 slots are in range ---
+        arm(player, 0, versatilityShovel(helper, 2), 35, new ItemStack(Items.DIAMOND_PICKAXE));
+        attack(helper, player, absolute);
+        helper.assertTrue(player.getMainHandItem().is(Items.DIAMOND_PICKAXE),
+                "Versatility II stopped short of the last inventory slot, hand holds "
+                        + player.getMainHandItem());
+        helper.assertTrue(player.getInventory().getItem(35).is(Items.DIAMOND_SHOVEL),
+                "Versatility II did not park the shovel in slot 35");
 
         // --- standing upright: no swap at all ---
         player.setShiftKeyDown(false);
@@ -285,11 +387,32 @@ public final class EnchantmentEffectTests {
     }
 
 
+    /**
+     * Points the mock player without moving it. Both the hit side the sledgehammer digs behind
+     * and the mining direction are read off pitch and yaw, so aiming is what selects the branch
+     * under test.
+     */
+    private static void aim(ServerPlayer player, float yRot, float xRot) {
+        player.snapTo(player.getX(), player.getY(), player.getZ(), yRot, xRot);
+    }
+
     private static void fillLayer(GameTestHelper helper, int y, int minX, int maxX, int minZ, int maxZ, Block block) {
         for (int x = minX; x <= maxX; x++) {
             for (int z = minZ; z <= maxZ; z++) {
                 helper.setBlock(new BlockPos(x, y, z), block);
             }
+        }
+    }
+
+    /**
+     * Rebuilds a solid block of stone around the hammer centre. The horizontal Break Through
+     * cases dig along x or z, so a two layer stack is not enough any more - every case needs
+     * whole material on all three axes and a fresh one, because the case before it left holes.
+     */
+    private static void fillCube(GameTestHelper helper, int minX, int maxX, int minY, int maxY,
+                                 int minZ, int maxZ, Block block) {
+        for (int y = minY; y <= maxY; y++) {
+            fillLayer(helper, y, minX, maxX, minZ, maxZ, block);
         }
     }
 

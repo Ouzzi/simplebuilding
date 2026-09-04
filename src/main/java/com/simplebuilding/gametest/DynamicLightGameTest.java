@@ -51,7 +51,7 @@ public final class DynamicLightGameTest {
         DynamicLightTests.theLightFollowsThePlayerAndGoesOutWithTheArmour(helper);
     }
 
-    @GameTest(maxTicks = DynamicLightTests.TICK_WIRING_MAX_TICKS)
+    @GameTest
     public void theServerTickWiringLightsTheWearerOnItsOwn(GameTestHelper helper) {
         DynamicLightTests.theServerTickWiringLightsTheWearerOnItsOwn(helper);
     }

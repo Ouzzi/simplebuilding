@@ -4,6 +4,9 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.networking.DoubleJumpPayload;
 import com.simplebuilding.networking.ModMessageHandlers;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -26,6 +29,7 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
@@ -87,6 +91,27 @@ import net.minecraft.world.phys.Vec3;
  * <p>Every creative half also asserts that the <em>effect</em> still happened - the block really
  * changed, the plane really got built, the air jump really landed. Without that, "no durability was
  * spent" would also pass if the whole interaction had silently stopped working.
+ *
+ * <h2>Known defects</h2>
+ *
+ * <p>The sledgehammer's reverse "stairs to full block" lookup
+ * ({@code SledgehammerItem#getTransformedState}) strips {@code _stairs} off the block's name and
+ * tries that name, then {@code <name>s}, then {@code <name>_planks}. Measuring what that produces
+ * across the vanilla stairs families turns up three cases the rule gets wrong:
+ *
+ * <ul>
+ *   <li>{@code bamboo_stairs} resolves on the <em>first</em> try, because {@code minecraft:bamboo}
+ *       is a registered block - the bamboo stalk plant. Sneaking on bamboo stairs therefore
+ *       replaces them with a bamboo shoot instead of {@code bamboo_planks}.</li>
+ *   <li>{@code quartz_stairs} matches none of the three ({@code quartz} is an item, not a block;
+ *       the block is {@code quartz_block}), so nothing happens at all.</li>
+ *   <li>{@code purpur_stairs} likewise finds nothing; its full block is {@code purpur_block}.</li>
+ * </ul>
+ *
+ * <p>{@link #sledgehammerSecondaryUseWearsDownOnlyTheSurvivalPlayer} therefore walks the reverse
+ * direction on stone, brick and oak stairs - three families the rule does handle - and states no
+ * expectation for the three above, so the defect is neither frozen in as intended behaviour nor
+ * papered over.
  */
 public final class ConsumptionAndDurabilityTests {
 
@@ -360,9 +385,22 @@ public final class ConsumptionAndDurabilityTests {
      * Touch - losing its double price; and the reverse direction happening <em>without</em>
      * Constructor's Touch, which is asserted here as "nothing changed and nothing was charged".
      *
+     * <p>The reverse direction is walked on three stairs blocks, not one. Turning a stairs block
+     * back into a full block is a name lookup with two fallbacks: {@code stone_stairs} finds
+     * {@code stone} directly, but {@code brick_stairs} only resolves through {@code <name>s} and
+     * {@code oak_stairs} only through {@code <name>_planks}. Those two fallbacks are what carries
+     * the brick families ({@code bricks}, {@code nether_bricks}, {@code stone_bricks},
+     * {@code mud_bricks}, {@code prismarine_bricks}) and the wooden ones ({@code oak_planks},
+     * {@code crimson_planks}, ...) - measured, not assumed - and a test that only ever clicks
+     * stone stairs would let them be deleted without a word. They do <em>not</em> cover every
+     * stairs block in the game; see the known defects in the class javadoc.
+     *
      * <p>The pebble count is asserted in both halves on purpose: it is the proof that the crush
      * actually ran, so "the creative hammer took no damage" cannot pass by the method bailing out
-     * early.
+     * early. The stack <em>sizes</em> are asserted next to it because
+     * {@code assertItemEntityCountIs} sums {@code getCount()} over every matching entity: it
+     * cannot tell 64 plus 17 from a single illegal stack of 81, which is exactly what dropping
+     * the {@code Math.min(totalPebbles, 64)} batching would produce.
      *
      * <p>Both players look straight down at the target, because {@code finishUsingItem} re-picks
      * the block itself through {@code player.pick(5.0, 0.0F, false)} - the aim has to be set up
@@ -403,6 +441,15 @@ public final class ConsumptionAndDurabilityTests {
 
         helper.assertBlockPresent(Blocks.STONE, target);
         helper.assertValueEqual(touchHammer.getDamageValue(), 2, "wear for one reverse transformation");
+
+        // --- the two name fallbacks the reverse lookup needs for every other stairs family ---
+        assertReverseToFullBlock(helper, level, survival, touchHammer, target,
+                Blocks.BRICK_STAIRS, Blocks.BRICKS, "<name>s");
+        assertReverseToFullBlock(helper, level, survival, touchHammer, target,
+                Blocks.OAK_STAIRS, Blocks.OAK_PLANKS, "<name>_planks");
+
+        // Hand the target back the way the creative half below expects to find it.
+        helper.setBlock(target, Blocks.STONE);
         survival.setShiftKeyDown(false);
 
         // --- creative: the same forward transformation, free ---
@@ -421,6 +468,9 @@ public final class ConsumptionAndDurabilityTests {
 
         helper.assertBlockPresent(Blocks.AIR, target);
         helper.assertItemEntityCountIs(ModItems.DIAMOND_PEBBLE, target, 2.0, 81);
+        helper.assertValueEqual(pebbleStackSizes(helper), List.of(64, 17),
+                "the 81 pebbles did not come out as one full stack plus a rest; the batching in "
+                        + "crushDiamondBlock is what keeps them within a stack size");
         helper.assertValueEqual(hammer.getDamageValue(), 2, "wear after also crushing a diamond block");
 
         helper.killAllEntitiesOfClass(ItemEntity.class);
@@ -431,6 +481,8 @@ public final class ConsumptionAndDurabilityTests {
 
         helper.assertBlockPresent(Blocks.AIR, target);
         helper.assertItemEntityCountIs(ModItems.DIAMOND_PEBBLE, target, 2.0, 81);
+        helper.assertValueEqual(pebbleStackSizes(helper), List.of(64, 17),
+                "the creative crush did not batch its 81 pebbles either");
         helper.assertValueEqual(creativeHammer.getDamageValue(), 0,
                 "the hammer wore down crushing a diamond block in creative");
 
@@ -559,6 +611,46 @@ public final class ConsumptionAndDurabilityTests {
         helper.assertTrue(player.getAbilities().instabuild == wantCreative,
                 "GameType." + mode + " no longer sets instabuild to " + wantCreative);
         return player;
+    }
+
+    /**
+     * Holds right click on a stairs block with a sneaking, Constructor's Touch hammer and checks
+     * which full block came back out - the reverse lookup's whole job. {@code fallback} names the
+     * registry lookup the block's own base name needs, so the failure message says which of the
+     * three lookups is gone rather than only that a brick stayed a brick.
+     *
+     * <p>The wear is compared against the value the hammer already carried, so these cases can be
+     * appended anywhere in the run without renumbering the durability of everything after them.
+     */
+    private static void assertReverseToFullBlock(GameTestHelper helper, ServerLevel level, ServerPlayer player,
+                                                 ItemStack hammer, BlockPos target,
+                                                 Block stairs, Block expected, String fallback) {
+        helper.setBlock(target, stairs);
+        player.setShiftKeyDown(true);
+        player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
+
+        int wearBefore = hammer.getDamageValue();
+        hammer.getItem().finishUsingItem(hammer, level, player);
+
+        helper.assertBlockPresent(expected, target);
+        helper.assertValueEqual(hammer.getDamageValue(), wearBefore + 2,
+                "the reverse step through the \"" + fallback + "\" lookup did not cost the usual two points");
+    }
+
+    /**
+     * The sizes of every dropped diamond pebble stack in the test's own bounds, largest first.
+     * The bounds are used unwidened on purpose: the test structures stand a few blocks apart, and
+     * an inflated box would pick up the neighbouring test's items.
+     */
+    private static List<Integer> pebbleStackSizes(GameTestHelper helper) {
+        List<Integer> sizes = new ArrayList<>();
+        for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds())) {
+            if (entity.getItem().is(ModItems.DIAMOND_PEBBLE)) {
+                sizes.add(entity.getItem().getCount());
+            }
+        }
+        sizes.sort(Comparator.reverseOrder());
+        return sizes;
     }
 
     /** Right clicks a block face at a precise spot on that face, server side. */

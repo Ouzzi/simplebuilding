@@ -288,7 +288,6 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("dynamic_light_game_test_the_light_follows_the_player_and_goes_out_with_the_armour", DynamicLightTests::theLightFollowsThePlayerAndGoesOutWithTheArmour)
                     .build(),
             GameTestSpec.named("dynamic_light_game_test_the_server_tick_wiring_lights_the_wearer_on_its_own", DynamicLightTests::theServerTickWiringLightsTheWearerOnItsOwn)
-                    .maxTicks(DynamicLightTests.TICK_WIRING_MAX_TICKS)
                     .build(),
             GameTestSpec.named("ore_detector_game_test_detector_reports_the_nearest_target_inside_its_budget", OreDetectorTests::detectorReportsTheNearestTargetInsideItsBudget)
                     .build(),
@@ -418,6 +417,94 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("bundle_wiring_game_test_reinforced_bundle_sits_in_dungeon_shipwreck_and_mineshaft_loot", BundleWiringTests::reinforcedBundleSitsInDungeonShipwreckAndMineshaftLoot)
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_container_enchantments_accept_the_bundles_they_are_meant_for", BundleWiringTests::containerEnchantmentsAcceptTheBundlesTheyAreMeantFor)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_field_skips_air_gaps_and_unbreakable_blocks", SledgehammerTests::sledgehammerFieldSkipsAirGapsAndUnbreakableBlocks)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_refuses_the_whole_field_when_the_origin_is_out_of_reach", SledgehammerTests::sledgehammerRefusesTheWholeFieldWhenTheOriginIsOutOfReach)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_bills_one_durability_per_block_and_two_for_the_wrong_tool", SledgehammerTests::sledgehammerBillsOneDurabilityPerBlockAndTwoForTheWrongTool)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_stops_the_swing_when_the_hammer_breaks", SledgehammerTests::sledgehammerStopsTheSwingWhenTheHammerBreaks)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_field_plane_and_depth_follow_the_look_direction", SledgehammerTests::sledgehammerFieldPlaneAndDepthFollowTheLookDirection)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_right_click_charges_only_on_blocks_it_can_reshape", SledgehammerTests::sledgehammerRightClickChargesOnlyOnBlocksItCanReshape)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_reshapes_full_blocks_stairs_and_slabs", SledgehammerTests::sledgehammerReshapesFullBlocksStairsAndSlabs)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_speed_and_block_count_scale_with_its_enchantments", SledgehammerTests::sledgehammerSpeedAndBlockCountScaleWithItsEnchantments)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_charge_time_shortens_with_material_and_efficiency", SledgehammerTests::sledgehammerChargeTimeShortensWithMaterialAndEfficiency)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_turns_framed_trim_templates_glowing", SledgehammerTests::sledgehammerTurnsFramedTrimTemplatesGlowing)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_spatula_runs_forward_while_sneaking_and_chisel_runs_backward", ChiselTests::spatulaRunsForwardWhileSneakingAndChiselRunsBackward)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_tier_tables_are_inherited_upwards_and_shared_in_pairs", ChiselTests::tierTablesAreInheritedUpwardsAndSharedInPairs)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_netherite_tier_cycles_the_nether_brick_family", ChiselTests::netheriteTierCyclesTheNetherBrickFamily)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_cooldown_ticks_follow_the_tier_table", ChiselTests::cooldownTicksFollowTheTierTable)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_shared_properties_survive_and_self_mappings_reorient", ChiselTests::sharedPropertiesSurviveAndSelfMappingsReorient)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_intuitive_orientation_derives_the_edge_direction", ChiselTests::intuitiveOrientationDerivesTheEdgeDirection)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_chiselled_pillars_and_stairs_take_the_click_orientation", ChiselTests::chiselledPillarsAndStairsTakeTheClickOrientation)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_chisel_mines_at_half_material_speed", ChiselTests::chiselMinesAtHalfMaterialSpeed)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_last_target_is_stored_and_shown_in_the_tooltip", ChiselTests::lastTargetIsStoredAndShownInTheTooltip)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_smithing_upgrades_carry_wear_name_and_enchantments", ChiselTests::smithingUpgradesCarryWearNameAndEnchantments)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_vein_miner_spends_its_per_level_budget_and_stops_when_the_tool_breaks", MiningEnchantmentTests::veinMinerSpendsItsPerLevelBudgetAndStopsWhenTheToolBreaks)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_vein_miner_and_strip_miner_ignore_tools_and_blocks_outside_their_gates", MiningEnchantmentTests::veinMinerAndStripMinerIgnoreToolsAndBlocksOutsideTheirGates)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_strip_miner_digs_upwards_only_past_the_steep_pitch_threshold", MiningEnchantmentTests::stripMinerDigsUpwardsOnlyPastTheSteepPitchThreshold)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_strip_miner_divides_the_player_destroy_speed_per_level", MiningEnchantmentTests::stripMinerDividesThePlayerDestroySpeedPerLevel)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_versatility_refuses_candidates_that_cannot_harvest_the_block", MiningEnchantmentTests::versatilityRefusesCandidatesThatCannotHarvestTheBlock)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_versatility_prefers_the_hammer_and_ranks_the_chisel_last", MiningEnchantmentTests::versatilityPrefersTheHammerAndRanksTheChiselLast)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_mining_enchantment_tags_hold_exactly_what_they_declare", MiningEnchantmentTests::miningEnchantmentTagsHoldExactlyWhatTheyDeclare)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_mining_enchantment_books_and_the_diamond_hammer_sit_in_their_loot_pools", MiningEnchantmentTests::miningEnchantmentBooksAndTheDiamondHammerSitInTheirLootPools)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_mining_pickaxe_trade_always_carries_an_enchantment_from_its_pool", MiningEnchantmentTests::miningPickaxeTradeAlwaysCarriesAnEnchantmentFromItsPool)
+                    .build(),
+            GameTestSpec.named("mining_enchantment_game_test_creative_tab_offers_every_mining_enchantment_book_at_max_level", MiningEnchantmentTests::creativeTabOffersEveryMiningEnchantmentBookAtMaxLevel)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_reinforced_piston_moves_eighteen_blocks_while_the_netherite_one_keeps_vanillas_twelve", GravityBlockTests::reinforcedPistonMovesEighteenBlocksWhileTheNetheriteOneKeepsVanillasTwelve)
+                    .maxTicks(GravityBlockTests.PUSH_LIMIT_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_netherite_piston_breaks_only_what_the_signal_strength_can_afford", GravityBlockTests::netheritePistonBreaksOnlyWhatTheSignalStrengthCanAfford)
+                    .maxTicks(GravityBlockTests.BREAK_THRESHOLD_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_mod_pistons_are_not_sticky_and_use_the_vanilla_head", GravityBlockTests::modPistonsAreNotStickyAndUseTheVanillaHead)
+                    .maxTicks(GravityBlockTests.RETRACTION_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_extended_mod_pistons_cannot_be_shoved_by_other_pistons", GravityBlockTests::extendedModPistonsCannotBeShovedByOtherPistons)
+                    .maxTicks(GravityBlockTests.PISTON_VERSUS_PISTON_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_levitating_sand_leaves_on_vanillas_schedule_and_rises_on_its_curve", GravityBlockTests::levitatingSandLeavesOnVanillasScheduleAndRisesOnItsCurve)
+                    .maxTicks(GravityBlockTests.RISE_CURVE_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_levitating_sand_waits_under_the_ceiling_until_the_way_up_is_free", GravityBlockTests::levitatingSandWaitsUnderTheCeilingUntilTheWayUpIsFree)
+                    .maxTicks(GravityBlockTests.CEILING_WAIT_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_blocked_landing_spots_drop_the_block_or_keep_it_flying", GravityBlockTests::blockedLandingSpotsDropTheBlockOrKeepItFlying)
+                    .maxTicks(GravityBlockTests.BLOCKED_LANDING_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_suspended_sand_lets_items_through_while_suspended_gravel_holds_them", GravityBlockTests::suspendedSandLetsItemsThroughWhileSuspendedGravelHoldsThem)
+                    .maxTicks(GravityBlockTests.COLLISION_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_gravity_blocks_and_pistons_carry_their_registered_strength_and_tags", GravityBlockTests::gravityBlocksAndPistonsCarryTheirRegisteredStrengthAndTags)
+                    .build(),
+            GameTestSpec.named("gravity_block_game_test_gravity_block_recipes_craft_from_their_documented_patterns", GravityBlockTests::gravityBlockRecipesCraftFromTheirDocumentedPatterns)
                     .build());
 
     private SimpleBuildingGameTests() {

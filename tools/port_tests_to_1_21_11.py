@@ -1,0 +1,182 @@
+#!/usr/bin/env python3
+"""
+Ports game test classes from the MC 26.2 tree to the MC 1.21.11 tree.
+
+The two Minecraft lines keep separate copies of everything, tests included. Most
+of a test body is identical between them; what differs is a handful of API
+changes that recur in every single class. Translating those by hand once per
+class is where mistakes creep in - so they live here, each with the reason it
+exists, and the port becomes one invocation plus whatever the compiler still
+complains about.
+
+The rules below were all established by porting real classes and reading the
+mapped jars, not guessed:
+
+  EntityTypes -> EntityType
+      The split into a separate EntityTypes holder only happened in 26.2; on
+      1.21.11 the constants still sit on EntityType itself.
+
+  ItemStack#typeHolder().is(tag) -> ItemStack#is(tag)
+      typeHolder() is 26.2 only. is(TagKey<Item>) exists on both and says the
+      same thing.
+
+  ItemFrame#interact(player, hand, hitVec) -> interact(player, hand)
+      1.21.11's signature takes no hit position.
+
+  helper.runBeforeTestEnd(x) -> TestCleanup.before(helper, x)
+  helper.succeed()           -> TestCleanup.succeed(helper)
+  .thenSucceed()             -> .thenExecute(() -> TestCleanup.run(helper)).thenSucceed()
+      1.21.11's GameTestHelper has no runBeforeTestEnd. TestCleanup collects the
+      clean-up and runs it where every body already has a point: right before it
+      reports success. See mc1_21_11/.../gametest/TestCleanup.java.
+
+What this script deliberately does NOT do:
+
+  * GameTestHelper#makeMockServerPlayer(GameType) has no 1.21.11 counterpart and
+    needs a hand rolled ServerPlayer subclass. There is no safe mechanical
+    rewrite, so the script reports the call sites and leaves them alone.
+  * The catalogue and the Fabric adapters. Those are generated centrally, and a
+    class that cannot run on this line must be left out of the catalogue with a
+    reason rather than silently dropped.
+
+Usage
+    python tools/port_tests_to_1_21_11.py --check          # what is missing
+    python tools/port_tests_to_1_21_11.py --all            # port everything missing
+    python tools/port_tests_to_1_21_11.py MagnetTests ...  # port named classes
+
+Always compile afterwards; the rules cover the recurring differences, not every
+one. Anything left is a real API gap that wants a decision, not a substitution.
+"""
+
+from __future__ import annotations
+
+import argparse
+import io
+import re
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parents[1]
+SOURCE = REPO / "common/src/shared/java/com/simplebuilding/gametest"
+TARGET = REPO / "mc1_21_11/shared/java/com/simplebuilding/gametest"
+
+#: (Muster, Ersatz, Begruendung). Reihenfolge zaehlt: die Aufraeum-Regeln bauen
+#: aufeinander auf, deshalb kommt succeed() nach runBeforeTestEnd().
+RULES: list[tuple[str, str, str]] = [
+    (r"import net\.minecraft\.world\.entity\.EntityTypes;",
+     "import net.minecraft.world.entity.EntityType;",
+     "EntityTypes gibt es erst ab 26.2"),
+    (r"\bEntityTypes\.",
+     "EntityType.",
+     "dito, Verwendungsstellen"),
+    (r"helper\.runBeforeTestEnd\(",
+     "TestCleanup.before(helper, ",
+     "1.21.11 hat den Hook nicht, siehe TestCleanup"),
+    (r"helper\.succeed\(\);",
+     "TestCleanup.succeed(helper);",
+     "Aufraeumen vor dem Erfolg"),
+    (r"\.thenSucceed\(\);",
+     ".thenExecute(() -> TestCleanup.run(helper))\n                .thenSucceed();",
+     "dito, aber innerhalb einer Sequenz"),
+    (r"\.typeHolder\(\)\.is\(",
+     ".is(",
+     "ItemStack.typeHolder() gibt es erst ab 26.2; is(TagKey) tut dasselbe"),
+    (r"(\w+)\.interact\((\w+), InteractionHand\.(\w+), Vec3\.ZERO\)",
+     r"\1.interact(\2, InteractionHand.\3)",
+     "ItemFrame.interact nimmt auf 1.21.11 keinen Trefferpunkt"),
+]
+
+#: Was sich nicht mechanisch uebersetzen laesst und gemeldet statt geraten wird.
+HAND_WORK: list[tuple[str, str]] = [
+    (r"makeMockServerPlayer\(",
+     "GameTestHelper#makeMockServerPlayer(GameType) gibt es auf 1.21.11 nicht - der "
+     "ServerPlayer mit ueberschriebenem gameMode() muss von Hand gebaut werden, siehe "
+     "ConsumptionAndDurabilityTests#detachedPlayer in mc1_21_11"),
+    (r"\bBlockItemTags\b",
+     "BlockItemTags (gepaarte Block-/Item-Tags) gibt es erst ab 26.2; auf 1.21.11 stehen "
+     "die Konstanten noch in BlockTags"),
+    (r"\bsendOverlayMessage\(",
+     "sendOverlayMessage heisst auf 1.21.11 displayClientMessage(component, true)"),
+    (r"getAirDrag\(\)",
+     "Entity#getAirDrag gibt es nur auf 26.2; auf 1.21.11 steht die 0.98 als Literal"),
+]
+
+
+def force_utf8_stdout() -> None:
+    for name in ("stdout", "stderr"):
+        stream = getattr(sys, name)
+        if isinstance(stream, io.TextIOWrapper) and (stream.encoding or "").lower() != "utf-8":
+            stream.reconfigure(encoding="utf-8", errors="replace")
+
+
+def test_classes(directory: Path) -> set[str]:
+    return {p.stem for p in directory.glob("*Tests.java")}
+
+
+def missing() -> list[str]:
+    return sorted(test_classes(SOURCE) - test_classes(TARGET))
+
+
+def port(name: str) -> tuple[int, list[str]]:
+    """Translates one class. Returns (substitutions, notes needing a human)."""
+    text = (SOURCE / f"{name}.java").read_bytes().decode("utf-8").replace("\r\n", "\n")
+
+    total = 0
+    for pattern, replacement, _why in RULES:
+        text, n = re.subn(pattern, replacement, text)
+        total += n
+
+    notes: list[str] = []
+    for pattern, note in HAND_WORK:
+        hits = len(re.findall(pattern, text))
+        if hits:
+            notes.append(f"{hits}x  {note}")
+
+    (TARGET / f"{name}.java").write_bytes(text.replace("\n", "\r\n").encode("utf-8"))
+    return total, notes
+
+
+def main(argv: list[str] | None = None) -> int:
+    force_utf8_stdout()
+    parser = argparse.ArgumentParser(description="Ports game tests to the MC 1.21.11 tree.")
+    parser.add_argument("classes", nargs="*", help="class names, e.g. MagnetTests")
+    parser.add_argument("--all", action="store_true", help="port every class the target lacks")
+    parser.add_argument("--check", action="store_true", help="only list what is missing")
+    args = parser.parse_args(argv)
+
+    gap = missing()
+    if args.check or (not args.classes and not args.all):
+        print()
+        print(f"  26.2:    {len(test_classes(SOURCE))} Testklassen")
+        print(f"  1.21.11: {len(test_classes(TARGET))} Testklassen")
+        print()
+        if gap:
+            print("  Fehlt auf der 1.21.11-Linie:")
+            for name in gap:
+                print(f"    {name}")
+        else:
+            print("  Beide Linien tragen dieselben Testklassen.")
+        print()
+        return 0
+
+    wanted = gap if args.all else args.classes
+    unknown = [n for n in wanted if not (SOURCE / f"{n}.java").exists()]
+    if unknown:
+        raise SystemExit("unbekannte Klassen: " + ", ".join(unknown))
+
+    print()
+    for name in wanted:
+        count, notes = port(name)
+        print(f"  {name}: {count} Ersetzungen")
+        for note in notes:
+            print(f"      HANDARBEIT  {note}")
+    print()
+    print("  Jetzt uebersetzen - was der Compiler noch meldet, ist ein echter API-Unterschied")
+    print("  und will eine Entscheidung, keine Ersetzung:")
+    print("      ./gradlew :mc1_21_11:fabric:compileJava")
+    print()
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -53,7 +53,11 @@
       "com.simplebuilding.gametest.TrimBonusGameTest",
       "com.simplebuilding.gametest.TrimWiringGameTest",
       "com.simplebuilding.gametest.ReinforcedBundleGameTest",
-      "com.simplebuilding.gametest.BundleWiringGameTest"
+      "com.simplebuilding.gametest.BundleWiringGameTest",
+      "com.simplebuilding.gametest.SledgehammerGameTest",
+      "com.simplebuilding.gametest.ChiselGameTest",
+      "com.simplebuilding.gametest.MiningEnchantmentGameTest",
+      "com.simplebuilding.gametest.GravityBlockGameTest"
     ]
   },
   "mixins": [
