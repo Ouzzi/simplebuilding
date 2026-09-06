@@ -85,6 +85,12 @@ class Target:
     report: str
     #: Which shared source tree this target's test catalogue comes from.
     catalogue: str
+    #: "server" proves itself through JUnit XML plus the catalogue cross-check.
+    #: "client" drives a real Minecraft client and proves itself through screenshots.
+    kind: str = "server"
+    #: Client targets only: where the test sources live and where the shots land.
+    sources: str = ""
+    screenshots: str = ""
 
 
 TARGETS: tuple[Target, ...] = (
@@ -124,9 +130,63 @@ TARGETS: tuple[Target, ...] = (
         report="mc1_21_11/neoforge/build/neoforge-junit.xml",
         catalogue="mc1_21_11/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
     ),
+    # The client targets are not in the default selection: each boots a real Minecraft
+    # client and takes minutes, where the whole server sweep takes about two. They run
+    # on --release-gate, or when asked for by id.
+    Target(
+        id="client-fabric-262",
+        label="Client Fabric - MC 26.2",
+        loader="fabric",
+        mc_line="26.2",
+        gradle_task=":runClientGameTest",
+        report="",
+        catalogue="",
+        kind="client",
+        sources="src/gametest/java/com/simplebuilding/clienttest",
+        screenshots="build/run/clientGameTest/screenshots",
+    ),
+    Target(
+        id="client-neoforge-262",
+        label="Client NeoForge - MC 26.2",
+        loader="neoforge",
+        mc_line="26.2",
+        gradle_task=":neoforge:runClientGameTest",
+        report="",
+        catalogue="",
+        kind="client",
+        sources="neoforge/src/clientGameTest/java/com/simplebuilding/neoforge/clienttest",
+        screenshots="neoforge/build/run/clientGameTest/screenshots",
+    ),
+    Target(
+        id="client-fabric-12111",
+        label="Client Fabric - MC 1.21.11",
+        loader="fabric",
+        mc_line="1.21.11",
+        gradle_task=":mc1_21_11:fabric:runClientGameTest",
+        report="",
+        catalogue="",
+        kind="client",
+        sources="mc1_21_11/fabric/src/gametest/java/com/simplebuilding/clienttest",
+        screenshots="mc1_21_11/fabric/build/run/clientGameTest/screenshots",
+    ),
+    Target(
+        id="client-neoforge-12111",
+        label="Client NeoForge - MC 1.21.11",
+        loader="neoforge",
+        mc_line="1.21.11",
+        gradle_task=":mc1_21_11:neoforge:runClientGameTest",
+        report="",
+        catalogue="",
+        kind="client",
+        sources="mc1_21_11/neoforge/src/clientGameTest/java/com/simplebuilding/neoforge/clienttest",
+        screenshots="mc1_21_11/neoforge/build/run/clientGameTest/screenshots",
+    ),
 )
 
 BY_ID = {t.id: t for t in TARGETS}
+
+#: The sweep a plain run does. Client targets are opt in, see their comment above.
+DEFAULT_TARGETS = tuple(t for t in TARGETS if t.kind == "server")
 
 _SPEC = re.compile(r'GameTestSpec\.named\(\s*"([^"]+)"\s*,\s*(\w+)::(\w+)\)')
 
@@ -317,6 +377,125 @@ def parse_report(path: Path, not_older_than: float) -> dict:
 # Der Lauf
 # ----------------------------------------------------------------------------
 
+#: A screenshot name as the client tests spell them: lowercase words joined by hyphens,
+#: for example "highlight-c-sledgehammer". Tight enough that neither a resource id
+#: ("minecraft:netherite_pickaxe") nor a sentence slips through.
+SHOT_NAME = re.compile(r'"([a-z][a-z0-9]*(?:-[a-z0-9]+)+)"')
+
+
+def expected_shots(target: Target) -> list[str]:
+    """The screenshots the client tests of this target say they will take.
+
+    Read from the sources rather than from a list kept by hand, for the same reason the
+    server targets read their catalogue: a list maintained separately drifts, and a drifted
+    expectation is worse than none - it turns green.
+
+    Both loaders name their shots the same way; Fabric calls takeScreenshot(name), NeoForge
+    wraps it in shot(name), and one test passes the name down as an argument. Matching the
+    literal rather than the call site covers all three.
+    """
+    directory = REPO / target.sources
+    if not directory.is_dir():
+        return []
+    names: set[str] = set()
+    for source in sorted(directory.glob("*.java")):
+        text = source.read_text(encoding="utf-8", errors="replace")
+        # Only files that actually take screenshots. Helpers next to them hold strings of the
+        # same shape - a logger name like "simplebuilding-clienttest" would otherwise be read
+        # as a promised screenshot and the target would report it missing on every run.
+        if "takeScreenshot(" not in text and "shot(" not in text:
+            continue
+        names.update(SHOT_NAME.findall(text))
+    return sorted(names)
+
+
+def taken_shots(target: Target, not_older_than: float) -> tuple[list[str], list[str]]:
+    """The screenshots that are on disk, split into fresh ones and leftovers."""
+    directory = REPO / target.screenshots
+    fresh: list[str] = []
+    stale: list[str] = []
+    if not directory.is_dir():
+        return fresh, stale
+    for shot in sorted(directory.glob("*.png")):
+        # The harness numbers them: 0004_highlight-c-sledgehammer.png
+        name = re.sub(r"^\d+_", "", shot.stem)
+        (fresh if shot.stat().st_mtime >= not_older_than else stale).append(name)
+    return fresh, stale
+
+
+def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
+    """Runs one client target and proves it by the screenshots it left behind.
+
+    A client game test writes no JUnit report, so the exit code is all Gradle offers - and an
+    exit code on its own is exactly the kind of evidence this runner exists to distrust. The
+    screenshots are the substitute: every name the sources promise has to be on disk and newer
+    than the start of this run. A test that died half way through takes the later shots with
+    it, and the missing names say where it stopped.
+    """
+    started_at = now_utc()
+    started_clock = time.time() - 1
+    command = gradlew() + [target.gradle_task]
+    exit_code, output, timed_out = run_capture(command, timeout)
+    duration_ms = int((now_utc() - started_at).total_seconds() * 1000)
+
+    log_path = RUNS_DIR / f"{run_id}-{target.id}.log"
+    log_path.write_text(strip_ansi(output), encoding="utf-8")
+
+    expected = expected_shots(target)
+    fresh, _stale = taken_shots(target, started_clock)
+    missing = [name for name in expected if name not in fresh]
+    extra = [name for name in fresh if name not in expected]
+
+    error = None
+    warning = None
+    if timed_out:
+        error = f"Zeitgrenze von {timeout}s ueberschritten - der Lauf wurde abgebrochen"
+    elif not expected:
+        error = f"keine Screenshot-Namen in {target.sources} gefunden - der Beweis fehlt"
+    elif missing:
+        error = (
+            f"{len(missing)} von {len(expected)} Screenshots fehlen oder sind alt, der Test kam "
+            "nicht bis dorthin: " + ", ".join(missing)
+        )
+    elif exit_code != 0:
+        tail = [l for l in strip_ansi(output).splitlines() if l.strip()][-3:]
+        error = "Gradle brach ab: " + " | ".join(tail)
+    if extra and not error:
+        warning = (
+            "Screenshots ohne Namen im Quelltext (vermutlich zusammengesetzt): "
+            + ", ".join(extra)
+        )
+
+    passed = len(expected) - len(missing)
+    return {
+        "id": target.id,
+        "label": target.label,
+        "loader": target.loader,
+        "mcLine": target.mc_line,
+        "gradleTask": target.gradle_task,
+        "kind": "client",
+        "selected": True,
+        "exitCode": exit_code,
+        "durationMs": duration_ms,
+        "log": log_path.name,
+        "counts": {"total": len(expected), "passed": passed, "failed": len(missing), "foreign": len(extra)},
+        "missing": missing,
+        "unexpected": extra,
+        # Each screenshot stands in for one checkpoint the test reached.
+        "tests": [
+            {
+                "id": f"{MOD_ID}:{name}",
+                "status": "passed" if name in fresh else "failed",
+                "message": None if name in fresh else "kein frischer Screenshot",
+                "durationMs": 0,
+            }
+            for name in expected
+        ],
+        "error": error,
+        "warning": warning,
+    }
+
+
 def new_run_id(started: datetime) -> str:
     return started.strftime("%Y-%m-%dT%H-%M-%SZ") + "-" + uuid.uuid4().hex[:4]
 
@@ -430,7 +609,12 @@ def execute(
     for target in selected:
         if on_target:
             on_target(target)
-        target_records.append(run_target(target, run_id, test_filter, timeout, on_line))
+        if target.kind == "client":
+            # A test selector means nothing here: the client tests are whole scenes, not a
+            # catalogue of ids that can be picked from.
+            target_records.append(run_client_target(target, run_id, timeout))
+        else:
+            target_records.append(run_target(target, run_id, test_filter, timeout, on_line))
 
     for target in TARGETS:
         if target not in selected:
@@ -561,16 +745,16 @@ def print_table(record: dict) -> None:
         f" | Auswahl: {filter_text}"
     )
     print()
-    print(f"  {'Ziel':<22}{'Exit':>5}{'Tests':>7}{'gruen':>7}{'rot':>5}{'Dauer':>9}")
-    print("  " + "-" * 55)
+    print(f"  {'Ziel':<30}{'Exit':>5}{'Tests':>7}{'gruen':>7}{'rot':>5}{'Dauer':>9}")
+    print("  " + "-" * 63)
     for target in record["targets"]:
         if not target["selected"]:
-            print(f"  {target['label']:<22}{'-':>5}{'uebersprungen':>28}")
+            print(f"  {target['label']:<30}{'-':>5}{'uebersprungen':>28}")
             continue
         counts = target["counts"]
         state = "!" if (target["error"] or counts["failed"]) else ""
         print(
-            f"  {target['label']:<22}"
+            f"  {target['label']:<30}"
             f"{target['exitCode']:>5}"
             f"{counts['total']:>7}"
             f"{counts['passed']:>7}"
@@ -603,7 +787,7 @@ def print_list() -> None:
     print()
     print("  Ziele")
     for target in TARGETS:
-        print(f"    {target.id:<16}{target.label:<22}{target.gradle_task}")
+        print(f"    {target.id:<23}{target.label:<28}{target.gradle_task}")
     catalogue = read_catalogue()
     print()
     print("  Testkatalog")
@@ -670,7 +854,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--targets",
         default="all",
-        help="comma separated target ids, or 'all' (default): " + ", ".join(t.id for t in TARGETS),
+        help=("comma separated target ids; 'all' (default) runs the four server targets, "
+              "'client' only the client ones, 'everything' both: " + ", ".join(t.id for t in TARGETS)),
     )
     parser.add_argument(
         "--filter",
@@ -689,6 +874,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def select_targets(spec: str) -> list[Target]:
     if spec.strip() in ("all", ""):
+        return list(DEFAULT_TARGETS)
+    if spec.strip() == "client":
+        return [t for t in TARGETS if t.kind == "client"]
+    if spec.strip() == "everything":
         return list(TARGETS)
     chosen: list[Target] = []
     for part in spec.split(","):
