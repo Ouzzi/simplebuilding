@@ -480,7 +480,7 @@ public final class RotatorTests {
 
         // --- 3. neither the rim nor its opposite fits: the rim is dropped, and the rotation the
         //        tables produce (DOWN) does not fit either, so the value list decides ---
-        helper.assertValueEqual(BlockStateProperties.HORIZONTAL_FACING.getPossibleValues(),
+        Assertions.valueEqual(helper, BlockStateProperties.HORIZONTAL_FACING.getPossibleValues(),
                 List.of(Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST),
                 "vanilla reordered HORIZONTAL_FACING; the expected value of the list fallback below "
                         + "is derived from that order, so re-derive it before touching the mod");
@@ -558,41 +558,41 @@ public final class RotatorTests {
         player.setShiftKeyDown(false);
         setSignRotation(helper, sign, 15);
         useOn(helper, player, rotator, sign, Direction.UP, TOP_CENTRE);
-        helper.assertValueEqual(signRotation(helper, sign), 0, "a centre click on a sign at 15");
+        Assertions.valueEqual(helper, signRotation(helper, sign), 0, "a centre click on a sign at 15");
 
         player.setShiftKeyDown(true);
         setSignRotation(helper, sign, 15);
         useOn(helper, player, rotator, sign, Direction.UP, TOP_CENTRE);
-        helper.assertValueEqual(signRotation(helper, sign), 14, "a sneaking centre click on a sign at 15");
+        Assertions.valueEqual(helper, signRotation(helper, sign), 14, "a sneaking centre click on a sign at 15");
 
         // --- rim: four steps, in both senses ---
         player.setShiftKeyDown(false);
         setSignRotation(helper, sign, 15);
         useOn(helper, player, rotator, sign, Direction.UP, westRim);
-        helper.assertValueEqual(signRotation(helper, sign), 3, "a rim click on a sign at 15");
+        Assertions.valueEqual(helper, signRotation(helper, sign), 3, "a rim click on a sign at 15");
 
         player.setShiftKeyDown(true);
         setSignRotation(helper, sign, 15);
         useOn(helper, player, rotator, sign, Direction.UP, westRim);
-        helper.assertValueEqual(signRotation(helper, sign), 11, "a sneaking rim click on a sign at 15");
+        Assertions.valueEqual(helper, signRotation(helper, sign), 11, "a sneaking rim click on a sign at 15");
 
         // --- a different rim, same four steps: the rim's direction plays no part here ---
         player.setShiftKeyDown(false);
         setSignRotation(helper, sign, 0);
         useOn(helper, player, rotator, sign, Direction.UP, southRim);
-        helper.assertValueEqual(signRotation(helper, sign), 4, "a click on the south rim instead of the west one");
+        Assertions.valueEqual(helper, signRotation(helper, sign), 4, "a click on the south rim instead of the west one");
 
         // --- below zero: the only two cases that need the + 16 ---
         player.setShiftKeyDown(true);
         setSignRotation(helper, sign, 0);
         useOn(helper, player, rotator, sign, Direction.UP, TOP_CENTRE);
-        helper.assertValueEqual(signRotation(helper, sign), 15,
+        Assertions.valueEqual(helper, signRotation(helper, sign), 15,
                 "a sneaking centre click on a sign at 0, which computes 0 - 1");
 
         player.setShiftKeyDown(true);
         setSignRotation(helper, sign, 2);
         useOn(helper, player, rotator, sign, Direction.UP, westRim);
-        helper.assertValueEqual(signRotation(helper, sign), 14,
+        Assertions.valueEqual(helper, signRotation(helper, sign), 14,
                 "a sneaking rim click on a sign at 2, which computes 2 - 4");
 
         TestCleanup.succeed(helper);
@@ -636,13 +636,13 @@ public final class RotatorTests {
      */
     public static void wearsOutAtItsRatedDurabilityAndTakesDurabilityEnchantments(GameTestHelper helper) {
         ItemStack probe = new ItemStack(ModItems.ROTATOR);
-        helper.assertValueEqual(probe.getMaxDamage(), RATED_DURABILITY, "the rotator's rated durability");
-        helper.assertValueEqual(probe.getMaxStackSize(), 1, "the rotator's stack size");
+        Assertions.valueEqual(helper, probe.getMaxDamage(), RATED_DURABILITY, "the rotator's rated durability");
+        Assertions.valueEqual(helper, probe.getMaxStackSize(), 1, "the rotator's stack size");
 
         Enchantable enchantable = probe.get(DataComponents.ENCHANTABLE);
         helper.assertTrue(enchantable != null,
                 "the rotator lost its ENCHANTABLE component, so it cannot be enchanted at all");
-        helper.assertValueEqual(enchantable.value(), RATED_ENCHANTABILITY, "the rotator's enchantability");
+        Assertions.valueEqual(helper, enchantable.value(), RATED_ENCHANTABILITY, "the rotator's enchantability");
         helper.assertTrue(probe.is(ItemTags.DURABILITY_ENCHANTABLE),
                 "the rotator left #minecraft:enchantable/durability, so no durability enchantment "
                         + "is offered for it any more");
@@ -662,7 +662,7 @@ public final class RotatorTests {
                         + "interaction - but the result was " + noChange);
         helper.assertTrue(logAxis(helper) == Direction.Axis.X,
                 "the log moved off X, so this click was not the no-op this case is about");
-        helper.assertValueEqual(rotator.getDamageValue(), 0,
+        Assertions.valueEqual(helper, rotator.getDamageValue(), 0,
                 "wear taken by a click that changed nothing");
 
         // --- and the two clicks that straddle the limit ---
@@ -677,7 +677,7 @@ public final class RotatorTests {
                 "the log did not turn, so the wear below cannot be attributed to this click");
         helper.assertTrue(!rotator.isEmpty(),
                 "the rotator broke one click early, i.e. before reaching " + max);
-        helper.assertValueEqual(rotator.getDamageValue(), max - 1,
+        Assertions.valueEqual(helper, rotator.getDamageValue(), max - 1,
                 "wear after the second to last click");
 
         useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
@@ -733,11 +733,11 @@ public final class RotatorTests {
                 "that layout resolves to " + found.get().id().identifier() + ", not to " + recipeId);
 
         List<ItemStack> results = resultsOf(helper, found.get());
-        helper.assertValueEqual(results.size(), 1,
+        Assertions.valueEqual(helper, results.size(), 1,
                 "how many results the rotator recipe advertises: " + results);
         helper.assertTrue(results.get(0).is(ModItems.ROTATOR),
                 "the recipe produces " + results.get(0) + " instead of a rotator");
-        helper.assertValueEqual(results.get(0).getCount(), 1, "how many rotators one craft yields");
+        Assertions.valueEqual(helper, results.get(0).getCount(), 1, "how many rotators one craft yields");
 
         // --- the ender pearl carries the recipe ---
         CraftingInput allIron = CraftingInput.of(3, 3, List.of(

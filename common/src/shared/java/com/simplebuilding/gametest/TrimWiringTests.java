@@ -86,15 +86,14 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Known defects</h2>
  * <ul>
- *   <li><b>The Tide swim bonus never reaches a player.</b>
- *       {@code LivingEntityMixin#simplebuilding$modifySwimSpeed} injects into
- *       {@code LivingEntity#getSpeed}, but {@code Player#getSpeed} <em>overrides</em> that method
- *       with {@code (float) getAttributeValue(MOVEMENT_SPEED)} and never calls {@code super}. The
- *       injection is therefore dead for players and only ever runs for other living entities.
- *       {@link #thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards} measures the swim
- *       bonus on an armour stand, where it does work, and deliberately makes its player-side
- *       assertions with a bolt (land) trim only - so they stay correct whichever way this is
- *       fixed, instead of freezing the defect in place.</li>
+ *   <li><b>The Tide swim bonus is capped by vanilla, not by the mod.</b> It is delivered now - the
+ *       branch sits in {@code PlayerEntityMixin} next to the land one, because
+ *       {@code Player#getSpeed} overrides {@code LivingEntity#getSpeed} without calling
+ *       {@code super} and the injection in {@code LivingEntityMixin} therefore only ever reaches
+ *       non-players. What it buys in the water is still small, and for a vanilla reason spelled
+ *       out on
+ *       {@link #thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards}: without Depth
+ *       Strider, {@code travelInWater} does not read {@code getSpeed()} at all.</li>
  *   <li><b>{@code MobCategory.WATER_AMBIENT} is in neither kill list.</b>
  *       {@code SurvivalTracerMixin} counts {@code CREATURE}, {@code AMBIENT},
  *       {@code WATER_CREATURE}, {@code UNDERGROUND_WATER_CREATURE} and {@code AXOLOTLS} as
@@ -578,12 +577,30 @@ public final class TrimWiringTests {
      * {@code getSpeed} picks the bolt bonus up while standing. What it cannot show is the condition
      * around it: the bonus is meant to be a <em>land</em> bonus and has to stand down while the
      * wearer is swimming or gliding. Both states are checked with a bolt trim and nothing else on,
-     * so the expected reading is the player's own untrimmed speed no matter how the swim bonus is
-     * wired - see the Tide defect in the class javadoc.
+     * so those readings are the player's own untrimmed speed.
      *
-     * <p>That swim bonus is measured where it does work, on an armour stand, and there both halves
-     * are real: the multiplier only applies while {@code isSwimming()}, and only to a wearer that
-     * has a tide trim on.
+     * <p>The tide (swim) bonus is then asserted on that same player, and that assertion is the
+     * whole point of this paragraph. The bonus used to be injected into
+     * {@code LivingEntity#getSpeed} only - but {@code Player#getSpeed} <em>overrides</em> that
+     * method with {@code (float) getAttributeValue(MOVEMENT_SPEED)} and never calls {@code super},
+     * so for every player the injection was dead code. It now sits in {@code PlayerEntityMixin}
+     * beside the land branch. It is still measured on an armour stand as well, because the
+     * {@code LivingEntityMixin} injection stays in place for non-players and that is the only
+     * wearer left that can prove it.
+     *
+     * <p><b>Why the bonus stays weak in an actual game, and why this test is nevertheless right.</b>
+     * Vanilla's {@code LivingEntity#travelInWater} uses {@code getSpeed()} only in proportion to
+     * {@code Attributes.WATER_MOVEMENT_EFFICIENCY}: it starts from a fixed {@code speed = 0.02F}
+     * and then does {@code speed += (getSpeed() - speed) * waterWalker}, where {@code waterWalker}
+     * is that attribute (halved while off the ground). Depth Strider is what raises the attribute;
+     * without it {@code waterWalker} is {@code 0}, the {@code if} is skipped, and swimming speed is
+     * the flat {@code 0.02F} no matter what {@code getSpeed()} returns. So a swimmer in a full tide
+     * set moves measurably faster only with Depth Strider on. This test asserts the value
+     * {@code getSpeed()} hands over, which is the part the mod owns; a later reader who swims in
+     * game, feels nothing and concludes the test is lying should look at the attribute, not here.
+     *
+     * <p>On the armour stand both halves of the guard are real as well: the multiplier only applies
+     * while {@code isSwimming()}, and only to a wearer that has a tide trim on.
      *
      * <p>Hunger and experience both ride on {@code @ModifyVariable} at the head of a vanilla
      * method, which is the kind of injection that fails silently - the method still runs, the
@@ -599,9 +616,10 @@ public final class TrimWiringTests {
      * <p>The player has to be made non-invulnerable first, because {@code Player#causeFoodExhaustion}
      * returns immediately for an invulnerable player and the creative mock is one.
      *
-     * <p>What breaks this: any of the three injections leaving the mixin config, the swim/glide
-     * condition on the walking bonus, the sprint condition on the exhaustion reduction, the
-     * rounding of the experience gain, or the guard against non-positive gains.
+     * <p>What breaks this: any of the four injections leaving the mixin config, the swim/glide
+     * condition on the walking bonus, the swim branch falling back to {@code LivingEntity#getSpeed}
+     * where no player ever arrives, the sprint condition on the exhaustion reduction, the rounding
+     * of the experience gain, or the guard against non-positive gains.
      */
     public static void thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards(GameTestHelper helper) {
         double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
@@ -644,7 +662,24 @@ public final class TrimWiringTests {
             assertClose(helper, player.getSpeed(), bareSpeed * landMultiplier,
                     "the land speed bonus did not come back once the player stopped gliding");
 
-            // --- the swim bonus, on the only kind of wearer it can reach (see Known defects) ---
+            // --- the swim bonus on the player itself; Player.getSpeed hides LivingEntity.getSpeed ---
+            wear(player, copper, tide, 4);
+            float playerSwimMultiplier = TrimEffectUtil.getSwimSpeedMultiplier(player);
+            helper.assertTrue(playerSwimMultiplier > 1.0F,
+                    "test setup broken: a full tide set is worth a swim multiplier of "
+                            + playerSwimMultiplier);
+            assertClose(helper, player.getSpeed(), bareSpeed,
+                    "the tide bonus applied to a player who was standing on dry land");
+            player.setSwimming(true);
+            assertClose(helper, player.getSpeed(), bareSpeed * playerSwimMultiplier,
+                    "Player.getSpeed did not pick up the tide trim bonus while swimming; an "
+                            + "injection into LivingEntity.getSpeed cannot deliver it, because "
+                            + "Player overrides that method and never calls super");
+            player.setSwimming(false);
+            assertClose(helper, player.getSpeed(), bareSpeed,
+                    "the tide bonus kept running once the player stopped swimming");
+
+            // --- the same bonus on a non-player wearer, which LivingEntityMixin still serves ---
             ArmorStand stand = helper.spawn(EntityTypes.ARMOR_STAND, new BlockPos(1, 2, 1));
             bare(stand);
             stand.setSpeed(0.25F);

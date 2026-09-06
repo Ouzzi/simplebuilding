@@ -205,9 +205,9 @@ public final class OctantTests {
      */
     public static void allOctantColoursShareDurabilityAndTheirPaint(GameTestHelper helper) {
         ItemStack plain = new ItemStack(ModItems.OCTANT);
-        helper.assertValueEqual(plain.getMaxDamage(), OCTANT_DURABILITY,
+        Assertions.valueEqual(helper, plain.getMaxDamage(), OCTANT_DURABILITY,
                 "durability of simplebuilding:octant");
-        helper.assertValueEqual(plain.getMaxStackSize(), 1,
+        Assertions.valueEqual(helper, plain.getMaxStackSize(), 1,
                 "stack size of simplebuilding:octant; a damageable tool has to be unstackable, "
                         + "otherwise a stack of them shares one damage bar");
         helper.assertTrue(ModItems.OCTANT.getColor() == null,
@@ -249,7 +249,7 @@ public final class OctantTests {
                 "Range's supported_items is an inline item list (" + range.definition().supportedItems()
                         + ") instead of a tag, so the octants can no longer join it through "
                         + "#simplebuilding:octants_enchantable");
-        helper.assertValueEqual(primary, supported,
+        Assertions.valueEqual(helper, primary, supported,
                 "Range's primary_items and supported_items no longer name the same tag; an empty "
                         + "primary_items makes every supported item primary, which is why this is "
                         + "read off the definition and not through isPrimaryItem");
@@ -349,9 +349,9 @@ public final class OctantTests {
         for (SelectionShape shape : SelectionShape.values()) {
             shapes.add(shape.name() + "=" + translationKey(shape.getText()));
         }
-        helper.assertValueEqual(shapes, EXPECTED_SHAPES, "the SelectionShape catalogue");
+        Assertions.valueEqual(helper, shapes, EXPECTED_SHAPES, "the SelectionShape catalogue");
         for (SelectionShape shape : SelectionShape.values()) {
-            helper.assertValueEqual(shape.getTranslationKey(), translationKey(shape.getText()),
+            Assertions.valueEqual(helper, shape.getTranslationKey(), translationKey(shape.getText()),
                     "getTranslationKey() and getText() disagree for " + shape.name());
         }
 
@@ -359,12 +359,12 @@ public final class OctantTests {
         for (FillOrder order : FillOrder.values()) {
             orders.add(order.name() + "=" + translationKey(order.getText()));
         }
-        helper.assertValueEqual(orders, EXPECTED_FILL_ORDERS, "the FillOrder catalogue");
+        Assertions.valueEqual(helper, orders, EXPECTED_FILL_ORDERS, "the FillOrder catalogue");
 
         // --- and now the name ---
         String baseName = new ItemStack(ModItems.OCTANT).getHoverName().getString();
 
-        helper.assertValueEqual(withShape(SelectionShape.CUBOID.name()).getHoverName().getString(),
+        Assertions.valueEqual(helper, withShape(SelectionShape.CUBOID.name()).getHoverName().getString(),
                 baseName,
                 "an octant set to CUBOID has to keep its plain name; the default shape is not "
                         + "worth a suffix");
@@ -373,12 +373,12 @@ public final class OctantTests {
             if (shape == SelectionShape.CUBOID) {
                 continue;
             }
-            helper.assertValueEqual(withShape(shape.name()).getHoverName().getString(),
+            Assertions.valueEqual(helper, withShape(shape.name()).getHoverName().getString(),
                     baseName + " (" + shape.getText().getString() + ")",
                     "the display name of an octant set to " + shape.name());
         }
 
-        helper.assertValueEqual(withShape("NOT_A_SHAPE").getHoverName().getString(), baseName,
+        Assertions.valueEqual(helper, withShape("NOT_A_SHAPE").getHoverName().getString(), baseName,
                 "an octant whose Shape tag names a constant that no longer exists lost its name "
                         + "instead of falling back to the plain one");
 
@@ -411,29 +411,29 @@ public final class OctantTests {
 
         ItemStack firstOnly = new ItemStack(ModItems.OCTANT);
         setSelection(firstOnly, FIRST_CORNER, null, false);
-        helper.assertValueEqual(tooltip(helper, firstOnly), List.of("10, 20, 30"),
+        Assertions.valueEqual(helper, tooltip(helper, firstOnly), List.of("10, 20, 30"),
                 "the tooltip of an octant with only the first corner set");
 
         ItemStack secondOnly = new ItemStack(ModItems.OCTANT);
         setSelection(secondOnly, null, SECOND_CORNER, false);
-        helper.assertValueEqual(tooltip(helper, secondOnly), List.of(),
+        Assertions.valueEqual(helper, tooltip(helper, secondOnly), List.of(),
                 "an octant with a second corner but no first one printed a line anyway; the whole "
                         + "corner block hangs off the Pos1 check");
 
         ItemStack both = new ItemStack(ModItems.OCTANT);
         setSelection(both, FIRST_CORNER, SECOND_CORNER, false);
-        helper.assertValueEqual(tooltip(helper, both), List.of("10, 20, 30", "-40, 50, -60"),
+        Assertions.valueEqual(helper, tooltip(helper, both), List.of("10, 20, 30", "-40, 50, -60"),
                 "the tooltip of an octant with both corners set");
 
         ItemStack locked = new ItemStack(ModItems.OCTANT);
         setSelection(locked, FIRST_CORNER, SECOND_CORNER, true);
         List<Component> lines = tooltipComponents(helper, locked);
-        helper.assertValueEqual(lines.size(), 3,
+        Assertions.valueEqual(helper, lines.size(), 3,
                 "a locked octant with both corners has to print three lines, it printed "
                         + lines.stream().map(Component::getString).toList());
-        helper.assertValueEqual(translationKey(lines.get(0)), "simplebuilding.gui.locked",
+        Assertions.valueEqual(helper, translationKey(lines.get(0)), "simplebuilding.gui.locked",
                 "the first tooltip line of a locked octant");
-        helper.assertValueEqual(List.of(lines.get(1).getString(), lines.get(2).getString()),
+        Assertions.valueEqual(helper, List.of(lines.get(1).getString(), lines.get(2).getString()),
                 List.of("10, 20, 30", "-40, 50, -60"),
                 "the corner lines of a locked octant");
 
@@ -501,7 +501,7 @@ public final class OctantTests {
 
         // (4) control: in the main hand, the very same payload has to land
         ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(1, false, false, true), player);
-        helper.assertValueEqual(customData(fresh).getString("Shape").orElse(""),
+        Assertions.valueEqual(helper, customData(fresh).getString("Shape").orElse(""),
                 SelectionShape.values()[1].name(),
                 "control: an alt scroll on the main hand octant did nothing, so the three guards "
                         + "above prove nothing");
@@ -665,12 +665,12 @@ public final class OctantTests {
 
             if (!levelChecked) {
                 levelChecked = true;
-                helper.assertValueEqual(waterLevel(helper, cauldron), 2,
+                Assertions.valueEqual(helper, waterLevel(helper, cauldron), 2,
                         "the water level after washing one " + name);
             }
         }
         helper.assertTrue(problems.isEmpty(), "cauldron wash problems: " + problems);
-        helper.assertValueEqual(washCount(player) - washesBefore, DyeColor.values().length,
+        Assertions.valueEqual(helper, washCount(player) - washesBefore, DyeColor.values().length,
                 "the number of washes the statistics counted for " + DyeColor.values().length
                         + " dipped octants");
 
@@ -709,9 +709,9 @@ public final class OctantTests {
                         + player.getMainHandItem().getItem());
         assertSelection(helper, player.getMainHandItem(), FIRST_CORNER, null,
                 "the refused wash changed the stored selection");
-        helper.assertValueEqual(waterLevel(helper, cauldron), 3,
+        Assertions.valueEqual(helper, waterLevel(helper, cauldron), 3,
                 "the water level after the refused wash; that call is supposed to be a no-op");
-        helper.assertValueEqual(washCount(player) - washesBeforePlain, 0,
+        Assertions.valueEqual(helper, washCount(player) - washesBeforePlain, 0,
                 "the refused wash counted as a wash in the statistics");
 
         TestCleanup.succeed(helper);

@@ -63,7 +63,6 @@ wiki/assets/textures/minecraft/
 # davon die Haelfte Kopien von Dateien, die schon im Repo liegen. Das Werkzeug
 # ist versioniert, das Ergebnis nicht - ein Lauf von generate.py stellt es her.
 art/alt-textures/original/
-art/alt-textures/alternativ/
 art/alt-textures/gallery-data.js
 
 # Aufzeichnungen der Testlaeufe (tools/testrunner/run.py). Die Oberflaeche

@@ -208,11 +208,11 @@ public final class ToolBehaviourTests {
         }
         Set<BlockPos> found = new HashSet<>(
                 MiningUtils.getVeinMinerBlocks(helper.getLevel(), absStart, oreState, 5, pickaxe));
-        helper.assertValueEqual(found, expected, "vein miner block selection");
+        Assertions.valueEqual(helper, found, expected, "vein miner block selection");
 
         // Level 1 has a budget of 3 blocks (origin included) -> exactly 2 extra blocks.
         List<BlockPos> capped = MiningUtils.getVeinMinerBlocks(helper.getLevel(), absStart, oreState, 1, pickaxe);
-        helper.assertValueEqual(capped.size(), 2, "vein miner block budget at level 1");
+        Assertions.valueEqual(helper, capped.size(), 2, "vein miner block budget at level 1");
         helper.assertTrue(expected.containsAll(capped), "vein miner left the ore cluster");
 
         // A pickaxe must not vein mine plain stone.
@@ -239,7 +239,7 @@ public final class ToolBehaviourTests {
             helper.setBlock(new BlockPos(3, y, 3), Blocks.STONE);
         }
         List<BlockPos> downwards = MiningUtils.getStripMinerBlocks(helper.getLevel(), absStart, player, pickaxe, 3);
-        helper.assertValueEqual(downwards, List.of(
+        Assertions.valueEqual(helper, downwards, List.of(
                 helper.absolutePos(new BlockPos(3, 3, 3)),
                 helper.absolutePos(new BlockPos(3, 2, 3)),
                 helper.absolutePos(new BlockPos(3, 1, 3)),
@@ -248,7 +248,7 @@ public final class ToolBehaviourTests {
         // --- A block the pickaxe cannot harvest ends the tunnel. ---
         helper.setBlock(new BlockPos(3, 2, 3), Blocks.DIRT);
         List<BlockPos> blocked = MiningUtils.getStripMinerBlocks(helper.getLevel(), absStart, player, pickaxe, 3);
-        helper.assertValueEqual(blocked, List.of(helper.absolutePos(new BlockPos(3, 3, 3))),
+        Assertions.valueEqual(helper, blocked, List.of(helper.absolutePos(new BlockPos(3, 3, 3))),
                 "strip miner stopped at the wrong block");
 
         // --- Looking horizontally: the tunnel follows the facing and stops at the gap. ---
@@ -258,7 +258,7 @@ public final class ToolBehaviourTests {
         helper.setBlock(new BlockPos(3, 4, 5), Blocks.STONE);
         helper.setBlock(new BlockPos(3, 4, 6), Blocks.AIR);
         List<BlockPos> forward = MiningUtils.getStripMinerBlocks(helper.getLevel(), absStart, player, pickaxe, 3);
-        helper.assertValueEqual(forward, List.of(
+        Assertions.valueEqual(helper, forward, List.of(
                 helper.absolutePos(new BlockPos(3, 4, 4)),
                 helper.absolutePos(new BlockPos(3, 4, 5))), "strip miner tunnel looking south");
 

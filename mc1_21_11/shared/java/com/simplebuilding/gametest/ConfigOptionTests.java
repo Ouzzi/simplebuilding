@@ -205,7 +205,7 @@ public final class ConfigOptionTests {
                     "the end city treasure got no pre built pool although the loot table option is on");
 
             for (ResourceKey<LootTable> key : UNTOUCHED_TABLES) {
-                helper.assertValueEqual(recordPools(key, registries).total(), 0,
+                Assertions.valueEqual(helper, recordPools(key, registries).total(), 0,
                         "pools added to " + tableName(key) + ", a table the mod does not touch");
             }
 
@@ -213,7 +213,7 @@ public final class ConfigOptionTests {
             setLootTableChanges(helper, false);
 
             for (ResourceKey<LootTable> key : MODIFIED_TABLES) {
-                helper.assertValueEqual(recordPools(key, registries).total(), 0,
+                Assertions.valueEqual(helper, recordPools(key, registries).total(), 0,
                         "pools were added to " + tableName(key)
                                 + " although the loot table option is switched off");
             }
@@ -285,14 +285,14 @@ public final class ConfigOptionTests {
 
         helper.assertTrue(problems.isEmpty(),
                 "config options could not be read by reflection:\n" + String.join("\n", problems));
-        helper.assertValueEqual(found, new TreeSet<>(EXPECTED_OPTIONS),
+        Assertions.valueEqual(helper, found, new TreeSet<>(EXPECTED_OPTIONS),
                 "the set of config options (name, group, type, default)");
 
         String fileName = declaredConfigFileName();
         helper.assertTrue(fileName != null,
                 "SimplebuildingConfig no longer carries a runtime visible " + CONFIG_ANNOTATION
                         + " annotation, so nothing here can tell which file the options are saved to");
-        helper.assertValueEqual(fileName, SimpleBuildingGameTests.MOD_ID,
+        Assertions.valueEqual(helper, fileName, SimpleBuildingGameTests.MOD_ID,
                 "the name in @Config on SimplebuildingConfig - it is the base name of the file under "
                         + "config/, so changing it orphans every existing simplebuilding.json");
 
@@ -377,15 +377,15 @@ public final class ConfigOptionTests {
 
         if (expectFill) {
             helper.assertTrue(handled, what + ": the click that should fill the bundle was not handled");
-            helper.assertValueEqual(countInBundle(bundle, Items.STONE), 8,
+            Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 8,
                     what + ": stone that ended up inside the bundle");
             helper.assertTrue(slot.getItem().isEmpty(),
                     what + ": the slot should be empty afterwards but holds " + slot.getItem());
         } else {
             helper.assertTrue(!handled, what + ": this button must do nothing here, but the click was handled");
-            helper.assertValueEqual(countInBundle(bundle, Items.STONE), 0,
+            Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 0,
                     what + ": stone that ended up inside the bundle");
-            helper.assertValueEqual(slot.getItem().getCount(), 8, what + ": stone left in the slot");
+            Assertions.valueEqual(helper, slot.getItem().getCount(), 8, what + ": stone left in the slot");
         }
     }
 
@@ -404,12 +404,12 @@ public final class ConfigOptionTests {
 
         if (expectEmpty) {
             helper.assertTrue(handled, what + ": the click that should empty the bundle was not handled");
-            helper.assertValueEqual(countInBundle(bundle, Items.STONE), 0,
+            Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 0,
                     what + ": stone still inside the bundle");
-            helper.assertValueEqual(slot.getItem().getCount(), 8, what + ": stone handed back to the slot");
+            Assertions.valueEqual(helper, slot.getItem().getCount(), 8, what + ": stone handed back to the slot");
         } else {
             helper.assertTrue(!handled, what + ": this button must do nothing here, but the click was handled");
-            helper.assertValueEqual(countInBundle(bundle, Items.STONE), 8,
+            Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 8,
                     what + ": stone still inside the bundle");
             helper.assertTrue(slot.getItem().isEmpty(),
                     what + ": the slot should have stayed empty but holds " + slot.getItem());
@@ -437,15 +437,15 @@ public final class ConfigOptionTests {
 
         if (expectFill) {
             helper.assertTrue(handled, what + ": the click that should fill the bundle was not handled");
-            helper.assertValueEqual(countInBundle(bundle, Items.STONE), 8,
+            Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 8,
                     what + ": stone that ended up inside the bundle");
             helper.assertTrue(cursor.isEmpty(),
                     what + ": the cursor should be empty afterwards but holds " + cursor);
         } else {
             helper.assertTrue(!handled, what + ": this button must do nothing here, but the click was handled");
-            helper.assertValueEqual(countInBundle(bundle, Items.STONE), 0,
+            Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 0,
                     what + ": stone that ended up inside the bundle");
-            helper.assertValueEqual(cursor.getCount(), 8, what + ": stone left on the cursor");
+            Assertions.valueEqual(helper, cursor.getCount(), 8, what + ": stone left on the cursor");
         }
     }
 
@@ -468,13 +468,13 @@ public final class ConfigOptionTests {
 
         if (expectEmpty) {
             helper.assertTrue(handled, what + ": the click that should empty the bundle was not handled");
-            helper.assertValueEqual(countInBundle(bundle, Items.STONE), 0,
+            Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 0,
                     what + ": stone still inside the bundle");
-            helper.assertValueEqual(cursorSlot[0].getCount(), 8,
+            Assertions.valueEqual(helper, cursorSlot[0].getCount(), 8,
                     what + ": stone handed back onto the cursor");
         } else {
             helper.assertTrue(!handled, what + ": this button must do nothing here, but the click was handled");
-            helper.assertValueEqual(countInBundle(bundle, Items.STONE), 8,
+            Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 8,
                     what + ": stone still inside the bundle");
             helper.assertTrue(cursorSlot[0].isEmpty(),
                     what + ": the cursor should have stayed empty but holds " + cursorSlot[0]);
@@ -490,7 +490,7 @@ public final class ConfigOptionTests {
         ReinforcedBundleItem item = (ReinforcedBundleItem) bundle.getItem();
         helper.assertTrue(item.tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, 8), player),
                 what + ": could not put stone into the bundle to begin with");
-        helper.assertValueEqual(countInBundle(bundle, Items.STONE), 8,
+        Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 8,
                 what + ": stone in the bundle after the world pickup that set the test up");
         return bundle;
     }

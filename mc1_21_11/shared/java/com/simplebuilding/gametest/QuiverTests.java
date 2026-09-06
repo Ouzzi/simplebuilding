@@ -181,9 +181,9 @@ public final class QuiverTests {
 
         helper.assertTrue(quiverUse == InteractionResult.PASS,
                 "right clicking a filled quiver answered " + quiverUse + " instead of PASS");
-        helper.assertValueEqual(countInBundle(quiver, Items.ARROW), 8,
+        Assertions.valueEqual(helper, countInBundle(quiver, Items.ARROW), 8,
                 "arrows left in the quiver after a right click");
-        helper.assertValueEqual(droppedItems(helper).size(), 0,
+        Assertions.valueEqual(helper, droppedItems(helper).size(), 0,
                 "items lying in the room after right clicking the quiver");
 
         // --- control: the bundle it inherits from does throw the stack out ---
@@ -194,9 +194,9 @@ public final class QuiverTests {
         helper.assertTrue(bundleUse == InteractionResult.SUCCESS,
                 "the reinforced bundle answered " + bundleUse + " instead of SUCCESS; the control half "
                         + "of this test no longer proves that a right click can empty a container item");
-        helper.assertValueEqual(countInBundle(bundle, Items.ARROW), 0,
+        Assertions.valueEqual(helper, countInBundle(bundle, Items.ARROW), 0,
                 "arrows left in the reinforced bundle after a right click");
-        helper.assertValueEqual(droppedItems(helper).size(), 1,
+        Assertions.valueEqual(helper, droppedItems(helper).size(), 1,
                 "items lying in the room after the reinforced bundle was right clicked");
         for (ItemEntity dropped : droppedItems(helper)) {
             dropped.discard();
@@ -214,7 +214,7 @@ public final class QuiverTests {
         helper.assertTrue(quiverPlace == InteractionResult.PASS,
                 "clicking a block with a Master Builder quiver answered " + quiverPlace + " instead of PASS");
         helper.assertBlockPresent(Blocks.AIR, anchor.above());
-        helper.assertValueEqual(countInBundle(builderQuiver, Items.STONE), 8,
+        Assertions.valueEqual(helper, countInBundle(builderQuiver, Items.STONE), 8,
                 "stone left in the Master Builder quiver after it was clicked at a block");
 
         // --- control: the same stack on a reinforced bundle does build, and pays for it ---
@@ -224,7 +224,7 @@ public final class QuiverTests {
         useOn(helper, player, builderBundle, anchor);
 
         helper.assertBlockPresent(Blocks.STONE, anchor.above());
-        helper.assertValueEqual(countInBundle(builderBundle, Items.STONE), 7,
+        Assertions.valueEqual(helper, countInBundle(builderBundle, Items.STONE), 7,
                 "stone left in the Master Builder bundle after it placed one block");
 
         TestCleanup.succeed(helper);
@@ -339,53 +339,53 @@ public final class QuiverTests {
         // Setup guard: the Deep Pockets case below enchants to level 2. ItemStack#enchant does not
         // clamp, so without this a shrunken max level would leave the number passing while the
         // level being measured had become unobtainable in game.
-        helper.assertValueEqual(enchantment(helper, ModEnchantments.DEEP_POCKETS).value().getMaxLevel(), 2,
+        Assertions.valueEqual(helper, enchantment(helper, ModEnchantments.DEEP_POCKETS).value().getMaxLevel(), 2,
                 "max level of Deep Pockets");
 
         // Same guard for the second Drawer case: its whole point is that it sits on the highest
         // level the enchantment can reach, so a shrunken max level has to fail here instead of
         // leaving a number passing for a level no player can get.
-        helper.assertValueEqual(enchantment(helper, ModEnchantments.DRAWER).value().getMaxLevel(),
+        Assertions.valueEqual(helper, enchantment(helper, ModEnchantments.DRAWER).value().getMaxLevel(),
                 DRAWER_MAX_LEVEL, "max level of Drawer");
 
         // --- tier, and the bonus the quiver gives up ---
-        helper.assertValueEqual(fillWithArrows(helper, player, new ItemStack(ModItems.QUIVER)),
+        Assertions.valueEqual(helper, fillWithArrows(helper, player, new ItemStack(ModItems.QUIVER)),
                 QUIVER_ARROWS, "arrows a plain quiver takes");
-        helper.assertValueEqual(fillWithArrows(helper, player, new ItemStack(ModItems.NETHERITE_QUIVER)),
+        Assertions.valueEqual(helper, fillWithArrows(helper, player, new ItemStack(ModItems.NETHERITE_QUIVER)),
                 NETHERITE_QUIVER_ARROWS, "arrows a netherite quiver takes");
-        helper.assertValueEqual(fillWithArrows(helper, player, new ItemStack(ModItems.ENDERITE_QUIVER)),
+        Assertions.valueEqual(helper, fillWithArrows(helper, player, new ItemStack(ModItems.ENDERITE_QUIVER)),
                 ENDERITE_QUIVER_ARROWS, "arrows an enderite quiver takes");
-        helper.assertValueEqual(fillWithArrows(helper, player, new ItemStack(ModItems.REINFORCED_BUNDLE)),
+        Assertions.valueEqual(helper, fillWithArrows(helper, player, new ItemStack(ModItems.REINFORCED_BUNDLE)),
                 BUNDLE_ARROWS, "arrows a reinforced bundle takes - the 1.5x the quiver gives up");
 
         // --- the same table again, through the stackless path the wiki export uses ---
-        helper.assertValueEqual(baseCapacityItems(ModItems.QUIVER), QUIVER_ARROWS,
+        Assertions.valueEqual(helper, baseCapacityItems(ModItems.QUIVER), QUIVER_ARROWS,
                 "getBaseCapacityItems() of the quiver");
-        helper.assertValueEqual(baseCapacityItems(ModItems.NETHERITE_QUIVER), NETHERITE_QUIVER_ARROWS,
+        Assertions.valueEqual(helper, baseCapacityItems(ModItems.NETHERITE_QUIVER), NETHERITE_QUIVER_ARROWS,
                 "getBaseCapacityItems() of the netherite quiver");
-        helper.assertValueEqual(baseCapacityItems(ModItems.ENDERITE_QUIVER), ENDERITE_QUIVER_ARROWS,
+        Assertions.valueEqual(helper, baseCapacityItems(ModItems.ENDERITE_QUIVER), ENDERITE_QUIVER_ARROWS,
                 "getBaseCapacityItems() of the enderite quiver");
-        helper.assertValueEqual(baseCapacityItems(ModItems.REINFORCED_BUNDLE), BUNDLE_ARROWS,
+        Assertions.valueEqual(helper, baseCapacityItems(ModItems.REINFORCED_BUNDLE), BUNDLE_ARROWS,
                 "getBaseCapacityItems() of the reinforced bundle");
 
         // --- enchantments, on the tier that can actually carry them ---
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 fillWithArrows(helper, player, enchanted(helper, ModItems.QUIVER, ModEnchantments.DRAWER, 1)),
                 DRAWER_1_ARROWS,
                 "PINNED CURRENT BEHAVIOUR: arrows a Drawer I quiver takes. The multiplier the code applies is "
                         + "(16 + level) / 8, although the comment right above the line in "
                         + "ReinforcedBundleItem#getMaxCapacity documents (8 + level) / 8. If that is "
                         + "straightened out the number here is 72 - update this case");
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 fillWithArrows(helper, player,
                         enchanted(helper, ModItems.QUIVER, ModEnchantments.DRAWER, DRAWER_MAX_LEVEL)),
                 DRAWER_MAX_ARROWS,
                 "PINNED CURRENT BEHAVIOUR: arrows a Drawer VIII quiver takes - 64 x (16 + 8) / 8. With the "
                         + "documented (8 + level) / 8 this would be 128");
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 fillWithArrows(helper, player, enchanted(helper, ModItems.QUIVER, ModEnchantments.DEEP_POCKETS, 1)),
                 128, "arrows a Deep Pockets I quiver takes - 64 x 2");
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 fillWithArrows(helper, player, enchanted(helper, ModItems.QUIVER, ModEnchantments.DEEP_POCKETS, 2)),
                 256, "arrows a Deep Pockets II quiver takes - 64 x 4");
 
@@ -421,25 +421,25 @@ public final class QuiverTests {
         ServerPlayer player = mockPlayer(helper);
 
         // --- one vanilla stack in each variant: a plain quiver is full, the others are not ---
-        helper.assertValueEqual(barWidthWith(helper, player, new ItemStack(ModItems.QUIVER), 64), FULL_BAR,
+        Assertions.valueEqual(helper, barWidthWith(helper, player, new ItemStack(ModItems.QUIVER), 64), FULL_BAR,
                 "bar width of a quiver holding 64 arrows (its whole capacity)");
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 barWidthWith(helper, player,
                         enchanted(helper, ModItems.QUIVER, ModEnchantments.DEEP_POCKETS, 1), 64), 7,
                 "bar width of a Deep Pockets I quiver holding 64 of its 128 arrows");
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 barWidthWith(helper, player,
                         enchanted(helper, ModItems.QUIVER, ModEnchantments.DEEP_POCKETS, 2), 64), 3,
                 "bar width of a Deep Pockets II quiver holding 64 of its 256 arrows");
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 barWidthWith(helper, player,
                         enchanted(helper, ModItems.QUIVER, ModEnchantments.DRAWER, 1), 64), 6,
                 "bar width of a Drawer I quiver holding 64 of its " + DRAWER_1_ARROWS + " arrows");
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 barWidthWith(helper, player,
                         enchanted(helper, ModItems.QUIVER, ModEnchantments.DRAWER, DRAWER_MAX_LEVEL), 64), 4,
                 "bar width of a Drawer VIII quiver holding 64 of its " + DRAWER_MAX_ARROWS + " arrows");
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 barWidthWith(helper, player, new ItemStack(ModItems.REINFORCED_BUNDLE), 64), 9,
                 "bar width of a reinforced bundle holding 64 of its 96 arrows - the quiver's 13 next to "
                         + "this one is the 1.5x bonus the quiver does not get");
@@ -447,7 +447,7 @@ public final class QuiverTests {
         // --- and a quiver that refuses one more arrow has to show a full bar ---
         ItemStack drawer = enchanted(helper, ModItems.QUIVER, ModEnchantments.DRAWER, 1);
         int filled = fillWithArrows(helper, player, drawer);
-        helper.assertValueEqual(drawer.getItem().getBarWidth(drawer), FULL_BAR,
+        Assertions.valueEqual(helper, drawer.getItem().getBarWidth(drawer), FULL_BAR,
                 "bar width of a Drawer I quiver that took " + filled + " arrows and then refused more");
 
         TestCleanup.succeed(helper);
@@ -489,7 +489,7 @@ public final class QuiverTests {
         // --- offhand wins, and inside it the stack that went in last ---
         assertBowFinds(helper, player, Items.TIPPED_ARROW,
                 "with quivers in the offhand, the chest slot, the hotbar and the backpack");
-        helper.assertValueEqual(countInBundle(offhand, Items.ARROW), 8,
+        Assertions.valueEqual(helper, countInBundle(offhand, Items.ARROW), 8,
                 "plain arrows still under the tipped ones in the offhand quiver - if they are gone, the "
                         + "'topmost stack' half of this test proves nothing");
 
@@ -555,10 +555,10 @@ public final class QuiverTests {
                 "test setup broken: the search handed back " + supplied + " instead of the tipped arrows that "
                         + "went into the quiver last, so the two halves of this case cannot be compared");
         QuiverItem.consumeProjectileForBow(player);
-        helper.assertValueEqual(countInBundle(mixed, Items.TIPPED_ARROW), 7,
+        Assertions.valueEqual(helper, countInBundle(mixed, Items.TIPPED_ARROW), 7,
                 "tipped arrows left in the quiver - findFirstArrow offered the bow this stack, so this is the "
                         + "stack that has to pay");
-        helper.assertValueEqual(countInBundle(mixed, Items.ARROW), 8,
+        Assertions.valueEqual(helper, countInBundle(mixed, Items.ARROW), 8,
                 "plain arrows lying under the tipped ones; if this is 7, tryConsumeArrow picked a different "
                         + "stack than findFirstArrow did and the player shoots one arrow while paying another");
 
@@ -571,39 +571,39 @@ public final class QuiverTests {
         player.getInventory().setItem(4, hotbar);
 
         QuiverItem.consumeProjectileForBow(player);
-        helper.assertValueEqual(countInBundle(offhand, Items.ARROW), 7,
+        Assertions.valueEqual(helper, countInBundle(offhand, Items.ARROW), 7,
                 "arrows left in the offhand quiver after one shot");
-        helper.assertValueEqual(countInBundle(chest, Items.SPECTRAL_ARROW), 8,
+        Assertions.valueEqual(helper, countInBundle(chest, Items.SPECTRAL_ARROW), 8,
                 "arrows left in the chest quiver - the offhand one is walked before it");
-        helper.assertValueEqual(countInBundle(hotbar, Items.ARROW), 8,
+        Assertions.valueEqual(helper, countInBundle(hotbar, Items.ARROW), 8,
                 "arrows left in the hotbar quiver - the offhand one supplied the shot and has to pay for it");
 
         // --- empty the offhand quiver: the spent stack has to disappear, not linger at count 0 ---
         for (int shot = 0; shot < 7; shot++) {
             QuiverItem.consumeProjectileForBow(player);
         }
-        helper.assertValueEqual(countInBundle(offhand, Items.ARROW), 0,
+        Assertions.valueEqual(helper, countInBundle(offhand, Items.ARROW), 0,
                 "arrows left in the offhand quiver after eight shots");
         helper.assertTrue(contentsOf(offhand).isEmpty(),
                 "the offhand quiver still carries " + contentsOf(offhand).size()
                         + " stack(s) after its last arrow was spent");
-        helper.assertValueEqual(countInBundle(chest, Items.SPECTRAL_ARROW), 8,
+        Assertions.valueEqual(helper, countInBundle(chest, Items.SPECTRAL_ARROW), 8,
                 "arrows left in the chest quiver while the offhand one still had arrows");
-        helper.assertValueEqual(countInBundle(hotbar, Items.ARROW), 8,
+        Assertions.valueEqual(helper, countInBundle(hotbar, Items.ARROW), 8,
                 "arrows left in the hotbar quiver while the offhand one still had arrows");
 
         // --- the chest quiver is next, and it comes before the hotbar ---
         QuiverItem.consumeProjectileForBow(player);
-        helper.assertValueEqual(countInBundle(chest, Items.SPECTRAL_ARROW), 7,
+        Assertions.valueEqual(helper, countInBundle(chest, Items.SPECTRAL_ARROW), 7,
                 "arrows left in the chest quiver after the emptied offhand quiver handed the shot on to it");
-        helper.assertValueEqual(countInBundle(hotbar, Items.ARROW), 8,
+        Assertions.valueEqual(helper, countInBundle(hotbar, Items.ARROW), 8,
                 "arrows left in the hotbar quiver - the chest slot is walked before it, so it must not pay "
                         + "while the chest quiver still has arrows");
 
         // --- the hotbar quiver pays once neither of the two above can ---
         player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
         QuiverItem.consumeProjectileForBow(player);
-        helper.assertValueEqual(countInBundle(hotbar, Items.ARROW), 7,
+        Assertions.valueEqual(helper, countInBundle(hotbar, Items.ARROW), 7,
                 "arrows left in the hotbar quiver after it had to supply the shot");
 
         // --- the backpack pays only with Constructor's Touch ---
@@ -613,12 +613,12 @@ public final class QuiverTests {
         player.getInventory().setItem(BACKPACK_SLOT, backpack);
 
         QuiverItem.consumeProjectileForBow(player);
-        helper.assertValueEqual(countInBundle(backpack, Items.ARROW), 8,
+        Assertions.valueEqual(helper, countInBundle(backpack, Items.ARROW), 8,
                 "a quiver in inventory slot " + BACKPACK_SLOT + " paid for a shot without Constructor's Touch");
 
         backpack.enchant(enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH), 1);
         QuiverItem.consumeProjectileForBow(player);
-        helper.assertValueEqual(countInBundle(backpack, Items.ARROW), 7,
+        Assertions.valueEqual(helper, countInBundle(backpack, Items.ARROW), 7,
                 "arrows left in the Constructor's Touch quiver in inventory slot " + BACKPACK_SLOT);
 
         TestCleanup.succeed(helper);
@@ -671,7 +671,7 @@ public final class QuiverTests {
 
         // Setup guard: nothing the bow could shoot may be lying in the inventory, or vanilla would
         // find ammunition on its own and the refusal control below would say nothing.
-        helper.assertValueEqual(player.getInventory().countItem(Items.ARROW), 0,
+        Assertions.valueEqual(helper, player.getInventory().countItem(Items.ARROW), 0,
                 "loose arrows in the inventory");
 
         // --- control: no quiver, no arrows, no draw ---
@@ -689,15 +689,15 @@ public final class QuiverTests {
                         + "in the game away from every player without a quiver");
         helper.assertTrue(releaseBow(helper, player, bow),
                 "the bow reported no shot although eight loose arrows were lying in the inventory");
-        helper.assertValueEqual(flyingArrows(helper).size(), 1,
+        Assertions.valueEqual(helper, flyingArrows(helper).size(), 1,
                 "arrows flying in the room after the shot fed from the inventory");
-        helper.assertValueEqual(player.getInventory().countItem(Items.ARROW), 7,
+        Assertions.valueEqual(helper, player.getInventory().countItem(Items.ARROW), 7,
                 "loose arrows left after a shot vanilla itself paid for");
         discardArrows(helper);
 
         // --- priority: with both at hand the quiver pays and the loose arrows are left alone ---
         player.getInventory().add(new ItemStack(Items.ARROW, 1));
-        helper.assertValueEqual(player.getInventory().countItem(Items.ARROW), 8,
+        Assertions.valueEqual(helper, player.getInventory().countItem(Items.ARROW), 8,
                 "test setup broken: loose arrows in the inventory before the priority shot");
         player.setItemInHand(InteractionHand.OFF_HAND, quiver);
 
@@ -706,11 +706,11 @@ public final class QuiverTests {
                 "the bow refused to be drawn with a quiver and loose arrows both at hand");
         helper.assertTrue(releaseBow(helper, player, bow),
                 "the bow reported no shot with a quiver and loose arrows both at hand");
-        helper.assertValueEqual(flyingArrows(helper).size(), 1,
+        Assertions.valueEqual(helper, flyingArrows(helper).size(), 1,
                 "arrows flying in the room after the priority shot");
-        helper.assertValueEqual(countInBundle(quiver, Items.ARROW), 7,
+        Assertions.valueEqual(helper, countInBundle(quiver, Items.ARROW), 7,
                 "arrows left in the quiver - it is asked before player.getProjectile, so it pays");
-        helper.assertValueEqual(player.getInventory().countItem(Items.ARROW), 8,
+        Assertions.valueEqual(helper, player.getInventory().countItem(Items.ARROW), 8,
                 "loose arrows left after the priority shot; if this is 7 the redirect asked "
                         + "player.getProjectile first and the quiver has lost its priority");
         discardArrows(helper);
@@ -720,7 +720,7 @@ public final class QuiverTests {
         player.getInventory().clearContent();
         player.setItemInHand(InteractionHand.MAIN_HAND, bow);
         player.setItemInHand(InteractionHand.OFF_HAND, quiver);
-        helper.assertValueEqual(player.getInventory().countItem(Items.ARROW), 0,
+        Assertions.valueEqual(helper, player.getInventory().countItem(Items.ARROW), 0,
                 "loose arrows left over from the fall-back cases");
 
         // --- with the quiver alone the bow draws ---
@@ -733,8 +733,8 @@ public final class QuiverTests {
         // --- and shooting takes exactly one arrow out of that quiver ---
         helper.assertTrue(releaseBow(helper, player, bow),
                 "the bow reported no shot although the offhand quiver held arrows");
-        helper.assertValueEqual(flyingArrows(helper).size(), 1, "arrows flying in the room after one shot");
-        helper.assertValueEqual(countInBundle(quiver, Items.ARROW), 6,
+        Assertions.valueEqual(helper, flyingArrows(helper).size(), 1, "arrows flying in the room after one shot");
+        Assertions.valueEqual(helper, countInBundle(quiver, Items.ARROW), 6,
                 "arrows left in the quiver after the survival shot fed by the quiver alone");
         discardArrows(helper);
 
@@ -743,9 +743,9 @@ public final class QuiverTests {
         bow.getItem().use(level, player, InteractionHand.MAIN_HAND);
         helper.assertTrue(releaseBow(helper, player, bow),
                 "a creative player could not shoot from the quiver");
-        helper.assertValueEqual(flyingArrows(helper).size(), 1,
+        Assertions.valueEqual(helper, flyingArrows(helper).size(), 1,
                 "arrows flying in the room after the creative shot");
-        helper.assertValueEqual(countInBundle(quiver, Items.ARROW), 6,
+        Assertions.valueEqual(helper, countInBundle(quiver, Items.ARROW), 6,
                 "arrows left in the quiver after a creative shot - creative must not pay");
         discardArrows(helper);
         player.getAbilities().instabuild = false;
@@ -762,9 +762,9 @@ public final class QuiverTests {
         // releaseUsing answers true even when draw() came back empty - the jump around the empty
         // list skips shoot(), the sound and the statistic, and the method still returns 1. Without
         // this line a quiver billed for a shot that never left the bow would pass unnoticed.
-        helper.assertValueEqual(flyingArrows(helper).size(), 1,
+        Assertions.valueEqual(helper, flyingArrows(helper).size(), 1,
                 "arrows flying in the room after the Infinity shot");
-        helper.assertValueEqual(countInBundle(quiver, Items.ARROW), 5,
+        Assertions.valueEqual(helper, countInBundle(quiver, Items.ARROW), 5,
                 "PINNED CURRENT BEHAVIOUR: BowItemMixin never looks at Infinity, so an Infinity bow spends a "
                         + "quiver arrow all the same. If this is now 6 the mixin learned about the enchantment "
                         + "- update this assertion");
@@ -887,14 +887,14 @@ public final class QuiverTests {
         if (expectInsert) {
             helper.assertTrue(outcome.handled(),
                     what + ": the click filled the quiver but was reported as not handled");
-            helper.assertValueEqual(outcome.inQuiver(), 8, what + ": items inside the quiver");
-            helper.assertValueEqual(outcome.leftOutside(), 0, what + ": items left outside the quiver");
+            Assertions.valueEqual(helper, outcome.inQuiver(), 8, what + ": items inside the quiver");
+            Assertions.valueEqual(helper, outcome.leftOutside(), 0, what + ": items left outside the quiver");
         } else {
             helper.assertTrue(!outcome.handled(),
                     what + ": the filter kept the item out but reported the click as handled, which eats it "
                             + "- a player holding a quiver could no longer pick that stack up or swap it");
-            helper.assertValueEqual(outcome.inQuiver(), 0, what + ": items inside the quiver");
-            helper.assertValueEqual(outcome.leftOutside(), 8, what + ": items left outside the quiver");
+            Assertions.valueEqual(helper, outcome.inQuiver(), 0, what + ": items inside the quiver");
+            Assertions.valueEqual(helper, outcome.leftOutside(), 8, what + ": items left outside the quiver");
         }
     }
 
@@ -939,7 +939,7 @@ public final class QuiverTests {
         for (int attempt = 0; attempt < 64; attempt++) {
             ItemStack arrows = new ItemStack(Items.ARROW, 64);
             if (!item.tryInsertStackFromWorld(container, arrows, player)) {
-                helper.assertValueEqual(countInBundle(container, Items.ARROW), inserted,
+                Assertions.valueEqual(helper, countInBundle(container, Items.ARROW), inserted,
                         "arrows really stored in " + container.getItem() + " versus the amount it reported "
                                 + "taking - an insert answered true without storing everything");
                 return inserted;
@@ -971,7 +971,7 @@ public final class QuiverTests {
         helper.assertTrue(
                 ((ReinforcedBundleItem) container.getItem()).tryInsertStackFromWorld(container, arrows, player),
                 "test setup broken: " + container.getItem() + " refused " + count + " " + arrow);
-        helper.assertValueEqual(countInBundle(container, arrow), before + count,
+        Assertions.valueEqual(helper, countInBundle(container, arrow), before + count,
                 "test setup broken: " + arrow + " inside " + container.getItem() + " after filling it");
     }
 

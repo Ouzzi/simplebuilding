@@ -489,9 +489,9 @@ public final class WorldAndPlayerTests {
         InteractionResult refused = interact(frame, player, plainMagnet, false);
         helper.assertTrue(refused == InteractionResult.FAIL,
                 "a locked frame accepted a plain magnet, result was " + refused);
-        helper.assertValueEqual(filterOf(plainMagnet), "",
+        Assertions.valueEqual(helper, filterOf(plainMagnet), "",
                 "an unenchanted magnet wrote a filter, so the Constructor's Touch check is gone");
-        helper.assertValueEqual(frame.getRotation(), rotation, "rotation of the locked frame");
+        Assertions.valueEqual(helper, frame.getRotation(), rotation, "rotation of the locked frame");
 
         // --- the enchanted magnet gets through anyway: its branch is checked before the lock ---
         ItemStack enchantedMagnet = magnetWithConstructorsTouch(helper);
@@ -500,7 +500,7 @@ public final class WorldAndPlayerTests {
                 "an enchanted magnet on a locked frame was answered with " + accepted
                         + "; the magnet branch has moved behind the lock check and a locked display "
                         + "frame can no longer be used as a filter template");
-        helper.assertValueEqual(filterOf(enchantedMagnet), "minecraft:diamond",
+        Assertions.valueEqual(helper, filterOf(enchantedMagnet), "minecraft:diamond",
                 "magnet filter taken from the locked frame");
         helper.assertTrue(isLocked(helper, frame), "reading the filter unlocked the frame");
 
@@ -512,7 +512,7 @@ public final class WorldAndPlayerTests {
         helper.assertFalse(isLocked(helper, frame),
                 "sneaking with a magnet did not unlock the frame; the magnet branch now runs before "
                         + "the unlock branch and a locked frame can only be opened bare handed");
-        helper.assertValueEqual(filterOf(sneakingMagnet), "",
+        Assertions.valueEqual(helper, filterOf(sneakingMagnet), "",
                 "the sneaking magnet took a filter as well, so both branches ran for one click");
 
         TestCleanup.succeed(helper);
@@ -547,21 +547,21 @@ public final class WorldAndPlayerTests {
     public static void theDoubleJumpEnchantmentKeepsItsLevelsWeightCostsAndBootSlot(GameTestHelper helper) {
         Enchantment airJump = enchantment(helper, ModEnchantments.DOUBLE_JUMP).value();
 
-        helper.assertValueEqual(airJump.getMaxLevel(), AIR_JUMP_MAX_LEVEL, "max level of the air jump");
-        helper.assertValueEqual(airJump.getMinLevel(), 1, "min level of the air jump");
-        helper.assertValueEqual(airJump.getWeight(), AIR_JUMP_WEIGHT,
+        Assertions.valueEqual(helper, airJump.getMaxLevel(), AIR_JUMP_MAX_LEVEL, "max level of the air jump");
+        Assertions.valueEqual(helper, airJump.getMinLevel(), 1, "min level of the air jump");
+        Assertions.valueEqual(helper, airJump.getWeight(), AIR_JUMP_WEIGHT,
                 "weight of the air jump - it decides how often the enchanting table offers it");
-        helper.assertValueEqual(airJump.getAnvilCost(), AIR_JUMP_ANVIL_COST, "anvil cost of the air jump");
+        Assertions.valueEqual(helper, airJump.getAnvilCost(), AIR_JUMP_ANVIL_COST, "anvil cost of the air jump");
 
         for (int level = 1; level <= AIR_JUMP_MAX_LEVEL; level++) {
             int step = (level - 1) * AIR_JUMP_COST_PER_LEVEL;
-            helper.assertValueEqual(airJump.getMinCost(level), AIR_JUMP_MIN_COST_BASE + step,
+            Assertions.valueEqual(helper, airJump.getMinCost(level), AIR_JUMP_MIN_COST_BASE + step,
                     "minimum enchanting cost of air jump " + level);
-            helper.assertValueEqual(airJump.getMaxCost(level), AIR_JUMP_MAX_COST_BASE + step,
+            Assertions.valueEqual(helper, airJump.getMaxCost(level), AIR_JUMP_MAX_COST_BASE + step,
                     "maximum enchanting cost of air jump " + level);
         }
 
-        helper.assertValueEqual(airJump.definition().slots(), List.of(EquipmentSlotGroup.FEET),
+        Assertions.valueEqual(helper, airJump.definition().slots(), List.of(EquipmentSlotGroup.FEET),
                 "the equipment slot groups the air jump is declared for");
         helper.assertTrue(airJump.matchingSlot(EquipmentSlot.FEET),
                 "vanilla no longer counts the air jump in the feet slot, so the enchantment is inert");
@@ -671,7 +671,7 @@ public final class WorldAndPlayerTests {
         // --- guard: without armour every probe has to land, or nothing below means anything ---
         wearEnderite(player, 0);
         Set<Integer> bare = damagingTicks(helper, player, voidDamage);
-        helper.assertValueEqual(bare, allProbeTicks(),
+        Assertions.valueEqual(helper, bare, allProbeTicks(),
                 "an unarmoured player did not take void damage on every probed tick; either the mock "
                         + "player is invulnerable again or the mixin now protects players who wear "
                         + "nothing at all");
@@ -680,7 +680,7 @@ public final class WorldAndPlayerTests {
         for (int pieces = 1; pieces <= ENDERITE_PIECES.length; pieces++) {
             wearEnderite(player, pieces);
             int expected = VOID_INTERVALS[pieces - 1];
-            helper.assertValueEqual(damagingTicks(helper, player, voidDamage), multiplesOf(expected),
+            Assertions.valueEqual(helper, damagingTicks(helper, player, voidDamage), multiplesOf(expected),
                     "with " + pieces + " enderite piece(s) the void has to hurt every " + expected
                             + " ticks; the ticks that actually cost health are on the left");
         }
@@ -763,8 +763,8 @@ public final class WorldAndPlayerTests {
         helper.assertTrue(granted != null,
                 "two enderite pieces, a falling player and a held jump key produced no slow falling "
                         + "at all - the whole branch is gone or Player#tick was never reached");
-        helper.assertValueEqual(granted.getAmplifier(), 0, "amplifier of the granted slow falling");
-        helper.assertValueEqual(granted.getDuration(), SLOW_FALL_DURATION,
+        Assertions.valueEqual(helper, granted.getAmplifier(), 0, "amplifier of the granted slow falling");
+        Assertions.valueEqual(helper, granted.getDuration(), SLOW_FALL_DURATION,
                 "duration of the granted slow falling; it is re-granted every tick on purpose, so a "
                         + "longer one would keep the player floating after the key is released");
 
@@ -849,12 +849,12 @@ public final class WorldAndPlayerTests {
             setLootTableChanges(helper, true);
 
             for (Map.Entry<ResourceKey<LootTable>, Integer> wanted : POOLS_PER_TABLE.entrySet()) {
-                helper.assertValueEqual(recordPools(helper, wanted.getKey()).size(), wanted.getValue(),
+                Assertions.valueEqual(helper, recordPools(helper, wanted.getKey()).size(), wanted.getValue(),
                         "pools the mod hands to " + wanted.getKey().identifier());
             }
 
             for (ResourceKey<LootTable> untouched : NEIGHBOURING_TABLES) {
-                helper.assertValueEqual(recordPools(helper, untouched).size(), 0,
+                Assertions.valueEqual(helper, recordPools(helper, untouched).size(), 0,
                         "pools were added to " + untouched.identifier() + ", a vanilla table that sits "
                                 + "next to a modified one and must stay untouched");
             }
@@ -886,11 +886,11 @@ public final class WorldAndPlayerTests {
         // --- bare hand: exactly one dust, on every seed ---
         for (int roll = 0; roll < LOOT_ROLLS; roll++) {
             List<ItemStack> drops = rollDrops(helper, table, state, ItemStack.EMPTY, LOOT_SEED + roll);
-            helper.assertValueEqual(drops.size(), 1, name + " dropped more than one stack bare handed");
+            Assertions.valueEqual(helper, drops.size(), 1, name + " dropped more than one stack bare handed");
             helper.assertTrue(drops.get(0).is(dust),
                     name + " dropped " + drops.get(0) + " bare handed instead of "
                             + BuiltInRegistries.ITEM.getKey(dust));
-            helper.assertValueEqual(drops.get(0).getCount(), 1,
+            Assertions.valueEqual(helper, drops.get(0).getCount(), 1,
                     name + " dropped more than one " + BuiltInRegistries.ITEM.getKey(dust)
                             + " without any Fortune on the tool");
         }
@@ -899,7 +899,7 @@ public final class WorldAndPlayerTests {
         ItemStack silkTouch = pickaxeWith(helper, Enchantments.SILK_TOUCH, 1);
         for (int roll = 0; roll < LOOT_ROLLS; roll++) {
             List<ItemStack> drops = rollDrops(helper, table, state, silkTouch, LOOT_SEED + roll);
-            helper.assertValueEqual(drops.size(), 1, name + " dropped more than one stack under silk touch");
+            Assertions.valueEqual(helper, drops.size(), 1, name + " dropped more than one stack under silk touch");
             helper.assertTrue(drops.get(0).is(oreItem),
                     name + " dropped " + drops.get(0) + " under silk touch instead of the ore block; "
                             + "the match_tool condition on the first alternative is gone");
@@ -910,7 +910,7 @@ public final class WorldAndPlayerTests {
         int highest = 0;
         for (int roll = 0; roll < LOOT_ROLLS; roll++) {
             List<ItemStack> drops = rollDrops(helper, table, state, fortune, LOOT_SEED + roll);
-            helper.assertValueEqual(drops.size(), 1, name + " dropped more than one stack under Fortune");
+            Assertions.valueEqual(helper, drops.size(), 1, name + " dropped more than one stack under Fortune");
             ItemStack drop = drops.get(0);
             helper.assertTrue(drop.is(dust),
                     name + " dropped " + drop + " under Fortune instead of "
@@ -971,7 +971,7 @@ public final class WorldAndPlayerTests {
         helper.assertTrue(Math.abs(ore.getExplosionResistance() - 1200.0F) < 1.0E-4F,
                 name + " blast resistance should be 1200 but is " + ore.getExplosionResistance()
                         + "; the ore would stop surviving a creeper or a dragon");
-        helper.assertValueEqual(state.getLightEmission(), light, name + " light emission");
+        Assertions.valueEqual(helper, state.getLightEmission(), light, name + " light emission");
 
         helper.assertTrue(state.requiresCorrectToolForDrops(),
                 name + " no longer requires the correct tool, so any tool drops it");
@@ -1256,14 +1256,14 @@ public final class WorldAndPlayerTests {
                     continue;
                 }
                 found++;
-                helper.assertValueEqual(storedLevel, level, name + ": level of the air jump book");
-                helper.assertValueEqual(weightOf(book), weight, name + ": weight of the air jump book");
-                helper.assertValueEqual(poolJson.get("rolls"), expectedRolls,
+                Assertions.valueEqual(helper, storedLevel, level, name + ": level of the air jump book");
+                Assertions.valueEqual(helper, weightOf(book), weight, name + ": weight of the air jump book");
+                Assertions.valueEqual(helper, poolJson.get("rolls"), expectedRolls,
                         name + ": rolls of the pool the air jump book sits in");
             }
         }
 
-        helper.assertValueEqual(found, 1,
+        Assertions.valueEqual(helper, found, 1,
                 name + " offers " + found + " air jump books instead of exactly one; that chest is "
                         + "part of the only supply of " + AIR_JUMP_ID + " in the game");
     }

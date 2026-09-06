@@ -273,9 +273,9 @@ public final class StorageEnchantmentTests {
         ItemEntity known = drop(helper, new ItemStack(Items.STONE, KIND_STOCK), new Vec3(2.5, 2.0, 2.5));
         known.playerTouch(player);
 
-        helper.assertValueEqual(countIn(filtering, Items.STONE), KIND_STOCK * 2,
+        Assertions.valueEqual(helper, countIn(filtering, Items.STONE), KIND_STOCK * 2,
                 "stone in a Funnel I bundle after it was touched by a stone drop it already held");
-        helper.assertValueEqual(looseCount(player, Items.STONE), 0,
+        Assertions.valueEqual(helper, looseCount(player, Items.STONE), 0,
                 "the stone reached the bundle and the inventory, so the drop exists twice");
         helper.assertTrue(known.isRemoved(),
                 "the bundle took the whole stack but the item entity is still lying there");
@@ -284,9 +284,9 @@ public final class StorageEnchantmentTests {
         ItemEntity foreign = drop(helper, new ItemStack(Items.DIRT, KIND_STOCK), new Vec3(3.5, 2.0, 2.5));
         foreign.playerTouch(player);
 
-        helper.assertValueEqual(countIn(filtering, Items.DIRT), 0,
+        Assertions.valueEqual(helper, countIn(filtering, Items.DIRT), 0,
                 "a Funnel I bundle holding only stone swallowed a dirt drop; the filter is gone");
-        helper.assertValueEqual(looseCount(player, Items.DIRT), KIND_STOCK,
+        Assertions.valueEqual(helper, looseCount(player, Items.DIRT), KIND_STOCK,
                 "the dirt is neither in the bundle nor in the inventory - the mixin swallowed the touch "
                         + "instead of stepping aside and letting the vanilla pickup finish it");
 
@@ -296,7 +296,7 @@ public final class StorageEnchantmentTests {
         ItemEntity forOpen = drop(helper, new ItemStack(Items.DIRT, KIND_STOCK), new Vec3(4.5, 2.0, 2.5));
         forOpen.playerTouch(player);
 
-        helper.assertValueEqual(countIn(open, Items.DIRT), KIND_STOCK,
+        Assertions.valueEqual(helper, countIn(open, Items.DIRT), KIND_STOCK,
                 "control: a Funnel II bundle did not take the dirt either, so the refusal above says "
                         + "nothing about the filter");
 
@@ -306,9 +306,9 @@ public final class StorageEnchantmentTests {
         ItemEntity forPlain = drop(helper, new ItemStack(Items.DIRT, KIND_STOCK), new Vec3(5.5, 2.0, 2.5));
         forPlain.playerTouch(player);
 
-        helper.assertValueEqual(countIn(plain, Items.DIRT), 0,
+        Assertions.valueEqual(helper, countIn(plain, Items.DIRT), 0,
                 "a bundle without Funnel hoovered a drop off the floor");
-        helper.assertValueEqual(looseCount(player, Items.DIRT), KIND_STOCK,
+        Assertions.valueEqual(helper, looseCount(player, Items.DIRT), KIND_STOCK,
                 "the dirt an unenchanted bundle refused did not reach the inventory either");
 
         TestCleanup.succeed(helper);
@@ -357,7 +357,7 @@ public final class StorageEnchantmentTests {
             insertExactly(helper, player, drawer, kind, KIND_STOCK);
             insertExactly(helper, player, control, kind, KIND_STOCK);
         }
-        helper.assertValueEqual(kindsIn(drawer), DRAWER_KINDS,
+        Assertions.valueEqual(helper, kindsIn(drawer), DRAWER_KINDS,
                 "kinds inside the Drawer bundle after the setup filled it");
 
         // --- the sixth kind is turned away, and the mixin leaves it to vanilla ---
@@ -365,9 +365,9 @@ public final class StorageEnchantmentTests {
         ItemEntity sixth = drop(helper, new ItemStack(SIXTH_KIND, KIND_STOCK), new Vec3(2.5, 2.0, 2.5));
         sixth.playerTouch(player);
 
-        helper.assertValueEqual(countIn(drawer, SIXTH_KIND), 0,
+        Assertions.valueEqual(helper, countIn(drawer, SIXTH_KIND), 0,
                 "a Drawer bundle that already holds " + DRAWER_KINDS + " kinds swept up a sixth one");
-        helper.assertValueEqual(looseCount(player, SIXTH_KIND), KIND_STOCK,
+        Assertions.valueEqual(helper, looseCount(player, SIXTH_KIND), KIND_STOCK,
                 "the refused drop is in neither the bundle nor the inventory; the mixin reported the "
                         + "failed insert as a successful pickup and the items are gone");
 
@@ -375,7 +375,7 @@ public final class StorageEnchantmentTests {
         ItemEntity known = drop(helper, new ItemStack(FIVE_KINDS[0], KIND_STOCK), new Vec3(3.5, 2.0, 2.5));
         known.playerTouch(player);
 
-        helper.assertValueEqual(countIn(drawer, FIVE_KINDS[0]), KIND_STOCK * 2,
+        Assertions.valueEqual(helper, countIn(drawer, FIVE_KINDS[0]), KIND_STOCK * 2,
                 "a Drawer bundle at its kind limit refused more of a kind it already holds");
 
         // --- control: without Drawer the very same drop is taken ---
@@ -383,7 +383,7 @@ public final class StorageEnchantmentTests {
         ItemEntity forControl = drop(helper, new ItemStack(SIXTH_KIND, KIND_STOCK), new Vec3(4.5, 2.0, 2.5));
         forControl.playerTouch(player);
 
-        helper.assertValueEqual(countIn(control, SIXTH_KIND), KIND_STOCK,
+        Assertions.valueEqual(helper, countIn(control, SIXTH_KIND), KIND_STOCK,
                 "control: a bundle with the same contents but without Drawer refused the sixth kind too, "
                         + "so the refusal above was about room and not about the kind limit");
 
@@ -421,16 +421,16 @@ public final class StorageEnchantmentTests {
 
         ItemEntity arrows = drop(helper, new ItemStack(Items.ARROW, 16), new Vec3(2.5, 2.0, 2.5));
         arrows.playerTouch(player);
-        helper.assertValueEqual(countIn(quiver, Items.ARROW), 16,
+        Assertions.valueEqual(helper, countIn(quiver, Items.ARROW), 16,
                 "arrows in a Funnel II quiver after it was touched by an arrow drop");
-        helper.assertValueEqual(looseCount(player, Items.ARROW), 0,
+        Assertions.valueEqual(helper, looseCount(player, Items.ARROW), 0,
                 "the arrows reached the quiver and the inventory, so the drop exists twice");
 
         ItemEntity stone = drop(helper, new ItemStack(Items.STONE, KIND_STOCK), new Vec3(3.5, 2.0, 2.5));
         stone.playerTouch(player);
-        helper.assertValueEqual(countIn(quiver, Items.STONE), 0,
+        Assertions.valueEqual(helper, countIn(quiver, Items.STONE), 0,
                 "a Funnel II quiver swept stone off the floor; the arrow filter is gone");
-        helper.assertValueEqual(looseCount(player, Items.STONE), KIND_STOCK,
+        Assertions.valueEqual(helper, looseCount(player, Items.STONE), KIND_STOCK,
                 "the stone the quiver refused is in neither the quiver nor the inventory");
 
         // --- the brim: only what fits goes in, the rest stays with the player ---
@@ -447,10 +447,10 @@ public final class StorageEnchantmentTests {
         ItemEntity overflow = drop(helper, new ItemStack(Items.ARROW, offered), new Vec3(4.5, 2.0, 2.5));
         overflow.playerTouch(player);
 
-        helper.assertValueEqual(countIn(nearlyFull, Items.ARROW), capacity,
+        Assertions.valueEqual(helper, countIn(nearlyFull, Items.ARROW), capacity,
                 "a quiver with room for " + BRIM_GAP + " arrows took a different amount out of a stack of "
                         + offered);
-        helper.assertValueEqual(looseCount(player, Items.ARROW), offered - BRIM_GAP,
+        Assertions.valueEqual(helper, looseCount(player, Items.ARROW), offered - BRIM_GAP,
                 "the arrows the quiver had no room for did not reach the inventory; the surplus of the "
                         + "partly absorbed drop was destroyed");
 
@@ -499,9 +499,9 @@ public final class StorageEnchantmentTests {
         // Setup guards: the levels below have to be levels a player can reach. ItemStack#enchant
         // does not clamp, so without these a shrunken maximum would leave the numbers passing for
         // a state no anvil can produce.
-        helper.assertValueEqual(enchantment(helper, ModEnchantments.DRAWER).value().getMaxLevel(),
+        Assertions.valueEqual(helper, enchantment(helper, ModEnchantments.DRAWER).value().getMaxLevel(),
                 DRAWER_MAX_LEVEL, "max level of Drawer");
-        helper.assertValueEqual(enchantment(helper, ModEnchantments.DEEP_POCKETS).value().getMaxLevel(),
+        Assertions.valueEqual(helper, enchantment(helper, ModEnchantments.DEEP_POCKETS).value().getMaxLevel(),
                 DEEP_POCKETS_MAX_LEVEL, "max level of Deep Pockets");
         helper.assertTrue(Enchantment.areCompatible(enchantment(helper, ModEnchantments.DRAWER),
                         enchantment(helper, ModEnchantments.DEEP_POCKETS)),
@@ -677,7 +677,7 @@ public final class StorageEnchantmentTests {
                             + "unless the entry itself is gone");
             for (ItemStack quiver : ancientQuivers) {
                 Set<Identifier> found = enchantmentIds(quiver);
-                helper.assertValueEqual(found.size(), 1,
+                Assertions.valueEqual(helper, found.size(), 1,
                         "a quiver out of the ancient city carries the enchantments " + found
                                 + "; the entry hands out exactly one");
                 helper.assertTrue(expected.containsAll(found),
@@ -790,7 +790,7 @@ public final class StorageEnchantmentTests {
                         + DRAWER_MAX_LEVEL + " and " + deepOnly + " with Deep Pockets "
                         + DEEP_POCKETS_MAX_LEVEL + "; at least one of the two enchantments does nothing at "
                         + "all, so nothing can be said about the pair");
-        helper.assertValueEqual(both * plain, drawerOnly * deepOnly,
+        Assertions.valueEqual(helper, both * plain, drawerOnly * deepOnly,
                 what + " with both enchantments takes " + both + " where the two single factors ("
                         + drawerOnly + " and " + deepOnly + " against a base of " + plain + ") multiply to "
                         + (drawerOnly * deepOnly / plain) + "; one of the two branches is throwing the "
@@ -831,20 +831,20 @@ public final class StorageEnchantmentTests {
 
         ItemStack half = both.copy();
         insertExactly(helper, player, half, filler, capacity / 2);
-        helper.assertValueEqual(half.getItem().getBarWidth(half), HALF_BAR,
+        Assertions.valueEqual(helper, half.getItem().getBarWidth(half), HALF_BAR,
                 "bar width of " + what + " - Drawer " + DRAWER_MAX_LEVEL + " plus Deep Pockets "
                         + DEEP_POCKETS_MAX_LEVEL + " - holding " + (capacity / 2) + " of its " + capacity
                         + " items; the visuals formula is missing one of the two enchantments");
 
         ItemStack filled = both.copy();
         insertExactly(helper, player, filled, filler, capacity);
-        helper.assertValueEqual(filled.getItem().getBarWidth(filled), FULL_BAR,
+        Assertions.valueEqual(helper, filled.getItem().getBarWidth(filled), FULL_BAR,
                 "bar width of " + what + " filled to its brim with " + capacity + " items");
 
         Optional<TooltipComponent> image = filled.getItem().getTooltipImage(filled);
         helper.assertTrue(image.isPresent() && image.get() instanceof ReinforcedBundleTooltipData,
                 "the tooltip of " + what + " is " + image + " instead of a ReinforcedBundleTooltipData");
-        helper.assertValueEqual(((ReinforcedBundleTooltipData) image.get()).maxCapacity(), capacity,
+        Assertions.valueEqual(helper, ((ReinforcedBundleTooltipData) image.get()).maxCapacity(), capacity,
                 "the capacity the tooltip of " + what + " hands the client, against the " + capacity
                         + " items it really takes");
     }
@@ -863,7 +863,7 @@ public final class StorageEnchantmentTests {
         for (int attempt = 0; attempt < 64; attempt++) {
             ItemStack offered = new ItemStack(filler, stackSize);
             if (!item.tryInsertStackFromWorld(container, offered, player)) {
-                helper.assertValueEqual(countIn(container, filler), inserted,
+                Assertions.valueEqual(helper, countIn(container, filler), inserted,
                         "items really stored in " + container.getItem() + " against the amount it reported "
                                 + "taking - an insert answered true without storing everything");
                 return inserted;
@@ -889,12 +889,12 @@ public final class StorageEnchantmentTests {
             int offeredCount = offered.getCount();
             helper.assertTrue(containerItem(container).tryInsertStackFromWorld(container, offered, player),
                     "test setup broken: " + container.getItem() + " refused " + offeredCount + " " + item);
-            helper.assertValueEqual(offered.getCount(), 0,
+            Assertions.valueEqual(helper, offered.getCount(), 0,
                     "test setup broken: " + container.getItem() + " only took part of " + offeredCount + " "
                             + item);
             left -= offeredCount;
         }
-        helper.assertValueEqual(countIn(container, item), before + count,
+        Assertions.valueEqual(helper, countIn(container, item), before + count,
                 "test setup broken: " + item + " inside " + container.getItem() + " after filling it");
     }
 

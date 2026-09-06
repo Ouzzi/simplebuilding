@@ -416,7 +416,7 @@ public final class OreDetectorTests {
                 "a plain right click in the air did not pass, it returned " + plainUse);
         helper.assertTrue(customData(detector).isEmpty(),
                 "a plain right click in the air wrote " + customData(detector) + " to the detector");
-        helper.assertValueEqual(modeName(helper, detector), "Iron", "mode after two plain clicks");
+        Assertions.valueEqual(helper, modeName(helper, detector), "Iron", "mode after two plain clicks");
 
         // --- the sneak click calibrates and switches to the custom mode ---
         player.setShiftKeyDown(true);
@@ -425,7 +425,7 @@ public final class OreDetectorTests {
                 "the calibration click did not consume the interaction, it returned " + calibrate);
         helper.assertTrue(customData(detector).contains("CustomBlock"),
                 "the calibration click stored no target block, the item data is " + customData(detector));
-        helper.assertValueEqual(modeName(helper, detector), "Custom",
+        Assertions.valueEqual(helper, modeName(helper, detector), "Custom",
                 "the calibration click has to switch to the custom mode as well, or the stored block "
                         + "is never searched for");
 
@@ -467,7 +467,7 @@ public final class OreDetectorTests {
         ServerPlayer player = mockPlayer(helper);
         ItemStack detector = new ItemStack(ModItems.ORE_DETECTOR);
 
-        helper.assertValueEqual(detector.getMaxStackSize(), 1,
+        Assertions.valueEqual(helper, detector.getMaxStackSize(), 1,
                 "the ore detector became stackable, so a whole stack would share one mode and one damage bar");
         helper.assertTrue(detector.isDamageableItem(),
                 "the ore detector lost its durability, so a mode switch cannot cost anything any more");
@@ -485,10 +485,10 @@ public final class OreDetectorTests {
             helper.assertTrue(result == InteractionResult.SUCCESS,
                     "sneak-using the detector did not consume the interaction on click " + click
                             + ", it returned " + result);
-            helper.assertValueEqual(modeName(helper, detector), cycle[click],
+            Assertions.valueEqual(helper, modeName(helper, detector), cycle[click],
                     "the mode after sneak-use number " + (click + 1));
         }
-        helper.assertValueEqual(detector.getDamageValue(), 0,
+        Assertions.valueEqual(helper, detector.getDamageValue(), 0,
                 "a creative player was billed for switching modes");
 
         // The control: this player is creative but not instabuild, so vanilla would have let the
@@ -497,7 +497,7 @@ public final class OreDetectorTests {
         helper.assertFalse(player.getAbilities().instabuild,
                 "the mock player builds for free again, so vanilla - not the mod - would be refusing the damage");
         detector.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
-        helper.assertValueEqual(detector.getDamageValue(), 1,
+        Assertions.valueEqual(helper, detector.getDamageValue(), 1,
                 "vanilla refused to damage this player's tool, so the zero above says nothing about "
                         + "the mod's own creative guard");
 
@@ -532,7 +532,7 @@ public final class OreDetectorTests {
 
         for (int mode = 0; mode < names.length; mode++) {
             List<String> lines = tooltip(helper, detectorInMode(mode));
-            helper.assertValueEqual(lines.getFirst(), MODE_PREFIX + names[mode],
+            Assertions.valueEqual(helper, lines.getFirst(), MODE_PREFIX + names[mode],
                     "the first tooltip line of mode index " + mode);
             helper.assertTrue(lines.contains("Power: " + powers[mode]),
                     "mode " + names[mode] + " does not advertise a search power of " + powers[mode]
@@ -564,9 +564,9 @@ public final class OreDetectorTests {
                         + tooltip(helper, calibrated));
 
         // An index outside the enum is clamped into it instead of throwing.
-        helper.assertValueEqual(tooltip(helper, detectorInMode(99)).getFirst(), MODE_PREFIX + "Custom",
+        Assertions.valueEqual(helper, tooltip(helper, detectorInMode(99)).getFirst(), MODE_PREFIX + "Custom",
                 "a Mode of 99 has to clamp to the last mode");
-        helper.assertValueEqual(tooltip(helper, detectorInMode(-4)).getFirst(), MODE_PREFIX + "Iron",
+        Assertions.valueEqual(helper, tooltip(helper, detectorInMode(-4)).getFirst(), MODE_PREFIX + "Iron",
                 "a negative Mode has to clamp to the first mode");
 
         TestCleanup.succeed(helper);

@@ -112,7 +112,7 @@ public final class ProtectionAndRangeTests {
         // Setup guard: every case below enchants to KINETIC_MAX_LEVEL. ItemStack#enchant does not
         // clamp, so without this a shrunken max level would leave the numbers passing while the
         // level being measured had become unobtainable in game.
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 enchantment(helper, ModEnchantments.KINETIC_PROTECTION).value().getMaxLevel(),
                 KINETIC_MAX_LEVEL, "max level of Kinetic Protection");
 
@@ -247,7 +247,7 @@ public final class ProtectionAndRangeTests {
     public static void rangeAddsBlockInteractionReachInTheMainHandOnly(GameTestHelper helper) {
         // Setup guard: the loop below goes up to RANGE_MAX_LEVEL and ItemStack#enchant does not
         // clamp, so a shrunken max level has to be visible here rather than in the numbers.
-        helper.assertValueEqual(enchantment(helper, ModEnchantments.RANGE).value().getMaxLevel(),
+        Assertions.valueEqual(helper, enchantment(helper, ModEnchantments.RANGE).value().getMaxLevel(),
                 RANGE_MAX_LEVEL, "max level of Range");
 
         ItemStack plainTool = new ItemStack(ModItems.DIAMOND_CHISEL);
@@ -261,7 +261,7 @@ public final class ProtectionAndRangeTests {
             ItemStack tool = rangeTool(helper, enchantLevel);
 
             List<AttributeModifier> inHand = reachModifiers(tool, EquipmentSlot.MAINHAND);
-            helper.assertValueEqual(inHand.size(), 1,
+            Assertions.valueEqual(helper, inHand.size(), 1,
                     "block interaction range modifiers of Range " + enchantLevel);
 
             AttributeModifier modifier = inHand.get(0);

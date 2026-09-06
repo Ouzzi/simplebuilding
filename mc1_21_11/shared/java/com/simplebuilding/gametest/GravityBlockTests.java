@@ -615,7 +615,7 @@ public final class GravityBlockTests {
                     helper.assertTrue(leftAt[0] >= 0 && leftAt[1] >= 0,
                             "both blocks should have turned into entities by now, left at "
                                     + leftAt[0] + " (levitating) and " + leftAt[1] + " (vanilla sand)");
-                    helper.assertValueEqual(leftAt[0], leftAt[1],
+                    Assertions.valueEqual(helper, leftAt[0], leftAt[1],
                             "the tick levitating sand lifts off, against the tick vanilla sand starts "
                                     + "falling - both are placed in the same tick, so a different lead "
                                     + "time in LevitatingBlock shows up as a different tick here");
@@ -875,7 +875,7 @@ public final class GravityBlockTests {
                     // asking within a radius: the dropped item is already most of the way to the
                     // floor by now, so any radius around the landing cell would be a guess.
                     List<ItemEntity> drops = levitatingSandDrops(helper, levitatingSand);
-                    helper.assertValueEqual(drops.size(), 1,
+                    Assertions.valueEqual(helper, drops.size(), 1,
                             "exactly one levitating sand item should have dropped: the block that could "
                                     + "not replace the wall torch. The moving piston column must not have "
                                     + "dropped anything");
@@ -892,7 +892,7 @@ public final class GravityBlockTests {
                                     + (movingPistonCell.getX() + 0.5D));
 
                     List<LevitatingBlockEntity> flying = risingEntities(helper);
-                    helper.assertValueEqual(flying.size(), 1,
+                    Assertions.valueEqual(helper, flying.size(), 1,
                             "exactly one rising entity should be left: the one over the moving piston. "
                                     + "The one under the wall torch has to be gone, and the moving piston "
                                     + "one must not have landed");
@@ -903,7 +903,7 @@ public final class GravityBlockTests {
                     // relative x of 5 comes back as -5. Converting the expectation outwards avoids
                     // the asymmetry and holds under any rotation the catalogue may ask for.
                     BlockPos where = flying.get(0).blockPosition();
-                    helper.assertValueEqual(where.getX(), helper.absolutePos(movingPistonCell).getX(),
+                    Assertions.valueEqual(helper, where.getX(), helper.absolutePos(movingPistonCell).getX(),
                             "the surviving entity should be the one in the moving piston column");
                 })
                 .thenExecute(() -> {
@@ -1022,16 +1022,16 @@ public final class GravityBlockTests {
         float netheriteSpeed = ModBlocks.NETHERITE_PISTON.defaultBlockState()
                 .getDestroySpeed(level, absoluteProbe);
 
-        helper.assertValueEqual(reinforcedSpeed, vanillaSpeed,
+        Assertions.valueEqual(helper, reinforcedSpeed, vanillaSpeed,
                 "the reinforced piston's hardness, against a vanilla piston's - both are 1.5");
-        helper.assertValueEqual(netheriteSpeed, 5.0F, "the netherite piston's hardness");
+        Assertions.valueEqual(helper, netheriteSpeed, 5.0F, "the netherite piston's hardness");
         helper.assertTrue(netheriteSpeed > reinforcedSpeed,
                 "the netherite piston should be harder to mine than the reinforced one, "
                         + netheriteSpeed + " against " + reinforcedSpeed);
 
-        helper.assertValueEqual(ModBlocks.NETHERITE_PISTON.getExplosionResistance(), 1200.0F,
+        Assertions.valueEqual(helper, ModBlocks.NETHERITE_PISTON.getExplosionResistance(), 1200.0F,
                 "the netherite piston's blast resistance");
-        helper.assertValueEqual(ModBlocks.REINFORCED_PISTON.getExplosionResistance(),
+        Assertions.valueEqual(helper, ModBlocks.REINFORCED_PISTON.getExplosionResistance(),
                 Blocks.PISTON.getExplosionResistance(),
                 "the reinforced piston's blast resistance, against a vanilla piston's");
         helper.assertTrue(
@@ -1052,7 +1052,7 @@ public final class GravityBlockTests {
         // Compared by tag key, the same yardstick the 26.2 twin uses. There the component wraps a
         // HolderSet that has to be unwrapped first; on this line it already is a plain TagKey, and
         // TagKey is a record, so the two keys compare exactly.
-        helper.assertValueEqual(netheritePiston.types(), netheriteIngot.types(),
+        Assertions.valueEqual(helper, netheritePiston.types(), netheriteIngot.types(),
                 "the damage types the netherite piston resists, against a netherite ingot's");
         // And driven, so the assertion is about behaviour and not only about a stored tag name.
         helper.assertTrue(netheritePiston.isResistantTo(level.damageSources().lava()),
@@ -1178,7 +1178,7 @@ public final class GravityBlockTests {
      */
     private static void assertSignalStrength(GameTestHelper helper, BlockPos pistonPos, int expected) {
         int actual = helper.getLevel().getBestNeighborSignal(helper.absolutePos(pistonPos));
-        helper.assertValueEqual(actual, expected,
+        Assertions.valueEqual(helper, actual, expected,
                 "the redstone rig at " + pistonPos + " should deliver this signal strength; if it "
                         + "does not, the wiring in this test broke, not the piston");
     }
@@ -1212,7 +1212,7 @@ public final class GravityBlockTests {
 
     private static LevitatingBlockEntity riser(GameTestHelper helper) {
         List<LevitatingBlockEntity> found = risingEntities(helper);
-        helper.assertValueEqual(found.size(), 1, "rising entities in the room");
+        Assertions.valueEqual(helper, found.size(), 1, "rising entities in the room");
         return found.get(0);
     }
 
@@ -1222,7 +1222,7 @@ public final class GravityBlockTests {
                 .getEntitiesOfClass(FallingBlockEntity.class, helper.getBounds()).stream()
                 .filter(entity -> !(entity instanceof LevitatingBlockEntity))
                 .toList();
-        helper.assertValueEqual(found.size(), 1, "vanilla falling block entities in the room");
+        Assertions.valueEqual(helper, found.size(), 1, "vanilla falling block entities in the room");
         return found.get(0);
     }
 
@@ -1239,7 +1239,7 @@ public final class GravityBlockTests {
 
     private static void assertPickaxeMineable(GameTestHelper helper, Block block, boolean expected) {
         boolean actual = block.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE);
-        helper.assertValueEqual(actual, expected,
+        Assertions.valueEqual(helper, actual, expected,
                 block.getName().getString() + " in minecraft:mineable/pickaxe");
     }
 
@@ -1272,13 +1272,13 @@ public final class GravityBlockTests {
                 "the documented pattern for " + recipeId + " matches no crafting recipe at all, so "
                         + "the block cannot be crafted in game");
         RecipeHolder<CraftingRecipe> holder = match.get();
-        helper.assertValueEqual(holder.id().identifier().toString(), recipeId,
+        Assertions.valueEqual(helper, holder.id().identifier().toString(), recipeId,
                 "recipe matched by the documented pattern");
 
         // assemble takes the registries alongside the grid on this line; 26.2 dropped that parameter.
         ItemStack result = holder.value().assemble(grid, level.registryAccess());
         helper.assertTrue(result.is(expected),
                 recipeId + " produced " + result + " instead of the expected item");
-        helper.assertValueEqual(result.getCount(), count, recipeId + ": items produced per craft");
+        Assertions.valueEqual(helper, result.getCount(), count, recipeId + ": items produced per craft");
     }
 }

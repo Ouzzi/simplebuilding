@@ -91,37 +91,30 @@ import net.minecraft.world.phys.Vec3;
  * {@code static} map that outlives the test, so every test hands its player back through
  * {@code onDisconnect} in {@code runBeforeTestEnd}.
  *
- * <h2>Known defect</h2>
+ * <h2>Why the writing condition mentions {@code minecraft:light} by name</h2>
  *
- * <p><b>The brightness never changes while the player stands still.</b>
- * {@code DynamicLightHandler} line 55 gates the whole writing block behind
- * {@code currentState.isAir() || (isWater && currentState.getFluidState().isSource())}.
- * {@code minecraft:light} is registered {@code replaceable()} but <em>not</em> {@code air()}, and a
- * light block that is not waterlogged carries an empty fluid state - so as soon as the handler's
- * own light block stands at the position, neither half of that condition holds any more. The inner
- * {@code if (currentState.is(Blocks.LIGHT)) { ... LightBlock.LEVEL ... }} branch on lines 58-64 is
- * therefore dead code on dry land; it is only reachable for a <em>waterlogged</em> light block,
- * whose fluid state is a water source.
- *
- * <p>What that looks like in game: a player who upgrades or swaps armour without moving keeps the
- * old brightness until the next step. Stepping works because the "moved" branch on line 44 removes
- * the old block first and leaves air behind for the new one.
- *
- * <p>The tests below therefore never ask for a level change in place - every reading of a new
- * armour sum is taken after the player has moved on, through {@link #stepTo}. Whoever fixes line 55
- * should add the in-place case back; until then it is listed under <em>Not covered</em>.
+ * <p>{@code DynamicLightHandler} only writes into a block it is allowed to destroy, and that gate
+ * has three arms: air, a light block, or a water source. The middle one is easy to lose and hard to
+ * notice, because {@code minecraft:light} is registered {@code replaceable()} but <em>not</em>
+ * {@code air()}, and a light block that is not waterlogged carries an empty fluid state - so once
+ * the handler's own block stands at the position, neither of the other two arms holds any more.
+ * Without that arm the whole writing block is skipped for a standing player and the
+ * {@code if (currentState.is(Blocks.LIGHT)) { ... LightBlock.LEVEL ... }} branch below it is dead
+ * code on dry land, reachable only for a <em>waterlogged</em> light block whose fluid state is a
+ * water source. In game that reads as: swap in a brighter helmet without moving and the room stays
+ * dark until the next step. {@link #theLightFollowsThePlayerAndGoesOutWithTheArmour} and
+ * {@link #wornEmissionLevelsAddUpIntoTheLightBlockOverThePlayersHead} therefore take their readings
+ * without moving the player, and
+ * {@link #theLightBlockOnlyReplacesAirOrWaterSourcesAndPutsTheWaterBack} pins the underwater half:
+ * the {@code isWater} flag is read from {@code currentState}, so an update in place has to keep the
+ * {@code WATERLOGGED} flag of the light block it overwrites.
  *
  * <h2>Not covered</h2>
  * <ul>
- *   <li><b>A brightness change without the player moving.</b> The handler cannot do it - see
- *       <em>Known defect</em> above - so nothing here asserts it, and nothing here writes the
- *       defect down as expected behaviour either. What is covered is that the level written into
- *       the world always follows the armour the player is wearing at that moment.</li>
  *   <li><b>The "only re-set the block when the level changed" shortcut</b>
  *       ({@code DynamicLightHandler} line 60). Skipping a {@code setBlock} that would write the
  *       block state that is already there has no server side effect at all - the state objects are
- *       singletons, so before and after are indistinguishable. On dry land the branch is not even
- *       reached; see <em>Known defect</em>.</li>
+ *       singletons, so before and after are indistinguishable.</li>
  *   <li><b>Anything client side.</b> The visual glow ({@code simplebuilding:glow_level},
  *       {@code hasVisualGlow}) is only read by the equipment renderer mixin, and the smithing
  *       screen's own tooltips likewise. Only the server side consequence of the glow level - the
@@ -629,10 +622,11 @@ public final class DynamicLightTests {
      * nothing at all. The four pieces sit at emission level I each, which keeps every step (3, 6, 9,
      * 12) clear of the cap and therefore distinguishable from it.
      *
-     * <p>Every reading is taken at a <em>new</em> position: the handler cannot raise the level of a
-     * light block that is already standing there, see <em>Known defect</em> in the class javadoc.
-     * {@link #stepTo} moves the player on and clears the block above the new spot, which is exactly
-     * what happens in game when a player walks.
+     * <p>Every reading after the first is taken <em>at the same position</em>, without the player
+     * moving: each new armour piece has to raise the {@code LEVEL} of the light block that is
+     * already standing there. That is the arm of the writing condition described under <em>Why the
+     * writing condition mentions minecraft:light by name</em> in the class javadoc - lose it and
+     * every reading from the second one on still shows the first one's value.
      *
      * <p>Three further branches ride along here because they all feed the same sum:
      * <ul>
@@ -664,51 +658,46 @@ public final class DynamicLightTests {
 
         // --- one level is worth three light points, one block above the player ---
         wearOnly(player, EquipmentSlot.HEAD, emitting(ModItems.ENDERITE_HELMET, 1));
-        head = stepTo(helper, player, 1);
         DynamicLightHandler.tick(player);
         assertLight(helper, head, LIGHT_PER_EMISSION_LEVEL, false, "a single emission level I helmet");
         helper.assertTrue(!level.getBlockState(player.blockPosition()).is(Blocks.LIGHT),
                 "the light block was written into the player's own block instead of one above it; "
                         + "a light block at foot level is inside the player's collision box");
 
-        // --- all four armour slots are added up, one piece at a time. Every reading is taken after
-        //     a step, because the handler cannot raise the level of a light block that is already
-        //     standing (see "Known defect" in the class javadoc).
+        // --- all four armour slots are added up, one piece at a time, and the player never moves:
+        //     every reading from here on has to raise the LEVEL of the light block that is already
+        //     standing at head (see the class javadoc on the writing condition).
         player.setItemSlot(EquipmentSlot.CHEST, emitting(ModItems.ENDERITE_CHESTPLATE, 1));
-        head = stepTo(helper, player, 2);
         DynamicLightHandler.tick(player);
         assertLight(helper, head, 2 * LIGHT_PER_EMISSION_LEVEL, false,
-                "a helmet and a chestplate at emission level I");
+                "a helmet and a chestplate at emission level I, put on without moving");
 
         player.setItemSlot(EquipmentSlot.LEGS, emitting(ModItems.ENDERITE_LEGGINGS, 1));
-        head = stepTo(helper, player, 3);
         DynamicLightHandler.tick(player);
         assertLight(helper, head, 3 * LIGHT_PER_EMISSION_LEVEL, false,
-                "a helmet, a chestplate and leggings at emission level I");
+                "a helmet, a chestplate and leggings at emission level I, put on without moving");
 
         player.setItemSlot(EquipmentSlot.FEET, emitting(ModItems.ENDERITE_BOOTS, 1));
-        head = stepTo(helper, player, 0);
         DynamicLightHandler.tick(player);
         assertLight(helper, head, 4 * LIGHT_PER_EMISSION_LEVEL, false,
                 "all four armour slots at emission level I; the boots are the slot a hand written "
                         + "list of armour slots leaves out");
 
-        // --- a single piece at the maximum already reaches 15 ---
+        // --- a single piece at the maximum already reaches 15. Taking the other three off drops
+        //     the sum from 12 to 5*3, so this also shows the level following the armour downwards
+        //     and upwards through one and the same standing block.
         wearOnly(player, EquipmentSlot.HEAD, emitting(ModItems.ENDERITE_HELMET, MAX_EMISSION_LEVEL));
-        head = stepTo(helper, player, 1);
         DynamicLightHandler.tick(player);
         assertLight(helper, head, 15, false, "one helmet at emission level " + MAX_EMISSION_LEVEL);
 
         // --- and two of them stay at 15 instead of running past the block's own range ---
         player.setItemSlot(EquipmentSlot.CHEST, emitting(ModItems.ENDERITE_CHESTPLATE, MAX_EMISSION_LEVEL));
-        head = stepTo(helper, player, 2);
         DynamicLightHandler.tick(player);
         assertLight(helper, head, 15, false,
                 "two pieces at emission level " + MAX_EMISSION_LEVEL + " (30 raw light points)");
 
         // --- the hands are not armour ---
         wearOnly(player, EquipmentSlot.MAINHAND, emitting(ModItems.ENDERITE_HELMET, MAX_EMISSION_LEVEL));
-        head = stepTo(helper, player, 3);
         DynamicLightHandler.tick(player);
         assertBlockIs(helper, head, Blocks.AIR,
                 "a player only carrying an emitting helmet in the main hand");
@@ -719,7 +708,6 @@ public final class DynamicLightTests {
         helper.assertValueEqual(GlowingTrimUtils.getEmissionLevel(componentOnly), 0,
                 "a helmet carrying only simplebuilding:light_source reports an emission level");
         wearOnly(player, EquipmentSlot.HEAD, componentOnly);
-        head = stepTo(helper, player, 0);
         DynamicLightHandler.tick(player);
         assertBlockIs(helper, head, Blocks.AIR,
                 "a player wearing a helmet that only carries simplebuilding:light_source");
@@ -751,10 +739,11 @@ public final class DynamicLightTests {
      * light block's own {@code WATERLOGGED} value to decide between water and air, and getting that
      * wrong leaves a trail of air bubbles behind a diver.
      *
-     * <p>What breaks this: the {@code isAir() || (isWater && isSource())} condition widening (the
-     * stone case starts failing and the mod eats blocks); the waterlogged flag not being set from
-     * the fluid state (the light block would drain the water it replaced); or {@code removeLight}
-     * dropping its waterlogged branch.
+     * <p>What breaks this: the {@code isAir() || is(Blocks.LIGHT) || (isWater && isSource())}
+     * condition widening (the stone case starts failing and the mod eats blocks); the waterlogged
+     * flag not being set from the fluid state, either when the block is first placed or when its
+     * level is raised in place (the light block would drain the water it replaced); or
+     * {@code removeLight} dropping its waterlogged branch.
      */
     public static void theLightBlockOnlyReplacesAirOrWaterSourcesAndPutsTheWaterBack(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -788,6 +777,16 @@ public final class DynamicLightTests {
         DynamicLightHandler.tick(player);
         assertLight(helper, head, expected, true, "an emitting helmet inside a water source");
 
+        // --- raising the level in place must not drain the water. isWater is read from
+        //     currentState, which for a waterlogged light block is the light block's own fluid
+        //     state; a rewrite that took it from anywhere else would put a dry light block into
+        //     the sea and leave the diver in an air pocket.
+        wearOnly(player, EquipmentSlot.HEAD, emitting(ModItems.ENDERITE_HELMET, 4));
+        DynamicLightHandler.tick(player);
+        assertLight(helper, head, 4 * LIGHT_PER_EMISSION_LEVEL, true,
+                "a waterlogged light block whose level was raised while the diver stood still");
+        wearOnly(player, EquipmentSlot.HEAD, emitting(ModItems.ENDERITE_HELMET, 2));
+
         // --- flowing water is not a source: left alone ---
         BlockState flowing = Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, 1);
         level.setBlock(head, flowing, 3);
@@ -820,10 +819,11 @@ public final class DynamicLightTests {
      * is the same in the end - a light block nobody can see, nobody can mine and nobody can remove,
      * left standing in the world. The "moved" case is the one that would litter a whole route.
      *
-     * <p>The brighter helmet is swapped in <em>together with</em> a step, not while standing still:
-     * the handler cannot raise the level of a light block that is already there (see <em>Known
-     * defect</em> in the class javadoc). What that step pins is that the level written at the new
-     * position is recomputed from the armour instead of being carried over from the old block.
+     * <p>The helmet is swapped twice while the player stands still - up to emission level III and
+     * back down to I - and the light block at that position has to follow both times. That is the
+     * arm of the writing condition that names {@code minecraft:light}; see the class javadoc. The
+     * step that follows pins the other half: the level written at the new position is recomputed
+     * from the armour rather than carried over from the old block.
      *
      * <p>"Leaving the server" here means a direct call to {@code onDisconnect}. The two loader
      * registrations that call it in game are <em>not</em> covered - see the class javadoc.
@@ -853,9 +853,27 @@ public final class DynamicLightTests {
         assertLight(helper, secondHead, LIGHT_PER_EMISSION_LEVEL, false,
                 "the position the player moved to");
 
-        // --- a brighter helmet writes a brighter block at the next position the light lands on.
-        //     Swap and step have to happen together; the handler cannot change the level of a light
-        //     block in place (see "Known defect" in the class javadoc).
+        // --- a brighter helmet brightens the block that is already standing, with the player rooted
+        //     to the spot. This is the arm of the writing condition that names minecraft:light (see
+        //     the class javadoc): a dry light block is neither air nor a water source, so without it
+        //     the reading below still shows the level I block written at the step before.
+        wearOnly(player, EquipmentSlot.HEAD, emitting(ModItems.ENDERITE_HELMET, 3));
+        DynamicLightHandler.tick(player);
+        assertLight(helper, secondHead, 3 * LIGHT_PER_EMISSION_LEVEL, false,
+                "the block above a player who swapped an emission level I helmet for a level III one "
+                        + "without moving; the brightness has to follow the armour on the spot, not "
+                        + "only after the next step");
+
+        // --- and back down again, so the level really tracks the armour rather than only ever
+        //     climbing. Same block, same position, no step in between.
+        wearOnly(player, EquipmentSlot.HEAD, emitting(ModItems.ENDERITE_HELMET, 1));
+        DynamicLightHandler.tick(player);
+        assertLight(helper, secondHead, LIGHT_PER_EMISSION_LEVEL, false,
+                "the block above a player who swapped down to an emission level I helmet without "
+                        + "moving; a light block that only ever gets brighter leaves the wearer "
+                        + "lighting the cave with armour they took off");
+
+        // --- stepping on recomputes the level at the new position ---
         wearOnly(player, EquipmentSlot.HEAD, emitting(ModItems.ENDERITE_HELMET, 3));
         BlockPos thirdHead = stepTo(helper, player, 2);
         DynamicLightHandler.tick(player);
@@ -977,12 +995,11 @@ public final class DynamicLightTests {
      * Moves the player {@code step} blocks along +X from {@link #STAND}, clears the block above its
      * new position and returns that position.
      *
-     * <p>Every light reading is taken at a fresh spot, because {@code DynamicLightHandler} cannot
-     * change the {@code LEVEL} of a light block that is already standing there - see <em>Known
-     * defect</em> in the class javadoc. A second reading at the same position would only ever show
-     * the first one's value, no matter what the player is wearing. Stepping is what a player does
-     * anyway, and it is the path the handler itself keeps working: the "moved" branch removes the
-     * old block first, which leaves air behind for the new one.
+     * <p>This is for the tests about <em>moving</em> only. Readings that are about the level itself
+     * are taken without a step, so that they go through the handler's update-in-place path; the
+     * class javadoc says why that path is the fragile one. The block above the new spot is cleared
+     * because the handler is only allowed to overwrite air, a light block or a water source, and
+     * the platform the loaders build is not guaranteed to be empty two blocks up.
      *
      * <p>The offsets stay inside the loaders' empty 8x8 room ({@link #STAND} is at relative x 3, so
      * {@code step} 0..3 reaches x 3..6) and keep z at 3, clear of the second player position used

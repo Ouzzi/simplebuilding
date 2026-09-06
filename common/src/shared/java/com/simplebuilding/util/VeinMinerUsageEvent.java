@@ -70,8 +70,16 @@ public final class VeinMinerUsageEvent {
             if (stack.isEmpty()) break;
 
             MINED_BLOCKS.add(targetPos);
-            serverPlayer.gameMode.destroyBlock(targetPos);
-            MINED_BLOCKS.remove(targetPos);
+            try {
+                serverPlayer.gameMode.destroyBlock(targetPos);
+            } finally {
+                // MINED_BLOCKS ist statisch und wird nie geleert. Ohne finally bliebe targetPos
+                // nach einer Ausnahme aus destroyBlock (Blockentity, Loot, ein anderer Mod im
+                // Break-Event) fuer immer drin, und der Rekursionsschutz oben wuerde jeden
+                // spaeteren Abbau an genau dieser Weltposition den Rest der Sitzung lang
+                // stillschweigend verschlucken. SledgehammerUsageEvent sichert sich genauso ab.
+                MINED_BLOCKS.remove(targetPos);
+            }
         }
 
         return true;

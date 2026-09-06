@@ -634,10 +634,10 @@ public final class MagnetTests {
 
         // --- the tooltip names the active filter ---
         List<String> withFilter = tooltipOf(helper, magnet);
-        helper.assertValueEqual(withFilter.size(), 2, "tooltip lines on a filtered magnet");
-        helper.assertValueEqual(withFilter.get(0), "Filtering: minecraft:diamond",
+        Assertions.valueEqual(helper, withFilter.size(), 2, "tooltip lines on a filtered magnet");
+        Assertions.valueEqual(helper, withFilter.get(0), "Filtering: minecraft:diamond",
                 "first tooltip line of a filtered magnet");
-        helper.assertValueEqual(withFilter.get(1), "Sneak + Right Click to clear",
+        Assertions.valueEqual(helper, withFilter.get(1), "Sneak + Right Click to clear",
                 "second tooltip line of a filtered magnet");
 
         // --- and the filter is really doing something ---
@@ -651,7 +651,7 @@ public final class MagnetTests {
         helper.assertTrue(plainClick == InteractionResult.PASS,
                 "a right click without sneaking returned " + plainClick + " instead of PASS, so the "
                         + "magnet now swallows clicks that should fall through");
-        helper.assertValueEqual(filterOf(magnet), "minecraft:diamond",
+        Assertions.valueEqual(helper, filterOf(magnet), "minecraft:diamond",
                 "the filter after a right click without sneaking");
 
         // --- sneak + right click clears it ---
@@ -665,8 +665,8 @@ public final class MagnetTests {
 
         // --- the tooltip follows ---
         List<String> cleared = tooltipOf(helper, magnet);
-        helper.assertValueEqual(cleared.size(), 2, "tooltip lines on a magnet without a filter");
-        helper.assertValueEqual(cleared.get(0), "No Filter active",
+        Assertions.valueEqual(helper, cleared.size(), 2, "tooltip lines on a magnet without a filter");
+        Assertions.valueEqual(helper, cleared.get(0), "No Filter active",
                 "first tooltip line of a magnet without a filter");
 
         // --- and so does the magnet: the ingot it refused a moment ago is fair game now ---
@@ -725,7 +725,7 @@ public final class MagnetTests {
                         + "magnet cannot be crafted at all");
 
         RecipeHolder<CraftingRecipe> holder = match.get();
-        helper.assertValueEqual(holder.id().identifier().toString(), "simplebuilding:magnet",
+        Assertions.valueEqual(helper, holder.id().identifier().toString(), "simplebuilding:magnet",
                 "recipe matched by the documented magnet pattern");
 
         // 1.21.11's Recipe#assemble still takes the registries alongside the input; 26.2 dropped
@@ -733,7 +733,7 @@ public final class MagnetTests {
         ItemStack result = holder.value().assemble(grid, level.registryAccess());
         helper.assertTrue(result.is(ModItems.MAGNET),
                 "the magnet recipe produced " + result + " instead of a magnet");
-        helper.assertValueEqual(result.getCount(), 1, "magnets produced per craft");
+        Assertions.valueEqual(helper, result.getCount(), 1, "magnets produced per craft");
 
         // --- the same ingredients in the wrong places must not produce a magnet ---
         // Turned by 180 degrees: same ingredient counts, and neither the pattern nor the x-mirror

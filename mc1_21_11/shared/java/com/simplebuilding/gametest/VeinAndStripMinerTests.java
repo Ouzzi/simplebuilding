@@ -180,7 +180,7 @@ public final class VeinAndStripMinerTests {
         // --- 4. level I has a budget of 3 blocks including the origin -> exactly 2 extra ---
         buildOreVein(helper);
         veinMine(helper, player, veinMinerPickaxe(helper, Items.IRON_PICKAXE, 1), ORE_ORIGIN);
-        helper.assertValueEqual(brokenCount(helper, ORE_TAIL), 2,
+        Assertions.valueEqual(helper, brokenCount(helper, ORE_TAIL), 2,
                 "Vein Miner block budget at level I, driven through the break event");
         helper.assertBlockPresent(Blocks.COAL_ORE, DETACHED_ORE);
         helper.assertBlockPresent(Blocks.DEEPSLATE_COAL_ORE, DEEPSLATE_NEIGHBOUR);
@@ -188,7 +188,7 @@ public final class VeinAndStripMinerTests {
         // 4 blocks in run 3 plus 2 in run 4, and coal ore drops exactly one coal without
         // fortune, so anything other than 6 means the breaks did not produce real loot.
         helper.runAfterDelay(DROP_SETTLE_TICKS, () -> {
-            helper.assertValueEqual(droppedCount(helper, Items.COAL), 6,
+            Assertions.valueEqual(helper, droppedCount(helper, Items.COAL), 6,
                     "coal dropped by the vein mined ore");
             TestCleanup.succeed(helper);
         });
@@ -230,7 +230,7 @@ public final class VeinAndStripMinerTests {
         }
 
         helper.runAfterDelay(DROP_SETTLE_TICKS, () -> {
-            helper.assertValueEqual(droppedCount(helper, Items.OAK_LOG), LOG_TAIL.size(),
+            Assertions.valueEqual(helper, droppedCount(helper, Items.OAK_LOG), LOG_TAIL.size(),
                     "logs dropped by the vein mined trunk");
             TestCleanup.succeed(helper);
         });
@@ -300,7 +300,7 @@ public final class VeinAndStripMinerTests {
                 helper.getBlockState(QUARTZ_ORIGIN),
                 5,
                 new ItemStack(Items.IRON_PICKAXE));
-        helper.assertValueEqual(highlighted.size(), QUARTZ_NEIGHBOURS.size(),
+        Assertions.valueEqual(helper, highlighted.size(), QUARTZ_NEIGHBOURS.size(),
                 "MiningUtils stopped highlighting the quartz vein - if that was deliberate, "
                         + "this test has to be rewritten, not deleted");
 
@@ -374,7 +374,7 @@ public final class VeinAndStripMinerTests {
         }
         helper.assertBlockPresent(Blocks.STONE, SHAFT_ORIGIN);
         helper.assertBlockPresent(Blocks.STONE, SHAFT_FLOOR);
-        helper.assertValueEqual(player.getMainHandItem().getDamageValue(), 4 * damagePerBlock - 1,
+        Assertions.valueEqual(helper, player.getMainHandItem().getDamageValue(), 4 * damagePerBlock - 1,
                 "Strip Miner durability refund for a four block tunnel");
 
         // --- 5. looking level: the tunnel follows the facing and stops at the dirt plug ---
@@ -390,13 +390,13 @@ public final class VeinAndStripMinerTests {
         helper.assertBlockPresent(Blocks.STONE, TUNNEL_ORIGIN);
         helper.assertBlockPresent(Blocks.DIRT, TUNNEL_PLUG);
         helper.assertBlockPresent(Blocks.STONE, TUNNEL_BEYOND);
-        helper.assertValueEqual(player.getMainHandItem().getDamageValue(), 2 * damagePerBlock - 1,
+        Assertions.valueEqual(helper, player.getMainHandItem().getDamageValue(), 2 * damagePerBlock - 1,
                 "Strip Miner durability refund for a two block tunnel");
 
         // 1 block in run 3, 4 in run 4, 2 in run 5; stone drops exactly one cobblestone each,
         // and the dirt plug would show up as an eighth if the stop condition ever went away.
         helper.runAfterDelay(DROP_SETTLE_TICKS, () -> {
-            helper.assertValueEqual(droppedCount(helper, Items.COBBLESTONE), 1 + SHAFT.size() + TUNNEL.size(),
+            Assertions.valueEqual(helper, droppedCount(helper, Items.COBBLESTONE), 1 + SHAFT.size() + TUNNEL.size(),
                     "cobblestone dropped by the strip mined tunnels");
             TestCleanup.succeed(helper);
         });

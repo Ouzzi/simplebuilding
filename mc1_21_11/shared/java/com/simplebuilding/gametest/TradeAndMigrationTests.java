@@ -246,7 +246,7 @@ public final class TradeAndMigrationTests {
             }
         }
 
-        helper.assertValueEqual(emptyRolls, 0, "mason level 2 produced empty offer lists");
+        Assertions.valueEqual(helper, emptyRolls, 0, "mason level 2 produced empty offer lists");
         helper.assertTrue(rolledModTrade,
                 "a mason villager (level 2) never offered copper_core or diamond_core in 64 rolls; "
                         + "results seen were " + seen);
@@ -282,7 +282,7 @@ public final class TradeAndMigrationTests {
             trader.discard();
         }
 
-        helper.assertValueEqual(emptyRolls, 0, "a wandering trader produced an empty offer list");
+        Assertions.valueEqual(helper, emptyRolls, 0, "a wandering trader produced an empty offer list");
         helper.assertTrue(rolledModTrade,
                 "a wandering trader never offered one of " + wanted + " in 64 rolls; results seen were " + seen);
 
@@ -335,15 +335,15 @@ public final class TradeAndMigrationTests {
         ItemStack migrated = player.getInventory().getItem(0);
         helper.assertTrue(migrated.is(ModItems.STONE_CHISEL),
                 "stone_spatula should have become stone_chisel, was " + migrated);
-        helper.assertValueEqual(migrated.getCount(), 1, "migrated stack size");
-        helper.assertValueEqual(migrated.get(DataComponents.DAMAGE), 5, "migrated damage component");
-        helper.assertValueEqual(migrated.get(DataComponents.CUSTOM_NAME),
+        Assertions.valueEqual(helper, migrated.getCount(), 1, "migrated stack size");
+        Assertions.valueEqual(helper, migrated.get(DataComponents.DAMAGE), 5, "migrated damage component");
+        Assertions.valueEqual(helper, migrated.get(DataComponents.CUSTOM_NAME),
                 Component.literal("Grandpa's tool"), "migrated custom name component");
 
         ItemStack migratedStack = player.getInventory().getItem(1);
         helper.assertTrue(migratedStack.is(ModItems.COPPER_CHISEL),
                 "copper_spatula should have become copper_chisel, was " + migratedStack);
-        helper.assertValueEqual(migratedStack.getCount(), 3, "migrated multi item stack size");
+        Assertions.valueEqual(helper, migratedStack.getCount(), 3, "migrated multi item stack size");
 
         helper.assertTrue(player.getInventory().getItem(3).is(ModItems.NETHERITE_CHISEL),
                 "netherite_spatula should have become netherite_chisel, was "
@@ -353,13 +353,13 @@ public final class TradeAndMigrationTests {
                 "an existing iron_chisel must survive the migration untouched");
         helper.assertTrue(player.getInventory().getItem(5).is(net.minecraft.world.item.Items.DIAMOND),
                 "a vanilla stack must survive the migration untouched");
-        helper.assertValueEqual(player.getInventory().getItem(5).getCount(), 12,
+        Assertions.valueEqual(helper, player.getInventory().getItem(5).getCount(), 12,
                 "vanilla stack size after migration");
 
         ItemStack migratedMenuStack = player.containerMenu.getSlot(InventoryMenu.CRAFT_SLOT_START).getItem();
         helper.assertTrue(migratedMenuStack.is(ModItems.GOLD_CHISEL),
                 "gold_spatula in the open menu should have become gold_chisel, was " + migratedMenuStack);
-        helper.assertValueEqual(migratedMenuStack.getCount(), 1, "migrated menu stack size");
+        Assertions.valueEqual(helper, migratedMenuStack.getCount(), 1, "migrated menu stack size");
 
         MockPlayers.remove(helper, player);
         helper.succeed();
@@ -394,16 +394,16 @@ public final class TradeAndMigrationTests {
                     ItemStack after = damaged.getItem();
                     helper.assertTrue(after.is(ModItems.DIAMOND_CHISEL),
                             "the item entity should now carry a diamond_chisel, was " + after);
-                    helper.assertValueEqual(after.getCount(), 1, "item entity stack size after migration");
-                    helper.assertValueEqual(after.get(DataComponents.DAMAGE), 42,
+                    Assertions.valueEqual(helper, after.getCount(), 1, "item entity stack size after migration");
+                    Assertions.valueEqual(helper, after.get(DataComponents.DAMAGE), 42,
                             "item entity damage component after migration");
-                    helper.assertValueEqual(after.get(DataComponents.CUSTOM_NAME),
+                    Assertions.valueEqual(helper, after.get(DataComponents.CUSTOM_NAME),
                             Component.literal("Old flattener"), "item entity custom name after migration");
 
                     ItemStack afterStack = multiple.getItem();
                     helper.assertTrue(afterStack.is(ModItems.IRON_CHISEL),
                             "the item entity should now carry an iron_chisel, was " + afterStack);
-                    helper.assertValueEqual(afterStack.getCount(), 3,
+                    Assertions.valueEqual(helper, afterStack.getCount(), 3,
                             "item entity stack size of the multi item stack after migration");
 
                     helper.assertTrue(control.getItem().is(net.minecraft.world.item.Items.STICK),
@@ -525,15 +525,15 @@ public final class TradeAndMigrationTests {
         ItemStack costA = offer.getBaseCostA();
         helper.assertTrue(costA.is(wantedItem),
                 id + ": expected cost item " + wantedItem + ", was " + costA);
-        helper.assertValueEqual(costA.getCount(), wantedCount, id + ": cost count");
+        Assertions.valueEqual(helper, costA.getCount(), wantedCount, id + ": cost count");
 
         ItemStack result = offer.getResult();
         helper.assertTrue(result.is(givenItem),
                 id + ": expected result item " + givenItem + ", was " + result);
-        helper.assertValueEqual(result.getCount(), givenCount, id + ": result count");
+        Assertions.valueEqual(helper, result.getCount(), givenCount, id + ": result count");
 
-        helper.assertValueEqual(offer.getMaxUses(), maxUses, id + ": max uses");
-        helper.assertValueEqual(offer.getXp(), xp, id + ": trade xp");
+        Assertions.valueEqual(helper, offer.getMaxUses(), maxUses, id + ": max uses");
+        Assertions.valueEqual(helper, offer.getXp(), xp, id + ": trade xp");
     }
 
     private static void setProfession(GameTestHelper helper, Villager villager,

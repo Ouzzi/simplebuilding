@@ -123,30 +123,30 @@ public final class BuildingEnchantmentTests {
         // --- the extras are locked without the enchantment ---
         helper.setBlock(mossy, Blocks.COBBLESTONE);
         Block untouched = chiselAt(helper, player, stoneChisel, mossy, false, "plain stone chisel on cobblestone");
-        helper.assertValueEqual(untouched, Blocks.COBBLESTONE,
+        Assertions.valueEqual(helper, untouched, Blocks.COBBLESTONE,
                 "an unenchanted stone chisel reached into the Constructor's Touch table and produced " + untouched);
 
         // --- and unlocked with it ---
         helper.setBlock(mossy, Blocks.COBBLESTONE);
         Block mossed = chiselAt(helper, player, touchedStoneChisel, mossy, false, "touched stone chisel on cobblestone");
-        helper.assertValueEqual(mossed, Blocks.MOSSY_COBBLESTONE,
+        Assertions.valueEqual(helper, mossed, Blocks.MOSSY_COBBLESTONE,
                 "Constructor's Touch did not unlock cobblestone -> mossy cobblestone, got " + mossed);
 
         // --- logs are the other stone tier extra: only the enchantment strips them ---
         helper.setBlock(log, Blocks.OAK_LOG);
         Block bark = chiselAt(helper, player, stoneChisel, log, false, "plain stone chisel on an oak log");
-        helper.assertValueEqual(bark, Blocks.OAK_LOG,
+        Assertions.valueEqual(helper, bark, Blocks.OAK_LOG,
                 "an unenchanted stone chisel stripped a log and produced " + bark);
 
         helper.setBlock(log, Blocks.OAK_LOG);
         Block stripped = chiselAt(helper, player, touchedStoneChisel, log, false, "touched stone chisel on an oak log");
-        helper.assertValueEqual(stripped, Blocks.STRIPPED_OAK_LOG,
+        Assertions.valueEqual(helper, stripped, Blocks.STRIPPED_OAK_LOG,
                 "Constructor's Touch did not strip the log, got " + stripped);
 
         // --- additive: the enchanted chisel must KEEP its ordinary transformations ---
         helper.setBlock(plain, Blocks.STONE);
         Block chiselled = chiselAt(helper, player, touchedStoneChisel, plain, false, "touched stone chisel on stone");
-        helper.assertValueEqual(chiselled, Blocks.CHISELED_STONE_BRICKS,
+        Assertions.valueEqual(helper, chiselled, Blocks.CHISELED_STONE_BRICKS,
                 "the Constructor's Touch table replaced the ordinary one instead of extending it; "
                         + "stone became " + chiselled + " rather than chiseled stone bricks");
 
@@ -154,52 +154,52 @@ public final class BuildingEnchantmentTests {
         helper.setBlock(plain, Blocks.CHISELED_STONE_BRICKS);
         Block backToStone = chiselAt(helper, player, touchedStoneChisel, plain, true,
                 "touched stone chisel sneaking on chiseled stone bricks");
-        helper.assertValueEqual(backToStone, Blocks.STONE,
+        Assertions.valueEqual(helper, backToStone, Blocks.STONE,
                 "the reverse Constructor's Touch table lost the ordinary entries, got " + backToStone);
 
         // --- reverse direction, extra entry: only the enchantment can undo the moss ---
         helper.setBlock(mossy, Blocks.MOSSY_COBBLESTONE);
         Block stubborn = chiselAt(helper, player, stoneChisel, mossy, true,
                 "plain stone chisel sneaking on mossy cobblestone");
-        helper.assertValueEqual(stubborn, Blocks.MOSSY_COBBLESTONE,
+        Assertions.valueEqual(helper, stubborn, Blocks.MOSSY_COBBLESTONE,
                 "an unenchanted stone chisel undid a Constructor's Touch transformation, got " + stubborn);
 
         helper.setBlock(mossy, Blocks.MOSSY_COBBLESTONE);
         Block demossed = chiselAt(helper, player, touchedStoneChisel, mossy, true,
                 "touched stone chisel sneaking on mossy cobblestone");
-        helper.assertValueEqual(demossed, Blocks.COBBLESTONE,
+        Assertions.valueEqual(helper, demossed, Blocks.COBBLESTONE,
                 "Constructor's Touch has no reverse for its own extra entry, got " + demossed);
 
         // --- the tier gate survives the enchantment ---
         helper.setBlock(tier, Blocks.END_STONE);
         Block tooWeak = chiselAt(helper, player, touchedStoneChisel, tier, false,
                 "touched stone chisel on end stone");
-        helper.assertValueEqual(tooWeak, Blocks.END_STONE,
+        Assertions.valueEqual(helper, tooWeak, Blocks.END_STONE,
                 "a touched stone chisel reached into the diamond tier's extras and produced " + tooWeak);
 
         helper.setBlock(tier, Blocks.END_STONE);
         Block stillWeak = chiselAt(helper, player, diamondChisel, tier, false,
                 "plain diamond chisel on end stone");
-        helper.assertValueEqual(stillWeak, Blocks.END_STONE,
+        Assertions.valueEqual(helper, stillWeak, Blocks.END_STONE,
                 "an unenchanted diamond chisel used the Constructor's Touch table and produced " + stillWeak);
 
         helper.setBlock(tier, Blocks.END_STONE);
         Block bricks = chiselAt(helper, player, touchedDiamondChisel, tier, false,
                 "touched diamond chisel on end stone");
-        helper.assertValueEqual(bricks, Blocks.END_STONE_BRICKS,
+        Assertions.valueEqual(helper, bricks, Blocks.END_STONE_BRICKS,
                 "the diamond tier's Constructor's Touch extras are gone, end stone became " + bricks);
 
         // --- the sneaking chisel step costs double, which is the whole balancing of "unchiselling" ---
         ItemStack forwardTool = enchanted(helper, ModItems.STONE_CHISEL, ModEnchantments.CONSTRUCTORS_TOUCH, 1);
         helper.setBlock(mossy, Blocks.COBBLESTONE);
         chiselAt(helper, player, forwardTool, mossy, false, "durability probe, chisel forwards");
-        helper.assertValueEqual(forwardTool.getDamageValue(), 1,
+        Assertions.valueEqual(helper, forwardTool.getDamageValue(), 1,
                 "a forward chisel step no longer costs exactly one point of durability");
 
         ItemStack reverseTool = enchanted(helper, ModItems.STONE_CHISEL, ModEnchantments.CONSTRUCTORS_TOUCH, 1);
         helper.setBlock(mossy, Blocks.MOSSY_COBBLESTONE);
         chiselAt(helper, player, reverseTool, mossy, true, "durability probe, chisel backwards");
-        helper.assertValueEqual(reverseTool.getDamageValue(), 2,
+        Assertions.valueEqual(helper, reverseTool.getDamageValue(), 2,
                 "the sneaking chisel step is no longer twice as expensive as the forward one");
 
         // --- the spatula reads the very same touch table from the other end, for a single point ---
@@ -207,16 +207,16 @@ public final class BuildingEnchantmentTests {
         helper.setBlock(mossy, Blocks.MOSSY_COBBLESTONE);
         Block spatulaRefused = chiselAt(helper, player, plainSpatula, mossy, false,
                 "plain stone spatula on mossy cobblestone");
-        helper.assertValueEqual(spatulaRefused, Blocks.MOSSY_COBBLESTONE,
+        Assertions.valueEqual(helper, spatulaRefused, Blocks.MOSSY_COBBLESTONE,
                 "an unenchanted stone spatula undid a Constructor's Touch transformation, got " + spatulaRefused);
 
         ItemStack touchedSpatula = enchanted(helper, ModItems.STONE_SPATULA, ModEnchantments.CONSTRUCTORS_TOUCH, 1);
         helper.setBlock(mossy, Blocks.MOSSY_COBBLESTONE);
         Block spatulaUndid = chiselAt(helper, player, touchedSpatula, mossy, false,
                 "touched stone spatula on mossy cobblestone");
-        helper.assertValueEqual(spatulaUndid, Blocks.COBBLESTONE,
+        Assertions.valueEqual(helper, spatulaUndid, Blocks.COBBLESTONE,
                 "the spatula's default direction no longer reads the Constructor's Touch table, got " + spatulaUndid);
-        helper.assertValueEqual(touchedSpatula.getDamageValue(), 1,
+        Assertions.valueEqual(helper, touchedSpatula.getDamageValue(), 1,
                 "the spatula started paying the sneaking chisel's double cost; isReverseAction leaked "
                         + "out of the chisel branch");
 
@@ -274,7 +274,7 @@ public final class BuildingEnchantmentTests {
 
         ChiselItem chisel = ModItems.STONE_CHISEL;
         int base = chisel.getCooldownTicks();
-        helper.assertValueEqual(base, 30,
+        Assertions.valueEqual(helper, base, 30,
                 "the stone chisel's base cooldown was retuned; update the expected Fast Chiseling "
                         + "cooldowns in this test to match");
 
@@ -284,11 +284,11 @@ public final class BuildingEnchantmentTests {
         int twoCooldown = chiselAndDrainCooldown(helper, player,
                 enchanted(helper, chisel, ModEnchantments.FAST_CHISELING, 2), target);
 
-        helper.assertValueEqual(plainCooldown, 30,
+        Assertions.valueEqual(helper, plainCooldown, 30,
                 "an unenchanted stone chisel did not wait out its full cooldown");
-        helper.assertValueEqual(oneCooldown, 21,
+        Assertions.valueEqual(helper, oneCooldown, 21,
                 "Fast Chiseling I did not take 30% off the cooldown");
-        helper.assertValueEqual(twoCooldown, 11,
+        Assertions.valueEqual(helper, twoCooldown, 11,
                 "Fast Chiseling II did not take 60% off the cooldown");
 
         // --- mining speed: +5 and +17 raw, halved like the rest of the chisel's speed ---
@@ -371,27 +371,27 @@ public final class BuildingEnchantmentTests {
         // --- the plain wand repeats the first block it finds ---
         Map<BlockPos, BlockState> plain = BuildingWandItem.getPreviewStates(
                 helper.getLevel(), player, plainWand, origin, Direction.NORTH, diameter);
-        helper.assertValueEqual(plain.size(), 9,
+        Assertions.valueEqual(helper, plain.size(), 9,
                 "the previewed plane is not the 3x3 the wand's own radius setting asks for");
         Set<Block> plainBlocks = distinctBlocks(plain);
         Set<Block> onlyPlanks = Set.of(Blocks.OAK_PLANKS);
-        helper.assertValueEqual(plainBlocks, onlyPlanks,
+        Assertions.valueEqual(helper, plainBlocks, onlyPlanks,
                 "a wand without Color Palette mixed blocks into its preview: " + plainBlocks);
 
         // --- the enchanted wand reaches for the whole hotbar ---
         Map<BlockPos, BlockState> palette = BuildingWandItem.getPreviewStates(
                 helper.getLevel(), player, paletteWand, origin, Direction.NORTH, diameter);
-        helper.assertValueEqual(palette.size(), 9,
+        Assertions.valueEqual(helper, palette.size(), 9,
                 "Color Palette changed how many blocks the wand previews");
         Set<Block> paletteBlocks = distinctBlocks(palette);
         Set<Block> bothBlocks = Set.of(Blocks.OAK_PLANKS, Blocks.GLASS);
-        helper.assertValueEqual(paletteBlocks, bothBlocks,
+        Assertions.valueEqual(helper, paletteBlocks, bothBlocks,
                 "Color Palette did not spread both carried blocks over the plane, it used " + paletteBlocks);
 
         // --- and does so deterministically, or the preview would flicker every frame ---
         Map<BlockPos, BlockState> again = BuildingWandItem.getPreviewStates(
                 helper.getLevel(), player, paletteWand, origin, Direction.NORTH, diameter);
-        helper.assertValueEqual(again, palette,
+        Assertions.valueEqual(helper, again, palette,
                 "the Color Palette preview is not stable between two calls, so it would flicker");
 
         // --- the striping quirk described in the javadoc ---
@@ -399,7 +399,7 @@ public final class BuildingEnchantmentTests {
         // only the count is asserted here, not the colour.
         Map<BlockPos, BlockState> floor = BuildingWandItem.getPreviewStates(
                 helper.getLevel(), player, paletteWand, origin, Direction.UP, diameter);
-        helper.assertValueEqual(distinctBlocks(floor).size(), 1,
+        Assertions.valueEqual(helper, distinctBlocks(floor).size(), 1,
                 "Color Palette now varies within one horizontal layer. That is very likely an "
                         + "improvement, but the palette index is documented here as a function of Y "
                         + "only - re-read the javadoc and update it.");
@@ -450,22 +450,22 @@ public final class BuildingEnchantmentTests {
                 new ItemStack(Items.OAK_PLANKS, 3), new ItemStack(Items.GLASS, 16));
 
         // --- the plain wand stops when its one block is gone ---
-        helper.assertValueEqual(placedOffsets(helper, plainAnchor).size(), 3,
+        Assertions.valueEqual(helper, placedOffsets(helper, plainAnchor).size(), 3,
                 "a wand without Color Palette did not stop after its three oak planks were used up");
         Set<Block> plainBlocks = distinctPlaced(helper, plainAnchor);
-        helper.assertValueEqual(plainBlocks, Set.of(Blocks.OAK_PLANKS),
+        Assertions.valueEqual(helper, plainBlocks, Set.of(Blocks.OAK_PLANKS),
                 "a wand without Color Palette placed something other than the block it was armed "
                         + "with: " + plainBlocks);
 
         // --- the enchanted one carries on with whatever is left ---
-        helper.assertValueEqual(placedOffsets(helper, paletteAnchor).size(), 9,
+        Assertions.valueEqual(helper, placedOffsets(helper, paletteAnchor).size(), 9,
                 "Color Palette did not let the wand finish the plane out of a second stack");
         Set<Block> paletteBlocks = distinctPlaced(helper, paletteAnchor);
-        helper.assertValueEqual(paletteBlocks, Set.of(Blocks.OAK_PLANKS, Blocks.GLASS),
+        Assertions.valueEqual(helper, paletteBlocks, Set.of(Blocks.OAK_PLANKS, Blocks.GLASS),
                 "the Color Palette run did not draw on both stacks, it placed " + paletteBlocks);
-        helper.assertValueEqual(countPlaced(helper, paletteAnchor, Blocks.OAK_PLANKS), 3,
+        Assertions.valueEqual(helper, countPlaced(helper, paletteAnchor, Blocks.OAK_PLANKS), 3,
                 "the Color Palette run did not spend exactly the three planks it was given");
-        helper.assertValueEqual(countPlaced(helper, paletteAnchor, Blocks.GLASS), 6,
+        Assertions.valueEqual(helper, countPlaced(helper, paletteAnchor, Blocks.GLASS), 6,
                 "the Color Palette run did not fall through to the glass for the remaining six");
 
         TestCleanup.succeed(helper);
@@ -514,18 +514,18 @@ public final class BuildingEnchantmentTests {
         // --- the shape is untouched ---
         Set<BlockPos> plainShape = placedOffsets(helper, plainAnchor);
         Set<BlockPos> linearShape = placedOffsets(helper, linearAnchor);
-        helper.assertValueEqual(plainShape.size(), 9,
+        Assertions.valueEqual(helper, plainShape.size(), 9,
                 "the unenchanted wand did not fill the expected 3x3, it placed " + plainShape.size() + " blocks");
-        helper.assertValueEqual(linearShape, plainShape,
+        Assertions.valueEqual(helper, linearShape, plainShape,
                 "Linear changed the shape the wand builds. That is a real feature now, so this test "
                         + "has to be replaced by one that states what the new shape is.");
 
         // --- only the pacing is ---
         helper.assertTrue(linearTicks < plainTicks,
                 "Linear did not speed the wand up at all: " + linearTicks + " ticks against " + plainTicks);
-        helper.assertValueEqual(plainTicks, BuildingWandItem.DELAY_TICKS + 2,
+        Assertions.valueEqual(helper, plainTicks, BuildingWandItem.DELAY_TICKS + 2,
                 "the unenchanted wand no longer paces itself with DELAY_TICKS");
-        helper.assertValueEqual(linearTicks, BuildingWandItem.DELAY_TICKS_LINE + 2,
+        Assertions.valueEqual(helper, linearTicks, BuildingWandItem.DELAY_TICKS_LINE + 2,
                 "the Linear wand no longer paces itself with DELAY_TICKS_LINE");
 
         TestCleanup.succeed(helper);
@@ -583,7 +583,7 @@ public final class BuildingEnchantmentTests {
         InteractionResult result = useOnTopFace(helper, player, chisel, relativePos);
         boolean acted = result != InteractionResult.PASS;
 
-        helper.assertValueEqual(predicted, acted,
+        Assertions.valueEqual(helper, predicted, acted,
                 "canChisel and the actual click disagree for " + what + " (canChisel said " + predicted
                         + ", the click returned " + result + "), so the block highlight lies to the player");
         return helper.getBlockState(relativePos).getBlock();

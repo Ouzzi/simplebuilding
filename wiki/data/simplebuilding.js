@@ -1207,6 +1207,7 @@ window.WIKI_DATA = {
           "Above the build limit the rising block breaks and drops as an item, the way falling sand is lost in the void. Unlike vanilla, there is no 100 tick grace period before that happens, so the block breaks at the limit instead of about 115 blocks above it.",
           "All six blocks that have an item sit in the \"Building Items\" creative group (\"SimpleBuilding Items\" in German); in the code the pistons are filed under \"Machines & Storage\" and the sand/gravel under \"Gravity Blocks\".",
           "None of the four sand and gravel variants is in any tool tag the mod generates.",
+          "All four sand and gravel variants ship byte-identical copies of the vanilla sand and gravel textures (checked by SHA-256 against the client jar). In game they therefore cannot be told apart from ordinary sand and gravel - on blocks whose whole point is the changed gravity.",
           "The Netherite Piston tooltip present in the language files is displayed by no code.",
           "Game tests prove it: a 13-block column is only pushable by the Reinforced Piston, the Netherite Piston destroys stone at full signal strength, the suspended blocks stay in mid-air, the levitating blocks rise measurably faster over each of three samples (which a constant-rate movement could not do), turn back into a block under a ceiling, and drop as an item at the build limit."
         ]
@@ -1226,6 +1227,7 @@ window.WIKI_DATA = {
           "Über dem Baulimit zerbricht der aufsteigende Block und fällt als Gegenstand, so wie fallender Sand in der Leere verloren geht. Anders als bei Vanilla gibt es davor keine Schonfrist von 100 Ticks, der Block zerbricht also am Limit statt rund 115 Blöcke darüber.",
           "Alle sechs Blöcke mit Item liegen im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“); im Code sind die Kolben unter „Machines & Storage“ und Sand/Kies unter „Gravity Blocks“ einsortiert.",
           "Die vier Sand- und Kiesvarianten stehen in keinem vom Mod erzeugten Werkzeug-Tag.",
+          "Alle vier Sand- und Kiesvarianten liefern byte-identische Kopien der Vanilla-Texturen von Sand und Kies aus (per SHA-256 gegen das Client-Jar geprüft). Im Spiel lassen sie sich daher nicht von gewöhnlichem Sand und Kies unterscheiden – bei Blöcken, deren ganzer Sinn die veränderte Schwerkraft ist.",
           "Der in den Sprachdateien vorhandene Tooltip zum Netheritkolben wird von keinem Code angezeigt.",
           "Spieltests belegen: 13er-Säule nur mit Verstärktem Kolben schiebbar, Netheritkolben zerstört Stein bei voller Signalstärke, Suspended-Blöcke bleiben in der Luft, Levitating-Blöcke legen über drei Messpunkte hinweg jeweils mehr Strecke zurück (was eine gleichförmige Bewegung nicht könnte), werden unter einer Decke wieder zum Block und fallen am Baulimit als Gegenstand."
         ]

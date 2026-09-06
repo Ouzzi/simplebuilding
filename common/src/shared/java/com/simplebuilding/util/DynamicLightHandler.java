@@ -52,7 +52,14 @@ public class DynamicLightHandler {
             boolean isWater = currentState.getFluidState().is(FluidTags.WATER);
 
             // Wir setzen Licht nur in Luft oder Wasser (um nichts zu zerstören)
-            if (currentState.isAir() || (isWater && currentState.getFluidState().isSource())) {
+            // Blocks.LIGHT ist replaceable, aber NICHT air, und ein trockener Lichtblock meldet
+            // eine leere Fluidstate - er faellt also durch beide anderen Zweige. Ohne den dritten
+            // Zweig bleibt der schon stehende Lichtblock unangetastet und die Helligkeit aendert
+            // sich erst beim naechsten Schritt (der untere is(Blocks.LIGHT)-Zweig war toter Code).
+            // isWater stammt weiter aus currentState und ist fuer einen waterlogged Lichtblock
+            // true, das Wasser bleibt beim Aktualisieren also erhalten.
+            if (currentState.isAir() || currentState.is(Blocks.LIGHT)
+                    || (isWater && currentState.getFluidState().isSource())) {
 
                 // Prüfen ob wir updaten müssen (nur wenn Level sich ändert)
                 if (currentState.is(Blocks.LIGHT)) {

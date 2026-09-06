@@ -180,10 +180,10 @@ public final class SledgehammerTests {
             helper.assertBlockPresent(Blocks.AIR, pos);
             cleared++;
         }
-        helper.assertValueEqual(cleared, NEIGHBOURS - 2, "stone neighbours the swing was meant to clear");
+        Assertions.valueEqual(helper, cleared, NEIGHBOURS - 2, "stone neighbours the swing was meant to clear");
 
         int modShare = hammer.getDamageValue() - cleared * vanillaPerBlock;
-        helper.assertValueEqual(modShare, cleared,
+        Assertions.valueEqual(helper, modShare, cleared,
                 "the swing charged " + modShare + " points for " + cleared + " broken blocks; the "
                         + "bedrock or the hole in the face was billed as if it had been mined "
                         + "(vanilla's own share of " + vanillaPerBlock + " per block is already subtracted)");
@@ -238,7 +238,7 @@ public final class SledgehammerTests {
 
         // --- the very same face with a stone origin comes down, so the setup was live ---
         helper.setBlock(CENTRE, Blocks.STONE);
-        helper.assertValueEqual(SledgehammerItem.getBlocksToBeDestroyed(1, origin, player).size(), 9,
+        Assertions.valueEqual(helper, SledgehammerItem.getBlocksToBeDestroyed(1, origin, player).size(), 9,
                 "positions a plain swing on a workable origin returns");
         swing(helper, player, CENTRE);
         for (BlockPos pos : faceNeighbours(CENTRE)) {
@@ -357,7 +357,7 @@ public final class SledgehammerTests {
                 cleared++;
             }
         }
-        helper.assertValueEqual(cleared, 1,
+        Assertions.valueEqual(helper, cleared, 1,
                 "neighbours a hammer with one point of durability left managed to break");
         helper.assertBlockPresent(Blocks.STONE, CENTRE);
 
@@ -492,21 +492,21 @@ public final class SledgehammerTests {
 
         // --- a diamond block starts the crush ---
         helper.setBlock(CENTRE, Blocks.DIAMOND_BLOCK);
-        helper.assertValueEqual(useOnTop(helper, player, hammer, CENTRE), InteractionResult.CONSUME,
+        Assertions.valueEqual(helper, useOnTop(helper, player, hammer, CENTRE), InteractionResult.CONSUME,
                 "right clicking a diamond block did not start the charge");
         helper.assertTrue(player.isUsingItem(), "the player is not winding up after a diamond block click");
         player.stopUsingItem();
 
         // --- a full block with a stairs variant starts the reshaping ---
         helper.setBlock(CENTRE, Blocks.STONE);
-        helper.assertValueEqual(useOnTop(helper, player, hammer, CENTRE), InteractionResult.CONSUME,
+        Assertions.valueEqual(helper, useOnTop(helper, player, hammer, CENTRE), InteractionResult.CONSUME,
                 "right clicking stone did not start the charge");
         helper.assertTrue(player.isUsingItem(), "the player is not winding up after a stone click");
         player.stopUsingItem();
 
         // --- a full block without one is passed through ---
         helper.setBlock(CENTRE, Blocks.DIRT);
-        helper.assertValueEqual(useOnTop(helper, player, hammer, CENTRE), InteractionResult.PASS,
+        Assertions.valueEqual(helper, useOnTop(helper, player, hammer, CENTRE), InteractionResult.PASS,
                 "the hammer claimed a block it cannot turn into stairs");
         helper.assertFalse(player.isUsingItem(), "the hammer wound up on a block it cannot reshape");
 
@@ -516,14 +516,14 @@ public final class SledgehammerTests {
         // no answer for anyway - stone, say - this would read PASS with the guard deleted as well.
         helper.setBlock(CENTRE, Blocks.STONE_SLAB);
         player.setShiftKeyDown(true);
-        helper.assertValueEqual(useOnTop(helper, player, hammer, CENTRE), InteractionResult.PASS,
+        Assertions.valueEqual(helper, useOnTop(helper, player, hammer, CENTRE), InteractionResult.PASS,
                 "the reverse direction started without Constructor's Touch");
         helper.assertFalse(player.isUsingItem(), "the hammer wound up on a reverse click it cannot finish");
 
         // --- with the enchantment, the very same slab is taken: the A of the A/B above ---
         ItemStack touch = hammerWith(helper, ModEnchantments.CONSTRUCTORS_TOUCH, 1);
         helper.setBlock(CENTRE, Blocks.STONE_SLAB);
-        helper.assertValueEqual(useOnTop(helper, player, touch, CENTRE), InteractionResult.CONSUME,
+        Assertions.valueEqual(helper, useOnTop(helper, player, touch, CENTRE), InteractionResult.CONSUME,
                 "the reverse direction refused a slab although the hammer has Constructor's Touch");
         player.stopUsingItem();
         player.setShiftKeyDown(false);
@@ -537,7 +537,7 @@ public final class SledgehammerTests {
         player.stopUsingItem();
 
         helper.assertBlockPresent(Blocks.STONE, CENTRE);
-        helper.assertValueEqual(released.getDamageValue(), 0, "an aborted right click still cost durability");
+        Assertions.valueEqual(helper, released.getDamageValue(), 0, "an aborted right click still cost durability");
 
         released.getItem().finishUsingItem(released, helper.getLevel(), player);
         helper.assertBlockPresent(Blocks.STONE_STAIRS, CENTRE);
@@ -666,12 +666,12 @@ public final class SledgehammerTests {
         ItemStack both = hammerWith(helper, ModEnchantments.RADIUS, 1);
         both.enchant(enchantment(helper, ModEnchantments.BREAK_THROUGH), 1);
 
-        helper.assertValueEqual(SledgehammerItem.getBlockCountForSpeed(plain), 9, "block count of a plain hammer");
-        helper.assertValueEqual(SledgehammerItem.getBlockCountForSpeed(radius), 25, "block count with Radius I");
-        helper.assertValueEqual(SledgehammerItem.getBlockCountForSpeed(through), 18, "block count with Break Through I");
-        helper.assertValueEqual(SledgehammerItem.getBlockCountForSpeed(throughTwo), 18,
+        Assertions.valueEqual(helper, SledgehammerItem.getBlockCountForSpeed(plain), 9, "block count of a plain hammer");
+        Assertions.valueEqual(helper, SledgehammerItem.getBlockCountForSpeed(radius), 25, "block count with Radius I");
+        Assertions.valueEqual(helper, SledgehammerItem.getBlockCountForSpeed(through), 18, "block count with Break Through I");
+        Assertions.valueEqual(helper, SledgehammerItem.getBlockCountForSpeed(throughTwo), 18,
                 "block count with Break Through II; the depth doubling is level independent");
-        helper.assertValueEqual(SledgehammerItem.getBlockCountForSpeed(both), 50,
+        Assertions.valueEqual(helper, SledgehammerItem.getBlockCountForSpeed(both), 50,
                 "block count with Radius I and Break Through I");
 
         assertSpeed(helper, hammer.getDestroySpeed(plain, stone), material * 1.45F, "nine blocks on stone");
@@ -735,14 +735,14 @@ public final class SledgehammerTests {
 
         ItemStack efficient = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
         efficient.enchant(enchantment(helper, Enchantments.EFFICIENCY), 5);
-        helper.assertValueEqual(efficient.getItem().getUseDuration(efficient, player), 6,
+        Assertions.valueEqual(helper, efficient.getItem().getUseDuration(efficient, player), 6,
                 "charge time of a diamond hammer with Efficiency V");
 
         // Deliberately above the vanilla cap: no legal level gets the raw value under the lower
         // clamp, so this is the only way to prove the clamp is doing anything.
         ItemStack overCharged = new ItemStack(ModItems.GOLD_SLEDGEHAMMER);
         overCharged.enchant(enchantment(helper, Enchantments.EFFICIENCY), 10);
-        helper.assertValueEqual(overCharged.getItem().getUseDuration(overCharged, player), 4,
+        Assertions.valueEqual(helper, overCharged.getItem().getUseDuration(overCharged, player), 4,
                 "charge time of a gold hammer with Efficiency X (raw 3, held at the lower clamp)");
 
         TestCleanup.succeed(helper);
@@ -792,30 +792,30 @@ public final class SledgehammerTests {
         ItemStack sacs = new ItemStack(Items.GLOW_INK_SAC, 4);
         arm(creative, hammer, sacs);
 
-        helper.assertValueEqual(attack(helper, creative, InteractionHand.MAIN_HAND, frame),
+        Assertions.valueEqual(helper, attack(helper, creative, InteractionHand.MAIN_HAND, frame),
                 InteractionResult.SUCCESS, "the hammer did not convert a framed smithing template");
         helper.assertTrue(frame.getItem().is(ModItems.GLOWING_TRIM_TEMPLATE),
                 "the frame holds " + frame.getItem() + " instead of the glowing trim template");
-        helper.assertValueEqual(sacs.getCount(), 4, "glow ink sacs a creative player was charged");
-        helper.assertValueEqual(hammer.getDamageValue(), 0, "hammer wear charged to a creative player");
+        Assertions.valueEqual(helper, sacs.getCount(), 4, "glow ink sacs a creative player was charged");
+        Assertions.valueEqual(helper, hammer.getDamageValue(), 0, "hammer wear charged to a creative player");
 
         // --- glowstone dust: the emitting template, and survival pays for it ---
         ItemFrame second = templateFrame(helper, new BlockPos(5, 2, 3));
         ItemStack dust = new ItemStack(Items.GLOWSTONE_DUST, 4);
         arm(survival, hammer, dust);
 
-        helper.assertValueEqual(attack(helper, survival, InteractionHand.MAIN_HAND, second),
+        Assertions.valueEqual(helper, attack(helper, survival, InteractionHand.MAIN_HAND, second),
                 InteractionResult.SUCCESS, "glowstone dust did not convert a framed smithing template");
         helper.assertTrue(second.getItem().is(ModItems.EMITTING_TRIM_TEMPLATE),
                 "the frame holds " + second.getItem() + " instead of the emitting trim template");
-        helper.assertValueEqual(dust.getCount(), 3, "glowstone dust left after a survival conversion");
-        helper.assertValueEqual(hammer.getDamageValue(), 1, "hammer wear after a survival conversion");
+        Assertions.valueEqual(helper, dust.getCount(), 3, "glowstone dust left after a survival conversion");
+        Assertions.valueEqual(helper, hammer.getDamageValue(), 1, "hammer wear after a survival conversion");
 
         // --- the off hand must not trigger it ---
         ItemFrame third = templateFrame(helper, new BlockPos(3, 2, 5));
         ItemStack fresh = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
         arm(creative, fresh, new ItemStack(Items.GLOW_INK_SAC, 4));
-        helper.assertValueEqual(attack(helper, creative, InteractionHand.OFF_HAND, third),
+        Assertions.valueEqual(helper, attack(helper, creative, InteractionHand.OFF_HAND, third),
                 InteractionResult.PASS, "an off hand hit converted the template");
         helper.assertTrue(third.getItem().is(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE),
                 "the off hand hit changed the frame anyway");
@@ -823,7 +823,7 @@ public final class SledgehammerTests {
         // --- and a frame that holds something else is left alone ---
         ItemFrame diamondFrame = templateFrame(helper, new BlockPos(5, 2, 5));
         diamondFrame.setItem(new ItemStack(Items.DIAMOND), false);
-        helper.assertValueEqual(attack(helper, creative, InteractionHand.MAIN_HAND, diamondFrame),
+        Assertions.valueEqual(helper, attack(helper, creative, InteractionHand.MAIN_HAND, diamondFrame),
                 InteractionResult.PASS, "the hammer claimed a frame that holds no smithing template");
         helper.assertTrue(diamondFrame.getItem().is(Items.DIAMOND),
                 "the hammer replaced a diamond in a frame with a trim template");
@@ -952,7 +952,7 @@ public final class SledgehammerTests {
         helper.assertBlockPresent(block, CENTRE);
 
         int modShare = hammer.getDamageValue() - NEIGHBOURS * vanillaPerBlock;
-        helper.assertValueEqual(modShare, NEIGHBOURS * expectedPerBlock,
+        Assertions.valueEqual(helper, modShare, NEIGHBOURS * expectedPerBlock,
                 "durability the mod charged for " + what + " (" + NEIGHBOURS + " blocks, vanilla's "
                         + vanillaPerBlock + " per block already subtracted)");
     }
@@ -980,9 +980,9 @@ public final class SledgehammerTests {
         }
 
         List<BlockPos> actual = SledgehammerItem.getBlocksToBeDestroyed(1, origin, player);
-        helper.assertValueEqual(actual.size(), expected.size(),
+        Assertions.valueEqual(helper, actual.size(), expected.size(),
                 "number of positions a swing takes while " + situation + "; a duplicate would be mined twice");
-        helper.assertValueEqual(new HashSet<>(actual), expected,
+        Assertions.valueEqual(helper, new HashSet<>(actual), expected,
                 "the face a swing takes while " + situation + " (depth " + depth + " towards " + into + ")");
     }
 
@@ -1013,8 +1013,8 @@ public final class SledgehammerTests {
     private static void assertStair(GameTestHelper helper, BlockPos relativePos,
                                     Direction facing, Half half, String what) {
         BlockState state = helper.getBlockState(relativePos);
-        helper.assertValueEqual(state.getValue(StairBlock.FACING), facing, "facing of " + what);
-        helper.assertValueEqual(state.getValue(StairBlock.HALF), half, "half of " + what);
+        Assertions.valueEqual(helper, state.getValue(StairBlock.FACING), facing, "facing of " + what);
+        Assertions.valueEqual(helper, state.getValue(StairBlock.HALF), half, "half of " + what);
     }
 
     /**
@@ -1030,7 +1030,7 @@ public final class SledgehammerTests {
     private static void assertUseDuration(GameTestHelper helper, ServerPlayer player, Item hammer,
                                           int expected, String tier) {
         ItemStack stack = new ItemStack(hammer);
-        helper.assertValueEqual(stack.getItem().getUseDuration(stack, player), expected,
+        Assertions.valueEqual(helper, stack.getItem().getUseDuration(stack, player), expected,
                 "charge time in ticks of the " + tier + " sledgehammer");
     }
 

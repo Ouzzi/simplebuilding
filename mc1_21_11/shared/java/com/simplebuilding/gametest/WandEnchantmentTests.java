@@ -253,7 +253,7 @@ public final class WandEnchantmentTests {
         runWand(helper, player, offHandWand);
         assertPlaneOf(helper, Blocks.STONE,
                 "Master Builder promoted the backpack ahead of the off hand");
-        helper.assertValueEqual(player.getInventory().getItem(BACKPACK_SLOT).getCount(), 32,
+        Assertions.valueEqual(helper, player.getInventory().getItem(BACKPACK_SLOT).getCount(), 32,
                 "the backpack paid for a plane the off hand had material for");
 
         // --- 2. and so does the hotbar ---
@@ -265,7 +265,7 @@ public final class WandEnchantmentTests {
         runWand(helper, player, hotbarWand);
         assertPlaneOf(helper, Blocks.OAK_PLANKS,
                 "Master Builder promoted the backpack ahead of the hotbar");
-        helper.assertValueEqual(player.getInventory().getItem(BACKPACK_SLOT).getCount(), 32,
+        Assertions.valueEqual(helper, player.getInventory().getItem(BACKPACK_SLOT).getCount(), 32,
                 "the backpack paid for a plane the hotbar had material for");
 
         // --- 3. a plain bundle in the backpack is invisible to a plain wand ---
@@ -280,9 +280,9 @@ public final class WandEnchantmentTests {
                         + "bundle in inventory slot " + BACKPACK_SLOT + "; it returned " + refused);
         helper.assertFalse(wandIsActive(plainWand),
                 "the refused click still switched the wand on, so it will build on the next tick");
-        helper.assertValueEqual(placedBlocks(helper).size(), 0,
+        Assertions.valueEqual(helper, placedBlocks(helper).size(), 0,
                 "a wand without Master Builder built out of the backpack anyway");
-        helper.assertValueEqual(countInBundle(lockedBundle, Items.STONE), 64,
+        Assertions.valueEqual(helper, countInBundle(lockedBundle, Items.STONE), 64,
                 "the refused click still spent stone out of the bundle");
 
         // --- 4. and the same bundle feeds a Master Builder wand, one piece per block ---
@@ -294,9 +294,9 @@ public final class WandEnchantmentTests {
         runWand(helper, player, bundleWand);
         assertPlaneOf(helper, Blocks.STONE,
                 "Master Builder did not reach a plain bundle sitting in the backpack");
-        helper.assertValueEqual(countInBundle(bundle, Items.STONE), 64 - WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 64 - WAND_PLANE_BLOCKS,
                 "the run did not take exactly one stone out of the bundle per placed block");
-        helper.assertValueEqual(looseCount(player, Items.STONE), 0,
+        Assertions.valueEqual(helper, looseCount(player, Items.STONE), 0,
                 "the wand emptied the bundle into the inventory instead of placing straight out of it");
 
         TestCleanup.succeed(helper);
@@ -388,16 +388,16 @@ public final class WandEnchantmentTests {
 
         Map<BlockPos, BlockState> opened = BuildingWandItem.getPreviewStates(
                 level, player, builderWand, origin, Direction.UP, 3);
-        helper.assertValueEqual(opened.size(), WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, opened.size(), WAND_PLANE_BLOCKS,
                 "Master Builder did not open the backpack to the preview");
-        helper.assertValueEqual(distinctBlocks(opened), Set.of(Blocks.GLASS),
+        Assertions.valueEqual(helper, distinctBlocks(opened), Set.of(Blocks.GLASS),
                 "the Master Builder preview drew something other than the backpack's glass");
 
         // --- the new step goes to the end of the search, not to the front of it ---
         player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.STONE, 32));
         Map<BlockPos, BlockState> offHandFirst = BuildingWandItem.getPreviewStates(
                 level, player, builderWand, origin, Direction.UP, 3);
-        helper.assertValueEqual(distinctBlocks(offHandFirst), Set.of(Blocks.STONE),
+        Assertions.valueEqual(helper, distinctBlocks(offHandFirst), Set.of(Blocks.STONE),
                 "the preview drew the backpack's glass although the off hand held stone; Master "
                         + "Builder promoted the backpack over the hands in findFirstBlockStateClient");
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
@@ -424,12 +424,12 @@ public final class WandEnchantmentTests {
 
         Map<BlockPos, BlockState> fromOwnBundle = BuildingWandItem.getPreviewStates(
                 level, player, plainBundleWand, origin, Direction.UP, 3);
-        helper.assertValueEqual(fromOwnBundle.size(), WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, fromOwnBundle.size(), WAND_PLANE_BLOCKS,
                 "a Master Builder bundle did not open itself to a plain wand's preview, although the "
                         + "same pair builds; findFirstBlockStateClient lost the bundle's half of the or");
-        helper.assertValueEqual(distinctBlocks(fromOwnBundle), Set.of(Blocks.STONE),
+        Assertions.valueEqual(helper, distinctBlocks(fromOwnBundle), Set.of(Blocks.STONE),
                 "the preview drew something other than the stone inside the bundle");
-        helper.assertValueEqual(countInBundle(ownBundle, Items.STONE), 64,
+        Assertions.valueEqual(helper, countInBundle(ownBundle, Items.STONE), 64,
                 "drawing the preview took stone out of the bundle; the highlight is a read");
 
         // --- and the wand's own enchantment reaches a plain bundle, past the slot gate as well ---
@@ -440,12 +440,12 @@ public final class WandEnchantmentTests {
 
         Map<BlockPos, BlockState> fromBackpackBundle = BuildingWandItem.getPreviewStates(
                 level, player, bundleReachWand, origin, Direction.UP, 3);
-        helper.assertValueEqual(fromBackpackBundle.size(), WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, fromBackpackBundle.size(), WAND_PLANE_BLOCKS,
                 "Master Builder did not reach a plain bundle in inventory slot " + BACKPACK_SLOT
                         + " through the preview, although the same wand builds out of it");
-        helper.assertValueEqual(distinctBlocks(fromBackpackBundle), Set.of(Blocks.STONE),
+        Assertions.valueEqual(helper, distinctBlocks(fromBackpackBundle), Set.of(Blocks.STONE),
                 "the preview drew something other than the stone inside the backpack's bundle");
-        helper.assertValueEqual(countInBundle(backpackBundle, Items.STONE), 64,
+        Assertions.valueEqual(helper, countInBundle(backpackBundle, Items.STONE), 64,
                 "drawing the preview took stone out of the backpack's bundle");
 
         // --- Color Palette builds its palette from the same range ---
@@ -468,9 +468,9 @@ public final class WandEnchantmentTests {
 
         Map<BlockPos, BlockState> fullPalette = BuildingWandItem.getPreviewStates(
                 level, player, paletteBuilderWand, origin, Direction.UP, 3);
-        helper.assertValueEqual(fullPalette.size(), WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, fullPalette.size(), WAND_PLANE_BLOCKS,
                 "Master Builder did not widen the Color Palette palette to the backpack");
-        helper.assertValueEqual(distinctBlocks(fullPalette), Set.of(Blocks.OAK_PLANKS),
+        Assertions.valueEqual(helper, distinctBlocks(fullPalette), Set.of(Blocks.OAK_PLANKS),
                 "the widened palette drew something the player is not carrying");
 
         // --- the palette reads bundles through its own copy of the same gate ---
@@ -492,10 +492,10 @@ public final class WandEnchantmentTests {
 
         Map<BlockPos, BlockState> ownBundlePalette = BuildingWandItem.getPreviewStates(
                 level, player, paletteOwnBundleWand, origin, Direction.UP, 3);
-        helper.assertValueEqual(ownBundlePalette.size(), WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, ownBundlePalette.size(), WAND_PLANE_BLOCKS,
                 "a Master Builder bundle in the hotbar contributed nothing to the palette, so "
                         + "collectBlocksFromStack lost the bundle's half of the or");
-        helper.assertValueEqual(distinctBlocks(ownBundlePalette), Set.of(Blocks.STONE),
+        Assertions.valueEqual(helper, distinctBlocks(ownBundlePalette), Set.of(Blocks.STONE),
                 "the palette drew something other than the stone inside the bundle");
 
         ItemStack paletteBuilderBundleWand = radiusOneWand();
@@ -506,21 +506,21 @@ public final class WandEnchantmentTests {
 
         Map<BlockPos, BlockState> backpackBundlePalette = BuildingWandItem.getPreviewStates(
                 level, player, paletteBuilderBundleWand, origin, Direction.UP, 3);
-        helper.assertValueEqual(backpackBundlePalette.size(), WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, backpackBundlePalette.size(), WAND_PLANE_BLOCKS,
                 "the widened palette did not open a plain bundle in inventory slot " + BACKPACK_SLOT
                         + ", although the wand carries the enchantment the bundle lacks");
-        helper.assertValueEqual(distinctBlocks(backpackBundlePalette), Set.of(Blocks.STONE),
+        Assertions.valueEqual(helper, distinctBlocks(backpackBundlePalette), Set.of(Blocks.STONE),
                 "the widened palette drew something other than the bundle's stone");
 
         // --- the stored radius, clamped at both ends ---
         armWand(player, builderWand);
         player.getInventory().setItem(1, new ItemStack(Items.STONE, 32));
 
-        helper.assertValueEqual(previewSize(helper, player, withRadius(builderWand, 99), origin), WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, previewSize(helper, player, withRadius(builderWand, 99), origin), WAND_PLANE_BLOCKS,
                 "a stored radius of 99 was not capped at the tier maximum of 1");
-        helper.assertValueEqual(previewSize(helper, player, withRadius(builderWand, -1), origin), 1,
+        Assertions.valueEqual(helper, previewSize(helper, player, withRadius(builderWand, -1), origin), 1,
                 "a stored radius of -1 did not fall back to the single centre block");
-        helper.assertValueEqual(previewSize(helper, player, withoutRadius(builderWand), origin), WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, previewSize(helper, player, withoutRadius(builderWand), origin), WAND_PLANE_BLOCKS,
                 "a wand with no stored radius did not fall back to the tier maximum");
 
         // --- and finally: what the preview promised is what the wand places ---
@@ -531,7 +531,7 @@ public final class WandEnchantmentTests {
         int diameter = ((BuildingWandItem) crossCheckWand.getItem()).getWandSquareDiameter();
         Map<BlockPos, BlockState> promised = BuildingWandItem.getPreviewStates(
                 level, player, crossCheckWand, origin, Direction.UP, diameter);
-        helper.assertValueEqual(promised.size(), WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, promised.size(), WAND_PLANE_BLOCKS,
                 "the cross checked preview is not the 3x3 the wand's own radius setting asks for");
 
         runWand(helper, player, crossCheckWand);
@@ -545,16 +545,16 @@ public final class WandEnchantmentTests {
 
         Map<BlockPos, BlockState> promisedFromBundle = BuildingWandItem.getPreviewStates(
                 level, player, bundleCrossCheckWand, origin, Direction.UP, diameter);
-        helper.assertValueEqual(promisedFromBundle.size(), WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, promisedFromBundle.size(), WAND_PLANE_BLOCKS,
                 "the preview drew " + promisedFromBundle.size() + " blocks for a wand that builds the "
                         + "full plane out of the bundle in the backpack; the two searches have drifted "
                         + "apart over the bundle branch");
-        helper.assertValueEqual(distinctBlocks(promisedFromBundle), Set.of(Blocks.STONE),
+        Assertions.valueEqual(helper, distinctBlocks(promisedFromBundle), Set.of(Blocks.STONE),
                 "the preview promised something other than the stone the wand is about to place");
 
         runWand(helper, player, bundleCrossCheckWand);
         assertPreviewWasKept(helper, level, promisedFromBundle);
-        helper.assertValueEqual(countInBundle(crossCheckBundle, Items.STONE), 64 - WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, countInBundle(crossCheckBundle, Items.STONE), 64 - WAND_PLANE_BLOCKS,
                 "the wand did not pay for the promised plane out of the bundle the preview read it "
                         + "from, so the two found their material in different places");
 
@@ -599,30 +599,30 @@ public final class WandEnchantmentTests {
         ServerPlayer player = mockPlayer(helper);
 
         ChiselItem chisel = ModItems.NETHERITE_CHISEL;
-        helper.assertValueEqual(chisel.getCooldownTicks(), 5,
+        Assertions.valueEqual(helper, chisel.getCooldownTicks(), 5,
                 "the netherite chisel's base cooldown was retuned; it is the shortest in the game and "
                         + "the truncation numbers below are derived from it");
 
-        helper.assertValueEqual(measureCooldown(helper, player, new ItemStack(chisel)), 5,
+        Assertions.valueEqual(helper, measureCooldown(helper, player, new ItemStack(chisel)), 5,
                 "an unenchanted netherite chisel did not wait out its full cooldown");
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 measureCooldown(helper, player, enchanted(helper, chisel, ModEnchantments.FAST_CHISELING, 1)), 3,
                 "Fast Chiseling I on the netherite chisel: (int)(5 * 0.7f) is 3");
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 measureCooldown(helper, player, enchanted(helper, chisel, ModEnchantments.FAST_CHISELING, 2)), 1,
                 "Fast Chiseling II on the netherite chisel: (int)(5 * 0.39999998f) truncates to 1, "
                         + "not to 2 - if this is 2 now, the factor stopped being computed in float");
 
         // --- the guard below the formula, reachable only past the level cap ---
         int cap = enchantment(helper, ModEnchantments.FAST_CHISELING).value().getMaxLevel();
-        helper.assertValueEqual(cap, 2,
+        Assertions.valueEqual(helper, cap, 2,
                 "Fast Chiseling's level cap moved. Level 3 below was chosen because no anvil and no "
                         + "enchanting table can produce it; re-read this test before trusting it again.");
 
         for (ChiselItem tier : List.of(ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL)) {
             int measured = measureCooldown(helper, player,
                     enchanted(helper, tier, ModEnchantments.FAST_CHISELING, cap + 1));
-            helper.assertValueEqual(measured, 1,
+            Assertions.valueEqual(helper, measured, 1,
                     "a level " + (cap + 1) + " Fast Chiseling " + tier.getCooldownTicks()
                             + " tick chisel came out at " + measured + " ticks; the factor is 0.099999 "
                             + "at that level, so without Math.max(1, ...) the tool has no cooldown at all");
@@ -1056,10 +1056,10 @@ public final class WandEnchantmentTests {
     /** The plane is exactly {@value #WAND_PLANE_BLOCKS} blocks and every one of them is {@code block}. */
     private static void assertPlaneOf(GameTestHelper helper, Block block, String what) {
         Map<BlockPos, Block> placed = placedBlocks(helper);
-        helper.assertValueEqual(placed.size(), WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, placed.size(), WAND_PLANE_BLOCKS,
                 what + ": the wand placed " + placed.size() + " blocks instead of the expected 3x3");
         for (Map.Entry<BlockPos, Block> entry : placed.entrySet()) {
-            helper.assertValueEqual(entry.getValue(), block,
+            Assertions.valueEqual(helper, entry.getValue(), block,
                     what + ": " + entry.getValue() + " at offset " + entry.getKey());
         }
     }
@@ -1080,11 +1080,11 @@ public final class WandEnchantmentTests {
                                              Map<BlockPos, BlockState> promised) {
         for (Map.Entry<BlockPos, BlockState> entry : promised.entrySet()) {
             Block placed = level.getBlockState(entry.getKey()).getBlock();
-            helper.assertValueEqual(placed, entry.getValue().getBlock(),
+            Assertions.valueEqual(helper, placed, entry.getValue().getBlock(),
                     "the highlight promised " + entry.getValue().getBlock() + " at " + entry.getKey()
                             + " and the wand placed " + placed);
         }
-        helper.assertValueEqual(placedBlocks(helper).size(), promised.size(),
+        Assertions.valueEqual(helper, placedBlocks(helper).size(), promised.size(),
                 "the wand placed a different number of blocks than the preview drew");
     }
 
@@ -1322,7 +1322,7 @@ public final class WandEnchantmentTests {
             if (!VillagerProfession.LIBRARIAN.equals(group.profession()) || group.level() != level) {
                 continue;
             }
-            helper.assertValueEqual(group.trades().size(), 1,
+            Assertions.valueEqual(helper, group.trades().size(), 1,
                     "the number of librarian level " + level + " trades defined");
             return group.trades().get(0);
         }
@@ -1349,10 +1349,10 @@ public final class WandEnchantmentTests {
 
         ItemStack cost = sample.getBaseCostA();
         helper.assertTrue(cost.is(Items.EMERALD), id + ": the price is paid in " + cost + ", not in emeralds");
-        helper.assertValueEqual(cost.getCount(), emeralds, id + ": emeralds per book");
-        helper.assertValueEqual(sample.getResult().getCount(), 1, id + ": books per trade");
-        helper.assertValueEqual(sample.getMaxUses(), maxUses, id + ": max uses");
-        helper.assertValueEqual(sample.getXp(), xp, id + ": trade xp");
+        Assertions.valueEqual(helper, cost.getCount(), emeralds, id + ": emeralds per book");
+        Assertions.valueEqual(helper, sample.getResult().getCount(), 1, id + ": books per trade");
+        Assertions.valueEqual(helper, sample.getMaxUses(), maxUses, id + ": max uses");
+        Assertions.valueEqual(helper, sample.getXp(), xp, id + ": trade xp");
 
         List<String> own = new ArrayList<>();
         Set<String> handedOut = new TreeSet<>();

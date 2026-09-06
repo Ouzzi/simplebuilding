@@ -5,6 +5,10 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.ChiselItem;
 import com.simplebuilding.util.ConstructorsTouchInteraction;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -305,11 +309,12 @@ public final class BuildingEnchantmentTests {
      * clamp, ignoring {@code isShiftKeyDown}, cycling every property instead of the first, or
      * removing the {@code properties.isEmpty()} guard (which would throw on stone).
      *
-     * <p><strong>Not covered:</strong> that Fabric behaves the same way. This drives
-     * {@link ConstructorsTouchInteraction}, which its own javadoc claims both loaders delegate
-     * to - but on MC 26.2 only {@code NeoForgeGameplayEvents} does. Fabric's
-     * {@code ModRegistries#registerEvents} still carries a line by line copy of this logic inside
-     * its {@code UseBlockCallback} registration, so a fix made here reaches one loader only.
+     * <p>Everything above drives {@link ConstructorsTouchInteraction} directly, which for a long
+     * time pinned NeoForge only: Fabric's {@code ModRegistries#registerEvents} carried a line by
+     * line copy of the same logic inside its {@code UseBlockCallback} registration, so a fix made
+     * here reached one loader. The last section closes that hole - see
+     * {@link #assertFabricDelegatesToTheSharedInteraction(GameTestHelper)} for why it has to look
+     * at the class rather than at the world.
      */
     public static void constructorsTouchStickCyclesTheFirstBlockStateProperty(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -379,8 +384,80 @@ public final class BuildingEnchantmentTests {
                 "the enchanted stick let a property-less block through, got " + onBare);
         helper.assertBlockPresent(Blocks.STONE, bare);
 
+        // --- and Fabric has to run this very code, not a second copy of it ---
+        assertFabricDelegatesToTheSharedInteraction(helper);
+
         player.setShiftKeyDown(false);
         helper.succeed();
+    }
+
+    /**
+     * Pins that Fabric reaches the same {@link ConstructorsTouchInteraction} everything above
+     * drives, instead of a copy. Fabric's {@code UseBlockCallback} registration used to inline
+     * the whole interaction, private {@code cycleState}/{@code cycle} helpers included, and the
+     * two versions had already drifted once - NeoForge wrote the property readout to the chat,
+     * Fabric to the actionbar. That is what the shared class was created for.
+     *
+     * <p>Checked on the class rather than in the world on purpose: the copy was equivalent line
+     * for line, so no in-world observation can tell the two code paths apart. Only the absence of
+     * the duplicated helpers, plus a real reference from {@code ModRegistries} to the shared
+     * class, can.
+     *
+     * <p>Gated on Fabric's event class, not on {@code ModRegistries}: NeoForge has a class of
+     * that name too, and it has nothing to do with this interaction, so it must not be held to
+     * the same shape. On NeoForge this check has nothing to say and says nothing.
+     */
+    private static void assertFabricDelegatesToTheSharedInteraction(GameTestHelper helper) {
+        if (!classPresent("net.fabricmc.fabric.api.event.player.UseBlockCallback")) {
+            return;
+        }
+
+        Class<?> registries;
+        try {
+            registries = Class.forName("com.simplebuilding.util.ModRegistries");
+        } catch (ClassNotFoundException missing) {
+            helper.assertTrue(false, "Fabric's com.simplebuilding.util.ModRegistries is gone, so "
+                    + "this check can no longer see whether the Constructor's Touch copy is back");
+            return;
+        }
+
+        for (Method method : registries.getDeclaredMethods()) {
+            String name = method.getName();
+            helper.assertTrue(!name.equals("cycleState") && !name.equals("cycle"),
+                    "Fabric's ModRegistries declares " + name + "(...) again: the Constructor's "
+                            + "Touch copy is back, and a fix in ConstructorsTouchInteraction "
+                            + "reaches NeoForge only");
+        }
+
+        helper.assertTrue(mentionsInConstantPool(registries, ConstructorsTouchInteraction.class),
+                "Fabric's ModRegistries does not reference ConstructorsTouchInteraction at all, so "
+                        + "its UseBlockCallback cannot be delegating to the shared logic");
+    }
+
+    /** Whether {@code owner}'s class file names {@code referenced} anywhere in its constant pool. */
+    private static boolean mentionsInConstantPool(Class<?> owner, Class<?> referenced) {
+        byte[] bytecode;
+        try (InputStream in = owner.getResourceAsStream(owner.getSimpleName() + ".class")) {
+            if (in == null) {
+                return false;
+            }
+            bytecode = in.readAllBytes();
+        } catch (IOException unreadable) {
+            return false;
+        }
+        // Class entries are stored slash separated; ISO_8859_1 keeps every byte addressable.
+        return new String(bytecode, StandardCharsets.ISO_8859_1)
+                .contains(referenced.getName().replace('.', '/'));
+    }
+
+    /** Whether {@code name} is on this loader's classpath at all. */
+    private static boolean classPresent(String name) {
+        try {
+            Class.forName(name);
+            return true;
+        } catch (ClassNotFoundException absent) {
+            return false;
+        }
     }
 
     // =====================================================================================

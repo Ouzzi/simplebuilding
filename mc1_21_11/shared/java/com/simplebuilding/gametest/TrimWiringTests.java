@@ -88,15 +88,14 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Known defects</h2>
  * <ul>
- *   <li><b>The Tide swim bonus never reaches a player.</b>
- *       {@code LivingEntityMixin#simplebuilding$modifySwimSpeed} injects into
- *       {@code LivingEntity#getSpeed}, but {@code Player#getSpeed} <em>overrides</em> that method
- *       with {@code (float) getAttributeValue(MOVEMENT_SPEED)} and never calls {@code super}. The
- *       injection is therefore dead for players and only ever runs for other living entities.
- *       {@link #thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards} measures the swim
- *       bonus on an armour stand, where it does work, and deliberately makes its player-side
- *       assertions with a bolt (land) trim only - so they stay correct whichever way this is
- *       fixed, instead of freezing the defect in place.</li>
+ *   <li><b>The Tide swim bonus is capped by vanilla, not by the mod.</b> It is delivered now - the
+ *       branch sits in {@code PlayerEntityMixin} next to the land one, because
+ *       {@code Player#getSpeed} overrides {@code LivingEntity#getSpeed} without calling
+ *       {@code super} and the injection in {@code LivingEntityMixin} therefore only ever reaches
+ *       non-players. What it buys in the water is still small, and for a vanilla reason spelled
+ *       out on
+ *       {@link #thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards}: without Depth
+ *       Strider, {@code travelInWater} does not read {@code getSpeed()} at all.</li>
  *   <li><b>{@code MobCategory.WATER_AMBIENT} is in neither kill list.</b>
  *       {@code SurvivalTracerMixin} counts {@code CREATURE}, {@code AMBIENT},
  *       {@code WATER_CREATURE}, {@code UNDERGROUND_WATER_CREATURE} and {@code AXOLOTLS} as
@@ -491,13 +490,13 @@ public final class TrimWiringTests {
         loader.load(TagValueInput.create(
                 ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), handWritten));
 
-        helper.assertValueEqual(loaderTracker.simplebuilding$getBaseDistance(), 101, "BaseDist after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getBaseTime(), 102, "BaseTime after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getBaseHostileKills(), 103, "BaseHostile after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getBasePassiveKills(), 104, "BasePassive after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getBaseDamageTaken(), 105, "BaseDamage after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getCurrentHostileKills(), 106, "TotalHostile after loading");
-        helper.assertValueEqual(loaderTracker.simplebuilding$getCurrentPassiveKills(), 107, "TotalPassive after loading");
+        Assertions.valueEqual(helper, loaderTracker.simplebuilding$getBaseDistance(), 101, "BaseDist after loading");
+        Assertions.valueEqual(helper, loaderTracker.simplebuilding$getBaseTime(), 102, "BaseTime after loading");
+        Assertions.valueEqual(helper, loaderTracker.simplebuilding$getBaseHostileKills(), 103, "BaseHostile after loading");
+        Assertions.valueEqual(helper, loaderTracker.simplebuilding$getBasePassiveKills(), 104, "BasePassive after loading");
+        Assertions.valueEqual(helper, loaderTracker.simplebuilding$getBaseDamageTaken(), 105, "BaseDamage after loading");
+        Assertions.valueEqual(helper, loaderTracker.simplebuilding$getCurrentHostileKills(), 106, "TotalHostile after loading");
+        Assertions.valueEqual(helper, loaderTracker.simplebuilding$getCurrentPassiveKills(), 107, "TotalPassive after loading");
 
         // ---------- the respawn ----------
         ServerPlayer dead = detachedPlayer(helper, new Vec3(2.5, 2.0, 4.5));
@@ -515,19 +514,19 @@ public final class TrimWiringTests {
         SurvivalTracerAccessor travelledTracker = tracker(helper, travelled);
         stampProgress(travelled);
         travelled.restoreFrom(dead, true);
-        helper.assertValueEqual(travelledTracker.simplebuilding$getBaseDistance(), 11,
+        Assertions.valueEqual(helper, travelledTracker.simplebuilding$getBaseDistance(), 11,
                 "the distance baseline was rebased by a respawn that was not a death");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getBaseTime(), 22,
+        Assertions.valueEqual(helper, travelledTracker.simplebuilding$getBaseTime(), 22,
                 "the time baseline was rebased by a respawn that was not a death");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getBaseHostileKills(), 33,
+        Assertions.valueEqual(helper, travelledTracker.simplebuilding$getBaseHostileKills(), 33,
                 "the hostile kill baseline was rebased by a respawn that was not a death");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getBasePassiveKills(), 44,
+        Assertions.valueEqual(helper, travelledTracker.simplebuilding$getBasePassiveKills(), 44,
                 "the peaceful kill baseline was rebased by a respawn that was not a death");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getBaseDamageTaken(), 55,
+        Assertions.valueEqual(helper, travelledTracker.simplebuilding$getBaseDamageTaken(), 55,
                 "the damage baseline was rebased by a respawn that was not a death");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getCurrentHostileKills(), 7,
+        Assertions.valueEqual(helper, travelledTracker.simplebuilding$getCurrentHostileKills(), 7,
                 "the hostile kill tally did not follow the player through the portal");
-        helper.assertValueEqual(travelledTracker.simplebuilding$getCurrentPassiveKills(), 4,
+        Assertions.valueEqual(helper, travelledTracker.simplebuilding$getCurrentPassiveKills(), 4,
                 "the peaceful kill tally did not follow the player through the portal");
 
         // A death: the baselines move to the respawning player's own statistics, and the kill
@@ -536,21 +535,21 @@ public final class TrimWiringTests {
         SurvivalTracerAccessor respawnedTracker = tracker(helper, respawned);
         stampProgress(respawned);
         respawned.restoreFrom(dead, false);
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getBaseDistance(), STAMPED_DISTANCE,
+        Assertions.valueEqual(helper, respawnedTracker.simplebuilding$getBaseDistance(), STAMPED_DISTANCE,
                 "after a death the distance baseline has to be the respawning player's own distance "
                         + "in metres, summed over all five counters and each divided by 100");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getBaseTime(), 5678,
+        Assertions.valueEqual(helper, respawnedTracker.simplebuilding$getBaseTime(), 5678,
                 "after a death the time baseline has to be the respawning player's own play time");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getBaseDamageTaken(), 91,
+        Assertions.valueEqual(helper, respawnedTracker.simplebuilding$getBaseDamageTaken(), 91,
                 "after a death the damage baseline has to be the respawning player's own damage taken");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getCurrentHostileKills(), 7,
+        Assertions.valueEqual(helper, respawnedTracker.simplebuilding$getCurrentHostileKills(), 7,
                 "the hostile kill tally was not carried over into the new life");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getCurrentPassiveKills(), 4,
+        Assertions.valueEqual(helper, respawnedTracker.simplebuilding$getCurrentPassiveKills(), 4,
                 "the peaceful kill tally was not carried over into the new life");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getBaseHostileKills(), 7,
+        Assertions.valueEqual(helper, respawnedTracker.simplebuilding$getBaseHostileKills(), 7,
                 "the carried-over hostile kills were not made the new baseline, so they keep paying "
                         + "out after the death that should have cost them");
-        helper.assertValueEqual(respawnedTracker.simplebuilding$getBasePassiveKills(), 4,
+        Assertions.valueEqual(helper, respawnedTracker.simplebuilding$getBasePassiveKills(), 4,
                 "the carried-over peaceful kills were not made the new baseline");
 
         // ...which is the whole point: both progress factors are back at their floor. The floors
@@ -580,12 +579,30 @@ public final class TrimWiringTests {
      * {@code getSpeed} picks the bolt bonus up while standing. What it cannot show is the condition
      * around it: the bonus is meant to be a <em>land</em> bonus and has to stand down while the
      * wearer is swimming or gliding. Both states are checked with a bolt trim and nothing else on,
-     * so the expected reading is the player's own untrimmed speed no matter how the swim bonus is
-     * wired - see the Tide defect in the class javadoc.
+     * so those readings are the player's own untrimmed speed.
      *
-     * <p>That swim bonus is measured where it does work, on an armour stand, and there both halves
-     * are real: the multiplier only applies while {@code isSwimming()}, and only to a wearer that
-     * has a tide trim on.
+     * <p>The tide (swim) bonus is then asserted on that same player, and that assertion is the
+     * whole point of this paragraph. The bonus used to be injected into
+     * {@code LivingEntity#getSpeed} only - but {@code Player#getSpeed} <em>overrides</em> that
+     * method with {@code (float) getAttributeValue(MOVEMENT_SPEED)} and never calls {@code super},
+     * so for every player the injection was dead code. It now sits in {@code PlayerEntityMixin}
+     * beside the land branch. It is still measured on an armour stand as well, because the
+     * {@code LivingEntityMixin} injection stays in place for non-players and that is the only
+     * wearer left that can prove it.
+     *
+     * <p><b>Why the bonus stays weak in an actual game, and why this test is nevertheless right.</b>
+     * Vanilla's {@code LivingEntity#travelInWater} uses {@code getSpeed()} only in proportion to
+     * {@code Attributes.WATER_MOVEMENT_EFFICIENCY}: it starts from a fixed {@code speed = 0.02F}
+     * and then does {@code speed += (getSpeed() - speed) * waterWalker}, where {@code waterWalker}
+     * is that attribute (halved while off the ground). Depth Strider is what raises the attribute;
+     * without it {@code waterWalker} is {@code 0}, the {@code if} is skipped, and swimming speed is
+     * the flat {@code 0.02F} no matter what {@code getSpeed()} returns. So a swimmer in a full tide
+     * set moves measurably faster only with Depth Strider on. This test asserts the value
+     * {@code getSpeed()} hands over, which is the part the mod owns; a later reader who swims in
+     * game, feels nothing and concludes the test is lying should look at the attribute, not here.
+     *
+     * <p>On the armour stand both halves of the guard are real as well: the multiplier only applies
+     * while {@code isSwimming()}, and only to a wearer that has a tide trim on.
      *
      * <p>Hunger and experience both ride on {@code @ModifyVariable} at the head of a vanilla
      * method, which is the kind of injection that fails silently - the method still runs, the
@@ -601,9 +618,10 @@ public final class TrimWiringTests {
      * <p>The player has to be made non-invulnerable first, because {@code Player#causeFoodExhaustion}
      * returns immediately for an invulnerable player and the creative mock is one.
      *
-     * <p>What breaks this: any of the three injections leaving the mixin config, the swim/glide
-     * condition on the walking bonus, the sprint condition on the exhaustion reduction, the
-     * rounding of the experience gain, or the guard against non-positive gains.
+     * <p>What breaks this: any of the four injections leaving the mixin config, the swim/glide
+     * condition on the walking bonus, the swim branch falling back to {@code LivingEntity#getSpeed}
+     * where no player ever arrives, the sprint condition on the exhaustion reduction, the rounding
+     * of the experience gain, or the guard against non-positive gains.
      */
     public static void thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards(GameTestHelper helper) {
         double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
@@ -646,7 +664,24 @@ public final class TrimWiringTests {
             assertClose(helper, player.getSpeed(), bareSpeed * landMultiplier,
                     "the land speed bonus did not come back once the player stopped gliding");
 
-            // --- the swim bonus, on the only kind of wearer it can reach (see Known defects) ---
+            // --- the swim bonus on the player itself; Player.getSpeed hides LivingEntity.getSpeed ---
+            wear(player, copper, tide, 4);
+            float playerSwimMultiplier = TrimEffectUtil.getSwimSpeedMultiplier(player);
+            helper.assertTrue(playerSwimMultiplier > 1.0F,
+                    "test setup broken: a full tide set is worth a swim multiplier of "
+                            + playerSwimMultiplier);
+            assertClose(helper, player.getSpeed(), bareSpeed,
+                    "the tide bonus applied to a player who was standing on dry land");
+            player.setSwimming(true);
+            assertClose(helper, player.getSpeed(), bareSpeed * playerSwimMultiplier,
+                    "Player.getSpeed did not pick up the tide trim bonus while swimming; an "
+                            + "injection into LivingEntity.getSpeed cannot deliver it, because "
+                            + "Player overrides that method and never calls super");
+            player.setSwimming(false);
+            assertClose(helper, player.getSpeed(), bareSpeed,
+                    "the tide bonus kept running once the player stopped swimming");
+
+            // --- the same bonus on a non-player wearer, which LivingEntityMixin still serves ---
             ArmorStand stand = helper.spawn(EntityType.ARMOR_STAND, new BlockPos(1, 2, 1));
             bare(stand);
             stand.setSpeed(0.25F);
@@ -704,7 +739,7 @@ public final class TrimWiringTests {
                             + "would hold with or without the mixin");
             int beforeLoss = player.totalExperience;
             player.giveExperiencePoints(-4);
-            helper.assertValueEqual(player.totalExperience - beforeLoss, -4,
+            Assertions.valueEqual(helper, player.totalExperience - beforeLoss, -4,
                     "a negative experience change was run through the trim multiplier; without the "
                             + "experience <= 0 guard every penalty grows with the player's trims");
 
@@ -845,7 +880,7 @@ public final class TrimWiringTests {
             player.baseTick();
             helper.assertTrue(player.isEyeInFluid(FluidTags.WATER),
                     "the mock player's eyes are not in water, so nothing below is about the coast trim");
-            helper.assertValueEqual(player.getAirSupply(), START_AIR - 1,
+            Assertions.valueEqual(helper, player.getAirSupply(), START_AIR - 1,
                     "an untrimmed submerged player did not spend a point of air, so the measurement "
                             + "below would pass with the mixin deleted");
 
@@ -856,7 +891,7 @@ public final class TrimWiringTests {
                             + "not switched off and this test would be flaky");
             player.setAirSupply(START_AIR);
             player.baseTick();
-            helper.assertValueEqual(player.getAirSupply(), START_AIR,
+            Assertions.valueEqual(helper, player.getAirSupply(), START_AIR,
                     "a full coast set at a guaranteed chance still lost air; decreaseAirSupply is no "
                             + "longer going through the mixin");
 
@@ -1165,7 +1200,7 @@ public final class TrimWiringTests {
                     "a negative value was refused but written anyway");
 
             // --- the getter reports and changes nothing ---
-            helper.assertValueEqual(run(helper, dispatcher, player, "simplebuilding config getTrimMultiplier"),
+            Assertions.valueEqual(helper, run(helper, dispatcher, player, "simplebuilding config getTrimMultiplier"),
                     1, "return code of getTrimMultiplier");
             assertClose(helper, SimplebuildingConfig.trimBenefitBaseMultiplier, limit,
                     "getTrimMultiplier changed the value it was only meant to report");
@@ -1332,7 +1367,7 @@ public final class TrimWiringTests {
         helper.assertTrue(tag.contains(key),
                 "the saved tracker has no \"" + key + "\" field; a renamed field resets that counter "
                         + "to zero in every world that already exists, without anything looking wrong");
-        helper.assertValueEqual(tag.getIntOr(key, Integer.MIN_VALUE), expected,
+        Assertions.valueEqual(helper, tag.getIntOr(key, Integer.MIN_VALUE), expected,
                 "the saved value of \"" + key + "\"");
     }
 
@@ -1400,7 +1435,7 @@ public final class TrimWiringTests {
                         + " with and without the boost, so this case cannot fail");
         int before = player.totalExperience;
         player.giveExperiencePoints(amount);
-        helper.assertValueEqual(player.totalExperience - before, expected,
+        Assertions.valueEqual(helper, player.totalExperience - before, expected,
                 "a grant of " + amount + " experience at a multiplier of " + multiplier);
     }
 

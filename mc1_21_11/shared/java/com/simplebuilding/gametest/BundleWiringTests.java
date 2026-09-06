@@ -216,9 +216,9 @@ public final class BundleWiringTests {
         sneakDrop.playerTouch(player);
         player.setShiftKeyDown(false);
 
-        helper.assertValueEqual(countInBundle(sneakBundle, Items.STONE), 0,
+        Assertions.valueEqual(helper, countInBundle(sneakBundle, Items.STONE), 0,
                 "a sneaking player still hoovered the stone into the bundle");
-        helper.assertValueEqual(looseCount(player, Items.STONE), 8,
+        Assertions.valueEqual(helper, looseCount(player, Items.STONE), 8,
                 "sneaking neither left the stone on the ground nor let vanilla pick it up normally; "
                         + "the mixin swallowed the touch instead of stepping aside");
 
@@ -231,13 +231,13 @@ public final class BundleWiringTests {
         ItemEntity handDrop = drop(helper, new ItemStack(Items.STONE, 8), new Vec3(3.5, 2.0, 2.5), 0);
         handDrop.playerTouch(player);
 
-        helper.assertValueEqual(countInBundle(handBundle, Items.STONE), 8,
+        Assertions.valueEqual(helper, countInBundle(handBundle, Items.STONE), 8,
                 "the bundle in the hand did not get the stone");
-        helper.assertValueEqual(countInBundle(backpackBundle, Items.STONE), 0,
+        Assertions.valueEqual(helper, countInBundle(backpackBundle, Items.STONE), 0,
                 "the bundle in the backpack got the stone although the hand could have taken it");
         helper.assertTrue(handDrop.isRemoved(),
                 "the whole stack went into the bundle but the item entity is still lying there");
-        helper.assertValueEqual(looseCount(player, Items.STONE), 0,
+        Assertions.valueEqual(helper, looseCount(player, Items.STONE), 0,
                 "the stone was taken by the bundle and by the vanilla pickup, so it exists twice");
 
         // --- 3. the off hand beats a backpack slot that comes earlier in the inventory order ---
@@ -263,14 +263,14 @@ public final class BundleWiringTests {
         ItemEntity offhandDrop = drop(helper, new ItemStack(Items.STONE, 8), new Vec3(5.5, 2.0, 2.5), 0);
         offhandDrop.playerTouch(player);
 
-        helper.assertValueEqual(countInBundle(offhandBundle, Items.STONE), 8,
+        Assertions.valueEqual(helper, countInBundle(offhandBundle, Items.STONE), 8,
                 "the bundle in the off hand did not get the stone");
-        helper.assertValueEqual(countInBundle(lowSlotBundle, Items.STONE), 0,
+        Assertions.valueEqual(helper, countInBundle(lowSlotBundle, Items.STONE), 0,
                 "the bundle in backpack slot 2 got the stone although the off hand is a hand and "
                         + "hands are searched first");
         helper.assertTrue(offhandDrop.isRemoved(),
                 "the off hand bundle took the whole stack but the item entity is still lying there");
-        helper.assertValueEqual(looseCount(player, Items.STONE), 0,
+        Assertions.valueEqual(helper, looseCount(player, Items.STONE), 0,
                 "the stone reached the off hand bundle and the inventory, so it exists twice");
 
         // --- 4. the backpack branch has to wait for the pickup delay ---
@@ -281,7 +281,7 @@ public final class BundleWiringTests {
         ItemEntity fresh = drop(helper, new ItemStack(Items.STONE, 8), new Vec3(4.5, 2.0, 2.5), 10);
         fresh.playerTouch(player);
 
-        helper.assertValueEqual(countInBundle(delayedBundle, Items.STONE), 0,
+        Assertions.valueEqual(helper, countInBundle(delayedBundle, Items.STONE), 0,
                 "a bundle in the backpack emptied a drop that is still inside its pickup delay");
         // The entity still lying there is vanilla's own delay talking; the assertion that pins the
         // mixin's guard is the empty bundle above.
@@ -291,11 +291,11 @@ public final class BundleWiringTests {
         fresh.setNoPickUpDelay();
         fresh.playerTouch(player);
 
-        helper.assertValueEqual(countInBundle(delayedBundle, Items.STONE), 8,
+        Assertions.valueEqual(helper, countInBundle(delayedBundle, Items.STONE), 8,
                 "once the pickup delay is over the bundle in the backpack has to take the drop");
         helper.assertTrue(fresh.isRemoved(),
                 "the backpack bundle took the stack but left the item entity behind");
-        helper.assertValueEqual(looseCount(player, Items.STONE), 0,
+        Assertions.valueEqual(helper, looseCount(player, Items.STONE), 0,
                 "the stone reached the backpack bundle and the inventory, so it exists twice");
 
         TestCleanup.succeed(helper);
@@ -420,24 +420,24 @@ public final class BundleWiringTests {
         // the index (26.2 renamed it to getSelectedItemIndex); -1 still means "nothing selected".
         ModMessageHandlers.handleReinforcedBundleSelection(
                 new ReinforcedBundleSelectionPayload(modSlot, 1), player);
-        helper.assertValueEqual(BundleItem.getSelectedItem(bundle), 1,
+        Assertions.valueEqual(helper, BundleItem.getSelectedItem(bundle), 1,
                 "the scroll selection never reached the reinforced bundle in slot " + modSlot);
 
         // --- the control can be written to, so requiring it unchanged below means something ---
         BundleItem.toggleSelectedItem(vanillaBundle, 0);
-        helper.assertValueEqual(BundleItem.getSelectedItem(vanillaBundle), 0,
+        Assertions.valueEqual(helper, BundleItem.getSelectedItem(vanillaBundle), 0,
                 "the vanilla bundle used as a control refuses a selection even directly; it cannot "
                         + "show whether the handler keeps its hands off foreign containers");
         BundleItem.toggleSelectedItem(vanillaBundle, 0);
-        helper.assertValueEqual(BundleItem.getSelectedItem(vanillaBundle), -1,
+        Assertions.valueEqual(helper, BundleItem.getSelectedItem(vanillaBundle), -1,
                 "the control bundle could not be reset to \"nothing selected\"");
 
         // --- and the packet must not reach it ---
         ModMessageHandlers.handleReinforcedBundleSelection(
                 new ReinforcedBundleSelectionPayload(vanillaSlot, 0), player);
-        helper.assertValueEqual(BundleItem.getSelectedItem(vanillaBundle), -1,
+        Assertions.valueEqual(helper, BundleItem.getSelectedItem(vanillaBundle), -1,
                 "the mod's selection packet rewrote a vanilla bundle in slot " + vanillaSlot);
-        helper.assertValueEqual(BundleItem.getSelectedItem(bundle), 1,
+        Assertions.valueEqual(helper, BundleItem.getSelectedItem(bundle), 1,
                 "a packet aimed at another slot changed the reinforced bundle's selection");
 
         // --- ids outside the menu are dropped instead of thrown at the slot list ---
@@ -445,7 +445,7 @@ public final class BundleWiringTests {
                 new ReinforcedBundleSelectionPayload(-1, 0), player);
         ModMessageHandlers.handleReinforcedBundleSelection(
                 new ReinforcedBundleSelectionPayload(player.containerMenu.slots.size(), 0), player);
-        helper.assertValueEqual(BundleItem.getSelectedItem(bundle), 1,
+        Assertions.valueEqual(helper, BundleItem.getSelectedItem(bundle), 1,
                 "an out of range slot id changed the bundle's selection anyway");
 
         // --- the pick has to bail out when there is nowhere to park the stack in the hand ---
@@ -461,7 +461,7 @@ public final class BundleWiringTests {
         player.getInventory().setSelectedSlot(0);
         player.getInventory().setItem(0, new ItemStack(Items.TORCH, 5));
 
-        helper.assertValueEqual(player.getInventory().getFreeSlot(), -1,
+        Assertions.valueEqual(helper, player.getInventory().getFreeSlot(), -1,
                 "the inventory still has a free slot, so the bail-out below is not the branch under test");
 
         ModMessageHandlers.handleMasterBuilderPick(new MasterBuilderPickPayload(new ItemStack(Items.STONE)), player);
@@ -469,7 +469,7 @@ public final class BundleWiringTests {
         helper.assertTrue(player.getMainHandItem().is(Items.TORCH),
                 "the pick overwrote the hand although there was no free slot to park it in, hand holds "
                         + player.getMainHandItem());
-        helper.assertValueEqual(countInBundle(pickBundle, Items.STONE), 16,
+        Assertions.valueEqual(helper, countInBundle(pickBundle, Items.STONE), 16,
                 "the pick took stone out of the bundle although it had nowhere to put it");
 
         TestCleanup.succeed(helper);
@@ -516,7 +516,7 @@ public final class BundleWiringTests {
         helper.assertTrue(blocked.getSlot(AnvilMenu.RESULT_SLOT).getItem().isEmpty(),
                 "the anvil handed out a Colour Palette bundle without Master Builder, it holds "
                         + blocked.getSlot(AnvilMenu.RESULT_SLOT).getItem());
-        helper.assertValueEqual(blocked.getCost(), 0,
+        Assertions.valueEqual(helper, blocked.getCost(), 0,
                 "the anvil emptied the output but still charged for it");
 
         // --- palette plus builder: allowed again ---
@@ -576,9 +576,9 @@ public final class BundleWiringTests {
         runWandToCompletion(helper, player, wand);
 
         assertPlaneBuilt(helper, anchor);
-        helper.assertValueEqual(countInBundle(bundle, Items.STONE), 64 - WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 64 - WAND_PLANE_BLOCKS,
                 "stone left in the bundle after a 3x3 plane; exactly one piece per placed block");
-        helper.assertValueEqual(looseCount(player, Items.STONE), 0,
+        Assertions.valueEqual(helper, looseCount(player, Items.STONE), 0,
                 "the wand pulled the stone out of the bundle into the inventory instead of "
                         + "placing it straight from the bundle");
 
@@ -597,7 +597,7 @@ public final class BundleWiringTests {
         runWandToCompletion(helper, player, builderWand);
 
         assertPlaneBuilt(helper, secondAnchor);
-        helper.assertValueEqual(countInBundle(plainBundle, Items.STONE), 64 - WAND_PLANE_BLOCKS,
+        Assertions.valueEqual(helper, countInBundle(plainBundle, Items.STONE), 64 - WAND_PLANE_BLOCKS,
                 "stone left in the bundle when the wand is the one carrying Master Builder");
 
         // --- 3. neither side carries it: the bundle is not a material source at all ---
@@ -615,7 +615,7 @@ public final class BundleWiringTests {
         helper.assertTrue(refused == InteractionResult.FAIL,
                 "a wand without Master Builder accepted the click while its only material was inside "
                         + "a bundle, result was " + refused);
-        helper.assertValueEqual(countInBundle(lockedBundle, Items.STONE), 64,
+        Assertions.valueEqual(helper, countInBundle(lockedBundle, Items.STONE), 64,
                 "the unenchanted pair still spent stone out of the bundle");
         helper.assertBlockPresent(Blocks.AIR, thirdAnchor.above());
 
@@ -664,7 +664,7 @@ public final class BundleWiringTests {
         ItemStack result = crafted.get().value().assemble(asShipped, level.registryAccess());
         helper.assertTrue(result.is(ModItems.REINFORCED_BUNDLE),
                 "the bundle pattern crafts " + result + " instead of a reinforced bundle");
-        helper.assertValueEqual(result.getCount(), 1, "reinforced bundles produced per craft");
+        Assertions.valueEqual(helper, result.getCount(), 1, "reinforced bundles produced per craft");
 
         // Same nine items, string and leather swapped: a pattern that is only a checklist would match.
         CraftingInput upsideDown = CraftingInput.of(3, 3, List.of(
@@ -1093,7 +1093,7 @@ public final class BundleWiringTests {
         ItemStack forged = holder.get().value().assemble(input, level.registryAccess());
         helper.assertTrue(forged.is(expected),
                 what + " forges " + forged + " instead of " + expected);
-        helper.assertValueEqual(forged.getCount(), 1, what + ": items produced per upgrade");
+        Assertions.valueEqual(helper, forged.getCount(), 1, what + ": items produced per upgrade");
     }
 
     /**
@@ -1156,15 +1156,15 @@ public final class BundleWiringTests {
         ItemStack costA = offer.getBaseCostA();
         helper.assertTrue(costA.is(wantedItem),
                 id + ": expected cost item " + wantedItem + ", was " + costA);
-        helper.assertValueEqual(costA.getCount(), wantedCount, id + ": cost count");
+        Assertions.valueEqual(helper, costA.getCount(), wantedCount, id + ": cost count");
 
         ItemStack result = offer.getResult();
         helper.assertTrue(result.is(givenItem),
                 id + ": expected result item " + givenItem + ", was " + result);
-        helper.assertValueEqual(result.getCount(), givenCount, id + ": result count");
+        Assertions.valueEqual(helper, result.getCount(), givenCount, id + ": result count");
 
-        helper.assertValueEqual(offer.getMaxUses(), maxUses, id + ": max uses");
-        helper.assertValueEqual(offer.getXp(), xp, id + ": trade xp");
+        Assertions.valueEqual(helper, offer.getMaxUses(), maxUses, id + ": max uses");
+        Assertions.valueEqual(helper, offer.getXp(), xp, id + ": trade xp");
     }
 
     /**

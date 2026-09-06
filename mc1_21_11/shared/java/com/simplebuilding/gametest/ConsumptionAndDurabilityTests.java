@@ -135,7 +135,7 @@ public final class ConsumptionAndDurabilityTests {
         useOn(helper, player, chisel, target, Direction.UP, TOP_CENTRE);
 
         helper.assertBlockPresent(Blocks.CHISELED_STONE_BRICKS, target);
-        helper.assertValueEqual(chisel.getDamageValue(), 1, "wear after one forward chisel");
+        Assertions.valueEqual(helper, chisel.getDamageValue(), 1, "wear after one forward chisel");
         helper.assertTrue(player.getCooldowns().isOnCooldown(chisel),
                 "the chisel did not go on cooldown in survival, so it can be spammed");
 
@@ -144,7 +144,7 @@ public final class ConsumptionAndDurabilityTests {
         helper.assertTrue(swallowed == InteractionResult.PASS,
                 "a chisel on cooldown claimed to have acted, result was " + swallowed);
         helper.assertBlockPresent(Blocks.CHISELED_STONE_BRICKS, target);
-        helper.assertValueEqual(chisel.getDamageValue(), 1,
+        Assertions.valueEqual(helper, chisel.getDamageValue(), 1,
                 "a click swallowed by the cooldown still cost the player durability");
 
         clearCooldown(player, chisel);
@@ -154,7 +154,7 @@ public final class ConsumptionAndDurabilityTests {
         useOn(helper, player, chisel, target, Direction.UP, TOP_CENTRE);
 
         helper.assertBlockPresent(Blocks.STONE, target);
-        helper.assertValueEqual(chisel.getDamageValue(), 3,
+        Assertions.valueEqual(helper, chisel.getDamageValue(), 3,
                 "wear after a forward (1) plus a reverse (2) chisel");
 
         clearCooldown(player, chisel);
@@ -165,7 +165,7 @@ public final class ConsumptionAndDurabilityTests {
         useOn(helper, player, chisel, target, Direction.UP, TOP_CENTRE);
 
         helper.assertBlockPresent(Blocks.CHISELED_STONE_BRICKS, target);
-        helper.assertValueEqual(chisel.getDamageValue(), 3, "the chisel wore down in creative");
+        Assertions.valueEqual(helper, chisel.getDamageValue(), 3, "the chisel wore down in creative");
         helper.assertTrue(!player.getCooldowns().isOnCooldown(chisel),
                 "a creative player was put on the chisel cooldown");
 
@@ -202,12 +202,12 @@ public final class ConsumptionAndDurabilityTests {
         player.setShiftKeyDown(false);
         useOn(helper, player, octant, corner, Direction.UP, TOP_CENTRE);
         helper.assertTrue(customData(octant).contains("Pos1"), "the first corner was not stored at all");
-        helper.assertValueEqual(octant.getDamageValue(), 1, "octant wear after the first corner");
+        Assertions.valueEqual(helper, octant.getDamageValue(), 1, "octant wear after the first corner");
 
         player.setShiftKeyDown(true);
         useOn(helper, player, octant, corner, Direction.UP, TOP_CENTRE);
         helper.assertTrue(customData(octant).contains("Pos2"), "the second corner was not stored at all");
-        helper.assertValueEqual(octant.getDamageValue(), 2, "octant wear after the second corner");
+        Assertions.valueEqual(helper, octant.getDamageValue(), 2, "octant wear after the second corner");
         player.setShiftKeyDown(false);
 
         // --- a locked octant refuses the click, so it must not charge for it ---
@@ -215,7 +215,7 @@ public final class ConsumptionAndDurabilityTests {
         locked.putBoolean("Locked", true);
         octant.set(DataComponents.CUSTOM_DATA, CustomData.of(locked));
         useOn(helper, player, octant, corner, Direction.UP, TOP_CENTRE);
-        helper.assertValueEqual(octant.getDamageValue(), 2,
+        Assertions.valueEqual(helper, octant.getDamageValue(), 2,
                 "a locked octant billed the player for a click it refused");
 
         // --- creative: the corner is still stored, the octant stays pristine ---
@@ -224,7 +224,7 @@ public final class ConsumptionAndDurabilityTests {
         useOn(helper, player, creativeOctant, corner, Direction.UP, TOP_CENTRE);
         helper.assertTrue(customData(creativeOctant).contains("Pos1"),
                 "the creative click stored no corner, so the pristine octant proves nothing");
-        helper.assertValueEqual(creativeOctant.getDamageValue(), 0, "the octant wore down in creative");
+        Assertions.valueEqual(helper, creativeOctant.getDamageValue(), 0, "the octant wore down in creative");
 
         // --- rotator: one point for a rotation it performed ---
         player.getAbilities().instabuild = false;
@@ -238,7 +238,7 @@ public final class ConsumptionAndDurabilityTests {
                 "the rotator refused an upright log, result was " + turned);
         helper.assertTrue(helper.getBlockState(log).getValue(BlockStateProperties.AXIS) == Direction.Axis.Z,
                 "the log did not turn, so the wear below would not be attributable");
-        helper.assertValueEqual(rotator.getDamageValue(), 1, "rotator wear after one accepted rotation");
+        Assertions.valueEqual(helper, rotator.getDamageValue(), 1, "rotator wear after one accepted rotation");
 
         // --- a block it cannot turn: refused, and free ---
         BlockPos plain = new BlockPos(5, 1, 5);
@@ -246,7 +246,7 @@ public final class ConsumptionAndDurabilityTests {
         InteractionResult refused = useOn(helper, player, rotator, plain, Direction.UP, TOP_CENTRE);
         helper.assertTrue(refused == InteractionResult.PASS,
                 "the rotator claimed to have turned plain stone, result was " + refused);
-        helper.assertValueEqual(rotator.getDamageValue(), 1,
+        Assertions.valueEqual(helper, rotator.getDamageValue(), 1,
                 "the rotator billed the player for a block it could not turn");
 
         // --- creative: the log still turns, the rotator stays pristine ---
@@ -255,7 +255,7 @@ public final class ConsumptionAndDurabilityTests {
         useOn(helper, player, creativeRotator, log, Direction.UP, TOP_CENTRE);
         helper.assertTrue(helper.getBlockState(log).getValue(BlockStateProperties.AXIS) == Direction.Axis.Y,
                 "the creative click did not turn the log, so the pristine rotator proves nothing");
-        helper.assertValueEqual(creativeRotator.getDamageValue(), 0, "the rotator wore down in creative");
+        Assertions.valueEqual(helper, creativeRotator.getDamageValue(), 0, "the rotator wore down in creative");
 
         TestCleanup.succeed(helper);
     }
@@ -304,7 +304,7 @@ public final class ConsumptionAndDurabilityTests {
                 "a wand with no material accepted the click, result was " + refused);
         helper.assertTrue(!wandIsActive(emptyHanded),
                 "the wand armed itself even though there was nothing to build from");
-        helper.assertValueEqual(emptyHanded.getDamageValue(), 0, "a refused wand click cost durability");
+        Assertions.valueEqual(helper, emptyHanded.getDamageValue(), 0, "a refused wand click cost durability");
         helper.assertBlockPresent(Blocks.AIR, anchor.above());
 
         // --- survival: one position of the plane is blocked, so eight get placed and eight get paid for ---
@@ -322,10 +322,10 @@ public final class ConsumptionAndDurabilityTests {
         helper.assertBlockPresent(Blocks.AIR, anchor.offset(2, 1, 0));
 
         int placed = WAND_PLANE_BLOCKS - 1;
-        helper.assertValueEqual(countInInventory(player, Items.STONE), 64 - placed,
+        Assertions.valueEqual(helper, countInInventory(player, Items.STONE), 64 - placed,
                 "stone left after a 3x3 plane with one blocked position; exactly one block per placement, "
                         + "and nothing at all for the position that was skipped");
-        helper.assertValueEqual(wand.getDamageValue(), placed,
+        Assertions.valueEqual(helper, wand.getDamageValue(), placed,
                 "wand wear after a 3x3 plane with one blocked position; one point per placed block");
 
         // --- creative: the full plane, paid for by nobody ---
@@ -340,9 +340,9 @@ public final class ConsumptionAndDurabilityTests {
         runWandToCompletion(helper, player, creativeWand);
 
         assertPlaneBuilt(helper, creativeAnchor, null);
-        helper.assertValueEqual(countInInventory(player, Items.STONE), 64,
+        Assertions.valueEqual(helper, countInInventory(player, Items.STONE), 64,
                 "a creative player was billed for the blocks the wand placed");
-        helper.assertValueEqual(creativeWand.getDamageValue(), 0, "wand wear after a plane built in creative");
+        Assertions.valueEqual(helper, creativeWand.getDamageValue(), 0, "wand wear after a plane built in creative");
 
         TestCleanup.succeed(helper);
     }
@@ -387,14 +387,14 @@ public final class ConsumptionAndDurabilityTests {
         hammer.getItem().finishUsingItem(hammer, level, survival);
 
         helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
-        helper.assertValueEqual(hammer.getDamageValue(), 1, "wear for one forward transformation");
+        Assertions.valueEqual(helper, hammer.getDamageValue(), 1, "wear for one forward transformation");
 
         // --- sneaking without Constructor's Touch: no transformation, and nothing charged ---
         survival.setShiftKeyDown(true);
         hammer.getItem().finishUsingItem(hammer, level, survival);
 
         helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
-        helper.assertValueEqual(hammer.getDamageValue(), 1,
+        Assertions.valueEqual(helper, hammer.getDamageValue(), 1,
                 "a plain hammer either reversed the block or charged for trying; the reverse "
                         + "direction is supposed to need Constructor's Touch");
 
@@ -405,7 +405,7 @@ public final class ConsumptionAndDurabilityTests {
         touchHammer.getItem().finishUsingItem(touchHammer, level, survival);
 
         helper.assertBlockPresent(Blocks.STONE, target);
-        helper.assertValueEqual(touchHammer.getDamageValue(), 2, "wear for one reverse transformation");
+        Assertions.valueEqual(helper, touchHammer.getDamageValue(), 2, "wear for one reverse transformation");
         survival.setShiftKeyDown(false);
 
         // --- creative: the same forward transformation, free ---
@@ -415,7 +415,7 @@ public final class ConsumptionAndDurabilityTests {
         creativeHammer.getItem().finishUsingItem(creativeHammer, level, creative);
 
         helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
-        helper.assertValueEqual(creativeHammer.getDamageValue(), 0, "the hammer wore down in creative");
+        Assertions.valueEqual(helper, creativeHammer.getDamageValue(), 0, "the hammer wore down in creative");
 
         // --- crushing a diamond block: 81 pebbles either way, one point of wear in survival ---
         helper.setBlock(target, Blocks.DIAMOND_BLOCK);
@@ -424,7 +424,7 @@ public final class ConsumptionAndDurabilityTests {
 
         helper.assertBlockPresent(Blocks.AIR, target);
         helper.assertItemEntityCountIs(ModItems.DIAMOND_PEBBLE, target, 2.0, 81);
-        helper.assertValueEqual(hammer.getDamageValue(), 2, "wear after also crushing a diamond block");
+        Assertions.valueEqual(helper, hammer.getDamageValue(), 2, "wear after also crushing a diamond block");
 
         helper.killAllEntitiesOfClass(ItemEntity.class);
 
@@ -434,7 +434,7 @@ public final class ConsumptionAndDurabilityTests {
 
         helper.assertBlockPresent(Blocks.AIR, target);
         helper.assertItemEntityCountIs(ModItems.DIAMOND_PEBBLE, target, 2.0, 81);
-        helper.assertValueEqual(creativeHammer.getDamageValue(), 0,
+        Assertions.valueEqual(helper, creativeHammer.getDamageValue(), 0,
                 "the hammer wore down crushing a diamond block in creative");
 
         helper.killAllEntitiesOfClass(ItemEntity.class);
@@ -469,14 +469,14 @@ public final class ConsumptionAndDurabilityTests {
 
         helper.assertTrue(survival.fallDistance == 0.0,
                 "the fall distance survived the air jump, so the jump itself did not happen");
-        helper.assertValueEqual(bootWear(survival), 1,
+        Assertions.valueEqual(helper, bootWear(survival), 1,
                 "the air jump was free; the boots have to take a point of wear in survival");
 
         // Three more jumps, three more points - the cost is per jump, not once per pair of boots.
         for (int i = 0; i < 3; i++) {
             ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), survival);
         }
-        helper.assertValueEqual(bootWear(survival), 4, "wear after four air jumps");
+        Assertions.valueEqual(helper, bootWear(survival), 4, "wear after four air jumps");
 
         // --- unenchanted boots: no jump and no wear. NetworkHandlerTests asserts the same thing
         //     with a creative player, where the wear branch cannot run in the first place. ---
@@ -486,7 +486,7 @@ public final class ConsumptionAndDurabilityTests {
         ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), survival);
 
         helper.assertTrue(survival.fallDistance == 7.5, "unenchanted boots granted an air jump");
-        helper.assertValueEqual(bootWear(survival), 0, "unenchanted boots took wear");
+        Assertions.valueEqual(helper, bootWear(survival), 0, "unenchanted boots took wear");
 
         // --- creative: the jump still works, the boots stay pristine ---
         ServerPlayer creative = detachedPlayer(helper, GameType.CREATIVE, new Vec3(3.5, 1.0, 3.5));
@@ -499,7 +499,7 @@ public final class ConsumptionAndDurabilityTests {
 
         helper.assertTrue(creative.fallDistance == 0.0,
                 "the creative player got no air jump, so the pristine boots prove nothing");
-        helper.assertValueEqual(bootWear(creative), 0, "the boots wore down in creative");
+        Assertions.valueEqual(helper, bootWear(creative), 0, "the boots wore down in creative");
 
         TestCleanup.succeed(helper);
     }

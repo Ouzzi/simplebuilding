@@ -211,24 +211,24 @@ public final class ReinforcedBundleTests {
         ItemStack first = new ItemStack(Items.STONE, 64);
         helper.assertTrue(item.tryInsertStackFromWorld(bundle, first, player),
                 "an empty reinforced bundle refused the first 64 stone");
-        helper.assertValueEqual(first.getCount(), 0, "stone left over from the first stack");
-        helper.assertValueEqual(totalIn(bundle), 64, "stone inside the bundle after the first stack");
+        Assertions.valueEqual(helper, first.getCount(), 0, "stone left over from the first stack");
+        Assertions.valueEqual(helper, totalIn(bundle), 64, "stone inside the bundle after the first stack");
 
         // --- second stack: only the remainder is taken, and the rest stays in the player's hand ---
         ItemStack second = new ItemStack(Items.STONE, 64);
         helper.assertTrue(item.tryInsertStackFromWorld(bundle, second, player),
                 "the bundle refused a second stack although " + (capacity - 64) + " items still fit");
-        helper.assertValueEqual(second.getCount(), 128 - capacity,
+        Assertions.valueEqual(helper, second.getCount(), 128 - capacity,
                 "stone left over from the second stack - the bundle holds " + capacity + ", so it may only "
                         + "take " + (capacity - 64) + " of the 64 offered");
-        helper.assertValueEqual(totalIn(bundle), capacity, "stone inside the bundle once it is full");
+        Assertions.valueEqual(helper, totalIn(bundle), capacity, "stone inside the bundle once it is full");
 
         // --- third stack: full is full, and a refused insert must not eat anything ---
         ItemStack third = new ItemStack(Items.STONE, 64);
         helper.assertTrue(!item.tryInsertStackFromWorld(bundle, third, player),
                 "a full bundle reported that it took another stack");
-        helper.assertValueEqual(third.getCount(), 64, "stone left over from the refused third stack");
-        helper.assertValueEqual(totalIn(bundle), capacity, "stone inside the bundle after the refused stack");
+        Assertions.valueEqual(helper, third.getCount(), 64, "stone left over from the refused third stack");
+        Assertions.valueEqual(helper, totalIn(bundle), capacity, "stone inside the bundle after the refused stack");
 
         // --- the same room, measured with an item that stacks to 16 ---
         int stoneStack = new ItemStack(Items.STONE).getMaxStackSize();
@@ -238,7 +238,7 @@ public final class ReinforcedBundleTests {
                         + ", so the two no longer tell a per-item weight from a per-stack one");
 
         int pearls = fillWith(helper, player, new ItemStack(ModItems.REINFORCED_BUNDLE), Items.ENDER_PEARL);
-        helper.assertValueEqual(pearls * stoneStack, capacity * pearlStack,
+        Assertions.valueEqual(helper, pearls * stoneStack, capacity * pearlStack,
                 "the bundle took " + pearls + " ender pearls and " + capacity + " stone; in vanilla stacks "
                         + "those two have to be the same amount of room");
 
@@ -278,8 +278,8 @@ public final class ReinforcedBundleTests {
                         + "has an item the bundle has to turn away");
         helper.assertTrue(!bundleItem(bundle).tryInsertStackFromWorld(bundle, shulker, player),
                 "the bundle picked a shulker box up off the ground");
-        helper.assertValueEqual(totalIn(bundle), 0, "items inside the bundle after the shulker box");
-        helper.assertValueEqual(shulker.getCount(), 1, "shulker boxes left outside the bundle");
+        Assertions.valueEqual(helper, totalIn(bundle), 0, "items inside the bundle after the shulker box");
+        Assertions.valueEqual(helper, shulker.getCount(), 1, "shulker boxes left outside the bundle");
 
         // --- bundle on the cursor, shulker box in the slot ---
         ItemStack cursorBundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
@@ -288,8 +288,8 @@ public final class ReinforcedBundleTests {
                         .overrideStackedOnOther(cursorBundle, slot, ClickAction.PRIMARY, player),
                 "left clicking a bundle onto a shulker box reported the click as handled, which eats it - "
                         + "the player can no longer pick that shulker box up");
-        helper.assertValueEqual(totalIn(cursorBundle), 0, "items inside the bundle after the slot click");
-        helper.assertValueEqual(slot.getItem().getCount(), 1, "shulker boxes left in the slot");
+        Assertions.valueEqual(helper, totalIn(cursorBundle), 0, "items inside the bundle after the slot click");
+        Assertions.valueEqual(helper, slot.getItem().getCount(), 1, "shulker boxes left in the slot");
 
         // --- shulker box on the cursor, bundle in the slot ---
         ItemStack slotBundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
@@ -297,8 +297,8 @@ public final class ReinforcedBundleTests {
         helper.assertTrue(!bundleItem(slotBundle).overrideOtherStackedOnMe(slotBundle, onCursor,
                         slotHolding(slotBundle), ClickAction.PRIMARY, player, cursorAccess(onCursor)),
                 "left clicking a shulker box onto a bundle reported the click as handled");
-        helper.assertValueEqual(totalIn(slotBundle), 0, "items inside the bundle after the cursor click");
-        helper.assertValueEqual(onCursor.getCount(), 1, "shulker boxes left on the cursor");
+        Assertions.valueEqual(helper, totalIn(slotBundle), 0, "items inside the bundle after the cursor click");
+        Assertions.valueEqual(helper, onCursor.getCount(), 1, "shulker boxes left on the cursor");
 
         // --- control: an ordinary stack gets through the same three doors ---
         ItemStack takes = new ItemStack(ModItems.REINFORCED_BUNDLE);
@@ -312,7 +312,7 @@ public final class ReinforcedBundleTests {
         helper.assertTrue(bundleItem(takes).overrideOtherStackedOnMe(takes, stoneOnCursor,
                         slotHolding(takes), ClickAction.PRIMARY, player, cursorAccess(stoneOnCursor)),
                 "control: left clicking stone onto the bundle did nothing");
-        helper.assertValueEqual(totalIn(takes), 24, "stone inside the bundle after all three control clicks");
+        Assertions.valueEqual(helper, totalIn(takes), 24, "stone inside the bundle after all three control clicks");
 
         // --- a bundle inside a bundle, contents and all ---
         ItemStack inner = new ItemStack(ModItems.NETHERITE_BUNDLE);
@@ -322,10 +322,10 @@ public final class ReinforcedBundleTests {
                 "an enderite bundle refused to hold a netherite bundle");
 
         List<ItemStack> stored = entries(outer);
-        helper.assertValueEqual(stored.size(), 1, "entries in the enderite bundle");
+        Assertions.valueEqual(helper, stored.size(), 1, "entries in the enderite bundle");
         helper.assertTrue(stored.getFirst().is(ModItems.NETHERITE_BUNDLE),
                 "the enderite bundle holds " + stored.getFirst() + " instead of the netherite bundle");
-        helper.assertValueEqual(totalIn(stored.getFirst()), 16,
+        Assertions.valueEqual(helper, totalIn(stored.getFirst()), 16,
                 "dirt inside the netherite bundle after it was stored in the enderite one");
 
         TestCleanup.succeed(helper);
@@ -357,7 +357,7 @@ public final class ReinforcedBundleTests {
         insertExactly(helper, player, bundle, Items.STONE, 40);
 
         List<ItemStack> stored = entries(bundle);
-        helper.assertValueEqual(stored.size(), 3,
+        Assertions.valueEqual(helper, stored.size(), 3,
                 "entries in the bundle after 40 stone, 10 dirt and 40 more stone - 80 stone have to sit in "
                         + "two entries (a full stack and a remainder) and the dirt in a third");
         helper.assertTrue(stored.get(0).is(Items.STONE) && stored.get(1).is(Items.STONE),
@@ -366,12 +366,12 @@ public final class ReinforcedBundleTests {
         helper.assertTrue(stored.get(2).is(Items.DIRT),
                 "the last entry is " + stored.get(2) + " instead of the dirt that was pushed down");
 
-        helper.assertValueEqual(stored.get(0).getCount() + stored.get(1).getCount(), 80,
+        Assertions.valueEqual(helper, stored.get(0).getCount() + stored.get(1).getCount(), 80,
                 "stone in the two merged entries");
-        helper.assertValueEqual(Math.max(stored.get(0).getCount(), stored.get(1).getCount()), 64,
+        Assertions.valueEqual(helper, Math.max(stored.get(0).getCount(), stored.get(1).getCount()), 64,
                 "the larger of the two stone entries - the merge has to fill whole stacks before it opens "
                         + "a second entry, otherwise 80 stone stay as 40 and 40");
-        helper.assertValueEqual(stored.get(2).getCount(), 10, "dirt in the bundle");
+        Assertions.valueEqual(helper, stored.get(2).getCount(), 10, "dirt in the bundle");
 
         TestCleanup.succeed(helper);
     }
@@ -410,9 +410,9 @@ public final class ReinforcedBundleTests {
         for (int kind = 1; kind < DRAWER_KINDS - 1; kind++) {
             insertExactly(helper, player, bundle, SIX_KINDS[kind], 1);
         }
-        helper.assertValueEqual(kindsIn(bundle), DRAWER_KINDS - 1,
+        Assertions.valueEqual(helper, kindsIn(bundle), DRAWER_KINDS - 1,
                 "kinds inside the Drawer bundle before the fifth kind is offered");
-        helper.assertValueEqual(entries(bundle).size(), DRAWER_KINDS,
+        Assertions.valueEqual(helper, entries(bundle).size(), DRAWER_KINDS,
                 "setup guard: entries inside the Drawer bundle - the " + SPLIT_STOCK + " " + SIX_KINDS[0]
                         + " have to sit in two of them, otherwise entries and kinds are the same number and "
                         + "this test cannot tell which of the two the limit counts");
@@ -422,16 +422,16 @@ public final class ReinforcedBundleTests {
         helper.assertTrue(bundleItem(bundle).tryInsertStackFromWorld(bundle, fifth, player),
                 "a Drawer bundle holding " + (DRAWER_KINDS - 1) + " kinds in " + DRAWER_KINDS
                         + " entries refused the fifth kind - the limit is counting entries, not kinds");
-        helper.assertValueEqual(fifth.getCount(), 0, "the fifth kind left outside the bundle");
-        helper.assertValueEqual(kindsIn(bundle), DRAWER_KINDS,
+        Assertions.valueEqual(helper, fifth.getCount(), 0, "the fifth kind left outside the bundle");
+        Assertions.valueEqual(helper, kindsIn(bundle), DRAWER_KINDS,
                 "kinds inside the Drawer bundle after the fifth one went in");
 
         // Now it really is five kinds, and the sixth is the one that has to bounce.
         ItemStack sixth = new ItemStack(SIX_KINDS[DRAWER_KINDS], 1);
         helper.assertTrue(!bundleItem(bundle).tryInsertStackFromWorld(bundle, sixth, player),
                 "a Drawer bundle already holding " + DRAWER_KINDS + " kinds accepted a sixth one");
-        helper.assertValueEqual(sixth.getCount(), 1, "the sixth kind left outside the bundle");
-        helper.assertValueEqual(kindsIn(bundle), DRAWER_KINDS,
+        Assertions.valueEqual(helper, sixth.getCount(), 1, "the sixth kind left outside the bundle");
+        Assertions.valueEqual(helper, kindsIn(bundle), DRAWER_KINDS,
                 "kinds inside the Drawer bundle after the sixth was refused");
 
         // The refusal has to be the kind limit, not a full bundle: more of a kind it holds fits.
@@ -439,7 +439,7 @@ public final class ReinforcedBundleTests {
         helper.assertTrue(bundleItem(bundle).tryInsertStackFromWorld(bundle, more, player),
                 "the Drawer bundle refused more of a kind it already holds, so the refusal of the sixth "
                         + "kind was a full bundle and this test proves nothing about the kind limit");
-        helper.assertValueEqual(countIn(bundle, SIX_KINDS[0]), SPLIT_STOCK + 64,
+        Assertions.valueEqual(helper, countIn(bundle, SIX_KINDS[0]), SPLIT_STOCK + 64,
                 SIX_KINDS[0] + " inside the Drawer bundle after it took a second helping");
 
         // --- a kind is item plus components, not item ---
@@ -449,7 +449,7 @@ public final class ReinforcedBundleTests {
             helper.assertTrue(bundleItem(byName).tryInsertStackFromWorld(byName, named, player),
                     "test setup broken: the Drawer bundle refused named stone number " + n);
         }
-        helper.assertValueEqual(kindsIn(byName), DRAWER_KINDS,
+        Assertions.valueEqual(helper, kindsIn(byName), DRAWER_KINDS,
                 DRAWER_KINDS + " stone stacks that differ only in their custom name have to count as "
                         + DRAWER_KINDS + " kinds; the bundle holds " + entries(byName));
 
@@ -458,13 +458,13 @@ public final class ReinforcedBundleTests {
                 "the bundle took a sixth differently named stone although it already held " + DRAWER_KINDS
                         + " of them - the kind count compares by item alone, so every named stone looks "
                         + "like the stone that is already inside");
-        helper.assertValueEqual(sixthName.getCount(), 1, "the sixth named stone left outside the bundle");
+        Assertions.valueEqual(helper, sixthName.getCount(), 1, "the sixth named stone left outside the bundle");
 
         ItemStack knownName = namedStone("drawer stone 0");
         helper.assertTrue(bundleItem(byName).tryInsertStackFromWorld(byName, knownName, player),
                 "the bundle refused a second helping of a name it already holds, so the refusal above was "
                         + "a full bundle and says nothing about the kind limit");
-        helper.assertValueEqual(kindsIn(byName), DRAWER_KINDS,
+        Assertions.valueEqual(helper, kindsIn(byName), DRAWER_KINDS,
                 "kinds inside the bundle after a name it already held came back");
 
         // --- control: without Drawer the sixth kind goes in ---
@@ -472,7 +472,7 @@ public final class ReinforcedBundleTests {
         for (int kind = 0; kind <= DRAWER_KINDS; kind++) {
             insertExactly(helper, player, plain, SIX_KINDS[kind], 1);
         }
-        helper.assertValueEqual(kindsIn(plain), DRAWER_KINDS + 1,
+        Assertions.valueEqual(helper, kindsIn(plain), DRAWER_KINDS + 1,
                 "kinds inside a bundle without Drawer - the kind limit is the enchantment's, not the item's");
 
         TestCleanup.succeed(helper);
@@ -506,38 +506,38 @@ public final class ReinforcedBundleTests {
         insertExactly(helper, player, bundle, Items.SAND, 16);
         insertExactly(helper, player, bundle, Items.DIRT, 32);
         insertExactly(helper, player, bundle, Items.STONE, 64);
-        helper.assertValueEqual(entries(bundle).size(), 3, "entries in the bundle before anything is taken out");
+        Assertions.valueEqual(helper, entries(bundle).size(), 3, "entries in the bundle before anything is taken out");
         helper.assertTrue(entries(bundle).getFirst().is(Items.STONE),
                 "setup guard: the last insert is not on top, so 'the selected entry' and 'the top entry' "
                         + "can no longer be told apart");
 
         // --- the selected entry, all 16 of it ---
         ReinforcedBundleItem.setBundleSelectedItem(bundle, 2);
-        helper.assertValueEqual(selectedIndex(bundle), 2, "the index the bundle reports as selected");
+        Assertions.valueEqual(helper, selectedIndex(bundle), 2, "the index the bundle reports as selected");
 
         Slot empty = slotHolding(ItemStack.EMPTY);
         helper.assertTrue(bundleItem(bundle).overrideStackedOnOther(bundle, empty, ClickAction.SECONDARY, player),
                 "right clicking a filled bundle onto an empty slot took nothing out");
         helper.assertTrue(empty.getItem().is(Items.SAND),
                 "the slot holds " + empty.getItem() + " instead of the selected sand");
-        helper.assertValueEqual(empty.getItem().getCount(), 16,
+        Assertions.valueEqual(helper, empty.getItem().getCount(), 16,
                 "sand in the slot - the whole entry has to come out, not one item");
-        helper.assertValueEqual(entries(bundle).size(), 2, "entries left in the bundle");
-        helper.assertValueEqual(countIn(bundle, Items.SAND), 0, "sand left in the bundle");
-        helper.assertValueEqual(countIn(bundle, Items.STONE), 64, "stone left in the bundle");
-        helper.assertValueEqual(countIn(bundle, Items.DIRT), 32, "dirt left in the bundle");
+        Assertions.valueEqual(helper, entries(bundle).size(), 2, "entries left in the bundle");
+        Assertions.valueEqual(helper, countIn(bundle, Items.SAND), 0, "sand left in the bundle");
+        Assertions.valueEqual(helper, countIn(bundle, Items.STONE), 64, "stone left in the bundle");
+        Assertions.valueEqual(helper, countIn(bundle, Items.DIRT), 32, "dirt left in the bundle");
 
         // --- nothing selected: the top entry ---
-        helper.assertValueEqual(selectedIndex(bundle), -1,
+        Assertions.valueEqual(helper, selectedIndex(bundle), -1,
                 "the selection the bundle reports after an entry was taken out");
         Slot second = slotHolding(ItemStack.EMPTY);
         helper.assertTrue(bundleItem(bundle).overrideStackedOnOther(bundle, second, ClickAction.SECONDARY, player),
                 "right clicking the bundle onto a second empty slot took nothing out");
         helper.assertTrue(second.getItem().is(Items.STONE),
                 "with nothing selected the bundle handed out " + second.getItem() + " instead of the top entry");
-        helper.assertValueEqual(second.getItem().getCount(), 64, "stone in the second slot");
-        helper.assertValueEqual(entries(bundle).size(), 1, "entries left in the bundle");
-        helper.assertValueEqual(countIn(bundle, Items.DIRT), 32, "dirt left in the bundle at the end");
+        Assertions.valueEqual(helper, second.getItem().getCount(), 64, "stone in the second slot");
+        Assertions.valueEqual(helper, entries(bundle).size(), 1, "entries left in the bundle");
+        Assertions.valueEqual(helper, countIn(bundle, Items.DIRT), 32, "dirt left in the bundle at the end");
 
         TestCleanup.succeed(helper);
     }
@@ -570,26 +570,26 @@ public final class ReinforcedBundleTests {
         InteractionResult onStone = bundle.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
         helper.assertTrue(onStone == InteractionResult.FAIL,
                 "right clicking a bundle whose selected entry is stone answered " + onStone + " instead of FAIL");
-        helper.assertValueEqual(countIn(bundle, Items.STONE), 32, "stone left in the bundle after the refusal");
-        helper.assertValueEqual(droppedItems(helper).size(), 0, "items lying in the room after the refusal");
+        Assertions.valueEqual(helper, countIn(bundle, Items.STONE), 32, "stone left in the bundle after the refusal");
+        Assertions.valueEqual(helper, droppedItems(helper).size(), 0, "items lying in the room after the refusal");
 
         // --- select the arrows in the same bundle: now it throws ---
         ReinforcedBundleItem.setBundleSelectedItem(bundle, 1);
-        helper.assertValueEqual(selectedIndex(bundle), 1, "the index the bundle reports as selected");
+        Assertions.valueEqual(helper, selectedIndex(bundle), 1, "the index the bundle reports as selected");
 
         InteractionResult onArrows = bundle.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
         helper.assertTrue(onArrows == InteractionResult.SUCCESS,
                 "right clicking the same bundle with the arrows selected answered " + onArrows
                         + " instead of SUCCESS");
-        helper.assertValueEqual(countIn(bundle, Items.ARROW), 0, "arrows left in the bundle");
-        helper.assertValueEqual(countIn(bundle, Items.STONE), 32,
+        Assertions.valueEqual(helper, countIn(bundle, Items.ARROW), 0, "arrows left in the bundle");
+        Assertions.valueEqual(helper, countIn(bundle, Items.STONE), 32,
                 "stone left in the bundle after the arrows were thrown out");
 
         List<ItemEntity> dropped = droppedItems(helper);
-        helper.assertValueEqual(dropped.size(), 1, "items lying in the room after the arrows were thrown");
+        Assertions.valueEqual(helper, dropped.size(), 1, "items lying in the room after the arrows were thrown");
         helper.assertTrue(dropped.getFirst().getItem().is(Items.ARROW),
                 "the bundle threw out " + dropped.getFirst().getItem() + " instead of the selected arrows");
-        helper.assertValueEqual(dropped.getFirst().getItem().getCount(), 16,
+        Assertions.valueEqual(helper, dropped.getFirst().getItem().getCount(), 16,
                 "arrows in the dropped stack - the whole entry has to leave");
         for (ItemEntity entity : dropped) {
             entity.discard();
@@ -599,7 +599,7 @@ public final class ReinforcedBundleTests {
         InteractionResult again = bundle.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
         helper.assertTrue(again == InteractionResult.FAIL,
                 "right clicking the bundle that now only holds stone answered " + again + " instead of FAIL");
-        helper.assertValueEqual(droppedItems(helper).size(), 0, "items lying in the room at the end");
+        Assertions.valueEqual(helper, droppedItems(helper).size(), 0, "items lying in the room at the end");
 
         TestCleanup.succeed(helper);
     }
@@ -647,7 +647,7 @@ public final class ReinforcedBundleTests {
         helper.assertTrue(!plainResult.consumesAction(),
                 "an unenchanted bundle answered " + plainResult + " when it was clicked at a block face");
         helper.assertBlockPresent(Blocks.AIR, anchor.above());
-        helper.assertValueEqual(countIn(plain, Items.STONE), 8, "stone left in the unenchanted bundle");
+        Assertions.valueEqual(helper, countIn(plain, Items.STONE), 8, "stone left in the unenchanted bundle");
 
         // --- Master Builder, survival: the selected entry is placed and paid for ---
         ItemStack builder = enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.MASTER_BUILDER, 1);
@@ -659,20 +659,20 @@ public final class ReinforcedBundleTests {
         helper.assertTrue(placed.consumesAction(),
                 "a Master Builder bundle answered " + placed + " instead of placing its stone");
         helper.assertBlockPresent(Blocks.STONE, anchor.above());
-        helper.assertValueEqual(countIn(builder, Items.STONE), 7,
+        Assertions.valueEqual(helper, countIn(builder, Items.STONE), 7,
                 "stone left after one block was placed out of the bundle");
-        helper.assertValueEqual(countIn(builder, Items.DIRT), 8,
+        Assertions.valueEqual(helper, countIn(builder, Items.DIRT), 8,
                 "dirt left after the selected stone was placed - the bundle billed the wrong entry");
 
         // --- nothing selected: the topmost entry is the one that gets built with ---
-        helper.assertValueEqual(selectedIndex(builder), -1,
+        Assertions.valueEqual(helper, selectedIndex(builder), -1,
                 "the selection the bundle reports after it placed a block");
         helper.assertTrue(entries(builder).getFirst().is(Items.DIRT),
                 "setup guard: the top entry is " + entries(builder).getFirst() + ", so the case below no "
                         + "longer tells 'index 0' from 'the previous selection'");
         placeFrom(helper, player, builder, anchor);
         helper.assertBlockPresent(Blocks.DIRT, anchor.above());
-        helper.assertValueEqual(countIn(builder, Items.DIRT), 7, "dirt left after the second placement");
+        Assertions.valueEqual(helper, countIn(builder, Items.DIRT), 7, "dirt left after the second placement");
 
         // --- creative: the same placement, free of charge ---
         player.getAbilities().instabuild = true;
@@ -681,7 +681,7 @@ public final class ReinforcedBundleTests {
             helper.assertTrue(free.consumesAction(),
                     "a creative player got " + free + " out of the Master Builder bundle");
             helper.assertBlockPresent(Blocks.DIRT, anchor.above());
-            helper.assertValueEqual(countIn(builder, Items.DIRT), 7,
+            Assertions.valueEqual(helper, countIn(builder, Items.DIRT), 7,
                     "dirt left after a creative placement - creative building must not empty the bundle");
         } finally {
             player.getAbilities().instabuild = false;
@@ -709,12 +709,12 @@ public final class ReinforcedBundleTests {
         // placed one kind while paying for the other would still pass the check above.
         int stoneDrawn = Collections.frequency(drawn, Blocks.STONE);
         int dirtDrawn = Collections.frequency(drawn, Blocks.DIRT);
-        helper.assertValueEqual(stoneDrawn + dirtDrawn, PALETTE_ROUNDS,
+        Assertions.valueEqual(helper, stoneDrawn + dirtDrawn, PALETTE_ROUNDS,
                 "placements that produced one of the two kinds in the palette bundle - it also built "
                         + drawn.stream().distinct().toList());
-        helper.assertValueEqual(countIn(palette, Items.STONE), PALETTE_STOCK - stoneDrawn,
+        Assertions.valueEqual(helper, countIn(palette, Items.STONE), PALETTE_STOCK - stoneDrawn,
                 "stone left in the palette bundle after it placed stone " + stoneDrawn + " times");
-        helper.assertValueEqual(countIn(palette, Items.DIRT), PALETTE_STOCK - dirtDrawn,
+        Assertions.valueEqual(helper, countIn(palette, Items.DIRT), PALETTE_STOCK - dirtDrawn,
                 "dirt left in the palette bundle after it placed dirt " + dirtDrawn + " times");
 
         // --- control: the same bundle without the palette places one kind, every time ---
@@ -723,7 +723,7 @@ public final class ReinforcedBundleTests {
         insertExactly(helper, player, single, Items.STONE, PALETTE_STOCK);
         insertExactly(helper, player, single, Items.DIRT, PALETTE_STOCK);
         List<Block> steady = placeRepeatedly(helper, player, single, anchor, PALETTE_ROUNDS);
-        helper.assertValueEqual(steady.stream().distinct().count(), 1L,
+        Assertions.valueEqual(helper, steady.stream().distinct().count(), 1L,
                 "control: a Master Builder bundle without Color Palette placed "
                         + steady.stream().distinct().toList() + " - the loop above therefore says nothing "
                         + "about the palette");
@@ -764,26 +764,26 @@ public final class ReinforcedBundleTests {
         ServerPlayer player = mockPlayer(helper);
 
         // Setup guards: the levels below have to be levels a player can actually reach.
-        helper.assertValueEqual(enchantment(helper, ModEnchantments.DEEP_POCKETS).value().getMaxLevel(), 2,
+        Assertions.valueEqual(helper, enchantment(helper, ModEnchantments.DEEP_POCKETS).value().getMaxLevel(), 2,
                 "max level of Deep Pockets");
-        helper.assertValueEqual(enchantment(helper, ModEnchantments.DRAWER).value().getMaxLevel(),
+        Assertions.valueEqual(helper, enchantment(helper, ModEnchantments.DRAWER).value().getMaxLevel(),
                 DRAWER_MAX_LEVEL, "max level of Drawer");
 
         int plain = fillWith(helper, player, new ItemStack(ModItems.REINFORCED_BUNDLE), Items.STONE);
         int netherite = fillWith(helper, player, new ItemStack(ModItems.NETHERITE_BUNDLE), Items.STONE);
         int enderite = fillWith(helper, player, new ItemStack(ModItems.ENDERITE_BUNDLE), Items.STONE);
 
-        helper.assertValueEqual(netherite, plain * 2,
+        Assertions.valueEqual(helper, netherite, plain * 2,
                 "stone a netherite bundle takes - tier factor 2 against the " + plain + " of the plain one");
-        helper.assertValueEqual(enderite, plain * 3,
+        Assertions.valueEqual(helper, enderite, plain * 3,
                 "stone an enderite bundle takes - tier factor 3 against the " + plain + " of the plain one");
 
         // --- the same three numbers through the stackless path the wiki export uses ---
-        helper.assertValueEqual(baseCapacityItems(ModItems.REINFORCED_BUNDLE), plain,
+        Assertions.valueEqual(helper, baseCapacityItems(ModItems.REINFORCED_BUNDLE), plain,
                 "getBaseCapacityItems() of the reinforced bundle against the stone it really takes");
-        helper.assertValueEqual(baseCapacityItems(ModItems.NETHERITE_BUNDLE), netherite,
+        Assertions.valueEqual(helper, baseCapacityItems(ModItems.NETHERITE_BUNDLE), netherite,
                 "getBaseCapacityItems() of the netherite bundle against the stone it really takes");
-        helper.assertValueEqual(baseCapacityItems(ModItems.ENDERITE_BUNDLE), enderite,
+        Assertions.valueEqual(helper, baseCapacityItems(ModItems.ENDERITE_BUNDLE), enderite,
                 "getBaseCapacityItems() of the enderite bundle against the stone it really takes");
 
         // --- Deep Pockets doubles, then quadruples ---
@@ -791,8 +791,8 @@ public final class ReinforcedBundleTests {
                 enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.DEEP_POCKETS, 1), Items.STONE);
         int deep2 = fillWith(helper, player,
                 enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.DEEP_POCKETS, 2), Items.STONE);
-        helper.assertValueEqual(deep1, plain * 2, "stone a Deep Pockets I bundle takes - twice the base");
-        helper.assertValueEqual(deep2, plain * 4, "stone a Deep Pockets II bundle takes - four times the base");
+        Assertions.valueEqual(helper, deep1, plain * 2, "stone a Deep Pockets I bundle takes - twice the base");
+        Assertions.valueEqual(helper, deep2, plain * 4, "stone a Deep Pockets II bundle takes - four times the base");
 
         // --- Drawer grows by an eighth of the base per level ---
         int drawer1 = fillWith(helper, player,
@@ -802,7 +802,7 @@ public final class ReinforcedBundleTests {
                 Items.STONE);
         helper.assertTrue(drawer1 > plain,
                 "a Drawer I bundle takes " + drawer1 + " stone, no more than the " + plain + " of a plain one");
-        helper.assertValueEqual((drawerMax - drawer1) * 8, plain * (DRAWER_MAX_LEVEL - 1),
+        Assertions.valueEqual(helper, (drawerMax - drawer1) * 8, plain * (DRAWER_MAX_LEVEL - 1),
                 "the step from Drawer I (" + drawer1 + ") to Drawer " + DRAWER_MAX_LEVEL + " (" + drawerMax
                         + "): every level has to add an eighth of the " + plain + " item base capacity");
 
@@ -835,7 +835,7 @@ public final class ReinforcedBundleTests {
         // An empty bundle reports width 0 where vanilla's own formula would report 1, so this one
         // really does belong to the override.
         ItemStack empty = new ItemStack(ModItems.REINFORCED_BUNDLE);
-        helper.assertValueEqual(empty.getItem().getBarWidth(empty), 0, "bar width of an empty bundle");
+        Assertions.valueEqual(helper, empty.getItem().getBarWidth(empty), 0, "bar width of an empty bundle");
 
         assertBarAndTooltip(helper, player, new ItemStack(ModItems.REINFORCED_BUNDLE), "a plain bundle");
         assertBarAndTooltip(helper, player, new ItemStack(ModItems.ENDERITE_BUNDLE), "an enderite bundle");
@@ -927,7 +927,7 @@ public final class ReinforcedBundleTests {
         for (int attempt = 0; attempt < 64; attempt++) {
             ItemStack offered = new ItemStack(filler, stackSize);
             if (!item.tryInsertStackFromWorld(container, offered, player)) {
-                helper.assertValueEqual(countIn(container, filler), inserted,
+                Assertions.valueEqual(helper, countIn(container, filler), inserted,
                         "items really stored in " + container.getItem() + " against the amount it reported "
                                 + "taking - an insert answered true without storing everything");
                 return inserted;
@@ -953,12 +953,12 @@ public final class ReinforcedBundleTests {
             int offeredCount = offered.getCount();
             helper.assertTrue(bundleItem(container).tryInsertStackFromWorld(container, offered, player),
                     "test setup broken: " + container.getItem() + " refused " + offeredCount + " " + item);
-            helper.assertValueEqual(offered.getCount(), 0,
+            Assertions.valueEqual(helper, offered.getCount(), 0,
                     "test setup broken: " + container.getItem() + " only took part of " + offeredCount + " "
                             + item);
             left -= offeredCount;
         }
-        helper.assertValueEqual(countIn(container, item), before + count,
+        Assertions.valueEqual(helper, countIn(container, item), before + count,
                 "test setup broken: " + item + " inside " + container.getItem() + " after filling it");
     }
 
@@ -975,19 +975,19 @@ public final class ReinforcedBundleTests {
 
         ItemStack half = container.copy();
         insertExactly(helper, player, half, Items.STONE, capacity / 2);
-        helper.assertValueEqual(half.getItem().getBarWidth(half), HALF_BAR,
+        Assertions.valueEqual(helper, half.getItem().getBarWidth(half), HALF_BAR,
                 "bar width of " + what + " holding " + (capacity / 2) + " of its " + capacity + " items");
 
         ItemStack filled = container.copy();
         insertExactly(helper, player, filled, Items.STONE, capacity);
-        helper.assertValueEqual(filled.getItem().getBarWidth(filled), FULL_BAR,
+        Assertions.valueEqual(helper, filled.getItem().getBarWidth(filled), FULL_BAR,
                 "bar width of " + what + " filled to its brim with " + capacity + " items");
 
         Optional<TooltipComponent> image = filled.getItem().getTooltipImage(filled);
         helper.assertTrue(image.isPresent() && image.get() instanceof ReinforcedBundleTooltipData,
                 "the tooltip of " + what + " is " + image + " instead of a ReinforcedBundleTooltipData");
         ReinforcedBundleTooltipData data = (ReinforcedBundleTooltipData) image.get();
-        helper.assertValueEqual(data.maxCapacity(), capacity,
+        Assertions.valueEqual(helper, data.maxCapacity(), capacity,
                 "the capacity the tooltip of " + what + " hands the client, against the " + capacity
                         + " items it really takes");
     }

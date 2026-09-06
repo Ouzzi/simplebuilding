@@ -242,9 +242,9 @@ public final class HopperTests {
                                 + DELIVERED_BEFORE_THE_VERDICT + " items, it delivered "
                                 + countItems(helper, CONTROL_HOPPER.below())))
                 .thenExecute(() -> {
-                    helper.assertValueEqual(countItems(helper, LOCKED_HOPPER.below()), 0,
+                    Assertions.valueEqual(helper, countItems(helper, LOCKED_HOPPER.below()), 0,
                             "items a powered hopper pushed into the chest below it");
-                    helper.assertValueEqual(countItems(helper, LOCKED_HOPPER.above()), SOURCE_STACK,
+                    Assertions.valueEqual(helper, countItems(helper, LOCKED_HOPPER.above()), SOURCE_STACK,
                             "items left in the chest above a powered hopper");
 
                     ModHopperBlockEntity locked =
@@ -301,9 +301,9 @@ public final class HopperTests {
         hopper.setGhostItem(0, seventeen);
         helper.assertTrue(hopper.getGhostItem(0).is(Items.DIAMOND),
                 "the filter slot did not take the item at all, it holds " + hopper.getGhostItem(0));
-        helper.assertValueEqual(hopper.getGhostItem(0).getCount(), 1,
+        Assertions.valueEqual(helper, hopper.getGhostItem(0).getCount(), 1,
                 "count stored in a filter slot that was handed a stack of 17");
-        helper.assertValueEqual(seventeen.getCount(), 17,
+        Assertions.valueEqual(helper, seventeen.getCount(), 17,
                 "the hopper shrank the caller's own stack, so it moved the items instead of "
                         + "copying a placeholder out of them");
 
@@ -312,7 +312,7 @@ public final class HopperTests {
         //     tried, because sharing the reference would leak either.
         seventeen.setCount(3);
         seventeen.set(DataComponents.CUSTOM_NAME, Component.literal("edited after the fact"));
-        helper.assertValueEqual(hopper.getGhostItem(0).getCount(), 1,
+        Assertions.valueEqual(helper, hopper.getGhostItem(0).getCount(), 1,
                 "count in the filter slot after the caller edited its own stack");
         helper.assertTrue(hopper.getGhostItem(0).get(DataComponents.CUSTOM_NAME) == null,
                 "a rename applied to the caller's stack showed up in the filter slot, so the slot "
@@ -336,7 +336,7 @@ public final class HopperTests {
 
         // --- the delete path, driven through the wire format that has to carry it ---
         SetHopperGhostItemPayload clearing = roundTrip(helper, new SetHopperGhostItemPayload(0, ItemStack.EMPTY));
-        helper.assertValueEqual(clearing.slotIndex(), 0, "slot index after the payload round trip");
+        Assertions.valueEqual(helper, clearing.slotIndex(), 0, "slot index after the payload round trip");
         helper.assertTrue(clearing.stack().isEmpty(),
                 "the payload turned the empty stack into " + clearing.stack()
                         + " on the way through its codec");
@@ -404,8 +404,8 @@ public final class HopperTests {
         ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.REINFORCED_HOPPER);
         ContainerData delegate = hopper.getPropertyDelegate();
 
-        helper.assertValueEqual(delegate.getCount(), 1, "values the hopper delegate synchronises");
-        helper.assertValueEqual(delegate.get(0), HopperFilterMode.NONE.ordinal(),
+        Assertions.valueEqual(helper, delegate.getCount(), 1, "values the hopper delegate synchronises");
+        Assertions.valueEqual(helper, delegate.get(0), HopperFilterMode.NONE.ordinal(),
                 "the mode a fresh hopper reports over its delegate");
 
         // Built the way the server builds it, so its single data slot is this hopper's own
@@ -421,7 +421,7 @@ public final class HopperTests {
         helper.assertTrue(hopper.getFilterMode() == HopperFilterMode.TYPE,
                 "writing the menu's data slot did not reach the hopper, it is in "
                         + hopper.getFilterMode());
-        helper.assertValueEqual(delegate.get(0), HopperFilterMode.TYPE.ordinal(),
+        Assertions.valueEqual(helper, delegate.get(0), HopperFilterMode.TYPE.ordinal(),
                 "the mode the delegate reports back after the write");
         helper.assertTrue(menu.getSyncedFilterMode() == HopperFilterMode.TYPE,
                 "the menu hands the screen " + menu.getSyncedFilterMode() + " while the hopper is "
@@ -435,7 +435,7 @@ public final class HopperTests {
         delegate.set(1, HopperFilterMode.NONE.ordinal());
         helper.assertTrue(hopper.getFilterMode() == HopperFilterMode.TYPE,
                 "a write to delegate index 1 changed the filter mode to " + hopper.getFilterMode());
-        helper.assertValueEqual(delegate.get(1), 0, "what the delegate answers for index 1");
+        Assertions.valueEqual(helper, delegate.get(1), 0, "what the delegate answers for index 1");
 
         // --- a value past the last mode wraps instead of throwing ---
         menu.setData(0, HopperFilterMode.values().length);
@@ -456,18 +456,18 @@ public final class HopperTests {
                         + "longer reaches anyone looking at the block");
 
         // --- the menu texts and colours, pinned as the hard coded English they are ---
-        helper.assertValueEqual(HopperFilterMode.NONE.getText().getString(), "Disabled",
+        Assertions.valueEqual(helper, HopperFilterMode.NONE.getText().getString(), "Disabled",
                 "the text of the disabled filter mode");
-        helper.assertValueEqual(HopperFilterMode.WHITELIST.getText().getString(), "Exact Match",
+        Assertions.valueEqual(helper, HopperFilterMode.WHITELIST.getText().getString(), "Exact Match",
                 "the text of the exact match filter mode");
-        helper.assertValueEqual(HopperFilterMode.TYPE.getText().getString(), "Type Match",
+        Assertions.valueEqual(helper, HopperFilterMode.TYPE.getText().getString(), "Type Match",
                 "the text of the type match filter mode");
-        helper.assertValueEqual(HopperFilterMode.NONE.getColor(), 0xFF5555,
+        Assertions.valueEqual(helper, HopperFilterMode.NONE.getColor(), 0xFF5555,
                 "the colour of the disabled filter mode (the value ChatFormatting.RED carried "
                         + "before 26.2 removed getColor())");
-        helper.assertValueEqual(HopperFilterMode.WHITELIST.getColor(), 0x55FF55,
+        Assertions.valueEqual(helper, HopperFilterMode.WHITELIST.getColor(), 0x55FF55,
                 "the colour of the exact match filter mode");
-        helper.assertValueEqual(HopperFilterMode.TYPE.getColor(), 0xFFFF55,
+        Assertions.valueEqual(helper, HopperFilterMode.TYPE.getColor(), 0xFFFF55,
                 "the colour of the type match filter mode");
 
         TestCleanup.succeed(helper);
@@ -505,9 +505,9 @@ public final class HopperTests {
         hopper.setItem(3, new ItemStack(Items.DIAMOND, 12));
         helper.assertTrue(hopper.getGhostItem(3).is(Items.DIAMOND),
                 "slot 3 did not learn its filter item, it holds " + hopper.getGhostItem(3));
-        helper.assertValueEqual(hopper.getGhostItem(3).getCount(), 1,
+        Assertions.valueEqual(helper, hopper.getGhostItem(3).getCount(), 1,
                 "count of a filter item the hopper taught itself from a stack of 12");
-        helper.assertValueEqual(hopper.getItem(3).getCount(), 12,
+        Assertions.valueEqual(helper, hopper.getItem(3).getCount(), 12,
                 "items left in slot 3 - learning a filter must not eat the stack");
         // Driven, so this is about the gate and not about a written field.
         helper.assertTrue(hopper.canPlaceItem(3, new ItemStack(Items.DIAMOND)),
@@ -580,7 +580,7 @@ public final class HopperTests {
                         + reloaded.getFilterMode());
         helper.assertTrue(reloaded.getGhostItem(0).is(Items.DIAMOND),
                 "filter slot 0 came back as " + reloaded.getGhostItem(0));
-        helper.assertValueEqual(reloaded.getGhostItem(0).getCount(), 1,
+        Assertions.valueEqual(helper, reloaded.getGhostItem(0).getCount(), 1,
                 "count of filter slot 0 after the round trip");
         helper.assertTrue(
                 ItemStack.isSameItemSameComponents(reloaded.getGhostItem(4), hopper.getGhostItem(4)),
@@ -590,7 +590,7 @@ public final class HopperTests {
                 "an unconfigured filter slot came back holding " + reloaded.getGhostItem(1));
         helper.assertTrue(reloaded.getItem(1).is(Items.COBBLESTONE),
                 "the hopper's own contents did not survive, slot 1 holds " + reloaded.getItem(1));
-        helper.assertValueEqual(reloaded.getItem(1).getCount(), 7,
+        Assertions.valueEqual(helper, reloaded.getItem(1).getCount(), 7,
                 "items in slot 1 after the round trip");
 
         // The filter is judged by what it does, not by what it stored.
@@ -632,14 +632,14 @@ public final class HopperTests {
         hopper.setGhostItem(2, new ItemStack(Items.DIAMOND, 5));
 
         CompoundTag update = hopper.getUpdateTag(level.registryAccess());
-        helper.assertValueEqual(update.getIntOr("FilterMode", -1), HopperFilterMode.WHITELIST.ordinal(),
+        Assertions.valueEqual(helper, update.getIntOr("FilterMode", -1), HopperFilterMode.WHITELIST.ordinal(),
                 "the filter mode in the update tag");
 
         ListTag entries = update.getCompoundOrEmpty("GhostItems").getListOrEmpty("Items");
-        helper.assertValueEqual(entries.size(), 1,
+        Assertions.valueEqual(helper, entries.size(), 1,
                 "entries in the update tag's filter list - only the one configured slot belongs "
                         + "in it");
-        helper.assertValueEqual((int) entries.getCompoundOrEmpty(0).getByteOr("Slot", (byte) -1), 2,
+        Assertions.valueEqual(helper, (int) entries.getCompoundOrEmpty(0).getByteOr("Slot", (byte) -1), 2,
                 "the slot number the update tag names for the configured filter");
 
         // The client rebuilds its hopper out of exactly this tag, so drive that instead of
@@ -654,7 +654,7 @@ public final class HopperTests {
         helper.assertTrue(clientSide.getGhostItem(2).is(Items.DIAMOND),
                 "the filter item did not survive the update tag, slot 2 holds "
                         + clientSide.getGhostItem(2));
-        helper.assertValueEqual(clientSide.getGhostItem(2).getCount(), 1,
+        Assertions.valueEqual(helper, clientSide.getGhostItem(2).getCount(), 1,
                 "count of the filter item rebuilt from the update tag");
         helper.assertTrue(clientSide.getGhostItem(0).isEmpty(),
                 "the update tag put a filter item into slot 0, which has none");
@@ -750,12 +750,12 @@ public final class HopperTests {
 
         helper.assertTrue(hopper.getGhostItem(0).is(Items.DIAMOND),
                 "the click did not set the filter item, slot 0 holds " + hopper.getGhostItem(0));
-        helper.assertValueEqual(hopper.getGhostItem(0).getCount(), 1,
+        Assertions.valueEqual(helper, hopper.getGhostItem(0).getCount(), 1,
                 "count of a filter item set by clicking");
         helper.assertTrue(hopper.getItem(0).isEmpty(),
                 "the click put the diamonds into the hopper as well, so the filter click is not "
                         + "stopping the vanilla one behind it");
-        helper.assertValueEqual(menu.getCarried().getCount(), 17,
+        Assertions.valueEqual(helper, menu.getCarried().getCount(), 17,
                 "items still on the cursor - setting a filter must not consume them");
 
         // --- the same click on a player inventory slot is none of the filter's business ---
@@ -763,7 +763,7 @@ public final class HopperTests {
         helper.assertTrue(menu.getSlot(FIRST_PLAYER_SLOT).getItem().is(Items.DIAMOND),
                 "the click on a player inventory slot was swallowed by the filter, the slot holds "
                         + menu.getSlot(FIRST_PLAYER_SLOT).getItem());
-        helper.assertValueEqual(menu.getSlot(FIRST_PLAYER_SLOT).getItem().getCount(), 17,
+        Assertions.valueEqual(helper, menu.getSlot(FIRST_PLAYER_SLOT).getItem().getCount(), 17,
                 "items that reached the player inventory slot");
         helper.assertTrue(menu.getCarried().isEmpty(),
                 "the cursor kept its stack, so nothing was really placed");
@@ -775,7 +775,7 @@ public final class HopperTests {
 
         // --- and with the filter off, a hopper slot takes the item like any other slot ---
         menu.clicked(FIRST_PLAYER_SLOT, 0, ClickType.PICKUP, player);
-        helper.assertValueEqual(menu.getCarried().getCount(), 17,
+        Assertions.valueEqual(helper, menu.getCarried().getCount(), 17,
                 "items picked back up off the player inventory slot");
         hopper.toggleFilterMode();
         hopper.toggleFilterMode();
@@ -786,7 +786,7 @@ public final class HopperTests {
         helper.assertTrue(hopper.getItem(1).is(Items.DIAMOND),
                 "with the filter off the click should have filled the slot, it holds "
                         + hopper.getItem(1));
-        helper.assertValueEqual(hopper.getItem(1).getCount(), 17,
+        Assertions.valueEqual(helper, hopper.getItem(1).getCount(), 17,
                 "items placed into the hopper slot with the filter off");
         helper.assertTrue(hopper.getGhostItem(1).isEmpty(),
                 "a disabled filter learned a filter item anyway: " + hopper.getGhostItem(1));
@@ -839,18 +839,18 @@ public final class HopperTests {
         float reinforcedSpeed = ModBlocks.REINFORCED_HOPPER.defaultBlockState().getDestroySpeed(level, probe);
         float netheriteSpeed = ModBlocks.NETHERITE_HOPPER.defaultBlockState().getDestroySpeed(level, probe);
 
-        helper.assertValueEqual(reinforcedSpeed, vanillaSpeed,
+        Assertions.valueEqual(helper, reinforcedSpeed, vanillaSpeed,
                 "the reinforced hopper's hardness, against a vanilla hopper's - both are 3.0");
-        helper.assertValueEqual(netheriteSpeed, 5.0F, "the netherite hopper's hardness");
+        Assertions.valueEqual(helper, netheriteSpeed, 5.0F, "the netherite hopper's hardness");
         helper.assertTrue(netheriteSpeed > reinforcedSpeed,
                 "the netherite hopper should be the harder one, " + netheriteSpeed + " against "
                         + reinforcedSpeed);
 
         // --- blast resistance ---
-        helper.assertValueEqual(ModBlocks.REINFORCED_HOPPER.getExplosionResistance(),
+        Assertions.valueEqual(helper, ModBlocks.REINFORCED_HOPPER.getExplosionResistance(),
                 Blocks.HOPPER.getExplosionResistance(),
                 "the reinforced hopper's blast resistance, against a vanilla hopper's");
-        helper.assertValueEqual(ModBlocks.NETHERITE_HOPPER.getExplosionResistance(), 1200.0F,
+        Assertions.valueEqual(helper, ModBlocks.NETHERITE_HOPPER.getExplosionResistance(), 1200.0F,
                 "the netherite hopper's blast resistance");
         helper.assertTrue(ModBlocks.NETHERITE_HOPPER.getExplosionResistance()
                         > Blocks.HOPPER.getExplosionResistance() * 100.0F,
@@ -894,7 +894,7 @@ public final class HopperTests {
         // first, because DAMAGE_RESISTANT#types() hands out a HolderSet there and named HolderSets
         // do not implement equals. On MC 1.21.11 the component still holds the TagKey itself, and
         // TagKey is a record, so the keys can be compared directly.
-        helper.assertValueEqual(netheriteHopper.types(), netheriteIngot.types(),
+        Assertions.valueEqual(helper, netheriteHopper.types(), netheriteIngot.types(),
                 "the damage types the netherite hopper resists, against a netherite ingot's");
         helper.assertTrue(netheriteHopper.isResistantTo(level.damageSources().lava()),
                 "a dropped netherite hopper should survive lava");
@@ -1050,7 +1050,7 @@ public final class HopperTests {
     }
 
     private static void assertPickaxeMineable(GameTestHelper helper, Block block, boolean expected) {
-        helper.assertValueEqual(block.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE), expected,
+        Assertions.valueEqual(helper, block.defaultBlockState().is(BlockTags.MINEABLE_WITH_PICKAXE), expected,
                 block.getName().getString() + " in minecraft:mineable/pickaxe");
     }
 
@@ -1066,14 +1066,14 @@ public final class HopperTests {
                 "the documented pattern for " + recipeId + " matches no crafting recipe at all, so "
                         + "the block cannot be crafted in game");
         RecipeHolder<CraftingRecipe> holder = match.get();
-        helper.assertValueEqual(holder.id().identifier().toString(), recipeId,
+        Assertions.valueEqual(helper, holder.id().identifier().toString(), recipeId,
                 "recipe matched by the documented pattern");
 
         // MC 1.21.11's Recipe#assemble still takes the registry lookup; 26.2 dropped that argument.
         ItemStack result = holder.value().assemble(grid, level.registryAccess());
         helper.assertTrue(result.is(expected),
                 recipeId + " produced " + result + " instead of the expected item");
-        helper.assertValueEqual(result.getCount(), count, recipeId + ": items produced per craft");
+        Assertions.valueEqual(helper, result.getCount(), count, recipeId + ": items produced per craft");
     }
 
     private static void assertCraftsNothing(GameTestHelper helper, ServerLevel level,

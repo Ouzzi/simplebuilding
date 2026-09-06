@@ -32,6 +32,11 @@ public abstract class LivingEntityMixin {
     }
 
     // --- SWIM SPEED (Tide) ---
+    // WARUM diese Injektion bleibt, obwohl der Spieler-Fall jetzt im PlayerEntityMixin haengt:
+    // Player#getSpeed ueberschreibt diese Methode ohne super-Aufruf, hier kommt also nur an,
+    // wer KEIN Spieler ist. Ruestungstragende Mobs (Drowned, Zombies, Ruestungsstaender)
+    // erreicht sie weiterhin - ein Entfernen waere fuer die eine Verhaltensaenderung.
+    // Doppelt angewendet wird nichts: wer hier durchkommt, kommt am PlayerEntityMixin nicht vorbei.
     @Inject(method = "getSpeed", at = @At("RETURN"), cancellable = true)
     private void simplebuilding$modifySwimSpeed(CallbackInfoReturnable<Float> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;

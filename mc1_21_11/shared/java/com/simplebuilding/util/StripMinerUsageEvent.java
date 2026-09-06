@@ -62,8 +62,17 @@ public final class StripMinerUsageEvent {
             if (!stack.getItem().isCorrectToolForDrops(stack, targetState)) {break;}
 
             MINING_BLOCKS.add(targetPos);
-            boolean broken = serverPlayer.gameMode.destroyBlock(targetPos);
-            MINING_BLOCKS.remove(targetPos);
+            boolean broken;
+            try {
+                broken = serverPlayer.gameMode.destroyBlock(targetPos);
+            } finally {
+                // MINING_BLOCKS ist statisch und wird nie geleert. Ohne finally bliebe targetPos
+                // nach einer Ausnahme aus destroyBlock (Blockentity, Loot, ein anderer Mod im
+                // Break-Event) fuer immer drin, und der Rekursionsschutz oben wuerde jeden
+                // spaeteren Abbau an genau dieser Weltposition den Rest der Sitzung lang
+                // stillschweigend verschlucken. SledgehammerUsageEvent sichert sich genauso ab.
+                MINING_BLOCKS.remove(targetPos);
+            }
 
             if (broken) {
                 brokenBlocks++;

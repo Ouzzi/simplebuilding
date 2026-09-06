@@ -148,13 +148,30 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
         }
     }
 
-    // --- MOVEMENT SPEED (Bolt / Redstone) ---
+    // --- MOVEMENT SPEED (Bolt / Redstone an Land, Tide beim Schwimmen) ---
     @Inject(method = "getSpeed", at = @At("RETURN"), cancellable = true)
     private void simplebuilding$modifyWalkSpeed(CallbackInfoReturnable<Float> cir) {
         Player player = (Player) (Object) this;
-        // Nur an Land anwenden, Schwimmen ist separat im LivingEntityMixin
+        // Nur an Land anwenden, Schwimmen ist die Verzweigung darunter
         if (!player.isSwimming() && !player.isFallFlying()) {
             float mult = TrimEffectUtil.getLandSpeedMultiplier(player);
+            if (mult > 1.0f) {
+                cir.setReturnValue(cir.getReturnValue() * mult);
+            }
+        } else if (player.isSwimming()) {
+            // WARUM der Tide-Bonus hier steht und nicht mehr nur im LivingEntityMixin:
+            // Player#getSpeed ueberschreibt LivingEntity#getSpeed und ruft nie super auf
+            // (26.2: "return (float) getAttributeValue(MOVEMENT_SPEED);"). Die Injektion
+            // dort erreicht also nur Mobs, fuer Spieler war der Bonus tot.
+            //
+            // WARUM er trotzdem schwach wirkt: LivingEntity#travelInWater verrechnet
+            // getSpeed() nur anteilig zu Attributes.WATER_MOVEMENT_EFFICIENCY
+            // ("speed += (getSpeed() - speed) * waterWalker"). Ohne Depth Strider ist
+            // waterWalker 0 und die Schwimmgeschwindigkeit bleibt die feste 0.02F -
+            // getSpeed() geht dann gar nicht ein. Das ist Vanilla-Verhalten, kein Fehler
+            // hier; wer den Bonus spuerbar machen will, muesste an das Attribut gehen,
+            // und das waere neue Balance.
+            float mult = TrimEffectUtil.getSwimSpeedMultiplier(player);
             if (mult > 1.0f) {
                 cir.setReturnValue(cir.getReturnValue() * mult);
             }

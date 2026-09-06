@@ -265,7 +265,7 @@ public final class BuildingWandTests {
                 "the second main hand click did not arm the wand, it returned " + armedAgain);
         driveUntilIdle(helper, player, offHandRun, EquipmentSlot.OFFHAND);
 
-        helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS),
+        Assertions.valueEqual(helper, blocksIn(helper, SMALL_SITE, Blocks.GLASS),
                 square(ANCHOR.above(), Direction.Axis.Y, 1),
                 "a wand ticked in the off hand did not finish its plane, although inventoryTick "
                         + "accepts that slot");
@@ -318,7 +318,7 @@ public final class BuildingWandTests {
         // --- the one face axis no other wand test clicks: X, so the plane stands in Y/Z ---
         Set<BlockPos> east = buildPlane(helper, player,
                 tunedWand(ModItems.DIAMOND_BUILDING_WAND, 1, 0), Direction.EAST, SMALL_SITE);
-        helper.assertValueEqual(east, square(ANCHOR.relative(Direction.EAST), Direction.Axis.X, 1),
+        Assertions.valueEqual(helper, east, square(ANCHOR.relative(Direction.EAST), Direction.Axis.X, 1),
                 "clicking the east face did not fill the upright plane one block east of the "
                         + "clicked block");
 
@@ -388,7 +388,7 @@ public final class BuildingWandTests {
         for (int tier = 0; tier < tiers.size(); tier++) {
             BuildingWandItem wandItem = tiers.get(tier);
             int diameter = wandItem.getWandSquareDiameter();
-            helper.assertValueEqual(diameter, declared.get(tier),
+            Assertions.valueEqual(helper, diameter, declared.get(tier),
                     BuiltInRegistries.ITEM.getKey(wandItem) + " was registered with the wrong "
                             + "BUILDING_WAND_SQUARE constant");
             helper.assertTrue(diameter % 2 == 1,
@@ -405,7 +405,7 @@ public final class BuildingWandTests {
         int copperDiameter = ModItems.COPPER_BUILDING_WAND.getWandSquareDiameter();
         Set<BlockPos> copper = buildPlane(helper, player,
                 tunedWand(ModItems.COPPER_BUILDING_WAND, 99, 0), Direction.UP, LARGE_SITE);
-        helper.assertValueEqual(copper,
+        Assertions.valueEqual(helper, copper,
                 square(ANCHOR.above(), Direction.Axis.Y, (copperDiameter - 1) / 2),
                 "the copper wand did not build the square its own maximum diameter of "
                         + copperDiameter + " allows when it was asked for radius 99");
@@ -414,7 +414,7 @@ public final class BuildingWandTests {
         int ironDiameter = ModItems.IRON_BUILDING_WAND.getWandSquareDiameter();
         Set<BlockPos> iron = buildPlane(helper, player,
                 tunedWand(ModItems.IRON_BUILDING_WAND, 99, 0), Direction.UP, LARGE_SITE);
-        helper.assertValueEqual(iron,
+        Assertions.valueEqual(helper, iron,
                 square(ANCHOR.above(), Direction.Axis.Y, (ironDiameter - 1) / 2),
                 "the iron wand did not build the square its own maximum diameter of " + ironDiameter
                         + " allows when it was asked for radius 99");
@@ -492,16 +492,16 @@ public final class BuildingWandTests {
                 "the wand refused a click although both hands held building blocks, it returned " + armed);
         driveUntilIdle(helper, player, wand, EquipmentSlot.MAINHAND);
 
-        helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS), plane,
+        Assertions.valueEqual(helper, blocksIn(helper, SMALL_SITE, Blocks.GLASS), plane,
                 "the wand did not build the plane out of the glass in the off hand");
         helper.assertTrue(blocksIn(helper, SMALL_SITE, Blocks.OAK_PLANKS).isEmpty(),
                 "the wand armed itself with the hotbar planks, so findFirstBuildingBlock reached the "
                         + "hotbar before the off hand");
-        helper.assertValueEqual(hotbarPlanks.getCount(), 16,
+        Assertions.valueEqual(helper, hotbarPlanks.getCount(), 16,
                 "the hotbar planks were spent although the off hand supplied the plane");
-        helper.assertValueEqual(offHandGlass.getCount(), 64 - plane.size(),
+        Assertions.valueEqual(helper, offHandGlass.getCount(), 64 - plane.size(),
                 "the off hand glass is not what paid for the plane");
-        helper.assertValueEqual(hotbarGlass.getCount(), 16,
+        Assertions.valueEqual(helper, hotbarGlass.getCount(), 16,
                 "the hotbar glass paid for part of the plane although the off hand held the same "
                         + "block, so findSpecificMaterial searches the hotbar before the off hand");
 
@@ -519,7 +519,7 @@ public final class BuildingWandTests {
                 "the wand armed itself although the search had come back empty");
         helper.assertTrue(blocksIn(helper, SMALL_SITE, Blocks.GLASS).isEmpty(),
                 "the refused click still built something");
-        helper.assertValueEqual(countCarried(player, Items.GLASS), 64,
+        Assertions.valueEqual(helper, countCarried(player, Items.GLASS), 64,
                 "the refused click still spent glass out of the backpack");
 
         // --- 3. Master Builder opens exactly that slot ---
@@ -533,9 +533,9 @@ public final class BuildingWandTests {
                         + "returned " + accepted);
         driveUntilIdle(helper, player, builderWand, EquipmentSlot.MAINHAND);
 
-        helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS), plane,
+        Assertions.valueEqual(helper, blocksIn(helper, SMALL_SITE, Blocks.GLASS), plane,
                 "Master Builder did not let the wand build out of the backpack");
-        helper.assertValueEqual(countCarried(player, Items.GLASS), 64 - plane.size(),
+        Assertions.valueEqual(helper, countCarried(player, Items.GLASS), 64 - plane.size(),
                 "the Master Builder run did not pay for its plane out of the backpack slot");
 
         // --- 4. the same guard once more, this time inside findSpecificMaterial ---
@@ -544,19 +544,19 @@ public final class BuildingWandTests {
         // longer in useOn but in its own tick.
         ItemStack strandedWand = tunedWand(ModItems.DIAMOND_BUILDING_WAND, 1, 0);
         int leftAfterStranding = buildOnOneBlockPlusTheBackpack(helper, player, strandedWand);
-        helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS), Set.of(ANCHOR.above()),
+        Assertions.valueEqual(helper, blocksIn(helper, SMALL_SITE, Blocks.GLASS), Set.of(ANCHOR.above()),
                 "a wand without Master Builder built more than the one block its off hand paid for, "
                         + "so findSpecificMaterial reaches into the backpack as well");
-        helper.assertValueEqual(leftAfterStranding, 64,
+        Assertions.valueEqual(helper, leftAfterStranding, 64,
                 "the stranded wand still spent glass out of the backpack slot");
 
         ItemStack builderMidPlane = tunedWand(ModItems.DIAMOND_BUILDING_WAND, 1, 0);
         builderMidPlane.enchant(enchantment(helper, ModEnchantments.MASTER_BUILDER), 1);
         int leftAfterRing = buildOnOneBlockPlusTheBackpack(helper, player, builderMidPlane);
-        helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS), plane,
+        Assertions.valueEqual(helper, blocksIn(helper, SMALL_SITE, Blocks.GLASS), plane,
                 "Master Builder did not let the wand finish its plane out of the backpack after the "
                         + "one block in its off hand had run out");
-        helper.assertValueEqual(leftAfterRing, 64 - (plane.size() - 1),
+        Assertions.valueEqual(helper, leftAfterRing, 64 - (plane.size() - 1),
                 "the ring after the centre block was not paid for out of the backpack slot");
 
         TestCleanup.succeed(helper);
@@ -611,7 +611,7 @@ public final class BuildingWandTests {
         player.getInventory().setItem(1, new ItemStack(Items.GLASS, 64));
         driveUntilIdle(helper, player, lateWand, EquipmentSlot.MAINHAND);
 
-        helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS),
+        Assertions.valueEqual(helper, blocksIn(helper, SMALL_SITE, Blocks.GLASS),
                 square(ANCHOR.above(), Direction.Axis.Y, 1),
                 "the wand did not look for a building block again after it had been armed with none");
 
@@ -622,7 +622,7 @@ public final class BuildingWandTests {
         useOn(helper, player, emptyWand, Direction.UP, InteractionHand.MAIN_HAND);
 
         int ticks = driveUntilIdle(helper, player, emptyWand, EquipmentSlot.MAINHAND);
-        helper.assertValueEqual(ticks, 1,
+        Assertions.valueEqual(helper, ticks, 1,
                 "the wand needed " + ticks + " ticks to notice that it has nothing to build with");
         helper.assertTrue(blocksIn(helper, SMALL_SITE, Blocks.GLASS).isEmpty()
                         && blocksIn(helper, SMALL_SITE, Blocks.STONE).isEmpty(),
@@ -636,10 +636,10 @@ public final class BuildingWandTests {
         useOn(helper, player, paletteWand, Direction.UP, InteractionHand.MAIN_HAND);
         driveUntilIdle(helper, player, paletteWand, EquipmentSlot.MAINHAND);
 
-        helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.STONE),
+        Assertions.valueEqual(helper, blocksIn(helper, SMALL_SITE, Blocks.STONE),
                 square(ANCHOR.above(), Direction.Axis.Y, 1),
                 "a creative Colour Palette wand with an empty inventory did not fall back to stone");
-        helper.assertValueEqual(countCarried(player, Items.STONE), 0,
+        Assertions.valueEqual(helper, countCarried(player, Items.STONE), 0,
                 "the stone fallback came out of the player's inventory instead of out of nothing");
 
         TestCleanup.succeed(helper);
@@ -880,7 +880,7 @@ public final class BuildingWandTests {
         Vec3 pos = helper.absoluteVec(new Vec3(3.5, 1.0, 6.5));
         player.snapTo(pos.x, pos.y, pos.z, 0.0F, 0.0F);
         player.getAbilities().instabuild = instabuild;
-        helper.assertValueEqual(player.getAbilities().instabuild, instabuild,
+        Assertions.valueEqual(helper, player.getAbilities().instabuild, instabuild,
                 "the mock player's instabuild flag could not be set, so every branch this test is "
                         + "about would be taken the other way round");
         // Hand the player back no matter how the test ends; a leaked mock player keeps the player
@@ -1009,7 +1009,7 @@ public final class BuildingWandTests {
 
         tickWand(helper, player, wand, EquipmentSlot.MAINHAND);
         Set<BlockPos> centreOnly = Set.of(ANCHOR.above());
-        helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS), centreOnly,
+        Assertions.valueEqual(helper, blocksIn(helper, SMALL_SITE, Blocks.GLASS), centreOnly,
                 "the first tick did not place exactly the centre of the plane, so the interruption "
                         + "below would not happen in the middle of a build");
         helper.assertTrue(wandIsActive(wand),
@@ -1022,7 +1022,7 @@ public final class BuildingWandTests {
         for (int tick = 0; tick < 5; tick++) {
             tickWand(helper, player, wand, EquipmentSlot.MAINHAND);
         }
-        helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS), centreOnly,
+        Assertions.valueEqual(helper, blocksIn(helper, SMALL_SITE, Blocks.GLASS), centreOnly,
                 "the wand picked its build back up after a tick " + what + "; leaving the hands has "
                         + "to cancel the build, not pause it");
     }
@@ -1242,7 +1242,7 @@ public final class BuildingWandTests {
         helper.assertTrue(result.is(wand),
                 "the wand pattern with " + BuiltInRegistries.ITEM.getKey(core) + " crafts " + result
                         + " instead of " + BuiltInRegistries.ITEM.getKey(wand));
-        helper.assertValueEqual(result.getCount(), 1,
+        Assertions.valueEqual(helper, result.getCount(), 1,
                 BuiltInRegistries.ITEM.getKey(wand) + ": wands produced per craft");
     }
 
@@ -1255,7 +1255,7 @@ public final class BuildingWandTests {
         ItemStack forged = holder.get().value().assemble(input, level.registryAccess());
         helper.assertTrue(forged.is(expected),
                 what + " forges " + forged + " instead of " + BuiltInRegistries.ITEM.getKey(expected));
-        helper.assertValueEqual(forged.getCount(), 1, what + ": items produced per upgrade");
+        Assertions.valueEqual(helper, forged.getCount(), 1, what + ": items produced per upgrade");
     }
 
     /**

@@ -2,6 +2,7 @@ package com.simplebuilding.gametest;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.JsonOps;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -34,6 +36,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.EnchantmentTags;
@@ -51,6 +54,8 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.VillagerTrade;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -134,6 +139,14 @@ public final class MiningEnchantmentTests {
     /** A two block vein far away from the slab; breaking it costs exactly one block of wear. */
     private static final BlockPos PAIR_ORIGIN = new BlockPos(6, 5, 6);
     private static final BlockPos PAIR_NEIGHBOUR = new BlockPos(6, 5, 5);
+    /**
+     * A second two block vein, in a corner nothing else in this class touches, for the case that
+     * lets {@code destroyBlock} throw. {@link #GUARD_NEIGHBOUR} is the block the hook is in the
+     * middle of taking when the throw happens, so it is the position that would stay behind in
+     * {@code MINED_BLOCKS}; the recovery run afterwards starts from exactly there.
+     */
+    private static final BlockPos GUARD_ORIGIN = new BlockPos(6, 3, 1);
+    private static final BlockPos GUARD_NEIGHBOUR = new BlockPos(6, 3, 2);
 
     // --- tool and block gates (test 2) -----------------------------------------------------
     private static final BlockPos DIRT_ORIGIN = new BlockPos(1, 1, 1);
@@ -161,6 +174,15 @@ public final class MiningEnchantmentTests {
     private static final List<BlockPos> LEVEL_TUNNEL = List.of(new BlockPos(5, 2, 2), new BlockPos(5, 2, 3));
     /** Above {@link #LEVEL_ORIGIN}: reached only if the pitch threshold slipped. */
     private static final BlockPos LEVEL_ROOF = new BlockPos(5, 3, 1);
+    /**
+     * A three block column in the far corner for the guard case. Mined straight down at level I,
+     * so each run takes exactly one block: {@link #GUARD_MIDDLE} is where {@code destroyBlock} is
+     * made to throw, and {@link #GUARD_BOTTOM} is what the recovery run from
+     * {@link #GUARD_MIDDLE} has to reach.
+     */
+    private static final BlockPos GUARD_TOP = new BlockPos(7, 3, 7);
+    private static final BlockPos GUARD_MIDDLE = new BlockPos(7, 2, 7);
+    private static final BlockPos GUARD_BOTTOM = new BlockPos(7, 1, 7);
 
     /** The six enchantments this class calls "the mining enchantments". */
     private static final List<ResourceKey<Enchantment>> MINING_ENCHANTMENTS = List.of(
@@ -211,10 +233,18 @@ public final class MiningEnchantmentTests {
      * rather than assumed, so the assertion is about the mod's stop condition and not about
      * vanilla's tool damage.
      *
+     * <p>The last case is about the other half of that guard: taking positions back <em>out</em>
+     * of the set. {@code MINED_BLOCKS} is static and is never cleared, so a position that stays
+     * behind stays behind for the rest of the server session, and the guard then swallows every
+     * later vein mine that starts on that block - silently, because the hook returns {@code true}
+     * and vanilla still breaks the single origin. The only way in is a {@code destroyBlock} that
+     * throws, which {@link #trapPlayer} arranges for one position.
+     *
      * <p>What breaks it: any change to the level-to-budget table, dropping the {@code -1} that
      * accounts for the origin, letting the flood fill count the origin twice, losing the
-     * {@code MINED_BLOCKS} guard, and removing the {@code stack.isEmpty()} break - the last
-     * case would then keep mining with a pickaxe that no longer exists.
+     * {@code MINED_BLOCKS} guard, removing the {@code stack.isEmpty()} break - that case would
+     * then keep mining with a pickaxe that no longer exists - and taking the {@code try/finally}
+     * off the {@code destroyBlock} call, which is what the last case is there for.
      */
     public static void veinMinerSpendsItsPerLevelBudgetAndStopsWhenTheToolBreaks(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 3.0, 3.5), 0.0F, 90.0F);
@@ -252,6 +282,28 @@ public final class MiningEnchantmentTests {
                         + player.getMainHandItem() + " with damage " + doomed.getDamageValue());
         helper.assertValueEqual(brokenCount(helper, SLAB_TAIL), 3,
                 "blocks the Vein Miner hook took before the pickaxe broke");
+
+        // --- a destroyBlock that throws must not cost the position for good ---
+        helper.setBlock(GUARD_ORIGIN, Blocks.COAL_ORE);
+        helper.setBlock(GUARD_NEIGHBOUR, Blocks.COAL_ORE);
+
+        ServerPlayer trap = trapPlayer(helper, new Vec3(3.5, 3.0, 3.5), 0.0F, 90.0F,
+                helper.absolutePos(GUARD_NEIGHBOUR));
+        boolean threw = false;
+        try {
+            veinMine(helper, trap, veinMinerTool(helper, Items.IRON_PICKAXE, 5), GUARD_ORIGIN);
+        } catch (DestroyBlockFailure expected) {
+            threw = true;
+        }
+        helper.assertTrue(threw,
+                "the booby trapped destroyBlock never fired, so the hook never reached "
+                        + GUARD_NEIGHBOUR + " and the case below proves nothing");
+        helper.assertBlockPresent(Blocks.COAL_ORE, GUARD_NEIGHBOUR);
+
+        // The same position, now as the origin of an ordinary vein mine. Without the try/finally
+        // it is still sitting in MINED_BLOCKS and the hook returns before it looks at anything.
+        veinMine(helper, player, veinMinerTool(helper, Items.IRON_PICKAXE, 5), GUARD_NEIGHBOUR);
+        helper.assertBlockPresent(Blocks.AIR, GUARD_ORIGIN);
 
         helper.succeed();
     }
@@ -355,9 +407,16 @@ public final class MiningEnchantmentTests {
      * {@code <=} and {@code <} indistinguishable; the roof block above the second origin is
      * what turns that difference red.
      *
+     * <p>The last case is the {@code MINING_BLOCKS} guard's cleanup path, the mirror of the
+     * {@code MINED_BLOCKS} case in
+     * {@link #veinMinerSpendsItsPerLevelBudgetAndStopsWhenTheToolBreaks}: the set is static and
+     * never cleared, so a position left behind by a {@code destroyBlock} that threw kills every
+     * later tunnel that starts on that block for the rest of the session.
+     *
      * <p>What breaks it: an inverted or missing {@code UP} branch, a threshold that drifts
-     * (the -60 case would dig upwards), and a depth that no longer maps level III to four -
-     * {@link #COLUMN_CAP} sits one block past the reach on purpose.
+     * (the -60 case would dig upwards), a depth that no longer maps level III to four -
+     * {@link #COLUMN_CAP} sits one block past the reach on purpose - and taking the
+     * {@code try/finally} off the {@code destroyBlock} call.
      */
     public static void stripMinerDigsUpwardsOnlyPastTheSteepPitchThreshold(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 1.0, 3.5), 0.0F, -90.0F);
@@ -391,6 +450,30 @@ public final class MiningEnchantmentTests {
             helper.assertBlockPresent(Blocks.AIR, pos);
         }
         helper.assertBlockPresent(Blocks.STONE, LEVEL_ROOF);
+
+        // --- a destroyBlock that throws must not cost the position for good ---
+        helper.setBlock(GUARD_TOP, Blocks.STONE);
+        helper.setBlock(GUARD_MIDDLE, Blocks.STONE);
+        helper.setBlock(GUARD_BOTTOM, Blocks.STONE);
+
+        ServerPlayer trap = trapPlayer(helper, new Vec3(3.5, 1.0, 3.5), 0.0F, 90.0F,
+                helper.absolutePos(GUARD_MIDDLE));
+        boolean threw = false;
+        try {
+            stripMine(helper, trap, stripMinerTool(helper, Items.IRON_PICKAXE, 1), GUARD_TOP);
+        } catch (DestroyBlockFailure expected) {
+            threw = true;
+        }
+        helper.assertTrue(threw,
+                "the booby trapped destroyBlock never fired, so the hook never reached "
+                        + GUARD_MIDDLE + " and the case below proves nothing");
+        helper.assertBlockPresent(Blocks.STONE, GUARD_MIDDLE);
+
+        // The same position, now as the origin of an ordinary tunnel. Without the try/finally it
+        // is still sitting in MINING_BLOCKS and the hook returns before it digs anything.
+        aim(player, 0.0F, 90.0F);
+        stripMine(helper, player, stripMinerTool(helper, Items.IRON_PICKAXE, 1), GUARD_MIDDLE);
+        helper.assertBlockPresent(Blocks.AIR, GUARD_BOTTOM);
 
         helper.succeed();
     }
@@ -942,6 +1025,51 @@ public final class MiningEnchantmentTests {
     @SuppressWarnings("removal")
     private static void aim(ServerPlayer player, float yRot, float xRot) {
         player.snapTo(player.getX(), player.getY(), player.getZ(), yRot, xRot);
+    }
+
+    /** Thrown out of {@link #trapPlayer}'s {@code destroyBlock}, and out of nothing else. */
+    private static final class DestroyBlockFailure extends RuntimeException {
+        DestroyBlockFailure(BlockPos pos) {
+            super("booby trapped destroyBlock at " + pos);
+        }
+    }
+
+    /**
+     * A mock player whose {@code destroyBlock} throws for one single world position, so that the
+     * cleanup path of the hooks' recursion guards can be driven at all.
+     *
+     * <p>The lever is {@code Player#blockActionRestricted}:
+     * {@code ServerPlayerGameMode#destroyBlock} asks it about every block it is about to take,
+     * with the absolute position, and it does so before it touches the world - checked against
+     * both the 26.2 and the 1.21.11 jar. Overriding it is therefore the one place where a test
+     * can fail a single {@code destroyBlock} without changing a line of the mod, and the world is
+     * left exactly as it was, which keeps the assertions afterwards readable.
+     *
+     * <p>Built like vanilla's own {@code GameTestHelper#makeMockServerPlayer(GameType)}: never
+     * placed in the level and never in the player list, so it needs no cleanup and cannot stall
+     * the server on shutdown. That player has no {@code connection} and would throw on anything
+     * that sends it a packet - which is fine here, because it never gets past the trap.
+     */
+    @SuppressWarnings("removal")
+    private static ServerPlayer trapPlayer(GameTestHelper helper, Vec3 relativePos, float yRot, float xRot,
+                                           BlockPos absoluteTrap) {
+        ServerPlayer player = new ServerPlayer(
+                helper.getLevel().getServer(), helper.getLevel(),
+                new GameProfile(UUID.randomUUID(), "test-trap-player"),
+                ClientInformation.createDefault()) {
+            @Override
+            public boolean blockActionRestricted(Level level, BlockPos pos, GameType mode) {
+                if (pos.equals(absoluteTrap)) {
+                    throw new DestroyBlockFailure(pos);
+                }
+                return super.blockActionRestricted(level, pos, mode);
+            }
+        };
+        Vec3 pos = helper.absoluteVec(relativePos);
+        player.snapTo(pos.x, pos.y, pos.z, yRot, xRot);
+        // Both hooks are behind a sneak gate; without this the trap would never be reached.
+        player.setShiftKeyDown(true);
+        return player;
     }
 
     /**

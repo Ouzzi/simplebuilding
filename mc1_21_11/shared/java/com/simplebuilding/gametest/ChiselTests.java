@@ -361,7 +361,7 @@ public final class ChiselTests {
         for (int step = 0; step < circle.length; step++) {
             Block got = chiselAt(helper, player, chisel, TARGET, false,
                     "netherite chisel, step " + (step + 1) + " of the nether brick circle");
-            helper.assertValueEqual(got, circle[step],
+            Assertions.valueEqual(helper, got, circle[step],
                     "step " + (step + 1) + " of the nether brick circle");
         }
 
@@ -376,7 +376,7 @@ public final class ChiselTests {
         helper.setBlock(sandPos, Blocks.CHISELED_SANDSTONE);
         Block crumbled = chiselAt(helper, player, chisel, sandPos, false,
                 "netherite chisel on chiseled sandstone");
-        helper.assertValueEqual(crumbled, Blocks.SAND, "chiseled sandstone under a netherite chisel");
+        Assertions.valueEqual(helper, crumbled, Blocks.SAND, "chiseled sandstone under a netherite chisel");
 
         TestCleanup.succeed(helper);
     }
@@ -430,10 +430,10 @@ public final class ChiselTests {
             }
             helper.assertTrue(ticks < COOLDOWN_TICK_CAP,
                     row.name() + " never came off cooldown within " + COOLDOWN_TICK_CAP + " ticks");
-            helper.assertValueEqual(ticks, row.tool().getCooldownTicks(),
+            Assertions.valueEqual(helper, ticks, row.tool().getCooldownTicks(),
                     row.name() + ": the cooldown that reached the player is not the one the item "
                             + "was registered with");
-            helper.assertValueEqual(ticks, row.cooldownTicks(),
+            Assertions.valueEqual(helper, ticks, row.cooldownTicks(),
                     row.name() + ": cooldown ticks for this tier");
         }
 
@@ -483,7 +483,7 @@ public final class ChiselTests {
                 .setValue(StairBlock.FACING, Direction.SOUTH)
                 .setValue(StairBlock.HALF, Half.TOP));
         Block wet = chiselAt(helper, player, stoneChisel, TARGET, false, "stone chisel on wet stone stairs");
-        helper.assertValueEqual(wet, Blocks.COBBLESTONE_STAIRS, "the wet stair's new block");
+        Assertions.valueEqual(helper, wet, Blocks.COBBLESTONE_STAIRS, "the wet stair's new block");
         helper.assertTrue(helper.getBlockState(TARGET).getValue(BlockStateProperties.WATERLOGGED),
                 "the water was lost when the stair was chiselled, so every waterlogged stair in a "
                         + "build drains the moment it is touched");
@@ -494,7 +494,7 @@ public final class ChiselTests {
                 .setValue(StairBlock.FACING, Direction.SOUTH)
                 .setValue(StairBlock.HALF, Half.TOP));
         Block dry = chiselAt(helper, player, stoneChisel, TARGET, false, "stone chisel on dry stone stairs");
-        helper.assertValueEqual(dry, Blocks.COBBLESTONE_STAIRS, "the dry stair's new block");
+        Assertions.valueEqual(helper, dry, Blocks.COBBLESTONE_STAIRS, "the dry stair's new block");
         helper.assertFalse(helper.getBlockState(TARGET).getValue(BlockStateProperties.WATERLOGGED),
                 "a dry stair came out of the chisel waterlogged");
 
@@ -516,14 +516,14 @@ public final class ChiselTests {
                         + "and the block can no longer be re-aimed; it returned " + result);
 
         BlockState after = helper.getBlockState(TARGET);
-        helper.assertValueEqual(after.getBlock(), Blocks.NETHER_BRICK_STAIRS,
+        Assertions.valueEqual(helper, after.getBlock(), Blocks.NETHER_BRICK_STAIRS,
                 "a self-mapping entry changed the block type");
-        helper.assertValueEqual(after.getValue(StairBlock.FACING), Direction.WEST,
+        Assertions.valueEqual(helper, after.getValue(StairBlock.FACING), Direction.WEST,
                 "the re-aimed stair does not face the way the player looks");
-        helper.assertValueEqual(after.getValue(StairBlock.HALF), Half.BOTTOM,
+        Assertions.valueEqual(helper, after.getValue(StairBlock.HALF), Half.BOTTOM,
                 "the re-aimed stair kept its top half after a click on the top face");
 
-        helper.assertValueEqual(chisel.getDamageValue(), 1,
+        Assertions.valueEqual(helper, chisel.getDamageValue(), 1,
                 "re-aiming a block costs a different amount of durability than a forward step");
         helper.assertTrue(player.getCooldowns().isOnCooldown(chisel),
                 "re-aiming a block set no cooldown, so self-mapping entries can be spammed");
@@ -569,7 +569,7 @@ public final class ChiselTests {
      */
     public static void intuitiveOrientationDerivesTheEdgeDirection(GameTestHelper helper) {
         ServerPlayer player = creativePlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
-        helper.assertValueEqual(player.getDirection(), Direction.NORTH,
+        Assertions.valueEqual(helper, player.getDirection(), Direction.NORTH,
                 "the mock player is not facing north, so the expected stair facings below are wrong");
 
         BlockState pillar = Blocks.QUARTZ_PILLAR.defaultBlockState();
@@ -634,7 +634,7 @@ public final class ChiselTests {
 
         // --- a block with none of the three properties comes back untouched ---
         BlockState plain = Blocks.STONE.defaultBlockState();
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 ChiselItem.applyIntuitiveOrientation(plain, Direction.UP, TOP_WEST_RIM, player),
                 plain, "a block without axis, stair facing or facing was rewritten anyway");
 
@@ -666,22 +666,22 @@ public final class ChiselTests {
      */
     public static void chiselledPillarsAndStairsTakeTheClickOrientation(GameTestHelper helper) {
         ServerPlayer player = creativePlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
-        helper.assertValueEqual(player.getDirection(), Direction.NORTH,
+        Assertions.valueEqual(helper, player.getDirection(), Direction.NORTH,
                 "the mock player is not facing north, so the expected stair facing below is wrong");
 
         // --- pillar: the axis comes from the click, the source block has no axis to copy ---
         ItemStack goldChisel = new ItemStack(ModItems.GOLD_CHISEL);
         helper.setBlock(TARGET, Blocks.SMOOTH_QUARTZ);
         Block upright = chiselAt(helper, player, goldChisel, TARGET, false, "gold chisel, top centre");
-        helper.assertValueEqual(upright, Blocks.QUARTZ_PILLAR, "smooth quartz under a gold chisel");
-        helper.assertValueEqual(helper.getBlockState(TARGET).getValue(RotatedPillarBlock.AXIS),
+        Assertions.valueEqual(helper, upright, Blocks.QUARTZ_PILLAR, "smooth quartz under a gold chisel");
+        Assertions.valueEqual(helper, helper.getBlockState(TARGET).getValue(RotatedPillarBlock.AXIS),
                 Direction.Axis.Y, "a pillar chiselled in the middle of the top face");
 
         helper.setBlock(TARGET, Blocks.SMOOTH_QUARTZ);
         clearCooldown(player, goldChisel);
         useOn(helper, player, goldChisel, TARGET, Direction.UP, TOP_WEST_RIM);
         helper.assertBlockPresent(Blocks.QUARTZ_PILLAR, TARGET);
-        helper.assertValueEqual(helper.getBlockState(TARGET).getValue(RotatedPillarBlock.AXIS),
+        Assertions.valueEqual(helper, helper.getBlockState(TARGET).getValue(RotatedPillarBlock.AXIS),
                 Direction.Axis.X, "a pillar chiselled on the west rim of the top face");
 
         // --- stairs: the old facing and half are overwritten, not carried over ---
@@ -694,20 +694,20 @@ public final class ChiselTests {
         clearCooldown(player, stoneChisel);
         useOn(helper, player, stoneChisel, TARGET, Direction.UP, TOP_CENTRE);
         BlockState centre = helper.getBlockState(TARGET);
-        helper.assertValueEqual(centre.getBlock(), Blocks.COBBLESTONE_STAIRS,
+        Assertions.valueEqual(helper, centre.getBlock(), Blocks.COBBLESTONE_STAIRS,
                 "stone stairs under a stone chisel");
-        helper.assertValueEqual(centre.getValue(StairBlock.FACING), Direction.NORTH,
+        Assertions.valueEqual(helper, centre.getValue(StairBlock.FACING), Direction.NORTH,
                 "a stair chiselled in the middle of the top face does not face the player");
-        helper.assertValueEqual(centre.getValue(StairBlock.HALF), Half.BOTTOM,
+        Assertions.valueEqual(helper, centre.getValue(StairBlock.HALF), Half.BOTTOM,
                 "a stair chiselled in the middle of the top face kept the old top half");
 
         helper.setBlock(TARGET, wrongWayRound);
         clearCooldown(player, stoneChisel);
         useOn(helper, player, stoneChisel, TARGET, Direction.UP, TOP_WEST_RIM);
         BlockState rim = helper.getBlockState(TARGET);
-        helper.assertValueEqual(rim.getValue(StairBlock.FACING), Direction.EAST,
+        Assertions.valueEqual(helper, rim.getValue(StairBlock.FACING), Direction.EAST,
                 "a stair chiselled on the west rim does not climb away from that rim");
-        helper.assertValueEqual(rim.getValue(StairBlock.HALF), Half.TOP,
+        Assertions.valueEqual(helper, rim.getValue(StairBlock.HALF), Half.TOP,
                 "a stair chiselled on a rim of the top face");
 
         // --- and the same centre click from a second angle. The input faces south, the result
@@ -717,7 +717,7 @@ public final class ChiselTests {
         helper.setBlock(TARGET, wrongWayRound);
         clearCooldown(player, stoneChisel);
         useOn(helper, player, stoneChisel, TARGET, Direction.UP, TOP_CENTRE);
-        helper.assertValueEqual(helper.getBlockState(TARGET).getValue(StairBlock.FACING),
+        Assertions.valueEqual(helper, helper.getBlockState(TARGET).getValue(StairBlock.FACING),
                 Direction.WEST,
                 "a stair chiselled in the middle of the top face by a west-facing player does not "
                         + "face west, so the click path does not pass the player's direction on");
@@ -766,7 +766,7 @@ public final class ChiselTests {
                         + "three mineable tags");
 
         // --- half the material speed, on every family and on three different materials ---
-        helper.assertValueEqual(chisel.getMaterial(), ToolMaterial.STONE,
+        Assertions.valueEqual(helper, chisel.getMaterial(), ToolMaterial.STONE,
                 "stone_chisel is no longer built on ToolMaterial.STONE, so the speeds below compare "
                         + "against the wrong material");
         assertSpeed(helper, chisel, Blocks.STONE, ToolMaterial.STONE.speed() * 0.5F, "stone chisel on stone");
@@ -782,7 +782,7 @@ public final class ChiselTests {
         helper.setBlock(TARGET, Blocks.STONE);
         BlockPos absolute = helper.absolutePos(TARGET);
         chisel.mineBlock(stack, helper.getLevel(), helper.getBlockState(TARGET), absolute, player);
-        helper.assertValueEqual(stack.getDamageValue(), 2, "wear after mining one stone block");
+        Assertions.valueEqual(helper, stack.getDamageValue(), 2, "wear after mining one stone block");
 
         // --- ... but nothing at all for a block with no hardness. TNT is the rare instabreak
         //     block that is also a full cube, so it can be placed anywhere in the room. ---
@@ -791,7 +791,7 @@ public final class ChiselTests {
                 "the zero-hardness probe block is no longer instabreak, so the assertion below "
                         + "would pass for the wrong reason");
         chisel.mineBlock(stack, helper.getLevel(), helper.getBlockState(TARGET), absolute, player);
-        helper.assertValueEqual(stack.getDamageValue(), 2,
+        Assertions.valueEqual(helper, stack.getDamageValue(), 2,
                 "the chisel wore down on a block that breaks instantly");
 
         TestCleanup.succeed(helper);
@@ -947,7 +947,7 @@ public final class ChiselTests {
     private static void turnedTo(GameTestHelper helper, ServerPlayer player, float yRot,
                                  Direction expected) {
         player.snapTo(player.getX(), player.getY(), player.getZ(), yRot, player.getXRot());
-        helper.assertValueEqual(player.getDirection(), expected,
+        Assertions.valueEqual(helper, player.getDirection(), expected,
                 "a mock player set to yaw " + yRot + " reports " + player.getDirection()
                         + ", so the stair facings expected from it are wrong");
     }
@@ -982,7 +982,7 @@ public final class ChiselTests {
         InteractionResult result = useOn(helper, player, stack, relativePos, Direction.UP, TOP_CENTRE);
         boolean acted = result != InteractionResult.PASS;
 
-        helper.assertValueEqual(predicted, acted,
+        Assertions.valueEqual(helper, predicted, acted,
                 "canChisel and the actual click disagree for " + what + " (canChisel said " + predicted
                         + ", the click returned " + result + "), so the block highlight lies to the player");
         return helper.getBlockState(relativePos).getBlock();
@@ -993,7 +993,7 @@ public final class ChiselTests {
                                       boolean sneaking, Block from, Block to, String what) {
         helper.setBlock(TARGET, from);
         Block got = chiselAt(helper, player, stack, TARGET, sneaking, what);
-        helper.assertValueEqual(got, to, what + " on " + from);
+        Assertions.valueEqual(helper, got, to, what + " on " + from);
     }
 
     /** Places {@code from}, clicks it and demands that nothing happened. */
@@ -1001,7 +1001,7 @@ public final class ChiselTests {
                                       boolean sneaking, Block from, String complaint) {
         helper.setBlock(TARGET, from);
         Block got = chiselAt(helper, player, stack, TARGET, sneaking, complaint);
-        helper.assertValueEqual(got, from, complaint + " (it became " + got + ")");
+        Assertions.valueEqual(helper, got, from, complaint + " (it became " + got + ")");
     }
 
     /** Runs the same block through both members of a material pair and demands the same result. */
@@ -1017,14 +1017,14 @@ public final class ChiselTests {
     private static void assertAxis(GameTestHelper helper, ServerPlayer player, BlockState state,
                                    Direction side, Vec3 hit, Direction.Axis expected, String what) {
         BlockState oriented = ChiselItem.applyIntuitiveOrientation(state, side, hit, player);
-        helper.assertValueEqual(oriented.getValue(RotatedPillarBlock.AXIS), expected,
+        Assertions.valueEqual(helper, oriented.getValue(RotatedPillarBlock.AXIS), expected,
                 "pillar axis for " + what);
     }
 
     private static void assertFacing(GameTestHelper helper, ServerPlayer player, BlockState state,
                                      Direction side, Vec3 hit, Direction expected, String what) {
         BlockState oriented = ChiselItem.applyIntuitiveOrientation(state, side, hit, player);
-        helper.assertValueEqual(oriented.getValue(BlockStateProperties.FACING), expected,
+        Assertions.valueEqual(helper, oriented.getValue(BlockStateProperties.FACING), expected,
                 "facing for " + what);
     }
 
@@ -1032,9 +1032,9 @@ public final class ChiselTests {
                                      Direction side, Vec3 hit, Direction expectedFacing,
                                      Half expectedHalf, String what) {
         BlockState oriented = ChiselItem.applyIntuitiveOrientation(state, side, hit, player);
-        helper.assertValueEqual(oriented.getValue(StairBlock.FACING), expectedFacing,
+        Assertions.valueEqual(helper, oriented.getValue(StairBlock.FACING), expectedFacing,
                 "stair facing for " + what);
-        helper.assertValueEqual(oriented.getValue(StairBlock.HALF), expectedHalf,
+        Assertions.valueEqual(helper, oriented.getValue(StairBlock.HALF), expectedHalf,
                 "stair half for " + what);
     }
 
@@ -1075,12 +1075,12 @@ public final class ChiselTests {
 
     private static void assertLastTarget(GameTestHelper helper, ItemStack stack, BlockPos expected,
                                          String what) {
-        helper.assertValueEqual(stack.get(ModDataComponentTypes.COORDINATES), expected,
+        Assertions.valueEqual(helper, stack.get(ModDataComponentTypes.COORDINATES), expected,
                 "the stored last target after " + what);
         List<String> lines = lastTargetLines(helper, stack);
-        helper.assertValueEqual(lines.size(), 1,
+        Assertions.valueEqual(helper, lines.size(), 1,
                 "the tooltip lines mentioning the last target after " + what + ", got " + lines);
-        helper.assertValueEqual(lines.getFirst(),
+        Assertions.valueEqual(helper, lines.getFirst(),
                 "Last Target: " + expected.getX() + ", " + expected.getY() + ", " + expected.getZ(),
                 "the tooltip's last target line after " + what);
     }
@@ -1107,16 +1107,16 @@ public final class ChiselTests {
         helper.assertTrue(recipe instanceof CountBasedSmithingRecipe,
                 what + " is a " + recipe.getClass().getSimpleName()
                         + ", not the mod's count based smithing recipe, so the count is ignored");
-        helper.assertValueEqual(((CountBasedSmithingRecipe) recipe).getAdditionCount(), 2,
+        Assertions.valueEqual(helper, ((CountBasedSmithingRecipe) recipe).getAdditionCount(), 2,
                 what + ": the number of additions the upgrade demands");
 
         // assemble takes the registries alongside the input on this line; 26.2 dropped that parameter.
         ItemStack forged = recipe.assemble(enough, level.registryAccess());
         helper.assertTrue(forged.is(expected), what + " forges " + forged + " instead of " + expected);
-        helper.assertValueEqual(forged.getDamageValue(), 7, what + ": the wear carried over");
-        helper.assertValueEqual(forged.getHoverName().getString(), "Grandpa's tool",
+        Assertions.valueEqual(helper, forged.getDamageValue(), 7, what + ": the wear carried over");
+        Assertions.valueEqual(helper, forged.getHoverName().getString(), "Grandpa's tool",
                 what + ": the custom name carried over");
-        helper.assertValueEqual(
+        Assertions.valueEqual(helper, 
                 com.simplebuilding.util.EnchantmentHelper.getEnchantmentLevel(
                         forged, level, ModEnchantments.FAST_CHISELING),
                 2, what + ": the enchantment carried over");

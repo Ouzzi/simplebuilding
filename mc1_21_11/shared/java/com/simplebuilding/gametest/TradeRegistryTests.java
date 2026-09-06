@@ -60,9 +60,9 @@ public final class TradeRegistryTests {
         }
 
         helper.assertTrue(problems.isEmpty(), "unresolvable trade definitions: " + problems);
-        helper.assertValueEqual(villagerTrades, EXPECTED_VILLAGER_TRADES, "number of villager trade definitions");
-        helper.assertValueEqual(wanderingTrades, EXPECTED_WANDERING_TRADES, "number of wandering trader trade definitions");
-        helper.assertValueEqual(villagerTrades + wanderingTrades, EXPECTED_TRADES, "total number of mod trade definitions");
+        Assertions.valueEqual(helper, villagerTrades, EXPECTED_VILLAGER_TRADES, "number of villager trade definitions");
+        Assertions.valueEqual(helper, wanderingTrades, EXPECTED_WANDERING_TRADES, "number of wandering trader trade definitions");
+        Assertions.valueEqual(helper, villagerTrades + wanderingTrades, EXPECTED_TRADES, "total number of mod trade definitions");
         helper.succeed();
     }
 

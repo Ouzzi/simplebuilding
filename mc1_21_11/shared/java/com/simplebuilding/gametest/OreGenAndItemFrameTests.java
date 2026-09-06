@@ -244,7 +244,7 @@ public final class OreGenAndItemFrameTests {
                 "sneaking with a glass pane did not lock the frame, result was " + locking);
         helper.assertTrue(isLocked(helper, frame),
                 "the interaction reported success but no lock flag was written to the frame");
-        helper.assertValueEqual(panes.getCount(), 3, "glass panes left in a creative player's hand");
+        Assertions.valueEqual(helper, panes.getCount(), 3, "glass panes left in a creative player's hand");
 
         CompoundTag lockedSave = saveOf(helper, frame);
 
@@ -253,7 +253,7 @@ public final class OreGenAndItemFrameTests {
         InteractionResult blocked = interact(frame, player, ItemStack.EMPTY, false);
         helper.assertTrue(blocked == InteractionResult.FAIL,
                 "a locked frame accepted a normal right click, result was " + blocked);
-        helper.assertValueEqual(frame.getRotation(), rotation, "rotation of the locked frame");
+        Assertions.valueEqual(helper, frame.getRotation(), rotation, "rotation of the locked frame");
 
         // --- an empty frame must not be lockable ---
         ItemFrame empty = emptyFrame(helper, SECOND_FRAME_POS);
@@ -320,7 +320,7 @@ public final class OreGenAndItemFrameTests {
         helper.assertTrue(hide == InteractionResult.SUCCESS,
                 "sneaking with shears did not hide the frame, result was " + hide);
         helper.assertTrue(frame.isInvisible(), "the frame is still visible after the shear interaction");
-        helper.assertValueEqual(shears.getDamageValue(), 0, "shear durability spent by a creative player");
+        Assertions.valueEqual(helper, shears.getDamageValue(), 0, "shear durability spent by a creative player");
 
         // --- sneaking again is the only way back ---
         InteractionResult reveal = interact(frame, player, new ItemStack(Items.SHEARS), true);
@@ -386,7 +386,7 @@ public final class OreGenAndItemFrameTests {
         ItemStack panes = new ItemStack(Items.GLASS_PANE, 3);
         interact(frame, player, panes, true);
         helper.assertTrue(isLocked(helper, frame), "the survival player could not lock the frame at all");
-        helper.assertValueEqual(panes.getCount(), 2, "glass panes left in the survival player's hand");
+        Assertions.valueEqual(helper, panes.getCount(), 2, "glass panes left in the survival player's hand");
 
         // --- a punch does not empty a locked frame ---
         DamageSource punch = helper.getLevel().damageSources().playerAttack(player);
@@ -417,7 +417,7 @@ public final class OreGenAndItemFrameTests {
         ItemStack shears = new ItemStack(Items.SHEARS);
         interact(third, player, shears, true);
         helper.assertTrue(third.isInvisible(), "the survival player could not hide the frame");
-        helper.assertValueEqual(shears.getDamageValue(), 1, "shear durability spent on hiding a frame");
+        Assertions.valueEqual(helper, shears.getDamageValue(), 1, "shear durability spent on hiding a frame");
 
         TestCleanup.succeed(helper);
     }
@@ -451,7 +451,7 @@ public final class OreGenAndItemFrameTests {
         ItemStack plain = new ItemStack(ModItems.MAGNET);
         int rotation = frame.getRotation();
         interact(frame, player, plain, false);
-        helper.assertValueEqual(filterOf(plain), "",
+        Assertions.valueEqual(helper, filterOf(plain), "",
                 "an unenchanted magnet wrote a filter, so the Constructor's Touch check is gone");
         helper.assertTrue(frame.getRotation() != rotation,
                 "an unenchanted magnet swallowed the click; the magnet branch now fires without the enchantment");
@@ -462,15 +462,15 @@ public final class OreGenAndItemFrameTests {
         InteractionResult result = interact(frame, player, enchanted, false);
         helper.assertTrue(result == InteractionResult.SUCCESS,
                 "an enchanted magnet did not take the filter branch, result was " + result);
-        helper.assertValueEqual(filterOf(enchanted), "minecraft:diamond", "magnet filter taken from the frame");
-        helper.assertValueEqual(frame.getRotation(), rotation,
+        Assertions.valueEqual(helper, filterOf(enchanted), "minecraft:diamond", "magnet filter taken from the frame");
+        Assertions.valueEqual(helper, frame.getRotation(), rotation,
                 "rotation of the frame the filter was read from - the branch has to swallow the click");
 
         // --- an empty frame offers nothing to filter on ---
         ItemFrame empty = emptyFrame(helper, SECOND_FRAME_POS);
         ItemStack onEmpty = magnetWithConstructorsTouch(helper);
         interact(empty, player, onEmpty, false);
-        helper.assertValueEqual(filterOf(onEmpty), "",
+        Assertions.valueEqual(helper, filterOf(onEmpty), "",
                 "an empty frame set a magnet filter, so the 'frame must hold an item' guard is gone");
 
         TestCleanup.succeed(helper);
@@ -521,8 +521,8 @@ public final class OreGenAndItemFrameTests {
                 key.identifier() + " no longer carries an OreConfiguration");
         OreConfiguration config = (OreConfiguration) configured.config();
 
-        helper.assertValueEqual(config.size, veinSize, key.identifier() + " vein size");
-        helper.assertValueEqual(config.targetStates.size(), 1, key.identifier() + " target count");
+        Assertions.valueEqual(helper, config.size, veinSize, key.identifier() + " vein size");
+        Assertions.valueEqual(helper, config.targetStates.size(), 1, key.identifier() + " target count");
         helper.assertTrue(config.discardChanceOnAirExposure == 0.0F,
                 key.identifier() + " now discards ore on air exposure, which changes how much of it is reachable");
 
@@ -553,10 +553,10 @@ public final class OreGenAndItemFrameTests {
 
         List<Tag> actual = describe(placed.placement());
         List<Tag> expected = describe(expectedModifiers);
-        helper.assertValueEqual(actual.size(), expected.size(),
+        Assertions.valueEqual(helper, actual.size(), expected.size(),
                 placedKey.identifier() + " placement modifier count; it reads " + actual);
         for (int i = 0; i < expected.size(); i++) {
-            helper.assertValueEqual(actual.get(i), expected.get(i),
+            Assertions.valueEqual(helper, actual.get(i), expected.get(i),
                     placedKey.identifier() + " placement modifier #" + i);
         }
     }
@@ -581,13 +581,13 @@ public final class OreGenAndItemFrameTests {
         helper.assertTrue(foundAt >= 0,
                 placedKey.identifier() + " was never added to " + biomeKey.identifier()
                         + ", so it can never generate; the loader's biome injection is missing");
-        helper.assertValueEqual(foundAt, GenerationStep.Decoration.UNDERGROUND_ORES.ordinal(),
+        Assertions.valueEqual(helper, foundAt, GenerationStep.Decoration.UNDERGROUND_ORES.ordinal(),
                 placedKey.identifier() + " generation step in " + biomeKey.identifier());
     }
 
     private static void assertOreNotInBiome(GameTestHelper helper, ResourceKey<Biome> biomeKey,
                                             ResourceKey<PlacedFeature> placedKey) {
-        helper.assertValueEqual(stepOf(helper, biomeKey, placedKey), -1,
+        Assertions.valueEqual(helper, stepOf(helper, biomeKey, placedKey), -1,
                 placedKey.identifier() + " is attached to " + biomeKey.identifier()
                         + "; the loader's biome selector is too wide and End ore leaks out of the End "
                         + "(step index, -1 means not attached)");

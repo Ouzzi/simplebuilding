@@ -288,9 +288,9 @@ public final class FurnaceTests {
 
         helper.startSequence()
                 .thenExecuteAfter(GUARD_OBSERVATION_TICKS, () -> {
-                    helper.assertValueEqual(highest[0], 0,
+                    Assertions.valueEqual(helper, highest[0], 0,
                             "highest cooking progress of a reinforced furnace without any fuel");
-                    helper.assertValueEqual(highest[1], 0,
+                    Assertions.valueEqual(helper, highest[1], 0,
                             "highest cooking progress of a fuelled reinforced furnace whose input "
                                     + "has no smelting recipe");
                     helper.assertTrue(highest[2] > 0,
@@ -382,7 +382,7 @@ public final class FurnaceTests {
                         CoolDownCase device = COOL_DOWN_CASES.get(index);
                         int now = cookingProgress(helper, device.pos());
                         int lost = samples[index] - now;
-                        helper.assertValueEqual(lost, BURN_COOL_SPEED * COOL_DOWN_SAMPLE_GAP,
+                        Assertions.valueEqual(helper, lost, BURN_COOL_SPEED * COOL_DOWN_SAMPLE_GAP,
                                 "cooking progress lost by an unlit " + device.label() + " over "
                                         + COOL_DOWN_SAMPLE_GAP + " ticks (" + samples[index] + " -> "
                                         + now + "); anything smaller means " + device.tickMethod()
@@ -563,17 +563,17 @@ public final class FurnaceTests {
             float resistance = device.block().getExplosionResistance();
 
             if (netherite) {
-                helper.assertValueEqual(hardness, 5.0F, "the " + device.label() + "'s hardness");
-                helper.assertValueEqual(resistance, 1200.0F,
+                Assertions.valueEqual(helper, hardness, 5.0F, "the " + device.label() + "'s hardness");
+                Assertions.valueEqual(helper, resistance, 1200.0F,
                         "the " + device.label() + "'s blast resistance");
                 helper.assertTrue(resistance > vanillaResistance * 100.0F,
                         "the " + device.label() + " is supposed to be the blast proof tier, but its "
                                 + "resistance of " + resistance + " is no better than a vanilla "
                                 + "furnace's " + vanillaResistance);
             } else {
-                helper.assertValueEqual(hardness, vanillaHardness,
+                Assertions.valueEqual(helper, hardness, vanillaHardness,
                         "the " + device.label() + "'s hardness, against a vanilla furnace's");
-                helper.assertValueEqual(resistance, vanillaResistance,
+                Assertions.valueEqual(helper, resistance, vanillaResistance,
                         "the " + device.label() + "'s blast resistance, against a vanilla furnace's");
             }
 
@@ -637,7 +637,7 @@ public final class FurnaceTests {
                 // On this line DamageResistant#types() is the TagKey itself and not a HolderSet, so
                 // the two are compared directly - a TagKey is a record and implements equals. The
                 // 26.2 twin has to unwrap the named set first to get at the same key.
-                helper.assertValueEqual(resistant.types(), netheriteIngot.types(),
+                Assertions.valueEqual(helper, resistant.types(), netheriteIngot.types(),
                         "the damage types the " + device.label() + " resists, against a netherite "
                                 + "ingot's");
                 helper.assertTrue(resistant.isResistantTo(level.damageSources().lava()),
@@ -939,7 +939,7 @@ public final class FurnaceTests {
     }
 
     private static void assertInTag(GameTestHelper helper, Device device, TagKey<Block> tag, boolean expected) {
-        helper.assertValueEqual(device.block().defaultBlockState().is(tag), expected,
+        Assertions.valueEqual(helper, device.block().defaultBlockState().is(tag), expected,
                 "the " + device.label() + " in " + tag.location());
     }
 
@@ -994,7 +994,7 @@ public final class FurnaceTests {
         helper.assertTrue(found.value() instanceof CraftingRecipe,
                 id + " is no longer a crafting recipe, so it has no recipe book category: "
                         + found.value());
-        helper.assertValueEqual(((CraftingRecipe) found.value()).category(), category,
+        Assertions.valueEqual(helper, ((CraftingRecipe) found.value()).category(), category,
                 id + ": recipe book category");
     }
 

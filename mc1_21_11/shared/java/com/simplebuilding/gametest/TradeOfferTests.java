@@ -249,7 +249,7 @@ public final class TradeOfferTests {
             collect(drawn, bookDraws);
         }
 
-        helper.assertValueEqual(booksWithoutEnchantment, 0,
+        Assertions.valueEqual(helper, booksWithoutEnchantment, 0,
                 "master books the merchant handed over unenchanted (out of " + MASTER_BOOK_SAMPLES + ")");
         assertPoolCoverage(helper, "librarian/5/emerald_master_book", MASTER_BOOK_POOL, bookDraws);
         helper.assertTrue(booksWithTwo >= MASTER_BOOK_MIN_SECOND && booksWithTwo <= MASTER_BOOK_MAX_SECOND,
@@ -266,7 +266,7 @@ public final class TradeOfferTests {
             helper.assertTrue(offer != null,
                     "toolsmith/3/emerald_copper_chisel produced no offer on seed " + (SEED_BASE + i));
             ItemEnchantments drawn = EnchantmentHelper.getEnchantmentsForCrafting(offer.getResult());
-            helper.assertValueEqual(drawn.size(), 1,
+            Assertions.valueEqual(helper, drawn.size(), 1,
                     "toolsmith/3/emerald_copper_chisel declares no second chance, so every chisel "
                             + "carries exactly one enchantment; seed " + (SEED_BASE + i)
                             + " produced " + drawn);
@@ -340,7 +340,7 @@ public final class TradeOfferTests {
         for (int i = 0; i < POOL_SAMPLES; i++) {
             ItemEnchantments drawn = enchantmentsAfter(helper, never, params, SEED_BASE + i,
                     new ItemStack(Items.DIAMOND_PICKAXE));
-            helper.assertValueEqual(drawn.size(), 1,
+            Assertions.valueEqual(helper, drawn.size(), 1,
                     "a pool without second_chance must put exactly one enchantment on the item; "
                             + "seed " + (SEED_BASE + i) + " produced " + drawn);
             collect(drawn, neverDraws);
@@ -375,10 +375,10 @@ public final class TradeOfferTests {
         for (int i = 0; i < POOL_SAMPLES; i++) {
             ItemEnchantments drawn = enchantmentsAfter(helper, single, params, SEED_BASE + i,
                     new ItemStack(Items.DIAMOND_PICKAXE));
-            helper.assertValueEqual(drawn.size(), 1,
+            Assertions.valueEqual(helper, drawn.size(), 1,
                     "a single entry pool can never hand out two enchantments; seed "
                             + (SEED_BASE + i) + " produced " + drawn);
-            helper.assertValueEqual(drawn.getLevel(unbreaking(helper)), 3,
+            Assertions.valueEqual(helper, drawn.getLevel(unbreaking(helper)), 3,
                     "the single pool entry declares level 3, the function put on " + drawn);
         }
 
@@ -434,7 +434,7 @@ public final class TradeOfferTests {
         ItemEnchantments stored = enchanted.get(DataComponents.STORED_ENCHANTMENTS);
         helper.assertTrue(stored != null && !stored.isEmpty(),
                 "the enchanted_book carries no stored_enchantments at all: " + stored);
-        helper.assertValueEqual(stored.getLevel(unbreaking(helper)), 3,
+        Assertions.valueEqual(helper, stored.getLevel(unbreaking(helper)), 3,
                 "the level stored on the book");
         ItemEnchantments onBook = enchanted.get(DataComponents.ENCHANTMENTS);
         helper.assertTrue(onBook == null || onBook.isEmpty(),
@@ -542,8 +542,8 @@ public final class TradeOfferTests {
         helper.assertTrue(afterPlayerScan.is(ModItems.IRON_CHISEL),
                 "an open chest menu is part of the player migration, so the spatula in it should "
                         + "have become an iron_chisel; the chest holds " + afterPlayerScan);
-        helper.assertValueEqual(afterPlayerScan.getCount(), 1, "chest stack size after migration");
-        helper.assertValueEqual(afterPlayerScan.get(DataComponents.DAMAGE), 11,
+        Assertions.valueEqual(helper, afterPlayerScan.getCount(), 1, "chest stack size after migration");
+        Assertions.valueEqual(helper, afterPlayerScan.get(DataComponents.DAMAGE), 11,
                 "chest stack damage component after migration");
 
         TestCleanup.succeed(helper);
