@@ -69,20 +69,22 @@ beim Server-Port: mechanische Übersetzung plus die API-Unterschiede, die der Co
 
 ## 3. Die Arbeitspakete, nach Reihenfolge
 
-### P1 — Audit neu erheben *(zuerst, klein, verhindert Fehlplanung)*
+### P1 — Audit neu erheben — **erledigt**
 
-Das Audit vom 2026-09-03 ist überholt. Seitdem sind 406 Lücken geschlossen, 138 falsche
-Grün-Meldungen repariert, vier Mod-Fehler behoben und 56 Client-Lücken bearbeitet. Mehrere seiner
-Einstufungen stimmen nicht mehr:
+Erhoben am 2026-09-08 von 22 Prüfern, jede „ist abgedeckt"-Behauptung adversarisch gegengelesen,
+Server- **und** Client-Tests als Deckung gezählt. Vollständiger Bericht:
+[`AUDIT-2026-09-08.md`](AUDIT-2026-09-08.md), Rohdaten in `audit_offen.json` und
+`audit_falsegreens.json`.
 
-- „Kreativ-Tab" stand als *lohnt nicht* — ist inzwischen von `DataIntegrityTests` gedeckt.
-- Sechs der zehn *harness-blockierten* Einträge waren Töne und Partikel. Der neue Ton-Rekorder in
-  `SmokeClientGameTest` beweist, dass das ging; es fehlte nur die Aufzeichnung.
+**1000 Verhaltensweisen, 702 gedeckt (70 %)** — das Audit vom 2026-09-03 kam auf 36 %. Offen sind
+127 serverseitig schreibbare und 74 clientseitige Lücken; 95 stehen in den drei Restkategorien
+(P4).
 
-Ohne frische Zahlen planen wir auf dem Stand vom Wochenanfang. Das Vorgehen von damals hat sich
-bewährt: je Feature ein Prüfer, jede Behauptung „ist abgedeckt" anschließend adversarisch
-gegengelesen. Der Gegenlese-Schritt ist der wichtige — er hat beim ersten Mal 138 Tests entlarvt,
-die wie Schutz aussahen und keiner waren.
+**Der eigentliche Fund sind 104 falsche Grün-Meldungen** (90 als „sicher" eingestuft). Eine davon
+habe ich nachgestellt statt sie zu glauben: in `RotatorItem#getRimDirection` die z-Prüfungen der
+Y-Fläche vor die x-Prüfungen gezogen — **269 von 269 Tests bleiben grün**, obwohl ein Klick auf
+eine Ecke den Stamm danach in die falsche Achse legt. Kein Test im Repo klickt je eine Ecke. Das
+ist jetzt P7.
 
 ### P2 — Fabric 1.21.11 auf Client-Parität bringen *(68 Prüfpunkte)*
 
@@ -95,9 +97,14 @@ Erwartbare Unterschiede: dieselben API-Brüche wie serverseitig (`EntityTypes`, 
 mit 26.2 stark geändert, und die 1.21.11-Renderer sind anders gebaut. **Damit ist zu rechnen, dass
 ein Teil der Tests dort nicht nur übersetzt, sondern neu gedacht werden muss.**
 
-### P3 — Entscheidung: NeoForge-Client, Adapter oder Handarbeit *(73 Prüfpunkte, zweimal)*
+### P3 — NeoForge-Client — **entschieden am 2026-09-08**
 
-#### Die Vorprüfung ist erledigt — sie ändert die Optionen
+> **Gewählt: (c) Schrittform für alle**, dazu **ein Mixin auf `Minecraft.disconnect`**, damit
+> alle Testklassen in einem Client-Start laufen. Jeder Client-Test wird einmal als
+> Schrittliste gegen eine gemeinsame Fassade geschrieben, je Ziel ein dünner Treiber.
+> Danach kostet ein neuer Client-Test eine Fassung statt vier.
+
+#### Die Vorprüfung, die zu dieser Wahl geführt hat
 
 Der Plan verlangte, *vor* der Entscheidung zu klären, ob NeoForges Schrittautomat alles kann, was
 die Fabric-Tests brauchen. Nachgezählt an den 11 Fabric-Testklassen und nachgelesen in den Quellen
@@ -156,15 +163,16 @@ Testklasse ein eigener Client-Start (elf Starts je Linie — langsam, aber ohne 
 oder doch ein einzelner Mixin auf `disconnect`. Der zweite ist ein kleiner, klar umrissener
 Eingriff — nicht zu verwechseln mit dem ganzen Gerüst aus (b).
 
-### P4 — Die drei Restkategorien neu triagieren *(28 Einträge)*
+### P4 — Die drei Restkategorien neu triagieren *(95 Einträge)*
 
-Aus dem alten Audit, jeweils gegen den heutigen Stand zu halten:
+Zahlen aus dem Audit vom 2026-09-08. Die Einstufungen sind **Vorschläge der Prüfer, keine
+Urteile** — beim letzten Mal war ein gutes Drittel davon inzwischen doch machbar:
 
-| Kategorie | Zahl | Einschätzung heute |
+| Kategorie | Zahl | Einschätzung |
 |---|---:|---|
-| harness-blockiert | 10 | mindestens 6 (Töne, Partikel) sind jetzt machbar |
-| strukturell blockiert | 6 | teils durch kleine Refaktorierungen erreichbar — so wie `OreDetectorItem.findTarget` |
-| lohnt nicht | 12 | mindestens 2 sind inzwischen ohnehin gedeckt |
+| strukturell blockiert | 30 | teils durch kleine Refaktorierungen erreichbar — so wie `OreDetectorItem.findTarget` |
+| harness-blockiert | 24 | vor allem Töne und Partikel; der Ton-Rekorder in `SmokeClientGameTest` beweist, dass das geht |
+| lohnt nicht | 41 | zu prüfen, ob nicht ein Teil inzwischen ohnehin gedeckt ist |
 
 Der Rest — Fremdmod-Integration (`enderscape:stasis`), echte Weltgenerierung, Pakete an entfernte
 Spieler — bleibt vermutlich offen. Das ist in Ordnung, solange es benannt ist.
@@ -193,6 +201,19 @@ Alle sechs Richtungen sind gegengeprüft, nicht nur behauptet: nicht erklärte A
 veraltete Erklärung, Rückstand gewachsen, geschrumpft, gar nicht eingetragen, Eintrag ohne
 Rückstand — jeder Fall erzeugt seine eigene Meldung.
 
+### P7 — Die 104 falschen Grün-Meldungen schärfen *(neu aus P1)*
+
+**Das ist der wertvollste Posten der ganzen Liste**, und zwar weil er nicht Abwesenheit von Schutz
+misst, sondern *vorgetäuschten* Schutz. Eine ungedeckte Stelle weiß man nicht; eine falsch grüne
+glaubt man zu wissen. Genau deshalb kommt sie vor den neuen Tests.
+
+`audit_falsegreens.json` nennt zu jedem Eintrag den Test, den behaupteten Anspruch und **eine
+konkrete Änderung am Mod-Code, nach der die Suite grün bleibt**. Damit ist jeder Eintrag ohne
+weitere Erhebung überprüfbar — und liefert gleich die Gegenprobe mit: Test schärfen, Mutation
+einspielen, Test muss rot werden, Mutation zurück.
+
+Verteilung: Maschinen 19, Lager 14, Werkzeuge 27, Verzauberungen 23, Rest 21.
+
 ### P6 — Mutationstests für die teuersten Tests
 
 Beim Stapel 2 hat ein Prüfer echte Mutationstests gefahren: sieben Mutationen einzeln in
@@ -212,7 +233,8 @@ Tests.
 2. Alle vier Client-Ziele tragen dieselben Prüfpunkte, Abweichungen nur mit Begründung.
    **→ offen, das ist P2 und P3**
 3. Ein frisches Audit findet keine Lücke mehr, die mit einem Test erreichbar wäre.
-   **→ offen, das ist P1 und P4**
+   **→ Audit erhoben (P1). 201 erreichbare Lücken und 104 falsche Grün sind die Arbeit daraus:
+   P7, dann die schreibbaren Lücken, dann P4.**
 4. Das Release-Gate erzwingt 1 und 2, sodass die Parität nicht wieder still kippen kann.
    **→ erreicht.** Das Tor ist heute rot, und zwar aus genau einem Grund: dem Client-Rückstand
    aus Punkt 2. Grün wird es mit P2 und P3.
@@ -239,12 +261,18 @@ Ehrlich benannt, damit niemand es für eine Lücke hält:
 
 ## 6. Reihenfolge in einem Satz
 
-~~**P1** (frisches Audit)~~ → ~~**P5** (Gate)~~ → **P2** (Fabric 1.21.11) → **P3**
-(Entscheidung NeoForge, dann Umsetzung) → **P4** (Restkategorien) → **P6** (Mutationstests).
+~~**P1** (Audit)~~ → ~~**P5** (Gate)~~ → ~~**P3** (Entscheidung)~~ → **P7** (falsche Grün) →
+**Servertests** für die 127 schreibbaren Lücken → **P3-Umsetzung** (Fassade + `disconnect`-Mixin)
+→ **P2** (Client 1.21.11) und die 74 clientseitigen Lücken → **P4** (Restkategorien) → **P6**
+(Mutationstests).
 
 P5 war früh dran, weil ein Gate, das die Schieflage bemerkt hätte, sie gar nicht erst hätte
 entstehen lassen — und es hat sich sofort bezahlt gemacht: Der erste Lauf hat den fehlenden
 Händlertest gefunden, den vier grüne Server-Ziele nicht zeigen konnten.
 
-Als Nächstes ist **P3** zu entscheiden, bevor P2 anfängt: Fällt die Wahl auf den Adapter, sollten
-die 1.21.11-Client-Tests gleich in der geteilten Form geschrieben werden statt zweimal.
+**P7 vor die neuen Tests**, weil eine falsch grüne Stelle schlimmer ist als eine ungedeckte: die
+eine täuscht Sicherheit vor, die andere ist wenigstens ehrlich. Und die Einträge bringen ihre
+Gegenprobe schon mit.
+
+Die Client-Arbeit kommt danach am Stück, weil Fassade, Treiber und Umschreiben zusammengehören —
+in Scheiben zerlegt hätte man zwischendurch zwei halbe Gerüste.
