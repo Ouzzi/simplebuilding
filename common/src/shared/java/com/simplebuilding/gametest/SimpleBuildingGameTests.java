@@ -113,6 +113,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("trade_and_migration_game_test_mason_villager_can_roll_amod_trade", TradeAndMigrationTests::masonVillagerCanRollAModTrade)
                     .maxTicks(TradeAndMigrationTests.MASON_VILLAGER_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("trade_and_migration_game_test_wandering_trader_can_roll_amod_trade", TradeAndMigrationTests::wanderingTraderCanRollAModTrade)
+                    .maxTicks(TradeAndMigrationTests.WANDERING_TRADER_MAX_TICKS)
+                    .build(),
             GameTestSpec.named("trade_and_migration_game_test_legacy_spatulas_in_player_inventory_become_chisels", TradeAndMigrationTests::legacySpatulasInPlayerInventoryBecomeChisels)
                     .build(),
             GameTestSpec.named("trade_and_migration_game_test_legacy_spatula_item_entity_is_rewritten_in_place", TradeAndMigrationTests::legacySpatulaItemEntityIsRewrittenInPlace)

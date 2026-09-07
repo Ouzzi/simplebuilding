@@ -91,6 +91,24 @@ public final class TradeAndMigrationTests {
     // ------------------------------------------------------------------
 
     /**
+     * <strong>Not present on this Minecraft line.</strong> The 26.2 copy of this class carries two
+     * further tests, {@code allModTradesAreLoadedIntoTheDatapackRegistry} and
+     * {@code professionTradeSetsResolveTheModTrades}. Both walk machinery that arrived with MC
+     * 26.1: a {@code villager_trade} datapack registry the shipped jsons are parsed into, and
+     * {@code TradeSet} objects a profession and level resolve to.
+     *
+     * <p>This line has neither. Its offers are built in code -- see
+     * {@code com.simplebuilding.trade.ModTradeDefinitions} -- so there is no file that could fail
+     * to parse and no trade set that could point at the wrong tag. What those two tests protect
+     * is a way of shipping trades that does not exist here.
+     *
+     * <p>The two pool tests below are the counterparts of 26.2's single
+     * {@code modTradesAreMergedIntoTheVanillaTradePools}: villager and wandering trader offers
+     * live in separate lists on this line, so the same statement takes two tests. The parity gate
+     * in {@code tools/testrunner/run.py} records that pairing in {@code LINE_DIFFERENCES}.
+     */
+
+    /**
      * Every villager offer of the mod table has to sit in the very pool a real villager of that
      * profession and level draws from - including the experimental/rebalanced map when the world
      * has the trade rebalance feature enabled, because that is the map

@@ -41,6 +41,11 @@ public final class TradeAndMigrationGameTest {
         TradeAndMigrationTests.masonVillagerCanRollAModTrade(helper);
     }
 
+    @GameTest(maxTicks = TradeAndMigrationTests.WANDERING_TRADER_MAX_TICKS)
+    public void wanderingTraderCanRollAModTrade(GameTestHelper helper) {
+        TradeAndMigrationTests.wanderingTraderCanRollAModTrade(helper);
+    }
+
     @GameTest
     public void legacySpatulasInPlayerInventoryBecomeChisels(GameTestHelper helper) {
         TradeAndMigrationTests.legacySpatulasInPlayerInventoryBecomeChisels(helper);

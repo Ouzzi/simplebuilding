@@ -12,16 +12,26 @@ Verhalten kaputtgeht — und dass alles, was das nicht sein kann, benannt ist st
 
 | Ziel | Tests |
 |---|---:|
-| Fabric · MC 26.2 | 268 |
-| NeoForge · MC 26.2 | 268 |
+| Fabric · MC 26.2 | 269 |
+| NeoForge · MC 26.2 | 269 |
 | Fabric · MC 1.21.11 | 266 |
 | NeoForge · MC 1.21.11 | 266 |
 
-Beide Linien tragen dieselben 39 Testklassen und **dieselben Test-Ids** — ein Bericht der einen
-Linie lässt sich Zeile für Zeile neben den der anderen legen. Die Differenz von zwei Tests ist
-begründet und im Quelltext vermerkt: der Constructor's-Touch-Stock (auf 1.21.11 gibt es die
-gemeinsame Klasse nicht, die Logik steht dort doppelt in den Loader-Modulen) und der
-Handelsbedingungs-Test (datengetriebene Angebote gibt es erst ab MC 26.1).
+**263 Tests tragen auf beiden Linien dieselbe Id** — ein Bericht der einen Linie lässt sich Zeile
+für Zeile neben den der anderen legen. Die sechs Abweichungen stehen als `LINE_DIFFERENCES` in
+`tools/testrunner/run.py`, und zwar als **Gegenstücke**, nicht als Ausnahmen: vier prüfen etwas,
+das es auf 1.21.11 gar nicht gibt (datengetriebene Handelsangebote gibt es erst ab MC 26.1, die
+gemeinsame `ConstructorsTouchInteraction` erst ab 26.2), zwei zeigen auf ihr Gegenüber auf der
+anderen Linie, das dieselbe Aussage über einen anderen Mechanismus erreicht. Ein Eintrag sagt
+damit nicht „ignorier das", sondern „das hier deckt es drüben ab" — und wird rot, sobald er nicht
+mehr stimmt.
+
+Eine siebte Abweichung war **keine** Abweichung, sondern eine echte Lücke:
+`wandering_trader_can_roll_amod_trade` gab es nur auf 1.21.11, obwohl 26.2 die Angebote des
+fahrenden Händlers genauso mitliefert — geprüft war dort nur, dass sie in den Pools *stehen*,
+nicht, dass ein Händler sie auch *auswürfelt*. Das Paritätstor hat sie im ersten Lauf gefunden.
+Der Test ist portiert und auf beiden 26.2-Loadern grün; die Gegenprobe (unsere Tag-Einträge
+entfernt) macht ihn rot.
 
 ### Clientseitig: schief
 
@@ -117,15 +127,29 @@ Aus dem alten Audit, jeweils gegen den heutigen Stand zu halten:
 Der Rest — Fremdmod-Integration (`enderscape:stasis`), echte Weltgenerierung, Pakete an entfernte
 Spieler — bleibt vermutlich offen. Das ist in Ordnung, solange es benannt ist.
 
-### P5 — Das Release-Gate um die Parität erweitern
+### P5 — Das Release-Gate um die Parität erweitern — **erledigt**
 
-`--release-gate` fährt heute `gradlew check`, den Wiki-Abgleich und alle acht Ziele. Es prüft
-aber **nicht**, ob die vier Ziele dasselbe abdecken. Genau so ist die aktuelle Schieflage
-entstanden, ohne dass etwas rot wurde.
+`--release-gate` fuhr `gradlew check`, den Wiki-Abgleich und alle Ziele, prüfte aber **nicht**, ob
+die Ziele dasselbe abdecken. Genau so ist die Client-Schieflage entstanden, ohne dass etwas rot
+wurde: ein Test, den es auf einer Seite nicht gibt, ist auf der anderen grün, und Abwesenheit ist
+das Einzige, was ein grüner Lauf nicht zeigen kann.
 
-Vorschlag: das Gate scheitert, wenn die Test-Ids der beiden Server-Linien voneinander abweichen
-(außer den zwei begründeten Ausnahmen) oder wenn die Screenshot-Namen der vier Client-Ziele
-auseinanderlaufen. Beide Mengen liest der Runner ohnehin schon.
+`check_parity()` in `tools/testrunner/run.py` schließt das und hängt im Gate. Es scheitert bei:
+
+- einer Test-Id, die es nur auf einer Linie gibt und die nicht in `LINE_DIFFERENCES` steht;
+- einem Eintrag in `LINE_DIFFERENCES`, der nicht mehr zutrifft (Test läuft inzwischen auf beiden
+  Linien oder gar nicht mehr) — sonst wächst dort eine Liste von Ausreden zu;
+- einem Client-Ziel, dessen Prüfpunkte hinter dem reichsten Ziel zurückliegen.
+
+Der Client-Rückstand ist bekannt und steht als Zahl in `CLIENT_PARITY_DEBT`. Das Tor bleibt
+deshalb rot — die Schuld ist keine Erlaubnis —, aber es unterscheidet jetzt drei Fälle: gleich
+geblieben (bekannt, Verweis auf P2/P3), **gewachsen** (die laute Meldung, genau der Fall, den P5
+verhindern soll) und geschrumpft (dann ist die Zahl nachzuziehen, sonst kann die Lücke unbemerkt
+wieder wachsen).
+
+Alle sechs Richtungen sind gegengeprüft, nicht nur behauptet: nicht erklärte Abweichung,
+veraltete Erklärung, Rückstand gewachsen, geschrumpft, gar nicht eingetragen, Eintrag ohne
+Rückstand — jeder Fall erzeugt seine eigene Meldung.
 
 ### P6 — Mutationstests für die teuersten Tests
 
@@ -142,13 +166,14 @@ Tests.
 ## 4. Wann „fertig" gilt
 
 1. Alle vier Server-Ziele tragen dieselben Test-Ids, Abweichungen nur mit Begründung im Quelltext.
-   **→ erreicht**
+   **→ erreicht**, und seit P5 vom Tor erzwungen
 2. Alle vier Client-Ziele tragen dieselben Prüfpunkte, Abweichungen nur mit Begründung.
    **→ offen, das ist P2 und P3**
 3. Ein frisches Audit findet keine Lücke mehr, die mit einem Test erreichbar wäre.
    **→ offen, das ist P1 und P4**
 4. Das Release-Gate erzwingt 1 und 2, sodass die Parität nicht wieder still kippen kann.
-   **→ offen, das ist P5**
+   **→ erreicht.** Das Tor ist heute rot, und zwar aus genau einem Grund: dem Client-Rückstand
+   aus Punkt 2. Grün wird es mit P2 und P3.
 5. Jede Stelle, die kein Test erreicht, steht als „Not covered" im Quelltext, mit Grund.
    **→ weitgehend erreicht, mit dem Audit aus P1 zu bestätigen**
 
@@ -172,9 +197,12 @@ Ehrlich benannt, damit niemand es für eine Lücke hält:
 
 ## 6. Reihenfolge in einem Satz
 
-**P1** (frisches Audit) → **P5** (Gate, damit nichts weiter auseinanderläuft) → **P2** (Fabric
-1.21.11) → **P3** (Entscheidung NeoForge, dann Umsetzung) → **P4** (Restkategorien) → **P6**
-(Mutationstests).
+~~**P1** (frisches Audit)~~ → ~~**P5** (Gate)~~ → **P2** (Fabric 1.21.11) → **P3**
+(Entscheidung NeoForge, dann Umsetzung) → **P4** (Restkategorien) → **P6** (Mutationstests).
 
-P5 früh, weil ein Gate, das die Schieflage bemerkt hätte, sie gar nicht erst hätte entstehen
-lassen.
+P5 war früh dran, weil ein Gate, das die Schieflage bemerkt hätte, sie gar nicht erst hätte
+entstehen lassen — und es hat sich sofort bezahlt gemacht: Der erste Lauf hat den fehlenden
+Händlertest gefunden, den vier grüne Server-Ziele nicht zeigen konnten.
+
+Als Nächstes ist **P3** zu entscheiden, bevor P2 anfängt: Fällt die Wahl auf den Adapter, sollten
+die 1.21.11-Client-Tests gleich in der geteilten Form geschrieben werden statt zweimal.

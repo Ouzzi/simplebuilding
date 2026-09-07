@@ -30,6 +30,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.npc.villager.VillagerData;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
+import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -95,6 +96,9 @@ public final class TradeAndMigrationTests {
 
     /** Tick budget for {@link #masonVillagerCanRollAModTrade}. */
     public static final int MASON_VILLAGER_MAX_TICKS = 200;
+
+    /** Tick budget for {@link #wanderingTraderCanRollAModTrade}. */
+    public static final int WANDERING_TRADER_MAX_TICKS = 200;
 
     /** Tick budget for {@link #legacySpatulaItemEntityIsRewrittenInPlace}. */
     public static final int LEGACY_ITEM_ENTITY_MAX_TICKS = 60;
@@ -278,6 +282,13 @@ public final class TradeAndMigrationTests {
      * that sets {@code "replace": true}, or a tag written under the wrong id. It says nothing
      * about the <em>content</em> of a trade - that is
      * {@link #tradeDefinitionsProduceTheExpectedOffers}'s job.
+     *
+     * <p><strong>Counterpart on MC 1.21.11:</strong> two tests,
+     * {@code modTradesAreMergedIntoTheVillagerTradePools} and
+     * {@code modTradesAreMergedIntoTheWanderingTraderPools} - that line keeps villager and
+     * wandering trader offers in separate lists, so the same statement needs two bodies. The
+     * pairing is recorded in {@code LINE_DIFFERENCES} in {@code tools/testrunner/run.py}, so
+     * dropping one side makes the parity gate red instead of merely shrinking the suite.
      */
     public static void modTradesAreMergedIntoTheVanillaTradePools(GameTestHelper helper) {
         Registry<VillagerTrade> trades = helper.getLevel().registryAccess().lookupOrThrow(Registries.VILLAGER_TRADE);
@@ -425,6 +436,52 @@ public final class TradeAndMigrationTests {
         helper.assertTrue(rolledModTrade,
                 "a mason villager (level 2) never offered copper_core or diamond_core in 64 rolls; "
                         + "results seen were " + seen);
+
+        helper.succeed();
+    }
+
+    /**
+     * The other merchant, end to end: a freshly spawned wandering trader has to be able to roll
+     * one of our sell offers. Where the mason test switches professions to force a re-roll, this
+     * one spawns a new trader per attempt - {@code AbstractVillager#getOffers} builds the offers
+     * once and caches them, and a wandering trader has no profession to switch.
+     *
+     * <p>Only offers whose <em>result</em> is a mod item can be recognised here, so the two
+     * buying trades are out of reach: they hand back emeralds and are indistinguishable from the
+     * vanilla ones at this level. {@link #modTradesAreMergedIntoTheVanillaTradePools} covers
+     * those by id instead.
+     *
+     * <p><strong>What breaks this test:</strong> our entries dropped from the common or uncommon
+     * wandering trader tag, a tag file written under the wrong id, or a load condition that
+     * switches the trades off in a default configuration - in short, everything that leaves the
+     * pool intact on paper while no trader ever draws from it.
+     */
+    public static void wanderingTraderCanRollAModTrade(GameTestHelper helper) {
+        Set<Item> wanted = Set.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
+                ModItems.OCTANT, ModItems.REINFORCED_BUNDLE);
+        Set<Item> seen = new LinkedHashSet<>();
+        boolean rolledModTrade = false;
+        int emptyRolls = 0;
+
+        for (int attempt = 0; attempt < 64 && !rolledModTrade; attempt++) {
+            WanderingTrader trader = helper.spawnWithNoFreeWill(EntityTypes.WANDERING_TRADER, new BlockPos(1, 2, 1));
+            List<MerchantOffer> offers = trader.getOffers();
+            if (offers.isEmpty()) {
+                emptyRolls++;
+            }
+            for (MerchantOffer offer : offers) {
+                Item result = offer.getResult().getItem();
+                seen.add(result);
+                if (wanted.contains(result)) {
+                    rolledModTrade = true;
+                }
+            }
+            trader.discard();
+        }
+
+        helper.assertValueEqual(emptyRolls, 0, "a wandering trader produced an empty offer list");
+        helper.assertTrue(rolledModTrade,
+                "a wandering trader never offered one of " + wanted + " in 64 rolls; results seen were " + seen);
 
         helper.succeed();
     }

@@ -820,6 +820,183 @@ def derive_selector(test_class: str, entries: list[dict]) -> str:
 # Release-Tor
 # ----------------------------------------------------------------------------
 
+#: Where the two Minecraft lines deliberately test the same concern with different tests.
+#:
+#: Data driven villager trades only exist from MC 26.1 on. The older line builds its offers in
+#: code, so several trade tests cannot share an id with their counterpart - they reach the same
+#: statement through a different mechanism. Declaring the pairs says WHAT covers the concern on
+#: the other side, which an "ignore this id" list would not.
+#:
+#: An entry with an empty side means the concern genuinely exists on one line only.
+#: Anything not listed here makes the parity check fail - that is the point: an unported test
+#: is invisible in a run where every target is green, because absence is what green cannot show.
+LINE_DIFFERENCES: tuple[tuple[tuple[str, ...], tuple[str, ...], str], ...] = (
+    (
+        ("building_enchantment_game_test_constructors_touch_stick_cycles_the_first_block_state_property",),
+        (),
+        "MC 26.2 only: on 1.21.11 there is no shared ConstructorsTouchInteraction - the same "
+        "logic sits twice in the loader modules, and a loader neutral test body cannot reach "
+        "either copy",
+    ),
+    (
+        ("config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders",),
+        (),
+        "MC 26.2 only: reads the shipped trade jsons and their loader conditions, which the "
+        "older line does not have",
+    ),
+    (
+        ("trade_and_migration_game_test_all_mod_trades_are_loaded_into_the_datapack_registry",),
+        (),
+        "MC 26.2 only: there is no datapack trade registry on 1.21.11",
+    ),
+    (
+        ("trade_and_migration_game_test_profession_trade_sets_resolve_the_mod_trades",),
+        (),
+        "MC 26.2 only: profession trade sets are data driven and do not exist on 1.21.11",
+    ),
+    (
+        ("trade_registry_game_test_all_mod_trades_reach_the_registry",),
+        ("trade_registry_game_test_all_mod_trades_resolve_against_the_server_registries",),
+        "same concern - every mod trade is reachable - through the datapack registry on 26.2 "
+        "and through the code built definitions on 1.21.11",
+    ),
+    (
+        ("trade_and_migration_game_test_mod_trades_are_merged_into_the_vanilla_trade_pools",),
+        ("trade_and_migration_game_test_mod_trades_are_merged_into_the_villager_trade_pools",
+         "trade_and_migration_game_test_mod_trades_are_merged_into_the_wandering_trader_pools"),
+        "same concern - the mod offers land in the vanilla pools - as one test on 26.2 and "
+        "split in two on 1.21.11, where villager and wandering trader pools are separate lists",
+    ),
+)
+
+
+#: How far each client target is behind the richest one right now, and why that is still
+#: open. These numbers are debt, not permission: the gate stays red while any of them is above
+#: zero. What they buy is a distinction the gate could not otherwise make - between the known
+#: shortfall and a NEW one, which is the case P5 exists to catch.
+#:
+#: Fabric and NeoForge use different client test frameworks (NeoForge ships no client test API
+#: at all, so its tests are a hand written step machine), which is why these cannot simply be
+#: copied across. testing/PLAN.md carries the two work packages: P2 for the Fabric line, P3 for
+#: the NeoForge decision.
+CLIENT_PARITY_DEBT: dict[str, int] = {
+    "client-fabric-12111": 68,
+    "client-neoforge-262": 73,
+    "client-neoforge-12111": 73,
+}
+
+
+def check_parity() -> tuple[bool, list[str]]:
+    """Do the targets cover the SAME things?
+
+    Every target being green says nothing about them testing the same suite. A test that
+    exists on one Minecraft line and was never ported is green on one side and absent on the
+    other, and absence is exactly what a green run cannot show. Same for the client targets,
+    where the two loaders keep separate test sources.
+
+    So this compares the two sets the runner already reads anyway - catalogue ids per line,
+    screenshot names per client target - and fails on any difference that is not declared in
+    LINE_DIFFERENCES.
+    """
+    notes: list[str] = []
+    ok = True
+
+    catalogue = read_catalogue()
+    # read_catalogue keys its result by these two names, and the declarations below are written
+    # in that order - side A is the newer line, side B the older one.
+    newer, older = "26.2", "1.21.11"
+    if set(catalogue) != {newer, older}:
+        return False, [f"Server-Paritaet: Kataloge fuer {sorted(catalogue)} gefunden, "
+                       f"erwartet waren {newer} und {older}"]
+
+    ids = {line: {entry["id"].split(":", 1)[-1] for entry in entries}
+           for line, entries in catalogue.items()}
+    only_newer = ids[newer] - ids[older]
+    only_older = ids[older] - ids[newer]
+
+    declared_newer = {name for side_a, _, _ in LINE_DIFFERENCES for name in side_a}
+    declared_older = {name for _, side_b, _ in LINE_DIFFERENCES for name in side_b}
+
+    undeclared = ([(newer, t) for t in sorted(only_newer - declared_newer)]
+                  + [(older, t) for t in sorted(only_older - declared_older)])
+    for line, test in undeclared:
+        other = older if line == newer else newer
+        ok = False
+        notes.append(
+            f"Server-Paritaet: {test} gibt es nur auf MC {line}, nicht auf MC {other}. Entweder "
+            "portieren, oder als Gegenstueck bzw. begruendete Ausnahme in LINE_DIFFERENCES "
+            "eintragen und im Quelltext vermerken."
+        )
+
+    stale = sorted((declared_newer - only_newer) | (declared_older - only_older))
+    if stale:
+        ok = False
+        notes.append(
+            "Server-Paritaet: diese Eintraege in LINE_DIFFERENCES treffen nicht mehr zu - der "
+            "Test laeuft inzwischen auf beiden Linien oder gar nicht mehr: " + ", ".join(stale)
+        )
+
+    if ok:
+        notes.append(
+            f"Server-Paritaet: in Ordnung - {len(ids[newer] & ids[older])} Tests mit derselben Id "
+            f"auf beiden Linien, {len(LINE_DIFFERENCES)} erklaerte Unterschiede"
+        )
+
+    client_targets = [t for t in TARGETS if t.kind == "client"]
+    shots = {t.id: set(expected_shots(t)) for t in client_targets}
+    leer = sorted(t for t, s in shots.items() if not s)
+    if leer:
+        return False, notes + ["Client-Paritaet: keine Screenshot-Namen gefunden fuer "
+                               + ", ".join(leer)]
+
+    # Der reichste Satz ist der Massstab: dorthin sind die anderen zu bringen.
+    richest = max(shots, key=lambda t: len(shots[t]))
+    hinkt = {t: sorted(shots[richest] - shots[t]) for t in shots if t != richest}
+    hinkt = {t: fehlt for t, fehlt in hinkt.items() if fehlt}
+    if hinkt:
+        ok = False
+        for target, fehlt in sorted(hinkt.items()):
+            bekannt = CLIENT_PARITY_DEBT.get(target)
+            gezeigt = ", ".join(fehlt[:5]) + (f" (+{len(fehlt) - 5} weitere)" if len(fehlt) > 5 else "")
+            if bekannt is None:
+                notes.append(
+                    f"Client-Paritaet: NEU - {target} hinkt {richest} um {len(fehlt)} Pruefpunkte "
+                    f"hinterher, ohne dass das in CLIENT_PARITY_DEBT stuende: {gezeigt}"
+                )
+            elif len(fehlt) > bekannt:
+                notes.append(
+                    f"Client-Paritaet: GEWACHSEN - {target} hinkt jetzt um {len(fehlt)} statt um "
+                    f"{bekannt} Pruefpunkte hinterher. Neu dazugekommen ist Abdeckung auf "
+                    f"{richest}, die hier fehlt: {gezeigt}"
+                )
+            elif len(fehlt) < bekannt:
+                notes.append(
+                    f"Client-Paritaet: {target} hinkt nur noch um {len(fehlt)} statt um {bekannt} "
+                    "Pruefpunkte hinterher - bitte CLIENT_PARITY_DEBT nachziehen, sonst kann die "
+                    "Luecke unbemerkt wieder wachsen."
+                )
+            else:
+                notes.append(
+                    f"Client-Paritaet: {target} deckt {len(fehlt)} Pruefpunkte weniger ab als "
+                    f"{richest} - bekannter Rueckstand, siehe testing/PLAN.md (P2/P3): {gezeigt}"
+                )
+    else:
+        notes.append(
+            f"Client-Paritaet: in Ordnung - alle {len(client_targets)} Ziele decken dieselben "
+            f"{len(shots[richest])} Pruefpunkte ab"
+        )
+
+    beglichen = sorted(set(CLIENT_PARITY_DEBT) - set(hinkt))
+    if beglichen:
+        ok = False
+        notes.append(
+            "Client-Paritaet: diese Ziele stehen noch in CLIENT_PARITY_DEBT, hinken aber nicht "
+            "mehr hinterher - Eintrag streichen: " + ", ".join(beglichen)
+        )
+
+    return ok, notes
+
+
 def release_gate(timeout: int) -> tuple[bool, list[str]]:
     """Everything that has to be green before a version leaves the house.
 
@@ -842,6 +1019,10 @@ def release_gate(timeout: int) -> tuple[bool, list[str]]:
             ok = False
         else:
             notes.append(f"{label}: in Ordnung")
+
+    parity_ok, parity_notes = check_parity()
+    notes.extend(parity_notes)
+    ok = ok and parity_ok
     return ok, notes
 
 

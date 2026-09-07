@@ -26,6 +26,12 @@ import java.util.TreeSet;
  * experience, enchantment pool. Those are built into real offers and compared field by field in
  * {@code TradeAndMigrationTests#tradeDefinitionsProduceTheExpectedOffers}.
  *
+ * <p><strong>Counterpart on MC 1.21.11:</strong> {@code allModTradesResolveAgainstTheServerRegistries}.
+ * That line has no villager_trade registry - its offers are built in code - so the same concern,
+ * "every shipped trade is reachable and names things that exist", is asked of the definition table
+ * instead of the registry. {@code LINE_DIFFERENCES} in {@code tools/testrunner/run.py} records the
+ * pairing, so deleting either side turns the parity gate red rather than quietly halving the check.
+ *
  * <p><strong>What breaks this test:</strong> a renamed, moved or deleted trade file; a json the
  * codec rejects (the file stays on disk, the registry entry disappears); a load condition that
  * switches a trade off by default; and any entry appearing under our namespace that has no file.
