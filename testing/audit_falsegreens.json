@@ -1,0 +1,832 @@
+[
+  {
+    "featureId": "rotator-3",
+    "behaviour": "Rand-Erkennung: feste Reihenfolge der Pruefungen innerhalb einer Flaechenachse (x vor z auf der waagerechten Flaeche, y vor dem Rest auf den senkrechten). Die Reihenfolge entscheidet ausschliesslich an den Ecken einer Flaeche, wo zwei Bedingungen gleichzeitig wahr sind.",
+    "claimedTest": "rotator_game_test_rim_is_the_outer_eighth_of_every_face_and_nowhere_inside",
+    "howItBreaksSilently": "Kein einziger Rotator-Klick im ganzen Repo trifft eine Ecke. Alle Trefferpunkte in RotatorTests (Zeile 216-290), ItemBehaviourTests (Zeile 111-130) und ConsumptionAndDurabilityTests haben genau eine Koordinate bei 0.05/0.95/0.124/0.13 und die zweite fest bei 0.5. Aenderung: in common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java die beiden z-Pruefungen (Zeile 69-70) VOR die beiden x-Pruefungen (Zeile 67-68) ziehen. Ein Klick auf die Nordwest-Ecke der Oberseite liefert dann NORTH statt WEST - ein Stamm legt sich nach Z statt nach X, ein Kolben zeigt nach Norden statt nach Westen. Alle 268 Servertests bleiben gruen. Dasselbe gilt fuer die y-vor-z-Reihenfolge im X-Block (Zeile 73-76) und die y-vor-x-Reihenfolge im Z-Block (Zeile 79-82). Das Javadoc des Tests behauptet ausdruecklich 'reordering the checks inside a block so that a corner is read on the other axis' breche den Test - das stimmt nicht.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-a"
+  },
+  {
+    "featureId": "rotator-3",
+    "behaviour": "Rand-Erkennung: der Randbreiten-Konstante 0.125 und die Striktheit des Vergleichs (`x < margin`, also 'genau 0.125 ist kein Rand mehr').",
+    "claimedTest": "rotator_game_test_rim_is_the_outer_eighth_of_every_face_and_nowhere_inside",
+    "howItBreaksSilently": "Der Test faehrt nur 0.124 (Rand) und 0.13 (kein Rand), RotatorTests Zeile 285-289. Das fixiert margin nur auf das Intervall (0.124, 0.13] und sagt ueber den Wert 0.125 selbst nichts. Aenderung A: RotatorItem.java Zeile 37 `getRimDirection(context, 0.125)` auf `0.13` setzen - ein Klick 0.127 vom Rand ist ab jetzt Rand statt Mitte, beide Grenzfaelle bleiben gruen. Aenderung B: in getRimDirection alle vier `<`/`>` durch `<=`/`>=` ersetzen - die exakte Grenze kippt die Seite, kein Test merkt es. Die Behauptung 'plus die exakte Grenze' ist damit nicht gedeckt; zum Vergleich: ChiselTests pinnt die 0.25 mit 0.24/0.25/0.26 wirklich.",
+    "confidence": "wahrscheinlich",
+    "_gruppe": "werkzeuge-a"
+  },
+  {
+    "featureId": "chisel-33",
+    "behaviour": "Die zwoelf Rand-Zweige von applyIntuitiveOrientation (ChiselItem.java Zeile 697-714), vier je Flaechenachse.",
+    "claimedTest": "chisel_game_test_intuitive_orientation_derives_the_edge_direction",
+    "howItBreaksSilently": "Sechs der zwoelf Zweige werden von keinem Test betreten: der komplette X-Flaechen-Block (Zeile 703-708, alle vier) sowie UP (Zeile 711) und EAST (Zeile 713) der Z-Flaeche. Man kann Zeile 703-708 ersatzlos loeschen (dann faellt die Ost-/Westflaeche in `orientation = side, isEdge = false`) - alle Tests bleiben gruen, obwohl ein Meissel-Klick auf den Rand einer Ost- oder Westflaeche danach dieselbe Ausrichtung liefert wie ein Mittelklick. Von den sechs betretenen Zweigen sind vier nur ueber die ACHSE einer Quarzsaeule beobachtet, und die kann Richtung und Gegenrichtung nicht trennen: EAST (Zeile 699, nur assertAxis bei 0.76 -> Axis.X), NORTH (Zeile 700, nur assertAxis bei z=0.24 -> Axis.Z), SOUTH (Zeile 701, nur assertAxis bei z=0.76 -> Axis.Z) und WEST der Z-Flaeche (Zeile 712, nur assertAxis bei x=0.1 -> Axis.X). NORTH und SOUTH in Zeile 700/701 vertauschen, oder in Zeile 699 EAST durch WEST ersetzen: Treppe und End Rod zeigen danach in die Gegenrichtung, jeder Test bleibt gruen, weil Saeulen nur die Achse speichern. Wirklich richtungsscharf gepinnt sind nur zwei der zwoelf Zweige - WEST der Y-Flaeche (Rod-Fall TOP_WEST_RIM, ChiselTests Zeile 608) und DOWN der Z-Flaeche (Rod-Fall Zeile 611-612).",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-a"
+  },
+  {
+    "featureId": "chisel-35",
+    "behaviour": "Treppen-Zweig, Half-Ableitung: 'Half aus Klickflaeche bzw. y' (ChiselItem.java Zeile 741-747).",
+    "claimedTest": "chisel_game_test_intuitive_orientation_derives_the_edge_direction, chisel_game_test_chiselled_pillars_and_stairs_take_the_click_orientation",
+    "howItBreaksSilently": "Beide y-Arme sind unbeobachtbar. (a) Der erste Arm (Zeile 741-742) wird nur von den Faellen 'Oberseite Mitte' und 'Unterseite Mitte' betreten - und in beiden ueberschreibt die Zeile 748 bzw. 749 (`orientation == UP -> BOTTOM`, `orientation == DOWN -> TOP`) das Ergebnis anschliessend sowieso. Man kann in Zeile 742 `Half.BOTTOM` durch `Half.TOP` ersetzen: ChiselTests Zeile 615-632 bleibt komplett gruen, obwohl ein Klick auf die untere Haelfte einer senkrechten Flaeche (z.B. Nordflaeche bei y=0.3) danach eine Oberstufen-Treppe statt einer Unterstufen-Treppe erzeugt. (b) Der zweite Arm (Zeile 743-744) wird nie betreten: der einzige Treppen-Fall auf einer senkrechten Flaeche ist assertStairs(NORTH, (0.5, 0.5, 0.0)) - genau y=0.5, wo `y > 0.5` falsch ist und der else-Zweig laeuft. `Half.TOP` dort durch `Half.BOTTOM` ersetzen aendert das Spielverhalten bei y=0.6 und bleibt gruen. Alle Meissel-Klicks, die durch die Welt gehen, landen ohnehin auf Direction.UP bei (0.5, 1.0, 0.5) oder (0.1, 1.0, 0.5) - ChiselTests useOn, BuildingEnchantmentTests chiselAt, ToolBehaviourTests useItemOnBlock Zeile 857-864.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-a"
+  },
+  {
+    "featureId": "chisel-22",
+    "behaviour": "'Constructor's Touch schaltet JE STUFE die zweite Tabelle frei' - der Zusatz-Tabellen-Merge der Eisen/Kupfer-Stufe (FINAL_IRON_TOUCH_FWD/BWD, ChiselItem.java Zeile 269-271) und der Netherit/Enderit-Stufe (Zeile 279-281).",
+    "claimedTest": "building_enchantment_game_test_constructors_touch_unlocks_the_extra_chisel_tables_in_both_directions",
+    "howItBreaksSilently": "BuildingEnchantmentTests faehrt Constructor's Touch nur mit STONE_CHISEL/STONE_SPATULA (Stein-Extras: Kopfstein, Eichenstamm) und DIAMOND_CHISEL (Diamant-Extra: Endstein). Kein Test greift je auf einen IRON_TOUCH_MAP- oder NETHERITE_TOUCH_MAP-Eintrag zu: BRICKS, MUD_BRICKS, OAK_WOOD, CRIMSON_PLANKS, CRIMSON_STEM, WARPED_STEM, OBSIDIAN, CALCITE, DRIPSTONE_BLOCK und CONCRETE kommen in keiner Testdatei als Meissel-Ziel vor (geprueft ueber alle drei Testbaeume). Aenderung: in Zeile 270-271 `merge(IRON_CHISEL_MAP, IRON_TOUCH_MAP)` zu `IRON_CHISEL_MAP` verkuerzen, oder registerWood()/registerStems()/registerConcrete() loeschen - kein Test wird rot, obwohl verzauberte Eisen-, Gold-, Diamant-, Netherit- und Enderit-Meissel danach kein Holz mehr entrinden und keinen Beton mehr wandeln.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-a"
+  },
+  {
+    "featureId": "chisel-43",
+    "behaviour": "Stein-Stufen-Eintrag SMOOTH_STONE_SLAB -> STONE_SLAB (ChiselItem.java Zeile 124).",
+    "claimedTest": "chisel_game_test_spatula_runs_forward_while_sneaking_and_chisel_runs_backward, chisel_game_test_shared_properties_survive_and_self_mappings_reorient, tool_behaviour_game_test_chisel_and_spatula_transform_block_in_both_directions",
+    "howItBreaksSilently": "Blocks.SMOOTH_STONE_SLAB kommt in keiner einzigen Datei unter common/src/shared/java/com/simplebuilding/gametest/, src/gametest/java/ oder neoforge/src/ vor. Die drei genannten Tests fahren ausschliesslich STONE <-> CHISELED_STONE_BRICKS und STONE_STAIRS -> COBBLESTONE_STAIRS. Zeile 124 (und die Zwillingszeile 189 in der Diamant-Touch-Tabelle) ersatzlos loeschen: jeder Test bleibt gruen, obwohl glatte Steinstufen ab dann von keinem Meissel mehr angenommen werden.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-a"
+  },
+  {
+    "featureId": "chisel-44",
+    "behaviour": "Constructor's-Touch-Extras der Stein-Stufe: Schlammziegel-Kette, Kopfstein -> moosig 'auch Treppe und Stufe', 'alle neun Stammarten entrinden'.",
+    "claimedTest": "building_enchantment_game_test_constructors_touch_unlocks_the_extra_chisel_tables_in_both_directions",
+    "howItBreaksSilently": "Der Test faehrt genau zwei Eintraege: COBBLESTONE <-> MOSSY_COBBLESTONE und OAK_LOG -> STRIPPED_OAK_LOG (BuildingEnchantmentTests Zeile 145-162). Blocks.MUD_BRICKS, Blocks.PACKED_MUD, Blocks.MOSSY_COBBLESTONE_STAIRS und Blocks.MOSSY_COBBLESTONE_SLAB erscheinen in keiner Testdatei; von den neun Stammarten in registerLogs() (ChiselItem.java Zeile 538-548) wird nur die Eiche gefahren - STRIPPED_OAK_LOG ist der einzige STRIPPED_*-Treffer in BuildingEnchantmentTests (Zeile 162). Aenderungen, die gruen bleiben: Zeile 128-130 (Schlammziegel-Kette) und Zeile 134-135 (Kopfstein-Treppe/-Stufe) loeschen; oder in registerLogs() Blocks.SPRUCE_LOG auf Blocks.STRIPPED_BIRCH_LOG abbilden.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-a"
+  },
+  {
+    "featureId": "chisel-45",
+    "behaviour": "Umwandlungstabelle Eisen/Kupfer-Stufe: STONE_BRICKS -> CRACKED_STONE_BRICKS, Steinziegeltreppe/-stufe -> moosig, Andesit/Diorit/Granit poliert, POLISHED_TUFF -> TUFF (plus die vom Kollegen nicht einmal aufgezaehlten Holzvarianten aus registerWoodVariants).",
+    "claimedTest": "chisel_game_test_tier_tables_are_inherited_upwards_and_shared_in_pairs",
+    "howItBreaksSilently": "Gefahren wird ausschliesslich CHISELED_STONE_BRICKS <-> STONE_BRICKS (ChiselTests Zeile 311-314, plus dieselben zwei Bloecke als Decke/Boden in Zeile 286-299). Blocks.CRACKED_STONE_BRICKS, MOSSY_STONE_BRICK_STAIRS, POLISHED_ANDESITE, POLISHED_DIORITE, POLISHED_GRANITE, POLISHED_TUFF und die Planken/Treppen/Stufen-Ketten kommen in keiner Testdatei als Meissel-Ziel vor. Konkret: ChiselItem.java Zeile 153-155 (Tuff) loeschen, oder in registerAndesiteDioriteGranite() (Zeile 613-626) POLISHED_ANDESITE auf Blocks.GRANITE abbilden, oder das zweite Glied `Blocks.CRACKED_STONE_BRICKS` aus Zeile 145 streichen - alles bleibt gruen.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-a"
+  },
+  {
+    "featureId": "chisel-46",
+    "behaviour": "Umwandlungstabelle Gold/Diamant-Stufe: Quarz-Kette (ueber den ersten Schritt hinaus), Tuff-Kette, Blackstone-Kette, Basalt, Deepslate-Kette (ueber den ersten Schritt hinaus), CRACKED_STONE_BRICKS -> COBBLESTONE.",
+    "claimedTest": "chisel_game_test_tier_tables_are_inherited_upwards_and_shared_in_pairs, tool_behaviour_game_test_chisel_tier_gates_transformations, chisel_game_test_chiselled_pillars_and_stairs_take_the_click_orientation",
+    "howItBreaksSilently": "Gefahren werden genau zwei Kettenglieder: SMOOTH_QUARTZ <-> QUARTZ_PILLAR und POLISHED_DEEPSLATE -> CHISELED_DEEPSLATE. Blocks.QUARTZ_BRICKS, CHISELED_QUARTZ_BLOCK, QUARTZ_BLOCK, CHISELED_TUFF, TUFF_BRICKS, POLISHED_BLACKSTONE, BASALT, DEEPSLATE_BRICKS, DEEPSLATE_TILES und CRACKED_STONE_BRICKS kommen in keiner Meissel-Testzeile vor (BLACKSTONE/BASALT tauchen nur in OreDetectorTests auf, in voellig anderem Zusammenhang). Aenderung: ChiselItem.java Zeile 201 (Basalt-Kette) oder Zeile 208 (rissige Steinziegel -> Kopfstein) ersatzlos loeschen, oder in Zeile 196 die Blackstone-Reihenfolge umdrehen - kein Test wird rot.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-a"
+  },
+  {
+    "featureId": "chisel-47",
+    "behaviour": "Constructor's-Touch-Extras der Gold/Diamant-Stufe: Prismarin, glatter Stein -> Stein, Purpur, Kupferblock-Kette, die zwei Korallen-Zyklen.",
+    "claimedTest": "building_enchantment_game_test_constructors_touch_unlocks_the_extra_chisel_tables_in_both_directions",
+    "howItBreaksSilently": "Der Test faehrt nur END_STONE -> END_STONE_BRICKS (BuildingEnchantmentTests Zeile 193-227), und zwar als Stufengate-Probe. Blocks.PRISMARINE, SMOOTH_STONE, PURPUR_PILLAR, COPPER_BLOCK/CUT_COPPER und saemtliche CORAL-Bloecke kommen in keiner Testdatei vor. Besonders scharf beim Zyklus: registerCyclic in Zeile 229 und 231 kann man zu registerLinear machen - der Wrap-Eintrag verschwindet, kein Test merkt es (waehrend der Netherit-Zyklus in Zeile 238 sehr wohl ueber vier Klicks im Kreis gefahren wird, ChiselTests Zeile 354-368). Auch die Kupfer-Kette Zeile 223 laesst sich loeschen, obwohl plain(...)/WeatheringCopperCollection genau die MC-26.2-Portierungsstelle ist, an der so etwas kippt.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-a"
+  },
+  {
+    "featureId": "chisel-48",
+    "behaviour": "Umwandlungstabelle Netherit/Enderit-Stufe: Harzziegel-Kette und CHISELED_RED_SANDSTONE -> RED_SAND.",
+    "claimedTest": "chisel_game_test_netherite_tier_cycles_the_nether_brick_family",
+    "howItBreaksSilently": "Der Test deckt den Netherziegel-Zyklus wirklich vollstaendig ab (vier Vorwaertsklicks plus Wrap) und CHISELED_SANDSTONE -> SAND. Die beiden anderen aufgezaehlten Teile nicht: Blocks.RESIN_BRICKS, CHISELED_RESIN_BRICKS, RESIN_BRICK_STAIRS/SLAB, CHISELED_RED_SANDSTONE und RED_SAND kommen in keiner Testdatei vor. ChiselItem.java Zeile 243-245 (Harz) und Zeile 250 (roter Sandstein -> roter Sand) ersatzlos loeschen: alle Tests bleiben gruen, obwohl der teuerste Meissel des Mods zwei seiner vier eigenen Eintraege verloren hat.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-a"
+  },
+  {
+    "featureId": "building_wand-3",
+    "behaviour": "useOn scharfschaltet den Stab und schreibt dabei BuildBlockRawId (den Block, mit dem gebaut werden soll) in die NBT; inventoryTick baut genau diesen Block.",
+    "claimedTest": "building_wand_game_test_off_hand_click_is_passed_on_and_the_wand_stops_outside_both_hands, item_behaviour_game_test_building_wand_fills_the_plane_it_is_pointed_at, building_wand_game_test_wand_armed_without_material_searches_again_and_palette_falls_back_to_stone",
+    "howItBreaksSilently": "Aenderung: In BuildingWandItem.java:360 die Zeile `nbt.putInt(\"BuildBlockRawId\", BuiltInRegistries.BLOCK.getId(buildBlock));` ersatzlos loeschen. inventoryTick liest den Schluessel mit `getIntOr(\"BuildBlockRawId\", id(AIR))` (Zeile 394) und faellt damit in den AIR-Zweig (Zeile 398), der pro Tick erneut findFirstBuildingBlock aufruft. Alle drei genannten Tests bleiben gruen, weil in ihnen die Neusuche denselben Block liefert wie der Klick: offHandClick...-Lauf 3 hat nur Glas, ItemBehaviourTests haelt pro Lauf genau eine Blockart (bzw. Bretter in der Zweithand, die auch die Neusuche zuerst findet), und wandArmedWithoutMaterial... faehrt ohnehin den AIR-Zweig. Auch die uebrigen Wand-Tests im Repo (ConsumptionAndDurability: nur Stein; BundleWiring: nur Stein im Buendel; colorPaletteKeepsTheWandBuilding: 3 Bretter dann Glas - ergibt in beiden Varianten 3 Bloecke) merken nichts. Kaputt ist damit: ein Stab, der mit Block A scharfgeschaltet wurde, baut nach dem Aufbrauchen von A stillschweigend mit Block B weiter, statt wie heute abzubrechen - und ein Stab, der mit einem Block in der Zweithand geklickt wurde, wechselt das Material, sobald ein anderer Block in eine hoeher priorisierte Position rutscht. Der einzige Lauf, der ueberhaupt in diese Naehe kommt, ist buildOnOneBlockPlusTheBackpack, und der benutzt zweimal Glas.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-b"
+  },
+  {
+    "featureId": "building_wand-6",
+    "behaviour": "Ringweiser Aufbau: erster Tick setzt genau den Mittelblock, JEDER weitere Ring erst nach abgelaufenem Timer.",
+    "claimedTest": "building_enchantment_game_test_linear_only_shortens_the_wand_step_delay",
+    "howItBreaksSilently": "Aenderung: In BuildingWandItem.java:434 `nbt.putInt(\"Timer\", isLinePlace ? DELAY_TICKS_LINE : DELAY_TICKS);` ersetzen durch `nbt.putInt(\"Timer\", currentRadius == 0 ? (isLinePlace ? DELAY_TICKS_LINE : DELAY_TICKS) : 0);`. Damit wird nur noch die Pause zwischen Mittelblock und erstem Ring eingehalten; alle weiteren Ringe folgen ohne Pause Tick auf Tick. Der genannte Test faehrt ausschliesslich wandWithRadiusOne(...) (BuildingEnchantmentTests.java:1250 setzt SettingsRadius=1), hat also nur den Schritt Ring 0 -> Ring 1 und misst weiter plainTicks==6 bzw. linearTicks==4, progress.get(0)==1, get(n-2)==1, get(n-1)==9. Kein anderer Test im Repo zaehlt Wand-Ticks bei Radius >= 2: wandTierCapsTheRadiusSettingAndSizesThePlane faehrt zwar einen Eisenstab (Radius 2), benutzt aber driveUntilIdle und assertiert nur die Positionsmenge; ItemBehaviourTests deckelt Kupfer auf Radius 1. Kaputt ist damit die Taktung jedes Stabs ab Gold/Diamant aufwaerts - eine 7x7- oder 9x9-Ebene entsteht nach dem ersten Ring praktisch schlagartig.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-b"
+  },
+  {
+    "featureId": "building_wand-32",
+    "behaviour": "Die Geister-Vorschau wird nur gezeichnet, wenn (unter anderem) ein BLOCKTREFFER vorliegt.",
+    "claimedTest": "BuildingWandPreviewClientGameTest.runTest, BuildingWandPreviewClientGameTest.testOffhandWandDrawsNothing, BuildingWandPreviewClientGameTest.testWithoutMaterialDrawsNothing, RendererProofRun.buildingWandPhase",
+    "howItBreaksSilently": "Aenderung: In BuildingWandPreviewRenderer.java:64 die zweite Haelfte der Bedingung streichen, also `if (!(hit instanceof BlockHitResult blockHit) || hit.getType() != HitResult.Type.BLOCK)` zu `if (!(hit instanceof BlockHitResult blockHit))`. Vanilla setzt Minecraft.hitResult bei einem Fehlschlag auf ein BlockHitResult vom Typ MISS (mit einer Position am Strahlende), das den verbliebenen instanceof-Test besteht - der Stab malt dann eine Geisterebene frei in der Luft, sobald der Spieler in den Himmel schaut. Kein genannter Test kann das sehen: RendererTestScene richtet die Kamera in jedem Schuss auf TARGET/TARGET_FACE aus, und assertPreviewTriggerConditions bzw. jede der drei Negativpruefungen verlangt `hit.getType() == HitResult.Type.BLOCK` sogar als Vorbedingung. Die drei Negativfaelle des Tests decken nur 'Stab in der Zweithand' und 'kein Material' ab; ein Schuss ohne Blocktreffer wird nirgends gemacht - auch nicht in RendererProofRun.buildingWandPhase.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-b"
+  },
+  {
+    "featureId": "building_wand-33",
+    "behaviour": "Jeder Geisterblock wird UM SEINEN MITTELPUNKT auf GHOST_SCALE = 0.5 verkleinert.",
+    "claimedTest": "BuildingWandPreviewClientGameTest.testGhostBlocksLeaveGaps",
+    "howItBreaksSilently": "Aenderung: In BuildingWandPreviewRenderer.java die beiden Zentrier-Zeilen um die Skalierung loeschen (Zeile 90 `poseStack.translate(0.5, 0.5, 0.5);` und Zeile 92 `poseStack.translate(-0.5, -0.5, -0.5);`), `poseStack.scale(GHOST_SCALE, ...)` stehen lassen. Jeder Geisterwuerfel schrumpft dann zur Minimalecke seiner Zelle statt zur Mitte - die Vorschau liegt sichtbar um eine viertel Blockbreite gegen das Raster verschoben, das der Stab spaeter wirklich fuellt. Der Test misst aber nur zwei Groessen gegen dieselbe Grundlinie ohne Stab: assertDrew (Signal deutlich ueber dem Rauschboden) und painted.percent() <= MAX_PAINTED_PERCENT = 65. Beide bleiben praktisch unveraendert, weil gleich grosse Wuerfel dieselbe Gesamtflaeche uebermalen - nur an anderer Stelle. Die Position der Geisterbloecke wird in keinem Client-Test gelesen (RendererProofRun.buildingWandPhase macht ebenfalls nur assertDrew).",
+    "confidence": "wahrscheinlich",
+    "_gruppe": "werkzeuge-b"
+  },
+  {
+    "featureId": "building_wand-34",
+    "behaviour": "Die Einstellungstaste oeffnet den BuildingWandScreen nur fuer einen Stab in der HAUPTHAND.",
+    "claimedTest": "ModScreensClientGameTest.testBuildingWandScreenNeedsConstructorsTouch, ClientBootstrapClientGameTest.testSettingsKeyNeedsConstructorsTouchOnAWand",
+    "howItBreaksSilently": "Aenderung: In SimplebuildingClient.java (Zeile 105) `ItemStack stack = client.player.getMainHandItem();` ersetzen durch `ItemStack stack = client.player.getMainHandItem().isEmpty() ? client.player.getOffhandItem() : client.player.getMainHandItem();`. Damit oeffnet ein verzauberter Stab in der ZWEITHAND den Screen, obwohl die Behauptung 'nur Haupthand' lautet. Beide genannten Tests bleiben gruen: sie fahren `clear @a` und legen den Stab immer in die Haupthand (giveMainHand bzw. setItem(HOTBAR_SLOT) plus selectHotbarSlot); die Zweithand ist in jedem Schritt leer, und die Vorbedingungspruefungen assertMainHandWand / assertWandInHandWithTouchLevel lesen ebenfalls nur getMainHandItem(). Kein Schritt legt jemals einen Stab in die Zweithand und drueckt die Taste. (Dieselbe Luecke betrifft die Menge der Staebe: beide Tests fahren ausschliesslich simplebuilding:netherite_building_wand, eine Verengung von `instanceof BuildingWandItem` auf `stack.is(ModItems.NETHERITE_BUILDING_WAND)` bliebe ebenfalls gruen und wuerde die fuenf anderen Stufen abschalten.)",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-b"
+  },
+  {
+    "featureId": "octant-50",
+    "behaviour": "MouseMixin wandelt das Mausrad nur dann in ein OctantScrollPayload um und bricht das Vanilla-Event nur dann ab, wenn ein OKTANT in der Haupthand liegt.",
+    "claimedTest": "ClientBootstrapClientGameTest.testOctantScrollNeedsAModifierAndNoScreen",
+    "howItBreaksSilently": "Aenderung: In MouseMixin.java:24 den Waechter `if (client.player.getMainHandItem().getItem() instanceof OctantItem) {` durch `if (true) {` ersetzen (Rest unveraendert). Danach schluckt der Mixin bei gehaltenem Shift/Strg/Alt JEDEN Radtick fuer JEDES Item - Vanillas Hotbar-Wechsel mit Modifikator ist im ganzen Spiel tot, und es geht ein Paket an den Server, das handleOctantScroll dann wegwirft. Der genannte Test merkt das nicht: in allen fuenf Modifier-Schritten (Strg, Shift, Alt, Screen-offen, gesperrter Oktant) liegt ein Oktant in der Haupthand, und der einzige Schritt mit einem anderen Item in der Hand ('Ohne Modifikator die Vanilla-Route') haelt gar keinen Modifikator. Auch sonst haelt kein Client-Test einen Modifikator waehrend eines Scrolls (Grep ueber holdControl/holdShift/holdAlt: nur dieser Test; SmokeClientGameTest:887 haelt Shift fuer Sneak, ohne zu scrollen).",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-b"
+  },
+  {
+    "featureId": "octant-51",
+    "behaviour": "Das HUD wird gezeichnet, sobald ein Oktant in der Hand liegt - der Renderer sucht ihn ausdruecklich erst in der Haupt-, dann in der Zweithand.",
+    "claimedTest": "HudAndTooltipClientGameTest.testRangefinderHudShowsPositionsAndVolume",
+    "howItBreaksSilently": "Aenderung: In RangefinderHudOverlay.java den Zweithand-Rueckfall loeschen (Zeilen 31-36: `if (!hasOctant) { stack = client.player.getOffhandItem(); if (stack.getItem() instanceof OctantItem) hasOctant = true; }`), so dass nur noch die Haupthand zaehlt. Ein Oktant in der Zweithand zeigt dann kein HUD mehr. Der genannte Test bleibt gruen, weil giveOctant(...) fuer JEDEN der vier Screenshots `item replace entity @a weapon.mainhand with simplebuilding:octant...` fahrt - die Zweithand wird nie belegt. Das Test-Javadoc behauptet an dieser Stelle ausdruecklich, 'main and offhand octant lookup' breche den Test; das ist nachrechenbar falsch.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-b"
+  },
+  {
+    "featureId": "octant-51",
+    "behaviour": "Das HUD zeigt die gespeicherten Positionen und den Messwert (Distance/Area/Volume).",
+    "claimedTest": "HudAndTooltipClientGameTest.testRangefinderHudShowsPositionsAndVolume",
+    "howItBreaksSilently": "Aenderung: In RangefinderHudOverlay.java:83-85 in allen drei Kantenlaengen das `+ 1` streichen (`int dx = Math.abs(pos1.getX() - pos2.getX());` usw.). Fuer die Testauswahl (10,1,20)/(13,4,24) meldet das HUD dann 'Volume: 36 blocks³ (3 x 3 x 4)' statt der richtigen '80 blocks³ (4 x 4 x 5)' - der Messwert des Messwerkzeugs ist falsch. Der Test kann das nicht sehen: er vergleicht nur Screenshots gegen eine Grundlinie OHNE Positionen (zwei Zeilen gegen fuenf Zeilen), und ScreenshotDiff.assertDrew verlangt lediglich ein Signal deutlich ueber dem Rauschboden. Die Boxbreite bleibt sogar identisch, weil sie ueber `Math.max(actualTextWidth, width(\"Pos 2: -8888, 888, -8888\"))` von der laengsten Musterzeile bestimmt wird. Es gibt im Repo keinen Test, der irgendeine Zeile dieses HUD als Text liest - das Klassen-Javadoc fuehrt 'die einzelnen Zahlen' selbst unter 'not covered', der Behauptungstext beansprucht sie aber.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-b"
+  },
+  {
+    "featureId": "octant-56",
+    "behaviour": "Die Einstellungstaste oeffnet den OctantScreen fuer JEDEN Oktanten (alle 17), ohne Verzauberung.",
+    "claimedTest": "ClientBootstrapClientGameTest.testSettingsKeyOnlyReactsToTheRightItem, ModScreensClientGameTest.testOctantScreenViaSettingsKey",
+    "howItBreaksSilently": "Aenderung: In SimplebuildingClient.java:106 `if (stack.getItem() instanceof OctantItem)` verengen auf `if (stack.is(ModItems.OCTANT))`. Die sechzehn gefaerbten Oktanten reagieren dann nicht mehr auf die Taste. Beide genannten Tests bleiben gruen, weil beide ausschliesslich `item replace entity @a weapon.mainhand with simplebuilding:octant` fahren - den schlichten. Kein Client-Test nimmt je einen gefaerbten Oktanten in die Hand (auch BlockHighlightClientGameTest und HudAndTooltipClientGameTest benutzen nur simplebuilding:octant), obwohl COLORED_OCTANT_ITEMS serverseitig in allOctantColoursShareDurabilityAndTheirPaint vollstaendig durchlaufen wird - die Farb-Schleife ist genau die Stelle, an der ein Port eine Farbe verliert.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-b"
+  },
+  {
+    "featureId": "magnet #1",
+    "behaviour": "inventoryTick laeuft nur, wenn der Traeger ein Player ist (MagnetItem.java:49) - ein Ruestungsstaender/Mob mit Magnet zieht nichts.",
+    "claimedTest": "magnet_game_test_magnet_only_runs_for_players_holding_it_and_stops_while_sneaking (MagnetTests.java:191-197)",
+    "howItBreaksSilently": "Die Ruestungsstaender-Assertion kann gar nicht fehlschlagen: sie liegt ausserhalb der Magnetreichweite. helper.spawn(EntityType,BlockPos) setzt auf Vec3.atBottomCenterOf, der Stand steht also auf (6.5,1,6.5) relativ; ARMOR_STAND ist sized(0.5,1.975), Box x/z [6.25,6.75]. inflate(BASE_RANGE 4.0) ergibt x/z [2.25,10.75]. Das Ziel ist der Diamant auf NEAR_SPOT (4.5,1.0,1.5), ITEM ist sized(0.25,0.25), Box z [1.375,1.625] - 0.625 Bloecke unterhalb der Boxkante 2.25, Luftlinie 5.39 > 4. getEntitiesOfClass liefert dem Stand also NICHTS, egal ob der Player-Guard existiert. Konkrete Aenderung: Zeile 49 auf 'if (!(entity instanceof LivingEntity player)) return;' aufweiten und isHeldInHand(Player,...) auf LivingEntity umstellen - getMainHandItem/getOffhandItem/getBoundingBox/getEyePosition/isShiftKeyDown gibt es alle auf LivingEntity, es kompiliert unveraendert. Danach saugt jeder Zombie, jeder Ruestungsstaender und jedes Mob mit Magnet in der Hand die Umgebung leer, und alle sechs Faelle des Tests bleiben gruen (die uebrigen fuenf fahren einen Player). Kein anderer Test im Repo fuehrt einen Nicht-Player-Traeger; Client-Tests fassen den Magneten nirgends an. Das Javadoc (Z. 167-170) behauptet zusaetzlich eine ClassCastException, die es bei dieser Aufweitung nicht gibt. Gilt identisch auf der 1.21.11-Linie (gleiche BlockPos(6,1,6)).",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-c"
+  },
+  {
+    "featureId": "ore_detector #36",
+    "behaviour": "Alle uebrigen massiven Bloecke kosten 3.0 - der Fallback in getBlockDensity (OreDetectorItem.java:238).",
+    "claimedTest": "ore_detector_game_test_dense_blocks_shorten_the_beam_more_than_soft_ones (OreDetectorTests.java:311-315)",
+    "howItBreaksSilently": "Die zitierte Stein-Messung belegt den Fallback nicht: minecraft:base_stone_overworld enthaelt stone (verifiziert aus dem MC-Jar), Stein nimmt also den Tag-Zweig Z. 234-236 und erreicht Z. 238 nie. Die einzigen Sichtlinien, die ueberhaupt durch einen Fallback-Block laufen, sind die Lockvoegel in detectorModesMatchTheirOreTags (GOLD_ORE/IRON_ORE/DIAMOND_ORE auf rowPos(2) - keiner davon in base_stone_overworld oder deepslate_ore_replaceables), und die behaupten nur 'gefunden'. Deren Kosten sind 0.5*2*[1 + 2*d] = 1+2d; die schaerfste Schranke ist der Netherite-Fall (Budget 10, DIAMOND_ORE als Lockvogel, Z. 243-245): 1+2d <= 10, also d <= 4.5. Nach unten ist NICHTS geklemmt. Konkrete Aenderung: Zeile 238 von 'return 3.0;' auf 'return 1.0;'. Danach sind Erde, Holz, Erzbloecke, Obsidian, jede Mauer, die kein Overworld-Grundgestein ist, so durchsichtig wie Luft - der Detektor sieht durch ganze Gebaeude - und jede Assertion in OreDetectorTests bleibt gruen (kein assertDoesNotFind fuehrt seinen Strahl durch einen Fallback-Block, alle 'nicht gefunden'-Faelle laufen ueber Stein/Deepslate/Blackstone/Basalt). Ebenso gruen bleibt jede Erhoehung bis 4.5.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-c"
+  },
+  {
+    "featureId": "ore_detector #29",
+    "behaviour": "Kostenfaktor 2.0 ohne, 1.0 mit Beruehrung des Konstrukteurs (OreDetectorItem.java:116) - die Verzauberung halbiert die Kosten, verdoppelt also die Reichweite.",
+    "claimedTest": "ore_detector_game_test_constructors_touch_doubles_the_reach_through_solid_rock (OreDetectorTests.java:360-378)",
+    "howItBreaksSilently": "Der Test ist die einzige Stelle im ganzen Repo, die einen verzauberten Detektor fahrt, und er stellt nur eine obere Schranke auf. placeWallAndOre(2,5,STONE,6) ergibt Kosten m*0.5*[1 + 2*(3+3+3+3)] = 12.5*m gegen Budget 24; 'gefunden' verlangt lediglich 12.5*m <= 24, also m <= 1.92. Nach unten ist der verzauberte Faktor voellig frei. Konkrete Aenderung: Zeile 116 auf 'hasEnchantment(...) ? 1.9 : 2.0'. Ergebnis: 23.75 <= 24, der Test bleibt gruen, aber die Verzauberung bringt statt 100 % nur noch 5 % mehr Reichweite - der beworbene Effekt ist praktisch weg. (Der unverzauberte Faktor ist durch die uebrigen Faelle auf (1.92, 2.1176] geklemmt, der verzauberte auf (0, 1.92] - die beiden Baender ueberlappen sich fast, das Javadoc-Versprechen 'die zwei Multiplikatoren fallen zusammen' faengt nur den exakten Zusammenfall.)",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-c"
+  },
+  {
+    "featureId": "ore_detector #30",
+    "behaviour": "Von allem, was der Modus trifft, wird der naechste BEZAHLBARE Block gemeldet - ein naeherer, unbezahlbarer Treffer verdeckt einen ferneren, erreichbaren nicht (OreDetectorItem.java:164-181: bestDistanceSq wird erst nach erfolgreichem canReach gesetzt).",
+    "claimedTest": "ore_detector_game_test_detector_reports_the_nearest_target_inside_its_budget (OreDetectorTests.java:161-171)",
+    "howItBreaksSilently": "Der Test fahrt zwei Eisenerze (2 und 5 Bloecke), die BEIDE bezahlbar sind - er klemmt damit nur 'naeher gewinnt', nicht 'unbezahlbar zaehlt nicht'. In keinem Test der Datei steht ein passender, aber unbezahlbarer Block VOR einem passenden, bezahlbaren: jedes assertDoesNotFind hat genau ein Ziel im Raum, und jedes assertFinds hat sein Ziel als naechsten Treffer. Konkrete Aenderung: 'bestDistanceSq = distanceSq;' aus dem canReach-Block (Z. 180) vor den canReach-Aufruf (Z. 178) ziehen. Danach blockiert jeder naechstgelegene Treffer, den der Strahl nicht bezahlen kann, alle dahinterliegenden - eine Ader hinter Tiefenschiefer laesst den Detektor stumm bleiben, obwohl eine erreichbare Ader dahinter liegt. Alle Assertions bleiben gruen: die assertFinds-Ziele sind ueberall erreichbar (bestTarget wird gesetzt), und die assertDoesNotFind-Faelle liefern weiterhin null oder jedenfalls nicht die verbotene Position.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-c"
+  },
+  {
+    "featureId": "magnet #8",
+    "behaviour": "BOOSTED_RANGE 8.0 (MagnetItem.java:39,87) - Beruehrung des Konstrukteurs verdoppelt die Reichweite von 4 auf 8.",
+    "claimedTest": "magnet_game_test_magnet_reach_is_four_blocks_and_constructors_touch_widens_it (MagnetTests.java:516-529)",
+    "howItBreaksSilently": "Der Test klemmt nur eine untere Schranke. Der Spieler steht auf x 1.5 (Box bis 1.8), farOutOfReach liegt auf x 7.9 (Item-Huelle ab 7.775), 'gezogen' verlangt also lediglich 1.8 + R > 7.775, d.h. R > 5.975. Eine obere Schranke gibt es nirgends - auch ToolBehaviourTests fahrt die verstaerkte Reichweite ausdruecklich nicht ('Not covered'), und Client-Tests fassen den Magneten nicht an. Konkrete Aenderung: BOOSTED_RANGE von 8.0 auf 6.0. Der Test bleibt vollstaendig gruen, aber die Verzauberung verdoppelt nichts mehr, sondern gibt 50 % - genau die Aussage der Behauptung ist weg. Dasselbe gilt fuer jeden Wert oberhalb 5.975, also auch 6.0 statt 8.0 oder 20.0 statt 8.0.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-c"
+  },
+  {
+    "featureId": "ore_detector #34",
+    "behaviour": "Netherrack hat die Materialdaempfung 1.5 (OreDetectorItem.java:223-225).",
+    "claimedTest": "ore_detector_game_test_dense_blocks_shorten_the_beam_more_than_soft_ones (OreDetectorTests.java:308-312)",
+    "howItBreaksSilently": "Der Netherrack-Fall behauptet nur 'gefunden': placeWallAndOre(2,5,NETHERRACK,6) kostet 0.5*2*[1 + 2*4*d] = 1 + 8d gegen Budget 24, 'gefunden' verlangt also blosss d <= 2.875. Es gibt keine zweite Netherrack-Messung und keine untere Schranke. Konkrete Aenderung: Zeile 224 von 1.5 auf 2.8 (oder auf 0.3). Der Test bleibt gruen (23.4 von 24 bzw. 3.4 von 24), aber im Spiel aendert sich die Reichweite durch Netherrack drastisch: durch acht Netherrack kostet der Strahl heute 25 Punkte, mit 2.8 dann 45.8. Nur das voellige Loeschen des Zweigs (Fallback 3.0 -> 25 von 24) wird gefangen, nicht der Wert selbst.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-c"
+  },
+  {
+    "featureId": "ore_detector #35",
+    "behaviour": "Tiefenschiefer (#deepslate_ore_replaceables), Basalt und Schwarzstein kosten 6.0 (OreDetectorItem.java:227-232).",
+    "claimedTest": "ore_detector_game_test_dense_blocks_shorten_the_beam_more_than_soft_ones (OreDetectorTests.java:317-328)",
+    "howItBreaksSilently": "Alle drei Faelle sind assertDoesNotFind, klemmen also nur nach unten: 1 + 6d > 24 heisst d > 3.833. Nach oben ist nichts geklemmt - 6.0 -> 50.0 laesst jede Assertion gruen, obwohl der Detektor dann nicht einmal mehr durch einen einzigen Tiefenschieferblock sieht (heute: 1 + 2*6 = 13 von 24, also zwei Bloecke weit). Zweitens wird der Tag nie als Tag gefahren: alle Messungen benutzen Blocks.DEEPSLATE, also faellt 'state.is(BlockTags.DEEPSLATE_ORE_REPLACEABLES)' -> 'state.is(Blocks.DEEPSLATE)' nicht auf, obwohl Tuff (das zweite Mitglied des Tags, aus dem MC-Jar verifiziert) damit von 6.0 auf 3.0 faellt und der Detektor durch Tuff doppelt so weit sieht. Drittens wird Blocks.POLISHED_BASALT (Z. 229) nirgends gefahren; das Loeschen dieser Zeile aendert nichts an den Tests und halbiert im Spiel die Kosten durch polierten Basalt.",
+    "confidence": "sicher",
+    "_gruppe": "werkzeuge-c"
+  },
+  {
+    "featureId": "quivers-41/42",
+    "behaviour": "Der Pfeilfilter auf overrideStackedOnOther / overrideOtherStackedOnMe weist bei PRIMARY alles ab, was NICHT im Tag minecraft:arrows ist - d.h. alle Pfeilarten duerfen rein, alles andere nicht.",
+    "claimedTest": "quiver_game_test_arrow_filter_holds_for_clicks_and_the_inverted_binding_slips_past_it (QuiverTests.arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt)",
+    "howItBreaksSilently": "Aenderung: in QuiverItem.java:48 und :56 `is(ItemTags.ARROWS)` durch `is(Items.ARROW)` ersetzen. Der Test faehrt beide Klickpfade AUSSCHLIESSLICH mit `new ItemStack(Items.STONE,8)` und `new ItemStack(Items.ARROW,8)` (slotClick/cursorClick, QuiverTests.java:276-298) - Stein bleibt draussen, gewoehnliche Pfeile kommen rein, alle 7 assertClick-Faelle bleiben gruen. Der einzige Test, der Spektral- und Getraenkte Pfeile ueberhaupt anfasst, ist ItemBehaviourTests.quiverTakesArrowsAndRefusesEverythingElse (Z.199-202) - und der geht ueber tryInsertStackFromWorld (QuiverItem.java:63), eine andere Methode, die von der Aenderung nicht beruehrt wird. Im Spiel koennte man dann Spektral-/Getraenkte Pfeile nicht mehr per Klick in den Koecher legen, und der Klick wuerde zusaetzlich als 'nicht behandelt' zurueckgemeldet.",
+    "confidence": "sicher",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "quivers-45",
+    "behaviour": "Das Entnehmen aus dem Koecher (Remove-Klick auf leeren Slot / mit leerem Cursor) laeuft ungefiltert durch zu super.",
+    "claimedTest": "reinforced_bundle_game_test_the_selected_entry_is_the_one_that_comes_out (ReinforcedBundleTests.theSelectedEntryIsTheOneThatComesOut)",
+    "howItBreaksSilently": "Aenderung: in QuiverItem.overrideStackedOnOther als erste Zeile `if (slot.getItem().isEmpty()) return false;` und in overrideOtherStackedOnMe `if (cursorStack.isEmpty()) return false;`. Danach kann man aus keinem Koecher mehr per Klick Pfeile herausnehmen. Der genannte Test laeuft auf ModItems.ENDERITE_BUNDLE (ReinforcedBundleTests.java:505), also gar nicht auf QuiverItem. QuiverTests.slotClick/cursorClick (Z.904-929) legen IMMER einen 8er-Stapel in Slot bzw. Cursor - kein einziger Aufruf mit leerem Slot/Cursor; SECONDARY kommt dort nur im invertierten Binding vor, wo es EINLEGT. Grep ueber das gesamte gametest-Verzeichnis: ModItems.QUIVER erscheint sonst nur in ConfigOptionTests (Loot-Ids), DataIntegrityTests (Rezepte/Tag), WandEnchantmentTests (Tag-Liste) und StorageEnchantmentTests (tryInsertStackFromWorld). Kein Test entnimmt je etwas aus einem QuiverItem ueber einen Klick.",
+    "confidence": "sicher",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "quivers-52",
+    "behaviour": "Die geerbte DRAWER_MAX_TYPES-Pruefung begrenzt auch den Koecher auf 5 Arten.",
+    "claimedTest": "reinforced_bundle_game_test_drawer_caps_the_bundle_at_five_kinds (ReinforcedBundleTests.drawerCapsTheBundleAtFiveKinds)",
+    "howItBreaksSilently": "Aenderung: in ReinforcedBundleItem.java:280 die Bedingung auf `if (drawerLevel > 0 && !(bundle.getItem() instanceof QuiverItem))` verengen (oder insertItemIntoBundle in QuiverItem ohne den Artencheck ueberschreiben). Beide Artengrenzen-Tests laufen ausschliesslich auf ModItems.REINFORCED_BUNDLE mit Bloecken (ReinforcedBundleTests.java:408/446/471 und StorageEnchantmentTests.java:352-354) und bleiben gruen. Jeder Test, der ueberhaupt Drawer auf einen KOECHER setzt (QuiverTests.capacityDropsTheBundleBonusAndFollowsTierAndEnchantments, StorageEnchantmentTests.assertFactorsMultiply/assertVisualsMatchTheFilling fuer ModItems.QUIVER), fuellt nur mit Items.ARROW - eine EINZIGE Art, so dass der Zaehler nie ueber 1 kommt. Im Spiel wuerde ein Drawer-Koecher dann unbegrenzt viele Pfeilarten (getraenkte Pfeile mit verschiedenen Traenken) schlucken.",
+    "confidence": "sicher",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "bundles-26",
+    "behaviour": "NUR das Netherit-Buendel ignoriert als Drop Explosionen (ItemEntityMixin.ignoreExplosion).",
+    "claimedTest": "bundle_wiring_game_test_netherite_bundle_on_the_ground_survives_fire_and_explosions + quiver_game_test_netherite_quiver_burns_in_an_explosion_while_the_netherite_bundle_survives",
+    "howItBreaksSilently": "Aenderung: ItemEntityMixin.java:35 auf `if (this.getItem().is(ModItems.NETHERITE_BUNDLE) || this.getItem().is(ModItems.ENDERITE_BUNDLE))` erweitern. In BundleWiringTests.netheriteBundleOnTheGroundSurvivesFireAndExplosions stehen nur REINFORCED_BUNDLE (Kontrolle) und NETHERITE_BUNDLE in der Explosion (Z.351-354); der Klassen-Javadoc sagt Z.325-326 ausdruecklich 'The enderite bundle is deliberately not in the blast'. QuiverTests.netheriteQuiverBurns... stellt NETHERITE_BUNDLE gegen NETHERITE_QUIVER (Z.805-806). Das ENDERIT-Buendel steht in keinem Explosionstest, also bleibt das Wort 'nur' in der Behauptung ungedeckt: die Immunitaet laesst sich still ausweiten.",
+    "confidence": "sicher",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "bundles-27",
+    "behaviour": "Netherit- UND Enderit-Buendel sind feuerfest (fireResistant() -> DAMAGE_RESISTANT), als Drop beobachtbar.",
+    "claimedTest": "bundle_wiring_game_test_netherite_bundle_on_the_ground_survives_fire_and_explosions",
+    "howItBreaksSilently": "Aenderung: `.fireResistant()` aus der ENDERITE_BUNDLE-Registrierung in ModItems.java entfernen (`registerItem(\"enderite_bundle\", settings -> new ReinforcedBundleItem(settings.stacksTo(1).rarity(Rarity.EPIC)))`). Der genannte Test verbrennt nur REINFORCED_BUNDLE (Kontrolle, muss sterben) und NETHERITE_BUNDLE (muss ueberleben), BundleWiringTests.java:334-347. Ein Grep ueber alle gametest- und clienttest-Quellen zeigt: DAMAGE_RESISTANT wird nur fuer netherite_ingot, NETHERITE_PISTON, NETHERITE_HOPPER und die drei Netherit-Oefen geprueft - fuer ENDERITE_BUNDLE (und ENDERITE_QUIVER) nirgends. Ein enderitisches Buendel wuerde ab da im Lavastrom verbrennen und niemand merkt es.",
+    "confidence": "sicher",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "bundles-13",
+    "behaviour": "Die Schublade multipliziert die Kapazitaet des BUENDELS mit (16 + Stufe) / 8.",
+    "claimedTest": "reinforced_bundle_game_test_capacity_follows_tier_and_enchantments_and_matches_the_wiki_export + quiver_game_test_capacity_drops_the_bundle_bonus_and_follows_tier_and_enchantments",
+    "howItBreaksSilently": "Aenderung: in ReinforcedBundleItem.java:509 UND :538 den Offset von 16 auf 24 setzen (`Fraction.getFraction(24 + level, 8)`), QuiverItem.java:99/:134 unberuehrt lassen. Rechnung: plain=96, Drawer I 96*25/8=300 statt 204, Drawer VIII 96*32/8=384 statt 288. Die einzige Drawer-Assertion auf dem Buendel ist die STEIGUNG: `(drawerMax - drawer1) * 8 == plain * 7` (ReinforcedBundleTests.java:805) -> (384-300)*8 = 672 = 96*7, gruen; `drawer1 > plain` gruen. assertBarAndTooltip misst die Kapazitaet vorher selbst und fuellt auf die Haelfte, also auch gruen (300 und 384 sind beide gerade, HALF_BAR=7 haelt). StorageEnchantmentTests rechnet nur Kreuzprodukte. ItemBehaviourTests.bundleCapacityGrowsWithTierAndEnchantments prueft nur `drawer > plain`. Die absoluten 136/192 in QuiverTests haengen an QuiverItem's EIGENER Formelkopie (QuiverItem.java:93-102) und sagen ueber ReinforcedBundleItem.java:509 nichts aus. Der Drawer-Faktor des Buendels laesst sich also frei verschieben.",
+    "confidence": "sicher",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "bundles-33",
+    "behaviour": "Der Minenschacht-Eintrag gibt das Verstaerkte Buendel ZUFAELLIG VERZAUBERT heraus (EnchantRandomlyFunction.randomEnchantment()).",
+    "claimedTest": "bundle_wiring_game_test_reinforced_bundle_sits_in_dungeon_shipwreck_and_mineshaft_loot + config_option_game_test_loot_table_changes_stop_when_the_option_is_switched_off",
+    "howItBreaksSilently": "Aenderung: in ModLootTableModifications (ABANDONED_MINESHAFT-Zweig) `.apply(EnchantRandomlyFunction.randomEnchantment())` durch irgendeine andere Funktion ersetzen, z.B. `.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))`. Der genannte Test prueft nur `mineshaft.has(\"functions\")` (BundleWiringTests.java:790) - die blosse ANWESENHEIT des functions-Schluessels, nicht welche Funktion. ConfigOptionTests.EXPECTED_LOOT fuehrt fuer ABANDONED_MINESHAFT nur `id(ModItems.REINFORCED_BUNDLE)` (Z.250), also die Item-Id ohne Verzauberung - im Gegensatz zu den `book(...)`-Eintraegen, die Verzauberung und Stufe pinnen. Minenschacht-Buendel kaemen ab da unverzaubert heraus und beide Tests bleiben gruen.",
+    "confidence": "sicher",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "bundles-18",
+    "behaviour": "Der ClientTooltipComponentCallback setzt scale = maxCapacity / 64 auf den ClientBundleTooltip.",
+    "claimedTest": "testBundleTooltipBarUsesCapacityScale (HudAndTooltipClientGameTest)",
+    "howItBreaksSilently": "Aenderung: in SimplebuildingClient.java den Divisor aendern - `float scale = (float) reinforcedData.maxCapacity() / 32.0f;` (statt 64.0f). Beim Netherit-Buendel wird die Skala damit 6 statt 3, der Balken fuellt sich nur halb so schnell wie er soll. Der Test pinnt den WERT der Skala nirgends: er prueft (a) `reinforced.maxCapacity() == 192` - das kommt aus getTooltipImage und ist von der Aenderung unberuehrt, (b) `!scaled.equals(unscaled)` - bei Faktor 6 erst recht verschieden, (c) `scaled.textElements() < unscaled.textElements()` - das \"Full\"-Label faellt bei 1/6 genauso weg wie bei 1/3, (d) Kontrolle mit `setCapacityScale(1.0f)` == unscaled - unveraendert. Alle vier bleiben gruen.",
+    "confidence": "sicher",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "quivers-53/54",
+    "behaviour": "Die Bogensuche und der Bogenverbrauch laufen ueber die GANZE Hotbar, Slots 0..8.",
+    "claimedTest": "quiver_game_test_bow_takes_the_topmost_arrow_and_searches_offhand_chest_hotbar_then_backpack + quiver_game_test_bow_consumes_one_arrow_from_the_quiver_that_supplied_it",
+    "howItBreaksSilently": "Aenderung: in QuiverItem.java:153 und :179 die Hotbar-Schleife von `for (int i = 0; i < 9; i++)` auf `for (int i = 0; i < 5; i++)` verkuerzen (die Rucksack-Schleife startet weiterhin bei 9, die Slots 5..8 fallen also durch beide Raster). bowTakesTheTopmostArrow... legt den Hotbar-Koecher auf Slot 3 (QuiverTests.java:488), bowConsumesOneArrow... auf Slot 4 (Z.573) - beide < 5, beide Tests bleiben gruen. Im Spiel wuerde ein Koecher in den Hotbar-Slots 5 bis 8 den Bogen nicht mehr fuettern, obwohl er in der Hand-Reichweite liegt.",
+    "confidence": "sicher",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "bundles-6",
+    "behaviour": "Der zusammengefuehrte Block wird 'neu zu vollen Stapeln aufgeteilt'.",
+    "claimedTest": "reinforced_bundle_game_test_insertion_merges_equal_stacks_and_pushes_them_to_the_top",
+    "howItBreaksSilently": "Aenderung: ReinforcedBundleItem.java:336 `int maxItemCount = stackToAdd.getMaxStackSize();` durch `int maxItemCount = 64;` ersetzen. Jeder Test, der die Aufteilung prueft, benutzt 64er-Stapelgut: insertionMerges... 40+40 Stein (Erwartung 64/16, unveraendert), drawerCapsTheBundleAtFiveKinds 80 Stein, theSelectedEntryIsTheOneThatComesOut Sand/Erde/Stein, alle Koechertests Pfeile. Der einzige Test mit einem 16er-Stapel ist insertionStopsAtTheBrimAndWeighsByStackSize (Enderperlen) - der zaehlt nur Summen (`countIn == inserted`, `pearls * 64 == capacity * 16`), und die Summe stimmt auch, wenn 24 Perlen in EINEM Eintrag statt in 16+8 liegen; BundleContents.weight() rechnet ohnehin count/maxStackSize, also aendert sich die gemessene Kapazitaet nicht. Folge im Spiel: Eintraege ueber ihrer Maximalstapelgroesse; beim Entnehmen klemmt slot.safeInsert auf 16 und der Ueberschuss ist weg.",
+    "confidence": "wahrscheinlich",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "bundles-15",
+    "behaviour": "Die Farbe des Fuellbalkens laeuft ueber den Farbkreis, gerechnet auf DERSELBEN Sichtkapazitaet wie die Breite (getMaxCapacityForVisuals).",
+    "claimedTest": "reinforced_bundle_game_test_bar_and_tooltip_read_the_same_capacity_the_filling_uses",
+    "howItBreaksSilently": "Aenderung: ReinforcedBundleItem.java:251 in getBarColor `Fraction max = getMaxCapacityForVisuals(stack);` durch `Fraction max = getBaseCapacity(stack.getItem());` ersetzen (getBarWidth unangetastet lassen). Der einzige Farbtest ist barColourAt (ReinforcedBundleTests.java:996-1000), und der baut jedes Mal `new ItemStack(ModItems.REINFORCED_BUNDLE)` - ein UNVERZAUBERTES Buendel, bei dem beide Formeln denselben Wert liefern; die drei Farbwerte und die red/green-Ordnung bleiben identisch. Ein Grep ueber alle Server- und Clienttests zeigt, dass getBarColor sonst nirgends aufgerufen wird. Folge: ein Drawer- oder Deep-Pockets-Buendel zeigt schon bei einem Drittel Fuellstand einen roten Balken, waehrend die Breite korrekt bleibt.",
+    "confidence": "sicher",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "bundles-24",
+    "behaviour": "Funnel Stufe I nimmt nur Arten auf, die das Buendel schon enthaelt - 'Art' im Sinne von Item PLUS Komponenten (ItemStack.isSameItemSameComponents).",
+    "claimedTest": "enchantment_effect_game_test_funnel_decides_what_the_bundle_picks_up + storage_enchantment_game_test_funnel_filter_decides_what_the_touch_sweeps_up",
+    "howItBreaksSilently": "Aenderung: ReinforcedBundleItem.java:579 `ItemStack.isSameItemSameComponents(s, itemOnGround)` durch `ItemStack.isSameItem(s, itemOnGround)` ersetzen. Beide genannten Tests trennen ihre Faelle nur ueber verschiedene ITEMS: EnchantmentEffectTests.funnelDecidesWhatTheBundlePicksUp nimmt Stein im Buendel gegen Stein/Erde am Boden (Z.328-332), StorageEnchantmentTests.funnelFilterDecidesWhatTheTouchSweepsUp ebenso Stein gegen Erde (Z.269-291). Kein Test bietet dem Filter zwei Stapel desselben Items mit verschiedenen Komponenten an (im Gegensatz zur Drawer-Artengrenze, die mit benannten Steinen explizit gepinnt ist, ReinforcedBundleTests.java:446-468). Folge: ein Funnel-I-Koecher mit Wasseratmungs-Pfeilen saugt auch Gift-Pfeile auf, ein Funnel-I-Buendel mit Stein auch umbenannten Stein.",
+    "confidence": "wahrscheinlich",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "bundles-23",
+    "behaviour": "Die Taste 'Block auswaehlen' holt Bloecke aus dem Baumeister-Buendel - im Kreativmodus aber nicht, dort bleibt es bei Vanilla.",
+    "claimedTest": "testMasterBuilderPickPullsFromTheBundle (ClientBootstrapClientGameTest)",
+    "howItBreaksSilently": "Aenderung: `if (this.player.isCreative()) return;` aus MinecraftClientMixin.java:33 loeschen. Der Clienttest prueft den Kreativmodus nur als VORBEDINGUNG - `if (client.player.isCreative()) return \"the player is in creative, where the mixin returns immediately\";` (ClientBootstrapClientGameTest.java:569-571) - er faehrt den Zweig also nie und wuerde die Loeschung nicht bemerken. Serverseitig hat handleMasterBuilderPick gar keine Kreativpruefung, und NetworkHandlerTests.masterBuilderPickTakesBlocksOutOfTheEnchantedBundle setzt sie auch nicht. Folge: ein Kreativspieler, der einen Block anvisiert, bekaeme ihn nicht mehr gratis, sondern der Mixin bricht die Vanilla-Auswahl ab und leert stattdessen sein Buendel.",
+    "confidence": "sicher",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "quivers-58",
+    "behaviour": "Keiner der drei Koecher ist mit einer EQUIPPABLE-Komponente registriert, der Brustslot-Schritt der Bogensuche ist also im normalen Spiel unerreichbar.",
+    "claimedTest": "quiver_game_test_bow_takes_the_topmost_arrow_and_searches_offhand_chest_hotbar_then_backpack + quiver_game_test_bow_consumes_one_arrow_from_the_quiver_that_supplied_it",
+    "howItBreaksSilently": "Der CODEPFAD ist gedeckt (beide Tests schreiben den Koecher per setItemSlot(EquipmentSlot.CHEST, ...) direkt in den Slot, QuiverTests.java:487 und :572) - die AUSSAGE ueber die Registrierung nicht. Aenderung: `.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.CHEST).build())` an die QUIVER-Zeile in ModItems haengen. Beide Tests bleiben unveraendert gruen, weil sie den Slot ohnehin per Hand befuellen und die Komponente nie lesen. Umgekehrt gilt dasselbe: ein Grep ueber alle Tests findet keine einzige Assertion auf DataComponents.EQUIPPABLE oder isEquippableInSlot fuer die Koecher. Der Behauptungsteil 'im normalen Spiel unerreichbar' ist damit von keinem Test getragen.",
+    "confidence": "wahrscheinlich",
+    "_gruppe": "lager"
+  },
+  {
+    "featureId": "2",
+    "behaviour": "Push: Einfuegen in den Behaelter, auf den FACING zeigt - inklusive der Seite, durch die eingefuegt wird (ModHopperBlockEntity.java:337 `stateToFacing(...).getOpposite()`, 338 `isInventoryFull(inventory, direction)`, 344 `addItem(..., direction)`)",
+    "claimedTest": "block_behaviour_game_test_reinforced_and_netherite_hoppers_move_items_faster_than_vanilla",
+    "howItBreaksSilently": "Der ZIEL-Behaelter ist gedeckt, die Einfuegeseite nicht. Ersetze Zeile 337 durch `Direction direction = Direction.NORTH;` (oder lass `.getOpposite()` weg): alle Tests bleiben gruen. Grund: jeder Zielbehaelter in jedem Rig ist eine Vanilla-Kiste (BlockBehaviourTests.java:598-612 `Blocks.CHEST`, HopperTests.java:1011-1020 dito). ChestBlockEntity ist KEIN WorldlyContainer, und in HopperBlockEntity (26.2) wird `direction` ausschliesslich im WorldlyContainer-Zweig benutzt (addItem Zeile 282-291, canPlaceItemInContainer Zeile 300-303); ModHopperBlockEntity.getAvailableSlots (380-391) macht dasselbe. Der Parameter ist im Test also unbeobachtbar. Im Spiel: ein Modtrichter, der von oben in einen Ofen zeigt, wuerde nicht mehr in den Input-Slot (Face UP), sondern z.B. in den Brennstoff- oder Ergebnis-Slot einfuegen. Kein Test der Suite laesst je einen Modtrichter in einen WorldlyContainer (Ofen, Trichter, Braustand) foerdern.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "3",
+    "behaviour": "Pull: HopperBlockEntity.suckInItems als BooleanSupplier - das schliesst das Aufsammeln von ItemEntities ueber dem Trichter ein (ModHopperBlockEntity.java:301)",
+    "claimedTest": "block_behaviour_game_test_reinforced_and_netherite_hoppers_move_items_faster_than_vanilla, hopper_game_test_redstone_power_stops_every_hopper_transfer",
+    "howItBreaksSilently": "Nur die Behaelter-Haelfte ist gefahren. In suckInItems (26.2, Zeile 218-245) laeuft der Entity-Zweig NUR, wenn `getSourceContainer(...)` null liefert - und in jedem Rig steht eine Kiste direkt ueber dem Trichter, der Zweig wird also nie erreicht. Ersetze den Supplier durch eine handgeschriebene Nur-Container-Variante (genau das, was eine Portierung macht, wenn sich die Vanilla-Signatur aendert), oder gib im Entity-Zweig frueh false zurueck: alle Tests bleiben gruen, aber ein Modtrichter sammelt keine liegenden Items mehr auf. Kein einziger Test der Suite spawnt eine ItemEntity ueber einem Modtrichter (geprueft ueber alle Fundstellen von REINFORCED_HOPPER/NETHERITE_HOPPER in common/.../gametest und src/gametest).",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "8",
+    "behaviour": "Exact Match (WHITELIST): nur ItemStack.isSameItemSameComponents zum Filter-Item (ModHopperBlockEntity.java:103-105)",
+    "claimedTest": "hopper_and_trim_game_test_hopper_filter_modes_gate_what_may_enter",
+    "howItBreaksSilently": "Ersetze `ItemStack.isSameItemSameComponents(stack, ghost)` durch `ItemStack.matches(stack, ghost)` (vergleicht zusaetzlich die Anzahl). Jeder canPlaceItem-Aufruf der GESAMTEN Suite uebergibt einen Stapel mit Anzahl 1 (HopperAndTrimTests.java:80-121, HopperTests.java:427, 511-514, 595-603), und das gespeicherte Ghost-Item hat per setCount(1) immer Anzahl 1 - der zusaetzliche Anzahl-Vergleich ist damit immer true. Alles bleibt gruen. Im Spiel bricht es an zwei realen Stellen: HopperBlockEntity.addItem(Container, ItemEntity) (26.2, Zeile 267-272) reicht den GANZEN aufgesammelten Stapel an canPlaceItem weiter, und Slot#mayPlace fragt mit dem kompletten Cursor-Stapel - ein Exact-Match-Trichter wuerde dann jeden Stapel groesser als 1 ablehnen.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "12",
+    "behaviour": "Modus-Texte 'Disabled'/'Exact Match'/'Type Match' und ihre Farben (HopperFilterMode.java:11-13)",
+    "claimedTest": "hopper_game_test_the_mode_delegate_reads_and_writes_the_filter_mode",
+    "howItBreaksSilently": "Die drei Farb-Assertions (HopperTests.java:463-469) pinnen totes Feld: `HopperFilterMode.getColor()` hat im gesamten Mod KEINEN Aufrufer (grep ueber common/src, src/main, neoforge/src, forge/src - nur die Testzeilen und der Kommentar). Die Farbe, die der Spieler wirklich sieht, kommt (a) aus `.withStyle(ChatFormatting.RED/GREEN/YELLOW)` am Component, das der Tooltip in NetheriteHopperScreen.java:66 zeichnet, und (b) aus den Literalen 0xFF55FF55/0xFFFFAA00 in NetheriteHopperScreen.java:60. Loesche die drei `.withStyle(...)`-Aufrufe: `getText().getString()` liefert weiterhin 'Disabled'/'Exact Match'/'Type Match', `getColor()` ist unveraendert, alles gruen - aber der Modus-Tooltip am Filterknopf wird weiss statt rot/gruen/gelb gezeichnet.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "18",
+    "behaviour": "Der Broadcast in setGhostItem (PlatformServices.broadcastHopperGhostItem, ModHopperBlockEntity.java:408)",
+    "claimedTest": "hopper_game_test_filter_items_are_stored_as_single_count_copies_and_can_be_cleared",
+    "howItBreaksSilently": "Der Broadcast ist von KEINEM Test beobachtet - auch nicht vom Client-Test. Loesche Zeile 407-409 vollstaendig: alles bleibt gruen. Der einzige Ort, an dem ein clientseitiges Ghost-Item geprueft wird (HudAndTooltipClientGameTest.java:959-970), bekommt es bereits im selben Klick lokal gesetzt (NetheriteHopperScreen.java:111-113). Die beiden Pfade maskieren sich gegenseitig. Im Spiel: ein zweiter Spieler, der denselben Trichter offen hat oder in Sichtweite steht, sieht Filteraenderungen nicht mehr live.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "19",
+    "behaviour": "setGhostItemClient setzt clientseitig mit Bereichspruefung und Anzahl 1 (ModHopperBlockEntity.java:414-424)",
+    "claimedTest": "HudAndTooltipClientGameTest#testHopperScreenSwallowsSlotClicks",
+    "howItBreaksSilently": "Der Test fuehrt nur Slot 0 und einen Cursor-Stapel mit GENAU EINEM Diamanten (HudAndTooltipClientGameTest.java:81, SAFE_INVENTORY_SLOT bekommt `new ItemStack(Items.DIAMOND, 1)`). Loesche `copy.setCount(1)` in Zeile 421: gruen, weil die Anzahl ohnehin 1 ist. Im Spiel bricht es sofort: setGhostItem sendet den ORIGINAL-Stack an den Client (Zeile 408 uebergibt `stack`, nicht die count-1-Kopie), und mouseClicked uebergibt ebenfalls den rohen Cursor-Stack - ohne setCount(1) malt der Filterslot bei einem Klick mit 64 Diamanten eine '64' ins Geisterbild. Auch die Bereichspruefung `slot >= 0 && slot < 5` (Zeile 415) wird nie mit einem ungueltigen Slot gefahren.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "22",
+    "behaviour": "getUpdatePacket / sendBlockUpdated bringen einen Modus-Wechsel zu allen Zuschauern (ModHopperBlockEntity.java:135-140, 202-206)",
+    "claimedTest": "hopper_game_test_the_mode_delegate_reads_and_writes_the_filter_mode",
+    "howItBreaksSilently": "Bestaetigt: `getUpdatePacket()` auf `return null;` aendern ODER `level.sendBlockUpdated(...)` (Zeile 138) loeschen laesst BEIDE Seiten gruen. Der Servertest liest nur das unsaved-Flag des Chunks (HopperTests.java:447-454), das schon `setChanged()` allein setzt. Der Client-Test bezieht den Modus aus den Container-Daten des Menues (getSyncedFilterMode) und das Ghost-Item aus dem lokalen setGhostItemClient - beides laeuft nicht ueber ein Block-Entity-Datenpaket. Damit ist auch die Zustellung von getUpdateTag (Behauptung 21) an einen echten Client nirgends belegt: der Tag wird nur direkt aufgerufen und in ein zweites Block-Entity zurueckgefuettert.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "28",
+    "behaviour": "getSyncedFilterMode: Rueckfall auf NONE bei ungueltigem Ordinal (NetheriteHopperScreenHandler.java:61-67)",
+    "claimedTest": "hopper_game_test_the_mode_delegate_reads_and_writes_the_filter_mode, HudAndTooltipClientGameTest#testHopperFilterButtonAndGhostSlots",
+    "howItBreaksSilently": "Die Ordinal-Aufloesung ist gedeckt, die Schranke nicht. Loesche die Pruefung `ordinal >= 0 && ordinal < values().length` und gib direkt `HopperFilterMode.values()[ordinal]` zurueck: alles bleibt gruen, weil der Delegate nur 0..2 liefert. Anmerkung zur Ehrlichkeit: der Zweig ist heute womoeglich unerreichbar (die ContainerData traegt nur den Enum-Ordinal), also ist das eher eine ungefahrene Schranke als ein belegbarer Spielfehler.",
+    "confidence": "wahrscheinlich",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "29",
+    "behaviour": "ModHopperScreenHandler.clicked faengt NUR ContainerInput.PICKUP ab, alles andere faellt an super durch (ModHopperScreenHandler.java:41-45)",
+    "claimedTest": "hopper_game_test_hopper_menu_opens_on_use_and_filter_clicks_never_store_the_item, HudAndTooltipClientGameTest#testHopperScreenSwallowsSlotClicks",
+    "howItBreaksSilently": "Loesche die Bedingung `if (actionType == ContainerInput.PICKUP)` (Zeile 41), so dass der Filterzweig JEDEN Aktionstyp schluckt: alles bleibt gruen. Der Servertest fuehrt ausschliesslich `ContainerInput.PICKUP` (HopperTests.java:747, 760, 775, 783), der Client-Test ausschliesslich einfache Linksklicks (clickSlot -> pressMouse(0) -> PICKUP, HudAndTooltipClientGameTest.java:1393-1396). Im Spiel: Shift-Klick (QUICK_MOVE) und Hotbar-Tausch mit 1..9 (SWAP, AbstractContainerScreen.checkHotbarKeyPressed:509-518) auf einen Trichterslot wuerden bei aktivem Filter kein Item mehr bewegen, sondern nur ein Ghost-Item setzen.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "30",
+    "behaviour": "Der Guard blockEntity != null in ModHopperScreenHandler.clicked (Zeile 32)",
+    "claimedTest": "hopper_game_test_hopper_menu_opens_on_use_and_filter_clicks_never_store_the_item",
+    "howItBreaksSilently": "Streiche `&& blockEntity != null`: alle Server- und Client-Tests bleiben gruen. Der Nullfall wird nie gefahren - das clientseitig gebaute Menue (NetheriteHopperScreenHandler.java:21-23 -> super(..., null)) bekommt in den Tests nie ein clicked() mit slotIndex 0..4, weil NetheriteHopperScreen.mouseClicked die Klicks vorher konsumiert. Reichbar ist der Fall trotzdem: ein Hotbar-Tausch (Taste 1..9) ueber einem Trichterslot geht ueber checkHotbarKeyPressed -> slotClicked(..., SWAP) direkt an das Client-Menue vorbei an mouseClicked - ohne den Guard eine NPE im Client.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "35",
+    "behaviour": "Der Filter-Knopf ist 18x18 gross und sitzt bei leftPos+44+5*18+4 / topPos+19 (NetheriteHopperScreen.java:34-44)",
+    "claimedTest": "HudAndTooltipClientGameTest#testHopperFilterButtonAndGhostSlots",
+    "howItBreaksSilently": "clickFilterButton (HudAndTooltipClientGameTest.java:1043-1077) sucht den einzigen Button des Screens und klickt dessen SELBST GEMELDETE Mitte (`found.getX() + found.getWidth()/2`). Setz `bounds(buttonX, buttonY, 18, 18)` auf `bounds(this.leftPos - 40, this.topPos - 40, 30, 30)`: der Test findet weiter genau einen Button, klickt dessen neue Mitte, der Modus wechselt - gruen. Weder Position noch Groesse werden gegen die Formel gestellt; ein Knopf, der ausserhalb des GUI-Hintergrunds oder ueber den Slots liegt, faellt nirgends auf.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "36",
+    "behaviour": "Der Knopf zeigt je Modus ein anderes Symbol: Barrier (Disabled), gruenes Haekchen (Exact Match), oranges T (Type Match) (NetheriteHopperScreen.java:56-63)",
+    "claimedTest": "HudAndTooltipClientGameTest#testHopperFilterButtonAndGhostSlots",
+    "howItBreaksSilently": "Gepinnt ist nur, DASS drei verschiedene Dinge gezeichnet werden, nicht WELCHES zu welchem Modus gehoert. Vertausche in Zeile 59 die beiden Glyphen (`(mode == WHITELIST) ? \"T\" : \"✔\"`) und/oder in Zeile 60 die beiden Farben: filter-off vs whitelist und filter-off vs type bleiben gross (assertDrew braucht 400 Pixel, ein Barrier-Item gegen einen Glyphen liegt weit darueber), und whitelist vs type bleibt derselbe ~128-Pixel-Glyphentausch wie vorher - alle drei Schranken halten, gruen. Genauso: `Items.BARRIER` in Zeile 57 gegen ein beliebiges anderes Item tauschen.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "37",
+    "behaviour": "Bei aktivem Filter bekommt jeder Slot mit Filter-Item ein oranges Overlay 0x60FFAA00 (NetheriteHopperScreen.java:79)",
+    "claimedTest": "HudAndTooltipClientGameTest#testHopperFilterButtonAndGhostSlots",
+    "howItBreaksSilently": "Aendere die Farbe auf einen beliebigen anderen sichtbaren Wert, z.B. 0x60FF00FF (magenta) oder 0xFF000000 (deckendes Schwarz, das das Ghost-Symbol verdeckt): die Messung ist 'Zustand ohne Ghost-Item gegen Zustand mit Ghost-Item' (HudAndTooltipClientGameTest.java:915-917), also ist jede andere Farbe eine mindestens genauso grosse Differenz - gruen. Die Farbe selbst ist an keiner Stelle gepinnt, und es gibt kein Referenzbild.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "38",
+    "behaviour": "Das Filter-Item wird nur dann als Symbol gezeichnet, wenn der Slot selbst leer ist (NetheriteHopperScreen.java:81-83)",
+    "claimedTest": "HudAndTooltipClientGameTest#testHopperFilterButtonAndGhostSlots",
+    "howItBreaksSilently": "Entferne die Bedingung `if (slot.getItem().isEmpty())` (Zeile 81) und zeichne das Ghost-Symbol immer: der Screenshot des Tests ist BIT-IDENTISCH, weil Trichterslot 0 waehrend der ganzen Messung leer ist (der Diamant wird vor 'hopper-e-ghost-slot' wieder ins Inventar zurueckgelegt, Zeile 1006-1010). Gruen. Im Spiel wuerde das Geisterbild ueber ein echtes Item gemalt und der Slotinhalt unlesbar.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "39",
+    "behaviour": "mouseClicked aktualisiert das Client-Block-Entity SOFORT (NetheriteHopperScreen.java:111-113)",
+    "claimedTest": "HudAndTooltipClientGameTest#testHopperScreenSwallowsSlotClicks",
+    "howItBreaksSilently": "Loesche Zeile 111-113: gruen. Der Test wartet nach dem Klick 15 Ticks (HudAndTooltipClientGameTest.java:945) und liest erst danach das Client-Block-Entity. In dieser Zeit ist der Umweg Client -> SetHopperGhostItemPayload -> ModMessageHandlers.handleSetHopperGhostItem -> setGhostItem -> broadcastHopperGhostItem -> SyncHopperGhostItemPayload -> SimplebuildingClient.java:206-213 -> setGhostItemClient laengst durch und hat dasselbe Feld gesetzt. Sofortiges Feedback und Server-Round-Trip decken sich gegenseitig zu; keine der beiden Haelften ist einzeln belegt.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "47",
+    "behaviour": "isGridAligned() == false (ModHopperBlockEntity.java:254-257)",
+    "claimedTest": "hopper_game_test_hopper_menu_opens_on_use_and_filter_clicks_never_store_the_item, block_behaviour_game_test_reinforced_and_netherite_hoppers_move_items_faster_than_vanilla",
+    "howItBreaksSilently": "Kein Test liest den Wert, und er ist auch indirekt unbeobachtbar. In HopperBlockEntity.suckInItems (26.2, Zeile 233-235) steht isGridAligned() ausschliesslich im ELSE-Zweig, der nur laeuft, wenn ueber dem Trichter KEIN Behaelter steht - in jedem Rig steht dort eine Kiste. `return false;` auf `return true;` aendern: alles gruen. Im Spiel ist das ein echter Unterschied zu Vanilla (HopperBlockEntity.isGridAligned() liefert true, Zeile 420-422): mit false saugt ein Modtrichter Items auch durch einen vollen Block ueber sich an, mit true nicht. Containergroesse 5 und getLevelX/Y/Z sind dagegen indirekt wirklich gedeckt (getLevelY+1 bestimmt in suckInItems Zeile 219 die Quellposition - ein falscher Wert laesst jedes Rig auflaufen).",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "51",
+    "behaviour": "Verstaerkte Stufe bekommt GENAU 1 zusaetzlichen Fortschritts-Tick pro Server-Tick (ModFurnaceBlockEntity.java:46-47)",
+    "claimedTest": "block_behaviour_game_test_reinforced_and_netherite_furnaces_smelt_faster_than_vanilla",
+    "howItBreaksSilently": "Setz in ModFurnaceBlockEntity.java:47 `extraTicks = 2`: die GESAMTE Suite bleibt gruen. Nachgerechnet gegen alle fuenf Ofentests: Timing-Test 3 Fortschritt/Tick -> ~67 Ticks; finished[2]=51 < finished[1]=67 < finished[0]=200, 200 >= 51*3, 400 >= 201 - alle vier Schranken halten. boostNeverPushes... (Deckelung greift weiter, 1 Barren in 67 statt 100 Ticks), boostOnlyRuns... (Leerlauf bleibt 0), progressCoolsDown... (Ofen: 3/Tick, nach 51 Ticks ~150 von 200, also weiter 'kalt aber halb gegart', Abfall exakt 20), oneCoalFeeds... (nur Netheritofen). WICHTIG: dieselbe Aenderung in ModSmokerBlockEntity/ModBlastFurnaceBlockEntity WIRD gefangen - dort ist totalTime 100, der Ofen wuerde bei 3/Tick schon auf Tick 34 fertig und die Vorbedingung `getItem(SLOT_RESULT).isEmpty()` in FurnaceTests.java:169 faellt. Die Luecke besteht also genau fuer die Ofen-Familie.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "52",
+    "behaviour": "Netherit-Stufe bekommt GENAU 3 zusaetzliche Fortschritts-Ticks pro Server-Tick (ModFurnaceBlockEntity.java:44-45)",
+    "claimedTest": "furnace_game_test_one_coal_feeds_several_netherite_smelts_where_vanilla_manages_one",
+    "howItBreaksSilently": "Der Test kennt nur eine UNTERE Schranke (`netheriteIngots >= 4 * vanillaIngots`, FurnaceTests.java:841). Nach unten ist die 3 damit tatsaechlich gepinnt (2 ergibt 67 Ticks/Barren -> 3 statt 4 Barren -> rot). Nach oben ist sie voellig frei: setz `extraTicks = 6` (7 Fortschritt/Tick, ~30 Ticks/Barren). Dann 7 Barren gegen Vanillas 1 -> 7 >= 4 gruen; Timing-Test 30 < 100 < 200 und 200 >= 90 gruen; boostNeverPushes... (Deckelung haelt, 2 Barren lange vor dem Budget) gruen. Aus dem dokumentierten 4-fachen Tempo wird stillschweigend das 7-fache.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "58",
+    "behaviour": "getDefaultName liefert den Sprachschluessel container.simplebuilding.reinforced_* (ModFurnaceBlockEntity.java:22-26 und die zwei Kopien)",
+    "claimedTest": "furnace_game_test_every_tier_opens_the_menu_of_its_vanilla_counterpart",
+    "howItBreaksSilently": "Gepinnt sind nur zwei Formeigenschaften: der Schluessel ist uebersetzbar und beginnt mit 'container.simplebuilding.' (FurnaceTests.java:706-712), und die drei Familien benutzen drei verschiedene Schluessel (Zeile 306-312). Der Schluessel selbst ist nirgends gegen eine Sprachdatei aufgeloest - der einzige Lang-Test der Suite (SmokeClientGameTest#modLanguageFileReachesTheClient) prueft fuenf Erz-Schluessel und sonst nichts. Aendere die drei Rueckgaben auf 'container.simplebuilding.a', '.b', '.c': alles gruen, und jedes der sechs Geraete zeigt im GUI den rohen Schluessel statt eines Namens. Der eigentliche Defekt (Netherit teilt sich den Schluessel mit Verstaerkt, obwohl container.simplebuilding.netherite_furnace/_smoker/_blast_furnace in en_us.json Zeile 157-169 existieren) ist damit ebenfalls nicht gedeckt, sondern nur nicht eingefroren.",
+    "confidence": "sicher",
+    "_gruppe": "maschinen"
+  },
+  {
+    "featureId": "pistons_and_falling",
+    "behaviour": "#7 Netheritkolben zerstört den Block vor sich, wenn Härte <= (Signalstärke/15)*50 — \"Faktor 50 an der Obergrenze\", angeblich \"von beiden Seiten eingeklemmt\"",
+    "claimedTest": "gravity_block_game_test_netherite_piston_breaks_only_what_the_signal_strength_can_afford",
+    "howItBreaksSilently": "Änderung: in common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java Zeile 36 `(power / 15.0f) * 50.0f` -> `(power / 15.0f) * 53.0f`. Die beiden Netheriteblock-Fälle klemmen den Faktor F nur auf ein Intervall ein, nicht auf einen Wert: Signal 15 verlangt F >= 50 (damit 50.0 <= F), Signal 14 verlangt (14/15)*F < 50, also F < 50*15/14 = 53.571. Gepinnt ist damit F aus [50; 53.57), nicht 50. Mit F = 53.0f bleiben ALLE fünf Fälle des Tests grün: 15/Netheriteblock 50.0 <= 53.0 bricht; 14/Netheriteblock 50.0 <= 49.4667 ist falsch, also überlebt er und wird geschoben; 14/Stein 1.5 <= 49.4667 bricht; Obsidian/Bedrock unverändert (Vanillas isPushable verweigert vorher). Beobachtbar kaputt ist es trotzdem: ein Netheritkolben mit Signalstärke 1 vor einem Stonecutter (Härte 3.5F, PushReaction NORMAL, kein BlockEntity — also von PistonStructureResolver wirklich durchgelassen) zerstört ihn mit F=53 (Schwelle 3.5333) statt ihn wie bisher zu schieben (Schwelle 3.3333). Kein Test fährt eine Signalstärke unter 14, und in den Fenstern bei 14/15 liegt kein schiebbarer Vanillablock, deshalb fällt die Verschiebung des Faktors dort nicht auf.",
+    "confidence": "sicher",
+    "_gruppe": "welt"
+  },
+  {
+    "featureId": "ore_generation",
+    "behaviour": "#60 Glück erhöht die Menge nach der Erz-Formel apply_bonus/ore_drops (Javadoc: \"Der Vertausch auf uniform_bonus_count fiele über die Obergrenze auf\")",
+    "claimedTest": "world_and_player_game_test_end_ores_drop_their_dust_and_follow_fortune_while_silk_touch_keeps_the_ore",
+    "howItBreaksSilently": "Änderung: in src/main/generated/data/simplebuilding/loot_table/blocks/astralit_ore.json und nihilith_ore.json `\"formula\": \"minecraft:ore_drops\"` durch `\"formula\": \"minecraft:uniform_bonus_count\", \"parameters\": {\"bonusMultiplier\": 1}` ersetzen (im Datagen: ModLootTableProvider.java:72/75 `createOreDrop(...)` durch eine eigene Tabelle mit `ApplyBonusCount.addUniformBonusCount(FORTUNE)` ersetzen — dessen Ein-Argument-Überladung setzt bonusMultiplier genau auf 1). Der Test prüft in assertOreDrops nur `drop.getCount() >= 1 && <= FORTUNE_MAX_COUNT (=4)` und `highest > 1`. Beide Formeln haben bei JEDEM Fortune-Level exakt denselben Wertebereich — nachgelesen in ApplyBonusCount (26.2-Quellen): ore_drops liefert count * (max(0, nextInt(L+2)-1) + 1), also 1..L+1; uniform_bonus_count(1) liefert count + nextInt(1*L+1), also ebenfalls 1..L+1. Bei Fortune III sind das beide Male 1..4. Nur die Verteilung ändert sich (P(1) von 40 % auf 25 %, Erwartungswert von 2,2 auf 2,5 Stück je Erz) — und genau die liest keine Assertion. Die Begründung des Kollegen und das Testjavadoc stützen sich auf die Obergrenze; die stimmt nur für bonusMultiplier >= 2.",
+    "confidence": "sicher",
+    "_gruppe": "welt"
+  },
+  {
+    "featureId": "pistons_and_falling",
+    "behaviour": "#27 Der Block steigt nur auf, wenn die Zelle darüber frei ist — FallingBlock.isFree(above)",
+    "claimedTest": "gravity_block_game_test_levitating_sand_waits_under_the_ceiling_until_the_way_up_is_free",
+    "howItBreaksSilently": "Änderung: in common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java Zeile 61 `FallingBlock.isFree(world.getBlockState(pos.above()))` -> `world.getBlockState(pos.above()).isAir()`. Vanillas isFree ist `isAir() || is(BlockTags.FIRE) || liquid() || canBeReplaced()`. Über der Startzelle eines Levitating-Blocks liegt in JEDEM Test des Repos ausschließlich Stein (nach beiden Definitionen nicht frei) oder Luft (nach beiden frei): GravityBlockTests levitatingSandWaitsUnderTheCeiling (Deckel Stein -> Luft), levitatingSandLeavesOnVanillasSchedule, blockedLandingSpots, BlockBehaviourTests levitatingSandAndGravelRise und levitatingSandTurnsBackIntoABlock. Der Deckentest bleibt also in beiden Phasen grün, inklusive der Wandfackel-Sonde. Kaputt ist damit genau die Eigenschaft, die die Klasse behauptet zu spiegeln: Levitating Sand unter einer Wasserquelle, unter Feuer oder unter Gras/Schneeschicht steigt nie mehr auf, während Vanilla-Sand durch alle drei hindurchfällt. Derselbe Punkt gilt für den zweiten isFree-Aufruf in LevitatingBlockEntity Zeile ~137 (wouldContinueRising).",
+    "confidence": "sicher",
+    "_gruppe": "welt"
+  },
+  {
+    "featureId": "pistons_and_falling",
+    "behaviour": "#41 Keine der vier Sand-/Kiesvarianten steht in einem vom Mod erzeugten Werkzeug-Tag (Verlust des Schaufel-Bonus)",
+    "claimedTest": "gravity_block_game_test_gravity_blocks_and_pistons_carry_their_registered_strength_and_tags",
+    "howItBreaksSilently": "Änderung: in src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java `.add(key(ModBlocks.SUSPENDED_GRAVEL))` und `.add(key(ModBlocks.LEVITATING_GRAVEL))` in den MINEABLE_WITH_PICKAXE-Builder aufnehmen, oder einen `builder(BlockTags.MINEABLE_WITH_SHOVEL)` mit allen vier Blöcken anlegen, dann Datagen laufen lassen. Der Test kennt nur assertPickaxeMineable(REINFORCED_PISTON,true), (NETHERITE_PISTON,true), (NETHERITE_PISTON_HEAD,true), (LEVITATING_SAND,false), (SUSPENDED_SAND,false). Für LEVITATING_GRAVEL und SUSPENDED_GRAVEL gibt es im ganzen Repo keine Tag-Assertion (nur FurnaceTests.java:585 wiederholt LEVITATING_SAND), und mineable/shovel wird nirgends gelesen. Die Behauptung ist also in dieser Form nicht gedeckt — die Begründung räumt das selbst ein, die Zeile steht trotzdem in der Gedeckt-Liste.",
+    "confidence": "sicher",
+    "_gruppe": "welt"
+  },
+  {
+    "featureId": "pistons_and_falling",
+    "behaviour": "#18 und #39 Beide Kolben und alle vier Sand-/Kiesvarianten lassen beim Abbauen genau sich selbst fallen",
+    "claimedTest": "data_integrity_game_test_every_mod_block_loot_table_loads",
+    "howItBreaksSilently": "Änderung: in src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java Zeile 59/60 (bzw. 91-94) `dropSelf(ModBlocks.REINFORCED_PISTON)` durch eine Tabelle mit `SetItemCountFunction.setCount(ConstantValue.exactly(4))` ersetzen (im generierten JSON schlicht `\"count\": 4`). DataIntegrityTests.rollBlockLoot sammelt aus acht Würfen nur ein `Set<Identifier>` der aufgetretenen Items und vergleicht es mit `Set.of(erwartetesItem)`; `stack.getCount()` wird nirgends gelesen. Ein Kolben, der beim Abbauen vier Kolben fallen lässt, bleibt also grün. Zum Vergleich: bei den Erzen prüft WorldAndPlayerTests.assertOreDrops ausdrücklich `assertValueEqual(drops.get(0).getCount(), 1)` — genau diese Assertion fehlt hier. (Zweite Variante desselben Lochs: eine `minecraft:random_chance`-Bedingung im Pool; da über acht Würfe nur die Vereinigung gebildet wird, genügt ein einziger erfolgreicher Wurf, damit die Menge stimmt.)",
+    "confidence": "sicher",
+    "_gruppe": "welt"
+  },
+  {
+    "featureId": "pistons_and_falling",
+    "behaviour": "#17 Rezept Netheritkolben Muster NR/RR; #25 und #38 Muster BBB/BMB/BBB der vier Coating-Rezepte",
+    "claimedTest": "gravity_block_game_test_gravity_block_recipes_craft_from_their_documented_patterns",
+    "howItBreaksSilently": "Änderung: netherite_piston_bulk.json von `minecraft:crafting_shaped` auf `minecraft:crafting_shapeless` mit den vier Zutaten (1 Netherite Nugget + 3 Verstärkte Kolben, Ausgabe 3) umstellen. assertCrafts fährt nur das dokumentierte Raster und prüft Rezept-Id, Ergebnisitem und Count — alle drei bleiben identisch, `CraftingInput.of(2,2,[N,R,R,R])` matcht ein Shapeless-Rezept genauso. Eine Gegenprobe gegen ein anderes Raster existiert im ganzen Test NUR beim Verstärkten Kolben (das um 180 Grad gedrehte 3x3-Raster). Bei den vier Coating-Rezepten hilft selbst eine Drehprobe nicht: BBB/BMB/BBB ist unter allen Drehungen und Spiegelungen invariant, eine Shapeless-Variante wäre dort grundsätzlich nicht unterscheidbar. Zusatz zum selben Loch, das alle sechs Rezepte betrifft: eine verbreiterte Zutat wird nie bemerkt — `\"B\": \"minecraft:sand\"` -> `\"B\": \"#minecraft:sand\"` lässt roten Sand für Suspended/Levitating Sand zu und hält jede Assertion grün, weil nur das dokumentierte Raster gefahren wird und nie geprüft wird, was sonst noch matcht.",
+    "confidence": "sicher",
+    "_gruppe": "welt"
+  },
+  {
+    "featureId": "pistons_and_falling",
+    "behaviour": "#37 Entity-Typ mit Trefferbox 0,98, \"damit blockPosition() beim Anstoßen genau die freie Zelle darunter trifft\" — laut Begründung indirekt gedeckt",
+    "claimedTest": "block_behaviour_game_test_levitating_sand_turns_back_into_ablock_under_aceiling / gravity_block_game_test_levitating_sand_waits_under_the_ceiling_until_the_way_up_is_free",
+    "howItBreaksSilently": "Änderung: in common/src/shared/java/com/simplebuilding/entity/ModEntities.java `.sized(0.98F, 0.98F)` -> `.sized(0.98F, 0.5F)`. Die Landetests prüfen ausschließlich, in welcher ZELLE der Block wieder auftaucht. Die Entity kommt bei y = Deckenunterkante - Boxhöhe zum Stehen, und `blockPosition()` ist floor davon: bei Decke y=5 ergibt 0,98 -> y=4,02, 1,0 -> y=4,00, 0,5 -> y=4,50 — alle drei landen in Zelle y=4. Gepinnt ist damit nur \"Boxhöhe im Bereich (0; 1,0]\", nicht die 0,98 (erst ab 1,02 rutscht die Landung auf y=3 und der Test wird rot). Kaputt: die aufsteigende Entity ragt vor dem Landen bis zu einen halben Block in die Decke hinein, und ihre Kollision mit Spielern und Entities auf dem Weg ändert sich — die Begründung \"Trefferboxgröße ist indirekt gedeckt\" hält also nur als \"höchstens ein Block hoch\".",
+    "confidence": "wahrscheinlich",
+    "_gruppe": "welt"
+  },
+  {
+    "featureId": "enchant_mining",
+    "behaviour": "Behauptung 12: Vein Miner – Flutfuellung ueber alle 26 Nachbarn, inklusive der Diagonale, die x, y und z gleichzeitig aendert.",
+    "claimedTest": "vein_and_strip_miner_game_test_vein_miner_breaks_the_whole_vein_through_the_block_break_event",
+    "howItBreaksSilently": "Konkrete Aenderung: in VeinMinerUsageEvent.java:101 die Nachbarschleife von `for (int y = -1; y <= 1; y++)` auf `for (int y = 0; y <= 1; y++)` verengen. Damit fallen neun der 26 Nachbarn weg – jeder Schritt nach unten. KEINER der Tests wird rot, weil keine einzige Testader je einen Abwaertsschritt braucht: im Cluster von Test 1 sind die noetigen Schritte (1,0,0), (-1,0,-1), (0,0,1), (-1,0,1) und der 3D-Eckschritt (-1,+1,-1) auf DIAGONAL_ORE – alle mit y>=0. Die Baumstaemme (LOG_TAIL, STEM_TAIL, STRIPPED_TAIL, MiningEnchantmentTests LOG_TAIL) wachsen ausschliesslich nach oben, die 4x4-Platte SLAB_TAIL, die ORE_FAMILIES-Cluster, DIAMOND_NEIGHBOURS, PAIR und GUARD liegen alle flach in y=1, und unter der Ader liegt durch fillFloor nur Stein. DIAGONAL_ORE deckt genau eine der acht Ecken ab (nach oben); die zwoelf Kantendiagonalen mit y!=0 und die Flaeche (0,-1,0) haben nirgends einen Aufrufer. Im Spiel wuerde jede Ader, die unter dem angeschlagenen Block weiterlaeuft – also der Normalfall – abgeschnitten.",
+    "_gruppe": "verzauberung-mining"
+  },
+  {
+    "featureId": "enchant_mining",
+    "behaviour": "Behauptung 9: Vein Miner – Budget-Tabelle 3/6/9/12/18 je Stufe.",
+    "claimedTest": "mining_enchantment_game_test_vein_miner_spends_its_per_level_budget_and_stops_when_the_tool_breaks",
+    "howItBreaksSilently": "Konkrete Aenderung: VeinMinerUsageEvent.java:61 von `case 5 -> 18;` auf `case 5 -> 16;`. Die Stufen I–IV sind exakt gepinnt (2/5/8/11 auf der 16er-Platte), Stufe V dagegen nur nach unten: assertBudget(helper, player, 5, SLAB_TAIL.size()) erwartet 15, und die Schleifenbedingung `foundCount < (maxCount - 1)` liefert 15, sobald maxBlocks >= 16 ist. Kein anderer Lauf im ganzen Repo gibt Stufe V eine Ader, die groesser als 16 Bloecke ist – ich habe alle Aufrufstellen geprueft: 5-Bloecke-Cluster, 3-Bloecke-Familien, 2-Bloecke-Paare, 3-Bloecke-Staemme, plus der doomed-Lauf, der nach 3 Bloecken abbricht. Vein Miner hat max_level 5 (src/main/generated/data/simplebuilding/enchantment/vein_miner.json), Stufe V ist also erreichbar: der Spieler bekaeme auf einer 18er-Ader 16 statt 18 Bloecke, alle genannten Tests bleiben gruen. (Die Vorschau-Kopie in MiningUtils ist davon unberuehrt – deren 18 ist in ToolBehaviourTests am 27er-Wuerfel echt gepinnt, die beiden Kopien wuerden also lautlos auseinanderlaufen.)",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-mining"
+  },
+  {
+    "featureId": "enchant_mining",
+    "behaviour": "Behauptung 19: Strip Miner – Tiefe 1/2/4 je Stufe.",
+    "claimedTest": "vein_and_strip_miner_game_test_strip_miner_tunnels_along_the_facing_and_refunds_durability_through_the_block_break_event",
+    "howItBreaksSilently": "Konkrete Aenderung: StripMinerUsageEvent.java:52 von `int depth = (level == 3) ? 4 : level;` auf `int depth = (level == 3) ? 4 : (level == 2 ? 3 : level);`. Stufe II wird durch den Hook nirgends getrieben – beide genannten Tests fahren nur Stufe I (SHAFT-Messung, GUARD-Lauf) und Stufe III (SHAFT, RISER, TUNNEL, COLUMN, LEVEL_TUNNEL); ich habe alle stripMinerPickaxe()/stripMinerTool()-Aufrufe in beiden Klassen durchgesehen, Level 2 kommt nicht vor. Strip Miner hat max_level 3 (strip_miner.json), Stufe II ist also regulaer erreichbar und wuerde nach der Aenderung drei statt zwei Bloecke graben. Die einzige Stelle, die Tiefe 2 prueft, ist ToolBehaviourTests gegen MiningUtils – das ist die Vorschau-Kopie, nicht der Hook; die beiden wuerden divergieren, ohne dass etwas rot wird.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-mining"
+  },
+  {
+    "featureId": "enchant_mining",
+    "behaviour": "Behauptung 20: Strip Miner – Abbau-Richtung, pitch > 60 nach unten.",
+    "claimedTest": "vein_and_strip_miner_game_test_strip_miner_tunnels_along_the_facing_and_refunds_durability_through_the_block_break_event",
+    "howItBreaksSilently": "Konkrete Aenderung: StripMinerUsageEvent.java:103 von `if (pitch > 60) return Direction.DOWN;` auf `if (pitch > 89) return Direction.DOWN;`. Die obere Schwelle ist mit -59/-60/-61 sauber vermessen (Behauptung 21 haelt), die untere gar nicht: jeder Abwaerts-Fall im Repo steht auf exakt pitch 90 – VeinAndStripMinerTests mockPlayer(..., 90.0F) fuer die Faelle 1–4, MiningEnchantmentTests mockPlayer(..., 90.0F) fuer die Schacht-Faelle, trapPlayer(..., 90.0F) und aim(player, 0.0F, 90.0F) fuer den Guard-Lauf. Nach der Aenderung liefert 90 weiterhin DOWN, -90 weiterhin UP, 0 und -60 weiterhin SOUTH; alle Assertionen bleiben gruen, waehrend ein schleichender Spieler, der mit 70 Grad nach unten schaut, ploetzlich waagerecht statt nach unten graebt.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-mining"
+  },
+  {
+    "featureId": "enchant_mining",
+    "behaviour": "Behauptung 51: Uebersteuerung II macht den Hammer zum korrekten Werkzeug fuer mineable/axe, /shovel und /hoe.",
+    "claimedTest": "tool_behaviour_game_test_sledgehammer_override_levels_widen_block_selection",
+    "howItBreaksSilently": "Konkrete Aenderung: in SledgehammerItem.java:95 die Zeile `state.is(BlockTags.MINEABLE_WITH_HOE)) {` aus isCorrectToolForDrops streichen (Bedingung auf AXE || SHOVEL kuerzen). Es gibt im gesamten Repo keinen Test, der einem Hammer je einen mineable/hoe-Block vorlegt: grep ueber common/src/shared/java/com/simplebuilding/gametest, src/gametest und neoforge/src/clientGameTest nach MINEABLE_WITH_HOE, HAY_BLOCK, LEAVES, SCULK, MOSS_BLOCK, NETHER_WART_BLOCK liefert null Treffer. Die Positivfaelle sind Erde (shovel) und Eichenstamm (axe), die Negativfaelle Glas und Uebersteuerung I. Nach der Aenderung droppt ein Override-II-Hammer auf Heuballen/Laub/Sculk nichts mehr und zahlt in SledgehammerUsageEvent:47 doppelte Haltbarkeit – beide genannten Tests bleiben gruen.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-mining"
+  },
+  {
+    "featureId": "enchant_mining",
+    "behaviour": "Behauptung 52: Uebersteuerung II hebt das Abbautempo auf diesen Bloecken von 1.0 auf das Materialtempo.",
+    "claimedTest": "sledgehammer_game_test_sledgehammer_speed_and_block_count_scale_with_its_enchantments",
+    "howItBreaksSilently": "Dieselbe Luecke ein zweites Mal, in der zweiten Kopie der Tag-Liste: SledgehammerItem.java:110 `state.is(BlockTags.MINEABLE_WITH_HOE)) {` aus getDestroySpeed streichen. Der Test misst assertSpeed(getDestroySpeed(override, dirt), material*1.45F) und dasselbe fuer OAK_LOG, dazu Glas bei 1.0 – ein Hoe-Block kommt nirgends vor. Nach der Aenderung graebt ein Override-II-Hammer Heu und Laub wieder mit Blossen-Haende-Tempo 1.0, waehrend isCorrectToolForDrops weiter true sagt (der Hammer droppt also, ist aber wieder langsam). Der Test bleibt gruen.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-mining"
+  },
+  {
+    "featureId": "enchant_mining",
+    "behaviour": "Behauptung 53: MiningUtils (Vorschau-Kopie) – Erz-Gate fuer Spitzhacken.",
+    "claimedTest": "tool_behaviour_game_test_vein_miner_collects_connected_ore_cluster",
+    "howItBreaksSilently": "Konkrete Aenderung: in MiningUtils.java eine der sieben Zeilen 111–117 streichen, z.B. `state.is(BlockItemTags.IRON_ORES.block()) ||`. Der Test fuettert MiningUtils.getVeinMinerBlocks ausschliesslich mit COAL_ORE (positiv) und STONE (negativ); die uebrigen MiningUtils-Aufrufe im ganzen Repo betreffen nur Quarz und Antiken Schutt (VeinAndStripMinerTests:411/432, MiningEnchantmentTests:366) und die Richtungsmethode. Von den acht Tag-Familien in der Vorschau-Kopie ist damit nur COAL_ORES gepinnt. Nach der Aenderung zeigt die Client-Vorschau (BlockHighlightRenderer bzw. MultiBlockBreakingSupport:94) fuer Eisen-/Kupfer-/Gold-/Redstone-/Lapis-/Diamant-/Smaragdadern keine Risse mehr, waehrend VeinMinerUsageEvent sie weiter abbaut – genau die Vorschau/Verhalten-Divergenz, die die Suite an anderer Stelle eigens festnagelt. Alle genannten Tests bleiben gruen. Hinweis: die entsprechende Liste im Hook (Behauptung 6) ist dagegen vollstaendig getrieben, dort haelt die Behauptung.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-mining"
+  },
+  {
+    "featureId": "enchant_mining",
+    "behaviour": "Behauptung 58: Hammer-Highlight – Umriss plus Fuellung auf dem Feld.",
+    "claimedTest": "BlockHighlightClientGameTest#testSledgehammerHighlight",
+    "howItBreaksSilently": "Konkrete Aenderung: BlockHighlightRenderer.java:113 `if (!SledgehammerUtils.shouldBreak(client.level, pos, centerPos, stack)) { continue; }` loeschen. Die Screenshot-Assertion ist ScreenshotDiff.assertDrew(...), also nur 'deutlich mehr geaenderte Pixel als der Rauschboden' – sie sagt nichts darueber, WELCHE Positionen einen Kasten bekommen. Und die Szene kann es auch nicht: RendererTestScene baut eine Wand aus genau einem Blocktyp (minecraft:stone bzw. minecraft:quartz_block, fill -12 -4 20 32 24 20) und legt einen Netherit-Vorschlaghammer in die Hand, sodass shouldBreak fuer alle acht Nachbarn true ist – der Filter wird nie negativ ausgefuehrt. Nach der Aenderung umrandet die Vorschau Nachbarn, die der Schwung stehen laesst (Erde neben Stein mit schlichtem Hammer, Golderz neben Stein mit Steinhammer): identische Pixelzahl in allen vier Screenshot-Faellen, Test gruen. Dasselbe gilt fuer die Skips `pos.equals(centerPos)` und `state.isAir()` – in einer homogenen Vollwand aendert ihr Wegfall kein Pixel.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-mining"
+  },
+  {
+    "featureId": "enchant_mining",
+    "behaviour": "Behauptung 56: Client-Vorschau – der Strip-Miner-Zweig zeigt Risse nur beim Schleichen UND nur mit einer Spitzhacke, die den Block korrekt abbaut.",
+    "claimedTest": "MultiBlockBreakingClientGameTest#testStripMinerCracksNeedSneaking",
+    "howItBreaksSilently": "Die Sneak-Haelfte haelt (stehend vs. schleichend, zwei Messfenster). Die zweite Haelfte nicht: konkrete Aenderung in MultiBlockBreakingSupport.java:90 von `} else if (stack.getItem().isCorrectToolForDrops(stack, mainState) && sneaking) {` auf `} else if (sneaking) {`. Beide Messfenster benutzen dieselbe Netherit-Spitzhacke auf derselben Obsidianwand – korrektes Werkzeug in jedem Durchlauf, der Guard wird nie negativ getroffen. Nach der Aenderung malt ein schleichender Spieler, der mit einer Eisenspitzhacke auf Obsidian zielt und dahinter Stein hat, Risse auf Bloecke, die StripMinerUsageEvent:40 nie brechen wird (getStripMinerBlocks prueft nur die Zielbloecke, nicht den Ursprung, liefert die Steine also brav zurueck). Der Test bleibt gruen. Genauso unbelegt ist `stack.is(ItemTags.PICKAXES)` in Zeile 91 – es wird nie ein Nicht-Spitzhacken-Werkzeug gemessen.",
+    "_gruppe": "verzauberung-mining"
+  },
+  {
+    "featureId": "enchant_mining",
+    "behaviour": "Behauptung 27: Strip-Miner-Tempo – die Injektion sitzt an RETURN, also hinter allen Vanilla-Faktoren.",
+    "claimedTest": "mining_enchantment_game_test_strip_miner_divides_the_player_destroy_speed_per_level",
+    "howItBreaksSilently": "Die Begruendung des Kollegen sagt es selbst: 'ein aequivalent frueher gesetzter Injektionspunkt liefert dort dieselbe Zahl.' assertSpeedDivisor misst ausschliesslich das Verhaeltnis zweier Laeufe durch dieselbe Vanilla-Methode auf demselben modifikatorfreien Mock-Spieler; jeder Vanilla-Schritt zwischen einem frueheren Injektionspunkt und RETURN, der multiplikativ ist oder auf diesem Spieler gar nicht greift, kuerzt sich aus dem Verhaeltnis heraus. Der Injektionspunkt ist damit nur bis auf einen konstanten Faktor eingegrenzt. Was ich NICHT belegen kann: welcher Schritt in Player#getDestroySpeed der 26.2 additiv ist (das Mining-Efficiency-Attribut waere der Kandidat) – dafuer haette ich in das gemappte Jar sehen muessen, was ich hier nicht getan habe. Ich melde die Behauptung deshalb als 'nicht belegt', nicht als bewiesen falsch: eine Mutation, die das Verhalten nachweisbar kaputt macht und gruen bleibt, kann ich nicht ohne diese Vanilla-Kenntnis benennen. Die zwei Guards davor (Behauptung 26) sind dagegen sauber gedeckt.",
+    "confidence": "unsicher",
+    "_gruppe": "verzauberung-mining"
+  },
+  {
+    "featureId": "enchant_building",
+    "behaviour": "Magnet: Constructor's Touch hebt die Reichweite von BASE_RANGE 4.0 auf BOOSTED_RANGE 8.0 (MagnetItem.java:37-39 Konstanten, :87 getCurrentRange).",
+    "claimedTest": "magnet_game_test_magnet_reach_is_four_blocks_and_constructors_touch_widens_it",
+    "howItBreaksSilently": "BOOSTED_RANGE von 8.0 auf 6.0 setzen - der Test bleibt gruen, die Verzauberung verliert 2 Bloecke Reichweite. Der einzige Beleg fuer die verzauberte Reichweite ist moved(farOutOfReach) mit dem Item bei x=7.9: dessen Huelle beginnt bei 7.775, die Spielerbox endet bei x=1.8, die Zusicherung faellt also erst unter range <= 5.975. Alle vier Zusicherungen des verzauberten Durchlaufs (inReach, outOfReach, diagonal, farOutOfReach) bestehen bei 6.0 unveraendert. Das Test-Javadoc sagt es selbst: 'An upper bound cannot be had in here - an item that a reach of 8 must miss would have to sit past x 9.925, outside the 8x8x8 room'. Anderswo ist BOOSTED_RANGE nicht gepinnt: ToolBehaviourTests#magnetPullsNearbyItemsAndIgnoresDistantOnes fuehrt 'the boosted range a Constructor's Touch magnet gets' ausdruecklich unter 'Not covered', und der Magnet in OreGenAndItemFrameTests zieht nur Items in Basisreichweite. BASE_RANGE dagegen ist mit den beiden 0.075-Kontrollen scharf auf (3.925, 4.075] eingegrenzt - nur die zweite Haelfte der Behauptung haelt.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-bau"
+  },
+  {
+    "featureId": "enchant_building",
+    "behaviour": "Blockauswahl-Taste: im Kreativmodus und bei bereits vorhandenem Block passiert nichts (MinecraftClientMixin.java:33 'if (this.player.isCreative()) return;' und :51-54 'if (slot != -1) return;').",
+    "claimedTest": "testMasterBuilderPickPullsFromTheBundle",
+    "howItBreaksSilently": "Beide Waechter loeschen - der Client-Test bleibt gruen. Er fuehrt die zwei Bedingungen nur als VORBEDINGUNG: das computeOnClient am Anfang gibt einen Fehlertext zurueck, wenn der Spieler kreativ ist oder schon Stein im Inventar hat, und bricht den Test dann ab. Danach laufen ausschliesslich zwei Tastendruecke, beide mit nicht-kreativem Spieler, leerer Hand und ohne Stein im Inventar: ein Kontrolldurchlauf mit unverzaubertem Buendel (Hand bleibt leer) und der Signaldurchlauf mit verzaubertem Buendel. Es gibt keinen einzigen Durchlauf im Kreativmodus und keinen mit dem Block bereits im Inventar, die beiden Zweige werden also nie ausgefuehrt. Nach dem Loeschen zieht die Taste im Kreativmodus einen Stapel aus dem Buendel und ci.cancel() unterdrueckt Vanillas eigene Kreativ-Auswahl; bei bereits vorhandenem Block wird statt des eigenen Stapels das Buendel geleert. ModMessageHandlers#handleMasterBuilderPick (network_handler_game_test_...) hat selbst keinen Kreativ-Waechter und keine 'hat er schon'-Pruefung, faengt das also nicht auf. Kein anderer Test im Baum fasst pickBlockOrEntity an.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-bau"
+  },
+  {
+    "featureId": "enchant_building",
+    "behaviour": "Werkzeugschmied: die drei toolsmith/3-Meisselhandel geben vorverzauberte Meissel mit fast_chiseling I oder II (Gewichte 50/30).",
+    "claimedTest": "trade_offer_game_test_master_book_trade_draws_every_enchantment_in_its_pool, trade_and_migration_game_test_trade_definitions_produce_the_expected_offers",
+    "howItBreaksSilently": "Aus src/main/resources/data/simplebuilding/villager_trade/toolsmith/3/emerald_gold_chisel.json (oder emerald_iron_chisel.json) den Eintrag { fast_chiseling, level 2, weight 30 } streichen - beide Tests bleiben gruen, der Gold- bzw. Eisenmeissel gibt es nie wieder mit Fast Chiseling II. TradeOfferTests rollt NUR simplebuilding:toolsmith/3/emerald_copper_chisel (CHISEL_SAMPLES=200 Seeds, assertPoolCoverage prueft dort in beide Richtungen); Eisen und Gold kommen in der Datei nirgends vor. TradeAndMigrationTests baut jeden Handel genau EINMAL mit fest gesetztem Seed (tradeContext: withOptionalRandomSeed(20260828L)) und assertOfferEnchantments prueft nur zwei Dinge: die Verzauberungsliste ist nicht leer, und jede gezogene Verzauberung liegt IN CHISEL_ENCHANT_POOL. Das ist eine Erlaubnisliste, keine exakte Menge - ein auf einen Eintrag geschrumpfter Pool zieht zwangslaeufig fast_chiseling@1, und das steht drin. Gewichte werden nirgends geprueft. Dieselbe Luecke traegt auch die Umkehrung: ein zusaetzlicher Eintrag mit kleinem Gewicht faellt bei einem einzigen Wurf fast nie auf.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-bau"
+  },
+  {
+    "featureId": "enchant_building",
+    "behaviour": "Das 60-Smaragde-Buch des Fahrenden Haendlers enthaelt nur noch radius@1 - kein Bridge-Buch mehr (villager_trade/wandering_trader/emerald_wand_book.json).",
+    "claimedTest": "trade_and_migration_game_test_trade_definitions_produce_the_expected_offers",
+    "howItBreaksSilently": "Die Begruendung des Kollegen ('WAND_BOOK_POOL wird als exakte Menge gegen die gerollten Angebote gehalten') trifft nicht zu. WAND_BOOK_POOL geht nur durch assertOfferEnchantments, und das prueft ausschliesslich: Ergebnis nicht unverzaubert, und jede Verzauberung des EINEN Angebots liegt in der Menge. Das Angebot wird genau einmal gebaut, mit dem festen Seed 20260828L; es gibt keine Wiederholung ueber viele Seeds und keine Rueckrichtung 'die Menge wurde vollstaendig gezogen' (die gibt es nur in TradeOfferTests#assertPoolCoverage und WandEnchantmentTests#assertBookTrade, und beide fassen diesen Handel nicht an). Faengt man das Bridge-Buch wieder ein - z.B. { simplebuilding:bridge, level 1, weight 1 } neben dem vorhandenen radius@20 - zieht der eine Wurf mit rund 20 von 21 Faellen weiterhin radius@1, und der Test bleibt gruen, waehrend der Haendler wieder Bridge-Buecher verkauft. Ein zweiter Poolwert ist ausserdem folgenlos fuer alle uebrigen Zusicherungen der Zeile (Preis 60, max_uses 1, xp 10, reputation_discount 0.2 bleiben unveraendert).",
+    "confidence": "wahrscheinlich",
+    "_gruppe": "verzauberung-bau"
+  },
+  {
+    "featureId": "enchant_building",
+    "behaviour": "Beide Vorschau-Suchen lesen zuerst die Nebenhand, dann die Hotbar - auch findAllBuildingBlocks (BuildingWandItem.java:160 gegen die Schleife :163-165).",
+    "claimedTest": "building_enchantment_game_test_color_palette_spreads_the_carried_blocks_over_the_wand_preview",
+    "howItBreaksSilently": "Den Aufruf collectBlocksFromStack(player.getOffhandItem(), ...) aus Zeile 160 hinter die Inventarschleife verschieben - der Test bleibt gruen. Fuer findFirstBlockStateClient ist die Reihenfolge wirklich gepinnt (offhandFirst muss {BRICKS} sein, obwohl Hotbar-Slot 1 Bretter haelt). Fuer die Palettenvariante prueft der Test dagegen nur distinctBlocks(offhandPalette) == Set.of(BRICKS, OAK_PLANKS) - eine MENGE. Die Listenreihenfolge steht in keiner Zusicherung, obwohl sie ueber palette.get(Math.abs((int)(pos.asLong() % palette.size()))) entscheidet, welcher Block an welcher Position gezeichnet wird: nach dem Vertauschen zeigt die Vorschau an jeder Position den jeweils anderen der beiden Bloecke. Auch WandEnchantmentTests#masterBuilderMovesThePreviewSourcesTheSameWayItMovesThePlacement pinnt die Reihenfolge nicht - alle dortigen Palettenfaelle haben genau eine Blocksorte im Ergebnis. Geloescht werden kann die Zeile nicht (dann faellt BRICKS aus der Menge und der Test wird rot); nur ihre Position ist frei.",
+    "confidence": "wahrscheinlich",
+    "_gruppe": "verzauberung-bau"
+  },
+  {
+    "featureId": "enchant_storage_player",
+    "behaviour": "Schublade multipliziert die Kapazitaet mit (16 + Stufe)/8 - Anspruch 5. Fuer die BUENDEL-Kopien der Formel (ReinforcedBundleItem.java:509 in getMaxCapacity und :538 in getMaxCapacityForVisuals) pinnt kein Test die absolute Zahl.",
+    "claimedTest": "quiver_game_test_capacity_drops_the_bundle_bonus_and_follows_tier_and_enchantments, reinforced_bundle_game_test_capacity_follows_tier_and_enchantments_and_matches_the_wiki_export",
+    "howItBreaksSilently": "Beide Zeilen im Buendel (ReinforcedBundleItem.java:509 und :538) auf Fraction.getFraction(8 + level, 8) aendern - also zurueck auf die dokumentierte Formel. Ein Schublade-I-Buendel faellt von 204 auf 108 Stein, Schublade VIII von 288 auf 192. Beide genannten Tests bleiben gruen: ReinforcedBundleTests.java:805 prueft nur die STEIGUNG ((drawerMax - drawer1) * 8 == plain * 7); die haelt fuer beide Formeln exakt (672 == 672), und drawer1 > plain (108 > 96) haelt auch. Die 136/192 aus QuiverTests.java:146-149 messen ausschliesslich QuiverItem.getMaxCapacity (QuiverItem.java:99), eine eigene Kopie - die ReinforcedBundleTests-Klassen-Javadoc sagt das selbst: 'QuiverItem overrides getMaxCapacity and getMaxCapacityForVisuals with copies of its own, so every enchantment branch it pins belongs to QuiverItem and not to the class here'. Auch der Rest der Suite bleibt gruen: assertBarAndTooltip (ReinforcedBundleTests.java:969-993) misst die Kapazitaet erst selbst (108 und 192 sind beide gerade, Wache capacity % 2 == 0 haelt), StorageEnchantmentTests.java:793 prueft nur das Kreuzprodukt (both*plain == drawerOnly*deepOnly, 73728 == 73728), assertVisualsMatchTheFilling stimmt, weil beide Kopien gleich geaendert werden, und ItemBehaviourTests.java:262 prueft nur drawer > plain. Achtung: wird NUR :509 geaendert, faellt assertVisualsMatchTheFilling rot - die beiden Zeilen muessen zusammen wandern, dann ist alles gruen.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-spieler"
+  },
+  {
+    "featureId": "enchant_storage_player",
+    "behaviour": "Reichweite ist auf Abbauwerkzeuge und Vorschlaghaemmer ansetzbar - Anspruch 22. Geprueft werden nur Diamantmeissel, Oktant und die 16 gefaerbten Oktanten.",
+    "claimedTest": "protection_and_range_game_test_range_adds_block_interaction_reach_in_the_main_hand_only, data_integrity_game_test_mod_enchantments_are_present_in_the_datapack_registry",
+    "howItBreaksSilently": "In src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java:56 die Zeile .forceAddTag(ItemTags.MINING_ENCHANTABLE) aus dem Builder fuer ModTags.Items.CHISEL_AND_MINING_TOOLS loeschen (fuer die Vorschlaghaemmer zusaetzlich :57 .addTag(SLEDGEHAMMER_ENCHANTABLE) - die haengen ueber beide Wege drin, eine Zeile allein aendert bei ihnen nichts). Danach kann kein Spieler mehr Reichweite auf eine Spitzhacke, Axt, Schaufel, Hacke (und ohne :57 auch auf keinen Vorschlaghammer) setzen. ProtectionAndRangeTests.java:318-337 fragt canEnchant nur fuer DIAMOND_CHISEL (kommt ueber CHISEL_TOOLS), OCTANT und COLORED_OCTANT_ITEMS (ueber OCTANTS_ENCHANTABLE) sowie als Gegenprobe den Diamanthelm - kein Abbauwerkzeug, kein Vorschlaghammer. DataIntegrityTests.java:133 pinnt nur, DASS RANGE auf dem Tag CHISEL_AND_MINING_TOOLS haengt, nie dessen Inhalt; eine repo-weite Suche nach CHISEL_AND_MINING_TOOLS im gametest-Verzeichnis trifft ausschliesslich diese eine Zeile. Auch die Handelstests bleiben gruen, weil WeightedEnchantFunction.run (WeightedEnchantFunction.java:57-89) canEnchant nie fragt.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-spieler"
+  },
+  {
+    "featureId": "enchant_storage_player",
+    "behaviour": "Trichter I und Reichweite I-III liegen im Pool des Meister-Bibliothekars, Reichweite I in beiden Vorschlaghammer-Trades - Anspruch 26.",
+    "claimedTest": "trade_and_migration_game_test_trade_definitions_produce_the_expected_offers",
+    "howItBreaksSilently": "Aus src/main/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json den Eintrag { \"enchantment\": \"simplebuilding:funnel\", \"level\": 1, \"weight\": 30 } streichen (bzw. simplebuilding:range aus toolsmith/4/emerald_iron_sledgehammer.json). Trichter ist dann ueberhaupt nicht mehr handelbar - es ist neben der Bastion/Nether/Verlies-Truhe die einzige weitere Quelle. Der Test bleibt gruen, weil assertOfferEnchantments (TradeAndMigrationTests.java:824-836) den Pool nur als OBERMENGE benutzt: er verlangt (a) mindestens eine Verzauberung und (b) dass jede gezogene in der deklarierten Menge liegt. Ein geschrumpfter Json-Pool ist eine Teilmenge von MASTER_BOOK_POOL, also erfuellt jede der zehn verbleibenden Optionen beide Bedingungen. Es wird ausserdem nur EIN Angebot je Trade gebaut (TradeAndMigrationTests.java:387-391), nicht ausgerollt - die Gegenrichtung 'jeder deklarierte Eintrag kommt auch wirklich vor' wird nirgends geprueft. WeightedEnchantFunction.pickWeighted zieht einfach aus dem verbliebenen Gewicht.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-spieler"
+  },
+  {
+    "featureId": "enchant_storage_player",
+    "behaviour": "Der Tooltip-Balken wird auf die vergroesserte Kapazitaet skaliert, indem die Belegung durch (int) capacityScale geteilt wird - Anspruch 31. Der Faktor selbst wird von keiner Zusicherung festgehalten.",
+    "claimedTest": "testBundleTooltipBarUsesCapacityScale",
+    "howItBreaksSilently": "In src/main/java/com/simplebuilding/SimplebuildingClient.java:141 float scale = (float) reinforcedData.maxCapacity() / 64.0f auf / 32.0f aendern (gleichwertig: in BundleTooltipComponentMixin.java:41 durch (int) capacityScale + 1 teilen). Der Tooltip-Balken eines randvollen Netherit-Buendels steht dann bei der Haelfte statt bei 'Full' - genau der Fehler, gegen den der Test angeblich sichert. HudAndTooltipClientGameTest.java:447-475 prueft nur drei Dinge: scaled != unscaled (bei Skala 6 statt 3 immer noch wahr), scaled.textElements() < unscaled.textElements() (bei 1/6 statt 1/3 immer noch wahr, weil das 'Full'-Label nur bei Belegung 1 kommt) und dass ein zurueckgesetztes capacityScale == 1 die Vanilla-Geometrie reproduziert (trifft den Fruehausstieg in Mixin-Zeile 38, also unabhaengig vom Divisor). Die einzige gepinnte Zahl ist reinforced.maxCapacity() == 192 (Zeile 430) - das ist getTooltipImage, nicht der Skalierungsfaktor. TooltipShape (Zeile 499) vergleicht nur zwei Geometrien miteinander, nie gegen einen erwarteten Fuellstand.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-spieler"
+  },
+  {
+    "featureId": "enchant_storage_player",
+    "behaviour": "'... und in keiner anderen Truhe' - Anspruch 23. Die geschlossene Pruefung laeuft ueber 13 Tabellen, der Mod bearbeitet 16.",
+    "claimedTest": "storage_enchantment_game_test_storage_books_sit_in_the_chests_they_are_meant_for, config_option_game_test_loot_table_changes_stop_when_the_option_is_switched_off",
+    "howItBreaksSilently": "In ModLootTableModifications.java in den Iglu-Pool (:224-229) eine Zeile .add(enchantedBook(ModEnchantments.DEEP_POCKETS, 2, enchantments, 10)) einfuegen. Deep Pockets II liegt danach auch in jedem Iglu. BOOK_CASES (StorageEnchantmentTests.java:221-234) listet IGLOO_CHEST nicht - ebenso wenig SHIPWRECK_TREASURE, TRIAL_CHAMBERS_REWARD_COMMON und TRIAL_CHAMBERS_REWARD_RARE, also vier der sechzehn Tabellen, die apply() selbst anfasst (MODIFIED_TABLES, ConfigOptionTests.java:107-123). Die Gleichheitspruefung in StorageEnchantmentTests.java:585 laeuft nur ueber die 13 aufgefuehrten Faelle, fuer alle anderen Tabellen wird nichts behauptet. Der zweite genannte Test faellt ebenfalls nicht: EXPECTED_LOOT ist ausdruecklich eine untere Schranke (ConfigOptionTests.java:161-162, 'adding an entry to a pool is not a regression'), und der Poolzaehler sieht nur, DASS ein Pool da ist.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-spieler"
+  },
+  {
+    "featureId": "enchant_storage_player",
+    "behaviour": "Gewicht, Amboss-Kosten und beide Kostenkurven von Deep Pockets, Trichter, Schublade, Reichweite und Kinetischem Schutz - Anspruch 33.",
+    "claimedTest": "storage_enchantment_game_test_drawer_and_deep_pockets_multiply_on_the_same_container, protection_and_range_game_test_kinetic_protection_scales_with_level_and_only_covers_its_own_damage_types, protection_and_range_game_test_range_adds_block_interaction_reach_in_the_main_hand_only",
+    "howItBreaksSilently": "In ModEnchantments.java den Amboss-Kostenparameter von Schublade (:161, 8) auf 1 setzen oder das Gewicht von Deep Pockets (:109) von 2 auf 30 aendern. Das Kombinieren im Amboss wird dadurch messbar billiger bzw. teurer, das Verhalten ist also geaendert - und keiner der drei genannten Tests merkt es. Sie pinnen jeweils nur getMaxLevel() als Setup-Wache (StorageEnchantmentTests.java:502-505, ProtectionAndRangeTests.java:138-140 und :282-283). Eine Suche nach getWeight()/getAnvilCost()/getMinCost(/getMaxCost( ueber common/src/shared/java/com/simplebuilding/gametest/, src/gametest/ und neoforge/src/clientGameTest/ trifft ausschliesslich WorldAndPlayerTests.java:552-560 - und das ist ausschliesslich der Luftsprung. Fuer die fuenf Verzauberungen dieses Features existiert im gesamten Baum keine einzige Zusicherung auf eine dieser vier Zahlen.",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-spieler"
+  },
+  {
+    "featureId": "enchant_storage_player",
+    "behaviour": "Schublade und Kinetischer Schutz haben ausser dem Kreativ-Inventar keine gezielte Fundquelle - Anspruch 27.",
+    "claimedTest": "config_option_game_test_loot_table_changes_stop_when_the_option_is_switched_off",
+    "howItBreaksSilently": "In ModLootTableModifications.java in irgendeinen bestehenden Pool - z. B. den der Ancient City (:92-102) - eine Zeile .add(enchantedBook(ModEnchantments.DRAWER, 4, enchantments, 20)) einfuegen. Schublade waere danach eine Truhenverzauberung, die Behauptung also falsch. Der Test bleibt gruen: EXPECTED_LOOT ist eine untere Schranke (ConfigOptionTests.java:161-162) und wird nur in einer Richtung geprueft (Zeile 442-447: fuer jeden ERWARTETEN Eintrag muss er vorkommen, nie umgekehrt). Der zweite mögliche Faenger, BOOK_CASES, kann es ebenfalls nicht: OWNED_BOOKS (StorageEnchantmentTests.java:186-187) filtert die gefundenen Verzauberungen auf DEEP_POCKETS, FUNNEL und RANGE, DRAWER und KINETIC_PROTECTION werden vor dem Vergleich weggeworfen (Zeile 572-578).",
+    "confidence": "sicher",
+    "_gruppe": "verzauberung-spieler"
+  },
+  {
+    "featureId": "enchant_storage_player",
+    "behaviour": "'... und setzt die Auswahl danach auf -1' - Teilaussage von Anspruch 12. Die zugehoerige Zusicherung kann durch keine Aenderung am Mod-Code rot werden.",
+    "claimedTest": "reinforced_bundle_game_test_the_selected_entry_is_the_one_that_comes_out",
+    "howItBreaksSilently": "BundleItem.toggleSelectedItem(bundle, -1) in ReinforcedBundleItem.java:416 ersatzlos loeschen. helper.assertValueEqual(selectedIndex(bundle), -1, ...) in ReinforcedBundleTests.java:531 bleibt gruen, weil die naechste Zeile (ReinforcedBundleItem.java:417) die Komponente ohnehin komplett neu setzt und der Vanilla-Konstruktor die Auswahl fest auf NO_SELECTED_ITEM_INDEX legt: 'public BundleContents(final List<ItemStackTemplate> items) { this(items, -1); }' (dekompilierte 26.2-Quelle, net/minecraft/world/item/component/BundleContents.java). Die Zeile im Mod ist also tot, die Aussage traegt Vanilla. Die ReinforcedBundleTests-Klassen-Javadoc haelt genau das fuer den Einfuegepfad selbst fest (Zeile 106-110: 'a test on the cleared selection would stay green with that line deleted'); fuer den Entnahmepfad gilt es genauso. Konsequenz: ein echter Verhaltensbruch ist hier nicht konstruierbar - aber die Zusicherung belegt nichts ueber Mod-Code und darf nicht als Deckung gezaehlt werden. Die uebrigen Teile von Anspruch 12 (ganzer Eintrag, -1-Rueckfall auf Index 0) sind dagegen echt gedeckt; der Ueberlauf-Rueckfall (selectedIndex >= size) ist unerreichbar und in der Javadoc als solcher vermerkt.",
+    "confidence": "wahrscheinlich",
+    "_gruppe": "verzauberung-spieler"
+  },
+  {
+    "featureId": "armor_trim_benefits",
+    "behaviour": "Astralit: jeden Server-Tick wird geprueft, ob Teile x Multiplikator >= 2.0 (Sprungkraft I) bzw. >= 8.0 (Sprungkraft II) ist, und der Effekt fuer 40 Ticks gesetzt (Behauptung 55, Code TrimEffectUtil.java:110-124). Das 'jeden Server-Tick' liefert ausschliesslich der Aufruf TrimEffectUtil.tick(player) in common/src/shared/java/com/simplebuilding/mixin/PlayerEntityMixin.java:52.",
+    "claimedTest": "trim_effect_game_test_astralit_jump_boost_crosses_its_thresholds_on_tick (TrimEffectTests#astralitJumpBoostCrossesItsThresholdsOnTick)",
+    "howItBreaksSilently": "Loesche Zeile 52 in PlayerEntityMixin.java (den Aufruf TrimEffectUtil.tick(player)). Damit bekommt im Spiel kein Spieler je Sprungkraft aus Astralit und keine Resistenz aus dem Stasis-Besatz - die ganze Methode TrimEffectUtil.tick ist tot. Der Test bleibt gruen, weil er TrimEffectUtil.tick(player) selbst aufruft (TrimEffectTests.java:614, 624, 866 ueber den Helfer tickWithoutJumpBoost) und nie einen Spieler-Tick fahren laesst. Nachgeprueft: grep ueber das ganze Repo findet ausser PlayerEntityMixin.java:52 nur diese Testaufrufe, und keine andere Test- oder Clienttestdatei erwaehnt MobEffects.JUMP_BOOST. Der einzige Test, der wirklich Spieler-Ticks pumpt (trim_wiring_game_test_the_tick_driven_trim_effects_fire_on_their_own_cadence, ueber tickAt/connection.tick()), traegt dabei Kupfer bzw. Amethyst und misst nur Rib und Amethyst aus dem LivingEntityMixin.",
+    "confidence": "sicher",
+    "_gruppe": "besatz-licht"
+  },
+  {
+    "featureId": "armor_trim_benefits",
+    "behaviour": "Nihilith: schleichend in der Luft 0.08 x Teile Abwaertsschub je Tick, solange die Fallgeschwindigkeit ueber -2.0 liegt (Behauptung 56, Code TrimEffectUtil.java:129-142). Das 'je Tick' liefert ausschliesslich der Aufruf TrimEffectUtil.handleNihilithGravity(player) in common/src/shared/java/com/simplebuilding/mixin/PlayerEntityMixin.java:55.",
+    "claimedTest": "trim_effect_game_test_nihilith_pulls_down_the_sneaking_airborne_player (TrimEffectTests#nihilithPullsDownTheSneakingAirbornePlayer)",
+    "howItBreaksSilently": "Loesche Zeile 55 in PlayerEntityMixin.java. Nihilith-Besatz hat danach im Spiel ueberhaupt keine Schwerkraftwirkung mehr, weder Client noch Server. Der Test bleibt gruen, weil alle zehn Messungen TrimEffectUtil.handleNihilithGravity(player) direkt aufrufen (TrimEffectTests.java:668-734) und die Delta-Bewegung danach selbst auslesen; er fahrt nie einen Tick. handleNihilithGravity hat im gesamten Repo genau einen Produktiv-Aufrufer, naemlich diese eine Zeile. Der Fehler ist besonders leise, weil TrimEffectTests weiter alle vier Abschaltbedingungen und die flache Rate korrekt belegt - die Rechnung stimmt, nur ruft sie niemand mehr.",
+    "confidence": "sicher",
+    "_gruppe": "besatz-licht"
+  },
+  {
+    "featureId": "armor_trim_benefits",
+    "behaviour": "Kurvenform 0.1 + 0.9*(1 - e^(-x/Skala)): gemeinsamer Boden 0.1 und Decke 1.0 fuer Ueberlebens- und Kampffaktor (Behauptung 6, Code TrimMultiplierLogic.java:92-94).",
+    "claimedTest": "trim_wiring_game_test_the_survival_factor_tracks_distance_and_time_since_the_last_death und hopper_and_trim_game_test_trim_multiplier_follows_the_experience_curve_and_the_configured_base",
+    "howItBreaksSilently": "Aendere in TrimMultiplierLogic.java:92 den Faktor 0.9d in 0.5d: 'return 0.1d + 0.5d * (1.0d - Math.exp(-input / scale));'. Der Boden bleibt exakt 0.1 (bei input 0), die Decke faellt von 1.0 auf 0.6. Ein voll fortgeschrittener Spieler bekommt damit nur noch 0.6*0.6 = 36 % des vorgesehenen Trim-Multiplikators - jede Ruestungs-Trim-Wirkung im Endgame schrumpft auf gut ein Drittel. Beide genannten Tests bleiben gruen: TrimWiringTests misst die Decke nur als 'ceiling > floor && ceiling <= 1.0 + 1e-6' (0.6 erfuellt beides) und speist genau diese gemessene Decke anschliessend selbst in curveScale() ein, sodass die Skalenpruefungen 4000/72000/100 unveraendert exakt herauskommen; die Boden-Kreuzpruefung gegen die Erfahrungskurve trifft nur die 0.1, nicht die Amplitude. HopperAndTrimTests verlangt nur 'survival >= 0.1 && survival <= 1.0' und rechnet das Produkt aus denselben Methoden nach. Alle anderen Trim-Tests normieren ueber pinProgressMultiplier und sind gegen jede Aenderung der Kurvenamplitude immun. Die Decke 1.0 ist damit nirgends gepinnt - nur der Boden und die drei Skalen sind es.",
+    "confidence": "sicher",
+    "_gruppe": "besatz-licht"
+  },
+  {
+    "featureId": "armor_trim_benefits",
+    "behaviour": "Multiplikator = trimBenefitBaseMultiplier x Erfahrungsfaktor x Ueberlebensfaktor x Kampffaktor als reines Produkt (Behauptung 1, Code TrimMultiplierLogic.java:11-18) - insbesondere, dass der Erfahrungsfaktor ueberhaupt in das Produkt eingeht.",
+    "claimedTest": "hopper_and_trim_game_test_trim_multiplier_follows_the_experience_curve_and_the_configured_base (HopperAndTrimTests#trimMultiplierFollowsTheExperienceCurveAndTheConfiguredBase)",
+    "howItBreaksSilently": "Streiche in TrimMultiplierLogic.java:17 den Faktor xpMult: 'return globalMult * survivalMult * combatMult;'. Der Erfahrungsstand des Spielers wirkt sich danach auf keinen einzigen Trim-Bonus mehr aus - die gesamte Levelprogression des Features ist tot. Der Test bleibt gruen, weil er vor der Produktpruefung 'player.experienceLevel = 100' setzt (HopperAndTrimTests.java:219) und die Erwartung dann als 'base * 1.0 * survival * combat' schreibt (Zeile 222): an genau dieser Stuetzstelle ist der Erfahrungsfaktor 1.0, das Literal 1.0 im Erwartungsterm kann also nicht fehlschlagen. Die vier Stuetzstellen davor pruefen calculateXPMultiplier einzeln, nie ueber getMultiplier. Auch die Verdopplung der Basis bleibt gruen, weil das Produkt linear in der Basis bleibt. Ebenso der Helfer pinProgressMultiplier in TrimEffectTests/TrimBonusTests/TrimWiringTests: der skaliert nur die Basis, bis getMultiplier den Zielwert liefert, und ist gegen einen fehlenden Faktor blind. Nachgeprueft: getMultiplier hat ausserhalb der Tests nur zwei Aufrufer (TrimEffectUtil.getGlobalMultiplier, TrimEffectUtil.tick) und den Client-Screen TrimReferenceScreen - keiner davon wird mit einem levelabhaengigen Erwartungswert geprueft.",
+    "confidence": "sicher",
+    "_gruppe": "besatz-licht"
+  },
+  {
+    "featureId": "armor_trim_benefits",
+    "behaviour": "Alle 20 Ticks geht ein SurvivalSyncPayload mit Distanz, Zeit, Monster-Kills, Tier-Kills und Schaden an den Client (Behauptung 16, Code SurvivalTracerMixin.java:80-93, Payload-Bau in Zeile 87).",
+    "claimedTest": "survivalCountersArriveOnTheClientEverySecond (SmokeClientGameTest, src/gametest/java/com/simplebuilding/clienttest/SmokeClientGameTest.java:390-434)",
+    "howItBreaksSilently": "Aendere SurvivalTracerMixin.java:87 zu 'new SurvivalSyncPayload(0, currentTime, 0, 0, 0)' (oder vertausche totalHostileKills und totalPassiveKills). Der Client haelt dann in ClientSurvivalTracerMixin curDist/curHostile/curPassive/curDamage dauerhaft auf 0; TrimMultiplierLogic liest im Client-Zweig (Zeilen 36-38 und 68-71) genau diese Felder, also zeigt TrimReferenceScreen (client/gui/TrimReferenceScreen.java:35) dem Spieler ab sofort einen falschen Multiplikator und alle daraus abgeleiteten Prozentzahlen. Der Clienttest bleibt gruen, weil er ausschliesslich das Feld currentTime liest: der Helfer clientPlayTime() ruft nur simplebuilding$getCurrentTime() (SmokeClientGameTest.java:436-439), und alle drei Assertions - 'bewegt sich', '40..80 ueber 60 Ticks', 'hoechstens 25 neben der Server-Statistik' - haengen an diesem einen Feld. Die anderen vier Felder des Payloads werden auf der Clientseite nirgends gelesen; die serverseitigen Tests erreichen den Sendepfad laut TrimWiringTests-Javadoc bewusst gar nicht.",
+    "confidence": "sicher",
+    "_gruppe": "besatz-licht"
+  },
+  {
+    "featureId": "armor_trim_benefits",
+    "behaviour": "Basiswerte werden abgezogen und mit Math.max(0, ...) geklemmt, damit ein zurueckgerollter Statistikstand nicht negativ wird - laut Behauptung 7 'beide Faktoren einzeln geprueft' (Code TrimMultiplierLogic.java:45-46 und 79-81). Betroffen ist die dritte Klemme, die auf den Schadenszaehler in Zeile 81.",
+    "claimedTest": "trim_wiring_game_test_the_combat_factor_weighs_kills_and_damage_by_mob_category (und trim_wiring_game_test_the_survival_factor_tracks_distance_and_time_since_the_last_death)",
+    "howItBreaksSilently": "Aendere TrimMultiplierLogic.java:81 zu 'int damageSinceDeath = curDamage - baseDamage;'. Ein Spieler, dessen world/stats/<uuid>.json verlorengeht oder zurueckgerollt wird, waehrend playerdata/<uuid>.dat den BaseDamage-Stand behaelt, bekommt dann einen negativen combatScore; calculateCurve mit negativem Eingang liefert einen stark negativen Kampffaktor, der Gesamtmultiplikator wird negativ und calculateReduction dreht in modifyDamage das Vorzeichen um - aus Schadensminderung wird Schadensverstaerkung. Der genannte Test bleibt gruen, weil sein einziger Helfer rebaseKills(...) (TrimWiringTests.java:1304-1311) die Schadensbasis in jedem Aufruf hart auf 0 setzt und die Statistik DAMAGE_TAKEN nur auf 0, 20 oder 2000 gestellt wird - baseDamage liegt also nie ueber dem aktuellen Stand. Der Rollback-Fall wird nur fuer die beiden Kill-Zaehler gefahren (rebaseKills(..., 999_999)), und im Ueberlebenstest nur fuer Distanz und Zeit (setBaseValues(9_999, 999_999, 0, 0, 0) - die Schadensbasis ist auch dort 0). Auch alle uebrigen Trim-Tests laufen auf frischen Mock-Spielern mit baseDamage 0.",
+    "confidence": "sicher",
+    "_gruppe": "besatz-licht"
+  },
+  {
+    "featureId": "villager_trades (Behauptung 15)",
+    "behaviour": "Vorschlaghammer-Pool: break_through@1, override@1, range@1, unbreaking@2, efficiency@3 - alle fuenf erreichbar (toolsmith/4/emerald_iron_sledgehammer.json, emerald_diamond_sledgehammer.json)",
+    "claimedTest": "trade_and_migration_game_test_trade_definitions_produce_the_expected_offers (TradeAndMigrationTests.java:381-400, assertOfferEnchantments:824-838)",
+    "howItBreaksSilently": "assertOfferEnchantments baut genau EIN Angebot je Handel - alle 20 Trades teilen sich den einen LootContext aus tradeContext() mit Seed 20260828L - und prueft nur zwei Dinge: Ergebnis nicht unverzaubert, und jedes gezogene enchantment@level liegt im Test-Konstanten-Set SLEDGEHAMMER_ENCHANT_POOL. Die Gegenrichtung (jedes deklarierte Paar kommt vor) fehlt, anders als bei Bibliothekar 3/4/5, Meissel und Mining-Spitzhacke. Konkrete Aenderung: break_through@1, override@1 und range@1 aus beiden Sledgehammer-JSONs loeschen. Das Gezogene bleibt eine Teilmenge des Testsets, der Test bleibt gruen - drei der fuenf beworbenen Verzauberungen sind unverkaeuflich geworden. Ich habe LegacyRandomSource bitgenau nachgebaut (Modell validiert an den Javadoc-Messwerten von MiningEnchantmentTests: 48/29/12 und 46/30/15, 180 Verzauberungen, 20 Doppel bei 160 Wuerfen - exakt reproduziert) und an den TradeOfferTests-Werten (booksWithTwo=101, seltenstes Paar 26x): der eine Wurf liefert unbreaking@2, vier der fuenf Paare werden nie beobachtet. Kein anderer Test im Repo fasst diese beiden Pools an (grep ueber emerald_*_sledgehammer und SLEDGEHAMMER_ENCHANT_POOL im gesamten Testbaum).",
+    "confidence": "sicher",
+    "_gruppe": "rest"
+  },
+  {
+    "featureId": "villager_trades (Behauptung 21)",
+    "behaviour": "Die Angebote werden ueber die ELF minecraft:villager_trade-Tags in die Vanilla-Poole eingemischt, ohne die Vanilla-Eintraege zu verdraengen (replace:false)",
+    "claimedTest": "trade_and_migration_game_test_mod_trades_are_merged_into_the_vanilla_trade_pools",
+    "howItBreaksSilently": "Die drei Bibliothekar-Tags werden nur innerhalb von if (!tradeRebalanceActive(helper)) geprueft (TradeAndMigrationTests.java:297-304). Im Gametest-Umfeld ist trade_rebalance AN, also laufen diese drei assertPoolContains-Aufrufe nie. Beleg, zweifach: (a) dekompiliertes GameTestServer.java:83-85 setzt ENABLED_FEATURES = FeatureFlags.REGISTRY.allFlags().subtract(REDSTONE_EXPERIMENTS, MINECART_IMPROVEMENTS) - trade_rebalance wird also NICHT abgezogen; (b) neoforge/run/crash-reports/crash-2026-08-28_22.30.30-server.txt Zeile 146 listet 'trade_rebalance' unter 'Active Data Packs' und Zeile 148 'minecraft:trade_rebalance' unter 'Enabled Feature Flags' (genau die Flag-Menge aus (a)). Konkrete Aenderung: \"replace\": true in data/minecraft/tags/villager_trade/librarian/level_3.json - in jeder normalen Welt werden damit saemtliche Vanilla-Bibliothekar-Stufe-3-Handel geloescht; oder die Mod-Id aus librarian/level_5.json streichen, dann bietet kein Bibliothekar je das Meisterbuch an. Beides laesst den Test gruen. Nur acht der elf Tags sind tatsaechlich gedeckt. Kein anderer Test referenziert die Bibliothekar-Tags (grep ueber LIBRARIAN_LEVEL / librarian/3|4|5 in common/src, src, neoforge, mc1_21_11).",
+    "confidence": "sicher",
+    "_gruppe": "rest"
+  },
+  {
+    "featureId": "villager_trades (Behauptung 22)",
+    "behaviour": "Kette Beruf + Stufe -> TradeSet -> Tag -> Handelseintraege loest die Mod-Angebote wirklich auf, ausdruecklich auch fuer Bibliothekar 5",
+    "claimedTest": "trade_and_migration_game_test_profession_trade_sets_resolve_the_mod_trades",
+    "howItBreaksSilently": "Derselbe Wachhund wie oben: assertTradeSetForProfession(LIBRARIAN, 5, TradeSets.LIBRARIAN_LEVEL_5, \"simplebuilding:librarian/5/emerald_master_book\") steht in if (!tradeRebalanceActive(helper)) (TradeAndMigrationTests.java:347-350) und laeuft im Gametest-Umfeld nie (Beleg identisch zu Behauptung 21). Steinmetz 2 und Werkzeugschmied 3 sind echt gedeckt, die Bibliothekar-Haelfte der Behauptung nicht: die Mod-Id aus data/minecraft/tags/villager_trade/librarian/level_5.json entfernen bricht die Kette in jeder normalen Welt und laesst den Test gruen. Die Registry-Tests (allModTradesReachTheRegistry, tradeDefinitionsProduceTheExpectedOffers, librarianBookTradesHandOutOnlyTheEnchantmentsTheyDeclare) fangen das nicht auf - sie holen den Handel direkt ueber seine Id aus der Registry und gehen an den Tags vorbei.",
+    "confidence": "sicher",
+    "_gruppe": "rest"
+  },
+  {
+    "featureId": "configuration (Behauptung 29)",
+    "behaviour": "Das in jeder Handelsdatei genannte Flag ist einer der zwei Strings, die BEIDE Loader-switch-Bloecke aufloesen koennen (wandering_trader -> enableWanderingTrades, sonst enableVillagerTrades)",
+    "claimedTest": "config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders",
+    "howItBreaksSilently": "Der Test liest die 20 JSONs aus dem ResourceManager und vergleicht die gefundenen Flags gegen zwei eigene String-Literale in ConfigOptionTests.java:95-96 (VILLAGER_FLAG/WANDERING_FLAG, hart hingeschrieben, nicht aus den Condition-Klassen abgeleitet), plus worldGenFlagProblems(), das reflektiv prueft, ob ein gleichnamiges nicht-statisches boolean-Feld in SimplebuildingConfig.WorldGen existiert. Keiner der beiden switch-Bloecke wird gelesen - ConfigOptionTests liegt im loaderneutralen Baum und kann ConfigLoadCondition (neoforge/) gar nicht sehen. Konkrete Aenderung: in src/main/java/com/simplebuilding/condition/ConfigResourceCondition.java:22 den Wert von ENABLE_WANDERING_TRADES auf \"enable_wandering_trades\" aendern (oder ebenso in neoforge/src/main/java/com/simplebuilding/neoforge/ConfigLoadCondition.java:33). Alle acht wandering_trader-Handel fallen dann in den default-Zweig, der true liefert und nur eine Logzeile schreibt: enableWanderingTrades=false schaltet sie auf diesem Loader nicht mehr ab. JSON-Flag und Config-Feldname bleiben unveraendert, der Test bleibt gruen. Die Haelfte der Behauptung, die den Ordnerabgleich und 'beide Loader nennen dasselbe Flag' betrifft, ist echt gedeckt - nur die Kopplung Flag <-> switch nicht.",
+    "confidence": "sicher",
+    "_gruppe": "rest"
+  },
+  {
+    "featureId": "legacy_spatula_migration (Behauptung 32)",
+    "behaviour": "Der Suchbereich X/Z +/-30.000.000 UND Y -64..320 erfasst auch weit vom Ursprung entfernte Gegenstaende",
+    "claimedTest": "trade_and_migration_game_test_legacy_spatula_item_entity_is_rewritten_in_place",
+    "howItBreaksSilently": "Die X/Z-Haelfte der Behauptung stimmt und ist gedeckt - ich habe die Javadoc-Begruendung nachgeprueft: dekompiliertes GameTestServer.java:79 TEST_POSITION_RANGE = 14999992 und Zeile 322-323 'new BlockPos(random.nextIntBetweenInclusive(-14999992, 14999992), -59, random.nextIntBetweenInclusive(...))'. Die Y-Haelfte ist unbelegt: die feste Struktur-Hoehe ist y = -59, helper.spawnItem setzt die drei Item-Entities auf y ~ -57, also alle unter 0. Konkrete Aenderung: in LegacySpatulaMigration.java:17 die Obergrenze der AABB von 320.0 auf 0.0 senken. Der Test bleibt gruen, waehrend kein Spachtel oberhalb von y=0 - also praktisch jeder, der an der Oberflaeche oder in einem Bauwerk liegt - je vom Weltscan gefunden wird. Auch TradeOfferTests#spatulasInContainersSurviveTheWorldScan faengt das nicht: dort MUSS der Spachtel den Scan ueberleben.",
+    "confidence": "sicher",
+    "_gruppe": "rest"
+  },
+  {
+    "featureId": "legacy_spatula_migration (Behauptung 33)",
+    "behaviour": "Beim Betreten des Servers wird das GESAMTE Spielerinventar umgewandelt (LegacySpatulaMigration.java:32-33 und :47-55)",
+    "claimedTest": "trade_and_migration_game_test_legacy_spatulas_in_player_inventory_become_chisels",
+    "howItBreaksSilently": "Belegt sind nur die Inventarslots 0, 1, 3, 4 und 5 (TradeAndMigrationTests.java:539-552) sowie Slot 8 fuer den Login-Fall (LOGIN_SLOT = 8, Zeile 107 und 595/729) - alle sechs liegen im Hotbar-Bereich 0..8. Konkrete Aenderung: die Schleife in migrateInventory (LegacySpatulaMigration.java:49) von 'slotIndex < inventory.getContainerSize()' auf 'slotIndex < 9' kuerzen. Beide Haelften des Tests - der Direktaufruf und der echte Login ueber placeNewPlayer - bleiben gruen, waehrend Spachtel in den drei Hauptinventarreihen (Slots 9-35), in den vier Ruestungsslots und in der Nebenhand nie mehr umgewandelt werden. Kein anderer Test legt einen Spachtel in einen Slot >= 9: TradeOfferTests benutzt Truhenslot 0 eines ChestMenu, der Rest der Treffer im Testbaum sind Item-Entities, Registrierungslisten oder Werkzeugverhalten (grep ueber alle *_SPATULA-Vorkommen in common/src/shared/java/com/simplebuilding/gametest und src/gametest).",
+    "confidence": "sicher",
+    "_gruppe": "rest"
+  },
+  {
+    "featureId": "enderite_void_protection (Behauptung 46)",
+    "behaviour": "Der Schutz haengt am Tag, nicht am Anzeigenamen: ein im Amboss auf \"Enderite Ingot\" umbenannter Dreckblock ist NICHT geschuetzt (EnderiteItemMixin.java:41)",
+    "claimedTest": "data_integrity_game_test_void_protected_tag_is_language_independent",
+    "howItBreaksSilently": "Die Schritte 3 und 4 (DataIntegrityTests.java:1164-1183 im Quelltext) rufen nicht den Mixin auf, sondern die testeigene Hilfsmethode isVoidProtected(stack) = stack.typeHolder().is(ModTags.Items.VOID_PROTECTED) (Zeile 1190-1192, Javadoc dort: 'Exactly the test EnderiteItemMixin performs' - es ist eine Nachbildung, kein Aufruf). Eine reine Vanilla-Tag-Abfrage kann per Konstruktion nicht vom Anzeigenamen abhaengen: die Assertion kann fuer keine Aenderung an EnderiteItemMixin rot werden. Der einzige Schritt, der den Mixin wirklich faehrt (Schritt 5, Zeile 1191-1183: caught.tick(), lost.tick()), benutzt einen gewoehnlichen ENDERITE_INGOT und einen gewoehnlichen Items.DIRT - beide ohne CUSTOM_NAME. ProtectionAndRangeTests laesst ebenfalls nur unbenannte ENDERITE_INGOT und Items.DIAMOND fallen. Konkrete Aenderung: EnderiteItemMixin.java:41 zu 'stack.typeHolder().is(ModTags.Items.VOID_PROTECTED) || stack.getHoverName().getString().contains(\"Enderite\")' erweitern. Damit ist genau die Regression zurueck, die die Behauptung ausschliesst (jedes im Amboss umbenannte Fremditem wird void-geschuetzt), und beide genannten Tests bleiben gruen. Dasselbe gilt fuer die Anker aus Behauptung 45 - auch die laufen ueber diese Hilfsmethode; ihre Aussage 'ist im Tag' bleibt aber richtig, nur die Kopplung Tag -> tatsaechlicher Schutz ist unbelegt.",
+    "confidence": "sicher",
+    "_gruppe": "rest"
+  },
+  {
+    "featureId": "enderite_void_protection (Behauptung 55)",
+    "behaviour": "Der Client sendet SpaceKeyPayload NUR bei Aenderung des Tastenzustands (SimplebuildingClient.java:196)",
+    "claimedTest": "network_handler_game_test_space_key_and_trim_benefit_flags_reach_the_player, ClientBootstrapClientGameTest#testSpaceKeyStateReachesTheServer",
+    "howItBreaksSilently": "Beide Tests beobachten ausschliesslich das serverseitige Flag. NetworkHandlerTests.java:211-216 ruft ModMessageHandlers.handleSpaceKey direkt auf und sieht den Client-Tickhandler nie. ClientBootstrapClientGameTest.java:649-661 haelt die Sprungtaste und wartet, bis das Flag true ist, laesst los und wartet, bis es false ist - beides bleibt unveraendert, wenn der Client statt zweier Pakete pro Tastendruck zwanzig pro Sekunde schickt. Konkrete Aenderung: die Flankenpruefung 'if (isJumpPressed != wasJumpPressed)' in SimplebuildingClient.java:196 streichen und unbedingt senden. Beide Tests bleiben gruen. Ausdrueckliche Einschraenkung, damit das nicht groesser klingt als es ist: die Flankenerkennung selbst (beide Flanken erreichen den Server) IST gedeckt; kaputt geht nur die 'nur bei Aenderung'-Haelfte, und die aendert keinen beobachtbaren Spielzustand - es ist eine Bandbreiten-, keine Verhaltensregression.",
+    "confidence": "wahrscheinlich",
+    "_gruppe": "rest"
+  }
+]
