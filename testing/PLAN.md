@@ -212,7 +212,26 @@ konkrete Änderung am Mod-Code, nach der die Suite grün bleibt**. Damit ist jed
 weitere Erhebung überprüfbar — und liefert gleich die Gegenprobe mit: Test schärfen, Mutation
 einspielen, Test muss rot werden, Mutation zurück.
 
-Verteilung: Maschinen 19, Lager 14, Werkzeuge 27, Verzauberungen 23, Rest 21.
+**81 der 104 sind serverseitig, 23 clientseitig.** Die clientseitigen warten auf die
+P3-Umstellung — sonst schreibe ich sie zweimal: einmal jetzt in der Fabric-Form und gleich
+danach nochmal als Schrittliste.
+
+Stand: **11 erledigt** (Werkzeuggruppe A vollständig — Commits `dd833db` und `c8d5226`),
+**70 serverseitige offen**, 23 clientseitige zurückgestellt.
+
+| Gruppe | server | client |
+|---|---:|---:|
+| Rotator, Meissel, Vorschlaghammer | ~~11~~ | 0 |
+| Truhen, Trichter, Buendel | 12 | 2 |
+| Oefen, Werkbaenke, Bildschirme | 11 | 8 |
+| Adernabbau, Rindenschaeler, Mining | 8 | 2 |
+| Netzwerk, Konfiguration, Daten | 7 | 1 |
+| Weltgenerierung, Erze, Bilderrahmen | 7 | 0 |
+| Spachtel, Erzsucher, Bohrer | 7 | 0 |
+| Spielerverzauberungen, Luftsprung | 7 | 1 |
+| Ruestungsbesatz, dynamisches Licht | 5 | 1 |
+| Bauverzauberungen | 4 | 1 |
+| Baustab, Octant, Magnet | 2 | 7 |
 
 ### P6 — Mutationstests für die teuersten Tests
 
