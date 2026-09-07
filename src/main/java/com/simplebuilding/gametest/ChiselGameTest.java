@@ -65,4 +65,9 @@ public final class ChiselGameTest {
     public void smithingUpgradesCarryWearNameAndEnchantments(GameTestHelper helper) {
         ChiselTests.smithingUpgradesCarryWearNameAndEnchantments(helper);
     }
+
+    @GameTest
+    public void conversionTablesArePinnedEntryByEntry(GameTestHelper helper) {
+        ChiselTests.conversionTablesArePinnedEntryByEntry(helper);
+    }
 }

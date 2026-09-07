@@ -102,6 +102,8 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(ToolBehaviourTests.MAGNET_MAX_TICKS)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("chisel_game_test_conversion_tables_are_pinned_entry_by_entry", ChiselTests::conversionTablesArePinnedEntryByEntry)
+                    .build(),
             GameTestSpec.named("trade_and_migration_game_test_all_mod_trades_are_loaded_into_the_datapack_registry", TradeAndMigrationTests::allModTradesAreLoadedIntoTheDatapackRegistry)
                     .build(),
             GameTestSpec.named("trade_and_migration_game_test_mod_trades_are_merged_into_the_vanilla_trade_pools", TradeAndMigrationTests::modTradesAreMergedIntoTheVanillaTradePools)

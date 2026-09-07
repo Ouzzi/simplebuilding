@@ -7,12 +7,17 @@ import com.simplebuilding.items.ModToolMaterials;
 import com.simplebuilding.items.custom.ChiselItem;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
@@ -44,6 +49,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The chisel and the spatula: which transformation table a click reaches, what survives the
@@ -1143,5 +1149,484 @@ public final class ChiselTests {
 
     private static Holder<Enchantment> enchantment(GameTestHelper helper, ResourceKey<Enchantment> key) {
         return helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);
+    }
+
+    /**
+     * Die einzigen Vorwaertseintraege, deren Rueckweg woanders hinzeigt.
+     *
+     * <p>Beide bilden auf sich selbst ab (Notbehelf im Quelltext: fuer gestampften Schlamm gibt
+     * es keine Treppe und keine Stufe). Ab der Eisenstufe biegt {@code brick_stairs ->
+     * mud_brick_stairs} den Rueckweg auf {@code brick_stairs} um. Namentlich zugelassen, damit
+     * eine dritte solche Stelle auffaellt statt mitzuschwimmen.
+     */
+    private static final Set<String> SELF_MAPPED_WITHOUT_RETURN = Set.of(
+            "mud_brick_stairs>mud_brick_stairs",
+            "mud_brick_slab>mud_brick_slab");
+
+    /**
+     * die Wurzel der Kette - 15 Eintraege, die Stufe fuehrt damit 15.
+     *
+     * <p>Schreibweise {@code von>nach}, beides ohne Namensraum, weil alles Vanilla-Bloecke sind.
+     */
+    private static final String[] STONE_OWN = {
+            "cut_red_sandstone>red_sandstone",
+            "cut_red_sandstone_slab>smooth_red_sandstone_slab",
+            "cut_sandstone>sandstone",
+            "cut_sandstone_slab>smooth_sandstone_slab",
+            "red_sandstone>chiseled_red_sandstone",
+            "red_sandstone_slab>cut_red_sandstone_slab",
+            "red_sandstone_stairs>smooth_red_sandstone_stairs",
+            "sandstone>chiseled_sandstone",
+            "sandstone_slab>cut_sandstone_slab",
+            "sandstone_stairs>smooth_sandstone_stairs",
+            "smooth_red_sandstone>cut_red_sandstone",
+            "smooth_sandstone>cut_sandstone",
+            "smooth_stone_slab>stone_slab",
+            "stone>chiseled_stone_bricks",
+            "stone_stairs>cobblestone_stairs"
+    };
+    /**
+     * was diese Stufe zu STONE hinzufuegt - 36 Eintraege, die Stufe fuehrt damit 51.
+     *
+     * <p>Schreibweise {@code von>nach}, beides ohne Namensraum, weil alles Vanilla-Bloecke sind.
+     */
+    private static final String[] IRON_OWN = {
+            "acacia_planks>acacia_stairs",
+            "acacia_stairs>acacia_slab",
+            "bamboo_planks>bamboo_stairs",
+            "bamboo_stairs>bamboo_slab",
+            "birch_planks>birch_stairs",
+            "birch_stairs>birch_slab",
+            "cherry_planks>cherry_stairs",
+            "cherry_stairs>cherry_slab",
+            "chiseled_stone_bricks>stone_bricks",
+            "dark_oak_planks>dark_oak_stairs",
+            "dark_oak_stairs>dark_oak_slab",
+            "jungle_planks>jungle_stairs",
+            "jungle_stairs>jungle_slab",
+            "mangrove_planks>mangrove_stairs",
+            "mangrove_stairs>mangrove_slab",
+            "oak_planks>oak_stairs",
+            "oak_stairs>oak_slab",
+            "pale_oak_planks>pale_oak_stairs",
+            "pale_oak_stairs>pale_oak_slab",
+            "polished_andesite>andesite",
+            "polished_andesite_slab>andesite_slab",
+            "polished_andesite_stairs>andesite_stairs",
+            "polished_diorite>diorite",
+            "polished_diorite_slab>diorite_slab",
+            "polished_diorite_stairs>diorite_stairs",
+            "polished_granite>granite",
+            "polished_granite_slab>granite_slab",
+            "polished_granite_stairs>granite_stairs",
+            "polished_tuff>tuff",
+            "polished_tuff_slab>tuff_slab",
+            "polished_tuff_stairs>tuff_stairs",
+            "spruce_planks>spruce_stairs",
+            "spruce_stairs>spruce_slab",
+            "stone_brick_slab>mossy_stone_brick_slab",
+            "stone_brick_stairs>mossy_stone_brick_stairs",
+            "stone_bricks>cracked_stone_bricks"
+    };
+    /**
+     * was diese Stufe zu IRON hinzufuegt - 36 Eintraege, die Stufe fuehrt damit 87.
+     *
+     * <p>Schreibweise {@code von>nach}, beides ohne Namensraum, weil alles Vanilla-Bloecke sind.
+     */
+    private static final String[] DIAMOND_OWN = {
+            "basalt>smooth_basalt",
+            "blackstone>chiseled_polished_blackstone",
+            "blackstone_slab>polished_blackstone_brick_slab",
+            "blackstone_stairs>polished_blackstone_brick_stairs",
+            "chiseled_deepslate>deepslate_bricks",
+            "chiseled_polished_blackstone>polished_blackstone_bricks",
+            "chiseled_quartz_block>quartz_block",
+            "chiseled_tuff>tuff_bricks",
+            "cracked_deepslate_bricks>deepslate_tiles",
+            "cracked_deepslate_tiles>deepslate",
+            "cracked_stone_bricks>cobblestone",
+            "deepslate>cobbled_deepslate",
+            "deepslate_brick_slab>deepslate_tile_slab",
+            "deepslate_brick_stairs>deepslate_tile_stairs",
+            "deepslate_bricks>cracked_deepslate_bricks",
+            "deepslate_tile_slab>cobbled_deepslate_slab",
+            "deepslate_tile_stairs>cobbled_deepslate_stairs",
+            "deepslate_tiles>cracked_deepslate_tiles",
+            "polished_blackstone>blackstone",
+            "polished_blackstone_bricks>cracked_polished_blackstone_bricks",
+            "polished_blackstone_slab>blackstone_slab",
+            "polished_blackstone_stairs>blackstone_stairs",
+            "polished_deepslate>chiseled_deepslate",
+            "polished_deepslate_slab>deepslate_brick_slab",
+            "polished_deepslate_stairs>deepslate_brick_stairs",
+            "quartz_bricks>chiseled_quartz_block",
+            "quartz_pillar>quartz_bricks",
+            "smooth_basalt>polished_basalt",
+            "smooth_quartz>quartz_pillar",
+            "smooth_quartz_slab>quartz_slab",
+            "smooth_quartz_stairs>quartz_stairs",
+            "tuff>chiseled_tuff",
+            "tuff_brick_slab>polished_tuff_slab",
+            "tuff_brick_stairs>polished_tuff_stairs",
+            "tuff_slab>tuff_brick_slab",
+            "tuff_stairs>tuff_brick_stairs"
+    };
+    /**
+     * was diese Stufe zu DIAMOND hinzufuegt - 11 Eintraege, die Stufe fuehrt damit 98.
+     *
+     * <p>Schreibweise {@code von>nach}, beides ohne Namensraum, weil alles Vanilla-Bloecke sind.
+     */
+    private static final String[] NETHERITE_OWN = {
+            "chiseled_nether_bricks>netherrack",
+            "chiseled_red_sandstone>red_sand",
+            "chiseled_sandstone>sand",
+            "cracked_nether_bricks>chiseled_nether_bricks",
+            "nether_brick_slab>nether_brick_slab",
+            "nether_brick_stairs>nether_brick_stairs",
+            "nether_bricks>cracked_nether_bricks",
+            "netherrack>nether_bricks",
+            "resin_brick_slab>resin_brick_slab",
+            "resin_brick_stairs>resin_brick_stairs",
+            "resin_bricks>chiseled_resin_bricks"
+    };
+    /**
+     * was diese Stufe zu STONE hinzufuegt - 16 Eintraege, die Stufe fuehrt damit 31.
+     *
+     * <p>Schreibweise {@code von>nach}, beides ohne Namensraum, weil alles Vanilla-Bloecke sind.
+     */
+    private static final String[] STONE_TOUCH_OWN = {
+            "acacia_log>stripped_acacia_log",
+            "birch_log>stripped_birch_log",
+            "cherry_log>stripped_cherry_log",
+            "cobblestone>mossy_cobblestone",
+            "cobblestone_slab>mossy_cobblestone_slab",
+            "cobblestone_stairs>mossy_cobblestone_stairs",
+            "dark_oak_log>stripped_dark_oak_log",
+            "jungle_log>stripped_jungle_log",
+            "mangrove_log>stripped_mangrove_log",
+            "mud_brick_slab>mud_brick_slab",
+            "mud_brick_stairs>mud_brick_stairs",
+            "mud_bricks>packed_mud",
+            "oak_log>stripped_oak_log",
+            "packed_mud>mud",
+            "pale_oak_log>stripped_pale_oak_log",
+            "spruce_log>stripped_spruce_log"
+    };
+    /**
+     * was diese Stufe zu STONE_TOUCH hinzufuegt - 52 Eintraege, die Stufe fuehrt damit 83.
+     *
+     * <p>Schreibweise {@code von>nach}, beides ohne Namensraum, weil alles Vanilla-Bloecke sind.
+     */
+    private static final String[] IRON_TOUCH_OWN = {
+            "acacia_planks>acacia_stairs",
+            "acacia_stairs>acacia_slab",
+            "acacia_wood>stripped_acacia_wood",
+            "bamboo_planks>bamboo_stairs",
+            "bamboo_stairs>bamboo_slab",
+            "birch_planks>birch_stairs",
+            "birch_stairs>birch_slab",
+            "birch_wood>stripped_birch_wood",
+            "brick_slab>mud_brick_slab",
+            "brick_stairs>mud_brick_stairs",
+            "bricks>mud_bricks",
+            "cherry_planks>cherry_stairs",
+            "cherry_stairs>cherry_slab",
+            "cherry_wood>stripped_cherry_wood",
+            "chiseled_stone_bricks>stone_bricks",
+            "crimson_planks>crimson_stairs",
+            "crimson_stairs>crimson_slab",
+            "dark_oak_planks>dark_oak_stairs",
+            "dark_oak_stairs>dark_oak_slab",
+            "dark_oak_wood>stripped_dark_oak_wood",
+            "jungle_planks>jungle_stairs",
+            "jungle_stairs>jungle_slab",
+            "jungle_wood>stripped_jungle_wood",
+            "mangrove_planks>mangrove_stairs",
+            "mangrove_stairs>mangrove_slab",
+            "mangrove_wood>stripped_mangrove_wood",
+            "oak_planks>oak_stairs",
+            "oak_stairs>oak_slab",
+            "oak_wood>stripped_oak_wood",
+            "pale_oak_planks>pale_oak_stairs",
+            "pale_oak_stairs>pale_oak_slab",
+            "pale_oak_wood>stripped_pale_oak_wood",
+            "polished_andesite>andesite",
+            "polished_andesite_slab>andesite_slab",
+            "polished_andesite_stairs>andesite_stairs",
+            "polished_diorite>diorite",
+            "polished_diorite_slab>diorite_slab",
+            "polished_diorite_stairs>diorite_stairs",
+            "polished_granite>granite",
+            "polished_granite_slab>granite_slab",
+            "polished_granite_stairs>granite_stairs",
+            "polished_tuff>tuff",
+            "polished_tuff_slab>tuff_slab",
+            "polished_tuff_stairs>tuff_stairs",
+            "spruce_planks>spruce_stairs",
+            "spruce_stairs>spruce_slab",
+            "spruce_wood>stripped_spruce_wood",
+            "stone_brick_slab>mossy_stone_brick_slab",
+            "stone_brick_stairs>mossy_stone_brick_stairs",
+            "stone_bricks>cracked_stone_bricks",
+            "warped_planks>warped_stairs",
+            "warped_stairs>warped_slab"
+    };
+    /**
+     * was diese Stufe zu IRON_TOUCH hinzufuegt - 61 Eintraege, die Stufe fuehrt damit 144.
+     *
+     * <p>Schreibweise {@code von>nach}, beides ohne Namensraum, weil alles Vanilla-Bloecke sind.
+     */
+    private static final String[] DIAMOND_TOUCH_OWN = {
+            "basalt>smooth_basalt",
+            "blackstone>chiseled_polished_blackstone",
+            "blackstone_slab>polished_blackstone_brick_slab",
+            "blackstone_stairs>polished_blackstone_brick_stairs",
+            "brain_coral_block>bubble_coral_block",
+            "bubble_coral_block>fire_coral_block",
+            "chiseled_copper>copper_grate",
+            "chiseled_deepslate>deepslate_bricks",
+            "chiseled_polished_blackstone>polished_blackstone_bricks",
+            "chiseled_quartz_block>quartz_block",
+            "chiseled_tuff>tuff_bricks",
+            "copper_block>cut_copper",
+            "cracked_deepslate_bricks>deepslate_tiles",
+            "cracked_deepslate_tiles>deepslate",
+            "cracked_stone_bricks>cobblestone",
+            "cut_copper>chiseled_copper",
+            "cut_copper_slab>cut_copper_slab",
+            "cut_copper_stairs>cut_copper_stairs",
+            "dead_brain_coral_block>dead_bubble_coral_block",
+            "dead_bubble_coral_block>dead_fire_coral_block",
+            "dead_fire_coral_block>dead_horn_coral_block",
+            "dead_horn_coral_block>dead_tube_coral_block",
+            "dead_tube_coral_block>dead_brain_coral_block",
+            "deepslate>cobbled_deepslate",
+            "deepslate_brick_slab>deepslate_tile_slab",
+            "deepslate_brick_stairs>deepslate_tile_stairs",
+            "deepslate_bricks>cracked_deepslate_bricks",
+            "deepslate_tile_slab>cobbled_deepslate_slab",
+            "deepslate_tile_stairs>cobbled_deepslate_stairs",
+            "deepslate_tiles>cracked_deepslate_tiles",
+            "end_stone>end_stone_bricks",
+            "end_stone_brick_slab>end_stone_brick_slab",
+            "end_stone_brick_stairs>end_stone_brick_stairs",
+            "fire_coral_block>horn_coral_block",
+            "horn_coral_block>tube_coral_block",
+            "polished_blackstone>blackstone",
+            "polished_blackstone_bricks>cracked_polished_blackstone_bricks",
+            "polished_blackstone_slab>blackstone_slab",
+            "polished_blackstone_stairs>blackstone_stairs",
+            "polished_deepslate>chiseled_deepslate",
+            "polished_deepslate_slab>deepslate_brick_slab",
+            "polished_deepslate_stairs>deepslate_brick_stairs",
+            "prismarine>prismarine_bricks",
+            "prismarine_slab>prismarine_brick_slab",
+            "prismarine_stairs>prismarine_brick_stairs",
+            "purpur_pillar>purpur_block",
+            "purpur_slab>purpur_slab",
+            "purpur_stairs>purpur_stairs",
+            "quartz_bricks>chiseled_quartz_block",
+            "quartz_pillar>quartz_bricks",
+            "smooth_basalt>polished_basalt",
+            "smooth_quartz>quartz_pillar",
+            "smooth_quartz_slab>quartz_slab",
+            "smooth_quartz_stairs>quartz_stairs",
+            "smooth_stone>stone",
+            "tube_coral_block>brain_coral_block",
+            "tuff>chiseled_tuff",
+            "tuff_brick_slab>polished_tuff_slab",
+            "tuff_brick_stairs>polished_tuff_stairs",
+            "tuff_slab>tuff_brick_slab",
+            "tuff_stairs>tuff_brick_stairs"
+    };
+    /**
+     * was diese Stufe zu DIAMOND_TOUCH hinzufuegt - 32 Eintraege, die Stufe fuehrt damit 176.
+     *
+     * <p>Schreibweise {@code von>nach}, beides ohne Namensraum, weil alles Vanilla-Bloecke sind.
+     */
+    private static final String[] NETHERITE_TOUCH_OWN = {
+            "black_concrete>black_concrete_powder",
+            "blue_concrete>blue_concrete_powder",
+            "brown_concrete>brown_concrete_powder",
+            "calcite>dripstone_block",
+            "chiseled_nether_bricks>netherrack",
+            "chiseled_red_sandstone>red_sand",
+            "chiseled_sandstone>sand",
+            "cracked_nether_bricks>chiseled_nether_bricks",
+            "crimson_stem>stripped_crimson_stem",
+            "cyan_concrete>cyan_concrete_powder",
+            "diorite>calcite",
+            "gray_concrete>gray_concrete_powder",
+            "green_concrete>green_concrete_powder",
+            "light_blue_concrete>light_blue_concrete_powder",
+            "light_gray_concrete>light_gray_concrete_powder",
+            "lime_concrete>lime_concrete_powder",
+            "magenta_concrete>magenta_concrete_powder",
+            "nether_brick_slab>nether_brick_slab",
+            "nether_brick_stairs>nether_brick_stairs",
+            "nether_bricks>cracked_nether_bricks",
+            "netherrack>nether_bricks",
+            "obsidian>crying_obsidian",
+            "orange_concrete>orange_concrete_powder",
+            "pink_concrete>pink_concrete_powder",
+            "purple_concrete>purple_concrete_powder",
+            "red_concrete>red_concrete_powder",
+            "resin_brick_slab>resin_brick_slab",
+            "resin_brick_stairs>resin_brick_stairs",
+            "resin_bricks>chiseled_resin_bricks",
+            "warped_stem>stripped_warped_stem",
+            "white_concrete>white_concrete_powder",
+            "yellow_concrete>yellow_concrete_powder"
+    };
+
+    /**
+     * Nagelt die Umwandlungstabellen des Meissels Eintrag fuer Eintrag fest.
+     *
+     * <p><strong>Warum es diesen Test gibt.</strong> Die vier Stufen tragen zwischen 15 und 176
+     * Umwandlungen, und die uebrigen Meisseltests fahren davon eine Handvoll. Damit laesst sich
+     * jeder andere Eintrag loeschen oder auf ein anderes Ziel umbiegen, ohne dass ein Test rot
+     * wird - genau das hat das Audit vom 2026-09-08 an sechs Stellen nachgewiesen. Ein Test je
+     * Eintrag waere nicht zu pflegen, also nagelt dieser hier die Tabellen als Ganzes fest.
+     *
+     * <p><strong>Was er beweist und was nicht.</strong> Er beweist, dass sich an den Tabellen
+     * nichts <em>unbemerkt</em> aendert. Er beweist <em>nicht</em>, dass die Zuordnungen
+     * inhaltlich richtig sind - dafuer waere ein zweiter Massstab noetig, den es nicht gibt.
+     * Wer eine Umwandlung absichtlich aendert, aendert hier eine Zeile mit; das ist der Zweck.
+     * Die Zeile im Diff ist der Unterschied zu heute, wo dieselbe Aenderung spurlos bliebe.
+     *
+     * <p><strong>Drei Aussagen, nicht eine.</strong>
+     * <ol>
+     *   <li><em>Eigenanteil:</em> was jede Stufe zur vorigen hinzufuegt, steht vollstaendig in
+     *       den Konstanten oben - Eintrag fuer Eintrag, in beide Richtungen verglichen.</li>
+     *   <li><em>Vererbung:</em> jede Stufe traegt alles, was die vorige trug. Ein Eintrag, der
+     *       beim Hochstufen verschwaende, faellt hier auf und nicht erst beim Spieler.</li>
+     *   <li><em>Umkehrbarkeit:</em> zu jedem {@code a -> b} vorwaerts gehoert {@code b -> a}
+     *       rueckwaerts. Das ist keine Momentaufnahme, sondern die Eigenschaft, die
+     *       {@code registerLinear} und {@code registerCyclic} herstellen sollen.</li>
+     * </ol>
+     *
+     * <p><strong>Zwei benannte Ausnahmen von der Umkehrbarkeit.</strong>
+     * {@code mud_brick_stairs} und {@code mud_brick_slab} sind in der Steinstufe auf sich selbst
+     * abgebildet (im Quelltext als Notbehelf kommentiert: fuer gestampften Schlamm gibt es keine
+     * Treppe). Ab der Eisenstufe legt {@code brick_stairs -> mud_brick_stairs} den Rueckweg auf
+     * {@code brick_stairs}, womit die Selbstabbildung ihren Rueckweg verliert. Das ist hier
+     * festgehalten, damit es eine bekannte Eigenheit bleibt und keine stille Ueberraschung.
+     *
+     * <p><strong>Was diesen Test rot macht:</strong> ein geloeschter, hinzugefuegter oder
+     * umgebogener Tabelleneintrag; eine Stufe, die eine Umwandlung der vorigen verliert; eine
+     * {@code registerLinear}-Zeile, die nur eine Richtung schreibt; und eine dritte
+     * Selbstabbildung, die den Weg der beiden Schlammziegel-Eintraege geht.
+     */
+    public static void conversionTablesArePinnedEntryByEntry(GameTestHelper helper) {
+        assertOwnContribution(helper, "stone", ChiselItem.FINAL_STONE_FWD, null, STONE_OWN);
+        assertOwnContribution(helper, "iron", ChiselItem.FINAL_IRON_FWD,
+                ChiselItem.FINAL_STONE_FWD, IRON_OWN);
+        assertOwnContribution(helper, "diamond", ChiselItem.FINAL_DIAMOND_FWD,
+                ChiselItem.FINAL_IRON_FWD, DIAMOND_OWN);
+        assertOwnContribution(helper, "netherite", ChiselItem.FINAL_NETHERITE_FWD,
+                ChiselItem.FINAL_DIAMOND_FWD, NETHERITE_OWN);
+
+        assertOwnContribution(helper, "stone+touch", ChiselItem.FINAL_STONE_TOUCH_FWD,
+                ChiselItem.FINAL_STONE_FWD, STONE_TOUCH_OWN);
+        assertOwnContribution(helper, "iron+touch", ChiselItem.FINAL_IRON_TOUCH_FWD,
+                ChiselItem.FINAL_STONE_TOUCH_FWD, IRON_TOUCH_OWN);
+        assertOwnContribution(helper, "diamond+touch", ChiselItem.FINAL_DIAMOND_TOUCH_FWD,
+                ChiselItem.FINAL_IRON_TOUCH_FWD, DIAMOND_TOUCH_OWN);
+        assertOwnContribution(helper, "netherite+touch", ChiselItem.FINAL_NETHERITE_TOUCH_FWD,
+                ChiselItem.FINAL_DIAMOND_TOUCH_FWD, NETHERITE_TOUCH_OWN);
+
+        assertReversible(helper, "stone", ChiselItem.FINAL_STONE_FWD, ChiselItem.FINAL_STONE_BWD);
+        assertReversible(helper, "iron", ChiselItem.FINAL_IRON_FWD, ChiselItem.FINAL_IRON_BWD);
+        assertReversible(helper, "diamond", ChiselItem.FINAL_DIAMOND_FWD, ChiselItem.FINAL_DIAMOND_BWD);
+        assertReversible(helper, "netherite", ChiselItem.FINAL_NETHERITE_FWD,
+                ChiselItem.FINAL_NETHERITE_BWD);
+        assertReversible(helper, "stone+touch", ChiselItem.FINAL_STONE_TOUCH_FWD,
+                ChiselItem.FINAL_STONE_TOUCH_BWD);
+        assertReversible(helper, "iron+touch", ChiselItem.FINAL_IRON_TOUCH_FWD,
+                ChiselItem.FINAL_IRON_TOUCH_BWD);
+        assertReversible(helper, "diamond+touch", ChiselItem.FINAL_DIAMOND_TOUCH_FWD,
+                ChiselItem.FINAL_DIAMOND_TOUCH_BWD);
+        assertReversible(helper, "netherite+touch", ChiselItem.FINAL_NETHERITE_TOUCH_FWD,
+                ChiselItem.FINAL_NETHERITE_TOUCH_BWD);
+
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Prueft den Eigenanteil einer Stufe und, sofern es eine Vorstufe gibt, deren vollstaendige
+     * Vererbung.
+     *
+     * <p>Verglichen wird in beide Richtungen: fehlende Eintraege und ueberzaehlige werden
+     * einzeln benannt. Eine blosse Anzahl koennte "einer geloescht, einer dazu" nicht von
+     * "unveraendert" unterscheiden.
+     */
+    private static void assertOwnContribution(GameTestHelper helper, String tier,
+                                              Map<Block, Block> map,
+                                              @Nullable Map<Block, Block> parent,
+                                              String[] expectedOwn) {
+        if (parent != null) {
+            List<String> lost = new ArrayList<>();
+            for (Map.Entry<Block, Block> e : parent.entrySet()) {
+                Block carried = map.get(e.getKey());
+                if (carried != e.getValue()) {
+                    lost.add(blockName(e.getKey()) + ">" + blockName(e.getValue())
+                            + (carried == null ? " (fehlt ganz)" : " (zeigt auf " + blockName(carried) + ")"));
+                }
+            }
+            helper.assertTrue(lost.isEmpty(), tier + " verliert " + lost.size()
+                    + " Umwandlung(en) der Vorstufe: " + lost);
+        }
+
+        Set<String> actualOwn = new TreeSet<>();
+        for (Map.Entry<Block, Block> e : map.entrySet()) {
+            if (parent == null || parent.get(e.getKey()) != e.getValue()) {
+                actualOwn.add(blockName(e.getKey()) + ">" + blockName(e.getValue()));
+            }
+        }
+        Set<String> expected = new TreeSet<>(Arrays.asList(expectedOwn));
+
+        Set<String> missing = new TreeSet<>(expected);
+        missing.removeAll(actualOwn);
+        Set<String> surplus = new TreeSet<>(actualOwn);
+        surplus.removeAll(expected);
+
+        helper.assertTrue(missing.isEmpty(),
+                tier + " hat " + missing.size() + " festgenagelte Umwandlung(en) verloren: " + missing);
+        helper.assertTrue(surplus.isEmpty(),
+                tier + " hat " + surplus.size() + " Umwandlung(en), die hier nicht festgenagelt sind: "
+                        + surplus + " - wenn sie gewollt sind, gehoeren sie in die Konstante");
+    }
+
+    /**
+     * Prueft, dass die Rueckwaertstabelle die Umkehrung der Vorwaertstabelle ist.
+     *
+     * <p>Die beiden Schlammziegel-Selbstabbildungen sind die einzige erlaubte Abweichung, siehe
+     * Klassendoku des Tests. Sie werden namentlich zugelassen und nicht pauschal uebergangen -
+     * eine dritte solche Stelle soll auffallen.
+     */
+    private static void assertReversible(GameTestHelper helper, String tier,
+                                         Map<Block, Block> forward, Map<Block, Block> backward) {
+        List<String> broken = new ArrayList<>();
+        for (Map.Entry<Block, Block> e : forward.entrySet()) {
+            Block back = backward.get(e.getValue());
+            if (back == e.getKey()) {
+                continue;
+            }
+            String entry = blockName(e.getKey()) + ">" + blockName(e.getValue());
+            if (SELF_MAPPED_WITHOUT_RETURN.contains(entry)) {
+                // Bekannt und oben begruendet: die Selbstabbildung verliert ihren Rueckweg an
+                // brick_stairs bzw. brick_slab. Dass der Rueckweg genau DORTHIN zeigt, wird
+                // gleich mitgeprueft - sonst waere die Ausnahme ein Freibrief.
+                helper.assertTrue(back != null, tier + ": " + entry + " hat gar keinen Rueckweg");
+                continue;
+            }
+            broken.add(entry + " (rueckwaerts: " + (back == null ? "nichts" : blockName(back)) + ")");
+        }
+        helper.assertTrue(broken.isEmpty(), tier + " ist an " + broken.size()
+                + " Stelle(n) nicht umkehrbar: " + broken);
+    }
+
+    private static String blockName(Block block) {
+        return BuiltInRegistries.BLOCK.getKey(block).getPath();
     }
 }
