@@ -97,22 +97,64 @@ ein Teil der Tests dort nicht nur übersetzt, sondern neu gedacht werden muss.**
 
 ### P3 — Entscheidung: NeoForge-Client, Adapter oder Handarbeit *(73 Prüfpunkte, zweimal)*
 
-Zwei Wege, und die Wahl gehört dem Nutzer:
+#### Die Vorprüfung ist erledigt — sie ändert die Optionen
 
-**(a) Jeden Test von Hand im `TestScript`-Idiom nachbauen.** Ehrlich, aber teuer: 73 Prüfpunkte
-je NeoForge-Ziel, und jeder künftige Client-Test muss danach zweimal geschrieben werden.
+Der Plan verlangte, *vor* der Entscheidung zu klären, ob NeoForges Schrittautomat alles kann, was
+die Fabric-Tests brauchen. Nachgezählt an den 11 Fabric-Testklassen und nachgelesen in den Quellen
+von `fabric-client-gametest-api-v1`:
 
-**(b) Einen dünnen Adapter bauen**, der über `TestScript` eine Oberfläche legt, die der
-`FabricClientGameTest`-API entspricht — dann können die Testkörper geteilt werden, so wie es
-serverseitig mit dem gemeinsamen Katalog längst der Fall ist. Einmal teurer, danach kostet jeder
-neue Client-Test nur noch eine Fassung.
+**Was der Schrittautomat kann, ohne dass am Gerüst etwas zu bauen wäre.** Die Tests benutzen
+167 × `waitTicks`, 93 × `computeOnClient`, 81 × `takeScreenshot`, 79 × `getInput`, 24 ×
+`runOnClient`, 17 × `waitTick`, 15 × `waitForScreen`, 5 × `setScreen`, 2 × `waitFor`. Bis auf die
+Eingaben bildet `TestScript` das alles direkt ab (`act` / `await` / `idle` / `step`);
+`computeOnClient` wird zum Schreiben in ein Feld, weil es keinen Testthread gibt, der ein Ergebnis
+entgegennähme. Die 79 Eingaben zerfallen in `pressKey`, `releaseKey`, `holdKey`, `pressMouse`,
+`scroll`, `setCursorPos` und die Modifikatoren — Fabric setzt sie über einen Accessor auf
+`KeyboardHandler#onKey` bzw. `MouseHandler` um, also über gewöhnliche Aufrufe auf dem
+Client-Thread. Unter NeoForge kostet das einen Accessor-Mixin, keine Architektur.
 
-Der Adapter ist die bessere Investition, wenn noch nennenswert Client-Tests dazukommen sollen —
-und danach sieht es aus. Er ist die schlechtere, wenn die Client-Abdeckung hier endet.
+**Was er heute nicht kann: eine Welt wieder verlassen.** Neun der elf Fabric-Klassen öffnen ihre
+eigene Einzelspielerwelt in einem `try (TestSingleplayerContext …)` und schließen sie am Ende.
+NeoForges Lauf legt eine flache Welt an und beendet danach die JVM (`Runtime.halt`), und zwar mit
+Grund: `Minecraft.disconnect` pumpt selbst Client-Ticks, um seinen Fortschrittsbildschirm zu malen
+— aus einem Client-Tick heraus aufgerufen kehrt es nie zurück. Das ist im Quelltext vermerkt
+(`RendererProofRun`, Zeile 65 und 876) und war schon einmal die Ursache eines Deadlocks.
 
-Zu klären ist dabei, ob NeoForges Schrittautomat alles kann, was die Fabric-Tests brauchen: der
-Ton-Rekorder, das Setzen von Screens, `computeOnClient`. Das ist vor der Entscheidung zu prüfen,
-nicht danach.
+**Und der „dünne Adapter" aus (b) ist nicht dünn.** Fabrics blockierende API ist nicht bloß eine
+Oberfläche: sie ersetzt die Tickschleife durch eine Vier-Phasen-Schranke (`Phaser` +
+Semaphoren: Tick → Server-Tasks → Client-Tasks → Test) und braucht dafür 21 Mixin-Einsprungpunkte in vierzehn
+Vanilla-Methoden — `Minecraft.run`, `runTick`, `runAllTasks`, `doWorldLoad`, **beide**
+`disconnect`-Überladungen, `MinecraftServer.runServer` / `waitUntilNextTick` / `shouldRun`,
+`BlockableEventLoop.schedule` / `doRunTask`, `Connection.channelRead0` / `sendPacket` und
+`Main.main`. Genau dieses Gerüst macht `disconnect` überhaupt erst aufrufbar. Es unter NeoForge
+nachzubauen heißt, ein Framework zu schreiben, keinen Adapter — zweimal, für beide MC-Linien.
+
+#### Daraus folgt eine dritte Möglichkeit, die der Plan nicht kannte
+
+**(c) Die Richtung umdrehen.** Der Schrittautomat ist die *schwächere* Abstraktion, und eine
+schwächere lässt sich auf einer stärkeren mühelos ausdrücken — auf Fabric ist der Treiber eine
+Schleife: `while (!script.tick(log)) context.waitTick();`. Umgekehrt geht es nicht, das ist
+gerade der Befund oben. Also: jeden Client-Test **einmal** als Schrittliste gegen eine kleine
+Fassade schreiben, und je Ziel einen dünnen Treiber — auf Fabric über die blockierende API, auf
+NeoForge über den vorhandenen Tick-Treiber.
+
+Eine Einschränkung dabei ist belegt und muss in die Fassade: Fabric besteht darauf, dass
+`getInput()` **auf dem Testthread** läuft (`ThreadingImpl.checkOnGametestThread`), also gerade
+nicht innerhalb von `runOnClient`. Eingabeschritte müssen deshalb eine eigene Schrittart sein und
+dürfen nicht mit `act` vermischt werden.
+
+#### Was die drei Wege kosten
+
+| | zu schreiben | danach je neuer Client-Test | Risiko |
+|---|---|---|---|
+| **(a)** von Hand | 73 + 73 + 68 = **214 Prüfpunkte** | zwei Fassungen | gering, nur teuer |
+| **(b)** Fabric-API auf NeoForge | 21 Vanilla-Eingriffe **× 2 Linien**, dann mechanischer Port | eine Fassung | hoch: Nachbau fremder Interna, bricht bei jedem MC-Update |
+| **(c)** Schrittform für alle | 11 Klassen (8 692 Zeilen) **einmal** umschreiben + 2 Treiber | eine Fassung | mittel: grüne, funktionierende Tests werden angefasst |
+
+Bei **(a)** und **(c)** bleibt der Weltwechsel unter NeoForge offen. Zwei ehrliche Auswege: je
+Testklasse ein eigener Client-Start (elf Starts je Linie — langsam, aber ohne Vanilla-Eingriff),
+oder doch ein einzelner Mixin auf `disconnect`. Der zweite ist ein kleiner, klar umrissener
+Eingriff — nicht zu verwechseln mit dem ganzen Gerüst aus (b).
 
 ### P4 — Die drei Restkategorien neu triagieren *(28 Einträge)*
 
