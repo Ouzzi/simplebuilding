@@ -11,7 +11,11 @@
       "com.simplebuilding.clienttest.BlockHighlightClientGameTest",
       "com.simplebuilding.clienttest.BuildingWandPreviewClientGameTest",
       "com.simplebuilding.clienttest.MultiBlockBreakingClientGameTest",
-      "com.simplebuilding.clienttest.ModScreensClientGameTest"
+      "com.simplebuilding.clienttest.ModScreensClientGameTest",
+      "com.simplebuilding.clienttest.HudAndTooltipClientGameTest",
+      "com.simplebuilding.clienttest.ClientBootstrapClientGameTest",
+      "com.simplebuilding.clienttest.AirJumpClientGameTest",
+      "com.simplebuilding.clienttest.ItemRenderingClientGameTest"
     ]
   },
   "depends": {
