@@ -197,15 +197,22 @@ public final class RotatorTests {
      *       so none of them survives the rim branch being dropped either.</li>
      * </ul>
      *
-     * <p>The last pair pins the constant 0.125 itself from both sides: 0.124 still counts as rim,
-     * 0.13 no longer does.
+     * <p>Then the <b>corners</b>, six of them, two per face axis. A corner is the only place where
+     * two of the four conditions are true at the same time, so it is the only place where the
+     * <em>order</em> of the checks is observable at all. Each corner case starts the piston at the
+     * direction the wrong order would produce: a reordered {@code getRimDirection} then answers
+     * "no change", the click becomes a PASS and the case is red rather than merely different.
+     *
+     * <p>Finally the margin, from four sides. 0.124 is rim and 0.13 is not, which alone would only
+     * say the boundary lies somewhere in between; 0.124999 is rim and 0.125 exactly is not, which
+     * pins it to the constant and to the strict {@code <}.
      *
      * <p>What breaks this: dropping any one of the twelve branches; swapping the two ends of any
      * one rim pair (DOWN against UP on a side face, NORTH against SOUTH on the top face, ...);
      * mixing up the axes inside one of the three blocks, e.g. returning WEST/EAST instead of
-     * NORTH/SOUTH on a north face; reordering the checks inside a block so that a corner is read
-     * on the other axis; and widening or narrowing the margin, which the two boundary cases catch
-     * in either direction.
+     * NORTH/SOUTH on a north face; reordering the checks inside a block, which the corner cases
+     * turn into a no-op; changing the margin in either direction; and relaxing {@code <} to
+     * {@code <=}, which moves the exact boundary onto the rim side.
      */
     public static void rimIsTheOuterEighthOfEveryFaceAndNowhereInside(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, true);
@@ -281,6 +288,26 @@ public final class RotatorTests {
         assertPistonTurnsFrom(helper, player, rotator, Direction.DOWN, Direction.NORTH, new Vec3(0.95, 0.5, 0.0),
                 Direction.EAST, "east rim of the north face, aimed at a piston");
 
+
+        // --- the corners, where two conditions are true at once and only the ORDER decides ---
+        // Every case below starts from the direction the wrong order would produce, so a reordered
+        // getRimDirection does not merely answer differently: it answers "no change at all", the
+        // click turns into a PASS and the assertion has nothing to compare. The audit of
+        // 2026-09-08 showed why this is needed - moving the two z checks in front of the two x
+        // ones left all 269 tests green.
+        assertPistonTurnsFrom(helper, player, rotator, Direction.NORTH, Direction.UP, new Vec3(0.05, 1.0, 0.05),
+                Direction.WEST, "north-west corner of the top face: x is read before z");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.SOUTH, Direction.UP, new Vec3(0.95, 1.0, 0.95),
+                Direction.EAST, "south-east corner of the top face: x is read before z");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.NORTH, Direction.EAST, new Vec3(1.0, 0.05, 0.05),
+                Direction.DOWN, "lower north corner of the east face: y is read before z");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.SOUTH, Direction.EAST, new Vec3(1.0, 0.95, 0.95),
+                Direction.UP, "upper south corner of the east face: y is read before z");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.WEST, Direction.NORTH, new Vec3(0.05, 0.05, 0.0),
+                Direction.DOWN, "lower west corner of the north face: y is read before x");
+        assertPistonTurnsFrom(helper, player, rotator, Direction.EAST, Direction.NORTH, new Vec3(0.95, 0.95, 0.0),
+                Direction.UP, "upper east corner of the north face: y is read before x");
+
         // --- the margin itself: 0.124 is inside the rim, 0.13 is already past it ---
         // Both start from an axis for which "rim" and "centre" disagree, so each case can only be
         // satisfied by the side of the boundary it claims.
@@ -288,6 +315,15 @@ public final class RotatorTests {
                 Direction.Axis.X, "0.124 from the west edge, still inside the rim");
         assertLogTurns(helper, player, rotator, Direction.Axis.X, Direction.UP, new Vec3(0.13, 1.0, 0.5),
                 Direction.Axis.Y, "0.13 from the west edge, no longer a rim");
+
+        // The pair above only says the boundary sits somewhere in (0.124, 0.13]. These two pin it
+        // to the constant itself and to the strictness of the comparison: 0.124999 is still rim,
+        // 0.125 exactly is not. A margin of 0.13 makes the second case rim; a margin of 0.124
+        // makes the first case centre; turning "<" into "<=" makes 0.125 rim. Each is red.
+        assertLogTurns(helper, player, rotator, Direction.Axis.Y, Direction.UP, new Vec3(0.124999, 1.0, 0.5),
+                Direction.Axis.X, "0.124999 from the west edge, the last hair inside the rim");
+        assertLogTurns(helper, player, rotator, Direction.Axis.X, Direction.UP, new Vec3(0.125, 1.0, 0.5),
+                Direction.Axis.Y, "0.125 exactly, which the strict comparison puts outside the rim");
 
         helper.succeed();
     }

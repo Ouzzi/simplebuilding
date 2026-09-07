@@ -572,6 +572,24 @@ public final class ChiselTests {
      * rim direction where it should take the clicked face; and replacing
      * {@code facing = player.getDirection()} with any constant or with the incoming state's own
      * facing, which the second angle is there to catch.
+     *
+     * <p><strong>Every branch, with its direction.</strong> A pillar only carries an axis, so the
+     * pillar cases can show <em>where</em> the rim is but never which of its two ends the code
+     * picked. The rod carries the direction itself, so the twelve rim branches are walked once
+     * each on a rod - the audit of 2026-09-08 found six of them never entered at all (the whole
+     * east/west face block, plus UP and EAST of the north face) and four more seen only through
+     * an axis, which meant half of them could be swapped with their opposite unnoticed.
+     *
+     * <p>Three corner cases follow, because a corner is the only place where two conditions hold
+     * at once and the order of the checks becomes observable. Then the margin from both sides:
+     * 0.249999 is still rim, 0.25 exactly is not, which pins the constant and the strict
+     * {@code <}.
+     *
+     * <p><strong>The half of a stair, read from y.</strong> The last two lines of the derivation
+     * overwrite the half whenever the orientation is UP or DOWN - which is every click on the top
+     * or bottom face. So on those faces the y arms cannot be observed at all, and replacing one of
+     * them left the suite green. The four cases on a side face fix that: there the orientation is
+     * the side itself, no override fires, and the half is genuinely the one y chose.
      */
     public static void intuitiveOrientationDerivesTheEdgeDirection(GameTestHelper helper) {
         ServerPlayer player = creativePlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
@@ -626,6 +644,66 @@ public final class ChiselTests {
                 Direction.NORTH, Half.TOP, "stairs, bottom centre");
         assertStairs(helper, player, stairs, Direction.NORTH, new Vec3(0.5, 0.5, 0.0),
                 Direction.NORTH, Half.BOTTOM, "stairs, north face centre");
+
+
+        // --- all twelve rim branches, on a rod, which stores the direction and not just its axis ---
+        // The pillar cases above can only show the axis, so they cannot tell WEST from EAST or
+        // DOWN from UP; the audit of 2026-09-08 found six of the twelve branches never entered at
+        // all and four more only through an axis. The margin here is 0.25, wider than the
+        // rotator's.
+        // top face (axis Y): x is read first, then z
+        assertFacing(helper, player, rod, Direction.UP, new Vec3(0.1, 1.0, 0.5),
+                Direction.WEST, "rod, top face west rim");
+        assertFacing(helper, player, rod, Direction.UP, new Vec3(0.9, 1.0, 0.5),
+                Direction.EAST, "rod, top face east rim");
+        assertFacing(helper, player, rod, Direction.UP, new Vec3(0.5, 1.0, 0.1),
+                Direction.NORTH, "rod, top face north rim");
+        assertFacing(helper, player, rod, Direction.UP, new Vec3(0.5, 1.0, 0.9),
+                Direction.SOUTH, "rod, top face south rim");
+        // east face (axis X): y is read first, then z - none of these four was ever entered
+        assertFacing(helper, player, rod, Direction.EAST, new Vec3(1.0, 0.1, 0.5),
+                Direction.DOWN, "rod, east face lower rim");
+        assertFacing(helper, player, rod, Direction.EAST, new Vec3(1.0, 0.9, 0.5),
+                Direction.UP, "rod, east face upper rim");
+        assertFacing(helper, player, rod, Direction.EAST, new Vec3(1.0, 0.5, 0.1),
+                Direction.NORTH, "rod, east face north rim");
+        assertFacing(helper, player, rod, Direction.EAST, new Vec3(1.0, 0.5, 0.9),
+                Direction.SOUTH, "rod, east face south rim");
+        // north face (axis Z): y is read first, then x
+        assertFacing(helper, player, rod, Direction.NORTH, new Vec3(0.5, 0.9, 0.0),
+                Direction.UP, "rod, north face upper rim");
+        assertFacing(helper, player, rod, Direction.NORTH, new Vec3(0.1, 0.5, 0.0),
+                Direction.WEST, "rod, north face west rim");
+        assertFacing(helper, player, rod, Direction.NORTH, new Vec3(0.9, 0.5, 0.0),
+                Direction.EAST, "rod, north face east rim");
+
+        // --- the corners, where the order of the checks is the only thing that decides ---
+        assertFacing(helper, player, rod, Direction.UP, new Vec3(0.1, 1.0, 0.1),
+                Direction.WEST, "rod, north-west corner of the top face: x is read before z");
+        assertFacing(helper, player, rod, Direction.EAST, new Vec3(1.0, 0.1, 0.1),
+                Direction.DOWN, "rod, lower north corner of the east face: y is read before z");
+        assertFacing(helper, player, rod, Direction.NORTH, new Vec3(0.1, 0.1, 0.0),
+                Direction.DOWN, "rod, lower west corner of the north face: y is read before x");
+
+        // --- the margin of applyIntuitiveOrientation is 0.25, and the comparison is strict ---
+        assertFacing(helper, player, rod, Direction.UP, new Vec3(0.249999, 1.0, 0.5),
+                Direction.WEST, "rod, 0.249999 from the west edge, the last hair inside the rim");
+        assertFacing(helper, player, rod, Direction.UP, new Vec3(0.25, 1.0, 0.5),
+                Direction.UP, "rod, 0.25 exactly, which the strict comparison leaves outside");
+
+        // --- the two y arms of the stair half, on a VERTICAL face where nothing overwrites them ---
+        // On the top and bottom faces the orientation is UP or DOWN, and the last two lines of the
+        // half derivation overwrite whatever y produced - which is why the existing cases above
+        // cannot see these arms at all. On a side face the orientation is the side, so neither
+        // override fires and the half is genuinely the one y chose.
+        assertStairs(helper, player, stairs, Direction.NORTH, new Vec3(0.5, 0.3, 0.0),
+                Direction.NORTH, Half.BOTTOM, "stairs, north face centre below the middle");
+        assertStairs(helper, player, stairs, Direction.NORTH, new Vec3(0.5, 0.7, 0.0),
+                Direction.NORTH, Half.TOP, "stairs, north face centre above the middle");
+        assertStairs(helper, player, stairs, Direction.EAST, new Vec3(1.0, 0.3, 0.5),
+                Direction.NORTH, Half.BOTTOM, "stairs, east face centre below the middle");
+        assertStairs(helper, player, stairs, Direction.EAST, new Vec3(1.0, 0.7, 0.5),
+                Direction.NORTH, Half.TOP, "stairs, east face centre above the middle");
 
         // --- the same two clicks from a second angle. NORTH above is the player's direction, the
         //     block's default and a compass constant all at once; WEST here is none of the other
