@@ -134,6 +134,26 @@ public final class MagnetTests {
     /** Second in-range spot on the other horizontal axis, for the two-item filter cases. */
     private static final Vec3 SECOND_NEAR_SPOT = new Vec3(1.5, 1.0, 4.5);
 
+    /**
+     * Where the armour stand carrying a magnet is parked: three blocks from {@link #NEAR_SPOT} on
+     * the z axis, i.e. comfortably inside an unenchanted reach box and comfortably outside the one
+     * block in which the magnet brakes instead of pulls. It is the bottom centre of
+     * {@link #STAND_BLOCK}, which is where {@code GameTestHelper#spawn} puts an entity.
+     */
+    private static final Vec3 STAND_SPOT = new Vec3(4.5, 1.0, 4.5);
+
+    /** The block whose bottom centre is {@link #STAND_SPOT}. */
+    private static final BlockPos STAND_BLOCK = new BlockPos(4, 1, 4);
+
+    /**
+     * Where the player is parked for the vertical reach probes: two blocks above the room. Up is
+     * the one direction in which the reach can be measured against both a near and a far item -
+     * the rooms of a batch stand beside each other, never above each other, so there is nothing up
+     * there to disturb and nothing down here that a boosted magnet fired from up there can touch
+     * (its box starts at y 2, above every item lying on a neighbour's floor).
+     */
+    private static final Vec3 HIGH_SPOT = new Vec3(1.5, 10.0, 1.5);
+
     /** Velocities below this count as "the magnet did not touch it". */
     private static final double AT_REST = 1.0E-8;
 
@@ -163,9 +183,18 @@ public final class MagnetTests {
      * the reverse holds too, since the fallback alone would carry the feature for both hands. What
      * the six cases together really pin is the contract as a whole: held runs, not held does not.
      *
-     * <p>What breaks this test: dropping the {@code instanceof Player} check (the armour stand case
-     * would then throw a {@code ClassCastException}), widening {@code isHeldInHand} to any slot
-     * (the head and backpack cases would start pulling, which is what "a magnet works from the
+     * <p>The armour stand only says something because it stands within a magnet's reach of the
+     * item. Parked in the far corner at {@code (6.5, 1, 6.5)}, as it was, its reach box misses the
+     * diamond by more than half a block on z, so "the stand pulled nothing" was equally true of a
+     * magnet that had lost the {@code Player} gate altogether - the assertion could not fail. It now
+     * stands at {@link #STAND_SPOT}, and the control right in front of it puts the mock player on
+     * that very spot and watches the same diamond move. That control is what turns the stand's
+     * silence into a statement about the gate rather than about geometry, and it is measured with a
+     * player instead of a repeated {@code BASE_RANGE} constant so it stays true if the reach moves.
+     *
+     * <p>What breaks this test: widening the {@code instanceof Player} check to
+     * {@code LivingEntity} (the armour stand starts pulling), widening {@code isHeldInHand} to any
+     * slot (the head and backpack cases would start pulling, which is what "a magnet works from the
      * hotbar without being held" looks like), narrowing it to the main hand (the off hand case goes
      * red), and removing or inverting the {@code isShiftKeyDown} guard. Deleting <em>one</em> of
      * the two halves of {@code isHeldInHand} breaks no feature: dropping the identity fallback
@@ -188,8 +217,20 @@ public final class MagnetTests {
 
         // --- the carrier is not a player: an armour stand holding a magnet magnetises nothing ---
         // EntityEquipment#tick runs for every LivingEntity, so this really is reachable in game.
+        LivingEntity armourStand = helper.spawn(EntityType.ARMOR_STAND, STAND_BLOCK);
+
+        // The control that makes the assertion below able to fail at all: the same diamond, the
+        // same magnet, a player standing where the stand stands. See the javadoc.
         clearHands(player);
-        LivingEntity armourStand = helper.spawn(EntityType.ARMOR_STAND, new BlockPos(6, 1, 6));
+        player.setItemInHand(InteractionHand.MAIN_HAND, magnet);
+        moveTo(helper, player, STAND_SPOT);
+        helper.assertTrue(pulls(magnet, level, player, EquipmentSlot.MAINHAND, target),
+                "test setup broken: even a player standing on the armour stand's spot cannot reach "
+                        + "the diamond, so the armour stand assertion below would hold whatever the "
+                        + "magnet does");
+        moveTo(helper, player, PLAYER_SPOT);
+
+        clearHands(player);
         armourStand.setItemSlot(EquipmentSlot.MAINHAND, magnet);
         helper.assertTrue(!pulls(magnet, level, armourStand, EquipmentSlot.MAINHAND, target),
                 "an armour stand holding a magnet pulled a loose item; the magnet is no longer "
@@ -445,10 +486,22 @@ public final class MagnetTests {
      * straight line, and still has to come; that is the pair that says "box, not sphere".
      *
      * <p>Constructor's Touch is pinned from below by the item at the far wall: its hull starts at
-     * x 7.775, so pulling it means {@code BOOSTED_RANGE > 5.975}. An upper bound cannot be had in
-     * here - an item that a reach of 8 must miss would have to sit past x 9.925, outside the 8x8x8
-     * room, and entities placed outside the room land in whatever gametest is running next door,
-     * the failure mode CLAUDE.md warns about.
+     * x 7.775, so pulling it means {@code BOOSTED_RANGE > 5.975}. That alone is not the claim the
+     * enchantment makes - it says the reach <em>doubles</em>, and 6.0 blocks satisfies "more than
+     * 5.975" just as well as 8.0 does, as would 20.0. Horizontally the room cannot say more: an
+     * item that a reach of 8 must miss would have to sit past x 9.925, outside the 8x8x8 room, and
+     * entities placed outside the room land in whatever gametest is running next door, the failure
+     * mode CLAUDE.md warns about.
+     *
+     * <p>The axis that can say more is the vertical one, because nothing runs above or below a
+     * gametest room - the grid is flat. With the player parked at {@link #HIGH_SPOT}, two blocks
+     * above the room, its box starts at y 10, and an inflated box therefore reaches down to
+     * {@code 10 - range}. The item at y 2.4 (hull up to 2.65) is caught from a range of 7.35
+     * upwards, the one at y 1.4 (hull up to 1.65) only from 8.35 upwards; requiring the first to be
+     * pulled and the second to stay put pins {@code BOOSTED_RANGE} to (7.35, 8.35]. Only the
+     * player leaves the room there, and only its bounding box does - the two probes stay inside.
+     * Neither probe is within the plain magnet's four blocks, which is asserted as well: without
+     * that, a {@code BASE_RANGE} grown past 7.35 would carry the whole section.
      *
      * <p>The boosted tick really does search eight blocks in every direction. The rooms of a batch
      * are five blocks apart along x ({@code StructureGridSpawner.SPACE_BETWEEN_COLUMNS}), so
@@ -461,11 +514,16 @@ public final class MagnetTests {
      * one is {@link ToolBehaviourTests#magnetPullsNearbyItemsAndIgnoresDistantOnes}, whose parked
      * gold ingot is allowed 0.5 blocks of drift, while a single 0.1 impulse on an item lying on
      * stone adds up to 0.1 / (1 - 0.98 * 0.6) = 0.24 blocks. A factor of two is the whole margin,
-     * which is why the enchanted tick is fired exactly once.
+     * which is why the enchanted tick is fired exactly once <em>from the floor</em>. The second
+     * enchanted tick, the one fired from {@link #HIGH_SPOT}, spends none of that margin: from y 10
+     * the inflated box starts at y 2, while that gold ingot is spawned at y 1.5 and sinks to the
+     * floor from there. Inside a neighbouring room the raised tick reaches a strict subset of what
+     * the tick from the floor reached anyway.
      *
      * <p>What breaks this test: {@code BASE_RANGE} leaving (3.925, 4.075], {@code BOOSTED_RANGE}
-     * dropping to 5.975 or below, the Constructor's Touch lookup breaking, and swapping the
-     * inflated bounding box for a straight distance check (the diagonal item stops being pulled).
+     * leaving (7.35, 8.35] in either direction, the Constructor's Touch lookup breaking, and
+     * swapping the inflated bounding box for a straight distance check (the diagonal item stops
+     * being pulled).
      * The guard at the top goes red if the magnet ever joins
      * {@code simplebuilding:chisel_and_mining_tools} - the Range branch in {@code getCurrentRange}
      * would become reachable in normal play and would need a case of its own.
@@ -527,6 +585,38 @@ public final class MagnetTests {
                         + "plain magnet's box stayed put");
         helper.assertTrue(moved(inReach),
                 "the enchanted magnet stopped pulling the item that the plain one reached");
+
+        // --- how far Constructor's Touch reaches, measured downwards from above the room ---
+        // The horizontal probes above only say "more than 5.975 blocks", which a boost of 6.0 -
+        // half of what the enchantment promises - satisfies as well as 8.0 does. Straight down
+        // there is room for both a probe the boost has to reach and one it must not. See the
+        // javadoc for the arithmetic; the numbers are (7.35, 8.35] around a documented 8.0.
+        moveTo(helper, player, HIGH_SPOT);
+        ItemEntity insideBoostedEdge = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 2.4, 1.5));
+        ItemEntity outsideBoostedEdge = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 1.4, 1.5));
+
+        restAll(insideBoostedEdge, outsideBoostedEdge);
+        tick(enchanted, level, player, EquipmentSlot.MAINHAND);
+
+        helper.assertTrue(moved(insideBoostedEdge),
+                "Constructor's Touch did not reach an item 7.35 blocks below the player, so "
+                        + "BOOSTED_RANGE has dropped below 7.35 and the enchantment no longer "
+                        + "doubles the four block reach it doubles on paper");
+        helper.assertTrue(!moved(outsideBoostedEdge),
+                "Constructor's Touch pulled an item 8.35 blocks below the player; BOOSTED_RANGE has "
+                        + "grown past 8.35");
+
+        // The control for both: neither probe is inside the plain magnet's reach, so the two
+        // assertions above are about the boost and not about the base range having grown.
+        restAll(insideBoostedEdge, outsideBoostedEdge);
+        tick(plain, level, player, EquipmentSlot.MAINHAND);
+
+        helper.assertTrue(!moved(insideBoostedEdge) && !moved(outsideBoostedEdge),
+                "the unenchanted magnet reached one of the two probes 7.35 and 8.35 blocks below "
+                        + "the player, so BASE_RANGE has grown past 7.35 and the boosted assertions "
+                        + "above no longer measure the boost");
+
+        moveTo(helper, player, PLAYER_SPOT);
 
         TestCleanup.succeed(helper);
     }
@@ -775,10 +865,19 @@ public final class MagnetTests {
     @SuppressWarnings("removal")
     private static ServerPlayer mockPlayer(GameTestHelper helper) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
-        Vec3 pos = helper.absoluteVec(PLAYER_SPOT);
-        player.snapTo(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+        moveTo(helper, player, PLAYER_SPOT);
         TestCleanup.before(helper, () -> helper.getLevel().getServer().getPlayerList().remove(player));
         return player;
+    }
+
+    /**
+     * Parks the player at a room coordinate. What the magnet searches is the player's bounding box
+     * inflated by the range, so moving the player is how the reach is measured against a probe the
+     * room is too small to place.
+     */
+    private static void moveTo(GameTestHelper helper, ServerPlayer player, Vec3 spot) {
+        Vec3 pos = helper.absoluteVec(spot);
+        player.snapTo(pos.x, pos.y, pos.z, 0.0F, 0.0F);
     }
 
     /**

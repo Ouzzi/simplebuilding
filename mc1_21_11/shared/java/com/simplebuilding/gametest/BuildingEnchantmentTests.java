@@ -339,10 +339,23 @@ public final class BuildingEnchantmentTests {
      * real randomness the horizontal assertion fails, which is the point at which this paragraph
      * should be deleted.
      *
+     * <p><strong>Also pinned: where "carried" starts.</strong> Both preview branches read the off
+     * hand before the hotbar ({@code findFirstBlockStateClient} and {@code findAllBuildingBlocks}
+     * each open with it). Every other wand test in the suite clears the off hand first, so that
+     * step could be deleted without a single assertion moving. The last block below therefore puts
+     * the only, or the first, block into the off hand and states all three halves of it: the plain
+     * preview has to reach it at all, it has to prefer it over the hotbar, and in the palette
+     * branch the off hand block has to be the <em>first entry of the list</em>. That last one is
+     * stated position by position on purpose. The palette branch cannot express "first" as a
+     * different set of blocks - collecting the off hand after the hotbar produces the same two
+     * blocks either way - but the list index picks per position, so swapping the two entries
+     * swaps the drawing on every position of the plane while leaving the set identical.
+     *
      * <p><strong>What breaks this test:</strong> dropping the {@code hasColorPalette} branch in
      * {@code getPreviewStates}, letting the plain branch mix blocks, seeding the index from
-     * {@code Random} instead of the position, or removing the {@code palette.isEmpty()} guard
-     * (which would divide by zero).
+     * {@code Random} instead of the position, removing the {@code palette.isEmpty()} guard
+     * (which would divide by zero), dropping the off hand out of either material search, or
+     * collecting it after the hotbar rather than before it.
      */
     public static void colorPaletteSpreadsTheCarriedBlocksOverTheWandPreview(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -403,6 +416,56 @@ public final class BuildingEnchantmentTests {
                 "Color Palette now varies within one horizontal layer. That is very likely an "
                         + "improvement, but the palette index is documented here as a function of Y "
                         + "only - re-read the javadoc and update it.");
+
+        // --- the off hand is the first place both branches look ---
+        // Only the off hand carries a building block here, so a preview that skipped it would come
+        // back empty rather than merely wrong.
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        player.getInventory().setItem(0, paletteWand);
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.BRICKS, 16));
+
+        Map<BlockPos, BlockState> offhandOnly = BuildingWandItem.getPreviewStates(
+                helper.getLevel(), player, plainWand, origin, Direction.NORTH, diameter);
+        Set<Block> offhandOnlyBlocks = distinctBlocks(offhandOnly);
+        Assertions.valueEqual(helper, offhandOnlyBlocks, Set.of(Blocks.BRICKS),
+                "a wand whose only building block is in the off hand previewed " + offhandOnlyBlocks
+                        + "; findFirstBlockStateClient stopped looking there");
+
+        // ... and it wins over the hotbar, which is what makes it the *first* place.
+        player.getInventory().setItem(1, new ItemStack(Items.OAK_PLANKS, 16));
+        Map<BlockPos, BlockState> offhandFirst = BuildingWandItem.getPreviewStates(
+                helper.getLevel(), player, plainWand, origin, Direction.NORTH, diameter);
+        Set<Block> offhandFirstBlocks = distinctBlocks(offhandFirst);
+        Assertions.valueEqual(helper, offhandFirstBlocks, Set.of(Blocks.BRICKS),
+                "the plain wand preferred the hotbar over the off hand and previewed "
+                        + offhandFirstBlocks + "; the off hand is supposed to be searched first");
+
+        // The palette branch has its own copy of that search, so it needs its own case: both the
+        // off hand block and the hotbar block have to end up in the spread.
+        Map<BlockPos, BlockState> offhandPalette = BuildingWandItem.getPreviewStates(
+                helper.getLevel(), player, paletteWand, origin, Direction.NORTH, diameter);
+        Set<Block> offhandPaletteBlocks = distinctBlocks(offhandPalette);
+        Assertions.valueEqual(helper, offhandPaletteBlocks, Set.of(Blocks.BRICKS, Blocks.OAK_PLANKS),
+                "Color Palette did not spread the off hand block over the plane together with the "
+                        + "hotbar one, it used " + offhandPaletteBlocks
+                        + "; findAllBuildingBlocks stopped collecting from the off hand");
+
+        // A set cannot see the *order* of that list, and the order is what decides which block
+        // lands where: the index is Math.abs(pos.asLong() % size), so with two entries the first
+        // one is drawn on every evenly seeded position. Collecting the off hand after the hotbar
+        // instead of before it leaves the set above completely untouched while repainting every
+        // single position with the other block.
+        for (Map.Entry<BlockPos, BlockState> entry : offhandPalette.entrySet()) {
+            Block expectedHere = Math.abs((int) (entry.getKey().asLong() % 2)) == 0
+                    ? Blocks.BRICKS
+                    : Blocks.OAK_PLANKS;
+            Assertions.valueEqual(helper, entry.getValue().getBlock(), expectedHere,
+                    "the Color Palette spread drew " + entry.getValue().getBlock() + " at "
+                            + entry.getKey() + " where the off hand block was expected to be the "
+                            + "palette's first entry; findAllBuildingBlocks is collecting the hotbar "
+                            + "before the off hand");
+        }
 
         TestCleanup.succeed(helper);
     }
@@ -492,9 +555,18 @@ public final class BuildingEnchantmentTests {
      * counts are {@code DELAY + 2}: one tick places the centre and arms the timer, {@code DELAY}
      * ticks drain it, and one more places the outer ring and switches the wand off.
      *
+     * <p><strong>A third run, two rings wide, closes that formula.</strong> The two runs the
+     * enchantment is measured on have a radius of one, which is a single step outwards - so they
+     * see one single pause, the one between the centre and the outer ring. A wand that armed the
+     * timer on the way out of ring zero and left it at zero for every further ring would pace both
+     * of them exactly as it does today, and a 9x9 plane would appear in one blink after its first
+     * ring. The run at the end therefore builds a radius of two and states the general shape of the
+     * formula: one tick for the centre plus {@code DELAY_TICKS + 1} per ring.
+     *
      * <p><strong>What breaks this test:</strong> dropping the {@code isLinePlace} ternary (both
      * runs would take {@code DELAY_TICKS + 2}), swapping the two constants, reading Linear from
-     * the wrong stack, or Linear starting to change {@code calculatePositions}.
+     * the wrong stack, arming the timer for the first ring only, or Linear starting to change
+     * {@code calculatePositions}.
      */
     public static void linearOnlyShortensTheWandStepDelay(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -503,6 +575,9 @@ public final class BuildingEnchantmentTests {
         // overlap and count each other's blocks.
         BlockPos plainAnchor = new BlockPos(3, 1, 3);
         BlockPos linearAnchor = new BlockPos(3, 4, 3);
+        // A third layer for the two ring wide run at the end, far enough from the other two that
+        // its 5x5 window cannot reach them either.
+        BlockPos wideAnchor = new BlockPos(3, 6, 3);
 
         ItemStack plainWand = wandWithRadiusOne(new ItemStack(ModItems.DIAMOND_BUILDING_WAND));
         ItemStack linearWand = wandWithRadiusOne(new ItemStack(ModItems.DIAMOND_BUILDING_WAND));
@@ -510,6 +585,12 @@ public final class BuildingEnchantmentTests {
 
         int plainTicks = runWandUntilIdle(helper, player, plainWand, plainAnchor, new ItemStack(Items.STONE, 64));
         int linearTicks = runWandUntilIdle(helper, player, linearWand, linearAnchor, new ItemStack(Items.STONE, 64));
+
+        // A third run, two rings wide. Both runs above take exactly one step outwards, so they
+        // measure one single pause; a wand that arms the timer for the first ring and leaves it at
+        // zero for every ring after that paces them identically and only shows up here.
+        ItemStack wideWand = wandWithRadius(new ItemStack(ModItems.DIAMOND_BUILDING_WAND), 2);
+        int wideTicks = runWandUntilIdle(helper, player, wideWand, wideAnchor, new ItemStack(Items.STONE, 64));
 
         // --- the shape is untouched ---
         Set<BlockPos> plainShape = placedOffsets(helper, plainAnchor);
@@ -527,6 +608,20 @@ public final class BuildingEnchantmentTests {
                 "the unenchanted wand no longer paces itself with DELAY_TICKS");
         Assertions.valueEqual(helper, linearTicks, BuildingWandItem.DELAY_TICKS_LINE + 2,
                 "the Linear wand no longer paces itself with DELAY_TICKS_LINE");
+
+        // --- every ring waits, not only the first one ---
+        // Everything above this line is measured on a radius of one, which is a single step
+        // outwards: centre, one pause, outer ring. A timer that is armed on the way out of ring
+        // zero and left at zero afterwards produces exactly those numbers as well. The two ring
+        // run separates the two readings - a run of n rings costs one tick for the centre plus
+        // DELAY_TICKS + 1 for every ring after it.
+        Assertions.valueEqual(helper, wideTicks, 2 * BuildingWandItem.DELAY_TICKS + 3,
+                "a two ring wand took " + wideTicks + " ticks; every ring after the first one is "
+                        + "supposed to wait out the same delay, so the wand is no longer pacing the "
+                        + "rings past the first");
+        Assertions.valueEqual(helper, placedOffsets(helper, wideAnchor).size(), 25,
+                "the two ring wand did not finish the 5x5 plane its radius setting asks for, so the "
+                        + "tick count above was measured on a run that built something else");
 
         TestCleanup.succeed(helper);
     }
@@ -737,8 +832,16 @@ public final class BuildingEnchantmentTests {
      * the test states a shape instead of restating a balancing number.
      */
     private static ItemStack wandWithRadiusOne(ItemStack wand) {
+        return wandWithRadius(wand, 1);
+    }
+
+    /**
+     * The same, for the one case that needs more than a single step outwards: how the wand paces
+     * the rings <em>after</em> the first one cannot be seen on a radius of one at all.
+     */
+    private static ItemStack wandWithRadius(ItemStack wand, int radius) {
         CompoundTag settings = wand.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        settings.putInt("SettingsRadius", 1);
+        settings.putInt("SettingsRadius", radius);
         settings.putInt("SettingsAxis", 0);
         wand.set(DataComponents.CUSTOM_DATA, CustomData.of(settings));
         return wand;

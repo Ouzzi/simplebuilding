@@ -4,11 +4,15 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.networking.SetHopperGhostItemPayload;
+import com.simplebuilding.platform.HopperSync;
+import com.simplebuilding.platform.PlatformServices;
 import com.simplebuilding.screen.ModHopperScreenHandler;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.util.HopperFilterMode;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
@@ -19,6 +23,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
@@ -42,6 +50,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HopperBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.storage.TagValueInput;
@@ -96,7 +105,10 @@ import net.minecraft.world.phys.Vec3;
  *       unconditional. A {@code SetHopperGhostItemPayload} with slot 9 changes nothing on the
  *       server but still sends a sync packet for slot 9 to every tracking client. Harmless today
  *       only because {@code setGhostItemClient} range checks again. The test below pins the half
- *       that is observable server side - that nothing is stored and nothing throws.</li>
+ *       that is behaviour rather than defect - that nothing is stored and nothing throws, and
+ *       that the two <em>in</em> range calls do broadcast. The stray slot 9 packet does show up
+ *       in the recorder that test installs, but nothing asserts on it: pinning it would make the
+ *       fix go red.</li>
  *   <li><b>{@code NetheriteHopperBlockEntity} is dead code.</b> Nothing constructs it:
  *       {@code ModHopperBlock#newBlockEntity} returns a {@code ModHopperBlockEntity} and
  *       {@code ModBlockEntities} registers {@code ModHopperBlockEntity::new} for both hoppers.
@@ -138,21 +150,26 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Not covered</h2>
  * <ul>
- *   <li><b>The ghost item broadcast</b> ({@code ModHopperBlockEntity#setGhostItem} line 408).
- *       Observing it means swapping {@code PlatformServices.setHopperSync} for a recorder, and
- *       that field has a setter but no getter - a test could install the recorder but could never
- *       hand the loader's real implementation back, so every later hopper in the same server run
- *       would broadcast into a dead {@code NOOP}. Not worth the collateral for one assertion.</li>
+ *   <li><b>{@code level.sendBlockUpdated} inside {@code updateListeners}</b>
+ *       (ModHopperBlockEntity.java:138), i.e. the <em>push</em> that hands the update packet to
+ *       the tracking clients. All it does on a server level is call
+ *       {@code ServerChunkCache#blockChanged}, whose {@code ChunkHolder} is behind a protected
+ *       lookup, and both block states it is given are the same one, so nothing else it touches
+ *       moves. What the tests below do reach is the two halves around it: {@code setChanged()}
+ *       through the chunk's unsaved flag, and the packet itself through
+ *       {@code getUpdatePacket()}.</li>
  *   <li><b>Creative tab membership</b> ({@code ModItemGroupsContent}). Same reasoning
  *       {@code BundleWiringTests} records: a test could only assert that two
  *       {@code entries.accept(...)} lines still exist, which restates the source line it
  *       guards.</li>
- *   <li><b>Everything the player sees.</b> {@code NetheriteHopperScreen}, the filter button, the
- *       ghost item overlay and the colour the mode text is drawn in are client side. The mode
- *       texts and colours themselves live in shared code and are pinned below, but nothing draws
- *       them here.</li>
+ *   <li><b>Everything the player sees.</b> {@code NetheriteHopperScreen}, the filter button and
+ *       the ghost item overlay are client side. The mode texts and the colour their tooltip is
+ *       drawn in live in shared code and are pinned below - as the {@code Style} on the component
+ *       the screen hands to {@code setTooltipForNextFrame}, which is the colour that actually
+ *       reaches the player - but nothing draws them here.</li>
  *   <li><b>{@code SyncHopperGhostItemPayload} arriving at a client.</b> The mock player's
- *       connection swallows the packet.</li>
+ *       connection swallows the packet. That the payload is handed out at all is pinned below,
+ *       one step earlier, at the {@code HopperSync} the loaders install.</li>
  * </ul>
  */
 public final class HopperTests {
@@ -192,6 +209,16 @@ public final class HopperTests {
 
     /** First player inventory slot of a {@code HopperMenu}: five hopper slots come before it. */
     private static final int FIRST_PLAYER_SLOT = 5;
+
+    // --- the grid alignment probe: a hopper of its own, clear of HOPPER_POS and of the player ---
+    private static final BlockPos GRID_PROBE_POS = new BlockPos(5, 1, 5);
+
+    /**
+     * Where the loose item for the grid alignment probe is dropped: inside the probe hopper's own
+     * cell, under the block that caps it, and inside {@code Hopper.SUCK_AABB}, which reaches from
+     * 0.6875 above the hopper's floor to two blocks over it.
+     */
+    private static final Vec3 GRID_PROBE_ITEM = new Vec3(5.5D, 1.8D, 5.5D);
 
     // =====================================================================================
     // THE REDSTONE LOCK
@@ -286,17 +313,38 @@ public final class HopperTests {
      * entity, so both ends are driven with 9 and -1 and the whole five slot row is re-read
      * afterwards.
      *
+     * <p><b>And the fourth claim: the change leaves the server.</b> Storing the filter is only
+     * half of {@code setGhostItem} - the {@code PlatformServices.broadcastHopperGhostItem} call
+     * after it (ModHopperBlockEntity.java:408) is what a second player with the same hopper open,
+     * or anyone with the block in view, learns the new filter from. Delete it and every field on
+     * the server still reads right, so it is observed where it is loader neutral: at the
+     * {@code HopperSync} the loaders install, wrapped by a recorder (see
+     * {@link #recordGhostBroadcasts}). Both directions are asked for - setting a filter and
+     * clearing one - because a broadcast that only fires for non-empty stacks leaves a cleared
+     * slot showing its old ghost on every other screen.
+     *
      * <p>What breaks this test: dropping the {@code setCount(1)}, storing {@code stack} instead
      * of {@code stack.copy()}, losing the empty-stack branch, swapping the payload to
-     * {@code ItemStack.STREAM_CODEC}, or narrowing the {@code slot >= 0 && slot < 5} guard on
-     * either {@code setGhostItemInternal} or {@code getGhostItem}.
+     * {@code ItemStack.STREAM_CODEC}, narrowing the {@code slot >= 0 && slot < 5} guard on
+     * either {@code setGhostItemInternal} or {@code getGhostItem}, or dropping the broadcast.
      */
     public static void filterItemsAreStoredAsSingleCountCopiesAndCanBeCleared(GameTestHelper helper) {
         ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.NETHERITE_HOPPER);
+        List<GhostBroadcast> broadcasts = recordGhostBroadcasts(helper);
 
         // --- a placeholder, not stock: seventeen diamonds go in, one comes back ---
         ItemStack seventeen = new ItemStack(Items.DIAMOND, 17);
         hopper.setGhostItem(0, seventeen);
+
+        // The half that never touches a field: what the tracking clients are told. Read straight
+        // after the call, so the out of range writes further down cannot be mistaken for it.
+        GhostBroadcast set = lastBroadcastFor(helper, broadcasts, hopper,
+                "setting filter slot 0 to a stack of diamonds");
+        helper.assertValueEqual(set.slot(), 0, "the filter slot the hopper broadcast a change for");
+        helper.assertTrue(set.stack().is(Items.DIAMOND),
+                "the hopper broadcast " + set.stack() + " for slot 0, so every client watching it "
+                        + "is told about a filter the hopper does not have");
+
         helper.assertTrue(hopper.getGhostItem(0).is(Items.DIAMOND),
                 "the filter slot did not take the item at all, it holds " + hopper.getGhostItem(0));
         helper.assertValueEqual(hopper.getGhostItem(0).getCount(), 1,
@@ -343,6 +391,15 @@ public final class HopperTests {
                 "an empty filter item did not clear the slot, it still holds "
                         + hopper.getGhostItem(0));
 
+        // The delete has to travel as well: a client that is never told the slot was emptied keeps
+        // drawing the old ghost item over it.
+        GhostBroadcast cleared = lastBroadcastFor(helper, broadcasts, hopper,
+                "clearing filter slot 0");
+        helper.assertValueEqual(cleared.slot(), 0, "the filter slot the clearing broadcast names");
+        helper.assertTrue(cleared.stack().isEmpty(),
+                "clearing a filter slot broadcast " + cleared.stack() + " instead of an empty "
+                        + "stack, so the clients keep the filter that was just deleted");
+
         // A non-empty payload has to survive the same trip, otherwise the assertion above could
         // be met by a codec that drops every stack it is given.
         SetHopperGhostItemPayload filled =
@@ -383,19 +440,33 @@ public final class HopperTests {
      * <p>Also here, because they are the same enum: the mode texts and their colours. Both are
      * hard coded English literals in {@code HopperFilterMode} rather than translation keys, so
      * this pins the current state deliberately - a port that swaps them for
-     * {@code Component.translatable} will go red and should. The three colours are pinned as the
-     * raw numbers the pre-26.2 {@code ChatFormatting.*.getColor()} returned, which is exactly the
-     * claim the migration comment above the enum makes about {@code TextColor.RED} and friends.
+     * {@code Component.translatable} will go red and should.
      *
-     * <p>And the block update: {@code toggleFilterMode} calls {@code updateListeners}, which
-     * marks the block entity changed so the mode reaches everyone looking at it. That is observed
-     * through the chunk's unsaved flag - cleared, then re-read in the same tick, so nothing else
-     * in the room can have set it in between.
+     * <p><b>The colour is read off the component, not off {@code getColor()}.</b> The enum's
+     * {@code getColor()} has no caller anywhere in the mod - not in {@code common/src},
+     * {@code src/main}, {@code forge/src} or {@code neoforge/src} - so an assertion on it says
+     * nothing about what the player sees. The colour that reaches the screen is the {@code Style}
+     * on the very component {@code NetheriteHopperScreen} hands to
+     * {@code setTooltipForNextFrame} (line 66), i.e. the {@code .withStyle(ChatFormatting.*)}
+     * call in the enum constant. That is what {@link #assertModeTextColour} asks for; the three
+     * {@code getColor()} numbers stay as well, because they are the claim the migration comment
+     * above the enum makes about {@code TextColor.RED} and friends, and because the two have to
+     * agree.
+     *
+     * <p>And the block update, in the two steps it really has. {@code toggleFilterMode} calls
+     * {@code updateListeners}, which (a) marks the block entity changed and (b) pushes an update
+     * to everyone tracking the block. (a) is observed through the chunk's unsaved flag - cleared,
+     * then re-read in the same tick, so nothing else in the room can have set it in between. For
+     * (b) the packet that carries the mode is asked for directly: {@code setChanged()} alone only
+     * makes the chunk save, and a client that already has the hopper in view learns about the
+     * switch from {@code getUpdatePacket()} and from nothing else. The {@code sendBlockUpdated}
+     * call that hands that packet out is not reachable from here; see the class javadoc.
      *
      * <p>What breaks this test: dropping {@code addDataSlots(propertyDelegate)} from the menu,
      * making the delegate answer at another index, {@code getSyncedFilterMode} losing its ordinal
-     * lookup, dropping the {@code setChanged()} out of {@code updateListeners}, renaming a mode
-     * text, or a {@code TextColor} constant changing value under the mod.
+     * lookup, dropping the {@code setChanged()} out of {@code updateListeners},
+     * {@code getUpdatePacket} answering {@code null} or with a tag that has lost the mode,
+     * renaming a mode text, or a mode constant losing the style its tooltip is drawn in.
      */
     public static void theModeDelegateReadsAndWritesTheFilterMode(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -453,6 +524,25 @@ public final class HopperTests {
                 "toggling the filter mode did not mark the hopper changed, so a mode switch no "
                         + "longer reaches anyone looking at the block");
 
+        // --- and the packet the switch is carried out on ---
+        // The unsaved flag above only says the chunk will be written to disk. A client that
+        // already has this hopper in view is told about the new mode by this packet alone.
+        helper.assertTrue(hopper.getFilterMode() == HopperFilterMode.WHITELIST,
+                "the toggle above should have reached Exact Match, the hopper is in "
+                        + hopper.getFilterMode());
+        Packet<ClientGamePacketListener> update = hopper.getUpdatePacket();
+        helper.assertTrue(update instanceof ClientboundBlockEntityDataPacket,
+                "the hopper offers "
+                        + (update == null ? "no update packet at all" : update.getClass().getSimpleName())
+                        + ", so a mode change never reaches a client that is already looking at "
+                        + "the block");
+        ClientboundBlockEntityDataPacket data = (ClientboundBlockEntityDataPacket) update;
+        helper.assertValueEqual(data.getPos(), helper.absolutePos(HOPPER_POS),
+                "the block the hopper's update packet names");
+        helper.assertValueEqual(data.getTag().getIntOr("FilterMode", -1),
+                HopperFilterMode.WHITELIST.ordinal(),
+                "the filter mode inside the hopper's update packet");
+
         // --- the menu texts and colours, pinned as the hard coded English they are ---
         helper.assertValueEqual(HopperFilterMode.NONE.getText().getString(), "Disabled",
                 "the text of the disabled filter mode");
@@ -467,6 +557,13 @@ public final class HopperTests {
                 "the colour of the exact match filter mode");
         helper.assertValueEqual(HopperFilterMode.TYPE.getColor(), 0xFFFF55,
                 "the colour of the type match filter mode");
+
+        // The colour the player is actually shown: the style on the component the screen puts in
+        // the tooltip. getColor() above has no reader in the mod, so on its own it would leave a
+        // mode text that lost its .withStyle(...) - and is drawn plain white - unnoticed.
+        assertModeTextColour(helper, HopperFilterMode.NONE, 0xFF5555, "disabled");
+        assertModeTextColour(helper, HopperFilterMode.WHITELIST, 0x55FF55, "exact match");
+        assertModeTextColour(helper, HopperFilterMode.TYPE, 0xFFFF55, "type match");
 
         helper.succeed();
     }
@@ -688,11 +785,32 @@ public final class HopperTests {
      * {@code ModHopperScreenHandler#clicked} (line 32) is satisfied by the test's own
      * construction, so the filter branch would keep working there no matter what the game builds.
      *
+     * <p><b>That guard gets its own click, on a menu built the way the client builds one.</b>
+     * The client constructor leaves {@code blockEntity} null (NetheriteHopperScreenHandler.java:
+     * 21-23) and the screen normally eats slot clicks in {@code mouseClicked} before the menu
+     * sees them - but not all of them: a hotbar swap (keys 1-9) over one of the five slots goes
+     * through {@code checkHotbarKeyPressed} straight to {@code slotClicked}, past the screen. So
+     * the null case is reachable in game, and without the guard it is a null dereference on the
+     * client. Asserted from the other side: with the guard the click falls through to vanilla and
+     * the item lands in the detached menu's own container.
+     *
+     * <p><b>And {@code isGridAligned}</b> (ModHopperBlockEntity.java:254-257), which is here
+     * because it has nowhere better to be: it is a one line override with no reader in the mod,
+     * and vanilla only consults it in the one branch of {@code suckInItems} that no rig in the
+     * suite reaches - the {@code else} that runs when there is <em>no</em> container above the
+     * hopper (HopperBlockEntity.java:233-235). Every hopper rig in this file and in
+     * {@code BlockBehaviourTests} has a chest up there, so a probe of its own is needed: one mod
+     * hopper capped with a solid block and one item lying in its mouth. Answering {@code true}
+     * like vanilla's hopper does would make that item unreachable. {@code suckInItems} is called
+     * directly instead of through a tick so the item cannot drift out of the suck box first, and
+     * so this test still needs no tick budget.
+     *
      * <p>What breaks this test: {@code useWithoutItem} falling back to vanilla's hopper menu,
      * {@code createScreenMenu} switching to the client constructor (empty inventory, no filter
      * branch), losing the {@code mode != NONE} guard (the filter would swallow every click even
-     * when it is off), widening the slot range past the five hopper slots, or dropping the
-     * {@code return} that stops the item from being placed.
+     * when it is off), widening the slot range past the five hopper slots, dropping the
+     * {@code return} that stops the item from being placed, dropping the {@code blockEntity !=
+     * null} guard, or {@code isGridAligned} starting to answer {@code true}.
      */
     public static void hopperMenuOpensOnUseAndFilterClicksNeverStoreTheItem(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -788,6 +906,43 @@ public final class HopperTests {
                 "items placed into the hopper slot with the filter off");
         helper.assertTrue(hopper.getGhostItem(1).isEmpty(),
                 "a disabled filter learned a filter item anyway: " + hopper.getGhostItem(1));
+
+        // --- a click on a menu with no block entity behind it must not dereference it ---
+        // The client builds its menu with blockEntity = null, and a hotbar swap reaches clicked()
+        // past the screen's mouseClicked - see the javadoc. What is asserted is the fall through:
+        // the item has to land in the detached menu's own container and nothing of the real
+        // hopper may move.
+        NetheriteHopperScreenHandler clientMenu = new NetheriteHopperScreenHandler(
+                2, player.getInventory(), helper.absolutePos(HOPPER_POS));
+        player.containerMenu = clientMenu;
+        clientMenu.setCarried(new ItemStack(Items.EMERALD, 5));
+        clientMenu.clicked(0, 0, ContainerInput.PICKUP, player);
+        helper.assertTrue(clientMenu.getSlot(0).getItem().is(Items.EMERALD),
+                "the click on a menu without a block entity left "
+                        + clientMenu.getSlot(0).getItem() + " in its first slot, so it never "
+                        + "reached vanilla's own handling");
+        helper.assertValueEqual(clientMenu.getSlot(0).getItem().getCount(), 5,
+                "items placed into the detached menu's first slot");
+        helper.assertTrue(hopper.getGhostItem(0).is(Items.DIAMOND),
+                "the click on the detached menu reached the real hopper and rewrote filter slot 0, "
+                        + "which now holds " + hopper.getGhostItem(0));
+        player.containerMenu = opened;
+
+        // --- not grid aligned: a solid block on top does not stop this hopper ---
+        // Its own hopper, because every other rig in the suite has a chest above it and the
+        // branch that reads isGridAligned only runs when there is none. Vanilla's hopper answers
+        // true here and would leave the emerald lying where it is.
+        helper.setBlock(GRID_PROBE_POS, ModBlocks.REINFORCED_HOPPER);
+        ModHopperBlockEntity probe =
+                helper.getBlockEntity(GRID_PROBE_POS, ModHopperBlockEntity.class);
+        helper.setBlock(GRID_PROBE_POS.above(), Blocks.STONE);
+        helper.spawnItem(Items.EMERALD, GRID_PROBE_ITEM);
+        helper.assertTrue(HopperBlockEntity.suckInItems(helper.getLevel(), probe),
+                "a mod hopper capped with a solid block did not take the item lying in its mouth, "
+                        + "so it is refusing to pull like a grid aligned vanilla hopper");
+        helper.assertTrue(probe.getItem(0).is(Items.EMERALD),
+                "the item was reported as taken but slot 0 of the hopper holds "
+                        + probe.getItem(0));
 
         // The menu was really opened, so it is really closed again: the hopper's stopOpen has to
         // run and the player must not be left holding a container into the next test.
@@ -1001,6 +1156,80 @@ public final class HopperTests {
     private static ModHopperBlockEntity placeHopper(GameTestHelper helper, Block hopper) {
         helper.setBlock(HOPPER_POS, hopper);
         return helper.getBlockEntity(HOPPER_POS, ModHopperBlockEntity.class);
+    }
+
+    /**
+     * Fails unless the mode's text carries the colour its tooltip is drawn in.
+     *
+     * <p>Asked for on the component rather than on {@code HopperFilterMode#getColor()}: the enum's
+     * own accessor has no reader in the mod, so only the {@code Style} says anything about what
+     * the player is shown.
+     */
+    private static void assertModeTextColour(GameTestHelper helper, HopperFilterMode mode,
+                                             int expected, String what) {
+        TextColor colour = mode.getText().getStyle().getColor();
+        helper.assertTrue(colour != null,
+                "the " + what + " mode text carries no colour of its own, so the tooltip on the "
+                        + "filter button is drawn in plain white");
+        helper.assertValueEqual(colour.getValue(), expected,
+                "the colour the " + what + " mode text is styled with");
+    }
+
+    /** One recorded {@code PlatformServices.broadcastHopperGhostItem} call. */
+    private record GhostBroadcast(ModHopperBlockEntity hopper, int slot, ItemStack stack) {
+    }
+
+    /**
+     * Puts a recorder in front of the {@link HopperSync} the loader installed and hands back the
+     * log it fills.
+     *
+     * <p>The recorder <em>wraps</em> rather than replaces. {@code PlatformServices} has a setter
+     * for the sync but no getter, so the implementation is read off the field - and wrapping it
+     * means that even a test that dies half way through, or a line whose clean-up hook only fires
+     * on the success path, leaves every later hopper broadcasting for real instead of into a dead
+     * {@code NOOP}.
+     *
+     * <p>The whole suite shares one server thread, so a plain list is enough; entries from other
+     * tests running in the same batch are told apart by the block entity they name.
+     */
+    private static List<GhostBroadcast> recordGhostBroadcasts(GameTestHelper helper) {
+        HopperSync installed = installedHopperSync();
+        List<GhostBroadcast> log = new ArrayList<>();
+        PlatformServices.setHopperSync((blockEntity, slot, stack) -> {
+            // Copied: the caller keeps its stack and is free to edit it afterwards, which is
+            // exactly what the test around this does.
+            log.add(new GhostBroadcast(blockEntity, slot, stack.copy()));
+            installed.broadcastGhostItem(blockEntity, slot, stack);
+        });
+        helper.runBeforeTestEnd(() -> PlatformServices.setHopperSync(installed));
+        return log;
+    }
+
+    private static HopperSync installedHopperSync() {
+        try {
+            Field field = PlatformServices.class.getDeclaredField("hopperSync");
+            field.setAccessible(true);
+            return (HopperSync) field.get(null);
+        } catch (ReflectiveOperationException | RuntimeException failure) {
+            throw new IllegalStateException("PlatformServices.hopperSync could not be read, so a "
+                    + "recorder could not be installed in front of it without losing the loader's "
+                    + "own sync for the rest of the run", failure);
+        }
+    }
+
+    /** The most recent broadcast for this hopper; fails if the call sent none at all. */
+    private static GhostBroadcast lastBroadcastFor(GameTestHelper helper, List<GhostBroadcast> log,
+                                                   ModHopperBlockEntity hopper, String what) {
+        GhostBroadcast found = null;
+        for (int i = log.size() - 1; i >= 0 && found == null; i--) {
+            if (log.get(i).hopper() == hopper) {
+                found = log.get(i);
+            }
+        }
+        helper.assertTrue(found != null,
+                what + " sent no sync packet to the tracking clients, so the filter changed on "
+                        + "the server only");
+        return found;
     }
 
     /**

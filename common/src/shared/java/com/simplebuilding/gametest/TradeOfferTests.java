@@ -64,10 +64,10 @@ import java.util.TreeMap;
  * is left over is:
  *
  * <ul>
- *   <li>the two trades whose result is enchanted, driven over a large, fixed set of seeds, so that
- *       the whole pool, the fixed levels and the {@code second_chance} rate become observable -
- *       the neighbouring test draws each trade once and only asks whether what came out is
- *       <em>somewhere</em> in the pool;</li>
+ *   <li>the four trades whose result is enchanted - the master book and all three chisels - each
+ *       driven over a large, fixed set of seeds, so that the whole pool, the fixed levels and the
+ *       {@code second_chance} rate become observable - the neighbouring test draws each trade once
+ *       and only asks whether what came out is <em>somewhere</em> in the pool;</li>
  *   <li>{@code simplebuilding:weighted_enchant} called directly with hand built pools, for the
  *       branches no shipped file reaches: a {@code second_chance} of 1.0, a plain book, and a pool
  *       whose weights add up to zero;</li>
@@ -117,7 +117,7 @@ public final class TradeOfferTests {
     /** Draws of {@code librarian/5/emerald_master_book}; see the class javadoc for the measurement. */
     private static final int MASTER_BOOK_SAMPLES = 1000;
 
-    /** Draws of {@code toolsmith/3/emerald_copper_chisel}; enough for the 50/30 split to show. */
+    /** Draws per {@code toolsmith/3} chisel trade; enough for the 50/30 split to show. */
     private static final int CHISEL_SAMPLES = 200;
 
     /** Draws per hand built pool in the {@code second_chance} case below. */
@@ -149,6 +149,17 @@ public final class TradeOfferTests {
             "simplebuilding:fast_chiseling@2");
 
     /**
+     * All three {@code toolsmith/3} chisel trades. They declare {@link #CHISEL_POOL} in three
+     * separate json files, so the pool is three copies and not one: a level dropped from - or an
+     * entry added to - the iron or the gold file is invisible to anything that only ever rolls the
+     * copper one. Every one of them is driven below.
+     */
+    private static final List<String> CHISEL_TRADES = List.of(
+            "toolsmith/3/emerald_copper_chisel",
+            "toolsmith/3/emerald_iron_chisel",
+            "toolsmith/3/emerald_gold_chisel");
+
+    /**
      * {@code second_chance} of the master book is 0.1, so ~10% of the draws carry a second
      * enchantment. Measured over {@link #MASTER_BOOK_SAMPLES} seeded draws: 101, and 103 and 103
      * for two other seed bases. The band is wide enough that the deterministic seed set can never
@@ -171,8 +182,8 @@ public final class TradeOfferTests {
     // ==================================================================================
 
     /**
-     * Drives the two trades whose result is enchanted over a large, fixed set of seeds and looks at
-     * what actually landed on the item.
+     * Drives the four trades whose result is enchanted - the master book and all three chisels -
+     * over a large, fixed set of seeds and looks at what actually landed on the item.
      *
      * <p>For {@code librarian/5/emerald_master_book}: after {@link #MASTER_BOOK_SAMPLES} draws every
      * one of the eleven {@code enchantment@level} pairs its pool declares has to have come up at
@@ -185,23 +196,30 @@ public final class TradeOfferTests {
      * the band {@link #MASTER_BOOK_MIN_SECOND}..{@link #MASTER_BOOK_MAX_SECOND} were measured
      * against the same {@code LegacyRandomSource} the loot context uses, over three seed bases.
      *
-     * <p>For {@code toolsmith/3/emerald_copper_chisel}: both declared levels of Fast Chiselling
-     * have to come up (weights 50 and 30), nothing else may, and every single result carries
-     * exactly one enchantment.
+     * <p>For the chisels: the same coverage check runs over <em>all three</em> {@code toolsmith/3}
+     * trades, not only the copper one. Both declared levels of Fast Chiselling have to come up
+     * (weights 50 and 30), nothing else may, and every single result carries exactly one
+     * enchantment. All three are driven because the pool lives three times, once per json file -
+     * the neighbouring {@code tradeDefinitionsProduceTheExpectedOffers} holds its shared constant
+     * against each trade as a permitted <em>superset</em> and builds one offer per trade, so a
+     * level deleted from the iron or the gold file leaves it green and that chisel simply stops
+     * being sold with Fast Chiselling II. Here a missing level is a missing pool entry, in every
+     * file separately.
      *
-     * <p>That last assertion is <em>not</em> a guard against a {@code second_chance} appearing in
-     * the chisel files. Both entries of that pool carry the same enchantment (Fast Chiselling, at
-     * level 1 and 2), so the second draw is always enchantment-equal to the first, the retry loop
-     * in {@code WeightedEnchantFunction#run} runs out its ten attempts and the closing
-     * "second must differ from first" check sets it back to {@code null}. A {@code second_chance}
-     * written into those files today is a no-op: the result is bit-identical, because
-     * {@code first} is drawn before any of that. It would only become observable if the
-     * inequality condition fell as well - then the second draw would overwrite the level.
+     * <p>The "exactly one enchantment" assertion is <em>not</em> a guard against a
+     * {@code second_chance} appearing in the chisel files. Both entries of that pool carry the
+     * same enchantment (Fast Chiselling, at level 1 and 2), so the second draw is always
+     * enchantment-equal to the first, the retry loop in {@code WeightedEnchantFunction#run} runs
+     * out its ten attempts and the closing "second must differ from first" check sets it back to
+     * {@code null}. A {@code second_chance} written into those files today is a no-op: the result
+     * is bit-identical, because {@code first} is drawn before any of that. It would only become
+     * observable if the inequality condition fell as well - then the second draw would overwrite
+     * the level.
      *
      * <p>What breaks this test: ignoring the weights or the levels in
-     * {@code WeightedEnchantFunction}, editing a pool entry in the two json files, or changing the
-     * master book's {@code second_chance} - see {@link #MASTER_BOOK_MIN_SECOND} for the band and
-     * what it was measured against.
+     * {@code WeightedEnchantFunction}, editing a pool entry in any of the four json files, or
+     * changing the master book's {@code second_chance} - see {@link #MASTER_BOOK_MIN_SECOND} for
+     * the band and what it was measured against.
      */
     public static void masterBookTradeDrawsEveryEnchantmentInItsPool(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -235,20 +253,21 @@ public final class TradeOfferTests {
                         + MASTER_BOOK_SAMPLES + " seeded draws should carry a second enchantment - "
                         + booksWithTwo + " did");
 
-        VillagerTrade chisel = tradeOf(helper, level, NAMESPACE + ":toolsmith/3/emerald_copper_chisel");
-        Map<String, Integer> chiselDraws = new TreeMap<>();
-        for (int i = 0; i < CHISEL_SAMPLES; i++) {
-            MerchantOffer offer = chisel.getOffer(context(params, SEED_BASE + i));
-            helper.assertTrue(offer != null,
-                    "toolsmith/3/emerald_copper_chisel produced no offer on seed " + (SEED_BASE + i));
-            ItemEnchantments drawn = EnchantmentHelper.getEnchantmentsForCrafting(offer.getResult());
-            helper.assertValueEqual(drawn.size(), 1,
-                    "toolsmith/3/emerald_copper_chisel declares no second_chance, so every chisel "
-                            + "carries exactly one enchantment; seed " + (SEED_BASE + i)
-                            + " produced " + drawn);
-            collect(drawn, chiselDraws);
+        for (String chiselTrade : CHISEL_TRADES) {
+            VillagerTrade chisel = tradeOf(helper, level, NAMESPACE + ":" + chiselTrade);
+            Map<String, Integer> chiselDraws = new TreeMap<>();
+            for (int i = 0; i < CHISEL_SAMPLES; i++) {
+                MerchantOffer offer = chisel.getOffer(context(params, SEED_BASE + i));
+                helper.assertTrue(offer != null,
+                        chiselTrade + " produced no offer on seed " + (SEED_BASE + i));
+                ItemEnchantments drawn = EnchantmentHelper.getEnchantmentsForCrafting(offer.getResult());
+                helper.assertValueEqual(drawn.size(), 1,
+                        chiselTrade + " declares no second_chance, so every chisel carries exactly "
+                                + "one enchantment; seed " + (SEED_BASE + i) + " produced " + drawn);
+                collect(drawn, chiselDraws);
+            }
+            assertPoolCoverage(helper, chiselTrade, CHISEL_POOL, chiselDraws);
         }
-        assertPoolCoverage(helper, "toolsmith/3/emerald_copper_chisel", CHISEL_POOL, chiselDraws);
 
         helper.succeed();
     }

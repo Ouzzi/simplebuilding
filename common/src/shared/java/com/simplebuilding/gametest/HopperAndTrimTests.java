@@ -100,6 +100,13 @@ public final class HopperAndTrimTests {
         // --- Exact Match with a ghost: only the very same stack ---
         hopper.setGhostItem(0, stone.copy());
         helper.assertTrue(hopper.canPlaceItem(0, stone), "Exact Match rejected the item it was set to");
+        // The filter compares item and components, never the count. Nothing in the game asks about a
+        // single item: HopperBlockEntity#addItem hands canPlaceItem the whole stack it just picked up
+        // and a slot asks with the whole cursor stack, so a filter that also compared counts would
+        // refuse every stack larger than the one-item ghost while every count-1 probe still passed.
+        helper.assertTrue(hopper.canPlaceItem(0, new ItemStack(Items.STONE, 16)),
+                "Exact Match rejected a stack of 16 of the very item it was set to; the stored ghost "
+                        + "is a one-item placeholder, so the count must not take part in the match");
         helper.assertTrue(!hopper.canPlaceItem(0, dirt), "Exact Match accepted a different item");
         helper.assertTrue(!hopper.canPlaceItem(0, namedStone),
                 "Exact Match ignored the components and accepted a renamed stone");
@@ -193,6 +200,11 @@ public final class HopperAndTrimTests {
      *
      * <p>The experience curve is the one a player feels directly - it is what makes the bonus
      * grow as they level - so it is checked at both ends and in the middle.
+     *
+     * <p>The product is measured twice: once at level 100 and once well below the cap. At level 100
+     * the experience term is exactly 1.0, so that support point alone would still match a product
+     * that had dropped the experience factor altogether - the whole level progression could die
+     * without a single assertion moving.
      */
     public static void trimMultiplierFollowsTheExperienceCurveAndTheConfiguredBase(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -229,6 +241,13 @@ public final class HopperAndTrimTests {
         } finally {
             SimplebuildingConfig.trimBenefitBaseMultiplier = base;
         }
+
+        // Level 40 sits away from the cap, where the experience term is 0.46 instead of 1.0. Only
+        // here does the product show whether the level enters it at all - the literal is spelled out
+        // rather than read back from calculateXPMultiplier so the two cannot agree by construction.
+        player.experienceLevel = 40;
+        assertClose(helper, TrimMultiplierLogic.getMultiplier(player), base * 0.46 * survival * combat,
+                "the full multiplier at level 40, where the experience factor is not 1.0");
 
         helper.succeed();
     }

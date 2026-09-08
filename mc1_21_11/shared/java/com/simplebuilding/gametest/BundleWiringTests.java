@@ -135,8 +135,10 @@ import net.minecraft.world.phys.Vec3;
  *   <li><b>Only the netherite bundle survives an explosion.</b> {@code ItemEntityMixin} returns
  *       {@code true} from {@code ignoreExplosion} for {@code ModItems.NETHERITE_BUNDLE} only, so
  *       the enderite bundle - the higher tier, fire resistant and epic - is blown up like any
- *       other drop. {@link #netheriteBundleOnTheGroundSurvivesFireAndExplosions} therefore asserts
- *       the netherite bundle and leaves the enderite one out of the blast.</li>
+ *       other drop. {@link #netheriteBundleOnTheGroundSurvivesFireAndExplosions} puts the enderite
+ *       bundle into the blast as well and asserts that it dies there: what the claim says is
+ *       <em>only</em> the netherite bundle, and without that half the item check can be widened -
+ *       to the enderite bundle, or to every drop in the game - without a single test noticing.</li>
  * </ul>
  */
 public final class BundleWiringTests {
@@ -149,6 +151,12 @@ public final class BundleWiringTests {
 
     /** Registry id of the item every claim in this file is about. */
     private static final String BUNDLE_ID = "simplebuilding:reinforced_bundle";
+
+    /**
+     * Registry id of the loot function that hands the mineshaft bundle out enchanted, as it is
+     * written by {@code LootItemFunctions.TYPED_CODEC}.
+     */
+    private static final String ENCHANT_RANDOMLY = "minecraft:enchant_randomly";
 
     /**
      * Radius of the test explosion. Entities up to twice this are affected, so at 2.0 the blast
@@ -318,33 +326,50 @@ public final class BundleWiringTests {
      * <p>Both halves use a plain reinforced bundle as the control, so "the netherite one survived"
      * always comes with proof that the hazard was lethal in the first place.
      *
-     * <p>What breaks this test: deleting the {@code ignoreExplosion} inject or narrowing its item
-     * check, and dropping {@code fireResistant()} from the netherite bundle.
+     * <p>The enderite bundle is in both halves, because the two claims disagree about it and each
+     * of them only means something with its counter-case present:
+     * <ul>
+     *   <li><b>Fire: it has to survive too.</b> {@code fireResistant()} is on the netherite
+     *       <em>and</em> the enderite registration, and the netherite drop cannot speak for the
+     *       enderite one - the two are separate lines in {@code ModItems} and either can be lost on
+     *       its own.</li>
+     *   <li><b>The blast: it has to die.</b> The mixin names the netherite bundle and nothing else,
+     *       so this is the assertion that pins the word <em>only</em>. Without it the item check
+     *       could be widened to any further item and every bundle test would stay green - see the
+     *       known defect in the class javadoc for why the narrow behaviour is what is pinned.</li>
+     * </ul>
      *
-     * <p>The enderite bundle is deliberately not in the blast - see the known defect in the class
-     * javadoc: the mixin covers the netherite bundle only, and a test either way would cement the
-     * current state.
+     * <p>What breaks this test: deleting the {@code ignoreExplosion} inject, narrowing <em>or</em>
+     * widening its item check, and dropping {@code fireResistant()} from either upper tier.
      */
     public static void netheriteBundleOnTheGroundSurvivesFireAndExplosions(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
 
         // --- fire: vanilla evaluates the component the mod asks for ---
-        // Both drops sit in the far corner, outside the blast radius used further down, so the two
-        // halves of this test cannot influence each other.
+        // All three drops sit in the far corner, outside the blast radius used further down, so the
+        // two halves of this test cannot influence each other.
         ItemEntity plainInFire = drop(helper, new ItemStack(ModItems.REINFORCED_BUNDLE),
                 new Vec3(0.5, 2.0, 0.5), 10);
         ItemEntity netheriteInFire = drop(helper, new ItemStack(ModItems.NETHERITE_BUNDLE),
                 new Vec3(1.5, 2.0, 0.5), 10);
+        ItemEntity enderiteInFire = drop(helper, new ItemStack(ModItems.ENDERITE_BUNDLE),
+                new Vec3(0.5, 2.0, 1.5), 10);
 
         DamageSource fire = level.damageSources().onFire();
         plainInFire.hurtServer(level, fire, LETHAL_DAMAGE);
         netheriteInFire.hurtServer(level, fire, LETHAL_DAMAGE);
+        enderiteInFire.hurtServer(level, fire, LETHAL_DAMAGE);
 
         helper.assertTrue(plainInFire.isRemoved(),
                 "the plain reinforced bundle survived being set on fire, so this test cannot tell "
                         + "fire resistance from a harmless flame any more");
         helper.assertTrue(!netheriteInFire.isRemoved(),
                 "the netherite bundle burned up; it is registered fireResistant()");
+        // The two upper tiers carry fireResistant() on separate registration lines, so the
+        // netherite drop above says nothing about this one.
+        helper.assertTrue(!enderiteInFire.isRemoved(),
+                "the enderite bundle burned up; it is registered fireResistant() in its own right, "
+                        + "and it is the tier a player is most likely to be carrying over lava");
 
         // --- explosion: the mod's own mixin, with the blast kept inside this test room ---
         Vec3 blast = helper.absoluteVec(new Vec3(4.0, 2.0, 4.0));
@@ -352,6 +377,10 @@ public final class BundleWiringTests {
                 new Vec3(3.8, 2.0, 4.0), 10);
         ItemEntity netheriteInBlast = drop(helper, new ItemStack(ModItems.NETHERITE_BUNDLE),
                 new Vec3(4.2, 2.0, 4.0), 10);
+        // Same distance from the centre as the other two, so "it died" can only come from the item
+        // check in ignoreExplosion and not from a weaker share of the blast.
+        ItemEntity enderiteInBlast = drop(helper, new ItemStack(ModItems.ENDERITE_BUNDLE),
+                new Vec3(4.0, 2.0, 4.2), 10);
 
         // NONE keeps the room's blocks intact; entities are still hurt.
         level.explode(null, blast.x, blast.y, blast.z, BLAST_RADIUS, Level.ExplosionInteraction.NONE);
@@ -361,6 +390,11 @@ public final class BundleWiringTests {
                         + "too weak to say anything about the netherite bundle next to it");
         helper.assertTrue(!netheriteInBlast.isRemoved(),
                 "the netherite bundle was destroyed by the explosion it is supposed to ignore");
+        // The half that pins "only": blast immunity is the netherite tier's own advantage, and a
+        // widened item check in ItemEntityMixin#ignoreExplosion hands it to someone else in silence.
+        helper.assertTrue(enderiteInBlast.isRemoved(),
+                "the enderite bundle walked out of the blast; ignoreExplosion is supposed to answer "
+                        + "true for the netherite bundle and for nothing else");
 
         TestCleanup.succeed(helper);
     }
@@ -790,7 +824,8 @@ public final class BundleWiringTests {
 
         HolderLookup.Provider registries = helper.getLevel().registryAccess();
 
-        helper.assertTrue(bundleEntry(helper, registries, BuiltInLootTables.SIMPLE_DUNGEON) != null,
+        JsonObject dungeon = bundleEntry(helper, registries, BuiltInLootTables.SIMPLE_DUNGEON);
+        helper.assertTrue(dungeon != null,
                 "the reinforced bundle is no longer in the dungeon chest loot");
         helper.assertTrue(bundleEntry(helper, registries, BuiltInLootTables.SHIPWRECK_TREASURE) != null,
                 "the reinforced bundle is no longer in the shipwreck treasure loot");
@@ -801,6 +836,18 @@ public final class BundleWiringTests {
         helper.assertTrue(mineshaft.has("functions"),
                 "the mineshaft bundle lost its loot functions; it is the one entry that is handed "
                         + "out enchanted, entry is " + mineshaft);
+        // Naming the function, not just counting the key: every other loot function - a set_count,
+        // a set_components - keeps "functions" present while the bundle drops out of the chest
+        // unenchanted, which is the whole difference between this entry and the two above.
+        helper.assertTrue(hasLootFunction(mineshaft, ENCHANT_RANDOMLY),
+                "the mineshaft bundle no longer runs " + ENCHANT_RANDOMLY + ", so it comes out of "
+                        + "the chest unenchanted like the dungeon and shipwreck ones, entry is "
+                        + mineshaft);
+        // Control: the dungeon entry is the same item without the function, so a helper that
+        // answered "yes" for any entry would have to say so here.
+        helper.assertTrue(!hasLootFunction(dungeon, ENCHANT_RANDOMLY),
+                "the dungeon bundle reports " + ENCHANT_RANDOMLY + " as well, so the check above "
+                        + "recognises no function in particular, entry is " + dungeon);
 
         // Control: a table the mod does not touch must come back without a bundle entry.
         helper.assertTrue(bundleEntry(helper, registries, BuiltInLootTables.SPAWN_BONUS_CHEST) == null,
@@ -1206,6 +1253,29 @@ public final class BundleWiringTests {
             }
         }
         return null;
+    }
+
+    /**
+     * Whether a serialised loot entry runs the named loot function. Vanilla's function codec is a
+     * registry dispatch on the key {@code "function"}, so the id of each element of the entry's
+     * {@code "functions"} array sits under that key - which is what separates "this entry still has
+     * some function" from "this entry still enchants what it hands out".
+     */
+    private static boolean hasLootFunction(JsonObject entry, String functionId) {
+        JsonElement functions = entry.get("functions");
+        if (functions == null || !functions.isJsonArray()) {
+            return false;
+        }
+        for (JsonElement function : functions.getAsJsonArray()) {
+            if (!function.isJsonObject()) {
+                continue;
+            }
+            JsonElement id = function.getAsJsonObject().get("function");
+            if (id != null && id.isJsonPrimitive() && functionId.equals(id.getAsString())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** Collects the pools the mod offers for one table, from both editor paths. */

@@ -15,6 +15,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -307,6 +308,14 @@ public final class EnchantmentEffectTests {
      * Funnel decides what a reinforced bundle vacuums off the floor. Level I is a filter - only
      * what is already inside - level II takes everything. Without the enchantment the bundle
      * must pick up nothing, otherwise every bundle in the game would hoover the ground.
+     *
+     * <p>"Already inside" means item <em>and</em> components. Telling the two readings apart needs
+     * a ground stack whose item is in the bundle and whose components are not, so the last block
+     * offers a stone that differs from the one inside by its custom name only - by item it is a
+     * match, by kind it is not. Both directions are asserted, because the filter has to look at
+     * the components of the stored stack and of the ground stack alike, and the named bundle
+     * pairs its refusal with the matching name being taken: a filter that refuses everything is
+     * not the same as one that compares by kind.
      */
     public static void funnelDecidesWhatTheBundlePicksUp(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, 0.0F);
@@ -330,6 +339,24 @@ public final class EnchantmentEffectTests {
                 "Funnel I refused an item the bundle already holds");
         helper.assertTrue(!item.canAutoPickup(funnelOne, dirt, helper.getLevel()),
                 "Funnel I is not filtering, it took an item the bundle does not hold");
+
+        // --- Funnel I sorts by kind, not by item: a named stone is not the stone inside ---
+        // Comparing by item alone would let a Funnel I quiver holding water breathing arrows
+        // vacuum up poison ones, and this bundle swallow a renamed stone.
+        helper.assertTrue(!item.canAutoPickup(funnelOne, namedStone("funnel stone"), helper.getLevel()),
+                "Funnel I took a stone that differs from the one inside by its custom name - the "
+                        + "filter compares by item alone, so every component variant looks like a match");
+
+        // --- the same, with the components on the stored side ---
+        ItemStack funnelNamed = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        funnelNamed.enchant(enchantment(helper, ModEnchantments.FUNNEL), 1);
+        helper.assertTrue(item.tryInsertStackFromWorld(funnelNamed, namedStone("funnel stone"), player),
+                "test setup broken: the Funnel bundle refused the named stone");
+        helper.assertTrue(item.canAutoPickup(funnelNamed, namedStone("funnel stone"), helper.getLevel()),
+                "Funnel I refused a stone carrying exactly the name of the one inside, so the "
+                        + "components of the stored stack do not survive the bundle");
+        helper.assertTrue(!item.canAutoPickup(funnelNamed, stone, helper.getLevel()),
+                "Funnel I took a plain stone although the bundle only holds a named one");
 
         // --- Funnel II: everything, even from an empty bundle ---
         ItemStack funnelTwo = new ItemStack(ModItems.REINFORCED_BUNDLE);
@@ -503,6 +530,16 @@ public final class EnchantmentEffectTests {
     private static ItemStack versatilityShovel(GameTestHelper helper, int level) {
         ItemStack stack = new ItemStack(Items.DIAMOND_SHOVEL);
         stack.enchant(enchantment(helper, ModEnchantments.VERSATILITY), level);
+        return stack;
+    }
+
+    /**
+     * One stone carrying {@code name}. Two of these are the same item and a different kind, which
+     * is what separates a comparison by item from one by item and components.
+     */
+    private static ItemStack namedStone(String name) {
+        ItemStack stack = new ItemStack(Items.STONE, 1);
+        stack.set(DataComponents.CUSTOM_NAME, Component.literal(name));
         return stack;
     }
 

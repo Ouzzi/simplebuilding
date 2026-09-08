@@ -11,9 +11,12 @@ import com.simplebuilding.loot.ModLootTableModifications;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -96,6 +99,15 @@ public final class ConfigOptionTests {
     private static final String WANDERING_FLAG = "enableWanderingTrades";
 
     /**
+     * The two classes that turn the flag string of a trade json into a config read, one per loader.
+     * Looked up by name so this class stays in the loader neutral tree; only the running loader's
+     * copy is ever on the classpath, and the suite runs on both.
+     */
+    private static final List<String> CONDITION_CLASSES = List.of(
+            "com.simplebuilding.condition.ConfigResourceCondition",
+            "com.simplebuilding.neoforge.ConfigLoadCondition");
+
+    /**
      * Every vanilla loot table the mod hands pools to - all sixteen keys
      * {@code ModLootTableModifications.apply} names, not a sample of them.
      *
@@ -158,8 +170,12 @@ public final class ConfigOptionTests {
      * one {@code .add(...)} line, swapping the item behind it or moving an enchanted book down a
      * level turns this red, while the pool count and the config switch stay exactly as they were.
      *
-     * <p>The sets are lower bounds, not equality: adding an entry to a pool is not a regression and
-     * does not have to be listed here. Removing one is, and is what this catches.
+     * <p>For the plain items the sets are lower bounds: adding an item to a pool is not a
+     * regression and does not have to be listed here. For the enchanted books they are exact in
+     * both directions - a book that is rolled out of a mod pool without being written down here
+     * fails just as a listed one that never appears does. Which enchantments a chest can hand out
+     * is the mod's progression, and adding a book moves nothing else this test watches: not the
+     * pool count, not the config switch, and not one of the listed entries.
      *
      * <p>For the two mining enchantments these tables are the entire supply in the game - neither
      * is in the enchanting table, and only Strip Miner appears in a trade at all.
@@ -252,6 +268,25 @@ public final class ConfigOptionTests {
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, VAULT_OMINOUS_LOOT),
             // The rare vault is the one key both vault conditions match, so it gets both pools.
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, union(VAULT_COMMON_LOOT, VAULT_OMINOUS_LOOT)));
+
+    /** Separator {@link #book} puts between an enchantment id and its level. */
+    private static final String BOOK_MARKER = "@";
+
+    /**
+     * The enchantments the mod deliberately gives no chest at all: Drawer and Kinetic Protection
+     * are meant to be reachable from the creative inventory and nowhere else, so no mod loot pool
+     * may ever hand out a book for them.
+     *
+     * <p>This is the one thing about the loot tables that cannot be pinned by listing something,
+     * because it is a statement about what is absent. Adding one {@code .add(enchantedBook(...))}
+     * line for either of them turns them into chest enchantments and leaves the pool counts, the
+     * config switch and every listed entry exactly where they were, so it is checked against what
+     * the pools actually roll - and against {@link #EXPECTED_LOOT} itself, so that writing such a
+     * book into both lists at once is not a way past it either.
+     */
+    private static final Set<String> ENCHANTMENTS_WITHOUT_A_CHEST = Set.of(
+            ModEnchantments.DRAWER.identifier().toString(),
+            ModEnchantments.KINETIC_PROTECTION.identifier().toString());
 
     /**
      * How often each recorded pool is rolled when looking for the entries above.
@@ -399,10 +434,18 @@ public final class ConfigOptionTests {
      * a single {@code .add(...)} line leaves the pool non-empty, the option still switches it off
      * and on, and nothing else in the suite ever looks inside.
      *
+     * <p>The books are held to the list in both directions on top of that. An entry that is
+     * <em>added</em> to a pool is normally nobody's business here, but an enchanted book is not an
+     * item like any other: it decides whether an enchantment can be found in the world at all.
+     * {@link #ENCHANTMENTS_WITHOUT_A_CHEST} names the two the mod documents as having no chest
+     * anywhere, and the same reading catches every other undeclared book with it.
+     *
      * <p>What breaks it: deleting the guard, so a player who switched the mod's loot off finds mod
      * books in a stronghold library anyway; moving the guard inside one of the branches, or
      * putting an ungated table block above it; a table quietly losing its pools while the option
-     * is on; or any listed entry losing its item, its level or its whole chest.
+     * is on; any listed entry losing its item, its level or its whole chest; or a pool growing a
+     * book that is not written down - a Drawer book in the ancient city would make a creative-only
+     * enchantment findable while every count and every switch above stayed as it is.
      */
     public static void lootTableChangesStopWhenTheOptionIsSwitchedOff(GameTestHelper helper) {
         SimplebuildingConfig config = liveConfig(helper);
@@ -433,6 +476,7 @@ public final class ConfigOptionTests {
 
             // --- and what is in those pools, rolled out of them for real ---
             List<String> missing = new ArrayList<>();
+            List<String> stray = new ArrayList<>();
             for (ResourceKey<LootTable> key : MODIFIED_TABLES) {
                 Set<String> wanted = EXPECTED_LOOT.get(key);
                 helper.assertTrue(wanted != null,
@@ -445,10 +489,33 @@ public final class ConfigOptionTests {
                                 + " rolls; what it did hand out was " + rolled);
                     }
                 }
+                stray.addAll(strayBooks(key, wanted, rolled));
             }
             helper.assertTrue(missing.isEmpty(),
                     "the mod loot pools no longer contain what they are documented to contain:\n"
                             + String.join("\n", missing));
+            helper.assertTrue(stray.isEmpty(),
+                    "the mod loot pools hand out enchanted books nobody wrote down for them. An added "
+                            + "book is the one pool change that moves nothing else this test watches - "
+                            + "the pool count, the config switch and every listed entry stay as they "
+                            + "are - while it decides whether an enchantment can be found in the world "
+                            + "at all:\n" + String.join("\n", stray));
+
+            // Guards the list above against the obvious way around it: writing a banned enchantment
+            // into EXPECTED_LOOT would make its book "expected" and silence the check.
+            List<String> bannedButListed = new ArrayList<>();
+            for (Map.Entry<ResourceKey<LootTable>, Set<String>> expected : EXPECTED_LOOT.entrySet()) {
+                for (String entry : expected.getValue()) {
+                    if (bannedEnchantment(entry) != null) {
+                        bannedButListed.add(tableName(expected.getKey()) + " lists " + entry);
+                    }
+                }
+            }
+            helper.assertTrue(bannedButListed.isEmpty(),
+                    "an enchantment out of ENCHANTMENTS_WITHOUT_A_CHEST was written into EXPECTED_LOOT, "
+                            + "which would let a chest hand it out with every assertion above satisfied; "
+                            + "the two lists have to keep disagreeing:\n"
+                            + String.join("\n", bannedButListed));
 
             // --- switched off: nothing at all, on either path ---
             setLootTableChanges(helper, false);
@@ -486,6 +553,19 @@ public final class ConfigOptionTests {
      * the flag still corresponds to a readable, non static boolean option, which is what the
      * conditions ultimately return.
      *
+     * <p><b>The switch itself is driven, not described.</b> The two flag names above are literals
+     * in this file, so comparing the jsons against them says nothing about the {@code case} labels
+     * the loader's condition is written with. Rename the constant one of those cases uses - the
+     * json and the config field keep their spelling, so everything else here still lines up - and
+     * every trade in that folder falls into the {@code default} branch, ships regardless of the
+     * player's toggle and leaves a log line as the only trace. Each flag is therefore handed to the
+     * loader's real condition object twice: once with its own option switched off, where the
+     * condition has to answer {@code false}, and once with the <em>other</em> flag's option
+     * switched off, where it has to stay {@code true}. The second half is what separates a working
+     * switch from one whose two cases end up reading the same field. Only the running loader's
+     * class can be reached this way - the suite runs on both, and a run that finds neither class
+     * says so instead of passing on an empty loop.
+     *
      * <p>What breaks it: adding a trade with only the Fabric condition, which then ignores the
      * switch on NeoForge (and vice versa); putting a wandering trader offer behind the villager
      * flag, so the wrong toggle turns it off; gating a trade on a flag the two condition classes do
@@ -495,7 +575,13 @@ public final class ConfigOptionTests {
      * decision that should not be made by accident.
      */
     public static void tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders(GameTestHelper helper) {
-        liveConfig(helper);
+        SimplebuildingConfig config = liveConfig(helper);
+        boolean villagerOriginal = config.worldGen.enableVillagerTrades;
+        boolean wanderingOriginal = config.worldGen.enableWanderingTrades;
+        helper.runBeforeTestEnd(() -> {
+            Simplebuilding.getConfig().worldGen.enableVillagerTrades = villagerOriginal;
+            Simplebuilding.getConfig().worldGen.enableWanderingTrades = wanderingOriginal;
+        });
         Map<Identifier, Resource> tradeFiles = helper.getLevel().getServer().getResourceManager()
                 .listResources(TRADE_DIRECTORY, id -> id.getPath().endsWith(".json"));
 
@@ -554,6 +640,7 @@ public final class ConfigOptionTests {
         for (String flag : flagsSeen) {
             problems.addAll(worldGenFlagProblems(flag));
         }
+        problems.addAll(conditionSwitchProblems(flagsSeen));
 
         helper.assertTrue(problems.isEmpty(),
                 "the trade files and the config no longer line up:\n" + String.join("\n", problems));
@@ -963,7 +1050,7 @@ public final class ConfigOptionTests {
                     ItemEnchantments stored = stack.getOrDefault(
                             DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY);
                     for (Holder<Enchantment> enchantment : stored.keySet()) {
-                        seen.add(enchantment.getRegisteredName() + "@" + stored.getLevel(enchantment));
+                        seen.add(enchantment.getRegisteredName() + BOOK_MARKER + stored.getLevel(enchantment));
                     }
                 }, context);
             }
@@ -978,7 +1065,50 @@ public final class ConfigOptionTests {
 
     /** How {@link #EXPECTED_LOOT} spells an enchanted book: {@code <enchantment id>@<level>}. */
     private static String book(ResourceKey<Enchantment> enchantment, int level) {
-        return enchantment.identifier() + "@" + level;
+        return enchantment.identifier() + BOOK_MARKER + level;
+    }
+
+    /**
+     * The enchanted books one table rolled that {@link #EXPECTED_LOOT} does not name, as messages.
+     *
+     * <p>The books are singled out from the plain items because the two are not the same kind of
+     * promise. An extra item in a chest is a balance decision; an extra book changes where an
+     * enchantment can be obtained, and for
+     * {@link #ENCHANTMENTS_WITHOUT_A_CHEST} it changes whether it can be obtained outside creative
+     * mode at all. Only the {@code enchantedBook(...)} entries carry stored enchantments - the
+     * randomly enchanted tools and quivers in these pools write the ordinary enchantment component
+     * instead - so reading the stored ones reads exactly the book entries.
+     */
+    private static List<String> strayBooks(ResourceKey<LootTable> key, Set<String> wanted, Set<String> rolled) {
+        List<String> problems = new ArrayList<>();
+        for (String entry : rolled) {
+            if (!entry.contains(BOOK_MARKER) || wanted.contains(entry)) {
+                continue;
+            }
+            String banned = bannedEnchantment(entry);
+            if (banned != null) {
+                problems.add(tableName(key) + " handed out a " + banned + " book (" + entry
+                        + "), an enchantment the mod documents as having no source outside the "
+                        + "creative inventory");
+            } else {
+                problems.add(tableName(key) + " handed out the enchanted book " + entry
+                        + ", which is not one of the books written down for it (" + wanted + ")");
+            }
+        }
+        return problems;
+    }
+
+    /**
+     * The banned enchantment behind an {@code <enchantment id>@<level>} entry, or {@code null} if
+     * the entry is a plain item or an enchantment that is allowed in a chest.
+     */
+    private static String bannedEnchantment(String entry) {
+        int marker = entry.indexOf(BOOK_MARKER);
+        if (marker < 0) {
+            return null;
+        }
+        String enchantment = entry.substring(0, marker);
+        return ENCHANTMENTS_WITHOUT_A_CHEST.contains(enchantment) ? enchantment : null;
     }
 
     /** The two vault pools the rare vault receives together. */
@@ -1067,6 +1197,167 @@ public final class ConfigOptionTests {
             problems.add("worldGen." + flag + " cannot be read off the live config (" + e + ")");
         }
         return problems;
+    }
+
+    /**
+     * Feeds every flag the trade files use to the running loader's own {@code simplebuilding:config}
+     * condition, so the string in the json is followed all the way into the config field.
+     *
+     * <p>Everything else about the flags is a comparison against literals spelled out in this file.
+     * That leaves the link that does the actual switching unobserved: both conditions resolve the
+     * flag in a hard coded {@code switch} and answer an unknown string with {@code true}, so the
+     * label of a {@code case} can drift away from the json without anything failing. Driving the
+     * condition object is the only way to see that from a test.
+     *
+     * <p>The classes are looked up by name, and the one belonging to the other loader is simply
+     * absent - that is expected and skipped. A run in which <em>neither</em> is present is not: it
+     * would mean this whole check quietly did nothing, so it is reported as a problem of its own.
+     */
+    private static List<String> conditionSwitchProblems(Set<String> flags) {
+        List<String> problems = new ArrayList<>();
+        int driven = 0;
+
+        for (String className : CONDITION_CLASSES) {
+            Class<?> conditionClass;
+            try {
+                conditionClass = Class.forName(className);
+            } catch (ClassNotFoundException | LinkageError e) {
+                continue; // the other loader's condition; it is driven when the suite runs there
+            }
+
+            Constructor<?> constructor;
+            Method test;
+            try {
+                constructor = conditionClass.getConstructor(String.class);
+                test = singleArgumentTest(conditionClass);
+            } catch (NoSuchMethodException | RuntimeException e) {
+                problems.add(className + " no longer offers a (String flag) constructor plus a one "
+                        + "argument test(...) method, so the switch behind the trade flags cannot be "
+                        + "driven from here at all (" + e + ")");
+                continue;
+            }
+            driven++;
+
+            for (String flag : flags) {
+                problems.addAll(switchProblems(className, constructor, test, flag, flags));
+            }
+        }
+
+        if (driven == 0) {
+            problems.add("none of " + CONDITION_CLASSES + " is on the classpath, so the switch that "
+                    + "turns a flag into a config read was never driven; a trade could be gated on a "
+                    + "string no case matches and every other assertion here would still hold");
+        }
+        return problems;
+    }
+
+    /**
+     * Whether {@code flag} switches its own option and only its own, asked of the real condition.
+     *
+     * <p>Both directions matter. Its own option off has to shut the trade out, or the {@code case}
+     * that resolves this string is gone and the toggle is dead; another flag's option off has to
+     * leave it alone, or the two cases have ended up reading one field and one toggle silences the
+     * other's trades as well.
+     */
+    private static List<String> switchProblems(String className, Constructor<?> constructor, Method test,
+                                               String flag, Set<String> flags) {
+        List<String> problems = new ArrayList<>();
+        Object condition;
+        try {
+            condition = constructor.newInstance(flag);
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            problems.add(className + " could not be built for the flag \"" + flag + "\" (" + e + ")");
+            return problems;
+        }
+
+        for (String off : flags) {
+            Boolean answer = answerWithOneFlagOff(problems, flags, off, test, condition);
+            if (answer == null) {
+                problems.add(className + " gave no boolean answer for the flag \"" + flag
+                        + "\" while worldGen." + off + " was switched off");
+            } else if (off.equals(flag) && answer) {
+                problems.add(className + " lets a trade gated on \"" + flag + "\" load while "
+                        + "worldGen." + flag + " is switched off - no case of its switch resolves "
+                        + "that string any more, so the player's toggle does nothing and only a "
+                        + "log line says so");
+            } else if (!off.equals(flag) && !answer) {
+                problems.add(className + " refuses a trade gated on \"" + flag + "\" although only "
+                        + "worldGen." + off + " is switched off - the two flags no longer read "
+                        + "separate options, so one toggle also turns off the other's trades");
+            }
+        }
+        return problems;
+    }
+
+    /**
+     * The condition's answer while exactly one of the trade flags is off and every other one is on.
+     *
+     * <p>All of them are written rather than just the one being switched off, so the answer says
+     * something about the switch instead of about whatever the config file happened to hold when
+     * the suite started. They are put back in a {@code finally}, and the caller collects messages
+     * instead of throwing, precisely so that no failure can leave a trade switch flipped for the
+     * rest of the batch.
+     */
+    private static Boolean answerWithOneFlagOff(List<String> problems, Set<String> flags, String off,
+                                                Method test, Object condition) {
+        SimplebuildingConfig.WorldGen worldGen = Simplebuilding.getConfig().worldGen;
+        Map<Field, Boolean> restore = new LinkedHashMap<>();
+        try {
+            for (String flag : flags) {
+                Field field;
+                try {
+                    field = SimplebuildingConfig.WorldGen.class.getField(flag);
+                    restore.put(field, field.getBoolean(worldGen));
+                } catch (ReflectiveOperationException | RuntimeException e) {
+                    return null; // worldGenFlagProblems already reports a flag without such a field
+                }
+                try {
+                    field.setBoolean(worldGen, !flag.equals(off));
+                } catch (ReflectiveOperationException | RuntimeException e) {
+                    problems.add("worldGen." + flag + " could not be written (" + e + ")");
+                    return null;
+                }
+            }
+            return callTest(test, condition);
+        } finally {
+            for (Map.Entry<Field, Boolean> entry : restore.entrySet()) {
+                try {
+                    entry.getKey().setBoolean(worldGen, entry.getValue());
+                } catch (ReflectiveOperationException | RuntimeException e) {
+                    problems.add("a trade switch could not be restored (" + e + ")");
+                }
+            }
+        }
+    }
+
+    /**
+     * The condition's own {@code test} method. Declared methods only, so the loader interface's
+     * default overloads cannot be picked up by mistake.
+     */
+    private static Method singleArgumentTest(Class<?> conditionClass) throws NoSuchMethodException {
+        for (Method method : conditionClass.getDeclaredMethods()) {
+            if ("test".equals(method.getName()) && method.getParameterCount() == 1
+                    && !method.isSynthetic() && !Modifier.isStatic(method.getModifiers())
+                    && (method.getReturnType() == boolean.class || method.getReturnType() == Boolean.class)) {
+                return method;
+            }
+        }
+        throw new NoSuchMethodException("no one argument test(...) declared on " + conditionClass.getName());
+    }
+
+    /**
+     * Calls the condition with a {@code null} argument. Both conditions answer from the config
+     * alone and never touch the lookup they are handed, which is what makes this callable without
+     * a datapack load in flight; {@code null} instead of a stand in is deliberate, so a condition
+     * that started reading it fails loudly here rather than silently answering from nothing.
+     */
+    private static Boolean callTest(Method test, Object condition) {
+        try {
+            Object answer = test.invoke(condition, new Object[] {null});
+            return answer instanceof Boolean value ? value : null;
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            return null;
+        }
     }
 
     /**

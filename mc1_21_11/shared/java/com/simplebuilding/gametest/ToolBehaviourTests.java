@@ -88,6 +88,13 @@ public final class ToolBehaviourTests {
      * Override changes which neighbours are picked up:
      * level 0 = only the very same block, level 1 = every pickaxe block, level 2 = anything.
      * All three stages are checked against the same layout.
+     *
+     * <p>The last phase asserts against the item instead of the world, and on purpose: from
+     * override 2 on, {@code SledgehammerUtils#shouldBreak} returns {@code true} before it ever
+     * asks about the tool, so the extra axe/shovel/hoe tiers that
+     * {@code SledgehammerItem#isCorrectToolForDrops} hands out at that level are invisible in
+     * the block layout. They are still what decides whether the broken block drops anything
+     * and whether the swing costs one durability point or two, so they are measured directly.
      */
     public static void sledgehammerOverrideLevelsWidenBlockSelection(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5), 0.0F, 90.0F);
@@ -121,6 +128,61 @@ public final class ToolBehaviourTests {
         helper.assertBlockPresent(Blocks.AIR, stonePos);
         helper.assertBlockPresent(Blocks.AIR, cobblePos);
         helper.assertBlockPresent(Blocks.AIR, dirtPos);
+
+        // =================================================================================
+        // Override 2 makes the hammer count as an axe, a shovel and a hoe as well.
+        // =================================================================================
+
+        ItemStack plainHammer = sledgehammerWithOverride(helper, 0);
+        ItemStack overriddenHammer = sledgehammerWithOverride(helper, 2);
+        BlockState shovelBlock = Blocks.DIRT.defaultBlockState();
+        BlockState axeBlock = Blocks.OAK_LOG.defaultBlockState();
+        // The hoe tier is the third of the three the level 2 branch hands out, and it is the
+        // one no block in this room ever stands in for: hay is in mineable/hoe and in no other
+        // mining tag, so it is false for a plain pickaxe and only turns true through the mod's
+        // own hoe line. Without a hoe block driven through here that line could be dropped
+        // from the condition outright - hay, leaves, moss and every sculk block would silently
+        // stop dropping for an Override 2 hammer and cost it double durability - while every
+        // other assertion in the suite kept passing.
+        BlockState hoeBlock = Blocks.HAY_BLOCK.defaultBlockState();
+
+        // Vanilla backs the three negatives: a pickaxe tool component simply has no rule for
+        // dirt, logs or hay. The three positives are the mod's, and they are the assertions
+        // with teeth here.
+        helper.assertTrue(!plainHammer.getItem().isCorrectToolForDrops(plainHammer, shovelBlock),
+                "an unenchanted sledgehammer already counts as a shovel");
+        helper.assertTrue(!plainHammer.getItem().isCorrectToolForDrops(plainHammer, axeBlock),
+                "an unenchanted sledgehammer already counts as an axe");
+        helper.assertTrue(!plainHammer.getItem().isCorrectToolForDrops(plainHammer, hoeBlock),
+                "an unenchanted sledgehammer already counts as a hoe");
+        helper.assertTrue(overriddenHammer.getItem().isCorrectToolForDrops(overriddenHammer, shovelBlock),
+                "Override 2 does not make the sledgehammer the correct tool for shovel blocks, "
+                        + "so breaking dirt with it drops nothing and costs double durability");
+        helper.assertTrue(overriddenHammer.getItem().isCorrectToolForDrops(overriddenHammer, axeBlock),
+                "Override 2 does not make the sledgehammer the correct tool for axe blocks, "
+                        + "so breaking logs with it drops nothing and costs double durability");
+        helper.assertTrue(overriddenHammer.getItem().isCorrectToolForDrops(overriddenHammer, hoeBlock),
+                "Override 2 does not make the sledgehammer the correct tool for hoe blocks, "
+                        + "so breaking hay, leaves or sculk with it drops nothing and costs double "
+                        + "durability");
+
+        // The same tier claim, seen from the mining speed: without it the hammer is stuck at
+        // the vanilla "wrong tool" speed of 1.0 on those blocks. getDestroySpeed carries its
+        // own copy of the axe/shovel/hoe list, so the hoe block is measured here as well - the
+        // two lists can lose a tier independently of each other.
+        float plainSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(plainHammer, shovelBlock);
+        float overriddenSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(overriddenHammer, shovelBlock);
+        Assertions.valueEqual(helper, plainSpeed, 1.0F, "unenchanted sledgehammer speed on dirt");
+        helper.assertTrue(overriddenSpeed > plainSpeed,
+                "Override 2 left the sledgehammer at the bare-hands speed of " + overriddenSpeed
+                        + " on dirt; digging a shovel block would take as long as with a fist");
+
+        float plainHoeSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(plainHammer, hoeBlock);
+        float overriddenHoeSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(overriddenHammer, hoeBlock);
+        Assertions.valueEqual(helper, plainHoeSpeed, 1.0F, "unenchanted sledgehammer speed on hay");
+        helper.assertTrue(overriddenHoeSpeed > plainHoeSpeed,
+                "Override 2 left the sledgehammer at the bare-hands speed of " + overriddenHoeSpeed
+                        + " on hay; harvesting a hoe block would take as long as with a fist");
 
         MockPlayers.remove(helper, player);
         helper.succeed();
@@ -180,6 +242,10 @@ public final class ToolBehaviourTests {
     /**
      * Vein Miner has to follow a connected ore cluster (diagonals included), stop at foreign
      * blocks, respect the per-level block budget and refuse non-ore blocks entirely.
+     *
+     * <p>The last phase drives one vein per ore family, because the ore gate is a chain of one
+     * check per family and the cluster above only ever feeds it coal: without those veins the
+     * gate could be narrowed one line at a time without a single assertion noticing.
      */
     public static void veinMinerCollectsConnectedOreCluster(GameTestHelper helper) {
         BlockPos start = new BlockPos(3, 1, 3);
@@ -220,6 +286,37 @@ public final class ToolBehaviourTests {
         List<BlockPos> stoneVein = MiningUtils.getVeinMinerBlocks(
                 helper.getLevel(), absStone, helper.getBlockState(new BlockPos(2, 1, 3)), 5, pickaxe);
         helper.assertTrue(stoneVein.isEmpty(), "vein miner accepted a non-ore block");
+
+        // --- Every ore family the pickaxe gate lets through, one two-block vein each. ---
+        // The gate (MiningUtils.isOre) is a chain of one check per ore family, and
+        // everything above only ever feeds it coal - the other lines could be deleted one by
+        // one without a single assertion moving, leaving the client's break preview silent on
+        // iron, copper, gold, redstone, lapis, diamond and emerald veins while
+        // VeinMinerUsageEvent kept mining them. A pair is the smallest layout that can tell
+        // the two apart: with the family known the partner block comes back, without it the
+        // gate returns an empty list. The deepslate variants are used on purpose - they are
+        // only reachable through the family tag, so a check narrowed to a single block fails
+        // here too. Each pair sits on its own row and no two pairs share a block type, so the
+        // flood fill cannot bridge between them.
+        Block[] oreFamilies = {
+                Blocks.DEEPSLATE_IRON_ORE,
+                Blocks.DEEPSLATE_COPPER_ORE,
+                Blocks.DEEPSLATE_GOLD_ORE,
+                Blocks.DEEPSLATE_REDSTONE_ORE,
+                Blocks.DEEPSLATE_LAPIS_ORE,
+                Blocks.DEEPSLATE_DIAMOND_ORE,
+                Blocks.DEEPSLATE_EMERALD_ORE
+        };
+        for (int i = 0; i < oreFamilies.length; i++) {
+            BlockPos origin = new BlockPos(6, 3, i);
+            BlockPos partner = new BlockPos(7, 3, i);
+            helper.setBlock(origin, oreFamilies[i]);
+            helper.setBlock(partner, oreFamilies[i]);
+            List<BlockPos> vein = MiningUtils.getVeinMinerBlocks(
+                    helper.getLevel(), helper.absolutePos(origin), helper.getBlockState(origin), 5, pickaxe);
+            Assertions.valueEqual(helper, vein, List.of(helper.absolutePos(partner)),
+                    "vein miner ore gate for " + oreFamilies[i]);
+        }
 
         helper.succeed();
     }

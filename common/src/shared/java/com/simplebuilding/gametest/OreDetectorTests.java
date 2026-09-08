@@ -153,7 +153,9 @@ public final class OreDetectorTests {
      * nearest one (the loop runs from -radius, so a farther block would win); dropping the
      * {@code distanceSq >= bestDistanceSq} guard; giving every mode the same budget, or reading
      * the budget as the scan radius only and not as the cost cap - the far target stays inside
-     * the radius in every step here, so only the cost cap can reject it.
+     * the radius in every step here, so only the cost cap can reject it; and moving the
+     * {@code bestDistanceSq} update in front of the reach check, which would let the nearest
+     * match the beam cannot pay for hide every reachable one behind it.
      */
     public static void detectorReportsTheNearestTargetInsideItsBudget(GameTestHelper helper) {
         ItemStack iron = detectorInMode(MODE_IRON);
@@ -169,6 +171,24 @@ public final class OreDetectorTests {
         // simply cannot see 5 blocks.
         helper.setBlock(rowPos(3), Blocks.AIR);
         assertFinds(helper, iron, rowPos(6), "the remaining iron ore 5 blocks out");
+
+        // A nearer match the beam cannot pay for must not hide a farther one it can: a candidate's
+        // distance may only count once the ray to it came in under budget. The ore three blocks
+        // straight up sits behind two deepslate and costs 25 of 24, the one still lying five
+        // blocks out along the row costs 9 - and the walled-in one is the nearer, so it is visited
+        // first. A search that claimed the "nearest so far" slot before paying for the ray would
+        // answer nothing at all here, and an ore seam behind deepslate would silence the detector
+        // for everything behind it.
+        BlockPos walledInOre = EYE_BLOCK.above(3);
+        helper.setBlock(EYE_BLOCK.above(), Blocks.DEEPSLATE);
+        helper.setBlock(EYE_BLOCK.above(2), Blocks.DEEPSLATE);
+        helper.setBlock(walledInOre, Blocks.IRON_ORE);
+        assertFinds(helper, iron, rowPos(6),
+                "the iron ore it can reach, past a nearer one it cannot pay for");
+
+        helper.setBlock(walledInOre, Blocks.AIR);
+        helper.setBlock(EYE_BLOCK.above(2), Blocks.AIR);
+        helper.setBlock(EYE_BLOCK.above(), Blocks.AIR);
 
         // --- the budget is per mode: 6 blocks of air cost 11, iron pays 11 of 24, netherite cannot ---
         clearCorridor(helper);
@@ -295,6 +315,22 @@ public final class OreDetectorTests {
      * 24, because a budget of 24 swallows four blocks of anything up to 2.875 per block, while 10
      * leaves room for four blocks of air (9) and for nothing denser (netherrack would be 13).
      *
+     * <p>Each of those measurements is one-sided, and a density that is free in the other
+     * direction is a density nobody checks: a "found" case caps a value from above only, a "not
+     * found" case from below only. Every step of the table is therefore measured from both sides,
+     * with the ore one block closer or farther on the same line. Netherrack ends up between 1.125
+     * and 1.5 (three of them cost the netherite budget exactly 10, four cost it 13); deepslate
+     * between 5.75 and 7.5 (two stop an iron beam at 25 of 24, one lets a diamond beam through at
+     * 13 of 16); the untagged fallback between 2.875 and 3.83, measured on dirt.
+     *
+     * <p>Dirt is the only material here that reaches that fallback at all - stone, tuff,
+     * deepslate, basalt and blackstone each leave {@code getBlockDensity} through a branch of
+     * their own, so without it the fallback could be dropped to 1.0 and every wall that is not
+     * overworld base stone would turn as clear as air. Tuff is measured because it is the second
+     * member of {@code DEEPSLATE_ORE_REPLACEABLES} and base stone besides: a branch narrowed from
+     * the tag to the deepslate block alone would quietly halve its cost. Polished basalt is
+     * measured because it is named separately beside basalt and nothing else walks a ray into it.
+     *
      * <p>Not distinguished here: stone reached through {@code BlockTags.BASE_STONE_OVERWORLD} from
      * the untagged fallback of {@code getBlockDensity}. Both return 3.0, so no search can tell the
      * two apart - and deleting the tag branch would not change a thing in game either.
@@ -327,6 +363,59 @@ public final class OreDetectorTests {
         placeWallAndOre(helper, 2, 4, Blocks.BASALT, 5);
         assertDoesNotFind(helper, iron, rowPos(5), "iron ore behind three basalt (cost 37 of 24)");
 
+        // 6.0 also has to be pinned from above. The refusals so far only say "more than 3.83 per
+        // block", which 50.0 satisfies just as well - and a detector that cannot see through a
+        // single block of the layer it was built for is as broken as one that sees through three.
+        // Two blocks out, one deepslate in the way, the cost is 13 and the diamond budget pays it.
+        clearCorridor(helper);
+        fillCorridor(helper, 2, 2, Blocks.DEEPSLATE);
+        helper.setBlock(rowPos(3), Blocks.DIAMOND_ORE);
+        assertFinds(helper, detectorInMode(MODE_DIAMOND), rowPos(3),
+                "diamond ore 2 blocks out behind one deepslate (cost 13 of 16)");
+
+        // That branch is written as a tag, and tuff is the tag's other member. Tuff is base stone
+        // as well, so narrowing the branch to the deepslate block alone would drop it to 3.0 and
+        // double the beam's reach through it - the stone control below is the same wall at the
+        // same distance and is found.
+        placeWallAndOre(helper, 2, 3, Blocks.TUFF, 4);
+        assertDoesNotFind(helper, iron, rowPos(4), "iron ore behind two tuff (cost 25 of 24)");
+
+        // Polished basalt is listed beside basalt in that same branch, and no other ray in this
+        // file passes through it; deleting the line would otherwise halve its cost unnoticed.
+        placeWallAndOre(helper, 2, 3, Blocks.POLISHED_BASALT, 4);
+        assertDoesNotFind(helper, iron, rowPos(4),
+                "iron ore behind two polished basalt (cost 25 of 24)");
+
+        // The control for both refusals: at that very distance a pair of 3.0 blocks costs 13 and
+        // is found, so what stops the beam above is the density and not the distance.
+        placeWallAndOre(helper, 2, 3, Blocks.STONE, 4);
+        assertFinds(helper, iron, rowPos(4), "iron ore behind two stone (cost 13 of 24)");
+
+        // Dirt is in none of the branches, so it is what measures the untagged fallback itself -
+        // every stone measurement above goes through the BASE_STONE_OVERWORLD branch and leaves
+        // the fallback free. The pair brackets it between 2.875 and 3.83.
+        placeWallAndOre(helper, 2, 5, Blocks.DIRT, 6);
+        assertDoesNotFind(helper, iron, rowPos(6), "iron ore behind four dirt (cost 25 of 24)");
+
+        placeWallAndOre(helper, 2, 4, Blocks.DIRT, 5);
+        assertFinds(helper, iron, rowPos(5), "iron ore behind three dirt (cost 19 of 24)");
+
+        // Netherrack from both sides, on the netherite budget of 10, because the iron measurement
+        // above caps it at 2.875 and says nothing downwards - it would hold just as well for a
+        // netherrack that costs no more than air. Three of them cost exactly the budget, four
+        // overrun it.
+        clearCorridor(helper);
+        fillCorridor(helper, 2, 4, Blocks.NETHERRACK);
+        helper.setBlock(rowPos(5), Blocks.ANCIENT_DEBRIS);
+        assertFinds(helper, detectorInMode(MODE_NETHERITE), rowPos(5),
+                "ancient debris 4 blocks out behind three netherrack (cost 10 of 10)");
+
+        clearCorridor(helper);
+        fillCorridor(helper, 2, 5, Blocks.NETHERRACK);
+        helper.setBlock(rowPos(6), Blocks.ANCIENT_DEBRIS);
+        assertDoesNotFind(helper, detectorInMode(MODE_NETHERITE), rowPos(6),
+                "ancient debris 5 blocks out behind four netherrack (cost 13 of 10)");
+
         // The cheapest branch, on the tightest budget: glass is solid but does not occlude, so four
         // of them cost the 9 of 10 that open air would. Anything above 1.125 per block is out of
         // reach here, which is what makes this the assertion that the !canOcclude() branch exists -
@@ -351,11 +440,18 @@ public final class OreDetectorTests {
      * multiplier becomes unreachable in a real game while this test would happily keep passing
      * on a hand-enchanted stack.
      *
-     * <p>What breaks this: the two multipliers collapsing into one; reading the enchantment off
-     * the wrong stack or with a null level (the helper falls back to the raw component then, so
-     * this would still pass - the item list assertion is the part that catches the item being
-     * dropped from the enchantment); or inverting the branch so that the enchantment makes the
-     * search more expensive.
+     * <p>One measurement would only cap the enchanted multiplier at 1.92, a hair under the
+     * unenchanted 2.0, so a "halving" of 1.9 would sail through it while leaving the enchantment
+     * with 5 % more reach instead of twice the reach. The second pair brackets it around 1.0
+     * instead: three deepslate and one stone cost the enchanted beam 21.5 of 24 and are seen
+     * through, swapping that last stone for a fourth deepslate makes it 24.5 and stops it, which
+     * together allow nothing outside 0.979 to 1.116.
+     *
+     * <p>What breaks this: the two multipliers collapsing into one or merely drifting towards
+     * each other; reading the enchantment off the wrong stack or with a null level (the helper
+     * falls back to the raw component then, so this would still pass - the item list assertion is
+     * the part that catches the item being dropped from the enchantment); or inverting the branch
+     * so that the enchantment makes the search more expensive.
      */
     public static void constructorsTouchDoublesTheReachThroughSolidRock(GameTestHelper helper) {
         Holder<Enchantment> touch = enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH);
@@ -373,6 +469,21 @@ public final class OreDetectorTests {
         enchanted.enchant(touch, 1);
         assertFinds(helper, enchanted, rowPos(6),
                 "iron ore behind four stone with Constructor's Touch (cost 12.5 of 24)");
+
+        // Both sides of the enchanted multiplier, on a sight line built to sit right at the
+        // budget: without the lower bound the halving could be a 5 % discount and this file would
+        // not notice.
+        clearCorridor(helper);
+        fillCorridor(helper, 2, 4, Blocks.DEEPSLATE);
+        fillCorridor(helper, 5, 5, Blocks.STONE);
+        helper.setBlock(rowPos(6), Blocks.IRON_ORE);
+        assertFinds(helper, enchanted, rowPos(6),
+                "iron ore behind three deepslate and one stone with Constructor's Touch "
+                        + "(cost 21.5 of 24)");
+
+        fillCorridor(helper, 5, 5, Blocks.DEEPSLATE);
+        assertDoesNotFind(helper, enchanted, rowPos(6),
+                "iron ore behind four deepslate even with Constructor's Touch (cost 24.5 of 24)");
 
         helper.succeed();
     }

@@ -74,15 +74,27 @@ public final class VeinAndStripMinerTests {
             new BlockPos(2, 1, 2));
     /**
      * Hangs off {@link #ORE_TAIL}'s (2,1,2) by a step that changes x, y and z at once - the only
-     * ore in the cluster that needs a true 3D diagonal. Everything else in {@link #ORE_TAIL} lies
-     * in the y=1 plane and the log trunk is a plain column, so without this block the flood fill
-     * could be cut down to the 8 horizontal diagonals plus the 2 vertical faces and no test in
-     * the suite would notice. Real ore blobs step diagonally in height all the time.
+     * ore in the cluster that needs a true 3D diagonal <em>upwards</em>. Everything else in
+     * {@link #ORE_TAIL} lies in the y=1 plane and the log trunk is a plain column, so without
+     * this block the flood fill could be cut down to the 8 horizontal diagonals plus the 2
+     * vertical faces and no test in the suite would notice. Real ore blobs step diagonally in
+     * height all the time.
      */
     private static final BlockPos DIAGONAL_ORE = new BlockPos(1, 2, 1);
+    /**
+     * Hangs off {@link #DIAGONAL_ORE} by the mirror image of that step: one down, and x and z
+     * with it. It is the only ore the flood fill cannot reach without a <em>negative</em> y
+     * offset, and it is here because every other block these tests hand the search - the rest of
+     * the cluster, all four trunks, the ore family clusters - sits at or above the block the
+     * player struck. Narrowing the neighbour loop to {@code y = 0..1} takes nine of the 26
+     * neighbours away, every downward one among them, and left the whole suite green while in
+     * play a vein that continues below the struck block - the normal shape of an ore blob - was
+     * cut off.
+     */
+    private static final BlockPos DESCENDING_ORE = new BlockPos(0, 1, 0);
     /** Every ore the flood fill may reach from {@link #ORE_ORIGIN}. */
     private static final List<BlockPos> ORE_CLUSTER_EXTRAS =
-            Stream.concat(ORE_TAIL.stream(), Stream.of(DIAGONAL_ORE)).toList();
+            Stream.concat(ORE_TAIL.stream(), Stream.of(DIAGONAL_ORE, DESCENDING_ORE)).toList();
     /**
      * Touching the origin, same ore, different block. The hooks match on
      * {@code neighborState.getBlock() == targetState.getBlock()}, so a deepslate variant is a
@@ -193,6 +205,37 @@ public final class VeinAndStripMinerTests {
     /** One block past the level III depth of 4, straight up; it has to survive. */
     private static final BlockPos RISER_CAP = new BlockPos(6, 6, 6);
 
+    // --- Strip Miner, level II depth (test 4) ----------------------------------------------
+    /**
+     * The depth Strip Miner II digs. The table is {@code (level == 3) ? 4 : level}, and level I
+     * and level III alone pin only its two ends: with nothing driving the middle, level II could
+     * be bent to any depth at all and stay green, while it is a perfectly ordinary level a player
+     * reaches (the enchantment's max level is 3).
+     */
+    private static final int LEVEL_TWO_DEPTH = 2;
+
+    // --- Strip Miner, the lower half of the mining direction (test 4) ----------------------
+    /**
+     * Two probes for the {@code pitch > 60 -> DOWN} branch, one just past the threshold and one
+     * exactly on it. Every downward case in the suite looks straight down at pitch 90, so the
+     * threshold could be pushed all the way up to 89 - or dragged down to 30 - without a single
+     * assertion moving, while a player looking down at 70 degrees suddenly tunnelled sideways.
+     * Each probe is a block the hook is asked to break plus one block under it; the shallow probe
+     * has a third block to its south so that "not down" is pinned as "along the facing" and not
+     * merely as "nothing happened".
+     */
+    private static final BlockPos STEEP_PROBE_ORIGIN = new BlockPos(0, 4, 0);
+    private static final BlockPos STEEP_PROBE_BELOW = new BlockPos(0, 3, 0);
+    private static final BlockPos SHALLOW_PROBE_ORIGIN = new BlockPos(0, 4, 5);
+    private static final BlockPos SHALLOW_PROBE_BELOW = new BlockPos(0, 3, 5);
+    private static final BlockPos SHALLOW_PROBE_SOUTH = new BlockPos(0, 4, 6);
+    /** Just past {@code pitch > 60}: the hook has to dig downwards here. */
+    private static final float STEEP_PITCH = 61.0F;
+    /** Exactly on the threshold, which is exclusive: the hook has to follow the facing instead. */
+    private static final float SHALLOW_PITCH = 60.0F;
+    /** Stone the two probe runs break between them - one under the steep, one south of the shallow. */
+    private static final int PITCH_PROBE_BLOCKS = 2;
+
     private VeinAndStripMinerTests() {
     }
 
@@ -204,16 +247,19 @@ public final class VeinAndStripMinerTests {
      * The whole path for a pickaxe: an enchanted pickaxe, a sneaking player, the break hook, a
      * coal vein that is gone afterwards and one piece of coal per broken block on the floor.
      *
-     * <p>The cluster deliberately needs all three kinds of step the 26 neighbour search offers:
-     * face neighbours, horizontal diagonals, and - through {@link #DIAGONAL_ORE} - one step that
-     * changes x, y and z at the same time.
+     * <p>The cluster deliberately needs every kind of step the 26 neighbour search offers: face
+     * neighbours, horizontal diagonals, one step that changes x, y and z at the same time
+     * ({@link #DIAGONAL_ORE}), and - through {@link #DESCENDING_ORE} - one that does so while
+     * going <em>down</em>, which is the half of the search everything else in the suite leaves
+     * unused.
      *
      * <p>What breaks it: dropping the sneak gate (case 1 would then mine), reading the Vein
      * Miner level from somewhere other than the held stack (case 2 would then mine nothing),
      * letting the flood fill escape the cluster ({@link #DETACHED_ORE} would go), matching
      * neighbours by tag instead of by block ({@link #DEEPSLATE_NEIGHBOUR} would go, and the coal
      * count would rise with it), narrowing the neighbour search to the flat ring plus the two
-     * vertical faces ({@link #DIAGONAL_ORE} would survive), losing the per level budget (case 4
+     * vertical faces ({@link #DIAGONAL_ORE} would survive), cutting the downward half of that
+     * search away ({@link #DESCENDING_ORE} would survive), losing the per level budget (case 4
      * would take the whole vein instead of two blocks), and - the part nothing else in the suite
      * watches - breaking the blocks in a way that yields no items, for instance by swapping
      * {@code serverPlayer.gameMode.destroyBlock} for a bare {@code setBlock(AIR)}.
@@ -233,7 +279,7 @@ public final class VeinAndStripMinerTests {
         veinMine(helper, player, veinMinerPickaxe(helper, Items.IRON_PICKAXE, 5), ORE_ORIGIN);
         assertOreVeinIntact(helper, "Vein Miner fired without the player sneaking");
 
-        // --- 3. the real thing: level V has a budget of 18, the cluster is 5 blocks ---
+        // --- 3. the real thing: level V has a budget of 18, the cluster is 7 blocks ---
         player.setShiftKeyDown(true);
         veinMine(helper, player, veinMinerPickaxe(helper, Items.IRON_PICKAXE, 5), ORE_ORIGIN);
 
@@ -254,7 +300,7 @@ public final class VeinAndStripMinerTests {
         helper.assertBlockPresent(Blocks.COAL_ORE, DETACHED_ORE);
         helper.assertBlockPresent(Blocks.DEEPSLATE_COAL_ORE, DEEPSLATE_NEIGHBOUR);
 
-        // 5 blocks in run 3 plus 2 in run 4, and coal ore drops exactly one coal without
+        // 6 blocks in run 3 plus 2 in run 4, and coal ore drops exactly one coal without
         // fortune, so anything less means the breaks did not produce real loot.
         helper.runAfterDelay(DROP_SETTLE_TICKS, () -> {
             helper.assertValueEqual(droppedCount(helper, Items.COAL), ORE_CLUSTER_EXTRAS.size() + 2,
@@ -455,9 +501,13 @@ public final class VeinAndStripMinerTests {
      * Strip Miner through the break hook, in both directions it can dig, plus what the tunnel
      * really costs the tool.
      *
-     * <p>Looking straight down, level III digs four blocks and stops. Looking level and facing
-     * south, the tunnel follows the facing and stops at a block the pickaxe cannot harvest -
-     * {@code StripMinerUsageEvent} has its <em>own</em> private copy of
+     * <p>Looking straight down, level I digs one block, level II two and level III four, and each
+     * stops there. All three levels are driven on purpose: the depth table is
+     * {@code (level == 3) ? 4 : level}, and level I and level III between them pin only its two
+     * ends, leaving the middle free to be bent to any depth in silence.
+     *
+     * <p>Looking level and facing south, the tunnel follows the facing and stops at a block the
+     * pickaxe cannot harvest - {@code StripMinerUsageEvent} has its <em>own</em> private copy of
      * {@code getMiningDirection} and of the stop conditions, so
      * {@link ToolBehaviourTests#stripMinerFollowsPlayerFacingAndStopsAtGaps} (which asks
      * {@code MiningUtils}) would stay green if that copy were inverted and the mod dug upwards.
@@ -468,19 +518,28 @@ public final class VeinAndStripMinerTests {
      * player looking at the ceiling dug sideways instead. The riser therefore drives the hook's
      * copy through the blocks and asserts {@code MiningUtils}' copy directly in the same breath.
      *
+     * <p>Where the downward branch <em>starts</em> is measured too, and not from pitch 90. Every
+     * other downward case in the repo looks straight down, 30 degrees clear of the decision, so
+     * {@code pitch > 60} could be pushed to 89 or dragged down to 30 with nothing turning red.
+     * The two probes sit one degree apart around the threshold: at 61 the hook has to dig down,
+     * at 60 - the threshold is exclusive - it has to dig south instead.
+     *
      * <p>The per block durability cost is measured in the level I run rather than hard coded, so
      * the refund assertions test the mod's formula and not vanilla's tool damage: level I breaks
-     * one block and earns a refund of {@code (1 + 1) / 3 == 0}, level III breaks four and earns
-     * {@code (4 + 1) / 3 == 1}, the plugged tunnel breaks two and earns {@code (2 + 1) / 3 == 1}.
+     * one block and earns a refund of {@code (1 + 1) / 3 == 0}, level II breaks two and earns
+     * {@code (2 + 1) / 3 == 1}, level III breaks four and earns {@code (4 + 1) / 3 == 1}, the
+     * plugged tunnel breaks two and earns {@code (2 + 1) / 3 == 1}.
      * Unlike {@code ConsumptionAndDurabilityTests}, which isolates the refund by putting the
      * player in {@code instabuild} (switching vanilla's own wear off), this player pays for the
      * blocks, so what is asserted here is the <em>net</em> damage a real pickaxe ends up with.
      *
      * <p>What breaks it: dropping the sneak gate or the enchantment lookup (cases 1 and 2 would
      * then dig), a depth that no longer maps level III to 4 ({@link #SHAFT_FLOOR} and
-     * {@link #RISER_CAP} would go, or the shaft would come up short), a broken mining direction
-     * (cases 4b and 5 would leave the riser and the tunnel standing), a lost stop condition
-     * ({@link #TUNNEL_PLUG} and {@link #TUNNEL_BEYOND} would go), removing the durability refund
+     * {@link #RISER_CAP} would go, or the shaft would come up short), a depth that no longer maps
+     * level II to 2 (case 3b would dig past {@link #LEVEL_TWO_DEPTH}), a broken mining direction
+     * (cases 4b and 5 would leave the riser and the tunnel standing), a downward threshold that
+     * has moved off 60 (one of the two probes in case 4a would answer wrongly), a lost stop
+     * condition ({@link #TUNNEL_PLUG} and {@link #TUNNEL_BEYOND} would go), removing the refund
      * (the tool would take the full four points), and again a break that produces no drops.
      */
     public static void stripMinerTunnelsAlongTheFacingAndRefundsDurabilityThroughTheBlockBreakEvent(GameTestHelper helper) {
@@ -507,6 +566,20 @@ public final class VeinAndStripMinerTests {
                 "breaking a block through the Strip Miner hook cost the pickaxe no durability at "
                         + "all, so the refund below cannot be measured");
 
+        // --- 3b. level II: the middle of the depth table, which neither other run touches ---
+        buildShaft(helper);
+        stripMine(helper, player, stripMinerPickaxe(helper, 2), SHAFT_ORIGIN);
+        for (int i = 0; i < SHAFT.size(); i++) {
+            if (i < LEVEL_TWO_DEPTH) {
+                helper.assertBlockPresent(Blocks.AIR, SHAFT.get(i));
+            } else {
+                helper.assertBlockPresent(Blocks.STONE, SHAFT.get(i));
+            }
+        }
+        helper.assertValueEqual(player.getMainHandItem().getDamageValue(),
+                LEVEL_TWO_DEPTH * damagePerBlock - 1,
+                "Strip Miner durability refund for the level II tunnel");
+
         // --- 4. level III: depth 4, no further, and one point of damage refunded ---
         buildShaft(helper);
         stripMine(helper, player, stripMinerPickaxe(helper, 3), SHAFT_ORIGIN);
@@ -517,6 +590,25 @@ public final class VeinAndStripMinerTests {
         helper.assertBlockPresent(Blocks.STONE, SHAFT_FLOOR);
         helper.assertValueEqual(player.getMainHandItem().getDamageValue(), 4 * damagePerBlock - 1,
                 "Strip Miner durability refund for a four block tunnel");
+
+        // --- 4a. the downward threshold, measured from both sides instead of from pitch 90 ---
+        // Every other downward case in the suite stands on pitch 90, which is 30 degrees clear of
+        // the decision, so the threshold itself was free to move in either direction.
+        buildPitchProbes(helper);
+        player.snapTo(player.getX(), player.getY(), player.getZ(), 0.0F, STEEP_PITCH);
+        helper.assertValueEqual(MiningUtils.getMiningDirection(player), Direction.DOWN,
+                "MiningUtils stopped digging downwards just past pitch 60, so the preview and the "
+                        + "hook would point in different directions");
+        stripMine(helper, player, stripMinerPickaxe(helper, 1), STEEP_PROBE_ORIGIN);
+        helper.assertBlockPresent(Blocks.AIR, STEEP_PROBE_BELOW);
+
+        player.snapTo(player.getX(), player.getY(), player.getZ(), 0.0F, SHALLOW_PITCH);
+        helper.assertValueEqual(MiningUtils.getMiningDirection(player), Direction.SOUTH,
+                "MiningUtils started digging downwards at pitch 60 itself, so the preview and the "
+                        + "hook would point in different directions");
+        stripMine(helper, player, stripMinerPickaxe(helper, 1), SHALLOW_PROBE_ORIGIN);
+        helper.assertBlockPresent(Blocks.STONE, SHALLOW_PROBE_BELOW);
+        helper.assertBlockPresent(Blocks.AIR, SHALLOW_PROBE_SOUTH);
 
         // --- 4b. looking up: the branch of the mining direction nothing ever drove ---
         player.snapTo(player.getX(), player.getY(), player.getZ(), 0.0F, -90.0F);
@@ -549,11 +641,13 @@ public final class VeinAndStripMinerTests {
         helper.assertValueEqual(player.getMainHandItem().getDamageValue(), 2 * damagePerBlock - 1,
                 "Strip Miner durability refund for a two block tunnel");
 
-        // 1 block in run 3, 4 in run 4, 2 in run 5; stone drops exactly one cobblestone each,
-        // and the dirt plug would show up as an eighth if the stop condition ever went away.
-        // The riser is andesite, which drops itself, so it is counted apart from all of that.
+        // 1 block in run 3, 2 in run 3b, 4 in run 4, one under each probe in run 4a, 2 in run 5;
+        // stone drops exactly one cobblestone each, and the dirt plug would show up as one more
+        // if the stop condition ever went away. The riser is andesite, which drops itself, so it
+        // is counted apart from all of that.
         helper.runAfterDelay(DROP_SETTLE_TICKS, () -> {
-            helper.assertValueEqual(droppedCount(helper, Items.COBBLESTONE), 1 + SHAFT.size() + TUNNEL.size(),
+            helper.assertValueEqual(droppedCount(helper, Items.COBBLESTONE),
+                    1 + LEVEL_TWO_DEPTH + SHAFT.size() + PITCH_PROBE_BLOCKS + TUNNEL.size(),
                     "cobblestone dropped by the strip mined tunnels");
             helper.assertValueEqual(droppedCount(helper, Items.ANDESITE), RISER.size(),
                     "andesite dropped by the strip mined riser");
@@ -664,6 +758,19 @@ public final class VeinAndStripMinerTests {
             helper.setBlock(pos, Blocks.ANDESITE);
         }
         helper.setBlock(RISER_CAP, Blocks.ANDESITE);
+    }
+
+    /**
+     * The two mining direction probes. They stand apart from the shaft so that neither of them
+     * has to be rebuilt under a dropped item: everything in this test happens inside one tick,
+     * and a block put back over a fresh drop is how the drop count starts wandering.
+     */
+    private static void buildPitchProbes(GameTestHelper helper) {
+        helper.setBlock(STEEP_PROBE_ORIGIN, Blocks.STONE);
+        helper.setBlock(STEEP_PROBE_BELOW, Blocks.STONE);
+        helper.setBlock(SHALLOW_PROBE_ORIGIN, Blocks.STONE);
+        helper.setBlock(SHALLOW_PROBE_BELOW, Blocks.STONE);
+        helper.setBlock(SHALLOW_PROBE_SOUTH, Blocks.STONE);
     }
 
     private static void buildTunnel(GameTestHelper helper) {

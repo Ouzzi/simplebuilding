@@ -68,10 +68,12 @@ import net.minecraft.world.phys.Vec3;
  *
  * <p><b>The Drawer multiplier is twice what its own comment says</b> - {@code (16 + level) / 8}
  * against a documented {@code (8 + level) / 8}; see the known defect in {@link QuiverTests} for
- * the full description. Rather than pin a number that a fix would have to rewrite,
- * {@link #capacityFollowsTierAndEnchantmentsAndMatchesTheWikiExport} asserts the <em>slope</em> of
- * the multiplier - one eighth of the base capacity per level - which is what both readings of the
- * formula agree on and what a change to the divisor breaks.
+ * the full description. {@link #capacityFollowsTierAndEnchantmentsAndMatchesTheWikiExport} pins
+ * both halves of that multiplier: the <em>slope</em> - one eighth of the base capacity per level,
+ * which both readings of the formula agree on - and the <em>offset</em> as the item really
+ * computes it, see {@link #DRAWER_OFFSET}. The slope on its own left the offset free to be any
+ * number at all, so the whole Drawer capacity table could be moved without a test noticing;
+ * whoever fixes the defect rewrites that one constant and the slope stays where it is.
  *
  * <p><b>The merge comment describes the opposite of what the merge does.</b>
  * {@code insertItemIntoBundle} says it wants the part-filled stack on top ("LIFO"), then builds
@@ -103,11 +105,15 @@ import net.minecraft.world.phys.Vec3;
  *       so an assertion on it could never go red. The half that <em>is</em> mod code - honouring
  *       that answer at the three entry points - is
  *       {@link #insertionTurnsAwayWhatCannotGoIntoContainerItems}.</li>
- *   <li><b>"Every insert clears the selection".</b> True, but carried by vanilla: every write in
+ *   <li><b>"Every write clears the selection".</b> True, but carried by vanilla: every write in
  *       this class goes through {@code new BundleContents(list)}, and that constructor hard-codes
  *       {@code NO_SELECTED_ITEM_INDEX}. The {@code BundleItem.toggleSelectedItem(bundle, -1)} line
  *       in {@code insertItemIntoBundle} is dead next to it, and a test on the cleared selection
- *       would stay green with that line deleted.</li>
+ *       would stay green with that line deleted. The same holds for the identical line in
+ *       {@code removeSelectedOrFirstItem}, so the {@code -1} that
+ *       {@link #theSelectedEntryIsTheOneThatComesOut} reads after a removal is a setup guard for
+ *       the case below it - it says which entry the next click is about, and nothing about mod
+ *       code. No change to this item can make that reading go red.</li>
  *   <li><b>The {@code selectedIndex >= size} fallbacks</b> in {@code removeSelectedOrFirstItem},
  *       {@code use} and {@code useOn}. A stale index cannot be produced: vanilla's
  *       {@code BundleContents.Mutable#toggleSelectedItem} maps every out-of-bounds index to -1 on
@@ -145,6 +151,16 @@ public final class ReinforcedBundleTests {
 
     /** Highest Drawer level the enchantment data allows. */
     private static final int DRAWER_MAX_LEVEL = 8;
+
+    /**
+     * The offset in the Drawer multiplier, {@code (OFFSET + level) / 8}, as the item really
+     * computes it - the comment next to that line documents 8 and the code says 16, which is the
+     * known defect in the class Javadoc. It is pinned as a number because the slope of the
+     * multiplier leaves it free: at 24 a Drawer I bundle would hold 300 stone instead of 204 and
+     * every other assertion in this file would still hold, so the enchantment could be silently
+     * made half again as strong. Whoever repairs the defect changes this constant to 8 with it.
+     */
+    private static final int DRAWER_OFFSET = 16;
 
     /** Kinds a Drawer bundle may hold at once - {@code DRAWER_MAX_TYPES} in the item. */
     private static final int DRAWER_KINDS = 5;
@@ -344,9 +360,16 @@ public final class ReinforcedBundleTests {
      * first is not, because the code and its own comment disagree about that - see the known
      * defects in the class Javadoc.
      *
+     * <p>The whole thing runs a second time on ender pearls, which stack to 16. "Full stacks" has
+     * to mean the item's own stack size and not a constant 64: with 64-stack material the two are
+     * the same number and a hard-wired constant is invisible, while 20 pearls end up in one entry
+     * of 20 - above what that item may stack to. The player loses the surplus on the way out,
+     * where {@code slot.safeInsert} clamps the entry back to 16.
+     *
      * <p>What breaks it: dropping the merge loop (stone in two places), appending the merged block
-     * instead of inserting it at index 0 (the dirt would be on top), or building the block out of
-     * the offered count only, which would leave the earlier stone where it was.
+     * instead of inserting it at index 0 (the dirt would be on top), building the block out of the
+     * offered count only, which would leave the earlier stone where it was, or splitting it by a
+     * constant instead of by {@code getMaxStackSize}.
      */
     public static void insertionMergesEqualStacksAndPushesThemToTheTop(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -373,6 +396,35 @@ public final class ReinforcedBundleTests {
                         + "a second entry, otherwise 80 stone stay as 40 and 40");
         helper.assertValueEqual(stored.get(2).getCount(), 10, "dirt in the bundle");
 
+        // --- the same merge on material that does not stack to 64 ---
+        // Everything above is 64-stack material, where the item's own stack size and a hard-wired
+        // 64 are the same number and therefore indistinguishable. Ender pearls stack to 16, so the
+        // split has to open a second entry at 16 - a single entry of 20 is a stack the game cannot
+        // hand back whole.
+        int pearlStack = new ItemStack(Items.ENDER_PEARL).getMaxStackSize();
+        helper.assertTrue(pearlStack < 64,
+                "setup guard: ender pearls stack to " + pearlStack + ", so they no longer tell the stack size "
+                        + "the merge is supposed to use from a constant 64");
+
+        ItemStack small = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        insertExactly(helper, player, small, Items.ENDER_PEARL, 10);
+        insertExactly(helper, player, small, Items.DIRT, 10);
+        insertExactly(helper, player, small, Items.ENDER_PEARL, 10);
+
+        List<ItemStack> smallStored = entries(small);
+        helper.assertValueEqual(smallStored.size(), 3,
+                "entries in the bundle after 10 ender pearls, 10 dirt and 10 more pearls - the 20 pearls have "
+                        + "to sit in two entries, because " + pearlStack + " of them are a full stack");
+        helper.assertTrue(smallStored.get(0).is(Items.ENDER_PEARL) && smallStored.get(1).is(Items.ENDER_PEARL),
+                "the two entries at the top are " + smallStored.get(0) + " and " + smallStored.get(1)
+                        + " instead of the merged ender pearls");
+        helper.assertValueEqual(smallStored.get(0).getCount() + smallStored.get(1).getCount(), 20,
+                "ender pearls in the two merged entries");
+        helper.assertValueEqual(Math.max(smallStored.get(0).getCount(), smallStored.get(1).getCount()), pearlStack,
+                "the larger of the two ender pearl entries - a full stack of pearls is " + pearlStack
+                        + ", so an entry of more than that is one the bundle can no longer hand out whole");
+        helper.assertValueEqual(smallStored.get(2).getCount(), 10, "dirt in the bundle behind the pearls");
+
         helper.succeed();
     }
 
@@ -397,9 +449,17 @@ public final class ReinforcedBundleTests {
      * The control at the end runs the same six kinds into a bundle without Drawer: the enchantment
      * is what forbids the sixth kind, not the item.
      *
+     * <p>The last block runs the kind limit on a <em>quiver</em>, which inherits
+     * {@code insertItemIntoBundle} unchanged and is therefore bound by the same rule. Every other
+     * quiver in the suite is filled with plain arrows, i.e. with a single kind, so the inherited
+     * check is never asked there: exempting the subclass - or dropping the check out of the shared
+     * method for it - would let a Drawer quiver swallow every tipped arrow in the game while the
+     * whole suite stayed green. The kinds are named arrows, so the quiver's own arrow filter lets
+     * them all through and only the kind limit can turn one away.
+     *
      * <p>What breaks it: deleting the type count, counting entries instead of kinds, comparing by
-     * item only rather than by item and components, or applying the restriction to bundles without
-     * the enchantment.
+     * item only rather than by item and components, applying the restriction to bundles without
+     * the enchantment, or exempting the quiver from it.
      */
     public static void drawerCapsTheBundleAtFiveKinds(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -475,6 +535,31 @@ public final class ReinforcedBundleTests {
         helper.assertValueEqual(kindsIn(plain), DRAWER_KINDS + 1,
                 "kinds inside a bundle without Drawer - the kind limit is the enchantment's, not the item's");
 
+        // --- the quiver inherits the same limit ---
+        // Named arrows, so that the quiver's arrow filter cannot be what refuses the sixth one.
+        ItemStack quiver = enchanted(helper, ModItems.QUIVER, ModEnchantments.DRAWER, 1);
+        for (int n = 0; n < DRAWER_KINDS; n++) {
+            ItemStack arrow = namedArrow("drawer arrow " + n);
+            helper.assertTrue(bundleItem(quiver).tryInsertStackFromWorld(quiver, arrow, player),
+                    "test setup broken: the Drawer quiver refused named arrow number " + n);
+        }
+        helper.assertValueEqual(kindsIn(quiver), DRAWER_KINDS,
+                DRAWER_KINDS + " differently named arrows have to count as " + DRAWER_KINDS
+                        + " kinds in the quiver too; it holds " + entries(quiver));
+
+        ItemStack sixthArrow = namedArrow("drawer arrow " + DRAWER_KINDS);
+        helper.assertTrue(!bundleItem(quiver).tryInsertStackFromWorld(quiver, sixthArrow, player),
+                "a Drawer quiver already holding " + DRAWER_KINDS + " kinds of arrow accepted a sixth one - "
+                        + "the quiver inherits the kind limit, it is not exempt from it");
+        helper.assertValueEqual(sixthArrow.getCount(), 1, "the sixth kind of arrow left outside the quiver");
+        helper.assertValueEqual(kindsIn(quiver), DRAWER_KINDS,
+                "kinds inside the Drawer quiver after the sixth was refused");
+
+        ItemStack knownArrow = namedArrow("drawer arrow 0");
+        helper.assertTrue(bundleItem(quiver).tryInsertStackFromWorld(quiver, knownArrow, player),
+                "the Drawer quiver refused more of an arrow it already holds, so the refusal above was a full "
+                        + "quiver and says nothing about the kind limit");
+
         helper.succeed();
     }
 
@@ -494,9 +579,16 @@ public final class ReinforcedBundleTests {
      * <p>The click is pinned to the default binding; the binding itself belongs to
      * {@link ConfigOptionTests#bundleClickInversionFollowsTheConfiguredOption}.
      *
+     * <p>The last block takes the same two clicks to a <em>quiver</em>. The subclass overrides both
+     * click methods to keep everything but arrows out, and both overrides have to let the remove
+     * click through to this class untouched. Nothing else in the suite ever clicks an item out of a
+     * quiver, so a filter that also caught the removal - an empty slot, or an empty cursor - would
+     * leave every quiver in the game unemptiable and no test would notice.
+     *
      * <p>What breaks it: {@code removeSelectedOrFirstItem} ignoring the selection, handing back one
-     * item instead of the whole entry, deleting an entry other than the one it hands back, or
-     * losing the "nothing selected means the top" fallback.
+     * item instead of the whole entry, deleting an entry other than the one it hands back, losing
+     * the "nothing selected means the top" fallback, or the quiver's arrow filter reaching past the
+     * insert click into the remove click.
      */
     public static void theSelectedEntryIsTheOneThatComesOut(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -528,6 +620,8 @@ public final class ReinforcedBundleTests {
         helper.assertValueEqual(countIn(bundle, Items.DIRT), 32, "dirt left in the bundle");
 
         // --- nothing selected: the top entry ---
+        // A setup guard, not coverage: the cleared selection is vanilla's doing (see the class
+        // Javadoc), and it is read here only to say which entry the next click is about.
         helper.assertValueEqual(selectedIndex(bundle), -1,
                 "the selection the bundle reports after an entry was taken out");
         Slot second = slotHolding(ItemStack.EMPTY);
@@ -538,6 +632,32 @@ public final class ReinforcedBundleTests {
         helper.assertValueEqual(second.getItem().getCount(), 64, "stone in the second slot");
         helper.assertValueEqual(entries(bundle).size(), 1, "entries left in the bundle");
         helper.assertValueEqual(countIn(bundle, Items.DIRT), 32, "dirt left in the bundle at the end");
+
+        // --- the same two clicks on the quiver that inherits them ---
+        ItemStack quiver = new ItemStack(ModItems.QUIVER);
+        insertExactly(helper, player, quiver, Items.ARROW, 32);
+
+        Slot fromQuiver = slotHolding(ItemStack.EMPTY);
+        helper.assertTrue(bundleItem(quiver)
+                        .overrideStackedOnOther(quiver, fromQuiver, ClickAction.SECONDARY, player),
+                "right clicking a filled quiver onto an empty slot took nothing out - the arrow filter is "
+                        + "catching the remove click as well, so the quiver cannot be emptied by hand");
+        helper.assertTrue(fromQuiver.getItem().is(Items.ARROW),
+                "the slot holds " + fromQuiver.getItem() + " instead of the arrows out of the quiver");
+        helper.assertValueEqual(fromQuiver.getItem().getCount(), 32,
+                "arrows in the slot - the whole entry has to leave the quiver too");
+        helper.assertValueEqual(countIn(quiver, Items.ARROW), 0, "arrows left in the quiver");
+
+        // The other click method, with an empty cursor. The array is the cursor the click writes to.
+        insertExactly(helper, player, quiver, Items.ARROW, 16);
+        ItemStack[] cursor = {ItemStack.EMPTY};
+        helper.assertTrue(bundleItem(quiver).overrideOtherStackedOnMe(quiver, cursor[0], slotHolding(quiver),
+                        ClickAction.SECONDARY, player, SlotAccess.of(() -> cursor[0], stack -> cursor[0] = stack)),
+                "right clicking a filled quiver with an empty cursor took nothing out");
+        helper.assertTrue(cursor[0].is(Items.ARROW),
+                "the cursor holds " + cursor[0] + " instead of the arrows out of the quiver");
+        helper.assertValueEqual(cursor[0].getCount(), 16, "arrows on the cursor");
+        helper.assertValueEqual(countIn(quiver, Items.ARROW), 0, "arrows left in the quiver at the end");
 
         helper.succeed();
     }
@@ -746,10 +866,14 @@ public final class ReinforcedBundleTests {
      * {@link ItemBehaviourTests#bundleCapacityGrowsWithTierAndEnchantments} settles for an
      * ordering, which cannot tell a doubling from a 1.1x.
      *
-     * <p>Drawer is asserted as a slope - one eighth of the base capacity per level - because the
-     * offset in that formula is a known defect (see the class Javadoc) and both readings of it
-     * agree on the slope. That still catches the divisor moving, the level being ignored, or the
-     * enchantment being read at one level only.
+     * <p>Drawer is asserted twice over, because the two halves of {@code (16 + level) / 8} fail in
+     * different ways. The <em>slope</em> - one eighth of the base capacity per level - catches the
+     * divisor moving, the level being ignored, or the enchantment being read at one level only.
+     * The <em>offset</em> is pinned as {@link #DRAWER_OFFSET}, because the slope holds for any
+     * offset at all: with 24 in the item a Drawer I bundle would hold 300 stone instead of 204,
+     * the step from Drawer I to Drawer VIII would be the same 84, and nothing here would notice.
+     * The offset is the known defect of the class Javadoc, and the constant is where a repair of
+     * it lands.
      *
      * <p>The enchanted cases run on {@code ReinforcedBundleItem}; {@code QuiverItem} overrides
      * both capacity methods with copies of its own, so the numbers {@link QuiverTests} pins say
@@ -805,6 +929,16 @@ public final class ReinforcedBundleTests {
         helper.assertValueEqual((drawerMax - drawer1) * 8, plain * (DRAWER_MAX_LEVEL - 1),
                 "the step from Drawer I (" + drawer1 + ") to Drawer " + DRAWER_MAX_LEVEL + " (" + drawerMax
                         + "): every level has to add an eighth of the " + plain + " item base capacity");
+        // The step alone holds for every offset, so both ends are pinned to the multiplier the item
+        // really uses - see DRAWER_OFFSET. Without this, the whole Drawer table could be shifted.
+        helper.assertValueEqual(drawer1 * 8, plain * (DRAWER_OFFSET + 1),
+                "a Drawer I bundle takes " + drawer1 + " stone against the " + plain + " of a plain one; the "
+                        + "multiplier is (" + DRAWER_OFFSET + " + level) / 8, so it has to be exactly "
+                        + (plain * (DRAWER_OFFSET + 1) / 8));
+        helper.assertValueEqual(drawerMax * 8, plain * (DRAWER_OFFSET + DRAWER_MAX_LEVEL),
+                "a Drawer " + DRAWER_MAX_LEVEL + " bundle takes " + drawerMax + " stone against the " + plain
+                        + " of a plain one; the multiplier is (" + DRAWER_OFFSET + " + level) / 8, so it has "
+                        + "to be exactly " + (plain * (DRAWER_OFFSET + DRAWER_MAX_LEVEL) / 8));
 
         helper.succeed();
     }
@@ -824,10 +958,18 @@ public final class ReinforcedBundleTests {
      * does this for {@code QuiverItem}'s own copy of the formula and for the plain bundle; the
      * enchanted bundle branches are only here.
      *
+     * <p>The colour comes out of the same two lines and is checked the same way. Its three
+     * readings run on a plain bundle, where the visuals capacity and the bare tier capacity are
+     * one number and a colour that ignored the enchantments would look exactly right; so two
+     * enchanted bundles are filled to half of what they really hold and have to answer the plain
+     * bundle's half-full colour. That is the whole point of the pairing - a bar whose width and
+     * whose colour disagree about how full the bundle is.
+     *
      * <p>What breaks it: dropping an enchantment out of the visuals formula, renaming an
      * enchantment so the substring match stops matching (the filling path would go on working -
      * that is the split this test is about), letting the tooltip hand out the base capacity while
-     * the bundle really holds more, or losing the "no bar on an empty bundle" rule.
+     * the bundle really holds more, computing the colour against a different capacity than the
+     * width, or losing the "no bar on an empty bundle" rule.
      */
     public static void barAndTooltipReadTheSameCapacityTheFillingUses(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -858,10 +1000,11 @@ public final class ReinforcedBundleTests {
         // Three levels, not two: vanilla's fallback knows one colour below a full vanilla stack and
         // one at or above it, so a pair of readings would still look like a ramp with the override
         // deleted. A third reading in between has to differ from both, which only a real ramp does.
-        int capacity = fillWith(helper, player, new ItemStack(ModItems.REINFORCED_BUNDLE), Items.STONE);
-        int lowColour = barColourAt(helper, player, 1);
-        int midColour = barColourAt(helper, player, capacity / 2);
-        int highColour = barColourAt(helper, player, capacity);
+        ItemStack plainBundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        int capacity = fillWith(helper, player, plainBundle.copy(), Items.STONE);
+        int lowColour = barColourAt(helper, player, plainBundle, 1);
+        int midColour = barColourAt(helper, player, plainBundle, capacity / 2);
+        int highColour = barColourAt(helper, player, plainBundle, capacity);
 
         helper.assertTrue(lowColour != midColour && midColour != highColour && lowColour != highColour,
                 "the bar colour of a bundle holding 1, " + (capacity / 2) + " and " + capacity
@@ -873,6 +1016,20 @@ public final class ReinforcedBundleTests {
         helper.assertTrue(green(lowColour) > green(highColour),
                 "the bar of a nearly empty bundle is no greener than that of a full one (" + lowColour
                         + " against " + highColour + ")");
+
+        // --- and the colour divides by the same capacity the width does ---
+        // The three readings above are all taken on an unenchanted bundle, where the visuals
+        // capacity and the bare tier capacity are the same number - so they hold just as well if
+        // the colour stopped reading the enchantments altogether. Only an enchanted bundle tells
+        // the two apart, and half full is where it is loudest: a colour computed against the tier
+        // capacity alone would run off the end of its ramp and show a full bar's red at half a
+        // bundle, while the width next to it stays correct.
+        assertHalfFullColourMatches(helper, player,
+                enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.DEEP_POCKETS, 2), midColour,
+                "a Deep Pockets II bundle");
+        assertHalfFullColourMatches(helper, player,
+                enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.DRAWER, DRAWER_MAX_LEVEL), midColour,
+                "a Drawer " + DRAWER_MAX_LEVEL + " bundle");
 
         helper.succeed();
     }
@@ -992,11 +1149,29 @@ public final class ReinforcedBundleTests {
                         + " items it really takes");
     }
 
-    /** Bar colour of a plain reinforced bundle holding exactly {@code stone} stone. */
-    private static int barColourAt(GameTestHelper helper, ServerPlayer player, int stone) {
-        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+    /** Bar colour of a copy of {@code container} holding exactly {@code stone} stone. */
+    private static int barColourAt(GameTestHelper helper, ServerPlayer player, ItemStack container, int stone) {
+        ItemStack bundle = container.copy();
         insertExactly(helper, player, bundle, Items.STONE, stone);
         return bundle.getItem().getBarColor(bundle);
+    }
+
+    /**
+     * Fills {@code container} to half of the capacity it really has and demands the colour a plain
+     * bundle shows at half of its own. Two containers that are equally full have to show the same
+     * colour whatever their capacities are - and they only do if the colour is computed against the
+     * capacity the container actually has, which is the pairing this test exists for.
+     */
+    private static void assertHalfFullColourMatches(GameTestHelper helper, ServerPlayer player,
+                                                    ItemStack container, int halfColour, String what) {
+        int capacity = fillWith(helper, player, container.copy(), Items.STONE);
+        helper.assertTrue(capacity % 2 == 0,
+                "setup guard: " + what + " holds an odd " + capacity + " stone, so it cannot be filled to "
+                        + "exactly half");
+        helper.assertValueEqual(barColourAt(helper, player, container, capacity / 2), halfColour,
+                "the bar colour of " + what + " holding " + (capacity / 2) + " of its " + capacity + " items, "
+                        + "against the colour a plain bundle shows at half of its own capacity - both are half "
+                        + "full, so the colour has to be the same one");
     }
 
     /**
@@ -1079,6 +1254,17 @@ public final class ReinforcedBundleTests {
      */
     private static ItemStack namedStone(String name) {
         ItemStack stack = new ItemStack(Items.STONE, 1);
+        stack.set(DataComponents.CUSTOM_NAME, Component.literal(name));
+        return stack;
+    }
+
+    /**
+     * One arrow carrying {@code name}. An arrow, so that a quiver's own filter lets it in, and a
+     * kind of its own, so that a handful of them meets the kind limit without any other item type
+     * being involved.
+     */
+    private static ItemStack namedArrow(String name) {
+        ItemStack stack = new ItemStack(Items.ARROW, 1);
         stack.set(DataComponents.CUSTOM_NAME, Component.literal(name));
         return stack;
     }

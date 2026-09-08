@@ -788,10 +788,19 @@ public final class DataIntegrityTests {
      * of the same promise for four blocks: that breaking one in the world really goes through this
      * table.
      *
+     * <p>The item names alone are not enough, because the set they are collected in is the union
+     * over all {@link #BLOCK_LOOT_ROLLS} rolls and says nothing about <em>how much</em> came out of
+     * any single one of them. Two edits live in that blind spot: a {@code set_count} of four on the
+     * entry (every piston mined would hand over four pistons, and the union is still one item), and
+     * a {@code random_chance} condition on the pool (seven empty rolls and one lucky one still fill
+     * the union). Each roll is therefore held to exactly one stack of exactly one item - which is
+     * what every mod table promises today: a single {@code dropSelf} or ore entry, and
+     * {@code apply_bonus}/{@code ore_drops} leaves the count at one for the empty tool used here.
+     *
      * <p>What breaks it: a block that loses its table or inherits a foreign one through
      * {@code Properties.ofFullCopy}, a table that stops loading, a drop entry swapped for another
-     * item, an ore that starts dropping its own block without Silk Touch, or a second entry added
-     * next to the intended one.
+     * item, an ore that starts dropping its own block without Silk Touch, a second entry added
+     * next to the intended one, a changed drop count, or a pool that only sometimes drops at all.
      */
     public static void everyModBlockLootTableLoads(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
@@ -836,11 +845,36 @@ public final class DataIntegrityTests {
             Item expectedDrop = ORE_DROPS.containsKey(blockId.getPath())
                     ? ORE_DROPS.get(blockId.getPath())
                     : BuiltInRegistries.ITEM.getValue(blockId);
-            Set<Identifier> dropped = rollBlockLoot(helper, block, table);
+            List<List<ItemStack>> rolls = rollBlockLoot(helper, block, table);
+            Set<Identifier> dropped = new TreeSet<>(Comparator.comparing(Identifier::toString));
+            for (List<ItemStack> produced : rolls) {
+                for (ItemStack stack : produced) {
+                    dropped.add(BuiltInRegistries.ITEM.getKey(stack.getItem()));
+                }
+            }
             Set<Identifier> wanted = Set.of(BuiltInRegistries.ITEM.getKey(expectedDrop));
             if (!dropped.equals(wanted)) {
                 problems.add(actual + " drops " + dropped + " instead of " + wanted
                         + " when the block is broken with an empty hand");
+            }
+
+            // The union above cannot see the size of a single roll: a table that hands over four
+            // items, or one that drops nothing on most rolls, produces the very same set. Only the
+            // first offending roll is reported - eight copies of one defect are not eight defects.
+            for (int roll = 0; roll < rolls.size(); roll++) {
+                List<ItemStack> produced = rolls.get(roll);
+                if (produced.size() != 1) {
+                    problems.add(actual + " hands over " + produced.size() + " stacks on roll " + roll
+                            + " instead of exactly one; every mod block is a single entry that always drops");
+                    break;
+                }
+                int count = produced.get(0).getCount();
+                if (count != 1) {
+                    problems.add(actual + " hands over " + count + "x "
+                            + BuiltInRegistries.ITEM.getKey(produced.get(0).getItem()) + " on roll " + roll
+                            + " instead of a single item");
+                    break;
+                }
             }
         }
 
@@ -849,28 +883,34 @@ public final class DataIntegrityTests {
     }
 
     /**
-     * Rolls one block loot table with an empty tool and returns the distinct items it produced.
+     * Rolls one block loot table with an empty tool and returns what each single roll produced.
      *
      * <p>The seed is fixed so a failure is the same on every machine, and the roll goes through
      * the real {@code LootTable} the server loaded rather than reading the json, so the entry, its
      * conditions and its functions are all covered at once.
+     *
+     * <p>The rolls are kept apart instead of being poured into one set: the stack count and the
+     * number of stacks per roll are the part of a table a union throws away, and they are what a
+     * {@code set_count} or a {@code random_chance} on the pool changes.
      */
-    private static Set<Identifier> rollBlockLoot(GameTestHelper helper, Block block, LootTable table) {
+    private static List<List<ItemStack>> rollBlockLoot(GameTestHelper helper, Block block, LootTable table) {
         LootParams params = new LootParams.Builder(helper.getLevel())
                 .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(helper.absolutePos(BlockPos.ZERO)))
                 .withParameter(LootContextParams.BLOCK_STATE, block.defaultBlockState())
                 .withParameter(LootContextParams.TOOL, ItemStack.EMPTY)
                 .create(LootContextParamSets.BLOCK);
 
-        Set<Identifier> dropped = new TreeSet<>(Comparator.comparing(Identifier::toString));
+        List<List<ItemStack>> rolls = new ArrayList<>();
         for (int roll = 0; roll < BLOCK_LOOT_ROLLS; roll++) {
+            List<ItemStack> produced = new ArrayList<>();
             for (ItemStack stack : table.getRandomItems(params, BLOCK_LOOT_SEED + roll)) {
                 if (!stack.isEmpty()) {
-                    dropped.add(BuiltInRegistries.ITEM.getKey(stack.getItem()));
+                    produced.add(stack);
                 }
             }
+            rolls.add(produced);
         }
-        return dropped;
+        return rolls;
     }
 
     // =================================================================================
@@ -1035,7 +1075,13 @@ public final class DataIntegrityTests {
      * below the world's floor and ticks it. Everything above it only ever evaluates the tag, which
      * would keep passing with an empty {@code if} body in the mixin or with the mixin missing from
      * {@code simplebuilding.mixins.json} altogether - and every enderite ingot would fall into the
-     * void all the same.
+     * void all the same. Two of the four entities dropped there carry a custom name, because the
+     * regression this feature exists to keep out is a mixin that reads {@code getHoverName} again.
+     * Steps 3 and 4 cannot see that one: they run this file's {@link #isVoidProtected}, a plain tag
+     * lookup that no edit to the mixin can influence, so a mixin protecting the tag <em>or</em>
+     * anything named "Enderite" would leave them green while every dirt block renamed in an anvil
+     * floats in the void again. The named ingot and the named dirt in step 5b tick the real mixin
+     * and pin both directions where they are actually decided.
      *
      * <p>Second, the tag's <em>bounds</em>. Step 1 compares the shipped tag against
      * {@code ModTags.Items.isVoidProtectedByRule}, which is the very method the datagen fills it
@@ -1180,6 +1226,26 @@ public final class DataIntegrityTests {
         if (lost.isNoGravity() || lost.getY() >= minY) {
             problems.add("minecraft:dirt is being rescued from the void as well, at Y=" + lost.getY()
                     + "; the mixin no longer looks at the tag at all");
+        }
+
+        // 5b. Steps 3 and 4 through the mixin instead of through this file's copy of its tag test.
+        //     The copy is a tag lookup and can never react to a display name, so on its own it
+        //     rules nothing out; only these two entities separate "reads the tag" from "reads the
+        //     tag or the name", which is the exact shape of the regression the tag replaced.
+        ItemEntity localizedEntity = dropBelowTheWorld(helper, localized.copy(), anchor, minY - 20.0);
+        localizedEntity.tick();
+        if (!localizedEntity.isNoGravity() || localizedEntity.getY() < minY) {
+            problems.add("an enderite ingot renamed to \"Enderit-Barren\" was left in the void at Y="
+                    + localizedEntity.getY() + "; EnderiteItemMixin decides by display name, so the "
+                    + "protection is gone in every non-English locale");
+        }
+
+        ItemEntity impostorEntity = dropBelowTheWorld(helper, impostor.copy(), anchor, minY - 20.0);
+        impostorEntity.tick();
+        if (impostorEntity.isNoGravity() || impostorEntity.getY() >= minY) {
+            problems.add("minecraft:dirt renamed to \"Enderite Ingot\" is rescued from the void, it is at Y="
+                    + impostorEntity.getY() + "; EnderiteItemMixin reads the display name again, so an "
+                    + "anvil buys void protection for any item");
         }
 
         helper.assertTrue(problems.isEmpty(), "void protection problems: " + problems);

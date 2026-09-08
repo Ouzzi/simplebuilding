@@ -165,6 +165,32 @@ public final class WorldAndPlayerTests {
     private static final int FORTUNE_LEVEL = 3;
 
     /**
+     * How often the Fortune III table is rolled to pin the <em>shape</em> of the bonus, not just
+     * its ceiling. The ceiling alone cannot tell {@code apply_bonus/ore_drops} from
+     * {@code uniform_bonus_count} with a bonus multiplier of one: at Fortune III the first gives
+     * {@code count * (max(0, nextInt(5) - 1) + 1)} and the second {@code count + nextInt(4)}, so
+     * both cover exactly 1..{@value #FORTUNE_MAX_COUNT}. They part company in how often the drop
+     * stays single - the ore formula folds {@code nextInt(5) == 0} and {@code == 1} onto the same
+     * single item, two rolls in five, where the uniform bonus leaves one in four. That difference
+     * is only visible in a sample, so it is measured over one wide enough that the two shares
+     * cannot be mistaken for each other: at this many rolls the ore formula sits about seven
+     * standard deviations inside the band below and the uniform one about seven outside it. The
+     * seeds are fixed, so the number is the same on every machine, and all the rolls happen inside
+     * one tick - a wide sample costs wall time, not tick budget.
+     */
+    private static final int FORTUNE_SHAPE_ROLLS = 2000;
+
+    /**
+     * The band the single drops have to fall into, 32 % to 48 % of {@link #FORTUNE_SHAPE_ROLLS}.
+     * It brackets the 40 % of {@code ore_drops} on both sides and excludes the 25 % of a uniform
+     * bonus of one as well as any formula that hands out singles more often than the ore one does.
+     */
+    private static final int FORTUNE_SINGLE_DROPS_MIN = FORTUNE_SHAPE_ROLLS * 32 / 100;
+
+    /** Upper end of the band described on {@link #FORTUNE_SINGLE_DROPS_MIN}. */
+    private static final int FORTUNE_SINGLE_DROPS_MAX = FORTUNE_SHAPE_ROLLS * 48 / 100;
+
+    /**
      * How often each ore is broken while measuring its experience. The two ends of the range have
      * to be <em>seen</em> for the assertions below to bite, and each break is a uniform draw from
      * five values, so this is a question of probability: the chance that eighty draws never show a
@@ -331,6 +357,11 @@ public final class WorldAndPlayerTests {
      * own ceiling - {@code ore_drops} at level 3 multiplies by at most {@code 3 + 1}, so a drop of
      * five would mean the formula or the level changed.
      *
+     * <p>The ceiling is not enough on its own, because {@code uniform_bonus_count} with a bonus
+     * multiplier of one shares it exactly. Which of the two formulas is in the table is therefore
+     * decided by how often the drop stays single over {@link #FORTUNE_SHAPE_ROLLS} rolls - see
+     * that constant for the two shares and for why the sample is as wide as it is.
+     *
      * <p>Note what this does <em>not</em> claim: the loot table carries no "correct tool" condition
      * at all, so these rolls succeed with any tool. That gate lives in
      * {@code ServerPlayerGameMode#destroyBlock} and is covered by the next test.
@@ -338,7 +369,8 @@ public final class WorldAndPlayerTests {
      * <p>Breaks if a drop is swapped for a neighbouring item (astralit dust for nihilith shard is
      * exactly the kind of copy-paste this catches), if the silk touch branch is dropped so the ore
      * block becomes unobtainable, if the Fortune function is lost so the ore stops scaling, or if
-     * the fortune formula is swapped for {@code uniform_bonus_count}, whose ceiling is different.
+     * the fortune formula is swapped for {@code uniform_bonus_count}, which reaches the same
+     * ceiling but hands out a different mix of counts on the way there.
      */
     public static void endOresDropTheirDustAndFollowFortuneWhileSilkTouchKeepsTheOre(GameTestHelper helper) {
         assertOreDrops(helper, ModBlocks.ASTRALIT_ORE, ModItems.ASTRALIT_DUST, ModItems.ASTRALIT_ORE_ITEM);
@@ -926,6 +958,35 @@ public final class WorldAndPlayerTests {
                 name + " never dropped more than one item in " + LOOT_ROLLS + " rolls with Fortune "
                         + FORTUNE_LEVEL + "; the apply_bonus function is gone and the ore no longer "
                         + "rewards an enchanted pickaxe");
+
+        // --- Fortune III, wide sample: which formula, not just which ceiling ---
+        // Everything above holds just as well for uniform_bonus_count with a bonus multiplier of
+        // one - it covers the same 1..FORTUNE_MAX_COUNT range at this level. Only the share of
+        // drops that stay single separates the two, so that share is what decides here.
+        int singles = 0;
+        for (int roll = 0; roll < FORTUNE_SHAPE_ROLLS; roll++) {
+            List<ItemStack> drops = rollDrops(helper, table, state, fortune, shapeSeed(roll));
+            Assertions.valueEqual(helper, drops.size(), 1,
+                    name + " dropped more than one stack under Fortune");
+            ItemStack drop = drops.get(0);
+            helper.assertTrue(drop.is(dust),
+                    name + " dropped " + drop + " under Fortune instead of "
+                            + BuiltInRegistries.ITEM.getKey(dust));
+            helper.assertTrue(drop.getCount() >= 1 && drop.getCount() <= FORTUNE_MAX_COUNT,
+                    name + " dropped " + drop.getCount() + " under Fortune " + FORTUNE_LEVEL
+                            + "; apply_bonus/ore_drops can only multiply by 1 to "
+                            + FORTUNE_MAX_COUNT + " at that level");
+            if (drop.getCount() == 1) {
+                singles++;
+            }
+        }
+        helper.assertTrue(singles >= FORTUNE_SINGLE_DROPS_MIN && singles <= FORTUNE_SINGLE_DROPS_MAX,
+                name + " left " + singles + " of " + FORTUNE_SHAPE_ROLLS + " Fortune " + FORTUNE_LEVEL
+                        + " drops at a single item, outside the " + FORTUNE_SINGLE_DROPS_MIN + ".."
+                        + FORTUNE_SINGLE_DROPS_MAX + " band that apply_bonus/ore_drops produces "
+                        + "(two rolls in five); uniform_bonus_count with a bonus multiplier of one "
+                        + "reaches the same " + FORTUNE_MAX_COUNT + " ceiling but leaves only one "
+                        + "roll in four single, i.e. 2.5 instead of 2.2 items per ore");
     }
 
     /** The loot table the block points at, resolved through the server the way a break does. */
@@ -948,6 +1009,22 @@ public final class WorldAndPlayerTests {
                 .withParameter(LootContextParams.BLOCK_STATE, state)
                 .create(LootContextParamSets.BLOCK);
         return table.getRandomItems(params, seed);
+    }
+
+    /**
+     * The seed for one roll of the distribution sample, mixed rather than counted up. Loot seeds
+     * end up in a legacy {@code java.util.Random}, and consecutive seeds are not independent draws
+     * there: their first outputs form an arithmetic progression, so a counted-up sample would
+     * measure that progression instead of the formula behind it. The SplitMix64 finaliser below
+     * scatters the seeds, which is what lets the band on the single drops be read as the binomial
+     * spread it is. It stays a pure function of the roll index, so the sample is still identical
+     * on every machine.
+     */
+    private static long shapeSeed(int roll) {
+        long mixed = LOOT_SEED + roll * 0x9E3779B97F4A7C15L;
+        mixed = (mixed ^ (mixed >>> 30)) * 0xBF58476D1CE4E5B9L;
+        mixed = (mixed ^ (mixed >>> 27)) * 0x94D049BB133111EBL;
+        return mixed ^ (mixed >>> 31);
     }
 
     private static ItemStack pickaxeWith(GameTestHelper helper, ResourceKey<Enchantment> key, int level) {

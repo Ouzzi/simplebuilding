@@ -17,6 +17,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -243,6 +244,18 @@ public final class ProtectionAndRangeTests {
      * <p>Note on the modifier id: vanilla appends {@code "/" + slot} to the id declared in the
      * enchantment, so the id seen here is {@code simplebuilding:enchantment.range/mainhand}. Only
      * the half this mod owns is asserted.
+     *
+     * <p>The third step is about <em>which items</em> may carry all of that.
+     * {@code ItemStack#enchant} never asks, so every measurement above works on a chisel that
+     * might long have fallen out of the enchantment's item tag. Range hangs on
+     * {@code #simplebuilding:chisel_and_mining_tools}, which is not a hand written item list but
+     * four nested tags: the chisels, vanilla's {@code #minecraft:enchantable/mining}, the
+     * sledgehammers and {@code #simplebuilding:octants_enchantable}. Each nesting is a single
+     * line in the tag provider, and every number measured above is measured on a chisel, so
+     * deleting any one of the other three takes a whole item family out of the enchantment
+     * without moving a single figure in this test. {@code Enchantment#canEnchant} is what the
+     * anvil asks, so that is what is asked here: for the chisel, for the four vanilla mining
+     * tools, for the sledgehammer, and for the plain octant plus all sixteen dyed ones.
      */
     public static void rangeAddsBlockInteractionReachInTheMainHandOnly(GameTestHelper helper) {
         // Setup guard: the loop below goes up to RANGE_MAX_LEVEL and ItemStack#enchant does not
@@ -282,6 +295,44 @@ public final class ProtectionAndRangeTests {
             helper.assertTrue(reachModifiers(tool, EquipmentSlot.OFFHAND).isEmpty(),
                     "Range " + enchantLevel + " grants reach from the off hand as well");
         }
+
+        // --- who is allowed to carry it: the anvil's own question, item by item ---
+        Enchantment range = enchantment(helper, ModEnchantments.RANGE).value();
+        helper.assertTrue(range.canEnchant(plainTool),
+                "Range cannot be put on the diamond chisel any more, so every number measured "
+                        + "above was measured on an item the player can no longer enchant");
+        // Vanilla's own mining tools are in only because #simplebuilding:chisel_and_mining_tools
+        // nests #minecraft:enchantable/mining; nothing else in the suite asks canEnchant for
+        // them, so without this loop that nesting can be dropped unnoticed.
+        for (Item miningTool : List.<Item>of(Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE,
+                Items.DIAMOND_SHOVEL, Items.DIAMOND_HOE)) {
+            helper.assertTrue(range.canEnchant(new ItemStack(miningTool)),
+                    "Range cannot be put on " + miningTool + " any more; the vanilla mining tools "
+                            + "reach #simplebuilding:chisel_and_mining_tools only through the "
+                            + "nested #minecraft:enchantable/mining, and that link is gone");
+        }
+        // The sledgehammers hang in the tag twice - directly through
+        // #simplebuilding:sledgehammer_tools and again through #minecraft:enchantable/mining, which
+        // the provider fills with the same tag - so this only goes red once both are gone.
+        helper.assertTrue(range.canEnchant(new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER)),
+                "Range cannot be put on the diamond sledgehammer any more, so the sledgehammers "
+                        + "dropped out of #simplebuilding:chisel_and_mining_tools on both of the "
+                        + "routes that put them there");
+        helper.assertTrue(range.canEnchant(new ItemStack(ModItems.OCTANT)),
+                "Range cannot be put on the octant; it reaches "
+                        + "#simplebuilding:chisel_and_mining_tools only through the nested "
+                        + "#simplebuilding:octants_enchantable, and that link is gone");
+        Assertions.valueEqual(helper, ModItems.COLORED_OCTANT_ITEMS.size(), DyeColor.values().length,
+                "test setup broken: number of dyed octants registered - with none of them the loop "
+                        + "below would check nothing");
+        for (Item coloredOctant : ModItems.COLORED_OCTANT_ITEMS.values()) {
+            helper.assertTrue(range.canEnchant(new ItemStack(coloredOctant)),
+                    "Range cannot be put on " + coloredOctant + ", so the dyed octants dropped out "
+                            + "of #simplebuilding:octants_enchantable while the plain one stayed");
+        }
+        helper.assertTrue(!range.canEnchant(new ItemStack(Items.DIAMOND_HELMET)),
+                "Range can be put on a diamond helmet, so its item tag accepts everything and the "
+                        + "answers above say nothing about the chisel or the octant");
 
         // --- and now the whole way through to the player's attribute map ---
         ServerPlayer player = mockPlayer(helper);

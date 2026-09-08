@@ -24,6 +24,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.piston.MovingPistonBlock;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -102,8 +103,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
  * <p><b>6. No gravity block is in any {@code mineable} tag.</b> {@code ModBlockTagProvider} lists
  * the three piston blocks under {@code mineable/pickaxe} and generates no shovel tag at all, and
  * {@code Properties.ofFullCopy} copies behaviour, not tags. Suspended and levitating sand and
- * gravel therefore lose the shovel speed bonus their vanilla originals have. Not asserted here -
- * writing it down as expected would cement it.
+ * gravel therefore lose the shovel speed bonus their vanilla originals have. Pinned as a marker in
+ * {@link #gravityBlocksAndPistonsCarryTheirRegisteredStrengthAndTags}, in the style of defects 4
+ * and 5: not as a claim that the four blocks belong outside every tool tag, but so that adding one
+ * of them to {@code mineable/pickaxe} - or generating a {@code mineable/shovel} file at all - has
+ * to go past a red test and rewrite this paragraph, instead of leaving it quietly stale.
  *
  * <h2>Not covered</h2>
  * <ul>
@@ -273,7 +277,7 @@ public final class GravityBlockTests {
      * hardness, so both halves of that formula have to be measured: the factor 50 and the
      * dependency on the signal strength.
      *
-     * <p>Five pistons, three signal strengths, four targets:
+     * <p>Six pistons, four signal strengths, five targets:
      * <ul>
      *   <li><b>Signal 15 on a netherite block</b> (hardness 50, and pushable, unlike obsidian):
      *       threshold 50.0, hardness 50.0, so it breaks - just. This is the upper end of the
@@ -281,22 +285,34 @@ public final class GravityBlockTests {
      *   <li><b>Signal 14 on a netherite block</b>: threshold 46.67, so it must survive <em>and be
      *       pushed one block instead</em> - the "too hard for this signal, so treat it like an
      *       ordinary piston" branch, which no test entered before.</li>
-     *   <li><b>Signal 14 on stone</b> (hardness 1.5): threshold 3.33, so it still breaks. Without
+     *   <li><b>Signal 14 on stone</b> (hardness 1.5): threshold 46.67, so it still breaks. Without
      *       this third case the pair above would also be satisfied by "breaking only happens at
      *       full signal", which is a different rule.</li>
+     *   <li><b>Signal 1 on a stonecutter</b> (hardness 3.5): threshold 3.33, so it survives and is
+     *       pushed. This case is what holds the factor down from above, and it has to sit at the
+     *       weak end of the signal range because nothing else can. The two netherite block cases
+     *       alone leave the factor anywhere in {@code [50, 53.57)} - at signal 14 a factor of 53
+     *       still keeps the threshold under 50 - and no pushable block in the game has a hardness
+     *       inside that gap: obsidian, crying obsidian, the respawn anchor and reinforced deepslate
+     *       are the only candidates and {@code isPushable} refuses all four by name. Weakening the
+     *       signal instead scales the whole window down, and 3.5 against a signal of 1 is the
+     *       tightest ratio vanilla offers: it says the factor is under 52.5.</li>
      *   <li><b>Signal 15 on obsidian and on bedrock</b>: neither may be touched, and the piston
      *       may not even extend. See defect 1 in the class javadoc - vanilla's structure resolver
      *       refuses first, so this pins the outcome a player sees, not mod code. The premise that
      *       vanilla still refuses is asserted directly rather than assumed.</li>
      * </ul>
      *
-     * <p>Taken together the two netherite block cases bracket the factor: the threshold has to
-     * reach 50 at signal 15 and stay under 50 at signal 14. The drops are checked as well, because
+     * <p>Taken together the three measured cases bracket the factor into {@code [50, 52.5)}: the
+     * threshold has to reach 50 at signal 15, stay under 50 at signal 14 and stay under 3.5 at
+     * signal 1. Vanilla's stonecutter hardness is asserted alongside the signals for that reason -
+     * the upper bound is only as good as that 3.5. The drops are checked as well, because
      * {@code world.destroyBlock(targetPos, true)} is what makes the difference between mining a
      * block and deleting it; the stone case asks for cobblestone specifically, which only appears
      * if the loot table actually ran.
      *
-     * <p>What breaks this test: another factor than 50, dropping the {@code power / 15.0f} term,
+     * <p>What breaks this test: any factor outside {@code [50, 52.5)}, dropping the
+     * {@code power / 15.0f} term,
      * inverting the {@code blockHardness <= breakThreshold} comparison, replacing
      * {@code getBestNeighborSignal} with a fixed strength, and passing {@code false} to
      * {@code destroyBlock} so the block vanishes without drops.
@@ -309,12 +325,14 @@ public final class GravityBlockTests {
         BlockPos fullOnBedrock = new BlockPos(7, 1, 1);
         BlockPos weakOnNetherite = new BlockPos(3, 1, 4);
         BlockPos weakOnStone = new BlockPos(3, 1, 6);
+        BlockPos faintOnStonecutter = new BlockPos(7, 1, 4);
 
         placeBreakerWithTarget(helper, fullOnNetherite, Blocks.NETHERITE_BLOCK);
         placeBreakerWithTarget(helper, fullOnObsidian, Blocks.OBSIDIAN);
         placeBreakerWithTarget(helper, fullOnBedrock, Blocks.BEDROCK);
         placeBreakerWithTarget(helper, weakOnNetherite, Blocks.NETHERITE_BLOCK);
         placeBreakerWithTarget(helper, weakOnStone, Blocks.STONE);
+        placeBreakerWithTarget(helper, faintOnStonecutter, Blocks.STONECUTTER);
 
         // Signal 15: a redstone block right next to the piston.
         helper.setBlock(fullOnNetherite.west(), Blocks.REDSTONE_BLOCK);
@@ -325,6 +343,9 @@ public final class GravityBlockTests {
         buildWeakSignalLine(helper, weakOnNetherite);
         buildWeakSignalLine(helper, weakOnStone);
 
+        // Signal 1: a comparator reading a composter that is filled one level.
+        buildFaintSignalLine(helper, faintOnStonecutter);
+
         helper.startSequence()
                 .thenExecuteAfter(5, () -> {
                     // --- the rig, checked with the very call the mod makes ---
@@ -333,6 +354,7 @@ public final class GravityBlockTests {
                     assertSignalStrength(helper, fullOnBedrock, 15);
                     assertSignalStrength(helper, weakOnNetherite, 14);
                     assertSignalStrength(helper, weakOnStone, 14);
+                    assertSignalStrength(helper, faintOnStonecutter, 1);
 
                     // --- the premise behind the obsidian and bedrock cases ---
                     ServerLevel level = helper.getLevel();
@@ -347,6 +369,16 @@ public final class GravityBlockTests {
                             PistonBaseBlock.isPushable(Blocks.BEDROCK.defaultBlockState(), level, probe,
                                     Direction.UP, false, Direction.UP),
                             "vanilla now lets pistons move bedrock; the same applies to the bedrock case");
+
+                    // --- the premise behind the stonecutter case ---
+                    // The upper bound on the factor is 15 * hardness / signal, so it is worth
+                    // exactly as much as this hardness is. Soften the stonecutter and the window
+                    // this test claims to measure has silently moved.
+                    helper.assertValueEqual(
+                            Blocks.STONECUTTER.defaultBlockState().getDestroySpeed(level, probe),
+                            3.5F,
+                            "vanilla's stonecutter hardness, which is what caps the breaking factor "
+                                    + "at 15 * 3.5 / 1 = 52.5");
                 })
                 .thenExecuteAfter(20, () -> {
                     // --- signal 15, hardness 50: broken, with its drop ---
@@ -364,6 +396,13 @@ public final class GravityBlockTests {
                     helper.assertBlockPresent(Blocks.PISTON_HEAD, weakOnStone.above());
                     helper.assertBlockNotPresent(Blocks.STONE, weakOnStone.above(2));
                     helper.assertItemEntityPresent(Items.COBBLESTONE, weakOnStone.above(), 2.0D);
+
+                    // --- signal 1, hardness 3.5: just above the threshold of 3.33, so pushed ---
+                    // The factor would have to be 52.5 or more for this one to break, which is what
+                    // stops the whole formula from drifting upwards behind the two netherite cases.
+                    helper.assertBlockProperty(faintOnStonecutter, PistonBaseBlock.EXTENDED, Boolean.TRUE);
+                    helper.assertBlockPresent(Blocks.PISTON_HEAD, faintOnStonecutter.above());
+                    helper.assertBlockPresent(Blocks.STONECUTTER, faintOnStonecutter.above(2));
 
                     // --- what the breaker never gets to see ---
                     helper.assertBlockPresent(Blocks.OBSIDIAN, fullOnObsidian.above());
@@ -690,6 +729,23 @@ public final class GravityBlockTests {
      *       proves it was a live detector in phase one and not decoration.</li>
      * </ul>
      *
+     * <p><b>A second column, for what "free" means.</b> Stone and air answer
+     * {@code FallingBlock.isFree} and a plain {@code isAir()} the same way, so a room that only
+     * ever puts one of those two above a levitating block cannot tell the two apart: the guard
+     * could be narrowed to {@code isAir()} and every column above would still behave. The second
+     * column therefore starts under a structure void - not air, but replaceable, so vanilla counts
+     * it as free - and that block has to lift off all the same. Both halves of the distinction are
+     * asserted on the lid itself before its column is judged, so a vanilla change to either answer
+     * shows up as a rig failure rather than as a silent pass. A structure void is used because it
+     * is the only "free" state that neither collides (a snow layer would stop the entity dead
+     * against the cell it is trying to leave), nor needs something to sit on (short grass wants
+     * dirt below it), nor spreads or burns out (water and fire do both).
+     *
+     * <p>The column pins the {@code isFree} in {@code LevitatingBlock#tick} only. The second call,
+     * {@code wouldContinueRising} in {@code LevitatingBlockEntity}, would need a lid that is free
+     * <em>and</em> collides - a snow layer - and the entity would then have to be watched for not
+     * settling; that one stays uncovered.
+     *
      * <p><b>Why a torch and not just "the block is still there".</b> Deleting the
      * {@code FallingBlock.isFree(above)} guard in {@code LevitatingBlock#tick} leaves no trace at
      * the end of a tick. Scheduled block ticks run before the entity list - {@code ServerLevel#tick}
@@ -704,8 +760,9 @@ public final class GravityBlockTests {
      * the shape update that follows breaks a torch whose support has vanished - once, for good.
      *
      * <p>What breaks this test: removing the free-space check (phase one loses its torch within
-     * two ticks), and removing the {@code tickView.scheduleTick} from {@code updateShape} (phase
-     * two never lifts off and runs into the tick budget).
+     * two ticks), narrowing it from {@code FallingBlock.isFree} to a bare {@code isAir()} (the
+     * second column never leaves the ground), and removing the {@code tickView.scheduleTick} from
+     * {@code updateShape} (phase two never lifts off and runs into the tick budget).
      */
     public static void levitatingSandWaitsUnderTheCeilingUntilTheWayUpIsFree(GameTestHelper helper) {
         BlockPos start = new BlockPos(1, 1, 1);
@@ -714,10 +771,21 @@ public final class GravityBlockTests {
         BlockPos roof = new BlockPos(1, 6, 1);
         BlockPos landing = roof.below();
 
+        BlockPos porousStart = new BlockPos(5, 1, 1);
+        BlockPos porousLid = porousStart.above();
+        BlockPos porousRoof = new BlockPos(5, 4, 1);
+        BlockPos porousLanding = porousRoof.below();
+
         helper.setBlock(new BlockPos(1, 0, 1), Blocks.STONE);
         helper.setBlock(roof, Blocks.STONE);
         helper.setBlock(lid, Blocks.STONE);
         helper.setBlock(start, ModBlocks.LEVITATING_SAND);
+
+        // The second column: a lid that is not air but that vanilla still calls free.
+        helper.setBlock(new BlockPos(5, 0, 1), Blocks.STONE);
+        helper.setBlock(porousRoof, Blocks.STONE);
+        helper.setBlock(porousLid, Blocks.STRUCTURE_VOID);
+        helper.setBlock(porousStart, ModBlocks.LEVITATING_SAND);
 
         // Hangs on the levitating block itself: FACING=EAST means the cell to its west carries it.
         helper.setBlock(tell, Blocks.WALL_TORCH.defaultBlockState()
@@ -734,6 +802,19 @@ public final class GravityBlockTests {
                     helper.assertTrue(flying.isEmpty(),
                             "a levitating block with a solid block directly above it must not lift "
                                     + "off, but " + flying.size() + " entity/entities exist");
+
+                    // The second column, and first the two halves that make it mean anything: the
+                    // lid has to be a state that answers isFree and isAir DIFFERENTLY, or it cannot
+                    // separate the guard the mod uses from the narrower one it could be shrunk to.
+                    BlockState porous = helper.getBlockState(porousLid);
+                    helper.assertFalse(porous.isAir(),
+                            "the second column's lid counts as air, so it can no longer tell "
+                                    + "FallingBlock.isFree apart from a bare isAir() check");
+                    helper.assertTrue(FallingBlock.isFree(porous),
+                            "vanilla no longer counts the second column's lid as free, so that "
+                                    + "column is not expected to rise and proves nothing");
+                    helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, porousStart);
+                    helper.assertBlockPresent(ModBlocks.LEVITATING_SAND, porousLanding);
 
                     // Take the lid away; nothing but updateShape can notice.
                     helper.setBlock(lid, Blocks.AIR);
@@ -979,8 +1060,14 @@ public final class GravityBlockTests {
      * <p>The tag half is a real datapack lookup, so it also proves the generated
      * {@code mineable/pickaxe} JSON is inside the jar and loaded. Levitating sand is the negative
      * control: the lookup has to be able to say no, and sand has no business being pickaxe
-     * mineable. (What it is <em>not</em> saying is that the gravity blocks should be in no tool tag
-     * at all - see defect 6.)
+     * mineable.
+     *
+     * <p>All four gravity blocks are then read out of both tool tags, which is the marker for
+     * defect 6 - the shovel bonus their vanilla originals have is gone, and nothing but this pair
+     * of lines would notice it coming back or the pickaxe list growing a gravel entry. Vanilla sand
+     * and gravel are asserted to <em>be</em> shovel mineable first, because a
+     * {@code mineable/shovel} lookup that answered no to everything would otherwise make the four
+     * negatives below pass without meaning anything.
      *
      * <p>The strength half reads the same {@code getDestroySpeed} the breaker test compares its
      * threshold against, and the explosion resistance next to it. A vanilla piston is measured in
@@ -992,8 +1079,9 @@ public final class GravityBlockTests {
      * and the reinforced piston must carry none.
      *
      * <p>What breaks this test: removing a block from the tag provider or failing to regenerate the
-     * data, changing either {@code strength(...)} call, and dropping {@code fireResistant()} from
-     * the netherite piston item.
+     * data, adding one of the four gravity blocks to {@code mineable/pickaxe} or to a
+     * {@code mineable/shovel} tag, changing either {@code strength(...)} call, and dropping
+     * {@code fireResistant()} from the netherite piston item.
      */
     public static void gravityBlocksAndPistonsCarryTheirRegisteredStrengthAndTags(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -1006,6 +1094,17 @@ public final class GravityBlockTests {
         assertPickaxeMineable(helper, ModBlocks.NETHERITE_PISTON_HEAD, true);
         assertPickaxeMineable(helper, ModBlocks.LEVITATING_SAND, false);
         assertPickaxeMineable(helper, ModBlocks.SUSPENDED_SAND, false);
+        assertPickaxeMineable(helper, ModBlocks.LEVITATING_GRAVEL, false);
+        assertPickaxeMineable(helper, ModBlocks.SUSPENDED_GRAVEL, false);
+
+        // --- the shovel tag the four gravity blocks are missing from; see defect 6 ---
+        // The two vanilla lines are the proof that the lookup can say yes at all.
+        assertShovelMineable(helper, Blocks.SAND, true);
+        assertShovelMineable(helper, Blocks.GRAVEL, true);
+        assertShovelMineable(helper, ModBlocks.LEVITATING_SAND, false);
+        assertShovelMineable(helper, ModBlocks.SUSPENDED_SAND, false);
+        assertShovelMineable(helper, ModBlocks.LEVITATING_GRAVEL, false);
+        assertShovelMineable(helper, ModBlocks.SUSPENDED_GRAVEL, false);
 
         // --- strength, measured through the state, against vanilla's piston ---
         float vanillaSpeed = Blocks.PISTON.defaultBlockState().getDestroySpeed(level, absoluteProbe);
@@ -1071,8 +1170,23 @@ public final class GravityBlockTests {
      * items, and neither the pattern nor the x mirror vanilla accepts alongside it, so a match
      * there would mean the shape is not being checked at all.
      *
+     * <p><b>Every recipe gets a rearranged grid as well</b>, because driving only the documented
+     * layout says nothing about the recipe still being shaped: switching a JSON to
+     * {@code crafting_shapeless} keeps the id, the result and the count, and the documented grid
+     * goes on matching. What the counter grid has to avoid is the x mirror, which
+     * {@code ShapedRecipePattern#matches} accepts alongside the pattern itself - so the netherite
+     * piston's nugget moves to the <em>bottom</em> left rather than to the top right. The coating
+     * ring is invariant under every rotation and mirror there is, so for those four the only grid
+     * that can separate shaped from shapeless is the one with the material out of the middle.
+     *
+     * <p><b>And one grid of red sand</b>, which is what a widened ingredient looks like: turning
+     * {@code "B": "minecraft:sand"} into {@code "#minecraft:sand"} lets red sand craft suspended
+     * and levitating sand, and every assertion above stays green because none of them ever offers
+     * an ingredient the recipe is supposed to refuse.
+     *
      * <p>What breaks this test: any edit to the six generated recipe JSONs - a different pattern, a
-     * swapped ingredient, another count - and any of them failing to load.
+     * swapped or widened ingredient, another count, another recipe type - and any of them failing
+     * to load.
      */
     public static void gravityBlockRecipesCraftFromTheirDocumentedPatterns(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -1103,6 +1217,17 @@ public final class GravityBlockTests {
         assertCrafts(helper, level, bulk, "simplebuilding:netherite_piston_bulk",
                 ModItems.NETHERITE_PISTON, 3);
 
+        // The same four items with the nugget in the BOTTOM left. "RN"/"RR" would still match,
+        // because a shaped recipe is tried against its x mirror too; this one is neither the
+        // pattern nor its mirror, and only a shapeless copy of the recipe would take it.
+        CraftingInput bulkShuffled = CraftingInput.of(2, 2, List.of(
+                new ItemStack(ModItems.REINFORCED_PISTON), new ItemStack(ModItems.REINFORCED_PISTON),
+                new ItemStack(ModItems.NETHERITE_NUGGET), new ItemStack(ModItems.REINFORCED_PISTON)));
+        assertMatchesNothing(helper, level, bulkShuffled,
+                "the netherite piston pattern with the nugget moved to the bottom left crafts "
+                        + "something too, so netherite_piston_bulk is not the shaped NR/RR the "
+                        + "data declares");
+
         // "BBB" / "BMB" / "BBB", eight of the coated block per craft.
         assertCoating(helper, level, Items.SAND, ModItems.NIHILITH_SHARD,
                 "simplebuilding:suspended_sand", ModBlocks.SUSPENDED_SAND.asItem());
@@ -1112,6 +1237,16 @@ public final class GravityBlockTests {
                 "simplebuilding:levitating_sand", ModBlocks.LEVITATING_SAND.asItem());
         assertCoating(helper, level, Items.GRAVEL, ModItems.ASTRALIT_DUST,
                 "simplebuilding:levitating_gravel", ModBlocks.LEVITATING_GRAVEL.asItem());
+
+        // Red sand stands in for the whole #minecraft:sand tag. It is the one ingredient that
+        // separates "the key names the block" from "the key names the tag the block is in", and
+        // nothing above can see the difference because nothing above offers a wrong ingredient.
+        assertMatchesNothing(helper, level, coatingGrid(Items.RED_SAND, ModItems.NIHILITH_SHARD),
+                "red sand crafts suspended sand, so the recipe's B key has been widened from "
+                        + "minecraft:sand to a tag");
+        assertMatchesNothing(helper, level, coatingGrid(Items.RED_SAND, ModItems.ASTRALIT_DUST),
+                "red sand crafts levitating sand, so the recipe's B key has been widened from "
+                        + "minecraft:sand to a tag");
 
         helper.succeed();
     }
@@ -1160,6 +1295,31 @@ public final class GravityBlockTests {
         helper.setBlock(pistonPos.west(3), Blocks.REDSTONE_BLOCK);
         helper.setBlock(pistonPos.west(2), Blocks.REDSTONE_WIRE);
         helper.setBlock(pistonPos.west(), Blocks.REDSTONE_WIRE);
+    }
+
+    /**
+     * A signal of exactly 1 at the piston: a comparator in compare mode reading a composter that
+     * is filled one level, since {@code ComposterBlock#getAnalogOutputSignal} hands out the fill
+     * level unchanged.
+     *
+     * <p>A dust line would need fifteen steps to walk 15 down to 1, which does not fit into this
+     * room next to the other four rigs without running dust past a piston that must stay unpowered.
+     * Two blocks do.
+     *
+     * <p>{@code FACING} on a comparator points at its <em>input</em> - {@code DiodeBlock} reads
+     * {@code pos.relative(FACING)} and answers {@code getSignal} only for that same direction, and
+     * a west neighbour is asked for its signal with {@code WEST} - so a comparator west of the
+     * piston with the composter behind it faces west.
+     *
+     * <p>The comparator goes down first and the composter second on purpose: a comparator does not
+     * schedule its own tick when it is placed, it only reacts to a neighbour changing, so the
+     * composter has to be the later of the two or the comparator never turns on.
+     */
+    private static void buildFaintSignalLine(GameTestHelper helper, BlockPos pistonPos) {
+        helper.setBlock(pistonPos.west(), Blocks.COMPARATOR.defaultBlockState()
+                .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST));
+        helper.setBlock(pistonPos.west(2), Blocks.COMPOSTER.defaultBlockState()
+                .setValue(BlockStateProperties.LEVEL_COMPOSTER, 1));
     }
 
     /**
@@ -1234,6 +1394,12 @@ public final class GravityBlockTests {
                 block.getName().getString() + " in minecraft:mineable/pickaxe");
     }
 
+    private static void assertShovelMineable(GameTestHelper helper, Block block, boolean expected) {
+        boolean actual = block.defaultBlockState().is(BlockTags.MINEABLE_WITH_SHOVEL);
+        helper.assertValueEqual(actual, expected,
+                block.getName().getString() + " in minecraft:mineable/shovel");
+    }
+
     /** A 3x3 crafting grid, row by row; {@code null} stands for an empty slot. */
     private static CraftingInput grid3x3(Item... items) {
         return CraftingInput.of(3, 3, List.of(
@@ -1246,13 +1412,40 @@ public final class GravityBlockTests {
         return item == null ? ItemStack.EMPTY : new ItemStack(item);
     }
 
-    private static void assertCoating(GameTestHelper helper, ServerLevel level, Item base, Item material,
-                                      String recipeId, Item expected) {
-        CraftingInput grid = grid3x3(
+    /** The documented {@code BBB / BMB / BBB} ring: eight of the base around one of the material. */
+    private static CraftingInput coatingGrid(Item base, Item material) {
+        return grid3x3(
                 base, base, base,
                 base, material, base,
                 base, base, base);
-        assertCrafts(helper, level, grid, recipeId, expected, 8);
+    }
+
+    private static void assertCoating(GameTestHelper helper, ServerLevel level, Item base, Item material,
+                                      String recipeId, Item expected) {
+        assertCrafts(helper, level, coatingGrid(base, material), recipeId, expected, 8);
+
+        // The ring survives every rotation and every mirror unchanged, so a turned grid could never
+        // tell this recipe apart from a shapeless one with the same nine items. Moving the material
+        // out of the middle can: a shaped recipe refuses it, a shapeless one does not.
+        CraftingInput cornered = grid3x3(
+                material, base, base,
+                base, base, base,
+                base, base, base);
+        assertMatchesNothing(helper, level, cornered,
+                recipeId + " crafts with the material in a corner as well, so it is not the shaped "
+                        + "BBB/BMB/BBB the data declares");
+    }
+
+    /**
+     * The counterpart to {@link #assertCrafts}: this grid must reach no recipe at all. Used for the
+     * rearranged patterns and for the ingredient a recipe is supposed to refuse.
+     */
+    private static void assertMatchesNothing(GameTestHelper helper, ServerLevel level,
+                                             CraftingInput grid, String message) {
+        helper.assertTrue(
+                level.getServer().getRecipeManager()
+                        .getRecipeFor(RecipeType.CRAFTING, grid, level).isEmpty(),
+                message);
     }
 
     private static void assertCrafts(GameTestHelper helper, ServerLevel level, CraftingInput grid,

@@ -2,6 +2,7 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.config.SimplebuildingConfig;
+import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.loot.ModLootTableModifications;
@@ -10,8 +11,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -25,9 +28,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -66,12 +74,62 @@ public final class ConfigOptionTests {
     /** Fully qualified name of Cloth Config's {@code @Config}; read reflectively, see below. */
     private static final String CONFIG_ANNOTATION = "me.shedaniel.autoconfig.annotation.Config";
 
-    /** Vanilla loot tables the mod hands pools to. */
+    /**
+     * Every vanilla loot table the mod hands pools to - all sixteen keys
+     * {@code ModLootTableModifications.apply} names, not a sample of them.
+     *
+     * <p>The list has to be complete, because it is what both halves of
+     * {@link #lootTableChangesStopWhenTheOptionIsSwitchedOff} walk. A table missing from here is a
+     * table whose block could be moved above the config guard - or grow a book nobody wanted -
+     * without anything going red.
+     */
     private static final List<ResourceKey<LootTable>> MODIFIED_TABLES = List.of(
             BuiltInLootTables.STRONGHOLD_LIBRARY,
             BuiltInLootTables.END_CITY_TREASURE,
             BuiltInLootTables.ANCIENT_CITY,
-            BuiltInLootTables.BASTION_TREASURE);
+            BuiltInLootTables.BASTION_TREASURE,
+            BuiltInLootTables.BASTION_OTHER,
+            BuiltInLootTables.NETHER_BRIDGE,
+            BuiltInLootTables.PILLAGER_OUTPOST,
+            BuiltInLootTables.WOODLAND_MANSION,
+            BuiltInLootTables.BURIED_TREASURE,
+            BuiltInLootTables.SIMPLE_DUNGEON,
+            BuiltInLootTables.SHIPWRECK_TREASURE,
+            BuiltInLootTables.IGLOO_CHEST,
+            BuiltInLootTables.ABANDONED_MINESHAFT,
+            BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON,
+            BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE,
+            BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS);
+
+    /** Separator between an enchantment id and its level in a rolled book entry. */
+    private static final String BOOK_MARKER = "@";
+
+    /**
+     * The enchantments the mod deliberately gives no chest at all: Drawer and Kinetic Protection
+     * are meant to be reachable from the creative inventory and nowhere else, so no mod loot pool
+     * may ever hand out a book for them.
+     *
+     * <p>This is the one thing about the loot tables that cannot be pinned by listing something,
+     * because it is a statement about what is absent. Adding one {@code .add(enchantedBook(...))}
+     * line for either of them turns them into chest enchantments and leaves the pool counts and the
+     * config switch exactly where they were, so it is checked against what the pools actually roll.
+     */
+    private static final Set<String> ENCHANTMENTS_WITHOUT_A_CHEST = Set.of(
+            ModEnchantments.DRAWER.identifier().toString(),
+            ModEnchantments.KINETIC_PROTECTION.identifier().toString());
+
+    /**
+     * How often each recorded pool is rolled when looking for a book that must not be there.
+     *
+     * <p>The check below only ever asks whether something showed up, so the number is a floor on
+     * how rare an unwanted entry may be and still be caught: the thinnest entry these pools carry
+     * is one weight in about a hundred, drawn up to twice a roll, which this many draws finds many
+     * times over.
+     */
+    private static final int POOL_ROLLS = 2048;
+
+    /** Seed for the loot rolls, so a failure is reproducible instead of a coin flip. */
+    private static final long POOL_ROLL_SEED = 20260904L;
 
     /** Vanilla loot tables the mod must never touch - the control group for the recorder. */
     private static final List<ResourceKey<LootTable>> UNTOUCHED_TABLES = List.of(
@@ -171,16 +229,27 @@ public final class ConfigOptionTests {
      * long happened by the time a gametest runs, so the test drives that entry point directly with
      * a recording editor instead of reloading the world.
      *
-     * <p>Four tables are driven rather than one, and the end city is checked on both editor paths.
-     * That is what separates "the guard is gone" from "the guard moved into one branch": a gate
-     * that only still covers the stronghold would let the end city, ancient city and bastion pools
-     * through and fail here. The two vanilla tables the mod never touches are recorded in the
-     * switched-on state and have to come back empty - they prove the recorder reports zero when
-     * nothing is added, so the switched-off half cannot pass merely because the recorder broke.
+     * <p>All sixteen tables are driven rather than a sample, and the end city is checked on both
+     * editor paths. That is what separates "the guard is gone" from "the guard moved into one
+     * branch": a gate that only still covered the stronghold would let the end city, ancient city
+     * and bastion pools through and fail here. The two vanilla tables the mod never touches are
+     * recorded in the switched-on state and have to come back empty - they prove the recorder
+     * reports zero when nothing is added, so the switched-off half cannot pass merely because the
+     * recorder broke.
+     *
+     * <p>Counting pools is only half the promise, though: a pool that grew an entry is still one
+     * pool. {@link #ENCHANTMENTS_WITHOUT_A_CHEST} names the two enchantments the mod documents as
+     * having no chest anywhere, and every recorded pool is <em>rolled</em> to make sure none of
+     * them comes out. Adding a book for one of them moves nothing else here - the counts and the
+     * switch stay as they are - while it decides whether the enchantment can be found in the world
+     * at all. (The 26.2 copy of this class goes further and holds every table to the full list of
+     * what it may and must hand out; that list is written down there, next to the tables it
+     * describes.)
      *
      * <p>What breaks it: deleting the guard, so a player who switched the mod's loot off finds mod
-     * books in a stronghold library anyway; moving the guard inside one of the branches; or a
-     * table quietly losing its pools while the option is on.
+     * books in a stronghold library anyway; moving the guard inside one of the branches; a table
+     * quietly losing its pools while the option is on; or a pool growing a Drawer or Kinetic
+     * Protection book, which would make a creative-only enchantment findable.
      */
     public static void lootTableChangesStopWhenTheOptionIsSwitchedOff(GameTestHelper helper) {
         SimplebuildingConfig config = liveConfig(helper);
@@ -208,6 +277,24 @@ public final class ConfigOptionTests {
                 Assertions.valueEqual(helper, recordPools(key, registries).total(), 0,
                         "pools added to " + tableName(key) + ", a table the mod does not touch");
             }
+
+            // --- and what is in those pools, rolled out of them for real ---
+            List<String> stray = new ArrayList<>();
+            for (ResourceKey<LootTable> key : MODIFIED_TABLES) {
+                for (String entry : rolledBooks(helper, recordPools(key, registries))) {
+                    String banned = bannedEnchantment(entry);
+                    if (banned != null) {
+                        stray.add(tableName(key) + " handed out a " + banned + " book (" + entry
+                                + ") in " + POOL_ROLLS + " rolls");
+                    }
+                }
+            }
+            helper.assertTrue(stray.isEmpty(),
+                    "a mod loot pool hands out an enchantment the mod documents as having no source "
+                            + "outside the creative inventory. Adding that book moves nothing else "
+                            + "this test watches - the pool counts and the config switch stay as they "
+                            + "are - while it turns a creative-only enchantment into a chest find:\n"
+                            + String.join("\n", stray));
 
             // --- switched off: nothing at all, on either path ---
             setLootTableChanges(helper, false);
@@ -522,19 +609,71 @@ public final class ConfigOptionTests {
         return "the loot table " + key.identifier();
     }
 
-    /** Counts the pools the mod offers, keeping the two editor paths apart. */
+    /**
+     * Every enchantment one table's mod pools can put on an enchanted book, as
+     * {@code <enchantment id>@<level>}.
+     *
+     * <p>Rolling rather than reading: {@code LootPool} keeps its entries private, and going through
+     * {@code addRandomItems} is what a chest does anyway - it covers the entry, its
+     * {@code set_components} function and the level inside that component in one step. The seed is
+     * fixed and the context is rebuilt per table, so the same pool always produces the same answer
+     * here, on every machine. Only the {@code enchantedBook(...)} entries carry stored
+     * enchantments - the randomly enchanted tools and quivers in these pools write the ordinary
+     * enchantment component instead - so this reads exactly the book entries.
+     */
+    private static Set<String> rolledBooks(GameTestHelper helper, PoolRecorder recorder) {
+        LootParams params = new LootParams.Builder(helper.getLevel()).create(LootContextParamSets.EMPTY);
+        LootContext context = new LootContext.Builder(params)
+                .withOptionalRandomSeed(POOL_ROLL_SEED)
+                .create(Optional.empty());
+
+        Set<String> seen = new TreeSet<>();
+        for (LootPool pool : recorder.pools) {
+            for (int roll = 0; roll < POOL_ROLLS; roll++) {
+                pool.addRandomItems(stack -> {
+                    ItemEnchantments stored = stack.getOrDefault(
+                            DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY);
+                    for (Holder<Enchantment> enchantment : stored.keySet()) {
+                        seen.add(enchantment.getRegisteredName() + BOOK_MARKER + stored.getLevel(enchantment));
+                    }
+                }, context);
+            }
+        }
+        return seen;
+    }
+
+    /**
+     * The banned enchantment behind an {@code <enchantment id>@<level>} entry, or {@code null} if
+     * the enchantment is one a chest is allowed to hand out.
+     */
+    private static String bannedEnchantment(String entry) {
+        int marker = entry.indexOf(BOOK_MARKER);
+        if (marker < 0) {
+            return null;
+        }
+        String enchantment = entry.substring(0, marker);
+        return ENCHANTMENTS_WITHOUT_A_CHEST.contains(enchantment) ? enchantment : null;
+    }
+
+    /**
+     * Counts the pools the mod offers, keeping the two editor paths apart, and keeps them so their
+     * contents can be rolled afterwards.
+     */
     private static final class PoolRecorder implements ModLootTableModifications.Editor {
+        private final List<LootPool> pools = new ArrayList<>();
         private int builders;
         private int built;
 
         @Override
         public void addPool(LootPool.Builder pool) {
             this.builders++;
+            this.pools.add(pool.build());
         }
 
         @Override
         public void addBuiltPool(LootPool pool) {
             this.built++;
+            this.pools.add(pool);
         }
 
         int total() {

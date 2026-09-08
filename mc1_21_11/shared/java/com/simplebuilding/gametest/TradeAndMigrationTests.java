@@ -13,10 +13,12 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -27,10 +29,14 @@ import net.minecraft.world.entity.npc.villager.VillagerData;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.item.trading.MerchantOffer;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -63,6 +69,78 @@ public final class TradeAndMigrationTests {
 
     /** Fixed seed so an offer built here matches the offer built from the registered listing. */
     private static final long OFFER_SEED = 20260828L;
+
+    /**
+     * The one inventory slot no {@link InventoryMenu} slot points at: body armour sits at container
+     * index 41, the menu stops after the off hand at 40. Every other slot a spatula could be in is
+     * reachable from both loops of {@code LegacySpatulaMigration#migratePlayer}, so only a stack
+     * here says whether the inventory loop walks the whole container - see
+     * {@link #legacySpatulasInPlayerInventoryBecomeChisels}.
+     */
+    private static final int SLOT_OUTSIDE_THE_MENU = Inventory.SLOT_BODY_ARMOR;
+
+    /**
+     * Absolute height of the probe entity in {@link #legacySpatulaItemEntityIsRewrittenInPlace} -
+     * the only thing in this file standing in the upper half of the migration's scan box.
+     */
+    private static final int PROBE_Y = 60;
+
+    /**
+     * How often {@link #assertEveryDeclaredEnchantmentIsDrawn} re-rolls each enchanted trade. Sized
+     * for the rarest entry the table declares, the master book's {@code range@3} at weight 3 of 120;
+     * {@code TradeOfferTests} uses the same number for its master book statistics.
+     */
+    private static final int ENCHANT_ROLLS = 1000;
+
+    /** {@code toolsmith/3} chisels - {@code chiselPool()} in {@link ModTradeDefinitions}. */
+    private static final Set<String> CHISEL_ENCHANT_POOL = Set.of(
+            "simplebuilding:fast_chiseling@1",
+            "simplebuilding:fast_chiseling@2");
+
+    /** Both {@code toolsmith/4} sledgehammers - {@code sledgehammerEntries()}. */
+    private static final Set<String> SLEDGEHAMMER_ENCHANT_POOL = Set.of(
+            "simplebuilding:break_through@1",
+            "simplebuilding:override@1",
+            "simplebuilding:range@1",
+            "minecraft:unbreaking@2",
+            "minecraft:efficiency@3");
+
+    /** {@code librarian/3/emerald_building_book}. */
+    private static final Set<String> BUILDING_BOOK_POOL = Set.of(
+            "simplebuilding:color_palette@1",
+            "simplebuilding:fast_chiseling@1",
+            "simplebuilding:linear@1");
+
+    /** {@code librarian/4/emerald_advanced_book}. */
+    private static final Set<String> ADVANCED_BOOK_POOL = Set.of(
+            "simplebuilding:linear@1",
+            "simplebuilding:override@1");
+
+    /** {@code librarian/5/emerald_master_book} - the only place Master Builder is sold. */
+    private static final Set<String> MASTER_BOOK_POOL = Set.of(
+            "simplebuilding:master_builder@1",
+            "simplebuilding:range@1",
+            "simplebuilding:range@2",
+            "simplebuilding:range@3",
+            "simplebuilding:funnel@1",
+            "simplebuilding:strip_miner@1",
+            "simplebuilding:strip_miner@2",
+            "simplebuilding:strip_miner@3",
+            "simplebuilding:vein_miner@1",
+            "simplebuilding:vein_miner@2",
+            "simplebuilding:vein_miner@3");
+
+    /** {@code toolsmith/5/emerald_mining_pickaxe}. */
+    private static final Set<String> MINING_PICKAXE_POOL = Set.of(
+            "simplebuilding:strip_miner@1",
+            "simplebuilding:strip_miner@2",
+            "simplebuilding:strip_miner@3",
+            "simplebuilding:vein_miner@1",
+            "simplebuilding:vein_miner@2",
+            "simplebuilding:vein_miner@3");
+
+    /** {@code wandering_trader/emerald_wand_book} - the only place Radius is sold. */
+    private static final Set<String> WAND_BOOK_POOL = Set.of("simplebuilding:radius@1");
 
     /**
      * Index of each mod pool inside {@code VillagerTrades.WANDERING_TRADER_TRADES}.
@@ -201,6 +279,23 @@ public final class TradeAndMigrationTests {
      * Turns three trade definitions into actual {@link MerchantOffer}s and checks the numbers:
      * wanted item + count, optional second cost, given item + count, max uses and xp. This is what
      * a player would see in the trade GUI, and the same three trades the 26.2 line pins down.
+     *
+     * <p>It then rolls every enchanted trade of the table {@link #ENCHANT_ROLLS} times and asserts
+     * the draws in both directions: nothing outside the pool this file declares may come out, and
+     * everything it declares has to come out at least once. The literal pools here are the point -
+     * comparing what a trade hands out against {@link ModTradeDefinitions}' own pool would compare
+     * the table with itself and hold for any edit to it. A single offer per trade states neither
+     * direction: an entry <em>added</em> to a pool is drawn far too rarely to be seen (one offer in
+     * twenty-one for the wandering trader's book), and an entry <em>deleted</em> from one cannot be
+     * seen at all, because what is left is still a subset of what is declared. Both edits leave
+     * every other number of the trade alone, so nothing else in this suite moves either.
+     *
+     * <p>All rolls share one {@link net.minecraft.util.RandomSource}, which moves on with every
+     * offer: one long but completely fixed sequence of draws, so this cannot be red on one run and
+     * green on the next. A run of consecutive seeds would be reproducible too, but a fresh
+     * {@code LegacyRandomSource} per seed walks its first draw in near constant steps, which is the
+     * kind of sample that can miss a low weight entry for reasons that have nothing to do with the
+     * pool.
      */
     public static void tradeDefinitionsProduceTheExpectedOffers(GameTestHelper helper) {
         Villager villager = helper.spawnWithNoFreeWill(EntityType.VILLAGER, new BlockPos(1, 2, 1));
@@ -227,6 +322,40 @@ public final class TradeAndMigrationTests {
         helper.assertTrue(sledgehammer.getCostB().is(net.minecraft.world.item.Items.IRON_PICKAXE),
                 "toolsmith/4/emerald_iron_sledgehammer second cost should be an iron pickaxe, was "
                         + sledgehammer.getCostB());
+
+        // And the enchantment every one of those results is supposed to carry - the half of a trade
+        // that looks the same from the outside whether it works or not.
+        RandomSource rolls = RandomSource.create(OFFER_SEED);
+        assertEveryDeclaredEnchantmentIsDrawn(helper, villager, rolls, "librarian/3/emerald_building_book",
+                villagerTrade(helper, VillagerProfession.LIBRARIAN, 3,
+                        net.minecraft.world.item.Items.ENCHANTED_BOOK), BUILDING_BOOK_POOL);
+        assertEveryDeclaredEnchantmentIsDrawn(helper, villager, rolls, "librarian/4/emerald_advanced_book",
+                villagerTrade(helper, VillagerProfession.LIBRARIAN, 4,
+                        net.minecraft.world.item.Items.ENCHANTED_BOOK), ADVANCED_BOOK_POOL);
+        assertEveryDeclaredEnchantmentIsDrawn(helper, villager, rolls, "librarian/5/emerald_master_book",
+                villagerTrade(helper, VillagerProfession.LIBRARIAN, 5,
+                        net.minecraft.world.item.Items.ENCHANTED_BOOK), MASTER_BOOK_POOL);
+        assertEveryDeclaredEnchantmentIsDrawn(helper, villager, rolls, "toolsmith/3/emerald_iron_chisel",
+                villagerTrade(helper, VillagerProfession.TOOLSMITH, 3, ModItems.IRON_CHISEL),
+                CHISEL_ENCHANT_POOL);
+        assertEveryDeclaredEnchantmentIsDrawn(helper, villager, rolls, "toolsmith/3/emerald_copper_chisel",
+                villagerTrade(helper, VillagerProfession.TOOLSMITH, 3, ModItems.COPPER_CHISEL),
+                CHISEL_ENCHANT_POOL);
+        assertEveryDeclaredEnchantmentIsDrawn(helper, villager, rolls, "toolsmith/3/emerald_gold_chisel",
+                villagerTrade(helper, VillagerProfession.TOOLSMITH, 3, ModItems.GOLD_CHISEL),
+                CHISEL_ENCHANT_POOL);
+        assertEveryDeclaredEnchantmentIsDrawn(helper, villager, rolls, "toolsmith/4/emerald_diamond_sledgehammer",
+                villagerTrade(helper, VillagerProfession.TOOLSMITH, 4, ModItems.DIAMOND_SLEDGEHAMMER),
+                SLEDGEHAMMER_ENCHANT_POOL);
+        assertEveryDeclaredEnchantmentIsDrawn(helper, villager, rolls, "toolsmith/4/emerald_iron_sledgehammer",
+                villagerTrade(helper, VillagerProfession.TOOLSMITH, 4, ModItems.IRON_SLEDGEHAMMER),
+                SLEDGEHAMMER_ENCHANT_POOL);
+        assertEveryDeclaredEnchantmentIsDrawn(helper, villager, rolls, "toolsmith/5/emerald_mining_pickaxe",
+                villagerTrade(helper, VillagerProfession.TOOLSMITH, 5,
+                        net.minecraft.world.item.Items.DIAMOND_PICKAXE), MINING_PICKAXE_POOL);
+        assertEveryDeclaredEnchantmentIsDrawn(helper, villager, rolls, "wandering_trader/emerald_wand_book",
+                wanderingTrade(helper, WanderingTraderPool.UNCOMMON,
+                        net.minecraft.world.item.Items.ENCHANTED_BOOK), WAND_BOOK_POOL);
 
         helper.succeed();
     }
@@ -316,6 +445,12 @@ public final class TradeAndMigrationTests {
      * rewritten to the matching chisel, keeping the stack size and the component patch;
      * items that are not legacy spatulas must be left completely alone.
      *
+     * <p>"The inventory" means the whole container, not the hotbar: one stack is put in
+     * {@link #SLOT_OUTSIDE_THE_MENU}, the single container index the player's own menu has no slot
+     * for. Everything else here is in slots 0..8, and those the menu loop would convert on its own
+     * even if the inventory loop stopped after the hotbar - so they cannot say how far that loop
+     * runs, and a shortened loop stayed green on all of them.
+     *
      * <p>The mock player has to be a <em>connected</em> one: writing into the crafting grid makes
      * vanilla run {@code CraftingMenu#slotChangedCraftingGrid}, which unconditionally dereferences
      * {@code ServerPlayer#connection}. That matches production, where the migration only ever runs
@@ -348,6 +483,14 @@ public final class TradeAndMigrationTests {
         ItemStack menuSpatula = new ItemStack(ModItems.GOLD_SPATULA, 1);
         player.containerMenu.getSlot(InventoryMenu.CRAFT_SLOT_START).set(menuSpatula);
 
+        // And one the other way round: in the inventory but out of reach of the open menu. Every
+        // stack above sits in the hotbar, and migratePlayer walks the menu as well as the
+        // inventory - the player's own menu has a slot for all of 0..40, so those stacks would
+        // still be converted by the menu loop alone and say nothing about how far the inventory
+        // loop runs. Only a stack in a container slot no menu slot points at does.
+        ItemStack outsideTheMenu = new ItemStack(ModItems.IRON_SPATULA, 2);
+        player.getInventory().setItem(SLOT_OUTSIDE_THE_MENU, outsideTheMenu);
+
         LegacySpatulaMigration.migratePlayer(player);
 
         ItemStack migrated = player.getInventory().getItem(0);
@@ -379,6 +522,14 @@ public final class TradeAndMigrationTests {
                 "gold_spatula in the open menu should have become gold_chisel, was " + migratedMenuStack);
         Assertions.valueEqual(helper, migratedMenuStack.getCount(), 1, "migrated menu stack size");
 
+        ItemStack migratedOutsideTheMenu = player.getInventory().getItem(SLOT_OUTSIDE_THE_MENU);
+        helper.assertTrue(migratedOutsideTheMenu.is(ModItems.IRON_CHISEL),
+                "the spatula in inventory slot " + SLOT_OUTSIDE_THE_MENU + " is still "
+                        + migratedOutsideTheMenu + "; the inventory loop no longer walks the whole "
+                        + "container, and no menu slot covers that one for it");
+        Assertions.valueEqual(helper, migratedOutsideTheMenu.getCount(), 2,
+                "stack size of the migrated slot outside the menu");
+
         MockPlayers.remove(helper, player);
         helper.succeed();
     }
@@ -386,6 +537,12 @@ public final class TradeAndMigrationTests {
     /**
      * World-side migration: a loose spatula lying on the ground is rewritten in place, so the
      * same {@link ItemEntity} now carries the chisel with the original count and components.
+     *
+     * <p>The scan box the migration uses reaches from y=-64 to y=320, and a gametest structure
+     * stands far below y=0, so everything {@code spawnItem} puts down only ever exercises the lower
+     * half of that range - pulling the ceiling down to y=0 changed nothing here while it stopped the
+     * scan from finding any spatula lying on the surface. The third entity is therefore placed at
+     * y={@link #PROBE_Y} by hand.
      */
     public static void legacySpatulaItemEntityIsRewrittenInPlace(GameTestHelper helper) {
         // Two entities on purpose: the damage component only validates on a single item, so
@@ -401,11 +558,16 @@ public final class TradeAndMigrationTests {
 
         ItemEntity control = helper.spawnItem(net.minecraft.world.item.Items.STICK, new BlockPos(3, 2, 3));
 
+        // The one entity in the upper half of the scan box - see the method javadoc.
+        ItemEntity aboveSeaLevel = spawnAboveTheStructure(helper, new ItemStack(ModItems.GOLD_SPATULA, 1));
+
         helper.startSequence()
                 .thenIdle(2)
                 .thenExecute(() -> {
                     helper.assertTrue(damaged.isAlive(), "the dropped spatula entity vanished before migration");
                     helper.assertTrue(multiple.isAlive(), "the dropped spatula stack vanished before migration");
+                    helper.assertTrue(aboveSeaLevel.isAlive(),
+                            "the spatula above the test room vanished before migration");
                     LegacySpatulaMigration.migrateWorlds(helper.getLevel().getServer());
                 })
                 .thenExecute(() -> {
@@ -424,8 +586,18 @@ public final class TradeAndMigrationTests {
                     Assertions.valueEqual(helper, afterStack.getCount(), 3,
                             "item entity stack size of the multi item stack after migration");
 
+                    ItemStack afterAbove = aboveSeaLevel.getItem();
+                    helper.assertTrue(afterAbove.is(ModItems.GOLD_CHISEL),
+                            "the spatula at y=" + PROBE_Y + " still carries " + afterAbove
+                                    + "; the scan box no longer covers the height players build at, "
+                                    + "so every spatula above y=0 survives the migration untouched");
+
                     helper.assertTrue(control.getItem().is(net.minecraft.world.item.Items.STICK),
                             "an unrelated item entity must not be rewritten");
+
+                    // This line has no runBeforeTestEnd hook (see TestCleanup), and the probe
+                    // stands outside the structure, so the framework's own clean-up never sees it.
+                    aboveSeaLevel.discard();
                 })
                 .thenSucceed();
     }
@@ -433,6 +605,30 @@ public final class TradeAndMigrationTests {
     // ------------------------------------------------------------------
     // helpers
     // ------------------------------------------------------------------
+
+    /**
+     * Puts one item entity high above the test structure, in the half of the migration's scan box
+     * the gametest structures themselves never reach - they stand far below y=0, so every other
+     * entity in this file does too.
+     *
+     * <p>Gravity is switched off so it stays at {@link #PROBE_Y} for the two ticks the case needs
+     * instead of falling down through a neighbouring test's room. The position is derived from
+     * {@code absolutePos} rather than from a relative one, because which relative y lands above y=0
+     * depends on where the server happened to drop the structure.
+     */
+    private static ItemEntity spawnAboveTheStructure(GameTestHelper helper, ItemStack carried) {
+        ServerLevel level = helper.getLevel();
+        BlockPos anchor = helper.absolutePos(new BlockPos(1, 2, 1));
+        ItemEntity entity = new ItemEntity(level, anchor.getX() + 0.5, PROBE_Y, anchor.getZ() + 0.5, carried);
+        entity.setNoGravity(true);
+        helper.assertTrue(level.addFreshEntity(entity),
+                "the level refused the item entity above the test room, so this case would prove nothing");
+
+        helper.assertTrue(entity.getY() > 0.0,
+                "the probe has to stand above y=0 to say anything about the upper half of the scan "
+                        + "box; it is at y=" + entity.getY());
+        return entity;
+    }
 
     /**
      * Vanilla's optional "Trade Rebalance" experiment swaps the librarian pools for
@@ -478,6 +674,47 @@ public final class TradeAndMigrationTests {
             }
         }
         return keys;
+    }
+
+    /**
+     * Rolls one enchanted trade {@link #ENCHANT_ROLLS} times and asserts both directions of its
+     * pool: every {@code enchantment@level} a roll hands out is one this file declares, and every
+     * pair this file declares is handed out at least once. The first direction catches an entry
+     * added to the table, the second one an entry taken out of it - neither is visible in a single
+     * offer.
+     *
+     * <p>{@code random} is shared by every call, so the draws are one long deterministic walk
+     * instead of a set of first draws from freshly seeded generators.
+     */
+    private static void assertEveryDeclaredEnchantmentIsDrawn(GameTestHelper helper, Entity merchant,
+                                                              RandomSource random, String id,
+                                                              TradeDefinition trade, Set<String> pool) {
+        VillagerTrades.ItemListing listing = trade.toListing();
+        Set<String> drawn = new LinkedHashSet<>();
+
+        for (int roll = 0; roll < ENCHANT_ROLLS; roll++) {
+            MerchantOffer offer = listing.getOffer(helper.getLevel(), merchant, random);
+            helper.assertTrue(offer != null, id + ": produced no offer on roll " + roll);
+
+            ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(offer.getResult());
+            helper.assertTrue(!enchantments.isEmpty(),
+                    id + ": the merchant hands out an unenchanted " + offer.getResult().getItem()
+                            + "; its enchantment pool did nothing on roll " + roll);
+
+            for (Holder<Enchantment> enchantment : enchantments.keySet()) {
+                String pair = enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment);
+                helper.assertTrue(pool.contains(pair),
+                        id + ": the merchant put " + pair + " on the result, which is not one of the "
+                                + "enchantment/level pairs the trade declares (" + pool + ")");
+                drawn.add(pair);
+            }
+        }
+
+        Set<String> neverDrawn = new LinkedHashSet<>(pool);
+        neverDrawn.removeAll(drawn);
+        helper.assertTrue(neverDrawn.isEmpty(), id + ": " + neverDrawn + " never came out of "
+                + ENCHANT_ROLLS + " offers, so the trade stopped handing out what it declares "
+                + "(it drew " + drawn + ")");
     }
 
     private static OfferKey expectedKey(GameTestHelper helper, TradeDefinition trade, Entity merchant) {

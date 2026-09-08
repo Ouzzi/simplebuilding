@@ -48,6 +48,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.npc.villager.VillagerTrades;
@@ -132,10 +134,17 @@ import net.minecraft.world.phys.Vec3;
 public final class MiningEnchantmentTests {
 
     // --- Vein Miner budgets (test 1) -------------------------------------------------------
-    /** Corner of the 4x4 coal slab; every budget run starts here. */
+    /** Corner of the 5x4 coal slab; every budget run starts here. */
     private static final BlockPos SLAB_ORIGIN = new BlockPos(1, 1, 1);
-    /** The other fifteen blocks of the slab, all connected to {@link #SLAB_ORIGIN}. */
+    /** The other nineteen blocks of the slab, all connected to {@link #SLAB_ORIGIN}. */
     private static final List<BlockPos> SLAB_TAIL = slabTail();
+    /**
+     * What Vein Miner V may take beside the origin: the budget of 18 blocks the hook maps level
+     * five to, minus the origin vanilla breaks itself. The slab is deliberately larger than
+     * this, because a vein that runs out first turns the case into a lower bound only - the
+     * budget could then be lowered to the size of the vein without anything going red.
+     */
+    private static final int LEVEL_V_BUDGET = 17;
     /** A two block vein far away from the slab; breaking it costs exactly one block of wear. */
     private static final BlockPos PAIR_ORIGIN = new BlockPos(6, 5, 6);
     private static final BlockPos PAIR_NEIGHBOUR = new BlockPos(6, 5, 5);
@@ -197,6 +206,14 @@ public final class MiningEnchantmentTests {
     private static final String STORED_ENCHANTMENTS_KEY = "minecraft:stored_enchantments";
 
     /**
+     * How much mining efficiency
+     * {@link #stripMinerDividesThePlayerDestroySpeedPerLevel} hangs on its player. Chosen well
+     * above an iron pickaxe's 6.0 on stone, so a divisor that is folded in before the addition
+     * instead of after it misses the expected speed by a wide margin and not by rounding.
+     */
+    private static final double MINING_EFFICIENCY_BONUS = 12.0;
+
+    /**
      * Fixed seeds the mining pickaxe trade is rolled with. Large enough that every declared pool
      * entry is reached with room to spare - see
      * {@link #miningPickaxeTradeAlwaysCarriesAnEnchantmentFromItsPool} for the measured counts.
@@ -217,9 +234,16 @@ public final class MiningEnchantmentTests {
      * <p>{@code VeinMinerUsageEvent} maps level 1..5 to a budget of 3/6/9/12/18 blocks
      * <em>including</em> the origin, and the origin is broken by vanilla, so the hook may take
      * budget minus one. Only levels I and V were ever driven; 6, 9 and 12 hung on nothing at
-     * all. The slab holds sixteen connected blocks, so levels I to IV are all capped by the
-     * budget rather than by the layout, and level V (17 allowed, 15 available) is capped by the
-     * layout - which is what proves it does not stop early either.
+     * all. The slab holds twenty connected blocks - more than the largest budget - so every
+     * level is capped by the budget and not by the layout, level V included.
+     *
+     * <p>That last block is why the slab is a 5x4 and not the 4x4 it used to be. With sixteen
+     * blocks the level V run could only ever count the fifteen that were there, so the case read
+     * "the budget is at least 16" and every value from 16 upwards passed it: the top of the
+     * table was free to drift downwards while the four levels below it stayed pinned. Level V is
+     * reachable in a real world ({@code max_level} is 5), so that was the one entry of the table
+     * a player could actually be shortchanged on. With four blocks to spare the count is
+     * {@link #LEVEL_V_BUDGET} exactly, which fails in both directions.
      *
      * <p>This is also where the {@code MINED_BLOCKS} re-entrancy guard is covered. In a real
      * run - and in this test, because gametests run inside the loaded mod - every
@@ -255,8 +279,13 @@ public final class MiningEnchantmentTests {
         assertBudget(helper, player, 2, 5);
         assertBudget(helper, player, 3, 8);
         assertBudget(helper, player, 4, 11);
-        // Level V allows 17; the slab only offers 15, so the whole rest of the cluster goes.
-        assertBudget(helper, player, 5, SLAB_TAIL.size());
+        // The slab has to outlast the largest budget, or the case below only says "at least".
+        helper.assertTrue(SLAB_TAIL.size() > LEVEL_V_BUDGET,
+                "the coal slab offers " + SLAB_TAIL.size() + " blocks beside the origin, which is "
+                        + "not more than the " + LEVEL_V_BUDGET + " Vein Miner V is allowed to "
+                        + "take - the case below would be capped by the layout again and a "
+                        + "shrunken level V budget would go unnoticed");
+        assertBudget(helper, player, 5, LEVEL_V_BUDGET);
 
         // --- what one block costs the pickaxe, measured on a two block vein ---
         player.getAbilities().instabuild = false;
@@ -485,11 +514,20 @@ public final class MiningEnchantmentTests {
      * deleted without a single test turning red - and a mining enchantment that silently stops
      * costing anything is a balance change nobody would notice.
      *
-     * <p>The divisor is measured as a ratio against the same pickaxe without the enchantment,
-     * on the same player in the same place. The mixin injects at {@code RETURN}, so everything
-     * vanilla folds into that number - the mining efficiency attribute, the not-on-ground
-     * penalty, potion effects - cancels out of the ratio, and the test states the mod's factor
-     * rather than a hard coded speed lifted from a wiki.
+     * <p>The divisor is measured as a ratio against the same pickaxe without the enchantment, on
+     * the same player in the same place, so the test states the mod's factor rather than a hard
+     * coded speed lifted from a wiki.
+     *
+     * <p>The player carries a mining efficiency bonus while that ratio is taken, and that is the
+     * only reason the ratio says anything about <em>where</em> the mixin injects. Mining
+     * efficiency is the single step in {@code Player#getDestroySpeed} that is added rather than
+     * multiplied; every other one - potion effects, the block break speed attribute, the
+     * not-on-ground penalty - divides straight back out of a ratio of two runs. On a
+     * modifier-free player the two runs therefore look identical whether the divisor is applied
+     * to the finished return value or in front of all of vanilla's own arithmetic, and the
+     * {@code RETURN} injection point was free to move. With a bonus on the player only the real
+     * placement gives {@code (tool + bonus) / divisor}; anything earlier gives
+     * {@code tool / divisor + bonus}. See {@link #giveMiningEfficiency}.
      *
      * <p>Both guards in front of the divisor get their own case: dirt (a pickaxe is not the
      * correct tool) and a Strip Miner shovel on that same dirt (a correct tool outside
@@ -505,10 +543,17 @@ public final class MiningEnchantmentTests {
         BlockState stone = Blocks.STONE.defaultBlockState();
         BlockState dirt = Blocks.DIRT.defaultBlockState();
 
+        float bareOnStone = destroySpeed(player, new ItemStack(Items.IRON_PICKAXE), stone);
+        giveMiningEfficiency(player);
         float plainOnStone = destroySpeed(player, new ItemStack(Items.IRON_PICKAXE), stone);
         helper.assertTrue(plainOnStone > 0.0F,
                 "an unenchanted iron pickaxe mines stone at speed " + plainOnStone
                         + ", so the ratios below would divide by zero");
+        helper.assertTrue(plainOnStone > bareOnStone,
+                "the mining efficiency bonus never reached the destroy speed (" + bareOnStone
+                        + " without it, " + plainOnStone + " with it), so the number the ratios "
+                        + "below are taken of holds no additive vanilla step and they would not "
+                        + "pin the injection point any more");
 
         assertSpeedDivisor(helper, player, stone, plainOnStone, 1, 2.0F);
         assertSpeedDivisor(helper, player, stone, plainOnStone, 2, 3.0F);
@@ -1099,6 +1144,23 @@ public final class MiningEnchantmentTests {
         return player.getDestroySpeed(state);
     }
 
+    /**
+     * Hangs {@link #MINING_EFFICIENCY_BONUS} of mining efficiency on the player, which is what
+     * turns the destroy speed ratios into a statement about the mixin's injection point.
+     *
+     * <p>1.21.11 {@code Player#getDestroySpeed} adds the attribute to the tool speed before it
+     * multiplies anything else in - the same shape as on 26.2. The bonus is therefore the one
+     * term of the finished speed that does not survive a division unchanged, and the only handle
+     * a ratio has on whether the mod divides the whole result or something earlier in that
+     * method. The bonus goes on the player rather than on the tool so that the two runs differ
+     * in nothing but the enchantment, and so that no equipment tick is needed between them.
+     */
+    private static void giveMiningEfficiency(ServerPlayer player) {
+        player.getAttribute(Attributes.MINING_EFFICIENCY).addPermanentModifier(new AttributeModifier(
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "gametest_mining_efficiency"),
+                MINING_EFFICIENCY_BONUS, AttributeModifier.Operation.ADD_VALUE));
+    }
+
     /** One level of the Strip Miner slowdown, stated as a ratio against the unenchanted tool. */
     private static void assertSpeedDivisor(GameTestHelper helper, ServerPlayer player, BlockState state,
                                            float plainSpeed, int level, float divisor) {
@@ -1151,10 +1213,10 @@ public final class MiningEnchantmentTests {
         }
     }
 
-    /** The 4x4 coal slab minus its corner - sixteen blocks in total, all connected. */
+    /** The 5x4 coal slab minus its corner - twenty blocks in total, all connected. */
     private static List<BlockPos> slabTail() {
         List<BlockPos> tail = new ArrayList<>();
-        for (int x = 1; x <= 4; x++) {
+        for (int x = 1; x <= 5; x++) {
             for (int z = 1; z <= 4; z++) {
                 BlockPos pos = new BlockPos(x, 1, z);
                 if (!pos.equals(new BlockPos(1, 1, 1))) {

@@ -80,9 +80,10 @@ import net.minecraft.world.phys.Vec3;
  * files (en_us and de_de) and are reachable from nowhere. A netherite furnace opens a screen titled
  * "Reinforced Furnace". {@link #everyTierOpensTheMenuOfItsVanillaCounterpart} therefore asserts
  * only what is uncontested - that each of the six carries a translatable title from this mod's
- * namespace, and that the three device families use three different keys - and says nothing about
- * whether the two tiers of one family should share a key, so the defect is neither frozen as
- * intended behaviour nor hidden.
+ * namespace, that the key is one of the two spellings its own family really ships (the one named
+ * after the device itself, or the reinforced sibling's the defect makes it share), and that the
+ * three device families use three different keys - and says nothing about whether the two tiers of
+ * one family should share a key, so the defect is neither frozen as intended behaviour nor hidden.
  *
  * <p><b>2. The six blocks inherit glass, not stone, so a bare hand drops them.</b>
  * {@code ModBlocks#registerBlock} hands every factory
@@ -467,13 +468,22 @@ public final class FurnaceTests {
      *
      * <p>The container title is checked in the same pass, but only as far as the known defect
      * allows (see the class javadoc): every device has to carry a translatable title from this mod's
-     * namespace, and the three families have to use three different keys. Whether a netherite device
-     * ought to have its own key is deliberately left unstated.
+     * namespace, that key has to be one of the two the family actually ships in en_us and de_de -
+     * the one named after the device itself ({@code container.simplebuilding.netherite_smoker}) or,
+     * while the defect stands, its reinforced sibling's - and the three families have to use three
+     * different keys. Whether a netherite device ought to have its own key is deliberately left
+     * unstated, because both spellings are accepted.
+     *
+     * <p>The namespace prefix on its own said nothing about the rest of the key:
+     * {@code container.simplebuilding.a} carries no translation in either language file, so the
+     * screen title would be the raw key, and three such keys are still three different ones. That is
+     * why the key is compared against the block's own id rather than only against its prefix.
      *
      * <p>What breaks this test: a device that opens the wrong screen (a smoker built on
      * {@code FurnaceMenu}, say - the recipe book would then offer smelting recipes a smoker cannot
      * run), a {@code useWithoutItem} that stops opening anything, and a {@code getDefaultName} that
-     * returns a literal, a vanilla key, or the same key for two different families.
+     * returns a literal, a vanilla key, a key from this namespace that no language file defines, or
+     * the same key for two different families.
      */
     public static void everyTierOpensTheMenuOfItsVanillaCounterpart(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -814,10 +824,20 @@ public final class FurnaceTests {
      * an ingot every 51 ticks against vanilla's 200. In the 230 tick window that is four ingots
      * against one - the boost dropping from three extra ticks to two would already fail it.
      *
-     * <p>What breaks this test: the netherite step size shrinking, the boost stopping altogether,
-     * and any change that makes the boost cost fuel - a second {@code consumeFuel}, a shortened burn
-     * duration for the mod tiers - because with one piece of coal in the slot there is nothing to
-     * fall back on.
+     * <p><b>Why the count is pinned and not only bounded from below.</b> "At least four times as
+     * much" is one sided: a step grown from three extra points to six finishes an ingot every 30
+     * ticks, hands in seven of them and sails through, so the documented four times the vanilla
+     * speed would quietly have become seven times with the whole suite still green. The window is
+     * therefore read as an exact count. Four points of progress per tick put the 200 tick smelt on
+     * the cap at 199 on tick 50 and let vanilla finish it on tick 51, so the fourth ingot lands on
+     * tick 204 and the fifth is not due before tick 255 - the sample at 230 sits some 25 ticks clear
+     * of either edge, and every neighbouring step size lands on a different count outright (two
+     * extra points give three ingots, four give five, six give seven).
+     *
+     * <p>What breaks this test: the netherite step size moving in either direction, the boost
+     * stopping altogether, and any change that makes the boost cost fuel - a second
+     * {@code consumeFuel}, a shortened burn duration for the mod tiers - because with one piece of
+     * coal in the slot there is nothing to fall back on.
      */
     public static void oneCoalFeedsSeveralNetheriteSmeltsWhereVanillaManagesOne(GameTestHelper helper) {
         BlockPos vanilla = new BlockPos(1, 1, 1);
@@ -847,6 +867,14 @@ public final class FurnaceTests {
                                     + netheriteIngots + " ingots against the vanilla furnace's "
                                     + vanillaIngots + "; it is meant to be at least four times as "
                                     + "much");
+                    // The ratio above only bounds the boost from below - a bigger step just makes
+                    // more ingots and passes. The window is sized so that exactly one step size
+                    // fits, so pin the count itself; see the javadoc for the tick arithmetic.
+                    Assertions.valueEqual(helper, netheriteIngots, 4,
+                            "ingots the netherite furnace finished in 230 ticks on a single piece "
+                                    + "of coal; more or fewer means its boost is no longer exactly "
+                                    + "three points of cooking progress per tick on top of "
+                                    + "vanilla's one");
 
                     for (BlockPos pos : List.of(vanilla, netherite)) {
                         // Controls, not coverage - see the javadoc. They report why a ratio failure
@@ -928,6 +956,17 @@ public final class FurnaceTests {
                         + "because vanilla finishes on an equality and would never see it again");
     }
 
+    /**
+     * The device's container title key, checked against the two spellings that are actually shipped
+     * for its family before it is handed back.
+     *
+     * <p>The namespace prefix alone is satisfied by any invented key, {@code .a} included, and an
+     * invented key is not a name: neither language file defines it, so the screen title becomes the
+     * raw key. The key therefore has to be {@code container.simplebuilding.} plus this block's own
+     * id, or - while known defect 1 stands and every netherite device answers with the reinforced
+     * one's key - that sibling's. Both are accepted on purpose, so fixing the defect does not turn
+     * this red.
+     */
     private static String containerTitleKey(GameTestHelper helper, Device device, BlockPos pos) {
         Component title = furnace(helper, pos).getDisplayName();
         helper.assertTrue(title.getContents() instanceof TranslatableContents,
@@ -935,6 +974,15 @@ public final class FurnaceTests {
         String key = ((TranslatableContents) title.getContents()).getKey();
         helper.assertTrue(key.startsWith("container.simplebuilding."),
                 "the " + device.label() + "'s container title uses the foreign key " + key);
+
+        String ownKey = "container.simplebuilding."
+                + BuiltInRegistries.BLOCK.getKey(device.block()).getPath();
+        String reinforcedKey = ownKey.replace(".netherite_", ".reinforced_");
+        helper.assertTrue(key.equals(ownKey) || key.equals(reinforcedKey),
+                "the " + device.label() + "'s container title is " + key + ", which is neither "
+                        + ownKey + " nor " + reinforcedKey + " - those two are the keys the "
+                        + "language files define for this family, and anything else is printed to "
+                        + "the player verbatim as the screen title");
         return key;
     }
 

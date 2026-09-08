@@ -70,6 +70,9 @@ import net.minecraft.world.phys.Vec3;
  * player therefore has no way of putting a quiver on the chest short of {@code /item replace}, and
  * the "wear it" half of the feature does nothing. The tests below drive that stage all the same,
  * by writing the quiver into the slot directly - it is live code, and a port can still break it.
+ * The missing component itself is pinned in
+ * {@link #bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack}, so this note goes red
+ * instead of going stale if a quiver is ever made wearable.
  *
  * <p><b>The Drawer capacity multiplier is twice what its own comment says.</b>
  * {@code ReinforcedBundleItem#getMaxCapacity} documents "Multiplikator = 1 + (level/8) =
@@ -145,6 +148,12 @@ public final class QuiverTests {
 
     /** Arrows a Drawer VIII quiver takes today - 64 x (16 + 8) / 8. See the known defect above. */
     private static final int DRAWER_MAX_ARROWS = 192;
+
+    /** Arrows a Drawer I reinforced bundle takes today - 96 x (16 + 1) / 8. See the known defect. */
+    private static final int DRAWER_1_BUNDLE_ARROWS = 204;
+
+    /** Arrows a Drawer VIII reinforced bundle takes today - 96 x (16 + 8) / 8. */
+    private static final int DRAWER_MAX_BUNDLE_ARROWS = 288;
 
     // =====================================================================================
     // THE ITEM IN THE HAND
@@ -260,6 +269,7 @@ public final class QuiverTests {
      *
      * <p>What breaks it: deleting either filter override in {@code QuiverItem}, narrowing them to
      * one of the two click paths - the quiver would then take stone on the default binding too -
+     * narrowing what they let through from the {@code minecraft:arrows} tag to the plain arrow item,
      * or answering {@code true} instead of {@code false} when the filter turns an item away.
      */
     public static void arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt(GameTestHelper helper) {
@@ -280,6 +290,15 @@ public final class QuiverTests {
                     "left clicking stone onto a quiver");
             assertClick(helper, cursorClick(player, ClickAction.PRIMARY, new ItemStack(Items.ARROW, 8)), true,
                     "left clicking arrows onto a quiver");
+
+            // Both filters ask the minecraft:arrows tag, not the plain arrow item, and the plain
+            // arrow alone cannot tell the two apart. Spectral and tipped arrows are ammunition a
+            // player expects a quiver to swallow; a filter narrowed to Items.ARROW would turn them
+            // away at both click paths and report the click as unhandled on top of that.
+            assertClick(helper, slotClick(player, ClickAction.PRIMARY, new ItemStack(Items.SPECTRAL_ARROW, 8)),
+                    true, "left clicking a quiver onto a slot holding spectral arrows");
+            assertClick(helper, cursorClick(player, ClickAction.PRIMARY, new ItemStack(Items.TIPPED_ARROW, 8)),
+                    true, "left clicking tipped arrows onto a quiver");
 
             // --- inverted binding: the insert click moves to SECONDARY, the filter does not ---
             Simplebuilding.getConfig().tools.invertBundleInteractions = true;
@@ -329,9 +348,16 @@ public final class QuiverTests {
      * <em>current</em> behaviour: the formula in the code is not the one its own comment describes,
      * see the known defect in the class Javadoc.
      *
+     * <p>The two Drawer cases on the {@code REINFORCED_BUNDLE} at the end are here because the
+     * quiver cases cannot reach the parent's copy of the formula: {@code QuiverItem} overrides
+     * {@code getMaxCapacity} with a line of its own, so every quiver number above measures the
+     * override and says nothing about {@code ReinforcedBundleItem#getMaxCapacity}. The bundle
+     * assertions elsewhere in the suite pin only the slope between two Drawer levels, which is the
+     * same for any offset, so without an absolute bundle number the parent's multiplier is free.
+     *
      * <p>What breaks it: deleting {@code QuiverItem#getBaseCapacity} (every quiver would hold 1.5
      * stacks per tier), changing the tier table, dropping a factor from the Drawer or Deep Pockets
-     * branch, or letting the wiki export drift away from the live formula.
+     * branch in either copy of the formula, or letting the wiki export drift away from the live one.
      */
     public static void capacityDropsTheBundleBonusAndFollowsTierAndEnchantments(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -385,9 +411,28 @@ public final class QuiverTests {
         Assertions.valueEqual(helper, 
                 fillWithArrows(helper, player, enchanted(helper, ModItems.QUIVER, ModEnchantments.DEEP_POCKETS, 1)),
                 128, "arrows a Deep Pockets I quiver takes - 64 x 2");
-        Assertions.valueEqual(helper, 
+        Assertions.valueEqual(helper,
                 fillWithArrows(helper, player, enchanted(helper, ModItems.QUIVER, ModEnchantments.DEEP_POCKETS, 2)),
                 256, "arrows a Deep Pockets II quiver takes - 64 x 4");
+
+        // The bundle's own Drawer line, in absolute numbers. Every quiver number above measures
+        // QuiverItem#getMaxCapacity, which carries a copy of the formula, so the copy in
+        // ReinforcedBundleItem#getMaxCapacity can be moved without any of them noticing - and the
+        // bundle assertions elsewhere in the suite hold only the slope between two Drawer levels,
+        // which survives any shift of the offset. The reinforced bundle is in
+        // simplebuilding:bundle_enchantable, so a Drawer bundle is a state the game can reach.
+        Assertions.valueEqual(helper,
+                fillWithArrows(helper, player,
+                        enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.DRAWER, 1)),
+                DRAWER_1_BUNDLE_ARROWS,
+                "PINNED CURRENT BEHAVIOUR: arrows a Drawer I reinforced bundle takes - 96 x (16 + 1) / 8. With "
+                        + "the (8 + level) / 8 the comment above the line documents this would be 108");
+        Assertions.valueEqual(helper,
+                fillWithArrows(helper, player,
+                        enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.DRAWER, DRAWER_MAX_LEVEL)),
+                DRAWER_MAX_BUNDLE_ARROWS,
+                "PINNED CURRENT BEHAVIOUR: arrows a Drawer VIII reinforced bundle takes - 96 x (16 + 8) / 8. "
+                        + "With the documented (8 + level) / 8 this would be 192");
 
         TestCleanup.succeed(helper);
     }
@@ -467,10 +512,20 @@ public final class QuiverTests {
      * holds two types with the tipped arrows stacked in last: the bow has to hand back the topmost
      * stack, which is what the player sees at the front of the quiver.
      *
+     * <p>The hotbar step is walked slot by slot rather than in one place, because its bounds are the
+     * behaviour: {@code 0..8} is exactly "everything the hand can reach", and a single rig slot
+     * would leave a shortened loop indistinguishable from the whole one.
+     *
+     * <p>The chest stage is checked from the registration side as well: none of the three quivers
+     * carries an {@code EQUIPPABLE} component, which is what makes that stage unreachable in normal
+     * play - see the known defect in the class Javadoc, which this now holds instead of only
+     * claiming.
+     *
      * <p>What breaks it: reordering the search (the chest slot ahead of the offhand, say), dropping
-     * a step, having {@code findFirstArrow} return the last stack instead of the first, or losing
-     * the {@code isRemoteQuiver} gate - a quiver in the backpack would then feed the bow without
-     * the enchantment, and Constructor's Touch on a quiver would be worth nothing.
+     * a step, shortening the hotbar loop, having {@code findFirstArrow} return the last stack
+     * instead of the first, or losing the {@code isRemoteQuiver} gate - a quiver in the backpack
+     * would then feed the bow without the enchantment, and Constructor's Touch on a quiver would be
+     * worth nothing. Registering any quiver as equippable breaks it too, and deliberately so.
      */
     public static void bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -493,6 +548,19 @@ public final class QuiverTests {
                 "plain arrows still under the tipped ones in the offhand quiver - if they are gone, the "
                         + "'topmost stack' half of this test proves nothing");
 
+        // The chest stage below is driven by hand, and that is the only way it can be driven: no
+        // quiver carries an EQUIPPABLE component, so vanilla's armour slot refuses all three and
+        // only a command puts one there. Pinned so the "known defect" in the class Javadoc cannot
+        // quietly stop being true - handing a quiver the component is a feature change, and this is
+        // the line that has to notice it.
+        for (Item quiverItem : new Item[] {ModItems.QUIVER, ModItems.NETHERITE_QUIVER,
+                ModItems.ENDERITE_QUIVER}) {
+            helper.assertTrue(new ItemStack(quiverItem).get(DataComponents.EQUIPPABLE) == null,
+                    quiverItem + " carries an EQUIPPABLE component and can therefore be worn; the chest slot "
+                            + "stage is then reachable in normal play and the known defect recorded in the "
+                            + "class Javadoc is out of date");
+        }
+
         // --- chest slot is next ---
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
         assertBowFinds(helper, player, Items.SPECTRAL_ARROW, "with the offhand quiver taken away");
@@ -501,8 +569,18 @@ public final class QuiverTests {
         player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
         assertBowFinds(helper, player, Items.ARROW, "with only the hotbar and backpack quivers left");
 
-        // --- and the backpack only with Constructor's Touch ---
+        // The hotbar stage is a loop over slots 0..8, and a quiver in one slot cannot tell that
+        // range apart from a shorter one. Every slot is walked, so a loop that stops early goes red
+        // here instead of silently leaving quivers in the outer hotbar slots unable to feed the bow
+        // although they lie within the player's reach.
         player.getInventory().setItem(3, ItemStack.EMPTY);
+        for (int slot = 0; slot < 9; slot++) {
+            player.getInventory().setItem(slot, hotbar);
+            assertBowFinds(helper, player, Items.ARROW, "with the hotbar quiver in hotbar slot " + slot);
+            player.getInventory().setItem(slot, ItemStack.EMPTY);
+        }
+
+        // --- and the backpack only with Constructor's Touch ---
         ItemStack found = QuiverItem.findProjectileForBow(player);
         helper.assertTrue(found.isEmpty(),
                 "a quiver in inventory slot " + BACKPACK_SLOT + " fed the bow " + found
@@ -537,10 +615,15 @@ public final class QuiverTests {
      * class Javadoc records, not reachable in normal play - a quiver has no {@code EQUIPPABLE}
      * component, so only a command can put one there. The test writes it into the slot directly.
      *
+     * <p>The hotbar quiver pays from both ends of the hotbar, not only from the slot the rig starts
+     * it in. The walk is a second copy of the {@code 0..8} loop, and one slot in the middle would
+     * leave a shortened range looking exactly like the whole one - a quiver in hotbar slot 8 would
+     * then be drawn from and never billed.
+     *
      * <p>What breaks it: consuming from the first quiver found instead of the one the search
      * returned, consuming out of a different stack than the search offered, consuming more than one
-     * arrow, leaving an empty stack behind, dropping the chest slot from the consuming walk, or
-     * dropping the Constructor's Touch gate on the backpack half of it.
+     * arrow, leaving an empty stack behind, dropping the chest slot from the consuming walk,
+     * shortening its hotbar loop, or dropping the Constructor's Touch gate on the backpack half.
      */
     public static void bowConsumesOneArrowFromTheQuiverThatSuppliedIt(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -606,9 +689,25 @@ public final class QuiverTests {
         Assertions.valueEqual(helper, countInBundle(hotbar, Items.ARROW), 7,
                 "arrows left in the hotbar quiver after it had to supply the shot");
 
+        // The consuming walk covers the whole hotbar and not just the slot this rig happens to use.
+        // Both ends of the 0..8 range have to pay, which is what tells the real range apart from a
+        // shortened one; between them lies nothing but the slot already covered above.
+        player.getInventory().setItem(4, ItemStack.EMPTY);
+        player.getInventory().setItem(0, hotbar);
+        QuiverItem.consumeProjectileForBow(player);
+        Assertions.valueEqual(helper, countInBundle(hotbar, Items.ARROW), 6,
+                "arrows left in the hotbar quiver after it paid from hotbar slot 0");
+
+        player.getInventory().setItem(0, ItemStack.EMPTY);
+        player.getInventory().setItem(8, hotbar);
+        QuiverItem.consumeProjectileForBow(player);
+        Assertions.valueEqual(helper, countInBundle(hotbar, Items.ARROW), 5,
+                "arrows left in the hotbar quiver after it paid from hotbar slot 8 - the last slot the hand "
+                        + "can reach, so the walk has to run all the way out to it");
+
         // --- the backpack pays only with Constructor's Touch ---
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-        player.getInventory().setItem(4, ItemStack.EMPTY);
+        player.getInventory().setItem(8, ItemStack.EMPTY);
         ItemStack backpack = filledContainer(helper, player, ModItems.QUIVER, Items.ARROW, 8);
         player.getInventory().setItem(BACKPACK_SLOT, backpack);
 

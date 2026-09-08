@@ -6,10 +6,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
@@ -65,6 +67,16 @@ public final class BlockBehaviourTests {
      */
     private static final int RISE_SAMPLE_INTERVAL = 6;
 
+    /**
+     * Tick at which {@link #levitatingSandTurnsBackIntoABlockUnderACeiling} looks at the entity
+     * while it is still in the air. The block needs two ticks on the ground before it becomes an
+     * entity and a good ten more to cross the three blocks up to the ceiling, so this lands in
+     * the middle of the flight - late enough for the entity to exist, early enough that it has
+     * not turned back into a block. It does not lengthen the test: the wait for the landing that
+     * follows runs to the same tick either way.
+     */
+    private static final int CEILING_FLIGHT_SAMPLE = 6;
+
     /** Slot layout of {@link AbstractFurnaceBlockEntity}: input / fuel / result. */
     private static final int FURNACE_INPUT = 0;
     private static final int FURNACE_FUEL = 1;
@@ -82,6 +94,17 @@ public final class BlockBehaviourTests {
      * same recipe has to finish measurably earlier than in a vanilla furnace.
      * The test records the tick at which each furnace produces its first result and then
      * compares those three timings against each other.
+     *
+     * <p><b>How many extra ticks, not only "more".</b> Each furnace is timed a second way: from
+     * the tick its LIT state comes on - the very tick vanilla starts counting cook progress in -
+     * to the tick the ingot appears. That difference is the cost of one smelt in server ticks and
+     * carries no offset for when the room started ticking, so it can be held against the vanilla
+     * stack next door. A furnace that adds {@code extra} points of progress per server tick pays
+     * {@code ceil(vanillaCookTicks / (1 + extra))} of them, because the mod clamps its bonus one
+     * point below the total and the last point always comes from vanilla's own increment.
+     * Ordering and the 1.5x / 3x factors below cannot tell one extra tick from two - the
+     * reinforced furnace would still land between vanilla and the netherite one - the quotient
+     * can.
      */
     public static void reinforcedAndNetheriteFurnacesSmeltFasterThanVanilla(GameTestHelper helper) {
         BlockPos vanilla = new BlockPos(1, 1, 1);
@@ -97,7 +120,11 @@ public final class BlockBehaviourTests {
         loadFurnace(helper, netherite, Items.RAW_IRON);
 
         int[] finished = newTimings(3);
+        int[] lit = newTimings(3);
         helper.onEachTick(() -> {
+            recordFurnaceLit(helper, vanilla, lit, 0);
+            recordFurnaceLit(helper, reinforced, lit, 1);
+            recordFurnaceLit(helper, netherite, lit, 2);
             recordFurnaceFinish(helper, vanilla, finished, 0);
             recordFurnaceFinish(helper, reinforced, finished, 1);
             recordFurnaceFinish(helper, netherite, finished, 2);
@@ -126,6 +153,18 @@ public final class BlockBehaviourTests {
                     helper.assertTrue(finished[0] * 2 >= finished[1] * 3,
                             "reinforced furnace should be at least 1.5 times as fast as vanilla, timings: "
                                     + Arrays.toString(finished));
+
+                    // --- the size of the bonus, measured as the length of one smelt ---
+                    int vanillaCook = cookTicks(helper, lit, finished, 0, "the vanilla furnace");
+                    int reinforcedCook = cookTicks(helper, lit, finished, 1, "the reinforced furnace");
+                    int netheriteCook = cookTicks(helper, lit, finished, 2, "the netherite furnace");
+
+                    Assertions.valueEqual(helper, reinforcedCook, ceilDiv(vanillaCook, 2),
+                            "cook ticks of the reinforced furnace, which adds exactly one progress tick "
+                                    + "per server tick to vanilla's " + vanillaCook);
+                    Assertions.valueEqual(helper, netheriteCook, ceilDiv(vanillaCook, 4),
+                            "cook ticks of the netherite furnace, which adds exactly three progress ticks "
+                                    + "per server tick to vanilla's " + vanillaCook);
                 })
                 .thenSucceed();
     }
@@ -196,18 +235,56 @@ public final class BlockBehaviourTests {
     // ------------------------------------------------------------------
 
     /**
-     * Three identical chest -> hopper -> chest stacks are built next to each other. The test
-     * times how long each hopper needs to move {@value #HOPPER_SAMPLE_SIZE} items into the
-     * lower chest, which exposes the shorter transfer cooldown of the mod hoppers.
+     * Three identical chest -> hopper -> chest stacks are built next to each other, plus three
+     * stacks that are not timed at all. The test times how long each of the first three hoppers
+     * needs to move {@value #HOPPER_SAMPLE_SIZE} items into the lower chest, which exposes the
+     * shorter transfer cooldown of the mod hoppers; the other three answer where the items go in
+     * and where they come from.
+     *
+     * <p><b>The two furnace stacks are about the side items are inserted through.</b> Which
+     * container is fed and which FACE of it is used are two different things, and a chest cannot
+     * show the difference: it is not a {@code WorldlyContainer}, so the face is never looked at.
+     * A furnace is, and it maps UP to the ingredient slot, DOWN to result plus fuel, and every
+     * side to the fuel slot alone. So a hopper pointing DOWN into a furnace has to insert through
+     * UP - the opposite of where it points - and its cobblestone can only ever land in the
+     * ingredient slot; a hopper pointing sideways into a furnace offers the fuel slot, which
+     * refuses cobblestone, so that furnace has to stay completely empty. Between them the two
+     * pin the face as {@code FACING.getOpposite()}: any fixed direction, and dropping the
+     * {@code getOpposite()}, empties the first furnace, while passing no face at all fills the
+     * second one.
+     *
+     * <p><b>The pick-up stack is about the other half of the pull.</b> A mod hopper has to take
+     * item entities lying on it, not only items out of a container above it - and every other
+     * stack in this test has a chest overhead, which is the branch vanilla's
+     * {@code suckInItems} takes FIRST and exclusively. The pick-up hopper has open air above it
+     * and a single dropped cobblestone resting on its rim, which has to end up in the chest below
+     * it.
      */
     public static void reinforcedAndNetheriteHoppersMoveItemsFasterThanVanilla(GameTestHelper helper) {
         BlockPos vanilla = new BlockPos(1, 2, 1);
         BlockPos reinforced = new BlockPos(3, 2, 1);
         BlockPos netherite = new BlockPos(5, 2, 1);
+        BlockPos pickupHopper = new BlockPos(1, 2, 6);
+        BlockPos pickupTarget = pickupHopper.below();
+        BlockPos downFurnaceHopper = new BlockPos(3, 2, 6);
+        BlockPos downFurnace = downFurnaceHopper.below();
+        BlockPos sideFurnaceHopper = new BlockPos(5, 2, 6);
+        BlockPos sideFurnace = new BlockPos(6, 2, 6);
 
         buildHopperStack(helper, vanilla, Blocks.HOPPER);
         buildHopperStack(helper, reinforced, ModBlocks.REINFORCED_HOPPER);
         buildHopperStack(helper, netherite, ModBlocks.NETHERITE_HOPPER);
+        buildFurnaceHopperStack(helper, downFurnaceHopper, downFurnace, ModBlocks.NETHERITE_HOPPER);
+        buildFurnaceHopperStack(helper, sideFurnaceHopper, sideFurnace, ModBlocks.NETHERITE_HOPPER);
+
+        // Nothing above this hopper, so the pull can only come from the item entity on its rim.
+        helper.setBlock(pickupTarget, Blocks.CHEST);
+        helper.setBlock(pickupHopper, ModBlocks.NETHERITE_HOPPER.defaultBlockState()
+                .setValue(HopperBlock.FACING, Direction.DOWN)
+                .setValue(HopperBlock.ENABLED, Boolean.TRUE));
+        helper.setBlock(pickupHopper.above(), Blocks.AIR);
+        helper.spawnItem(Items.COBBLESTONE,
+                pickupHopper.getX() + 0.5F, pickupHopper.getY() + 1.1F, pickupHopper.getZ() + 0.5F);
 
         int[] finished = newTimings(3);
         helper.onEachTick(() -> {
@@ -231,6 +308,26 @@ public final class BlockBehaviourTests {
                     helper.assertTrue(finished[0] >= finished[2] * 2,
                             "netherite hopper should need at most half the time of the vanilla hopper, timings: "
                                     + Arrays.toString(finished));
+
+                    // --- the face the items go in through, on a container that has faces ---
+                    assertFurnaceSlot(helper, downFurnace, FURNACE_INPUT, true,
+                            "the hopper pointing down into a furnace has to insert through its UP face, "
+                                    + "which is the only face that reaches the ingredient slot");
+                    assertFurnaceSlot(helper, downFurnace, FURNACE_FUEL, false,
+                            "cobblestone in the fuel slot means the hopper inserted through a side face");
+                    assertFurnaceSlot(helper, downFurnace, FURNACE_RESULT, false,
+                            "cobblestone in the result slot means the hopper inserted through the DOWN face");
+                    assertFurnaceSlot(helper, sideFurnace, FURNACE_INPUT, false,
+                            "the hopper pointing sideways into a furnace offers only the fuel slot, so its "
+                                    + "cobblestone must not reach the ingredient slot - it does when the "
+                                    + "insert face is dropped altogether");
+                    assertFurnaceSlot(helper, sideFurnace, FURNACE_FUEL, false,
+                            "cobblestone is no fuel, so the fuel slot has to refuse it");
+
+                    // --- the pull half that has no container above it ---
+                    helper.assertTrue(countItems(helper, pickupTarget) == 1,
+                            "the mod hopper has to pick up the item entity lying on it and pass it on, but "
+                                    + "the chest below it holds " + countItems(helper, pickupTarget) + " items");
                 })
                 .thenSucceed();
     }
@@ -400,6 +497,14 @@ public final class BlockBehaviourTests {
      * A rising block that runs into a ceiling has to turn back into a block in the free cell
      * below it - the mirror image of sand landing on the ground. Would break if the entity kept
      * the inherited landing rule, which is gated on onGround() and never fires while rising.
+     *
+     * <p><b>Why the hitbox is measured here and not left to the landing cell.</b> The cell the
+     * block reappears in is a floor of the resting height, and the entity comes to rest with its
+     * top against the ceiling: with a box half a block high it would stop half a block lower and
+     * still reappear in the same cell. The landing therefore only says "at most one block high",
+     * while the box is what decides how far the rising block reaches into the ceiling and what it
+     * collides with on the way up. So the entity in flight is held against vanilla's falling
+     * block, which is what {@code ModEntities} says it mirrors.
      */
     public static void levitatingSandTurnsBackIntoABlockUnderACeiling(GameTestHelper helper) {
         BlockPos start = new BlockPos(1, 1, 1);
@@ -411,6 +516,17 @@ public final class BlockBehaviourTests {
         helper.setBlock(start, ModBlocks.LEVITATING_SAND);
 
         helper.startSequence()
+                .thenExecuteAfter(CEILING_FLIGHT_SAMPLE, () -> {
+                    List<LevitatingBlockEntity> flying = risingEntities(helper);
+                    helper.assertTrue(flying.size() == 1,
+                            "exactly one levitating sand should be in flight at tick " + CEILING_FLIGHT_SAMPLE
+                                    + ", found " + flying.size());
+                    EntityType<?> rising = flying.get(0).getType();
+                    Assertions.valueEqual(helper, rising.getHeight(), EntityType.FALLING_BLOCK.getHeight(),
+                            "hitbox height of the rising block entity against vanilla's falling block");
+                    Assertions.valueEqual(helper, rising.getWidth(), EntityType.FALLING_BLOCK.getWidth(),
+                            "hitbox width of the rising block entity against vanilla's falling block");
+                })
                 .thenWaitUntil(() -> helper.assertBlockPresent(ModBlocks.LEVITATING_SAND, expected))
                 .thenExecute(() -> {
                     helper.assertBlockNotPresent(ModBlocks.LEVITATING_SAND, start);
@@ -510,6 +626,39 @@ public final class BlockBehaviourTests {
         }
     }
 
+    /**
+     * Records the tick the furnace lights up. Vanilla lights the fuel and counts the first point
+     * of cook progress in one and the same tick, so this is the tick the smelt starts in.
+     */
+    private static void recordFurnaceLit(GameTestHelper helper, BlockPos pos, int[] timings, int index) {
+        if (timings[index] >= 0) {
+            return;
+        }
+        if (helper.getBlockState(pos).getValue(AbstractFurnaceBlock.LIT)) {
+            timings[index] = (int) helper.getTick();
+        }
+    }
+
+    /**
+     * Server ticks the furnace spent on its first smelt.
+     *
+     * <p>Both ends are read in the same per tick callback, so whatever constant offset sits
+     * between a block entity tick and the observation cancels out and the difference is exactly
+     * the number of ticks the furnace needed - the number the extra progress per tick shortens.
+     */
+    private static int cookTicks(GameTestHelper helper, int[] lit, int[] finished, int index, String what) {
+        helper.assertTrue(lit[index] >= 0, what + " never lit up, so its smelt was never timed");
+        int ticks = finished[index] - lit[index];
+        helper.assertTrue(ticks > 0, what + " finished in the tick it lit up, lit at " + lit[index]
+                + ", finished at " + finished[index]);
+        return ticks;
+    }
+
+    /** {@code ceil(dividend / divisor)} for positive operands. */
+    private static int ceilDiv(int dividend, int divisor) {
+        return (dividend + divisor - 1) / divisor;
+    }
+
     private static void assertResultIs(GameTestHelper helper, BlockPos pos, Item expected) {
         AbstractFurnaceBlockEntity furnace = helper.getBlockEntity(pos, AbstractFurnaceBlockEntity.class);
         helper.assertTrue(furnace.getItem(FURNACE_RESULT).is(expected),
@@ -526,6 +675,57 @@ public final class BlockBehaviourTests {
 
         ChestBlockEntity source = helper.getBlockEntity(hopperPos.above(), ChestBlockEntity.class);
         source.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+    }
+
+    /**
+     * Builds source chest -&gt; hopper -&gt; furnace with the hopper pointing at the furnace.
+     *
+     * <p>The furnace is the container that can tell the insert face apart from the target: it is
+     * a {@code WorldlyContainer}, so which slots the hopper may use depends on the face it hands
+     * to {@code HopperBlockEntity#addItem} - UP is the ingredient slot, DOWN is result and fuel,
+     * every side is the fuel slot. Cobblestone is neither fuel nor a legal result, so it can only
+     * ever come to rest in the ingredient slot, and only through UP.
+     */
+    private static void buildFurnaceHopperStack(GameTestHelper helper, BlockPos hopperPos,
+                                                BlockPos furnacePos, Block hopper) {
+        helper.setBlock(furnacePos, Blocks.FURNACE);
+        helper.setBlock(hopperPos, hopper.defaultBlockState()
+                .setValue(HopperBlock.FACING, facingBetween(helper, hopperPos, furnacePos))
+                .setValue(HopperBlock.ENABLED, Boolean.TRUE));
+        helper.setBlock(hopperPos.above(), Blocks.CHEST);
+
+        ChestBlockEntity source = helper.getBlockEntity(hopperPos.above(), ChestBlockEntity.class);
+        source.setItem(0, new ItemStack(Items.COBBLESTONE, 64));
+    }
+
+    /**
+     * The absolute direction leading from {@code from} to {@code to}. A block state stores an
+     * absolute direction while the test writes structure relative positions; the two only agree
+     * as long as the structure is placed unrotated, so the direction is read off the two absolute
+     * positions instead of being assumed.
+     */
+    private static Direction facingBetween(GameTestHelper helper, BlockPos from, BlockPos to) {
+        BlockPos absoluteFrom = helper.absolutePos(from);
+        BlockPos absoluteTo = helper.absolutePos(to);
+        Direction found = null;
+        for (Direction direction : Direction.values()) {
+            if (absoluteFrom.relative(direction).equals(absoluteTo)) {
+                found = direction;
+            }
+        }
+        helper.assertTrue(found != null, from + " and " + to + " are not neighbours, so no hopper can "
+                + "point from one to the other");
+        return found;
+    }
+
+    /** Asserts that a furnace slot did or did not receive anything from the hopper feeding it. */
+    private static void assertFurnaceSlot(GameTestHelper helper, BlockPos furnacePos, int slot,
+                                          boolean filled, String why) {
+        AbstractFurnaceBlockEntity furnace =
+                helper.getBlockEntity(furnacePos, AbstractFurnaceBlockEntity.class);
+        ItemStack inSlot = furnace.getItem(slot);
+        helper.assertTrue(!inSlot.isEmpty() == filled, why + " - slot " + slot + " of the furnace at "
+                + furnacePos + " holds " + inSlot.getCount() + " " + inSlot.getItem());
     }
 
     private static void recordHopperThroughput(GameTestHelper helper, BlockPos chestPos, int[] timings, int index) {

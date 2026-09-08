@@ -144,6 +144,9 @@ public final class StorageEnchantmentTests {
     /** Highest Deep Pockets level the enchantment data allows; guarded against the registry. */
     private static final int DEEP_POCKETS_MAX_LEVEL = 2;
 
+    /** Highest Funnel level the enchantment data allows; guarded against the registry. */
+    private static final int FUNNEL_MAX_LEVEL = 2;
+
     /** Kinds a Drawer container may hold at once - {@code DRAWER_MAX_TYPES} in the item. */
     private static final int DRAWER_KINDS = 5;
 
@@ -212,11 +215,24 @@ public final class StorageEnchantmentTests {
 
     /**
      * One chest and the books of {@link #OWNED_BOOKS} it has to hand out, as enchantment to
-     * levels. An empty map means "this table carries none of the three" - those entries are what
-     * turn the test into a statement about where the books are <em>not</em>.
+     * levels. An empty map means "this table carries none of the three".
+     *
+     * <p>{@link #storageBooksSitInTheChestsTheyAreMeantFor} walks every built-in loot table and
+     * expects an empty map for everything not listed in {@link #BOOK_CASES}, so this list is the
+     * complete positive side of the statement. The explicitly empty entries are kept because they
+     * are chests the mod does edit with its <em>other</em> books, and a reader of this list has to
+     * see that they were considered rather than forgotten.
      */
     private record BookCase(ResourceKey<LootTable> table, Map<ResourceKey<Enchantment>, Set<Integer>> books) {
     }
+
+    /**
+     * Fewest built-in loot tables {@link #storageBooksSitInTheChestsTheyAreMeantFor} has to walk
+     * before its "and in no other chest" half says anything. Vanilla registers well over a hundred
+     * on both lines; this only has to notice an empty or gutted {@code BuiltInLootTables.all()},
+     * which would otherwise turn the closed comparison into a comparison of nothing.
+     */
+    private static final int MIN_TABLES_WALKED = 60;
 
     private static final List<BookCase> BOOK_CASES = List.of(
             new BookCase(BuiltInLootTables.ANCIENT_CITY, Map.of(ModEnchantments.DEEP_POCKETS, Set.of(2))),
@@ -257,13 +273,26 @@ public final class StorageEnchantmentTests {
      * discarding the entity) is not mod code; it is used here as the observable that separates
      * "refused" from "eaten".
      *
+     * <p>The block at the top pins Funnel's own definition numbers - weight, anvil cost and both
+     * enchanting cost curves - the way
+     * {@link #drawerAndDeepPocketsMultiplyOnTheSameContainer} does for the other two storage
+     * enchantments. This class owns all three, and no assertion anywhere in the tree used to read
+     * one of those four numbers, so a rebalance of them moved silently. The maximum level goes
+     * with them because the two levels below have to be levels a player can actually reach.
+     *
      * <p>What breaks it: collapsing the {@code level == 1} branch in {@code canAutoPickup} into
      * "return true", so a Funnel I bundle takes foreign kinds; the mixin ignoring the answer;
-     * or {@code tryInsertStackFromWorld} reporting success without storing anything, which would
-     * make the drop disappear from both places.
+     * {@code tryInsertStackFromWorld} reporting success without storing anything, which would
+     * make the drop disappear from both places; or one of Funnel's definition numbers moving.
      */
     public static void funnelFilterDecidesWhatTheTouchSweepsUp(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
+
+        helper.assertValueEqual(enchantment(helper, ModEnchantments.FUNNEL).value().getMaxLevel(),
+                FUNNEL_MAX_LEVEL, "max level of Funnel");
+        assertDefinitionNumbers(helper, ModEnchantments.FUNNEL, "Funnel",
+                /* weight */ 2, /* anvil cost */ 4, FUNNEL_MAX_LEVEL,
+                /* min cost */ 15, 15, /* max cost */ 55, 15);
 
         // --- Funnel I, holding stone: stone yes ---
         ItemStack filtering = enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.FUNNEL, 1);
@@ -489,9 +518,19 @@ public final class StorageEnchantmentTests {
      * only, so before this test no assertion in the tree ever asked a quiver for its tooltip
      * capacity at all.
      *
+     * <p>The guard block at the top is also where the two enchantments' <em>definition</em>
+     * numbers are pinned: the weight they are drawn with, what an anvil charges to combine them,
+     * and both enchanting cost curves at every level. Nothing else in the tree reads any of the
+     * four - Drawer's anvil cost could go from 8 to 1 and Deep Pockets' weight from 2 to 30, both
+     * of which a player meets at every enchanting table and every anvil, with the whole suite
+     * still green. (This is the enchantment's own weight in the enchanting table's pool. The
+     * class javadoc's note about not pinning balancing numbers is about the weights of the loot
+     * entries, which are a different number in a different file.) Moving these is a review
+     * decision, and this is the line that makes the reviewer look.
+     *
      * <p>What breaks it: one of the two branches overwriting the other instead of multiplying,
-     * either branch disappearing from either copy, or the visuals formula and the filling path
-     * disagreeing about the pair.
+     * either branch disappearing from either copy, the visuals formula and the filling path
+     * disagreeing about the pair, or one of the definition numbers moving.
      */
     public static void drawerAndDeepPocketsMultiplyOnTheSameContainer(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -507,6 +546,15 @@ public final class StorageEnchantmentTests {
                         enchantment(helper, ModEnchantments.DEEP_POCKETS)),
                 "Drawer and Deep Pockets have become mutually exclusive, so a container carrying both "
                         + "is no longer a state the game can reach");
+
+        // The numbers behind "how often does a player meet this book and what does combining it
+        // cost". Read nowhere else in the tree; see the javadoc above.
+        assertDefinitionNumbers(helper, ModEnchantments.DRAWER, "Drawer",
+                /* weight */ 1, /* anvil cost */ 8, DRAWER_MAX_LEVEL,
+                /* min cost */ 25, 25, /* max cost */ 75, 25);
+        assertDefinitionNumbers(helper, ModEnchantments.DEEP_POCKETS, "Deep Pockets",
+                /* weight */ 2, /* anvil cost */ 4, DEEP_POCKETS_MAX_LEVEL,
+                /* min cost */ 15, 10, /* max cost */ 65, 10);
 
         assertFactorsMultiply(helper, player, ModItems.REINFORCED_BUNDLE, Items.STONE, "the reinforced bundle");
         assertFactorsMultiply(helper, player, ModItems.QUIVER, Items.ARROW, "the quiver");
@@ -542,14 +590,20 @@ public final class StorageEnchantmentTests {
      * changed serialisation is reported as "this test reads the wrong shape" instead of silently
      * passing on an empty search.
      *
-     * <p>Every table is checked in both directions. {@link #BOOK_CASES} states, for each chest,
-     * the complete set of the three enchantments it may hand out - the empty ones included - so a
-     * book that wanders into another chest is as red as a book that disappears, and a level that
-     * changes is red as well. The mod's other books are deliberately out of scope; see the class
-     * javadoc for who owns them.
+     * <p>Every table is checked in both directions, and "every table" means every built-in one,
+     * not only the ones named in {@link #BOOK_CASES}. That list states, for each chest, the
+     * complete set of the three enchantments it may hand out, and every other table in
+     * {@code BuiltInLootTables.all()} has to hand out none of them - so a book that wanders into
+     * another chest is as red as a book that disappears, and a level that changes is red as well.
+     * Walking the listed chests alone was the hole: {@code ModLootTableModifications#apply} edits
+     * sixteen tables and only twelve of them are named below, which left the igloo, the shipwreck
+     * treasure and the common and rare trial chamber vaults free to grow a storage book without a
+     * single assertion moving. The mod's other books are deliberately out of scope; see
+     * the class javadoc for who owns them.
      *
-     * <p>What breaks it: a book moved to another chest, a changed level, a table losing its pool,
-     * or the bastion branch losing the {@code BASTION_OTHER} half of its condition.
+     * <p>What breaks it: a book moved to another chest, a book appearing in a chest that carried
+     * none of the three, a changed level, a table losing its pool, or the bastion branch losing
+     * the {@code BASTION_OTHER} half of its condition.
      */
     public static void storageBooksSitInTheChestsTheyAreMeantFor(GameTestHelper helper) {
         HolderLookup.Provider registries = helper.getLevel().registryAccess();
@@ -565,9 +619,25 @@ public final class StorageEnchantmentTests {
                             + "pool serialisation changed shape and this test has to be rewritten - that is "
                             + "not a mod regression");
 
+            Map<ResourceKey<LootTable>, Map<Identifier, Set<Integer>>> expectedByTable = new LinkedHashMap<>();
             for (BookCase bookCase : BOOK_CASES) {
-                Map<Identifier, Set<Integer>> found =
-                        storedEnchantments(helper, registries, bookCase.table());
+                Map<Identifier, Set<Integer>> expected = new LinkedHashMap<>();
+                for (Map.Entry<ResourceKey<Enchantment>, Set<Integer>> entry : bookCase.books().entrySet()) {
+                    expected.put(entry.getKey().identifier(), entry.getValue());
+                }
+                expectedByTable.put(bookCase.table(), expected);
+
+                // A case naming a table the walk below never visits would be compared against
+                // nothing at all, which is the failure mode this whole test exists to rule out.
+                helper.assertTrue(BuiltInLootTables.all().contains(bookCase.table()),
+                        bookCase.table().identifier() + " is not one of the built-in loot tables, so this "
+                                + "case would never be compared against anything");
+            }
+
+            int walked = 0;
+            for (ResourceKey<LootTable> table : BuiltInLootTables.all()) {
+                walked++;
+                Map<Identifier, Set<Integer>> found = storedEnchantments(helper, registries, table);
 
                 Map<Identifier, Set<Integer>> mine = new LinkedHashMap<>();
                 for (ResourceKey<Enchantment> key : OWNED_BOOKS) {
@@ -577,16 +647,18 @@ public final class StorageEnchantmentTests {
                     }
                 }
 
-                Map<Identifier, Set<Integer>> expected = new LinkedHashMap<>();
-                for (Map.Entry<ResourceKey<Enchantment>, Set<Integer>> entry : bookCase.books().entrySet()) {
-                    expected.put(entry.getKey().identifier(), entry.getValue());
-                }
-
+                // Unlisted tables are the "and in no other chest" half: they have to hand out none
+                // of the three.
+                Map<Identifier, Set<Integer>> expected = expectedByTable.getOrDefault(table, Map.of());
                 if (!mine.equals(expected)) {
-                    problems.add(bookCase.table().identifier() + " hands out " + mine + " instead of "
-                            + expected);
+                    problems.add(table.identifier() + " hands out " + mine + " instead of " + expected);
                 }
             }
+
+            helper.assertTrue(walked >= MIN_TABLES_WALKED,
+                    "only " + walked + " built-in loot tables came out of BuiltInLootTables.all(), fewer "
+                            + "than the " + MIN_TABLES_WALKED + " this test needs before \"and in no other "
+                            + "chest\" means anything");
         } finally {
             Simplebuilding.getConfig().worldGen.enableLootTableChanges = original;
         }
@@ -767,6 +839,35 @@ public final class StorageEnchantmentTests {
 
     private static ReinforcedBundleItem containerItem(ItemStack stack) {
         return (ReinforcedBundleItem) stack.getItem();
+    }
+
+    /**
+     * Pins the four numbers of one enchantment's definition that decide how a player comes by it:
+     * the weight it is drawn with in the enchanting table's pool, what an anvil charges to combine
+     * it, and both enchanting cost curves.
+     *
+     * <p>The curves are walked level by level instead of sampled at one point, so a changed slope
+     * is as red as a changed base - a single sample at level 1 would let
+     * {@code dynamicCost(25, 25)} become {@code dynamicCost(25, 1)} unnoticed, and for an
+     * eight-level enchantment that is the difference between a book a player can afford and one
+     * they cannot.
+     */
+    private static void assertDefinitionNumbers(GameTestHelper helper, ResourceKey<Enchantment> key,
+                                                String name, int weight, int anvilCost, int maxLevel,
+                                                int minCostBase, int minCostStep,
+                                                int maxCostBase, int maxCostStep) {
+        Enchantment definition = enchantment(helper, key).value();
+        helper.assertValueEqual(definition.getWeight(), weight,
+                "weight of " + name + ", i.e. how often the enchanting table offers it against the "
+                        + "other enchantments a container accepts");
+        helper.assertValueEqual(definition.getAnvilCost(), anvilCost,
+                "anvil cost of " + name + ", i.e. what combining two of its books costs");
+        for (int level = 1; level <= maxLevel; level++) {
+            helper.assertValueEqual(definition.getMinCost(level), minCostBase + minCostStep * (level - 1),
+                    "minimum enchanting cost of " + name + " " + level);
+            helper.assertValueEqual(definition.getMaxCost(level), maxCostBase + maxCostStep * (level - 1),
+                    "maximum enchanting cost of " + name + " " + level);
+        }
     }
 
     /**

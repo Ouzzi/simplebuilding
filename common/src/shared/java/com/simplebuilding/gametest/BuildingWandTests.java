@@ -584,16 +584,33 @@ public final class BuildingWandTests {
      *   <li><b>Unless Colour Palette is on.</b> The palette branch skips the air check entirely and
      *       falls back to plain stone for a creative builder - the one place in the item where a
      *       block is conjured out of nothing.</li>
+     *   <li><b>And a wand that remembers a real block does <em>not</em> search again.</b> The
+     *       mirror image of the first leg, and the only run in this tree that separates the two.
+     *       See below.</li>
      * </ul>
      *
-     * <p>The last leg also asserts that the player's inventory is still empty afterwards: the
+     * <p>The third leg also asserts that the player's inventory is still empty afterwards: the
      * fallback must not be a stone that was taken from somewhere.
+     *
+     * <p>The fourth leg is what makes the {@code BuildBlockRawId} the click writes observable at
+     * all. Every other wand run in the repository holds one kind of block from the click to the
+     * last placed position, so the block the click remembered and the block a fresh search would
+     * return are the same and the key could be dropped without a single assertion moving. Here they
+     * are deliberately pulled apart: the wand is armed on hotbar glass, and oak planks are put into
+     * the off hand <em>after</em> the click, where {@code findFirstBuildingBlock} looks first. A
+     * wand that builds what it remembered lays glass; one that looks the block up again every tick
+     * lays planks. Both halves are asserted, because "the glass plane is complete" alone would also
+     * be satisfied by a wand that placed planks somewhere on top of it. The player is creative here,
+     * so nothing is consumed and neither stack can run out mid plane - the only thing that differs
+     * between the two implementations is which block is chosen.
      *
      * <p><strong>What breaks this test:</strong> dropping the {@code targetBlock == Blocks.AIR}
      * re-search (leg one builds nothing), dropping the {@code Active = false} in its else branch
      * (leg two never ends and hits the loop guard), extending the air check to palette wands (leg
-     * three builds nothing), or replacing the {@code Blocks.STONE} fallback with the target block,
-     * which is air here and would place nothing at all.
+     * three builds nothing), replacing the {@code Blocks.STONE} fallback with the target block,
+     * which is air here and would place nothing at all, or dropping the {@code BuildBlockRawId}
+     * that {@code useOn} writes, or reading it back under another key - the tick would then fall
+     * into the air branch for every wand and leg four would build out of the off hand.
      */
     public static void wandArmedWithoutMaterialSearchesAgainAndPaletteFallsBackToStone(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, true);
@@ -641,6 +658,30 @@ public final class BuildingWandTests {
                 "a creative Colour Palette wand with an empty inventory did not fall back to stone");
         helper.assertValueEqual(countCarried(player, Items.STONE), 0,
                 "the stone fallback came out of the player's inventory instead of out of nothing");
+
+        // --- 4. the other side of the same branch: a remembered block is not looked up again ---
+        // The planks arrive after the click and sit in the off hand, which findFirstBuildingBlock
+        // reaches before the hotbar. So they are what a wand that re-searched every tick would
+        // build with, and the glass is what a wand that kept the id from its click builds with.
+        resetSite(helper, SMALL_SITE);
+        ItemStack rememberingWand = tunedWand(ModItems.DIAMOND_BUILDING_WAND, 1, 0);
+        stock(player, rememberingWand, new ItemStack(Items.GLASS, 64));
+
+        InteractionResult armedOnGlass =
+                useOn(helper, player, rememberingWand, Direction.UP, InteractionHand.MAIN_HAND);
+        helper.assertTrue(armedOnGlass == InteractionResult.CONSUME,
+                "the wand refused a click although its hotbar held glass, it returned " + armedOnGlass);
+
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.OAK_PLANKS, 64));
+        driveUntilIdle(helper, player, rememberingWand, EquipmentSlot.MAINHAND);
+
+        helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS),
+                square(ANCHOR.above(), Direction.Axis.Y, 1),
+                "the wand did not build the plane out of the glass it was armed with");
+        helper.assertTrue(blocksIn(helper, SMALL_SITE, Blocks.OAK_PLANKS).isEmpty(),
+                "the wand built out of the planks that turned up in the off hand after the click, so "
+                        + "it looks the building block up again every tick instead of keeping the one "
+                        + "the click wrote into the stack");
 
         helper.succeed();
     }

@@ -13,6 +13,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
@@ -40,8 +41,9 @@ import net.minecraft.world.phys.Vec3;
  * <p>{@link HopperAndTrimTests} already pins the multiplier curve - how strong a benefit gets.
  * It says nothing about whether a benefit exists: every number in {@code TrimEffectUtil} could
  * be deleted and that test would still pass. These tests put trimmed armour on a mock player
- * and read the effect back out, and one of them reads it back out through the mixins, which is
- * the only way to notice that {@code PlayerEntityMixin} has fallen out of the mixin config.
+ * and read the effect back out, and three of them read it back out through the mixins, which is
+ * the only way to notice that {@code PlayerEntityMixin} has fallen out of the mixin config - or
+ * that one of its calls has been dropped from the body it hangs in.
  *
  * <p>Four things are pinned deliberately rather than incidentally:
  * <ul>
@@ -537,6 +539,11 @@ public final class TrimEffectTests {
      * <p>The gate is checked here too, because {@code tick} reaches the material count through a
      * different path than the damage code does.
      *
+     * <p>The last case leaves {@code TrimEffectUtil} alone and drives an ordinary player tick
+     * instead. Every case before it calls {@code tick} by hand, so all of them would still pass
+     * with the one call in {@code PlayerEntityMixin#tick} deleted: the bands would keep computing
+     * the right amplifier and no player in the world would ever be given the effect.
+     *
      * <p>The other half of {@code tick}, the Enderscape stasis resistance, cannot be reached in
      * the positive: {@code countTrimById} matches the full id {@code enderscape:stasis} and
      * Enderscape is not a dependency, so no holder in the test registry carries that key and the
@@ -627,6 +634,30 @@ public final class TrimEffectTests {
                             + "stasis resistance - the check is supposed to match the full id "
                             + "enderscape:stasis, not a name");
 
+            // --- and an ordinary player tick has to hand out the same effect ---
+            // WHY this case exists: everything above reaches TrimEffectUtil.tick directly, and
+            // the only production caller of that method is the one line in PlayerEntityMixin.
+            // Deleting it leaves every case above green and every player in the world without a
+            // jump boost. The tick is pushed through the connection because the gametest server
+            // does not pump a mock player's own connection, and ServerGamePacketListenerImpl#tick
+            // is what leads into ServerPlayer#doTick and from there into Player#tick, where the
+            // injection hangs.
+            player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
+            wear(player, astralit, blank, 4);
+            // Four pieces at a progress factor of 1.0 score 4.0 - the middle of the Jump Boost I
+            // band, far enough from both edges that the play time a tick awards cannot move the
+            // multiplier across one of them and turn this into a different case.
+            pinProgressMultiplier(helper, player, 1.0);
+            player.removeEffect(MobEffects.JUMP_BOOST);
+            helper.assertTrue(!player.hasEffect(MobEffects.JUMP_BOOST),
+                    "the Jump Boost could not be cleared before the ticked case, which would then "
+                            + "have read the effect the hand-driven cases left behind");
+            player.connection.tick();
+            assertJumpBoost(helper, player, 0,
+                    "by one ordinary player tick on a full astralit set at progress 1.0 - "
+                            + "TrimEffectUtil.tick computes the band, but nothing calls it while "
+                            + "the game is running");
+
             player.removeEffect(MobEffects.JUMP_BOOST);
             player.removeEffect(MobEffects.RESISTANCE);
             bare(player);
@@ -651,6 +682,14 @@ public final class TrimEffectTests {
      * falling faster than the terminal speed the code allows. The last one is checked on both
      * sides of the boundary - a guard that only ever sees -2.5 could be deleted and replaced by
      * "never push a fast faller" without the test noticing.
+     *
+     * <p>The last pair of measurements asks the player instead of the utility class.
+     * {@code handleNihilithGravity} has exactly one production caller, the line in
+     * {@code PlayerEntityMixin#tick}; without it the arithmetic above stays right and the trim
+     * has no effect on anyone. So the same two ticks are driven for real, once wearing nihilith
+     * and once not, and the difference between them is what a tick gained by the trim - taking
+     * the difference cancels the gravity the tick applies as well, whatever that step happens to
+     * be on this MC line.
      */
     public static void nihilithPullsDownTheSneakingAirbornePlayer(GameTestHelper helper) {
         double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
@@ -735,6 +774,19 @@ public final class TrimEffectTests {
             assertClose(helper, player.getDeltaMovement().y, 0.0,
                     "the nihilith pull ignored the trim benefit switch");
             ((TrimBenefitUser) player).simplebuilding$setTrimBenefitsEnabled(true);
+
+            // --- and an ordinary player tick has to apply the pull, not just this test ---
+            // The same tick is measured twice, with the trim and with an inert one, so that the
+            // gravity a tick applies on its own drops out of the difference.
+            player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
+            wear(player, nihilith, blank, 4);
+            double pulledOverOneTick = deltaYOverOneTick(helper, player);
+            wear(player, material(helper, TrimMaterials.COPPER), blank, 4);
+            double fellOverOneTick = deltaYOverOneTick(helper, player);
+            assertClose(helper, pulledOverOneTick - fellOverOneTick, -0.32,
+                    "a full nihilith set made no difference to an ordinary player tick; the pull "
+                            + "is computed correctly but nothing asks for it while the game is "
+                            + "running");
 
             player.setShiftKeyDown(false);
             player.setDeltaMovement(0.0, 0.0, 0.0);
@@ -856,6 +908,27 @@ public final class TrimEffectTests {
         player.setShiftKeyDown(sneaking);
         player.setOnGround(!airborne);
         player.setDeltaMovement(0.0, 0.0, 0.0);
+    }
+
+    /**
+     * The vertical speed a sneaking, airborne player is left with after one whole server tick.
+     *
+     * <p>The tick goes through {@code connection.tick()} because the gametest server does not pump
+     * a mock player's own connection, and {@code ServerGamePacketListenerImpl#tick} is the route
+     * into {@code ServerPlayer#doTick} and from there into {@code Player#tick}, which is the body
+     * the mixin injects at the end of. That route also puts the player back where the tick started
+     * afterwards, so one call after another measures from the same spot.
+     *
+     * <p>The player has to still be airborne when the tick ends, because that is what the pull is
+     * gated on; a landing would make the reading say nothing rather than say something wrong.
+     */
+    private static double deltaYOverOneTick(GameTestHelper helper, ServerPlayer player) {
+        airborneSneak(player, true, true);
+        player.connection.tick();
+        helper.assertTrue(!player.onGround(),
+                "test setup broken: the player was standing on something when the tick ended, so "
+                        + "the airborne branch of the nihilith pull was never reached");
+        return player.getDeltaMovement().y;
     }
 
     /** Clears the effect first, so a weaker new one is not silently rejected by addEffect. */

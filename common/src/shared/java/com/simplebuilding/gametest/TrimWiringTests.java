@@ -184,6 +184,13 @@ public final class TrimWiringTests {
      *       three curves - survival, combat and experience-at-level-zero. Asserting them against
      *       each other rather than against a literal means a deliberate rebalance of the floor
      *       moves all three together and stays green, while one of them drifting alone goes red.</li>
+     *   <li><b>The ceiling, and with it the amplitude.</b> Cross-checked the same way, against the
+     *       experience curve at level 100: all three curves are meant to span one band, so the
+     *       saturated survival factor has to be the top of that band and not merely somewhere
+     *       above the floor. It needs saying out loud because every scale below is recovered
+     *       <em>using</em> this reading - shrink the amplitude of the exponential and the floor,
+     *       all three scales and the whole rest of this test come out unchanged, while every trim
+     *       benefit an endgame player earns silently loses most of its value.</li>
      *   <li><b>The distance unit.</b> The five {@code *_ONE_CM} counters are summed after each is
      *       divided by 100, so 500 cm of walking and 100 cm in each of the five counters have to
      *       come out the same, and 99 cm has to come out as nothing at all.</li>
@@ -200,9 +207,9 @@ public final class TrimWiringTests {
      * which is what a rolled-back statistics file looks like - it stays at the floor instead of
      * going negative and dragging the whole multiplier below zero.
      *
-     * <p>What breaks this: a changed scale, a changed floor in one curve only, the {@code /100}
-     * disappearing, one of the five distance counters being dropped, {@code max} turning into
-     * {@code min}, or the {@code Math.max(0, ...)} clamps going away.
+     * <p>What breaks this: a changed scale, a changed floor or a changed amplitude in one curve
+     * only, the {@code /100} disappearing, one of the five distance counters being dropped,
+     * {@code max} turning into {@code min}, or the {@code Math.max(0, ...)} clamps going away.
      */
     public static void theSurvivalFactorTracksDistanceAndTimeSinceTheLastDeath(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -227,6 +234,17 @@ public final class TrimWiringTests {
                 "the survival factor saturates at " + ceiling + "; it has to converge on a value "
                         + "above its floor and never above 1.0, otherwise the configured base is no "
                         + "longer the only thing that can push the multiplier past 1");
+        // The band above is only a band, and every scale below is recovered from this very reading,
+        // so the amplitude of the exponential cancels out of all three of them. Pinning the top end
+        // against the experience curve is what stops a shrunken amplitude - a fully progressed
+        // player quietly getting a fraction of the trim benefits they earned - from passing here.
+        player.experienceLevel = 100;
+        assertClose(helper, TrimMultiplierLogic.calculateXPMultiplier(player), ceiling,
+                "the survival curve saturates at " + ceiling + " where the experience curve reaches "
+                        + TrimMultiplierLogic.calculateXPMultiplier(player) + "; the three factors "
+                        + "no longer share one 0.1..1.0 band, so a fully progressed player gets a "
+                        + "fraction of the multiplier the design promises");
+        player.experienceLevel = 0;
 
         // --- centimetres into metres, and all five counters into one sum ---
         clearProgress(helper, player);
@@ -320,7 +338,12 @@ public final class TrimWiringTests {
      *
      * <p>What breaks this: a changed weight, a changed scale, a mob category moving between the two
      * buckets or into neither, and the baseline subtraction disappearing - the last one is checked
-     * with a baseline above the current tally, the state a statistics rollback leaves behind.
+     * with a baseline above the current tally, the state a statistics rollback leaves behind, once
+     * for the two kill counters and once for the damage counter. The damage counter needs its own
+     * case because it has its own clamp and because the rest of this test only ever raises it: a
+     * baseline that outruns it can only come from the world's statistics file being lost or rolled
+     * back while the player data keeps the baseline, and that is exactly when losing the clamp
+     * turns the multiplier negative and {@code modifyDamage} into damage amplification.
      */
     public static void theCombatFactorWeighsKillsAndDamageByMobCategory(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -391,7 +414,22 @@ public final class TrimWiringTests {
         assertClose(helper, TrimMultiplierLogic.calculateCombatMultiplier(player), floor,
                 "a kill baseline above the current tally produced "
                         + TrimMultiplierLogic.calculateCombatMultiplier(player)
-                        + " instead of the floor; the clamps are gone");
+                        + " instead of the floor; the kill clamps are gone");
+
+        // The same rollback on the damage counter, which has a clamp of its own. Every other case
+        // in this test leaves the damage baseline at zero, so nothing above would notice it going
+        // away; the counter is left at 20 here so that the two readings really differ in sign.
+        setStat(player, Stats.DAMAGE_TAKEN, 20);
+        tracker.simplebuilding$setBaseValues(0, 0,
+                tracker.simplebuilding$getCurrentHostileKills(),
+                tracker.simplebuilding$getCurrentPassiveKills(),
+                999_999);
+        assertClose(helper, TrimMultiplierLogic.calculateCombatMultiplier(player), floor,
+                "a damage baseline above the damage actually taken produced "
+                        + TrimMultiplierLogic.calculateCombatMultiplier(player)
+                        + " instead of the floor; the clamp on the damage counter is gone, so a "
+                        + "lost statistics file drives the combat factor far below zero and "
+                        + "modifyDamage turns every trim's damage reduction into amplification");
 
         clearProgress(helper, player);
         helper.succeed();

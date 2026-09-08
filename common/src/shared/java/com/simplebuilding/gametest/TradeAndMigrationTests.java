@@ -1,5 +1,7 @@
 package com.simplebuilding.gametest;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.mojang.authlib.GameProfile;
@@ -22,8 +24,10 @@ import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.tags.VillagerTradeTags;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -31,6 +35,7 @@ import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.npc.villager.VillagerData;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -47,6 +52,8 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -78,6 +85,12 @@ import java.util.UUID;
  * {@code -14836127, -59, -13751102} and {@code 11052073, -59, 14884053}), so the case below
  * already sits millions of blocks from the origin and a box shrunk around the origin fails it.
  *
+ * <p>The same random placement pins the structures to y = -59, so everything a gametest spawns is
+ * below y = 0 and the box's y range was only ever exercised downwards: pulling its ceiling from 320
+ * to 0 changed nothing while it stopped the scan from finding any spatula lying on the surface. The
+ * case below therefore puts one entity at y = {@link #PROBE_Y} by hand, which is the only thing in
+ * this file standing in the upper half of that box.
+ *
  * <p><strong>Known defect (mod), measured 2026-09-04:</strong> that one query per level is
  * expensive, and under load it stops finding what it should. Vanilla's
  * {@code EntitySectionStorage#forEachAccessibleNonEmptySection} walks <em>every</em> section x
@@ -105,6 +118,30 @@ public final class TradeAndMigrationTests {
 
     /** Hotbar slot the login migration case puts its legacy spatula in. */
     private static final int LOGIN_SLOT = 8;
+
+    /**
+     * The one inventory slot no {@link InventoryMenu} slot points at: the body armour slot sits at
+     * container index 41, while the menu stops after the off hand at 40. Every other slot a
+     * spatula could be in is reachable from both loops of
+     * {@code LegacySpatulaMigration#migratePlayer}, so only a stack here says whether the inventory
+     * loop really walks the whole container - see
+     * {@link #legacySpatulasInPlayerInventoryBecomeChisels}.
+     */
+    private static final int SLOT_OUTSIDE_THE_MENU = Inventory.SLOT_BODY_ARMOR;
+
+    /**
+     * Absolute height of the probe entity in {@link #legacySpatulaItemEntityIsRewrittenInPlace} -
+     * the only thing in this file that sits in the upper half of the migration's scan box.
+     */
+    private static final int PROBE_Y = 60;
+
+    /**
+     * How often {@link #assertEveryDeclaredEnchantmentIsDrawn} re-rolls each enchanted trade. Sized
+     * for the rarest entry any shipped pool declares, the master book's {@code range@3} at weight 3
+     * of 120: that one is expected about 25 times in this many rolls, and the same number is what
+     * {@code TradeOfferTests} measured its master book statistics on.
+     */
+    private static final int ENCHANT_ROLLS = 1000;
 
     private static final String NAMESPACE = "simplebuilding";
 
@@ -278,6 +315,14 @@ public final class TradeAndMigrationTests {
      * into the vanilla pools: our entries must be in there, and the vanilla entries must
      * still be in there (a missing {@code "replace": false} would wipe them).
      *
+     * <p>Eight of the eleven tags are read back out of the loaded registry. The three librarian
+     * ones cannot be: vanilla's Trade Rebalance pack declares {@code "replace": true} on them and
+     * is switched on in the gametest environment, so the merged tag holds none of our entries there
+     * no matter what we ship. Those three are therefore checked on the shipped file itself, out of
+     * the server's datapack stack - see {@link #assertShippedTagMergesModTrade}. Skipping them, as
+     * this test did, left an entire third of the statement unwatched in every run the suite ever
+     * does.
+     *
      * <p><strong>What breaks this test:</strong> a trade id dropped from a tag file, a tag file
      * that sets {@code "replace": true}, or a tag written under the wrong id. It says nothing
      * about the <em>content</em> of a trade - that is
@@ -302,6 +347,18 @@ public final class TradeAndMigrationTests {
             assertPoolContains(helper, trades, VillagerTradeTags.LIBRARIAN_LEVEL_5,
                     "simplebuilding:librarian/5/emerald_master_book");
         }
+        // Rebalance is on here, so the three lines above never run in this environment and the
+        // files behind them were never looked at: dropping our id from librarian/level_5.json, or
+        // writing "replace": true into librarian/level_3.json, stayed green while it emptied a
+        // pool in every normal world. The shipped files are readable whatever the merged tag ends
+        // up holding, so they are checked directly.
+        assertShippedTagMergesModTrade(helper, VillagerTradeTags.LIBRARIAN_LEVEL_3,
+                "simplebuilding:librarian/3/emerald_building_book");
+        assertShippedTagMergesModTrade(helper, VillagerTradeTags.LIBRARIAN_LEVEL_4,
+                "simplebuilding:librarian/4/emerald_advanced_book");
+        assertShippedTagMergesModTrade(helper, VillagerTradeTags.LIBRARIAN_LEVEL_5,
+                "simplebuilding:librarian/5/emerald_master_book");
+
         assertPoolContains(helper, trades, VillagerTradeTags.MASON_LEVEL_2,
                 "simplebuilding:mason/2/emerald_copper_core",
                 "simplebuilding:mason/2/netherite_diamond_core");
@@ -335,6 +392,15 @@ public final class TradeAndMigrationTests {
      * Walks the chain a real merchant walks: profession + level -> trade set -> tag ->
      * trade holders. If our tag ids do not match the trade set the profession points at,
      * the entries exist but are never offered by anybody.
+     *
+     * <p>The librarian half of that statement cannot be walked to the end in this environment:
+     * Trade Rebalance is on and replaces the librarian tags, so the resolved pool holds none of our
+     * entries. The links that survive it are walked instead - profession and level do resolve to
+     * {@code LIBRARIAN_LEVEL_5}, that trade set does draw from a tag rather than a fixed list, it is
+     * the tag we ship a file for, and that file lists the master book. Together that is the same
+     * chain, one link at a time; simply skipping it (which is what this test did) left "drop the mod
+     * id from librarian/level_5.json" green, and with it a librarian that never offers the master
+     * book again.
      */
     public static void professionTradeSetsResolveTheModTrades(GameTestHelper helper) {
         assertTradeSetForProfession(helper, VillagerProfession.MASON, 2, TradeSets.MASON_LEVEL_2,
@@ -346,6 +412,11 @@ public final class TradeAndMigrationTests {
                 "simplebuilding:toolsmith/3/emerald_gold_chisel");
         if (!tradeRebalanceActive(helper)) {
             assertTradeSetForProfession(helper, VillagerProfession.LIBRARIAN, 5, TradeSets.LIBRARIAN_LEVEL_5,
+                    "simplebuilding:librarian/5/emerald_master_book");
+        } else {
+            assertTradeSetDrawsFromTag(helper, VillagerProfession.LIBRARIAN, 5, TradeSets.LIBRARIAN_LEVEL_5,
+                    VillagerTradeTags.LIBRARIAN_LEVEL_5);
+            assertShippedTagMergesModTrade(helper, VillagerTradeTags.LIBRARIAN_LEVEL_5,
                     "simplebuilding:librarian/5/emerald_master_book");
         }
 
@@ -367,16 +438,24 @@ public final class TradeAndMigrationTests {
      * unsampled files free to be repriced, and that is precisely how the wand, the octant and both
      * reinforced bundle trades stayed unpinned.
      *
-     * <p>The enchantment is asserted as "at least one, and every one of them out of the pool the
-     * json declares, at the level it declares" rather than as one fixed pick. The function draws
-     * weighted from that pool; pinning a single outcome would pin {@link #tradeContext}'s seed
-     * instead of the trade.
+     * <p>The enchantment is asserted in both directions and over {@link #ENCHANT_ROLLS} re-rolls per
+     * trade, not on the single pick a fixed seed hands out: everything a roll puts on the result has
+     * to be in the pool the json declares, at the level it declares, <em>and</em> every pair the json
+     * declares has to come out of the rolls at least once. One roll only ever states the first half,
+     * and states it for one draw - which is not enough for either direction. An entry <em>added</em>
+     * to a pool is drawn too rarely to be seen (a second enchantment in the wandering trader's book
+     * pool would show up in about one offer in twenty-one), and an entry <em>deleted</em> from one
+     * cannot be seen at all, because whatever is left is still a subset of what this file declares.
+     * Both edits leave every other number of that trade untouched, so nothing else here moves either.
+     *
+     * <p>Pinning one <em>fixed</em> outcome instead would pin {@link #tradeContext}'s seed rather
+     * than the trade, which is why the pools are asserted as sets and not as picks.
      *
      * <p><strong>What breaks this test:</strong> any edit to a number in any
      * {@code data/simplebuilding/villager_trade/**.json} - price, result count, {@code max_uses},
      * {@code xp}, {@code reputation_discount}, an {@code additional_wants} that appears, vanishes
-     * or changes its count - and any change that empties or re-pools a {@code weighted_enchant}
-     * modifier.
+     * or changes its count - and any entry added to, removed from or re-levelled in a
+     * {@code weighted_enchant} pool.
      */
     public static void tradeDefinitionsProduceTheExpectedOffers(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -395,6 +474,7 @@ public final class TradeAndMigrationTests {
             helper.assertTrue(offer != null, "no offer was built for " + enchanted.getKey());
             assertOfferEnchantments(helper, offer, enchanted.getKey(), enchanted.getValue());
         }
+        assertEveryDeclaredEnchantmentIsDrawn(helper, level, context);
 
         helper.succeed();
     }
@@ -501,6 +581,12 @@ public final class TradeAndMigrationTests {
      * damage and name and silently drop the enchantments an old spatula was carrying - and an
      * enchanted spatula is exactly the kind that survives in an old world.
      *
+     * <p>"The inventory" means the whole container, not the hotbar: one stack is put in
+     * {@link #SLOT_OUTSIDE_THE_MENU}, the single container index the player's own menu has no slot
+     * for. Everything else here is in slots 0..8, and those the menu loop would convert on its own
+     * even if the inventory loop stopped after the hotbar - so they cannot say how far that loop
+     * runs, and a shortened loop stayed green on all of them.
+     *
      * <p>The mock player has to be a <em>connected</em> one: writing into the crafting grid makes
      * vanilla run {@code CraftingMenu#slotChangedCraftingGrid}, which unconditionally dereferences
      * {@code ServerPlayer#connection}. That matches production, where the migration only ever runs
@@ -518,8 +604,9 @@ public final class TradeAndMigrationTests {
      * body runs, and a shared gametest cannot re-enter a server start on either loader.
      *
      * <p><strong>What breaks this test:</strong> dropping the inventory loop, the menu loop, the
-     * component copy or a single entry of the spatula/chisel mapping; converting an item that is
-     * not a legacy spatula; and removing either loader's join listener.
+     * component copy or a single entry of the spatula/chisel mapping; shortening the inventory loop
+     * so that it stops before the end of the container; converting an item that is not a legacy
+     * spatula; and removing either loader's join listener.
      */
     public static void legacySpatulasInPlayerInventoryBecomeChisels(GameTestHelper helper) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
@@ -554,6 +641,14 @@ public final class TradeAndMigrationTests {
         // A spatula that only lives in the open menu (crafting grid slot), not in the inventory.
         ItemStack menuSpatula = new ItemStack(ModItems.GOLD_SPATULA, 1);
         player.containerMenu.getSlot(InventoryMenu.CRAFT_SLOT_START).set(menuSpatula);
+
+        // And one the other way round: in the inventory but out of reach of the open menu. Every
+        // stack above sits in the hotbar, and migratePlayer walks the menu as well as the
+        // inventory - the player's own menu has a slot for all of 0..40, so those stacks would
+        // still be converted by the menu loop alone and say nothing about how far the inventory
+        // loop runs. Only a stack in a container slot no menu slot points at does.
+        ItemStack outsideTheMenu = new ItemStack(ModItems.IRON_SPATULA, 2);
+        player.getInventory().setItem(SLOT_OUTSIDE_THE_MENU, outsideTheMenu);
 
         LegacySpatulaMigration.migratePlayer(player);
 
@@ -591,6 +686,14 @@ public final class TradeAndMigrationTests {
                 "gold_spatula in the open menu should have become gold_chisel, was " + migratedMenuStack);
         helper.assertValueEqual(migratedMenuStack.getCount(), 1, "migrated menu stack size");
 
+        ItemStack migratedOutsideTheMenu = player.getInventory().getItem(SLOT_OUTSIDE_THE_MENU);
+        helper.assertTrue(migratedOutsideTheMenu.is(ModItems.IRON_CHISEL),
+                "the spatula in inventory slot " + SLOT_OUTSIDE_THE_MENU + " is still "
+                        + migratedOutsideTheMenu + "; the inventory loop no longer walks the whole "
+                        + "container, and no menu slot covers that one for it");
+        helper.assertValueEqual(migratedOutsideTheMenu.getCount(), 2,
+                "stack size of the migrated slot outside the menu");
+
         // --- and now the hook that is supposed to call all of that in a real game ---
         ServerPlayer joining = logIn(helper, new ItemStack(ModItems.STONE_SPATULA, 2));
 
@@ -620,7 +723,8 @@ public final class TradeAndMigrationTests {
      *
      * <p><strong>What breaks this test:</strong> dropping the {@code setItem} write-back, the
      * component copy (damage, name, enchantment and repair cost are all asserted), or a single
-     * entry of the spatula/chisel mapping; converting item entities that carry something else.
+     * entry of the spatula/chisel mapping; converting item entities that carry something else; and
+     * a scan box that no longer reaches above y=0, which is where the third entity stands.
      */
     public static void legacySpatulaItemEntityIsRewrittenInPlace(GameTestHelper helper) {
         // Two entities on purpose: the damage component only validates on a single item, so
@@ -639,15 +743,23 @@ public final class TradeAndMigrationTests {
 
         ItemEntity control = helper.spawnItem(Items.STICK, new BlockPos(3, 2, 3));
 
+        // The scan box reaches from y=-64 to y=320, and the three entities above say nothing about
+        // the upper half of that: the gametest server drops its structures at y=-59, so all of them
+        // sit below y=0. This one is put where players actually build.
+        ItemEntity aboveSeaLevel = spawnAboveTheStructure(helper, new ItemStack(ModItems.GOLD_SPATULA, 1));
+
         helper.startSequence()
                 .thenIdle(2)
                 .thenExecute(() -> {
                     helper.assertTrue(damaged.isAlive(), "the dropped spatula entity vanished before migration");
                     helper.assertTrue(multiple.isAlive(), "the dropped spatula stack vanished before migration");
+                    helper.assertTrue(aboveSeaLevel.isAlive(),
+                            "the spatula above the test room vanished before migration");
                     // Findable the way the migration finds them, or a red test below would be
                     // about the harness and not about the migration.
                     assertVisibleToTheLevelLookup(helper, damaged);
                     assertVisibleToTheLevelLookup(helper, multiple);
+                    assertVisibleToTheLevelLookup(helper, aboveSeaLevel);
                     LegacySpatulaMigration.migrateWorlds(helper.getLevel().getServer());
                 })
                 .thenExecute(() -> {
@@ -678,6 +790,12 @@ public final class TradeAndMigrationTests {
                     helper.assertValueEqual(afterStack.getCount(), 3,
                             "item entity stack size of the multi item stack after migration");
 
+                    ItemStack afterAbove = aboveSeaLevel.getItem();
+                    helper.assertTrue(afterAbove.is(ModItems.GOLD_CHISEL),
+                            "the spatula at y=" + PROBE_Y + " still carries " + afterAbove
+                                    + "; the scan box no longer covers the height players build at, "
+                                    + "so every spatula above y=0 survives the migration untouched");
+
                     helper.assertTrue(control.getItem().is(Items.STICK),
                             "an unrelated item entity must not be rewritten");
                 })
@@ -687,6 +805,32 @@ public final class TradeAndMigrationTests {
     // ------------------------------------------------------------------
     // helpers
     // ------------------------------------------------------------------
+
+    /**
+     * Puts one item entity high above the test structure, in the half of the migration's scan box
+     * the gametest structures themselves never reach - they stand at y = -59, so everything else in
+     * this file is below y = 0.
+     *
+     * <p>Gravity is switched off so it stays at {@link #PROBE_Y} for the two ticks the case needs
+     * instead of falling down through a neighbouring test's room, and it is handed back at the end
+     * of the test because the framework only cleans up what stands inside the structure. The
+     * position is derived from {@code absolutePos} rather than from a relative one, because a
+     * relative y that lands above y=0 depends on where the server happened to drop the structure.
+     */
+    private static ItemEntity spawnAboveTheStructure(GameTestHelper helper, ItemStack carried) {
+        ServerLevel level = helper.getLevel();
+        BlockPos anchor = helper.absolutePos(new BlockPos(1, 2, 1));
+        ItemEntity entity = new ItemEntity(level, anchor.getX() + 0.5, PROBE_Y, anchor.getZ() + 0.5, carried);
+        entity.setNoGravity(true);
+        helper.assertTrue(level.addFreshEntity(entity),
+                "the level refused the item entity above the test room, so this case would prove nothing");
+        helper.runBeforeTestEnd(entity::discard);
+
+        helper.assertTrue(entity.getY() > 0.0,
+                "the probe has to stand above y=0 to say anything about the upper half of the scan "
+                        + "box; it is at y=" + entity.getY());
+        return entity;
+    }
 
     /**
      * The migration collects its entities with {@code getEntitiesOfClass}. If that lookup cannot
@@ -770,6 +914,95 @@ public final class TradeAndMigrationTests {
                         + "replaces instead of merges; it holds " + actual);
     }
 
+    /**
+     * Reads the tag file the mod ships for {@code tag} out of the server's datapack stack and checks
+     * the two things a merging tag has to get right: it lists {@code expectedId}, and it does not
+     * set {@code "replace": true}, which would throw away everything the packs before it put in the
+     * tag - the whole vanilla pool included.
+     *
+     * <p>The stack holds one file per contributing pack. Ours is the one that lists our own trade,
+     * which no other pack does, so it needs no guessing at pack ids: vanilla's own copy and Trade
+     * Rebalance's replacing copy both name only vanilla trades and are skipped.
+     *
+     * <p>This reads the file, not the merged tag, and is therefore blind to everything a later pack
+     * does - which is the point: it is the only statement left about the three librarian tags once
+     * Trade Rebalance has replaced them. Where the merged tag is readable, {@link #assertPoolContains}
+     * is the stronger check and stays the primary one.
+     */
+    private static void assertShippedTagMergesModTrade(GameTestHelper helper, TagKey<VillagerTrade> tag,
+                                                       String expectedId) {
+        Identifier file = Identifier.fromNamespaceAndPath(tag.location().getNamespace(),
+                Registries.tagsDirPath(Registries.VILLAGER_TRADE) + "/" + tag.location().getPath() + ".json");
+        List<Resource> stack = helper.getLevel().getServer().getResourceManager().getResourceStack(file);
+        helper.assertTrue(!stack.isEmpty(), "no datapack ships " + file + " at all");
+
+        boolean listed = false;
+        for (Resource resource : stack) {
+            JsonObject json;
+            try (BufferedReader reader = resource.openAsReader()) {
+                json = GsonHelper.parse(reader);
+            } catch (IOException | RuntimeException e) {
+                helper.fail(file + " from pack " + resource.sourcePackId() + " is not readable json: " + e);
+                return;
+            }
+            if (!tagValues(json).contains(expectedId)) {
+                continue; // vanilla's or Trade Rebalance's copy of the same tag, not ours
+            }
+
+            listed = true;
+            helper.assertTrue(!GsonHelper.getAsBoolean(json, "replace", false),
+                    file + " (pack " + resource.sourcePackId() + ") lists " + expectedId
+                            + " but sets \"replace\": true, so it wipes the vanilla trades of that "
+                            + "pool instead of merging into them");
+        }
+
+        helper.assertTrue(listed, "no shipped " + file + " lists " + expectedId
+                + "; the trade is registered, but nothing puts it into a pool a merchant draws from");
+    }
+
+    /** The ids in a tag file's {@code values}, in both spellings: {@code "id"} and {@code {"id": ...}}. */
+    private static Set<String> tagValues(JsonObject json) {
+        Set<String> ids = new LinkedHashSet<>();
+        JsonElement values = json.get("values");
+        if (values == null || !values.isJsonArray()) {
+            return ids;
+        }
+        for (JsonElement entry : values.getAsJsonArray()) {
+            if (entry.isJsonPrimitive()) {
+                ids.add(entry.getAsString());
+            } else if (entry.isJsonObject() && entry.getAsJsonObject().has("id")) {
+                ids.add(entry.getAsJsonObject().get("id").getAsString());
+            }
+        }
+        return ids;
+    }
+
+    /**
+     * The part of the profession chain vanilla's Trade Rebalance pack cannot touch: profession and
+     * level resolve to {@code expectedTradeSet}, and that trade set draws from {@code expectedTag}
+     * rather than from a list written into the trade set itself - a list no datapack could add to.
+     */
+    private static void assertTradeSetDrawsFromTag(GameTestHelper helper,
+                                                   ResourceKey<VillagerProfession> professionKey, int level,
+                                                   ResourceKey<TradeSet> expectedTradeSet,
+                                                   TagKey<VillagerTrade> expectedTag) {
+        var registries = helper.getLevel().registryAccess();
+        VillagerProfession profession = registries.lookupOrThrow(Registries.VILLAGER_PROFESSION)
+                .getOrThrow(professionKey).value();
+
+        ResourceKey<TradeSet> tradeSetKey = profession.getTrades(level);
+        helper.assertValueEqual(tradeSetKey, expectedTradeSet,
+                "trade set of " + professionKey.identifier() + " at level " + level);
+
+        TradeSet tradeSet = registries.lookupOrThrow(Registries.TRADE_SET).getOrThrow(tradeSetKey).value();
+        Optional<TagKey<VillagerTrade>> backing = tradeSet.getTrades().unwrapKey();
+        helper.assertTrue(backing.isPresent(),
+                "trade set " + tradeSetKey.identifier() + " no longer draws from a tag, so no datapack "
+                        + "- ours included - can put a trade into it");
+        helper.assertValueEqual(backing.get(), expectedTag,
+                "tag behind trade set " + tradeSetKey.identifier());
+    }
+
     private static void assertTradeSetForProfession(GameTestHelper helper,
                                                     ResourceKey<VillagerProfession> professionKey, int level,
                                                     ResourceKey<TradeSet> expectedTradeSet, String... expectedIds) {
@@ -834,6 +1067,46 @@ public final class TradeAndMigrationTests {
             helper.assertTrue(pool.contains(drawn),
                     id + ": the merchant put " + drawn + " on the tool, which is not one of the "
                             + "enchantment/level pairs its json offers (" + pool + ")");
+        }
+    }
+
+    /**
+     * The other direction of {@link #assertOfferEnchantments}: not only "what came out is declared",
+     * but "everything declared does come out". Both directions are asserted on the same re-rolls, so
+     * an entry added to a json pool and an entry deleted from one are equally visible - the first
+     * shows up as a draw outside the declared set, the second as a declared pair that never appears.
+     *
+     * <p>The rolls share {@link #tradeContext}'s random source, which moves on with every offer, so
+     * this is one long but completely fixed sequence of draws: it cannot be red on one run and green
+     * on the next. That is also why the trades are walked in {@link #TRADE_TABLE}'s order and not in
+     * {@link #ENCHANT_POOLS}': a {@code Map.ofEntries} map iterates in an order that is randomised
+     * per JVM, which would hand each pool a different stretch of that sequence on every run.
+     * {@link #ENCHANT_ROLLS} is sized for the rarest pair any shipped pool declares.
+     */
+    private static void assertEveryDeclaredEnchantmentIsDrawn(GameTestHelper helper, ServerLevel level,
+                                                              LootContext context) {
+        for (TradeRow row : TRADE_TABLE) {
+            Set<String> declared = ENCHANT_POOLS.get(row.path());
+            if (declared == null) {
+                continue; // one of the ten trades that hand out a plain item
+            }
+
+            Set<String> drawn = new LinkedHashSet<>();
+            for (int roll = 0; roll < ENCHANT_ROLLS; roll++) {
+                MerchantOffer offer = offerOf(helper, level, row.id(), context);
+                assertOfferEnchantments(helper, offer, row.path(), declared);
+
+                ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(offer.getResult());
+                for (Holder<Enchantment> enchantment : enchantments.keySet()) {
+                    drawn.add(enchantment.getRegisteredName() + "@" + enchantments.getLevel(enchantment));
+                }
+            }
+
+            Set<String> neverDrawn = new LinkedHashSet<>(declared);
+            neverDrawn.removeAll(drawn);
+            helper.assertTrue(neverDrawn.isEmpty(), row.path() + ": " + neverDrawn
+                    + " never came out of " + ENCHANT_ROLLS + " offers, so the trade stopped handing "
+                    + "out what its json declares (it drew " + drawn + ")");
         }
     }
 

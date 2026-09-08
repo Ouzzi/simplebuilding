@@ -270,11 +270,14 @@ public final class ProtectionAndRangeTests {
      * <p>The third step is about <em>which items</em> may carry all of that.
      * {@code ItemStack#enchant} never asks, so every measurement above works on a chisel that
      * might long have fallen out of the enchantment's item tag. Range hangs on
-     * {@code #simplebuilding:chisel_and_mining_tools}, and the octants reach it only through the
-     * nested {@code #simplebuilding:octants_enchantable} - one deleted line in the tag provider
-     * and the whole octant family can no longer be given reach, with every number in this test
-     * still correct. {@code Enchantment#canEnchant} is what the anvil asks, so that is what is
-     * asked here, for the plain octant and for all sixteen dyed ones.
+     * {@code #simplebuilding:chisel_and_mining_tools}, which is not a hand written item list but
+     * four nested tags: the chisels, vanilla's {@code #minecraft:enchantable/mining}, the
+     * sledgehammers and {@code #simplebuilding:octants_enchantable}. Each nesting is a single
+     * line in the tag provider, and every number measured above is measured on a chisel, so
+     * deleting any one of the other three takes a whole item family out of the enchantment
+     * without moving a single figure in this test. {@code Enchantment#canEnchant} is what the
+     * anvil asks, so that is what is asked here: for the chisel, for the four vanilla mining
+     * tools, for the sledgehammer, and for the plain octant plus all sixteen dyed ones.
      */
     public static void rangeAddsBlockInteractionReachInTheMainHandOnly(GameTestHelper helper) {
         // Setup guard: the loop below goes up to RANGE_MAX_LEVEL and ItemStack#enchant does not
@@ -320,6 +323,23 @@ public final class ProtectionAndRangeTests {
         helper.assertTrue(range.canEnchant(plainTool),
                 "Range cannot be put on the diamond chisel any more, so every number measured "
                         + "above was measured on an item the player can no longer enchant");
+        // Vanilla's own mining tools are in only because #simplebuilding:chisel_and_mining_tools
+        // nests #minecraft:enchantable/mining; nothing else in the suite asks canEnchant for
+        // them, so without this loop that nesting can be dropped unnoticed.
+        for (Item miningTool : List.<Item>of(Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE,
+                Items.DIAMOND_SHOVEL, Items.DIAMOND_HOE)) {
+            helper.assertTrue(range.canEnchant(new ItemStack(miningTool)),
+                    "Range cannot be put on " + miningTool + " any more; the vanilla mining tools "
+                            + "reach #simplebuilding:chisel_and_mining_tools only through the "
+                            + "nested #minecraft:enchantable/mining, and that link is gone");
+        }
+        // The sledgehammers hang in the tag twice - directly through
+        // #simplebuilding:sledgehammer_tools and again through #minecraft:enchantable/mining, which
+        // the provider fills with the same tag - so this only goes red once both are gone.
+        helper.assertTrue(range.canEnchant(new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER)),
+                "Range cannot be put on the diamond sledgehammer any more, so the sledgehammers "
+                        + "dropped out of #simplebuilding:chisel_and_mining_tools on both of the "
+                        + "routes that put them there");
         helper.assertTrue(range.canEnchant(new ItemStack(ModItems.OCTANT)),
                 "Range cannot be put on the octant; it reaches "
                         + "#simplebuilding:chisel_and_mining_tools only through the nested "
