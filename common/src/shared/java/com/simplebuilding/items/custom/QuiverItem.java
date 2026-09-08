@@ -95,9 +95,10 @@ public class QuiverItem extends ReinforcedBundleItem {
         if (drawer.isPresent()) {
             int level = EnchantmentHelper.getItemEnchantmentLevel(drawer.get(), stack);
             if (level > 0) {
-                // Multiplikator = (16 + level) / 8 - dieselbe Steigerung wie beim Buendel.
-                // Nicht (8 + level) / 8: das stand hier frueher im Kommentar, das Handbuch
-                // und der Code meinen aber beide den doppelten Faktor.
+                // Multiplikator = (16 + level) / 8 - dieselbe Steigerung wie beim Buendel,
+                // und mit derselben offenen Frage: siehe den Kommentar in
+                // ReinforcedBundleItem#getMaxCapacity. Kurz: Commit ce9f495 hat die 8 wortlos
+                // zur 16 gemacht, ob gewollt sagt keine Quelle.
                 Fraction drawerBonus = Fraction.getFraction(16 + level, 8);
                 capacity = capacity.multiplyBy(drawerBonus);
             }

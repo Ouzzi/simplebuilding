@@ -66,8 +66,8 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Known defects</h2>
  *
- * <p><b>The Drawer multiplier is {@code (16 + level) / 8}</b>, which the manual documents and
- * which is therefore the intended number, not a defect - see the note in {@link QuiverTests}.
+ * <p><b>The Drawer multiplier is {@code (16 + level) / 8}</b>, and whether that is intended is
+ * open - see the note in {@link QuiverTests} for the commit that changed it without a word.
  * {@link #capacityFollowsTierAndEnchantmentsAndMatchesTheWikiExport} pins both halves of it: the
  * <em>slope</em>, one eighth of the base capacity per level, and the <em>offset</em>, see
  * {@link #DRAWER_OFFSET}. The slope on its own would leave the offset free to be any number at

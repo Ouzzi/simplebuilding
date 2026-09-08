@@ -504,11 +504,19 @@ public class ReinforcedBundleItem extends BundleItem {
                 // Beispiel Level 1: 96 * 17/8 = 204 Steine
                 // Beispiel Level 8: 96 * 24/8 = 288 Steine
                 //
-                // Hier stand frueher (8 + level) / 8, was nur 12,5 % je Stufe gegeben haette.
-                // Der Kommentar war der veraltete Teil, nicht die Formel: das Handbuch beschreibt
-                // (16 + level) / 8 fuer Buendel und Koecher ausdruecklich als das gewollte
-                // Verhalten. Wer das aendern will, aendert eine Balance-Entscheidung - und muss
-                // das Handbuch und die Testkonstante DRAWER_NUMERATOR_OFFSET mitziehen.
+                // UNGEKLAERT, absichtlich so festgehalten: Bis zum 29.12.2025 stand hier
+                // (8 + level) / 8, in Code UND Kommentar. Commit ce9f495 ("some bugfixes and
+                // chissel reverse (sneak) usability", 30.12.2025) hat beide Vorkommen auf 16
+                // gestellt, ohne ein Wort in der Nachricht und ohne den Kommentar mitzuziehen.
+                // Ob das ein gewollter Buff oder ein verrutschtes Literal war, sagt keine Quelle.
+                //
+                // Das Handbuch nennt (16 + level) / 8 - aber es ist beschreibend (jede Aussage
+                // darin muss im Code belegbar sein), also saehe es bei einem Ausrutscher genauso
+                // aus. Es ist hier KEIN Beleg fuer Absicht.
+                //
+                // Bis das entschieden ist, gilt der Code: die Tests halten diese Zahlen fest,
+                // damit sie sich nicht noch einmal unbemerkt bewegen. Wer sie aendert, aendert
+                // Balance und muss Handbuch und Tests mitziehen.
                 Fraction drawerBonus = Fraction.getFraction(16 + level, 8);
                 capacity = capacity.multiplyBy(drawerBonus);
             }

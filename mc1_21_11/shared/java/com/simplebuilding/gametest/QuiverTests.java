@@ -80,12 +80,17 @@ import net.minecraft.world.phys.Vec3;
  * {@code QuiverItem}), so Drawer I more than doubles a container: a plain quiver goes from 64
  * arrows to 136, not to 72.
  *
- * <p>This used to be filed here as a defect, because the comment beside the formula documented
- * {@code (8 + level) / 8}. That reading was wrong - the manual describes {@code (16 + level) / 8}
- * for both the bundle and the quiver, so the formula is the deliberate part and the comment was
- * the leftover. The comment has been corrected; the numbers below pin the intended behaviour, not
- * a defect waiting to be straightened out. Changing them is a balance decision, and it has to
- * move the manual with it.
+ * <p>Whether that is intended is <b>genuinely open</b>, and the numbers below are pinned for
+ * exactly that reason. Until 2025-12-29 code and comment agreed on {@code (8 + level) / 8};
+ * commit {@code ce9f495} ("some bugfixes and chissel reverse (sneak) usability") changed both
+ * call sites to 16 the next day, said nothing about it in the message and left the comment
+ * behind. A deliberate buff and a slipped literal look identical from here.
+ *
+ * <p>The manual naming {@code (16 + level) / 8} settles nothing: it is descriptive - every claim
+ * in it has to be provable in the code - so it would read the same either way. This used to be
+ * filed as a defect and then, briefly, as intended behaviour; both were more than the evidence
+ * supports. What these cases do is hold the number still until someone decides, so it cannot
+ * move a second time without anyone noticing.
  *
  * <h2>Not covered, and why</h2>
  * <ul>
