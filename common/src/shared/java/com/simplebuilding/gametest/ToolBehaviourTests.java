@@ -163,9 +163,10 @@ public final class ToolBehaviourTests {
      * <p>What breaks this: dropping the "same block" condition at level 0 or the "pickaxe
      * block" condition at level 1; dropping either tier check
      * ({@code isCorrectToolForDrops}) from those two branches; raising the override level
-     * at which the hammer starts counting as an axe, shovel and hoe; and losing any one of
-     * those three tiers from either of the two places the mod lists them
-     * ({@code isCorrectToolForDrops} and {@code getDestroySpeed} each keep their own copy).
+     * at which the hammer starts counting as an axe, shovel and hoe; losing any one of those
+     * three tiers from {@code SledgehammerItem#isOverrideMineable}, the one list both
+     * {@code isCorrectToolForDrops} and {@code getDestroySpeed} ask; and either of those two
+     * ceasing to ask it.
      */
     public static void sledgehammerOverrideLevelsWidenBlockSelection(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5), 0.0F, 90.0F);
@@ -299,15 +300,23 @@ public final class ToolBehaviourTests {
                         + "durability");
 
         // The same tier claim, seen from the mining speed: without it the hammer is stuck at
-        // the vanilla "wrong tool" speed of 1.0 on those blocks. getDestroySpeed carries its
-        // own copy of the axe/shovel/hoe list, so the hoe block is measured here as well - the
-        // two lists can lose a tier independently of each other.
+        // the vanilla "wrong tool" speed of 1.0 on those blocks. isCorrectToolForDrops and
+        // getDestroySpeed ask one predicate for the list now, so all three tiers are driven
+        // through both callers - a tier dropped from that predicate has to turn both halves
+        // red, and a caller that stops asking it turns its own half red on all three.
         float plainSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(plainHammer, shovelBlock);
         float overriddenSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(overriddenHammer, shovelBlock);
         helper.assertValueEqual(plainSpeed, 1.0F, "unenchanted sledgehammer speed on dirt");
         helper.assertTrue(overriddenSpeed > plainSpeed,
                 "Override 2 left the sledgehammer at the bare-hands speed of " + overriddenSpeed
                         + " on dirt; digging a shovel block would take as long as with a fist");
+
+        float plainAxeSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(plainHammer, axeBlock);
+        float overriddenAxeSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(overriddenHammer, axeBlock);
+        helper.assertValueEqual(plainAxeSpeed, 1.0F, "unenchanted sledgehammer speed on oak log");
+        helper.assertTrue(overriddenAxeSpeed > plainAxeSpeed,
+                "Override 2 left the sledgehammer at the bare-hands speed of " + overriddenAxeSpeed
+                        + " on an oak log; felling an axe block would take as long as with a fist");
 
         float plainHoeSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(plainHammer, hoeBlock);
         float overriddenHoeSpeed = ModItems.DIAMOND_SLEDGEHAMMER.getDestroySpeed(overriddenHammer, hoeBlock);

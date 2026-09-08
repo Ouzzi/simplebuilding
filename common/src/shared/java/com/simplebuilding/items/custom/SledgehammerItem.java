@@ -81,6 +81,20 @@ public class SledgehammerItem extends Item {
         return this.material;
     }
 
+    /**
+     * Die Blockliste, die Override II ueber die Spitzhacke hinaus freischaltet.
+     *
+     * <p>{@link #isCorrectToolForDrops} (darf der Hammer das ernten?) und
+     * {@link #getDestroySpeed} (wie schnell?) muessen ueber genau dieselben Bloecke reden. Als
+     * zwei Listen konnten sie eine Stufe unabhaengig voneinander verlieren - dann bricht der
+     * Hammer Heu mit Diamantgeschwindigkeit, das Heu droppt aber nichts, oder umgekehrt.
+     */
+    private static boolean isOverrideMineable(BlockState state) {
+        return state.is(BlockTags.MINEABLE_WITH_AXE) ||
+                state.is(BlockTags.MINEABLE_WITH_SHOVEL) ||
+                state.is(BlockTags.MINEABLE_WITH_HOE);
+    }
+
     @Override
     public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
         // Standard-Verhalten (Pickaxe)
@@ -90,11 +104,7 @@ public class SledgehammerItem extends Item {
 
         // Wenn Override Level >= 2, erlaube auch Axt, Schaufel und Hacke
         if (getOverrideLevel(stack) >= 2) {
-            if (state.is(BlockTags.MINEABLE_WITH_AXE) ||
-                state.is(BlockTags.MINEABLE_WITH_SHOVEL) ||
-                state.is(BlockTags.MINEABLE_WITH_HOE)) {
-                return true;
-            }
+            return isOverrideMineable(state);
         }
         return false;
     }
@@ -105,11 +115,9 @@ public class SledgehammerItem extends Item {
 
         // 2. NEU: Wenn Speed langsam ist (1.0f), aber Override II aktiv ist -> Setze vollen Speed
         if (baseSpeed <= 1.0F && getOverrideLevel(stack) >= 2) {
-             if (state.is(BlockTags.MINEABLE_WITH_AXE) ||
-                 state.is(BlockTags.MINEABLE_WITH_SHOVEL) ||
-                 state.is(BlockTags.MINEABLE_WITH_HOE)) {
-                 // Setze die Geschwindigkeit auf die des Materials (z.B. Diamant-Speed)
-                 baseSpeed = this.material.speed();
+            if (isOverrideMineable(state)) {
+                // Setze die Geschwindigkeit auf die des Materials (z.B. Diamant-Speed)
+                baseSpeed = this.material.speed();
             }
         }
 

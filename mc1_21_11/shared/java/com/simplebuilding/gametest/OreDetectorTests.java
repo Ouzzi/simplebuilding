@@ -67,6 +67,16 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Not covered</h2>
  * <ul>
+ *   <li><b>That the search returns a copy of its cursor and not the cursor itself.</b>
+ *       {@code findTarget} walks its cube with one {@code MutableBlockPos} and writes
+ *       {@code bestTarget = checkPos.immutable()}. Dropping that {@code immutable()} is
+ *       unobservable from here, and not because the tests are weak: the cursor is a local
+ *       of that method, so nothing outside it ever moves the object again, and inside the
+ *       loop only a <em>strictly closer</em> candidate writes the cursor - after the last
+ *       winner nothing does. An aliased answer would therefore read correctly on every
+ *       path a test can reach. The copy stays because it is what makes the method safe to
+ *       change (hoist the cursor out of the method, keep scanning after the winner, and
+ *       the alias turns into a wrong answer), not because a test holds it.</li>
  *   <li><b>That the tick still runs its search through {@code findTarget}.</b> Every search test
  *       below calls that method itself; nothing here forces {@code inventoryTick} to keep going
  *       through it. Whoever inlines the search back into the tick, or adds a second search path
@@ -74,10 +84,12 @@ import net.minecraft.world.phys.Vec3;
  *       else. The seam is untestable from the tick side for the same reason it exists: all the
  *       tick does with the result is sounds and particles, and those are discarded.</li>
  *   <li><b>The two guards in front of the search</b> - that it only runs for a stack in the main
- *       or off hand, and only on every 20th game tick. Both guards decide whether sounds and
- *       particles are emitted, and nothing else; there is no server side state that records
- *       whether a tick scanned. Driving {@code inventoryTick} from a test therefore cannot tell
- *       the two outcomes apart.</li>
+ *       or off hand, and only on every 20th game tick counted from a phase of the player's own
+ *       entity id, so that the scans of several players do not all land in one tick. Both guards
+ *       decide whether sounds and particles are emitted, and nothing else; there is no server
+ *       side state that records whether a tick scanned. Driving {@code inventoryTick} from a test
+ *       therefore cannot tell the two outcomes apart, and it cannot tell the phase either: what a
+ *       wrong phase would cost is one ping up to 19 ticks early or late, which is a sound.</li>
  *   <li><b>The ping</b> itself: the amethyst chime, the sculk click, the target block's break
  *       sound, the distance-to-pitch curve in {@code getPingPitch} and the particle beam. These
  *       are packets to nearby players, and the mock player's connection discards them.</li>

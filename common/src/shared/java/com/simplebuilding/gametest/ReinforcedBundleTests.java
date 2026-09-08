@@ -105,13 +105,14 @@ import net.minecraft.world.phys.Vec3;
  *       {@link #insertionTurnsAwayWhatCannotGoIntoContainerItems}.</li>
  *   <li><b>"Every write clears the selection".</b> True, but carried by vanilla: every write in
  *       this class goes through {@code new BundleContents(list)}, and that constructor hard-codes
- *       {@code NO_SELECTED_ITEM_INDEX}. The {@code BundleItem.toggleSelectedItem(bundle, -1)} line
- *       in {@code insertItemIntoBundle} is dead next to it, and a test on the cleared selection
- *       would stay green with that line deleted. The same holds for the identical line in
- *       {@code removeSelectedOrFirstItem}, so the {@code -1} that
- *       {@link #theSelectedEntryIsTheOneThatComesOut} reads after a removal is a setup guard for
- *       the case below it - it says which entry the next click is about, and nothing about mod
- *       code. No change to this item can make that reading go red.</li>
+ *       {@code NO_SELECTED_ITEM_INDEX}. {@code insertItemIntoBundle} and
+ *       {@code removeSelectedOrFirstItem} used to call
+ *       {@code BundleItem.toggleSelectedItem(bundle, -1)} first; both lines were dead next to
+ *       that constructor and have been removed, which is why deleting them changed no
+ *       assertion here. The {@code -1} that {@link #theSelectedEntryIsTheOneThatComesOut} reads
+ *       after a removal is therefore a setup guard for the case below it - it says which entry
+ *       the next click is about, and nothing about mod code. No change to this item can make
+ *       that reading go red.</li>
  *   <li><b>The {@code selectedIndex >= size} fallbacks</b> in {@code removeSelectedOrFirstItem},
  *       {@code use} and {@code useOn}. A stale index cannot be produced: vanilla's
  *       {@code BundleContents.Mutable#toggleSelectedItem} maps every out-of-bounds index to -1 on

@@ -370,7 +370,9 @@ public class ReinforcedBundleItem extends BundleItem {
         itemsKept.addAll(0, itemsToAddBack);
 
         // 4. Update Bundle
-        BundleItem.toggleSelectedItem(bundle, -1);
+        // Kein toggleSelectedItem(bundle, -1) davor: new BundleContents(List) setzt die Auswahl
+        // selbst auf NO_SELECTED_ITEM_INDEX, und das set() unten ueberschreibt die Komponente
+        // ohnehin komplett. Der Aufruf war wirkungslos - wer ihn zurueckholt, gewinnt nichts.
         bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(stacksAsTemplates(itemsKept)));
 
         return countToAdd;
@@ -411,7 +413,9 @@ public class ReinforcedBundleItem extends BundleItem {
             i++;
         }
 
-        BundleItem.toggleSelectedItem(bundle, -1);
+        // Kein toggleSelectedItem(bundle, -1) davor: new BundleContents(List) setzt die Auswahl
+        // selbst auf NO_SELECTED_ITEM_INDEX, und das set() unten ueberschreibt die Komponente
+        // ohnehin komplett. Der Aufruf war wirkungslos - wer ihn zurueckholt, gewinnt nichts.
         bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(stacksAsTemplates(newItems)));
         return itemToRemove;
     }

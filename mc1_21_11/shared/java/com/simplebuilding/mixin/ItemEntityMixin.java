@@ -30,9 +30,19 @@ public abstract class ItemEntityMixin extends Entity {
         super(type, world);
     }
 
+    /**
+     * Der Explosionsschutz haengt an der Stufe, nicht am einzelnen Gegenstand: das Netherit-Buendel
+     * hatte ihn von Anfang an, und eine Aufwertung darf nichts wegnehmen - deshalb tragen ihn das
+     * Enderit-Buendel und der Enderit-Koecher als hoechste Stufe genauso. Der Netherit-Koecher steht
+     * bewusst nicht in der Liste: er hatte den Schutz nie, und ihn hier zu ergaenzen waere eine
+     * Balance-Entscheidung, die niemand getroffen hat.
+     */
     @Inject(method = "ignoreExplosion", at = @At("HEAD"), cancellable = true)
-    private void isNetheriteBundleImmune(Explosion explosion, CallbackInfoReturnable<Boolean> cir) {
-        if (this.getItem().is(ModItems.NETHERITE_BUNDLE)) {
+    private void isTopTierContainerImmune(Explosion explosion, CallbackInfoReturnable<Boolean> cir) {
+        ItemStack droppedStack = this.getItem();
+        if (droppedStack.is(ModItems.NETHERITE_BUNDLE)
+                || droppedStack.is(ModItems.ENDERITE_BUNDLE)
+                || droppedStack.is(ModItems.ENDERITE_QUIVER)) {
             cir.setReturnValue(true);
         }
     }

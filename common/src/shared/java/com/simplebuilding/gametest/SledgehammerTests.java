@@ -636,8 +636,9 @@ public final class SledgehammerTests {
      * {@code 1.0}, the bare-hand speed with no multiplier at all, and the same hammer with
      * Override II mines them at full material speed times the nine-block multiplier. All three
      * tool classes the branch names are measured - dirt for the shovel, an oak log for the axe and
-     * hay for the hoe - because the list in {@code getDestroySpeed} is a second copy of the one in
-     * {@code isCorrectToolForDrops} and can lose a single tag on its own. And glass stays a wrong-tool block
+     * hay for the hoe - because {@code isOverrideMineable}, which both {@code getDestroySpeed} and
+     * {@code isCorrectToolForDrops} now ask, can lose a single tag and would then take that whole
+     * tool class with it. And glass stays a wrong-tool block
      * even at Override II, which is what keeps {@code isCorrectToolForDrops} from degenerating
      * into "true for everything".
      *
@@ -662,9 +663,9 @@ public final class SledgehammerTests {
         BlockState log = Blocks.OAK_LOG.defaultBlockState();
         BlockState glass = Blocks.GLASS.defaultBlockState();
         // Hay stands for the hoe class: it is in mineable/hoe and in no other mining tag, so its
-        // speed can only leave 1.0 through the hoe line of getDestroySpeed. Dirt and a log cover
-        // the shovel and axe lines, and getDestroySpeed carries its own copy of that three-tag
-        // list - each of the three can be dropped from it without touching the other two.
+        // speed can only leave 1.0 through the hoe tag in isOverrideMineable. Dirt and a log cover
+        // the shovel and axe tags; each of the three can be dropped from that one list without
+        // touching the other two, so all three are measured.
         BlockState hay = Blocks.HAY_BLOCK.defaultBlockState();
 
         ItemStack plain = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);

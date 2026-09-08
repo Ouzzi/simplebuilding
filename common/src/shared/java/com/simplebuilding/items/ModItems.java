@@ -31,6 +31,10 @@ import net.minecraft.world.effect.MobEffectInstance;
 
 import net.minecraft.world.effect.MobEffects;
 
+import net.minecraft.world.entity.EntityTypes;
+
+import net.minecraft.world.entity.EquipmentSlot;
+
 import net.minecraft.world.food.FoodProperties;
 
 import net.minecraft.world.item.BlockItem;
@@ -54,6 +58,8 @@ import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 
 import net.minecraft.world.item.equipment.ArmorType;
+
+import net.minecraft.world.item.equipment.Equippable;
 
 
 
@@ -367,13 +373,16 @@ public class ModItems {
 
     public static final Item NETHERITE_BUNDLE = registerItem("netherite_bundle", settings -> new ReinforcedBundleItem(settings.stacksTo(1).fireResistant().rarity(UNCOMMON)));
 
-    public static final Item QUIVER = registerItem("quiver", settings -> new QuiverItem(settings.stacksTo(1)));
+    // The three quivers are worn in the chest slot - that is the bow search's second stage;
+    // quiverChestSlot() says what that component may and may not bring with it.
 
-    public static final Item NETHERITE_QUIVER = registerItem("netherite_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().rarity(UNCOMMON)));
+    public static final Item QUIVER = registerItem("quiver", settings -> new QuiverItem(settings.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
+
+    public static final Item NETHERITE_QUIVER = registerItem("netherite_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().rarity(UNCOMMON).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
 
     public static final Item ENDERITE_BUNDLE = registerItem("enderite_bundle", settings -> new ReinforcedBundleItem(settings.stacksTo(1).fireResistant().rarity(Rarity.EPIC)));
 
-    public static final Item ENDERITE_QUIVER = registerItem("enderite_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_QUIVER = registerItem("enderite_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().rarity(Rarity.EPIC).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
 
 
 
@@ -712,6 +721,54 @@ public class ModItems {
     private static SledgehammerItem registerSledgehammer(String name, int durability, int enchantability, ToolMaterial toolMaterial, int attackDamage, float attackSpeed) {
 
         return (SledgehammerItem) registerItem(name, settings -> new SledgehammerItem(toolMaterial, attackDamage, attackSpeed, durability, settings.durability(durability).enchantable(enchantability)));
+
+    }
+
+
+
+    /**
+     * The chest slot of the three quivers: a carrier, not a piece of armour.
+     *
+     * <p>{@code QuiverItem#findProjectileForBow} and {@code #consumeProjectileForBow} read
+     * {@code getItemBySlot(CHEST)} as their second step, and vanilla's armour slot takes exactly
+     * what {@code LivingEntity#isEquippableInSlot} answers for. Without this component that step
+     * was unreachable in normal play although tooltip and manual promised it.
+     *
+     * <p>Everything the builder offers beyond the slot itself is left off on purpose:
+     *
+     * <ul>
+     *   <li>No asset, so nothing is drawn on the player - {@code HumanoidArmorLayer} only renders a
+     *       piece whose {@code assetId} is present, and the mod ships no equipment model.</li>
+     *   <li>No attribute modifiers come with an {@code EQUIPPABLE} component, so the armour bar
+     *       stays where it is. Wearing a quiver costs the chestplate, and that is the whole
+     *       price.</li>
+     *   <li>{@code damageOnHurt} off: a quiver is not armour. It carries no durability today, so
+     *       the flag would do nothing either way, but if a tier ever gets some, being hit must not
+     *       eat it.</li>
+     *   <li>{@code swappable} off, because {@code QuiverItem#use} returns {@code PASS} before
+     *       vanilla's swap branch in {@code Item#use} can run - deliberately, since the inherited
+     *       bundle behaviour would throw the player's arrows on the ground. A quiver goes on
+     *       through the inventory screen (drag or shift click), and the component must not claim a
+     *       right click does it.</li>
+     *   <li>Players only. {@code Mob#equipItemIfPossible} asks the same
+     *       {@code isEquippableInSlot}, so without this a zombie walking over a dropped quiver
+     *       would wear it - invisibly, since there is no model - and carry the arrows away.</li>
+     * </ul>
+     *
+     * <p>The equip sound stays vanilla's generic one: with no model on the body it is the only
+     * feedback that the quiver went into the slot.
+     */
+    private static Equippable quiverChestSlot() {
+
+        return Equippable.builder(EquipmentSlot.CHEST)
+
+                .setAllowedEntities(EntityTypes.PLAYER)
+
+                .setDamageOnHurt(false)
+
+                .setSwappable(false)
+
+                .build();
 
     }
 

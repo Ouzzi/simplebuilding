@@ -33,8 +33,8 @@ import net.minecraft.world.phys.Vec3;
  * level argument. That proves which blocks would be highlighted; it proves nothing about the
  * path that runs in play. Everything between "the enchantment is on the tool" and "the block is
  * gone" was untested: the sneak gate, reading the level off the stack, the ore/log gate, the
- * harvest-tier gate, the hooks' own block search and mining direction (both hooks carry a second,
- * independent copy of the code in {@code MiningUtils}), the actual {@code destroyBlock} calls,
+ * harvest-tier gate, the hooks' own block search (both hooks walk the world themselves instead
+ * of asking {@code MiningUtils} for a list), the actual {@code destroyBlock} calls,
  * the drops, and the net durability a tunnel costs.
  *
  * <p>Both hooks are plain {@code static} methods in the shared tree - the loader hooks
@@ -398,11 +398,11 @@ public final class VeinAndStripMinerTests {
      * ends, leaving the middle free to be bent to any depth in silence.
      *
      * <p>Looking level and facing south, the tunnel follows the facing and stops at a block the
-     * pickaxe cannot harvest -
-     * {@code StripMinerUsageEvent} has its <em>own</em> private copy of
-     * {@code getMiningDirection} and of the stop conditions, so
+     * pickaxe cannot harvest. The mining direction is one method in
+     * {@code MiningUtils} now, but {@code StripMinerUsageEvent} still walks its <em>own</em>
+     * loop of stop conditions, so
      * {@link ToolBehaviourTests#stripMinerFollowsPlayerFacingAndStopsAtGaps} (which asks
-     * {@code MiningUtils}) would stay green if that copy were inverted and the mod dug upwards.
+     * {@code MiningUtils}) would stay green if that loop stopped one block late.
      *
      * <p>Where the downward branch <em>starts</em> is measured too, and not from pitch 90. Every
      * other downward case in the repo looks straight down, 30 degrees clear of the decision, so
@@ -454,6 +454,15 @@ public final class VeinAndStripMinerTests {
 
         // --- 3b. level II: the middle of the depth table, which neither other run touches ---
         buildShaft(helper);
+        // Preview and hook read one depth table. The preview is asked first, while the shaft is
+        // still standing, and has to name exactly the blocks the hook then breaks: a second table
+        // that had drifted would draw cracks onto blocks that are still there afterwards, and the
+        // block assertions below - which only ever see the hook - could not tell.
+        Assertions.valueEqual(helper,
+                MiningUtils.getStripMinerBlocks(helper.getLevel(), helper.absolutePos(SHAFT_ORIGIN),
+                        player, stripMinerPickaxe(helper, 2), 2),
+                SHAFT.subList(0, LEVEL_TWO_DEPTH).stream().map(helper::absolutePos).toList(),
+                "the blocks the Strip Miner preview names for a level II tunnel");
         stripMine(helper, player, stripMinerPickaxe(helper, 2), SHAFT_ORIGIN);
         for (int i = 0; i < SHAFT.size(); i++) {
             if (i < LEVEL_TWO_DEPTH) {

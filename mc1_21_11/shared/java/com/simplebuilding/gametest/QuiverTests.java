@@ -18,6 +18,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -31,6 +32,7 @@ import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gamerules.GameRules;
@@ -59,20 +61,31 @@ import net.minecraft.world.phys.Vec3;
  * {@code isCreative()}, so the in-level mock's hard-wired {@code CREATIVE} game mode costs this
  * class nothing; see {@link ConsumptionAndDurabilityTests} for the cases where it does.
  *
- * <h2>Known defect</h2>
+ * <h2>The chest slot</h2>
  *
- * <p><b>A quiver cannot be worn, so the chest slot stage of the bow search is out of reach in
- * normal play.</b> {@code QuiverItem#findProjectileForBow} and {@code #consumeProjectileForBow}
- * both read {@code player.getItemBySlot(EquipmentSlot.CHEST)} as their second step, but none of
- * the three quivers is registered with an {@code EQUIPPABLE} component ({@code ModItems}, the
- * {@code quiver}, {@code netherite_quiver} and {@code enderite_quiver} lines), and vanilla's
- * armour slot only accepts what {@code LivingEntity#isEquippableInSlot} answers for. In game the
- * player therefore has no way of putting a quiver on the chest short of {@code /item replace}, and
- * the "wear it" half of the feature does nothing. The tests below drive that stage all the same,
- * by writing the quiver into the slot directly - it is live code, and a port can still break it.
- * The missing component itself is pinned in
- * {@link #bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack}, so this note goes red
- * instead of going stale if a quiver is ever made wearable.
+ * <p><b>A quiver is worn, and the chest slot stage of the bow search is reachable in normal
+ * play.</b> {@code QuiverItem#findProjectileForBow} and {@code #consumeProjectileForBow} both read
+ * {@code player.getItemBySlot(EquipmentSlot.CHEST)} as their second step, and all three quivers
+ * carry an {@code EQUIPPABLE} component for that slot ({@code ModItems#quiverChestSlot}). Vanilla's
+ * armour slot accepts exactly what {@code LivingEntity#isEquippableInSlot} answers for, so the
+ * player puts a quiver on in the inventory screen the way a chestplate goes on. It is a carrier and
+ * nothing else: no asset, so nothing is drawn on the body; no attribute modifiers, so the armour
+ * bar does not move and the price of wearing one is the chestplate; players only, so a mob cannot
+ * pick a quiver up off the ground and walk away wearing it invisibly.
+ *
+ * <p>Until this component was added the branch was dead code and this section carried it as a known
+ * defect. The registration is now pinned in
+ * {@link #bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack} - slot, missing model
+ * and the player-only restriction together - so dropping or widening it goes red instead of quietly
+ * turning the feature back off or into armour.
+ *
+ * <p>The cases below still put the quiver into the slot with {@code setItemSlot} rather than
+ * through the inventory screen: the mock player has no open menu, and what the bow half is about is
+ * the search over the slots, not the click that fills them. That the slot would take the quiver at
+ * all is asserted separately, through the same {@code isEquippableInSlot} that vanilla's armour
+ * slot asks.
+ *
+ * <h2>Open question</h2>
  *
  * <p><b>The Drawer multiplier is {@code (16 + level) / 8}, and that is the intended number.</b>
  * Four copies of the formula compute it ({@code getMaxCapacity} and
@@ -103,6 +116,12 @@ import net.minecraft.world.phys.Vec3;
  *   <li><b>{@code stacksTo(1)} and {@code fireResistant()}</b> on the three quivers. Both are
  *       vanilla-evaluated item properties; a test on them would restate the registration line in
  *       {@code ModItems} and could only ever go red for that line.</li>
+ *   <li><b>The click that puts the quiver on</b>, and the dispenser that now equips one onto a
+ *       player standing in front of it. Both run entirely in vanilla ({@code ArmorSlot#mayPlace} in
+ *       a menu the mock player does not have, {@code EquipmentDispenseItemBehavior}) and both ask
+ *       the same {@code isEquippableInSlot} that
+ *       {@link #bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack} asserts directly.
+ *       What the mod owns here is the component, not the machinery that reads it.</li>
  *   <li><b>Item tag membership</b> ({@code bundle_enchantable},
  *       {@code constructors_touch_enchantable} - the enderite quiver is in neither) and the
  *       crafting and smithing recipes. Those are datapack claims evaluated by vanilla's enchanting
@@ -364,7 +383,7 @@ public final class QuiverTests {
      * <p>Drawer is measured twice, on level 1 and on its highest level, because the two numbers
      * together pin the shape of the multiplier and not just one point of it. Both are pinned
      * <em>current</em> behaviour: the formula in the code is not the one its own comment describes,
-     * see the known defect in the class Javadoc.
+     * see the open question in the class Javadoc.
      *
      * <p>The two Drawer cases on the {@code REINFORCED_BUNDLE} at the end are here because the
      * quiver cases cannot reach the parent's copy of the formula: {@code QuiverItem} overrides
@@ -467,8 +486,8 @@ public final class QuiverTests {
      * <p>Drawer appears twice for the same reason as in
      * {@link #capacityDropsTheBundleBonusAndFollowsTierAndEnchantments}: with one level only, the
      * two formulas could disagree everywhere above it and nothing here would notice. Both widths
-     * follow the capacity the code computes today, not the one its comment documents - see the
-     * known defect in the class Javadoc.
+     * follow the capacity the code computes today - see the open question about the Drawer
+     * multiplier in the class Javadoc.
      *
      * <p>What breaks it: dropping an enchantment branch from the visuals formula, renaming an
      * enchantment so the substring match stops matching (the filling path would keep working -
@@ -528,16 +547,18 @@ public final class QuiverTests {
      * behaviour: {@code 0..8} is exactly "everything the hand can reach", and a single rig slot
      * would leave a shortened loop indistinguishable from the whole one.
      *
-     * <p>The chest stage is checked from the registration side as well: none of the three quivers
-     * carries an {@code EQUIPPABLE} component, which is what makes that stage unreachable in normal
-     * play - see the known defect in the class Javadoc, which this now holds instead of only
-     * claiming.
+     * <p>The chest stage is checked from the registration side as well, because a search step is
+     * only worth as much as the slot it reads: all three quivers have to be equippable in the chest
+     * slot, in that slot and no other, without a model on the body, and by players only. That is
+     * the whole contract of {@code ModItems#quiverChestSlot}, and every half of it is a way the
+     * feature can be lost or overshot without a single line of the search changing.
      *
      * <p>What breaks it: reordering the search (the chest slot ahead of the offhand, say), dropping
      * a step, shortening the hotbar loop, having {@code findFirstArrow} return the last stack
      * instead of the first, or losing the {@code isRemoteQuiver} gate - a quiver in the backpack
      * would then feed the bow without the enchantment, and Constructor's Touch on a quiver would be
-     * worth nothing. Registering any quiver as equippable breaks it too, and deliberately so.
+     * worth nothing. Taking the {@code EQUIPPABLE} component off a quiver breaks it too, and so
+     * does moving it to another slot, giving it an equipment asset, or opening it up to mobs.
      */
     public static void bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -560,17 +581,30 @@ public final class QuiverTests {
                 "plain arrows still under the tipped ones in the offhand quiver - if they are gone, the "
                         + "'topmost stack' half of this test proves nothing");
 
-        // The chest stage below is driven by hand, and that is the only way it can be driven: no
-        // quiver carries an EQUIPPABLE component, so vanilla's armour slot refuses all three and
-        // only a command puts one there. Pinned so the "known defect" in the class Javadoc cannot
-        // quietly stop being true - handing a quiver the component is a feature change, and this is
-        // the line that has to notice it.
+        // What makes the chest stage below more than a curiosity: the slot accepts a quiver at all.
+        // isEquippableInSlot is the very predicate vanilla's armour slot asks in ArmorSlot#mayPlace,
+        // so asking it here with the rig's own player is the closest a server-side test gets to the
+        // click that puts the quiver on. The component's other three halves are pinned next to it -
+        // a quiver that lands in another slot, draws a model on the body or can be worn by a mob is
+        // a different feature from the carrier slot the bow search was written for.
         for (Item quiverItem : new Item[] {ModItems.QUIVER, ModItems.NETHERITE_QUIVER,
                 ModItems.ENDERITE_QUIVER}) {
-            helper.assertTrue(new ItemStack(quiverItem).get(DataComponents.EQUIPPABLE) == null,
-                    quiverItem + " carries an EQUIPPABLE component and can therefore be worn; the chest slot "
-                            + "stage is then reachable in normal play and the known defect recorded in the "
-                            + "class Javadoc is out of date");
+            ItemStack worn = new ItemStack(quiverItem);
+            helper.assertTrue(player.isEquippableInSlot(worn, EquipmentSlot.CHEST),
+                    quiverItem + " cannot be put into the chest slot, so the chest stage of the search is out "
+                            + "of reach in normal play although tooltip and manual promise it");
+
+            Equippable equippable = worn.get(DataComponents.EQUIPPABLE);
+            helper.assertTrue(equippable != null,
+                    quiverItem + " carries no EQUIPPABLE component");
+            Assertions.valueEqual(helper, equippable.slot(), EquipmentSlot.CHEST,
+                    "equipment slot the EQUIPPABLE component of " + quiverItem + " names");
+            helper.assertTrue(equippable.assetId().isEmpty(),
+                    quiverItem + " names an equipment asset and would be drawn on the player's body; the "
+                            + "quiver is a carrier slot and the mod ships no equipment model for it");
+            helper.assertFalse(equippable.canBeEquippedBy(EntityType.ZOMBIE),
+                    quiverItem + " can be worn by a zombie: a mob walking over a dropped quiver would put it "
+                            + "on invisibly and carry the arrows away");
         }
 
         // --- chest slot is next ---
@@ -623,9 +657,11 @@ public final class QuiverTests {
      * would sit at the front of the quiver and every further shot would find nothing.
      *
      * <p>The chest slot is walked here as the second step, with an arrow type of its own so it
-     * cannot be confused with the offhand or hotbar quiver. That stage is live code but, as the
-     * class Javadoc records, not reachable in normal play - a quiver has no {@code EQUIPPABLE}
-     * component, so only a command can put one there. The test writes it into the slot directly.
+     * cannot be confused with the offhand or hotbar quiver. A worn quiver pays like any other, and
+     * it pays in place: {@code getItemBySlot} hands out the live stack, so shrinking its contents
+     * is the whole of the write and vanilla's equipment tracking carries the change to the client.
+     * The test puts the quiver into the slot with {@code setItemSlot} rather than through the
+     * inventory screen - see the class Javadoc for why that is the honest shortcut here.
      *
      * <p>The hotbar quiver pays from both ends of the hotbar, not only from the slot the rig starts
      * it in. The walk is a second copy of the {@code 0..8} loop, and one slot in the middle would
@@ -930,18 +966,23 @@ public final class QuiverTests {
     // =====================================================================================
 
     /**
-     * {@code ItemEntityMixin#ignoreExplosion} makes exactly one item survive a blast: the netherite
-     * bundle. The quivers are not on that list, not even the netherite one, and this pins that
-     * boundary from both sides - the immunity really works, and it really is limited to the one
-     * item named in the mixin.
+     * {@code ItemEntityMixin#ignoreExplosion} names three items: the netherite bundle and, since
+     * the enderite tier was made a full tier, the enderite bundle and the enderite quiver. The
+     * <em>netherite</em> quiver is deliberately not among them, and this pins that boundary from
+     * both sides - the immunity really works, and it really stops where the mixin says it stops.
      *
      * <p>The netherite quiver is the right control precisely because it is fireproof like the
      * bundle: if it survived here, the reason could only be the explosion hook, not its fire
      * resistance.
      *
+     * <p><b>Where the enderite side is pinned:</b>
+     * {@code BundleWiringTests#netheriteBundleOnTheGroundSurvivesFireAndExplosions} covers the
+     * items the mixin does name. Together the two tests fence the list in from both ends: nothing
+     * may fall out of it, and nothing may creep into it.
+     *
      * <p>What breaks it: deleting the mixin (the bundle would burn with everything else), or
-     * widening its condition to {@code ReinforcedBundleItem} or to the quivers, which would hand
-     * the quiver an immunity the mod never granted it.
+     * widening its condition to {@code ReinforcedBundleItem} or to the netherite quiver, which
+     * would hand that tier an immunity the mod does not grant it.
      */
     public static void netheriteQuiverBurnsInAnExplosionWhileTheNetheriteBundleSurvives(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();

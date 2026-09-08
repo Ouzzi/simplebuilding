@@ -76,7 +76,12 @@ public class OreDetectorItem extends Item {
 
         if (!isHeldInHands(slot)) return;
 
-        if (world.getGameTime() % SCAN_INTERVAL != 0) return;
+        // Jeder gehaltene Detektor kostet einen vollen Kugelscan. Ohne Versatz faellt der Scan
+        // aller Spieler auf denselben Tick, sodass ein Server die gesamte Suchlast jede Sekunde
+        // gebuendelt in einen einzigen Tick bekommt. Der Versatz je Spieler verteilt sie ueber
+        // die Sekunde; die Taktrate bleibt exakt SCAN_INTERVAL, nur die Phase haengt jetzt am
+        // Spieler - und die ist nirgends beobachtbar, weil der Detektor mit nichts synchron laeuft.
+        if (Math.floorMod(world.getGameTime() + player.getId(), SCAN_INTERVAL) != 0) return;
 
         BlockPos playerPos = BlockPos.containing(player.getEyePosition());
 
@@ -164,19 +169,32 @@ public class OreDetectorItem extends Item {
         BlockPos bestTarget = null;
         double bestDistanceSq = Double.MAX_VALUE;
 
+        // Ein einziger wandernder Cursor statt eines BlockPos je Wuerfelzelle: bei Radius 24 sind
+        // das 117.649 Zellen pro Scan und pro gehaltenem Detektor. Der Cursor wird bei jedem
+        // Schritt ueberschrieben, darf also weder weitergereicht noch behalten werden - siehe das
+        // immutable() unten. Weitergereicht wird er nur an getBlockState und canReach, und beide
+        // lesen ihn bloss.
+        BlockPos.MutableBlockPos checkPos = new BlockPos.MutableBlockPos();
+
         for (int x = -scanRadius; x <= scanRadius; x++) {
             for (int y = -scanRadius; y <= scanRadius; y++) {
                 for (int z = -scanRadius; z <= scanRadius; z++) {
-                    BlockPos checkPos = origin.offset(x, y, z);
-
-                    double distanceSq = origin.distSqr(checkPos);
+                    // Derselbe Wert, den origin.distSqr(origin.offset(x, y, z)) lieferte: die drei
+                    // Differenzen sind genau -x, -y und -z, und das Quadrat verliert das Vorzeichen.
+                    // Vorgezogen, damit die knapp halbe Wuerfelecke ausserhalb der Kugel gar nicht
+                    // erst in den Cursor geschrieben wird.
+                    double distanceSq = x * x + y * y + z * z;
                     if (distanceSq > maxScanDistanceSq || distanceSq >= bestDistanceSq) continue;
+
+                    checkPos.setWithOffset(origin, x, y, z);
 
                     BlockState state = world.getBlockState(checkPos);
                     if (!isTarget(state, mode, customTarget)) continue;
 
                     if (canReach(world, eyesPos, checkPos, mode.budget, costMultiplier)) {
-                        bestTarget = checkPos;
+                        // Der naechste Schleifenschritt ueberschreibt den Cursor; behalten werden
+                        // darf nur eine Kopie.
+                        bestTarget = checkPos.immutable();
                         bestDistanceSq = distanceSq;
                     }
                 }

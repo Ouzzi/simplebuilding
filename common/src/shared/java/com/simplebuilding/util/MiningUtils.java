@@ -15,7 +15,7 @@ public class MiningUtils {
 
     public static List<BlockPos> getStripMinerBlocks(Level world, BlockPos startPos, Player player, ItemStack stack, int level) {
         List<BlockPos> found = new ArrayList<>();
-        int depth = (level == 3) ? 4 : level;
+        int depth = getStripMinerDepth(level);
         Direction miningDirection = getMiningDirection(player);
 
         for (int i = 1; i <= depth; i++) {
@@ -94,6 +94,25 @@ public class MiningUtils {
         return found;
     }
 
+    /**
+     * Die eine Tiefentabelle des Streifenabbaus. Die Riss-Vorschau (ueber
+     * {@link #getStripMinerBlocks}) und der Abbau-Hook (StripMinerUsageEvent) fragen beide genau
+     * diese Methode - die Vorschau kann also keine Tiefe mehr anzeigen, die der Server danach
+     * nicht abbaut.
+     *
+     * <p>Stufe III ist die Hoechststufe der Verzauberung (max_level 3) und bekommt mit 4 statt 3
+     * einen Extrablock; I und II graben so tief, wie sie hoch sind. Das ist eine Balance-Zusage
+     * des Handbuchs, kein Rechenfehler.
+     */
+    public static int getStripMinerDepth(int level) {
+        return (level == 3) ? 4 : level;
+    }
+
+    /**
+     * Die eine Abbaurichtung. Riss-Vorschau und Abbau-Hook fragen dieselbe Methode; eine zweite
+     * Kopie im Hook koennte invertiert werden, ohne dass die Vorschau davon etwas merkte - der
+     * Spieler saehe dann Risse in der einen und Loecher in der anderen Richtung.
+     */
     public static Direction getMiningDirection(Player player) {
         float pitch = player.getXRot();
         if (pitch < -60) return Direction.UP;

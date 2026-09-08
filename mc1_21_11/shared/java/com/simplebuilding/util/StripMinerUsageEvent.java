@@ -49,9 +49,12 @@ public final class StripMinerUsageEvent {
         if (level <= 0) return true;
 
         // --- Logik Start ---
-        int depth = (level == 3) ? 4 : level;
+        // Tiefentabelle und Abbaurichtung stehen nur noch in MiningUtils; die Riss-Vorschau fragt
+        // dieselben Methoden. Eigene Kopien hier haetten genau eine Wirkung: sie koennten
+        // auseinanderlaufen, und der Spieler saehe Risse dort, wo der Server nichts abbaut.
+        int depth = MiningUtils.getStripMinerDepth(level);
 
-        Direction miningDirection = getMiningDirection(player);
+        Direction miningDirection = MiningUtils.getMiningDirection(player);
 
         int brokenBlocks = 0;
         for (int i = 1; i <= depth; i++) {
@@ -95,12 +98,5 @@ public final class StripMinerUsageEvent {
         }
 
         return true;
-    }
-
-    private static Direction getMiningDirection(Player player) {
-        float pitch = player.getXRot();
-        if (pitch < -60) return Direction.UP;
-        if (pitch > 60) return Direction.DOWN;
-        return player.getDirection();
     }
 }

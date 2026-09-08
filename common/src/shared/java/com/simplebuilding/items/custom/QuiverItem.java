@@ -32,6 +32,9 @@ public class QuiverItem extends ReinforcedBundleItem {
         super(settings);
     }
 
+    // Rechtsklick bleibt wirkungslos, weil der geerbte Buendel-Rechtsklick Pfeile auf den Boden
+    // werfen wuerde. Damit kommt Item#use nie an - und deshalb traegt die EQUIPPABLE-Komponente in
+    // ModItems#quiverChestSlot kein swappable: Angelegt wird der Koecher im Inventarbildschirm.
     @Override
     public InteractionResult use(Level world, Player user, InteractionHand hand) {
         return InteractionResult.PASS;
@@ -151,7 +154,9 @@ public class QuiverItem extends ReinforcedBundleItem {
         ItemStack arrow = findArrowInQuiver(player.getOffhandItem());
         if (!arrow.isEmpty()) return arrow;
 
-        // 2. Chest Slot
+        // 2. Brustslot. Erreichbar, weil die drei Koecher in ModItems eine EQUIPPABLE-Komponente
+        // fuer EquipmentSlot.CHEST tragen; ohne sie nimmt Vanillas Ruestungsslot keinen Koecher an
+        // und diese Stufe waere toter Code.
         arrow = findArrowInQuiver(player.getItemBySlot(EquipmentSlot.CHEST));
         if (!arrow.isEmpty()) return arrow;
 
@@ -178,7 +183,10 @@ public class QuiverItem extends ReinforcedBundleItem {
         // 1. Offhand
         if (tryConsumeArrow(player.getOffhandItem())) return;
 
-        // 2. Chest
+        // 2. Brustslot. getItemBySlot gibt den lebenden Stapel zurueck, das gekuerzte
+        // BUNDLE_CONTENTS steht also sofort im Slot; LivingEntity#detectEquipmentUpdates vergleicht
+        // ueber ItemStack.matches, sieht die geaenderte Komponente und schickt sie zum Client - ein
+        // setItemSlot waere hier ueberfluessig.
         if (tryConsumeArrow(player.getItemBySlot(EquipmentSlot.CHEST))) return;
 
         // 3. Hotbar (ohne Constructors Touch)

@@ -76,24 +76,34 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         builder(ItemTags.VANISHING_ENCHANTABLE)
                 .addTag(ModTags.Items.CHISEL_TOOLS);
 
+        // Alle drei Stufen beider Behaelter stehen in allen drei Verzauberungs-Tags: diese Tags sind
+        // das supported_items von Drawer, Deep Pockets, Funnel, Master Builder, Colour Palette und
+        // Constructor's Touch, und genau danach fragt der Amboss. Fehlt eine Stufe hier, nimmt sie
+        // am Amboss nichts an - eine Aufwertung darf aber nichts wegnehmen.
         builder(ModTags.Items.BUNDLE_ENCHANTABLE)
                 .add(key(ModItems.REINFORCED_BUNDLE))
                 .add(key(ModItems.NETHERITE_BUNDLE))
+                .add(key(ModItems.ENDERITE_BUNDLE))
                 .add(key(ModItems.QUIVER))
-                .add(key(ModItems.NETHERITE_QUIVER));
+                .add(key(ModItems.NETHERITE_QUIVER))
+                .add(key(ModItems.ENDERITE_QUIVER));
 
         builder(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE)
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .add(key(ModItems.REINFORCED_BUNDLE))
                 .add(key(ModItems.NETHERITE_BUNDLE))
+                .add(key(ModItems.ENDERITE_BUNDLE))
                 .add(key(ModItems.QUIVER))
-                .add(key(ModItems.NETHERITE_QUIVER));
+                .add(key(ModItems.NETHERITE_QUIVER))
+                .add(key(ModItems.ENDERITE_QUIVER));
 
         builder(ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE)
                 .add(key(ModItems.REINFORCED_BUNDLE))
                 .add(key(ModItems.NETHERITE_BUNDLE))
+                .add(key(ModItems.ENDERITE_BUNDLE))
                 .add(key(ModItems.QUIVER))
                 .add(key(ModItems.NETHERITE_QUIVER))
+                .add(key(ModItems.ENDERITE_QUIVER))
                 .add(key(Items.SHULKER_BOX))
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)

@@ -115,33 +115,16 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Known defects (pinned nowhere on purpose, so the tests do not cement them)</h2>
  * <ul>
- *   <li><b>The enderite bundle is in neither enchantability tag.</b>
- *       {@code simplebuilding:bundle_enchantable} (Drawer, Deep Pockets, Funnel) and
- *       {@code simplebuilding:extra_inventory_items} (Master Builder, Colour Palette) list the
- *       reinforced and the netherite bundle plus the quiver and netherite quiver, but not
- *       {@code simplebuilding:enderite_bundle}. The top tier is therefore the only bundle that
- *       cannot take a container enchantment at an <em>anvil</em> - the two tags feed
- *       {@code Enchantment#canEnchant}, which is what {@code AnvilMenu} asks (and what
- *       {@code EnchantRandomlyFunction} asks); they say nothing about the enchanting table.
- *       {@link #containerEnchantmentsAcceptTheBundlesTheyAreMeantFor} asserts the two tiers that
- *       are meant to work and stays silent about the enderite one.</li>
- *   <li><b>No bundle at all is enchantable at an enchanting table.</b> A separate defect with a
- *       separate fix, so it is listed separately from the tag gap above: {@code ModItems} registers
+ *   <li><b>No bundle is enchantable at an enchanting table.</b> {@code ModItems} registers
  *       {@code reinforced_bundle}, {@code netherite_bundle} and {@code enderite_bundle} without
  *       {@code .enchantable(...)}, so none of the three carries the {@code ENCHANTABLE} component.
  *       {@code EnchantmentMenu#slotsChanged} zeroes all three offers whenever
  *       {@code ItemStack#isEnchantable()} is false, and that method returns false without the
- *       component - so the table never offers a bundle anything, whatever the two tags say. Putting
- *       the enderite bundle into those tags would therefore not open the table for it either.
- *       Nothing here is pinned by a test: the fix is a registration change, and an assertion either
- *       way would cement the current state.</li>
- *   <li><b>Only the netherite bundle survives an explosion.</b> {@code ItemEntityMixin} returns
- *       {@code true} from {@code ignoreExplosion} for {@code ModItems.NETHERITE_BUNDLE} only, so
- *       the enderite bundle - the higher tier, fire resistant and epic - is blown up like any
- *       other drop. {@link #netheriteBundleOnTheGroundSurvivesFireAndExplosions} puts the enderite
- *       bundle into the blast as well and asserts that it dies there: what the claim says is
- *       <em>only</em> the netherite bundle, and without that half the item check can be widened -
- *       to the enderite bundle, or to every drop in the game - without a single test noticing.</li>
+ *       component - so the table never offers a bundle anything, whatever the item tags say. The
+ *       tags decide the <em>anvil</em>, which is a different gate and is open for all three tiers;
+ *       {@link #containerEnchantmentsAcceptTheBundlesTheyAreMeantFor} covers that side. Nothing
+ *       here is pinned by a test: the fix is a registration change, and an assertion either way
+ *       would cement the current state.</li>
  * </ul>
  */
 public final class BundleWiringTests {
@@ -323,21 +306,25 @@ public final class BundleWiringTests {
      *       in vanilla protects a bundle from a blast.</li>
      * </ul>
      *
-     * <p>Both halves use a plain reinforced bundle as the control, so "the netherite one survived"
-     * always comes with proof that the hazard was lethal in the first place.
+     * <p>Both halves use a plain reinforced bundle as the control, so "the protected ones survived"
+     * always comes with proof that the hazard was lethal in the first place - and in the blast half
+     * it is also what keeps the item check honest: widen {@code ignoreExplosion} to every drop and
+     * this one assertion goes red.
      *
-     * <p>The enderite bundle is in both halves, because the two claims disagree about it and each
-     * of them only means something with its counter-case present:
+     * <p>The enderite tier is in both halves, and it has to come through both:
      * <ul>
-     *   <li><b>Fire: it has to survive too.</b> {@code fireResistant()} is on the netherite
-     *       <em>and</em> the enderite registration, and the netherite drop cannot speak for the
-     *       enderite one - the two are separate lines in {@code ModItems} and either can be lost on
-     *       its own.</li>
-     *   <li><b>The blast: it has to die.</b> The mixin names the netherite bundle and nothing else,
-     *       so this is the assertion that pins the word <em>only</em>. Without it the item check
-     *       could be widened to any further item and every bundle test would stay green - see the
-     *       known defect in the class javadoc for why the narrow behaviour is what is pinned.</li>
+     *   <li><b>Fire.</b> {@code fireResistant()} is on the netherite <em>and</em> the enderite
+     *       registration, and the netherite drop cannot speak for the enderite one - the two are
+     *       separate lines in {@code ModItems} and either can be lost on its own.</li>
+     *   <li><b>The blast.</b> {@code ignoreExplosion} names the netherite bundle, the enderite
+     *       bundle and the enderite quiver: blast immunity belongs to the tier, so the upgrade to
+     *       enderite may not take it away. The quiver is in this half because it is the item the
+     *       mixin lists that is not a bundle - drop it from the check and the bundles alone stay
+     *       green.</li>
      * </ul>
+     *
+     * <p>The netherite quiver is in neither half on purpose: it is not in {@code ignoreExplosion}
+     * today, and asserting that in either direction would cement a gap nobody has decided about.
      *
      * <p>What breaks this test: deleting the {@code ignoreExplosion} inject, narrowing <em>or</em>
      * widening its item check, and dropping {@code fireResistant()} from either upper tier.
@@ -377,24 +364,30 @@ public final class BundleWiringTests {
                 new Vec3(3.8, 2.0, 4.0), 10);
         ItemEntity netheriteInBlast = drop(helper, new ItemStack(ModItems.NETHERITE_BUNDLE),
                 new Vec3(4.2, 2.0, 4.0), 10);
-        // Same distance from the centre as the other two, so "it died" can only come from the item
+        // Same distance from the centre as the other two, so an outcome can only come from the item
         // check in ignoreExplosion and not from a weaker share of the blast.
         ItemEntity enderiteInBlast = drop(helper, new ItemStack(ModItems.ENDERITE_BUNDLE),
                 new Vec3(4.0, 2.0, 4.2), 10);
+        ItemEntity enderiteQuiverInBlast = drop(helper, new ItemStack(ModItems.ENDERITE_QUIVER),
+                new Vec3(4.0, 2.0, 3.8), 10);
 
         // NONE keeps the room's blocks intact; entities are still hurt.
         level.explode(null, blast.x, blast.y, blast.z, BLAST_RADIUS, Level.ExplosionInteraction.NONE);
 
         helper.assertTrue(plainInBlast.isRemoved(),
                 "the plain reinforced bundle survived the blast it was standing in, so the blast is "
-                        + "too weak to say anything about the netherite bundle next to it");
+                        + "too weak to say anything about the protected bundles next to it - and "
+                        + "ignoreExplosion may have been widened to every drop in the game");
         helper.assertTrue(!netheriteInBlast.isRemoved(),
                 "the netherite bundle was destroyed by the explosion it is supposed to ignore");
-        // The half that pins "only": blast immunity is the netherite tier's own advantage, and a
-        // widened item check in ItemEntityMixin#ignoreExplosion hands it to someone else in silence.
-        helper.assertTrue(enderiteInBlast.isRemoved(),
-                "the enderite bundle walked out of the blast; ignoreExplosion is supposed to answer "
-                        + "true for the netherite bundle and for nothing else");
+        // The tier above netherite: each of the three items is a separate branch in
+        // ItemEntityMixin#ignoreExplosion and can be lost on its own.
+        helper.assertTrue(!enderiteInBlast.isRemoved(),
+                "the enderite bundle was destroyed by the explosion; the top tier keeps what the "
+                        + "netherite bundle already had - an upgrade takes nothing away");
+        helper.assertTrue(!enderiteQuiverInBlast.isRemoved(),
+                "the enderite quiver was destroyed by the explosion; it is the top tier as much as "
+                        + "the enderite bundle and ignoreExplosion has to name it too");
 
         helper.succeed();
     }
@@ -877,11 +870,12 @@ public final class BundleWiringTests {
      *       one red.</li>
      * </ul>
      *
+     * <p>All three tiers are asserted, the enderite one included: the tiers are separate lines in
+     * {@code ModItemTagProvider} and the top tier is the one an upgrade must not silently
+     * downgrade, so the netherite bundle passing says nothing about it.
+     *
      * <p>What breaks this test: removing a bundle from either tag file, pointing one of the five
      * enchantments at a different {@code supported_items} tag, or merging the two tags into one.
-     *
-     * <p>The enderite bundle is missing from both tags today; see the known defect in the class
-     * javadoc. It is left out here on purpose - asserting either state would freeze it.
      */
     public static void containerEnchantmentsAcceptTheBundlesTheyAreMeantFor(GameTestHelper helper) {
         // Split exactly the way ModEnchantments splits them, so the wand control below can tell the
@@ -897,7 +891,8 @@ public final class BundleWiringTests {
         List<ResourceKey<Enchantment>> containerEnchantments = new ArrayList<>(bundleTagEnchantments);
         containerEnchantments.addAll(extraInventoryTagEnchantments);
 
-        for (Item bundle : List.of(ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE)) {
+        for (Item bundle : List.of(ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE,
+                ModItems.ENDERITE_BUNDLE)) {
             ItemStack stack = new ItemStack(bundle);
             for (ResourceKey<Enchantment> key : containerEnchantments) {
                 helper.assertTrue(enchantment(helper, key).value().canEnchant(stack),
