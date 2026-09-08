@@ -48,4 +48,9 @@ public final class DataIntegrityGameTest {
     public void voidProtectedTagIsLanguageIndependent(GameTestHelper helper) {
         DataIntegrityTests.voidProtectedTagIsLanguageIndependent(helper);
     }
+
+    @GameTest
+    public void generatedEnchantmentFilesStillMatchTheirSource(GameTestHelper helper) {
+        DataIntegrityTests.generatedEnchantmentFilesStillMatchTheirSource(helper);
+    }
 }

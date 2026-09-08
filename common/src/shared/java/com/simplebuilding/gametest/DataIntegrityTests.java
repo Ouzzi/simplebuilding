@@ -1,5 +1,8 @@
 package com.simplebuilding.gametest;
 
+import com.google.gson.JsonElement;
+import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.Lifecycle;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.enchantment.ModEnchantmentTags;
@@ -60,12 +63,18 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.RegistryOps;
 
 /**
  * Data integrity checks against the running server.
@@ -97,6 +106,15 @@ import java.util.TreeSet;
  * frozen as intended behaviour nor hidden.
  */
 public final class DataIntegrityTests {
+
+    /**
+     * Fewest enchantments {@link #generatedEnchantmentFilesStillMatchTheirSource} has to record
+     * before its comparison says anything. A bootstrap that registers nothing - because the call
+     * was removed, or an early return crept in - would otherwise make the test pass by comparing
+     * an empty set against itself.
+     */
+    private static final int MIN_SOURCE_ENCHANTMENTS = 10;
+
 
     /** Tick budget for {@link #brokenModBlocksDropTheirExpectedItem}. */
     public static final int BLOCK_DROP_MAX_TICKS = 60;
@@ -1374,5 +1392,103 @@ public final class DataIntegrityTests {
             }
         }
         return keys;
+    }
+
+    /**
+     * Holds the datagen source against the files it produced.
+     *
+     * <p><strong>Why this exists.</strong> {@code ModEnchantments#bootstrap} is only ever called
+     * from {@code SimplebuildingDataGenerator}. Nothing at runtime reads that Java: the server
+     * loads {@code src/main/generated/data/simplebuilding/enchantment/*.json}, and no Gradle
+     * dependency ties {@code runDatagen} to {@code runGametest}. So editing a weight, an anvil
+     * fee or a cost curve in the source and forgetting to re-run datagen changes nothing in the
+     * game, and nothing says so - the build is green, the tests are green, and the number the
+     * player meets is the old one. That is the exact shape of a silent regression, and it was
+     * found by the adversarial pass of the 2026-09-08 audit rather than by any test.
+     *
+     * <p><strong>How.</strong> {@code BootstrapContext} is an interface with two methods, so the
+     * test can play the datagen's part: it records every registration and answers {@code lookup}
+     * from the running server's registries. Both sides are then encoded through the same
+     * {@code Enchantment.DIRECT_CODEC} and compared as json, which makes any difference - a
+     * number, a tag, an effect, a slot - show up as a readable diff instead of a boolean.
+     *
+     * <p><strong>Not covered:</strong> everything else datagen writes. Recipes, loot tables, tags
+     * and models have the same exposure, and this only closes the enchantments. It is the file
+     * set where a silent change hurts most, because the numbers in it are balance the player
+     * meets at every enchanting table, but the gap is real and named here on purpose.
+     *
+     * <p><strong>What breaks this test:</strong> a change to {@code ModEnchantments} without a
+     * datagen run; a hand-edited file under {@code generated/}; an enchantment added to the source
+     * but never generated, or generated once and later dropped from the source.
+     */
+    public static void generatedEnchantmentFilesStillMatchTheirSource(GameTestHelper helper) {
+        RegistryAccess registries = helper.getLevel().registryAccess();
+        Registry<Enchantment> loaded = registries.lookupOrThrow(Registries.ENCHANTMENT);
+        RegistryOps<JsonElement> ops = registries.createSerializationContext(JsonOps.INSTANCE);
+
+        Map<ResourceKey<Enchantment>, Enchantment> fromSource = new LinkedHashMap<>();
+        ModEnchantments.bootstrap(new BootstrapContext<Enchantment>() {
+            @Override
+            public Holder.Reference<Enchantment> register(ResourceKey<Enchantment> key,
+                                                          Enchantment value, Lifecycle lifecycle) {
+                fromSource.put(key, value);
+                // ModEnchantments never reads this back - see its private register(...) helper -
+                // and a Holder.Reference cannot be built from outside net.minecraft.core, so null
+                // is the honest answer rather than a fabricated holder that would lie if used.
+                return null;
+            }
+
+            @Override
+            public <S> HolderGetter<S> lookup(ResourceKey<? extends Registry<? extends S>> key) {
+                return registries.lookupOrThrow(key);
+            }
+        });
+
+        helper.assertTrue(fromSource.size() >= MIN_SOURCE_ENCHANTMENTS,
+                "the datagen source registered only " + fromSource.size() + " enchantments, fewer "
+                        + "than the " + MIN_SOURCE_ENCHANTMENTS + " this test expects to walk - "
+                        + "with an empty recording the comparison below would pass while checking "
+                        + "nothing");
+
+        List<String> problems = new ArrayList<>();
+
+        for (Map.Entry<ResourceKey<Enchantment>, Enchantment> entry : fromSource.entrySet()) {
+            ResourceKey<Enchantment> key = entry.getKey();
+            if (!loaded.containsKey(key)) {
+                problems.add(key.identifier() + " is built by the datagen source but no generated "
+                        + "file for it reached the server");
+                continue;
+            }
+            JsonElement source = encodeEnchantment(helper, ops, entry.getValue(), key, "the source");
+            JsonElement file = encodeEnchantment(helper, ops, loaded.getValueOrThrow(key), key, "the generated file");
+            if (!source.equals(file)) {
+                problems.add(key.identifier() + ": the generated file says " + file
+                        + " but ModEnchantments builds " + source
+                        + " - run the datagen, or revert the source change");
+            }
+        }
+
+        // The other direction: a file that outlived its source entry keeps working in game and
+        // would never be noticed by the loop above.
+        for (ResourceKey<Enchantment> key : loaded.registryKeySet()) {
+            if (key.identifier().getNamespace().equals(MOD_ID) && !fromSource.containsKey(key)) {
+                problems.add(key.identifier() + " is loaded from a generated file, but the datagen "
+                        + "source no longer builds it - the file is an orphan");
+            }
+        }
+
+        helper.assertTrue(problems.isEmpty(),
+                "datagen source and generated enchantment files have drifted apart: " + problems);
+
+        helper.succeed();
+    }
+
+    /** Encodes one enchantment for the comparison, naming which side failed if the codec balks. */
+    private static JsonElement encodeEnchantment(GameTestHelper helper, RegistryOps<JsonElement> ops,
+                                                 Enchantment enchantment, ResourceKey<Enchantment> key,
+                                                 String side) {
+        return Enchantment.DIRECT_CODEC.encodeStart(ops, enchantment)
+                .getOrThrow(message -> helper.assertionException(
+                        "could not encode " + key.identifier() + " from " + side + ": " + message));
     }
 }

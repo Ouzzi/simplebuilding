@@ -71,6 +71,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("data_integrity_game_test_broken_mod_blocks_drop_their_expected_item", DataIntegrityTests::brokenModBlocksDropTheirExpectedItem)
                     .maxTicks(DataIntegrityTests.BLOCK_DROP_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_generated_enchantment_files_still_match_their_source", DataIntegrityTests::generatedEnchantmentFilesStillMatchTheirSource)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_mod_enchantments_are_present_in_the_datapack_registry", DataIntegrityTests::modEnchantmentsArePresentInTheDatapackRegistry)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_mod_enchantment_tags_resolve_to_the_expected_entries", DataIntegrityTests::modEnchantmentTagsResolveToTheExpectedEntries)
