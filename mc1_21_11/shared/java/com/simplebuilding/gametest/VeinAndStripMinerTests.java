@@ -314,13 +314,17 @@ public final class VeinAndStripMinerTests {
      * pickaxe a whole diamond vein for free. The same cluster is then taken with an iron pickaxe,
      * so the negative half cannot pass just because the layout was wrong.
      *
-     * <p><b>Nether quartz ore</b> is a divergence, not a feature. {@code MiningUtils#isOre} - the
-     * copy the highlight preview asks - counts nether quartz ore and ancient debris as ores, while
-     * {@code VeinMinerUsageEvent}'s private copy does not list either. A player therefore sees
-     * the whole quartz vein outlined and then breaks a single block. This test pins that
-     * divergence down instead of hiding it: it fails the moment the two lists agree, which is
-     * exactly when it should be rewritten into a plain "quartz vein mines" assertion. It is
-     * <em>not</em> a statement that the current behaviour is correct.
+     * <p><b>Nether quartz ore</b> is where the preview and the mining used to disagree:
+     * {@code MiningUtils#isOre} counted nether quartz ore and ancient debris by hand while the
+     * hook carried its own copy that listed neither, so a player saw the whole quartz vein
+     * outlined and then broke a single block. There is only one list now -
+     * {@code VeinMinerUsageEvent} asks {@code MiningUtils#isOre} - and the manual decides which
+     * way it points: the eight ore tags are the rule of Vein Miner, so the preview is the side
+     * that gave way. This case therefore holds both ends together: the ore check says no, the
+     * preview selects nothing, and the vein stays in the world. Putting quartz back into the list
+     * is a balance change, not a repair, and it turns all three of those assertions red at once.
+     * (Ancient debris, the other block that was in the preview list only, is covered the same way
+     * by {@code MiningEnchantmentTests}.)
      */
     public static void veinMinerRefusesNonOresAndTooWeakPickaxesAndDivergesFromTheHighlightOnQuartz(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 3.0, 4.5), 0.0F, 0.0F);
@@ -352,11 +356,15 @@ public final class VeinAndStripMinerTests {
             helper.assertBlockPresent(Blocks.AIR, pos);
         }
 
-        // --- nether quartz ore: the highlight promises a vein the hook refuses to break ---
+        // --- nether quartz ore: outside the ore list, and the preview says so too ---
         helper.setBlock(QUARTZ_ORIGIN, Blocks.NETHER_QUARTZ_ORE);
         for (BlockPos pos : QUARTZ_NEIGHBOURS) {
             helper.setBlock(pos, Blocks.NETHER_QUARTZ_ORE);
         }
+
+        helper.assertTrue(!MiningUtils.isOre(helper.getBlockState(QUARTZ_ORIGIN)),
+                "nether quartz ore is back in the one ore list - the preview would outline a "
+                        + "vein again, and the hook would now break it");
 
         List<BlockPos> highlighted = MiningUtils.getVeinMinerBlocks(
                 helper.getLevel(),
@@ -364,9 +372,9 @@ public final class VeinAndStripMinerTests {
                 helper.getBlockState(QUARTZ_ORIGIN),
                 5,
                 new ItemStack(Items.IRON_PICKAXE));
-        Assertions.valueEqual(helper, highlighted.size(), QUARTZ_NEIGHBOURS.size(),
-                "MiningUtils stopped highlighting the quartz vein - if that was deliberate, "
-                        + "this test has to be rewritten, not deleted");
+        Assertions.valueEqual(helper, highlighted.size(), 0,
+                "the crack preview outlined a quartz vein the hook does not mine - the two ore "
+                        + "lists have drifted apart again");
 
         veinMine(helper, player, veinMinerPickaxe(helper, Items.IRON_PICKAXE, 5), QUARTZ_ORIGIN);
         for (BlockPos pos : QUARTZ_NEIGHBOURS) {

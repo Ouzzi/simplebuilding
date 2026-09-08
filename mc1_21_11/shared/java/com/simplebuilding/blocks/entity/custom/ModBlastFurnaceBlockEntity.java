@@ -21,7 +21,11 @@ public class ModBlastFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("container.simplebuilding.reinforced_blast_furnace");
+        // Beide Stufen teilen sich diese Block-Entity; der Titel unterscheidet sie am Blockzustand,
+        // genau wie tick() es fuer den Boost tut. Beide Schluessel stehen in en_us und de_de.
+        return Component.translatable(this.getBlockState().is(ModBlocks.NETHERITE_BLAST_FURNACE)
+                ? "container.simplebuilding.netherite_blast_furnace"
+                : "container.simplebuilding.reinforced_blast_furnace");
     }
 
     @Override

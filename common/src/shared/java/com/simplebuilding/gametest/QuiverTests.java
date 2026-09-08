@@ -184,8 +184,9 @@ public final class QuiverTests {
      * <p>The Master Builder quiver is filled by writing {@code BUNDLE_CONTENTS} directly, because
      * no supported path puts stone into a quiver - the arrow filter is exactly what
      * {@link #arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt} is about. That is a
-     * legitimate state all the same: a quiver that already holds blocks (from an older world, or
-     * through the inverted binding pinned in that test) must still refuse to place them.
+     * legitimate state all the same: a quiver that already holds blocks - from an older world, or
+     * from a world played before the filter was tied to the configured insert click - must still
+     * refuse to place them.
      *
      * <p>What breaks it: deleting {@code QuiverItem#use} or {@code QuiverItem#useOn}, or changing
      * either to fall through to {@code super}.
@@ -255,18 +256,23 @@ public final class QuiverTests {
     // =====================================================================================
 
     /**
-     * The quiver's arrow filter guards three entry points, and it guards them unevenly. Both
-     * inventory click paths ({@code overrideStackedOnOther} with the quiver on the cursor,
-     * {@code overrideOtherStackedOnMe} with the quiver in the slot) check the item they are handed
-     * - but only for {@link ClickAction#PRIMARY}, while the click that actually fills a bundle is
-     * whatever {@code tools.invertBundleInteractions} says it is.
+     * The quiver's arrow filter guards three entry points, and this covers the two inventory click
+     * paths ({@code overrideStackedOnOther} with the quiver on the cursor,
+     * {@code overrideOtherStackedOnMe} with the quiver in the slot). Both check the item they are
+     * handed against the {@code minecraft:arrows} tag, and both do so on the click that actually
+     * fills a bundle - which is whatever {@code tools.invertBundleInteractions} says it is.
      *
-     * <p>So the second half of this test is a <b>pinned finding, not a wish</b>: with the option
-     * on, the insert click is {@code SECONDARY}, the filter's {@code PRIMARY} condition never
-     * matches, and a player with the inverted binding can put stone - anything - into a quiver.
-     * The assertion states today's behaviour so that a fix (a filter keyed to the configured insert
-     * click, as {@code ReinforcedBundleItem#getInsertClick} computes it) shows up here as a red
-     * test to be updated, instead of passing unnoticed.
+     * <p>That is what the second half of this test is for: with the option on the insert click is
+     * {@link ClickAction#SECONDARY}, and the filter moves with it, because {@code QuiverItem} asks
+     * {@code ReinforcedBundleItem#getInsertClick} instead of naming {@link ClickAction#PRIMARY}.
+     * Stone is turned away on both bindings. The arrow case that runs just before the two stone
+     * cases is the other half of that claim: a fix must not simply seal the quiver shut under
+     * inversion, arrows still have to go in.
+     *
+     * <p>Until that fix the filter was hard-wired to {@code PRIMARY}, so a player with the inverted
+     * binding could click anything into a quiver - and a single stack of stone filled it whole,
+     * because a quiver has a capacity of 1 and every item costs 1/maxStackSize of it. The two stone
+     * cases below are what keeps the filter tied to the configured click.
      *
      * <p>The config option is restored in a {@code finally} and once more from
      * {@code runBeforeTestEnd}; see {@link ConfigOptionTests} for why that is enough to keep the
@@ -280,8 +286,10 @@ public final class QuiverTests {
      *
      * <p>What breaks it: deleting either filter override in {@code QuiverItem}, narrowing them to
      * one of the two click paths - the quiver would then take stone on the default binding too -
-     * narrowing what they let through from the {@code minecraft:arrows} tag to the plain arrow item,
-     * or answering {@code true} instead of {@code false} when the filter turns an item away.
+     * pinning either condition back to a fixed {@code ClickAction.PRIMARY} instead of
+     * {@code getInsertClick()}, which lets anything in again on the inverted binding, narrowing
+     * what they let through from the {@code minecraft:arrows} tag to the plain arrow item, or
+     * answering {@code true} instead of {@code false} when the filter turns an item away.
      */
     public static void arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -311,19 +319,20 @@ public final class QuiverTests {
             assertClick(helper, cursorClick(player, ClickAction.PRIMARY, new ItemStack(Items.TIPPED_ARROW, 8)),
                     true, "left clicking tipped arrows onto a quiver");
 
-            // --- inverted binding: the insert click moves to SECONDARY, the filter does not ---
+            // --- inverted binding: the insert click moves to SECONDARY, and the filter moves along ---
             Simplebuilding.getConfig().tools.invertBundleInteractions = true;
 
             assertClick(helper, slotClick(player, ClickAction.SECONDARY, new ItemStack(Items.ARROW, 8)), true,
                     "right clicking a quiver onto a slot holding arrows with "
                             + "tools.invertBundleInteractions on");
-            assertClick(helper, slotClick(player, ClickAction.SECONDARY, new ItemStack(Items.STONE, 8)), true,
-                    "PINNED CURRENT BEHAVIOUR: with tools.invertBundleInteractions on the insert click is "
-                            + "SECONDARY while QuiverItem's filter only inspects PRIMARY, so stone lands in the "
-                            + "quiver. If the stone now stays outside, the filter was fixed - update this case");
-            assertClick(helper, cursorClick(player, ClickAction.SECONDARY, new ItemStack(Items.STONE, 8)), true,
-                    "PINNED CURRENT BEHAVIOUR: the same hole from the other side - stone on the cursor, right "
-                            + "clicked onto the quiver with the inverted binding");
+            assertClick(helper, slotClick(player, ClickAction.SECONDARY, new ItemStack(Items.STONE, 8)), false,
+                    "right clicking a quiver onto a slot holding stone with tools.invertBundleInteractions "
+                            + "on; the filter asks getInsertClick(), so the inverted insert click keeps stone "
+                            + "out exactly as the default one does. Stone in the quiver here means the filter "
+                            + "is pinned to ClickAction.PRIMARY again");
+            assertClick(helper, cursorClick(player, ClickAction.SECONDARY, new ItemStack(Items.STONE, 8)), false,
+                    "the same from the other side - stone on the cursor, right clicked onto the quiver with "
+                            + "the inverted binding");
         } finally {
             Simplebuilding.getConfig().tools.invertBundleInteractions = original;
         }
@@ -753,17 +762,28 @@ public final class QuiverTests {
      * inject - vanilla cannot protect the quiver there, because vanilla knows nothing about it, so
      * "creative shoots for free" is entirely the mod's own doing.
      *
-     * <p>The last case is a <b>pinned finding</b>: Infinity is not consulted anywhere in the mixin,
-     * so an infinity bow shooting out of a quiver still eats an arrow, where the same bow shooting
-     * out of the inventory does not. The assertion states that; if the mixin learns about Infinity
-     * it turns red and gets updated.
+     * <p>The last three cases are the Infinity boundary. {@code BowItemMixin} bills the quiver only
+     * when {@code EnchantmentHelper.processAmmoUse} answers more than zero - the very call
+     * {@code ProjectileWeaponItem#useAmmo} makes in the same shot - so an Infinity bow leaves the
+     * quiver alone exactly as it leaves loose arrows alone. That is not a courtesy: with
+     * {@code ammoToUse == 0} vanilla shoots an {@code INTANGIBLE_PROJECTILE} the player cannot pick
+     * back up, so a quiver billed there would pay for an arrow nobody ever gets returned.
+     *
+     * <p>Two cases bound that from the other side. The shot is fired twice, because a fix that only
+     * skipped the first billing would look identical on a single shot. And a spectral arrow is shot
+     * from a second quiver and <em>has</em> to be billed: {@code infinity.json} frees only
+     * {@code minecraft:arrow}, which is precisely why the mixin asks for the computed ammo count
+     * instead of asking whether the bow carries the enchantment.
      *
      * <p>What breaks it: removing either redirect (the bow would refuse to draw, or shoot vanilla's
      * "no ammunition"), dropping either redirect's vanilla fall-back (bows without a quiver would
      * stop working), asking {@code player.getProjectile} before the quiver (loose arrows would be
-     * spent first), removing the inject (quiver arrows would become infinite), or dropping the
-     * {@code instabuild} guard (creative would eat the quiver). The {@code usedQuiver} flag is
-     * deliberately not on this list - see the class Javadoc for why no assertion can hold it.
+     * spent first), removing the inject (quiver arrows would become infinite), dropping the
+     * {@code instabuild} guard (creative would eat the quiver), dropping the
+     * {@code processAmmoUse} check (Infinity would eat the quiver again), or widening it into a
+     * blanket "bow is enchanted with Infinity" test (spectral and tipped arrows would become free).
+     * The {@code usedQuiver} flag is deliberately not on this list - see the class Javadoc for why
+     * no assertion can hold it.
      */
     public static void bowShootsFromTheQuiverAndBillsItOutsideCreativeOnly(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -854,7 +874,7 @@ public final class QuiverTests {
         discardArrows(helper);
         player.getAbilities().instabuild = false;
 
-        // --- Infinity does not spare the quiver (pinned) ---
+        // --- Infinity spares the quiver, exactly as it spares loose arrows ---
         ItemStack infinityBow = new ItemStack(Items.BOW);
         infinityBow.enchant(enchantment(helper, Enchantments.INFINITY), 1);
         player.setItemInHand(InteractionHand.MAIN_HAND, infinityBow);
@@ -868,10 +888,40 @@ public final class QuiverTests {
         // this line a quiver billed for a shot that never left the bow would pass unnoticed.
         helper.assertValueEqual(flyingArrows(helper).size(), 1,
                 "arrows flying in the room after the Infinity shot");
-        helper.assertValueEqual(countInBundle(quiver, Items.ARROW), 5,
-                "PINNED CURRENT BEHAVIOUR: BowItemMixin never looks at Infinity, so an Infinity bow spends a "
-                        + "quiver arrow all the same. If this is now 6 the mixin learned about the enchantment "
-                        + "- update this assertion");
+        helper.assertValueEqual(countInBundle(quiver, Items.ARROW), 6,
+                "arrows left in the quiver after an Infinity shot. The mixin bills the quiver only when "
+                        + "EnchantmentHelper.processAmmoUse answers more than zero - the same call vanilla's "
+                        + "ProjectileWeaponItem#useAmmo makes - and Infinity sets it to zero for a plain "
+                        + "arrow, which vanilla then shoots as an INTANGIBLE_PROJECTILE nobody can pick up. "
+                        + "If this is 5 the quiver pays for a shot vanilla handed out for free");
+        discardArrows(helper);
+
+        // The same shot once more: a mixin that merely skipped the first billing would leave 5 here.
+        infinityBow.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(releaseBow(helper, player, infinityBow),
+                "an Infinity bow could not shoot from the quiver a second time");
+        helper.assertValueEqual(flyingArrows(helper).size(), 1,
+                "arrows flying in the room after the second Infinity shot");
+        helper.assertValueEqual(countInBundle(quiver, Items.ARROW), 6,
+                "arrows left in the quiver after two Infinity shots - Infinity is unlimited, not an "
+                        + "off-by-one");
+        discardArrows(helper);
+
+        // --- and it spares only the plain arrow: infinity.json requires minecraft:arrow ---
+        ItemStack spectralQuiver =
+                filledContainer(helper, player, ModItems.QUIVER, Items.SPECTRAL_ARROW, 8);
+        player.setItemInHand(InteractionHand.OFF_HAND, spectralQuiver);
+        infinityBow.getItem().use(level, player, InteractionHand.MAIN_HAND);
+
+        helper.assertTrue(releaseBow(helper, player, infinityBow),
+                "an Infinity bow could not shoot a spectral arrow out of the quiver");
+        helper.assertValueEqual(flyingArrows(helper).size(), 1,
+                "arrows flying in the room after the spectral Infinity shot");
+        helper.assertValueEqual(countInBundle(spectralQuiver, Items.SPECTRAL_ARROW), 7,
+                "spectral arrows left in the quiver after an Infinity shot. infinity.json frees only "
+                        + "minecraft:arrow, so processAmmoUse still answers one here and the quiver pays, "
+                        + "just as vanilla makes a loose spectral arrow pay. If this is 8 the mixin asks "
+                        + "whether the bow carries Infinity instead of asking what the shot costs");
         discardArrows(helper);
 
         helper.succeed();

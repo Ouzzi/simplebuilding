@@ -49,7 +49,10 @@ public final class VeinMinerUsageEvent {
         if (level <= 0) return true;
 
         // Logik: Nur Erze (Pickaxe) oder Logs (Axt)
-        if (isPickaxe && !isOre(state)) return true;
+        // Die Erzliste steht nur noch in MiningUtils.isOre; die Riss-Vorschau fragt dieselbe
+        // Methode. Eine eigene Kopie hier hatte genau eine Wirkung: sie ist auseinandergelaufen
+        // (die Vorschau zaehlte Netherquarzerz und Antiken Schutt mit, der Abbau nicht).
+        if (isPickaxe && !MiningUtils.isOre(state)) return true;
         if (isAxe && !state.is(BlockTags.LOGS)) return true;
 
         int maxBlocks = switch (level) {
@@ -119,18 +122,5 @@ public final class VeinMinerUsageEvent {
             }
         }
         return found;
-    }
-
-    private static boolean isOre(BlockState state) {
-        // MC 1.21.11: Die Erz-Tags stehen noch direkt in BlockTags (minecraft:coal_ores usw.);
-        // die gepaarten Block/Item-Tags gibt es erst ab 26.2. Tag-Daten unveraendert.
-        return state.is(BlockTags.COAL_ORES) ||
-                state.is(BlockTags.IRON_ORES) ||
-                state.is(BlockTags.COPPER_ORES) ||
-                state.is(BlockTags.GOLD_ORES) ||
-                state.is(BlockTags.REDSTONE_ORES) ||
-                state.is(BlockTags.LAPIS_ORES) ||
-                state.is(BlockTags.DIAMOND_ORES) ||
-                state.is(BlockTags.EMERALD_ORES);
     }
 }

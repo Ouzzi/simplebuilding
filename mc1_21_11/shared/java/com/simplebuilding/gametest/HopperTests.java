@@ -99,17 +99,7 @@ import net.minecraft.world.phys.Vec3;
  * </ul>
  *
  * <h2>Known defects</h2>
- * <ol>
- *   <li><b>{@code setGhostItem} broadcasts slots it refuses to store.</b> The {@code 0..4} range
- *       check sits inside {@code setGhostItemInternal} (ModHopperBlockEntity.java:122), while the
- *       {@code PlatformServices.broadcastHopperGhostItem} call after it (line 408) is
- *       unconditional. A {@code SetHopperGhostItemPayload} with slot 9 changes nothing on the
- *       server but still sends a sync packet for slot 9 to every tracking client. Harmless today
- *       only because {@code setGhostItemClient} range checks again. The test below pins the half
- *       that is behaviour rather than defect - that nothing is stored and nothing throws, and
- *       that the two <em>in</em> range calls do broadcast. The stray slot 9 packet does show up
- *       in the recorder that test installs, but nothing asserts on it: pinning it would make the
- *       fix go red.</li>
+ * <ul>
  *   <li><b>{@code NetheriteHopperBlockEntity} is dead code.</b> Nothing constructs it:
  *       {@code ModHopperBlock#newBlockEntity} returns a {@code ModHopperBlockEntity} and
  *       {@code ModBlockEntities} registers {@code ModHopperBlockEntity::new} for both hoppers.
@@ -117,14 +107,7 @@ import net.minecraft.world.phys.Vec3;
  *       which would shadow the base class's fields if it were ever wired up - the inherited
  *       {@code canPlaceItem}, {@code saveAdditional} and {@code getUpdateTag} would then read the
  *       empty base copies. Every test here uses the class the game actually builds.</li>
- *   <li><b>The saved filter mode is not range checked.</b>
- *       {@code loadAdditional} does {@code HopperFilterMode.values()[view.getIntOr("FilterMode",
- *       0)]} (line 175); a {@code FilterMode} of 3 or more in the region file throws
- *       {@code ArrayIndexOutOfBoundsException} while the chunk loads. The property delegate has
- *       the mirror image of the problem: {@code value % values().length} (line 73) stays negative
- *       for a negative {@code value}. Neither is written as expected behaviour below - the round
- *       trip test only feeds back what the hopper itself saved.</li>
- * </ol>
+ * </ul>
  *
  * <h2>Not pinned, and why</h2>
  * <ul>
@@ -210,6 +193,9 @@ public final class HopperTests {
 
     /** First player inventory slot of a {@code HopperMenu}: five hopper slots come before it. */
     private static final int FIRST_PLAYER_SLOT = 5;
+
+    /** The hotbar slot {@link #hopperMenuOpensOnUseAndFilterClicksNeverStoreTheItem} swaps from. */
+    private static final int HOTBAR_SWAP_SLOT = 0;
 
     // --- the grid alignment probe: a hopper of its own, clear of HOPPER_POS and of the player ---
     private static final BlockPos GRID_PROBE_POS = new BlockPos(5, 1, 5);
@@ -325,10 +311,16 @@ public final class HopperTests {
      * clearing one - because a broadcast that only fires for non-empty stacks leaves a cleared
      * slot showing its old ghost on every other screen.
      *
+     * <p>The out of range slot is asked for on both sides of {@code setGhostItem}: it stores
+     * nothing, and it announces nothing. The second half is the one a client controls - the index
+     * arrives from {@code SetHopperGhostItemPayload} unclamped - so a broadcast that fires for a
+     * slot the hopper refused to write turns one packet into one per tracking player.
+     *
      * <p>What breaks this test: dropping the {@code setCount(1)}, storing {@code stack} instead
      * of {@code stack.copy()}, losing the empty-stack branch, swapping the payload to
      * {@code ItemStack.STREAM_CODEC}, narrowing the {@code slot >= 0 && slot < 5} guard on
-     * either {@code setGhostItemInternal} or {@code getGhostItem}, or dropping the broadcast.
+     * either {@code setGhostItemInternal} or {@code getGhostItem}, dropping the broadcast, or
+     * moving it back out from behind that guard.
      */
     public static void filterItemsAreStoredAsSingleCountCopiesAndCanBeCleared(GameTestHelper helper) {
         ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.NETHERITE_HOPPER);
@@ -367,8 +359,9 @@ public final class HopperTests {
                 "a rename applied to the caller's stack showed up in the filter slot, so the slot "
                         + "holds the very stack it was given instead of a copy");
 
-        // --- an out of range slot changes nothing and throws nothing, on both sides ---
+        // --- an out of range slot changes nothing, throws nothing and tells nobody ---
         hopper.setGhostItem(0, new ItemStack(Items.STONE));
+        int broadcastsBeforeTheStrayWrites = broadcasts.size();
         hopper.setGhostItem(9, new ItemStack(Items.DIAMOND));
         hopper.setGhostItem(-1, new ItemStack(Items.DIAMOND));
         helper.assertTrue(hopper.getGhostItem(9).isEmpty(),
@@ -381,6 +374,14 @@ public final class HopperTests {
         for (int slot = 1; slot < 5; slot++) {
             helper.assertTrue(hopper.getGhostItem(slot).isEmpty(),
                     "the out of range writes landed in filter slot " + slot);
+        }
+        // A slot the hopper refuses to store must not be announced either. The recorder is shared
+        // with every other test in the batch, so only this hopper's own entries are judged.
+        for (int i = broadcastsBeforeTheStrayWrites; i < broadcasts.size(); i++) {
+            helper.assertFalse(broadcasts.get(i).hopper() == hopper,
+                    "the hopper announced a change for filter slot " + broadcasts.get(i).slot()
+                            + ", which is outside the five it can store, so one packet from a "
+                            + "client becomes one to every player tracking the block");
         }
 
         // --- the delete path, driven through the wire format that has to carry it ---
@@ -466,11 +467,18 @@ public final class HopperTests {
      * switch from {@code getUpdatePacket()} and from nothing else. The {@code sendBlockUpdated}
      * call that hands that packet out is not reachable from here; see the class javadoc.
      *
+     * <p><b>Both ends of the wrap are asked for.</b> The delegate reduces the value it is given
+     * with {@code Math.floorMod}, and the negative half is the one that used to be wrong: Java's
+     * {@code %} keeps the sign of its left operand, so {@code values()[value % length]} indexed
+     * the array with a negative number. The positive wrap is pinned right beside it, because a
+     * fix that clamped instead of wrapping would change that half.
+     *
      * <p>What breaks this test: dropping {@code addDataSlots(propertyDelegate)} from the menu,
      * making the delegate answer at another index, {@code getSyncedFilterMode} losing its ordinal
-     * lookup, dropping the {@code setChanged()} out of {@code updateListeners},
-     * {@code getUpdatePacket} answering {@code null} or with a tag that has lost the mode,
-     * renaming a mode text, or a mode constant losing the style its tooltip is drawn in.
+     * lookup, going back from {@code Math.floorMod} to a plain remainder, dropping the
+     * {@code setChanged()} out of {@code updateListeners}, {@code getUpdatePacket} answering
+     * {@code null} or with a tag that has lost the mode, renaming a mode text, or a mode constant
+     * losing the style its tooltip is drawn in.
      */
     public static void theModeDelegateReadsAndWritesTheFilterMode(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -510,11 +518,22 @@ public final class HopperTests {
                 "a write to delegate index 1 changed the filter mode to " + hopper.getFilterMode());
         Assertions.valueEqual(helper, delegate.get(1), 0, "what the delegate answers for index 1");
 
-        // --- a value past the last mode wraps instead of throwing ---
+        // --- a value outside the modes wraps instead of throwing, in both directions ---
         menu.setData(0, HopperFilterMode.values().length);
         helper.assertTrue(hopper.getFilterMode() == HopperFilterMode.NONE,
                 "the delegate did not wrap a mode ordinal of " + HopperFilterMode.values().length
                         + ", the hopper is in " + hopper.getFilterMode());
+        // Below zero as well: Java's % keeps the sign of its left operand, so the plain remainder
+        // handed values() a negative index. Math.floorMod wraps onto the last mode instead.
+        menu.setData(0, -1);
+        helper.assertTrue(hopper.getFilterMode() == HopperFilterMode.TYPE,
+                "the delegate did not wrap the mode ordinal -1 onto the last mode, the hopper is "
+                        + "in " + hopper.getFilterMode());
+        helper.assertFalse(hopper.canPlaceItem(0, new ItemStack(Items.STONE)),
+                "the hopper accepts anything after -1 was written over the delegate, so the wrap "
+                        + "only moved a number around instead of reaching the filter");
+        // Back where the wrap above left it, so the toggle below still reaches Exact Match.
+        menu.setData(0, HopperFilterMode.NONE.ordinal());
 
         // --- a mode change marks the block entity changed ---
         // Cleared and re-read inside one server tick, so no other block entity in this chunk can
@@ -647,9 +666,19 @@ public final class HopperTests {
      * {@code setItem} would otherwise teach slot 1 a filter of its own and the "an empty filter
      * slot stays empty" assertion below would be testing the wrong thing.
      *
+     * <p><b>The last two loads feed back a mode the hopper never wrote.</b> {@code FilterMode}
+     * is an enum ordinal in a file anyone can edit, and the same number arrives from a server
+     * over the update tag; an ordinal outside {@code 0..2} used to index
+     * {@code HopperFilterMode.values()} straight out of bounds. {@code BlockEntity#loadStatic}
+     * catches that, logs one line and drops the block entity - the hopper stays standing while
+     * its contents, its five filter items and its mode are gone. So the claim is not only that
+     * nothing throws but that everything else in the tag still came back, judged through
+     * {@code canPlaceItem} rather than through the mode field alone.
+     *
      * <p>What breaks this test: renaming {@code FilterMode} or {@code GhostItems} on one side
-     * only, dropping the {@code GhostItems} child from {@code saveAdditional}, or the
-     * {@code ContainerHelper} format changing under the mod so the two sides no longer agree.
+     * only, dropping the {@code GhostItems} child from {@code saveAdditional}, dropping the range
+     * check around the saved mode, or the {@code ContainerHelper} format changing under the mod
+     * so the two sides no longer agree.
      */
     public static void hopperConfigurationSurvivesTheSaveAndLoadRoundTrip(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -702,6 +731,43 @@ public final class HopperTests {
                         + "is a renamed one and only the item type is supposed to matter");
         helper.assertFalse(reloaded.canPlaceItem(1, new ItemStack(Items.COBBLESTONE)),
                 "a slot whose filter is empty accepts items again after the round trip");
+
+        // --- and a mode the hopper never wrote: it falls back instead of throwing ---
+        // A FilterMode past the last one reaches loadAdditional from a hand edited region file or
+        // from a server's update packet. BlockEntity#loadStatic answers a throwing load by
+        // dropping the whole block entity, so the hopper would come back with no contents, no
+        // filter items and no mode at all - a silent loss with one log line behind it. The very
+        // tag the hopper wrote above is reused, so nothing but the mode is out of the ordinary.
+        saved.putInt("FilterMode", HopperFilterMode.values().length);
+        ModHopperBlockEntity pastTheLastMode = new ModHopperBlockEntity(
+                helper.absolutePos(HOPPER_POS), ModBlocks.NETHERITE_HOPPER.defaultBlockState());
+        pastTheLastMode.loadCustomOnly(TagValueInput.create(
+                ProblemReporter.DISCARDING, level.registryAccess(), saved));
+
+        helper.assertTrue(pastTheLastMode.getFilterMode() == HopperFilterMode.NONE,
+                "a hopper loaded with an unknown filter mode came back in "
+                        + pastTheLastMode.getFilterMode() + " instead of falling back to Disabled");
+        // Driven, so the claim is the mode the hopper is really in: Disabled is the only mode
+        // that lets an item into a slot whose filter item is empty.
+        helper.assertTrue(pastTheLastMode.canPlaceItem(1, new ItemStack(Items.COBBLESTONE)),
+                "the fallback still filters, so the unknown ordinal was never really replaced");
+        // And the rest of the block entity came along, which is the whole point of not throwing.
+        helper.assertTrue(pastTheLastMode.getGhostItem(0).is(Items.DIAMOND),
+                "the filter items went down with the unknown mode, slot 0 holds "
+                        + pastTheLastMode.getGhostItem(0));
+        helper.assertTrue(pastTheLastMode.getItem(1).is(Items.COBBLESTONE),
+                "the hopper's own contents went down with the unknown mode, slot 1 holds "
+                        + pastTheLastMode.getItem(1));
+
+        // The other side of the range, which a downgrade or a hand edit reaches just as easily.
+        saved.putInt("FilterMode", -1);
+        ModHopperBlockEntity belowTheFirstMode = new ModHopperBlockEntity(
+                helper.absolutePos(HOPPER_POS), ModBlocks.NETHERITE_HOPPER.defaultBlockState());
+        belowTheFirstMode.loadCustomOnly(TagValueInput.create(
+                ProblemReporter.DISCARDING, level.registryAccess(), saved));
+        helper.assertTrue(belowTheFirstMode.getFilterMode() == HopperFilterMode.NONE,
+                "a hopper loaded with a negative filter mode came back in "
+                        + belowTheFirstMode.getFilterMode());
 
         TestCleanup.succeed(helper);
     }
@@ -773,6 +839,17 @@ public final class HopperTests {
      * filter is off. Without those two, deleting the {@code super.clicked(...)} call at the end
      * would go unnoticed.
      *
+     * <p><b>And the three click kinds that never pass the screen at all.</b> The filter branch in
+     * {@code clicked} only covers {@code PICKUP}; a shift click out of the player inventory
+     * ({@code QUICK_MOVE}, which {@code HopperMenu#quickMoveStack} aims straight at slots 0-4), a
+     * hotbar swap ({@code SWAP}, which {@code checkHotbarKeyPressed} sends past the screen's
+     * {@code mouseClicked}) and a drag across the slots ({@code QUICK_CRAFT}) all go through
+     * vanilla, which asks {@code Slot#mayPlace} - a constant {@code true} on the plain
+     * {@code Slot} that {@code HopperMenu} adds. All three are driven here against a filter that
+     * names diamonds, with a diamond shift click as the positive control: the fix is a filtering
+     * {@code Slot} rather than three more branches in {@code clicked}, and a slot that refused
+     * <em>everything</em> would meet the negative half on its own.
+     *
      * <p><b>The wiring is read off the menu's slots, not off {@code getBlockEntity()}.</b>
      * {@code NetheriteHopperScreenHandler#getBlockEntity} answers with
      * {@code world.getBlockEntity(this.pos)} (NetheriteHopperScreenHandler.java:50-59), so it
@@ -813,7 +890,8 @@ public final class HopperTests {
      * branch), losing the {@code mode != NONE} guard (the filter would swallow every click even
      * when it is off), widening the slot range past the five hopper slots, dropping the
      * {@code return} that stops the item from being placed, dropping the {@code blockEntity !=
-     * null} guard, or {@code isGridAligned} starting to answer {@code true}.
+     * null} guard, putting the plain {@code Slot}s back in place of the filtering ones, or
+     * {@code isGridAligned} starting to answer {@code true}.
      */
     public static void hopperMenuOpensOnUseAndFilterClicksNeverStoreTheItem(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -891,6 +969,84 @@ public final class HopperTests {
         helper.assertTrue(hopper.getGhostItem(0).is(Items.DIAMOND),
                 "the click on a player inventory slot rewrote filter slot 0, which now holds "
                         + hopper.getGhostItem(0));
+
+        // --- the click kinds the screen never gets to eat have to obey the filter as well ---
+        // The screen swallows plain clicks over the five slots, but a shift click out of the
+        // player inventory, a hotbar swap (keys 1-9) and a drag across the slots all reach the
+        // menu on their own. Vanilla gates those three on Slot#mayPlace, which on the plain Slot
+        // HopperMenu adds is a constant true - so filter foreign material went straight into a
+        // slot whose filter names something else, and the hopper pushed it on down the line.
+        int cobblestoneSlot = FIRST_PLAYER_SLOT + 1;
+        menu.getSlot(cobblestoneSlot).set(new ItemStack(Items.COBBLESTONE, 4));
+
+        menu.clicked(cobblestoneSlot, 0, ClickType.QUICK_MOVE, player);
+        helper.assertTrue(hopper.getItem(0).isEmpty(),
+                "a shift click out of the player inventory put " + hopper.getItem(0)
+                        + " into hopper slot 0, whose filter names diamonds");
+        Assertions.valueEqual(helper, menu.getSlot(cobblestoneSlot).getItem().getCount(), 4,
+                "cobblestone still in the player inventory after the shift click - the whole "
+                        + "stack has to stay put, not just miss the first slot");
+
+        // The hotbar swap, the one route that reaches clicked() past the screen's mouseClicked.
+        player.getInventory().setItem(HOTBAR_SWAP_SLOT, new ItemStack(Items.COBBLESTONE, 4));
+        menu.clicked(0, HOTBAR_SWAP_SLOT, ClickType.SWAP, player);
+        helper.assertTrue(hopper.getItem(0).isEmpty(),
+                "a hotbar swap put " + hopper.getItem(0) + " into hopper slot 0, whose filter "
+                        + "names diamonds");
+        Assertions.valueEqual(helper, player.getInventory().getItem(HOTBAR_SWAP_SLOT).getCount(), 4,
+                "cobblestone still in the hotbar after the swap");
+
+        // And the drag distribution, driven the way the client sends it: a start and an end click
+        // outside any slot (-999) with one click per slot the pointer crossed in between. Two
+        // slots are collected on purpose - with one the menu falls back to a plain PICKUP, which
+        // the filter branch above already intercepts.
+        int evenSplit = AbstractContainerMenu.QUICKCRAFT_TYPE_CHARITABLE;
+        int dragStart = AbstractContainerMenu.getQuickcraftMask(
+                AbstractContainerMenu.QUICKCRAFT_HEADER_START, evenSplit);
+        int dragOverSlot = AbstractContainerMenu.getQuickcraftMask(
+                AbstractContainerMenu.QUICKCRAFT_HEADER_CONTINUE, evenSplit);
+        int dragEnd = AbstractContainerMenu.getQuickcraftMask(
+                AbstractContainerMenu.QUICKCRAFT_HEADER_END, evenSplit);
+        menu.setCarried(new ItemStack(Items.COBBLESTONE, 4));
+        menu.clicked(-999, dragStart, ClickType.QUICK_CRAFT, player);
+        menu.clicked(0, dragOverSlot, ClickType.QUICK_CRAFT, player);
+        menu.clicked(1, dragOverSlot, ClickType.QUICK_CRAFT, player);
+        menu.clicked(-999, dragEnd, ClickType.QUICK_CRAFT, player);
+        helper.assertTrue(hopper.getItem(0).isEmpty() && hopper.getItem(1).isEmpty(),
+                "a drag across the filter slots left " + hopper.getItem(0) + " in slot 0 and "
+                        + hopper.getItem(1) + " in slot 1");
+        Assertions.valueEqual(helper, menu.getCarried().getCount(), 4,
+                "cobblestone still on the cursor after the drag");
+        menu.setCarried(ItemStack.EMPTY);
+
+        // None of the three may reconfigure the filter either: an item that lands in a slot with
+        // no filter item of its own becomes that slot's filter (setItem), so a leak here does not
+        // only slip material through, it rewrites the filter behind the player's back.
+        helper.assertTrue(hopper.getGhostItem(0).is(Items.DIAMOND),
+                "one of the three clicks rewrote filter slot 0, which now holds "
+                        + hopper.getGhostItem(0));
+        for (int slot = 1; slot < 5; slot++) {
+            helper.assertTrue(hopper.getGhostItem(slot).isEmpty(),
+                    "one of the three clicks taught filter slot " + slot + " the filter item "
+                            + hopper.getGhostItem(slot));
+        }
+
+        // The positive control: what the filter does name still gets in, so the assertions above
+        // are about the filter and not about a menu that stopped taking items at all.
+        menu.getSlot(cobblestoneSlot).set(new ItemStack(Items.DIAMOND, 4));
+        menu.clicked(cobblestoneSlot, 0, ClickType.QUICK_MOVE, player);
+        helper.assertTrue(hopper.getItem(0).is(Items.DIAMOND),
+                "a shift click of the very item filter slot 0 names did not reach it, it holds "
+                        + hopper.getItem(0));
+        Assertions.valueEqual(helper, hopper.getItem(0).getCount(), 4,
+                "diamonds the shift click moved into the filtered slot");
+        helper.assertTrue(menu.getSlot(cobblestoneSlot).getItem().isEmpty(),
+                "the player inventory slot kept " + menu.getSlot(cobblestoneSlot).getItem()
+                        + " after a shift click the filter had room for");
+
+        // Put back the way the sections below expect to find it.
+        hopper.setItem(0, ItemStack.EMPTY);
+        player.getInventory().setItem(HOTBAR_SWAP_SLOT, ItemStack.EMPTY);
 
         // --- and with the filter off, a hopper slot takes the item like any other slot ---
         menu.clicked(FIRST_PLAYER_SLOT, 0, ClickType.PICKUP, player);

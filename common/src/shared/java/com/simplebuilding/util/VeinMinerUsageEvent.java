@@ -4,7 +4,6 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Player;
@@ -50,7 +49,10 @@ public final class VeinMinerUsageEvent {
         if (level <= 0) return true;
 
         // Logik: Nur Erze (Pickaxe) oder Logs (Axt)
-        if (isPickaxe && !isOre(state)) return true;
+        // Die Erzliste steht nur noch in MiningUtils.isOre; die Riss-Vorschau fragt dieselbe
+        // Methode. Eine eigene Kopie hier hatte genau eine Wirkung: sie ist auseinandergelaufen
+        // (die Vorschau zaehlte Netherquarzerz und Antiken Schutt mit, der Abbau nicht).
+        if (isPickaxe && !MiningUtils.isOre(state)) return true;
         if (isAxe && !state.is(BlockTags.LOGS)) return true;
 
         int maxBlocks = switch (level) {
@@ -120,19 +122,5 @@ public final class VeinMinerUsageEvent {
             }
         }
         return found;
-    }
-
-    private static boolean isOre(BlockState state) {
-        // MC 26.2: Die Erz-Tags leben jetzt als Block/Item-Paare in BlockItemTags.
-        // BlockItemTags.X.block() liefert exakt denselben TagKey wie frueher BlockTags.X
-        // (minecraft:coal_ores usw. - Tag-Daten unveraendert).
-        return state.is(BlockItemTags.COAL_ORES.block()) ||
-                state.is(BlockItemTags.IRON_ORES.block()) ||
-                state.is(BlockItemTags.COPPER_ORES.block()) ||
-                state.is(BlockItemTags.GOLD_ORES.block()) ||
-                state.is(BlockItemTags.REDSTONE_ORES.block()) ||
-                state.is(BlockItemTags.LAPIS_ORES.block()) ||
-                state.is(BlockItemTags.DIAMOND_ORES.block()) ||
-                state.is(BlockItemTags.EMERALD_ORES.block());
     }
 }

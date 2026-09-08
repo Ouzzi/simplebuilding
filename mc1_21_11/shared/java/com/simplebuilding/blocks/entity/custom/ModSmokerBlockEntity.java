@@ -21,7 +21,11 @@ public class ModSmokerBlockEntity extends AbstractFurnaceBlockEntity {
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("container.simplebuilding.reinforced_smoker");
+        // Beide Stufen teilen sich diese Block-Entity; der Titel unterscheidet sie am Blockzustand,
+        // genau wie tick() es fuer den Boost tut. Beide Schluessel stehen in en_us und de_de.
+        return Component.translatable(this.getBlockState().is(ModBlocks.NETHERITE_SMOKER)
+                ? "container.simplebuilding.netherite_smoker"
+                : "container.simplebuilding.reinforced_smoker");
     }
 
     @Override

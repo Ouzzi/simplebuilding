@@ -70,7 +70,10 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
             @Override
             public void set(int index, int value) {
                 if (index == 0) {
-                    currentFilterMode = HopperFilterMode.values()[value % HopperFilterMode.values().length];
+                    // floorMod statt %: Javas Rest bleibt bei negativen Werten negativ und hätte
+                    // den Ordinal aus dem Array laufen lassen. Der Umlauf nach oben bleibt.
+                    currentFilterMode = HopperFilterMode.values()[
+                            Math.floorMod(value, HopperFilterMode.values().length)];
                     setChanged();
                 }
             }
@@ -118,17 +121,20 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
         updateListeners();
     }
 
-    private void setGhostItemInternal(int slot, ItemStack stack) {
-        if (slot >= 0 && slot < 5) {
-            if (stack.isEmpty()) {
-                ghostItems.set(slot, ItemStack.EMPTY);
-            } else {
-                ItemStack copy = stack.copy();
-                copy.setCount(1);
-                ghostItems.set(slot, copy);
-            }
-            setChanged();
+    /** @return true, wenn der Slot im Bereich 0..4 lag und wirklich geschrieben wurde. */
+    private boolean setGhostItemInternal(int slot, ItemStack stack) {
+        if (slot < 0 || slot >= 5) {
+            return false;
         }
+        if (stack.isEmpty()) {
+            ghostItems.set(slot, ItemStack.EMPTY);
+        } else {
+            ItemStack copy = stack.copy();
+            copy.setCount(1);
+            ghostItems.set(slot, copy);
+        }
+        setChanged();
+        return true;
     }
 
     // Diese Methode sorgt dafür, dass das GUI sofort aktualisiert wird
@@ -171,8 +177,13 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
             ContainerHelper.loadAllItems(ghostView, this.ghostItems);
         });
 
-        // Filter Mode lesen
-        this.currentFilterMode = HopperFilterMode.values()[view.getIntOr("FilterMode", 0)];
+        // Filter Mode lesen. Der Ordinal kommt aus der Regionsdatei bzw. vom Server und kann
+        // alles sein; ein unbekannter Modus fällt auf NONE zurück, statt beim Chunkladen die
+        // ganze Blockentität (Inhalt, Filter, Modus) mitzunehmen.
+        int savedFilterMode = view.getIntOr("FilterMode", 0);
+        this.currentFilterMode = savedFilterMode >= 0 && savedFilterMode < HopperFilterMode.values().length
+                ? HopperFilterMode.values()[savedFilterMode]
+                : HopperFilterMode.NONE;
 
         this.transferCooldown = view.getIntOr("TransferCooldown", -1);
     }
@@ -401,7 +412,12 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
 
     // Diese Methode wird vom Server aufgerufen
     public void setGhostItem(int slot, ItemStack stack) {
-        setGhostItemInternal(slot, stack);
+        // Der Slot-Index kommt ungeprüft aus einem Paket. Wurde nichts gespeichert, darf auch
+        // nichts an die zuschauenden Clients gehen - sonst macht ein manipulierter Client aus
+        // einem Paket eines pro Umstehendem.
+        if (!setGhostItemInternal(slot, stack)) {
+            return;
+        }
 
         // WICHTIG: Sende Update an alle Spieler, die zuschauen (Tracking)
         if (level != null && !level.isClientSide()) {

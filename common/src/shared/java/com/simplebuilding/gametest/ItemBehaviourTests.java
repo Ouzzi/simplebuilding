@@ -51,11 +51,6 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Known defects touched by this file</h2>
  * <ul>
- *   <li>The quiver's arrow filter on the two inventory click paths only inspects
- *       {@code ClickAction.PRIMARY}, while the click that inserts follows
- *       {@code tools.invertBundleInteractions}. With the option on, anything can be clicked into a
- *       quiver. Pinned - as today's behaviour, not as a wish - in
- *       {@link QuiverTests#arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt}.</li>
  *   <li>A locked octant answers a click with an overlay message, and overlay messages are packets
  *       to the client that a mock player's connection discards. What a test can see of that branch
  *       is asserted in {@link #octantStoresBothCornersAndRespectsTheLock}; the message itself is
@@ -184,9 +179,9 @@ public final class ItemBehaviourTests {
      * {@code tryInsertStackFromWorld}. The other two are the inventory clicks
      * ({@code overrideStackedOnOther} and {@code overrideOtherStackedOnMe}), and both are covered
      * on both mouse bindings by
-     * {@link QuiverTests#arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt} - including the
-     * known defect that those two only inspect {@code ClickAction.PRIMARY} while the click that
-     * inserts follows {@code tools.invertBundleInteractions}.
+     * {@link QuiverTests#arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt} - which also
+     * holds them to the click {@code tools.invertBundleInteractions} configures, so the filter
+     * cannot drift back to a fixed {@code ClickAction.PRIMARY}.
      */
     public static void quiverTakesArrowsAndRefusesEverythingElse(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);

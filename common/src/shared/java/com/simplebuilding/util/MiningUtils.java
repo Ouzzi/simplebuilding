@@ -9,7 +9,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class MiningUtils {
@@ -102,6 +101,16 @@ public class MiningUtils {
         return player.getDirection();
     }
 
+    /**
+     * Die eine Erzliste des Aderabbaus. Die Riss-Vorschau (MultiBlockBreakingSupport) und der
+     * Abbau-Hook (VeinMinerUsageEvent) fragen beide genau diese Methode - die Vorschau kann also
+     * nichts mehr anzeigen, was der Server danach stehen laesst.
+     *
+     * <p>Genau die acht Erz-Tags, die das Handbuch fuer den Aderabbau zusagt. Netherquarzerz und
+     * Antiker Schutt gehoeren NICHT dazu: sie standen frueher nur in dieser Kopie und wurden vom
+     * Abbau nie gebrochen. Wer sie aufnehmen will, aendert damit die Balance (Aderabbau V auf
+     * Antikem Schutt) und muss das Handbuch mitziehen - es ist kein Aufraeumen.
+     */
     public static boolean isOre(BlockState state) {
         // Vanilla Tags nutzen. Hinweis: GOLD_ORES beinhaltet in Vanilla auch Nether Gold Ore.
         // MC 26.2: Die Erz-Tags leben jetzt als Block/Item-Paare in BlockItemTags.
@@ -114,8 +123,6 @@ public class MiningUtils {
                 state.is(BlockItemTags.REDSTONE_ORES.block()) ||
                 state.is(BlockItemTags.LAPIS_ORES.block()) ||
                 state.is(BlockItemTags.DIAMOND_ORES.block()) ||
-                state.is(BlockItemTags.EMERALD_ORES.block()) ||
-                state.is(Blocks.NETHER_QUARTZ_ORE) || // Manueller Check für Quarz
-                state.is(Blocks.ANCIENT_DEBRIS);       // Optional: Antiker Schutt als Erz zählen
+                state.is(BlockItemTags.EMERALD_ORES.block());
     }
 }

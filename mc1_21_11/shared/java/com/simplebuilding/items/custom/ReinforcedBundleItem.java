@@ -72,7 +72,8 @@ public class ReinforcedBundleItem extends BundleItem {
     }
 
     // --- Helper für Click Invertierung ---
-    private ClickAction getInsertClick() {
+    // protected, weil QuiverItem seinen Pfeilfilter an denselben Klick haengt.
+    protected ClickAction getInsertClick() {
         // Prüfen ob Invertierung in der Config aktiv ist
         if (Simplebuilding.getConfig().tools.invertBundleInteractions) {
             return ClickAction.SECONDARY;

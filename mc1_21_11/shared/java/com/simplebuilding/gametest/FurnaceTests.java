@@ -73,19 +73,7 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Known defects</h2>
  *
- * <p><b>1. Every netherite device shows the reinforced tier's container title.</b> All three
- * {@code getDefaultName()} overrides return the {@code container.simplebuilding.reinforced_*} key
- * unconditionally, although {@code container.simplebuilding.netherite_furnace},
- * {@code .netherite_smoker} and {@code .netherite_blast_furnace} exist in both shipped language
- * files (en_us and de_de) and are reachable from nowhere. A netherite furnace opens a screen titled
- * "Reinforced Furnace". {@link #everyTierOpensTheMenuOfItsVanillaCounterpart} therefore asserts
- * only what is uncontested - that each of the six carries a translatable title from this mod's
- * namespace, that the key is one of the two spellings its own family really ships (the one named
- * after the device itself, or the reinforced sibling's the defect makes it share), and that the
- * three device families use three different keys - and says nothing about whether the two tiers of
- * one family should share a key, so the defect is neither frozen as intended behaviour nor hidden.
- *
- * <p><b>2. The six blocks inherit glass, not stone, so a bare hand drops them.</b>
+ * <p><b>1. The six blocks inherit glass, not stone, so a bare hand drops them.</b>
  * {@code ModBlocks#registerBlock} hands every factory
  * {@code BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)}, and the six furnace lines only
  * override {@code strength} and {@code sound}. Vanilla's furnace is built with
@@ -99,9 +87,9 @@ import net.minecraft.world.phys.Vec3;
  * one of the {@code needs_*_tool} tags must also carry {@code requiresCorrectToolForDrops()},
  * because without it the tag is dead weight and gates nothing.
  *
- * <p><b>3. No burning device gives off light.</b> Vanilla's furnace, smoker and blast furnace are
+ * <p><b>2. No burning device gives off light.</b> Vanilla's furnace, smoker and blast furnace are
  * registered with {@code lightLevel(litBlockEmission(13))}; none of the six sets a light level at
- * all, so a lit reinforced furnace is a dark block in a dark room. Same treatment as defect 2, and
+ * all, so a lit reinforced furnace is a dark block in a dark room. Same treatment as defect 1, and
  * for the same reason: an assertion that the six emit zero light would have to be deleted again the
  * day somebody adds the missing {@code lightLevel(...)}. It would also fall foul of this file's own
  * yardstick for the creative tab below - "in {@code ModBlocks} there is no {@code lightLevel(...)}"
@@ -466,13 +454,11 @@ public final class FurnaceTests {
      * path the server takes for a real interaction, and then {@code player.containerMenu} is read.
      * Nothing about {@code createMenu} or {@code useWithoutItem} was called by any test before.
      *
-     * <p>The container title is checked in the same pass, but only as far as the known defect
-     * allows (see the class javadoc): every device has to carry a translatable title from this mod's
-     * namespace, that key has to be one of the two the family actually ships in en_us and de_de -
-     * the one named after the device itself ({@code container.simplebuilding.netherite_smoker}) or,
-     * while the defect stands, its reinforced sibling's - and the three families have to use three
-     * different keys. Whether a netherite device ought to have its own key is deliberately left
-     * unstated, because both spellings are accepted.
+     * <p>The container title is checked in the same pass: every device has to carry a translatable
+     * title from this mod's namespace, that key has to be the one named after the device itself
+     * ({@code container.simplebuilding.netherite_smoker} for a netherite smoker), and all six keys
+     * have to differ from one another - the two tiers of one family included, which is where the
+     * netherite devices used to answer with their reinforced sibling's key.
      *
      * <p>The namespace prefix on its own said nothing about the rest of the key:
      * {@code container.simplebuilding.a} carries no translation in either language file, so the
@@ -483,7 +469,7 @@ public final class FurnaceTests {
      * {@code FurnaceMenu}, say - the recipe book would then offer smelting recipes a smoker cannot
      * run), a {@code useWithoutItem} that stops opening anything, and a {@code getDefaultName} that
      * returns a literal, a vanilla key, a key from this namespace that no language file defines, or
-     * the same key for two different families.
+     * the same key for two of the six devices.
      */
     public static void everyTierOpensTheMenuOfItsVanillaCounterpart(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -515,13 +501,16 @@ public final class FurnaceTests {
 
         player.containerMenu = player.inventoryMenu;
 
-        // Families, not tiers: entries 0/1 are the furnaces, 2/3 the smokers, 4/5 the blast furnaces.
-        helper.assertTrue(!titleKeys.get(0).equals(titleKeys.get(2)),
-                "furnace and smoker share the container title " + titleKeys.get(0));
-        helper.assertTrue(!titleKeys.get(0).equals(titleKeys.get(4)),
-                "furnace and blast furnace share the container title " + titleKeys.get(0));
-        helper.assertTrue(!titleKeys.get(2).equals(titleKeys.get(4)),
-                "smoker and blast furnace share the container title " + titleKeys.get(2));
+        // Tiers as well as families: no two of the six may answer with the same key, so a netherite
+        // device falling back on its reinforced sibling's title is caught here too.
+        for (int first = 0; first < titleKeys.size(); first++) {
+            for (int second = first + 1; second < titleKeys.size(); second++) {
+                helper.assertTrue(!titleKeys.get(first).equals(titleKeys.get(second)),
+                        "the " + ALL_DEVICES.get(first).label() + " and the "
+                                + ALL_DEVICES.get(second).label() + " share the container title "
+                                + titleKeys.get(first));
+            }
+        }
 
         TestCleanup.succeed(helper);
     }
@@ -545,7 +534,7 @@ public final class FurnaceTests {
      * ways.
      *
      * <p>What is <em>not</em> asserted is whether the six require the correct tool for drops, or
-     * whether they sit in a {@code needs_*_tool} tag. Both are the subject of known defect 2 in the
+     * whether they sit in a {@code needs_*_tool} tag. Both are the subject of known defect 1 in the
      * class javadoc, and pinning either one would make the one line fix for that defect fail. What
      * is asserted instead is the rule that ties the two together and holds before and after any such
      * fix: a block listed in {@code needs_stone_tool}, {@code needs_iron_tool} or
@@ -624,7 +613,7 @@ public final class FurnaceTests {
      * to carry no such component at all, which is what gives the netherite half something to say.
      *
      * <p>Light is deliberately absent here even though the six are the darkest furnaces in the game;
-     * see known defect 3 in the class javadoc for why no assertion about it would survive the fix.
+     * see known defect 2 in the class javadoc for why no assertion about it would survive the fix.
      *
      * <p>What breaks this test: dropping {@code fireResistant()} from one of the three netherite
      * items in {@code ModItems}, or adding it to a reinforced one.
@@ -957,15 +946,14 @@ public final class FurnaceTests {
     }
 
     /**
-     * The device's container title key, checked against the two spellings that are actually shipped
-     * for its family before it is handed back.
+     * The device's container title key, checked against the one spelling that is shipped for this
+     * very device before it is handed back.
      *
      * <p>The namespace prefix alone is satisfied by any invented key, {@code .a} included, and an
      * invented key is not a name: neither language file defines it, so the screen title becomes the
      * raw key. The key therefore has to be {@code container.simplebuilding.} plus this block's own
-     * id, or - while known defect 1 stands and every netherite device answers with the reinforced
-     * one's key - that sibling's. Both are accepted on purpose, so fixing the defect does not turn
-     * this red.
+     * id. A netherite device answering with its reinforced sibling's key - which every one of them
+     * did until {@code getDefaultName()} learned to read the block state - fails right here.
      */
     private static String containerTitleKey(GameTestHelper helper, Device device, BlockPos pos) {
         Component title = furnace(helper, pos).getDisplayName();
@@ -977,12 +965,11 @@ public final class FurnaceTests {
 
         String ownKey = "container.simplebuilding."
                 + BuiltInRegistries.BLOCK.getKey(device.block()).getPath();
-        String reinforcedKey = ownKey.replace(".netherite_", ".reinforced_");
-        helper.assertTrue(key.equals(ownKey) || key.equals(reinforcedKey),
-                "the " + device.label() + "'s container title is " + key + ", which is neither "
-                        + ownKey + " nor " + reinforcedKey + " - those two are the keys the "
-                        + "language files define for this family, and anything else is printed to "
-                        + "the player verbatim as the screen title");
+        helper.assertTrue(key.equals(ownKey),
+                "the " + device.label() + "'s container title is " + key + " instead of " + ownKey
+                        + " - every device has to be named after itself; another device's key names "
+                        + "the wrong block on the screen, and a key no language file defines is "
+                        + "printed to the player verbatim as the screen title");
         return key;
     }
 
@@ -999,7 +986,7 @@ public final class FurnaceTests {
      * still drops to a bare hand, and the tag then advertises a mining tier that does not exist.
      *
      * <p>Says nothing when the block is in none of the three tags - which is where the six devices
-     * stand today, see known defect 2 - so it can never freeze the current state of either side.
+     * stand today, see known defect 1 - so it can never freeze the current state of either side.
      */
     private static void assertToolTagMatchesToolRequirement(GameTestHelper helper, String label, BlockState state) {
         for (TagKey<Block> tag : NEEDS_TOOL_TAGS) {

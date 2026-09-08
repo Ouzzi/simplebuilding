@@ -87,14 +87,6 @@ import net.minecraft.world.phys.Vec3;
  *
  * <p><b>Known defects</b> - pinned around, never written in as expected behaviour:
  * <ul>
- *   <li><b>Two ore lists that disagree.</b> {@code MiningUtils#isOre} - the copy the highlight
- *       preview asks - counts nether quartz ore <em>and</em> ancient debris as ore, while the
- *       private {@code isOre} inside {@code VeinMinerUsageEvent} lists neither. A player sees a
- *       whole ancient debris cluster outlined and then breaks a single block.
- *       {@link VeinAndStripMinerTests} pins the quartz half of that divergence;
- *       {@link #veinMinerAndStripMinerIgnoreToolsAndBlocksOutsideTheirGates} pins the ancient
- *       debris half. Both fail the moment the two lists agree, which is exactly when they
- *       should be rewritten into plain "the vein mines" assertions.</li>
  *   <li><b>The mining pickaxe trade can hand out two mutually exclusive enchantments.</b>
  *       {@code ModTradeDefinitions#miningPool} declares a second chance of {@code 0.1F} over a
  *       pool that holds both Strip Miner and Vein Miner - {@code WeightedPicker#pickOneOrTwo}
@@ -351,10 +343,12 @@ public final class MiningEnchantmentTests {
      * with a positive control on the same player and the same sneak flag, so a silent negative
      * cannot pass just because nothing was wired up.
      *
-     * <p><b>The ore list.</b> Ancient debris is the second half of the divergence described in
-     * the class javadoc: {@code MiningUtils#isOre} says yes, the copy inside the hook says no.
-     * The test asserts both sides, so it fails when they are reconciled - at which point it
-     * has to be rewritten, not deleted.
+     * <p><b>The ore list.</b> Ancient debris used to be the second half of a divergence: the
+     * preview list {@code MiningUtils#isOre} said yes, the hook carried its own copy that said
+     * no, and the player got a whole cluster outlined and a single block broken. There is one
+     * list now and ancient debris is not in it, so this case holds both ends together: the ore
+     * check says no and the cluster stays in the world. Taking debris into the list hands Vein
+     * Miner V a whole cluster per swing - a balance decision, not a repair.
      *
      * <p>What breaks it: widening either tag gate, moving the tag gate behind the ore/log
      * branches, or a harvest check that no longer runs before it (the shovel would then reach
@@ -390,11 +384,12 @@ public final class MiningEnchantmentTests {
             helper.assertBlockPresent(Blocks.AIR, pos);
         }
 
-        // --- the ore list the hook uses is not the one the highlight uses ---
+        // --- the one ore list, from both ends: no highlight and no vein ---
         BlockState debris = helper.getBlockState(DEBRIS_ORIGIN);
-        helper.assertTrue(MiningUtils.isOre(debris),
-                "MiningUtils stopped counting ancient debris as ore - if that was deliberate, "
-                        + "this case has to be rewritten, not deleted");
+        helper.assertTrue(!MiningUtils.isOre(debris),
+                "ancient debris is back in the one ore list that the hook and the crack preview "
+                        + "now share - Vein Miner V would take a whole debris cluster in one "
+                        + "swing");
         veinMine(helper, player, veinMinerTool(helper, Items.DIAMOND_PICKAXE, 5), DEBRIS_ORIGIN);
         for (BlockPos pos : DEBRIS_TAIL) {
             helper.assertBlockPresent(Blocks.ANCIENT_DEBRIS, pos);

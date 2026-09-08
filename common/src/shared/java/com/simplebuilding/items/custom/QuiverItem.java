@@ -42,20 +42,23 @@ public class QuiverItem extends ReinforcedBundleItem {
         return InteractionResult.PASS;
     }
 
+    // Der Pfeilfilter haengt am KONFIGURIERTEN Einlegeklick, nicht an einer festen Konstante:
+    // mit tools.invertBundleInteractions wandert das Einlegen auf SECONDARY, und ein Filter auf
+    // PRIMARY liesse dann beliebiges Material in den Koecher.
     @Override
-    public boolean overrideStackedOnOther(ItemStack bundle, Slot slot, ClickAction ClickAction, Player player) {
-        if (ClickAction == ClickAction.PRIMARY && !slot.getItem().isEmpty()) {
+    public boolean overrideStackedOnOther(ItemStack bundle, Slot slot, ClickAction clickAction, Player player) {
+        if (clickAction == getInsertClick() && !slot.getItem().isEmpty()) {
             if (!slot.getItem().is(ItemTags.ARROWS)) return false;
         }
-        return super.overrideStackedOnOther(bundle, slot, ClickAction, player);
+        return super.overrideStackedOnOther(bundle, slot, clickAction, player);
     }
 
     @Override
-    public boolean overrideOtherStackedOnMe(ItemStack bundle, ItemStack cursorStack, Slot slot, ClickAction ClickAction, Player player, SlotAccess cursorStackReference) {
-        if (ClickAction == ClickAction.PRIMARY && !cursorStack.isEmpty()) {
+    public boolean overrideOtherStackedOnMe(ItemStack bundle, ItemStack cursorStack, Slot slot, ClickAction clickAction, Player player, SlotAccess cursorStackReference) {
+        if (clickAction == getInsertClick() && !cursorStack.isEmpty()) {
             if (!cursorStack.is(ItemTags.ARROWS)) return false;
         }
-        return super.overrideOtherStackedOnMe(bundle, cursorStack, slot, ClickAction, player, cursorStackReference);
+        return super.overrideOtherStackedOnMe(bundle, cursorStack, slot, clickAction, player, cursorStackReference);
     }
 
     @Override

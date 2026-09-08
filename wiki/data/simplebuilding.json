@@ -934,9 +934,9 @@
         "details": [
           "Getting started: craft the Quiver at the crafting table from a Bundle, String, Leather and a Copper Nugget; after that the Netherite Quiver (Netherite Upgrade Smithing Template + Netherite Ingot) and the Enderite Quiver (Enderite Upgrade Template + Enderite Ingot) at the smithing table.",
           "Capacity: Quiver factor 1, Netherite Quiver factor 2, Enderite Quiver factor 3; the tooltip shows factor x 64 (64 / 128 / 192 units, and since arrows stack to 64 that is the same number of arrows). Unlike the Reinforced Bundle, quivers get no x3/2 bonus.",
-          "Arrows only: anything without the tag minecraft:arrows is refused both on left-click insertion and on pickup from the ground (the click filter is hard-wired to the left click and does not apply with inverted click bindings).",
+          "Arrows only: anything without the tag minecraft:arrows is refused both on insertion by click and on pickup from the ground; the click filter follows the configured insert click, so it holds with tools.invertBundleInteractions on as well.",
           "Bow priority: when a bow is drawn and released the quiver is searched before every arrow in the inventory, in the order off-hand, chest slot, hotbar, then - only with Constructor's Touch - the rest of the inventory. The bow always fires the topmost arrow stack in the quiver.",
-          "Consumption: one arrow disappears from the quiver per successful shot, none in creative mode; Infinity on the bow is not checked.",
+          "Consumption: one arrow disappears from the quiver per successful shot - none in creative mode, and none when the shot costs no ammunition anyway, for instance with Infinity on a plain arrow, which vanilla shoots for free.",
           "Enchantments (Quiver and Netherite Quiver): Drawer multiplies capacity by (16 + level)/8 and caps the quiver at 5 different types, Deep Pockets doubles (level 1) or quadruples (level 2) it, Funnel vacuums arrows off the ground (level 1 only types already inside, level 2 all of them; never while sneaking), and Constructor's Touch lets the quiver feed the bow from anywhere in the inventory. Drawer excludes Master Builder and Color Palette.",
           "Inventory handling as on the Reinforced Bundle: left-click inserts, right-click takes out, the mouse wheel over the quiver picks the stack; the config option tools.invertBundleInteractions swaps the clicks.",
           "Right-clicking with the quiver in hand does nothing; Master Builder and Color Palette can be applied but do nothing on a quiver as long as it only holds arrows.",
@@ -951,9 +951,9 @@
         "details": [
           "Einstieg: Köcher an der Werkbank aus Bündel, Faden, Leder und Kupfer-Nugget bauen; danach Netherit-Köcher (Netherit-Aufwertungs-Schmiedevorlage + Netheritbarren) und Enderite Quiver (Enderite Upgrade Template + Enderite Ingot) am Schmiedetisch.",
           "Kapazität: Köcher Faktor 1, Netherit-Köcher Faktor 2, Enderite Quiver Faktor 3; der Tooltip zeigt Faktor x 64 (64 / 128 / 192). Anders als das verstärkte Bündel bekommen Köcher keinen x3/2-Bonus.",
-          "Nur Pfeile: Alles, was nicht das Tag minecraft:arrows trägt, wird beim Einlegen per Linksklick und beim Aufsaugen vom Boden abgewiesen (der Klick-Filter ist fest an den Linksklick gebunden und greift bei invertierter Klickbelegung nicht).",
+          "Nur Pfeile: Alles, was nicht das Tag minecraft:arrows trägt, wird beim Einlegen per Klick und beim Aufsaugen vom Boden abgewiesen; der Klick-Filter folgt dem konfigurierten Einlege-Klick und greift daher auch bei eingeschalteter Option tools.invertBundleInteractions.",
           "Bogen-Vorrang: Beim Spannen und Loslassen eines Bogens wird der Köcher vor allen Pfeilen im Inventar durchsucht, in der Reihenfolge Nebenhand, Brustpanzer-Slot, Schnellzugriffsleiste, dann (nur mit Berührung des Konstrukteurs) restliches Inventar. Verschossen wird immer der oberste Stapel im Köcher.",
-          "Verbrauch: Pro erfolgreichem Schuss verschwindet ein Pfeil aus dem Köcher, im Kreativmodus keiner; Unendlichkeit auf dem Bogen wird dabei nicht geprüft.",
+          "Verbrauch: Pro erfolgreichem Schuss verschwindet ein Pfeil aus dem Köcher – keiner im Kreativmodus und keiner, wenn der Schuss ohnehin keine Munition kostet, etwa mit Unendlichkeit auf einem einfachen Pfeil, den Vanilla gratis verschießt.",
           "Verzauberungen (Köcher und Netherit-Köcher): Schublade multipliziert die Kapazität mit (16 + Stufe)/8 und begrenzt auf 5 Sorten, Tiefe Taschen verdoppelt (Stufe 1) oder vervierfacht (Stufe 2), Trichter saugt Pfeile vom Boden an (Stufe 1 nur bereits enthaltene Sorten, Stufe 2 alle; nicht beim Schleichen), Berührung des Konstrukteurs erlaubt den Köcher überall im Inventar. Schublade schließt Baumeister und Farbpalette aus.",
           "Bedienung im Inventar wie beim verstärkten Bündel: Linksklick legt ein, Rechtsklick nimmt heraus, Mausrad über dem Köcher wählt den Stapel; die Config-Option tools.invertBundleInteractions vertauscht die Klicks.",
           "Rechtsklick mit dem Köcher in der Hand tut nichts; Baumeister und Farbpalette sind zwar auflegbar, bewirken beim Köcher aber nichts, solange nur Pfeile darin liegen.",
@@ -1017,11 +1017,11 @@
           "Filter items are pure placeholders: they are stored as a copy with a count of 1 and consume no real item.",
           "With the filter on, every slot that has a filter item gets an orange overlay (0x60FFAA00); if the slot is empty, the filter item is additionally drawn as an icon.",
           "With the filter on, a slot with no filter item accepts nothing at all.",
-          "If the filter is on and an item is placed into a slot through setItem while that slot still has no filter item, the hopper records it as that slot's filter item automatically (a copy with a count of 1); through the hopper logic itself, however, nothing reaches such a slot, because canPlaceItem rejects it.",
-          "Clicks on the five hopper slots with the filter on do not put down a real item: the screen swallows the click (mouseClicked returns true) and sends the item on the cursor to the server instead (empty cursor = clear the filter item); on the server side ModHopperScreenHandler.clicked additionally intercepts the single click (ContainerInput.PICKUP).",
+          "If the filter is on and an item is placed into a slot through setItem while that slot still has no filter item, the hopper records it as that slot's filter item automatically (a copy with a count of 1). No item from outside gets that far: canPlaceItem rejects it, for the hopper's own pull as much as for every click in the menu, whose five slots ask that same canPlaceItem. What can still trigger the automatic record is the hopper putting back an item it had already taken out of that slot - insert() restores a single item with setItem when the push into the target container failed - and /item replace block, which writes past every check.",
+          "Clicks on the five hopper slots with the filter on do not put down a real item: the screen swallows the click (mouseClicked returns true) and sends the item on the cursor to the server instead (empty cursor = clear the filter item); on the server side ModHopperScreenHandler.clicked additionally intercepts the single click (ContainerInput.PICKUP), and the menu's five slots are filtering slots on the server (the client menu is built without the block entity and keeps vanilla slots, so a click is predicted and then corrected) whose mayPlace asks the block's own canPlaceItem, so a shift click out of the inventory, a hotbar swap (keys 1-9) and a drag across the slots cannot put filter-foreign material in either.",
           "The server only accepts mode changes (ToggleHopperFilterPayload) and filter clicks (SetHopperGhostItemPayload) when player.containerMenu is a ModHopperScreenHandler.",
           "Filter item changes are sent as SyncHopperGhostItemPayload to every player tracking the hopper (PlayerLookup.tracking); a mode change triggers a block update, and the block entity's update tag carries the mode and the filter items so the display is correct everywhere.",
-          "Mode, filter items and cooldown are saved with the block ('FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload.",
+          "Mode, filter items and cooldown are saved with the block ('FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload; a 'FilterMode' outside the three known modes (a hand-edited region file, a downgrade) falls back to Disabled instead of throwing, so the hopper keeps its contents and its filter items.",
           "The menu uses the vanilla hopper background (hopper.png); the filter button (18x18) sits to the right of the five slots and shows a barrier item (Disabled), a green check mark (Exact Match) or an orange T (Type Match); the tooltips name the mode in red, green and yellow respectively.",
           "The menu texts ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') are hard-coded English.",
           "Recipe chain: 5 Hoppers + 1 Name Tag + 3 Cracked Diamonds yield 5 Reinforced Hoppers; 2 Reinforced Hoppers + 1 Netherite Nugget yield 2 Netherite Hoppers.",
@@ -1044,11 +1044,11 @@
           "Filter-Items sind reine Platzhalter: sie werden als Kopie mit Stückzahl 1 gespeichert und verbrauchen kein echtes Item.",
           "Bei aktivem Filter wird jeder Slot mit Filter-Item orange hinterlegt (0x60FFAA00); ist der Slot leer, wird zusätzlich das Filter-Item als Symbol gezeichnet.",
           "Bei aktivem Filter nimmt ein Slot ohne Filter-Item gar nichts an.",
-          "Landet bei aktivem Filter über setItem ein Item in einem Slot, dessen Filterplatz leer ist, trägt der Trichter es automatisch als Filter-Item ein (Kopie mit Stückzahl 1); über die Trichterlogik selbst gelangt in einen solchen Slot wegen canPlaceItem allerdings nichts hinein.",
-          "Klicks auf die fünf Trichter-Slots bei aktivem Filter legen kein echtes Item ab: der Bildschirm fängt den Klick ab (mouseClicked liefert true) und sendet dem Server stattdessen das Item am Mauszeiger (leerer Mauszeiger = Filter-Item löschen); serverseitig fängt ModHopperScreenHandler.clicked zusätzlich den Einzelklick (ContainerInput.PICKUP) ab.",
+          "Landet bei aktivem Filter über setItem ein Item in einem Slot, dessen Filterplatz leer ist, trägt der Trichter es automatisch als Filter-Item ein (Kopie mit Stückzahl 1). Von außen kommt nichts so weit: canPlaceItem lehnt es ab, für das Einsaugen des Trichters ebenso wie für jeden Klick im Menü, dessen fünf Slots dasselbe canPlaceItem fragen. Auslösen kann das automatische Eintragen noch, wenn der Trichter ein Item zurücklegt, das er aus demselben Slot schon herausgenommen hatte – insert() legt ein einzelnes Item per setItem zurück, wenn das Weiterschieben in den Zielbehälter fehlgeschlagen ist – und /item replace block, das an jeder Prüfung vorbeischreibt.",
+          "Klicks auf die fünf Trichter-Slots bei aktivem Filter legen kein echtes Item ab: der Bildschirm fängt den Klick ab (mouseClicked liefert true) und sendet dem Server stattdessen das Item am Mauszeiger (leerer Mauszeiger = Filter-Item löschen); serverseitig fängt ModHopperScreenHandler.clicked zusätzlich den Einzelklick (ContainerInput.PICKUP) ab, und die fünf Slots des Menüs sind serverseitig filternde Slots (das Client-Menü entsteht ohne Block-Entity und behält Vanilla-Slots, ein Klick wird dort also vorhergesagt und danach korrigiert), deren mayPlace das canPlaceItem des Blocks fragt – Shift-Klick aus dem Inventar, Hotbar-Tausch (Tasten 1-9) und Ziehen über die Slots legen also ebenfalls kein filterfremdes Material hinein.",
           "Der Server nimmt Modus-Wechsel (ToggleHopperFilterPayload) und Filter-Klicks (SetHopperGhostItemPayload) nur an, wenn player.containerMenu ein ModHopperScreenHandler ist.",
           "Filter-Item-Änderungen werden per SyncHopperGhostItemPayload an alle Spieler gesendet, die den Trichter tracken (PlayerLookup.tracking); ein Modus-Wechsel löst ein Block-Update aus, und das Update-Tag des Block-Entities enthält Modus und Filter-Items, damit die Anzeige überall stimmt.",
-          "Modus, Filter-Items und Wartezeit werden mit dem Block gespeichert ('FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt.",
+          "Modus, Filter-Items und Wartezeit werden mit dem Block gespeichert ('FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt; ein 'FilterMode' außerhalb der drei bekannten Modi (von Hand bearbeitete Regionsdatei, Rückstufung) fällt auf Disabled zurück, statt zu werfen – Inhalt und Filter-Items des Trichters bleiben also erhalten.",
           "Das Menü nutzt die Trichter-Oberfläche des Spiels (hopper.png); der Filter-Knopf (18x18) sitzt rechts neben den fünf Slots und zeigt ein Barrier-Item (Disabled), ein grünes Häkchen (Exact Match) oder ein oranges T (Type Match); Tooltips nennen den Modus in Rot, Grün bzw. Gelb.",
           "Die Menü-Texte ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') sind fest auf Englisch hinterlegt.",
           "Rezeptkette: 5 Trichter + 1 Namensschild + 3 Rissige Diamanten ergeben 5 Verstärkte Trichter; 2 Verstärkte Trichter + 1 Netherite Nugget ergeben 2 Netherittrichter.",
@@ -1120,7 +1120,7 @@
           "All six sit in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons.",
           "Fuel consumption is not changed anywhere in the code.",
           "No light level is set, so none of the six blocks light up their surroundings while burning.",
-          "The menu title is the name of the Reinforced tier for both tiers (the code uses the same translation key for both); the netherite container keys in the language files are unused.",
+          "Each tier carries its own menu title: the shared block entity reads the block state, so a Netherite Furnace opens a screen titled \"Netherite Furnace\" and the Reinforced tier one titled \"Reinforced Furnace\"; all six container keys are defined in en_us and de_de.",
           "The furnace code (block classes, block entities, registration in ModBlocks and ModItems) is identical in both supported Minecraft versions (26.2 under common/src/shared and 1.21.11 under mc1_21_11/shared)."
         ]
       },
@@ -1142,7 +1142,7 @@
           "Alle sechs liegen im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen neben Trichtern und Kolben.",
           "Der Brennstoffverbrauch wird im Code nicht verändert.",
           "Es wird keine Leuchtstärke gesetzt.",
-          "Die Menü-Überschrift ist bei beiden Stufen immer der Name der Verstärkt-Stufe (der Code nutzt für beide denselben Sprachschlüssel); die Netherit-Container-Schlüssel in den Sprachdateien werden nicht benutzt.",
+          "Jede Stufe hat ihre eigene Menü-Überschrift: die gemeinsame Block-Entity liest den Blockzustand, ein Netheritofen öffnet also ein Fenster mit dem Titel „Netheritofen“, die Verstärkt-Stufe eines mit „Verstärkter Ofen“; alle sechs Container-Schlüssel sind in en_us und de_de vorhanden.",
           "Der Code für die Öfen (Block-Klassen, Block-Entities, Registrierung in ModBlocks und ModItems) ist in beiden unterstützten Minecraft-Linien (26.2 unter common/src/shared und 1.21.11 unter mc1_21_11/shared) identisch."
         ]
       }
@@ -1310,7 +1310,7 @@
           "Where to find them: enchanted books sit in chests (woodland mansion, dungeon, abandoned mineshaft, nether fortress, bastion, ancient city, end city, stronghold library) and with traders (toolsmith level 4/5, librarian level 4/5, wandering trader); the loot entries hang off the enableLootTableChanges option, the traders off enableVillagerTrades and enableWanderingTrades respectively.",
           "The end city treasure chest also holds a Diamond Sledgehammer (weight 20) with a random enchantment (EnchantRandomlyFunction.randomEnchantment()).",
           "In the creative inventory there is a book at max level for each of the six enchantments; on Fabric and NeoForge every book has its own texture (select model minecraft:enchanted_book with the property simplebuilding:enchant_type).",
-          "The mining code lives once in the shared tree and is the same on Fabric, Forge and NeoForge. In the 1.21.11 branch MiningUtils and VeinMinerUsageEvent differ only in how they reach the ore tags (BlockTags instead of BlockItemTags), MultiBlockBreakingSupport in its render-state imports and in the BlockBreakingRenderState constructor it calls; the trader pools are code there (ModTradeDefinitions) with the same weights."
+          "The mining code lives once in the shared tree and is the same on Fabric, Forge and NeoForge. In the 1.21.11 branch MiningUtils differs only in how it reaches the ore tags (BlockTags instead of BlockItemTags) - VeinMinerUsageEvent asks MiningUtils.isOre and is byte-identical on both lines - and MultiBlockBreakingSupport differs in its render-state imports and in the BlockBreakingRenderState constructor it calls; the trader pools are code there (ModTradeDefinitions) with the same weights."
         ]
       },
       "de": {
@@ -1331,7 +1331,7 @@
           "Fundorte: verzauberte Bücher liegen in Truhen (Waldanwesen, Verlies, verlassene Mine, Netherfestung, Bastion, Antike Stadt, Endsiedlung, Festungsbibliothek) und bei Händlern (Werkzeugschmied Stufe 4/5, Bibliothekar Stufe 4/5, Wanderhändler); die Loot-Einträge hängen an der Option enableLootTableChanges, die Händler an enableVillagerTrades bzw. enableWanderingTrades.",
           "Die Endsiedlungs-Truhe enthält außerdem einen Diamant-Vorschlaghammer (Gewicht 20) mit Zufallsverzauberung (EnchantRandomlyFunction.randomEnchantment()).",
           "Im Kreativ-Inventar liegt zu jeder der sechs Verzauberungen ein Buch auf Höchststufe; auf Fabric und NeoForge hat jedes Buch eine eigene Textur (Select-Modell minecraft:enchanted_book mit Property simplebuilding:enchant_type).",
-          "Der Abbau-Code liegt einmal im gemeinsamen Baum und ist auf Fabric, Forge und NeoForge derselbe. Im 1.21.11-Zweig unterscheiden sich MiningUtils und VeinMinerUsageEvent nur im Zugriff auf die Erz-Tags (BlockTags statt BlockItemTags), MultiBlockBreakingSupport zusätzlich im Aufruf von BlockBreakingRenderState; die Händler-Pools liegen dort als Code (ModTradeDefinitions) mit denselben Gewichten vor."
+          "Der Abbau-Code liegt einmal im gemeinsamen Baum und ist auf Fabric, Forge und NeoForge derselbe. Im 1.21.11-Zweig unterscheidet sich MiningUtils nur im Zugriff auf die Erz-Tags (BlockTags statt BlockItemTags) – VeinMinerUsageEvent fragt MiningUtils.isOre und ist auf beiden Linien Byte für Byte gleich –, MultiBlockBreakingSupport zusätzlich in den Render-State-Importen, im Aufruf des BlockBreakingRenderState-Konstruktors und in einem Kommentar (LevelRenderEvents gegen WorldRenderEvents); die Händler-Pools liegen dort als Code (ModTradeDefinitions) mit denselben Gewichten vor."
         ]
       }
     },
@@ -4722,7 +4722,7 @@
             "Not enchantable: enderite_quiver is missing from the tags bundle_enchantable, extra_inventory_items and constructors_touch_enchantable (in the generated data for MC 26.2 and 1.21.11 as well as in the datagen provider). Drawer, Deep Pockets, Funnel, Constructor's Touch, Master Builder and Color Palette therefore cannot be applied at the enchanting table (primary_items) or at the anvil (supported_items). The capacity and bow code reads enchantment levels independently of the tags, so it would still evaluate enchantments applied by command.",
             "Appears in no loot chest.",
             "Not blast-proof: the explosion immunity applies in code only to the Netherite Bundle.",
-            "All of the Quiver's limits apply as well: no crossbow code, nothing that lets you equip it in the chest slot, no Infinity check, the arrow filter is ineffective with inverted clicks, and the description line in the language file (tooltip.simplebuilding.enderite_quiver: \"Holds the most arrows. Works in Offhand or Chest slot.\") is shown by no code."
+            "All of the Quiver's limits apply as well: no crossbow code, nothing that lets you equip it in the chest slot, and the description line in the language file (tooltip.simplebuilding.enderite_quiver: \"Holds the most arrows. Works in Offhand or Chest slot.\") is shown by no code."
           ]
         },
         "de": {
@@ -4744,7 +4744,7 @@
             "Nicht verzauberbar: enderite_quiver fehlt in den Tags bundle_enchantable, extra_inventory_items und constructors_touch_enchantable (in den generierten Daten für MC 26.2 und 1.21.11 sowie im Datagen-Provider). Schublade, Tiefe Taschen, Trichter, Berührung des Konstrukteurs, Baumeister und Farbpalette lassen sich daher weder am Zaubertisch (primary_items) noch am Amboss (supported_items) auflegen. Der Kapazitäts- und Bogen-Code liest die Verzauberungsstufen unabhängig von den Tags aus, würde also nur per Befehl aufgebrachte Verzauberungen auswerten.",
             "Kommt in keiner Loot-Truhe vor.",
             "Nicht explosionsgeschützt: Die Explosions-Immunität gilt im Code nur für das Netherit-Bündel.",
-            "Alle Einschränkungen des Köchers gelten ebenfalls: kein Armbrust-Code, kein Code zum Anlegen im Brustpanzer-Slot, keine Unendlichkeits-Prüfung, Pfeil-Filter bei invertierten Klicks wirkungslos."
+            "Alle Einschränkungen des Köchers gelten ebenfalls: kein Armbrust-Code, kein Code zum Anlegen im Brustpanzer-Slot; der Beschreibungstext in der Sprachdatei (tooltip.simplebuilding.enderite_quiver: \"Hält die meisten Pfeile. Funktioniert in der Nebenhand oder im Brustpanzer-Slot.\") wird von keinem Code angezeigt."
           ]
         },
         "sources": [
@@ -6917,6 +6917,7 @@
           "details": [
             "Behaves like a vanilla blast furnace: same recipe type (RecipeType.BLASTING) and the same blast furnace menu (BlastFurnaceMenu).",
             "Uses the same block class and the same block entity as the Reinforced Blast Furnace; the tick reads the block state to tell the two tiers apart.",
+            "Menu title: \"Netherite Blast Furnace\" (translation key container.simplebuilding.netherite_blast_furnace; the shared block entity picks the key from the block state).",
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 3 extra progress ticks per server tick (extraTicks = 3).",
             "That extra progress is capped at total time minus 1.",
             "The game test requires it to be at least 2.5 times as fast as a vanilla blast furnace and faster than the Reinforced Blast Furnace (Raw Iron into an Iron Ingot). The test's tick budget is 220 ticks.",
@@ -6933,7 +6934,6 @@
             "Right-click the block to open the blast furnace menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "The menu title reads \"Reinforced Blast Furnace\": the code uses the key container.simplebuilding.reinforced_blast_furnace for both tiers; the key container.simplebuilding.netherite_blast_furnace is not used in any Java file.",
             "Fuel consumption is not changed anywhere in the code.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
             "No light level is set (the properties come from glass, only hardness, blast resistance and sound are overridden), so unlike a vanilla blast furnace it does not light up its surroundings while burning.",
@@ -6945,6 +6945,7 @@
           "details": [
             "Verhält sich wie ein normaler Schmelzofen: gleicher Rezepttyp (RecipeType.BLASTING) und dasselbe Schmelzofen-Menü (BlastFurnaceMenu).",
             "Nutzt dieselbe Block-Klasse und dieselbe Block-Entity wie der Verstärkte Schmelzofen; die Stufe wird im Tick über den Blockzustand unterschieden.",
+            "Menü-Überschrift: „Netherit-Schmelzofen“ (Sprachschlüssel container.simplebuilding.netherite_blast_furnace; die gemeinsame Block-Entity wählt den Schlüssel über den Blockzustand).",
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 3 zusätzliche Fortschritts-Ticks (extraTicks = 3).",
             "Der Zusatz-Fortschritt wird auf höchstens Gesamtzeit minus 1 gedeckelt.",
             "Der Spieltest fordert, dass er mindestens 2,5-mal so schnell wie ein normaler Schmelzofen ist und schneller als der Verstärkte Schmelzofen (Roheisen zu Eisenbarren). Zeitbudget des Tests: 220 Ticks.",
@@ -6961,7 +6962,6 @@
             "Rechtsklick auf den Block öffnet das Schmelzofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Die Menü-Überschrift lautet „Verstärkter Schmelzofen“: der Code nutzt für beide Stufen den Schlüssel container.simplebuilding.reinforced_blast_furnace; der Schlüssel container.simplebuilding.netherite_blast_furnace wird in keiner Java-Datei verwendet.",
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
             "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte, Explosionswiderstand und Klang werden überschrieben)."
@@ -7583,6 +7583,7 @@
           "details": [
             "Behaves like a vanilla furnace: same recipe type (RecipeType.SMELTING) and the same furnace menu (FurnaceMenu).",
             "Uses the same block class and the same block entity as the Reinforced Furnace; the tick reads the block state to tell the two tiers apart.",
+            "Menu title: \"Netherite Furnace\" (translation key container.simplebuilding.netherite_furnace; the shared block entity picks the key from the block state, exactly as the tick picks the boost).",
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), the furnace gains 3 extra progress ticks per server tick (extraTicks = 3).",
             "That extra progress is capped at total time minus 1.",
             "The game test requires it to be at least 3 times as fast as a vanilla furnace and faster than the Reinforced Furnace; the comment in the test puts the expected gain at roughly quadruple speed. The test's tick budget is 320 ticks.",
@@ -7599,7 +7600,6 @@
             "Right-click the block to open the furnace menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "The menu title reads \"Reinforced Furnace\": the code uses the same translation key container.simplebuilding.reinforced_furnace for both tiers; the existing key container.simplebuilding.netherite_furnace (\"Netherite Furnace\") is not used in any Java file.",
             "Fuel consumption is not changed anywhere in the code.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
             "No light level is set (the properties come from glass, only hardness, blast resistance and sound are overridden), so unlike a vanilla furnace it does not light up its surroundings while burning.",
@@ -7611,6 +7611,7 @@
           "details": [
             "Verhält sich wie ein normaler Ofen: gleicher Rezepttyp (RecipeType.SMELTING) und dasselbe Ofen-Menü (FurnaceMenu).",
             "Nutzt dieselbe Block-Klasse und dieselbe Block-Entity wie der Verstärkte Ofen; die Stufe wird im Tick über den Blockzustand unterschieden.",
+            "Menü-Überschrift: „Netheritofen“ (Sprachschlüssel container.simplebuilding.netherite_furnace; die gemeinsame Block-Entity wählt den Schlüssel über den Blockzustand, genau wie die Beschleunigung im Tick).",
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält der Ofen in jedem Server-Tick 3 zusätzliche Fortschritts-Ticks (extraTicks = 3).",
             "Der Zusatz-Fortschritt wird auf höchstens Gesamtzeit minus 1 gedeckelt.",
             "Der Spieltest fordert, dass er mindestens 3-mal so schnell wie ein normaler Ofen ist und schneller als der Verstärkte Ofen; im Testkommentar steht als Erwartung etwa vierfache Geschwindigkeit. Zeitbudget des Tests: 320 Ticks.",
@@ -7627,7 +7628,6 @@
             "Rechtsklick auf den Block öffnet das Ofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Die Menü-Überschrift lautet „Verstärkter Ofen“: der Code nutzt für beide Stufen denselben Sprachschlüssel container.simplebuilding.reinforced_furnace; der vorhandene Schlüssel container.simplebuilding.netherite_furnace („Netheritofen“) wird in keiner Java-Datei verwendet.",
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
             "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte, Explosionswiderstand und Klang werden überschrieben)."
@@ -7919,7 +7919,7 @@
             "Not blast-proof: the explosion immunity for dropped items (ItemEntityMixin.ignoreExplosion) applies in code only to the Netherite Bundle, not to the Netherite Quiver.",
             "Appears in no loot chest; only the plain Quiver is in the loot tables.",
             "The description line in the language file (tooltip.simplebuilding.netherite_quiver: \"Holds more arrows. Works in Offhand or Chest slot.\") is shown by no code.",
-            "All of the Quiver's limits apply as well: no crossbow code, nothing that lets you equip it in the chest slot, no Infinity check, and the arrow filter is ineffective with inverted clicks."
+            "All of the Quiver's limits apply as well: no crossbow code and nothing that lets you equip it in the chest slot."
           ]
         },
         "de": {
@@ -7941,7 +7941,7 @@
             "Nicht explosionsgeschützt: Die Explosions-Immunität für fallengelassene Gegenstände (ItemEntityMixin.ignoreExplosion) gilt im Code nur für das Netherit-Bündel, nicht für den Netherit-Köcher.",
             "Kommt in keiner Loot-Truhe vor; nur der einfache Köcher steht in den Loot-Tabellen.",
             "Der Beschreibungstext in der Sprachdatei (tooltip.simplebuilding.netherite_quiver: \"Hält mehr Pfeile. Funktioniert in der Nebenhand oder im Brustpanzer-Slot.\") wird von keinem Code angezeigt.",
-            "Alle Einschränkungen des Köchers gelten ebenfalls: kein Armbrust-Code, kein Code zum Anlegen im Brustpanzer-Slot, keine Unendlichkeits-Prüfung, Pfeil-Filter bei invertierten Klicks wirkungslos."
+            "Alle Einschränkungen des Köchers gelten ebenfalls: kein Armbrust-Code, kein Code zum Anlegen im Brustpanzer-Slot."
           ]
         },
         "sources": [
@@ -8229,6 +8229,7 @@
           "details": [
             "Behaves like a vanilla smoker: same recipe type (RecipeType.SMOKING) and the same smoker menu (SmokerMenu).",
             "Uses the same block class and the same block entity as the Reinforced Smoker; the tick reads the block state to tell the two tiers apart.",
+            "Menu title: \"Netherite Smoker\" (translation key container.simplebuilding.netherite_smoker; the shared block entity picks the key from the block state).",
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 3 extra progress ticks per server tick (extraTicks = 3).",
             "That extra progress is capped at total time minus 1.",
             "The game test requires it to be at least 2.5 times as fast as a vanilla smoker and faster than the Reinforced Smoker (Raw Beef into Steak). The test's tick budget is 220 ticks.",
@@ -8245,7 +8246,6 @@
             "Right-click the block to open the smoker menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "The menu title reads \"Reinforced Smoker\": the code uses the key container.simplebuilding.reinforced_smoker for both tiers; the key container.simplebuilding.netherite_smoker is not used in any Java file.",
             "Fuel consumption is not changed anywhere in the code.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
             "No light level is set (the properties come from glass, only hardness, blast resistance and sound are overridden), so unlike a vanilla smoker it does not light up its surroundings while burning.",
@@ -8257,6 +8257,7 @@
           "details": [
             "Verhält sich wie ein normaler Räucherofen: gleicher Rezepttyp (RecipeType.SMOKING) und dasselbe Räucherofen-Menü (SmokerMenu).",
             "Nutzt dieselbe Block-Klasse und dieselbe Block-Entity wie der Verstärkte Räucherofen; die Stufe wird im Tick über den Blockzustand unterschieden.",
+            "Menü-Überschrift: „Netherit-Räucherofen“ (Sprachschlüssel container.simplebuilding.netherite_smoker; die gemeinsame Block-Entity wählt den Schlüssel über den Blockzustand).",
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 3 zusätzliche Fortschritts-Ticks (extraTicks = 3).",
             "Der Zusatz-Fortschritt wird auf höchstens Gesamtzeit minus 1 gedeckelt.",
             "Der Spieltest fordert, dass er mindestens 2,5-mal so schnell wie ein normaler Räucherofen ist und schneller als der Verstärkte Räucherofen (rohes Rindfleisch zu Steak). Zeitbudget des Tests: 220 Ticks.",
@@ -8273,7 +8274,6 @@
             "Rechtsklick auf den Block öffnet das Räucherofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Die Menü-Überschrift lautet „Verstärkter Räucherofen“: der Code nutzt für beide Stufen den Schlüssel container.simplebuilding.reinforced_smoker; der Schlüssel container.simplebuilding.netherite_smoker wird in keiner Java-Datei verwendet.",
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
             "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte, Explosionswiderstand und Klang werden überschrieben)."
@@ -9075,7 +9075,7 @@
             "Search order for the bow: 1. off-hand, 2. chest slot, 3. hotbar (slots 0 to 8), 4. the rest of the inventory (slots 9 and up), that last step only for quivers carrying Constructor's Touch.",
             "The bow fires the topmost arrow stack in the quiver - the first entry that is an arrow, normally index 0; the stack picked with the mouse wheel is not read by the bow code.",
             "Newly inserted arrows are merged with all identical arrows already inside (same item including components), split into stacks up to the maximum stack size and placed on top; that makes the arrow type you inserted last the first one fired. Inserting also resets the mouse-wheel selection.",
-            "After a successful shot exactly one arrow is removed from the first quiver in the search order that holds an arrow; nothing is removed in creative mode (instabuild) or when releaseUsing returns false.",
+            "After a successful shot exactly one arrow is removed from the first quiver in the search order that holds an arrow; nothing is removed in creative mode (instabuild), when releaseUsing returns false, on the client side, or when EnchantmentHelper.processAmmoUse - the same call vanilla's ProjectileWeaponItem.useAmmo makes in that shot - answers 0 for that bow and that arrow, which is what Infinity does on a plain arrow.",
             "Fill bar in the item slot: the bar appears as soon as anything is in the quiver; its width is fill level x 13 (rounded), and the colour comes from HSV with hue (1 - fill level)/3, so it runs from green (empty) to red (full).",
             "The tooltip is the vanilla bundle tooltip; the occupancy shown in it is divided by the capacity factor (tooltip capacity divided by 64). This is wired up the same way on Fabric, Forge and NeoForge.",
             "Enchantable through the tags bundle_enchantable, constructors_touch_enchantable and extra_inventory_items with: Drawer (max level 8), Deep Pockets (max 2), Funnel (max 2), Constructor's Touch (max 1), Master Builder (max 1) and Color Palette (max 1).",
@@ -9099,8 +9099,6 @@
             "Bows only: there is no crossbow code anywhere in the source tree (no occurrence of Crossbow), so crossbows pull no arrows from the quiver.",
             "Chest slot: the bow code does search the chest slot, but the mod contains nothing that lets you equip a quiver there (no equippable component on registration, no data, no mixin).",
             "The description line in the language file (tooltip.simplebuilding.quiver: \"Holds arrows. Works in Offhand or Chest slot.\") is shown by no code; appendHoverText only calls super.",
-            "Infinity on the bow is not checked by the quiver code: consumption depends only on the shot succeeding and on creative mode, so even with Infinity one arrow per shot is removed from the quiver (Infinity appears nowhere in the mod code).",
-            "With invertBundleInteractions on, the arrow filter no longer applies to inventory clicks, because it is hard-wired to ClickAction.PRIMARY; right-click then inserts arbitrary other items as well. Pickup from the ground stays limited to arrows.",
             "Master Builder and Color Palette can be applied but do nothing on a quiver as long as it only holds arrows: block placement by right-click (useOn), which is what evaluates those enchantments, is set to PASS on the quiver. A Building Wand does search quivers - whenever the wand or the quiver carries Master Builder - but pulls only block items out of them. Middle-click block pick (not in creative mode, and only when the item is not already in your inventory) also searches quivers with Master Builder, but pulls out only items matching the targeted block or entity.",
             "Color Palette at the anvil: the anvil mixin clears the result if it carries Color Palette but not Master Builder.",
             "The tooltip's fill bar divides only by the integer part of the capacity factor (Fraction.getFraction((int) scale, 1)); with Drawer (e.g. level 1: factor 17/8) it therefore shows slightly more fill than is actually occupied. The bar in the item slot computes it exactly."
@@ -9118,7 +9116,7 @@
             "Suchreihenfolge für den Bogen: 1. Nebenhand, 2. Brustpanzer-Slot, 3. Schnellzugriffsleiste (Slots 0 bis 8), 4. restliches Inventar (Slots ab 9) nur, wenn der Köcher die Verzauberung Berührung des Konstrukteurs trägt.",
             "Verschossen wird der oberste Pfeil-Stapel im Köcher (Index 0); die per Mausrad gewählte Position wird vom Bogen-Code nicht ausgewertet.",
             "Neu eingelegte Pfeile werden mit allen gleichen Pfeilen (gleicher Gegenstand samt Komponenten) zusammengelegt, in Stapel bis zur Maximalstapelgröße aufgeteilt und ganz oben einsortiert; dadurch wird die zuletzt eingelegte Pfeilsorte zuerst verschossen. Beim Einlegen wird die Mausrad-Auswahl zurückgesetzt.",
-            "Nach einem erfolgreichen Schuss wird genau ein Pfeil aus dem ersten Köcher der Suchreihenfolge entfernt; im Kreativmodus (instabuild) und wenn releaseUsing false liefert, wird nichts entfernt.",
+            "Nach einem erfolgreichen Schuss wird genau ein Pfeil aus dem ersten Köcher der Suchreihenfolge entfernt; nichts entfernt wird im Kreativmodus (instabuild), wenn releaseUsing false liefert, auf der Client-Seite oder wenn EnchantmentHelper.processAmmoUse – derselbe Aufruf, den Vanillas ProjectileWeaponItem.useAmmo in diesem Schuss macht – für diesen Bogen und diesen Pfeil 0 liefert, was Unendlichkeit auf einem einfachen Pfeil tut.",
             "Füllanzeige im Slot: Der Balken erscheint, sobald etwas im Köcher ist; seine Breite ist Füllgrad x 13 (gerundet), die Farbe wird über HSV mit Farbton (1 - Füllgrad)/3 berechnet, also von Grün (leer) nach Rot (voll).",
             "Der Tooltip nutzt das Vanilla-Bündel-Tooltip; die Belegung wird durch den Kapazitätsfaktor (Tooltip-Kapazität geteilt durch 64) geteilt. Das ist auf Fabric, Forge und NeoForge gleich verdrahtet.",
             "Verzauberbar über die Tags bundle_enchantable, constructors_touch_enchantable und extra_inventory_items mit: Schublade (max. Stufe 8), Tiefe Taschen (max. 2), Trichter (max. 2), Berührung des Konstrukteurs (max. 1), Baumeister (max. 1), Farbpalette (max. 1).",
@@ -9142,8 +9140,6 @@
             "Nur der Bogen: Es gibt keinen Code für Armbrüste (kein Vorkommen von Crossbow im Quellbaum); sie holen keine Pfeile aus dem Köcher.",
             "Brustpanzer-Slot: Der Bogen-Code sucht zwar im Brustpanzer-Slot, aber die Mod enthält keinen Code, der das Anlegen des Köchers in diesem Slot erlaubt (keine Equippable-Komponente bei der Registrierung, keine Daten, kein Mixin).",
             "Die Beschreibungstexte in der Sprachdatei (tooltip.simplebuilding.quiver: \"Hält Pfeile. Funktioniert in der Nebenhand oder im Brustpanzer-Slot.\") werden von keinem Code angezeigt; appendHoverText ruft nur super auf.",
-            "Unendlichkeit auf dem Bogen wird vom Köcher-Code nicht geprüft: Der Verbrauch hängt nur von Schuss-Erfolg und Kreativmodus ab, also wird auch mit Unendlichkeit pro Schuss ein Pfeil aus dem Köcher entfernt (kein Vorkommen von Infinity im Mod-Code).",
-            "Bei eingeschalteter Option invertBundleInteractions greift der Pfeil-Filter bei Inventar-Klicks nicht mehr, weil er fest an ClickAction.PRIMARY gebunden ist; dann lassen sich per Rechtsklick auch beliebige andere Gegenstände einlegen. Das Aufsaugen vom Boden bleibt auf Pfeile beschränkt.",
             "Baumeister und Farbpalette lassen sich auflegen, bewirken beim Köcher aber nichts, solange nur Pfeile darin liegen: Das Blocksetzen per Rechtsklick (useOn), das diese Verzauberungen auswertet, ist beim Köcher auf PASS gesetzt. Der Bauzauberstab durchsucht mit Baumeister zwar auch Köcher, zieht daraus aber nur Block-Gegenstände. Die Mittelklick-Blockwahl (nicht im Kreativmodus, nur wenn der Gegenstand nicht schon im Inventar liegt) durchsucht ebenfalls Köcher mit Baumeister, zieht aber nur Gegenstände heraus, die dem anvisierten Block bzw. der anvisierten Entität entsprechen.",
             "Farbpalette am Amboss: Das Amboss-Mixin leert das Ergebnis, wenn es Farbpalette, aber nicht Baumeister trägt.",
             "Der Tooltip-Füllbalken teilt nur durch den ganzzahligen Teil des Kapazitätsfaktors (Fraction.getFraction((int) scale, 1)); mit Schublade (z. B. Stufe 1: Faktor 17/8) zeigt er daher etwas mehr Füllung an, als tatsächlich belegt ist. Der Balken im Slot rechnet exakt."
@@ -9601,7 +9597,7 @@
             "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
             "Recipe (yields 5, category redstone): top row Hopper - Name Tag - Hopper, middle row three Cracked Diamonds (simplebuilding:cracked_diamond), bottom row three Hoppers; unlocked as soon as you own a minecraft:hopper.",
             "The Reinforced Hopper is an ingredient for the Netherite Hopper (two Reinforced Hoppers plus one Netherite Nugget yield two Netherite Hoppers).",
-            "Filter mode, filter items and the transfer cooldown are saved with the block (keys 'FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload.",
+            "Filter mode, filter items and the transfer cooldown are saved with the block (keys 'FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload; an unknown 'FilterMode' falls back to Disabled rather than throwing, so nothing is lost.",
             "Listed in the mod's creative tab (simplebuilding:building_items; 'Building Items' in English, 'SimpleBuilding Items' in German); the item-group code puts it in the 'Machines & Storage' block of entries.",
             "A game test (BlockBehaviourTests) times how long each hopper needs to move 5 items into the destination chest and requires the Reinforced Hopper to be faster than the vanilla hopper and slower than the Netherite Hopper."
           ],
@@ -9632,7 +9628,7 @@
             "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
             "Rezept (ergibt 5 Stück, Kategorie redstone): obere Reihe Trichter – Namensschild – Trichter, mittlere Reihe drei Rissige Diamanten (simplebuilding:cracked_diamond), untere Reihe drei Trichter; freigeschaltet, sobald man einen minecraft:hopper besitzt.",
             "Der Verstärkte Trichter ist Zutat für den Netherittrichter (zwei Verstärkte Trichter + ein Netherite Nugget ergeben zwei Netherittrichter).",
-            "Filtermodus, Filter-Items und Wartezeit werden mit dem Block gespeichert (Schlüssel 'FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt.",
+            "Filtermodus, Filter-Items und Wartezeit werden mit dem Block gespeichert (Schlüssel 'FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt; ein unbekannter 'FilterMode' fällt auf Disabled zurück, statt zu werfen – es geht nichts verloren.",
             "Im Kreativ-Tab der Mod (simplebuilding:building_items; deutsch 'SimpleBuilding Items', englisch 'Building Items') einsortiert; \"Machines & Storage\" ist dabei nur eine Gliederung im Code (ModItemGroupsContent), im Spiel zeigt der Tab keine solche Abschnittsüberschrift.",
             "Ein Spieltest (BlockBehaviourTests) misst, wann 5 Items in der Zielkiste liegen, und verlangt: Verstärkter Trichter schneller als der normale Trichter und langsamer als der Netherittrichter."
           ],
@@ -10992,6 +10988,7 @@
           "details": [
             "Behaves like a vanilla blast furnace: same recipe type (RecipeType.BLASTING) and the same blast furnace menu (BlastFurnaceMenu).",
             "Uses the same block class and the same block entity as the Reinforced Blast Furnace; the tick reads the block state to tell the two tiers apart.",
+            "Menu title: \"Netherite Blast Furnace\" (translation key container.simplebuilding.netherite_blast_furnace; the shared block entity picks the key from the block state).",
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 3 extra progress ticks per server tick (extraTicks = 3).",
             "That extra progress is capped at total time minus 1.",
             "The game test requires it to be at least 2.5 times as fast as a vanilla blast furnace and faster than the Reinforced Blast Furnace (Raw Iron into an Iron Ingot). The test's tick budget is 220 ticks.",
@@ -11008,7 +11005,6 @@
             "Right-click the block to open the blast furnace menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "The menu title reads \"Reinforced Blast Furnace\": the code uses the key container.simplebuilding.reinforced_blast_furnace for both tiers; the key container.simplebuilding.netherite_blast_furnace is not used in any Java file.",
             "Fuel consumption is not changed anywhere in the code.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
             "No light level is set (the properties come from glass, only hardness, blast resistance and sound are overridden), so unlike a vanilla blast furnace it does not light up its surroundings while burning.",
@@ -11020,6 +11016,7 @@
           "details": [
             "Verhält sich wie ein normaler Schmelzofen: gleicher Rezepttyp (RecipeType.BLASTING) und dasselbe Schmelzofen-Menü (BlastFurnaceMenu).",
             "Nutzt dieselbe Block-Klasse und dieselbe Block-Entity wie der Verstärkte Schmelzofen; die Stufe wird im Tick über den Blockzustand unterschieden.",
+            "Menü-Überschrift: „Netherit-Schmelzofen“ (Sprachschlüssel container.simplebuilding.netherite_blast_furnace; die gemeinsame Block-Entity wählt den Schlüssel über den Blockzustand).",
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 3 zusätzliche Fortschritts-Ticks (extraTicks = 3).",
             "Der Zusatz-Fortschritt wird auf höchstens Gesamtzeit minus 1 gedeckelt.",
             "Der Spieltest fordert, dass er mindestens 2,5-mal so schnell wie ein normaler Schmelzofen ist und schneller als der Verstärkte Schmelzofen (Roheisen zu Eisenbarren). Zeitbudget des Tests: 220 Ticks.",
@@ -11036,7 +11033,6 @@
             "Rechtsklick auf den Block öffnet das Schmelzofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Die Menü-Überschrift lautet „Verstärkter Schmelzofen“: der Code nutzt für beide Stufen den Schlüssel container.simplebuilding.reinforced_blast_furnace; der Schlüssel container.simplebuilding.netherite_blast_furnace wird in keiner Java-Datei verwendet.",
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
             "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte, Explosionswiderstand und Klang werden überschrieben)."
@@ -11093,6 +11089,7 @@
           "details": [
             "Behaves like a vanilla furnace: same recipe type (RecipeType.SMELTING) and the same furnace menu (FurnaceMenu).",
             "Uses the same block class and the same block entity as the Reinforced Furnace; the tick reads the block state to tell the two tiers apart.",
+            "Menu title: \"Netherite Furnace\" (translation key container.simplebuilding.netherite_furnace; the shared block entity picks the key from the block state, exactly as the tick picks the boost).",
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), the furnace gains 3 extra progress ticks per server tick (extraTicks = 3).",
             "That extra progress is capped at total time minus 1.",
             "The game test requires it to be at least 3 times as fast as a vanilla furnace and faster than the Reinforced Furnace; the comment in the test puts the expected gain at roughly quadruple speed. The test's tick budget is 320 ticks.",
@@ -11109,7 +11106,6 @@
             "Right-click the block to open the furnace menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "The menu title reads \"Reinforced Furnace\": the code uses the same translation key container.simplebuilding.reinforced_furnace for both tiers; the existing key container.simplebuilding.netherite_furnace (\"Netherite Furnace\") is not used in any Java file.",
             "Fuel consumption is not changed anywhere in the code.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
             "No light level is set (the properties come from glass, only hardness, blast resistance and sound are overridden), so unlike a vanilla furnace it does not light up its surroundings while burning.",
@@ -11121,6 +11117,7 @@
           "details": [
             "Verhält sich wie ein normaler Ofen: gleicher Rezepttyp (RecipeType.SMELTING) und dasselbe Ofen-Menü (FurnaceMenu).",
             "Nutzt dieselbe Block-Klasse und dieselbe Block-Entity wie der Verstärkte Ofen; die Stufe wird im Tick über den Blockzustand unterschieden.",
+            "Menü-Überschrift: „Netheritofen“ (Sprachschlüssel container.simplebuilding.netherite_furnace; die gemeinsame Block-Entity wählt den Schlüssel über den Blockzustand, genau wie die Beschleunigung im Tick).",
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält der Ofen in jedem Server-Tick 3 zusätzliche Fortschritts-Ticks (extraTicks = 3).",
             "Der Zusatz-Fortschritt wird auf höchstens Gesamtzeit minus 1 gedeckelt.",
             "Der Spieltest fordert, dass er mindestens 3-mal so schnell wie ein normaler Ofen ist und schneller als der Verstärkte Ofen; im Testkommentar steht als Erwartung etwa vierfache Geschwindigkeit. Zeitbudget des Tests: 320 Ticks.",
@@ -11137,7 +11134,6 @@
             "Rechtsklick auf den Block öffnet das Ofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Die Menü-Überschrift lautet „Verstärkter Ofen“: der Code nutzt für beide Stufen denselben Sprachschlüssel container.simplebuilding.reinforced_furnace; der vorhandene Schlüssel container.simplebuilding.netherite_furnace („Netheritofen“) wird in keiner Java-Datei verwendet.",
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
             "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte, Explosionswiderstand und Klang werden überschrieben)."
@@ -11473,6 +11469,7 @@
           "details": [
             "Behaves like a vanilla smoker: same recipe type (RecipeType.SMOKING) and the same smoker menu (SmokerMenu).",
             "Uses the same block class and the same block entity as the Reinforced Smoker; the tick reads the block state to tell the two tiers apart.",
+            "Menu title: \"Netherite Smoker\" (translation key container.simplebuilding.netherite_smoker; the shared block entity picks the key from the block state).",
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 3 extra progress ticks per server tick (extraTicks = 3).",
             "That extra progress is capped at total time minus 1.",
             "The game test requires it to be at least 2.5 times as fast as a vanilla smoker and faster than the Reinforced Smoker (Raw Beef into Steak). The test's tick budget is 220 ticks.",
@@ -11489,7 +11486,6 @@
             "Right-click the block to open the smoker menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "The menu title reads \"Reinforced Smoker\": the code uses the key container.simplebuilding.reinforced_smoker for both tiers; the key container.simplebuilding.netherite_smoker is not used in any Java file.",
             "Fuel consumption is not changed anywhere in the code.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
             "No light level is set (the properties come from glass, only hardness, blast resistance and sound are overridden), so unlike a vanilla smoker it does not light up its surroundings while burning.",
@@ -11501,6 +11497,7 @@
           "details": [
             "Verhält sich wie ein normaler Räucherofen: gleicher Rezepttyp (RecipeType.SMOKING) und dasselbe Räucherofen-Menü (SmokerMenu).",
             "Nutzt dieselbe Block-Klasse und dieselbe Block-Entity wie der Verstärkte Räucherofen; die Stufe wird im Tick über den Blockzustand unterschieden.",
+            "Menü-Überschrift: „Netherit-Räucherofen“ (Sprachschlüssel container.simplebuilding.netherite_smoker; die gemeinsame Block-Entity wählt den Schlüssel über den Blockzustand).",
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 3 zusätzliche Fortschritts-Ticks (extraTicks = 3).",
             "Der Zusatz-Fortschritt wird auf höchstens Gesamtzeit minus 1 gedeckelt.",
             "Der Spieltest fordert, dass er mindestens 2,5-mal so schnell wie ein normaler Räucherofen ist und schneller als der Verstärkte Räucherofen (rohes Rindfleisch zu Steak). Zeitbudget des Tests: 220 Ticks.",
@@ -11517,7 +11514,6 @@
             "Rechtsklick auf den Block öffnet das Räucherofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Die Menü-Überschrift lautet „Verstärkter Räucherofen“: der Code nutzt für beide Stufen den Schlüssel container.simplebuilding.reinforced_smoker; der Schlüssel container.simplebuilding.netherite_smoker wird in keiner Java-Datei verwendet.",
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
             "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte, Explosionswiderstand und Klang werden überschrieben)."
@@ -11896,7 +11892,7 @@
             "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
             "Recipe (yields 5, category redstone): top row Hopper - Name Tag - Hopper, middle row three Cracked Diamonds (simplebuilding:cracked_diamond), bottom row three Hoppers; unlocked as soon as you own a minecraft:hopper.",
             "The Reinforced Hopper is an ingredient for the Netherite Hopper (two Reinforced Hoppers plus one Netherite Nugget yield two Netherite Hoppers).",
-            "Filter mode, filter items and the transfer cooldown are saved with the block (keys 'FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload.",
+            "Filter mode, filter items and the transfer cooldown are saved with the block (keys 'FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload; an unknown 'FilterMode' falls back to Disabled rather than throwing, so nothing is lost.",
             "Listed in the mod's creative tab (simplebuilding:building_items; 'Building Items' in English, 'SimpleBuilding Items' in German); the item-group code puts it in the 'Machines & Storage' block of entries.",
             "A game test (BlockBehaviourTests) times how long each hopper needs to move 5 items into the destination chest and requires the Reinforced Hopper to be faster than the vanilla hopper and slower than the Netherite Hopper."
           ],
@@ -11927,7 +11923,7 @@
             "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
             "Rezept (ergibt 5 Stück, Kategorie redstone): obere Reihe Trichter – Namensschild – Trichter, mittlere Reihe drei Rissige Diamanten (simplebuilding:cracked_diamond), untere Reihe drei Trichter; freigeschaltet, sobald man einen minecraft:hopper besitzt.",
             "Der Verstärkte Trichter ist Zutat für den Netherittrichter (zwei Verstärkte Trichter + ein Netherite Nugget ergeben zwei Netherittrichter).",
-            "Filtermodus, Filter-Items und Wartezeit werden mit dem Block gespeichert (Schlüssel 'FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt.",
+            "Filtermodus, Filter-Items und Wartezeit werden mit dem Block gespeichert (Schlüssel 'FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt; ein unbekannter 'FilterMode' fällt auf Disabled zurück, statt zu werfen – es geht nichts verloren.",
             "Im Kreativ-Tab der Mod (simplebuilding:building_items; deutsch 'SimpleBuilding Items', englisch 'Building Items') einsortiert; \"Machines & Storage\" ist dabei nur eine Gliederung im Code (ModItemGroupsContent), im Spiel zeigt der Tab keine solche Abschnittsüberschrift.",
             "Ein Spieltest (BlockBehaviourTests) misst, wann 5 Items in der Zielkiste liegen, und verlangt: Verstärkter Trichter schneller als der normale Trichter und langsamer als der Netherittrichter."
           ],
@@ -18824,7 +18820,7 @@
             "Cannot be combined with Strip Miner: Vein Miner declares the exclusive set simplebuilding:exclusive_set/mining (which holds strip_miner and vein_miner); the mod's data test asserts that Enchantment.areCompatible(vein_miner, strip_miner) returns false.",
             "Only triggers when you sneak while breaking; without sneaking you simply break the one block as usual.",
             "The tool in your main hand has to be able to harvest the struck block normally (isCorrectToolForDrops), otherwise nothing happens.",
-            "With a pickaxe only ores from the coal, iron, copper, gold, redstone, lapis, diamond and emerald ore tags count; with an axe only blocks from the log tag #minecraft:logs.",
+            "With a pickaxe only ores from the coal, iron, copper, gold, redstone, lapis, diamond and emerald ore tags count; with an axe only blocks from the log tag #minecraft:logs. The crack preview asks that same list (MiningUtils.isOre, which VeinMinerUsageEvent calls as well), so nothing is outlined that the server then refuses to break.",
             "Only blocks that are exactly the same block as the one struck belong to the vein (compared via getBlock()); coal ore and deepslate coal ore therefore form separate veins.",
             "The search runs over all 26 neighbours of a block, diagonals included, and spreads out from there as a breadth-first search.",
             "Block budget per level, the struck block included: I = 3, II = 6, III = 9, IV = 12, V = 18.",
@@ -18849,7 +18845,6 @@
           ],
           "caveats": [
             "Not obtainable at the enchanting table (not in the tag minecraft:in_enchanting_table).",
-            "Nether quartz ore and ancient debris: the crack preview (MiningUtils.isOre) treats them as ore, but the actual mining on the server (VeinMinerUsageEvent.isOre) leaves them out - there only the eight ore tags listed above count.",
             "Traders only offer levels I-III; level IV comes only from chests (woodland mansion, dungeon, mineshaft), level V from the woodland mansion chest and the creative inventory.",
             "The trade function weighted_enchant does not check the exclusive set: the toolsmith's pool holds nothing but these two enchantments, so the second roll (0.1 chance) can only be the other one and the pickaxe comes out with Strip Miner and Vein Miner on it at once; both event handlers then run independently of each other.",
             "No bonus to mining speed or durability; every extra block goes through the normal breaking routine.",
@@ -18864,7 +18859,7 @@
             "Nicht mit Tunnelgräber kombinierbar: Aderabbau deklariert das Exklusiv-Set simplebuilding:exclusive_set/mining (enthält strip_miner und vein_miner); der Datentest der Mod prüft, dass Enchantment.areCompatible(vein_miner, strip_miner) false liefert.",
             "Löst nur aus, wenn beim Abbauen geschlichen wird; ohne Schleichen wird ganz normal nur der eine Block abgebaut.",
             "Das Werkzeug in der Haupthand muss den angeschlagenen Block regulär abbauen können (isCorrectToolForDrops), sonst passiert nichts.",
-            "Mit Spitzhacke zählen nur Erze aus den Tags Kohle-, Eisen-, Kupfer-, Gold-, Redstone-, Lapislazuli-, Diamant- und Smaragderz; mit Axt nur Blöcke aus dem Stämme-Tag #minecraft:logs.",
+            "Mit Spitzhacke zählen nur Erze aus den Tags Kohle-, Eisen-, Kupfer-, Gold-, Redstone-, Lapislazuli-, Diamant- und Smaragderz; mit Axt nur Blöcke aus dem Stämme-Tag #minecraft:logs. Die Riss-Vorschau fragt genau dieselbe Liste (MiningUtils.isOre, die auch VeinMinerUsageEvent aufruft), es wird also nichts angezeigt, was der Server danach stehen lässt.",
             "Zur Ader gehören nur Blöcke, die exakt derselbe Block wie der angeschlagene sind (Vergleich über getBlock()); Kohleerz und Tiefenschiefer-Kohleerz bilden deshalb getrennte Adern.",
             "Die Suche läuft über alle 26 Nachbarn eines Blocks, also auch diagonal, und arbeitet sich von dort per Breitensuche weiter.",
             "Blockbudget je Stufe, den angeschlagenen Block eingerechnet: I = 3, II = 6, III = 9, IV = 12, V = 18.",
@@ -18889,7 +18884,6 @@
           ],
           "caveats": [
             "Nicht an der Verzauberungstabelle erhältlich (nicht im Tag minecraft:in_enchanting_table).",
-            "Netherquarzerz und Antiker Schutt: Die Riss-Vorschau (MiningUtils.isOre) behandelt sie als Erz, der eigentliche Abbau auf dem Server (VeinMinerUsageEvent.isOre) lässt sie aus – dort zählen nur die acht genannten Erz-Tags.",
             "Händler bieten nur Stufe I–III; Stufe IV liegt nur in Truhen (Waldanwesen, Verlies, Mine), Stufe V in der Waldanwesen-Truhe und im Kreativ-Inventar.",
             "Die Handels-Funktion weighted_enchant prüft das Exklusiv-Set nicht: Bei der Zweit-Verzauberung des Werkzeugschmieds (Chance 0,1) landet zwangsläufig Tunnelgräber neben Aderabbau auf derselben Spitzhacke; beide Ereignis-Handler laufen dann unabhängig voneinander.",
             "Kein Bonus auf Abbaugeschwindigkeit oder Haltbarkeit; jeder zusätzliche Block läuft über den normalen Abbauvorgang.",

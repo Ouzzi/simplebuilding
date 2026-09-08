@@ -151,9 +151,10 @@ public final class VeinAndStripMinerTests {
             new BlockPos(2, 1, 5),
             new BlockPos(1, 1, 6));
     /**
-     * The six ore tags in {@code VeinMinerUsageEvent#isOre} that nothing else in the suite ever
-     * feeds it. Coal is covered by the vein test, diamond by the tier case in this test; without
-     * these six, deleting a tag line would cost players whole ore types in silence.
+     * The six ore tags in {@code MiningUtils#isOre} - the list the hook asks - that nothing else
+     * in the suite ever feeds it. Coal is covered by the vein test, diamond by the tier case in
+     * this test; without these six, deleting a tag line would cost players whole ore types in
+     * silence.
      */
     private static final List<Block> ORE_FAMILIES = List.of(
             Blocks.IRON_ORE,
@@ -162,7 +163,7 @@ public final class VeinAndStripMinerTests {
             Blocks.REDSTONE_ORE,
             Blocks.LAPIS_ORE,
             Blocks.EMERALD_ORE);
-    /** The second block {@code MiningUtils#isOre} adds by hand next to nether quartz ore. */
+    /** The second block {@code MiningUtils#isOre} used to add by hand next to nether quartz ore. */
     private static final BlockPos DEBRIS_ORIGIN = new BlockPos(6, 3, 2);
     private static final List<BlockPos> DEBRIS_NEIGHBOURS = List.of(
             new BlockPos(7, 3, 2),
@@ -393,14 +394,15 @@ public final class VeinAndStripMinerTests {
      * touch only two of them; iron, copper, gold, redstone, lapis and emerald are mined here so
      * that losing one of those lines cannot pass as green.
      *
-     * <p><b>Nether quartz ore and ancient debris</b> are a divergence, not a feature.
-     * {@code MiningUtils#isOre} - the copy the highlight preview asks - counts both as ores, while
-     * {@code VeinMinerUsageEvent}'s private copy lists neither. A player therefore sees the whole
-     * vein outlined and then breaks a single block. This test pins that divergence down instead
-     * of hiding it, from both ends: the preview still selects the vein, and the hook still refuses
-     * it. It fails the moment the two lists agree, which is exactly when it should be rewritten
-     * into a plain "the vein mines" assertion. It is <em>not</em> a statement that the current
-     * behaviour is correct.
+     * <p><b>Nether quartz ore and ancient debris</b> are where the preview and the mining used to
+     * disagree: {@code MiningUtils#isOre} counted both by hand while the hook carried its own copy
+     * that listed neither, so a player saw the whole vein outlined and then broke a single block.
+     * There is only one list now - {@code VeinMinerUsageEvent} asks {@code MiningUtils#isOre} -
+     * and the manual decides which way it points: the eight ore tags are the rule of Vein Miner,
+     * so the preview is the side that gave way. This case therefore holds both ends together: the
+     * ore check says no, the preview selects nothing, and the vein stays in the world. Putting
+     * quartz or ancient debris back into the list is a balance change, not a repair, and it turns
+     * all three of those assertions red at once.
      */
     public static void veinMinerRefusesNonOresAndTooWeakPickaxesAndDivergesFromTheHighlightOnQuartz(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 3.0, 4.5), 0.0F, 0.0F);
@@ -448,11 +450,15 @@ public final class VeinAndStripMinerTests {
             helper.assertBlockPresent(Blocks.AIR, pos);
         }
 
-        // --- nether quartz ore: the highlight promises a vein the hook refuses to break ---
+        // --- nether quartz ore: outside the ore list, and the preview says so too ---
         helper.setBlock(QUARTZ_ORIGIN, Blocks.NETHER_QUARTZ_ORE);
         for (BlockPos pos : QUARTZ_NEIGHBOURS) {
             helper.setBlock(pos, Blocks.NETHER_QUARTZ_ORE);
         }
+
+        helper.assertTrue(!MiningUtils.isOre(helper.getBlockState(QUARTZ_ORIGIN)),
+                "nether quartz ore is back in the one ore list - the preview would outline a "
+                        + "vein again, and the hook would now break it");
 
         List<BlockPos> highlighted = MiningUtils.getVeinMinerBlocks(
                 helper.getLevel(),
@@ -460,20 +466,24 @@ public final class VeinAndStripMinerTests {
                 helper.getBlockState(QUARTZ_ORIGIN),
                 5,
                 new ItemStack(Items.IRON_PICKAXE));
-        helper.assertValueEqual(highlighted.size(), QUARTZ_NEIGHBOURS.size(),
-                "MiningUtils stopped highlighting the quartz vein - if that was deliberate, "
-                        + "this test has to be rewritten, not deleted");
+        helper.assertValueEqual(highlighted.size(), 0,
+                "the crack preview outlined a quartz vein the hook does not mine - the two ore "
+                        + "lists have drifted apart again");
 
         veinMine(helper, player, veinMinerPickaxe(helper, Items.IRON_PICKAXE, 5), QUARTZ_ORIGIN);
         for (BlockPos pos : QUARTZ_NEIGHBOURS) {
             helper.assertBlockPresent(Blocks.NETHER_QUARTZ_ORE, pos);
         }
 
-        // --- ancient debris: the other block MiningUtils adds by hand, and the same divergence ---
+        // --- ancient debris: the other block that used to be in the preview list only ---
         helper.setBlock(DEBRIS_ORIGIN, Blocks.ANCIENT_DEBRIS);
         for (BlockPos pos : DEBRIS_NEIGHBOURS) {
             helper.setBlock(pos, Blocks.ANCIENT_DEBRIS);
         }
+
+        helper.assertTrue(!MiningUtils.isOre(helper.getBlockState(DEBRIS_ORIGIN)),
+                "ancient debris is back in the one ore list - Vein Miner V would take a whole "
+                        + "debris cluster in one swing, which is a balance change, not a fix");
 
         List<BlockPos> debrisHighlight = MiningUtils.getVeinMinerBlocks(
                 helper.getLevel(),
@@ -481,9 +491,9 @@ public final class VeinAndStripMinerTests {
                 helper.getBlockState(DEBRIS_ORIGIN),
                 5,
                 new ItemStack(Items.DIAMOND_PICKAXE));
-        helper.assertValueEqual(debrisHighlight.size(), DEBRIS_NEIGHBOURS.size(),
-                "MiningUtils stopped highlighting the ancient debris vein - if that was "
-                        + "deliberate, this test has to be rewritten, not deleted");
+        helper.assertValueEqual(debrisHighlight.size(), 0,
+                "the crack preview outlined an ancient debris vein the hook does not mine - the "
+                        + "two ore lists have drifted apart again");
 
         veinMine(helper, player, veinMinerPickaxe(helper, Items.DIAMOND_PICKAXE, 5), DEBRIS_ORIGIN);
         for (BlockPos pos : DEBRIS_NEIGHBOURS) {
