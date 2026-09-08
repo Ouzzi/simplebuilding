@@ -69,14 +69,6 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Known defects</h2>
  *
- * <p><b>The Drawer multiplier is twice what its own comment says</b> - {@code (16 + level) / 8}
- * against a documented {@code (8 + level) / 8}, in all four copies of the formula. The full
- * description is in the {@link QuiverTests} class javadoc.
- * {@link #drawerAndDeepPocketsMultiplyOnTheSameContainer} deliberately does not pin either
- * reading: it measures both single enchantments and then asserts that the pair multiplies, which
- * is true for every factor the two branches could carry and false the moment one of them stops
- * being applied.
- *
  * <p><b>The enderite bundle and the enderite quiver are in none of the enchantable tags.</b>
  * {@code ModItemTagProvider} puts only the reinforced and netherite variants into
  * {@code simplebuilding:bundle_enchantable}, {@code simplebuilding:extra_inventory_items} and

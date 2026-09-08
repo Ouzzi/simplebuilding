@@ -66,14 +66,12 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Known defects</h2>
  *
- * <p><b>The Drawer multiplier is twice what its own comment says</b> - {@code (16 + level) / 8}
- * against a documented {@code (8 + level) / 8}; see the known defect in {@link QuiverTests} for
- * the full description. {@link #capacityFollowsTierAndEnchantmentsAndMatchesTheWikiExport} pins
- * both halves of that multiplier: the <em>slope</em> - one eighth of the base capacity per level,
- * which both readings of the formula agree on - and the <em>offset</em> as the item really
- * computes it, see {@link #DRAWER_OFFSET}. The slope on its own left the offset free to be any
- * number at all, so the whole Drawer capacity table could be moved without a test noticing;
- * whoever fixes the defect rewrites that one constant and the slope stays where it is.
+ * <p><b>The Drawer multiplier is {@code (16 + level) / 8}</b>, which the manual documents and
+ * which is therefore the intended number, not a defect - see the note in {@link QuiverTests}.
+ * {@link #capacityFollowsTierAndEnchantmentsAndMatchesTheWikiExport} pins both halves of it: the
+ * <em>slope</em>, one eighth of the base capacity per level, and the <em>offset</em>, see
+ * {@link #DRAWER_OFFSET}. The slope on its own would leave the offset free to be any number at
+ * all, so the whole Drawer capacity table could be moved without a test noticing.
  *
  * <p><b>The merge comment describes the opposite of what the merge does.</b>
  * {@code insertItemIntoBundle} says it wants the part-filled stack on top ("LIFO"), then builds

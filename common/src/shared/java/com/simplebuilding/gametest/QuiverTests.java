@@ -76,14 +76,18 @@ import net.minecraft.world.phys.Vec3;
  * {@link #bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack}, so this note goes red
  * instead of going stale if a quiver is ever made wearable.
  *
- * <p><b>The Drawer capacity multiplier is twice what its own comment says.</b>
- * {@code ReinforcedBundleItem#getMaxCapacity} documents "Multiplikator = 1 + (level/8) =
- * (8+level)/8" and then computes {@code Fraction.getFraction(16 + level, 8)}; all four copies of
- * the formula ({@code getMaxCapacity} and {@code getMaxCapacityForVisuals} in
- * {@code ReinforcedBundleItem} and in {@code QuiverItem}) carry the same line. In game Drawer I
- * more than doubles a container instead of adding 12.5%: a plain quiver goes from 64 arrows to
- * 136, not to 72. The Drawer numbers below are marked "PINNED CURRENT BEHAVIOUR" for that reason -
- * they hold what the code produces today and go red when the formula is straightened out.
+ * <p><b>The Drawer multiplier is {@code (16 + level) / 8}, and that is the intended number.</b>
+ * Four copies of the formula compute it ({@code getMaxCapacity} and
+ * {@code getMaxCapacityForVisuals} in {@code ReinforcedBundleItem}, and the two in
+ * {@code QuiverItem}), so Drawer I more than doubles a container: a plain quiver goes from 64
+ * arrows to 136, not to 72.
+ *
+ * <p>This used to be filed here as a defect, because the comment beside the formula documented
+ * {@code (8 + level) / 8}. That reading was wrong - the manual describes {@code (16 + level) / 8}
+ * for both the bundle and the quiver, so the formula is the deliberate part and the comment was
+ * the leftover. The comment has been corrected; the numbers below pin the intended behaviour, not
+ * a defect waiting to be straightened out. Changing them is a balance decision, and it has to
+ * move the manual with it.
  *
  * <h2>Not covered, and why</h2>
  * <ul>
@@ -145,13 +149,13 @@ public final class QuiverTests {
     /** Highest Drawer level the enchantment data allows; the second Drawer case sits on it. */
     private static final int DRAWER_MAX_LEVEL = 8;
 
-    /** Arrows a Drawer I quiver takes today - 64 x (16 + 1) / 8. See the known defect above. */
+    /** Arrows a Drawer I quiver takes - 64 x (16 + 1) / 8, the multiplier the manual documents. */
     private static final int DRAWER_1_ARROWS = 136;
 
-    /** Arrows a Drawer VIII quiver takes today - 64 x (16 + 8) / 8. See the known defect above. */
+    /** Arrows a Drawer VIII quiver takes - 64 x (16 + 8) / 8. */
     private static final int DRAWER_MAX_ARROWS = 192;
 
-    /** Arrows a Drawer I reinforced bundle takes today - 96 x (16 + 1) / 8. See the known defect. */
+    /** Arrows a Drawer I reinforced bundle takes - 96 x (16 + 1) / 8. */
     private static final int DRAWER_1_BUNDLE_ARROWS = 204;
 
     /** Arrows a Drawer VIII reinforced bundle takes today - 96 x (16 + 8) / 8. */
@@ -400,16 +404,12 @@ public final class QuiverTests {
         helper.assertValueEqual(
                 fillWithArrows(helper, player, enchanted(helper, ModItems.QUIVER, ModEnchantments.DRAWER, 1)),
                 DRAWER_1_ARROWS,
-                "PINNED CURRENT BEHAVIOUR: arrows a Drawer I quiver takes. The multiplier the code applies is "
-                        + "(16 + level) / 8, although the comment right above the line in "
-                        + "ReinforcedBundleItem#getMaxCapacity documents (8 + level) / 8. If that is "
-                        + "straightened out the number here is 72 - update this case");
+                "arrows a Drawer I quiver takes - 64 x (16 + 1) / 8, the multiplier the manual documents");
         helper.assertValueEqual(
                 fillWithArrows(helper, player,
                         enchanted(helper, ModItems.QUIVER, ModEnchantments.DRAWER, DRAWER_MAX_LEVEL)),
                 DRAWER_MAX_ARROWS,
-                "PINNED CURRENT BEHAVIOUR: arrows a Drawer VIII quiver takes - 64 x (16 + 8) / 8. With the "
-                        + "documented (8 + level) / 8 this would be 128");
+                "arrows a Drawer VIII quiver takes - 64 x (16 + 8) / 8");
         helper.assertValueEqual(
                 fillWithArrows(helper, player, enchanted(helper, ModItems.QUIVER, ModEnchantments.DEEP_POCKETS, 1)),
                 128, "arrows a Deep Pockets I quiver takes - 64 x 2");
@@ -427,14 +427,12 @@ public final class QuiverTests {
                 fillWithArrows(helper, player,
                         enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.DRAWER, 1)),
                 DRAWER_1_BUNDLE_ARROWS,
-                "PINNED CURRENT BEHAVIOUR: arrows a Drawer I reinforced bundle takes - 96 x (16 + 1) / 8. With "
-                        + "the (8 + level) / 8 the comment above the line documents this would be 108");
+                "arrows a Drawer I reinforced bundle takes - 96 x (16 + 1) / 8");
         helper.assertValueEqual(
                 fillWithArrows(helper, player,
                         enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.DRAWER, DRAWER_MAX_LEVEL)),
                 DRAWER_MAX_BUNDLE_ARROWS,
-                "PINNED CURRENT BEHAVIOUR: arrows a Drawer VIII reinforced bundle takes - 96 x (16 + 8) / 8. "
-                        + "With the documented (8 + level) / 8 this would be 192");
+                "arrows a Drawer VIII reinforced bundle takes - 96 x (16 + 8) / 8");
 
         helper.succeed();
     }

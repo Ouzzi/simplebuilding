@@ -95,7 +95,9 @@ public class QuiverItem extends ReinforcedBundleItem {
         if (drawer.isPresent()) {
             int level = EnchantmentHelper.getItemEnchantmentLevel(drawer.get(), stack);
             if (level > 0) {
-                // Formel: (8 + level) / 8 -> Gleiche Steigerung wie beim Bundle
+                // Multiplikator = (16 + level) / 8 - dieselbe Steigerung wie beim Buendel.
+                // Nicht (8 + level) / 8: das stand hier frueher im Kommentar, das Handbuch
+                // und der Code meinen aber beide den doppelten Faktor.
                 Fraction drawerBonus = Fraction.getFraction(16 + level, 8);
                 capacity = capacity.multiplyBy(drawerBonus);
             }

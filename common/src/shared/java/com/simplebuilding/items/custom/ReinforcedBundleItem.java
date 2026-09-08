@@ -500,12 +500,15 @@ public class ReinforcedBundleItem extends BundleItem {
         if (drawer.isPresent()) {
             int level = EnchantmentHelper.getItemEnchantmentLevel(drawer.get(), stack);
             if (level > 0) {
-                // Formel: Basis * (1 + Level * 0.125)
-                // Beispiel Level 1: 1 * (1 + 0.125) = 1.125
-                // Beispiel Level 8: 1 * (1 + 1.0) = 2.0 (200%)
-
-                // Wir nutzen Brüche: 0.125 = 1/8.
-                // Multiplikator = 1 + (level/8) = (8+level)/8
+                // Multiplikator = (16 + level) / 8, also 2x bei Level I und 3x bei Level VIII.
+                // Beispiel Level 1: 96 * 17/8 = 204 Steine
+                // Beispiel Level 8: 96 * 24/8 = 288 Steine
+                //
+                // Hier stand frueher (8 + level) / 8, was nur 12,5 % je Stufe gegeben haette.
+                // Der Kommentar war der veraltete Teil, nicht die Formel: das Handbuch beschreibt
+                // (16 + level) / 8 fuer Buendel und Koecher ausdruecklich als das gewollte
+                // Verhalten. Wer das aendern will, aendert eine Balance-Entscheidung - und muss
+                // das Handbuch und die Testkonstante DRAWER_NUMERATOR_OFFSET mitziehen.
                 Fraction drawerBonus = Fraction.getFraction(16 + level, 8);
                 capacity = capacity.multiplyBy(drawerBonus);
             }
@@ -534,7 +537,7 @@ public class ReinforcedBundleItem extends BundleItem {
                 if (id.contains("drawer")) {
                     int level = entry.getIntValue();
                     if (level > 0) {
-                        // Gleiche Formel wie oben: (8 + level) / 8
+                        // Gleiche Formel wie oben: (16 + level) / 8
                         Fraction drawerBonus = Fraction.getFraction(16 + level, 8);
                         capacity = capacity.multiplyBy(drawerBonus);
                     }
