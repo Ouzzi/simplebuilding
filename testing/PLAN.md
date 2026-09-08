@@ -104,6 +104,39 @@ ein Teil der Tests dort nicht nur übersetzt, sondern neu gedacht werden muss.**
 > Schrittliste gegen eine gemeinsame Fassade geschrieben, je Ziel ein dünner Treiber.
 > Danach kostet ein neuer Client-Test eine Fassung statt vier.
 
+#### Wie die Umsetzung aussieht — Vorarbeit vom 2026-09-08
+
+**Wo die geteilten Testkörper liegen.** Genau wie serverseitig: ein gemeinsames Quellverzeichnis,
+das jedes Loader-Modul einhängt. Für den Server ist das `common/src/shared/java`; für die
+Client-Tests kommt `common/src/shared/clientgametest/java` dazu, eingehängt in Fabrics
+`gametest`-Sourceset und NeoForges `clientGameTest`-Sourceset (analog auf der 1.21.11-Linie).
+NeoForges Sourceset ist bereits sauber getrennt und hat eine eigene `neoforge.mods.toml`, taucht
+also in keinem ausgelieferten Jar auf — diese Eigenschaft muss die Erweiterung behalten.
+
+**Beide Seiten teilen schon die Szene.** `RendererProofRun` und die Fabric-Tests bauen dieselbe
+Geometrie (Wand bei z=20, Boden y=−1, Spieler bei 10.5/0/16.5, Fadenkreuz auf Block 10/1/20).
+Das ist die halbe Miete für gemeinsame Testkörper und war eine bewusste Entscheidung, kein Zufall.
+
+**Der `disconnect`-Mixin ist aufwendiger als gedacht — aber immer noch nicht Variante (b).**
+Das Problem ist nicht, dass `Minecraft.disconnect` verboten wäre, sondern dass es *selbst
+Client-Ticks pumpt*, um seinen Fortschrittsbildschirm zu malen. Aus einem Tick heraus aufgerufen
+tritt es in `runTick` wieder ein und kehrt nie zurück. Ein Mixin, der die Methode nur umleitet,
+reicht deshalb nicht: der Abmeldevorgang muss **nicht-blockierend** werden, also am Kopf
+abgebrochen und über mehrere Ticks selbst abgewickelt werden. Fabric macht genau das (Einschüsse
+in beide `disconnect`-Überladungen plus `runTick`).
+
+Damit stehen für den Weltwechsel drei Wege, in dieser Reihenfolge zu prüfen:
+1. **Ein nicht-blockierender `disconnect`** in einer Klasse des Testmods — der ehrlichste Weg,
+   Aufwand mittel, ein Eingriff statt einundzwanzig.
+2. **Gar nicht abmelden**: alle Testklassen in *einer* Welt laufen lassen, mit einer Szene, die
+   zwischen den Klassen zurückgesetzt wird. Kostet nichts, verlangt aber, dass keine Testklasse
+   Welteigenschaften braucht, die eine andere stört.
+3. **Ein Client-Start je Testklasse** — elf Starts je Linie, langsam, aber ohne jeden Eingriff.
+
+Weg 2 ist zuerst zu versuchen, weil er ohne Vanilla-Eingriff auskommt und die Fabric-Tests ohnehin
+alle dieselbe Szene aufbauen. Erst wenn eine Testklasse nachweislich eine eigene Welt braucht,
+lohnt Weg 1.
+
 #### Die Vorprüfung, die zu dieser Wahl geführt hat
 
 Der Plan verlangte, *vor* der Entscheidung zu klären, ob NeoForges Schrittautomat alles kann, was
