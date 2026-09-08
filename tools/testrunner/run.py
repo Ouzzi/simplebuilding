@@ -380,32 +380,54 @@ def parse_report(path: Path, not_older_than: float) -> dict:
 #: A screenshot name as the client tests spell them: lowercase words joined by hyphens,
 #: for example "highlight-c-sledgehammer". Tight enough that neither a resource id
 #: ("minecraft:netherite_pickaxe") nor a sentence slips through.
+#: A screenshot name: lowercase words joined by hyphens.
+#:
+#: Deliberately matched anywhere in a screenshot-taking file rather than only as the argument of
+#: a screenshot call. Four of the checkpoints - the multi block breaking ones - hand their name
+#: to a helper method that takes the shot, so a call-site-only pattern loses them, and losing a
+#: real checkpoint is worse than one false name.
 SHOT_NAME = re.compile(r'"([a-z][a-z0-9]*(?:-[a-z0-9]+)+)"')
+
+#: The one false name that shape produces: a logger id. It is excluded by where it stands, not
+#: by its spelling, so a future logger called something else is excluded too.
+LOGGER_NAME = re.compile(r'getLogger\(\s*"([^"]+)"')
+
+#: Client test bodies that every target shares. They live beside the loader specific drivers,
+#: the same way the server tests live in common/src/shared/java, so their checkpoints have to be
+#: counted for every client target - otherwise a shared test would look like a promise nobody made.
+SHARED_CLIENT_SOURCES = {
+    "26.2": "common/src/shared/clientgametest/java/com/simplebuilding/clientgametest",
+    "1.21.11": "mc1_21_11/shared/clientgametest/java/com/simplebuilding/clientgametest",
+}
 
 
 def expected_shots(target: Target) -> list[str]:
     """The screenshots the client tests of this target say they will take.
 
-    Read from the sources rather than from a list kept by hand, for the same reason the
-    server targets read their catalogue: a list maintained separately drifts, and a drifted
-    expectation is worse than none - it turns green.
+    Read from the sources rather than from a list kept by hand, for the same reason the server
+    targets read their catalogue: a list maintained separately drifts, and a drifted expectation
+    is worse than none - it turns green.
 
-    Both loaders name their shots the same way; Fabric calls takeScreenshot(name), NeoForge
-    wraps it in shot(name), and one test passes the name down as an argument. Matching the
-    literal rather than the call site covers all three.
+    Two places are read: the loader's own test directory and the shared one for that Minecraft
+    line. A test written once in the shared form has to count for every target that runs it.
     """
-    directory = REPO / target.sources
-    if not directory.is_dir():
-        return []
+    directories = [REPO / target.sources]
+    shared = SHARED_CLIENT_SOURCES.get(target.mc_line)
+    if shared:
+        directories.append(REPO / shared)
+
     names: set[str] = set()
-    for source in sorted(directory.glob("*.java")):
-        text = source.read_text(encoding="utf-8", errors="replace")
-        # Only files that actually take screenshots. Helpers next to them hold strings of the
-        # same shape - a logger name like "simplebuilding-clienttest" would otherwise be read
-        # as a promised screenshot and the target would report it missing on every run.
-        if "takeScreenshot(" not in text and "shot(" not in text:
+    for directory in directories:
+        if not directory.is_dir():
             continue
-        names.update(SHOT_NAME.findall(text))
+        for source in sorted(directory.glob("*.java")):
+            text = source.read_text(encoding="utf-8", errors="replace")
+            # Only files that actually take a screenshot; a helper beside them can hold strings
+            # of the same shape without promising anything.
+            if "takeScreenshot(" not in text and "shot(" not in text:
+                continue
+            names.update(SHOT_NAME.findall(text))
+            names.difference_update(LOGGER_NAME.findall(text))
     return sorted(names)
 
 

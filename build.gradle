@@ -55,6 +55,15 @@ fabricApi {
 
 // Automated in-game tests. Runs a headless server, loads the mod, executes every
 // registered GameTest and fails the build on the first failing one.
+// Client test bodies are shared across both loaders and both Minecraft lines, the same way
+// the server tests share common/src/shared/java. The 'gametest' source set itself is
+// created by Loom, so it is extended here rather than declared above - declaring it a
+// second time fails the build with "a SourceSet with that name already exists".
+// Only the client test source sets pull this in, so none of it can reach a shipped jar.
+sourceSets.named('gametest') {
+	java.srcDir 'common/src/shared/clientgametest/java'
+}
+
 loom {
 	runs {
 		gametest {
