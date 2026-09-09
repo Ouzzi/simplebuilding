@@ -1,5 +1,8 @@
 package com.simplebuilding.clienttest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.simplebuilding.clientgametest.BreakingStateRecorder;
 import com.simplebuilding.clientgametest.ClientTests;
@@ -31,6 +34,8 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("simplebuilding-clienttest");
 
+    private final List<String> failures = new ArrayList<>();
+
     @Override
     public void runTest(ClientGameTestContext context) {
         installBreakingStateRecorder(context);
@@ -43,6 +48,11 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
             for (ClientTests.Entry entry : ClientTests.inWorld()) {
                 runScript(context, singleplayer, entry);
             }
+        }
+
+        if (!failures.isEmpty()) {
+            throw new AssertionError(failures.size() + " client script(s) failed: "
+                    + String.join(" | ", failures));
         }
     }
 
@@ -85,9 +95,13 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
             while (!script.tick(harness, logger)) {
                 context.waitTick();
             }
-        } catch (Exception e) {
-            throw new AssertionError(entry.name() + " failed at step '"
-                    + script.currentStepName() + "': " + e.getMessage(), e);
+        } catch (Throwable t) {
+            // One failing script must not take the rest with it: every script rebuilds the scene
+            // at its start, so they are independent. Collected here and thrown together at the
+            // end, so a run reports every failure it found instead of only the first.
+            String where = entry.name() + " at step '" + script.currentStepName() + "'";
+            LOGGER.error("[{}] FAILED: {}", entry.name(), t.toString());
+            failures.add(where + ": " + t);
         }
     }
 

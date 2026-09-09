@@ -2,6 +2,7 @@ package com.simplebuilding.neoforge.clienttest;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
+import com.simplebuilding.neoforge.clienttest.mixin.MouseHandlerAccessor;
 import net.minecraft.client.Minecraft;
 
 /**
@@ -30,10 +31,14 @@ final class Input {
 
     static void holdKey(int glfwKeyCode) {
         KeyMapping.set(InputConstants.Type.KEYSYM.getOrCreate(glfwKeyCode), true);
+        // Also make the window state agree: InputConstants.isKeyDown goes straight to glfwGetKey,
+        // and the mod's MouseMixin asks it for Control and Alt.
+        HeldKeys.hold(glfwKeyCode);
     }
 
     static void releaseKey(int glfwKeyCode) {
         KeyMapping.set(InputConstants.Type.KEYSYM.getOrCreate(glfwKeyCode), false);
+        HeldKeys.release(glfwKeyCode);
     }
 
     static void clickKey(int glfwKeyCode) {

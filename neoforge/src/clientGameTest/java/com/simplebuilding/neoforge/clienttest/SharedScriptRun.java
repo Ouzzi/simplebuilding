@@ -58,6 +58,7 @@ final class SharedScriptRun implements Harness {
     private boolean finished;
     private boolean attacking;
     private boolean reportedInputLockout;
+    private final List<String> failures = new ArrayList<>();
 
     void onClientTick() {
         if (finished) {
@@ -149,8 +150,21 @@ final class SharedScriptRun implements Harness {
             Log.info("[" + scriptName + "] " + script.stepCount() + " steps");
         }
 
-        if (script.tick(this, LOGGER)) {
-            Log.info("[" + scriptName + "] done");
+        try {
+            if (script.tick(this, LOGGER)) {
+                Log.info("[" + scriptName + "] done");
+                script = null;
+                listIndex++;
+            }
+        } catch (Throwable t) {
+            // One failing script must not take the rest of the suite with it. Before this, the
+            // first failure halted the JVM and the four scripts after it never ran - 46 of 85
+            // checkpoints lost to one known-open case. Each script is independent anyway: the
+            // scene is rebuilt at the start of every one.
+            String where = scriptName + " at step '" + script.currentStepName() + "'";
+            Log.info("FAILED in " + where + ": " + t);
+            failures.add(where + ": " + t);
+            setAttacking(false);
             script = null;
             listIndex++;
         }
@@ -370,8 +384,17 @@ final class SharedScriptRun implements Harness {
     // ------------------------------------------------------------------ result
 
     private void succeed() {
-        writeResult("PROVEN", null);
-        halt(0);
+        if (failures.isEmpty()) {
+            writeResult("PROVEN", null);
+            halt(0);
+            return;
+        }
+        Log.info(failures.size() + " script(s) failed:");
+        for (String failure : failures) {
+            Log.info("  " + failure);
+        }
+        writeResult("NOT PROVEN", String.join(" | ", failures));
+        halt(1);
     }
 
     private void fail(Throwable t) {

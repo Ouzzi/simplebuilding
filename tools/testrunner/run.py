@@ -445,6 +445,29 @@ def taken_shots(target: Target, not_older_than: float) -> tuple[list[str], list[
     return fresh, stale
 
 
+#: Log lines that mean "the client is showing a modal dialog and will never exit on its own".
+#:
+#: A client run that dies this way does not fail - it waits, and the whole timeout is spent
+#: staring at a window nobody is looking at. Naming the cause turns 45 wasted minutes into a
+#: sentence. The list is short on purpose: only patterns that can ONLY mean a blocking dialog.
+HAENGER = (
+    ("Error loading mods", "Der Mod-Ladefehler-Dialog steht offen - das Fenster wartet auf einen Klick."),
+    ("is in a defined mixin package and cannot be referenced directly",
+     "Eine Mixin-Konfiguration beansprucht ein ganzes Paket, in dem auch normale Klassen liegen. "
+     "Der Accessor gehoert in ein eigenes Unterpaket."),
+    ("Failed to start the minecraft server", "Der integrierte Server ist nicht hochgekommen."),
+    ("A potential solution has been determined", "NeoForge zeigt seinen Fehlerbildschirm."),
+)
+
+
+def haenger_grund(log_text: str) -> str | None:
+    """Names the reason a client run hung, if the log says one."""
+    for muster, erklaerung in HAENGER:
+        if muster in log_text:
+            return f"Grund: {erklaerung} (Logzeile enthaelt \"{muster}\")"
+    return None
+
+
 def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     """Runs one client target and proves it by the screenshots it left behind.
 
@@ -471,7 +494,8 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     error = None
     warning = None
     if timed_out:
-        error = f"Zeitgrenze von {timeout}s ueberschritten - der Lauf wurde abgebrochen"
+        error = (f"Zeitgrenze von {timeout}s ueberschritten - der Lauf wurde abgebrochen. "
+                 + (haenger_grund(output) or "Kein bekannter Aufhaenger im Log gefunden."))
     elif not expected:
         error = f"keine Screenshot-Namen in {target.sources} gefunden - der Beweis fehlt"
     elif missing:

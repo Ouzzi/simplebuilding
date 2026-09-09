@@ -1,10 +1,11 @@
 {
   "required": true,
-  "package": "com.simplebuilding.neoforge.clienttest",
+  "package": "com.simplebuilding.neoforge.clienttest.mixin",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
-    "MouseHandlerAccessor"
+    "MouseHandlerAccessor",
+    "InputConstantsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
