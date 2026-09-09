@@ -34,10 +34,20 @@ public final class ClientTests {
     public record Entry(String name, Consumer<Script> build) {
     }
 
-    /** Runs on the main menu, before any world exists. */
+    /**
+     * Runs on the main menu, before any world exists.
+     *
+     * <p>Not just a place for main menu screenshots: a test whose subject is what the client sends
+     * <em>on join</em> has to change the thing it measures before the world is created. The armor
+     * trim config is the case in point - flipped after the join it would be compared against the
+     * value the server already has, and the assertion could not fail. That test guards its own
+     * setup and says so, which is how the missing registration here was found rather than passing
+     * for the wrong reason.
+     */
     public static List<Entry> beforeWorld() {
         return List.of(
-                new Entry("boot", SmokeClientTest::beforeWorld));
+                new Entry("boot", SmokeClientTest::beforeWorld),
+                new Entry("client-bootstrap-setup", ClientBootstrapClientTest::beforeWorld));
     }
 
     /**
@@ -51,13 +61,19 @@ public final class ClientTests {
      */
     public static List<Entry> inWorld() {
         return List.of(
+                // FIRST, and that is not cosmetic: its beforeWorld phase switches
+                // enableArmorTrimBenefits off so the value the client reports on join differs from
+                // the server's default - and only its inWorld phase puts it back. Anything running
+                // in between runs with armor trim benefits disabled, which is a visible difference:
+                // the first ordering had it late and hud-and-tooltip failed its noise floor with
+                // 2150 changed pixels where 60 are allowed.
+                new Entry("client-bootstrap", ClientBootstrapClientTest::inWorld),
                 new Entry("smoke", SmokeClientTest::inWorld),
                 new Entry("block-highlight", BlockHighlightClientTest::inWorld),
                 new Entry("building-wand-preview", BuildingWandPreviewClientTest::inWorld),
                 new Entry("multi-block-breaking", MultiBlockBreakingClientTest::inWorld),
                 new Entry("air-jump", AirJumpClientTest::inWorld),
                 new Entry("hud-and-tooltip", HudAndTooltipClientTest::inWorld),
-                new Entry("client-bootstrap", ClientBootstrapClientTest::inWorld),
                 new Entry("item-rendering", ItemRenderingClientTest::inWorld),
                 new Entry("mod-screens", ModScreensClientTest::inWorld));
     }
