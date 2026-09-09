@@ -125,12 +125,38 @@ public final class TestScene {
      * setup error and can never be reported as "the renderer draws nothing".
      */
     public static void assertAimedAt(Script script, BlockPos expected, Direction expectedFace) {
-        script.await("aim at " + expected + " through its " + expectedFace + " face", 100, client -> {
+        script.await("aim at " + expected + " through its " + expectedFace + " face", 120, client -> {
             HitResult hit = client.hitResult;
             return hit instanceof BlockHitResult blockHit
                     && hit.getType() == HitResult.Type.BLOCK
                     && blockHit.getBlockPos().equals(expected)
                     && blockHit.getDirection() == expectedFace;
-        });
+        }, TestScene::describeAim);
+    }
+
+    /**
+     * What the client actually looked like, for the message of a failed aim.
+     *
+     * <p>Every measurement in this suite stands on the crosshair being where the scene says. When
+     * that fails, "step timed out" sends the reader looking at the renderer; this line usually
+     * names the cause outright - a player who did not arrive, a chunk that was not there yet, a
+     * held item that changed the reach.
+     */
+    public static String describeAim(net.minecraft.client.Minecraft client) {
+        if (client.player == null) {
+            return "there is no player";
+        }
+        HitResult hit = client.hitResult;
+        String target = switch (hit == null ? HitResult.Type.MISS : hit.getType()) {
+            case BLOCK -> hit instanceof BlockHitResult b
+                    ? "block " + b.getBlockPos() + " face " + b.getDirection()
+                    : "a block hit that is not a BlockHitResult";
+            case ENTITY -> "an entity";
+            case MISS -> "nothing";
+        };
+        return "the player is at " + client.player.position()
+                + ", yaw " + client.player.getYRot() + ", pitch " + client.player.getXRot()
+                + ", holding " + client.player.getMainHandItem()
+                + ", and the crosshair reports " + target;
     }
 }

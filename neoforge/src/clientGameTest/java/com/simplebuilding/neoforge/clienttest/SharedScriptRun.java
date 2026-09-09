@@ -136,6 +136,16 @@ final class SharedScriptRun implements Harness {
     }
 
     @Override
+    public Path screenshotPath(String name) {
+        Shot shot = shots.get(name);
+        if (shot == null) {
+            throw new IllegalStateException("no screenshot has been taken under the name '"
+                    + name + "' yet");
+        }
+        return shot.path();
+    }
+
+    @Override
     public boolean packetsSettled() {
         // NeoForge has no way to know when the client has drained what the server sent - Fabric
         // knows because its framework runs the two task queues in a fixed order. Saying "yes"

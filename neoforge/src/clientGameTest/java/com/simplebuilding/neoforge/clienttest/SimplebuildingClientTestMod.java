@@ -55,6 +55,12 @@ public final class SimplebuildingClientTestMod {
             Log.info("running the shared client test scripts");
             SharedScriptRun run = new SharedScriptRun();
             NeoForge.EVENT_BUS.addListener(ClientTickEvent.Post.class, event -> run.onClientTick());
+            // Same job as the Fabric driver's registration: let the SHARED recorder see what the
+            // mod appended. LOWEST priority so it runs after the mod's own listener. Without it
+            // the recorder stays empty and the control case passes for the wrong reason.
+            NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, ExtractLevelRenderStateEvent.class,
+                    event -> com.simplebuilding.clientgametest.BreakingStateRecorder
+                            .observe(event.getRenderState()));
         }
     }
 }

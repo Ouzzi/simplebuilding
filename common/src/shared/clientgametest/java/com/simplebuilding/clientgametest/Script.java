@@ -1,7 +1,9 @@
 package com.simplebuilding.clientgametest;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import net.minecraft.client.Minecraft;
 
@@ -69,6 +71,12 @@ public final class Script {
         boolean run() throws Exception;
     }
 
+    /** Work that needs neither the client nor the harness - a comparison, an assertion. */
+    @FunctionalInterface
+    public interface Work {
+        void run() throws Exception;
+    }
+
     /** How a step wants to be run. */
     public enum Where {
         /** On the client thread. */
@@ -77,7 +85,11 @@ public final class Script {
         HARNESS,
     }
 
-    private record Entry(String name, int timeoutTicks, Where where, Step step) {
+    private record Entry(String name, int timeoutTicks, Where where, Step step,
+                         Function<Minecraft, String> diagnosis) {
+        Entry(String name, int timeoutTicks, Where where, Step step) {
+            this(name, timeoutTicks, where, step, null);
+        }
     }
 
     private final String testName;
@@ -111,8 +123,20 @@ public final class Script {
 
     /** Waits until the client answers yes, failing after {@code timeoutTicks}. */
     public void await(String name, int timeoutTicks, ClientCondition condition) {
+        await(name, timeoutTicks, condition, null);
+    }
+
+    /**
+     * Waits, and says what the client actually looked like if the wait runs out.
+     *
+     * <p>The diagnosis is worth its weight here. A bare "step timed out" on a scene setup step
+     * tells the reader nothing; the same failure with the player position, the view angles and
+     * what the crosshair really hit usually names the cause outright.
+     */
+    public void await(String name, int timeoutTicks, ClientCondition condition,
+                      Function<Minecraft, String> diagnosis) {
         entries.add(new Entry(name, timeoutTicks, Where.CLIENT,
-                ticks -> condition.test(Minecraft.getInstance())));
+                ticks -> condition.test(Minecraft.getInstance()), diagnosis));
     }
 
     /** Lets {@code ticks} client ticks pass. */
@@ -127,9 +151,34 @@ public final class Script {
      * expects a file per name, newer than the start of the run. A test that died half way through
      * takes the later shots with it, and the missing names say where it stopped.
      */
-    public void shot(String name) {
-        entries.add(new Entry("shot " + name, 200, Where.HARNESS,
-                ticks -> currentHarness.screenshot(name, ticks)));
+    public Later<Path> shot(String name) {
+        Later<Path> path = new Later<>("the file of screenshot '" + name + "'");
+        entries.add(new Entry("shot " + name, 200, Where.HARNESS, ticks -> {
+            if (!currentHarness.screenshot(name, ticks)) {
+                return false;
+            }
+            // Asked for right after the shot finished, because that is the only moment both
+            // loaders can answer it: Fabric numbers its files (0004_name.png) with a per-run
+            // counter, NeoForge writes name.png. Deriving the path from the name in shared code
+            // would quietly compare the wrong files on one of them.
+            path.set(currentHarness.screenshotPath(name));
+            return true;
+        }));
+        return path;
+    }
+
+    /**
+     * A step that computes and asserts without touching the game - comparing screenshots, checking
+     * a value an earlier step captured.
+     *
+     * <p>Runs off the client thread on Fabric, which is where such work belongs: it needs no game
+     * state, and putting it inside a client task would forbid every harness call around it.
+     */
+    public void verify(String name, Work work) {
+        entries.add(new Entry(name, 20, Where.HARNESS, ticks -> {
+            work.run();
+            return true;
+        }));
     }
 
     /** Waits until everything the server sent has arrived and been handled on the client. */
@@ -198,9 +247,17 @@ public final class Script {
             Entry entry = entries.get(index);
 
             if (ticksInStep > entry.timeoutTicks()) {
+                String detail = "";
+                if (entry.diagnosis() != null) {
+                    try {
+                        detail = " - " + entry.diagnosis().apply(Minecraft.getInstance());
+                    } catch (Exception e) {
+                        detail = " - the diagnosis itself failed: " + e;
+                    }
+                }
                 throw new AssertionError("Step " + (index + 1) + "/" + entries.size() + " '"
                         + entry.name() + "' of " + testName + " timed out after " + ticksInStep
-                        + " client ticks");
+                        + " client ticks" + detail);
             }
 
             boolean done = harness.run(entry.where(), () -> entry.step().tick(ticksInStep));

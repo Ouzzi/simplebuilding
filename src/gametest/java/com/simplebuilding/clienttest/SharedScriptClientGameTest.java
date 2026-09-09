@@ -1,9 +1,11 @@
 package com.simplebuilding.clienttest;
 
+import com.simplebuilding.clientgametest.BreakingStateRecorder;
 import com.simplebuilding.clientgametest.ClientTests;
 import com.simplebuilding.clientgametest.Harness;
 import com.simplebuilding.clientgametest.Script;
 import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
 import org.slf4j.Logger;
@@ -28,6 +30,8 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
 
     @Override
     public void runTest(ClientGameTestContext context) {
+        installBreakingStateRecorder(context);
+
         for (ClientTests.Entry entry : ClientTests.beforeWorld()) {
             runScript(context, null, entry);
         }
@@ -37,6 +41,21 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
                 runScript(context, singleplayer, entry);
             }
         }
+    }
+
+    /**
+     * Lets the shared breaking state recorder see what the mod appended to the render state.
+     *
+     * <p>Registered once, from the test thread, before anything runs. Fabric keeps event
+     * registration order and the mod registers its own listener during client initialisation, so
+     * a listener added here runs after it and therefore sees its additions. Registering it late -
+     * or not at all - leaves the recorder empty, and an empty recorder makes the control case
+     * ("the vanilla pickaxe tore nothing loose") trivially true. That is a false green, and it is
+     * exactly what the adversarial review of the first port caught.
+     */
+    private static void installBreakingStateRecorder(ClientGameTestContext context) {
+        context.runOnClient(client -> LevelExtractionEvents.END_EXTRACTION.register(
+                extraction -> BreakingStateRecorder.observe(extraction.levelState())));
     }
 
     private void runScript(ClientGameTestContext context, TestSingleplayerContext singleplayer,
@@ -77,8 +96,16 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
     }
 
     /** The Fabric half of {@link Harness}. */
-    private record FabricHarness(ClientGameTestContext context,
-                                 TestSingleplayerContext singleplayer) implements Harness {
+    private static final class FabricHarness implements Harness {
+
+        private final ClientGameTestContext context;
+        private final TestSingleplayerContext singleplayer;
+        private final java.util.Map<String, java.nio.file.Path> lastShots = new java.util.HashMap<>();
+
+        FabricHarness(ClientGameTestContext context, TestSingleplayerContext singleplayer) {
+            this.context = context;
+            this.singleplayer = singleplayer;
+        }
 
         @Override
         public boolean run(Script.Where where, Script.Body body) throws Exception {
@@ -106,9 +133,21 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
 
         @Override
         public boolean screenshot(String name, int ticksInStep) {
-            // Fabric's call does the whole thing and returns, so one poll is enough.
-            context.takeScreenshot(name);
+            // Fabric's call does the whole thing and returns, so one poll is enough - and it
+            // hands back the file it wrote, which is the only reliable way to name it: the
+            // filename carries a per-run counter (0004_name.png) that shared code cannot guess.
+            lastShots.put(name, context.takeScreenshot(name));
             return true;
+        }
+
+        @Override
+        public java.nio.file.Path screenshotPath(String name) {
+            java.nio.file.Path path = lastShots.get(name);
+            if (path == null) {
+                throw new IllegalStateException("no screenshot has been taken under the name '"
+                        + name + "' yet");
+            }
+            return path;
         }
 
         @Override

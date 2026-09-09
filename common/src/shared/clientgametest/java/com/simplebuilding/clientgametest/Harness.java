@@ -45,6 +45,16 @@ public interface Harness {
     boolean screenshot(String name, int ticksInStep) throws Exception;
 
     /**
+     * Where the screenshot just taken under {@code name} landed.
+     *
+     * <p>Only valid straight after {@link #screenshot} answered true, and that restriction is the
+     * reason this exists at all instead of a rule for building the path: Fabric writes
+     * {@code 0004_name.png} with a per-run counter, NeoForge writes {@code name.png}. Shared code
+     * that guessed would compare the wrong files on one loader and say nothing about it.
+     */
+    java.nio.file.Path screenshotPath(String name) throws Exception;
+
+    /**
      * Works towards "everything the server sent has arrived and been handled"; true when settled.
      *
      *
