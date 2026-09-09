@@ -105,15 +105,16 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
         }
 
         @Override
-        public boolean screenshot(String name) {
+        public boolean screenshot(String name, int ticksInStep) {
             // Fabric's call does the whole thing and returns, so one poll is enough.
             context.takeScreenshot(name);
             return true;
         }
 
         @Override
-        public void runCommand(String command) {
+        public boolean runCommand(String command, boolean mayMatchNothing, int ticksInStep) {
             requireWorld("runCommand").getServer().runCommand(command);
+            return true;
         }
 
         @Override

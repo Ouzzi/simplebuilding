@@ -51,6 +51,11 @@ sourceSets {
     clientGameTest {
         compileClasspath += sourceSets.main.output
         runtimeClasspath += sourceSets.main.output
+
+        // The client test BODIES are shared with the Fabric module and the other
+        // Minecraft line, the same way the server tests share common/src/shared/java.
+        // Only this source set pulls them in, so they stay out of every shipped jar.
+        java.srcDir '../common/src/shared/clientgametest/java'
     }
 }
 

@@ -42,10 +42,11 @@ public interface Harness {
      * <p>The runner reads these names out of the test sources and requires a fresh file per name,
      * so the name is not decoration - it is the checkpoint the run is counted in.
      */
-    boolean screenshot(String name) throws Exception;
+    boolean screenshot(String name, int ticksInStep) throws Exception;
 
     /**
      * Works towards "everything the server sent has arrived and been handled"; true when settled.
+     *
      *
      * <p>Fabric answers this exactly, because its framework runs the client and server task queues
      * in a fixed order and knows when they are empty. NeoForge has no such knowledge and says so:
@@ -58,8 +59,17 @@ public interface Harness {
     /** Works towards "the chunks around the player are built and rendered"; true when they are. */
     boolean chunksRendered() throws Exception;
 
-    /** Runs a command on the integrated server, as the server itself. */
-    void runCommand(String command) throws Exception;
+    /**
+     * Works towards running a command on the integrated server; true once it has run.
+     *
+     * <p>Polled like the others, because on NeoForge a command is handed to the server thread and
+     * completes later - and a syntax error in it has to come back as a failure rather than
+     * disappear. Both drivers therefore report the error, which matters more here than it looks:
+     * the command path Minecraft offers for convenience swallows brigadier errors, and a
+     * misspelled game rule then looks exactly like a working one. That already cost this suite
+     * eight silently dead commands once.
+     */
+    boolean runCommand(String command, boolean mayMatchNothing, int ticksInStep) throws Exception;
 
     /** Presses and holds a key, given by its GLFW key code. */
     void holdKey(int glfwKeyCode) throws Exception;

@@ -67,11 +67,17 @@ public final class TestScene {
         script.command("time set noon");
         script.command("weather clear");
         script.command("gamemode " + gameMode + " @a");
-        script.command("kill @e[type=!minecraft:player]");
-        script.command("fill -12 -4 10 32 24 20 minecraft:air");
-        script.command("fill -12 -4 " + WALL_Z + " 32 24 " + WALL_Z + " " + wallBlockId);
-        script.command("fill -12 -1 10 32 -1 19 " + wallBlockId);
-        script.command("clear @a");
+        // Throws when there is nothing to kill, which is a perfectly good outcome here.
+        script.command("kill @e[type=!minecraft:player]", true);
+        // These four are the "already in that state is fine" ones. Vanilla treats "no blocks
+        // were filled" and "nothing to clear" as command failures, and after the first test in a
+        // run the volume is often already what the next one wants. Marked one by one rather than
+        // by switching error reporting off, because the commands above them - the game rules -
+        // are exactly the ones where a swallowed error cost this suite months of silence.
+        script.command("fill -12 -4 10 32 24 20 minecraft:air", true);
+        script.command("fill -12 -4 " + WALL_Z + " 32 24 " + WALL_Z + " " + wallBlockId, true);
+        script.command("fill -12 -1 10 32 -1 19 " + wallBlockId, true);
+        script.command("clear @a", true);
         script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
 
         script.awaitPackets();

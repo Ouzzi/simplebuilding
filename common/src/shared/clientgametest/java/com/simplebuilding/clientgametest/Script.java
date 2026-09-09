@@ -129,7 +129,7 @@ public final class Script {
      */
     public void shot(String name) {
         entries.add(new Entry("shot " + name, 200, Where.HARNESS,
-                ticks -> currentHarness.screenshot(name)));
+                ticks -> currentHarness.screenshot(name, ticks)));
     }
 
     /** Waits until everything the server sent has arrived and been handled on the client. */
@@ -144,9 +144,22 @@ public final class Script {
                 ticks -> currentHarness.chunksRendered()));
     }
 
-    /** Runs a server command in the single player world. */
+    /** Runs a server command; a command that fails fails the test. */
     public void command(String command) {
-        harness("command " + command, h -> h.runCommand(command));
+        command(command, false);
+    }
+
+    /**
+     * Runs a server command, optionally tolerating "matched nothing".
+     *
+     * <p>The tolerant form exists for selectors: {@code kill @e[type=!minecraft:player]} throws
+     * when there is nothing to kill, and an empty room is precisely what the scene is after. It is
+     * a separate call rather than a blanket "ignore command errors", because ignoring them is how
+     * eight misspelled game rules in this suite were silently dead for months.
+     */
+    public void command(String command, boolean mayMatchNothing) {
+        entries.add(new Entry("command " + command, 100, Where.HARNESS,
+                ticks -> currentHarness.runCommand(command, mayMatchNothing, ticks)));
     }
 
     /** Fails the test with {@code message} unless the client answers yes, right now. */
