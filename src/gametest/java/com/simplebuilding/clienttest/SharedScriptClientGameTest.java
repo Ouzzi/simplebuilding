@@ -184,6 +184,16 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
         }
 
         @Override
+        public void setAttacking(boolean attacking) {
+            // Fabric's input goes through the real mouse path, so the held button is all it takes.
+            if (attacking) {
+                context.getInput().holdMouse(0);
+            } else {
+                context.getInput().releaseMouse(0);
+            }
+        }
+
+        @Override
         public void holdMouse(int button) {
             context.getInput().holdMouse(button);
         }

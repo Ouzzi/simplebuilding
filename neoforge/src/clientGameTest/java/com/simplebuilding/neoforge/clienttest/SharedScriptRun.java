@@ -11,6 +11,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.simplebuilding.clientgametest.ClientTests;
 import com.simplebuilding.clientgametest.Harness;
 import com.simplebuilding.clientgametest.Script;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.registries.Registries;
@@ -55,6 +56,8 @@ final class SharedScriptRun implements Harness {
     private String scriptName = "";
     private int worldWaitTicks;
     private boolean finished;
+    private boolean attacking;
+    private boolean reportedInputLockout;
 
     void onClientTick() {
         if (finished) {
@@ -62,9 +65,41 @@ final class SharedScriptRun implements Harness {
         }
 
         try {
+            // Runs at the tail of Minecraft.tick(), so after handleKeybinds() acted on the held
+            // attack button and before the frame is drawn. Clearing the lockout here means the
+            // NEXT tick's handleKeybinds() sees a zero and actually mines.
+            if (attacking) {
+                clearInputLockout();
+            }
             step();
         } catch (Throwable t) {
             fail(t);
+        }
+    }
+
+    /**
+     * Zeroes vanilla's input lockout so a held attack button is not ignored.
+     *
+     * <p>{@code Minecraft.missTime} is re-armed while any screen is open and only counts down by
+     * one per tick, so after the world screen closes it can swallow more than a second of held
+     * input - long enough for a mining step to time out while looking perfectly set up.
+     */
+    private void clearInputLockout() {
+        try {
+            java.lang.reflect.Field field = Minecraft.class.getDeclaredField("missTime");
+            field.setAccessible(true);
+            int before = field.getInt(Minecraft.getInstance());
+            if (before <= 0) {
+                return;
+            }
+            field.setInt(Minecraft.getInstance(), 0);
+            if (!reportedInputLockout) {
+                reportedInputLockout = true;
+                Log.info("cleared vanilla's input lockout (Minecraft.missTime was " + before + ")");
+            }
+        } catch (Throwable t) {
+            throw new AssertionError("could not clear Minecraft.missTime, so vanilla would ignore "
+                    + "the held attack button", t);
         }
     }
 
@@ -190,6 +225,33 @@ final class SharedScriptRun implements Harness {
     @Override
     public void pressKey(int glfwKeyCode) {
         Input.clickKey(glfwKeyCode);
+    }
+
+    @Override
+    public void setAttacking(boolean attacking) {
+        Minecraft client = Minecraft.getInstance();
+        attacking = attacking && client.player != null;
+        if (attacking) {
+            clearInputLockout();
+            client.mouseHandler.grabMouse();
+            // set() alone only makes isDown() true. Vanilla's handleKeybinds starts a new break
+            // through startAttack(), which it reaches via consumeClick() - and that returns true
+            // only for a click that was actually registered. Without this the held button keeps
+            // an ALREADY running break going but never begins one.
+            client.options.keyAttack.setDown(true);
+            KeyMapping.click(client.options.keyAttack.getKey());
+        } else {
+            client.mouseHandler.releaseMouse();
+            // Releasing the button is not enough: vanilla keeps destroying until it is told to
+            // stop, so without this the block keeps breaking after the test moved on - and the
+            // wall the next case aims at is gone. That is exactly how the first shared run failed
+            // here, with "block (10,1,20) is minecraft:air" three cases later.
+            if (client.gameMode != null) {
+                client.gameMode.stopDestroyBlock();
+            }
+        }
+        client.options.keyAttack.setDown(attacking);
+        this.attacking = attacking;
     }
 
     @Override

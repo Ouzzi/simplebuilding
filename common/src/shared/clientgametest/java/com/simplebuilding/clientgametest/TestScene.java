@@ -154,9 +154,17 @@ public final class TestScene {
             case ENTITY -> "an entity";
             case MISS -> "nothing";
         };
+        String world = client.level == null ? "no level"
+                : "block " + TARGET + " is " + client.level.getBlockState(TARGET);
         return "the player is at " + client.player.position()
                 + ", yaw " + client.player.getYRot() + ", pitch " + client.player.getXRot()
                 + ", holding " + client.player.getMainHandItem()
-                + ", and the crosshair reports " + target;
+                + ", game mode " + (client.gameMode == null ? "?" : client.gameMode.getPlayerMode())
+                + "; the crosshair reports " + target
+                + "; " + world
+                + "; mouse grabbed " + client.mouseHandler.isMouseGrabbed()
+                + ", window active " + client.isWindowActive()
+                + ", screen " + (client.gui.screen() == null ? "none"
+                        : client.gui.screen().getClass().getSimpleName());
     }
 }

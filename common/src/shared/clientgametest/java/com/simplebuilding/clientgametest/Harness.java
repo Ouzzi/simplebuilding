@@ -90,6 +90,22 @@ public interface Harness {
     /** Presses and releases a key in one step. */
     void pressKey(int glfwKeyCode) throws Exception;
 
+    /**
+     * Holds or releases the attack input - the one that mines a block.
+     *
+     * <p>Its own method rather than {@code holdMouse(0)}, because mining is the place where the
+     * two loaders differ most. Fabric drives the real mouse path and vanilla does the rest. On
+     * NeoForge three things have to be true at once, and none of them follows from a held button:
+     * the mouse has to be grabbed (an ungrabbed mouse leaves the crosshair pointing at nothing),
+     * the attack key mapping has to be down, and {@code Minecraft.missTime} - vanilla's input
+     * lockout, re-armed whenever a screen was open and counting down one per tick - has to be
+     * cleared, or the held button is ignored for the next second and a half.
+     *
+     * <p>The first shared run on NeoForge failed exactly there: "the player never reached destroy
+     * stage 1 ... isDestroying=false, the crosshair reports nothing".
+     */
+    void setAttacking(boolean attacking) throws Exception;
+
     /** Presses and holds a mouse button (0 = left, 1 = right, 2 = middle). */
     void holdMouse(int button) throws Exception;
 

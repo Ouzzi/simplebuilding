@@ -40,9 +40,20 @@ public final class ClientTests {
                 new Entry("boot", SmokeClientTest::beforeWorld));
     }
 
-    /** Runs inside the shared single player world, in this order. */
+    /**
+     * Runs inside the shared single player world, in this order.
+     *
+     * <p>Order matters a little: the three renderer tests each leave the scene rebuilt behind
+     * them, but they also change mod config values (highlight opacity, the inverted octant sneak)
+     * and put them back as their last steps. A test that fails takes the whole run down on both
+     * loaders, so a half restored config never reaches the next entry - but that is the reason
+     * the restore steps are there rather than a nicety.
+     */
     public static List<Entry> inWorld() {
         return List.of(
-                new Entry("smoke", SmokeClientTest::inWorld));
+                new Entry("smoke", SmokeClientTest::inWorld),
+                new Entry("block-highlight", BlockHighlightClientTest::inWorld),
+                new Entry("building-wand-preview", BuildingWandPreviewClientTest::inWorld),
+                new Entry("multi-block-breaking", MultiBlockBreakingClientTest::inWorld));
     }
 }
