@@ -104,6 +104,34 @@ ein Teil der Tests dort nicht nur übersetzt, sondern neu gedacht werden muss.**
 > Schrittliste gegen eine gemeinsame Fassade geschrieben, je Ziel ein dünner Treiber.
 > Danach kostet ein neuer Client-Test eine Fassung statt vier.
 
+#### Stand der Umsetzung (2026-09-09)
+
+**Alle neun Client-Testklassen sind in der geteilten Schrittform.** Die alten Fabric-Klassen sind
+gelöscht, als Einstiegspunkt bleibt ein Treiber je Loader. Die Testkörper liegen unter
+`common/src/shared/clientgametest/java/com/simplebuilding/clientgametest/`.
+
+**Der `disconnect`-Eingriff entfiel.** Alle Tests laufen in *einer* Welt, weil `TestScene.build`
+die Szene ohnehin vollständig zurücksetzt. Das war die riskanteste Unbekannte des Pakets.
+
+**Was das Teilen aufgedeckt hat** — Dinge, die vier getrennte Suiten nicht zeigen konnten:
+
+- *Fabrics Oktant-Nachweis war schwächer.* NeoForge verglich nur die rechte Bildhälfte, weil ein
+  gehaltener Oktant oben links ein Panel zeichnet; Fabric verglich das ganze Bild, das Panel konnte
+  den Nachweis also allein tragen. Jetzt gilt die strengere Form für beide.
+- *Fabric verschluckte Befehlsfehler.* `Commands.performCommand` fängt die Ausnahme — dieselbe
+  Sorte Schweigen, die dieser Suite acht tote Spielregeln beschert hat. Beide Treiber gehen jetzt
+  direkt über den Dispatcher.
+- *Der Abbau hörte nie auf* (`stopDestroyBlock` fehlte), und die Abbaufälle teilten sich eine Wand,
+  die der erste einriss. Beides war auch vorher schon da.
+
+**Offen und benannt:** `breaking-d-strip-miner-sneaking` erreicht auf NeoForge keine
+Zerstörungsstufe; sechs Ursachen sind ausgemessen und ausgeschlossen, der Befund steht im Javadoc.
+Tastatureingaben *innerhalb* eines Bildschirms sind auf NeoForge nicht erreichbar — dafür fehlt der
+Accessor auf `KeyboardHandler.onKey`, und der kommt, wenn ein geteilter Test ihn braucht.
+
+**Als Nächstes:** derselbe Baum für die 1.21.11-Linie (`mc1_21_11/shared/clientgametest/`) plus die
+zwei Treiber dort. Danach tragen alle vier Ziele dieselben Prüfpunkte, und P2 ist damit erledigt.
+
 #### Wie die Umsetzung aussieht — Vorarbeit vom 2026-09-08
 
 **Wo die geteilten Testkörper liegen.** Genau wie serverseitig: ein gemeinsames Quellverzeichnis,

@@ -74,10 +74,14 @@ public interface Harness {
      *
      * <p>Polled like the others, because on NeoForge a command is handed to the server thread and
      * completes later - and a syntax error in it has to come back as a failure rather than
-     * disappear. Both drivers therefore report the error, which matters more here than it looks:
-     * the command path Minecraft offers for convenience swallows brigadier errors, and a
-     * misspelled game rule then looks exactly like a working one. That already cost this suite
-     * eight silently dead commands once.
+     * disappear.
+     *
+     * <p>Both drivers go through the command dispatcher directly for that reason, not through the
+     * convenience path either loader offers: those catch the brigadier error and return quietly,
+     * so a misspelled game rule looks exactly like a working one. That already cost this suite
+     * eight silently dead commands once. Fabric's client test API has the same swallowing
+     * behaviour, and using it here would have made the flag below meaningless on that loader
+     * while it meant something on the other.
      */
     boolean runCommand(String command, boolean mayMatchNothing, int ticksInStep) throws Exception;
 

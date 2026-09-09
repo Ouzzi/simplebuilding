@@ -54,6 +54,11 @@ public final class ClientTests {
                 new Entry("smoke", SmokeClientTest::inWorld),
                 new Entry("block-highlight", BlockHighlightClientTest::inWorld),
                 new Entry("building-wand-preview", BuildingWandPreviewClientTest::inWorld),
-                new Entry("multi-block-breaking", MultiBlockBreakingClientTest::inWorld));
+                new Entry("multi-block-breaking", MultiBlockBreakingClientTest::inWorld),
+                new Entry("air-jump", AirJumpClientTest::inWorld),
+                new Entry("hud-and-tooltip", HudAndTooltipClientTest::inWorld),
+                new Entry("client-bootstrap", ClientBootstrapClientTest::inWorld),
+                new Entry("item-rendering", ItemRenderingClientTest::inWorld),
+                new Entry("mod-screens", ModScreensClientTest::inWorld));
     }
 }

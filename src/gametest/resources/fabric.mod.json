@@ -7,13 +7,7 @@
   "environment": "client",
   "entrypoints": {
     "fabric-client-gametest": [
-      "com.simplebuilding.clienttest.SharedScriptClientGameTest",
-      "com.simplebuilding.clienttest.SmokeClientGameTest",
-      "com.simplebuilding.clienttest.ModScreensClientGameTest",
-      "com.simplebuilding.clienttest.HudAndTooltipClientGameTest",
-      "com.simplebuilding.clienttest.ClientBootstrapClientGameTest",
-      "com.simplebuilding.clienttest.AirJumpClientGameTest",
-      "com.simplebuilding.clienttest.ItemRenderingClientGameTest"
+      "com.simplebuilding.clienttest.SharedScriptClientGameTest"
     ]
   },
   "depends": {

@@ -2,6 +2,7 @@ package com.simplebuilding.neoforge.clienttest;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 
 /**
  * Keyboard and mouse for the NeoForge client tests.
@@ -12,12 +13,15 @@ import net.minecraft.client.KeyMapping;
  * {@link KeyMapping#set} and {@link KeyMapping#click} feed the binding layer, which is what the
  * game reads for movement, jumping, attacking, using and the hotbar.
  *
- * <p><b>What that does not reach:</b> anything a <em>screen</em> handles, because a screen reads
- * key events, not bindings. A test that types into a text field or clicks a button in a menu needs
- * the real event path, and the methods that would carry it say so loudly rather than doing
- * something almost right - a silently ineffective key press is the kind of thing that leaves a
- * client test green while proving nothing, which is the failure this whole suite is being rebuilt
- * to avoid.
+ * <p>The wheel and the cursor are not bindings, so those two go through an accessor onto vanilla's
+ * private {@code MouseHandler} callbacks - the same route Fabric's client test API takes. Calling
+ * the callbacks rather than setting fields matters: they are what GLFW calls, so an open screen,
+ * which reads events and not bindings, sees them too.
+ *
+ * <p><b>What this still does not reach:</b> keyboard input inside a screen. A screen reads key
+ * events; {@link KeyMapping#set} only moves the binding layer. A test that types into a text field
+ * needs the same accessor treatment for {@code KeyboardHandler.onKey}, and it should be added the
+ * day such a test is shared - not guessed at now.
  */
 final class Input {
 
@@ -49,19 +53,17 @@ final class Input {
     }
 
     static void scroll(double amount) {
-        throw new UnsupportedOperationException(
-                "Scrolling is not wired up on the NeoForge client tests yet. The binding layer has "
-                        + "no scroll concept - vanilla handles the wheel in MouseHandler.onScroll, "
-                        + "which is private, so this needs an accessor mixin in this source set. "
-                        + "Add it together with the first shared test that scrolls, and give it a "
-                        + "screenshot that proves the wheel arrived.");
+        Minecraft client = Minecraft.getInstance();
+        ((MouseHandlerAccessor) client.mouseHandler)
+                .simplebuilding$onScroll(client.getWindow().handle(), 0.0, amount);
     }
 
     static void setCursorPos(double x, double y) {
-        throw new UnsupportedOperationException(
-                "Moving the cursor is not wired up on the NeoForge client tests yet. It goes "
-                        + "through MouseHandler.onMove, which is private, so this needs an "
-                        + "accessor mixin in this source set. Add it together with the first "
-                        + "shared test that needs a cursor position.");
+        Minecraft client = Minecraft.getInstance();
+        // onMove wants window pixels; the scripts speak in scaled screen coordinates, which is
+        // what a screen's own click handling uses. The scale factor converts between them.
+        double scale = client.getWindow().getGuiScale();
+        ((MouseHandlerAccessor) client.mouseHandler)
+                .simplebuilding$onMove(client.getWindow().handle(), x * scale, y * scale);
     }
 }
