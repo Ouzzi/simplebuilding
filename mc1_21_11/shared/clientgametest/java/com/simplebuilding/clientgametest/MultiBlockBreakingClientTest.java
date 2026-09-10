@@ -253,6 +253,114 @@ public final class MultiBlockBreakingClientTest {
     }
 
     /**
+     * What happened during a mining window, for the moment it does not end the way it should.
+     *
+     * <p>The state at the timeout is not enough to tell three very different failures apart:
+     * mining never started, mining started and was interrupted, or mining ran to completion and
+     * the block was gone again before the poll could see a stage. All three end with
+     * {@code isDestroying=false, stage=-1} and an empty crosshair, and the sneaking Strip Miner
+     * case has been sitting on exactly that ambiguity - six causes were measured and excluded
+     * without the state at the timeout ever being able to say which of the three it was.
+     *
+     * <p>Recorded from inside the poll, once per tick, and kept to counters and extremes so it
+     * costs nothing while the step is passing.
+     */
+    private static final class MiningTrace {
+
+        private int ticks;
+        private int destroyingTicks;
+        private int firstDestroyingTick = -1;
+        private int highestStage = -1;
+        private int blockHits;
+        private int entityHits;
+        private int misses;
+        private int targetGoneFirstAt = -1;
+        private int sneakingTicks;
+        private int attackBindingDownTicks;
+        private int leftMousePressedTicks;
+        private int lockedOutTicks;
+        private int usingItemTicks;
+
+        void record(net.minecraft.client.Minecraft client) {
+            ticks++;
+
+            if (client.gameMode != null && client.gameMode.isDestroying()) {
+                destroyingTicks++;
+                if (firstDestroyingTick < 0) {
+                    firstDestroyingTick = ticks;
+                }
+                highestStage = Math.max(highestStage, client.gameMode.getDestroyStage());
+            }
+
+            if (client.hitResult == null) {
+                misses++;
+            } else {
+                switch (client.hitResult.getType()) {
+                    case BLOCK -> blockHits++;
+                    case ENTITY -> entityHits++;
+                    default -> misses++;
+                }
+            }
+
+            if (client.level != null && targetGoneFirstAt < 0
+                    && client.level.getBlockState(TestScene.TARGET).isAir()) {
+                targetGoneFirstAt = ticks;
+            }
+
+            if (client.player != null && client.player.isShiftKeyDown()) {
+                sneakingTicks++;
+            }
+
+            if (client.options.keyAttack.isDown()) {
+                attackBindingDownTicks++;
+            }
+
+            if (client.mouseHandler.isLeftPressed()) {
+                leftMousePressedTicks++;
+            }
+
+            if (inputLockout(client) > 0) {
+                lockedOutTicks++;
+            }
+
+            if (client.player != null && client.player.isUsingItem()) {
+                usingItemTicks++;
+            }
+        }
+
+        /**
+         * {@code Minecraft.missTime}, vanilla's input lockout, or -1 when it cannot be read.
+         *
+         * <p>Reflection because the field is private and this is a test source set, not a mixin.
+         * It matters here because {@code continueAttack} does nothing at all while it is above
+         * zero, and {@code MouseHandler.grabMouse} sets it to 10000.
+         */
+        private static int inputLockout(net.minecraft.client.Minecraft client) {
+            try {
+                java.lang.reflect.Field field = net.minecraft.client.Minecraft.class
+                        .getDeclaredField("missTime");
+                field.setAccessible(true);
+                return field.getInt(client);
+            } catch (ReflectiveOperationException | RuntimeException e) {
+                return -1;
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "During the " + ticks + " polled ticks: destroying on " + destroyingTicks
+                    + " of them (first at tick " + firstDestroyingTick + "), highest stage seen "
+                    + highestStage + "; the crosshair reported a block " + blockHits + " times, an entity "
+                    + entityHits + " times and nothing " + misses + " times; the target block first read "
+                    + "as air at tick " + targetGoneFirstAt + " (-1 means it never did); the player was "
+                    + "sneaking on " + sneakingTicks + " of them. The attack binding read as down on "
+                    + attackBindingDownTicks + " ticks, MouseHandler.isLeftPressed on "
+                    + leftMousePressedTicks + ", vanilla's input lockout was above zero on "
+                    + lockedOutTicks + ", and the player was using an item on " + usingItemTicks + ".";
+        }
+    }
+
+    /**
      * Every entry of one extraction pass has to carry the same destroy stage: the mod copies
      * {@code gameMode.getDestroyStage()} of the block the player is actually mining onto each extra
      * block. The frame is the last one of the sneaking measurement, taken after the stage has
@@ -388,16 +496,20 @@ public final class MultiBlockBreakingClientTest {
         // enchantment the minimum is 1, because the enchanted runs are the ones whose frame feeds
         // assertOneProgressPerFrame and a stage of 0 there cannot be told from a hard coded 0.
         int minStage = enchantment != null ? 1 : 0;
+        MiningTrace trace = new MiningTrace();
         script.await("mine until the destroy stage reaches " + minStage + " with " + itemId, 200,
-                client -> client.gameMode != null
-                        && client.gameMode.isDestroying()
-                        && client.gameMode.getDestroyStage() >= minStage
-                        && client.gameMode.getDestroyStage() <= 9,
+                client -> {
+                    trace.record(client);
+                    return client.gameMode != null
+                            && client.gameMode.isDestroying()
+                            && client.gameMode.getDestroyStage() >= minStage
+                            && client.gameMode.getDestroyStage() <= 9;
+                },
                 client -> "the player never reached destroy stage " + minStage + " on the target block with "
                         + itemId + " (isDestroying="
                         + (client.gameMode != null && client.gameMode.isDestroying()) + ", stage="
                         + (client.gameMode == null ? -1 : client.gameMode.getDestroyStage()) + "). "
-                        + TestScene.describeAim(client));
+                        + trace + " " + TestScene.describeAim(client));
 
         script.idle("let the destroy stage settle", 5);
 

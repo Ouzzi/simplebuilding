@@ -1,6 +1,6 @@
 # Weg zu vollständiger Abdeckung
 
-Stand: 2026-09-07, Commit `dd7606d`. Ziel ist, dass jedes Verhalten der Mod auf **beiden
+Stand: 2026-09-10, Commit `2fa1710`. Ziel ist, dass jedes Verhalten der Mod auf **beiden
 Minecraft-Linien und beiden Modloadern** von einem Test gedeckt ist, der rot wird, wenn das
 Verhalten kaputtgeht — und dass alles, was das nicht sein kann, benannt ist statt vergessen.
 
@@ -33,17 +33,22 @@ nicht, dass ein Händler sie auch *auswürfelt*. Das Paritätstor hat sie im ers
 Der Test ist portiert und auf beiden 26.2-Loadern grün; die Gegenprobe (unsere Tag-Einträge
 entfernt) macht ihn rot.
 
-### Clientseitig: schief
+### Clientseitig: seit dem 2026-09-10 gerade
 
-| Ziel | Dateien | Prüfpunkte | Rückstand |
-|---|---:|---:|---:|
-| Fabric · MC 26.2 | 11 | **84** | — |
-| Fabric · MC 1.21.11 | 7 | 16 | −68 |
-| NeoForge · MC 26.2 | 7 | 12 | −73 |
-| NeoForge · MC 1.21.11 | 7 | 12 | −73 |
+| Ziel | Prüfpunkte | Rückstand |
+|---|---:|---:|
+| Fabric · MC 26.2 | **85** | — |
+| Fabric · MC 1.21.11 | **85** | — |
+| NeoForge · MC 26.2 | **85** | — |
+| NeoForge · MC 1.21.11 | **85** | — |
 
-Das ist die große offene Baustelle. Sie ist am 2026-09-07 entstanden, als die 56 clientseitigen
-Lücken auf Fabric 26.2 geschlossen wurden; die anderen drei Ziele haben davon nichts bekommen.
+Alle vier Ziele fahren **dieselben Testkörper**: einmal als Schrittliste geschrieben, je Ziel ein
+dünner Treiber. `CLIENT_PARITY_DEBT` ist leer — nicht erlassen, sondern bezahlt. Das Tor fällt ab
+sofort sofort rot, wenn ein Ziel zurückfällt, statt gegen eine geduldete Zahl zu prüfen.
+
+Die Schieflage war am 2026-09-07 entstanden, als die 56 clientseitigen Lücken auf Fabric 26.2
+geschlossen wurden und die anderen drei Ziele davon nichts bekamen. Gefunden hat sie das
+Paritätstor aus P5, das genau dafür gebaut wurde.
 
 ---
 
@@ -86,16 +91,33 @@ Y-Fläche vor die x-Prüfungen gezogen — **269 von 269 Tests bleiben grün**, 
 eine Ecke den Stamm danach in die falsche Achse legt. Kein Test im Repo klickt je eine Ecke. Das
 ist jetzt P7.
 
-### P2 — Fabric 1.21.11 auf Client-Parität bringen *(68 Prüfpunkte)*
+### P2 — Fabric 1.21.11 auf Client-Parität bringen — **erledigt am 2026-09-10**
 
-Dieselbe API, also derselbe Weg wie beim Server-Port: übersetzen, was mechanisch geht, und den
-Rest vom Compiler zeigen lassen. `tools/port_tests_to_1_21_11.py` deckt die Server-Regeln ab und
-muss um die Client-Fälle erweitert werden.
+Fiel mit P3 zusammen ab: die gemeinsame Schrittform wurde nach `mc1_21_11/shared/clientgametest/`
+heruntergeportet, beide Treiber dazu. **Erster Lauf: 85 von 85 grün.**
 
-Erwartbare Unterschiede: dieselben API-Brüche wie serverseitig (`EntityTypes`, `typeHolder`,
-`sendOverlayMessage`), dazu alles, was mit Rendering zusammenhängt — die Submit-Pipeline hat sich
-mit 26.2 stark geändert, und die 1.21.11-Renderer sind anders gebaut. **Damit ist zu rechnen, dass
-ein Teil der Tests dort nicht nur übersetzt, sondern neu gedacht werden muss.**
+Die Erwartung „ein Teil der Tests muss dort neu gedacht werden" hat sich **nicht** bestätigt.
+Von 11 685 Zeilen waren 131 Compilerfehler zu beheben, alle mechanisch, jeder gegen die
+Klassendatei der 1.21.11-Jar geprüft und im Quelltext als Linienunterschied benannt:
+
+| Was | 26.2 | 1.21.11 |
+|---|---|---|
+| Bildschirm | `client.gui.screen()` | `client.screen` |
+| HUD | eigenes `Hud`-Objekt mit `isHidden()`/`toggle()` | `client.options.hideGui` |
+| Toasts | `client.gui.toastManager()` | `client.getToastManager()` |
+| Bündelinhalt | `ItemStackTemplate` | `ItemStack` |
+| Textfarben | `TextColor.AQUA` | `TextColor.fromLegacyFormat(...)` |
+| Tastenbindung | `matches(InputConstants.Key)` | `matches(KeyEvent)` → hier `saveString()` |
+| Blockmodelle | `BlockStateModelSet` / `BlockStateModelPart` | `BlockModelShaper` / `BlockModelPart` |
+| GUI-Aufnahme | `GuiGraphicsExtractor`, `renderer.state.gui` | `GuiGraphics`, `gui.render.state` |
+| Abbau-Zustände | `renderer.state.level`, Zugriffsmethoden | `renderer.state`, Felder |
+| Chat stumm | `setVisibleMessageFilter` | `Options.chatVisibility` = `HIDDEN` |
+
+Zwei Unterschiede betreffen die Treiber, nicht die Testkörper: Fabrics
+`fabric-client-gametest-api-v1` **4.3.5** kennt weder `getConnection()` noch
+`waitForClientboundPackets()` (`awaitPackets` antwortet dort wie auf NeoForge sofort — im
+`Harness`-Javadoc benannt statt kaschiert), und das Extraktionsereignis heißt dort
+`WorldRenderEvents.END_EXTRACTION` statt `LevelExtractionEvents.END_EXTRACTION`.
 
 ### P3 — NeoForge-Client — **entschieden am 2026-09-08**
 
@@ -124,13 +146,45 @@ die Szene ohnehin vollständig zurücksetzt. Das war die riskanteste Unbekannte 
 - *Der Abbau hörte nie auf* (`stopDestroyBlock` fehlte), und die Abbaufälle teilten sich eine Wand,
   die der erste einriss. Beides war auch vorher schon da.
 
-**Offen und benannt:** `breaking-d-strip-miner-sneaking` erreicht auf NeoForge keine
-Zerstörungsstufe; sechs Ursachen sind ausgemessen und ausgeschlossen, der Befund steht im Javadoc.
-Tastatureingaben *innerhalb* eines Bildschirms sind auf NeoForge nicht erreichbar — dafür fehlt der
-Accessor auf `KeyboardHandler.onKey`, und der kommt, wenn ein geteilter Test ihn braucht.
+#### Was danach noch drei Löcher waren — und was sie wirklich waren (2026-09-10)
 
-**Als Nächstes:** derselbe Baum für die 1.21.11-Linie (`mc1_21_11/shared/clientgametest/`) plus die
-zwei Treiber dort. Danach tragen alle vier Ziele dieselben Prüfpunkte, und P2 ist damit erledigt.
+NeoForge stand nach der Umstellung bei 68 von 85. Von den 17 roten Prüfpunkten gingen 15 auf
+**zwei Fehler im Gerüst** zurück, nicht auf die Tests:
+
+- *Mausklicks erreichten keinen Bildschirm.* Sie liefen nur über die Bindungsebene
+  (`KeyMapping.set` / `click`), ein Bildschirm liest aber **Ereignisse**. Der Knopf, der den
+  Besatz-Bildschirm öffnet, wurde also nie gedrückt. Jetzt derselbe Weg wie bei Fabric:
+  `MouseHandler.onButton`. Wichtig dabei — `onButton` ruft die Bindungsebene **selbst** auf, wenn
+  kein Bildschirm offen ist; beides zu tun ist ein Doppelklick, und der hat den Bilderrahmen erst
+  gesperrt und sofort wieder entsperrt.
+- *Der Zeiger landete neben dem Inventar.* `setCursorPos` rechnete die GUI-Skalierung ein zweites
+  Mal ein, obwohl der Aufrufer sie bereits umgerechnet hatte. Fabrics API nimmt rohe Fensterpixel;
+  jetzt tut das auch der NeoForge-Treiber.
+
+Dazu ein Fehler, der **beide** Loader betraf und den erst ein gescheitertes Skript sichtbar
+gemacht hat: die Freigabeschritte eines Skripts laufen nicht mehr, wenn ein Schritt davor
+scheitert. Eine hängengebliebene Sneak-Taste hat danach `item-rendering` und `hud-and-tooltip` rot
+gemacht — und schuld war jedes Mal die Mod. `Harness.releaseAllInput()` räumt jetzt nach **jedem**
+Skript auf, bestanden wie gescheitert.
+
+**Ergebnis: 83 von 85 auf NeoForge 26.2.**
+
+**Offen und benannt:** `breaking-d-strip-miner-sneaking` erreicht auf NeoForge keine
+Zerstörungsstufe; sechs Ursachen sind ausgemessen und ausgeschlossen. Der Zustand *zum Zeitpunkt
+der Zeitüberschreitung* kann drei ganz verschiedene Fehlschläge nicht auseinanderhalten — Abbau
+nie begonnen, Abbau unterbrochen, Abbau fertig und der Block schon wieder weg —, alle drei enden
+mit `isDestroying=false, stage=-1`. Seit dem 2026-09-10 zeichnet `MiningTrace` das Fenster mit
+auf; der nächste Lauf sagt, welcher der drei es ist.
+
+Tastatureingaben *innerhalb* eines Bildschirms sind auf NeoForge weiterhin nicht erreichbar —
+dafür fehlt der Accessor auf `KeyboardHandler.onKey`. Für die Maus ist genau dieses Argument
+inzwischen in roten Tests bezahlt worden, also ist es beim ersten geteilten Test, der tippt, das
+Erste, was zu tun ist.
+
+**Nebenbefund des Paritätstors:** der Kontrollfall „Octant weggenommen" existierte nur im alten
+handgeschriebenen NeoForge-Beweis. Ohne ihn erklärt „das Bild driftet ohnehin" jede
+Octant-Messung genauso gut. Als `highlight-k-octant-removed` in die gemeinsame Form aufgenommen;
+damit war der alte Beweis vollständig abgelöst und ist gelöscht.
 
 #### Wie die Umsetzung aussieht — Vorarbeit vom 2026-09-08
 
@@ -277,22 +331,30 @@ einspielen, Test muss rot werden, Mutation zurück.
 P3-Umstellung — sonst schreibe ich sie zweimal: einmal jetzt in der Fabric-Form und gleich
 danach nochmal als Schrittliste.
 
-Stand: **11 erledigt** (Werkzeuggruppe A vollständig — Commits `dd833db` und `c8d5226`),
-**70 serverseitige offen**, 23 clientseitige zurückgestellt.
+Stand: **serverseitig fertig** (Commits `dd833db`, `c8d5226`, `4718d2c`, `540aa85`).
+80 von 81 geschärft, jede einzeln durch ihre Mutation belegt — 70 Mutationen eingespielt,
+70-mal rot. Die eine Ablehnung ist begründet: der Wert `-1` wird vom Vanilla-Konstruktor
+`BundleContents(List)` erzwungen, die Mod-Zeile davor ist folgenlos, ein Verhaltensbruch also
+nicht konstruierbar.
 
-| Gruppe | server | client |
-|---|---:|---:|
-| Rotator, Meissel, Vorschlaghammer | ~~11~~ | 0 |
-| Truhen, Trichter, Buendel | 12 | 2 |
-| Oefen, Werkbaenke, Bildschirme | 11 | 8 |
-| Adernabbau, Rindenschaeler, Mining | 8 | 2 |
-| Netzwerk, Konfiguration, Daten | 7 | 1 |
-| Weltgenerierung, Erze, Bilderrahmen | 7 | 0 |
-| Spachtel, Erzsucher, Bohrer | 7 | 0 |
-| Spielerverzauberungen, Luftsprung | 7 | 1 |
-| Ruestungsbesatz, dynamisches Licht | 5 | 1 |
-| Bauverzauberungen | 4 | 1 |
-| Baustab, Octant, Magnet | 2 | 7 |
+**Offen: die 23 clientseitigen.** Sie waren bis zur P3-Umstellung zurückgestellt, weil sie sonst
+zweimal zu schreiben gewesen wären — einmal in der alten Fabric-Form und gleich danach als
+Schrittliste. Seit dem 2026-09-10 gibt es die Schrittform auf allen vier Zielen, also sind sie
+dran. Sie verteilen sich so:
+
+| Behaupteter Test | Einträge |
+|---|---:|
+| `HudAndTooltipClientGameTest` (Trichterfilter, Geisterslots, Slotklicks) | 8 |
+| `ClientBootstrapClientGameTest` (Modifikatoren, Auswahltasten, Griff ins Bündel) | 5 |
+| `BuildingWandPreviewClientGameTest` | 3 |
+| `ModScreensClientGameTest` | 2 |
+| `BlockHighlightClientGameTest` / `MultiBlockBreakingClientGameTest` | 2 |
+| `SmokeClientGameTest` | 2 |
+| Rest | 1 |
+
+Die Gegenprobe kostet hier mehr als serverseitig: ein Client-Lauf dauert rund sechs Minuten, und
+eine Mutation je Lauf ist die einzige Form, die etwas beweist — zwei gleichzeitig können sich
+gegenseitig verdecken.
 
 ### P6 — Mutationstests für die teuersten Tests
 

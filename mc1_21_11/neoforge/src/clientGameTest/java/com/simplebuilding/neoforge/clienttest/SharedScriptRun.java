@@ -265,14 +265,17 @@ final class SharedScriptRun implements Harness {
         attacking = attacking && client.player != null;
         if (attacking) {
             clearInputLockout();
+            // Grabbed first and on purpose: the button below goes through vanilla's own callback,
+            // and that callback grabs the mouse itself when it is not grabbed yet - which arms
+            // Minecraft.missTime with 10000 and swallows the very press that triggered it.
             client.mouseHandler.grabMouse();
-            // set() alone only makes isDown() true. Vanilla's handleKeybinds starts a new break
-            // through startAttack(), which it reaches via consumeClick() - and that returns true
-            // only for a click that was actually registered. Without this the held button keeps
-            // an ALREADY running break going but never begins one.
-            client.options.keyAttack.setDown(true);
-            KeyMapping.click(client.options.keyAttack.getKey());
+            // The real thing: MouseHandler.onButton, exactly as GLFW would deliver it. It sets the
+            // attack binding and registers the click itself, so nothing else is needed - and it
+            // sets MouseHandler.isLeftPressed, which the binding layer cannot. That last one is
+            // not decoration: it is what tells vanilla the button is still held.
+            Input.holdMouse(0);
         } else {
+            Input.releaseMouse(0);
             client.mouseHandler.releaseMouse();
             // Releasing the button is not enough: vanilla keeps destroying until it is told to
             // stop, so without this the block keeps breaking after the test moved on - and the
@@ -282,7 +285,6 @@ final class SharedScriptRun implements Harness {
                 client.gameMode.stopDestroyBlock();
             }
         }
-        client.options.keyAttack.setDown(attacking);
         this.attacking = attacking;
     }
 

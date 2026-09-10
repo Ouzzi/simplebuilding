@@ -1,5 +1,15 @@
 package com.simplebuilding.clientgametest;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
+import com.simplebuilding.client.gui.NetheriteHopperScreen;
+import com.simplebuilding.items.ModItems;
+import com.simplebuilding.items.custom.OctantItem;
+import com.simplebuilding.items.custom.ReinforcedBundleItem;
+import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
+import com.simplebuilding.screen.NetheriteHopperScreenHandler;
+import com.simplebuilding.util.BundleTooltipAccessor;
+import com.simplebuilding.util.HopperFilterMode;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -11,19 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
-
 import javax.imageio.ImageIO;
-
-import com.mojang.blaze3d.platform.InputConstants;
-import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
-import com.simplebuilding.client.gui.NetheriteHopperScreen;
-import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.OctantItem;
-import com.simplebuilding.items.custom.ReinforcedBundleItem;
-import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
-import com.simplebuilding.screen.NetheriteHopperScreenHandler;
-import com.simplebuilding.util.BundleTooltipAccessor;
-import com.simplebuilding.util.HopperFilterMode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -34,6 +32,7 @@ import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.renderer.state.gui.ColoredRectangleRenderState;
 import net.minecraft.client.renderer.state.gui.GuiRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,6 +41,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
@@ -50,6 +51,7 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
  * Covers the client-only display code: the rangefinder HUD overlay, the reinforced bundle tooltip
@@ -206,6 +208,9 @@ public final class HudAndTooltipClientTest {
     /** Player inventory slot for the test's working items - container index 9, see the class javadoc. */
     private static final int SAFE_INVENTORY_SLOT = 9;
 
+    /** How many diamonds the hopper click test carries on the cursor; see the ghost item checks. */
+    private static final int GHOST_CURSOR_COUNT = 3;
+
     /**
      * The GLFW key code that opens the inventory.
      *
@@ -216,6 +221,9 @@ public final class HudAndTooltipClientTest {
 
     private static final Field LEFT_POS = screenField("leftPos");
     private static final Field TOP_POS = screenField("topPos");
+    /** The overlay NetheriteHopperScreen paints over a slot that carries a filter. */
+    private static final int GHOST_SLOT_OVERLAY = 0x60FFAA00;
+
     private static final Field HOVERED_SLOT = screenField("hoveredSlot");
 
     private HudAndTooltipClientTest() {
@@ -1015,9 +1023,14 @@ public final class HudAndTooltipClientTest {
 
         script.command("setblock " + CONTAINER_POS.getX() + " " + CONTAINER_POS.getY() + " "
                 + CONTAINER_POS.getZ() + " simplebuilding:netherite_hopper");
-        runOnServer(script, "put a diamond in the player inventory",
+        // THREE diamonds, and that is the whole point of the number. Both ghost item setters copy
+        // the stack and force the count to one; with a single diamond on the cursor the copy and
+        // the original agree, so deleting either clamp changes nothing anywhere in this test. With
+        // three, a missing clamp shows a stack of three sitting in the filter slot - which is what
+        // a player would see, and what the ghost item is explicitly not supposed to be.
+        runOnServer(script, "put three diamonds in the player inventory",
                 server -> firstPlayer(server).getInventory()
-                        .setItem(SAFE_INVENTORY_SLOT, new ItemStack(Items.DIAMOND, 1)));
+                        .setItem(SAFE_INVENTORY_SLOT, new ItemStack(Items.DIAMOND, GHOST_CURSOR_COUNT)));
         script.awaitPackets();
         script.idle("let the hopper and the diamond reach the client", 15);
 
@@ -1031,6 +1044,7 @@ public final class HudAndTooltipClientTest {
         parkCursor(script);
         clearWidgetFocus(script);
         assertFilterMode(script, HopperFilterMode.NONE);
+        assertFilterButtonGeometry(script);
 
         Later<Path> noFilter = script.shot("hopper-a-filter-none");
         script.idle("let ten ticks pass between the two baseline shots", 10);
@@ -1047,6 +1061,7 @@ public final class HudAndTooltipClientTest {
 
         clickFilterButton(script);
         waitForFilterMode(script, HopperFilterMode.WHITELIST);
+        assertFilterGlyph(script, HopperFilterMode.WHITELIST, "✔", 0xFF55FF55);
         Later<Path> whitelist = script.shot("hopper-c-filter-whitelist");
 
         script.verify("the whitelist icon reached the screen", () -> ScreenshotDiff.assertDrew(
@@ -1055,6 +1070,7 @@ public final class HudAndTooltipClientTest {
 
         clickFilterButton(script);
         waitForFilterMode(script, HopperFilterMode.TYPE);
+        assertFilterGlyph(script, HopperFilterMode.TYPE, "T", 0xFFFFAA00);
         Later<Path> type = script.shot("hopper-d-filter-type");
 
         script.verify("the type icon reached the screen", () -> ScreenshotDiff.assertDrew(
@@ -1090,12 +1106,63 @@ public final class HudAndTooltipClientTest {
                 ScreenshotDiff.compare("filtered slot without vs. with a ghost item",
                         type.get(), ghost.get())));
 
+        assertGhostSlotOverlay(script);
+        assertTheGhostIconStaysOutOfAnOccupiedSlot(script);
+
         closeScreen(script);
         script.command("setblock " + CONTAINER_POS.getX() + " " + CONTAINER_POS.getY() + " "
                 + CONTAINER_POS.getZ() + " minecraft:air");
         script.command("clear @a");
         script.awaitPackets();
         script.idle("let the removed hopper reach the client", 10);
+    }
+
+
+    /**
+     * The screen writes the ghost item into the client block entity itself, without waiting.
+     *
+     * <p>Read immediately after the click and before any waiting step, which is what makes it a
+     * statement at all. The check further down runs fifteen ticks later, and by then the whole
+     * detour - packet to the server, ghost item stored there, broadcast back, receiver writes it
+     * into the client block entity - has long finished. Deleting the two lines in
+     * {@code NetheriteHopperScreen.mouseClicked} that do it locally therefore changes nothing
+     * fifteen ticks later, while in the game it costs a visible round trip before the filter icon
+     * appears.
+     *
+     * <p>"Before the server could have answered" is not a guess: the click is delivered
+     * synchronously inside the harness call, so this step runs in the same client tick, and the
+     * answer needs at least one server tick and one packet in each direction.
+     *
+     * <p>The count is asserted here too. {@code setGhostItemClient} copies the stack and forces
+     * the count to one; the cursor deliberately carries {@link #GHOST_CURSOR_COUNT}, so a missing
+     * clamp shows up as a stack of three in the filter slot.
+     */
+    private static void assertTheGhostItemIsThereBeforeTheServerCouldHaveAnswered(Script script) {
+        script.act("the ghost item is in the client block entity in the same tick", client -> {
+            NetheriteHopperScreenHandler menu =
+                    ((NetheriteHopperScreen) client.gui.screen()).getMenu();
+            ModHopperBlockEntity blockEntity = menu.getBlockEntity();
+
+            if (blockEntity == null) {
+                throw new AssertionError("The client side menu has no block entity, so the screen "
+                        + "can never draw a ghost item.");
+            }
+
+            ItemStack ghost = blockEntity.getGhostItem(0);
+
+            if (ghost.isEmpty()) {
+                throw new AssertionError("The click was swallowed but the client block entity still "
+                        + "has no ghost item in slot 0. The screen is waiting for the server to tell "
+                        + "it what it already knows, so the filter icon appears a round trip late.");
+            }
+
+            if (!ghost.is(Items.DIAMOND) || ghost.getCount() != 1) {
+                throw new AssertionError("The client block entity holds " + ghost + " as ghost item 0 "
+                        + "instead of exactly one diamond. The cursor carried " + GHOST_CURSOR_COUNT
+                        + ", and a ghost item is a marker, not a stack - the count has to be clamped "
+                        + "to one.");
+            }
+        });
     }
 
     /**
@@ -1112,12 +1179,15 @@ public final class HudAndTooltipClientTest {
         Later<Integer> diamondSlot = findSlotWithItem(script, Items.DIAMOND);
 
         clickSlot(script, diamondSlot, "the diamond slot");
-        assertCarriedIs(script, Items.DIAMOND, "picking the diamond up from the player inventory");
+        assertCarriedIs(script, Items.DIAMOND, GHOST_CURSOR_COUNT,
+                "picking the diamonds up from the player inventory");
 
         clickSlot(script, fixed("hopper slot 0", 0), "hopper slot 0");
+        assertTheGhostItemIsThereBeforeTheServerCouldHaveAnswered(script);
         script.idle("let the swallowed click reach the block entity", 15);
 
-        assertCarriedIs(script, Items.DIAMOND, "clicking hopper slot 0 with a filter active");
+        assertCarriedIs(script, Items.DIAMOND, GHOST_CURSOR_COUNT,
+                "clicking hopper slot 0 with a filter active");
 
         script.act("the client turned the click into a ghost item", client -> {
             NetheriteHopperScreen screen = (NetheriteHopperScreen) client.gui.screen();
@@ -1175,9 +1245,9 @@ public final class HudAndTooltipClientTest {
             }
         });
 
-        // Put the diamond back so the ghost overlay is the only difference in the next screenshot.
+        // Put the diamonds back so the ghost overlay is the only difference in the next screenshot.
         clickSlot(script, diamondSlot, "the diamond slot");
-        script.idle("let the diamond land back in the inventory", 10);
+        script.idle("let the diamonds land back in the inventory", 10);
         parkCursor(script);
         script.idle("let the parked cursor settle", 10);
     }
@@ -1211,6 +1281,351 @@ public final class HudAndTooltipClientTest {
         });
     }
 
+
+    // ------------------------------------------------------------------------------------------
+    // Reading what a screen actually draws
+    // ------------------------------------------------------------------------------------------
+
+    /**
+     * Runs a screen's own extraction pass into a throwaway render state and hands it over.
+     *
+     * <p>A screenshot difference can only say "something changed". It cannot say <em>what</em>,
+     * and that gap is where several claims about this screen quietly lived: that the filter button
+     * sits where it says it does, that the check mark belongs to whitelist and the T to type
+     * match, that the overlay on a filtered slot is that particular orange, and that the ghost
+     * item is only drawn into an empty slot. Every one of those survives a mutation that a pixel
+     * difference still calls "drew something".
+     *
+     * <p>A CPU-only pass: {@code GuiRenderState} collects the elements and nothing is submitted to
+     * the GPU, so this costs a frame's worth of arithmetic and changes nothing on screen.
+     */
+    private static GuiRenderState extractScreenState(Minecraft client) {
+        GuiRenderState state = new GuiRenderState();
+        GuiGraphicsExtractor graphics = new GuiGraphicsExtractor(client, state,
+                client.getWindow().getGuiScaledWidth(), client.getWindow().getGuiScaledHeight());
+        Screen screen = client.gui.screen();
+
+        if (screen == null) {
+            throw new AssertionError("No screen is open, so there is nothing to extract.");
+        }
+
+        screen.extractRenderState(graphics, -1, -1, 0.0f);
+        return state;
+    }
+
+    /** Every filled rectangle of one extraction pass, in the order the screen produced them. */
+    private static List<ColoredRectangleRenderState> filledRectangles(GuiRenderState state) {
+        List<ColoredRectangleRenderState> rectangles = new ArrayList<>();
+        state.forEachElement(element -> {
+            if (element instanceof ColoredRectangleRenderState rectangle) {
+                rectangles.add(rectangle);
+            }
+        }, GuiRenderState.TraverseRange.ALL);
+        return rectangles;
+    }
+
+    /** Every text of one extraction pass as (string, colour, x, y). */
+    private static List<DrawnText> drawnTexts(GuiRenderState state) {
+        List<DrawnText> texts = new ArrayList<>();
+        state.forEachText(text -> texts.add(DrawnText.of(text)));
+        return texts;
+    }
+
+    /**
+     * One text the screen drew, flattened to what a reader would see.
+     *
+     * <p>Read out of {@link net.minecraft.client.renderer.state.gui.GuiTextRenderState} by
+     * reflection: the class keeps its string, colour and position private and offers only
+     * {@code bounds()}. Bounds alone cannot tell a check mark from a T, which is exactly the
+     * distinction one of the claims here rests on. The reflection is guarded and says what it was
+     * after when it fails, so a rename turns into a clear message instead of a silent pass.
+     */
+    private record DrawnText(String text, int color, int x, int y) {
+
+        static DrawnText of(Object state) {
+            return new DrawnText(readSequence(state), readInt(state, "color"),
+                    readInt(state, "x"), readInt(state, "y"));
+        }
+
+        private static String readSequence(Object state) {
+            Object raw = read(state, "text");
+
+            if (!(raw instanceof FormattedCharSequence sequence)) {
+                throw new AssertionError("GuiTextRenderState.text is no longer a FormattedCharSequence "
+                        + "but " + raw + "; the filter glyph cannot be read.");
+            }
+
+            StringBuilder text = new StringBuilder();
+            sequence.accept((index, style, codePoint) -> {
+                text.appendCodePoint(codePoint);
+                return true;
+            });
+            return text.toString();
+        }
+
+        private static int readInt(Object state, String name) {
+            Object value = read(state, name);
+
+            if (!(value instanceof Integer number)) {
+                throw new AssertionError("GuiTextRenderState." + name + " is no longer an int but "
+                        + value + ".");
+            }
+
+            return number;
+        }
+
+        private static Object read(Object state, String name) {
+            try {
+                Field field = state.getClass().getDeclaredField(name);
+                field.setAccessible(true);
+                return field.get(state);
+            } catch (ReflectiveOperationException | RuntimeException e) {
+                throw new AssertionError("Cannot read GuiTextRenderState." + name + " - the drawn text "
+                        + "of a screen is unreadable, so the filter glyph cannot be told apart from "
+                        + "any other glyph.", e);
+            }
+        }
+    }
+
+
+    // ------------------------------------------------------------------------------------------
+    // What the hopper screen draws, pinned by value rather than by "something changed"
+    // ------------------------------------------------------------------------------------------
+
+    /**
+     * The filter button is 18x18 and sits right of the five slots, one row down.
+     *
+     * <p>Nothing above this pins it. {@link #clickFilterButton} finds "the only button on the
+     * screen" and clicks the centre the button reports itself, so a button moved off the screen
+     * edge or blown up to 30x30 is still found, still clicked, still toggles the mode - and the
+     * screenshots still differ, because the icon moved with it. The numbers here are the ones
+     * {@code NetheriteHopperScreen.init} computes, written out a second time so that changing one
+     * of them is a decision and not an accident.
+     *
+     * <p>Relative to the screen origin rather than absolute, because that depends on the window.
+     */
+    private static void assertFilterButtonGeometry(Script script) {
+        script.act("the filter button is 18x18 right of the five slots", client -> {
+            AbstractContainerScreen<?> screen = containerScreen(client);
+            Button button = onlyButton(screen);
+
+            int expectedX = leftPos(screen) + 44 + 5 * 18 + 4;
+            int expectedY = topPos(screen) + 19;
+
+            if (button.getX() != expectedX || button.getY() != expectedY
+                    || button.getWidth() != 18 || button.getHeight() != 18) {
+                throw new AssertionError("The hopper filter button is " + button.getWidth() + "x"
+                        + button.getHeight() + " at " + button.getX() + "/" + button.getY()
+                        + ", expected 18x18 at " + expectedX + "/" + expectedY
+                        + " (right of the five hopper slots, one row below the top). A button that "
+                        + "has moved or changed size is still found and still clicked by this test, "
+                        + "so nothing else here would notice.");
+            }
+        });
+    }
+
+    /**
+     * The active filter modes draw their own glyph in their own colour.
+     *
+     * <p>The screenshot pair proves that whitelist and type look <em>different</em>. It cannot
+     * prove <em>which</em> is which: swapping the check mark with the T, or the green with the
+     * orange, leaves both differences exactly as large. This reads the text the screen actually
+     * submitted and compares it with what a player is told to expect.
+     *
+     * <p>Restricted to the text inside the button, because the screen also draws the word
+     * "Filter:" beside it and the inventory label below.
+     */
+    private static void assertFilterGlyph(Script script, HopperFilterMode mode,
+                                          String expectedGlyph, int expectedColor) {
+        script.act("the " + mode + " filter button draws its own glyph", client -> {
+            Button button = onlyButton(containerScreen(client));
+            List<DrawnText> inside = new ArrayList<>();
+
+            for (DrawnText text : drawnTexts(extractScreenState(client))) {
+                if (text.x() >= button.getX() && text.x() < button.getX() + button.getWidth()
+                        && text.y() >= button.getY() && text.y() < button.getY() + button.getHeight()) {
+                    inside.add(text);
+                }
+            }
+
+            if (inside.size() != 1) {
+                throw new AssertionError("The " + mode + " filter button draws " + inside.size()
+                        + " texts instead of exactly one: " + inside + ". Everything drawn inside the "
+                        + "button is the mode icon, so more than one means the icon cannot be named.");
+            }
+
+            DrawnText glyph = inside.get(0);
+
+            if (!glyph.text().equals(expectedGlyph) || glyph.color() != expectedColor) {
+                throw new AssertionError("The " + mode + " filter button draws [" + glyph.text()
+                        + "] in " + String.format("0x%08X", glyph.color()) + ", expected ["
+                        + expectedGlyph + "] in " + String.format("0x%08X", expectedColor)
+                        + ". Two modes that swapped their glyphs or their colours produce screenshot "
+                        + "differences of exactly the same size, so only this can tell them apart.");
+            }
+        });
+    }
+
+    /**
+     * A filtered slot gets the orange overlay, over the whole slot and in that colour.
+     *
+     * <p>{@code assertDrew} measures "with a ghost item versus without", so ANY visible colour
+     * passes it - magenta, or an opaque black that hides the icon the overlay is supposed to sit
+     * behind. The colour and the rectangle are pinned here, at the slot the ghost item was just
+     * written to.
+     */
+    private static void assertGhostSlotOverlay(Script script) {
+        script.act("the filtered slot carries the orange overlay", client -> {
+            AbstractContainerScreen<?> screen = containerScreen(client);
+            Slot slot = screen.getMenu().slots.get(0);
+            int slotX = leftPos(screen) + slot.x;
+            int slotY = topPos(screen) + slot.y;
+
+            List<String> found = new ArrayList<>();
+
+            for (ColoredRectangleRenderState rectangle : filledRectangles(extractScreenState(client))) {
+                if (rectangle.x0() == slotX && rectangle.y0() == slotY) {
+                    found.add(String.format("%d/%d..%d/%d in 0x%08X", rectangle.x0(), rectangle.y0(),
+                            rectangle.x1(), rectangle.y1(), rectangle.col1()));
+
+                    if (rectangle.x1() == slotX + 16 && rectangle.y1() == slotY + 16
+                            && rectangle.col1() == GHOST_SLOT_OVERLAY
+                            && rectangle.col2() == GHOST_SLOT_OVERLAY) {
+                        return;
+                    }
+                }
+            }
+
+            throw new AssertionError("The filtered hopper slot has no 16x16 overlay in "
+                    + String.format("0x%08X", GHOST_SLOT_OVERLAY) + " at " + slotX + "/" + slotY
+                    + ". Rectangles starting at that corner: " + found + ". The screenshot check "
+                    + "only asks whether anything changed there, so any other colour - including "
+                    + "one opaque enough to hide the ghost icon - passes it.");
+        });
+    }
+
+    /**
+     * The ghost icon stays out of a slot that already holds something.
+     *
+     * <p>The measurement above runs with hopper slot 0 empty from beginning to end, so removing
+     * the "slot is empty" guard produces a bit-identical screenshot. Here the slot is filled
+     * first: the overlay has to stay - it marks the slot as filtered either way - while the ghost
+     * icon has to disappear, because in the game it would be painted over the real item and make
+     * the slot unreadable.
+     *
+     * <p>Counted by item render states rather than by pixels: the icon and a real item are both
+     * items, and at the same position, so a picture cannot separate them.
+     */
+    private static void assertTheGhostIconStaysOutOfAnOccupiedSlot(Script script) {
+        Later<Integer> withEmptySlot = new Later<>("the items drawn in the empty filtered slot");
+
+        script.act("count what is drawn in the filtered slot while it is empty",
+                client -> withEmptySlot.set(itemsDrawnInHopperSlotZero(client)));
+
+        script.verify("setup: the empty filtered slot draws exactly one item, the ghost icon", () -> {
+            if (withEmptySlot.get() != 1) {
+                throw new AssertionError("Setup failed: the empty filtered slot draws "
+                        + withEmptySlot.get() + " items instead of the one ghost icon, so the check "
+                        + "below could not tell whether the icon disappeared.");
+            }
+        });
+
+        runOnServer(script, "put a stone block into hopper slot 0", server -> {
+            BlockEntity entity = firstPlayer(server).level().getBlockEntity(CONTAINER_POS);
+
+            if (!(entity instanceof Container container)) {
+                throw new AssertionError("Setup failed: " + CONTAINER_POS + " holds " + entity
+                        + " instead of the netherite hopper.");
+            }
+
+            container.setItem(0, new ItemStack(Items.STONE, 1));
+        });
+
+        script.awaitPackets();
+        script.await("the filled hopper slot reaches the client", 120,
+                client -> !containerScreen(client).getMenu().slots.get(0).getItem().isEmpty(),
+                client -> "Hopper slot 0 still reads as empty on the client, so the check below "
+                        + "would measure the empty case again.");
+        script.idle("let the filled slot settle", 10);
+
+        script.act("the ghost icon is gone while the slot holds an item", client -> {
+            int drawn = itemsDrawnInHopperSlotZero(client);
+
+            if (drawn != 1) {
+                throw new AssertionError("Hopper slot 0 holds a stone block and the screen draws "
+                        + drawn + " items at that position instead of one. The ghost icon is being "
+                        + "painted over a real item, which makes the slot content unreadable. This "
+                        + "is invisible to every screenshot in this test, because all of them are "
+                        + "taken while the slot is empty.");
+            }
+        });
+
+        script.act("the overlay is still there, so the slot is still marked as filtered", client -> {
+            AbstractContainerScreen<?> screen = containerScreen(client);
+            Slot slot = screen.getMenu().slots.get(0);
+            int slotX = leftPos(screen) + slot.x;
+            int slotY = topPos(screen) + slot.y;
+
+            for (ColoredRectangleRenderState rectangle : filledRectangles(extractScreenState(client))) {
+                if (rectangle.x0() == slotX && rectangle.y0() == slotY
+                        && rectangle.col1() == GHOST_SLOT_OVERLAY) {
+                    return;
+                }
+            }
+
+            throw new AssertionError("A filled slot with a filter lost its orange overlay as well. "
+                    + "Only the icon may go; the mark that the slot is filtered has to stay.");
+        });
+
+        runOnServer(script, "empty hopper slot 0 again", server -> {
+            if (firstPlayer(server).level().getBlockEntity(CONTAINER_POS) instanceof Container container) {
+                container.setItem(0, ItemStack.EMPTY);
+            }
+        });
+        script.awaitPackets();
+        script.idle("let the emptied slot reach the client", 10);
+    }
+
+    /** How many item icons the screen draws at hopper slot 0 - the ghost, the real item, or both. */
+    private static int itemsDrawnInHopperSlotZero(Minecraft client) {
+        AbstractContainerScreen<?> screen = containerScreen(client);
+        Slot slot = screen.getMenu().slots.get(0);
+        int slotX = leftPos(screen) + slot.x;
+        int slotY = topPos(screen) + slot.y;
+        int[] count = {0};
+
+        extractScreenState(client).forEachItem(item -> {
+            if (item.x() == slotX && item.y() == slotY) {
+                count[0]++;
+            }
+        });
+
+        return count[0];
+    }
+
+    /** The screen's only button, with the assertion that there is exactly one. */
+    private static Button onlyButton(AbstractContainerScreen<?> screen) {
+        Button found = null;
+
+        for (GuiEventListener child : screen.children()) {
+            if (child instanceof Button button) {
+                if (found != null) {
+                    throw new AssertionError("The netherite hopper screen has more than one button; "
+                            + "the test would not know which one is the filter toggle.");
+                }
+
+                found = button;
+            }
+        }
+
+        if (found == null) {
+            throw new AssertionError("The netherite hopper screen has no button; the filter toggle "
+                    + "is gone.");
+        }
+
+        return found;
+    }
+
     /**
      * Clicks the hopper screen's single button and leaves the screen ready for a screenshot.
      *
@@ -1220,24 +1635,7 @@ public final class HudAndTooltipClientTest {
      */
     private static void clickFilterButton(Script script) {
         moveCursorToGui(script, "the filter button", client -> {
-            Button found = null;
-
-            for (GuiEventListener child : containerScreen(client).children()) {
-                if (child instanceof Button button) {
-                    if (found != null) {
-                        throw new AssertionError("The netherite hopper screen has more than one button; "
-                                + "the test would not know which one is the filter toggle.");
-                    }
-
-                    found = button;
-                }
-            }
-
-            if (found == null) {
-                throw new AssertionError("The netherite hopper screen has no button; the filter toggle "
-                        + "is gone.");
-            }
-
+            Button found = onlyButton(containerScreen(client));
             return new int[] {found.getX() + found.getWidth() / 2, found.getY() + found.getHeight() / 2};
         });
 
@@ -1275,13 +1673,13 @@ public final class HudAndTooltipClientTest {
         return ((NetheriteHopperScreen) client.gui.screen()).getMenu().getSyncedFilterMode();
     }
 
-    private static void assertCarriedIs(Script script, Item expected, String step) {
-        script.act("the cursor carries one " + expected + " after " + step, client -> {
+    private static void assertCarriedIs(Script script, Item expected, int count, String step) {
+        script.act("the cursor carries " + count + " " + expected + " after " + step, client -> {
             ItemStack stack = containerScreen(client).getMenu().getCarried();
 
-            if (!stack.is(expected) || stack.getCount() != 1) {
+            if (!stack.is(expected) || stack.getCount() != count) {
                 throw new AssertionError("After " + step + " the cursor carries " + stack
-                        + " instead of one " + expected + ".");
+                        + " instead of " + count + " " + expected + ".");
             }
         });
     }

@@ -1,9 +1,11 @@
 package com.simplebuilding.clientgametest;
 
 import net.minecraft.client.CameraType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.CloudStatus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ParticleStatus;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -89,6 +91,64 @@ public final class TestScene {
         script.idle("let the options take effect", 10);
 
         assertAimedAt(script, TARGET, TARGET_FACE);
+        assertTheClientSeesAnEmptyScene(script);
+    }
+
+    /**
+     * Fails unless the <em>client</em> agrees that the working volume in front of the camera is
+     * empty.
+     *
+     * <p>The three fills above are server commands, and the server reporting "1831 blocks filled"
+     * says nothing about what this client is drawing. That gap is not hypothetical: a run on
+     * 26.2 had the ladder column that {@code AirJumpClientTest} builds still on screen seven
+     * seconds after the fill that removed it, and it was still changing between two screenshots
+     * taken three seconds apart. The test that paid for it was the next one in the list, and what
+     * it reported was "Scene is not deterministic - 4950 changed pixels while nothing changed on
+     * screen" - a true statement that names neither the block nor the test that left it behind.
+     *
+     * <p>Read from {@code client.level}, so it is the client's own copy that is checked and not
+     * the server's. The box is the part of the volume the camera can actually see: from the floor
+     * up to head height, in front of the player, out to the wall. The floor (y = -1) and the wall
+     * (z = {@link #WALL_Z}) are excluded, because those are the scene.
+     *
+     * <p>A wait rather than a plain check, because the block data legitimately takes a few ticks
+     * to arrive - but a short one, since everything before it has already waited for the packets
+     * and the chunks.
+     */
+    public static void assertTheClientSeesAnEmptyScene(Script script) {
+        script.await("the client sees the working volume as empty", 100,
+                client -> firstLeftoverBlock(client) == null,
+                client -> {
+                    String leftover = firstLeftoverBlock(client);
+                    return "The client still has " + leftover + " in the working volume, which the "
+                            + "scene build filled with air. Whatever ran before this test left it "
+                            + "behind, or the client never rebuilt that chunk section - either way "
+                            + "every screenshot below would compare a scene that is still changing.";
+                });
+    }
+
+    /** The first block the client still has inside the volume, described, or null if it is clean. */
+    private static String firstLeftoverBlock(Minecraft client) {
+        if (client.level == null) {
+            return "no client level at all";
+        }
+
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+
+        for (int z = 11; z < WALL_Z; z++) {
+            for (int y = 0; y <= 6; y++) {
+                for (int x = 2; x <= 20; x++) {
+                    cursor.set(x, y, z);
+
+                    if (!client.level.getBlockState(cursor).isAir()) {
+                        return BuiltInRegistries.BLOCK.getKey(client.level.getBlockState(cursor).getBlock())
+                                + " at " + cursor.getX() + "/" + cursor.getY() + "/" + cursor.getZ();
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     /** Freezes everything client side that could move pixels between two screenshots. */

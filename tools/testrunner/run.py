@@ -1055,6 +1055,12 @@ def release_gate(timeout: int) -> tuple[bool, list[str]]:
     for label, command in (
         ("gradlew check", [*gradlew(), "check"]),
         ("wiki/generate.py --check", [sys.executable, "wiki/generate.py", "--check"]),
+        # The 1.21.11 client tests are a translated COPY of the shared tree, so an assertion
+        # added on the 26.2 side is not on the other line until someone re-runs the port. The
+        # parity gate below cannot see that: both trees would still promise the same
+        # screenshots. This is the check that can - it re-translates and compares.
+        ("tools/port_client_tests_to_1_21_11.py --check",
+         [sys.executable, "tools/port_client_tests_to_1_21_11.py", "--check"]),
     ):
         code, output, timed_out = run_capture(command, timeout)
         if timed_out:

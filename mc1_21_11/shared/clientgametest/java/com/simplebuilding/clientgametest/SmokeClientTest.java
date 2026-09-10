@@ -976,7 +976,7 @@ public final class SmokeClientTest {
      * registered {@code ClientReceiveMessageEvents.GAME}; that is a Fabric event and NeoForge has
      * no equivalent that a shared body could call. What both loaders do have is the place the
      * message ends up: {@code ChatListener#handleOverlay} calls {@code Gui.hud.setOverlayMessage},
-     * which stores the component in {@code Hud.overlayMessageString} - and it does so from the
+     * which stores the component in {@code Gui.overlayMessageString} - and it does so from the
      * packet handler, not from the renderer, so a hidden HUD (which {@link TestScene} leaves
      * behind) still records it. That field is private and has no getter, so
      * {@link #currentActionBarMessage} reads it reflectively. Reflection can fail for reasons that
@@ -1144,7 +1144,7 @@ public final class SmokeClientTest {
         script.await("the action bar is readable and primed for \"" + step + "\"", 60,
                 client -> ACTION_BAR_SENTINEL.equals(currentActionBarMessage(client)),
                 client -> "a /title actionbar of \"" + ACTION_BAR_SENTINEL + "\" never turned up in "
-                        + "Hud.overlayMessageString (it reads \"" + currentActionBarMessage(client)
+                        + "Gui.overlayMessageString (it reads \"" + currentActionBarMessage(client)
                         + "\"). Either the message never arrived or this client's action bar cannot "
                         + "be read the way this test reads it - in both cases the four item frame "
                         + "assertions below would be meaningless, so they are not attempted.");
@@ -1153,7 +1153,7 @@ public final class SmokeClientTest {
     /**
      * What the client's action bar currently says, or the empty string.
      *
-     * <p>Reflective on purpose and with no fallback: {@code Hud.overlayMessageString} is private,
+     * <p>Reflective on purpose and with no fallback: {@code Gui.overlayMessageString} is private,
      * has no getter, and is the only place the message exists on the client. The alternatives were
      * weighed and rejected - a loader event is not shared code (that is what this port removes), a
      * pixel comparison of a HUD that has to be shown again would measure the camera and the swung
