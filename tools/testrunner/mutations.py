@@ -589,8 +589,11 @@ def run_server_mutation(number: int, m: Mutation, target: str, timeout: int) -> 
     apply(m)
     print(f"  eingespielt  {m.id}  ({m.file})")
     try:
+        # The selector wants the namespace; without it the server says "found no tests" and the
+        # report has no such case, which reads as "not in the report", not as "still green".
+        selector = m.script if ":" in m.script else f"simplebuilding:{m.script}"
         subprocess.run([sys.executable, "tools/testrunner/run.py", "--targets", target,
-                        "--filter", m.script, "--timeout", str(timeout),
+                        "--filter", selector, "--timeout", str(timeout),
                         "--trigger", f"mutation-{m.id}"],
                        cwd=REPO, capture_output=True, text=True)
         message = server_failure(target, m.script)

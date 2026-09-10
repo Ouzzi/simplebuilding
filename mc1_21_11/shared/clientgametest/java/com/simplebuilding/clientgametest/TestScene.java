@@ -55,6 +55,14 @@ public final class TestScene {
      * @param gameMode    {@code creative} or {@code survival}
      */
     public static void build(Script script, String wallBlockId, String gameMode) {
+        // What the script before this one left behind is this script's problem only if it is
+        // allowed to be. A script that failed skipped its own tidying - the screen it had opened
+        // stays open, the keys it held stay held - and under a mutation round that is the normal
+        // case, not the exception: one red step in the bootstrap script left a wand screen open
+        // and six scripts after it failed on "a screen is open". So the scene starts by closing
+        // whatever is open and releasing whatever is held, before the first command goes out.
+        script.act("close whatever screen the previous script left open", client -> client.setScreen(null));
+        script.harness("release whatever input the previous script left held", Harness::releaseAllInput);
         // The snake_case game rule ids are the ones both Minecraft lines use. The camelCase names
         // that used to stand here do not exist any more, and every one of those commands was
         // silently a no-op: the command path swallows the brigadier error instead of reporting it,

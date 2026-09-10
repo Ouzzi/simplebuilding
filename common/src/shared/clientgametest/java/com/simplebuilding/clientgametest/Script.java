@@ -376,8 +376,16 @@ public final class Script {
             if (ticksInStep > entry.timeoutTicks()) {
                 String detail = "";
                 if (entry.diagnosis() != null) {
+                    // On the client thread, like the step itself: Fabric's driver ticks the script
+                    // from its test thread, where Minecraft.getInstance() refuses - and a
+                    // diagnosis that "itself failed" is the one sentence a timed out step had.
+                    String[] text = {""};
                     try {
-                        detail = " - " + entry.diagnosis().apply(Minecraft.getInstance());
+                        harness.run(Where.CLIENT, () -> {
+                            text[0] = entry.diagnosis().apply(Minecraft.getInstance());
+                            return true;
+                        });
+                        detail = " - " + text[0];
                     } catch (Exception e) {
                         detail = " - the diagnosis itself failed: " + e;
                     }
