@@ -537,7 +537,15 @@ Ehrlich benannt, damit niemand es für eine Lücke hält:
 Entscheidungen des Besitzers aus P4 sind Verhalten, kein Rückstand. Der Stand ist mit
 `python tools/testrunner/run.py --release-gate --targets everything` reproduzierbar: Gate
 (`gradlew check`, Wiki, Client-Port, Körper-Drift, Id-Parität), 1078 Servertests auf vier
-Zielen, 102 Prüfpunkte je Client-Ziel.
+Zielen, 102 Prüfpunkte je Client-Ziel. Letzter Lauf (`2026-09-10T15-38-40Z-cfa0` + Serverlauf
+`16-27-20Z-375c`): Gate in Ordnung, 1078/1078, 4 × 102/102.
+
+Der Abschlusslauf hat noch einen flackernden Servertest gezeigt, auf beiden 1.21.11-Zielen
+zugleich: die Void-Rettung hebt das Enderit auf Weltboden + 5 — das ist genau die Bodenebene des
+Gametest-Raums, das Item landet **im** Bodenblock, und Vanillas `ItemEntity` schiebt es auf einem
+Tick, den `(tickCount + id) % 4` wählt, wieder hinaus. Die Entity-Id hängt an allem, was Tests
+davor gespawnt haben. Der Test liest die Hubhöhe jetzt einen Tick nach dem Fallenlassen (exakt) und
+lässt Vanillas Schubs danach zu (< 2 Blöcke); zweimal grün auf allen vier Zielen.
 
 P5 war früh dran, weil ein Gate, das die Schieflage bemerkt hätte, sie gar nicht erst hätte
 entstehen lassen — und es hat sich sofort bezahlt gemacht: Der erste Lauf hat den fehlenden

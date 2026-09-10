@@ -465,6 +465,22 @@ public final class ProtectionAndRangeTests {
         ItemEntity justAbove = dropAt(helper, ModItems.ENDERITE_INGOT, 1.5, justAboveY, 3.5);
         ItemEntity justBelow = dropAt(helper, ModItems.ENDERITE_INGOT, 5.5, justBelowY, 3.5);
 
+        // The rescue height is read in the first tick after the drop, not after the settle: the
+        // target y (world floor + 5) is the gametest room's own floor level, so the lifted item
+        // lands INSIDE that floor block and vanilla's ItemEntity pushes it out again - upwards,
+        // by about a block, on a tick chosen by (tickCount + id) % 4. That push is vanilla's and
+        // depends on the entity id, i.e. on every entity any test before this one spawned; after
+        // five ticks it had happened on one run and not on the next (1.07 blocks off on both
+        // 1.21.11 loaders at once, never before). The mod's claim is the height it lifts to,
+        // and that is exact one tick after the drop; where vanilla nudges it afterwards is
+        // checked loosely below.
+        double[] liftedTo = {Double.NaN};
+        double[] justBelowLiftedTo = {Double.NaN};
+        helper.runAfterDelay(1, () -> {
+            liftedTo[0] = rescued.getY();
+            justBelowLiftedTo[0] = justBelow.getY();
+        });
+
         helper.startSequence()
                 .thenExecuteAfter(VOID_SETTLE_TICKS, () -> {
                     // --- 1. just below the floor: frozen in place ---
@@ -490,12 +506,16 @@ public final class ProtectionAndRangeTests {
                                     + ", five blocks above the world floor, but it is at y=" + rescued.getY()
                                     + "; a fixed rescue height instead of one derived from getMinY() is "
                                     + "exactly the pre-1.18 bug this test exists for");
-                    helper.assertTrue(Math.abs(rescued.getY() - rescueTargetY) < 1.0,
-                            "the rescue put the enderite ingot at y=" + rescued.getY() + " instead of y="
+                    helper.assertTrue(Math.abs(liftedTo[0] - rescueTargetY) < 0.5,
+                            "the rescue put the enderite ingot at y=" + liftedTo[0] + " instead of y="
                                     + rescueTargetY + " (" + VOID_RESCUE_TARGET_HEIGHT + " blocks above the "
-                                    + "world floor " + minY + "); the target height moved, and everything "
-                                    + "between the floor and the first solid block is still 'inside the "
-                                    + "world' as far as the bounds above are concerned");
+                                    + "world floor " + minY + ") one tick after the drop; the target height "
+                                    + "moved, and everything between the floor and the first solid block is "
+                                    + "still 'inside the world' as far as the bounds above are concerned");
+                    helper.assertTrue(Math.abs(rescued.getY() - rescueTargetY) < 2.0,
+                            "the rescued enderite ingot drifted from y=" + liftedTo[0] + " to y="
+                                    + rescued.getY() + " within " + VOID_SETTLE_TICKS + " ticks; vanilla's "
+                                    + "push out of the room floor accounts for about one block, not more");
 
                     // --- 3. an item outside the tag: the void keeps it ---
                     helper.assertTrue(doomed.isRemoved(),
@@ -532,12 +552,19 @@ public final class ProtectionAndRangeTests {
                     // --- 6. one block below it: lift, do not leave it hanging ---
                     helper.assertTrue(justBelow.isAlive(),
                             "an enderite ingot at y=" + justBelowY + " was removed instead of rescued");
-                    helper.assertTrue(Math.abs(justBelow.getY() - rescueTargetY) < 1.0,
+                    // Read one tick after the drop, for the same reason as the rescued probe above.
+                    helper.assertTrue(Math.abs(justBelowLiftedTo[0] - rescueTargetY) < 0.5,
                             "an enderite ingot " + VOID_JUST_BELOW_THRESHOLD_DEPTH + " blocks below the "
-                                    + "world floor stayed at y=" + justBelow.getY() + " instead of coming "
+                                    + "world floor stayed at y=" + justBelowLiftedTo[0] + " instead of coming "
                                     + "back to y=" + rescueTargetY + "; the rescue threshold has moved "
                                     + "deeper, and everything between " + VOID_RESCUE_THRESHOLD_DEPTH
                                     + " blocks and the new one floats out of reach forever");
+                    helper.assertTrue(Math.abs(justBelow.getY() - rescueTargetY) < 2.0,
+                            "the enderite ingot rescued from " + VOID_JUST_BELOW_THRESHOLD_DEPTH
+                                    + " blocks below the floor drifted from y=" + justBelowLiftedTo[0]
+                                    + " to y=" + justBelow.getY() + " within " + VOID_SETTLE_TICKS
+                                    + " ticks; vanilla's push out of the room floor accounts for about "
+                                    + "one block, not more");
                 })
                 .thenSucceed();
     }
