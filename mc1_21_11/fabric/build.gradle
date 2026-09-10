@@ -45,6 +45,14 @@ fabricApi {
 	}
 }
 
+// The shared client test tree, same as on the 26.2 line - one catalogue, one set of scripts, two
+// drivers. Declared with sourceSets.named rather than inside a sourceSets { } block: Loom's
+// configureTests already created 'gametest', and naming it again there fails the build with
+// "a SourceSet with that name already exists".
+sourceSets.named('gametest') {
+	java.srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/shared/clientgametest/java')
+}
+
 // Automated in-game tests. Runs a headless server, loads the mod, executes every registered
 // GameTest and fails the build on the first failing one. Same shape as the 26.2 root project;
 // task name here is :mc1_21_11:fabric:runGametest.

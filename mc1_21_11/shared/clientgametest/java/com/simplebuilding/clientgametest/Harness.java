@@ -58,11 +58,14 @@ public interface Harness {
      * Works towards "everything the server sent has arrived and been handled"; true when settled.
      *
      *
-     * <p>Fabric answers this exactly, because its framework runs the client and server task queues
-     * in a fixed order and knows when they are empty. NeoForge has no such knowledge and says so:
-     * its implementation answers true straight away, and the {@code idle} steps around the call
-     * are what actually give the packets time. That is weaker, and it is written down here rather
-     * than papered over.
+     * <p>On this Minecraft line NEITHER driver answers this exactly, and both say so rather than
+     * pretending. NeoForge has no knowledge of the queues at all. Fabric here runs against
+     * fabric-client-gametest-api-v1 4.3.5, which does not yet expose
+     * {@code TestSingleplayerContext#getConnection()} or {@code waitForClientboundPackets()} - the
+     * 26.2 line does, and there the same method is an exact barrier. Both implementations
+     * therefore answer true straight away and the {@code idle} steps around every call are what
+     * actually give the packets time. That is weaker than the 26.2 Fabric answer, and it is
+     * written down here rather than papered over.
      */
     boolean packetsSettled() throws Exception;
 

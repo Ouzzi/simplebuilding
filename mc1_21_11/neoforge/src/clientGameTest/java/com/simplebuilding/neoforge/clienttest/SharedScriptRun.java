@@ -18,8 +18,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.LevelSettings;
 import net.minecraft.world.level.WorldDataConfiguration;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.levelgen.WorldOptions;
 import net.minecraft.world.level.levelgen.presets.WorldPresets;
 
@@ -330,8 +332,11 @@ final class SharedScriptRun implements Harness {
         // world and inherits whatever it left behind.
         String levelName = "sb-client-tests-" + System.nanoTime();
 
-        LevelSettings settings = new LevelSettings(levelName, GameType.CREATIVE,
-                new LevelSettings.DifficultySettings(Difficulty.PEACEFUL, false, true), true,
+        // 1.21.11 LevelSettings: (name, gameType, hardcore, difficulty, allowCommands, gameRules,
+        // dataConfiguration) - 26.2 folded difficulty/hardcore into a DifficultySettings record
+        // and takes the game rules from the preset.
+        LevelSettings settings = new LevelSettings(levelName, GameType.CREATIVE, false,
+                Difficulty.PEACEFUL, true, new GameRules(FeatureFlags.DEFAULT_FLAGS),
                 WorldDataConfiguration.DEFAULT);
 
         Log.info("creating a flat singleplayer world '" + levelName + "'");
@@ -340,7 +345,7 @@ final class SharedScriptRun implements Harness {
                 new WorldOptions(0L, false, false),
                 provider -> provider.lookupOrThrow(Registries.WORLD_PRESET)
                         .getOrThrow(WorldPresets.FLAT).value().createWorldDimensions(),
-                client.gui.screen());
+                client.screen);
     }
 
     private boolean worldIsUp() {
@@ -351,7 +356,7 @@ final class SharedScriptRun implements Harness {
                 && client.gameMode != null
                 && server != null
                 && server.isReady()
-                && client.gui.screen() == null;
+                && client.screen == null;
     }
 
     /** One command, handed to the server thread and then polled for its outcome. */

@@ -51,6 +51,12 @@ sourceSets {
     clientGameTest {
         compileClasspath += sourceSets.main.output
         runtimeClasspath += sourceSets.main.output
+
+        // The client test BODIES are shared with this line's Fabric module, the same way the
+        // server tests share mc1_21_11/shared/java. Only this source set pulls them in, so they
+        // stay out of every shipped jar. Note the path: the down-ported copy, not the 26.2 tree -
+        // the two Minecraft versions differ in real client APIs, not just mappings.
+        java.srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/shared/clientgametest/java')
     }
 }
 

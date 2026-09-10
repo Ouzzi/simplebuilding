@@ -37,9 +37,19 @@ public final class SimplebuildingClientTestMod {
 
         Log.info("active - the client will build a test scene, prove the renderers and then halt");
 
-        RendererProofRun run = new RendererProofRun();
+        // The hand written renderer proof that used to live beside this has been deleted: all
+        // twelve of its checkpoints are in the shared scripts, the last one - the control that
+        // takes the octant away again - as highlight-k-octant-removed. Keeping it would not have
+        // been free either: the parity gate reads screenshot names out of this directory, so its
+        // dead highlight-f-octant-removed kept showing up as a checkpoint NeoForge promises and
+        // Fabric does not.
+        SharedScriptRun run = new SharedScriptRun();
         NeoForge.EVENT_BUS.addListener(ClientTickEvent.Post.class, event -> run.onClientTick());
+        // Same job as the Fabric driver's registration: let the shared recorder see what the mod
+        // appended. LOWEST priority so it runs after the mod's own listener. Without it the
+        // recorder stays empty and the control case passes for the wrong reason.
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, ExtractLevelRenderStateEvent.class,
-                event -> BreakingStateRecorder.observe(event.getRenderState()));
+                event -> com.simplebuilding.clientgametest.BreakingStateRecorder
+                        .observe(event.getRenderState()));
     }
 }

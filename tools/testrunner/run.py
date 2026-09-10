@@ -922,14 +922,15 @@ LINE_DIFFERENCES: tuple[tuple[tuple[str, ...], tuple[str, ...], str], ...] = (
 #: shortfall and a NEW one, which is the case P5 exists to catch.
 #:
 #: Fabric and NeoForge use different client test frameworks (NeoForge ships no client test API
-#: at all, so its tests are a hand written step machine), which is why these cannot simply be
-#: copied across. testing/PLAN.md carries the two work packages: P2 for the Fabric line, P3 for
-#: the NeoForge decision.
-CLIENT_PARITY_DEBT: dict[str, int] = {
-    "client-fabric-12111": 68,
-    "client-neoforge-262": 73,
-    "client-neoforge-12111": 73,
-}
+#: at all, so its driver is a hand written step machine), which is why these could not simply be
+#: copied across. The way out was to write each test once as a step list against a shared facade
+#: and give each target a thin driver - work packages P2 and P3 in testing/PLAN.md, both done.
+#: EMPTY since 2026-09-10, and that is the point of it being written down: all four client
+#: targets now declare the same 85 checkpoints, because all four run the same shared test
+#: bodies. The three entries that used to be here (68, 73, 73) are paid, not forgiven. An
+#: empty dict is not a switched off gate - the checks below still fail on any target that
+#: falls behind, and now they fail immediately instead of against a tolerated number.
+CLIENT_PARITY_DEBT: dict[str, int] = {}
 
 
 def check_parity() -> tuple[bool, list[str]]:

@@ -9,7 +9,7 @@ import com.simplebuilding.clientgametest.ClientTests;
 import com.simplebuilding.clientgametest.Harness;
 import com.simplebuilding.clientgametest.Script;
 import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
-import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
@@ -65,10 +65,15 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
      * or not at all - leaves the recorder empty, and an empty recorder makes the control case
      * ("the vanilla pickaxe tore nothing loose") trivially true. That is a false green, and it is
      * exactly what the adversarial review of the first port caught.
+     *
+     * <p>Line difference: 1.21.11 has no separate {@code LevelExtractionEvents} class. The same
+     * event lives on {@code WorldRenderEvents} and hands out a {@code WorldExtractionContext} whose
+     * accessor is {@code worldState()} rather than {@code levelState()}. Same event, same ordering
+     * guarantee, same listener.
      */
     private static void installBreakingStateRecorder(ClientGameTestContext context) {
-        context.runOnClient(client -> LevelExtractionEvents.END_EXTRACTION.register(
-                extraction -> BreakingStateRecorder.observe(extraction.levelState())));
+        context.runOnClient(client -> WorldRenderEvents.END_EXTRACTION.register(
+                extraction -> BreakingStateRecorder.observe(extraction.worldState())));
     }
 
     private void runScript(ClientGameTestContext context, TestSingleplayerContext singleplayer,
@@ -274,13 +279,20 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
 
         @Override
         public boolean packetsSettled() {
-            requireWorld("packetsSettled").getConnection().waitForClientboundPackets();
+            // 1.21.11 runs against fabric-client-gametest-api-v1 4.3.5, which has neither
+            // TestSingleplayerContext#getConnection() nor waitForClientboundPackets(). There is
+            // therefore nothing exact to wait for here, and inventing a poll would only look like
+            // one - so this answers the same way the NeoForge driver does, and the idle steps
+            // around every awaitPackets call are what actually give the packets time. See
+            // Harness#packetsSettled, which describes exactly this case.
+            requireWorld("packetsSettled");
             return true;
         }
 
         @Override
         public boolean chunksRendered() {
-            requireWorld("chunksRendered").getConnection().waitForChunksRender();
+            // On 4.3.5 the chunk barrier hangs off the client world rather than a connection.
+            requireWorld("chunksRendered").getClientWorld().waitForChunksRender();
             return true;
         }
 

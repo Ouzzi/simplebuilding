@@ -17,6 +17,12 @@ property simplebuilding.clienttest is set to true.
 '''
 authors="simplebuilding"
 
+# The mouse callbacks the tests need. A scroll is not a key binding, neither is a cursor
+# position, and neither is a click that an open SCREEN has to see. Test-only, in the test
+# source set, never in a shipped jar.
+[[mixins]]
+config="simplebuildingclienttest.mixins.json"
+
 [[dependencies.simplebuildingclienttest]]
 modId="neoforge"
 type="required"
