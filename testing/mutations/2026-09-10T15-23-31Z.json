@@ -1,0 +1,20 @@
+{
+  "target": "client-fabric-262",
+  "catalogue": "false-greens",
+  "rounds": [
+    {
+      "round": 1,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-immediate-feedback",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The click was swallowed but the client block entity still has no ghost item in slot 0. The screen is waiting for the server to tell it what it already knows, so the filter icon appears a round trip late."
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}

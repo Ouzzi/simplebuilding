@@ -378,12 +378,41 @@ ob die Geisterblöcke um ihre Mitte schrumpfen; ein Zähler-Mixin je Loader zäh
 
 | Behaupteter Test | Einträge | Stand |
 |---|---:|---|
-| `HudAndTooltipClientTest` (Trichterfilter, Geisterslots, Slotklicks, Rangefinder, Bündel-Skala) | 11 | geschärft |
-| `ClientBootstrapClientTest` (Modifikatoren, Auswahltasten, Zweithand, Farben, Kreativ-Sperre, Leertaste) | 6 | geschärft |
-| `BuildingWandPreviewClientTest` (kein Blocktreffer, Schwerpunkt) | 2 | geschärft |
-| `BlockHighlightClientTest` / `MultiBlockBreakingClientTest` | 2 | geschärft |
-| `SmokeClientTest` (alle fünf Sync-Felder) | 1 | geschärft |
-| Server: Trichter-Ordinal, nur PICKUP | 2 | geschärft bzw. schon gedeckt, per Mutation zu belegen |
+| `HudAndTooltipClientTest` (Trichterfilter, Geisterslots, Slotklicks, Rangefinder, Bündel-Skala) | 11 | geschärft, **rot belegt** |
+| `ClientBootstrapClientTest` (Modifikatoren, Auswahltasten, Zweithand, Farben, Kreativ-Sperre, Leertaste) | 6 | geschärft, **rot belegt** |
+| `BuildingWandPreviewClientTest` (kein Blocktreffer, Schwerpunkt) | 2 | geschärft, **rot belegt** (Schwerpunkt erst im zweiten Anlauf, s. u.) |
+| `BlockHighlightClientTest` / `MultiBlockBreakingClientTest` | 2 | geschärft, **rot belegt** (Werkzeugwache erst im zweiten Anlauf, s. u.) |
+| `SmokeClientTest` (alle fünf Sync-Felder) | 1 | geschärft, **rot belegt** |
+| Server: Trichter-Ordinal, nur PICKUP | 2 | **rot belegt** |
+
+**Gegenprobe gefahren am 2026-09-10** (`tools/testrunner/mutations.py --run`, Fabric 26.2, Datensätze
+unter `testing/mutations/`): erster voller Lauf 17 von 22 rot wie erwartet, 0 Nebenschäden. Die
+fünf anderen waren zu je einem Drittel Werkzeug, Testschwäche und Erwartung:
+
+- **Zwei Schärfungen sahen ihre Mutation nicht** — genau das, wofür die Gegenprobe da ist:
+  - *Werkzeugwache des Riss-Renderers*: auf dem Strip-Miner-Zweig ein **äquivalenter Mutant**,
+    weil `getStripMinerBlocks` selbst am ersten unabbaubaren Block abbricht. Die Wache ist nur
+    auf dem Vein-Miner-Zweig die einzige (die Erzliste fragt nie nach dem Werkzeug): neuer Fall
+    `breaking-g` (Steinspitzhacke + Aderabbau an Diamanterz, kein Riss am Nachbarn), die
+    Mutation zeigt dorthin — rot.
+  - *Schwerpunkt der Geisterblöcke*: die 11×11-Ebene ragt links und rechts aus dem Bild, ihr
+    Schwerpunkt war damit immer die Bildmitte (gemessen: 1,5 Pixel Verschiebung unter der
+    Mutation). Jetzt auf der 3×3-Ebene des Kupferstabs gemessen (`wand-j`) — rot.
+  - *Sofort-Feedback des Trichterfilters*: Klick und Prüfung lagen einen Tick auseinander, der
+    Server hatte bis dahin geantwortet. Jetzt bekommt der Bildschirm das Ereignis auf dem
+    Client-Thread und die Blockentity wird im selben Aufruf gelesen.
+- **Zwei scheiterten am Gerüst, nicht am Mod**: der Himmel-Frame nach `allChanged()` (Fabrics
+  `waitForChunksRender` kehrt sofort zurück — jetzt fragen alle vier Treiber
+  `isSectionCompiledAndVisible`) und dreizehn wippende Leiter-Items, die `/fill` beim Leeren
+  der Szene fallen lässt (zweites `kill @e` nach dem Leeren).
+- **Eine Erwartung war falsch geschrieben**: der JUnit-Bericht trägt die Ausnahmemeldung
+  („Index 3 out of bounds for length 3"), nicht den Klassennamen.
+
+Und was der allererste Anlauf gezeigt hat, bevor überhaupt ein Urteil möglich war: ein roter
+Schritt hinterlässt seinen Zustand dem nächsten Skript. Ein offener `BuildingWandScreen` ist ein
+Pausenbildschirm, der integrierte Server stand, und sechs Folgeskripte scheiterten an Dingen, die
+mit ihrer Mutation nichts zu tun hatten. `TestScene.build` schließt seither zuerst und lässt
+alles los — ohne das wäre „eine Mutation je Skript und Runde" wertlos.
 
 ### P8 — Die Testkörper der 1.21.11-Linie sind hinter 26.2 zurückgefallen *(neu, 2026-09-10)*
 
