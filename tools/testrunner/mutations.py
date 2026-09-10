@@ -53,6 +53,9 @@ class Mutation:
     script: str
     expect: str
     claim: str
+    #: "client" runs a client target and reads its log; "server" runs one server target with the
+    #: catalogue id in ``script`` as the filter and reads the JUnit report.
+    kind: str = "client"
 
 
 #: Every entry is one of the 21 client side false greens from testing/audit_falsegreens.json,
@@ -173,6 +176,22 @@ MUTATIONS: list[Mutation] = [
              "} else if (sneaking) {",
              "multi-block-breaking", "iron Strip Miner pickaxe produced breaking cracks",
              "sneaking alone is not enough; the tool has to fit"),
+    Mutation("hopper-ordinal-bounds",
+             f"{SHARED}/screen/NetheriteHopperScreenHandler.java",
+             "        if (ordinal >= 0 && ordinal < HopperFilterMode.values().length) {\n            return HopperFilterMode.values()[ordinal];\n        }\n        return HopperFilterMode.NONE;",
+             "        return HopperFilterMode.values()[ordinal];",
+             "hopper_game_test_the_mode_delegate_reads_and_writes_the_filter_mode",
+             "ArrayIndexOutOfBounds",
+             "an ordinal off the wire falls back to Disabled instead of crashing the screen",
+             kind="server"),
+    Mutation("hopper-pickup-only",
+             f"{SHARED}/screen/ModHopperScreenHandler.java",
+             "                if (actionType == ContainerInput.PICKUP) {\n                    blockEntity.setGhostItem(slotIndex, cursor.isEmpty() ? ItemStack.EMPTY : cursor);\n                    // Abbrechen, damit Item nicht wirklich reingelegt wird\n                    return; \n                }",
+             "                blockEntity.setGhostItem(slotIndex, cursor.isEmpty() ? ItemStack.EMPTY : cursor);\n                return;",
+             "hopper_game_test_hopper_menu_opens_on_use_and_filter_clicks_never_store_the_item",
+             "rewrote filter slot 0",
+             "only a plain pickup click sets the filter; swaps and drags fall through",
+             kind="server"),
     Mutation("survival-zero-fields",
              f"{SHARED}/mixin/SurvivalTracerMixin.java",
              "new SurvivalSyncPayload(currentDist, currentTime, totalHostileKills, totalPassiveKills, currentDamage)",
@@ -304,6 +323,58 @@ def failures_in_log(target: str) -> dict[str, str]:
     return found
 
 
+SERVER_REPORT = {
+    "fabric-262": "build/junit.xml",
+    "neoforge-262": "neoforge/build/neoforge-junit.xml",
+    "fabric-12111": "mc1_21_11/fabric/build/junit.xml",
+    "neoforge-12111": "mc1_21_11/neoforge/build/neoforge-junit.xml",
+}
+
+
+def server_failure(target: str, test_id: str) -> str | None:
+    """The failure message of one test in the last JUnit report, or None when it passed."""
+    from xml.etree import ElementTree
+    root = ElementTree.parse(REPO / SERVER_REPORT[target]).getroot()
+    for case in root.iter("testcase"):
+        if (case.get("name") or "").endswith(test_id):
+            problem = case.find("failure")
+            if problem is None:
+                problem = case.find("error")
+            return None if problem is None else (problem.get("message") or problem.text or "")
+    return "TEST NICHT IM BERICHT"
+
+
+def run_server_mutation(number: int, m: Mutation, target: str, timeout: int) -> dict:
+    """One server mutation, one filtered server run. Cheap enough to do one at a time."""
+    if not working_tree_clean({m.file}):
+        raise SystemExit(f"{m.file} is not clean in git; commit or stash first")
+
+    print(f"\nServer-Runde {number}: {m.id} auf {target}")
+    apply(m)
+    print(f"  eingespielt  {m.id}  ({m.file})")
+    try:
+        subprocess.run([sys.executable, "tools/testrunner/run.py", "--targets", target,
+                        "--filter", m.script, "--timeout", str(timeout),
+                        "--trigger", f"mutation-{m.id}"],
+                       cwd=REPO, capture_output=True, text=True)
+        message = server_failure(target, m.script)
+    finally:
+        restore({m.file})
+        print("  zurueckgenommen")
+
+    if message is None:
+        ok, verdict = False, "GRUEN GEBLIEBEN - die Schaerfung beisst nicht"
+    elif m.expect in message:
+        ok, verdict = True, "rot, mit der erwarteten Meldung"
+    else:
+        ok, verdict = False, "rot, aber mit einer ANDEREN Meldung: " + message[:200]
+    print(f"  {'OK ' if ok else 'XX '} {m.id}: {verdict}")
+    return {"round": number, "target": target,
+            "mutations": [{"id": m.id, "script": m.script, "ok": ok, "verdict": verdict,
+                           "message": message}],
+            "collateral": {}}
+
+
 def run_round(number: int, mutations: list[Mutation], target: str, timeout: int) -> dict:
     files = {m.file for m in mutations}
     if not working_tree_clean(files):
@@ -358,6 +429,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--run", action="store_true")
     parser.add_argument("--only", default="", help="comma separated mutation ids")
     parser.add_argument("--target", default="client-fabric-262")
+    parser.add_argument("--server-target", default="fabric-262",
+                        help="the server target the server side mutations are proved on")
     parser.add_argument("--timeout", type=int, default=1200)
     args = parser.parse_args(argv)
 
@@ -377,15 +450,22 @@ def main(argv: list[str] | None = None) -> int:
     if args.check:
         return 1 if check_anchors(selected) else 0
 
-    rounds = plan(selected)
+    rounds = plan([m for m in selected if m.kind == "client"])
     if args.plan or not args.run:
+        for m in (m for m in selected if m.kind == "server"):
+            print(f"Server: {m.id} [{m.script}]")
         for i, r in enumerate(rounds, 1):
             print(f"Runde {i}: " + ", ".join(f"{m.id} [{m.script}]" for m in r))
-        print(f"{len(rounds)} Runden fuer {len(selected)} Mutationen")
+        print(f"{len(rounds)} Client-Runden fuer {len(selected)} Mutationen")
         return 0
 
     results = []
-    for i, r in enumerate(rounds, 1):
+    server_mutations = [m for m in selected if m.kind == "server"]
+    client_rounds = plan([m for m in selected if m.kind == "client"])
+
+    for i, m in enumerate(server_mutations, 1):
+        results.append(run_server_mutation(i, m, args.server_target, args.timeout))
+    for i, r in enumerate(client_rounds, 1):
         results.append(run_round(i, r, args.target, args.timeout))
 
     out_dir = REPO / "testing" / "mutations"

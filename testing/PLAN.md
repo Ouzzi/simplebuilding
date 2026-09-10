@@ -278,19 +278,27 @@ Testklasse ein eigener Client-Start (elf Starts je Linie — langsam, aber ohne 
 oder doch ein einzelner Mixin auf `disconnect`. Der zweite ist ein kleiner, klar umrissener
 Eingriff — nicht zu verwechseln mit dem ganzen Gerüst aus (b).
 
-### P4 — Die drei Restkategorien neu triagieren *(95 Einträge)*
+### P4 — Die drei Restkategorien neu triagieren — **erledigt am 2026-09-10**
 
-Zahlen aus dem Audit vom 2026-09-08. Die Einstufungen sind **Vorschläge der Prüfer, keine
-Urteile** — beim letzten Mal war ein gutes Drittel davon inzwischen doch machbar:
+Alle 97 Einträge einzeln gegengelesen; Urteil und Grund je Eintrag in `audit_offen.json` unter
+`p4`, Bericht in [`P4-TRIAGE-2026-09-10.md`](P4-TRIAGE-2026-09-10.md).
 
-| Kategorie | Zahl | Einschätzung |
-|---|---:|---|
-| strukturell blockiert | 30 | teils durch kleine Refaktorierungen erreichbar — so wie `OreDetectorItem.findTarget` |
-| harness-blockiert | 24 | vor allem Töne und Partikel; der Ton-Rekorder in `SmokeClientGameTest` beweist, dass das geht |
-| lohnt nicht | 41 | zu prüfen, ob nicht ein Teil inzwischen ohnehin gedeckt ist |
+| Urteil | Zahl |
+|---|---:|
+| jetzt schreibbar (Client) — meist, weil die geteilte Schrittform Töne hört, Bildschirme ausliest und einen echten Überlebensspieler hat | 9 |
+| jetzt schreibbar (Server) — Köcher tragen seit dem 2026-09-09 `EQUIPPABLE`; `makeMockPlayer` liefert einen Nicht-`ServerPlayer` | 2 |
+| seit dem Audit gedeckt (Trichter-Ordinal, NeoForge-Luftsprung) | 2 |
+| **bekannter Defekt, Entscheidung des Besitzers** | 27 |
+| bleibt begründet offen (tote Zweige, Tautologien, von Vanilla getragen) | 47 |
+| weiterhin harness-blockiert (Selbstausschluss bei `player.playSound`, zweite Dimension, Serverstart-Haken, echte Weltgenerierung) | 10 |
 
-Der Rest — Fremdmod-Integration (`enderscape:stasis`), echte Weltgenerierung, Pakete an entfernte
-Spieler — bleibt vermutlich offen. Das ist in Ordnung, solange es benannt ist.
+Die 27 Entscheidungen sind keine Testlücken, sondern Verhalten, das ein Test nur zementieren
+würde: sieben davon betreffen das Forge-Modul (kein Gametest, kein HUD, eigene Kopien der Logik),
+vier die Enderit-Stufe in Tags (Stab, Bündel, Köcher — nach der Entscheidung vom 2026-09-09
+vermutlich nachzuziehen), vier die Öfen (Sprachschlüssel, Werkzeug-Tags, Leuchtstärke,
+Glas-Eigenschaften), der Rest Einzelfälle (Trichter-Broadcast, `loadAdditional` ohne Klemme,
+Container-Index, Netherit-Kolben-Signal, `ModCommands` vierfach, Cloth-Config-Aufruf, die vier
+stummen Töne des Bilderrahmens, das Handbuch zum Trade-Rebalance).
 
 ### P5 — Das Release-Gate um die Parität erweitern — **erledigt**
 
@@ -337,24 +345,30 @@ Stand: **serverseitig fertig** (Commits `dd833db`, `c8d5226`, `4718d2c`, `540aa8
 `BundleContents(List)` erzwungen, die Mod-Zeile davor ist folgenlos, ein Verhaltensbruch also
 nicht konstruierbar.
 
-**Offen: die 23 clientseitigen.** Sie waren bis zur P3-Umstellung zurückgestellt, weil sie sonst
-zweimal zu schreiben gewesen wären — einmal in der alten Fabric-Form und gleich danach als
-Schrittliste. Seit dem 2026-09-10 gibt es die Schrittform auf allen vier Zielen, also sind sie
-dran. Sie verteilen sich so:
+**Clientseitig (2026-09-10): alle 21 geschärft**, in der geteilten Schrittform, also auf allen vier
+Zielen zugleich. Zwei der 23 aus der ersten Zählung waren Doppelnennungen desselben Eintrags.
+Die Mutationen stehen mit Datei, Ankertext und erwarteter Meldung in
+`tools/testrunner/mutations.py`; das Werkzeug spielt sie ein, fährt ein Client-Ziel, verlangt
+genau die erwartete Meldung im Log und **keinen** Nebenschaden in einem Skript ohne Mutation, und
+nimmt sie aus git zurück. 22 Mutationen (21 Client + 2 Server, eine davon deckt zwei Einträge),
+9 Client-Runden (eine Mutation je Skript und Runde, weil ein Skript am ersten roten Schritt hält).
 
-| Behaupteter Test | Einträge |
-|---|---:|
-| `HudAndTooltipClientGameTest` (Trichterfilter, Geisterslots, Slotklicks) | 8 |
-| `ClientBootstrapClientGameTest` (Modifikatoren, Auswahltasten, Griff ins Bündel) | 5 |
-| `BuildingWandPreviewClientGameTest` | 3 |
-| `ModScreensClientGameTest` | 2 |
-| `BlockHighlightClientGameTest` / `MultiBlockBreakingClientGameTest` | 2 |
-| `SmokeClientGameTest` | 2 |
-| Rest | 1 |
+Was dabei über den Bildschirm hinaus nötig wurde, weil ein Pixelvergleich es nicht sagen kann:
+der GUI-Renderzustand wird jetzt **ausgelesen** (`extractScreenState`, `drawnTexts`,
+`filledRectangles`) — Knopfgeometrie, Glyphe und Farbe je Filtermodus, Overlay-Farbe, Geisterbild
+nur im leeren Slot; die Rangefinder-Zeilen werden als Text gelesen (Volumen 80 statt 36 bei
+gelöschtem `+ 1`); der Schwerpunkt der gemalten Fläche (`ScreenshotDiff.changedArea`) entscheidet,
+ob die Geisterblöcke um ihre Mitte schrumpfen; ein Zähler-Mixin je Loader zählt die
+`SpaceKeyPayload`s auf dem Server (nur bei Änderung, nicht je Tick).
 
-Die Gegenprobe kostet hier mehr als serverseitig: ein Client-Lauf dauert rund sechs Minuten, und
-eine Mutation je Lauf ist die einzige Form, die etwas beweist — zwei gleichzeitig können sich
-gegenseitig verdecken.
+| Behaupteter Test | Einträge | Stand |
+|---|---:|---|
+| `HudAndTooltipClientTest` (Trichterfilter, Geisterslots, Slotklicks, Rangefinder, Bündel-Skala) | 11 | geschärft |
+| `ClientBootstrapClientTest` (Modifikatoren, Auswahltasten, Zweithand, Farben, Kreativ-Sperre, Leertaste) | 6 | geschärft |
+| `BuildingWandPreviewClientTest` (kein Blocktreffer, Schwerpunkt) | 2 | geschärft |
+| `BlockHighlightClientTest` / `MultiBlockBreakingClientTest` | 2 | geschärft |
+| `SmokeClientTest` (alle fünf Sync-Felder) | 1 | geschärft |
+| Server: Trichter-Ordinal, nur PICKUP | 2 | geschärft bzw. schon gedeckt, per Mutation zu belegen |
 
 ### P6 — Mutationstests für die teuersten Tests
 
@@ -373,13 +387,14 @@ Tests.
 1. Alle vier Server-Ziele tragen dieselben Test-Ids, Abweichungen nur mit Begründung im Quelltext.
    **→ erreicht**, und seit P5 vom Tor erzwungen
 2. Alle vier Client-Ziele tragen dieselben Prüfpunkte, Abweichungen nur mit Begründung.
-   **→ offen, das ist P2 und P3**
+   **→ erreicht am 2026-09-10** (P2 und P3): ein Baum, 94 Prüfpunkte je Ziel, `CLIENT_PARITY_DEBT`
+   leer, die 1.21.11-Kopie per Werkzeug reproduzierbar und vom Tor geprüft
 3. Ein frisches Audit findet keine Lücke mehr, die mit einem Test erreichbar wäre.
    **→ Audit erhoben (P1). 201 erreichbare Lücken und 104 falsche Grün sind die Arbeit daraus:
    P7, dann die schreibbaren Lücken, dann P4.**
 4. Das Release-Gate erzwingt 1 und 2, sodass die Parität nicht wieder still kippen kann.
-   **→ erreicht.** Das Tor ist heute rot, und zwar aus genau einem Grund: dem Client-Rückstand
-   aus Punkt 2. Grün wird es mit P2 und P3.
+   **→ erreicht.** Seit dem 2026-09-10 prüft es auch, ob die 1.21.11-Client-Kopie hinter dem
+   gemeinsamen Baum zurückhängt (`port_client_tests_to_1_21_11.py --check`).
 5. Jede Stelle, die kein Test erreicht, steht als „Not covered" im Quelltext, mit Grund.
    **→ weitgehend erreicht, mit dem Audit aus P1 zu bestätigen**
 

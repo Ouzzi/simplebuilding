@@ -7,7 +7,12 @@
     "seite": "n-a",
     "verhalten": "FACING-Block: der innere cycleDirectionList-Aufruf hinter getStandardRotationStart",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java:167-169",
-    "grund": "Kein Test erreicht ihn. Fuer jede Vanilla-Richtungs-Property unerreichbar: um dorthin zu kommen muesste der Block bereits entlang der geklickten Achse zeigen, und jede der drei Prioritaetslisten beginnt mit Richtungen senkrecht zu genau dieser Achse - der Startwert kann also nie gleich der aktuellen Richtung sein. RotatorTests dokumentiert das unter 'Not covered'."
+    "grund": "Kein Test erreicht ihn. Fuer jede Vanilla-Richtungs-Property unerreichbar: um dorthin zu kommen muesste der Block bereits entlang der geklickten Achse zeigen, und jede der drei Prioritaetslisten beginnt mit Richtungen senkrecht zu genau dieser Achse - der Startwert kann also nie gleich der aktuellen Richtung sein. RotatorTests dokumentiert das unter 'Not covered'.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Startwert liegt konstruktionsbedingt nie auf der geklickten Achse; toter Zweig, dokumentiert.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-a",
@@ -17,7 +22,12 @@
     "seite": "n-a",
     "verhalten": "Der Sound (SoundEvents.SPYGLASS_USE) bei jeder angenommenen Drehung",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java:45",
-    "grund": "Kein Test hoert hin. world.playSound(null, ...) stellt serverseitig nur ein Paket in die Warteschlange; die Verbindung eines Mock-Spielers verschluckt es, es gibt keinen beobachtbaren Serverzustand. In RotatorTests unter 'Not covered' dokumentiert."
+    "grund": "Kein Test hoert hin. world.playSound(null, ...) stellt serverseitig nur ein Paket in die Warteschlange; die Verbindung eines Mock-Spielers verschluckt es, es gibt keinen beobachtbaren Serverzustand. In RotatorTests unter 'Not covered' dokumentiert.",
+    "p4": {
+      "urteil": "writable-client",
+      "grund": "world.playSound(null, ...) kommt beim zuschauenden Client an; SmokeClientTest.SoundRecorder hoert genau das. Ein Klick mit dem Rotator im Client-Test, dann SPYGLASS_USE im Rekorder.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-a",
@@ -27,7 +37,12 @@
     "seite": "n-a",
     "verhalten": "Position im Kreativ-Tab: direkt hinter dem Magneten",
     "ort": "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java:138-141",
-    "grund": "Kein Server- und kein Client-Test liest die Tab-Reihenfolge; ModScreensClientGameTest.testCreativeInventoryShowsTheModTab prueft nur Meissel und Spachtel, nicht den Rotator. RotatorTests begruendet den Verzicht ausdruecklich unter 'Deliberately left out'."
+    "grund": "Kein Server- und kein Client-Test liest die Tab-Reihenfolge; ModScreensClientGameTest.testCreativeInventoryShowsTheModTab prueft nur Meissel und Spachtel, nicht den Rotator. RotatorTests begruendet den Verzicht ausdruecklich unter 'Deliberately left out'.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Tab-Reihenfolge; RotatorTests lehnt es begruendet ab.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-a",
@@ -37,7 +52,12 @@
     "seite": "n-a",
     "verhalten": "Der Sprachschluessel tooltip.simplebuilding.rotator wird von keinem Code an das Item gehaengt",
     "ort": "src/main/resources/assets/simplebuilding/lang/en_us.json; RotatorItem.java (kein appendHoverText)",
-    "grund": "RotatorItem ueberschreibt appendHoverText nicht, und common/.../mixin/client/ItemMixin.java haengt nur Trim- und Glow-Zeilen an - kein Rotator-Bezug. Ein Test 'keine Tooltipzeile traegt diesen Schluessel' wuerde eine Eigenschaft von Vanillas Item pruefen, nicht von Mod-Code."
+    "grund": "RotatorItem ueberschreibt appendHoverText nicht, und common/.../mixin/client/ItemMixin.java haengt nur Trim- und Glow-Zeilen an - kein Rotator-Bezug. Ein Test 'keine Tooltipzeile traegt diesen Schluessel' wuerde eine Eigenschaft von Vanillas Item pruefen, nicht von Mod-Code.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Vanilla-Eigenschaft, kein Mod-Verhalten.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-a",
@@ -67,7 +87,12 @@
     "seite": "n-a",
     "verhalten": "Fallback auf leere Maps fuer ein Material ausserhalb der vier Zweige",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java:317-323",
-    "grund": "Kein Test erreicht den else-Zweig: alle dreizehn registrierten ChiselItems tragen eines der sechs Vanilla-Materialien oder ModToolMaterials.ENDERITE. ChiselTests Zeile 407-438 faehrt zwar alle dreizehn durch, aber genau deshalb nie den Fallback."
+    "grund": "Kein Test erreicht den else-Zweig: alle dreizehn registrierten ChiselItems tragen eines der sechs Vanilla-Materialien oder ModToolMaterials.ENDERITE. ChiselTests Zeile 407-438 faehrt zwar alle dreizehn durch, aber genau deshalb nie den Fallback.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Alle dreizehn Meissel tragen ein bekanntes Material; der else-Zweig ist ohne neues Item unerreichbar.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-a",
@@ -227,7 +252,12 @@
     "seite": "n-a",
     "verhalten": "Umformungs-Sound (Spachtel: SAND_FALL statt UI_STONECUTTER_TAKE_RESULT) und die Blockpartikel",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java:476-480,493-496; ModItems.java registerSpatula",
-    "grund": "Kein Test hoert oder sieht hin; beide verlassen den Server nur als Paket. In ChiselTests unter 'Not covered' dokumentiert."
+    "grund": "Kein Test hoert oder sieht hin; beide verlassen den Server nur als Paket. In ChiselTests unter 'Not covered' dokumentiert.",
+    "p4": {
+      "urteil": "writable-client",
+      "grund": "Wie 1: Umformungs-Sound ueber world.playSound, SoundRecorder hoert ihn. Partikel bleiben aussen vor.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-a",
@@ -317,7 +347,12 @@
     "seite": "n-a",
     "verhalten": "Der Re-Entrancy-Schutz HARVESTED_BLOCKS",
     "ort": "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java:18,28-30,42,53",
-    "grund": "Alle Tests rufen handleBeforeBlockBreak direkt auf; ein verschachtelter Aufruf entsteht nur, wenn das Break-Event des Loaders innerhalb von gameMode.destroyBlock erneut feuert. Beobachtbar bleibt nur die Folge (jeder Nachbar wird genau einmal bezahlt), und die prueft sledgehammer_game_test_sledgehammer_bills_one_durability_per_block_and_two_for_the_wrong_tool ueber die Pro-Block-Arithmetik."
+    "grund": "Alle Tests rufen handleBeforeBlockBreak direkt auf; ein verschachtelter Aufruf entsteht nur, wenn das Break-Event des Loaders innerhalb von gameMode.destroyBlock erneut feuert. Beobachtbar bleibt nur die Folge (jeder Nachbar wird genau einmal bezahlt), und die prueft sledgehammer_game_test_sledgehammer_bills_one_durability_per_block_and_two_for_the_wrong_tool ueber die Pro-Block-Arithmetik.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Wiedereintritt entsteht nur im Loader-Event; die Folge ist gepinnt.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-a",
@@ -357,7 +392,12 @@
     "seite": "server",
     "verhalten": "Vorwaerts Schritt 1: ein voller Block wird zu seiner Treppe (<id>_stairs), ausgerichtet nach der Klickstelle bzw. Blickrichtung",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java:299-308",
-    "grund": "SledgehammerTests Zeile 580-595 prueft Blocktyp und Ausrichtung aus zwei Blickrichtungen (Sued und Nord)."
+    "grund": "SledgehammerTests Zeile 580-595 prueft Blocktyp und Ausrichtung aus zwei Blickrichtungen (Sued und Nord).",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Ist gedeckt (partly) - Blocktyp und Ausrichtung aus zwei Richtungen.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-a",
@@ -377,7 +417,12 @@
     "seite": "n-a",
     "verhalten": "Sound (Break-Sound des alten Blocks, Pitch 0.8) und die 20 Blockpartikel bei der Umformung",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java:209-215",
-    "grund": "Kein Test hoert oder sieht hin; beide verlassen den Server nur als Paket. In SledgehammerTests unter 'Not covered' festgehalten."
+    "grund": "Kein Test hoert oder sieht hin; beide verlassen den Server nur als Paket. In SledgehammerTests unter 'Not covered' festgehalten.",
+    "p4": {
+      "urteil": "writable-client",
+      "grund": "Wie 1: Break-Sound bei der Umformung, SoundRecorder.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-a",
@@ -387,7 +432,12 @@
     "seite": "n-a",
     "verhalten": "Die zweite Diamantblock-Pruefung am Kopf von crushDiamondBlock",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java:389-391",
-    "grund": "finishUsingItem liest den Block und ruft den Crusher im selben Aufruf; von aussen kann sich die Welt dazwischen nicht aendern. In SledgehammerTests unter 'Not covered' begruendet."
+    "grund": "finishUsingItem liest den Block und ruft den Crusher im selben Aufruf; von aussen kann sich die Welt dazwischen nicht aendern. In SledgehammerTests unter 'Not covered' begruendet.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Welt kann sich zwischen Lesen und Aufruf nicht aendern; toter Zweig.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-a",
@@ -487,7 +537,12 @@
     "seite": "n-a",
     "verhalten": "useOn schreibt zusaetzlich HitX/HitY/HitZ (Trefferpunkt relativ zum Block) in die NBT.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\items\\custom\\BuildingWandItem.java:363",
-    "grund": "Grep ueber common/, src/, neoforge/, forge/, mc1_21_11/ findet ausser der Schreibstelle nur Javadoc-Erwaehnungen - kein Leser, auch nicht im Renderer (BuildingWandPreviewRenderer nutzt blockHit direkt). Tote Daten."
+    "grund": "Grep ueber common/, src/, neoforge/, forge/, mc1_21_11/ findet ausser der Schreibstelle nur Javadoc-Erwaehnungen - kein Leser, auch nicht im Renderer (BuildingWandPreviewRenderer nutzt blockHit direkt). Tote Daten.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Tote Daten (HitX/Y/Z ohne Leser).",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-b",
@@ -507,7 +562,12 @@
     "seite": "server",
     "verhalten": "Ein negativer SettingsRadius: getPreviewStates klemmt auf 0, inventoryTick klemmt nicht und setzt trotzdem den Mittelblock, getBuildingPositions liefert gar nichts.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\items\\custom\\BuildingWandItem.java:123",
-    "grund": "Nur die Vorschau-Klemme ist gepinnt: previewSize(..., withRadius(builderWand, -1), ...) == 1. Der Bau-Zweig und getBuildingPositions sind als bekannter Defekt in BuildingWandTests.java:140-145 bewusst NICHT gepinnt."
+    "grund": "Nur die Vorschau-Klemme ist gepinnt: previewSize(..., withRadius(builderWand, -1), ...) == 1. Der Bau-Zweig und getBuildingPositions sind als bekannter Defekt in BuildingWandTests.java:140-145 bewusst NICHT gepinnt.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Negativer Radius: Vorschau klemmt, Bau nicht. Bekannter Defekt; Entscheidung, ob klemmen oder festschreiben.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-b",
@@ -517,7 +577,12 @@
     "seite": "server",
     "verhalten": "Bei erzwungener Achse wird die Ebene um einen Block zur geklickten Seite verschoben und verliert dadurch eine Zelle (bekannter Defekt).",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\items\\custom\\BuildingWandItem.java:483",
-    "grund": "assertForcedPlane pinnt bewusst nur die FORM (gefuelltes Quadrat, normal zur erzwungenen Achse, hoechstens einen Block versetzt, hoechstens die geklickte Zelle fehlt) - siehe BuildingWandTests.java:128-139. Die heutigen acht Bloecke werden nicht festgeschrieben."
+    "grund": "assertForcedPlane pinnt bewusst nur die FORM (gefuelltes Quadrat, normal zur erzwungenen Achse, hoechstens einen Block versetzt, hoechstens die geklickte Zelle fehlt) - siehe BuildingWandTests.java:128-139. Die heutigen acht Bloecke werden nicht festgeschrieben.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Erzwungene Achse verliert eine Zelle. Bekannter Defekt; Entscheidung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-b",
@@ -527,7 +592,12 @@
     "seite": "server",
     "verhalten": "Der Verschleiss wird immer gegen EquipmentSlot.MAINHAND gebucht, auch wenn der Stab in der Zweithand baut.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\items\\custom\\BuildingWandItem.java:437",
-    "grund": "Bekannter Defekt, in BuildingWandTests.java:146-151 ausdruecklich nicht gepinnt: der Offhand-Test misst nur, DASS weitergebaut wird, nicht welcher Slot zahlt."
+    "grund": "Bekannter Defekt, in BuildingWandTests.java:146-151 ausdruecklich nicht gepinnt: der Offhand-Test misst nur, DASS weitergebaut wird, nicht welcher Slot zahlt.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Verschleiss immer gegen MAINHAND. Bekannter Defekt; Entscheidung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-b",
@@ -537,7 +607,12 @@
     "seite": "n-a",
     "verhalten": "Pro gesetztem Block wird der Platziergeraeusch-Sound des Blocks abgespielt (Lautstaerke (vol+1)/2, Pitch *0.8).",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\items\\custom\\BuildingWandItem.java:434",
-    "grund": "In BuildingWandTests.java:113 als 'Not covered' benannt. Kein Client-Test hoert Audio ab; ScreenshotDiff misst nur Pixel."
+    "grund": "In BuildingWandTests.java:113 als 'Not covered' benannt. Kein Client-Test hoert Audio ab; ScreenshotDiff misst nur Pixel.",
+    "p4": {
+      "urteil": "writable-client",
+      "grund": "Platziergeraeusch je Block ueber world.playSound; SoundRecorder.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-b",
@@ -547,7 +622,12 @@
     "seite": "server",
     "verhalten": "Der Enderit-Stab fehlt in #simplebuilding:building_wand_enchantable und kann Cover/Bridge/Linear daher nicht tragen.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\src\\main\\java\\com\\simplebuilding\\datagen\\ModItemTagProvider.java",
-    "grund": "In BuildingWandTests.java:122-127 als bekannter Defekt gefuehrt; der Test laesst den Enderit-Stab bewusst aus, damit kein Zustand zementiert wird."
+    "grund": "In BuildingWandTests.java:122-127 als bekannter Defekt gefuehrt; der Test laesst den Enderit-Stab bewusst aus, damit kein Zustand zementiert wird.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Enderit-Stab fehlt im Verzauberbarkeits-Tag. Bekannter Defekt; Entscheidung (Enderit wurde am 2026-09-09 als vollwertige Stufe beschlossen - vermutlich nachziehen).",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-b",
@@ -567,7 +647,12 @@
     "seite": "client",
     "verhalten": "GHOST_ALPHA = 180: die Geisterbloecke sind halbtransparent.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\client\\render\\BuildingWandPreviewRenderer.java:41",
-    "grund": "In BuildingWandPreviewClientGameTest.java:56-59 als 'Not covered' benannt: ein Blendfaktor liesse sich nur mit bekannter Wand- und Modellfarbe zurueckrechnen und waere an ein Resourcepack und eine Lichtstufe gebunden."
+    "grund": "In BuildingWandPreviewClientGameTest.java:56-59 als 'Not covered' benannt: ein Blendfaktor liesse sich nur mit bekannter Wand- und Modellfarbe zurueckrechnen und waere an ein Resourcepack und eine Lichtstufe gebunden.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Blendfaktor nur mit Referenzfarben rueckrechenbar; abgelehnt mit Grund.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-b",
@@ -617,7 +702,12 @@
     "seite": "n-a",
     "verhalten": "getBuildingPositions(...) - oeffentliche Positionsliste 'fuer den Renderer'.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\items\\custom\\BuildingWandItem.java:441",
-    "grund": "Grep ueber alle fuenf Quellbaeume findet keinen Aufrufer; der Vorschau-Renderer benutzt getPreviewStates. Die Javadoc-Bemerkung in BuildingWandTests.java:144 ('die Liste, aus der das Highlight gezeichnet wird') trifft heute nicht mehr zu."
+    "grund": "Grep ueber alle fuenf Quellbaeume findet keinen Aufrufer; der Vorschau-Renderer benutzt getPreviewStates. Die Javadoc-Bemerkung in BuildingWandTests.java:144 ('die Liste, aus der das Highlight gezeichnet wird') trifft heute nicht mehr zu.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Toter Code ohne Aufrufer.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-b",
@@ -637,7 +727,12 @@
     "seite": "server",
     "verhalten": "Die Sperre schuetzt serverseitig NICHT vor dem Scroll-Paket - handleOctantScroll liest den Locked-Tag nie.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\networking\\ModMessageHandlers.java:107",
-    "grund": "Als bekannter Defekt in OctantTests.java:89-96 gefuehrt und in beide Richtungen bewusst nicht gepinnt. Nur der Client-Mixin unterdrueckt das Scrollen."
+    "grund": "Als bekannter Defekt in OctantTests.java:89-96 gefuehrt und in beide Richtungen bewusst nicht gepinnt. Nur der Client-Mixin unterdrueckt das Scrollen.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Sperre wirkt serverseitig nicht gegen das Scroll-Paket. Bekannter Defekt; Entscheidung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-b",
@@ -707,7 +802,12 @@
     "seite": "beide",
     "verhalten": "Die Formen-Praedikate: Zylinder/Ellipse (Hoehe strikt < maxY, Punkt-in-Ellipse), Kugel (Ellipsoid), Pyramide (linear schrumpfender Radius), Prisma (Achse nach der laengeren Grundseite), Quader/Rechteck als einfacher Kasten.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\client\\render\\BlockHighlightRenderer.java:186",
-    "grund": "Der einzige Client-Test, der die Fuellung zeichnet, laesst den Shape-Tag ungesetzt und trifft damit ausschliesslich den CUBOID-Zweig (Zeile 210), der die Voxel-Schleife komplett umgeht. isPointInEllipse, isPointInEllipsoid, isPointInPyramid, isPointInPrism und renderVoxelShape werden von keinem Test betreten."
+    "grund": "Der einzige Client-Test, der die Fuellung zeichnet, laesst den Shape-Tag ungesetzt und trifft damit ausschliesslich den CUBOID-Zweig (Zeile 210), der die Voxel-Schleife komplett umgeht. isPointInEllipse, isPointInEllipsoid, isPointInPyramid, isPointInPrism und renderVoxelShape werden von keinem Test betreten.",
+    "p4": {
+      "urteil": "writable-client",
+      "grund": "Shape-Tag setzen und die gemalte Flaeche vergleichen: Zylinder gegen Quader muss sich im Bild unterscheiden, Kugel gegen Zylinder ebenso; ScreenshotDiff.changedArea liefert Ausdehnung und Schwerpunkt. Schwache, aber echte Aussage.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-b",
@@ -717,7 +817,12 @@
     "seite": "beide",
     "verhalten": "Orientation (0=+X bis 5=-Z) dreht Zylinder, Ellipse, Pyramide und Prisma; transformToY dreht den Raum, bei negativer Achsenrichtung zusaetzlich gespiegelt. Default bei fehlendem Tag ist 1 (UP).",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\client\\render\\BlockHighlightRenderer.java:153",
-    "grund": "In OctantTests.java:112-116 ausdruecklich als 'Not covered' gefuehrt. Was der Wert bedeutet, wird nur im Renderer gelesen; der Client-Test setzt Orientation nie. Gespeichert wird er (network_handler_game_test_octant_configure_stores_the_whole_selection_state) und ein Eckpunkt-Klick darf ihn nicht verlieren (octant_game_test_the_octant_only_measures_and_places_nothing) - das ist alles."
+    "grund": "In OctantTests.java:112-116 ausdruecklich als 'Not covered' gefuehrt. Was der Wert bedeutet, wird nur im Renderer gelesen; der Client-Test setzt Orientation nie. Gespeichert wird er (network_handler_game_test_octant_configure_stores_the_whole_selection_state) und ein Eckpunkt-Klick darf ihn nicht verlieren (octant_game_test_the_octant_only_measures_and_places_nothing) - das ist alles.",
+    "p4": {
+      "urteil": "writable-client",
+      "grund": "Orientation-Tag setzen: die gedrehte Form muss sich von der ungedrehten unterscheiden, und Orientierung 1 (UP) muss dem fehlenden Tag gleichen.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-b",
@@ -807,7 +912,12 @@
     "seite": "n-a",
     "verhalten": "Auf Forge sind HUD und Weltmarkierungen nicht eingebunden (nur die Einstellungstaste ist registriert, ohne Handler).",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\forge\\src\\main\\java\\com\\simplebuilding\\forge\\SimplebuildingForgeClient.java:63",
-    "grund": "Grep nach RangefinderHudOverlay, BlockHighlightRenderer, BuildingWandPreviewRenderer, OctantScreen und BuildingWandScreen in forge/src/main/java liefert nichts; ClientState.settingsKey wird registriert (Zeile 63/70), aber kein consumeClick-Handler und kein setScreen. Fabric und NeoForge haben beide je einen Client-Testlauf, Forge keinen."
+    "grund": "Grep nach RangefinderHudOverlay, BlockHighlightRenderer, BuildingWandPreviewRenderer, OctantScreen und BuildingWandScreen in forge/src/main/java liefert nichts; ClientState.settingsKey wird registriert (Zeile 63/70), aber kein consumeClick-Handler und kein setScreen. Fabric und NeoForge haben beide je einen Client-Testlauf, Forge keinen.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Forge-Modul ohne HUD/Renderer/Screens. Entscheidung: Forge angleichen oder als eingeschraenkt dokumentieren.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-c",
@@ -837,7 +947,12 @@
     "seite": "n-a",
     "verhalten": "Die Waechter isRemoved() und getItem().isEmpty() in der Item-Schleife.",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/MagnetItem.java:65",
-    "grund": "Bewusst nicht gedeckt; MagnetTests.java:89-95 begruendet es: Entity#discard nimmt die Entitaet sofort aus den Entity-Sections, getEntitiesOfClass liefert sie also nie zurueck, und ein ItemEntity mit leerem Stack wuerde ohne den Waechter nur folgenlos geschoben."
+    "grund": "Bewusst nicht gedeckt; MagnetTests.java:89-95 begruendet es: Entity#discard nimmt die Entitaet sofort aus den Entity-Sections, getEntitiesOfClass liefert sie also nie zurueck, und ein ItemEntity mit leerem Stack wuerde ohne den Waechter nur folgenlos geschoben.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Waechter folgenlos; begruendet.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-c",
@@ -847,7 +962,12 @@
     "seite": "n-a",
     "verhalten": "syncVelocityToNearbyPlayers schickt jedem Spieler naeher als 64 Bloecke am Item ein ClientboundSetEntityMotionPacket.",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/MagnetItem.java:41,74,124-131",
-    "grund": "MagnetTests.java:80-85 fuehrt es unter 'Not covered': die Verbindung eines Mock-Spielers schluckt Pakete. Auch clientseitig nicht sauber zuzuordnen - Vanillas eigener Entity-Tracker sendet ebenfalls Bewegungsupdates, und die 64-Block-Schwelle braeuchte einen zweiten, weit entfernten Spieler, den das Single-Player-Client-Geruest (src/gametest/.../clienttest) nicht hat."
+    "grund": "MagnetTests.java:80-85 fuehrt es unter 'Not covered': die Verbindung eines Mock-Spielers schluckt Pakete. Auch clientseitig nicht sauber zuzuordnen - Vanillas eigener Entity-Tracker sendet ebenfalls Bewegungsupdates, und die 64-Block-Schwelle braeuchte einen zweiten, weit entfernten Spieler, den das Single-Player-Client-Geruest (src/gametest/.../clienttest) nicht hat.",
+    "p4": {
+      "urteil": "blocked-harness",
+      "grund": "Bewegungspakete an Umstehende; kein zweiter Spieler im Gerüst.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-c",
@@ -877,7 +997,12 @@
     "seite": "n-a",
     "verhalten": "interactLivingEntity gibt PASS zurueck - der Magnet hat keine Rechtsklick-Wirkung auf Lebewesen.",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/MagnetItem.java:134-136",
-    "grund": "MagnetTests.java:86-88 begruendet die Auslassung: PASS ist bereits Item's eigener Standard, eine Behauptung darueber bliebe auch nach Loeschen der Ueberschreibung gruen."
+    "grund": "MagnetTests.java:86-88 begruendet die Auslassung: PASS ist bereits Item's eigener Standard, eine Behauptung darueber bliebe auch nach Loeschen der Ueberschreibung gruen.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "PASS ist der Item-Standard; Tautologie.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-c",
@@ -887,7 +1012,12 @@
     "seite": "n-a",
     "verhalten": "Beim Filter-Setzen: Einblendung 'Magnet Filter set to: <id>' und Ton RESPAWN_ANCHOR_SET_SPAWN (0.5/1.5).",
     "ort": "common/src/shared/java/com/simplebuilding/mixin/ItemFrameEntityMixin.java:138-139",
-    "grund": "Kein Test prueft es. Der Ton laeuft ueber player.playSound(...); SmokeClientGameTest.java:79-85 belegt fuer genau diese Mixin-Zeilen, dass Player#playSound serverseitig den handelnden Spieler als 'except' uebergibt - der eine Client, der im Client-Test zusieht, ist also der einzige, der den Ton nie bekommt."
+    "grund": "Kein Test prueft es. Der Ton laeuft ueber player.playSound(...); SmokeClientGameTest.java:79-85 belegt fuer genau diese Mixin-Zeilen, dass Player#playSound serverseitig den handelnden Spieler als 'except' uebergibt - der eine Client, der im Client-Test zusieht, ist also der einzige, der den Ton nie bekommt.",
+    "p4": {
+      "urteil": "blocked-harness",
+      "grund": "player.playSound schliesst den handelnden Spieler aus - der eine Test-Client hoert es nie.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-c",
@@ -967,7 +1097,12 @@
     "seite": "n-a",
     "verhalten": "scanRadius = ceil(budget) begrenzt die Kugel zusaetzlich zur Kostenkappe.",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java:162-163,173",
-    "grund": "OreDetectorTests.java:152-156 sagt selbst, dass in allen Faellen das Ziel innerhalb des Radius bleibt und nur die Kostenkappe ablehnt. Rechnerisch kann der Radius auch kaum je zuerst greifen: die kleinste Dichte ist 1.0 (Luft/nicht-occludierend, Z. 219-221) und der kleinste Faktor 1.0, die Schleife laeuft in 0.5-Schritten mit 0.5*Dichte*Faktor je Schritt und bricht beim Eintritt in den Zielblock ab - die Kosten fuer d Bloecke liegen also nie unter etwa d-0.5. Radius und Budget fallen damit bis auf ein halbes Block breites Band zusammen."
+    "grund": "OreDetectorTests.java:152-156 sagt selbst, dass in allen Faellen das Ziel innerhalb des Radius bleibt und nur die Kostenkappe ablehnt. Rechnerisch kann der Radius auch kaum je zuerst greifen: die kleinste Dichte ist 1.0 (Luft/nicht-occludierend, Z. 219-221) und der kleinste Faktor 1.0, die Schleife laeuft in 0.5-Schritten mit 0.5*Dichte*Faktor je Schritt und bricht beim Eintritt in den Zielblock ab - die Kosten fuer d Bloecke liegen also nie unter etwa d-0.5. Radius und Budget fallen damit bis auf ein halbes Block breites Band zusammen.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Radius greift rechnerisch nie vor der Kostenkappe.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-c",
@@ -1007,7 +1142,12 @@
     "seite": "n-a",
     "verhalten": "Ein Moduswechsel kostet im Ueberlebensmodus 1 Haltbarkeit.",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java:289-291",
-    "grund": "OreDetectorTests.java:86-94 legt den Grund offen: der In-Level-Mock (GameTestHelper$3) ueberschreibt gameMode() hart auf CREATIVE, und der losgeloeste Mock aus makeMockServerPlayer(GameType) hat keine connection - cycleMode schickt aber vor dem hurtAndBreak eine Einblendung."
+    "grund": "OreDetectorTests.java:86-94 legt den Grund offen: der In-Level-Mock (GameTestHelper$3) ueberschreibt gameMode() hart auf CREATIVE, und der losgeloeste Mock aus makeMockServerPlayer(GameType) hat keine connection - cycleMode schickt aber vor dem hurtAndBreak eine Einblendung.",
+    "p4": {
+      "urteil": "writable-client",
+      "grund": "Der geteilte Client-Test hat einen echten Ueberlebensspieler: gamemode survival, Moduswechsel per Taste, Haltbarkeit -1 auf dem Server lesen.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-c",
@@ -1027,7 +1167,12 @@
     "seite": "n-a",
     "verhalten": "Beim Moduswechsel: UI_BUTTON_CLICK mit 0.5/1.5 ueber player.playSound.",
     "ort": "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java:287",
-    "grund": "Kein Test hoert hin. player.playSound uebergibt serverseitig den handelnden Spieler als 'except' (SmokeClientGameTest.java:79-85 belegt das fuer dieselbe Konstruktion im Rahmen-Mixin), also hoert genau der eine Client im Client-Test diesen Ton nie."
+    "grund": "Kein Test hoert hin. player.playSound uebergibt serverseitig den handelnden Spieler als 'except' (SmokeClientGameTest.java:79-85 belegt das fuer dieselbe Konstruktion im Rahmen-Mixin), also hoert genau der eine Client im Client-Test diesen Ton nie.",
+    "p4": {
+      "urteil": "blocked-harness",
+      "grund": "Wie 25: Selbstausschluss bei player.playSound.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "werkzeuge-c",
@@ -1197,7 +1342,12 @@
     "seite": "n-a",
     "verhalten": "Das Enderit-Buendel steht in KEINEM der beiden Verzauberungs-Tags und kann daher als einziges Buendel am Amboss keine Behaelter-Verzauberung annehmen.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\src\\main\\generated\\data\\simplebuilding\\tags\\item\\bundle_enchantable.json, extra_inventory_items.json",
-    "grund": "Beide Tag-Dateien listen nur reinforced_bundle, netherite_bundle, quiver, netherite_quiver. containerEnchantmentsAcceptTheBundlesTheyAreMeantFor laesst das Enderit-Buendel ausdruecklich aus (Klassen-Javadoc Z.118-127: bekannter Defekt, eine Behauptung in beide Richtungen wuerde den Zustand einfrieren)."
+    "grund": "Beide Tag-Dateien listen nur reinforced_bundle, netherite_bundle, quiver, netherite_quiver. containerEnchantmentsAcceptTheBundlesTheyAreMeantFor laesst das Enderit-Buendel ausdruecklich aus (Klassen-Javadoc Z.118-127: bekannter Defekt, eine Behauptung in beide Richtungen wuerde den Zustand einfrieren).",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Enderit-Buendel in keinem Verzauberungs-Tag. Bekannter Defekt; wie 15.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "lager",
@@ -1207,7 +1357,12 @@
     "seite": "server",
     "verhalten": "Kein Buendel ist am Zaubertisch verzauberbar - die Behaelter-Verzauberungen stehen nicht in minecraft:in_enchanting_table, und die drei Buendel tragen keine .enchantable(...)-Komponente.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\items\\ModItems.java:366-374",
-    "grund": "MiningEnchantmentTests.miningEnchantmentTagsHoldExactlyWhatTheyDeclare (Z.737-752) pinnt, dass minecraft:in_enchanting_table genau EINEN Mod-Eintrag hat und das fast_chiseling ist - damit sind Drawer/Deep Pockets/Funnel/Master Builder/Color Palette dort ausgeschlossen. Die fehlende ENCHANTABLE-Komponente selbst ist nirgends behauptet (BundleWiringTests-Javadoc Z.128-137: bewusst nicht gepinnt)."
+    "grund": "MiningEnchantmentTests.miningEnchantmentTagsHoldExactlyWhatTheyDeclare (Z.737-752) pinnt, dass minecraft:in_enchanting_table genau EINEN Mod-Eintrag hat und das fast_chiseling ist - damit sind Drawer/Deep Pockets/Funnel/Master Builder/Color Palette dort ausgeschlossen. Die fehlende ENCHANTABLE-Komponente selbst ist nirgends behauptet (BundleWiringTests-Javadoc Z.128-137: bewusst nicht gepinnt).",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Zaubertisch-Ausschluss ist gepinnt; ENCHANTABLE-Komponente fehlt absichtlich.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "lager",
@@ -1227,7 +1382,12 @@
     "seite": "n-a",
     "verhalten": "addToBundleList (die ANDERE Stapelregel: obersten Stapel auffuellen, Rest davorschieben) ist toter Code - nichts ruft sie auf.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\items\\custom\\ReinforcedBundleItem.java:381-396",
-    "grund": "Kein Aufruf im Repo (die Sortier-Neuschreibung in insertItemIntoBundle hat sie ersetzt); ReinforcedBundleTests-Javadoc Z.84-86 nennt sie ausdruecklich als tot und irrefuehrend."
+    "grund": "Kein Aufruf im Repo (die Sortier-Neuschreibung in insertItemIntoBundle hat sie ersetzt); ReinforcedBundleTests-Javadoc Z.84-86 nennt sie ausdruecklich als tot und irrefuehrend.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Toter Code.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "lager",
@@ -1237,7 +1397,12 @@
     "seite": "n-a",
     "verhalten": "Jedes Einlegen loescht die Auswahl (BundleItem.toggleSelectedItem(bundle, -1) plus der neue BundleContents-Konstruktor).",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\items\\custom\\ReinforcedBundleItem.java:375-376, 416-417",
-    "grund": "Beobachtbar wahr (theSelectedEntryIsTheOneThatComesOut prueft nach der Entnahme selectedIndex==-1), aber getragen von Vanilla: der BundleContents-Konstruktor setzt hart NO_SELECTED_ITEM_INDEX. Die Mod-Zeile daneben ist tot - ein Test darauf bliebe nach ihrem Loeschen gruen (ReinforcedBundleTests-Javadoc Z.106-110)."
+    "grund": "Beobachtbar wahr (theSelectedEntryIsTheOneThatComesOut prueft nach der Entnahme selectedIndex==-1), aber getragen von Vanilla: der BundleContents-Konstruktor setzt hart NO_SELECTED_ITEM_INDEX. Die Mod-Zeile daneben ist tot - ein Test darauf bliebe nach ihrem Loeschen gruen (ReinforcedBundleTests-Javadoc Z.106-110).",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Von Vanilla getragen; Mod-Zeile tot.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "lager",
@@ -1277,7 +1442,12 @@
     "seite": "n-a",
     "verhalten": "Das usedQuiver-ThreadLocal-Flag im BowItemMixin.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\mixin\\BowItemMixin.java:20-21, 36-40, 57",
-    "grund": "Rein defensiv: das Flag wird genau dann gesetzt, wenn findProjectileForBow etwas fand, und consumeProjectileForBow laeuft danach dieselben Slots in derselben Reihenfolge unter demselben Constructor's-Touch-Gate ab und fasst nichts an, was kein Koecher ist. Loeschen und bedingungslos verbrauchen liefert in jedem erreichbaren Zustand dasselbe (QuiverTests-Javadoc Z.110-116)."
+    "grund": "Rein defensiv: das Flag wird genau dann gesetzt, wenn findProjectileForBow etwas fand, und consumeProjectileForBow laeuft danach dieselben Slots in derselben Reihenfolge unter demselben Constructor's-Touch-Gate ab und fasst nichts an, was kein Koecher ist. Loeschen und bedingungslos verbrauchen liefert in jedem erreichbaren Zustand dasselbe (QuiverTests-Javadoc Z.110-116).",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Rein defensiv, nicht falsifizierbar.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "lager",
@@ -1287,7 +1457,12 @@
     "seite": "server",
     "verhalten": "Der Brustslot-Schritt der Bogensuche ist lebender Code, aber im normalen Spiel unerreichbar: keiner der drei Koecher ist mit einer EQUIPPABLE-Komponente registriert.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\items\\ModItems.java:370-376 gegen QuiverItem.java:148-150, 175-176",
-    "grund": "Der Codepfad selbst ist gedeckt - beide Bogentests schreiben den Koecher per setItemSlot(EquipmentSlot.CHEST, ...) direkt in den Slot. Die Aussage \"ein Koecher laesst sich nicht anziehen\" (QuiverTests-Javadoc Z.64-75) behauptet kein Test."
+    "grund": "Der Codepfad selbst ist gedeckt - beide Bogentests schreiben den Koecher per setItemSlot(EquipmentSlot.CHEST, ...) direkt in den Slot. Die Aussage \"ein Koecher laesst sich nicht anziehen\" (QuiverTests-Javadoc Z.64-75) behauptet kein Test.",
+    "p4": {
+      "urteil": "writable-server",
+      "grund": "Seit 2026-09-09 tragen die Koecher EQUIPPABLE fuer CHEST (Entscheidung des Besitzers). Die Aussage 'ein Koecher laesst sich anziehen' ist jetzt wahr und serverseitig pruefbar: EQUIPPABLE-Komponente lesen, Slot CHEST.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "lager",
@@ -1307,7 +1482,12 @@
     "seite": "n-a",
     "verhalten": "Der Enderit-Koecher steht in keinem der drei Verzauberungs-Tags und kann daher keine Behaelter-Verzauberung tragen.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\src\\main\\generated\\data\\simplebuilding\\tags\\item\\bundle_enchantable.json, extra_inventory_items.json, constructors_touch_enchantable.json",
-    "grund": "Alle drei Dateien listen nur quiver und netherite_quiver. lootQuiversCarryOneOfTheContainerEnchantments laesst den Enderit-Koecher ausdruecklich weg (Klassen-Javadoc Z.78-88: bekannter Defekt, eine Behauptung wuerde ihn einfrieren)."
+    "grund": "Alle drei Dateien listen nur quiver und netherite_quiver. lootQuiversCarryOneOfTheContainerEnchantments laesst den Enderit-Koecher ausdruecklich weg (Klassen-Javadoc Z.78-88: bekannter Defekt, eine Behauptung wuerde ihn einfrieren).",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Enderit-Koecher in keinem Verzauberungs-Tag. Bekannter Defekt; wie 15.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "lager",
@@ -1327,7 +1507,12 @@
     "seite": "n-a",
     "verhalten": "Die drei tooltip.simplebuilding.*quiver-Zeilen der Sprachdatei werden nie angezeigt.",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\src\\main\\resources\\assets\\simplebuilding\\lang\\en_us.json:65, 67, 69",
-    "grund": "grep nach \"tooltip.simplebuilding.quiver\" ueber common, src, neoforge und forge findet keinen einzigen Java-Treffer - kein appendHoverText liest sie. Damit ist es kein Verhalten, sondern tote Daten."
+    "grund": "grep nach \"tooltip.simplebuilding.quiver\" ueber common, src, neoforge und forge findet keinen einzigen Java-Treffer - kein appendHoverText liest sie. Damit ist es kein Verhalten, sondern tote Daten.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Tote Sprachzeilen.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1337,7 +1522,12 @@
     "seite": "n-a",
     "verhalten": "Fallback-Wartezeit 8 Ticks fuer jeden anderen Block mit dieser Blocklogik",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\blocks\\entity\\custom\\ModHopperBlockEntity.java:317",
-    "grund": "ModBlockEntities.java:24-29 registriert MOD_HOPPER_BE nur fuer REINFORCED_HOPPER und NETHERITE_HOPPER, und nur ModHopperBlock setzt den Ticker. Der Zweig ist im Spiel nicht erreichbar."
+    "grund": "ModBlockEntities.java:24-29 registriert MOD_HOPPER_BE nur fuer REINFORCED_HOPPER und NETHERITE_HOPPER, und nur ModHopperBlock setzt den Ticker. Der Zweig ist im Spiel nicht erreichbar.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Unerreichbarer Fallback.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1407,7 +1597,12 @@
     "seite": "server",
     "verhalten": "Bekannter Defekt: der Broadcast in setGhostItem laeuft auch fuer Slots, die setGhostItemInternal verworfen hat",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\blocks\\entity\\custom\\ModHopperBlockEntity.java:122,408",
-    "grund": "Die Bereichspruefung sitzt in setGhostItemInternal, der Broadcast danach ist ungeschuetzt. Der Test pinnt nur die serverseitig sichtbare Haelfte (nichts gespeichert, nichts geworfen); der Defekt ist in HopperTests.java:93-99 dokumentiert."
+    "grund": "Die Bereichspruefung sitzt in setGhostItemInternal, der Broadcast danach ist ungeschuetzt. Der Test pinnt nur die serverseitig sichtbare Haelfte (nichts gespeichert, nichts geworfen); der Defekt ist in HopperTests.java:93-99 dokumentiert.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Broadcast fuer verworfene Slots. Bekannter Defekt; Entscheidung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1417,7 +1612,12 @@
     "seite": "n-a",
     "verhalten": "TransferCooldown wird unter demselben Schluessel geschrieben und gelesen",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\blocks\\entity\\custom\\ModHopperBlockEntity.java:177,197",
-    "grund": "HopperTests.java:125-136 begruendet es: transferCooldown ist private ohne Getter, setTransferCooldown und needsCooldown sind ebenfalls private. Ausserdem waere der gespeicherte Wert im Test das unberuehrte -1, also genau der Default von getIntOr."
+    "grund": "HopperTests.java:125-136 begruendet es: transferCooldown ist private ohne Getter, setTransferCooldown und needsCooldown sind ebenfalls private. Ausserdem waere der gespeicherte Wert im Test das unberuehrte -1, also genau der Default von getIntOr.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Privat ohne Getter, und der Wert waere der Default.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1427,7 +1627,12 @@
     "seite": "n-a",
     "verhalten": "Bekannter Defekt: loadAdditional prueft FilterMode nicht auf Bereich, der Delegate laesst negative Werte negativ",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\blocks\\entity\\custom\\ModHopperBlockEntity.java:73,175",
-    "grund": "HopperFilterMode.values()[view.getIntOr(\"FilterMode\", 0)] wirft bei 3 oder mehr eine ArrayIndexOutOfBoundsException beim Chunk-Laden; value % values().length bleibt fuer negatives value negativ. In HopperTests.java:107-113 dokumentiert und bewusst nicht als Verhalten festgeschrieben."
+    "grund": "HopperFilterMode.values()[view.getIntOr(\"FilterMode\", 0)] wirft bei 3 oder mehr eine ArrayIndexOutOfBoundsException beim Chunk-Laden; value % values().length bleibt fuer negatives value negativ. In HopperTests.java:107-113 dokumentiert und bewusst nicht als Verhalten festgeschrieben.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "loadAdditional ohne Bereichspruefung wirft beim Chunk-Laden. Bekannter Defekt; Entscheidung (Klemme wie beim FilterMode-Setter).",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1447,7 +1652,12 @@
     "seite": "beide",
     "verhalten": "getSyncedFilterMode() wandelt den Ordinal aus den Container-Daten zurueck, mit Rueckfall auf NONE bei ungueltigem Wert",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\screen\\NetheriteHopperScreenHandler.java:61-67",
-    "grund": "Die Ordinal-Aufloesung ist beidseitig gedeckt (Servertest HopperTests.java:425-427, Client-Test ueber currentFilterMode). Der Rueckfallzweig auf NONE ist nicht gefahren."
+    "grund": "Die Ordinal-Aufloesung ist beidseitig gedeckt (Servertest HopperTests.java:425-427, Client-Test ueber currentFilterMode). Der Rueckfallzweig auf NONE ist nicht gefahren.",
+    "p4": {
+      "urteil": "covered-since",
+      "grund": "Am 2026-09-10 gepinnt: der Client-Menue-Rueckfall auf NONE bei Ordinal ausserhalb des Enums (HopperTests).",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1547,7 +1757,12 @@
     "seite": "n-a",
     "verhalten": "Bekannter Defekt: getContainerSlot() < 5 trifft auch die ersten fuenf Spieler-Inventarslots",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\client\\gui\\NetheriteHopperScreen.java:104",
-    "grund": "In HudAndTooltipClientGameTest.java:76-86 dokumentiert: der Menue-Zweig benutzt den Menue-Index, der Screen den Container-Index, und HopperMenu haengt das Spielerinventar mit eigener Container-Indizierung an. Der Test benutzt bewusst nur Slot 0, weil der sich vor und nach einem Fix gleich verhaelt."
+    "grund": "In HudAndTooltipClientGameTest.java:76-86 dokumentiert: der Menue-Zweig benutzt den Menue-Index, der Screen den Container-Index, und HopperMenu haengt das Spielerinventar mit eigener Container-Indizierung an. Der Test benutzt bewusst nur Slot 0, weil der sich vor und nach einem Fix gleich verhaelt.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Container- gegen Menue-Index. Bekannter Defekt; Entscheidung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1567,7 +1782,12 @@
     "seite": "n-a",
     "verhalten": "requiresCorrectToolForDrops ist nicht gesetzt - beide Trichter fallen auch bei blossen Haenden",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\blocks\\ModBlocks.java:99",
-    "grund": "In HopperTests.java:118-124 begruendet abgelehnt: eine Behauptung darueber wuerde rot, sobald jemand das anzieht."
+    "grund": "In HopperTests.java:118-124 begruendet abgelehnt: eine Behauptung darueber wuerde rot, sobald jemand das anzieht.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "requiresCorrectToolForDrops nicht gesetzt. Entscheidung: gewollt oder nicht.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1617,7 +1837,12 @@
     "seite": "n-a",
     "verhalten": "NetheriteHopperBlockEntity.java ist toter Code",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\blocks\\entity\\custom\\NetheriteHopperBlockEntity.java",
-    "grund": "Nichts konstruiert die Klasse: ModHopperBlock#newBlockEntity liefert ein ModHopperBlockEntity, ModBlockEntities registriert ModHopperBlockEntity::new fuer beide Bloecke. In HopperTests.java:100-106 dokumentiert."
+    "grund": "Nichts konstruiert die Klasse: ModHopperBlock#newBlockEntity liefert ein ModHopperBlockEntity, ModBlockEntities registriert ModHopperBlockEntity::new fuer beide Bloecke. In HopperTests.java:100-106 dokumentiert.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Toter Code; loeschen waere die richtige Reaktion, keine Testfrage.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1637,7 +1862,12 @@
     "seite": "n-a",
     "verhalten": "Boost-Guard 'totalTime > 0'",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\blocks\\entity\\custom\\ModFurnaceBlockEntity.java:41",
-    "grund": "FurnaceTests.java:224-229 haelt fest, dass AbstractFurnaceBlockEntity#setItem cooking_total_time bereits beim Beschreiben des Eingabeslots fuellt - der 'kein Brennstoff'-Fall deckt diesen Guard also gerade nicht ab."
+    "grund": "FurnaceTests.java:224-229 haelt fest, dass AbstractFurnaceBlockEntity#setItem cooking_total_time bereits beim Beschreiben des Eingabeslots fuellt - der 'kein Brennstoff'-Fall deckt diesen Guard also gerade nicht ab.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Guard wird von Vanilla vorab erfuellt.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1667,7 +1897,12 @@
     "seite": "server",
     "verhalten": "Bekannter Defekt: beide Stufen benutzen denselben Sprachschluessel container.simplebuilding.reinforced_* - der Netheritofen zeigt 'Reinforced Furnace'",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\blocks\\entity\\custom\\ModFurnaceBlockEntity.java:22-26",
-    "grund": "Gepinnt ist nur, dass jedes der sechs Geraete einen uebersetzbaren Titel aus dem Mod-Namensraum traegt und dass die drei Familien drei verschiedene Schluessel benutzen (FurnaceTests.java:530-538). Ob die zwei Stufen einer Familie sich einen Schluessel teilen duerfen, bleibt bewusst unausgesprochen."
+    "grund": "Gepinnt ist nur, dass jedes der sechs Geraete einen uebersetzbaren Titel aus dem Mod-Namensraum traegt und dass die drei Familien drei verschiedene Schluessel benutzen (FurnaceTests.java:530-538). Ob die zwei Stufen einer Familie sich einen Schluessel teilen duerfen, bleibt bewusst unausgesprochen.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Netheritofen zeigt 'Reinforced Furnace'. Bekannter Defekt; Entscheidung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1687,7 +1922,12 @@
     "seite": "n-a",
     "verhalten": "Keiner der sechs ist in einem needs_*_tool-Tag und requiresCorrectToolForDrops ist nicht gesetzt",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\blocks\\ModBlocks.java:99",
-    "grund": "Bewusst nicht behauptet (bekannter Defekt 2, FurnaceTests.java:88-101). Gepinnt ist stattdessen die Regel 'in einem needs_*_tool-Tag => requiresCorrectToolForDrops', vorgefuehrt am CRACKED_DIAMOND_BLOCK, plus drei Vanilla-Kontrollen fuer die Tag-Ladung."
+    "grund": "Bewusst nicht behauptet (bekannter Defekt 2, FurnaceTests.java:88-101). Gepinnt ist stattdessen die Regel 'in einem needs_*_tool-Tag => requiresCorrectToolForDrops', vorgefuehrt am CRACKED_DIAMOND_BLOCK, plus drei Vanilla-Kontrollen fuer die Tag-Ladung.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Oefen ohne needs_*_tool. Entscheidung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1707,7 +1947,12 @@
     "seite": "n-a",
     "verhalten": "Keiner der sechs setzt eine Leuchtstaerke, ein brennender Ofen bleibt dunkel",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\blocks\\ModBlocks.java:60-65",
-    "grund": "Bewusst nicht behauptet (bekannter Defekt 3, FurnaceTests.java:103-110): Vanilla registriert seine drei Geraete mit lightLevel(litBlockEmission(13)), die sechs hier gar nicht."
+    "grund": "Bewusst nicht behauptet (bekannter Defekt 3, FurnaceTests.java:103-110): Vanilla registriert seine drei Geraete mit lightLevel(litBlockEmission(13)), die sechs hier gar nicht.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Brennender Ofen leuchtet nicht. Entscheidung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "maschinen",
@@ -1737,7 +1982,12 @@
     "seite": "n-a",
     "verhalten": "Alle uebrigen Blockeigenschaften kommen von Glas (u.a. noOcclusion)",
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\blocks\\ModBlocks.java:99",
-    "grund": "In FurnaceTests.java:88-95 als Teil von Defekt 2 benannt und bewusst nicht behauptet."
+    "grund": "In FurnaceTests.java:88-95 als Teil von Defekt 2 benannt und bewusst nicht behauptet.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Glas-Eigenschaften der Oefen. Entscheidung, gehoert zu 47/48.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1757,7 +2007,12 @@
     "seite": "n-a",
     "verhalten": "Der Guard targetState.getDestroySpeed(...) >= 0 im Breaker.",
     "ort": "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java:35",
-    "grund": "Toter Code: triggerEvent(type 0) wird von Vanilla erst nach erfolgreichem PistonStructureResolver#resolve eingereiht, und isPushable lehnt alles mit Zerstörgeschwindigkeit -1 schon vorher ab. Der Guard kann also nie false werden. GravityBlockTests führt das als Defekt 2 im Klassenjavadoc."
+    "grund": "Toter Code: triggerEvent(type 0) wird von Vanilla erst nach erfolgreichem PistonStructureResolver#resolve eingereiht, und isPushable lehnt alles mit Zerstörgeschwindigkeit -1 schon vorher ab. Der Guard kann also nie false werden. GravityBlockTests führt das als Defekt 2 im Klassenjavadoc.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Toter Guard hinter Vanillas Vorpruefung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1767,7 +2022,12 @@
     "seite": "n-a",
     "verhalten": "Der Guard targetState.getPistonPushReaction() != PushReaction.BLOCK im Breaker.",
     "ort": "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java:43",
-    "grund": "Gleiche Ursache wie oben: ein Block mit PushReaction.BLOCK wird von isPushable/resolve abgelehnt, bevor das Blockevent überhaupt eingereiht wird. Als Defekt 2 dokumentiert."
+    "grund": "Gleiche Ursache wie oben: ein Block mit PushReaction.BLOCK wird von isPushable/resolve abgelehnt, bevor das Blockevent überhaupt eingereiht wird. Als Defekt 2 dokumentiert.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Wie 50.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1777,7 +2037,12 @@
     "seite": "n-a",
     "verhalten": "Der Breaker zerstört den Block VOR Vanillas eigener Signal-Nachprüfung in super.triggerEvent; ein Signal, das zwischen Einreihen und Ausführen des Blockevents verschwindet, kostet den Block, ohne dass der Kolben ausfährt.",
     "ort": "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java:44 vs. 53",
-    "grund": "Als Defekt 3 im Klassenjavadoc von GravityBlockTests beschrieben und dort ausdrücklich als nicht getestet geführt."
+    "grund": "Als Defekt 3 im Klassenjavadoc von GravityBlockTests beschrieben und dort ausdrücklich als nicht getestet geführt.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Breaker zerstoert vor Vanillas Signal-Nachpruefung. Bekannter Defekt 3; Entscheidung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1787,7 +2052,12 @@
     "seite": "n-a",
     "verhalten": "Der Tooltip-Schlüssel tooltip.simplebuilding.netherite_piston existiert in beiden Sprachdateien, wird aber von keinem Code angezeigt (kein appendHoverText).",
     "ort": "src/main/resources/assets/simplebuilding/lang/en_us.json:153; de_de.json:141",
-    "grund": "Kein Mod-Code ruft appendHoverText für die Kolben auf. SmokeClientGameTest#modLanguageFileReachesTheClient lässt den Schlüssel bewusst aus seiner Liste, weil das Auflösen zu prüfen die tote Zeile zementieren würde - das steht so im Klassenjavadoc."
+    "grund": "Kein Mod-Code ruft appendHoverText für die Kolben auf. SmokeClientGameTest#modLanguageFileReachesTheClient lässt den Schlüssel bewusst aus seiner Liste, weil das Auflösen zu prüfen die tote Zeile zementieren würde - das steht so im Klassenjavadoc.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Toter Sprachschluessel.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1797,7 +2067,12 @@
     "seite": "n-a",
     "verhalten": "NetheritePistonHeadBlock#canSurvive: überlebt nur, wenn dahinter ein NETHERITE_PISTON mit EXTENDED=true steht.",
     "ort": "common/src/shared/java/com/simplebuilding/blocks/custom/NetheritePistonHeadBlock.java:66-70",
-    "grund": "Kein Test setzt den Block. GravityBlockTests führt die Methode ausdrücklich unter 'Not covered' mit der Begründung, ein Test müsste den Block von Hand platzieren und damit Verhalten beschreiben, das kein Spieler erreicht."
+    "grund": "Kein Test setzt den Block. GravityBlockTests führt die Methode ausdrücklich unter 'Not covered' mit der Begründung, ein Test müsste den Block von Hand platzieren und damit Verhalten beschreiben, das kein Spieler erreicht.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Block wird nie platziert.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1807,7 +2082,12 @@
     "seite": "n-a",
     "verhalten": "NetheritePistonHeadBlock#updateShape: wird zu Luft, sobald die Rückseite nicht mehr trägt.",
     "ort": "common/src/shared/java/com/simplebuilding/blocks/custom/NetheritePistonHeadBlock.java:57-64",
-    "grund": "Wie oben - der Block wird nirgends platziert, die Methode also nie erreicht."
+    "grund": "Wie oben - der Block wird nirgends platziert, die Methode also nie erreicht.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Wie 54.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1817,7 +2097,12 @@
     "seite": "n-a",
     "verhalten": "NetheritePistonHeadBlock#playerWillDestroy: ein Kreativspieler, der den Kopf abbaut, setzt den Kolben dahinter auf EXTENDED=false.",
     "ort": "common/src/shared/java/com/simplebuilding/blocks/custom/NetheritePistonHeadBlock.java:44-55",
-    "grund": "Unerreichbar aus demselben Grund; explizit in der 'Not covered'-Liste von GravityBlockTests."
+    "grund": "Unerreichbar aus demselben Grund; explizit in der 'Not covered'-Liste von GravityBlockTests.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Wie 54.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1827,7 +2112,12 @@
     "seite": "n-a",
     "verhalten": "NetheritePistonHeadBlock#getCloneItemStack liefert den Netheritkolben; getShape liefert einen vollen Block, obwohl die Properties noCollision() setzen (EAST_HEAD_SHAPE/WEST_HEAD_SHAPE sind unbenutzt).",
     "ort": "common/src/shared/java/com/simplebuilding/blocks/custom/NetheritePistonHeadBlock.java:22-26, 72-80",
-    "grund": "Unerreichbar; zusätzlich sind die beiden VoxelShape-Konstanten im Feld deklariert und werden von keiner Methode gelesen."
+    "grund": "Unerreichbar; zusätzlich sind die beiden VoxelShape-Konstanten im Feld deklariert und werden von keiner Methode gelesen.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Wie 54; unbenutzte Konstanten.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1837,7 +2127,12 @@
     "seite": "n-a",
     "verhalten": "Der innere Fallback: setBlock schlägt trotz mayReplace und wouldSurvive fehl, dann Drop statt Landung.",
     "ort": "common/src/shared/java/com/simplebuilding/entity/LevitatingBlockEntity.java:148-153",
-    "grund": "Kein Test erreicht ihn; er verlangt ein setBlock, das nach bestandener mayReplace/canSurvive-Prüfung noch false liefert."
+    "grund": "Kein Test erreicht ihn; er verlangt ein setBlock, das nach bestandener mayReplace/canSurvive-Prüfung noch false liefert.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "setBlock nach bestandener Vorpruefung schlaegt nicht fehl.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1847,7 +2142,12 @@
     "seite": "n-a",
     "verhalten": "Die minY-Klausel (blockPos.getY() < minY) und die Notbremse time > 600.",
     "ort": "common/src/shared/java/com/simplebuilding/entity/LevitatingBlockEntity.java:167-168",
-    "grund": "GravityBlockTests führt beide ausdrücklich unter 'Not covered': das eine braucht eine Entity unter dem Weltboden, weit außerhalb des 8er-Raums, das andere ein 600-Tick-Budget für einen einzigen Zweig."
+    "grund": "GravityBlockTests führt beide ausdrücklich unter 'Not covered': das eine braucht eine Entity unter dem Weltboden, weit außerhalb des 8er-Raums, das andere ein 600-Tick-Budget für einen einzigen Zweig.",
+    "p4": {
+      "urteil": "blocked-harness",
+      "grund": "Entity unter dem Weltboden bzw. 600-Tick-Budget.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1907,7 +2207,12 @@
     "seite": "n-a",
     "verhalten": "Auf Forge hängt die Injektion an zwei biome_modifier-JSONs (forge:add_features, #minecraft:is_end, Schritt underground_ores).",
     "ort": "forge/src/main/resources/data/simplebuilding/forge/biome_modifier/astralit_ore.json; .../nihilith_ore.json",
-    "grund": "Das Forge-Modul enthält keinerlei Gametest-Code: grep über forge/src nach 'GameTest' liefert null Treffer, und es gibt keine Adapterklasse wie NeoForgeGameTests oder die Fabric-*GameTest-Klassen. Der Biom-Reichweiten-Test läuft also nur auf Fabric und NeoForge; die Forge-Dateien werden von nichts geprüft."
+    "grund": "Das Forge-Modul enthält keinerlei Gametest-Code: grep über forge/src nach 'GameTest' liefert null Treffer, und es gibt keine Adapterklasse wie NeoForgeGameTests oder die Fabric-*GameTest-Klassen. Der Biom-Reichweiten-Test läuft also nur auf Fabric und NeoForge; die Forge-Dateien werden von nichts geprüft.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Forge-Modul ohne jeden Gametest. Entscheidung: Forge-Adapter bauen oder Forge als ungetestet fuehren.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1927,7 +2232,12 @@
     "seite": "n-a",
     "verhalten": "Der Schlüssel item.simplebuilding.nihilith_ore fehlt in beiden Sprachdateien, sodass das Blockitem des Nihilith-Erzes im Inventar seinen rohen Schlüssel anzeigt.",
     "ort": "src/main/resources/assets/simplebuilding/lang/en_us.json (Zeile 295 hat item.simplebuilding.astralit_ore, kein Nihilith-Pendant); de_de.json:300 ebenso; Ursache: ModItems#registerItem ruft kein useBlockDescriptionPrefix()",
-    "grund": "Belegt durch die Sprachdateien selbst: astralit_ore hat den item.-Doppeleintrag, nihilith_ore nicht. SmokeClientGameTest lässt den Schlüssel bewusst aus seiner Prüfliste und begründet das im Klassenjavadoc: ihn zu fordern würde eine der beiden korrekten Reparaturen (useBlockDescriptionPrefix aufrufen und die item.-Duplikate löschen) gegen den Test laufen lassen."
+    "grund": "Belegt durch die Sprachdateien selbst: astralit_ore hat den item.-Doppeleintrag, nihilith_ore nicht. SmokeClientGameTest lässt den Schlüssel bewusst aus seiner Prüfliste und begründet das im Klassenjavadoc: ihn zu fordern würde eine der beiden korrekten Reparaturen (useBlockDescriptionPrefix aufrufen und die item.-Duplikate löschen) gegen den Test laufen lassen.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "item.simplebuilding.nihilith_ore fehlt. Bekannter Defekt; Entscheidung ueber die Reparatur (Schluessel oder useBlockDescriptionPrefix).",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1937,7 +2247,12 @@
     "seite": "n-a",
     "verhalten": "Andere Sprachen fallen auf die englischen Namen zurück.",
     "ort": "kein Mod-Code",
-    "grund": "Das ist Vanillas LanguageManager, der die gewählte Sprache immer auf en_us stapelt; die Mod trägt dazu nichts bei. SmokeClientGameTest führt das ausdrücklich unter 'Not covered' mit genau dieser Begründung."
+    "grund": "Das ist Vanillas LanguageManager, der die gewählte Sprache immer auf en_us stapelt; die Mod trägt dazu nichts bei. SmokeClientGameTest führt das ausdrücklich unter 'Not covered' mit genau dieser Begründung.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Vanilla.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "welt",
@@ -1947,7 +2262,12 @@
     "seite": "n-a",
     "verhalten": "Dass die Erze in einer echten End-Welt wirklich gefunden werden (Adernform, tatsächliche Fundrate, genügend Endstein an den Inselunterseiten).",
     "ort": "common/src/shared/java/com/simplebuilding/util/ModWorldGen.java:53-82",
-    "grund": "Alle Erzgenerierungs-Tests laufen in einem 8x8x8-Raum einer bereits generierten Welt; das Klassenjavadoc von OreGenAndItemFrameTests sagt selbst, dass die Suite nicht beweisen kann, dass ein Spieler je eines findet - gedeckt sind die Daten und die Loader-Verdrahtung, nicht das Ergebnis."
+    "grund": "Alle Erzgenerierungs-Tests laufen in einem 8x8x8-Raum einer bereits generierten Welt; das Klassenjavadoc von OreGenAndItemFrameTests sagt selbst, dass die Suite nicht beweisen kann, dass ein Spieler je eines findet - gedeckt sind die Daten und die Loader-Verdrahtung, nicht das Ergebnis.",
+    "p4": {
+      "urteil": "blocked-harness",
+      "grund": "Echte Weltgenerierung; dauerhaft offen (siehe Plan 5).",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-mining",
@@ -1957,7 +2277,12 @@
     "seite": "n-a",
     "verhalten": "Vein Miner: Der Hook laeuft nur fuer ServerPlayer (Client-Aufruf faellt durch).",
     "ort": "common/src/shared/java/com/simplebuilding/util/VeinMinerUsageEvent.java:34",
-    "grund": "Alle Aufrufer in Tests uebergeben ServerPlayer (MiningEnchantmentTests#veinMine, VeinAndStripMinerTests#veinMine). Kein Test uebergibt eine Nicht-ServerPlayer-Instanz."
+    "grund": "Alle Aufrufer in Tests uebergeben ServerPlayer (MiningEnchantmentTests#veinMine, VeinAndStripMinerTests#veinMine). Kein Test uebergibt eine Nicht-ServerPlayer-Instanz.",
+    "p4": {
+      "urteil": "writable-server",
+      "grund": "helper.makeMockPlayer() liefert einen Player, der kein ServerPlayer ist: den Hook damit rufen, nichts darf passieren.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-mining",
@@ -1967,7 +2292,12 @@
     "seite": "n-a",
     "verhalten": "Vein Miner: switch-Default (Stufe > 5) faellt auf 18 Bloecke zurueck.",
     "ort": "common/src/shared/java/com/simplebuilding/util/VeinMinerUsageEvent.java:62",
-    "grund": "assertBudget wird nur mit 1..5 aufgerufen; max_level ist 5, ein hoeherer Wert entsteht nur ueber manuell gesetzte Komponenten oder ein Datapack."
+    "grund": "assertBudget wird nur mit 1..5 aufgerufen; max_level ist 5, ein hoeherer Wert entsteht nur ueber manuell gesetzte Komponenten oder ein Datapack.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Stufe > 5 nur ueber Datapack.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-mining",
@@ -2007,7 +2337,12 @@
     "seite": "n-a",
     "verhalten": "Strip Miner: Der Tunnel stoppt an Luft.",
     "ort": "common/src/shared/java/com/simplebuilding/util/StripMinerUsageEvent.java:61",
-    "grund": "Der Fall tritt in mining_enchantment_game_test_strip_miner_digs_upwards_only_past_the_steep_pitch_threshold zwar auf (LEVEL_TUNNEL ist nur 2 Bloecke lang bei Tiefe 4), ist dort aber nicht falsifizierbar: faellt der isAir-Check weg, greift der isCorrectToolForDrops-Check direkt dahinter, weil eine Spitzhacke fuer Luft kein korrektes Werkzeug ist."
+    "grund": "Der Fall tritt in mining_enchantment_game_test_strip_miner_digs_upwards_only_past_the_steep_pitch_threshold zwar auf (LEVEL_TUNNEL ist nur 2 Bloecke lang bei Tiefe 4), ist dort aber nicht falsifizierbar: faellt der isAir-Check weg, greift der isCorrectToolForDrops-Check direkt dahinter, weil eine Spitzhacke fuer Luft kein korrektes Werkzeug ist.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Nicht falsifizierbar, begruendet.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-mining",
@@ -2027,7 +2362,12 @@
     "seite": "n-a",
     "verhalten": "Strip Miner: Clamp Math.max(0, currentDamage - damageRefund) verhindert negative Schadenswerte.",
     "ort": "common/src/shared/java/com/simplebuilding/util/StripMinerUsageEvent.java:93",
-    "grund": "Im Klassen-Javadoc von MiningEnchantmentTests ausdruecklich als nicht assertierbar dokumentiert: ItemStack#setDamageValue klemmt in 26.2 selbst auf Mth.clamp(value, 0, getMaxDamage())."
+    "grund": "Im Klassen-Javadoc von MiningEnchantmentTests ausdruecklich als nicht assertierbar dokumentiert: ItemStack#setDamageValue klemmt in 26.2 selbst auf Mth.clamp(value, 0, getMaxDamage()).",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Vanilla klemmt selbst.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-mining",
@@ -2047,7 +2387,12 @@
     "seite": "n-a",
     "verhalten": "Versatility: Der Handler ist auf der Client-Seite abgeschaltet (world.isClientSide()).",
     "ort": "common/src/shared/java/com/simplebuilding/util/VersatilityUsageEvent.java:28",
-    "grund": "Im Javadoc von enchantment_effect_game_test_versatility_swaps_in_the_better_tool_while_sneaking ausdruecklich ausgeklammert: helper.getLevel() ist immer ein ServerLevel, isClientSide() also konstant false."
+    "grund": "Im Javadoc von enchantment_effect_game_test_versatility_swaps_in_the_better_tool_while_sneaking ausdruecklich ausgeklammert: helper.getLevel() ist immer ein ServerLevel, isClientSide() also konstant false.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "helper.getLevel() ist immer Serverseite.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-mining",
@@ -2077,7 +2422,12 @@
     "seite": "n-a",
     "verhalten": "Versatility: Der Client wird ueber ClientboundSetHeldSlotPacket bzw. containerMenu.broadcastChanges informiert.",
     "ort": "common/src/shared/java/com/simplebuilding/util/VersatilityUsageEvent.java:81,95",
-    "grund": "Im Klassen-Javadoc von MiningEnchantmentTests als \"out of reach for a server side gametest\" gefuehrt: der Tausch wird am Serverinventar assertiert, fuer das Paket hat das Harness keinen Empfaenger."
+    "grund": "Im Klassen-Javadoc von MiningEnchantmentTests als \"out of reach for a server side gametest\" gefuehrt: der Tausch wird am Serverinventar assertiert, fuer das Paket hat das Harness keinen Empfaenger.",
+    "p4": {
+      "urteil": "blocked-harness",
+      "grund": "Paket ohne Empfaenger im Serverharness; clientseitig waere der Slotwechsel sichtbar - aber Versatility braucht Schleichen plus Abbau, siehe 71.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-mining",
@@ -2117,7 +2467,12 @@
     "seite": "server",
     "verhalten": "SledgehammerUsageEvent: Wiedereintrittsschutz HARVESTED_BLOCKS - jeder Nachbar wird genau einmal abgerechnet.",
     "ort": "common/src/shared/java/com/simplebuilding/util/SledgehammerUsageEvent.java:27,42",
-    "grund": "Das Javadoc sagt es selbst: der verschachtelte Aufruf ist vom direkt aufgerufenen Hook aus nicht herstellbar; gepinnt ist nur die beobachtbare Folge (modShare == NEIGHBOURS * erwartete Kosten)."
+    "grund": "Das Javadoc sagt es selbst: der verschachtelte Aufruf ist vom direkt aufgerufenen Hook aus nicht herstellbar; gepinnt ist nur die beobachtbare Folge (modShare == NEIGHBOURS * erwartete Kosten).",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Folge ist gepinnt.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-mining",
@@ -2147,7 +2502,12 @@
     "seite": "n-a",
     "verhalten": "Client-Vorschau: Der Vein-Miner-Zweig des Renderers.",
     "ort": "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java:91-92",
-    "grund": "Im Klassen-Javadoc von MultiBlockBreakingClientGameTest ausdruecklich unter \"Not covered\": jedes Vanilla-Erz, das ein korrektes Werkzeug abbaut, ist innerhalb weniger Ticks weg und nimmt das Messfenster mit."
+    "grund": "Im Klassen-Javadoc von MultiBlockBreakingClientGameTest ausdruecklich unter \"Not covered\": jedes Vanilla-Erz, das ein korrektes Werkzeug abbaut, ist innerhalb weniger Ticks weg und nimmt das Messfenster mit.",
+    "p4": {
+      "urteil": "writable-client",
+      "grund": "Antiker Schutt (Haerte 30) mit Diamantspitzhacke braucht ~110 Ticks, wenn er in der Erzliste steht - genug fuer ein Messfenster mit dem BreakingStateRecorder. Vorher pruefen, ob MiningUtils ihn als Erz fuehrt; sonst Nihilith-/Astralit-Erz mit einer Haerte ueber 5 waehlen.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-mining",
@@ -2237,7 +2597,12 @@
     "seite": "server",
     "verhalten": "Handel: Die Trades haengen an worldGen.enableVillagerTrades bzw. enableWanderingTrades.",
     "ort": "src/main/resources/data/simplebuilding/villager_trade/**.json (fabric:load_conditions / neoforge:conditions)",
-    "grund": "Der Test prueft, dass die in den JSONs genannten Flags echte Felder der Config sind (VILLAGER_FLAG/WANDERING_FLAG), nicht dass ein abgeschaltetes Flag die Trades wirklich aus der Registry haelt."
+    "grund": "Der Test prueft, dass die in den JSONs genannten Flags echte Felder der Config sind (VILLAGER_FLAG/WANDERING_FLAG), nicht dass ein abgeschaltetes Flag die Trades wirklich aus der Registry haelt.",
+    "p4": {
+      "urteil": "blocked-harness",
+      "grund": "Ein abgeschaltetes Flag braucht einen Serverstart mit anderer Config.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-mining",
@@ -2257,7 +2622,12 @@
     "seite": "n-a",
     "verhalten": "Forge-Modul: kein In-Welt-Renderer, keine enchant_type-Property und keine registrierte Loot-Funktion simplebuilding:weighted_enchant (die Abbau-Handler selbst sind angebunden).",
     "ort": "forge/src/main/java/com/simplebuilding/forge/SimplebuildingForgeClient.java:23-31, common/src/shared/java/com/simplebuilding/loot/ModLootFunctions.java",
-    "grund": "ModLootFunctions.registerLootFunctions() wird nur aus src/main/java/.../datagen/ModTradeOffers.java (Fabric) und neoforge/.../NeoForgeRegistryBootstrap.java aufgerufen - im forge-Modul kein Treffer. SimplebuildingForgeClient sagt es im eigenen Javadoc selbst. Das forge-Modul hat ausserdem gar keinen Testquellbaum (nur forge/src/main)."
+    "grund": "ModLootFunctions.registerLootFunctions() wird nur aus src/main/java/.../datagen/ModTradeOffers.java (Fabric) und neoforge/.../NeoForgeRegistryBootstrap.java aufgerufen - im forge-Modul kein Treffer. SimplebuildingForgeClient sagt es im eigenen Javadoc selbst. Das forge-Modul hat ausserdem gar keinen Testquellbaum (nur forge/src/main).",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Forge-Modul unvollstaendig; wie 21.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-bau",
@@ -2297,7 +2667,12 @@
     "seite": "server",
     "verhalten": "Auf dem Forge-Loader laeuft die Stock-Interaktion durch eine ZWEITE, vollstaendige Kopie derselben Logik (eigene cycleState/cycle-Helfer), nicht durch die gemeinsame Klasse.",
     "ort": "forge/src/main/java/com/simplebuilding/forge/ModRegistriesForge.java:28-60, aufgerufen aus forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java:71",
-    "grund": "Der Delegations-Check in BuildingEnchantmentTests ist auf `classPresent(\"net.fabricmc.fabric.api.event.player.UseBlockCallback\")` gegattert und prueft nur `com.simplebuilding.util.ModRegistries` - auf Forge sagt er nichts. NeoForgeGameplayEvents.java:67 delegiert inzwischen an ConstructorsTouchInteraction, ForgeGameplayEvents.java:71 nicht. Die Gametests laufen ausserdem nur auf Fabric/NeoForge, das forge-Modul steht aber in settings.gradle."
+    "grund": "Der Delegations-Check in BuildingEnchantmentTests ist auf `classPresent(\"net.fabricmc.fabric.api.event.player.UseBlockCallback\")` gegattert und prueft nur `com.simplebuilding.util.ModRegistries` - auf Forge sagt er nichts. NeoForgeGameplayEvents.java:67 delegiert inzwischen an ConstructorsTouchInteraction, ForgeGameplayEvents.java:71 nicht. Die Gametests laufen ausserdem nur auf Fabric/NeoForge, das forge-Modul steht aber in settings.gradle.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Forge hat eine zweite Kopie der Stock-Logik; wie 21/94.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-bau",
@@ -2427,7 +2802,12 @@
     "seite": "n-a",
     "verhalten": "Auf Forge ist der Luftsprung anders gebaut: die Stufe ist die Zahl der Luftspruenge je Flugphase (jumpsUsed < level), der Zaehler wird beim Bodenkontakt / Klettern / Wasser zurueckgesetzt, es gibt keine Abklingzeit und kein HUD.",
     "ort": "forge/src/main/java/com/simplebuilding/forge/ForgeClientGameEvents.java:69-88",
-    "grund": "Kein Test im Repo laedt Forge-Client-Code. Der Fabric-Client-Harness (src/gametest/.../clienttest/) und der NeoForge-Harness (neoforge/src/clientGameTest/) decken je ihren eigenen Loader ab; ein forge/src/*GameTest-Verzeichnis existiert nicht. Der Servertest network_handler_game_test_double_jump_needs_enchanted_boots_and_wears_them faehrt nur handleDoubleJump, das auf allen Loadern dasselbe ist."
+    "grund": "Kein Test im Repo laedt Forge-Client-Code. Der Fabric-Client-Harness (src/gametest/.../clienttest/) und der NeoForge-Harness (neoforge/src/clientGameTest/) decken je ihren eigenen Loader ab; ein forge/src/*GameTest-Verzeichnis existiert nicht. Der Servertest network_handler_game_test_double_jump_needs_enchanted_boots_and_wears_them faehrt nur handleDoubleJump, das auf allen Loadern dasselbe ist.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Forge-Luftsprung anders gebaut; wie 21.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-spieler",
@@ -2477,7 +2857,12 @@
     "seite": "n-a",
     "verhalten": "Auf NeoForge rufen dieselbe geteilte Steuerung und dieselbe HUD-Ebene - laut Handbuch identisch zu Fabric.",
     "ort": "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeClientHooks.java; neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-    "grund": "Der Fabric-Client-Harness bootet einen Fabric-Client; ClientBootstrapClientGameTest.java:97-101 sagt das ausdruecklich ('This harness boots a Fabric client, so \"both loaders call the same DoubleJumpController.tick and register the same HUD layer\" is only ever half proven. The NeoForge side stays a code review question.'). Das NeoForge-Geruest unter neoforge/src/clientGameTest/ enthaelt nur RendererProofRun, BreakingStateRecorder, Shot, TestScript, Log, ScreenshotDiff - keinen Luftsprung-Lauf."
+    "grund": "Der Fabric-Client-Harness bootet einen Fabric-Client; ClientBootstrapClientGameTest.java:97-101 sagt das ausdruecklich ('This harness boots a Fabric client, so \"both loaders call the same DoubleJumpController.tick and register the same HUD layer\" is only ever half proven. The NeoForge side stays a code review question.'). Das NeoForge-Geruest unter neoforge/src/clientGameTest/ enthaelt nur RendererProofRun, BreakingStateRecorder, Shot, TestScript, Log, ScreenshotDiff - keinen Luftsprung-Lauf.",
+    "p4": {
+      "urteil": "covered-since",
+      "grund": "Seit dem 2026-09-10 laeuft AirJumpClientTest auf NeoForge (84/85, alle vier airjump-Pruefpunkte gruen) - dieselbe Steuerung, dieselbe HUD-Ebene, gemessen statt behauptet.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "verzauberung-spieler",
@@ -2497,7 +2882,12 @@
     "seite": "client",
     "verhalten": "Die gruene 'volle Ladung'-Farbe 0xFF4CFF4C ist unerreichbar, weil das Overlay bei remaining == 0 schon aussteigt; ebenso die Klammer Math.max(0, Math.min(1, ...)) auf dem Fuellstand und der max <= 0 - Fruehausstieg.",
     "ort": "common/src/shared/java/com/simplebuilding/client/gui/DoubleJumpHudOverlay.java:20, :36-38, :41, :55",
-    "grund": "Direkt zusichern liesse sich nichts davon - jede Zusicherung waere eine Tautologie, das steht so in AirJumpClientGameTest.java:124-134. Gepinnt ist stattdessen die Grenze, die den Zweig tot macht: der Recorder-Frame bei remaining == 0 darf nichts zeichnen (:975-981), also wuerde ein Aufweichen der Wache auf remaining >= 0 rot."
+    "grund": "Direkt zusichern liesse sich nichts davon - jede Zusicherung waere eine Tautologie, das steht so in AirJumpClientGameTest.java:124-134. Gepinnt ist stattdessen die Grenze, die den Zweig tot macht: der Recorder-Frame bei remaining == 0 darf nichts zeichnen (:975-981), also wuerde ein Aufweichen der Wache auf remaining >= 0 rot.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Tautologie; Grenze ist gepinnt.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "besatz-licht",
@@ -2547,7 +2937,12 @@
     "seite": "server",
     "verhalten": "Amethyst: alle 200 Ticks je Teil 25 % x Multiplikator Chance auf 1 Leben Heilung, nur wenn verletzt",
     "ort": "common/src/shared/java/com/simplebuilding/util/TrimEffectUtil.java:319-323; common/src/shared/java/com/simplebuilding/mixin/LivingEntityMixin.java:101-116",
-    "grund": "Chance 1.0 bei vier Teilen in TrimEffectTests. Die Kadenz in TrimWiringTests laesst genau 200 uebrig: feuert auf 200 und 400, schweigt auf 100 und 120 (beide Vielfache von 20, damit Rib-Zweig und Friedensheilung in allen vier Messungen mitlaufen und sich herauskuerzen). Die Heilung wird als Differenz von 1.0 gemessen."
+    "grund": "Chance 1.0 bei vier Teilen in TrimEffectTests. Die Kadenz in TrimWiringTests laesst genau 200 uebrig: feuert auf 200 und 400, schweigt auf 100 und 120 (beide Vielfache von 20, damit Rib-Zweig und Friedensheilung in allen vier Messungen mitlaufen und sich herauskuerzen). Die Heilung wird als Differenz von 1.0 gemessen.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Gedeckt (partly); Kadenz und Chance sind gepinnt.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "besatz-licht",
@@ -2587,7 +2982,12 @@
     "seite": "server",
     "verhalten": "/simplebuilding config setTrimMultiplier: nur Operatoren, Bereich 0.0 bis maxMultiplierLimit einschliesslich, Wert landet in trimBenefitBaseMultiplier; getTrimMultiplier meldet nur",
     "ort": "src/main/java/com/simplebuilding/command/ModCommands.java; neoforge/src/main/java/com/simplebuilding/command/ModCommands.java",
-    "grund": "Ueber den echten Dispatcher: Nicht-Operator wird abgewiesen und der Wert bewegt sich nicht; 3.5 landet in der Config; die Obergrenze selbst wird angenommen (aus SimplebuildingConfig.maxMultiplierLimit gelesen, nicht abgeschrieben); Grenze + 0.5 und -0.5 werden abgewiesen ohne zu schreiben; getTrimMultiplier gibt 1 zurueck und aendert nichts."
+    "grund": "Ueber den echten Dispatcher: Nicht-Operator wird abgewiesen und der Wert bewegt sich nicht; 3.5 landet in der Config; die Obergrenze selbst wird angenommen (aus SimplebuildingConfig.maxMultiplierLimit gelesen, nicht abgeschrieben); Grenze + 0.5 und -0.5 werden abgewiesen ohne zu schreiben; getTrimMultiplier gibt 1 zurueck und aendert nichts.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Gedeckt (partly) ueber den echten Dispatcher.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "besatz-licht",
@@ -2597,7 +2997,12 @@
     "seite": "n-a",
     "verhalten": "Der Knopf traegt das Symbol der Ward-Schmiedevorlage und den Tooltip \"Toggle Resonance Stats\"",
     "ort": "common/src/shared/java/com/simplebuilding/mixin/client/InventoryScreenMixin.java:45-51, 64-66",
-    "grund": "Im Javadoc von HudAndTooltipClientGameTest ausdruecklich als nicht gedeckt gefuehrt: AbstractWidget haelt seinen Tooltip in einem privaten WidgetTooltipHolder ohne Getter, und das Symbol liesse sich nur gegen ein Referenzbild pruefen, das dieses Repo bewusst nicht fuehrt."
+    "grund": "Im Javadoc von HudAndTooltipClientGameTest ausdruecklich als nicht gedeckt gefuehrt: AbstractWidget haelt seinen Tooltip in einem privaten WidgetTooltipHolder ohne Getter, und das Symbol liesse sich nur gegen ein Referenzbild pruefen, das dieses Repo bewusst nicht fuehrt.",
+    "p4": {
+      "urteil": "writable-client",
+      "grund": "Der GUI-Renderzustand wird jetzt ausgelesen (HudAndTooltipClientTest.extractScreenState): Knopf ueberfahren, Tooltip-Text aus forEachText lesen; das Symbol als BlitRenderState mit Sprite-Kennung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "besatz-licht",
@@ -2637,7 +3042,12 @@
     "seite": "n-a",
     "verhalten": "Der Referenzbildschirm zeigt je Zeile Basiswert und Basiswert x Multiplikator; die Basiswerte sind fest verdrahtet und weichen bei Enderit, Netherit und Rib vom Server ab",
     "ort": "common/src/shared/java/com/simplebuilding/client/gui/TrimReferenceScreen.java:40-88",
-    "grund": "ModScreensClientGameTest schreibt ausdruecklich, dass die angezeigten Zahlen bewusst nicht gepinnt werden, weil das die Abweichung zementieren wuerde; belegt ist nur, dass der Bildschirm oeffnet und rendert."
+    "grund": "ModScreensClientGameTest schreibt ausdruecklich, dass die angezeigten Zahlen bewusst nicht gepinnt werden, weil das die Abweichung zementieren wuerde; belegt ist nur, dass der Bildschirm oeffnet und rendert.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Referenzbildschirm zeigt fest verdrahtete Basiswerte, die vom Server abweichen. Bekannter Defekt; Entscheidung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "besatz-licht",
@@ -2667,7 +3077,12 @@
     "seite": "server",
     "verhalten": "isValidArmor akzeptiert alles in #minecraft:trimmable_armor ODER alles mit EQUIPPABLE-Komponente; beide Bloecke des Mixins fragen unabhaengig",
     "ort": "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java:126-128",
-    "grund": "Die EQUIPPABLE-Haelfte ist mit einem Stock isoliert, dem nur diese eine Komponente angehaengt wurde - derselbe Gegenstand wie der Negativfall, eine Komponente Unterschied. Ein blanker Stock wird abgelehnt. Beide Sonden laufen zusaetzlich durch den Leuchten-Block, weil isValidArmor dort ein zweites Mal aufgerufen wird."
+    "grund": "Die EQUIPPABLE-Haelfte ist mit einem Stock isoliert, dem nur diese eine Komponente angehaengt wurde - derselbe Gegenstand wie der Negativfall, eine Komponente Unterschied. Ein blanker Stock wird abgelehnt. Beide Sonden laufen zusaetzlich durch den Leuchten-Block, weil isValidArmor dort ein zweites Mal aufgerufen wird.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Gedeckt (partly), beide Haelften isoliert.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "besatz-licht",
@@ -2697,7 +3112,12 @@
     "seite": "n-a",
     "verhalten": "Beim Verlassen des Servers wird das letzte Licht ueber die Loader-Ereignisse entfernt",
     "ort": "src/main/java/com/simplebuilding/Simplebuilding.java:122-124; neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java:106-112",
-    "grund": "onDisconnect wird von den Tests nur direkt gerufen. Das Klassen-Javadoc fuehrt die beiden Registrierungen ausdruecklich unter \"Not covered\" und begruendet es: nur die NeoForge-Haelfte liesse sich aus einem gemeinsamen Test ausloesen (PlayerList#remove feuert das Logout-Ereignis), Fabrics haengt am eigenen onDisconnect des Paket-Listeners und braucht eine echte Verbindung. Eine Behauptung, die auf einem Loader haelt und auf dem anderen faellt, waere ein Fehlalarm."
+    "grund": "onDisconnect wird von den Tests nur direkt gerufen. Das Klassen-Javadoc fuehrt die beiden Registrierungen ausdruecklich unter \"Not covered\" und begruendet es: nur die NeoForge-Haelfte liesse sich aus einem gemeinsamen Test ausloesen (PlayerList#remove feuert das Logout-Ereignis), Fabrics haengt am eigenen onDisconnect des Paket-Listeners und braucht eine echte Verbindung. Eine Behauptung, die auf einem Loader haelt und auf dem anderen faellt, waere ein Fehlalarm.",
+    "p4": {
+      "urteil": "blocked-harness",
+      "grund": "Logout-Ereignis nur auf NeoForge aus einem Test ausloesbar.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "besatz-licht",
@@ -2707,7 +3127,12 @@
     "seite": "client",
     "verhalten": "Leuchtstufe 1 rendert den Besatz konstant in voller Helligkeit, Stufe 2 pulsierend ueber einen Sinus mit Divisor 500 ms",
     "ort": "common/src/shared/java/com/simplebuilding/mixin/client/EquipmentRendererMixin.java:15-50",
-    "grund": "Screenshot-Differenztest in einem geschlossenen, unbeleuchteten Steinraum, wo der Unterschied zwischen Licht 0 und voller Helligkeit das ganze Signal ist. Stufe 1 muss sich gegen den unbeleuchteten Besatz aendern UND an beiden Extrempunkten des Sinus dasselbe Bild ergeben (das trennt konstant von pulsierend); Stufe 2 muss sich zwischen Hoch- und Tiefpunkt unterscheiden und beim naechsten Hochpunkt zurueckkommen. Kontrollschritt: ohne Komponente wieder das Ausgangsbild. Die Ruestung haengt an einem Ruestungsstaender, weil das Spielermodell die Arme bewegt."
+    "grund": "Screenshot-Differenztest in einem geschlossenen, unbeleuchteten Steinraum, wo der Unterschied zwischen Licht 0 und voller Helligkeit das ganze Signal ist. Stufe 1 muss sich gegen den unbeleuchteten Besatz aendern UND an beiden Extrempunkten des Sinus dasselbe Bild ergeben (das trennt konstant von pulsierend); Stufe 2 muss sich zwischen Hoch- und Tiefpunkt unterscheiden und beim naechsten Hochpunkt zurueckkommen. Kontrollschritt: ohne Komponente wieder das Ausgangsbild. Die Ruestung haengt an einem Ruestungsstaender, weil das Spielermodell die Arme bewegt.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Gedeckt (partly) ueber Screenshot im dunklen Raum.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "besatz-licht",
@@ -2717,7 +3142,12 @@
     "seite": "n-a",
     "verhalten": "Das Licht entsteht nur fuer Spieler; die Strahlkraft anderer Wesen (Mobs, Ruestungsstaender) erzeugt nichts",
     "ort": "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java:19-22",
-    "grund": "Im Klassen-Javadoc als nicht deckbar aufgeschrieben: DynamicLightHandler#tick nimmt einen Player, ein Ruestungsstaender laesst sich gar nicht uebergeben, und beide Loader speisen die Methode ausschliesslich aus der Spielerliste. Ein Test mit aufgewerteter Ruestung an einem Ruestungsstaender wuerde nichts belegen als die Methodensignatur."
+    "grund": "Im Klassen-Javadoc als nicht deckbar aufgeschrieben: DynamicLightHandler#tick nimmt einen Player, ein Ruestungsstaender laesst sich gar nicht uebergeben, und beide Loader speisen die Methode ausschliesslich aus der Spielerliste. Ein Test mit aufgewerteter Ruestung an einem Ruestungsstaender wuerde nichts belegen als die Methodensignatur.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Methode nimmt nur Player; nicht formulierbar.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "rest",
@@ -2767,7 +3197,12 @@
     "seite": "n-a",
     "verhalten": "Die Bedingung pool.size() > 1 vor dem second_chance-Wurf",
     "ort": "WeightedEnchantFunction.java:69",
-    "grund": "Im Javadoc von TradeOfferTests#weightedEnchantHonoursItsSecondChanceSetting ausdruecklich als nicht pinbar erklaert: ohne die Bedingung zieht ein Einzeleintragspool denselben Eintrag erneut, die Nachziehschleife verbraucht ihre zehn Versuche und die Schlusspruefung setzt second wieder auf null - das Ergebnis ist auf jedem Seed identisch."
+    "grund": "Im Javadoc von TradeOfferTests#weightedEnchantHonoursItsSecondChanceSetting ausdruecklich als nicht pinbar erklaert: ohne die Bedingung zieht ein Einzeleintragspool denselben Eintrag erneut, die Nachziehschleife verbraucht ihre zehn Versuche und die Schlusspruefung setzt second wieder auf null - das Ergebnis ist auf jedem Seed identisch.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Nicht pinbar, begruendet.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "rest",
@@ -2797,7 +3232,12 @@
     "seite": "n-a",
     "verhalten": "Einschraenkung: das Vanilla-Datenpaket Trade Rebalance ersetzt die drei Bibliothekar-Tags komplett und verwirft dabei die Mod-Angebote; Steinmetz, Werkzeugschmied und fahrender Haendler bleiben unberuehrt",
     "ort": "src/main/resources/data/minecraft/tags/villager_trade/librarian/level_3.json, level_4.json, level_5.json",
-    "grund": "manual.json behauptet \"so im Gametest dokumentiert und abgesichert\" - das haelt nicht. tradeRebalanceActive (TradeAndMigrationTests.java:743) ist ein Ueberspring-Wachhund, der die drei Bibliothekar-Zusicherungen bei aktivem Paket AUSLAESST; es gibt keine Zusicherung ueber das Ersetzen. TradeOfferTests begruendet im Klassen-Javadoc, warum eine solche Zusicherung nur Vanillas eigene Garantie pruefen wuerde und nie fuer etwas rot werden koennte, das die Mod tut."
+    "grund": "manual.json behauptet \"so im Gametest dokumentiert und abgesichert\" - das haelt nicht. tradeRebalanceActive (TradeAndMigrationTests.java:743) ist ein Ueberspring-Wachhund, der die drei Bibliothekar-Zusicherungen bei aktivem Paket AUSLAESST; es gibt keine Zusicherung ueber das Ersetzen. TradeOfferTests begruendet im Klassen-Javadoc, warum eine solche Zusicherung nur Vanillas eigene Garantie pruefen wuerde und nie fuer etwas rot werden koennte, das die Mod tut.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "manual.json behauptet 'abgesichert', der Test ueberspringt bei aktivem Trade-Rebalance. Entweder Handbuch berichtigen oder das Ersetzen der Tags zusichern.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "rest",
@@ -2807,7 +3247,12 @@
     "seite": "n-a",
     "verhalten": "Der Scan laeuft ueber ALLE Dimensionen (server.getAllLevels())",
     "ort": "LegacySpatulaMigration.java:23",
-    "grund": "Im Javadoc des Tests ausdruecklich als nicht gedeckt erklaert: eine frueherer Fassung setzte einen Spachtel im Nether ab und musste dessen Chunk erzwingen; in fuenf von sechs Laeufen fand migrateWorlds daraufhin gar nichts mehr (gemessener Mod-Defekt, 2026-09-04). Eine Beschraenkung auf server.overworld() bleibt heute gruen."
+    "grund": "Im Javadoc des Tests ausdruecklich als nicht gedeckt erklaert: eine frueherer Fassung setzte einen Spachtel im Nether ab und musste dessen Chunk erzwingen; in fuenf von sechs Laeufen fand migrateWorlds daraufhin gar nichts mehr (gemessener Mod-Defekt, 2026-09-04). Eine Beschraenkung auf server.overworld() bleibt heute gruen.",
+    "p4": {
+      "urteil": "blocked-harness",
+      "grund": "Zweite Dimension im Gametest instabil (gemessen 2026-09-04).",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "rest",
@@ -2817,7 +3262,12 @@
     "seite": "n-a",
     "verhalten": "Der Serverstart-Haken (SERVER_STARTED / ServerStartedEvent) ruft migrateWorlds",
     "ort": "src/main/java/com/simplebuilding/Simplebuilding.java:97, neoforge/.../NeoForgeGameplayEvents.java:96",
-    "grund": "In beiden Testklassen als nicht deckbar dokumentiert: der Haken feuert lange vor jedem Gametest-Rumpf und kann von keinem Loader aus erneut betreten werden."
+    "grund": "In beiden Testklassen als nicht deckbar dokumentiert: der Haken feuert lange vor jedem Gametest-Rumpf und kann von keinem Loader aus erneut betreten werden.",
+    "p4": {
+      "urteil": "blocked-harness",
+      "grund": "Serverstart-Haken feuert vor jedem Test.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "rest",
@@ -2847,7 +3297,12 @@
     "seite": "n-a",
     "verhalten": "Die Pruefung laeuft nur auf dem Server (frueher Ausstieg bei isClientSide)",
     "ort": "EnderiteItemMixin.java:26",
-    "grund": "Ein Gametest-Server hat keine Clientseite; kein Client-Test fasst Item-Entitaeten unter der Weltgrenze an."
+    "grund": "Ein Gametest-Server hat keine Clientseite; kein Client-Test fasst Item-Entitaeten unter der Weltgrenze an.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Kein Client fasst Items unter der Weltgrenze an.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "rest",
@@ -2857,7 +3312,12 @@
     "seite": "server",
     "verhalten": "Sanftes Fallen: mindestens 2 Enderit-Teile, nicht am Boden, Fallgeschwindigkeit unter -0,1 und gedrueckte Sprungtaste - alle vier Bedingungen",
     "ort": "common/src/shared/java/com/simplebuilding/mixin/PlayerEntityMixin.java:67-71",
-    "grund": "WorldAndPlayerTests.java:754-800 fuehrt Teilezahl (1 vs 2 vs 4), Geschwindigkeit von beiden Seiten (-0,5684 zaehlt, -0,0784 nach einem Schritt von der Kante nicht) und die Sprungtaste gegen ihr Gegenteil. Die Haelfte !onGround() ist im Javadoc ausdruecklich als nicht deckbar erklaert: Entity#move nullt die Vertikalgeschwindigkeit bei der Bodenkollision, danach bringt die Schwerkraft sie nur auf -0,0784 zurueck - also ueber die Schwelle, weshalb ein Spieler am Boden immer schon an der Geschwindigkeitspruefung scheitert."
+    "grund": "WorldAndPlayerTests.java:754-800 fuehrt Teilezahl (1 vs 2 vs 4), Geschwindigkeit von beiden Seiten (-0,5684 zaehlt, -0,0784 nach einem Schritt von der Kante nicht) und die Sprungtaste gegen ihr Gegenteil. Die Haelfte !onGround() ist im Javadoc ausdruecklich als nicht deckbar erklaert: Entity#move nullt die Vertikalgeschwindigkeit bei der Bodenkollision, danach bringt die Schwerkraft sie nur auf -0,0784 zurueck - also ueber die Schwelle, weshalb ein Spieler am Boden immer schon an der Geschwindigkeitspruefung scheitert.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Gedeckt (partly); !onGround nicht isolierbar.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "rest",
@@ -2867,7 +3327,12 @@
     "seite": "n-a",
     "verhalten": "Einschraenkung: der Voidschutz gilt nur fuer Items als Objekt in der Welt, nicht in Truhen oder Inventaren",
     "ort": "EnderiteItemMixin.java:15 (@Mixin(ItemEntity.class))",
-    "grund": "Kein Test setzt eine Truhe mit Enderit unter die Weltgrenze. Die Aussage folgt aus dem Mixin-Ziel, wird aber nirgends gefahren."
+    "grund": "Kein Test setzt eine Truhe mit Enderit unter die Weltgrenze. Die Aussage folgt aus dem Mixin-Ziel, wird aber nirgends gefahren.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Folgt aus dem Mixin-Ziel.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "rest",
@@ -2887,7 +3352,12 @@
     "seite": "n-a",
     "verhalten": "Die vier Toene (Glas platzieren, Glas zerbrechen, Schafschur mit Tonhoehe 1,2, Pinsel) und der Magnet-Ton (Seelenanker)",
     "ort": "ItemFrameEntityMixin.java:76, :88, :100, :115, :139",
-    "grund": "Im Klassen-Javadoc von SmokeClientGameTest als bekannter Defekt festgehalten und bewusst nicht zugesichert: Player#playSound reicht den Spieler selbst als \"except\"-Argument weiter, PlayerList#broadcast ueberspringt genau diesen Client - der ausloesende Spieler hoert also nichts, und im Einzelspieler hoert es niemand."
+    "grund": "Im Klassen-Javadoc von SmokeClientGameTest als bekannter Defekt festgehalten und bewusst nicht zugesichert: Player#playSound reicht den Spieler selbst als \"except\"-Argument weiter, PlayerList#broadcast ueberspringt genau diesen Client - der ausloesende Spieler hoert also nichts, und im Einzelspieler hoert es niemand.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Vier Toene, die der ausloesende Spieler nie hoert. Bekannter Defekt (Player#playSound statt world.playSound); Entscheidung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "rest",
@@ -2927,7 +3397,12 @@
     "seite": "server",
     "verhalten": "ModCommands existiert vierfach ohne gemeinsame Quelle; ein Lauf deckt nur die Kopie des laufenden Loaders",
     "ort": "src/main/java/com/simplebuilding/command/ModCommands.java, neoforge/src/main/java/com/simplebuilding/command/ModCommands.java, forge/src/main/java/com/simplebuilding/command/ModCommands.java, mc1_21_11/...",
-    "grund": "Im Klassen-Javadoc von TrimWiringTests als bekannter Defekt festgehalten; der Test deckt pro Lauf eine Kopie."
+    "grund": "Im Klassen-Javadoc von TrimWiringTests als bekannter Defekt festgehalten; der Test deckt pro Lauf eine Kopie.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "ModCommands vierfach ohne gemeinsame Quelle. Bekannter Defekt; Entscheidung (Zusammenlegen wie die drei Doppelpflegen vom 2026-09-09).",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "rest",
@@ -2937,7 +3412,12 @@
     "seite": "n-a",
     "verhalten": "Einschraenkung: der Befehl schreibt den Wert NICHT in die Konfigurationsdatei zurueck",
     "ort": "ModCommands.java:27 (nur Zuweisung an das statische Feld)",
-    "grund": "Kein Test prueft die Datei. Zudem waere die Aussage teils tautologisch: der Gson-Serialisierer ueberspringt statische Felder ohnehin."
+    "grund": "Kein Test prueft die Datei. Zudem waere die Aussage teils tautologisch: der Gson-Serialisierer ueberspringt statische Felder ohnehin.",
+    "p4": {
+      "urteil": "keep-documented",
+      "grund": "Teils tautologisch; Datei wird nicht geschrieben - siehe 94.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "rest",
@@ -2957,7 +3437,12 @@
     "seite": "client",
     "verhalten": "Fabric: ModMenu liefert eine Konfigurationsbildschirm-Fabrik, und aus SimplebuildingConfig laesst sich ein Bildschirm bauen, der oeffnet und rendert",
     "ort": "src/main/java/com/simplebuilding/compat/ModMenuIntegration.java:19-32",
-    "grund": "ModScreensClientGameTest.java:411-466 prueft, dass die Fabrik nicht null ist, und dass Cloth Config einen Bildschirm baut, der 20 Ticks offen bleibt. ABER: der reflektive AutoConfig.getConfigScreen-Aufruf der Mod scheitert auf Cloth Config 26.2.155 (die Methode liegt jetzt auf AutoConfigClient); der Test faengt genau diese NoSuchMethodException ab, protokolliert sie als bekannten Defekt und weicht auf AutoConfigClient aus."
+    "grund": "ModScreensClientGameTest.java:411-466 prueft, dass die Fabrik nicht null ist, und dass Cloth Config einen Bildschirm baut, der 20 Ticks offen bleibt. ABER: der reflektive AutoConfig.getConfigScreen-Aufruf der Mod scheitert auf Cloth Config 26.2.155 (die Methode liegt jetzt auf AutoConfigClient); der Test faengt genau diese NoSuchMethodException ab, protokolliert sie als bekannten Defekt und weicht auf AutoConfigClient aus.",
+    "p4": {
+      "urteil": "defect-decision",
+      "grund": "Der reflektive AutoConfig.getConfigScreen-Aufruf scheitert auf Cloth Config 26.2.155. Bekannter Defekt; Entscheidung.",
+      "datum": "2026-09-10"
+    }
   },
   {
     "gruppe": "rest",
