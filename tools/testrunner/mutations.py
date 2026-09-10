@@ -24,6 +24,7 @@ Usage
     python tools/testrunner/mutations.py --run --only hopper-glyph-swap,bundle-scale
     python tools/testrunner/mutations.py --run --target client-fabric-262
     python tools/testrunner/mutations.py --p6 --run             # the P6 core-area round (server)
+    python tools/testrunner/mutations.py --p6 --run --line 1.21.11   # the same round on the 1.21.11 copy
 
 Results land in testing/mutations/<timestamp>.json and are summarised on stdout.
 """
@@ -502,6 +503,35 @@ def plan(selected: list[Mutation]) -> list[list[Mutation]]:
     return rounds
 
 
+#: The 1.21.11 line keeps its own copy of the shared mod sources (mc1_21_11/shared/java, mirrored
+#: by hand) and its own Fabric module. A server mutation proved on 26.2 says nothing about
+#: whether the TRANSLATED test body on 1.21.11 bites - the bodies are within the drift tolerance,
+#: which is a statement about text, not about teeth. --line 1.21.11 re-points every server
+#: mutation at the copy: same anchor where the copy is word-identical (28 of 30 are), a line
+#: specific anchor where the API differs (the two below).
+LINE_1_21_11 = "1.21.11"
+
+#: Anchors that differ on the 1.21.11 copy: mutation id -> (old, new) as they read there.
+ANCHORS_1_21_11: dict[str, tuple[str, str]] = {
+    "vein-ore-list-emerald": (
+        "state.is(BlockTags.DIAMOND_ORES) ||\n                state.is(BlockTags.EMERALD_ORES);",
+        "state.is(BlockTags.DIAMOND_ORES);"),
+    "hopper-pickup-only": (
+        "                if (actionType == ClickType.PICKUP) {\n                    blockEntity.setGhostItem(slotIndex, cursor.isEmpty() ? ItemStack.EMPTY : cursor);\n                    // Abbrechen, damit Item nicht wirklich reingelegt wird\n                    return; \n                }",
+        "                blockEntity.setGhostItem(slotIndex, cursor.isEmpty() ? ItemStack.EMPTY : cursor);\n                return;"),
+}
+
+
+def on_line(m: Mutation, line: str) -> Mutation:
+    """The same mutation, addressed at the copy of its file on the given Minecraft line."""
+    if line != LINE_1_21_11:
+        return m
+    file = (m.file.replace("common/src/shared/java", "mc1_21_11/shared/java")
+            .replace("src/main/java", "mc1_21_11/fabric/src/main/java"))
+    old, new = ANCHORS_1_21_11.get(m.id, (m.old, m.new))
+    return Mutation(m.id, file, old, new, m.script, m.expect, m.claim, m.kind)
+
+
 def mutate(m: Mutation, text: str) -> str:
     """The mutated file text, or a RuntimeError naming the missing anchor."""
     if m.id in PATCH_FUNCTIONS:
@@ -681,9 +711,16 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--timeout", type=int, default=1200)
     parser.add_argument("--p6", action="store_true",
                         help="the P6 core-area round (server side) instead of the false-green counter-checks")
+    parser.add_argument("--line", default="26.2", choices=["26.2", LINE_1_21_11],
+                        help="which Minecraft line's copy of the mod to mutate; 1.21.11 takes the server "
+                             "mutations only and proves them on fabric-12111 unless --server-target says otherwise")
     args = parser.parse_args(argv)
 
     catalogue = P6_MUTATIONS if args.p6 else MUTATIONS
+    if args.line == LINE_1_21_11:
+        catalogue = [on_line(m, args.line) for m in catalogue if m.kind == "server"]
+        if args.server_target == "fabric-262":
+            args.server_target = "fabric-12111"
     selected = catalogue
     if args.only:
         wanted = set(args.only.split(","))
@@ -725,7 +762,8 @@ def main(argv: list[str] | None = None) -> int:
     # The header names the target the rounds actually ran on: the client target for the client
     # catalogue, the server target for a --p6 run, which has no client rounds at all.
     ran_on = args.server_target if args.p6 else args.target
-    out.write_text(json.dumps({"target": ran_on, "catalogue": "p6" if args.p6 else "false-greens",
+    out.write_text(json.dumps({"target": ran_on, "line": args.line,
+                               "catalogue": "p6" if args.p6 else "false-greens",
                                "rounds": results}, indent=2,
                               ensure_ascii=False), encoding="utf-8")
 
