@@ -923,6 +923,12 @@ ANCHORS_1_21_11: dict[str, tuple[str, str]] = {
     "hopper-pickup-only": (
         "                if (actionType == ClickType.PICKUP) {\n                    blockEntity.setGhostItem(slotIndex, cursor.isEmpty() ? ItemStack.EMPTY : cursor);\n                    // Abbrechen, damit Item nicht wirklich reingelegt wird\n                    return; \n                }",
         "                blockEntity.setGhostItem(slotIndex, cursor.isEmpty() ? ItemStack.EMPTY : cursor);\n                return;"),
+    # On 1.21.11 the loot function hands the draw to WeightedPicker (shared with the code
+    # registered trades of that line) and applies every pick in one loop, so the level is
+    # dropped for all picks there, not only the first - the named test sees both.
+    "weighted-enchant-level-dropped": (
+        "                enchantments.set(pick.enchantment(), pick.level());",
+        "                enchantments.set(pick.enchantment(), 1);"),
 }
 
 
@@ -1127,8 +1133,6 @@ def main(argv: list[str] | None = None) -> int:
         catalogue = [on_line(m, args.line) for m in catalogue if m.kind == "server"]
         if args.server_target == "fabric-262":
             args.server_target = "fabric-12111"
-    if args.p6b and args.line == LINE_1_21_11:
-        raise SystemExit("--p6b has no 1.21.11 anchors yet")
     selected = catalogue
     if args.only:
         wanted = set(args.only.split(","))
