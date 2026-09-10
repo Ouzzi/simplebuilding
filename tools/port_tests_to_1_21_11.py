@@ -136,13 +136,87 @@ def port(name: str) -> tuple[int, list[str]]:
     return total, notes
 
 
+#: Classes whose 1.21.11 body is allowed to differ in substance, each with the reason. The
+#: drift check subtracts the mechanical rules first and then complains about what is left; a
+#: class listed here is reported but does not fail the check. Every entry names a REAL line
+#: difference, not a port that has fallen behind.
+DRIFT_EXPLAINED: dict[str, str] = {
+    "TradeAndMigrationTests": "Handel ist erst ab MC 26.1 datengetrieben; die 26.2-Faelle zu Registry und "
+                              "Tag-Merge haben auf 1.21.11 kein Gegenstueck (siehe LINE_DIFFERENCES)",
+    "TradeRegistryTests": "26.2-only, siehe LINE_DIFFERENCES",
+    "TradeOfferTests": "26.2-only, siehe LINE_DIFFERENCES",
+}
+
+#: How many lines a class may have on one side only before the drift check calls it drift.
+#: Reworded messages and moved braces produce a handful; a sharpening that never reached the
+#: other line produces dozens.
+DRIFT_TOLERANCE = 12
+
+
+def normalised_body(text: str) -> set[str]:
+    """The lines of a test class that mean something, in 26.2 spelling, as a set.
+
+    The 1.21.11 helpers (TestCleanup, Assertions) are folded back into the 26.2 calls, the
+    mechanical RULES are applied in reverse where they can be, imports and comments are dropped.
+    What remains differs only where the BODIES differ.
+    """
+    text = text.replace("\r\n", "\n")
+    text = re.sub(r"Assertions\.valueEqual\(helper, ", "helper.assertValueEqual(", text)
+    text = text.replace("TestCleanup.succeed(helper);", "helper.succeed();")
+    text = re.sub(r"TestCleanup\.before\(helper, ", "helper.runBeforeTestEnd(", text)
+    text = text.replace(".thenExecute(() -> TestCleanup.run(helper))\n                .thenSucceed();", ".thenSucceed();")
+    text = re.sub(r"\bEntityType\.", "EntityTypes.", text)
+    text = re.sub(r"^import .*\n", "", text, flags=re.M)
+    return {line.strip() for line in text.split("\n")
+            if line.strip() and not line.strip().startswith(("*", "//", "/*"))}
+
+
+def drift() -> list[tuple[str, int, int, str]]:
+    """(class, lines only on 26.2, lines only on 1.21.11, explanation or '') per class, worst first."""
+    rows = []
+    for source in sorted(SOURCE.glob("*Tests.java")):
+        target = TARGET / source.name
+        if not target.exists():
+            rows.append((source.stem, -1, -1, "fehlt"))
+            continue
+        a = normalised_body(source.read_bytes().decode("utf-8"))
+        b = normalised_body(target.read_bytes().decode("utf-8"))
+        rows.append((source.stem, len(a - b), len(b - a), DRIFT_EXPLAINED.get(source.stem, "")))
+    rows.sort(key=lambda r: -r[1])
+    return rows
+
+
 def main(argv: list[str] | None = None) -> int:
     force_utf8_stdout()
     parser = argparse.ArgumentParser(description="Ports game tests to the MC 1.21.11 tree.")
     parser.add_argument("classes", nargs="*", help="class names, e.g. MagnetTests")
     parser.add_argument("--all", action="store_true", help="port every class the target lacks")
     parser.add_argument("--check", action="store_true", help="only list what is missing")
+    parser.add_argument("--drift", action="store_true",
+                        help="compare the BODIES of the classes both lines have; exit 1 on unexplained drift")
     args = parser.parse_args(argv)
+
+    if args.drift:
+        print()
+        print(f"  {'Klasse':40s} {'nur 26.2':>9s} {'nur 1.21.11':>12s}")
+        bad = 0
+        for name, only26, only11, why in drift():
+            flag = ""
+            if only26 < 0:
+                flag = "FEHLT"
+                bad += 1
+            elif only26 > DRIFT_TOLERANCE:
+                flag = "erklaert: " + why if why else "ZURUECKGEFALLEN"
+                if not why:
+                    bad += 1
+            print(f"  {name:40s} {max(only26, 0):9d} {max(only11, 0):12d}  {flag}")
+        print()
+        if bad:
+            print(f"  {bad} Klasse(n) haengen ohne Erklaerung hinter dem 26.2-Koerper zurueck - mit dem "
+                  "Werkzeug nachziehen, dann uebersetzen.")
+            return 1
+        print("  Kein unerklaerter Unterschied zwischen den Testkoerpern der beiden Linien.")
+        return 0
 
     gap = missing()
     if args.check or (not args.classes and not args.all):

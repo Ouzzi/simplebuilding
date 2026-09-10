@@ -13,6 +13,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -403,6 +405,9 @@ public final class VeinAndStripMinerTests {
      * ore check says no, the preview selects nothing, and the vein stays in the world. Putting
      * quartz or ancient debris back into the list is a balance change, not a repair, and it turns
      * all three of those assertions red at once.
+     *
+     * <p>The last block is the guard nobody else exercises: a player that is not a
+     * {@code ServerPlayer} - the client side copy - has to be let through untouched.
      */
     public static void veinMinerRefusesNonOresAndTooWeakPickaxesAndDivergesFromTheHighlightOnQuartz(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 3.0, 4.5), 0.0F, 0.0F);
@@ -498,6 +503,35 @@ public final class VeinAndStripMinerTests {
         veinMine(helper, player, veinMinerPickaxe(helper, Items.DIAMOND_PICKAXE, 5), DEBRIS_ORIGIN);
         for (BlockPos pos : DEBRIS_NEIGHBOURS) {
             helper.assertBlockPresent(Blocks.ANCIENT_DEBRIS, pos);
+        }
+
+        // --- a player that is not a ServerPlayer: the hook lets the break through untouched ---
+        // The hook is wired into a block break event that both loaders also fire on the client
+        // side, and its first guard is "instanceof ServerPlayer" - the client's copy of the player
+        // must never mine a vein of its own. Every other call in this suite hands it a
+        // ServerPlayer, so until here that guard could have been deleted without a test noticing.
+        // makeMockPlayer builds a plain Player that is not a ServerPlayer; DynamicLightTests already
+        // asserts that property of the factory and this case asserts it again for its own sake.
+        Player notAServerPlayer = helper.makeMockPlayer(GameType.SURVIVAL);
+        helper.assertFalse(notAServerPlayer instanceof ServerPlayer,
+                "test setup broken: makeMockPlayer returned a ServerPlayer, so the guard under test "
+                        + "would be satisfied by accident");
+        notAServerPlayer.setShiftKeyDown(true);
+        notAServerPlayer.setItemInHand(InteractionHand.MAIN_HAND, veinMinerPickaxe(helper, Items.IRON_PICKAXE, 5));
+
+        helper.setBlock(FAMILY_ORIGIN, Blocks.COAL_ORE);
+        for (BlockPos pos : FAMILY_NEIGHBOURS) {
+            helper.setBlock(pos, Blocks.COAL_ORE);
+        }
+        BlockPos familyOrigin = helper.absolutePos(FAMILY_ORIGIN);
+        boolean letThrough = VeinMinerUsageEvent.handleBeforeBlockBreak(helper.getLevel(), notAServerPlayer,
+                familyOrigin, helper.getLevel().getBlockState(familyOrigin),
+                helper.getLevel().getBlockEntity(familyOrigin));
+        helper.assertTrue(letThrough,
+                "the hook cancelled a block break for a player that is not a ServerPlayer; it is "
+                        + "supposed to step aside and let vanilla handle the block");
+        for (BlockPos pos : FAMILY_NEIGHBOURS) {
+            helper.assertBlockPresent(Blocks.COAL_ORE, pos);
         }
 
         helper.succeed();

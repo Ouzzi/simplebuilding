@@ -181,6 +181,115 @@ public final class Script {
         }));
     }
 
+    /**
+     * Waits until two frames a few ticks apart are the same picture, rebuilding the chunks in
+     * between when they are not.
+     *
+     * <p>This is the barrier every pixel test in the suite silently assumed and none of the other
+     * waits could give: "the packets arrived" and "the chunks are built" are both true of a scene
+     * that is still changing on screen. It was paid for twice - a ladder column from an earlier
+     * test still fading out of the corner of the frame seven seconds after the fill that removed
+     * it, and on another loader the very same corner again after a chunk rebuild and a render
+     * barrier had been added. The scene's own noise floor step then failed with a true and useless
+     * sentence ("4950 changed pixels while nothing changed on screen").
+     *
+     * <p>So the scene proves itself still before anything is measured: a frame, {@code gapTicks}
+     * of waiting, a second frame, and the two have to agree by the same rule the noise floor
+     * uses. When they do not, {@code betweenAttempts} runs on the client (the scene build passes
+     * a full chunk rebuild) and the pair is taken again, up to {@code attempts} times. Only then
+     * does it fail - and it fails with WHERE the picture changed and what entities the client has
+     * near the player, which is the sentence the noise floor could not say.
+     *
+     * <p>The settle shots are named without a hyphen on purpose: the test runner reads every
+     * hyphenated string out of this file as a promised checkpoint.
+     */
+    public void awaitStableFrame(String what, int gapTicks, int attempts, ClientWork betweenAttempts) {
+        int[] attempt = {0};
+        int[] phase = {0};
+        int[] phaseStart = {0};
+        Path[] first = {null};
+        String[] lastVerdict = {""};
+
+        entries.add(new Entry("the " + what + " holds still between two frames", (gapTicks + 260) * attempts + 60,
+                Where.HARNESS, ticks -> {
+            String nameA = "settle" + attempt[0] + "a";
+            String nameB = "settle" + attempt[0] + "b";
+
+            if (phase[0] == 0) {
+                if (!currentHarness.screenshot(nameA, ticks - phaseStart[0])) {
+                    return false;
+                }
+                first[0] = currentHarness.screenshotPath(nameA);
+                phase[0] = 1;
+                phaseStart[0] = ticks;
+                return false;
+            }
+
+            if (phase[0] == 1) {
+                if (ticks - phaseStart[0] < gapTicks) {
+                    return false;
+                }
+                phase[0] = 2;
+                phaseStart[0] = ticks;
+                return false;
+            }
+
+            if (!currentHarness.screenshot(nameB, ticks - phaseStart[0])) {
+                return false;
+            }
+
+            ScreenshotDiff.ChangedArea area = ScreenshotDiff.changedArea(
+                    what + " between two frames " + gapTicks + " ticks apart (attempt " + (attempt[0] + 1) + ")",
+                    first[0], currentHarness.screenshotPath(nameB));
+
+            if (ScreenshotDiff.withinNoise(area.changedPixels(), area.frameWidth() * area.frameHeight())) {
+                return true;
+            }
+
+            lastVerdict[0] = area.toString();
+            attempt[0]++;
+
+            if (attempt[0] >= attempts) {
+                throw new AssertionError("The " + what + " kept changing: " + lastVerdict[0]
+                        + " after " + attempts + " attempts with a chunk rebuild between them. "
+                        + currentHarness.run(Where.CLIENT, () -> {
+                            lastVerdict[0] = describeNearbyEntities(Minecraft.getInstance());
+                            return true;
+                        }) + lastVerdict[0]);
+            }
+
+            currentHarness.run(Where.CLIENT, () -> {
+                betweenAttempts.run(Minecraft.getInstance());
+                return true;
+            });
+            phase[0] = 0;
+            phaseStart[0] = ticks;
+            return false;
+        }));
+    }
+
+    /** Every entity but the player within sixteen blocks of him, for a message about a moving scene. */
+    private static String describeNearbyEntities(Minecraft client) {
+        if (client.level == null || client.player == null) {
+            return "No client level or player to look around.";
+        }
+
+        StringBuilder text = new StringBuilder("Entities near the player: ");
+        int count = 0;
+
+        for (net.minecraft.world.entity.Entity entity : client.level.entitiesForRendering()) {
+            if (entity == client.player || entity.distanceTo(client.player) > 16.0f) {
+                continue;
+            }
+            count++;
+            text.append(entity.getType().toShortString()).append(" at ")
+                    .append(String.format(java.util.Locale.ROOT, "%.1f/%.1f/%.1f", entity.getX(), entity.getY(), entity.getZ()))
+                    .append("; ");
+        }
+
+        return count == 0 ? "No entities but the player within sixteen blocks." : text.toString();
+    }
+
     /** Waits until everything the server sent has arrived and been handled on the client. */
     public void awaitPackets() {
         entries.add(new Entry("wait for the server's packets", 200, Where.HARNESS,

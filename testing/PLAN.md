@@ -286,8 +286,8 @@ Alle 97 Einträge einzeln gegengelesen; Urteil und Grund je Eintrag in `audit_of
 | Urteil | Zahl |
 |---|---:|
 | jetzt schreibbar (Client) — meist, weil die geteilte Schrittform Töne hört, Bildschirme ausliest und einen echten Überlebensspieler hat | 9 |
-| jetzt schreibbar (Server) — Köcher tragen seit dem 2026-09-09 `EQUIPPABLE`; `makeMockPlayer` liefert einen Nicht-`ServerPlayer` | 2 |
-| seit dem Audit gedeckt (Trichter-Ordinal, NeoForge-Luftsprung) | 2 |
+| jetzt schreibbar (Server) — `makeMockPlayer` liefert einen Nicht-`ServerPlayer` für den Vein-Miner-Wächter (geschrieben) | 1 |
+| seit dem Audit gedeckt (Trichter-Ordinal, NeoForge-Luftsprung, Köcher im Brustslot) | 3 |
 | **bekannter Defekt, Entscheidung des Besitzers** | 27 |
 | bleibt begründet offen (tote Zweige, Tautologien, von Vanilla getragen) | 47 |
 | weiterhin harness-blockiert (Selbstausschluss bei `player.playSound`, zweite Dimension, Serverstart-Haken, echte Weltgenerierung) | 10 |
@@ -369,6 +369,27 @@ ob die Geisterblöcke um ihre Mitte schrumpfen; ein Zähler-Mixin je Loader zäh
 | `BlockHighlightClientTest` / `MultiBlockBreakingClientTest` | 2 | geschärft |
 | `SmokeClientTest` (alle fünf Sync-Felder) | 1 | geschärft |
 | Server: Trichter-Ordinal, nur PICKUP | 2 | geschärft bzw. schon gedeckt, per Mutation zu belegen |
+
+### P8 — Die Testkörper der 1.21.11-Linie sind hinter 26.2 zurückgefallen *(neu, 2026-09-10)*
+
+Beim Schärfen eines Vein-Miner-Falls fiel auf, dass die 1.21.11-Kopie von
+`VeinAndStripMinerTests` die Erzfamilien, den antiken Schutt und die Stamm-Fälle der P7-Runde gar
+nicht enthält. Nachgemessen über alle 39 Klassen (Zeilen, die es nur auf 26.2 gibt, nach Abzug der
+bekannten mechanischen Unterschiede): **rund 2 400 Zeilen** in 15 Klassen, allen voran
+`ConfigOptionTests` (338), `TradeAndMigrationTests` (312, teils erklärt — Handel ist erst ab 26.1
+datengetrieben), `DataIntegrityTests` (254), `BuildingEnchantmentTests` (253),
+`ItemBehaviourTests` (196), `ToolBehaviourTests` (175), `NetworkHandlerTests` (171).
+
+Das Paritätstor hat das nicht gesehen, weil es Test-**Ids** vergleicht und Schärfungen keine Ids
+hinzufügen. `tools/port_tests_to_1_21_11.py --check` sieht es auch nicht: es prüft nur, ob jede
+Klasse auf beiden Linien existiert. Beides wird ergänzt (ein `--drift`, das die Körper vergleicht,
+und ein Eintrag im Release-Tor), und die 15 Klassen werden mit dem Werkzeug nachgezogen — genau
+so, wie die Client-Kopie am 2026-09-10 entstanden ist.
+
+**Nebenbefund auf dem Weg:** Fabrics `ModMessages` trug für alle elf Server-Empfänger eine
+eigene Kopie der Logik, NeoForge delegiert an das gemeinsame `ModMessageHandlers`. Die Kopien
+waren beim Vergleich identisch; jetzt delegiert Fabric ebenfalls, und die Servertests auf
+`ModMessageHandlers` decken damit erstmals den Pfad, den ein Fabric-Server wirklich läuft.
 
 ### P6 — Mutationstests für die teuersten Tests
 

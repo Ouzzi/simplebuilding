@@ -1459,9 +1459,9 @@
     "ort": "C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding\\common\\src\\shared\\java\\com\\simplebuilding\\items\\ModItems.java:370-376 gegen QuiverItem.java:148-150, 175-176",
     "grund": "Der Codepfad selbst ist gedeckt - beide Bogentests schreiben den Koecher per setItemSlot(EquipmentSlot.CHEST, ...) direkt in den Slot. Die Aussage \"ein Koecher laesst sich nicht anziehen\" (QuiverTests-Javadoc Z.64-75) behauptet kein Test.",
     "p4": {
-      "urteil": "writable-server",
-      "grund": "Seit 2026-09-09 tragen die Koecher EQUIPPABLE fuer CHEST (Entscheidung des Besitzers). Die Aussage 'ein Koecher laesst sich anziehen' ist jetzt wahr und serverseitig pruefbar: EQUIPPABLE-Komponente lesen, Slot CHEST.",
-      "datum": "2026-09-10"
+      "urteil": "covered-since",
+      "datum": "2026-09-10",
+      "grund": "Seit dem 2026-09-09 tragen alle drei Koecher EQUIPPABLE fuer CHEST, und QuiverTests prueft player.isEquippableInSlot(worn, EquipmentSlot.CHEST) fuer jeden - die Aussage 'ein Koecher laesst sich anziehen' ist damit gedeckt, nicht nur schreibbar."
     }
   },
   {

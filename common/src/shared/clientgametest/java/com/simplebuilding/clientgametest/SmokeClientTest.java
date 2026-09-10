@@ -575,7 +575,9 @@ public final class SmokeClientTest {
 
         // --- damage: survival, three half hearts, creative again --------------------------------
         script.command("gamemode survival @a");
-        script.command("damage @a 3");
+        // limit=1 because /damage takes a single entity, not a selector that may match several -
+        // the plain @a is a parse error, which the strict command rightly reports.
+        script.command("damage @a[limit=1] 3");
         script.command("gamemode creative @a");
         script.awaitPackets();
 

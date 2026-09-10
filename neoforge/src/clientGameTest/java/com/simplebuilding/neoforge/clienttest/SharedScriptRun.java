@@ -389,7 +389,10 @@ final class SharedScriptRun implements Harness {
 
         boolean poll() {
             if (error != null) {
-                throw new AssertionError("command failed: " + command, error);
+                // The cause's own words, in the message: the driver logs one line per failure and
+                // never the stack, and "command failed" alone has already cost a run's worth of
+                // guessing over a /summon that failed here and passed on the other loader.
+                throw new AssertionError("command failed: " + command + " - " + error, error);
             }
             if (done) {
                 return true;

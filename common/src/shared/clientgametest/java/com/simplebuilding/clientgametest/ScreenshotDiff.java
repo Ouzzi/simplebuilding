@@ -194,6 +194,11 @@ public final class ScreenshotDiff {
      * self-check of the whole approach: if it fails, the scene is not deterministic and no
      * difference test below it means anything.
      */
+    /** The noise floor rule, on its own: at most 60 pixels or one in twenty thousand, whichever is more. */
+    public static boolean withinNoise(int changedPixels, int totalPixels) {
+        return changedPixels <= Math.max(60, totalPixels / 20000);
+    }
+
     public static void assertUnchanged(Diff diff) {
         int allowed = Math.max(60, diff.totalPixels() / 20000);
 

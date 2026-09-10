@@ -68,6 +68,13 @@ public final class TestScene {
         }
         script.command("time set noon");
         script.command("weather clear");
+        // Explicit, because the two drivers create their worlds differently: NeoForge's opens the
+        // world in Peaceful, Fabric's does not, and /summon refuses a monster in Peaceful with
+        // "commands.summon.failed.peaceful" - which is how the smoke test's creeper existed on one
+        // loader and not on the other. Natural spawning is off through the game rules above
+        // either way, so Easy changes nothing else in this scene. Tolerated, because "already
+        // easy" is a command failure in vanilla, exactly like a fill that fills nothing.
+        script.command("difficulty easy", true);
         script.command("gamemode " + gameMode + " @a");
         // Throws when there is nothing to kill, which is a perfectly good outcome here.
         script.command("kill @e[type=!minecraft:player]", true);
@@ -93,6 +100,10 @@ public final class TestScene {
 
         assertAimedAt(script, TARGET, TARGET_FACE);
         assertTheClientSeesAnEmptyScene(script);
+        // Last, because it is the only one of these that looks at the picture itself. Twenty ticks
+        // is the gap the shortest noise floor in the suite uses; four attempts with a rebuild
+        // between them is more than any run has needed and still under the timeout of one step.
+        script.awaitStableFrame("scene", 20, 4, client -> client.levelRenderer.allChanged());
     }
 
     /**
