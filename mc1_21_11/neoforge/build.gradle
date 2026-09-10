@@ -84,10 +84,14 @@ neoForge.addModdingDependenciesTo(sourceSets.clientGameTest)
 def mainMod = neoForge.mods.getByName(project.archives_base_name.toString())
 def clientTestMod = neoForge.mods.getByName(project.archives_base_name.toString() + 'clienttest')
 
-// The verdict of the run. RendererProofRun writes it as its very last action before halting the
-// JVM; see verifyClientGameTestResult below for why the build reads it from here instead of from
-// the process exit code.
-def rendererProofResult = layout.buildDirectory.file('run/clientGameTest/screenshots/RESULT.txt')
+// The verdict of the run. SharedScriptRun writes it as its very last action before halting the
+// JVM ("PROVEN" on its first line, "NOT PROVEN" plus the failing step otherwise, then one line per
+// screenshot taken); see verifyClientGameTestResult below for why the build reads it from here
+// instead of from the process exit code. Until 2026-09-10 this still pointed at the RESULT.txt of
+// the retired RendererProofRun, so every run of the shared driver failed this build no matter
+// what it proved - which the test runner's own screenshot count masked, because it counts the
+// checkpoints itself and only reports the Gradle status alongside.
+def rendererProofResult = layout.buildDirectory.file('run/clientGameTest/client-test-result.txt')
 
 // The renderer proof runs unattended in a throwaway game directory, so NeoForge would greet it
 // with its "mods loaded with N warning(s)" screen and nothing would ever reach the main menu.
@@ -125,7 +129,7 @@ def seedClientGameTestConfig = tasks.register('seedClientGameTestConfig') {
 // So the run task is allowed to end with any exit status and this task decides instead. It is
 // not weaker: the file is written by the same code path that computes the verdict, it is deleted
 // before every run, and anything that keeps the run from finishing (an early crash, a hang that
-// gets killed from outside, a failed assertion) leaves either no file at all or a "RESULT: FAIL"
+// gets killed from outside, a failed assertion) leaves either no file at all or a "NOT PROVEN"
 // in it. All three cases fail the build.
 def verifyClientGameTestResult = tasks.register('verifyClientGameTestResult') {
     description = 'Fails the build unless the renderer proof wrote a PASS verdict.'
@@ -142,11 +146,11 @@ def verifyClientGameTestResult = tasks.register('verifyClientGameTestResult') {
 
         def verdict = file.text.trim()
 
-        if (!verdict.startsWith('RESULT: PASS')) {
-            throw new GradleException("Renderer proof failed:\n" + verdict)
+        if (!verdict.startsWith('PROVEN')) {
+            throw new GradleException("Client tests failed:\n" + verdict)
         }
 
-        logger.lifecycle(verdict)
+        logger.lifecycle(verdict.readLines().head())
     }
 }
 

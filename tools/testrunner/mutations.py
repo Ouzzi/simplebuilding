@@ -23,6 +23,7 @@ Usage
     python tools/testrunner/mutations.py --run                  # all rounds
     python tools/testrunner/mutations.py --run --only hopper-glyph-swap,bundle-scale
     python tools/testrunner/mutations.py --run --target client-fabric-262
+    python tools/testrunner/mutations.py --p6 --run             # the P6 core-area round (server)
 
 Results land in testing/mutations/<timestamp>.json and are summarised on stdout.
 """
@@ -198,6 +199,241 @@ MUTATIONS: list[Mutation] = [
              "new SurvivalSyncPayload(0, currentTime, totalPassiveKills, totalHostileKills, 0)",
              "smoke", "SurvivalSyncPayload carries the wrong numbers",
              "every field of the sync carries its own number"),
+]
+
+#: P6 (testing/PLAN.md): the systematic round for the core areas - mining enchantments, the
+#: tools, the gravity blocks and the trim effects. These are not answers to a known false green;
+#: each is the kind of one-line slip a refactoring makes (a constant nudged, a guard dropped, a
+#: branch flattened), placed in the mod's own source, with the one server test whose sentence
+#: has to name it. What P6 asks is not "does the suite have a test for this" but "would the
+#: suite NOTICE": a mutation that stays green here is a finding, and the runner reports it as
+#: one instead of forgiving it.
+#:
+#: Proved on the 26.2 line only. The 1.21.11 test bodies are the translated copy of these
+#: (port_tests_to_1_21_11.py --drift keeps them within twelve normalised lines), so the same
+#: sentence is there; what differs is the Minecraft underneath, which a mutation of the mod's
+#: source does not touch.
+P6_MUTATIONS: list[Mutation] = [
+    # --- mining enchantments -------------------------------------------------------------
+    Mutation("strip-depth-table",
+             f"{SHARED}/util/MiningUtils.java",
+             "return (level == 3) ? 4 : level;",
+             "return level;",
+             "vein_and_strip_miner_game_test_strip_miner_tunnels_along_the_facing_and_refunds_durability_through_the_block_break_event",
+             "Expected block Air: got Stone",
+             "Strip Miner III digs four deep, not three - the one depth table",
+             kind="server"),
+    Mutation("strip-refund-off",
+             f"{SHARED}/util/StripMinerUsageEvent.java",
+             "int damageRefund = (brokenBlocks + 1) / 3;",
+             "int damageRefund = 0;",
+             "vein_and_strip_miner_game_test_strip_miner_tunnels_along_the_facing_and_refunds_durability_through_the_block_break_event",
+             "Strip Miner durability refund for the level II tunnel",
+             "the tunnel refunds one point of durability per three blocks",
+             kind="server"),
+    Mutation("strip-sneak-gate",
+             f"{SHARED}/util/StripMinerUsageEvent.java",
+             "        if (!player.isShiftKeyDown()) {\n            return true;\n        }\n",
+             "",
+             "vein_and_strip_miner_game_test_strip_miner_tunnels_along_the_facing_and_refunds_durability_through_the_block_break_event",
+             "Strip Miner fired without the player sneaking",
+             "Strip Miner only fires while sneaking",
+             kind="server"),
+    Mutation("strip-speed-divisor-two",
+             f"{SHARED}/mixin/PlayerEntityMixin.java",
+             "case 2 -> divisor = 3.0f;",
+             "case 2 -> divisor = 2.0f;",
+             "mining_enchantment_game_test_strip_miner_divides_the_player_destroy_speed_per_level",
+             "Strip Miner 2 left the destroy speed at",
+             "Strip Miner II divides the destroy speed by three",
+             kind="server"),
+    Mutation("mining-direction-threshold",
+             f"{SHARED}/util/MiningUtils.java",
+             "if (pitch > 60) return Direction.DOWN;",
+             "if (pitch > 70) return Direction.DOWN;",
+             "vein_and_strip_miner_game_test_strip_miner_tunnels_along_the_facing_and_refunds_durability_through_the_block_break_event",
+             "MiningUtils stopped digging downwards just past pitch 60",
+             "the downward threshold sits at pitch 60 exactly",
+             kind="server"),
+    Mutation("vein-budget-level-one",
+             f"{SHARED}/util/MiningUtils.java",
+             "case 1 -> 3;",
+             "case 1 -> 6;",
+             "vein_and_strip_miner_game_test_vein_miner_breaks_the_whole_vein_through_the_block_break_event",
+             "Vein Miner block budget at level I",
+             "Vein Miner I has a budget of three blocks including the origin",
+             kind="server"),
+    Mutation("vein-ore-list-emerald",
+             f"{SHARED}/util/MiningUtils.java",
+             "state.is(BlockItemTags.DIAMOND_ORES.block()) ||\n                state.is(BlockItemTags.EMERALD_ORES.block());",
+             "state.is(BlockItemTags.DIAMOND_ORES.block());",
+             "vein_and_strip_miner_game_test_vein_miner_refuses_non_ores_and_too_weak_pickaxes_and_diverges_from_the_highlight_on_quartz",
+             "Vein Miner refused a vein of Emerald Ore",
+             "every one of the eight ore tags is in the one ore list",
+             kind="server"),
+    Mutation("vein-ore-gate",
+             f"{SHARED}/util/MiningUtils.java",
+             "        if (isPickaxe && !isOre(targetState)) return Collections.emptyList();\n",
+             "",
+             "vein_and_strip_miner_game_test_vein_miner_refuses_non_ores_and_too_weak_pickaxes_and_diverges_from_the_highlight_on_quartz",
+             "Expected block Stone: got Air",
+             "a pickaxe vein mines ores only, never plain stone",
+             kind="server"),
+    Mutation("versatility-hammer-step",
+             f"{SHARED}/util/VersatilityUsageEvent.java",
+             "score += 2000f;",
+             "score += 1000f;",
+             "mining_enchantment_game_test_versatility_prefers_the_hammer_and_ranks_the_chisel_last",
+             "Versatility did not put the sledgehammer first",
+             "the sledgehammer outranks every pickaxe regardless of speed",
+             kind="server"),
+    # --- tools -----------------------------------------------------------------------------
+    Mutation("hammer-bedrock-guard",
+             f"{SHARED}/util/SledgehammerUtils.java",
+             "if (targetState.isAir() || targetState.getDestroySpeed(world, pos) < 0.0F) {",
+             "if (targetState.isAir()) {",
+             "sledgehammer_game_test_sledgehammer_field_skips_air_gaps_and_unbreakable_blocks",
+             "Expected block Bedrock: got Air",
+             "an Override II hammer still leaves bedrock standing",
+             kind="server"),
+    Mutation("hammer-air-gap-billed",
+             f"{SHARED}/util/SledgehammerUtils.java",
+             "if (targetState.isAir() || targetState.getDestroySpeed(world, pos) < 0.0F) {",
+             "if (targetState.getDestroySpeed(world, pos) < 0.0F) {",
+             "sledgehammer_game_test_sledgehammer_field_skips_air_gaps_and_unbreakable_blocks",
+             "was billed as if it had been mined",
+             "a hole in the face costs no durability",
+             kind="server"),
+    Mutation("hammer-flat-cost",
+             f"{SHARED}/util/SledgehammerUsageEvent.java",
+             "int damageAmount = isSuitable ? 1 : 2;",
+             "int damageAmount = 1;",
+             "sledgehammer_game_test_sledgehammer_bills_one_durability_per_block_and_two_for_the_wrong_tool",
+             "durability the mod charged for an Override II hammer on glass",
+             "the wrong tool class costs two points per block",
+             kind="server"),
+    Mutation("hammer-charge-clamp",
+             f"{SHARED}/items/custom/SledgehammerItem.java",
+             "return Math.clamp(time, 4, 40);",
+             "return Math.clamp(time, 4, 50);",
+             "sledgehammer_game_test_sledgehammer_charge_time_shortens_with_material_and_efficiency",
+             "charge time in ticks of the stone",
+             "the charge time is held at 40 ticks at the top",
+             kind="server"),
+    Mutation("hammer-efficiency-factor",
+             f"{SHARED}/items/custom/SledgehammerItem.java",
+             "float factor = speed + (efficiencyLevel * 5.0f);",
+             "float factor = speed + (efficiencyLevel * 4.0f);",
+             "sledgehammer_game_test_sledgehammer_charge_time_shortens_with_material_and_efficiency",
+             "charge time of a diamond hammer with Efficiency V",
+             "every Efficiency level adds five to the speed factor",
+             kind="server"),
+    Mutation("radius-ignores-sneak",
+             f"{SHARED}/items/custom/SledgehammerItem.java",
+             "int range = baseRange + ((!isPlayerSneaking && radiusKey.isPresent())",
+             "int range = baseRange + ((radiusKey.isPresent())",
+             "enchantment_effect_game_test_radius_widens_the_sledgehammer_face_and_sneaking_suppresses_it",
+             "Expected block Stone: got Air",
+             "sneaking suppresses the Radius widening",
+             kind="server"),
+    Mutation("rotator-rim-margin",
+             f"{SHARED}/items/custom/RotatorItem.java",
+             "getRimDirection(context, 0.125)",
+             "getRimDirection(context, 0.124)",
+             "rotator_game_test_rim_is_the_outer_eighth_of_every_face_and_nowhere_inside",
+             "0.124 from the west edge, still inside the rim",
+             "the rim is exactly the outer eighth",
+             kind="server"),
+    Mutation("chisel-half-speed",
+             f"{SHARED}/items/custom/ChiselItem.java",
+             "return (materialSpeed + efficiencyBonus) * 0.5f;",
+             "return (materialSpeed + efficiencyBonus) * 0.6f;",
+             "chisel_game_test_chisel_mines_at_half_material_speed",
+             "stone chisel on stone: mining speed is",
+             "the chisel mines at exactly half its material speed",
+             kind="server"),
+    Mutation("chisel-fast-chiseling-factor",
+             f"{SHARED}/items/custom/ChiselItem.java",
+             "(1.0f - (fastChiselingLevel * 0.3f))",
+             "(1.0f - (fastChiselingLevel * 0.25f))",
+             "building_enchantment_game_test_fast_chiseling_shortens_the_cooldown_and_speeds_up_mining",
+             "Fast Chiseling I did not take 30% off the cooldown",
+             "Fast Chiseling takes 30 percent per level off the cooldown",
+             kind="server"),
+    Mutation("wand-radius-cap",
+             f"{SHARED}/items/custom/BuildingWandItem.java",
+             "int maxTierRadius = (this.maxDiameter - 1) / 2;\n        int userRadius = nbt.contains(\"SettingsRadius\") ? nbt.getIntOr(\"SettingsRadius\", maxTierRadius) : maxTierRadius;\n        if (userRadius > maxTierRadius) userRadius = maxTierRadius;",
+             "int maxTierRadius = (this.maxDiameter - 1) / 2;\n        int userRadius = nbt.contains(\"SettingsRadius\") ? nbt.getIntOr(\"SettingsRadius\", maxTierRadius) : maxTierRadius;\n        if (userRadius > maxTierRadius + 1) userRadius = maxTierRadius + 1;",
+             "building_wand_game_test_wand_tier_caps_the_radius_setting_and_sizes_the_plane",
+             "the copper wand did not build the square its own maximum diameter of",
+             "the tier's diameter caps the radius the player asked for",
+             kind="server"),
+    # --- gravity blocks and pistons --------------------------------------------------------
+    Mutation("levitate-delay",
+             f"{SHARED}/blocks/custom/LevitatingBlock.java",
+             "private static final int DELAY_AFTER_PLACE = 2;",
+             "private static final int DELAY_AFTER_PLACE = 3;",
+             "gravity_block_game_test_levitating_sand_leaves_on_vanillas_schedule_and_rises_on_its_curve",
+             "the tick levitating sand lifts off",
+             "levitating sand leaves on vanilla's two tick schedule",
+             kind="server"),
+    Mutation("levitate-drag",
+             f"{SHARED}/entity/LevitatingBlockEntity.java",
+             "private static final double AIR_DRAG = 0.98D;",
+             "private static final double AIR_DRAG = 0.97D;",
+             "gravity_block_game_test_levitating_sand_leaves_on_vanillas_schedule_and_rises_on_its_curve",
+             "the rise should be the exact mirror of vanilla sand falling",
+             "the rise mirrors vanilla's fall curve exactly",
+             kind="server"),
+    Mutation("piston-limit-seventeen",
+             f"{SHARED}/mixin/PistonHandlerMixin.java",
+             "return 18; // Das neue Limit",
+             "return 17; // Das neue Limit",
+             "gravity_block_game_test_reinforced_piston_moves_eighteen_blocks_while_the_netherite_one_keeps_vanillas_twelve",
+             "Expected property extended to be true",
+             "the reinforced piston moves eighteen blocks, not seventeen",
+             kind="server"),
+    Mutation("piston-limit-any-mod-piston",
+             f"{SHARED}/mixin/PistonHandlerMixin.java",
+             "if (state.is(ModBlocks.REINFORCED_PISTON)) {",
+             "if (state.is(ModBlocks.REINFORCED_PISTON) || state.is(ModBlocks.NETHERITE_PISTON)) {",
+             "gravity_block_game_test_reinforced_piston_moves_eighteen_blocks_while_the_netherite_one_keeps_vanillas_twelve",
+             "Expected property extended to be false",
+             "the netherite piston keeps vanilla's twelve",
+             kind="server"),
+    Mutation("piston-break-factor",
+             f"{SHARED}/blocks/custom/NetheriteBreakerPistonBlock.java",
+             "float breakThreshold = (power / 15.0f) * 50.0f;",
+             "float breakThreshold = (power / 15.0f) * 60.0f;",
+             "gravity_block_game_test_netherite_piston_breaks_only_what_the_signal_strength_can_afford",
+             "Expected block Block of Netherite: got",
+             "signal 14 cannot afford a netherite block (hardness 50)",
+             kind="server"),
+    # --- trim effects ----------------------------------------------------------------------
+    Mutation("trim-damage-floor",
+             f"{SHARED}/util/TrimEffectUtil.java",
+             "if (multiplier < 0.1f) multiplier = 0.1f;",
+             "if (multiplier < 0.0f) multiplier = 0.0f;",
+             "trim_effect_game_test_damage_reduction_follows_the_pattern_and_keeps_its_floor",
+             "the 10% damage floor is gone",
+             "no trim set reduces damage below ten percent",
+             kind="server"),
+    Mutation("trim-ward-conditional",
+             f"{SHARED}/util/TrimEffectUtil.java",
+             "        multiplier -= calculateReduction(entity, \"ward\", 0.03f, progressMult);",
+             "        if (source.is(DamageTypeTags.IS_FIRE)) multiplier -= calculateReduction(entity, \"ward\", 0.03f, progressMult);",
+             "trim_effect_game_test_damage_reduction_follows_the_pattern_and_keeps_its_floor",
+             "a full ward set against a generic hit",
+             "ward is the unconditional reduction",
+             kind="server"),
+    Mutation("trim-jump-threshold",
+             f"{SHARED}/util/TrimEffectUtil.java",
+             "if (jumpScore >= 8.0) amplifier = 1;",
+             "if (jumpScore >= 7.0) amplifier = 1;",
+             "trim_effect_game_test_astralit_jump_boost_crosses_its_thresholds_on_tick",
+             "wrong Jump Boost level just below the second threshold",
+             "Jump Boost II starts at a score of 8.0 exactly",
+             kind="server"),
 ]
 
 #: Mutations whose "old" text is not one contiguous block. Each takes the file text and
@@ -432,18 +668,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--server-target", default="fabric-262",
                         help="the server target the server side mutations are proved on")
     parser.add_argument("--timeout", type=int, default=1200)
+    parser.add_argument("--p6", action="store_true",
+                        help="the P6 core-area round (server side) instead of the false-green counter-checks")
     args = parser.parse_args(argv)
 
-    selected = MUTATIONS
+    catalogue = P6_MUTATIONS if args.p6 else MUTATIONS
+    selected = catalogue
     if args.only:
         wanted = set(args.only.split(","))
-        unknown = wanted - {m.id for m in MUTATIONS}
+        unknown = wanted - {m.id for m in catalogue}
         if unknown:
             raise SystemExit("unbekannte Mutationen: " + ", ".join(sorted(unknown)))
-        selected = [m for m in MUTATIONS if m.id in wanted]
+        selected = [m for m in catalogue if m.id in wanted]
 
     if args.list:
-        for m in MUTATIONS:
+        for m in catalogue:
             print(f"  {m.id:32s} {m.script:22s} {m.claim}")
         return 0
 
@@ -472,7 +711,8 @@ def main(argv: list[str] | None = None) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
     stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
     out = out_dir / f"{stamp}.json"
-    out.write_text(json.dumps({"target": args.target, "rounds": results}, indent=2,
+    out.write_text(json.dumps({"target": args.target, "catalogue": "p6" if args.p6 else "false-greens",
+                               "rounds": results}, indent=2,
                               ensure_ascii=False), encoding="utf-8")
 
     total = sum(len(r["mutations"]) for r in results)

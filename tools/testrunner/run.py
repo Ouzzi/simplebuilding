@@ -388,6 +388,9 @@ def parse_report(path: Path, not_older_than: float) -> dict:
 #: real checkpoint is worse than one false name.
 SHOT_NAME = re.compile(r'"([a-z][a-z0-9]*(?:-[a-z0-9]+)+)"')
 
+#: A frame of Script.awaitStableFrame's stillness check: "settle<serial>x<attempt>a" or "...b".
+SETTLE_SHOT = re.compile(r"settle\d+x\d+[ab]$")
+
 #: The one false name that shape produces: a logger id. It is excluded by where it stands, not
 #: by its spelling, so a future logger called something else is excluded too.
 LOGGER_NAME = re.compile(r'getLogger\(\s*"([^"]+)"')
@@ -489,7 +492,10 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     expected = expected_shots(target)
     fresh, _stale = taken_shots(target, started_clock)
     missing = [name for name in expected if name not in fresh]
-    extra = [name for name in fresh if name not in expected]
+    # The settle shots are the frames Script.awaitStableFrame compares before every scene; they
+    # are named without a hyphen on purpose so they never read as a promised checkpoint, and
+    # listing them as "unnamed" every run would bury a real stray screenshot among fifty of them.
+    extra = [name for name in fresh if name not in expected and not SETTLE_SHOT.match(name)]
 
     error = None
     warning = None

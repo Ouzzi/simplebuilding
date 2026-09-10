@@ -209,14 +209,26 @@ public final class Script {
         int[] phaseStart = {0};
         Path[] first = {null};
         String[] lastVerdict = {""};
+        // Unique across the whole run, not just across attempts. The NeoForge driver answers a
+        // screenshot name it has already taken with that earlier file, immediately - so a barrier
+        // that reused "settle0a" ran for real in the first scene build of the run and was a no-op
+        // in every one after it, and the second script's noise floor failed on a scene the
+        // barrier had never looked at.
+        int serial = SETTLE_SERIAL.incrementAndGet();
 
         entries.add(new Entry("the " + what + " holds still between two frames", (gapTicks + 260) * attempts + 60,
                 Where.HARNESS, ticks -> {
-            String nameA = "settle" + attempt[0] + "a";
-            String nameB = "settle" + attempt[0] + "b";
+            String nameA = "settle" + serial + "x" + attempt[0] + "a";
+            String nameB = "settle" + serial + "x" + attempt[0] + "b";
 
             if (phase[0] == 0) {
-                if (!currentHarness.screenshot(nameA, ticks - phaseStart[0])) {
+                // The rebuild between attempts empties the render queue and refills it over the
+                // next ticks; a first frame taken in that window is a frame of sky, and every
+                // second frame then differs from it in all of its pixels - which is what one
+                // driver reported four attempts running, so the barrier is here and not left
+                // to the screenshot.
+                if (!currentHarness.chunksRendered()
+                        || !currentHarness.screenshot(nameA, ticks - phaseStart[0])) {
                     return false;
                 }
                 first[0] = currentHarness.screenshotPath(nameA);
@@ -250,12 +262,14 @@ public final class Script {
             attempt[0]++;
 
             if (attempt[0] >= attempts) {
-                throw new AssertionError("The " + what + " kept changing: " + lastVerdict[0]
+                String verdict = lastVerdict[0];
+                currentHarness.run(Where.CLIENT, () -> {
+                    lastVerdict[0] = describeNearbyEntities(Minecraft.getInstance());
+                    return true;
+                });
+                throw new AssertionError("The " + what + " kept changing: " + verdict
                         + " after " + attempts + " attempts with a chunk rebuild between them. "
-                        + currentHarness.run(Where.CLIENT, () -> {
-                            lastVerdict[0] = describeNearbyEntities(Minecraft.getInstance());
-                            return true;
-                        }) + lastVerdict[0]);
+                        + lastVerdict[0]);
             }
 
             currentHarness.run(Where.CLIENT, () -> {
@@ -267,6 +281,10 @@ public final class Script {
             return false;
         }));
     }
+
+    /** Numbers the settle shots of a run; see {@link #awaitStableFrame}. */
+    private static final java.util.concurrent.atomic.AtomicInteger SETTLE_SERIAL =
+            new java.util.concurrent.atomic.AtomicInteger();
 
     /** Every entity but the player within sixteen blocks of him, for a message about a moving scene. */
     private static String describeNearbyEntities(Minecraft client) {

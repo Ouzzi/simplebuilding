@@ -238,7 +238,16 @@ final class SharedScriptRun implements Harness {
         // picture differed from them in 89 percent of its pixels. hasRenderedAllSections is the
         // dispatcher's own "queue empty", exactly what vanilla asks before it declares a world
         // loaded - so this is a real barrier now, not the strongest available guess.
+        //
+        // Not on its own, though. Right after LevelRenderer.allChanged the queue is empty
+        // BECAUSE nothing has been scheduled yet - the sections are handed to the dispatcher
+        // by the next frame's compileSections - so "queue empty" was true for exactly the
+        // moment it must not be, and the frame taken in it was sky from edge to edge. The third
+        // question is the one vanilla asks before it takes the loading screen down: is the
+        // section the player stands in compiled and on screen. That is false from allChanged
+        // until the rebuild has actually produced a mesh, and it is false on a fresh join too.
         return client.level.hasChunkAt(client.player.blockPosition())
+                && client.levelRenderer.isSectionCompiledAndVisible(client.player.blockPosition())
                 && client.levelRenderer.hasRenderedAllSections();
     }
 
@@ -309,7 +318,27 @@ final class SharedScriptRun implements Harness {
     @Override
     public void holdMouse(int button) {
         heldButtons.add(button);
+        readyTheWorldForAClick();
         Input.holdMouse(button);
+    }
+
+    /**
+     * Grabs the mouse and clears the input lockout before a button goes to the world.
+     *
+     * <p>The same two steps setAttacking takes, for the same reason: with no screen open,
+     * {@code MouseHandler.onButton} grabs the mouse itself when it is not grabbed yet, and the
+     * grab arms {@code Minecraft.missTime} with 10000 - which swallows the very click that caused
+     * it. A fist that never landed on a one-health creeper was this: the press went in, the grab
+     * happened, and startAttack refused for the next ten thousand ticks. Nothing to do while a
+     * screen is open - there the button is the screen's, and grabbing would close it.
+     */
+    private void readyTheWorldForAClick() {
+        Minecraft client = Minecraft.getInstance();
+        if (client.screen != null || client.player == null) {
+            return;
+        }
+        client.mouseHandler.grabMouse();
+        clearInputLockout();
     }
 
     @Override
@@ -331,6 +360,7 @@ final class SharedScriptRun implements Harness {
 
     @Override
     public void pressMouse(int button) {
+        readyTheWorldForAClick();
         Input.clickMouse(button);
     }
 

@@ -37,10 +37,13 @@ entfernt) macht ihn rot.
 
 | Ziel | Prüfpunkte | Rückstand |
 |---|---:|---:|
-| Fabric · MC 26.2 | **85** | — |
-| Fabric · MC 1.21.11 | **85** | — |
-| NeoForge · MC 26.2 | **85** | — |
-| NeoForge · MC 1.21.11 | **85** | — |
+| Fabric · MC 26.2 | **100** | — |
+| Fabric · MC 1.21.11 | **100** | — |
+| NeoForge · MC 26.2 | **100** | — |
+| NeoForge · MC 1.21.11 | **100** | — |
+
+(85 nach P2/P3; 94 nach den 21 clientseitigen P7-Schärfungen; 100 seit dem Nachmittag des
+2026-09-10 mit den sechs P4-Bildern — fünf Oktant-Formen, ein Vein-Miner-Riss.)
 
 Alle vier Ziele fahren **dieselben Testkörper**: einmal als Schrittliste geschrieben, je Ziel ein
 dünner Treiber. `CLIENT_PARITY_DEBT` ist leer — nicht erlassen, sondern bezahlt. Das Tor fällt ab
@@ -285,12 +288,24 @@ Alle 97 Einträge einzeln gegengelesen; Urteil und Grund je Eintrag in `audit_of
 
 | Urteil | Zahl |
 |---|---:|
-| jetzt schreibbar (Client) — meist, weil die geteilte Schrittform Töne hört, Bildschirme ausliest und einen echten Überlebensspieler hat | 9 |
+| jetzt schreibbar (Client) — meist, weil die geteilte Schrittform Töne hört, Bildschirme ausliest und einen echten Überlebensspieler hat — **alle 9 geschrieben** (siehe unten) | 9 |
 | jetzt schreibbar (Server) — `makeMockPlayer` liefert einen Nicht-`ServerPlayer` für den Vein-Miner-Wächter (geschrieben) | 1 |
 | seit dem Audit gedeckt (Trichter-Ordinal, NeoForge-Luftsprung, Köcher im Brustslot) | 3 |
 | **bekannter Defekt, Entscheidung des Besitzers** | 27 |
 | bleibt begründet offen (tote Zweige, Tautologien, von Vanilla getragen) | 47 |
 | weiterhin harness-blockiert (Selbstausschluss bei `player.playSound`, zweite Dimension, Serverstart-Haken, echte Weltgenerierung) | 10 |
+
+**Die neun clientseitigen, geschrieben am 2026-09-10** (Testname in `audit_offen.json` unter
+`p4.stand`): die drei Werkzeug-Töne (Rotator `SPYGLASS_USE` 1.0/1.0, Vorschlaghammer Break-Sound
+des alten Blocks bei 1.0/**0.8**, Baustab ein Platziergeräusch je Block bei (v+1)/2 und p·0.8) über
+den vorhandenen `SoundRecorder`; die Oktant-**Formen** und die **Orientierung** als Bildvergleich
+(Zylinder ≠ Quader, Kugel ≠ Zylinder, Zylinder auf x ≠ auf y, Kontrolle Quader = Quader); der
+Vein-Miner-Zweig der Riss-Vorschau — nicht über antiken Schutt, sondern mit **Mining Fatigue II**
+auf Tiefenschiefer-Kohleerz (9 % Geschwindigkeit, gut 200 Ticks Messfenster); der Moduswechsel des
+Erzdetektors kostet dem echten Überlebensspieler 1 Haltbarkeit (zwei Wechsel, Schaden 1 und 2, Blick
+nach oben, weil ein Klick *auf* einen Block kalibriert statt zu wechseln); Symbol und Tooltip des
+Trim-Knopfs aus dem GUI-Renderzustand (Partikel-Sprite des gezeichneten Items, die zwei
+Tooltip-Zeilen mit dem echten Cursor auf dem Knopf). Der Spachtel-Ton war schon gedeckt.
 
 Die 27 Entscheidungen sind keine Testlücken, sondern Verhalten, das ein Test nur zementieren
 würde: sieben davon betreffen das Forge-Modul (kein Gametest, kein HUD, eigene Kopien der Logik),

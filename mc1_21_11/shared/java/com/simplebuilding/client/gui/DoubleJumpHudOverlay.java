@@ -27,6 +27,13 @@ public final class DoubleJumpHudOverlay {
         if (client.player == null) {
             return;
         }
+        if (client.options.hideGui) {
+            // Fabric's element registry hangs the mod's overlays inside vanilla's own layers,
+            // which F1 switches off as a whole; NeoForge's layer event does not, and there the
+            // air jump bar, the speedometer and the rangefinder stayed on a hidden HUD. The
+            // question has to be asked here, once, so both loaders give the same answer.
+            return;
+        }
         if (!DoubleJumpController.isOnCooldown()) {
             return; // only visible while the air-jump is recharging
         }

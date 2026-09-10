@@ -23,6 +23,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -35,6 +36,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Block;
@@ -236,6 +239,8 @@ public final class SmokeClientTest {
         survivalCountersArriveOnTheClientEverySecond(script);
         chiselAnswersTheClientSideUseOnItself(script);
         chiselAndSpatulaSoundsReachTheClient(script);
+        rotatorSledgehammerAndWandSoundsReachTheClient(script);
+        anOreDetectorModeSwitchCostsOneDurabilityInSurvival(script);
         breakerPistonSoundReachesTheClient(script);
         itemFrameOverlayMessagesReachTheClient(script);
 
@@ -906,6 +911,275 @@ public final class SmokeClientTest {
         script.command("clear @a", true);
         script.awaitPackets();
         script.idle("let the restored target block reach the client", 10);
+    }
+
+
+    // =================================================================================
+    // 4b. The three tool sounds nobody had listened for
+    // =================================================================================
+
+    /**
+     * The rotator, the sledgehammer's block transformation and the building wand each announce
+     * themselves with a sound, and each goes through {@code world.playSound(null, ...)} - the
+     * variant every client in range hears, including the one that did it. That is what makes
+     * them measurable here at all; the item frame's four sounds go through
+     * {@code player.playSound}, which skips the acting player, and stay uncovered for that reason.
+     *
+     * <p>Three claims, each with the value the code names:
+     * <ul>
+     *   <li><b>Rotator</b>: {@code SPYGLASS_USE} at 1.0 / 1.0 on every accepted rotation. A right
+     *       click on a log turns its axis, which is an accepted rotation.</li>
+     *   <li><b>Sledgehammer</b>: the transformed block's own BREAK sound at 1.0 / 0.8, when a held
+     *       right click finishes the use - stone becomes stone stairs, and stone's break sound is
+     *       the one that has to play. The pitch is the mod's signature: vanilla never plays a
+     *       break sound at 0.8 on its own.</li>
+     *   <li><b>Building wand</b>: the placed block's PLACE sound, volume {@code (v + 1) / 2},
+     *       pitch {@code p * 0.8}, once per placed block. A copper wand (diameter 3) placing stone
+     *       against the wall gives nine of them, or eight if the aimed cell is occupied.</li>
+     * </ul>
+     *
+     * <p>The audit of 2026-09-08 listed all three as harness-blocked. They were not: the recorder
+     * this class already has hears exactly these calls, it only had never been pointed at them.
+     */
+    private static void rotatorSledgehammerAndWandSoundsReachTheClient(Script script) {
+        TestScene.build(script, "minecraft:stone", "creative");
+        assertTheClientCanHearAnything(script);
+
+        // --- rotator -----------------------------------------------------------------------
+        script.command("setblock " + at(TestScene.TARGET) + " minecraft:oak_log[axis=y]");
+        script.command("item replace entity @a weapon.mainhand with simplebuilding:rotator");
+        script.awaitPackets();
+        script.idle("let the log and the rotator reach the client", 15);
+        TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
+
+        Later<List<SoundRecorder.Heard>> rotated = new Later<>("the sounds heard while rotating");
+        script.verify("start recording sounds for the rotator", SoundRecorder::arm);
+        script.harness("right click the log with the rotator", harness -> harness.pressMouse(1));
+        script.await("the log under the crosshair turned", 60,
+                client -> client.level.getBlockState(TestScene.TARGET).is(Blocks.OAK_LOG)
+                        && client.level.getBlockState(TestScene.TARGET)
+                                .getValue(net.minecraft.world.level.block.RotatedPillarBlock.AXIS)
+                                != net.minecraft.core.Direction.Axis.Y,
+                client -> "the log never turned, so no rotation was accepted and no sound is owed. "
+                        + TestScene.describeAim(client));
+        script.idle("let the sound packet catch up with the block update", 5);
+        script.verify("stop recording sounds for the rotator", () -> {
+            rotated.set(SoundRecorder.heard());
+            SoundRecorder.disarm();
+        });
+
+        script.verify("an accepted rotation plays SPYGLASS_USE at 1.0 / 1.0", () -> {
+            SoundRecorder.Heard heard = firstOf(rotated.get(), SoundEvents.SPYGLASS_USE.location());
+
+            if (heard == null) {
+                throw new AssertionError("The rotator turned the log without a sound the client could "
+                        + "hear: heard " + rotated.get() + ", expected " + SoundEvents.SPYGLASS_USE.location() + ".");
+            }
+
+            assertFactorsAreUsable(heard, "rotator");
+
+            if (Math.abs(heard.sentVolume() - 1.0f) > 0.001f || Math.abs(heard.sentPitch() - 1.0f) > 0.001f) {
+                throw new AssertionError("The rotator sound was played at " + heard.sentVolume() + " / "
+                        + heard.sentPitch() + ", expected 1.0 / 1.0 (" + heard + ").");
+            }
+        });
+
+        // --- sledgehammer transformation ---------------------------------------------------
+        script.command("setblock " + at(TestScene.TARGET) + " minecraft:stone");
+        script.command("item replace entity @a weapon.mainhand with simplebuilding:netherite_sledgehammer");
+        script.awaitPackets();
+        script.idle("let the stone and the sledgehammer reach the client", 15);
+        TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
+
+        Later<List<SoundRecorder.Heard>> transformed = new Later<>("the sounds heard while transforming");
+        script.verify("start recording sounds for the sledgehammer", SoundRecorder::arm);
+        script.harness("hold the right mouse button on the stone", harness -> harness.holdMouse(1));
+        script.await("the stone under the crosshair became stairs", 120,
+                client -> client.level.getBlockState(TestScene.TARGET).is(Blocks.STONE_STAIRS),
+                client -> "the stone never became stairs while the right button was held, so the "
+                        + "sledgehammer's use never finished. " + TestScene.describeAim(client));
+        script.harness("release the right mouse button", harness -> harness.releaseMouse(1));
+        script.idle("let the sound packet catch up with the block update", 5);
+        script.verify("stop recording sounds for the sledgehammer", () -> {
+            transformed.set(SoundRecorder.heard());
+            SoundRecorder.disarm();
+        });
+
+        script.verify("the transformation plays the old block's break sound at 1.0 / 0.8", () -> {
+            Identifier stoneBreak = Blocks.STONE.defaultBlockState().getSoundType().getBreakSound().location();
+            SoundRecorder.Heard heard = firstOf(transformed.get(), stoneBreak);
+
+            if (heard == null) {
+                throw new AssertionError("The sledgehammer turned stone into stairs without stone's break "
+                        + "sound: heard " + transformed.get() + ", expected " + stoneBreak + ".");
+            }
+
+            assertFactorsAreUsable(heard, "sledgehammer transformation");
+
+            if (Math.abs(heard.sentVolume() - 1.0f) > 0.001f || Math.abs(heard.sentPitch() - 0.8f) > 0.001f) {
+                throw new AssertionError("The sledgehammer transformation sound was played at "
+                        + heard.sentVolume() + " / " + heard.sentPitch() + ", expected 1.0 / 0.8 (" + heard
+                        + "). The 0.8 is what tells the mod's transformation apart from a block that "
+                        + "simply broke.");
+            }
+        });
+
+        // --- building wand -----------------------------------------------------------------
+        script.command("setblock " + at(TestScene.TARGET) + " minecraft:stone");
+        script.command("clear @a", true);
+        script.command("item replace entity @a weapon.offhand with minecraft:stone 64");
+        script.command("item replace entity @a weapon.mainhand with simplebuilding:copper_building_wand");
+        script.awaitPackets();
+        script.idle("let the wand and its material reach the client", 15);
+        TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
+
+        Later<List<SoundRecorder.Heard>> built = new Later<>("the sounds heard while the wand built");
+        int[] placedBefore = {0};
+        script.act("count the stone in front of the wall before the wand builds",
+                client -> placedBefore[0] = stoneInFrontOfTheWall(client));
+        script.verify("start recording sounds for the wand", SoundRecorder::arm);
+        script.harness("right click the wall with the wand", harness -> harness.pressMouse(1));
+        script.await("the wand placed its plane in front of the wall", 120,
+                client -> stoneInFrontOfTheWall(client) - placedBefore[0] >= 8,
+                client -> "the wand placed " + (stoneInFrontOfTheWall(client) - placedBefore[0])
+                        + " stone in front of the wall instead of at least eight, so the sounds below "
+                        + "could not be counted. " + TestScene.describeAim(client));
+        script.idle("let the wand finish and the sound packets catch up", 20);
+        script.verify("stop recording sounds for the wand", () -> {
+            built.set(SoundRecorder.heard());
+            SoundRecorder.disarm();
+        });
+        int[] placedAfter = {0};
+        script.act("count the stone in front of the wall after the wand built",
+                client -> placedAfter[0] = stoneInFrontOfTheWall(client));
+
+        script.verify("every placed block plays stone's place sound at (v+1)/2 and p*0.8", () -> {
+            Identifier stonePlace = Blocks.STONE.defaultBlockState().getSoundType().getPlaceSound().location();
+            net.minecraft.world.level.block.SoundType group = Blocks.STONE.defaultBlockState().getSoundType();
+            float expectedVolume = (group.getVolume() + 1.0F) / 2.0F;
+            float expectedPitch = group.getPitch() * 0.8F;
+            int placed = placedAfter[0] - placedBefore[0];
+            List<SoundRecorder.Heard> placeSounds = new ArrayList<>();
+
+            for (SoundRecorder.Heard heard : built.get()) {
+                if (heard.sound().equals(stonePlace)) {
+                    placeSounds.add(heard);
+                }
+            }
+
+            if (placeSounds.size() != placed) {
+                throw new AssertionError("The wand placed " + placed + " blocks and the client heard "
+                        + placeSounds.size() + " place sounds for them (" + built.get() + "). One per "
+                        + "placed block is the claim.");
+            }
+
+            for (SoundRecorder.Heard heard : placeSounds) {
+                assertFactorsAreUsable(heard, "wand placement");
+
+                if (Math.abs(heard.sentVolume() - expectedVolume) > 0.01f
+                        || Math.abs(heard.sentPitch() - expectedPitch) > 0.01f) {
+                    throw new AssertionError("A wand placement sound was played at " + heard.sentVolume()
+                            + " / " + heard.sentPitch() + ", expected " + expectedVolume + " / "
+                            + expectedPitch + " (" + heard + ").");
+                }
+            }
+        });
+
+        clearWorkingVolume(script);
+    }
+
+    /** Stone blocks the client sees one block in front of the wall, in the wand's 3x3 reach. */
+    private static int stoneInFrontOfTheWall(Minecraft client) {
+        int count = 0;
+
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                if (client.level.getBlockState(TestScene.TARGET.offset(dx, dy, -1)).is(Blocks.STONE)) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+
+    // =================================================================================
+    // 4c. The ore detector's survival price
+    // =================================================================================
+
+    /**
+     * A mode switch of the ore detector costs one point of durability in survival.
+     *
+     * <p>{@code OreDetectorItem.cycleMode} pays it behind {@code !player.isCreative()}, and the
+     * server suite cannot get a player to that side of the guard: its in-level mock is hard wired
+     * to creative and its detached mock has no connection for the overlay message that comes
+     * first. This client has a real survival player, so the whole path runs as it does in the
+     * game - sneak, right click, the server cycles the mode, the damaged stack comes back in the
+     * slot sync - and the number read is the one the player would see on the bar.
+     *
+     * <p>Two switches, so the cost is per switch and not a one-off; the mode itself is read as
+     * well, so a damaged stack whose mode did not move would not pass as "switched".
+     */
+    private static void anOreDetectorModeSwitchCostsOneDurabilityInSurvival(Script script) {
+        TestScene.build(script, "minecraft:stone", "survival");
+        script.command("item replace entity @a weapon.mainhand with simplebuilding:ore_detector");
+        // Straight up: a sneaking right click ON a block is the detector's other gesture - it
+        // calibrates to that block (mode CUSTOM) and charges nothing - and the scene's wall is
+        // within reach. The first run on NeoForge said so exactly: mode 5, damage 0.
+        script.command("tp @a 10.5 0.0 16.5 0.0 -90.0");
+        script.awaitPackets();
+        script.idle("let the detector reach the client and the camera look straight up", 20);
+
+        script.act("setup: a survival player holds an undamaged ore detector and aims at no block", client -> {
+            ItemStack stack = client.player == null ? ItemStack.EMPTY : client.player.getMainHandItem();
+
+            if (client.hitResult == null || client.hitResult.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) {
+                throw new AssertionError("Setup failed: the crosshair reports " + client.hitResult
+                        + ", and a sneaking right click on a block calibrates the detector instead of "
+                        + "cycling its mode. " + TestScene.describeAim(client));
+            }
+
+            if (client.player == null || client.player.isCreative()) {
+                throw new AssertionError("Setup failed: the player is creative, and cycleMode charges "
+                        + "nothing in creative - the claim could not be tested.");
+            }
+            if (!stack.is(ModItems.ORE_DETECTOR) || stack.getDamageValue() != 0) {
+                throw new AssertionError("Setup failed: the main hand holds " + stack + " with damage "
+                        + stack.getDamageValue() + " instead of an undamaged ore detector.");
+            }
+        });
+
+        for (int round = 1; round <= 2; round++) {
+            int expectedDamage = round;
+            int[] modeBefore = {-1};
+            script.act("read the detector mode before switch " + round,
+                    client -> modeBefore[0] = detectorMode(client.player.getMainHandItem()));
+            script.harness("hold the sneak key", harness -> harness.holdKey(InputConstants.KEY_LSHIFT));
+            script.idle("let the sneak state reach the server", 5);
+            script.harness("right click with the ore detector", harness -> harness.pressMouse(1));
+            script.await("the switched detector came back with " + expectedDamage + " damage", 60,
+                    client -> client.player.getMainHandItem().getDamageValue() == expectedDamage
+                            && detectorMode(client.player.getMainHandItem()) != modeBefore[0],
+                    client -> "after switch " + expectedDamage + " the detector has damage "
+                            + client.player.getMainHandItem().getDamageValue() + " and mode "
+                            + detectorMode(client.player.getMainHandItem()) + " (was " + modeBefore[0]
+                            + "); expected damage " + expectedDamage + " and a different mode. A "
+                            + "survival mode switch is one point of durability, the creative half of "
+                            + "this claim is the server suite's.");
+            script.harness("release the sneak key", harness -> harness.releaseKey(InputConstants.KEY_LSHIFT));
+            script.idle("let the sneak state settle", 5);
+        }
+
+        script.command("clear @a", true);
+        script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
+        script.awaitPackets();
+        script.idle("let the emptied hand and the restored view reach the client", 10);
+    }
+
+    /** The detector's stored mode index, -1 for no custom data - what {@code getMode} reads. */
+    private static int detectorMode(ItemStack stack) {
+        return stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr("Mode", -1);
     }
 
     private static void assertVolumeAndPitch(SoundRecorder.Heard heard, String label) {

@@ -1130,6 +1130,52 @@ public final class AirJumpClientTest {
             }
         });
 
+        // With the HUD hidden (F1) the same running cooldown has to draw nothing. On Fabric the
+        // vanilla layer the element hangs in is switched off as a whole; on NeoForge nothing but
+        // the overlay's own question does it, and the air jump bar of the bootstrap script was
+        // found fading on a hidden HUD at the start of the next scene, one loader only. The
+        // frame is recorded with the option set and unset again in the same step, so no
+        // screenshot in this script ever sees the toggle.
+        Later<HudFrame> hidden = new Later<>("the recorded overlay frame with the HUD hidden");
+
+        script.act("record what the overlay draws with the HUD hidden while the cooldown runs", client -> {
+            boolean wasHidden = client.options.hideGui;
+
+            if (!wasHidden) {
+                client.options.hideGui = !client.options.hideGui;
+            }
+
+            try {
+                HudRecorder recorder = new HudRecorder(client);
+                int remaining = DoubleJumpController.getCooldownRemaining();
+                int max = DoubleJumpController.getCooldownMax();
+                DoubleJumpHudOverlay.render(recorder);
+                hidden.set(new HudFrame(List.copyOf(recorder.fills), List.copyOf(recorder.texts),
+                        remaining, max, recorder.guiWidth(), recorder.guiHeight()));
+            } finally {
+                if (!wasHidden) {
+                    client.options.hideGui = !client.options.hideGui;
+                }
+            }
+        });
+
+        script.verify("with the HUD hidden the overlay draws nothing while the cooldown runs", () -> {
+            HudFrame recorded = hidden.get();
+
+            if (recorded.remaining() <= 0) {
+                throw new AssertionError("Setup failed: the cooldown had run out ("
+                        + recorded.remaining() + ") when the hidden frame was recorded, so a blank "
+                        + "frame proves nothing about F1.");
+            }
+
+            if (!recorded.fills().isEmpty() || !recorded.texts().isEmpty()) {
+                throw new AssertionError("The cooldown bar is drawn on a hidden HUD: " + recorded.fills()
+                        + " " + recorded.texts() + ". F1 hides vanilla's HUD as a whole; the mod's "
+                        + "overlays have to follow it on every loader, not only where the element "
+                        + "registry happens to sit inside a vanilla layer.");
+            }
+        });
+
         // Once recharged the overlay has to draw nothing at all - this is the guard that makes the
         // FILL_READY branch unreachable (see the class javadoc).
         script.await("the air jump recharges", 400, client -> !DoubleJumpController.isOnCooldown(),

@@ -198,6 +198,10 @@ public final class TestScene {
             client.options.entityShadows().set(false);
             client.options.cloudStatus().set(CloudStatus.OFF);
             client.options.particles().set(ParticleStatus.MINIMAL);
+            // A rebuilt section further than 27 blocks away fades in over this many seconds, and
+            // every scene rebuilds all of them: with the default a section at the edge of the
+            // frame is still brightening when the noise floor is measured.
+            client.options.chunkSectionFadeInTime().set(0.0);
             client.options.setCameraType(CameraType.FIRST_PERSON);
 
             if (!client.gui.hud.isHidden()) {

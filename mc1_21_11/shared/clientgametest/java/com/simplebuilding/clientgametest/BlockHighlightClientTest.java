@@ -1,13 +1,12 @@
 package com.simplebuilding.clientgametest;
 
-import java.nio.file.Path;
-
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import com.simplebuilding.util.guiDrawHelper;
+import java.nio.file.Path;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -208,6 +207,7 @@ public final class BlockHighlightClientTest {
         itemRemovalReturnsToBaseline(script, baseline, noiseFloor);
         Later<Path> octantOutlines = octantHighlight(script, baseline, noiseFloor);
         octantFillFollowsShowFill(script, octantOutlines, baseline, noiseFloor);
+        octantShapesAndOrientationDrawDifferentFills(script);
         sledgehammerFillFollowsOpacity(script);
 
         restoreHighlightConfig(script, originalOpacity, originalInvert);
@@ -537,6 +537,88 @@ public final class BlockHighlightClientTest {
             ScreenshotDiff.assertLooksIdentical(noiseFloor.get(), residual,
                     "Removing the octant has to restore the baseline image");
         });
+    }
+
+
+    /**
+     * The shape and orientation tags change what the area fill draws.
+     *
+     * <p>Every octant picture above leaves the {@code Shape} tag unset and therefore takes the
+     * {@code CUBOID} branch, which skips the voxel loop entirely: {@code isPointInEllipse},
+     * {@code isPointInEllipsoid}, {@code isPointInPyramid}, {@code isPointInPrism},
+     * {@code renderVoxelShape} and the orientation transform had no test at all. This is the
+     * weakest honest statement a screenshot can make about them and still a real one: a cylinder
+     * has to look different from a cuboid over the same two corners, a sphere different from the
+     * cylinder, and the same cylinder turned onto the x axis different from the one standing on y
+     * - while the same shape twice has to look the same, which is the control that makes the
+     * differences attributable to the tag and not to drift.
+     *
+     * <p>A 5x4x3 selection right in front of the camera, so the cross sections are large enough on
+     * screen for a missing corner to be thousands of pixels. Opacity is pinned at 100 and the
+     * fill switched on through {@code invertOctantSneak}, exactly as the fill cases above do it.
+     *
+     * <p>Not pinned, and said so: WHICH voxels each shape selects. That is a claim about the
+     * predicates themselves and belongs to a server test that reads the selection back; the
+     * renderer's contribution is that a different predicate produces a different picture.
+     */
+    private static void octantShapesAndOrientationDrawDifferentFills(Script script) {
+        setHighlightConfig(script, 100, true);
+
+        Later<Path> cuboid = shapeShot(script, "CUBOID", 1, "highlight-l-shape-cuboid");
+        Later<Path> cuboidAgain = shapeShot(script, "CUBOID", 1, "highlight-m-shape-cuboid-again");
+        Later<Path> cylinder = shapeShot(script, "CYLINDER", 1, "highlight-n-shape-cylinder");
+        Later<Path> sphere = shapeShot(script, "SPHERE", 1, "highlight-o-shape-sphere");
+        Later<Path> cylinderOnX = shapeShot(script, "CYLINDER", 0, "highlight-p-shape-cylinder-on-x");
+
+        Later<ScreenshotDiff.Diff> shapeNoise = new Later<>("the noise floor with a shaped octant in hand");
+
+        script.verify("control: the same shape twice draws the same picture", () -> {
+            ScreenshotDiff.Diff diff = ScreenshotDiff.compare(
+                    "noise floor (cuboid fill twice)", cuboid.get(), cuboidAgain.get(), RIGHT_HALF_ONLY);
+            ScreenshotDiff.assertUnchanged(diff);
+            shapeNoise.set(diff);
+        });
+
+        script.verify("a cylinder draws a different fill than a cuboid", () -> ScreenshotDiff.assertDrew(
+                "BlockHighlightRenderer (cylinder against cuboid)", shapeNoise.get(),
+                ScreenshotDiff.compare("cuboid vs. cylinder", cuboid.get(), cylinder.get(), RIGHT_HALF_ONLY)));
+
+        script.verify("a sphere draws a different fill than a cylinder", () -> ScreenshotDiff.assertDrew(
+                "BlockHighlightRenderer (sphere against cylinder)", shapeNoise.get(),
+                ScreenshotDiff.compare("cylinder vs. sphere", cylinder.get(), sphere.get(), RIGHT_HALF_ONLY)));
+
+        script.verify("turning the cylinder onto the x axis changes the fill", () -> ScreenshotDiff.assertDrew(
+                "BlockHighlightRenderer (orientation 0 against 1)", shapeNoise.get(),
+                ScreenshotDiff.compare("cylinder on y vs. cylinder on x", cylinder.get(), cylinderOnX.get(),
+                        RIGHT_HALF_ONLY)));
+
+        script.command("clear @a");
+        script.awaitPackets();
+        script.idle("let the emptied hand reach the renderer", 15);
+    }
+
+    /** Puts a shaped octant over a 5x4x3 box in front of the camera and photographs the fill. */
+    private static Later<Path> shapeShot(Script script, String shape, int orientation, String name) {
+        script.command("item replace entity @a weapon.mainhand with simplebuilding:octant["
+                + "minecraft:custom_data={Pos1:[I;8,0,17],Pos2:[I;12,3,19],Shape:\"" + shape
+                + "\",Orientation:" + orientation + "}]");
+        script.awaitPackets();
+        script.idle("let the " + shape + " octant arrive and its equip animation finish", 15);
+
+        script.act("setup: the octant in hand carries shape " + shape + " and orientation " + orientation,
+                client -> {
+                    ItemStack stack = client.player == null ? ItemStack.EMPTY : client.player.getMainHandItem();
+                    CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+
+                    if (!shape.equals(tag.getStringOr("Shape", "")) || tag.getIntOr("Orientation", -1) != orientation) {
+                        throw new AssertionError("Setup failed: the octant carries Shape=" + tag.getStringOr("Shape", "")
+                                + " Orientation=" + tag.getIntOr("Orientation", -1) + " instead of " + shape
+                                + "/" + orientation + ", so the picture would be of the wrong shape.");
+                    }
+                });
+        assertOctantFillTriggerConditions(script, true, false);
+
+        return script.shot(name);
     }
 
     /**

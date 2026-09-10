@@ -43,6 +43,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.ChatVisiblity;
 import net.minecraft.world.inventory.Slot;
@@ -122,13 +123,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
  *
  * <p><b>Not covered</b>
  * <ul>
- *   <li><b>The trim button's icon and tooltip text.</b> {@code AbstractWidget} keeps its tooltip in
- *       a private {@code WidgetTooltipHolder} with no getter, and the ward smithing template icon
- *       is drawn straight into the render state without any identity that survives extraction.
- *       Proving the string "Toggle Resonance Stats" or the icon texture would need a pixel
- *       comparison against a stored reference image, which this repo deliberately does not keep.
- *       What is covered: the button exists, sits where the mixin puts it, is 20x20, and toggles a
- *       panel that really appears and disappears.</li>
+ *   <li><b>The colour of the trim button's tooltip.</b> The tooltip text itself is read from the
+ *       render state now (see {@code assertTrimButtonIconAndTooltip}), and so is the icon's
+ *       sprite; what the flattened text loses is the AQUA + BOLD style of the first line.</li>
  *   <li><b>The individual numbers in the L / S / C panel.</b> They are drawn as text into the
  *       render state; only their presence as a block of pixels is observable from outside.</li>
  *   <li><b>Green versus orange in the hopper filter icon.</b> The screenshot difference proves that
@@ -1957,6 +1954,7 @@ public final class HudAndTooltipClientTest {
         clearWidgetFocus(script);
 
         Later<int[]> button = assertTrimButtonGeometry(script);
+        assertTrimButtonIconAndTooltip(script, button);
         Later<int[]> modelBox = playerModelBox(script);
 
         // The two baseline shots are twenty ticks apart, the same settling time clickAndPark gives
@@ -2133,6 +2131,93 @@ public final class HudAndTooltipClientTest {
         });
 
         return centre;
+    }
+
+
+    /**
+     * The button carries the ward smithing template as its icon and says "Toggle Resonance
+     * Stats" when hovered.
+     *
+     * <p>Both were listed as not covered above, for two reasons that have since gone: the tooltip
+     * sits in a private holder without a getter, and the icon was drawn "without any identity that
+     * survives extraction". The render state is read now, and both DO survive it - the tooltip
+     * because the widget hands it to the deferred pass of the same extraction, the icon because
+     * an item's render state still knows its particle sprite, which for an item model is the
+     * item's own texture. No reference image is needed for either.
+     *
+     * <p>The tooltip is read with the real cursor on the button: the holder only shows the
+     * tooltip once the mouse has been there for longer than its delay, measured from the first
+     * frame that saw the hover, and the frames between the steps are real frames.
+     */
+    private static void assertTrimButtonIconAndTooltip(Script script, Later<int[]> button) {
+        script.act("the trim button draws the ward smithing template as its icon", client -> {
+            int iconX = button.get()[0] - 10 + 2;
+            int iconY = button.get()[1] - 10 + 2;
+            List<String> sprites = new ArrayList<>();
+            List<String> elsewhere = new ArrayList<>();
+
+            extractScreenState(client).forEachItem(item -> {
+                org.joml.Vector2f onScreen = item.pose().transformPosition(item.x(), item.y(), new org.joml.Vector2f());
+                String sprite = String.valueOf(item.itemStackRenderState()
+                        .pickParticleIcon(RandomSource.create()).contents().name());
+
+                if (Math.round(onScreen.x) == iconX && Math.round(onScreen.y) == iconY) {
+                    sprites.add(sprite);
+                } else {
+                    elsewhere.add(sprite + "@" + Math.round(onScreen.x) + "/" + Math.round(onScreen.y));
+                }
+            });
+
+            if (!sprites.contains("minecraft:item/ward_armor_trim_smithing_template")) {
+                throw new AssertionError("The trim button at " + (iconX - 2) + "/" + (iconY - 2)
+                        + " does not carry the ward smithing template: items drawn two pixels inside it "
+                        + sprites + ", items drawn elsewhere on the screen " + elsewhere);
+            }
+        });
+
+        // The real cursor, not only the extraction's mouse argument: every real frame in between
+        // would otherwise see the widget unhovered and reset the holder's display timer, and the
+        // second pass would find a tooltip that had "just" started showing - which is what the
+        // first run reported, a screen that drew nothing but "Crafting".
+        moveCursorToGui(script, "the armor trim stats button", client -> button.get());
+        script.idle("let the tooltip delay pass with the cursor on the button", 10);
+
+        script.act("the trim button's tooltip reads Toggle Resonance Stats", client -> {
+            List<String> texts = new ArrayList<>();
+
+            for (DrawnText text : drawnTexts(extractScreenStateWithTooltip(client, button.get()[0], button.get()[1]))) {
+                texts.add(text.text());
+            }
+
+            if (!texts.contains("Toggle Resonance Stats")
+                    || !texts.contains("Click to show/hide trim multipliers.")) {
+                throw new AssertionError("Hovering the trim button did not put its tooltip into the render "
+                        + "state: expected the lines 'Toggle Resonance Stats' and 'Click to show/hide trim "
+                        + "multipliers.', the screen drew " + texts);
+            }
+        });
+
+        parkCursor(script);
+        clearWidgetFocus(script);
+        script.idle("let the parked cursor settle before the baseline shots", 10);
+    }
+
+    /**
+     * {@link #extractScreenState} with the mouse at a GUI position and the deferred elements -
+     * the tooltips - included, which is what the real frame does after the widgets.
+     */
+    private static GuiRenderState extractScreenStateWithTooltip(Minecraft client, int mouseX, int mouseY) {
+        GuiRenderState state = new GuiRenderState();
+        GuiGraphics graphics = new GuiGraphics(client, state,
+                client.getWindow().getGuiScaledWidth(), client.getWindow().getGuiScaledHeight());
+        Screen screen = client.screen;
+
+        if (screen == null) {
+            throw new AssertionError("No screen is open, so there is nothing to extract.");
+        }
+
+        screen.renderWithTooltipAndSubtitles(graphics, mouseX, mouseY, 0.0f);
+        return state;
     }
 
     /** Clicks a GUI position, parks the cursor again and lets the screen settle for the next shot. */

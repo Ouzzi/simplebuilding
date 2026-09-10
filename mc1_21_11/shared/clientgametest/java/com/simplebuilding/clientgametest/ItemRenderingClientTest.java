@@ -1,18 +1,17 @@
 package com.simplebuilding.clientgametest;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.DoublePredicate;
-
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.property.EnchantmentModelProperty;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.ChiselItem;
 import com.simplebuilding.util.GlowingTrimUtils;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.DoublePredicate;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
@@ -700,6 +699,7 @@ public final class ItemRenderingClientTest {
         script.command("item replace entity @a weapon.mainhand with simplebuilding:netherite_chisel");
         script.awaitPackets();
         script.idle("let the chisel arrive and its equip animation finish", HAND_SETTLE_TICKS);
+        awaitTheChiselTiltAt(script, 0.0f);
 
         assertChiselTriggerConditions(script, false);
 
@@ -723,6 +723,7 @@ public final class ItemRenderingClientTest {
         // false and the hand has to stay exactly where it was.
         setToolAnimationSwitches(script, true, true);
         script.idle("let the hand settle after switching the animation on", HAND_SETTLE_TICKS);
+        awaitTheChiselTiltAt(script, 0.0f);
         assertChiselTriggerConditions(script, false);
 
         clearChat(script);
@@ -747,6 +748,7 @@ public final class ItemRenderingClientTest {
         script.awaitPackets();
         setToolAnimationSwitches(script, false, false);
         script.idle("let the hand settle on the convertible target", HAND_SETTLE_TICKS);
+        awaitTheChiselTiltAt(script, 0.0f);
         assertChiselTriggerConditions(script, true);
 
         clearChat(script);
@@ -754,6 +756,7 @@ public final class ItemRenderingClientTest {
 
         setToolAnimationSwitches(script, true, true);
         script.idle("let the tilt build up on the convertible target", HAND_SETTLE_TICKS);
+        awaitTheChiselTiltAt(script, 1.0f);
         assertChiselTriggerConditions(script, true);
 
         clearChat(script);
@@ -768,6 +771,7 @@ public final class ItemRenderingClientTest {
         // Control: switching it off again has to bring the hand back.
         setToolAnimationSwitches(script, false, false);
         script.idle("let the hand settle back after switching the animation off", HAND_SETTLE_TICKS);
+        awaitTheChiselTiltAt(script, 0.0f);
 
         clearChat(script);
         Later<Path> liveOffAgain = script.shot("chisel-f-live-target-animation-off");
@@ -781,6 +785,7 @@ public final class ItemRenderingClientTest {
         // The master switch: enableChiselAnimation alone must not be enough.
         setToolAnimationSwitches(script, false, true);
         script.idle("let the hand settle with only the chisel switch on", HAND_SETTLE_TICKS);
+        awaitTheChiselTiltAt(script, 0.0f);
         assertChiselTriggerConditions(script, true);
 
         clearChat(script);
@@ -794,6 +799,49 @@ public final class ItemRenderingClientTest {
                                 + "not tilt the hand while tools.enableToolAnimations is off"));
 
         restoreToolAnimationSwitches(script, originalToolAnimations, originalChiselAnimation);
+    }
+
+
+    /**
+     * Waits until the mixin's own tilt has reached {@code expected}, read from the field
+     * {@code HeldItemRendererMixin} adds to {@code ItemInHandRenderer}.
+     *
+     * <p>The tilt eases by 15 percent per rendered FRAME, not per tick, so a settle measured in
+     * ticks is a settle measured in frame rate: sixty ticks are sixty frames on a client that
+     * renders one per tick and fewer on one that does not, and the tilt needs some forty-three to
+     * fall below the renderer's own cut-off of 0.001. One driver rendered slower than that and
+     * the control shot still carried 522 pixels of a hand that was not quite back. The idle
+     * before this keeps the interval the noise floor is measured over; this is the condition the
+     * interval was standing in for.
+     */
+    private static void awaitTheChiselTiltAt(Script script, float expected) {
+        script.await("the chisel tilt is at rest at " + expected, 200,
+                client -> Math.abs(mainHandChiselProgress(client) - expected) <= 0.001f,
+                client -> "the chisel tilt is at " + mainHandChiselProgress(client) + " instead of "
+                        + expected + " - either the renderer is not producing frames or the tilt "
+                        + "no longer eases towards its target");
+    }
+
+    /** The main hand tilt {@code HeldItemRendererMixin} keeps on the item in hand renderer. */
+    private static float mainHandChiselProgress(Minecraft client) {
+        Object renderer = client.getEntityRenderDispatcher().getItemInHandRenderer();
+        List<String> names = new ArrayList<>();
+
+        for (java.lang.reflect.Field field : renderer.getClass().getDeclaredFields()) {
+            names.add(field.getName());
+
+            if (field.getName().contains("mainHandChiselProgress")) {
+                try {
+                    field.setAccessible(true);
+                    return field.getFloat(renderer);
+                } catch (ReflectiveOperationException e) {
+                    throw new AssertionError("The chisel tilt could not be read from " + field, e);
+                }
+            }
+        }
+
+        throw new AssertionError("ItemInHandRenderer carries no field named like mainHandChiselProgress, so "
+                + "HeldItemRendererMixin's tilt cannot be read; its fields are " + names);
     }
 
     /**

@@ -260,7 +260,7 @@ public final class MultiBlockBreakingClientTest {
         // has something to look at) and the mod has to stay out of it.
         Later<Set<BlockPos>> wrongTool = mineAndRecord(script, "minecraft:iron_pickaxe",
                 ModEnchantments.STRIP_MINER, STRIP_LEVEL, "breaking-e-strip-miner-wrong-tool", false, true,
-                null, 0);
+                null, 0, null);
         // Asserted after the measurement, because mineAndRecord hands the tool out itself; the
         // statement is about the tool that was actually held during the window.
         assertNotTheCorrectTool(script);
@@ -274,6 +274,66 @@ public final class MultiBlockBreakingClientTest {
                         + "cannot mine. Recorded: " + wrongTool.get() + ". The extra cracks are gated on "
                         + "isCorrectToolForDrops as well as on sneaking; a preview of blocks the tool "
                         + "will never break is a lie to the player.");
+            }
+        });
+
+        veinMinerCracksTheNeighbouringOre(script);
+    }
+
+
+    /**
+     * The Vein Miner branch of the preview: sneaking at an ore with a Vein Miner pickaxe cracks
+     * the ore next to it.
+     *
+     * <p>Left out of the shared form at first with the note that every vanilla ore is gone within
+     * a few ticks under a correct tool and takes the measurement window with it. True, and not
+     * the end of it: Mining Fatigue is vanilla's own way of slowing a pickaxe down, the client
+     * applies it in {@code Player.getDestroySpeed} exactly as the server does, and the mod's
+     * preview reads nothing but the destroy stage. With amplifier 1 the speed is 9 percent of
+     * normal, and deepslate coal ore under an iron pickaxe then takes well over two hundred ticks
+     * - room enough for the twenty tick window.
+     *
+     * <p>Two ores, side by side in the wall: the one under the crosshair and its neighbour. The
+     * neighbour is what Vein Miner has to add and what the recorder has to see.
+     */
+    private static void veinMinerCracksTheNeighbouringOre(Script script) {
+        BlockPos neighbour = TestScene.TARGET.offset(1, 0, 0);
+
+        script.command("effect give @a minecraft:mining_fatigue 600 1 true");
+        script.awaitPackets();
+        script.idle("let the fatigue reach the client", 5);
+
+        Later<Set<BlockPos>> veined = mineAndRecordOn(script, "minecraft:deepslate_coal_ore", List.of(neighbour),
+                "minecraft:iron_pickaxe", ModEnchantments.VEIN_MINER, 1, "breaking-f-vein-miner-sneaking", true);
+
+        script.verify("the Vein Miner pickaxe produced the ore next to the target while sneaking", () -> {
+            TestLog.info("breaking states with Vein Miner while sneaking: " + veined.get());
+
+            if (!veined.get().contains(neighbour)) {
+                throw new AssertionError("MultiBlockBreakingSupport contributed no Vein Miner crack: expected "
+                        + neighbour + " in the breaking render states, recorded were " + veined.get()
+                        + ". Sneak state, tool, enchantment and aim were all asserted before measuring.");
+            }
+        });
+
+        script.command("effect clear @a minecraft:mining_fatigue");
+        script.awaitPackets();
+        script.idle("let the cleared effect reach the client", 5);
+    }
+
+    /**
+     * {@link #mineAndRecord} with the target block and a few of its neighbours replaced first.
+     * The wall is rebuilt by {@code mineAndRecord} itself, so the ores go in after that - which
+     * is why this cannot be a plain call with extra commands in front of it.
+     */
+    private static Later<Set<BlockPos>> mineAndRecordOn(Script script, String targetBlockId, List<BlockPos> alsoAt,
+                                                        String itemId, ResourceKey<Enchantment> enchantment,
+                                                        int level, String screenshotName, boolean sneak) {
+        return mineAndRecord(script, itemId, enchantment, level, screenshotName, false, sneak, null, 0, s -> {
+            s.command("setblock " + TestScene.TARGET.getX() + " " + TestScene.TARGET.getY() + " "
+                    + TestScene.TARGET.getZ() + " " + targetBlockId);
+            for (BlockPos pos : alsoAt) {
+                s.command("setblock " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " " + targetBlockId);
             }
         });
     }
@@ -439,7 +499,7 @@ public final class MultiBlockBreakingClientTest {
                                                       String screenshotName, boolean expectSledgehammer,
                                                       boolean sneak) {
         return mineAndRecord(script, itemId, enchantment, level, screenshotName, expectSledgehammer, sneak,
-                null, enchantment != null ? 1 : 0);
+                null, enchantment != null ? 1 : 0, null);
     }
 
     /**
@@ -467,7 +527,7 @@ public final class MultiBlockBreakingClientTest {
                                                       boolean sneak,
                                                       Later<List<BlockBreakingRenderState>> lastFrame) {
         return mineAndRecord(script, itemId, enchantment, level, screenshotName, expectSledgehammer, sneak,
-                lastFrame, enchantment != null ? 1 : 0);
+                lastFrame, enchantment != null ? 1 : 0, null);
     }
 
     /**
@@ -483,7 +543,8 @@ public final class MultiBlockBreakingClientTest {
                                                       String screenshotName, boolean expectSledgehammer,
                                                       boolean sneak,
                                                       Later<List<BlockBreakingRenderState>> lastFrame,
-                                                      int minStage) {
+                                                      int minStage,
+                                                      java.util.function.Consumer<Script> afterTheWallIsRebuilt) {
         Later<Set<BlockPos>> result = new Later<>("the recorded breaking positions of " + screenshotName);
         Set<BlockPos> seen = new LinkedHashSet<>();
         int[] recordedTicks = {0};
@@ -503,6 +564,11 @@ public final class MultiBlockBreakingClientTest {
         script.command("fill -12 -4 " + TestScene.WALL_Z + " 32 24 " + TestScene.WALL_Z
                 + " minecraft:obsidian", true);
         script.command("fill 8 -1 21 12 3 22 minecraft:obsidian", true);
+        // A case that wants something other than obsidian under the crosshair says so here, after
+        // the rebuild - a block placed before it would be filled over.
+        if (afterTheWallIsRebuilt != null) {
+            afterTheWallIsRebuilt.accept(script);
+        }
         script.awaitPackets();
         script.idle("let the rebuilt wall reach the client", 10);
 

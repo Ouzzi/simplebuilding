@@ -26,7 +26,8 @@
     "p4": {
       "urteil": "writable-client",
       "grund": "world.playSound(null, ...) kommt beim zuschauenden Client an; SmokeClientTest.SoundRecorder hoert genau das. Ein Klick mit dem Rotator im Client-Test, dann SPYGLASS_USE im Rekorder.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": "geschrieben 2026-09-10: SmokeClientTest.rotatorSledgehammerAndWandSoundsReachTheClient - SPYGLASS_USE bei 1.0/1.0 nach einer angenommenen Drehung, ueber den SoundRecorder"
     }
   },
   {
@@ -256,7 +257,8 @@
     "p4": {
       "urteil": "writable-client",
       "grund": "Wie 1: Umformungs-Sound ueber world.playSound, SoundRecorder hoert ihn. Partikel bleiben aussen vor.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": "geschrieben 2026-09-10: SmokeClientTest.chiselAndSpatulaSoundsReachTheClient (bestand schon); die Partikel bleiben aussen vor"
     }
   },
   {
@@ -421,7 +423,8 @@
     "p4": {
       "urteil": "writable-client",
       "grund": "Wie 1: Break-Sound bei der Umformung, SoundRecorder.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": "geschrieben 2026-09-10: SmokeClientTest.rotatorSledgehammerAndWandSoundsReachTheClient - Break-Sound von Stein bei 1.0/0.8 beim Umformen zu Stufen"
     }
   },
   {
@@ -611,7 +614,8 @@
     "p4": {
       "urteil": "writable-client",
       "grund": "Platziergeraeusch je Block ueber world.playSound; SoundRecorder.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": "geschrieben 2026-09-10: SmokeClientTest.rotatorSledgehammerAndWandSoundsReachTheClient - genau ein Platziergeraeusch je gesetztem Block bei (v+1)/2 und p*0.8"
     }
   },
   {
@@ -806,7 +810,8 @@
     "p4": {
       "urteil": "writable-client",
       "grund": "Shape-Tag setzen und die gemalte Flaeche vergleichen: Zylinder gegen Quader muss sich im Bild unterscheiden, Kugel gegen Zylinder ebenso; ScreenshotDiff.changedArea liefert Ausdehnung und Schwerpunkt. Schwache, aber echte Aussage.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": "geschrieben 2026-09-10: BlockHighlightClientTest.octantShapesAndOrientationDrawDifferentFills - Zylinder != Quader, Kugel != Zylinder, Kontrolle Quader == Quader (highlight-l..o)"
     }
   },
   {
@@ -821,7 +826,8 @@
     "p4": {
       "urteil": "writable-client",
       "grund": "Orientation-Tag setzen: die gedrehte Form muss sich von der ungedrehten unterscheiden, und Orientierung 1 (UP) muss dem fehlenden Tag gleichen.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": "geschrieben 2026-09-10: BlockHighlightClientTest.octantShapesAndOrientationDrawDifferentFills - Zylinder auf x != Zylinder auf y (highlight-p)"
     }
   },
   {
@@ -1146,7 +1152,8 @@
     "p4": {
       "urteil": "writable-client",
       "grund": "Der geteilte Client-Test hat einen echten Ueberlebensspieler: gamemode survival, Moduswechsel per Taste, Haltbarkeit -1 auf dem Server lesen.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": "geschrieben 2026-09-10: SmokeClientTest.anOreDetectorModeSwitchCostsOneDurabilityInSurvival - zwei Wechsel eines echten Ueberlebensspielers, Schaden 1 und 2, Modus je geaendert"
     }
   },
   {
@@ -2281,7 +2288,8 @@
     "p4": {
       "urteil": "writable-server",
       "grund": "helper.makeMockPlayer() liefert einen Player, der kein ServerPlayer ist: den Hook damit rufen, nichts darf passieren.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": "geschrieben 2026-09-10: VeinAndStripMinerTests.veinMinerRefusesNonOresAndTooWeakPickaxesAndDivergesFromTheHighlightOnQuartz, letzter Abschnitt (makeMockPlayer)"
     }
   },
   {
@@ -2506,7 +2514,8 @@
     "p4": {
       "urteil": "writable-client",
       "grund": "Antiker Schutt (Haerte 30) mit Diamantspitzhacke braucht ~110 Ticks, wenn er in der Erzliste steht - genug fuer ein Messfenster mit dem BreakingStateRecorder. Vorher pruefen, ob MiningUtils ihn als Erz fuehrt; sonst Nihilith-/Astralit-Erz mit einer Haerte ueber 5 waehlen.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": "geschrieben 2026-09-10: MultiBlockBreakingClientTest.veinMinerCracksTheNeighbouringOre - nicht ueber Antiken Schutt, sondern Mining Fatigue II auf Tiefenschiefer-Kohleerz (breaking-f)"
     }
   },
   {
@@ -3001,7 +3010,8 @@
     "p4": {
       "urteil": "writable-client",
       "grund": "Der GUI-Renderzustand wird jetzt ausgelesen (HudAndTooltipClientTest.extractScreenState): Knopf ueberfahren, Tooltip-Text aus forEachText lesen; das Symbol als BlitRenderState mit Sprite-Kennung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": "geschrieben 2026-09-10: HudAndTooltipClientTest.assertTrimButtonIconAndTooltip - Partikel-Sprite des gezeichneten Items und die zwei Tooltip-Zeilen aus dem Renderzustand"
     }
   },
   {
