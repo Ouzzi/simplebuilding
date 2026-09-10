@@ -37,13 +37,14 @@ entfernt) macht ihn rot.
 
 | Ziel | Prüfpunkte | Rückstand |
 |---|---:|---:|
-| Fabric · MC 26.2 | **100** | — |
-| Fabric · MC 1.21.11 | **100** | — |
-| NeoForge · MC 26.2 | **100** | — |
-| NeoForge · MC 1.21.11 | **100** | — |
+| Fabric · MC 26.2 | **102** | — |
+| Fabric · MC 1.21.11 | **102** | — |
+| NeoForge · MC 26.2 | **102** | — |
+| NeoForge · MC 1.21.11 | **102** | — |
 
-(85 nach P2/P3; 94 nach den 21 clientseitigen P7-Schärfungen; 100 seit dem Nachmittag des
-2026-09-10 mit den sechs P4-Bildern — fünf Oktant-Formen, ein Vein-Miner-Riss.)
+(85 nach P2/P3; 94 nach den 21 clientseitigen P7-Schärfungen; 100 mit den sechs P4-Bildern —
+fünf Oktant-Formen, ein Vein-Miner-Riss; 102 nach der Mutations-Gegenprobe, die zwei Fälle
+nachschärfen ließ — Werkzeugwache am Vein-Miner-Zweig, Geister-Schwerpunkt auf der 3×3-Ebene.)
 
 Alle vier Ziele fahren **dieselben Testkörper**: einmal als Schrittliste geschrieben, je Ziel ein
 dünner Treiber. `CLIENT_PARITY_DEBT` ist leer — nicht erlassen, sondern bezahlt. Das Tor fällt ab
@@ -450,7 +451,7 @@ eigene Kopie der Logik, NeoForge delegiert an das gemeinsame `ModMessageHandlers
 waren beim Vergleich identisch; jetzt delegiert Fabric ebenfalls, und die Servertests auf
 `ModMessageHandlers` decken damit erstmals den Pfad, den ein Fabric-Server wirklich läuft.
 
-### P6 — Mutationstests für die teuersten Tests
+### P6 — Mutationstests für die teuersten Tests — **erledigt am 2026-09-10**
 
 Beim Stapel 2 hat ein Prüfer echte Mutationstests gefahren: sieben Mutationen einzeln in
 `TrimEffectUtil` eingespielt, je ein Lauf. Zwei wurden rot, **vier blieben grün** — drei davon
@@ -460,6 +461,33 @@ Das ist die schärfste Prüfung, die wir haben, und sie war ein Einzelfall. Für
 (Verzauberungen, Werkzeuge, Schwerkraftblöcke) wäre sie systematisch mehr wert als weitere neue
 Tests.
 
+**Gefahren als Runde:** `tools/testrunner/mutations.py --p6 --run` — 27 Mutationen im Quelltext
+des Mods, keine Antwort auf ein bekanntes falsches Grün, sondern der Ausrutscher, den ein Umbau
+macht (Konstante verschoben, Wache gestrichen, Zweig plattgemacht), jede mit dem einen Servertest,
+dessen Satz sie nennen muss. Je Mutation ein gefilterter Serverlauf auf Fabric 26.2, Datei aus git
+zurück, Datensatz unter `testing/mutations/`.
+
+| Bereich | Mutationen | Beispiele |
+|---|---:|---|
+| Abbau-Verzauberungen | 9 | Tiefentabelle III→3, Rückerstattung aus, Schleich-Wache weg, Teiler II→2, Pitch-Schwelle 60→70, Aderabbau-Budget I 3→6, Smaragderz aus der Erzliste, Erz-Tor weg, Hammerstufe 2000→1000 |
+| Werkzeuge | 10 | Bedrock-Wache, Luftlücke berechnet, Pauschalpreis, Ladezeit-Klemme 40→50, Effizienzfaktor 5→4, Radius trotz Schleichen, Randmaß 0.125→0.124, halbe Geschwindigkeit 0.5→0.6, Fast Chiseling 0.3→0.25, Stab-Radius +1 |
+| Schwerkraftblöcke, Kolben | 5 | Verzögerung 2→3, Luftwiderstand 0.98→0.97, Limit 18→17, Limit für jeden Mod-Kolben, Bruchfaktor 50→60 |
+| Besatz-Effekte | 3 | Boden 0.1→0.0, Ward nur bei Feuer, Sprungschwelle 8.0→7.0 |
+
+**Ergebnis: 27 von 27 rot mit der erwarteten Meldung — nach einem Befund.** Beim ersten Lauf
+blieb `vein-budget-level-one` grün: `VeinMinerUsageEvent` trug eine **eigene Kopie** der
+Stufentabelle und der Breitensuche, die Vorschau las `MiningUtils.getVeinMinerBlocks`. Der
+Kommentar über der Erzliste meldete genau diese Drift als beseitigt — eine Zeile tiefer saß sie
+noch. Jetzt fragt der Abbau dieselbe Methode wie die Vorschau (Inhalt und Reihenfolge der Auswahl
+sind dieselben, die vier Vein/Strip-Tests bleiben auf allen vier Zielen grün), und die Mutation ist
+rot. `vein-ore-gate` war rot, aber mit dem Satz der Vorschau-Parität auf Quarz statt dem des
+Steinfalls, weil der Hook `isOre` selbst fragt, bevor er die Liste holt — die Erwartung folgt jetzt
+dem Satz, der das Tor wirklich sieht.
+
+Nur auf der 26.2-Linie gefahren: die 1.21.11-Testkörper sind die übersetzte Kopie derselben Sätze
+(`--drift` hält sie innerhalb von zwölf normalisierten Zeilen), und eine Mutation am Mod-Quelltext
+ändert nichts an dem Minecraft darunter.
+
 ---
 
 ## 4. Wann „fertig" gilt
@@ -467,11 +495,13 @@ Tests.
 1. Alle vier Server-Ziele tragen dieselben Test-Ids, Abweichungen nur mit Begründung im Quelltext.
    **→ erreicht**, und seit P5 vom Tor erzwungen
 2. Alle vier Client-Ziele tragen dieselben Prüfpunkte, Abweichungen nur mit Begründung.
-   **→ erreicht am 2026-09-10** (P2 und P3): ein Baum, 94 Prüfpunkte je Ziel, `CLIENT_PARITY_DEBT`
+   **→ erreicht am 2026-09-10** (P2 und P3): ein Baum, 102 Prüfpunkte je Ziel, `CLIENT_PARITY_DEBT`
    leer, die 1.21.11-Kopie per Werkzeug reproduzierbar und vom Tor geprüft
 3. Ein frisches Audit findet keine Lücke mehr, die mit einem Test erreichbar wäre.
-   **→ Audit erhoben (P1). 201 erreichbare Lücken und 104 falsche Grün sind die Arbeit daraus:
-   P7, dann die schreibbaren Lücken, dann P4.**
+   **→ Audit erhoben (P1), abgearbeitet: P7 (104 falsche Grün, 101 geschärft und je durch ihre
+   Mutation rot belegt, 1 begründet abgelehnt, 2 Doppelnennungen), die schreibbaren Lücken, P4
+   (97 Einträge triagiert, die zehn schreibbaren geschrieben), P6 (27 Mutationen in den
+   Kernbereichen, 27 rot, ein Befund behoben).**
 4. Das Release-Gate erzwingt 1 und 2, sodass die Parität nicht wieder still kippen kann.
    **→ erreicht.** Seit dem 2026-09-10 prüft es auch, ob die 1.21.11-Client-Kopie hinter dem
    gemeinsamen Baum zurückhängt (`port_client_tests_to_1_21_11.py --check`).
@@ -498,10 +528,16 @@ Ehrlich benannt, damit niemand es für eine Lücke hält:
 
 ## 6. Reihenfolge in einem Satz
 
-~~**P1** (Audit)~~ → ~~**P5** (Gate)~~ → ~~**P3** (Entscheidung)~~ → **P7** (falsche Grün) →
-**Servertests** für die 127 schreibbaren Lücken → **P3-Umsetzung** (Fassade + `disconnect`-Mixin)
-→ **P2** (Client 1.21.11) und die 74 clientseitigen Lücken → **P4** (Restkategorien) → **P6**
-(Mutationstests).
+~~**P1** (Audit)~~ → ~~**P5** (Gate)~~ → ~~**P3** (Entscheidung)~~ → ~~**P7** (falsche Grün)~~ →
+~~**Servertests** für die 127 schreibbaren Lücken~~ → ~~**P3-Umsetzung** (Fassade + Treiber)~~
+→ ~~**P2** (Client 1.21.11) und die 74 clientseitigen Lücken~~ → ~~**P4** (Restkategorien)~~ →
+~~**P6** (Mutationstests)~~ → ~~**P8** (Körper-Drift)~~.
+
+**Alle Pakete sind am 2026-09-10 abgeschlossen.** Was bleibt, steht in Abschnitt 5, und die 27
+Entscheidungen des Besitzers aus P4 sind Verhalten, kein Rückstand. Der Stand ist mit
+`python tools/testrunner/run.py --release-gate --targets everything` reproduzierbar: Gate
+(`gradlew check`, Wiki, Client-Port, Körper-Drift, Id-Parität), 1078 Servertests auf vier
+Zielen, 102 Prüfpunkte je Client-Ziel.
 
 P5 war früh dran, weil ein Gate, das die Schieflage bemerkt hätte, sie gar nicht erst hätte
 entstehen lassen — und es hat sich sofort bezahlt gemacht: Der erste Lauf hat den fehlenden

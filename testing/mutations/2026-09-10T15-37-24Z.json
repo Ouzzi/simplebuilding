@@ -1,0 +1,34 @@
+{
+  "target": "client-fabric-262",
+  "catalogue": "p6",
+  "rounds": [
+    {
+      "round": 1,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "vein-budget-level-one",
+          "script": "vein_and_strip_miner_game_test_vein_miner_breaks_the_whole_vein_through_the_block_break_event",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(4646096, -59, -2994249) Expected Vein Miner block budget at level I, driven through the break event to be 2: was 5 on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 2,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "vein-ore-gate",
+          "script": "vein_and_strip_miner_game_test_vein_miner_refuses_non_ores_and_too_weak_pickaxes_and_diverges_from_the_highlight_on_quartz",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(8888498, -59, -5691150) Expected the crack preview outlined a quartz vein the hook does not mine - the two ore lists have drifted apart again to be 0: was 2 on tick 0"
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}
