@@ -281,7 +281,9 @@ P6_MUTATIONS: list[Mutation] = [
              "        if (isPickaxe && !isOre(targetState)) return Collections.emptyList();\n",
              "",
              "vein_and_strip_miner_game_test_vein_miner_refuses_non_ores_and_too_weak_pickaxes_and_diverges_from_the_highlight_on_quartz",
-             "Expected block Stone: got Air",
+             # The hook asks MiningUtils.isOre on its own before it asks for the list, so the stone
+             # case stays intact; what sees the list's gate is the preview parity check on quartz.
+             "the crack preview outlined a quartz vein the hook does not mine",
              "a pickaxe vein mines ores only, never plain stone",
              kind="server"),
     Mutation("versatility-hammer-step",

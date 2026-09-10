@@ -55,16 +55,14 @@ public final class VeinMinerUsageEvent {
         if (isPickaxe && !MiningUtils.isOre(state)) return true;
         if (isAxe && !state.is(BlockTags.LOGS)) return true;
 
-        int maxBlocks = switch (level) {
-            case 1 -> 3;
-            case 2 -> 6;
-            case 3 -> 9;
-            case 4 -> 12;
-            case 5 -> 18;
-            default -> 18;
-        };
-
-        List<BlockPos> blocksToMine = findConnectedBlocks(world, pos, state, maxBlocks);
+        // Budget und Suche stehen nur noch in MiningUtils.getVeinMinerBlocks; die Riss-Vorschau
+        // fragt dieselbe Methode. Bis zum 2026-09-10 trug dieser Hook eine eigene Kopie der
+        // Stufentabelle und der Breitensuche - und eine Mutation der Tabelle in MiningUtils
+        // (Stufe I: 6 statt 3) liess jeden Servertest gruen, weil der Abbau sie nie las. Genau
+        // die Drift, die der Kommentar oben fuer die Erzliste als beseitigt meldete, sass eine
+        // Zeile tiefer noch. Die Liste kommt ohne den Startblock zurueck, so wie der Abbau ihn
+        // will: den bricht Vanilla selbst.
+        List<BlockPos> blocksToMine = MiningUtils.getVeinMinerBlocks(world, pos, state, level, stack);
 
         for (BlockPos targetPos : blocksToMine) {
             if (targetPos.equals(pos)) continue;
@@ -85,42 +83,5 @@ public final class VeinMinerUsageEvent {
         }
 
         return true;
-    }
-
-    private static List<BlockPos> findConnectedBlocks(Level world, BlockPos startPos, BlockState targetState, int maxCount) {
-        List<BlockPos> found = new ArrayList<>();
-        Queue<BlockPos> queue = new LinkedList<>();
-        Set<BlockPos> visited = new HashSet<>();
-
-        queue.add(startPos);
-        visited.add(startPos);
-        int foundCount = 0;
-
-        while (!queue.isEmpty() && foundCount < (maxCount - 1)) {
-            BlockPos current = queue.poll();
-
-            for (int x = -1; x <= 1; x++) {
-                for (int y = -1; y <= 1; y++) {
-                    for (int z = -1; z <= 1; z++) {
-                        if (x == 0 && y == 0 && z == 0) continue;
-
-                        BlockPos neighbor = current.offset(x, y, z);
-                        if (!visited.contains(neighbor)) {
-                            BlockState neighborState = world.getBlockState(neighbor);
-                            if (neighborState.getBlock() == targetState.getBlock()) {
-                                visited.add(neighbor);
-                                queue.add(neighbor);
-                                found.add(neighbor);
-                                foundCount++;
-                                if (foundCount >= (maxCount - 1)) break;
-                            }
-                        }
-                    }
-                    if (foundCount >= (maxCount - 1)) break;
-                }
-                if (foundCount >= (maxCount - 1)) break;
-            }
-        }
-        return found;
     }
 }

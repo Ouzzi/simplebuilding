@@ -1,0 +1,384 @@
+{
+  "target": "client-fabric-262",
+  "catalogue": "p6",
+  "rounds": [
+    {
+      "round": 1,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "strip-depth-table",
+          "script": "vein_and_strip_miner_game_test_strip_miner_tunnels_along_the_facing_and_refunds_durability_through_the_block_break_event",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(10913767, -59, 3256005) Expected block Air: got Stone at 10913771, -56, 3256010 (relative: 3, 1, 3) on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 2,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "strip-refund-off",
+          "script": "vein_and_strip_miner_game_test_strip_miner_tunnels_along_the_facing_and_refunds_durability_through_the_block_break_event",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(2899505, -59, -13411551) Expected Strip Miner durability refund for the level II tunnel to be 1: was 2 on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 3,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "strip-sneak-gate",
+          "script": "vein_and_strip_miner_game_test_strip_miner_tunnels_along_the_facing_and_refunds_durability_through_the_block_break_event",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-1741674, -59, -7437435) Strip Miner fired without the player sneaking on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 4,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "strip-speed-divisor-two",
+          "script": "mining_enchantment_game_test_strip_miner_divides_the_player_destroy_speed_per_level",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-12961487, -59, 11399504) Strip Miner 2 left the destroy speed at 1.8 instead of 1.1999999 (unenchanted 3.6 divided by 3.0) on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 5,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "mining-direction-threshold",
+          "script": "vein_and_strip_miner_game_test_strip_miner_tunnels_along_the_facing_and_refunds_durability_through_the_block_break_event",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-74513, -59, 1568831) Expected MiningUtils stopped digging downwards just past pitch 60, so the preview and the hook would point in different directions to be down: was south on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 6,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "vein-budget-level-one",
+          "script": "vein_and_strip_miner_game_test_vein_miner_breaks_the_whole_vein_through_the_block_break_event",
+          "ok": false,
+          "verdict": "GRUEN GEBLIEBEN - die Schaerfung beisst nicht",
+          "message": null
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 7,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "vein-ore-list-emerald",
+          "script": "vein_and_strip_miner_game_test_vein_miner_refuses_non_ores_and_too_weak_pickaxes_and_diverges_from_the_highlight_on_quartz",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(5538213, -59, -14438707) Vein Miner refused a vein of Emerald Ore, so that ore tag is no longer in the hook's ore check on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 8,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "vein-ore-gate",
+          "script": "vein_and_strip_miner_game_test_vein_miner_refuses_non_ores_and_too_weak_pickaxes_and_diverges_from_the_highlight_on_quartz",
+          "ok": false,
+          "verdict": "rot, aber mit einer ANDEREN Meldung: (3895599, -59, 2928076) Expected the crack preview outlined a quartz vein the hook does not mine - the two ore lists have drifted apart again to be 0: was 2 on tick 0",
+          "message": "(3895599, -59, 2928076) Expected the crack preview outlined a quartz vein the hook does not mine - the two ore lists have drifted apart again to be 0: was 2 on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 9,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "versatility-hammer-step",
+          "script": "mining_enchantment_game_test_versatility_prefers_the_hammer_and_ranks_the_chisel_last",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-345152, -59, 2498425) Versatility did not put the sledgehammer first, hand holds 1 minecraft:diamond_pickaxe on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 10,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "hammer-bedrock-guard",
+          "script": "sledgehammer_game_test_sledgehammer_field_skips_air_gaps_and_unbreakable_blocks",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(1134734, -59, -1909466) Expected block Bedrock: got Air at 1134737, -56, -1909462 (relative: 2, 1, 2) on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 11,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "hammer-air-gap-billed",
+          "script": "sledgehammer_game_test_sledgehammer_field_skips_air_gaps_and_unbreakable_blocks",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-8636737, -59, -14361978) Expected the swing charged -88 points for 6 broken blocks; the bedrock or the hole in the face was billed as if it had been mined (vanilla's own share of 17 per block is already subtracted) to be 6: was -88 on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 12,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "hammer-flat-cost",
+          "script": "sledgehammer_game_test_sledgehammer_bills_one_durability_per_block_and_two_for_the_wrong_tool",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(11033294, -59, 5663342) Expected durability the mod charged for an Override II hammer on glass, which is in none of the mineable tags (8 blocks, vanilla's 1 per block already subtracted) to be 16: was 8 on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 13,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "hammer-charge-clamp",
+          "script": "sledgehammer_game_test_sledgehammer_charge_time_shortens_with_material_and_efficiency",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(6643368, -59, -7929880) Expected charge time in ticks of the stone (raw 50, held at the upper clamp) sledgehammer to be 40: was 50 on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 14,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "hammer-efficiency-factor",
+          "script": "sledgehammer_game_test_sledgehammer_charge_time_shortens_with_material_and_efficiency",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-8329702, -59, 3756373) Expected charge time of a diamond hammer with Efficiency V to be 6: was 7 on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 15,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "radius-ignores-sneak",
+          "script": "enchantment_effect_game_test_radius_widens_the_sledgehammer_face_and_sneaking_suppresses_it",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-4567521, -59, -14425531) Expected block Stone: got Air at -4567515, -55, -14425526 (relative: 5, 2, 3) on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 16,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "rotator-rim-margin",
+          "script": "rotator_game_test_rim_is_the_outer_eighth_of_every_face_and_nowhere_inside",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-1627012, -59, -12323372) 0.124 from the west edge, still inside the rim: a log along y should have ended up along x, but it lies along z on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 17,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "chisel-half-speed",
+          "script": "chisel_game_test_chisel_mines_at_half_material_speed",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-11142366, -59, -11771060) stone chisel on stone: mining speed is 2.4 instead of 2.0 on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 18,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "chisel-fast-chiseling-factor",
+          "script": "building_enchantment_game_test_fast_chiseling_shortens_the_cooldown_and_speeds_up_mining",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-13581460, -59, -11591525) Expected Fast Chiseling I did not take 30% off the cooldown to be 21: was 22 on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 19,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "wand-radius-cap",
+          "script": "building_wand_game_test_wand_tier_caps_the_radius_setting_and_sizes_the_plane",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(13509270, -59, 14162968) Expected the copper wand did not build the square its own maximum diameter of 3 allows when it was asked for radius 99 to be [BlockPos{x=2, y=4, z=2}, BlockPos{x=2, y=4, z=3}, BlockPos{x=2, y=4, z=4}, BlockPos{x=3, y=4, z=2}, BlockPos{x=3, y=4, z=3}, BlockPos{x=3, y=4, z=4}, BlockPos{x=4, y=4, z=2}, BlockPos{x=4, y=4, z=3}, BlockPos{x=4, y=4, z=4}]: was [BlockPos{x=1, y=4, z=1}, BlockPos{x=1, y=4, z=2}, BlockPos{x=1, y=4, z=3}, BlockPos{x=1, y=4, z=4}, BlockPos{x=1, y=4, z=5}, BlockPos{x=2, y=4, z=1}, BlockPos{x=2, y=4, z=2}, BlockPos{x=2, y=4, z=3}, BlockPos{x=2, y=4, z=4}, BlockPos{x=2, y=4, z=5}, BlockPos{x=3, y=4, z=1}, BlockPos{x=3, y=4, z=2}, BlockPos{x=3, y=4, z=3}, BlockPos{x=3, y=4, z=4}, BlockPos{x=3, y=4, z=5}, BlockPos{x=4, y=4, z=1}, BlockPos{x=4, y=4, z=2}, BlockPos{x=4, y=4, z=3}, BlockPos{x=4, y=4, z=4}, BlockPos{x=4, y=4, z=5}, BlockPos{x=5, y=4, z=1}, BlockPos{x=5, y=4, z=2}, BlockPos{x=5, y=4, z=3}, BlockPos{x=5, y=4, z=4}, BlockPos{x=5, y=4, z=5}] on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 20,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "levitate-delay",
+          "script": "gravity_block_game_test_levitating_sand_leaves_on_vanillas_schedule_and_rises_on_its_curve",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-10719086, -59, 723153) Expected the tick levitating sand lifts off, against the tick vanilla sand starts falling - both are placed in the same tick, so a different lead time in LevitatingBlock shows up as a different tick here to be 2: was 3 on tick 6"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 21,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "levitate-drag",
+          "script": "gravity_block_game_test_levitating_sand_leaves_on_vanillas_schedule_and_rises_on_its_curve",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-14958457, -59, 10858039) first sample: the rise should be the exact mirror of vanilla sand falling in the same ticks, but the rising block moves at 0.18270399342800003 while the falling one moves at -0.18831524911932757 on tick 10"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 22,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "piston-limit-seventeen",
+          "script": "gravity_block_game_test_reinforced_piston_moves_eighteen_blocks_while_the_netherite_one_keeps_vanillas_twelve",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(2403932, -59, -5194019) Expected property extended to be true: was false at 2403934, -56, -5194016 (relative: 1, 1, 1) on tick 20"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 23,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "piston-limit-any-mod-piston",
+          "script": "gravity_block_game_test_reinforced_piston_moves_eighteen_blocks_while_the_netherite_one_keeps_vanillas_twelve",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-3060591, -59, -13212328) Expected property extended to be false: was true at -3060589, -56, -13212321 (relative: 1, 1, 5) on tick 20"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 24,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "piston-break-factor",
+          "script": "gravity_block_game_test_netherite_piston_breaks_only_what_the_signal_strength_can_afford",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(5500114, -59, -12092725) Expected block Block of Netherite: got Air at 5500118, -54, -12092719 (relative: 3, 3, 4) on tick 25"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 25,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "trim-damage-floor",
+          "script": "trim_effect_game_test_damage_reduction_follows_the_pattern_and_keeps_its_floor",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-2487216, -59, 10587770) the 10% damage floor is gone - a trimmed player can now be made immortal: expected 1.0 but got 0.0 on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 26,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "trim-ward-conditional",
+          "script": "trim_effect_game_test_damage_reduction_follows_the_pattern_and_keeps_its_floor",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-5950753, -59, 5449252) a full ward set against a generic hit: expected 8.8 but got 10.0 on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 27,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "trim-jump-threshold",
+          "script": "trim_effect_game_test_astralit_jump_boost_crosses_its_thresholds_on_tick",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(10457669, -59, 14685291) wrong Jump Boost level just below the second threshold (score 7.999): expected amplifier 0 but got 1 on tick 0"
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}
