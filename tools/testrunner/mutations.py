@@ -915,20 +915,31 @@ def plan(selected: list[Mutation]) -> list[list[Mutation]]:
 #: specific anchor where the API differs (the two below).
 LINE_1_21_11 = "1.21.11"
 
-#: Anchors that differ on the 1.21.11 copy: mutation id -> (old, new) as they read there.
-ANCHORS_1_21_11: dict[str, tuple[str, str]] = {
-    "vein-ore-list-emerald": (
-        "state.is(BlockTags.DIAMOND_ORES) ||\n                state.is(BlockTags.EMERALD_ORES);",
-        "state.is(BlockTags.DIAMOND_ORES);"),
-    "hopper-pickup-only": (
-        "                if (actionType == ClickType.PICKUP) {\n                    blockEntity.setGhostItem(slotIndex, cursor.isEmpty() ? ItemStack.EMPTY : cursor);\n                    // Abbrechen, damit Item nicht wirklich reingelegt wird\n                    return; \n                }",
-        "                blockEntity.setGhostItem(slotIndex, cursor.isEmpty() ? ItemStack.EMPTY : cursor);\n                return;"),
-    # On 1.21.11 the loot function hands the draw to WeightedPicker (shared with the code
-    # registered trades of that line) and applies every pick in one loop, so the level is
-    # dropped for all picks there, not only the first - the named test sees both.
-    "weighted-enchant-level-dropped": (
-        "                enchantments.set(pick.enchantment(), pick.level());",
-        "                enchantments.set(pick.enchantment(), 1);"),
+#: What differs on the 1.21.11 copy, per mutation id: "old"/"new" where the anchor reads
+#: differently there, "script"/"expect" where the test that sees the mutation is another one
+#: (the trade tests of that line are code registered, not data driven - see LINE_DIFFERENCES
+#: in run.py). Keys that are absent keep the 26.2 value.
+ON_1_21_11: dict[str, dict[str, str]] = {
+    "vein-ore-list-emerald": {
+        "old": "state.is(BlockTags.DIAMOND_ORES) ||\n                state.is(BlockTags.EMERALD_ORES);",
+        "new": "state.is(BlockTags.DIAMOND_ORES);"},
+    "hopper-pickup-only": {
+        "old": "                if (actionType == ClickType.PICKUP) {\n                    blockEntity.setGhostItem(slotIndex, cursor.isEmpty() ? ItemStack.EMPTY : cursor);\n                    // Abbrechen, damit Item nicht wirklich reingelegt wird\n                    return; \n                }",
+        "new": "                blockEntity.setGhostItem(slotIndex, cursor.isEmpty() ? ItemStack.EMPTY : cursor);\n                return;"},
+    # The loot function hands the draw to WeightedPicker there and applies every pick in one
+    # loop; and the master book TRADE of that line never goes through the loot function (it is
+    # an EnchantmentPool listing), so the test that drives the function directly is the one
+    # that sees a dropped level.
+    "weighted-enchant-level-dropped": {
+        "old": "                enchantments.set(pick.enchantment(), pick.level());",
+        "new": "                enchantments.set(pick.enchantment(), 1);",
+        # Its two entry pool sees the level first, with the same sentence the 26.2 test uses.
+        "script": "trade_offer_game_test_weighted_enchant_honours_its_second_chance_setting"},
+    # The trade switch test is 26.2 only (it reads the shipped trade jsons); on 1.21.11 the
+    # reflection over every config option is what notices a field that went static.
+    "config-wandering-switch-static": {
+        "script": "config_option_game_test_every_config_option_keeps_its_persisted_name_and_default",
+        "expect": "the set of config options (name, group, type, default)"},
 }
 
 
@@ -938,8 +949,9 @@ def on_line(m: Mutation, line: str) -> Mutation:
         return m
     file = (m.file.replace("common/src/shared/java", "mc1_21_11/shared/java")
             .replace("src/main/java", "mc1_21_11/fabric/src/main/java"))
-    old, new = ANCHORS_1_21_11.get(m.id, (m.old, m.new))
-    return Mutation(m.id, file, old, new, m.script, m.expect, m.claim, m.kind)
+    diff = ON_1_21_11.get(m.id, {})
+    return Mutation(m.id, file, diff.get("old", m.old), diff.get("new", m.new),
+                    diff.get("script", m.script), diff.get("expect", m.expect), m.claim, m.kind)
 
 
 def mutate(m: Mutation, text: str) -> str:

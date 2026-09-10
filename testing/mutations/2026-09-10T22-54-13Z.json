@@ -1,0 +1,21 @@
+{
+  "target": "fabric-12111",
+  "line": "1.21.11",
+  "catalogue": "p6b",
+  "rounds": [
+    {
+      "round": 1,
+      "target": "fabric-12111",
+      "mutations": [
+        {
+          "id": "weighted-enchant-level-dropped",
+          "script": "trade_offer_game_test_weighted_enchant_honours_its_second_chance_setting",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(13026075, -59, 3446747) hand built pool without second_chance: these pool entries were never drawn, so their weight or their level is being ignored: [minecraft:unbreaking@2] (drawn: {minecraft:sharpness@1=102, minecraft:unbreaking@1=98}) on tick 0"
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}

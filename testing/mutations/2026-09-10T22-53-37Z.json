@@ -1,0 +1,35 @@
+{
+  "target": "fabric-12111",
+  "line": "1.21.11",
+  "catalogue": "p6b",
+  "rounds": [
+    {
+      "round": 1,
+      "target": "fabric-12111",
+      "mutations": [
+        {
+          "id": "weighted-enchant-level-dropped",
+          "script": "trade_offer_game_test_weighted_enchant_honours_its_second_chance_setting",
+          "ok": false,
+          "verdict": "rot, aber mit einer ANDEREN Meldung: (-7392960, -59, 2908586) hand built pool without second_chance: these pool entries were never drawn, so their weight or their level is being ignored: [minecraft:unbreaking@2] (drawn: {minecraft:sharpn",
+          "message": "(-7392960, -59, 2908586) hand built pool without second_chance: these pool entries were never drawn, so their weight or their level is being ignored: [minecraft:unbreaking@2] (drawn: {minecraft:sharpness@1=102, minecraft:unbreaking@1=98}) on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 2,
+      "target": "fabric-12111",
+      "mutations": [
+        {
+          "id": "config-wandering-switch-static",
+          "script": "config_option_game_test_every_config_option_keeps_its_persisted_name_and_default",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(1622792, -59, 3976616) Expected the set of config options (name, group, type, default) to be [root.airJumpCooldownTicks int=100, root.enableArmorTrimBenefits boolean=true, root.enableDoubleJump boolean=true, root.maxMultiplierLimit double runtime-only(static), root.tools group:Tools, root.trimBenefitBaseMultiplier double runtime-only(static), root.worldGen group:WorldGen, tools.buildingHighlightOpacity int=40, tools.enableChiselAnimation boolean=true, tools.enableToolAnimations boolean=true, tools.invertBundleInteractions boolean=false, tools.invertOctantSneak boolean=false, worldGen.enableLootTableChanges boolean=true, worldGen.enableVillagerTrades boolean=true, worldGen.enableWanderingTrades boolean=true]: was [root.airJumpCooldownTicks int=100, root.enableArmorTrimBenefits boolean=true, root.enableDoubleJump boolean=true, root.maxMultiplierLimit double runtime-only(static), root.tools group:Tools, root.trimBenefitBaseMultiplier double runtime-only(static), root.worldGen group:WorldGen, tools.buildingHighlightOpacity int=40, tools.enableChiselAnimation boolean=true, tools.enableToolAnimations boolean=true, tools.invertBundleInteractions boolean=false, tools.invertOctantSneak boolean=false, worldGen.enableLootTableChanges boolean=true, worldGen.enableVillagerTrades boolean=true, worldGen.enableWanderingTrades boolean runtime-only(static)] on tick 0"
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}

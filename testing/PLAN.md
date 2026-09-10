@@ -484,10 +484,39 @@ rot. `vein-ore-gate` war rot, aber mit dem Satz der Vorschau-Parität auf Quarz 
 Steinfalls, weil der Hook `isOre` selbst fragt, bevor er die Liste holt — die Erwartung folgt jetzt
 dem Satz, der das Tor wirklich sieht.
 
-Nur auf der 26.2-Linie gefahren: die 1.21.11-Testkörper sind die übersetzte Kopie derselben Sätze
-(`--drift` hält sie innerhalb von zwölf normalisierten Zeilen oder eines in `DRIFT_EXPLAINED`
-benannten Unterschieds — drei Klassen), und eine Mutation am Mod-Quelltext
-ändert nichts an dem Minecraft darunter.
+**Auch auf der 1.21.11-Linie gefahren (2026-09-11, `--line 1.21.11`):** `--drift` sagt nur, dass die
+übersetzten Körper *textlich* nahe sind, nicht, dass sie beißen. Der Runner zeigt die
+Server-Mutationen deshalb auf die Kopie unter `mc1_21_11/shared/java` (28 von 30 Anker wortgleich,
+zwei Linien-Anker: `BlockTags` statt `BlockItemTags`, `ClickType` statt `ContainerInput`) und
+beweist sie auf `fabric-12111`: **27 von 27 P6 und 2 von 2 Server-P7 rot.** Ein Unterschied im
+Satz: bei `rotator-rim-margin` sieht auf 1.21.11 die 0.124999-Sonde die Mutation zuerst, weil der
+Klick bei x = 0.124 dort ein Haar darunter ankommt (Float auf dem Weg) — gleiche Grenze, gleiche
+falsche Achse.
+
+### P6b — die übrigen Bereiche — **erledigt am 2026-09-11**
+
+Dieselbe Frage für alles, was P6 ausgelassen hatte: Trichter und Filter, Öfen, Bündel/Köcher/Funnel,
+Besatz-Effekte und -Verdrahtung, Handel/Loot/Migration, Erzdetektor/Magnet/Oktant/Meißel/Rotator,
+dynamisches Licht, Bilderrahmen, Void-Rettung, Baustab-Innereien, Versatility, Hammer-Umformung.
+
+Entworfen von je einem Prüfer pro Bereich (8), jeder Vorschlag von einem zweiten gegen Anker,
+Nicht-Äquivalenz und den Satz des benannten Tests gelesen: 48 Vorschläge, 48 angenommen.
+`mutations.py --p6b --run`: **48 von 48 rot mit der erwarteten Meldung, 0 Nebenschäden**, auf
+26.2 im ersten Lauf. Kein neuer Befund am Mod — die Bereiche, in denen die Servertests seit
+September 3 geschärft wurden, halten jeder entworfenen Verschiebung stand: Trichter-Sperre und
+-Lernen, Ofen-Schrittweite und -Kappe je Familie, Köcher ohne Bündel-Bonus, Funnel-I-Filter,
+Kreativ-Bogen, Materialtor der Besatzzählung, Snout auf dem Feuer-Tag, Rib-Takt 20, Landbonus
+unter Elytra, Second-Chance-Vorgabe, Migrations-Schleifen, Konfigschalter als Instanzfeld,
+Detektor-Nächster, Magnet-Namensraum, Oktant-Luftklick, Meißel-Tabellenvererbung, Rotator-X-Runde,
+Licht unter Wasser, Rahmen-Schloss vor dem Magneten, Void-Schwelle und -Ziel, Baustab-Rucksack,
+Paletten-Reihenfolge, Linear-Pause, Ebene nach Fläche, Versatility-Reichweite, Stufen→Platte.
+
+Auf der 1.21.11-Kopie ebenfalls **48 von 48 rot** — 46 im ersten Lauf, zwei mit Linienunterschied im
+*Test*, nicht im Mod: der Meisterbuch-Handel jener Linie ist eine code-registrierte
+`EnchantmentPool`-Liste und läuft nicht durch die Loot-Funktion (dort sieht der direkte
+Second-Chance-Test die fallengelassene Stufe, mit demselben Satz), und den Handelsschalter-Test
+gibt es dort nicht (erklärter Unterschied; die Reflexion über alle Konfig-Optionen bemerkt das
+statische Feld). `ON_1_21_11` in `mutations.py` trägt beides.
 
 ---
 
@@ -502,7 +531,8 @@ benannten Unterschieds — drei Klassen), und eine Mutation am Mod-Quelltext
    **→ Audit erhoben (P1), abgearbeitet: P7 (104 falsche Grün, 101 geschärft und je durch ihre
    Mutation rot belegt, 1 begründet abgelehnt, 2 Doppelnennungen), die schreibbaren Lücken, P4
    (97 Einträge triagiert, die zehn schreibbaren geschrieben), P6 (27 Mutationen in den
-   Kernbereichen, 27 rot, ein Befund behoben).**
+   Kernbereichen, 27 rot, ein Befund behoben), P6b (48 in den übrigen Bereichen, 48 rot), beide
+   Runden auch auf der 1.21.11-Kopie rot.**
 4. Das Release-Gate erzwingt 1 und 2, sodass die Parität nicht wieder still kippen kann.
    **→ erreicht.** Seit dem 2026-09-10 prüft es auch, ob die 1.21.11-Client-Kopie hinter dem
    gemeinsamen Baum zurückhängt (`port_client_tests_to_1_21_11.py --check`).
