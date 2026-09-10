@@ -1,0 +1,62 @@
+{
+  "target": "client-fabric-262",
+  "catalogue": "false-greens",
+  "rounds": [
+    {
+      "round": 1,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-ordinal-bounds",
+          "script": "hopper_game_test_the_mode_delegate_reads_and_writes_the_filter_mode",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(6723895, -59, 4351518) Index 3 out of bounds for length 3"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 1,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-immediate-feedback",
+          "script": "hud-and-tooltip",
+          "ok": false,
+          "verdict": "rot, aber mit einer ANDEREN Meldung: java.lang.AssertionError: The scene kept changing: scene between two frames 20 ticks apart (attempt 4): 2636 changed pixels in 0/401..60/479, centre 26.7/450.3 after 4 attempts with a chunk rebuild be",
+          "message": "java.lang.AssertionError: The scene kept changing: scene between two frames 20 ticks apart (attempt 4): 2636 changed pixels in 0/401..60/479, centre 26.7/450.3 after 4 attempts with a chunk rebuild between them. Entities near the player: item at 13.7/0.0/17.1; item at 14.3/0.0/15.6; item at 15.5/0.0/15.6; item at 12.6/0.0/18.2; item at 14.7/0.0/17.1; item at 15.2/0.0/18.4; item at 13.1/0.0/15.9; item at 14.6/0.0/14.9; item at 13.5/0.0/14.5; item at 16.5/0.0/16.4; "
+        },
+        {
+          "id": "wand-ghost-centred",
+          "script": "building-wand-preview",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The ghost preview is not centred on the block it previews: the painted 3x3 ghost preview: 56010 changed pixels in 290/119..632/461, centre 464.1/293.9, expected its horizontal centre within 12.0 pixels of 427.0 (off by 37.1). A quarter of a block is about 24.0 pixels here, so this is what a ghost that shrinks towards its corner instead of its centre looks like."
+        },
+        {
+          "id": "strip-miner-correct-tool",
+          "script": "multi-block-breaking",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: A stone Vein Miner pickaxe produced a breaking crack on BlockPos{x=11, y=1, z=20} while sneaking at diamond ore, which it cannot harvest. Recorded: [BlockPos{x=10, y=1, z=20}, BlockPos{x=11, y=1, z=20}]. The preview's isCorrectToolForDrops guard is the only tool check on this branch - the Vein Miner list itself never asks - and a crack on an ore the server will not break is a lie to the player."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 2,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "rangefinder-volume",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The rangefinder HUD does not say [Volume: 80 blocks³]. It says [Octant, Pos 1: 10, 1, 20, Pos 2: 13, 4, 24, Volume: 36 blocks³, (3 x 3 x 4)]. Both ends of the selection count, so a BlockPos{x=10, y=1, z=20} to BlockPos{x=13, y=4, z=24} selection is 4 by 4 by 5 blocks. The screenshot check above cannot see this: the panel keeps its width whatever the numbers are, because the longest sample line decides it."
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}

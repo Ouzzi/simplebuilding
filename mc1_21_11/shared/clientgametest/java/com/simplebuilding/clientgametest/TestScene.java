@@ -92,6 +92,14 @@ public final class TestScene {
         // by switching error reporting off, because the commands above them - the game rules -
         // are exactly the ones where a swallowed error cost this suite months of silence.
         script.command("fill -12 -4 10 32 24 20 minecraft:air", true);
+        // A second time, after the clearing: /fill places with shape updates but without
+        // UPDATE_SUPPRESS_DROPS, so a block whose support goes earlier in the same fill - the
+        // air jump script's ladder column, thirteen ladders on a stone column it clears first -
+        // is not replaced but destroyed, drops and all. Thirteen bobbing items on the floor,
+        // some of them in the corner of the frame, and the scene never held still: found by
+        // the entity list of that very message, in a mutation round that had nothing to do
+        // with it. The first kill above cannot see them; they do not exist yet.
+        script.command("kill @e[type=!minecraft:player]", true);
         script.command("fill -12 -4 " + WALL_Z + " 32 24 " + WALL_Z + " " + wallBlockId, true);
         script.command("fill -12 -1 10 32 -1 19 " + wallBlockId, true);
         script.command("clear @a", true);
