@@ -33,6 +33,8 @@ import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.MouseButtonInfo;
 import net.minecraft.client.gui.render.state.ColoredRectangleRenderState;
 import net.minecraft.client.gui.render.state.GuiRenderState;
 import net.minecraft.core.BlockPos;
@@ -1307,15 +1309,26 @@ public final class HudAndTooltipClientTest {
      * clamp shows up as a stack of three in the filter slot.
      */
     private static void assertTheGhostItemIsThereBeforeTheServerCouldHaveAnswered(Script script) {
-        script.act("the ghost item is in the client block entity in the same tick", client -> {
-            NetheriteHopperScreenHandler menu =
-                    ((NetheriteHopperScreen) client.screen).getMenu();
+        // The click is handed to the screen here, on the client thread, and the block entity is
+        // read in the same call - which is the only place "before the server could have
+        // answered" is literally true. A click through the window and a check in the next step
+        // sat a tick or more apart, and the server's own SyncHopperGhostItemPayload was back by
+        // then: with the local write deleted the check stayed green (mutation round of
+        // 2026-09-10, three times over). The event is the one the window would build.
+        script.act("click hopper slot 0 and read the client block entity in the same call", client -> {
+            NetheriteHopperScreen screen = (NetheriteHopperScreen) client.screen;
+            NetheriteHopperScreenHandler menu = screen.getMenu();
             ModHopperBlockEntity blockEntity = menu.getBlockEntity();
 
             if (blockEntity == null) {
                 throw new AssertionError("The client side menu has no block entity, so the screen "
                         + "can never draw a ghost item.");
             }
+
+            Slot slot = menu.slots.get(0);
+            double x = leftPos(screen) + slot.x + 8;
+            double y = topPos(screen) + slot.y + 8;
+            screen.mouseClicked(new MouseButtonEvent(x, y, new MouseButtonInfo(0, 0)), false);
 
             ItemStack ghost = blockEntity.getGhostItem(0);
 
@@ -1351,7 +1364,7 @@ public final class HudAndTooltipClientTest {
         assertCarriedIs(script, Items.DIAMOND, GHOST_CURSOR_COUNT,
                 "picking the diamonds up from the player inventory");
 
-        clickSlot(script, fixed("hopper slot 0", 0), "hopper slot 0");
+        hoverSlot(script, fixed("hopper slot 0", 0), "hopper slot 0");
         assertTheGhostItemIsThereBeforeTheServerCouldHaveAnswered(script);
         script.idle("let the swallowed click reach the block entity", 15);
 

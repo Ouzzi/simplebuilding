@@ -1,0 +1,20 @@
+{
+  "target": "client-fabric-262",
+  "catalogue": "false-greens",
+  "rounds": [
+    {
+      "round": 1,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-immediate-feedback",
+          "script": "hud-and-tooltip",
+          "ok": false,
+          "verdict": "GRUEN GEBLIEBEN - die Schaerfung beisst nicht",
+          "message": null
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}
