@@ -175,14 +175,19 @@ MUTATIONS: list[Mutation] = [
              f"{SHARED}/client/render/MultiBlockBreakingSupport.java",
              "} else if (stack.getItem().isCorrectToolForDrops(stack, mainState) && sneaking) {",
              "} else if (sneaking) {",
-             "multi-block-breaking", "iron Strip Miner pickaxe produced breaking cracks",
+             "multi-block-breaking", "stone Vein Miner pickaxe produced a breaking crack",
+             # Named for the Vein Miner case since 2026-09-10: the Strip Miner case the audit
+             # pointed at stays green under this mutation, because getStripMinerBlocks stops at
+             # the first block the tool cannot mine - an equivalent mutant there, not a weak test.
              "sneaking alone is not enough; the tool has to fit"),
     Mutation("hopper-ordinal-bounds",
              f"{SHARED}/screen/NetheriteHopperScreenHandler.java",
              "        if (ordinal >= 0 && ordinal < HopperFilterMode.values().length) {\n            return HopperFilterMode.values()[ordinal];\n        }\n        return HopperFilterMode.NONE;",
              "        return HopperFilterMode.values()[ordinal];",
              "hopper_game_test_the_mode_delegate_reads_and_writes_the_filter_mode",
-             "ArrayIndexOutOfBounds",
+             # The JUnit report carries the exception's message, not its class: "Index 3 out of
+             # bounds for length 3" is what an ArrayIndexOutOfBoundsException says there.
+             "out of bounds for length",
              "an ordinal off the wire falls back to Disabled instead of crashing the screen",
              kind="server"),
     Mutation("hopper-pickup-only",

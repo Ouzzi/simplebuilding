@@ -252,12 +252,16 @@ public final class MultiBlockBreakingClientTest {
                 () -> assertOneProgressPerFrame(lastFrame.get()));
 
         // --- Sneaking is not enough: the pickaxe also has to be the right tool for the block ---
-        // The renderer's branch is "isCorrectToolForDrops(stack, mainState) && sneaking". Both
-        // windows above hold a netherite pickaxe against obsidian - the correct tool in every run -
-        // so dropping the first half of that condition changes nothing here. An iron pickaxe is
-        // still a pickaxe, still takes Strip Miner, but cannot mine obsidian: vanilla lets the
-        // player scratch at it (which is why the destroy stage still reaches 0 and the recorder
-        // has something to look at) and the mod has to stay out of it.
+        // Both windows above hold a netherite pickaxe against obsidian - the correct tool in
+        // every run. An iron pickaxe is still a pickaxe, still takes Strip Miner, but cannot mine
+        // obsidian: vanilla lets the player scratch at it (which is why the destroy stage still
+        // reaches 0 and the recorder has something to look at) and the mod has to stay out of it.
+        //
+        // What this case pins is the mod as a whole, not the renderer's own guard: the Strip
+        // Miner list (MiningUtils.getStripMinerBlocks, the same one the server hook asks) stops
+        // at the first block the tool cannot mine, so with the renderer's isCorrectToolForDrops
+        // deleted this stays green - the mutation of 2026-09-10 said so. The renderer's guard is
+        // the Vein Miner case's below, where the list does not ask about the tool.
         Later<Set<BlockPos>> wrongTool = mineAndRecord(script, "minecraft:iron_pickaxe",
                 ModEnchantments.STRIP_MINER, STRIP_LEVEL, "breaking-e-strip-miner-wrong-tool", false, true,
                 null, 0, null);
@@ -278,6 +282,7 @@ public final class MultiBlockBreakingClientTest {
         });
 
         veinMinerCracksTheNeighbouringOre(script);
+        veinMinerNeedsTheCorrectToolForItsPreviewToo(script);
     }
 
 
@@ -319,6 +324,41 @@ public final class MultiBlockBreakingClientTest {
         script.command("effect clear @a minecraft:mining_fatigue");
         script.awaitPackets();
         script.idle("let the cleared effect reach the client", 5);
+    }
+
+
+    /**
+     * The renderer's own tool check, on the branch where it is the only one: a sneaking stone
+     * pickaxe with Vein Miner at diamond ore, diamond ore beside it, cracks nothing.
+     *
+     * <p>{@code MiningUtils.getVeinMinerBlocks} asks whether the block is an ore and whether the
+     * neighbours are the same block; it never asks whether the tool may harvest it - the server
+     * hook does that on its own ({@code VeinMinerUsageEvent}), and the preview does it in
+     * {@code MultiBlockBreakingSupport}'s {@code isCorrectToolForDrops(stack, mainState) &&
+     * sneaking}. Delete that half of the condition and this is the case that goes red; the Strip
+     * Miner wrong-tool case above cannot, because its list is empty either way.
+     *
+     * <p>No fatigue needed: a stone pickaxe is not the correct tool for diamond ore, vanilla then
+     * mines at speed 1 against hardness 3, and the block outlives the window many times over.
+     */
+    private static void veinMinerNeedsTheCorrectToolForItsPreviewToo(Script script) {
+        BlockPos neighbour = TestScene.TARGET.offset(1, 0, 0);
+
+        Later<Set<BlockPos>> wrongTool = mineAndRecordOn(script, "minecraft:diamond_ore", List.of(neighbour),
+                "minecraft:stone_pickaxe", ModEnchantments.VEIN_MINER, 1, "breaking-g-vein-miner-wrong-tool", true);
+        assertNotTheCorrectTool(script);
+
+        script.verify("a sneaking Vein Miner pickaxe that cannot harvest the ore produces nothing", () -> {
+            TestLog.info("breaking states with Vein Miner on the wrong tool: " + wrongTool.get());
+
+            if (wrongTool.get().contains(neighbour)) {
+                throw new AssertionError("A stone Vein Miner pickaxe produced a breaking crack on " + neighbour
+                        + " while sneaking at diamond ore, which it cannot harvest. Recorded: " + wrongTool.get()
+                        + ". The preview's isCorrectToolForDrops guard is the only tool check on this "
+                        + "branch - the Vein Miner list itself never asks - and a crack on an ore the "
+                        + "server will not break is a lie to the player.");
+            }
+        });
     }
 
     /**

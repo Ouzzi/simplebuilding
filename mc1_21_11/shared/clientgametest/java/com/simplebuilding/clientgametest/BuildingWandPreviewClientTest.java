@@ -96,8 +96,9 @@ public final class BuildingWandPreviewClientTest {
      *
      * <p>At the fixed camera of {@link TestScene} the aimed block is 3.5 blocks away and about 100
      * window pixels wide, so a quarter of a block - the offset a ghost that shrinks towards its
-     * corner produces - is around 25 pixels in each axis. Twelve is comfortably below that and
-     * comfortably above the couple of pixels the block centre sits below the eye line.
+     * corner produces - is around 25 pixels of centroid on the 3x3 plane the centring is measured
+     * on. Twelve is comfortably below that and comfortably above the couple of pixels the block
+     * centre sits below the eye line.
      */
     private static final double GHOST_CENTRE_SLACK = 12.0;
 
@@ -407,43 +408,6 @@ public final class BuildingWandPreviewClientTest {
 
         Later<Path> ghosts = script.shot("wand-g-ghost-gaps");
 
-        script.verify("the shrunk ghosts stay centred on the block grid", () -> {
-            ScreenshotDiff.ChangedArea area = ScreenshotDiff.changedArea(
-                    "the painted ghost preview", baseline.get(), ghosts.get());
-
-            if (area.changedPixels() == 0) {
-                throw new AssertionError("Nothing was painted at all, so there is no position to "
-                        + "check. The assertion below would have said the same thing more loudly.");
-            }
-
-            // The preview plane is an 11x11 grid centred on the aimed block, and the aimed block is
-            // dead centre of the viewport - so the painted area has to be centred there too. What
-            // this catches is the shrink direction: each ghost is scaled to half around its block
-            // CENTRE, and dropping the two centring translations around the scale shrinks it
-            // towards the minimum corner of its cell instead. Every ghost then sits a quarter of a
-            // block off the grid it is previewing, and repaints exactly as many pixels - the count
-            // above, and MAX_PAINTED_PERCENT below, both stay where they were.
-            //
-            // Horizontally only, and that is measured, not chosen: the plane's lower rows sit
-            // inside the floor, which is not replaceable, so the renderer skips them - the visible
-            // plane runs from the floor up to its top row, its centre is above the eye line (the
-            // first run measured 202 against a viewport centre of 240) and a vertical claim would
-            // be a claim about the floor. The corner shrink moves every ghost along x as well, by
-            // the same quarter block, so the horizontal centre alone decides.
-            double expectedX = area.frameWidth() / 2.0;
-            double offX = Math.abs(area.centreX() - expectedX);
-
-            if (offX > GHOST_CENTRE_SLACK) {
-                throw new AssertionError("The ghost preview is not centred on the block it previews: "
-                        + area + ", expected its horizontal centre within " + GHOST_CENTRE_SLACK
-                        + " pixels of " + String.format(java.util.Locale.ROOT, "%.1f", expectedX)
-                        + " (off by " + String.format(java.util.Locale.ROOT, "%.1f", offX)
-                        + "). A quarter of a block is about " + GHOST_CENTRE_SLACK * 2 + " pixels here, "
-                        + "so this is what a ghost that shrinks towards its corner instead of its "
-                        + "centre looks like.");
-            }
-        });
-
         script.verify("the ghost blocks leave the wall visible between them", () -> {
             ScreenshotDiff.Diff painted = ScreenshotDiff.compare(
                     "ghost blocks against the wall", baseline.get(), ghosts.get());
@@ -455,6 +419,65 @@ public final class BuildingWandPreviewClientTest {
                         + " of the viewport. The 11x11 plane covers the whole screen at this camera, so "
                         + "anything above " + MAX_PAINTED_PERCENT + "% means the ghost blocks are no longer "
                         + "shrunk to GHOST_SCALE = 0.5 and tile their cells without a gap.");
+            }
+        });
+
+        // The centring, on a plane that FITS the frame. The 11x11 plane above overflows it on
+        // both sides, so its painted area is clipped by the frame edges and its horizontal centre
+        // is the frame's centre whatever the ghosts do - measured under the mutation this is
+        // meant to catch, the centre moved by 1.5 pixels. A copper wand builds 3x3: three blocks
+        // are some 300 pixels at this distance, well inside the frame, and a quarter block of
+        // corner shrink is some 25 pixels of centroid.
+        script.command("item replace entity @a weapon.mainhand with simplebuilding:copper_building_wand");
+        script.awaitPackets();
+        script.idle("let the copper wand arrive", 15);
+
+        Later<Integer> narrow = assertPreviewTriggerConditions(script, "the ghost centring case");
+
+        script.act("the whole 3x3 plane is renderable and fits the frame", client -> {
+            if (narrow.get() != 9) {
+                throw new AssertionError("Ghost centring needs the copper wand's full 3x3 plane in front of "
+                        + "the wall, but " + narrow.get() + " preview positions are replaceable. "
+                        + TestScene.describeAim(client));
+            }
+        });
+
+        Later<Path> narrowGhosts = script.shot("wand-j-ghost-centre-narrow");
+
+        script.verify("the shrunk ghosts stay centred on the block grid", () -> {
+            ScreenshotDiff.ChangedArea area = ScreenshotDiff.changedArea(
+                    "the painted 3x3 ghost preview", baseline.get(), narrowGhosts.get());
+
+            if (area.changedPixels() == 0) {
+                throw new AssertionError("Nothing was painted at all, so there is no position to "
+                        + "check. The assertion below would have said the same thing more loudly.");
+            }
+
+            if (area.left() <= 0 || area.right() >= area.frameWidth() - 1) {
+                throw new AssertionError("The 3x3 ghost preview touches the frame edge (" + area
+                        + "), so its horizontal centre would be the frame's and not the ghosts'.");
+            }
+
+            // The plane is centred on the aimed block, and the aimed block is dead centre of the
+            // viewport - so the painted area has to be centred there too. What this catches is the
+            // shrink direction: each ghost is scaled to half around its block CENTRE, and dropping
+            // the two centring translations around the scale shrinks it towards the minimum corner
+            // of its cell instead - every ghost then sits a quarter of a block off the grid it is
+            // previewing, and the painted area's centre moves with it.
+            //
+            // Horizontally only: the block centre sits a little below the eye line, so a vertical
+            // claim would have to carry that offset and prove nothing the horizontal one does not.
+            double expectedX = area.frameWidth() / 2.0;
+            double offX = Math.abs(area.centreX() - expectedX);
+
+            if (offX > GHOST_CENTRE_SLACK) {
+                throw new AssertionError("The ghost preview is not centred on the block it previews: "
+                        + area + ", expected its horizontal centre within " + GHOST_CENTRE_SLACK
+                        + " pixels of " + String.format(java.util.Locale.ROOT, "%.1f", expectedX)
+                        + " (off by " + String.format(java.util.Locale.ROOT, "%.1f", offX)
+                        + "). A quarter of a block is about " + GHOST_CENTRE_SLACK * 2 + " pixels here, "
+                        + "so this is what a ghost that shrinks towards its corner instead of its "
+                        + "centre looks like.");
             }
         });
     }

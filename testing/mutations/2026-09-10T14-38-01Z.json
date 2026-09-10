@@ -1,0 +1,237 @@
+{
+  "target": "client-fabric-262",
+  "catalogue": "false-greens",
+  "rounds": [
+    {
+      "round": 1,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-ordinal-bounds",
+          "script": "hopper_game_test_the_mode_delegate_reads_and_writes_the_filter_mode",
+          "ok": false,
+          "verdict": "rot, aber mit einer ANDEREN Meldung: (-6947089, -59, 12115858) Index 3 out of bounds for length 3",
+          "message": "(-6947089, -59, 12115858) Index 3 out of bounds for length 3"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 2,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-pickup-only",
+          "script": "hopper_game_test_hopper_menu_opens_on_use_and_filter_clicks_never_store_the_item",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-14967064, -59, 12295914) one of the three clicks rewrote filter slot 0, which now holds 1 minecraft:cobblestone on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 1,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-button-geometry",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The hopper filter button is 30x30 at 85/13, expected 18x18 at 263/72 (right of the five hopper slots, one row below the top). A button that has moved or changed size is still found and still clicked by this test, so nothing else here would notice."
+        },
+        {
+          "id": "wand-needs-block-hit",
+          "script": "building-wand-preview",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: A building wand must not preview anything while the crosshair finds no block; vanilla reports a miss as a BlockHitResult of type MISS, so an instanceof test alone lets the plane through, but the two pictures differ: wand held while looking at the sky: 127980/409920 changed pixels (31,2207%) (allowed 200 pixels, noise floor was 0 pixels)."
+        },
+        {
+          "id": "settings-key-offhand",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The settings key opened com.simplebuilding.client.gui.BuildingWandScreen for an enchanted building wand in the off hand, although nothing was supposed to open."
+        },
+        {
+          "id": "hammer-should-break",
+          "script": "block-highlight",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The sledgehammer highlight did not lose a box when one neighbour became oak planks: 8546 changed pixels against 8546 with eight stone neighbours, at least 712 fewer were required. The renderer boxes a block the hammer would never break, which is exactly the skip on SledgehammerUtils.shouldBreak that every all-stone picture above cannot see."
+        },
+        {
+          "id": "strip-miner-correct-tool",
+          "script": "multi-block-breaking",
+          "ok": false,
+          "verdict": "GRUEN GEBLIEBEN - die Schaerfung beisst nicht",
+          "message": null
+        },
+        {
+          "id": "survival-zero-fields",
+          "script": "smoke",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: SurvivalSyncPayload carries the wrong numbers: [hostile kills: client 2, server 1, passive kills: client 1, server 2, damage taken: client 0, server 30]. Each field of the payload has to be the matching server side counter; the trim reference screen shows exactly these values to the player."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 2,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-glyph-swap",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The WHITELIST filter button draws [T] in 0xFF55FF55, expected [✔] in 0xFF55FF55. Two modes that swapped their glyphs or their colours produce screenshot differences of exactly the same size, so only this can tell them apart."
+        },
+        {
+          "id": "wand-ghost-centred",
+          "script": "building-wand-preview",
+          "ok": false,
+          "verdict": "GRUEN GEBLIEBEN - die Schaerfung beisst nicht",
+          "message": null
+        },
+        {
+          "id": "settings-key-netherite-only",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Step 140/353 'the building wand settings for the copper wand opens' of client-bootstrap timed out after 101 client ticks - The building wand settings for the copper wand never opened. The current screen is none, the main hand holds 1 simplebuilding:copper_building_wand."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 3,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-overlay-colour",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The filtered hopper slot has no 16x16 overlay in 0x60FFAA00 at 169/73. Rectangles drawn near that corner: [169/73..185/89 in 0x60FF00FF]. The screenshot check only asks whether anything changed there, so any other colour - including one opaque enough to hide the ghost icon - passes it."
+        },
+        {
+          "id": "octant-scroll-any-item",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Scrolling with Control while holding STONE left the selected hotbar slot at 0. The mixin is only allowed to cancel the event for an octant; with anything else in hand vanilla's modifier scrolling has to keep working."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 4,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-ghost-in-occupied-slot",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Hopper slot 0 holds a stone block and the screen draws 2 items at that position instead of one (the block itself). The ghost icon is being painted over a real item, which makes the slot content unreadable. This is invisible to every screenshot in this test, because all of them are taken while the slot is empty."
+        },
+        {
+          "id": "octant-plain-only",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Step 85/353 'the octant manager for a coloured octant opens' of client-bootstrap timed out after 101 client ticks - The octant manager for a coloured octant never opened. The current screen is none, the main hand holds 1 simplebuilding:octant_lime."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 5,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-ghost-count",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The client block entity holds 3 minecraft:diamond as ghost item 0 instead of exactly one diamond. The cursor carried 3, and a ghost item is a marker, not a stack - the count has to be clamped to one."
+        },
+        {
+          "id": "pick-creative-guard",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: In creative the pick took stone out of the Master Builder bundle (0 of 4 left). The mixin is supposed to return before it looks at any bundle when the player is in creative - vanilla hands the block out for free there, and a bundle that empties itself in creative is a bundle that loses items for nothing."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 6,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-immediate-feedback",
+          "script": "hud-and-tooltip",
+          "ok": false,
+          "verdict": "rot, aber mit einer ANDEREN Meldung: java.lang.AssertionError: The scene kept changing: scene between two frames 20 ticks apart (attempt 4): 409920 changed pixels in 0/0..853/479, centre 426.5/239.5 after 4 attempts with a chunk rebuild ",
+          "message": "java.lang.AssertionError: The scene kept changing: scene between two frames 20 ticks apart (attempt 4): 409920 changed pixels in 0/0..853/479, centre 426.5/239.5 after 4 attempts with a chunk rebuild between them. Entities near the player: item at 14.9/0.0/17.6; item at 13.9/0.0/15.5; item at 14.7/0.0/16.5; item at 15.6/0.0/16.1; item at 15.9/0.0/17.0; item at 16.7/0.0/16.2; item at 13.0/0.0/16.8; item at 14.8/0.0/15.4; item at 15.5/0.0/18.6; item at 12.3/0.0/18.4; "
+        },
+        {
+          "id": "space-key-every-tick",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Holding the jump key for forty ticks made the server handle 42 SpaceKeyPayloads instead of one. The client is supposed to send the key state only when it changes, not on every tick it is held."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 7,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "rangefinder-volume",
+          "script": "hud-and-tooltip",
+          "ok": false,
+          "verdict": "rot, aber mit einer ANDEREN Meldung: java.lang.AssertionError: The scene kept changing: scene between two frames 20 ticks apart (attempt 4): 409920 changed pixels in 0/0..853/479, centre 426.5/239.5 after 4 attempts with a chunk rebuild ",
+          "message": "java.lang.AssertionError: The scene kept changing: scene between two frames 20 ticks apart (attempt 4): 409920 changed pixels in 0/0..853/479, centre 426.5/239.5 after 4 attempts with a chunk rebuild between them. Entities near the player: item at 13.7/0.0/16.9; item at 14.3/0.0/18.0; item at 14.2/0.0/15.9; item at 16.5/0.0/18.4; item at 16.3/0.0/17.2; item at 12.5/0.0/15.4; item at 12.9/0.0/18.4; item at 15.9/0.0/16.1; item at 13.6/0.0/14.9; "
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 8,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "rangefinder-offhand",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: With the octant in the OFF hand the rangefinder HUD draws nothing. The overlay looks in the main hand first and falls back to the off hand; that fallback is gone. Every screenshot in this case holds the octant in the main hand, so none of them can see it."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 9,
+      "target": "client-fabric-262",
+      "mutations": [
+        {
+          "id": "bundle-scale",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Reinforced bundle tooltip bar: the mod's component does not draw like a component scaled by maxCapacity / 64 = 3.0 (mod: 1 text elements, 184 chars of geometry, reference: 1 text elements, 184 chars of geometry). The scale the callback sets is not the capacity in stacks."
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}

@@ -293,7 +293,14 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
         public boolean chunksRendered() {
             // On 4.3.5 the chunk barrier hangs off the client world rather than a connection.
             requireWorld("chunksRendered").getClientWorld().waitForChunksRender();
-            return true;
+            // Not enough on its own, exactly as on NeoForge: right after LevelRenderer.allChanged
+            // the render queue is empty because nothing has been scheduled yet, and Fabric's wait
+            // returns at once - the frame taken then was sky from edge to edge (409920 of 409920
+            // pixels changed, two attempts out of four in one mutation round). The section under
+            // the player has to have a mesh again before a picture means anything.
+            return context.computeOnClient(client -> client.player != null
+                    && client.levelRenderer.isSectionCompiledAndVisible(client.player.blockPosition())
+                    && client.levelRenderer.hasRenderedAllSections());
         }
 
         @Override
