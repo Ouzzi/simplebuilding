@@ -215,9 +215,10 @@ MUTATIONS: list[Mutation] = [
 #: one instead of forgiving it.
 #:
 #: Proved on the 26.2 line only. The 1.21.11 test bodies are the translated copy of these
-#: (port_tests_to_1_21_11.py --drift keeps them within twelve normalised lines), so the same
-#: sentence is there; what differs is the Minecraft underneath, which a mutation of the mod's
-#: source does not touch.
+#: (port_tests_to_1_21_11.py --drift keeps them within twelve normalised lines, or within an
+#: explained difference for the three classes in its DRIFT_EXPLAINED), so the same sentence is
+#: there; what differs is the Minecraft underneath, which a mutation of the mod's source does not
+#: touch.
 P6_MUTATIONS: list[Mutation] = [
     # --- mining enchantments -------------------------------------------------------------
     Mutation("strip-depth-table",
@@ -721,7 +722,10 @@ def main(argv: list[str] | None = None) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
     stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
     out = out_dir / f"{stamp}.json"
-    out.write_text(json.dumps({"target": args.target, "catalogue": "p6" if args.p6 else "false-greens",
+    # The header names the target the rounds actually ran on: the client target for the client
+    # catalogue, the server target for a --p6 run, which has no client rounds at all.
+    ran_on = args.server_target if args.p6 else args.target
+    out.write_text(json.dumps({"target": ran_on, "catalogue": "p6" if args.p6 else "false-greens",
                                "rounds": results}, indent=2,
                               ensure_ascii=False), encoding="utf-8")
 

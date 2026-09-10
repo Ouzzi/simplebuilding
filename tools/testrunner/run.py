@@ -932,8 +932,8 @@ LINE_DIFFERENCES: tuple[tuple[tuple[str, ...], tuple[str, ...], str], ...] = (
 #: copied across. The way out was to write each test once as a step list against a shared facade
 #: and give each target a thin driver - work packages P2 and P3 in testing/PLAN.md, both done.
 #: EMPTY since 2026-09-10, and that is the point of it being written down: all four client
-#: targets now declare the same 85 checkpoints, because all four run the same shared test
-#: bodies. The three entries that used to be here (68, 73, 73) are paid, not forgiven. An
+#: targets now declare the same checkpoints (85 that morning, 102 by the evening - the number is
+#: read from the sources, not kept here), because all four run the same shared test bodies. The three entries that used to be here (68, 73, 73) are paid, not forgiven. An
 #: empty dict is not a switched off gate - the checks below still fail on any target that
 #: falls behind, and now they fail immediately instead of against a tolerated number.
 CLIENT_PARITY_DEBT: dict[str, int] = {}

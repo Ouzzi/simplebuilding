@@ -390,7 +390,7 @@ ob die Geisterblöcke um ihre Mitte schrumpfen; ein Zähler-Mixin je Loader zäh
 unter `testing/mutations/`): erster voller Lauf 17 von 22 rot wie erwartet, 0 Nebenschäden. Die
 fünf anderen waren zu je einem Drittel Werkzeug, Testschwäche und Erwartung:
 
-- **Zwei Schärfungen sahen ihre Mutation nicht** — genau das, wofür die Gegenprobe da ist:
+- **Drei Schärfungen sahen ihre Mutation nicht** — genau das, wofür die Gegenprobe da ist (zwei im ersten Lauf, die dritte erst, als das Gerüst sie ließ):
   - *Werkzeugwache des Riss-Renderers*: auf dem Strip-Miner-Zweig ein **äquivalenter Mutant**,
     weil `getStripMinerBlocks` selbst am ersten unabbaubaren Block abbricht. Die Wache ist nur
     auf dem Vein-Miner-Zweig die einzige (die Erzliste fragt nie nach dem Werkzeug): neuer Fall
@@ -398,7 +398,7 @@ fünf anderen waren zu je einem Drittel Werkzeug, Testschwäche und Erwartung:
     Mutation zeigt dorthin — rot.
   - *Schwerpunkt der Geisterblöcke*: die 11×11-Ebene ragt links und rechts aus dem Bild, ihr
     Schwerpunkt war damit immer die Bildmitte (gemessen: 1,5 Pixel Verschiebung unter der
-    Mutation). Jetzt auf der 3×3-Ebene des Kupferstabs gemessen (`wand-j`) — rot.
+    Mutation). Jetzt auf der 3×3-Ebene des Kupferstabs gemessen (`wand-k`) — rot.
   - *Sofort-Feedback des Trichterfilters*: Klick und Prüfung lagen einen Tick auseinander, der
     Server hatte bis dahin geantwortet. Jetzt bekommt der Bildschirm das Ereignis auf dem
     Client-Thread und die Blockentity wird im selben Aufruf gelesen.
@@ -485,7 +485,8 @@ Steinfalls, weil der Hook `isOre` selbst fragt, bevor er die Liste holt — die 
 dem Satz, der das Tor wirklich sieht.
 
 Nur auf der 26.2-Linie gefahren: die 1.21.11-Testkörper sind die übersetzte Kopie derselben Sätze
-(`--drift` hält sie innerhalb von zwölf normalisierten Zeilen), und eine Mutation am Mod-Quelltext
+(`--drift` hält sie innerhalb von zwölf normalisierten Zeilen oder eines in `DRIFT_EXPLAINED`
+benannten Unterschieds — drei Klassen), und eine Mutation am Mod-Quelltext
 ändert nichts an dem Minecraft darunter.
 
 ---
@@ -544,7 +545,8 @@ Der Abschlusslauf hat noch einen flackernden Servertest gezeigt, auf beiden 1.21
 zugleich: die Void-Rettung hebt das Enderit auf Weltboden + 5 — das ist genau die Bodenebene des
 Gametest-Raums, das Item landet **im** Bodenblock, und Vanillas `ItemEntity` schiebt es auf einem
 Tick, den `(tickCount + id) % 4` wählt, wieder hinaus. Die Entity-Id hängt an allem, was Tests
-davor gespawnt haben. Der Test liest die Hubhöhe jetzt einen Tick nach dem Fallenlassen (exakt) und
+davor gespawnt haben. Der Test liest die Hubhöhe jetzt einen Tick nach dem Fallenlassen (auf einen
+halben Block) und
 lässt Vanillas Schubs danach zu (< 2 Blöcke); zweimal grün auf allen vier Zielen.
 
 P5 war früh dran, weil ein Gate, das die Schieflage bemerkt hätte, sie gar nicht erst hätte

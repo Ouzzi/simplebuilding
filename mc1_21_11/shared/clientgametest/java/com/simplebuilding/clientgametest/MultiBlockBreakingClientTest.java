@@ -66,13 +66,12 @@ import net.minecraft.world.item.enchantment.ItemEnchantments;
  * correct tools for it, which the mod's {@code SledgehammerUtils.shouldBreak} requires at
  * Override level 0, and which the Strip Miner branch requires as well.
  *
- * <p><b>Not covered.</b> The Vein Miner branch of the same method. {@code MiningUtils} only accepts
- * ore blocks for pickaxes (and logs for axes), and every vanilla ore that a correct tool can mine
- * breaks within a handful of ticks - the block would be gone in the middle of the measurement
- * window and take the scene with it. The client only part of that branch is the extraction this
- * test already drives through the Strip Miner, and the block selection itself
+ * <p><b>The Vein Miner branch</b> of the same method is covered since 2026-09-10 by
+ * {@link #veinMinerCracksTheNeighbouringOre} (under Mining Fatigue II, which is what keeps an ore
+ * a correct tool could mine from breaking inside the window) and
+ * {@link #veinMinerNeedsTheCorrectToolForItsPreviewToo}. The block selection itself
  * ({@code MiningUtils.getVeinMinerBlocks}) is loader neutral and covered by the server side
- * {@code ToolBehaviourTests}.
+ * {@code ToolBehaviourTests} and {@code VeinAndStripMinerTests}.
  *
  * <p><b>Also not covered: what the cracks look like.</b> Nothing here asserts that the appended
  * states are actually drawn - only that they are in the list vanilla draws from, and that they all
@@ -258,10 +257,11 @@ public final class MultiBlockBreakingClientTest {
         // reaches 0 and the recorder has something to look at) and the mod has to stay out of it.
         //
         // What this case pins is the mod as a whole, not the renderer's own guard: the Strip
-        // Miner list (MiningUtils.getStripMinerBlocks, the same one the server hook asks) stops
-        // at the first block the tool cannot mine, so with the renderer's isCorrectToolForDrops
-        // deleted this stays green - the mutation of 2026-09-10 said so. The renderer's guard is
-        // the Vein Miner case's below, where the list does not ask about the tool.
+        // Miner list the preview draws from (MiningUtils.getStripMinerBlocks) stops at the first
+        // block the tool cannot mine, and the server hook's own loop breaks on the same test, so
+        // with the renderer's isCorrectToolForDrops deleted this stays green - the mutation of
+        // 2026-09-10 said so. The renderer's guard is the Vein Miner case's below, where the list
+        // does not ask about the tool.
         Later<Set<BlockPos>> wrongTool = mineAndRecord(script, "minecraft:iron_pickaxe",
                 ModEnchantments.STRIP_MINER, STRIP_LEVEL, "breaking-e-strip-miner-wrong-tool", false, true,
                 null, 0, null);
@@ -338,8 +338,10 @@ public final class MultiBlockBreakingClientTest {
      * sneaking}. Delete that half of the condition and this is the case that goes red; the Strip
      * Miner wrong-tool case above cannot, because its list is empty either way.
      *
-     * <p>No fatigue needed: a stone pickaxe is not the correct tool for diamond ore, vanilla then
-     * mines at speed 1 against hardness 3, and the block outlives the window many times over.
+     * <p>No fatigue needed: a stone pickaxe is not the correct tool for diamond ore, but its
+     * {@code Tool} component still mines every {@code mineable/pickaxe} block at the stone speed
+     * of 4 - only the drops are denied. Against hardness 3 that is 4 / 3 / 100 progress per tick,
+     * some 75 ticks for the block, and the window is 20.
      */
     private static void veinMinerNeedsTheCorrectToolForItsPreviewToo(Script script) {
         BlockPos neighbour = TestScene.TARGET.offset(1, 0, 0);
@@ -375,6 +377,27 @@ public final class MultiBlockBreakingClientTest {
             for (BlockPos pos : alsoAt) {
                 s.command("setblock " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " " + targetBlockId);
             }
+            s.awaitPackets();
+            s.idle("let the ores reach the client", 10);
+            // Pinned, because both Vein Miner cases would otherwise be green for the wrong reason:
+            // with obsidian still under the crosshair the ore list is empty (not an ore) whether
+            // the renderer's tool guard is there or not, and the "wrong tool" setup check cannot
+            // tell obsidian from diamond ore - a stone pickaxe is the wrong tool for both.
+            s.act("setup: " + targetBlockId + " is under the crosshair and beside it", client -> {
+                if (client.level == null) {
+                    throw new AssertionError("Setup failed: no client level.");
+                }
+                java.util.List<BlockPos> wanted = new java.util.ArrayList<>(alsoAt);
+                wanted.add(0, TestScene.TARGET);
+                for (BlockPos pos : wanted) {
+                    String actual = String.valueOf(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(
+                            client.level.getBlockState(pos).getBlock()));
+                    if (!actual.equals(targetBlockId)) {
+                        throw new AssertionError("Setup failed: " + pos + " holds " + actual + " instead of "
+                                + targetBlockId + ", so the measurement would be of the wrong block.");
+                    }
+                }
+            });
         });
     }
 

@@ -931,15 +931,19 @@ public final class SmokeClientTest {
      *       click on a log turns its axis, which is an accepted rotation.</li>
      *   <li><b>Sledgehammer</b>: the transformed block's own BREAK sound at 1.0 / 0.8, when a held
      *       right click finishes the use - stone becomes stone stairs, and stone's break sound is
-     *       the one that has to play. The pitch is the mod's signature: vanilla never plays a
-     *       break sound at 0.8 on its own.</li>
+     *       the one that has to play. 1.0 / 0.8 is the pair {@code SledgehammerItem} passes; it is
+     *       the same pair vanilla's own destroy event ({@code levelEvent 2001}) plays for stone, so
+     *       the numbers only prove the call is unchanged. That it is the mod's call at all follows
+     *       from {@code setBlockAndUpdate}: unlike {@code destroyBlock} it fires no 2001 event, so
+     *       nothing else in the window can produce stone's break sound.</li>
      *   <li><b>Building wand</b>: the placed block's PLACE sound, volume {@code (v + 1) / 2},
      *       pitch {@code p * 0.8}, once per placed block. A copper wand (diameter 3) placing stone
      *       against the wall gives nine of them, or eight if the aimed cell is occupied.</li>
      * </ul>
      *
-     * <p>The audit of 2026-09-08 listed all three as harness-blocked. They were not: the recorder
-     * this class already has hears exactly these calls, it only had never been pointed at them.
+     * <p>The audit of 2026-09-08 listed the rotator's and the sledgehammer's as harness-blocked and
+     * the wand's as not worth the effort. Neither held: the recorder this class already has hears
+     * exactly these calls, it only had never been pointed at them.
      */
     private static void rotatorSledgehammerAndWandSoundsReachTheClient(Script script) {
         TestScene.build(script, "minecraft:stone", "creative");
@@ -1019,8 +1023,7 @@ public final class SmokeClientTest {
             if (Math.abs(heard.sentVolume() - 1.0f) > 0.001f || Math.abs(heard.sentPitch() - 0.8f) > 0.001f) {
                 throw new AssertionError("The sledgehammer transformation sound was played at "
                         + heard.sentVolume() + " / " + heard.sentPitch() + ", expected 1.0 / 0.8 (" + heard
-                        + "). The 0.8 is what tells the mod's transformation apart from a block that "
-                        + "simply broke.");
+                        + "), the pair SledgehammerItem passes to world.playSound.");
             }
         });
 

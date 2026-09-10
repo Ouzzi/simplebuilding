@@ -1300,9 +1300,10 @@ public final class HudAndTooltipClientTest {
      * fifteen ticks later, while in the game it costs a visible round trip before the filter icon
      * appears.
      *
-     * <p>"Before the server could have answered" is not a guess: the click is delivered
-     * synchronously inside the harness call, so this step runs in the same client tick, and the
-     * answer needs at least one server tick and one packet in each direction.
+     * <p>"Before the server could have answered" is not a guess: the click is handed to the
+     * screen inside the same client step that reads the block entity, on the client thread, and
+     * the answer needs at least one server tick and one packet in each direction. A click through
+     * the window with the check in the next step was not that - see the comment in the method.
      *
      * <p>The count is asserted here too. {@code setGhostItemClient} copies the stack and forces
      * the count to one; the cursor deliberately carries {@link #GHOST_CURSOR_COUNT}, so a missing

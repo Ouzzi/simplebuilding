@@ -442,7 +442,7 @@ public final class BuildingWandPreviewClientTest {
             }
         });
 
-        Later<Path> narrowGhosts = script.shot("wand-j-ghost-centre-narrow");
+        Later<Path> narrowGhosts = script.shot("wand-k-ghost-centre-narrow");
 
         script.verify("the shrunk ghosts stay centred on the block grid", () -> {
             ScreenshotDiff.ChangedArea area = ScreenshotDiff.changedArea(
