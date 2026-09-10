@@ -91,6 +91,16 @@ public final class BuildingWandPreviewClientTest {
      */
     private static final double MAX_PAINTED_PERCENT = 65.0;
 
+    /**
+     * How far the centre of the painted preview may sit from the centre of the viewport.
+     *
+     * <p>At the fixed camera of {@link TestScene} the aimed block is 3.5 blocks away and about 100
+     * window pixels wide, so a quarter of a block - the offset a ghost that shrinks towards its
+     * corner produces - is around 25 pixels in each axis. Twelve is comfortably below that and
+     * comfortably above the couple of pixels the block centre sits below the eye line.
+     */
+    private static final double GHOST_CENTRE_SLACK = 12.0;
+
     /** The wand under test; its diameter of 11 is what makes the preview plane fill the view. */
     private static final String WAND = "simplebuilding:netherite_building_wand";
 
@@ -156,6 +166,7 @@ public final class BuildingWandPreviewClientTest {
         offhandWandDrawsNothing(script, baseline, noiseFloor);
         withoutMaterialDrawsNothing(script, baseline, noiseFloor);
         ghostBlocksLeaveGaps(script, baseline, noiseFloor);
+        withoutABlockHitDrawsNothing(script);
 
         // What the old finally block did. These are the last steps rather than a cleanup hook,
         // because a step list has no hook: on a FAILING run they do not run at all, and the HUD
@@ -163,6 +174,100 @@ public final class BuildingWandPreviewClientTest {
         // with TestScene.build, which hides the HUD again anyway - the restore is for the human
         // looking at the client after the run, not for the tests behind it.
         TestScene.showHudAgain(script);
+    }
+
+
+    /**
+     * Looking at nothing draws nothing.
+     *
+     * <p>The renderer needs a BLOCK hit, and it says so twice: the value has to be a
+     * {@code BlockHitResult} <em>and</em> its type has to be {@code BLOCK}. The second half looks
+     * redundant and is not - vanilla puts a {@code BlockHitResult} of type {@code MISS} into
+     * {@code Minecraft.hitResult} when the ray hits nothing, at the far end of the ray. Dropping
+     * the type test therefore paints a full ghost plane into empty air the moment a player looks
+     * at the sky.
+     *
+     * <p>Every other case in this file aims at the wall, and the three negative cases even require
+     * a block hit as their own precondition. This is the only one that looks up.
+     *
+     * <p>Its own baseline, because the camera has moved: comparing a sky picture with a wall
+     * picture would differ everywhere and prove nothing. The noise floor is measured again for the
+     * same reason.
+     */
+    private static void withoutABlockHitDrawsNothing(Script script) {
+        script.command("clear @a", true);
+        script.command("tp @a 10.5 0.0 16.5 0.0 -90.0");
+        script.awaitPackets();
+        script.idle("let the camera look straight up", 20);
+
+        script.act("setup: the crosshair really reports no block", client -> {
+            HitResult hit = client.hitResult;
+
+            if (hit == null) {
+                throw new AssertionError("Setup failed: there is no hit result at all, so the "
+                        + "renderer would return for a different reason than the one under test.");
+            }
+
+            if (hit.getType() == HitResult.Type.BLOCK) {
+                throw new AssertionError("Setup failed: looking straight up still reports a block ("
+                        + hit + "). " + TestScene.describeAim(client));
+            }
+        });
+
+        Later<Path> sky = script.shot("wand-h-sky-no-wand");
+        script.idle("let a few frames pass between the two sky baseline shots", 10);
+        Later<Path> skyAgain = script.shot("wand-i-sky-no-wand-again");
+
+        Later<ScreenshotDiff.Diff> skyNoise = new Later<>("the noise floor of the sky view");
+        script.verify("measure the noise floor of the sky view", () -> {
+            ScreenshotDiff.Diff diff = ScreenshotDiff.compare(
+                    "noise floor (sky, no wand, twice)", sky.get(), skyAgain.get());
+            ScreenshotDiff.assertUnchanged(diff);
+            skyNoise.set(diff);
+        });
+
+        script.command("item replace entity @a weapon.offhand with minecraft:redstone_block 64");
+        script.command("item replace entity @a weapon.mainhand with " + WAND);
+        script.awaitPackets();
+        script.idle("let the wand and the material arrive", 15);
+
+        script.act("setup: wand, material and no block hit, all three at once", client -> {
+            if (client.player == null) {
+                throw new AssertionError("Setup failed: no client player.");
+            }
+
+            if (!(client.player.getMainHandItem().getItem() instanceof BuildingWandItem)) {
+                throw new AssertionError("Setup failed: the main hand holds "
+                        + client.player.getMainHandItem() + " instead of the wand, so the renderer "
+                        + "would return for the wrong reason.");
+            }
+
+            if (client.player.getOffhandItem().isEmpty()) {
+                throw new AssertionError("Setup failed: no material in the off hand, so the preview "
+                        + "map would be empty and the renderer would return for the wrong reason.");
+            }
+
+            if (client.hitResult != null && client.hitResult.getType() == HitResult.Type.BLOCK) {
+                throw new AssertionError("Setup failed: the crosshair found a block again after the "
+                        + "items arrived. " + TestScene.describeAim(client));
+            }
+        });
+
+        Later<Path> skyWithWand = script.shot("wand-j-sky-with-wand");
+        script.verify("a wand with material but no block under the crosshair draws nothing", () -> {
+            ScreenshotDiff.Diff diff = ScreenshotDiff.compare(
+                    "wand held while looking at the sky", sky.get(), skyWithWand.get());
+            ScreenshotDiff.assertLooksIdentical(skyNoise.get(), diff,
+                    "A building wand must not preview anything while the crosshair finds no block; "
+                            + "vanilla reports a miss as a BlockHitResult of type MISS, so an "
+                            + "instanceof test alone lets the plane through");
+        });
+
+        script.command("clear @a");
+        script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
+        script.awaitPackets();
+        script.idle("let the camera look at the wall again", 20);
+        TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
     }
 
     /**
@@ -301,6 +406,39 @@ public final class BuildingWandPreviewClientTest {
         });
 
         Later<Path> ghosts = script.shot("wand-g-ghost-gaps");
+
+        script.verify("the shrunk ghosts stay centred on the block grid", () -> {
+            ScreenshotDiff.ChangedArea area = ScreenshotDiff.changedArea(
+                    "the painted ghost preview", baseline.get(), ghosts.get());
+
+            if (area.changedPixels() == 0) {
+                throw new AssertionError("Nothing was painted at all, so there is no position to "
+                        + "check. The assertion below would have said the same thing more loudly.");
+            }
+
+            // The preview plane is an 11x11 grid centred on the aimed block, and the aimed block is
+            // dead centre of the viewport - so the painted area has to be centred there too. What
+            // this catches is the shrink direction: each ghost is scaled to half around its block
+            // CENTRE, and dropping the two centring translations around the scale shrinks it
+            // towards the minimum corner of its cell instead. Every ghost then sits a quarter of a
+            // block off the grid it is previewing, and repaints exactly as many pixels - the count
+            // above, and MAX_PAINTED_PERCENT below, both stay where they were.
+            double expectedX = area.frameWidth() / 2.0;
+            double expectedY = area.frameHeight() / 2.0;
+            double offX = Math.abs(area.centreX() - expectedX);
+            double offY = Math.abs(area.centreY() - expectedY);
+
+            if (offX > GHOST_CENTRE_SLACK || offY > GHOST_CENTRE_SLACK) {
+                throw new AssertionError("The ghost preview is not centred on the block it previews: "
+                        + area + ", expected its centre within " + GHOST_CENTRE_SLACK + " pixels of "
+                        + String.format(java.util.Locale.ROOT, "%.1f/%.1f", expectedX, expectedY)
+                        + " (off by " + String.format(java.util.Locale.ROOT, "%.1f/%.1f", offX, offY)
+                        + "). A quarter of a block is about " + GHOST_CENTRE_SLACK * 2 + " pixels here, "
+                        + "so this is what a ghost that shrinks towards its corner instead of its "
+                        + "centre looks like.");
+            }
+        });
+
         script.verify("the ghost blocks leave the wall visible between them", () -> {
             ScreenshotDiff.Diff painted = ScreenshotDiff.compare(
                     "ghost blocks against the wall", baseline.get(), ghosts.get());

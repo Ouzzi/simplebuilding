@@ -262,11 +262,18 @@ final class SharedScriptRun implements Harness {
         Minecraft client = Minecraft.getInstance();
         attacking = attacking && client.player != null;
         if (attacking) {
-            clearInputLockout();
-            // Grabbed first and on purpose: the button below goes through vanilla's own callback,
-            // and that callback grabs the mouse itself when it is not grabbed yet - which arms
-            // Minecraft.missTime with 10000 and swallows the very press that triggered it.
+            // Grab FIRST, then clear the lockout, then press. The order is the whole point and it
+            // was wrong once, in exactly the other direction: MouseHandler.grabMouse sets
+            // Minecraft.missTime to 10000, and startAttack refuses while that is above zero. With
+            // the lockout cleared before the grab, the click that setAttacking registers is
+            // swallowed by the tick after it - and then only continueAttack runs, which can
+            // legitimately mine a block without ever setting isDestroying (vanilla keeps the last
+            // destroy target and item, and re-mining the same block with the same item takes a
+            // branch that only accumulates progress). The trace in MultiBlockBreakingClientTest
+            // measured exactly that: attack binding down for all 201 ticks, isDestroying false in
+            // all of them, and the block gone after 169 - broken by the server alone.
             client.mouseHandler.grabMouse();
+            clearInputLockout();
             // The real thing: MouseHandler.onButton, exactly as GLFW would deliver it. It sets the
             // attack binding and registers the click itself, so nothing else is needed - and it
             // sets MouseHandler.isLeftPressed, which the binding layer cannot. That last one is

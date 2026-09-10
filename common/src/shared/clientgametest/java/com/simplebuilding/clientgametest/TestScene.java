@@ -84,6 +84,7 @@ public final class TestScene {
 
         script.awaitPackets();
         script.idle("let the world settle", 40);
+        rebuildEveryChunk(script);
         script.awaitChunks();
         script.idle("let the chunks settle", 10);
 
@@ -149,6 +150,31 @@ public final class TestScene {
         }
 
         return null;
+    }
+
+
+    /**
+     * Throws every built chunk section away, so the next frame is drawn from the block data that
+     * is actually there.
+     *
+     * <p>What this is for: the fills above are server commands, and the client gets the block
+     * updates long before the geometry catches up. Waiting is not reliably enough - a run had the
+     * ladder column that {@code AirJumpClientTest} builds still on screen seven seconds after the
+     * fill that removed it, with the client's own block data already clean, and it was still
+     * fading between two screenshots taken three seconds apart. The test that paid for that was
+     * the next one in the list, and what it reported was "Scene is not deterministic - 4950
+     * changed pixels while nothing changed on screen".
+     *
+     * <p>This is what F3+A does, so it is a supported thing to ask of the renderer rather than a
+     * poke at its internals. It costs a rebuild of a handful of sections in a flat, mostly empty
+     * test world.
+     *
+     * <p>Line difference: on 26.2 the extraction pass owns this
+     * ({@code Minecraft.levelExtractor}); on 1.21.11 it is still {@code Minecraft.levelRenderer}.
+     */
+    public static void rebuildEveryChunk(Script script) {
+        script.act("throw the built chunks away so they are rebuilt from the new blocks",
+                client -> client.levelExtractor.allChanged());
     }
 
     /** Freezes everything client side that could move pixels between two screenshots. */

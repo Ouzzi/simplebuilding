@@ -89,18 +89,7 @@ public final class ScreenshotDiff {
 
         for (int y = 0; y < a.getHeight(); y++) {
             for (int x = fromX; x < a.getWidth(); x++) {
-                int pa = a.getRGB(x, y);
-                int pb = b.getRGB(x, y);
-
-                if (pa == pb) {
-                    continue;
-                }
-
-                int dr = Math.abs(((pa >> 16) & 0xFF) - ((pb >> 16) & 0xFF));
-                int dg = Math.abs(((pa >> 8) & 0xFF) - ((pb >> 8) & 0xFF));
-                int db = Math.abs((pa & 0xFF) - (pb & 0xFF));
-
-                if (Math.max(dr, Math.max(dg, db)) > CHANNEL_TOLERANCE) {
+                if (differs(a.getRGB(x, y), b.getRGB(x, y))) {
                     changed++;
                 }
             }
@@ -109,6 +98,95 @@ public final class ScreenshotDiff {
         Diff diff = new Diff(label, changed, (a.getWidth() - fromX) * a.getHeight());
         TestLog.info(diff.toString());
         return diff;
+    }
+
+    /**
+     * The one pixel rule of this file: two pixels differ when any channel differs by more than
+     * {@code CHANNEL_TOLERANCE}.
+     *
+     * <p>Extracted so that the two readers below cannot drift apart. A count and a position that
+     * disagree about what "changed" means would be worse than either on its own.
+     */
+    private static boolean differs(int first, int second) {
+        if (first == second) {
+            return false;
+        }
+
+        int dr = Math.abs(((first >> 16) & 0xFF) - ((second >> 16) & 0xFF));
+        int dg = Math.abs(((first >> 8) & 0xFF) - ((second >> 8) & 0xFF));
+        int db = Math.abs((first & 0xFF) - (second & 0xFF));
+
+        return Math.max(dr, Math.max(dg, db)) > CHANNEL_TOLERANCE;
+    }
+
+    /**
+     * Where the changed pixels sit, not just how many there are.
+     *
+     * <p>A count answers "did the renderer draw"; it cannot answer "did it draw in the right
+     * place". Two drawings of the same size at different positions produce the same number, and
+     * that is not a hypothetical distinction: shrinking the building wand ghosts towards the
+     * minimum corner of their cell instead of towards the centre moves the whole preview a quarter
+     * of a block against the grid it claims to preview, and repaints exactly as many pixels.
+     *
+     * <p>{@code centreX} and {@code centreY} are the mean of the changed pixels rather than the
+     * middle of their bounding box: a mean moves with the whole drawing, a bounding box only with
+     * its outermost pixel and is therefore at the mercy of a single stray one.
+     */
+    public record ChangedArea(String label, int changedPixels, int frameWidth, int frameHeight,
+                              int left, int top, int right, int bottom,
+                              double centreX, double centreY) {
+
+        @Override
+        public String toString() {
+            return label + ": " + changedPixels + " changed pixels in " + left + "/" + top
+                    + ".." + right + "/" + bottom + ", centre "
+                    + String.format(java.util.Locale.ROOT, "%.1f/%.1f", centreX, centreY);
+        }
+    }
+
+    /** Reads both images and describes WHERE they differ. Same pixel rule as {@link #compare}. */
+    public static ChangedArea changedArea(String label, Path first, Path second) {
+        BufferedImage a = read(first);
+        BufferedImage b = read(second);
+
+        if (a.getWidth() != b.getWidth() || a.getHeight() != b.getHeight()) {
+            throw new AssertionError("Screenshot sizes differ: " + first + " is " + a.getWidth() + "x"
+                    + a.getHeight() + ", " + second + " is " + b.getWidth() + "x" + b.getHeight());
+        }
+
+        int left = Integer.MAX_VALUE;
+        int top = Integer.MAX_VALUE;
+        int right = -1;
+        int bottom = -1;
+        long sumX = 0;
+        long sumY = 0;
+        int changed = 0;
+
+        for (int y = 0; y < a.getHeight(); y++) {
+            for (int x = 0; x < a.getWidth(); x++) {
+                if (!differs(a.getRGB(x, y), b.getRGB(x, y))) {
+                    continue;
+                }
+
+                changed++;
+                sumX += x;
+                sumY += y;
+                left = Math.min(left, x);
+                top = Math.min(top, y);
+                right = Math.max(right, x);
+                bottom = Math.max(bottom, y);
+            }
+        }
+
+        if (changed == 0) {
+            return new ChangedArea(label, 0, a.getWidth(), a.getHeight(), 0, 0, 0, 0,
+                    Double.NaN, Double.NaN);
+        }
+
+        ChangedArea area = new ChangedArea(label, changed, a.getWidth(), a.getHeight(),
+                left, top, right, bottom, sumX / (double) changed, sumY / (double) changed);
+        TestLog.info(area.toString());
+        return area;
     }
 
     /**

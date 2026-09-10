@@ -126,6 +126,8 @@ RULES: list[tuple[str, str, str]] = [
      "Restverwendungen, etwa die Reflexion auf overlayMessageString"),
     (r"client\.gui\.toastManager\(\)", "client.getToastManager()",
      "die Toasts haengen an Minecraft"),
+    (r"client\.levelExtractor\.allChanged\(\)", "client.levelRenderer.allChanged()",
+     "den Chunk-Neubau haelt auf 1.21.11 noch der LevelRenderer, nicht der Extraktor"),
     (r"ItemStackTemplate\.fromNonEmptyStack\(", "(",
      "BundleContents haelt auf 1.21.11 schon ItemStacks"),
     (r"\.map\(ItemStackTemplate::fromNonEmptyStack\)", "",

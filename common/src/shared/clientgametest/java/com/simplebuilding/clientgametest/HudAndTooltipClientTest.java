@@ -3,6 +3,7 @@ package com.simplebuilding.clientgametest;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
+import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
@@ -321,6 +322,9 @@ public final class HudAndTooltipClientTest {
             ScreenshotDiff.assertDrew("RangefinderHudOverlay", noiseFloor.get(), signal);
         });
 
+        assertTheRangefinderReadsWhatItMeasured(script);
+        assertAnOffhandOctantAlsoShowsTheHud(script);
+
         // Control: the same octant without positions has to restore the baseline picture. Without
         // this step "the picture drifts anyway" would explain the difference just as well.
         giveOctant(script, false);
@@ -389,6 +393,131 @@ public final class HudAndTooltipClientTest {
             client.options.vignette().set(vignetteBefore.get());
             client.gui.hud.getChat().setVisibleMessageFilter(message -> true);
         });
+    }
+
+
+    // ------------------------------------------------------------------------------------------
+    // What the rangefinder actually says, and whose hand it looks in
+    // ------------------------------------------------------------------------------------------
+
+    /**
+     * The HUD reports the measurement the two positions describe, line by line.
+     *
+     * <p>The screenshot above only says that five lines appeared where two were. It cannot read
+     * them, and the panel does not even change width when the numbers do: its width comes from
+     * {@code Math.max(actualTextWidth, width("Pos 2: -8888, 888, -8888"))}, so the longest sample
+     * line decides. Dropping the {@code + 1} from all three edge lengths turns a 4x4x5 volume of
+     * 80 into a 3x3x4 volume of 36 - a measuring tool that measures wrong - and every pixel check
+     * in this file stays green.
+     *
+     * <p>Read by calling the overlay with a recorder instead of a real graphics context, the same
+     * way {@code AirJumpClientTest} reads its cooldown bar. That is a CPU only pass into a
+     * throwaway render state; nothing reaches the GPU and nothing on screen changes.
+     *
+     * <p>The expected numbers are computed here from the two positions rather than copied, so the
+     * step still says something if the positions are ever moved: both ends are inclusive, which is
+     * what the {@code + 1} is for.
+     */
+    private static void assertTheRangefinderReadsWhatItMeasured(Script script) {
+        script.act("the rangefinder HUD reports the volume it measured", client -> {
+            List<String> lines = rangefinderLines(client);
+
+            int dx = Math.abs(OCTANT_POS_1.getX() - OCTANT_POS_2.getX()) + 1;
+            int dy = Math.abs(OCTANT_POS_1.getY() - OCTANT_POS_2.getY()) + 1;
+            int dz = Math.abs(OCTANT_POS_1.getZ() - OCTANT_POS_2.getZ()) + 1;
+
+            List<String> expected = List.of(
+                    "Pos 1: " + OCTANT_POS_1.getX() + ", " + OCTANT_POS_1.getY() + ", " + OCTANT_POS_1.getZ(),
+                    "Pos 2: " + OCTANT_POS_2.getX() + ", " + OCTANT_POS_2.getY() + ", " + OCTANT_POS_2.getZ(),
+                    "Volume: " + (dx * dy * dz) + " blocks³",
+                    "(" + dx + " x " + dy + " x " + dz + ")");
+
+            for (String line : expected) {
+                if (!lines.contains(line)) {
+                    throw new AssertionError("The rangefinder HUD does not say [" + line + "]. It says "
+                            + lines + ". Both ends of the selection count, so a "
+                            + OCTANT_POS_1 + " to " + OCTANT_POS_2 + " selection is "
+                            + dx + " by " + dy + " by " + dz + " blocks. The screenshot check above "
+                            + "cannot see this: the panel keeps its width whatever the numbers are, "
+                            + "because the longest sample line decides it.");
+                }
+            }
+        });
+    }
+
+    /**
+     * An octant in the off hand shows the HUD too.
+     *
+     * <p>The overlay looks in the main hand first and falls back to the off hand, and the class
+     * javadoc of the ancestor claimed that fallback was covered. It was not: every shot in this
+     * case puts the octant in the MAIN hand with {@code item replace ... weapon.mainhand}, so
+     * deleting the fallback changes nothing here.
+     *
+     * <p>Measured by reading the overlay rather than by a screenshot, because the two hands draw
+     * the same panel - a picture could not tell which hand produced it, and the main hand has to
+     * be empty for the statement to mean anything.
+     */
+    private static void assertAnOffhandOctantAlsoShowsTheHud(Script script) {
+        script.command("item replace entity @a weapon.mainhand with minecraft:air", true);
+        script.command("item replace entity @a weapon.offhand with simplebuilding:octant["
+                + "minecraft:custom_data={"
+                + "Pos1:[I;" + OCTANT_POS_1.getX() + "," + OCTANT_POS_1.getY() + "," + OCTANT_POS_1.getZ() + "],"
+                + "Pos2:[I;" + OCTANT_POS_2.getX() + "," + OCTANT_POS_2.getY() + "," + OCTANT_POS_2.getZ() + "]"
+                + "}]");
+        script.awaitPackets();
+        script.idle("let the hands swap over on the client", 30);
+
+        script.act("setup: the octant really is in the off hand and nowhere else", client -> {
+            if (client.player == null) {
+                throw new AssertionError("Setup failed: no client player.");
+            }
+
+            if (!(client.player.getOffhandItem().getItem() instanceof OctantItem)) {
+                throw new AssertionError("Setup failed: the off hand holds "
+                        + client.player.getOffhandItem() + " instead of an octant.");
+            }
+
+            if (client.player.getMainHandItem().getItem() instanceof OctantItem) {
+                throw new AssertionError("Setup failed: the main hand still holds an octant, so the "
+                        + "check below would pass through the main hand branch.");
+            }
+        });
+
+        script.act("an octant in the off hand still draws the rangefinder HUD", client -> {
+            List<String> lines = rangefinderLines(client);
+
+            if (lines.isEmpty()) {
+                throw new AssertionError("With the octant in the OFF hand the rangefinder HUD draws "
+                        + "nothing. The overlay looks in the main hand first and falls back to the "
+                        + "off hand; that fallback is gone. Every screenshot in this case holds the "
+                        + "octant in the main hand, so none of them can see it.");
+            }
+        });
+
+        script.command("item replace entity @a weapon.offhand with minecraft:air");
+        script.awaitPackets();
+        script.idle("let the emptied off hand reach the client", 20);
+    }
+
+    /**
+     * The lines the rangefinder overlay would draw right now, as plain strings.
+     *
+     * <p>Calls {@code RangefinderHudOverlay.render} with a recorder: a real
+     * {@code GuiGraphicsExtractor} over a throwaway {@code GuiRenderState}, so every guard inside
+     * the overlay runs for real and nothing is submitted to the GPU. An empty list therefore means
+     * "the overlay decided to draw nothing", which is a statement in itself.
+     */
+    private static List<String> rangefinderLines(Minecraft client) {
+        GuiRenderState state = new GuiRenderState();
+        GuiGraphicsExtractor graphics = new GuiGraphicsExtractor(client, state,
+                client.getWindow().getGuiScaledWidth(), client.getWindow().getGuiScaledHeight());
+        RangefinderHudOverlay.render(graphics);
+
+        List<String> lines = new ArrayList<>();
+        for (DrawnText text : drawnTexts(state)) {
+            lines.add(text.text());
+        }
+        return lines;
     }
 
     /** Puts an octant in the main hand, with or without the two positions in its custom data. */
@@ -1481,24 +1610,38 @@ public final class HudAndTooltipClientTest {
             int slotX = leftPos(screen) + slot.x;
             int slotY = topPos(screen) + slot.y;
 
-            List<String> found = new ArrayList<>();
+            List<String> near = new ArrayList<>();
 
             for (ColoredRectangleRenderState rectangle : filledRectangles(extractScreenState(client))) {
-                if (rectangle.x0() == slotX && rectangle.y0() == slotY) {
-                    found.add(String.format("%d/%d..%d/%d in 0x%08X", rectangle.x0(), rectangle.y0(),
-                            rectangle.x1(), rectangle.y1(), rectangle.col1()));
+                // The corners come back the other way round. GuiGraphicsExtractor.fill swaps them
+                // so that x0 holds the LARGER value, which is the opposite of what it is called
+                // with - so the comparison is between the two spans, not between named corners.
+                int left = Math.min(rectangle.x0(), rectangle.x1());
+                int top = Math.min(rectangle.y0(), rectangle.y1());
+                int right = Math.max(rectangle.x0(), rectangle.x1());
+                int bottom = Math.max(rectangle.y0(), rectangle.y1());
 
-                    if (rectangle.x1() == slotX + 16 && rectangle.y1() == slotY + 16
-                            && rectangle.col1() == GHOST_SLOT_OVERLAY
-                            && rectangle.col2() == GHOST_SLOT_OVERLAY) {
-                        return;
+                if (left != slotX || top != slotY) {
+                    if (Math.abs(left - slotX) <= 20 && Math.abs(top - slotY) <= 20) {
+                        near.add(String.format("%d/%d..%d/%d in 0x%08X", left, top, right, bottom,
+                                rectangle.col1()));
                     }
+                    continue;
+                }
+
+                near.add(String.format("%d/%d..%d/%d in 0x%08X", left, top, right, bottom,
+                        rectangle.col1()));
+
+                if (right == slotX + 16 && bottom == slotY + 16
+                        && rectangle.col1() == GHOST_SLOT_OVERLAY
+                        && rectangle.col2() == GHOST_SLOT_OVERLAY) {
+                    return;
                 }
             }
 
             throw new AssertionError("The filtered hopper slot has no 16x16 overlay in "
                     + String.format("0x%08X", GHOST_SLOT_OVERLAY) + " at " + slotX + "/" + slotY
-                    + ". Rectangles starting at that corner: " + found + ". The screenshot check "
+                    + ". Rectangles drawn near that corner: " + near + ". The screenshot check "
                     + "only asks whether anything changed there, so any other colour - including "
                     + "one opaque enough to hide the ghost icon - passes it.");
         });
@@ -1567,7 +1710,9 @@ public final class HudAndTooltipClientTest {
             int slotY = topPos(screen) + slot.y;
 
             for (ColoredRectangleRenderState rectangle : filledRectangles(extractScreenState(client))) {
-                if (rectangle.x0() == slotX && rectangle.y0() == slotY
+                // Same swapped corners as above.
+                if (Math.min(rectangle.x0(), rectangle.x1()) == slotX
+                        && Math.min(rectangle.y0(), rectangle.y1()) == slotY
                         && rectangle.col1() == GHOST_SLOT_OVERLAY) {
                     return;
                 }
