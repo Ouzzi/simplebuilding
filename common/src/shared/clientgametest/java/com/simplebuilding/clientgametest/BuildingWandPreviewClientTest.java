@@ -423,16 +423,21 @@ public final class BuildingWandPreviewClientTest {
             // towards the minimum corner of its cell instead. Every ghost then sits a quarter of a
             // block off the grid it is previewing, and repaints exactly as many pixels - the count
             // above, and MAX_PAINTED_PERCENT below, both stay where they were.
+            //
+            // Horizontally only, and that is measured, not chosen: the plane's lower rows sit
+            // inside the floor, which is not replaceable, so the renderer skips them - the visible
+            // plane runs from the floor up to its top row, its centre is above the eye line (the
+            // first run measured 202 against a viewport centre of 240) and a vertical claim would
+            // be a claim about the floor. The corner shrink moves every ghost along x as well, by
+            // the same quarter block, so the horizontal centre alone decides.
             double expectedX = area.frameWidth() / 2.0;
-            double expectedY = area.frameHeight() / 2.0;
             double offX = Math.abs(area.centreX() - expectedX);
-            double offY = Math.abs(area.centreY() - expectedY);
 
-            if (offX > GHOST_CENTRE_SLACK || offY > GHOST_CENTRE_SLACK) {
+            if (offX > GHOST_CENTRE_SLACK) {
                 throw new AssertionError("The ghost preview is not centred on the block it previews: "
-                        + area + ", expected its centre within " + GHOST_CENTRE_SLACK + " pixels of "
-                        + String.format(java.util.Locale.ROOT, "%.1f/%.1f", expectedX, expectedY)
-                        + " (off by " + String.format(java.util.Locale.ROOT, "%.1f/%.1f", offX, offY)
+                        + area + ", expected its horizontal centre within " + GHOST_CENTRE_SLACK
+                        + " pixels of " + String.format(java.util.Locale.ROOT, "%.1f", expectedX)
+                        + " (off by " + String.format(java.util.Locale.ROOT, "%.1f", offX)
                         + "). A quarter of a block is about " + GHOST_CENTRE_SLACK * 2 + " pixels here, "
                         + "so this is what a ghost that shrinks towards its corner instead of its "
                         + "centre looks like.");

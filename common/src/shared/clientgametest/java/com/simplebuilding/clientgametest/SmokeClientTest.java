@@ -1,5 +1,10 @@
 package com.simplebuilding.clientgametest;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.items.ModItems;
+import com.simplebuilding.items.custom.ChiselItem;
+import com.simplebuilding.util.SurvivalTracerAccessor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -8,12 +13,6 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
-import com.mojang.blaze3d.platform.InputConstants;
-import com.simplebuilding.blocks.ModBlocks;
-import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.ChiselItem;
-import com.simplebuilding.util.SurvivalTracerAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Hud;
 import net.minecraft.client.renderer.block.BlockStateModelSet;
@@ -44,6 +43,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 
 /**
  * Proves the client harness works - a real client boots, a world exists, the scene builds, a
@@ -515,6 +515,193 @@ public final class SmokeClientTest {
             TestLog.info("survival sync: client " + before.get() + " -> " + after.get()
                     + " over 60 ticks, server statistic " + server);
         });
+
+        everyFieldOfTheSyncCarriesItsOwnNumber(script);
+    }
+
+    /**
+     * All five fields of the sync arrive, each with its own value, in its own place.
+     *
+     * <p>The play time check above proves that a payload arrives and that one of its five numbers
+     * is right. It says nothing about the other four: a payload built as
+     * {@code (0, currentTime, 0, 0, 0)} passes it, and so does one with the hostile and the passive
+     * kills swapped - and the trim reference screen then shows the player wrong numbers for the
+     * rest of the session. So every counter is made non-zero here, hostile and passive are made
+     * DIFFERENT from each other, and then the client's five values are compared with the server's
+     * five, field by field.
+     *
+     * <p>How each counter gets its value, and why that way:
+     * <ul>
+     *   <li><b>distance</b> - the player walks. A teleport counts nothing; the walk statistic is
+     *       fed from real movement, so the forward key is held for a moment.</li>
+     *   <li><b>hostile kills</b> - one creeper, {@code NoAI} and one health point, killed with a
+     *       fist. A creeper rather than a zombie because it is noon and a zombie burns to death
+     *       by itself, credited to nobody.</li>
+     *   <li><b>passive kills</b> - two pigs the same way. Two, so that a swap with the hostile
+     *       counter changes both numbers.</li>
+     *   <li><b>damage taken</b> - {@code /damage} in survival; creative absorbs it.</li>
+     * </ul>
+     *
+     * <p>The mod counts kills in {@code awardKillScore}, which is what a melee kill by the player
+     * reaches; the server side values are read through the same accessor the client side ones
+     * are, on the server player.
+     */
+    private static void everyFieldOfTheSyncCarriesItsOwnNumber(Script script) {
+        // Read first, compared as differences: the kill counters live for the whole session and
+        // the shared world has other tests in it, so "exactly one hostile kill" has to mean "one
+        // more than before".
+        Later<int[]> serverBefore = askTheServer(script, "the server counters before this case",
+                SmokeClientTest::fiveServerCounters);
+
+        // --- distance: walk a little ------------------------------------------------------------
+        script.harness("hold the forward key", harness -> harness.holdKey(InputConstants.KEY_W));
+        script.idle("walk for a moment", 15);
+        script.harness("release the forward key", harness -> harness.releaseKey(InputConstants.KEY_W));
+        script.idle("come to a halt", 5);
+
+        // --- kills: one creeper, two pigs, each with one health point and no mind of its own -----
+        TestScene.build(script, "minecraft:stone", "creative");
+        // Looking down a little: the mobs stand on the floor two blocks ahead, and a pig is under
+        // a block tall - at pitch 0 the ray passes over it at eye height.
+        script.command("tp @a 10.5 0.0 16.5 0.0 30.0");
+        script.awaitPackets();
+        script.idle("let the camera tilt down", 10);
+        killWithAFist(script, "minecraft:creeper", "the creeper");
+        killWithAFist(script, "minecraft:pig", "the first pig");
+        killWithAFist(script, "minecraft:pig", "the second pig");
+        script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
+        script.awaitPackets();
+        script.idle("let the camera level out again", 10);
+
+        // --- damage: survival, three half hearts, creative again --------------------------------
+        script.command("gamemode survival @a");
+        script.command("damage @a 3");
+        script.command("gamemode creative @a");
+        script.awaitPackets();
+
+        // A sync goes out every 20 ticks; two of them make sure one carries everything above.
+        script.idle("let two syncs go out", 45);
+
+        Later<int[]> onTheClient = new Later<>("the five client side counters");
+        script.act("read the five client side counters", client -> {
+            SurvivalTracerAccessor accessor = (SurvivalTracerAccessor) client.player;
+            onTheClient.set(new int[] {
+                    accessor.simplebuilding$getCurrentDistance(),
+                    accessor.simplebuilding$getCurrentTime(),
+                    accessor.simplebuilding$getCurrentHostileKills(),
+                    accessor.simplebuilding$getCurrentPassiveKills(),
+                    accessor.simplebuilding$getCurrentDamageTaken()});
+        });
+
+        Later<int[]> onTheServer = askTheServer(script, "the five server side counters",
+                SmokeClientTest::fiveServerCounters);
+
+        script.verify("every field of the survival sync carries its own number", () -> {
+            int[] client = onTheClient.get();
+            int[] server = onTheServer.get();
+            String[] names = {"distance", "play time", "hostile kills", "passive kills", "damage taken"};
+
+            int[] before = serverBefore.get();
+
+            if (server.length != 5 || before.length != 5) {
+                throw new AssertionError("Survival sync cannot be checked field by field: there is no "
+                        + "server player.");
+            }
+
+            // Setup first: a counter that never moved on the SERVER cannot prove anything about the
+            // payload, so those are named as setup failures rather than as sync failures.
+            if (server[0] <= before[0]) {
+                throw new AssertionError("Setup failed: the server counted no walked distance, so a "
+                        + "payload that always sends 0 for it could not be told apart.");
+            }
+
+            if (server[2] - before[2] != 1 || server[3] - before[3] != 2) {
+                throw new AssertionError("Setup failed: this case added " + (server[2] - before[2])
+                        + " hostile and " + (server[3] - before[3]) + " passive kills on the server "
+                        + "instead of 1 and 2, so the two fields could not be told apart if the "
+                        + "payload swapped them.");
+            }
+
+            if (server[4] <= before[4]) {
+                throw new AssertionError("Setup failed: the server counted no damage taken, so a payload "
+                        + "that always sends 0 for it could not be told apart.");
+            }
+
+            if (server[2] == server[3]) {
+                throw new AssertionError("Setup failed: hostile and passive kills both stand at "
+                        + server[2] + " on the server, so a swapped payload would look right.");
+            }
+
+            List<String> wrong = new ArrayList<>();
+
+            for (int i = 0; i < 5; i++) {
+                // Play time and distance keep moving between the sync and the read, so those two
+                // get the same slack the play time check above uses; the counters are exact.
+                int slack = (i == 0 || i == 1) ? 25 : 0;
+
+                if (Math.abs(client[i] - server[i]) > slack) {
+                    wrong.add(names[i] + ": client " + client[i] + ", server " + server[i]);
+                }
+            }
+
+            if (!wrong.isEmpty()) {
+                throw new AssertionError("SurvivalSyncPayload carries the wrong numbers: " + wrong
+                        + ". Each field of the payload has to be the matching server side counter; the "
+                        + "trim reference screen shows exactly these values to the player.");
+            }
+
+            TestLog.info("survival sync, all five fields: client " + java.util.Arrays.toString(client)
+                    + ", server " + java.util.Arrays.toString(server));
+        });
+
+        script.command("kill @e[type=!minecraft:player]", true);
+    }
+
+    /** The five counters the sync is built from, read on the server the way the mixin reads them. */
+    private static int[] fiveServerCounters(MinecraftServer server) {
+        List<ServerPlayer> players = server.getPlayerList().getPlayers();
+
+        if (players.isEmpty()) {
+            return new int[0];
+        }
+
+        ServerPlayer player = players.get(0);
+        SurvivalTracerAccessor accessor = (SurvivalTracerAccessor) player;
+        int distance = player.getStats().getValue(Stats.CUSTOM.get(Stats.WALK_ONE_CM)) / 100
+                + player.getStats().getValue(Stats.CUSTOM.get(Stats.SPRINT_ONE_CM)) / 100
+                + player.getStats().getValue(Stats.CUSTOM.get(Stats.CROUCH_ONE_CM)) / 100
+                + player.getStats().getValue(Stats.CUSTOM.get(Stats.FLY_ONE_CM)) / 100
+                + player.getStats().getValue(Stats.CUSTOM.get(Stats.CLIMB_ONE_CM)) / 100;
+        return new int[] {
+                distance,
+                player.getStats().getValue(Stats.CUSTOM.get(Stats.PLAY_TIME)),
+                accessor.simplebuilding$getCurrentHostileKills(),
+                accessor.simplebuilding$getCurrentPassiveKills(),
+                player.getStats().getValue(Stats.CUSTOM.get(Stats.DAMAGE_TAKEN))};
+    }
+
+    /**
+     * Summons a mob with one health point right in front of the crosshair and hits it once.
+     *
+     * <p>{@code NoAI} so it stands still, one health point so the first fist kills it, and the
+     * kill has to be the player's own - {@code /kill} would credit nobody and
+     * {@code awardKillScore} would never run.
+     */
+    private static void killWithAFist(Script script, String entityId, String label) {
+        script.command("summon " + entityId + " 10.5 0.0 18.5 {NoAI:1b,Health:1.0f,PersistenceRequired:1b}");
+        script.awaitPackets();
+        script.idle("let " + label + " arrive on the client", 10);
+
+        script.await("the crosshair is on " + label, 60,
+                client -> client.hitResult != null && client.hitResult.getType() == HitResult.Type.ENTITY,
+                client -> "The crosshair never landed on " + label + ". " + TestScene.describeAim(client));
+
+        script.harness("hit " + label, harness -> harness.pressMouse(0));
+        script.await(label + " is dead", 60,
+                client -> client.hitResult == null || client.hitResult.getType() != HitResult.Type.ENTITY,
+                client -> label + " survived a fist although it had one health point. "
+                        + TestScene.describeAim(client));
+        script.idle("let the kill reach the server's counters", 5);
     }
 
     private static Later<Integer> readClientPlayTime(Script script, String when) {

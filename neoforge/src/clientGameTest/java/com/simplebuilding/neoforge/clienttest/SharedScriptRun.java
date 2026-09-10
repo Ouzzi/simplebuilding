@@ -74,6 +74,11 @@ final class SharedScriptRun implements Harness {
             return;
         }
 
+        // Belt to WindowFocusMixin's braces: even with the focus callbacks swallowed, this is the
+        // option that turns a lost focus into a pause screen, and a pause screen swallows every
+        // input the scripts send. Fabric's framework switches it off the same way.
+        Minecraft.getInstance().options.pauseOnLostFocus = false;
+
         try {
             // Runs at the tail of Minecraft.tick(), so after handleKeybinds() acted on the held
             // attack button and before the frame is drawn. Clearing the lockout here means the
@@ -223,10 +228,16 @@ final class SharedScriptRun implements Harness {
         if (client.level == null || client.player == null) {
             return false;
         }
-        // No render-completion signal here either, so this asks the strongest thing that is
-        // available: the chunk the player stands in has arrived on the client. Asked through the
-        // block position because ChunkPos.x/z are not accessible under these mappings.
-        return client.level.hasChunkAt(client.player.blockPosition());
+        // Two questions, the same two Fabric's waitForChunksRender asks: has the chunk under the
+        // player arrived, and has the renderer finished rebuilding every section it was handed.
+        // The second one is the one that matters since TestScene.build throws every built section
+        // away on purpose (LevelRenderer.allChanged): without it the baseline screenshots caught
+        // the not-yet-rebuilt world, both of them alike, so the noise floor read zero and the next
+        // picture differed from them in 89 percent of its pixels. hasRenderedAllSections is the
+        // dispatcher's own "queue empty", exactly what vanilla asks before it declares a world
+        // loaded - so this is a real barrier now, not the strongest available guess.
+        return client.level.hasChunkAt(client.player.blockPosition())
+                && client.levelRenderer.hasRenderedAllSections();
     }
 
     @Override

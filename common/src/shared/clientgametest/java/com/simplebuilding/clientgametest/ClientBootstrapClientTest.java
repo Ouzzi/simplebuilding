@@ -1,10 +1,5 @@
 package com.simplebuilding.clientgametest;
 
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.IntSupplier;
-
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
@@ -18,6 +13,10 @@ import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.util.EnchantmentHelper;
 import com.simplebuilding.util.ISpaceKeyTracker;
 import com.simplebuilding.util.TrimBenefitUser;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.IntSupplier;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -506,6 +505,32 @@ public final class ClientBootstrapClientTest {
         assertScreenIs(script, OctantScreen.class, "octant manager");
         script.shot("bootstrap-b-octant-manager");
         closeScreen(script);
+
+        // "Any octant" includes the sixteen coloured ones, and until this step no client test had
+        // ever held one: every step above and in every other class hands out the plain
+        // simplebuilding:octant. Narrowing the key's guard from "instanceof OctantItem" to "is the
+        // plain octant" would switch the manager off for all sixteen colours and leave every
+        // client test green. One colour is enough to catch that; the server side walks all
+        // sixteen in allOctantColoursShareDurabilityAndTheirPaint.
+        giveMainHand(script, "simplebuilding:octant_lime");
+
+        script.act("the coloured octant is an OctantItem with a colour", client -> {
+            ItemStack stack = client.player == null ? ItemStack.EMPTY : client.player.getMainHandItem();
+
+            if (!(stack.getItem() instanceof OctantItem octant) || octant.getColor() == null) {
+                throw new AssertionError("Setup failed: the main hand holds " + stack
+                        + " instead of a coloured octant, so the step below would not prove anything "
+                        + "about the sixteen colours.");
+            }
+        });
+
+        script.harness("press the settings key with a coloured octant in hand",
+                harness -> harness.pressKey(SETTINGS_KEY));
+        awaitScreen(script, OctantScreen.class, "octant manager for a coloured octant");
+        script.idle("let the octant manager settle", 10);
+        assertScreenIs(script, OctantScreen.class, "octant manager for a coloured octant");
+        script.shot("bootstrap-b2-coloured-octant-manager");
+        closeScreen(script);
     }
 
     /**
@@ -559,6 +584,83 @@ public final class ClientBootstrapClientTest {
         script.idle("let the building wand settings settle", 20);
         assertScreenIs(script, BuildingWandScreen.class, "building wand settings");
         script.shot("bootstrap-d-building-wand-settings");
+        closeScreen(script);
+
+        // --- Only the MAIN hand counts. The key reads getMainHandItem() and nothing else --------
+        // Moved, not re-created: the very stack that just opened the screen goes to the off hand
+        // and the main hand is emptied, so the only thing that changed is the hand. Every step
+        // above keeps the off hand empty, which is why "main hand only" was a claim without a
+        // witness - a key that fell back to the off hand would have opened the same screen here.
+        onServer(script, "move the enchanted wand to the off hand", server -> {
+            ServerPlayer player = serverPlayer(server);
+            ItemStack wand = player.getInventory().getItem(HOTBAR_SLOT);
+            player.getInventory().setItem(HOTBAR_SLOT, ItemStack.EMPTY);
+            player.setItemSlot(EquipmentSlot.OFFHAND, wand);
+            player.inventoryMenu.broadcastChanges();
+        });
+        script.awaitPackets();
+        script.idle("let the moved wand reach the client", 15);
+
+        script.act("the enchanted wand is in the off hand and the main hand is empty", client -> {
+            if (client.player == null || client.level == null) {
+                throw new AssertionError("Setup failed: no client player or level.");
+            }
+
+            ItemStack off = client.player.getOffhandItem();
+            int level = EnchantmentHelper.getEnchantmentLevel(off, client.level, ModEnchantments.CONSTRUCTORS_TOUCH);
+
+            if (!(off.getItem() instanceof BuildingWandItem) || level < 1) {
+                throw new AssertionError("Setup failed: the off hand holds " + off + " with Constructor's "
+                        + "Touch level " + level + "; the step below needs the enchanted wand there.");
+            }
+
+            if (!client.player.getMainHandItem().isEmpty()) {
+                throw new AssertionError("Setup failed: the main hand still holds "
+                        + client.player.getMainHandItem() + ", so the key could open the screen through it.");
+            }
+        });
+
+        script.harness("press the settings key with the enchanted wand in the OFF hand",
+                harness -> harness.pressKey(SETTINGS_KEY));
+        script.idle("give a screen the chance to open", 10);
+        assertNoScreen(script, "an enchanted building wand in the off hand");
+        script.shot("bootstrap-d2-offhand-wand-no-screen");
+
+        script.command("item replace entity @a weapon.offhand with minecraft:air");
+        script.awaitPackets();
+        script.idle("let the emptied off hand reach the client", 10);
+
+        // --- Every wand tier, not only the netherite one -------------------------------------
+        // The guard is "instanceof BuildingWandItem"; narrowing it to the netherite wand would
+        // switch the screen off for the five other tiers, and the positive step above - the only
+        // one in the suite - holds exactly the netherite wand. The copper one is the far end.
+        onServer(script, "put an enchanted COPPER wand into the hotbar", server -> {
+            ServerPlayer player = serverPlayer(server);
+            ItemStack wand = new ItemStack(ModItems.COPPER_BUILDING_WAND);
+            wand.enchant(server.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                    .getOrThrow(ModEnchantments.CONSTRUCTORS_TOUCH), 1);
+            player.getInventory().setItem(HOTBAR_SLOT, wand);
+            player.inventoryMenu.broadcastChanges();
+        });
+        script.awaitPackets();
+        script.idle("let the copper wand reach the client", 15);
+        selectHotbarSlot(script, HOTBAR_SLOT);
+        assertWandInHandWithTouchLevel(script, 1);
+
+        script.act("it really is the copper wand, not the netherite one again", client -> {
+            if (client.player == null || !client.player.getMainHandItem().is(ModItems.COPPER_BUILDING_WAND)) {
+                throw new AssertionError("Setup failed: the main hand holds "
+                        + (client.player == null ? "nothing" : String.valueOf(client.player.getMainHandItem()))
+                        + " instead of the copper wand, so this step would repeat the netherite one.");
+            }
+        });
+
+        script.harness("press the settings key with an enchanted copper wand in hand",
+                harness -> harness.pressKey(SETTINGS_KEY));
+        awaitScreen(script, BuildingWandScreen.class, "building wand settings for the copper wand");
+        script.idle("let the building wand settings settle", 10);
+        assertScreenIs(script, BuildingWandScreen.class, "building wand settings for the copper wand");
+        script.shot("bootstrap-d3-copper-wand-settings");
         closeScreen(script);
     }
 
@@ -761,6 +863,37 @@ public final class ClientBootstrapClientTest {
 
         selectHotbarSlot(script, () -> slotBefore[0]);
 
+        // --- A modifier over a NON-octant is vanilla's business ----------------------------------
+        // The mixin's first guard is "an OctantItem in the main hand". Every modifier step above
+        // holds an octant, and the one step with another item holds no modifier - so replacing
+        // that guard with "true" (the mixin then swallows every modified wheel tick for every
+        // item, and vanilla's modifier hotbar switching is dead in the whole game) leaves all of
+        // them green. This is the step that holds both: stone in hand, Control down, one notch -
+        // and the hotbar selection has to move, because vanilla has to still be reached.
+        giveMainHand(script, "minecraft:stone");
+
+        int[] slotBeforeStone = new int[1];
+        script.act("read the selected hotbar slot before the stone scroll", client ->
+                slotBeforeStone[0] = selectedSlot(client));
+
+        script.harness("hold Control with stone in hand", harness -> harness.holdKey(CONTROL_KEY));
+        script.idle("let the held Control reach the window state", 2);
+        assertModifierIsVisibleToTheMixin(script, "Control", CONTROL_KEY);
+        scrollAndSettle(script, 1.0);
+        script.harness("release Control after the stone scroll", harness -> harness.releaseKey(CONTROL_KEY));
+        script.idle("let the released Control settle", 2);
+
+        script.act("a modified scroll over a plain item still reaches vanilla", client -> {
+            if (selectedSlot(client) == slotBeforeStone[0]) {
+                throw new AssertionError("Scrolling with Control while holding STONE left the selected "
+                        + "hotbar slot at " + slotBeforeStone[0] + ". The mixin is only allowed to cancel "
+                        + "the event for an octant; with anything else in hand vanilla's modifier "
+                        + "scrolling has to keep working.");
+            }
+        });
+
+        selectHotbarSlot(script, () -> slotBeforeStone[0]);
+
         // --- A locked octant is left to vanilla as well -----------------------------------------
         giveOctantWithCorners(script, true);
 
@@ -884,6 +1017,50 @@ public final class ClientBootstrapClientTest {
                         + "still holds " + leftInBundle + " stone.");
             }
         });
+
+        // --- In creative the mixin stays out of it ------------------------------------------------
+        // Until here creative was only a PRECONDITION ("not in creative, or the mixin returns at
+        // once"), so the guard itself never ran and deleting it changed nothing. The observation
+        // that separates the two is the bundle, not the hand: vanilla's creative pick fills the
+        // hand for free either way, but only the mixin would take the stone OUT of the bundle.
+        script.command("gamemode creative @a");
+        script.command("clear @a", true);
+        script.awaitPackets();
+        script.idle("let creative mode reach the client", 10);
+        giveBundleWithStone(script, true);
+        TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
+
+        script.act("setup: creative, an empty hand and a full Master Builder bundle", client -> {
+            if (client.player == null || !client.player.isCreative()) {
+                throw new AssertionError("Setup failed: the client player is not in creative.");
+            }
+
+            if (countStoneInBundle(client) != BUNDLED_STONE_COUNT) {
+                throw new AssertionError("Setup failed: the bundle holds " + countStoneInBundle(client)
+                        + " stone instead of " + BUNDLED_STONE_COUNT + ".");
+            }
+        });
+
+        script.harness("press pick block in creative with a Master Builder bundle",
+                harness -> harness.pressMouse(PICK_MOUSE_BUTTON));
+        script.idle("give the pick the chance to act", 20);
+
+        script.act("in creative the bundle keeps every one of its stone", client -> {
+            int leftInBundle = countStoneInBundle(client);
+
+            if (leftInBundle != BUNDLED_STONE_COUNT) {
+                throw new AssertionError("In creative the pick took stone out of the Master Builder bundle "
+                        + "(" + leftInBundle + " of " + BUNDLED_STONE_COUNT + " left). The mixin is supposed to "
+                        + "return before it looks at any bundle when the player is in creative - vanilla "
+                        + "hands the block out for free there, and a bundle that empties itself in creative "
+                        + "is a bundle that loses items for nothing.");
+            }
+        });
+
+        script.command("gamemode survival @a");
+        script.command("clear @a", true);
+        script.awaitPackets();
+        script.idle("let survival reach the client again", 10);
     }
 
     /**
@@ -906,6 +1083,10 @@ public final class ClientBootstrapClientTest {
             }
         });
 
+        int[] payloadsBefore = new int[1];
+        script.act("count the space key payloads the server has handled so far",
+                client -> payloadsBefore[0] = PayloadCounter.spaceKeyPayloads());
+
         script.harness("hold the jump key", harness -> harness.holdKey(JUMP_KEY));
 
         script.await("the rising edge of the jump key reached the server", 60,
@@ -914,6 +1095,22 @@ public final class ClientBootstrapClientTest {
                         + "edge was not sent or not handled. options.keyJump.isDown() reads "
                         + client.options.keyJump.isDown() + " on the client.");
 
+        // Held for two seconds ON PURPOSE. The flag above reads "pressed" after one packet and
+        // after forty exactly alike; the count below does not. "Only when the state changes" is
+        // the bandwidth promise the tick handler makes in its own comment, and this is the only
+        // step in the suite that could notice it being broken.
+        script.idle("keep the jump key held for forty ticks", 40);
+
+        script.act("holding the key for forty ticks sent exactly one payload", client -> {
+            int sent = PayloadCounter.spaceKeyPayloads() - payloadsBefore[0];
+
+            if (sent != 1) {
+                throw new AssertionError("Holding the jump key for forty ticks made the server handle "
+                        + sent + " SpaceKeyPayloads instead of one. The client is supposed to send the "
+                        + "key state only when it changes, not on every tick it is held.");
+            }
+        });
+
         script.harness("release the jump key", harness -> harness.releaseKey(JUMP_KEY));
 
         script.await("the falling edge of the jump key reached the server", 60,
@@ -921,6 +1118,17 @@ public final class ClientBootstrapClientTest {
                 client -> "Releasing the jump key never reached the server: the SpaceKeyPayload for the "
                         + "falling edge was not sent or not handled. options.keyJump.isDown() reads "
                         + client.options.keyJump.isDown() + " on the client.");
+
+        script.idle("give a chatty client the chance to keep sending", 20);
+
+        script.act("the release sent exactly one more payload", client -> {
+            int sent = PayloadCounter.spaceKeyPayloads() - payloadsBefore[0];
+
+            if (sent != 2) {
+                throw new AssertionError("One press and one release made the server handle " + sent
+                        + " SpaceKeyPayloads instead of two - one per edge.");
+            }
+        });
 
         waitForGround(script);
     }

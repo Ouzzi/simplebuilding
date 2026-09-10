@@ -13,5 +13,8 @@
   "depends": {
     "fabricloader": ">=0.19.3",
     "simplebuilding": "*"
-  }
+  },
+  "mixins": [
+    "simplebuilding-test.mixins.json"
+  ]
 }

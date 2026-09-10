@@ -702,6 +702,35 @@ public final class HudAndTooltipClientTest {
                         + unscaled.textElements());
             }
 
+            // The VALUE of the scale, not just that there is one. Everything above proves the mod's
+            // component draws differently from an unscaled one; it does not say by how much, and
+            // "maxCapacity / 32" instead of "/ 64" would pass every line of it - the bar would
+            // simply fill half as fast as the bundle does. The mixin has no getter, so the value is
+            // read the way a player would read it: a vanilla component set to the expected scale
+            // has to draw the same geometry, and one set to the doubled scale has to draw a
+            // different one. That second half is what makes the first half a statement.
+            float expectedScale = reinforced.maxCapacity() / 64.0f;
+            ClientBundleTooltip reference = new ClientBundleTooltip(contents);
+            ((BundleTooltipAccessor) reference).simplebuilding$setCapacityScale(expectedScale);
+            TooltipShape atExpectedScale = extractShape(client, reference);
+
+            if (!atExpectedScale.equals(scaled)) {
+                throw new AssertionError("Reinforced bundle tooltip bar: the mod's component does not draw "
+                        + "like a component scaled by maxCapacity / 64 = " + expectedScale + " (mod: "
+                        + scaled + ", reference: " + atExpectedScale + "). The scale the callback sets is "
+                        + "not the capacity in stacks.");
+            }
+
+            ((BundleTooltipAccessor) reference).simplebuilding$setCapacityScale(expectedScale * 2);
+            TooltipShape atDoubledScale = extractShape(client, reference);
+
+            if (atDoubledScale.equals(scaled)) {
+                throw new AssertionError("Reinforced bundle tooltip bar: a component scaled by "
+                        + (expectedScale * 2) + " draws exactly like the mod's (" + scaled + "), so the "
+                        + "geometry cannot tell the expected scale from a doubled one and the check "
+                        + "above proves nothing about the value.");
+            }
+
             accessor.simplebuilding$setCapacityScale(1.0f);
             TooltipShape control = extractShape(client, modComponent);
 
@@ -712,7 +741,8 @@ public final class HudAndTooltipClientTest {
                         + "to the scale");
             }
 
-            TestLog.info("bundle tooltip bar: unscaled " + unscaled + ", scaled by 3 " + scaled);
+            TestLog.info("bundle tooltip bar: unscaled " + unscaled + ", scaled by " + expectedScale + " "
+                    + scaled);
         });
 
         // A picture of the real thing for the record - the assertions above are the proof.
@@ -1707,12 +1737,17 @@ public final class HudAndTooltipClientTest {
         script.act("the ghost icon is gone while the slot holds an item", client -> {
             int drawn = itemsDrawnInHopperSlotZero(client);
 
+            // Exactly one: the stone block vanilla draws. Two would be the stone block AND the
+            // ghost icon on top of it; zero would mean the slot is not being read at all.
             if (drawn != 1) {
                 throw new AssertionError("Hopper slot 0 holds a stone block and the screen draws "
-                        + drawn + " items at that position instead of one. The ghost icon is being "
-                        + "painted over a real item, which makes the slot content unreadable. This "
-                        + "is invisible to every screenshot in this test, because all of them are "
-                        + "taken while the slot is empty.");
+                        + drawn + " items at that position instead of one (the block itself). "
+                        + (drawn > 1
+                                ? "The ghost icon is being painted over a real item, which makes the "
+                                        + "slot content unreadable. "
+                                : "Not even the real item is found there, so this reader is broken. ")
+                        + "This is invisible to every screenshot in this test, because all of them "
+                        + "are taken while the slot is empty.");
             }
         });
 
@@ -1744,7 +1779,17 @@ public final class HudAndTooltipClientTest {
         script.idle("let the emptied slot reach the client", 10);
     }
 
-    /** How many item icons the screen draws at hopper slot 0 - the ghost, the real item, or both. */
+    /**
+     * How many item icons the screen draws at hopper slot 0 - the ghost, the real item, or both.
+     *
+     * <p>Through the pose, not the raw coordinates, and the first run is the reason: the real
+     * item in a slot is drawn by {@code AbstractContainerScreen} at the slot's OWN x/y under a
+     * pose translated to the screen origin, while the mod draws the ghost after that translation
+     * is gone, at absolute coordinates. Comparing raw x/y therefore found the ghost and never the
+     * real item - and reported "0 items" for a slot that visibly held a stone block. Both land on
+     * the same screen pixel once the pose is applied, which is the only comparison that means
+     * "drawn in that slot".
+     */
     private static int itemsDrawnInHopperSlotZero(Minecraft client) {
         AbstractContainerScreen<?> screen = containerScreen(client);
         Slot slot = screen.getMenu().slots.get(0);
@@ -1753,7 +1798,9 @@ public final class HudAndTooltipClientTest {
         int[] count = {0};
 
         extractScreenState(client).forEachItem(item -> {
-            if (item.x() == slotX && item.y() == slotY) {
+            org.joml.Vector2f onScreen = item.pose().transformPosition(item.x(), item.y(), new org.joml.Vector2f());
+
+            if (Math.round(onScreen.x) == slotX && Math.round(onScreen.y) == slotY) {
                 count[0]++;
             }
         });

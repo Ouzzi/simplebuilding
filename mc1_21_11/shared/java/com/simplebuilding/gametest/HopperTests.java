@@ -475,7 +475,8 @@ public final class HopperTests {
      *
      * <p>What breaks this test: dropping {@code addDataSlots(propertyDelegate)} from the menu,
      * making the delegate answer at another index, {@code getSyncedFilterMode} losing its ordinal
-     * lookup, going back from {@code Math.floorMod} to a plain remainder, dropping the
+     * lookup or its bounds check (an ordinal off the wire then indexes past the enum), going back
+     * from {@code Math.floorMod} to a plain remainder, dropping the
      * {@code setChanged()} out of {@code updateListeners}, {@code getUpdatePacket} answering
      * {@code null} or with a tag that has lost the mode, renaming a mode text, or a mode constant
      * losing the style its tooltip is drawn in.
@@ -587,6 +588,30 @@ public final class HopperTests {
         assertModeTextColour(helper, HopperFilterMode.NONE, 0xFF5555, "disabled");
         assertModeTextColour(helper, HopperFilterMode.WHITELIST, 0x55FF55, "exact match");
         assertModeTextColour(helper, HopperFilterMode.TYPE, 0xFFFF55, "type match");
+
+        // --- a number off the wire that names no mode falls back to Disabled ---
+        // Everything above goes through the hopper's own delegate, which wraps with floorMod - so
+        // through that menu getSyncedFilterMode never sees anything outside the enum and its own
+        // bounds check is never exercised. The CLIENT menu is the one that can: it is built from a
+        // position and a plain SimpleContainerData, and whatever the server sends lands in there
+        // raw. A server running another version of the mod, or a fourth mode added on one side
+        // only, sends an ordinal this enum does not have - and the screen asks this method every
+        // frame. Without the bounds check that is an ArrayIndexOutOfBoundsException in the render
+        // loop; with it, the filter reads as Disabled until the next sync.
+        NetheriteHopperScreenHandler clientMenu =
+                new NetheriteHopperScreenHandler(2, player.getInventory(), hopper.getBlockPos());
+        clientMenu.setData(0, HopperFilterMode.values().length);
+        helper.assertTrue(clientMenu.getSyncedFilterMode() == HopperFilterMode.NONE,
+                "an ordinal one past the last mode reads as " + clientMenu.getSyncedFilterMode()
+                        + " instead of falling back to Disabled");
+        clientMenu.setData(0, -1);
+        helper.assertTrue(clientMenu.getSyncedFilterMode() == HopperFilterMode.NONE,
+                "a negative ordinal reads as " + clientMenu.getSyncedFilterMode()
+                        + " instead of falling back to Disabled");
+        clientMenu.setData(0, HopperFilterMode.TYPE.ordinal());
+        helper.assertTrue(clientMenu.getSyncedFilterMode() == HopperFilterMode.TYPE,
+                "the client menu reads " + clientMenu.getSyncedFilterMode() + " for the Type Match "
+                        + "ordinal, so the fallback above may be swallowing every value");
 
         TestCleanup.succeed(helper);
     }

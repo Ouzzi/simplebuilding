@@ -250,6 +250,32 @@ public final class MultiBlockBreakingClientTest {
 
         script.verify("every crack of one frame carries the same destroy stage",
                 () -> assertOneProgressPerFrame(lastFrame.get()));
+
+        // --- Sneaking is not enough: the pickaxe also has to be the right tool for the block ---
+        // The renderer's branch is "isCorrectToolForDrops(stack, mainState) && sneaking". Both
+        // windows above hold a netherite pickaxe against obsidian - the correct tool in every run -
+        // so dropping the first half of that condition changes nothing here. An iron pickaxe is
+        // still a pickaxe, still takes Strip Miner, but cannot mine obsidian: vanilla lets the
+        // player scratch at it (which is why the destroy stage still reaches 0 and the recorder
+        // has something to look at) and the mod has to stay out of it.
+        Later<Set<BlockPos>> wrongTool = mineAndRecord(script, "minecraft:iron_pickaxe",
+                ModEnchantments.STRIP_MINER, STRIP_LEVEL, "breaking-e-strip-miner-wrong-tool", false, true,
+                null, 0);
+        // Asserted after the measurement, because mineAndRecord hands the tool out itself; the
+        // statement is about the tool that was actually held during the window.
+        assertNotTheCorrectTool(script);
+
+        script.verify("a sneaking Strip Miner pickaxe that cannot mine the block produces nothing", () -> {
+            TestLog.info("breaking states with Strip Miner on the wrong tool: " + wrongTool.get());
+
+            if (wrongTool.get().contains(STRIP_FIRST) || wrongTool.get().contains(STRIP_SECOND)) {
+                throw new AssertionError("An iron Strip Miner pickaxe produced breaking cracks on "
+                        + STRIP_FIRST + " / " + STRIP_SECOND + " while sneaking at obsidian, which it "
+                        + "cannot mine. Recorded: " + wrongTool.get() + ". The extra cracks are gated on "
+                        + "isCorrectToolForDrops as well as on sneaking; a preview of blocks the tool "
+                        + "will never break is a lie to the player.");
+            }
+        });
     }
 
     /**
@@ -413,7 +439,7 @@ public final class MultiBlockBreakingClientTest {
                                                       String screenshotName, boolean expectSledgehammer,
                                                       boolean sneak) {
         return mineAndRecord(script, itemId, enchantment, level, screenshotName, expectSledgehammer, sneak,
-                null);
+                null, enchantment != null ? 1 : 0);
     }
 
     /**
@@ -440,6 +466,24 @@ public final class MultiBlockBreakingClientTest {
                                                       String screenshotName, boolean expectSledgehammer,
                                                       boolean sneak,
                                                       Later<List<BlockBreakingRenderState>> lastFrame) {
+        return mineAndRecord(script, itemId, enchantment, level, screenshotName, expectSledgehammer, sneak,
+                lastFrame, enchantment != null ? 1 : 0);
+    }
+
+    /**
+     * @param minStage the destroy stage the measurement waits for before recording. One for the
+     *                 enchanted cases whose frame feeds {@link #assertOneProgressPerFrame} (a stage
+     *                 of 0 there cannot be told from a hard coded 0), zero otherwise - and zero
+     *                 explicitly for the wrong-tool case, where the correct tool check keeps the
+     *                 mod out and vanilla with the wrong pickaxe needs some 500 ticks to reach stage
+     *                 one on obsidian.
+     */
+    private static Later<Set<BlockPos>> mineAndRecord(Script script, String itemId,
+                                                      ResourceKey<Enchantment> enchantment, int level,
+                                                      String screenshotName, boolean expectSledgehammer,
+                                                      boolean sneak,
+                                                      Later<List<BlockBreakingRenderState>> lastFrame,
+                                                      int minStage) {
         Later<Set<BlockPos>> result = new Later<>("the recorded breaking positions of " + screenshotName);
         Set<BlockPos> seen = new LinkedHashSet<>();
         int[] recordedTicks = {0};
@@ -495,7 +539,6 @@ public final class MultiBlockBreakingClientTest {
         // obsidian that happens after roughly 17 ticks of mining, well inside this window. With an
         // enchantment the minimum is 1, because the enchanted runs are the ones whose frame feeds
         // assertOneProgressPerFrame and a stage of 0 there cannot be told from a hard coded 0.
-        int minStage = enchantment != null ? 1 : 0;
         MiningTrace trace = new MiningTrace();
         script.await("mine until the destroy stage reaches " + minStage + " with " + itemId, 200,
                 client -> {
@@ -566,6 +609,29 @@ public final class MultiBlockBreakingClientTest {
                         + " any more (it says \"" + client.options.keyShift.saveString() + "\"), so holding "
                         + "that key would not make the player sneak and the Strip Miner measurement would "
                         + "record nothing for a reason that has nothing to do with the mod.");
+            }
+        });
+    }
+
+    /**
+     * The tool in hand cannot mine the block under the crosshair, so a preview would be a lie.
+     *
+     * <p>Asserted rather than assumed: if obsidian ever became iron-mineable, the wrong-tool case
+     * would silently turn into a second copy of the sneaking case and prove the guard twice for
+     * the wrong reason.
+     */
+    private static void assertNotTheCorrectTool(Script script) {
+        script.act("the held pickaxe is not the correct tool for the target block", client -> {
+            if (client.player == null || client.level == null) {
+                throw new AssertionError("Setup failed: no client player or level.");
+            }
+
+            ItemStack stack = client.player.getMainHandItem();
+
+            if (stack.getItem().isCorrectToolForDrops(stack, client.level.getBlockState(TestScene.TARGET))) {
+                throw new AssertionError("Setup failed: " + stack + " IS the correct tool for "
+                        + client.level.getBlockState(TestScene.TARGET) + ", so this case would not "
+                        + "exercise the tool check at all.");
             }
         });
     }

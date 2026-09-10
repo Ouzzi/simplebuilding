@@ -229,12 +229,101 @@ public final class BlockHighlightClientTest {
         assertSledgehammerTriggerConditions(script);
 
         Later<Path> withSledgehammer = script.shot("highlight-c-sledgehammer");
+        Later<ScreenshotDiff.Diff> allEight = new Later<>("the sledgehammer highlight over eight stone blocks");
 
         script.verify("the sledgehammer highlight reached the screen", () -> {
             ScreenshotDiff.Diff signal = ScreenshotDiff.compare(
                     "sledgehammer highlight", baseline.get(), withSledgehammer.get());
             ScreenshotDiff.assertDrew("BlockHighlightRenderer (sledgehammer)", noiseFloor.get(), signal);
+            allEight.set(signal);
         });
+
+        aBlockTheHammerWouldNotBreakGetsNoBox(script, noiseFloor, allEight);
+    }
+
+    /**
+     * Only the blocks the hammer would actually break get a box.
+     *
+     * <p>The renderer asks {@code SledgehammerUtils.shouldBreak} for every position of the pattern
+     * and skips the ones that say no - without Override that is every block that is not the same
+     * block as the target. Everything above happens against a wall of nothing but stone, so every
+     * position says yes and deleting that skip changes nothing: {@code assertDrew} only counts
+     * pixels, and eight boxes plus a ninth are still "something".
+     *
+     * <p>So one neighbour becomes oak planks: not stone, not even pickaxe material. With the
+     * hammer in hand the picture now has to show one box FEWER than it did against the all-stone
+     * wall, and "fewer" is measured against the eight-box signal above - both signals are taken
+     * against their own baseline without the hammer, so the planks themselves are not part of
+     * either difference. A renderer that boxes every position of the pattern regardless of
+     * {@code shouldBreak} produces the same signal in both pictures, and that is the failure.
+     *
+     * <p>The bar: at least a twelfth of the eight-box signal has to be missing. One box of eight
+     * is an eighth of the outline pixels; the side box is fully visible from the camera, so a
+     * twelfth is a comfortable underestimate of what disappears and far above the noise floor,
+     * which is measured at zero here.
+     */
+    private static void aBlockTheHammerWouldNotBreakGetsNoBox(Script script,
+                                                              Later<ScreenshotDiff.Diff> noiseFloor,
+                                                              Later<ScreenshotDiff.Diff> allEight) {
+        BlockPos odd = TestScene.TARGET.offset(1, 0, 0);
+
+        script.command("setblock " + odd.getX() + " " + odd.getY() + " " + odd.getZ() + " minecraft:oak_planks");
+        script.awaitPackets();
+        script.idle("let the planks reach the client", 15);
+
+        script.act("setup: the planks are not stone, not pickaxe material and next to the target", client -> {
+            if (client.level == null) {
+                throw new AssertionError("Setup failed: no client level.");
+            }
+
+            var state = client.level.getBlockState(odd);
+
+            if (!state.is(net.minecraft.world.level.block.Blocks.OAK_PLANKS)) {
+                throw new AssertionError("Setup failed: " + odd + " holds " + state + " instead of oak planks.");
+            }
+
+            if (state.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)) {
+                throw new AssertionError("Setup failed: oak planks count as pickaxe material on this "
+                        + "client, so shouldBreak would not exclude them and the step below would "
+                        + "prove nothing.");
+            }
+        });
+
+        assertSledgehammerTriggerConditions(script);
+        Later<Path> sevenBoxes = script.shot("highlight-c2-hammer-with-planks");
+
+        // The hammer goes away for the planks baseline and comes back afterwards, because the
+        // control case that follows this one expects it in the hand.
+        script.command("clear @a");
+        script.awaitPackets();
+        script.idle("let the cleared hand reach the renderer", 15);
+        Later<Path> planksBaseline = script.shot("highlight-c3-planks-no-hammer");
+
+        script.verify("the planks block got no box", () -> {
+            ScreenshotDiff.Diff withPlanks = ScreenshotDiff.compare(
+                    "sledgehammer highlight with one planks neighbour", planksBaseline.get(), sevenBoxes.get());
+            ScreenshotDiff.assertDrew("BlockHighlightRenderer (sledgehammer, seven boxes)",
+                    noiseFloor.get(), withPlanks);
+
+            int eight = allEight.get().changedPixels();
+            int seven = withPlanks.changedPixels();
+            int mustBeMissing = eight / 12;
+
+            if (seven > eight - mustBeMissing) {
+                throw new AssertionError("The sledgehammer highlight did not lose a box when one neighbour "
+                        + "became oak planks: " + seven + " changed pixels against " + eight + " with eight "
+                        + "stone neighbours, at least " + mustBeMissing + " fewer were required. The "
+                        + "renderer boxes a block the hammer would never break, which is exactly the "
+                        + "skip on SledgehammerUtils.shouldBreak that every all-stone picture above "
+                        + "cannot see.");
+            }
+        });
+
+        script.command("setblock " + odd.getX() + " " + odd.getY() + " " + odd.getZ() + " minecraft:stone");
+        script.command(GIVE_SLEDGEHAMMER);
+        script.awaitPackets();
+        script.idle("let the stone and the hammer come back", 15);
+        assertSledgehammerTriggerConditions(script);
     }
 
     /**
