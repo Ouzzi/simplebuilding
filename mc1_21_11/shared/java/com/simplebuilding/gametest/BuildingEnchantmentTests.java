@@ -4,13 +4,20 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.ChiselItem;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
@@ -42,7 +49,7 @@ import net.minecraft.world.phys.Vec3;
  * they are checked by the data integrity tests, and every one of them could stop doing anything
  * at all without a single test turning red. Constructor's Touch is the worst of them - it is the
  * key to a whole second set of chisel transformation tables per tier, plus the reverse direction
- * of those tables, and it also drives an entirely separate feature on a plain stick (untested on this line, see below).
+ * of those tables, and it also drives an entirely separate feature on a plain stick.
  *
  * <p>Most of what these enchantments change is a <em>payment</em>: a cooldown, a point of
  * durability, a block taken out of the inventory. Every one of those sits behind
@@ -96,16 +103,27 @@ public final class BuildingEnchantmentTests {
      *       extras, so a stone chisel must refuse it even while enchanted. If the tier gate
      *       were lost, the cheapest chisel in the game would do everything the most expensive
      *       one does.</li>
+     *   <li><strong>The tiers stack upwards.</strong> Every tier's table is built as
+     *       {@code merge(the tier below, its own entries)}, in both the plain and the touch
+     *       direction. A diamond chisel therefore still has to do the stone tier's work - if
+     *       those merges were replaced by the bare per tier maps, the expensive tools would
+     *       quietly stop being able to chisel stone at all, and a test that only ever uses each
+     *       tier on its own entries would not notice.</li>
      * </ul>
      *
      * <p>Each step also cross checks {@code ChiselItem#canChisel} against what the click really
      * did. Those two methods repeat the same map selection logic in two places; when they drift,
-     * the client side highlight promises a transformation the click then refuses.
+     * the client side highlight promises a transformation the click then refuses. The cooldown
+     * is the third such branch and gets a case of its own at the end: every other step clears the
+     * cooldown first, so without it {@code canChisel}'s {@code isOnCooldown} early return would
+     * never once be executed while it is actually true.
      *
      * <p><strong>What breaks this test:</strong> dropping the {@code hasConstructorsTouch}
      * ternaries in {@code tryChiselBlock} or {@code canChisel}, replacing {@code merge(plain,
-     * extras)} with the bare extras map, wiring every tier to the same pair of maps, losing the
-     * {@code isSneaking} branch, or charging the reverse step the same as the forward one.
+     * extras)} with the bare extras map, dropping the {@code merge(lower tier, own entries)} that
+     * chains the tiers, wiring every tier to the same pair of maps, losing the
+     * {@code isSneaking} branch, charging the reverse step the same as the forward one, or
+     * deleting the cooldown check from {@code canChisel} alone.
      */
     public static void constructorsTouchUnlocksTheExtraChiselTablesInBothDirections(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -189,6 +207,24 @@ public final class BuildingEnchantmentTests {
         Assertions.valueEqual(helper, bricks, Blocks.END_STONE_BRICKS,
                 "the diamond tier's Constructor's Touch extras are gone, end stone became " + bricks);
 
+        // --- the gate only points one way: the higher tier keeps the lower tier's work ---
+        // Stone -> chiseled stone bricks is a stone tier entry and cobblestone -> mossy cobblestone
+        // a stone tier Constructor's Touch extra. Both have to survive all the way up through the
+        // merge chain, or every chisel above the cheapest one loses the bulk of its table.
+        helper.setBlock(plain, Blocks.STONE);
+        Block diamondOnStone = chiselAt(helper, player, diamondChisel, plain, false,
+                "plain diamond chisel on stone");
+        Assertions.valueEqual(helper, diamondOnStone, Blocks.CHISELED_STONE_BRICKS,
+                "the diamond tier's ordinary table no longer merges the tiers below it; stone became "
+                        + diamondOnStone + " instead of chiseled stone bricks");
+
+        helper.setBlock(mossy, Blocks.COBBLESTONE);
+        Block diamondMoss = chiselAt(helper, player, touchedDiamondChisel, mossy, false,
+                "touched diamond chisel on cobblestone");
+        Assertions.valueEqual(helper, diamondMoss, Blocks.MOSSY_COBBLESTONE,
+                "the diamond tier's Constructor's Touch table no longer merges the tiers below it; "
+                        + "cobblestone became " + diamondMoss + " instead of mossy cobblestone");
+
         // --- the sneaking chisel step costs double, which is the whole balancing of "unchiselling" ---
         ItemStack forwardTool = enchanted(helper, ModItems.STONE_CHISEL, ModEnchantments.CONSTRUCTORS_TOUCH, 1);
         helper.setBlock(mossy, Blocks.COBBLESTONE);
@@ -220,7 +256,33 @@ public final class BuildingEnchantmentTests {
                 "the spatula started paying the sneaking chisel's double cost; isReverseAction leaked "
                         + "out of the chisel branch");
 
+        // --- the cooldown belongs to canChisel as much as to the click ---
+        // This is the one case that does not clear the cooldown first. Without it the
+        // isOnCooldown early return in canChisel is never once taken while it is true, and
+        // deleting it would leave the block highlight promising a transformation for the whole
+        // length of the cooldown that useOn then answers with PASS.
+        ItemStack busyChisel = new ItemStack(ModItems.STONE_CHISEL);
+        helper.setBlock(plain, Blocks.STONE);
+        Block firstClick = chiselAt(helper, player, busyChisel, plain, false, "cooldown probe, first click");
+        Assertions.valueEqual(helper, firstClick, Blocks.CHISELED_STONE_BRICKS,
+                "the cooldown probe chiselled nothing, so there is no cooldown to measure against");
+        helper.assertTrue(player.getCooldowns().isOnCooldown(busyChisel),
+                "the chisel put itself on no cooldown at all, so the branch below is unreachable");
+
+        helper.setBlock(plain, Blocks.STONE);
+        boolean promisedWhileBusy = ((ChiselItem) busyChisel.getItem())
+                .canChisel(helper.getLevel(), helper.absolutePos(plain), busyChisel, player);
+        helper.assertFalse(promisedWhileBusy,
+                "canChisel promises a transformation while the chisel is still on cooldown; the "
+                        + "highlight lights up for a click the item then refuses");
+        Block swallowed = chiselWhileOnCooldown(helper, player, busyChisel, plain,
+                "cooldown probe, second click");
+        Assertions.valueEqual(helper, swallowed, Blocks.STONE,
+                "a chisel on cooldown transformed the block anyway, it became " + swallowed);
+        clearCooldown(player, busyChisel);
+
         player.setShiftKeyDown(false);
+        MockPlayers.remove(helper, player);
         TestCleanup.succeed(helper);
     }
 
@@ -230,17 +292,19 @@ public final class BuildingEnchantmentTests {
 
     /**
      * <strong>Not present on this Minecraft line.</strong> The 26.2 copy of this class carries
-     * {@code constructorsTouchStickCyclesTheFirstBlockStateProperty}, which drives the shared
-     * class {@code com.simplebuilding.util.ConstructorsTouchInteraction}.
+     * {@code constructorsTouchStickCyclesTheFirstBlockStateProperty} and the check that Fabric
+     * delegates to the shared class; both drive
+     * {@code com.simplebuilding.util.ConstructorsTouchInteraction}.
      *
      * <p>MC 1.21.11 has no such class: the very same stick logic lives twice over, once inside
      * {@code mc1_21_11/fabric/.../ModRegistries#registerEvents} and once inside
      * {@code mc1_21_11/neoforge/.../ModRegistriesNeoForge}, each behind its own loader's use-block
      * event. A loader-neutral test body cannot reach either without importing a loader, so the
-     * test is left out here rather than being duplicated per loader.
+     * tests are left out here rather than being duplicated per loader - and the catalogue of this
+     * line leaves their ids out with that reason (see LINE_DIFFERENCES in the test runner).
      *
      * <p>To close this gap, extract the logic on this line into a shared class the way 26.2 did;
-     * the test then ports across unchanged.
+     * the tests then port across unchanged.
      */
     // =====================================================================================
     // FAST CHISELING
@@ -257,16 +321,27 @@ public final class BuildingEnchantmentTests {
      * {@code float} product, not exact percentages, and a test that mirrors the formula cannot
      * notice the formula changing.
      *
-     * <p>The mining side is asserted as a delta on top of the unenchanted speed, so it pins the
-     * two bonus constants without pinning vanilla's stone tool speed. The bonus must also stay
-     * behind the "is this tool effective here" check - otherwise an enchanted chisel would tear
-     * through blocks it has no business mining.
+     * <p>Every tier is drained, not just the stone one. The cooldown is the whole difference
+     * between the tiers as a working tool, it is a different constant per tier, and the only
+     * other reader of {@code getCooldownTicks} is the wiki export - so a tier whose constant was
+     * retuned to anything at all had nothing to fail against.
+     *
+     * <p>The mining side pins the halving against a <em>measured</em> reference rather than
+     * against the mod's own material: whatever a vanilla stone tool is worth on stone, the stone
+     * chisel has to be worth exactly half of it. Stating only the enchantment bonus as a delta
+     * would leave {@code material.speed() * 0.5f} free to become anything, because both the plain
+     * and the enchanted measurement would move together. The same halved speed is then asserted
+     * on an axe block and on a shovel block, which are the other two thirds of the chisel's
+     * "correct tool" claim, and on glass, which is in none of the three tags and must stay at the
+     * bare hand's 1.0.
      *
      * <p><strong>What breaks this test:</strong> never calling {@code addCooldown}, dropping the
      * {@code fastChiselingLevel > 0} branch, reading the level from a different enchantment
-     * (every level would then measure 30 ticks), retuning the {@code 0.3f} step, changing the
-     * {@code 5.0f}/{@code 17.0f} mining bonuses or the {@code * 0.5f} halving, or moving the
-     * bonus in front of the {@code isCorrectToolForDrops} early return.
+     * (every level would then measure 30 ticks), retuning the {@code 0.3f} step or any tier's
+     * cooldown constant, changing the {@code 5.0f}/{@code 17.0f} mining bonuses or the
+     * {@code * 0.5f} halving, dropping the axe or shovel tag from
+     * {@code ChiselItem#isCorrectToolForDrops}, or moving the bonus in front of the
+     * {@code isCorrectToolForDrops} early return.
      */
     public static void fastChiselingShortensTheCooldownAndSpeedsUpMining(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -291,27 +366,80 @@ public final class BuildingEnchantmentTests {
         Assertions.valueEqual(helper, twoCooldown, 11,
                 "Fast Chiseling II did not take 60% off the cooldown");
 
-        // --- mining speed: +5 and +17 raw, halved like the rest of the chisel's speed ---
+        // --- the whole staircase of tier cooldowns, each one drained the same way ---
+        assertTierCooldown(helper, player, ModItems.STONE_CHISEL, 30, target);
+        assertTierCooldown(helper, player, ModItems.COPPER_CHISEL, 25, target);
+        assertTierCooldown(helper, player, ModItems.IRON_CHISEL, 25, target);
+        assertTierCooldown(helper, player, ModItems.GOLD_CHISEL, 20, target);
+        assertTierCooldown(helper, player, ModItems.DIAMOND_CHISEL, 10, target);
+        assertTierCooldown(helper, player, ModItems.NETHERITE_CHISEL, 5, target);
+        assertTierCooldown(helper, player, ModItems.ENDERITE_CHISEL, 5, target);
+
+        // --- mining speed: half the material speed, plus +5 and +17 raw for the enchantment ---
         BlockState stone = Blocks.STONE.defaultBlockState();
+        BlockState planks = Blocks.OAK_PLANKS.defaultBlockState();
+        BlockState dirt = Blocks.DIRT.defaultBlockState();
+        BlockState glass = Blocks.GLASS.defaultBlockState();
+
+        // Measured off vanilla instead of read out of the mod: a stone pickaxe on stone is worth
+        // exactly ToolMaterial.STONE's speed, and the chisel has to come out at half of that.
+        float vanillaStoneToolSpeed = new ItemStack(Items.STONE_PICKAXE).getDestroySpeed(stone);
+        helper.assertTrue(vanillaStoneToolSpeed > 1.0F,
+                "a vanilla stone pickaxe no longer mines stone faster than a bare hand (" + vanillaStoneToolSpeed
+                        + "), so it cannot serve as the reference for the chisel's material speed");
+        float halvedMaterial = vanillaStoneToolSpeed * 0.5F;
+
         float plainSpeed = chisel.getDestroySpeed(new ItemStack(chisel), stone);
         float oneSpeed = chisel.getDestroySpeed(enchanted(helper, chisel, ModEnchantments.FAST_CHISELING, 1), stone);
         float twoSpeed = chisel.getDestroySpeed(enchanted(helper, chisel, ModEnchantments.FAST_CHISELING, 2), stone);
 
-        helper.assertTrue(plainSpeed > 1.0F,
-                "the chisel is not treated as an effective tool on stone any more, speed is " + plainSpeed);
+        assertSpeed(helper, plainSpeed, halvedMaterial,
+                "an unenchanted stone chisel on stone (half of a vanilla stone tool's " + vanillaStoneToolSpeed + ")");
         assertSpeed(helper, oneSpeed, plainSpeed + 2.5F, "Fast Chiseling I");
         assertSpeed(helper, twoSpeed, plainSpeed + 8.5F, "Fast Chiseling II");
 
+        // --- the chisel is the correct tool for pickaxe, axe AND shovel blocks, at the same speed ---
+        helper.assertTrue(chisel.isCorrectToolForDrops(new ItemStack(chisel), stone),
+                "the chisel stopped being the correct tool for a pickaxe block");
+        helper.assertTrue(chisel.isCorrectToolForDrops(new ItemStack(chisel), planks),
+                "the chisel stopped being the correct tool for an axe block, so it drops nothing there");
+        helper.assertTrue(chisel.isCorrectToolForDrops(new ItemStack(chisel), dirt),
+                "the chisel stopped being the correct tool for a shovel block, so it drops nothing there");
+        assertSpeed(helper, chisel.getDestroySpeed(new ItemStack(chisel), planks), halvedMaterial,
+                "an unenchanted stone chisel on oak planks (mineable with an axe)");
+        assertSpeed(helper, chisel.getDestroySpeed(new ItemStack(chisel), dirt), halvedMaterial,
+                "an unenchanted stone chisel on dirt (mineable with a shovel)");
+
         // --- and none of that leaks onto blocks the chisel is not effective on ---
-        BlockState glass = Blocks.GLASS.defaultBlockState();
-        helper.assertTrue(chisel.getDestroySpeed(new ItemStack(chisel), glass) == 1.0F,
+        helper.assertFalse(chisel.isCorrectToolForDrops(new ItemStack(chisel), glass),
                 "glass gained a mineable tag, so it no longer works as the ineffective control "
                         + "block here - pick another untagged block");
+        helper.assertTrue(chisel.getDestroySpeed(new ItemStack(chisel), glass) == 1.0F,
+                "the chisel mines glass at " + chisel.getDestroySpeed(new ItemStack(chisel), glass)
+                        + " although it is the wrong tool for it");
         helper.assertTrue(chisel.getDestroySpeed(
                         enchanted(helper, chisel, ModEnchantments.FAST_CHISELING, 2), glass) == 1.0F,
                 "Fast Chiseling speeds up a block the chisel cannot mine");
 
+        MockPlayers.remove(helper, player);
         TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Chisels once with one tier and drains the cooldown that click imposed, then cross checks it
+     * against {@code getCooldownTicks}. Measured rather than read: a tier that stopped calling
+     * {@code addCooldown}, or that puts a different number in than it reports, fails here even
+     * though its getter still answers correctly.
+     */
+    private static void assertTierCooldown(GameTestHelper helper, ServerPlayer player,
+                                           ChiselItem chisel, int expected, BlockPos target) {
+        String name = String.valueOf(BuiltInRegistries.ITEM.getKey(chisel));
+        int measured = chiselAndDrainCooldown(helper, player, new ItemStack(chisel), target);
+        Assertions.valueEqual(helper, measured, expected,
+                name + " no longer holds the player for " + expected + " ticks between two transformations");
+        Assertions.valueEqual(helper, chisel.getCooldownTicks(), measured,
+                name + " imposes a different cooldown than getCooldownTicks() reports, so the wiki "
+                        + "export and the game disagree");
     }
 
     // =====================================================================================
@@ -467,6 +595,7 @@ public final class BuildingEnchantmentTests {
                             + "before the off hand");
         }
 
+        MockPlayers.remove(helper, player);
         TestCleanup.succeed(helper);
     }
 
@@ -495,6 +624,15 @@ public final class BuildingEnchantmentTests {
      * <p>It also fails, deliberately, if Color Palette ever grows the per-position spread its
      * preview already draws: the placed plane would then mix planks and glass in a different
      * ratio than 3 to 6, and this test has to be rewritten to state the new rule.
+     *
+     * <p>The tail pins the <em>other</em> end of the material search, which both branches share:
+     * the wand looks in the off hand before it looks anywhere else. Every other wand test in the
+     * suite empties the off hand first, so the whole branch was free to be deleted - and a player
+     * who carries their blocks in the off hand would then no longer be able to arm the wand at all
+     * ({@code useOn} answers {@code FAIL} when {@code findFirstBuildingBlock} finds nothing). The
+     * run below therefore keeps the hotbar empty and pays for the whole plane out of the off hand,
+     * so both readers of that branch - the arming check and {@code findSpecificMaterial} inside
+     * the placement loop - have to be there for it to pass.
      */
     public static void colorPaletteKeepsTheWandBuildingWhenOneBlockRunsOut(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -531,6 +669,45 @@ public final class BuildingEnchantmentTests {
         Assertions.valueEqual(helper, countPlaced(helper, paletteAnchor, Blocks.GLASS), 6,
                 "the Color Palette run did not fall through to the glass for the remaining six");
 
+        // --- material carried in the off hand, which is the first place the wand looks ---
+        // A third layer of its own, so its 5x5 read back window cannot reach the two runs above.
+        BlockPos offhandAnchor = new BlockPos(3, 6, 3);
+        ItemStack offhandWand = wandWithRadiusOne(new ItemStack(ModItems.DIAMOND_BUILDING_WAND));
+        ItemStack offhandStock = new ItemStack(Items.BRICKS, 16);
+
+        helper.setBlock(offhandAnchor, Blocks.STONE);
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        player.getInventory().setItem(0, offhandWand);
+        // After clearContent: Inventory#clearContent empties the off hand compartment too.
+        player.setItemInHand(InteractionHand.OFF_HAND, offhandStock);
+
+        InteractionResult armed = useOnTopFace(helper, player, offhandWand, offhandAnchor);
+        helper.assertTrue(armed == InteractionResult.CONSUME,
+                "a wand whose only building block sits in the off hand refused to arm itself, it "
+                        + "returned " + armed + "; findFirstBuildingBlock no longer looks there, so "
+                        + "carrying your blocks in the off hand switches the wand off entirely");
+
+        BuildingWandItem offhandItem = (BuildingWandItem) offhandWand.getItem();
+        int offhandTicks = 0;
+        while (wandIsActive(offhandWand) && offhandTicks < WAND_TICK_CAP) {
+            offhandItem.inventoryTick(offhandWand, helper.getLevel(), player, EquipmentSlot.MAINHAND);
+            offhandTicks++;
+        }
+        helper.assertTrue(offhandTicks < WAND_TICK_CAP,
+                "the off hand wand never finished within " + WAND_TICK_CAP + " ticks");
+
+        Assertions.valueEqual(helper, placedOffsets(helper, offhandAnchor).size(), 9,
+                "the wand did not finish its plane out of the off hand stack; findSpecificMaterial "
+                        + "stopped looking in the off hand");
+        Set<Block> offhandBlocks = distinctPlaced(helper, offhandAnchor);
+        Assertions.valueEqual(helper, offhandBlocks, Set.of(Blocks.BRICKS),
+                "the off hand run placed something other than the off hand block: " + offhandBlocks);
+        Assertions.valueEqual(helper, offhandStock.getCount(), 16 - 9,
+                "the nine blocks were not taken out of the off hand stack, so they came from "
+                        + "somewhere the player is not carrying");
+
+        MockPlayers.remove(helper, player);
         TestCleanup.succeed(helper);
     }
 
@@ -561,12 +738,34 @@ public final class BuildingEnchantmentTests {
      * timer on the way out of ring zero and left it at zero for every further ring would pace both
      * of them exactly as it does today, and a 9x9 plane would appear in one blink after its first
      * ring. The run at the end therefore builds a radius of two and states the general shape of the
-     * formula: one tick for the centre plus {@code DELAY_TICKS + 1} per ring.
+     * formula: one tick for the centre plus {@code DELAY_TICKS + 1} per ring, with the inner 3x3
+     * standing alone for the whole first delay and the outer ring for the whole second one.
+     *
+     * <p>Three things are measured that a plain "how many ticks did the run take" cannot see:
+     *
+     * <ul>
+     *   <li><strong>The plane really is built ring by ring.</strong> The block count is read back
+     *       after <em>every single</em> tick, and the first tick has to show exactly the one
+     *       centre block. A wand that computed all rings in its first tick would still spend the
+     *       same number of ticks draining the same timer afterwards, and would still finish with
+     *       the same nine blocks - the tick count alone cannot tell the two apart.</li>
+     *   <li><strong>The two delays are the numbers they are supposed to be.</strong> Comparing
+     *       the measurement against {@code DELAY_TICKS} only proves the wand uses the constant,
+     *       not what the constant says; setting {@code DELAY_TICKS} to 40 would keep both sides
+     *       of that comparison in step and make the wand ten times slower in silence. The two
+     *       balancing numbers are therefore spelled out here as well - they are pinned nowhere
+     *       else in the repository.</li>
+     *   <li><strong>Nothing is built anywhere else.</strong> The runs are compared against a
+     *       scan of the <em>whole</em> 8x8x8 room instead of the 5x5 window above each anchor.
+     *       A Linear branch that quietly added a second layer, or reached further out sideways,
+     *       lands outside that window and would otherwise be invisible.</li>
+     * </ul>
      *
      * <p><strong>What breaks this test:</strong> dropping the {@code isLinePlace} ternary (both
-     * runs would take {@code DELAY_TICKS + 2}), swapping the two constants, reading Linear from
-     * the wrong stack, arming the timer for the first ring only, or Linear starting to change
-     * {@code calculatePositions}.
+     * runs would take {@code DELAY_TICKS + 2}), swapping or retuning the two constants, reading
+     * Linear from the wrong stack, collapsing the per-ring loop into a single tick, arming the
+     * timer for the first ring only, or Linear starting to change {@code calculatePositions} - in
+     * the plane or out of it.
      */
     public static void linearOnlyShortensTheWandStepDelay(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -579,18 +778,29 @@ public final class BuildingEnchantmentTests {
         // its 5x5 window cannot reach them either.
         BlockPos wideAnchor = new BlockPos(3, 6, 3);
 
+        // Whatever the empty test room already contains - the loaders do not agree on whether it
+        // has a floor - so the "nothing else was touched" comparison below states a difference
+        // instead of a room layout.
+        Set<BlockPos> roomBefore = solidPositions(helper);
+
         ItemStack plainWand = wandWithRadiusOne(new ItemStack(ModItems.DIAMOND_BUILDING_WAND));
         ItemStack linearWand = wandWithRadiusOne(new ItemStack(ModItems.DIAMOND_BUILDING_WAND));
         linearWand.enchant(enchantment(helper, ModEnchantments.LINEAR), 1);
 
-        int plainTicks = runWandUntilIdle(helper, player, plainWand, plainAnchor, new ItemStack(Items.STONE, 64));
-        int linearTicks = runWandUntilIdle(helper, player, linearWand, linearAnchor, new ItemStack(Items.STONE, 64));
+        List<Integer> plainProgress =
+                runWandTickByTick(helper, player, plainWand, plainAnchor, new ItemStack(Items.STONE, 64));
+        List<Integer> linearProgress =
+                runWandTickByTick(helper, player, linearWand, linearAnchor, new ItemStack(Items.STONE, 64));
+        int plainTicks = plainProgress.size();
+        int linearTicks = linearProgress.size();
 
         // A third run, two rings wide. Both runs above take exactly one step outwards, so they
         // measure one single pause; a wand that arms the timer for the first ring and leaves it at
         // zero for every ring after that paces them identically and only shows up here.
         ItemStack wideWand = wandWithRadius(new ItemStack(ModItems.DIAMOND_BUILDING_WAND), 2);
-        int wideTicks = runWandUntilIdle(helper, player, wideWand, wideAnchor, new ItemStack(Items.STONE, 64));
+        List<Integer> wideProgress =
+                runWandTickByTick(helper, player, wideWand, wideAnchor, new ItemStack(Items.STONE, 64));
+        int wideTicks = wideProgress.size();
 
         // --- the shape is untouched ---
         Set<BlockPos> plainShape = placedOffsets(helper, plainAnchor);
@@ -601,6 +811,49 @@ public final class BuildingEnchantmentTests {
                 "Linear changed the shape the wand builds. That is a real feature now, so this test "
                         + "has to be replaced by one that states what the new shape is.");
 
+        // --- and nothing at all stands outside those three planes ---
+        // The window above only looks at one layer, five blocks wide. A run that also placed a
+        // block one step higher, or six blocks out, would fill exactly the same window.
+        Set<BlockPos> expected = new HashSet<>(roomBefore);
+        expected.add(plainAnchor);
+        expected.add(linearAnchor);
+        expected.add(wideAnchor);
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                expected.add(plainAnchor.offset(dx, 1, dz));
+                expected.add(linearAnchor.offset(dx, 1, dz));
+            }
+        }
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dz = -2; dz <= 2; dz++) {
+                expected.add(wideAnchor.offset(dx, 1, dz));
+            }
+        }
+        Set<BlockPos> stray = new HashSet<>(solidPositions(helper));
+        stray.removeAll(expected);
+        helper.assertTrue(stray.isEmpty(),
+                "the wand put blocks outside the two 3x3 planes and the one 5x5 plane it was asked "
+                        + "for, at " + stray + " (relative positions). Linear is only supposed to "
+                        + "change the pacing.");
+
+        // --- one ring per step: the centre first, the outer ring only on the very last tick ---
+        Assertions.valueEqual(helper, plainProgress.get(0), 1,
+                "the unenchanted wand did not start with the single centre block; it placed "
+                        + plainProgress.get(0) + " blocks in its first tick, so the ring by ring build "
+                        + "is gone and the delay measured below paces nothing");
+        Assertions.valueEqual(helper, plainProgress.get(plainTicks - 2), 1,
+                "the unenchanted wand had already placed " + plainProgress.get(plainTicks - 2)
+                        + " blocks one tick before it finished; the outer ring is supposed to wait "
+                        + "out the whole delay");
+        Assertions.valueEqual(helper, plainProgress.get(plainTicks - 1), 9, "blocks after the last plain tick");
+        Assertions.valueEqual(helper, linearProgress.get(0), 1,
+                "the Linear wand did not start with the single centre block either, it placed "
+                        + linearProgress.get(0));
+        Assertions.valueEqual(helper, linearProgress.get(linearTicks - 2), 1,
+                "the Linear wand had already placed " + linearProgress.get(linearTicks - 2)
+                        + " blocks one tick before it finished");
+        Assertions.valueEqual(helper, linearProgress.get(linearTicks - 1), 9, "blocks after the last Linear tick");
+
         // --- only the pacing is ---
         helper.assertTrue(linearTicks < plainTicks,
                 "Linear did not speed the wand up at all: " + linearTicks + " ticks against " + plainTicks);
@@ -608,6 +861,16 @@ public final class BuildingEnchantmentTests {
                 "the unenchanted wand no longer paces itself with DELAY_TICKS");
         Assertions.valueEqual(helper, linearTicks, BuildingWandItem.DELAY_TICKS_LINE + 2,
                 "the Linear wand no longer paces itself with DELAY_TICKS_LINE");
+
+        // The two constants themselves, because the two assertions above compare the wand against
+        // them and would follow them anywhere. These are the only two places in the repository
+        // where the wand's step delay is stated as a number; if one of them is retuned on purpose,
+        // this is the line that has to be updated with it.
+        Assertions.valueEqual(helper, BuildingWandItem.DELAY_TICKS, 4,
+                "BuildingWandItem.DELAY_TICKS was retuned. Nothing else pins it, so state the new "
+                        + "pause between two rings here on purpose or the wand can be slowed down at will.");
+        Assertions.valueEqual(helper, BuildingWandItem.DELAY_TICKS_LINE, 2,
+                "BuildingWandItem.DELAY_TICKS_LINE was retuned; same story as DELAY_TICKS above.");
 
         // --- every ring waits, not only the first one ---
         // Everything above this line is measured on a radius of one, which is a single step
@@ -619,10 +882,16 @@ public final class BuildingEnchantmentTests {
                 "a two ring wand took " + wideTicks + " ticks; every ring after the first one is "
                         + "supposed to wait out the same delay, so the wand is no longer pacing the "
                         + "rings past the first");
-        Assertions.valueEqual(helper, placedOffsets(helper, wideAnchor).size(), 25,
-                "the two ring wand did not finish the 5x5 plane its radius setting asks for, so the "
-                        + "tick count above was measured on a run that built something else");
+        Assertions.valueEqual(helper, wideProgress.get(BuildingWandItem.DELAY_TICKS + 1), 9,
+                "the two ring wand did not have exactly the inner 3x3 standing on the tick its "
+                        + "first delay ran out, it had " + wideProgress.get(BuildingWandItem.DELAY_TICKS + 1));
+        Assertions.valueEqual(helper, wideProgress.get(wideTicks - 2), 9,
+                "the outer ring of the two ring wand was already standing one tick before the run "
+                        + "ended, so the second delay paced nothing");
+        Assertions.valueEqual(helper, wideProgress.get(wideTicks - 1), 25,
+                "the two ring wand did not finish the 5x5 plane its radius setting asks for");
 
+        MockPlayers.remove(helper, player);
         TestCleanup.succeed(helper);
     }
 
@@ -662,16 +931,32 @@ public final class BuildingEnchantmentTests {
     /**
      * Right clicks the top face of a block with a chisel or spatula and returns the block that is
      * there afterwards. Any cooldown left over from an earlier step is cleared first, so every
-     * case starts from the same state instead of being silently swallowed by the previous one.
-     *
-     * <p>On the way through it compares {@code ChiselItem#canChisel} - the predicate the client
-     * highlight uses - with what the click actually did. The two repeat the same map selection
-     * in two places and have to agree.
+     * case starts from the same state instead of being silently swallowed by the previous one -
+     * which is exactly why the cooldown itself needs {@link #chiselWhileOnCooldown}.
      */
     private static Block chiselAt(GameTestHelper helper, ServerPlayer player, ItemStack chisel,
                                   BlockPos relativePos, boolean sneaking, String what) {
-        player.setShiftKeyDown(sneaking);
         clearCooldown(player, chisel);
+        return chiselClick(helper, player, chisel, relativePos, sneaking, what);
+    }
+
+    /**
+     * The same click as {@link #chiselAt}, but with whatever cooldown the item is under left in
+     * place - the only way to run {@code canChisel}'s cooldown branch while it is actually true.
+     */
+    private static Block chiselWhileOnCooldown(GameTestHelper helper, ServerPlayer player,
+                                               ItemStack chisel, BlockPos relativePos, String what) {
+        return chiselClick(helper, player, chisel, relativePos, false, what);
+    }
+
+    /**
+     * Right clicks the top face and compares {@code ChiselItem#canChisel} - the predicate the
+     * client highlight uses - with what the click actually did. The two repeat the same map
+     * selection plus the same cooldown check in two places and have to agree.
+     */
+    private static Block chiselClick(GameTestHelper helper, ServerPlayer player, ItemStack chisel,
+                                     BlockPos relativePos, boolean sneaking, String what) {
+        player.setShiftKeyDown(sneaking);
         BlockPos pos = helper.absolutePos(relativePos);
 
         boolean predicted = ((ChiselItem) chisel.getItem()).canChisel(helper.getLevel(), pos, chisel, player);
@@ -726,6 +1011,19 @@ public final class BuildingEnchantmentTests {
      */
     private static int runWandUntilIdle(GameTestHelper helper, ServerPlayer player, ItemStack wand,
                                         BlockPos anchor, ItemStack... supplies) {
+        return runWandTickByTick(helper, player, wand, anchor, supplies).size();
+    }
+
+    /**
+     * The same run as {@link #runWandUntilIdle}, but handing back how many blocks stood in the
+     * plane after <em>each</em> tick - one entry per tick, so the list length is the tick count.
+     *
+     * <p>That intermediate view is the only thing that can tell "one ring per step" apart from
+     * "everything at once, then wait": both build the same nine blocks and both leave the timer
+     * running for the same number of ticks, so both finish on the same tick count.
+     */
+    private static List<Integer> runWandTickByTick(GameTestHelper helper, ServerPlayer player, ItemStack wand,
+                                                   BlockPos anchor, ItemStack... supplies) {
         helper.setBlock(anchor, Blocks.STONE);
         player.getInventory().clearContent();
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
@@ -741,14 +1039,39 @@ public final class BuildingEnchantmentTests {
         helper.assertTrue(wandIsActive(wand), "the wand did not switch itself on when it was armed");
 
         BuildingWandItem item = (BuildingWandItem) wand.getItem();
-        int ticks = 0;
-        while (wandIsActive(wand) && ticks < WAND_TICK_CAP) {
+        List<Integer> perTick = new ArrayList<>();
+        while (wandIsActive(wand) && perTick.size() < WAND_TICK_CAP) {
             item.inventoryTick(wand, helper.getLevel(), player, EquipmentSlot.MAINHAND);
-            ticks++;
+            perTick.add(placedOffsets(helper, anchor).size());
         }
-        helper.assertTrue(ticks < WAND_TICK_CAP,
+        helper.assertTrue(perTick.size() < WAND_TICK_CAP,
                 "the wand never finished within " + WAND_TICK_CAP + " ticks");
-        return ticks;
+        helper.assertTrue(perTick.size() >= 2,
+                "the wand finished in " + perTick.size() + " tick(s); the per tick assertions below "
+                        + "need at least an arming tick and a closing tick to compare");
+        return perTick;
+    }
+
+    /**
+     * Every position in the whole 8x8x8 room that is not air, in room relative coordinates.
+     *
+     * <p>Used as a before/after pair: the empty test room is not guaranteed to be empty (the
+     * loaders differ on whether it carries a floor), so what the tests state is the
+     * <em>difference</em> a run made, not the room's contents.
+     */
+    private static Set<BlockPos> solidPositions(GameTestHelper helper) {
+        Set<BlockPos> solid = new HashSet<>();
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                for (int z = 0; z < 8; z++) {
+                    BlockPos pos = new BlockPos(x, y, z);
+                    if (!helper.getBlockState(pos).isAir()) {
+                        solid.add(pos);
+                    }
+                }
+            }
+        }
+        return solid;
     }
 
     /** Whether the wand's own NBT still says it has building left to do. */
@@ -849,7 +1172,7 @@ public final class BuildingEnchantmentTests {
 
     private static void assertSpeed(GameTestHelper helper, float actual, float expected, String what) {
         helper.assertTrue(Math.abs(actual - expected) < 1.0E-4F,
-                what + " changed the chisel's mining speed to " + actual + " instead of " + expected);
+                what + ": the chisel's mining speed is " + actual + " instead of " + expected);
     }
 
     private static void setLogAxis(GameTestHelper helper, BlockPos pos, Direction.Axis axis) {

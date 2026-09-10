@@ -381,10 +381,25 @@ datengetrieben), `DataIntegrityTests` (254), `BuildingEnchantmentTests` (253),
 `ItemBehaviourTests` (196), `ToolBehaviourTests` (175), `NetworkHandlerTests` (171).
 
 Das Paritätstor hat das nicht gesehen, weil es Test-**Ids** vergleicht und Schärfungen keine Ids
-hinzufügen. `tools/port_tests_to_1_21_11.py --check` sieht es auch nicht: es prüft nur, ob jede
-Klasse auf beiden Linien existiert. Beides wird ergänzt (ein `--drift`, das die Körper vergleicht,
-und ein Eintrag im Release-Tor), und die 15 Klassen werden mit dem Werkzeug nachgezogen — genau
-so, wie die Client-Kopie am 2026-09-10 entstanden ist.
+hinzufügen. `tools/port_tests_to_1_21_11.py --check` sah es auch nicht: es prüfte nur, ob jede
+Klasse auf beiden Linien existiert.
+
+**Ursache, aus der Historie belegt:** die Commits `284ee2d`, `37c41f4`, `e6b0546` und `73159b7`
+(2026-09-03/04, „Stapel 4" — 127 Lücken und 94 falsche Grün) haben ausschließlich 26.2-Dateien
+angefasst, keine einzige unter `mc1_21_11/`. Die späteren P7-Commits gingen auf beide Linien, aber
+auf den alten 1.21.11-Körpern.
+
+**Nachgezogen am 2026-09-10:** die fehlenden Commits wurden je Klasse als übersetzte Diffs
+wiederholt (`patch --forward --fuzz=3`), die zehn am weitesten zurückliegenden Klassen frisch aus
+26.2 portiert, mit den 1.21.11-Konventionen (`Assertions.valueEqual`, `MockPlayers.remove`,
+`TestCleanup`) per Regel wiederhergestellt. Drei echte API-Unterschiede blieben für die Hand:
+`ConstructorsTouchInteraction` gibt es auf 1.21.11 nicht (Stock-Abschnitt bleibt draußen, mit
+Notiz), `Items.COPPER_BLOCK.weathering()` und `Recipe.assemble(input, registries)`.
+
+`--drift` vergleicht seitdem die Körper (mechanische Unterschiede herausgerechnet, Toleranz 12
+Zeilen, echte Linienunterschiede in `DRIFT_EXPLAINED` benannt) und hängt im Release-Tor. Stand:
+**kein unerklärter Unterschied** mehr. Ob die nachgezogenen Körper auf 1.21.11 auch **laufen**,
+sagt erst der Serverlauf danach.
 
 **Nebenbefund auf dem Weg:** Fabrics `ModMessages` trug für alle elf Server-Empfänger eine
 eigene Kopie der Logik, NeoForge delegiert an das gemeinsame `ModMessageHandlers`. Die Kopien

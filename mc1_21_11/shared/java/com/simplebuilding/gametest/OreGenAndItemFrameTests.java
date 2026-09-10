@@ -6,7 +6,10 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.LockedFrameExtensions;
 import com.simplebuilding.util.ModWorldGen;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -20,12 +23,15 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -114,6 +120,17 @@ public final class OreGenAndItemFrameTests {
     /** Frames face south, so their supporting block sits one step north of them. */
     private static final Direction FRAME_FACING = Direction.SOUTH;
 
+    /**
+     * Every biome the End dimension is built from. All five are in {@code #minecraft:is_end} and
+     * in the vanilla End biome source, so both loaders' selectors have to reach every one of them.
+     */
+    private static final List<ResourceKey<Biome>> END_BIOMES = List.of(
+            Biomes.THE_END,
+            Biomes.END_HIGHLANDS,
+            Biomes.END_MIDLANDS,
+            Biomes.END_BARRENS,
+            Biomes.SMALL_END_ISLANDS);
+
     private static final BlockPos FRAME_POS = new BlockPos(2, 3, 3);
     private static final BlockPos SECOND_FRAME_POS = new BlockPos(5, 3, 3);
     private static final BlockPos THIRD_FRAME_POS = new BlockPos(2, 5, 3);
@@ -181,25 +198,38 @@ public final class OreGenAndItemFrameTests {
      * {@code BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd(), ...)}, NeoForge through
      * a {@code biome_modifier} JSON keyed on {@code #minecraft:is_end} - completely different
      * mechanisms that have to end in the same place: the End biomes carry the placed feature in
-     * their underground ores step, and the Overworld does not carry it at all.
+     * their underground ores step, and nothing else carries it at all.
      *
      * <p>This is the one assertion here that covers the loader wiring rather than the data, and it
-     * is the check a port breaks first. Only {@code the_end} and {@code end_highlands} are
-     * required: both are in every End biome source and in {@code #minecraft:is_end}, so both
-     * loaders' selectors must reach them, which keeps the test about the mod's wiring instead of
-     * about the exact biome list a loader happens to select. {@code plains} is the counter sample.
+     * is the check a port breaks first. Both halves are stated over the whole set rather than over
+     * a sample, because a sample is exactly what a narrowed or a widened selector slips past:
+     *
+     * <ul>
+     *   <li><strong>Reach.</strong> All five biomes the End is built from are required, not just
+     *       {@code the_end} and {@code end_highlands}. Those two alone are also what an
+     *       {@code includeByKey(THE_END, END_HIGHLANDS)} selector would hit - and the ore would
+     *       then be gone from {@code end_midlands}, {@code end_barrens} and
+     *       {@code small_end_islands}, which is most of the outer islands a player ever visits.
+     *       All five sit in {@code #minecraft:is_end} and in the End's own biome source, so both
+     *       loaders' selectors have to reach all five.</li>
+     *   <li><strong>Containment.</strong> Instead of asking one Overworld biome, the whole biome
+     *       registry is walked and every biome that carries the feature has to be inside
+     *       {@code #minecraft:is_end}. A selector widened by one Overworld tag - forests, say -
+     *       leaves {@code plains} clean and would pass a single counter sample.</li>
+     * </ul>
      *
      * <p>Breaks if {@code ModOreGeneration.generateOres()} is no longer called on Fabric, if the
      * NeoForge biome modifier files are dropped or renamed, if the generation step is moved, or if
-     * a selector is widened to something like "all biomes" and End ore starts appearing in the
-     * Overworld.
+     * a selector is narrowed to a hand written biome list or widened past the End.
      */
     public static void bothEndOresReachTheEndBiomesAndStayOutOfTheOverworld(GameTestHelper helper) {
         for (ResourceKey<PlacedFeature> ore : List.of(
                 ModWorldGen.ASTRALIT_ORE_PLACED_KEY, ModWorldGen.NIHILITH_ORE_PLACED_KEY)) {
-            assertOreInBiome(helper, Biomes.THE_END, ore);
-            assertOreInBiome(helper, Biomes.END_HIGHLANDS, ore);
+            for (ResourceKey<Biome> endBiome : END_BIOMES) {
+                assertOreInBiome(helper, endBiome, ore);
+            }
             assertOreNotInBiome(helper, Biomes.PLAINS, ore);
+            assertOreNowhereOutsideTheEnd(helper, ore);
         }
         TestCleanup.succeed(helper);
     }
@@ -222,10 +252,20 @@ public final class OreGenAndItemFrameTests {
      * are deliberate - the lock is protection from other survival players, not from the owner -
      * and both fail here the moment the {@code isCreative()} conditions are removed.
      *
+     * <p>Two conditions in the mixin exist only to keep other branches reachable, and both are
+     * driven here on purpose. The lock branch's {@code !locked} check is what lets the unlock
+     * branch behind it run while the player is <em>holding</em> a glass pane - without it a frame
+     * can be locked but never opened again by anyone carrying panes. And a sneak click that
+     * matches none of the four branches has to fall through to vanilla rather than be answered
+     * with {@code FAIL}, which is only visible in that vanilla then puts the held item into an
+     * empty frame.
+     *
      * <p>Breaks if the lock flag stops being written or read (a locked frame would silently open
      * itself on the next server restart), if the {@code InteractionResult.FAIL} guard at the end
-     * of the interact hook is lost (locked frames would be lootable again), or if the
-     * "frame must not be empty" condition disappears and empty frames start swallowing panes.
+     * of the interact hook is lost (locked frames would be lootable again), if the
+     * "frame must not be empty" condition disappears and empty frames start swallowing panes, if
+     * the lock branch stops asking whether the frame is already locked, or if the sneak block
+     * starts consuming clicks it did nothing with.
      */
     public static void glassPaneLocksTheFrameAndTheLockSurvivesTheSaveRoundTrip(GameTestHelper helper) {
         ServerPlayer player = creativePlayer(helper);
@@ -257,9 +297,16 @@ public final class OreGenAndItemFrameTests {
 
         // --- an empty frame must not be lockable ---
         ItemFrame empty = emptyFrame(helper, SECOND_FRAME_POS);
-        interact(empty, player, new ItemStack(Items.GLASS_PANE), true);
+        ItemStack paneForEmptyFrame = new ItemStack(Items.GLASS_PANE);
+        interact(empty, player, paneForEmptyFrame, true);
         helper.assertFalse(isLocked(helper, empty),
                 "an empty frame was locked, so the 'frame must hold an item' guard is gone");
+        // Nothing in the mixin claimed that click, so it has to reach vanilla, which puts the pane
+        // into the empty frame. Without this the whole sneak block could end in a blanket FAIL and
+        // every frame test would stay green while sneak-placing into a frame stopped working.
+        helper.assertTrue(empty.getItem().is(Items.GLASS_PANE),
+                "a sneak click the frame's own branches all refused was swallowed instead of handed "
+                        + "on; the empty frame holds " + empty.getItem() + " rather than the pane");
 
         // --- sneaking again unlocks it and hands the pane back ---
         InteractionResult unlocking = interact(frame, player, ItemStack.EMPTY, true);
@@ -271,6 +318,25 @@ public final class OreGenAndItemFrameTests {
         rotation = frame.getRotation();
         interact(frame, player, ItemStack.EMPTY, false);
         helper.assertTrue(frame.getRotation() != rotation, "the frame kept refusing right clicks after it was unlocked");
+
+        // --- unlocking works with a glass pane in the hand too, and that is not a detail ---
+        // The lock branch carries a "not already locked" condition purely so that the unlock
+        // branch behind it can be reached while the player is holding the very item that locks.
+        // Every unlock above was done empty handed, so that condition could be deleted with all of
+        // them still passing - while in game a player who carries glass panes could never open one
+        // of their own frames again.
+        ItemStack panesInHand = new ItemStack(Items.GLASS_PANE, 3);
+        interact(frame, player, panesInHand, true);
+        helper.assertTrue(isLocked(helper, frame),
+                "the frame did not lock again, so the unlock below would prove nothing");
+        InteractionResult unlockedHoldingPanes = interact(frame, player, panesInHand, true);
+        helper.assertTrue(unlockedHoldingPanes == InteractionResult.SUCCESS,
+                "sneaking with a glass pane on an already locked frame returned "
+                        + unlockedHoldingPanes);
+        helper.assertFalse(isLocked(helper, frame),
+                "sneaking with a glass pane on an already locked frame locked it again instead of "
+                        + "unlocking it; the lock branch stopped checking whether the frame is "
+                        + "already locked, so panes in the hand are now a one way door");
 
         // --- the lock comes back with the saved data ---
         // Deliberately a second, never added frame: loading into the frame that is already in the
@@ -304,9 +370,20 @@ public final class OreGenAndItemFrameTests {
      * in front of the unlock branch, a locked frame can be made invisible and then no longer be
      * unlocked in any obvious way.
      *
+     * <p>The reveal is driven twice, once with the shears still in hand and once with an empty
+     * one. The branch has no item condition at all and must not grow one: a player who hides a
+     * frame and then puts the shears away would otherwise be left with a frame that can never be
+     * brought back, which is the disaster case this test exists for.
+     *
+     * <p>The empty frame case also states what happens when <em>none</em> of the four sneak
+     * branches match: the click has to be handed on to vanilla, which puts the held item into the
+     * frame. That is the only observable difference between falling through and answering
+     * {@code FAIL}, so without it the sneak block could be closed off entirely.
+     *
      * <p>Breaks if the shear branch loses its {@code !isInvisible()} condition (the frame could
-     * never be revealed again), if the "already invisible" fallback disappears, if the branch
-     * order in the interact hook changes, or if a creative player suddenly starts paying shear
+     * never be revealed again), if the "already invisible" fallback disappears or grows an item
+     * condition, if the branch order in the interact hook changes, if the sneak block starts
+     * consuming clicks it did nothing with, or if a creative player suddenly starts paying shear
      * durability.
      */
     public static void shearsHideTheFrameAndTheLockTakesPriorityOverThem(GameTestHelper helper) {
@@ -328,11 +405,37 @@ public final class OreGenAndItemFrameTests {
                 "sneaking on a hidden frame did not reveal it, result was " + reveal);
         helper.assertFalse(frame.isInvisible(), "the frame stayed invisible, so it can never be found again");
 
+        // --- and the way back does not ask what is in the hand ---
+        // The reveal branch is the last of the four and deliberately carries no item condition.
+        // The case above happens to hold shears, so narrowing the branch to shears would leave it
+        // green - and a player who hid a frame and then put the shears away would be looking at an
+        // invisible frame they can no longer bring back, which is exactly the disaster the
+        // paragraph above this method describes.
+        interact(frame, player, new ItemStack(Items.SHEARS), true);
+        helper.assertTrue(frame.isInvisible(),
+                "the frame did not hide again, so the empty handed reveal below would prove nothing");
+        InteractionResult revealEmptyHanded = interact(frame, player, ItemStack.EMPTY, true);
+        helper.assertTrue(revealEmptyHanded == InteractionResult.SUCCESS,
+                "an empty handed sneak on a hidden frame returned " + revealEmptyHanded);
+        helper.assertFalse(frame.isInvisible(),
+                "an empty handed sneak no longer reveals a hidden frame; the reveal branch grew an "
+                        + "item condition and a frame hidden without the tool still in hand is lost");
+
         // --- an empty frame is not hidden (vanilla puts the shears in it instead) ---
         ItemFrame empty = emptyFrame(helper, SECOND_FRAME_POS);
-        interact(empty, player, new ItemStack(Items.SHEARS), true);
+        ItemStack shearsForEmptyFrame = new ItemStack(Items.SHEARS);
+        interact(empty, player, shearsForEmptyFrame, true);
         helper.assertFalse(empty.isInvisible(),
                 "an empty frame was hidden, so the 'frame must hold an item' guard is gone");
+        // This click matches none of the four sneak branches, and the mixin has to hand it on
+        // rather than swallow it: vanilla then puts the held item into the empty frame. That is
+        // the only observable difference between "fell through" and "was answered with FAIL", so
+        // without it the sneak block could be closed off entirely and every frame test would still
+        // pass while sneak-placing into a frame stopped working in game.
+        helper.assertTrue(empty.getItem().is(Items.SHEARS),
+                "a sneak click that matched none of the frame's own branches was swallowed instead "
+                        + "of handed on; the empty frame holds " + empty.getItem()
+                        + " rather than the shears");
 
         // --- on a locked frame the shears unlock instead of hiding ---
         interact(frame, player, new ItemStack(Items.GLASS_PANE), true);
@@ -438,10 +541,24 @@ public final class OreGenAndItemFrameTests {
      * <em>empty</em> frame writes nothing either (there is nothing to point at), and only the
      * enchanted magnet on a filled frame both writes the id and stops the rotation.
      *
+     * <p><strong>And the magnet has to act on what it learned.</strong> The frame writes the id
+     * under the literal key {@code MagnetFilter}; {@code MagnetItem} reads it back through a
+     * private constant of its own. Reading the raw tag - which is all this test could do at first
+     * - proves the frame wrote something, not that anything reads it: renaming that constant
+     * leaves the frame writing into a tag nobody looks at and every magnet pulling everything
+     * again. The magnet is therefore run once, by hand, against a matching and a non matching
+     * item. It is also the only place in the suite that ever runs a magnet with a filter set at
+     * all, so the whole {@code passesFilter} path hangs on it.
+     *
+     * <p>That single {@code inventoryTick} is a Constructor's Touch magnet, whose range covers the
+     * test room; it only writes a motion vector on the two probes below, which are removed again
+     * straight after.
+     *
      * <p>Breaks if the enchantment lookup in the mixin stops resolving (a renamed enchantment id
      * would silently turn every magnet into a plain one), if the {@code !getItem().isEmpty()}
-     * condition is dropped so an empty frame clears the filter to nothing, or if the branch stops
-     * returning {@code SUCCESS} and vanilla rotates the item behind it.
+     * condition is dropped so an empty frame clears the filter to nothing, if the branch stops
+     * returning {@code SUCCESS} and vanilla rotates the item behind it, or if the two sides of the
+     * {@code MagnetFilter} key drift apart.
      */
     public static void constructorsTouchMagnetTakesItsFilterFromTheFramedItem(GameTestHelper helper) {
         ServerPlayer player = creativePlayer(helper);
@@ -465,6 +582,30 @@ public final class OreGenAndItemFrameTests {
         Assertions.valueEqual(helper, filterOf(enchanted), "minecraft:diamond", "magnet filter taken from the frame");
         Assertions.valueEqual(helper, frame.getRotation(), rotation,
                 "rotation of the frame the filter was read from - the branch has to swallow the click");
+
+        // --- and the magnet obeys the filter it just learned ---
+        // The assertion above only says the frame wrote the tag. This says the magnet reads it:
+        // the diamond it was pointed at is pulled, the gold ingot next to it is not.
+        player.setShiftKeyDown(false);
+        player.setItemInHand(InteractionHand.MAIN_HAND, enchanted);
+        ItemEntity wanted = helper.spawnItem(Items.DIAMOND, new Vec3(2.5, 3.5, 4.5));
+        ItemEntity unwanted = helper.spawnItem(Items.GOLD_INGOT, new Vec3(4.5, 3.5, 4.5));
+        wanted.setDeltaMovement(Vec3.ZERO);
+        wanted.setOnGround(false);
+        unwanted.setDeltaMovement(Vec3.ZERO);
+        unwanted.setOnGround(false);
+
+        enchanted.getItem().inventoryTick(enchanted, helper.getLevel(), player, EquipmentSlot.MAINHAND);
+
+        helper.assertTrue(wanted.getDeltaMovement().lengthSqr() > 0.0,
+                "the magnet did not pull the item its filter names, so the filter it was just given "
+                        + "does not let anything through at all");
+        helper.assertTrue(unwanted.getDeltaMovement().lengthSqr() == 0.0,
+                "the magnet pulled an item its filter does not name, its motion is now "
+                        + unwanted.getDeltaMovement() + "; the filter the frame wrote is not the one "
+                        + "MagnetItem reads back, so setting a filter does nothing");
+        wanted.discard();
+        unwanted.discard();
 
         // --- an empty frame offers nothing to filter on ---
         ItemFrame empty = emptyFrame(helper, SECOND_FRAME_POS);
@@ -593,13 +734,61 @@ public final class OreGenAndItemFrameTests {
                         + "(step index, -1 means not attached)");
     }
 
+    /**
+     * Walks the <em>whole</em> biome registry and fails if anything outside
+     * {@code #minecraft:is_end} carries the placed feature.
+     *
+     * <p>A single Overworld counter sample only says "not in that one biome". The mod's claim is
+     * "not outside the End", and a selector that gained one extra tag would keep the sample clean
+     * while the ore turned up in a third of the Overworld. The tag is the reference on both
+     * loaders: Fabric's {@code foundInTheEnd()} selects the biomes of the End's biome source,
+     * which are exactly the members of that tag.
+     */
+    private static void assertOreNowhereOutsideTheEnd(GameTestHelper helper,
+                                                      ResourceKey<PlacedFeature> placedKey) {
+        Registry<Biome> biomes = helper.getLevel().registryAccess().lookupOrThrow(Registries.BIOME);
+
+        Set<ResourceKey<Biome>> endBiomes = new HashSet<>();
+        for (Holder<Biome> holder : biomes.getTagOrEmpty(BiomeTags.IS_END)) {
+            holder.unwrapKey().ifPresent(endBiomes::add);
+        }
+        helper.assertTrue(endBiomes.size() >= END_BIOMES.size(),
+                "#minecraft:is_end resolved to " + endBiomes.size() + " biomes, fewer than the End "
+                        + "itself is built from; it cannot serve as the reference for what counts as "
+                        + "\"inside the End\" here");
+
+        List<String> leaked = new ArrayList<>();
+        int examined = 0;
+        for (Map.Entry<ResourceKey<Biome>, Biome> entry : biomes.entrySet()) {
+            if (endBiomes.contains(entry.getKey())) {
+                continue;
+            }
+            examined++;
+            if (stepOf(entry.getValue(), placedKey) >= 0) {
+                leaked.add(String.valueOf(entry.getKey().identifier()));
+            }
+        }
+        helper.assertTrue(examined >= 20,
+                "only " + examined + " biomes outside #minecraft:is_end were in the registry at all, "
+                        + "so this containment check looked at almost nothing and would report a leak "
+                        + "nowhere");
+        helper.assertTrue(leaked.isEmpty(),
+                placedKey.identifier() + " is attached to " + leaked.size() + " biome(s) outside "
+                        + "#minecraft:is_end: " + leaked + "; the loader's biome selector reaches "
+                        + "past the End and the ore generates where no player expects it");
+    }
+
     /** Index of the generation step {@code placedKey} sits in, or {@code -1} if the biome has it nowhere. */
     private static int stepOf(GameTestHelper helper, ResourceKey<Biome> biomeKey,
                               ResourceKey<PlacedFeature> placedKey) {
         Registry<Biome> biomes = helper.getLevel().registryAccess().lookupOrThrow(Registries.BIOME);
         Biome biome = biomes.getValue(biomeKey);
         helper.assertTrue(biome != null, "the biome " + biomeKey.identifier() + " is not in the registry");
+        return stepOf(biome, placedKey);
+    }
 
+    /** The same lookup for a biome that is already in hand, so the registry walk needs no keys. */
+    private static int stepOf(Biome biome, ResourceKey<PlacedFeature> placedKey) {
         List<HolderSet<PlacedFeature>> steps = biome.getGenerationSettings().features();
         for (int step = 0; step < steps.size(); step++) {
             for (Holder<PlacedFeature> holder : steps.get(step)) {

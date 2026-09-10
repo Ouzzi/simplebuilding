@@ -145,6 +145,14 @@ DRIFT_EXPLAINED: dict[str, str] = {
                               "Tag-Merge haben auf 1.21.11 kein Gegenstueck (siehe LINE_DIFFERENCES)",
     "TradeRegistryTests": "26.2-only, siehe LINE_DIFFERENCES",
     "TradeOfferTests": "26.2-only, siehe LINE_DIFFERENCES",
+    "BuildingEnchantmentTests": "der Stock-Abschnitt (ConstructorsTouchInteraction) fehlt auf 1.21.11 - die "
+                                "Logik liegt dort je Loader doppelt, siehe die Notiz in der Klasse",
+    "BundleWiringTests": "Handelsangebote: 26.2 zieht sie aus der VILLAGER_TRADE-Registry mit LootParams, "
+                         "1.21.11 aus ModTradeDefinitions - gleiche Aussagen, anderer Weg",
+    "WandEnchantmentTests": "wie BundleWiringTests: Registry gegen ModTradeDefinitions",
+    "MiningEnchantmentTests": "wie BundleWiringTests: Registry gegen ModTradeDefinitions",
+    "HopperTests": "ContainerInput heisst auf 1.21.11 ClickType, assemble nimmt den Registry-Zugriff; "
+                   "sonst dieselben Zeilen",
 }
 
 #: How many lines a class may have on one side only before the drift check calls it drift.

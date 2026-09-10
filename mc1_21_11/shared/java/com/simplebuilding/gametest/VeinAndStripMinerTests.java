@@ -13,6 +13,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -74,21 +76,22 @@ public final class VeinAndStripMinerTests {
             new BlockPos(2, 1, 2));
     /**
      * Hangs off {@link #ORE_TAIL}'s (2,1,2) by a step that changes x, y and z at once - the only
-     * ore in the cluster that needs a true 3D diagonal <em>upwards</em>, and the stepping stone
-     * {@link #DESCENDING_ORE} hangs under. Everything else in {@link #ORE_TAIL} lies in the y=1
-     * plane and the log trunk is a plain column, so without this block the flood fill could be
-     * cut down to the 8 horizontal diagonals plus the 2 vertical faces and no test in the suite
-     * would notice. Real ore blobs step diagonally in height all the time.
+     * ore in the cluster that needs a true 3D diagonal <em>upwards</em>. Everything else in
+     * {@link #ORE_TAIL} lies in the y=1 plane and the log trunk is a plain column, so without
+     * this block the flood fill could be cut down to the 8 horizontal diagonals plus the 2
+     * vertical faces and no test in the suite would notice. Real ore blobs step diagonally in
+     * height all the time.
      */
     private static final BlockPos DIAGONAL_ORE = new BlockPos(1, 2, 1);
     /**
      * Hangs off {@link #DIAGONAL_ORE} by the mirror image of that step: one down, and x and z
      * with it. It is the only ore the flood fill cannot reach without a <em>negative</em> y
      * offset, and it is here because every other block these tests hand the search - the rest of
-     * the cluster, the trunk, the gate clusters - sits at or above the block the player struck.
-     * Narrowing the neighbour loop to {@code y = 0..1} takes nine of the 26 neighbours away,
-     * every downward one among them, and left the whole suite green while in play a vein that
-     * continues below the struck block - the normal shape of an ore blob - was cut off.
+     * the cluster, all four trunks, the ore family clusters - sits at or above the block the
+     * player struck. Narrowing the neighbour loop to {@code y = 0..1} takes nine of the 26
+     * neighbours away, every downward one among them, and left the whole suite green while in
+     * play a vein that continues below the struck block - the normal shape of an ore blob - was
+     * cut off.
      */
     private static final BlockPos DESCENDING_ORE = new BlockPos(0, 1, 0);
     /** Every ore the flood fill may reach from {@link #ORE_ORIGIN}. */
@@ -115,6 +118,21 @@ public final class VeinAndStripMinerTests {
     private static final List<BlockPos> PLANK_NEIGHBOURS = List.of(
             new BlockPos(6, 1, 1),
             new BlockPos(5, 1, 2));
+    /**
+     * Two more trunks, neither of them an oak log. The gate is {@code BlockTags.LOGS}, and that
+     * tag is far wider than the one block the oak trunk proves: a nether stem (not even in
+     * {@code LOGS_THAT_BURN}) and a stripped variant are separate block ids inside it. Swapping
+     * the tag check for {@code state.is(Blocks.OAK_LOG)} leaves the oak trunk working and kills
+     * every other species in the game, so one species alone is no protection.
+     */
+    private static final BlockPos STEM_ORIGIN = new BlockPos(0, 1, 0);
+    private static final List<BlockPos> STEM_TAIL = List.of(
+            new BlockPos(0, 2, 0),
+            new BlockPos(0, 3, 0));
+    private static final BlockPos STRIPPED_ORIGIN = new BlockPos(7, 1, 7);
+    private static final List<BlockPos> STRIPPED_TAIL = List.of(
+            new BlockPos(7, 2, 7),
+            new BlockPos(7, 3, 7));
 
     // --- Vein Miner, gates (test 3) --------------------------------------------------------
     private static final BlockPos STONE_ORIGIN = new BlockPos(2, 1, 2);
@@ -129,6 +147,29 @@ public final class VeinAndStripMinerTests {
     private static final List<BlockPos> DIAMOND_NEIGHBOURS = List.of(
             new BlockPos(2, 4, 1),
             new BlockPos(1, 4, 2));
+    /** One spot, rebuilt once per ore family - the families do not have to be on screen together. */
+    private static final BlockPos FAMILY_ORIGIN = new BlockPos(1, 1, 5);
+    private static final List<BlockPos> FAMILY_NEIGHBOURS = List.of(
+            new BlockPos(2, 1, 5),
+            new BlockPos(1, 1, 6));
+    /**
+     * The six ore tags in {@code MiningUtils#isOre} - the list the hook asks - that nothing else
+     * in the suite ever feeds it. Coal is covered by the vein test, diamond by the tier case in
+     * this test; without these six, deleting a tag line would cost players whole ore types in
+     * silence.
+     */
+    private static final List<Block> ORE_FAMILIES = List.of(
+            Blocks.IRON_ORE,
+            Blocks.COPPER_ORE,
+            Blocks.GOLD_ORE,
+            Blocks.REDSTONE_ORE,
+            Blocks.LAPIS_ORE,
+            Blocks.EMERALD_ORE);
+    /** The second block {@code MiningUtils#isOre} used to add by hand next to nether quartz ore. */
+    private static final BlockPos DEBRIS_ORIGIN = new BlockPos(6, 3, 2);
+    private static final List<BlockPos> DEBRIS_NEIGHBOURS = List.of(
+            new BlockPos(7, 3, 2),
+            new BlockPos(6, 3, 3));
 
     // --- Strip Miner, vertical shaft (test 4) ----------------------------------------------
     private static final BlockPos SHAFT_ORIGIN = new BlockPos(3, 5, 3);
@@ -151,6 +192,21 @@ public final class VeinAndStripMinerTests {
     private static final BlockPos TUNNEL_PLUG = new BlockPos(2, 6, 4);
     /** Behind the plug, inside the level III reach: only a broken stop condition gets here. */
     private static final BlockPos TUNNEL_BEYOND = new BlockPos(2, 6, 5);
+
+    // --- Strip Miner, upward shaft (test 4) ------------------------------------------------
+    /**
+     * The third branch of the mining direction ({@code pitch < -60 -> UP}), which nothing in
+     * the mod ever drove. Andesite rather than stone so its drops can be counted apart from
+     * the cobblestone the other two tunnels leave behind.
+     */
+    private static final BlockPos RISER_ORIGIN = new BlockPos(6, 1, 6);
+    private static final List<BlockPos> RISER = List.of(
+            new BlockPos(6, 2, 6),
+            new BlockPos(6, 3, 6),
+            new BlockPos(6, 4, 6),
+            new BlockPos(6, 5, 6));
+    /** One block past the level III depth of 4, straight up; it has to survive. */
+    private static final BlockPos RISER_CAP = new BlockPos(6, 6, 6);
 
     // --- Strip Miner, level II depth (test 4) ----------------------------------------------
     /**
@@ -208,8 +264,7 @@ public final class VeinAndStripMinerTests {
      * vertical faces ({@link #DIAGONAL_ORE} would survive), cutting the downward half of that
      * search away ({@link #DESCENDING_ORE} would survive), losing the per level budget (case 4
      * would take the whole vein instead of two blocks), and - the part nothing else in the suite
-     * watches - breaking the
-     * blocks in a way that yields no items, for instance by swapping
+     * watches - breaking the blocks in a way that yields no items, for instance by swapping
      * {@code serverPlayer.gameMode.destroyBlock} for a bare {@code setBlock(AIR)}.
      */
     public static void veinMinerBreaksTheWholeVeinThroughTheBlockBreakEvent(GameTestHelper helper) {
@@ -251,9 +306,9 @@ public final class VeinAndStripMinerTests {
         // 6 blocks in run 3 plus 2 in run 4, and coal ore drops exactly one coal without
         // fortune, so anything less means the breaks did not produce real loot.
         helper.runAfterDelay(DROP_SETTLE_TICKS, () -> {
-            Assertions.valueEqual(helper, droppedCount(helper, Items.COAL),
-                    ORE_CLUSTER_EXTRAS.size() + 2,
+            Assertions.valueEqual(helper, droppedCount(helper, Items.COAL), ORE_CLUSTER_EXTRAS.size() + 2,
                     "coal dropped by the vein mined ore");
+            MockPlayers.remove(helper, player);
             TestCleanup.succeed(helper);
         });
     }
@@ -268,9 +323,15 @@ public final class VeinAndStripMinerTests {
      * the harvest check both pass and only the {@code LOGS} tag stands between the player and a
      * hook that eats a wall.
      *
+     * <p>Oak alone would not prove the gate is a tag. {@link #STEM_ORIGIN} (a warped stem, which
+     * is not even in {@code LOGS_THAT_BURN}) and {@link #STRIPPED_ORIGIN} (a stripped variant)
+     * are two more block ids inside {@code BlockTags.LOGS}, and they are here so that pinning the
+     * check to a single block would show up.
+     *
      * <p>What breaks it: narrowing the tool gate back to pickaxes, swapping the log tag for the
-     * ore check (the trunk would then survive), dropping the log tag entirely (the planks would
-     * go), and a flood fill that only walks horizontally - the trunk is stacked on the vertical
+     * ore check (the trunk would then survive), narrowing the log tag to one species (the stem
+     * and the stripped trunk would survive), dropping the log tag entirely (the planks would
+     * go), and a flood fill that only walks horizontally - the trunks are stacked on the vertical
      * axis on purpose.
      */
     public static void veinMinerFollowsLogsWithAnAxeThroughTheBlockBreakEvent(GameTestHelper helper) {
@@ -293,9 +354,27 @@ public final class VeinAndStripMinerTests {
             helper.assertBlockPresent(Blocks.OAK_PLANKS, pos);
         }
 
+        // --- two more species from the same tag: the gate is the tag, not the oak block ---
+        veinMine(helper, player, veinMinerAxe(helper, 5), STEM_ORIGIN);
+        for (BlockPos pos : STEM_TAIL) {
+            helper.assertBlockPresent(Blocks.AIR, pos);
+        }
+        helper.assertBlockPresent(Blocks.WARPED_STEM, STEM_ORIGIN);
+
+        veinMine(helper, player, veinMinerAxe(helper, 5), STRIPPED_ORIGIN);
+        for (BlockPos pos : STRIPPED_TAIL) {
+            helper.assertBlockPresent(Blocks.AIR, pos);
+        }
+        helper.assertBlockPresent(Blocks.STRIPPED_BIRCH_LOG, STRIPPED_ORIGIN);
+
         helper.runAfterDelay(DROP_SETTLE_TICKS, () -> {
             Assertions.valueEqual(helper, droppedCount(helper, Items.OAK_LOG), LOG_TAIL.size(),
                     "logs dropped by the vein mined trunk");
+            Assertions.valueEqual(helper, droppedCount(helper, Items.WARPED_STEM), STEM_TAIL.size(),
+                    "stems dropped by the vein mined warped trunk");
+            Assertions.valueEqual(helper, droppedCount(helper, Items.STRIPPED_BIRCH_LOG), STRIPPED_TAIL.size(),
+                    "logs dropped by the vein mined stripped trunk");
+            MockPlayers.remove(helper, player);
             TestCleanup.succeed(helper);
         });
     }
@@ -314,17 +393,23 @@ public final class VeinAndStripMinerTests {
      * pickaxe a whole diamond vein for free. The same cluster is then taken with an iron pickaxe,
      * so the negative half cannot pass just because the layout was wrong.
      *
-     * <p><b>Nether quartz ore</b> is where the preview and the mining used to disagree:
-     * {@code MiningUtils#isOre} counted nether quartz ore and ancient debris by hand while the
-     * hook carried its own copy that listed neither, so a player saw the whole quartz vein
-     * outlined and then broke a single block. There is only one list now -
-     * {@code VeinMinerUsageEvent} asks {@code MiningUtils#isOre} - and the manual decides which
-     * way it points: the eight ore tags are the rule of Vein Miner, so the preview is the side
-     * that gave way. This case therefore holds both ends together: the ore check says no, the
-     * preview selects nothing, and the vein stays in the world. Putting quartz back into the list
-     * is a balance change, not a repair, and it turns all three of those assertions red at once.
-     * (Ancient debris, the other block that was in the preview list only, is covered the same way
-     * by {@code MiningEnchantmentTests}.)
+     * <p><b>The six other ore families</b> are the positive side of the ore check. The gate is
+     * eight tag tests, and coal (the vein test) and diamond (the tier case here) between them
+     * touch only two of them; iron, copper, gold, redstone, lapis and emerald are mined here so
+     * that losing one of those lines cannot pass as green.
+     *
+     * <p><b>Nether quartz ore and ancient debris</b> are where the preview and the mining used to
+     * disagree: {@code MiningUtils#isOre} counted both by hand while the hook carried its own copy
+     * that listed neither, so a player saw the whole vein outlined and then broke a single block.
+     * There is only one list now - {@code VeinMinerUsageEvent} asks {@code MiningUtils#isOre} -
+     * and the manual decides which way it points: the eight ore tags are the rule of Vein Miner,
+     * so the preview is the side that gave way. This case therefore holds both ends together: the
+     * ore check says no, the preview selects nothing, and the vein stays in the world. Putting
+     * quartz or ancient debris back into the list is a balance change, not a repair, and it turns
+     * all three of those assertions red at once.
+     *
+     * <p>The last block is the guard nobody else exercises: a player that is not a
+     * {@code ServerPlayer} - the client side copy - has to be let through untouched.
      */
     public static void veinMinerRefusesNonOresAndTooWeakPickaxesAndDivergesFromTheHighlightOnQuartz(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 3.0, 4.5), 0.0F, 0.0F);
@@ -338,6 +423,22 @@ public final class VeinAndStripMinerTests {
         veinMine(helper, player, veinMinerPickaxe(helper, Items.IRON_PICKAXE, 5), STONE_ORIGIN);
         for (BlockPos pos : STONE_NEIGHBOURS) {
             helper.assertBlockPresent(Blocks.STONE, pos);
+        }
+
+        // --- the ore families nothing else in the suite ever hands the hook ---
+        // One cluster at a time in the same corner: they only have to be mined, not coexist. An
+        // iron pickaxe is the correct tool for all six, so what is under test is the tag list.
+        for (Block ore : ORE_FAMILIES) {
+            helper.setBlock(FAMILY_ORIGIN, ore);
+            for (BlockPos pos : FAMILY_NEIGHBOURS) {
+                helper.setBlock(pos, ore);
+            }
+            veinMine(helper, player, veinMinerPickaxe(helper, Items.IRON_PICKAXE, 5), FAMILY_ORIGIN);
+            for (BlockPos pos : FAMILY_NEIGHBOURS) {
+                helper.assertTrue(helper.getBlockState(pos).isAir(),
+                        "Vein Miner refused a vein of " + ore.getName().getString()
+                                + ", so that ore tag is no longer in the hook's ore check");
+            }
         }
 
         // --- diamond ore: an ore, but a stone pickaxe may not harvest it ---
@@ -381,6 +482,61 @@ public final class VeinAndStripMinerTests {
             helper.assertBlockPresent(Blocks.NETHER_QUARTZ_ORE, pos);
         }
 
+        // --- ancient debris: the other block that used to be in the preview list only ---
+        helper.setBlock(DEBRIS_ORIGIN, Blocks.ANCIENT_DEBRIS);
+        for (BlockPos pos : DEBRIS_NEIGHBOURS) {
+            helper.setBlock(pos, Blocks.ANCIENT_DEBRIS);
+        }
+
+        helper.assertTrue(!MiningUtils.isOre(helper.getBlockState(DEBRIS_ORIGIN)),
+                "ancient debris is back in the one ore list - Vein Miner V would take a whole "
+                        + "debris cluster in one swing, which is a balance change, not a fix");
+
+        List<BlockPos> debrisHighlight = MiningUtils.getVeinMinerBlocks(
+                helper.getLevel(),
+                helper.absolutePos(DEBRIS_ORIGIN),
+                helper.getBlockState(DEBRIS_ORIGIN),
+                5,
+                new ItemStack(Items.DIAMOND_PICKAXE));
+        Assertions.valueEqual(helper, debrisHighlight.size(), 0,
+                "the crack preview outlined an ancient debris vein the hook does not mine - the "
+                        + "two ore lists have drifted apart again");
+
+        veinMine(helper, player, veinMinerPickaxe(helper, Items.DIAMOND_PICKAXE, 5), DEBRIS_ORIGIN);
+        for (BlockPos pos : DEBRIS_NEIGHBOURS) {
+            helper.assertBlockPresent(Blocks.ANCIENT_DEBRIS, pos);
+        }
+
+        // --- a player that is not a ServerPlayer: the hook lets the break through untouched ---
+        // The hook is wired into a block break event that both loaders also fire on the client
+        // side, and its first guard is "instanceof ServerPlayer" - the client's copy of the player
+        // must never mine a vein of its own. Every other call in this suite hands it a
+        // ServerPlayer, so until here that guard could have been deleted without a test noticing.
+        // makeMockPlayer builds a plain Player that is not a ServerPlayer; DynamicLightTests already
+        // asserts that property of the factory and this case asserts it again for its own sake.
+        Player notAServerPlayer = helper.makeMockPlayer(GameType.SURVIVAL);
+        helper.assertFalse(notAServerPlayer instanceof ServerPlayer,
+                "test setup broken: makeMockPlayer returned a ServerPlayer, so the guard under test "
+                        + "would be satisfied by accident");
+        notAServerPlayer.setShiftKeyDown(true);
+        notAServerPlayer.setItemInHand(InteractionHand.MAIN_HAND, veinMinerPickaxe(helper, Items.IRON_PICKAXE, 5));
+
+        helper.setBlock(FAMILY_ORIGIN, Blocks.COAL_ORE);
+        for (BlockPos pos : FAMILY_NEIGHBOURS) {
+            helper.setBlock(pos, Blocks.COAL_ORE);
+        }
+        BlockPos familyOrigin = helper.absolutePos(FAMILY_ORIGIN);
+        boolean letThrough = VeinMinerUsageEvent.handleBeforeBlockBreak(helper.getLevel(), notAServerPlayer,
+                familyOrigin, helper.getLevel().getBlockState(familyOrigin),
+                helper.getLevel().getBlockEntity(familyOrigin));
+        helper.assertTrue(letThrough,
+                "the hook cancelled a block break for a player that is not a ServerPlayer; it is "
+                        + "supposed to step aside and let vanilla handle the block");
+        for (BlockPos pos : FAMILY_NEIGHBOURS) {
+            helper.assertBlockPresent(Blocks.COAL_ORE, pos);
+        }
+
+        MockPlayers.remove(helper, player);
         TestCleanup.succeed(helper);
     }
 
@@ -398,11 +554,17 @@ public final class VeinAndStripMinerTests {
      * ends, leaving the middle free to be bent to any depth in silence.
      *
      * <p>Looking level and facing south, the tunnel follows the facing and stops at a block the
-     * pickaxe cannot harvest. The mining direction is one method in
-     * {@code MiningUtils} now, but {@code StripMinerUsageEvent} still walks its <em>own</em>
-     * loop of stop conditions, so
+     * pickaxe cannot harvest. The mining direction is one method in {@code MiningUtils} now, but
+     * {@code StripMinerUsageEvent} still walks its <em>own</em> loop of stop conditions, so
      * {@link ToolBehaviourTests#stripMinerFollowsPlayerFacingAndStopsAtGaps} (which asks
      * {@code MiningUtils}) would stay green if that loop stopped one block late.
+     *
+     * <p>Looking up is the third branch of that direction, and it is the one that had no caller
+     * at all: with only "down" and "level" driven, {@code if (pitch < -60) return
+     * Direction.UP;} could be deleted and every test would stay green while a sneaking player
+     * looking at the ceiling dug sideways instead. The riser therefore drives that branch
+     * through the blocks and asserts {@code MiningUtils#getMiningDirection} directly in the
+     * same breath.
      *
      * <p>Where the downward branch <em>starts</em> is measured too, and not from pitch 90. Every
      * other downward case in the repo looks straight down, 30 degrees clear of the decision, so
@@ -420,13 +582,13 @@ public final class VeinAndStripMinerTests {
      * blocks, so what is asserted here is the <em>net</em> damage a real pickaxe ends up with.
      *
      * <p>What breaks it: dropping the sneak gate or the enchantment lookup (cases 1 and 2 would
-     * then dig), a depth that no longer maps level III to 4 ({@link #SHAFT_FLOOR} would go, or
-     * the shaft would come up short), a depth that no longer maps level II to 2 (case 3b would
-     * dig past {@link #LEVEL_TWO_DEPTH}), a broken mining direction (case 5 would leave the
-     * tunnel standing), a downward threshold that has moved off 60 (one of the two probes in
-     * case 4a would answer wrongly), a lost stop condition ({@link #TUNNEL_PLUG} and
-     * {@link #TUNNEL_BEYOND} would go), removing the durability refund (the tool would take the
-     * full four points), and again a break that produces no drops.
+     * then dig), a depth that no longer maps level III to 4 ({@link #SHAFT_FLOOR} and
+     * {@link #RISER_CAP} would go, or the shaft would come up short), a depth that no longer maps
+     * level II to 2 (case 3b would dig past {@link #LEVEL_TWO_DEPTH}), a broken mining direction
+     * (cases 4b and 5 would leave the riser and the tunnel standing), a downward threshold that
+     * has moved off 60 (one of the two probes in case 4a would answer wrongly), a lost stop
+     * condition ({@link #TUNNEL_PLUG} and {@link #TUNNEL_BEYOND} would go), removing the refund
+     * (the tool would take the full four points), and again a break that produces no drops.
      */
     public static void stripMinerTunnelsAlongTheFacingAndRefundsDurabilityThroughTheBlockBreakEvent(GameTestHelper helper) {
         fillFloor(helper);
@@ -458,7 +620,7 @@ public final class VeinAndStripMinerTests {
         // still standing, and has to name exactly the blocks the hook then breaks: a second table
         // that had drifted would draw cracks onto blocks that are still there afterwards, and the
         // block assertions below - which only ever see the hook - could not tell.
-        Assertions.valueEqual(helper,
+        Assertions.valueEqual(helper, 
                 MiningUtils.getStripMinerBlocks(helper.getLevel(), helper.absolutePos(SHAFT_ORIGIN),
                         player, stripMinerPickaxe(helper, 2), 2),
                 SHAFT.subList(0, LEVEL_TWO_DEPTH).stream().map(helper::absolutePos).toList(),
@@ -505,6 +667,21 @@ public final class VeinAndStripMinerTests {
         helper.assertBlockPresent(Blocks.STONE, SHALLOW_PROBE_BELOW);
         helper.assertBlockPresent(Blocks.AIR, SHALLOW_PROBE_SOUTH);
 
+        // --- 4b. looking up: the branch of the mining direction nothing ever drove ---
+        player.snapTo(player.getX(), player.getY(), player.getZ(), 0.0F, -90.0F);
+        // Hook and highlight preview read this one method now, and it had no caller with an
+        // upward pitch at all - so it is pinned directly as well as driven through the blocks.
+        Assertions.valueEqual(helper, MiningUtils.getMiningDirection(player), Direction.UP,
+                "MiningUtils no longer digs upwards at pitch -90, so the preview and the hook "
+                        + "would point in different directions");
+        buildRiser(helper);
+        stripMine(helper, player, stripMinerPickaxe(helper, 3), RISER_ORIGIN);
+        for (BlockPos pos : RISER) {
+            helper.assertBlockPresent(Blocks.AIR, pos);
+        }
+        helper.assertBlockPresent(Blocks.ANDESITE, RISER_ORIGIN);
+        helper.assertBlockPresent(Blocks.ANDESITE, RISER_CAP);
+
         // --- 5. looking level: the tunnel follows the facing and stops at the dirt plug ---
         player.snapTo(player.getX(), player.getY(), player.getZ(), 0.0F, 0.0F);
         helper.assertTrue(player.getDirection() == Direction.SOUTH,
@@ -523,11 +700,15 @@ public final class VeinAndStripMinerTests {
 
         // 1 block in run 3, 2 in run 3b, 4 in run 4, one under each probe in run 4a, 2 in run 5;
         // stone drops exactly one cobblestone each, and the dirt plug would show up as one more
-        // if the stop condition ever went away.
+        // if the stop condition ever went away. The riser is andesite, which drops itself, so it
+        // is counted apart from all of that.
         helper.runAfterDelay(DROP_SETTLE_TICKS, () -> {
             Assertions.valueEqual(helper, droppedCount(helper, Items.COBBLESTONE),
                     1 + LEVEL_TWO_DEPTH + SHAFT.size() + PITCH_PROBE_BLOCKS + TUNNEL.size(),
                     "cobblestone dropped by the strip mined tunnels");
+            Assertions.valueEqual(helper, droppedCount(helper, Items.ANDESITE), RISER.size(),
+                    "andesite dropped by the strip mined riser");
+            MockPlayers.remove(helper, player);
             TestCleanup.succeed(helper);
         });
     }
@@ -605,6 +786,14 @@ public final class VeinAndStripMinerTests {
         for (BlockPos pos : PLANK_NEIGHBOURS) {
             helper.setBlock(pos, Blocks.OAK_PLANKS);
         }
+        helper.setBlock(STEM_ORIGIN, Blocks.WARPED_STEM);
+        for (BlockPos pos : STEM_TAIL) {
+            helper.setBlock(pos, Blocks.WARPED_STEM);
+        }
+        helper.setBlock(STRIPPED_ORIGIN, Blocks.STRIPPED_BIRCH_LOG);
+        for (BlockPos pos : STRIPPED_TAIL) {
+            helper.setBlock(pos, Blocks.STRIPPED_BIRCH_LOG);
+        }
     }
 
     private static void buildShaft(GameTestHelper helper) {
@@ -619,6 +808,14 @@ public final class VeinAndStripMinerTests {
         for (BlockPos pos : SHAFT) {
             helper.assertTrue(helper.getBlockState(pos).is(Blocks.STONE), message);
         }
+    }
+
+    private static void buildRiser(GameTestHelper helper) {
+        helper.setBlock(RISER_ORIGIN, Blocks.ANDESITE);
+        for (BlockPos pos : RISER) {
+            helper.setBlock(pos, Blocks.ANDESITE);
+        }
+        helper.setBlock(RISER_CAP, Blocks.ANDESITE);
     }
 
     /**

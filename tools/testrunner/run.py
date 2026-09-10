@@ -1061,6 +1061,11 @@ def release_gate(timeout: int) -> tuple[bool, list[str]]:
         # screenshots. This is the check that can - it re-translates and compares.
         ("tools/port_client_tests_to_1_21_11.py --check",
          [sys.executable, "tools/port_client_tests_to_1_21_11.py", "--check"]),
+        # Same question for the server tests, asked of the BODIES: a class that exists on both
+        # lines can still be a September copy on one of them. Fifteen classes were, for a week,
+        # and neither the id parity nor the class list could tell.
+        ("tools/port_tests_to_1_21_11.py --drift",
+         [sys.executable, "tools/port_tests_to_1_21_11.py", "--drift"]),
     ):
         code, output, timed_out = run_capture(command, timeout)
         if timed_out:
