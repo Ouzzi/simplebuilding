@@ -1072,6 +1072,12 @@ def release_gate(timeout: int) -> tuple[bool, list[str]]:
         # and neither the id parity nor the class list could tell.
         ("tools/port_tests_to_1_21_11.py --drift",
          [sys.executable, "tools/port_tests_to_1_21_11.py", "--drift"]),
+        # The mutation catalogues are proofs only while every anchor still exists: a refactoring
+        # that moves a line silently turns "this test is proven red" into a mutation nobody can
+        # apply any more. Anchors are checked here, on both lines; running the mutations stays a
+        # separate, hour-long decision (mutations.py --run).
+        ("tools/testrunner/mutations.py --check (three catalogues, both lines)",
+         [sys.executable, "tools/testrunner/mutations.py", "--check", "--all-catalogues"]),
     ):
         code, output, timed_out = run_capture(command, timeout)
         if timed_out:

@@ -206,6 +206,74 @@ MUTATIONS: list[Mutation] = [
              "new SurvivalSyncPayload(0, currentTime, totalPassiveKills, totalHostileKills, 0)",
              "smoke", "SurvivalSyncPayload carries the wrong numbers",
              "every field of the sync carries its own number"),
+    # --- P4 (2026-09-11): the counter-checks of the ten client tests written on 2026-09-10 - the
+    # --- same standard P7 held its sharpenings to: a test is a claim until its mutation is red.
+    Mutation('p4-rotator-pitch',
+             'common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java',
+             'world.playSound(null, pos, SoundEvents.SPYGLASS_USE, SoundSource.BLOCKS, 1.0f, 1.0f);',
+             'world.playSound(null, pos, SoundEvents.SPYGLASS_USE, SoundSource.BLOCKS, 1.0f, 1.2f);',
+             'smoke', 'The rotator sound was played at',
+             'an accepted rotation plays SPYGLASS_USE at 1.0 / 1.0'),
+    Mutation('p4-hammer-transform-pitch',
+             'common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java',
+             'world.playSound(null, pos, state.getSoundType().getBreakSound(), SoundSource.BLOCKS, 1.0f, 0.8f);',
+             'world.playSound(null, pos, state.getSoundType().getBreakSound(), SoundSource.BLOCKS, 1.0f, 1.0f);',
+             'smoke', 'The sledgehammer transformation sound was played at',
+             "the transformation plays the old block's break sound at 1.0 / 0.8"),
+    Mutation('p4-wand-place-pitch',
+             'common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java',
+             'world.playSound(null, rawPos, soundGroup.getPlaceSound(), SoundSource.BLOCKS, (soundGroup.getVolume() + 1.0F) / 2.0F, soundGroup.getPitch() * 0.8F);',
+             'world.playSound(null, rawPos, soundGroup.getPlaceSound(), SoundSource.BLOCKS, (soundGroup.getVolume() + 1.0F) / 2.0F, soundGroup.getPitch());',
+             'smoke', 'A wand placement sound was played at',
+             'every placed block plays the place sound at (v+1)/2 and p*0.8'),
+    Mutation('p4-detector-mode-free',
+             'common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java',
+             '        if (!player.isCreative()) {\n            stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);\n        }',
+             '',
+             'smoke', 'after switch 1 the detector has damage 0',
+             'a survival mode switch costs one point of durability'),
+    Mutation('p4-octant-cylinder-as-cuboid',
+             'common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java',
+             'if (shape == OctantItem.SelectionShape.CUBOID || shape == OctantItem.SelectionShape.RECTANGLE) {',
+             'if (shape == OctantItem.SelectionShape.CUBOID || shape == OctantItem.SelectionShape.RECTANGLE || shape == OctantItem.SelectionShape.CYLINDER) {',
+             'block-highlight', 'BlockHighlightRenderer (cylinder against cuboid) did not draw anything',
+             'a cylinder is drawn through the voxel predicate, not as a cuboid'),
+    Mutation('p4-octant-sphere-as-cylinder',
+             'common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java',
+             'case SPHERE -> p -> isPointInEllipsoid(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, bounds);',
+             'case SPHERE -> p -> p.getY() >= bounds.minY && p.getY() < bounds.maxY && isPointInEllipse(p.getX() + 0.5, p.getZ() + 0.5, bounds);',
+             'block-highlight', 'BlockHighlightRenderer (sphere against cylinder) did not draw anything',
+             "a sphere is the ellipsoid predicate, not the cylinder's"),
+    Mutation('p4-octant-orientation-ignored',
+             'common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java',
+             'int orientIdx = nbt.getIntOr("Orientation", 1);',
+             'int orientIdx = 1;',
+             'block-highlight', 'BlockHighlightRenderer (orientation 0 against 1) did not draw anything',
+             'the Orientation tag turns the shape'),
+    Mutation('p4-vein-preview-branch-off',
+             'common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java',
+             '} else if (veinLevel > 0 && (stack.is(ItemTags.PICKAXES) || stack.is(ItemTags.AXES))) {',
+             '} else if (false) {',
+             'multi-block-breaking', 'MultiBlockBreakingSupport contributed no Vein Miner crack',
+             'the preview has a Vein Miner branch'),
+    Mutation('p4-trim-tooltip-text',
+             'common/src/shared/java/com/simplebuilding/mixin/client/InventoryScreenMixin.java',
+             'Component.literal("Toggle Resonance Stats")',
+             'Component.literal("Toggle Resonance Stat")',
+             'hud-and-tooltip', 'Hovering the trim button did not put its tooltip into the render state',
+             'the trim button says Toggle Resonance Stats'),
+    Mutation('p4-trim-icon-swapped',
+             'common/src/shared/java/com/simplebuilding/mixin/client/InventoryScreenMixin.java',
+             'new ItemStack(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE)',
+             'new ItemStack(Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE)',
+             'hud-and-tooltip', 'does not carry the ward smithing template',
+             "the trim button's icon is the ward smithing template"),
+    Mutation('p4-overlay-ignores-f1',
+             'common/src/shared/java/com/simplebuilding/client/gui/DoubleJumpHudOverlay.java',
+             "        if (client.gui.hud.isHidden()) {\n            // Fabric's element registry hangs the mod's overlays inside vanilla's own layers,\n            // which F1 switches off as a whole; NeoForge's layer event does not, and there the\n            // air jump bar, the speedometer and the rangefinder stayed on a hidden HUD. The\n            // question has to be asked here, once, so both loaders give the same answer.\n            return;\n        }\n",
+             '',
+             'air-jump', 'The cooldown bar is drawn on a hidden HUD',
+             "the mod's overlays follow F1 on every loader"),
 ]
 
 #: P6 (testing/PLAN.md): the systematic round for the core areas - mining enchantments, the
@@ -1135,10 +1203,22 @@ def main(argv: list[str] | None = None) -> int:
                         help="the P6 core-area round (server side) instead of the false-green counter-checks")
     parser.add_argument("--p6b", action="store_true",
                         help="the P6b round over the remaining areas (server side)")
+    parser.add_argument("--all-catalogues", action="store_true",
+                        help="with --check: every catalogue on both lines, the way the release gate asks")
     parser.add_argument("--line", default="26.2", choices=["26.2", LINE_1_21_11],
                         help="which Minecraft line's copy of the mod to mutate; 1.21.11 takes the server "
                              "mutations only and proves them on fabric-12111 unless --server-target says otherwise")
     args = parser.parse_args(argv)
+
+    if args.check and args.all_catalogues:
+        problems = 0
+        for name, cat in (("false-greens", MUTATIONS), ("p6", P6_MUTATIONS), ("p6b", P6B_MUTATIONS)):
+            for line in ("26.2", LINE_1_21_11):
+                chosen = [on_line(m, line) for m in cat if line == "26.2" or m.kind == "server"]
+                print(f"{name} auf {line}: {len(chosen)} Mutationen")
+                problems += check_anchors(chosen)
+        print(f"{problems} fehlende Anker" if problems else "jeder Anker ist da")
+        return 1 if problems else 0
 
     catalogue = P6B_MUTATIONS if args.p6b else P6_MUTATIONS if args.p6 else MUTATIONS
     if args.line == LINE_1_21_11:
