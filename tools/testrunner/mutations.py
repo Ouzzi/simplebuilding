@@ -1008,6 +1008,35 @@ ON_1_21_11: dict[str, dict[str, str]] = {
     "config-wandering-switch-static": {
         "script": "config_option_game_test_every_config_option_keeps_its_persisted_name_and_default",
         "expect": "the set of config options (name, group, type, default)"},
+    # Client side, where the generated 1.21.11 copy spells the line differently.
+    "hopper-ghost-in-occupied-slot": {
+        "old": "                    if (slot.getItem().isEmpty()) {\n                        context.renderItem(ghostStack, slotX, slotY);",
+        "new": "                    if (true) {\n                        context.renderItem(ghostStack, slotX, slotY);"},
+    "p4-overlay-ignores-f1": {
+        "old": "        if (client.options.hideGui) {\n            // Fabric's element registry hangs the mod's overlays inside vanilla's own layers,\n            // which F1 switches off as a whole; NeoForge's layer event does not, and there the\n            // air jump bar, the speedometer and the rangefinder stayed on a hidden HUD. The\n            // question has to be asked here, once, so both loaders give the same answer.\n            return;\n        }\n",
+        "new": ""},
+}
+
+#: The five client mutations that live in the Fabric entry point (src/main/java) have their
+#: NeoForge twin in neoforge/src/main/java/.../SimplebuildingNeoForgeClient.java, same rule,
+#: different spelling. Everything else the client catalogue touches is shared code.
+NEOFORGE_CLIENT = "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java"
+ON_NEOFORGE: dict[str, dict[str, str]] = {
+    "bundle-scale": {"file": NEOFORGE_CLIENT,
+        "old": "float scale = (float) data.maxCapacity() / 64.0f;",
+        "new": "float scale = (float) data.maxCapacity() / 32.0f;"},
+    "settings-key-offhand": {"file": NEOFORGE_CLIENT,
+        "old": "            ItemStack stack = client.player.getMainHandItem();\n            if (stack.getItem() instanceof OctantItem) {",
+        "new": "            ItemStack stack = client.player.getMainHandItem().isEmpty() ? client.player.getOffhandItem() : client.player.getMainHandItem();\n            if (stack.getItem() instanceof OctantItem) {"},
+    "settings-key-netherite-only": {"file": NEOFORGE_CLIENT,
+        "old": "} else if (stack.getItem() instanceof BuildingWandItem && client.level != null",
+        "new": "} else if (stack.is(com.simplebuilding.items.ModItems.NETHERITE_BUILDING_WAND) && client.level != null"},
+    "octant-plain-only": {"file": NEOFORGE_CLIENT,
+        "old": "            if (stack.getItem() instanceof OctantItem) {\n                client.setScreenAndShow(new OctantScreen(stack));",
+        "new": "            if (stack.is(com.simplebuilding.items.ModItems.OCTANT)) {\n                client.setScreenAndShow(new OctantScreen(stack));"},
+    "space-key-every-tick": {"file": NEOFORGE_CLIENT,
+        "old": "        if (isJumpPressed != wasJumpPressed) {\n            ClientNetworking.send(new SpaceKeyPayload(isJumpPressed));\n            wasJumpPressed = isJumpPressed;\n        }",
+        "new": "        ClientNetworking.send(new SpaceKeyPayload(isJumpPressed));\n        wasJumpPressed = isJumpPressed;"},
 }
 
 
@@ -1016,10 +1045,26 @@ def on_line(m: Mutation, line: str) -> Mutation:
     if line != LINE_1_21_11:
         return m
     file = (m.file.replace("common/src/shared/java", "mc1_21_11/shared/java")
-            .replace("src/main/java", "mc1_21_11/fabric/src/main/java"))
+            .replace("neoforge/src/main/java", "mc1_21_11/neoforge/src/main/java"))
+    if file.startswith("src/main/java"):
+        file = "mc1_21_11/fabric/" + file
     diff = ON_1_21_11.get(m.id, {})
     return Mutation(m.id, file, diff.get("old", m.old), diff.get("new", m.new),
                     diff.get("script", m.script), diff.get("expect", m.expect), m.claim, m.kind)
+
+
+def for_target(m: Mutation, target: str) -> Mutation:
+    """A client mutation addressed at the loader and line of the client target it runs on.
+
+    The shared client tests run on four targets from one body; a mutation proved red on
+    Fabric 26.2 says nothing about the other three until it has been applied to THEIR copy of
+    the rule and their run has gone red too. Loader first (the NeoForge entry point spells the
+    five Fabric-only rules differently), then line (the 1.21.11 tree is a copy).
+    """
+    if "neoforge" in target and m.id in ON_NEOFORGE:
+        diff = ON_NEOFORGE[m.id]
+        m = Mutation(m.id, diff["file"], diff["old"], diff["new"], m.script, m.expect, m.claim, m.kind)
+    return on_line(m, LINE_1_21_11 if "12111" in target else "26.2")
 
 
 def mutate(m: Mutation, text: str) -> str:
@@ -1214,9 +1259,13 @@ def main(argv: list[str] | None = None) -> int:
         problems = 0
         for name, cat in (("false-greens", MUTATIONS), ("p6", P6_MUTATIONS), ("p6b", P6B_MUTATIONS)):
             for line in ("26.2", LINE_1_21_11):
-                chosen = [on_line(m, line) for m in cat if line == "26.2" or m.kind == "server"]
-                print(f"{name} auf {line}: {len(chosen)} Mutationen")
+                chosen = [on_line(m, line) for m in cat if m.kind == "server"]
+                print(f"{name} (Server) auf {line}: {len(chosen)} Mutationen")
                 problems += check_anchors(chosen)
+        for target in LOG_FOR_TARGET:
+            chosen = [for_target(m, target) for m in MUTATIONS if m.kind == "client"]
+            print(f"false-greens (Client) auf {target}: {len(chosen)} Mutationen")
+            problems += check_anchors(chosen)
         print(f"{problems} fehlende Anker" if problems else "jeder Anker ist da")
         return 1 if problems else 0
 
@@ -1239,7 +1288,8 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.check:
-        return 1 if check_anchors(selected) else 0
+        addressed = [for_target(m, args.target) if m.kind == "client" else m for m in selected]
+        return 1 if check_anchors(addressed) else 0
 
     rounds = plan([m for m in selected if m.kind == "client"])
     if args.plan or not args.run:
@@ -1252,7 +1302,7 @@ def main(argv: list[str] | None = None) -> int:
 
     results = []
     server_mutations = [m for m in selected if m.kind == "server"]
-    client_rounds = plan([m for m in selected if m.kind == "client"])
+    client_rounds = plan([for_target(m, args.target) for m in selected if m.kind == "client"])
 
     for i, m in enumerate(server_mutations, 1):
         results.append(run_server_mutation(i, m, args.server_target, args.timeout))
