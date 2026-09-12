@@ -1,0 +1,329 @@
+{
+  "target": "client-fabric-12111",
+  "line": "26.2",
+  "catalogue": "false-greens",
+  "rounds": [
+    {
+      "round": 1,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-ordinal-bounds",
+          "script": "hopper_game_test_the_mode_delegate_reads_and_writes_the_filter_mode",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-6781130, -59, 1835562) Index 3 out of bounds for length 3"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 2,
+      "target": "fabric-262",
+      "mutations": [
+        {
+          "id": "hopper-pickup-only",
+          "script": "hopper_game_test_hopper_menu_opens_on_use_and_filter_clicks_never_store_the_item",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-11675261, -59, 7534769) one of the three clicks rewrote filter slot 0, which now holds 1 minecraft:cobblestone on tick 0"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 1,
+      "target": "client-fabric-12111",
+      "mutations": [
+        {
+          "id": "hopper-button-geometry",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The hopper filter button is 30x30 at 85/13, expected 18x18 at 263/72 (right of the five hopper slots, one row below the top). A button that has moved or changed size is still found and still clicked by this test, so nothing else here would notice."
+        },
+        {
+          "id": "wand-needs-block-hit",
+          "script": "building-wand-preview",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: A building wand must not preview anything while the crosshair finds no block; vanilla reports a miss as a BlockHitResult of type MISS, so an instanceof test alone lets the plane through, but the two pictures differ: wand held while looking at the sky: 127980/409920 changed pixels (31,2207%) (allowed 200 pixels, noise floor was 0 pixels)."
+        },
+        {
+          "id": "settings-key-offhand",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The settings key opened com.simplebuilding.client.gui.BuildingWandScreen for an enchanted building wand in the off hand, although nothing was supposed to open."
+        },
+        {
+          "id": "hammer-should-break",
+          "script": "block-highlight",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The sledgehammer highlight did not lose a box when one neighbour became oak planks: 8170 changed pixels against 8170 with eight stone neighbours, at least 680 fewer were required. The renderer boxes a block the hammer would never break, which is exactly the skip on SledgehammerUtils.shouldBreak that every all-stone picture above cannot see."
+        },
+        {
+          "id": "strip-miner-correct-tool",
+          "script": "multi-block-breaking",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: A stone Vein Miner pickaxe produced a breaking crack on BlockPos{x=11, y=1, z=20} while sneaking at diamond ore, which it cannot harvest. Recorded: [BlockPos{x=10, y=1, z=20}, BlockPos{x=11, y=1, z=20}]. The preview's isCorrectToolForDrops guard is the only tool check on this branch - the Vein Miner list itself never asks - and a crack on an ore the server will not break is a lie to the player."
+        },
+        {
+          "id": "survival-zero-fields",
+          "script": "smoke",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: SurvivalSyncPayload carries the wrong numbers: [hostile kills: client 2, server 1, passive kills: client 1, server 2, damage taken: client 0, server 30]. Each field of the payload has to be the matching server side counter; the trim reference screen shows exactly these values to the player."
+        },
+        {
+          "id": "p4-overlay-ignores-f1",
+          "script": "air-jump",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The cooldown bar is drawn on a hidden HUD: [fill(172,184 -> 254,191, #C0000000), fill(173,185 -> 253,190, #FF2B2B2B), fill(173,185 -> 193,190, #FFFFC83C)] [text(\"Air Jump\" at 213,175, #FFFFFFFF)]. F1 hides vanilla's HUD as a whole; the mod's overlays have to follow it on every loader, not only where the element registry happens to sit inside a vanilla layer."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 2,
+      "target": "client-fabric-12111",
+      "mutations": [
+        {
+          "id": "hopper-glyph-swap",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The WHITELIST filter button draws [T] in 0xFF55FF55, expected [✔] in 0xFF55FF55. Two modes that swapped their glyphs or their colours produce screenshot differences of exactly the same size, so only this can tell them apart."
+        },
+        {
+          "id": "wand-ghost-centred",
+          "script": "building-wand-preview",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The ghost preview is not centred on the block it previews: the painted 3x3 ghost preview: 56010 changed pixels in 290/119..632/461, centre 464.1/293.9, expected its horizontal centre within 12.0 pixels of 427.0 (off by 37.1). A quarter of a block is about 24.0 pixels here, so this is what a ghost that shrinks towards its corner instead of its centre looks like."
+        },
+        {
+          "id": "settings-key-netherite-only",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Step 140/353 'the building wand settings for the copper wand opens' of client-bootstrap timed out after 101 client ticks - The building wand settings for the copper wand never opened. The current screen is none, the main hand holds 1 simplebuilding:copper_building_wand."
+        },
+        {
+          "id": "p4-rotator-pitch",
+          "script": "smoke",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The rotator sound was played at 1.0 / 1.2, expected 1.0 / 1.0 (minecraft:item.spyglass.use@1.0/1.2 [raw 0.5/1.38, sounds.json x0.5 / x1.15])."
+        },
+        {
+          "id": "p4-octant-cylinder-as-cuboid",
+          "script": "block-highlight",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: BlockHighlightRenderer (cylinder against cuboid) did not draw anything: cuboid vs. cylinder: 0/204960 changed pixels (0,0000%) but at least 400 changed pixels were required (noise floor was 0 pixels). The trigger conditions were asserted before the screenshot, so the geometry never reached the screen."
+        },
+        {
+          "id": "p4-vein-preview-branch-off",
+          "script": "multi-block-breaking",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: MultiBlockBreakingSupport contributed no Vein Miner crack: expected BlockPos{x=11, y=1, z=20} in the breaking render states, recorded were [BlockPos{x=10, y=1, z=20}]. Sneak state, tool, enchantment and aim were all asserted before measuring."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 3,
+      "target": "client-fabric-12111",
+      "mutations": [
+        {
+          "id": "hopper-overlay-colour",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The filtered hopper slot has no 16x16 overlay in 0x60FFAA00 at 169/73. Rectangles drawn near that corner: [169/73..185/89 in 0x60FF00FF]. The screenshot check only asks whether anything changed there, so any other colour - including one opaque enough to hide the ghost icon - passes it."
+        },
+        {
+          "id": "octant-scroll-any-item",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Scrolling with Control while holding STONE left the selected hotbar slot at 0. The mixin is only allowed to cancel the event for an octant; with anything else in hand vanilla's modifier scrolling has to keep working."
+        },
+        {
+          "id": "p4-hammer-transform-pitch",
+          "script": "smoke",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The sledgehammer transformation sound was played at 1.0 / 1.0, expected 1.0 / 0.8 (minecraft:block.stone.break@1.0/1.0), the pair SledgehammerItem passes to world.playSound."
+        },
+        {
+          "id": "p4-octant-sphere-as-cylinder",
+          "script": "block-highlight",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: BlockHighlightRenderer (sphere against cylinder) did not draw anything: cylinder vs. sphere: 0/204960 changed pixels (0,0000%) but at least 400 changed pixels were required (noise floor was 0 pixels). The trigger conditions were asserted before the screenshot, so the geometry never reached the screen."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 4,
+      "target": "client-fabric-12111",
+      "mutations": [
+        {
+          "id": "hopper-ghost-in-occupied-slot",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Hopper slot 0 holds a stone block and the screen draws 2 items at that position instead of one (the block itself). The ghost icon is being painted over a real item, which makes the slot content unreadable. This is invisible to every screenshot in this test, because all of them are taken while the slot is empty."
+        },
+        {
+          "id": "octant-plain-only",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Step 85/353 'the octant manager for a coloured octant opens' of client-bootstrap timed out after 101 client ticks - The octant manager for a coloured octant never opened. The current screen is none, the main hand holds 1 simplebuilding:octant_lime."
+        },
+        {
+          "id": "p4-wand-place-pitch",
+          "script": "smoke",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: A wand placement sound was played at 1.0 / 1.0, expected 1.0 / 0.8 (minecraft:block.stone.place@1.0/1.0)."
+        },
+        {
+          "id": "p4-octant-orientation-ignored",
+          "script": "block-highlight",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: BlockHighlightRenderer (orientation 0 against 1) did not draw anything: cylinder on y vs. cylinder on x: 0/204960 changed pixels (0,0000%) but at least 400 changed pixels were required (noise floor was 0 pixels). The trigger conditions were asserted before the screenshot, so the geometry never reached the screen."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 5,
+      "target": "client-fabric-12111",
+      "mutations": [
+        {
+          "id": "hopper-ghost-count",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The client block entity holds 3 minecraft:diamond as ghost item 0 instead of exactly one diamond. The cursor carried 3, and a ghost item is a marker, not a stack - the count has to be clamped to one."
+        },
+        {
+          "id": "pick-creative-guard",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: In creative the pick took stone out of the Master Builder bundle (0 of 4 left). The mixin is supposed to return before it looks at any bundle when the player is in creative - vanilla hands the block out for free there, and a bundle that empties itself in creative is a bundle that loses items for nothing."
+        },
+        {
+          "id": "p4-detector-mode-free",
+          "script": "smoke",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Step 430/626 'the switched detector came back with 1 damage' of smoke timed out after 61 client ticks - after switch 1 the detector has damage 0 and mode 1 (was -1); expected damage 1 and a different mode. A survival mode switch is one point of durability, the creative half of this claim is the server suite's."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 6,
+      "target": "client-fabric-12111",
+      "mutations": [
+        {
+          "id": "hopper-immediate-feedback",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The click was swallowed but the client block entity still has no ghost item in slot 0. The screen is waiting for the server to tell it what it already knows, so the filter icon appears a round trip late."
+        },
+        {
+          "id": "space-key-every-tick",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Holding the jump key for forty ticks made the server handle 42 SpaceKeyPayloads instead of one. The client is supposed to send the key state only when it changes, not on every tick it is held."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 7,
+      "target": "client-fabric-12111",
+      "mutations": [
+        {
+          "id": "rangefinder-volume",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The rangefinder HUD does not say [Volume: 80 blocks³]. It says [Octant, Pos 1: 10, 1, 20, Pos 2: 13, 4, 24, Volume: 36 blocks³, (3 x 3 x 4)]. Both ends of the selection count, so a BlockPos{x=10, y=1, z=20} to BlockPos{x=13, y=4, z=24} selection is 4 by 4 by 5 blocks. The screenshot check above cannot see this: the panel keeps its width whatever the numbers are, because the longest sample line decides it."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 8,
+      "target": "client-fabric-12111",
+      "mutations": [
+        {
+          "id": "rangefinder-offhand",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: With the octant in the OFF hand the rangefinder HUD draws nothing. The overlay looks in the main hand first and falls back to the off hand; that fallback is gone. Every screenshot in this case holds the octant in the main hand, so none of them can see it."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 9,
+      "target": "client-fabric-12111",
+      "mutations": [
+        {
+          "id": "bundle-scale",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Reinforced bundle tooltip bar: the mod's component does not draw like a component scaled by maxCapacity / 64 = 3.0 (mod: 1 text elements, 184 chars of geometry, reference: 1 text elements, 184 chars of geometry). The scale the callback sets is not the capacity in stacks."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 10,
+      "target": "client-fabric-12111",
+      "mutations": [
+        {
+          "id": "p4-trim-tooltip-text",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Hovering the trim button did not put its tooltip into the render state: expected the lines 'Toggle Resonance Stats' and 'Click to show/hide trim multipliers.', the screen drew [Crafting, Toggle Resonance Stat, Click to show/hide trim multipliers.]"
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 11,
+      "target": "client-fabric-12111",
+      "mutations": [
+        {
+          "id": "p4-trim-icon-swapped",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The trim button at 101/47 does not carry the ward smithing template: items drawn two pixels inside it [minecraft:item/vex_armor_trim_smithing_template], items drawn elsewhere on the screen []"
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}

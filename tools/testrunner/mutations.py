@@ -1115,7 +1115,12 @@ LOG_FOR_TARGET = {
     "client-neoforge-12111": "mc1_21_11/neoforge/build/run/clientGameTest/logs/latest.log",
 }
 
-FAILED_LINE = re.compile(r"\[(?P<script>[a-z-]+)\] FAILED: (?P<message>.*)|FAILED in (?P<script2>[a-z-]+) at step '(?P<step>[^']*)': (?P<message2>.*)")
+#: Fabric's driver logs "[script] FAILED: message", NeoForge's "FAILED in script at step 'name':
+#: message". The step name is quoted with apostrophes and may CONTAIN one ("the old block's
+#: break sound", "stone's place sound", "the trim button's tooltip") - a [^']* there stopped at
+#: the first and three red NeoForge steps read as "stayed green" on two targets. Non-greedy up
+#: to the closing "': ".
+FAILED_LINE = re.compile(r"\[(?P<script>[a-z-]+)\] FAILED: (?P<message>.*)|FAILED in (?P<script2>[a-z-]+) at step '(?P<step>.*?)': (?P<message2>.*)")
 
 
 def failures_in_log(target: str) -> dict[str, str]:
