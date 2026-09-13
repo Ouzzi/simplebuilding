@@ -409,26 +409,31 @@ fünf anderen waren zu je einem Drittel Werkzeug, Testschwäche und Erwartung:
 - **Eine Erwartung war falsch geschrieben**: der JUnit-Bericht trägt die Ausnahmemeldung
   („Index 3 out of bounds for length 3"), nicht den Klassennamen.
 
-**Auf allen vier Client-Zielen (2026-09-11 bis 13):** die 31 clientseitigen Gegenproben (20 aus P7
-und die elf für die zehn am 2026-09-10 geschriebenen Client-Tests, Töne bis F1-Wache) sind je Ziel
+**Auf allen vier Client-Zielen (2026-09-10 bis 13):** die 31 clientseitigen Gegenproben (20 aus P7
+und die elf für die am 2026-09-10 neu geschriebenen Client-Tests — die neun P4-Lücken und die
+F1-Wache) sind je Ziel
 an Loader und Linie adressiert (`for_target`: die fünf Regeln des Fabric-Einstiegs haben ihren
 NeoForge-Zwilling, zwei Zeilen der von Hand gespiegelten 1.21.11-Mod-Kopie ihren eigenen Anker) und
 gefahren — **31/31 rot auf Fabric 26.2, NeoForge 26.2, Fabric 1.21.11 und NeoForge 1.21.11**; die
 zwei serverseitigen P7-Mutationen (Trichter-Ordinal, nur PICKUP) sind je Linie belegt, auf
 `fabric-262` und `fabric-12111`. Ein Körper, vier Treiber, und jede Schärfung beißt auf jedem.
 
-Belegt durch die Datensätze unter `testing/mutations/`, und zwar so: die ursprünglichen Läufe vom
-2026-09-12 (`17-23-48Z` NeoForge 26.2, `18-41-25Z` Fabric 1.21.11, `19-58-13Z` NeoForge 1.21.11)
-plus deren Neulesung (`2026-09-13T19-25-24Z/27Z/29Z`, Feld `rereadOf`) aus den archivierten Logs,
-nachdem der Log-Leser repariert war — NeoForges „FAILED in … at step '…'" trägt im Schrittnamen
-selbst Apostrophe (`block's`, `stone's`, `button's`), an denen der Leser abbrach und rote Schritte
-als „grün geblieben" las — plus die wachen Wiederholungen der Runden, die der Ruhezustand des
-Rechners unterbrochen hatte (`2026-09-12T23-01-54Z`: NeoForge 26.2 Runden 1 und 3, 9/9;
-`2026-09-13T19-33-25Z`: `bundle-scale` auf NeoForge 1.21.11). Drei Runden hatte der Ruhezustand getroffen
-(7,7 h, 20,3 h und der erste `bundle-scale`-Nachlauf mit 19,8 h); ihre Verdikte zählen nicht, die
-Wiederholungen schon. Der Runner liest seither nur noch aus dem Datensatz und dem archivierten Log
-des Laufs, den er selbst gestartet hat (`run_runpy`), nie aus `latest.log` oder `junit.xml` auf der
-Platte — die überleben einen Lauf, der das Spiel nie gestartet hat, und rollen um Mitternacht um.
+Belegt durch die Datensätze unter `testing/mutations/`, und zwar so. Fabric 26.2: die P7-Läufe vom
+2026-09-10 (`14-38-01Z` mit den Nachläufen `14-57-39Z`, `15-12-09Z`, `15-23-31Z`) und die elf P4 am
+2026-09-11 (`12-13-39Z`). Die drei anderen Ziele: die Läufe vom 2026-09-12 (`17-23-48Z` NeoForge
+26.2, `18-41-25Z` Fabric 1.21.11, `19-58-13Z` NeoForge 1.21.11) plus deren Neulesung vom 2026-09-13
+(Feld `rereadOf`, je Runde `run` und `log`) aus den archivierten Logs, nachdem der Log-Leser
+repariert war — NeoForges „FAILED in … at step '…'" trägt im Schrittnamen selbst Apostrophe
+(`block's`, `stone's`, `button's`), an denen der Leser abbrach und rote Schritte als „grün geblieben"
+las — plus die wachen Wiederholungen jeder Runde, die der Ruhezustand des Rechners unterbrochen
+hatte: NeoForge 26.2 Runde 1 ganz und Runde 3 ganz (`2026-09-12T23-01-54Z` und
+`2026-09-13T19-58-13Z`), `bundle-scale` auf NeoForge 1.21.11 (`2026-09-13T19-33-25Z`, 422 s, wach).
+Drei Runden hatte der Ruhezustand getroffen (7,7 h, 20,3 h und der erste `bundle-scale`-Nachlauf
+mit 19,8 h); ihre Verdikte zählen nicht, die Wiederholungen schon. Der Runner liest seither nur
+noch aus dem Datensatz und dem archivierten Log des Laufs, den er selbst gestartet hat
+(`run_runpy`), nie aus `latest.log` oder `junit.xml` auf der Platte — die überleben einen Lauf, der
+das Spiel nie gestartet hat, und rollen um Mitternacht um; und ein Log ohne Prüfpunkt und ohne
+roten Schritt gilt als „kein Lauf", nicht als „alles grün geblieben".
 
 Und was der allererste Anlauf gezeigt hat, bevor überhaupt ein Urteil möglich war: ein roter
 Schritt hinterlässt seinen Zustand dem nächsten Skript. Ein offener `BuildingWandScreen` ist ein
@@ -561,8 +566,8 @@ statische Feld). `ON_1_21_11` in `mutations.py` trägt beides.
    Runden auch auf der 1.21.11-Kopie rot.**
 4. Das Release-Gate erzwingt 1 und 2, sodass die Parität nicht wieder still kippen kann.
    **→ erreicht.** Seit dem 2026-09-10 prüft es auch, ob die 1.21.11-Client-Kopie hinter dem
-   gemeinsamen Baum zurückhängt (`port_client_tests_to_1_21_11.py --check`), ob die Testkörper
-   driften (`--drift`) und ob jeder Anker der drei Mutationskataloge noch steht
+   gemeinsamen Baum zurückhängt (`port_client_tests_to_1_21_11.py --check`) und ob die Testkörper
+   driften (`--drift`); seit dem 2026-09-11, ob jeder Anker der drei Mutationskataloge noch steht
    (`mutations.py --check --all-catalogues`, beide Linien, vier Client-Ziele).
 5. Jede Stelle, die kein Test erreicht, steht als „Not covered" im Quelltext, mit Grund.
    **→ weitgehend erreicht, mit dem Audit aus P1 zu bestätigen**
@@ -601,8 +606,10 @@ allen vier Zielen am 2026-09-11 bis 13. Was bleibt, steht in Abschnitt 5, und di
 Entscheidungen des Besitzers aus P4 sind Verhalten, kein Rückstand. Der Stand ist mit
 `python tools/testrunner/run.py --release-gate --targets everything` reproduzierbar: Gate
 (`gradlew check`, Wiki, Client-Port, Körper-Drift, Id-Parität, Mutationsanker), 1078 Servertests
-auf vier Zielen, 102 Prüfpunkte je Client-Ziel. Letzter Lauf (`2026-09-10T15-38-40Z-cfa0` + Serverlauf
-`16-27-20Z-375c`): Gate in Ordnung, 1078/1078, 4 × 102/102.
+auf vier Zielen, 102 Prüfpunkte je Client-Ziel. Letzter Gate-Lauf (`2026-09-10T15-38-40Z-cfa0`,
+Stand `430338e`, noch ohne den Mutationsanker-Schritt, der erst seit `fd92407` im Gate hängt) +
+Serverlauf `16-27-20Z-375c`: Gate in Ordnung, 1078/1078, 4 × 102/102; die Anker-Prüfung für sich
+läuft seither bei jedem Katalog-Commit (`jeder Anker ist da`).
 
 Der Abschlusslauf hat noch einen flackernden Servertest gezeigt, auf beiden 1.21.11-Zielen
 zugleich: die Void-Rettung hebt das Enderit auf Weltboden + 5 — das ist genau die Bodenebene des

@@ -980,8 +980,9 @@ def plan(selected: list[Mutation]) -> list[list[Mutation]]:
 #: by hand) and its own Fabric module. A server mutation proved on 26.2 says nothing about
 #: whether the TRANSLATED test body on 1.21.11 bites - the bodies are within the drift tolerance,
 #: which is a statement about text, not about teeth. --line 1.21.11 re-points every server
-#: mutation at the copy: the same anchor where the copy is word-identical (all but the server
-#: entries of ON_1_21_11 below - three of 77 today), a line specific one where the code differs.
+#: mutation at the copy: the same anchor where the copy is word-identical (all but the three
+#: server anchors ON_1_21_11 below re-spells - three of 77 today; a fourth entry there keeps its
+#: anchor and only names another test), a line specific one where the code differs.
 LINE_1_21_11 = "1.21.11"
 
 #: What differs on the 1.21.11 copy, per mutation id: "old"/"new" where the anchor reads
@@ -1237,10 +1238,28 @@ def run_round(number: int, mutations: list[Mutation], target: str, timeout: int)
         restore(files)
         print("  zurueckgenommen")
 
-    ran = bool(record) and bool(record.get("log")) and (REPO / "testing" / "runs" / record["log"]).exists()
-    failures = failures_in_text((REPO / "testing" / "runs" / record["log"]).read_text(
-        encoding="utf-8", errors="replace")) if ran else {}
-    return judge_round(number, mutations, target, record, ran, failures)
+    log_path = (REPO / "testing" / "runs" / record["log"]) if record and record.get("log") else None
+    failures = failures_in_text(log_path.read_text(encoding="utf-8", errors="replace")) \
+        if log_path and log_path.exists() else {}
+    return judge_round(number, mutations, target, record, game_ran(record, log_path, failures), failures)
+
+
+def game_ran(record: dict | None, log_path: Path | None, failures: dict[str, str]) -> bool:
+    """Did this client run get as far as running scripts?
+
+    run.py archives the log before it judges anything, so a log alone proves only that Gradle
+    was started. A compile error, a daemon lock or a timeout leaves a log with no FAILED line
+    in it - and no FAILED line would read as "every mutation stayed green". The record's error
+    field cannot decide it either: run.py also sets it for missing screenshots, which is exactly
+    what a biting mutation produces. What can: the run was not killed (exit -1 is run.py's
+    timeout), and either checkpoints were reached or a script reported a failure.
+    """
+    if not record or not log_path or not log_path.exists():
+        return False
+    if record.get("exitCode") == -1:
+        return False
+    passed = (record.get("counts") or {}).get("passed", 0)
+    return passed > 0 or bool(failures)
 
 
 def judge_round(number: int, mutations: list[Mutation], target: str, record: dict | None, ran: bool,
@@ -1265,7 +1284,7 @@ def judge_round(number: int, mutations: list[Mutation], target: str, record: dic
             "mutations": verdicts, "collateral": collateral}
 
 
-def write_dataset(rounds: list[dict], catalogue: str, extra: dict | None = None) -> pathlib.Path:
+def write_dataset(rounds: list[dict], catalogue: str, extra: dict | None = None) -> Path:
     """One dataset per run under testing/mutations, its header derived from the rounds."""
     out_dir = REPO / "testing" / "mutations"
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -1285,7 +1304,7 @@ def write_dataset(rounds: list[dict], catalogue: str, extra: dict | None = None)
     return out
 
 
-def summarise(rounds: list[dict], out: pathlib.Path) -> int:
+def summarise(rounds: list[dict], out: Path) -> int:
     total = sum(len(r["mutations"]) for r in rounds)
     bitten = sum(1 for r in rounds for v in r["mutations"] if v["ok"])
     client_rounds = [r for r in rounds if r.get("collateral") is not None]
@@ -1297,7 +1316,7 @@ def summarise(rounds: list[dict], out: pathlib.Path) -> int:
     return 0 if bitten == total and collateral == 0 else 1
 
 
-def reread(dataset: pathlib.Path) -> int:
+def reread(dataset: Path) -> int:
     """Re-judge a client dataset's rounds from the logs run.py archived for them.
 
     For the datasets written before rounds carried their log's name: the archived run records
@@ -1312,6 +1331,10 @@ def reread(dataset: pathlib.Path) -> int:
     by_id = {m.id: m for m in catalogue}
     stamp = dataset.stem
     rounds_out = []
+    # The rounds of one dataset ran back to back: each record has to start after the previous
+    # round's record finished. Without that floor a round whose own record is missing would
+    # silently borrow the newest older round of the same number and target.
+    floor = ""
     for r in data["rounds"]:
         target = r["target"]
         mutations = [for_target(by_id[v["id"]], target) for v in r["mutations"] if v["id"] in by_id]
@@ -1322,7 +1345,14 @@ def reread(dataset: pathlib.Path) -> int:
             continue
         log_name = r.get("log")
         record = None
-        if not log_name:
+        if log_name:
+            rec_path = runs_dir / (log_name[5:].split(f"-{target}")[0] + ".json")
+            if rec_path.exists():
+                rec = json.loads(rec_path.read_text(encoding="utf-8"))
+                record = next((e for e in rec.get("targets", []) if e.get("id") == target), None)
+                if record:
+                    record["_runId"] = rec.get("runId") or rec.get("id")
+        else:
             candidates = []
             for rec_path in sorted(runs_dir.glob("*.json")):
                 if rec_path.stem > stamp:
@@ -1331,20 +1361,22 @@ def reread(dataset: pathlib.Path) -> int:
                     rec = json.loads(rec_path.read_text(encoding="utf-8"))
                 except (OSError, json.JSONDecodeError):
                     continue
-                if rec.get("trigger") != f"mutation-round-{r['round']}":
+                if rec.get("trigger") != f"mutation-round-{r['round']}" or (rec.get("startedAt") or "") < floor:
                     continue
                 for entry in rec.get("targets", []):
                     if entry.get("id") == target and entry.get("selected") and entry.get("log"):
-                        candidates.append((rec_path.stem, entry, rec.get("id")))
+                        candidates.append((rec_path.stem, entry, rec.get("runId") or rec.get("id"),
+                                           rec.get("finishedAt") or ""))
             if candidates:
-                _, record, run_id = candidates[-1]
+                _, record, run_id, finished = candidates[-1]
                 record["_runId"] = run_id
                 log_name = "runs/" + record["log"]
+                floor = finished
         log_path = REPO / "testing" / log_name if log_name else None
-        ran = bool(log_path) and log_path.exists()
-        failures = failures_in_text(log_path.read_text(encoding="utf-8", errors="replace")) if ran else {}
+        failures = failures_in_text(log_path.read_text(encoding="utf-8", errors="replace")) \
+            if log_path and log_path.exists() else {}
         print(f"\nRunde {r['round']} auf {target}: {log_name or 'kein Log'}")
-        judged = judge_round(r["round"], mutations, target, record or {"log": log_name[5:] if log_name else None}, ran, failures)
+        judged = judge_round(r["round"], mutations, target, record, game_ran(record, log_path, failures), failures)
         rounds_out.append(judged)
     out = write_dataset(rounds_out, data.get("catalogue", "false-greens"), {"rereadOf": dataset.name})
     return summarise(rounds_out, out)
@@ -1405,6 +1437,10 @@ def main(argv: list[str] | None = None) -> int:
     if ("12111" in args.server_target) != (args.line == LINE_1_21_11 or "12111" in args.target):
         raise SystemExit(f"--server-target {args.server_target} liegt nicht auf der Linie, die mutiert wird "
                          f"(--line {args.line}, --target {args.target})")
+    if args.line != LINE_1_21_11 and "12111" in args.target:
+        # A 1.21.11 client target proves its server mutations on that line's copy too - for
+        # --check and --plan exactly as for --run.
+        catalogue = [on_line(m, LINE_1_21_11) if m.kind == "server" else m for m in catalogue]
     selected = catalogue
     if args.only:
         wanted = set(args.only.split(","))
@@ -1433,8 +1469,6 @@ def main(argv: list[str] | None = None) -> int:
 
     results = []
     server_mutations = [m for m in selected if m.kind == "server"]
-    if args.line != LINE_1_21_11 and "12111" in args.target:
-        server_mutations = [on_line(m, LINE_1_21_11) for m in server_mutations]
     client_rounds = plan([for_target(m, args.target) for m in selected if m.kind == "client"])
 
     for i, m in enumerate(server_mutations, 1):

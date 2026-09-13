@@ -1,0 +1,37 @@
+{
+  "catalogue": "false-greens",
+  "targets": [
+    "client-neoforge-262"
+  ],
+  "lines": [
+    "26.2"
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "target": "client-neoforge-262",
+      "kind": "client",
+      "run": "2026-09-13T19-50-44Z-3a69",
+      "log": "runs/2026-09-13T19-50-44Z-3a69-client-neoforge-262.log",
+      "mutations": [
+        {
+          "id": "hopper-overlay-colour",
+          "script": "hud-and-tooltip",
+          "file": "common/src/shared/java/com/simplebuilding/client/gui/NetheriteHopperScreen.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The filtered hopper slot has no 16x16 overlay in 0x60FFAA00 at 169/73. Rectangles drawn near that corner: [169/73..185/89 in 0x60FF00FF]. The screenshot check only asks whether anything changed there, so any other colour - including one opaque enough to hide the ghost icon - passes it."
+        },
+        {
+          "id": "p4-octant-sphere-as-cylinder",
+          "script": "block-highlight",
+          "file": "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: BlockHighlightRenderer (sphere against cylinder) did not draw anything: cylinder vs. sphere: 0/204960 changed pixels (0,0000%) but at least 400 changed pixels were required (noise floor was 0 pixels). The trigger conditions were asserted before the screenshot, so the geometry never reached the screen."
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}
