@@ -61,9 +61,11 @@ class Mutation:
     kind: str = "client"
 
 
-#: Every entry is one of the 21 client side false greens from testing/audit_falsegreens.json,
-#: with the mutation the audit named - not a softer one - and the message the sharpened step
-#: now fails with. The order inside a script does not matter; the planner spreads them.
+#: The first 22 entries are the 21 client side false greens from testing/audit_falsegreens.json
+#: (one mutation covers two entries, two of them are server side), each with the mutation the
+#: audit named - not a softer one - and the message the sharpened step now fails with; the
+#: eleven p4-* entries after them are the counter-checks of the client tests written on
+#: 2026-09-10. The order inside a script does not matter; the planner spreads them.
 MUTATIONS: list[Mutation] = [
     Mutation("hopper-button-geometry",
              f"{SHARED}/client/gui/NetheriteHopperScreen.java",
@@ -284,11 +286,9 @@ MUTATIONS: list[Mutation] = [
 #: suite NOTICE": a mutation that stays green here is a finding, and the runner reports it as
 #: one instead of forgiving it.
 #:
-#: Proved on the 26.2 line only. The 1.21.11 test bodies are the translated copy of these
-#: (port_tests_to_1_21_11.py --drift keeps them within twelve normalised lines, or within an
-#: explained difference for the three classes in its DRIFT_EXPLAINED), so the same sentence is
-#: there; what differs is the Minecraft underneath, which a mutation of the mod's source does not
-#: touch.
+#: Proved on both lines: on 26.2 as written, on the 1.21.11 copy through --line 1.21.11 (see
+#: ON_1_21_11 for the anchors and tests that read differently there). The drift check only says
+#: the translated test bodies are close in TEXT; whether they bite is what the 1.21.11 run says.
 P6_MUTATIONS: list[Mutation] = [
     # --- mining enchantments -------------------------------------------------------------
     Mutation("strip-depth-table",
@@ -419,9 +419,10 @@ P6_MUTATIONS: list[Mutation] = [
              "getRimDirection(context, 0.125)",
              "getRimDirection(context, 0.124)",
              "rotator_game_test_rim_is_the_outer_eighth_of_every_face_and_nowhere_inside",
-             # The part both lines say: on 26.2 the 0.124 probe is the first to see the margin, on
-             # 1.21.11 the click at x = 0.124 arrives a hair below 0.124 (float on the way) and the
-             # 0.124999 probe is the first. Same boundary, same wrong axis, different probe.
+             # The part both lines say: on 26.2 the 0.124 probe is the first to see the margin; on
+             # 1.21.11 that probe still passed and the 0.124999 one was the first (why the click
+             # at x = 0.124 reaches the item below 0.124 there is not established - the item code is
+             # the same on both lines). Same boundary, same wrong axis, different probe.
              "inside the rim: a log along y should have ended up along x, but it lies along z",
              "the rim is exactly the outer eighth",
              kind="server"),
@@ -979,8 +980,8 @@ def plan(selected: list[Mutation]) -> list[list[Mutation]]:
 #: by hand) and its own Fabric module. A server mutation proved on 26.2 says nothing about
 #: whether the TRANSLATED test body on 1.21.11 bites - the bodies are within the drift tolerance,
 #: which is a statement about text, not about teeth. --line 1.21.11 re-points every server
-#: mutation at the copy: same anchor where the copy is word-identical (28 of 30 are), a line
-#: specific anchor where the API differs (the two below).
+#: mutation at the copy: the same anchor where the copy is word-identical (all but the server
+#: entries of ON_1_21_11 below - three of 77 today), a line specific one where the code differs.
 LINE_1_21_11 = "1.21.11"
 
 #: What differs on the 1.21.11 copy, per mutation id: "old"/"new" where the anchor reads
@@ -1008,7 +1009,8 @@ ON_1_21_11: dict[str, dict[str, str]] = {
     "config-wandering-switch-static": {
         "script": "config_option_game_test_every_config_option_keeps_its_persisted_name_and_default",
         "expect": "the set of config options (name, group, type, default)"},
-    # Client side, where the generated 1.21.11 copy spells the line differently.
+    # Client side: two lines of the hand mirrored 1.21.11 mod copy that read differently there
+    # (GuiGraphics.renderItem for item, options.hideGui for hud.isHidden).
     "hopper-ghost-in-occupied-slot": {
         "old": "                    if (slot.getItem().isEmpty()) {\n                        context.renderItem(ghostStack, slotX, slotY);",
         "new": "                    if (true) {\n                        context.renderItem(ghostStack, slotX, slotY);"},
@@ -1108,6 +1110,8 @@ def working_tree_clean(files: set[str]) -> bool:
     return out.strip() == ""
 
 
+#: The four client targets and where their live log sits. The live log is NOT what verdicts are
+#: read from any more (see run_runpy); the keys are what --check --all-catalogues iterates.
 LOG_FOR_TARGET = {
     "client-fabric-262": "build/run/clientGameTest/logs/latest.log",
     "client-neoforge-262": "neoforge/build/run/clientGameTest/logs/latest.log",
@@ -1123,9 +1127,8 @@ LOG_FOR_TARGET = {
 FAILED_LINE = re.compile(r"\[(?P<script>[a-z-]+)\] FAILED: (?P<message>.*)|FAILED in (?P<script2>[a-z-]+) at step '(?P<step>.*?)': (?P<message2>.*)")
 
 
-def failures_in_log(target: str) -> dict[str, str]:
-    """script -> failure message, from the client log of the last run."""
-    text = (REPO / LOG_FOR_TARGET[target]).read_text(encoding="utf-8", errors="replace")
+def failures_in_text(text: str) -> dict[str, str]:
+    """script -> first failure message, read from one client run's captured output."""
     found: dict[str, str] = {}
     for line in text.splitlines():
         m = FAILED_LINE.search(line)
@@ -1137,25 +1140,45 @@ def failures_in_log(target: str) -> dict[str, str]:
     return found
 
 
-SERVER_REPORT = {
-    "fabric-262": "build/junit.xml",
-    "neoforge-262": "neoforge/build/neoforge-junit.xml",
-    "fabric-12111": "mc1_21_11/fabric/build/junit.xml",
-    "neoforge-12111": "mc1_21_11/neoforge/build/neoforge-junit.xml",
-}
+def run_runpy(target: str, trigger: str, timeout: int, selector: str | None = None) -> dict | None:
+    """One run.py invocation; its own record for the target, or None when it produced none.
+
+    The verdict below is read from THIS run's record and the log it archived - never from
+    whatever latest.log or junit.xml happen to hold. Those files survive a run that never
+    launched the game (a compile error, a daemon lock, a timeout), and they roll over at
+    midnight; a verdict read from them after such a run was the previous run's, dressed up as
+    this one's. run.py's record says whether the game ran (its report freshness, its error) and
+    names the log it captured, so both questions are answered at the source.
+    """
+    command = [sys.executable, "tools/testrunner/run.py", "--targets", target, "--timeout", str(timeout),
+               "--trigger", trigger, "--json"]
+    if selector:
+        command += ["--filter", selector]
+    done = subprocess.run(command, cwd=REPO, capture_output=True, text=True, encoding="utf-8",
+                          errors="replace")
+    text = done.stdout or ""
+    brace = text.find("{")
+    if brace < 0:
+        return None
+    try:
+        record = json.loads(text[brace:])
+    except json.JSONDecodeError:
+        return None
+    for entry in record.get("targets", []):
+        if entry.get("id") == target and entry.get("selected"):
+            entry["_runId"] = record.get("id") or record.get("runId")
+            return entry
+    return None
 
 
-def server_failure(target: str, test_id: str) -> str | None:
-    """The failure message of one test in the last JUnit report, or None when it passed."""
-    from xml.etree import ElementTree
-    root = ElementTree.parse(REPO / SERVER_REPORT[target]).getroot()
-    for case in root.iter("testcase"):
-        if (case.get("name") or "").endswith(test_id):
-            problem = case.find("failure")
-            if problem is None:
-                problem = case.find("error")
-            return None if problem is None else (problem.get("message") or problem.text or "")
-    return "TEST NICHT IM BERICHT"
+def verdict_for(m: Mutation, message: str | None, ran: bool) -> tuple[bool, str]:
+    if not ran:
+        return False, "KEIN LAUF - run.py hat fuer dieses Ziel keinen frischen Lauf aufgezeichnet"
+    if message is None:
+        return False, "GRUEN GEBLIEBEN - die Schaerfung beisst nicht"
+    if m.expect in message:
+        return True, "rot, mit der erwarteten Meldung"
+    return False, "rot, aber mit einer ANDEREN Meldung: " + message[:200]
 
 
 def run_server_mutation(number: int, m: Mutation, target: str, timeout: int) -> dict:
@@ -1164,32 +1187,35 @@ def run_server_mutation(number: int, m: Mutation, target: str, timeout: int) -> 
         raise SystemExit(f"{m.file} is not clean in git; commit or stash first")
 
     print(f"\nServer-Runde {number}: {m.id} auf {target}")
-    apply(m)
-    print(f"  eingespielt  {m.id}  ({m.file})")
+    record = None
     try:
+        apply(m)
+        print(f"  eingespielt  {m.id}  ({m.file})")
         # The selector wants the namespace; without it the server says "found no tests" and the
         # report has no such case, which reads as "not in the report", not as "still green".
         selector = m.script if ":" in m.script else f"simplebuilding:{m.script}"
-        subprocess.run([sys.executable, "tools/testrunner/run.py", "--targets", target,
-                        "--filter", selector, "--timeout", str(timeout),
-                        "--trigger", f"mutation-{m.id}"],
-                       cwd=REPO, capture_output=True, text=True)
-        message = server_failure(target, m.script)
+        record = run_runpy(target, f"mutation-{m.id}", timeout, selector)
     finally:
         restore({m.file})
         print("  zurueckgenommen")
 
-    if message is None:
-        ok, verdict = False, "GRUEN GEBLIEBEN - die Schaerfung beisst nicht"
-    elif m.expect in message:
-        ok, verdict = True, "rot, mit der erwarteten Meldung"
-    else:
-        ok, verdict = False, "rot, aber mit einer ANDEREN Meldung: " + message[:200]
+    ran = bool(record) and bool(record.get("reportFresh")) and not record.get("error")
+    message = None
+    if ran:
+        cases = [c for c in record.get("tests", []) if str(c.get("id", "")).endswith(m.script)]
+        if not cases:
+            message = "TEST NICHT IM BERICHT"
+        elif cases[0].get("status") != "passed":
+            message = cases[0].get("message") or ""
+    ok, verdict = verdict_for(m, message, ran)
     print(f"  {'OK ' if ok else 'XX '} {m.id}: {verdict}")
-    return {"round": number, "target": target,
-            "mutations": [{"id": m.id, "script": m.script, "ok": ok, "verdict": verdict,
+    return {"round": number, "target": target, "kind": "server",
+            "run": record.get("_runId") if record else None,
+            "log": record.get("logPath") if record else None,
+            "mutations": [{"id": m.id, "script": m.script, "file": m.file, "ok": ok, "verdict": verdict,
                            "message": message}],
-            "collateral": {}}
+            # A filtered server run drives one test; it cannot see other tests fail.
+            "collateral": None}
 
 
 def run_round(number: int, mutations: list[Mutation], target: str, timeout: int) -> dict:
@@ -1199,33 +1225,33 @@ def run_round(number: int, mutations: list[Mutation], target: str, timeout: int)
                          + ", ".join(sorted(files)))
 
     print(f"\nRunde {number}: " + ", ".join(m.id for m in mutations))
-    for m in mutations:
-        apply(m)
-        print(f"  eingespielt  {m.id}  ({m.file})")
-
+    record = None
     try:
-        subprocess.run([sys.executable, "tools/testrunner/run.py", "--targets", target,
-                        "--timeout", str(timeout), "--trigger", f"mutation-round-{number}"],
-                       cwd=REPO, capture_output=True, text=True)
-        failures = failures_in_log(target)
+        # Inside the try, so a second anchor that fails to apply still gets the first one
+        # restored - a round that died half applied left the tree mutated for the next command.
+        for m in mutations:
+            apply(m)
+            print(f"  eingespielt  {m.id}  ({m.file})")
+        record = run_runpy(target, f"mutation-round-{number}", timeout)
     finally:
         restore(files)
         print("  zurueckgenommen")
 
+    ran = bool(record) and bool(record.get("log")) and (REPO / "testing" / "runs" / record["log"]).exists()
+    failures = failures_in_text((REPO / "testing" / "runs" / record["log"]).read_text(
+        encoding="utf-8", errors="replace")) if ran else {}
+    return judge_round(number, mutations, target, record, ran, failures)
+
+
+def judge_round(number: int, mutations: list[Mutation], target: str, record: dict | None, ran: bool,
+                failures: dict[str, str]) -> dict:
+    """The verdicts of one client round from the failures its captured log holds."""
     verdicts = []
     mutated_scripts = {m.script for m in mutations}
     for m in mutations:
         message = failures.get(m.script)
-        if message is None:
-            verdict = "GRUEN GEBLIEBEN - die Schaerfung beisst nicht"
-            ok = False
-        elif m.expect in message:
-            verdict = "rot, mit der erwarteten Meldung"
-            ok = True
-        else:
-            verdict = "rot, aber mit einer ANDEREN Meldung: " + message[:200]
-            ok = False
-        verdicts.append({"id": m.id, "script": m.script, "ok": ok, "verdict": verdict,
+        ok, verdict = verdict_for(m, message, ran)
+        verdicts.append({"id": m.id, "script": m.script, "file": m.file, "ok": ok, "verdict": verdict,
                          "message": message})
         print(f"  {'OK ' if ok else 'XX '} {m.id}: {verdict}")
 
@@ -1233,8 +1259,95 @@ def run_round(number: int, mutations: list[Mutation], target: str, timeout: int)
     for script, message in collateral.items():
         print(f"  !! Nebenschaden in {script}: {message[:200]}")
 
-    return {"round": number, "target": target, "mutations": verdicts,
-            "collateral": collateral}
+    return {"round": number, "target": target, "kind": "client",
+            "run": record.get("_runId") if record else None,
+            "log": ("runs/" + record["log"]) if record and record.get("log") else None,
+            "mutations": verdicts, "collateral": collateral}
+
+
+def write_dataset(rounds: list[dict], catalogue: str, extra: dict | None = None) -> pathlib.Path:
+    """One dataset per run under testing/mutations, its header derived from the rounds."""
+    out_dir = REPO / "testing" / "mutations"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
+    out = out_dir / f"{stamp}.json"
+    suffix = 2
+    while out.exists():  # two datasets in one second (re-reads are fast) must not overwrite each other
+        out = out_dir / f"{stamp}-{suffix}.json"
+        suffix += 1
+    header = {"catalogue": catalogue,
+              "targets": sorted({r["target"] for r in rounds}),
+              "lines": sorted({"1.21.11" if "12111" in r["target"] else "26.2" for r in rounds}),
+              "rounds": rounds}
+    if extra:
+        header.update(extra)
+    out.write_text(json.dumps(header, indent=2, ensure_ascii=False), encoding="utf-8")
+    return out
+
+
+def summarise(rounds: list[dict], out: pathlib.Path) -> int:
+    total = sum(len(r["mutations"]) for r in rounds)
+    bitten = sum(1 for r in rounds for v in r["mutations"] if v["ok"])
+    client_rounds = [r for r in rounds if r.get("collateral") is not None]
+    collateral = sum(len(r["collateral"]) for r in client_rounds)
+    note = (f", {collateral} Nebenschaeden in {len(client_rounds)} Client-Runden" if client_rounds
+            else " (Server-Runden: ein gefilterter Lauf sieht keinen Nebenschaden)")
+    print(f"\n{bitten} von {total} Mutationen wurden rot mit der erwarteten Meldung{note}. "
+          f"Datensatz: {out.relative_to(REPO)}")
+    return 0 if bitten == total and collateral == 0 else 1
+
+
+def reread(dataset: pathlib.Path) -> int:
+    """Re-judge a client dataset's rounds from the logs run.py archived for them.
+
+    For the datasets written before rounds carried their log's name: the archived run records
+    (testing/runs/<stamp>.json, trigger "mutation-round-N", same target) are matched to the
+    dataset's rounds by round number, in time order, and the newest record per round wins. The
+    result is a new dataset naming the one it re-reads and the log each verdict was read from -
+    so a verdict changed by a fix to FAILED_LINE is a committed fact and not a shell session.
+    """
+    data = json.loads(dataset.read_text(encoding="utf-8"))
+    runs_dir = REPO / "testing" / "runs"
+    catalogue = {"p6": P6_MUTATIONS, "p6b": P6B_MUTATIONS}.get(data.get("catalogue"), MUTATIONS)
+    by_id = {m.id: m for m in catalogue}
+    stamp = dataset.stem
+    rounds_out = []
+    for r in data["rounds"]:
+        target = r["target"]
+        mutations = [for_target(by_id[v["id"]], target) for v in r["mutations"] if v["id"] in by_id]
+        if r.get("collateral") is None or target not in LOG_FOR_TARGET:
+            # Server rounds: nothing to re-read. Older datasets wrote them with an empty dict
+            # where a filtered run cannot see collateral at all; None is what that means.
+            rounds_out.append({**r, "kind": "server", "collateral": None})
+            continue
+        log_name = r.get("log")
+        record = None
+        if not log_name:
+            candidates = []
+            for rec_path in sorted(runs_dir.glob("*.json")):
+                if rec_path.stem > stamp:
+                    break
+                try:
+                    rec = json.loads(rec_path.read_text(encoding="utf-8"))
+                except (OSError, json.JSONDecodeError):
+                    continue
+                if rec.get("trigger") != f"mutation-round-{r['round']}":
+                    continue
+                for entry in rec.get("targets", []):
+                    if entry.get("id") == target and entry.get("selected") and entry.get("log"):
+                        candidates.append((rec_path.stem, entry, rec.get("id")))
+            if candidates:
+                _, record, run_id = candidates[-1]
+                record["_runId"] = run_id
+                log_name = "runs/" + record["log"]
+        log_path = REPO / "testing" / log_name if log_name else None
+        ran = bool(log_path) and log_path.exists()
+        failures = failures_in_text(log_path.read_text(encoding="utf-8", errors="replace")) if ran else {}
+        print(f"\nRunde {r['round']} auf {target}: {log_name or 'kein Log'}")
+        judged = judge_round(r["round"], mutations, target, record or {"log": log_name[5:] if log_name else None}, ran, failures)
+        rounds_out.append(judged)
+    out = write_dataset(rounds_out, data.get("catalogue", "false-greens"), {"rereadOf": dataset.name})
+    return summarise(rounds_out, out)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -1255,6 +1368,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="the P6b round over the remaining areas (server side)")
     parser.add_argument("--all-catalogues", action="store_true",
                         help="with --check: every catalogue on both lines, the way the release gate asks")
+    parser.add_argument("--reread", default="",
+                        help="re-judge a client dataset (testing/mutations/<stamp>.json) from its archived logs")
     parser.add_argument("--line", default="26.2", choices=["26.2", LINE_1_21_11],
                         help="which Minecraft line's copy of the mod to mutate; 1.21.11 takes the server "
                              "mutations only and proves them on fabric-12111 unless --server-target says otherwise")
@@ -1274,11 +1389,22 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{problems} fehlende Anker" if problems else "jeder Anker ist da")
         return 1 if problems else 0
 
+    if args.reread:
+        return reread(REPO / args.reread)
+
     catalogue = P6B_MUTATIONS if args.p6b else P6_MUTATIONS if args.p6 else MUTATIONS
+    # Server mutations are proved per LINE, on that line's Fabric server: with --line 1.21.11,
+    # and likewise inside a run for a 1.21.11 client target, they go to fabric-12111. A server
+    # target on the other line than the mutated copy would run one thing and mutate another.
+    if "12111" in args.target and args.server_target == "fabric-262":
+        args.server_target = "fabric-12111"
     if args.line == LINE_1_21_11:
         catalogue = [on_line(m, args.line) for m in catalogue if m.kind == "server"]
         if args.server_target == "fabric-262":
             args.server_target = "fabric-12111"
+    if ("12111" in args.server_target) != (args.line == LINE_1_21_11 or "12111" in args.target):
+        raise SystemExit(f"--server-target {args.server_target} liegt nicht auf der Linie, die mutiert wird "
+                         f"(--line {args.line}, --target {args.target})")
     selected = catalogue
     if args.only:
         wanted = set(args.only.split(","))
@@ -1307,6 +1433,8 @@ def main(argv: list[str] | None = None) -> int:
 
     results = []
     server_mutations = [m for m in selected if m.kind == "server"]
+    if args.line != LINE_1_21_11 and "12111" in args.target:
+        server_mutations = [on_line(m, LINE_1_21_11) for m in server_mutations]
     client_rounds = plan([for_target(m, args.target) for m in selected if m.kind == "client"])
 
     for i, m in enumerate(server_mutations, 1):
@@ -1314,24 +1442,8 @@ def main(argv: list[str] | None = None) -> int:
     for i, r in enumerate(client_rounds, 1):
         results.append(run_round(i, r, args.target, args.timeout))
 
-    out_dir = REPO / "testing" / "mutations"
-    out_dir.mkdir(parents=True, exist_ok=True)
-    stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
-    out = out_dir / f"{stamp}.json"
-    # The header names the target the rounds actually ran on: the client target for the client
-    # catalogue, the server target for a --p6 run, which has no client rounds at all.
-    ran_on = args.server_target if (args.p6 or args.p6b) else args.target
-    out.write_text(json.dumps({"target": ran_on, "line": args.line,
-                               "catalogue": "p6b" if args.p6b else "p6" if args.p6 else "false-greens",
-                               "rounds": results}, indent=2,
-                              ensure_ascii=False), encoding="utf-8")
-
-    total = sum(len(r["mutations"]) for r in results)
-    bitten = sum(1 for r in results for v in r["mutations"] if v["ok"])
-    collateral = sum(len(r["collateral"]) for r in results)
-    print(f"\n{bitten} von {total} Mutationen wurden rot mit der erwarteten Meldung, "
-          f"{collateral} Nebenschaeden. Datensatz: {out.relative_to(REPO)}")
-    return 0 if bitten == total and collateral == 0 else 1
+    out = write_dataset(results, "p6b" if args.p6b else "p6" if args.p6 else "false-greens")
+    return summarise(results, out)
 
 
 if __name__ == "__main__":

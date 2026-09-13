@@ -1,0 +1,29 @@
+{
+  "catalogue": "p6",
+  "targets": [
+    "fabric-12111"
+  ],
+  "lines": [
+    "1.21.11"
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "target": "fabric-12111",
+      "kind": "server",
+      "run": "2026-09-13T19-25-43Z-a73f",
+      "log": "runs/2026-09-13T19-25-43Z-a73f-fabric-12111.log",
+      "mutations": [
+        {
+          "id": "rotator-rim-margin",
+          "script": "rotator_game_test_rim_is_the_outer_eighth_of_every_face_and_nowhere_inside",
+          "file": "mc1_21_11/shared/java/com/simplebuilding/items/custom/RotatorItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-7676726, -59, 2041552) 0.124999 from the west edge, the last hair inside the rim: a log along y should have ended up along x, but it lies along z on tick 0"
+        }
+      ],
+      "collateral": null
+    }
+  ]
+}

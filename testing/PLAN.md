@@ -12,12 +12,12 @@ Verhalten kaputtgeht — und dass alles, was das nicht sein kann, benannt ist st
 
 | Ziel | Tests |
 |---|---:|
-| Fabric · MC 26.2 | 269 |
-| NeoForge · MC 26.2 | 269 |
-| Fabric · MC 1.21.11 | 266 |
-| NeoForge · MC 1.21.11 | 266 |
+| Fabric · MC 26.2 | 271 |
+| NeoForge · MC 26.2 | 271 |
+| Fabric · MC 1.21.11 | 268 |
+| NeoForge · MC 1.21.11 | 268 |
 
-**263 Tests tragen auf beiden Linien dieselbe Id** — ein Bericht der einen Linie lässt sich Zeile
+**265 Tests tragen auf beiden Linien dieselbe Id** — ein Bericht der einen Linie lässt sich Zeile
 für Zeile neben den der anderen legen. Die sechs Abweichungen stehen als `LINE_DIFFERENCES` in
 `tools/testrunner/run.py`, und zwar als **Gegenstücke**, nicht als Ausnahmen: vier prüfen etwas,
 das es auf 1.21.11 gar nicht gibt (datengetriebene Handelsangebote gibt es erst ab MC 26.1, die
@@ -409,16 +409,26 @@ fünf anderen waren zu je einem Drittel Werkzeug, Testschwäche und Erwartung:
 - **Eine Erwartung war falsch geschrieben**: der JUnit-Bericht trägt die Ausnahmemeldung
   („Index 3 out of bounds for length 3"), nicht den Klassennamen.
 
-**Auf allen vier Client-Zielen (2026-09-11 bis 13):** die 22 P7- und die elf P4-Gegenproben (die
-zehn am 2026-09-10 geschriebenen Client-Tests, Töne bis F1-Wache) sind je Ziel an Loader und Linie
-adressiert (`for_target`: die fünf Regeln des Fabric-Einstiegs haben ihren NeoForge-Zwilling, die
-zwei generierten 1.21.11-Zeilen ihren Anker) und gefahren — **33/33 rot auf Fabric 26.2, NeoForge
-26.2, Fabric 1.21.11 und NeoForge 1.21.11.** Ein Körper, vier Treiber, und jede Schärfung beißt auf
-jedem. Zwei Dinge auf dem Weg: NeoForges „FAILED in … at step '…'" trägt im Schrittnamen selbst
-Apostrophe (`block's`, `stone's`, `button's`), an denen der Log-Leser abbrach und drei rote Schritte
-als „grün geblieben" las — behoben, die archivierten Logs neu gelesen; und der Rechner ist zweimal
-mitten in einer Runde in den Ruhezustand gegangen (eine Runde dauerte 7,7 Stunden), die betroffenen
-Runden wurden wach wiederholt.
+**Auf allen vier Client-Zielen (2026-09-11 bis 13):** die 31 clientseitigen Gegenproben (20 aus P7
+und die elf für die zehn am 2026-09-10 geschriebenen Client-Tests, Töne bis F1-Wache) sind je Ziel
+an Loader und Linie adressiert (`for_target`: die fünf Regeln des Fabric-Einstiegs haben ihren
+NeoForge-Zwilling, zwei Zeilen der von Hand gespiegelten 1.21.11-Mod-Kopie ihren eigenen Anker) und
+gefahren — **31/31 rot auf Fabric 26.2, NeoForge 26.2, Fabric 1.21.11 und NeoForge 1.21.11**; die
+zwei serverseitigen P7-Mutationen (Trichter-Ordinal, nur PICKUP) sind je Linie belegt, auf
+`fabric-262` und `fabric-12111`. Ein Körper, vier Treiber, und jede Schärfung beißt auf jedem.
+
+Belegt durch die Datensätze unter `testing/mutations/`, und zwar so: die ursprünglichen Läufe vom
+2026-09-12 (`17-23-48Z` NeoForge 26.2, `18-41-25Z` Fabric 1.21.11, `19-58-13Z` NeoForge 1.21.11)
+plus deren Neulesung (`2026-09-13T19-25-24Z/27Z/29Z`, Feld `rereadOf`) aus den archivierten Logs,
+nachdem der Log-Leser repariert war — NeoForges „FAILED in … at step '…'" trägt im Schrittnamen
+selbst Apostrophe (`block's`, `stone's`, `button's`), an denen der Leser abbrach und rote Schritte
+als „grün geblieben" las — plus die wachen Wiederholungen der Runden, die der Ruhezustand des
+Rechners unterbrochen hatte (`2026-09-12T23-01-54Z`: NeoForge 26.2 Runden 1 und 3, 9/9;
+`2026-09-13T19-33-25Z`: `bundle-scale` auf NeoForge 1.21.11). Drei Runden hatte der Ruhezustand getroffen
+(7,7 h, 20,3 h und der erste `bundle-scale`-Nachlauf mit 19,8 h); ihre Verdikte zählen nicht, die
+Wiederholungen schon. Der Runner liest seither nur noch aus dem Datensatz und dem archivierten Log
+des Laufs, den er selbst gestartet hat (`run_runpy`), nie aus `latest.log` oder `junit.xml` auf der
+Platte — die überleben einen Lauf, der das Spiel nie gestartet hat, und rollen um Mitternacht um.
 
 Und was der allererste Anlauf gezeigt hat, bevor überhaupt ein Urteil möglich war: ein roter
 Schritt hinterlässt seinen Zustand dem nächsten Skript. Ein offener `BuildingWandScreen` ist ein
@@ -497,12 +507,15 @@ dem Satz, der das Tor wirklich sieht.
 
 **Auch auf der 1.21.11-Linie gefahren (2026-09-11, `--line 1.21.11`):** `--drift` sagt nur, dass die
 übersetzten Körper *textlich* nahe sind, nicht, dass sie beißen. Der Runner zeigt die
-Server-Mutationen deshalb auf die Kopie unter `mc1_21_11/shared/java` (28 von 30 Anker wortgleich,
-zwei Linien-Anker: `BlockTags` statt `BlockItemTags`, `ClickType` statt `ContainerInput`) und
-beweist sie auf `fabric-12111`: **27 von 27 P6 und 2 von 2 Server-P7 rot.** Ein Unterschied im
-Satz: bei `rotator-rim-margin` sieht auf 1.21.11 die 0.124999-Sonde die Mutation zuerst, weil der
-Klick bei x = 0.124 dort ein Haar darunter ankommt (Float auf dem Weg) — gleiche Grenze, gleiche
-falsche Achse.
+Server-Mutationen deshalb auf die Kopie unter `mc1_21_11/shared/java` (damals 27 von 29 Ankern
+wortgleich, heute 74 von 77; die Linien-Anker stehen in `ON_1_21_11`: `BlockTags` statt
+`BlockItemTags`, `ClickType` statt `ContainerInput`, die `WeightedPicker`-Schleife) und
+beweist sie auf `fabric-12111`: **27 von 27 P6 und 2 von 2 Server-P7 rot** (`2026-09-10T22-03-34Z`
+mit 26 von 27, dazu `2026-09-13T19-26-12Z` für `rotator-rim-margin` mit der auf beide Linien
+passenden Erwartung, und `22-04-20Z`). Der eine Unterschied im Satz: bei `rotator-rim-margin` bestand
+auf 1.21.11 die 0.124-Sonde noch, erst die 0.124999-Sonde sah die Mutation — der Klick bei x = 0.124
+erreicht das Item dort unterhalb von 0.124; woran das liegt, ist nicht belegt (der Item-Code ist auf
+beiden Linien derselbe). Gleiche Grenze, gleiche falsche Achse, andere Sonde.
 
 ### P6b — die übrigen Bereiche — **erledigt am 2026-09-11**
 
@@ -512,8 +525,9 @@ dynamisches Licht, Bilderrahmen, Void-Rettung, Baustab-Innereien, Versatility, H
 
 Entworfen von je einem Prüfer pro Bereich (8), jeder Vorschlag von einem zweiten gegen Anker,
 Nicht-Äquivalenz und den Satz des benannten Tests gelesen: 48 Vorschläge, 48 angenommen.
-`mutations.py --p6b --run`: **48 von 48 rot mit der erwarteten Meldung, 0 Nebenschäden**, auf
-26.2 im ersten Lauf. Kein neuer Befund am Mod — die Bereiche, in denen die Servertests seit
+`mutations.py --p6b --run`: **48 von 48 rot mit der erwarteten Meldung** auf 26.2 im ersten Lauf
+(ein gefilterter Serverlauf treibt einen Test; Nebenschaden kann er nicht sehen, und der Runner
+sagt das seither auch so). Kein neuer Befund am Mod — die Bereiche, in denen die Servertests seit
 September 3 geschärft wurden, halten jeder entworfenen Verschiebung stand: Trichter-Sperre und
 -Lernen, Ofen-Schrittweite und -Kappe je Familie, Köcher ohne Bündel-Bonus, Funnel-I-Filter,
 Kreativ-Bogen, Materialtor der Besatzzählung, Snout auf dem Feuer-Tag, Rib-Takt 20, Landbonus
@@ -522,8 +536,9 @@ Detektor-Nächster, Magnet-Namensraum, Oktant-Luftklick, Meißel-Tabellenvererbu
 Licht unter Wasser, Rahmen-Schloss vor dem Magneten, Void-Schwelle und -Ziel, Baustab-Rucksack,
 Paletten-Reihenfolge, Linear-Pause, Ebene nach Fläche, Versatility-Reichweite, Stufen→Platte.
 
-Auf der 1.21.11-Kopie ebenfalls **48 von 48 rot** — 46 im ersten Lauf, zwei mit Linienunterschied im
-*Test*, nicht im Mod: der Meisterbuch-Handel jener Linie ist eine code-registrierte
+Auf der 1.21.11-Kopie ebenfalls **48 von 48 rot** — 46 im ersten Lauf, zwei mit Linienunterschied:
+die Loot-Funktion ist dort anders geschrieben (`WeightedPicker`-Schleife, eigener Anker) und der
+Meisterbuch-Handel jener Linie ist eine code-registrierte
 `EnchantmentPool`-Liste und läuft nicht durch die Loot-Funktion (dort sieht der direkte
 Second-Chance-Test die fallengelassene Stufe, mit demselben Satz), und den Handelsschalter-Test
 gibt es dort nicht (erklärter Unterschied; die Reflexion über alle Konfig-Optionen bemerkt das
@@ -546,7 +561,9 @@ statische Feld). `ON_1_21_11` in `mutations.py` trägt beides.
    Runden auch auf der 1.21.11-Kopie rot.**
 4. Das Release-Gate erzwingt 1 und 2, sodass die Parität nicht wieder still kippen kann.
    **→ erreicht.** Seit dem 2026-09-10 prüft es auch, ob die 1.21.11-Client-Kopie hinter dem
-   gemeinsamen Baum zurückhängt (`port_client_tests_to_1_21_11.py --check`).
+   gemeinsamen Baum zurückhängt (`port_client_tests_to_1_21_11.py --check`), ob die Testkörper
+   driften (`--drift`) und ob jeder Anker der drei Mutationskataloge noch steht
+   (`mutations.py --check --all-catalogues`, beide Linien, vier Client-Ziele).
 5. Jede Stelle, die kein Test erreicht, steht als „Not covered" im Quelltext, mit Grund.
    **→ weitgehend erreicht, mit dem Audit aus P1 zu bestätigen**
 
@@ -561,8 +578,11 @@ Ehrlich benannt, damit niemand es für eine Lücke hält:
 - **Fremdmod-Integration.** `enderscape:stasis` lässt sich nicht positiv prüfen: kein Holder in
   der Testregistry trägt den Schlüssel, und ein selbstgebauter ist von außerhalb
   `net.minecraft.core` nicht bindbar.
-- **Zufallsabhängige Pfade** ohne gesetzten Startwert — Luftersparnis, Amethyst-Heilung. Machbar,
-  aber ein instabiler Test ist schlechter als gar keiner.
+- **Der Würfel selbst in den zufallsabhängigen Pfaden** — Luftersparnis, Amethyst-Heilung. Die
+  Pfade sind gedeckt (`TrimWiringTests`: volle Sets mit gepinntem Fortschrittsfaktor treiben die
+  Chance über 1,0, dann ist `nextFloat() < chance` immer wahr, und Luft wie Heilung werden real
+  gemessen); ungedeckt bleibt nur, dass eine Chance unter 1,0 *manchmal* nicht greift — das ist
+  Vanillas `RandomSource`, und ein Test darauf wäre ohne gesetzten Startwert instabil.
 - **`NetheriteHopperBlockEntity`** ist toter Code. Nichts konstruiert es. Das ist kein Testthema,
   sondern eine Aufräumfrage.
 
@@ -573,13 +593,15 @@ Ehrlich benannt, damit niemand es für eine Lücke hält:
 ~~**P1** (Audit)~~ → ~~**P5** (Gate)~~ → ~~**P3** (Entscheidung)~~ → ~~**P7** (falsche Grün)~~ →
 ~~**Servertests** für die 127 schreibbaren Lücken~~ → ~~**P3-Umsetzung** (Fassade + Treiber)~~
 → ~~**P2** (Client 1.21.11) und die 74 clientseitigen Lücken~~ → ~~**P4** (Restkategorien)~~ →
-~~**P6** (Mutationstests)~~ → ~~**P8** (Körper-Drift)~~.
+~~**P6** (Mutationstests)~~ → ~~**P8** (Körper-Drift)~~ → ~~**P6b** (Mutationen der übrigen
+Bereiche, beide Linien)~~ → ~~Gegenproben der P4-Client-Tests auf allen vier Zielen~~.
 
-**Alle Pakete sind am 2026-09-10 abgeschlossen.** Was bleibt, steht in Abschnitt 5, und die 27
+**Alle Pakete sind abgeschlossen** — P1 bis P8 am 2026-09-10, P6b und die Client-Gegenproben auf
+allen vier Zielen am 2026-09-11 bis 13. Was bleibt, steht in Abschnitt 5, und die 27
 Entscheidungen des Besitzers aus P4 sind Verhalten, kein Rückstand. Der Stand ist mit
 `python tools/testrunner/run.py --release-gate --targets everything` reproduzierbar: Gate
-(`gradlew check`, Wiki, Client-Port, Körper-Drift, Id-Parität), 1078 Servertests auf vier
-Zielen, 102 Prüfpunkte je Client-Ziel. Letzter Lauf (`2026-09-10T15-38-40Z-cfa0` + Serverlauf
+(`gradlew check`, Wiki, Client-Port, Körper-Drift, Id-Parität, Mutationsanker), 1078 Servertests
+auf vier Zielen, 102 Prüfpunkte je Client-Ziel. Letzter Lauf (`2026-09-10T15-38-40Z-cfa0` + Serverlauf
 `16-27-20Z-375c`): Gate in Ordnung, 1078/1078, 4 × 102/102.
 
 Der Abschlusslauf hat noch einen flackernden Servertest gezeigt, auf beiden 1.21.11-Zielen
