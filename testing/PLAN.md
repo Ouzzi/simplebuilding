@@ -409,6 +409,17 @@ fünf anderen waren zu je einem Drittel Werkzeug, Testschwäche und Erwartung:
 - **Eine Erwartung war falsch geschrieben**: der JUnit-Bericht trägt die Ausnahmemeldung
   („Index 3 out of bounds for length 3"), nicht den Klassennamen.
 
+**Auf allen vier Client-Zielen (2026-09-11 bis 13):** die 22 P7- und die elf P4-Gegenproben (die
+zehn am 2026-09-10 geschriebenen Client-Tests, Töne bis F1-Wache) sind je Ziel an Loader und Linie
+adressiert (`for_target`: die fünf Regeln des Fabric-Einstiegs haben ihren NeoForge-Zwilling, die
+zwei generierten 1.21.11-Zeilen ihren Anker) und gefahren — **33/33 rot auf Fabric 26.2, NeoForge
+26.2, Fabric 1.21.11 und NeoForge 1.21.11.** Ein Körper, vier Treiber, und jede Schärfung beißt auf
+jedem. Zwei Dinge auf dem Weg: NeoForges „FAILED in … at step '…'" trägt im Schrittnamen selbst
+Apostrophe (`block's`, `stone's`, `button's`), an denen der Log-Leser abbrach und drei rote Schritte
+als „grün geblieben" las — behoben, die archivierten Logs neu gelesen; und der Rechner ist zweimal
+mitten in einer Runde in den Ruhezustand gegangen (eine Runde dauerte 7,7 Stunden), die betroffenen
+Runden wurden wach wiederholt.
+
 Und was der allererste Anlauf gezeigt hat, bevor überhaupt ein Urteil möglich war: ein roter
 Schritt hinterlässt seinen Zustand dem nächsten Skript. Ein offener `BuildingWandScreen` ist ein
 Pausenbildschirm, der integrierte Server stand, und sechs Folgeskripte scheiterten an Dingen, die

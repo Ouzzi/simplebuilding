@@ -1,0 +1,21 @@
+{
+  "target": "client-neoforge-12111",
+  "line": "26.2",
+  "catalogue": "false-greens",
+  "rounds": [
+    {
+      "round": 1,
+      "target": "client-neoforge-12111",
+      "mutations": [
+        {
+          "id": "bundle-scale",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Reinforced bundle tooltip bar: the mod's component does not draw like a component scaled by maxCapacity / 64 = 3.0 (mod: 1 text elements, 184 chars of geometry, reference: 1 text elements, 184 chars of geometry). The scale the callback sets is not the capacity in stacks."
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "target": "client-neoforge-262",
+  "line": "26.2",
+  "catalogue": "false-greens",
+  "rounds": [
+    {
+      "round": 1,
+      "target": "client-neoforge-262",
+      "mutations": [
+        {
+          "id": "hopper-button-geometry",
+          "script": "hud-and-tooltip",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The hopper filter button is 30x30 at 85/13, expected 18x18 at 263/72 (right of the five hopper slots, one row below the top). A button that has moved or changed size is still found and still clicked by this test, so nothing else here would notice."
+        },
+        {
+          "id": "wand-needs-block-hit",
+          "script": "building-wand-preview",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: A building wand must not preview anything while the crosshair finds no block; vanilla reports a miss as a BlockHitResult of type MISS, so an instanceof test alone lets the plane through, but the two pictures differ: wand held while looking at the sky: 127980/409920 changed pixels (31,2207%) (allowed 200 pixels, noise floor was 0 pixels)."
+        },
+        {
+          "id": "settings-key-offhand",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The settings key opened com.simplebuilding.client.gui.BuildingWandScreen for an enchanted building wand in the off hand, although nothing was supposed to open."
+        },
+        {
+          "id": "hammer-should-break",
+          "script": "block-highlight",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The sledgehammer highlight did not lose a box when one neighbour became oak planks: 8546 changed pixels against 8546 with eight stone neighbours, at least 712 fewer were required. The renderer boxes a block the hammer would never break, which is exactly the skip on SledgehammerUtils.shouldBreak that every all-stone picture above cannot see."
+        },
+        {
+          "id": "strip-miner-correct-tool",
+          "script": "multi-block-breaking",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: A stone Vein Miner pickaxe produced a breaking crack on BlockPos{x=11, y=1, z=20} while sneaking at diamond ore, which it cannot harvest. Recorded: [BlockPos{x=10, y=1, z=20}, BlockPos{x=11, y=1, z=20}]. The preview's isCorrectToolForDrops guard is the only tool check on this branch - the Vein Miner list itself never asks - and a crack on an ore the server will not break is a lie to the player."
+        },
+        {
+          "id": "survival-zero-fields",
+          "script": "smoke",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: SurvivalSyncPayload carries the wrong numbers: [hostile kills: client 2, server 1, passive kills: client 1, server 2, damage taken: client 0, server 30]. Each field of the payload has to be the matching server side counter; the trim reference screen shows exactly these values to the player."
+        },
+        {
+          "id": "p4-overlay-ignores-f1",
+          "script": "air-jump",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The cooldown bar is drawn on a hidden HUD: [fill(172,184 -> 254,191, #C0000000), fill(173,185 -> 253,190, #FF2B2B2B), fill(173,185 -> 193,190, #FFFFC83C)] [text(\"Air Jump\" at 213,175, #FFFFFFFF)]. F1 hides vanilla's HUD as a whole; the mod's overlays have to follow it on every loader, not only where the element registry happens to sit inside a vanilla layer."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 2,
+      "target": "client-neoforge-262",
+      "mutations": [
+        {
+          "id": "octant-scroll-any-item",
+          "script": "client-bootstrap",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Scrolling with Control while holding STONE left the selected hotbar slot at 0. The mixin is only allowed to cancel the event for an octant; with anything else in hand vanilla's modifier scrolling has to keep working."
+        },
+        {
+          "id": "p4-hammer-transform-pitch",
+          "script": "smoke",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The sledgehammer transformation sound was played at 1.0 / 1.0, expected 1.0 / 0.8 (minecraft:block.stone.break@1.0/1.0), the pair SledgehammerItem passes to world.playSound."
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}
