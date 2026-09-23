@@ -883,7 +883,9 @@ public final class BundleWiringTests {
      *
      * <p>All three tiers are asserted, the enderite one included: the tiers are separate lines in
      * {@code ModItemTagProvider} and the top tier is the one an upgrade must not silently
-     * downgrade, so the netherite bundle passing says nothing about it.
+     * downgrade, so the netherite bundle passing says nothing about it. The three quivers are
+     * asserted the same way - they are {@code ReinforcedBundleItem}s, sit on their own lines in both
+     * tags, and read all five enchantments through the same code.
      *
      * <p>What breaks this test: removing a bundle from either tag file, pointing one of the five
      * enchantments at a different {@code supported_items} tag, or merging the two tags into one.
@@ -903,7 +905,7 @@ public final class BundleWiringTests {
         containerEnchantments.addAll(extraInventoryTagEnchantments);
 
         for (Item bundle : List.of(ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE,
-                ModItems.ENDERITE_BUNDLE)) {
+                ModItems.ENDERITE_BUNDLE, ModItems.QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER)) {
             ItemStack stack = new ItemStack(bundle);
             for (ResourceKey<Enchantment> key : containerEnchantments) {
                 helper.assertTrue(enchantment(helper, key).value().canEnchant(stack),

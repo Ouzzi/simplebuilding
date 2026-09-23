@@ -106,33 +106,25 @@ import net.minecraft.world.phys.HitResult;
  * is what makes it work on NeoForge at all, and the question really runs on the server thread
  * rather than reading server state from the client thread.
  *
- * <p><b>Known defect - the four item frame sounds never reach anybody.</b>
- * {@code ItemFrameEntityMixin} plays all four of its sounds with {@code player.playSound(...)}
- * inside its {@code if (!isClient)} branch. {@code Player#playSound} passes {@code this} as the
- * "except" argument of {@code Level#playSound}, and on the server that argument is the player who
- * is skipped when the sound packet is broadcast ({@code PlayerList#broadcast} compares
- * {@code player != except}). The interacting player is therefore the one client that never gets
- * the packet, and in single player there is nobody else. The overlay messages next to them work,
- * because {@code ServerPlayer#sendOverlayMessage} sends straight down that player's connection.
- * The sounds are consequently not covered below: a test for them could only assert the broken
- * behaviour.
+ * <p><b>The item frame sounds reach the acting player (fixed 2026-09).</b>
+ * {@code ItemFrameEntityMixin} used to play its four frame sounds and the magnet filter sound with
+ * {@code player.playSound(...)}, which passes the player as the "except" argument of
+ * {@code Level#playSound}, so on the server the one player the sound was for was the one
+ * {@code PlayerList#broadcast} skipped - in single player nobody heard it. The Ore Detector's mode
+ * switch click had the same fault. All of them now go through {@code level().playSound(null, ...)}
+ * like every other sound of the mod; {@link #itemFrameOverlayMessagesReachTheClient} hears the five
+ * next to their messages, {@link #rotatorSledgehammerAndWandSoundsReachTheClient} the detector.
  *
- * <p><b>Known defect - three block items have no name at all.</b> {@code ModItems#registerItem}
- * builds every item from a bare {@code new Item.Properties().setId(key)} and never calls
- * {@code Item.Properties#useBlockDescriptionPrefix()}. In 26.2 the description id is fixed at
+ * <p><b>Block items are named under {@code item.}, not {@code block.}.</b>
+ * {@code ModItems#registerItem} builds every item from a bare
+ * {@code new Item.Properties().setId(key)} and never calls
+ * {@code Item.Properties#useBlockDescriptionPrefix()}; in 26.2 the description id is fixed at
  * construction time out of those properties, and {@code BlockItem} overrides neither
- * {@code getDescriptionId} nor {@code getName}, so a block item is called
- * {@code item.simplebuilding.<path>} and not {@code block.simplebuilding.<path>}. Most of the
- * mod's block items are covered by a second language entry that repeats the block name under the
- * {@code item.} prefix. Three are not, and show the bare key wherever an item name is drawn -
- * hotbar, inventory, creative tab, death message:
- * {@code item.simplebuilding.nihilith_ore} (while {@code astralit_ore}, its twin from the same
- * feature, does have the duplicate entry), {@code item.simplebuilding.polished_end_stone} and
- * {@code item.simplebuilding.lapis_quartz_checker}.
- * {@link #modLanguageFileReachesTheClient} therefore asserts the <em>astralit</em> block item and
- * leaves the nihilith one out. Listing it would pin the defect in place: both repairs - adding the
- * three missing entries, or calling {@code useBlockDescriptionPrefix()} and deleting the
- * duplicated {@code item.} entries - would have to fight the test to land.
+ * {@code getDescriptionId} nor {@code getName}. So every block item needs a second language entry
+ * that repeats the block name under the {@code item.} prefix. Three had none until 2026-09 and
+ * showed the bare key wherever an item name is drawn - {@code nihilith_ore},
+ * {@code polished_end_stone} and {@code lapis_quartz_checker}. {@link #modLanguageFileReachesTheClient}
+ * asserts all three now, next to the astralit twin that always had its entry.
  *
  * <p><b>Known defect - {@code tooltip.simplebuilding.netherite_piston} is an orphan.</b> The key
  * exists in both language files but no code anywhere in the mod calls {@code appendHoverText} for
@@ -264,7 +256,8 @@ public final class SmokeClientTest {
      * <p>The mod's {@code en_us.json} is a client resource: the server never loads it, so no server
      * test can tell a packaged language file from a missing one. This asserts that the client's
      * language manager really resolves the names of the ore generation feature - the two ore
-     * blocks, one block item and the two things they smelt into.
+     * blocks, their two block items and the two things they smelt into - and of the two other
+     * block items that once had no {@code item.} entry.
      *
      * <p>The control comes first and is the reason this test can say anything at all:
      * {@code I18n.get} echoes a key back when it has no entry for it, so "translated" and
@@ -274,9 +267,9 @@ public final class SmokeClientTest {
      *
      * <p>The list covers both prefixes the feature needs: {@code block.} for the two ores as they
      * sit in the world, {@code item.} for the things the player carries. Which prefix a block item
-     * lands under is not obvious in 26.2, and it is exactly where the mod gets it wrong for three
-     * blocks - see the known defect in the class javadoc for why {@code NIHILITH_ORE_ITEM} is
-     * absent from this list while its astralit twin is in it.
+     * lands under is not obvious in 26.2 (see the class javadoc), and three block items - the
+     * nihilith ore, polished end stone and the lapis quartz checker - had no {@code item.} entry
+     * until 2026-09; all three are in the list.
      *
      * <p><b>Not covered:</b> that other languages fall back to English. That is vanilla -
      * {@code LanguageManager} always stacks the selected language on top of {@code en_us} - and
@@ -284,13 +277,16 @@ public final class SmokeClientTest {
      *
      * <p>What breaks this test: a language file renamed, moved out of
      * {@code assets/simplebuilding/lang/}, excluded from the jar by {@code processResources}, made
-     * unparseable, or one of these five keys renamed on one side only.
+     * unparseable, or one of these eight keys renamed on one side only or dropped.
      */
     private static void modLanguageFileReachesTheClient(Script script) {
         List<String> keys = List.of(
                 ModBlocks.NIHILITH_ORE.getDescriptionId(),
                 ModBlocks.ASTRALIT_ORE.getDescriptionId(),
                 ModItems.ASTRALIT_ORE_ITEM.getDescriptionId(),
+                ModItems.NIHILITH_ORE_ITEM.getDescriptionId(),
+                ModItems.POLISHED_END_STONE.getDescriptionId(),
+                ModItems.LAPIS_QUARTZ_CHECKER.getDescriptionId(),
                 ModItems.NIHILITH_SHARD.getDescriptionId(),
                 ModItems.ASTRALIT_DUST.getDescriptionId());
 
@@ -861,8 +857,8 @@ public final class SmokeClientTest {
      * reading as described above.
      *
      * <p>What breaks this test: {@code setChiselSound} no longer being called for spatulas, the
-     * playback moving to {@code player.playSound} (which would skip the acting player, see the
-     * class javadoc), the volume changing, or the spatula registration losing its dedicated flag so
+     * playback moving to {@code player.playSound} (which would skip the acting player - the item
+     * frame sounds did until 2026-09, see the class javadoc), the volume changing, or the spatula registration losing its dedicated flag so
      * it stops being a spatula at all.
      */
     private static void chiselAndSpatulaSoundsReachTheClient(Script script) {
@@ -922,8 +918,9 @@ public final class SmokeClientTest {
      * The rotator, the sledgehammer's block transformation and the building wand each announce
      * themselves with a sound, and each goes through {@code world.playSound(null, ...)} - the
      * variant every client in range hears, including the one that did it. That is what makes
-     * them measurable here at all; the item frame's four sounds go through
-     * {@code player.playSound}, which skips the acting player, and stay uncovered for that reason.
+     * them measurable here at all. The item frame's four sounds went through
+     * {@code player.playSound}, which skips the acting player, until 2026-09; they are asserted in
+     * section 7 now.
      *
      * <p>Three claims, each with the value the code names:
      * <ul>
@@ -940,6 +937,10 @@ public final class SmokeClientTest {
      *       pitch {@code p * 0.8}, once per placed block. A copper wand (diameter 3) placing stone
      *       against the wall gives nine of them, or eight if the aimed cell is occupied.</li>
      * </ul>
+     *
+     * <p>A fourth one rides along: the Ore Detector's mode switch clicks ({@code UI_BUTTON_CLICK} at
+     * 0.5 / 1.5). It went through {@code Player#playSound} until 2026-09, so the player who switched
+     * heard nothing; now it goes through {@code level().playSound(null, ...)} as well.
      *
      * <p>The audit of 2026-09-08 listed the rotator's and the sledgehammer's as harness-blocked and
      * the wand's as not worth the effort. Neither held: the recorder this class already has hears
@@ -1088,6 +1089,57 @@ public final class SmokeClientTest {
             }
         });
 
+        // --- ore detector mode switch ------------------------------------------------------
+        // Sneak + use into the air cycles the mode and clicks. Straight up there is no block under
+        // the crosshair, so the use cannot turn into a calibration.
+        script.command("clear @a", true);
+        script.command("item replace entity @a weapon.mainhand with simplebuilding:ore_detector");
+        script.command("tp @a 10.5 0.0 16.5 0.0 -90.0");
+        script.awaitPackets();
+        script.idle("let the detector and the new view reach the client", 15);
+        script.act("the crosshair is on nothing", client -> {
+            if (client.hitResult != null && client.hitResult.getType() != net.minecraft.world.phys.HitResult.Type.MISS) {
+                throw new AssertionError("Setup failed: looking straight up the crosshair still hits "
+                        + client.hitResult.getType() + ", so the sneak use would calibrate instead of "
+                        + "switching the mode.");
+            }
+        });
+        assertSneakKeyIsBound(script);
+        script.harness("hold the sneak key for the detector", harness -> harness.holdKey(SNEAK_KEY));
+        script.idle("let the sneak state reach the server", 10);
+
+        Later<List<SoundRecorder.Heard>> switched = new Later<>("the sounds heard while the detector switched mode");
+        script.verify("start recording sounds for the detector", SoundRecorder::arm);
+        script.harness("sneak-use the detector into the air", harness -> harness.pressMouse(1));
+        script.idle("let the mode switch and its sound arrive", 15);
+        script.verify("stop recording sounds for the detector", () -> {
+            switched.set(SoundRecorder.heard());
+            SoundRecorder.disarm();
+        });
+        script.harness("release the sneak key after the detector", harness -> harness.releaseKey(SNEAK_KEY));
+
+        script.verify("the mode switch clicks for the player who switched, at 0.5 / 1.5", () -> {
+            Identifier click = SoundEvents.UI_BUTTON_CLICK.value().location();
+            SoundRecorder.Heard heard = firstOf(switched.get(), click);
+
+            if (heard == null) {
+                throw new AssertionError("Switching the Ore Detector's mode played no " + click + " the "
+                        + "switching player could hear (heard " + switched.get() + "). Played with "
+                        + "Player#playSound it skips exactly this player on the server.");
+            }
+
+            assertFactorsAreUsable(heard, "ore detector mode switch");
+
+            if (Math.abs(heard.sentVolume() - 0.5f) > 0.001f || Math.abs(heard.sentPitch() - 1.5f) > 0.001f) {
+                throw new AssertionError("The mode switch click was played at " + heard.sentVolume() + " / "
+                        + heard.sentPitch() + ", expected 0.5 / 1.5 (" + heard + ").");
+            }
+        });
+
+        script.command("clear @a", true);
+        script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
+        script.awaitPackets();
+        script.idle("let the player face the wall again", 15);
         clearWorkingVolume(script);
     }
 
@@ -1449,20 +1501,27 @@ public final class SmokeClientTest {
      * have nothing to do with the mod, which is why it is never the first thing that runs: see
      * {@link #armTheActionBar}.
      *
-     * <p>The sounds that go with these four messages are <em>not</em> asserted - see the known
-     * defect in the class javadoc.
+     * <p>Each step also listens for the sound that goes with its message - {@code GLASS_PLACE} and
+     * {@code GLASS_BREAK} at 1.0 / 1.0, {@code SHEEP_SHEAR} at 1.0 / 1.2, {@code BRUSH_GENERIC} at
+     * 1.0 / 1.0 - through the same {@link SoundRecorder} and the same hearing self check the tool
+     * sounds use. A fifth step, with the sneak key released, sets a Constructor's Touch Magnet's
+     * filter from the framed stone: message "Magnet Filter set to: minecraft:stone" and
+     * {@code RESPAWN_ANCHOR_SET_SPAWN} at 0.5 / 1.5. Until 2026-09 the mixin played all five with
+     * {@code player.playSound}, which skips the acting player, and this client heard none of them.
      *
      * <p><b>Not covered:</b> that the frame really ends up locked or invisible. That is server
      * state and the headless suite has it; what is under test here is the message reaching the
      * client.
      *
-     * <p>What breaks this test: any of the four branches losing its {@code sendOverlayMessage}, the
-     * branch order changing so a different message answers the same click, the message text
-     * changing, or {@code interact} no longer being injected at all - the last one shows up as the
-     * lock step failing first.
+     * <p>What breaks this test: any of the four branches losing its {@code sendOverlayMessage} or
+     * its sound, a sound going back to {@code player.playSound} (the acting player would not hear
+     * it), a sound's volume or pitch changing, the branch order changing so a different message
+     * answers the same click, the message text changing, or {@code interact} no longer being
+     * injected at all - the last one shows up as the lock step failing first.
      */
     private static void itemFrameOverlayMessagesReachTheClient(Script script) {
         TestScene.build(script, "minecraft:stone", "creative");
+        assertTheClientCanHearAnything(script);
 
         assertSneakKeyIsBound(script);
         placeAndFillItemFrame(script);
@@ -1475,20 +1534,32 @@ public final class SmokeClientTest {
         assertTheServerSeesThePlayerSneaking(script, "after the sneak key was pressed");
 
         equip(script, "minecraft:glass_pane");
-        expectOverlayMessage(script, "Item Frame gesperrt (Locked).", "lock with a glass pane", null);
-        expectOverlayMessage(script, "Item Frame entsperrt.", "unlock by sneaking again", null);
+        expectOverlayMessage(script, "Item Frame gesperrt (Locked).", "lock with a glass pane", null,
+                SoundEvents.GLASS_PLACE.location(), 1.0f, 1.0f);
+        expectOverlayMessage(script, "Item Frame entsperrt.", "unlock by sneaking again", null,
+                SoundEvents.GLASS_BREAK.location(), 1.0f, 1.0f);
 
         equip(script, "minecraft:shears");
         expectOverlayMessage(script, "Item Frame unsichtbar gemacht.", "hide with shears",
-                "itemframe-a-invisible");
+                "itemframe-a-invisible", SoundEvents.SHEEP_SHEAR.location(), 1.0f, 1.2f);
         expectOverlayMessage(script, "Item Frame sichtbar gemacht.", "show by sneaking again",
-                "itemframe-b-visible-again");
+                "itemframe-b-visible-again", SoundEvents.BRUSH_GENERIC.location(), 1.0f, 1.0f);
 
         // The straight-line version put these in a finally block. As steps they run only if
         // everything above passed; a failed run leaves the sneak key held and a frame on the wall,
         // and the next section's TestScene.build is what clears both.
         script.harness("release the sneak key", harness -> harness.releaseKey(SNEAK_KEY));
         script.idle("let the sneak state settle", 5);
+
+        // The fifth sound of the mixin: a Magnet with Constructor's Touch takes the framed item as its
+        // filter. A normal right click, so it runs with the sneak key released.
+        equip(script, "simplebuilding:magnet");
+        script.command("enchant @a simplebuilding:constructors_touch 1");
+        script.awaitPackets();
+        script.idle("let the enchanted magnet reach the client", 10);
+        expectOverlayMessage(script, "Magnet Filter set to: minecraft:stone", "set the magnet filter", null,
+                SoundEvents.RESPAWN_ANCHOR_SET_SPAWN.location(), 0.5f, 1.5f, false);
+
         script.command("kill @e[type=minecraft:item_frame]", true);
         script.command("clear @a", true);
         script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
@@ -1552,18 +1623,32 @@ public final class SmokeClientTest {
     }
 
     /**
-     * One branch: prime the action bar, click, and wait for the mod's message to replace the
-     * sentinel.
+     * One branch: prime the action bar, click, wait for the mod's message to replace the sentinel,
+     * and check that the branch's sound reached this client with the volume and pitch the mixin
+     * names.
      *
      * @param screenshot a documentary screenshot taken once the message arrived, or null
      */
     private static void expectOverlayMessage(Script script, String expected, String step,
-                                             String screenshot) {
+                                             String screenshot, Identifier sound, float volume,
+                                             float pitch) {
+        expectOverlayMessage(script, expected, step, screenshot, sound, volume, pitch, true);
+    }
+
+    /** @param sneaking whether the branch under test is one of the sneak branches */
+    private static void expectOverlayMessage(Script script, String expected, String step,
+                                             String screenshot, Identifier sound, float volume,
+                                             float pitch, boolean sneaking) {
         assertCrosshairIsOnTheItemFrame(script);
-        assertTheServerSeesThePlayerSneaking(script, "before \"" + step + "\"");
+        if (sneaking) {
+            assertTheServerSeesThePlayerSneaking(script, "before \"" + step + "\"");
+        }
 
         armTheActionBar(script, step);
 
+        Later<List<SoundRecorder.Heard>> heard = new Later<>("the sounds heard while the item frame "
+                + "step \"" + step + "\" ran");
+        script.verify("start recording sounds for \"" + step + "\"", SoundRecorder::arm);
         script.harness("right click the item frame to " + step, harness -> harness.pressMouse(1));
 
         script.await("the item frame step \"" + step + "\" reaches the client", 40,
@@ -1576,6 +1661,27 @@ public final class SmokeClientTest {
                         + "means nothing arrived at all). " + TestScene.describeAim(client));
 
         script.idle("let the message settle before the next step", 6);
+        script.verify("stop recording sounds for \"" + step + "\"", () -> {
+            heard.set(SoundRecorder.heard());
+            SoundRecorder.disarm();
+        });
+        script.verify("the item frame step \"" + step + "\" played " + sound + " to the acting player", () -> {
+            SoundRecorder.Heard played = firstOf(heard.get(), sound);
+
+            if (played == null) {
+                throw new AssertionError("The item frame step \"" + step + "\" showed its message but "
+                        + "the acting player heard no " + sound + " (heard " + heard.get() + "). A "
+                        + "sound played with player.playSound skips exactly this player on the server.");
+            }
+
+            assertFactorsAreUsable(played, "item frame \"" + step + "\"");
+
+            if (Math.abs(played.sentVolume() - volume) > 0.001f || Math.abs(played.sentPitch() - pitch) > 0.001f) {
+                throw new AssertionError("The item frame step \"" + step + "\" played " + sound + " at "
+                        + played.sentVolume() + " / " + played.sentPitch() + ", expected " + volume
+                        + " / " + pitch + " (" + played + ").");
+            }
+        });
 
         if (screenshot != null) {
             script.shot(screenshot);

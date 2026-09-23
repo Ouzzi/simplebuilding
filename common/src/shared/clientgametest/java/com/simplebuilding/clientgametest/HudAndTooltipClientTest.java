@@ -84,16 +84,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
  * updating, not the mod. Both targets of the shared tree run on official Mojang mappings, so the
  * three names are the runtime names on Fabric and on NeoForge alike.
  *
- * <p><b>Known defect (NetheriteHopperScreen.mouseClicked, common/.../client/gui/NetheriteHopperScreen.java).</b>
- * The click intercept selects its slots with {@code hoveredSlot.getContainerSlot() < 5}.
+ * <p><b>Menu index, not container index (NetheriteHopperScreen.mouseClicked).</b> The click
+ * intercept used to select its slots with {@code hoveredSlot.getContainerSlot() < 5}.
  * {@code getContainerSlot()} is the index inside the <em>backing container</em>, and
  * {@code HopperMenu} adds the player inventory through {@code addStandardInventorySlots}, which
- * gives the hotbar the container indices 0..8. Hotbar slots 1 to 5 therefore also satisfy the
- * condition: with a filter active, clicking them is swallowed and writes a hopper ghost item
- * instead of picking the stack up. The menu side ({@code ModHopperScreenHandler.clicked}) uses the
- * menu index and is correct, so only the client screen is affected. This test deliberately uses
- * hopper slot 0 (menu index 0, container index 0), which behaves the same before and after a fix,
- * and it parks its own working item in inventory slot 9 so it never runs into the defect.
+ * gives the hotbar the container indices 0..8 - so with a filter active, clicks on hotbar slots 1
+ * to 5 were swallowed and wrote a hopper ghost item instead of picking the stack up. Since
+ * 2026-09 the screen asks for the menu index, like {@code ModHopperScreenHandler.clicked} always
+ * did, and {@code hotbarClicksStayHotbarClicks} pins it.
  *
  * <p><b>Known defect (BundleTooltipComponentMixin:41).</b> The occupancy is divided by
  * {@code (int) capacityScale}. The scale is {@code maxCapacity / 64}, and the base capacity of a
@@ -205,7 +203,7 @@ public final class HudAndTooltipClientTest {
     private static final int PARK_X = 4;
     private static final int PARK_Y = 4;
 
-    /** Player inventory slot for the test's working items - container index 9, see the class javadoc. */
+    /** Player inventory slot for the test's working items - container index 9, the first backpack slot. */
     private static final int SAFE_INVENTORY_SLOT = 9;
 
     /** How many diamonds the hopper click test carries on the cursor; see the ghost item checks. */
@@ -1266,6 +1264,7 @@ public final class HudAndTooltipClientTest {
 
         assertGhostSlotOverlay(script);
         assertTheGhostIconStaysOutOfAnOccupiedSlot(script);
+        hotbarClicksStayHotbarClicks(script);
 
         closeScreen(script);
         script.command("setblock " + CONTAINER_POS.getX() + " " + CONTAINER_POS.getY() + " "
@@ -1342,8 +1341,8 @@ public final class HudAndTooltipClientTest {
      * item. Then the diamond goes back where it came from, so the screenshot that follows differs
      * from the previous one only in the ghost overlay.
      *
-     * <p>Hopper slot 0 is menu index 0 and container index 0; it is the only slot whose treatment
-     * is the same before and after the container index defect described in the class javadoc.
+     * <p>Hopper slot 0 is menu index 0 and container index 0, so it is a hopper slot by either
+     * reading; the hotbar slot that shares its container index is {@code hotbarClicksStayHotbarClicks}.
      */
     private static void hopperScreenSwallowsSlotClicks(Script script) {
         Later<Integer> diamondSlot = findSlotWithItem(script, Items.DIAMOND);
@@ -1418,6 +1417,79 @@ public final class HudAndTooltipClientTest {
         // Put the diamonds back so the ghost overlay is the only difference in the next screenshot.
         clickSlot(script, diamondSlot, "the diamond slot");
         script.idle("let the diamonds land back in the inventory", 10);
+        parkCursor(script);
+        script.idle("let the parked cursor settle", 10);
+    }
+
+
+    /**
+     * With a filter active, a click on a hotbar slot is still an ordinary click: the stack is
+     * picked up, and no hopper ghost item is touched.
+     *
+     * <p>Hotbar slot 0 is the sharp case: its container index is 0, the same as hopper slot 0, so
+     * a screen that selected its slots by container index swallowed this click, cleared ghost item
+     * 0 with the empty cursor, and left the cobblestone lying where it was. The menu index of the
+     * hotbar slot is 32, well past the hopper's five.
+     */
+    private static void hotbarClicksStayHotbarClicks(Script script) {
+        script.command("item replace entity @a hotbar.0 with minecraft:cobblestone 5");
+        script.awaitPackets();
+        script.idle("let the cobblestone reach the open hopper menu", 10);
+
+        Later<Integer> hotbarZero = new Later<>("the menu slot of hotbar slot 0");
+        Later<ItemStack> ghostBefore = new Later<>("hopper ghost item 0 before the hotbar click");
+
+        script.act("setup: a filter is active and hotbar slot 0 holds the cobblestone", client -> {
+            NetheriteHopperScreen screen = (NetheriteHopperScreen) client.gui.screen();
+            NetheriteHopperScreenHandler menu = screen.getMenu();
+
+            if (menu.getSyncedFilterMode() == HopperFilterMode.NONE) {
+                throw new AssertionError("Setup failed: no filter is active, so the click intercept would "
+                        + "not run and the hotbar click could not show anything.");
+            }
+
+            for (int i = 0; i < menu.slots.size(); i++) {
+                Slot slot = menu.slots.get(i);
+
+                if (slot.container == client.player.getInventory() && slot.getContainerSlot() == 0) {
+                    if (!slot.getItem().is(Items.COBBLESTONE) || slot.getItem().getCount() != 5) {
+                        throw new AssertionError("Setup failed: hotbar slot 0 holds " + slot.getItem()
+                                + " instead of 5 cobblestone.");
+                    }
+                    if (i < 5) {
+                        throw new AssertionError("Setup failed: hotbar slot 0 is menu slot " + i
+                                + ", inside the hopper's five - the menu layout changed.");
+                    }
+                    hotbarZero.set(i);
+                    ModHopperBlockEntity blockEntity = menu.getBlockEntity();
+                    ghostBefore.set(blockEntity == null ? ItemStack.EMPTY : blockEntity.getGhostItem(0).copy());
+                    return;
+                }
+            }
+
+            throw new AssertionError("Setup failed: the hopper menu has no slot for hotbar slot 0.");
+        });
+
+        clickSlot(script, hotbarZero, "hotbar slot 0");
+        assertCarriedIs(script, Items.COBBLESTONE, 5,
+                "clicking hotbar slot 0 with a filter active - a hotbar click is not a filter click, "
+                        + "whatever its container index");
+
+        script.act("the hotbar click left hopper ghost item 0 alone", client -> {
+            ModHopperBlockEntity blockEntity = ((NetheriteHopperScreen) client.gui.screen()).getMenu().getBlockEntity();
+            ItemStack ghost = blockEntity == null ? ItemStack.EMPTY : blockEntity.getGhostItem(0);
+
+            if (!ItemStack.matches(ghost, ghostBefore.get())) {
+                throw new AssertionError("Clicking hotbar slot 0 rewrote hopper ghost item 0 from "
+                        + ghostBefore.get() + " to " + ghost + ": the screen treated container index 0 of "
+                        + "the player inventory as hopper slot 0.");
+            }
+        });
+
+        clickSlot(script, hotbarZero, "hotbar slot 0");
+        script.idle("let the cobblestone land back in the hotbar", 10);
+        script.command("item replace entity @a hotbar.0 with minecraft:air");
+        script.awaitPackets();
         parkCursor(script);
         script.idle("let the parked cursor settle", 10);
     }

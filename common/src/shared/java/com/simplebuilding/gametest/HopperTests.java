@@ -18,6 +18,7 @@ import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -33,11 +34,11 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.DamageResistant;
@@ -110,13 +111,6 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Not pinned, and why</h2>
  * <ul>
- *   <li><b>{@code requiresCorrectToolForDrops}.</b> Both hoppers are built from
- *       {@code Properties.ofFullCopy(Blocks.GLASS)} (ModBlocks.java:99), so unlike vanilla's
- *       hopper they drop themselves to a bare hand; the {@code mineable/pickaxe} entry only makes
- *       a pickaxe faster. That is consistent with the generated tags (neither block is in a
- *       {@code needs_*_tool} tag), so it reads as a decision rather than a defect and an
- *       assertion on it would go red if it were ever tightened. The tag membership itself is
- *       pinned; the tool requirement is not.</li>
  *   <li><b>The {@code TransferCooldown} key of the save round trip.</b>
  *       {@code saveAdditional} writes it and {@code loadAdditional} reads it back
  *       (ModHopperBlockEntity.java:177, 197), but nothing here can see whether the two still
@@ -1160,9 +1154,13 @@ public final class HopperTests {
      * netherite hopper's item has to carry the very same {@code DAMAGE_RESISTANT} value a
      * netherite ingot does - and then drives it against a real damage source.
      *
+     * <p>Both hoppers are built from vanilla's hopper (until 2026-09: from glass, so a bare hand
+     * dropped them), and the tool requirement that copy brings is pinned against vanilla's hopper.
+     *
      * <p>What breaks this test: any edit to the two {@code strength(...)} or {@code sound(...)}
-     * calls, removing a hopper from the tag provider or failing to regenerate the data, and
-     * dropping {@code fireResistant()} from the netherite hopper item.
+     * calls, removing a hopper from the tag provider or failing to regenerate the data, building a
+     * hopper from another base than vanilla's hopper, and dropping {@code fireResistant()} from the
+     * netherite hopper item.
      */
     public static void hopperBlocksCarryTheirRegisteredStrengthSoundAndTags(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -1205,6 +1203,14 @@ public final class HopperTests {
         // Dirt, not end stone: end stone is a plain value in vanilla's own pickaxe tag (see the
         // javadoc), so it can never be the "the lookup says no" side of this pair.
         assertPickaxeMineable(helper, Blocks.DIRT, false);
+
+        // --- the tool requirement vanilla's hopper has: a bare hand drops nothing ---
+        for (Block hopper : List.of(ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER)) {
+            helper.assertTrue(hopper.defaultBlockState().requiresCorrectToolForDrops()
+                            && Blocks.HOPPER.defaultBlockState().requiresCorrectToolForDrops(),
+                    BuiltInRegistries.BLOCK.getKey(hopper) + " drops to a bare hand "
+                            + "(requiresCorrectToolForDrops is false), unlike vanilla's hopper it is built from");
+        }
 
         // --- and in no tool tier tag: a stone pickaxe has to be enough ---
         for (TagKey<Block> tier : List.of(BlockTags.NEEDS_STONE_TOOL, BlockTags.NEEDS_IRON_TOOL,

@@ -179,6 +179,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("building_enchantment_game_test_constructors_touch_unlocks_the_extra_chisel_tables_in_both_directions", BuildingEnchantmentTests::constructorsTouchUnlocksTheExtraChiselTablesInBothDirections)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("building_enchantment_game_test_constructors_touch_stick_cycles_the_first_block_state_property", BuildingEnchantmentTests::constructorsTouchStickCyclesTheFirstBlockStateProperty)
+                    .rotation(Rotation.NONE)
+                    .build(),
             GameTestSpec.named("building_enchantment_game_test_fast_chiseling_shortens_the_cooldown_and_speeds_up_mining", BuildingEnchantmentTests::fastChiselingShortensTheCooldownAndSpeedsUpMining)
                     .rotation(Rotation.NONE)
                     .build(),

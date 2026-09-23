@@ -132,7 +132,7 @@ public class OreDetectorItem extends Item {
         if (user.isShiftKeyDown()) {
             if (!world.isClientSide()) {
                 ItemStack stack = user.getItemInHand(hand);
-                cycleMode(stack, user);
+                cycleMode(stack, user, hand);
             }
             return InteractionResult.SUCCESS;
         }
@@ -290,7 +290,7 @@ public class OreDetectorItem extends Item {
 
     }
 
-    private void cycleMode(ItemStack stack, Player player) {
+    private void cycleMode(ItemStack stack, Player player, InteractionHand hand) {
         DetectMode current = getMode(stack);
         DetectMode[] modes = DetectMode.values();
         DetectMode next = modes[(current.ordinal() + 1) % modes.length];
@@ -299,10 +299,12 @@ public class OreDetectorItem extends Item {
         player.displayClientMessage(Component.literal("Detector Mode: ").withStyle(ChatFormatting.GRAY)
                 .append(Component.literal(next.name).withStyle(next.color)), true);
 
-        player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 0.5f, 1.5f);
+        // Server side only, so Player#playSound - which leaves out the player it is called on -
+        // would reach everyone but the one who switched the mode.
+        player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK.value(), player.getSoundSource(), 0.5f, 1.5f);
 
         if (!player.isCreative()) {
-            stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+            stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
         }
     }
 

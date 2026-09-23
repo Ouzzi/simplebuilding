@@ -26,6 +26,7 @@ Usage
     python tools/testrunner/mutations.py --p6 --run             # the P6 core-area round (server)
     python tools/testrunner/mutations.py --p6 --run --line 1.21.11   # the same round on the 1.21.11 copy
     python tools/testrunner/mutations.py --p6b --run            # the remaining areas (server)
+    python tools/testrunner/mutations.py --p9 --run             # the fixes of 2026-09-24 (server + client)
 
 Results land in testing/mutations/<timestamp>.json and are summarised on stdout.
 """
@@ -230,7 +231,7 @@ MUTATIONS: list[Mutation] = [
              'every placed block plays the place sound at (v+1)/2 and p*0.8'),
     Mutation('p4-detector-mode-free',
              'common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java',
-             '        if (!player.isCreative()) {\n            stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);\n        }',
+             '        if (!player.isCreative()) {\n            stack.hurtAndBreak(1, player, hand.asEquipmentSlot());\n        }',
              '',
              'smoke', 'after switch 1 the detector has damage 0',
              'a survival mode switch costs one point of durability'),
@@ -976,6 +977,145 @@ def plan(selected: list[Mutation]) -> list[list[Mutation]]:
     return rounds
 
 
+
+#: P9 (2026-09-24): the counter-checks for the fixes of that day - the 27 P4 defect entries and
+#: the isDestroying finding. Every entry puts one fixed defect back, exactly as it was, and names
+#: the new or sharpened step that has to go red on it. Server entries run through the catalogue
+#: id filter on one server target per line; client entries run on all four client targets.
+P9_MUTATIONS: list[Mutation] = [
+    # --- server ------------------------------------------------------------------------------
+    Mutation('p9-wand-break-main-hand',
+             f'{SHARED}/items/custom/BuildingWandItem.java',
+             '                    stack.hurtAndBreak(1, player, slot);',
+             '                    stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);',
+             'building_wand_game_test_off_hand_click_is_passed_on_and_the_wand_stops_outside_both_hands',
+             'the break was billed to the main hand',
+             'a wand that breaks in the off hand is billed to the off hand, the main hand keeps its modifiers',
+             kind="server"),
+    Mutation('p9-wand-forced-axis-centred',
+             f'{SHARED}/items/custom/BuildingWandItem.java',
+             '        else buildAxis = face.getAxis(); // Default: Achse der Blickrichtung',
+             '        else buildAxis = face.getAxis(); // Default: Achse der Blickrichtung\n'
+             '        if (buildAxis != face.getAxis()) placeOrigin = originPos.relative(Direction.fromAxisAndDirection(buildAxis, Direction.AxisDirection.POSITIVE));',
+             'building_wand_game_test_clicked_face_sets_the_plane_until_an_axis_mode_overrides_it',
+             'axis mode 2 on the north face did not build the horizontal 3x3',
+             'a forced axis only turns the plane around the block in front of the clicked face',
+             kind="server"),
+    Mutation('p9-wand-negative-radius-grows',
+             f'{SHARED}/items/custom/BuildingWandItem.java',
+             '        if (userRadius > maxTierRadius) userRadius = maxTierRadius;\n\n        int currentRadius = getBlockInt(nbt, "CurrentRadius");',
+             '        if (userRadius > maxTierRadius || userRadius < 0) userRadius = maxTierRadius;\n\n        int currentRadius = getBlockInt(nbt, "CurrentRadius");',
+             'building_wand_game_test_wand_tier_caps_the_radius_setting_and_sizes_the_plane',
+             'a stored radius of -1 did not build exactly the single centre block',
+             'a negative stored radius builds the single centre block the preview shows',
+             kind="server"),
+    Mutation('p9-octant-lock-scroll',
+             f'{SHARED}/networking/ModMessageHandlers.java',
+             '        if (nbt.getBooleanOr("Locked", false)) {\n            return;\n        }\n        boolean changed = false;',
+             '        boolean changed = false;',
+             'octant_game_test_octant_scroll_packets_only_ever_touch_the_main_hand',
+             'an alt scroll changed the shape of a LOCKED octant',
+             'the server refuses scroll packets for a locked octant',
+             kind="server"),
+    Mutation('p9-breaker-before-recheck',
+             f'{SHARED}/blocks/custom/NetheriteBreakerPistonBlock.java',
+             '        if (type == 0 && (world.isClientSide() || hasVanillaExtendSignal(world, pos, state.getValue(FACING)))) {',
+             '        if (type == 0) {',
+             'gravity_block_game_test_netherite_piston_breaks_only_what_the_signal_strength_can_afford',
+             'the netherite piston destroyed the redstone block in front of it',
+             'the breaker only breaks when vanilla would extend',
+             kind="server"),
+    Mutation('p9-hopper-from-glass',
+             f'{SHARED}/blocks/ModBlocks.java',
+             'registerBlock("reinforced_hopper", Blocks.HOPPER,',
+             'registerBlock("reinforced_hopper", Blocks.GLASS,',
+             'hopper_game_test_hopper_blocks_carry_their_registered_strength_sound_and_tags',
+             'reinforced_hopper drops to a bare hand',
+             'the hoppers are built from the vanilla hopper and need a pickaxe to drop',
+             kind="server"),
+    Mutation('p9-furnace-from-glass',
+             f'{SHARED}/blocks/ModBlocks.java',
+             'registerBlock("reinforced_furnace", Blocks.FURNACE,',
+             'registerBlock("reinforced_furnace", Blocks.GLASS,',
+             'furnace_game_test_furnace_blocks_carry_their_registered_hardness_resistance_and_tags',
+             'the reinforced furnace drops to a bare hand',
+             'the furnaces are built from their vanilla block: tool requirement, light, occlusion',
+             kind="server"),
+    Mutation('p9-enderite-hammer-untagged',
+             'src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json',
+             '    "simplebuilding:netherite_sledgehammer",\n    "simplebuilding:enderite_sledgehammer"',
+             '    "simplebuilding:netherite_sledgehammer"',
+             'wand_enchantment_game_test_the_building_enchantments_reach_every_tool_whose_code_reads_them',
+             'sledgehammer_tools has lost that tier',
+             'the enderite hammer carries its own three enchantments like every other tier',
+             kind="server"),
+    Mutation('p9-command-limit-widened',
+             f'{SHARED}/command/SimplebuildingCommand.java',
+             'DoubleArgumentType.doubleArg(0.0, SimplebuildingConfig.maxMultiplierLimit))',
+             'DoubleArgumentType.doubleArg(0.0, SimplebuildingConfig.maxMultiplierLimit + 1.0))',
+             'trim_wiring_game_test_the_trim_multiplier_command_guards_its_range_and_its_permission',
+             'was accepted from a value above the limit',
+             'one shared command tree: a change in SimplebuildingCommand reaches the loader under test',
+             kind="server"),
+    Mutation('p9-stick-ignores-sneak',
+             f'{SHARED}/util/ConstructorsTouchInteraction.java',
+             'BlockState newState = cycleState(state, property, player.isShiftKeyDown());',
+             'BlockState newState = cycleState(state, property, false);',
+             'building_enchantment_game_test_constructors_touch_stick_cycles_the_first_block_state_property',
+             'sneaking did not step the axis back Y -> X',
+             'the shared stick logic - since 2026-09 on 1.21.11 too - runs backwards while sneaking',
+             kind="server"),
+    # --- client ------------------------------------------------------------------------------
+    Mutation('p9-lang-nihilith-item',
+             'src/main/resources/assets/simplebuilding/lang/en_us.json',
+             '  "item.simplebuilding.nihilith_ore": "Nihilith Ore",\n',
+             '',
+             'smoke', 'item.simplebuilding.nihilith_ore',
+             'the nihilith ore block item has a name of its own'),
+    Mutation('p9-frame-sound-skips-player',
+             f'{SHARED}/mixin/ItemFrameEntityMixin.java',
+             'player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GLASS_PLACE, player.getSoundSource(), 1.0f, 1.0f);',
+             'player.playSound(SoundEvents.GLASS_PLACE, 1.0f, 1.0f);',
+             'smoke', 'showed its message but the acting player heard no',
+             'the item frame lock sound reaches the player who locked it'),
+    Mutation('p9-detector-click-skips-player',
+             f'{SHARED}/items/custom/OreDetectorItem.java',
+             'player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.UI_BUTTON_CLICK.value(), player.getSoundSource(), 0.5f, 1.5f);',
+             'player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 0.5f, 1.5f);',
+             'smoke', "Switching the Ore Detector's mode played no",
+             'the mode switch click reaches the player who switched'),
+    Mutation('p9-hopper-container-index',
+             f'{SHARED}/client/gui/NetheriteHopperScreen.java',
+             'if (hoveredSlot != null && hoveredSlot.index < 5) {',
+             'if (hoveredSlot != null && hoveredSlot.getContainerSlot() < 5) {',
+             'hud-and-tooltip', 'clicking hotbar slot 0 with a filter active',
+             'a hotbar click in the hopper menu stays a hotbar click'),
+    Mutation('p9-trim-enderite-row',
+             f'{SHARED}/client/gui/TrimReferenceScreen.java',
+             'ChatFormatting.DARK_PURPLE, 5.0, "All Damage Resist (Pattern x3.5)");',
+             'ChatFormatting.DARK_PURPLE, 10.0, "Void Shield (4x Pattern Boost!)");',
+             'mod-screens', 'The trim reference screen disagrees with the server',
+             'the trim reference rows show the server numbers'),
+    Mutation('p9-config-button-throws',
+             f'{CLIENT_MAIN}/compat/ModMenuIntegration.java',
+             'return parent -> AutoConfigClient.getConfigScreen(SimplebuildingConfig.class, parent).get();',
+             'return parent -> { throw new IllegalStateException("Failed to open Simplebuilding config screen"); };',
+             'mod-screens', 'Failed to open Simplebuilding config screen',
+             "the loader's config button reaches the Cloth Config screen"),
+    Mutation('p9-cracks-need-isdestroying',
+             f'{SHARED}/client/render/MultiBlockBreakingSupport.java',
+             '        if (player == null || level == null || gameMode == null) {',
+             '        if (player == null || level == null || gameMode == null || !gameMode.isDestroying()) {',
+             'multi-block-breaking', 'drawing its crack, but MultiBlockBreakingSupport added none of',
+             'the extra cracks follow vanilla mining without isDestroying too'),
+    Mutation('p9-cracks-ignore-vanilla',
+             f'{SHARED}/client/render/MultiBlockBreakingSupport.java',
+             '        if (!vanillaCracks(renderState, mainPos)) {\n            return;\n        }\n',
+             '',
+             'multi-block-breaking', 'With the button released and a stale destroy stage',
+             'a stale destroy stage cracks nothing around another block'),
+]
+
 #: The 1.21.11 line keeps its own copy of the shared mod sources (mc1_21_11/shared/java, mirrored
 #: by hand) and its own Fabric module. A server mutation proved on 26.2 says nothing about
 #: whether the TRANSLATED test body on 1.21.11 bites - the bodies are within the drift tolerance,
@@ -1025,6 +1165,10 @@ ON_1_21_11: dict[str, dict[str, str]] = {
 #: different spelling. Everything else the client catalogue touches is shared code.
 NEOFORGE_CLIENT = "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java"
 ON_NEOFORGE: dict[str, dict[str, str]] = {
+    # NeoForge has no ModMenu: its config button is the IConfigScreenFactory extension point.
+    "p9-config-button-throws": {"file": NEOFORGE_CLIENT,
+        "old": "                (container, parent) -> buildConfigScreen(parent));",
+        "new": "                (container, parent) -> { throw new IllegalStateException(\"Failed to open Simplebuilding config screen\"); });"},
     "bundle-scale": {"file": NEOFORGE_CLIENT,
         "old": "float scale = (float) data.maxCapacity() / 64.0f;",
         "new": "float scale = (float) data.maxCapacity() / 32.0f;"},
@@ -1049,7 +1193,9 @@ def on_line(m: Mutation, line: str) -> Mutation:
         return m
     file = (m.file.replace("common/src/shared/java", "mc1_21_11/shared/java")
             .replace("neoforge/src/main/java", "mc1_21_11/neoforge/src/main/java"))
-    if file.startswith("src/main/java"):
+    # Fabric's own sources AND its resources: the 1.21.11 line keeps its lang files and its
+    # generated data under mc1_21_11/fabric/src/main as well.
+    if file.startswith("src/main/"):
         file = "mc1_21_11/fabric/" + file
     diff = ON_1_21_11.get(m.id, {})
     return Mutation(m.id, file, diff.get("old", m.old), diff.get("new", m.new),
@@ -1327,7 +1473,7 @@ def reread(dataset: Path) -> int:
     """
     data = json.loads(dataset.read_text(encoding="utf-8"))
     runs_dir = REPO / "testing" / "runs"
-    catalogue = {"p6": P6_MUTATIONS, "p6b": P6B_MUTATIONS}.get(data.get("catalogue"), MUTATIONS)
+    catalogue = {"p6": P6_MUTATIONS, "p6b": P6B_MUTATIONS, "p9": P9_MUTATIONS}.get(data.get("catalogue"), MUTATIONS)
     by_id = {m.id: m for m in catalogue}
     stamp = dataset.stem
     rounds_out = []
@@ -1398,6 +1544,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="the P6 core-area round (server side) instead of the false-green counter-checks")
     parser.add_argument("--p6b", action="store_true",
                         help="the P6b round over the remaining areas (server side)")
+    parser.add_argument("--p9", action="store_true",
+                        help="the P9 counter-checks for the fixes of 2026-09-24 (server and client)")
     parser.add_argument("--all-catalogues", action="store_true",
                         help="with --check: every catalogue on both lines, the way the release gate asks")
     parser.add_argument("--reread", default="",
@@ -1409,22 +1557,25 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.check and args.all_catalogues:
         problems = 0
-        for name, cat in (("false-greens", MUTATIONS), ("p6", P6_MUTATIONS), ("p6b", P6B_MUTATIONS)):
+        for name, cat in (("false-greens", MUTATIONS), ("p6", P6_MUTATIONS), ("p6b", P6B_MUTATIONS),
+                          ("p9", P9_MUTATIONS)):
             for line in ("26.2", LINE_1_21_11):
                 chosen = [on_line(m, line) for m in cat if m.kind == "server"]
                 print(f"{name} (Server) auf {line}: {len(chosen)} Mutationen")
                 problems += check_anchors(chosen)
         for target in LOG_FOR_TARGET:
-            chosen = [for_target(m, target) for m in MUTATIONS if m.kind == "client"]
-            print(f"false-greens (Client) auf {target}: {len(chosen)} Mutationen")
-            problems += check_anchors(chosen)
+            for name, cat in (("false-greens", MUTATIONS), ("p9", P9_MUTATIONS)):
+                chosen = [for_target(m, target) for m in cat if m.kind == "client"]
+                print(f"{name} (Client) auf {target}: {len(chosen)} Mutationen")
+                problems += check_anchors(chosen)
         print(f"{problems} fehlende Anker" if problems else "jeder Anker ist da")
         return 1 if problems else 0
 
     if args.reread:
         return reread(REPO / args.reread)
 
-    catalogue = P6B_MUTATIONS if args.p6b else P6_MUTATIONS if args.p6 else MUTATIONS
+    catalogue = (P9_MUTATIONS if args.p9 else P6B_MUTATIONS if args.p6b else P6_MUTATIONS if args.p6
+                 else MUTATIONS)
     # Server mutations are proved per LINE, on that line's Fabric server: with --line 1.21.11,
     # and likewise inside a run for a 1.21.11 client target, they go to fabric-12111. A server
     # target on the other line than the mutated copy would run one thing and mutate another.
@@ -1476,7 +1627,7 @@ def main(argv: list[str] | None = None) -> int:
     for i, r in enumerate(client_rounds, 1):
         results.append(run_round(i, r, args.target, args.timeout))
 
-    out = write_dataset(results, "p6b" if args.p6b else "p6" if args.p6 else "false-greens")
+    out = write_dataset(results, "p9" if args.p9 else "p6b" if args.p6b else "p6" if args.p6 else "false-greens")
     return summarise(results, out)
 
 

@@ -98,9 +98,9 @@ public final class SimplebuildingNeoForgeClient {
     }
 
     private static Screen buildConfigScreen(Screen parent) {
-        // cloth-config-neoforge exposes no AutoConfig.getConfigScreen (unlike the Fabric
-        // variant / ModMenu path), so build the AutoConfig GUI directly from the config
-        // manager + the default GUI registry.
+        // Builds the AutoConfig GUI directly from the config manager + the default GUI registry -
+        // the same thing AutoConfigClient.getConfigScreen does, which the Fabric ModMenu path calls.
+        // (AutoConfig itself has no getConfigScreen on 26.2 any more.)
         @SuppressWarnings("unchecked")
         ConfigManager<SimplebuildingConfig> manager =
                 (ConfigManager<SimplebuildingConfig>) AutoConfig.getConfigHolder(SimplebuildingConfig.class);

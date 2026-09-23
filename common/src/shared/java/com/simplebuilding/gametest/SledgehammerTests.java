@@ -74,16 +74,15 @@ import net.minecraft.world.phys.Vec3;
  * breaks, and that charges the tool as well. The mod's own charge is therefore never read as an
  * absolute number - the vanilla share is <em>measured</em> first on a probe block and subtracted.
  *
- * <h2>Known defect</h2>
+ * <h2>The enchantability tag</h2>
  *
- * <p>{@code ModItemTagProvider} builds {@code simplebuilding:sledgehammer_tools} from the stone,
- * copper, iron, gold, diamond and netherite hammers but leaves the <b>Enderite Sledgehammer</b>
- * out, so the generated tag (see {@code data/simplebuilding/tags/item/sledgehammer_tools.json})
- * has six entries. That tag is the {@code supported_items} and {@code primary_items} of Override,
- * Radius and Break Through and part of the Constructor's Touch, Range and Versatility item sets,
- * which makes the mod's best hammer the only one that cannot carry any of its own enchantments.
- * The tests below therefore use the <em>diamond</em> hammer wherever an enchantment is involved
- * and never assert the tag contents, so that fixing the tag does not turn a test red.
+ * <p>{@code simplebuilding:sledgehammer_tools} is the {@code supported_items} and
+ * {@code primary_items} of Override, Radius and Break Through and part of the Constructor's Touch,
+ * Range and Versatility item sets. Until 2026-09 it left the <b>Enderite Sledgehammer</b> out, so
+ * the mod's best hammer was the only one that could carry none of its own enchantments; it holds
+ * all seven tiers now, and {@code WandEnchantmentTests#theBuildingEnchantmentsReachEveryToolWhoseCodeReadsThem}
+ * asserts all three enchantments on every tier. The tests below use the diamond hammer wherever
+ * an enchantment is involved, which is a choice of yardstick and not a workaround any more.
  *
  * <h2>Not covered</h2>
  * <ul>

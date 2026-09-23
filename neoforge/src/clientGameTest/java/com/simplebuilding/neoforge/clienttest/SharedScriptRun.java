@@ -372,6 +372,18 @@ final class SharedScriptRun implements Harness {
         Input.setCursorPos(x, y);
     }
 
+    @Override
+    public net.minecraft.client.gui.screens.Screen modConfigScreen() {
+        // The mods list's config button: the IConfigScreenFactory extension point the mod
+        // registered in SimplebuildingNeoForgeClient.
+        net.neoforged.fml.ModContainer container = net.neoforged.fml.ModList.get()
+                .getModContainerById(com.simplebuilding.Simplebuilding.MOD_ID).orElseThrow();
+        return net.neoforged.neoforge.client.gui.IConfigScreenFactory.getForMod(container.getModInfo())
+                .orElseThrow(() -> new IllegalStateException("simplebuilding registered no "
+                        + "IConfigScreenFactory, so the mods list shows no config button"))
+                .createScreen(container, null);
+    }
+
     // ------------------------------------------------------------------ world
 
     private void createTestWorld() {

@@ -569,7 +569,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Negativer Radius: Vorschau klemmt, Bau nicht. Bekannter Defekt; Entscheidung, ob klemmen oder festschreiben.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "kein-defekt",
+        "text": "Ein negativer Radius baut wie die Vorschau genau den Mittelblock: inventoryTick setzt Ring 0 und stoppt, weil currentRadius < userRadius falsch ist; getBuildingPositions hat keinen Aufrufer. Die Javadocs, die einen Widerspruch behaupteten, sind korrigiert; BuildingWandTests.wandTierCapsTheRadiusSettingAndSizesThePlane pinnt jetzt die Bau-Haelfte."
+      }
     }
   },
   {
@@ -584,7 +589,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Erzwungene Achse verliert eine Zelle. Bekannter Defekt; Entscheidung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "als-regel-dokumentiert",
+        "text": "Nicht geaendert, als Regel festgeschrieben: die Ebene bleibt um den Block vor der geklickten Seite zentriert, die Achse dreht sie nur; die Zelle des geklickten Blocks wird uebersprungen und nicht bezahlt (Radius 1: acht Bloecke). Handbuch ergaenzt; clickedFaceSetsThePlaneUntilAnAxisModeOverridesIt pinnt die genaue Menge, ItemBehaviourTests tat es fuer die Modi 1 und 3 schon."
+      }
     }
   },
   {
@@ -599,7 +609,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Verschleiss immer gegen MAINHAND. Bekannter Defekt; Entscheidung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "hurtAndBreak(1, player, slot): abgerechnet am Slot, in dem der Stab tickt. Dieselbe Klasse Fehler ebenso behoben beim Rotator (context.getHand()), beim Vorschlaghammer-Umformen (getUsedItemHand()) und beim Moduswechsel des Erzdetektors (hand). offHandClickIsPassedOnAndTheWandStopsOutsideBothHands bricht einen Stab in der Nebenhand neben einem Diamantschwert und verlangt, dass dessen Modifikatoren bleiben."
+      }
     }
   },
   {
@@ -630,7 +645,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Enderit-Stab fehlt im Verzauberbarkeits-Tag. Bekannter Defekt; Entscheidung (Enderit wurde am 2026-09-09 als vollwertige Stufe beschlossen - vermutlich nachziehen).",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "Enderit-Stab, -Meissel und -Vorschlaghammer stehen in building_wand_enchantable, chisel_tools und sledgehammer_tools, damit auch in extra_inventory_items, constructors_touch_enchantable und den Vanilla-Tags enchantable/durability, /mining, /mining_loot, /vanishing. BuildingWandTests und WandEnchantmentTests pruefen alle Stufen."
+      }
     }
   },
   {
@@ -735,7 +755,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Sperre wirkt serverseitig nicht gegen das Scroll-Paket. Bekannter Defekt; Entscheidung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "handleOctantScroll verwirft Pakete fuer einen gesperrten Oktanten; OctantTests.octantScrollPacketsOnlyEverTouchTheMainHand, Schritt 4."
+      }
     }
   },
   {
@@ -922,7 +947,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Forge-Modul ohne HUD/Renderer/Screens. Entscheidung: Forge angleichen oder als eingeschraenkt dokumentieren.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "dokumentierte-einschraenkung",
+        "text": "Forge ist seit 2026-08-27 zurueckgestellt (MULTILOADER_TODO.md), die Einschraenkung steht im Handbuch. Korrektur am Befund: die Einstellungstaste hat auf Forge einen Handler (ForgeClientGameEvents, oeffnet OctantScreen/BuildingWandScreen); es fehlen HUD und Weltmarkierungen."
+      }
     }
   },
   {
@@ -1353,7 +1383,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Enderit-Buendel in keinem Verzauberungs-Tag. Bekannter Defekt; wie 15.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben-frueher",
+        "text": "Behoben in 61d0a14 (2026-09-08): das Enderit-Buendel steht in allen Verzauberungs-Tags. Veraltete Testnotizen am 2026-09-24 korrigiert."
+      }
     }
   },
   {
@@ -1493,7 +1528,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Enderit-Koecher in keinem Verzauberungs-Tag. Bekannter Defekt; wie 15.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben-frueher",
+        "text": "Behoben in 61d0a14 (2026-09-08): der Enderit-Koecher steht in allen drei Tags. Veraltete Testnotizen am 2026-09-24 korrigiert; StorageEnchantmentTests und BundleWiringTests pruefen alle drei Koecher."
+      }
     }
   },
   {
@@ -1608,7 +1648,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Broadcast fuer verworfene Slots. Bekannter Defekt; Entscheidung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben-frueher",
+        "text": "Behoben in 257446d (2026-09-08)."
+      }
     }
   },
   {
@@ -1638,7 +1683,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "loadAdditional ohne Bereichspruefung wirft beim Chunk-Laden. Bekannter Defekt; Entscheidung (Klemme wie beim FilterMode-Setter).",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben-frueher",
+        "text": "Behoben in 257446d (2026-09-08)."
+      }
     }
   },
   {
@@ -1768,7 +1818,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Container- gegen Menue-Index. Bekannter Defekt; Entscheidung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "NetheriteHopperScreen fragt den Menue-Index (hoveredSlot.index < 5) wie ModHopperScreenHandler; HudAndTooltipClientTest.hotbarClicksStayHotbarClicks."
+      }
     }
   },
   {
@@ -1793,7 +1848,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "requiresCorrectToolForDrops nicht gesetzt. Entscheidung: gewollt oder nicht.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "Beide Trichter werden vom Vanilla-Trichter kopiert (ofFullCopy(Blocks.HOPPER)) und verlangen damit das richtige Werkzeug; HopperTests prueft es gegen Blocks.HOPPER."
+      }
     }
   },
   {
@@ -1908,7 +1968,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Netheritofen zeigt 'Reinforced Furnace'. Bekannter Defekt; Entscheidung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben-frueher",
+        "text": "Behoben in 257446d (2026-09-08)."
+      }
     }
   },
   {
@@ -1933,7 +1998,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Oefen ohne needs_*_tool. Entscheidung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "Die sechs Oefen kopieren den passenden Vanilla-Block (FURNACE/SMOKER/BLAST_FURNACE) und verlangen damit das richtige Werkzeug; FurnaceTests prueft es gegen den Vanilla-Block."
+      }
     }
   },
   {
@@ -1958,7 +2028,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Brennender Ofen leuchtet nicht. Entscheidung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "Mit dem Vanilla-Block uebernommen: Leuchtstaerke 13 im Betrieb, 0 kalt; FurnaceTests prueft beides gegen den Vanilla-Block."
+      }
     }
   },
   {
@@ -1993,7 +2068,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Glas-Eigenschaften der Oefen. Entscheidung, gehoert zu 47/48.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "Basis ist jetzt der passende Vanilla-Block statt Glas (Okklusion, Kartenfarbe, Werkzeugzwang, Licht); FurnaceTests prueft canOcclude."
+      }
     }
   },
   {
@@ -2048,7 +2128,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Breaker zerstoert vor Vanillas Signal-Nachpruefung. Bekannter Defekt 3; Entscheidung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "Der Brecher bricht nur, wenn Vanillas eigene Ausfahr-Pruefung erfuellt ist (Signal ohne die Schubrichtung, Quasi-Konnektivitaet von oben); GravityBlockTests treibt das Block-Ereignis direkt gegen einen Redstoneblock vor dem Kolben."
+      }
     }
   },
   {
@@ -2218,7 +2303,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Forge-Modul ohne jeden Gametest. Entscheidung: Forge-Adapter bauen oder Forge als ungetestet fuehren.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "dokumentierte-einschraenkung",
+        "text": "Forge als ungetestet gefuehrt: zurueckgestellt seit 2026-08-27, kein Ziel in run.py, kein Gametest-Adapter (MULTILOADER_TODO.md). Handbuch-Satz ergaenzt."
+      }
     }
   },
   {
@@ -2243,7 +2333,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "item.simplebuilding.nihilith_ore fehlt. Bekannter Defekt; Entscheidung ueber die Reparatur (Schluessel oder useBlockDescriptionPrefix).",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "item.simplebuilding.nihilith_ore, polished_end_stone und lapis_quartz_checker stehen in beiden Sprachdateien beider Linien; SmokeClientTest.modLanguageFileReachesTheClient prueft alle drei, LanguageFilesTest die Schluessel-Paritaet en/de."
+      }
     }
   },
   {
@@ -2536,7 +2631,7 @@
     "seite": "n-a",
     "verhalten": "Client-Vorschau: Der Cache wird ungueltig, wenn sich Zielblock, Werkzeug oder Sneak-Zustand aendern.",
     "ort": "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java:36-39,76-100",
-    "grund": "Zwischen den Messfenstern laesst mineAndRecord die Maustaste los; damit ist gameMode.isDestroying() false und resetCache() raeumt den Cache, bevor der naechste Lauf beginnt. Die drei Cache-Schluessel werden also nie gegen einen gefuellten Cache geprueft."
+    "grund": "Zwischen den Messfenstern laesst mineAndRecord die Maustaste los; damit faellt die Abbaustufe auf -1 und resetCache() raeumt den Cache (seit 2026-09-24 am Stufen-Check, nicht mehr an isDestroying), bevor der naechste Lauf beginnt. Die drei Cache-Schluessel werden also nie gegen einen gefuellten Cache geprueft."
   },
   {
     "gruppe": "verzauberung-mining",
@@ -2635,7 +2730,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Forge-Modul unvollstaendig; wie 21.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "teilweise-behoben",
+        "text": "Die Loot-Funktion simplebuilding:weighted_enchant wird in ForgeRegistryBootstrap registriert. In-Welt-Renderer und enchant_type bleiben offen (Forge zurueckgestellt, MULTILOADER_TODO.md)."
+      }
     }
   },
   {
@@ -2680,7 +2780,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Forge hat eine zweite Kopie der Stock-Logik; wie 21/94.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "ForgeGameplayEvents ruft ConstructorsTouchInteraction.handleUseBlock; ModRegistriesForge und die tote NeoForge-Kopie auf 26.2 sind geloescht; ConstructorsTouchSingleSourceTest (JUnit, gradlew check) sichert es."
+      }
     }
   },
   {
@@ -2815,7 +2920,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Forge-Luftsprung anders gebaut; wie 21.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "Forge ruft DoubleJumpController.tick (Stufe, Abklingzeit, Haltbarkeit wie Fabric/NeoForge); nur der HUD-Balken fehlt (Forge zurueckgestellt)."
+      }
     }
   },
   {
@@ -3056,7 +3166,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Referenzbildschirm zeigt fest verdrahtete Basiswerte, die vom Server abweichen. Bekannter Defekt; Entscheidung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "Die drei Zeilen zeigen die Serverwerte: Enderit 5,0 gegen allen Schaden, Muster x3,5; Netherit 5,0 gegen Wither/Verzauberungsumgehung, Muster x1,75; Rib 10,0 Wither-Schaden. ModScreensClientTest.trimReferenceRowsMatchTheServer."
+      }
     }
   },
   {
@@ -3246,7 +3361,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "manual.json behauptet 'abgesichert', der Test ueberspringt bei aktivem Trade-Rebalance. Entweder Handbuch berichtigen oder das Ersetzen der Tags zusichern.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "dokumentation-korrigiert",
+        "text": "Handbuch-Wortlaut auf das Belegte begrenzt: MC-26.2-Linie; der Gametest prueft Steinmetz, Werkzeugschmied, fahrenden Haendler und die Bibliothekar-Tagdateien, nicht den Verlust der Bibliothekar-Angebote."
+      }
     }
   },
   {
@@ -3366,7 +3486,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Vier Toene, die der ausloesende Spieler nie hoert. Bekannter Defekt (Player#playSound statt world.playSound); Entscheidung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "Alle fuenf Toene gehen ueber level().playSound(null, ...); SmokeClientTest hoert sie neben den Meldungen, dazu den Klick des Erzdetektor-Moduswechsels (derselbe Fehler)."
+      }
     }
   },
   {
@@ -3411,7 +3536,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "ModCommands vierfach ohne gemeinsame Quelle. Bekannter Defekt; Entscheidung (Zusammenlegen wie die drei Doppelpflegen vom 2026-09-09).",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "Gemeinsamer SimplebuildingCommand je Linie; die fuenf ModCommands sind Einzeiler-Haken. TrimWiringTests prueft, dass der Live-Knoten die Anforderung SimplebuildingCommand.OPERATOR_ONLY traegt und denselben Baum hat."
+      }
     }
   },
   {
@@ -3451,7 +3581,12 @@
     "p4": {
       "urteil": "defect-decision",
       "grund": "Der reflektive AutoConfig.getConfigScreen-Aufruf scheitert auf Cloth Config 26.2.155. Bekannter Defekt; Entscheidung.",
-      "datum": "2026-09-10"
+      "datum": "2026-09-10",
+      "stand": {
+        "datum": "2026-09-24",
+        "ergebnis": "behoben",
+        "text": "ModMenuIntegration ruft AutoConfigClient.getConfigScreen direkt; ModScreensClientTest baut den Bildschirm ueber den Knopf-Einstieg des Loaders (Harness.modConfigScreen: ModMenu.getConfigScreen bzw. IConfigScreenFactory)."
+      }
     }
   },
   {

@@ -45,7 +45,7 @@ public class RotatorItem extends Item {
                 world.playSound(null, pos, SoundEvents.SPYGLASS_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
 
                 if (player != null) {
-                    context.getItemInHand().hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+                    context.getItemInHand().hurtAndBreak(1, player, context.getHand().asEquipmentSlot());
                 }
             }
             return InteractionResult.SUCCESS;

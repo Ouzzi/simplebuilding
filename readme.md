@@ -2,15 +2,14 @@
 
 Mod ID: simplebuilding
 
-SimpleBuilding erweitert Minecraft 26.1.2 (Fabric & NeoForge) um Bau-, Mining- und Utility-Systeme fuer Survival-Gameplay im grossen Stil.
+SimpleBuilding erweitert Minecraft 26.2 und 1.21.11 (Fabric & NeoForge) um Bau-, Mining- und Utility-Systeme fuer Survival-Gameplay im grossen Stil.
 Diese Readme ist die vollstaendige, aktualisierte Referenz fuer Features, Items, Enchantments, Config, Trades, Loot und Progression.
 
 ## Version und Anforderungen
 
-- Minecraft: 26.1.2
-- Loader: Fabric Loader 0.19.3+ oder NeoForge 26.1.2.75
-- Fabric API: 0.150.0+26.1.2
-- Java: 25
+- Minecraft 26.2: Fabric Loader 0.19.3+ mit Fabric API 0.158.0+26.2, oder NeoForge 26.2.0.69; Java 25
+- Minecraft 1.21.11: Fabric Loader 0.19.2+ mit Fabric API 0.141.6+1.21.11, oder NeoForge 21.11.45; Java 21
+- Forge (26.2): Modul wird mitgebaut, ist aber seit 2026-08-27 zurueckgestellt und ungetestet
 - Mod Version: 1.3.1
 - Empfohlen:
 - Cloth Config (bereits als Abhaengigkeit eingebunden)

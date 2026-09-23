@@ -884,13 +884,6 @@ def derive_selector(test_class: str, entries: list[dict]) -> str:
 #: is invisible in a run where every target is green, because absence is what green cannot show.
 LINE_DIFFERENCES: tuple[tuple[tuple[str, ...], tuple[str, ...], str], ...] = (
     (
-        ("building_enchantment_game_test_constructors_touch_stick_cycles_the_first_block_state_property",),
-        (),
-        "MC 26.2 only: on 1.21.11 there is no shared ConstructorsTouchInteraction - the same "
-        "logic sits twice in the loader modules, and a loader neutral test body cannot reach "
-        "either copy",
-    ),
-    (
         ("config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders",),
         (),
         "MC 26.2 only: reads the shipped trade jsons and their loader conditions, which the "

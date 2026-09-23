@@ -58,6 +58,11 @@ import net.minecraft.world.item.enchantment.ItemEnchantments;
  *       one whose gate is a player state rather than an item type: the extra cracks appear only
  *       while the player sneaks. Mining with the enchanted pickaxe standing up must add nothing,
  *       mining while holding sneak must add exactly the blocks behind the target.</li>
+ *   <li><b>Without {@code isDestroying}</b> - vanilla also mines a block while that flag is false
+ *       (the {@code sameDestroyTarget} branch of {@code continueDestroyBlock}, entered after the
+ *       crosshair left the block for a tick). The sledgehammer's cracks have to be there then too,
+ *       and a stale destroy stage left behind afterwards must not crack another block. See
+ *       {@link #sledgehammerCracksFollowVanillasCrackNotIsDestroying}.</li>
  * </ul>
  *
  * <p>Obsidian is used as the wall material so that a single block takes roughly 167 ticks to break:
@@ -165,6 +170,7 @@ public final class MultiBlockBreakingClientTest {
         });
 
         stripMinerCracksNeedSneaking(script);
+        sledgehammerCracksFollowVanillasCrackNotIsDestroying(script);
 
         // --- Cleanup ----------------------------------------------------------------------------
         // What a finally block used to do. As steps these run only when everything before them
@@ -187,23 +193,15 @@ public final class MultiBlockBreakingClientTest {
      * frame stop agreeing).
      */
     /**
-     * <b>Open on NeoForge:</b> the sneaking case of this test does not reach a destroy stage there.
-     *
-     * <p>Everything up to the measurement holds - the wall is rebuilt, the crosshair is on the
-     * target, the pickaxe is in hand with Strip Miner II, the player is sneaking, all asserted.
-     * Then {@code gameMode.isDestroying()} never becomes true, {@code getDestroyStage()} stays at
-     * -1 for the full 200 tick window, and by the end the target block is
-     * {@code minecraft:air} - so something is breaking it while vanilla's client side break never
-     * starts. The standing case, three steps earlier and identical but for the sneak key, works.
-     *
-     * <p>Ruled out by measurement, not by guesswork: the input lockout (cleared, logged), the
-     * mouse grab (grabbed, window active), a leftover screen (none), a missing block (the aim
-     * assertion passes immediately before), a wall broken by an earlier case (rebuilt per case
-     * now), a break that was never stopped ({@code stopDestroyBlock} added) and a click vanilla
-     * never registered ({@code KeyMapping.click} added). None of the six changed it.
-     *
-     * <p>It costs one checkpoint on one target and it is named here rather than skipped, because
-     * a difference between the loaders is exactly what sharing the test body is meant to surface.
+     * <b>Once open on NeoForge</b>, now closed: the sneaking case did not reach a destroy stage
+     * there - the attack binding was down for all 201 ticks, {@code isDestroying} false in all of
+     * them, and the block gone after 169. The cause was the driver, not the mod: it cleared
+     * vanilla's input lockout before grabbing the mouse, the grab set it again, the click was
+     * swallowed, and only {@code continueAttack} ran - which mines the same block with the same item
+     * in its {@code sameDestroyTarget} branch without ever setting {@code isDestroying}
+     * ({@code SharedScriptRun#setAttacking} has the details). That branch is also what the player
+     * hits after the crosshair leaves the block for a tick, and
+     * {@link #sledgehammerCracksFollowVanillasCrackNotIsDestroying} now drives it on purpose.
      */
     private static void stripMinerCracksNeedSneaking(Script script) {
         // Tolerated on purpose. TestScene.build clears z = 10..20 only, so these two layers survive
@@ -399,6 +397,179 @@ public final class MultiBlockBreakingClientTest {
                 }
             });
         });
+    }
+
+    /**
+     * The sledgehammer's extra cracks follow the crack vanilla itself draws at the aimed block, not
+     * {@code MultiPlayerGameMode#isDestroying()}.
+     *
+     * <p>Vanilla mines a block in two branches. {@code startDestroyBlock} sets {@code isDestroying};
+     * the {@code sameDestroyTarget} branch of {@code continueDestroyBlock} - same block, same item,
+     * after a {@code stopDestroyBlock} - only accumulates progress and never sets the flag, and it
+     * still draws its crack every tick. A player gets there by letting the crosshair slip off the
+     * block for one tick ({@code Minecraft#continueAttack} then calls {@code stopDestroyBlock}) and
+     * coming back. Until 2026-09 {@code MultiBlockBreakingSupport} gated on the flag and drew no
+     * extra cracks for the whole rest of that block. This case calls {@code stopDestroyBlock} itself
+     * while the button stays held, waits until vanilla mines on with the flag false, and asserts that
+     * all eight cracks are there on every recorded tick's union, with the flag false on every one.
+     *
+     * <p>Then the control that keeps the fix honest. After letting go, {@code stopDestroyBlock} is a
+     * no-op while the flag is false, so the destroy stage stays where it was until the next click.
+     * A fix that only asked for a stage in 0..9 would crack the neighbours of whatever block the
+     * sledgehammer is pointed at next, with no time limit. The player turns to another block of the
+     * wall with the stale stage still set, and none of that block's neighbours may appear.
+     *
+     * <p><b>What breaks this test:</b> the {@code isDestroying()} gate coming back (the first half
+     * records no neighbour), or the check for vanilla's own crack at the aimed block going away (the
+     * control records the other block's neighbours).
+     */
+    private static void sledgehammerCracksFollowVanillasCrackNotIsDestroying(Script script) {
+        String sledgehammer = "simplebuilding:netherite_sledgehammer";
+        Set<BlockPos> expectedNeighbours = neighboursOfTarget();
+        BlockPos elsewhere = TestScene.TARGET.offset(3, 0, 0);
+        Set<BlockPos> neighboursElsewhere = new LinkedHashSet<>();
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                if (dx != 0 || dy != 0) {
+                    neighboursElsewhere.add(elsewhere.offset(dx, dy, 0));
+                }
+            }
+        }
+
+        script.command("fill -12 -4 " + TestScene.WALL_Z + " 32 24 " + TestScene.WALL_Z
+                + " minecraft:obsidian", true);
+        script.awaitPackets();
+        script.idle("let the rebuilt wall reach the client", 10);
+        script.command("clear @a", true);
+        script.command("item replace entity @a weapon.mainhand with " + sledgehammer);
+        script.awaitPackets();
+        script.idle("let the sledgehammer reach the client", 15);
+
+        TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
+        assertMainHand(script, sledgehammer, true);
+        assertSneaking(script, false);
+
+        script.harness("start mining with the sledgehammer", harness -> harness.setAttacking(true));
+        script.await("vanilla reports a destroy stage for the target", 200,
+                client -> client.gameMode != null && client.gameMode.getDestroyStage() >= 0,
+                client -> "mining with the sledgehammer never produced a destroy stage. "
+                        + TestScene.describeAim(client));
+
+        // What Minecraft#continueAttack does when the crosshair leaves the block for a tick. The
+        // button stays held, so the next continueDestroyBlock finds the same block and the same item.
+        script.act("leave the flagged break the way a slipped crosshair does",
+                client -> client.gameMode.stopDestroyBlock());
+
+        MiningTrace trace = new MiningTrace();
+        script.await("vanilla mines on without isDestroying until stage 1", 200,
+                client -> {
+                    trace.record(client);
+                    return client.gameMode != null
+                            && !client.gameMode.isDestroying()
+                            && client.gameMode.getDestroyStage() >= 1
+                            && client.gameMode.getDestroyStage() <= 9;
+                },
+                client -> "vanilla never mined on in its sameDestroyTarget branch (isDestroying="
+                        + (client.gameMode != null && client.gameMode.isDestroying()) + ", stage="
+                        + (client.gameMode == null ? -1 : client.gameMode.getDestroyStage()) + "). "
+                        + trace + " " + TestScene.describeAim(client));
+        script.idle("let the destroy stage settle", 5);
+
+        Set<BlockPos> seen = new LinkedHashSet<>();
+        int[] recordedTicks = {0};
+        int[] flaggedTicks = {0};
+        Later<List<BlockBreakingRenderState>> lastFrame = new Later<>("the last frame mined without isDestroying");
+
+        script.act("start recording the breaking render states", client -> BreakingStateRecorder.arm());
+        script.await("record the breaking render states for " + MEASURE_TICKS + " ticks",
+                MEASURE_TICKS + 40, client -> {
+                    seen.addAll(BreakingStateRecorder.lastSeen());
+                    if (client.gameMode != null && client.gameMode.isDestroying()) {
+                        flaggedTicks[0]++;
+                    }
+                    return ++recordedTicks[0] >= MEASURE_TICKS;
+                });
+        script.act("stop recording the breaking render states", client -> {
+            BreakingStateRecorder.disarm();
+            lastFrame.set(List.copyOf(BreakingStateRecorder.lastFrame()));
+        });
+
+        script.verify("the whole window was mined without isDestroying", () -> {
+            if (flaggedTicks[0] != 0) {
+                throw new AssertionError("Setup failed: isDestroying was true on " + flaggedTicks[0] + " of the "
+                        + MEASURE_TICKS + " recorded ticks, so this window is the ordinary flagged break the "
+                        + "signal case already measures.");
+            }
+        });
+        script.verify("the sledgehammer cracked all eight neighbours without isDestroying", () -> {
+            TestLog.info("breaking states while mining without isDestroying: " + seen);
+
+            Set<BlockPos> missing = new LinkedHashSet<>(expectedNeighbours);
+            missing.removeAll(seen);
+
+            if (!missing.isEmpty()) {
+                throw new AssertionError("Vanilla was mining the target in its sameDestroyTarget branch and "
+                        + "drawing its crack, but MultiBlockBreakingSupport added none of " + missing
+                        + " - it is gated on isDestroying again. Recorded: " + seen + ".");
+            }
+        });
+        script.verify("every crack of that frame carries the same destroy stage",
+                () -> assertOneProgressPerFrame(lastFrame.get()));
+
+        // --- the control: a stale stage must not crack another block ---
+        script.harness("let go of the attack button", harness -> harness.setAttacking(false));
+        script.idle("let the release settle", 5);
+        script.command("tp @a " + (elsewhere.getX() + 0.5) + " 0.0 16.5 0.0 0.0");
+        script.awaitPackets();
+        script.idle("let the player arrive in front of the other block", 15);
+        TestScene.assertAimedAt(script, elsewhere, TestScene.TARGET_FACE);
+
+        script.act("the stale destroy stage survived the release and the move", client -> {
+            int stage = client.gameMode == null ? -1 : client.gameMode.getDestroyStage();
+
+            if (stage < 0 || stage > 9 || client.gameMode.isDestroying()) {
+                throw new AssertionError("Setup failed: after letting go the destroy stage reads " + stage
+                        + " (isDestroying=" + (client.gameMode != null && client.gameMode.isDestroying())
+                        + "), so there is no stale stage a stage-only check could misuse and the control "
+                        + "below would prove nothing.");
+            }
+        });
+
+        Set<BlockPos> seenElsewhere = new LinkedHashSet<>();
+        int[] recordedElsewhere = {0};
+        script.act("start recording in front of the other block", client -> BreakingStateRecorder.arm());
+        script.await("record in front of the other block for " + MEASURE_TICKS + " ticks",
+                MEASURE_TICKS + 40, client -> {
+                    seenElsewhere.addAll(BreakingStateRecorder.lastSeen());
+                    return ++recordedElsewhere[0] >= MEASURE_TICKS;
+                });
+        script.act("stop recording in front of the other block", client -> BreakingStateRecorder.disarm());
+
+        script.verify("a stale destroy stage cracks nothing around another block", () -> {
+            TestLog.info("breaking states in front of the other block with a stale stage: " + seenElsewhere);
+
+            Set<BlockPos> leaked = new LinkedHashSet<>(seenElsewhere);
+            leaked.retainAll(neighboursElsewhere);
+
+            if (!leaked.isEmpty()) {
+                throw new AssertionError("With the button released and a stale destroy stage, looking at "
+                        + elsewhere + " with the sledgehammer cracked " + leaked + ". Vanilla draws no crack "
+                        + "there, and the extra cracks have to follow vanilla's own. Recorded: "
+                        + seenElsewhere + ".");
+            }
+        });
+
+        // Put vanilla's destroy target right again: an empty hand is not the same item, so the next
+        // click starts a flagged break, and letting go of it resets progress, target and item.
+        script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
+        script.command("clear @a", true);
+        script.awaitPackets();
+        script.idle("let the player arrive back at the scene's standpoint", 15);
+        TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
+        script.harness("tap the target with an empty hand", harness -> harness.setAttacking(true));
+        script.idle("let the empty hand start a break", 3);
+        script.harness("let go again", harness -> harness.setAttacking(false));
+        script.idle("let the reset settle", 5);
     }
 
     /**

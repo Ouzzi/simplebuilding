@@ -79,21 +79,13 @@ import net.minecraft.world.phys.Vec3;
  * <p>What was left over - and is what this class does - is everything around that: the shipped
  * numbers all seventeen octants share plus the paint each of the sixteen dyed ones reports, the
  * {@code use()} branch that quietly does nothing because the player is not sneaking, the display
- * name and the tooltip, the three guards
+ * name and the tooltip, the four guards
  * on the scroll handler, the sixteen dyeing recipes, the water cauldron that washes a coloured one
  * clean again - all sixteen colours of it - and the one thing about the chest entries that rolling
  * them cannot show: which of them hand the octant over randomly enchanted.
  *
  * <h2>Known defects</h2>
  * <ul>
- *   <li><b>The lock does not protect against scrolling on the server.</b>
- *       {@code OctantItem#useOn} and {@code OctantItem#use} both refuse to touch a locked octant,
- *       but {@code ModMessageHandlers#handleOctantScroll} never reads the {@code Locked} tag - the
- *       only thing that suppresses scrolling is the client side mouse mixin. A client that sends
- *       the payload anyway moves the corners of a locked octant. Nothing here asserts that, in
- *       either direction: pinning it down would write the defect into the suite as if it were the
- *       intended behaviour. {@link #airClicksOnlyResetAnUnlockedOctantWhileSneaking} asserts the
- *       half of the lock the server really does enforce.</li>
  *   <li><b>{@code Hollow}, {@code LayerMode} and {@code FillOrder} are stored and no server path
  *       reads them.</b> The octant screen sends them, {@code handleOctantConfigure} writes them
  *       into the item, and the only code that reads them back is {@code client/gui/OctantScreen},
@@ -445,7 +437,8 @@ public final class OctantTests {
 
     /**
      * {@code handleOctantScroll} reads {@code player.getMainHandItem()} and writes the item back
-     * only when it actually changed something. Three guards come out of that, and
+     * only when it actually changed something, and not at all for a locked octant. Four guards
+     * come out of that, and
      * {@code NetworkHandlerTests} exercises none of them because it always hands the handler a
      * well formed octant in the main hand:
      *
@@ -456,17 +449,20 @@ public final class OctantTests {
      *       data onto that item;</li>
      *   <li>a corner nudge on an octant that has no corners yet must leave the item completely
      *       alone - that is what the {@code changed} flag is for, and without it every stray
-     *       scroll would attach an empty {@code custom_data} component to a fresh octant.</li>
+     *       scroll would attach an empty {@code custom_data} component to a fresh octant;</li>
+     *   <li>a <em>locked</em> octant keeps its shape and its corners against all three modifiers.
+     *       The client's mouse mixin never sends the packet for one, but the server must not rely
+     *       on that: until 2026-09 the handler never read {@code Locked}, and a client that sent
+     *       the packet anyway moved the corners of a locked selection.</li>
      * </ol>
      *
      * <p>The last step is the control: the same payload, with the octant in the main hand, has to
-     * land. Without it a handler that had become a no-op would pass the three guards.
-     *
-     * <p>This test says nothing about a locked octant - see "Known defects" in the class javadoc.
+     * land. Without it a handler that had become a no-op would pass the four guards.
      *
      * <p>What breaks this test: {@code getMainHandItem()} turning into a search over both hands or
      * the whole inventory, the {@code instanceof OctantItem} guard going away, or the
-     * {@code changed} flag being dropped so the handler always writes the tag back.
+     * {@code changed} flag being dropped so the handler always writes the tag back, or the
+     * {@code Locked} check disappearing from the handler.
      */
     public static void octantScrollPacketsOnlyEverTouchTheMainHand(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -498,11 +494,26 @@ public final class OctantTests {
                 "a corner nudge on an octant without a selection attached an empty custom_data "
                         + "component to it");
 
-        // (4) control: in the main hand, the very same payload has to land
+        // (4) a locked octant in the main hand refuses all three modifiers
+        ItemStack locked = new ItemStack(ModItems.OCTANT);
+        setSelection(locked, FIRST_CORNER, SECOND_CORNER, true);
+        player.setItemInHand(InteractionHand.MAIN_HAND, locked);
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(1, false, false, true), player);
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(1, true, false, false), player);
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(1, false, true, false), player);
+        helper.assertFalse(customData(locked).contains("Shape"),
+                "an alt scroll changed the shape of a LOCKED octant; the server has to refuse the "
+                        + "packet itself, not rely on the client's mouse mixin");
+        assertSelection(helper, locked, FIRST_CORNER, SECOND_CORNER,
+                "a corner nudge moved the corners of a LOCKED octant; the server has to refuse the "
+                        + "packet itself, not rely on the client's mouse mixin");
+
+        // (5) control: in the main hand, the very same payload has to land
+        player.setItemInHand(InteractionHand.MAIN_HAND, fresh);
         ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(1, false, false, true), player);
         helper.assertValueEqual(customData(fresh).getString("Shape").orElse(""),
                 SelectionShape.values()[1].name(),
-                "control: an alt scroll on the main hand octant did nothing, so the three guards "
+                "control: an alt scroll on the main hand octant did nothing, so the four guards "
                         + "above prove nothing");
 
         helper.succeed();

@@ -23,6 +23,11 @@ public final class BuildingEnchantmentGameTest {
     }
 
     @GameTest(rotation = Rotation.NONE)
+    public void constructorsTouchStickCyclesTheFirstBlockStateProperty(GameTestHelper helper) {
+        BuildingEnchantmentTests.constructorsTouchStickCyclesTheFirstBlockStateProperty(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
     public void fastChiselingShortensTheCooldownAndSpeedsUpMining(GameTestHelper helper) {
         BuildingEnchantmentTests.fastChiselingShortensTheCooldownAndSpeedsUpMining(helper);
     }

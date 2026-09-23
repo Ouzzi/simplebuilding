@@ -144,4 +144,12 @@ public interface Harness {
 
     /** Moves the cursor to a position in the window, in scaled screen coordinates. */
     void setCursorPos(double x, double y) throws Exception;
+
+    /**
+     * The screen the loader's own config button opens for this mod, built with no parent: ModMenu's
+     * entry point on Fabric ({@code ModMenu.getConfigScreen}, which goes through the
+     * {@code modmenu} entrypoint in {@code fabric.mod.json}), the {@code IConfigScreenFactory}
+     * extension point on NeoForge. Whatever the mod's factory throws comes out of here.
+     */
+    net.minecraft.client.gui.screens.Screen modConfigScreen() throws Exception;
 }

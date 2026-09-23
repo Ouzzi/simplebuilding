@@ -14,7 +14,7 @@ import net.minecraft.world.phys.Vec3;
 /**
  * Shared client-side air-jump (double jump) logic with a level-dependent cooldown.
  *
- * <p>Called once per client tick by each loader (Fabric + NeoForge) so the logic
+ * <p>Called once per client tick by each loader (Fabric, NeoForge and Forge) so the logic
  * is not duplicated. After an air-jump the ability goes on cooldown and cannot be
  * used again until it recharges — the cooldown keeps running even after landing,
  * which prevents spamming the air-jump to repeatedly cancel fall damage.

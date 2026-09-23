@@ -8,11 +8,9 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import com.simplebuilding.recipe.ReinforcedBundleRecipe;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
@@ -29,14 +27,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.Property;
 import com.simplebuilding.enchantment.ModEnchantments; // Importe behalten für Events
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 
 public class ModRegistries {
 
@@ -86,53 +77,8 @@ public class ModRegistries {
     }
 
     private static void registerEvents() {
-        // Constructor's Touch
-        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-            ItemStack stack = player.getItemInHand(hand);
-            if (hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH) && stack.is(Items.STICK)) {
-
-                if (!world.isClientSide()) {
-                    BlockState state = world.getBlockState(hitResult.getBlockPos());
-                    var properties = state.getProperties();
-                    if (!properties.isEmpty()) {
-                        Property<?> property = properties.iterator().next();
-                        BlockState newState = cycleState(state, property, player.isShiftKeyDown());
-                        world.setBlock(hitResult.getBlockPos(), newState, 18);
-                        Component message = Component.literal(property.getName() + ": ").withStyle(ChatFormatting.GRAY)
-                                .append(Component.literal(String.valueOf(newState.getValue(property))).withStyle(ChatFormatting.WHITE));
-                        if (player instanceof ServerPlayer serverPlayer) {
-                            serverPlayer.displayClientMessage(message, true);
-                        }
-                    }
-                }
-                return InteractionResult.SUCCESS;
-            }
-            return InteractionResult.PASS;
-        });
-    }
-
-    private static <T extends Comparable<T>> BlockState cycleState(BlockState state, Property<T> property, boolean inverse) {
-        return state.setValue(property, cycle(property.getPossibleValues(), state.getValue(property), inverse));
-    }
-
-    private static <T> T cycle(Iterable<T> elements, T current, boolean inverse) {
-        List<T> values = new ArrayList<>();
-        for (T value : elements) {
-            values.add(value);
-        }
-
-        if (values.isEmpty()) {
-            return current;
-        }
-
-        int index = values.indexOf(current);
-        if (index < 0) {
-            return inverse ? values.get(values.size() - 1) : values.get(0);
-        }
-
-        int nextIndex = inverse
-                ? (index - 1 + values.size()) % values.size()
-                : (index + 1) % values.size();
-        return values.get(nextIndex);
+        // Constructor's Touch: the stick logic is shared with NeoForge (ConstructorsTouchInteraction),
+        // so the two loaders cannot drift apart again - the NeoForge copy once wrote to the chat.
+        UseBlockCallback.EVENT.register(ConstructorsTouchInteraction::handleUseBlock);
     }
 }

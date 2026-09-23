@@ -698,8 +698,10 @@ public final class ClientBootstrapClientTest {
      * than doing nothing quietly, which is the correct failure: a silently ineffective scroll would
      * leave every assertion here green about a mixin that was never reached.
      *
-     * <p><b>What breaks this test:</b> dropping the modifier check, the screen check or the
-     * {@code Locked} check (the corresponding "unchanged" assertion goes red), removing
+     * <p><b>What breaks this test:</b> dropping the modifier check or the screen check (the
+     * corresponding "unchanged" assertion goes red), dropping the client's {@code Locked} check
+     * (the server refuses the packet for a locked octant as well since 2026-09, so there it is the
+     * "fell through to vanilla" assertion that goes red, not the unchanged corner), removing
      * {@code ci.cancel()} (the hotbar slot moves during the modifier steps), losing the
      * {@code signum} normalisation (the four wheel step moves four blocks), or the payload not
      * reaching its server side handler at all.

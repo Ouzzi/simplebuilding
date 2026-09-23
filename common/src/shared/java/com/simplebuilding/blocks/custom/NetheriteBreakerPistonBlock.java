@@ -25,8 +25,8 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
 
     @Override
     public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int type, int data) {
-        // type 0 = Piston Event (Ausfahren/Einfahren)
-        if (type == 0) {
+        // type 0 = Ausfahren. Nur brechen, wenn Vanilla gleich danach auch wirklich ausfaehrt: super
+        if (type == 0 && (world.isClientSide() || hasVanillaExtendSignal(world, pos, state.getValue(FACING)))) {
             // Wir prüfen nur beim Ausfahren
             if (!state.getValue(EXTENDED)) {
                 Direction facing = state.getValue(FACING);
@@ -52,5 +52,33 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
         }
 
         return super.triggerEvent(state, world, pos, type, data);
+    }
+
+    /**
+     * Vanillas eigene Nachpruefung aus {@code PistonBaseBlock#triggerEvent} (dort private
+     * {@code getNeighborSignal}): Signal von jeder Seite ausser der Schubrichtung, von unten, oder
+     * ueber die Quasi-Konnektivitaet von oben. {@code super.triggerEvent} verwirft ein
+     * Ausfahr-Ereignis ohne dieses Signal - der Brecher darf dann auch nichts zerstoert haben. Bis
+     * 2026-09 brach er vorher, mit {@code getBestNeighborSignal}, das die Schubrichtung mitzaehlt:
+     * ein Signal, das zwischen Einreihen und Ausfuehren des Block-Ereignisses verschwand, oder ein
+     * Block davor, der selbst die einzige Signalquelle war, kostete den Block, ohne dass der Kolben
+     * je ausfuhr.
+     */
+    private static boolean hasVanillaExtendSignal(Level level, BlockPos pos, Direction push) {
+        for (Direction direction : Direction.values()) {
+            if (direction != push && level.hasSignal(pos.relative(direction), direction)) {
+                return true;
+            }
+        }
+        if (level.hasSignal(pos, Direction.DOWN)) {
+            return true;
+        }
+        BlockPos above = pos.above();
+        for (Direction direction : Direction.values()) {
+            if (direction != Direction.DOWN && level.hasSignal(above.relative(direction), direction)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

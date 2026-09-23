@@ -42,7 +42,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.IRON_CHISEL))
                 .add(key(ModItems.GOLD_CHISEL))
                 .add(key(ModItems.DIAMOND_CHISEL))
-                .add(key(ModItems.NETHERITE_CHISEL));
+                .add(key(ModItems.NETHERITE_CHISEL))
+                .add(key(ModItems.ENDERITE_CHISEL));
 
         var octantBuilder = builder(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(key(ModItems.OCTANT));
@@ -119,14 +120,16 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.IRON_SLEDGEHAMMER))
                 .add(key(ModItems.GOLD_SLEDGEHAMMER))
                 .add(key(ModItems.DIAMOND_SLEDGEHAMMER))
-                .add(key(ModItems.NETHERITE_SLEDGEHAMMER));
+                .add(key(ModItems.NETHERITE_SLEDGEHAMMER))
+                .add(key(ModItems.ENDERITE_SLEDGEHAMMER));
 
         builder(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
                 .add(key(ModItems.COPPER_BUILDING_WAND))
                 .add(key(ModItems.IRON_BUILDING_WAND))
                 .add(key(ModItems.GOLD_BUILDING_WAND))
                 .add(key(ModItems.DIAMOND_BUILDING_WAND))
-                .add(key(ModItems.NETHERITE_BUILDING_WAND));
+                .add(key(ModItems.NETHERITE_BUILDING_WAND))
+                .add(key(ModItems.ENDERITE_BUILDING_WAND));
 
         builder(ModTags.Items.VEINMINE_ENCHANTABLE)
                 .forceAddTag(ItemTags.PICKAXES)

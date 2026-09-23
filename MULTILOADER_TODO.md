@@ -123,9 +123,25 @@ NeoForge-Modul):
   `cloth-config` gibt es fuer Fabric und NeoForge, fuer Forge vermutlich nicht; dann
   waere `ForgeConfigSpec` + eigener Screen noetig. Achtung: `SimplebuildingConfig` und
   `HeldItemRendererMixin` liegen im gemeinsamen Baum und nutzen `me.shedaniel`-Klassen.
-- [ ] **Weniger HUD-Verdrahtung als NeoForge** (`AddGuiOverlayLayersEvent`).
+- [ ] **Weniger HUD-Verdrahtung als NeoForge** (`AddGuiOverlayLayersEvent`): Oktant-HUD
+  (`RangefinderHudOverlay`), Tacho (`SpeedometerHudOverlay`) und Luftsprung-Balken
+  (`DoubleJumpHudOverlay`) fehlen; ebenso die `enchant_type`-Property der Buchtexturen.
 - [ ] **Nie zur Laufzeit gestartet** — auch nicht vor der Entfernung in dbdffdf.
   Ein `runClient`/`runServer`-Durchlauf steht komplett aus.
+- [ ] **Kein Gametest-Adapter** — die gemeinsamen Testkoerper werden mitkompiliert
+  (`forge/build.gradle` nimmt `common/src/shared/java`), aber nichts registriert sie, es gibt
+  keinen `gameTestServer`-Lauf und kein Forge-Ziel in `tools/testrunner/run.py`. Alle
+  Forge-eigenen Daten sind damit ungeprueft, etwa die Biom-Modifier
+  `forge/src/main/resources/data/simplebuilding/forge/biome_modifier/*.json`. Belegt ist nur
+  der Quellstand: `ConstructorsTouchSingleSourceTest` (JUnit, Teil von `gradlew check`) prueft,
+  dass Forge die gemeinsame Constructor's-Touch-Logik aufruft.
+- [x] **Angeglichen am 2026-09-24** (Code-Stand, nicht gestartet): die Loot-Funktion
+  `simplebuilding:weighted_enchant` wird in `ForgeRegistryBootstrap` registriert (ohne sie
+  scheitert das Laden der Trade-JSONs); der Constructor's-Touch-Stock ruft
+  `ConstructorsTouchInteraction` (die driftende Kopie `ModRegistriesForge` ist geloescht, ebenso
+  die tote dritte Kopie `ModRegistriesNeoForge` auf 26.2); der Luftsprung laeuft ueber
+  `DoubleJumpController` statt ueber eine eigene Logik ohne Abklingzeit; `/simplebuilding` kommt
+  aus dem gemeinsamen `SimplebuildingCommand`.
 
 ## MC-1.21.11-Linie (Stand 2026-08-27)
 

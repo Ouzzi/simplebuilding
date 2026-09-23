@@ -69,17 +69,6 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Known defects</h2>
  *
- * <p><b>The enderite bundle and the enderite quiver are in none of the enchantable tags.</b>
- * {@code ModItemTagProvider} puts only the reinforced and netherite variants into
- * {@code simplebuilding:bundle_enchantable}, {@code simplebuilding:extra_inventory_items} and
- * {@code simplebuilding:constructors_touch_enchantable}, although
- * {@code ReinforcedBundleItem#getTierCapacityMultiplier} and {@code QuiverItem}'s override both
- * know the enderite tier and hand it a factor of 3. So the top tier of both containers is the one
- * that can carry no container enchantment at all.
- * {@link #lootQuiversCarryOneOfTheContainerEnchantments} therefore asserts the accepted set for
- * the two quivers that are in the tags and says nothing about the enderite one - asserting either
- * state would freeze it.
- *
  * <p><b>{@code MagnetItem#getCurrentRange} adds two blocks per Range level to a magnet that can
  * never carry Range.</b> Range's supported items are
  * {@code simplebuilding:chisel_and_mining_tools}, which resolves to the chisel tools, the
@@ -682,8 +671,9 @@ public final class StorageEnchantmentTests {
      *       quiver from there has to come out clean - otherwise "enchanted" would say nothing.</li>
      * </ol>
      *
-     * <p>The enderite quiver is left out on purpose: it is in none of the three tags, and pinning
-     * that would freeze a known defect (see the class javadoc).
+     * <p>All three quivers are asserted, the enderite one included: it joined the three tags in
+     * 61d0a14 (enderite is a full tier), and the top tier is the one an upgrade must not strip of
+     * its enchantments.
      *
      * <p>What breaks it: the quiver dropping out of one of its item tags (step 1 and 3), the
      * random enchantment function disappearing from the ancient city entry or being narrowed to a
@@ -703,7 +693,7 @@ public final class StorageEnchantmentTests {
             for (ResourceKey<Enchantment> key : QUIVER_ENCHANTMENTS) {
                 expected.add(key.identifier());
             }
-            for (Item quiver : List.of(ModItems.QUIVER, ModItems.NETHERITE_QUIVER)) {
+            for (Item quiver : List.of(ModItems.QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER)) {
                 Set<Identifier> accepting = enchantmentsAccepting(helper, quiver);
                 helper.assertTrue(accepting.equals(expected),
                         BuiltInRegistries.ITEM.getKey(quiver) + " is a legal target for " + accepting

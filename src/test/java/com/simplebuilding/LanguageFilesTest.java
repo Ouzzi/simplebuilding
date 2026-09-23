@@ -66,6 +66,30 @@ class LanguageFilesTest {
         }
     }
 
+    /**
+     * Every key has its translation in both languages, on both Minecraft lines. The client tests run
+     * in en_us only, so a key that is missing from de_de - as the three block item names once were
+     * from both files - would show its bare key to a German player without any test noticing.
+     */
+    @Test
+    void enUsAndDeDeCarryTheSameKeysOnBothLines() throws IOException {
+        for (Path dir : List.of(LANG_DIR, Path.of("mc1_21_11", "fabric", "src", "main", "resources", "assets",
+                "simplebuilding", "lang"))) {
+            Map<String, String> en = parseFlatStringMap(Files.readString(dir.resolve("en_us.json"),
+                    StandardCharsets.UTF_8), dir + "/en_us.json");
+            Map<String, String> de = parseFlatStringMap(Files.readString(dir.resolve("de_de.json"),
+                    StandardCharsets.UTF_8), dir + "/de_de.json");
+
+            List<String> onlyEnglish = new ArrayList<>(en.keySet());
+            onlyEnglish.removeAll(de.keySet());
+            List<String> onlyGerman = new ArrayList<>(de.keySet());
+            onlyGerman.removeAll(en.keySet());
+
+            assertTrue(onlyEnglish.isEmpty(), dir + ": keys without a German entry: " + onlyEnglish);
+            assertTrue(onlyGerman.isEmpty(), dir + ": keys without an English entry: " + onlyGerman);
+        }
+    }
+
     private static String read(String fileName) throws IOException {
         return Files.readString(LANG_DIR.resolve(fileName), StandardCharsets.UTF_8);
     }

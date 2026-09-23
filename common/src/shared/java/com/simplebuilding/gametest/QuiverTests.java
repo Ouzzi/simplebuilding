@@ -125,7 +125,8 @@ import net.minecraft.world.phys.Vec3;
  *       {@link #bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack} asserts directly.
  *       What the mod owns here is the component, not the machinery that reads it.</li>
  *   <li><b>Item tag membership</b> ({@code bundle_enchantable},
- *       {@code constructors_touch_enchantable} - the enderite quiver is in neither) and the
+ *       {@code constructors_touch_enchantable} - all three quivers are in both since 61d0a14;
+ *       asserted in {@code StorageEnchantmentTests} and {@code WandEnchantmentTests}) and the
  *       crafting and smithing recipes. Those are datapack claims evaluated by vanilla's enchanting
  *       and recipe machinery; the data layer of this mod is checked in {@link DataIntegrityTests}.</li>
  *   <li><b>Everything the player sees</b>: the tooltip submenu, the bar colour, the shot sound.
@@ -379,8 +380,9 @@ public final class QuiverTests {
      * 64 from 96, and 96 is precisely what a deleted {@code QuiverItem#getBaseCapacity} would
      * produce.
      *
-     * <p>The enchanted cases use the plain quiver on purpose - the enderite quiver is in no
-     * enchantable item tag, so a Drawer enderite quiver is not a state the game can reach.
+     * <p>The enchanted cases use the plain quiver: the Drawer and Deep Pockets factors do not
+     * depend on the tier, and all three quivers can carry them (they are in
+     * {@code bundle_enchantable} since 61d0a14).
      *
      * <p>Drawer is measured twice, on level 1 and on its highest level, because the two numbers
      * together pin the shape of the multiplier and not just one point of it. Both are pinned

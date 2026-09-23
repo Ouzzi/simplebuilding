@@ -5,6 +5,8 @@ public final class ModTradeOffers {
     }
 
     public static void registerModTradeOffers() {
-        // Villager trades are provided via generated JSON on NeoForge.
+        // Villager trades come from the data-driven JSON under data/simplebuilding/villager_trade/, as on
+        // NeoForge; the simplebuilding:weighted_enchant function they use is registered in
+        // ForgeRegistryBootstrap.
     }
 }

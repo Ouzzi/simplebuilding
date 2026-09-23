@@ -226,7 +226,7 @@ public class SledgehammerItem extends Item {
                         // Prüfen ob Reverse Action (teurer)
                         boolean isReverse = player.isShiftKeyDown() && hasConstructorsTouch(stack, world);
                         int damage = isReverse ? 2 : 1;
-                        stack.hurtAndBreak(damage, player, EquipmentSlot.MAINHAND);
+                        stack.hurtAndBreak(damage, player, player.getUsedItemHand().asEquipmentSlot());
                     }
                 }
             }

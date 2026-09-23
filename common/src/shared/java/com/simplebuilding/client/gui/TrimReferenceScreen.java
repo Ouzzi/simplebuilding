@@ -48,7 +48,9 @@ public class TrimReferenceScreen extends Screen {
         addDynamicMaterial(Items.GOLD_INGOT, "Gold: Magic Dampening", ChatFormatting.GOLD, 6.0, "Magic Resist");
         addDynamicMaterial(Items.IRON_INGOT, "Iron: Blunt Resistance", ChatFormatting.GRAY, 5.0, "Projectile Resist");
         addDynamicMaterial(Items.EMERALD, "Emerald: Illager Bane", ChatFormatting.DARK_GREEN, 8.0, "Illager Resist");
-        addDynamicMaterial(Items.NETHERITE_INGOT, "Netherite: Amplifier", ChatFormatting.DARK_GRAY, 5.0, "Pattern Boost");
+        // Werte wie TrimEffectUtil: 5 % gegen verzauberungsumgehenden Schaden und den Wither, und ein
+        // Netherit-Besatzteil zaehlt fuer sein Muster 1,75-fach (getTrimCount).
+        addDynamicMaterial(Items.NETHERITE_INGOT, "Netherite: Boss Resilience", ChatFormatting.DARK_GRAY, 5.0, "Wither/Bypass Resist (Pattern x1.75)");
         addDynamicMaterial(Items.COPPER_INGOT, "Copper: Lightning Rod", ChatFormatting.GOLD, 5.0, "Lightning Resist");
         addDynamicMaterial(Items.REDSTONE, "Redstone: Speed", ChatFormatting.RED, 3.0, "Movement Speed");
         addDynamicMaterial(Items.QUARTZ, "Quartz: Heat Shield", ChatFormatting.WHITE, 5.0, "Fire/Lava Resist");
@@ -58,7 +60,9 @@ public class TrimReferenceScreen extends Screen {
         // --- NEW MOD MATERIALS ---
         tryAddModMaterial("simplebuilding", "astralit_dust", "Astralit", ChatFormatting.YELLOW, 0.0, "Jump Boost (Height)");
         tryAddModMaterial("simplebuilding", "nihilith_shard", "Nihilith", ChatFormatting.DARK_PURPLE, 0.0, "Gravity Pull (Sneak in Air)");
-        tryAddModMaterial("simplebuilding", "enderite_ingot", "Enderite", ChatFormatting.DARK_PURPLE, 10.0, "Void Shield (4x Pattern Boost!)");
+        // 5 % gegen jeden Schaden, Muster zaehlt 3,5-fach (TrimEffectUtil). "Void Shield" ist ein Effekt
+        // der Enderit-Ruestung selbst (LivingEntityMixin), kein Besatz-Effekt.
+        tryAddModMaterial("simplebuilding", "enderite_ingot", "Enderite", ChatFormatting.DARK_PURPLE, 5.0, "All Damage Resist (Pattern x3.5)");
 
 
         entries.add(new ReferenceEntry(ItemStack.EMPTY, Component.empty(), Component.empty(), false));
@@ -77,7 +81,7 @@ public class TrimReferenceScreen extends Screen {
         addDynamicTrim(Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE, "Silence", ChatFormatting.DARK_GRAY, 15.0, "Stealth (Detection Range)");
         addDynamicTrim(Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE, "Tide", ChatFormatting.BLUE, 10.0, "Swim Agility");
         addDynamicTrim(Items.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE, "Snout", ChatFormatting.GOLD, 5.0, "Fire Dampening");
-        addDynamicTrim(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE, "Rib", ChatFormatting.DARK_RED, 2.0, "Wither Resist (Sec.)");
+        addDynamicTrim(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE, "Rib", ChatFormatting.DARK_RED, 10.0, "Wither Damage Resist");
         addDynamicTrim(Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE, "Eye", ChatFormatting.LIGHT_PURPLE, 10.0, "Ender Stability");
         addDynamicTrim(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, "Spire", ChatFormatting.LIGHT_PURPLE, 8.0, "Feather Falling");
         addDynamicTrim(Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE, "Flow", ChatFormatting.WHITE, 10.0, "Aerial Agility");

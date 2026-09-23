@@ -27,6 +27,16 @@ import java.util.List;
  * Sledgehammer, Strip Miner (Pickaxe + Sneak) und Vein Miner (Pickaxe/Axt + Sneak).
  * Die zusätzlichen {@link BlockBreakingRenderState}-Einträge werden von Vanilla
  * anschließend ganz normal als Riss-Overlay gerendert.
+ *
+ * <p>Gezeichnet wird, solange Vanilla selbst am anvisierten Block einen Riss extrahiert hat - nicht
+ * solange {@code MultiPlayerGameMode#isDestroying()} gilt. Vanilla baut einen Block auch ohne dieses
+ * Flag weiter ab: {@code continueDestroyBlock} nimmt fuer denselben Block mit demselben Werkzeug den
+ * {@code sameDestroyTarget}-Zweig, der nur Fortschritt sammelt (etwa nachdem das Fadenkreuz fuer
+ * einen Tick vom Block gerutscht ist), und zeichnet dabei seinen Riss. Bis 2026-09 fehlten in genau
+ * diesem Fall die Risse der Nachbarbloecke. Der reine Stufen-Check allein reicht nicht: nach einem
+ * solchen Abbau bleibt {@code getDestroyStage()} stehen, bis der naechste Klick kommt, und die Risse
+ * wuerden um jeden anvisierten Block gezeichnet. Der Vanilla-Riss an {@code mainPos} schliesst das
+ * aus - er steht nur am Block, den Vanilla wirklich abbaut.
  * Loader-neutral: Fabric ruft dies über LevelRenderEvents.END_EXTRACTION auf,
  * NeoForge über ExtractLevelRenderStateEvent — beide feuern nach der
  * Vanilla-Extraktion der Breaking-States.
@@ -47,13 +57,17 @@ public final class MultiBlockBreakingSupport {
         LocalPlayer player = client.player;
         MultiPlayerGameMode gameMode = client.gameMode;
 
-        if (player == null || level == null || gameMode == null || !gameMode.isDestroying()) {
+        if (player == null || level == null || gameMode == null) {
             resetCache();
             return;
         }
 
+        // Dieselbe Grenze wie ClientLevel#destroyBlockProgress. Jeder fertige Abbau setzt den
+        // Fortschritt auf 0 (Stufe -1), der Cache wird also genau dort geleert, wo es frueher der
+        // isDestroying-Check tat.
         int stage = gameMode.getDestroyStage();
         if (stage < 0 || stage > 9) {
+            resetCache();
             return;
         }
 
@@ -72,6 +86,9 @@ public final class MultiBlockBreakingSupport {
             return;
         }
         BlockPos mainPos = blockHit.getBlockPos();
+        if (!vanillaCracks(renderState, mainPos)) {
+            return;
+        }
         BlockState mainState = level.getBlockState(mainPos);
         boolean sneaking = player.isShiftKeyDown();
 
@@ -114,6 +131,16 @@ public final class MultiBlockBreakingSupport {
             }
             renderState.blockBreakingRenderStates.add(new BlockBreakingRenderState(targetPos, state, stage));
         }
+    }
+
+    /** Ob Vanilla in diesem Durchlauf schon einen Riss an {@code pos} extrahiert hat. */
+    private static boolean vanillaCracks(LevelRenderState renderState, BlockPos pos) {
+        for (BlockBreakingRenderState state : renderState.blockBreakingRenderStates) {
+            if (state.blockPos().equals(pos)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void resetCache() {

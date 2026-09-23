@@ -15,6 +15,7 @@ public class ModLootFunctions {
 
     // Fabric: Aufruf aus ModTradeOffers während der Mod-Initialisierung.
     // NeoForge: Aufruf aus NeoForgeRegistryBootstrap während des RegisterEvent für loot_function_type.
+    // Forge: ebenso, aus ForgeRegistryBootstrap.
     public static void registerLootFunctions() {
         Simplebuilding.LOGGER.info("Registering Loot Functions for " + Simplebuilding.MOD_ID);
     }

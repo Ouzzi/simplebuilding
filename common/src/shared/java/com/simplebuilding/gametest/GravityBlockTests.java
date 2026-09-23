@@ -1,6 +1,7 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock;
 import com.simplebuilding.entity.LevitatingBlockEntity;
 import com.simplebuilding.items.ModItems;
 import java.util.List;
@@ -80,12 +81,15 @@ import net.minecraft.world.phys.shapes.CollisionContext;
  * retraction is signalled with block event type 1 or 2, never 0, so the surrounding
  * {@code if (type == 0)} has already excluded it.
  *
- * <p><b>3. The breaker fires before vanilla's own signal re-check.</b> The mod destroys the block
- * in front and only then calls {@code super.triggerEvent}, which starts with
- * {@code if (!getNeighborSignal(...) && type == 0) return false}. A signal that disappears between
- * the block event being queued and being executed therefore costs the block in front without the
- * piston ever extending. Not tested: the window is one tick wide inside vanilla's block event
- * queue and cannot be hit deterministically from a game test.
+ * <p><b>3. (Fixed 2026-09.) The breaker fired before vanilla's own signal re-check.</b> The mod
+ * destroyed the block in front and only then called {@code super.triggerEvent}, which starts with
+ * {@code if (!getNeighborSignal(...) && type == 0) return false} - and it measured with
+ * {@code getBestNeighborSignal}, which counts the push direction that vanilla's check leaves out.
+ * A signal that vanished between the block event being queued and being executed, or a block in
+ * front that was itself the only signal source, cost that block without the piston ever
+ * extending. The breaker now asks vanilla's own question first;
+ * {@link #netheritePistonBreaksOnlyWhatTheSignalStrengthCanAfford} drives the block event
+ * directly against a redstone block that powers the piston only through its front.
  *
  * <p><b>4. {@code NetheritePistonHeadBlock} is dead code.</b> Both mod pistons inherit
  * {@code PistonBaseBlock#moveBlocks}, which places {@code Blocks.PISTON_HEAD}; nothing anywhere
@@ -326,6 +330,30 @@ public final class GravityBlockTests {
         BlockPos weakOnNetherite = new BlockPos(3, 1, 4);
         BlockPos weakOnStone = new BlockPos(3, 1, 6);
         BlockPos faintOnStonecutter = new BlockPos(7, 1, 4);
+
+        // --- the block event without vanilla's extend signal: nothing may break ---
+        // The target is a redstone block: it powers the piston, but only through the push direction,
+        // which vanilla's re-check in super.triggerEvent leaves out - so vanilla never queues the
+        // extension, and a block event that arrives anyway (a signal gone between queueing and
+        // execution) must not cost the block. getBestNeighborSignal alone reads 15 here and would
+        // break it: hardness 5 is well under the threshold of 50. Driven directly and synchronously,
+        // before anything else in this room exists.
+        BlockPos frontOnly = new BlockPos(5, 1, 7);
+        placeBreakerWithTarget(helper, frontOnly, Blocks.REDSTONE_BLOCK);
+        BlockPos frontOnlyAbsolute = helper.absolutePos(frontOnly);
+        BlockState frontOnlyState = helper.getLevel().getBlockState(frontOnlyAbsolute);
+        helper.assertTrue(helper.getLevel().getBestNeighborSignal(frontOnlyAbsolute) == 15,
+                "setup: the redstone block in front no longer powers the netherite piston, so the "
+                        + "re-check case proves nothing");
+        boolean extended = ((NetheriteBreakerPistonBlock) frontOnlyState.getBlock()).triggerEvent(frontOnlyState,
+                helper.getLevel(), frontOnlyAbsolute, 0, Direction.UP.get3DDataValue());
+        helper.assertTrue(helper.getBlockState(frontOnly.above()).is(Blocks.REDSTONE_BLOCK),
+                "the netherite piston destroyed the redstone block in front of it on a block event "
+                        + "vanilla's own signal check refuses - it broke before asking whether it extends");
+        helper.assertFalse(extended,
+                "the netherite piston extended on a block event its own signal check refuses");
+        helper.setBlock(frontOnly.above(), Blocks.AIR);
+        helper.setBlock(frontOnly, Blocks.AIR);
 
         placeBreakerWithTarget(helper, fullOnNetherite, Blocks.NETHERITE_BLOCK);
         placeBreakerWithTarget(helper, fullOnObsidian, Blocks.OBSIDIAN);

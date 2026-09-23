@@ -2,6 +2,7 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.ConstructorsTouchInteraction;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.ChiselItem;
 import java.io.IOException;
@@ -291,21 +292,176 @@ public final class BuildingEnchantmentTests {
     // =====================================================================================
 
     /**
-     * <strong>Not present on this Minecraft line.</strong> The 26.2 copy of this class carries
-     * {@code constructorsTouchStickCyclesTheFirstBlockStateProperty} and the check that Fabric
-     * delegates to the shared class; both drive
-     * {@code com.simplebuilding.util.ConstructorsTouchInteraction}.
+     * Constructor's Touch has a second, completely separate effect: on a plain stick it turns
+     * every right click into a blockstate edit, cycling the first property of the clicked block.
+     * That is the mod's only in-world debug tool, and nothing else in the suite touches it.
      *
-     * <p>MC 1.21.11 has no such class: the very same stick logic lives twice over, once inside
-     * {@code mc1_21_11/fabric/.../ModRegistries#registerEvents} and once inside
-     * {@code mc1_21_11/neoforge/.../ModRegistriesNeoForge}, each behind its own loader's use-block
-     * event. A loader-neutral test body cannot reach either without importing a loader, so the
-     * tests are left out here rather than being duplicated per loader - and the catalogue of this
-     * line leaves their ids out with that reason (see LINE_DIFFERENCES in the test runner).
+     * <p>Pinned here: the enchantment and the stick are <em>both</em> required (either gate alone
+     * would let any enchanted tool rewrite blockstates), the cycle wraps around at the end of the
+     * value list, sneaking runs it backwards, and a block without any property is consumed but
+     * left alone instead of crashing on an empty iterator.
      *
-     * <p>To close this gap, extract the logic on this line into a shared class the way 26.2 did;
-     * the tests then port across unchanged.
+     * <p>An oak log is used for the concrete transitions because it has exactly one property, so
+     * the expected values do not depend on which property the code picks. The multi property case
+     * only asserts that exactly one property moved.
+     *
+     * <p><strong>What breaks this test:</strong> dropping either half of
+     * {@code hasEnchantment(...) && stack.is(Items.STICK)}, replacing the modulo wrap with a
+     * clamp, ignoring {@code isShiftKeyDown}, cycling every property instead of the first, or
+     * removing the {@code properties.isEmpty()} guard (which would throw on stone).
+     *
+     * <p>Everything above drives {@link ConstructorsTouchInteraction} directly. On this line the
+     * class only exists since 2026-09: until then the logic sat twice, in Fabric's
+     * {@code ModRegistries#registerEvents} and in NeoForge's {@code ModRegistriesNeoForge}, and no
+     * loader neutral test could reach either copy. The last section closes that hole - see
+     * {@link #assertFabricDelegatesToTheSharedInteraction(GameTestHelper)} for why it has to look
+     * at the class rather than at the world.
      */
+    public static void constructorsTouchStickCyclesTheFirstBlockStateProperty(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+
+        BlockPos log = new BlockPos(3, 1, 3);
+        BlockPos bare = new BlockPos(5, 1, 3);
+        BlockPos stairs = new BlockPos(1, 1, 3);
+
+        ItemStack plainStick = new ItemStack(Items.STICK);
+        ItemStack touchedStick = new ItemStack(Items.STICK);
+        touchedStick.enchant(enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH), 1);
+        ItemStack touchedPickaxe = new ItemStack(Items.DIAMOND_PICKAXE);
+        touchedPickaxe.enchant(enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH), 1);
+
+        // --- an unenchanted stick must not edit anything ---
+        setLogAxis(helper, log, Direction.Axis.Y);
+        InteractionResult plainResult = touchBlock(helper, player, plainStick, log, false);
+        helper.assertTrue(plainResult == InteractionResult.PASS,
+                "an unenchanted stick consumed the interaction, got " + plainResult);
+        helper.assertTrue(logAxis(helper, log) == Direction.Axis.Y,
+                "an unenchanted stick rewrote a blockstate, the log now points along " + logAxis(helper, log));
+
+        // --- neither may an enchanted tool that is not a stick ---
+        setLogAxis(helper, log, Direction.Axis.Y);
+        InteractionResult wrongItem = touchBlock(helper, player, touchedPickaxe, log, false);
+        helper.assertTrue(wrongItem == InteractionResult.PASS,
+                "an enchanted pickaxe consumed the interaction, got " + wrongItem);
+        helper.assertTrue(logAxis(helper, log) == Direction.Axis.Y,
+                "Constructor's Touch edited a blockstate from something other than a stick, the log "
+                        + "now points along " + logAxis(helper, log));
+
+        // --- the enchanted stick advances the single property by one step ---
+        setLogAxis(helper, log, Direction.Axis.Y);
+        InteractionResult forward = touchBlock(helper, player, touchedStick, log, false);
+        helper.assertTrue(forward != InteractionResult.PASS,
+                "the enchanted stick did not consume the interaction, got " + forward);
+        helper.assertTrue(logAxis(helper, log) == Direction.Axis.Z,
+                "the axis did not advance Y -> Z, it is " + logAxis(helper, log));
+
+        // --- and wraps around at the end of the list instead of stopping there ---
+        setLogAxis(helper, log, Direction.Axis.Z);
+        touchBlock(helper, player, touchedStick, log, false);
+        helper.assertTrue(logAxis(helper, log) == Direction.Axis.X,
+                "the axis did not wrap Z -> X, it is " + logAxis(helper, log));
+
+        // --- sneaking runs the cycle backwards ---
+        setLogAxis(helper, log, Direction.Axis.Y);
+        touchBlock(helper, player, touchedStick, log, true);
+        helper.assertTrue(logAxis(helper, log) == Direction.Axis.X,
+                "sneaking did not step the axis back Y -> X, it is " + logAxis(helper, log));
+
+        // --- a block with several properties: exactly one of them may move ---
+        player.setShiftKeyDown(false);
+        helper.setBlock(stairs, Blocks.OAK_STAIRS);
+        BlockState before = helper.getBlockState(stairs);
+        touchBlock(helper, player, touchedStick, stairs, false);
+        BlockState after = helper.getBlockState(stairs);
+        helper.assertTrue(after.is(Blocks.OAK_STAIRS),
+                "the stick replaced the block instead of editing it, it is now " + after.getBlock());
+        Assertions.valueEqual(helper, changedProperties(before, after), 1,
+                "the stick did not cycle exactly one property; before " + before + ", after " + after);
+
+        // --- a block without properties is consumed but left alone ---
+        helper.setBlock(bare, Blocks.STONE);
+        InteractionResult onBare = touchBlock(helper, player, touchedStick, bare, false);
+        helper.assertTrue(onBare != InteractionResult.PASS,
+                "the enchanted stick let a property-less block through, got " + onBare);
+        helper.assertBlockPresent(Blocks.STONE, bare);
+
+        // --- and Fabric has to run this very code, not a second copy of it ---
+        assertFabricDelegatesToTheSharedInteraction(helper);
+
+        player.setShiftKeyDown(false);
+        MockPlayers.remove(helper, player);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Pins that Fabric reaches the same {@link ConstructorsTouchInteraction} everything above
+     * drives, instead of a copy. Fabric's {@code UseBlockCallback} registration used to inline
+     * the whole interaction, private {@code cycleState}/{@code cycle} helpers included, and the
+     * two versions had already drifted once - NeoForge wrote the property readout to the chat,
+     * Fabric to the actionbar. That is what the shared class was created for.
+     *
+     * <p>Checked on the class rather than in the world on purpose: the copy was equivalent line
+     * for line, so no in-world observation can tell the two code paths apart. Only the absence of
+     * the duplicated helpers, plus a real reference from {@code ModRegistries} to the shared
+     * class, can.
+     *
+     * <p>Gated on Fabric's event class, not on {@code ModRegistries}: NeoForge has a class of
+     * that name too, and it has nothing to do with this interaction, so it must not be held to
+     * the same shape. On NeoForge this check has nothing to say and says nothing.
+     */
+    private static void assertFabricDelegatesToTheSharedInteraction(GameTestHelper helper) {
+        if (!classPresent("net.fabricmc.fabric.api.event.player.UseBlockCallback")) {
+            return;
+        }
+
+        Class<?> registries;
+        try {
+            registries = Class.forName("com.simplebuilding.util.ModRegistries");
+        } catch (ClassNotFoundException missing) {
+            helper.assertTrue(false, "Fabric's com.simplebuilding.util.ModRegistries is gone, so "
+                    + "this check can no longer see whether the Constructor's Touch copy is back");
+            return;
+        }
+
+        for (Method method : registries.getDeclaredMethods()) {
+            String name = method.getName();
+            helper.assertTrue(!name.equals("cycleState") && !name.equals("cycle"),
+                    "Fabric's ModRegistries declares " + name + "(...) again: the Constructor's "
+                            + "Touch copy is back, and a fix in ConstructorsTouchInteraction "
+                            + "reaches NeoForge only");
+        }
+
+        helper.assertTrue(mentionsInConstantPool(registries, ConstructorsTouchInteraction.class),
+                "Fabric's ModRegistries does not reference ConstructorsTouchInteraction at all, so "
+                        + "its UseBlockCallback cannot be delegating to the shared logic");
+    }
+
+    /** Whether {@code owner}'s class file names {@code referenced} anywhere in its constant pool. */
+    private static boolean mentionsInConstantPool(Class<?> owner, Class<?> referenced) {
+        byte[] bytecode;
+        try (InputStream in = owner.getResourceAsStream(owner.getSimpleName() + ".class")) {
+            if (in == null) {
+                return false;
+            }
+            bytecode = in.readAllBytes();
+        } catch (IOException unreadable) {
+            return false;
+        }
+        // Class entries are stored slash separated; ISO_8859_1 keeps every byte addressable.
+        return new String(bytecode, StandardCharsets.ISO_8859_1)
+                .contains(referenced.getName().replace('.', '/'));
+    }
+
+    /** Whether {@code name} is on this loader's classpath at all. */
+    private static boolean classPresent(String name) {
+        try {
+            Class.forName(name);
+            return true;
+        } catch (ClassNotFoundException absent) {
+            return false;
+        }
+    }
+
     // =====================================================================================
     // FAST CHISELING
     // =====================================================================================
@@ -1111,6 +1267,18 @@ public final class BuildingEnchantmentTests {
             }
         }
         return count;
+    }
+
+    /** Runs the shared Constructor's Touch stick interaction on the top face of a block. */
+    private static InteractionResult touchBlock(GameTestHelper helper, ServerPlayer player,
+                                                ItemStack stack, BlockPos relativePos, boolean sneaking) {
+        player.setShiftKeyDown(sneaking);
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        BlockPos pos = helper.absolutePos(relativePos);
+        BlockHitResult hit = new BlockHitResult(
+                new Vec3(pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5), Direction.UP, pos, false);
+        return ConstructorsTouchInteraction.handleUseBlock(
+                player, helper.getLevel(), InteractionHand.MAIN_HAND, hit);
     }
 
     /** Right clicks the centre of a block's top face, server side. */

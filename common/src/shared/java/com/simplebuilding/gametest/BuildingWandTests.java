@@ -10,13 +10,10 @@ import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.loot.ModLootTableModifications;
 import com.simplebuilding.util.ModTags;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.IntBinaryOperator;
-import java.util.function.ToIntFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -34,6 +31,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -117,38 +115,34 @@ import net.minecraft.world.phys.Vec3;
  *       test could only restate the three {@code putFloat} lines.</li>
  * </ul>
  *
- * <h2>Known defects (deliberately not pinned, so no test cements them)</h2>
+ * <h2>Rules that were once listed as defects</h2>
  * <ul>
- *   <li><b>The enderite wand is missing from {@code simplebuilding:building_wand_enchantable}.</b>
- *       {@code ModItemTagProvider} lists copper through netherite only, so Cover, Bridge and Linear
- *       cannot be put on the top tier wand at all - the tag is both the {@code primary_items} and
- *       the {@code supported_items} of those three enchantments.
- *       {@link #wandEnchantmentsOnlyStickToTheWandsInTheirItemTag} asserts the five that are meant
- *       to work and says nothing about the enderite one.</li>
- *   <li><b>A forced axis mode shifts the plane off centre.</b> {@code calculatePositions} always
- *       starts from {@code originPos.relative(face)}, even when {@code SettingsAxis} forces a build
- *       axis that is not the clicked face's axis. The plane then does not surround the clicked
- *       block but sits one block to the side of it, and one of its nine cells lands on the clicked
- *       block itself, where {@code canBeReplaced} silently drops it - the player asks for a 3x3 and
- *       gets eight blocks, off centre. {@link #clickedFaceSetsThePlaneUntilAnAxisModeOverridesIt}
- *       therefore states the <em>shape</em> and leaves the position open: a filled 3x3 square,
- *       normal to the forced axis, at most one block off the clicked block along that axis, and
- *       with no cell missing but the clicked block itself. Today's eight off centre blocks pass
- *       that, and so does a centred nine once the offset is fixed - while a line, a ring, a hole
- *       or a wrongly oriented plane fails. Counting the eight instead would have frozen the
- *       defect: a centred plane places nine.</li>
- *   <li><b>A negative radius makes the highlight and the click disagree.</b>
- *       {@code handleBuildingWandConfigure} writes {@code SettingsRadius} straight out of the
- *       packet without a lower bound. {@code getPreviewStates} clamps it to 0 and
- *       {@code inventoryTick} ends up placing the centre block anyway, but
- *       {@code getBuildingPositions} - the list the highlight is drawn from - does not clamp and
- *       returns nothing at all. Reachable from a modified client only, and pinned nowhere.</li>
- *   <li><b>Wear is always billed against the main hand.</b> {@code inventoryTick} keeps building
- *       while the wand sits in the off hand (the slot check accepts both hands), but the
- *       {@code hurtAndBreak} call names {@code EquipmentSlot.MAINHAND} unconditionally, so a wand
- *       that breaks in the off hand announces the break on the wrong hand.
- *       {@link #offHandClickIsPassedOnAndTheWandStopsOutsideBothHands} pins that the off hand
- *       keeps building, not which slot pays for it.</li>
+ *   <li><b>A forced axis turns the plane around the block in front of the clicked face.</b>
+ *       {@code calculatePositions} always centres the plane on {@code originPos.relative(face)} and
+ *       lets {@code SettingsAxis} choose only its orientation. When the forced axis lies in the
+ *       clicked face, one of the cells is the clicked block itself; it cannot be replaced, so
+ *       {@code canBeReplaced} skips it and it costs neither material nor durability - radius 1
+ *       then places eight blocks. This was recorded as a defect until 2026-09-24 and then kept as
+ *       the rule: it is what the manual states ("the area starts one block in front of the
+ *       clicked face"), {@link ItemBehaviourTests#buildingWandFillsThePlaneItIsPointedAt}
+ *       already pinned it for axis modes 1 and 3 on a top face click, and a plane moved to "centred
+ *       on the clicked block" would reach behind a wall just as often. Both tests now pin the exact
+ *       cells.</li>
+ *   <li><b>A negative radius builds the single centre block, in the preview and in the world.</b>
+ *       {@code handleBuildingWandConfigure} stores {@code SettingsRadius} without a lower bound
+ *       (only a modified client or a command can send one below 0; {@code BuildingWandScreen}
+ *       clamps). {@code getConfiguredRadius} clamps the preview to 0, and {@code inventoryTick}
+ *       places ring 0 on its first tick and then stops, because {@code currentRadius < userRadius}
+ *       is false. {@code getBuildingPositions} would return an empty list, but nothing calls it -
+ *       the highlight is drawn from {@code getPreviewStates}. An earlier note here claimed the
+ *       highlight and the click disagree; they do not, and
+ *       {@link #wandTierCapsTheRadiusSettingAndSizesThePlane} pins the build half.</li>
+ *   <li><b>Wear is billed to the hand the wand builds from</b> (fixed 2026-09). {@code inventoryTick}
+ *       keeps building from the off hand, and its {@code hurtAndBreak} call used to name
+ *       {@code EquipmentSlot.MAINHAND} unconditionally - a wand that broke in the off hand made
+ *       {@code LivingEntity#onEquippedItemBroken} strip the attribute modifiers of whatever was in
+ *       the main hand. {@link #offHandClickIsPassedOnAndTheWandStopsOutsideBothHands} breaks one in
+ *       the off hand next to a sword.</li>
  * </ul>
  */
 public final class BuildingWandTests {
@@ -223,11 +217,18 @@ public final class BuildingWandTests {
      * in". {@code inventoryTick} reads nothing but the slot argument, so handing it
      * {@code OFFHAND} is exactly what the server does after the player swaps the wand over.
      *
+     * <p>Finally a wand one use away from breaking builds from the off hand while a diamond sword
+     * sits in the main hand. The break has to be billed to the off hand:
+     * {@code LivingEntity#onEquippedItemBroken} removes the attribute modifiers of the item in the
+     * slot it is told about, so a break billed to the main hand takes the sword's attack damage and
+     * attack speed with it until the sword is next swapped.
+     *
      * <p><strong>What breaks this test:</strong> dropping the {@code getHand() != MAIN_HAND} guard
      * in {@code useOn} (the off hand click would arm the wand), dropping, narrowing or weakening
      * the slot check in {@code inventoryTick} (a wand in the backpack or in an armour slot would
-     * keep building, or one in the off hand would stop), or moving that check behind the timer,
-     * which would let the wand place one more ring after it had already left the player's hands.
+     * keep building, or one in the off hand would stop), moving that check behind the timer,
+     * which would let the wand place one more ring after it had already left the player's hands,
+     * or naming a fixed slot in the {@code hurtAndBreak} call instead of the one the wand ticks in.
      */
     public static void offHandClickIsPassedOnAndTheWandStopsOutsideBothHands(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, false);
@@ -270,6 +271,51 @@ public final class BuildingWandTests {
                 "a wand ticked in the off hand did not finish its plane, although inventoryTick "
                         + "accepts that slot");
 
+        // --- 4. and a wand that breaks in the off hand is billed to the off hand ---
+        resetSite(helper, SMALL_SITE);
+        ItemStack brittleWand = tunedWand(ModItems.DIAMOND_BUILDING_WAND, 1, 0);
+        brittleWand.setDamageValue(brittleWand.getMaxDamage() - 1);
+        stock(player, brittleWand, new ItemStack(Items.GLASS, 64));
+        InteractionResult armedBrittle = useOn(helper, player, brittleWand, Direction.UP, InteractionHand.MAIN_HAND);
+        helper.assertTrue(armedBrittle == InteractionResult.CONSUME,
+                "the wand one use from breaking could not be armed, it returned " + armedBrittle);
+
+        ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
+        player.setItemInHand(InteractionHand.MAIN_HAND, sword);
+        player.setItemInHand(InteractionHand.OFF_HAND, brittleWand);
+        // What the equipment tick would have done when the sword came into the hand: the gametest
+        // server never ticks a mock player, so its modifiers are put on here, the way
+        // LivingEntity#collectEquipmentChanges puts them on.
+        List<Identifier> swordModifiers = new ArrayList<>();
+        sword.forEachModifier(EquipmentSlot.MAINHAND, (attribute, modifier) -> {
+            AttributeInstance instance = player.getAttribute(attribute);
+            if (instance != null && !instance.hasModifier(modifier.id())) {
+                instance.addTransientModifier(modifier);
+            }
+            swordModifiers.add(modifier.id());
+        });
+        helper.assertFalse(swordModifiers.isEmpty(),
+                "setup: the diamond sword carries no main hand attribute modifiers, so there is "
+                        + "nothing a wrongly billed break could take away");
+
+        for (int tick = 0; tick < WAND_TICK_CAP && !brittleWand.isEmpty(); tick++) {
+            tickWand(helper, player, brittleWand, EquipmentSlot.OFFHAND);
+        }
+        helper.assertTrue(brittleWand.isEmpty(),
+                "the wand one use from breaking survived building from the off hand");
+        helper.assertValueEqual(blocksIn(helper, SMALL_SITE, Blocks.GLASS), Set.of(ANCHOR.above()),
+                "the breaking wand did not place exactly the one block its last use paid for");
+        List<Identifier> lost = new ArrayList<>();
+        sword.forEachModifier(EquipmentSlot.MAINHAND, (attribute, modifier) -> {
+            AttributeInstance instance = player.getAttribute(attribute);
+            if (instance == null || !instance.hasModifier(modifier.id())) {
+                lost.add(modifier.id());
+            }
+        });
+        helper.assertTrue(lost.isEmpty(),
+                "the wand broke in the off hand and took the main hand sword's modifiers " + lost
+                        + " (of " + swordModifiers + ") with it: the break was billed to the main hand");
+
         helper.succeed();
     }
 
@@ -296,21 +342,17 @@ public final class BuildingWandTests {
      * so everything here stays in the relative coordinates the helper's own read and write methods
      * already take.
      *
-     * <p>The forced case states the shape instead of the position, and
-     * {@link #assertForcedPlane} says exactly what that is worth: one plane normal to the Y axis,
-     * no further than one block from the clicked block along that axis, a filled 3x3 whose only
-     * empty cell may be the clicked block itself. It does not pin <em>which</em> nine cells,
-     * because the wand currently offsets a forced plane by one block towards the clicked face even
-     * when that offset lands inside the plane - see the known defect in the class javadoc. An exact
-     * set would freeze today's eight off centre blocks.
+     * <p>The forced case is an exact set too: the horizontal 3x3 centred on the block in front of
+     * the clicked north face, minus the clicked block itself, which is one of its cells and cannot
+     * be replaced - eight blocks. That is the rule, see the class javadoc.
      *
      * <p><strong>What breaks this test:</strong> dropping the {@code face.getAxis()} default in
      * {@code calculatePositions} (the east plane collapses onto another axis), pointing axis mode 2
      * at any axis but Y, swapping the entries of {@code getOffsetForAxis} (the east click stops
      * building an upright plane, the forced one a flat), losing the {@code relative(face)} step
      * (the east plane would grow inside the clicked block), letting the wand overwrite blocks that
-     * cannot be replaced, or a forced plane that stops being a filled square of the configured size
-     * - a ring, a line, a plane with a hole, or one built further away than a single block.
+     * cannot be replaced, or a forced plane that is built anywhere but around the block in front of
+     * the clicked face.
      */
     public static void clickedFaceSetsThePlaneUntilAnAxisModeOverridesIt(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, false);
@@ -325,7 +367,11 @@ public final class BuildingWandTests {
         // --- axis mode 2 forces the horizontal plane even on a wall click ---
         Set<BlockPos> forcedFlat = buildPlane(helper, player,
                 tunedWand(ModItems.DIAMOND_BUILDING_WAND, 1, 2), Direction.NORTH, SMALL_SITE);
-        assertForcedPlane(helper, forcedFlat, Direction.Axis.Y, "axis mode 2 on the north face");
+        Set<BlockPos> expectedFlat = square(ANCHOR.relative(Direction.NORTH), Direction.Axis.Y, 1);
+        expectedFlat.remove(ANCHOR);
+        helper.assertValueEqual(forcedFlat, expectedFlat,
+                "axis mode 2 on the north face did not build the horizontal 3x3 around the block in "
+                        + "front of the clicked face, less the clicked block itself");
         helper.assertTrue(helper.getBlockState(ANCHOR).is(Blocks.OBSIDIAN),
                 "the wand replaced the block it was clicked on");
 
@@ -363,8 +409,9 @@ public final class BuildingWandTests {
      * <p><strong>What breaks this test:</strong> a tier wired to the wrong constant in
      * {@code ModItems}, dropping the {@code userRadius > maxTierRadius} cap in
      * {@code inventoryTick} (the copper wand would keep ringing outwards until its material ran
-     * out), capping against a constant instead of {@code this.maxDiameter}, or changing
-     * {@code maxTierRadius} to something other than {@code (diameter - 1) / 2}.
+     * out), capping against a constant instead of {@code this.maxDiameter}, changing
+     * {@code maxTierRadius} to something other than {@code (diameter - 1) / 2}, or letting a
+     * negative radius build more than the centre block.
      */
     public static void wandTierCapsTheRadiusSettingAndSizesThePlane(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, false);
@@ -421,6 +468,13 @@ public final class BuildingWandTests {
         helper.assertTrue(iron.size() > copper.size(),
                 "both wands built the same plane out of the same radius 99 setting, so the cap does "
                         + "not follow the tier at all");
+
+        // --- and below the floor: a stored -1 builds what the preview shows, the centre block ---
+        Set<BlockPos> negative = buildPlane(helper, player,
+                tunedWand(ModItems.COPPER_BUILDING_WAND, -1, 0), Direction.UP, LARGE_SITE);
+        helper.assertValueEqual(negative, square(ANCHOR.above(), Direction.Axis.Y, 0),
+                "a stored radius of -1 did not build exactly the single centre block the preview "
+                        + "shows (WandEnchantmentTests pins the preview half)");
 
         helper.succeed();
     }
@@ -695,7 +749,7 @@ public final class BuildingWandTests {
      * {@code primary_items} and their {@code supported_items}, so that one tag decides which wands
      * can carry a wand enchantment at all. Nothing read it.
      *
-     * <p>Both directions are asserted, because either alone is worthless: the five wands the tag is
+     * <p>Both directions are asserted, because either alone is worthless: the six wands the tag is
      * meant to list are in it and are accepted by all three enchantments, and two items that are
      * emphatically not wands - a diamond pickaxe and the diamond sledgehammer, which has an
      * enchantability tag of its very own - are refused by all three. Without the second half a tag
@@ -704,8 +758,9 @@ public final class BuildingWandTests {
      * <p>{@code Enchantment#canEnchant} is vanilla's, and it is what an anvil asks before it lets
      * an enchanted book through; what is under test is the mod's tag file behind it.
      *
-     * <p>The enderite wand is left out on purpose - it is missing from the tag today, and asserting
-     * either state would cement one of them. See the known defect in the class javadoc.
+     * <p>The enderite wand is one of the six since 2026-09: enderite is a full tier (the owner's
+     * decision of 2026-09-09), and until then the top wand was the one that could carry none of
+     * the three.
      *
      * <p><strong>What breaks this test:</strong> dropping a wand from
      * {@code ModItemTagProvider}'s {@code BUILDING_WAND_ENCHANTABLE} builder, pointing one of the
@@ -718,7 +773,8 @@ public final class BuildingWandTests {
                 ModItems.IRON_BUILDING_WAND,
                 ModItems.GOLD_BUILDING_WAND,
                 ModItems.DIAMOND_BUILDING_WAND,
-                ModItems.NETHERITE_BUILDING_WAND);
+                ModItems.NETHERITE_BUILDING_WAND,
+                ModItems.ENDERITE_BUILDING_WAND);
         List<ResourceKey<Enchantment>> wandEnchantments = List.of(
                 ModEnchantments.COVER,
                 ModEnchantments.BRIDGE,
@@ -1172,90 +1228,6 @@ public final class BuildingWandTests {
             }
         }
         return positions;
-    }
-
-    /** The distinct values one coordinate takes over a set of positions. */
-    private static Set<Integer> coordinates(Set<BlockPos> positions, ToIntFunction<BlockPos> axis) {
-        Set<Integer> values = new LinkedHashSet<>();
-        for (BlockPos pos : positions) {
-            values.add(axis.applyAsInt(pos));
-        }
-        return values;
-    }
-
-    /** One coordinate of a position, named by the axis it belongs to. */
-    private static int along(BlockPos pos, Direction.Axis axis) {
-        return switch (axis) {
-            case X -> pos.getX();
-            case Y -> pos.getY();
-            case Z -> pos.getZ();
-        };
-    }
-
-    /** One corner of the bounding box of {@code positions}: {@code Math::min} or {@code Math::max}. */
-    private static BlockPos corner(Set<BlockPos> positions, IntBinaryOperator pick) {
-        Iterator<BlockPos> walk = positions.iterator();
-        BlockPos corner = walk.next();
-        while (walk.hasNext()) {
-            BlockPos pos = walk.next();
-            corner = new BlockPos(
-                    pick.applyAsInt(corner.getX(), pos.getX()),
-                    pick.applyAsInt(corner.getY(), pos.getY()),
-                    pick.applyAsInt(corner.getZ(), pos.getZ()));
-        }
-        return corner;
-    }
-
-    /**
-     * What a forced axis run has to look like: one plane normal to {@code normal}, no more than a
-     * block away from the clicked block along that axis, three cells wide on each of the two other
-     * axes, and with every cell of that 3x3 filled except at most the clicked block itself, which
-     * is obsidian and cannot be replaced.
-     *
-     * <p>The box is read back out of the placed positions instead of being computed from
-     * {@link #ANCHOR}, because the wand builds a forced plane off centre today - see the known
-     * defect in the class javadoc. Both that plane and a centred one satisfy every line below,
-     * while a line, a ring, a plane with a hole, a wider or narrower square and a plane built
-     * elsewhere in the room all fail. Since every placed position lies on the one level and between
-     * the two corners, "the box is 3x3 and misses at most the anchor" is the whole shape: the set
-     * can only be those nine cells or those nine minus the anchor.
-     */
-    private static void assertForcedPlane(GameTestHelper helper, Set<BlockPos> placed,
-                                          Direction.Axis normal, String what) {
-        helper.assertFalse(placed.isEmpty(), what + " placed nothing at all");
-
-        Set<Integer> levels = coordinates(placed, pos -> along(pos, normal));
-        helper.assertTrue(levels.size() == 1,
-                what + " did not build a single plane normal to the " + normal + " axis; its blocks "
-                        + "sit on the " + normal + " levels " + levels + ": " + placed);
-        int level = levels.iterator().next();
-        int anchorLevel = along(ANCHOR, normal);
-        helper.assertTrue(Math.abs(level - anchorLevel) <= 1,
-                what + " built its plane at " + normal + " = " + level + ", " + Math.abs(level - anchorLevel)
-                        + " blocks off the clicked block at " + normal + " = " + anchorLevel + "; the "
-                        + "wand builds against the block it was clicked on, not elsewhere in the room");
-
-        BlockPos min = corner(placed, Math::min);
-        BlockPos max = corner(placed, Math::max);
-        for (Direction.Axis free : Direction.Axis.values()) {
-            if (free == normal) {
-                continue;
-            }
-            int span = along(max, free) - along(min, free) + 1;
-            helper.assertTrue(span == 3,
-                    what + " is " + span + " blocks wide along the " + free + " axis instead of 3, so "
-                            + "it is not the filled square the radius 1 setting asks for: " + placed);
-        }
-
-        BlockPos centre = new BlockPos(
-                (min.getX() + max.getX()) / 2,
-                (min.getY() + max.getY()) / 2,
-                (min.getZ() + max.getZ()) / 2);
-        Set<BlockPos> missing = new LinkedHashSet<>(square(centre, normal, 1));
-        missing.removeAll(placed);
-        helper.assertTrue(missing.isEmpty() || missing.equals(Set.of(ANCHOR)),
-                what + " left " + missing + " empty inside its own 3x3 footprint; the only cell the "
-                        + "wand may skip is the clicked block itself, which cannot be replaced");
     }
 
     // =====================================================================================

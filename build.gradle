@@ -131,6 +131,15 @@ tasks.withType(JavaCompile).configureEach {
 
 test {
 	useJUnitPlatform()
+	// The source checks (ConstructorsTouchSingleSourceTest, LanguageFilesTest) read these trees
+	// straight from disk. Declared as inputs, or a change in forge/ alone would leave the test task
+	// "up to date" and the check would not run at all.
+	inputs.dir("forge/src/main/java").withPropertyName("forgeSources")
+	inputs.dir("neoforge/src/main/java").withPropertyName("neoforgeSources")
+	inputs.dir("mc1_21_11/fabric/src/main/resources/assets/simplebuilding/lang").withPropertyName("legacyLang")
+	inputs.dir("mc1_21_11/shared/java").withPropertyName("legacySharedSources")
+	inputs.dir("mc1_21_11/fabric/src/main/java").withPropertyName("legacyFabricSources")
+	inputs.dir("mc1_21_11/neoforge/src/main/java").withPropertyName("legacyNeoforgeSources")
 }
 
 // The wiki under wiki/ is generated out of the mod's own data files, so it can only be

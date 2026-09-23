@@ -109,6 +109,12 @@ public final class ModMessageHandlers {
         }
         CustomData nbtComponent = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
         CompoundTag nbt = nbtComponent.copyTag();
+        // A locked octant keeps its selection against the scroll packet too, not only in the
+        // client's MouseMixin: a client that sends the packet anyway must not move the corners.
+        // Unlocking goes through the manager (handleOctantConfigure), which stays open.
+        if (nbt.getBooleanOr("Locked", false)) {
+            return;
+        }
         boolean changed = false;
 
         if (payload.alt()) {
@@ -223,7 +229,7 @@ public final class ModMessageHandlers {
                     inv.setItem(emptySlot, currentHandStack);
                     inv.setItem(selectedSlot, foundStack);
                 }
-                player.playSound(net.minecraft.sounds.SoundEvents.BUNDLE_REMOVE_ONE, 1.0f, 1.0f);
+                player.level().playSound(null, player.getX(), player.getY(), player.getZ(), net.minecraft.sounds.SoundEvents.BUNDLE_REMOVE_ONE, player.getSoundSource(), 1.0f, 1.0f);
                 inv.setChanged();
                 player.inventoryMenu.broadcastChanges();
                 return;

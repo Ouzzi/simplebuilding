@@ -355,6 +355,13 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
             context.getInput().setCursorPos(x, y);
         }
 
+        @Override
+        public net.minecraft.client.gui.screens.Screen modConfigScreen() {
+            // ModMenu's own button path: the factory registered through the "modmenu" entrypoint.
+            return context.computeOnClient(client -> com.terraformersmc.modmenu.ModMenu.getConfigScreen(
+                    com.simplebuilding.Simplebuilding.MOD_ID, null));
+        }
+
         private TestSingleplayerContext requireWorld(String what) {
             if (singleplayer == null) {
                 throw new IllegalStateException(what + " needs a world, but this script runs "

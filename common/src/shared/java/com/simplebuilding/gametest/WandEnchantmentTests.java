@@ -113,15 +113,12 @@ import net.minecraft.world.phys.Vec3;
  * pinning them down would freeze them - and each one is named here so the next reader does not
  * have to find it again:
  * <ul>
- *   <li><strong>The enderite chisel and all six spatulas cannot be enchanted.</strong>
- *       {@code simplebuilding:chisel_tools} ({@code ModItemTagProvider}) lists the stone, copper,
- *       iron, gold, diamond and netherite chisel and nothing else, while
- *       {@code ModItems.ENDERITE_CHISEL} and {@code STONE_SPATULA} through {@code NETHERITE_SPATULA}
- *       are {@code ChiselItem}s too. Both Fast Chiseling and Constructor's Touch hang on that tag
- *       (the second through {@code constructors_touch_enchantable}, which nests it), and both are
- *       read by {@code ChiselItem} for every instance - so the spatula's whole reverse
- *       transformation table and the enderite chisel's cooldown discount are live code that no
- *       anvil can ever switch on.</li>
+ *   <li><strong>The six spatulas cannot be enchanted.</strong> {@code simplebuilding:chisel_tools}
+ *       ({@code ModItemTagProvider}) lists the seven chisels and no spatula, although
+ *       {@code STONE_SPATULA} through {@code NETHERITE_SPATULA} are {@code ChiselItem}s too. That
+ *       is moot in play: {@code LegacySpatulaMigration} turns every spatula a player or the world
+ *       still holds into the chisel of the same tier. (The enderite chisel was in the same state
+ *       until 2026-09 and is in the tag now.)</li>
  *   <li><strong>Bridge has no source at all.</strong> {@code ModLootTableModifications} adds books
  *       for every other building enchantment - Cover out of two chests, Color Palette out of two,
  *       Linear out of two, Master Builder out of four (three code blocks, the last of which matches
@@ -130,14 +127,17 @@ import net.minecraft.world.phys.Vec3;
  *       {@code weighted_enchant} pool under {@code data/simplebuilding/villager_trade/} names it
  *       either. {@code EnchantmentEffectTests#coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown}
  *       already records that Bridge does nothing; it is also unobtainable.</li>
- *   <li><strong>The three readers of {@code SettingsRadius} have drifted.</strong>
- *       {@code getConfiguredRadius} (the preview) clamps a negative radius to 0,
- *       {@code inventoryTick} (the placement) only caps upwards and ends up building the centre
- *       block anyway, and {@code getBuildingPositions} - the list the highlight is drawn from -
- *       returns nothing at all. {@code BuildingWandTests} records the visible half of that.
- *       {@link #masterBuilderMovesThePreviewSourcesTheSameWayItMovesThePlacement} asserts only the
- *       reader that behaves, {@code getConfiguredRadius}, so nothing here freezes the other two.</li>
  * </ul>
+ *
+ * <p>The three readers of {@code SettingsRadius} are written differently but agree where it
+ * matters: {@code getConfiguredRadius} (the preview) clamps a negative radius to 0, and
+ * {@code inventoryTick} (the placement) only caps upwards but places ring 0 on its first tick and
+ * then stops, so a stored -1 shows and builds the single centre block.
+ * {@code getBuildingPositions} would return an empty list for it, and nothing calls that method -
+ * the highlight is drawn from {@code getPreviewStates}. An earlier note here listed this as a
+ * defect ("the highlight and the click disagree"); it is not one.
+ * {@link #masterBuilderMovesThePreviewSourcesTheSameWayItMovesThePlacement} pins the preview half,
+ * {@code BuildingWandTests#wandTierCapsTheRadiusSettingAndSizesThePlane} the placement half.
  */
 public final class WandEnchantmentTests {
 
@@ -660,9 +660,11 @@ public final class WandEnchantmentTests {
      * {@code Enchantment#canEnchant}, so a tag that lost its content is separable from an
      * enchantment definition that was pointed at a different tag.
      *
-     * <p>The enderite chisel and the six spatulas are deliberately absent from both directions -
-     * they are {@code ChiselItem}s that cannot be enchanted at all, which is the known defect in
-     * the class javadoc. Asserting either state would freeze it.
+     * <p>All seven chisels are asserted, the enderite one included (enderite is a full tier since
+     * the owner's decision of 2026-09-09); the six spatulas are left out, see the class javadoc.
+     * The three sledgehammer enchantments - Break Through, Radius, Override - are checked on all
+     * seven hammers as well: their tag is nested into {@code constructors_touch_enchantable}, and
+     * the enderite hammer used to be the only one that could carry none of its own enchantments.
      *
      * <p><strong>What breaks this test:</strong> an item dropped from {@code chisel_tools} or from
      * {@code constructors_touch_enchantable}, a nested tag reference lost from the second (the
@@ -676,7 +678,12 @@ public final class WandEnchantmentTests {
 
         List<Item> chisels = List.of(
                 ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL,
-                ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL);
+                ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL,
+                ModItems.ENDERITE_CHISEL);
+        List<Item> sledgehammers = List.of(
+                ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
+                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
+                ModItems.ENDERITE_SLEDGEHAMMER);
 
         List<String> problems = new ArrayList<>();
 
@@ -693,16 +700,27 @@ public final class WandEnchantmentTests {
 
         // --- Constructor's Touch: every item that has a branch reading it ---
         List<Item> touchReaders = new ArrayList<>(chisels);
+        touchReaders.addAll(sledgehammers);
         touchReaders.addAll(List.of(
-                ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
-                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
                 ModItems.MAGNET, ModItems.ORE_DETECTOR,
-                ModItems.QUIVER, ModItems.NETHERITE_QUIVER,
+                ModItems.QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER,
                 Items.STICK));
         for (Item reader : touchReaders) {
             if (!constructorsTouch.canEnchant(new ItemStack(reader))) {
                 problems.add("Constructor's Touch cannot be put on " + reader
                         + ", although that item's code reads the enchantment - the branch is dead");
+            }
+        }
+
+        // --- the sledgehammer's own three, on every tier ---
+        for (ResourceKey<Enchantment> key : List.of(ModEnchantments.BREAK_THROUGH, ModEnchantments.RADIUS,
+                ModEnchantments.OVERRIDE)) {
+            Enchantment hammerEnchantment = enchantment(helper, key).value();
+            for (Item hammer : sledgehammers) {
+                if (!hammerEnchantment.canEnchant(new ItemStack(hammer))) {
+                    problems.add(key.identifier() + " cannot be put on " + hammer
+                            + ", so simplebuilding:sledgehammer_tools has lost that tier");
+                }
             }
         }
 

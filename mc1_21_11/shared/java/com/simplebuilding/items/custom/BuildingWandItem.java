@@ -419,7 +419,10 @@ public class BuildingWandItem extends Item {
                 world.playSound(null, rawPos, soundGroup.getPlaceSound(), SoundSource.BLOCKS, (soundGroup.getVolume() + 1.0F) / 2.0F, soundGroup.getPitch() * 0.8F);
                 if (!player.getAbilities().instabuild && material != null) {
                     material.consume();
-                    stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+                    // Billed to the slot the wand is ticking in: it builds from the off hand too,
+                    // and naming MAINHAND here made a break in the off hand take the main hand
+                    // item's attribute modifiers with it (LivingEntity#onEquippedItemBroken).
+                    stack.hurtAndBreak(1, player, slot);
                 }
             }
         }

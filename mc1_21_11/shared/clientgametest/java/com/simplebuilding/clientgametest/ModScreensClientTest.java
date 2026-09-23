@@ -14,13 +14,11 @@ import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.client.gui.OctantScreen;
 import com.simplebuilding.client.gui.TrimReferenceScreen;
 import com.simplebuilding.client.gui.widget.CyclingTrimButton;
-import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
-import me.shedaniel.autoconfig.AutoConfigClient;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -91,26 +89,25 @@ import net.minecraft.world.level.block.Blocks;
  * ({@code AbstractContainerScreen} defaults, unchanged by {@code SmithingScreen}); that part of the
  * claim is carried by vanilla, not by the mod.
  *
- * <h2>Known defect (deliberately not pinned)</h2>
+ * <h2>The trim reference rows</h2>
  *
- * <p>{@code TrimReferenceScreen} lists hard coded base values that disagree with the server side
- * numbers for at least Enderite, Netherite and Rib (for example Netherite "Amplifier" 5.0 in the
- * screen). This test only proves the screen opens and renders; asserting the numbers it currently
- * shows would cement the disagreement.
+ * <p>{@code TrimReferenceScreen} lists hard coded base values. Until 2026-09 three of them
+ * disagreed with {@code TrimEffectUtil}: Enderite showed 10% "Void Shield (4x Pattern Boost!)"
+ * (the server gives 5% against all damage and counts an Enderite piece 3.5 times), Netherite 5%
+ * "Pattern Boost" (the 5% is its resistance to enchantment-bypassing damage and the Wither, the
+ * boost is the 1.75 count), and Rib 2.0 "Wither Resist (Sec.)" (the server takes 10% off wither
+ * damage). {@link #trimReferenceRowsMatchTheServer} pins the three corrected rows; the server
+ * numbers themselves are pinned by {@code TrimEffectTests} and {@code TrimBonusTests}.
  *
- * <h2>Known defect (deliberately not pinned)</h2>
+ * <h2>The config button</h2>
  *
- * <p>The Fabric ModMenu config button throws on this Minecraft line: {@code ModMenuIntegration}
- * looks {@code getConfigScreen} up reflectively on {@code AutoConfig}
- * ({@code AutoConfig.class.getMethod("getConfigScreen", Class.class, Screen.class)}), and Cloth
- * Config 26.2.155 has moved that method onto {@code AutoConfigClient}. The lookup therefore throws
- * {@code NoSuchMethodException}, the factory turns it into {@code IllegalStateException: Failed to
- * open Simplebuilding config screen}, and pressing the config button in ModMenu does not open the
- * settings. Only that one lookup is affected - the mod's other Cloth Config calls are
- * {@code AutoConfig.register} and {@code AutoConfig.getConfigHolder}, and both still sit on
- * {@code AutoConfig} in 26.2.155. The 1.21.11 line is not affected either (Cloth Config 21.11.153
- * still carries {@code getConfigScreen} on {@code AutoConfig}), which is why nothing but a 26.2
- * client run could have noticed it.
+ * <p>Until 2026-09 the Fabric ModMenu config button threw on the 26.2 line: {@code ModMenuIntegration}
+ * looked {@code getConfigScreen} up reflectively on {@code AutoConfig}, and Cloth Config 26.2.155
+ * moved that method onto {@code AutoConfigClient} - {@code NoSuchMethodException}, turned into
+ * {@code IllegalStateException: Failed to open Simplebuilding config screen}. The integration now
+ * calls {@code AutoConfigClient.getConfigScreen} directly, and
+ * {@link #modConfigScreenBuildsAndRenders} builds the screen through each loader's own button
+ * entry point ({@link Harness#modConfigScreen}), so the step goes red again if the button breaks.
  *
  * <h2>What the port to the shared step form changed, and what it did not</h2>
  *
@@ -118,20 +115,15 @@ import net.minecraft.world.level.block.Blocks;
  * version are the ones below. Five things are different, and each one is named here rather than
  * left to be discovered:
  * <ul>
- *   <li><b>The mod's own config screen entry points are no longer exercised.</b> Both of them are
- *       loader specific and neither exists in shared code: on Fabric it is
+ *   <li><b>The mod's own config screen entry points go through the harness.</b> Both are loader
+ *       specific and neither exists in shared code: on Fabric it is
  *       {@code ModMenuIntegration#getModConfigScreenFactory} (ModMenu is not on the NeoForge
  *       classpath at all), on NeoForge the {@code IConfigScreenFactory} extension point plus
- *       {@code SimplebuildingNeoForgeClient#buildConfigScreen}. What is shared is the layer under
- *       both of them, and that is what {@link #modConfigScreenBuildsAndRenders} now uses:
- *       {@code AutoConfigClient.getConfigScreen(SimplebuildingConfig.class, null)}, which is in
- *       both cloth-config-fabric and cloth-config-neoforge 26.2.155. The claim that survives is
- *       "the config holder is registered and Cloth Config can turn it into a screen that
- *       initialises and renders". The claim that is lost is "the button a player presses reaches
- *       that screen" - including the reflective lookup defect above, which the Fabric-only class
- *       (kept, not deleted) still covers until a loader hook hands the entry point to shared code.
- *       Checkpoint {@code screen-h-mod-config} is unchanged, so the runner's count does not move;
- *       what it stands for is weaker, and this paragraph is where that is written down.</li>
+ *       {@code SimplebuildingNeoForgeClient#buildConfigScreen}. The port first fell back to the
+ *       layer under both, {@code AutoConfigClient.getConfigScreen}, and lost the claim "the button
+ *       a player presses reaches that screen" - which is exactly where the reflective lookup defect
+ *       sat. Since 2026-09 {@link Harness#modConfigScreen} hands each driver's entry point to
+ *       shared code, and the claim is back on all four targets.</li>
  *   <li><b>Key presses are raw GLFW codes.</b> The Fabric-only version handed over the key
  *       <em>binding</em> and let the framework resolve it; the shared {@link Harness} takes a code,
  *       because that is the only thing both loaders can serve (NeoForge drives input through
@@ -295,6 +287,7 @@ public final class ModScreensClientTest {
         buildingWandScreenNeedsConstructorsTouch(script);
         netheriteHopperMenu(script);
         smithingTrimReferenceButton(script);
+        trimReferenceRowsMatchTheServer(script);
         modConfigScreenBuildsAndRenders(script);
         creativeInventoryShowsTheModTab(script);
 
@@ -552,6 +545,125 @@ public final class ModScreensClientTest {
     }
 
     /**
+     * The three rows of the trim reference screen that once disagreed with the server show the
+     * server's numbers now.
+     *
+     * <p>The screen is constructed directly on the client thread instead of through the smithing
+     * button, so this runs on every target whether or not the driver can click; the button path is
+     * {@link #smithingTrimReferenceButton}. The rows are read out of the private {@code entries}
+     * list reflectively - the screen has no accessor and should not grow one for a test. Every
+     * number is formatted with {@code String.format("%.1f%%", ...)} exactly like the screen, so a
+     * client running in a locale with a decimal comma compares like with like.
+     *
+     * <p>Each row's base value is the {@code TrimEffectUtil} literal: Enderite
+     * {@code enderiteParts * 0.05f} and pattern count 3.5, Netherite {@code netheriteParts * 0.05f}
+     * and count 1.75, Rib {@code calculateReduction(entity, "rib", 0.10f, ...)}.
+     *
+     * <p><b>What breaks this test:</b> one of the three rows going back to its old value or label,
+     * a row disappearing (the Enderite row only appears while the mod's ingot is registered), or
+     * the row layout changing so that the stat text no longer sits in the entry's info component.
+     */
+    private static void trimReferenceRowsMatchTheServer(Script script) {
+        script.act("the trim reference rows carry the server's base rates", client -> {
+            TrimReferenceScreen screen = new TrimReferenceScreen(null);
+            List<String[]> rows = trimReferenceRows(screen);
+
+            String fivePercent = String.format("%.1f%%", 5.0) + " -> ";
+            String tenPercent = String.format("%.1f%%", 10.0) + " -> ";
+            List<String> problems = new ArrayList<>();
+
+            String[] enderite = rowNamed(rows, "Enderite");
+            if (enderite == null) {
+                problems.add("no Enderite row at all (rows: " + describeRows(rows) + ")");
+            } else {
+                if (!enderite[1].contains(fivePercent)) {
+                    problems.add("the Enderite row reads \"" + enderite[1] + "\" - the server gives 5% "
+                            + "against all damage per piece (TrimEffectUtil: enderiteParts * 0.05f)");
+                }
+                if (!enderite[1].contains("x3.5") || enderite[1].contains("4x")) {
+                    problems.add("the Enderite row reads \"" + enderite[1] + "\" - an Enderite piece "
+                            + "counts 3.5 times for its pattern, not 4 times");
+                }
+            }
+
+            String[] netherite = rowNamed(rows, "Netherite");
+            if (netherite == null) {
+                problems.add("no Netherite row at all (rows: " + describeRows(rows) + ")");
+            } else if (!netherite[1].contains(fivePercent) || !netherite[1].contains("x1.75")
+                    || netherite[1].startsWith("Pattern Boost")) {
+                problems.add("the Netherite row reads \"" + netherite[1] + "\" - the server gives 5% "
+                        + "against enchantment-bypassing damage and the Wither, and counts a Netherite "
+                        + "piece 1.75 times for its pattern");
+            }
+
+            String[] rib = rowNamed(rows, "Rib Trim");
+            if (rib == null) {
+                problems.add("no Rib Trim row at all (rows: " + describeRows(rows) + ")");
+            } else if (!rib[1].contains(tenPercent)) {
+                problems.add("the Rib Trim row reads \"" + rib[1] + "\" - the server takes 10% off "
+                        + "wither damage per piece (TrimEffectUtil: calculateReduction(entity, \"rib\", "
+                        + "0.10f, ...))");
+            }
+
+            if (!problems.isEmpty()) {
+                throw new AssertionError("The trim reference screen disagrees with the server: "
+                        + String.join("; ", problems) + ".");
+            }
+        });
+    }
+
+    /** Every non-header row of the screen as {name, info}, read out of its private entry list. */
+    private static List<String[]> trimReferenceRows(TrimReferenceScreen screen) {
+        try {
+            java.lang.reflect.Field field = TrimReferenceScreen.class.getDeclaredField("entries");
+            field.setAccessible(true);
+            List<?> entries = (List<?>) field.get(screen);
+            List<String[]> rows = new ArrayList<>();
+
+            for (Object entry : entries) {
+                Class<?> type = entry.getClass();
+                java.lang.reflect.Method header = type.getDeclaredMethod("isHeader");
+                java.lang.reflect.Method text = type.getDeclaredMethod("text");
+                java.lang.reflect.Method info = type.getDeclaredMethod("info");
+                header.setAccessible(true);
+                text.setAccessible(true);
+                info.setAccessible(true);
+
+                if (!(boolean) header.invoke(entry)) {
+                    rows.add(new String[] {
+                            ((net.minecraft.network.chat.Component) text.invoke(entry)).getString(),
+                            ((net.minecraft.network.chat.Component) info.invoke(entry)).getString()});
+                }
+            }
+
+            return rows;
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            throw new AssertionError("The trim reference rows cannot be read: " + e + ". The screen keeps "
+                    + "them in a private List<ReferenceEntry> entries with a record of (icon, text, info, "
+                    + "isHeader); if that changed, this reader has to follow.", e);
+        }
+    }
+
+    private static String[] rowNamed(List<String[]> rows, String prefix) {
+        for (String[] row : rows) {
+            if (row[0].startsWith(prefix)) {
+                return row;
+            }
+        }
+
+        return null;
+    }
+
+    private static String describeRows(List<String[]> rows) {
+        List<String> names = new ArrayList<>();
+        for (String[] row : rows) {
+            names.add(row[0]);
+        }
+
+        return names.toString();
+    }
+
+    /**
      * The config screen Cloth Config builds for {@code SimplebuildingConfig}, shown and rendered.
      *
      * <p>What this proves: {@code AutoConfig.register} has run (otherwise there is no config holder
@@ -560,28 +672,35 @@ public final class ModScreensClientTest {
      * That is a client only claim - the screen needs the whole GUI stack - and no server test can
      * make it.
      *
-     * <p>What this no longer proves, and the class javadoc says it again because it is the one real
-     * loss of this port: that the button a player presses reaches this screen. Both entry points
-     * are loader specific and invisible from shared code.
+     * <p>The screen is built through the loader's own config button entry point
+     * ({@link Harness#modConfigScreen}): ModMenu's {@code getConfigScreen} on Fabric, the
+     * {@code IConfigScreenFactory} extension point on NeoForge. So this also proves that the button
+     * a player presses reaches the screen - on 26.2 Fabric that path threw until 2026-09, because
+     * {@code ModMenuIntegration} looked the Cloth Config method up reflectively in a class it had
+     * moved out of.
      *
      * <p>The screen is created in one step and shown in the next, with the object identity - not
-     * the class - asserted afterwards: {@code AutoConfigClient} hands back a plain
-     * {@code ConfigScreen}, and comparing classes would also accept a different screen of the same
-     * class that something else had opened in between.
+     * the class - asserted afterwards: comparing classes would also accept a different screen of
+     * the same class that something else had opened in between.
      */
     private static void modConfigScreenBuildsAndRenders(Script script) {
         Later<Screen> configScreen = new Later<>("the config screen Cloth Config built");
 
-        script.act("build the config screen from the registered config holder", client -> {
-            Screen screen = AutoConfigClient.getConfigScreen(SimplebuildingConfig.class, null).get();
+        script.harness("build the config screen through the loader's own config button entry point",
+                harness -> configScreen.set(harness.modConfigScreen()));
+
+        script.act("the config button built a Cloth Config screen", client -> {
+            Screen screen = configScreen.get();
 
             if (screen == null) {
-                throw new AssertionError("Cloth Config built no screen for SimplebuildingConfig, so "
-                        + "the config holder is not registered and the config button could not work "
-                        + "even with the reflective lookup repaired.");
+                throw new AssertionError("The loader's config button entry point built no screen for "
+                        + "simplebuilding, so pressing the button would do nothing.");
             }
 
-            configScreen.set(screen);
+            if (!(screen instanceof me.shedaniel.clothconfig2.api.ConfigScreen)) {
+                throw new AssertionError("The config button opened " + screen.getClass().getName()
+                        + " instead of the Cloth Config screen for SimplebuildingConfig.");
+            }
         });
 
         script.act("show the config screen", client -> client.setScreen(configScreen.get()));

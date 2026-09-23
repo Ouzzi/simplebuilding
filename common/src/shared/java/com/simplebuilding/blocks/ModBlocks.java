@@ -50,19 +50,23 @@ public class ModBlocks {
 
 
 
-    public static final Block REINFORCED_HOPPER = registerBlock("reinforced_hopper", s -> new ModHopperBlock(s.strength(3.0F, 4.8F).noOcclusion().sound(SoundType.METAL)));
-    public static final Block NETHERITE_HOPPER = registerBlock("netherite_hopper", s -> new ModHopperBlock(s.strength(5.0F, 1200.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK)));
+    // Hoppers and the six furnaces are built from their VANILLA counterpart, not from the glass
+    // every other block of this helper starts from: glass handed them no tool requirement (a bare
+    // hand dropped them), no light while burning, no occlusion and glass's map colour and note.
+    // The mod's own strength and sound still override what the copy brings.
+    public static final Block REINFORCED_HOPPER = registerBlock("reinforced_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(3.0F, 4.8F).noOcclusion().sound(SoundType.METAL)));
+    public static final Block NETHERITE_HOPPER = registerBlock("netherite_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(5.0F, 1200.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK)));
 
     public static final Block REINFORCED_PISTON = registerBlock("reinforced_piston", s -> new PistonBaseBlock(false, s.strength(1.5F).sound(SoundType.METAL))); // sticky=false
     public static final Block NETHERITE_PISTON = registerBlock("netherite_piston", s -> new NetheriteBreakerPistonBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
     public static final Block NETHERITE_PISTON_HEAD = registerBlock("netherite_piston_head", s -> new NetheritePistonHeadBlock(s.noCollision().noLootTable().sound(SoundType.NETHERITE_BLOCK)));
 
-    public static final Block REINFORCED_FURNACE = registerBlock("reinforced_furnace", s -> new ModFurnaceBlock(s.strength(3.5F).sound(SoundType.METAL)));
-    public static final Block NETHERITE_FURNACE = registerBlock("netherite_furnace", s -> new ModFurnaceBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
-    public static final Block REINFORCED_SMOKER = registerBlock("reinforced_smoker", s -> new ModSmokerBlock(s.strength(3.5F).sound(SoundType.METAL)));
-    public static final Block NETHERITE_SMOKER = registerBlock("netherite_smoker", s -> new ModSmokerBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
-    public static final Block REINFORCED_BLAST_FURNACE = registerBlock("reinforced_blast_furnace", s -> new ModBlastFurnaceBlock(s.strength(3.5F).sound(SoundType.METAL)));
-    public static final Block NETHERITE_BLAST_FURNACE = registerBlock("netherite_blast_furnace", s -> new ModBlastFurnaceBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block REINFORCED_FURNACE = registerBlock("reinforced_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(3.5F).sound(SoundType.METAL)));
+    public static final Block NETHERITE_FURNACE = registerBlock("netherite_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block REINFORCED_SMOKER = registerBlock("reinforced_smoker", Blocks.SMOKER, s -> new ModSmokerBlock(s.strength(3.5F).sound(SoundType.METAL)));
+    public static final Block NETHERITE_SMOKER = registerBlock("netherite_smoker", Blocks.SMOKER, s -> new ModSmokerBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block REINFORCED_BLAST_FURNACE = registerBlock("reinforced_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(3.5F).sound(SoundType.METAL)));
+    public static final Block NETHERITE_BLAST_FURNACE = registerBlock("netherite_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
 
 
     // --- 1. DECORATION BLOCKS --- // todo add stonecutting and crafting recipie like vanilla
@@ -94,9 +98,14 @@ public class ModBlocks {
      * Registriert einen Block und weist ihm vor der Erstellung den notwendigen RegistryKey zu.
      */
     private static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> factory) {
+        return registerBlock(name, Blocks.GLASS, factory);
+    }
+
+    /** As above, with the properties copied from {@code base} instead of glass. */
+    private static Block registerBlock(String name, Block base, Function<BlockBehaviour.Properties, Block> factory) {
         Identifier id = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name);
         ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, id);
-        BlockBehaviour.Properties settings = BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).setId(key);
+        BlockBehaviour.Properties settings = BlockBehaviour.Properties.ofFullCopy(base).setId(key);
         Block block = factory.apply(settings);
         return Registry.register(BuiltInRegistries.BLOCK, id, block);
     }

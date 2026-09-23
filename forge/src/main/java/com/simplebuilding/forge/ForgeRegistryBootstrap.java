@@ -4,6 +4,7 @@ import com.simplebuilding.entity.ModEntities;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.loot.ModLootFunctions;
 import net.minecraft.core.registries.Registries;
 import net.minecraftforge.registries.RegisterEvent;
 
@@ -33,6 +34,14 @@ public final class ForgeRegistryBootstrap {
         }
         if (event.getRegistryKey().equals(Registries.DATA_COMPONENT_TYPE)) {
             ModDataComponentTypes.registerDataComponentTypes();
+            return;
+        }
+        if (event.getRegistryKey().equals(Registries.LOOT_FUNCTION_TYPE)) {
+            // Die Trade-JSONs unter data/simplebuilding/villager_trade/ referenzieren
+            // simplebuilding:weighted_enchant und liegen auch im Forge-Jar; ohne die Registrierung
+            // scheitert das Laden der Welt am unbekannten Loot-Funktionstyp. Spaeter (commonSetup)
+            // waere zu spaet, dann sind die Registries eingefroren.
+            ModLootFunctions.registerLootFunctions();
         }
     }
 }

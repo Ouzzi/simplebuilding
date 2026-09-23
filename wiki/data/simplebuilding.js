@@ -82,9 +82,9 @@ window.WIKI_DATA = {
           "The blocks are faster hoppers (Reinforced, Netherite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite), two stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
-          "The mod runs on Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. On Forge a few client-side displays are currently missing: the Octant HUD together with its in-world markers, the mining preview of the Sledgehammer, Strip Miner and Vein Miner, the enchantments' own book textures, and the Air Jump bar.",
+          "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the mining preview of the Sledgehammer, Strip Miner and Vein Miner, the Building Wand preview, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
           "Every item and block is in the creative tab \"Building Items\" (called \"SimpleBuilding Items\" in German; icon: the Iron Chisel), together with enchanted books of every mod enchantment at maximum level.",
-          "A note on names: in the MC 26.2 line the German language file is complete - every item and block with an English name has a German one as well. The German file of the 1.21.11 line still lacks 68 of those keys, among them the whole Enderite line, the End stone, purpur and quartz-checker blocks, the four sand and gravel variants, the End ores, the Netherite Nugget, the two multiplier config options and the Enderite smithing template texts; there these names show up in English even in a German client. Many menu and status strings (in the hopper filter, on the Ore Detector, in the Octant HUD and on the Magnet) are hardcoded in English and cannot be translated at all.",
+          "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. Many menu and status strings (in the hopper filter, on the Ore Detector, in the Octant HUD and on the Magnet) are hardcoded in English and cannot be translated at all.",
           "Every chapter follows the same layout: summary, details, controls (which key or click does what), a tier overview for tier families, and a limitations section. That section states plainly what does not (yet) work, e.g. tooltip texts that are never shown, or enchantments with no effect such as Cover and Bridge. Each chapter ends with the source files its statements come from.",
           "Items section: every tool and storage item, sorted by family (Sledgehammer, Chisel, Building Wand, Octant and dyed Octants, bundles, quivers), plus the standalone tools Magnet, Rotator and Ore Detector.",
           "Blocks section: hoppers, furnaces, pistons, gravity blocks and ores, with hardness, tool tags, loot tables and the differences between the Reinforced and Netherite tiers.",
@@ -106,9 +106,9 @@ window.WIKI_DATA = {
           "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit), zwei stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
-          "Die Mod läuft auf Fabric, NeoForge und Forge; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Auf Forge fehlen derzeit einige Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Abbau-Vorschau von Vorschlaghammer, Tunnelgräber und Aderabbau, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
+          "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Abbau-Vorschau von Vorschlaghammer, Tunnelgräber und Aderabbau, die Baustab-Vorschau, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
           "Alle Gegenstände und Blöcke findest du im Kreativmodus im Reiter „SimpleBuilding Items“ (englisch „Building Items“, Symbol: Eisenmeißel), zusammen mit verzauberten Büchern aller Mod-Verzauberungen auf Höchststufe.",
-          "Ein Hinweis zu Namen: In der MC-26.2-Linie ist die deutsche Sprachdatei vollständig – zu jedem Gegenstand und Block mit englischem Namen gibt es auch einen deutschen. In der 1.21.11-Linie fehlen der deutschen Datei weiterhin 68 dieser Schlüssel, darunter die gesamte Enderit-Reihe, die End-Stein-, Purpur- und Quarz-Blöcke, die vier Sand- und Kiesvarianten, die End-Erze, das Netherite Nugget, die beiden Multiplikator-Optionen der Konfiguration und die Texte der Enderit-Schmiedevorlage; dort erscheinen diese Namen auch im deutschen Client englisch. Viele Menü- und Statustexte (etwa im Trichter-Filter, beim Erzdetektor, beim Oktant-HUD und beim Magneten) sind fest auf Englisch hinterlegt.",
+          "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Viele Menü- und Statustexte (etwa im Trichter-Filter, beim Erzdetektor, beim Oktant-HUD und beim Magneten) sind fest auf Englisch hinterlegt.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden, oder Verzauberungen ohne Wirkung wie Abdeckung und Brücke. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
           "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Magnet, Rotator und Erzdetektor.",
           "Bereich Blöcke: Trichter, Öfen, Kolben, Schwerkraftblöcke und Erze samt Härte, Werkzeug-Tags, Beutetabellen und den Unterschieden zwischen Verstärkt- und Netherit-Stufe.",
@@ -393,7 +393,7 @@ window.WIKI_DATA = {
           "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
           "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade Template and 12 ingots or diamonds you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
           "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
-          "Worth knowing: the Enderite Sledgehammer is missing from the sledgehammer_tools tag and is therefore not registered as a supported item for Override, Radius, Break Through, Constructor's Touch, Range and Versatility; it is also not fire resistant. It is, however, the only tier the void_protected tag saves from the void; the other six are not protected."
+          "Worth knowing: the Enderite Sledgehammer is not fire resistant, but it is the only tier the void_protected tag saves from the void; the other six are not protected."
         ]
       },
       "de": {
@@ -411,7 +411,7 @@ window.WIKI_DATA = {
           "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
           "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Upgrade-Vorlage und 12 Barren bzw. Diamanten lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
           "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
-          "Wichtig zu wissen: Der Enderite Sledgehammer fehlt im Tag sledgehammer_tools und ist damit für Übersteuerung, Radius, Durchbruch, Berührung des Konstrukteurs, Reichweite und Vielseitigkeit nicht als unterstützter Gegenstand hinterlegt; außerdem ist er nicht feuerfest. Nur er ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht."
+          "Wichtig zu wissen: Der Enderite Sledgehammer ist nicht feuerfest, aber nur er ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht."
         ]
       }
     },
@@ -1119,12 +1119,12 @@ window.WIKI_DATA = {
           "Game tests lock in the order Netherite faster than Reinforced faster than vanilla; for the furnace they require at least 1.5x (Reinforced) and 3x (Netherite) speed, for the blast furnace and the smoker at least 2.5x speed for the Netherite tier. Tick budgets: 320 ticks (furnace) and 220 ticks (blast furnace and smoker).",
           "Reinforced recipe: 3 Cracked Diamonds, 3 vanilla machines, 3 Cracked Diamonds in three rows yield 3 pieces (recipe book category Redstone); unlocked as soon as you own the vanilla machine.",
           "Netherite recipe (bulk upgrade): 1 Netherite Nugget top left plus 3 Reinforced machines filling the rest of a 2x2 grid yield 3 pieces (datagen category RecipeCategory.DECORATIONS, so the advancement sits under recipes/decorations; the recipe file itself carries no category, so the recipe book lists it under Miscellaneous); unlocked as soon as you own the Reinforced machine.",
-          "Reinforced tier: hardness 3.5, sound type Metal. Netherite tier: hardness 5.0, blast resistance 1200, sound type Netherite Block, item fire resistant. Every other block property is copied from glass.",
-          "All six blocks mine faster with a pickaxe (mineable/pickaxe tag), are in no needs_*_tool tag, and drop themselves when broken.",
+          "Reinforced tier: hardness 3.5, sound type Metal. Netherite tier: hardness 5.0, blast resistance 1200, sound type Netherite Block, item fire resistant. Every other block property is copied from the matching vanilla block (furnace, blast furnace or smoker).",
+          "All six blocks are in the mineable/pickaxe tag and in no needs_*_tool tag and, like their vanilla counterparts, only drop themselves when mined with a pickaxe (any tier).",
           "Blockstates and models of all six blocks are generated by datagen exactly like the vanilla furnace (unlit/lit, four facings).",
           "All six sit in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons.",
           "Fuel consumption is not changed anywhere in the code.",
-          "No light level is set, so none of the six blocks light up their surroundings while burning.",
+          "While burning, all six give off light level 13, like the vanilla furnace.",
           "Each tier carries its own menu title: the shared block entity reads the block state, so a Netherite Furnace opens a screen titled \"Netherite Furnace\" and the Reinforced tier one titled \"Reinforced Furnace\"; all six container keys are defined in en_us and de_de.",
           "The furnace code (block classes, block entities, registration in ModBlocks and ModItems) is identical in both supported Minecraft versions (26.2 under common/src/shared and 1.21.11 under mc1_21_11/shared)."
         ]
@@ -1141,12 +1141,12 @@ window.WIKI_DATA = {
           "Spieltests sichern die Rangfolge Netherit schneller als Verstärkt schneller als normal; für den Ofen fordern sie mindestens 1,5-fache (Verstärkt) und 3-fache (Netherit) Geschwindigkeit, für Schmelzofen und Räucherofen mindestens 2,5-fache Geschwindigkeit der Netherit-Stufe. Zeitbudgets: 320 Ticks (Ofen) bzw. 220 Ticks (Schmelzofen und Räucherofen).",
           "Rezept Verstärkt: 3 Rissige Diamanten, 3 normale Geräte, 3 Rissige Diamanten in drei Reihen ergeben 3 Stück (Rezeptbuch-Kategorie Redstone); freigeschaltet, sobald man das normale Gerät besitzt.",
           "Rezept Netherit (Bulk-Upgrade): 1 Netherite Nugget oben links plus 3 Verstärkt-Geräte im 2x2-Muster ergeben 3 Stück (im Rezeptbuch unter Verschiedenes: die erzeugte Datei trägt kein category-Feld); freigeschaltet, sobald man das Verstärkt-Gerät besitzt.",
-          "Verstärkt-Stufe: Härte 3,5, Klang Metall. Netherit-Stufe: Härte 5,0, Explosionswiderstand 1200, Klang Netheritblock, Item feuerfest. Alle übrigen Blockeigenschaften werden von Glas kopiert.",
-          "Alle sechs Blöcke sind mit der Spitzhacke schneller abbaubar (Tag mineable/pickaxe), in keinem needs_*_tool-Tag, und lassen sich beim Abbau selbst fallen.",
+          "Verstärkt-Stufe: Härte 3,5, Klang Metall. Netherit-Stufe: Härte 5,0, Explosionswiderstand 1200, Klang Netheritblock, Item feuerfest. Alle übrigen Blockeigenschaften werden vom passenden Vanilla-Block kopiert (Ofen, Schmelzofen oder Räucherofen).",
+          "Alle sechs Blöcke sind im Tag mineable/pickaxe und in keinem needs_*_tool-Tag und lassen sich wie ihre Vanilla-Vorbilder nur mit einer Spitzhacke (beliebige Stufe) abgebaut selbst fallen.",
           "Blockstates und Modelle aller sechs Blöcke werden per Datagen wie beim Vanilla-Ofen erzeugt (aus/an, vier Blickrichtungen).",
           "Alle sechs liegen im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen neben Trichtern und Kolben.",
           "Der Brennstoffverbrauch wird im Code nicht verändert.",
-          "Es wird keine Leuchtstärke gesetzt.",
+          "Im Betrieb leuchten alle sechs mit Stärke 13, wie der Vanilla-Ofen.",
           "Jede Stufe hat ihre eigene Menü-Überschrift: die gemeinsame Block-Entity liest den Blockzustand, ein Netheritofen öffnet also ein Fenster mit dem Titel „Netheritofen“, die Verstärkt-Stufe eines mit „Verstärkter Ofen“; alle sechs Container-Schlüssel sind in en_us und de_de vorhanden.",
           "Der Code für die Öfen (Block-Klassen, Block-Entities, Registrierung in ModBlocks und ModItems) ist in beiden unterstützten Minecraft-Linien (26.2 unter common/src/shared und 1.21.11 unter mc1_21_11/shared) identisch."
         ]
@@ -1308,14 +1308,14 @@ window.WIKI_DATA = {
           "Without any enchantment the sledgehammer breaks a 3x3 face of identical mineable/pickaxe blocks; Override (up to II) widens the block selection, Radius (I) grows the face to 5x5, Break Through (up to II) takes 1 or 2 layers behind it along.",
           "Radius and Break Through raise the block count in the hammer's speed formula (factor 1.25 + ((min(block count, 25) - 1) / 24) x 0.6) - which makes the hammer faster, not slower.",
           "With the sledgehammer every extra block destroyed costs 1 durability (2 if the hammer is not the matching tool for that block).",
-          "The three hammer enchantments are bound to the tag sledgehammer_tools (Stone, Copper, Iron, Gold, Diamond and Netherite Sledgehammer); the Enderite Sledgehammer is not in it.",
+          "The three hammer enchantments are bound to the tag sledgehammer_tools (Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer).",
           "None of the six enchantments is in the tag minecraft:in_enchanting_table (the mod only adds fast_chiseling there) - they never appear at the enchanting table; the cost values come from the definitions.",
-          "Preview (Fabric: LevelRenderEvents.COLLECT_SUBMITS / END_EXTRACTION; NeoForge: SubmitCustomGeometryEvent / ExtractLevelRenderStateEvent): the client draws breaking cracks on all connected blocks (hammer, Strip Miner, Vein Miner) and, for the hammer, an outline with a fill on top; the fill strength is steered by the buildingHighlightOpacity option (default 40).",
-          "Forge module: none of the in-world renderers is wired up, the enchant_type property for the book textures is not registered and the loot function simplebuilding:weighted_enchant is not registered there; the mining handlers themselves (hammer, Strip Miner, Vein Miner, Versatility) are hooked up on Forge.",
+          "Preview (Fabric: LevelRenderEvents.COLLECT_SUBMITS / END_EXTRACTION; NeoForge: SubmitCustomGeometryEvent / ExtractLevelRenderStateEvent): the client draws breaking cracks on all connected blocks (hammer, Strip Miner, Vein Miner) and, for the hammer, an outline with a fill on top; the fill strength is steered by the buildingHighlightOpacity option (default 40). The extra cracks follow the crack vanilla itself draws at the targeted block: they also appear when vanilla mines on after the crosshair slipped off the block for a tick (it does that without its isDestroying flag), and never around a block vanilla is not mining.",
+          "Forge module: none of the in-world renderers is wired up and the enchant_type property for the book textures is not registered; the loot function simplebuilding:weighted_enchant is registered (ForgeRegistryBootstrap), and the mining handlers themselves (hammer, Strip Miner, Vein Miner, Versatility) are hooked up on Forge.",
           "Where to find them: enchanted books sit in chests (woodland mansion, dungeon, abandoned mineshaft, nether fortress, bastion, ancient city, end city, stronghold library) and with traders (toolsmith level 4/5, librarian level 4/5, wandering trader); the loot entries hang off the enableLootTableChanges option, the traders off enableVillagerTrades and enableWanderingTrades respectively.",
           "The end city treasure chest also holds a Diamond Sledgehammer (weight 20) with a random enchantment (EnchantRandomlyFunction.randomEnchantment()).",
           "In the creative inventory there is a book at max level for each of the six enchantments; on Fabric and NeoForge every book has its own texture (select model minecraft:enchanted_book with the property simplebuilding:enchant_type).",
-          "The mining code lives once in the shared tree and is the same on Fabric, Forge and NeoForge. In the 1.21.11 branch MiningUtils differs only in how it reaches the ore tags (BlockTags instead of BlockItemTags) - VeinMinerUsageEvent asks MiningUtils.isOre and is byte-identical on both lines - and MultiBlockBreakingSupport differs in its render-state imports and in the BlockBreakingRenderState constructor it calls; the trader pools are code there (ModTradeDefinitions) with the same weights."
+          "The mining code lives once in the shared tree and is the same on Fabric, Forge and NeoForge. In the 1.21.11 branch MiningUtils differs only in how it reaches the ore tags (BlockTags instead of BlockItemTags) - VeinMinerUsageEvent asks MiningUtils.isOre and is byte-identical on both lines - and MultiBlockBreakingSupport differs in its render-state imports, in the BlockBreakingRenderState constructor it calls and in how it reads the position of vanilla's crack (a blockPos field instead of the record accessor); the trader pools are code there (ModTradeDefinitions) with the same weights."
         ]
       },
       "de": {
@@ -1329,14 +1329,14 @@ window.WIKI_DATA = {
           "Der Vorschlaghammer bricht ohne Verzauberung eine 3×3-Fläche aus gleichen mineable/pickaxe-Blöcken; Übersteuerung (bis II) erweitert die Blockauswahl, Radius (I) vergrößert auf 5×5, Durchbruch (bis II) nimmt 1 bzw. 2 Schichten dahinter mit.",
           "Radius und Durchbruch erhöhen die Blockzahl in der Geschwindigkeitsformel des Hammers (Faktor 1,25 + ((min(Blockzahl, 25) − 1) / 24) × 0,6) – der Hammer wird dadurch schneller, nicht langsamer.",
           "Beim Vorschlaghammer kostet jeder zusätzlich zerstörte Block 1 Haltbarkeit (2, wenn der Hammer für den Block nicht das passende Werkzeug ist).",
-          "Die drei Hammer-Verzauberungen sind an das Tag sledgehammer_tools gebunden (Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit-Vorschlaghammer); der Enderite Sledgehammer steht nicht darin.",
+          "Die drei Hammer-Verzauberungen sind an das Tag sledgehammer_tools gebunden (Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Enderit-Vorschlaghammer).",
           "Keine der sechs Verzauberungen steht im Tag minecraft:in_enchanting_table (die Mod trägt dort nur fast_chiseling ein) – sie erscheinen nicht an der Verzauberungstabelle; die Kostenwerte stammen aus den Definitionen.",
-          "Vorschau (Fabric: LevelRenderEvents.COLLECT_SUBMITS / END_EXTRACTION; NeoForge: SubmitCustomGeometryEvent / ExtractLevelRenderStateEvent): Der Client zeichnet Abbau-Risse auf allen verbundenen Blöcken (Hammer, Tunnelgräber, Aderabbau) und beim Hammer zusätzlich einen Umriss mit Füllung; die Füllstärke steuert die Option buildingHighlightOpacity (Standard 40).",
-          "Forge-Modul: keiner der In-Welt-Renderer ist verdrahtet, die enchant_type-Property für die Buchtexturen ist nicht registriert und die Loot-Funktion simplebuilding:weighted_enchant wird dort nicht registriert; die Abbau-Handler selbst (Hammer, Tunnelgräber, Aderabbau, Vielseitigkeit) sind auf Forge angebunden.",
+          "Vorschau (Fabric: LevelRenderEvents.COLLECT_SUBMITS / END_EXTRACTION; NeoForge: SubmitCustomGeometryEvent / ExtractLevelRenderStateEvent): Der Client zeichnet Abbau-Risse auf allen verbundenen Blöcken (Hammer, Tunnelgräber, Aderabbau) und beim Hammer zusätzlich einen Umriss mit Füllung; die Füllstärke steuert die Option buildingHighlightOpacity (Standard 40). Die zusätzlichen Risse folgen dem Riss, den Vanilla selbst am anvisierten Block zeichnet: Sie erscheinen auch, wenn Vanilla weiter abbaut, nachdem das Fadenkreuz für einen Tick vom Block gerutscht ist (das tut es ohne sein isDestroying-Flag), und nie um einen Block, den Vanilla gar nicht abbaut.",
+          "Forge-Modul: keiner der In-Welt-Renderer ist verdrahtet, und die enchant_type-Property für die Buchtexturen ist nicht registriert; die Loot-Funktion simplebuilding:weighted_enchant wird registriert (ForgeRegistryBootstrap), und die Abbau-Handler selbst (Hammer, Tunnelgräber, Aderabbau, Vielseitigkeit) sind auf Forge angebunden.",
           "Fundorte: verzauberte Bücher liegen in Truhen (Waldanwesen, Verlies, verlassene Mine, Netherfestung, Bastion, Antike Stadt, Endsiedlung, Festungsbibliothek) und bei Händlern (Werkzeugschmied Stufe 4/5, Bibliothekar Stufe 4/5, Wanderhändler); die Loot-Einträge hängen an der Option enableLootTableChanges, die Händler an enableVillagerTrades bzw. enableWanderingTrades.",
           "Die Endsiedlungs-Truhe enthält außerdem einen Diamant-Vorschlaghammer (Gewicht 20) mit Zufallsverzauberung (EnchantRandomlyFunction.randomEnchantment()).",
           "Im Kreativ-Inventar liegt zu jeder der sechs Verzauberungen ein Buch auf Höchststufe; auf Fabric und NeoForge hat jedes Buch eine eigene Textur (Select-Modell minecraft:enchanted_book mit Property simplebuilding:enchant_type).",
-          "Der Abbau-Code liegt einmal im gemeinsamen Baum und ist auf Fabric, Forge und NeoForge derselbe. Im 1.21.11-Zweig unterscheidet sich MiningUtils nur im Zugriff auf die Erz-Tags (BlockTags statt BlockItemTags) – VeinMinerUsageEvent fragt MiningUtils.isOre und ist auf beiden Linien Byte für Byte gleich –, MultiBlockBreakingSupport zusätzlich in den Render-State-Importen, im Aufruf des BlockBreakingRenderState-Konstruktors und in einem Kommentar (LevelRenderEvents gegen WorldRenderEvents); die Händler-Pools liegen dort als Code (ModTradeDefinitions) mit denselben Gewichten vor."
+          "Der Abbau-Code liegt einmal im gemeinsamen Baum und ist auf Fabric, Forge und NeoForge derselbe. Im 1.21.11-Zweig unterscheidet sich MiningUtils nur im Zugriff auf die Erz-Tags (BlockTags statt BlockItemTags) – VeinMinerUsageEvent fragt MiningUtils.isOre und ist auf beiden Linien Byte für Byte gleich –, MultiBlockBreakingSupport zusätzlich in den Render-State-Importen, im Aufruf des BlockBreakingRenderState-Konstruktors, im Lesen der Position des Vanilla-Risses (Feld blockPos statt Record-Accessor) und in einem Kommentar (LevelRenderEvents gegen WorldRenderEvents); die Händler-Pools liegen dort als Code (ModTradeDefinitions) mit denselben Gewichten vor."
         ]
       }
     },
@@ -1450,7 +1450,7 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/util/ModRegistries.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-        "forge/src/main/java/com/simplebuilding/forge/ModRegistriesForge.java",
+        "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
         "forge/src/main/java/com/simplebuilding/forge/ForgeClientGameEvents.java",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json"
@@ -1468,7 +1468,7 @@ window.WIKI_DATA = {
           "Getting them: only Fast Chiseling is available at the enchanting table (the mod's only entry in the minecraft:in_enchanting_table tag). Everything else comes exclusively as books from structure chests (pillager outpost, woodland mansion, stronghold library, end city, buried treasure, igloo and trial chambers among others; option enableLootTableChanges), from librarians (levels 3 to 5) and toolsmiths (pre-enchanted chisels; option enableVillagerTrades), as well as from the mod's creative tab as books at maximum level. Bridge is the exception: no chest and no trade offer holds a Bridge book any more, so the creative tab is the only source of the book - the wandering trader's 60-emerald book (option enableWanderingTrades) now holds only Radius, a sledgehammer enchantment. Bridge can still land on the randomly enchanted Diamond Building Wand from end city treasure.",
           "Compatibility: Cover excludes Bridge and Linear; Bridge and Linear get along. Drawer excludes Master Builder and Color Palette. Color Palette can only be put on an item in the anvil that already carries Master Builder or gains it at the same time - otherwise the result slot stays empty.",
           "Without effect: Cover and Bridge are evaluated by no game code and carry no effect; the gametest coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown pins this state down explicitly. Linear only makes the ring build faster, although its description promises a line while sneaking.",
-          "Tag gaps: the enderite variants (building wand, chisel, sledgehammer) and all spatulas (which have no display name in either language file) are missing from the mod's enchantment tags (building_wand_enchantable, chisel_tools, sledgehammer_tools); these enchantments cannot be applied to them in an anvil, even though the tool code would mostly evaluate them.",
+          "Tag gap: the spatulas (which have no display name in either language file) are missing from the chisel_tools tag, so its enchantments cannot be applied to them in an anvil, even though the tool code would evaluate them; the spatulas are legacy items that the migration turns into chisels.",
           "Enchanted books carrying one of these enchantments get their own book model in the inventory, matched to the enchantment (EnchantmentModelProperty)."
         ]
       },
@@ -1485,7 +1485,7 @@ window.WIKI_DATA = {
           "Beschaffung: Nur Schnelles Meißeln steht an der Verzauberungstabelle (einziger Mod-Eintrag im Tag minecraft:in_enchanting_table). Alle anderen gibt es ausschließlich als Bücher aus Strukturtruhen (u. a. Plünderer-Außenposten, Waldanwesen, Festungs-Bibliothek, Endsiedlung, vergrabener Schatz, Iglu, Prüfungskammer; Option enableLootTableChanges), von Bibliothekaren (Stufen 3 bis 5) und Werkzeugschmieden (vorverzauberte Meißel; Option enableVillagerTrades) sowie im Kreativ-Reiter der Mod als Buch auf Höchststufe. Ausnahme ist Brücke: Weder eine Truhe noch ein Handelsangebot enthält noch ein Brücke-Buch, einzige Quelle des Buchs ist der Kreativ-Reiter – das 60-Smaragde-Buch des Fahrenden Händlers (Option enableWanderingTrades) enthält jetzt nur noch Radius, eine Vorschlaghammer-Verzauberung. Auf dem zufällig verzauberten Diamant-Baustab aus dem Endsiedlungs-Schatz kann Brücke weiterhin auftauchen.",
           "Verträglichkeit: Abdeckung schließt Brücke und Linear aus; Brücke und Linear vertragen sich. Schublade schließt Baumeister und Farbpalette aus. Farbpalette lässt sich im Amboss nur auf ein Item bringen, das Baumeister trägt oder gleichzeitig bekommt – sonst bleibt das Ergebnisfeld leer.",
           "Wirkungslos: Abdeckung und Brücke werden von keinem Spielcode ausgewertet und tragen keinen Effekt; der Spieltest coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown hält diesen Zustand ausdrücklich fest. Linear macht nur den Ring-Aufbau schneller, obwohl die Beschreibung eine Linie beim Schleichen verspricht.",
-          "Tag-Lücken: Die Enderit-Varianten (Baustab, Meißel, Vorschlaghammer) und alle Spatel (ohne Übersetzung) fehlen in den Verzauberungs-Tags der Mod (building_wand_enchantable, chisel_tools, sledgehammer_tools); diese Verzauberungen lassen sich dort per Amboss nicht anbringen, obwohl der Werkzeug-Code sie größtenteils auswerten würde.",
+          "Tag-Lücke: Die Spatel (ohne Übersetzung) fehlen im Tag chisel_tools; dessen Verzauberungen lassen sich per Amboss nicht auf sie anbringen, obwohl der Werkzeug-Code sie auswerten würde. Die Spatel sind Altlasten, die die Umwandlung in Meißel verwandelt.",
           "Verzauberte Bücher mit einer dieser Verzauberungen bekommen im Inventar ein eigenes, an die Verzauberung angepasstes Buchmodell (EnchantmentModelProperty)."
         ]
       }
@@ -1564,7 +1564,7 @@ window.WIKI_DATA = {
           "Using a bundle: left-click inserts, right-click with an empty cursor takes one item out; the config option tools.invertBundleInteractions swaps the two. On insertion, identical items are merged and the full stacks end up on top.",
           "Funnel turns the bundle into a vacuum cleaner: level I only picks up item types that are already inside, level II picks up everything; sneaking pauses the pickup; quivers only vacuum up arrows; your hands are checked before the rest of the inventory.",
           "Drawer allows up to 5 different item types according to the code (the language file wrongly says \"the specific item\" and \"chests\") and cannot be combined with Master Builder or Color Palette; there is no chest effect.",
-          "Air Jump (boots): press the jump key again while airborne; upward velocity 0.5, fall distance cleared, boots lose 1 durability; cooldown 100 ticks (config airJumpCooldownTicks), halved at level II, with an \"Air Jump\" HUD bar above the hotbar (Fabric/NeoForge). On Forge the level is instead the number of air jumps you get per time in the air, with no cooldown and no HUD.",
+          "Air Jump (boots): press the jump key again while airborne; upward velocity 0.5, fall distance cleared, boots lose 1 durability; cooldown 100 ticks (config airJumpCooldownTicks), halved at level II, with an \"Air Jump\" HUD bar above the hotbar. Forge runs the same controller (level, cooldown, durability) but registers no HUD bar.",
           "Kinetic Protection (armor, up to level IV): 2.5 protection points per level, but only against damage sources in the tag simplebuilding:kinetic_damage - and that one contains only minecraft:fly_into_wall; no Java code reads the enchantment.",
           "Range (chisels, sledgehammers, octants, mining tools; up to level III): +2 / +6 / +10 blocks of block interaction range in the main hand; the Magnet code would additionally grant 2 blocks of radius per level, but the Magnet is not in the target group.",
           "Targeted sources in the code: Deep Pockets II in Ancient Cities; Funnel I in bastions, Nether fortresses, dungeons and from the master librarian; Air Jump II in End Cities and I in trial chamber reward vaults; Range II in stronghold libraries, III in End Cities, I through III from the master librarian and I on the toolsmith's sledgehammers. Drawer and Kinetic Protection have no targeted source beyond the creative inventory.",
@@ -1583,7 +1583,7 @@ window.WIKI_DATA = {
           "Bündel bedienen: Linksklick legt ein, Rechtsklick mit leerem Cursor entnimmt; die Config-Option tools.invertBundleInteractions vertauscht beides. Beim Einfüllen werden gleiche Sorten zusammengeführt, volle Stapel liegen oben.",
           "Trichter macht das Bündel zum Staubsauger: Stufe I nur für Sorten, die schon drin sind, Stufe II für alles; Schleichen pausiert das Aufsaugen; Köcher saugen nur Pfeile; Hände werden vor dem restlichen Inventar geprüft.",
           "Schublade erlaubt laut Code bis zu 5 verschiedene Sorten (Sprachdatei sagt fälschlich \"ein Item\" und \"Truhen\") und ist nicht mit Baumeister oder Farbpalette kombinierbar; einen Truhen-Effekt gibt es nicht.",
-          "Luftsprung (Stiefel): In der Luft die Sprungtaste erneut drücken; Aufwärtsgeschwindigkeit 0,5, Fallhöhe wird gelöscht, Stiefel verlieren 1 Haltbarkeit; Abklingzeit 100 Ticks (Config airJumpCooldownTicks), auf Stufe II die Hälfte, mit HUD-Balken \"Air Jump\" über der Hotbar (Fabric/NeoForge). Auf Forge stattdessen Stufe = Anzahl Luftsprünge pro Flugphase, ohne Abklingzeit und ohne HUD.",
+          "Luftsprung (Stiefel): In der Luft die Sprungtaste erneut drücken; Aufwärtsgeschwindigkeit 0,5, Fallhöhe wird gelöscht, Stiefel verlieren 1 Haltbarkeit; Abklingzeit 100 Ticks (Config airJumpCooldownTicks), auf Stufe II die Hälfte, mit HUD-Balken \"Air Jump\" über der Hotbar. Forge nutzt dieselbe Steuerung (Stufe, Abklingzeit, Haltbarkeit), registriert aber keinen HUD-Balken.",
           "Kinetischer Schutz (Rüstung, bis Stufe IV): 2,5 Schutzpunkte je Stufe, aber nur gegen Schadensquellen im Tag simplebuilding:kinetic_damage, und der enthält nur minecraft:fly_into_wall; kein Java-Code wertet die Verzauberung aus.",
           "Reichweite (Meißel, Vorschlaghämmer, Oktanten, Abbauwerkzeuge; bis Stufe III): +2 / +6 / +10 Blöcke Block-Interaktionsreichweite in der Haupthand; der Magnet-Code würde zusätzlich 2 Blöcke Radius je Stufe geben, der Magnet ist aber nicht in der Zielgruppe.",
           "Gezielte Fundorte im Code: Tiefe Taschen II in Ancient Citys; Trichter I in Bastionen, Nether-Festungen, Verliesen und beim Meister-Bibliothekar; Luftsprung II in End Citys und I in Trial-Chamber-Belohnungen; Reichweite II in Festungs-Bibliotheken, III in End Citys, I bis III beim Meister-Bibliothekar und I auf Vorschlaghämmern des Werkzeugschmieds. Schublade und Kinetischer Schutz haben keine gezielte Fundquelle außer dem Kreativ-Inventar.",
@@ -1634,7 +1634,7 @@ window.WIKI_DATA = {
           "If enableDoubleJump is switched off in the configuration, no air jumps are triggered and a running cooldown is reset to 0.",
           "Loot table sources (only with enableLootTableChanges): an \"Air Jump II\" enchanted book in the extra pool of End City treasure chests (weight 10, 0-4 rolls), \"Air Jump I\" in the extra pool of the rare and ominous trial chamber reward vaults (weight 7, 0-1 rolls).",
           "Enchanted books with Air Jump get their own book model (model variant \"double_jump\" -> simplebuilding:item/enchanted_book_double_jump).",
-          "The logic is identical for Fabric and NeoForge: both loaders call the same shared controller (DoubleJumpController.tick) once per client tick and register the same HUD layer."
+          "The logic is identical on all three loaders: Fabric, NeoForge and Forge call the same shared controller (DoubleJumpController.tick) once per client tick; Fabric and NeoForge also register the same HUD layer, Forge registers none."
         ]
       },
       "de": {
@@ -1654,7 +1654,7 @@ window.WIKI_DATA = {
           "Ist enableDoubleJump in der Konfiguration ausgeschaltet, werden keine Luftsprünge ausgelöst und die laufende Abklingzeit wird auf 0 zurückgesetzt.",
           "Fundorte per Beutetabelle (nur mit enableLootTableChanges): Verzaubertes Buch „Luftsprung II“ im Zusatzpool der Endsiedlungs-Schatztruhen (Gewicht 10, 0–4 Würfe), „Luftsprung I“ im Zusatzpool der seltenen und unheilvollen Tresore der Prüfungskammern (Gewicht 7, 0–1 Würfe).",
           "Verzauberte Bücher mit Luftsprung bekommen ein eigenes Buchmodell (Modellvariante „double_jump“ → simplebuilding:item/enchanted_book_double_jump).",
-          "Die Logik ist für Fabric und NeoForge identisch: Beide Loader rufen pro Client-Tick dieselbe geteilte Steuerung (DoubleJumpController.tick) auf und registrieren dieselbe HUD-Ebene."
+          "Die Logik ist auf allen drei Loadern identisch: Fabric, NeoForge und Forge rufen pro Client-Tick dieselbe geteilte Steuerung (DoubleJumpController.tick) auf; Fabric und NeoForge registrieren zudem dieselbe HUD-Ebene, Forge keine."
         ]
       }
     },
@@ -1689,6 +1689,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
         "src/main/java/com/simplebuilding/command/ModCommands.java",
         "neoforge/src/main/java/com/simplebuilding/command/ModCommands.java",
+        "common/src/shared/java/com/simplebuilding/command/SimplebuildingCommand.java",
         "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
         "common/src/shared/java/com/simplebuilding/items/ModItems.java",
         "src/main/generated/data/simplebuilding/trim_material/astralit.json",
@@ -1733,7 +1734,7 @@ window.WIKI_DATA = {
           "The client option enableArmorTrimBenefits is sent to the server when you join a world; with it off, the pattern and material counts return 0 and the bonuses do not apply.",
           "The command /simplebuilding config setTrimMultiplier <value> (operators only, 0.0 to maxMultiplierLimit = 10.0) sets the base multiplier at runtime; getTrimMultiplier prints it.",
           "Limitation: the tooltip lines on armor pieces (\"Material: ...\", \"Trim Bonus: ...\") are computed on the client with the fixed factor 0.2 and their own base values (e.g. Diamond 1.5%, Sentry 2.5%), so they do not reflect the actual server values.",
-          "Limitation: the reference screen has its own hard-coded base values. Most of them match the server (Diamond 3%, Sentry 5%, Bolt 25% and so on), but three do not: the Enderite material row shows 10% and calls it a \"4x Pattern Boost\" (the server gives 5% and counts an Enderite-trimmed piece as 3.5); Netherite is listed as 5% \"Pattern Boost\" (the pattern boost is really the 1.75 count factor, and the 5% is its resistance to enchantment-bypassing damage and the Wither); and Rib is listed as 2.0 \"Wither Resist (Sec.)\" instead of the 10% wither damage reduction plus effect shortening it actually gives.",
+          "The reference screen keeps its own hard-coded base values, and they match the server: among them Enderite 5% against all damage with its pattern counted 3.5 times, Netherite 5% against Wither and enchantment-bypassing damage with its pattern counted 1.75 times, and Rib 10% less wither damage (a client test pins these three rows).",
           "Currently has no effect: Copper as a trim material - no code evaluates it, even though the item tooltip and the reference screen advertise \"Lightning Rod\"; likewise the Amethyst tooltip promises \"Sonic\" protection that does not exist in the code (Amethyst heals instead).",
           "Limitation: the Stasis effect ignores the enableArmorTrimBenefits switch, because its counting (countTrimById) works without that switch.",
           "Only the listed patterns have an effect; the vanilla Shaper pattern does not appear in the code."
@@ -1771,7 +1772,7 @@ window.WIKI_DATA = {
           "Der Client-Schalter enableArmorTrimBenefits wird beim Betreten der Welt an den Server gesendet; ist er aus, liefern Muster- und Materialzählung 0 und die Boni entfallen.",
           "Der Befehl /simplebuilding config setTrimMultiplier <Wert> (nur Operatoren, 0,0 bis maxMultiplierLimit = 10,0) setzt den Basis-Multiplikator zur Laufzeit; getTrimMultiplier zeigt ihn an.",
           "Einschränkung: Die Tooltip-Zeilen auf Rüstungsteilen („Material: …“, „Trim Bonus: …“) werden auf dem Client mit dem festen Faktor 0,2 und eigenen Basiswerten berechnet (z. B. Diamant 1,5 %, Sentry 2,5 %) und geben deshalb nicht die tatsächlichen Serverwerte wieder.",
-          "Einschränkung: Der Referenzbildschirm trägt eigene, fest verdrahtete Basiswerte. Die meisten stimmen mit dem Server überein (Diamant 3 %, Sentry 5 %, Bolt 25 % usw.), drei nicht: Die Enderit-Zeile zeigt 10 % und nennt es „4x Pattern Boost“ (der Server gibt 5 % und zählt ein Enderit-Besatzteil als 3,5); Netherit steht mit 5 % „Pattern Boost“ da (der Pattern-Boost ist in Wahrheit der Zählfaktor 1,75, und die 5 % sind die Resistenz gegen verzauberungsumgehenden Schaden und den Wither); und Rib steht mit 2,0 „Wither Resist (Sec.)“ statt der tatsächlichen 10 % Wither-Schadensminderung samt Effektverkürzung.",
+          "Der Referenzbildschirm trägt eigene, fest verdrahtete Basiswerte, und sie stimmen mit dem Server überein: darunter Enderit 5 % gegen jeden Schaden bei 3,5-fach gezähltem Muster, Netherit 5 % gegen Wither und verzauberungsumgehenden Schaden bei 1,75-fach gezähltem Muster und Rib 10 % weniger Wither-Schaden (ein Client-Test sichert diese drei Zeilen).",
           "Hat derzeit keine Wirkung: Kupfer als Besatzmaterial – kein Code wertet es aus, obwohl Tooltip und Referenzbildschirm „Lightning Rod“ anzeigen; ebenso zeigt der Amethyst-Tooltip „Sonic“-Schutz, den es im Code nicht gibt (Amethyst heilt stattdessen).",
           "Einschränkung: Der Stasis-Effekt ignoriert den Schalter enableArmorTrimBenefits, weil seine Zählung (countTrimById) ohne diesen Schalter arbeitet.",
           "Nur die genannten Muster haben Wirkung; das Vanilla-Muster Shaper kommt im Code nicht vor."
@@ -1924,7 +1925,7 @@ window.WIKI_DATA = {
           "The offers are mixed into the vanilla pools through tags (minecraft:villager_trade/librarian/level_3-5, mason/level_2 and level_4, toolsmith/level_3-5, and wandering_trader/common, uncommon, buying) as optional entries (\"required\": false).",
           "Config: enableVillagerTrades switches all villager offers, enableWanderingTrades all wandering trader offers; the \"simplebuilding:config\" condition is evaluated when data packs load (world start or /reload), not continuously.",
           "The condition is stored for Fabric (\"fabric:load_conditions\") and NeoForge (\"neoforge:conditions\") in the same JSON files; each loader ignores the other's key.",
-          "Limitation: if vanilla's optional \"Trade Rebalance\" data pack is active (it is off in a normal world), it replaces the three librarian tags wholesale (\"replace\": true) and therefore discards the mod's librarian offers as well; mason, toolsmith and wandering trader are unaffected (documented and pinned by a gametest)."
+          "Limitation (MC 26.2 line): if vanilla's optional \"Trade Rebalance\" data pack is active (it is off in a normal world), it replaces the three librarian tags wholesale (\"replace\": true) and therefore discards the mod's librarian offers as well; mason, toolsmith and wandering trader are unaffected. The gametest world runs with that pack on: there the gametest asserts that the mason, toolsmith and wandering trader pools still hold the mod's offers, and for the librarian it only checks the shipped tag files (they list the mod trades and do not replace). The loss of the librarian offers is observed vanilla behaviour; no test asserts it."
         ]
       },
       "de": {
@@ -1946,7 +1947,7 @@ window.WIKI_DATA = {
           "Die Angebote werden über Tags (minecraft:villager_trade/librarian/level_3–5, mason/level_2 und level_4, toolsmith/level_3–5 bzw. wandering_trader/common, uncommon, buying) als optionale Einträge („required“: false) in die Vanilla-Pools gemischt.",
           "Config: enableVillagerTrades schaltet alle Dorfbewohner-Angebote, enableWanderingTrades alle Angebote des fahrenden Händlers; die Bedingung „simplebuilding:config“ wird beim Laden der Datenpakete ausgewertet (Weltstart bzw. /reload), nicht laufend.",
           "Die Bedingung ist für Fabric („fabric:load_conditions“) und NeoForge („neoforge:conditions“) jeweils in denselben JSON-Dateien hinterlegt; der jeweils fremde Schlüssel wird vom anderen Loader ignoriert.",
-          "Einschränkung: Ist das optionale Vanilla-Datenpaket „Trade Rebalance“ aktiv, ersetzt es die drei Bibliothekar-Tags komplett („replace“: true) und verwirft damit auch die Bibliothekar-Angebote der Mod; Steinmetz, Werkzeugschmied und fahrender Händler sind davon nicht betroffen (so im Gametest dokumentiert und abgesichert)."
+          "Einschränkung (MC-26.2-Linie): Ist das optionale Vanilla-Datenpaket „Trade Rebalance“ aktiv (in einer normalen Welt ist es aus), ersetzt es die drei Bibliothekar-Tags komplett („replace“: true) und verwirft damit auch die Bibliothekar-Angebote der Mod; Steinmetz, Werkzeugschmied und fahrender Händler sind nicht betroffen. Die Gametest-Welt läuft mit diesem Paket: Dort sichert der Gametest zu, dass die Pools von Steinmetz, Werkzeugschmied und fahrendem Händler die Mod-Angebote weiter enthalten; beim Bibliothekar prüft er nur die mitgelieferten Tag-Dateien (sie führen die Mod-Handel auf und ersetzen nicht). Dass die Bibliothekar-Angebote verloren gehen, ist beobachtetes Vanilla-Verhalten; kein Test sichert es zu."
         ]
       }
     },
@@ -1982,7 +1983,7 @@ window.WIKI_DATA = {
         "title": "Ore Generation in the End (Astralit and Nihilith)",
         "summary": "Two new ores generate in end stone in the End: Astralit Ore on the surface of the islands and Nihilith Ore on their underside. Both need at least a diamond pickaxe and yield the trim materials Astralit Dust and Nihilith Shard.",
         "details": [
-          "Both ores generate in every End biome in the \"underground_ores\" step (Fabric: BiomeSelectors.foundInTheEnd; NeoForge and Forge: a biome modifier with the biome tag #minecraft:is_end).",
+          "Both ores generate in every End biome in the \"underground_ores\" step (Fabric: BiomeSelectors.foundInTheEnd; NeoForge and Forge: a biome modifier with the biome tag #minecraft:is_end). The Forge biome modifiers are covered by no test: the Forge module is parked and has never been started.",
           "Both ores replace end stone only; veins are not discarded on air exposure (discard_chance_on_air_exposure 0).",
           "Astralit Ore: vein size 3; on average a single attempt (count 1) in every 2nd chunk (rarity_filter 2); placed on the surface heightmap (MOTION_BLOCKING) and only where the block above is replaceable - so it is visible at the surface.",
           "Nihilith Ore: vein size 5; 13 attempts per chunk; height uniformly distributed between Y 0 and Y 60; only where the block below is replaceable - the veins hang from the underside of the islands.",
@@ -1997,7 +1998,7 @@ window.WIKI_DATA = {
         "title": "Erzgenerierung im End (Astralit und Nihilith)",
         "summary": "Im End entstehen zwei neue Erze in Endstein: Astralit Ore an der Oberfläche der Inseln und Nihilith Ore an deren Unterseite. Beide brauchen mindestens eine Diamantspitzhacke und liefern die Besatzmaterialien Astralit Dust bzw. Nihilith Shard.",
         "details": [
-          "Beide Erze werden in allen End-Biomen im Schritt „underground_ores“ erzeugt (Fabric: BiomeSelectors.foundInTheEnd; NeoForge und Forge: Biom-Modifier mit Biom-Tag #minecraft:is_end).",
+          "Beide Erze werden in allen End-Biomen im Schritt „underground_ores“ erzeugt (Fabric: BiomeSelectors.foundInTheEnd; NeoForge und Forge: Biom-Modifier mit Biom-Tag #minecraft:is_end). Die Forge-Biom-Modifier deckt kein Test ab: Das Forge-Modul ist zurückgestellt und wurde nie gestartet.",
           "Beide Erze ersetzen ausschließlich Endstein; Adern werden bei Luftkontakt nicht verworfen (discard_chance_on_air_exposure 0).",
           "Astralit Ore: Adergröße 3; im Schnitt in jedem 2. Chunk (rarity_filter 2) ein einziger Versuch (count 1); wird auf der Oberflächen-Höhenkarte (MOTION_BLOCKING) gesetzt und nur dort, wo der Block darüber ersetzbar ist – also sichtbar an der Oberfläche.",
           "Nihilith Ore: Adergröße 5; 13 Versuche pro Chunk; Höhe gleichverteilt zwischen Y 0 und Y 60; nur dort, wo der Block darunter ersetzbar ist – die Adern hängen an der Unterseite der Inseln.",
@@ -2201,6 +2202,7 @@ window.WIKI_DATA = {
         "neoforge/src/main/java/com/simplebuilding/neoforge/ConfigLoadCondition.java",
         "src/main/java/com/simplebuilding/command/ModCommands.java",
         "neoforge/src/main/java/com/simplebuilding/command/ModCommands.java",
+        "common/src/shared/java/com/simplebuilding/command/SimplebuildingCommand.java",
         "src/main/java/com/simplebuilding/Simplebuilding.java",
         "neoforge/src/main/java/com/simplebuilding/Simplebuilding.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForge.java",
@@ -2227,7 +2229,7 @@ window.WIKI_DATA = {
           "World Generation & Economy → Enable Villager Trades (enableVillagerTrades, default on): loads the Librarian, Mason and Toolsmith offers; evaluated when datapacks load (world start, /reload).",
           "World Generation & Economy → Enable Wandering Trader (enableWanderingTrades, default on): loads the Wandering Trader offers; evaluated when datapacks load as well.",
           "World Generation & Economy → Enable Loot Chests (enableLootTableChanges, default on): adds the mod pools to the stronghold library, end city treasure, ancient city, bastion (treasure and other), nether fortress, pillager outpost, woodland mansion, buried treasure, dungeon, shipwreck treasure, igloo, abandoned mineshaft and the trial chamber vaults (common, rare, ominous).",
-          "Fabric: settings screen via ModMenu (AutoConfig.getConfigScreen); NeoForge: config button in the mod list (IConfigScreenFactory); both build the AutoConfig screen.",
+          "Fabric: settings screen via ModMenu (AutoConfigClient.getConfigScreen); NeoForge: config button in the mod list (IConfigScreenFactory); both build the AutoConfig screen.",
           "On NeoForge the mod keeps a default config around in case loading fails (fallback new SimplebuildingConfig()).",
           "The End ore generation has no config switch."
         ]
@@ -2248,7 +2250,7 @@ window.WIKI_DATA = {
           "Weltgenerierung & Wirtschaft → Dorfbewohner-Handel aktivieren (enableVillagerTrades, Standard an): lädt die Angebote von Bibliothekar, Steinmetz und Werkzeugschmied; wird beim Laden der Datenpakete ausgewertet (Weltstart, /reload).",
           "Weltgenerierung & Wirtschaft → Fahrender Händler aktivieren (enableWanderingTrades, Standard an): lädt die Angebote des fahrenden Händlers; ebenfalls beim Laden der Datenpakete ausgewertet.",
           "Weltgenerierung & Wirtschaft → Beutetruhen aktivieren (enableLootTableChanges, Standard an): fügt die Mod-Pools zu Festungsbibliothek, Endsiedlung, Tiefe Stadt, Bastion (Schatz und Sonstige), Netherfestung, Plünderer-Außenposten, Waldanwesen, vergrabenem Schatz, Verlies, Schiffswrack-Schatz, Iglu, verlassener Mine und den Tresoren der Prüfungskammern (normal, selten, unheilvoll) hinzu.",
-          "Fabric: Einstellungsbildschirm über ModMenu (AutoConfig.getConfigScreen); NeoForge: Konfigurationsknopf in der Mod-Liste (IConfigScreenFactory); beide bauen den AutoConfig-Bildschirm auf.",
+          "Fabric: Einstellungsbildschirm über ModMenu (AutoConfigClient.getConfigScreen); NeoForge: Konfigurationsknopf in der Mod-Liste (IConfigScreenFactory); beide bauen den AutoConfig-Bildschirm auf.",
           "Auf NeoForge hält die Mod eine Standard-Konfiguration vor, falls das Laden fehlschlägt (Fallback new SimplebuildingConfig()).",
           "Die Erzgenerierung im End besitzt keinen Konfigurationsschalter."
         ]
@@ -2409,14 +2411,14 @@ window.WIKI_DATA = {
             "Right-clicking a block face with the wand in the main hand starts the build; in the off-hand the wand ignores the click (useOn returns PASS).",
             "The area starts one block in front of the clicked face; with no axis set in the menu the build axis is the axis of the clicked face, so the plane lies flush with that face - clicking the top of a block builds a flat layer, clicking a side builds an upright wall.",
             "The area is built ring by ring from the centre outwards: the centre block on the next inventory tick after the click, every further ring after a pause of 4 ticks (DELAY_TICKS).",
-            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only.",
+            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only (so does a negative radius, which only a modified client can store).",
             "The material is the first block item found: the off-hand first, then the hotbar (inventory slots 0 to 8, i.e. hotbar 1 to 9).",
             "The rest of the inventory (slots 9 and up) is only searched when the wand carries the Master Builder enchantment.",
             "Reinforced bundles (ReinforcedBundleItem) are searched for blocks when the wand or the bundle itself carries Master Builder; one item is then taken out of the bundle per placement.",
             "The block type found on the click is stored on the wand (BuildBlockRawId) and applies to the whole area; for every position a block of that kind is looked up in the inventory again, and the build stops once it runs out.",
             "In survival, clicking with no usable block available does nothing (useOn returns FAIL).",
             "Only positions whose current block the game considers replaceable (canBeReplaced, e.g. air) are built; occupied positions are skipped.",
-            "Every placed block consumes one item and costs the wand 1 durability; in creative the build costs neither material nor durability.",
+            "Every placed block consumes one item and costs the wand 1 durability, billed to the hand the wand is in; in creative the build costs neither material nor durability.",
             "Each placement plays the placed block's place sound at 0.8x pitch and a volume of (block volume + 1) / 2.",
             "The build only continues while the wand stays in the main or off hand; moving it into another slot cancels it (Active = false).",
             "Holding the wand in the main hand and looking at a block shows a semi-transparent (alpha 180 of 255) ghost preview, scaled to half size, of every position that would be built.",
@@ -2425,11 +2427,12 @@ window.WIKI_DATA = {
             "Axis X (mode 1): the plane is spanned by Y and Z (wall across the X axis).",
             "Axis Y (mode 2): the plane lies flat in X/Z (floor or ceiling).",
             "Axis Z (mode 3): the plane is spanned by X and Y (wall across the Z axis).",
+            "A set axis only turns the plane: it stays centred on the block in front of the clicked face. If the axis lies in the clicked face (axis Y on a wall, say), one of the cells is the clicked block itself; it cannot be replaced, so it is skipped and costs neither material nor durability - radius 1 then places eight blocks.",
             "Radius and axis are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; the server only applies them while you are holding a building wand in the main hand.",
             "Master Builder enchantment: widens the material search to the whole inventory and allows taking blocks out of reinforced bundles.",
             "Color Palette enchantment: the preview mixes all block types found, per position (seed = position); the build does not commit to one kind, but always takes the first block stack found (off-hand, then hotbar) until it is empty.",
             "Linear enchantment: shortens the pause between rings from 4 to 2 ticks (DELAY_TICKS_LINE).",
-            "The copper through netherite wands are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
+            "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
             "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
@@ -2456,15 +2459,14 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in no enchantment tag, not fire resistant, but protected from the void.",
-            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; apart from the enderite wand's special tag standing, only area size, durability and enchantability differ."
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
+            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
             "Cover and Bridge have no effect on building: BuildingWandItem never reads the enchantments, and the generated definitions carry no effect; a gametest (coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown) records that unfinished state on purpose and fails the moment either one gains an effect. The only trace in code is EnchantmentModelProperty, and that only switches the model of the enchanted book, never the wand's.",
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The enderite wand is missing from every enchantment tag (building_wand_enchantable, extra_inventory_items, constructors_touch_enchantable, enchantable/durability): Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch cannot be obtained for it by regular means, and the settings menu does not open for it.",
             "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
@@ -2481,14 +2483,14 @@ window.WIKI_DATA = {
             "Ein Rechtsklick mit dem Stab in der Haupthand auf eine Blockseite startet den Bau; in der Zweithand reagiert der Stab auf den Klick nicht (useOn gibt PASS zurück).",
             "Die Fläche beginnt einen Block vor der angeklickten Seite; ohne Achseneinstellung liegt sie senkrecht zur angeklickten Seite (Bauachse = Achse der Blockseite).",
             "Die Fläche entsteht ringweise von der Mitte nach außen: der Mittelblock beim nächsten Inventar-Tick nach dem Klick, jeder weitere Ring nach einer Pause von 4 Ticks (DELAY_TICKS).",
-            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block.",
+            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block (ebenso ein negativer Radius, den nur ein veränderter Client speichern kann).",
             "Als Material gilt der erste Block-Gegenstand, der gefunden wird: zuerst die Zweithand, dann die Hotbar (Inventarplätze 0 bis 8, also Hotbar 1 bis 9).",
             "Der Rest des Inventars (Plätze ab 9) wird nur durchsucht, wenn der Stab die Verzauberung Baumeister trägt.",
             "Verstärkte Bündel (ReinforcedBundleItem) werden nach Blöcken durchsucht, wenn der Stab oder das Bündel selbst die Verzauberung Baumeister trägt; beim Bauen wird dann ein Stück aus dem Bündel entnommen.",
             "Der beim Klick gefundene Blocktyp wird im Stab gespeichert (BuildBlockRawId) und gilt für die gesamte Fläche; für jede Position wird ein Block dieser Sorte erneut im Inventar gesucht, und geht er aus, bricht der Bau ab.",
             "Ohne verfügbaren Block passiert im Überlebensmodus beim Klick nichts (useOn gibt FAIL zurück).",
             "Nur Positionen, deren aktueller Block laut Spiel ersetzbar ist (canBeReplaced, z. B. Luft), werden bebaut; belegte Positionen werden übersprungen.",
-            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
+            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit, abgerechnet an der Hand, in der er liegt; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
             "Beim Setzen erklingt der Platzierungsklang des gesetzten Blocks mit 0,8-facher Tonhöhe und Lautstärke (Blocklautstärke + 1) / 2.",
             "Der Bau läuft nur weiter, solange der Stab in der Haupt- oder Zweithand bleibt; wandert er in einen anderen Slot, wird er abgebrochen (Active = false).",
             "Hältst du den Stab in der Haupthand und zielst auf einen Block, zeigt eine halbtransparente (Alpha 180 von 255), auf halbe Größe verkleinerte Geister-Vorschau alle Positionen, die gebaut würden.",
@@ -2497,11 +2499,12 @@ window.WIKI_DATA = {
             "Achse X (Modus 1): die Ebene wird aus Y und Z aufgespannt (Wand quer zur X-Achse).",
             "Achse Y (Modus 2): die Ebene liegt waagerecht in X/Z (Boden oder Decke).",
             "Achse Z (Modus 3): die Ebene wird aus X und Y aufgespannt (Wand quer zur Z-Achse).",
+            "Eine gesetzte Achse dreht die Ebene nur: Sie bleibt um den Block vor der angeklickten Seite zentriert. Liegt die Achse in der angeklickten Seite (etwa Achse Y an einer Wand), ist eine der Zellen der angeklickte Block selbst; er lässt sich nicht ersetzen, wird übersprungen und kostet weder Material noch Haltbarkeit – Radius 1 setzt dann acht Blöcke.",
             "Radius und Achse werden als SettingsRadius/SettingsAxis im Stab gespeichert und per BuildingWandConfigurePayload an den Server gesendet; der Server übernimmt sie nur, wenn du gerade einen Baustab in der Haupthand hältst.",
             "Verzauberung Baumeister: erweitert die Materialsuche auf das gesamte Inventar und erlaubt das Entnehmen aus verstärkten Bündeln.",
             "Verzauberung Farbpalette: die Vorschau mischt alle gefundenen Blockarten positionsabhängig (Seed = Position); der Bau legt sich nicht auf eine Sorte fest, nimmt aber pro Position immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis dieser leer ist.",
             "Verzauberung Linear: verkürzt die Pause zwischen den Ringen von 4 auf 2 Ticks (DELAY_TICKS_LINE).",
-            "Kupfer- bis Netherit-Baustab stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
+            "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
             "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
@@ -2528,15 +2531,14 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in keinem Verzauberungs-Tag, ist nicht feuerfest, aber vor der Leere geschützt.",
-            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; abgesehen von der Tag-Sonderstellung des Enderit-Stabs unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit."
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
+            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
             "Abdeckung und Brücke haben keine Wirkung auf das Bauen: BuildingWandItem liest die Verzauberungen nicht, und die generierten Definitionen tragen keinen Effekt; ein Gametest (coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown) hält diesen Zustand ausdrücklich als unfertig fest. Die einzige Spur im Code ist EnchantmentModelProperty, das nur das Modell des verzauberten Buchs umschaltet, nicht das des Stabs.",
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Der Enderit-Stab fehlt in allen Verzauberungs-Tags (building_wand_enchantable, extra_inventory_items, constructors_touch_enchantable, enchantable/durability): Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs sind für ihn auf regulärem Weg nicht erhältlich, und das Einstellungsmenü öffnet sich für ihn nicht.",
             "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
@@ -2658,8 +2660,8 @@ window.WIKI_DATA = {
             "Mining: the chisel counts as the correct tool for everything mineable with a pickaxe, axe or shovel (so those blocks drop normally); the mining speed is (the material's base speed + the Fast Chiseling bonus) x 0.5, and 1.0 on blocks it is not correct for; every block mined costs 2 durability.",
             "Fast Chiseling: level I cuts the cooldown to 70%, level II to 40% (factor 1 - 0.3 x level, at least 1 tick); the mining bonus is +5 at level I and +17 from level II up (before the halving; the code comment intends them as Efficiency II and Efficiency IV equivalents); max level 2, weight 5, anvil cost 2, min cost 1 (+10 per further level), max cost 20 (+10), available at the enchanting table (tag minecraft:in_enchanting_table, in both MC lines).",
             "Constructor's Touch: max level 1, weight 1, anvil cost 1, cost 20 to 50; it unlocks the extra maps; it is not listed in the enchanting-table tag (only Fast Chiseling is).",
-            "Range (levels I to III) can be applied to chisels from stone to netherite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
-            "Chisels from stone to netherite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
+            "Range (levels I to III) can be applied to chisels from stone to enderite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
+            "Chisels from stone to enderite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
             "First-person animation: when you aim at a block the chisel could transform in its current state (sneaking, enchantment, no cooldown), the held tool tilts (-15 degrees around Y and -10 degrees around X, offset 0.05 per axis, smoothing 0.15 per frame), in both main hand and off hand; it can be turned off with the config switches \"Enable Tool Animations\" (enableToolAnimations) and \"Enable Chisel Animation\" (enableChiselAnimation), both on by default.",
             "Crafting table recipe (diagonal): stick bottom left, material in the middle, one copper nugget to the left of the material and one below it; the material is Cobblestone (Stone Chisel), a Copper Ingot (Copper Chisel), an Iron Ingot (Iron Chisel), a Gold Ingot (Gold Chisel) or a Diamond (Diamond Chisel).",
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
@@ -2689,7 +2691,6 @@ window.WIKI_DATA = {
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
-            "The Enderite Chisel is not in the item tag \"chisel_tools\" (in both MC lines); the definitions of Fast Chiseling, Constructor's Touch, Range, the durability enchantments and Curse of Vanishing therefore do not list it as a legal target. The tool code itself would evaluate those enchantments if they reached the item some other way.",
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
             "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
@@ -2721,8 +2722,8 @@ window.WIKI_DATA = {
             "Abbauen: Der Meißel zählt als passendes Werkzeug für alles, was mit Spitzhacke, Axt oder Schaufel abbaubar ist (Drops fallen); die Abbaugeschwindigkeit ist (Grundgeschwindigkeit des Materials + Bonus aus Schnelles Meißeln) × 0,5, bei nicht passenden Blöcken 1,0; jeder abgebaute Block kostet 2 Haltbarkeit.",
             "Schnelles Meißeln: Stufe I setzt die Abklingzeit auf 70 %, Stufe II auf 40 % (Faktor 1 − 0,3 × Stufe, mindestens 1 Tick); der Abbau-Bonus beträgt +5 auf Stufe I und +17 ab Stufe II (vor der Halbierung; laut Code-Kommentar als Effizienz-II- bzw. -IV-Äquivalent gedacht); Höchststufe 2, Gewicht 5, Amboss-Kosten 2, Mindestkosten 1 (+10 je weiterer Stufe), Höchstkosten 20 (+10), im Verzauberungstisch verfügbar (Tag minecraft:in_enchanting_table, in beiden MC-Fassungen).",
             "Berührung des Konstrukteurs: Höchststufe 1, Gewicht 1, Amboss-Kosten 1, Kosten 20 bis 50; schaltet die Zusatz-Tabellen frei; nicht im Verzauberungstisch-Tag eingetragen (dort steht nur Schnelles Meißeln).",
-            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Netherit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
-            "Meißel von Stein bis Netherit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
+            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Enderit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
+            "Meißel von Stein bis Enderit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
             "Ego-Animation: Zielt man auf einen Block, den der Meißel im aktuellen Zustand (Schleichen, Verzauberung, keine Abklingzeit) umwandeln könnte, neigt sich das gehaltene Werkzeug (−15° um Y und −10° um X, Versatz 0,05 je Achse, Glättung 0,15 pro Bild), in Haupt- und Nebenhand; abschaltbar über die Konfigurationsschalter „Werkzeuganimationen aktivieren“ (enableToolAnimations) und „Meißel-Animation aktivieren“ (enableChiselAnimation), beide standardmäßig an.",
             "Rezept an der Werkbank (diagonal): Stock unten links, Material in der Mitte, je ein Kupferklumpen links vom Material und unter dem Material; Material ist Bruchstein (Steinmeißel), Kupferbarren (Kupfermeißel), Eisenbarren (Eisenmeißel), Goldbarren (Goldmeißel) oder Diamant (Diamantmeißel).",
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
@@ -2752,7 +2753,6 @@ window.WIKI_DATA = {
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
-            "Der Enderit-Meißel steht nicht im Item-Tag „chisel_tools“ (in beiden MC-Fassungen); die Definitionen von Schnelles Meißeln, Berührung des Konstrukteurs, Reichweite, den Haltbarkeits-Verzauberungen und Fluch des Verschwindens führen ihn deshalb nicht als zulässiges Ziel. Der Werkzeugcode selbst würde die Verzauberungen auswerten, wenn sie auf anderem Weg auf dem Item landen.",
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
             "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
@@ -2938,7 +2938,6 @@ window.WIKI_DATA = {
             "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
           ],
           "caveats": [
-            "The Enderite Sledgehammer is not in the sledgehammer_tools tag (only stone through netherite are listed there) and is therefore not registered as a supported item for Override, Radius, Break Through, Constructor's Touch, Range and Versatility; it is missing from the enchantable/durability, enchantable/mining and enchantable/mining_loot tags as well.",
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
             "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
@@ -3018,7 +3017,6 @@ window.WIKI_DATA = {
             "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
           ],
           "caveats": [
-            "Der Enderite Sledgehammer steht nicht im Tag sledgehammer_tools (dort sind nur Stein bis Netherit eingetragen) und ist damit für Übersteuerung, Radius, Durchbruch, Berührung des Konstrukteurs, Reichweite und Vielseitigkeit nicht als unterstützter Gegenstand hinterlegt; auch in den Tags enchantable/durability, enchantable/mining und enchantable/mining_loot fehlt er.",
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
             "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
@@ -3165,14 +3163,14 @@ window.WIKI_DATA = {
             "Right-clicking a block face with the wand in the main hand starts the build; in the off-hand the wand ignores the click (useOn returns PASS).",
             "The area starts one block in front of the clicked face; with no axis set in the menu the build axis is the axis of the clicked face, so the plane lies flush with that face - clicking the top of a block builds a flat layer, clicking a side builds an upright wall.",
             "The area is built ring by ring from the centre outwards: the centre block on the next inventory tick after the click, every further ring after a pause of 4 ticks (DELAY_TICKS).",
-            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only.",
+            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only (so does a negative radius, which only a modified client can store).",
             "The material is the first block item found: the off-hand first, then the hotbar (inventory slots 0 to 8, i.e. hotbar 1 to 9).",
             "The rest of the inventory (slots 9 and up) is only searched when the wand carries the Master Builder enchantment.",
             "Reinforced bundles (ReinforcedBundleItem) are searched for blocks when the wand or the bundle itself carries Master Builder; one item is then taken out of the bundle per placement.",
             "The block type found on the click is stored on the wand (BuildBlockRawId) and applies to the whole area; for every position a block of that kind is looked up in the inventory again, and the build stops once it runs out.",
             "In survival, clicking with no usable block available does nothing (useOn returns FAIL).",
             "Only positions whose current block the game considers replaceable (canBeReplaced, e.g. air) are built; occupied positions are skipped.",
-            "Every placed block consumes one item and costs the wand 1 durability; in creative the build costs neither material nor durability.",
+            "Every placed block consumes one item and costs the wand 1 durability, billed to the hand the wand is in; in creative the build costs neither material nor durability.",
             "Each placement plays the placed block's place sound at 0.8x pitch and a volume of (block volume + 1) / 2.",
             "The build only continues while the wand stays in the main or off hand; moving it into another slot cancels it (Active = false).",
             "Holding the wand in the main hand and looking at a block shows a semi-transparent (alpha 180 of 255) ghost preview, scaled to half size, of every position that would be built.",
@@ -3181,11 +3179,12 @@ window.WIKI_DATA = {
             "Axis X (mode 1): the plane is spanned by Y and Z (wall across the X axis).",
             "Axis Y (mode 2): the plane lies flat in X/Z (floor or ceiling).",
             "Axis Z (mode 3): the plane is spanned by X and Y (wall across the Z axis).",
+            "A set axis only turns the plane: it stays centred on the block in front of the clicked face. If the axis lies in the clicked face (axis Y on a wall, say), one of the cells is the clicked block itself; it cannot be replaced, so it is skipped and costs neither material nor durability - radius 1 then places eight blocks.",
             "Radius and axis are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; the server only applies them while you are holding a building wand in the main hand.",
             "Master Builder enchantment: widens the material search to the whole inventory and allows taking blocks out of reinforced bundles.",
             "Color Palette enchantment: the preview mixes all block types found, per position (seed = position); the build does not commit to one kind, but always takes the first block stack found (off-hand, then hotbar) until it is empty.",
             "Linear enchantment: shortens the pause between rings from 4 to 2 ticks (DELAY_TICKS_LINE).",
-            "The copper through netherite wands are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
+            "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
             "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
@@ -3212,15 +3211,14 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in no enchantment tag, not fire resistant, but protected from the void.",
-            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; apart from the enderite wand's special tag standing, only area size, durability and enchantability differ."
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
+            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
             "Cover and Bridge have no effect on building: BuildingWandItem never reads the enchantments, and the generated definitions carry no effect; a gametest (coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown) records that unfinished state on purpose and fails the moment either one gains an effect. The only trace in code is EnchantmentModelProperty, and that only switches the model of the enchanted book, never the wand's.",
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The enderite wand is missing from every enchantment tag (building_wand_enchantable, extra_inventory_items, constructors_touch_enchantable, enchantable/durability): Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch cannot be obtained for it by regular means, and the settings menu does not open for it.",
             "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
@@ -3237,14 +3235,14 @@ window.WIKI_DATA = {
             "Ein Rechtsklick mit dem Stab in der Haupthand auf eine Blockseite startet den Bau; in der Zweithand reagiert der Stab auf den Klick nicht (useOn gibt PASS zurück).",
             "Die Fläche beginnt einen Block vor der angeklickten Seite; ohne Achseneinstellung liegt sie senkrecht zur angeklickten Seite (Bauachse = Achse der Blockseite).",
             "Die Fläche entsteht ringweise von der Mitte nach außen: der Mittelblock beim nächsten Inventar-Tick nach dem Klick, jeder weitere Ring nach einer Pause von 4 Ticks (DELAY_TICKS).",
-            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block.",
+            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block (ebenso ein negativer Radius, den nur ein veränderter Client speichern kann).",
             "Als Material gilt der erste Block-Gegenstand, der gefunden wird: zuerst die Zweithand, dann die Hotbar (Inventarplätze 0 bis 8, also Hotbar 1 bis 9).",
             "Der Rest des Inventars (Plätze ab 9) wird nur durchsucht, wenn der Stab die Verzauberung Baumeister trägt.",
             "Verstärkte Bündel (ReinforcedBundleItem) werden nach Blöcken durchsucht, wenn der Stab oder das Bündel selbst die Verzauberung Baumeister trägt; beim Bauen wird dann ein Stück aus dem Bündel entnommen.",
             "Der beim Klick gefundene Blocktyp wird im Stab gespeichert (BuildBlockRawId) und gilt für die gesamte Fläche; für jede Position wird ein Block dieser Sorte erneut im Inventar gesucht, und geht er aus, bricht der Bau ab.",
             "Ohne verfügbaren Block passiert im Überlebensmodus beim Klick nichts (useOn gibt FAIL zurück).",
             "Nur Positionen, deren aktueller Block laut Spiel ersetzbar ist (canBeReplaced, z. B. Luft), werden bebaut; belegte Positionen werden übersprungen.",
-            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
+            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit, abgerechnet an der Hand, in der er liegt; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
             "Beim Setzen erklingt der Platzierungsklang des gesetzten Blocks mit 0,8-facher Tonhöhe und Lautstärke (Blocklautstärke + 1) / 2.",
             "Der Bau läuft nur weiter, solange der Stab in der Haupt- oder Zweithand bleibt; wandert er in einen anderen Slot, wird er abgebrochen (Active = false).",
             "Hältst du den Stab in der Haupthand und zielst auf einen Block, zeigt eine halbtransparente (Alpha 180 von 255), auf halbe Größe verkleinerte Geister-Vorschau alle Positionen, die gebaut würden.",
@@ -3253,11 +3251,12 @@ window.WIKI_DATA = {
             "Achse X (Modus 1): die Ebene wird aus Y und Z aufgespannt (Wand quer zur X-Achse).",
             "Achse Y (Modus 2): die Ebene liegt waagerecht in X/Z (Boden oder Decke).",
             "Achse Z (Modus 3): die Ebene wird aus X und Y aufgespannt (Wand quer zur Z-Achse).",
+            "Eine gesetzte Achse dreht die Ebene nur: Sie bleibt um den Block vor der angeklickten Seite zentriert. Liegt die Achse in der angeklickten Seite (etwa Achse Y an einer Wand), ist eine der Zellen der angeklickte Block selbst; er lässt sich nicht ersetzen, wird übersprungen und kostet weder Material noch Haltbarkeit – Radius 1 setzt dann acht Blöcke.",
             "Radius und Achse werden als SettingsRadius/SettingsAxis im Stab gespeichert und per BuildingWandConfigurePayload an den Server gesendet; der Server übernimmt sie nur, wenn du gerade einen Baustab in der Haupthand hältst.",
             "Verzauberung Baumeister: erweitert die Materialsuche auf das gesamte Inventar und erlaubt das Entnehmen aus verstärkten Bündeln.",
             "Verzauberung Farbpalette: die Vorschau mischt alle gefundenen Blockarten positionsabhängig (Seed = Position); der Bau legt sich nicht auf eine Sorte fest, nimmt aber pro Position immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis dieser leer ist.",
             "Verzauberung Linear: verkürzt die Pause zwischen den Ringen von 4 auf 2 Ticks (DELAY_TICKS_LINE).",
-            "Kupfer- bis Netherit-Baustab stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
+            "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
             "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
@@ -3284,15 +3283,14 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in keinem Verzauberungs-Tag, ist nicht feuerfest, aber vor der Leere geschützt.",
-            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; abgesehen von der Tag-Sonderstellung des Enderit-Stabs unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit."
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
+            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
             "Abdeckung und Brücke haben keine Wirkung auf das Bauen: BuildingWandItem liest die Verzauberungen nicht, und die generierten Definitionen tragen keinen Effekt; ein Gametest (coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown) hält diesen Zustand ausdrücklich als unfertig fest. Die einzige Spur im Code ist EnchantmentModelProperty, das nur das Modell des verzauberten Buchs umschaltet, nicht das des Stabs.",
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Der Enderit-Stab fehlt in allen Verzauberungs-Tags (building_wand_enchantable, extra_inventory_items, constructors_touch_enchantable, enchantable/durability): Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs sind für ihn auf regulärem Weg nicht erhältlich, und das Einstellungsmenü öffnet sich für ihn nicht.",
             "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
@@ -3413,8 +3411,8 @@ window.WIKI_DATA = {
             "Mining: the chisel counts as the correct tool for everything mineable with a pickaxe, axe or shovel (so those blocks drop normally); the mining speed is (the material's base speed + the Fast Chiseling bonus) x 0.5, and 1.0 on blocks it is not correct for; every block mined costs 2 durability.",
             "Fast Chiseling: level I cuts the cooldown to 70%, level II to 40% (factor 1 - 0.3 x level, at least 1 tick); the mining bonus is +5 at level I and +17 from level II up (before the halving; the code comment intends them as Efficiency II and Efficiency IV equivalents); max level 2, weight 5, anvil cost 2, min cost 1 (+10 per further level), max cost 20 (+10), available at the enchanting table (tag minecraft:in_enchanting_table, in both MC lines).",
             "Constructor's Touch: max level 1, weight 1, anvil cost 1, cost 20 to 50; it unlocks the extra maps; it is not listed in the enchanting-table tag (only Fast Chiseling is).",
-            "Range (levels I to III) can be applied to chisels from stone to netherite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
-            "Chisels from stone to netherite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
+            "Range (levels I to III) can be applied to chisels from stone to enderite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
+            "Chisels from stone to enderite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
             "First-person animation: when you aim at a block the chisel could transform in its current state (sneaking, enchantment, no cooldown), the held tool tilts (-15 degrees around Y and -10 degrees around X, offset 0.05 per axis, smoothing 0.15 per frame), in both main hand and off hand; it can be turned off with the config switches \"Enable Tool Animations\" (enableToolAnimations) and \"Enable Chisel Animation\" (enableChiselAnimation), both on by default.",
             "Crafting table recipe (diagonal): stick bottom left, material in the middle, one copper nugget to the left of the material and one below it; the material is Cobblestone (Stone Chisel), a Copper Ingot (Copper Chisel), an Iron Ingot (Iron Chisel), a Gold Ingot (Gold Chisel) or a Diamond (Diamond Chisel).",
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
@@ -3444,7 +3442,6 @@ window.WIKI_DATA = {
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
-            "The Enderite Chisel is not in the item tag \"chisel_tools\" (in both MC lines); the definitions of Fast Chiseling, Constructor's Touch, Range, the durability enchantments and Curse of Vanishing therefore do not list it as a legal target. The tool code itself would evaluate those enchantments if they reached the item some other way.",
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
             "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
@@ -3476,8 +3473,8 @@ window.WIKI_DATA = {
             "Abbauen: Der Meißel zählt als passendes Werkzeug für alles, was mit Spitzhacke, Axt oder Schaufel abbaubar ist (Drops fallen); die Abbaugeschwindigkeit ist (Grundgeschwindigkeit des Materials + Bonus aus Schnelles Meißeln) × 0,5, bei nicht passenden Blöcken 1,0; jeder abgebaute Block kostet 2 Haltbarkeit.",
             "Schnelles Meißeln: Stufe I setzt die Abklingzeit auf 70 %, Stufe II auf 40 % (Faktor 1 − 0,3 × Stufe, mindestens 1 Tick); der Abbau-Bonus beträgt +5 auf Stufe I und +17 ab Stufe II (vor der Halbierung; laut Code-Kommentar als Effizienz-II- bzw. -IV-Äquivalent gedacht); Höchststufe 2, Gewicht 5, Amboss-Kosten 2, Mindestkosten 1 (+10 je weiterer Stufe), Höchstkosten 20 (+10), im Verzauberungstisch verfügbar (Tag minecraft:in_enchanting_table, in beiden MC-Fassungen).",
             "Berührung des Konstrukteurs: Höchststufe 1, Gewicht 1, Amboss-Kosten 1, Kosten 20 bis 50; schaltet die Zusatz-Tabellen frei; nicht im Verzauberungstisch-Tag eingetragen (dort steht nur Schnelles Meißeln).",
-            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Netherit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
-            "Meißel von Stein bis Netherit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
+            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Enderit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
+            "Meißel von Stein bis Enderit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
             "Ego-Animation: Zielt man auf einen Block, den der Meißel im aktuellen Zustand (Schleichen, Verzauberung, keine Abklingzeit) umwandeln könnte, neigt sich das gehaltene Werkzeug (−15° um Y und −10° um X, Versatz 0,05 je Achse, Glättung 0,15 pro Bild), in Haupt- und Nebenhand; abschaltbar über die Konfigurationsschalter „Werkzeuganimationen aktivieren“ (enableToolAnimations) und „Meißel-Animation aktivieren“ (enableChiselAnimation), beide standardmäßig an.",
             "Rezept an der Werkbank (diagonal): Stock unten links, Material in der Mitte, je ein Kupferklumpen links vom Material und unter dem Material; Material ist Bruchstein (Steinmeißel), Kupferbarren (Kupfermeißel), Eisenbarren (Eisenmeißel), Goldbarren (Goldmeißel) oder Diamant (Diamantmeißel).",
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
@@ -3507,7 +3504,6 @@ window.WIKI_DATA = {
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
-            "Der Enderit-Meißel steht nicht im Item-Tag „chisel_tools“ (in beiden MC-Fassungen); die Definitionen von Schnelles Meißeln, Berührung des Konstrukteurs, Reichweite, den Haltbarkeits-Verzauberungen und Fluch des Verschwindens führen ihn deshalb nicht als zulässiges Ziel. Der Werkzeugcode selbst würde die Verzauberungen auswerten, wenn sie auf anderem Weg auf dem Item landen.",
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
             "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
@@ -3710,7 +3706,6 @@ window.WIKI_DATA = {
             "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
           ],
           "caveats": [
-            "The Enderite Sledgehammer is not in the sledgehammer_tools tag (only stone through netherite are listed there) and is therefore not registered as a supported item for Override, Radius, Break Through, Constructor's Touch, Range and Versatility; it is missing from the enchantable/durability, enchantable/mining and enchantable/mining_loot tags as well.",
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
             "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
@@ -3790,7 +3785,6 @@ window.WIKI_DATA = {
             "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
           ],
           "caveats": [
-            "Der Enderite Sledgehammer steht nicht im Tag sledgehammer_tools (dort sind nur Stein bis Netherit eingetragen) und ist damit für Übersteuerung, Radius, Durchbruch, Berührung des Konstrukteurs, Reichweite und Vielseitigkeit nicht als unterstützter Gegenstand hinterlegt; auch in den Tags enchantable/durability, enchantable/mining und enchantable/mining_loot fehlt er.",
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
             "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
@@ -4004,14 +3998,14 @@ window.WIKI_DATA = {
             "Right-clicking a block face with the wand in the main hand starts the build; in the off-hand the wand ignores the click (useOn returns PASS).",
             "The area starts one block in front of the clicked face; with no axis set in the menu the build axis is the axis of the clicked face, so the plane lies flush with that face - clicking the top of a block builds a flat layer, clicking a side builds an upright wall.",
             "The area is built ring by ring from the centre outwards: the centre block on the next inventory tick after the click, every further ring after a pause of 4 ticks (DELAY_TICKS).",
-            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only.",
+            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only (so does a negative radius, which only a modified client can store).",
             "The material is the first block item found: the off-hand first, then the hotbar (inventory slots 0 to 8, i.e. hotbar 1 to 9).",
             "The rest of the inventory (slots 9 and up) is only searched when the wand carries the Master Builder enchantment.",
             "Reinforced bundles (ReinforcedBundleItem) are searched for blocks when the wand or the bundle itself carries Master Builder; one item is then taken out of the bundle per placement.",
             "The block type found on the click is stored on the wand (BuildBlockRawId) and applies to the whole area; for every position a block of that kind is looked up in the inventory again, and the build stops once it runs out.",
             "In survival, clicking with no usable block available does nothing (useOn returns FAIL).",
             "Only positions whose current block the game considers replaceable (canBeReplaced, e.g. air) are built; occupied positions are skipped.",
-            "Every placed block consumes one item and costs the wand 1 durability; in creative the build costs neither material nor durability.",
+            "Every placed block consumes one item and costs the wand 1 durability, billed to the hand the wand is in; in creative the build costs neither material nor durability.",
             "Each placement plays the placed block's place sound at 0.8x pitch and a volume of (block volume + 1) / 2.",
             "The build only continues while the wand stays in the main or off hand; moving it into another slot cancels it (Active = false).",
             "Holding the wand in the main hand and looking at a block shows a semi-transparent (alpha 180 of 255) ghost preview, scaled to half size, of every position that would be built.",
@@ -4020,11 +4014,12 @@ window.WIKI_DATA = {
             "Axis X (mode 1): the plane is spanned by Y and Z (wall across the X axis).",
             "Axis Y (mode 2): the plane lies flat in X/Z (floor or ceiling).",
             "Axis Z (mode 3): the plane is spanned by X and Y (wall across the Z axis).",
+            "A set axis only turns the plane: it stays centred on the block in front of the clicked face. If the axis lies in the clicked face (axis Y on a wall, say), one of the cells is the clicked block itself; it cannot be replaced, so it is skipped and costs neither material nor durability - radius 1 then places eight blocks.",
             "Radius and axis are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; the server only applies them while you are holding a building wand in the main hand.",
             "Master Builder enchantment: widens the material search to the whole inventory and allows taking blocks out of reinforced bundles.",
             "Color Palette enchantment: the preview mixes all block types found, per position (seed = position); the build does not commit to one kind, but always takes the first block stack found (off-hand, then hotbar) until it is empty.",
             "Linear enchantment: shortens the pause between rings from 4 to 2 ticks (DELAY_TICKS_LINE).",
-            "The copper through netherite wands are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
+            "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
             "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
@@ -4051,15 +4046,14 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in no enchantment tag, not fire resistant, but protected from the void.",
-            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; apart from the enderite wand's special tag standing, only area size, durability and enchantability differ."
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
+            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
             "Cover and Bridge have no effect on building: BuildingWandItem never reads the enchantments, and the generated definitions carry no effect; a gametest (coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown) records that unfinished state on purpose and fails the moment either one gains an effect. The only trace in code is EnchantmentModelProperty, and that only switches the model of the enchanted book, never the wand's.",
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The enderite wand is missing from every enchantment tag (building_wand_enchantable, extra_inventory_items, constructors_touch_enchantable, enchantable/durability): Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch cannot be obtained for it by regular means, and the settings menu does not open for it.",
             "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
@@ -4076,14 +4070,14 @@ window.WIKI_DATA = {
             "Ein Rechtsklick mit dem Stab in der Haupthand auf eine Blockseite startet den Bau; in der Zweithand reagiert der Stab auf den Klick nicht (useOn gibt PASS zurück).",
             "Die Fläche beginnt einen Block vor der angeklickten Seite; ohne Achseneinstellung liegt sie senkrecht zur angeklickten Seite (Bauachse = Achse der Blockseite).",
             "Die Fläche entsteht ringweise von der Mitte nach außen: der Mittelblock beim nächsten Inventar-Tick nach dem Klick, jeder weitere Ring nach einer Pause von 4 Ticks (DELAY_TICKS).",
-            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block.",
+            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block (ebenso ein negativer Radius, den nur ein veränderter Client speichern kann).",
             "Als Material gilt der erste Block-Gegenstand, der gefunden wird: zuerst die Zweithand, dann die Hotbar (Inventarplätze 0 bis 8, also Hotbar 1 bis 9).",
             "Der Rest des Inventars (Plätze ab 9) wird nur durchsucht, wenn der Stab die Verzauberung Baumeister trägt.",
             "Verstärkte Bündel (ReinforcedBundleItem) werden nach Blöcken durchsucht, wenn der Stab oder das Bündel selbst die Verzauberung Baumeister trägt; beim Bauen wird dann ein Stück aus dem Bündel entnommen.",
             "Der beim Klick gefundene Blocktyp wird im Stab gespeichert (BuildBlockRawId) und gilt für die gesamte Fläche; für jede Position wird ein Block dieser Sorte erneut im Inventar gesucht, und geht er aus, bricht der Bau ab.",
             "Ohne verfügbaren Block passiert im Überlebensmodus beim Klick nichts (useOn gibt FAIL zurück).",
             "Nur Positionen, deren aktueller Block laut Spiel ersetzbar ist (canBeReplaced, z. B. Luft), werden bebaut; belegte Positionen werden übersprungen.",
-            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
+            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit, abgerechnet an der Hand, in der er liegt; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
             "Beim Setzen erklingt der Platzierungsklang des gesetzten Blocks mit 0,8-facher Tonhöhe und Lautstärke (Blocklautstärke + 1) / 2.",
             "Der Bau läuft nur weiter, solange der Stab in der Haupt- oder Zweithand bleibt; wandert er in einen anderen Slot, wird er abgebrochen (Active = false).",
             "Hältst du den Stab in der Haupthand und zielst auf einen Block, zeigt eine halbtransparente (Alpha 180 von 255), auf halbe Größe verkleinerte Geister-Vorschau alle Positionen, die gebaut würden.",
@@ -4092,11 +4086,12 @@ window.WIKI_DATA = {
             "Achse X (Modus 1): die Ebene wird aus Y und Z aufgespannt (Wand quer zur X-Achse).",
             "Achse Y (Modus 2): die Ebene liegt waagerecht in X/Z (Boden oder Decke).",
             "Achse Z (Modus 3): die Ebene wird aus X und Y aufgespannt (Wand quer zur Z-Achse).",
+            "Eine gesetzte Achse dreht die Ebene nur: Sie bleibt um den Block vor der angeklickten Seite zentriert. Liegt die Achse in der angeklickten Seite (etwa Achse Y an einer Wand), ist eine der Zellen der angeklickte Block selbst; er lässt sich nicht ersetzen, wird übersprungen und kostet weder Material noch Haltbarkeit – Radius 1 setzt dann acht Blöcke.",
             "Radius und Achse werden als SettingsRadius/SettingsAxis im Stab gespeichert und per BuildingWandConfigurePayload an den Server gesendet; der Server übernimmt sie nur, wenn du gerade einen Baustab in der Haupthand hältst.",
             "Verzauberung Baumeister: erweitert die Materialsuche auf das gesamte Inventar und erlaubt das Entnehmen aus verstärkten Bündeln.",
             "Verzauberung Farbpalette: die Vorschau mischt alle gefundenen Blockarten positionsabhängig (Seed = Position); der Bau legt sich nicht auf eine Sorte fest, nimmt aber pro Position immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis dieser leer ist.",
             "Verzauberung Linear: verkürzt die Pause zwischen den Ringen von 4 auf 2 Ticks (DELAY_TICKS_LINE).",
-            "Kupfer- bis Netherit-Baustab stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
+            "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
             "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
@@ -4123,15 +4118,14 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in keinem Verzauberungs-Tag, ist nicht feuerfest, aber vor der Leere geschützt.",
-            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; abgesehen von der Tag-Sonderstellung des Enderit-Stabs unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit."
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
+            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
             "Abdeckung und Brücke haben keine Wirkung auf das Bauen: BuildingWandItem liest die Verzauberungen nicht, und die generierten Definitionen tragen keinen Effekt; ein Gametest (coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown) hält diesen Zustand ausdrücklich als unfertig fest. Die einzige Spur im Code ist EnchantmentModelProperty, das nur das Modell des verzauberten Buchs umschaltet, nicht das des Stabs.",
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Der Enderit-Stab fehlt in allen Verzauberungs-Tags (building_wand_enchantable, extra_inventory_items, constructors_touch_enchantable, enchantable/durability): Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs sind für ihn auf regulärem Weg nicht erhältlich, und das Einstellungsmenü öffnet sich für ihn nicht.",
             "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
@@ -4378,8 +4372,8 @@ window.WIKI_DATA = {
             "Mining: the chisel counts as the correct tool for everything mineable with a pickaxe, axe or shovel (so those blocks drop normally); the mining speed is (the material's base speed + the Fast Chiseling bonus) x 0.5, and 1.0 on blocks it is not correct for; every block mined costs 2 durability.",
             "Fast Chiseling: level I cuts the cooldown to 70%, level II to 40% (factor 1 - 0.3 x level, at least 1 tick); the mining bonus is +5 at level I and +17 from level II up (before the halving; the code comment intends them as Efficiency II and Efficiency IV equivalents); max level 2, weight 5, anvil cost 2, min cost 1 (+10 per further level), max cost 20 (+10), available at the enchanting table (tag minecraft:in_enchanting_table, in both MC lines).",
             "Constructor's Touch: max level 1, weight 1, anvil cost 1, cost 20 to 50; it unlocks the extra maps; it is not listed in the enchanting-table tag (only Fast Chiseling is).",
-            "Range (levels I to III) can be applied to chisels from stone to netherite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
-            "Chisels from stone to netherite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
+            "Range (levels I to III) can be applied to chisels from stone to enderite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
+            "Chisels from stone to enderite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
             "First-person animation: when you aim at a block the chisel could transform in its current state (sneaking, enchantment, no cooldown), the held tool tilts (-15 degrees around Y and -10 degrees around X, offset 0.05 per axis, smoothing 0.15 per frame), in both main hand and off hand; it can be turned off with the config switches \"Enable Tool Animations\" (enableToolAnimations) and \"Enable Chisel Animation\" (enableChiselAnimation), both on by default.",
             "Crafting table recipe (diagonal): stick bottom left, material in the middle, one copper nugget to the left of the material and one below it; the material is Cobblestone (Stone Chisel), a Copper Ingot (Copper Chisel), an Iron Ingot (Iron Chisel), a Gold Ingot (Gold Chisel) or a Diamond (Diamond Chisel).",
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
@@ -4409,7 +4403,6 @@ window.WIKI_DATA = {
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
-            "The Enderite Chisel is not in the item tag \"chisel_tools\" (in both MC lines); the definitions of Fast Chiseling, Constructor's Touch, Range, the durability enchantments and Curse of Vanishing therefore do not list it as a legal target. The tool code itself would evaluate those enchantments if they reached the item some other way.",
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
             "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
@@ -4441,8 +4434,8 @@ window.WIKI_DATA = {
             "Abbauen: Der Meißel zählt als passendes Werkzeug für alles, was mit Spitzhacke, Axt oder Schaufel abbaubar ist (Drops fallen); die Abbaugeschwindigkeit ist (Grundgeschwindigkeit des Materials + Bonus aus Schnelles Meißeln) × 0,5, bei nicht passenden Blöcken 1,0; jeder abgebaute Block kostet 2 Haltbarkeit.",
             "Schnelles Meißeln: Stufe I setzt die Abklingzeit auf 70 %, Stufe II auf 40 % (Faktor 1 − 0,3 × Stufe, mindestens 1 Tick); der Abbau-Bonus beträgt +5 auf Stufe I und +17 ab Stufe II (vor der Halbierung; laut Code-Kommentar als Effizienz-II- bzw. -IV-Äquivalent gedacht); Höchststufe 2, Gewicht 5, Amboss-Kosten 2, Mindestkosten 1 (+10 je weiterer Stufe), Höchstkosten 20 (+10), im Verzauberungstisch verfügbar (Tag minecraft:in_enchanting_table, in beiden MC-Fassungen).",
             "Berührung des Konstrukteurs: Höchststufe 1, Gewicht 1, Amboss-Kosten 1, Kosten 20 bis 50; schaltet die Zusatz-Tabellen frei; nicht im Verzauberungstisch-Tag eingetragen (dort steht nur Schnelles Meißeln).",
-            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Netherit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
-            "Meißel von Stein bis Netherit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
+            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Enderit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
+            "Meißel von Stein bis Enderit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
             "Ego-Animation: Zielt man auf einen Block, den der Meißel im aktuellen Zustand (Schleichen, Verzauberung, keine Abklingzeit) umwandeln könnte, neigt sich das gehaltene Werkzeug (−15° um Y und −10° um X, Versatz 0,05 je Achse, Glättung 0,15 pro Bild), in Haupt- und Nebenhand; abschaltbar über die Konfigurationsschalter „Werkzeuganimationen aktivieren“ (enableToolAnimations) und „Meißel-Animation aktivieren“ (enableChiselAnimation), beide standardmäßig an.",
             "Rezept an der Werkbank (diagonal): Stock unten links, Material in der Mitte, je ein Kupferklumpen links vom Material und unter dem Material; Material ist Bruchstein (Steinmeißel), Kupferbarren (Kupfermeißel), Eisenbarren (Eisenmeißel), Goldbarren (Goldmeißel) oder Diamant (Diamantmeißel).",
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
@@ -4472,7 +4465,6 @@ window.WIKI_DATA = {
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
-            "Der Enderit-Meißel steht nicht im Item-Tag „chisel_tools“ (in beiden MC-Fassungen); die Definitionen von Schnelles Meißeln, Berührung des Konstrukteurs, Reichweite, den Haltbarkeits-Verzauberungen und Fluch des Verschwindens führen ihn deshalb nicht als zulässiges Ziel. Der Werkzeugcode selbst würde die Verzauberungen auswerten, wenn sie auf anderem Weg auf dem Item landen.",
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
             "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
@@ -4908,7 +4900,6 @@ window.WIKI_DATA = {
             "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
           ],
           "caveats": [
-            "The Enderite Sledgehammer is not in the sledgehammer_tools tag (only stone through netherite are listed there) and is therefore not registered as a supported item for Override, Radius, Break Through, Constructor's Touch, Range and Versatility; it is missing from the enchantable/durability, enchantable/mining and enchantable/mining_loot tags as well.",
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
             "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
@@ -4988,7 +4979,6 @@ window.WIKI_DATA = {
             "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
           ],
           "caveats": [
-            "Der Enderite Sledgehammer steht nicht im Tag sledgehammer_tools (dort sind nur Stein bis Netherit eingetragen) und ist damit für Übersteuerung, Radius, Durchbruch, Berührung des Konstrukteurs, Reichweite und Vielseitigkeit nicht als unterstützter Gegenstand hinterlegt; auch in den Tags enchantable/durability, enchantable/mining und enchantable/mining_loot fehlt er.",
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
             "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
@@ -5179,14 +5169,14 @@ window.WIKI_DATA = {
             "Right-clicking a block face with the wand in the main hand starts the build; in the off-hand the wand ignores the click (useOn returns PASS).",
             "The area starts one block in front of the clicked face; with no axis set in the menu the build axis is the axis of the clicked face, so the plane lies flush with that face - clicking the top of a block builds a flat layer, clicking a side builds an upright wall.",
             "The area is built ring by ring from the centre outwards: the centre block on the next inventory tick after the click, every further ring after a pause of 4 ticks (DELAY_TICKS).",
-            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only.",
+            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only (so does a negative radius, which only a modified client can store).",
             "The material is the first block item found: the off-hand first, then the hotbar (inventory slots 0 to 8, i.e. hotbar 1 to 9).",
             "The rest of the inventory (slots 9 and up) is only searched when the wand carries the Master Builder enchantment.",
             "Reinforced bundles (ReinforcedBundleItem) are searched for blocks when the wand or the bundle itself carries Master Builder; one item is then taken out of the bundle per placement.",
             "The block type found on the click is stored on the wand (BuildBlockRawId) and applies to the whole area; for every position a block of that kind is looked up in the inventory again, and the build stops once it runs out.",
             "In survival, clicking with no usable block available does nothing (useOn returns FAIL).",
             "Only positions whose current block the game considers replaceable (canBeReplaced, e.g. air) are built; occupied positions are skipped.",
-            "Every placed block consumes one item and costs the wand 1 durability; in creative the build costs neither material nor durability.",
+            "Every placed block consumes one item and costs the wand 1 durability, billed to the hand the wand is in; in creative the build costs neither material nor durability.",
             "Each placement plays the placed block's place sound at 0.8x pitch and a volume of (block volume + 1) / 2.",
             "The build only continues while the wand stays in the main or off hand; moving it into another slot cancels it (Active = false).",
             "Holding the wand in the main hand and looking at a block shows a semi-transparent (alpha 180 of 255) ghost preview, scaled to half size, of every position that would be built.",
@@ -5195,11 +5185,12 @@ window.WIKI_DATA = {
             "Axis X (mode 1): the plane is spanned by Y and Z (wall across the X axis).",
             "Axis Y (mode 2): the plane lies flat in X/Z (floor or ceiling).",
             "Axis Z (mode 3): the plane is spanned by X and Y (wall across the Z axis).",
+            "A set axis only turns the plane: it stays centred on the block in front of the clicked face. If the axis lies in the clicked face (axis Y on a wall, say), one of the cells is the clicked block itself; it cannot be replaced, so it is skipped and costs neither material nor durability - radius 1 then places eight blocks.",
             "Radius and axis are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; the server only applies them while you are holding a building wand in the main hand.",
             "Master Builder enchantment: widens the material search to the whole inventory and allows taking blocks out of reinforced bundles.",
             "Color Palette enchantment: the preview mixes all block types found, per position (seed = position); the build does not commit to one kind, but always takes the first block stack found (off-hand, then hotbar) until it is empty.",
             "Linear enchantment: shortens the pause between rings from 4 to 2 ticks (DELAY_TICKS_LINE).",
-            "The copper through netherite wands are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
+            "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
             "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
@@ -5226,15 +5217,14 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in no enchantment tag, not fire resistant, but protected from the void.",
-            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; apart from the enderite wand's special tag standing, only area size, durability and enchantability differ."
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
+            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
             "Cover and Bridge have no effect on building: BuildingWandItem never reads the enchantments, and the generated definitions carry no effect; a gametest (coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown) records that unfinished state on purpose and fails the moment either one gains an effect. The only trace in code is EnchantmentModelProperty, and that only switches the model of the enchanted book, never the wand's.",
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The enderite wand is missing from every enchantment tag (building_wand_enchantable, extra_inventory_items, constructors_touch_enchantable, enchantable/durability): Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch cannot be obtained for it by regular means, and the settings menu does not open for it.",
             "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
@@ -5251,14 +5241,14 @@ window.WIKI_DATA = {
             "Ein Rechtsklick mit dem Stab in der Haupthand auf eine Blockseite startet den Bau; in der Zweithand reagiert der Stab auf den Klick nicht (useOn gibt PASS zurück).",
             "Die Fläche beginnt einen Block vor der angeklickten Seite; ohne Achseneinstellung liegt sie senkrecht zur angeklickten Seite (Bauachse = Achse der Blockseite).",
             "Die Fläche entsteht ringweise von der Mitte nach außen: der Mittelblock beim nächsten Inventar-Tick nach dem Klick, jeder weitere Ring nach einer Pause von 4 Ticks (DELAY_TICKS).",
-            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block.",
+            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block (ebenso ein negativer Radius, den nur ein veränderter Client speichern kann).",
             "Als Material gilt der erste Block-Gegenstand, der gefunden wird: zuerst die Zweithand, dann die Hotbar (Inventarplätze 0 bis 8, also Hotbar 1 bis 9).",
             "Der Rest des Inventars (Plätze ab 9) wird nur durchsucht, wenn der Stab die Verzauberung Baumeister trägt.",
             "Verstärkte Bündel (ReinforcedBundleItem) werden nach Blöcken durchsucht, wenn der Stab oder das Bündel selbst die Verzauberung Baumeister trägt; beim Bauen wird dann ein Stück aus dem Bündel entnommen.",
             "Der beim Klick gefundene Blocktyp wird im Stab gespeichert (BuildBlockRawId) und gilt für die gesamte Fläche; für jede Position wird ein Block dieser Sorte erneut im Inventar gesucht, und geht er aus, bricht der Bau ab.",
             "Ohne verfügbaren Block passiert im Überlebensmodus beim Klick nichts (useOn gibt FAIL zurück).",
             "Nur Positionen, deren aktueller Block laut Spiel ersetzbar ist (canBeReplaced, z. B. Luft), werden bebaut; belegte Positionen werden übersprungen.",
-            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
+            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit, abgerechnet an der Hand, in der er liegt; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
             "Beim Setzen erklingt der Platzierungsklang des gesetzten Blocks mit 0,8-facher Tonhöhe und Lautstärke (Blocklautstärke + 1) / 2.",
             "Der Bau läuft nur weiter, solange der Stab in der Haupt- oder Zweithand bleibt; wandert er in einen anderen Slot, wird er abgebrochen (Active = false).",
             "Hältst du den Stab in der Haupthand und zielst auf einen Block, zeigt eine halbtransparente (Alpha 180 von 255), auf halbe Größe verkleinerte Geister-Vorschau alle Positionen, die gebaut würden.",
@@ -5267,11 +5257,12 @@ window.WIKI_DATA = {
             "Achse X (Modus 1): die Ebene wird aus Y und Z aufgespannt (Wand quer zur X-Achse).",
             "Achse Y (Modus 2): die Ebene liegt waagerecht in X/Z (Boden oder Decke).",
             "Achse Z (Modus 3): die Ebene wird aus X und Y aufgespannt (Wand quer zur Z-Achse).",
+            "Eine gesetzte Achse dreht die Ebene nur: Sie bleibt um den Block vor der angeklickten Seite zentriert. Liegt die Achse in der angeklickten Seite (etwa Achse Y an einer Wand), ist eine der Zellen der angeklickte Block selbst; er lässt sich nicht ersetzen, wird übersprungen und kostet weder Material noch Haltbarkeit – Radius 1 setzt dann acht Blöcke.",
             "Radius und Achse werden als SettingsRadius/SettingsAxis im Stab gespeichert und per BuildingWandConfigurePayload an den Server gesendet; der Server übernimmt sie nur, wenn du gerade einen Baustab in der Haupthand hältst.",
             "Verzauberung Baumeister: erweitert die Materialsuche auf das gesamte Inventar und erlaubt das Entnehmen aus verstärkten Bündeln.",
             "Verzauberung Farbpalette: die Vorschau mischt alle gefundenen Blockarten positionsabhängig (Seed = Position); der Bau legt sich nicht auf eine Sorte fest, nimmt aber pro Position immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis dieser leer ist.",
             "Verzauberung Linear: verkürzt die Pause zwischen den Ringen von 4 auf 2 Ticks (DELAY_TICKS_LINE).",
-            "Kupfer- bis Netherit-Baustab stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
+            "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
             "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
@@ -5298,15 +5289,14 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in keinem Verzauberungs-Tag, ist nicht feuerfest, aber vor der Leere geschützt.",
-            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; abgesehen von der Tag-Sonderstellung des Enderit-Stabs unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit."
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
+            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
             "Abdeckung und Brücke haben keine Wirkung auf das Bauen: BuildingWandItem liest die Verzauberungen nicht, und die generierten Definitionen tragen keinen Effekt; ein Gametest (coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown) hält diesen Zustand ausdrücklich als unfertig fest. Die einzige Spur im Code ist EnchantmentModelProperty, das nur das Modell des verzauberten Buchs umschaltet, nicht das des Stabs.",
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Der Enderit-Stab fehlt in allen Verzauberungs-Tags (building_wand_enchantable, extra_inventory_items, constructors_touch_enchantable, enchantable/durability): Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs sind für ihn auf regulärem Weg nicht erhältlich, und das Einstellungsmenü öffnet sich für ihn nicht.",
             "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
@@ -5429,8 +5419,8 @@ window.WIKI_DATA = {
             "Mining: the chisel counts as the correct tool for everything mineable with a pickaxe, axe or shovel (so those blocks drop normally); the mining speed is (the material's base speed + the Fast Chiseling bonus) x 0.5, and 1.0 on blocks it is not correct for; every block mined costs 2 durability.",
             "Fast Chiseling: level I cuts the cooldown to 70%, level II to 40% (factor 1 - 0.3 x level, at least 1 tick); the mining bonus is +5 at level I and +17 from level II up (before the halving; the code comment intends them as Efficiency II and Efficiency IV equivalents); max level 2, weight 5, anvil cost 2, min cost 1 (+10 per further level), max cost 20 (+10), available at the enchanting table (tag minecraft:in_enchanting_table, in both MC lines).",
             "Constructor's Touch: max level 1, weight 1, anvil cost 1, cost 20 to 50; it unlocks the extra maps; it is not listed in the enchanting-table tag (only Fast Chiseling is).",
-            "Range (levels I to III) can be applied to chisels from stone to netherite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
-            "Chisels from stone to netherite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
+            "Range (levels I to III) can be applied to chisels from stone to enderite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
+            "Chisels from stone to enderite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
             "First-person animation: when you aim at a block the chisel could transform in its current state (sneaking, enchantment, no cooldown), the held tool tilts (-15 degrees around Y and -10 degrees around X, offset 0.05 per axis, smoothing 0.15 per frame), in both main hand and off hand; it can be turned off with the config switches \"Enable Tool Animations\" (enableToolAnimations) and \"Enable Chisel Animation\" (enableChiselAnimation), both on by default.",
             "Crafting table recipe (diagonal): stick bottom left, material in the middle, one copper nugget to the left of the material and one below it; the material is Cobblestone (Stone Chisel), a Copper Ingot (Copper Chisel), an Iron Ingot (Iron Chisel), a Gold Ingot (Gold Chisel) or a Diamond (Diamond Chisel).",
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
@@ -5460,7 +5450,6 @@ window.WIKI_DATA = {
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
-            "The Enderite Chisel is not in the item tag \"chisel_tools\" (in both MC lines); the definitions of Fast Chiseling, Constructor's Touch, Range, the durability enchantments and Curse of Vanishing therefore do not list it as a legal target. The tool code itself would evaluate those enchantments if they reached the item some other way.",
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
             "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
@@ -5492,8 +5481,8 @@ window.WIKI_DATA = {
             "Abbauen: Der Meißel zählt als passendes Werkzeug für alles, was mit Spitzhacke, Axt oder Schaufel abbaubar ist (Drops fallen); die Abbaugeschwindigkeit ist (Grundgeschwindigkeit des Materials + Bonus aus Schnelles Meißeln) × 0,5, bei nicht passenden Blöcken 1,0; jeder abgebaute Block kostet 2 Haltbarkeit.",
             "Schnelles Meißeln: Stufe I setzt die Abklingzeit auf 70 %, Stufe II auf 40 % (Faktor 1 − 0,3 × Stufe, mindestens 1 Tick); der Abbau-Bonus beträgt +5 auf Stufe I und +17 ab Stufe II (vor der Halbierung; laut Code-Kommentar als Effizienz-II- bzw. -IV-Äquivalent gedacht); Höchststufe 2, Gewicht 5, Amboss-Kosten 2, Mindestkosten 1 (+10 je weiterer Stufe), Höchstkosten 20 (+10), im Verzauberungstisch verfügbar (Tag minecraft:in_enchanting_table, in beiden MC-Fassungen).",
             "Berührung des Konstrukteurs: Höchststufe 1, Gewicht 1, Amboss-Kosten 1, Kosten 20 bis 50; schaltet die Zusatz-Tabellen frei; nicht im Verzauberungstisch-Tag eingetragen (dort steht nur Schnelles Meißeln).",
-            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Netherit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
-            "Meißel von Stein bis Netherit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
+            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Enderit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
+            "Meißel von Stein bis Enderit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
             "Ego-Animation: Zielt man auf einen Block, den der Meißel im aktuellen Zustand (Schleichen, Verzauberung, keine Abklingzeit) umwandeln könnte, neigt sich das gehaltene Werkzeug (−15° um Y und −10° um X, Versatz 0,05 je Achse, Glättung 0,15 pro Bild), in Haupt- und Nebenhand; abschaltbar über die Konfigurationsschalter „Werkzeuganimationen aktivieren“ (enableToolAnimations) und „Meißel-Animation aktivieren“ (enableChiselAnimation), beide standardmäßig an.",
             "Rezept an der Werkbank (diagonal): Stock unten links, Material in der Mitte, je ein Kupferklumpen links vom Material und unter dem Material; Material ist Bruchstein (Steinmeißel), Kupferbarren (Kupfermeißel), Eisenbarren (Eisenmeißel), Goldbarren (Goldmeißel) oder Diamant (Diamantmeißel).",
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
@@ -5523,7 +5512,6 @@ window.WIKI_DATA = {
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
-            "Der Enderit-Meißel steht nicht im Item-Tag „chisel_tools“ (in beiden MC-Fassungen); die Definitionen von Schnelles Meißeln, Berührung des Konstrukteurs, Reichweite, den Haltbarkeits-Verzauberungen und Fluch des Verschwindens führen ihn deshalb nicht als zulässiges Ziel. Der Werkzeugcode selbst würde die Verzauberungen auswerten, wenn sie auf anderem Weg auf dem Item landen.",
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
             "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
@@ -5710,7 +5698,6 @@ window.WIKI_DATA = {
             "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
           ],
           "caveats": [
-            "The Enderite Sledgehammer is not in the sledgehammer_tools tag (only stone through netherite are listed there) and is therefore not registered as a supported item for Override, Radius, Break Through, Constructor's Touch, Range and Versatility; it is missing from the enchantable/durability, enchantable/mining and enchantable/mining_loot tags as well.",
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
             "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
@@ -5790,7 +5777,6 @@ window.WIKI_DATA = {
             "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
           ],
           "caveats": [
-            "Der Enderite Sledgehammer steht nicht im Tag sledgehammer_tools (dort sind nur Stein bis Netherit eingetragen) und ist damit für Übersteuerung, Radius, Durchbruch, Berührung des Konstrukteurs, Reichweite und Vielseitigkeit nicht als unterstützter Gegenstand hinterlegt; auch in den Tags enchantable/durability, enchantable/mining und enchantable/mining_loot fehlt er.",
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
             "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
@@ -5896,14 +5882,14 @@ window.WIKI_DATA = {
             "Right-clicking a block face with the wand in the main hand starts the build; in the off-hand the wand ignores the click (useOn returns PASS).",
             "The area starts one block in front of the clicked face; with no axis set in the menu the build axis is the axis of the clicked face, so the plane lies flush with that face - clicking the top of a block builds a flat layer, clicking a side builds an upright wall.",
             "The area is built ring by ring from the centre outwards: the centre block on the next inventory tick after the click, every further ring after a pause of 4 ticks (DELAY_TICKS).",
-            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only.",
+            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only (so does a negative radius, which only a modified client can store).",
             "The material is the first block item found: the off-hand first, then the hotbar (inventory slots 0 to 8, i.e. hotbar 1 to 9).",
             "The rest of the inventory (slots 9 and up) is only searched when the wand carries the Master Builder enchantment.",
             "Reinforced bundles (ReinforcedBundleItem) are searched for blocks when the wand or the bundle itself carries Master Builder; one item is then taken out of the bundle per placement.",
             "The block type found on the click is stored on the wand (BuildBlockRawId) and applies to the whole area; for every position a block of that kind is looked up in the inventory again, and the build stops once it runs out.",
             "In survival, clicking with no usable block available does nothing (useOn returns FAIL).",
             "Only positions whose current block the game considers replaceable (canBeReplaced, e.g. air) are built; occupied positions are skipped.",
-            "Every placed block consumes one item and costs the wand 1 durability; in creative the build costs neither material nor durability.",
+            "Every placed block consumes one item and costs the wand 1 durability, billed to the hand the wand is in; in creative the build costs neither material nor durability.",
             "Each placement plays the placed block's place sound at 0.8x pitch and a volume of (block volume + 1) / 2.",
             "The build only continues while the wand stays in the main or off hand; moving it into another slot cancels it (Active = false).",
             "Holding the wand in the main hand and looking at a block shows a semi-transparent (alpha 180 of 255) ghost preview, scaled to half size, of every position that would be built.",
@@ -5912,11 +5898,12 @@ window.WIKI_DATA = {
             "Axis X (mode 1): the plane is spanned by Y and Z (wall across the X axis).",
             "Axis Y (mode 2): the plane lies flat in X/Z (floor or ceiling).",
             "Axis Z (mode 3): the plane is spanned by X and Y (wall across the Z axis).",
+            "A set axis only turns the plane: it stays centred on the block in front of the clicked face. If the axis lies in the clicked face (axis Y on a wall, say), one of the cells is the clicked block itself; it cannot be replaced, so it is skipped and costs neither material nor durability - radius 1 then places eight blocks.",
             "Radius and axis are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; the server only applies them while you are holding a building wand in the main hand.",
             "Master Builder enchantment: widens the material search to the whole inventory and allows taking blocks out of reinforced bundles.",
             "Color Palette enchantment: the preview mixes all block types found, per position (seed = position); the build does not commit to one kind, but always takes the first block stack found (off-hand, then hotbar) until it is empty.",
             "Linear enchantment: shortens the pause between rings from 4 to 2 ticks (DELAY_TICKS_LINE).",
-            "The copper through netherite wands are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
+            "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
             "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
@@ -5943,15 +5930,14 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in no enchantment tag, not fire resistant, but protected from the void.",
-            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; apart from the enderite wand's special tag standing, only area size, durability and enchantability differ."
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
+            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
             "Cover and Bridge have no effect on building: BuildingWandItem never reads the enchantments, and the generated definitions carry no effect; a gametest (coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown) records that unfinished state on purpose and fails the moment either one gains an effect. The only trace in code is EnchantmentModelProperty, and that only switches the model of the enchanted book, never the wand's.",
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The enderite wand is missing from every enchantment tag (building_wand_enchantable, extra_inventory_items, constructors_touch_enchantable, enchantable/durability): Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch cannot be obtained for it by regular means, and the settings menu does not open for it.",
             "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
@@ -5968,14 +5954,14 @@ window.WIKI_DATA = {
             "Ein Rechtsklick mit dem Stab in der Haupthand auf eine Blockseite startet den Bau; in der Zweithand reagiert der Stab auf den Klick nicht (useOn gibt PASS zurück).",
             "Die Fläche beginnt einen Block vor der angeklickten Seite; ohne Achseneinstellung liegt sie senkrecht zur angeklickten Seite (Bauachse = Achse der Blockseite).",
             "Die Fläche entsteht ringweise von der Mitte nach außen: der Mittelblock beim nächsten Inventar-Tick nach dem Klick, jeder weitere Ring nach einer Pause von 4 Ticks (DELAY_TICKS).",
-            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block.",
+            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block (ebenso ein negativer Radius, den nur ein veränderter Client speichern kann).",
             "Als Material gilt der erste Block-Gegenstand, der gefunden wird: zuerst die Zweithand, dann die Hotbar (Inventarplätze 0 bis 8, also Hotbar 1 bis 9).",
             "Der Rest des Inventars (Plätze ab 9) wird nur durchsucht, wenn der Stab die Verzauberung Baumeister trägt.",
             "Verstärkte Bündel (ReinforcedBundleItem) werden nach Blöcken durchsucht, wenn der Stab oder das Bündel selbst die Verzauberung Baumeister trägt; beim Bauen wird dann ein Stück aus dem Bündel entnommen.",
             "Der beim Klick gefundene Blocktyp wird im Stab gespeichert (BuildBlockRawId) und gilt für die gesamte Fläche; für jede Position wird ein Block dieser Sorte erneut im Inventar gesucht, und geht er aus, bricht der Bau ab.",
             "Ohne verfügbaren Block passiert im Überlebensmodus beim Klick nichts (useOn gibt FAIL zurück).",
             "Nur Positionen, deren aktueller Block laut Spiel ersetzbar ist (canBeReplaced, z. B. Luft), werden bebaut; belegte Positionen werden übersprungen.",
-            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
+            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit, abgerechnet an der Hand, in der er liegt; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
             "Beim Setzen erklingt der Platzierungsklang des gesetzten Blocks mit 0,8-facher Tonhöhe und Lautstärke (Blocklautstärke + 1) / 2.",
             "Der Bau läuft nur weiter, solange der Stab in der Haupt- oder Zweithand bleibt; wandert er in einen anderen Slot, wird er abgebrochen (Active = false).",
             "Hältst du den Stab in der Haupthand und zielst auf einen Block, zeigt eine halbtransparente (Alpha 180 von 255), auf halbe Größe verkleinerte Geister-Vorschau alle Positionen, die gebaut würden.",
@@ -5984,11 +5970,12 @@ window.WIKI_DATA = {
             "Achse X (Modus 1): die Ebene wird aus Y und Z aufgespannt (Wand quer zur X-Achse).",
             "Achse Y (Modus 2): die Ebene liegt waagerecht in X/Z (Boden oder Decke).",
             "Achse Z (Modus 3): die Ebene wird aus X und Y aufgespannt (Wand quer zur Z-Achse).",
+            "Eine gesetzte Achse dreht die Ebene nur: Sie bleibt um den Block vor der angeklickten Seite zentriert. Liegt die Achse in der angeklickten Seite (etwa Achse Y an einer Wand), ist eine der Zellen der angeklickte Block selbst; er lässt sich nicht ersetzen, wird übersprungen und kostet weder Material noch Haltbarkeit – Radius 1 setzt dann acht Blöcke.",
             "Radius und Achse werden als SettingsRadius/SettingsAxis im Stab gespeichert und per BuildingWandConfigurePayload an den Server gesendet; der Server übernimmt sie nur, wenn du gerade einen Baustab in der Haupthand hältst.",
             "Verzauberung Baumeister: erweitert die Materialsuche auf das gesamte Inventar und erlaubt das Entnehmen aus verstärkten Bündeln.",
             "Verzauberung Farbpalette: die Vorschau mischt alle gefundenen Blockarten positionsabhängig (Seed = Position); der Bau legt sich nicht auf eine Sorte fest, nimmt aber pro Position immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis dieser leer ist.",
             "Verzauberung Linear: verkürzt die Pause zwischen den Ringen von 4 auf 2 Ticks (DELAY_TICKS_LINE).",
-            "Kupfer- bis Netherit-Baustab stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
+            "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
             "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
@@ -6015,15 +6002,14 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in keinem Verzauberungs-Tag, ist nicht feuerfest, aber vor der Leere geschützt.",
-            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; abgesehen von der Tag-Sonderstellung des Enderit-Stabs unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit."
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
+            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
             "Abdeckung und Brücke haben keine Wirkung auf das Bauen: BuildingWandItem liest die Verzauberungen nicht, und die generierten Definitionen tragen keinen Effekt; ein Gametest (coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown) hält diesen Zustand ausdrücklich als unfertig fest. Die einzige Spur im Code ist EnchantmentModelProperty, das nur das Modell des verzauberten Buchs umschaltet, nicht das des Stabs.",
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Der Enderit-Stab fehlt in allen Verzauberungs-Tags (building_wand_enchantable, extra_inventory_items, constructors_touch_enchantable, enchantable/durability): Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs sind für ihn auf regulärem Weg nicht erhältlich, und das Einstellungsmenü öffnet sich für ihn nicht.",
             "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
@@ -6146,8 +6132,8 @@ window.WIKI_DATA = {
             "Mining: the chisel counts as the correct tool for everything mineable with a pickaxe, axe or shovel (so those blocks drop normally); the mining speed is (the material's base speed + the Fast Chiseling bonus) x 0.5, and 1.0 on blocks it is not correct for; every block mined costs 2 durability.",
             "Fast Chiseling: level I cuts the cooldown to 70%, level II to 40% (factor 1 - 0.3 x level, at least 1 tick); the mining bonus is +5 at level I and +17 from level II up (before the halving; the code comment intends them as Efficiency II and Efficiency IV equivalents); max level 2, weight 5, anvil cost 2, min cost 1 (+10 per further level), max cost 20 (+10), available at the enchanting table (tag minecraft:in_enchanting_table, in both MC lines).",
             "Constructor's Touch: max level 1, weight 1, anvil cost 1, cost 20 to 50; it unlocks the extra maps; it is not listed in the enchanting-table tag (only Fast Chiseling is).",
-            "Range (levels I to III) can be applied to chisels from stone to netherite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
-            "Chisels from stone to netherite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
+            "Range (levels I to III) can be applied to chisels from stone to enderite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
+            "Chisels from stone to enderite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
             "First-person animation: when you aim at a block the chisel could transform in its current state (sneaking, enchantment, no cooldown), the held tool tilts (-15 degrees around Y and -10 degrees around X, offset 0.05 per axis, smoothing 0.15 per frame), in both main hand and off hand; it can be turned off with the config switches \"Enable Tool Animations\" (enableToolAnimations) and \"Enable Chisel Animation\" (enableChiselAnimation), both on by default.",
             "Crafting table recipe (diagonal): stick bottom left, material in the middle, one copper nugget to the left of the material and one below it; the material is Cobblestone (Stone Chisel), a Copper Ingot (Copper Chisel), an Iron Ingot (Iron Chisel), a Gold Ingot (Gold Chisel) or a Diamond (Diamond Chisel).",
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
@@ -6177,7 +6163,6 @@ window.WIKI_DATA = {
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
-            "The Enderite Chisel is not in the item tag \"chisel_tools\" (in both MC lines); the definitions of Fast Chiseling, Constructor's Touch, Range, the durability enchantments and Curse of Vanishing therefore do not list it as a legal target. The tool code itself would evaluate those enchantments if they reached the item some other way.",
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
             "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
@@ -6209,8 +6194,8 @@ window.WIKI_DATA = {
             "Abbauen: Der Meißel zählt als passendes Werkzeug für alles, was mit Spitzhacke, Axt oder Schaufel abbaubar ist (Drops fallen); die Abbaugeschwindigkeit ist (Grundgeschwindigkeit des Materials + Bonus aus Schnelles Meißeln) × 0,5, bei nicht passenden Blöcken 1,0; jeder abgebaute Block kostet 2 Haltbarkeit.",
             "Schnelles Meißeln: Stufe I setzt die Abklingzeit auf 70 %, Stufe II auf 40 % (Faktor 1 − 0,3 × Stufe, mindestens 1 Tick); der Abbau-Bonus beträgt +5 auf Stufe I und +17 ab Stufe II (vor der Halbierung; laut Code-Kommentar als Effizienz-II- bzw. -IV-Äquivalent gedacht); Höchststufe 2, Gewicht 5, Amboss-Kosten 2, Mindestkosten 1 (+10 je weiterer Stufe), Höchstkosten 20 (+10), im Verzauberungstisch verfügbar (Tag minecraft:in_enchanting_table, in beiden MC-Fassungen).",
             "Berührung des Konstrukteurs: Höchststufe 1, Gewicht 1, Amboss-Kosten 1, Kosten 20 bis 50; schaltet die Zusatz-Tabellen frei; nicht im Verzauberungstisch-Tag eingetragen (dort steht nur Schnelles Meißeln).",
-            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Netherit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
-            "Meißel von Stein bis Netherit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
+            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Enderit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
+            "Meißel von Stein bis Enderit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
             "Ego-Animation: Zielt man auf einen Block, den der Meißel im aktuellen Zustand (Schleichen, Verzauberung, keine Abklingzeit) umwandeln könnte, neigt sich das gehaltene Werkzeug (−15° um Y und −10° um X, Versatz 0,05 je Achse, Glättung 0,15 pro Bild), in Haupt- und Nebenhand; abschaltbar über die Konfigurationsschalter „Werkzeuganimationen aktivieren“ (enableToolAnimations) und „Meißel-Animation aktivieren“ (enableChiselAnimation), beide standardmäßig an.",
             "Rezept an der Werkbank (diagonal): Stock unten links, Material in der Mitte, je ein Kupferklumpen links vom Material und unter dem Material; Material ist Bruchstein (Steinmeißel), Kupferbarren (Kupfermeißel), Eisenbarren (Eisenmeißel), Goldbarren (Goldmeißel) oder Diamant (Diamantmeißel).",
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
@@ -6240,7 +6225,6 @@ window.WIKI_DATA = {
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
-            "Der Enderit-Meißel steht nicht im Item-Tag „chisel_tools“ (in beiden MC-Fassungen); die Definitionen von Schnelles Meißeln, Berührung des Konstrukteurs, Reichweite, den Haltbarkeits-Verzauberungen und Fluch des Verschwindens führen ihn deshalb nicht als zulässiges Ziel. Der Werkzeugcode selbst würde die Verzauberungen auswerten, wenn sie auf anderem Weg auf dem Item landen.",
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
             "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
@@ -6428,7 +6412,6 @@ window.WIKI_DATA = {
             "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
           ],
           "caveats": [
-            "The Enderite Sledgehammer is not in the sledgehammer_tools tag (only stone through netherite are listed there) and is therefore not registered as a supported item for Override, Radius, Break Through, Constructor's Touch, Range and Versatility; it is missing from the enchantable/durability, enchantable/mining and enchantable/mining_loot tags as well.",
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
             "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
@@ -6508,7 +6491,6 @@ window.WIKI_DATA = {
             "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
           ],
           "caveats": [
-            "Der Enderite Sledgehammer steht nicht im Tag sledgehammer_tools (dort sind nur Stein bis Netherit eingetragen) und ist damit für Übersteuerung, Radius, Durchbruch, Berührung des Konstrukteurs, Reichweite und Vielseitigkeit nicht als unterstützter Gegenstand hinterlegt; auch in den Tags enchantable/durability, enchantable/mining und enchantable/mining_loot fehlt er.",
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
             "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
@@ -6587,6 +6569,20 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:lapis_quartz_checker",
+      "name": {
+        "en_us": "Lapis Quartz Checker",
+        "de_de": "Lapis-Quarz-Schachbrett"
+      },
+      "texture": "assets/textures/block/lapis_quartz_checker.png",
+      "craftedBy": [
+        "simplebuilding:lapis_quartz_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:levitating_gravel",
@@ -6804,7 +6800,7 @@ window.WIKI_DATA = {
             "The filter cannot be set without Constructor's Touch: on an unenchanted Magnet the filter code does not run and the normal frame interaction happens instead.",
             "The filter code never runs on an empty frame (the frame has to hold an item); the normal frame interaction happens instead.",
             "Sneak + right-click on a frame never clears the filter, because the frame interaction consumes the click and use() is never reached. Instead the following apply in this order: a locked frame is unlocked (a glass pane is dropped), an invisible frame is made visible; if none of that applies, an enchanted Magnet on a filled frame sets the filter just like a normal right-click.",
-            "You do not hear the sound when you set the filter yourself: the mixin only triggers it server-side through player.playSound, and vanilla (checked against the Minecraft 26.2 bytecode: PlayerList.broadcast with the triggering player as the exception) sends the sound to all other players in range, not to the one who triggered it. The sound when the filter is cleared (world.playSound with no excluded player) does reach you.",
+            "The sound when you set the filter (respawn anchor, volume 0.5, pitch 1.5) is played at your position for everyone nearby, you included (level().playSound with no excluded player); a client test hears it. The sound when the filter is cleared reaches you as well.",
             "All messages and the tooltip are hardcoded in English in the code. The translation keys tooltip.simplebuilding.magnet.* in en_us.json ('Filtering: %s', 'No Filter active', 'Sneak + Right Click to clear filter', 'Works in Mainhand or Offhand') and de_de.json are used by no code and therefore never appear in game; only the item name and the enchantment names are translated.",
             "The filter distinguishes only by item type, not by enchantment, name or any other data on the item.",
             "Experience orbs are not attracted, only item entities.",
@@ -6851,7 +6847,7 @@ window.WIKI_DATA = {
             "Der Filter kann ohne Berührung des Konstrukteurs nicht gesetzt werden: Bei einem unverzauberten Magneten greift der Filter-Code nicht, es läuft die normale Rahmen-Interaktion.",
             "Auf einen leeren Rahmen greift der Filter-Code nie (Bedingung: der Rahmen muss ein Item enthalten); es läuft die normale Rahmen-Interaktion.",
             "Schleichen + Rechtsklick auf einen Rahmen löscht den Filter nie, weil die Rahmen-Interaktion den Klick verbraucht und use() nicht mehr erreicht wird. Stattdessen greifen in dieser Reihenfolge: gesperrter Rahmen wird entsperrt (eine Glasscheibe wird fallen gelassen), unsichtbarer Rahmen wird sichtbar; trifft nichts davon zu, setzt ein verzauberter Magnet an einem gefüllten Rahmen den Filter wie beim normalen Rechtsklick.",
-            "Den Ton beim Setzen des Filters hörst du selbst nicht: Der Mixin löst ihn nur serverseitig über player.playSound aus, und Vanilla (geprüft am Bytecode von Minecraft 26.2: PlayerList.broadcast mit dem auslösenden Spieler als Ausnahme) sendet den Ton an alle anderen Spieler in Reichweite, nicht an den Auslöser. Der Ton beim Löschen (world.playSound ohne Ausnahme) ist dagegen auch für dich hörbar.",
+            "Der Ton beim Setzen des Filters (Seelenanker, Lautstärke 0,5, Tonhöhe 1,5) erklingt an deiner Position für alle in der Nähe, dich eingeschlossen (level().playSound ohne Ausnahme); ein Client-Test hört ihn. Auch der Ton beim Löschen ist für dich hörbar.",
             "Alle Meldungen und der Tooltip sind fest auf Englisch im Code hinterlegt. Die Übersetzungsschlüssel tooltip.simplebuilding.magnet.* in de_de.json ('Filtert: %s', 'Kein Filter aktiv', 'Schleichen + Rechtsklick zum Löschen', 'Funktioniert in Haupt- oder Nebenhand') und en_us.json werden von keinem Code verwendet und erscheinen daher nie im Spiel; nur der Item-Name und die Verzauberungsnamen sind übersetzt.",
             "Der Filter unterscheidet nur nach Item-Sorte, nicht nach Verzauberung, Name oder sonstigen Daten des Items.",
             "Erfahrungskugeln werden nicht angezogen, nur Item-Entities.",
@@ -6936,10 +6932,10 @@ window.WIKI_DATA = {
             "The game test requires it to be at least 2.5 times as fast as a vanilla blast furnace and faster than the Reinforced Blast Furnace (Raw Iron into an Iron Ingot). The test's tick budget is 220 ticks.",
             "Crafting recipe (bulk upgrade, file netherite_blast_furnace_bulk): in a 2x2 grid, 1 Netherite Nugget top left and 3 Reinforced Blast Furnaces in the other three slots yield 3 Netherite Blast Furnaces (datagen category RecipeCategory.DECORATIONS, so the recipe advancement sits under recipes/decorations).",
             "The recipe unlocks as soon as you have a Reinforced Blast Furnace in your inventory.",
-            "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from glass.",
+            "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from the vanilla blast furnace (ofFullCopy(Blocks.BLAST_FURNACE)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
             "The item is fire resistant (fireResistant).",
-            "Listed in the mineable/pickaxe tag; it is in no needs_*_tool tag, and requiresCorrectToolForDrops is never called.",
-            "Drops itself when broken (loot table with the survives_explosion condition).",
+            "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla blast furnace it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
+            "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\")."
           ],
@@ -6949,7 +6945,6 @@ window.WIKI_DATA = {
           "caveats": [
             "Fuel consumption is not changed anywhere in the code.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "No light level is set (the properties come from glass, only hardness, blast resistance and sound are overridden), so unlike a vanilla blast furnace it does not light up its surroundings while burning.",
             "The generated recipe file netherite_blast_furnace_bulk.json carries no category field, so the crafting recipe book lists it under Miscellaneous; RecipeCategory.DECORATIONS only decides the advancement folder."
           ]
         },
@@ -6964,10 +6959,10 @@ window.WIKI_DATA = {
             "Der Spieltest fordert, dass er mindestens 2,5-mal so schnell wie ein normaler Schmelzofen ist und schneller als der Verstärkte Schmelzofen (Roheisen zu Eisenbarren). Zeitbudget des Tests: 220 Ticks.",
             "Rezept (Bulk-Upgrade, Datei netherite_blast_furnace_bulk): 1 Netherite Nugget oben links und 3 Verstärkte Schmelzöfen im 2x2-Muster ergeben 3 Netherit-Schmelzöfen (Advancement unter recipes/decorations; im Rezeptbuch steht es unter Verschiedenes, weil die erzeugte Datei kein category-Feld trägt und RecipeCategory.DECORATIONS nur den Advancement-Ordner bestimmt).",
             "Das Rezept wird freigeschaltet, sobald der Spieler einen Verstärkten Schmelzofen im Inventar hat.",
-            "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden von Glas kopiert.",
+            "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden vom Vanilla-Schmelzofen kopiert (ofFullCopy(Blocks.BLAST_FURNACE)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
             "Das Item ist feuerfest (fireResistant).",
-            "Ist im Tag mineable/pickaxe eingetragen; in keinem needs_*_tool-Tag enthalten, requiresCorrectToolForDrops wird nicht aufgerufen.",
-            "Beim Abbau lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
+            "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Schmelzofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
+            "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“)."
           ],
@@ -6976,8 +6971,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
-            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
-            "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte, Explosionswiderstand und Klang werden überschrieben)."
+            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
         "sources": [
@@ -7032,14 +7026,14 @@ window.WIKI_DATA = {
             "Right-clicking a block face with the wand in the main hand starts the build; in the off-hand the wand ignores the click (useOn returns PASS).",
             "The area starts one block in front of the clicked face; with no axis set in the menu the build axis is the axis of the clicked face, so the plane lies flush with that face - clicking the top of a block builds a flat layer, clicking a side builds an upright wall.",
             "The area is built ring by ring from the centre outwards: the centre block on the next inventory tick after the click, every further ring after a pause of 4 ticks (DELAY_TICKS).",
-            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only.",
+            "The radius is capped at the tier maximum ((diameter-1)/2); a smaller radius saved in the menu is used, radius 0 places a single block only (so does a negative radius, which only a modified client can store).",
             "The material is the first block item found: the off-hand first, then the hotbar (inventory slots 0 to 8, i.e. hotbar 1 to 9).",
             "The rest of the inventory (slots 9 and up) is only searched when the wand carries the Master Builder enchantment.",
             "Reinforced bundles (ReinforcedBundleItem) are searched for blocks when the wand or the bundle itself carries Master Builder; one item is then taken out of the bundle per placement.",
             "The block type found on the click is stored on the wand (BuildBlockRawId) and applies to the whole area; for every position a block of that kind is looked up in the inventory again, and the build stops once it runs out.",
             "In survival, clicking with no usable block available does nothing (useOn returns FAIL).",
             "Only positions whose current block the game considers replaceable (canBeReplaced, e.g. air) are built; occupied positions are skipped.",
-            "Every placed block consumes one item and costs the wand 1 durability; in creative the build costs neither material nor durability.",
+            "Every placed block consumes one item and costs the wand 1 durability, billed to the hand the wand is in; in creative the build costs neither material nor durability.",
             "Each placement plays the placed block's place sound at 0.8x pitch and a volume of (block volume + 1) / 2.",
             "The build only continues while the wand stays in the main or off hand; moving it into another slot cancels it (Active = false).",
             "Holding the wand in the main hand and looking at a block shows a semi-transparent (alpha 180 of 255) ghost preview, scaled to half size, of every position that would be built.",
@@ -7048,11 +7042,12 @@ window.WIKI_DATA = {
             "Axis X (mode 1): the plane is spanned by Y and Z (wall across the X axis).",
             "Axis Y (mode 2): the plane lies flat in X/Z (floor or ceiling).",
             "Axis Z (mode 3): the plane is spanned by X and Y (wall across the Z axis).",
+            "A set axis only turns the plane: it stays centred on the block in front of the clicked face. If the axis lies in the clicked face (axis Y on a wall, say), one of the cells is the clicked block itself; it cannot be replaced, so it is skipped and costs neither material nor durability - radius 1 then places eight blocks.",
             "Radius and axis are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; the server only applies them while you are holding a building wand in the main hand.",
             "Master Builder enchantment: widens the material search to the whole inventory and allows taking blocks out of reinforced bundles.",
             "Color Palette enchantment: the preview mixes all block types found, per position (seed = position); the build does not commit to one kind, but always takes the first block stack found (off-hand, then hotbar) until it is empty.",
             "Linear enchantment: shortens the pause between rings from 4 to 2 ticks (DELAY_TICKS_LINE).",
-            "The copper through netherite wands are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
+            "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
             "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
@@ -7079,15 +7074,14 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in no enchantment tag, not fire resistant, but protected from the void.",
-            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; apart from the enderite wand's special tag standing, only area size, durability and enchantability differ."
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
+            "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
             "Cover and Bridge have no effect on building: BuildingWandItem never reads the enchantments, and the generated definitions carry no effect; a gametest (coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown) records that unfinished state on purpose and fails the moment either one gains an effect. The only trace in code is EnchantmentModelProperty, and that only switches the model of the enchanted book, never the wand's.",
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The enderite wand is missing from every enchantment tag (building_wand_enchantable, extra_inventory_items, constructors_touch_enchantable, enchantable/durability): Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch cannot be obtained for it by regular means, and the settings menu does not open for it.",
             "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
@@ -7104,14 +7098,14 @@ window.WIKI_DATA = {
             "Ein Rechtsklick mit dem Stab in der Haupthand auf eine Blockseite startet den Bau; in der Zweithand reagiert der Stab auf den Klick nicht (useOn gibt PASS zurück).",
             "Die Fläche beginnt einen Block vor der angeklickten Seite; ohne Achseneinstellung liegt sie senkrecht zur angeklickten Seite (Bauachse = Achse der Blockseite).",
             "Die Fläche entsteht ringweise von der Mitte nach außen: der Mittelblock beim nächsten Inventar-Tick nach dem Klick, jeder weitere Ring nach einer Pause von 4 Ticks (DELAY_TICKS).",
-            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block.",
+            "Der Radius ist auf das Maximum der Stufe begrenzt ((Durchmesser-1)/2); ein im Menü gespeicherter kleinerer Radius wird übernommen, Radius 0 setzt nur einen einzelnen Block (ebenso ein negativer Radius, den nur ein veränderter Client speichern kann).",
             "Als Material gilt der erste Block-Gegenstand, der gefunden wird: zuerst die Zweithand, dann die Hotbar (Inventarplätze 0 bis 8, also Hotbar 1 bis 9).",
             "Der Rest des Inventars (Plätze ab 9) wird nur durchsucht, wenn der Stab die Verzauberung Baumeister trägt.",
             "Verstärkte Bündel (ReinforcedBundleItem) werden nach Blöcken durchsucht, wenn der Stab oder das Bündel selbst die Verzauberung Baumeister trägt; beim Bauen wird dann ein Stück aus dem Bündel entnommen.",
             "Der beim Klick gefundene Blocktyp wird im Stab gespeichert (BuildBlockRawId) und gilt für die gesamte Fläche; für jede Position wird ein Block dieser Sorte erneut im Inventar gesucht, und geht er aus, bricht der Bau ab.",
             "Ohne verfügbaren Block passiert im Überlebensmodus beim Klick nichts (useOn gibt FAIL zurück).",
             "Nur Positionen, deren aktueller Block laut Spiel ersetzbar ist (canBeReplaced, z. B. Luft), werden bebaut; belegte Positionen werden übersprungen.",
-            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
+            "Pro gesetztem Block wird ein Gegenstand verbraucht und der Stab verliert 1 Haltbarkeit, abgerechnet an der Hand, in der er liegt; im Kreativmodus kostet der Bau weder Material noch Haltbarkeit.",
             "Beim Setzen erklingt der Platzierungsklang des gesetzten Blocks mit 0,8-facher Tonhöhe und Lautstärke (Blocklautstärke + 1) / 2.",
             "Der Bau läuft nur weiter, solange der Stab in der Haupt- oder Zweithand bleibt; wandert er in einen anderen Slot, wird er abgebrochen (Active = false).",
             "Hältst du den Stab in der Haupthand und zielst auf einen Block, zeigt eine halbtransparente (Alpha 180 von 255), auf halbe Größe verkleinerte Geister-Vorschau alle Positionen, die gebaut würden.",
@@ -7120,11 +7114,12 @@ window.WIKI_DATA = {
             "Achse X (Modus 1): die Ebene wird aus Y und Z aufgespannt (Wand quer zur X-Achse).",
             "Achse Y (Modus 2): die Ebene liegt waagerecht in X/Z (Boden oder Decke).",
             "Achse Z (Modus 3): die Ebene wird aus X und Y aufgespannt (Wand quer zur Z-Achse).",
+            "Eine gesetzte Achse dreht die Ebene nur: Sie bleibt um den Block vor der angeklickten Seite zentriert. Liegt die Achse in der angeklickten Seite (etwa Achse Y an einer Wand), ist eine der Zellen der angeklickte Block selbst; er lässt sich nicht ersetzen, wird übersprungen und kostet weder Material noch Haltbarkeit – Radius 1 setzt dann acht Blöcke.",
             "Radius und Achse werden als SettingsRadius/SettingsAxis im Stab gespeichert und per BuildingWandConfigurePayload an den Server gesendet; der Server übernimmt sie nur, wenn du gerade einen Baustab in der Haupthand hältst.",
             "Verzauberung Baumeister: erweitert die Materialsuche auf das gesamte Inventar und erlaubt das Entnehmen aus verstärkten Bündeln.",
             "Verzauberung Farbpalette: die Vorschau mischt alle gefundenen Blockarten positionsabhängig (Seed = Position); der Bau legt sich nicht auf eine Sorte fest, nimmt aber pro Position immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis dieser leer ist.",
             "Verzauberung Linear: verkürzt die Pause zwischen den Ringen von 4 auf 2 Ticks (DELAY_TICKS_LINE).",
-            "Kupfer- bis Netherit-Baustab stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
+            "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
             "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
@@ -7151,15 +7146,14 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in keinem Verzauberungs-Tag, ist nicht feuerfest, aber vor der Leere geschützt.",
-            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; abgesehen von der Tag-Sonderstellung des Enderit-Stabs unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit."
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
+            "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
             "Abdeckung und Brücke haben keine Wirkung auf das Bauen: BuildingWandItem liest die Verzauberungen nicht, und die generierten Definitionen tragen keinen Effekt; ein Gametest (coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown) hält diesen Zustand ausdrücklich als unfertig fest. Die einzige Spur im Code ist EnchantmentModelProperty, das nur das Modell des verzauberten Buchs umschaltet, nicht das des Stabs.",
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Der Enderit-Stab fehlt in allen Verzauberungs-Tags (building_wand_enchantable, extra_inventory_items, constructors_touch_enchantable, enchantable/durability): Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs sind für ihn auf regulärem Weg nicht erhältlich, und das Einstellungsmenü öffnet sich für ihn nicht.",
             "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
@@ -7389,8 +7383,8 @@ window.WIKI_DATA = {
             "Mining: the chisel counts as the correct tool for everything mineable with a pickaxe, axe or shovel (so those blocks drop normally); the mining speed is (the material's base speed + the Fast Chiseling bonus) x 0.5, and 1.0 on blocks it is not correct for; every block mined costs 2 durability.",
             "Fast Chiseling: level I cuts the cooldown to 70%, level II to 40% (factor 1 - 0.3 x level, at least 1 tick); the mining bonus is +5 at level I and +17 from level II up (before the halving; the code comment intends them as Efficiency II and Efficiency IV equivalents); max level 2, weight 5, anvil cost 2, min cost 1 (+10 per further level), max cost 20 (+10), available at the enchanting table (tag minecraft:in_enchanting_table, in both MC lines).",
             "Constructor's Touch: max level 1, weight 1, anvil cost 1, cost 20 to 50; it unlocks the extra maps; it is not listed in the enchanting-table tag (only Fast Chiseling is).",
-            "Range (levels I to III) can be applied to chisels from stone to netherite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
-            "Chisels from stone to netherite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
+            "Range (levels I to III) can be applied to chisels from stone to enderite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
+            "Chisels from stone to enderite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
             "First-person animation: when you aim at a block the chisel could transform in its current state (sneaking, enchantment, no cooldown), the held tool tilts (-15 degrees around Y and -10 degrees around X, offset 0.05 per axis, smoothing 0.15 per frame), in both main hand and off hand; it can be turned off with the config switches \"Enable Tool Animations\" (enableToolAnimations) and \"Enable Chisel Animation\" (enableChiselAnimation), both on by default.",
             "Crafting table recipe (diagonal): stick bottom left, material in the middle, one copper nugget to the left of the material and one below it; the material is Cobblestone (Stone Chisel), a Copper Ingot (Copper Chisel), an Iron Ingot (Iron Chisel), a Gold Ingot (Gold Chisel) or a Diamond (Diamond Chisel).",
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
@@ -7420,7 +7414,6 @@ window.WIKI_DATA = {
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
-            "The Enderite Chisel is not in the item tag \"chisel_tools\" (in both MC lines); the definitions of Fast Chiseling, Constructor's Touch, Range, the durability enchantments and Curse of Vanishing therefore do not list it as a legal target. The tool code itself would evaluate those enchantments if they reached the item some other way.",
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
             "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
@@ -7452,8 +7445,8 @@ window.WIKI_DATA = {
             "Abbauen: Der Meißel zählt als passendes Werkzeug für alles, was mit Spitzhacke, Axt oder Schaufel abbaubar ist (Drops fallen); die Abbaugeschwindigkeit ist (Grundgeschwindigkeit des Materials + Bonus aus Schnelles Meißeln) × 0,5, bei nicht passenden Blöcken 1,0; jeder abgebaute Block kostet 2 Haltbarkeit.",
             "Schnelles Meißeln: Stufe I setzt die Abklingzeit auf 70 %, Stufe II auf 40 % (Faktor 1 − 0,3 × Stufe, mindestens 1 Tick); der Abbau-Bonus beträgt +5 auf Stufe I und +17 ab Stufe II (vor der Halbierung; laut Code-Kommentar als Effizienz-II- bzw. -IV-Äquivalent gedacht); Höchststufe 2, Gewicht 5, Amboss-Kosten 2, Mindestkosten 1 (+10 je weiterer Stufe), Höchstkosten 20 (+10), im Verzauberungstisch verfügbar (Tag minecraft:in_enchanting_table, in beiden MC-Fassungen).",
             "Berührung des Konstrukteurs: Höchststufe 1, Gewicht 1, Amboss-Kosten 1, Kosten 20 bis 50; schaltet die Zusatz-Tabellen frei; nicht im Verzauberungstisch-Tag eingetragen (dort steht nur Schnelles Meißeln).",
-            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Netherit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
-            "Meißel von Stein bis Netherit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
+            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Enderit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
+            "Meißel von Stein bis Enderit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
             "Ego-Animation: Zielt man auf einen Block, den der Meißel im aktuellen Zustand (Schleichen, Verzauberung, keine Abklingzeit) umwandeln könnte, neigt sich das gehaltene Werkzeug (−15° um Y und −10° um X, Versatz 0,05 je Achse, Glättung 0,15 pro Bild), in Haupt- und Nebenhand; abschaltbar über die Konfigurationsschalter „Werkzeuganimationen aktivieren“ (enableToolAnimations) und „Meißel-Animation aktivieren“ (enableChiselAnimation), beide standardmäßig an.",
             "Rezept an der Werkbank (diagonal): Stock unten links, Material in der Mitte, je ein Kupferklumpen links vom Material und unter dem Material; Material ist Bruchstein (Steinmeißel), Kupferbarren (Kupfermeißel), Eisenbarren (Eisenmeißel), Goldbarren (Goldmeißel) oder Diamant (Diamantmeißel).",
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
@@ -7483,7 +7476,6 @@ window.WIKI_DATA = {
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
-            "Der Enderit-Meißel steht nicht im Item-Tag „chisel_tools“ (in beiden MC-Fassungen); die Definitionen von Schnelles Meißeln, Berührung des Konstrukteurs, Reichweite, den Haltbarkeits-Verzauberungen und Fluch des Verschwindens führen ihn deshalb nicht als zulässiges Ziel. Der Werkzeugcode selbst würde die Verzauberungen auswerten, wenn sie auf anderem Weg auf dem Item landen.",
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
             "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
@@ -7602,10 +7594,10 @@ window.WIKI_DATA = {
             "The game test requires it to be at least 3 times as fast as a vanilla furnace and faster than the Reinforced Furnace; the comment in the test puts the expected gain at roughly quadruple speed. The test's tick budget is 320 ticks.",
             "Crafting recipe (bulk upgrade, file netherite_furnace_bulk): in a 2x2 grid, 1 Netherite Nugget top left and 3 Reinforced Furnaces in the other three slots yield 3 Netherite Furnaces (datagen category RecipeCategory.DECORATIONS, so the recipe advancement sits under recipes/decorations).",
             "The recipe unlocks as soon as you have a Reinforced Furnace in your inventory.",
-            "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from glass.",
+            "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from the vanilla furnace (ofFullCopy(Blocks.FURNACE)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
             "The item is fire resistant (fireResistant).",
-            "Listed in the mineable/pickaxe tag; it is in no needs_*_tool tag, and requiresCorrectToolForDrops is never called.",
-            "Drops itself when broken (loot table with the survives_explosion condition).",
+            "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla furnace it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
+            "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\")."
           ],
@@ -7615,7 +7607,6 @@ window.WIKI_DATA = {
           "caveats": [
             "Fuel consumption is not changed anywhere in the code.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "No light level is set (the properties come from glass, only hardness, blast resistance and sound are overridden), so unlike a vanilla furnace it does not light up its surroundings while burning.",
             "The generated recipe file netherite_furnace_bulk.json carries no category field, so the crafting recipe book lists it under Miscellaneous; RecipeCategory.DECORATIONS only decides the advancement folder."
           ]
         },
@@ -7630,10 +7621,10 @@ window.WIKI_DATA = {
             "Der Spieltest fordert, dass er mindestens 3-mal so schnell wie ein normaler Ofen ist und schneller als der Verstärkte Ofen; im Testkommentar steht als Erwartung etwa vierfache Geschwindigkeit. Zeitbudget des Tests: 320 Ticks.",
             "Rezept (Bulk-Upgrade, Datei netherite_furnace_bulk): 1 Netherite Nugget oben links und 3 Verstärkte Öfen im 2x2-Muster ergeben 3 Netheritöfen (Advancement unter recipes/decorations; im Rezeptbuch steht es unter Verschiedenes, weil die erzeugte Datei kein category-Feld trägt und RecipeCategory.DECORATIONS nur den Advancement-Ordner bestimmt).",
             "Das Rezept wird freigeschaltet, sobald der Spieler einen Verstärkten Ofen im Inventar hat.",
-            "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden von Glas kopiert.",
+            "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden vom Vanilla-Ofen kopiert (ofFullCopy(Blocks.FURNACE)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
             "Das Item ist feuerfest (fireResistant).",
-            "Ist im Tag mineable/pickaxe eingetragen; in keinem needs_*_tool-Tag enthalten, requiresCorrectToolForDrops wird nicht aufgerufen.",
-            "Beim Abbau lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
+            "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Ofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
+            "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“)."
           ],
@@ -7642,8 +7633,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
-            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
-            "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte, Explosionswiderstand und Klang werden überschrieben)."
+            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
         "sources": [
@@ -7693,6 +7683,7 @@ window.WIKI_DATA = {
             "The item is registered as fire resistant (fireResistant).",
             "5 slots; menu, filter button, filter items and storage ('FilterMode', 'GhostItems', 'TransferCooldown') are identical to the Reinforced Hopper, because both blocks use the same block entity type (simplebuilding:mod_hopper) and the same menu type (simplebuilding:netherite_hopper).",
             "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
+            "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
             "Recipe (yields 2, category redstone): a vertical column of Reinforced Hopper - Netherite Nugget (simplebuilding:netherite_nugget; 'Netherite Nugget' in en_us.json, 'Netherit-Nugget' in de_de.json) - Reinforced Hopper; unlocked as soon as you own a Reinforced Hopper.",
             "Listed in the mod's creative tab (simplebuilding:building_items; 'Building Items' in English, 'SimpleBuilding Items' in German); the item-group code puts it in the 'Machines & Storage' block of entries.",
             "A game test (BlockBehaviourTests) requires the Netherite Hopper to deliver 5 items faster than the Reinforced Hopper and in at most half the time the vanilla hopper needs.",
@@ -7710,8 +7701,7 @@ window.WIKI_DATA = {
             "The filter only checks what may enter the hopper; output into the target container is not filtered.",
             "The texts in the filter menu ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') are hard-coded English and are not translated.",
             "The server only accepts filter clicks and mode changes while the player has a mod hopper's menu open.",
-            "The Netherite Hopper has no special logic of its own: the file NetheriteHopperBlockEntity.java exists in the code but is never instantiated or registered anywhere (ModBlockEntities registers ModHopperBlockEntity for both blocks); the two hoppers differ only in cooldown, hardness, blast resistance, sound and the fire resistance of the item.",
-            "The registration sets no correct-tool requirement for drops (requiresCorrectToolForDrops)."
+            "The Netherite Hopper has no special logic of its own: the file NetheriteHopperBlockEntity.java exists in the code but is never instantiated or registered anywhere (ModBlockEntities registers ModHopperBlockEntity for both blocks); the two hoppers differ only in cooldown, hardness, blast resistance, sound and the fire resistance of the item."
           ]
         },
         "de": {
@@ -7724,6 +7714,7 @@ window.WIKI_DATA = {
             "Das Item ist als feuerfest (fireResistant) registriert.",
             "5 Slots; Menü, Filter-Knopf, Filter-Items und Speicherung ('FilterMode', 'GhostItems', 'TransferCooldown') sind identisch mit dem Verstärkten Trichter, da beide Blöcke denselben Block-Entity-Typ (simplebuilding:mod_hopper) und denselben Menütyp (simplebuilding:netherite_hopper) nutzen.",
             "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
+            "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
             "Rezept (ergibt 2 Stück, Kategorie redstone): senkrecht in einer Spalte Verstärkter Trichter – Netherite Nugget (simplebuilding:netherite_nugget; de_de: 'Netherit-Nugget', en_us: 'Netherite Nugget') – Verstärkter Trichter; freigeschaltet, sobald man einen Verstärkten Trichter besitzt.",
             "Im Kreativ-Tab der Mod (simplebuilding:building_items; deutsch 'SimpleBuilding Items', englisch 'Building Items') einsortiert; \"Machines & Storage\" ist dabei nur eine Gliederung im Code (ModItemGroupsContent), im Spiel zeigt der Tab keine solche Abschnittsüberschrift.",
             "Ein Spieltest (BlockBehaviourTests) verlangt, dass der Netherittrichter 5 Items schneller liefert als der Verstärkte Trichter und dafür höchstens die halbe Zeit des normalen Trichters braucht.",
@@ -7741,8 +7732,7 @@ window.WIKI_DATA = {
             "Der Filter prüft nur, was in den Trichter hinein darf; die Ausgabe in den Zielbehälter wird nicht gefiltert.",
             "Die Texte im Filter-Menü ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') sind fest auf Englisch hinterlegt und werden nicht übersetzt.",
             "Der Server nimmt Filter-Klicks und Modus-Wechsel nur an, solange der Spieler das Menü eines Mod-Trichters geöffnet hat.",
-            "Der Netherittrichter hat keine eigene Sonderlogik: die Datei NetheriteHopperBlockEntity.java liegt im Code, wird aber nirgends instanziiert oder registriert (ModBlockEntities registriert für beide Blöcke ModHopperBlockEntity); die beiden Trichter unterscheiden sich nur in Wartezeit, Härte, Explosionswiderstand, Klang und Feuerfestigkeit des Items.",
-            "Ein Werkzeugzwang für den Drop (requiresCorrectToolForDrops) ist in der Registrierung nicht gesetzt."
+            "Der Netherittrichter hat keine eigene Sonderlogik: die Datei NetheriteHopperBlockEntity.java liegt im Code, wird aber nirgends instanziiert oder registriert (ModBlockEntities registriert für beide Blöcke ModHopperBlockEntity); die beiden Trichter unterscheiden sich nur in Wartezeit, Härte, Explosionswiderstand, Klang und Feuerfestigkeit des Items."
           ]
         },
         "sources": [
@@ -7819,6 +7809,7 @@ window.WIKI_DATA = {
             "A destroyed block drops its normal loot (destroyBlock with drop = true).",
             "When a block is destroyed, the server plays the sound of a zombie rattling an iron door at the piston (ZOMBIE_ATTACK_IRON_DOOR, volume 0.5, pitch 0.8).",
             "After the check the normal piston logic carries on (super.triggerEvent): if the signal is too weak, the block is pushed like by an ordinary piston instead of being destroyed.",
+            "Nothing is destroyed unless the piston really extends: before breaking, it repeats vanilla's own extend check (the signal from every side but the push direction, plus quasi-connectivity from above). A signal that disappears between the block event being queued and being run therefore costs nothing.",
             "An extended Netherite Piston cannot be moved by other pistons (mixin on PistonBaseBlock.isPushable).",
             "Extending places the ordinary vanilla piston head; it stays attached to the Netherite Piston because a mixin on PistonHeadBlock.canSurvive accepts the Netherite Piston as a valid base.",
             "Hardness 5.0, blast resistance 1200, netherite block sounds; the item is fire resistant (fireResistant).",
@@ -7851,6 +7842,7 @@ window.WIKI_DATA = {
             "Ein zerstörter Block lässt seine normalen Drops fallen (destroyBlock mit drop = true).",
             "Beim Zerstören ertönt serverseitig das Geräusch eines Zombies, der an einer Eisentür rüttelt (ZOMBIE_ATTACK_IRON_DOOR, Lautstärke 0,5, Tonhöhe 0,8).",
             "Nach der Prüfung läuft die normale Kolbenlogik weiter (super.triggerEvent): Ist das Signal zu schwach, wird der Block wie bei einem gewöhnlichen Kolben geschoben statt zerstört.",
+            "Zerstört wird nur, wenn der Kolben wirklich ausfährt: Vor dem Brechen wiederholt er Vanillas eigene Ausfahrprüfung (Signal von jeder Seite außer der Schubrichtung, dazu Quasi-Konnektivität von oben). Ein Signal, das zwischen Einreihen und Ausführen des Block-Ereignisses verschwindet, kostet also nichts.",
             "Ein ausgefahrener Netheritkolben kann von anderen Kolben nicht verschoben werden (Mixin auf PistonBaseBlock.isPushable).",
             "Beim Ausfahren erscheint der normale Vanilla-Kolbenkopf; er bleibt am Netheritkolben haften, weil ein Mixin auf PistonHeadBlock.canSurvive den Netheritkolben als gültige Basis anerkennt.",
             "Härte 5,0, Explosionswiderstand 1200, Geräusch wie ein Netheritblock; das Item ist feuerfest (fireResistant).",
@@ -8064,7 +8056,6 @@ window.WIKI_DATA = {
             "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
           ],
           "caveats": [
-            "The Enderite Sledgehammer is not in the sledgehammer_tools tag (only stone through netherite are listed there) and is therefore not registered as a supported item for Override, Radius, Break Through, Constructor's Touch, Range and Versatility; it is missing from the enchantable/durability, enchantable/mining and enchantable/mining_loot tags as well.",
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
             "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
@@ -8144,7 +8135,6 @@ window.WIKI_DATA = {
             "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
           ],
           "caveats": [
-            "Der Enderite Sledgehammer steht nicht im Tag sledgehammer_tools (dort sind nur Stein bis Netherit eingetragen) und ist damit für Übersteuerung, Radius, Durchbruch, Berührung des Konstrukteurs, Reichweite und Vielseitigkeit nicht als unterstützter Gegenstand hinterlegt; auch in den Tags enchantable/durability, enchantable/mining und enchantable/mining_loot fehlt er.",
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
             "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
@@ -8248,10 +8238,10 @@ window.WIKI_DATA = {
             "The game test requires it to be at least 2.5 times as fast as a vanilla smoker and faster than the Reinforced Smoker (Raw Beef into Steak). The test's tick budget is 220 ticks.",
             "Crafting recipe (bulk upgrade, file netherite_smoker_bulk): in a 2x2 grid, 1 Netherite Nugget top left and 3 Reinforced Smokers in the other three slots yield 3 Netherite Smokers (datagen category RecipeCategory.DECORATIONS, so the recipe advancement sits under recipes/decorations).",
             "The recipe unlocks as soon as you have a Reinforced Smoker in your inventory.",
-            "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from glass.",
+            "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from the vanilla smoker (ofFullCopy(Blocks.SMOKER)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
             "The item is fire resistant (fireResistant).",
-            "Listed in the mineable/pickaxe tag; it is in no needs_*_tool tag, and requiresCorrectToolForDrops is never called.",
-            "Drops itself when broken (loot table with the survives_explosion condition).",
+            "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla smoker it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
+            "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\")."
           ],
@@ -8261,7 +8251,6 @@ window.WIKI_DATA = {
           "caveats": [
             "Fuel consumption is not changed anywhere in the code.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "No light level is set (the properties come from glass, only hardness, blast resistance and sound are overridden), so unlike a vanilla smoker it does not light up its surroundings while burning.",
             "The generated recipe file netherite_smoker_bulk.json carries no category field, so the crafting recipe book lists it under Miscellaneous; RecipeCategory.DECORATIONS only decides the advancement folder."
           ]
         },
@@ -8276,10 +8265,10 @@ window.WIKI_DATA = {
             "Der Spieltest fordert, dass er mindestens 2,5-mal so schnell wie ein normaler Räucherofen ist und schneller als der Verstärkte Räucherofen (rohes Rindfleisch zu Steak). Zeitbudget des Tests: 220 Ticks.",
             "Rezept (Bulk-Upgrade, Datei netherite_smoker_bulk): 1 Netherite Nugget oben links und 3 Verstärkte Räucheröfen im 2x2-Muster ergeben 3 Netherit-Räucheröfen (Advancement unter recipes/decorations; im Rezeptbuch steht es unter Verschiedenes, weil die erzeugte Datei kein category-Feld trägt und RecipeCategory.DECORATIONS nur den Advancement-Ordner bestimmt).",
             "Das Rezept wird freigeschaltet, sobald der Spieler einen Verstärkten Räucherofen im Inventar hat.",
-            "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden von Glas kopiert.",
+            "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden vom Vanilla-Räucherofen kopiert (ofFullCopy(Blocks.SMOKER)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
             "Das Item ist feuerfest (fireResistant).",
-            "Ist im Tag mineable/pickaxe eingetragen; in keinem needs_*_tool-Tag enthalten, requiresCorrectToolForDrops wird nicht aufgerufen.",
-            "Beim Abbau lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
+            "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Räucherofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
+            "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“)."
           ],
@@ -8288,8 +8277,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
-            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
-            "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte, Explosionswiderstand und Klang werden überschrieben)."
+            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
         "sources": [
@@ -8340,6 +8328,18 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:nihil_purpur_block"
       ],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:nihilith_ore",
+      "name": {
+        "en_us": "Nihilith Ore",
+        "de_de": "Nihilith-Erz"
+      },
+      "texture": "assets/textures/block/nihilith_ore.png",
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "hasCustomBehaviour": false
@@ -8453,7 +8453,7 @@ window.WIKI_DATA = {
             "Hollow, Layer Mode and Order (page 2 of the manager) currently do nothing: they are only stored on the item and sent to the server, but no code evaluates them, not even the preview.",
             "Without Constructor's Touch (and with the default config) only the two corner outlines are drawn, no area figure.",
             "Despite the name of the config option \"Invert Octant Sneak\" (tooltip: the filled area is rendered when NOT sneaking) the renderer never checks anywhere whether you are sneaking. The option only flips whether the area figure appears WITH or WITHOUT Constructor's Touch: with the option enabled an unenchanted octant shows the area and an enchanted one does not.",
-            "The lock only blocks setting corners by clicking, moving them with the mouse wheel and clearing the selection by sneaking in the air. The Octant Manager does not check the lock: positions, shape and every other value can still be changed there on a locked octant, and the server accepts that without checking.",
+            "The lock only blocks setting corners by clicking, moving them with the mouse wheel (checked by the server as well, not only by the client) and clearing the selection by sneaking in the air. The Octant Manager does not check the lock: positions, shape and every other value can still be changed there on a locked octant, and the server accepts that without checking.",
             "If you open the manager before Pos 1 and Pos 2 are set, the fields read 0; the first change in the manager (even just locking) then writes Pos 1 and Pos 2 into the octant as 0, 0, 0.",
             "Wheel-moving only affects a corner that is already set; it does not create a missing point.",
             "Rectangle (2D) and Ellipse (2D) do not force a flat selection: they use the same box built from P1 and P2. Rectangle is drawn exactly like Cuboid, Ellipse exactly like Cylinder.",
@@ -8516,7 +8516,7 @@ window.WIKI_DATA = {
             "Hohl, Ebenenmodus und Reihenfolge (Seite 2 des Managers) haben derzeit keine Wirkung: Sie werden nur im Item gespeichert und an den Server geschickt, aber kein Code wertet sie aus, auch die Vorschau nicht.",
             "Ohne Berührung des Konstrukteurs (und mit Standard-Config) werden nur die beiden Eckpunkt-Umrisse gezeichnet, keine Flächenfigur.",
             "Trotz des Namens der Config-Option \"Oktant Schleichen umkehren\" (Tooltip: Fläche wird angezeigt, wenn NICHT geschlichen wird) prüft der Renderer nirgends, ob du schleichst. Die Option kehrt nur um, ob die Flächenfigur MIT oder OHNE Berührung des Konstrukteurs erscheint: bei aktivierter Option sieht ein unverzaubter Oktant die Fläche, ein verzauberter nicht.",
-            "Die Sperre verhindert nur Klick-Setzen, Mausrad-Verschieben und das Löschen per Schleichen in die Luft. Der Oktant-Manager prüft die Sperre nicht: Dort lassen sich Positionen, Form und alle anderen Werte auch bei gesperrtem Oktanten ändern, und der Server übernimmt das ohne Prüfung.",
+            "Die Sperre verhindert nur Klick-Setzen, Mausrad-Verschieben (auch vom Server geprüft, nicht nur vom Client) und das Löschen per Schleichen in die Luft. Der Oktant-Manager prüft die Sperre nicht: Dort lassen sich Positionen, Form und alle anderen Werte auch bei gesperrtem Oktanten ändern, und der Server übernimmt das ohne Prüfung.",
             "Öffnest du den Manager, bevor Pos 1 und Pos 2 gesetzt sind, stehen die Felder auf 0; die erste Änderung im Manager (auch nur das Sperren) schreibt dann Pos 1 und Pos 2 als 0, 0, 0 in den Oktanten.",
             "Mausrad-Verschieben wirkt nur auf einen Eckpunkt, der bereits gesetzt ist; ein fehlender Punkt wird dadurch nicht angelegt.",
             "Rechteck (2D) und Ellipse (2D) erzwingen keine flache Auswahl: Sie nutzen denselben Kasten aus P1 und P2. Rechteck wird genauso gezeichnet wie Quader, Ellipse genauso wie Zylinder.",
@@ -8955,7 +8955,7 @@ window.WIKI_DATA = {
             "Netherite mode has the lowest scan power at 10; since netherrack (1.5), basalt and blackstone (6.0) cost extra density on top of that, its range in the Nether is correspondingly short.",
             "The detector only pings when a target was found; if it stays silent, there is nothing reachable within the budget.",
             "Each pass walks a cube of (2 times radius + 1) cubed positions (49 cubed at radius 24), but only reads the block state for positions inside the sphere that are nearer than the best target so far; there is no throttling in the code for several detectors held at once.",
-            "The click sound on the mode switch is triggered server-side through Player.playSound; by vanilla behaviour that method leaves the triggering player out on the server, so it is bystanders who are likely to hear it rather than you. That behaviour lives in vanilla, not in this repo, and no test covers it.",
+            "The click sound on the mode switch is played at your position for everyone nearby, you included (level().playSound with no excluded player); a client test hears it at volume 0.5 and pitch 1.5.",
             "The sonar ping itself (sound and particles) is not covered by tests; the gametest covers only the mode switch and the calibration.",
             "The loot table books drop out entirely if worldGen.enableLootTableChanges is turned off in the config."
           ]
@@ -9013,7 +9013,7 @@ window.WIKI_DATA = {
             "Der Netherite-Modus hat mit 10 die geringste Suchleistung; da Netherrack (1.5), Basalt und Schwarzstein (6.0) zusätzlich Dichte kosten, ist die Reichweite im Nether entsprechend kurz.",
             "Der Detektor pingt nur, wenn ein Ziel gefunden wurde; bleibt er still, ist innerhalb des Budgets nichts Erreichbares.",
             "Die Suche läuft pro Durchlauf über einen Würfel von (2 mal Radius + 1) hoch 3 Positionen (bei Radius 24 also 49 hoch 3), liest den Blockzustand aber nur für Positionen innerhalb der Kugel, die näher liegen als das bisher beste Ziel; eine Drosselung für mehrere gleichzeitig gehaltene Detektoren gibt es im Code nicht.",
-            "Der Klick-Ton beim Moduswechsel wird serverseitig über Player.playSound ausgelöst; nach Vanilla-Verhalten schließt diese Methode auf dem Server den auslösenden Spieler selbst aus, sodass ihn eher Umstehende hören. Dieses Verhalten steht nicht im Repo und ist nicht durch Tests abgedeckt.",
+            "Der Klick-Ton beim Moduswechsel erklingt an deiner Position für alle in der Nähe, dich eingeschlossen (level().playSound ohne Ausnahme); ein Client-Test hört ihn mit Lautstärke 0,5 und Tonhöhe 1,5.",
             "Der Sonar-Ping selbst (Ton und Partikel) ist nicht durch Tests abgedeckt; der Spieltest deckt nur Moduswechsel und Kalibrierung ab.",
             "Die Beutetabellen-Bücher entfallen komplett, wenn worldGen.enableLootTableChanges in der Konfiguration ausgeschaltet ist."
           ]
@@ -9042,6 +9042,23 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:polished_end_stone",
+      "name": {
+        "en_us": "Polished End Stone",
+        "de_de": "Polierter Endstein"
+      },
+      "texture": "assets/textures/block/polished_end_stone.png",
+      "craftedBy": [
+        "simplebuilding:polished_end_stone"
+      ],
+      "usedIn": [
+        "simplebuilding:astral_end_stone",
+        "simplebuilding:nihil_end_stone"
+      ],
+      "trades": [],
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:purpur_quartz_checker",
@@ -9250,9 +9267,9 @@ window.WIKI_DATA = {
             "The game test smelts Raw Iron and requires the order Netherite Blast Furnace faster than Reinforced Blast Furnace faster than vanilla Blast Furnace. The test's tick budget is 220 ticks.",
             "Crafting recipe: 3 Cracked Diamonds on top, 3 Blast Furnaces in the middle, 3 Cracked Diamonds at the bottom, yielding 3 Reinforced Blast Furnaces (recipe book category Redstone).",
             "The recipe unlocks as soon as you have a Blast Furnace in your inventory.",
-            "Hardness 3.5 (strength(3.5F)) and sound type Metal (SoundType.METAL); every other block property is copied from glass (ofFullCopy(Blocks.GLASS)).",
-            "Listed in the mineable/pickaxe tag; it is in no needs_*_tool tag, and requiresCorrectToolForDrops is never called.",
-            "Drops itself when broken (loot table with the survives_explosion condition).",
+            "Hardness 3.5 (strength(3.5F)) and sound type Metal (SoundType.METAL); every other block property is copied from the vanilla blast furnace (ofFullCopy(Blocks.BLAST_FURNACE)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
+            "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla blast furnace it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
+            "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
             "Menu title: \"Reinforced Blast Furnace\" (translation key container.simplebuilding.reinforced_blast_furnace)."
@@ -9262,8 +9279,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Fuel consumption is not changed anywhere in the code.",
-            "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "No light level is set (the properties come from glass, only hardness and sound are overridden), so unlike a vanilla blast furnace it does not light up its surroundings while burning."
+            "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
         "de": {
@@ -9276,9 +9292,9 @@ window.WIKI_DATA = {
             "Der Spieltest prüft mit Roheisen die Reihenfolge Netherit schneller als Verstärkt schneller als normal. Zeitbudget des Tests: 220 Ticks.",
             "Rezept: 3 Rissige Diamanten oben, 3 Schmelzöfen in der Mitte, 3 Rissige Diamanten unten ergeben 3 Verstärkte Schmelzöfen (Rezeptbuch-Kategorie Redstone).",
             "Das Rezept wird freigeschaltet, sobald der Spieler einen Schmelzofen im Inventar hat.",
-            "Härte 3,5 (strength(3.5F)), Klang Metall (SoundType.METAL); die übrigen Blockeigenschaften werden von Glas kopiert (ofFullCopy(Blocks.GLASS)).",
-            "Ist im Tag mineable/pickaxe eingetragen; in keinem needs_*_tool-Tag enthalten, requiresCorrectToolForDrops wird nicht aufgerufen.",
-            "Beim Abbau lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
+            "Härte 3,5 (strength(3.5F)), Klang Metall (SoundType.METAL); die übrigen Blockeigenschaften werden vom Vanilla-Schmelzofen kopiert (ofFullCopy(Blocks.BLAST_FURNACE)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
+            "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Schmelzofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
+            "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
             "Menü-Überschrift: „Verstärkter Schmelzofen“ (Sprachschlüssel container.simplebuilding.reinforced_blast_furnace)."
@@ -9288,8 +9304,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
-            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
-            "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte und Klang werden überschrieben)."
+            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
         "sources": [
@@ -9520,9 +9535,9 @@ window.WIKI_DATA = {
             "The game test smelts Raw Iron with Coal and requires the Reinforced Furnace to be at least 1.5 times as fast as a vanilla furnace; the comment in the test puts the expected gain at roughly double speed. The test's tick budget is 320 ticks.",
             "Crafting recipe: 3 Cracked Diamonds on top, 3 Furnaces in the middle, 3 Cracked Diamonds at the bottom, yielding 3 Reinforced Furnaces (recipe book category Redstone).",
             "The recipe unlocks as soon as you have a Furnace in your inventory.",
-            "Hardness 3.5 (strength(3.5F)) and sound type Metal (SoundType.METAL); every other block property is copied from glass (ofFullCopy(Blocks.GLASS)).",
-            "Listed in the mineable/pickaxe tag (a pickaxe mines it faster); it is in no needs_*_tool tag, and requiresCorrectToolForDrops is never called.",
-            "Drops itself when broken (loot table with the survives_explosion condition).",
+            "Hardness 3.5 (strength(3.5F)) and sound type Metal (SoundType.METAL); every other block property is copied from the vanilla furnace (ofFullCopy(Blocks.FURNACE)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
+            "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla furnace it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
+            "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings; the item model reuses the block model.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
             "Menu title: \"Reinforced Furnace\" (translation key container.simplebuilding.reinforced_furnace)."
@@ -9532,8 +9547,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Fuel consumption is not changed anywhere in the code.",
-            "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "No light level is set (the properties come from glass, only hardness and sound are overridden; there is no lightLevel call), so unlike a vanilla furnace it does not light up its surroundings while burning."
+            "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
         "de": {
@@ -9546,9 +9560,9 @@ window.WIKI_DATA = {
             "Der Spieltest fordert, dass er mindestens 1,5-mal so schnell wie ein normaler Ofen ist (Roheisen mit Kohle); im Testkommentar steht als Erwartung etwa doppelte Geschwindigkeit. Zeitbudget des Tests: 320 Ticks.",
             "Rezept: 3 Rissige Diamanten oben, 3 Öfen in der Mitte, 3 Rissige Diamanten unten ergeben 3 Verstärkte Öfen (Rezeptbuch-Kategorie Redstone).",
             "Das Rezept wird freigeschaltet, sobald der Spieler einen Ofen im Inventar hat.",
-            "Härte 3,5 (strength(3.5F)), Klang Metall (SoundType.METAL); die übrigen Blockeigenschaften werden von Glas kopiert (ofFullCopy(Blocks.GLASS)).",
-            "Ist im Tag mineable/pickaxe eingetragen (mit Spitzhacke schneller abbaubar); in keinem needs_*_tool-Tag enthalten, requiresCorrectToolForDrops wird nicht aufgerufen.",
-            "Beim Abbau lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
+            "Härte 3,5 (strength(3.5F)), Klang Metall (SoundType.METAL); die übrigen Blockeigenschaften werden vom Vanilla-Ofen kopiert (ofFullCopy(Blocks.FURNACE)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
+            "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Ofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
+            "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen (facing); das Item-Modell zeigt das Blockmodell.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
             "Menü-Überschrift: „Verstärkter Ofen“ (Sprachschlüssel container.simplebuilding.reinforced_furnace)."
@@ -9558,8 +9572,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
-            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
-            "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte und Klang werden überschrieben; kein lightLevel-Aufruf)."
+            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
         "sources": [
@@ -9612,6 +9625,7 @@ window.WIKI_DATA = {
             "Hardness 3.0 and blast resistance 4.8; SoundType.METAL; noOcclusion set.",
             "Both mod hoppers share the block entity type simplebuilding:mod_hopper and the menu type simplebuilding:netherite_hopper.",
             "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
+            "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
             "Recipe (yields 5, category redstone): top row Hopper - Name Tag - Hopper, middle row three Cracked Diamonds (simplebuilding:cracked_diamond), bottom row three Hoppers; unlocked as soon as you own a minecraft:hopper.",
             "The Reinforced Hopper is an ingredient for the Netherite Hopper (two Reinforced Hoppers plus one Netherite Nugget yield two Netherite Hoppers).",
             "Filter mode, filter items and the transfer cooldown are saved with the block (keys 'FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload; an unknown 'FilterMode' falls back to Disabled rather than throwing, so nothing is lost.",
@@ -9629,8 +9643,7 @@ window.WIKI_DATA = {
             "With the filter on, a slot with no filter item accepts nothing at all (canPlaceItem returns false); each of the five slots has to be set up individually.",
             "The filter only checks what may enter the hopper (canPlaceItem); output into the target container is not filtered.",
             "The texts in the filter menu ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') are hard-coded English Component.literal strings and are not translated.",
-            "The server only accepts filter clicks and mode changes while player.containerMenu is a ModHopperScreenHandler, i.e. while a mod hopper's menu is open.",
-            "The registration sets no correct-tool requirement for drops (requiresCorrectToolForDrops); the block copies its base properties from glass (ofFullCopy(Blocks.GLASS)) and only changes hardness/blast resistance, sound and occlusion."
+            "The server only accepts filter clicks and mode changes while player.containerMenu is a ModHopperScreenHandler, i.e. while a mod hopper's menu is open."
           ]
         },
         "de": {
@@ -9643,6 +9656,7 @@ window.WIKI_DATA = {
             "Härte 3,0 und Explosionswiderstand 4,8; Klang SoundType.METAL; noOcclusion gesetzt.",
             "Beide Mod-Trichter teilen den Block-Entity-Typ simplebuilding:mod_hopper und den Menütyp simplebuilding:netherite_hopper.",
             "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
+            "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
             "Rezept (ergibt 5 Stück, Kategorie redstone): obere Reihe Trichter – Namensschild – Trichter, mittlere Reihe drei Rissige Diamanten (simplebuilding:cracked_diamond), untere Reihe drei Trichter; freigeschaltet, sobald man einen minecraft:hopper besitzt.",
             "Der Verstärkte Trichter ist Zutat für den Netherittrichter (zwei Verstärkte Trichter + ein Netherite Nugget ergeben zwei Netherittrichter).",
             "Filtermodus, Filter-Items und Wartezeit werden mit dem Block gespeichert (Schlüssel 'FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt; ein unbekannter 'FilterMode' fällt auf Disabled zurück, statt zu werfen – es geht nichts verloren.",
@@ -9660,8 +9674,7 @@ window.WIKI_DATA = {
             "Bei aktivem Filter nimmt ein Slot ohne Filter-Item gar nichts an (canPlaceItem liefert false); jeder der fünf Slots muss einzeln belegt werden.",
             "Der Filter prüft nur, was in den Trichter hinein darf (canPlaceItem); die Ausgabe in den Zielbehälter wird nicht gefiltert.",
             "Die Texte im Filter-Menü ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') sind als Component.literal fest auf Englisch hinterlegt und werden nicht übersetzt.",
-            "Der Server nimmt Filter-Klicks und Modus-Wechsel nur an, solange player.containerMenu ein ModHopperScreenHandler ist, also das Menü eines Mod-Trichters geöffnet ist.",
-            "Ein Werkzeugzwang für den Drop (requiresCorrectToolForDrops) ist in der Registrierung nicht gesetzt; der Block kopiert die Grundeigenschaften von Glas (ofFullCopy(Blocks.GLASS)) und ändert nur Härte/Widerstand, Klang und Okklusion."
+            "Der Server nimmt Filter-Klicks und Modus-Wechsel nur an, solange player.containerMenu ein ModHopperScreenHandler ist, also das Menü eines Mod-Trichters geöffnet ist."
           ]
         },
         "sources": [
@@ -9799,9 +9812,9 @@ window.WIKI_DATA = {
             "The game test cooks Raw Beef and requires the order Netherite Smoker faster than Reinforced Smoker faster than vanilla Smoker. The test's tick budget is 220 ticks.",
             "Crafting recipe: 3 Cracked Diamonds on top, 3 Smokers in the middle, 3 Cracked Diamonds at the bottom, yielding 3 Reinforced Smokers (recipe book category Redstone).",
             "The recipe unlocks as soon as you have a Smoker in your inventory.",
-            "Hardness 3.5 (strength(3.5F)) and sound type Metal (SoundType.METAL); every other block property is copied from glass (ofFullCopy(Blocks.GLASS)).",
-            "Listed in the mineable/pickaxe tag; it is in no needs_*_tool tag, and requiresCorrectToolForDrops is never called.",
-            "Drops itself when broken (loot table with the survives_explosion condition).",
+            "Hardness 3.5 (strength(3.5F)) and sound type Metal (SoundType.METAL); every other block property is copied from the vanilla smoker (ofFullCopy(Blocks.SMOKER)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
+            "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla smoker it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
+            "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
             "Menu title: \"Reinforced Smoker\" (translation key container.simplebuilding.reinforced_smoker)."
@@ -9811,8 +9824,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Fuel consumption is not changed anywhere in the code.",
-            "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "No light level is set (the properties come from glass, only hardness and sound are overridden), so unlike a vanilla smoker it does not light up its surroundings while burning."
+            "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
         "de": {
@@ -9825,9 +9837,9 @@ window.WIKI_DATA = {
             "Der Spieltest prüft mit rohem Rindfleisch die Reihenfolge Netherit schneller als Verstärkt schneller als normal. Zeitbudget des Tests: 220 Ticks.",
             "Rezept: 3 Rissige Diamanten oben, 3 Räucheröfen in der Mitte, 3 Rissige Diamanten unten ergeben 3 Verstärkte Räucheröfen (Rezeptbuch-Kategorie Redstone).",
             "Das Rezept wird freigeschaltet, sobald der Spieler einen Räucherofen im Inventar hat.",
-            "Härte 3,5 (strength(3.5F)), Klang Metall (SoundType.METAL); die übrigen Blockeigenschaften werden von Glas kopiert (ofFullCopy(Blocks.GLASS)).",
-            "Ist im Tag mineable/pickaxe eingetragen; in keinem needs_*_tool-Tag enthalten, requiresCorrectToolForDrops wird nicht aufgerufen.",
-            "Beim Abbau lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
+            "Härte 3,5 (strength(3.5F)), Klang Metall (SoundType.METAL); die übrigen Blockeigenschaften werden vom Vanilla-Räucherofen kopiert (ofFullCopy(Blocks.SMOKER)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
+            "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Räucherofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
+            "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
             "Menü-Überschrift: „Verstärkter Räucherofen“ (Sprachschlüssel container.simplebuilding.reinforced_smoker)."
@@ -9837,8 +9849,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
-            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
-            "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte und Klang werden überschrieben)."
+            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
         "sources": [
@@ -9936,7 +9947,7 @@ window.WIKI_DATA = {
             "For axes only the complete property BlockStateProperties.AXIS (X/Y/Z) counts; a horizontal-only axis property (horizontal_axis) is not recognised.",
             "For facing blocks only a property named facing, horizontal_facing or hopper_facing with direction values is recognised; blocks that store their orientation under another name cannot be turned.",
             "If a facing block already points toward the clicked edge, a rim click changes nothing (same state), so neither durability is taken nor a sound played.",
-            "The durability cost hardcodes the main hand slot (hurtAndBreak(1, player, EquipmentSlot.MAINHAND)); it is taken off the stack that was actually used (context.getItemInHand()).",
+            "The durability cost is billed to the hand that was used (hurtAndBreak(1, player, context.getHand().asEquipmentSlot())) and taken off that stack (context.getItemInHand()).",
             "There is no cooldown and no reach change: the Rotator only works on the block you can click normally."
           ]
         },
@@ -9979,7 +9990,7 @@ window.WIKI_DATA = {
             "Bei Achsen zählt nur die vollständige Eigenschaft BlockStateProperties.AXIS (X/Y/Z); eine nur waagerechte Achsen-Eigenschaft (horizontal_axis) wird nicht erkannt.",
             "Bei Blickrichtungs-Blöcken wird nur eine Eigenschaft mit dem Namen facing, horizontal_facing oder hopper_facing und Richtungswerten erkannt; Blöcke, deren Ausrichtung unter einem anderen Namen gespeichert ist, lassen sich nicht drehen.",
             "Zeigt ein Blickrichtungs-Block bereits zur angeklickten Kante, ändert ein Randklick nichts (gleicher Zustand), es wird weder Haltbarkeit abgezogen noch ein Klang gespielt.",
-            "Beim Haltbarkeitsabzug ist der Haupthand-Slot fest im Code hinterlegt (hurtAndBreak(1, player, EquipmentSlot.MAINHAND)); abgezogen wird vom tatsächlich benutzten Stapel (context.getItemInHand()).",
+            "Der Haltbarkeitsabzug wird an der benutzten Hand abgerechnet (hurtAndBreak(1, player, context.getHand().asEquipmentSlot())) und vom dort liegenden Stapel abgezogen (context.getItemInHand()).",
             "Es gibt keine Abklingzeit und keine Reichweitenänderung: Der Rotator wirkt nur auf den Block, den man normal anklicken kann."
           ]
         },
@@ -10046,8 +10057,8 @@ window.WIKI_DATA = {
             "Mining: the chisel counts as the correct tool for everything mineable with a pickaxe, axe or shovel (so those blocks drop normally); the mining speed is (the material's base speed + the Fast Chiseling bonus) x 0.5, and 1.0 on blocks it is not correct for; every block mined costs 2 durability.",
             "Fast Chiseling: level I cuts the cooldown to 70%, level II to 40% (factor 1 - 0.3 x level, at least 1 tick); the mining bonus is +5 at level I and +17 from level II up (before the halving; the code comment intends them as Efficiency II and Efficiency IV equivalents); max level 2, weight 5, anvil cost 2, min cost 1 (+10 per further level), max cost 20 (+10), available at the enchanting table (tag minecraft:in_enchanting_table, in both MC lines).",
             "Constructor's Touch: max level 1, weight 1, anvil cost 1, cost 20 to 50; it unlocks the extra maps; it is not listed in the enchanting-table tag (only Fast Chiseling is).",
-            "Range (levels I to III) can be applied to chisels from stone to netherite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
-            "Chisels from stone to netherite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
+            "Range (levels I to III) can be applied to chisels from stone to enderite and raises block interaction range by 2.0 at level I and by a further 4.0 per additional level.",
+            "Chisels from stone to enderite are in the tags minecraft:enchantable/durability and minecraft:enchantable/vanishing (durability enchantments and Curse of Vanishing).",
             "First-person animation: when you aim at a block the chisel could transform in its current state (sneaking, enchantment, no cooldown), the held tool tilts (-15 degrees around Y and -10 degrees around X, offset 0.05 per axis, smoothing 0.15 per frame), in both main hand and off hand; it can be turned off with the config switches \"Enable Tool Animations\" (enableToolAnimations) and \"Enable Chisel Animation\" (enableChiselAnimation), both on by default.",
             "Crafting table recipe (diagonal): stick bottom left, material in the middle, one copper nugget to the left of the material and one below it; the material is Cobblestone (Stone Chisel), a Copper Ingot (Copper Chisel), an Iron Ingot (Iron Chisel), a Gold Ingot (Gold Chisel) or a Diamond (Diamond Chisel).",
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
@@ -10077,7 +10088,6 @@ window.WIKI_DATA = {
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
-            "The Enderite Chisel is not in the item tag \"chisel_tools\" (in both MC lines); the definitions of Fast Chiseling, Constructor's Touch, Range, the durability enchantments and Curse of Vanishing therefore do not list it as a legal target. The tool code itself would evaluate those enchantments if they reached the item some other way.",
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
             "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
@@ -10109,8 +10119,8 @@ window.WIKI_DATA = {
             "Abbauen: Der Meißel zählt als passendes Werkzeug für alles, was mit Spitzhacke, Axt oder Schaufel abbaubar ist (Drops fallen); die Abbaugeschwindigkeit ist (Grundgeschwindigkeit des Materials + Bonus aus Schnelles Meißeln) × 0,5, bei nicht passenden Blöcken 1,0; jeder abgebaute Block kostet 2 Haltbarkeit.",
             "Schnelles Meißeln: Stufe I setzt die Abklingzeit auf 70 %, Stufe II auf 40 % (Faktor 1 − 0,3 × Stufe, mindestens 1 Tick); der Abbau-Bonus beträgt +5 auf Stufe I und +17 ab Stufe II (vor der Halbierung; laut Code-Kommentar als Effizienz-II- bzw. -IV-Äquivalent gedacht); Höchststufe 2, Gewicht 5, Amboss-Kosten 2, Mindestkosten 1 (+10 je weiterer Stufe), Höchstkosten 20 (+10), im Verzauberungstisch verfügbar (Tag minecraft:in_enchanting_table, in beiden MC-Fassungen).",
             "Berührung des Konstrukteurs: Höchststufe 1, Gewicht 1, Amboss-Kosten 1, Kosten 20 bis 50; schaltet die Zusatz-Tabellen frei; nicht im Verzauberungstisch-Tag eingetragen (dort steht nur Schnelles Meißeln).",
-            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Netherit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
-            "Meißel von Stein bis Netherit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
+            "Reichweite (Stufe I bis III) ist auf Meißel von Stein bis Enderit anwendbar und erhöht die Block-Interaktionsreichweite um 2,0 auf Stufe I und je weitere Stufe um 4,0.",
+            "Meißel von Stein bis Enderit stehen in den Tags minecraft:enchantable/durability und minecraft:enchantable/vanishing (Haltbarkeits-Verzauberungen und Fluch des Verschwindens).",
             "Ego-Animation: Zielt man auf einen Block, den der Meißel im aktuellen Zustand (Schleichen, Verzauberung, keine Abklingzeit) umwandeln könnte, neigt sich das gehaltene Werkzeug (−15° um Y und −10° um X, Versatz 0,05 je Achse, Glättung 0,15 pro Bild), in Haupt- und Nebenhand; abschaltbar über die Konfigurationsschalter „Werkzeuganimationen aktivieren“ (enableToolAnimations) und „Meißel-Animation aktivieren“ (enableChiselAnimation), beide standardmäßig an.",
             "Rezept an der Werkbank (diagonal): Stock unten links, Material in der Mitte, je ein Kupferklumpen links vom Material und unter dem Material; Material ist Bruchstein (Steinmeißel), Kupferbarren (Kupfermeißel), Eisenbarren (Eisenmeißel), Goldbarren (Goldmeißel) oder Diamant (Diamantmeißel).",
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
@@ -10140,7 +10150,6 @@ window.WIKI_DATA = {
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
-            "Der Enderit-Meißel steht nicht im Item-Tag „chisel_tools“ (in beiden MC-Fassungen); die Definitionen von Schnelles Meißeln, Berührung des Konstrukteurs, Reichweite, den Haltbarkeits-Verzauberungen und Fluch des Verschwindens führen ihn deshalb nicht als zulässiges Ziel. Der Werkzeugcode selbst würde die Verzauberungen auswerten, wenn sie auf anderem Weg auf dem Item landen.",
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
             "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
@@ -10302,7 +10311,6 @@ window.WIKI_DATA = {
             "The material speed of the tier drives both the mining speed and the charge time when reshaping; a higher speed means a shorter charge (lower bound 4 ticks, upper bound 40 ticks)."
           ],
           "caveats": [
-            "The Enderite Sledgehammer is not in the sledgehammer_tools tag (only stone through netherite are listed there) and is therefore not registered as a supported item for Override, Radius, Break Through, Constructor's Touch, Range and Versatility; it is missing from the enchantable/durability, enchantable/mining and enchantable/mining_loot tags as well.",
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
             "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
@@ -10382,7 +10390,6 @@ window.WIKI_DATA = {
             "Die Materialgeschwindigkeit der Stufe bestimmt sowohl die Abbaugeschwindigkeit als auch die Aufladezeit beim Umformen; höhere Geschwindigkeit heißt kürzeres Aufladen (Untergrenze 4 Ticks, Obergrenze 40 Ticks)."
           ],
           "caveats": [
-            "Der Enderite Sledgehammer steht nicht im Tag sledgehammer_tools (dort sind nur Stein bis Netherit eingetragen) und ist damit für Übersteuerung, Radius, Durchbruch, Berührung des Konstrukteurs, Reichweite und Vielseitigkeit nicht als unterstützter Gegenstand hinterlegt; auch in den Tags enchantable/durability, enchantable/mining und enchantable/mining_loot fehlt er.",
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
             "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
@@ -11011,10 +11018,10 @@ window.WIKI_DATA = {
             "The game test requires it to be at least 2.5 times as fast as a vanilla blast furnace and faster than the Reinforced Blast Furnace (Raw Iron into an Iron Ingot). The test's tick budget is 220 ticks.",
             "Crafting recipe (bulk upgrade, file netherite_blast_furnace_bulk): in a 2x2 grid, 1 Netherite Nugget top left and 3 Reinforced Blast Furnaces in the other three slots yield 3 Netherite Blast Furnaces (datagen category RecipeCategory.DECORATIONS, so the recipe advancement sits under recipes/decorations).",
             "The recipe unlocks as soon as you have a Reinforced Blast Furnace in your inventory.",
-            "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from glass.",
+            "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from the vanilla blast furnace (ofFullCopy(Blocks.BLAST_FURNACE)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
             "The item is fire resistant (fireResistant).",
-            "Listed in the mineable/pickaxe tag; it is in no needs_*_tool tag, and requiresCorrectToolForDrops is never called.",
-            "Drops itself when broken (loot table with the survives_explosion condition).",
+            "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla blast furnace it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
+            "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\")."
           ],
@@ -11024,7 +11031,6 @@ window.WIKI_DATA = {
           "caveats": [
             "Fuel consumption is not changed anywhere in the code.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "No light level is set (the properties come from glass, only hardness, blast resistance and sound are overridden), so unlike a vanilla blast furnace it does not light up its surroundings while burning.",
             "The generated recipe file netherite_blast_furnace_bulk.json carries no category field, so the crafting recipe book lists it under Miscellaneous; RecipeCategory.DECORATIONS only decides the advancement folder."
           ]
         },
@@ -11039,10 +11045,10 @@ window.WIKI_DATA = {
             "Der Spieltest fordert, dass er mindestens 2,5-mal so schnell wie ein normaler Schmelzofen ist und schneller als der Verstärkte Schmelzofen (Roheisen zu Eisenbarren). Zeitbudget des Tests: 220 Ticks.",
             "Rezept (Bulk-Upgrade, Datei netherite_blast_furnace_bulk): 1 Netherite Nugget oben links und 3 Verstärkte Schmelzöfen im 2x2-Muster ergeben 3 Netherit-Schmelzöfen (Advancement unter recipes/decorations; im Rezeptbuch steht es unter Verschiedenes, weil die erzeugte Datei kein category-Feld trägt und RecipeCategory.DECORATIONS nur den Advancement-Ordner bestimmt).",
             "Das Rezept wird freigeschaltet, sobald der Spieler einen Verstärkten Schmelzofen im Inventar hat.",
-            "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden von Glas kopiert.",
+            "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden vom Vanilla-Schmelzofen kopiert (ofFullCopy(Blocks.BLAST_FURNACE)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
             "Das Item ist feuerfest (fireResistant).",
-            "Ist im Tag mineable/pickaxe eingetragen; in keinem needs_*_tool-Tag enthalten, requiresCorrectToolForDrops wird nicht aufgerufen.",
-            "Beim Abbau lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
+            "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Schmelzofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
+            "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“)."
           ],
@@ -11051,8 +11057,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
-            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
-            "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte, Explosionswiderstand und Klang werden überschrieben)."
+            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
         "sources": [
@@ -11112,10 +11117,10 @@ window.WIKI_DATA = {
             "The game test requires it to be at least 3 times as fast as a vanilla furnace and faster than the Reinforced Furnace; the comment in the test puts the expected gain at roughly quadruple speed. The test's tick budget is 320 ticks.",
             "Crafting recipe (bulk upgrade, file netherite_furnace_bulk): in a 2x2 grid, 1 Netherite Nugget top left and 3 Reinforced Furnaces in the other three slots yield 3 Netherite Furnaces (datagen category RecipeCategory.DECORATIONS, so the recipe advancement sits under recipes/decorations).",
             "The recipe unlocks as soon as you have a Reinforced Furnace in your inventory.",
-            "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from glass.",
+            "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from the vanilla furnace (ofFullCopy(Blocks.FURNACE)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
             "The item is fire resistant (fireResistant).",
-            "Listed in the mineable/pickaxe tag; it is in no needs_*_tool tag, and requiresCorrectToolForDrops is never called.",
-            "Drops itself when broken (loot table with the survives_explosion condition).",
+            "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla furnace it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
+            "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\")."
           ],
@@ -11125,7 +11130,6 @@ window.WIKI_DATA = {
           "caveats": [
             "Fuel consumption is not changed anywhere in the code.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "No light level is set (the properties come from glass, only hardness, blast resistance and sound are overridden), so unlike a vanilla furnace it does not light up its surroundings while burning.",
             "The generated recipe file netherite_furnace_bulk.json carries no category field, so the crafting recipe book lists it under Miscellaneous; RecipeCategory.DECORATIONS only decides the advancement folder."
           ]
         },
@@ -11140,10 +11144,10 @@ window.WIKI_DATA = {
             "Der Spieltest fordert, dass er mindestens 3-mal so schnell wie ein normaler Ofen ist und schneller als der Verstärkte Ofen; im Testkommentar steht als Erwartung etwa vierfache Geschwindigkeit. Zeitbudget des Tests: 320 Ticks.",
             "Rezept (Bulk-Upgrade, Datei netherite_furnace_bulk): 1 Netherite Nugget oben links und 3 Verstärkte Öfen im 2x2-Muster ergeben 3 Netheritöfen (Advancement unter recipes/decorations; im Rezeptbuch steht es unter Verschiedenes, weil die erzeugte Datei kein category-Feld trägt und RecipeCategory.DECORATIONS nur den Advancement-Ordner bestimmt).",
             "Das Rezept wird freigeschaltet, sobald der Spieler einen Verstärkten Ofen im Inventar hat.",
-            "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden von Glas kopiert.",
+            "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden vom Vanilla-Ofen kopiert (ofFullCopy(Blocks.FURNACE)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
             "Das Item ist feuerfest (fireResistant).",
-            "Ist im Tag mineable/pickaxe eingetragen; in keinem needs_*_tool-Tag enthalten, requiresCorrectToolForDrops wird nicht aufgerufen.",
-            "Beim Abbau lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
+            "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Ofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
+            "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“)."
           ],
@@ -11152,8 +11156,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
-            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
-            "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte, Explosionswiderstand und Klang werden überschrieben)."
+            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
         "sources": [
@@ -11207,6 +11210,7 @@ window.WIKI_DATA = {
             "The item is registered as fire resistant (fireResistant).",
             "5 slots; menu, filter button, filter items and storage ('FilterMode', 'GhostItems', 'TransferCooldown') are identical to the Reinforced Hopper, because both blocks use the same block entity type (simplebuilding:mod_hopper) and the same menu type (simplebuilding:netherite_hopper).",
             "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
+            "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
             "Recipe (yields 2, category redstone): a vertical column of Reinforced Hopper - Netherite Nugget (simplebuilding:netherite_nugget; 'Netherite Nugget' in en_us.json, 'Netherit-Nugget' in de_de.json) - Reinforced Hopper; unlocked as soon as you own a Reinforced Hopper.",
             "Listed in the mod's creative tab (simplebuilding:building_items; 'Building Items' in English, 'SimpleBuilding Items' in German); the item-group code puts it in the 'Machines & Storage' block of entries.",
             "A game test (BlockBehaviourTests) requires the Netherite Hopper to deliver 5 items faster than the Reinforced Hopper and in at most half the time the vanilla hopper needs.",
@@ -11224,8 +11228,7 @@ window.WIKI_DATA = {
             "The filter only checks what may enter the hopper; output into the target container is not filtered.",
             "The texts in the filter menu ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') are hard-coded English and are not translated.",
             "The server only accepts filter clicks and mode changes while the player has a mod hopper's menu open.",
-            "The Netherite Hopper has no special logic of its own: the file NetheriteHopperBlockEntity.java exists in the code but is never instantiated or registered anywhere (ModBlockEntities registers ModHopperBlockEntity for both blocks); the two hoppers differ only in cooldown, hardness, blast resistance, sound and the fire resistance of the item.",
-            "The registration sets no correct-tool requirement for drops (requiresCorrectToolForDrops)."
+            "The Netherite Hopper has no special logic of its own: the file NetheriteHopperBlockEntity.java exists in the code but is never instantiated or registered anywhere (ModBlockEntities registers ModHopperBlockEntity for both blocks); the two hoppers differ only in cooldown, hardness, blast resistance, sound and the fire resistance of the item."
           ]
         },
         "de": {
@@ -11238,6 +11241,7 @@ window.WIKI_DATA = {
             "Das Item ist als feuerfest (fireResistant) registriert.",
             "5 Slots; Menü, Filter-Knopf, Filter-Items und Speicherung ('FilterMode', 'GhostItems', 'TransferCooldown') sind identisch mit dem Verstärkten Trichter, da beide Blöcke denselben Block-Entity-Typ (simplebuilding:mod_hopper) und denselben Menütyp (simplebuilding:netherite_hopper) nutzen.",
             "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
+            "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
             "Rezept (ergibt 2 Stück, Kategorie redstone): senkrecht in einer Spalte Verstärkter Trichter – Netherite Nugget (simplebuilding:netherite_nugget; de_de: 'Netherit-Nugget', en_us: 'Netherite Nugget') – Verstärkter Trichter; freigeschaltet, sobald man einen Verstärkten Trichter besitzt.",
             "Im Kreativ-Tab der Mod (simplebuilding:building_items; deutsch 'SimpleBuilding Items', englisch 'Building Items') einsortiert; \"Machines & Storage\" ist dabei nur eine Gliederung im Code (ModItemGroupsContent), im Spiel zeigt der Tab keine solche Abschnittsüberschrift.",
             "Ein Spieltest (BlockBehaviourTests) verlangt, dass der Netherittrichter 5 Items schneller liefert als der Verstärkte Trichter und dafür höchstens die halbe Zeit des normalen Trichters braucht.",
@@ -11255,8 +11259,7 @@ window.WIKI_DATA = {
             "Der Filter prüft nur, was in den Trichter hinein darf; die Ausgabe in den Zielbehälter wird nicht gefiltert.",
             "Die Texte im Filter-Menü ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') sind fest auf Englisch hinterlegt und werden nicht übersetzt.",
             "Der Server nimmt Filter-Klicks und Modus-Wechsel nur an, solange der Spieler das Menü eines Mod-Trichters geöffnet hat.",
-            "Der Netherittrichter hat keine eigene Sonderlogik: die Datei NetheriteHopperBlockEntity.java liegt im Code, wird aber nirgends instanziiert oder registriert (ModBlockEntities registriert für beide Blöcke ModHopperBlockEntity); die beiden Trichter unterscheiden sich nur in Wartezeit, Härte, Explosionswiderstand, Klang und Feuerfestigkeit des Items.",
-            "Ein Werkzeugzwang für den Drop (requiresCorrectToolForDrops) ist in der Registrierung nicht gesetzt."
+            "Der Netherittrichter hat keine eigene Sonderlogik: die Datei NetheriteHopperBlockEntity.java liegt im Code, wird aber nirgends instanziiert oder registriert (ModBlockEntities registriert für beide Blöcke ModHopperBlockEntity); die beiden Trichter unterscheiden sich nur in Wartezeit, Härte, Explosionswiderstand, Klang und Feuerfestigkeit des Items."
           ]
         },
         "sources": [
@@ -11314,6 +11317,7 @@ window.WIKI_DATA = {
             "A destroyed block drops its normal loot (destroyBlock with drop = true).",
             "When a block is destroyed, the server plays the sound of a zombie rattling an iron door at the piston (ZOMBIE_ATTACK_IRON_DOOR, volume 0.5, pitch 0.8).",
             "After the check the normal piston logic carries on (super.triggerEvent): if the signal is too weak, the block is pushed like by an ordinary piston instead of being destroyed.",
+            "Nothing is destroyed unless the piston really extends: before breaking, it repeats vanilla's own extend check (the signal from every side but the push direction, plus quasi-connectivity from above). A signal that disappears between the block event being queued and being run therefore costs nothing.",
             "An extended Netherite Piston cannot be moved by other pistons (mixin on PistonBaseBlock.isPushable).",
             "Extending places the ordinary vanilla piston head; it stays attached to the Netherite Piston because a mixin on PistonHeadBlock.canSurvive accepts the Netherite Piston as a valid base.",
             "Hardness 5.0, blast resistance 1200, netherite block sounds; the item is fire resistant (fireResistant).",
@@ -11346,6 +11350,7 @@ window.WIKI_DATA = {
             "Ein zerstörter Block lässt seine normalen Drops fallen (destroyBlock mit drop = true).",
             "Beim Zerstören ertönt serverseitig das Geräusch eines Zombies, der an einer Eisentür rüttelt (ZOMBIE_ATTACK_IRON_DOOR, Lautstärke 0,5, Tonhöhe 0,8).",
             "Nach der Prüfung läuft die normale Kolbenlogik weiter (super.triggerEvent): Ist das Signal zu schwach, wird der Block wie bei einem gewöhnlichen Kolben geschoben statt zerstört.",
+            "Zerstört wird nur, wenn der Kolben wirklich ausfährt: Vor dem Brechen wiederholt er Vanillas eigene Ausfahrprüfung (Signal von jeder Seite außer der Schubrichtung, dazu Quasi-Konnektivität von oben). Ein Signal, das zwischen Einreihen und Ausführen des Block-Ereignisses verschwindet, kostet also nichts.",
             "Ein ausgefahrener Netheritkolben kann von anderen Kolben nicht verschoben werden (Mixin auf PistonBaseBlock.isPushable).",
             "Beim Ausfahren erscheint der normale Vanilla-Kolbenkopf; er bleibt am Netheritkolben haften, weil ein Mixin auf PistonHeadBlock.canSurvive den Netheritkolben als gültige Basis anerkennt.",
             "Härte 5,0, Explosionswiderstand 1200, Geräusch wie ein Netheritblock; das Item ist feuerfest (fireResistant).",
@@ -11492,10 +11497,10 @@ window.WIKI_DATA = {
             "The game test requires it to be at least 2.5 times as fast as a vanilla smoker and faster than the Reinforced Smoker (Raw Beef into Steak). The test's tick budget is 220 ticks.",
             "Crafting recipe (bulk upgrade, file netherite_smoker_bulk): in a 2x2 grid, 1 Netherite Nugget top left and 3 Reinforced Smokers in the other three slots yield 3 Netherite Smokers (datagen category RecipeCategory.DECORATIONS, so the recipe advancement sits under recipes/decorations).",
             "The recipe unlocks as soon as you have a Reinforced Smoker in your inventory.",
-            "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from glass.",
+            "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from the vanilla smoker (ofFullCopy(Blocks.SMOKER)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
             "The item is fire resistant (fireResistant).",
-            "Listed in the mineable/pickaxe tag; it is in no needs_*_tool tag, and requiresCorrectToolForDrops is never called.",
-            "Drops itself when broken (loot table with the survives_explosion condition).",
+            "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla smoker it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
+            "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\")."
           ],
@@ -11505,7 +11510,6 @@ window.WIKI_DATA = {
           "caveats": [
             "Fuel consumption is not changed anywhere in the code.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "No light level is set (the properties come from glass, only hardness, blast resistance and sound are overridden), so unlike a vanilla smoker it does not light up its surroundings while burning.",
             "The generated recipe file netherite_smoker_bulk.json carries no category field, so the crafting recipe book lists it under Miscellaneous; RecipeCategory.DECORATIONS only decides the advancement folder."
           ]
         },
@@ -11520,10 +11524,10 @@ window.WIKI_DATA = {
             "Der Spieltest fordert, dass er mindestens 2,5-mal so schnell wie ein normaler Räucherofen ist und schneller als der Verstärkte Räucherofen (rohes Rindfleisch zu Steak). Zeitbudget des Tests: 220 Ticks.",
             "Rezept (Bulk-Upgrade, Datei netherite_smoker_bulk): 1 Netherite Nugget oben links und 3 Verstärkte Räucheröfen im 2x2-Muster ergeben 3 Netherit-Räucheröfen (Advancement unter recipes/decorations; im Rezeptbuch steht es unter Verschiedenes, weil die erzeugte Datei kein category-Feld trägt und RecipeCategory.DECORATIONS nur den Advancement-Ordner bestimmt).",
             "Das Rezept wird freigeschaltet, sobald der Spieler einen Verstärkten Räucherofen im Inventar hat.",
-            "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden von Glas kopiert.",
+            "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden vom Vanilla-Räucherofen kopiert (ofFullCopy(Blocks.SMOKER)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
             "Das Item ist feuerfest (fireResistant).",
-            "Ist im Tag mineable/pickaxe eingetragen; in keinem needs_*_tool-Tag enthalten, requiresCorrectToolForDrops wird nicht aufgerufen.",
-            "Beim Abbau lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
+            "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Räucherofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
+            "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“)."
           ],
@@ -11532,8 +11536,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
-            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
-            "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte, Explosionswiderstand und Klang werden überschrieben)."
+            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
         "sources": [
@@ -11711,9 +11714,9 @@ window.WIKI_DATA = {
             "The game test smelts Raw Iron and requires the order Netherite Blast Furnace faster than Reinforced Blast Furnace faster than vanilla Blast Furnace. The test's tick budget is 220 ticks.",
             "Crafting recipe: 3 Cracked Diamonds on top, 3 Blast Furnaces in the middle, 3 Cracked Diamonds at the bottom, yielding 3 Reinforced Blast Furnaces (recipe book category Redstone).",
             "The recipe unlocks as soon as you have a Blast Furnace in your inventory.",
-            "Hardness 3.5 (strength(3.5F)) and sound type Metal (SoundType.METAL); every other block property is copied from glass (ofFullCopy(Blocks.GLASS)).",
-            "Listed in the mineable/pickaxe tag; it is in no needs_*_tool tag, and requiresCorrectToolForDrops is never called.",
-            "Drops itself when broken (loot table with the survives_explosion condition).",
+            "Hardness 3.5 (strength(3.5F)) and sound type Metal (SoundType.METAL); every other block property is copied from the vanilla blast furnace (ofFullCopy(Blocks.BLAST_FURNACE)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
+            "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla blast furnace it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
+            "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
             "Menu title: \"Reinforced Blast Furnace\" (translation key container.simplebuilding.reinforced_blast_furnace)."
@@ -11723,8 +11726,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Fuel consumption is not changed anywhere in the code.",
-            "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "No light level is set (the properties come from glass, only hardness and sound are overridden), so unlike a vanilla blast furnace it does not light up its surroundings while burning."
+            "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
         "de": {
@@ -11737,9 +11739,9 @@ window.WIKI_DATA = {
             "Der Spieltest prüft mit Roheisen die Reihenfolge Netherit schneller als Verstärkt schneller als normal. Zeitbudget des Tests: 220 Ticks.",
             "Rezept: 3 Rissige Diamanten oben, 3 Schmelzöfen in der Mitte, 3 Rissige Diamanten unten ergeben 3 Verstärkte Schmelzöfen (Rezeptbuch-Kategorie Redstone).",
             "Das Rezept wird freigeschaltet, sobald der Spieler einen Schmelzofen im Inventar hat.",
-            "Härte 3,5 (strength(3.5F)), Klang Metall (SoundType.METAL); die übrigen Blockeigenschaften werden von Glas kopiert (ofFullCopy(Blocks.GLASS)).",
-            "Ist im Tag mineable/pickaxe eingetragen; in keinem needs_*_tool-Tag enthalten, requiresCorrectToolForDrops wird nicht aufgerufen.",
-            "Beim Abbau lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
+            "Härte 3,5 (strength(3.5F)), Klang Metall (SoundType.METAL); die übrigen Blockeigenschaften werden vom Vanilla-Schmelzofen kopiert (ofFullCopy(Blocks.BLAST_FURNACE)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
+            "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Schmelzofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
+            "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
             "Menü-Überschrift: „Verstärkter Schmelzofen“ (Sprachschlüssel container.simplebuilding.reinforced_blast_furnace)."
@@ -11749,8 +11751,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
-            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
-            "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte und Klang werden überschrieben)."
+            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
         "sources": [
@@ -11811,9 +11812,9 @@ window.WIKI_DATA = {
             "The game test smelts Raw Iron with Coal and requires the Reinforced Furnace to be at least 1.5 times as fast as a vanilla furnace; the comment in the test puts the expected gain at roughly double speed. The test's tick budget is 320 ticks.",
             "Crafting recipe: 3 Cracked Diamonds on top, 3 Furnaces in the middle, 3 Cracked Diamonds at the bottom, yielding 3 Reinforced Furnaces (recipe book category Redstone).",
             "The recipe unlocks as soon as you have a Furnace in your inventory.",
-            "Hardness 3.5 (strength(3.5F)) and sound type Metal (SoundType.METAL); every other block property is copied from glass (ofFullCopy(Blocks.GLASS)).",
-            "Listed in the mineable/pickaxe tag (a pickaxe mines it faster); it is in no needs_*_tool tag, and requiresCorrectToolForDrops is never called.",
-            "Drops itself when broken (loot table with the survives_explosion condition).",
+            "Hardness 3.5 (strength(3.5F)) and sound type Metal (SoundType.METAL); every other block property is copied from the vanilla furnace (ofFullCopy(Blocks.FURNACE)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
+            "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla furnace it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
+            "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings; the item model reuses the block model.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
             "Menu title: \"Reinforced Furnace\" (translation key container.simplebuilding.reinforced_furnace)."
@@ -11823,8 +11824,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Fuel consumption is not changed anywhere in the code.",
-            "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "No light level is set (the properties come from glass, only hardness and sound are overridden; there is no lightLevel call), so unlike a vanilla furnace it does not light up its surroundings while burning."
+            "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
         "de": {
@@ -11837,9 +11837,9 @@ window.WIKI_DATA = {
             "Der Spieltest fordert, dass er mindestens 1,5-mal so schnell wie ein normaler Ofen ist (Roheisen mit Kohle); im Testkommentar steht als Erwartung etwa doppelte Geschwindigkeit. Zeitbudget des Tests: 320 Ticks.",
             "Rezept: 3 Rissige Diamanten oben, 3 Öfen in der Mitte, 3 Rissige Diamanten unten ergeben 3 Verstärkte Öfen (Rezeptbuch-Kategorie Redstone).",
             "Das Rezept wird freigeschaltet, sobald der Spieler einen Ofen im Inventar hat.",
-            "Härte 3,5 (strength(3.5F)), Klang Metall (SoundType.METAL); die übrigen Blockeigenschaften werden von Glas kopiert (ofFullCopy(Blocks.GLASS)).",
-            "Ist im Tag mineable/pickaxe eingetragen (mit Spitzhacke schneller abbaubar); in keinem needs_*_tool-Tag enthalten, requiresCorrectToolForDrops wird nicht aufgerufen.",
-            "Beim Abbau lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
+            "Härte 3,5 (strength(3.5F)), Klang Metall (SoundType.METAL); die übrigen Blockeigenschaften werden vom Vanilla-Ofen kopiert (ofFullCopy(Blocks.FURNACE)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
+            "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Ofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
+            "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen (facing); das Item-Modell zeigt das Blockmodell.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
             "Menü-Überschrift: „Verstärkter Ofen“ (Sprachschlüssel container.simplebuilding.reinforced_furnace)."
@@ -11849,8 +11849,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
-            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
-            "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte und Klang werden überschrieben; kein lightLevel-Aufruf)."
+            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
         "sources": [
@@ -11907,6 +11906,7 @@ window.WIKI_DATA = {
             "Hardness 3.0 and blast resistance 4.8; SoundType.METAL; noOcclusion set.",
             "Both mod hoppers share the block entity type simplebuilding:mod_hopper and the menu type simplebuilding:netherite_hopper.",
             "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
+            "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
             "Recipe (yields 5, category redstone): top row Hopper - Name Tag - Hopper, middle row three Cracked Diamonds (simplebuilding:cracked_diamond), bottom row three Hoppers; unlocked as soon as you own a minecraft:hopper.",
             "The Reinforced Hopper is an ingredient for the Netherite Hopper (two Reinforced Hoppers plus one Netherite Nugget yield two Netherite Hoppers).",
             "Filter mode, filter items and the transfer cooldown are saved with the block (keys 'FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload; an unknown 'FilterMode' falls back to Disabled rather than throwing, so nothing is lost.",
@@ -11924,8 +11924,7 @@ window.WIKI_DATA = {
             "With the filter on, a slot with no filter item accepts nothing at all (canPlaceItem returns false); each of the five slots has to be set up individually.",
             "The filter only checks what may enter the hopper (canPlaceItem); output into the target container is not filtered.",
             "The texts in the filter menu ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') are hard-coded English Component.literal strings and are not translated.",
-            "The server only accepts filter clicks and mode changes while player.containerMenu is a ModHopperScreenHandler, i.e. while a mod hopper's menu is open.",
-            "The registration sets no correct-tool requirement for drops (requiresCorrectToolForDrops); the block copies its base properties from glass (ofFullCopy(Blocks.GLASS)) and only changes hardness/blast resistance, sound and occlusion."
+            "The server only accepts filter clicks and mode changes while player.containerMenu is a ModHopperScreenHandler, i.e. while a mod hopper's menu is open."
           ]
         },
         "de": {
@@ -11938,6 +11937,7 @@ window.WIKI_DATA = {
             "Härte 3,0 und Explosionswiderstand 4,8; Klang SoundType.METAL; noOcclusion gesetzt.",
             "Beide Mod-Trichter teilen den Block-Entity-Typ simplebuilding:mod_hopper und den Menütyp simplebuilding:netherite_hopper.",
             "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
+            "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
             "Rezept (ergibt 5 Stück, Kategorie redstone): obere Reihe Trichter – Namensschild – Trichter, mittlere Reihe drei Rissige Diamanten (simplebuilding:cracked_diamond), untere Reihe drei Trichter; freigeschaltet, sobald man einen minecraft:hopper besitzt.",
             "Der Verstärkte Trichter ist Zutat für den Netherittrichter (zwei Verstärkte Trichter + ein Netherite Nugget ergeben zwei Netherittrichter).",
             "Filtermodus, Filter-Items und Wartezeit werden mit dem Block gespeichert (Schlüssel 'FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt; ein unbekannter 'FilterMode' fällt auf Disabled zurück, statt zu werfen – es geht nichts verloren.",
@@ -11955,8 +11955,7 @@ window.WIKI_DATA = {
             "Bei aktivem Filter nimmt ein Slot ohne Filter-Item gar nichts an (canPlaceItem liefert false); jeder der fünf Slots muss einzeln belegt werden.",
             "Der Filter prüft nur, was in den Trichter hinein darf (canPlaceItem); die Ausgabe in den Zielbehälter wird nicht gefiltert.",
             "Die Texte im Filter-Menü ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') sind als Component.literal fest auf Englisch hinterlegt und werden nicht übersetzt.",
-            "Der Server nimmt Filter-Klicks und Modus-Wechsel nur an, solange player.containerMenu ein ModHopperScreenHandler ist, also das Menü eines Mod-Trichters geöffnet ist.",
-            "Ein Werkzeugzwang für den Drop (requiresCorrectToolForDrops) ist in der Registrierung nicht gesetzt; der Block kopiert die Grundeigenschaften von Glas (ofFullCopy(Blocks.GLASS)) und ändert nur Härte/Widerstand, Klang und Okklusion."
+            "Der Server nimmt Filter-Klicks und Modus-Wechsel nur an, solange player.containerMenu ein ModHopperScreenHandler ist, also das Menü eines Mod-Trichters geöffnet ist."
           ]
         },
         "sources": [
@@ -12107,9 +12106,9 @@ window.WIKI_DATA = {
             "The game test cooks Raw Beef and requires the order Netherite Smoker faster than Reinforced Smoker faster than vanilla Smoker. The test's tick budget is 220 ticks.",
             "Crafting recipe: 3 Cracked Diamonds on top, 3 Smokers in the middle, 3 Cracked Diamonds at the bottom, yielding 3 Reinforced Smokers (recipe book category Redstone).",
             "The recipe unlocks as soon as you have a Smoker in your inventory.",
-            "Hardness 3.5 (strength(3.5F)) and sound type Metal (SoundType.METAL); every other block property is copied from glass (ofFullCopy(Blocks.GLASS)).",
-            "Listed in the mineable/pickaxe tag; it is in no needs_*_tool tag, and requiresCorrectToolForDrops is never called.",
-            "Drops itself when broken (loot table with the survives_explosion condition).",
+            "Hardness 3.5 (strength(3.5F)) and sound type Metal (SoundType.METAL); every other block property is copied from the vanilla smoker (ofFullCopy(Blocks.SMOKER)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
+            "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla smoker it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
+            "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
             "Menu title: \"Reinforced Smoker\" (translation key container.simplebuilding.reinforced_smoker)."
@@ -12119,8 +12118,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Fuel consumption is not changed anywhere in the code.",
-            "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "No light level is set (the properties come from glass, only hardness and sound are overridden), so unlike a vanilla smoker it does not light up its surroundings while burning."
+            "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
         "de": {
@@ -12133,9 +12131,9 @@ window.WIKI_DATA = {
             "Der Spieltest prüft mit rohem Rindfleisch die Reihenfolge Netherit schneller als Verstärkt schneller als normal. Zeitbudget des Tests: 220 Ticks.",
             "Rezept: 3 Rissige Diamanten oben, 3 Räucheröfen in der Mitte, 3 Rissige Diamanten unten ergeben 3 Verstärkte Räucheröfen (Rezeptbuch-Kategorie Redstone).",
             "Das Rezept wird freigeschaltet, sobald der Spieler einen Räucherofen im Inventar hat.",
-            "Härte 3,5 (strength(3.5F)), Klang Metall (SoundType.METAL); die übrigen Blockeigenschaften werden von Glas kopiert (ofFullCopy(Blocks.GLASS)).",
-            "Ist im Tag mineable/pickaxe eingetragen; in keinem needs_*_tool-Tag enthalten, requiresCorrectToolForDrops wird nicht aufgerufen.",
-            "Beim Abbau lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
+            "Härte 3,5 (strength(3.5F)), Klang Metall (SoundType.METAL); die übrigen Blockeigenschaften werden vom Vanilla-Räucherofen kopiert (ofFullCopy(Blocks.SMOKER)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
+            "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Räucherofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
+            "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
             "Menü-Überschrift: „Verstärkter Räucherofen“ (Sprachschlüssel container.simplebuilding.reinforced_smoker)."
@@ -12145,8 +12143,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Der Brennstoffverbrauch wird im Code nicht verändert.",
-            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist.",
-            "Es wird keine Leuchtstärke gesetzt (Eigenschaften stammen von Glas, nur Härte und Klang werden überschrieben)."
+            "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
         "sources": [
@@ -17109,7 +17106,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Break Through lets the sledgehammer take further layers behind the struck face along - one more layer per level.",
           "details": [
-            "Can be applied to the sledgehammers from stone through netherite (tag simplebuilding:sledgehammer_tools). Definition: max level II; weight 2; min cost 15 (+15 per level above the first), max cost 55 (+15 per level above the first); anvil cost 4; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
+            "Can be applied to the sledgehammers from stone through enderite (tag simplebuilding:sledgehammer_tools). Definition: max level II; weight 2; min cost 15 (+15 per level above the first), max cost 55 (+15 per level above the first); anvil cost 4; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
             "Depth = enchantment level: level I takes 1 extra layer behind the face, level II takes 2 layers.",
             "The direction comes from the view angle: steeper than 60 degrees down -> layers below the face; steeper than 60 degrees up -> above it; otherwise horizontally away from the player.",
             "Every extra layer is the same size as the hammer face (3x3, 5x5 with Radius).",
@@ -17135,7 +17132,6 @@ window.WIKI_DATA = {
           "caveats": [
             "Not obtainable at the enchanting table (not in the tag minecraft:in_enchanting_table).",
             "Level II only comes from the creative inventory; chests and traders deliver level I exclusively.",
-            "The Enderite Sledgehammer is not in the tag sledgehammer_tools and is therefore not a supported target.",
             "The speed bonus does not distinguish between level I and level II and applies while sneaking as well.",
             "The generated exclusive tag exclusive_set/break_through_group contains only Break Through itself; no enchantment definition references it and no gameplay code reads it (only the datagen provider that writes the file) - it has no effect.",
             "On Forge there is neither the highlight nor the crack preview nor the dedicated book texture."
@@ -17144,7 +17140,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Durchbruch lässt den Vorschlaghammer hinter der angeschlagenen Fläche weitere Schichten mit abbauen – je Stufe eine Schicht mehr.",
           "details": [
-            "Verzauberbar auf Stein- bis Netherit-Vorschlaghammer (Tag simplebuilding:sledgehammer_tools). Definition: Höchststufe II; Gewicht 2; Mindestkosten 15 (+15), Höchstkosten 55 (+15); Amboss-Kosten 4; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
+            "Verzauberbar auf Stein- bis Enderit-Vorschlaghammer (Tag simplebuilding:sledgehammer_tools). Definition: Höchststufe II; Gewicht 2; Mindestkosten 15 (+15), Höchstkosten 55 (+15); Amboss-Kosten 4; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
             "Tiefe = Verzauberungsstufe: Stufe I nimmt 1 zusätzliche Schicht hinter der Fläche, Stufe II 2 Schichten.",
             "Die Richtung ergibt sich aus dem Blickwinkel: steiler als 60° nach unten → Schichten unter der Fläche; steiler als 60° nach oben → darüber; sonst horizontal vom Spieler weg.",
             "Jede zusätzliche Schicht hat dieselbe Größe wie die Hammerfläche (3×3, mit Radius 5×5).",
@@ -17170,7 +17166,6 @@ window.WIKI_DATA = {
           "caveats": [
             "Nicht an der Verzauberungstabelle erhältlich (nicht im Tag minecraft:in_enchanting_table).",
             "Stufe II gibt es nur aus dem Kreativ-Inventar; Truhen und Händler liefern ausschließlich Stufe I.",
-            "Der Enderite Sledgehammer steht nicht im Tag sledgehammer_tools und ist damit kein unterstütztes Ziel.",
             "Der Geschwindigkeitsbonus unterscheidet nicht zwischen Stufe I und II und gilt auch beim Schleichen.",
             "Das generierte Exklusiv-Tag exclusive_set/break_through_group enthält nur Durchbruch selbst und wird von keiner Verzauberungsdefinition und keiner Code-Stelle verwendet – es hat keine Wirkung.",
             "Auf Forge gibt es weder Highlight noch Riss-Vorschau noch die eigene Buchtextur."
@@ -17227,7 +17222,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Bridge is a building wand enchantment that, going by its in-game description, is meant to place blocks in front of you, but which has no effect whatsoever in code.",
           "details": [
-            "Applicable to the copper, iron, gold, diamond and netherite building wand (item tag building_wand_enchantable); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15) to 55 (+15).",
+            "Applicable to the copper, iron, gold, diamond, netherite and enderite building wand (item tag building_wand_enchantable); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15) to 55 (+15).",
             "Not combinable with Cover (the exclusive set wand_modifier_group contains Cover; Cover's exclusive set contains Bridge). Combinable with Linear - neither lists the other in its exclusive set, and a data integrity test demands that compatibility.",
             "The generated enchantment definition bridge.json carries no effects entry; the gametest coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown states explicitly that Bridge and Cover have no effect, and fails as soon as either of them gains one.",
             "An enchanted book gets its own book model ('bridge').",
@@ -17238,14 +17233,13 @@ window.WIKI_DATA = {
           "caveats": [
             "Currently has no effect: outside registration, the book model, the creative tab, tags and tests, ModEnchantments.BRIDGE is read by no code, and the definition carries no effect. A building wand with Bridge behaves exactly like an unenchanted one.",
             "The in-game description ('Places blocks in front of you.') is not implemented.",
-            "Applying Bridge gives up Cover (exclusive set) without getting anything in return.",
-            "The Enderite Building Wand is not in the building_wand_enchantable tag and cannot receive the enchantment in an anvil."
+            "Applying Bridge gives up Cover (exclusive set) without getting anything in return."
           ]
         },
         "de": {
           "summary": "„Brücke“ ist eine Baustab-Verzauberung, die laut Spielbeschreibung Blöcke vor dem Spieler platzieren soll, im Code aber keinerlei Wirkung hat.",
           "details": [
-            "Anbringbar auf Kupfer-, Eisen-, Gold-, Diamant- und Netherit-Baustab (Item-Tag building_wand_enchantable); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15) bis 55 (+15).",
+            "Anbringbar auf Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Enderit-Baustab (Item-Tag building_wand_enchantable); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15) bis 55 (+15).",
             "Nicht kombinierbar mit Abdeckung (Ausschluss-Set wand_modifier_group enthält Abdeckung; das Ausschluss-Set von Abdeckung enthält Brücke). Kombinierbar mit Linear – beide führen einander nicht im Ausschluss-Set, ein Datenintegritäts-Test verlangt diese Verträglichkeit.",
             "Die generierte Verzauberungsdefinition bridge.json enthält keinen effects-Eintrag; der Spieltest coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown hält ausdrücklich fest, dass Brücke und Abdeckung wirkungslos sind, und schlägt fehl, sobald eine der beiden einen Effekt bekommt.",
             "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („bridge“).",
@@ -17256,8 +17250,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Hat derzeit keine Wirkung: ModEnchantments.BRIDGE wird außerhalb von Registrierung, Buchmodell, Kreativ-Reiter, Tags und Tests von keinem Code gelesen, und die Definition trägt keinen Effekt. Ein Baustab mit Brücke verhält sich exakt wie ein unverzauberter.",
             "Die Beschreibung im Spiel („Platziert Blöcke vor dir“) ist nicht umgesetzt.",
-            "Wer Brücke anbringt, verzichtet auf Abdeckung (Ausschluss-Set), ohne dafür etwas zu bekommen.",
-            "Der Enderite Building Wand ist nicht im Tag building_wand_enchantable und kann die Verzauberung per Amboss nicht erhalten."
+            "Wer Brücke anbringt, verzichtet auf Abdeckung (Ausschluss-Set), ohne dafür etwas zu bekommen."
           ]
         },
         "sources": [
@@ -17307,7 +17300,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Color Palette stops the building wand and the reinforced bundle from insisting on one fixed block and lets them place any of the building blocks you carry - genuinely at random on the bundle, in inventory order on the wand.",
           "details": [
-            "Applicable to the copper through netherite building wands, the Reinforced Bundle, Netherite Bundle, Quiver and Netherite Quiver (item tag extra_inventory_items); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15) to 65 (+15).",
+            "Applicable to all six building wands (copper through enderite), all three bundles and all three quivers (item tag extra_inventory_items); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15) to 65 (+15).",
             "Anvil rule (AnvilScreenHandlerMixin, at the end of createResult): an anvil result that carries Color Palette but not Master Builder is discarded (result slot empty, cost 0). Color Palette can therefore only be put on an item that already has Master Builder or gains it in the same step.",
             "Not combinable with Drawer: Drawer's exclusive set (builder_group) contains Master Builder, Color Palette and Drawer itself.",
             "Wand preview (ghost blocks): with Color Palette all building blocks from the off-hand and hotbar are collected (with Master Builder on the wand the rest of the inventory as well; reinforced bundle contents count when the wand OR the bundle carries Master Builder), and every position is assigned one of them - computed from pos.asLong() modulo the palette size, so the preview does not flicker.",
@@ -17326,14 +17319,13 @@ window.WIKI_DATA = {
           "caveats": [
             "Nothing is actually rolled when the wand places: per position the code takes the first available building block in inventory order; a mix only appears once a stack is used up and the next one comes around. The preview, by contrast, shows a position-dependent mix - preview and result can therefore differ.",
             "On the bundle, Color Palette only works together with Master Builder; the random pick sits inside the Master Builder branch of ReinforcedBundleItem.useOn.",
-            "Applicable to the Quiver and Netherite Quiver, but without effect: QuiverItem returns PASS on use and useOn, so nothing is placed, and no code evaluates Color Palette on it.",
-            "The Enderite Building Wand is not in the extra_inventory_items tag and cannot be given Color Palette in an anvil; the Enderite Bundle and the Enderite Quiver are in the tag and take it."
+            "Applicable to the Quiver and Netherite Quiver, but without effect: QuiverItem returns PASS on use and useOn, so nothing is placed, and no code evaluates Color Palette on it."
           ]
         },
         "de": {
           "summary": "„Farbpalette“ lässt Baustab und Verstärktes Bündel nicht auf einem festen Block bestehen, sondern irgendeinen der mitgeführten Baublöcke setzen – beim Bündel echt zufällig, beim Baustab in der Reihenfolge des Inventars.",
           "details": [
-            "Anbringbar auf Kupfer- bis Netherit-Baustab, Verstärktes Bündel, Netherit-Bündel, Köcher und Netherit-Köcher (Item-Tag extra_inventory_items); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15) bis 65 (+15).",
+            "Anbringbar auf alle sechs Baustäbe (Kupfer bis Enderit), alle drei Bündel und alle drei Köcher (Item-Tag extra_inventory_items); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15) bis 65 (+15).",
             "Amboss-Regel (AnvilScreenHandlerMixin, am Ende von createResult): Ein Amboss-Ergebnis, das Farbpalette trägt, aber nicht Baumeister, wird verworfen (Ergebnisfeld leer, Kosten 0). Farbpalette lässt sich also nur auf ein Item bringen, das Baumeister bereits hat oder im selben Schritt bekommt.",
             "Nicht kombinierbar mit Schublade: Das Ausschluss-Set von Schublade (builder_group) enthält Baumeister, Farbpalette und Schublade selbst.",
             "Baustab-Vorschau (Geisterblöcke): Mit Farbpalette werden alle Baublöcke aus Nebenhand und Hotbar gesammelt (mit Baumeister auf dem Stab zusätzlich das restliche Inventar; Inhalte Verstärkter Bündel zählen, wenn der Stab ODER das Bündel Baumeister trägt), und jede Position bekommt einen davon zugeteilt – berechnet aus pos.asLong() modulo Palettengröße, damit die Vorschau nicht flackert.",
@@ -17352,8 +17344,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Beim tatsächlichen Platzieren mit dem Baustab wird nicht gewürfelt: Der Code nimmt pro Position den ersten verfügbaren Baublock in Inventarreihenfolge; eine Mischung entsteht erst, wenn ein Stapel aufgebraucht ist und der nächste an die Reihe kommt. Die Vorschau zeigt dagegen eine positionsabhängige Mischung – Vorschau und Ergebnis können daher voneinander abweichen.",
             "Auf dem Bündel wirkt Farbpalette nur zusammen mit Baumeister; die Zufallswahl steckt im Baumeister-Zweig von ReinforcedBundleItem.useOn.",
-            "Auf Köcher und Netherit-Köcher anbringbar, aber wirkungslos: QuiverItem liefert bei use und useOn PASS, es wird nichts platziert; kein Code wertet Farbpalette auf ihm aus.",
-            "Der Enderite Building Wand ist nicht im Tag extra_inventory_items und kann Farbpalette per Amboss nicht erhalten; Enderite Bundle und Enderite Quiver stehen im Tag und nehmen sie an."
+            "Auf Köcher und Netherit-Köcher anbringbar, aber wirkungslos: QuiverItem liefert bei use und useOn PASS, es wird nichts platziert; kein Code wertet Farbpalette auf ihm aus."
           ]
         },
         "sources": [
@@ -17404,7 +17395,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Constructor's Touch is the mod's all-purpose enchantment: on each tool it unlocks a different extra ability - cycling block states with a plain stick, extra chisel conversions, the Building Wand's settings menu, and more.",
           "details": [
-            "Can be applied (item tag constructors_touch_enchantable) to: Reinforced Bundle, Netherite Bundle, Enderite Bundle, Quiver, Netherite Quiver, Enderite Quiver, Shulker Box, chisels Stone through Netherite (#chisel_tools), sledgehammers Stone through Netherite (#sledgehammer_tools), Building Wands Copper through Netherite (#building_wand_enchantable), Velocity Gauge, Ore Detector, Magnet, all 17 Octants (#octants_enchantable) and the plain Stick (minecraft:stick). Slot: main hand; max level I; anvil cost 1; weight 1; enchanting cost 20 (+10 per level above the first) to 50 (+10 per level above the first).",
+            "Can be applied (item tag constructors_touch_enchantable) to: Reinforced Bundle, Netherite Bundle, Enderite Bundle, Quiver, Netherite Quiver, Enderite Quiver, Shulker Box, chisels Stone through Enderite (#chisel_tools), sledgehammers Stone through Enderite (#sledgehammer_tools), Building Wands Copper through Enderite (#building_wand_enchantable), Velocity Gauge, Ore Detector, Magnet, all 17 Octants (#octants_enchantable) and the plain Stick (minecraft:stick). Slot: main hand; max level I; anvil cost 1; weight 1; enchanting cost 20 (+10 per level above the first) to 50 (+10 per level above the first).",
             "Stick: right-clicking a block with an enchanted stick advances its first block property (the first entry of state.getProperties()) to the next value; sneaking goes back to the previous one. The new value appears on the action bar as \"property: value\" (sendOverlayMessage). Blocks with no properties are left unchanged.",
             "Chisel and spatula: the enchantment unlocks an extra set of conversions per tool tier (backwards too, by sneaking or with the spatula). Stone tier: Mud Bricks -> Packed Mud -> Mud; Cobblestone -> Mossy Cobblestone (stairs and slabs as well); every log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak) -> stripped log.",
             "Copper/Iron chisel adds: Bricks -> Mud Bricks (stairs and slabs as well); every wood block (the same nine wood types) -> stripped wood; Crimson and Warped Planks -> Stairs -> Slab.",
@@ -17430,14 +17421,13 @@ window.WIKI_DATA = {
           "caveats": [
             "Shulker Box, Velocity Gauge, Reinforced Bundle and Netherite Bundle: it can be applied, but no code reads it there, so it does nothing (every reader of CONSTRUCTORS_TOUCH is ChiselItem, SledgehammerItem, OreDetectorItem, MagnetItem, QuiverItem, ItemFrameEntityMixin, BlockHighlightRenderer, the stick handlers and the Building Wand key check).",
             "The stick only ever cycles the FIRST property of a block; further properties cannot be reached with it. On top of that the enchanted stick swallows every right-click block interaction (it returns SUCCESS even on blocks with no properties), so the block's normal use is skipped.",
-            "In the Forge build (ModRegistriesForge, sendSystemMessage) the stick's value readout goes to the chat instead of the action bar; Fabric and NeoForge use sendOverlayMessage.",
-            "The Enderite Chisel, Enderite Building Wand and Enderite Sledgehammer, as well as every spatula (item ids *_spatula, untranslated in both language files), are missing from #chisel_tools, #building_wand_enchantable and #sledgehammer_tools, and from the item list of #constructors_touch_enchantable itself; the enchantment cannot be put on them at an anvil, even though ChiselItem, SledgehammerItem and the Building Wand key check would read it there. The Enderite Bundle and the Enderite Quiver are in the item list of #constructors_touch_enchantable and take the enchantment."
+            "Every spatula (item ids *_spatula, untranslated in both language files) is missing from #chisel_tools; the enchantment cannot be put on them at an anvil, even though ChiselItem would read it there. The spatulas are legacy items that LegacySpatulaMigration turns into the chisel of the same tier."
           ]
         },
         "de": {
           "summary": "„Berührung des Konstrukteurs“ ist die Allzweck-Verzauberung der Mod: Auf jedem Werkzeug schaltet sie eine andere Zusatzfunktion frei – vom Umschalten von Blockzuständen mit einem Stock über Extra-Umwandlungen beim Meißel bis zum Einstellungsmenü des Baustabs.",
           "details": [
-            "Anbringbar (Item-Tag constructors_touch_enchantable) auf: Verstärktes Bündel, Netherit-Bündel, Enderite Bundle, Köcher, Netherit-Köcher, Enderite Quiver, Shulker-Kiste, Meißel Stein bis Netherit (#chisel_tools), Vorschlaghämmer Stein bis Netherit (#sledgehammer_tools), Baustäbe Kupfer bis Netherit (#building_wand_enchantable), Geschwindigkeitsmesser, Erzdetektor, Magnet, alle 17 Oktanten (#octants_enchantable) und den gewöhnlichen Stock (minecraft:stick). Slot: Haupthand; maximale Stufe I; Amboss-Kosten 1; Gewicht 1; Kostenbereich 20 (+10) bis 50 (+10).",
+            "Anbringbar (Item-Tag constructors_touch_enchantable) auf: Verstärktes Bündel, Netherit-Bündel, Enderite Bundle, Köcher, Netherit-Köcher, Enderite Quiver, Shulker-Kiste, Meißel Stein bis Enderit (#chisel_tools), Vorschlaghämmer Stein bis Enderit (#sledgehammer_tools), Baustäbe Kupfer bis Enderit (#building_wand_enchantable), Geschwindigkeitsmesser, Erzdetektor, Magnet, alle 17 Oktanten (#octants_enchantable) und den gewöhnlichen Stock (minecraft:stick). Slot: Haupthand; maximale Stufe I; Amboss-Kosten 1; Gewicht 1; Kostenbereich 20 (+10) bis 50 (+10).",
             "Stock: Rechtsklick mit einem verzauberten Stock auf einen Block schaltet dessen erste Blockeigenschaft (erster Eintrag von state.getProperties()) auf den nächsten Wert; mit Schleichen auf den vorherigen. Der neue Wert erscheint in der Aktionsleiste als „Eigenschaft: Wert“ (sendOverlayMessage). Blöcke ohne Eigenschaften bleiben unverändert.",
             "Meißel und Spatel: Die Verzauberung schaltet je Werkzeugstufe zusätzliche Umwandlungsreihen frei (auch rückwärts per Schleichen bzw. mit dem Spatel). Steinstufe: Schlammziegel → gepackter Schlamm → Schlamm; Bruchstein → bemooster Bruchstein (auch Treppen und Stufen); alle Stämme (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche) → entrindete Stämme.",
             "Meißel Kupfer/Eisen zusätzlich: Ziegel → Schlammziegel (auch Treppen und Stufen); alle Holzblöcke (dieselben neun Holzarten) → entrindetes Holz; Karmesin- und Wirrbretter → Treppe → Stufe.",
@@ -17463,15 +17453,14 @@ window.WIKI_DATA = {
           "caveats": [
             "Shulker-Kiste, Geschwindigkeitsmesser, Verstärktes Bündel und Netherit-Bündel: anbringbar, aber kein Code wertet die Verzauberung dort aus – keine Wirkung (alle Leser von CONSTRUCTORS_TOUCH sind ChiselItem, SledgehammerItem, OreDetectorItem, MagnetItem, QuiverItem, ItemFrameEntityMixin, BlockHighlightRenderer, die Stock-Handler und die Baustab-Tastenabfrage).",
             "Der Stock schaltet immer nur die ERSTE Eigenschaft des Blocks; weitere Eigenschaften sind mit dem Stock nicht erreichbar. Außerdem fängt der verzauberte Stock jede Rechtsklick-Blockinteraktion ab (liefert SUCCESS, auch bei Blöcken ohne Eigenschaften), die normale Benutzung des Blocks entfällt dabei.",
-            "In der Forge-Fassung (ModRegistriesForge, sendSystemMessage) erscheint die Wertanzeige des Stocks im Chat statt in der Aktionsleiste; Fabric und NeoForge nutzen sendOverlayMessage.",
-            "Der Enderite Chisel, der Enderite Building Wand, der Enderite Sledgehammer sowie alle Spatel (Item-Ids *_spatula, ohne Übersetzung in den Sprachdateien) fehlen in den Tags chisel_tools, building_wand_enchantable, sledgehammer_tools bzw. der Item-Liste des Tags; auf sie lässt sich die Verzauberung per Amboss nicht anbringen, obwohl ChiselItem, SledgehammerItem und die Baustab-Tastenabfrage sie dort auswerten würden. Enderite Bundle und Enderite Quiver stehen in der Item-Liste des Tags und nehmen die Verzauberung an."
+            "Alle Spatel (Item-Ids *_spatula, ohne Übersetzung in den Sprachdateien) fehlen im Tag chisel_tools; auf sie lässt sich die Verzauberung per Amboss nicht anbringen, obwohl ChiselItem sie dort auswerten würde. Die Spatel sind Altlasten, die LegacySpatulaMigration in den Meißel derselben Stufe verwandelt."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/util/ConstructorsTouchInteraction.java",
           "src/main/java/com/simplebuilding/util/ModRegistries.java",
           "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
-          "forge/src/main/java/com/simplebuilding/forge/ModRegistriesForge.java",
+          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
           "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
           "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java",
@@ -17531,7 +17520,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Cover is a building wand enchantment that, going by its in-game description, is meant to place blocks on the surface you are looking at, but which has no effect whatsoever in code.",
           "details": [
-            "Applicable to the copper, iron, gold, diamond and netherite building wand (item tag building_wand_enchantable); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15) to 55 (+15).",
+            "Applicable to the copper, iron, gold, diamond, netherite and enderite building wand (item tag building_wand_enchantable); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15) to 55 (+15).",
             "Combinable with neither Bridge nor Linear: Cover's exclusive set (cover_group) contains both, and their exclusive set (wand_modifier_group) contains Cover. A data integrity test checks the incompatibility with Bridge.",
             "The generated enchantment definition cover.json carries no effects entry; the gametest coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown states explicitly that Cover and Bridge have no effect, and fails as soon as either of them gains one.",
             "An enchanted book gets its own book model ('cover').",
@@ -17541,14 +17530,13 @@ window.WIKI_DATA = {
           "caveats": [
             "Currently has no effect: outside registration, the book model, loot, the creative tab, tags and tests, ModEnchantments.COVER is read by no code, and the definition carries no effect. A building wand with Cover behaves exactly like an unenchanted one.",
             "The in-game description ('Places blocks on the surface you're looking at.') is not implemented.",
-            "Applying Cover gives up Bridge and Linear (exclusive sets) without getting anything in return.",
-            "The Enderite Building Wand is not in the building_wand_enchantable tag and cannot receive the enchantment in an anvil."
+            "Applying Cover gives up Bridge and Linear (exclusive sets) without getting anything in return."
           ]
         },
         "de": {
           "summary": "„Abdeckung“ ist eine Baustab-Verzauberung, die laut Spielbeschreibung Blöcke auf der angesehenen Oberfläche platzieren soll, im Code aber keinerlei Wirkung hat.",
           "details": [
-            "Anbringbar auf Kupfer-, Eisen-, Gold-, Diamant- und Netherit-Baustab (Item-Tag building_wand_enchantable); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15) bis 55 (+15).",
+            "Anbringbar auf Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Enderit-Baustab (Item-Tag building_wand_enchantable); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15) bis 55 (+15).",
             "Nicht kombinierbar mit Brücke und nicht mit Linear: Das Ausschluss-Set von Abdeckung (cover_group) enthält beide, und deren Ausschluss-Set (wand_modifier_group) enthält Abdeckung. Ein Datenintegritäts-Test prüft die Unverträglichkeit mit Brücke.",
             "Die generierte Verzauberungsdefinition cover.json enthält keinen effects-Eintrag; der Spieltest coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown hält ausdrücklich fest, dass Abdeckung und Brücke wirkungslos sind, und schlägt fehl, sobald eine der beiden einen Effekt bekommt.",
             "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („cover“).",
@@ -17558,8 +17546,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Hat derzeit keine Wirkung: ModEnchantments.COVER wird außerhalb von Registrierung, Buchmodell, Beute, Kreativ-Reiter, Tags und Tests von keinem Code gelesen, und die Definition trägt keinen Effekt. Ein Baustab mit Abdeckung verhält sich exakt wie ein unverzauberter.",
             "Die Beschreibung im Spiel („Platziert Blöcke auf der Oberfläche, die du ansiehst“) ist nicht umgesetzt.",
-            "Wer Abdeckung anbringt, verzichtet auf Brücke und Linear (Ausschluss-Sets), ohne dafür etwas zu bekommen.",
-            "Der Enderite Building Wand ist nicht im Tag building_wand_enchantable und kann die Verzauberung per Amboss nicht erhalten."
+            "Wer Abdeckung anbringt, verzichtet auf Brücke und Linear (Ausschluss-Sets), ohne dafür etwas zu bekommen."
           ]
         },
         "sources": [
@@ -17713,7 +17700,7 @@ window.WIKI_DATA = {
           "details": [
             "Applies to foot armor (tag minecraft:foot_armor); slot: feet.",
             "Max level 2, weight 2, anvil cost 4; enchanting cost 20 (+15 per level above the first) to 70 (+15 per level above the first).",
-            "Triggering it (client side; Fabric and NeoForge both go through DoubleJumpController): while airborne - not on the ground, not on a ladder or other climbable block, not in water - release the jump key and press it again. You must already have been airborne on the previous tick, the cooldown must have run out, and you must not be creative-flying.",
+            "Triggering it (client side; all three loaders go through DoubleJumpController): while airborne - not on the ground, not on a ladder or other climbable block, not in water - release the jump key and press it again. You must already have been airborne on the previous tick, the cooldown must have run out, and you must not be creative-flying.",
             "The client reads the level as the highest Air Jump level across all equipment slots; the server checks the boots slot only.",
             "Effect on the client: upward velocity is set to 0.5 (sideways motion is kept), fall distance is reset to 0, and a DoubleJumpPayload goes to the server.",
             "Effect on the server (ModMessageHandlers.handleDoubleJump, plus an inline copy in ModMessages on the Fabric line): if the boots slot carries the enchantment, fall distance is set to 0 (any fall damage built up so far is wiped) and the boots lose 1 durability; no wear in creative mode.",
@@ -17731,12 +17718,12 @@ window.WIKI_DATA = {
             "Holding the jump key down does nothing - the key has to be pressed afresh."
           ],
           "caveats": [
-            "Forge loader (folder forge/): it runs its own client logic with no cooldown at all. There the level is the number of extra jumps you get before touching the ground again (jumpsUsed < level, so level I: 1, level II: 2), reset by landing, climbing or entering water; there is no HUD bar (forge/src contains no HUD overlay classes). The server side (fall distance, durability) is identical.",
+            "Forge loader (folder forge/): the air jump itself runs through the shared DoubleJumpController as on Fabric and NeoForge, with the same cooldown; only the HUD bar is missing, because the Forge client registers no HUD layer (SimplebuildingForgeClient).",
             "The cooldown is tracked on the client only; the server handler checks neither the cooldown nor the enableDoubleJump config option.",
             "The green \"fully charged\" colour defined in the HUD code (FILL_READY) is never actually drawn: the bar is only rendered while the cooldown is running, and the fill is then always below 100%.",
             "Not in the tag minecraft:in_enchanting_table (the mod only puts Fast Chiseling in there).",
             "No villager trade carries this enchantment.",
-            "Level II only shortens the cooldown; you still get just one air jump per charge (Fabric/NeoForge)."
+            "Level II only shortens the cooldown; you still get just one air jump per charge."
           ]
         },
         "de": {
@@ -17744,7 +17731,7 @@ window.WIKI_DATA = {
           "details": [
             "Anwendbar auf Fußrüstung (Tag minecraft:foot_armor); Slot: Füße.",
             "Höchststufe 2, Gewicht 2, Amboss-Kosten 4; Verzauberungskosten 20 (+15 je weiterer Stufe) bis 70 (+15 je weiterer Stufe).",
-            "Auslösen (Client, Fabric und NeoForge über DoubleJumpController): In der Luft (nicht am Boden, nicht an Leitern oder Kletterbarem, nicht im Wasser) die Sprungtaste loslassen und erneut drücken. Man muss bereits im vorherigen Tick in der Luft gewesen sein, die Abklingzeit muss abgelaufen sein und man darf nicht im Kreativflug sein.",
+            "Auslösen (Client, alle drei Loader über DoubleJumpController): In der Luft (nicht am Boden, nicht an Leitern oder Kletterbarem, nicht im Wasser) die Sprungtaste loslassen und erneut drücken. Man muss bereits im vorherigen Tick in der Luft gewesen sein, die Abklingzeit muss abgelaufen sein und man darf nicht im Kreativflug sein.",
             "Der Client ermittelt die Stufe als Maximum über alle Ausrüstungsslots; der Server prüft nur den Stiefel-Slot.",
             "Wirkung auf dem Client: Die Aufwärtsgeschwindigkeit wird auf 0,5 gesetzt (seitliche Bewegung bleibt), die Fallhöhe wird auf 0 zurückgesetzt, und ein DoubleJumpPayload geht an den Server.",
             "Wirkung auf dem Server (ModMessageHandlers.handleDoubleJump, in der Fabric-Linie zusätzlich inline in ModMessages): Trägt der Stiefel-Slot die Verzauberung, wird die Fallhöhe auf 0 gesetzt (bisher gesammelter Fallschaden entfällt) und die Stiefel verlieren 1 Haltbarkeit; im Kreativmodus keine Abnutzung.",
@@ -17762,12 +17749,12 @@ window.WIKI_DATA = {
             "Sprungtaste gedrückt halten: kein Luftsprung, die Taste muss neu gedrückt werden."
           ],
           "caveats": [
-            "Forge-Loader (Ordner forge/): Dort gilt eine eigene Client-Logik ohne Abklingzeit. Die Stufe bestimmt die Anzahl zusätzlicher Sprünge pro Flugphase (jumpsUsed < Stufe, also Stufe I: 1, Stufe II: 2), zurückgesetzt bei Bodenkontakt, Klettern oder Wasser; es gibt keinen HUD-Balken (forge/src enthält keine HUD-Overlay-Klassen). Die Serverseite (Fallhöhe, Haltbarkeit) ist identisch.",
+            "Forge-Loader (Ordner forge/): Der Luftsprung selbst läuft wie auf Fabric und NeoForge über den geteilten DoubleJumpController, mit derselben Abklingzeit; es fehlt nur der HUD-Balken, weil der Forge-Client keine HUD-Ebene registriert (SimplebuildingForgeClient).",
             "Die Abklingzeit wird nur auf dem Client geführt; der Server-Handler prüft weder die Abklingzeit noch die Config-Option enableDoubleJump.",
             "Die im HUD-Code definierte grüne Farbe für \"voll aufgeladen\" (FILL_READY) wird nie gezeichnet: Der Balken wird nur bei laufender Abklingzeit gerendert, und dann ist der Füllstand immer unter 100 %.",
             "Nicht im Tag minecraft:in_enchanting_table (die Mod trägt dort nur Schnelles Meißeln ein).",
             "Kein Dorfbewohner-Handel enthält diese Verzauberung.",
-            "Stufe II verkürzt nur die Abklingzeit; es gibt weiterhin nur einen Luftsprung pro Aufladung (Fabric/NeoForge)."
+            "Stufe II verkürzt nur die Abklingzeit; es gibt weiterhin nur einen Luftsprung pro Aufladung."
           ]
         },
         "sources": [
@@ -17922,7 +17909,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "\"Fast Chiseling\" shortens the cooldown after every chisel transformation and speeds up breaking blocks with the chisel.",
           "details": [
-            "Can be applied to the Stone Chisel, Copper Chisel, Iron Chisel, Gold Chisel, Diamond Chisel and Netherite Chisel (item tag chisel_tools); slot: mainhand; max level II; anvil cost 2; weight 5; cost range 1 (+10) to 20 (+10).",
+            "Can be applied to the Stone Chisel, Copper Chisel, Iron Chisel, Gold Chisel, Diamond Chisel, Netherite Chisel and Enderite Chisel (item tag chisel_tools); slot: mainhand; max level II; anvil cost 2; weight 5; cost range 1 (+10) to 20 (+10).",
             "The only enchantment in the mod that appears at the enchanting table: it is the mod's only entry in the tag minecraft:in_enchanting_table (replace: false); a data integrity test checks that.",
             "Cooldown after a transformation: base cooldown x (1 - 0.3 x level), truncated to whole ticks, at least 1 tick - so level I leaves 70% and level II 40% of the base. In creative mode there is no cooldown (and no durability loss).",
             "Base cooldowns per tool tier: stone 30 ticks, copper and iron 25, gold 20, diamond 10, netherite and enderite 5 (spatulas of the same tier use the same values).",
@@ -17936,14 +17923,14 @@ window.WIKI_DATA = {
             "No controls of its own: right-clicking a transformable block transforms it and sneaking reverses the direction; the enchantment only affects the cooldown and the mining speed."
           ],
           "caveats": [
-            "All spatulas (item ids *_spatula) and the Enderite Chisel are missing from the chisel_tools tag; Fast Chiseling cannot be put on them with an anvil or at the enchanting table, even though ChiselItem would evaluate it there (getFastChiselingLevel only reads the stored level off the stack and never checks the tool tier).",
+            "All spatulas (item ids *_spatula) are missing from the chisel_tools tag; Fast Chiseling cannot be put on them with an anvil or at the enchanting table, even though ChiselItem would evaluate it there (getFastChiselingLevel only reads the stored level off the stack and never checks the tool tier).",
             "The mining bonus only distinguishes level I from \"level II or higher\"; levels above II are not provided for anyway (max_level 2)."
           ]
         },
         "de": {
           "summary": "„Schnelles Meißeln“ verkürzt die Abklingzeit nach jeder Meißel-Umwandlung und beschleunigt das Abbauen von Blöcken mit dem Meißel.",
           "details": [
-            "Anbringbar auf Steinmeißel, Kupfermeißel, Eisenmeißel, Goldmeißel, Diamantmeißel und Netheritmeißel (Item-Tag chisel_tools); Slot: Haupthand; maximale Stufe II; Amboss-Kosten 2; Gewicht 5; Kostenbereich 1 (+10) bis 20 (+10).",
+            "Anbringbar auf Steinmeißel, Kupfermeißel, Eisenmeißel, Goldmeißel, Diamantmeißel, Netheritmeißel und Enderit-Meißel (Item-Tag chisel_tools); Slot: Haupthand; maximale Stufe II; Amboss-Kosten 2; Gewicht 5; Kostenbereich 1 (+10) bis 20 (+10).",
             "Einzige Verzauberung der Mod, die an der Verzauberungstabelle erscheint: Sie ist der einzige Mod-Eintrag im Tag minecraft:in_enchanting_table (replace: false); ein Datenintegritäts-Test prüft das.",
             "Abklingzeit nach einer Umwandlung: Basis-Abklingzeit × (1 − 0,3 × Stufe), auf ganze Ticks abgeschnitten, mindestens 1 Tick – Stufe I lässt also 70 %, Stufe II 40 % der Basis übrig. Im Kreativmodus gibt es keine Abklingzeit (und keinen Haltbarkeitsverlust).",
             "Basis-Abklingzeiten je Werkzeugstufe: Stein 30 Ticks, Kupfer und Eisen 25, Gold 20, Diamant 10, Netherit und Enderit 5 (Spatel derselben Stufe nutzen dieselben Werte).",
@@ -17957,7 +17944,7 @@ window.WIKI_DATA = {
             "Keine eigene Bedienung: Rechtsklick auf einen formbaren Block wandelt um, Schleichen kehrt die Richtung um; die Verzauberung wirkt nur auf Abklingzeit und Abbautempo."
           ],
           "caveats": [
-            "Alle Spatel (Item-Ids *_spatula, ohne Übersetzung in den Sprachdateien) und der Enderite Chisel fehlen im Tag chisel_tools; Schnelles Meißeln lässt sich per Amboss oder Tabelle nicht auf sie anbringen, obwohl ChiselItem die Verzauberung dort auswerten würde (getFastChiselingLevel prüft nicht die Stufe).",
+            "Alle Spatel (Item-Ids *_spatula, ohne Übersetzung in den Sprachdateien) fehlen im Tag chisel_tools; Schnelles Meißeln lässt sich per Amboss oder Tabelle nicht auf sie anbringen, obwohl ChiselItem die Verzauberung dort auswerten würde (getFastChiselingLevel prüft nicht die Stufe).",
             "Der Abbau-Bonus unterscheidet nur Stufe I und „Stufe II oder höher“; höhere Stufen als II sind ohnehin nicht vorgesehen (max_level 2)."
           ]
         },
@@ -18191,7 +18178,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Linear is a building wand enchantment that lets the wand step from ring to ring faster while it fills in an area - it does nothing else in code.",
           "details": [
-            "Applicable (anvil/book) only to the copper, iron, gold, diamond and netherite building wand (item tag building_wand_enchantable); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15 per level) to 55 (+15).",
+            "Applicable (anvil/book) only to the copper, iron, gold, diamond, netherite and enderite building wand (item tag building_wand_enchantable); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15 per level) to 55 (+15).",
             "The building wand builds its area in rings around the clicked point, one ring per step (CurrentRadius counts up). Without Linear it waits 4 ticks between two rings, with Linear 2 (DELAY_TICKS = 4, DELAY_TICKS_LINE = 2).",
             "That waiting time is the only place in the whole source where Linear changes what a tool does (BuildingWandItem.inventoryTick); the generated enchantment definition linear.json carries no effects entry.",
             "Not combinable with Cover: Linear's exclusive set (wand_modifier_group) contains Cover, and Cover's exclusive set (cover_group) contains Linear.",
@@ -18206,14 +18193,13 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "The in-game description ('Places blocks in a straight line when sneaking.') is not honoured by the code: there is neither a line placement nor a sneak check for Linear; with Linear the wand builds the same area as without it, only with 2 instead of 4 ticks of pause between rings.",
-            "The translation string 'Places a line of %s blocks.' (tooltip.simplebuilding.building_wand.line_size) exists in both language files, but is used by no code and no other resource.",
-            "The Enderite Building Wand is not in the building_wand_enchantable tag and therefore cannot be given Linear in an anvil, even though the wand code would honour the enchantment on it - inventoryTick only asks whether the enchantment is present, never whether the item is in the tag."
+            "The translation string 'Places a line of %s blocks.' (tooltip.simplebuilding.building_wand.line_size) exists in both language files, but is used by no code and no other resource."
           ]
         },
         "de": {
           "summary": "„Linear“ ist eine Baustab-Verzauberung, die den Baustab beim Aufziehen einer Fläche schneller von Ring zu Ring vorrücken lässt – mehr macht sie im Code nicht.",
           "details": [
-            "Anbringbar (Amboss/Buch) nur auf Kupfer-, Eisen-, Gold-, Diamant- und Netherit-Baustab (Item-Tag building_wand_enchantable); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15 je Stufe) bis 55 (+15).",
+            "Anbringbar (Amboss/Buch) nur auf Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Enderit-Baustab (Item-Tag building_wand_enchantable); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15 je Stufe) bis 55 (+15).",
             "Der Baustab baut seine Fläche in Ringen um den angeklickten Punkt auf, ein Ring pro Schritt (CurrentRadius zählt hoch). Ohne Linear wartet er zwischen zwei Ringen 4 Ticks, mit Linear 2 Ticks (DELAY_TICKS = 4, DELAY_TICKS_LINE = 2).",
             "Die Wartezeit ist die einzige Stelle im gesamten Quellcode, die Linear auswertet (BuildingWandItem.inventoryTick); die generierte Verzauberungsdefinition linear.json enthält keinen effects-Eintrag.",
             "Nicht kombinierbar mit Abdeckung: Das Ausschluss-Set von Linear (wand_modifier_group) enthält Abdeckung, und das Ausschluss-Set von Abdeckung (cover_group) enthält Linear.",
@@ -18228,8 +18214,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Die Beschreibung im Spiel („Platziert Blöcke in einer geraden Linie beim Schleichen“) wird vom Code nicht eingelöst: Es gibt weder eine Linien-Platzierung noch eine Schleich-Abfrage für Linear; der Baustab baut mit Linear dieselbe Fläche wie ohne, nur mit 2 statt 4 Ticks Pause zwischen den Ringen.",
-            "Der Übersetzungstext „Platziert eine Linie von %s Blöcken“ (tooltip.simplebuilding.building_wand.line_size) existiert in beiden Sprachdateien, wird aber von keinem Code und keiner anderen Ressource benutzt.",
-            "Der Enderite Building Wand ist nicht im Tag building_wand_enchantable und kann Linear deshalb per Amboss nicht erhalten, obwohl der Baustab-Code die Verzauberung auf ihm auswerten würde (inventoryTick prüft nicht die Stufe)."
+            "Der Übersetzungstext „Platziert eine Linie von %s Blöcken“ (tooltip.simplebuilding.building_wand.line_size) existiert in beiden Sprachdateien, wird aber von keinem Code und keiner anderen Ressource benutzt."
           ]
         },
         "sources": [
@@ -18280,7 +18265,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Master Builder turns reinforced bundles into building material sources: blocks can be placed straight out of the bundle or pulled out with pick-block, and the building wand may reach into the whole inventory including bundle contents.",
           "details": [
-            "Applicable to the copper through netherite building wands, the Reinforced Bundle, Netherite Bundle, Quiver and Netherite Quiver (item tag extra_inventory_items); slot: mainhand; maximum level I; anvil cost 8; weight 1; cost range 25 (+25) to 75 (+25).",
+            "Applicable to all six building wands (copper through enderite), all three bundles and all three quivers (item tag extra_inventory_items); slot: mainhand; maximum level I; anvil cost 8; weight 1; cost range 25 (+25) to 75 (+25).",
             "The bundle places blocks: right-clicking a block with a Master Builder bundle places the selected entry (with no selection: the first entry) through BlockItem.useOn with a freshly built UseOnContext, i.e. exactly as if the block itself were in your hand; outside creative 1 item is taken out of the bundle. If the entry is not a block, the bundle behaves like a normal bundle (super.useOn).",
             "Selection inside the bundle (applies to every reinforced bundle, registered through HandledScreenMixin): the mouse wheel over the bundle in the inventory picks an entry (ReinforcedBundleSelectionPayload to the server). As soon as the cursor leaves the slot, the selection is reset to -1 ('none') - after that the first entry applies again. Newly inserted stacks are sorted to the front (index 0) and reset the selection as well.",
             "Pick block in survival: if the targeted block (or an entity's pick result) is nowhere in the inventory but is inside a Master Builder bundle, that entry's whole stack is pulled out of the bundle into the selected hotbar slot. An item held there moves to a free slot first; if there is none, nothing happens. The bundle removal sound plays (BUNDLE_REMOVE_ONE). In creative this behaviour is switched off (MinecraftClientMixin aborts on isCreative).",
@@ -18301,14 +18286,13 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Applicable to the Quiver and Netherite Quiver, but without effect: QuiverItem returns PASS on use and useOn, so there is nothing to place, and no code reads Master Builder on a quiver.",
-            "Pick-block takes the entry's whole stack out, not a single item.",
-            "The Enderite Building Wand is not in the extra_inventory_items tag, so Master Builder cannot be applied to it in an anvil, even though BuildingWandItem would honour the enchantment; the Enderite Bundle and the Enderite Quiver are in the tag and take it."
+            "Pick-block takes the entry's whole stack out, not a single item."
           ]
         },
         "de": {
           "summary": "„Baumeister“ macht Verstärkte Bündel zu Baumaterial-Quellen: Blöcke lassen sich direkt aus dem Bündel platzieren oder per Blockauswahl herausholen, und der Baustab darf auf das ganze Inventar samt Bündelinhalten zugreifen.",
           "details": [
-            "Anbringbar auf Kupfer- bis Netherit-Baustab, Verstärktes Bündel, Netherit-Bündel, Köcher und Netherit-Köcher (Item-Tag extra_inventory_items); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 8; Gewicht 1; Kostenbereich 25 (+25) bis 75 (+25).",
+            "Anbringbar auf alle sechs Baustäbe (Kupfer bis Enderit), alle drei Bündel und alle drei Köcher (Item-Tag extra_inventory_items); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 8; Gewicht 1; Kostenbereich 25 (+25) bis 75 (+25).",
             "Bündel platziert Blöcke: Rechtsklick mit einem Baumeister-Bündel auf einen Block platziert den ausgewählten Eintrag (ohne Auswahl: den ersten Eintrag) über BlockItem.useOn mit einem neu gebauten UseOnContext, also wie der Block selbst in der Hand; außerhalb des Kreativmodus wird 1 Stück aus dem Bündel abgezogen. Ist der Eintrag kein Block, verhält sich das Bündel wie ein normales Bündel (super.useOn).",
             "Auswahl im Bündel (gilt für jedes Verstärkte Bündel, registriert über HandledScreenMixin): Mausrad über dem Bündel im Inventar wählt einen Eintrag (ReinforcedBundleSelectionPayload an den Server). Sobald der Mauszeiger den Slot verlässt, wird die Auswahl auf -1 („keine“) zurückgesetzt – danach gilt wieder der erste Eintrag. Neu eingefügte Stapel werden vorn (Index 0) einsortiert und setzen die Auswahl ebenfalls zurück.",
             "Blockauswahl (Pick Block) im Überlebensmodus: Liegt der anvisierte Block (bzw. das Auswahl-Ergebnis einer Entität) nirgends im Inventar, aber in einem Baumeister-Bündel, wird der gesamte Stapel dieses Eintrags aus dem Bündel in den gewählten Hotbar-Slot geholt. Ein dort gehaltenes Item wandert vorher in einen freien Slot; gibt es keinen, passiert nichts. Es ertönt der Bündel-Entnahme-Ton (BUNDLE_REMOVE_ONE). Im Kreativmodus ist dieses Verhalten abgeschaltet (MinecraftClientMixin bricht bei isCreative ab).",
@@ -18329,8 +18313,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Auf Köcher und Netherit-Köcher anbringbar, aber wirkungslos: QuiverItem liefert bei use und useOn PASS, es gibt also nichts zu platzieren, und kein Code liest Baumeister auf einem Köcher.",
-            "Bei der Blockauswahl wird der komplette Stapel des Eintrags entnommen, nicht ein einzelnes Stück.",
-            "Der Enderite Building Wand ist nicht im Tag extra_inventory_items; Baumeister lässt sich per Amboss nicht auf ihn anbringen, obwohl BuildingWandItem die Verzauberung auswerten würde. Enderite Bundle und Enderite Quiver stehen im Tag und nehmen sie an."
+            "Bei der Blockauswahl wird der komplette Stapel des Eintrags entnommen, nicht ein einzelnes Stück."
           ]
         },
         "sources": [
@@ -18387,7 +18370,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Override loosens the rule for which neighbouring blocks the sledgehammer takes along in its mining face - all the way up to \"anything that can be broken\".",
           "details": [
-            "Can be applied to the Stone, Copper, Iron, Gold, Diamond and Netherite Sledgehammer (tag simplebuilding:sledgehammer_tools). Definition: max level II; weight 2; min cost 20 (+15 per level above the first), max cost 70 (+15 per level above the first); anvil cost 4; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
+            "Can be applied to the Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer (tag simplebuilding:sledgehammer_tools). Definition: max level II; weight 2; min cost 20 (+15 per level above the first), max cost 70 (+15 per level above the first); anvil cost 4; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
             "Without the enchantment the hammer only takes neighbouring blocks along that are exactly the same block as the one struck, are in the tag mineable/pickaxe and that the hammer can harvest normally.",
             "Level I: every block from mineable/pickaxe in the face that the hammer can harvest normally - the block type may differ (stone and cobblestone go together, dirt stays standing).",
             "Level II: every breakable block in the face; only air and blocks with a negative destroy speed are left out (dirt goes too).",
@@ -18412,14 +18395,13 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Not obtainable at the enchanting table (not in the tag minecraft:in_enchanting_table).",
-            "The Enderite Sledgehammer is a SledgehammerItem in the code but is not in the tag sledgehammer_tools and is therefore not a supported target for the enchantment; the mining logic itself reads the level off the item stack, whichever hammer item it is.",
             "Level II only comes from the end city treasure chest or the creative inventory; traders only offer level I."
           ]
         },
         "de": {
           "summary": "Übersteuerung lockert die Regel, welche Nachbarblöcke der Vorschlaghammer in seiner Abbaufläche mitnimmt – bis hin zu „alles, was zerstörbar ist“.",
           "details": [
-            "Verzauberbar auf Stein-, Kupfer-, Eisen-, Gold-, Diamant- und Netherit-Vorschlaghammer (Tag simplebuilding:sledgehammer_tools). Definition: Höchststufe II; Gewicht 2; Mindestkosten 20 (+15), Höchstkosten 70 (+15); Amboss-Kosten 4; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
+            "Verzauberbar auf Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Enderit-Vorschlaghammer (Tag simplebuilding:sledgehammer_tools). Definition: Höchststufe II; Gewicht 2; Mindestkosten 20 (+15), Höchstkosten 70 (+15); Amboss-Kosten 4; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
             "Ohne die Verzauberung nimmt der Hammer nur Nachbarblöcke mit, die exakt derselbe Block wie der angeschlagene sind, im Tag mineable/pickaxe stehen und die der Hammer regulär abbauen kann.",
             "Stufe I: jeder Block aus mineable/pickaxe in der Fläche, den der Hammer regulär abbauen kann – der Blocktyp darf sich unterscheiden (Stein und Bruchstein fallen zusammen, Erde bleibt stehen).",
             "Stufe II: jeder zerstörbare Block in der Fläche; nur Luft und Blöcke mit negativer Abbauzeit werden ausgelassen (Erde fällt mit).",
@@ -18444,7 +18426,6 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Nicht an der Verzauberungstabelle erhältlich (nicht im Tag minecraft:in_enchanting_table).",
-            "Der Enderite Sledgehammer ist im Code ein SledgehammerItem, steht aber nicht im Tag sledgehammer_tools und ist damit kein unterstütztes Ziel der Verzauberung; die Abbaulogik selbst liest die Stufe vom Item-Stack, egal welches Hammer-Item.",
             "Stufe II gibt es nur aus der Endsiedlungs-Truhe oder dem Kreativ-Inventar; Händler bieten nur Stufe I."
           ]
         },
@@ -18501,7 +18482,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Radius grows the sledgehammer's mining face from 3x3 to 5x5 blocks and even makes it a little faster while doing so.",
           "details": [
-            "Can be applied to the sledgehammers from stone through netherite (tag simplebuilding:sledgehammer_tools). Definition: max level I; weight 1; min cost 25 (+20 per level above the first), max cost 75 (+20 per level above the first); anvil cost 8; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
+            "Can be applied to the sledgehammers from stone through enderite (tag simplebuilding:sledgehammer_tools). Definition: max level I; weight 1; min cost 25 (+20 per level above the first), max cost 75 (+20 per level above the first); anvil cost 8; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
             "Face: base range 1 (3x3) plus the enchantment level - so range 2 with Radius I, that is 5x5 blocks around the block struck.",
             "Sneaking switches the bonus off; the hammer then works with 3x3 again.",
             "Which blocks in the larger face actually drop is still decided by the Override rule (without Override only the same block type).",
@@ -18522,7 +18503,6 @@ window.WIKI_DATA = {
           "caveats": [
             "Not obtainable at the enchanting table (not in the tag minecraft:in_enchanting_table).",
             "Only one level; higher levels are not defined.",
-            "The Enderite Sledgehammer is not in the tag sledgehammer_tools and is therefore not a supported target.",
             "Together with Break Through the block count for the speed formula doubles to 50, but the formula caps it at 25 - that does not make the hammer any faster than Radius alone.",
             "Villagers do not offer Radius, only the wandering trader does (the toolsmith hammers carry \"range\", which is the Range enchantment, not Radius).",
             "The generated exclusive tag exclusive_set/radius_group contains only Radius itself; no enchantment definition references it and no gameplay code reads it (only the datagen provider that writes the file) - it has no effect.",
@@ -18532,7 +18512,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Radius vergrößert die Abbaufläche des Vorschlaghammers von 3×3 auf 5×5 Blöcke und macht ihn dabei sogar etwas schneller.",
           "details": [
-            "Verzauberbar auf Stein- bis Netherit-Vorschlaghammer (Tag simplebuilding:sledgehammer_tools). Definition: Höchststufe I; Gewicht 1; Mindestkosten 25 (+20), Höchstkosten 75 (+20); Amboss-Kosten 8; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
+            "Verzauberbar auf Stein- bis Enderit-Vorschlaghammer (Tag simplebuilding:sledgehammer_tools). Definition: Höchststufe I; Gewicht 1; Mindestkosten 25 (+20), Höchstkosten 75 (+20); Amboss-Kosten 8; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
             "Fläche: Grundreichweite 1 (3×3) plus Verzauberungsstufe – mit Radius I also Reichweite 2, d. h. 5×5 Blöcke um den angeschlagenen Block.",
             "Beim Schleichen wird der Bonus abgeschaltet; der Hammer arbeitet dann wieder mit 3×3.",
             "Welche Blöcke in der größeren Fläche tatsächlich fallen, entscheidet weiterhin die Übersteuerungs-Regel (ohne Übersteuerung nur derselbe Blocktyp).",
@@ -18553,7 +18533,6 @@ window.WIKI_DATA = {
           "caveats": [
             "Nicht an der Verzauberungstabelle erhältlich (nicht im Tag minecraft:in_enchanting_table).",
             "Nur eine Stufe; höhere Stufen sind nicht definiert.",
-            "Der Enderite Sledgehammer steht nicht im Tag sledgehammer_tools und ist damit kein unterstütztes Ziel.",
             "Zusammen mit Durchbruch verdoppelt sich die Blockzahl für die Geschwindigkeitsformel auf 50, wird dort aber auf 25 gedeckelt – schneller als mit Radius allein wird der Hammer dadurch nicht.",
             "Dorfbewohner bieten Radius nicht an, nur der Wanderhändler (die Werkzeugschmied-Hämmer enthalten „range“ = Reichweite, nicht Radius).",
             "Das generierte Exklusiv-Tag exclusive_set/radius_group enthält nur Radius selbst und wird von keiner Verzauberungsdefinition und keiner Code-Stelle verwendet – es hat keine Wirkung.",
@@ -18614,7 +18593,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Range is a tool enchantment for chisels, sledgehammers, octants and mining tools that raises your block interaction range by 2, 6 or 10 blocks while the tool is in your main hand.",
           "details": [
-            "Applies to the tag simplebuilding:chisel_and_mining_tools: every chisel (Stone through Netherite), every sledgehammer (Stone through Netherite), every octant (the coloured ones included), plus everything in the vanilla tag minecraft:enchantable/mining, to which the mod adds the sledgehammers.",
+            "Applies to the tag simplebuilding:chisel_and_mining_tools: every chisel (Stone through Enderite), every sledgehammer (Stone through Enderite), every octant (the coloured ones included), plus everything in the vanilla tag minecraft:enchantable/mining, to which the mod adds the sledgehammers.",
             "Slot: main hand, so the attribute only applies while the tool is held in the main hand.",
             "Max level 3, weight 1, anvil cost 4; enchanting cost 15 (+9 per level above the first) to 65 (+9 per level above the first).",
             "The effect is data driven (effect component minecraft:attributes): attribute minecraft:block_interaction_range, operation add_value, 2.0 at level I and +4.0 per further level, so +2 / +6 / +10 blocks.",
@@ -18636,7 +18615,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Reichweite ist eine Werkzeugverzauberung für Meißel, Vorschlaghämmer, Oktanten und Abbauwerkzeuge, die die Block-Interaktionsreichweite in der Haupthand um 2, 6 bzw. 10 Blöcke erhöht.",
           "details": [
-            "Anwendbar auf den Tag simplebuilding:chisel_and_mining_tools: alle Meißel (Stein bis Netherit), alle Vorschlaghämmer (Stein bis Netherit), alle Oktanten (auch farbige) sowie alles im Vanilla-Tag minecraft:enchantable/mining, dem die Mod zusätzlich die Vorschlaghämmer hinzufügt.",
+            "Anwendbar auf den Tag simplebuilding:chisel_and_mining_tools: alle Meißel (Stein bis Enderit), alle Vorschlaghämmer (Stein bis Enderit), alle Oktanten (auch farbige) sowie alles im Vanilla-Tag minecraft:enchantable/mining, dem die Mod zusätzlich die Vorschlaghämmer hinzufügt.",
             "Slot: Haupthand, das Attribut gilt also nur, wenn das Werkzeug in der Haupthand gehalten wird.",
             "Höchststufe 3, Gewicht 1, Amboss-Kosten 4; Verzauberungskosten 15 (+9 je weiterer Stufe) bis 65 (+9 je weiterer Stufe).",
             "Wirkung ist datengetrieben (Effekt-Komponente minecraft:attributes): Attribut minecraft:block_interaction_range, Operation add_value, 2,0 auf Stufe I und +4,0 je weiterer Stufe, also +2 / +6 / +10 Blöcke.",
@@ -18958,7 +18937,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Versatility automatically switches to the best suitable tool from your hotbar (level I) or from your whole inventory (level II) when you sneak and hit a block.",
           "details": [
-            "Can be applied to everything in the tag #minecraft:enchantable/mining, to which the mod additionally adds the sledgehammers (stone, copper, iron, gold, diamond and netherite, tag simplebuilding:sledgehammer_tools). Definition: max level II; weight 1; min cost 15, max cost 65 (no increase per level); anvil cost 4; slot \"hand\". It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
+            "Can be applied to everything in the tag #minecraft:enchantable/mining, to which the mod additionally adds the sledgehammers (stone, copper, iron, gold, diamond, netherite and enderite, tag simplebuilding:sledgehammer_tools). Definition: max level II; weight 1; min cost 15, max cost 65 (no increase per level); anvil cost 4; slot \"hand\". It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
             "Trigger: sneak and left-click (hit) a block; the enchanted item has to be in your main hand at that moment; the check only runs server-side.",
             "Search range: level I searches the hotbar (slots 0-8), level II the whole inventory (slots 0-35); the currently selected slot is skipped.",
             "Only items that can harvest the block normally are scored (otherwise the score is -1); score = mining speed on that block + bonus: chisel 0, sledgehammer 2000, pickaxe/axe/shovel 1000, other suitable items 500.",
@@ -18991,7 +18970,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Vielseitigkeit wechselt beim schleichenden Anschlagen eines Blocks automatisch zum besten passenden Werkzeug aus der Hotbar (Stufe I) oder dem ganzen Inventar (Stufe II).",
           "details": [
-            "Verzauberbar auf alles im Tag #minecraft:enchantable/mining, dem die Mod zusätzlich die Vorschlaghämmer (Stein bis Netherit, Tag sledgehammer_tools) hinzufügt. Definition: Höchststufe II; Gewicht 1; Mindestkosten 15, Höchstkosten 65 (keine Steigerung je Stufe); Amboss-Kosten 4; Slot „hand“. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
+            "Verzauberbar auf alles im Tag #minecraft:enchantable/mining, dem die Mod zusätzlich die Vorschlaghämmer (Stein bis Enderit, Tag sledgehammer_tools) hinzufügt. Definition: Höchststufe II; Gewicht 1; Mindestkosten 15, Höchstkosten 65 (keine Steigerung je Stufe); Amboss-Kosten 4; Slot „hand“. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
             "Auslöser: Schleichen und Linksklick (Anschlagen) auf einen Block; das verzauberte Item muss dabei in der Haupthand sein; die Prüfung läuft nur serverseitig.",
             "Suchbereich: Stufe I durchsucht die Hotbar (Slots 0–8), Stufe II das gesamte Inventar (Slots 0–35); der gerade gewählte Slot wird übersprungen.",
             "Bewertet werden nur Items, die den Block regulär abbauen können (sonst Punktzahl −1); Punktzahl = Abbaugeschwindigkeit auf diesem Block + Bonus: Meißel 0, Vorschlaghammer 2000, Spitzhacke/Axt/Schaufel 1000, sonstige geeignete Items 500.",
@@ -19149,6 +19128,10 @@ window.WIKI_DATA = {
         {
           "id": "simplebuilding:netherite_building_wand",
           "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_building_wand",
+          "required": true
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/building_wand_enchantable.json"
@@ -19233,6 +19216,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:netherite_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chisel",
           "required": true
         }
       ],
@@ -19441,6 +19428,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:netherite_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_sledgehammer",
           "required": true
         }
       ],
@@ -19670,7 +19661,7 @@ window.WIKI_DATA = {
     }
   ],
   "counts": {
-    "items": 107,
+    "items": 110,
     "blocks": 29,
     "recipes": 130,
     "lootTables": 28,

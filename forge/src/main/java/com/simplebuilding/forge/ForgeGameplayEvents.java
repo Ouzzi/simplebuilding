@@ -1,6 +1,7 @@
 package com.simplebuilding.forge;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.util.ConstructorsTouchInteraction;
 import com.simplebuilding.util.DynamicLightHandler;
 import com.simplebuilding.util.LegacySpatulaMigration;
 import com.simplebuilding.util.SledgehammerEntityInteraction;
@@ -68,7 +69,7 @@ public final class ForgeGameplayEvents {
         if (event.getHand() != InteractionHand.MAIN_HAND || event.getLevel().isClientSide()) {
             return false;
         }
-        InteractionResult result = ModRegistriesForge.handleUseBlock(
+        InteractionResult result = ConstructorsTouchInteraction.handleUseBlock(
                 event.getEntity(),
                 event.getLevel(),
                 event.getHand(),

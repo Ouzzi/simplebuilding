@@ -71,30 +71,15 @@ import net.minecraft.world.phys.Vec3;
  * {@code cooking_total_time}) - the same two fields the container data exposes at indices 2 and 3,
  * read through an interface that is public and that the game itself depends on.
  *
- * <h2>Known defects</h2>
+ * <h2>Built from the vanilla block, not from glass</h2>
  *
- * <p><b>1. The six blocks inherit glass, not stone, so a bare hand drops them.</b>
- * {@code ModBlocks#registerBlock} hands every factory
- * {@code BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)}, and the six furnace lines only
- * override {@code strength} and {@code sound}. Vanilla's furnace is built with
- * {@code requiresCorrectToolForDrops()}; the mod's six are not, and they keep glass's
- * {@code noOcclusion} as well. <em>Nothing in this file asserts either side of that.</em> An
- * {@code assertFalse(state.requiresCorrectToolForDrops())} would turn the one line fix - appending
- * {@code .requiresCorrectToolForDrops()} to the six factories - into a red test, which is the one
- * thing a test must never do. What
- * {@link #furnaceBlocksCarryTheirRegisteredHardnessResistanceAndTags} pins instead is true on both
- * sides of that fix: membership in {@code mineable/pickaxe}, and the rule that a block sitting in
- * one of the {@code needs_*_tool} tags must also carry {@code requiresCorrectToolForDrops()},
- * because without it the tag is dead weight and gates nothing.
- *
- * <p><b>2. No burning device gives off light.</b> Vanilla's furnace, smoker and blast furnace are
- * registered with {@code lightLevel(litBlockEmission(13))}; none of the six sets a light level at
- * all, so a lit reinforced furnace is a dark block in a dark room. Same treatment as defect 1, and
- * for the same reason: an assertion that the six emit zero light would have to be deleted again the
- * day somebody adds the missing {@code lightLevel(...)}. It would also fall foul of this file's own
- * yardstick for the creative tab below - "in {@code ModBlocks} there is no {@code lightLevel(...)}"
- * restates a source line rather than pinning a behaviour.
- * {@link #onlyNetheriteFurnaceItemsSurviveLava} therefore says nothing about light.
+ * <p>Until 2026-09 {@code ModBlocks#registerBlock} handed the six factories
+ * {@code BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)}: no tool requirement (a bare hand
+ * dropped them), no light while burning, no occlusion, glass's map colour. Each is now copied
+ * from its vanilla counterpart and only overrides strength and sound, and
+ * {@link #furnaceBlocksCarryTheirRegisteredHardnessResistanceAndTags} pins the three things that
+ * copy brings against that counterpart: the tool requirement, light level 13 while lit and none
+ * while cold, and full occlusion.
  *
  * <h2>Not covered, and why</h2>
  * <ul>
@@ -157,16 +142,16 @@ public final class FurnaceTests {
     private static final String MOD_ID = "simplebuilding";
 
     /** The six devices, tier by tier, with the item each of them drops. */
-    private record Device(String label, Block block, Item item) {
+    private record Device(String label, Block block, Item item, Block vanilla) {
     }
 
     private static final List<Device> ALL_DEVICES = List.of(
-            new Device("reinforced furnace", ModBlocks.REINFORCED_FURNACE, ModItems.REINFORCED_FURNACE),
-            new Device("netherite furnace", ModBlocks.NETHERITE_FURNACE, ModItems.NETHERITE_FURNACE),
-            new Device("reinforced smoker", ModBlocks.REINFORCED_SMOKER, ModItems.REINFORCED_SMOKER),
-            new Device("netherite smoker", ModBlocks.NETHERITE_SMOKER, ModItems.NETHERITE_SMOKER),
-            new Device("reinforced blast furnace", ModBlocks.REINFORCED_BLAST_FURNACE, ModItems.REINFORCED_BLAST_FURNACE),
-            new Device("netherite blast furnace", ModBlocks.NETHERITE_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE));
+            new Device("reinforced furnace", ModBlocks.REINFORCED_FURNACE, ModItems.REINFORCED_FURNACE, Blocks.FURNACE),
+            new Device("netherite furnace", ModBlocks.NETHERITE_FURNACE, ModItems.NETHERITE_FURNACE, Blocks.FURNACE),
+            new Device("reinforced smoker", ModBlocks.REINFORCED_SMOKER, ModItems.REINFORCED_SMOKER, Blocks.SMOKER),
+            new Device("netherite smoker", ModBlocks.NETHERITE_SMOKER, ModItems.NETHERITE_SMOKER, Blocks.SMOKER),
+            new Device("reinforced blast furnace", ModBlocks.REINFORCED_BLAST_FURNACE, ModItems.REINFORCED_BLAST_FURNACE, Blocks.BLAST_FURNACE),
+            new Device("netherite blast furnace", ModBlocks.NETHERITE_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE, Blocks.BLAST_FURNACE));
 
     /** Six spots, two blocks apart, that all fit inside the 8x8x8 test room. */
     private static final List<BlockPos> SIX_SPOTS = List.of(
@@ -533,20 +518,21 @@ public final class FurnaceTests {
      * control and levitating sand the negative one, so the lookup is known to be able to answer both
      * ways.
      *
-     * <p>What is <em>not</em> asserted is whether the six require the correct tool for drops, or
-     * whether they sit in a {@code needs_*_tool} tag. Both are the subject of known defect 1 in the
-     * class javadoc, and pinning either one would make the one line fix for that defect fail. What
-     * is asserted instead is the rule that ties the two together and holds before and after any such
-     * fix: a block listed in {@code needs_stone_tool}, {@code needs_iron_tool} or
-     * {@code needs_diamond_tool} while {@code requiresCorrectToolForDrops()} is false has a tag that
-     * gates nothing at all - the block still drops to a bare hand and the tier in the tag is a lie.
+     * <p>The properties the vanilla copy brings are asserted against the vanilla block itself:
+     * {@code requiresCorrectToolForDrops()} (so a bare hand no longer drops them, exactly like a
+     * vanilla furnace), light level 13 in the {@code LIT} state and 0 without it, and
+     * {@code canOcclude()}. None of the six is in a {@code needs_*_tool} tag - neither is the
+     * vanilla furnace - and the rule that ties the two together is checked as well: a block listed
+     * in {@code needs_stone_tool}, {@code needs_iron_tool} or {@code needs_diamond_tool} while
+     * {@code requiresCorrectToolForDrops()} is false has a tag that gates nothing at all.
      * {@code ModBlocks#CRACKED_DIAMOND_BLOCK} is the mod block that satisfies the rule today and is
      * checked alongside, so the rule is known to be more than an empty implication.
      *
      * <p>What breaks this test: editing either {@code strength(...)} call, dropping a block from
-     * {@code ModBlockTagProvider} or failing to regenerate the data, and adding any block covered
-     * here to a {@code needs_*_tool} tag without also giving it
-     * {@code requiresCorrectToolForDrops()}.
+     * {@code ModBlockTagProvider} or failing to regenerate the data, building a device from any
+     * other base than its vanilla counterpart (glass, as it used to be, fails all three property
+     * checks), and adding any block covered here to a {@code needs_*_tool} tag without also giving
+     * it {@code requiresCorrectToolForDrops()}.
      */
     public static void furnaceBlocksCarryTheirRegisteredHardnessResistanceAndTags(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -578,6 +564,22 @@ public final class FurnaceTests {
 
             assertInTag(helper, device, BlockTags.MINEABLE_WITH_PICKAXE, true);
             assertToolTagMatchesToolRequirement(helper, device.label(), state);
+
+            // What the vanilla copy brings, against the vanilla block itself.
+            BlockState vanilla = device.vanilla().defaultBlockState();
+            helper.assertTrue(state.requiresCorrectToolForDrops() && vanilla.requiresCorrectToolForDrops(),
+                    "the " + device.label() + " drops to a bare hand (requiresCorrectToolForDrops is "
+                            + state.requiresCorrectToolForDrops() + "), unlike the vanilla block it is built from");
+            Assertions.valueEqual(helper, state.setValue(AbstractFurnaceBlock.LIT, true).getLightEmission(),
+                    vanilla.setValue(AbstractFurnaceBlock.LIT, true).getLightEmission(),
+                    "the light a burning " + device.label() + " gives off, against its vanilla counterpart's");
+            Assertions.valueEqual(helper, state.setValue(AbstractFurnaceBlock.LIT, true).getLightEmission(), 13,
+                    "the light a burning " + device.label() + " gives off");
+            Assertions.valueEqual(helper, state.setValue(AbstractFurnaceBlock.LIT, false).getLightEmission(), 0,
+                    "the light a cold " + device.label() + " gives off");
+            helper.assertTrue(state.canOcclude(),
+                    "the " + device.label() + " does not occlude its neighbours' faces - it still carries "
+                            + "glass's noOcclusion instead of the vanilla block's properties");
         }
 
         // The tag lookup has to be able to answer in both directions, or the mineable/pickaxe
@@ -611,9 +613,6 @@ public final class FurnaceTests {
      * then driven: a dropped netherite device has to survive lava but not drowning, so the claim is
      * about behaviour and not only about a stored tag name. The three reinforced items are required
      * to carry no such component at all, which is what gives the netherite half something to say.
-     *
-     * <p>Light is deliberately absent here even though the six are the darkest furnaces in the game;
-     * see known defect 2 in the class javadoc for why no assertion about it would survive the fix.
      *
      * <p>What breaks this test: dropping {@code fireResistant()} from one of the three netherite
      * items in {@code ModItems}, or adding it to a reinforced one.
@@ -986,7 +985,7 @@ public final class FurnaceTests {
      * still drops to a bare hand, and the tag then advertises a mining tier that does not exist.
      *
      * <p>Says nothing when the block is in none of the three tags - which is where the six devices
-     * stand today, see known defect 1 - so it can never freeze the current state of either side.
+     * stand, like their vanilla counterparts.
      */
     private static void assertToolTagMatchesToolRequirement(GameTestHelper helper, String label, BlockState state) {
         for (TagKey<Block> tag : NEEDS_TOOL_TAGS) {

@@ -2,7 +2,9 @@ package com.simplebuilding.gametest;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.tree.CommandNode;
 import com.mojang.serialization.Lifecycle;
+import com.simplebuilding.command.SimplebuildingCommand;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.trim.ModTrimMaterials;
@@ -11,6 +13,7 @@ import com.simplebuilding.util.TrimBenefitUser;
 import com.simplebuilding.util.TrimEffectUtil;
 import com.simplebuilding.util.TrimMultiplierLogic;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import net.minecraft.commands.CommandSourceStack;
@@ -105,10 +108,6 @@ import net.minecraft.world.phys.Vec3;
  *       components. {@link #theThreeTrimMaterialsKeepTheirColoursAndTheirTags} therefore takes its
  *       expected colours from a recorded {@code bootstrap} run; comparing the registry against the
  *       copies instead only ever compared two literals that are edited, if at all, together.</li>
- *   <li><b>{@code ModCommands} exists four times</b> (Fabric, NeoForge, Forge and the 1.21.11
- *       tree) with no shared source. A gametest can only ever see the copy the running loader
- *       registered, so {@link #theTrimMultiplierCommandGuardsItsRangeAndItsPermission} covers one
- *       loader per run and the other copies stay unguarded.</li>
  * </ul>
  *
  * <h2>Not covered, and why</h2>
@@ -1181,14 +1180,19 @@ public final class TrimWiringTests {
      * out, because the command builds its argument type from that same field; a test that spelled
      * the number out would only be checking that two copies of it agree.
      *
-     * <p>The command is registered per loader - see the class javadoc - so a run only ever covers
-     * the copy the current loader installed. If a loader stops registering it at all, the first
-     * command that is meant to succeed fails with the message below rather than silently passing as
-     * "correctly refused", which is why the permitted cases come after the refused one.
+     * <p>The tree is built once per Minecraft line in {@code SimplebuildingCommand}, and each
+     * loader's {@code ModCommands} only hooks it in (until 2026-09 each of the five loader trees
+     * built its own copy, so a run only ever covered the one the current loader installed). The
+     * first check is therefore that the live {@code /simplebuilding} node is the shared one: its
+     * requirement is {@code SimplebuildingCommand.OPERATOR_ONLY} itself, and its usage is exactly
+     * what {@code SimplebuildingCommand.register} builds into an empty dispatcher. If a loader stops
+     * registering it at all, that check fails first, and the first command that is meant to succeed
+     * would fail too rather than silently passing as "correctly refused" - which is why the
+     * permitted cases come after the refused one.
      *
      * <p>What breaks this: the {@code requires} gate disappearing or inverting, the argument bounds
-     * widening, the executor no longer writing the config, or the whole registration being dropped
-     * on one loader.
+     * widening, the executor no longer writing the config, the whole registration being dropped
+     * on one loader, or a loader building its own tree again instead of the shared one.
      */
     public static void theTrimMultiplierCommandGuardsItsRangeAndItsPermission(GameTestHelper helper) {
         double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
@@ -1201,6 +1205,19 @@ public final class TrimWiringTests {
             helper.assertFalse(wasOperator,
                     "the mock player is already an operator, so the permission check below would pass "
                             + "with the requires() gate deleted");
+
+            // --- the live node is the shared tree, on every loader ---
+            CommandNode<CommandSourceStack> live = dispatcher.getRoot().getChild("simplebuilding");
+            helper.assertTrue(live != null, "/simplebuilding is not registered by this loader at all");
+            helper.assertTrue(live.getRequirement() == SimplebuildingCommand.OPERATOR_ONLY,
+                    "/simplebuilding on this loader carries a requirement of its own instead of "
+                            + "SimplebuildingCommand.OPERATOR_ONLY, so the loader builds its own tree again");
+            CommandDispatcher<CommandSourceStack> reference = new CommandDispatcher<>();
+            SimplebuildingCommand.register(reference);
+            CommandSourceStack source = player.createCommandSourceStack();
+            helper.assertValueEqual(List.of(dispatcher.getAllUsage(live, source, false)),
+                    List.of(reference.getAllUsage(reference.getRoot().getChild("simplebuilding"), source, false)),
+                    "usage of the live /simplebuilding subtree against the one SimplebuildingCommand builds");
 
             // --- without operator rights the subtree is not even reachable ---
             SimplebuildingConfig.trimBenefitBaseMultiplier = 1.0;
