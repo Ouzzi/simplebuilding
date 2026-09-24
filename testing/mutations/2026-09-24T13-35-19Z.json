@@ -1,0 +1,83 @@
+{
+  "catalogue": "p10",
+  "targets": [
+    "fabric-12111"
+  ],
+  "lines": [
+    "1.21.11"
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "target": "fabric-12111",
+      "kind": "server",
+      "run": "2026-09-24T13-33-35Z-438d",
+      "log": "runs/2026-09-24T13-33-35Z-438d-fabric-12111.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-shift-click-storage-by-index",
+          "script": "backpack_game_test_shift_click_from_the_hotbar_fills_inventory_and_backpack_as_one_storage",
+          "file": "mc1_21_11/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(9662348, -59, -8047383) Expected glass in the partly filled backpack slot after a shift-click from the hotbar to be 64: was 60 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 2,
+      "target": "fabric-12111",
+      "kind": "server",
+      "run": "2026-09-24T13-34-03Z-e817",
+      "log": "runs/2026-09-24T13-34-03Z-e817-fabric-12111.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-shift-click-backpack-before-inventory",
+          "script": "backpack_game_test_shift_click_from_the_hotbar_fills_inventory_and_backpack_as_one_storage",
+          "file": "mc1_21_11/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-13777930, -59, -11172050) Expected glass in the partly filled last main inventory slot after a shift-click from the hotbar to be 26: was 10 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 3,
+      "target": "fabric-12111",
+      "kind": "server",
+      "run": "2026-09-24T13-34-30Z-efd3",
+      "log": "runs/2026-09-24T13-34-30Z-efd3-fabric-12111.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-shift-click-storage-into-backpack",
+          "script": "backpack_game_test_shift_click_sends_storage_to_the_hotbar_and_armor_to_its_slot",
+          "file": "mc1_21_11/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(732364, -59, -5419762) shift-click from the main inventory did not go to the hotbar as in vanilla; the cobblestone went to menu slot 46 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 4,
+      "target": "fabric-12111",
+      "kind": "server",
+      "run": "2026-09-24T13-34-55Z-1a5a",
+      "log": "runs/2026-09-24T13-34-55Z-1a5a-fabric-12111.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-shift-click-armor-stays",
+          "script": "backpack_game_test_shift_click_sends_storage_to_the_hotbar_and_armor_to_its_slot",
+          "file": "mc1_21_11/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-1603660, -59, -14938044) shift-click on a helmet in the backpack did not put it on the empty head slot on tick 0"
+        }
+      ],
+      "collateral": null
+    }
+  ]
+}

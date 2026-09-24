@@ -477,69 +477,163 @@ public final class BackpackTests {
     }
 
     /**
-     * Shift-click in the backpack menu: from the main inventory and the hotbar into the backpack first,
-     * out of the backpack into the main inventory before the hotbar - and the worn backpack's own chest
-     * slot stays locked.
+     * Shift-click from the hotbar treats the main inventory and the backpack as one storage, the way
+     * vanilla treats the main inventory alone: first every stack of the same item that still has room,
+     * then the first empty slot from top left to bottom right as the screen shows them - the backpack
+     * rows above the main inventory, the enderite column left and the netherite column right of each
+     * row.
      *
      * <ul>
-     *   <li>Cobblestone from main inventory slot 9 lands in the first backpack slot; glass from hotbar
-     *       slot 0 lands in the second. Both are written straight into the worn backpack's
-     *       component.</li>
-     *   <li>Shift-clicking the cobblestone out of the backpack puts it into the main inventory, not the
-     *       hotbar.</li>
-     *   <li>Shift-clicking the chest slot leaves the backpack where it is while its menu is open.</li>
-     *   <li>With the backpack full, a main inventory stack falls back to vanilla's main-to-hotbar
-     *       move.</li>
+     *   <li><b>Stacks first:</b> 20 glass from the hotbar top up 60 glass in backpack slot 5 to 64 and
+     *       put the other 16 on the 10 glass in the last main inventory slot, while plenty of empty
+     *       slots come earlier.</li>
+     *   <li><b>Empty storage:</b> the first item lands in the enderite column's top slot (it stands left
+     *       of the first backpack row), the next one in the first backpack row slot.</li>
+     *   <li><b>Row by row:</b> with only the netherite column's second slot, backpack row 3 and the
+     *       main inventory's first slot free, three items fill them in exactly that order.</li>
      * </ul>
      *
-     * <p>What breaks this test: the backpack range after vanilla's main/hotbar swap, backpack stacks
-     * going to the hotbar first, a chest slot that is not locked, and a container that does not write
-     * through to the worn stack.
+     * <p>What breaks this test: a hotbar move that fills the backpack and the main inventory one after
+     * the other, empty slots taken before same-item stacks, and slot index order instead of the order
+     * on screen.
      */
-    public static void shiftClickFillsTheBackpackFirstAndEmptiesItIntoTheMainInventory(GameTestHelper helper) {
+    public static void shiftClickFromTheHotbarFillsInventoryAndBackpackAsOneStorage(GameTestHelper helper) {
         ServerPlayer player = serverPlayer(helper);
         Inventory inventory = player.getInventory();
         inventory.clearContent();
+        BackpackTier tier = BackpackTier.ENDERITE;
+        BackpackMenu menu = menuFor(player, tier);
+        BackpackContainer backpack = menu.backpack();
+        int hotbar = BackpackMenu.USE_ROW_SLOT_START;
+        // Column 0 is the netherite column on the right, column 1 the enderite column on the left.
+        int enderiteTop = tier.rowSlots() + tier.columnHeight();
+        int netheriteSecond = tier.rowSlots() + 1;
+
+        // --- stacks of the same item first, in the backpack and in the main inventory ---
+        backpack.setItem(5, new ItemStack(Items.GLASS, 60));
+        inventory.setItem(35, new ItemStack(Items.GLASS, 10));
+        inventory.setItem(0, new ItemStack(Items.GLASS, 20));
+        shiftClick(menu, hotbar, player);
+        helper.assertValueEqual(backpack.getItem(5).getCount(), 64,
+                "glass in the partly filled backpack slot after a shift-click from the hotbar");
+        helper.assertValueEqual(inventory.getItem(35).getCount(), 26,
+                "glass in the partly filled last main inventory slot after a shift-click from the hotbar");
+        helper.assertTrue(inventory.getItem(0).isEmpty() && backpack.getItem(enderiteTop).isEmpty(),
+                "shift-click from the hotbar used an empty slot while stacks of the same item still had room");
+
+        // --- empty storage: top left first, and that is the enderite column ---
+        backpack.clearContent();
+        inventory.clearContent();
+        inventory.setItem(0, new ItemStack(Items.COBBLESTONE));
+        shiftClick(menu, hotbar, player);
+        helper.assertTrue(backpack.getItem(enderiteTop).is(Items.COBBLESTONE),
+                "the first empty storage slot on screen is the enderite column's top slot; the cobblestone went to menu slot "
+                        + slotHolding(menu, Items.COBBLESTONE));
+        inventory.setItem(0, new ItemStack(Items.STONE));
+        shiftClick(menu, hotbar, player);
+        helper.assertTrue(backpack.getItem(0).is(Items.STONE),
+                "the second empty storage slot on screen is the first backpack row slot; the stone went to menu slot "
+                        + slotHolding(menu, Items.STONE));
+
+        // --- row by row, backpack, columns and main inventory interleaved ---
+        for (int i = 0; i < backpack.getContainerSize(); i++) {
+            backpack.setItem(i, new ItemStack(Items.DIRT, 64));
+        }
+        for (int i = 9; i < 36; i++) {
+            inventory.setItem(i, new ItemStack(Items.DIRT, 64));
+        }
+        backpack.setItem(netheriteSecond, ItemStack.EMPTY);
+        backpack.setItem(2 * 9 + 4, ItemStack.EMPTY);
+        inventory.setItem(9, ItemStack.EMPTY);
+        inventory.setItem(0, new ItemStack(Items.OAK_PLANKS));
+        inventory.setItem(1, new ItemStack(Items.SAND));
+        inventory.setItem(2, new ItemStack(Items.GLASS));
+        shiftClick(menu, hotbar, player);
+        shiftClick(menu, hotbar + 1, player);
+        shiftClick(menu, hotbar + 2, player);
+        helper.assertTrue(backpack.getItem(netheriteSecond).is(Items.OAK_PLANKS),
+                "the netherite column's second slot (second row on screen) was not filled first; the planks went to menu slot "
+                        + slotHolding(menu, Items.OAK_PLANKS));
+        helper.assertTrue(backpack.getItem(2 * 9 + 4).is(Items.SAND),
+                "the third backpack row was not filled second; the sand went to menu slot " + slotHolding(menu, Items.SAND));
+        helper.assertTrue(inventory.getItem(9).is(Items.GLASS),
+                "the main inventory under the backpack rows was not filled last; the glass went to menu slot "
+                        + slotHolding(menu, Items.GLASS));
+
+        helper.succeed();
+    }
+
+    /**
+     * Shift-click everywhere else in the backpack menu goes where it goes in vanilla's inventory, with
+     * the backpack counted as main inventory - and the worn backpack's own chest slot stays locked.
+     *
+     * <ul>
+     *   <li><b>Main inventory to hotbar</b>, as vanilla, not into the backpack.</li>
+     *   <li><b>Backpack to hotbar</b> as well, written straight through to the worn backpack's
+     *       component.</li>
+     *   <li><b>Armour</b> shift-clicked in the backpack goes onto the empty head slot, as it does from
+     *       vanilla's main inventory.</li>
+     *   <li><b>The crafting grid</b> empties into the storage, and the basic backpack's row is the first
+     *       storage row on screen.</li>
+     *   <li><b>The chest slot</b> keeps the worn backpack while its menu is open.</li>
+     *   <li><b>Hotbar to storage</b> lands in the backpack's next free slot, again written through.</li>
+     * </ul>
+     *
+     * <p>What breaks this test: the backpack filled before the hotbar, backpack stacks going to the main
+     * inventory, armour that stays in the backpack, a chest slot that is not locked, and a container that
+     * does not write through to the worn stack.
+     */
+    public static void shiftClickSendsStorageToTheHotbarAndArmorToItsSlot(GameTestHelper helper) {
+        ServerPlayer player = serverPlayer(helper);
+        Inventory inventory = player.getInventory();
+        inventory.clearContent();
+        player.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
         player.setItemSlot(EquipmentSlot.CHEST, new ItemStack(ModItems.BACKPACK));
         BackpackMenu menu = openWorn(player);
         ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
 
-        // --- main inventory and hotbar go into the backpack first ---
+        // --- main inventory -> hotbar ---
         inventory.setItem(9, new ItemStack(Items.COBBLESTONE, 32));
-        inventory.setItem(0, new ItemStack(Items.GLASS, 10));
         shiftClick(menu, 9, player);
-        helper.assertTrue(menu.getSlot(FIRST_BACKPACK_SLOT).getItem().is(Items.COBBLESTONE) && inventory.getItem(9).isEmpty(),
-                "shift-click from the main inventory did not put the cobblestone into the backpack; the "
-                        + "first backpack slot holds " + menu.getSlot(FIRST_BACKPACK_SLOT).getItem());
-        shiftClick(menu, BackpackMenu.USE_ROW_SLOT_START, player);
-        helper.assertTrue(menu.getSlot(FIRST_BACKPACK_SLOT + 1).getItem().is(Items.GLASS) && inventory.getItem(0).isEmpty(),
-                "shift-click from the hotbar did not put the glass into the backpack");
-        helper.assertValueEqual(BackpackItem.contents(chest), contentsOf(new ItemStack(Items.COBBLESTONE, 32), new ItemStack(Items.GLASS, 10)),
-                "contents of the worn backpack after two shift-clicks into its menu");
+        helper.assertTrue(inventory.getItem(0).is(Items.COBBLESTONE) && inventory.getItem(9).isEmpty(),
+                "shift-click from the main inventory did not go to the hotbar as in vanilla; the cobblestone went to menu slot "
+                        + slotHolding(menu, Items.COBBLESTONE));
 
-        // --- out of the backpack: main inventory before hotbar ---
+        // --- backpack -> hotbar ---
+        menu.getSlot(FIRST_BACKPACK_SLOT).set(new ItemStack(Items.GLASS, 10));
         shiftClick(menu, FIRST_BACKPACK_SLOT, player);
-        helper.assertTrue(inventory.getItem(9).is(Items.COBBLESTONE) && !inventory.getItem(0).is(Items.COBBLESTONE),
-                "shift-click out of the backpack did not put the cobblestone into the first main inventory "
-                        + "slot; the hotbar is only the fallback");
+        helper.assertTrue(inventory.getItem(1).is(Items.GLASS),
+                "shift-click out of the backpack did not go to the hotbar; the glass went to menu slot "
+                        + slotHolding(menu, Items.GLASS));
+        helper.assertValueEqual(BackpackItem.contents(chest), contentsOf(),
+                "contents of the worn backpack after shift-clicking its only stack out");
+
+        // --- armour in the backpack -> its armour slot ---
+        menu.getSlot(FIRST_BACKPACK_SLOT).set(new ItemStack(Items.IRON_HELMET));
+        shiftClick(menu, FIRST_BACKPACK_SLOT, player);
+        helper.assertTrue(player.getItemBySlot(EquipmentSlot.HEAD).is(Items.IRON_HELMET),
+                "shift-click on a helmet in the backpack did not put it on the empty head slot");
+
+        // --- crafting grid -> storage, backpack row first ---
+        menu.getSlot(1).set(new ItemStack(Items.OAK_PLANKS, 3));
+        shiftClick(menu, 1, player);
+        helper.assertTrue(menu.getSlot(FIRST_BACKPACK_SLOT).getItem().is(Items.OAK_PLANKS),
+                "shift-click on the crafting grid did not put the planks into the first storage slot on screen (the "
+                        + "backpack row); they went to menu slot " + slotHolding(menu, Items.OAK_PLANKS));
 
         // --- the worn backpack's chest slot is locked ---
         shiftClick(menu, CHEST_SLOT, player);
         helper.assertTrue(player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.BACKPACK),
                 "shift-click took the worn backpack out of the chest slot while its own menu was open");
 
-        // --- the backpack full: vanilla's main -> hotbar ---
-        for (int i = 0; i < menu.backpack().getContainerSize(); i++) {
-            menu.backpack().setItem(i, new ItemStack(Items.DIRT, 64));
-        }
-        inventory.setItem(10, new ItemStack(Items.STONE, 5));
-        shiftClick(menu, 10, player);
-        boolean inHotbar = false;
-        for (int i = 0; i < 9; i++) {
-            inHotbar |= inventory.getItem(i).is(Items.STONE);
-        }
-        helper.assertTrue(inHotbar && inventory.getItem(10).isEmpty(),
-                "with the backpack full, shift-click did not fall back to vanilla's move into the hotbar");
+        // --- hotbar -> storage, into the backpack's next free slot ---
+        shiftClick(menu, BackpackMenu.USE_ROW_SLOT_START + 1, player);
+        helper.assertTrue(menu.getSlot(FIRST_BACKPACK_SLOT + 1).getItem().is(Items.GLASS),
+                "shift-click from the hotbar did not put the glass into the backpack's next free slot; it went to menu slot "
+                        + slotHolding(menu, Items.GLASS));
+        helper.assertValueEqual(BackpackItem.contents(player.getItemBySlot(EquipmentSlot.CHEST)),
+                contentsOf(new ItemStack(Items.OAK_PLANKS, 3), new ItemStack(Items.GLASS, 10)),
+                "contents of the worn backpack after the planks and the glass went in");
 
         helper.succeed();
     }
@@ -587,11 +681,11 @@ public final class BackpackTests {
         backpack.enchant(enchantment(helper, ModEnchantments.DEEP_POCKETS), 2);
         player.setItemSlot(EquipmentSlot.CHEST, backpack);
         BackpackMenu menu = openWorn(player);
-        for (int i = 9; i <= 12; i++) {
+        for (int i = 0; i < 4; i++) {
             inventory.setItem(i, new ItemStack(Items.COBBLESTONE, 64));
         }
-        for (int i = 9; i <= 12; i++) {
-            shiftClick(menu, i, player);
+        for (int i = 0; i < 4; i++) {
+            shiftClick(menu, BackpackMenu.USE_ROW_SLOT_START + i, player);
         }
         helper.assertValueEqual(menu.getSlot(FIRST_BACKPACK_SLOT).getItem().getCount(), 256,
                 "cobblestone in the first slot of a Deep Pockets II backpack after four stacks went in");
@@ -994,6 +1088,16 @@ public final class BackpackTests {
                                 + vanilla.x + "/" + vanilla.y);
             }
         }
+    }
+
+    /** Menu index of the first slot holding {@code item}, or -1; for failure messages. */
+    private static int slotHolding(AbstractContainerMenu menu, Item item) {
+        for (int i = 0; i < menu.slots.size(); i++) {
+            if (menu.getSlot(i).getItem().is(item)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /** Shift-click; the click type is called ContainerInput on this line. */

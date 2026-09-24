@@ -26,6 +26,7 @@ import com.simplebuilding.platform.ClientNetworking;
 import me.shedaniel.autoconfig.AutoConfig;
 import com.simplebuilding.entity.ModEntities;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -67,6 +68,12 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         // Der aufsteigende Block wird wie fallender Sand gezeichnet.
         EntityRendererRegistry.register(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
+        // Der getragene Rucksack auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
+            if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
+                helper.register(new com.simplebuilding.client.render.BackpackLayer(avatar));
+            }
+        });
         ClientState.highlightToggleKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.simplebuilding.toggle_highlight",
             InputConstants.Type.KEYSYM,

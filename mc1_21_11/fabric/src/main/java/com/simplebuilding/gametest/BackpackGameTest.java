@@ -41,8 +41,13 @@ public final class BackpackGameTest {
     }
 
     @GameTest
-    public void shiftClickFillsTheBackpackFirstAndEmptiesItIntoTheMainInventory(GameTestHelper helper) {
-        BackpackTests.shiftClickFillsTheBackpackFirstAndEmptiesItIntoTheMainInventory(helper);
+    public void shiftClickFromTheHotbarFillsInventoryAndBackpackAsOneStorage(GameTestHelper helper) {
+        BackpackTests.shiftClickFromTheHotbarFillsInventoryAndBackpackAsOneStorage(helper);
+    }
+
+    @GameTest
+    public void shiftClickSendsStorageToTheHotbarAndArmorToItsSlot(GameTestHelper helper) {
+        BackpackTests.shiftClickSendsStorageToTheHotbarAndArmorToItsSlot(helper);
     }
 
     @GameTest

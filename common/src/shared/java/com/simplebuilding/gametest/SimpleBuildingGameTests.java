@@ -579,7 +579,9 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("backpack_game_test_open_key_opens_the_menu_only_for_the_worn_backpack", BackpackTests::openKeyOpensTheMenuOnlyForTheWornBackpack)
                     .build(),
-            GameTestSpec.named("backpack_game_test_shift_click_fills_the_backpack_first_and_empties_it_into_the_main_inventory", BackpackTests::shiftClickFillsTheBackpackFirstAndEmptiesItIntoTheMainInventory)
+            GameTestSpec.named("backpack_game_test_shift_click_from_the_hotbar_fills_inventory_and_backpack_as_one_storage", BackpackTests::shiftClickFromTheHotbarFillsInventoryAndBackpackAsOneStorage)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_shift_click_sends_storage_to_the_hotbar_and_armor_to_its_slot", BackpackTests::shiftClickSendsStorageToTheHotbarAndArmorToItsSlot)
                     .build(),
             GameTestSpec.named("backpack_game_test_deep_pockets_raises_stack_limits_only_for_stackables", BackpackTests::deepPocketsRaisesStackLimitsOnlyForStackables)
                     .build(),

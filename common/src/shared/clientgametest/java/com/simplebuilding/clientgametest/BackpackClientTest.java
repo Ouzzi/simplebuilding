@@ -1,6 +1,7 @@
 package com.simplebuilding.clientgametest;
 
 import java.lang.reflect.Field;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -10,20 +11,26 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.client.gui.BackpackScreen;
+import com.simplebuilding.client.render.BackpackLayer;
 import com.simplebuilding.items.custom.BackpackItem;
 import com.simplebuilding.screen.BackpackMenu;
 import com.simplebuilding.screen.BackpackSlot;
+import net.minecraft.client.CameraType;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.state.gui.ColoredRectangleRenderState;
 import net.minecraft.client.renderer.state.gui.GuiRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
@@ -65,6 +72,11 @@ import net.minecraft.world.item.ItemStack;
  *       could only say "something is a bit brown there".</li>
  *   <li>A placed backpack opens the same screen on a right click with an empty hand, in placed
  *       mode, with no backpack worn at all.</li>
+ *   <li>Worn, the backpack shows on the player's back: the local player's renderer carries exactly
+ *       one {@code BackpackLayer}, the layer picks the texture of the worn tier for each of the four
+ *       tiers (and none without a backpack), each texture exists in the resource manager, and seen
+ *       from behind in third person the worn enderite backpack changes the picture far beyond the
+ *       noise floor.</li>
  * </ul>
  *
  * <p>Every trigger condition is asserted before the thing it triggers is looked at - the
@@ -72,9 +84,9 @@ import net.minecraft.world.item.ItemStack;
  * the harness presses, the placed block really stands where the crosshair points - so a setup
  * that quietly failed is reported as a setup failure and never as a broken backpack.
  *
- * <p><b>The two screenshots are checkpoints, not measurements.</b> Nothing is compared on them;
- * they document the enderite screen (both columns) and the placed netherite screen for a human
- * reading the artefacts.
+ * <p><b>The two screen screenshots are checkpoints, not measurements.</b> Nothing is compared on
+ * them; they document the enderite screen (both columns) and the placed netherite screen for a
+ * human reading the artefacts. The three back view shots are measured.
  *
  * <p><b>What breaks this test:</b>
  * <ul>
@@ -93,7 +105,9 @@ import net.minecraft.world.item.ItemStack;
  *       slot ({@code BackpackScreen#extractBackground});</li>
  *   <li>the placed block not opening on a right click ({@code BackpackBlock#useWithoutItem}) or
  *       opening in worn mode;</li>
- *   <li>the menu screen registration missing on a loader - then no screen opens at all.</li>
+ *   <li>the menu screen registration missing on a loader - then no screen opens at all;</li>
+ *   <li>the backpack layer not registered on a loader, registered twice, picking the wrong tier's
+ *       texture, a texture file missing, or a layer that submits nothing.</li>
  * </ul>
  *
  * <p><b>Not covered:</b> closing the backpack screen with its own key. The NeoForge drivers press
@@ -178,6 +192,7 @@ public final class BackpackClientTest {
         }
 
         placedBackpackOpensOnRightClick(script);
+        wornBackpackShowsOnTheBack(script);
 
         putTheWorldBack(script);
     }
@@ -373,6 +388,92 @@ public final class BackpackClientTest {
                 + " minecraft:air", true);
         script.awaitPackets();
         script.idle("let the removed backpack reach the client", 10);
+    }
+
+    /**
+     * The worn backpack on the player's back ({@code BackpackLayer}).
+     *
+     * <p>First the wiring, read out of the game: the local player's renderer holds exactly one
+     * backpack layer (a loader that forgot the registration has none, a doubled listener two), and
+     * for every tier the layer picks exactly that tier's texture from the player's render state -
+     * which the resource manager has to know. Then the picture: third person from behind, one shot
+     * without a backpack, a second one to measure the noise floor, one with the enderite backpack.
+     * The backpack has to change far more pixels than the noise floor.
+     *
+     * <p><b>What breaks this case:</b> a missing or doubled registration, a wrong texture table
+     * ({@code BackpackLayer#textureFor}), a missing texture file, and a layer that never submits its
+     * model (then the back view does not change).
+     */
+    private static void wornBackpackShowsOnTheBack(Script script) {
+        script.act("exactly one backpack layer sits on the local player's renderer", client -> {
+            EntityRenderer<?, ?> renderer = client.getEntityRenderDispatcher().getRenderer(client.player);
+
+            if (!(renderer instanceof LivingEntityRenderer<?, ?, ?> living)) {
+                throw new AssertionError("The local player's renderer is " + renderer + ", not a living entity renderer.");
+            }
+
+            long layers = layersOf(living).stream().filter(layer -> layer instanceof BackpackLayer).count();
+
+            if (layers != 1) {
+                throw new AssertionError("The local player's renderer carries " + layers + " backpack layers, "
+                        + "expected exactly one (the loader's layer registration is missing or runs twice).");
+            }
+        });
+
+        for (Tier tier : TIERS) {
+            script.command("clear @a", true);
+            script.command("item replace entity @a armor.chest with " + tier.itemId());
+            script.awaitPackets();
+            script.idle("let the worn " + tier.itemId() + " arrive", 10);
+            assertWorn(script, tier.itemId());
+
+            String expected = "simplebuilding:textures/entity/backpack/" + tier.itemId().substring("simplebuilding:".length()) + ".png";
+            script.act("the backpack layer draws the " + tier.itemId() + " with its own texture", client -> {
+                Identifier texture = BackpackLayer.textureFor(renderStateOf(client));
+
+                if (texture == null || !texture.toString().equals(expected)) {
+                    throw new AssertionError("With " + tier.itemId() + " worn the backpack layer picks the texture "
+                            + texture + ", expected " + expected + ".");
+                }
+
+                if (client.getResourceManager().getResource(texture).isEmpty()) {
+                    throw new AssertionError("The backpack texture " + texture + " is not in the resource manager, "
+                            + "so the backpack on the back would render as the missing texture.");
+                }
+            });
+        }
+
+        script.command("clear @a", true);
+        script.awaitPackets();
+        script.idle("let the empty chest slot arrive", 10);
+        script.act("without a backpack the layer draws nothing", client -> {
+            Identifier texture = BackpackLayer.textureFor(renderStateOf(client));
+
+            if (texture != null) {
+                throw new AssertionError("With nothing worn the backpack layer still picks " + texture + ".");
+            }
+        });
+
+        script.command("tp @a " + PLAYER_SPOT + " 0.0 0.0");
+        script.awaitPackets();
+        script.act("look at the player from behind", client -> client.options.setCameraType(CameraType.THIRD_PERSON_BACK));
+        script.idle("let the third person view settle", 20);
+        Later<Path> without = script.shot("backpack-c-back-without");
+        script.idle("wait between the two shots of the unchanged scene", 5);
+        Later<Path> again = script.shot("backpack-d-back-without-again");
+
+        script.command("item replace entity @a armor.chest with simplebuilding:enderite_backpack");
+        script.awaitPackets();
+        script.idle("let the worn enderite backpack arrive", 10);
+        assertWorn(script, "simplebuilding:enderite_backpack");
+        Later<Path> with = script.shot("backpack-e-back-enderite");
+
+        script.verify("the worn backpack reached the back view", () -> {
+            ScreenshotDiff.Diff noiseFloor = ScreenshotDiff.compare("back view, nothing changed", without.get(), again.get());
+            ScreenshotDiff.Diff signal = ScreenshotDiff.compare("back view with the enderite backpack", without.get(), with.get());
+            ScreenshotDiff.assertDrew("backpack layer", noiseFloor, signal);
+        });
+        script.act("back to first person", client -> client.options.setCameraType(CameraType.FIRST_PERSON));
     }
 
     // =================================================================================
@@ -654,6 +755,30 @@ public final class BackpackClientTest {
         script.awaitPackets();
         script.idle("let the restored world reach the client", 10);
         TestScene.makeRenderingDeterministic(script);
+    }
+
+    /** The render state the local player's renderer builds this frame. */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private static AvatarRenderState renderStateOf(Minecraft client) {
+        EntityRenderer renderer = client.getEntityRenderDispatcher().getRenderer(client.player);
+        Object state = renderer.createRenderState(client.player, 1.0F);
+
+        if (!(state instanceof AvatarRenderState avatar)) {
+            throw new AssertionError("The local player's render state is " + state + ", not an AvatarRenderState.");
+        }
+
+        return avatar;
+    }
+
+    /** {@code LivingEntityRenderer#layers}, which has no getter. */
+    private static List<?> layersOf(LivingEntityRenderer<?, ?, ?> renderer) {
+        try {
+            Field field = LivingEntityRenderer.class.getDeclaredField("layers");
+            field.setAccessible(true);
+            return (List<?>) field.get(renderer);
+        } catch (ReflectiveOperationException e) {
+            throw new AssertionError("LivingEntityRenderer#layers cannot be read: " + e, e);
+        }
     }
 
     private static BackpackMenu backpackMenu(Minecraft client, String label) {

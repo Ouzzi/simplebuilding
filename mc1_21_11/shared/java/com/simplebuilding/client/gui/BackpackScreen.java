@@ -1,5 +1,6 @@
 package com.simplebuilding.client.gui;
 
+import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.items.custom.BackpackTier;
 import com.simplebuilding.screen.BackpackLayout;
@@ -18,6 +19,7 @@ import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
@@ -37,15 +39,26 @@ import net.minecraft.world.item.crafting.display.RecipeDisplay;
  * wird der Bildschirm an Vanillas Position fuer ein 176 Pixel breites Inventar ausgerichtet
  * (nicht zentriert auf die volle Breite), damit Zusatzspalten nicht unter dem Buch landen.
  *
- * <p>Der Hintergrund wird zur Laufzeit aus Vanillas {@code inventory.png} zusammengesetzt (oberer
- * Bereich, eine Slot-Reihe je Rucksack- und Hauptinventar-Reihe, Luecke + Hotbar + Rand), damit
- * Ressourcenpakete greifen. Die Zusatzspalten stehen auf angesetzten Laschen.
+ * <p>Der Hintergrund ist ein Fenster aus einem Guss je Stufe ({@code textures/gui/container/backpack/},
+ * erzeugt von {@code tools/textures/generate_textures.py}): Korpus und Laschen der Zusatzspalten
+ * sind eine Flaeche mit Vanillas Rand und abgerundeten Ecken, ohne Naht dazwischen. Nur der obere
+ * Bereich (Ruestung, Spielerbild, 2x2-Raster, Nebenhand) kommt weiter aus Vanillas
+ * {@code inventory.png}, damit Ressourcenpakete dort greifen. Rucksack-Reihen und Zusatzspalten
+ * tragen nur eine leichte Toenung ueber dem Slot.
  */
 public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implements RecipeUpdateListener {
-    /** Leicht braune Toenung der Rucksack-Reihen. */
-    public static final int TINT_BACKPACK_ROW = 0x40A0602A;
-    /** Andere Toenung der Zusatzspalten (werden spaeter Spezial-Slots). */
-    public static final int TINT_EXTRA_COLUMN = 0x406A3FC8;
+    /** Kaum sichtbare braune Toenung der Rucksack-Reihen. */
+    public static final int TINT_BACKPACK_ROW = 0x1CA0602A;
+    /** Leichte violette Toenung der Zusatzspalten (werden spaeter Spezial-Slots). */
+    public static final int TINT_EXTRA_COLUMN = 0x306A3FC8;
+    /** Die Fenster der vier Stufen, in der Reihenfolge von {@link BackpackTier}. */
+    private static final Identifier[] BACKGROUNDS = {background("basic"), background("reinforced"),
+            background("netherite"), background("enderite")};
+    /** Innenbereich des oberen Vanilla-Teils in {@code inventory.png}, ohne dessen Rand. */
+    private static final int TOP_INNER_X = 4;
+    private static final int TOP_INNER_Y = 4;
+    private static final int TOP_INNER_WIDTH = 168;
+    private static final int TOP_INNER_HEIGHT = 79;
     /** Vanillas Breitenschwelle fuer das Rezeptbuch neben dem Inventar. */
     private static final int VANILLA_RECIPE_BOOK_MIN_WIDTH = 379;
 
@@ -145,24 +158,12 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implem
         BackpackTier tier = this.menu.tier();
         int x = this.leftPos + this.layout.vanillaX();
         int y = this.topPos;
-        int slotRows = tier.rows() + BackpackTier.MAIN_INVENTORY_ROWS;
 
-        // Vanillas Inventar in drei Baendern: oben, je eine Slot-Reihe, unten (Luecke, Hotbar, Rand).
-        graphics.blit(RenderPipelines.GUI_TEXTURED, INVENTORY_LOCATION, x, y, 0, 0, 176, 83, 256, 256);
-        for (int row = 0; row < slotRows; row++) {
-            graphics.blit(RenderPipelines.GUI_TEXTURED, INVENTORY_LOCATION, x, y + 83 + 18 * row, 0, 83, 176, 18, 256, 256);
-        }
-        graphics.blit(RenderPipelines.GUI_TEXTURED, INVENTORY_LOCATION, x, y + 83 + 18 * slotRows, 0, 137, 176, 29, 256, 256);
-
-        // Laschen fuer die Zusatzspalten, dann ihre Slot-Rahmen.
-        for (int column = 0; column < tier.extraColumns(); column++) {
-            drawColumnTab(graphics, column, tier);
-        }
-        for (Slot slot : this.menu.slots) {
-            if (slot instanceof BackpackSlot backpackSlot && backpackSlot.isExtraColumn()) {
-                drawSlotFrame(graphics, this.leftPos + slot.x - 1, this.topPos + slot.y - 1);
-            }
-        }
+        // Das ganze Fenster in einem Stueck, dann der obere Vanilla-Bereich ohne dessen Rand.
+        graphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUNDS[tier.ordinal()], this.leftPos, this.topPos, 0, 0,
+                this.imageWidth, this.imageHeight, 256, 256);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, INVENTORY_LOCATION, x + TOP_INNER_X, y + TOP_INNER_Y, TOP_INNER_X, TOP_INNER_Y,
+                TOP_INNER_WIDTH, TOP_INNER_HEIGHT, 256, 256);
 
         // Toenung unter den Items (dieser Durchgang liegt vor den Slots).
         for (Slot slot : this.menu.slots) {
@@ -178,40 +179,8 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implem
                 this.xMouse, this.yMouse, this.minecraft.player);
     }
 
-    /** Die Lasche einer Zusatzspalte im Stil eines Vanilla-Fensters, zur Inventarseite offen. */
-    private void drawColumnTab(GuiGraphics graphics, int column, BackpackTier tier) {
-        int top = this.topPos + BackpackLayout.FIRST_ROW_Y - 5;
-        int bottom = this.topPos + BackpackLayout.FIRST_ROW_Y + BackpackLayout.SLOT * tier.columnHeight() + 4;
-        int slotX = this.leftPos + this.layout.extraColumnX(column);
-        boolean right = column == 0;
-        int left = right ? slotX - 4 : slotX - 8;
-        int rightEdge = right ? slotX + 24 : slotX + 20;
-        int bg = 0xFFC6C6C6;
-        int light = 0xFFFFFFFF;
-        int dark = 0xFF555555;
-        int black = 0xFF000000;
-        graphics.fill(left, top, rightEdge, bottom, bg);
-        // Oben und unten: schwarze Kante, darunter Licht bzw. darueber Schatten.
-        graphics.fill(left, top - 1, rightEdge, top, black);
-        graphics.fill(left, bottom, rightEdge, bottom + 1, black);
-        graphics.fill(left, top, rightEdge, top + 2, light);
-        graphics.fill(left, bottom - 2, rightEdge, bottom, dark);
-        if (right) {
-            graphics.fill(rightEdge, top, rightEdge + 1, bottom, black);
-            graphics.fill(rightEdge - 2, top, rightEdge, bottom, dark);
-        } else {
-            graphics.fill(left - 1, top, left, bottom, black);
-            graphics.fill(left, top, left + 2, bottom, light);
-        }
-    }
-
-    /** Ein 18x18-Slotrahmen wie in Vanillas Texturen. */
-    private static void drawSlotFrame(GuiGraphics graphics, int x, int y) {
-        graphics.fill(x, y, x + 18, y + 18, 0xFF8B8B8B);
-        graphics.fill(x, y, x + 17, y + 1, 0xFF373737);
-        graphics.fill(x, y, x + 1, y + 17, 0xFF373737);
-        graphics.fill(x + 1, y + 17, x + 18, y + 18, 0xFFFFFFFF);
-        graphics.fill(x + 17, y + 1, x + 18, y + 18, 0xFFFFFFFF);
+    private static Identifier background(String tier) {
+        return Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "textures/gui/container/backpack/" + tier + ".png");
     }
 
     @Override
@@ -289,8 +258,8 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implem
         if (rx >= vx && rx < vx + BackpackLayout.VANILLA_WIDTH) {
             return true;
         }
-        int tabTop = BackpackLayout.FIRST_ROW_Y - 6;
-        int tabBottom = BackpackLayout.FIRST_ROW_Y + BackpackLayout.SLOT * this.menu.tier().columnHeight() + 5;
+        int tabTop = BackpackLayout.FIRST_ROW_Y - 8;
+        int tabBottom = BackpackLayout.FIRST_ROW_Y + BackpackLayout.SLOT * this.menu.tier().columnHeight() + 6;
         return ry >= tabTop && ry < tabBottom;
     }
 
