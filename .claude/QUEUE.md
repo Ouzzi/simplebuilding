@@ -79,3 +79,11 @@ D Astralit/Nihilith-Baubloecke (Endstein/Purpur-Palette); mehrere Creative-Tabs 
   3. Forge-Testziel (Server-Gametests in run.py + Katalog-Paritaet)
   4. Rucksack-Sortierung: pruefen, ob vorbereitet/umgesetzt
 - TESTEN danach (einmal gebuendelt): Gegenprobe Hammer-Risse, volles Gate, Push, Forge-Client neu
+
+## Spaeter (auf Wunsch des Besitzers, nicht jetzt)
+- Mehrere Mods im selben Repo: build-logic + framework/ herausziehen, mods/<name>/, Werkzeuge mod-faehig; erst nach dem Polishing von simplebuilding
+
+## Stand 2026-09-24 22:15
+- ERLEDIGT (9c80373, 7848f74): NeoForge-26.2-Clientfehler = Testtreiber-Rennen (Paket-Barriere), Forge-Testziel forge-262 (338/340, 2 bekannte Luecken)
+- LAEUFT: Barriere fuer die uebrigen Client-Treiber; Forge Trade-Config-Schalter; Forge ItemAutomation (Rohre)
+- DANN TESTEN: Gegenprobe Hammer-Risse, volles Gate (ruhige Maschine, Forge-Client aus), Push
