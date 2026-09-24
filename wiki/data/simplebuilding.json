@@ -1595,7 +1595,7 @@
           "All blocks: hardness 3, blast resistance 9, a pickaxe is needed for the drop. Astralit blocks emit light level 10, Nihilith and Ender Quartz blocks none.",
           "Pillars can be placed along any axis; a double slab drops two slabs; stairs, slabs and walls are in the vanilla block and item tags of their shape, so the walls connect like any vanilla wall.",
           "Polished, Astral and Nihil End Stone and the Astral and Nihil Purpur Blocks are in the mineable/pickaxe tag as well.",
-          "All of them sit in the creative tab \"SimpleBuilding: Building Blocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilith turquoise shards and Ender Quartz veins; the Chiseled Bricks show a Shulker, an Enderman and the Ender Dragon."
+          "All of them sit in the creative tab \"SimpleBuilding: Building Blocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilith turquoise shards and Ender Quartz veins; the Chiseled Bricks carry a quiet relief emblem in the block's own colours, like vanilla chiseled blocks: a shulker box with its head in the opening, an Enderman eye with a horizontal slit and a dragon eye with a vertical slit."
         ]
       },
       "de": {
@@ -1610,7 +1610,7 @@
           "Alle Blöcke: Härte 3, Explosionsfestigkeit 9, für den Drop braucht es eine Spitzhacke. Astralit-Blöcke leuchten mit Lichtstufe 10, Nihilith- und Enderquarz-Blöcke gar nicht.",
           "Säulen lassen sich in jeder Achse setzen; eine Doppelstufe lässt zwei Stufen fallen; Treppen, Stufen und Mauern stehen in den Vanilla-Block- und -Item-Tags ihrer Form, die Mauern verbinden sich also wie jede Vanilla-Mauer.",
           "Polierter, Astral- und Nihil-Endstein sowie Astral- und Nihil-Purpurblock stehen ebenfalls im Tag mineable/pickaxe.",
-          "Alle liegen im Kreativ-Tab „SimpleBuilding: Baublöcke“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilith-Splittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerschale, ein Enderman-Auge und einen gehörnten Drachenkopf."
+          "Alle liegen im Kreativ-Tab „SimpleBuilding: Baublöcke“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilith-Splittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz."
         ]
       }
     },
@@ -3463,7 +3463,7 @@
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
         ],
         "en": {
-          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a Shulker shell (Astralit), an Enderman eye (Nihilith) and a horned dragon head (Ender Quartz).",
+          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilith) and a dragon eye with a vertical slit (Ender Quartz).",
           "details": [
             "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
             "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
@@ -3471,7 +3471,7 @@
           ]
         },
         "de": {
-          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerschale (Astralit), ein Enderman-Auge (Nihilith) und ein gehörnter Drachenkopf (Enderquarz).",
+          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilith) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
           "details": [
             "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
             "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",
@@ -3504,7 +3504,7 @@
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
         ],
         "en": {
-          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a Shulker shell (Astralit), an Enderman eye (Nihilith) and a horned dragon head (Ender Quartz).",
+          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilith) and a dragon eye with a vertical slit (Ender Quartz).",
           "details": [
             "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
             "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
@@ -3512,7 +3512,7 @@
           ]
         },
         "de": {
-          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerschale (Astralit), ein Enderman-Auge (Nihilith) und ein gehörnter Drachenkopf (Enderquarz).",
+          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilith) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
           "details": [
             "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
             "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",
@@ -3545,7 +3545,7 @@
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
         ],
         "en": {
-          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a Shulker shell (Astralit), an Enderman eye (Nihilith) and a horned dragon head (Ender Quartz).",
+          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilith) and a dragon eye with a vertical slit (Ender Quartz).",
           "details": [
             "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
             "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
@@ -3553,7 +3553,7 @@
           ]
         },
         "de": {
-          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerschale (Astralit), ein Enderman-Auge (Nihilith) und ein gehörnter Drachenkopf (Enderquarz).",
+          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilith) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
           "details": [
             "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
             "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",
@@ -14458,7 +14458,7 @@
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
         ],
         "en": {
-          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a Shulker shell (Astralit), an Enderman eye (Nihilith) and a horned dragon head (Ender Quartz).",
+          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilith) and a dragon eye with a vertical slit (Ender Quartz).",
           "details": [
             "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
             "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
@@ -14466,7 +14466,7 @@
           ]
         },
         "de": {
-          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerschale (Astralit), ein Enderman-Auge (Nihilith) und ein gehörnter Drachenkopf (Enderquarz).",
+          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilith) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
           "details": [
             "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
             "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",
@@ -14508,7 +14508,7 @@
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
         ],
         "en": {
-          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a Shulker shell (Astralit), an Enderman eye (Nihilith) and a horned dragon head (Ender Quartz).",
+          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilith) and a dragon eye with a vertical slit (Ender Quartz).",
           "details": [
             "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
             "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
@@ -14516,7 +14516,7 @@
           ]
         },
         "de": {
-          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerschale (Astralit), ein Enderman-Auge (Nihilith) und ein gehörnter Drachenkopf (Enderquarz).",
+          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilith) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
           "details": [
             "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
             "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",
@@ -14558,7 +14558,7 @@
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
         ],
         "en": {
-          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a Shulker shell (Astralit), an Enderman eye (Nihilith) and a horned dragon head (Ender Quartz).",
+          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilith) and a dragon eye with a vertical slit (Ender Quartz).",
           "details": [
             "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
             "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
@@ -14566,7 +14566,7 @@
           ]
         },
         "de": {
-          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerschale (Astralit), ein Enderman-Auge (Nihilith) und ein gehörnter Drachenkopf (Enderquarz).",
+          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilith) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
           "details": [
             "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
             "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",

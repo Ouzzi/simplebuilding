@@ -1106,10 +1106,12 @@ def checker_textures():
 # Nihil-Endstein) mit tuerkisen Splittern aus item/nihilith_shard, Enderquarz violett. Akzente je
 # Material: Astralit weisse Sternfunken (der Block leuchtet ohnehin mit 10), Nihilith tuerkise
 # Splitter, Enderquarz helle Quarzadern.
-# Die gemeisselten Ziegel tragen je ein End-Wesen als leise Steinmetzarbeit wie die gemeisselten
-# Vanilla-Bloecke (Steinziegel, Quarz, Tuff): nur Relief in der Rampe des Materials, keine
-# Fremdfarben. Astralit eine Shulkerschale, Nihilith ein Enderman-Auge, Enderquarz einen
-# gehoernten Drachenkopf.
+# Die gemeisselten Ziegel tragen je ein erhabenes Emblem mit einem tiefen Schnitt, als leise
+# Steinmetzarbeit wie die gemeisselten Vanilla-Bloecke (Steinziegel, Quarz, poliertes Schwarzgestein):
+# nur Relief in der Rampe des Materials. Astralit eine Shulkerkiste mit offenem Spalt und dem Kopf
+# darin, Nihilith ein Enderman-Auge (Linse, waagrechter Schlitz), Enderquarz ein Drachenauge (hohe
+# Mandel, senkrechter Schlitz). Nach neun Runden gegen Vanilla und im Mauerverband gewaehlt
+# (2026-09-25): gleiche Helligkeit wie die Ziegel, gleicher Rahmen wie polierter Block und Saeule.
 END_PALETTE_RAMPS = {
     "astralit": ["#a24f8c", "#bb62a2", "#cc77b4", "#d98cc4", "#e4a2d2", "#edb8df", "#f5cdea", "#fbe2f4"],
     "nihilith": ["#4a64a3", "#5b78b8", "#6e8bc8", "#829ed5", "#97b1e0", "#adc3e9", "#c3d5f2", "#dae6fa"],
@@ -1335,91 +1337,94 @@ def end_palette_pillar_top(mat):
     return _paint(v, END_PALETTE_RAMPS[mat], centre)
 
 
-# Motive der gemeisselten Ziegel, 12x12 innerhalb des Rahmens (Spalte/Zeile 2..13), als Hoehenkarte:
-#   '#' Plattenoberflaeche   '.' flach vertieft   '-' eingeschlagene Rille   'o' tiefste Stelle
-# Licht faellt wie bei Vanilla von oben links: eine Kante, ueber/links der es tiefer liegt, wird hell,
-# eine, ueber/links der es hoeher liegt, liegt im Schatten. Keine Fremdfarben - das Motiv lebt nur
-# vom Relief, wie bei gemeisseltem Steinziegel, Quarz oder Tuff.
+# Motive der gemeisselten Ziegel, 10x10 mit 1 px Grund rundherum innerhalb des Rahmens
+# (Spalte/Zeile 3..12), als Hoehenkarte:
+#   '#' erhabenes Emblem   '.' Grund   'o' tiefer Schnitt
+# Licht wie bei Vanilla von oben links: das Emblem hat eine helle Ober-/Linkskante und eine
+# schattige Unter-/Rechtskante, wo es hoeher liegt, faellt ein Schatten in Grund und Schnitt.
 CHISELED_MOTIFS = {
-    # Shulkerschale: gewoelbter Deckel mit Mittelrippe, die offene Fuge, die Unterschale.
+    # Shulkerkiste: Deckel, der dunkle offene Spalt, darin der Kopf
     "astralit": [
-        "############",
-        "###------###",
-        "##-######-##",
-        "#-###--###-#",
-        "#-########-#",
-        "#----------#",
-        "#-...oo...-#",
-        "#----------#",
-        "#-########-#",
-        "##-######-##",
-        "###------###",
-        "############",
+        "..........",
+        "..######..",
+        ".########.",
+        ".########.",
+        ".#oooooo#.",
+        ".#oo##oo#.",
+        ".########.",
+        ".########.",
+        "..######..",
+        "..........",
     ],
-    # Enderman-Auge: eine eingeschlagene Mandel, darin der flach vertiefte Augapfel mit dem Schlitz.
+    # Enderman-Auge: breite Linse mit waagrechtem Schlitz
     "nihilith": [
-        "############",
-        "############",
-        "####----####",
-        "##--####--##",
-        "#-##....##-#",
-        "-##.oooo.##-",
-        "-##.oooo.##-",
-        "#-##....##-#",
-        "##--####--##",
-        "####----####",
-        "############",
-        "############",
+        "..........",
+        "...####...",
+        ".########.",
+        "##########",
+        "###oooo###",
+        "###oooo###",
+        "##########",
+        ".########.",
+        "...####...",
+        "..........",
     ],
-    # Drachenkopf von vorn: zwei Hoerner, die Kopfkontur, Schlitzaugen, Nuestern an der Schnauze.
+    # Drachenauge: hohe Mandel mit senkrechtem Schlitz
     "ender_quartz": [
-        "#-########-#",
-        "#--######--#",
-        "##-######-##",
-        "##--------##",
-        "#-########-#",
-        "#-#oo##oo#-#",
-        "#-########-#",
-        "##-######-##",
-        "###-####-###",
-        "###-#..#-###",
-        "####----####",
-        "############",
+        "....##....",
+        "...####...",
+        "..######..",
+        "..##oo##..",
+        ".###oo###.",
+        ".###oo###.",
+        "..##oo##..",
+        "..######..",
+        "...####...",
+        "....##....",
     ],
 }
-CHISELED_HEIGHT = {"#": 2, ".": 1, "-": 0, "o": 0}
-CHISELED_BASE = {2: 4.5, 1: 3.6, 0: 2.9}
+CHISELED_HEIGHT = {"#": 2, ".": 1, "o": 0}
+CHISELED_LEVELS = {0: 1.9, 1: 3.7, 2: 5.2}   # Schnitt, Grund, Emblem
+CHISELED_LIT, CHISELED_SHADE, CHISELED_CAST = 1.0, 0.8, 0.6
 
 
 def end_palette_chiseled(mat):
-    """Gemeisselte Ziegel: gefaster Rahmen wie die polierte Platte, darin eine Platte mit dem Motiv
-    als eingeschlagenes Relief (Licht oben/links). Nur die Rampe des Materials, geringer Kontrast."""
+    """Gemeisselte Ziegel: gefaster Rahmen wie die polierte Platte, darin auf etwas vertieftem Grund
+    das erhabene Emblem mit seinem tiefen Schnitt. Nur die Rampe des Materials, wenig Rauschen."""
     seed = END_PALETTE_SEED[mat] + 500
     coarse, fine = _noise(seed), _noise(seed + 1, 0, 0)
     motif = CHISELED_MOTIFS[mat]
 
     def height(x, y):
+        if 3 <= x <= 12 and 3 <= y <= 12:
+            return CHISELED_HEIGHT[motif[y - 3][x - 3]]
         if 2 <= x <= 13 and 2 <= y <= 13:
-            return CHISELED_HEIGHT[motif[y - 2][x - 2]]
-        return 2
+            return 1                                   # Grund zwischen Rahmen und Emblem
+        return 2                                       # der Rahmen liegt hoch
 
     v = [[0.0] * 16 for _ in range(16)]
     for y in range(16):
         for x in range(16):
             d = ring(x, y)
             lit = (x == d or y == d) and not (x == 15 - d or y == 15 - d)
-            n = 0.35 * coarse[y][x] + 0.3 * fine[y][x]
+            n = 0.12 * (coarse[y][x] + fine[y][x])
             if d == 0:
                 v[y][x] = (6.2 if lit else 0.8) + 0.3 * fine[y][x]
                 continue
             if d == 1:
                 v[y][x] = (4.9 if lit else 2.4) + n
                 continue
-            h = height(x, y)
-            val = CHISELED_BASE[h] + n
-            val += 0.5 * (h - height(x - 1, y)) + 0.5 * (h - height(x, y - 1))
-            if motif[y - 2][x - 2] == "o":
-                val -= 0.5
+            here = height(x, y)
+            above = (height(x, y - 1), height(x - 1, y))
+            below = (height(x, y + 1), height(x + 1, y))
+            val = CHISELED_LEVELS[here] + n
+            if here == 2:
+                if any(a < here for a in above) and all(a >= 1 for a in above):
+                    val += CHISELED_LIT                # helle Ober-/Linkskante des Emblems
+                if any(b < here for b in below):
+                    val -= CHISELED_SHADE              # schattige Unter-/Rechtskante
+            elif any(a > here for a in above):
+                val -= CHISELED_CAST                   # Schlagschatten in Grund und Schnitt
             v[y][x] = val
     return _paint(v, END_PALETTE_RAMPS[mat])
 
