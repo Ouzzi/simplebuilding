@@ -129,3 +129,13 @@ F Trims & UI (nach A-D, eigener Agent):
   12. Balancing-Review der Schmiede-/Besatz-Boni je Material (nicht OP, lohnend: laenger ueberleben, teures vs. guenstiges Material situativ) - Vorschlag + klare Punkte umsetzen, Ermessensfragen an den Besitzer
   13. "Resonanz"-Werte / Multiplikatoren (Besatz-Boni ueber Ueberlebens-Statistik) vanilla-naeher ueberarbeiten
   14. Alle UI-Flaechen gegen Vanilla pruefen (Rucksack, Trichter-Filter, Oktant, HUD, Tooltips) und angleichen
+- ERLEDIGT (Branch, noch nicht gemergt): E Forge-HUD 7c45210, A 89c547d/0846bd2
+- OFFEN: Taste "Octant Figure" schaltet denselben Schalter wie "Highlights" (alle Loader) - Fehler, trennen
+- OFFEN: Besitzer bestaetigen: Vorschlaghammer-Upgrade 22, Baustab 8, Kupferwerkzeug-Upgrades ergaenzen?
+- A-Folgeauftrag (laeuft): gemeisselte Texturen iterieren (>=4 Runden, Vergleich Vanilla + Bauwerk); Baustab-Upgrade kostet den Kern der Zielstufe statt Barren; alle Kupferwerkzeuge aufwertbar; Enderquarz-Treppe/-Stufe aus dem Grundblock streng nach Vanilla-Quarz
+- ERLEDIGT (Branch): B Faerben d3fcf4c (dyed_color-Komponente wie Leder, alle Farben)
+- OFFEN: abgestellter Rucksack zeigt seine Farbe nicht (Block-Sync + getoentes Blockmodell)
+- OFFEN: Oktant waschen verliert Verzauberungen/Haltbarkeit (neuer Oktant statt Komponenten kopieren) - Fehler
+- OFFEN: Buendel ohne Offen-Textur
+- B-Folgeauftrag (laeuft): Rucksack-Blockfarbe, Buendel-Offen-Textur, Octant-Figure-Taste trennen, NetheriteHopperBlockEntity pruefen
+- NACH Merge von A: Oktant-Waschen behaelt Verzauberungen/Haltbarkeit (OctantCauldronWash)
