@@ -82,6 +82,7 @@ public final class SimplebuildingNeoForgeClient {
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerHudLayers);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerSelectItemProperties);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerTooltipComponents);
+        modEventBus.addListener(SimplebuildingNeoForgeClient::registerBlockTints);
         NeoForge.EVENT_BUS.addListener(this::onClientTick);
         NeoForge.EVENT_BUS.addListener(this::onSubmitCustomGeometry);
         NeoForge.EVENT_BUS.addListener(this::onExtractLevelRenderState);
@@ -166,6 +167,13 @@ public final class SimplebuildingNeoForgeClient {
         ENCHANTMENT_PROPERTY_TYPE = SelectItemModelProperty.Type.create(EnchantmentModelProperty.CODEC, Codec.STRING);
         EnchantmentModelProperty.PROPERTY_TYPE = ENCHANTMENT_PROPERTY_TYPE;
         event.register(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "enchant_type"), ENCHANTMENT_PROPERTY_TYPE);
+    }
+
+    /** Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity. */
+    public static void registerBlockTints(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.BlockTintSources event) {
+        event.register(java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
+                com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
     }
 
     public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {

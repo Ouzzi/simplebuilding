@@ -938,7 +938,9 @@ window.WIKI_DATA = {
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "src/main/generated/data/minecraft/tags/item/cauldron_can_remove_dye.json",
-        "common/src/shared/java/com/simplebuilding/util/DyedStorage.java"
+        "common/src/shared/java/com/simplebuilding/util/DyedStorage.java",
+        "src/main/resources/assets/simplebuilding/models/block/template_backpack_dyed.json",
+        "common/src/shared/java/com/simplebuilding/client/render/BackpackBlockTint.java"
       ],
       "en": {
         "title": "Backpacks",
@@ -952,7 +954,7 @@ window.WIKI_DATA = {
           "Setting it down: sneak + right-click on a block. The placed backpack opens with a right-click, is invisible to hoppers and comparators, and always drops as the full backpack item when broken - with a tool or without, by explosion or piston.",
           "Safety: a destroyed backpack item spills its contents like a shulker box; Netherite and Enderite Backpack resist fire and explosions as items, and the Enderite Backpack is protected from the void.",
           "Enchantments (anvil only): Deep Pockets I/II doubles or quadruples the stack limit of stackable items in the backpack; Funnel lets the worn backpack vacuum up items after your bundles; Master Builder on the backpack makes it a material source for the Building Wand and for pick block; Constructor's Touch refills your hand from the backpack when a block stack runs out while placing. Drawer and Color Palette do not go on backpacks.",
-          "Dyeing: a backpack takes dye like leather armour - put it into the crafting grid with one or more dyes (colours mix, and a dyed backpack can be dyed again). Contents, name and enchantments stay; the colour shows on the item, on the worn backpack and as a faint tint of the backpack rows in its screen (the extra columns keep their purple). A water cauldron washes the colour off again and leaves everything else. The colour survives upgrades and setting the backpack down; the placed block itself shows its tier's look.",
+          "Dyeing: a backpack takes dye like leather armour - put it into the crafting grid with one or more dyes (colours mix, and a dyed backpack can be dyed again). Contents, name and enchantments stay; the colour shows on the item, on the worn backpack and as a faint tint of the backpack rows in its screen (the extra columns keep their purple). A water cauldron washes the colour off again and leaves everything else. The colour survives upgrades and setting the backpack down, and the placed backpack shows it as well.",
           "Limits for now: the extra columns are plain storage (they are meant to become special slots later), a backpack can only be opened while worn or placed, and the recipe book does not draw from the backpack."
         ]
       },
@@ -968,7 +970,7 @@ window.WIKI_DATA = {
           "Abstellen: Schleichen + Rechtsklick auf einen Block. Der abgestellte Rucksack öffnet sich per Rechtsklick, ist für Trichter und Komparatoren unsichtbar und droppt beim Abbauen immer als volles Rucksack-Item – mit oder ohne Werkzeug, durch Explosion oder Kolben.",
           "Sicherheit: Ein zerstörtes Rucksack-Item verstreut seinen Inhalt wie eine Shulkerkiste; Netherit- und Enderit-Rucksack widerstehen als Item Feuer und Explosionen, und der Enderit-Rucksack ist vor der Leere geschützt.",
           "Verzauberungen (nur Amboss): Tiefe Taschen I/II verdoppelt bzw. vervierfacht die Stapelgrenze stapelbarer Items im Rucksack; mit Trichter saugt der getragene Rucksack Items nach den Bündeln auf; Baumeister auf dem Rucksack macht ihn zur Materialquelle für Baustab und Blockauswahl; Berührung des Konstrukteurs füllt die Hand aus dem Rucksack nach, wenn beim Platzieren ein Blockstapel aufgebraucht ist. Schublade und Farbpalette gehen nicht auf Rucksäcke.",
-          "Färben: Ein Rucksack nimmt Farbstoff an wie Lederrüstung – mit einem oder mehreren Farbstoffen in die Werkbank legen (Farben mischen sich, ein gefärbter Rucksack lässt sich weiter färben). Inhalt, Name und Verzauberungen bleiben; die Farbe zeigt sich am Item, am getragenen Rucksack und als leichte Tönung der Rucksack-Reihen im Bildschirm (die Zusatzspalten bleiben violett). Ein Wasserkessel wäscht die Farbe wieder ab und lässt alles andere. Die Farbe übersteht Aufwertungen und das Abstellen; der abgestellte Block selbst zeigt das Aussehen seiner Stufe.",
+          "Färben: Ein Rucksack nimmt Farbstoff an wie Lederrüstung – mit einem oder mehreren Farbstoffen in die Werkbank legen (Farben mischen sich, ein gefärbter Rucksack lässt sich weiter färben). Inhalt, Name und Verzauberungen bleiben; die Farbe zeigt sich am Item, am getragenen Rucksack und als leichte Tönung der Rucksack-Reihen im Bildschirm (die Zusatzspalten bleiben violett). Ein Wasserkessel wäscht die Farbe wieder ab und lässt alles andere. Die Farbe übersteht Aufwertungen und das Abstellen, und auch der abgestellte Rucksack zeigt sie.",
           "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), ein Rucksack lässt sich nur getragen oder abgestellt öffnen, und das Rezeptbuch greift nicht auf den Rucksack zu."
         ]
       }
@@ -1033,7 +1035,7 @@ window.WIKI_DATA = {
           "The Reinforced Bundle turns up in dungeon chests, shipwreck treasure and abandoned mineshafts, and the wandering trader sells one for 16 emeralds and buys one for 12 emeralds (depending on the config options enableLootTableChanges and enableWanderingTrades).",
           "The Invert Bundle Interactions config option swaps left and right click for inserting and removing.",
           "The mod's quivers inherit from the same item class (QuiverItem extends ReinforcedBundleItem) but only accept arrows (tag minecraft:arrows) and are described separately.",
-          "Dyeing: Reinforced, Netherite and Enderite Bundle take dye like leather armour rather than turning into separate coloured items like the vanilla bundle - bundle plus one or more dyes in the crafting grid, colours mix, contents, name and enchantments stay. The colour shows on the item and as a faint tint of the item slots in the tooltip; a water cauldron washes it off again."
+          "Dyeing: Reinforced, Netherite and Enderite Bundle take dye like leather armour rather than turning into separate coloured items like the vanilla bundle - bundle plus one or more dyes in the crafting grid, colours mix, contents, name and enchantments stay. The colour shows on the item, in its open look and as a faint tint of the item slots in the tooltip; a water cauldron washes it off again. Like the vanilla bundle, a mod bundle opens in the inventory while an entry is selected and shows that entry sticking out of it."
         ]
       },
       "de": {
@@ -1056,7 +1058,7 @@ window.WIKI_DATA = {
           "Das Verstärkte Bündel liegt in Verliesen, Schiffswracks und verlassenen Minen und wird vom fahrenden Händler für 16 Smaragde verkauft bzw. für 12 Smaragde gekauft (abhängig von den Config-Optionen enableLootTableChanges und enableWanderingTrades).",
           "Die Config-Option Bündel-Interaktion umkehren vertauscht Links- und Rechtsklick für Einlegen und Entnehmen.",
           "Die Köcher der Mod erben von derselben Item-Klasse (QuiverItem extends ReinforcedBundleItem), nehmen aber nur Pfeile (Tag minecraft:arrows) an und werden gesondert beschrieben.",
-          "Färben: Verstärktes, Netherit- und Enderit-Bündel nehmen Farbstoff an wie Lederrüstung, statt wie das Vanilla-Bündel zu eigenen farbigen Items zu werden – Bündel plus ein oder mehrere Farbstoffe in die Werkbank, Farben mischen sich, Inhalt, Name und Verzauberungen bleiben. Die Farbe zeigt sich am Item und als leichte Tönung der Felder im Tooltip; ein Wasserkessel wäscht sie wieder ab."
+          "Färben: Verstärktes, Netherit- und Enderit-Bündel nehmen Farbstoff an wie Lederrüstung, statt wie das Vanilla-Bündel zu eigenen farbigen Items zu werden – Bündel plus ein oder mehrere Farbstoffe in die Werkbank, Farben mischen sich, Inhalt, Name und Verzauberungen bleiben. Die Farbe zeigt sich am Item, im offenen Zustand und als leichte Tönung der Felder im Tooltip; ein Wasserkessel wäscht sie wieder ab. Wie das Vanilla-Bündel öffnet sich ein Bündel der Mod im Inventar, solange ein Eintrag ausgewählt ist, und zeigt diesen Eintrag."
         ]
       }
     },
@@ -1215,7 +1217,6 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
         "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/NetheriteHopperBlockEntity.java",
         "common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java",
         "common/src/shared/java/com/simplebuilding/client/gui/NetheriteHopperScreen.java",
         "common/src/shared/java/com/simplebuilding/screen/ModHopperScreenHandler.java",
@@ -1269,7 +1270,7 @@ window.WIKI_DATA = {
           "The menu texts ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') are hard-coded English.",
           "Getting them: 5 Hoppers + 1 Name Tag + 3 Cracked Diamonds yield 5 Reinforced Hoppers at the crafting table. The Netherite and Enderite Hoppers have no crafting recipe: a placed Reinforced Hopper becomes a Netherite Hopper after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, a Netherite Hopper becomes an Enderite Hopper with a Netherite Sledgehammer (or better) and an Enderite Nugget; items, filter items and filter mode stay in the hopper (see the Sledgehammer). The Reinforced and Netherite Hopper items say so in their tooltip.",
           "Reinforced Hopper: hardness 3.0, blast resistance 4.8, metal sound. Netherite Hopper: hardness 5.0, blast resistance 1200, netherite block sound, fire resistant item. Enderite Hopper: hardness 6.0, blast resistance 1500, netherite block sound, fire resistant item of rarity Epic. All three are in the pickaxe mining tag and drop themselves; like the vanilla hopper they are built from, they only drop when mined with a pickaxe.",
-          "All three blocks share their block logic (block entity type simplebuilding:mod_hopper) and their menu (menu type simplebuilding:netherite_hopper, titled like the vanilla hopper); the cooldown depends only on which of the three blocks is placed. A separate file NetheriteHopperBlockEntity.java exists but is never used.",
+          "All three blocks share their block logic (block entity type simplebuilding:mod_hopper) and their menu (menu type simplebuilding:netherite_hopper, titled like the vanilla hopper); the cooldown depends only on which of the three blocks is placed.",
           "Game tests prove: the Netherite Hopper is faster than the Reinforced Hopper, which is faster than the vanilla hopper, and the Netherite Hopper needs at most half the vanilla hopper's time; the three filter modes behave as described; and the network payloads only take effect while a hopper menu is open."
         ]
       },
@@ -1296,7 +1297,7 @@ window.WIKI_DATA = {
           "Die Menü-Texte ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') sind fest auf Englisch hinterlegt.",
           "Beschaffung: 5 Trichter + 1 Namensschild + 3 Rissige Diamanten ergeben an der Werkbank 5 Verstärkte Trichter. Für Netherit- und Enderittrichter gibt es kein Werkbankrezept: Ein gesetzter Verstärkter Trichter wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zum Netherittrichter, ein Netherittrichter mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget zum Enderittrichter; Items, Filter-Items und Filtermodus bleiben im Trichter (siehe Vorschlaghammer). Die Items des Verstärkten und des Netherittrichters weisen im Tooltip darauf hin.",
           "Verstärkter Trichter: Härte 3,0, Explosionswiderstand 4,8, Metallklang. Netherittrichter: Härte 5,0, Explosionswiderstand 1200, Netheritblock-Klang, Item feuerfest. Enderittrichter: Härte 6,0, Explosionswiderstand 1500, Netheritblock-Klang, Item feuerfest und von der Seltenheit Episch. Alle drei im Spitzhacken-Abbau-Tag, alle drei droppen sich selbst; wie der Vanilla-Trichter, von dem sie kopiert sind, nur beim Abbau mit einer Spitzhacke.",
-          "Alle drei Blöcke teilen Blocklogik (Block-Entity-Typ simplebuilding:mod_hopper) und Menü (Menütyp simplebuilding:netherite_hopper, Titel wie beim Vanilla-Trichter); die Wartezeit hängt nur davon ab, welcher der drei Blöcke gesetzt ist. Eine separate Datei NetheriteHopperBlockEntity.java existiert, wird aber nirgends benutzt.",
+          "Alle drei Blöcke teilen Blocklogik (Block-Entity-Typ simplebuilding:mod_hopper) und Menü (Menütyp simplebuilding:netherite_hopper, Titel wie beim Vanilla-Trichter); die Wartezeit hängt nur davon ab, welcher der drei Blöcke gesetzt ist.",
           "Spieltests belegen: Netherittrichter schneller als Verstärkter Trichter, dieser schneller als der normale Trichter, Netherittrichter höchstens halbe Zeit des normalen; die drei Filtermodi verhalten sich wie beschrieben; die Netzwerkpakete wirken nur bei geöffnetem Trichter-Menü."
         ]
       }
@@ -10002,7 +10003,7 @@ window.WIKI_DATA = {
             "The filter only checks what may enter the hopper; output into the target container is not filtered.",
             "The texts in the filter menu ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') are hard-coded English and are not translated.",
             "The server only accepts filter clicks and mode changes while the player has a mod hopper's menu open.",
-            "The Netherite Hopper has no special logic of its own: the file NetheriteHopperBlockEntity.java exists in the code but is never instantiated or registered anywhere (ModBlockEntities registers ModHopperBlockEntity for both blocks); the two hoppers differ only in cooldown, hardness, blast resistance, sound and the fire resistance of the item."
+            "The Netherite Hopper has no special logic of its own: ModBlockEntities registers ModHopperBlockEntity for all mod hoppers; the two hoppers differ only in cooldown, hardness, blast resistance, sound and the fire resistance of the item."
           ]
         },
         "de": {
@@ -10033,14 +10034,13 @@ window.WIKI_DATA = {
             "Der Filter prüft nur, was in den Trichter hinein darf; die Ausgabe in den Zielbehälter wird nicht gefiltert.",
             "Die Texte im Filter-Menü ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') sind fest auf Englisch hinterlegt und werden nicht übersetzt.",
             "Der Server nimmt Filter-Klicks und Modus-Wechsel nur an, solange der Spieler das Menü eines Mod-Trichters geöffnet hat.",
-            "Der Netherittrichter hat keine eigene Sonderlogik: die Datei NetheriteHopperBlockEntity.java liegt im Code, wird aber nirgends instanziiert oder registriert (ModBlockEntities registriert für beide Blöcke ModHopperBlockEntity); die beiden Trichter unterscheiden sich nur in Wartezeit, Härte, Explosionswiderstand, Klang und Feuerfestigkeit des Items."
+            "Der Netherittrichter hat keine eigene Sonderlogik: ModBlockEntities registriert für alle Trichter der Mod ModHopperBlockEntity; die beiden Trichter unterscheiden sich nur in Wartezeit, Härte, Explosionswiderstand, Klang und Feuerfestigkeit des Items."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/NetheriteHopperBlockEntity.java",
           "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
           "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
           "common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java",
@@ -10934,7 +10934,7 @@ window.WIKI_DATA = {
             "HUD measurement with two positions: if both sit at the same height and in a line it reads \"Distance: N blocks\"; at the same height but as an area, \"Area: N blocks²\" with \"(width x depth)\"; otherwise \"Volume: N blocks³\" with \"(width x height x depth)\". Both corner blocks count (edge length = difference + 1).",
             "If a Velocity Gauge is held at the same time, the octant box moves 35 pixels up and the speedometer box 35 pixels down so the two do not overlap.",
             "In the world (Fabric and NeoForge) Pos 1 (light colour) and Pos 2 (dark colour) are always drawn as a block outline once they are set; the octant can be in either hand for this. On the undyed octant: light orange for Pos 1, dark orange for Pos 2, golden orange for the area. Line width 4.",
-            "The area figure (outline + fill between the two points) only appears when both points are set, highlights are on (key H) and exactly one of the two conditions holds: the octant carries Constructor's Touch, or \"Invert Octant Sneak\" is enabled in the config.",
+            "The area figure (outline + fill between the two points) only appears when both points are set, highlights are on (key H), the octant figure is on (its own key or the Figure button) and exactly one of the two conditions holds: the octant carries Constructor's Touch, or \"Invert Octant Sneak\" is enabled in the config.",
             "Fill opacity = 0.3 x (config \"buildingHighlightOpacity\" / 100); default value 40, so 0.12. The lines have a fixed opacity of 0.8.",
             "Preview shapes: Cuboid and Rectangle (2D) draw the complete box; Cylinder and Ellipse (2D) an elliptical cross-section over the full length of the axis; Sphere an ellipsoid that fills the box; Pyramid a base that shrinks linearly towards the tip; Prism a wedge that tapers only along the shorter base side (the ridge runs along the longer side).",
             "The axis (+X, +Y, +Z, -X, -Y, -Z; default +Y) decides which way Cylinder, Ellipse, Pyramid and Prism stand up; on a negative axis the figure is upside down.",
@@ -10945,7 +10945,7 @@ window.WIKI_DATA = {
             "Every change to positions, size, shape, axis, lock, hollow, layer mode and order is written into the octant immediately and sent to the server; the server only accepts it while an octant is in the main hand. The Figure button is purely client side and sends nothing.",
             "The menu does not pause the game, leaves the world visible and passes movement keys through (forward/back/left/right, jump, sneak, sprint), so you can keep walking with the menu open.",
             "Mouse wheel with a modifier (octant in the main hand, no menu open, not locked): Alt + wheel cycles the shape forwards or backwards (wrapping around); Ctrl + wheel moves Pos 1 and the sneak key (default: Shift) + wheel moves Pos 2 by 1 block per notch in the direction you are facing. Alt and Ctrl are read from the physical left or right key, the sneak key follows your key bindings. Look up or down more steeply than 60 degrees and the point moves up or down instead. While one of the three keys is held, the wheel does not switch hotbar slots.",
-            "Key H (\"Toggle Highlights\") hides and shows the area figure again; the corner outlines stay visible. The \"Toggle Octant Figure\" key is unbound by default and toggles the same value.",
+            "Key H (\"Toggle Highlights\") hides and shows every block highlight of the mod: the octant's corner outlines and area figure and the Sledgehammer preview. The \"Toggle Octant Figure\" key (unbound by default) and the Figure button on page 2 of the octant screen switch only the area figure and have a state of their own, so H does not undo them and they do not undo H.",
             "Enchantments: the octant sits in the tag octants_enchantable, which is included in constructors_touch_enchantable (Constructor's Touch), chisel_and_mining_tools (Range) and minecraft:enchantable/durability (durability enchantments).",
             "Constructor's Touch on the octant: unlocks the area figure (see above); it also gives the octant the aqua HUD label that every enchanted octant gets.",
             "Range on the octant: the enchantment carries an attribute effect on minecraft:block_interaction_range (+2 at level I, +6 at II, +10 at III; base 2, +4 per further level) for the main hand. That lets you set corners from further away; in the off hand it does nothing.",
@@ -10962,8 +10962,8 @@ window.WIKI_DATA = {
             "Alt + mouse wheel: cycle the shape forwards/backwards",
             "Ctrl + mouse wheel: move Pos 1 in the direction you are facing (1 block per notch)",
             "Sneak key (default: Shift) + mouse wheel: move Pos 2 in the direction you are facing (1 block per notch)",
-            "H (\"Toggle Highlights\"): area figure on/off",
-            "\"Toggle Octant Figure\" (unbound by default): same effect as H",
+            "H (\"Toggle Highlights\"): all block highlights on/off (octant and Sledgehammer)",
+            "\"Toggle Octant Figure\" (unbound by default): octant area figure on/off, independent of H",
             "Lock button in the manager: lock/unlock the selection"
           ],
           "caveats": [
@@ -10997,7 +10997,7 @@ window.WIKI_DATA = {
             "HUD-Messwert bei zwei Positionen: Liegen beide auf gleicher Höhe und in einer Linie, steht dort \"Distance: N blocks\"; auf gleicher Höhe, aber als Fläche, \"Area: N blocks²\" mit \"(Breite x Tiefe)\"; sonst \"Volume: N blocks³\" mit \"(Breite x Höhe x Tiefe)\". Beide Eckblöcke zählen mit (Kantenlänge = Differenz + 1).",
             "Wird gleichzeitig ein Geschwindigkeitsmesser gehalten, rückt die Oktant-Box um 35 Pixel nach oben und die Tacho-Box um 35 Pixel nach unten, damit sich beide nicht überlappen.",
             "In der Welt (Fabric und NeoForge) werden Pos 1 (helle Farbe) und Pos 2 (dunkle Farbe) immer als Blockumriss gezeichnet, sobald sie gesetzt sind; der Oktant darf dafür in der Haupt- oder Nebenhand liegen. Beim ungefärbten Oktanten: hellorange für Pos 1, dunkelorange für Pos 2, goldorange für die Fläche. Linienbreite 4.",
-            "Die Flächenfigur (Umriss + Füllung zwischen beiden Punkten) erscheint nur, wenn beide Punkte gesetzt sind, die Hervorhebungen eingeschaltet sind (Taste H) und genau eine der beiden Bedingungen gilt: der Oktant trägt Berührung des Konstrukteurs, oder in der Config ist \"Oktant Schleichen umkehren\" aktiv.",
+            "Die Flächenfigur (Umriss + Füllung zwischen beiden Punkten) erscheint nur, wenn beide Punkte gesetzt sind, die Hervorhebungen eingeschaltet sind (Taste H), die Oktant-Figur eingeschaltet ist (eigene Taste oder Knopf Figur) und genau eine der beiden Bedingungen gilt: der Oktant trägt Berührung des Konstrukteurs, oder in der Config ist \"Oktant Schleichen umkehren\" aktiv.",
             "Deckkraft der Füllung = 0,3 x (Config \"buildingHighlightOpacity\" / 100); Standardwert 40, also 0,12. Die Linien haben feste Deckkraft 0,8.",
             "Formen der Vorschau: Quader und Rechteck (2D) zeichnen den kompletten Kasten; Zylinder und Ellipse (2D) einen elliptischen Querschnitt über die volle Länge der Achse; Kugel ein Ellipsoid, das den Kasten ausfüllt; Pyramide eine Grundfläche, die zur Spitze hin linear kleiner wird; Prisma einen Keil, der sich nur entlang der kürzeren Grundseite verjüngt (der First läuft entlang der längeren Seite).",
             "Die Achse (+X, +Y, +Z, -X, -Y, -Z; Standard +Y) legt fest, in welche Richtung Zylinder, Ellipse, Pyramide und Prisma aufgerichtet sind; bei negativer Achse steht die Figur auf dem Kopf.",
@@ -11008,7 +11008,7 @@ window.WIKI_DATA = {
             "Jede Änderung an Positionen, Größe, Form, Achse, Sperre, Hohl, Ebenenmodus und Reihenfolge wird sofort in den Oktanten geschrieben und an den Server gesendet; der Server übernimmt sie nur, wenn ein Oktant in der Haupthand liegt. Der Figur-Knopf ist rein clientseitig und sendet nichts.",
             "Das Menü pausiert das Spiel nicht, lässt die Welt sichtbar und reicht Bewegungstasten (vor/zurück/links/rechts, Springen, Schleichen, Sprinten) durch, du kannst also mit offenem Menü weiterlaufen.",
             "Mausrad mit Zusatztaste (Oktant in der Haupthand, kein Menü offen, nicht gesperrt): Alt + Rad schaltet die Form vor bzw. zurück (mit Umlauf); Strg + Rad verschiebt Pos 1, Schleichen-Taste (Standard: Umschalt) + Rad verschiebt Pos 2 um 1 Block pro Rastung in Blickrichtung. Alt und Strg sind fest die linke oder rechte Taste, die Schleichen-Taste folgt der Tastenbelegung. Blickst du steiler als 60 Grad nach oben bzw. unten, wird stattdessen nach oben bzw. unten verschoben. Solange eine der drei Tasten gedrückt ist, wechselt das Rad nicht die Hotbar.",
-            "Taste H (\"Hervorhebungen umschalten\") blendet die Flächenfigur aus und wieder ein; die Eckpunkt-Umrisse bleiben sichtbar. Die Taste \"Oktant-Figur umschalten\" ist standardmäßig nicht belegt und schaltet denselben Wert.",
+            "Taste H (\"Hervorhebungen umschalten\") blendet alle Block-Hervorhebungen der Mod aus und wieder ein: Eckpunkt-Umrisse und Flächenfigur des Oktanten sowie die Vorschau des Vorschlaghammers. Die Taste \"Oktant-Figur umschalten\" (standardmäßig nicht belegt) und der Knopf Figur auf Seite 2 des Oktant-Bildschirms schalten nur die Flächenfigur, mit eigenem Zustand – H hebt sie nicht auf und umgekehrt.",
             "Verzauberungen: Der Oktant steht im Tag octants_enchantable, das in constructors_touch_enchantable (Berührung des Konstrukteurs), chisel_and_mining_tools (Reichweite) und minecraft:enchantable/durability (Haltbarkeits-Verzauberungen) enthalten ist.",
             "Berührung des Konstrukteurs auf dem Oktanten: schaltet die Flächenfigur frei (siehe oben); außerdem bekommt der Oktant dadurch das türkise HUD-Label wie jeder verzauberte Oktant.",
             "Reichweite auf dem Oktanten: Die Verzauberung trägt einen Attribut-Effekt auf minecraft:block_interaction_range (+2 auf Stufe I, +6 auf Stufe II, +10 auf Stufe III; Basis 2, +4 je weiterer Stufe) für die Haupthand. Damit lassen sich Eckpunkte aus größerer Entfernung setzen; in der Nebenhand wirkt sie nicht.",
@@ -11025,8 +11025,8 @@ window.WIKI_DATA = {
             "Alt + Mausrad: Form vor/zurück schalten",
             "Strg + Mausrad: Pos 1 in Blickrichtung verschieben (1 Block pro Rastung)",
             "Schleichen-Taste (Standard: Umschalt) + Mausrad: Pos 2 in Blickrichtung verschieben (1 Block pro Rastung)",
-            "H (\"Hervorhebungen umschalten\"): Flächenfigur ein/aus",
-            "\"Oktant-Figur umschalten\" (standardmäßig nicht belegt): gleiche Wirkung wie H",
+            "H (\"Hervorhebungen umschalten\"): alle Block-Hervorhebungen ein/aus (Oktant und Vorschlaghammer)",
+            "\"Oktant-Figur umschalten\" (standardmäßig nicht belegt): Flächenfigur des Oktanten ein/aus, unabhängig von H",
             "Schloss-Knopf im Manager: Auswahl sperren/entsperren"
           ],
           "caveats": [
@@ -16004,7 +16004,7 @@ window.WIKI_DATA = {
             "The filter only checks what may enter the hopper; output into the target container is not filtered.",
             "The texts in the filter menu ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') are hard-coded English and are not translated.",
             "The server only accepts filter clicks and mode changes while the player has a mod hopper's menu open.",
-            "The Netherite Hopper has no special logic of its own: the file NetheriteHopperBlockEntity.java exists in the code but is never instantiated or registered anywhere (ModBlockEntities registers ModHopperBlockEntity for both blocks); the two hoppers differ only in cooldown, hardness, blast resistance, sound and the fire resistance of the item."
+            "The Netherite Hopper has no special logic of its own: ModBlockEntities registers ModHopperBlockEntity for all mod hoppers; the two hoppers differ only in cooldown, hardness, blast resistance, sound and the fire resistance of the item."
           ]
         },
         "de": {
@@ -16035,14 +16035,13 @@ window.WIKI_DATA = {
             "Der Filter prüft nur, was in den Trichter hinein darf; die Ausgabe in den Zielbehälter wird nicht gefiltert.",
             "Die Texte im Filter-Menü ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') sind fest auf Englisch hinterlegt und werden nicht übersetzt.",
             "Der Server nimmt Filter-Klicks und Modus-Wechsel nur an, solange der Spieler das Menü eines Mod-Trichters geöffnet hat.",
-            "Der Netherittrichter hat keine eigene Sonderlogik: die Datei NetheriteHopperBlockEntity.java liegt im Code, wird aber nirgends instanziiert oder registriert (ModBlockEntities registriert für beide Blöcke ModHopperBlockEntity); die beiden Trichter unterscheiden sich nur in Wartezeit, Härte, Explosionswiderstand, Klang und Feuerfestigkeit des Items."
+            "Der Netherittrichter hat keine eigene Sonderlogik: ModBlockEntities registriert für alle Trichter der Mod ModHopperBlockEntity; die beiden Trichter unterscheiden sich nur in Wartezeit, Härte, Explosionswiderstand, Klang und Feuerfestigkeit des Items."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/NetheriteHopperBlockEntity.java",
           "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
           "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
           "common/src/shared/java/com/simplebuilding/util/HopperFilterMode.java",

@@ -1820,6 +1820,10 @@ def backpack_dyed_textures():
             out[f"item/{prefix}backpack{suffix}.png"] = render_layer(f"{prefix}backpack{suffix}", BACKPACK_ITEM, pal)
             faces = {face: render_layer(f"{prefix}backpack_{face}{suffix}", rows, pal) for face, rows in faces_rows}
             out[f"entity/backpack/{prefix}backpack{suffix}.png"] = backpack_entity_texture(faces, pal)
+            # Der abgestellte gefaerbte Rucksack (block/template_backpack_dyed) nimmt dieselben
+            # Flaechen als zwei Ebenen: Leder mit Farbe (tintindex 0), Beschlaege darueber.
+            for face, img in faces.items():
+                out[f"block/{prefix}backpack_{face}{suffix}.png"] = img
     return out
 
 
@@ -1861,6 +1865,79 @@ def bundle_dyed_textures():
                     overlay.putpixel((x, y), spx[x, y][:3] + (255,))
         out[f"item/{tier}_bundle_dyed.png"] = dyed
         out[f"item/{tier}_bundle_dyed_overlay.png"] = overlay
+    return out
+
+
+# Offene Buendel (im Inventar, sobald ein Eintrag ausgewaehlt ist): wie Vanillas
+# bundle_open_back/bundle_open_front - hinten der Rand der Oeffnung, vorn der untere Beutel,
+# dazwischen zeichnet das Spiel den ausgewaehlten Gegenstand. Umriss und Schattierung folgen
+# Vanillas Karten; neu ist der Riemen mit Schliesse in der Mitte, wie am geschlossenen Buendel.
+# Schluessel: O dunkelster Umriss, d dunkel, 1..5 Lederrampe, s Kordel, a/b Riemen hell/dunkel,
+# g/C/c/k Schliesse (Glanz, hell, mittel, dunkel).
+BUNDLE_OPEN_FRONT = [
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "34............43",
+    "2345.........432",
+    "O2335543....352O",
+    "dO23311ab44552Od",
+    "d1s3455gC311dsdd",
+    "d1ds555ck33dsddd",
+    "Od1s344ab1ddsd1O",
+    "OOdd333abdd111OO",
+    "OOOOddddddddOOOO",
+]
+BUNDLE_OPEN_BACK = [
+    "................",
+    "................",
+    "................",
+    "................",
+    "...111111111d...",
+    ".112333332322dd.",
+    "122ddOOOOdddd22d",
+    ".2ddOOOOOOOOOd2.",
+    ".OOOOOOOOOOOOO..",
+    "........ddOd....",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+]
+# Farben aus den handgemalten geschlossenen Buendeln derselben Stufe.
+BUNDLE_OPEN_PALETTES = {
+    "reinforced": {"O": "#260d06", "d": "#341c14", "1": "#3f2316", "2": "#642d16", "3": "#733e27",
+                   "4": "#8e4b2f", "5": "#a5502c", "s": "#a88d83", "a": "#a04927", "b": "#6a3222",
+                   "g": "#f2bdac", "C": "#f79b81", "c": "#ce7451", "k": "#a75e3f"},
+    "netherite": {"O": "#190c11", "d": "#26161f", "1": "#2d1a24", "2": "#3e2236", "3": "#4e363e",
+                  "4": "#59454b", "5": "#6a545c", "s": "#8b6291", "a": "#6e3a4f", "b": "#4b283a",
+                  "g": "#c194b9", "C": "#ba7aa3", "c": "#9a6899", "k": "#6e3a4f"},
+    "enderite": {"O": "#190c11", "d": "#26161f", "1": "#2d1a24", "2": "#3f2539", "3": "#4c2c50",
+                 "4": "#5f3b5f", "5": "#654466", "s": "#8b6291", "a": "#6e3a4f", "b": "#4b283a",
+                 "g": "#c194b9", "C": "#ba7aa3", "c": "#9a6899", "k": "#56305a"},
+}
+
+
+def bundle_open_textures():
+    """Offen-Texturen je Stufe plus Leder-/Beschlag-Ebene fuer gefaerbte Buendel: getoent
+    werden d und die Rampe 1-5 (Grau wie beim geschlossenen Buendel), Umriss O, Kordel,
+    Riemen und Schliesse bleiben in der Farbe der Stufe."""
+    out = {}
+    for tier, pal in BUNDLE_OPEN_PALETTES.items():
+        shade = BUNDLE_DYE_SHADE[tier]
+        leather = {k: (grey(round(DYE_GREYS[k] * shade)) if k in "d12345" else None) for k in pal}
+        fittings = {k: (None if k in "d12345" else v) for k, v in pal.items()}
+        for part, rows in (("front", BUNDLE_OPEN_FRONT), ("back", BUNDLE_OPEN_BACK)):
+            name = f"{tier}_bundle_open_{part}"
+            out[f"item/{name}.png"] = render(name, rows, pal, False)
+            out[f"item/{name}_dyed.png"] = render_layer(f"{name}_dyed", rows, leather)
+            out[f"item/{name}_dyed_overlay.png"] = render_layer(f"{name}_dyed_overlay", rows, fittings)
     return out
 
 
@@ -1911,6 +1988,7 @@ def build():
     tex.update(backpack_worn_textures(tex))
     tex.update(backpack_dyed_textures())
     tex.update(bundle_dyed_textures())
+    tex.update(bundle_open_textures())
     tex.update(backpack_gui_textures())
     tex.update(end_palette_textures())
     return tex
@@ -2163,6 +2241,15 @@ def build_preview(tex):
                  "item/reinforced_bundle", "item/netherite_bundle", "item/enderite_bundle"):
         groups.append((f"{base[5:]} gefaerbt", [(f"{base}_{dye}.png", dye_sample(tex, base, rgb))
                                                for dye, rgb in PREVIEW_DYES.items()], []))
+    for tier in BUNDLE_OPEN_PALETTES:
+        base = f"item/{tier}_bundle_open"
+        opened = tex[f"{base}_back.png"].copy()
+        opened.alpha_composite(tex[f"{base}_front.png"])
+        dyed = dye_sample(tex, f"{base}_back", PREVIEW_DYES["blue"])
+        dyed.alpha_composite(dye_sample(tex, f"{base}_front", PREVIEW_DYES["blue"]))
+        groups.append((f"{tier}_bundle offen", [(f"{base}_back.png", tex[f"{base}_back.png"]),
+                                                (f"{base}_front.png", tex[f"{base}_front.png"]),
+                                                (f"{base}_zusammen.png", opened), (f"{base}_blau.png", dyed)], []))
     groups += machine_preview_groups(tex)
     groups.append(("Quarz-Schachbrett", [("block/lapis_quartz_checker.png", None)]
                    + [(k, tex[k]) for k in ("block/nihilith_quartz_checker.png", "block/nihilith_quartz_checker_mirror.png",

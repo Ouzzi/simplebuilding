@@ -263,14 +263,14 @@ public class OctantScreen extends Screen {
     private Component getHollowText() { return Component.translatable("simplebuilding.gui.hollow", isHollow ? "ON" : "OFF"); }
     private Component getLayerText() { return Component.translatable("simplebuilding.gui.layer", isLayerMode ? "ON" : "OFF"); }
     private Component getOrderText() { return Component.translatable("simplebuilding.gui.order", currentOrder.getText()); }
-    private Component getFigureText() { return Component.translatable("simplebuilding.gui.figure", Component.translatable(ClientState.showHighlights ? "simplebuilding.gui.on" : "simplebuilding.gui.off")); }
+    private Component getFigureText() { return Component.translatable("simplebuilding.gui.figure", Component.translatable(ClientState.showOctantFigure ? "simplebuilding.gui.on" : "simplebuilding.gui.off")); }
     private Component getPageButtonText() { return currentPage == MenuPage.SELECTION ? Component.literal(">> Settings") : Component.literal("<< Selection"); }
     private Component getPageLabelText() { return currentPage == MenuPage.SELECTION ? Component.literal("Page 1/2: Selection") : Component.literal("Page 2/2: Fill Settings"); }
 
     private void cycleShape() { currentShape = OctantItem.SelectionShape.values()[(currentShape.ordinal() + 1) % OctantItem.SelectionShape.values().length]; shapeButton.setMessage(getShapeText()); updateLocalAndSend(); }
     private void cycleOrientation() { currentOrientation = currentOrientation.next(); orientationButton.setMessage(getOrientationText()); updateLocalAndSend(); }
     private void cycleOrder() { currentOrder = OctantItem.FillOrder.values()[(currentOrder.ordinal() + 1) % OctantItem.FillOrder.values().length]; fillOrderButton.setMessage(getOrderText()); updateLocalAndSend(); }
-    private void toggleFigure() { ClientState.showHighlights = !ClientState.showHighlights; figureToggleButton.setMessage(getFigureText()); }
+    private void toggleFigure() { ClientState.showOctantFigure = !ClientState.showOctantFigure; figureToggleButton.setMessage(getFigureText()); }
     private void togglePage() {
         currentPage = currentPage == MenuPage.SELECTION ? MenuPage.SETTINGS : MenuPage.SELECTION;
         pageButton.setMessage(getPageButtonText());

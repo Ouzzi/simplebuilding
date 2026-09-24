@@ -68,6 +68,16 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Der aufsteigende Block wird wie fallender Sand gezeichnet.
         EntityRendererRegistry.register(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
         // Der getragene Rucksack auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
+        // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity; die Ebenen
+        // brauchen Cutout (26.2 erkennt das an den Texturen selbst, 1.21.11 nicht).
+        net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register(
+                com.simplebuilding.client.render.BackpackBlockTint.INSTANCE,
+                com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(
+                net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
+                com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
                 helper.register(new com.simplebuilding.client.render.BackpackLayer(avatar));
@@ -109,9 +119,9 @@ public class SimplebuildingClient implements ClientModInitializer {
             }
 
             while (ClientState.octantFigureToggleKey.consumeClick()) {
-                ClientState.showHighlights = !ClientState.showHighlights;
+                ClientState.showOctantFigure = !ClientState.showOctantFigure;
                 if (client.player != null) {
-                    client.player.displayClientMessage(Component.literal("Octant Figure: " + (ClientState.showHighlights ? "ON" : "OFF")), true);
+                    client.player.displayClientMessage(Component.literal("Octant Figure: " + (ClientState.showOctantFigure ? "ON" : "OFF")), true);
                 }
             }
 

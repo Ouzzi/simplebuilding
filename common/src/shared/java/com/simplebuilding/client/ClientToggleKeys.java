@@ -32,9 +32,9 @@ public final class ClientToggleKeys {
         }
 
         while (ClientState.octantFigureToggleKey != null && ClientState.octantFigureToggleKey.consumeClick()) {
-            // Deliberately the same flag as above — mirrors the Fabric behaviour verbatim.
-            ClientState.showHighlights = !ClientState.showHighlights;
-            player.sendOverlayMessage(Component.literal("Octant Figure: " + (ClientState.showHighlights ? "ON" : "OFF")));
+            // Eigener Schalter: nur die gefuellte Oktant-Figur (frueher derselbe wie Highlights).
+            ClientState.showOctantFigure = !ClientState.showOctantFigure;
+            player.sendOverlayMessage(Component.literal("Octant Figure: " + (ClientState.showOctantFigure ? "ON" : "OFF")));
         }
     }
 }

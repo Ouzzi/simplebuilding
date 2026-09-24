@@ -1,21 +1,99 @@
 {
   "model": {
-    "type": "minecraft:condition",
-    "component": "minecraft:dyed_color",
-    "on_false": {
-      "type": "minecraft:model",
-      "model": "simplebuilding:item/enderite_bundle"
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:condition",
+          "on_false": {
+            "type": "minecraft:condition",
+            "component": "minecraft:dyed_color",
+            "on_false": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/enderite_bundle"
+            },
+            "on_true": {
+              "type": "minecraft:model",
+              "model": "simplebuilding:item/enderite_bundle_dyed",
+              "tints": [
+                {
+                  "type": "minecraft:dye",
+                  "default": -1
+                }
+              ]
+            },
+            "property": "minecraft:has_component"
+          },
+          "on_true": {
+            "type": "minecraft:composite",
+            "models": [
+              {
+                "type": "minecraft:condition",
+                "component": "minecraft:dyed_color",
+                "on_false": {
+                  "type": "minecraft:model",
+                  "model": "simplebuilding:item/enderite_bundle_open_back"
+                },
+                "on_true": {
+                  "type": "minecraft:model",
+                  "model": "simplebuilding:item/enderite_bundle_open_back_dyed",
+                  "tints": [
+                    {
+                      "type": "minecraft:dye",
+                      "default": -1
+                    }
+                  ]
+                },
+                "property": "minecraft:has_component"
+              },
+              {
+                "type": "minecraft:bundle/selected_item"
+              },
+              {
+                "type": "minecraft:condition",
+                "component": "minecraft:dyed_color",
+                "on_false": {
+                  "type": "minecraft:model",
+                  "model": "simplebuilding:item/enderite_bundle_open_front"
+                },
+                "on_true": {
+                  "type": "minecraft:model",
+                  "model": "simplebuilding:item/enderite_bundle_open_front_dyed",
+                  "tints": [
+                    {
+                      "type": "minecraft:dye",
+                      "default": -1
+                    }
+                  ]
+                },
+                "property": "minecraft:has_component"
+              }
+            ]
+          },
+          "property": "minecraft:bundle/has_selected_item"
+        },
+        "when": "gui"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:condition",
+      "component": "minecraft:dyed_color",
+      "on_false": {
+        "type": "minecraft:model",
+        "model": "simplebuilding:item/enderite_bundle"
+      },
+      "on_true": {
+        "type": "minecraft:model",
+        "model": "simplebuilding:item/enderite_bundle_dyed",
+        "tints": [
+          {
+            "type": "minecraft:dye",
+            "default": -1
+          }
+        ]
+      },
+      "property": "minecraft:has_component"
     },
-    "on_true": {
-      "type": "minecraft:model",
-      "model": "simplebuilding:item/enderite_bundle_dyed",
-      "tints": [
-        {
-          "type": "minecraft:dye",
-          "default": -1
-        }
-      ]
-    },
-    "property": "minecraft:has_component"
+    "property": "minecraft:display_context"
   }
 }

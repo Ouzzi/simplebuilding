@@ -52,7 +52,7 @@ public final class BackpackMenuProviders {
     /** Menue eines abgestellten Rucksacks. */
     public static Opening placed(BackpackBlockEntity backpack) {
         BackpackOpenData data = BackpackOpenData.placed(backpack.getBlockPos(), backpack.tier(), backpack.stackMultiplier(),
-                DyedStorage.colour(backpack.components()));
+                backpack.dyeColor());
         MenuProvider provider = new SimpleMenuProvider(
                 (containerId, inventory, menuPlayer) -> new BackpackMenu(containerId, inventory, backpack.container(), data),
                 backpack.getDisplayName());

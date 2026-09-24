@@ -98,16 +98,9 @@ import net.minecraft.world.phys.Vec3;
  *       {@code ModBlocks}.</li>
  * </ul>
  *
- * <h2>Known defects</h2>
- * <ul>
- *   <li><b>{@code NetheriteHopperBlockEntity} is dead code.</b> Nothing constructs it:
- *       {@code ModHopperBlock#newBlockEntity} returns a {@code ModHopperBlockEntity} and
- *       {@code ModBlockEntities} registers {@code ModHopperBlockEntity::new} for both hoppers.
- *       It re-declares {@code ghostItems}, {@code currentFilterMode} and {@code propertyDelegate},
- *       which would shadow the base class's fields if it were ever wired up - the inherited
- *       {@code canPlaceItem}, {@code saveAdditional} and {@code getUpdateTag} would then read the
- *       empty base copies. Every test here uses the class the game actually builds.</li>
- * </ul>
+ * <p>All three mod hoppers use {@code ModHopperBlockEntity} ({@code ModHopperBlock#newBlockEntity},
+ * {@code ModBlockEntities} registers {@code ModHopperBlockEntity::new}). The never constructed
+ * {@code NetheriteHopperBlockEntity} was removed on 2026-09-25.
  *
  * <h2>Not pinned, and why</h2>
  * <ul>

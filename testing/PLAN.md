@@ -596,8 +596,8 @@ Ehrlich benannt, damit niemand es für eine Lücke hält:
   Chance über 1,0, dann ist `nextFloat() < chance` immer wahr, und Luft wie Heilung werden real
   gemessen); ungedeckt bleibt nur, dass eine Chance unter 1,0 *manchmal* nicht greift — das ist
   Vanillas `RandomSource`, und ein Test darauf wäre ohne gesetzten Startwert instabil.
-- **`NetheriteHopperBlockEntity`** ist toter Code. Nichts konstruiert es. Das ist kein Testthema,
-  sondern eine Aufräumfrage.
+- **`NetheriteHopperBlockEntity`** war toter Code (nichts konstruierte es) und ist seit dem
+  2026-09-25 entfernt.
 
 ---
 

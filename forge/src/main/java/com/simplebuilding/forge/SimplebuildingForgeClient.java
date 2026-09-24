@@ -113,6 +113,14 @@ public final class SimplebuildingForgeClient {
         event.register(ClientState.backpackKey);
     }
 
+    /** Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity. */
+    @SubscribeEvent
+    public static void onRegisterBlockColors(net.minecraftforge.client.event.RegisterColorHandlersEvent.Block event) {
+        event.register(java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
+                com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
+    }
+
     @SubscribeEvent
     public static void onRegisterTooltips(RegisterClientTooltipComponentFactoriesEvent event) {
         event.register(ReinforcedBundleTooltipData.class, ReinforcedBundleTooltips::create);

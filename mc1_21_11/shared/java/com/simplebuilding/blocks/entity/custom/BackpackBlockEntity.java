@@ -7,7 +7,15 @@ import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.items.custom.BackpackItem;
 import com.simplebuilding.items.custom.BackpackTier;
 import com.simplebuilding.screen.BackpackContainer;
+import com.simplebuilding.util.DyedStorage;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.item.component.DyedItemColor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
@@ -32,11 +40,19 @@ import net.minecraft.world.level.storage.ValueOutput;
  * ({@code copy_components} ohne Filter) alle Komponenten zurueck auf das gedroppte Item - Inhalt,
  * Name, Verzauberungen. Verzauberungen und Name bleiben dazwischen in Vanillas
  * {@code components()} liegen; von dort liest der Block auch den Tiefe-Taschen-Faktor.
+ *
+ * <p>Die Farbe ({@code minecraft:dyed_color}) nimmt die Block-Entity dagegen selbst heraus und
+ * schickt sie per {@link #getUpdatePacket} zum Client: das Zwei-Ebenen-Modell des gefaerbten
+ * Rucksacks ({@code BackpackBlock#DYED}) holt sie beim Bauen des Chunk-Meshes ueber
+ * {@code BackpackBlockTint} von hier. Beim Abbauen kommt sie mit den anderen Komponenten zurueck.
  */
 public class BackpackBlockEntity extends BlockEntity {
     private static final String CONTENTS_TAG = "Contents";
+    private static final String COLOR_TAG = "Color";
 
     private final PlacedContainer container;
+    /** Farbe aus {@code minecraft:dyed_color} (0xRRGGBB), sonst {@link DyedStorage#UNDYED}. */
+    private int dyeColor = DyedStorage.UNDYED;
 
     public BackpackBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.BACKPACK_BE, pos, state);
@@ -57,6 +73,11 @@ public class BackpackBlockEntity extends BlockEntity {
         return BackpackItem.stackMultiplier(this.components().getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY));
     }
 
+    /** Die Farbe des Rucksacks (0xRRGGBB) oder {@link DyedStorage#UNDYED}; auch clientseitig bekannt. */
+    public int dyeColor() {
+        return this.dyeColor;
+    }
+
     public boolean isEmpty() {
         return this.container.isEmpty();
     }
@@ -75,6 +96,12 @@ public class BackpackBlockEntity extends BlockEntity {
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         this.container.load(input.read(CONTENTS_TAG, BackpackContents.CODEC).orElse(BackpackContents.EMPTY));
+        int previous = this.dyeColor;
+        this.dyeColor = input.getIntOr(COLOR_TAG, DyedStorage.UNDYED);
+        // Clientseitig (Datenpaket nach dem Abstellen): die Farbe steckt im Chunk-Mesh, also neu bauen.
+        if (previous != this.dyeColor && this.level != null && this.level.isClientSide()) {
+            this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+        }
     }
 
     @Override
@@ -84,12 +111,34 @@ public class BackpackBlockEntity extends BlockEntity {
         if (!contents.isEmpty()) {
             output.store(CONTENTS_TAG, BackpackContents.CODEC, contents);
         }
+        if (this.dyeColor != DyedStorage.UNDYED) {
+            output.putInt(COLOR_TAG, this.dyeColor);
+        }
+    }
+
+    /**
+     * Der Client braucht nur die Farbe (fuer die Toenung im Chunk-Mesh), nicht den Inhalt: den
+     * sieht er erst im Menue, und das synchronisiert sich selbst.
+     */
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = new CompoundTag();
+        if (this.dyeColor != DyedStorage.UNDYED) {
+            tag.putInt(COLOR_TAG, this.dyeColor);
+        }
+        return tag;
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
     protected void applyImplicitComponents(DataComponentGetter components) {
         super.applyImplicitComponents(components);
         this.container.load(components.getOrDefault(ModDataComponentTypes.BACKPACK_CONTENTS, BackpackContents.EMPTY));
+        this.dyeColor = DyedStorage.colour(components);
     }
 
     @Override
@@ -99,12 +148,16 @@ public class BackpackBlockEntity extends BlockEntity {
         if (!contents.isEmpty()) {
             components.set(ModDataComponentTypes.BACKPACK_CONTENTS, contents);
         }
+        if (this.dyeColor != DyedStorage.UNDYED) {
+            components.set(DataComponents.DYED_COLOR, new DyedItemColor(this.dyeColor));
+        }
     }
 
     @Override
     public void removeComponentsFromTag(ValueOutput output) {
         super.removeComponentsFromTag(output);
         output.discard(CONTENTS_TAG);
+        output.discard(COLOR_TAG);
     }
 
     /** Container des abgestellten Rucksacks: Faktor und Gueltigkeit kommen vom Block. */

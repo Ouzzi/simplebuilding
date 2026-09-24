@@ -46,8 +46,8 @@ public final class ForgeClientGameEvents {
             client.player.sendSystemMessage(Component.literal("Highlights: " + (ClientState.showHighlights ? "ON" : "OFF")));
         }
         while (ClientState.octantFigureToggleKey != null && ClientState.octantFigureToggleKey.consumeClick()) {
-            ClientState.showHighlights = !ClientState.showHighlights;
-            client.player.sendSystemMessage(Component.literal("Octant Figure: " + (ClientState.showHighlights ? "ON" : "OFF")));
+            ClientState.showOctantFigure = !ClientState.showOctantFigure;
+            client.player.sendSystemMessage(Component.literal("Octant Figure: " + (ClientState.showOctantFigure ? "ON" : "OFF")));
         }
         while (ClientState.settingsKey != null && ClientState.settingsKey.consumeClick()) {
             ItemStack stack = client.player.getMainHandItem();

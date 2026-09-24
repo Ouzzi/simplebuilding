@@ -68,6 +68,11 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Der aufsteigende Block wird wie fallender Sand gezeichnet.
         EntityRendererRegistry.register(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
         // Der getragene Rucksack auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
+        // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity.
+        net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
+                java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
+                com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
         LivingEntityRenderLayerRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
                 helper.register(new com.simplebuilding.client.render.BackpackLayer(avatar));
@@ -109,9 +114,9 @@ public class SimplebuildingClient implements ClientModInitializer {
             }
 
             while (ClientState.octantFigureToggleKey.consumeClick()) {
-                ClientState.showHighlights = !ClientState.showHighlights;
+                ClientState.showOctantFigure = !ClientState.showOctantFigure;
                 if (client.player != null) {
-                    client.player.sendOverlayMessage(Component.literal("Octant Figure: " + (ClientState.showHighlights ? "ON" : "OFF")));
+                    client.player.sendOverlayMessage(Component.literal("Octant Figure: " + (ClientState.showOctantFigure ? "ON" : "OFF")));
                 }
             }
 

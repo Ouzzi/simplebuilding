@@ -1,5 +1,7 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.blocks.custom.BackpackBlock;
 import com.simplebuilding.blocks.entity.custom.BackpackBlockEntity;
 import com.simplebuilding.component.BackpackContents;
 import com.simplebuilding.component.ModDataComponentTypes;
@@ -15,6 +17,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -194,7 +197,9 @@ public final class DyedStorageTests {
      * 35 % towards the colour, and both leave an undyed item exactly as before.
      *
      * <p>What breaks this test: the open data built without the colour (worn or placed), a
-     * placed backpack whose block entity or loot table drops {@code dyed_color}, a tooltip image
+     * placed backpack whose block entity or loot table drops {@code dyed_color}, a dyed backpack set down in
+     * the undyed block state (or an undyed one in the dyed state), a client update tag without the colour or with
+     * the contents, a tooltip image
      * built without the colour, or a tint that got louder or touches undyed items.
      */
     public static void theDyeColourReachesTheBackpackMenuAndTheBundleTooltip(GameTestHelper helper) {
@@ -212,6 +217,20 @@ public final class DyedStorageTests {
                 "colour the menu of a purple worn backpack hands the client");
         player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
 
+        // --- an undyed backpack sets down in the undyed state ---
+        BlockPos plainSupport = new BlockPos(4, 1, 1);
+        helper.setBlock(plainSupport, Blocks.STONE);
+        helper.setBlock(plainSupport.above(), Blocks.AIR);
+        ItemStack plain = filled(helper, ModItems.BACKPACK);
+        player.setItemInHand(InteractionHand.MAIN_HAND, plain);
+        player.setShiftKeyDown(true);
+        plain.useOn(clickTop(helper, player, plainSupport));
+        player.setShiftKeyDown(false);
+        helper.assertTrue(helper.getBlockState(plainSupport.above()).is(ModBlocks.BACKPACK)
+                        && !helper.getBlockState(plainSupport.above()).getValue(BackpackBlock.DYED),
+                "an undyed backpack was set down as " + helper.getBlockState(plainSupport.above()));
+        helper.setBlock(plainSupport.above(), Blocks.AIR);
+
         // --- placed and broken again ---
         BlockPos support = new BlockPos(1, 1, 1);
         BlockPos placed = support.above();
@@ -228,6 +247,14 @@ public final class DyedStorageTests {
         BackpackBlockEntity entity = (BackpackBlockEntity) level.getBlockEntity(helper.absolutePos(placed));
         BackpackOpenData placedData = BackpackMenuProviders.placed(entity).data();
         Assertions.valueEqual(helper, placedData.dyeColor(), purple, "colour the menu of a purple placed backpack hands the client");
+        helper.assertTrue(helper.getBlockState(placed).getValue(BackpackBlock.DYED),
+                "the placed purple backpack is not in its dyed block state, so it would render in its tier's look");
+        Assertions.valueEqual(helper, entity.dyeColor(), purple, "colour the placed purple backpack's block entity holds");
+        CompoundTag update = entity.getUpdateTag(level.registryAccess());
+        Assertions.valueEqual(helper, update.getIntOr("Color", DyedStorage.UNDYED), purple,
+                "colour in the update tag the client gets for the placed purple backpack");
+        helper.assertTrue(update.keySet().equals(java.util.Set.of("Color")),
+                "the client update tag of a placed backpack carries " + update.keySet() + "; it needs the colour and nothing else");
 
         level.destroyBlock(helper.absolutePos(placed), true);
         List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, helper.getBounds());

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/template_bundle_open_front",
+  "textures": {
+    "layer0": "simplebuilding:item/netherite_bundle_open_front"
+  }
+}
