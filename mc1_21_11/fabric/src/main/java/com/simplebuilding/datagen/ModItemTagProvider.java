@@ -168,6 +168,19 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .forceAddTag(ItemTags.PICKAXES)
                 .forceAddTag(ItemTags.AXES);
 
+        // Enderit-Werkzeuge und -Ruestung in die Vanilla-Werkzeug-/Ruestungs-Tags: aus ihnen leiten sich
+        // die enchantable/*-Tags ab, ohne sie liess sich keine Verzauberung (ausser Haltbarkeit) anbringen.
+        // (Den Speer traegt schon das handgeschriebene data/minecraft/tags/item/spears.json.)
+        builder(ItemTags.SWORDS).add(key(ModItems.ENDERITE_SWORD));
+        builder(ItemTags.PICKAXES).add(key(ModItems.ENDERITE_PICKAXE));
+        builder(ItemTags.AXES).add(key(ModItems.ENDERITE_AXE));
+        builder(ItemTags.SHOVELS).add(key(ModItems.ENDERITE_SHOVEL));
+        builder(ItemTags.HOES).add(key(ModItems.ENDERITE_HOE));
+        builder(ItemTags.HEAD_ARMOR).add(key(ModItems.ENDERITE_HELMET));
+        builder(ItemTags.CHEST_ARMOR).add(key(ModItems.ENDERITE_CHESTPLATE));
+        builder(ItemTags.LEG_ARMOR).add(key(ModItems.ENDERITE_LEGGINGS));
+        builder(ItemTags.FOOT_ARMOR).add(key(ModItems.ENDERITE_BOOTS));
+
         TagKey<Item> TRIM_TEMPLATES = TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("trim_templates"));
 
         builder(TRIM_TEMPLATES)
