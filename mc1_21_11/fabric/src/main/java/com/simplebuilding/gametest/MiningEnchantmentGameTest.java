@@ -32,8 +32,8 @@ public final class MiningEnchantmentGameTest {
     }
 
     @GameTest
-    public void stripMinerDividesThePlayerDestroySpeedPerLevel(GameTestHelper helper) {
-        MiningEnchantmentTests.stripMinerDividesThePlayerDestroySpeedPerLevel(helper);
+    public void stripMinerDividesTheDestroyProgressPerLevel(GameTestHelper helper) {
+        MiningEnchantmentTests.stripMinerDividesTheDestroyProgressPerLevel(helper);
     }
 
     @GameTest

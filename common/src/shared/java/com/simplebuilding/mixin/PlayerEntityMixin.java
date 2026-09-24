@@ -1,12 +1,9 @@
 package com.simplebuilding.mixin;
 
-import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.ISpaceKeyTracker;
 import com.simplebuilding.util.TrimBenefitUser;
 import com.simplebuilding.util.TrimEffectUtil;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -14,9 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -78,37 +73,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements TrimBene
                 stack.getItem() == ModItems.ENDERITE_LEGGINGS ||
                 stack.getItem() == ModItems.ENDERITE_CHESTPLATE ||
                 stack.getItem() == ModItems.ENDERITE_HELMET;
-    }
-
-    // --- BESTEHENDE MIXINS ---
-
-    @Inject(method = "getDestroySpeed", at = @At("RETURN"), cancellable = true)
-    private void modifyMiningSpeedForStripMiner(BlockState state, CallbackInfoReturnable<Float> cir) {
-        Player player = (Player) (Object) this;
-        ItemStack stack = player.getMainHandItem();
-        if (!stack.is(ItemTags.PICKAXES) || !stack.getItem().isCorrectToolForDrops(stack, state)) return;
-
-        var registry = player.level().registryAccess();
-        var enchantLookup = registry.lookupOrThrow(Registries.ENCHANTMENT);
-        var stripMinerKey = enchantLookup.get(ModEnchantments.STRIP_MINER);
-
-        if (stripMinerKey.isEmpty()) return;
-
-        int level = EnchantmentHelper.getItemEnchantmentLevel(stripMinerKey.get(), stack);
-
-        if (level > 0) {
-            float originalSpeed = cir.getReturnValue();
-            float divisor = 1.0f;
-
-
-            switch (level) {
-                case 1 -> divisor = 2.0f;
-                case 2 -> divisor = 3.0f;
-                case 3 -> divisor = 4.0f;
-            }
-
-            cir.setReturnValue(originalSpeed / divisor);
-        }
     }
 
     // --- HUNGER / EXHAUSTION ---

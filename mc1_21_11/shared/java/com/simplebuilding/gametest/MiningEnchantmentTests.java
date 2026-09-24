@@ -199,11 +199,18 @@ public final class MiningEnchantmentTests {
 
     /**
      * How much mining efficiency
-     * {@link #stripMinerDividesThePlayerDestroySpeedPerLevel} hangs on its player. Chosen well
+     * {@link #stripMinerDividesTheDestroyProgressPerLevel} hangs on its player. Chosen well
      * above an iron pickaxe's 6.0 on stone, so a divisor that is folded in before the addition
      * instead of after it misses the expected speed by a wide margin and not by rounding.
      */
     private static final double MINING_EFFICIENCY_BONUS = 12.0;
+
+    /**
+     * Where {@link #stripMinerDividesTheDestroyProgressPerLevel} reads its destroy progress. The
+     * surroundings stay air, so a sledgehammer swung here breaks only the origin and its own
+     * per-block divisor is 1.
+     */
+    private static final BlockPos SPEED_PROBE_POS = new BlockPos(3, 2, 3);
 
     /**
      * Fixed seeds the mining pickaxe trade is rolled with. Large enough that every declared pool
@@ -503,11 +510,17 @@ public final class MiningEnchantmentTests {
     }
 
     /**
-     * Strip Miner is not free: {@code PlayerEntityMixin} divides the player's whole destroy
-     * speed by 2, 3 or 4 while an enchanted pickaxe is in the hand. Nothing called
-     * {@code Player#getDestroySpeed} anywhere in the suite, so the entire mixin could have been
-     * deleted without a single test turning red - and a mining enchantment that silently stops
+     * Strip Miner is not free: {@code BlockStateBaseMixin} divides the destroy progress by 2, 3
+     * or 4 while an enchanted pickaxe is in the hand. A mining enchantment that silently stops
      * costing anything is a balance change nobody would notice.
+     *
+     * <p>The test reads {@code BlockStateBase#getDestroyProgress(player, level, pos)} - the one
+     * number client ({@code MultiPlayerGameMode}) and server ({@code ServerPlayerGameMode}) both
+     * mine by - and not {@code Player#getDestroySpeed(BlockState)}. The penalty used to hang on
+     * that one-argument method, and the old test called it directly and stayed green; but the
+     * NeoForge and Forge patches make {@code Block#getDestroyProgress} call their
+     * {@code getDestroySpeed(BlockState, BlockPos)} overload instead, so on those loaders Strip
+     * Miner never slowed real mining down.
      *
      * <p>The divisor is measured as a ratio against the same pickaxe without the enchantment, on
      * the same player in the same place, so the test states the mod's factor rather than a hard
@@ -520,27 +533,31 @@ public final class MiningEnchantmentTests {
      * not-on-ground penalty - divides straight back out of a ratio of two runs. On a
      * modifier-free player the two runs therefore look identical whether the divisor is applied
      * to the finished return value or in front of all of vanilla's own arithmetic, and the
-     * {@code RETURN} injection point was free to move. With a bonus on the player only the real
+     * penalty was free to move in front of it. With a bonus on the player only the real
      * placement gives {@code (tool + bonus) / divisor}; anything earlier gives
      * {@code tool / divisor + bonus}. See {@link #giveMiningEfficiency}.
      *
      * <p>Both guards in front of the divisor get their own case: dirt (a pickaxe is not the
      * correct tool) and a Strip Miner shovel on that same dirt (a correct tool outside
-     * {@code minecraft:pickaxes}). Either one alone would leave half the condition free.
+     * {@code minecraft:pickaxes}). Either one alone would leave half the condition free. A
+     * Strip Miner sledgehammer on a lone stone block closes the last gap: a sledgehammer is not
+     * in {@code minecraft:pickaxes}, so Strip Miner must not stack on the hammer's own divisor.
      *
      * <p>What breaks it: a lost or inverted divisor (a multiplier would show up immediately),
      * a level-to-divisor table that shifts, dropping either guard - the dirt cases would then
-     * slow down too - and moving the injection point so the penalty applies before vanilla's
-     * own factors instead of after.
+     * slow down too - letting the penalty reach a sledgehammer, and moving it back onto
+     * {@code Player#getDestroySpeed(BlockState)}, which the real mining path skips on NeoForge
+     * and Forge.
      */
-    public static void stripMinerDividesThePlayerDestroySpeedPerLevel(GameTestHelper helper) {
+    public static void stripMinerDividesTheDestroyProgressPerLevel(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 3.0, 3.5), 0.0F, 0.0F);
+        BlockPos pos = helper.absolutePos(SPEED_PROBE_POS);
         BlockState stone = Blocks.STONE.defaultBlockState();
         BlockState dirt = Blocks.DIRT.defaultBlockState();
 
-        float bareOnStone = destroySpeed(player, new ItemStack(Items.IRON_PICKAXE), stone);
+        float bareOnStone = destroyProgress(helper, player, new ItemStack(Items.IRON_PICKAXE), stone, pos);
         giveMiningEfficiency(player);
-        float plainOnStone = destroySpeed(player, new ItemStack(Items.IRON_PICKAXE), stone);
+        float plainOnStone = destroyProgress(helper, player, new ItemStack(Items.IRON_PICKAXE), stone, pos);
         helper.assertTrue(plainOnStone > 0.0F,
                 "an unenchanted iron pickaxe mines stone at speed " + plainOnStone
                         + ", so the ratios below would divide by zero");
@@ -550,16 +567,16 @@ public final class MiningEnchantmentTests {
                         + "below are taken of holds no additive vanilla step and they would not "
                         + "pin the injection point any more");
 
-        assertSpeedDivisor(helper, player, stone, plainOnStone, 1, 2.0F);
-        assertSpeedDivisor(helper, player, stone, plainOnStone, 2, 3.0F);
-        assertSpeedDivisor(helper, player, stone, plainOnStone, 3, 4.0F);
+        assertProgressDivisor(helper, player, stone, pos, plainOnStone, 1, 2.0F);
+        assertProgressDivisor(helper, player, stone, pos, plainOnStone, 2, 3.0F);
+        assertProgressDivisor(helper, player, stone, pos, plainOnStone, 3, 4.0F);
 
         // --- guard 1: a pickaxe that cannot harvest the block keeps its full speed ---
-        float plainOnDirt = destroySpeed(player, new ItemStack(Items.IRON_PICKAXE), dirt);
+        float plainOnDirt = destroyProgress(helper, player, new ItemStack(Items.IRON_PICKAXE), dirt, pos);
         helper.assertTrue(plainOnDirt > 0.0F,
                 "an unenchanted iron pickaxe mines dirt at speed " + plainOnDirt
                         + ", so the comparison below would be zero against zero");
-        float enchantedOnDirt = destroySpeed(player, stripMinerTool(helper, Items.IRON_PICKAXE, 3), dirt);
+        float enchantedOnDirt = destroyProgress(helper, player, stripMinerTool(helper, Items.IRON_PICKAXE, 3), dirt, pos);
         Assertions.valueEqual(helper, enchantedOnDirt, plainOnDirt,
                 "Strip Miner slowed a pickaxe down on a block it cannot harvest");
 
@@ -568,10 +585,24 @@ public final class MiningEnchantmentTests {
         helper.assertTrue(shovel.getItem().isCorrectToolForDrops(shovel, dirt),
                 "a diamond shovel no longer harvests dirt, so this case never reaches the tool "
                         + "tag half of the guard");
-        float plainShovel = destroySpeed(player, shovel, dirt);
-        float enchantedShovel = destroySpeed(player, stripMinerTool(helper, Items.DIAMOND_SHOVEL, 3), dirt);
+        float plainShovel = destroyProgress(helper, player, shovel, dirt, pos);
+        float enchantedShovel = destroyProgress(helper, player, stripMinerTool(helper, Items.DIAMOND_SHOVEL, 3), dirt, pos);
         Assertions.valueEqual(helper, enchantedShovel, plainShovel,
                 "Strip Miner slowed a shovel down, although the mixin only applies to pickaxes");
+
+        // --- a sledgehammer is no pickaxe: Strip Miner must not stack on the hammer's own divisor ---
+        // Alone in the air, the hammer breaks only the origin, so its own divisor is 1 and any
+        // difference below is Strip Miner reaching a tool it does not apply to.
+        ItemStack hammer = new ItemStack(ModItems.IRON_SLEDGEHAMMER);
+        helper.assertFalse(hammer.is(ItemTags.PICKAXES),
+                "the iron sledgehammer is tagged minecraft:pickaxes now, so Strip Miner and the "
+                        + "hammer's per-block divisor would both apply to one swing");
+        helper.getLevel().setBlockAndUpdate(pos, stone);
+        float plainHammer = destroyProgress(helper, player, hammer, stone, pos);
+        float enchantedHammer = destroyProgress(helper, player,
+                stripMinerTool(helper, ModItems.IRON_SLEDGEHAMMER, 3), stone, pos);
+        Assertions.valueEqual(helper, enchantedHammer, plainHammer,
+                "Strip Miner slowed a sledgehammer down on top of its own divisor");
 
         TestCleanup.succeed(helper);
     }
@@ -1133,12 +1164,16 @@ public final class MiningEnchantmentTests {
     }
 
     /**
-     * Holds {@code tool} and reads the player's destroy speed for {@code state}, which is where
-     * {@code PlayerEntityMixin} folds the Strip Miner penalty in.
+     * Holds {@code tool} and reads the destroy progress per tick for {@code state} at {@code pos}
+     * the way both game modes do while mining, which is where {@code BlockStateBaseMixin} folds
+     * the Strip Miner penalty in. On NeoForge and Forge this call reaches the patched
+     * {@code getDestroySpeed(BlockState, BlockPos)}, so the test covers the path those loaders
+     * really mine through.
      */
-    private static float destroySpeed(ServerPlayer player, ItemStack tool, BlockState state) {
+    private static float destroyProgress(GameTestHelper helper, ServerPlayer player, ItemStack tool,
+                                         BlockState state, BlockPos pos) {
         player.setItemInHand(InteractionHand.MAIN_HAND, tool);
-        return player.getDestroySpeed(state);
+        return state.getDestroyProgress(player, helper.getLevel(), pos);
     }
 
     /**
@@ -1159,13 +1194,14 @@ public final class MiningEnchantmentTests {
     }
 
     /** One level of the Strip Miner slowdown, stated as a ratio against the unenchanted tool. */
-    private static void assertSpeedDivisor(GameTestHelper helper, ServerPlayer player, BlockState state,
-                                           float plainSpeed, int level, float divisor) {
-        float slowed = destroySpeed(player, stripMinerTool(helper, Items.IRON_PICKAXE, level), state);
-        float expected = plainSpeed / divisor;
+    private static void assertProgressDivisor(GameTestHelper helper, ServerPlayer player, BlockState state,
+                                              BlockPos pos, float plainProgress, int level, float divisor) {
+        float slowed = destroyProgress(helper, player,
+                stripMinerTool(helper, Items.IRON_PICKAXE, level), state, pos);
+        float expected = plainProgress / divisor;
         helper.assertTrue(Math.abs(slowed - expected) <= expected * 1.0E-4F,
-                "Strip Miner " + level + " left the destroy speed at " + slowed + " instead of "
-                        + expected + " (unenchanted " + plainSpeed + " divided by " + divisor + ")");
+                "Strip Miner " + level + " left the destroy progress at " + slowed + " instead of "
+                        + expected + " (unenchanted " + plainProgress + " divided by " + divisor + ")");
     }
 
     /** Runs the Vein Miner hook with exactly the arguments the loader hooks pass. */

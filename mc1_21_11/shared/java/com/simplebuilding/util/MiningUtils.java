@@ -1,5 +1,6 @@
 package com.simplebuilding.util;
 
+import com.simplebuilding.enchantment.ModEnchantments;
 import java.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,6 +12,29 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class MiningUtils {
+
+    /**
+     * Teiler fuer das Abbautempo, den Strip Miner kostet: 2, 3 oder 4 fuer Stufe I-III, sonst 1.
+     * Gilt nur fuer eine Spitzhacke (Tag {@code minecraft:pickaxes}) auf einem Block, den sie
+     * wirklich abbaut. Vorschlaghaemmer stehen nicht in dem Tag - dieser Teiler und
+     * {@link SledgehammerUtils#miningSpeedDivisor} schliessen sich also aus.
+     *
+     * <p>Angewandt in {@code BlockStateBaseMixin} auf {@code getDestroyProgress}, nicht mehr auf
+     * {@code Player#getDestroySpeed(BlockState)}: NeoForge und Forge rufen beim Abbau ihre
+     * Variante mit Position und umgingen die alte Injektion.
+     */
+    public static float stripMinerSpeedDivisor(Player player, BlockState state) {
+        ItemStack stack = player.getMainHandItem();
+        if (!stack.is(ItemTags.PICKAXES) || !stack.getItem().isCorrectToolForDrops(stack, state)) {
+            return 1.0F;
+        }
+        return switch (EnchantmentHelper.getEnchantmentLevel(stack, player.level(), ModEnchantments.STRIP_MINER)) {
+            case 1 -> 2.0F;
+            case 2 -> 3.0F;
+            case 3 -> 4.0F;
+            default -> 1.0F;
+        };
+    }
 
     public static List<BlockPos> getStripMinerBlocks(Level world, BlockPos startPos, Player player, ItemStack stack, int level) {
         List<BlockPos> found = new ArrayList<>();

@@ -481,7 +481,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("mining_enchantment_game_test_strip_miner_digs_upwards_only_past_the_steep_pitch_threshold", MiningEnchantmentTests::stripMinerDigsUpwardsOnlyPastTheSteepPitchThreshold)
                     .build(),
-            GameTestSpec.named("mining_enchantment_game_test_strip_miner_divides_the_player_destroy_speed_per_level", MiningEnchantmentTests::stripMinerDividesThePlayerDestroySpeedPerLevel)
+            GameTestSpec.named("mining_enchantment_game_test_strip_miner_divides_the_destroy_progress_per_level", MiningEnchantmentTests::stripMinerDividesTheDestroyProgressPerLevel)
                     .build(),
             GameTestSpec.named("mining_enchantment_game_test_versatility_refuses_candidates_that_cannot_harvest_the_block", MiningEnchantmentTests::versatilityRefusesCandidatesThatCannotHarvestTheBlock)
                     .build(),
