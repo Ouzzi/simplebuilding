@@ -5,6 +5,7 @@
   "neoforge:conditions": [
     { "type": "simplebuilding:config", "flag": "enableVillagerTrades" }
   ],
+  "forge:condition": { "type": "simplebuilding:config", "flag": "enableVillagerTrades" },
   "wants": { "id": "minecraft:emerald", "count": 15 },
   "gives": { "id": "minecraft:diamond_pickaxe" },
   "given_item_modifiers": [

@@ -5,6 +5,7 @@
   "neoforge:conditions": [
     { "type": "simplebuilding:config", "flag": "enableVillagerTrades" }
   ],
+  "forge:condition": { "type": "simplebuilding:config", "flag": "enableVillagerTrades" },
   "wants": { "id": "minecraft:emerald", "count": 6 },
   "gives": { "id": "simplebuilding:gold_chisel" },
   "given_item_modifiers": [

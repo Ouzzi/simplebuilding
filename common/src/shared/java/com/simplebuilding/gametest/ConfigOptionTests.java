@@ -102,13 +102,14 @@ public final class ConfigOptionTests {
     private static final String WANDERING_FLAG = "enableWanderingTrades";
 
     /**
-     * The two classes that turn the flag string of a trade json into a config read, one per loader.
-     * Looked up by name so this class stays in the loader neutral tree; only the running loader's
-     * copy is ever on the classpath, and the suite runs on both.
+     * The classes that turn the flag string of a trade json into a config read, one per loader
+     * (Fabric, NeoForge, Forge). Looked up by name so this class stays in the loader neutral tree;
+     * only the running loader's copy is ever on the classpath, and the suite runs on all three.
      */
     private static final List<String> CONDITION_CLASSES = List.of(
             "com.simplebuilding.condition.ConfigResourceCondition",
-            "com.simplebuilding.neoforge.ConfigLoadCondition");
+            "com.simplebuilding.neoforge.ConfigLoadCondition",
+            "com.simplebuilding.forge.ConfigLoadCondition");
 
     /**
      * Every vanilla loot table the mod hands pools to - all eighteen keys
@@ -612,8 +613,9 @@ public final class ConfigOptionTests {
 
     /**
      * The two trade switches are not read from code at all - each shipped trade json names the flag
-     * itself, once for Fabric ({@code fabric:load_conditions}) and once for NeoForge
-     * ({@code neoforge:conditions}), and the loader hands that string to the mod's condition. Both
+     * itself, once for Fabric ({@code fabric:load_conditions}), once for NeoForge
+     * ({@code neoforge:conditions}) and once for Forge ({@code forge:condition}, a single object
+     * rather than a list), and the loader hands that string to the mod's condition. All three
      * conditions resolve the string in a hard coded {@code switch} over exactly two cases and
      * answer anything else with {@code true} plus a log line, so a typo, a copy pasted folder or a
      * trade gated on a third flag does not fail anything: the switch simply stops working and the
@@ -680,6 +682,7 @@ public final class ConfigOptionTests {
 
             String fabricFlag = configFlag(json, "fabric:load_conditions", "condition");
             String neoFlag = configFlag(json, "neoforge:conditions", "type");
+            String forgeFlag = singleConfigFlag(json.get("forge:condition"), "type");
             String expected = id.getPath().startsWith(TRADE_DIRECTORY + "/" + WANDERING_DIRECTORY + "/")
                     ? WANDERING_FLAG
                     : VILLAGER_FLAG;
@@ -696,9 +699,19 @@ public final class ConfigOptionTests {
             } else {
                 flagsSeen.add(neoFlag);
             }
+            if (forgeFlag == null) {
+                problems.add(id + ": no \"forge:condition\" object of type " + CONFIG_CONDITION
+                        + " - on Forge this trade ships no matter how the config switch is set");
+            } else {
+                flagsSeen.add(forgeFlag);
+            }
             if (fabricFlag != null && neoFlag != null && !fabricFlag.equals(neoFlag)) {
                 problems.add(id + ": the two loaders are gated on different flags (Fabric " + fabricFlag
                         + ", NeoForge " + neoFlag + ")");
+            }
+            if (fabricFlag != null && forgeFlag != null && !fabricFlag.equals(forgeFlag)) {
+                problems.add(id + ": Fabric and Forge are gated on different flags (Fabric " + fabricFlag
+                        + ", Forge " + forgeFlag + ")");
             }
             if (fabricFlag != null && !expected.equals(fabricFlag)) {
                 problems.add(id + ": gated on " + fabricFlag + ", but the folder it lives in belongs to "
@@ -1310,20 +1323,29 @@ public final class ConfigOptionTests {
             return null;
         }
         for (JsonElement child : array.getAsJsonArray()) {
-            if (!child.isJsonObject()) {
-                continue;
-            }
-            JsonObject condition = child.getAsJsonObject();
-            JsonElement type = condition.get(typeKey);
-            if (type == null || !type.isJsonPrimitive() || !CONFIG_CONDITION.equals(type.getAsString())) {
-                continue;
-            }
-            JsonElement flag = condition.get("flag");
-            if (flag != null && flag.isJsonPrimitive()) {
-                return flag.getAsString();
+            String flag = singleConfigFlag(child, typeKey);
+            if (flag != null) {
+                return flag;
             }
         }
         return null;
+    }
+
+    /**
+     * The flag of one condition object if it is a {@code simplebuilding:config} condition, else
+     * {@code null}. Forge 65 takes exactly one such object under {@code "forge:condition"}.
+     */
+    private static String singleConfigFlag(JsonElement element, String typeKey) {
+        if (element == null || !element.isJsonObject()) {
+            return null;
+        }
+        JsonObject condition = element.getAsJsonObject();
+        JsonElement type = condition.get(typeKey);
+        if (type == null || !type.isJsonPrimitive() || !CONFIG_CONDITION.equals(type.getAsString())) {
+            return null;
+        }
+        JsonElement flag = condition.get("flag");
+        return flag != null && flag.isJsonPrimitive() ? flag.getAsString() : null;
     }
 
     /** Everything wrong with a flag name the trade files use, as messages; empty means it is fine. */
@@ -1386,8 +1408,8 @@ public final class ConfigOptionTests {
                 constructor = conditionClass.getConstructor(String.class);
                 test = singleArgumentTest(conditionClass);
             } catch (NoSuchMethodException | RuntimeException e) {
-                problems.add(className + " no longer offers a (String flag) constructor plus a one "
-                        + "argument test(...) method, so the switch behind the trade flags cannot be "
+                problems.add(className + " no longer offers a (String flag) constructor plus a one or "
+                        + "two argument test(...) method, so the switch behind the trade flags cannot be "
                         + "driven from here at all (" + e + ")");
                 continue;
             }
@@ -1487,28 +1509,30 @@ public final class ConfigOptionTests {
 
     /**
      * The condition's own {@code test} method. Declared methods only, so the loader interface's
-     * default overloads cannot be picked up by mistake.
+     * default overloads cannot be picked up by mistake. Fabric and NeoForge hand one argument (the
+     * lookup / the condition context), Forge 65 two ({@code IContext} plus the {@code DynamicOps}).
      */
     private static Method singleArgumentTest(Class<?> conditionClass) throws NoSuchMethodException {
         for (Method method : conditionClass.getDeclaredMethods()) {
-            if ("test".equals(method.getName()) && method.getParameterCount() == 1
+            if ("test".equals(method.getName())
+                    && (method.getParameterCount() == 1 || method.getParameterCount() == 2)
                     && !method.isSynthetic() && !Modifier.isStatic(method.getModifiers())
                     && (method.getReturnType() == boolean.class || method.getReturnType() == Boolean.class)) {
                 return method;
             }
         }
-        throw new NoSuchMethodException("no one argument test(...) declared on " + conditionClass.getName());
+        throw new NoSuchMethodException("no one or two argument test(...) declared on " + conditionClass.getName());
     }
 
     /**
-     * Calls the condition with a {@code null} argument. Both conditions answer from the config
-     * alone and never touch the lookup they are handed, which is what makes this callable without
+     * Calls the condition with {@code null} arguments. All conditions answer from the config
+     * alone and never touch what they are handed, which is what makes this callable without
      * a datapack load in flight; {@code null} instead of a stand in is deliberate, so a condition
      * that started reading it fails loudly here rather than silently answering from nothing.
      */
     private static Boolean callTest(Method test, Object condition) {
         try {
-            Object answer = test.invoke(condition, new Object[] {null});
+            Object answer = test.invoke(condition, new Object[test.getParameterCount()]);
             return answer instanceof Boolean value ? value : null;
         } catch (ReflectiveOperationException | RuntimeException e) {
             return null;

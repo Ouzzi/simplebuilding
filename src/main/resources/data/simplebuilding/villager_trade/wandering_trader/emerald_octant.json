@@ -5,6 +5,7 @@
   "neoforge:conditions": [
     { "type": "simplebuilding:config", "flag": "enableWanderingTrades" }
   ],
+  "forge:condition": { "type": "simplebuilding:config", "flag": "enableWanderingTrades" },
   "wants": { "id": "minecraft:emerald", "count": 10 },
   "gives": { "id": "simplebuilding:octant" },
   "max_uses": 1,

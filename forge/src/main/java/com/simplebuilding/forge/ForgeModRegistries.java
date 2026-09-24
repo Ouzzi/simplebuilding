@@ -71,6 +71,12 @@ public final class ForgeModRegistries {
             DeferredRegister.create(Registries.RECIPE_TYPE, Simplebuilding.MOD_ID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Simplebuilding.MOD_ID);
+    /** Forge's {@code forge:condition_codecs}; holds {@code simplebuilding:config} for the trade jsons. */
+    public static final DeferredRegister<MapCodec<? extends net.minecraftforge.common.crafting.conditions.ICondition>> CONDITION_CODECS =
+            DeferredRegister.create(net.minecraftforge.registries.ForgeRegistries.Keys.CONDITION_SERIALIZERS, Simplebuilding.MOD_ID);
+
+    public static final RegistryObject<MapCodec<ConfigLoadCondition>> CONFIG_CONDITION =
+            CONDITION_CODECS.register("config", () -> ConfigLoadCondition.CODEC);
 
     public static final RegistryObject<MenuType<NetheriteHopperScreenHandler>> NETHERITE_HOPPER_MENU =
             MENUS.register("netherite_hopper", () -> IForgeMenuType.create(
@@ -157,6 +163,7 @@ public final class ForgeModRegistries {
         RECIPE_SERIALIZERS.register(modBus);
         RECIPE_TYPES.register(modBus);
         CREATIVE_TABS.register(modBus);
+        CONDITION_CODECS.register(modBus);
     }
 
     public static void assignStaticFields() {

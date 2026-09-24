@@ -2484,6 +2484,7 @@
         "common/src/shared/java/com/simplebuilding/loot/ModLootFunctions.java",
         "src/main/java/com/simplebuilding/condition/ConfigResourceCondition.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/ConfigLoadCondition.java",
+        "forge/src/main/java/com/simplebuilding/forge/ConfigLoadCondition.java",
         "src/main/java/com/simplebuilding/datagen/ModTradeOffers.java",
         "neoforge/src/main/java/com/simplebuilding/datagen/ModTradeOffers.java",
         "common/src/shared/java/com/simplebuilding/gametest/TradeAndMigrationTests.java",
@@ -2507,7 +2508,7 @@
           "The enchantment pick is handled by the loot function simplebuilding:weighted_enchant: it draws from the given pool by weight and applies the enchantment at a fixed level; with \"second_chance\" a second, different enchantment from the same pool can be added (up to 10 re-draws, otherwise no second one). The book offers hand out minecraft:enchanted_book directly; the function could additionally turn a plain book into an enchanted one, but the trade JSONs do not use that.",
           "The offers are mixed into the vanilla pools through tags (minecraft:villager_trade/librarian/level_3-5, mason/level_2 and level_4, toolsmith/level_3-5, and wandering_trader/common, uncommon, buying) as optional entries (\"required\": false).",
           "Config: enableVillagerTrades switches all villager offers, enableWanderingTrades all wandering trader offers; the \"simplebuilding:config\" condition is evaluated when data packs load (world start or /reload), not continuously.",
-          "The condition is stored for Fabric (\"fabric:load_conditions\") and NeoForge (\"neoforge:conditions\") in the same JSON files; each loader ignores the other's key.",
+          "The condition is stored for Fabric (\"fabric:load_conditions\"), NeoForge (\"neoforge:conditions\") and Forge (\"forge:condition\") in the same JSON files; each loader ignores the other loaders' keys.",
           "Limitation (MC 26.2 line): if vanilla's optional \"Trade Rebalance\" data pack is active (it is off in a normal world), it replaces the three librarian tags wholesale (\"replace\": true) and therefore discards the mod's librarian offers as well; mason, toolsmith and wandering trader are unaffected. The gametest world runs with that pack on: there the gametest asserts that the mason, toolsmith and wandering trader pools still hold the mod's offers, and for the librarian it only checks the shipped tag files (they list the mod trades and do not replace). The loss of the librarian offers is observed vanilla behaviour; no test asserts it."
         ]
       },
@@ -2529,7 +2530,7 @@
           "Die Verzauberungsauswahl übernimmt die Beutefunktion simplebuilding:weighted_enchant: Sie wählt gewichtet aus dem jeweiligen Pool und setzt die Verzauberung mit fester Stufe; mit „second_chance“ kann eine zweite, andere Verzauberung aus demselben Pool hinzukommen (bis zu 10 Ziehversuche, sonst keine zweite). Die Buch-Angebote geben direkt minecraft:enchanted_book aus; die Funktion könnte zusätzlich ein normales Buch in ein verzaubertes umwandeln, was die Handels-JSONs aber nicht nutzen.",
           "Die Angebote werden über Tags (minecraft:villager_trade/librarian/level_3–5, mason/level_2 und level_4, toolsmith/level_3–5 bzw. wandering_trader/common, uncommon, buying) als optionale Einträge („required“: false) in die Vanilla-Pools gemischt.",
           "Config: enableVillagerTrades schaltet alle Dorfbewohner-Angebote, enableWanderingTrades alle Angebote des fahrenden Händlers; die Bedingung „simplebuilding:config“ wird beim Laden der Datenpakete ausgewertet (Weltstart bzw. /reload), nicht laufend.",
-          "Die Bedingung ist für Fabric („fabric:load_conditions“) und NeoForge („neoforge:conditions“) jeweils in denselben JSON-Dateien hinterlegt; der jeweils fremde Schlüssel wird vom anderen Loader ignoriert.",
+          "Die Bedingung ist für Fabric („fabric:load_conditions“), NeoForge („neoforge:conditions“) und Forge („forge:condition“) jeweils in denselben JSON-Dateien hinterlegt; die fremden Schlüssel werden vom jeweiligen Loader ignoriert.",
           "Einschränkung (MC-26.2-Linie): Ist das optionale Vanilla-Datenpaket „Trade Rebalance“ aktiv (in einer normalen Welt ist es aus), ersetzt es die drei Bibliothekar-Tags komplett („replace“: true) und verwirft damit auch die Bibliothekar-Angebote der Mod; Steinmetz, Werkzeugschmied und fahrender Händler sind nicht betroffen. Die Gametest-Welt läuft mit diesem Paket: Dort sichert der Gametest zu, dass die Pools von Steinmetz, Werkzeugschmied und fahrendem Händler die Mod-Angebote weiter enthalten; beim Bibliothekar prüft er nur die mitgelieferten Tag-Dateien (sie führen die Mod-Handel auf und ersetzen nicht). Dass die Bibliothekar-Angebote verloren gehen, ist beobachtetes Vanilla-Verhalten; kein Test sichert es zu."
         ]
       }
@@ -2785,6 +2786,7 @@
         "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "src/main/java/com/simplebuilding/condition/ConfigResourceCondition.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/ConfigLoadCondition.java",
+        "forge/src/main/java/com/simplebuilding/forge/ConfigLoadCondition.java",
         "src/main/java/com/simplebuilding/command/ModCommands.java",
         "neoforge/src/main/java/com/simplebuilding/command/ModCommands.java",
         "common/src/shared/java/com/simplebuilding/command/SimplebuildingCommand.java",
@@ -3493,8 +3495,7 @@
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
             "In creative with no block item in the off-hand or hotbar (or anywhere in the inventory with Master Builder) nothing happens, the build stops immediately; only with Color Palette does it then place stone.",
-            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there.",
-            "The load condition for the trade offers (simplebuilding:config) is only present in the trade JSONs as fabric:load_conditions and neoforge:conditions; the Forge module has no code that evaluates such a condition."
+            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there."
           ]
         },
         "de": {
@@ -3565,8 +3566,7 @@
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
             "Im Kreativmodus ohne Block-Gegenstand in Zweithand oder Hotbar (bzw. im ganzen Inventar mit Baumeister) passiert nichts, der Bau bricht sofort ab; nur mit Farbpalette wird dann Stein gesetzt.",
-            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind.",
-            "Die Ladebedingung für die Handelsangebote (simplebuilding:config) ist in den Trade-JSONs nur als fabric:load_conditions und neoforge:conditions hinterlegt; im Forge-Modul gibt es keinen Code, der eine solche Bedingung auswertet."
+            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind."
           ]
         },
         "sources": [
@@ -4267,8 +4267,7 @@
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
             "In creative with no block item in the off-hand or hotbar (or anywhere in the inventory with Master Builder) nothing happens, the build stops immediately; only with Color Palette does it then place stone.",
-            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there.",
-            "The load condition for the trade offers (simplebuilding:config) is only present in the trade JSONs as fabric:load_conditions and neoforge:conditions; the Forge module has no code that evaluates such a condition."
+            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there."
           ]
         },
         "de": {
@@ -4339,8 +4338,7 @@
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
             "Im Kreativmodus ohne Block-Gegenstand in Zweithand oder Hotbar (bzw. im ganzen Inventar mit Baumeister) passiert nichts, der Bau bricht sofort ab; nur mit Farbpalette wird dann Stein gesetzt.",
-            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind.",
-            "Die Ladebedingung für die Handelsangebote (simplebuilding:config) ist in den Trade-JSONs nur als fabric:load_conditions und neoforge:conditions hinterlegt; im Forge-Modul gibt es keinen Code, der eine solche Bedingung auswertet."
+            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind."
           ]
         },
         "sources": [
@@ -5382,8 +5380,7 @@
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
             "In creative with no block item in the off-hand or hotbar (or anywhere in the inventory with Master Builder) nothing happens, the build stops immediately; only with Color Palette does it then place stone.",
-            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there.",
-            "The load condition for the trade offers (simplebuilding:config) is only present in the trade JSONs as fabric:load_conditions and neoforge:conditions; the Forge module has no code that evaluates such a condition."
+            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there."
           ]
         },
         "de": {
@@ -5454,8 +5451,7 @@
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
             "Im Kreativmodus ohne Block-Gegenstand in Zweithand oder Hotbar (bzw. im ganzen Inventar mit Baumeister) passiert nichts, der Bau bricht sofort ab; nur mit Farbpalette wird dann Stein gesetzt.",
-            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind.",
-            "Die Ladebedingung für die Handelsangebote (simplebuilding:config) ist in den Trade-JSONs nur als fabric:load_conditions und neoforge:conditions hinterlegt; im Forge-Modul gibt es keinen Code, der eine solche Bedingung auswertet."
+            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind."
           ]
         },
         "sources": [
@@ -6885,8 +6881,7 @@
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
             "In creative with no block item in the off-hand or hotbar (or anywhere in the inventory with Master Builder) nothing happens, the build stops immediately; only with Color Palette does it then place stone.",
-            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there.",
-            "The load condition for the trade offers (simplebuilding:config) is only present in the trade JSONs as fabric:load_conditions and neoforge:conditions; the Forge module has no code that evaluates such a condition."
+            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there."
           ]
         },
         "de": {
@@ -6957,8 +6952,7 @@
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
             "Im Kreativmodus ohne Block-Gegenstand in Zweithand oder Hotbar (bzw. im ganzen Inventar mit Baumeister) passiert nichts, der Bau bricht sofort ab; nur mit Farbpalette wird dann Stein gesetzt.",
-            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind.",
-            "Die Ladebedingung für die Handelsangebote (simplebuilding:config) ist in den Trade-JSONs nur als fabric:load_conditions und neoforge:conditions hinterlegt; im Forge-Modul gibt es keinen Code, der eine solche Bedingung auswertet."
+            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind."
           ]
         },
         "sources": [
@@ -7620,8 +7614,7 @@
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
             "In creative with no block item in the off-hand or hotbar (or anywhere in the inventory with Master Builder) nothing happens, the build stops immediately; only with Color Palette does it then place stone.",
-            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there.",
-            "The load condition for the trade offers (simplebuilding:config) is only present in the trade JSONs as fabric:load_conditions and neoforge:conditions; the Forge module has no code that evaluates such a condition."
+            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there."
           ]
         },
         "de": {
@@ -7692,8 +7685,7 @@
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
             "Im Kreativmodus ohne Block-Gegenstand in Zweithand oder Hotbar (bzw. im ganzen Inventar mit Baumeister) passiert nichts, der Bau bricht sofort ab; nur mit Farbpalette wird dann Stein gesetzt.",
-            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind.",
-            "Die Ladebedingung für die Handelsangebote (simplebuilding:config) ist in den Trade-JSONs nur als fabric:load_conditions und neoforge:conditions hinterlegt; im Forge-Modul gibt es keinen Code, der eine solche Bedingung auswertet."
+            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind."
           ]
         },
         "sources": [
@@ -9036,8 +9028,7 @@
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
             "In creative with no block item in the off-hand or hotbar (or anywhere in the inventory with Master Builder) nothing happens, the build stops immediately; only with Color Palette does it then place stone.",
-            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there.",
-            "The load condition for the trade offers (simplebuilding:config) is only present in the trade JSONs as fabric:load_conditions and neoforge:conditions; the Forge module has no code that evaluates such a condition."
+            "Without Master Builder, blocks in the rest of the inventory (outside the off-hand and hotbar) are ignored, even when they are there."
           ]
         },
         "de": {
@@ -9108,8 +9099,7 @@
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
             "Im Kreativmodus ohne Block-Gegenstand in Zweithand oder Hotbar (bzw. im ganzen Inventar mit Baumeister) passiert nichts, der Bau bricht sofort ab; nur mit Farbpalette wird dann Stein gesetzt.",
-            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind.",
-            "Die Ladebedingung für die Handelsangebote (simplebuilding:config) ist in den Trade-JSONs nur als fabric:load_conditions und neoforge:conditions hinterlegt; im Forge-Modul gibt es keinen Code, der eine solche Bedingung auswertet."
+            "Ohne Baumeister werden Blöcke im restlichen Inventar (außerhalb von Zweithand und Hotbar) ignoriert, auch wenn sie vorhanden sind."
           ]
         },
         "sources": [

@@ -5,6 +5,7 @@
   "neoforge:conditions": [
     { "type": "simplebuilding:config", "flag": "enableVillagerTrades" }
   ],
+  "forge:condition": { "type": "simplebuilding:config", "flag": "enableVillagerTrades" },
   "wants": { "id": "minecraft:emerald", "count": 62 },
   "gives": { "id": "simplebuilding:copper_building_wand" },
   "max_uses": 1,
