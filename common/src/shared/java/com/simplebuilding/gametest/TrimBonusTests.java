@@ -715,8 +715,10 @@ public final class TrimBonusTests {
             wear(player, iron, blank, 4);
             assertClose(helper, TrimEffectUtil.getXPMultiplier(player), 1.0,
                     "an iron trim granted an experience bonus; only raiser, lapis and quartz do");
+            // Progress 0.5 keeps the pair below the +50% experience cap, so both halves show.
+            pinProgressMultiplier(helper, player, 0.5);
             wear(player, quartz, pattern(helper, TrimPatterns.RAISER), 4);
-            assertClose(helper, TrimEffectUtil.getXPMultiplier(player), 1.6,
+            assertClose(helper, TrimEffectUtil.getXPMultiplier(player), 1.3,
                     "a quartz raiser set (4 x 10% pattern + 4 x 5% material) - one of the two "
                             + "halves is gone");
 

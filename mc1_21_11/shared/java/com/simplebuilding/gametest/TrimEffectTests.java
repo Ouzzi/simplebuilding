@@ -109,7 +109,7 @@ public final class TrimEffectTests {
      * that can break all of them at once.
      *
      * <p>Pinned here: an armour piece scores 1.0, a netherite-trimmed one 1.75 and an
-     * enderite-trimmed one 3.5; only worn humanoid armour is looked at, not what is in the hand;
+     * enderite-trimmed one 2.0 (3.5 until 2026-09, see docs/TRIM-BALANCE.md); only worn humanoid armour is looked at, not what is in the hand;
      * and the matching is a substring test on the pattern's asset path, so a foreign namespace
      * and a longer path both still match. The near-miss pair netherite/enderite is checked in
      * both directions because the material scoring tests for "enderite" first, and a scoring
@@ -151,8 +151,8 @@ public final class TrimEffectTests {
         assertClose(helper, TrimEffectUtil.getTrimCount(player, "rib"), 3.5,
                 "two netherite rib pieces (1.75 each)");
         wear(player, enderite, rib, 2);
-        assertClose(helper, TrimEffectUtil.getTrimCount(player, "rib"), 7.0,
-                "two enderite rib pieces (3.5 each)");
+        assertClose(helper, TrimEffectUtil.getTrimCount(player, "rib"), 4.0,
+                "two enderite rib pieces (2.0 each)");
 
         // The scoring checks for "enderite" before "netherite". Neither name contains the other,
         // and if that ever stops being true every netherite trim silently doubles in strength.
@@ -164,7 +164,7 @@ public final class TrimEffectTests {
         wear(player, enderite, rib, 4);
         helper.assertTrue(TrimEffectUtil.getMaterialCount(player, "netherite") == 0,
                 "an enderite trim was counted as netherite");
-        assertClose(helper, TrimEffectUtil.getTrimCount(player, "rib"), 14.0,
+        assertClose(helper, TrimEffectUtil.getTrimCount(player, "rib"), 8.0,
                 "a full enderite rib set");
 
         // --- mixed pieces add up independently ---
@@ -228,7 +228,9 @@ public final class TrimEffectTests {
      * would show up.
      *
      * <p>The floor is checked with an absurd progress factor: whatever the player's level, at
-     * least 10% of every hit has to land, otherwise a trimmed set is immortality. The guard at
+     * least 20% of every hit has to land (the same 80% ceiling vanilla puts on Protection),
+     * otherwise a trimmed set is immortality. The damage-to-everything bonuses (ward, diamond,
+     * enderite, astralit, nihilith) share a separate 25% cap, checked on an enderite ward set. The guard at
      * the other end is checked with a negative amount - without {@code amount <= 0} a reduction
      * would scale incoming healing into more healing.
      *
@@ -283,19 +285,28 @@ public final class TrimEffectTests {
                             + "meant to apply to everything");
 
             // --- pattern and material stack, and the material also weights the pattern count ---
-            // 4 enderite ward pieces: the ward count is 4 x 3.5 = 14, so 14 x 3% = 42% from the
-            // pattern, plus 4 x 5% = 20% from the material. Both halves have to be there.
+            // 4 enderite ward pieces at progress 0.5: the ward count is 4 x 2.0 = 8, so
+            // 8 x 3% x 0.5 = 12% from the pattern, plus 4 x 5% x 0.5 = 10% from the material -
+            // 22%, just under the shared 25% cap. Both halves have to be there.
             wear(player, enderite, ward, 4);
-            assertClose(helper, TrimEffectUtil.modifyDamage(player, 10.0F, generic), 3.8,
-                    "an enderite ward set: 42% from the pattern (a count of 14, because enderite "
-                            + "pieces score 3.5 each) plus 20% from the material");
+            pinProgressMultiplier(helper, player, 0.5);
+            assertClose(helper, TrimEffectUtil.modifyDamage(player, 10.0F, generic), 7.8,
+                    "an enderite ward set at progress 0.5: 12% from the pattern (a count of 8, "
+                            + "because enderite pieces score 2.0 each) plus 10% from the material");
 
-            // --- the floor: reductions may never take more than 90% of the hit ---
+            // --- the shared cap on damage-to-everything bonuses ---
+            // At progress 1.0 the same set adds up to 24% + 20% = 44%, capped at 25%.
+            pinProgressMultiplier(helper, player, 1.0);
+            assertClose(helper, TrimEffectUtil.modifyDamage(player, 10.0F, generic), 7.5,
+                    "the 25% cap on the bonuses against every damage type is gone - an enderite "
+                            + "ward set took 44% off every hit");
+
+            // --- the floor: reductions may never take more than 80% of the hit ---
             wear(player, copper, rib, 4);
             pinProgressMultiplier(helper, player, 10.0);
             // 4 pieces x 10% x 10 = 400% off, which would heal the player without the clamp.
-            assertClose(helper, TrimEffectUtil.modifyDamage(player, 10.0F, wither), 1.0,
-                    "the 10% damage floor is gone - a trimmed player can now be made immortal");
+            assertClose(helper, TrimEffectUtil.modifyDamage(player, 10.0F, wither), 2.0,
+                    "the 20% damage floor is gone - a trimmed player can now be made immortal");
 
             // --- and the guard at the other end ---
             // 0.0F would come back as 0.0F with or without the guard, so it proves nothing; a
@@ -341,9 +352,12 @@ public final class TrimEffectTests {
      * and those are checked with both halves present at once, because a set that only ever wore
      * one of the two would pass with the other half deleted.
      *
-     * <p>The two clamps are checked separately: exhaustion reduction may not exceed 100% (a
-     * player who never gets hungry) and stealth may not go below 0 (which would flip into
-     * <em>more</em> visible, since the mixin multiplies with it).
+     * <p>The clamps are checked separately at an absurd progress factor (see
+     * docs/TRIM-BALANCE.md): sprint hunger at most -50%, stealth at most -50% (a mob head),
+     * air saving at most 75% (Respiration III), luck at most +3, experience at most +50%,
+     * walking speed at most +20% (Speed I) and the rib cleansing at most 100 ticks. The
+     * pattern-plus-material pairs are measured at progress 0.4, below every cap, so that both
+     * halves still show.
      */
     public static void utilityBonusesAreNeutralUntilTheMatchingTrimIsWorn(GameTestHelper helper) {
         double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
@@ -389,20 +403,20 @@ public final class TrimEffectTests {
                     "raiser experience bonus (4 x 10%)");
 
             wear(player, copper, pattern(helper, TrimPatterns.HOST), 4);
-            assertClose(helper, TrimEffectUtil.getLuckBonus(player), 4.0,
-                    "host luck bonus (4 x 1.0)");
+            assertClose(helper, TrimEffectUtil.getLuckBonus(player), 3.0,
+                    "host luck bonus (4 x 1.0 = 4, capped at +3)");
 
             wear(player, copper, pattern(helper, TrimPatterns.SILENCE), 4);
-            assertClose(helper, TrimEffectUtil.getStealthMultiplier(player), 0.4,
-                    "silence stealth factor (1.0 - 4 x 15%)");
+            assertClose(helper, TrimEffectUtil.getStealthMultiplier(player), 0.5,
+                    "silence stealth factor (1.0 - 4 x 15% = 0.4, held at its 0.5 floor)");
 
             wear(player, copper, pattern(helper, TrimPatterns.COAST), 4);
-            assertClose(helper, TrimEffectUtil.getAirSaveChance(player), 0.8,
-                    "coast air save chance (4 x 20%)");
+            assertClose(helper, TrimEffectUtil.getAirSaveChance(player), 0.75,
+                    "coast air save chance (4 x 20% = 80%, capped at 75%)");
 
             wear(player, copper, pattern(helper, TrimPatterns.RIB), 4);
-            helper.assertTrue(TrimEffectUtil.getWitherReductionAmount(player) == 160,
-                    "rib wither reduction should be 4 x 40 ticks, it is "
+            helper.assertTrue(TrimEffectUtil.getWitherReductionAmount(player) == 100,
+                    "rib wither reduction should be 4 x 40 ticks capped at 100, it is "
                             + TrimEffectUtil.getWitherReductionAmount(player));
 
             wear(player, copper, pattern(helper, TrimPatterns.BOLT), 4);
@@ -428,27 +442,53 @@ public final class TrimEffectTests {
 
             // --- the three getters that add a pattern and a material together ---
             // Wearing only one half at a time would let the other half be deleted unnoticed.
+            // Progress 0.4 keeps every pair below its cap, so both halves show in the sum.
+            pinProgressMultiplier(helper, player, 0.4);
             wear(player, material(helper, TrimMaterials.REDSTONE), pattern(helper, TrimPatterns.BOLT), 4);
-            assertClose(helper, TrimEffectUtil.getLandSpeedMultiplier(player), 1.32,
-                    "bolt and redstone together (4 x 5% + 4 x 3%) - one of the two halves is gone");
+            assertClose(helper, TrimEffectUtil.getLandSpeedMultiplier(player), 1.128,
+                    "bolt and redstone together ((4 x 5% + 4 x 3%) x 0.4) - one of the two halves is gone");
 
             wear(player, material(helper, TrimMaterials.LAPIS), pattern(helper, TrimPatterns.RAISER), 4);
-            assertClose(helper, TrimEffectUtil.getXPMultiplier(player), 1.6,
-                    "raiser and lapis together (4 x 10% + 4 x 5%) - one of the two halves is gone");
+            assertClose(helper, TrimEffectUtil.getXPMultiplier(player), 1.24,
+                    "raiser and lapis together ((4 x 10% + 4 x 5%) x 0.4) - one of the two halves is gone");
 
             wear(player, material(helper, TrimMaterials.EMERALD), pattern(helper, TrimPatterns.HOST), 4);
-            assertClose(helper, TrimEffectUtil.getLuckBonus(player), 6.0,
-                    "host and emerald together (4 x 1.0 + 4 x 0.5) - one of the two halves is gone");
+            assertClose(helper, TrimEffectUtil.getLuckBonus(player), 2.4,
+                    "host and emerald together ((4 x 1.0 + 4 x 0.5) x 0.4) - one of the two halves is gone");
+
+            // The two rates that already reach their cap at progress 1.0, measured below it.
+            wear(player, copper, pattern(helper, TrimPatterns.SILENCE), 4);
+            assertClose(helper, TrimEffectUtil.getStealthMultiplier(player), 0.76,
+                    "silence stealth factor at progress 0.4 (1.0 - 4 x 15% x 0.4)");
+            wear(player, copper, pattern(helper, TrimPatterns.COAST), 4);
+            assertClose(helper, TrimEffectUtil.getAirSaveChance(player), 0.32,
+                    "coast air save chance at progress 0.4 (4 x 20% x 0.4)");
 
             // --- the clamps ---
             pinProgressMultiplier(helper, player, 5.0);
             wear(player, copper, pattern(helper, TrimPatterns.WAYFINDER), 4);
-            assertClose(helper, TrimEffectUtil.getExhaustionReduction(player), 1.0,
-                    "exhaustion reduction broke through 100% - the player would never get hungry");
+            assertClose(helper, TrimEffectUtil.getExhaustionReduction(player), 0.5,
+                    "sprint hunger reduction broke through its 50% cap");
             wear(player, copper, pattern(helper, TrimPatterns.SILENCE), 4);
-            assertClose(helper, TrimEffectUtil.getStealthMultiplier(player), 0.0,
-                    "the stealth factor went below zero, which would make the player more "
-                            + "visible instead of less");
+            assertClose(helper, TrimEffectUtil.getStealthMultiplier(player), 0.5,
+                    "the stealth factor went below its 0.5 floor - at 0 the wearer is invisible to "
+                            + "every mob, below 0 more visible instead of less");
+            wear(player, copper, pattern(helper, TrimPatterns.COAST), 4);
+            assertClose(helper, TrimEffectUtil.getAirSaveChance(player), 0.75,
+                    "the air save chance broke through 75% (Respiration III) - at 100% the wearer never drowns");
+            wear(player, copper, pattern(helper, TrimPatterns.HOST), 4);
+            assertClose(helper, TrimEffectUtil.getLuckBonus(player), 3.0,
+                    "the luck bonus broke through its +3 cap");
+            wear(player, copper, pattern(helper, TrimPatterns.RAISER), 4);
+            assertClose(helper, TrimEffectUtil.getXPMultiplier(player), 1.5,
+                    "the experience bonus broke through its +50% cap");
+            wear(player, copper, pattern(helper, TrimPatterns.BOLT), 4);
+            assertClose(helper, TrimEffectUtil.getLandSpeedMultiplier(player), 1.2,
+                    "the walking speed bonus broke through its +20% cap (Speed I)");
+            wear(player, copper, pattern(helper, TrimPatterns.RIB), 4);
+            helper.assertTrue(TrimEffectUtil.getWitherReductionAmount(player) == 100,
+                    "the rib cleansing broke through its 100 tick cap, it is "
+                            + TrimEffectUtil.getWitherReductionAmount(player));
 
             bare(player);
             TestCleanup.succeed(helper);
@@ -833,9 +873,9 @@ public final class TrimEffectTests {
                     "the mock player's movement speed is " + bareSpeed + ", so multiplying it by "
                             + "the bolt bonus could not be detected either way");
 
-            // --- luck: getLuck has to come back four higher with a full host set ---
+            // --- luck: getLuck has to come back three higher with a full host set (4, capped at 3) ---
             wear(player, copper, host, 4);
-            assertClose(helper, player.getLuck(), bareLuck + 4.0,
+            assertClose(helper, player.getLuck(), bareLuck + 3.0,
                     "Player.getLuck did not pick up the host trim bonus - TrimEffectUtil computes "
                             + "it, but PlayerEntityMixin is not delivering it");
 
@@ -884,10 +924,10 @@ public final class TrimEffectTests {
      *
      * <p>A fresh mock player has no distance walked, no play time and no kills, so its survival
      * and combat factors both sit at the 0.1 floor, its experience factor sits at the 0.1 floor
-     * too, and the whole multiplier lands near 0.001 per unit of configured base - far below
-     * every threshold in the mod. Those three factors cannot usefully be raised from a test, so
-     * the configured base is the only handle. Because the multiplier is a plain product, scaling
-     * the base scales the result, and this method's own check is therefore also a test that the
+     * too, and the whole multiplier lands at 0.1 per unit of configured base. Those three
+     * factors cannot usefully be raised from a test, so the configured base is the only handle.
+     * Because the multiplier is the base times the mean of the three factors, scaling the base
+     * scales the result, and this method's own check is therefore also a test that the
      * base still feeds through at all.
      */
     private static void pinProgressMultiplier(GameTestHelper helper, ServerPlayer player, double target) {

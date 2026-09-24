@@ -153,8 +153,11 @@ public final class TrimWiringTests {
     /** Exhaustion handed to {@code causeFoodExhaustion}; well under the 40.0 cap {@code FoodData} applies. */
     private static final float EXHAUSTION_UNIT = 2.0F;
 
-    /** A wither the rib trim is strong enough to clear outright. Not a multiple of 40, see the test. */
-    private static final int SHORT_WITHER = 101;
+    /**
+     * A wither the rib trim is strong enough to clear outright - under the 100 tick cap on the rib
+     * cleansing. Not a multiple of 40, see the test.
+     */
+    private static final int SHORT_WITHER = 61;
 
     /** A wither the rib trim can only heal against. Also not a multiple of 40. */
     private static final int LONG_WITHER = 401;
@@ -871,13 +874,14 @@ public final class TrimWiringTests {
      * trim holding the air supply under water, and the silence trim lowering how visible the wearer
      * is to the mobs looking for them.
      *
-     * <p>Air is the interesting one because the mixin rolls a die for it. With a full enderite
-     * coast set and the progress factor pinned to 1.0 the chance comes out above 1.0, so
-     * {@code nextFloat() < chance} is always true and the case is deterministic - the setup asserts
-     * that before it measures anything. The whole air path is then driven for real: water is placed
-     * around the player's eyes and {@code baseTick} is called, which is where vanilla decides to
-     * spend a point of air. The control run without the trim has to lose that point, otherwise the
-     * measurement would be about the player not being submerged rather than about the trim.
+     * <p>Air is the interesting one because the mixin rolls a die for it, and the chance is capped
+     * at 75% (Respiration III), so no set makes it deterministic any more. The whole air path is
+     * driven for real instead, a hundred times: water is placed around the player's eyes and
+     * {@code baseTick} is called, which is where vanilla decides to spend a point of air. The
+     * control tick without the trim has to lose its point, otherwise the measurement would be about
+     * the player not being submerged. With the full set a hundred ticks have to cost more than
+     * nothing (the saving is not unconditional) and far fewer than a hundred points: expected are
+     * 25, the bounds 1..60 are each missed with a probability below 1e-12.
      *
      * <p>{@code baseTick} is used rather than a full tick because the air logic sits in
      * {@code LivingEntity#baseTick} directly, and because it does not move the player - the water
@@ -921,14 +925,18 @@ public final class TrimWiringTests {
 
             wear(player, enderite, coast, 4);
             float chance = TrimEffectUtil.getAirSaveChance(player);
-            helper.assertTrue(chance >= 1.0F,
-                    "test setup broken: the coast air chance is " + chance + ", so the random draw is "
-                            + "not switched off and this test would be flaky");
+            helper.assertTrue(Math.abs(chance - 0.75F) < 1.0e-6F,
+                    "test setup broken: the coast air chance is " + chance + " instead of its 75% cap, "
+                            + "so the bounds below no longer fit");
             player.setAirSupply(START_AIR);
-            player.baseTick();
-            helper.assertValueEqual(player.getAirSupply(), START_AIR,
-                    "a full coast set at a guaranteed chance still lost air; decreaseAirSupply is no "
-                            + "longer going through the mixin");
+            for (int tick = 0; tick < 100; tick++) {
+                player.baseTick();
+            }
+            int spent = START_AIR - player.getAirSupply();
+            helper.assertTrue(spent >= 1 && spent <= 60,
+                    "a full coast set (75% air saving) spent " + spent + " of 100 air points under "
+                            + "water; expected about 25 - either decreaseAirSupply is no longer going "
+                            + "through the mixin or the saving became unconditional");
 
             // --- visibility: same armour in both readings, only the pattern differs ---
             wear(player, copper, blank, 4);

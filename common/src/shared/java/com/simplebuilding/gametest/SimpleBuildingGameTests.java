@@ -329,6 +329,9 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("dynamic_light_game_test_the_server_tick_wiring_lights_the_wearer_on_its_own", DynamicLightTests::theServerTickWiringLightsTheWearerOnItsOwn)
                     .build(),
+            GameTestSpec.named("dynamic_light_game_test_armour_stands_and_item_frames_light_their_block_and_clean_up", DynamicLightTests::armourStandsAndItemFramesLightTheirBlockAndCleanUp)
+                    .maxTicks(DynamicLightTests.HOLDER_MAX_TICKS)
+                    .build(),
             GameTestSpec.named("ore_detector_game_test_detector_reports_the_nearest_target_inside_its_budget", OreDetectorTests::detectorReportsTheNearestTargetInsideItsBudget)
                     .build(),
             GameTestSpec.named("ore_detector_game_test_detector_modes_match_their_ore_tags", OreDetectorTests::detectorModesMatchTheirOreTags)

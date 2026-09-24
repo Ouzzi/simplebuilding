@@ -4,6 +4,7 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
@@ -14,9 +15,6 @@ import java.util.List;
 
 public class SpeedometerHudOverlay {
 
-    private static final int BACKGROUND_COLOR = 0xF0100010;
-    private static final int BORDER_COLOR_START = 0xF03f0073;
-    private static final int BORDER_COLOR_END = 0xF0250061;
     private static final int COLOR_SPEED = 0xFF7F4C;
     private static final int COLOR_STATS = 0xFFAAAAAA;
     private static final int COLOR_DANGER = 0xFFFF5555;
@@ -162,27 +160,11 @@ public class SpeedometerHudOverlay {
             y += 35;
         }
 
-        // Draw Box
-        context.fill(x + 1, y + 1, x + boxWidth - 1, y + boxHeight - 1, BACKGROUND_COLOR);
-        context.fill(x + 1, y, x + boxWidth - 1, y + 1, BACKGROUND_COLOR);
-
-        // Borders
-        context.fill(x + 1, y - 1, x + boxWidth - 1, y, BACKGROUND_COLOR);
-        context.fill(x + 1, y + boxHeight, x + boxWidth - 1, y + boxHeight + 1, BACKGROUND_COLOR);
-        context.fill(x - 1, y + 1, x, y + boxHeight - 1, BACKGROUND_COLOR);
-        context.fill(x + boxWidth, y + 1, x + boxWidth + 1, y + boxHeight - 1, BACKGROUND_COLOR);
-
-        // Hintergrund Border Ecken
-        context.fillGradient(x + boxWidth - 1, y, x + boxWidth, y + 1, BACKGROUND_COLOR, BACKGROUND_COLOR);
-        context.fillGradient(x, y, x + 1, y + 1, BACKGROUND_COLOR, BACKGROUND_COLOR);
-        context.fillGradient(x + boxWidth - 1, y + boxHeight - 1, x + boxWidth, y + boxHeight, BACKGROUND_COLOR, BACKGROUND_COLOR);
-        context.fillGradient(x, y + boxHeight - 1, x + 1, y + boxHeight, BACKGROUND_COLOR, BACKGROUND_COLOR);
-
-        // Gradient Border
-        context.fillGradient(x + 1, y, x + boxWidth - 1, y + 1, BORDER_COLOR_START, BORDER_COLOR_START);
-        context.fillGradient(x + 1, y + boxHeight - 1, x + boxWidth - 1, y + boxHeight, BORDER_COLOR_END, BORDER_COLOR_END);
-        context.fillGradient(x, y + 1, x + 1, y + boxHeight - 1, BORDER_COLOR_START, BORDER_COLOR_END);
-        context.fillGradient(x + boxWidth - 1, y + 1, x + boxWidth, y + boxHeight - 1, BORDER_COLOR_START, BORDER_COLOR_END);
+        // Vanilla-Tooltip-Hintergrund (Sprites tooltip/background + tooltip/frame, wie jeder
+        // Gegenstands-Tooltip) statt des nachgebauten Kastens mit eigenen Lila-Werten. Der Aufruf
+        // bekommt den INHALT und legt selbst 3 px Rand darum.
+        TooltipRenderUtil.extractTooltipBackground(context, x + paddingX, y + paddingY,
+                boxWidth - paddingX * 2, boxHeight - paddingY * 2, null);
 
         // Draw Text
         int textY = y + paddingY;

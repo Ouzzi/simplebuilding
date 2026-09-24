@@ -209,11 +209,13 @@ public final class HopperAndTrimTests {
     public static void trimMultiplierFollowsTheExperienceCurveAndTheConfiguredBase(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
 
-        // --- the experience curve: 0.1 at level 0, rising to 1.0 at level 100 and capped there ---
+        // --- the experience curve: 0.1 at level 0, rising to 1.0 at level 30 and capped there ---
         player.experienceLevel = 0;
         assertClose(helper, TrimMultiplierLogic.calculateXPMultiplier(player), 0.1, "level 0");
-        player.experienceLevel = 50;
-        assertClose(helper, TrimMultiplierLogic.calculateXPMultiplier(player), 0.55, "level 50");
+        player.experienceLevel = 15;
+        assertClose(helper, TrimMultiplierLogic.calculateXPMultiplier(player), 0.55, "level 15");
+        player.experienceLevel = 30;
+        assertClose(helper, TrimMultiplierLogic.calculateXPMultiplier(player), 1.0, "level 30");
         player.experienceLevel = 100;
         assertClose(helper, TrimMultiplierLogic.calculateXPMultiplier(player), 1.0, "level 100");
         player.experienceLevel = 500;
@@ -228,10 +230,10 @@ public final class HopperAndTrimTests {
         helper.assertTrue(combat >= 0.1 && combat <= 1.0,
                 "the combat factor left its 0.1..1.0 band: " + combat);
 
-        // --- the whole product, and that the configured base really scales it ---
+        // --- the whole mean, and that the configured base really scales it ---
         player.experienceLevel = 100;
         double base = SimplebuildingConfig.trimBenefitBaseMultiplier;
-        double expected = base * 1.0 * survival * combat;
+        double expected = base * (1.0 + survival + combat) / 3.0;
         assertClose(helper, TrimMultiplierLogic.getMultiplier(player), expected, "the full multiplier");
 
         SimplebuildingConfig.trimBenefitBaseMultiplier = base * 2.0;
@@ -242,12 +244,12 @@ public final class HopperAndTrimTests {
             SimplebuildingConfig.trimBenefitBaseMultiplier = base;
         }
 
-        // Level 40 sits away from the cap, where the experience term is 0.46 instead of 1.0. Only
-        // here does the product show whether the level enters it at all - the literal is spelled out
+        // Level 10 sits away from the cap, where the experience term is 0.4 instead of 1.0. Only
+        // here does the mean show whether the level enters it at all - the literal is spelled out
         // rather than read back from calculateXPMultiplier so the two cannot agree by construction.
-        player.experienceLevel = 40;
-        assertClose(helper, TrimMultiplierLogic.getMultiplier(player), base * 0.46 * survival * combat,
-                "the full multiplier at level 40, where the experience factor is not 1.0");
+        player.experienceLevel = 10;
+        assertClose(helper, TrimMultiplierLogic.getMultiplier(player), base * (0.4 + survival + combat) / 3.0,
+                "the full multiplier at level 10, where the experience factor is not 1.0");
 
         helper.succeed();
     }

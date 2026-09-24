@@ -55,4 +55,9 @@ public final class DynamicLightGameTest {
     public void theServerTickWiringLightsTheWearerOnItsOwn(GameTestHelper helper) {
         DynamicLightTests.theServerTickWiringLightsTheWearerOnItsOwn(helper);
     }
+
+    @GameTest(maxTicks = DynamicLightTests.HOLDER_MAX_TICKS)
+    public void armourStandsAndItemFramesLightTheirBlockAndCleanUp(GameTestHelper helper) {
+        DynamicLightTests.armourStandsAndItemFramesLightTheirBlockAndCleanUp(helper);
+    }
 }

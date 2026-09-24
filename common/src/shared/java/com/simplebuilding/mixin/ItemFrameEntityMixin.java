@@ -1,6 +1,9 @@
 package com.simplebuilding.mixin;
 
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.OwnedLightHolder;
+import net.minecraft.core.BlockPos;
+import org.jspecify.annotations.Nullable;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -31,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemFrame.class)
-public abstract class ItemFrameEntityMixin {
+public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
 
     @Shadow public abstract ItemStack getItem();
     // Keine Shadow Methoden für setInvisible/isInvisible nötig, wir nutzen Casts
@@ -39,15 +42,31 @@ public abstract class ItemFrameEntityMixin {
     @Unique
     private boolean simplebuilding$locked = false;
 
+    // Radiance: vom Rahmen gesetzter Lichtblock (siehe DynamicLightHandler)
+    @Unique
+    private @Nullable BlockPos simplebuilding$ownedLight;
+
+    @Override
+    public @Nullable BlockPos simplebuilding$getOwnedLight() {
+        return this.simplebuilding$ownedLight;
+    }
+
+    @Override
+    public void simplebuilding$setOwnedLight(@Nullable BlockPos pos) {
+        this.simplebuilding$ownedLight = pos;
+    }
+
     // --- DATEN ---
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void simplebuilding$writeCustomData(ValueOutput view, CallbackInfo ci) {
         view.putBoolean("SimpleBuildingLocked", this.simplebuilding$locked);
+        view.storeNullable("SimpleBuildingOwnedLight", BlockPos.CODEC, this.simplebuilding$ownedLight);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void simplebuilding$readCustomData(ValueInput view, CallbackInfo ci) {
         this.simplebuilding$locked = view.getBooleanOr("SimpleBuildingLocked", false);
+        this.simplebuilding$ownedLight = view.read("SimpleBuildingOwnedLight", BlockPos.CODEC).orElse(null);
     }
 
     // --- SCHUTZ ---

@@ -1,5 +1,6 @@
 package com.simplebuilding.client.gui;
 
+import com.simplebuilding.util.TrimBonusCatalog;
 import com.simplebuilding.util.TrimMultiplierLogic;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,10 +30,13 @@ public class TrimReferenceScreen extends Screen {
 
     private double playerMultiplier = 1.0d;
 
+    private static final Identifier SCROLLER_SPRITE = Identifier.withDefaultNamespace("widget/scroller");
+    private static final Identifier SCROLLER_BACKGROUND_SPRITE = Identifier.withDefaultNamespace("widget/scroller_background");
+
     private record ReferenceEntry(ItemStack icon, Component text, Component info, boolean isHeader) {}
 
     public TrimReferenceScreen(Screen parent) {
-        super(Component.literal("Trim Resonance Reference"));
+        super(Component.translatable("screen.simplebuilding.trim_reference"));
         this.parent = parent;
         if (Minecraft.getInstance().player != null) {
             this.playerMultiplier = TrimMultiplierLogic.getMultiplier(Minecraft.getInstance().player);
@@ -38,109 +45,90 @@ public class TrimReferenceScreen extends Screen {
         populateEntries();
     }
 
+    /**
+     * Alle Zahlen kommen aus TrimBonusCatalog, also aus denselben Konstanten, mit denen
+     * TrimEffectUtil rechnet. Namen sind die Vanilla-Uebersetzungen der Muster und Materialien.
+     */
     private void populateEntries() {
-        // --- HEADER ---
-        String multText = String.format("Current Resonance: %.2fx", playerMultiplier);
-        addHeader("--- MATERIALS (Base -> Current) ---");
-        addHeader(multText);
+        float resonance = (float) playerMultiplier;
+        addHeader(Component.translatable("screen.simplebuilding.trim_reference.resonance", TrimBonusCatalog.format(resonance)));
+        addHeader(Component.translatable("screen.simplebuilding.trim_reference.materials"));
 
-        addDynamicMaterial(Items.DIAMOND, "Diamond: Hard Shell", ChatFormatting.AQUA, 3.0, "Damage Reduction");
-        addDynamicMaterial(Items.GOLD_INGOT, "Gold: Magic Dampening", ChatFormatting.GOLD, 6.0, "Magic Resist");
-        addDynamicMaterial(Items.IRON_INGOT, "Iron: Blunt Resistance", ChatFormatting.GRAY, 5.0, "Projectile Resist");
-        addDynamicMaterial(Items.EMERALD, "Emerald: Illager Bane", ChatFormatting.DARK_GREEN, 8.0, "Illager Resist");
-        // Werte wie TrimEffectUtil: 5 % gegen verzauberungsumgehenden Schaden und den Wither, und ein
-        // Netherit-Besatzteil zaehlt fuer sein Muster 1,75-fach (getTrimCount).
-        addDynamicMaterial(Items.NETHERITE_INGOT, "Netherite: Boss Resilience", ChatFormatting.DARK_GRAY, 5.0, "Wither/Bypass Resist (Pattern x1.75)");
-        addDynamicMaterial(Items.COPPER_INGOT, "Copper: Lightning Rod", ChatFormatting.GOLD, 5.0, "Lightning Resist");
-        addDynamicMaterial(Items.REDSTONE, "Redstone: Speed", ChatFormatting.RED, 3.0, "Movement Speed");
-        addDynamicMaterial(Items.QUARTZ, "Quartz: Heat Shield", ChatFormatting.WHITE, 5.0, "Fire/Lava Resist");
-        addDynamicMaterial(Items.AMETHYST_SHARD, "Amethyst: Resonance", ChatFormatting.LIGHT_PURPLE, 25.0, "Regen Chance");
-        addDynamicMaterial(Items.LAPIS_LAZULI, "Lapis: Wisdom", ChatFormatting.BLUE, 5.0, "XP Gain Boost");
-
-        // --- NEW MOD MATERIALS ---
-        tryAddModMaterial("simplebuilding", "astralit_dust", "Astralit", ChatFormatting.YELLOW, 0.0, "Jump Boost (Height)");
-        tryAddModMaterial("simplebuilding", "nihilith_shard", "Nihilith", ChatFormatting.DARK_PURPLE, 0.0, "Gravity Pull (Sneak in Air)");
-        // 5 % gegen jeden Schaden, Muster zaehlt 3,5-fach (TrimEffectUtil). "Void Shield" ist ein Effekt
-        // der Enderit-Ruestung selbst (LivingEntityMixin), kein Besatz-Effekt.
-        tryAddModMaterial("simplebuilding", "enderite_ingot", "Enderite", ChatFormatting.DARK_PURPLE, 5.0, "All Damage Resist (Pattern x3.5)");
-
+        addMaterial(Items.DIAMOND, "minecraft", "diamond", resonance);
+        addMaterial(Items.GOLD_INGOT, "minecraft", "gold", resonance);
+        addMaterial(Items.IRON_INGOT, "minecraft", "iron", resonance);
+        addMaterial(Items.EMERALD, "minecraft", "emerald", resonance);
+        addMaterial(Items.NETHERITE_INGOT, "minecraft", "netherite", resonance);
+        addMaterial(Items.COPPER_INGOT, "minecraft", "copper", resonance);
+        addMaterial(Items.REDSTONE, "minecraft", "redstone", resonance);
+        addMaterial(Items.QUARTZ, "minecraft", "quartz", resonance);
+        addMaterial(Items.AMETHYST_SHARD, "minecraft", "amethyst", resonance);
+        addMaterial(Items.LAPIS_LAZULI, "minecraft", "lapis", resonance);
+        tryAddModMaterial("astralit_dust", "astralit", resonance);
+        tryAddModMaterial("nihilith_shard", "nihilith", resonance);
+        tryAddModMaterial("enderite_ingot", "enderite", resonance);
 
         entries.add(new ReferenceEntry(ItemStack.EMPTY, Component.empty(), Component.empty(), false));
 
-        // --- PATTERNS ---
-        addHeader("--- TRIM PATTERNS (Scalable Effects) ---");
-        addDynamicTrim(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE, "Sentry", ChatFormatting.GRAY, 5.0, "Projectile Dampening");
-        addDynamicTrim(Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE, "Vex", ChatFormatting.DARK_AQUA, 6.0, "Magic Dampening");
-        addDynamicTrim(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE, "Wild", ChatFormatting.GREEN, 10.0, "Trap/Cactus Resilience");
-        addDynamicTrim(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE, "Dune", ChatFormatting.GOLD, 8.0, "Blast Dampening");
-        addDynamicTrim(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE, "Coast", ChatFormatting.AQUA, 20.0, "Oxygen Efficiency (Chance)");
-        addDynamicTrim(Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE, "Wayfinder", ChatFormatting.YELLOW, 10.0, "Sprint Efficiency");
-        addDynamicTrim(Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE, "Raiser", ChatFormatting.DARK_GREEN, 10.0, "XP Affinity");
-        addDynamicTrim(Items.HOST_ARMOR_TRIM_SMITHING_TEMPLATE, "Host", ChatFormatting.WHITE, 1.0, "Luck Bonus");
-        addDynamicTrim(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE, "Ward", ChatFormatting.DARK_BLUE, 3.0, "Damage Absorption");
-        addDynamicTrim(Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE, "Silence", ChatFormatting.DARK_GRAY, 15.0, "Stealth (Detection Range)");
-        addDynamicTrim(Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE, "Tide", ChatFormatting.BLUE, 10.0, "Swim Agility");
-        addDynamicTrim(Items.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE, "Snout", ChatFormatting.GOLD, 5.0, "Fire Dampening");
-        addDynamicTrim(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE, "Rib", ChatFormatting.DARK_RED, 10.0, "Wither Damage Resist");
-        addDynamicTrim(Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE, "Eye", ChatFormatting.LIGHT_PURPLE, 10.0, "Ender Stability");
-        addDynamicTrim(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, "Spire", ChatFormatting.LIGHT_PURPLE, 8.0, "Feather Falling");
-        addDynamicTrim(Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE, "Flow", ChatFormatting.WHITE, 10.0, "Aerial Agility");
-        addDynamicTrim(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE, "Bolt", ChatFormatting.YELLOW, 25.0, "Kinetic Response");
-
-        tryAddModTrim("enderscape", "stasis_armor_trim_smithing_template", "Stasis", ChatFormatting.LIGHT_PURPLE, 5.0, "End Statis Effect");
+        addHeader(Component.translatable("screen.simplebuilding.trim_reference.patterns"));
+        addPattern(Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE, "sentry", resonance);
+        addPattern(Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE, "vex", resonance);
+        addPattern(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE, "wild", resonance);
+        addPattern(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE, "dune", resonance);
+        addPattern(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE, "coast", resonance);
+        addPattern(Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE, "wayfinder", resonance);
+        addPattern(Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE, "raiser", resonance);
+        addPattern(Items.HOST_ARMOR_TRIM_SMITHING_TEMPLATE, "host", resonance);
+        addPattern(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE, "ward", resonance);
+        addPattern(Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE, "silence", resonance);
+        addPattern(Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE, "tide", resonance);
+        addPattern(Items.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE, "snout", resonance);
+        addPattern(Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE, "rib", resonance);
+        addPattern(Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE, "eye", resonance);
+        addPattern(Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, "spire", resonance);
+        addPattern(Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE, "flow", resonance);
+        addPattern(Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE, "bolt", resonance);
+        addPattern(Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE, "shaper", resonance);
     }
 
-    // Hilfsmethode für dynamische Anzeige
-    private void addDynamicMaterial(Item item, String name, ChatFormatting color, double baseValue, String statName) {
-        double currentVal = baseValue * playerMultiplier;
+    private void addMaterial(Item item, String namespace, String path, float resonance) {
+        addEntry(item, Component.translatable("trim_material." + namespace + "." + path),
+                TrimBonusCatalog.forMaterial(path), resonance);
+    }
 
-        Component text = Component.literal(name).withStyle(color);
-        Component info;
+    private void addPattern(Item item, String path, float resonance) {
+        addEntry(item, Component.translatable("trim_pattern.minecraft." + path),
+                TrimBonusCatalog.forPattern(path), resonance);
+    }
 
-        if (baseValue > 0) {
-            // Zeigt: "Damage: 1.5% -> 2.1%"
-            info = Component.literal(statName + ": ")
-                    .withStyle(ChatFormatting.GRAY)
-                    .append(Component.literal(String.format("%.1f%%", baseValue)).withStyle(ChatFormatting.YELLOW))
-                    .append(Component.literal(" -> ").withStyle(ChatFormatting.DARK_GRAY))
-                    .append(Component.literal(String.format("%.1f%%", currentVal)).withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
-        } else {
-            // Für Special Effects ohne Zahlenwert
-            info = Component.literal(statName).withStyle(ChatFormatting.GRAY);
+    /** Werte je Teil bei der aktuellen Resonanz, im Stil der Vanilla-Attributzeilen. */
+    private void addEntry(Item item, Component name, List<TrimBonusCatalog.Bonus> bonuses, float resonance) {
+        MutableComponent info = Component.empty();
+        for (int i = 0; i < bonuses.size(); i++) {
+            if (i > 0) info.append(Component.literal(", ").withStyle(ChatFormatting.DARK_GRAY));
+            info.append(bonuses.get(i).describe(1.0f, resonance).copy().withStyle(ChatFormatting.BLUE));
         }
-
-        entries.add(new ReferenceEntry(new ItemStack(item), text, info, false));
+        if (bonuses.isEmpty()) {
+            info.append(Component.translatable("screen.simplebuilding.trim_reference.none").withStyle(ChatFormatting.DARK_GRAY));
+        }
+        entries.add(new ReferenceEntry(new ItemStack(item), name, info, false));
     }
 
-    private void tryAddModMaterial(String namespace, String path, String name, ChatFormatting color, double baseValue, String statName) {
+    private void tryAddModMaterial(String itemPath, String materialPath, float resonance) {
         if (Minecraft.getInstance().level == null) return;
         Optional<Item> item = Minecraft.getInstance().level.registryAccess()
                 .lookup(Registries.ITEM)
-                .flatMap(reg -> reg.getOptional(Identifier.fromNamespaceAndPath(namespace, path)));
-        item.ifPresent(value -> addDynamicMaterial(value, name, color, baseValue, statName));
+                .flatMap(reg -> reg.getOptional(Identifier.fromNamespaceAndPath("simplebuilding", itemPath)));
+        item.ifPresent(value -> addMaterial(value, "simplebuilding", materialPath, resonance));
     }
 
-    private void addDynamicTrim(Item item, String name, ChatFormatting color, double baseValue, String statName) {
-        addDynamicMaterial(item, name + " Trim", color, baseValue, statName);
-    }
-
-    private void tryAddModTrim(String namespace, String path, String name, ChatFormatting color, double baseValue, String statName) {
-        if (Minecraft.getInstance().level == null) return;
-
-        Optional<Item> item = Minecraft.getInstance().level.registryAccess()
-                .lookup(Registries.ITEM)
-                .flatMap(reg -> reg.getOptional(Identifier.fromNamespaceAndPath(namespace, path)));
-
-        item.ifPresent(value -> addDynamicTrim(value, name, color, baseValue, statName));
-    }
-
-    private void addHeader(String text) {
-        entries.add(new ReferenceEntry(ItemStack.EMPTY, Component.literal(text).withStyle(ChatFormatting.BOLD, ChatFormatting.YELLOW), null, true));
+    private void addHeader(Component text) {
+        entries.add(new ReferenceEntry(ItemStack.EMPTY, text.copy().withStyle(ChatFormatting.YELLOW), null, true));
     }
 
     @Override
     protected void init() {
-        this.addRenderableWidget(Button.builder(Component.literal("Close"), button -> this.onClose())
+        this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> this.onClose())
                 .bounds(this.width / 2 - 50, this.height - 25, 100, 20)
                 .build());
 
@@ -150,7 +138,8 @@ public class TrimReferenceScreen extends Screen {
 
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        context.fillGradient(0, 0, this.width, this.height, 0xC0101010, 0xD0101010);
+        // Kein eigener Verlauf: der Screen zeichnet Unschaerfe und Menue-Hintergrund schon selbst,
+        // ein zweiter Verlauf dunkelte ihn doppelt ab.
 
         int startY = 15 - scrollOffset;
         int y = startY;
@@ -174,7 +163,7 @@ public class TrimReferenceScreen extends Screen {
 
                     // Stats Zeile (z.B. "Resist: 1.5% -> 2.1%")
                     if (entry.info != null) {
-                        context.drawString(this.font, entry.info, iconX + 22, y + 10, 0xFFDDDDDD, false);
+                        context.drawString(this.font, entry.info, iconX + 22, y + 10, 0xFFFFFFFF);
                     }
                 }
             }
@@ -184,8 +173,9 @@ public class TrimReferenceScreen extends Screen {
         if (maxScroll > 0) {
             int scrollBarH = (int)((float)(this.height - 40) * ((float)(this.height - 40) / (entries.size() * rowHeight)));
             int scrollBarY = 30 + (int)((float)scrollOffset / maxScroll * (this.height - 40 - scrollBarH));
-            context.fill(this.width - 6, 30, this.width - 2, this.height - 10, 0x40000000);
-            context.fill(this.width - 6, scrollBarY, this.width - 2, scrollBarY + scrollBarH, 0xFF808080);
+            // Vanilla-Scrollleiste (AbstractScrollArea): Sprites, 6 px breit
+            context.blitSprite(RenderPipelines.GUI_TEXTURED, SCROLLER_BACKGROUND_SPRITE, this.width - 8, 30, 6, this.height - 40);
+            context.blitSprite(RenderPipelines.GUI_TEXTURED, SCROLLER_SPRITE, this.width - 8, scrollBarY, 6, scrollBarH);
         }
 
         super.render(context, mouseX, mouseY, delta);
