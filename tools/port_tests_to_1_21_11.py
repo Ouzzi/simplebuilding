@@ -149,6 +149,8 @@ DRIFT_EXPLAINED: dict[str, str] = {
                          "1.21.11 aus ModTradeDefinitions - gleiche Aussagen, anderer Weg",
     "WandEnchantmentTests": "wie BundleWiringTests: Registry gegen ModTradeDefinitions",
     "MiningEnchantmentTests": "wie BundleWiringTests: Registry gegen ModTradeDefinitions",
+    "ConfigOptionTests": "Forge gibt es nur auf 26.2: die Pruefung des forge:condition-Schluessels und "
+                         "der Forge-Bedingungsklasse hat auf 1.21.11 kein Gegenstueck",
     "HopperTests": "ContainerInput heisst auf 1.21.11 ClickType, assemble nimmt den Registry-Zugriff; "
                    "sonst dieselben Zeilen",
 }

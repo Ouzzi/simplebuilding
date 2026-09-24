@@ -1956,8 +1956,18 @@ public final class DataIntegrityTests {
                 problems.add(id + " is offered " + tabs.size() + "x " + tabs + " instead of " + expected + "x");
             }
         }
+        // Der Besitzer will neben den Mod-Maschinen auch ihre Vanilla-Vorbilder im Tab Maschinen & Lager
+        // sehen - genau diese, genau dort, genau einmal. Jedes andere Vanilla-Item in einem Mod-Tab ist falsch.
+        Set<Item> vanillaCounterparts = Set.of(Items.HOPPER, Items.PISTON, Items.STICKY_PISTON,
+                Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE, Items.BUNDLE);
+        for (Item counterpart : vanillaCounterparts) {
+            List<ModItemGroupsContent.Tab> tabs = where.getOrDefault(counterpart, List.of());
+            if (!tabs.equals(List.of(ModItemGroupsContent.Tab.FUNCTIONAL))) {
+                problems.add(BuiltInRegistries.ITEM.getKey(counterpart) + " belongs once in FUNCTIONAL but is in " + tabs);
+            }
+        }
         for (Item item : where.keySet()) {
-            if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())) {
+            if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
             }
         }
