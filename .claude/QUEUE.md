@@ -65,3 +65,17 @@ D Astralit/Nihilith-Baubloecke (Endstein/Purpur-Palette); mehrere Creative-Tabs 
 - D Bloecke/Tabs/Erzsensor: 2 Commits + 2 uncommittete Dateien auf worktree-agent-a8baa63b7fe733bce, Laeufe offen
 - Danach: zusammenfuehren, Datagen+Wiki, volles Gate, Push, Forge-Client neu starten
 - Test-Luecke: Forge hat kein Testziel (Paket-Fix, Bus-Fixes, Vorschau, Buecher nur per Hand geprueft)
+
+## Stand 2026-09-24 abends
+- Welle 4 zusammengefuehrt (ae8b2d2), Gate laeuft; danach Push + Forge-Client neu
+- OFFEN: Gegenprobe Hammer-Risse (Aufwertungsstand) nachholen
+- NEU: Forge-Testziel (mind. Server-Gametests :forge:runGameTestServer o. ae. in run.py, Katalog-Paritaet; Regressionen: Paket-Handled, Bus-Registrierung, Buecher-Property, Vorschau)
+
+## Stand 2026-09-24 21:30 - Gate Welle 4: 1806/1820, nur Client NeoForge 26.2 rot
+- ERLEDIGT: Aufwertungs-Fortschritt nicht mehr als Aktionsleisten-Text (1cd5799)
+- IMPLEMENTIERUNG offen:
+  1. Client NeoForge 26.2: Oktant Pos1 nach Strg+Mausrad z=19 statt z=20 (client-bootstrap)
+  2. Client NeoForge 26.2: SledgehammerUpgrades.showsUpgradeHint true, Test erwartet false (item-rendering, Diamant-Hammer + Netherit-Nugget auf verstaerktem Ofen)
+  3. Forge-Testziel (Server-Gametests in run.py + Katalog-Paritaet)
+  4. Rucksack-Sortierung: pruefen, ob vorbereitet/umgesetzt
+- TESTEN danach (einmal gebuendelt): Gegenprobe Hammer-Risse, volles Gate, Push, Forge-Client neu
