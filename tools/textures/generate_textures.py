@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
-Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben und die Spachtel.
+Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel und die Enderit-Maschinen.
 
 Aufruf (aus dem Repo-Wurzelverzeichnis oder von ueberall):
 
     python tools/textures/generate_textures.py            # schreibt beide Ressourcenbaeume + preview.png
-    python tools/textures/generate_textures.py --check    # prueft nur, ob die PNGs aktuell sind
+    python tools/textures/generate_textures.py --check    # prueft nur, ob PNGs und .mcmeta aktuell sind
 
 Jede Textur ist unten als Pixelkarte (16 Zeilen x 16 Zeichen) mit eigener Palette
 hinterlegt. '.' ist transparent (nur bei Items erlaubt), '*' kopiert das Pixel aus einer
-Vorlage (nur reinforced_piston_top_sticky: Rahmen und Beschlaege von reinforced_piston_top).
+Vorlage (nur reinforced_piston_top_sticky: Rahmen und Beschlaege von reinforced_piston_top),
+'_' laesst das Mauerwerk einer Steinlage durchscheinen (nur Enderit-Maschinen). Leuchtende
+Maschinenfronten sind Animationsstreifen aus mehreren Karten; ihre .png.mcmeta schreibt
+der Generator mit.
 Stufen einer Familie teilen sich eine Karte und unterscheiden sich in Palette und
 Beschlaegen - so wie die bestehenden Koecher, Buendel und Meissel.
 
@@ -38,6 +41,7 @@ isometrisch aus genau diesen Flaechen.
 """
 import argparse
 import io
+import json
 import os
 import sys
 
@@ -373,6 +377,495 @@ SPATULA = [
 
 
 # ---------------------------------------------------------------------------
+# Enderit-Maschinen: Trichter, Ofen, Raeucherofen, Schmelzofen. Dateinamen wie die
+# netherite_*-Gegenstuecke (block/enderite_<maschine>_<flaeche>.png, item/enderite_hopper.png).
+# Formensprache der Enderit-Stufe wie beim Enderit-Kolben: violettes Mauerwerk (stone_face),
+# Rahmen G oben/links und F unten/rechts, Enderit-Eckbeschlaege (2x2) mit einer leuchtenden
+# Niete oben links auf Front und Deckel, Bretter aus der Kolben-Deckplatte fuer den
+# Raeucherofen und Enderflamme (violett statt orange) fuer die leuchtenden Fronten.
+#
+# Karten mit '_' sind Overlays: '_' laesst das Mauerwerk der Flaeche durchscheinen, das aus
+# einer eigenen 14x14-Steinlage (Zeilen/Spalten 1-14 der Flaeche) schattiert wird.
+ENDERITE_MACHINE_PAL = {
+    # Hohlraum (Ofenmaul, Schlitze, Schornstein), nie reines Schwarz
+    "0": "#0b0612",
+    # Mauerwerk dunkel -> hell, eine Stufe heller als der Kolbensockel, damit Ofenmaul und
+    # Schlitze sich abheben; 6 = Leuchtpunkt
+    "1": "#170d1f", "2": "#221630", "3": "#2d1e3d", "4": "#3a284c", "5": "#48345b", "6": "#6a45a6",
+    # Rahmen
+    "G": "#3b2a4d", "F": "#170e1d",
+    # Enderit-Beschlaege: m Schatten, M Grund, N hell, O Glanz/Niete, L leuchtende Niete
+    "m": "#312238", "M": "#50355d", "N": "#71587b", "O": "#927c9c", "L": "#9d7ad5",
+    # Enderit-Bretter wie die Kolben-Deckplatte (S Fuge, p..W dunkel -> hell)
+    "S": "#170d1e", "p": "#231731", "q": "#2d1e3d", "Q": "#38284b", "W": "#46335b",
+    # Enderflamme dunkel -> hell (Glut, Flammenkoerper, Kern)
+    "a": "#2c0f4e", "b": "#4b1b86", "c": "#7329c4", "d": "#a44ff0", "e": "#d08eff", "f": "#f4ddff",
+}
+
+# --- Ofen: Sichtbogen oben, Enderit-Sims ueber die ganze Breite (laeuft auf den Seiten
+# weiter), Feuerraum mit Rost unten
+ENDERITE_FURNACE_FRONT = [
+    "LMGGGGGGGGGGGGNM",
+    "Mm___NNNNNN___Mm",
+    "G___N111111M___F",
+    "G__N10000004M__F",
+    "G__N10000004M__F",
+    "G__N10000004M__F",
+    "G__N10000004M__F",
+    "ONNNNNNNNNNNNNNM",
+    "MMMLMMMMMMMMLMMm",
+    "mmmmmmmmmmmmmmmm",
+    "G____NNNNNN____F",
+    "G___N111111M___F",
+    "G__N10000004M__F",
+    "G__N10000004M__F",
+    "NM_NmmmmmmmmM_NM",
+    "MmFFFFFFFFFFFFMm",
+]
+ENDERITE_FURNACE_FRONT_STONES = [
+    "aaaaa.bbbb.ccc",
+    "dddd......eeee",
+    "ddd........eee",
+    "..............",
+    "ff..........gg",
+    "ff..........gg",
+    "..............",
+    "..............",
+    "..............",
+    "hhhh......iiii",
+    "hhh........iii",
+    "..............",
+    "jj..........kk",
+    "jj..........kk",
+]
+# Brennend: nur der Feuerraum aendert sich (Zeilen 11-14), Flammen ueber dem gluehenden Rost
+ENDERITE_FURNACE_FIRE = {
+    11: "G___Na0c00bM___F",
+    12: "G__Nbcd0dcdcM__F",
+    13: "G__NcefdfeddM__F",
+    14: "NM_NcdedcdecM_NM",
+}
+ENDERITE_FURNACE_SIDE = [
+    "NMGGGGGGGGGGGGNM",
+    "Mm____________Mm",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "ONNNNNNNNNNNNNNM",
+    "MMMMMMMMMMMMMMMm",
+    "mmmmmmmmmmmmmmmm",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "NM____________NM",
+    "MmFFFFFFFFFFFFMm",
+]
+ENDERITE_FURNACE_SIDE_STONES = [
+    "aaaa.bbbbbb.cc",
+    "aaaa.bbbbbb.cc",
+    ".aa...bbbb..c.",
+    "ddddd.eeee.fff",
+    "ddddd.eeee.fff",
+    "ddddd.eeee.fff",
+    "..............",
+    "..............",
+    "..............",
+    "ggggggg.hhhhhh",
+    "ggggggg.hhhhhh",
+    "ggggggg.hhhhhh",
+    "ggggggg.hhhhhh",
+    "ggggggg.hhhhhh",
+]
+ENDERITE_FURNACE_TOP = [
+    "LMGGGGGGGGGGGGNM",
+    "Mm____________Mm",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "NM____________NM",
+    "MmFFFFFFFFFFFFMm",
+]
+# Herdplatte: grosser Mittelstein, rundum kleinere Steine
+ENDERITE_FURNACE_TOP_STONES = [
+    "aaaa.bbbbb.ccc",
+    "aaaa.bbbbb.ccc",
+    "aaaa.bbbbb.ccc",
+    "..............",
+    "dd.eeeeeeee.ff",
+    "dd.eeeeeeee.ff",
+    "dd.eeeeeeee.ff",
+    "dd.eeeeeeee.ff",
+    "dd.eeeeeeee.ff",
+    "dd.eeeeeeee.ff",
+    "..............",
+    "ggg.hhhhh.iiii",
+    "ggg.hhhhh.iiii",
+    "ggg.hhhhh.iiii",
+]
+ENDERITE_FURNACE_SPECKS = {"front": [(1, 1)], "side": [(2, 1), (9, 11)], "top": [(5, 5), (12, 12)]}
+
+# --- Schmelzofen: schweres Mauerwerk oben, Enderit-Gehaeuse mit drei Glutschlitzen,
+# Seiten mit genieteten Enderit-Platten unten
+ENDERITE_BLAST_FURNACE_FRONT = [
+    "LMGGGGGGGGGGGGNM",
+    "Mm____________Mm",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G_ONNNNNNNNNNM_F",
+    "G_NMMOMMMMOMMm_F",
+    "G_N1111111111m_F",
+    "G_NM00M00M00Mm_F",
+    "G_NM00M00M00Mm_F",
+    "G_NM00M00M00Mm_F",
+    "G_NM00M00M00Mm_F",
+    "G_NNNNNNNNNNNm_F",
+    "G_mmmmmmmmmmmm_F",
+    "NM____________NM",
+    "MmFFFFFFFFFFFFMm",
+]
+ENDERITE_BLAST_FURNACE_FRONT_STONES = [
+    "aaaaa.bbbb.ccc",
+    "aaaaa.bbbb.ccc",
+    "aaaaa.bbbb.ccc",
+    "..............",
+    "d............e",
+    "d............e",
+    "d............e",
+    "d............e",
+    "d............e",
+    ".............e",
+    "f............g",
+    "f............g",
+    "f............g",
+    "hhhhhh.iiiiiii",
+]
+# Zwei Bilder, weich ueberblendet (wie netherite_blast_furnace_front_on): Schlitze
+# glimmen oben dunkel, unten hell; Bild 2 eine Stufe heller
+ENDERITE_BLAST_FURNACE_GLOW = [
+    {7: "G_Na111111111m_F",
+     8: "G_NMcc" "M" "cc" "M" "ccMm_F",
+     9: "G_NMcc" "M" "cc" "M" "ccMm_F",
+     10: "G_NMdd" "M" "dd" "M" "ddMm_F",
+     11: "G_NMee" "M" "ee" "M" "eeMm_F"},
+    {7: "G_Nabbbbbbbbbm_F",
+     8: "G_NMdd" "M" "dd" "M" "ddMm_F",
+     9: "G_NMdd" "M" "dd" "M" "ddMm_F",
+     10: "G_NMee" "M" "ee" "M" "eeMm_F",
+     11: "G_NMff" "M" "ff" "M" "ffMm_F"},
+]
+ENDERITE_BLAST_FURNACE_SIDE = [
+    "NMGGGGGGGGGGGGNM",
+    "Mm____________Mm",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "G______________F",
+    "ONNNNNNNNNNNNNNM",
+    "mmmmmmmmmmmmmmmm",
+    "GNNNNNNmNNNNNNmF",
+    "GNOMMMOmNOMMMOmF",
+    "GNMMMMMmNMMMMMmF",
+    "GNOMMMOmNOMMMOmF",
+    "NMmmmmmmmmmmmmNM",
+    "MmFFFFFFFFFFFFMm",
+]
+ENDERITE_BLAST_FURNACE_SIDE_STONES = [
+    "aaa.bbbbbb.ccc",
+    "aaa.bbbbbb.ccc",
+    "aaa.bbbbbb.ccc",
+    "..............",
+    "ddddd.eeeee.ff",
+    "ddddd.eeeee.ff",
+    "ddddd.eeeee.ff",
+    "..............",
+    "..............",
+    "..............",
+    "..............",
+    "..............",
+    "..............",
+    "..............",
+]
+# Deckel: Enderit-Randleiste mit Nieten, innen vier schwere Platten
+ENDERITE_BLAST_FURNACE_TOP = [
+    "LMGGGGGGGGGGGGNM",
+    "MmNNNNNNNNNNNmMm",
+    "GN____________mF",
+    "GN____________mF",
+    "GN____________mF",
+    "GN____________mF",
+    "GN____________mF",
+    "GN____________mF",
+    "GN____________mF",
+    "GN____________mF",
+    "GN____________mF",
+    "GN____________mF",
+    "GN____________mF",
+    "GN____________mF",
+    "NMmmmmmmmmmmmmNM",
+    "MmFFFFFFFFFFFFMm",
+]
+ENDERITE_BLAST_FURNACE_TOP_STONES = [
+    "..............",
+    ".aaaaaa.bbbbb.",
+    ".aaaaaa.bbbbb.",
+    ".aaaaaa.bbbbb.",
+    ".aaaaaa.bbbbb.",
+    ".aaaaaa.bbbbb.",
+    ".aaaaaa.bbbbb.",
+    "..............",
+    ".ccccc.dddddd.",
+    ".ccccc.dddddd.",
+    ".ccccc.dddddd.",
+    ".ccccc.dddddd.",
+    ".ccccc.dddddd.",
+    "..............",
+]
+ENDERITE_BLAST_FURNACE_SPECKS = {"front": [(2, 1)], "side": [(7, 4)], "top": [(3, 3), (9, 10)]}
+
+# --- Raeucherofen: Bretterrahmen (2 px) und Mittelbalken, oben Rauchfenster mit Rost,
+# unten Feuerraum hinter vier Enderit-Staeben
+ENDERITE_SMOKER_FRONT = [
+    "LMWWWWQSWWWWWQNM",
+    "MmqqpqqSqqqpqqMm",
+    "WqONNNNNNNNNNMQS",
+    "WqN1111111111mQS",
+    "WqN0000000000mQS",
+    "WpNmMmMmMmMmMmQS",
+    "WqNmmmmmmmmmmmQS",
+    "WWWWWQSWWWWWWWQS",
+    "qqpqqqSqqqpqqqpS",
+    "Wq1N11N11N11N1QS",
+    "Wq0M00M00M00M0QS",
+    "Wp0M00M00M00M0QS",
+    "Wq0M00M00M00M0QS",
+    "Wq0m00m00m00m0QS",
+    "NMQQQQQQSQQQQQNM",
+    "MmSSSSSSSSSSSSMm",
+]
+# Drei Bilder ohne Ueberblendung (wie netherite_smoker_front_on): Rost gluehend, Flammen
+# flackern hinter den Staeben; jede Zeile ersetzt die gleiche Zeile der Front
+ENDERITE_SMOKER_GLOW = {
+    3: "WqN1bbbbbbbb1mQS",
+    4: "WqNacbcbccbcamQS",
+    5: "WqNmdmdmdmdmdmQS",
+}
+ENDERITE_SMOKER_FLAMES = [
+    {9: "Wq1N11N11Nb1N1QS",
+     10: "Wq0Mc0M0bM0cMbQS",
+     11: "WqbMdcMbdMcdMcQS",
+     12: "WqcMedMcfMdeMdQS",
+     13: "WqdmfemdfmefmeQS"},
+    {9: "Wq1Nb1N11N11N1QS",
+     10: "WqbM0cMc0Mb0M0QS",
+     11: "WqcMcdMdcMbcMbQS",
+     12: "WqdMdeMedMcdMcQS",
+     13: "WqemefmfemdemdQS"},
+    {9: "Wq1N11N1bN11N1QS",
+     10: "Wq0Mb0M0cM0bM0QS",
+     11: "WqbMcbMcdMbcMcQS",
+     12: "WqcMdcMdeMcdMdQS",
+     13: "WqdmedmefmdemeQS"},
+]
+ENDERITE_SMOKER_SIDE = [
+    "NMWWWWQSWWWWWQNM",
+    "MmqqpqqSqqqpqqMm",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "WWWWWQSWWWWWWWQS",
+    "qqpqqqSqqqpqqqpS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "NMQQQQQQSQQQQQNM",
+    "MmSSSSSSSSSSSSMm",
+]
+ENDERITE_SMOKER_SIDE_STONES = [
+    "..............",
+    ".aaaa.bbbbbbb.",
+    ".aaaa.bbbbbbb.",
+    "..............",
+    ".ccccccc.dddd.",
+    ".ccccccc.dddd.",
+    "..............",
+    "..............",
+    ".eee.fffff.gg.",
+    ".eee.fffff.gg.",
+    "..............",
+    ".hhhhhh.iiiii.",
+    ".hhhhhh.iiiii.",
+    "..............",
+]
+# Deckel mit Schornstein in der Mitte
+ENDERITE_SMOKER_TOP = [
+    "LMWWWWQSWWWWWQNM",
+    "MmqqpqqSqqqpqqMm",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq___ONNNNM___QS",
+    "Wq___N1111m___QS",
+    "Wq___N1000m___QS",
+    "Wp___N1000m___QS",
+    "Wq___N1000m___QS",
+    "Wq___Mmmmmm___QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "NMQQQQQQSQQQQQNM",
+    "MmSSSSSSSSSSSSMm",
+]
+ENDERITE_SMOKER_TOP_STONES = [
+    "..............",
+    ".aaaaaa.bbbbb.",
+    ".aaaaaa.bbbbb.",
+    "..............",
+    ".ccc......ddd.",
+    ".ccc......ddd.",
+    ".ccc......ddd.",
+    "..............",
+    ".eee......fff.",
+    ".eee......fff.",
+    "..............",
+    ".gggg.hhhhhhh.",
+    ".gggg.hhhhhhh.",
+    "..............",
+]
+ENDERITE_SMOKER_BOTTOM = [
+    "NMWWWWWQSWWWWQNM",
+    "MmqqqpqqSqqpqqMm",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "Wq____________QS",
+    "NMQQQQQQSQQQQQNM",
+    "MmSSSSSSSSSSSSMm",
+]
+ENDERITE_SMOKER_BOTTOM_STONES = [
+    "..............",
+    ".aaa.bbbbb.cc.",
+    ".aaa.bbbbb.cc.",
+    ".aaa.bbbbb.cc.",
+    "..............",
+    ".dddddd.eeeee.",
+    ".dddddd.eeeee.",
+    ".dddddd.eeeee.",
+    ".dddddd.eeeee.",
+    "..............",
+    ".ff.ggggg.hhh.",
+    ".ff.ggggg.hhh.",
+    ".ff.ggggg.hhh.",
+    "..............",
+]
+ENDERITE_SMOKER_SPECKS = {"side": [(2, 1), (9, 11)], "top": [(2, 1), (8, 12)], "bottom": [(6, 6)]}
+
+# --- Trichter. Das Vanilla-Modell nutzt die Flaechen ohne eigene UVs: vom Deckel nur den
+# 2-px-Rand, von der Aussenseite Zeilen 0-4 (Rand, auch innen), Zeile 5 (Platte),
+# Zeilen 6-11 Spalten 4-11 (Mittelteil) und Zeilen 12-15 Spalten 6-9 (Auslauf); die
+# Innenseite ist Boden der Schale und Unterseite, ihre Mitte ist die Auslaufoeffnung.
+ENDERITE_HOPPER_TOP = [
+    "ONNNNNNNNNNNNNNM",
+    "NLMMMMMMMMMMMMLm",
+    "NMmmmmmmmmmmmNMm",
+    "NMm..........NMm",
+    "NMm..........NMm",
+    "NMm..........NMm",
+    "NMm..........NMm",
+    "NMm..........NMm",
+    "NMm..........NMm",
+    "NMm..........NMm",
+    "NMm..........NMm",
+    "NMm..........NMm",
+    "NMm..........NMm",
+    "NMmNNNNNNNNNNNMm",
+    "NLMMMMMMMMMMMMLm",
+    "MmmmmmmmmmmmmmmF",
+]
+ENDERITE_HOPPER_OUTSIDE = [
+    "NNNNNNNONNNNNNNN",
+    "MOMMMMMNMMMMMMOM",
+    "MMMMMMMNMMMMMMMM",
+    "MMMMMMMmMMMMMMMM",
+    "mmmmmmmmmmmmmmmm",
+    "FFFFFFFFFFFFFFFF",
+    "NNNNNNNNNNNNNNNN",
+    "MMMMNLMMMMLmMMMM",
+    "MMMMNMMMMMMmMMMM",
+    "MMMMNMMMMMMmMMMM",
+    "MMMMNMMMMMMmMMMM",
+    "mmmmmmmmmmmmmmmm",
+    "FFFFFFNNNmFFFFFF",
+    "MMMMMMNMMmMMMMMM",
+    "MMMMMMNMMmMMMMMM",
+    "mmmmmmmmmmmmmmmm",
+]
+ENDERITE_HOPPER_INSIDE = [
+    "mmmmmmmmmmmmmmmm",
+    "m44444444444443m",
+    "m43333333333332m",
+    "m43M33333333M32m",
+    "m43322222222332m",
+    "m43321111112332m",
+    "m43321000043332m",
+    "m43321000043332m",
+    "m43321000043332m",
+    "m43321000043332m",
+    "m43322444443332m",
+    "m43323333333332m",
+    "m43M33333333M32m",
+    "m43333333333332m",
+    "m22222222222222m",
+    "mmmmmmmmmmmmmmmm",
+]
+# Item: breiter Trichterrand mit Blick in die Schale, genieteter Kegel, Auslauf
+ENDERITE_HOPPER_ITEM = [
+    "................",
+    "................",
+    "..mmmmmmmmmmmm..",
+    ".mONNNNNNNNNNMF.",
+    ".mN1111111111MF.",
+    ".mN0000000000MF.",
+    "..mmmmmmmmmmmF..",
+    "...mNMLMMLMmF...",
+    "...mNMMMMMMmF...",
+    "....mNMMMMmF....",
+    "....mNMMMMmF....",
+    ".....mNMMmF.....",
+    ".....mNMMmF.....",
+    "......mNmF......",
+    "......mNmF......",
+    "......FFFF......",
+]
+
+
+# ---------------------------------------------------------------------------
 # Hilfsfunktionen
 # ---------------------------------------------------------------------------
 
@@ -482,6 +975,105 @@ def enderite_piston_maps():
     return ENDERITE_PISTON_TOP, side, bottom, inner
 
 
+def masonry(name, over, stones, specks=()):
+    """Fuellt die '_' einer Overlay-Karte mit dem Mauerwerk einer 14x14-Steinlage
+    (Zeile/Spalte 0 der Steinlage = Zeile/Spalte 1 der Flaeche)."""
+    if len(stones) != 14 or any(len(r) != 14 for r in stones):
+        raise ValueError(f"{name}: Steinlage muss 14x14 sein")
+    face = stone_face(stones, specks)
+    out = []
+    for y, row in enumerate(over):
+        line = ""
+        for x, ch in enumerate(row):
+            if ch == "_":
+                if not (1 <= x <= 14 and 1 <= y <= 14):
+                    raise ValueError(f"{name}: '_' auf dem Rand bei ({x},{y})")
+                ch = face[y - 1][x - 1]
+            line += ch
+        out.append(line)
+    return out
+
+
+def patch(rows, changes):
+    """Kopie einer Karte mit ersetzten Zeilen (leuchtende Varianten, Animationsbilder)."""
+    out = list(rows)
+    for y, row in changes.items():
+        out[y] = row
+    return out
+
+
+def render_strip(name, frames, palette):
+    """Animationsstreifen fuer .mcmeta: deckende 16x16-Bilder untereinander."""
+    img = Image.new("RGB", (16, 16 * len(frames)))
+    for i, rows in enumerate(frames):
+        img.paste(render(f"{name}#{i}", rows, palette, True), (0, 16 * i))
+    return img
+
+
+# Animationsparameter wie bei den netherite_*-Gegenstuecken; der Generator schreibt die
+# .png.mcmeta mit, sonst zeigte Minecraft den Streifen gestaucht als ein Bild.
+ENDERITE_ANIMATIONS = {
+    "block/enderite_smoker_front_on.png": {"interpolate": False, "frametime": 4},
+    "block/enderite_blast_furnace_front_on.png": {"frametime": 20, "interpolate": True},
+}
+
+
+def enderite_machine_textures():
+    pal = ENDERITE_MACHINE_PAL
+    tex = {}
+
+    def block(name, rows):
+        tex[f"block/{name}.png"] = render(name, rows, pal, True)
+
+    # Trichter
+    tex["block/enderite_hopper_top.png"] = render("enderite_hopper_top", ENDERITE_HOPPER_TOP, pal, False)
+    block("enderite_hopper_outside", ENDERITE_HOPPER_OUTSIDE)
+    block("enderite_hopper_inside", ENDERITE_HOPPER_INSIDE)
+    tex["item/enderite_hopper.png"] = render("enderite_hopper", ENDERITE_HOPPER_ITEM, pal, False)
+
+    # Ofen
+    sp = ENDERITE_FURNACE_SPECKS
+    for suffix, changes in (("", {}), ("_on", ENDERITE_FURNACE_FIRE)):
+        block(f"enderite_furnace_front{suffix}", masonry(
+            f"enderite_furnace_front{suffix}", patch(ENDERITE_FURNACE_FRONT, changes),
+            ENDERITE_FURNACE_FRONT_STONES, sp["front"]))
+    block("enderite_furnace_side", masonry("enderite_furnace_side", ENDERITE_FURNACE_SIDE,
+                                           ENDERITE_FURNACE_SIDE_STONES, sp["side"]))
+    block("enderite_furnace_top", masonry("enderite_furnace_top", ENDERITE_FURNACE_TOP,
+                                          ENDERITE_FURNACE_TOP_STONES, sp["top"]))
+
+    # Raeucherofen (Unterseite wie beim Netherit-Raeucherofen als eigene Datei)
+    sp = ENDERITE_SMOKER_SPECKS
+    block("enderite_smoker_front", ENDERITE_SMOKER_FRONT)
+    lit = patch(ENDERITE_SMOKER_FRONT, ENDERITE_SMOKER_GLOW)
+    tex["block/enderite_smoker_front_on.png"] = render_strip(
+        "enderite_smoker_front_on", [patch(lit, f) for f in ENDERITE_SMOKER_FLAMES], pal)
+    block("enderite_smoker_side", masonry("enderite_smoker_side", ENDERITE_SMOKER_SIDE,
+                                          ENDERITE_SMOKER_SIDE_STONES, sp["side"]))
+    block("enderite_smoker_top", masonry("enderite_smoker_top", ENDERITE_SMOKER_TOP,
+                                         ENDERITE_SMOKER_TOP_STONES, sp["top"]))
+    block("enderite_smoker_bottom", masonry("enderite_smoker_bottom", ENDERITE_SMOKER_BOTTOM,
+                                            ENDERITE_SMOKER_BOTTOM_STONES, sp["bottom"]))
+
+    # Schmelzofen
+    sp = ENDERITE_BLAST_FURNACE_SPECKS
+    def blast_front(changes):
+        return masonry("enderite_blast_furnace_front", patch(ENDERITE_BLAST_FURNACE_FRONT, changes),
+                       ENDERITE_BLAST_FURNACE_FRONT_STONES, sp["front"])
+    block("enderite_blast_furnace_front", blast_front({}))
+    tex["block/enderite_blast_furnace_front_on.png"] = render_strip(
+        "enderite_blast_furnace_front_on", [blast_front(f) for f in ENDERITE_BLAST_FURNACE_GLOW], pal)
+    block("enderite_blast_furnace_side", masonry("enderite_blast_furnace_side", ENDERITE_BLAST_FURNACE_SIDE,
+                                                 ENDERITE_BLAST_FURNACE_SIDE_STONES, sp["side"]))
+    block("enderite_blast_furnace_top", masonry("enderite_blast_furnace_top", ENDERITE_BLAST_FURNACE_TOP,
+                                                ENDERITE_BLAST_FURNACE_TOP_STONES, sp["top"]))
+    return tex
+
+
+def mcmeta_text(animation):
+    return json.dumps({"animation": animation}, indent=2) + "\n"
+
+
 # ---------------------------------------------------------------------------
 # Texturliste
 # ---------------------------------------------------------------------------
@@ -509,6 +1101,8 @@ def build():
         pal = dict(METALS[metal])
         pal.update(CHISEL_WOOD)
         tex[f"item/{metal}_spatula.png"] = render(f"{metal}_spatula", SPATULA, pal, False)
+
+    tex.update(enderite_machine_textures())
     return tex
 
 
@@ -616,6 +1210,113 @@ def render_iso(faces_tex, back_view, scale=6):
     return img
 
 
+# Vollblock mit Front nach Norden (Modell orientable) und Vanilla-Trichter (block/hopper.json,
+# alle Flaechen ohne eigene UVs). Schluessel = Texturslot.
+CUBE_ELEMENTS = [((0, 0, 0), (16, 16, 16), {"north": "front", "west": "side", "up": "top"})]
+HOPPER_ELEMENTS = [
+    ((0, 10, 0), (16, 11, 16), {"up": "inside", "north": "side", "west": "side"}),
+    ((0, 11, 0), (2, 16, 16), {"up": "top", "north": "side", "west": "side"}),
+    ((14, 11, 0), (16, 16, 16), {"up": "top", "north": "side", "west": "side"}),
+    ((2, 11, 0), (14, 16, 2), {"up": "top", "north": "side"}),
+    ((2, 11, 14), (14, 16, 16), {"up": "top", "north": "side"}),
+    ((4, 4, 4), (12, 10, 12), {"north": "side", "west": "side"}),
+    ((6, 0, 6), (10, 4, 10), {"north": "side", "west": "side"}),
+]
+
+
+def auto_uv(face, frm, to):
+    """UV einer Elementflaeche ohne eigenes "uv" (Minecraft leitet sie aus der Lage ab)."""
+    x1, y1, z1 = frm
+    x2, y2, z2 = to
+    return {"north": (16 - x2, 16 - y2, 16 - x1, 16 - y1), "south": (x1, 16 - y2, x2, 16 - y1),
+            "west": (z1, 16 - y2, z2, 16 - y1), "east": (16 - z2, 16 - y2, 16 - z1, 16 - y1),
+            "up": (x1, z1, x2, z2), "down": (x1, 16 - z2, x2, 16 - z1)}[face]
+
+
+def render_block_iso(elements, faces_tex, scale=5):
+    """Isometrie von Nordwesten oben (Nord-, West- und Oberseiten) fuer Elemente mit
+    automatischen UVs; Pixel werden von hinten nach vorn gemalt (Tiefe x + z - y)."""
+    w, h = 28 * scale, 33 * scale
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+
+    def project(p):
+        x, y, z = p
+        return ((x - z) * 0.866 * scale + w / 2, h - 0.5 * scale - y * scale - (x + z) * 0.5 * scale)
+
+    quads = []
+    for frm, to, faces in elements:
+        for face, slot in faces.items():
+            tex = faces_tex[slot].convert("RGBA")
+            u1, v1, u2, v2 = auto_uv(face, frm, to)
+            nu, nv = u2 - u1, v2 - v1
+            for j in range(nv):
+                for i in range(nu):
+                    col = tex.getpixel((u1 + i, v1 + j))
+                    if col[3] == 0:
+                        continue
+                    col = tuple(int(c * SHADE[face]) for c in col[:3]) + (255,)
+                    pts3 = [face_point(face, frm, to, a, b) for a, b in
+                            ((i / nu, j / nv), ((i + 1) / nu, j / nv), ((i + 1) / nu, (j + 1) / nv), (i / nu, (j + 1) / nv))]
+                    depth = sum(p[0] + p[2] - p[1] for p in pts3) / 4
+                    quads.append((depth, [project(p) for p in pts3], col))
+    quads.sort(key=lambda q: -q[0])
+    for _, pts, col in quads:
+        draw.polygon(pts, fill=col)
+    return img
+
+
+def render_front_view(elements, faces_tex, scale=5):
+    """Ansicht genau von Norden: Nordflaechen von hinten nach vorn, zeigt Mittelteil und Auslauf."""
+    img = Image.new("RGBA", (16 * scale, 16 * scale), (0, 0, 0, 0))
+    for frm, to, faces in sorted(elements, key=lambda e: -e[0][2]):
+        if "north" not in faces:
+            continue
+        u1, v1, u2, v2 = auto_uv("north", frm, to)
+        part = faces_tex[faces["north"]].convert("RGBA").crop((u1, v1, u2, v2))
+        part = part.resize(((u2 - u1) * scale, (v2 - v1) * scale), Image.NEAREST)
+        img.alpha_composite(part, (u1 * scale, v1 * scale))
+    return img
+
+
+def strip_frames(name, img):
+    """Animationsstreifen als einzelne Vorschaubilder."""
+    n = img.height // 16
+    if n == 1:
+        return [(name, img)]
+    return [(f"{name[:-4]}#{i}.png", img.crop((0, 16 * i, 16, 16 * i + 16))) for i in range(n)]
+
+
+def machine_preview_groups(tex):
+    """Vorschau der Enderit-Maschinen: Flaechen, Animationsbilder, Isometrie aus und an."""
+    def t(rel):
+        return tex[f"block/enderite_{rel}.png"]
+
+    def frames(rel):
+        return strip_frames(f"block/enderite_{rel}.png", t(rel))
+
+    def cells(*rels):
+        return [cell for rel in rels for cell in frames(rel)]
+
+    hopper = {"top": t("hopper_top"), "side": t("hopper_outside"), "inside": t("hopper_inside")}
+    groups = [("Vergleich Netherit-Maschinen", [
+        (f"block/netherite_{n}.png", None) for n in ("hopper_outside", "furnace_front", "furnace_front_on",
+                                                      "smoker_front", "blast_furnace_front")] +
+        [("item/netherite_hopper.png", None)], [])]
+    groups.append(("enderite_hopper",
+                   cells("hopper_top", "hopper_outside", "hopper_inside") +
+                   [("item/enderite_hopper.png", tex["item/enderite_hopper.png"])],
+                   [render_block_iso(HOPPER_ELEMENTS, hopper), render_front_view(HOPPER_ELEMENTS, hopper, 8)]))
+    for machine, faces in (("furnace", ("front", "front_on", "side", "top")),
+                           ("smoker", ("front", "front_on", "side", "top", "bottom")),
+                           ("blast_furnace", ("front", "front_on", "side", "top"))):
+        lit = frames(f"{machine}_front_on")[-1][1]
+        isos = [render_block_iso(CUBE_ELEMENTS, {"front": front, "side": t(f"{machine}_side"), "top": t(f"{machine}_top")})
+                for front in (t(f"{machine}_front"), lit)]
+        groups.append((f"enderite_{machine}", cells(*(f"{machine}_{f}" for f in faces)), isos))
+    return groups
+
+
 def build_preview(tex):
     scale = 8
     cell = 16 * scale
@@ -625,45 +1326,48 @@ def build_preview(tex):
     groups = [
         ("Vergleich (bestehend)", [
             ("item/quiver.png", None), ("item/reinforced_bundle.png", None), ("item/iron_chisel.png", None),
-            ("block/netherite_piston_side.png", None), ("block/reinforced_piston_top.png", None)]),
+            ("block/netherite_piston_side.png", None), ("block/reinforced_piston_top.png", None)], []),
         ("Items", [(k, tex[k]) for k in ("item/leather_sheet.png", "item/reinforced_quiver.png", "item/backpack.png",
                                           "item/reinforced_backpack.png", "item/netherite_backpack.png",
-                                          "item/enderite_backpack.png")]),
-        ("Spachtel", [(k, tex[k]) for k in sorted(tex) if k.endswith("_spatula.png")]),
+                                          "item/enderite_backpack.png")], []),
+        ("Spachtel", [(k, tex[k]) for k in sorted(tex) if k.endswith("_spatula.png")], []),
         ("Kolben", [(k, tex[k]) for k in ("block/reinforced_piston_top_sticky.png", "block/enderite_piston_top.png",
                                            "block/enderite_piston_side.png", "block/enderite_piston_bottom.png",
-                                           "block/enderite_piston_inner.png")]),
+                                           "block/enderite_piston_inner.png")], []),
     ]
     for prefix in ("", "reinforced_", "netherite_", "enderite_"):
-        groups.append((f"{prefix}backpack Block", [(f"block/{prefix}backpack_{f}.png", tex[f"block/{prefix}backpack_{f}.png"])
-                                                  for f in ("front", "back", "side", "top")]))
-    cols = 6
-    rows = sum(1 for _ in groups)
-    iso_w = 2 * 28 * 6 + pad
-    width = pad + cols * (cell + pad) + iso_w + pad
-    height = pad + rows * (cell + label_h + 18 + pad)
+        faces = {f: tex[f"block/{prefix}backpack_{f}.png"] for f in ("front", "back", "side", "top")}
+        groups.append((f"{prefix}backpack Block", [(f"block/{prefix}backpack_{f}.png", faces[f])
+                                                  for f in ("front", "back", "side", "top")],
+                       [render_iso(faces, back) for back in (False, True)]))
+    groups += machine_preview_groups(tex)
+    width = max(pad + len(items) * (cell + pad) + sum(iso.width + pad for iso in isos) + pad
+                for _, items, isos in groups)
+    height = pad + len(groups) * (16 + cell + label_h + pad + 4)
     sheet = Image.new("RGB", (width, height), (198, 198, 198))
     draw = ImageDraw.Draw(sheet)
     y = pad
-    for gi, (title, items) in enumerate(groups):
+    for title, items, isos in groups:
         draw.text((pad, y), title, fill=(40, 40, 40), font=font)
         y0 = y + 16
         for i, (name, img) in enumerate(items):
             if img is None:
                 img = Image.open(os.path.join(TREES[0], name))
+                img = img.crop((0, 0, 16, 16))
             img = img.convert("RGBA")
             x0 = pad + i * (cell + pad)
             draw.rectangle([x0, y0, x0 + cell - 1, y0 + cell - 1], fill=(139, 139, 139))
             big = img.resize((cell, cell), Image.NEAREST)
             sheet.paste(big, (x0, y0), big)
-            draw.text((x0, y0 + cell + 2), os.path.basename(name)[:-4][:22], fill=(20, 20, 20), font=font)
-        if title.endswith("Block"):
-            prefix = title.split()[0].replace("backpack", "")
-            faces = {f: tex[f"block/{prefix}backpack_{f}.png"] for f in ("front", "back", "side", "top")}
-            xi = pad + 4 * (cell + pad)
-            for k, back in enumerate((False, True)):
-                iso = render_iso(faces, back)
-                sheet.paste(iso, (xi + k * (iso.width + pad), y0 - 30), iso)
+            label = os.path.basename(name)[:-4]
+            group = title.split()[0] + "_"
+            if label.startswith(group):
+                label = label[len(group):]
+            draw.text((x0, y0 + cell + 2), label[:22], fill=(20, 20, 20), font=font)
+        xi = pad + len(items) * (cell + pad)
+        for iso in isos:
+            sheet.paste(iso, (xi, y0 + cell + label_h - iso.height), iso)
+            xi += iso.width + pad
         y = y0 + cell + label_h + pad + 4
     return sheet
 
@@ -692,15 +1396,32 @@ def main():
                 os.makedirs(os.path.dirname(path), exist_ok=True)
                 with open(path, "wb") as f:
                     f.write(data)
+    for rel, animation in sorted(ENDERITE_ANIMATIONS.items()):
+        if tex[rel].height % 16 or tex[rel].height // 16 < 2:
+            raise ValueError(f"{rel}: kein Animationsstreifen ({tex[rel].size})")
+        for tree in TREES:
+            path = os.path.join(tree, *rel.split("/")) + ".mcmeta"
+            if args.check:
+                try:
+                    with open(path, encoding="utf-8") as f:
+                        same = json.load(f) == {"animation": animation}
+                except (OSError, ValueError):
+                    same = False
+                if not same:
+                    stale.append(os.path.relpath(path, REPO))
+            else:
+                with open(path, "w", encoding="utf-8", newline="\n") as f:
+                    f.write(mcmeta_text(animation))
     if args.check:
         if stale:
             print("Veraltet oder fehlend:\n  " + "\n  ".join(stale))
             return 1
-        print(f"OK: {len(tex)} Texturen in {len(TREES)} Baeumen aktuell")
+        print(f"OK: {len(tex)} Texturen und {len(ENDERITE_ANIMATIONS)} .mcmeta in {len(TREES)} Baeumen aktuell")
         return 0
     if not args.no_preview:
         build_preview(tex).save(PREVIEW)
-    print(f"{len(tex)} Texturen in {len(TREES)} Baeume geschrieben" + ("" if args.no_preview else f", Vorschau: {os.path.relpath(PREVIEW, REPO)}"))
+    print(f"{len(tex)} Texturen und {len(ENDERITE_ANIMATIONS)} .mcmeta in {len(TREES)} Baeume geschrieben"
+          + ("" if args.no_preview else f", Vorschau: {os.path.relpath(PREVIEW, REPO)}"))
     return 0
 
 
