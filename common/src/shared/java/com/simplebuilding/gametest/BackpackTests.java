@@ -505,8 +505,9 @@ public final class BackpackTests {
         BackpackMenu menu = menuFor(player, tier);
         BackpackContainer backpack = menu.backpack();
         int hotbar = BackpackMenu.USE_ROW_SLOT_START;
-        int enderiteTop = tier.rowSlots();
-        int netheriteSecond = tier.rowSlots() + tier.columnHeight() + 1;
+        // Column 0 is the netherite column on the right, column 1 the enderite column on the left.
+        int enderiteTop = tier.rowSlots() + tier.columnHeight();
+        int netheriteSecond = tier.rowSlots() + 1;
 
         // --- stacks of the same item first, in the backpack and in the main inventory ---
         backpack.setItem(5, new ItemStack(Items.GLASS, 60));
