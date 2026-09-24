@@ -57,18 +57,18 @@ public final class ForgeNetworkRegistration {
                     .add(OpenBackpackPayload.ID, OpenBackpackPayload.CODEC,
                             (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleOpenBackpack(payload, player)))
                 .clientbound()
-                    .add(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC, (payload, ctx) -> ctx.enqueueWork(() -> {
+                    .add(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC, (payload, ctx) -> handled(ctx).enqueueWork(() -> {
                         Minecraft client = Minecraft.getInstance();
                         if (client.level != null && client.level.getBlockEntity(payload.pos()) instanceof ModHopperBlockEntity blockEntity) {
                             blockEntity.setGhostItemClient(payload.slot(), payload.stack());
                         }
                     }))
-                    .add(TrimDataPayload.ID, TrimDataPayload.CODEC, (payload, ctx) -> ctx.enqueueWork(() -> {
+                    .add(TrimDataPayload.ID, TrimDataPayload.CODEC, (payload, ctx) -> handled(ctx).enqueueWork(() -> {
                         if (Minecraft.getInstance().player instanceof SurvivalTracerAccessor accessor) {
                             accessor.simplebuilding$setBaseValues(payload.baseDist(), payload.baseTime(), payload.baseHostile(), payload.basePassive(), payload.baseDamage());
                         }
                     }))
-                    .add(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC, (payload, ctx) -> ctx.enqueueWork(() -> {
+                    .add(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC, (payload, ctx) -> handled(ctx).enqueueWork(() -> {
                         if (Minecraft.getInstance().player instanceof SurvivalTracerAccessor accessor) {
                             accessor.simplebuilding$setCurrentValues(payload.currentDist(), payload.currentTime(), payload.currentHostile(), payload.currentPassive(), payload.currentDamage());
                         }
@@ -104,8 +104,15 @@ public final class ForgeNetworkRegistration {
         });
     }
 
+    // Forge 65 gibt ein nicht als erledigt markiertes Paket an Vanilla weiter; das reiht es fuer den
+    // Haupt-Thread neu ein und dekodiert den schon gelesenen Puffer ein zweites Mal (IndexOutOfBounds).
+    private static CustomPayloadEvent.Context handled(CustomPayloadEvent.Context context) {
+        context.setPacketHandled(true);
+        return context;
+    }
+
     private static void runOnPlayer(CustomPayloadEvent.Context context, Consumer<ServerPlayer> action) {
-        context.enqueueWork(() -> {
+        handled(context).enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if (player != null) {
                 action.accept(player);
