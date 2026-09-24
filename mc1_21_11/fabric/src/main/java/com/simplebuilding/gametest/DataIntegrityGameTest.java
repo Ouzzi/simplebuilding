@@ -78,4 +78,24 @@ public final class DataIntegrityGameTest {
     public void everyModItemIsInExactlyOneCreativeTab(GameTestHelper helper) {
         DataIntegrityTests.everyModItemIsInExactlyOneCreativeTab(helper);
     }
+
+    @GameTest
+    public void machinesAndStorageTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
+        DataIntegrityTests.machinesAndStorageTabIsLaidOutInRowsOfNine(helper);
+    }
+
+    @GameTest
+    public void creativeSpacerCannotBeTakenOrKept(GameTestHelper helper) {
+        DataIntegrityTests.creativeSpacerCannotBeTakenOrKept(helper);
+    }
+
+    @GameTest
+    public void devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers(GameTestHelper helper) {
+        DataIntegrityTests.devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers(helper);
+    }
+
+    @GameTest
+    public void devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(GameTestHelper helper) {
+        DataIntegrityTests.devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(helper);
+    }
 }

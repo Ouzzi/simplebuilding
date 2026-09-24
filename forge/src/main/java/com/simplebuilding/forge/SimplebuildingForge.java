@@ -42,6 +42,7 @@ public final class SimplebuildingForge {
     public SimplebuildingForge(FMLJavaModLoadingContext context) {
         BusGroup modBus = context.getModBusGroup();
         ModEnvironment.setModLoadedCheck(ModList::isLoaded);
+        ModEnvironment.setDevelopmentEnvironment(!net.minecraftforge.fml.loading.FMLEnvironment.production);
         ForgeModRegistries.register(modBus);
         RegisterEvent.getBus(modBus).addListener(ForgeRegistryBootstrap::onRegister);
         FMLCommonSetupEvent.getBus(modBus).addListener(this::commonSetup);

@@ -27,6 +27,18 @@ public class ModItemGroups {
         }
     }
 
+    /**
+     * Entwickler-Tab hinter den vier Tabs. Immer registriert, aber nur gefuellt, wenn
+     * {@link DevEnchantedTab#isShown()} gilt - leer blendet Vanilla ihn aus.
+     */
+    public static final CreativeModeTab DEV_ENCHANTED = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
+            Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, DevEnchantedTab.ID),
+            FabricCreativeModeTab.builder()
+                    .icon(DevEnchantedTab::icon)
+                    .title(Component.translatable(DevEnchantedTab.translationKey()))
+                    .displayItems((displayContext, entries) -> DevEnchantedTab.populateIfShown(entries, displayContext.holders()))
+                    .build());
+
     public static CreativeModeTab get(ModItemGroupsContent.Tab tab) {
         return GROUPS.get(tab);
     }

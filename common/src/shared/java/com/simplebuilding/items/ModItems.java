@@ -240,6 +240,13 @@ public class ModItems {
 
     public static final Item ENDERITE_UPGRADE_TEMPLATE = registerItem("enderite_upgrade_template", s -> new Item(s));
 
+    // Unsichtbarer Platzhalter fuer das Zeilen-Layout der Kreativ-Tabs (CreativeTabLayout); nicht erhaeltlich.
+    public static final Item CREATIVE_SPACER = registerItem("creative_spacer", s -> new CreativeSpacerItem(s
+            .stacksTo(1)
+            .component(DataComponents.CREATIVE_SLOT_LOCK, net.minecraft.util.Unit.INSTANCE)
+            .component(DataComponents.TOOLTIP_DISPLAY, new net.minecraft.world.item.component.TooltipDisplay(true,
+                    it.unimi.dsi.fastutil.objects.ReferenceSortedSets.emptySet()))));
+
 
 
     // Materials and Blocks Components

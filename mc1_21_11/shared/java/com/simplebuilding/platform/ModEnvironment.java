@@ -8,6 +8,10 @@ public final class ModEnvironment {
 
     private static ModLoadedCheck modLoadedCheck = modId -> false;
 
+    // Fabric: FabricLoader#isDevelopmentEnvironment, NeoForge/Forge: !FMLEnvironment.isProduction().
+    // Jeder Loader setzt es beim Start; ohne Loader (Datagen) bleibt es aus.
+    private static boolean developmentEnvironment = false;
+
     private ModEnvironment() {
     }
 
@@ -17,5 +21,14 @@ public final class ModEnvironment {
 
     public static boolean isModLoaded(String modId) {
         return modLoadedCheck.isModLoaded(modId);
+    }
+
+    public static void setDevelopmentEnvironment(boolean development) {
+        developmentEnvironment = development;
+    }
+
+    /** Laeuft das Spiel aus einer Entwicklungsumgebung (IDE/Gradle-Lauf) statt aus einem Release? */
+    public static boolean isDevelopmentEnvironment() {
+        return developmentEnvironment;
     }
 }

@@ -124,6 +124,10 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(key(Items.STICK));
 
+        // Layout-Platzhalter der Kreativ-Tabs: in JEI, REI und EMI versteckt (Konventions-Tag).
+        builder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers")))
+                .add(key(ModItems.CREATIVE_SPACER));
+
         // End-Paletten: Treppen, Stufen und Mauern auch als Item-Tags wie bei Vanilla.
         for (ModBlocks.EndPalette palette : ModBlocks.END_PALETTES) {
             palette.stairs().forEach(block -> builder(ItemTags.STAIRS).add(key(block.asItem())));

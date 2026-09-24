@@ -13,13 +13,17 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
  * Inhalt der vier Kreativ-Tabs der Mod. Jeder Loader registriert je {@link Tab} einen Tab mit der
  * Id {@code simplebuilding:<id>}, dem Titel {@code itemgroup.simplebuilding.<id>} und
  * {@link #populate(Tab, CreativeModeTab.Output, HolderLookup.Provider)} als Inhalt. Jedes Item der
- * Mod steht in genau einem Tab ({@code DataIntegrityTests#everyModItemIsInExactlyOneCreativeTab}).
+ * Mod steht in genau einem Tab ({@code DataIntegrityTests#everyModItemIsInExactlyOneCreativeTab}) -
+ * ausser dem Layout-Platzhalter {@link ModItems#CREATIVE_SPACER} (nur Fueller, nie im Suchtab, siehe
+ * {@link CreativeTabLayout}) und den Duplikaten des Entwickler-Tabs {@link DevEnchantedTab}, der
+ * kein {@link Tab} ist, weil er nur in Entwicklungsumgebungen oder per Konfig gefuellt wird.
  */
 public final class ModItemGroupsContent {
     private ModItemGroupsContent() {}
@@ -255,47 +259,34 @@ public final class ModItemGroupsContent {
     }
 
     private static void functional(CreativeModeTab.Output entries) {
-        // --- Hoppers ---
-        entries.accept(Items.HOPPER);
-        entries.accept(ModItems.REINFORCED_HOPPER);
-        entries.accept(ModItems.NETHERITE_HOPPER);
-        entries.accept(ModItems.ENDERITE_HOPPER);
+        CreativeTabLayout.emit(entries, functionalRows());
+    }
 
-        // --- Pistons ---
-        entries.accept(Items.PISTON);
-        entries.accept(Items.STICKY_PISTON);
-        entries.accept(ModItems.REINFORCED_PISTON);
-        entries.accept(ModItems.REINFORCED_STICKY_PISTON);
-        entries.accept(ModItems.NETHERITE_PISTON);
-        entries.accept(ModItems.ENDERITE_PISTON);
-
-        // --- Furnaces ---
-        entries.accept(Items.FURNACE);
-        entries.accept(ModItems.REINFORCED_FURNACE);
-        entries.accept(ModItems.NETHERITE_FURNACE);
-        entries.accept(ModItems.ENDERITE_FURNACE);
-        entries.accept(Items.SMOKER);
-        entries.accept(ModItems.REINFORCED_SMOKER);
-        entries.accept(ModItems.NETHERITE_SMOKER);
-        entries.accept(ModItems.ENDERITE_SMOKER);
-        entries.accept(Items.BLAST_FURNACE);
-        entries.accept(ModItems.REINFORCED_BLAST_FURNACE);
-        entries.accept(ModItems.NETHERITE_BLAST_FURNACE);
-        entries.accept(ModItems.ENDERITE_BLAST_FURNACE);
-
-        // --- Storage ---
-        entries.accept(Items.BUNDLE);
-        entries.accept(ModItems.REINFORCED_BUNDLE);
-        entries.accept(ModItems.NETHERITE_BUNDLE);
-        entries.accept(ModItems.ENDERITE_BUNDLE);
-        entries.accept(ModItems.QUIVER);
-        entries.accept(ModItems.REINFORCED_QUIVER);
-        entries.accept(ModItems.NETHERITE_QUIVER);
-        entries.accept(ModItems.ENDERITE_QUIVER);
-        entries.accept(ModItems.BACKPACK);
-        entries.accept(ModItems.REINFORCED_BACKPACK);
-        entries.accept(ModItems.NETHERITE_BACKPACK);
-        entries.accept(ModItems.ENDERITE_BACKPACK);
+    /**
+     * Zeilen des Tabs "Maschinen & Lager": eine Kategorie je Zeile, Vanilla zuerst, dann die Stufen.
+     * Neue Kategorien (etwa gefaerbte Varianten) als weitere {@link CreativeTabLayout.Row} anhaengen;
+     * eine Zeile mit mehr als neun Eintraegen laeuft in die naechste weiter.
+     */
+    public static List<CreativeTabLayout.Row> functionalRows() {
+        return List.of(
+                CreativeTabLayout.Row.of("hoppers",
+                        Items.HOPPER, ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_HOPPER),
+                CreativeTabLayout.Row.of("pistons",
+                        Items.PISTON, Items.STICKY_PISTON, ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON,
+                        ModItems.NETHERITE_PISTON, ModItems.ENDERITE_PISTON),
+                CreativeTabLayout.Row.of("furnaces",
+                        Items.FURNACE, ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, ModItems.ENDERITE_FURNACE),
+                CreativeTabLayout.Row.of("smokers",
+                        Items.SMOKER, ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, ModItems.ENDERITE_SMOKER),
+                CreativeTabLayout.Row.of("blast_furnaces",
+                        Items.BLAST_FURNACE, ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE,
+                        ModItems.ENDERITE_BLAST_FURNACE),
+                CreativeTabLayout.Row.of("bundles",
+                        Items.BUNDLE, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE),
+                CreativeTabLayout.Row.of("quivers",
+                        ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
+                CreativeTabLayout.Row.of("backpacks",
+                        ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK));
     }
 
     private static void addEnchantAtMax(CreativeModeTab.Output entries, HolderLookup<Enchantment> registry, ResourceKey<Enchantment> key) {

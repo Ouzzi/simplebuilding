@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 164,
+      "count": 165,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -83,7 +83,7 @@ window.WIKI_DATA = {
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
           "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
-          "The creative inventory has four tabs of its own: \"SimpleBuilding: Tools & Enchanting\" (chisels, building wands, sledgehammers, octants, Velocity Gauge, Ore Detector, Magnet, Rotator, Enderite tools and armour, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBuilding: Building Blocks\" (end stone, the Astralit, Nihilith and Ender Quartz palettes, quartz checkers, gravity blocks, Cracked Diamond Block, Enderite Block and Construction Light; icon: Astralit Bricks), \"SimpleBuilding: Materials\" (ores, shards, dust, Ender Quartz, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleBuilding: Machines & Storage\" (hoppers, pistons, furnaces, bundles, quivers and backpacks; icon: Netherite Hopper). Every item except the six legacy spatulas sits in exactly one of them.",
+          "The creative inventory has four tabs of its own: \"SimpleBuilding: Tools & Enchanting\" (chisels, building wands, sledgehammers, octants, Velocity Gauge, Ore Detector, Magnet, Rotator, Enderite tools and armour, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBuilding: Building Blocks\" (end stone, the Astralit, Nihilith and Ender Quartz palettes, quartz checkers, gravity blocks, Cracked Diamond Block, Enderite Block and Construction Light; icon: Astralit Bricks), \"SimpleBuilding: Materials\" (ores, shards, dust, Ender Quartz, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleBuilding: Machines & Storage\" (hoppers, pistons, furnaces, bundles, quivers and backpacks; icon: Netherite Hopper). Every item except the six legacy spatulas sits in exactly one of them. Machines & Storage is laid out in rows of nine, one category per row, each vanilla first and then the tiers: hoppers, pistons, furnaces, smokers, blast furnaces, bundles, quivers, backpacks; the rest of a row stays empty (invisible Creative Spacer entries that cannot be picked up and never show in the search tab). A fifth tab, \"SimpleBuilding: Enchanted (Dev)\", only appears in a development environment or with the config option showDevEnchantedTab: the best tier of every enchantable item (plus the Stick and the Shulker Box, which Constructor's Touch gives a function) with every fitting enchantment at maximum level, one variant per choice among mutually exclusive enchantments (for example one pair of boots per protection type). Its entries do not appear in the search tab.",
           "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. Many menu and status strings (in the hopper filter, on the Ore Detector, in the Octant HUD and on the Magnet) are hardcoded in English and cannot be translated at all.",
           "Every chapter follows the same layout: summary, details, controls (which key or click does what), a tier overview for tier families, and a limitations section. That section states plainly what does not (yet) work, e.g. tooltip texts that are never shown, or enchantments with no effect such as Cover and Bridge. Each chapter ends with the source files its statements come from.",
           "Items section: every tool and storage item, sorted by family (Sledgehammer, Chisel, Building Wand, Octant and dyed Octants, bundles, quivers), plus the standalone tools Magnet, Rotator and Ore Detector.",
@@ -107,7 +107,7 @@ window.WIKI_DATA = {
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
           "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
-          "Das Kreativinventar hat vier eigene Reiter: „SimpleBuilding: Werkzeuge & Verzauberung“ (Meißel, Baustäbe, Vorschlaghämmer, Oktanten, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Enderit-Werkzeuge und -Rüstung sowie verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBuilding: Baublöcke“ (Endstein, die Astralit-, Nihilith- und Enderquarz-Paletten, Quarz-Schachbretter, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralit-Ziegel), „SimpleBuilding: Materialien“ (Erze, Splitter, Staub, Enderquarz, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleBuilding: Maschinen & Lager“ (Trichter, Kolben, Öfen, Bündel, Köcher und Rucksäcke; Symbol: Netherittrichter). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon.",
+          "Das Kreativinventar hat vier eigene Reiter: „SimpleBuilding: Werkzeuge & Verzauberung“ (Meißel, Baustäbe, Vorschlaghämmer, Oktanten, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Enderit-Werkzeuge und -Rüstung sowie verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBuilding: Baublöcke“ (Endstein, die Astralit-, Nihilith- und Enderquarz-Paletten, Quarz-Schachbretter, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralit-Ziegel), „SimpleBuilding: Materialien“ (Erze, Splitter, Staub, Enderquarz, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleBuilding: Maschinen & Lager“ (Trichter, Kolben, Öfen, Bündel, Köcher und Rucksäcke; Symbol: Netherittrichter). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon. Maschinen & Lager ist in Neunerreihen gegliedert, eine Kategorie je Reihe, jeweils Vanilla zuerst und dann die Stufen: Trichter, Kolben, Öfen, Räucheröfen, Schmelzöfen, Bündel, Köcher, Rucksäcke; der Rest einer Reihe bleibt leer (unsichtbare Kreativ-Platzhalter, die sich nicht aufnehmen lassen und nie im Suchreiter stehen). Ein fünfter Reiter, „SimpleBuilding: Verzaubert (Dev)“, erscheint nur in einer Entwicklungsumgebung oder mit der Konfigurationsoption showDevEnchantedTab: die beste Stufe jedes verzauberbaren Gegenstands (dazu Stock und Shulkerkiste, denen Berührung des Konstrukteurs eine Funktion gibt) mit jeder passenden Verzauberung auf Höchststufe, je Wahl unter sich ausschließenden Verzauberungen eine Variante (etwa ein Paar Stiefel je Schutzart). Seine Einträge stehen nicht im Suchreiter.",
           "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Viele Menü- und Statustexte (etwa im Trichter-Filter, beim Erzdetektor, beim Oktant-HUD und beim Magneten) sind fest auf Englisch hinterlegt.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden, oder Verzauberungen ohne Wirkung wie Abdeckung und Brücke. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
           "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Magnet, Rotator und Erzdetektor.",
@@ -488,7 +488,7 @@ window.WIKI_DATA = {
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
           "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
-          "The creative inventory has four tabs of its own: \"SimpleBuilding: Tools & Enchanting\" (chisels, building wands, sledgehammers, octants, Velocity Gauge, Ore Detector, Magnet, Rotator, Enderite tools and armour, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBuilding: Building Blocks\" (end stone, the Astralit, Nihilith and Ender Quartz palettes, quartz checkers, gravity blocks, Cracked Diamond Block, Enderite Block and Construction Light; icon: Astralit Bricks), \"SimpleBuilding: Materials\" (ores, shards, dust, Ender Quartz, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleBuilding: Machines & Storage\" (hoppers, pistons, furnaces, bundles, quivers and backpacks; icon: Netherite Hopper). Every item except the six legacy spatulas sits in exactly one of them.",
+          "The creative inventory has four tabs of its own: \"SimpleBuilding: Tools & Enchanting\" (chisels, building wands, sledgehammers, octants, Velocity Gauge, Ore Detector, Magnet, Rotator, Enderite tools and armour, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBuilding: Building Blocks\" (end stone, the Astralit, Nihilith and Ender Quartz palettes, quartz checkers, gravity blocks, Cracked Diamond Block, Enderite Block and Construction Light; icon: Astralit Bricks), \"SimpleBuilding: Materials\" (ores, shards, dust, Ender Quartz, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleBuilding: Machines & Storage\" (hoppers, pistons, furnaces, bundles, quivers and backpacks; icon: Netherite Hopper). Every item except the six legacy spatulas sits in exactly one of them. Machines & Storage is laid out in rows of nine, one category per row, each vanilla first and then the tiers: hoppers, pistons, furnaces, smokers, blast furnaces, bundles, quivers, backpacks; the rest of a row stays empty (invisible Creative Spacer entries that cannot be picked up and never show in the search tab). A fifth tab, \"SimpleBuilding: Enchanted (Dev)\", only appears in a development environment or with the config option showDevEnchantedTab: the best tier of every enchantable item (plus the Stick and the Shulker Box, which Constructor's Touch gives a function) with every fitting enchantment at maximum level, one variant per choice among mutually exclusive enchantments (for example one pair of boots per protection type). Its entries do not appear in the search tab.",
           "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. Many menu and status strings (in the hopper filter, on the Ore Detector, in the Octant HUD and on the Magnet) are hardcoded in English and cannot be translated at all.",
           "Every chapter follows the same layout: summary, details, controls (which key or click does what), a tier overview for tier families, and a limitations section. That section states plainly what does not (yet) work, e.g. tooltip texts that are never shown, or enchantments with no effect such as Cover and Bridge. Each chapter ends with the source files its statements come from.",
           "Items section: every tool and storage item, sorted by family (Sledgehammer, Chisel, Building Wand, Octant and dyed Octants, bundles, quivers), plus the standalone tools Magnet, Rotator and Ore Detector.",
@@ -512,7 +512,7 @@ window.WIKI_DATA = {
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
           "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
-          "Das Kreativinventar hat vier eigene Reiter: „SimpleBuilding: Werkzeuge & Verzauberung“ (Meißel, Baustäbe, Vorschlaghämmer, Oktanten, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Enderit-Werkzeuge und -Rüstung sowie verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBuilding: Baublöcke“ (Endstein, die Astralit-, Nihilith- und Enderquarz-Paletten, Quarz-Schachbretter, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralit-Ziegel), „SimpleBuilding: Materialien“ (Erze, Splitter, Staub, Enderquarz, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleBuilding: Maschinen & Lager“ (Trichter, Kolben, Öfen, Bündel, Köcher und Rucksäcke; Symbol: Netherittrichter). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon.",
+          "Das Kreativinventar hat vier eigene Reiter: „SimpleBuilding: Werkzeuge & Verzauberung“ (Meißel, Baustäbe, Vorschlaghämmer, Oktanten, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Enderit-Werkzeuge und -Rüstung sowie verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBuilding: Baublöcke“ (Endstein, die Astralit-, Nihilith- und Enderquarz-Paletten, Quarz-Schachbretter, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralit-Ziegel), „SimpleBuilding: Materialien“ (Erze, Splitter, Staub, Enderquarz, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleBuilding: Maschinen & Lager“ (Trichter, Kolben, Öfen, Bündel, Köcher und Rucksäcke; Symbol: Netherittrichter). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon. Maschinen & Lager ist in Neunerreihen gegliedert, eine Kategorie je Reihe, jeweils Vanilla zuerst und dann die Stufen: Trichter, Kolben, Öfen, Räucheröfen, Schmelzöfen, Bündel, Köcher, Rucksäcke; der Rest einer Reihe bleibt leer (unsichtbare Kreativ-Platzhalter, die sich nicht aufnehmen lassen und nie im Suchreiter stehen). Ein fünfter Reiter, „SimpleBuilding: Verzaubert (Dev)“, erscheint nur in einer Entwicklungsumgebung oder mit der Konfigurationsoption showDevEnchantedTab: die beste Stufe jedes verzauberbaren Gegenstands (dazu Stock und Shulkerkiste, denen Berührung des Konstrukteurs eine Funktion gibt) mit jeder passenden Verzauberung auf Höchststufe, je Wahl unter sich ausschließenden Verzauberungen eine Variante (etwa ein Paar Stiefel je Schutzart). Seine Einträge stehen nicht im Suchreiter.",
           "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Viele Menü- und Statustexte (etwa im Trichter-Filter, beim Erzdetektor, beim Oktant-HUD und beim Magneten) sind fest auf Englisch hinterlegt.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden, oder Verzauberungen ohne Wirkung wie Abdeckung und Brücke. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
           "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Magnet, Rotator und Erzdetektor.",
@@ -2877,7 +2877,8 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/SimplebuildingClient.java",
         "src/main/java/com/simplebuilding/world/gen/ModOreGeneration.java",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "common/src/shared/java/com/simplebuilding/items/DevEnchantedTab.java"
       ],
       "en": {
         "title": "Configuration",
@@ -2887,6 +2888,7 @@ window.WIKI_DATA = {
           "Air Jump Cooldown (Ticks) (airJumpCooldownTicks, default 100): cooldown in ticks at Air Jump level 1 (20 ticks = 1 s); level 2 uses half of it; negative values are treated as 0.",
           "Enable Armor Trim Benefits (enableArmorTrimBenefits, default on): reported by the client to the server when joining a world, and switches the pattern and material bonuses for that player; a change only takes effect after rejoining, because the value is only sent at login.",
           "Pistons Breach End Portal Frames (pistonsBreachEndPortalFrames, default on): whether the mod's pistons treat End Portal Frames as breachable unbreakable blocks (a paid Reinforced Piston pushes one, a Netherite or Enderite Piston destroys it); off, the frame counts as immune. Read on the server by PistonBreach.",
+          "Show Enchanted (Dev) Creative Tab (showDevEnchantedTab, default off): shows the creative tab \"SimpleBuilding: Enchanted (Dev)\" outside a development environment too (in one it is always there). Read whenever the creative tabs are rebuilt, so a change takes effect at the latest after rejoining the world (DevEnchantedTab.isShown).",
           "Trim Benefit Base Multiplier (trimBenefitBaseMultiplier, default 2.0): base of the resonance multiplier; changeable at runtime with /simplebuilding config setTrimMultiplier <value> (operators only), /simplebuilding config getTrimMultiplier shows it; the command does not write the value back into the config file.",
           "Max Multiplier Limit (maxMultiplierLimit, default 10.0): upper bound for the value in the setTrimMultiplier command (read when the command is registered); otherwise it has no effect.",
           "Tool Settings → Invert Octant Sneak (invertOctantSneak, default off): inverts whether the Octant's area fill is shown with or without Constructor's Touch (showFill = inverted XOR enchantment present).",
@@ -2909,6 +2911,7 @@ window.WIKI_DATA = {
           "Luftsprung-Abklingzeit (airJumpCooldownTicks, Standard 100): Abklingzeit in Ticks bei Luftsprung-Stufe 1 (20 Ticks = 1 s); Stufe 2 nutzt die Hälfte; negative Werte werden als 0 behandelt.",
           "Rüstungsbesatz-Vorteile aktivieren (enableArmorTrimBenefits, Standard an): wird beim Betreten einer Welt vom Client an den Server gemeldet und schaltet die Muster- und Material-Boni für diesen Spieler; eine Änderung wirkt erst nach erneutem Betreten, da der Wert nur beim Login gesendet wird.",
           "Kolben durchbrechen Endportalrahmen (pistonsBreachEndPortalFrames, Standard an): ob die Kolben der Mod Endportalrahmen als durchbrechbare unzerstörbare Blöcke behandeln (ein bezahlter Verstärkter Kolben schiebt einen, ein Netherit- oder Enderitkolben zerstört ihn); aus, gilt der Rahmen als immun. Wird serverseitig von PistonBreach gelesen.",
+          "Kreativ-Tab „Verzaubert (Dev)“ zeigen (showDevEnchantedTab, Standard aus): zeigt den Kreativ-Reiter „SimpleBuilding: Verzaubert (Dev)“ auch außerhalb einer Entwicklungsumgebung (dort ist er immer da). Gelesen, wenn die Kreativ-Reiter neu aufgebaut werden; eine Änderung wirkt also spätestens nach erneutem Betreten der Welt (DevEnchantedTab.isShown).",
           "trimBenefitBaseMultiplier (Standard 2,0): Basis des Resonanz-Multiplikators; per Befehl /simplebuilding config setTrimMultiplier <Wert> (nur Operatoren) zur Laufzeit änderbar, /simplebuilding config getTrimMultiplier zeigt ihn; der Befehl schreibt den Wert nicht in die Konfigurationsdatei zurück.",
           "maxMultiplierLimit (Standard 10,0): Obergrenze für den Wert im Befehl setTrimMultiplier (wird bei der Befehlsregistrierung ausgelesen); sonst ohne Wirkung.",
           "Werkzeugeinstellungen → Oktant Schleichen umkehren (invertOctantSneak, Standard aus): kehrt um, ob die Oktant-Flächenfüllung mit oder ohne „Berührung des Konstrukteurs“ angezeigt wird (showFill = invertiert XOR Verzauberung vorhanden).",
@@ -4354,6 +4357,52 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:creative_spacer",
+      "name": {
+        "en_us": "Creative Spacer",
+        "de_de": "Kreativ-Platzhalter"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "The Creative Spacer is not a real item: it is the invisible filler that ends a row early in the \"Machines & Storage\" creative tab, so that every category starts in a new row.",
+          "details": [
+            "Not obtainable: no recipe, no loot, not in the search tab (its entries are PARENT_TAB_ONLY), hidden from JEI, REI and EMI through the c:hidden_from_recipe_viewers tag, and its item model draws nothing (minecraft:empty).",
+            "Clicking it in the creative inventory does nothing: a slot holding it counts as inactive (SlotMixin), so it is not drawn, not highlighted, shows no tooltip and cannot be picked up, swapped or middle-clicked.",
+            "Should one end up in an inventory anyway (for example through /give), it deletes itself on the next inventory tick.",
+            "The layout is a declarative list of rows (CreativeTabLayout.Row); a category with more than nine entries simply continues in the next row. So far only Machines & Storage uses it."
+          ]
+        },
+        "de": {
+          "summary": "Der Kreativ-Platzhalter ist kein echter Gegenstand: Er ist der unsichtbare Füller, der im Kreativ-Reiter „Maschinen & Lager“ eine Reihe vorzeitig beendet, damit jede Kategorie in einer neuen Reihe beginnt.",
+          "details": [
+            "Nicht erhältlich: kein Rezept, keine Beute, nicht im Suchreiter (seine Einträge sind PARENT_TAB_ONLY), in JEI, REI und EMI über den Tag c:hidden_from_recipe_viewers versteckt, und sein Item-Modell zeichnet nichts (minecraft:empty).",
+            "Ein Klick darauf im Kreativinventar tut nichts: Ein Platz mit Platzhalter gilt als inaktiv (SlotMixin), wird also nicht gezeichnet, nicht hervorgehoben, zeigt keinen Tooltip und lässt sich weder aufnehmen noch tauschen noch per Mittelklick kopieren.",
+            "Gerät doch einer in ein Inventar (etwa per /give), löscht er sich beim nächsten Inventar-Tick selbst.",
+            "Das Layout ist eine deklarative Liste von Reihen (CreativeTabLayout.Row); eine Kategorie mit mehr als neun Einträgen läuft in die nächste Reihe weiter. Bisher nutzt nur Maschinen & Lager es."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/CreativeTabLayout.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/CreativeSpacerItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/SlotMixin.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:diamond_building_wand",
@@ -29636,6 +29685,13 @@ window.WIKI_DATA = {
       "tooltip": "Pistons Breach End Portal Frames"
     },
     {
+      "name": "showDevEnchantedTab",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "tooltip": "Show Enchanted (Dev) Creative Tab"
+    },
+    {
       "name": "trimBenefitBaseMultiplier",
       "type": "double",
       "default": "2.0",
@@ -38529,14 +38585,14 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 158,
+    "items": 159,
     "blocks": 74,
     "recipes": 278,
     "lootTables": 73,
     "trades": 21,
     "enchantments": 19,
     "tags": 27,
-    "config": 14,
+    "config": 15,
     "inWorld": 343,
     "features": 33,
     "undocumented": 0,

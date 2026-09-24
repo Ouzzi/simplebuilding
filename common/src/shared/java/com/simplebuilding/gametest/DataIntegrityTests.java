@@ -1923,6 +1923,9 @@ public final class DataIntegrityTests {
                 problems.add(id + " is titled " + registered.getDisplayName() + " instead of " + tab.translationKey());
             }
         }
+        // Der Entwickler-Tab ist kein Tab-Enum-Eintrag (nur in Entwicklungsumgebungen oder per Konfig
+        // gefuellt, Duplikate erlaubt); sein Inhalt steht in devEnchantedTabOffersEveryExclusiveChoice...
+        tabIds.add(Identifier.fromNamespaceAndPath(MOD_ID, com.simplebuilding.items.DevEnchantedTab.ID));
         for (Identifier id : BuiltInRegistries.CREATIVE_MODE_TAB.keySet()) {
             if (MOD_ID.equals(id.getNamespace()) && !tabIds.contains(id)) {
                 problems.add(id + " is a creative tab ModItemGroupsContent.Tab does not know");
@@ -1931,10 +1934,18 @@ public final class DataIntegrityTests {
 
         Map<Item, List<ModItemGroupsContent.Tab>> where = new HashMap<>();
         Map<ModItemGroupsContent.Tab, Integer> books = new LinkedHashMap<>();
+        Map<ModItemGroupsContent.Tab, Integer> spacers = new LinkedHashMap<>();
         for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
             books.put(tab, 0);
             ModItemGroupsContent.populate(tab, (CreativeModeTab.Output) (stack, visibility) -> {
-                if (stack.is(Items.ENCHANTED_BOOK)) {
+                if (stack.is(ModItems.CREATIVE_SPACER)) {
+                    // Layout-Fueller, kein Angebot: darf mehrfach stehen, aber nie im Suchtab.
+                    spacers.merge(tab, 1, Integer::sum);
+                    if (visibility != CreativeModeTab.TabVisibility.PARENT_TAB_ONLY) {
+                        problems.add("a creative_spacer in " + tab + " is visible as " + visibility
+                                + ", so it shows up in the search tab");
+                    }
+                } else if (stack.is(Items.ENCHANTED_BOOK)) {
                     books.merge(tab, 1, Integer::sum);
                 } else {
                     where.computeIfAbsent(stack.getItem(), item -> new ArrayList<>()).add(tab);
@@ -1948,7 +1959,14 @@ public final class DataIntegrityTests {
                 modItems.add(id);
             }
         }
+        // Bisher nutzt nur Maschinen & Lager das Zeilen-Layout (Konzept, weitere Tabs nach Freigabe).
+        if (!spacers.keySet().equals(Set.of(ModItemGroupsContent.Tab.FUNCTIONAL))) {
+            problems.add("creative_spacer fills " + spacers.keySet() + " instead of only FUNCTIONAL");
+        }
         for (Identifier id : modItems) {
+            if (id.equals(BuiltInRegistries.ITEM.getKey(ModItems.CREATIVE_SPACER))) {
+                continue;
+            }
             List<ModItemGroupsContent.Tab> tabs = where.getOrDefault(BuiltInRegistries.ITEM.getValue(id), List.of());
             int expected = ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath()) ? 0 : 1;
             if (tabs.size() != expected) {
@@ -2007,6 +2025,339 @@ public final class DataIntegrityTests {
         }
         helper.assertValueEqual(books.toString(), expectedBooks.toString(), "enchanted books per creative tab");
         helper.assertTrue(problems.isEmpty(), "creative tabs: " + problems);
+        helper.succeed();
+    }
+
+    // =================================================================================
+    // Creative tabs: layout spacer and the development tab
+    // =================================================================================
+
+    /**
+     * The "Machines &amp; Storage" tab is laid out in rows of nine, one category per row: hoppers,
+     * pistons, furnaces, smokers, blast furnaces, bundles, quivers, backpacks, each vanilla first and
+     * then the tiers. The rest of a row is filled with {@code simplebuilding:creative_spacer}.
+     *
+     * <p>The categories are read back from what the tab really emits: a category is a run of real
+     * items, the spacers after it are its padding. Each category has to start in the first column
+     * (slot index divisible by nine), its first entries have to be the expected ones in the expected
+     * order (entries appended at the end of a row - dyed variants, say - are allowed), every spacer
+     * is only visible in its own tab ({@code PARENT_TAB_ONLY}, so never in the search tab), no row is
+     * spacers only, and the tab does not end on spacers.
+     *
+     * <p>What breaks this: a missing or extra spacer (the next category no longer starts in column
+     * one), a category moved or reordered, a spacer that is visible in the search tab, or trailing
+     * filler after the last row.
+     */
+    public static void machinesAndStorageTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        List<ItemStack> slots = new ArrayList<>();
+        ModItemGroupsContent.populate(ModItemGroupsContent.Tab.FUNCTIONAL, (CreativeModeTab.Output) (stack, visibility) -> {
+            slots.add(stack);
+            if (stack.is(ModItems.CREATIVE_SPACER) && visibility != CreativeModeTab.TabVisibility.PARENT_TAB_ONLY) {
+                problems.add("spacer at slot " + (slots.size() - 1) + " is visible as " + visibility
+                        + ", so it would show up in the search tab");
+            }
+        }, helper.getLevel().registryAccess());
+
+        List<List<Item>> expected = List.of(
+                List.of(Items.HOPPER, ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_HOPPER),
+                List.of(Items.PISTON, Items.STICKY_PISTON, ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON,
+                        ModItems.NETHERITE_PISTON, ModItems.ENDERITE_PISTON),
+                List.of(Items.FURNACE, ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, ModItems.ENDERITE_FURNACE),
+                List.of(Items.SMOKER, ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, ModItems.ENDERITE_SMOKER),
+                List.of(Items.BLAST_FURNACE, ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE,
+                        ModItems.ENDERITE_BLAST_FURNACE),
+                List.of(Items.BUNDLE, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE),
+                List.of(ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
+                List.of(ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK));
+
+        // Read the categories back: a run of real items, then its padding.
+        List<Integer> starts = new ArrayList<>();
+        List<List<Item>> categories = new ArrayList<>();
+        int i = 0;
+        while (i < slots.size()) {
+            if (slots.get(i).is(ModItems.CREATIVE_SPACER)) {
+                problems.add("slot " + i + " starts with a spacer instead of an item");
+                i++;
+                continue;
+            }
+            starts.add(i);
+            List<Item> category = new ArrayList<>();
+            while (i < slots.size() && !slots.get(i).is(ModItems.CREATIVE_SPACER)) {
+                category.add(slots.get(i).getItem());
+                i++;
+            }
+            categories.add(category);
+            int padding = 0;
+            while (i < slots.size() && slots.get(i).is(ModItems.CREATIVE_SPACER)) {
+                padding++;
+                i++;
+            }
+            if (padding >= 9) {
+                problems.add("after " + category + " come " + padding + " spacers, a whole empty row");
+            }
+            if (i == slots.size() && padding > 0) {
+                problems.add("the tab ends on " + padding + " spacers after its last row");
+            }
+        }
+
+        for (int c = 0; c < categories.size(); c++) {
+            if (starts.get(c) % 9 != 0) {
+                problems.add("category " + categories.get(c) + " starts in column " + (starts.get(c) % 9 + 1)
+                        + " instead of the first column");
+            }
+        }
+        if (categories.size() < expected.size()) {
+            problems.add("the tab has " + categories.size() + " rows instead of at least " + expected.size() + ": " + categories);
+        }
+        for (int c = 0; c < Math.min(categories.size(), expected.size()); c++) {
+            List<Item> actual = categories.get(c);
+            List<Item> head = actual.subList(0, Math.min(actual.size(), expected.get(c).size()));
+            if (!head.equals(expected.get(c))) {
+                problems.add("row " + (c + 1) + " is " + actual + " but has to start with " + expected.get(c));
+            }
+        }
+
+        helper.assertTrue(problems.isEmpty(), "machines and storage layout: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * The layout spacer is filler that cannot be taken or kept.
+     *
+     * <p>A slot that holds it reports itself inactive ({@code SlotMixin}), which is what the creative
+     * screen asks before it draws a slot, highlights it, shows its tooltip or lets it be clicked; the
+     * same slot with a hopper in it stays active, so the mixin cannot pass by switching every slot
+     * off. A spacer that lands in an inventory anyway (a {@code /give}, say) is gone after one
+     * inventory tick. It is hidden from recipe viewers through {@code c:hidden_from_recipe_viewers},
+     * locked in creative slots and hides its tooltip.
+     *
+     * <p>What breaks this: the mixin not applied or checking the wrong item, the self deletion dropped,
+     * the tag or the default components lost.
+     */
+    public static void creativeSpacerCannotBeTakenOrKept(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+
+        net.minecraft.world.inventory.Slot slot = new net.minecraft.world.inventory.Slot(
+                new net.minecraft.world.SimpleContainer(1), 0, 0, 0);
+        slot.set(new ItemStack(Items.HOPPER));
+        if (!slot.isActive()) {
+            problems.add("a slot holding a hopper is inactive; the spacer check switches off every slot");
+        }
+        slot.set(new ItemStack(ModItems.CREATIVE_SPACER));
+        if (slot.isActive()) {
+            problems.add("a slot holding the spacer is still active, so the creative screen draws it, "
+                    + "shows its tooltip and lets it be picked up");
+        }
+
+        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        player.getInventory().setItem(0, new ItemStack(ModItems.CREATIVE_SPACER));
+        player.getInventory().tick();
+        if (!player.getInventory().getItem(0).isEmpty()) {
+            problems.add("a spacer in a player's inventory survived an inventory tick");
+        }
+
+        ItemStack spacer = new ItemStack(ModItems.CREATIVE_SPACER);
+        TagKey<Item> hidden = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers"));
+        if (!spacer.is(hidden)) {
+            problems.add("the spacer is not in c:hidden_from_recipe_viewers, so JEI/REI/EMI list it");
+        }
+        if (!spacer.has(DataComponents.CREATIVE_SLOT_LOCK)) {
+            problems.add("the spacer has no creative_slot_lock");
+        }
+        if (!spacer.getOrDefault(DataComponents.TOOLTIP_DISPLAY, net.minecraft.world.item.component.TooltipDisplay.DEFAULT).hideTooltip()) {
+            problems.add("the spacer does not hide its tooltip");
+        }
+
+        helper.assertTrue(problems.isEmpty(), "creative spacer: " + problems);
+        helper.succeed();
+    }
+
+    /** Every non-curse enchantment whose supported items hold the stack, straight from the registry. */
+    private static List<Holder<Enchantment>> supportedEnchantments(GameTestHelper helper, ItemStack stack) {
+        List<Holder<Enchantment>> out = new ArrayList<>();
+        helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).listElements()
+                .filter(h -> !h.is(EnchantmentTags.CURSE) && h.value().isSupportedItem(stack))
+                .forEach(out::add);
+        return out;
+    }
+
+    /**
+     * The development tab "SimpleBuilding: Enchanted (Dev)" holds the best tier of every enchantable
+     * item family, pre-enchanted at max level, with one variant per choice among mutually exclusive
+     * enchantments.
+     *
+     * <p><b>Registered</b> as {@code simplebuilding:enchanted_dev} with its title key; its entries are
+     * {@code PARENT_TAB_ONLY}, so none of the duplicates reaches the search tab.
+     *
+     * <p><b>Top tiers only</b>: the enderite chisel, wand, sledgehammer, bundle, quiver, backpack,
+     * tools and armour, the tierless gadgets and the two vanilla items Constructor's Touch gives a
+     * function (stick, shulker box) are there; every lower tier, the colored octants, vanilla
+     * netherite gear (an enderite piece carries all of its enchantments) and unenchantable items are
+     * not.
+     *
+     * <p><b>Enchantments</b>, checked against the registry for every item in the tab: each variant only
+     * holds enchantments the item supports, each at its max level, no curse, no two incompatible ones,
+     * and it is maximal - every supported enchantment it lacks conflicts with one it has. Over all
+     * variants of an item every supported enchantment appears, so each member of an exclusive set is
+     * offered. Anchors so this cannot pass on an empty tab: all five armour protections on the
+     * enderite boots, silk touch and fortune as well as vein and strip miner on the enderite pickaxe,
+     * cover and bridge on the enderite wand. No item has more than twelve variants.
+     */
+    public static void devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+
+        Identifier devId = Identifier.fromNamespaceAndPath(MOD_ID, "enchanted_dev");
+        CreativeModeTab registered = BuiltInRegistries.CREATIVE_MODE_TAB.getValue(devId);
+        if (registered == null) {
+            problems.add(devId + " is not a registered creative tab");
+        } else if (!(registered.getDisplayName().getContents() instanceof TranslatableContents title)
+                || !"itemgroup.simplebuilding.enchanted_dev".equals(title.getKey())) {
+            problems.add(devId + " is titled " + registered.getDisplayName());
+        }
+
+        Map<Item, List<ItemStack>> byItem = new LinkedHashMap<>();
+        com.simplebuilding.items.DevEnchantedTab.populate((CreativeModeTab.Output) (stack, visibility) -> {
+            byItem.computeIfAbsent(stack.getItem(), item -> new ArrayList<>()).add(stack);
+            if (visibility != CreativeModeTab.TabVisibility.PARENT_TAB_ONLY) {
+                problems.add(BuiltInRegistries.ITEM.getKey(stack.getItem()) + " is offered as " + visibility
+                        + ", so the dev duplicates reach the search tab");
+            }
+        }, helper.getLevel().registryAccess());
+        helper.assertTrue(!byItem.isEmpty(), "the dev tab offered nothing, so none of the checks below could fail");
+
+        List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, ModItems.ENDERITE_SLEDGEHAMMER,
+                ModItems.ENDERITE_BUNDLE, ModItems.ENDERITE_QUIVER, ModItems.ENDERITE_BACKPACK, ModItems.ENDERITE_PICKAXE,
+                ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
+                ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, ModItems.VELOCITY_GAUGE,
+                Items.STICK, Items.SHULKER_BOX);
+        for (Item item : present) {
+            if (!byItem.containsKey(item)) {
+                problems.add(BuiltInRegistries.ITEM.getKey(item) + " is missing from the dev tab");
+            }
+        }
+        List<Item> absent = new ArrayList<>(List.of(
+                ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
+                ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL,
+                ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
+                ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND,
+                ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
+                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
+                ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE,
+                ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER,
+                ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK,
+                Items.NETHERITE_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_BOOTS, Items.LEATHER_BOOTS,
+                Items.NETHERITE_SPEAR, Items.SHEARS, ModItems.ENDERITE_INGOT, ModItems.CREATIVE_SPACER, Items.ENCHANTED_BOOK));
+        absent.addAll(ModItems.COLORED_OCTANT_ITEMS.values());
+        for (Item item : absent) {
+            if (byItem.containsKey(item)) {
+                problems.add(BuiltInRegistries.ITEM.getKey(item) + " is in the dev tab, but only the best tier of a family belongs there");
+            }
+        }
+
+        Map<Item, Set<String>> offeredPerItem = new HashMap<>();
+        byItem.forEach((item, stacks) -> {
+            String id = BuiltInRegistries.ITEM.getKey(item).toString();
+            List<Holder<Enchantment>> supported = supportedEnchantments(helper, new ItemStack(item));
+            if (supported.isEmpty()) {
+                problems.add(id + " is in the dev tab but supports no enchantment");
+            }
+            if (stacks.size() > 12) {
+                problems.add(id + " has " + stacks.size() + " variants; exclusive sets must not explode");
+            }
+            Set<String> offered = new TreeSet<>();
+            Set<String> variants = new HashSet<>();
+            for (ItemStack stack : stacks) {
+                var enchantments = stack.getOrDefault(DataComponents.ENCHANTMENTS,
+                        net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+                List<Holder<Enchantment>> held = new ArrayList<>(enchantments.keySet());
+                if (!variants.add(held.stream().map(h -> h.getRegisteredName()).sorted().toList().toString())) {
+                    problems.add(id + " offers the same enchantment set twice: " + held);
+                }
+                for (Holder<Enchantment> h : held) {
+                    offered.add(h.getRegisteredName());
+                    if (!supported.contains(h)) {
+                        problems.add(id + " carries " + h.getRegisteredName() + ", which it does not support (or a curse)");
+                    }
+                    if (enchantments.getLevel(h) != h.value().getMaxLevel()) {
+                        problems.add(id + " carries " + h.getRegisteredName() + " " + enchantments.getLevel(h)
+                                + " instead of its max level " + h.value().getMaxLevel());
+                    }
+                    for (Holder<Enchantment> other : held) {
+                        if (!h.equals(other) && !Enchantment.areCompatible(h, other)) {
+                            problems.add(id + " carries the incompatible " + h.getRegisteredName() + " and " + other.getRegisteredName());
+                        }
+                    }
+                }
+                for (Holder<Enchantment> missing : supported) {
+                    if (!held.contains(missing) && held.stream().allMatch(h -> Enchantment.areCompatible(h, missing))) {
+                        problems.add(id + " variant " + held.stream().map(Holder::getRegisteredName).toList()
+                                + " could also carry " + missing.getRegisteredName() + " but does not");
+                    }
+                }
+            }
+            for (Holder<Enchantment> h : supported) {
+                if (!offered.contains(h.getRegisteredName())) {
+                    problems.add(id + " supports " + h.getRegisteredName() + " but no variant carries it");
+                }
+            }
+            offeredPerItem.put(item, offered);
+        });
+
+        Map<Item, List<String>> anchors = new LinkedHashMap<>();
+        anchors.put(ModItems.ENDERITE_BOOTS, List.of("minecraft:protection", "minecraft:fire_protection",
+                "minecraft:blast_protection", "minecraft:projectile_protection", "simplebuilding:kinetic_protection",
+                "simplebuilding:double_jump"));
+        anchors.put(ModItems.ENDERITE_PICKAXE, List.of("minecraft:silk_touch", "minecraft:fortune",
+                "simplebuilding:vein_miner", "simplebuilding:strip_miner"));
+        anchors.put(ModItems.ENDERITE_BUILDING_WAND, List.of("simplebuilding:cover", "simplebuilding:bridge"));
+        anchors.forEach((item, names) -> {
+            Set<String> offered = offeredPerItem.getOrDefault(item, Set.of());
+            for (String name : names) {
+                if (!offered.contains(name)) {
+                    problems.add(BuiltInRegistries.ITEM.getKey(item) + " has no variant with " + name);
+                }
+            }
+        });
+
+        helper.assertTrue(problems.isEmpty(), "dev enchanted tab: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * The dev tab is only filled in a development environment or with {@code showDevEnchantedTab};
+     * otherwise it stays empty, and vanilla does not show an empty category tab at all.
+     *
+     * <p>Both switches are flipped here and restored in {@code finally}; the body does not yield, so
+     * no other test runs while they are flipped.
+     *
+     * <p>What breaks this: the gate dropped (tab always filled), or one of the two switches ignored.
+     */
+    public static void devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(GameTestHelper helper) {
+        com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();
+        helper.assertTrue(config != null, "no config loaded, so the option cannot be tested");
+        boolean development = com.simplebuilding.platform.ModEnvironment.isDevelopmentEnvironment();
+        boolean option = config.showDevEnchantedTab;
+        List<String> problems = new ArrayList<>();
+        try {
+            boolean[][] cases = {{false, false}, {false, true}, {true, false}};
+            for (boolean[] c : cases) {
+                com.simplebuilding.platform.ModEnvironment.setDevelopmentEnvironment(c[0]);
+                config.showDevEnchantedTab = c[1];
+                int[] count = {0};
+                com.simplebuilding.items.DevEnchantedTab.populateIfShown(
+                        (CreativeModeTab.Output) (stack, visibility) -> count[0]++, helper.getLevel().registryAccess());
+                boolean shouldFill = c[0] || c[1];
+                if ((count[0] > 0) != shouldFill) {
+                    problems.add("development=" + c[0] + ", showDevEnchantedTab=" + c[1] + " gave " + count[0]
+                            + " entries, expected " + (shouldFill ? "some" : "none"));
+                }
+            }
+        } finally {
+            com.simplebuilding.platform.ModEnvironment.setDevelopmentEnvironment(development);
+            config.showDevEnchantedTab = option;
+        }
+        helper.assertTrue(problems.isEmpty(), "dev tab gate: " + problems);
         helper.succeed();
     }
 }

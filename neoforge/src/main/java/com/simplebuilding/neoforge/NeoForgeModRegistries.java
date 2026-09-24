@@ -161,6 +161,22 @@ public final class NeoForgeModRegistries {
         return tabs;
     }
 
+    /**
+     * Entwickler-Tab hinter den vier Tabs. Immer registriert, aber nur gefuellt, wenn
+     * {@link com.simplebuilding.items.DevEnchantedTab#isShown()} gilt - leer blendet Vanilla ihn aus.
+     */
+    public static final Supplier<CreativeModeTab> DEV_ENCHANTED_TAB = CREATIVE_TABS.register(
+            com.simplebuilding.items.DevEnchantedTab.ID,
+            () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, ModItemGroupsContent.Tab.values().length)
+                    .icon(com.simplebuilding.items.DevEnchantedTab::icon)
+                    .title(Component.translatable(com.simplebuilding.items.DevEnchantedTab.translationKey()))
+                    .displayItems((displayContext, entries) ->
+                            com.simplebuilding.items.DevEnchantedTab.populateIfShown(entries, displayContext.holders()))
+                    .withTabsBefore(net.minecraft.resources.ResourceKey.create(Registries.CREATIVE_MODE_TAB,
+                            net.minecraft.resources.Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID,
+                                    ModItemGroupsContent.Tab.FUNCTIONAL.id)))
+                    .build());
+
     private NeoForgeModRegistries() {
     }
 

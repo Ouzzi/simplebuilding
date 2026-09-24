@@ -23,6 +23,7 @@
     "PistonHeadBlockMixin",
     "PlayerEntityMixin",
     "ShearsItemMixin",
+    "SlotMixin",
     "SmithingScreenHandlerMixin",
     "SurvivalTracerMixin",
     "CauldronInteractionDispatcherAccessor"
