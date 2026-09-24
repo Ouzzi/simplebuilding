@@ -20,21 +20,21 @@ authors="simplebuilding"
 
 [[dependencies.${modId}]]
 modId="forge"
-type="required"
+mandatory=true
 versionRange="${loaderVersionRange}"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.${modId}]]
 modId="minecraft"
-type="required"
+mandatory=true
 versionRange="${minecraftVersionRange}"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.${modId}]]
 modId="cloth_config"
-type="optional"
+mandatory=false
 versionRange="[26,)"
 ordering="NONE"
 side="BOTH"

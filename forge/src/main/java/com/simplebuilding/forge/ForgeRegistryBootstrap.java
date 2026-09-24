@@ -24,8 +24,12 @@ public final class ForgeRegistryBootstrap {
             if (!blocksInitialized) {
                 blocksInitialized = true;
                 ModBlocks.registerModBlocks();
-                ModEntities.registerModEntities();
             }
+            return;
+        }
+        // Forge entsperrt je RegisterEvent nur die eine Registry - Entitaeten gehoeren in ihr eigenes Ereignis.
+        if (event.getRegistryKey().equals(Registries.ENTITY_TYPE)) {
+            ModEntities.registerModEntities();
             return;
         }
         if (event.getRegistryKey().equals(Registries.ITEM)) {

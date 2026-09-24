@@ -29,7 +29,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraftforge.eventbus.api.bus.BusGroup;
-import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -37,8 +37,10 @@ import net.minecraftforge.registries.RegisterEvent;
 
 @Mod(Simplebuilding.MOD_ID)
 public final class SimplebuildingForge {
-    public SimplebuildingForge(ModContainer modContainer) {
-        BusGroup modBus = modContainer.getModBusGroup();
+    // Forge 65 sucht nur einen Konstruktor mit FMLJavaModLoadingContext oder einen ohne Parameter
+    // (FMLModContainer#constructMod); ein ModContainer-Parameter endet in NoSuchMethodException.
+    public SimplebuildingForge(FMLJavaModLoadingContext context) {
+        BusGroup modBus = context.getModBusGroup();
         ModEnvironment.setModLoadedCheck(ModList::isLoaded);
         ForgeModRegistries.register(modBus);
         RegisterEvent.getBus(modBus).addListener(ForgeRegistryBootstrap::onRegister);

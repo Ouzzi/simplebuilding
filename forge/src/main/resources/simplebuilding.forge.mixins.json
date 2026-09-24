@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.simplebuilding.mixin.forge",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ReloadableServerRegistriesMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -47,6 +47,15 @@ sourceSets {
     }
 }
 
+// Forge laedt einen Klassenpfad-Mod als EIN Verzeichnis: liegen Klassen und Ressourcen getrennt
+// (build/classes/java/main vs. build/resources/main), findet es die @Mod-Klasse nicht ("has mods
+// that were not found"). Wie im Forge-MDK beide Ausgaben in denselben Ordner legen.
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
+}
+
 // Run-Konfigurationen sind hier standardmaessig ABGESCHALTET. Warum:
 //
 // ForgeGradle 7.0.36 legt fuer JEDEN `minecraft.runs`-Eintrag zwei Tasks an: die
@@ -84,6 +93,8 @@ minecraft {
             workingDir = layout.projectDirectory.dir('run')
             systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
             systemProperty 'forge.enabledGameTestNamespaces', rootProject.archives_base_name
+            // Im Dev-Lauf gibt es kein Jar-Manifest: die Mixin-Konfigs direkt an den Launcher geben.
+            args '-mixin.config=simplebuilding.mixins.json', '-mixin.config=simplebuilding.client.mixins.json', '-mixin.config=simplebuilding.forge.mixins.json'
         }
         if (forgeRunsEnabled) {
             register('client')
@@ -120,8 +131,13 @@ tasks.named('processResources', ProcessResources).configure {
             minecraftVersionRange: minecraftVersionRange,
     ]
     inputs.properties replaceProperties
+    inputs.property 'forgeMixinLevel', 'JAVA_21'
     filesMatching('META-INF/mods.toml') {
         expand replaceProperties
+    }
+    // Forges Mixin 0.8.7 kennt hoechstens JAVA_21; die gemeinsamen Konfigs (Fabric/NeoForge) sagen JAVA_25.
+    filesMatching('*.mixins.json') {
+        filter { String line -> line.replace('"JAVA_25"', '"JAVA_21"') }
     }
 }
 
@@ -137,6 +153,8 @@ tasks.named('jar').configure {
                 'Specification-Version' : project.version,
                 'Implementation-Title'  : project.name,
                 'Implementation-Version': project.version,
+                // Forge 65 liest Mixin-Konfigs nur aus diesem Manifest-Attribut, nicht aus [[mixins]] der mods.toml.
+                'MixinConfigs'          : 'simplebuilding.mixins.json,simplebuilding.client.mixins.json,simplebuilding.forge.mixins.json',
         ])
     }
 }
