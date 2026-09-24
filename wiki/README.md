@@ -37,7 +37,10 @@ Das ist der Kern des Aufbaus, deshalb ausführlich.
 | Haltbarkeit, Stapelgröße, Verzauberbarkeit, Angriffswerte, Zauberstab-Durchmesser, Meißel-Abklingzeit | `src/main/generated/wiki/items.json` – vom Datagen-Provider `WikiDataProvider` aus der **Item-Registry** geschrieben |
 | Welche Items eigenes Verhalten haben | Registrierungen in `ModItems.java` / `ModBlocks.java` gegen die Klassen in `items/custom/` und `blocks/custom/` |
 
-Ändert sich die Mod, ändert sich beim nächsten Lauf die Doku – automatisch.
+Ändert sich die Mod, ändert sich beim nächsten Lauf die Doku. Angestoßen wird dieser Lauf von
+`gradlew runDatagen` (hängt `generateWiki` an), optional vom Pre-commit-Hook, und GitHub Actions
+prüft vor jeder Veröffentlichung, dass nichts vergessen wurde – siehe
+[`docs/WIKI-HOSTING.md`](../docs/WIKI-HOSTING.md).
 
 ### Zahlen, die in Java-Konstanten stehen
 
@@ -237,3 +240,8 @@ Linie im Kopf an.
 | `index.html` | die App, eine Datei, Vanilla-JS | ja, selten |
 | `data/simplebuilding.json` | die Doku als JSON | nein, generiert |
 | `data/simplebuilding.js` | dasselbe als `window.WIKI_DATA`, damit `file://` funktioniert | nein, generiert |
+| `../tools/wiki_site.py` | stellt die statische Seite für das Hosting zusammen (ohne Vanilla-Texturen) | ja, selten |
+| `../tools/git-hooks/pre-commit` | optionaler Hook: `--check` vor jedem Commit | ja, selten |
+| `../.github/workflows/wiki.yml` | CI: prüfen, auf `master` nach GitHub Pages veröffentlichen | ja, selten |
+
+Hosting, Hook und CI: [`docs/WIKI-HOSTING.md`](../docs/WIKI-HOSTING.md).

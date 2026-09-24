@@ -1,0 +1,41 @@
+#!/bin/sh
+# Prueft vor jedem Commit, ob wiki/ zur Mod passt: python wiki/generate.py --check.
+#
+#   einschalten (einmal pro Klon):  git config core.hooksPath tools/git-hooks
+#   ausschalten:                    git config --unset core.hooksPath
+#   einen Commit durchlassen:       git commit --no-verify
+#                                   (CI prueft vor dem Veroeffentlichen trotzdem)
+#   anderes Python:                 WIKI_PYTHON=/pfad/zu/python git commit ...
+#
+# Geprueft wird der ARBEITSBAUM, nicht der Index: nicht gestagte Aenderungen zaehlen mit.
+# --check schreibt keine wiki/data, kopiert aber geaenderte Texturen neu nach wiki/assets -
+# danach zeigt git status sie an. Ohne Python laesst der Hook den Commit durch.
+
+repo=$(git rev-parse --show-toplevel) || exit 1
+cd "$repo" || exit 1
+
+py="${WIKI_PYTHON:-}"
+if [ -z "$py" ]; then
+  for candidate in python python3 py; do
+    # "command -v" allein genuegt nicht: unter Windows gibt es einen Store-Platzhalter namens
+    # python, der nur eine Meldung ausgibt. Deshalb den Kandidaten wirklich einmal starten.
+    if "$candidate" -c "import sys" >/dev/null 2>&1; then
+      py=$candidate
+      break
+    fi
+  done
+fi
+if [ -z "$py" ]; then
+  echo "pre-commit: kein Python gefunden - Wiki-Pruefung uebersprungen (CI prueft trotzdem)." >&2
+  exit 0
+fi
+
+if ! out=$("$py" wiki/generate.py --check 2>&1); then
+  printf '%s\n\n' "$out" >&2
+  echo "pre-commit: das Wiki passt nicht zur Mod (python wiki/generate.py --check)." >&2
+  echo "  Beheben:            python wiki/generate.py  (fehlende Prosa in wiki/manual.json" >&2
+  echo "                      ergaenzen), dann wiki/ stagen und erneut committen." >&2
+  echo "  Einmal durchlassen: git commit --no-verify" >&2
+  exit 1
+fi
+exit 0
