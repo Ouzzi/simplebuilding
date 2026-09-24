@@ -2125,13 +2125,16 @@ public final class HudAndTooltipClientTest {
         clearWidgetFocus(script);
 
         assertGlintRectangles(script, false);
+        // The inventory animates its player model; the same mask the trim panel test uses keeps
+        // it out of every comparison (it sits far from the hotbar row the glimmer is drawn in).
+        Later<int[]> modelBox = playerModelBox(script);
         Later<Path> plain = script.shot("glint-a-uncalibrated");
         script.idle("let twenty ticks pass between the two baseline shots", 20);
         Later<Path> plainAgain = script.shot("glint-b-uncalibrated-again");
         Later<ScreenshotDiff.Diff> noiseFloor = new Later<>("the noise floor of the glimmer scene");
         script.verify("measure the noise floor of the glimmer scene", () -> {
             ScreenshotDiff.Diff diff = ScreenshotDiff.compare("noise floor (two uncalibrated detectors, twice)",
-                    plain.get(), plainAgain.get());
+                    withoutPlayerModel(plain.get(), modelBox.get()), withoutPlayerModel(plainAgain.get(), modelBox.get()));
             ScreenshotDiff.assertUnchanged(diff);
             noiseFloor.set(diff);
         });
@@ -2143,7 +2146,8 @@ public final class HudAndTooltipClientTest {
         Later<int[]> column = glintColumn(script);
         Later<Path> calibrated = script.shot("glint-c-calibrated");
         script.verify("the glimmer reached the screen at the calibrated slot's edge and nowhere else", () -> {
-            ScreenshotDiff.ChangedArea area = ScreenshotDiff.changedArea("glimmer", plain.get(), calibrated.get());
+            ScreenshotDiff.ChangedArea area = ScreenshotDiff.changedArea("glimmer",
+                    withoutPlayerModel(plain.get(), modelBox.get()), withoutPlayerModel(calibrated.get(), modelBox.get()));
             int[] box = column.get();
             if (area.changedPixels() == 0 || area.left() < box[0] || area.top() < box[1]
                     || area.right() > box[2] || area.bottom() > box[3]) {
@@ -2159,7 +2163,8 @@ public final class HudAndTooltipClientTest {
         Later<Path> control = script.shot("glint-d-uncalibrated-control");
         script.verify("taking the target away removes the glimmer again", () ->
                 ScreenshotDiff.assertBackToBaseline("resetting the detector to no target", noiseFloor.get(),
-                        ScreenshotDiff.compare("control (target removed again)", plain.get(), control.get())));
+                        ScreenshotDiff.compare("control (target removed again)", withoutPlayerModel(plain.get(), modelBox.get()),
+                                withoutPlayerModel(control.get(), modelBox.get()))));
 
         closeScreen(script);
         script.act("let the glimmer clock run again", client -> OreDetectorGlint.clock = Util::getMillis);
