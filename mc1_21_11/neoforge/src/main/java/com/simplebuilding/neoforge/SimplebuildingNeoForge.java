@@ -40,6 +40,7 @@ public final class SimplebuildingNeoForge {
         ModEnvironment.setModLoadedCheck(modId -> ModList.get().isLoaded(modId));
         NeoForgeModRegistries.register(modEventBus);
         NeoForgeGameTests.register(modEventBus);
+        NeoForgeItemAutomation.register(modEventBus);
         modEventBus.addListener(NeoForgeRegistryBootstrap::onRegister);
         modEventBus.addListener(this::commonSetup);
         NeoForgeNetworkRegistration.registerPlatformServices();

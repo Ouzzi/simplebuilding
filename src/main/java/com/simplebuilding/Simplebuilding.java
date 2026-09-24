@@ -140,6 +140,7 @@ public class Simplebuilding implements ModInitializer {
         // connection that has not negotiated the channel and throws from inside
         // ModHopperBlockEntity#setGhostItem. Fabric is permissive, so the same code path used to
         // behave differently on the two loaders. Filtering on both keeps them identical.
+        PlatformServices.setItemAutomation(new com.simplebuilding.platform.FabricItemAutomation());
         PlatformServices.setHopperSync((blockEntity, slot, stack) -> {
             var payload = new SyncHopperGhostItemPayload(blockEntity.getBlockPos(), slot, stack);
             for (net.minecraft.server.level.ServerPlayer player

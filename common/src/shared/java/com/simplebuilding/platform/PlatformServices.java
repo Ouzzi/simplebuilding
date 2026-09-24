@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 public final class PlatformServices {
     private static HopperSync hopperSync = HopperSync.NOOP;
     private static PlayerPacketSender playerPacketSender = PlayerPacketSender.NOOP;
+    private static ItemAutomation itemAutomation = ItemAutomation.NOT_INSTALLED;
 
     private PlatformServices() {
     }
@@ -30,5 +31,13 @@ public final class PlatformServices {
 
     public static void sendToPlayer(ServerPlayer player, CustomPacketPayload payload) {
         playerPacketSender.send(player, payload);
+    }
+
+    public static void setItemAutomation(ItemAutomation itemAutomation) {
+        PlatformServices.itemAutomation = itemAutomation != null ? itemAutomation : ItemAutomation.NOT_INSTALLED;
+    }
+
+    public static ItemAutomation itemAutomation() {
+        return itemAutomation;
     }
 }

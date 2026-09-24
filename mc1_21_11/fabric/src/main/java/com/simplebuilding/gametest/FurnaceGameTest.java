@@ -60,4 +60,19 @@ public final class FurnaceGameTest {
     public void oneCoalFeedsSeveralNetheriteSmeltsWhereVanillaManagesOne(GameTestHelper helper) {
         FurnaceTests.oneCoalFeedsSeveralNetheriteSmeltsWhereVanillaManagesOne(helper);
     }
+
+    @GameTest(maxTicks = FurnaceTests.HOPPER_RIG_MAX_TICKS)
+    public void everyTierIsFedAndEmptiedByVanillaHoppers(GameTestHelper helper) {
+        FurnaceTests.everyTierIsFedAndEmptiedByVanillaHoppers(helper);
+    }
+
+    @GameTest(maxTicks = FurnaceTests.HOPPER_RIG_MAX_TICKS)
+    public void everyTierIsFedAndEmptiedByItsOwnTierOfHopper(GameTestHelper helper) {
+        FurnaceTests.everyTierIsFedAndEmptiedByItsOwnTierOfHopper(helper);
+    }
+
+    @GameTest
+    public void everyMachineOffersItsSlotsToPipesThroughTheLoaderApi(GameTestHelper helper) {
+        FurnaceTests.everyMachineOffersItsSlotsToPipesThroughTheLoaderApi(helper);
+    }
 }

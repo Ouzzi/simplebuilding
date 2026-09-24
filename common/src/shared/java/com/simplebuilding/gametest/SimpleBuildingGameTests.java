@@ -714,6 +714,14 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("furnace_game_test_one_coal_feeds_several_netherite_smelts_where_vanilla_manages_one", FurnaceTests::oneCoalFeedsSeveralNetheriteSmeltsWhereVanillaManagesOne)
                     .maxTicks(FurnaceTests.FUEL_PARITY_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("furnace_game_test_every_tier_is_fed_and_emptied_by_vanilla_hoppers", FurnaceTests::everyTierIsFedAndEmptiedByVanillaHoppers)
+                    .maxTicks(FurnaceTests.HOPPER_RIG_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("furnace_game_test_every_tier_is_fed_and_emptied_by_its_own_tier_of_hopper", FurnaceTests::everyTierIsFedAndEmptiedByItsOwnTierOfHopper)
+                    .maxTicks(FurnaceTests.HOPPER_RIG_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("furnace_game_test_every_machine_offers_its_slots_to_pipes_through_the_loader_api", FurnaceTests::everyMachineOffersItsSlotsToPipesThroughTheLoaderApi)
+                    .build(),
             GameTestSpec.named("sledgehammer_upgrade_game_test_every_machine_climbs_from_reinforced_to_netherite_to_enderite", SledgehammerUpgradeTests::everyMachineClimbsFromReinforcedToNetheriteToEnderite)
                     .build(),
             GameTestSpec.named("sledgehammer_upgrade_game_test_upgraded_furnace_keeps_cooking_the_same_item_at_the_new_pace", SledgehammerUpgradeTests::upgradedFurnaceKeepsCookingTheSameItemAtTheNewPace)

@@ -13,6 +13,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.resources.Identifier;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
@@ -32,7 +33,8 @@ import org.lwjgl.glfw.GLFW;
  * com.simplebuilding.mixin.forge (simplebuilding.forge.mixins.json).
  *
  * Not yet ported (cosmetic): HUD overlays (AddGuiOverlayLayersEvent has a different
- * API) and the enchant_type select item-model property (no Forge registration event).
+ * API). The enchant_type select item-model property has no Forge registration event and is
+ * registered by SelectItemModelPropertiesMixin.
  */
 @Mod.EventBusSubscriber(modid = Simplebuilding.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class SimplebuildingForgeClient {
@@ -60,6 +62,13 @@ public final class SimplebuildingForgeClient {
     public static final class DefaultBusEvents {
         private DefaultBusEvents() {
         }
+
+    /** Wie Fabric/NeoForge: schwebender Sand/Kies nutzt den Vanilla-FallingBlockRenderer. */
+    @SubscribeEvent
+    public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.LEVITATING_BLOCK,
+                net.minecraft.client.renderer.entity.FallingBlockRenderer::new);
+    }
 
     @SubscribeEvent
     public static void onRegisterKeys(RegisterKeyMappingsEvent event) {

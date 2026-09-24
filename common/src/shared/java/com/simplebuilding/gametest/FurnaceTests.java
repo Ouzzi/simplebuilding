@@ -2,9 +2,12 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.platform.PlatformServices;
+import com.simplebuilding.platform.ItemAutomation;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -31,6 +34,10 @@ import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HopperBlock;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.Container;
+import java.util.function.Function;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -123,6 +130,9 @@ public final class FurnaceTests {
 
     /** Tick budget for {@link #oneCoalFeedsSeveralNetheriteSmeltsWhereVanillaManagesOne}. */
     public static final int FUEL_PARITY_MAX_TICKS = 300;
+
+    /** Tick budget for both hopper automation tests: a 200 tick smelt at double speed plus the transfers. */
+    public static final int HOPPER_RIG_MAX_TICKS = 240;
 
     /** Slot layout of {@link AbstractFurnaceBlockEntity}: input / fuel / result. */
     private static final int SLOT_INPUT = 0;
@@ -1050,6 +1060,178 @@ public final class FurnaceTests {
                                             String what) {
         level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, grid, level)
                 .ifPresent(match -> helper.fail(what + " crafts " + match.id().identifier()));
+    }
+
+    /**
+     * Hopper automation with vanilla semantics on all nine devices, fed by vanilla hoppers: a hopper
+     * above pushes the input into the input slot, a hopper at the side pushes coal into the fuel slot,
+     * and a hopper below pulls the result out of the result slot into a chest. The devices are
+     * {@code WorldlyContainer}s through {@link AbstractFurnaceBlockEntity}, so this is
+     * {@code getSlotsForFace} / {@code canPlaceItemThroughFace} / {@code canTakeItemThroughFace}
+     * as the loader's hopper code sees it. Each device reports what reached its chest and what the
+     * two feeding hoppers still hold, all nine in one line.
+     *
+     * <p>What breaks this test: a device whose block entity stops being a {@code Container} to the
+     * hopper, a face mapping that sends coal into the input slot or input into the fuel slot, or a
+     * result slot the hopper below may not take from.
+     */
+    public static void everyTierIsFedAndEmptiedByVanillaHoppers(GameTestHelper helper) {
+        runHopperRigs(helper, device -> Blocks.HOPPER);
+    }
+
+    /**
+     * The same rig as {@link #everyTierIsFedAndEmptiedByVanillaHoppers}, but every device is served by
+     * the hopper of its own tier - reinforced, netherite or enderite. These hoppers are
+     * {@code ModHopperBlockEntity} with their own push code, so a furnace that a vanilla hopper can
+     * feed is no proof that the mod hoppers can.
+     *
+     * <p>What breaks this test: {@code ModHopperBlockEntity#insert} ignoring the target's face
+     * mapping, or its pull ({@code HopperBlockEntity#suckInItems}) no longer taking the result.
+     */
+    public static void everyTierIsFedAndEmptiedByItsOwnTierOfHopper(GameTestHelper helper) {
+        runHopperRigs(helper, device -> device.label().startsWith("enderite") ? ModBlocks.ENDERITE_HOPPER
+                : device.label().startsWith("netherite") ? ModBlocks.NETHERITE_HOPPER : ModBlocks.REINFORCED_HOPPER);
+    }
+
+    /** Machine at y 3, input hopper above, fuel hopper east of it, result hopper below over a chest. */
+    private static void runHopperRigs(GameTestHelper helper, Function<Device, Block> hopperFor) {
+        List<BlockPos> machines = new ArrayList<>();
+        StringBuilder expected = new StringBuilder();
+        for (int index = 0; index < ALL_DEVICES.size(); index++) {
+            Device device = ALL_DEVICES.get(index);
+            BlockPos spot = NINE_SPOTS.get(index);
+            BlockPos machine = new BlockPos(spot.getX(), 3, Math.min(spot.getZ(), 6));
+            machines.add(machine);
+            Block hopper = hopperFor.apply(device);
+            helper.setBlock(machine.below(2), Blocks.CHEST);
+            helper.setBlock(machine.below(), hopper.defaultBlockState()
+                    .setValue(HopperBlock.FACING, Direction.DOWN).setValue(HopperBlock.ENABLED, Boolean.TRUE));
+            helper.setBlock(machine, device.block());
+            helper.setBlock(machine.above(), hopper.defaultBlockState()
+                    .setValue(HopperBlock.FACING, Direction.DOWN).setValue(HopperBlock.ENABLED, Boolean.TRUE));
+            helper.setBlock(machine.east(), hopper.defaultBlockState()
+                    .setValue(HopperBlock.FACING, Direction.WEST).setValue(HopperBlock.ENABLED, Boolean.TRUE));
+            ((Container) helper.getBlockEntity(machine.above(), net.minecraft.world.level.block.entity.BlockEntity.class))
+                    .setItem(0, new ItemStack(rigInput(device)));
+            ((Container) helper.getBlockEntity(machine.east(), net.minecraft.world.level.block.entity.BlockEntity.class))
+                    .setItem(0, new ItemStack(Items.COAL));
+            expected.append(index > 0 ? "; " : "").append(device.label()).append(": 1 ")
+                    .append(BuiltInRegistries.ITEM.getKey(rigResult(device)).getPath())
+                    .append(" in the chest, input hopper 0, fuel hopper 0");
+        }
+        helper.startSequence()
+                .thenWaitUntil(() -> helper.assertValueEqual(rigReport(helper, machines), expected.toString(),
+                        "what hoppers moved into and out of the nine devices (" + hopperFor.apply(ALL_DEVICES.get(0)) + ")"))
+                .thenSucceed();
+    }
+
+    /**
+     * Pipes and other mods reach a block through the loader's item transfer API, not through the
+     * {@code Container} a vanilla hopper talks to - NeoForge's {@code Capabilities.Item.BLOCK},
+     * Fabric's {@code ItemStorage.SIDED}. NeoForge attaches that capability to the vanilla block entity
+     * types only, so the mod's four block entity types need it registered explicitly. Every one of the
+     * twelve machines is asked through that API, face by face, with vanilla's furnace semantics: the
+     * input goes in from above, coal from the side, the input is refused at the side, the result comes
+     * out at the bottom and the fuel does not. The hoppers take an item from above and give it back at
+     * the bottom. Each machine reports the counts and its slots afterwards, all twelve in one line.
+     *
+     * <p>What breaks this test: a machine block entity type missing from the capability registration
+     * on NeoForge ({@code NeoForgeItemAutomation}), a registration that ignores the face (an unsided
+     * wrapper lets the input in from the side), or a loader that installs no {@code ItemAutomation}.
+     */
+    public static void everyMachineOffersItsSlotsToPipesThroughTheLoaderApi(GameTestHelper helper) {
+        ItemAutomation pipes = PlatformServices.itemAutomation();
+        ServerLevel level = helper.getLevel();
+        StringBuilder actual = new StringBuilder();
+        StringBuilder expected = new StringBuilder();
+        for (int index = 0; index < ALL_DEVICES.size(); index++) {
+            Device device = ALL_DEVICES.get(index);
+            BlockPos pos = NINE_SPOTS.get(index);
+            helper.setBlock(pos, device.block());
+            BlockPos abs = helper.absolutePos(pos);
+            Item input = rigInput(device);
+            Item result = rigResult(device);
+            int inputUp = pipes.insert(level, abs, Direction.UP, new ItemStack(input));
+            int fuelSide = pipes.insert(level, abs, Direction.NORTH, new ItemStack(Items.COAL));
+            int inputSide = pipes.insert(level, abs, Direction.EAST, new ItemStack(input));
+            AbstractFurnaceBlockEntity furnace = helper.getBlockEntity(pos, AbstractFurnaceBlockEntity.class);
+            furnace.setItem(SLOT_RESULT, new ItemStack(result));
+            int resultDown = pipes.extract(level, abs, Direction.DOWN, result, 1);
+            int fuelDown = pipes.extract(level, abs, Direction.DOWN, Items.COAL, 1);
+            actual.append(index > 0 ? "; " : "").append(device.label())
+                    .append(": input up ").append(inputUp).append(", coal side ").append(fuelSide)
+                    .append(", input side ").append(inputSide).append(", result down ").append(resultDown)
+                    .append(", coal down ").append(fuelDown).append(", slots ")
+                    .append(slotNames(furnace));
+            expected.append(index > 0 ? "; " : "").append(device.label())
+                    .append(": input up 1, coal side 1, input side 0, result down 1, coal down 0, slots ")
+                    .append(BuiltInRegistries.ITEM.getKey(input).getPath()).append(" / coal / -");
+        }
+        List<Block> hoppers = List.of(ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER);
+        for (int index = 0; index < hoppers.size(); index++) {
+            BlockPos pos = NINE_SPOTS.get(index).above(3);
+            helper.setBlock(pos, hoppers.get(index));
+            BlockPos abs = helper.absolutePos(pos);
+            String label = BuiltInRegistries.BLOCK.getKey(hoppers.get(index)).getPath();
+            int in = pipes.insert(level, abs, Direction.UP, new ItemStack(Items.COBBLESTONE));
+            int out = pipes.extract(level, abs, Direction.DOWN, Items.COBBLESTONE, 1);
+            actual.append("; ").append(label).append(": in ").append(in).append(", out ").append(out);
+            expected.append("; ").append(label).append(": in 1, out 1");
+        }
+        helper.assertValueEqual(actual.toString(), expected.toString(),
+                "what the loader's item transfer API moves through each face of the twelve machines");
+        helper.succeed();
+    }
+
+    private static String slotNames(AbstractFurnaceBlockEntity furnace) {
+        StringBuilder names = new StringBuilder();
+        for (int slot = 0; slot < 3; slot++) {
+            ItemStack stack = furnace.getItem(slot);
+            names.append(slot > 0 ? " / " : "")
+                    .append(stack.isEmpty() ? "-" : BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath());
+        }
+        return names.toString();
+    }
+
+    private static Item rigInput(Device device) {
+        return device.vanilla() == Blocks.SMOKER ? Items.BEEF : Items.RAW_IRON;
+    }
+
+    private static Item rigResult(Device device) {
+        return device.vanilla() == Blocks.SMOKER ? Items.COOKED_BEEF : Items.IRON_INGOT;
+    }
+
+    private static String rigReport(GameTestHelper helper, List<BlockPos> machines) {
+        StringBuilder report = new StringBuilder();
+        for (int index = 0; index < machines.size(); index++) {
+            Device device = ALL_DEVICES.get(index);
+            BlockPos machine = machines.get(index);
+            ChestBlockEntity chest = helper.getBlockEntity(machine.below(2), ChestBlockEntity.class);
+            int results = 0;
+            StringBuilder strays = new StringBuilder();
+            for (int slot = 0; slot < chest.getContainerSize(); slot++) {
+                ItemStack stack = chest.getItem(slot);
+                if (stack.is(rigResult(device))) {
+                    results += stack.getCount();
+                } else if (!stack.isEmpty()) {
+                    strays.append(" and ").append(stack);
+                }
+            }
+            report.append(index > 0 ? "; " : "").append(device.label()).append(": ").append(results).append(' ')
+                    .append(BuiltInRegistries.ITEM.getKey(rigResult(device)).getPath()).append(strays)
+                    .append(" in the chest, input hopper ").append(countIn(helper, machine.above()))
+                    .append(", fuel hopper ").append(countIn(helper, machine.east()));
+        }
+        return report.toString();
+    }
+
+    private static int countIn(GameTestHelper helper, BlockPos pos) {
+        Container container = (Container) helper.getBlockEntity(pos, net.minecraft.world.level.block.entity.BlockEntity.class);
+        int count = 0;
+        for (int slot = 0; slot < container.getContainerSize(); slot++) {
+            count += container.getItem(slot).getCount();
+        }
+        return count;
     }
 
     @SuppressWarnings("removal")
