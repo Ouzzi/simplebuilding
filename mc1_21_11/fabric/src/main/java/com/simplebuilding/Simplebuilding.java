@@ -110,6 +110,7 @@ public class Simplebuilding implements ModInitializer {
                 VersatilityUsageEvent.handleAttackBlock(player, world, hand, pos, direction));
 
         ServerTickEvents.END_SERVER_TICK.register(server -> {
+            com.simplebuilding.util.SledgehammerProgress.tick(server);
             for (ServerPlayer player : server.getPlayerList().getPlayers()) {
                 if (server.getTickCount() % 2 == 0) {
                     DynamicLightHandler.tick(player);

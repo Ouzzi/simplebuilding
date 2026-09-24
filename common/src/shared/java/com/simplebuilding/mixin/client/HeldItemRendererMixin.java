@@ -35,6 +35,11 @@ public class HeldItemRendererMixin {
 
     @Unique private float mainHandChiselProgress = 0.0F;
     @Unique private float offHandChiselProgress = 0.0F;
+    /**
+     * Wie weit der Hammer im letzten Frame ausgeholt war (0..1), siehe
+     * {@link SledgehammerUpgrades#drawBack}. Nur gespeichert, damit der Client-Test es lesen kann.
+     */
+    @Unique private float mainHandHammerDrawBack = 0.0F;
 
     @Inject(
             method = "submitArmWithItem",
@@ -71,8 +76,13 @@ public class HeldItemRendererMixin {
                         targetProgress = 1.0F;
                     }
                 }
-                // SLEDGEHAMMER
+                // SLEDGEHAMMER: neigt sich vor einer Maschine, die er mit dem Nugget in der
+                // Nebenhand jetzt aufwerten koennte, genau wie vor einem umformbaren Block
                 else if (item.getItem() instanceof SledgehammerItem sledgehammerItem) {
+                    if (hand == InteractionHand.MAIN_HAND
+                            && SledgehammerUpgrades.showsUpgradeHint(this.minecraft.level, blockHit.getBlockPos(), player)) {
+                        targetProgress = 1.0F;
+                    }
                     net.minecraft.world.phys.Vec3 relativeHit = blockHit.getLocation().subtract(net.minecraft.world.phys.Vec3.atLowerCornerOf(blockHit.getBlockPos()));
                     if (sledgehammerItem.getTransformationState(
                             this.minecraft.level.getBlockState(blockHit.getBlockPos()),
@@ -88,12 +98,28 @@ public class HeldItemRendererMixin {
             }
         }
 
+        // Waehrend einer Aufwertung holt der Hammer aus, statt sich zu neigen.
+        if (hand == InteractionHand.MAIN_HAND && SledgehammerUpgrades.isHammering(player)) {
+            targetProgress = 0.0F;
+        }
+
         float smoothingSpeed = 0.15F;
 
         if (hand == InteractionHand.MAIN_HAND) {
             this.mainHandChiselProgress += (targetProgress - this.mainHandChiselProgress) * smoothingSpeed;
             if (this.mainHandChiselProgress > 0.001F) {
                 this.applyChiselTransform(matrices, this.mainHandChiselProgress);
+            }
+            // Aufwertung: zwischen zwei Schlaegen wie ein Bogen ausholen, kurz vor dem Schlag nach
+            // vorn sausen; den Schlag selbst zeigt der Armschwung, den der Server schickt.
+            float phase = config.tools.enableToolAnimations ? SledgehammerUpgrades.blowPhase(player, tickProgress) : -1.0F;
+            float drawBack = SledgehammerUpgrades.drawBack(phase);
+            float followThrough = phase >= SledgehammerUpgrades.STRIKE_PHASE
+                    ? (float) Math.sin(Math.PI * (phase - SledgehammerUpgrades.STRIKE_PHASE) / (1.0F - SledgehammerUpgrades.STRIKE_PHASE))
+                    : 0.0F;
+            this.mainHandHammerDrawBack = drawBack;
+            if (drawBack > 0.001F || followThrough > 0.001F) {
+                this.applyHammerDrawBack(matrices, drawBack, followThrough);
             }
         } else {
             this.offHandChiselProgress += (targetProgress - this.offHandChiselProgress) * smoothingSpeed;
@@ -117,6 +143,16 @@ public class HeldItemRendererMixin {
                                                         @Local(argsOnly = true) AbstractClientPlayer player,
                                                         @Local(argsOnly = true) InteractionHand hand) {
         return hand == InteractionHand.MAIN_HAND && SledgehammerUpgrades.isHammering(player) ? ItemUseAnimation.BUNDLE : original;
+    }
+
+    /**
+     * Hammer ausholen: angehoben und mit dem Kopf zur Schulter zurueckgekippt (so weit, dass er im
+     * Bild bleibt); im Schlag kippt er ueber die Ruhelage hinaus nach vorn auf die Maschine.
+     */
+    @Unique
+    private void applyHammerDrawBack(PoseStack matrices, float drawBack, float followThrough) {
+        matrices.translate(0.0, 0.2 * drawBack - 0.06 * followThrough, 0.06 * drawBack - 0.08 * followThrough);
+        matrices.mulPose(Axis.XP.rotationDegrees(28.0F * drawBack - 22.0F * followThrough));
     }
 
     @Unique

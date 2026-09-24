@@ -47,6 +47,21 @@ public final class SledgehammerUpgradeGameTest {
     }
 
     @GameTest
+    public void abortedUpgradeKeepsItsBlowsAndResumesThere(GameTestHelper helper) {
+        SledgehammerUpgradeTests.abortedUpgradeKeepsItsBlowsAndResumesThere(helper);
+    }
+
+    @GameTest(maxTicks = SledgehammerUpgradeTests.PROGRESS_MAX_TICKS)
+    public void upgradeProgressLastsUntilTheBlockChanges(GameTestHelper helper) {
+        SledgehammerUpgradeTests.upgradeProgressLastsUntilTheBlockChanges(helper);
+    }
+
+    @GameTest
+    public void hammerDrawsBackBetweenBlowsAndHintsBeforehand(GameTestHelper helper) {
+        SledgehammerUpgradeTests.hammerDrawsBackBetweenBlowsAndHintsBeforehand(helper);
+    }
+
+    @GameTest
     public void netheriteMachineRecipesAndTheirUnlocksAreGone(GameTestHelper helper) {
         SledgehammerUpgradeTests.netheriteMachineRecipesAndTheirUnlocksAreGone(helper);
     }

@@ -6,6 +6,8 @@ import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.ChiselItem;
 import com.simplebuilding.util.GlowingTrimUtils;
+import com.simplebuilding.util.SledgehammerProgress;
+import com.simplebuilding.util.SledgehammerUpgrades;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -21,6 +23,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -350,6 +353,7 @@ public final class ItemRenderingClientTest {
         radianceAndGlowTooltips(script);
         armourTrimTooltipNumbers(script);
         chiselHandAnimation(script, originalToolAnimations, originalChiselAnimation);
+        sledgehammerUpgradeAnimation(script);
         glowingArmourTrim(script, originalGamma);
 
         // What the old finally block did. These are ordinary last steps, because a step list has no
@@ -823,24 +827,29 @@ public final class ItemRenderingClientTest {
 
     /** The main hand tilt {@code HeldItemRendererMixin} keeps on the item in hand renderer. */
     private static float mainHandChiselProgress(Minecraft client) {
+        return rendererFloat(client, "mainHandChiselProgress", "the chisel tilt");
+    }
+
+    /** A float field {@code HeldItemRendererMixin} adds to the item in hand renderer, by name. */
+    private static float rendererFloat(Minecraft client, String fieldName, String what) {
         Object renderer = client.getEntityRenderDispatcher().getItemInHandRenderer();
         List<String> names = new ArrayList<>();
 
         for (java.lang.reflect.Field field : renderer.getClass().getDeclaredFields()) {
             names.add(field.getName());
 
-            if (field.getName().contains("mainHandChiselProgress")) {
+            if (field.getName().contains(fieldName)) {
                 try {
                     field.setAccessible(true);
                     return field.getFloat(renderer);
                 } catch (ReflectiveOperationException e) {
-                    throw new AssertionError("The chisel tilt could not be read from " + field, e);
+                    throw new AssertionError(what + " could not be read from " + field, e);
                 }
             }
         }
 
-        throw new AssertionError("ItemInHandRenderer carries no field named like mainHandChiselProgress, so "
-                + "HeldItemRendererMixin's tilt cannot be read; its fields are " + names);
+        throw new AssertionError("ItemInHandRenderer carries no field named like " + fieldName + ", so "
+                + "HeldItemRendererMixin's " + what + " cannot be read; its fields are " + names);
     }
 
     /**
@@ -990,6 +999,198 @@ public final class ItemRenderingClientTest {
                         + TestScene.describeAim(client));
             }
         });
+    }
+
+    // =====================================================================================
+    // 4b. SLEDGEHAMMER UPGRADE: HINT, DRAW BACK, CRACKS
+    // =====================================================================================
+
+    /**
+     * The in-world machine upgrade as the player sees it, on a reinforced furnace with a diamond
+     * sledgehammer and a netherite nugget.
+     *
+     * <ol>
+     *   <li><b>The hint.</b> Same four stages as the chisel case: noise floor with the animation off,
+     *       the tilt switched on against a furnace the hammer can upgrade (the mixin's own predicate
+     *       {@code SledgehammerUpgrades.showsUpgradeHint} is asked first), and the control: with an
+     *       enderite nugget in the off hand the predicate is false and the tilt goes back to rest.</li>
+     *   <li><b>The draw back.</b> The right button is held until the server has recorded two blows.
+     *       Every tick the draw back {@code HeldItemRendererMixin} applied in the last frame is read:
+     *       it has to reach most of the way back and fall away again for a strike. One shot is taken
+     *       while the hammer is well back and the hint tilt is gone, against the untilted hand at rest.</li>
+     *   <li><b>The cracks.</b> Let go after two blows, the saved progress shows as cracks on the
+     *       furnace: the picture once the action bar has faded differs from the one before the blows
+     *       (same hand, same tilt, same block).</li>
+     *   <li><b>The resume.</b> Held again, the furnace becomes netherite in fewer ticks than a fresh
+     *       upgrade takes (100), because only the three missing blows are left.</li>
+     * </ol>
+     *
+     * <p>The saved progress is read from the integrated server on the client thread; on NeoForge the
+     * server thread runs concurrently, so a read can be a tick stale - every read sits inside an
+     * {@code await} that asks again.
+     */
+    private static void sledgehammerUpgradeAnimation(Script script) {
+        TestScene.build(script, INERT_WALL, "creative");
+        TestScene.showHudAgain(script);
+        freezeHudOverlays(script);
+
+        script.command("setblock " + TestScene.TARGET.getX() + " " + TestScene.TARGET.getY() + " "
+                + TestScene.TARGET.getZ() + " simplebuilding:reinforced_furnace[facing=north]");
+        script.command("item replace entity @a weapon.mainhand with simplebuilding:diamond_sledgehammer");
+        script.command("item replace entity @a weapon.offhand with simplebuilding:netherite_nugget 4");
+        script.awaitPackets();
+
+        // --- 1. the hint -------------------------------------------------------------------
+        setToolAnimationSwitches(script, false, false);
+        script.idle("let the hammer, the nugget and the furnace arrive", HAND_SETTLE_TICKS);
+        awaitTheChiselTiltAt(script, 0.0f);
+        assertHammerHint(script, true);
+
+        clearToastsAndChat(script);
+        Later<Path> hintOff = script.shot("hammer-a-hint-off");
+        script.idle("let the noise floor span a full settle interval", HAND_SETTLE_TICKS);
+        clearToastsAndChat(script);
+        Later<Path> hintOffAgain = script.shot("hammer-b-hint-off-again");
+        Later<ScreenshotDiff.Diff> noiseFloor = new Later<>("the noise floor of the sledgehammer scene");
+        script.verify("measure the noise floor of the sledgehammer scene", () -> {
+            ScreenshotDiff.Diff diff = ScreenshotDiff.compare(
+                    "noise floor (sledgehammer and nugget, animation off)", hintOff.get(), hintOffAgain.get());
+            ScreenshotDiff.assertUnchanged(diff);
+            noiseFloor.set(diff);
+        });
+
+        setToolAnimationSwitches(script, true, true);
+        script.idle("let the hint tilt build up", HAND_SETTLE_TICKS);
+        awaitTheChiselTiltAt(script, 1.0f);
+        assertHammerHint(script, true);
+        clearToastsAndChat(script);
+        Later<Path> hintOn = script.shot("hammer-c-hint-on");
+        script.verify("the sledgehammer hint tilt reached the screen", () ->
+                ScreenshotDiff.assertDrew("HeldItemRendererMixin (sledgehammer upgrade hint)", noiseFloor.get(),
+                        ScreenshotDiff.compare("sledgehammer hint on an upgradable furnace", hintOff.get(), hintOn.get())));
+
+        script.command("item replace entity @a weapon.offhand with simplebuilding:enderite_nugget 4");
+        script.awaitPackets();
+        assertHammerHint(script, false);
+        awaitTheChiselTiltAt(script, 0.0f);
+        script.command("item replace entity @a weapon.offhand with simplebuilding:netherite_nugget 4");
+        script.awaitPackets();
+        assertHammerHint(script, true);
+        script.idle("let the hint tilt build up again", HAND_SETTLE_TICKS);
+        awaitTheChiselTiltAt(script, 1.0f);
+        clearToastsAndChat(script);
+        Later<Path> beforeBlows = script.shot("hammer-d-before-blows");
+
+        // --- 2. the draw back --------------------------------------------------------------
+        float[] drawBack = {0.0f, 0.0f, 0.0f}; // last, highest, highest after a strike was seen
+        boolean[] struck = {false};
+        script.harness("hold the right mouse button on the furnace", harness -> harness.holdMouse(1));
+        // Well back, and the hint tilt (switched off while hammering) all the way gone, so the shot
+        // below differs from the hand at rest by the draw back alone.
+        script.await("the hammer is well drawn back and no longer tilted", 60, client -> {
+            drawBack[0] = mainHandHammerDrawBack(client);
+            return drawBack[0] > 0.6f && mainHandChiselProgress(client) < 0.002f;
+        }, client -> "the hammer drew back to " + drawBack[0] + " with the hint tilt at " + mainHandChiselProgress(client)
+                + " while the right button was held. " + TestScene.describeAim(client));
+        Later<Path> drawnBack = script.shot("hammer-e-drawn-back");
+        script.await("the server has recorded two blows", 80, client -> {
+            float now = mainHandHammerDrawBack(client);
+            if (drawBack[1] > 0.9f && now < 0.3f) {
+                struck[0] = true;
+            }
+            drawBack[1] = Math.max(drawBack[1], now);
+            drawBack[0] = now;
+            return storedBlows(client) >= 2;
+        }, client -> "the server recorded " + storedBlows(client) + " blows instead of two. "
+                + TestScene.describeAim(client));
+        script.harness("let go of the right mouse button", harness -> harness.releaseMouse(1));
+        script.verify("the hammer drew back and swung forward between the blows", () -> {
+            if (drawBack[1] < 0.9f || !struck[0]) {
+                throw new AssertionError("While hammering the draw back reached " + drawBack[1]
+                        + " and a swing forward was " + (struck[0] ? "" : "not ") + "seen - the hammer has "
+                        + "to draw back most of the way between two blows and come forward for the strike");
+            }
+        });
+        script.verify("the drawn back hammer reached the screen", () ->
+                ScreenshotDiff.assertDrew("HeldItemRendererMixin (sledgehammer draw back)", noiseFloor.get(),
+                        ScreenshotDiff.compare("hammer drawn back against the untilted hand at rest", hintOff.get(),
+                                drawnBack.get())));
+
+        // --- 3. the cracks ------------------------------------------------------------------
+        script.idle("let the action bar fade and the hand come back to the hint tilt", 120);
+        awaitTheChiselTiltAt(script, 1.0f);
+        script.check("the let go furnace still carries exactly two blows and is still reinforced",
+                client -> storedBlows(client) == 2
+                        && client.level.getBlockState(TestScene.TARGET).getBlock().getDescriptionId()
+                                .equals("block.simplebuilding.reinforced_furnace"));
+        clearToastsAndChat(script);
+        Later<Path> cracked = script.shot("hammer-f-paused-with-cracks");
+        script.verify("the saved blows show as cracks on the furnace", () ->
+                ScreenshotDiff.assertDrew("SledgehammerProgress (cracks of two blows)", noiseFloor.get(),
+                        ScreenshotDiff.compare("furnace after two blows against before", beforeBlows.get(),
+                                cracked.get())));
+
+        // --- 4. the resume ------------------------------------------------------------------
+        script.harness("hold the right mouse button on the furnace again", harness -> harness.holdMouse(1));
+        script.await("the furnace became netherite before a fresh upgrade could have", 85,
+                client -> client.level.getBlockState(TestScene.TARGET).getBlock().getDescriptionId()
+                        .equals("block.simplebuilding.netherite_furnace"),
+                client -> "the half hammered furnace is " + client.level.getBlockState(TestScene.TARGET)
+                        + " after 85 ticks of hammering again - a resume takes 60, a fresh upgrade 100");
+        script.harness("let go of the right mouse button again", harness -> harness.releaseMouse(1));
+        script.command("clear @a", true);
+        script.awaitPackets();
+    }
+
+    /**
+     * {@link #clearChat} plus the toasts: picking up a nugget unlocks recipes, and the "new recipes"
+     * toast slides out over several seconds - between two compared shots it would read as a change.
+     */
+    private static void clearToastsAndChat(Script script) {
+        script.act("dismiss the toasts before the shot", client -> client.gui.toastManager().clear());
+        clearChat(script);
+    }
+
+    /** Asks the mixin's own predicate whether the hammer should hint at the furnace. */
+    private static void assertHammerHint(Script script, boolean expected) {
+        TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
+        script.act("the sledgehammer hint predicate reads " + expected, client -> {
+            boolean hint = client.player != null && client.level != null
+                    && SledgehammerUpgrades.showsUpgradeHint(client.level, TestScene.TARGET, client.player);
+            if (hint != expected) {
+                throw new AssertionError("SledgehammerUpgrades.showsUpgradeHint is " + hint + " but this step needs "
+                        + expected + ": main hand " + client.player.getMainHandItem() + ", off hand "
+                        + client.player.getOffhandItem() + ", target " + client.level.getBlockState(TestScene.TARGET)
+                        + ". " + TestScene.describeAim(client));
+            }
+        });
+    }
+
+    /** Blows the integrated server has saved on the target furnace, 0 if none. */
+    private static int storedBlows(Minecraft client) {
+        MinecraftServer server = client.getSingleplayerServer();
+        if (server == null) {
+            throw new AssertionError("There is no integrated server to read the saved upgrade progress from");
+        }
+        SledgehammerProgress data = server.overworld().getDataStorage().get(SledgehammerProgress.TYPE);
+        if (data == null) {
+            return 0;
+        }
+        try {
+            for (SledgehammerProgress.Entry entry : data.entries()) {
+                if (entry.pos().equals(TestScene.TARGET)) {
+                    return entry.hits();
+                }
+            }
+        } catch (java.util.ConcurrentModificationException e) {
+            return -1; // the server wrote at the same moment; the surrounding await asks again
+        }
+        return 0;
+    }
+
+    /** How far {@code HeldItemRendererMixin} drew the hammer back in the last frame. */
+    private static float mainHandHammerDrawBack(Minecraft client) {
+        return rendererFloat(client, "mainHandHammerDrawBack", "the sledgehammer draw back");
     }
 
     // =====================================================================================

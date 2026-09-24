@@ -738,6 +738,13 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("sledgehammer_upgrade_game_test_interrupted_upgrades_consume_no_nugget", SledgehammerUpgradeTests::interruptedUpgradesConsumeNoNugget)
                     .build(),
+            GameTestSpec.named("sledgehammer_upgrade_game_test_aborted_upgrade_keeps_its_blows_and_resumes_there", SledgehammerUpgradeTests::abortedUpgradeKeepsItsBlowsAndResumesThere)
+                    .build(),
+            GameTestSpec.named("sledgehammer_upgrade_game_test_upgrade_progress_lasts_until_the_block_changes", SledgehammerUpgradeTests::upgradeProgressLastsUntilTheBlockChanges)
+                    .maxTicks(SledgehammerUpgradeTests.PROGRESS_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("sledgehammer_upgrade_game_test_hammer_draws_back_between_blows_and_hints_beforehand", SledgehammerUpgradeTests::hammerDrawsBackBetweenBlowsAndHintsBeforehand)
+                    .build(),
             GameTestSpec.named("sledgehammer_upgrade_game_test_netherite_machine_recipes_and_their_unlocks_are_gone", SledgehammerUpgradeTests::netheriteMachineRecipesAndTheirUnlocksAreGone)
                     .build(),
             GameTestSpec.named("in_world_export_game_test_upgrade_steps_name_the_weakest_hammer_that_works", InWorldExportTests::upgradeStepsNameTheWeakestHammerThatWorks)
