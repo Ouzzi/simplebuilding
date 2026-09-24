@@ -4,6 +4,7 @@
   "package": "com.simplebuilding.mixin.forge",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "RegistryLoadTaskMixin",
     "ReloadableServerRegistriesMixin"
   ],
   "client": [

@@ -101,6 +101,16 @@ minecraft {
             register('server') {
                 args '--nogui'
             }
+            // Headless in-game tests (tools/testrunner/run.py, Ziel forge-262): Forges
+            // 'gameTestServer' startet net.minecraft.gametest.Main mit --tests/--report wie auf
+            // NeoForge. Die Tests selbst meldet com.simplebuilding.forge.gametest.ForgeGameTests an.
+            // Eigenes Arbeitsverzeichnis, damit die Testwelt nicht in run/ des Dev-Servers landet.
+            // Task: :forge:runGameTestServer
+            register('gameTestServer') {
+                workingDir = layout.projectDirectory.dir('run-gametest')
+                args '--tests', (project.findProperty('gametestFilter') ?: "${rootProject.archives_base_name}:*").toString(),
+                        '--report', layout.buildDirectory.file('forge-junit.xml').get().asFile.absolutePath
+            }
         }
     }
 }
