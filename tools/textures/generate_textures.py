@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
 Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Maschinen, die
-Nihilith-/Astralit-Quarz-Schachbretter und den Astralit-/Nihilith-Bausatz; dazu aus Code (nicht aus
-Pixelkarten) die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus den Blockflaechen)
-und die Fenster des Rucksack-Bildschirms (gui/container/backpack/*).
+Nihilith-/Astralit-Quarz-Schachbretter und das Enderquarz-Item; dazu aus Code (nicht aus
+Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
+Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
+den Blockflaechen) und die Fenster des Rucksack-Bildschirms (gui/container/backpack/*).
 
 Aufruf (aus dem Repo-Wurzelverzeichnis oder von ueberall):
 
@@ -1090,177 +1091,406 @@ def checker_textures():
 
 
 # ---------------------------------------------------------------------------
-# Astralit-/Nihilith-Bausatz (Ziegel, Saeule, gemeisselte Ziegel)
+# End-Paletten: Astralit, Nihilith, Enderquarz (je Grundblock, Ziegel, polierter Block, Saeule,
+# Saeulenstirn, gemeisselte Ziegel)
 # ---------------------------------------------------------------------------
-# Grundtoene aus block/astral_end_stone bzw. block/nihil_end_stone (hellster Rand bis tiefster
-# Schatten), Akzente wie bei den Schachbrettern: Astralit rosa Sternenfunken, Nihilith tuerkise
-# Splitter aus item/nihilith_shard. Ziffern: 5 hellster Rand .. 0 tiefster Schatten, 7 Rauschton im
-# Stein, 6/8/9 Akzente.
-END_SET_PALETTES = {
-    "astralit": {
-        "5": "#f4d5ee", "4": "#f0c8e8", "7": "#efc4e7", "3": "#ebb5e0", "2": "#e49dd6", "1": "#de86cd",
-        "0": "#d668c1", "6": "#fbe9f6", "9": "#d890b1", "8": "#b16086",
-    },
-    "nihilith": {
-        "5": "#d5e0f4", "4": "#c8d6f0", "7": "#bfcfee", "3": "#b6c9eb", "2": "#9eb7e5", "1": "#88a7df",
-        "0": "#6a91d7", "6": "#7bb4b8", "9": "#5f93a3", "8": "#356889",
-    },
+# Neu gemalt (2026-09-24) im Stil der heutigen Vanilla-Endsteinziegel, des Purpurblocks und der
+# Purpursaeule: weiche Schattierung statt harter Stufen, Fugen, die in den Stein uebergehen, und
+# leises Rauschen im Stein. Anders als die Karten oben werden diese Flaechen aus Code gemalt:
+# jede Flaeche ist zuerst ein Hoehen-/Helligkeitsfeld (0 = tiefster Schatten .. 7 = hellste Kante),
+# das am Ende auf die achtstufige Rampe des Materials gerundet wird. Das Rauschen ist ein fester
+# Hash der Pixelposition (kein random), also bei jedem Lauf byte-gleich; es wiederholt sich mit
+# 16 px, damit alle Flaechen nahtlos kacheln.
+#
+# Rampen: Astralit rosa (wie Astralitstaub und der Astral-Endstein), Nihilith blau (wie der
+# Nihil-Endstein) mit tuerkisen Splittern aus item/nihilith_shard, Enderquarz violett. Akzente je
+# Material: Astralit weisse Sternfunken (der Block leuchtet ohnehin mit 10), Nihilith tuerkise
+# Splitter, Enderquarz helle Quarzadern.
+# Die gemeisselten Ziegel zeigen je ein End-Wesen: Astralit einen Shulker (Deckel, Spalt, Kopf),
+# Nihilith das dunkle Enderman-Gesicht mit den violetten Augen, Enderquarz den gehoernten Kopf des
+# Enderdrachen mit gluehenden Augen.
+END_PALETTE_RAMPS = {
+    "astralit": ["#a24f8c", "#bb62a2", "#cc77b4", "#d98cc4", "#e4a2d2", "#edb8df", "#f5cdea", "#fbe2f4"],
+    "nihilith": ["#4a64a3", "#5b78b8", "#6e8bc8", "#829ed5", "#97b1e0", "#adc3e9", "#c3d5f2", "#dae6fa"],
+    "ender_quartz": ["#4e3269", "#5f3f80", "#714f96", "#8461aa", "#9774bb", "#ab8aca", "#bfa2d8", "#d4bce6"],
 }
-
-# Vier Ziegellagen zu je 3 px plus 1 px Fuge, versetzt wie Endsteinziegel; die Flaeche kachelt
-# nahtlos (Fugen auf Spalte 7/15 bzw. 3/11, die Ziegel der Randspalten laufen ueber die Kante).
-END_BRICKS = [
-    "AAAAAAA.BBBBBBB.",
-    "AAAAAAA.BBBBBBB.",
-    "AAAAAAA.BBBBBBB.",
-    "................",
-    "CCC.DDDDDDD.CCCC",
-    "CCC.DDDDDDD.CCCC",
-    "CCC.DDDDDDD.CCCC",
-    "................",
-    "EEEEEEE.FFFFFFF.",
-    "EEEEEEE.FFFFFFF.",
-    "EEEEEEE.FFFFFFF.",
-    "................",
-    "GGG.HHHHHHH.GGGG",
-    "GGG.HHHHHHH.GGGG",
-    "GGG.HHHHHHH.GGGG",
-    "................",
-]
-END_BRICK_SPECKS = {
-    "astralit": {"6": [(3, 1), (13, 5), (9, 13)], "7": [(10, 1), (6, 5), (2, 9), (13, 9), (5, 13)]},
-    "nihilith": {"6": [(4, 1), (12, 9), (1, 13)], "7": [(11, 1), (7, 5), (3, 9), (9, 13)]},
+END_PALETTE_ACCENTS = {
+    "astralit": {"hi": "#fff5fc", "mid": "#f9d9ef", "lo": "#c65fa6"},
+    "nihilith": {"hi": "#8fd3d0", "mid": "#5fa9b0", "lo": "#356889"},
+    "ender_quartz": {"hi": "#efe4fa", "mid": "#d9c6ee", "lo": "#3e2656"},
 }
-
-# Saeulenseite: zwei Kannelueren (dunkle Rille, rechts davon die beleuchtete Flanke), kachelt
-# senkrecht nahtlos wie die Purpursaeule.
-END_PILLAR_SIDE_ROW = "5433215433215320"
-END_PILLAR_SPECKS = {
-    "astralit": {"6": [(2, 3), (8, 9), (13, 12)], "7": [(3, 6), (9, 1), (8, 13), (2, 11)]},
-    "nihilith": {"6": [(3, 4), (9, 11), (13, 1)], "7": [(2, 7), (8, 2), (9, 14), (13, 9)]},
-}
+# Motivfarben: Enderman-/Drachenschwarz und das Violett ihrer Augen (Vanilla entity/enderman/enderman_eyes).
+END_CREATURE = {"black": "#1b1824", "black2": "#262233", "black3": "#322c42",
+                "eye": "#cc00fa", "eye_hi": "#e079fa"}
+END_PALETTE_SEED = {"astralit": 11, "nihilith": 23, "ender_quartz": 37}
 
 
-def tiled_face(layout, specks):
-    """Wie stone_face, aber die Nachbarn laufen ueber die Kante (kachelbare Flaeche)."""
-    h, w = len(layout), len(layout[0])
-
-    def same(x, y, ch):
-        return layout[y % h][x % w] == ch
-
-    out = []
-    for y in range(h):
-        row = ""
-        for x in range(w):
-            ch = layout[y][x]
-            if ch == ".":
-                row += "1"
-                continue
-            up, left = same(x, y - 1, ch), same(x - 1, y, ch)
-            down, right = same(x, y + 1, ch), same(x + 1, y, ch)
-            if not up and not left:
-                row += "5"
-            elif not up or not left:
-                row += "4"
-            elif not down or not right:
-                row += "2"
-            else:
-                row += "3"
-        out.append(row)
-    return add_specks(out, specks)
+def _hash01(seed, x, y):
+    h = (x * 374761393 + y * 668265263 + seed * 2246822519) & 0xFFFFFFFF
+    h = ((h ^ (h >> 13)) * 1274126177) & 0xFFFFFFFF
+    return ((h ^ (h >> 16)) & 0xFFFF) / 65535.0
 
 
-def add_specks(rows, specks, allowed="3"):
-    out = list(rows)
-    for ch, points in specks.items():
-        for sx, sy in points:
-            if out[sy][sx] not in allowed:
-                raise ValueError(f"Akzent {ch} bei ({sx},{sy}) liegt nicht im Steininneren")
-            out[sy] = out[sy][:sx] + ch + out[sy][sx + 1:]
+def _noise(seed, blur_x=1, blur_y=1):
+    """Kachelbares Rauschen -1..1: Hash je Pixel, dann Kastenunschaerfe mit Umlauf."""
+    field = [[_hash01(seed, x, y) for x in range(16)] for y in range(16)]
+    if blur_x or blur_y:
+        out = []
+        for y in range(16):
+            row = []
+            for x in range(16):
+                acc, n = 0.0, 0
+                for dy in range(-blur_y, blur_y + 1):
+                    for dx in range(-blur_x, blur_x + 1):
+                        acc += field[(y + dy) % 16][(x + dx) % 16]
+                        n += 1
+                row.append(acc / n)
+            out.append(row)
+        field = out
+    lo = min(min(r) for r in field)
+    hi = max(max(r) for r in field)
+    return [[(v - lo) / (hi - lo) * 2 - 1 for v in r] for r in field]
+
+
+def _paint(values, ramp, overrides=None):
+    """Helligkeitsfeld -> RGB-Bild; overrides {(x, y): '#rrggbb'} fuer Akzente und Motive."""
+    img = Image.new("RGB", (16, 16))
+    px = img.load()
+    for y in range(16):
+        for x in range(16):
+            i = int(round(values[y][x]))
+            px[x, y] = hexrgb(ramp[max(0, min(len(ramp) - 1, i))])
+    for (x, y), colour in (overrides or {}).items():
+        px[x % 16, y % 16] = hexrgb(colour)
+    return img
+
+
+def _accents(mat, points, acc, crosses=True):
+    """Akzentpixel je Material: Sternfunke (Kreuz), Splitter (Diagonale) oder Quarzader."""
+    out = {}
+    for n, (x, y) in enumerate(points):
+        if mat == "astralit":
+            out[(x, y)] = acc["hi"]
+            if crosses and n % 2 == 0:
+                for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    out[(x + dx, y + dy)] = acc["mid"]
+        elif mat == "nihilith":
+            out[(x, y)] = acc["hi"]
+            out[(x + 1, y + 1)] = acc["mid"]
+            if n % 2 == 0:
+                out[(x + 2, y + 2)] = acc["lo"]
+        else:
+            out[(x, y)] = acc["hi"]
+            out[(x + 1, y)] = acc["mid"]
+            if n % 2 == 0:
+                out[(x + 2, y + 1)] = acc["mid"]
     return out
+
+
+def end_palette_block(mat):
+    """Grundblock, Gegenstueck zum Endstein: koerniger Stein mit ein paar weichen Mulden."""
+    seed = END_PALETTE_SEED[mat]
+    coarse, fine = _noise(seed, 2, 2), _noise(seed + 1, 0, 0)
+    v = [[4.3 + 1.2 * coarse[y][x] + 0.55 * fine[y][x] for x in range(16)] for y in range(16)]
+    pits = {"astralit": [(3, 4), (11, 2), (8, 10), (13, 13), (2, 12)],
+            "nihilith": [(5, 2), (12, 6), (3, 9), (9, 13), (14, 11)],
+            "ender_quartz": [(2, 3), (10, 5), (6, 12), (13, 14), (14, 1)]}[mat]
+    for cx, cy in pits:
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                x, y = (cx + dx) % 16, (cy + dy) % 16
+                d = abs(dx) + abs(dy)
+                if d == 0:
+                    v[y][x] -= 2.4
+                elif d == 1:
+                    v[y][x] -= 1.2 if (dx < 0 or dy < 0) else 0.2
+        v[(cy + 1) % 16][(cx + 1) % 16] += 1.1          # beleuchtete Unterkante der Mulde
+    points = {"astralit": [(6, 6), (13, 9), (1, 1), (9, 14)],
+              "nihilith": [(8, 4), (1, 5), (11, 10)],
+              "ender_quartz": [(5, 7), (11, 11), (0, 14)]}[mat]
+    return _paint(v, END_PALETTE_RAMPS[mat], _accents(mat, points, END_PALETTE_ACCENTS[mat]))
+
+
+def end_palette_bricks(mat):
+    """Ziegel, Gegenstueck zu den Endsteinziegeln: zwei Lagen zu 8 px, Stoss um 8 px versetzt,
+    Fugen dunkel, aber in die Ziegelkanten verlaufend."""
+    seed = END_PALETTE_SEED[mat] + 100
+    coarse, fine = _noise(seed), _noise(seed + 1, 0, 0)
+    v = [[0.0] * 16 for _ in range(16)]
+    for y in range(16):
+        top = 0 if y < 8 else 8
+        t = y - top
+        joint = 15 if top == 0 else 7
+        for x in range(16):
+            n = 0.6 * coarse[y][x] + 0.45 * fine[y][x]
+            u = (x - joint - 1) % 16                   # 0 = linke Ziegelkante, 14 = rechte
+            if t == 7:
+                val = 1.0 + 0.9 * fine[y][x]           # Lagerfuge
+                if u == 15:
+                    val = 0.3
+            elif u == 15:
+                val = 1.6 + 0.9 * fine[y][x]           # Stossfuge
+            else:
+                val = 4.6 + n
+                if t == 0:
+                    val += 1.7
+                elif t == 1:
+                    val += 0.6
+                elif t == 6:
+                    val -= 1.3
+                elif t == 5:
+                    val -= 0.4
+                if u == 0:
+                    val += 0.9
+                elif u == 14:
+                    val -= 1.0
+                elif u == 13:
+                    val -= 0.3
+            v[y][x] = val
+    # abgeschlagene Kanten: ein paar Randpixel sinken in die Fuge
+    for x, y in {"astralit": [(4, 6), (12, 14), (8, 0)], "nihilith": [(10, 6), (3, 14), (14, 8)],
+                 "ender_quartz": [(6, 6), (13, 14), (2, 8)]}[mat]:
+        v[y][x] = 2.0
+    points = {"astralit": [(5, 3), (12, 11)], "nihilith": [(9, 2), (2, 10)],
+              "ender_quartz": [(3, 3), (10, 11)]}[mat]
+    return _paint(v, END_PALETTE_RAMPS[mat], _accents(mat, points, END_PALETTE_ACCENTS[mat], crosses=False))
+
+
+def end_palette_polished(mat):
+    """Polierter Block, Gegenstueck zum Purpurblock: vier 8er-Platten mit weicher Fase, oben/links
+    Licht, unten/rechts Schatten, zur Unterkante hin leicht dunkler; ruhiger als der Grundblock."""
+    seed = END_PALETTE_SEED[mat] + 200
+    coarse, fine = _noise(seed), _noise(seed + 1, 0, 0)
+    v = [[0.0] * 16 for _ in range(16)]
+    for y in range(16):
+        for x in range(16):
+            u, t = x % 8, y % 8
+            val = 4.4 - 0.2 * t + 0.35 * coarse[y][x] + 0.3 * fine[y][x]
+            if t == 7 or u == 7:
+                val = 0.9 + 0.5 * fine[y][x]
+                if t == 7 and u == 0:
+                    val = 1.8
+            elif t == 0 or u == 0:
+                val = 6.3 if (t == 0 and u == 0) else (5.9 if t == 0 else 5.4)
+                val += 0.3 * fine[y][x]
+            elif t == 1 or u == 1:
+                val += 0.6
+            elif t == 6 or u == 6:
+                val -= 0.7
+            if 1 < u < 6 and 1 < t < 6 and u + t in (5,):
+                val += 0.6                               # leiser Glanzstreifen
+            v[y][x] = val
+    return _paint(v, END_PALETTE_RAMPS[mat])
+
+
+def end_palette_pillar_side(mat):
+    """Saeulenseite, Gegenstueck zur Purpursaeule: eine breite, gewoelbte Mittelbahn zwischen zwei
+    Kannelueren; oben/unten je ein Band, damit gestapelte Saeulen als Trommeln lesbar bleiben."""
+    seed = END_PALETTE_SEED[mat] + 300
+    streak, fine = _noise(seed, 0, 3), _noise(seed + 1, 0, 0)
+    profile = [6.2, 4.6, 1.4, 2.4, 5.6, 5.3, 5.0, 4.8, 4.6, 4.4, 4.1, 3.6, 1.2, 3.3, 3.8, 0.9]
+    v = [[0.0] * 16 for _ in range(16)]
+    for y in range(16):
+        for x in range(16):
+            val = profile[x] + 0.5 * streak[y][x] + 0.25 * fine[y][x]
+            if y == 0:
+                val += 1.1
+            elif y == 15:
+                val -= 2.0
+            elif y == 14:
+                val -= 0.6
+            v[y][x] = val
+    acc = END_PALETTE_ACCENTS[mat]
+    overrides = {}
+    if mat == "astralit":
+        overrides = {(7, 5): acc["hi"], (8, 11): acc["mid"]}
+    elif mat == "nihilith":
+        overrides = {(6, 9): acc["hi"], (7, 10): acc["mid"]}
+    else:
+        overrides = {(9, 3): acc["hi"], (9, 4): acc["mid"], (6, 10): acc["mid"]}
+    return _paint(v, END_PALETTE_RAMPS[mat], overrides)
+
+
+def end_palette_pillar_top(mat):
+    """Saeulenstirn: gefaster Rand, eine eingelassene Rille, die Mittelplatte mit einem Akzent."""
+    seed = END_PALETTE_SEED[mat] + 400
+    fine = _noise(seed, 0, 0)
+    v = [[0.0] * 16 for _ in range(16)]
+    for y in range(16):
+        for x in range(16):
+            d = ring(x, y)
+            lit = (x == d or y == d) and not (x == 15 - d or y == 15 - d)
+            n = 0.3 * fine[y][x]
+            if d == 0:
+                val = 6.0 if lit else 0.8
+            elif d == 1:
+                val = 4.9 if lit else 3.2
+            elif d == 2:
+                val = 1.3 if lit else 4.6            # Rille: Schatten oben/links, Licht unten/rechts
+            elif d == 3:
+                val = 5.5 if lit else 2.6
+            else:
+                val = 4.4 - 0.15 * (y - 4)
+            v[y][x] = val + n
+    acc = END_PALETTE_ACCENTS[mat]
+    centre = {(7, 7): acc["hi"], (8, 7): acc["mid"], (7, 8): acc["mid"], (8, 8): acc["lo"]}
+    return _paint(v, END_PALETTE_RAMPS[mat], centre)
+
+
+# Motive der gemeisselten Ziegel, 12x12 innerhalb des Rahmens (Spalte/Zeile 2..13).
+#   '.' vertiefter Grund   '#' erhabener Stein   'h' erhabener Akzent (Shulkerkopf)
+#   'z' dunkles Schaleninneres   'k' dunkles Wesen      'K' Wesen, Glanzkante   'e'/'E' Augen (violett / hell)   'n' Nuestern
+CHISELED_MOTIFS = {
+    # Shulker von vorn: Deckel mit Mittelrippe, Spalt mit dem hervorlugenden Kopf, Unterschale.
+    "astralit": [
+        "............",
+        "..########..",
+        ".##########.",
+        ".##########.",
+        "############",
+        ".zzzhhhhzzz.",
+        ".zzhkhhkhzz.",
+        ".zzzhhhhzzz.",
+        ".##########.",
+        ".##########.",
+        "..########..",
+        "............",
+    ],
+    # Enderman: schwarzes Gesicht, die zwei violetten Augenschlitze.
+    "nihilith": [
+        "............",
+        "..kkkkkkkk..",
+        "..KKKKKKKK..",
+        "..kkkkkkkk..",
+        "..kkkkkkkk..",
+        "..keEekeEe..",
+        "..kkkkkkkk..",
+        "..kkkkkkkk..",
+        "..kkkkkkkk..",
+        "..kkkkkkkk..",
+        "..kkkkkkkk..",
+        "............",
+    ],
+    # Enderdrache von vorn: zwei Hoerner, breiter Kopf, gluehende Schlitzaugen, lange Schnauze.
+    "ender_quartz": [
+        ".k........k.",
+        ".kk......kk.",
+        "..kKKKKKKk..",
+        ".kkkkkkkkkk.",
+        ".keEkkkkEek.",
+        ".kkkkkkkkkk.",
+        "..kkkkkkkk..",
+        "...kkkkkk...",
+        "...kKKKKk...",
+        "...knkknk...",
+        "...kkkkkk...",
+        "............",
+    ],
+}
+
+
+def end_palette_chiseled(mat):
+    """Gemeisselte Ziegel: gefaster Rahmen wie die polierte Platte, vertiefter Grund, darin das Motiv
+    als Relief (Licht oben/links, Schlagschatten unten/rechts)."""
+    seed = END_PALETTE_SEED[mat] + 500
+    coarse, fine = _noise(seed), _noise(seed + 1, 0, 0)
+    motif = CHISELED_MOTIFS[mat]
+
+    def cell(x, y):
+        if 2 <= x <= 13 and 2 <= y <= 13:
+            return motif[y - 2][x - 2]
+        return None
+
+    v = [[0.0] * 16 for _ in range(16)]
+    overrides = {}
+    acc = END_PALETTE_ACCENTS[mat]
+    for y in range(16):
+        for x in range(16):
+            d = ring(x, y)
+            lit = (x == d or y == d) and not (x == 15 - d or y == 15 - d)
+            n = 0.35 * coarse[y][x] + 0.3 * fine[y][x]
+            if d == 0:
+                v[y][x] = (6.2 if lit else 0.8) + 0.3 * fine[y][x]
+                continue
+            if d == 1:
+                v[y][x] = (4.9 if lit else 2.4) + n
+                continue
+            c = cell(x, y)
+            if c == "." or c is None:
+                val = 2.9 + n
+                if cell(x - 1, y - 1) not in (".", None) or cell(x, y - 1) not in (".", None):
+                    val -= 1.1                                 # Schlagschatten des Reliefs
+                if d == 2 and lit:
+                    val -= 0.9                                 # Innenkante des Rahmens im Schatten
+                v[y][x] = val
+            elif c in "#-":
+                val = 4.9 + n
+                if cell(x, y - 1) in (".", None) or cell(x - 1, y) in (".", None):
+                    val += 1.3
+                if cell(x, y + 1) in (".", None) or cell(x + 1, y) in (".", None):
+                    val -= 1.4
+                if c == "-":
+                    val = 2.2
+                v[y][x] = val
+            else:
+                v[y][x] = 3.0
+                colour = {
+                    "h": acc["mid"], "k": END_CREATURE["black"], "K": END_CREATURE["black3"],
+                    "e": END_CREATURE["eye"], "E": END_CREATURE["eye_hi"], "n": END_CREATURE["black"],
+                    "z": "#5a2150",
+                }[c]
+                if c == "k" and _hash01(seed, x, y) > 0.72:
+                    colour = END_CREATURE["black2"]
+                if c == "h" and (cell(x, y - 1) in ".#z" or cell(x - 1, y) in ".z"):
+                    colour = acc["hi"]
+                if c == "k" and mat == "astralit":
+                    colour = acc["lo"]
+                if c == "n":
+                    colour = "#0f0d15"
+                overrides[(x, y)] = colour
+    return _paint(v, END_PALETTE_RAMPS[mat], overrides)
 
 
 def ring(x, y):
     return min(x, y, 15 - x, 15 - y)
 
 
-def framed(inner):
-    """Rahmen fuer Saeulen-Stirn und gemeisselte Ziegel: Ring 0 hell oben/links, tiefster Schatten
-    unten/rechts; Ring 1 abgestuft; innen liefert inner(x, y)."""
-    rows = []
-    for y in range(16):
-        row = ""
-        for x in range(16):
-            d = ring(x, y)
-            lit = (x == d or y == d) and not (x == 15 - d or y == 15 - d)
-            if d == 0:
-                row += "5" if lit else ("2" if (x, y) in ((15, 0), (0, 15)) else "0")
-            elif d == 1:
-                row += "4" if lit else ("3" if (x, y) in ((14, 1), (1, 14)) else "2")
-            else:
-                row += inner(x, y, d, lit)
-        rows.append(row)
-    return rows
+# Enderquarz (Item): zwei Kristalle wie ein Quarzbrocken, violett, mit einem rosa (Astralit) und
+# einem tuerkisen (Nihilith) Lichtpunkt.
+ENDER_QUARTZ_ITEM = [
+    "................",
+    "..........1.....",
+    ".........154....",
+    "...1....15641...",
+    "..163..1566421..",
+    "..1653.1565321..",
+    "..16543156432...",
+    "...1543545321...",
+    "...15443443a1...",
+    "..1b54334321....",
+    "..155433432101..",
+    "...1443332110...",
+    "....13321100....",
+    ".....1100.......",
+    "......00........",
+    "................",
+]
+ENDER_QUARTZ_ITEM_PAL = {
+    "0": "#2f1d42", "1": "#4a2d68", "2": "#6a4290", "3": "#8a5db4", "4": "#a97fd0",
+    "5": "#c9a8e6", "6": "#f1e6fb", "a": "#f4a6dc", "b": "#8fd3d0",
+}
 
 
-def pillar_top(accent):
-    def inner(x, y, d, lit):
-        if d == 3:
-            return "1" if lit else "5"   # eingelassene Rille: Schatten oben/links, Licht unten/rechts
-        if d == 7:
-            return accent
-        return {2: "3", 4: "3", 5: "7", 6: "4"}[d]
-    return framed(inner)
-
-
-def chiseled_astralit():
-    def star(x, y):
-        dx, dy = abs(x - 7.5), abs(y - 7.5)
-        return (dx < 1 and dy < 5) or (dy < 1 and dx < 5) or (dx < 2 and dy < 2 and dx + dy < 3)
-
-    def inner(x, y, d, lit):
-        if star(x, y):
-            dx, dy = abs(x - 7.5), abs(y - 7.5)
-            if dx < 1 and dy < 1:
-                return "6"
-            if max(dx, dy) > 3.5:
-                return "9"
-            return "4"
-        if star(x - 1, y - 1) or star(x, y - 1) or star(x - 1, y):
-            return "8"                    # Schlagschatten unten rechts des erhabenen Sterns
-        if (x, y) in ((4, 4), (11, 11), (11, 4), (4, 11)):
-            return "6"                    # Funken in den Ecken
-        return "3"
-    return framed(inner)
-
-
-def chiseled_nihilith():
-    def inner(x, y, d, lit):
-        dx, dy = x - 7.5, y - 7.5
-        s = abs(dx) + abs(dy)
-        if s < 5:
-            if s > 3.5:
-                return "4" if (dx + dy) < 0 else "0"   # Kante: oben/links hell, unten/rechts dunkel
-            if dx < 0 and dy < 0:
-                return "6"
-            if dx > 0 and dy > 0:
-                return "8"
-            return "9"
-        if s < 6 and dx + dy > 0:
-            return "1"                                 # Schlagschatten
-        return "7" if (x + 2 * y) % 7 == 0 else "3"
-    return framed(inner)
-
-
-def end_set_textures():
+def end_palette_textures():
     tex = {}
-    for mat, pal in END_SET_PALETTES.items():
-        tex[f"block/{mat}_bricks.png"] = render(f"{mat}_bricks", tiled_face(END_BRICKS, END_BRICK_SPECKS[mat]), pal, True)
-        side = add_specks([END_PILLAR_SIDE_ROW] * 16, END_PILLAR_SPECKS[mat])
-        tex[f"block/{mat}_pillar.png"] = render(f"{mat}_pillar", side, pal, True)
-        tex[f"block/{mat}_pillar_top.png"] = render(f"{mat}_pillar_top", pillar_top("6"), pal, True)
-        chiseled = chiseled_astralit() if mat == "astralit" else chiseled_nihilith()
-        tex[f"block/chiseled_{mat}_bricks.png"] = render(f"chiseled_{mat}_bricks", chiseled, pal, True)
+    for mat in END_PALETTE_RAMPS:
+        tex[f"block/{mat}_block.png"] = end_palette_block(mat)
+        tex[f"block/{mat}_bricks.png"] = end_palette_bricks(mat)
+        tex[f"block/polished_{mat}.png"] = end_palette_polished(mat)
+        tex[f"block/{mat}_pillar.png"] = end_palette_pillar_side(mat)
+        tex[f"block/{mat}_pillar_top.png"] = end_palette_pillar_top(mat)
+        tex[f"block/chiseled_{mat}_bricks.png"] = end_palette_chiseled(mat)
+    tex["item/ender_quartz.png"] = render("ender_quartz", ENDER_QUARTZ_ITEM, ENDER_QUARTZ_ITEM_PAL, False)
     return tex
 
 
@@ -1557,7 +1787,7 @@ def build():
     tex.update(checker_textures())
     tex.update(backpack_worn_textures(tex))
     tex.update(backpack_gui_textures())
-    tex.update(end_set_textures())
+    tex.update(end_palette_textures())
     return tex
 
 
@@ -1809,11 +2039,14 @@ def build_preview(tex):
                    + [(k, tex[k]) for k in ("block/nihilith_quartz_checker.png", "block/nihilith_quartz_checker_mirror.png",
                                             "block/astralit_quartz_checker.png", "block/astralit_quartz_checker_mirror.png")],
                    [checker_wall(tex[f"block/{n}_quartz_checker.png"]) for n in ("nihilith", "astralit")]))
-    for mat in ("astralit", "nihilith"):
-        names = [f"block/{mat}_bricks.png", f"block/{mat}_pillar.png", f"block/{mat}_pillar_top.png",
-                 f"block/chiseled_{mat}_bricks.png"]
-        groups.append((f"{mat}-Bausatz", [(k, tex[k]) for k in names],
-                       [checker_wall(tex[names[0]]), checker_wall(tex[names[1]])]))
+    groups.append(("Vergleich Endstein/Purpur", [(f"block/{n}.png", None) for n in (
+        "astral_end_stone", "nihil_end_stone", "astral_purpur_block", "nihil_purpur_block")], []))
+    for mat in END_PALETTE_RAMPS:
+        names = [f"block/{mat}_block.png", f"block/{mat}_bricks.png", f"block/polished_{mat}.png",
+                 f"block/{mat}_pillar.png", f"block/{mat}_pillar_top.png", f"block/chiseled_{mat}_bricks.png"]
+        groups.append((f"{mat}-Palette", [(k, tex[k]) for k in names],
+                       [checker_wall(tex[names[1]]), checker_wall(tex[names[2]])]))
+    groups.append(("Enderquarz", [("item/ender_quartz.png", tex["item/ender_quartz.png"])], []))
     width = max(pad + len(items) * (cell + pad) + sum(iso.width + pad for iso in isos) + pad
                 for _, items, isos in groups)
     height = pad + len(groups) * (16 + cell + label_h + pad + 4)
