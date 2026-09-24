@@ -87,3 +87,12 @@ D Astralit/Nihilith-Baubloecke (Endstein/Purpur-Palette); mehrere Creative-Tabs 
 - ERLEDIGT (9c80373, 7848f74): NeoForge-26.2-Clientfehler = Testtreiber-Rennen (Paket-Barriere), Forge-Testziel forge-262 (338/340, 2 bekannte Luecken)
 - LAEUFT: Barriere fuer die uebrigen Client-Treiber; Forge Trade-Config-Schalter; Forge ItemAutomation (Rohre)
 - DANN TESTEN: Gegenprobe Hammer-Risse, volles Gate (ruhige Maschine, Forge-Client aus), Push
+
+## Welle 5 (2026-09-24 22:40) - erst umsetzen, dann testen
+- ERLEDIGT: Vanilla-Maschinen/-Lager im Creative-Tab "Maschinen & Lager"
+- Schwebender Sand bekommt Hitbox (Besitzer-Entscheid), Test + Wiki anpassen
+- Neues Item Enderquarz (ender_quartz): Werkbank 1 Astralit-Staub + 1 Nihilith-Splitter + 1 Quarz -> 2
+- Drei Paletten wie Endstein+Purpur (Block, Ziegel +Treppe/Stufe/Mauer, poliert +Treppe/Stufe/Mauer, Saeule, gemeisselt): Astralit, Nihilith, Enderquarz (lila)
+- Gemeisselt: Astralit = Shulker-Motiv, Nihilith = Enderman-Motiv, Enderquarz = Enderdrache
+- ALLE Paletten-Texturen neu im Vanilla-Stil (weiche Schattierung wie Endsteinziegel/Purpur)
+- Steinmetz wie Vanilla fuer alle drei; Umfaerben an der Werkbank: 8 Endstein-/Purpur-Variante + 1 Material -> 8
