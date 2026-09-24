@@ -3,6 +3,7 @@
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_purpur_block",
     "simplebuilding:astralit_ore",
+    "simplebuilding:astralit_quartz_checker",
     "simplebuilding:backpack",
     "simplebuilding:blackstone_quartz_checker",
     "simplebuilding:construction_light",
@@ -27,6 +28,7 @@
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_purpur_block",
     "simplebuilding:nihilith_ore",
+    "simplebuilding:nihilith_quartz_checker",
     "simplebuilding:polished_end_stone",
     "simplebuilding:purpur_quartz_checker",
     "simplebuilding:reinforced_backpack",
@@ -53,6 +55,9 @@
     },
     {
       "id": "simplebuilding:astralit_ore"
+    },
+    {
+      "id": "simplebuilding:astralit_quartz_checker"
     },
     {
       "id": "simplebuilding:backpack",
@@ -474,6 +479,9 @@
     },
     {
       "id": "simplebuilding:nihilith_ore"
+    },
+    {
+      "id": "simplebuilding:nihilith_quartz_checker"
     },
     {
       "id": "simplebuilding:nihilith_shard"
