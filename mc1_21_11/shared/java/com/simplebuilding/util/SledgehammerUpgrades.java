@@ -402,7 +402,6 @@ public final class SledgehammerUpgrades {
         jobs(level).put(player.getUUID(), new Job(pos.immutable(), upgrade, context.getClickLocation(), context.getClickedFace(), startHits));
         player.startUsingItem(InteractionHand.MAIN_HAND);
         if (startHits > 0) {
-            progressMessage(player, "resumed", startHits, ChatFormatting.GOLD);
         }
         return InteractionResult.CONSUME;
     }
@@ -461,7 +460,6 @@ public final class SledgehammerUpgrades {
             if (job != null && player.level() instanceof ServerLevel serverLevel) {
                 int hits = SledgehammerProgress.hits(serverLevel, job.pos, job.upgrade.from());
                 if (hits > 0) {
-                    progressMessage(player, "paused", hits, ChatFormatting.YELLOW);
                 }
             }
         }
@@ -512,7 +510,6 @@ public final class SledgehammerUpgrades {
 
         // Erst merken, dann bezahlen: der Schlag ist gefallen, auch wenn der Hammer dabei zerbricht.
         SledgehammerProgress.record(level, job.pos, job.upgrade.from(), hitNumber);
-        progressMessage(player, "progress", hitNumber, ChatFormatting.GOLD);
 
         player.swing(InteractionHand.MAIN_HAND, true);
         hammer.hurtAndBreak(job.upgrade.damagePerHit(), player, EquipmentSlot.MAINHAND);
@@ -562,15 +559,6 @@ public final class SledgehammerUpgrades {
         return !(player instanceof ServerPlayer serverPlayer) || serverPlayer.connection != null;
     }
 
-    /** Stand der Aufwertung in der Aktionsleiste: "progress", "resumed" oder "paused", n von 5. */
-    private static void progressMessage(Player player, String kind, int hits, ChatFormatting color) {
-        if (!(player instanceof ServerPlayer serverPlayer) || serverPlayer.connection == null) {
-            return;
-        }
-        MutableComponent message = Component.translatable("message.simplebuilding.smithing." + kind, hits, BLOWS);
-        // MC 1.21.11: Aktionsleiste ueber displayClientMessage(c, true) - ab 26.2 sendOverlayMessage.
-        serverPlayer.displayClientMessage(message.withStyle(color), true);
-    }
 
     private static void hint(Level level, Player player, String reason, Upgrade upgrade) {
         if (level.isClientSide() || !(player instanceof ServerPlayer serverPlayer) || serverPlayer.connection == null) {
