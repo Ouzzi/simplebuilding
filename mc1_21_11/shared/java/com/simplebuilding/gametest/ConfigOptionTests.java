@@ -76,7 +76,8 @@ import net.minecraft.world.phys.Vec3;
  * <p>Only two options gate behaviour a server side gametest can reach at all - every other read of
  * {@code Simplebuilding.getConfig()} in the mod sits in {@code client/} or in a client mixin. That
  * is written down per option in the javadoc below rather than papered over with a test that would
- * pass either way.
+ * pass either way. The exception since 2026-09 is {@code pistonsBreachEndPortalFrames}, read
+ * server side by {@code PistonBreach}; it is only pinned by name and default here so far.
  */
 public final class ConfigOptionTests {
 
@@ -323,6 +324,7 @@ public final class ConfigOptionTests {
             "root.enableDoubleJump boolean=true",
             "root.airJumpCooldownTicks int=100",
             "root.enableArmorTrimBenefits boolean=true",
+            "root.pistonsBreachEndPortalFrames boolean=true",
             "root.trimBenefitBaseMultiplier double runtime-only(static)",
             "root.maxMultiplierLimit double runtime-only(static)",
             "tools.invertOctantSneak boolean=false",

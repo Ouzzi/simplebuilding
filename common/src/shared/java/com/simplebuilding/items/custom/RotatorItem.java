@@ -87,6 +87,14 @@ public class RotatorItem extends Item {
 
     private BlockState calculateNewState(BlockState state, Direction clickedFace, @Nullable Direction rimDirection, boolean isSneaking) {
 
+        // --- AUSGEFAHRENE KOLBEN, KOLBENKOEPFE, BEWEGTE BLOECKE: nie drehen ---
+        // Ein gedrehter ausgefahrener Kolben verliert seinen Kopf und zeigt mit der Kopfzelle auf
+        // einen neuen Block; sein Einfahren loescht dann genau diesen Block (removeBlock ohne jede
+        // Haertepruefung) - auch Grundgestein. Kopf und bewegter Block gehoeren zu so einem Kolben.
+        if (isLockedPistonPart(state)) {
+            return null;
+        }
+
         // --- LOG (Axis) ---
         if (state.getProperties().contains(BlockStateProperties.AXIS)) {
             return handleAxisRotation(state, clickedFace, rimDirection);
@@ -224,6 +232,12 @@ public class RotatorItem extends Item {
             return dir;
         }
         return dir;
+    }
+
+    private static boolean isLockedPistonPart(BlockState state) {
+        return state.getBlock() instanceof net.minecraft.world.level.block.piston.PistonHeadBlock
+                || state.getBlock() instanceof net.minecraft.world.level.block.piston.MovingPistonBlock
+                || (state.hasProperty(BlockStateProperties.EXTENDED) && state.getValue(BlockStateProperties.EXTENDED));
     }
 
     @SuppressWarnings("unchecked")

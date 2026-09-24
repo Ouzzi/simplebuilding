@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import java.util.function.Function;
@@ -57,8 +56,13 @@ public class ModBlocks {
     public static final Block REINFORCED_HOPPER = registerBlock("reinforced_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(3.0F, 4.8F).noOcclusion().sound(SoundType.METAL)));
     public static final Block NETHERITE_HOPPER = registerBlock("netherite_hopper", Blocks.HOPPER, s -> new ModHopperBlock(s.strength(5.0F, 1200.0F).noOcclusion().sound(SoundType.NETHERITE_BLOCK)));
 
-    public static final Block REINFORCED_PISTON = registerBlock("reinforced_piston", s -> new PistonBaseBlock(false, s.strength(1.5F).sound(SoundType.METAL))); // sticky=false
+    // Beide verstaerkten Kolben starten wie alle anderen hier von GLASS, nicht von Vanillas
+    // Kolben-Properties: deren pushReaction(BLOCK) wuerde einen EINGEFAHRENEN Mod-Kolben
+    // unverschiebbar machen, weil isPushable nur Blocks.PISTON / STICKY_PISTON beim Namen ausnimmt.
+    public static final Block REINFORCED_PISTON = registerBlock("reinforced_piston", s -> new ReinforcedPistonBlock(false, s.strength(1.5F).sound(SoundType.METAL))); // sticky=false
+    public static final Block REINFORCED_STICKY_PISTON = registerBlock("reinforced_sticky_piston", s -> new ReinforcedPistonBlock(true, s.strength(1.5F).sound(SoundType.METAL))); // sticky=true
     public static final Block NETHERITE_PISTON = registerBlock("netherite_piston", s -> new NetheriteBreakerPistonBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block ENDERITE_PISTON = registerBlock("enderite_piston", s -> new EnderitePistonBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK)));
     public static final Block NETHERITE_PISTON_HEAD = registerBlock("netherite_piston_head", s -> new NetheritePistonHeadBlock(s.noCollision().noLootTable().sound(SoundType.NETHERITE_BLOCK)));
 
     public static final Block REINFORCED_FURNACE = registerBlock("reinforced_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(3.5F).sound(SoundType.METAL)));

@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 public class ModTags {
 
@@ -58,6 +59,26 @@ public class ModTags {
 
         private static TagKey<Item> createTag(String name) {
             return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name));
+        }
+    }
+
+    public static class Blocks {
+        /**
+         * Bloecke, die kein Kolben der Mod durchbricht, obwohl sie unzerstoerbar sind (Zerstoerungs-
+         * geschwindigkeit unter 0): Barriere, Lichtblock, Portale, Befehls-, Struktur-, Verbund- und
+         * Testbloecke, der bewegte Kolben. Ausgewertet von {@link PistonBreach#isBreachable}; dort
+         * sind Bloecke mit Block-Entity zusaetzlich unabhaengig von diesem Tag ausgenommen.
+         */
+        public static final TagKey<Block> PISTON_BREACH_IMMUNE = createTag("piston_breach_immune");
+
+        /**
+         * Bloecke, die ein Kolben der Mod durchbricht, obwohl sie abbaubar sind (Vanilla:
+         * verstaerkter Tiefenschiefer, den {@code PistonBaseBlock#isPushable} beim Namen verweigert).
+         */
+        public static final TagKey<Block> PISTON_BREACHABLE_EXTRA = createTag("piston_breachable_extra");
+
+        private static TagKey<Block> createTag(String name) {
+            return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name));
         }
     }
 }

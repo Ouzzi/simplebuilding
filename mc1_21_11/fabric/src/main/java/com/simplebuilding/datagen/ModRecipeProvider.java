@@ -323,6 +323,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.PISTON), has(Items.PISTON))
                         .save(output);
                 createBulkUpgrade(ModItems.REINFORCED_PISTON, ModItems.NETHERITE_PISTON, RecipeCategory.REDSTONE);
+                // Klebrig wie bei Vanilla: Schleimball ueber dem Kolben.
+                ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_STICKY_PISTON)
+                        .pattern("S")
+                        .pattern("P")
+                        .define('S', Items.SLIME_BALL)
+                        .define('P', ModItems.REINFORCED_PISTON)
+                        .unlockedBy(getHasName(ModItems.REINFORCED_PISTON), has(ModItems.REINFORCED_PISTON))
+                        .save(output);
 
 
                 // =================================================================

@@ -34,9 +34,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
 /**
- * The mod's two pistons and its two pairs of gravity blocks, pinned at the numbers that decide
- * their behaviour: the push limit, the breaking threshold, the two ticks of lead time and the
- * rise curve.
+ * The mod's reinforced and netherite pistons and its two pairs of gravity blocks, pinned at the
+ * numbers that decide their behaviour: the push limit, the breaking threshold, the two ticks of
+ * lead time and the rise curve.
  *
  * <p>{@code BlockBehaviourTests} already proves the coarse claims - a reinforced piston moves a
  * 13 block column a vanilla one refuses, a netherite piston at full signal breaks the stone in
@@ -62,22 +62,29 @@ import net.minecraft.world.phys.shapes.CollisionContext;
  * <h2>Known defects</h2>
  *
  * <p><b>1. The breaker can never reach obsidian, and with it the whole top end of its own
- * formula.</b> {@code NetheriteBreakerPistonBlock#triggerEvent} only runs for block event type 0,
- * and vanilla only queues that event after {@code PistonStructureResolver#resolve} succeeded
- * ({@code PistonBaseBlock#checkIfExtend}). {@code resolve} bails out on anything
- * {@code PistonBaseBlock#isPushable} refuses, and that method hard codes
- * {@code OBSIDIAN / CRYING_OBSIDIAN / RESPAWN_ANCHOR / REINFORCED_DEEPSLATE} plus everything with
- * a destroy speed of -1. So the piston never even gets asked about them. The threshold at signal
- * 15 is exactly {@code (15/15)*50 = 50}, which is exactly obsidian's hardness - the one number the
- * formula was evidently written for is the one it can never be applied to. The reachable maximum
- * is a netherite block, which shares the hardness of 50 and <em>is</em> pushable;
- * {@link #netheritePistonBreaksOnlyWhatTheSignalStrengthCanAfford} uses it for that reason.
+ * formula.</b> The breaking branch of {@code NetheriteBreakerPistonBlock#triggerEvent} only runs
+ * for block event type 0, and vanilla only queues that event after
+ * {@code PistonStructureResolver#resolve} succeeded ({@code PistonBaseBlock#checkIfExtend}).
+ * {@code resolve} bails out on anything {@code PistonBaseBlock#isPushable} refuses, and that method
+ * hard codes {@code OBSIDIAN / CRYING_OBSIDIAN / RESPAWN_ANCHOR / REINFORCED_DEEPSLATE} plus
+ * everything with a destroy speed of -1. So the breaker formula never even gets asked about them.
+ * The threshold at signal 15 is exactly {@code (15/15)*50 = 50}, which is exactly obsidian's
+ * hardness - the one number the formula was evidently written for is the one it can never be
+ * applied to. The reachable maximum is a netherite block, which shares the hardness of 50 and
+ * <em>is</em> pushable; {@link #netheritePistonBreaksOnlyWhatTheSignalStrengthCanAfford} uses it
+ * for that reason. The unbreakable blocks (destroy speed -1 and reinforced deepslate, see
+ * {@code PistonBreach}) are a separate path since 2026-09: the piston queues a block event of its
+ * own for them when a redstone block beside it pays, and that paid breach removes the block, the
+ * redstone block and the piston without ever consulting the formula. Obsidian stays out of reach.
  *
- * <p><b>2. Two guards in {@code NetheriteBreakerPistonBlock} are dead code.</b> Both follow from
- * defect 1: {@code targetState.getDestroySpeed(...) >= 0} (line 35) and
- * {@code getPistonPushReaction() != PushReaction.BLOCK} (line 43) can only ever be false for a
- * block the resolver already refused, so deleting either changes nothing that can be observed.
- * The {@code !state.getValue(EXTENDED)} guard on line 31 is redundant for a third reason:
+ * <p><b>2. One guard in {@code NetheriteBreakerPistonBlock} is dead code, the other carries
+ * weight.</b> {@code getPistonPushReaction() != PushReaction.BLOCK} (line 113) can only ever be
+ * false for a block the resolver already refused, so deleting it changes nothing that can be
+ * observed. {@code targetState.getDestroySpeed(...) >= 0} (line 105) was dead the same way until
+ * the paid breach arrived; now it is the only thing that keeps the formula away from bedrock when
+ * a breach event was queued but its redstone block is gone by the time it runs (two netherite
+ * pistons sharing one redstone block, the second also powered by a lever) - do not delete it.
+ * The {@code !state.getValue(EXTENDED)} guard on line 101 is redundant for a third reason:
  * retraction is signalled with block event type 1 or 2, never 0, so the surrounding
  * {@code if (type == 0)} has already excluded it.
  *
@@ -105,7 +112,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
  * {@link #blockedLandingSpotsDropTheBlockOrKeepItFlying}.
  *
  * <p><b>6. No gravity block is in any {@code mineable} tag.</b> {@code ModBlockTagProvider} lists
- * the three piston blocks under {@code mineable/pickaxe} and generates no shovel tag at all, and
+ * the piston blocks under {@code mineable/pickaxe} and generates no shovel tag at all, and
  * {@code Properties.ofFullCopy} copies behaviour, not tags. Suspended and levitating sand and
  * gravel therefore lose the shovel speed bonus their vanilla originals have. Pinned as a marker in
  * {@link #gravityBlocksAndPistonsCarryTheirRegisteredStrengthAndTags}, in the style of defects 4
@@ -126,10 +133,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
  *   <li><b>{@code NetheritePistonHeadBlock#canSurvive / updateShape / playerWillDestroy /
  *       getCloneItemStack}.</b> Testing them would mean placing the block by hand and thereby
  *       describing behaviour no player can reach; see defect 4 for what is pinned instead.</li>
- *   <li><b>{@code PistonHeadBlockMixin}.</b> It lets a vanilla piston head survive behind a mod
- *       piston, which is what keeps the extended mod pistons in this file intact - every
- *       extend/retract test here would fail without it - but it has no observable effect of its
- *       own beyond that.</li>
+ *   <li><b>{@code PistonHeadBlockMixin}.</b> It accepts the mod pistons in vanilla's
+ *       {@code PistonHeadBlock#isFittingBase}, which is what keeps the extended mod pistons in this
+ *       file intact - every extend/retract test here would fail without it. What it does beyond
+ *       that (breaking the head breaks the base, as with vanilla pistons) is not pinned here.</li>
  * </ul>
  */
 public final class GravityBlockTests {
@@ -159,7 +166,7 @@ public final class GravityBlockTests {
     public static final int COLLISION_MAX_TICKS = 80;
 
     /**
-     * The reinforced piston's raised limit, {@code PistonHandlerMixin} line 26. Not read from the
+     * The reinforced piston's raised limit, {@code PistonHandlerMixin} line 57. Not read from the
      * mixin: {@link #reinforcedPistonMovesEighteenBlocksWhileTheNetheriteOneKeepsVanillasTwelve}
      * drives one column of this height and one of this height plus one, so the number is the
      * boundary that is measured rather than a value copied across.
@@ -220,13 +227,13 @@ public final class GravityBlockTests {
      * {@code Integer.MAX_VALUE} unnoticed. Here the pair 18/19 brackets it from both sides.
      *
      * <p>The netherite column is the other half of the mixin's condition,
-     * {@code state.is(ModBlocks.REINFORCED_PISTON)}. Widening it to "any mod piston" would let the
+     * {@code state.getBlock() instanceof ReinforcedPistonBlock}. Widening it to "any mod piston" would let the
      * netherite piston fire, and the first thing it would do is destroy the stone at the bottom of
      * its own column, so the assertion checks both that it did not extend and that its column is
      * untouched.
      *
-     * <p>What breaks this test: any other value in {@code PistonHandlerMixin} line 26, dropping the
-     * {@code @ModifyConstant} altogether, and broadening or narrowing the block check on line 25.
+     * <p>What breaks this test: any other value in {@code PistonHandlerMixin} line 57, dropping the
+     * {@code @ModifyConstant} altogether, and broadening or narrowing the block check on line 56.
      *
      * <p>Wants {@code skyAccess(true)}: the tallest column reaches 21 blocks above the floor of the
      * 8 block room. The travel path is cleared with air first, so a barrier cage would not change
@@ -301,10 +308,16 @@ public final class GravityBlockTests {
      *       are the only candidates and {@code isPushable} refuses all four by name. Weakening the
      *       signal instead scales the whole window down, and 3.5 against a signal of 1 is the
      *       tightest ratio vanilla offers: it says the factor is under 52.5.</li>
-     *   <li><b>Signal 15 on obsidian and on bedrock</b>: neither may be touched, and the piston
-     *       may not even extend. See defect 1 in the class javadoc - vanilla's structure resolver
-     *       refuses first, so this pins the outcome a player sees, not mod code. The premise that
-     *       vanilla still refuses is asserted directly rather than assumed.</li>
+     *   <li><b>Signal 15 on obsidian</b>: it may not be touched, and the piston may not even
+     *       extend. See defect 1 in the class javadoc - vanilla's structure resolver refuses first,
+     *       so this pins the outcome a player sees, not mod code. The premise that vanilla still
+     *       refuses is asserted directly rather than assumed.</li>
+     *   <li><b>Bedrock with a redstone block beside the piston</b>: not a case of the formula at
+     *       all any more. Bedrock is unbreakable, and a redstone block directly next to the
+     *       netherite piston pays for the breach ({@code PistonBreach}): bedrock, redstone block and
+     *       piston are gone, none of them drops anything, and no head or moving block is left.
+     *       That the global {@code PistonBaseBlock#isPushable} still refuses bedrock is asserted
+     *       too - the mod's breach has to stay inside its own pistons.</li>
      * </ul>
      *
      * <p>Taken together the three measured cases bracket the factor into {@code [50, 52.5)}: the
@@ -319,7 +332,8 @@ public final class GravityBlockTests {
      * {@code power / 15.0f} term,
      * inverting the {@code blockHardness <= breakThreshold} comparison, replacing
      * {@code getBestNeighborSignal} with a fixed strength, and passing {@code false} to
-     * {@code destroyBlock} so the block vanishes without drops.
+     * {@code destroyBlock} so the block vanishes without drops; on the bedrock row, a breach that
+     * does not fire, leaves the redstone block or the piston behind, or drops the piston.
      */
     public static void netheritePistonBreaksOnlyWhatTheSignalStrengthCanAfford(GameTestHelper helper) {
         fillFloor(helper);
@@ -362,7 +376,8 @@ public final class GravityBlockTests {
         placeBreakerWithTarget(helper, weakOnStone, Blocks.STONE);
         placeBreakerWithTarget(helper, faintOnStonecutter, Blocks.STONECUTTER);
 
-        // Signal 15: a redstone block right next to the piston.
+        // Signal 15: a redstone block right next to the piston. Next to the bedrock piston the same
+        // redstone block is also what pays for the breach.
         helper.setBlock(fullOnNetherite.west(), Blocks.REDSTONE_BLOCK);
         helper.setBlock(fullOnObsidian.west(), Blocks.REDSTONE_BLOCK);
         helper.setBlock(fullOnBedrock.west(), Blocks.REDSTONE_BLOCK);
@@ -379,7 +394,7 @@ public final class GravityBlockTests {
                     // --- the rig, checked with the very call the mod makes ---
                     assertSignalStrength(helper, fullOnNetherite, 15);
                     assertSignalStrength(helper, fullOnObsidian, 15);
-                    assertSignalStrength(helper, fullOnBedrock, 15);
+                    // (No rig check at the bedrock piston: the breach has removed it by now.)
                     assertSignalStrength(helper, weakOnNetherite, 14);
                     assertSignalStrength(helper, weakOnStone, 14);
                     assertSignalStrength(helper, faintOnStonecutter, 1);
@@ -396,7 +411,8 @@ public final class GravityBlockTests {
                     helper.assertFalse(
                             PistonBaseBlock.isPushable(Blocks.BEDROCK.defaultBlockState(), level, probe,
                                     Direction.UP, false, Direction.UP),
-                            "vanilla now lets pistons move bedrock; the same applies to the bedrock case");
+                            "PistonBaseBlock.isPushable now lets every piston move bedrock - the mod's "
+                                    + "breach was meant to stay inside the resolver of its own pistons");
 
                     // --- the premise behind the stonecutter case ---
                     // The upper bound on the factor is 15 * hardness / signal, so it is worth
@@ -435,8 +451,15 @@ public final class GravityBlockTests {
                     // --- what the breaker never gets to see ---
                     helper.assertBlockPresent(Blocks.OBSIDIAN, fullOnObsidian.above());
                     helper.assertBlockProperty(fullOnObsidian, PistonBaseBlock.EXTENDED, Boolean.FALSE);
-                    helper.assertBlockPresent(Blocks.BEDROCK, fullOnBedrock.above());
-                    helper.assertBlockProperty(fullOnBedrock, PistonBaseBlock.EXTENDED, Boolean.FALSE);
+
+                    // --- bedrock, paid for by the redstone block beside the piston ---
+                    // Everything involved is gone, nothing dropped, nothing extended.
+                    helper.assertBlockNotPresent(Blocks.BEDROCK, fullOnBedrock.above());
+                    helper.assertBlockNotPresent(Blocks.REDSTONE_BLOCK, fullOnBedrock.west());
+                    helper.assertBlockNotPresent(ModBlocks.NETHERITE_PISTON, fullOnBedrock);
+                    helper.assertBlockNotPresent(Blocks.PISTON_HEAD, fullOnBedrock.above());
+                    helper.assertBlockNotPresent(Blocks.MOVING_PISTON, fullOnBedrock.above());
+                    helper.assertItemEntityNotPresent(ModItems.NETHERITE_PISTON, fullOnBedrock, 2.0D);
                 })
                 .thenSucceed();
     }
@@ -446,9 +469,10 @@ public final class GravityBlockTests {
     // =====================================================================================
 
     /**
-     * Both mod pistons are built with {@code super(false, ...)}, so neither may drag anything back
-     * when it retracts. Nothing in the suite ever retracted one of them before, which means the
-     * sticky flag could be flipped in {@code ModBlocks} or in
+     * The reinforced and the netherite piston are built non-sticky ({@code new ReinforcedPistonBlock(false,
+     * ...)} in {@code ModBlocks}, {@code super(false, ...)} in {@code NetheriteBreakerPistonBlock}),
+     * so neither may drag anything back when it retracts. Nothing in the suite ever retracted one of
+     * them before, which means the sticky flag could be flipped in {@code ModBlocks} or in
      * {@code NetheriteBreakerPistonBlock}'s constructor without a single test noticing.
      *
      * <p>Both halves put a stone block exactly where a sticky piston would grab it - directly in

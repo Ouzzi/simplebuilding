@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "simplebuilding:block/enderite_piston_bottom",
+    "side": "simplebuilding:block/enderite_piston_side",
+    "top": "simplebuilding:block/enderite_piston_top"
+  }
+}

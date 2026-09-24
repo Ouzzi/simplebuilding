@@ -1,14 +1,18 @@
 package com.simplebuilding.blocks.custom;
 
 import com.mojang.serialization.MapCodec;
+import com.simplebuilding.util.PistonBreach;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.redstone.Orientation;
+import org.jetbrains.annotations.Nullable;
 
 public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     public static final MapCodec<NetheriteBreakerPistonBlock> CODEC = simpleCodec(NetheriteBreakerPistonBlock::new);
@@ -23,8 +27,74 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
         return (MapCodec<PistonBaseBlock>) (Object) CODEC;
     }
 
+    /**
+     * Vanilla reiht das Ausfahr-Ereignis nur ein, wenn {@code PistonStructureResolver#resolve}
+     * gelingt, und der verweigert jeden durchbrechbaren Block ({@link PistonBreach}). Ein bezahlter
+     * Durchbruch braucht deshalb sein eigenes Ereignis; es haengt bewusst nicht davon ab, was hinter
+     * dem Ziel liegt (Schublimit, Obsidian, Bauhoehe). Doppelte Ereignisse fasst der Server zusammen,
+     * und sobald der Kolben weg ist, verwirft er die uebrigen.
+     */
+    @Override
+    protected void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, @Nullable Orientation orientation, boolean movedByPiston) {
+        super.neighborChanged(state, world, pos, block, orientation, movedByPiston);
+        if (!world.isClientSide()) {
+            queueBreachIfPaid(world, pos, state);
+        }
+    }
+
+    @Override
+    protected void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, world, pos, oldState, movedByPiston);
+        if (!oldState.is(state.getBlock()) && !world.isClientSide()) {
+            queueBreachIfPaid(world, pos, state);
+        }
+    }
+
+    private void queueBreachIfPaid(Level world, BlockPos pos, BlockState state) {
+        Direction facing = state.getValue(FACING);
+        if (PistonBreach.isBreachable(world, pos.relative(facing)) && PistonBreach.findFuel(world, pos, facing) != null) {
+            world.blockEvent(pos, this, TRIGGER_EXTEND, facing.get3DDataValue());
+        }
+    }
+
+    /**
+     * Der Durchbruch: steht ein durchbrechbarer Block direkt vorn und bezahlt ein Redstoneblock
+     * daneben ({@link PistonBreach#findFuel}), wird {@link #breach} ausgefuehrt, dann verschwinden
+     * der Redstoneblock und der Kolben selbst, alles ohne Drop. {@code moveBlocks} laeuft nie, es
+     * bleibt also weder Kopf noch bewegter Block zurueck. Kein EXTENDED-Waechter: ein ausgefahrener
+     * Kolben ohne Kopf bezahlt genauso mit Redstoneblock und sich selbst.
+     *
+     * <p>Kein NeoForge-{@code PistonEvent} feuert dafuer (Vanilla feuert es erst in
+     * {@code super.triggerEvent}), so wie auch schon beim normalen Brechen.
+     *
+     * @return ob durchbrochen wurde; dann gibt es kein Ausfahren mehr
+     */
+    private boolean breachIfPaid(BlockState state, Level world, BlockPos pos) {
+        Direction facing = state.getValue(FACING);
+        if (!PistonBreach.isBreachable(world, pos.relative(facing))) {
+            return false;
+        }
+        BlockPos fuel = PistonBreach.findFuel(world, pos, facing);
+        if (fuel == null) {
+            return false;
+        }
+        breach(world, pos, facing);
+        world.destroyBlock(fuel, false);
+        world.destroyBlock(pos, false);
+        return true;
+    }
+
+    /** Netheritkolben: nur der durchbrechbare Block direkt vorn, ohne Drop. */
+    protected void breach(Level world, BlockPos pos, Direction facing) {
+        world.destroyBlock(pos.relative(facing), false);
+    }
+
     @Override
     public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int type, int data) {
+        if (type == TRIGGER_EXTEND && !world.isClientSide() && breachIfPaid(state, world, pos)) {
+            return false;
+        }
+
         // type 0 = Ausfahren. Nur brechen, wenn Vanilla gleich danach auch wirklich ausfaehrt: super
         if (type == 0 && (world.isClientSide() || hasVanillaExtendSignal(world, pos, state.getValue(FACING)))) {
             // Wir prüfen nur beim Ausfahren

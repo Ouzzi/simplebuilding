@@ -118,7 +118,9 @@ public class ModModelProvider extends FabricModelProvider {
         // --- 5. Pistons ---
         // Reinforced Piston is a real Piston (has EXTENDED property)
         registerCustomPiston(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON);
+        registerStickyPistonVariant(blockStateModelGenerator, ModBlocks.REINFORCED_STICKY_PISTON, ModBlocks.REINFORCED_PISTON);
         registerCustomPiston(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
+        registerCustomPiston(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON);
         blockStateModelGenerator.createTrivialCube(ModBlocks.NETHERITE_PISTON_HEAD);
 
     }
@@ -161,6 +163,28 @@ public class ModModelProvider extends FabricModelProvider {
         Identifier inventoryModelId = ModelTemplates.CUBE_BOTTOM_TOP.createWithSuffix(block, "_inventory", inventoryMap, generator.modelOutput);
 
         generator.registerSimpleItemModel(block, inventoryModelId);
+    }
+
+    /**
+     * Die klebrige Variante eines Kolbens, wie Vanilla sie fuer Blocks.STICKY_PISTON baut: Boden
+     * und Seiten sowie das ausgefahrene Basismodell ({@code <base>_base}) kommen vom normalen
+     * Kolben, nur die Schubplatte ist die klebrige Textur {@code <base>_top_sticky}.
+     */
+    private void registerStickyPistonVariant(BlockModelGenerators generator, Block sticky, Block base) {
+        TextureMapping textureMap = new TextureMapping()
+                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(base, "_bottom"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(base, "_side"))
+                .put(TextureSlot.PLATFORM, TextureMapping.getBlockTexture(base, "_top_sticky"));
+
+        generator.createPistonVariant(sticky, BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(base, "_base")), textureMap);
+        TextureMapping inventoryMap = new TextureMapping()
+                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(base, "_bottom"))
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(base, "_top_sticky"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(base, "_side"));
+
+        Identifier inventoryModelId = ModelTemplates.CUBE_BOTTOM_TOP.createWithSuffix(sticky, "_inventory", inventoryMap, generator.modelOutput);
+
+        generator.registerSimpleItemModel(sticky, inventoryModelId);
     }
 
     @Override

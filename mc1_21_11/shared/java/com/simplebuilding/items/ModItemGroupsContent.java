@@ -68,7 +68,9 @@ public final class ModItemGroupsContent {
                         // todo chest: entries.accept(ModItems.REINFORCED_CHEST);
                         entries.accept(ModItems.REINFORCED_HOPPER);
                         entries.accept(ModItems.REINFORCED_PISTON);
+                        entries.accept(ModItems.REINFORCED_STICKY_PISTON);
                         entries.accept(ModItems.NETHERITE_PISTON);
+                        entries.accept(ModItems.ENDERITE_PISTON);
                         entries.accept(ModItems.NETHERITE_HOPPER);
                         entries.accept(ModItems.REINFORCED_FURNACE);
                         entries.accept(ModItems.NETHERITE_FURNACE);

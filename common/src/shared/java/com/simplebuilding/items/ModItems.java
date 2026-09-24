@@ -398,7 +398,11 @@ public class ModItems {
 
     public static final Item REINFORCED_PISTON = registerItem("reinforced_piston", s -> new BlockItem(ModBlocks.REINFORCED_PISTON, s));
 
+    public static final Item REINFORCED_STICKY_PISTON = registerItem("reinforced_sticky_piston", s -> new BlockItem(ModBlocks.REINFORCED_STICKY_PISTON, s));
+
     public static final Item NETHERITE_PISTON = registerItem("netherite_piston", s -> new BlockItem(ModBlocks.NETHERITE_PISTON, s.fireResistant()));
+
+    public static final Item ENDERITE_PISTON = registerItem("enderite_piston", s -> new BlockItem(ModBlocks.ENDERITE_PISTON, s.fireResistant()));
 
     public static final Item REINFORCED_BLAST_FURNACE = registerItem("reinforced_blast_furnace", s -> new BlockItem(ModBlocks.REINFORCED_BLAST_FURNACE, s));
 
