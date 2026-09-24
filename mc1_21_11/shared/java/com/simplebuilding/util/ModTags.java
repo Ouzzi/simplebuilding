@@ -32,6 +32,11 @@ public class ModTags {
         public static final TagKey<Item> MASTER_BUILDER_ENCHANTABLE = createTag("master_builder_enchantable");
         public static final TagKey<Item> OCTANTS_ENCHANTABLE = createTag("octants_enchantable");
         public static final TagKey<Item> SLEDGEHAMMER_ENCHANTABLE = createTag("sledgehammer_tools");
+        /**
+         * supported_items von Radius: die Vorschlaghaemmer plus der Erzdetektor (dort mehr Reichweite
+         * fuer Gold und seltene Erze). Am Verzauberungstisch bleibt Radius Vorschlaghaemmern vorbehalten.
+         */
+        public static final TagKey<Item> RADIUS_ENCHANTABLE = createTag("radius_enchantable");
         public static final TagKey<Item> BUILDING_WAND_ENCHANTABLE = createTag("building_wand_enchantable");
         public static final TagKey<Item> VEINMINE_ENCHANTABLE = createTag("veinmine_enchantable");
         public static final TagKey<Item> TRIM_TEMPLATES = createTag("trim_templates");

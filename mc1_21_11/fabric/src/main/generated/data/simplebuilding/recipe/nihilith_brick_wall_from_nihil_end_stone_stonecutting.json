@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:nihil_end_stone",
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:nihilith_brick_wall"
+  }
+}

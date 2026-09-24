@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:astral_end_stone",
+  "result": {
+    "id": "simplebuilding:astralit_pillar"
+  }
+}

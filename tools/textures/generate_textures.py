@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
-Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Maschinen und die
-Nihilith-/Astralit-Quarz-Schachbretter; dazu aus Code (nicht aus Pixelkarten) die Rueckentextur
-des getragenen Rucksacks (entity/backpack/*, aus den Blockflaechen) und die Fenster des
-Rucksack-Bildschirms (gui/container/backpack/*).
+Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Maschinen, die
+Nihilith-/Astralit-Quarz-Schachbretter und den Astralit-/Nihilith-Bausatz; dazu aus Code (nicht aus
+Pixelkarten) die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus den Blockflaechen)
+und die Fenster des Rucksack-Bildschirms (gui/container/backpack/*).
 
 Aufruf (aus dem Repo-Wurzelverzeichnis oder von ueberall):
 
@@ -1089,6 +1089,181 @@ def checker_textures():
     return tex
 
 
+# ---------------------------------------------------------------------------
+# Astralit-/Nihilith-Bausatz (Ziegel, Saeule, gemeisselte Ziegel)
+# ---------------------------------------------------------------------------
+# Grundtoene aus block/astral_end_stone bzw. block/nihil_end_stone (hellster Rand bis tiefster
+# Schatten), Akzente wie bei den Schachbrettern: Astralit rosa Sternenfunken, Nihilith tuerkise
+# Splitter aus item/nihilith_shard. Ziffern: 5 hellster Rand .. 0 tiefster Schatten, 7 Rauschton im
+# Stein, 6/8/9 Akzente.
+END_SET_PALETTES = {
+    "astralit": {
+        "5": "#f4d5ee", "4": "#f0c8e8", "7": "#efc4e7", "3": "#ebb5e0", "2": "#e49dd6", "1": "#de86cd",
+        "0": "#d668c1", "6": "#fbe9f6", "9": "#d890b1", "8": "#b16086",
+    },
+    "nihilith": {
+        "5": "#d5e0f4", "4": "#c8d6f0", "7": "#bfcfee", "3": "#b6c9eb", "2": "#9eb7e5", "1": "#88a7df",
+        "0": "#6a91d7", "6": "#7bb4b8", "9": "#5f93a3", "8": "#356889",
+    },
+}
+
+# Vier Ziegellagen zu je 3 px plus 1 px Fuge, versetzt wie Endsteinziegel; die Flaeche kachelt
+# nahtlos (Fugen auf Spalte 7/15 bzw. 3/11, die Ziegel der Randspalten laufen ueber die Kante).
+END_BRICKS = [
+    "AAAAAAA.BBBBBBB.",
+    "AAAAAAA.BBBBBBB.",
+    "AAAAAAA.BBBBBBB.",
+    "................",
+    "CCC.DDDDDDD.CCCC",
+    "CCC.DDDDDDD.CCCC",
+    "CCC.DDDDDDD.CCCC",
+    "................",
+    "EEEEEEE.FFFFFFF.",
+    "EEEEEEE.FFFFFFF.",
+    "EEEEEEE.FFFFFFF.",
+    "................",
+    "GGG.HHHHHHH.GGGG",
+    "GGG.HHHHHHH.GGGG",
+    "GGG.HHHHHHH.GGGG",
+    "................",
+]
+END_BRICK_SPECKS = {
+    "astralit": {"6": [(3, 1), (13, 5), (9, 13)], "7": [(10, 1), (6, 5), (2, 9), (13, 9), (5, 13)]},
+    "nihilith": {"6": [(4, 1), (12, 9), (1, 13)], "7": [(11, 1), (7, 5), (3, 9), (9, 13)]},
+}
+
+# Saeulenseite: zwei Kannelueren (dunkle Rille, rechts davon die beleuchtete Flanke), kachelt
+# senkrecht nahtlos wie die Purpursaeule.
+END_PILLAR_SIDE_ROW = "5433215433215320"
+END_PILLAR_SPECKS = {
+    "astralit": {"6": [(2, 3), (8, 9), (13, 12)], "7": [(3, 6), (9, 1), (8, 13), (2, 11)]},
+    "nihilith": {"6": [(3, 4), (9, 11), (13, 1)], "7": [(2, 7), (8, 2), (9, 14), (13, 9)]},
+}
+
+
+def tiled_face(layout, specks):
+    """Wie stone_face, aber die Nachbarn laufen ueber die Kante (kachelbare Flaeche)."""
+    h, w = len(layout), len(layout[0])
+
+    def same(x, y, ch):
+        return layout[y % h][x % w] == ch
+
+    out = []
+    for y in range(h):
+        row = ""
+        for x in range(w):
+            ch = layout[y][x]
+            if ch == ".":
+                row += "1"
+                continue
+            up, left = same(x, y - 1, ch), same(x - 1, y, ch)
+            down, right = same(x, y + 1, ch), same(x + 1, y, ch)
+            if not up and not left:
+                row += "5"
+            elif not up or not left:
+                row += "4"
+            elif not down or not right:
+                row += "2"
+            else:
+                row += "3"
+        out.append(row)
+    return add_specks(out, specks)
+
+
+def add_specks(rows, specks, allowed="3"):
+    out = list(rows)
+    for ch, points in specks.items():
+        for sx, sy in points:
+            if out[sy][sx] not in allowed:
+                raise ValueError(f"Akzent {ch} bei ({sx},{sy}) liegt nicht im Steininneren")
+            out[sy] = out[sy][:sx] + ch + out[sy][sx + 1:]
+    return out
+
+
+def ring(x, y):
+    return min(x, y, 15 - x, 15 - y)
+
+
+def framed(inner):
+    """Rahmen fuer Saeulen-Stirn und gemeisselte Ziegel: Ring 0 hell oben/links, tiefster Schatten
+    unten/rechts; Ring 1 abgestuft; innen liefert inner(x, y)."""
+    rows = []
+    for y in range(16):
+        row = ""
+        for x in range(16):
+            d = ring(x, y)
+            lit = (x == d or y == d) and not (x == 15 - d or y == 15 - d)
+            if d == 0:
+                row += "5" if lit else ("2" if (x, y) in ((15, 0), (0, 15)) else "0")
+            elif d == 1:
+                row += "4" if lit else ("3" if (x, y) in ((14, 1), (1, 14)) else "2")
+            else:
+                row += inner(x, y, d, lit)
+        rows.append(row)
+    return rows
+
+
+def pillar_top(accent):
+    def inner(x, y, d, lit):
+        if d == 3:
+            return "1" if lit else "5"   # eingelassene Rille: Schatten oben/links, Licht unten/rechts
+        if d == 7:
+            return accent
+        return {2: "3", 4: "3", 5: "7", 6: "4"}[d]
+    return framed(inner)
+
+
+def chiseled_astralit():
+    def star(x, y):
+        dx, dy = abs(x - 7.5), abs(y - 7.5)
+        return (dx < 1 and dy < 5) or (dy < 1 and dx < 5) or (dx < 2 and dy < 2 and dx + dy < 3)
+
+    def inner(x, y, d, lit):
+        if star(x, y):
+            dx, dy = abs(x - 7.5), abs(y - 7.5)
+            if dx < 1 and dy < 1:
+                return "6"
+            if max(dx, dy) > 3.5:
+                return "9"
+            return "4"
+        if star(x - 1, y - 1) or star(x, y - 1) or star(x - 1, y):
+            return "8"                    # Schlagschatten unten rechts des erhabenen Sterns
+        if (x, y) in ((4, 4), (11, 11), (11, 4), (4, 11)):
+            return "6"                    # Funken in den Ecken
+        return "3"
+    return framed(inner)
+
+
+def chiseled_nihilith():
+    def inner(x, y, d, lit):
+        dx, dy = x - 7.5, y - 7.5
+        s = abs(dx) + abs(dy)
+        if s < 5:
+            if s > 3.5:
+                return "4" if (dx + dy) < 0 else "0"   # Kante: oben/links hell, unten/rechts dunkel
+            if dx < 0 and dy < 0:
+                return "6"
+            if dx > 0 and dy > 0:
+                return "8"
+            return "9"
+        if s < 6 and dx + dy > 0:
+            return "1"                                 # Schlagschatten
+        return "7" if (x + 2 * y) % 7 == 0 else "3"
+    return framed(inner)
+
+
+def end_set_textures():
+    tex = {}
+    for mat, pal in END_SET_PALETTES.items():
+        tex[f"block/{mat}_bricks.png"] = render(f"{mat}_bricks", tiled_face(END_BRICKS, END_BRICK_SPECKS[mat]), pal, True)
+        side = add_specks([END_PILLAR_SIDE_ROW] * 16, END_PILLAR_SPECKS[mat])
+        tex[f"block/{mat}_pillar.png"] = render(f"{mat}_pillar", side, pal, True)
+        tex[f"block/{mat}_pillar_top.png"] = render(f"{mat}_pillar_top", pillar_top("6"), pal, True)
+        chiseled = chiseled_astralit() if mat == "astralit" else chiseled_nihilith()
+        tex[f"block/chiseled_{mat}_bricks.png"] = render(f"chiseled_{mat}_bricks", chiseled, pal, True)
+    return tex
+
+
 ENDERITE_ANIMATIONS = {
     "block/enderite_smoker_front_on.png": {"interpolate": False, "frametime": 4},
     "block/enderite_blast_furnace_front_on.png": {"frametime": 20, "interpolate": True},
@@ -1382,6 +1557,7 @@ def build():
     tex.update(checker_textures())
     tex.update(backpack_worn_textures(tex))
     tex.update(backpack_gui_textures())
+    tex.update(end_set_textures())
     return tex
 
 
@@ -1633,6 +1809,11 @@ def build_preview(tex):
                    + [(k, tex[k]) for k in ("block/nihilith_quartz_checker.png", "block/nihilith_quartz_checker_mirror.png",
                                             "block/astralit_quartz_checker.png", "block/astralit_quartz_checker_mirror.png")],
                    [checker_wall(tex[f"block/{n}_quartz_checker.png"]) for n in ("nihilith", "astralit")]))
+    for mat in ("astralit", "nihilith"):
+        names = [f"block/{mat}_bricks.png", f"block/{mat}_pillar.png", f"block/{mat}_pillar_top.png",
+                 f"block/chiseled_{mat}_bricks.png"]
+        groups.append((f"{mat}-Bausatz", [(k, tex[k]) for k in names],
+                       [checker_wall(tex[names[0]]), checker_wall(tex[names[1]])]))
     width = max(pad + len(items) * (cell + pad) + sum(iso.width + pad for iso in isos) + pad
                 for _, items, isos in groups)
     height = pad + len(groups) * (16 + cell + label_h + pad + 4)

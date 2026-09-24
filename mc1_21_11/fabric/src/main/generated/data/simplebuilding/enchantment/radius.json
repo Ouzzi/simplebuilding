@@ -16,6 +16,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#simplebuilding:sledgehammer_tools",
+  "supported_items": "#simplebuilding:radius_enchantable",
   "weight": 1
 }

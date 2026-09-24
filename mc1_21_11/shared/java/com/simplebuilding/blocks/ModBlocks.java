@@ -12,7 +12,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -112,6 +115,22 @@ public class ModBlocks {
     public static final Block NIHILITH_QUARTZ_CHECKER = registerBlock("nihilith_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(NIHIL_END_STONE).setId(keyOf("nihilith_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
     // Astralit leuchtet (Erz 5, beschichtete Bloecke 10); das halb aus Quarz bestehende Schachbrett liegt mit 5 dazwischen.
     public static final Block ASTRALIT_QUARTZ_CHECKER = registerBlock("astralit_quartz_checker", unused -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(NIHIL_END_STONE).lightLevel(state -> 5).setId(keyOf("astralit_quartz_checker")).isValidSpawn((state, world, pos, type) -> false)));
+
+    // Astralit-/Nihilith-Bausatz wie Endstein/Purpur: Ziegel samt Treppe, Stufe und Mauer, dazu
+    // Saeule und gemeisselte Ziegel. Alle kopieren den beschichteten Endstein ihres Materials
+    // (Haerte 3/9, Spitzhacke noetig); Astralit leuchtet damit wie die beschichteten Bloecke mit 10.
+    public static final Block ASTRALIT_BRICKS = registerBlock("astralit_bricks", ASTRAL_END_STONE, Block::new);
+    public static final Block ASTRALIT_BRICK_STAIRS = registerBlock("astralit_brick_stairs", ASTRALIT_BRICKS, s -> new StairBlock(ASTRALIT_BRICKS.defaultBlockState(), s));
+    public static final Block ASTRALIT_BRICK_SLAB = registerBlock("astralit_brick_slab", ASTRALIT_BRICKS, SlabBlock::new);
+    public static final Block ASTRALIT_BRICK_WALL = registerBlock("astralit_brick_wall", ASTRALIT_BRICKS, s -> new WallBlock(s.forceSolidOn()));
+    public static final Block ASTRALIT_PILLAR = registerBlock("astralit_pillar", ASTRAL_END_STONE, RotatedPillarBlock::new);
+    public static final Block CHISELED_ASTRALIT_BRICKS = registerBlock("chiseled_astralit_bricks", ASTRAL_END_STONE, Block::new);
+    public static final Block NIHILITH_BRICKS = registerBlock("nihilith_bricks", NIHIL_END_STONE, Block::new);
+    public static final Block NIHILITH_BRICK_STAIRS = registerBlock("nihilith_brick_stairs", NIHILITH_BRICKS, s -> new StairBlock(NIHILITH_BRICKS.defaultBlockState(), s));
+    public static final Block NIHILITH_BRICK_SLAB = registerBlock("nihilith_brick_slab", NIHILITH_BRICKS, SlabBlock::new);
+    public static final Block NIHILITH_BRICK_WALL = registerBlock("nihilith_brick_wall", NIHILITH_BRICKS, s -> new WallBlock(s.forceSolidOn()));
+    public static final Block NIHILITH_PILLAR = registerBlock("nihilith_pillar", NIHIL_END_STONE, RotatedPillarBlock::new);
+    public static final Block CHISELED_NIHILITH_BRICKS = registerBlock("chiseled_nihilith_bricks", NIHIL_END_STONE, Block::new);
 
 
     public static final Block SUSPENDED_SAND = registerBlock("suspended_sand", unused -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).noCollision().setId(keyOf("suspended_sand"))));

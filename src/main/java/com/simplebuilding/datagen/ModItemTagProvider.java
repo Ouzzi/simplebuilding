@@ -10,6 +10,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -70,6 +71,10 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         builder(ItemTags.MINING_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
 
+        builder(ModTags.Items.RADIUS_ENCHANTABLE)
+                .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
+                .add(key(ModItems.ORE_DETECTOR));
+
         builder(ItemTags.MINING_LOOT_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE);
 
@@ -117,6 +122,17 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.MAGNET))
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(key(Items.STICK));
+
+        // Astralit-/Nihilith-Bausatz: Treppen, Stufen und Mauern auch als Item-Tags wie bei Vanilla.
+        builder(BlockItemTags.STAIRS.item())
+                .add(key(ModItems.ASTRALIT_BRICK_STAIRS))
+                .add(key(ModItems.NIHILITH_BRICK_STAIRS));
+        builder(BlockItemTags.SLABS.item())
+                .add(key(ModItems.ASTRALIT_BRICK_SLAB))
+                .add(key(ModItems.NIHILITH_BRICK_SLAB));
+        builder(BlockItemTags.WALLS.item())
+                .add(key(ModItems.ASTRALIT_BRICK_WALL))
+                .add(key(ModItems.NIHILITH_BRICK_WALL));
 
         // Rucksaecke: eigene Tags fuer Tiefe Taschen, Trichter und Meisterbauer, damit Schublade
         // (bundle_enchantable) und Farbpalette (extra_inventory_items) sie nicht mitbekommen.

@@ -16,6 +16,7 @@ import com.simplebuilding.client.gui.TrimReferenceScreen;
 import com.simplebuilding.client.gui.widget.CyclingTrimButton;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItemGroups;
+import com.simplebuilding.items.ModItemGroupsContent;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
@@ -774,7 +775,7 @@ public final class ModScreensClientTest {
         assertStillOpen(script, CreativeModeInventoryScreen.class, "creative inventory");
         script.shot("screen-i-creative-inventory");
 
-        script.act("the mod's creative tab offers every chisel and no spatula", client -> {
+        script.act("the mod's creative tabs offer every chisel and no spatula", client -> {
             List<String> problems = creativeTabProblems();
 
             if (!problems.isEmpty()) {
@@ -785,32 +786,41 @@ public final class ModScreensClientTest {
         closeScreen(script, "creative inventory");
     }
 
-    /** @return everything wrong with the mod's tab, empty when it offers exactly what it should */
+    /**
+     * @return everything wrong with the mod's tabs, empty when they offer exactly what they should:
+     * all four tabs are filled, the chisels sit in the tools tab, and no tab shows a spatula
+     */
     private static List<String> creativeTabProblems() {
         List<String> found = new ArrayList<>();
-        Collection<ItemStack> offered = ModItemGroups.BUILDING_ITEMS_GROUP.getDisplayItems();
-
-        if (offered.isEmpty()) {
-            found.add("the mod's creative tab is empty after the creative inventory was opened, "
-                    + "so neither of the two checks below could fail");
-            return found;
-        }
-
         Set<Item> inTheTab = new HashSet<>();
+        Set<Item> anywhere = new HashSet<>();
 
-        for (ItemStack stack : offered) {
-            inTheTab.add(stack.getItem());
+        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
+            Collection<ItemStack> offered = ModItemGroups.get(tab).getDisplayItems();
+            if (offered.isEmpty()) {
+                found.add("the mod's " + tab + " tab is empty after the creative inventory was opened");
+            }
+            for (ItemStack stack : offered) {
+                anywhere.add(stack.getItem());
+                if (tab == ModItemGroupsContent.Tab.TOOLS) {
+                    inTheTab.add(stack.getItem());
+                }
+            }
+        }
+        if (anywhere.isEmpty()) {
+            found.add("every mod tab is empty, so neither of the two checks below could fail");
+            return found;
         }
 
         for (Item chisel : CHISELS) {
             if (!inTheTab.contains(chisel)) {
-                found.add(chisel.getDescriptionId() + " is missing from the tab, so a creative "
+                found.add(chisel.getDescriptionId() + " is missing from the tools tab, so a creative "
                         + "player cannot take it out of the inventory at all");
             }
         }
 
         for (Item spatula : SPATULAS) {
-            if (inTheTab.contains(spatula)) {
+            if (anywhere.contains(spatula)) {
                 found.add(spatula.getDescriptionId() + " is offered in the tab; the six legacy "
                         + "spatulas are kept registered for old worlds but deliberately hidden "
                         + "from new players");

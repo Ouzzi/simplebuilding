@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_astral_end_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:astral_end_stone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplebuilding:astralit_brick_stairs_from_astral_end_stone_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_astral_end_stone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:astralit_brick_stairs_from_astral_end_stone_stonecutting"
+    ]
+  }
+}

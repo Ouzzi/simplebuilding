@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:nihil_end_stone",
+  "result": {
+    "id": "simplebuilding:nihilith_pillar"
+  }
+}

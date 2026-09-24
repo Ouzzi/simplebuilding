@@ -1,5 +1,6 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OreDetectorItem;
@@ -12,6 +13,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -151,15 +153,16 @@ public final class OreDetectorTests {
      * Of everything a mode matches, the detector reports the closest block it can still pay for -
      * and the budget that decides "can pay for" is the mode's own, not one shared number.
      *
-     * <p>Six blocks of open air cost 11 points. Iron carries 24 and reaches; Netherite carries
-     * only 10 and stops one block short, which is asserted at the same distance the iron mode
+     * <p>Five blocks of open air cost 9 points. Iron carries 24 and reaches; Netherite carries
+     * only 8 and stops one block short, which is asserted at the same distance the iron mode
      * clears, so the refusal cannot be blamed on the room or the scan radius.
      *
-     * <p>Gold (18) and diamond (16) are measured the same way, because otherwise the tooltip in
+     * <p>Gold (18) and diamond (12) are measured the same way, because otherwise the tooltip in
      * {@link #tooltipNamesEveryModeWithItsPowerAndTarget} would be the only thing saying what
-     * those two budgets are - a mode could advertise 18 and search with 24. They are only two
-     * points apart, so the sight line that separates them is built to cost exactly 17: two blocks
-     * of stone and two of air in front of a target 5 blocks out.
+     * those two budgets are - a mode could advertise 18 and search with 24. Gold pays 17 for two
+     * stone in front of a target 5 blocks out, diamond cannot pay 13 for one and does pay 9 for
+     * none. {@link #allOresReachFollowsTheOreRarityAndRadiusStretchesTheRareOnes} pins every class
+     * on a finer scale.
      *
      * <p>What breaks this: returning the first hit of the {@code x/y/z} loop instead of the
      * nearest one (the loop runs from -radius, so a farther block would win); dropping the
@@ -202,39 +205,40 @@ public final class OreDetectorTests {
         helper.setBlock(EYE_BLOCK.above(2), Blocks.AIR);
         helper.setBlock(EYE_BLOCK.above(), Blocks.AIR);
 
-        // --- the budget is per mode: 6 blocks of air cost 11, iron pays 11 of 24, netherite cannot ---
+        // --- the budget is per ore class: 5 blocks of air cost 9, iron pays 9 of 24, netherite cannot ---
         clearCorridor(helper);
         ItemStack netherite = detectorInMode(MODE_NETHERITE);
-        helper.setBlock(rowPos(7), Blocks.ANCIENT_DEBRIS);
-        assertDoesNotFind(helper, netherite, rowPos(7),
-                "ancient debris 6 blocks out through open air, which costs 11 of the netherite budget of 10");
-
-        helper.setBlock(rowPos(7), Blocks.AIR);
         helper.setBlock(rowPos(6), Blocks.ANCIENT_DEBRIS);
-        assertFinds(helper, netherite, rowPos(6), "ancient debris 5 blocks out, which costs 9 of 10");
+        assertDoesNotFind(helper, netherite, rowPos(6),
+                "ancient debris 5 blocks out through open air, which costs 9 of the netherite budget of 8");
 
         helper.setBlock(rowPos(6), Blocks.AIR);
-        helper.setBlock(rowPos(7), Blocks.IRON_ORE);
-        assertFinds(helper, iron, rowPos(7),
+        helper.setBlock(rowPos(5), Blocks.ANCIENT_DEBRIS);
+        assertFinds(helper, netherite, rowPos(5), "ancient debris 4 blocks out, which costs 7 of 8");
+
+        helper.setBlock(rowPos(5), Blocks.AIR);
+        helper.setBlock(rowPos(6), Blocks.IRON_ORE);
+        assertFinds(helper, iron, rowPos(6),
                 "iron ore at the very distance the netherite mode had to refuse");
 
-        // --- gold pays 17 of 18 for the same sight line that diamond cannot pay 17 of 16 for ---
+        // --- gold pays 17 of 18 behind two stone; diamond cannot pay 13 of 12 behind one ---
         clearCorridor(helper);
         fillCorridor(helper, 2, 3, Blocks.STONE);
         helper.setBlock(rowPos(6), Blocks.GOLD_ORE);
         assertFinds(helper, detectorInMode(MODE_GOLD), rowPos(6),
                 "gold ore 5 blocks out behind two stone, which costs 17 of the gold budget of 18");
 
+        fillCorridor(helper, 3, 3, Blocks.AIR);
         helper.setBlock(rowPos(6), Blocks.DIAMOND_ORE);
         assertDoesNotFind(helper, detectorInMode(MODE_DIAMOND), rowPos(6),
-                "diamond ore on that same 17 point sight line, one point past the diamond budget of 16");
+                "diamond ore 5 blocks out behind one stone, which costs 13 of the diamond budget of 12");
 
-        // The control for the refusal: take one of the two stone blocks away and the cost drops to
-        // 13, which the diamond mode does pay for the very same block. Without this line the
-        // assertion above would also hold for a diamond mode that searches nothing at all.
+        // The control for the refusal: take the stone away and the cost drops to 9, which the
+        // diamond mode does pay for the very same block. Without this line the assertion above
+        // would also hold for a diamond mode that searches nothing at all.
         fillCorridor(helper, 2, 2, Blocks.AIR);
         assertFinds(helper, detectorInMode(MODE_DIAMOND), rowPos(6),
-                "diamond ore 5 blocks out behind one stone, which costs 13 of 16");
+                "diamond ore 5 blocks out through open air, which costs 9 of 12");
 
         helper.succeed();
     }
@@ -249,13 +253,13 @@ public final class OreDetectorTests {
      * block the 26.2 port moved from {@code BlockTags} to {@code BlockItemTags.X.block()}, so
      * these are the assertions that would have caught a wrong tag key.
      *
-     * <p>The "all ores" mode is a chain of ten disjuncts, and each one is asked for separately -
-     * a single sample is not enough there, because any nine of the ten could be deleted and a
+     * <p>The "all ores" mode is a chain of twelve disjuncts, and each one is asked for separately -
+     * a single sample is not enough there, because any eleven of the twelve could be deleted and a
      * test that only ever shows the mode one ore would stay green while the mode stopped finding
-     * most of what its name promises.
+     * most of what its name promises. The last two are the mod's own End ores.
      *
      * <p>What breaks this: a mode reading the wrong tag; the {@code ALL} chain losing any one of
-     * its ten disjuncts; {@code NETHERITE} matching the netherite <em>block</em> or a tag instead
+     * its twelve disjuncts; {@code NETHERITE} matching the netherite <em>block</em> or a tag instead
      * of ancient debris.
      */
     public static void detectorModesMatchTheirOreTags(GameTestHelper helper) {
@@ -283,13 +287,13 @@ public final class OreDetectorTests {
                 "nether quartz ore while it was set to iron");
 
         // ...and so does every other member of the list, one at a time. Nether quartz ore above is
-        // the only one no other mode can reach; for the nine below the ALL branch is the sole
+        // the only one no other mode can reach; for the eleven below the ALL branch is the sole
         // reason they answer a detector in this mode, so dropping any single disjunct from
         // OreDetectorItem#isTarget makes exactly one of these lines fail.
         Block[] allOresMembers = {
                 Blocks.COAL_ORE, Blocks.COPPER_ORE, Blocks.IRON_ORE, Blocks.GOLD_ORE,
                 Blocks.REDSTONE_ORE, Blocks.LAPIS_ORE, Blocks.DIAMOND_ORE, Blocks.EMERALD_ORE,
-                Blocks.ANCIENT_DEBRIS,
+                Blocks.ANCIENT_DEBRIS, ModBlocks.ASTRALIT_ORE, ModBlocks.NIHILITH_ORE,
         };
         for (Block ore : allOresMembers) {
             placeDecoyAndTarget(helper, Blocks.STONE, ore);
@@ -323,17 +327,17 @@ public final class OreDetectorTests {
      * tag and are named one by one in {@code getBlockDensity}; they are checked at the distance
      * that separates 6.0 from the 3.0 fallback, so deleting their branch makes them transparent
      * enough for the ore behind them to be found. And a block that is solid but does not occlude
-     * costs as little as air - that case runs on the netherite budget of 10 rather than on iron's
-     * 24, because a budget of 24 swallows four blocks of anything up to 2.875 per block, while 10
-     * leaves room for four blocks of air (9) and for nothing denser (netherrack would be 13).
+     * costs as little as air - that case runs on the netherite budget of 8 rather than on iron's
+     * 24, because a budget of 24 swallows four blocks of anything up to 2.875 per block, while 8
+     * leaves room for three blocks of air (7) and for nothing denser (netherrack would be 10).
      *
      * <p>Each of those measurements is one-sided, and a density that is free in the other
      * direction is a density nobody checks: a "found" case caps a value from above only, a "not
      * found" case from below only. Every step of the table is therefore measured from both sides,
-     * with the ore one block closer or farther on the same line. Netherrack ends up between 1.125
-     * and 1.5 (three of them cost the netherite budget exactly 10, four cost it 13); deepslate
-     * between 5.75 and 7.5 (two stop an iron beam at 25 of 24, one lets a diamond beam through at
-     * 13 of 16); the untagged fallback between 2.875 and 3.83, measured on dirt.
+     * with the ore one block closer or farther on the same line. Netherrack ends up between 1.17
+     * and 1.75 (two of them cost the netherite budget 7 of 8, three cost it 10); deepslate
+     * between 5.75 and 8.5 (two stop an iron beam at 25 of 24, one lets a gold beam through at
+     * 13 of 18); the untagged fallback between 2.875 and 3.83, measured on dirt.
      *
      * <p>Dirt is the only material here that reaches that fallback at all - stone, tuff,
      * deepslate, basalt and blackstone each leave {@code getBlockDensity} through a branch of
@@ -378,12 +382,12 @@ public final class OreDetectorTests {
         // 6.0 also has to be pinned from above. The refusals so far only say "more than 3.83 per
         // block", which 50.0 satisfies just as well - and a detector that cannot see through a
         // single block of the layer it was built for is as broken as one that sees through three.
-        // Two blocks out, one deepslate in the way, the cost is 13 and the diamond budget pays it.
+        // Two blocks out, one deepslate in the way, the cost is 13 and the gold budget pays it.
         clearCorridor(helper);
         fillCorridor(helper, 2, 2, Blocks.DEEPSLATE);
-        helper.setBlock(rowPos(3), Blocks.DIAMOND_ORE);
-        assertFinds(helper, detectorInMode(MODE_DIAMOND), rowPos(3),
-                "diamond ore 2 blocks out behind one deepslate (cost 13 of 16)");
+        helper.setBlock(rowPos(3), Blocks.GOLD_ORE);
+        assertFinds(helper, detectorInMode(MODE_GOLD), rowPos(3),
+                "gold ore 2 blocks out behind one deepslate (cost 13 of 18)");
 
         // That branch is written as a tag, and tuff is the tag's other member. Tuff is base stone
         // as well, so narrowing the branch to the deepslate block alone would drop it to 3.0 and
@@ -412,31 +416,30 @@ public final class OreDetectorTests {
         placeWallAndOre(helper, 2, 4, Blocks.DIRT, 5);
         assertFinds(helper, iron, rowPos(5), "iron ore behind three dirt (cost 19 of 24)");
 
-        // Netherrack from both sides, on the netherite budget of 10, because the iron measurement
+        // Netherrack from both sides, on the netherite budget of 8, because the iron measurement
         // above caps it at 2.875 and says nothing downwards - it would hold just as well for a
-        // netherrack that costs no more than air. Three of them cost exactly the budget, four
-        // overrun it.
+        // netherrack that costs no more than air. Two of them fit the budget, three overrun it.
+        clearCorridor(helper);
+        fillCorridor(helper, 2, 3, Blocks.NETHERRACK);
+        helper.setBlock(rowPos(4), Blocks.ANCIENT_DEBRIS);
+        assertFinds(helper, detectorInMode(MODE_NETHERITE), rowPos(4),
+                "ancient debris 3 blocks out behind two netherrack (cost 7 of 8)");
+
         clearCorridor(helper);
         fillCorridor(helper, 2, 4, Blocks.NETHERRACK);
         helper.setBlock(rowPos(5), Blocks.ANCIENT_DEBRIS);
-        assertFinds(helper, detectorInMode(MODE_NETHERITE), rowPos(5),
-                "ancient debris 4 blocks out behind three netherrack (cost 10 of 10)");
+        assertDoesNotFind(helper, detectorInMode(MODE_NETHERITE), rowPos(5),
+                "ancient debris 4 blocks out behind three netherrack (cost 10 of 8)");
 
-        clearCorridor(helper);
-        fillCorridor(helper, 2, 5, Blocks.NETHERRACK);
-        helper.setBlock(rowPos(6), Blocks.ANCIENT_DEBRIS);
-        assertDoesNotFind(helper, detectorInMode(MODE_NETHERITE), rowPos(6),
-                "ancient debris 5 blocks out behind four netherrack (cost 13 of 10)");
-
-        // The cheapest branch, on the tightest budget: glass is solid but does not occlude, so four
-        // of them cost the 9 of 10 that open air would. Anything above 1.125 per block is out of
+        // The cheapest branch, on the tightest budget: glass is solid but does not occlude, so three
+        // of them cost the 7 of 8 that open air would. Anything above 1.17 per block is out of
         // reach here, which is what makes this the assertion that the !canOcclude() branch exists -
-        // without it glass takes the 3.0 fallback and lands at 25.
+        // without it glass takes the 3.0 fallback and lands at 19.
         clearCorridor(helper);
-        fillCorridor(helper, 2, 5, Blocks.GLASS);
-        helper.setBlock(rowPos(6), Blocks.ANCIENT_DEBRIS);
-        assertFinds(helper, detectorInMode(MODE_NETHERITE), rowPos(6),
-                "ancient debris 5 blocks out behind four glass blocks (cost 9 of 10)");
+        fillCorridor(helper, 2, 4, Blocks.GLASS);
+        helper.setBlock(rowPos(5), Blocks.ANCIENT_DEBRIS);
+        assertFinds(helper, detectorInMode(MODE_NETHERITE), rowPos(5),
+                "ancient debris 4 blocks out behind three glass blocks (cost 7 of 8)");
 
         helper.succeed();
     }
@@ -498,6 +501,159 @@ public final class OreDetectorTests {
                 "iron ore behind four deepslate even with Constructor's Touch (cost 24.5 of 24)");
 
         helper.succeed();
+    }
+
+    /**
+     * How far the detector sees an ore depends on how rare that ore is, and the Radius enchantment
+     * stretches mainly the rare classes. The documented numbers ({@code OreDetectorItem.OreClass}):
+     * common ores (coal, copper, iron, redstone, lapis, quartz) 24, gold 18, diamond and emerald
+     * 12, ancient debris and the two End ores 8; with Radius 24, 20, 18 and 14.
+     *
+     * <p>Measured in the "all ores" mode, where one detector sees every class at once, on seven
+     * sight lines of known cost - 7 and 9 through open air, then 13, 17 and 21 behind one to three
+     * stone 5 blocks out, 19 behind three stone 4 blocks out and 25 behind four. An ore is found on
+     * exactly the lines its budget pays for. The 19 line separates gold's 18 from its 20 with
+     * Radius, and the 25 line shows that Radius adds nothing to the common class: a single point
+     * more would find iron there.
+     *
+     * <p>A calibrated detector takes the class of its target: set to diamond ore it refuses the
+     * 13 line and finds the 9 one, like the diamond mode. Radius is also asserted to accept the
+     * ore detector at all - otherwise the stretched budgets would be dead code in a real game.
+     *
+     * <p>What breaks this: one budget for every class (the old 24 for everything in "all ores"),
+     * a changed class budget or Radius bonus, an ore sorted into the wrong class, Radius read off
+     * the wrong enchantment or leaving the detector's item list, and a scan radius smaller than
+     * the widest class.
+     */
+    public static void allOresReachFollowsTheOreRarityAndRadiusStretchesTheRareOnes(GameTestHelper helper) {
+        Holder<Enchantment> radius = enchantment(helper, ModEnchantments.RADIUS);
+        helper.assertTrue(supports(radius, ModItems.ORE_DETECTOR),
+                "Radius no longer lists the ore detector among its supported items, so the stretched "
+                        + "rare-ore budgets cannot be reached in a real game");
+
+        ItemStack plain = detectorInMode(MODE_ALL);
+        ItemStack stretched = detectorInMode(MODE_ALL);
+        stretched.enchant(radius, 1);
+
+        Block[] ores = {
+                Blocks.IRON_ORE, Blocks.COAL_ORE, Blocks.NETHER_QUARTZ_ORE, Blocks.GOLD_ORE, Blocks.DIAMOND_ORE,
+                Blocks.EMERALD_ORE, Blocks.ANCIENT_DEBRIS, ModBlocks.ASTRALIT_ORE, ModBlocks.NIHILITH_ORE,
+        };
+        int[] budgets = {24, 24, 24, 18, 12, 12, 8, 8, 8};
+        int[] withRadius = {24, 24, 24, 20, 18, 18, 14, 14, 14};
+
+        StringBuilder actual = new StringBuilder();
+        StringBuilder expected = new StringBuilder();
+        for (int i = 0; i < ores.length; i++) {
+            String name = ores[i].getName().getString();
+            actual.append(name).append(": ").append(reachedLines(helper, plain, ores[i]))
+                    .append(" | with Radius: ").append(reachedLines(helper, stretched, ores[i])).append("; ");
+            expected.append(name).append(": ").append(linesWithin(budgets[i]))
+                    .append(" | with Radius: ").append(linesWithin(withRadius[i])).append("; ");
+        }
+        helper.assertValueEqual(actual.toString(), expected.toString(),
+                "the sight lines each ore is found on in the all-ores mode");
+
+        // A calibrated detector searches with its target's class.
+        ItemStack onDiamond = calibratedOn(Blocks.DIAMOND_ORE);
+        helper.assertValueEqual(reachedLines(helper, onDiamond, Blocks.DIAMOND_ORE), linesWithin(12),
+                "the sight lines a detector calibrated on diamond ore finds it on");
+
+        helper.succeed();
+    }
+
+    /**
+     * A calibrated detector marks itself in the inventory with a small glimmer in the colour of
+     * its target block - {@code OreDetectorItem#targetColor}, which the client decoration draws
+     * ({@code OreDetectorGlint}, asserted on screen by the client tests). The colour is decided
+     * server side from the item alone, so it is pinned here: ores glow in the colour of their
+     * mineral, any other block in its map colour, and a detector that has no block selected -
+     * every fixed mode, and the custom mode before its first calibration - shows nothing.
+     *
+     * <p>What breaks this: the glimmer showing on detectors that have not selected a block, the
+     * target read from the wrong place, or an ore losing its mineral colour.
+     */
+    public static void calibratedDetectorGlimmersInTheColourOfItsTarget(GameTestHelper helper) {
+        String actual = "diamond " + hex(OreDetectorItem.targetColor(calibratedOn(Blocks.DEEPSLATE_DIAMOND_ORE)))
+                + ", astralit " + hex(OreDetectorItem.targetColor(calibratedOn(ModBlocks.ASTRALIT_ORE)))
+                + ", ancient debris " + hex(OreDetectorItem.targetColor(calibratedOn(Blocks.ANCIENT_DEBRIS)))
+                + ", oak log " + hex(OreDetectorItem.targetColor(calibratedOn(Blocks.OAK_LOG)))
+                + ", uncalibrated " + hex(OreDetectorItem.targetColor(detectorInMode(MODE_CUSTOM)))
+                + ", iron mode " + hex(OreDetectorItem.targetColor(detectorInMode(MODE_IRON)))
+                + ", all ores " + hex(OreDetectorItem.targetColor(detectorInMode(MODE_ALL)));
+        String expected = "diamond 5decf5, astralit e49dd6, ancient debris 9a6a58, oak log "
+                + hex(Blocks.OAK_LOG.defaultMapColor().col)
+                + ", uncalibrated none, iron mode none, all ores none";
+        helper.assertValueEqual(actual, expected, "the glimmer colour of each detector");
+
+        // A detector in a fixed mode keeps no glimmer even if it still carries an old target.
+        ItemStack switchedAway = calibratedOn(Blocks.DIAMOND_ORE);
+        CompoundTag nbt = customData(switchedAway);
+        nbt.putInt("Mode", MODE_GOLD);
+        switchedAway.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+        helper.assertValueEqual(hex(OreDetectorItem.targetColor(switchedAway)), "none",
+                "the glimmer of a detector switched from custom to gold that still stores a target");
+        helper.succeed();
+    }
+
+    /** The seven sight lines of {@link #allOresReachFollowsTheOreRarityAndRadiusStretchesTheRareOnes}, by cost. */
+    private static final int[] LINE_COSTS = {7, 9, 13, 17, 19, 21, 25};
+
+    /** Builds the sight line of the given cost with {@code ore} at its end, see {@link #LINE_COSTS}. */
+    private static BlockPos buildLine(GameTestHelper helper, int cost, Block ore) {
+        clearCorridor(helper);
+        int oreX = switch (cost) {
+            case 7, 19 -> 5;
+            default -> 6;
+        };
+        int stoneTo = switch (cost) {
+            case 13 -> 2;
+            case 17 -> 3;
+            case 19, 21 -> 4;
+            case 25 -> 5;
+            default -> 1;
+        };
+        if (stoneTo >= 2) {
+            fillCorridor(helper, 2, stoneTo, Blocks.STONE);
+        }
+        helper.setBlock(rowPos(oreX), ore);
+        return rowPos(oreX);
+    }
+
+    /** The costs of the sight lines on which {@code stack} finds {@code ore}, e.g. {@code "7 9 13"}. */
+    private static String reachedLines(GameTestHelper helper, ItemStack stack, Block ore) {
+        List<String> reached = new ArrayList<>();
+        for (int cost : LINE_COSTS) {
+            BlockPos target = buildLine(helper, cost, ore);
+            if (helper.absolutePos(target).equals(scan(helper, stack))) {
+                reached.add(String.valueOf(cost));
+            }
+        }
+        clearCorridor(helper);
+        return reached.isEmpty() ? "none" : String.join(" ", reached);
+    }
+
+    private static String linesWithin(int budget) {
+        List<String> reached = new ArrayList<>();
+        for (int cost : LINE_COSTS) {
+            if (cost <= budget) {
+                reached.add(String.valueOf(cost));
+            }
+        }
+        return reached.isEmpty() ? "none" : String.join(" ", reached);
+    }
+
+    /** A detector in the custom mode, calibrated on {@code block} the way a sneak click stores it. */
+    private static ItemStack calibratedOn(Block block) {
+        ItemStack stack = detectorInMode(MODE_CUSTOM);
+        CompoundTag nbt = customData(stack);
+        nbt.put("CustomBlock", NbtUtils.writeBlockState(block.defaultBlockState()));
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+        return stack;
+    }
+
+    private static String hex(int rgb) {
+        return rgb < 0 ? "none" : String.format("%06x", rgb);
     }
 
     // =====================================================================================
@@ -634,10 +790,11 @@ public final class OreDetectorTests {
      *
      * <p>The power line is the number the search itself runs on - the same {@code mode.budget}.
      * Four of the six are measured against real distances in
-     * {@link #detectorReportsTheNearestTargetInsideItsBudget} (iron 24, gold 18, diamond 16,
-     * netherite 10), so for those this line is a consistency check between what the item does and
-     * what it tells the player. For "all ores" and "custom" it is the only assertion there is:
-     * both share iron's 24, and no test drives their search to the edge of it.
+     * {@link #detectorReportsTheNearestTargetInsideItsBudget} (iron 24, gold 18, diamond 12,
+     * netherite 8), so for those this line is a consistency check between what the item does and
+     * what it tells the player. "All ores" and an uncalibrated "custom" advertise the common 24,
+     * their widest reach; how far each ore class carries in them is measured in
+     * {@link #allOresReachFollowsTheOreRarityAndRadiusStretchesTheRareOnes}.
      *
      * <p>The last two lines cover an index that is not a mode at all: a stack that carries
      * {@code Mode=99} (a hand-edited item, or an old save after a mode was removed) has to clamp
@@ -651,7 +808,7 @@ public final class OreDetectorTests {
      */
     public static void tooltipNamesEveryModeWithItsPowerAndTarget(GameTestHelper helper) {
         String[] names = {"Iron", "Gold", "Diamond", "Netherite", "All Ores", "Custom"};
-        int[] powers = {24, 18, 16, 10, 24, 24};
+        int[] powers = {24, 18, 12, 8, 24, 24};
 
         for (int mode = 0; mode < names.length; mode++) {
             List<String> lines = tooltip(helper, detectorInMode(mode));

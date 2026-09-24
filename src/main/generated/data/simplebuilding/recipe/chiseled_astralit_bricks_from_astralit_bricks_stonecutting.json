@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:astralit_bricks",
+  "result": {
+    "id": "simplebuilding:chiseled_astralit_bricks"
+  }
+}

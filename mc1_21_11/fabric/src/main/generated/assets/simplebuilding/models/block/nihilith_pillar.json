@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplebuilding:block/nihilith_pillar_top",
+    "side": "simplebuilding:block/nihilith_pillar"
+  }
+}

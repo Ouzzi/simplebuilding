@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplebuilding:block/astralit_pillar_top",
+    "side": "simplebuilding:block/astralit_pillar"
+  }
+}

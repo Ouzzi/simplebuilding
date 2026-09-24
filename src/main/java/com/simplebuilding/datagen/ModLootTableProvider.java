@@ -101,6 +101,20 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(ModBlocks.ASTRAL_END_STONE);
         dropSelf(ModBlocks.NIHIL_END_STONE);
 
+        // Astralit-/Nihilith-Bausatz; Stufen droppen doppelt, wenn sie als Doppelstufe stehen
+        dropSelf(ModBlocks.ASTRALIT_BRICKS);
+        dropSelf(ModBlocks.ASTRALIT_BRICK_STAIRS);
+        dropSelf(ModBlocks.ASTRALIT_BRICK_WALL);
+        dropSelf(ModBlocks.ASTRALIT_PILLAR);
+        dropSelf(ModBlocks.CHISELED_ASTRALIT_BRICKS);
+        add(ModBlocks.ASTRALIT_BRICK_SLAB, createSlabItemTable(ModBlocks.ASTRALIT_BRICK_SLAB));
+        dropSelf(ModBlocks.NIHILITH_BRICKS);
+        dropSelf(ModBlocks.NIHILITH_BRICK_STAIRS);
+        dropSelf(ModBlocks.NIHILITH_BRICK_WALL);
+        dropSelf(ModBlocks.NIHILITH_PILLAR);
+        dropSelf(ModBlocks.CHISELED_NIHILITH_BRICKS);
+        add(ModBlocks.NIHILITH_BRICK_SLAB, createSlabItemTable(ModBlocks.NIHILITH_BRICK_SLAB));
+
         dropSelf(ModBlocks.SUSPENDED_SAND);
         dropSelf(ModBlocks.SUSPENDED_GRAVEL);
         dropSelf(ModBlocks.LEVITATING_SAND);

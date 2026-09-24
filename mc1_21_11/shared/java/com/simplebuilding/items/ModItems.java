@@ -176,6 +176,20 @@ public class ModItems {
 
     public static final Item ASTRALIT_QUARTZ_CHECKER = registerItem("astralit_quartz_checker", s -> new BlockItem(ModBlocks.ASTRALIT_QUARTZ_CHECKER, s));
 
+    // Astralit-/Nihilith-Bausatz (siehe ModBlocks)
+    public static final Item ASTRALIT_BRICKS = registerItem("astralit_bricks", s -> new BlockItem(ModBlocks.ASTRALIT_BRICKS, s));
+    public static final Item ASTRALIT_BRICK_STAIRS = registerItem("astralit_brick_stairs", s -> new BlockItem(ModBlocks.ASTRALIT_BRICK_STAIRS, s));
+    public static final Item ASTRALIT_BRICK_SLAB = registerItem("astralit_brick_slab", s -> new BlockItem(ModBlocks.ASTRALIT_BRICK_SLAB, s));
+    public static final Item ASTRALIT_BRICK_WALL = registerItem("astralit_brick_wall", s -> new BlockItem(ModBlocks.ASTRALIT_BRICK_WALL, s));
+    public static final Item ASTRALIT_PILLAR = registerItem("astralit_pillar", s -> new BlockItem(ModBlocks.ASTRALIT_PILLAR, s));
+    public static final Item CHISELED_ASTRALIT_BRICKS = registerItem("chiseled_astralit_bricks", s -> new BlockItem(ModBlocks.CHISELED_ASTRALIT_BRICKS, s));
+    public static final Item NIHILITH_BRICKS = registerItem("nihilith_bricks", s -> new BlockItem(ModBlocks.NIHILITH_BRICKS, s));
+    public static final Item NIHILITH_BRICK_STAIRS = registerItem("nihilith_brick_stairs", s -> new BlockItem(ModBlocks.NIHILITH_BRICK_STAIRS, s));
+    public static final Item NIHILITH_BRICK_SLAB = registerItem("nihilith_brick_slab", s -> new BlockItem(ModBlocks.NIHILITH_BRICK_SLAB, s));
+    public static final Item NIHILITH_BRICK_WALL = registerItem("nihilith_brick_wall", s -> new BlockItem(ModBlocks.NIHILITH_BRICK_WALL, s));
+    public static final Item NIHILITH_PILLAR = registerItem("nihilith_pillar", s -> new BlockItem(ModBlocks.NIHILITH_PILLAR, s));
+    public static final Item CHISELED_NIHILITH_BRICKS = registerItem("chiseled_nihilith_bricks", s -> new BlockItem(ModBlocks.CHISELED_NIHILITH_BRICKS, s));
+
 
 
     public static final Item ASTRAL_PURPUR_BLOCK = registerItem("astral_purpur_block", s -> new BlockItem(ModBlocks.ASTRAL_PURPUR_BLOCK, s));

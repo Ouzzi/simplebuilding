@@ -50,4 +50,14 @@ public final class OreDetectorGameTest {
     public void tooltipNamesEveryModeWithItsPowerAndTarget(GameTestHelper helper) {
         OreDetectorTests.tooltipNamesEveryModeWithItsPowerAndTarget(helper);
     }
+
+    @GameTest
+    public void allOresReachFollowsTheOreRarityAndRadiusStretchesTheRareOnes(GameTestHelper helper) {
+        OreDetectorTests.allOresReachFollowsTheOreRarityAndRadiusStretchesTheRareOnes(helper);
+    }
+
+    @GameTest
+    public void calibratedDetectorGlimmersInTheColourOfItsTarget(GameTestHelper helper) {
+        OreDetectorTests.calibratedDetectorGlimmersInTheColourOfItsTarget(helper);
+    }
 }

@@ -15,6 +15,7 @@
     "HandledScreenMixin",
     "HeldItemRendererMixin",
     "InventoryScreenMixin",
+    "ItemDecorationsMixin",
     "ItemFrameEntityRendererMixin",
     "ItemMixin",
     "MinecraftClientMixin",

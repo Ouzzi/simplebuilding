@@ -176,8 +176,9 @@ public class ModEnchantments {
         )));
 
         // 10. RADIUS (Max Level 1, Treasure, Very Rare, 5x5 mining) [SLEDGEHAMMER]
+        // Auch auf dem Erzdetektor (Amboss): dort mehr Reichweite fuer Gold und seltene Erze, siehe OreDetectorItem.OreClass.
         register(registerable, RADIUS, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.RADIUS_ENCHANTABLE),
                 items.getOrThrow(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
                 1, // Weight (Very Rare)
                 1, // Max Level

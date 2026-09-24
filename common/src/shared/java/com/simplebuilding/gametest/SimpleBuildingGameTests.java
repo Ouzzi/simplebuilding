@@ -87,6 +87,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_quartz_checkers_are_mined_by_pickaxe_and_crafted_from_their_material", DataIntegrityTests::quartzCheckersAreMinedByPickaxeAndCraftedFromTheirMaterial)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_end_brick_sets_are_crafted_cut_mined_and_tagged_like_vanilla", DataIntegrityTests::endBrickSetsAreCraftedCutMinedAndTaggedLikeVanilla)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_every_mod_item_is_in_exactly_one_creative_tab", DataIntegrityTests::everyModItemIsInExactlyOneCreativeTab)
+                    .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
                     .rotation(Rotation.NONE)
                     .build(),
@@ -322,6 +326,10 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("ore_detector_game_test_mode_switch_is_free_in_creative_and_the_tool_stays_unstackable", OreDetectorTests::modeSwitchIsFreeInCreativeAndTheToolStaysUnstackable)
                     .build(),
             GameTestSpec.named("ore_detector_game_test_tooltip_names_every_mode_with_its_power_and_target", OreDetectorTests::tooltipNamesEveryModeWithItsPowerAndTarget)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_all_ores_reach_follows_the_ore_rarity_and_radius_stretches_the_rare_ones", OreDetectorTests::allOresReachFollowsTheOreRarityAndRadiusStretchesTheRareOnes)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_calibrated_detector_glimmers_in_the_colour_of_its_target", OreDetectorTests::calibratedDetectorGlimmersInTheColourOfItsTarget)
                     .build(),
             GameTestSpec.named("quiver_game_test_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder)
                     .build(),

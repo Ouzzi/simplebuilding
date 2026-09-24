@@ -36,6 +36,12 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.crafting.StonecutterRecipe;
+import net.minecraft.world.item.crafting.display.StonecutterRecipeDisplay;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -87,14 +93,8 @@ import net.minecraft.resources.RegistryOps;
  *
  * <h2>Known defects</h2>
  *
- * <p><b>The two enchanted apples cannot be reached in creative.</b>
- * {@code simplebuilding:enchanted_netherite_apple} and {@code simplebuilding:enchanted_enderite_apple}
- * are registered, are handed out by four loot pools and have no recipe, but
- * {@code ModItemGroupsContent#populate} never offers them - the only two mod items with no path
- * into a creative inventory at all. Vanilla puts its own enchanted golden apple in a tab, so this
- * looks like a forgotten line rather than a decision. {@link #ITEMS_NOT_IN_THE_CREATIVE_TAB} names
- * them, next to the six spatulas that are left out on purpose, so the tab check can be green
- * without stating that today's answer is the right one.
+ * <p>The two enchanted apples, once the only mod items no creative tab offered, sit in the
+ * materials tab since the creative inventory was split into four tabs (2026-09).
  *
  * <p>{@code ModRecipeProvider} builds every sledgehammer from one block, two pieces of the tier's
  * material and two sticks - except the stone one: {@code createSledgehammerRecipe(STONE_SLEDGEHAMMER,
@@ -156,7 +156,7 @@ public final class DataIntegrityTests {
             Map.entry(ModEnchantments.MASTER_BUILDER, ModTags.Items.MASTER_BUILDER_ENCHANTABLE),
             Map.entry(ModEnchantments.COLOR_PALETTE, ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE),
             Map.entry(ModEnchantments.BREAK_THROUGH, ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
-            Map.entry(ModEnchantments.RADIUS, ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
+            Map.entry(ModEnchantments.RADIUS, ModTags.Items.RADIUS_ENCHANTABLE),
             Map.entry(ModEnchantments.OVERRIDE, ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
             Map.entry(ModEnchantments.COVER, ModTags.Items.BUILDING_WAND_ENCHANTABLE),
             Map.entry(ModEnchantments.BRIDGE, ModTags.Items.BUILDING_WAND_ENCHANTABLE),
@@ -180,12 +180,9 @@ public final class DataIntegrityTests {
      * that {@code simplebuilding:*_spatula} stacks in existing worlds keep resolving, but a player
      * starting today is meant to find only the chisels. That one is on purpose.
      *
-     * <p>The two enchanted apples are not - see the class javadoc's known defect. They are listed
-     * here so that {@link #everyModItemIsInTheItemRegistry} can be green without either cementing
-     * their absence as correct or hiding it: the list is checked in both directions, so the day
-     * one of them is added to the tab this constant has to be edited, and the note above it read.
-     *
-     * <p>Every other registered mod item has to be offered by {@code ModItemGroupsContent}.
+     * <p>Every other registered mod item has to be offered by {@code ModItemGroupsContent} - in
+     * exactly one of its four tabs, see {@link #everyModItemIsInExactlyOneCreativeTab}. The list is
+     * checked in both directions, so an item added to a tab cannot stay listed here.
      */
     private static final Set<String> ITEMS_NOT_IN_THE_CREATIVE_TAB = Set.of(
             "stone_spatula",
@@ -193,9 +190,7 @@ public final class DataIntegrityTests {
             "iron_spatula",
             "gold_spatula",
             "diamond_spatula",
-            "netherite_spatula",
-            "enchanted_netherite_apple",
-            "enchanted_enderite_apple");
+            "netherite_spatula");
 
     /**
      * Registry ids that exist for the sake of worlds that were saved with an older version, spelled
@@ -1560,6 +1555,284 @@ public final class DataIntegrityTests {
                             .replaceFirst("^", "simplebuilding:") + "_quartz_checker",
                     "what " + BuiltInRegistries.ITEM.getKey(material) + " diagonal to two quartz blocks crafts");
         }
+        helper.succeed();
+    }
+
+    /**
+     * The astralit and nihilith building sets - bricks, brick stairs, slab and wall, pillar and
+     * chiseled bricks - are crafted, cut, mined and tagged like vanilla's end stone and purpur
+     * families.
+     *
+     * <p><b>Crafting</b>, every recipe by its documented pattern and count, through the real
+     * recipe manager: four coated end stone make four bricks, six bricks four stairs, three six
+     * slabs, six six walls, two coated end stone on top of each other two pillars, and two brick
+     * slabs one chiseled block. <b>Stonecutting</b>: the coated end stone cuts into every one of the
+     * six (slabs two at a time), the bricks into stairs, slab, wall and chiseled bricks. Read from
+     * the loaded stonecutter recipes' displays, so a missing, doubled or miscounted cut shows up.
+     *
+     * <p><b>Mining</b>: each block needs the right tool, an iron pickaxe is that tool (the
+     * {@code minecraft:mineable/pickaxe} tag), and what it breaks drops the block itself - a double
+     * slab two slabs. The five older end stone family blocks are asserted with them: they copy
+     * polished end stone or purpur, so they need a pickaxe too, and until 2026-09 they were missing
+     * from the pickaxe tag and dropped nothing at all.
+     *
+     * <p><b>Tags and light</b>: stairs, slabs and walls sit in the vanilla block and item tags of
+     * their shape (a wall outside {@code minecraft:walls} does not connect to its neighbours), and
+     * every astralit block glows at 10 like the coated astralit blocks while nihilith stays dark.
+     *
+     * <p>What breaks this: a removed or changed recipe, a stonecutter cut that went missing or
+     * changed its count, a block dropped from the pickaxe tag or its shape tag, a slab that drops
+     * one item as a double slab, a light level that no longer follows the material.
+     */
+    public static void endBrickSetsAreCraftedCutMinedAndTaggedLikeVanilla(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        RecipeManager recipeManager = level.getServer().getRecipeManager();
+        Map<Identifier, RecipeHolder<?>> modRecipes = new HashMap<>();
+        for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
+            if (MOD_ID.equals(holder.id().identifier().getNamespace())) {
+                modRecipes.put(holder.id().identifier(), holder);
+            }
+        }
+        List<String> problems = new ArrayList<>();
+
+        // Stonecutter cuts as "input -> count result", from the loaded recipes' displays.
+        ContextMap displayContext = SlotDisplayContext.fromLevel(level);
+        Set<String> cuts = new TreeSet<>();
+        for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
+            if (!(holder.value() instanceof StonecutterRecipe) || !MOD_ID.equals(holder.id().identifier().getNamespace())) {
+                continue;
+            }
+            for (RecipeDisplay display : holder.value().display()) {
+                if (!(display instanceof StonecutterRecipeDisplay cut)) {
+                    continue;
+                }
+                for (ItemStack in : cut.input().resolveForStacks(displayContext)) {
+                    for (ItemStack out : cut.result().resolveForStacks(displayContext)) {
+                        cuts.add(BuiltInRegistries.ITEM.getKey(in.getItem()).getPath() + " -> " + out.getCount() + " "
+                                + BuiltInRegistries.ITEM.getKey(out.getItem()).getPath());
+                    }
+                }
+            }
+        }
+
+        Set<String> expectedCuts = new TreeSet<>();
+        ItemStack pickaxe = new ItemStack(Items.IRON_PICKAXE);
+        BlockPos at = helper.absolutePos(new BlockPos(1, 1, 1));
+        StringBuilder mined = new StringBuilder();
+        StringBuilder minedExpected = new StringBuilder();
+        TagKey<Item> stairsItems = TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("stairs"));
+        TagKey<Item> slabItems = TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("slabs"));
+        TagKey<Item> wallItems = TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("walls"));
+
+        record BrickSet(String material, Block base, Block bricks, Block stairs, Block slab, Block wall, Block pillar,
+                        Block chiseled, int light) {
+        }
+        List<BrickSet> sets = List.of(
+                new BrickSet("astralit", ModBlocks.ASTRAL_END_STONE, ModBlocks.ASTRALIT_BRICKS, ModBlocks.ASTRALIT_BRICK_STAIRS,
+                        ModBlocks.ASTRALIT_BRICK_SLAB, ModBlocks.ASTRALIT_BRICK_WALL, ModBlocks.ASTRALIT_PILLAR,
+                        ModBlocks.CHISELED_ASTRALIT_BRICKS, 10),
+                new BrickSet("nihilith", ModBlocks.NIHIL_END_STONE, ModBlocks.NIHILITH_BRICKS, ModBlocks.NIHILITH_BRICK_STAIRS,
+                        ModBlocks.NIHILITH_BRICK_SLAB, ModBlocks.NIHILITH_BRICK_WALL, ModBlocks.NIHILITH_PILLAR,
+                        ModBlocks.CHISELED_NIHILITH_BRICKS, 0));
+
+        for (BrickSet set : sets) {
+            String m = set.material();
+            Item base = set.base().asItem();
+            Item bricks = set.bricks().asItem();
+            assertShapedRecipe(helper, modRecipes, m + "_bricks", bricks, 4, new String[]{"##", "##"}, Map.of('#', base), problems);
+            assertShapedRecipe(helper, modRecipes, m + "_brick_stairs", set.stairs().asItem(), 4,
+                    new String[]{"#  ", "## ", "###"}, Map.of('#', bricks), problems);
+            assertShapedRecipe(helper, modRecipes, m + "_brick_slab", set.slab().asItem(), 6, new String[]{"###"}, Map.of('#', bricks), problems);
+            assertShapedRecipe(helper, modRecipes, m + "_brick_wall", set.wall().asItem(), 6, new String[]{"###", "###"}, Map.of('#', bricks), problems);
+            assertShapedRecipe(helper, modRecipes, m + "_pillar", set.pillar().asItem(), 2, new String[]{"#", "#"}, Map.of('#', base), problems);
+            assertShapedRecipe(helper, modRecipes, "chiseled_" + m + "_bricks", set.chiseled().asItem(), 1,
+                    new String[]{"#", "#"}, Map.of('#', set.slab().asItem()), problems);
+
+            String basePath = BuiltInRegistries.ITEM.getKey(base).getPath();
+            for (Block cut : List.of(set.bricks(), set.stairs(), set.wall(), set.pillar(), set.chiseled())) {
+                expectedCuts.add(basePath + " -> 1 " + BuiltInRegistries.BLOCK.getKey(cut).getPath());
+            }
+            expectedCuts.add(basePath + " -> 2 " + BuiltInRegistries.BLOCK.getKey(set.slab()).getPath());
+            for (Block cut : List.of(set.stairs(), set.wall(), set.chiseled())) {
+                expectedCuts.add(m + "_bricks -> 1 " + BuiltInRegistries.BLOCK.getKey(cut).getPath());
+            }
+            expectedCuts.add(m + "_bricks -> 2 " + BuiltInRegistries.BLOCK.getKey(set.slab()).getPath());
+
+            for (Block block : List.of(set.bricks(), set.stairs(), set.slab(), set.wall(), set.pillar(), set.chiseled())) {
+                describeMining(helper, level, at, pickaxe, block.defaultBlockState(), mined);
+                expectMining(block, set.light(), 1, minedExpected);
+            }
+            BlockState doubleSlab = set.slab().defaultBlockState().setValue(SlabBlock.TYPE, SlabType.DOUBLE);
+            describeMining(helper, level, at, pickaxe, doubleSlab, mined);
+            expectMining(set.slab(), set.light(), 2, minedExpected);
+
+            String shapes = (set.stairs().defaultBlockState().is(BlockTags.STAIRS) ? "stairs " : "")
+                    + (set.slab().defaultBlockState().is(BlockTags.SLABS) ? "slabs " : "")
+                    + (set.wall().defaultBlockState().is(BlockTags.WALLS) ? "walls " : "")
+                    + (set.stairs().asItem().builtInRegistryHolder().is(stairsItems) ? "stairs-item " : "")
+                    + (set.slab().asItem().builtInRegistryHolder().is(slabItems) ? "slabs-item " : "")
+                    + (set.wall().asItem().builtInRegistryHolder().is(wallItems) ? "walls-item" : "");
+            helper.assertValueEqual(shapes, "stairs slabs walls stairs-item slabs-item walls-item",
+                    "the vanilla shape tags the " + m + " stairs, slab and wall belong to");
+        }
+
+        for (Block older : List.of(ModBlocks.POLISHED_END_STONE, ModBlocks.ASTRAL_END_STONE, ModBlocks.NIHIL_END_STONE,
+                ModBlocks.ASTRAL_PURPUR_BLOCK, ModBlocks.NIHIL_PURPUR_BLOCK)) {
+            describeMining(helper, level, at, pickaxe, older.defaultBlockState(), mined);
+            expectMining(older, older.defaultBlockState().getLightEmission(), 1, minedExpected);
+        }
+
+        Set<String> missingCuts = new TreeSet<>(expectedCuts);
+        missingCuts.removeAll(cuts);
+        Set<String> strayCuts = new TreeSet<>();
+        for (String cut : cuts) {
+            if ((cut.contains("astral") || cut.contains("nihil")) && !expectedCuts.contains(cut)) {
+                strayCuts.add(cut);
+            }
+        }
+        if (!missingCuts.isEmpty()) {
+            problems.add("stonecutter cuts missing: " + missingCuts);
+        }
+        if (!strayCuts.isEmpty()) {
+            problems.add("unexpected astralit/nihilith stonecutter cuts: " + strayCuts);
+        }
+
+        helper.assertValueEqual(mined.toString(), minedExpected.toString(), "how the end stone family is mined");
+        helper.assertTrue(problems.isEmpty(), "end brick set recipes: " + problems);
+        helper.succeed();
+    }
+
+    private static void describeMining(GameTestHelper helper, ServerLevel level, BlockPos at, ItemStack pickaxe,
+                                       BlockState state, StringBuilder out) {
+        StringBuilder drops = new StringBuilder();
+        for (ItemStack drop : Block.getDrops(state, level, at, null, null, pickaxe)) {
+            drops.append(drop.getCount()).append(' ').append(BuiltInRegistries.ITEM.getKey(drop.getItem()).getPath());
+        }
+        out.append(BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath())
+                .append(state.requiresCorrectToolForDrops() ? " needs a tool" : " by hand")
+                .append(pickaxe.isCorrectToolForDrops(state) ? ", pickaxe" : ", no pickaxe")
+                .append(", light ").append(state.getLightEmission())
+                .append(", drops ").append(drops).append("; ");
+    }
+
+    private static void expectMining(Block block, int light, int count, StringBuilder out) {
+        String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
+        out.append(path).append(" needs a tool, pickaxe, light ").append(light)
+                .append(", drops ").append(count).append(' ').append(path).append("; ");
+    }
+
+    /**
+     * The mod's items are split over four creative tabs - tools and enchanting, building blocks,
+     * materials, machines and storage - and every one of them sits in exactly one.
+     *
+     * <p><b>Registration</b>: all four tabs of {@code ModItemGroupsContent.Tab} are in the creative
+     * tab registry under {@code simplebuilding:<id>}, titled with their translation key, and no
+     * other {@code simplebuilding} tab exists - in particular not the single
+     * {@code building_items} tab that held everything before. The registered tab is what the loader
+     * built; {@code populate(tab, ...)} is what each loader hands it as content, so the
+     * membership below is driven through that.
+     *
+     * <p><b>Exactly one tab</b>: every registered mod item except the six legacy spatulas
+     * ({@link #ITEMS_NOT_IN_THE_CREATIVE_TAB}) comes out of one tab and only once. Two tabs or two
+     * entries would put the same item twice into the search tab; none takes it out of creative.
+     *
+     * <p><b>A sensible tab</b>: a sample of each tab's kind is pinned - the twelve new astralit and
+     * nihilith blocks among the building blocks, the ore detector and the enderite armour among the
+     * tools, ingots, ores, templates and the two enchanted apples among the materials, hoppers,
+     * pistons and every container among machines and storage - and all enchanted books are in the
+     * tools tab, none elsewhere.
+     *
+     * <p>What breaks this: a tab that is not registered, registered twice or under an old id; an
+     * item moved into a second tab or listed twice; an item dropped from every tab; books spread
+     * into another tab.
+     */
+    public static void everyModItemIsInExactlyOneCreativeTab(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+
+        Set<Identifier> tabIds = new HashSet<>();
+        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
+            Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, tab.id);
+            tabIds.add(id);
+            CreativeModeTab registered = BuiltInRegistries.CREATIVE_MODE_TAB.getValue(id);
+            if (registered == null) {
+                problems.add(id + " is not a registered creative tab");
+            } else if (!(registered.getDisplayName().getContents() instanceof TranslatableContents title)
+                    || !tab.translationKey().equals(title.getKey())) {
+                problems.add(id + " is titled " + registered.getDisplayName() + " instead of " + tab.translationKey());
+            }
+        }
+        for (Identifier id : BuiltInRegistries.CREATIVE_MODE_TAB.keySet()) {
+            if (MOD_ID.equals(id.getNamespace()) && !tabIds.contains(id)) {
+                problems.add(id + " is a creative tab ModItemGroupsContent.Tab does not know");
+            }
+        }
+
+        Map<Item, List<ModItemGroupsContent.Tab>> where = new HashMap<>();
+        Map<ModItemGroupsContent.Tab, Integer> books = new LinkedHashMap<>();
+        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
+            books.put(tab, 0);
+            ModItemGroupsContent.populate(tab, (CreativeModeTab.Output) (stack, visibility) -> {
+                if (stack.is(Items.ENCHANTED_BOOK)) {
+                    books.merge(tab, 1, Integer::sum);
+                } else {
+                    where.computeIfAbsent(stack.getItem(), item -> new ArrayList<>()).add(tab);
+                }
+            }, helper.getLevel().registryAccess());
+        }
+
+        Set<Identifier> modItems = new TreeSet<>(Comparator.comparing(Identifier::toString));
+        for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            if (MOD_ID.equals(id.getNamespace())) {
+                modItems.add(id);
+            }
+        }
+        for (Identifier id : modItems) {
+            List<ModItemGroupsContent.Tab> tabs = where.getOrDefault(BuiltInRegistries.ITEM.getValue(id), List.of());
+            int expected = ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath()) ? 0 : 1;
+            if (tabs.size() != expected) {
+                problems.add(id + " is offered " + tabs.size() + "x " + tabs + " instead of " + expected + "x");
+            }
+        }
+        for (Item item : where.keySet()) {
+            if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace())) {
+                problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
+            }
+        }
+
+        Map<ModItemGroupsContent.Tab, List<Item>> pinned = new LinkedHashMap<>();
+        pinned.put(ModItemGroupsContent.Tab.BUILDING_BLOCKS, List.of(
+                ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS, ModItems.ASTRALIT_BRICK_SLAB,
+                ModItems.ASTRALIT_BRICK_WALL, ModItems.ASTRALIT_PILLAR, ModItems.CHISELED_ASTRALIT_BRICKS,
+                ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS, ModItems.NIHILITH_BRICK_SLAB,
+                ModItems.NIHILITH_BRICK_WALL, ModItems.NIHILITH_PILLAR, ModItems.CHISELED_NIHILITH_BRICKS,
+                ModItems.ASTRAL_END_STONE, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.LEVITATING_SAND));
+        pinned.put(ModItemGroupsContent.Tab.TOOLS, List.of(
+                ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, ModItems.ENDERITE_SLEDGEHAMMER,
+                ModItems.DIAMOND_BUILDING_WAND, ModItems.OCTANT, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_HELMET));
+        pinned.put(ModItemGroupsContent.Tab.MATERIALS, List.of(
+                ModItems.ENDERITE_INGOT, ModItems.ASTRALIT_DUST, ModItems.NIHILITH_ORE_ITEM, ModItems.IRON_CORE,
+                ModItems.BASIC_UPGRADE_TEMPLATE, ModItems.GLOWING_TRIM_TEMPLATE,
+                ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE));
+        pinned.put(ModItemGroupsContent.Tab.FUNCTIONAL, List.of(
+                ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_PISTON, ModItems.REINFORCED_FURNACE,
+                ModItems.ENDERITE_BUNDLE, ModItems.QUIVER, ModItems.BACKPACK, ModItems.ENDERITE_BACKPACK));
+        pinned.forEach((tab, items) -> {
+            for (Item item : items) {
+                List<ModItemGroupsContent.Tab> tabs = where.getOrDefault(item, List.of());
+                if (!tabs.equals(List.of(tab))) {
+                    problems.add(BuiltInRegistries.ITEM.getKey(item) + " belongs in " + tab + " but is in " + tabs);
+                }
+            }
+        });
+
+        int modEnchantments = (int) helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())).count();
+        Map<ModItemGroupsContent.Tab, Integer> expectedBooks = new LinkedHashMap<>();
+        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
+            expectedBooks.put(tab, tab == ModItemGroupsContent.Tab.TOOLS ? modEnchantments : 0);
+        }
+        helper.assertValueEqual(books.toString(), expectedBooks.toString(), "enchanted books per creative tab");
+        helper.assertTrue(problems.isEmpty(), "creative tabs: " + problems);
         helper.succeed();
     }
 }

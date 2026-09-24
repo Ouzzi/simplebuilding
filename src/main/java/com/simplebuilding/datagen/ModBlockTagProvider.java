@@ -74,6 +74,36 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(key(ModBlocks.NIHILITH_QUARTZ_CHECKER))
                 .add(key(ModBlocks.ASTRALIT_QUARTZ_CHECKER));
 
+        // Endstein-Familie: alle kopieren den polierten Endstein bzw. Purpur und verlangen damit
+        // eine Spitzhacke fuer ihren Drop - ohne diesen Tag fiele beim Abbau nichts heraus.
+        builder(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(key(ModBlocks.POLISHED_END_STONE))
+                .add(key(ModBlocks.ASTRAL_END_STONE))
+                .add(key(ModBlocks.NIHIL_END_STONE))
+                .add(key(ModBlocks.ASTRAL_PURPUR_BLOCK))
+                .add(key(ModBlocks.NIHIL_PURPUR_BLOCK))
+                .add(key(ModBlocks.ASTRALIT_BRICKS))
+                .add(key(ModBlocks.ASTRALIT_BRICK_STAIRS))
+                .add(key(ModBlocks.ASTRALIT_BRICK_SLAB))
+                .add(key(ModBlocks.ASTRALIT_BRICK_WALL))
+                .add(key(ModBlocks.ASTRALIT_PILLAR))
+                .add(key(ModBlocks.CHISELED_ASTRALIT_BRICKS))
+                .add(key(ModBlocks.NIHILITH_BRICKS))
+                .add(key(ModBlocks.NIHILITH_BRICK_STAIRS))
+                .add(key(ModBlocks.NIHILITH_BRICK_SLAB))
+                .add(key(ModBlocks.NIHILITH_BRICK_WALL))
+                .add(key(ModBlocks.NIHILITH_PILLAR))
+                .add(key(ModBlocks.CHISELED_NIHILITH_BRICKS));
+        builder(BlockTags.STAIRS)
+                .add(key(ModBlocks.ASTRALIT_BRICK_STAIRS))
+                .add(key(ModBlocks.NIHILITH_BRICK_STAIRS));
+        builder(BlockTags.SLABS)
+                .add(key(ModBlocks.ASTRALIT_BRICK_SLAB))
+                .add(key(ModBlocks.NIHILITH_BRICK_SLAB));
+        builder(BlockTags.WALLS)
+                .add(key(ModBlocks.ASTRALIT_BRICK_WALL))
+                .add(key(ModBlocks.NIHILITH_BRICK_WALL));
+
         // Needs Diamond Tool (oder Netherite)
         builder(BlockTags.NEEDS_DIAMOND_TOOL)
                 .add(key(ModBlocks.NIHILITH_ORE))
