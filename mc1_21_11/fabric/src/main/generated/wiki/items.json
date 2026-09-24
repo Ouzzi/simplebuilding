@@ -1,36 +1,40 @@
 {
   "blocks": [
-    "simplebuilding:astralit_ore",
-    "simplebuilding:nihil_end_stone",
-    "simplebuilding:netherite_piston_head",
-    "simplebuilding:reinforced_sticky_piston",
-    "simplebuilding:reinforced_furnace",
-    "simplebuilding:nihil_purpur_block",
-    "simplebuilding:construction_light",
-    "simplebuilding:resin_quartz_checker",
-    "simplebuilding:purpur_quartz_checker",
-    "simplebuilding:reinforced_piston",
-    "simplebuilding:reinforced_hopper",
-    "simplebuilding:cracked_diamond_block",
-    "simplebuilding:astral_end_stone",
-    "simplebuilding:netherite_smoker",
-    "simplebuilding:lapis_quartz_checker",
-    "simplebuilding:nihilith_ore",
-    "simplebuilding:astral_purpur_block",
-    "simplebuilding:netherite_piston",
-    "simplebuilding:blackstone_quartz_checker",
-    "simplebuilding:netherite_hopper",
-    "simplebuilding:levitating_sand",
-    "simplebuilding:polished_end_stone",
-    "simplebuilding:reinforced_smoker",
-    "simplebuilding:enderite_piston",
     "simplebuilding:enderite_block",
-    "simplebuilding:reinforced_blast_furnace",
+    "simplebuilding:astralit_ore",
+    "simplebuilding:netherite_furnace",
+    "simplebuilding:backpack",
+    "simplebuilding:levitating_sand",
+    "simplebuilding:blackstone_quartz_checker",
+    "simplebuilding:resin_quartz_checker",
+    "simplebuilding:netherite_hopper",
+    "simplebuilding:netherite_piston_head",
+    "simplebuilding:polished_end_stone",
+    "simplebuilding:astral_end_stone",
+    "simplebuilding:nihilith_ore",
+    "simplebuilding:purpur_quartz_checker",
+    "simplebuilding:reinforced_smoker",
+    "simplebuilding:netherite_backpack",
+    "simplebuilding:nihil_end_stone",
+    "simplebuilding:construction_light",
+    "simplebuilding:lapis_quartz_checker",
+    "simplebuilding:netherite_piston",
+    "simplebuilding:netherite_smoker",
+    "simplebuilding:reinforced_hopper",
     "simplebuilding:levitating_gravel",
-    "simplebuilding:suspended_gravel",
-    "simplebuilding:netherite_blast_furnace",
+    "simplebuilding:reinforced_furnace",
+    "simplebuilding:astral_purpur_block",
+    "simplebuilding:reinforced_sticky_piston",
     "simplebuilding:suspended_sand",
-    "simplebuilding:netherite_furnace"
+    "simplebuilding:enderite_backpack",
+    "simplebuilding:reinforced_blast_furnace",
+    "simplebuilding:reinforced_backpack",
+    "simplebuilding:netherite_blast_furnace",
+    "simplebuilding:cracked_diamond_block",
+    "simplebuilding:enderite_piston",
+    "simplebuilding:suspended_gravel",
+    "simplebuilding:reinforced_piston",
+    "simplebuilding:nihil_purpur_block"
   ],
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
   "items": [
@@ -45,6 +49,10 @@
     },
     {
       "id": "simplebuilding:astralit_ore"
+    },
+    {
+      "id": "simplebuilding:backpack",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:basic_upgrade_template"
@@ -152,6 +160,10 @@
       "durability": 2530,
       "enchantability": 18,
       "id": "simplebuilding:enderite_axe",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_backpack",
       "maxStackSize": 1
     },
     {
@@ -369,6 +381,10 @@
       "id": "simplebuilding:netherite_apple"
     },
     {
+      "id": "simplebuilding:netherite_backpack",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:netherite_blast_furnace"
     },
     {
@@ -567,6 +583,10 @@
     },
     {
       "id": "simplebuilding:raw_enderite"
+    },
+    {
+      "id": "simplebuilding:reinforced_backpack",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:reinforced_blast_furnace"
