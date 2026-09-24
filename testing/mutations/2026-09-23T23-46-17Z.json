@@ -1,0 +1,286 @@
+{
+  "catalogue": "p9",
+  "targets": [
+    "client-fabric-262",
+    "fabric-262"
+  ],
+  "lines": [
+    "26.2"
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-23T23-21-01Z-d2fb",
+      "log": "runs/2026-09-23T23-21-01Z-d2fb-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-wand-break-main-hand",
+          "script": "building_wand_game_test_off_hand_click_is_passed_on_and_the_wand_stops_outside_both_hands",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(3887953, -59, -9518866) the wand broke in the off hand and took the main hand sword's modifiers [minecraft:base_attack_damage, minecraft:base_attack_speed] (of [minecraft:base_attack_damage, minecraft:base_attack_speed]) with it: the break was billed to the main hand on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 2,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-23T23-21-25Z-ae7f",
+      "log": "runs/2026-09-23T23-21-25Z-ae7f-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-wand-forced-axis-centred",
+          "script": "building_wand_game_test_clicked_face_sets_the_plane_until_an_axis_mode_overrides_it",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(10410944, -59, -11113375) Expected axis mode 2 on the north face did not build the horizontal 3x3 around the block in front of the clicked face, less the clicked block itself to be [BlockPos{x=2, y=3, z=1}, BlockPos{x=2, y=3, z=2}, BlockPos{x=2, y=3, z=3}, BlockPos{x=3, y=3, z=1}, BlockPos{x=3, y=3, z=2}, BlockPos{x=4, y=3, z=1}, BlockPos{x=4, y=3, z=2}, BlockPos{x=4, y=3, z=3}]: was [BlockPos{x=2, y=4, z=2}, BlockPos{x=2, y=4, z=3}, BlockPos{x=2, y=4, z=4}, BlockPos{x=3, y=4, z=2}, BlockPos{x=3, y=4, z=3}, BlockPos{x=3, y=4, z=4}, BlockPos{x=4, y=4, z=2}, BlockPos{x=4, y=4, z=3}, BlockPos{x=4, y=4, z=4}] on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 3,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-23T23-21-44Z-b05c",
+      "log": "runs/2026-09-23T23-21-44Z-b05c-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-wand-negative-radius-grows",
+          "script": "building_wand_game_test_wand_tier_caps_the_radius_setting_and_sizes_the_plane",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-11715621, -59, 10978495) Expected a stored radius of -1 did not build exactly the single centre block the preview shows (WandEnchantmentTests pins the preview half) to be [BlockPos{x=3, y=4, z=3}]: was [BlockPos{x=2, y=4, z=2}, BlockPos{x=2, y=4, z=3}, BlockPos{x=2, y=4, z=4}, BlockPos{x=3, y=4, z=2}, BlockPos{x=3, y=4, z=3}, BlockPos{x=3, y=4, z=4}, BlockPos{x=4, y=4, z=2}, BlockPos{x=4, y=4, z=3}, BlockPos{x=4, y=4, z=4}] on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 4,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-23T23-22-02Z-6745",
+      "log": "runs/2026-09-23T23-22-02Z-6745-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-octant-lock-scroll",
+          "script": "octant_game_test_octant_scroll_packets_only_ever_touch_the_main_hand",
+          "file": "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-1981027, -59, -6311689) an alt scroll changed the shape of a LOCKED octant; the server has to refuse the packet itself, not rely on the client's mouse mixin on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 5,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-23T23-22-21Z-57ea",
+      "log": "runs/2026-09-23T23-22-21Z-57ea-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-breaker-before-recheck",
+          "script": "gravity_block_game_test_netherite_piston_breaks_only_what_the_signal_strength_can_afford",
+          "file": "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-4345395, -59, -6228706) the netherite piston destroyed the redstone block in front of it on a block event vanilla's own signal check refuses - it broke before asking whether it extends on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 6,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-23T23-22-39Z-4f52",
+      "log": "runs/2026-09-23T23-22-39Z-4f52-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-hopper-from-glass",
+          "script": "hopper_game_test_hopper_blocks_carry_their_registered_strength_sound_and_tags",
+          "file": "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(9623641, -59, -14215780) simplebuilding:reinforced_hopper drops to a bare hand (requiresCorrectToolForDrops is false), unlike vanilla's hopper it is built from on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 7,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-23T23-22-56Z-d28c",
+      "log": "runs/2026-09-23T23-22-56Z-d28c-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-furnace-from-glass",
+          "script": "furnace_game_test_furnace_blocks_carry_their_registered_hardness_resistance_and_tags",
+          "file": "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-12100014, -59, -1028496) the reinforced furnace drops to a bare hand (requiresCorrectToolForDrops is false), unlike the vanilla block it is built from on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 8,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-23T23-23-13Z-9214",
+      "log": "runs/2026-09-23T23-23-13Z-9214-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-enderite-hammer-untagged",
+          "script": "wand_enchantment_game_test_the_building_enchantments_reach_every_tool_whose_code_reads_them",
+          "file": "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(867778, -59, 69250) building enchantment tag problems: [Constructor's Touch cannot be put on simplebuilding:enderite_sledgehammer, although that item's code reads the enchantment - the branch is dead, simplebuilding:break_through cannot be put on simplebuilding:enderite_sledgehammer, so simplebuilding:sledgehammer_tools has lost that tier, simplebuilding:radius cannot be put on simplebuilding:enderite_sledgehammer, so simplebuilding:sledgehammer_tools has lost that tier, simplebuilding:override cannot be put on simplebuilding:enderite_sledgehammer, so simplebuilding:sledgehammer_tools has lost that tier] on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 9,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-23T23-23-32Z-ffa3",
+      "log": "runs/2026-09-23T23-23-32Z-ffa3-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-command-limit-widened",
+          "script": "trim_wiring_game_test_the_trim_multiplier_command_guards_its_range_and_its_permission",
+          "file": "common/src/shared/java/com/simplebuilding/command/SimplebuildingCommand.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-556585, -59, 8173396) /simplebuilding config setTrimMultiplier 10.5 was accepted from a value above the limit on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 10,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-23T23-23-51Z-3094",
+      "log": "runs/2026-09-23T23-23-51Z-3094-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-stick-ignores-sneak",
+          "script": "building_enchantment_game_test_constructors_touch_stick_cycles_the_first_block_state_property",
+          "file": "common/src/shared/java/com/simplebuilding/util/ConstructorsTouchInteraction.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-13060092, -59, 4891067) sneaking did not step the axis back Y -> X, it is z on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 1,
+      "target": "client-fabric-262",
+      "kind": "client",
+      "run": "2026-09-23T23-24-08Z-ae1e",
+      "log": "runs/2026-09-23T23-24-08Z-ae1e-client-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-lang-nihilith-item",
+          "script": "smoke",
+          "file": "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: the client language has no entry for [item.simplebuilding.nihilith_ore]"
+        },
+        {
+          "id": "p9-hopper-container-index",
+          "script": "hud-and-tooltip",
+          "file": "common/src/shared/java/com/simplebuilding/client/gui/NetheriteHopperScreen.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: After clicking hotbar slot 0 with a filter active - a hotbar click is not a filter click, whatever its container index the cursor carries 0 minecraft:air instead of 5 minecraft:cobblestone."
+        },
+        {
+          "id": "p9-trim-enderite-row",
+          "script": "mod-screens",
+          "file": "common/src/shared/java/com/simplebuilding/client/gui/TrimReferenceScreen.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The trim reference screen disagrees with the server: the Enderite row reads \"Void Shield (4x Pattern Boost!): 10,0% -> 0,0%\" - the server gives 5% against all damage per piece (TrimEffectUtil: enderiteParts * 0.05f); the Enderite row reads \"Void Shield (4x Pattern Boost!): 10,0% -> 0,0%\" - an Enderite piece counts 3.5 times for its pattern, not 4 times."
+        },
+        {
+          "id": "p9-cracks-need-isdestroying",
+          "script": "multi-block-breaking",
+          "file": "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Vanilla was mining the target in its sameDestroyTarget branch and drawing its crack, but MultiBlockBreakingSupport added none of [BlockPos{x=9, y=0, z=20}, BlockPos{x=9, y=1, z=20}, BlockPos{x=9, y=2, z=20}, BlockPos{x=10, y=0, z=20}, BlockPos{x=10, y=2, z=20}, BlockPos{x=11, y=0, z=20}, BlockPos{x=11, y=1, z=20}, BlockPos{x=11, y=2, z=20}] - it is gated on isDestroying again. Recorded: [BlockPos{x=10, y=1, z=20}]."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 2,
+      "target": "client-fabric-262",
+      "kind": "client",
+      "run": "2026-09-23T23-30-23Z-1c07",
+      "log": "runs/2026-09-23T23-30-23Z-1c07-client-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-frame-sound-skips-player",
+          "script": "smoke",
+          "file": "common/src/shared/java/com/simplebuilding/mixin/ItemFrameEntityMixin.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The item frame step \"lock with a glass pane\" showed its message but the acting player heard no minecraft:block.glass.place (heard []). A sound played with player.playSound skips exactly this player on the server."
+        },
+        {
+          "id": "p9-config-button-throws",
+          "script": "mod-screens",
+          "file": "src/main/java/com/simplebuilding/compat/ModMenuIntegration.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.IllegalStateException: Failed to open Simplebuilding config screen"
+        },
+        {
+          "id": "p9-cracks-ignore-vanilla",
+          "script": "multi-block-breaking",
+          "file": "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: With the button released and a stale destroy stage, looking at BlockPos{x=13, y=1, z=20} with the sledgehammer cracked [BlockPos{x=12, y=0, z=20}, BlockPos{x=12, y=1, z=20}, BlockPos{x=12, y=2, z=20}, BlockPos{x=13, y=0, z=20}, BlockPos{x=13, y=2, z=20}, BlockPos{x=14, y=0, z=20}, BlockPos{x=14, y=1, z=20}, BlockPos{x=14, y=2, z=20}]. Vanilla draws no crack there, and the extra cracks have to follow vanilla's own. Recorded: [BlockPos{x=10, y=1, z=20}, BlockPos{x=12, y=0, z=20}, BlockPos{x=12, y=1, z=20}, BlockPos{x=12, y=2, z=20}, BlockPos{x=13, y=0, z=20}, BlockPos{x=13, y=2, z=20}, BlockPos{x=14, y=0, z=20}, BlockPos{x=14, y=1, z=20}, BlockPos{x=14, y=2, z=20}]."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 3,
+      "target": "client-fabric-262",
+      "kind": "client",
+      "run": "2026-09-23T23-38-31Z-44d4",
+      "log": "runs/2026-09-23T23-38-31Z-44d4-client-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p9-detector-click-skips-player",
+          "script": "smoke",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Switching the Ore Detector's mode played no minecraft:ui.button.click the switching player could hear (heard []). Played with Player#playSound it skips exactly this player on the server."
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}

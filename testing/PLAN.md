@@ -1,6 +1,6 @@
 # Weg zu vollständiger Abdeckung
 
-Stand: 2026-09-10, Commit `2fa1710`. Ziel ist, dass jedes Verhalten der Mod auf **beiden
+Stand: 2026-09-24, Commit `d63a419` (davor 2026-09-10, `2fa1710`). Ziel ist, dass jedes Verhalten der Mod auf **beiden
 Minecraft-Linien und beiden Modloadern** von einem Test gedeckt ist, der rot wird, wenn das
 Verhalten kaputtgeht — und dass alles, was das nicht sein kann, benannt ist statt vergessen.
 
@@ -14,14 +14,15 @@ Verhalten kaputtgeht — und dass alles, was das nicht sein kann, benannt ist st
 |---|---:|
 | Fabric · MC 26.2 | 271 |
 | NeoForge · MC 26.2 | 271 |
-| Fabric · MC 1.21.11 | 268 |
-| NeoForge · MC 1.21.11 | 268 |
+| Fabric · MC 1.21.11 | 269 |
+| NeoForge · MC 1.21.11 | 269 |
 
-**265 Tests tragen auf beiden Linien dieselbe Id** — ein Bericht der einen Linie lässt sich Zeile
-für Zeile neben den der anderen legen. Die sechs Abweichungen stehen als `LINE_DIFFERENCES` in
-`tools/testrunner/run.py`, und zwar als **Gegenstücke**, nicht als Ausnahmen: vier prüfen etwas,
-das es auf 1.21.11 gar nicht gibt (datengetriebene Handelsangebote gibt es erst ab MC 26.1, die
-gemeinsame `ConstructorsTouchInteraction` erst ab 26.2), zwei zeigen auf ihr Gegenüber auf der
+**266 Tests tragen auf beiden Linien dieselbe Id** — ein Bericht der einen Linie lässt sich Zeile
+für Zeile neben den der anderen legen. Die fünf Abweichungen stehen als `LINE_DIFFERENCES` in
+`tools/testrunner/run.py`, und zwar als **Gegenstücke**, nicht als Ausnahmen: drei prüfen etwas,
+das es auf 1.21.11 gar nicht gibt (datengetriebene Handelsangebote gibt es erst ab MC 26.1; die
+gemeinsame `ConstructorsTouchInteraction` gibt es seit 2026-09-24 auf beiden Linien, ihr Test läuft
+jetzt auch auf 1.21.11), zwei zeigen auf ihr Gegenüber auf der
 anderen Linie, das dieselbe Aussage über einen anderen Mechanismus erreicht. Ein Eintrag sagt
 damit nicht „ignorier das", sondern „das hier deckt es drüben ab" — und wird rot, sobald er nicht
 mehr stimmt.
@@ -308,8 +309,11 @@ nach oben, weil ein Klick *auf* einen Block kalibriert statt zu wechseln); Symbo
 Trim-Knopfs aus dem GUI-Renderzustand (Partikel-Sprite des gezeichneten Items, die zwei
 Tooltip-Zeilen mit dem echten Cursor auf dem Knopf). Der Spachtel-Ton war schon gedeckt.
 
-Die 27 Entscheidungen sind keine Testlücken, sondern Verhalten, das ein Test nur zementieren
-würde: sieben davon betreffen das Forge-Modul (kein Gametest, kein HUD, eigene Kopien der Logik),
+**Stand 2026-09-24: alle 27 aufgelöst** (siehe `P4-TRIAGE-2026-09-10.md`, letzter Abschnitt, und
+`p4.stand` je Eintrag) - behoben mit Test und Gegenprobe (Katalog `P9_MUTATIONS`, 18 Mutationen,
+rot auf beiden Linien und allen vier Client-Zielen: `testing/mutations/2026-09-23T23-46-17Z.json`,
+`2026-09-24T00-07-40Z`, `00-33-11Z`, `00-54-48Z`), als Regel dokumentiert oder als
+Forge-Einschränkung geführt. Ursprüngliche Einordnung: sieben davon betreffen das Forge-Modul (kein Gametest, kein HUD, eigene Kopien der Logik),
 vier die Enderit-Stufe in Tags (Stab, Bündel, Köcher — nach der Entscheidung vom 2026-09-09
 vermutlich nachzuziehen), vier die Öfen (Sprachschlüssel, Werkzeug-Tags, Leuchtstärke,
 Glas-Eigenschaften), der Rest Einzelfälle (Trichter-Broadcast, `loadAdditional` ohne Klemme,
@@ -602,8 +606,9 @@ Ehrlich benannt, damit niemand es für eine Lücke hält:
 Bereiche, beide Linien)~~ → ~~Gegenproben der P4-Client-Tests auf allen vier Zielen~~.
 
 **Alle Pakete sind abgeschlossen** — P1 bis P8 am 2026-09-10, P6b und die Client-Gegenproben auf
-allen vier Zielen am 2026-09-11 bis 13. Was bleibt, steht in Abschnitt 5, und die 27
-Entscheidungen des Besitzers aus P4 sind Verhalten, kein Rückstand. Der Stand ist mit
+allen vier Zielen am 2026-09-11 bis 13; die 27 Entscheidungen aus P4 am 2026-09-24 aufgelöst
+(Gate-Lauf `2026-09-23T22-44-14Z-991a` + `23-19-33Z-f1e8`: 271/271/269/269, 4 × 102/102; P9 18/18 rot).
+Was bleibt, steht in Abschnitt 5. Der Stand ist mit
 `python tools/testrunner/run.py --release-gate --targets everything` reproduzierbar: Gate
 (`gradlew check`, Wiki, Client-Port, Körper-Drift, Id-Parität, Mutationsanker), 1078 Servertests
 auf vier Zielen, 102 Prüfpunkte je Client-Ziel. Letzter Gate-Lauf (`2026-09-10T15-38-40Z-cfa0`,

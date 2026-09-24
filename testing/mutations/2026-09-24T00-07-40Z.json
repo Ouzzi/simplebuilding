@@ -1,0 +1,105 @@
+{
+  "catalogue": "p9",
+  "targets": [
+    "client-neoforge-262"
+  ],
+  "lines": [
+    "26.2"
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "target": "client-neoforge-262",
+      "kind": "client",
+      "run": "2026-09-23T23-46-17Z-a8e9",
+      "log": "runs/2026-09-23T23-46-17Z-a8e9-client-neoforge-262.log",
+      "mutations": [
+        {
+          "id": "p9-lang-nihilith-item",
+          "script": "smoke",
+          "file": "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: the client language has no entry for [item.simplebuilding.nihilith_ore]"
+        },
+        {
+          "id": "p9-hopper-container-index",
+          "script": "hud-and-tooltip",
+          "file": "common/src/shared/java/com/simplebuilding/client/gui/NetheriteHopperScreen.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: After clicking hotbar slot 0 with a filter active - a hotbar click is not a filter click, whatever its container index the cursor carries 0 minecraft:air instead of 5 minecraft:cobblestone."
+        },
+        {
+          "id": "p9-trim-enderite-row",
+          "script": "mod-screens",
+          "file": "common/src/shared/java/com/simplebuilding/client/gui/TrimReferenceScreen.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The trim reference screen disagrees with the server: the Enderite row reads \"Void Shield (4x Pattern Boost!): 10,0% -> 0,0%\" - the server gives 5% against all damage per piece (TrimEffectUtil: enderiteParts * 0.05f); the Enderite row reads \"Void Shield (4x Pattern Boost!): 10,0% -> 0,0%\" - an Enderite piece counts 3.5 times for its pattern, not 4 times."
+        },
+        {
+          "id": "p9-cracks-need-isdestroying",
+          "script": "multi-block-breaking",
+          "file": "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Vanilla was mining the target in its sameDestroyTarget branch and drawing its crack, but MultiBlockBreakingSupport added none of [BlockPos{x=9, y=0, z=20}, BlockPos{x=9, y=1, z=20}, BlockPos{x=9, y=2, z=20}, BlockPos{x=10, y=0, z=20}, BlockPos{x=10, y=2, z=20}, BlockPos{x=11, y=0, z=20}, BlockPos{x=11, y=1, z=20}, BlockPos{x=11, y=2, z=20}] - it is gated on isDestroying again. Recorded: [BlockPos{x=10, y=1, z=20}]."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 2,
+      "target": "client-neoforge-262",
+      "kind": "client",
+      "run": "2026-09-23T23-52-19Z-ffea",
+      "log": "runs/2026-09-23T23-52-19Z-ffea-client-neoforge-262.log",
+      "mutations": [
+        {
+          "id": "p9-frame-sound-skips-player",
+          "script": "smoke",
+          "file": "common/src/shared/java/com/simplebuilding/mixin/ItemFrameEntityMixin.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: The item frame step \"lock with a glass pane\" showed its message but the acting player heard no minecraft:block.glass.place (heard []). A sound played with player.playSound skips exactly this player on the server."
+        },
+        {
+          "id": "p9-config-button-throws",
+          "script": "mod-screens",
+          "file": "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.IllegalStateException: Failed to open Simplebuilding config screen"
+        },
+        {
+          "id": "p9-cracks-ignore-vanilla",
+          "script": "multi-block-breaking",
+          "file": "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: With the button released and a stale destroy stage, looking at BlockPos{x=13, y=1, z=20} with the sledgehammer cracked [BlockPos{x=12, y=0, z=20}, BlockPos{x=12, y=1, z=20}, BlockPos{x=12, y=2, z=20}, BlockPos{x=13, y=0, z=20}, BlockPos{x=13, y=2, z=20}, BlockPos{x=14, y=0, z=20}, BlockPos{x=14, y=1, z=20}, BlockPos{x=14, y=2, z=20}]. Vanilla draws no crack there, and the extra cracks have to follow vanilla's own. Recorded: [BlockPos{x=10, y=1, z=20}, BlockPos{x=12, y=0, z=20}, BlockPos{x=12, y=1, z=20}, BlockPos{x=12, y=2, z=20}, BlockPos{x=13, y=0, z=20}, BlockPos{x=13, y=2, z=20}, BlockPos{x=14, y=0, z=20}, BlockPos{x=14, y=1, z=20}, BlockPos{x=14, y=2, z=20}]."
+        }
+      ],
+      "collateral": {}
+    },
+    {
+      "round": 3,
+      "target": "client-neoforge-262",
+      "kind": "client",
+      "run": "2026-09-24T00-00-10Z-102e",
+      "log": "runs/2026-09-24T00-00-10Z-102e-client-neoforge-262.log",
+      "mutations": [
+        {
+          "id": "p9-detector-click-skips-player",
+          "script": "smoke",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "java.lang.AssertionError: Switching the Ore Detector's mode played no minecraft:ui.button.click the switching player could hear (heard []). Played with Player#playSound it skips exactly this player on the server."
+        }
+      ],
+      "collateral": {}
+    }
+  ]
+}
