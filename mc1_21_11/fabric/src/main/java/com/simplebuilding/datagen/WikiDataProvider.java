@@ -19,6 +19,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.enchantment.Enchantable;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -115,6 +116,12 @@ public class WikiDataProvider implements DataProvider {
         root.addProperty("note", "Aus der Item-Registry erzeugt (gradlew runDatagen) - nicht von Hand aendern.");
         root.add("items", items);
         root.add("blocks", blocks);
+        // Vanilla-Vergleichswerte fuer die Kernzeile der aufgewerteten Maschinen im Wiki
+        // ("x-mal so schnell wie Vanilla"). Aus der Konstante, gegen die die Mod gebaut wird,
+        // nicht abgeschrieben: aendert Mojang den Trichtertakt, zieht das Wiki mit.
+        JsonObject vanilla = new JsonObject();
+        vanilla.addProperty("hopperMoveItemSpeed", HopperBlockEntity.MOVE_ITEM_SPEED);
+        root.add("vanilla", vanilla);
 
         Path wiki = this.output.getOutputFolder().resolve("wiki");
         // Umwandlungen in der Welt (Aufwertung, Umformen, Meissel ...): dieselben Tabellen und
