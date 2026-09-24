@@ -36,7 +36,8 @@ import org.jetbrains.annotations.Nullable;
  * Positionen behalten ihren Eintrag, bis sie wieder geladen sind.
  *
  * <p><b>Anzeige.</b> Alle Spieler in 32 Bloecken Umkreis sehen den Fortschritt als Risse im Block -
- * dieselben Stufen wie beim Abbauen: 1, 3, 5 und 7 von 0..9 nach Schlag 1..4. Der Client wirft
+ * dieselben Stufen wie beim Abbauen: 2, 4, 6 und 8 von 0..9 nach Schlag 1..4 (1/3/5/7 waren auf
+ * dunklen Maschinen kaum zu sehen). Der Client wirft
  * solche Risse nach 400 Ticks ohne Auffrischung weg, und wer spaeter in die Naehe kommt, hat nie
  * ein Paket bekommen; deshalb sendet {@link #tick} sie alle {@value #REBROADCAST_TICKS} Ticks neu.
  * Jede Position hat eine eigene, negative Riss-Kennung, damit sie nie mit den Abbaurissen eines
@@ -140,7 +141,7 @@ public final class SledgehammerProgress extends SavedData {
 
     /** Die Riss-Stufe (0..9) nach so vielen Schlaegen, oder -1 fuer "keine Risse". */
     public static int crackStage(int hits) {
-        return hits <= 0 ? -1 : Math.min(9, hits * 2 - 1);
+        return hits <= 0 ? -1 : Math.min(9, hits * 2);
     }
 
     /** Jeder Server-Tick, von allen Loadern: Eintraege pruefen und Risse auffrischen. */

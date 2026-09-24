@@ -57,7 +57,7 @@ import org.jetbrains.annotations.Nullable;
  * verbraucht - im Kreativmodus weder Nugget noch Haltbarkeit.
  *
  * <p><b>Fortschritt.</b> Jeder Schlag 1..4 landet in {@link SledgehammerProgress} (je Block,
- * gespeichert, fuer alle sichtbar als Risse im Block, Stufe 1/3/5/7). Wer abbricht und spaeter wieder
+ * gespeichert, fuer alle sichtbar als Risse im Block, Stufe 2/4/6/8). Wer abbricht und spaeter wieder
  * haemmert, setzt dort fort: die Benutzung dauert nur noch die fehlenden Schlaege, und nur die kosten
  * Haltbarkeit. Die Aktionsleiste nennt den Stand bei jedem Schlag, beim Fortsetzen und beim Abbruch.
  * Der Stand verfaellt erst, wenn der Block abgebaut oder ein anderer wird (siehe dort). Der Client

@@ -114,11 +114,14 @@ public class HeldItemRendererMixin {
             }
             // Aufwertung: zwischen zwei Schlaegen wie ein Bogen ausholen, kurz vor dem Schlag nach
             // vorn sausen; den Schlag selbst zeigt der Armschwung, den der Server schickt.
-            float drawBack = config.tools.enableToolAnimations
-                    ? SledgehammerUpgrades.drawBack(SledgehammerUpgrades.blowPhase(player, tickProgress)) : 0.0F;
+            float phase = config.tools.enableToolAnimations ? SledgehammerUpgrades.blowPhase(player, tickProgress) : -1.0F;
+            float drawBack = SledgehammerUpgrades.drawBack(phase);
+            float followThrough = phase >= SledgehammerUpgrades.STRIKE_PHASE
+                    ? (float) Math.sin(Math.PI * (phase - SledgehammerUpgrades.STRIKE_PHASE) / (1.0F - SledgehammerUpgrades.STRIKE_PHASE))
+                    : 0.0F;
             this.mainHandHammerDrawBack = drawBack;
-            if (drawBack > 0.001F) {
-                this.applyHammerDrawBack(matrices, drawBack);
+            if (drawBack > 0.001F || followThrough > 0.001F) {
+                this.applyHammerDrawBack(matrices, drawBack, followThrough);
             }
         } else {
             this.offHandChiselProgress += (targetProgress - this.offHandChiselProgress) * smoothingSpeed;
@@ -144,11 +147,14 @@ public class HeldItemRendererMixin {
         return hand == InteractionHand.MAIN_HAND && SledgehammerUpgrades.isHammering(player) ? ItemUseAnimation.BUNDLE : original;
     }
 
-    /** Hammer nach hinten oben ziehen: Kopf zurueck ueber die Schulter, Griff angehoben. */
+    /**
+     * Hammer ausholen: angehoben und mit dem Kopf zur Schulter zurueckgekippt (so weit, dass er im
+     * Bild bleibt); im Schlag kippt er ueber die Ruhelage hinaus nach vorn auf die Maschine.
+     */
     @Unique
-    private void applyHammerDrawBack(PoseStack matrices, float drawBack) {
-        matrices.translate(0.0, 0.18 * drawBack, 0.12 * drawBack);
-        matrices.mulPose(Axis.XP.rotationDegrees(45.0F * drawBack));
+    private void applyHammerDrawBack(PoseStack matrices, float drawBack, float followThrough) {
+        matrices.translate(0.0, 0.2 * drawBack - 0.06 * followThrough, 0.06 * drawBack - 0.08 * followThrough);
+        matrices.mulPose(Axis.XP.rotationDegrees(28.0F * drawBack - 22.0F * followThrough));
     }
 
     @Unique
