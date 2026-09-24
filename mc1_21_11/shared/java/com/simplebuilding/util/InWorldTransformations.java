@@ -22,13 +22,15 @@ import net.minecraft.world.level.block.Blocks;
 
 /**
  * Beschreibt die Umwandlungen in der Welt - Maschinen-Aufwertung mit dem Vorschlaghammer,
- * Umformen, Diamantblock zerschlagen, Meissel und Spachtel, Schere auf Wolle - als JSON fuer das Wiki.
+ * Umformen, Diamantblock zerschlagen, Meissel und Spachtel, Schere auf Wolle, Besatzvorlage im
+ * Rahmen, Oktant im Kessel waschen - als JSON fuer das Wiki und den JEI-Katalog.
  *
  * <p>Der Datagen-Provider {@code WikiDataProvider} schreibt das Ergebnis nach
  * {@code src/main/generated/wiki/inworld.json}; {@code wiki/generate.py} macht daraus die
  * Kategorie "Umwandlung in der Welt". Alle Zahlen und Tabellen kommen aus denselben Konstanten
  * und Tabellen, die das Spiel benutzt ({@link SledgehammerUpgrades}, {@link SledgehammerItem},
- * {@link ChiselItem}); nichts ist hier abgeschrieben.
+ * {@link ChiselItem}, {@link SledgehammerEntityInteraction}, {@link OctantCauldronWash}); nichts ist
+ * hier abgeschrieben.
  *
  * <p>Kommt ohne {@code ItemStack} aus: im Datagen der 26.2-Linie liest dessen Konstruktor noch
  * nicht gebundene Komponenten.
@@ -46,6 +48,8 @@ public final class InWorldTransformations {
         root.add("diamondCrush", diamondCrush());
         root.add("chisel", chisel());
         root.add("shearWool", shearWool());
+        root.add("trimTemplate", trimTemplate());
+        root.add("cauldronWash", cauldronWash());
         return root;
     }
 
@@ -180,6 +184,55 @@ public final class InWorldTransformations {
         o.addProperty("result", id(Items.STRING));
         o.addProperty("count", ShearsWoolInteraction.STRING_PER_WOOL);
         o.addProperty("damage", ShearsWoolInteraction.SHEARS_DAMAGE);
+        return o;
+    }
+
+    /**
+     * Besatzvorlage im Rahmen mit dem Vorschlaghammer aufwerten ({@link SledgehammerEntityInteraction}):
+     * jede Vorlage nach der Namensregel des Spiels, jeder Vorschlaghammer, je Nebenhand-Material das
+     * Ergebnis, dazu die Kosten.
+     */
+    public static JsonObject trimTemplate() {
+        JsonArray templates = new JsonArray();
+        List<String> templateIds = new ArrayList<>();
+        for (Item item : BuiltInRegistries.ITEM) {
+            if (SledgehammerEntityInteraction.isTrimTemplate(item)) {
+                templateIds.add(id(item));
+            }
+        }
+        templateIds.sort(Comparator.naturalOrder());
+        templateIds.forEach(templates::add);
+        JsonArray hammers = new JsonArray();
+        for (Item hammer : modItems(SledgehammerItem.class)) {
+            hammers.add(id(hammer));
+        }
+        JsonArray upgrades = new JsonArray();
+        for (Map.Entry<Item, Item> upgrade : SledgehammerEntityInteraction.trimUpgrades().entrySet()) {
+            JsonObject entry = new JsonObject();
+            entry.addProperty("catalyst", id(upgrade.getKey()));
+            entry.addProperty("catalystCount", SledgehammerEntityInteraction.CATALYST_COST);
+            entry.addProperty("result", id(upgrade.getValue()));
+            upgrades.add(entry);
+        }
+        JsonObject o = new JsonObject();
+        o.add("templates", templates);
+        o.add("hammers", hammers);
+        o.addProperty("damage", SledgehammerEntityInteraction.HAMMER_DAMAGE);
+        o.add("upgrades", upgrades);
+        return o;
+    }
+
+    /** Gefaerbten Oktanten im Wasserkessel waschen ({@link OctantCauldronWash}). */
+    public static JsonObject cauldronWash() {
+        JsonArray octants = new JsonArray();
+        for (Item octant : OctantCauldronWash.washableOctants()) {
+            octants.add(id(octant));
+        }
+        JsonObject o = new JsonObject();
+        o.add("octants", octants);
+        o.addProperty("cauldron", id(Items.CAULDRON));
+        o.addProperty("result", id(ModItems.OCTANT));
+        o.addProperty("waterLevels", OctantCauldronWash.WATER_LEVELS);
         return o;
     }
 

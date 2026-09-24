@@ -152,6 +152,13 @@ public final class InWorldExportTests {
      * every section has a category, nothing failed to resolve, every machine step, chisel pair (per
      * chisel), reshape pair, the diamond block and all sixteen wools arrive - and a few entries are
      * spelled out, so a catalog that followed a broken export would still fail.
+     *
+     * <p>The trim template in an item frame and washing an octant in a cauldron were listed by hand
+     * in the wiki until 2026-09-25; now they come from the same export. Both are held against the
+     * game here: all eighteen vanilla armor trim templates (counted from the item registry by their
+     * vanilla name, not by the export's rule), both off-hand materials with their result, every
+     * sledgehammer the mod registers as a tool, and the sixteen coloured octants washing into the
+     * plain one at a cauldron.
      */
     public static void jeiCatalogCoversEveryInWorldEntry(GameTestHelper helper) {
         InWorldRecipeCatalog.Catalog catalog = InWorldRecipeCatalog.build();
@@ -242,7 +249,55 @@ public final class InWorldExportTests {
                         && wool.output().items().get(0) == net.minecraft.world.item.Items.STRING && wool.output().count() == 4
                         && wool.tools().equals(java.util.List.of(net.minecraft.world.item.Items.SHEARS)),
                 "shears on any of the 16 wools -> 4 string in JEI");
+
+        JsonObject trim = described.getAsJsonObject("trimTemplate");
+        long vanillaTemplates = BuiltInRegistries.ITEM.stream()
+                .filter(i -> BuiltInRegistries.ITEM.getKey(i).getPath().endsWith("_armor_trim_smithing_template")).count();
+        java.util.List<Item> hammers = BuiltInRegistries.ITEM.stream()
+                .filter(i -> i instanceof SledgehammerItem && BuiltInRegistries.ITEM.getKey(i).getNamespace().equals("simplebuilding"))
+                .toList();
+        helper.assertTrue(vanillaTemplates == 18 && trim.getAsJsonArray("templates").size() == 18,
+                "18 vanilla armor trim templates, all exported: registry " + vanillaTemplates
+                        + ", export " + trim.getAsJsonArray("templates").size());
+        for (Object[] upgrade : new Object[][]{
+                {net.minecraft.world.item.Items.GLOW_INK_SAC, ModItems.GLOWING_TRIM_TEMPLATE},
+                {net.minecraft.world.item.Items.GLOWSTONE_DUST, ModItems.EMITTING_TRIM_TEMPLATE}}) {
+            Item result = (Item) upgrade[1];
+            InWorldRecipeCatalog.Entry entry = byId.get("trim_template/" + InWorldTransformations.id(result));
+            helper.assertTrue(entry != null && entry.inputs().size() == 2
+                            && entry.inputs().get(0).items().size() == 18
+                            && entry.inputs().get(0).items().contains(net.minecraft.world.item.Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE)
+                            && !entry.inputs().get(0).items().contains(ModItems.GLOWING_TRIM_TEMPLATE)
+                            && entry.inputs().get(1).items().equals(java.util.List.of((Item) upgrade[0]))
+                            && entry.inputs().get(1).count() == 1
+                            && entry.output().items().get(0) == result && entry.output().count() == 1
+                            && entry.tools().size() == hammers.size() && entry.tools().containsAll(hammers)
+                            && entry.tools().contains(ModItems.STONE_SLEDGEHAMMER),
+                    "any trim template + " + InWorldTransformations.id((Item) upgrade[0]) + " under any sledgehammer -> "
+                            + InWorldTransformations.id(result) + " in JEI, but was " + describe(entry));
+        }
+        helper.assertTrue(catalog.of(InWorldRecipeCatalog.Kind.TRIM_TEMPLATE).size() == 2,
+                "two trim template upgrades in JEI: " + catalog.of(InWorldRecipeCatalog.Kind.TRIM_TEMPLATE).size());
+
+        InWorldRecipeCatalog.Entry wash = byId.get("cauldron_wash");
+        java.util.List<Item> washed = wash == null ? java.util.List.of() : wash.inputs().get(0).items();
+        helper.assertTrue(wash != null && washed.size() == 16
+                        && washed.stream().allMatch(i -> i instanceof com.simplebuilding.items.custom.OctantItem && i != ModItems.OCTANT)
+                        && washed.contains(ModItems.COLORED_OCTANT_ITEMS.get(net.minecraft.world.item.DyeColor.RED))
+                        && wash.output().items().get(0) == ModItems.OCTANT && wash.output().count() == 1
+                        && wash.tools().equals(java.util.List.of(net.minecraft.world.item.Items.CAULDRON)),
+                "any of the 16 coloured octants at a cauldron -> the plain octant in JEI, but was " + describe(wash));
+        helper.assertTrue(described.getAsJsonObject("cauldronWash").get("waterLevels").getAsInt() == 1,
+                "washing costs one water level");
         TestCleanup.succeed(helper);
+    }
+
+    private static String describe(InWorldRecipeCatalog.Entry entry) {
+        if (entry == null) {
+            return "missing";
+        }
+        return entry.inputs().stream().map(s -> s.items().size() + "x" + s.count()).toList()
+                + " tools " + entry.tools().size() + " -> " + entry.output().items() + " x" + entry.output().count();
     }
 
     private static String reshapeTo(java.util.Map<String, InWorldRecipeCatalog.Entry> byId, String id) {

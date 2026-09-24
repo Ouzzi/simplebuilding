@@ -35,8 +35,8 @@ Das ist der Kern des Aufbaus, deshalb ausführlich.
 | Tags | `.../tags/**` (generiert und Ressourcen) |
 | Konfiguration | `common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java` |
 | Haltbarkeit, Stapelgröße, Verzauberbarkeit, Angriffswerte, Zauberstab-Durchmesser, Meißel-Abklingzeit | `src/main/generated/wiki/items.json` – vom Datagen-Provider `WikiDataProvider` aus der **Item-Registry** geschrieben |
-| Umwandlungen in der Welt (Maschinen-Aufwertung, Umformen, Diamantblock, Meißel) | `src/main/generated/wiki/inworld.json` – vom Datagen-Provider über `InWorldTransformations` aus denselben Tabellen und Konstanten geschrieben, die das Spiel benutzt |
-| Umwandlungen ohne Tabelle im Code (Besatzvorlage im Rahmen, Waschen im Kessel) und die Prosa je Art | `wiki/manual.json` → `inWorld` |
+| Umwandlungen in der Welt (Maschinen-Aufwertung, Umformen, Diamantblock, Meißel, Schere auf Wolle, Besatzvorlage im Rahmen, Waschen im Kessel) | `src/main/generated/wiki/inworld.json` – vom Datagen-Provider über `InWorldTransformations` aus denselben Tabellen und Konstanten geschrieben, die das Spiel benutzt |
+| Umwandlungen ohne Tabelle im Code (derzeit keine) und die Prosa je Art | `wiki/manual.json` → `inWorld` |
 | Vanilla-Rezepte für den Rezeptbaum, je Minecraft-Linie | `minecraft-client.jar` der Linie im Gradle-Cache → `wiki/data/vanilla-<linie>.js` (committet, nur Rezeptdaten und Item-Tags) |
 | Welche Items eigenes Verhalten haben | Registrierungen in `ModItems.java` / `ModBlocks.java` gegen die Klassen in `items/custom/` und `blocks/custom/` |
 
@@ -77,8 +77,8 @@ Item-Seite zeigen, was sich ohne Werkbank verwandelt – mit Werkzeug, Dauer, Sc
 Haltbarkeit und Mindeststufe. Die Zahlen und Tabellen schreibt der Datagen-Provider aus
 `InWorldTransformations` (geteilter Code, beide Linien) nach
 `src/main/generated/wiki/inworld.json`; die Spieltests `InWorldExportTests` halten den
-Export gegen das Spiel. Was keine Tabelle im Code hat, steht in `manual.json` unter
-`inWorld.entries` mit Quellen, die Prosa je Art unter `inWorld.kinds` (en + de, von
+Export gegen das Spiel. Derselbe Export speist das JEI-Plugin (`InWorldRecipeCatalog`). Was
+keine Tabelle im Code hat, stuende in `manual.json` unter `inWorld.entries` mit Quellen (derzeit leer), die Prosa je Art unter `inWorld.kinds` (en + de, von
 `--check` verlangt).
 
 ### Rezeptbaum und Vanilla-Rezepte

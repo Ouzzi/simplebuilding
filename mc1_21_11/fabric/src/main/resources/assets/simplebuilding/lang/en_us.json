@@ -444,6 +444,8 @@
   "jei.simplebuilding.category.diamond_crush": "Crushing (Sledgehammer)",
   "jei.simplebuilding.category.chisel": "Chiseling",
   "jei.simplebuilding.category.shear_wool": "Shearing Wool",
+  "jei.simplebuilding.category.trim_template": "Trim Template Upgrade (Sledgehammer)",
+  "jei.simplebuilding.category.cauldron_wash": "Washing (Cauldron)",
   "jei.simplebuilding.note.machine_upgrade.how": "Nugget in off hand, hold right-click",
   "jei.simplebuilding.note.machine_upgrade.time": "%s hits in %s s (%s ticks)",
   "jei.simplebuilding.note.machine_upgrade.damage": "%s durability per hit (%s total)",
@@ -454,6 +456,10 @@
   "jei.simplebuilding.note.chisel.forward": "Right-click the block",
   "jei.simplebuilding.note.chisel.reverse": "Sneak + right-click the block",
   "jei.simplebuilding.note.shear_wool.how": "Right-click placed wool",
+  "jei.simplebuilding.note.trim_template.how": "Template in an item frame, material in off hand, hit the frame",
+  "jei.simplebuilding.note.cauldron_wash.how": "Use it on a water cauldron",
+  "jei.simplebuilding.note.cauldron_wash.water": "Uses %s water level",
+  "jei.simplebuilding.note.cauldron_wash.keeps": "Saved measurements are kept",
   "jei.simplebuilding.note.damage": "Costs %s durability",
   "jei.simplebuilding.note.needs_touch": "Needs %s"
 }

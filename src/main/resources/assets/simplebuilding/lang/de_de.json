@@ -444,6 +444,8 @@
   "jei.simplebuilding.category.diamond_crush": "Zerschlagen (Vorschlaghammer)",
   "jei.simplebuilding.category.chisel": "Meißeln",
   "jei.simplebuilding.category.shear_wool": "Wolle scheren",
+  "jei.simplebuilding.category.trim_template": "Besatzvorlage aufwerten (Vorschlaghammer)",
+  "jei.simplebuilding.category.cauldron_wash": "Waschen (Kessel)",
   "jei.simplebuilding.note.machine_upgrade.how": "Nugget in der Nebenhand, Rechtsklick halten",
   "jei.simplebuilding.note.machine_upgrade.time": "%s Schläge in %s s (%s Ticks)",
   "jei.simplebuilding.note.machine_upgrade.damage": "%s Haltbarkeit je Schlag (%s gesamt)",
@@ -454,6 +456,10 @@
   "jei.simplebuilding.note.chisel.forward": "Rechtsklick auf den Block",
   "jei.simplebuilding.note.chisel.reverse": "Schleichen + Rechtsklick auf den Block",
   "jei.simplebuilding.note.shear_wool.how": "Rechtsklick auf platzierte Wolle",
+  "jei.simplebuilding.note.trim_template.how": "Vorlage im Rahmen, Material in der Nebenhand, Rahmen schlagen",
+  "jei.simplebuilding.note.cauldron_wash.how": "Auf einen Wasserkessel anwenden",
+  "jei.simplebuilding.note.cauldron_wash.water": "Kostet %s Stufe Wasser",
+  "jei.simplebuilding.note.cauldron_wash.keeps": "Gespeicherte Messungen bleiben erhalten",
   "jei.simplebuilding.note.damage": "Kostet %s Haltbarkeit",
   "jei.simplebuilding.note.needs_touch": "Braucht %s"
 }

@@ -16,7 +16,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * JEI support: one category per in-world transformation (machine upgrade, reshaping, diamond block,
- * chisel, shears on wool) and the count-based smithing recipes in JEI's smithing category.
+ * chisel, shears on wool, trim template in an item frame, washing an octant in a cauldron) and the
+ * count-based smithing recipes in JEI's smithing category.
  *
  * <p><b>Only loaded by JEI.</b> NeoForge finds this class through the {@link JeiPlugin} annotation,
  * Fabric through the {@code jei_mod_plugin} entrypoint in {@code fabric.mod.json}; nothing in the mod

@@ -45,7 +45,9 @@ public final class InWorldRecipeCatalog {
         RESHAPE("sledgehammerReshape", "reshape"),
         DIAMOND_CRUSH("diamondCrush", "diamond_crush"),
         CHISEL("chisel", "chisel"),
-        SHEAR_WOOL("shearWool", "shear_wool");
+        SHEAR_WOOL("shearWool", "shear_wool"),
+        TRIM_TEMPLATE("trimTemplate", "trim_template"),
+        CAULDRON_WASH("cauldronWash", "cauldron_wash");
 
         private final String section;
         private final String id;
@@ -156,6 +158,12 @@ public final class InWorldRecipeCatalog {
         }
         if (sections.containsKey(Kind.SHEAR_WOOL)) {
             shearWool(sections.get(Kind.SHEAR_WOOL), resolver, entries);
+        }
+        if (sections.containsKey(Kind.TRIM_TEMPLATE)) {
+            trimTemplates(sections.get(Kind.TRIM_TEMPLATE), resolver, entries);
+        }
+        if (sections.containsKey(Kind.CAULDRON_WASH)) {
+            cauldronWash(sections.get(Kind.CAULDRON_WASH), resolver, entries);
         }
         return new Catalog(Collections.unmodifiableList(entries), Collections.unmodifiableList(problems));
     }
@@ -351,6 +359,58 @@ public final class InWorldRecipeCatalog {
                 Stack.of(result, shear.get("count").getAsInt()), 0,
                 List.of(Component.translatable("jei.simplebuilding.note.shear_wool.how"),
                         Component.translatable("jei.simplebuilding.note.damage", shear.get("damage").getAsInt()))));
+    }
+
+    /** One entry per off-hand material: any trim template + the material -> the upgraded template. */
+    private static void trimTemplates(JsonObject trim, Resolver resolver, List<Entry> out) {
+        List<String> templateIds = new ArrayList<>();
+        for (JsonElement element : trim.getAsJsonArray("templates")) {
+            templateIds.add(element.getAsString());
+        }
+        List<String> hammerIds = new ArrayList<>();
+        for (JsonElement element : trim.getAsJsonArray("hammers")) {
+            hammerIds.add(element.getAsString());
+        }
+        List<Item> templates = resolver.items(templateIds);
+        List<Item> hammers = resolver.items(hammerIds);
+        if (templates.isEmpty() || hammers.isEmpty()) {
+            resolver.problems.add("trim template upgrade names no template or no hammer");
+            return;
+        }
+        List<Component> notes = List.of(
+                Component.translatable("jei.simplebuilding.note.trim_template.how"),
+                Component.translatable("jei.simplebuilding.note.damage", trim.get("damage").getAsInt()));
+        for (JsonElement element : trim.getAsJsonArray("upgrades")) {
+            JsonObject upgrade = element.getAsJsonObject();
+            String resultId = upgrade.get("result").getAsString();
+            Item catalyst = resolver.item(upgrade.get("catalyst").getAsString());
+            Item result = resolver.item(resultId);
+            if (catalyst == null || result == null) {
+                continue;
+            }
+            out.add(new Entry(Kind.TRIM_TEMPLATE, "trim_template/" + resultId,
+                    List.of(new Stack(List.copyOf(templates), 1), Stack.of(catalyst, upgrade.get("catalystCount").getAsInt())),
+                    hammers, Stack.of(result, 1), 0, notes));
+        }
+    }
+
+    /** Any coloured octant on a water cauldron -> the plain octant. */
+    private static void cauldronWash(JsonObject wash, Resolver resolver, List<Entry> out) {
+        List<String> octantIds = new ArrayList<>();
+        for (JsonElement element : wash.getAsJsonArray("octants")) {
+            octantIds.add(element.getAsString());
+        }
+        List<Item> octants = resolver.items(octantIds);
+        Item cauldron = resolver.item(wash.get("cauldron").getAsString());
+        Item result = resolver.item(wash.get("result").getAsString());
+        if (octants.isEmpty() || cauldron == null || result == null) {
+            return;
+        }
+        out.add(new Entry(Kind.CAULDRON_WASH, "cauldron_wash", List.of(new Stack(List.copyOf(octants), 1)), List.of(cauldron),
+                Stack.of(result, 1), 0,
+                List.of(Component.translatable("jei.simplebuilding.note.cauldron_wash.how"),
+                        Component.translatable("jei.simplebuilding.note.cauldron_wash.water", wash.get("waterLevels").getAsInt()),
+                        Component.translatable("jei.simplebuilding.note.cauldron_wash.keeps"))));
     }
 
     // =====================================================================================

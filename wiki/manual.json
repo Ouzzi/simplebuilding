@@ -8234,7 +8234,7 @@
     }
   },
   "inWorld": {
-    "_readme": "Umwandlungen in der Welt. kinds: Prosa je Art (en/de). entries: nur, was keine Tabelle im Code hat; Aufwertung, Umformen, Diamantblock, Meissel und Schere auf Wolle kommen aus src/main/generated/wiki/inworld.json (InWorldTransformations).",
+    "_readme": "Umwandlungen in der Welt. kinds: Prosa je Art (en/de). entries: nur, was keine Tabelle im Code hat (derzeit nichts); Aufwertung, Umformen, Diamantblock, Meissel, Schere auf Wolle, Besatzvorlage im Rahmen und Waschen im Kessel kommen aus src/main/generated/wiki/inworld.json (InWorldTransformations), aus dem auch das JEI-Plugin liest.",
     "kinds": {
       "sledgehammer_upgrade": {
         "sources": [
@@ -8378,7 +8378,8 @@
       },
       "trim_template": {
         "sources": [
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java"
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java",
+          "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
         ],
         "en": {
           "title": "Trim template in an item frame",
@@ -8401,8 +8402,8 @@
       },
       "cauldron_wash": {
         "sources": [
-          "src/main/java/com/simplebuilding/Simplebuilding.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForge.java"
+          "common/src/shared/java/com/simplebuilding/util/OctantCauldronWash.java",
+          "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
         ],
         "en": {
           "title": "Washing in a cauldron",
@@ -8451,120 +8452,6 @@
         }
       }
     },
-    "entries": [
-      {
-        "kind": "trim_template",
-        "inputs": [
-          {
-            "id": [
-              "minecraft:bolt_armor_trim_smithing_template",
-              "minecraft:coast_armor_trim_smithing_template",
-              "minecraft:dune_armor_trim_smithing_template",
-              "minecraft:eye_armor_trim_smithing_template",
-              "minecraft:flow_armor_trim_smithing_template",
-              "minecraft:host_armor_trim_smithing_template",
-              "minecraft:raiser_armor_trim_smithing_template",
-              "minecraft:rib_armor_trim_smithing_template",
-              "minecraft:sentry_armor_trim_smithing_template",
-              "minecraft:shaper_armor_trim_smithing_template",
-              "minecraft:silence_armor_trim_smithing_template",
-              "minecraft:snout_armor_trim_smithing_template",
-              "minecraft:spire_armor_trim_smithing_template",
-              "minecraft:tide_armor_trim_smithing_template",
-              "minecraft:vex_armor_trim_smithing_template",
-              "minecraft:ward_armor_trim_smithing_template",
-              "minecraft:wayfinder_armor_trim_smithing_template",
-              "minecraft:wild_armor_trim_smithing_template"
-            ],
-            "count": 1
-          },
-          {
-            "id": "minecraft:glow_ink_sac",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:*_sledgehammer"
-        ],
-        "output": {
-          "id": "simplebuilding:glowing_trim_template",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java"
-        ]
-      },
-      {
-        "kind": "trim_template",
-        "inputs": [
-          {
-            "id": [
-              "minecraft:bolt_armor_trim_smithing_template",
-              "minecraft:coast_armor_trim_smithing_template",
-              "minecraft:dune_armor_trim_smithing_template",
-              "minecraft:eye_armor_trim_smithing_template",
-              "minecraft:flow_armor_trim_smithing_template",
-              "minecraft:host_armor_trim_smithing_template",
-              "minecraft:raiser_armor_trim_smithing_template",
-              "minecraft:rib_armor_trim_smithing_template",
-              "minecraft:sentry_armor_trim_smithing_template",
-              "minecraft:shaper_armor_trim_smithing_template",
-              "minecraft:silence_armor_trim_smithing_template",
-              "minecraft:snout_armor_trim_smithing_template",
-              "minecraft:spire_armor_trim_smithing_template",
-              "minecraft:tide_armor_trim_smithing_template",
-              "minecraft:vex_armor_trim_smithing_template",
-              "minecraft:ward_armor_trim_smithing_template",
-              "minecraft:wayfinder_armor_trim_smithing_template",
-              "minecraft:wild_armor_trim_smithing_template"
-            ],
-            "count": 1
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:*_sledgehammer"
-        ],
-        "output": {
-          "id": "simplebuilding:emitting_trim_template",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java"
-        ]
-      },
-      {
-        "kind": "cauldron_wash",
-        "inputs": [
-          {
-            "id": "simplebuilding:octant_*",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "minecraft:cauldron"
-        ],
-        "output": {
-          "id": "simplebuilding:octant",
-          "count": 1
-        },
-        "stats": {
-          "waterLevels": 1
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/Simplebuilding.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForge.java"
-        ]
-      }
-    ]
+    "entries": []
   }
 }

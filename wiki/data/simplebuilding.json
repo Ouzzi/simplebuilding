@@ -30499,7 +30499,8 @@
         "facts": {},
         "note": {
           "sources": [
-            "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java"
+            "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
           ],
           "en": {
             "title": "Trim template in an item frame",
@@ -30526,8 +30527,8 @@
         "facts": {},
         "note": {
           "sources": [
-            "src/main/java/com/simplebuilding/Simplebuilding.java",
-            "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForge.java"
+            "common/src/shared/java/com/simplebuilding/util/OctantCauldronWash.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
           ],
           "en": {
             "title": "Washing in a cauldron",
@@ -30925,6 +30926,103 @@
         },
         "stats": {
           "damage": 1
+        }
+      },
+      {
+        "id": "trim_template/simplebuilding:glowing_trim_template",
+        "kind": "trim_template",
+        "inputs": [
+          {
+            "id": [],
+            "count": 1
+          },
+          {
+            "id": "minecraft:glow_ink_sac",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:glowing_trim_template",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "trim_template/simplebuilding:emitting_trim_template",
+        "kind": "trim_template",
+        "inputs": [
+          {
+            "id": [],
+            "count": 1
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:emitting_trim_template",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "cauldron_wash",
+        "kind": "cauldron_wash",
+        "inputs": [
+          {
+            "id": [
+              "simplebuilding:octant_white",
+              "simplebuilding:octant_orange",
+              "simplebuilding:octant_magenta",
+              "simplebuilding:octant_light_blue",
+              "simplebuilding:octant_yellow",
+              "simplebuilding:octant_lime",
+              "simplebuilding:octant_pink",
+              "simplebuilding:octant_gray",
+              "simplebuilding:octant_light_gray",
+              "simplebuilding:octant_cyan",
+              "simplebuilding:octant_purple",
+              "simplebuilding:octant_blue",
+              "simplebuilding:octant_brown",
+              "simplebuilding:octant_green",
+              "simplebuilding:octant_red",
+              "simplebuilding:octant_black"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:cauldron"
+        ],
+        "output": {
+          "id": "simplebuilding:octant",
+          "count": 1
+        },
+        "stats": {
+          "waterLevels": 1
         }
       },
       {
@@ -38880,151 +38978,6 @@
           "damage": 2,
           "touch": true
         }
-      },
-      {
-        "id": "trim_template/simplebuilding:glowing_trim_template/0",
-        "kind": "trim_template",
-        "inputs": [
-          {
-            "id": [
-              "minecraft:bolt_armor_trim_smithing_template",
-              "minecraft:coast_armor_trim_smithing_template",
-              "minecraft:dune_armor_trim_smithing_template",
-              "minecraft:eye_armor_trim_smithing_template",
-              "minecraft:flow_armor_trim_smithing_template",
-              "minecraft:host_armor_trim_smithing_template",
-              "minecraft:raiser_armor_trim_smithing_template",
-              "minecraft:rib_armor_trim_smithing_template",
-              "minecraft:sentry_armor_trim_smithing_template",
-              "minecraft:shaper_armor_trim_smithing_template",
-              "minecraft:silence_armor_trim_smithing_template",
-              "minecraft:snout_armor_trim_smithing_template",
-              "minecraft:spire_armor_trim_smithing_template",
-              "minecraft:tide_armor_trim_smithing_template",
-              "minecraft:vex_armor_trim_smithing_template",
-              "minecraft:ward_armor_trim_smithing_template",
-              "minecraft:wayfinder_armor_trim_smithing_template",
-              "minecraft:wild_armor_trim_smithing_template"
-            ],
-            "count": 1
-          },
-          {
-            "id": "minecraft:glow_ink_sac",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
-        ],
-        "output": {
-          "id": "simplebuilding:glowing_trim_template",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java"
-        ]
-      },
-      {
-        "id": "trim_template/simplebuilding:emitting_trim_template/1",
-        "kind": "trim_template",
-        "inputs": [
-          {
-            "id": [
-              "minecraft:bolt_armor_trim_smithing_template",
-              "minecraft:coast_armor_trim_smithing_template",
-              "minecraft:dune_armor_trim_smithing_template",
-              "minecraft:eye_armor_trim_smithing_template",
-              "minecraft:flow_armor_trim_smithing_template",
-              "minecraft:host_armor_trim_smithing_template",
-              "minecraft:raiser_armor_trim_smithing_template",
-              "minecraft:rib_armor_trim_smithing_template",
-              "minecraft:sentry_armor_trim_smithing_template",
-              "minecraft:shaper_armor_trim_smithing_template",
-              "minecraft:silence_armor_trim_smithing_template",
-              "minecraft:snout_armor_trim_smithing_template",
-              "minecraft:spire_armor_trim_smithing_template",
-              "minecraft:tide_armor_trim_smithing_template",
-              "minecraft:vex_armor_trim_smithing_template",
-              "minecraft:ward_armor_trim_smithing_template",
-              "minecraft:wayfinder_armor_trim_smithing_template",
-              "minecraft:wild_armor_trim_smithing_template"
-            ],
-            "count": 1
-          },
-          {
-            "id": "minecraft:glowstone_dust",
-            "count": 1
-          }
-        ],
-        "tools": [
-          "simplebuilding:copper_sledgehammer",
-          "simplebuilding:diamond_sledgehammer",
-          "simplebuilding:enderite_sledgehammer",
-          "simplebuilding:gold_sledgehammer",
-          "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
-        ],
-        "output": {
-          "id": "simplebuilding:emitting_trim_template",
-          "count": 1
-        },
-        "stats": {
-          "damage": 1
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java"
-        ]
-      },
-      {
-        "id": "cauldron_wash/simplebuilding:octant/2",
-        "kind": "cauldron_wash",
-        "inputs": [
-          {
-            "id": [
-              "simplebuilding:octant_black",
-              "simplebuilding:octant_blue",
-              "simplebuilding:octant_brown",
-              "simplebuilding:octant_cyan",
-              "simplebuilding:octant_gray",
-              "simplebuilding:octant_green",
-              "simplebuilding:octant_light_blue",
-              "simplebuilding:octant_light_gray",
-              "simplebuilding:octant_lime",
-              "simplebuilding:octant_magenta",
-              "simplebuilding:octant_orange",
-              "simplebuilding:octant_pink",
-              "simplebuilding:octant_purple",
-              "simplebuilding:octant_red",
-              "simplebuilding:octant_white",
-              "simplebuilding:octant_yellow"
-            ],
-            "count": 1
-          }
-        ],
-        "tools": [
-          "minecraft:cauldron"
-        ],
-        "output": {
-          "id": "simplebuilding:octant",
-          "count": 1
-        },
-        "stats": {
-          "waterLevels": 1
-        },
-        "sources": [
-          "src/main/java/com/simplebuilding/Simplebuilding.java",
-          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForge.java"
-        ]
       }
     ]
   },
