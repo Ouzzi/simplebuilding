@@ -96,3 +96,11 @@ D Astralit/Nihilith-Baubloecke (Endstein/Purpur-Palette); mehrere Creative-Tabs 
 - Gemeisselt: Astralit = Shulker-Motiv, Nihilith = Enderman-Motiv, Enderquarz = Enderdrache
 - ALLE Paletten-Texturen neu im Vanilla-Stil (weiche Schattierung wie Endsteinziegel/Purpur)
 - Steinmetz wie Vanilla fuer alle drei; Umfaerben an der Werkbank: 8 Endstein-/Purpur-Variante + 1 Material -> 8
+
+## Welle 6 (2026-09-24 spaet)
+- ERLEDIGT: Welle 5 (Paletten, Enderquarz, Hitbox schwebender Sand), Tab-Test fuer Vanilla-Gegenstuecke (3b804f3)
+- LAEUFT: Dev-Mods JEI/Jade/Mouse Tweaks/AppleSkin (+Mod Menu) nur in Dev-Laeufen, nicht in Testlaeufen
+- LAEUFT: JEI-Plugin mit In-World-Umwandlungen (eine Quelle mit den Wiki-Daten)
+- LAEUFT: recommends/suggests bzw. optionale Abhaengigkeiten in allen Metadaten, Pflicht-Abhaengigkeiten pruefen, docs/PUBLISHING.md
+- Besitzer bestaetigen: Paletten-Rezeptkette (Grund->poliert->Ziegel), 4 Material -> 1 Grundblock, Purpurblock-Umfaerben nur Enderquarz
+- DANN TESTEN: Gegenprobe Hammer-Risse + Levitations-Haelfte Sand-Test, volles Gate, Push
