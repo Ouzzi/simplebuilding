@@ -621,36 +621,26 @@ public final class SledgehammerTests {
     // =====================================================================================
 
     /**
-     * The hammer mines faster the more blocks a swing is about to take, and Override II lifts the
-     * blocks of the other three tool classes out of the bare-hands speed of {@code 1.0}.
-     *
-     * <p>{@code getBlockCountForSpeed} is the input to that: nine for a plain hammer, twenty-five
-     * with Radius, doubled by Break Through, and Break Through does <em>not</em> care about its
-     * level. The multiplier is then measured as a ratio against the hammer's own material speed,
-     * so the numbers stay statements about the curve (1.45 at nine blocks, 1.85 at the cap) rather
-     * than a copy of the material table. Radius plus Break Through - fifty blocks - has to land on
-     * the same 1.85 as twenty-five, which is where the cap lives.
+     * The hammer item itself carries no speed bonus any more: {@code getDestroySpeed} is the plain
+     * material speed - the speed of a pickaxe of the same material - whatever Radius and Break
+     * Through say, and Override II lifts the blocks of the other three tool classes out of the
+     * bare-hands speed of {@code 1.0} onto that same material speed. The slowdown per block lives
+     * one level up, in {@code getDestroyProgress}, where player and position are known; its ladder
+     * against the enchantments is pinned here: Radius (a full 5x5, twenty-five blocks) mines at a
+     * fifth of the lone-block progress, and Radius plus Break Through - fifty blocks - lands on the
+     * same fifth, which is where the cap at twenty-five lives.
      *
      * <p>The Override II half checks both sides: a plain hammer on dirt and on hay is exactly
-     * {@code 1.0}, the bare-hand speed with no multiplier at all, and the same hammer with
-     * Override II mines them at full material speed times the nine-block multiplier. All three
-     * tool classes the branch names are measured - dirt for the shovel, an oak log for the axe and
-     * hay for the hoe - because {@code isOverrideMineable}, which both {@code getDestroySpeed} and
-     * {@code isCorrectToolForDrops} now ask, can lose a single tag and would then take that whole
-     * tool class with it. And glass stays a wrong-tool block
-     * even at Override II, which is what keeps {@code isCorrectToolForDrops} from degenerating
-     * into "true for everything".
+     * {@code 1.0}, and the same hammer with Override II mines them at full material speed. All
+     * three tool classes the branch names are measured - dirt for the shovel, an oak log for the
+     * axe and hay for the hoe - because {@code isOverrideMineable}, which both
+     * {@code getDestroySpeed} and {@code isCorrectToolForDrops} ask, can lose a single tag and would
+     * then take that whole tool class with it. Glass stays a wrong-tool block even at Override II.
      *
-     * <p>{@link ToolBehaviourTests#sledgehammerOverrideLevelsWidenBlockSelection} makes the same
-     * Override II claim from the block layout and asserts that the speed on dirt merely
-     * <em>rises</em>. What is added here is the number it rises to, the whole block-count ladder
-     * behind it, and the two limits of the widening: not at level I, and not past the three tool
-     * classes it names.
-     *
-     * <p>What breaks this: the {@code baseSpeed > 1.0F} guard going away, which multiplies the
-     * bare-hand speed and lets a plain hammer dig dirt faster than a shovel; the cap at
-     * twenty-five disappearing, which makes a fully enchanted hammer accelerate without bound; and
-     * Break Through starting to scale with its level, which would double the count twice.
+     * <p>What breaks this: a multiplier coming back into {@code getDestroySpeed} (the old 1.25 to
+     * 1.85 bonus), the cap at twenty-five disappearing, which makes a Radius plus Break Through
+     * hammer crawl at a seventh, and the {@code baseSpeed <= 1.0F} guard or a tag of the Override
+     * list going away.
      */
     public static void sledgehammerSpeedAndBlockCountScaleWithItsEnchantments(GameTestHelper helper) {
         SledgehammerItem hammer = ModItems.DIAMOND_SLEDGEHAMMER;
@@ -661,51 +651,163 @@ public final class SledgehammerTests {
         BlockState dirt = Blocks.DIRT.defaultBlockState();
         BlockState log = Blocks.OAK_LOG.defaultBlockState();
         BlockState glass = Blocks.GLASS.defaultBlockState();
-        // Hay stands for the hoe class: it is in mineable/hoe and in no other mining tag, so its
-        // speed can only leave 1.0 through the hoe tag in isOverrideMineable. Dirt and a log cover
-        // the shovel and axe tags; each of the three can be dropped from that one list without
-        // touching the other two, so all three are measured.
+        // Hay stands for the hoe class: it is in mineable/hoe and in no other mining tag.
         BlockState hay = Blocks.HAY_BLOCK.defaultBlockState();
 
         ItemStack plain = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
         ItemStack radius = hammerWith(helper, ModEnchantments.RADIUS, 1);
-        ItemStack through = hammerWith(helper, ModEnchantments.BREAK_THROUGH, 1);
-        ItemStack throughTwo = hammerWith(helper, ModEnchantments.BREAK_THROUGH, 2);
         ItemStack both = hammerWith(helper, ModEnchantments.RADIUS, 1);
         both.enchant(enchantment(helper, ModEnchantments.BREAK_THROUGH), 1);
 
-        helper.assertValueEqual(SledgehammerItem.getBlockCountForSpeed(plain), 9, "block count of a plain hammer");
-        helper.assertValueEqual(SledgehammerItem.getBlockCountForSpeed(radius), 25, "block count with Radius I");
-        helper.assertValueEqual(SledgehammerItem.getBlockCountForSpeed(through), 18, "block count with Break Through I");
-        helper.assertValueEqual(SledgehammerItem.getBlockCountForSpeed(throughTwo), 18,
-                "block count with Break Through II; the depth doubling is level independent");
-        helper.assertValueEqual(SledgehammerItem.getBlockCountForSpeed(both), 50,
-                "block count with Radius I and Break Through I");
-
-        assertSpeed(helper, hammer.getDestroySpeed(plain, stone), material * 1.45F, "nine blocks on stone");
-        assertSpeed(helper, hammer.getDestroySpeed(radius, stone), material * 1.85F, "twenty-five blocks on stone");
-        assertSpeed(helper, hammer.getDestroySpeed(both, stone), material * 1.85F,
-                "fifty blocks on stone; the multiplier is capped at twenty-five");
+        // --- the item speed is the pickaxe speed of the material, field size or not ---
+        assertSpeed(helper, hammer.getDestroySpeed(plain, stone), material, "a plain hammer on stone");
+        assertSpeed(helper, hammer.getDestroySpeed(plain, stone), new ItemStack(Items.DIAMOND_PICKAXE).getDestroySpeed(stone),
+                "a plain diamond hammer against a diamond pickaxe on stone");
+        assertSpeed(helper, hammer.getDestroySpeed(radius, stone), material,
+                "Radius I on stone; the item speed must not know the field size");
+        assertSpeed(helper, hammer.getDestroySpeed(both, stone), material, "Radius I and Break Through I on stone");
 
         // --- Override II: what the hammer counts as its own tool class ---
         ItemStack override = hammerWith(helper, ModEnchantments.OVERRIDE, 2);
         assertSpeed(helper, hammer.getDestroySpeed(plain, dirt), 1.0F, "a plain hammer on dirt");
-        assertSpeed(helper, hammer.getDestroySpeed(override, dirt), material * 1.45F, "an Override II hammer on dirt");
-        assertSpeed(helper, hammer.getDestroySpeed(override, log), material * 1.45F, "an Override II hammer on a log");
+        assertSpeed(helper, hammer.getDestroySpeed(override, dirt), material, "an Override II hammer on dirt");
+        assertSpeed(helper, hammer.getDestroySpeed(override, log), material, "an Override II hammer on a log");
         assertSpeed(helper, hammer.getDestroySpeed(plain, hay), 1.0F, "a plain hammer on hay");
-        assertSpeed(helper, hammer.getDestroySpeed(override, hay), material * 1.45F, "an Override II hammer on hay");
+        assertSpeed(helper, hammer.getDestroySpeed(override, hay), material, "an Override II hammer on hay");
         assertSpeed(helper, hammer.getDestroySpeed(override, glass), 1.0F,
                 "an Override II hammer on glass, which is in none of the mineable tags");
 
-        // That Override II turns dirt and logs into harvestable blocks is pinned end to end in
-        // ToolBehaviourTests#sledgehammerOverrideLevelsWidenBlockSelection. The two cases left over
-        // are the ones that keep that widening from becoming a blanket yes: it must not happen at
-        // level I, and it must not reach blocks outside the three named tool classes.
         helper.assertTrue(hammer.isCorrectToolForDrops(plain, stone), "a plain hammer stopped harvesting stone");
         helper.assertFalse(hammer.isCorrectToolForDrops(hammerWith(helper, ModEnchantments.OVERRIDE, 1), dirt),
                 "Override I already widened the tool classes; that is Override II's job");
         helper.assertFalse(hammer.isCorrectToolForDrops(override, glass),
                 "Override II harvests glass, so it no longer names the three tool classes but simply says yes");
+
+        // --- the slowdown ladder: Radius and the cap at twenty-five blocks ---
+        // One block up, so the Break Through layer sits at y = 1 inside the room, not in its floor.
+        BlockPos top = CENTRE.above();
+        ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE.add(0.0, 1.0, 0.0), 0.0F, 90.0F, true);
+        fillSquare(helper, top.below(), 2, Blocks.AIR);
+        helper.setBlock(top, Blocks.STONE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, both);
+        float lone = progress(helper, player, top);
+        helper.assertTrue(lone > 0.0F, "a lone stone block makes no mining progress at all");
+
+        fillSquare(helper, top, 2, Blocks.STONE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, radius);
+        assertRatio(helper, progress(helper, player, top), lone, 5.0F, "a full 5x5 with Radius I (25 blocks)");
+
+        fillSquare(helper, top.below(), 2, Blocks.STONE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, both);
+        assertRatio(helper, progress(helper, player, top), lone, 5.0F,
+                "two full 5x5 layers with Radius I and Break Through I (50 blocks, capped at 25)");
+
+        helper.succeed();
+    }
+
+    /**
+     * A full 3x3 costs about three times as long as one block, and the sneaking hammer is a plain
+     * pickaxe. The owner's complaint was the other way round: a 3x3 came down as fast as a pickaxe
+     * mines a single block. The slowdown is {@code sqrt(min(n, 25))} for the {@code n} blocks the
+     * swing really breaks, so it is measured on the real {@code getDestroyProgress} of the origin
+     * with a real player - the only place both the position and the player are known, and the
+     * value client and server both tick with.
+     *
+     * <p>Four situations: the lone block (the hammer must equal a diamond pickaxe), the full 3x3
+     * (a third), a 3x3 where only four stone neighbours qualify and four dirt neighbours stay
+     * standing (divided by the square root of five - the count is what really breaks, not the size
+     * of the pattern), and sneaking over the full 3x3 (back to the lone-block progress).
+     *
+     * <p>What breaks this: the mixin on {@code BlockStateBase#getDestroyProgress} going missing
+     * (the 3x3 is as fast as one block again), counting the pattern instead of the blocks
+     * {@code shouldBreak} lets through, or sneaking still counting the 3x3.
+     */
+    public static void sledgehammerFieldMinesThreeTimesSlowerThanOneBlock(GameTestHelper helper) {
+        ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, true);
+        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+
+        // --- lone block: the hammer is a diamond pickaxe ---
+        helper.setBlock(CENTRE, Blocks.STONE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_PICKAXE));
+        float pickaxe = progress(helper, player, CENTRE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
+        float lone = progress(helper, player, CENTRE);
+        helper.assertTrue(lone > 0.0F, "a lone stone block makes no mining progress at all");
+        assertRatio(helper, lone, pickaxe, 1.0F, "a diamond hammer on a lone block against a diamond pickaxe");
+
+        // --- full 3x3: a third ---
+        fillFace(helper, CENTRE, Blocks.STONE);
+        assertRatio(helper, progress(helper, player, CENTRE), lone, 3.0F, "a full 3x3 of stone (9 blocks)");
+
+        // --- only what really breaks counts: 1 + 4 stone, the 4 dirt corners stay ---
+        for (int dx = -1; dx <= 1; dx += 2) {
+            for (int dz = -1; dz <= 1; dz += 2) {
+                helper.setBlock(CENTRE.offset(dx, 0, dz), Blocks.DIRT);
+            }
+        }
+        assertRatio(helper, progress(helper, player, CENTRE), lone, (float) Math.sqrt(5.0),
+                "a 3x3 with four dirt corners a plain hammer leaves standing (5 blocks)");
+
+        // --- sneaking over the full 3x3: one block, full pickaxe speed ---
+        fillFace(helper, CENTRE, Blocks.STONE);
+        player.setShiftKeyDown(true);
+        float sneaking = progress(helper, player, CENTRE);
+        player.setShiftKeyDown(false);
+        assertRatio(helper, sneaking, lone, 1.0F, "sneaking over a full 3x3");
+
+        helper.succeed();
+    }
+
+    /**
+     * Sneaking mines a single block: {@code getBlocksToBeDestroyed} hands back the origin and
+     * nothing else, so the server hook, the client crack overlay and the highlight - which all
+     * read that list - take one block. Before, sneaking only switched Radius and Break Through
+     * off and the base 3x3 stayed.
+     *
+     * <p>Measured with a Radius I + Break Through I hammer over two full 5x5 layers, so a leftover
+     * of any of the three widening steps (3x3, radius ring, depth layer) shows up. The positive
+     * control swings the very same hammer without sneaking and clears all fifty blocks but the
+     * origin, which vanilla takes.
+     *
+     * <p>What breaks this: the early return for sneaking going away (or checking the wrong flag),
+     * which brings back the 3x3 under a sneaking player.
+     */
+    public static void sledgehammerSneakingBreaksOnlyTheTargetedBlock(GameTestHelper helper) {
+        // One block up, so the Break Through layer sits at y = 1 inside the room, not in its floor.
+        BlockPos top = CENTRE.above();
+        ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE.add(0.0, 1.0, 0.0), 0.0F, 90.0F, true);
+        ItemStack hammer = hammerWith(helper, ModEnchantments.RADIUS, 1);
+        hammer.enchant(enchantment(helper, ModEnchantments.BREAK_THROUGH), 1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
+        BlockPos origin = helper.absolutePos(top);
+
+        fillSquare(helper, top, 2, Blocks.STONE);
+        fillSquare(helper, top.below(), 2, Blocks.STONE);
+
+        player.setShiftKeyDown(true);
+        List<BlockPos> sneaking = SledgehammerItem.getBlocksToBeDestroyed(1, origin, player);
+        helper.assertValueEqual(sneaking, List.of(origin), "positions a sneaking swing takes");
+        swing(helper, player, top);
+        player.setShiftKeyDown(false);
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dz = -2; dz <= 2; dz++) {
+                helper.assertBlockPresent(Blocks.STONE, top.offset(dx, 0, dz));
+                helper.assertBlockPresent(Blocks.STONE, top.offset(dx, -1, dz));
+            }
+        }
+
+        // --- control: the same hammer without sneaking takes both layers ---
+        helper.assertValueEqual(SledgehammerItem.getBlocksToBeDestroyed(1, origin, player).size(), 50,
+                "positions a non-sneaking Radius I + Break Through I swing takes");
+        swing(helper, player, top);
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dz = -2; dz <= 2; dz++) {
+                if (dx != 0 || dz != 0) {
+                    helper.assertBlockPresent(Blocks.AIR, top.offset(dx, 0, dz));
+                }
+                helper.assertBlockPresent(Blocks.AIR, top.offset(dx, -1, dz));
+            }
+        }
 
         helper.succeed();
     }
@@ -893,6 +995,29 @@ public final class SledgehammerTests {
         BlockPos origin = helper.absolutePos(relativeOrigin);
         SledgehammerUsageEvent.handleBeforeBlockBreak(
                 helper.getLevel(), player, origin, helper.getLevel().getBlockState(origin), null);
+    }
+
+    /** The server-side mining progress per tick on {@code relativePos}, as vanilla ticks it. */
+    private static float progress(GameTestHelper helper, ServerPlayer player, BlockPos relativePos) {
+        BlockPos pos = helper.absolutePos(relativePos);
+        return helper.getLevel().getBlockState(pos).getDestroyProgress(player, helper.getLevel(), pos);
+    }
+
+    /** Asserts {@code slow * divisor == fast} within one percent. */
+    private static void assertRatio(GameTestHelper helper, float slow, float fast, float divisor, String what) {
+        float expected = fast / divisor;
+        helper.assertTrue(Math.abs(slow - expected) <= expected * 0.01F,
+                "mining progress for " + what + ": expected " + expected + " (1/" + divisor
+                        + " of " + fast + ") but got " + slow);
+    }
+
+    /** The horizontal square of the given half width around {@code centre}. */
+    private static void fillSquare(GameTestHelper helper, BlockPos centre, int halfWidth, Block block) {
+        for (int dx = -halfWidth; dx <= halfWidth; dx++) {
+            for (int dz = -halfWidth; dz <= halfWidth; dz++) {
+                helper.setBlock(centre.offset(dx, 0, dz), block);
+            }
+        }
     }
 
     /** The 3x3 face around {@code centre} in the horizontal plane. */

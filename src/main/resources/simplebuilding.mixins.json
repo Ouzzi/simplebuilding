@@ -7,6 +7,7 @@
     "AbstractFurnaceMenuMixin",
     "AnvilScreenHandlerMixin",
     "BlockAttachedEntityTickMixin",
+    "BlockStateBaseMixin",
     "BlockItemMixin",
     "BowItemMixin",
     "BrushItemMixin",
@@ -21,6 +22,7 @@
     "PistonHandlerMixin",
     "PistonHeadBlockMixin",
     "PlayerEntityMixin",
+    "ShearsItemMixin",
     "SmithingScreenHandlerMixin",
     "SurvivalTracerMixin",
     "CauldronInteractionDispatcherAccessor"

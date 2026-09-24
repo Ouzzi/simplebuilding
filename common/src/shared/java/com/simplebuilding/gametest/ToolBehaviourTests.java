@@ -2,7 +2,9 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.InWorldTransformations;
 import com.simplebuilding.util.MiningUtils;
+import com.simplebuilding.util.ShearsWoolInteraction;
 import com.simplebuilding.util.SledgehammerUsageEvent;
 import java.util.HashSet;
 import java.util.List;
@@ -10,8 +12,10 @@ import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
@@ -26,6 +30,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -820,6 +825,61 @@ public final class ToolBehaviourTests {
      */
     private static void tickMagnet(GameTestHelper helper, ServerPlayer player, ItemStack magnet) {
         magnet.getItem().inventoryTick(magnet, helper.getLevel(), player, EquipmentSlot.MAINHAND);
+    }
+
+    /**
+     * Shears used on a placed wool block take it apart: the block goes, four String drop - what a
+     * wool block costs at the crafting table - and the shears lose one durability. Carpet, which
+     * is not in {@code minecraft:wool}, is left alone, and the wiki's list of the sixteen wool
+     * colours ({@code InWorldTransformations#woolBlocks}) is checked against the tag the game asks.
+     *
+     * <p>Driven through {@code ShearsItem#useOn}, so the {@code ShearsItemMixin} that wires the
+     * interaction on every loader is part of what is tested, and with {@code instabuild} off,
+     * because the durability charge is skipped for a creative player.
+     *
+     * <p>What breaks this: the mixin not applying (the click passes, the wool stays), a wrong
+     * string count or a missing durability charge, and a tag check that also grabs carpets.
+     */
+    public static void shearsTurnPlacedWoolIntoFourStringAndWearByOne(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 3.0, 3.5), 0.0F, 90.0F);
+        player.getAbilities().instabuild = false;
+        BlockPos target = new BlockPos(3, 1, 3);
+        // By id rather than by field: 26.2 keeps the coloured blocks in Blocks.WOOL/CARPET
+        // collections, 1.21.11 in one field per colour. The ids are the same on both lines.
+        Block redWool = BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("red_wool"));
+        Block whiteCarpet = BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace("white_carpet"));
+        helper.assertTrue(redWool != Blocks.AIR && whiteCarpet != Blocks.AIR, "red wool or white carpet is not registered");
+
+        for (Block wool : InWorldTransformations.woolBlocks()) {
+            helper.assertTrue(wool.defaultBlockState().is(BlockTags.WOOL),
+                    wool + " is listed as wool for the wiki but is not in minecraft:wool");
+        }
+
+        // --- red wool: gone, four string, one durability ---
+        helper.setBlock(target, redWool);
+        ItemStack shears = new ItemStack(Items.SHEARS);
+        InteractionResult result = useItemOnBlock(helper, player, shears, target);
+        helper.assertTrue(result.consumesAction(), "shears on red wool did not act, result was " + result);
+        helper.assertBlockPresent(Blocks.AIR, target);
+        helper.assertValueEqual(shears.getDamageValue(), ShearsWoolInteraction.SHEARS_DAMAGE, "shears wear after shearing one wool block");
+        helper.assertValueEqual(ShearsWoolInteraction.STRING_PER_WOOL, 4, "string per wool block");
+        int string = 0;
+        for (ItemEntity drop : helper.getLevel().getEntitiesOfClass(ItemEntity.class,
+                new AABB(helper.absolutePos(target)).inflate(1.0))) {
+            if (drop.getItem().is(Items.STRING)) {
+                string += drop.getItem().getCount();
+            }
+        }
+        helper.assertValueEqual(string, 4, "string dropped by one sheared wool block");
+
+        // --- carpet is not wool: nothing happens ---
+        helper.setBlock(target, whiteCarpet);
+        useItemOnBlock(helper, player, shears, target);
+        helper.assertBlockPresent(whiteCarpet, target);
+        helper.assertValueEqual(shears.getDamageValue(), ShearsWoolInteraction.SHEARS_DAMAGE,
+                "shears wear after clicking a carpet; only wool may cost durability");
+
+        helper.succeed();
     }
 
     /** Compares two motion vectors; the magnet computes in doubles, so this is a near-equality. */

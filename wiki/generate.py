@@ -1025,7 +1025,7 @@ def sync_vanilla_recipes(check: bool) -> list[str]:
 # ---------------------------------------------------------------------------
 
 INWORLD_KINDS = ("sledgehammer_upgrade", "sledgehammer_reshape", "diamond_crush",
-                 "chisel", "chisel_reverse", "trim_template", "cauldron_wash")
+                 "chisel", "chisel_reverse", "trim_template", "cauldron_wash", "shear_wool")
 
 
 def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dict, list[str]]:
@@ -1085,6 +1085,18 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                 "tools": hammers,
                 "output": {"id": crush["result"], "count": crush["count"]},
                 "stats": {"damage": crush["damage"]},
+            })
+
+        shear = exported.get("shearWool")
+        if shear:
+            facts["shear_wool"] = {"tag": shear["tag"]}
+            entries.append({
+                "id": "shear_wool",
+                "kind": "shear_wool",
+                "inputs": [{"id": shear["blocks"], "count": 1}],
+                "tools": [shear["tool"]],
+                "output": {"id": shear["result"], "count": shear["count"]},
+                "stats": {"damage": shear["damage"]},
             })
 
         chisel = exported.get("chisel", {})

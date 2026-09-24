@@ -106,6 +106,8 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(ToolBehaviourTests.MAGNET_MAX_TICKS)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("tool_behaviour_game_test_shears_turn_placed_wool_into_four_string_and_wear_by_one", ToolBehaviourTests::shearsTurnPlacedWoolIntoFourStringAndWearByOne)
+                    .build(),
             GameTestSpec.named("chisel_game_test_conversion_tables_are_pinned_entry_by_entry", ChiselTests::conversionTablesArePinnedEntryByEntry)
                     .build(),
             GameTestSpec.named("trade_and_migration_game_test_mod_trades_are_merged_into_the_villager_trade_pools", TradeAndMigrationTests::modTradesAreMergedIntoTheVillagerTradePools)
@@ -444,6 +446,10 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_reshapes_full_blocks_stairs_and_slabs", SledgehammerTests::sledgehammerReshapesFullBlocksStairsAndSlabs)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_speed_and_block_count_scale_with_its_enchantments", SledgehammerTests::sledgehammerSpeedAndBlockCountScaleWithItsEnchantments)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_field_mines_three_times_slower_than_one_block", SledgehammerTests::sledgehammerFieldMinesThreeTimesSlowerThanOneBlock)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_sneaking_breaks_only_the_targeted_block", SledgehammerTests::sledgehammerSneakingBreaksOnlyTheTargetedBlock)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_charge_time_shortens_with_material_and_efficiency", SledgehammerTests::sledgehammerChargeTimeShortensWithMaterialAndEfficiency)
                     .build(),

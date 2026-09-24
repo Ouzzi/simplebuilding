@@ -45,4 +45,9 @@ public final class ToolBehaviourGameTest {
     public void magnetPullsNearbyItemsAndIgnoresDistantOnes(GameTestHelper helper) {
         ToolBehaviourTests.magnetPullsNearbyItemsAndIgnoresDistantOnes(helper);
     }
+
+    @GameTest
+    public void shearsTurnPlacedWoolIntoFourStringAndWearByOne(GameTestHelper helper) {
+        ToolBehaviourTests.shearsTurnPlacedWoolIntoFourStringAndWearByOne(helper);
+    }
 }

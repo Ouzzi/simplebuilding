@@ -57,6 +57,16 @@ public final class SledgehammerGameTest {
     }
 
     @GameTest
+    public void sledgehammerFieldMinesThreeTimesSlowerThanOneBlock(GameTestHelper helper) {
+        SledgehammerTests.sledgehammerFieldMinesThreeTimesSlowerThanOneBlock(helper);
+    }
+
+    @GameTest
+    public void sledgehammerSneakingBreaksOnlyTheTargetedBlock(GameTestHelper helper) {
+        SledgehammerTests.sledgehammerSneakingBreaksOnlyTheTargetedBlock(helper);
+    }
+
+    @GameTest
     public void sledgehammerChargeTimeShortensWithMaterialAndEfficiency(GameTestHelper helper) {
         SledgehammerTests.sledgehammerChargeTimeShortensWithMaterialAndEfficiency(helper);
     }

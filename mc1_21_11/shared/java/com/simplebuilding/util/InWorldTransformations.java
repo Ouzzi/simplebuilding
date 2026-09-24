@@ -12,13 +12,15 @@ import java.util.List;
 import java.util.Map;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 /**
  * Beschreibt die Umwandlungen in der Welt - Maschinen-Aufwertung mit dem Vorschlaghammer,
- * Umformen, Diamantblock zerschlagen, Meissel und Spachtel - als JSON fuer das Wiki.
+ * Umformen, Diamantblock zerschlagen, Meissel und Spachtel, Schere auf Wolle - als JSON fuer das Wiki.
  *
  * <p>Der Datagen-Provider {@code WikiDataProvider} schreibt das Ergebnis nach
  * {@code src/main/generated/wiki/inworld.json}; {@code wiki/generate.py} macht daraus die
@@ -41,6 +43,7 @@ public final class InWorldTransformations {
         root.add("sledgehammerReshape", sledgehammerReshape());
         root.add("diamondCrush", diamondCrush());
         root.add("chisel", chisel());
+        root.add("shearWool", shearWool());
         return root;
     }
 
@@ -127,6 +130,35 @@ public final class InWorldTransformations {
         o.addProperty("count", SledgehammerItem.DIAMOND_BLOCK_PEBBLES);
         o.addProperty("damage", SledgehammerItem.DIAMOND_CRUSH_DAMAGE);
         return o;
+    }
+
+    /**
+     * Schere auf Wolle ({@link ShearsWoolInteraction}). Das Spiel fragt den Tag
+     * {@code minecraft:wool}; im Datagen sind Tags noch nicht gebunden, deshalb stehen die sechzehn
+     * Farben hier ueber {@link DyeColor} - dass jede davon im Tag steht, prueft der Spieltest.
+     */
+    public static JsonObject shearWool() {
+        JsonArray blocks = new JsonArray();
+        for (Block block : woolBlocks()) {
+            blocks.add(id(block));
+        }
+        JsonObject o = new JsonObject();
+        o.addProperty("tag", "minecraft:wool");
+        o.add("blocks", blocks);
+        o.addProperty("tool", id(Items.SHEARS));
+        o.addProperty("result", id(Items.STRING));
+        o.addProperty("count", ShearsWoolInteraction.STRING_PER_WOOL);
+        o.addProperty("damage", ShearsWoolInteraction.SHEARS_DAMAGE);
+        return o;
+    }
+
+    /** Die sechzehn Wollbloecke in {@link DyeColor}-Reihenfolge. */
+    public static List<Block> woolBlocks() {
+        List<Block> out = new ArrayList<>();
+        for (DyeColor color : DyeColor.values()) {
+            out.add(BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace(color.getSerializedName() + "_wool")));
+        }
+        return out;
     }
 
     /**

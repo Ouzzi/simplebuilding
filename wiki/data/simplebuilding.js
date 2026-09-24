@@ -82,7 +82,7 @@ window.WIKI_DATA = {
           "The blocks are faster hoppers (Reinforced, Netherite, Enderite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite, Enderite), two stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
-          "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the mining preview of the Sledgehammer, Strip Miner and Vein Miner, the Building Wand preview, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
+          "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
           "Every item and block is in the creative tab \"Building Items\" (called \"SimpleBuilding Items\" in German; icon: the Iron Chisel), together with enchanted books of every mod enchantment at maximum level.",
           "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. Many menu and status strings (in the hopper filter, on the Ore Detector, in the Octant HUD and on the Magnet) are hardcoded in English and cannot be translated at all.",
           "Every chapter follows the same layout: summary, details, controls (which key or click does what), a tier overview for tier families, and a limitations section. That section states plainly what does not (yet) work, e.g. tooltip texts that are never shown, or enchantments with no effect such as Cover and Bridge. Each chapter ends with the source files its statements come from.",
@@ -106,7 +106,7 @@ window.WIKI_DATA = {
           "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit, Enderit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit, Enderit), zwei stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
-          "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Abbau-Vorschau von Vorschlaghammer, Tunnelgräber und Aderabbau, die Baustab-Vorschau, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
+          "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
           "Alle Gegenstände und Blöcke findest du im Kreativmodus im Reiter „SimpleBuilding Items“ (englisch „Building Items“, Symbol: Eisenmeißel), zusammen mit verzauberten Büchern aller Mod-Verzauberungen auf Höchststufe.",
           "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Viele Menü- und Statustexte (etwa im Trichter-Filter, beim Erzdetektor, beim Oktant-HUD und beim Magneten) sind fest auf Englisch hinterlegt.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden, oder Verzauberungen ohne Wirkung wie Abdeckung und Brücke. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
@@ -285,7 +285,7 @@ window.WIKI_DATA = {
         "details": [
           "Your first tool is the Stone Chisel: a stick in the bottom left, cobblestone in the middle, and one copper nugget each to the left of and below the cobblestone. Right-click with it to turn stone into chiseled stone bricks or smooth sandstone into cut sandstone; sneak + right-click walks the chain back (costing 2 durability instead of 1). After every conversion the Stone Chisel goes on a 30-tick cooldown (1.5 seconds).",
           "As soon as you have an iron ingot to spare, craft the Stone Sledgehammer: an iron ingot top left, two cobblestone next to it, two sticks in the middle column below. It mines like a stone pickaxe but takes a whole 3x3 face of identical blocks per swing, and holding right-click turns a full block into stairs and stairs into a slab. Every extra block broken costs 1 durability, so keep an eye on those 760 points.",
-          "Sneaking is the mod's universal modifier: on the Chisel it reverses the direction, on the Sledgehammer it switches Radius and Break Through off, on enchanted pickaxes and axes it triggers Vein Miner, Strip Miner and Versatility, on the Octant it sets Pos 2, and the Magnet and a Funnel bundle pause while you do it.",
+          "Sneaking is the mod's universal modifier: on the Chisel it reverses the direction, on the Sledgehammer it mines a single block, on enchanted pickaxes and axes it triggers Vein Miner, Strip Miner and Versatility, on the Octant it sets Pos 2, and the Magnet and a Funnel bundle pause while you do it.",
           "More room: the Reinforced Bundle is made from a bundle in the middle with a Diamond Pebble beside it, string on top and a Leather Sheet (nine leather in the crafting grid) below, and holds 96 items (at a stack size of 64); whatever the bundle held, its enchantments and its name carry over. The Quiver (bundle, string, leather, copper nugget) only takes arrows and feeds the bow automatically when it is in your offhand, in your chest slot or on your hotbar; the same crafting upgrade with a Quiver, a Leather Sheet and a Diamond Pebble makes the Reinforced Quiver (96 arrows, arrows and enchantments kept). The Diamond Pebble has one source, the Sledgehammer crushing a diamond block (see below).",
           "For planning the build site: the Octant needs gold nuggets, a lead, gold ingots, a compass and a copper ingot; alternatively the Wandering Trader sells it for 10 emeralds. Right-click sets Pos 1, sneak + right-click sets Pos 2, the HUD (on Fabric and NeoForge) shows you distance, area or volume; G opens the Octant Manager.",
           "The Building Wand is your first area tool: the Copper Building Wand is built from a Copper Core (top right) and two sticks diagonally below it. The Mason sells Copper Cores from level 2 for 25 emeralds (2 uses) and the Wandering Trader for 46 emeralds as a pair; the finished Copper Building Wand is also available from the Mason at level 4 for 62 emeralds. With blocks in your offhand or on your hotbar, right-click places a 3x3 face against the side of the block you clicked.",
@@ -308,7 +308,7 @@ window.WIKI_DATA = {
         "details": [
           "Dein erstes Werkzeug ist der Steinmeißel: Stock unten links, Bruchstein in der Mitte, je ein Kupferklumpen links vom und unter dem Bruchstein. Damit wandelst du per Rechtsklick Stein in gemeißelte Steinziegel oder glatten Sandstein in geschnittenen Sandstein um; Schleichen + Rechtsklick geht die Kette zurück (kostet 2 statt 1 Haltbarkeit). Nach jeder Umwandlung wartet der Steinmeißel 30 Ticks.",
           "Sobald du einen Eisenbarren übrig hast, baust du den Stein-Vorschlaghammer: Eisenbarren oben links, daneben zwei Bruchstein, darunter zwei Stöcke mittig. Er baut wie eine Steinspitzhacke, nimmt aber pro Schlag ein ganzes 3x3-Feld gleicher Blöcke mit, und mit gedrücktem Rechtsklick machst du aus einem vollen Block eine Treppe und aus der Treppe eine Stufe. Jeder zusätzlich abgebaute Block kostet 1 Haltbarkeit, also behalte die 760 Punkte im Blick.",
-          "Schleichen ist der Universal-Modifikator der Mod: Beim Meißel kehrt es die Richtung um, beim Vorschlaghammer schaltet es Radius und Durchbruch ab, bei verzauberten Spitzhacken und Äxten löst es Aderabbau, Tunnelgräber und Vielseitigkeit aus, beim Oktanten setzt es Pos 2, und Magnet sowie Trichter-Bündel pausieren dabei.",
+          "Schleichen ist der Universal-Modifikator der Mod: Beim Meißel kehrt es die Richtung um, beim Vorschlaghammer baut es nur einen Block ab, bei verzauberten Spitzhacken und Äxten löst es Aderabbau, Tunnelgräber und Vielseitigkeit aus, beim Oktanten setzt es Pos 2, und Magnet sowie Trichter-Bündel pausieren dabei.",
           "Mehr Platz: Das Verstärkte Bündel entsteht aus einem Bündel in der Mitte mit einem Diamantkiesel daneben, Faden oben und einer Lederplatte (neun Leder in der Werkbank) unten und fasst 96 Gegenstände (bei 64er-Stapeln); Inhalt, Verzauberungen und Name des Bündels bleiben dabei erhalten. Der Köcher (Bündel, Faden, Leder, Kupfer-Nugget) nimmt nur Pfeile auf und versorgt den Bogen automatisch, wenn er in der Nebenhand, im Brustpanzer-Slot oder der Schnellzugriffsleiste liegt; dieselbe Werkbank-Aufwertung mit Köcher, Lederplatte und Diamantkiesel ergibt den Verstärkten Köcher (96 Pfeile, Pfeile und Verzauberungen bleiben). Den Diamantkiesel gibt es nur auf einem Weg: der Vorschlaghammer zerkleinert einen Diamantblock (siehe unten).",
           "Zum Planen der Baustelle: Der Oktant braucht Goldklumpen, Leine, Goldbarren, Kompass und Kupferbarren; alternativ verkauft ihn der fahrende Händler für 10 Smaragde. Rechtsklick setzt Pos 1, Schleichen + Rechtsklick Pos 2, das HUD (auf Fabric und NeoForge) zeigt dir Abstand, Fläche oder Volumen; mit G öffnest du den Oktant-Manager.",
           "Der Baustab ist dein erstes Flächenwerkzeug: Der Kupfer-Baustab wird aus einem Kupferkern (oben rechts) und zwei Stöcken diagonal darunter gebaut. Kupferkerne verkauft der Steinmetz ab Stufe 2 für 25 Smaragde (2 Nutzungen) und der fahrende Händler für 46 Smaragde im Doppelpack; den fertigen Kupfer-Baustab gibt es auch beim Steinmetz ab Stufe 4 für 62 Smaragde. Mit Blöcken in Zweithand oder Hotbar setzt er per Rechtsklick eine 3x3-Fläche vor die angeklickte Blockseite.",
@@ -388,8 +388,8 @@ window.WIKI_DATA = {
         "details": [
           "The basics: when you mine a block with the hammer in your main hand, the eight neighbouring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
           "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
-          "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking switches both bonuses off, so you can mine just the 3x3 area under control.",
-          "Cost: every additional block destroyed uses 1 durability (2 with the wrong tool); in exchange each hammer has four times the durability of its base value (Diamond 6244, Netherite 8124, Enderite 10000) and mines at 1.45x (3x3) up to 1.85x (25 blocks) its material speed.",
+          "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at, like a pickaxe of the same material.",
+          "Cost: every additional block destroyed uses 1 durability (2 with the wrong tool); in exchange each hammer has four times the durability of its base value (Diamond 6244, Netherite 8124, Enderite 10000) and is slower the more blocks a swing takes: the mining speed of a pickaxe of its material divided by the square root of the blocks really broken (at most 25) - a 3x3 takes about three times, a 5x5 five times as long as a single block.",
           "Preview: before the swing you see every neighbouring block that will be taken with a black outline and a grey fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
           "Diamond Pebbles: charging a right-click on a diamond block breaks it down into 81 Diamond Pebbles; 9 pebbles make one Cracked Diamond, which turns back into a diamond in the blast furnace. One pebble is also an ingredient of the Reinforced Bundle and the Reinforced Quiver.",
@@ -412,8 +412,8 @@ window.WIKI_DATA = {
         "details": [
           "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
           "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
-          "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen werden beide Boni abgeschaltet, sodass du kontrolliert nur das 3x3-Feld abbaust.",
-          "Kosten: Jeder zusätzlich zerstörte Block verbraucht 1 Haltbarkeit (2 bei unpassendem Werkzeug); dafür haben die Hämmer einen mit 4 multiplizierten Haltbarkeits-Basiswert (z. B. Diamant 6244, Netherit 8124, Enderit 10000) und bauen mit Faktor 1,45 (3x3) bis 1,85 (25 Blöcke) schneller ab als ihre Materialgeschwindigkeit.",
+          "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab, wie mit einer Spitzhacke gleichen Materials.",
+          "Kosten: Jeder zusätzlich zerstörte Block verbraucht 1 Haltbarkeit (2 bei unpassendem Werkzeug); dafür haben die Hämmer einen mit 4 multiplizierten Haltbarkeits-Basiswert (z. B. Diamant 6244, Netherit 8124, Enderit 10000) und werden langsamer, je mehr Blöcke ein Schlag mitnimmt: Abbautempo einer Spitzhacke ihres Materials geteilt durch die Wurzel der wirklich abgebauten Blöcke (höchstens 25) - ein 3x3 dauert etwa dreimal, ein 5x5 fünfmal so lang wie ein einzelner Block.",
           "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
           "Diamantkiesel: Rechtsklick-Aufladen auf einem Diamantblock zerlegt ihn in 81 Diamantkiesel; 9 Kiesel ergeben einen Rissigen Diamanten, der im Hochofen wieder zum Diamanten wird. Ein Kiesel ist außerdem Zutat des Verstärkten Bündels und des Verstärkten Köchers.",
@@ -481,7 +481,7 @@ window.WIKI_DATA = {
           "The blocks are faster hoppers (Reinforced, Netherite, Enderite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite, Enderite), four stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
-          "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the mining preview of the Sledgehammer, Strip Miner and Vein Miner, the Building Wand preview, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
+          "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
           "Every item and block is in the creative tab \"Building Items\" (called \"SimpleBuilding Items\" in German; icon: the Iron Chisel), together with enchanted books of every mod enchantment at maximum level.",
           "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. Many menu and status strings (in the hopper filter, on the Ore Detector, in the Octant HUD and on the Magnet) are hardcoded in English and cannot be translated at all.",
           "Every chapter follows the same layout: summary, details, controls (which key or click does what), a tier overview for tier families, and a limitations section. That section states plainly what does not (yet) work, e.g. tooltip texts that are never shown, or enchantments with no effect such as Cover and Bridge. Each chapter ends with the source files its statements come from.",
@@ -505,7 +505,7 @@ window.WIKI_DATA = {
           "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit, Enderit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit, Enderit), vier stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
-          "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Abbau-Vorschau von Vorschlaghammer, Tunnelgräber und Aderabbau, die Baustab-Vorschau, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
+          "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
           "Alle Gegenstände und Blöcke findest du im Kreativmodus im Reiter „SimpleBuilding Items“ (englisch „Building Items“, Symbol: Eisenmeißel), zusammen mit verzauberten Büchern aller Mod-Verzauberungen auf Höchststufe.",
           "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Viele Menü- und Statustexte (etwa im Trichter-Filter, beim Erzdetektor, beim Oktant-HUD und beim Magneten) sind fest auf Englisch hinterlegt.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden, oder Verzauberungen ohne Wirkung wie Abdeckung und Brücke. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
@@ -1568,18 +1568,18 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Mining Enchantments",
-        "summary": "SimpleBuilding brings six enchantments that change how you mine: Vein Miner, Strip Miner and Versatility for pickaxes (and, depending on the enchantment, axes or every mining tool), plus Override, Radius and Break Through for the sledgehammer. Sneaking turns Vein Miner, Strip Miner and Versatility on, and switches the area bonuses Radius and Break Through off for as long as you hold it; Override always applies. On Fabric and NeoForge the client shows cracks or outlines on every block that would go along before you break it.",
+        "summary": "SimpleBuilding brings six enchantments that change how you mine: Vein Miner, Strip Miner and Versatility for pickaxes (and, depending on the enchantment, axes or every mining tool), plus Override, Radius and Break Through for the sledgehammer. Sneaking turns Vein Miner, Strip Miner and Versatility on, and makes the sledgehammer mine a single block for as long as you hold it; Override always applies. On Fabric, NeoForge and Forge the client shows cracks or outlines on every block that would go along before you break it.",
         "details": [
           "Vein Miner (pickaxe/axe, up to level V): while sneaking, a connected vein of the same ore or the same log drops, with a budget of 3/6/9/12/18 blocks per level.",
           "Strip Miner (pickaxe, up to level III): while sneaking, a tunnel of 1/2/4 blocks opens up in the direction you are looking; the pickaxe gives durability back but is permanently slower (/2, /3, /4).",
           "Vein Miner and Strip Miner exclude each other (exclusive set exclusive_set/mining, declared on Vein Miner; the data test asserts that Enchantment.areCompatible(vein_miner, strip_miner) returns false). The trade function weighted_enchant does not check the set and can put both on the same pickaxe.",
           "Versatility (all mining tools including the sledgehammer, up to level II): sneak + left-click switches to the best tool from the hotbar (I) or the inventory (II).",
           "Without any enchantment the sledgehammer breaks a 3x3 face of identical mineable/pickaxe blocks; Override (up to II) widens the block selection, Radius (I) grows the face to 5x5, Break Through (up to II) takes 1 or 2 layers behind it along.",
-          "Radius and Break Through raise the block count in the hammer's speed formula (factor 1.25 + ((min(block count, 25) - 1) / 24) x 0.6) - which makes the hammer faster, not slower.",
+          "Radius and Break Through raise the number of blocks a swing takes, and the hammer slows down accordingly: speed / sqrt(min(blocks actually broken, 25)).",
           "With the sledgehammer every extra block destroyed costs 1 durability (2 if the hammer is not the matching tool for that block).",
           "The three hammer enchantments are bound to the tag sledgehammer_tools (Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer).",
           "None of the six enchantments is in the tag minecraft:in_enchanting_table (the mod only adds fast_chiseling there) - they never appear at the enchanting table; the cost values come from the definitions.",
-          "Preview (Fabric: LevelRenderEvents.COLLECT_SUBMITS / END_EXTRACTION; NeoForge: SubmitCustomGeometryEvent / ExtractLevelRenderStateEvent): the client draws breaking cracks on all connected blocks (hammer, Strip Miner, Vein Miner) and, for the hammer, an outline with a fill on top; the fill strength is steered by the buildingHighlightOpacity option (default 40). The extra cracks follow the crack vanilla itself draws at the targeted block: they also appear when vanilla mines on after the crosshair slipped off the block for a tick (it does that without its isDestroying flag), and never around a block vanilla is not mining.",
+          "Preview (Fabric: LevelRenderEvents.COLLECT_SUBMITS / END_EXTRACTION; NeoForge: SubmitCustomGeometryEvent / ExtractLevelRenderStateEvent; Forge, which has no such events: the mixins LevelRendererMixin / LevelExtractorMixin): the client draws breaking cracks on all connected blocks (hammer, Strip Miner, Vein Miner) and, for the hammer, an outline with a fill on top; the fill strength is steered by the buildingHighlightOpacity option (default 40). The extra cracks follow the crack vanilla itself draws at the targeted block: they also appear when vanilla mines on after the crosshair slipped off the block for a tick (it does that without its isDestroying flag), and never around a block vanilla is not mining.",
           "Forge module: none of the in-world renderers is wired up and the enchant_type property for the book textures is not registered; the loot function simplebuilding:weighted_enchant is registered (ForgeRegistryBootstrap), and the mining handlers themselves (hammer, Strip Miner, Vein Miner, Versatility) are hooked up on Forge.",
           "Where to find them: enchanted books sit in chests (woodland mansion, dungeon, abandoned mineshaft, nether fortress, bastion, ancient city, end city, stronghold library) and with traders (toolsmith level 4/5, librarian level 4/5, wandering trader); the loot entries hang off the enableLootTableChanges option, the traders off enableVillagerTrades and enableWanderingTrades respectively.",
           "The end city treasure chest also holds a Diamond Sledgehammer (weight 8) with a random enchantment (EnchantRandomlyFunction.randomEnchantment()).",
@@ -1589,18 +1589,18 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Abbau-Verzauberungen",
-        "summary": "SimpleBuilding bringt sechs Verzauberungen mit, die das Abbauen verändern: Aderabbau, Tunnelgräber und Vielseitigkeit für Spitzhacken (und teils Äxte bzw. alle Abbauwerkzeuge) sowie Übersteuerung, Radius und Durchbruch für den Vorschlaghammer. Schleichen schaltet Aderabbau, Tunnelgräber und Vielseitigkeit ein und die Flächen-Boni Radius und Durchbruch vorübergehend ab; Übersteuerung wirkt immer. Auf Fabric und NeoForge zeigt der Client vor dem Abbau Risse bzw. Umrisse auf allen Blöcken, die mitgehen würden.",
+        "summary": "SimpleBuilding bringt sechs Verzauberungen mit, die das Abbauen verändern: Aderabbau, Tunnelgräber und Vielseitigkeit für Spitzhacken (und teils Äxte bzw. alle Abbauwerkzeuge) sowie Übersteuerung, Radius und Durchbruch für den Vorschlaghammer. Schleichen schaltet Aderabbau, Tunnelgräber und Vielseitigkeit ein und lässt den Vorschlaghammer vorübergehend nur einen Block abbauen; Übersteuerung wirkt immer. Auf Fabric, NeoForge und Forge zeigt der Client vor dem Abbau Risse bzw. Umrisse auf allen Blöcken, die mitgehen würden.",
         "details": [
           "Aderabbau (Spitzhacke/Axt, bis Stufe V): beim Schleichen fällt eine zusammenhängende Ader aus demselben Erz bzw. Stamm, Budget 3/6/9/12/18 Blöcke je Stufe.",
           "Tunnelgräber (Spitzhacke, bis Stufe III): beim Schleichen entsteht ein Tunnel von 1/2/4 Blöcken in Blickrichtung; die Spitzhacke gibt Haltbarkeit zurück, ist aber dauerhaft langsamer (÷2/÷3/÷4).",
           "Aderabbau und Tunnelgräber schließen sich gegenseitig aus (Exklusiv-Set exclusive_set/mining, deklariert auf Aderabbau; vom Datentest in beide Richtungen geprüft). Die Handels-Funktion weighted_enchant prüft das Set nicht und kann beide auf dieselbe Spitzhacke legen.",
           "Vielseitigkeit (alle Abbauwerkzeuge inkl. Vorschlaghammer, bis Stufe II): Schleichen + Linksklick wechselt zum besten Werkzeug aus Hotbar (I) oder Inventar (II).",
           "Der Vorschlaghammer bricht ohne Verzauberung eine 3×3-Fläche aus gleichen mineable/pickaxe-Blöcken; Übersteuerung (bis II) erweitert die Blockauswahl, Radius (I) vergrößert auf 5×5, Durchbruch (bis II) nimmt 1 bzw. 2 Schichten dahinter mit.",
-          "Radius und Durchbruch erhöhen die Blockzahl in der Geschwindigkeitsformel des Hammers (Faktor 1,25 + ((min(Blockzahl, 25) − 1) / 24) × 0,6) – der Hammer wird dadurch schneller, nicht langsamer.",
+          "Radius und Durchbruch erhöhen die Zahl der Blöcke je Schlag, und der Hammer wird entsprechend langsamer: Tempo / Wurzel(min(wirklich abgebaute Blöcke, 25)).",
           "Beim Vorschlaghammer kostet jeder zusätzlich zerstörte Block 1 Haltbarkeit (2, wenn der Hammer für den Block nicht das passende Werkzeug ist).",
           "Die drei Hammer-Verzauberungen sind an das Tag sledgehammer_tools gebunden (Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Enderit-Vorschlaghammer).",
           "Keine der sechs Verzauberungen steht im Tag minecraft:in_enchanting_table (die Mod trägt dort nur fast_chiseling ein) – sie erscheinen nicht an der Verzauberungstabelle; die Kostenwerte stammen aus den Definitionen.",
-          "Vorschau (Fabric: LevelRenderEvents.COLLECT_SUBMITS / END_EXTRACTION; NeoForge: SubmitCustomGeometryEvent / ExtractLevelRenderStateEvent): Der Client zeichnet Abbau-Risse auf allen verbundenen Blöcken (Hammer, Tunnelgräber, Aderabbau) und beim Hammer zusätzlich einen Umriss mit Füllung; die Füllstärke steuert die Option buildingHighlightOpacity (Standard 40). Die zusätzlichen Risse folgen dem Riss, den Vanilla selbst am anvisierten Block zeichnet: Sie erscheinen auch, wenn Vanilla weiter abbaut, nachdem das Fadenkreuz für einen Tick vom Block gerutscht ist (das tut es ohne sein isDestroying-Flag), und nie um einen Block, den Vanilla gar nicht abbaut.",
+          "Vorschau (Fabric: LevelRenderEvents.COLLECT_SUBMITS / END_EXTRACTION; NeoForge: SubmitCustomGeometryEvent / ExtractLevelRenderStateEvent; Forge, das solche Events nicht hat: die Mixins LevelRendererMixin / LevelExtractorMixin): Der Client zeichnet Abbau-Risse auf allen verbundenen Blöcken (Hammer, Tunnelgräber, Aderabbau) und beim Hammer zusätzlich einen Umriss mit Füllung; die Füllstärke steuert die Option buildingHighlightOpacity (Standard 40). Die zusätzlichen Risse folgen dem Riss, den Vanilla selbst am anvisierten Block zeichnet: Sie erscheinen auch, wenn Vanilla weiter abbaut, nachdem das Fadenkreuz für einen Tick vom Block gerutscht ist (das tut es ohne sein isDestroying-Flag), und nie um einen Block, den Vanilla gar nicht abbaut.",
           "Forge-Modul: keiner der In-Welt-Renderer ist verdrahtet, und die enchant_type-Property für die Buchtexturen ist nicht registriert; die Loot-Funktion simplebuilding:weighted_enchant wird registriert (ForgeRegistryBootstrap), und die Abbau-Handler selbst (Hammer, Tunnelgräber, Aderabbau, Vielseitigkeit) sind auf Forge angebunden.",
           "Fundorte: verzauberte Bücher liegen in Truhen (Waldanwesen, Verlies, verlassene Mine, Netherfestung, Bastion, Antike Stadt, Endsiedlung, Festungsbibliothek) und bei Händlern (Werkzeugschmied Stufe 4/5, Bibliothekar Stufe 4/5, Wanderhändler); die Loot-Einträge hängen an der Option enableLootTableChanges, die Händler an enableVillagerTrades bzw. enableWanderingTrades.",
           "Die Endsiedlungs-Truhe enthält außerdem einen Diamant-Vorschlaghammer (Gewicht 8) mit Zufallsverzauberung (EnchantRandomlyFunction.randomEnchantment()).",
@@ -3658,9 +3658,9 @@ window.WIKI_DATA = {
             "If the targeted block itself does not satisfy the rule (dirt without Override II, for example) there is no area mining; only that single block is mined normally (canMineOrigin).",
             "Radius (max level I) grows the plane from 3x3 to 5x5 (range 1 plus the enchantment level).",
             "Break Through (max level II) digs extra layers away from you: level I a second layer, level II a third.",
-            "While you sneak, Radius and Break Through are ignored; the hammer then always mines just the plain 3x3 plane with a single layer.",
+            "While you sneak, the hammer mines only the targeted block - no 3x3, no Radius, no Break Through - at the speed of a pickaxe of its material.",
             "Durability during area mining: every additional block destroyed costs 1 durability, or 2 if the hammer is not the correct tool for that block; if the hammer breaks part-way through, the area mining stops immediately (SledgehammerUsageEvent).",
-            "Mining speed: the material speed is multiplied by 1.25 + ((block count - 1) / 24) * 0.6, giving 1.45 at 9 blocks (3x3), 1.675 at 18 blocks (3x3 with Break Through) and 1.85 at 25 blocks (Radius); anything above 25 blocks counts as 25. The block count only depends on whether Radius and Break Through sit on the hammer (getBlockCountForSpeed).",
+            "Mining speed: the hammer itself mines like a pickaxe of its material; the mining progress is then divided by the square root of the blocks the swing really breaks (the targeted block plus every neighbour the selection rules let through, at most 25): 3 for a full 3x3, about 4.24 for 3x3 with Break Through I, 5 for Radius. Blocks that stay standing (air, other blocks without Override) do not count, so a lone block mines at full pickaxe speed. Client and server compute the same (SledgehammerUtils.miningSpeedDivisor, applied in BlockStateBaseMixin).",
             "The speed factor only applies while the base speed is above 1.0, that is when the block suits the pickaxe (or, with Override II, an axe, shovel or hoe).",
             "In-game preview: every neighbouring block the next swing will take is drawn with a black outline (alpha 0.3) and a grey fill; the fill opacity is 0.3 times buildingHighlightOpacity/100 (default 40). The targeted block itself is not highlighted (BlockHighlightRenderer).",
             "While you mine, the breaking cracks appear on all affected blocks at the same time, not just on the targeted one (MultiBlockBreakingSupport).",
@@ -3698,7 +3698,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the plain 3x3 plane with one layer, Radius and Break Through are ignored.",
+            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
@@ -3728,7 +3728,7 @@ window.WIKI_DATA = {
             "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
             "The Glowing and the Emitting Trim Upgrade Template cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
             "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The speed bonus from Radius and Break Through also stays while you sneak, even though the area is then only 3x3 with one layer (getBlockCountForSpeed only checks whether the enchantments are present).",
+            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
             "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
             "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
           ]
@@ -3747,9 +3747,9 @@ window.WIKI_DATA = {
             "Erfüllt der angezielte Block selbst die Regel nicht (z. B. Erde ohne Übersteuerung II), gibt es keinen Flächenabbau; nur dieser eine Block wird normal abgebaut (canMineOrigin).",
             "Radius (maximal Stufe I) vergrößert das Feld von 3x3 auf 5x5 (Reichweite 1 plus Verzauberungsstufe).",
             "Durchbruch (maximal Stufe II) gräbt zusätzliche Schichten von dir weg: Stufe I eine zweite Schicht, Stufe II eine dritte.",
-            "Beim Schleichen werden Radius und Durchbruch ignoriert; der Hammer baut dann immer nur das einfache 3x3-Feld mit einer Schicht ab.",
+            "Beim Schleichen baut der Hammer nur den anvisierten Block ab - kein 3x3, kein Radius, kein Durchbruch - im Tempo einer Spitzhacke seines Materials.",
             "Haltbarkeit beim Flächenabbau: Jeder zusätzlich zerstörte Block kostet 1 Haltbarkeit, 2 wenn der Hammer für diesen Block nicht das passende Werkzeug ist; bricht der Hammer dabei, endet der Flächenabbau sofort (SledgehammerUsageEvent).",
-            "Abbaugeschwindigkeit: Die Materialgeschwindigkeit wird mit dem Faktor 1,25 + ((Blockzahl - 1) / 24) * 0,6 multipliziert: 1,45 bei 9 Blöcken (3x3), 1,675 bei 18 Blöcken (3x3 mit Durchbruch) und 1,85 bei 25 Blöcken (Radius); mehr als 25 Blöcke zählen wie 25. Die Blockzahl richtet sich nur danach, ob Radius bzw. Durchbruch auf dem Hammer sind (getBlockCountForSpeed).",
+            "Abbaugeschwindigkeit: Der Hammer selbst baut wie eine Spitzhacke seines Materials ab; der Abbaufortschritt wird dann durch die Wurzel der Blöcke geteilt, die der Schlag wirklich abbaut (Zielblock plus jeder Nachbar, den die Auswahlregeln durchlassen, höchstens 25): 3 bei vollem 3x3, rund 4,24 bei 3x3 mit Durchbruch I, 5 mit Radius. Blöcke, die stehen bleiben (Luft, andere Blöcke ohne Übersteuerung), zählen nicht; ein einzelner Block geht also im vollen Spitzhacken-Tempo. Client und Server rechnen dasselbe (SledgehammerUtils.miningSpeedDivisor, angewendet im BlockStateBaseMixin).",
             "Der Geschwindigkeitsfaktor greift nur, wenn die Grundgeschwindigkeit über 1,0 liegt, also der Block für die Spitzhacke (oder mit Übersteuerung II für Axt/Schaufel/Hacke) geeignet ist.",
             "Vorschau im Spiel: Alle Nachbarblöcke, die der nächste Schlag mitnimmt, werden mit schwarzem Umriss (Alpha 0,3) und grauer Füllung angezeigt; die Füll-Deckkraft ist 0,3 mal buildingHighlightOpacity/100 (Standard 40). Der angezielte Block selbst wird nicht hervorgehoben (BlockHighlightRenderer).",
             "Beim Abbauen erscheinen die Abbaurisse auf allen betroffenen Blöcken gleichzeitig, nicht nur auf dem angezielten (MultiBlockBreakingSupport).",
@@ -3787,7 +3787,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur das einfache 3x3-Feld mit einer Schicht, Radius und Durchbruch werden ignoriert.",
+            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
@@ -3815,7 +3815,7 @@ window.WIKI_DATA = {
             "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
             "Die Leuchtende und die Strahlende Schmiedevorlage selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
             "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Der Geschwindigkeitsbonus durch Radius/Durchbruch bleibt auch beim Schleichen bestehen, obwohl das Feld dann nur 3x3 mit einer Schicht ist (getBlockCountForSpeed prüft nur das Vorhandensein der Verzauberungen).",
+            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
             "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
             "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
           ]
@@ -4449,9 +4449,9 @@ window.WIKI_DATA = {
             "If the targeted block itself does not satisfy the rule (dirt without Override II, for example) there is no area mining; only that single block is mined normally (canMineOrigin).",
             "Radius (max level I) grows the plane from 3x3 to 5x5 (range 1 plus the enchantment level).",
             "Break Through (max level II) digs extra layers away from you: level I a second layer, level II a third.",
-            "While you sneak, Radius and Break Through are ignored; the hammer then always mines just the plain 3x3 plane with a single layer.",
+            "While you sneak, the hammer mines only the targeted block - no 3x3, no Radius, no Break Through - at the speed of a pickaxe of its material.",
             "Durability during area mining: every additional block destroyed costs 1 durability, or 2 if the hammer is not the correct tool for that block; if the hammer breaks part-way through, the area mining stops immediately (SledgehammerUsageEvent).",
-            "Mining speed: the material speed is multiplied by 1.25 + ((block count - 1) / 24) * 0.6, giving 1.45 at 9 blocks (3x3), 1.675 at 18 blocks (3x3 with Break Through) and 1.85 at 25 blocks (Radius); anything above 25 blocks counts as 25. The block count only depends on whether Radius and Break Through sit on the hammer (getBlockCountForSpeed).",
+            "Mining speed: the hammer itself mines like a pickaxe of its material; the mining progress is then divided by the square root of the blocks the swing really breaks (the targeted block plus every neighbour the selection rules let through, at most 25): 3 for a full 3x3, about 4.24 for 3x3 with Break Through I, 5 for Radius. Blocks that stay standing (air, other blocks without Override) do not count, so a lone block mines at full pickaxe speed. Client and server compute the same (SledgehammerUtils.miningSpeedDivisor, applied in BlockStateBaseMixin).",
             "The speed factor only applies while the base speed is above 1.0, that is when the block suits the pickaxe (or, with Override II, an axe, shovel or hoe).",
             "In-game preview: every neighbouring block the next swing will take is drawn with a black outline (alpha 0.3) and a grey fill; the fill opacity is 0.3 times buildingHighlightOpacity/100 (default 40). The targeted block itself is not highlighted (BlockHighlightRenderer).",
             "While you mine, the breaking cracks appear on all affected blocks at the same time, not just on the targeted one (MultiBlockBreakingSupport).",
@@ -4489,7 +4489,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the plain 3x3 plane with one layer, Radius and Break Through are ignored.",
+            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
@@ -4519,7 +4519,7 @@ window.WIKI_DATA = {
             "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
             "The Glowing and the Emitting Trim Upgrade Template cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
             "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The speed bonus from Radius and Break Through also stays while you sneak, even though the area is then only 3x3 with one layer (getBlockCountForSpeed only checks whether the enchantments are present).",
+            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
             "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
             "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
           ]
@@ -4538,9 +4538,9 @@ window.WIKI_DATA = {
             "Erfüllt der angezielte Block selbst die Regel nicht (z. B. Erde ohne Übersteuerung II), gibt es keinen Flächenabbau; nur dieser eine Block wird normal abgebaut (canMineOrigin).",
             "Radius (maximal Stufe I) vergrößert das Feld von 3x3 auf 5x5 (Reichweite 1 plus Verzauberungsstufe).",
             "Durchbruch (maximal Stufe II) gräbt zusätzliche Schichten von dir weg: Stufe I eine zweite Schicht, Stufe II eine dritte.",
-            "Beim Schleichen werden Radius und Durchbruch ignoriert; der Hammer baut dann immer nur das einfache 3x3-Feld mit einer Schicht ab.",
+            "Beim Schleichen baut der Hammer nur den anvisierten Block ab - kein 3x3, kein Radius, kein Durchbruch - im Tempo einer Spitzhacke seines Materials.",
             "Haltbarkeit beim Flächenabbau: Jeder zusätzlich zerstörte Block kostet 1 Haltbarkeit, 2 wenn der Hammer für diesen Block nicht das passende Werkzeug ist; bricht der Hammer dabei, endet der Flächenabbau sofort (SledgehammerUsageEvent).",
-            "Abbaugeschwindigkeit: Die Materialgeschwindigkeit wird mit dem Faktor 1,25 + ((Blockzahl - 1) / 24) * 0,6 multipliziert: 1,45 bei 9 Blöcken (3x3), 1,675 bei 18 Blöcken (3x3 mit Durchbruch) und 1,85 bei 25 Blöcken (Radius); mehr als 25 Blöcke zählen wie 25. Die Blockzahl richtet sich nur danach, ob Radius bzw. Durchbruch auf dem Hammer sind (getBlockCountForSpeed).",
+            "Abbaugeschwindigkeit: Der Hammer selbst baut wie eine Spitzhacke seines Materials ab; der Abbaufortschritt wird dann durch die Wurzel der Blöcke geteilt, die der Schlag wirklich abbaut (Zielblock plus jeder Nachbar, den die Auswahlregeln durchlassen, höchstens 25): 3 bei vollem 3x3, rund 4,24 bei 3x3 mit Durchbruch I, 5 mit Radius. Blöcke, die stehen bleiben (Luft, andere Blöcke ohne Übersteuerung), zählen nicht; ein einzelner Block geht also im vollen Spitzhacken-Tempo. Client und Server rechnen dasselbe (SledgehammerUtils.miningSpeedDivisor, angewendet im BlockStateBaseMixin).",
             "Der Geschwindigkeitsfaktor greift nur, wenn die Grundgeschwindigkeit über 1,0 liegt, also der Block für die Spitzhacke (oder mit Übersteuerung II für Axt/Schaufel/Hacke) geeignet ist.",
             "Vorschau im Spiel: Alle Nachbarblöcke, die der nächste Schlag mitnimmt, werden mit schwarzem Umriss (Alpha 0,3) und grauer Füllung angezeigt; die Füll-Deckkraft ist 0,3 mal buildingHighlightOpacity/100 (Standard 40). Der angezielte Block selbst wird nicht hervorgehoben (BlockHighlightRenderer).",
             "Beim Abbauen erscheinen die Abbaurisse auf allen betroffenen Blöcken gleichzeitig, nicht nur auf dem angezielten (MultiBlockBreakingSupport).",
@@ -4578,7 +4578,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur das einfache 3x3-Feld mit einer Schicht, Radius und Durchbruch werden ignoriert.",
+            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
@@ -4606,7 +4606,7 @@ window.WIKI_DATA = {
             "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
             "Die Leuchtende und die Strahlende Schmiedevorlage selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
             "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Der Geschwindigkeitsbonus durch Radius/Durchbruch bleibt auch beim Schleichen bestehen, obwohl das Feld dann nur 3x3 mit einer Schicht ist (getBlockCountForSpeed prüft nur das Vorhandensein der Verzauberungen).",
+            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
             "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
             "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
           ]
@@ -6144,9 +6144,9 @@ window.WIKI_DATA = {
             "If the targeted block itself does not satisfy the rule (dirt without Override II, for example) there is no area mining; only that single block is mined normally (canMineOrigin).",
             "Radius (max level I) grows the plane from 3x3 to 5x5 (range 1 plus the enchantment level).",
             "Break Through (max level II) digs extra layers away from you: level I a second layer, level II a third.",
-            "While you sneak, Radius and Break Through are ignored; the hammer then always mines just the plain 3x3 plane with a single layer.",
+            "While you sneak, the hammer mines only the targeted block - no 3x3, no Radius, no Break Through - at the speed of a pickaxe of its material.",
             "Durability during area mining: every additional block destroyed costs 1 durability, or 2 if the hammer is not the correct tool for that block; if the hammer breaks part-way through, the area mining stops immediately (SledgehammerUsageEvent).",
-            "Mining speed: the material speed is multiplied by 1.25 + ((block count - 1) / 24) * 0.6, giving 1.45 at 9 blocks (3x3), 1.675 at 18 blocks (3x3 with Break Through) and 1.85 at 25 blocks (Radius); anything above 25 blocks counts as 25. The block count only depends on whether Radius and Break Through sit on the hammer (getBlockCountForSpeed).",
+            "Mining speed: the hammer itself mines like a pickaxe of its material; the mining progress is then divided by the square root of the blocks the swing really breaks (the targeted block plus every neighbour the selection rules let through, at most 25): 3 for a full 3x3, about 4.24 for 3x3 with Break Through I, 5 for Radius. Blocks that stay standing (air, other blocks without Override) do not count, so a lone block mines at full pickaxe speed. Client and server compute the same (SledgehammerUtils.miningSpeedDivisor, applied in BlockStateBaseMixin).",
             "The speed factor only applies while the base speed is above 1.0, that is when the block suits the pickaxe (or, with Override II, an axe, shovel or hoe).",
             "In-game preview: every neighbouring block the next swing will take is drawn with a black outline (alpha 0.3) and a grey fill; the fill opacity is 0.3 times buildingHighlightOpacity/100 (default 40). The targeted block itself is not highlighted (BlockHighlightRenderer).",
             "While you mine, the breaking cracks appear on all affected blocks at the same time, not just on the targeted one (MultiBlockBreakingSupport).",
@@ -6184,7 +6184,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the plain 3x3 plane with one layer, Radius and Break Through are ignored.",
+            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
@@ -6214,7 +6214,7 @@ window.WIKI_DATA = {
             "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
             "The Glowing and the Emitting Trim Upgrade Template cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
             "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The speed bonus from Radius and Break Through also stays while you sneak, even though the area is then only 3x3 with one layer (getBlockCountForSpeed only checks whether the enchantments are present).",
+            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
             "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
             "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
           ]
@@ -6233,9 +6233,9 @@ window.WIKI_DATA = {
             "Erfüllt der angezielte Block selbst die Regel nicht (z. B. Erde ohne Übersteuerung II), gibt es keinen Flächenabbau; nur dieser eine Block wird normal abgebaut (canMineOrigin).",
             "Radius (maximal Stufe I) vergrößert das Feld von 3x3 auf 5x5 (Reichweite 1 plus Verzauberungsstufe).",
             "Durchbruch (maximal Stufe II) gräbt zusätzliche Schichten von dir weg: Stufe I eine zweite Schicht, Stufe II eine dritte.",
-            "Beim Schleichen werden Radius und Durchbruch ignoriert; der Hammer baut dann immer nur das einfache 3x3-Feld mit einer Schicht ab.",
+            "Beim Schleichen baut der Hammer nur den anvisierten Block ab - kein 3x3, kein Radius, kein Durchbruch - im Tempo einer Spitzhacke seines Materials.",
             "Haltbarkeit beim Flächenabbau: Jeder zusätzlich zerstörte Block kostet 1 Haltbarkeit, 2 wenn der Hammer für diesen Block nicht das passende Werkzeug ist; bricht der Hammer dabei, endet der Flächenabbau sofort (SledgehammerUsageEvent).",
-            "Abbaugeschwindigkeit: Die Materialgeschwindigkeit wird mit dem Faktor 1,25 + ((Blockzahl - 1) / 24) * 0,6 multipliziert: 1,45 bei 9 Blöcken (3x3), 1,675 bei 18 Blöcken (3x3 mit Durchbruch) und 1,85 bei 25 Blöcken (Radius); mehr als 25 Blöcke zählen wie 25. Die Blockzahl richtet sich nur danach, ob Radius bzw. Durchbruch auf dem Hammer sind (getBlockCountForSpeed).",
+            "Abbaugeschwindigkeit: Der Hammer selbst baut wie eine Spitzhacke seines Materials ab; der Abbaufortschritt wird dann durch die Wurzel der Blöcke geteilt, die der Schlag wirklich abbaut (Zielblock plus jeder Nachbar, den die Auswahlregeln durchlassen, höchstens 25): 3 bei vollem 3x3, rund 4,24 bei 3x3 mit Durchbruch I, 5 mit Radius. Blöcke, die stehen bleiben (Luft, andere Blöcke ohne Übersteuerung), zählen nicht; ein einzelner Block geht also im vollen Spitzhacken-Tempo. Client und Server rechnen dasselbe (SledgehammerUtils.miningSpeedDivisor, angewendet im BlockStateBaseMixin).",
             "Der Geschwindigkeitsfaktor greift nur, wenn die Grundgeschwindigkeit über 1,0 liegt, also der Block für die Spitzhacke (oder mit Übersteuerung II für Axt/Schaufel/Hacke) geeignet ist.",
             "Vorschau im Spiel: Alle Nachbarblöcke, die der nächste Schlag mitnimmt, werden mit schwarzem Umriss (Alpha 0,3) und grauer Füllung angezeigt; die Füll-Deckkraft ist 0,3 mal buildingHighlightOpacity/100 (Standard 40). Der angezielte Block selbst wird nicht hervorgehoben (BlockHighlightRenderer).",
             "Beim Abbauen erscheinen die Abbaurisse auf allen betroffenen Blöcken gleichzeitig, nicht nur auf dem angezielten (MultiBlockBreakingSupport).",
@@ -6273,7 +6273,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur das einfache 3x3-Feld mit einer Schicht, Radius und Durchbruch werden ignoriert.",
+            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
@@ -6301,7 +6301,7 @@ window.WIKI_DATA = {
             "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
             "Die Leuchtende und die Strahlende Schmiedevorlage selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
             "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Der Geschwindigkeitsbonus durch Radius/Durchbruch bleibt auch beim Schleichen bestehen, obwohl das Feld dann nur 3x3 mit einer Schicht ist (getBlockCountForSpeed prüft nur das Vorhandensein der Verzauberungen).",
+            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
             "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
             "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
           ]
@@ -7039,9 +7039,9 @@ window.WIKI_DATA = {
             "If the targeted block itself does not satisfy the rule (dirt without Override II, for example) there is no area mining; only that single block is mined normally (canMineOrigin).",
             "Radius (max level I) grows the plane from 3x3 to 5x5 (range 1 plus the enchantment level).",
             "Break Through (max level II) digs extra layers away from you: level I a second layer, level II a third.",
-            "While you sneak, Radius and Break Through are ignored; the hammer then always mines just the plain 3x3 plane with a single layer.",
+            "While you sneak, the hammer mines only the targeted block - no 3x3, no Radius, no Break Through - at the speed of a pickaxe of its material.",
             "Durability during area mining: every additional block destroyed costs 1 durability, or 2 if the hammer is not the correct tool for that block; if the hammer breaks part-way through, the area mining stops immediately (SledgehammerUsageEvent).",
-            "Mining speed: the material speed is multiplied by 1.25 + ((block count - 1) / 24) * 0.6, giving 1.45 at 9 blocks (3x3), 1.675 at 18 blocks (3x3 with Break Through) and 1.85 at 25 blocks (Radius); anything above 25 blocks counts as 25. The block count only depends on whether Radius and Break Through sit on the hammer (getBlockCountForSpeed).",
+            "Mining speed: the hammer itself mines like a pickaxe of its material; the mining progress is then divided by the square root of the blocks the swing really breaks (the targeted block plus every neighbour the selection rules let through, at most 25): 3 for a full 3x3, about 4.24 for 3x3 with Break Through I, 5 for Radius. Blocks that stay standing (air, other blocks without Override) do not count, so a lone block mines at full pickaxe speed. Client and server compute the same (SledgehammerUtils.miningSpeedDivisor, applied in BlockStateBaseMixin).",
             "The speed factor only applies while the base speed is above 1.0, that is when the block suits the pickaxe (or, with Override II, an axe, shovel or hoe).",
             "In-game preview: every neighbouring block the next swing will take is drawn with a black outline (alpha 0.3) and a grey fill; the fill opacity is 0.3 times buildingHighlightOpacity/100 (default 40). The targeted block itself is not highlighted (BlockHighlightRenderer).",
             "While you mine, the breaking cracks appear on all affected blocks at the same time, not just on the targeted one (MultiBlockBreakingSupport).",
@@ -7079,7 +7079,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the plain 3x3 plane with one layer, Radius and Break Through are ignored.",
+            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
@@ -7109,7 +7109,7 @@ window.WIKI_DATA = {
             "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
             "The Glowing and the Emitting Trim Upgrade Template cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
             "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The speed bonus from Radius and Break Through also stays while you sneak, even though the area is then only 3x3 with one layer (getBlockCountForSpeed only checks whether the enchantments are present).",
+            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
             "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
             "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
           ]
@@ -7128,9 +7128,9 @@ window.WIKI_DATA = {
             "Erfüllt der angezielte Block selbst die Regel nicht (z. B. Erde ohne Übersteuerung II), gibt es keinen Flächenabbau; nur dieser eine Block wird normal abgebaut (canMineOrigin).",
             "Radius (maximal Stufe I) vergrößert das Feld von 3x3 auf 5x5 (Reichweite 1 plus Verzauberungsstufe).",
             "Durchbruch (maximal Stufe II) gräbt zusätzliche Schichten von dir weg: Stufe I eine zweite Schicht, Stufe II eine dritte.",
-            "Beim Schleichen werden Radius und Durchbruch ignoriert; der Hammer baut dann immer nur das einfache 3x3-Feld mit einer Schicht ab.",
+            "Beim Schleichen baut der Hammer nur den anvisierten Block ab - kein 3x3, kein Radius, kein Durchbruch - im Tempo einer Spitzhacke seines Materials.",
             "Haltbarkeit beim Flächenabbau: Jeder zusätzlich zerstörte Block kostet 1 Haltbarkeit, 2 wenn der Hammer für diesen Block nicht das passende Werkzeug ist; bricht der Hammer dabei, endet der Flächenabbau sofort (SledgehammerUsageEvent).",
-            "Abbaugeschwindigkeit: Die Materialgeschwindigkeit wird mit dem Faktor 1,25 + ((Blockzahl - 1) / 24) * 0,6 multipliziert: 1,45 bei 9 Blöcken (3x3), 1,675 bei 18 Blöcken (3x3 mit Durchbruch) und 1,85 bei 25 Blöcken (Radius); mehr als 25 Blöcke zählen wie 25. Die Blockzahl richtet sich nur danach, ob Radius bzw. Durchbruch auf dem Hammer sind (getBlockCountForSpeed).",
+            "Abbaugeschwindigkeit: Der Hammer selbst baut wie eine Spitzhacke seines Materials ab; der Abbaufortschritt wird dann durch die Wurzel der Blöcke geteilt, die der Schlag wirklich abbaut (Zielblock plus jeder Nachbar, den die Auswahlregeln durchlassen, höchstens 25): 3 bei vollem 3x3, rund 4,24 bei 3x3 mit Durchbruch I, 5 mit Radius. Blöcke, die stehen bleiben (Luft, andere Blöcke ohne Übersteuerung), zählen nicht; ein einzelner Block geht also im vollen Spitzhacken-Tempo. Client und Server rechnen dasselbe (SledgehammerUtils.miningSpeedDivisor, angewendet im BlockStateBaseMixin).",
             "Der Geschwindigkeitsfaktor greift nur, wenn die Grundgeschwindigkeit über 1,0 liegt, also der Block für die Spitzhacke (oder mit Übersteuerung II für Axt/Schaufel/Hacke) geeignet ist.",
             "Vorschau im Spiel: Alle Nachbarblöcke, die der nächste Schlag mitnimmt, werden mit schwarzem Umriss (Alpha 0,3) und grauer Füllung angezeigt; die Füll-Deckkraft ist 0,3 mal buildingHighlightOpacity/100 (Standard 40). Der angezielte Block selbst wird nicht hervorgehoben (BlockHighlightRenderer).",
             "Beim Abbauen erscheinen die Abbaurisse auf allen betroffenen Blöcken gleichzeitig, nicht nur auf dem angezielten (MultiBlockBreakingSupport).",
@@ -7168,7 +7168,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur das einfache 3x3-Feld mit einer Schicht, Radius und Durchbruch werden ignoriert.",
+            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
@@ -7196,7 +7196,7 @@ window.WIKI_DATA = {
             "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
             "Die Leuchtende und die Strahlende Schmiedevorlage selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
             "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Der Geschwindigkeitsbonus durch Radius/Durchbruch bleibt auch beim Schleichen bestehen, obwohl das Feld dann nur 3x3 mit einer Schicht ist (getBlockCountForSpeed prüft nur das Vorhandensein der Verzauberungen).",
+            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
             "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
             "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
           ]
@@ -7771,9 +7771,9 @@ window.WIKI_DATA = {
             "If the targeted block itself does not satisfy the rule (dirt without Override II, for example) there is no area mining; only that single block is mined normally (canMineOrigin).",
             "Radius (max level I) grows the plane from 3x3 to 5x5 (range 1 plus the enchantment level).",
             "Break Through (max level II) digs extra layers away from you: level I a second layer, level II a third.",
-            "While you sneak, Radius and Break Through are ignored; the hammer then always mines just the plain 3x3 plane with a single layer.",
+            "While you sneak, the hammer mines only the targeted block - no 3x3, no Radius, no Break Through - at the speed of a pickaxe of its material.",
             "Durability during area mining: every additional block destroyed costs 1 durability, or 2 if the hammer is not the correct tool for that block; if the hammer breaks part-way through, the area mining stops immediately (SledgehammerUsageEvent).",
-            "Mining speed: the material speed is multiplied by 1.25 + ((block count - 1) / 24) * 0.6, giving 1.45 at 9 blocks (3x3), 1.675 at 18 blocks (3x3 with Break Through) and 1.85 at 25 blocks (Radius); anything above 25 blocks counts as 25. The block count only depends on whether Radius and Break Through sit on the hammer (getBlockCountForSpeed).",
+            "Mining speed: the hammer itself mines like a pickaxe of its material; the mining progress is then divided by the square root of the blocks the swing really breaks (the targeted block plus every neighbour the selection rules let through, at most 25): 3 for a full 3x3, about 4.24 for 3x3 with Break Through I, 5 for Radius. Blocks that stay standing (air, other blocks without Override) do not count, so a lone block mines at full pickaxe speed. Client and server compute the same (SledgehammerUtils.miningSpeedDivisor, applied in BlockStateBaseMixin).",
             "The speed factor only applies while the base speed is above 1.0, that is when the block suits the pickaxe (or, with Override II, an axe, shovel or hoe).",
             "In-game preview: every neighbouring block the next swing will take is drawn with a black outline (alpha 0.3) and a grey fill; the fill opacity is 0.3 times buildingHighlightOpacity/100 (default 40). The targeted block itself is not highlighted (BlockHighlightRenderer).",
             "While you mine, the breaking cracks appear on all affected blocks at the same time, not just on the targeted one (MultiBlockBreakingSupport).",
@@ -7811,7 +7811,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the plain 3x3 plane with one layer, Radius and Break Through are ignored.",
+            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
@@ -7841,7 +7841,7 @@ window.WIKI_DATA = {
             "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
             "The Glowing and the Emitting Trim Upgrade Template cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
             "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The speed bonus from Radius and Break Through also stays while you sneak, even though the area is then only 3x3 with one layer (getBlockCountForSpeed only checks whether the enchantments are present).",
+            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
             "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
             "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
           ]
@@ -7860,9 +7860,9 @@ window.WIKI_DATA = {
             "Erfüllt der angezielte Block selbst die Regel nicht (z. B. Erde ohne Übersteuerung II), gibt es keinen Flächenabbau; nur dieser eine Block wird normal abgebaut (canMineOrigin).",
             "Radius (maximal Stufe I) vergrößert das Feld von 3x3 auf 5x5 (Reichweite 1 plus Verzauberungsstufe).",
             "Durchbruch (maximal Stufe II) gräbt zusätzliche Schichten von dir weg: Stufe I eine zweite Schicht, Stufe II eine dritte.",
-            "Beim Schleichen werden Radius und Durchbruch ignoriert; der Hammer baut dann immer nur das einfache 3x3-Feld mit einer Schicht ab.",
+            "Beim Schleichen baut der Hammer nur den anvisierten Block ab - kein 3x3, kein Radius, kein Durchbruch - im Tempo einer Spitzhacke seines Materials.",
             "Haltbarkeit beim Flächenabbau: Jeder zusätzlich zerstörte Block kostet 1 Haltbarkeit, 2 wenn der Hammer für diesen Block nicht das passende Werkzeug ist; bricht der Hammer dabei, endet der Flächenabbau sofort (SledgehammerUsageEvent).",
-            "Abbaugeschwindigkeit: Die Materialgeschwindigkeit wird mit dem Faktor 1,25 + ((Blockzahl - 1) / 24) * 0,6 multipliziert: 1,45 bei 9 Blöcken (3x3), 1,675 bei 18 Blöcken (3x3 mit Durchbruch) und 1,85 bei 25 Blöcken (Radius); mehr als 25 Blöcke zählen wie 25. Die Blockzahl richtet sich nur danach, ob Radius bzw. Durchbruch auf dem Hammer sind (getBlockCountForSpeed).",
+            "Abbaugeschwindigkeit: Der Hammer selbst baut wie eine Spitzhacke seines Materials ab; der Abbaufortschritt wird dann durch die Wurzel der Blöcke geteilt, die der Schlag wirklich abbaut (Zielblock plus jeder Nachbar, den die Auswahlregeln durchlassen, höchstens 25): 3 bei vollem 3x3, rund 4,24 bei 3x3 mit Durchbruch I, 5 mit Radius. Blöcke, die stehen bleiben (Luft, andere Blöcke ohne Übersteuerung), zählen nicht; ein einzelner Block geht also im vollen Spitzhacken-Tempo. Client und Server rechnen dasselbe (SledgehammerUtils.miningSpeedDivisor, angewendet im BlockStateBaseMixin).",
             "Der Geschwindigkeitsfaktor greift nur, wenn die Grundgeschwindigkeit über 1,0 liegt, also der Block für die Spitzhacke (oder mit Übersteuerung II für Axt/Schaufel/Hacke) geeignet ist.",
             "Vorschau im Spiel: Alle Nachbarblöcke, die der nächste Schlag mitnimmt, werden mit schwarzem Umriss (Alpha 0,3) und grauer Füllung angezeigt; die Füll-Deckkraft ist 0,3 mal buildingHighlightOpacity/100 (Standard 40). Der angezielte Block selbst wird nicht hervorgehoben (BlockHighlightRenderer).",
             "Beim Abbauen erscheinen die Abbaurisse auf allen betroffenen Blöcken gleichzeitig, nicht nur auf dem angezielten (MultiBlockBreakingSupport).",
@@ -7900,7 +7900,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur das einfache 3x3-Feld mit einer Schicht, Radius und Durchbruch werden ignoriert.",
+            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
@@ -7928,7 +7928,7 @@ window.WIKI_DATA = {
             "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
             "Die Leuchtende und die Strahlende Schmiedevorlage selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
             "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Der Geschwindigkeitsbonus durch Radius/Durchbruch bleibt auch beim Schleichen bestehen, obwohl das Feld dann nur 3x3 mit einer Schicht ist (getBlockCountForSpeed prüft nur das Vorhandensein der Verzauberungen).",
+            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
             "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
             "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
           ]
@@ -9685,9 +9685,9 @@ window.WIKI_DATA = {
             "If the targeted block itself does not satisfy the rule (dirt without Override II, for example) there is no area mining; only that single block is mined normally (canMineOrigin).",
             "Radius (max level I) grows the plane from 3x3 to 5x5 (range 1 plus the enchantment level).",
             "Break Through (max level II) digs extra layers away from you: level I a second layer, level II a third.",
-            "While you sneak, Radius and Break Through are ignored; the hammer then always mines just the plain 3x3 plane with a single layer.",
+            "While you sneak, the hammer mines only the targeted block - no 3x3, no Radius, no Break Through - at the speed of a pickaxe of its material.",
             "Durability during area mining: every additional block destroyed costs 1 durability, or 2 if the hammer is not the correct tool for that block; if the hammer breaks part-way through, the area mining stops immediately (SledgehammerUsageEvent).",
-            "Mining speed: the material speed is multiplied by 1.25 + ((block count - 1) / 24) * 0.6, giving 1.45 at 9 blocks (3x3), 1.675 at 18 blocks (3x3 with Break Through) and 1.85 at 25 blocks (Radius); anything above 25 blocks counts as 25. The block count only depends on whether Radius and Break Through sit on the hammer (getBlockCountForSpeed).",
+            "Mining speed: the hammer itself mines like a pickaxe of its material; the mining progress is then divided by the square root of the blocks the swing really breaks (the targeted block plus every neighbour the selection rules let through, at most 25): 3 for a full 3x3, about 4.24 for 3x3 with Break Through I, 5 for Radius. Blocks that stay standing (air, other blocks without Override) do not count, so a lone block mines at full pickaxe speed. Client and server compute the same (SledgehammerUtils.miningSpeedDivisor, applied in BlockStateBaseMixin).",
             "The speed factor only applies while the base speed is above 1.0, that is when the block suits the pickaxe (or, with Override II, an axe, shovel or hoe).",
             "In-game preview: every neighbouring block the next swing will take is drawn with a black outline (alpha 0.3) and a grey fill; the fill opacity is 0.3 times buildingHighlightOpacity/100 (default 40). The targeted block itself is not highlighted (BlockHighlightRenderer).",
             "While you mine, the breaking cracks appear on all affected blocks at the same time, not just on the targeted one (MultiBlockBreakingSupport).",
@@ -9725,7 +9725,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the plain 3x3 plane with one layer, Radius and Break Through are ignored.",
+            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
@@ -9755,7 +9755,7 @@ window.WIKI_DATA = {
             "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
             "The Glowing and the Emitting Trim Upgrade Template cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
             "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The speed bonus from Radius and Break Through also stays while you sneak, even though the area is then only 3x3 with one layer (getBlockCountForSpeed only checks whether the enchantments are present).",
+            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
             "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
             "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
           ]
@@ -9774,9 +9774,9 @@ window.WIKI_DATA = {
             "Erfüllt der angezielte Block selbst die Regel nicht (z. B. Erde ohne Übersteuerung II), gibt es keinen Flächenabbau; nur dieser eine Block wird normal abgebaut (canMineOrigin).",
             "Radius (maximal Stufe I) vergrößert das Feld von 3x3 auf 5x5 (Reichweite 1 plus Verzauberungsstufe).",
             "Durchbruch (maximal Stufe II) gräbt zusätzliche Schichten von dir weg: Stufe I eine zweite Schicht, Stufe II eine dritte.",
-            "Beim Schleichen werden Radius und Durchbruch ignoriert; der Hammer baut dann immer nur das einfache 3x3-Feld mit einer Schicht ab.",
+            "Beim Schleichen baut der Hammer nur den anvisierten Block ab - kein 3x3, kein Radius, kein Durchbruch - im Tempo einer Spitzhacke seines Materials.",
             "Haltbarkeit beim Flächenabbau: Jeder zusätzlich zerstörte Block kostet 1 Haltbarkeit, 2 wenn der Hammer für diesen Block nicht das passende Werkzeug ist; bricht der Hammer dabei, endet der Flächenabbau sofort (SledgehammerUsageEvent).",
-            "Abbaugeschwindigkeit: Die Materialgeschwindigkeit wird mit dem Faktor 1,25 + ((Blockzahl - 1) / 24) * 0,6 multipliziert: 1,45 bei 9 Blöcken (3x3), 1,675 bei 18 Blöcken (3x3 mit Durchbruch) und 1,85 bei 25 Blöcken (Radius); mehr als 25 Blöcke zählen wie 25. Die Blockzahl richtet sich nur danach, ob Radius bzw. Durchbruch auf dem Hammer sind (getBlockCountForSpeed).",
+            "Abbaugeschwindigkeit: Der Hammer selbst baut wie eine Spitzhacke seines Materials ab; der Abbaufortschritt wird dann durch die Wurzel der Blöcke geteilt, die der Schlag wirklich abbaut (Zielblock plus jeder Nachbar, den die Auswahlregeln durchlassen, höchstens 25): 3 bei vollem 3x3, rund 4,24 bei 3x3 mit Durchbruch I, 5 mit Radius. Blöcke, die stehen bleiben (Luft, andere Blöcke ohne Übersteuerung), zählen nicht; ein einzelner Block geht also im vollen Spitzhacken-Tempo. Client und Server rechnen dasselbe (SledgehammerUtils.miningSpeedDivisor, angewendet im BlockStateBaseMixin).",
             "Der Geschwindigkeitsfaktor greift nur, wenn die Grundgeschwindigkeit über 1,0 liegt, also der Block für die Spitzhacke (oder mit Übersteuerung II für Axt/Schaufel/Hacke) geeignet ist.",
             "Vorschau im Spiel: Alle Nachbarblöcke, die der nächste Schlag mitnimmt, werden mit schwarzem Umriss (Alpha 0,3) und grauer Füllung angezeigt; die Füll-Deckkraft ist 0,3 mal buildingHighlightOpacity/100 (Standard 40). Der angezielte Block selbst wird nicht hervorgehoben (BlockHighlightRenderer).",
             "Beim Abbauen erscheinen die Abbaurisse auf allen betroffenen Blöcken gleichzeitig, nicht nur auf dem angezielten (MultiBlockBreakingSupport).",
@@ -9814,7 +9814,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur das einfache 3x3-Feld mit einer Schicht, Radius und Durchbruch werden ignoriert.",
+            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
@@ -9842,7 +9842,7 @@ window.WIKI_DATA = {
             "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
             "Die Leuchtende und die Strahlende Schmiedevorlage selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
             "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Der Geschwindigkeitsbonus durch Radius/Durchbruch bleibt auch beim Schleichen bestehen, obwohl das Feld dann nur 3x3 mit einer Schicht ist (getBlockCountForSpeed prüft nur das Vorhandensein der Verzauberungen).",
+            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
             "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
             "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
           ]
@@ -12418,9 +12418,9 @@ window.WIKI_DATA = {
             "If the targeted block itself does not satisfy the rule (dirt without Override II, for example) there is no area mining; only that single block is mined normally (canMineOrigin).",
             "Radius (max level I) grows the plane from 3x3 to 5x5 (range 1 plus the enchantment level).",
             "Break Through (max level II) digs extra layers away from you: level I a second layer, level II a third.",
-            "While you sneak, Radius and Break Through are ignored; the hammer then always mines just the plain 3x3 plane with a single layer.",
+            "While you sneak, the hammer mines only the targeted block - no 3x3, no Radius, no Break Through - at the speed of a pickaxe of its material.",
             "Durability during area mining: every additional block destroyed costs 1 durability, or 2 if the hammer is not the correct tool for that block; if the hammer breaks part-way through, the area mining stops immediately (SledgehammerUsageEvent).",
-            "Mining speed: the material speed is multiplied by 1.25 + ((block count - 1) / 24) * 0.6, giving 1.45 at 9 blocks (3x3), 1.675 at 18 blocks (3x3 with Break Through) and 1.85 at 25 blocks (Radius); anything above 25 blocks counts as 25. The block count only depends on whether Radius and Break Through sit on the hammer (getBlockCountForSpeed).",
+            "Mining speed: the hammer itself mines like a pickaxe of its material; the mining progress is then divided by the square root of the blocks the swing really breaks (the targeted block plus every neighbour the selection rules let through, at most 25): 3 for a full 3x3, about 4.24 for 3x3 with Break Through I, 5 for Radius. Blocks that stay standing (air, other blocks without Override) do not count, so a lone block mines at full pickaxe speed. Client and server compute the same (SledgehammerUtils.miningSpeedDivisor, applied in BlockStateBaseMixin).",
             "The speed factor only applies while the base speed is above 1.0, that is when the block suits the pickaxe (or, with Override II, an axe, shovel or hoe).",
             "In-game preview: every neighbouring block the next swing will take is drawn with a black outline (alpha 0.3) and a grey fill; the fill opacity is 0.3 times buildingHighlightOpacity/100 (default 40). The targeted block itself is not highlighted (BlockHighlightRenderer).",
             "While you mine, the breaking cracks appear on all affected blocks at the same time, not just on the targeted one (MultiBlockBreakingSupport).",
@@ -12458,7 +12458,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Left-click (mining): breaks the targeted block plus a 3x3 plane; 5x5 with Radius, extra layers with Break Through.",
-            "Sneak + mine: only the plain 3x3 plane with one layer, Radius and Break Through are ignored.",
+            "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
@@ -12488,7 +12488,7 @@ window.WIKI_DATA = {
             "When crushing, the diamond block itself does not drop; only the 81 Diamond Pebbles are produced.",
             "The Glowing and the Emitting Trim Upgrade Template cannot themselves be upgraded again, because their item ids (glowing_trim_template, emitting_trim_template) do not contain the text trim_smithing_template.",
             "When combining two hammers in the anvil there is no check that both are the same tier; the result is always a copy of the left hammer with the durability added up and the enchantments merged.",
-            "The speed bonus from Radius and Break Through also stays while you sneak, even though the area is then only 3x3 with one layer (getBlockCountForSpeed only checks whether the enchantments are present).",
+            "The slowdown counts only blocks that really break: a 3x3 in which only the targeted block is minable mines at full pickaxe speed.",
             "Loot changes and villager trades only apply when the settings enableLootTableChanges and enableVillagerTrades are on.",
             "Area mining only triggers with the hammer in the main hand; for the off hand neither area mining is triggered nor a preview drawn."
           ]
@@ -12507,9 +12507,9 @@ window.WIKI_DATA = {
             "Erfüllt der angezielte Block selbst die Regel nicht (z. B. Erde ohne Übersteuerung II), gibt es keinen Flächenabbau; nur dieser eine Block wird normal abgebaut (canMineOrigin).",
             "Radius (maximal Stufe I) vergrößert das Feld von 3x3 auf 5x5 (Reichweite 1 plus Verzauberungsstufe).",
             "Durchbruch (maximal Stufe II) gräbt zusätzliche Schichten von dir weg: Stufe I eine zweite Schicht, Stufe II eine dritte.",
-            "Beim Schleichen werden Radius und Durchbruch ignoriert; der Hammer baut dann immer nur das einfache 3x3-Feld mit einer Schicht ab.",
+            "Beim Schleichen baut der Hammer nur den anvisierten Block ab - kein 3x3, kein Radius, kein Durchbruch - im Tempo einer Spitzhacke seines Materials.",
             "Haltbarkeit beim Flächenabbau: Jeder zusätzlich zerstörte Block kostet 1 Haltbarkeit, 2 wenn der Hammer für diesen Block nicht das passende Werkzeug ist; bricht der Hammer dabei, endet der Flächenabbau sofort (SledgehammerUsageEvent).",
-            "Abbaugeschwindigkeit: Die Materialgeschwindigkeit wird mit dem Faktor 1,25 + ((Blockzahl - 1) / 24) * 0,6 multipliziert: 1,45 bei 9 Blöcken (3x3), 1,675 bei 18 Blöcken (3x3 mit Durchbruch) und 1,85 bei 25 Blöcken (Radius); mehr als 25 Blöcke zählen wie 25. Die Blockzahl richtet sich nur danach, ob Radius bzw. Durchbruch auf dem Hammer sind (getBlockCountForSpeed).",
+            "Abbaugeschwindigkeit: Der Hammer selbst baut wie eine Spitzhacke seines Materials ab; der Abbaufortschritt wird dann durch die Wurzel der Blöcke geteilt, die der Schlag wirklich abbaut (Zielblock plus jeder Nachbar, den die Auswahlregeln durchlassen, höchstens 25): 3 bei vollem 3x3, rund 4,24 bei 3x3 mit Durchbruch I, 5 mit Radius. Blöcke, die stehen bleiben (Luft, andere Blöcke ohne Übersteuerung), zählen nicht; ein einzelner Block geht also im vollen Spitzhacken-Tempo. Client und Server rechnen dasselbe (SledgehammerUtils.miningSpeedDivisor, angewendet im BlockStateBaseMixin).",
             "Der Geschwindigkeitsfaktor greift nur, wenn die Grundgeschwindigkeit über 1,0 liegt, also der Block für die Spitzhacke (oder mit Übersteuerung II für Axt/Schaufel/Hacke) geeignet ist.",
             "Vorschau im Spiel: Alle Nachbarblöcke, die der nächste Schlag mitnimmt, werden mit schwarzem Umriss (Alpha 0,3) und grauer Füllung angezeigt; die Füll-Deckkraft ist 0,3 mal buildingHighlightOpacity/100 (Standard 40). Der angezielte Block selbst wird nicht hervorgehoben (BlockHighlightRenderer).",
             "Beim Abbauen erscheinen die Abbaurisse auf allen betroffenen Blöcken gleichzeitig, nicht nur auf dem angezielten (MultiBlockBreakingSupport).",
@@ -12547,7 +12547,7 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Linksklick (Abbauen): Zielblock plus 3x3-Feld abbauen; mit Radius 5x5, mit Durchbruch weitere Schichten.",
-            "Schleichen + Abbauen: nur das einfache 3x3-Feld mit einer Schicht, Radius und Durchbruch werden ignoriert.",
+            "Schleichen + Abbauen: nur der anvisierte Block. Schleichen + Linksklick löst weiterhin Vielseitigkeit aus, wenn der Hammer sie trägt.",
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
@@ -12575,7 +12575,7 @@ window.WIKI_DATA = {
             "Beim Zerkleinern droppt der Diamantblock selbst nicht; es entstehen nur die 81 Diamantkiesel.",
             "Die Leuchtende und die Strahlende Schmiedevorlage selbst lassen sich nicht erneut veredeln, weil ihre Item-Ids (glowing_trim_template, emitting_trim_template) den Text trim_smithing_template nicht enthalten.",
             "Beim Kombinieren zweier Hämmer im Amboss wird nicht geprüft, ob beide dieselbe Stufe haben; das Ergebnis ist immer eine Kopie des linken Hammers mit addierter Haltbarkeit und zusammengeführten Verzauberungen.",
-            "Der Geschwindigkeitsbonus durch Radius/Durchbruch bleibt auch beim Schleichen bestehen, obwohl das Feld dann nur 3x3 mit einer Schicht ist (getBlockCountForSpeed prüft nur das Vorhandensein der Verzauberungen).",
+            "Die Verlangsamung zählt nur Blöcke, die wirklich brechen: Ein 3x3, in dem nur der Zielblock abbaubar ist, geht im vollen Spitzhacken-Tempo.",
             "Loot-Änderungen und Händlerangebote greifen nur, wenn die Einstellungen enableLootTableChanges bzw. enableVillagerTrades aktiv sind.",
             "Der Flächenabbau greift nur mit dem Hammer in der Haupthand; für die Nebenhand wird weder ein Flächenabbau ausgelöst noch eine Vorschau gezeichnet."
           ]
@@ -21098,11 +21098,11 @@ window.WIKI_DATA = {
             "Depth = enchantment level: level I takes 1 extra layer behind the face, level II takes 2 layers.",
             "The direction comes from the view angle: steeper than 60 degrees down -> layers below the face; steeper than 60 degrees up -> above it; otherwise horizontally away from the player.",
             "Every extra layer is the same size as the hammer face (3x3, 5x5 with Radius).",
-            "Sneaking switches the bonus off; the hammer then only takes the front face.",
-            "Mining speed: the block count in the speed formula is doubled (9 -> 18, with Radius 25 -> 50, capped at 25 inside the formula); formula as with Radius: 1.25 + ((min(block count, 25) - 1) / 24) x 0.6.",
+            "While sneaking the hammer mines a single block only.",
+            "Mining speed: every extra layer adds blocks and slows the hammer - speed / sqrt(min(blocks actually broken, 25)), e.g. about 4.24 for a full 3x3 with Break Through I; with Radius the cap of 25 applies.",
             "Which blocks of the layers actually drop is still decided by the Override rule.",
-            "Highlight and crack preview (Fabric and NeoForge) show the layers behind as well.",
-            "The mod's test proves: looking down with Break Through I takes the layer below along, and sneaking leaves it standing.",
+            "Highlight and crack preview (Fabric, NeoForge and Forge) show the layers behind as well.",
+            "The mod's test proves: looking down with Break Through I takes the layer below along, and sneaking leaves everything but the targeted block standing.",
             "Chests (only with enableLootTableChanges): bastion (treasure and other chests) book I (weight 5), bastion treasure room book II (3); nether fortress I (2); dungeon I (8).",
             "Traders (only with enableVillagerTrades): level 4 toolsmith - Iron Sledgehammer (16 emeralds + an iron pickaxe) and Diamond Sledgehammer (28 emeralds + a diamond pickaxe) with Break Through I (weight 5) in the enchantment pool.",
             "On the MC 1.21.11 line the same trader pools exist as code (ModTradeDefinitions).",
@@ -21120,9 +21120,9 @@ window.WIKI_DATA = {
           "caveats": [
             "Not obtainable at the enchanting table (not in the tag minecraft:in_enchanting_table).",
             "Level II only comes from the creative inventory; chests and traders deliver level I exclusively.",
-            "The speed bonus does not distinguish between level I and level II and applies while sneaking as well.",
+            "The slowdown counts the blocks that really break, so level II slows more than level I (up to the cap); while sneaking there is none.",
             "The generated exclusive tag exclusive_set/break_through_group contains only Break Through itself; no enchantment definition references it and no gameplay code reads it (only the datagen provider that writes the file) - it has no effect.",
-            "On Forge there is neither the highlight nor the crack preview nor the dedicated book texture."
+            "On Forge the dedicated book texture is missing."
           ]
         },
         "de": {
@@ -21132,11 +21132,11 @@ window.WIKI_DATA = {
             "Tiefe = Verzauberungsstufe: Stufe I nimmt 1 zusätzliche Schicht hinter der Fläche, Stufe II 2 Schichten.",
             "Die Richtung ergibt sich aus dem Blickwinkel: steiler als 60° nach unten → Schichten unter der Fläche; steiler als 60° nach oben → darüber; sonst horizontal vom Spieler weg.",
             "Jede zusätzliche Schicht hat dieselbe Größe wie die Hammerfläche (3×3, mit Radius 5×5).",
-            "Beim Schleichen wird der Bonus abgeschaltet; der Hammer nimmt dann nur die vordere Fläche.",
-            "Abbaugeschwindigkeit: Die Blockzahl in der Geschwindigkeitsformel wird verdoppelt (9 → 18, mit Radius 25 → 50, in der Formel auf 25 gedeckelt); Formel wie bei Radius: 1,25 + ((min(Blockzahl, 25) − 1) / 24) × 0,6.",
+            "Beim Schleichen baut der Hammer nur einen einzelnen Block ab.",
+            "Abbaugeschwindigkeit: Jede zusätzliche Schicht bringt Blöcke und verlangsamt den Hammer – Tempo / Wurzel(min(wirklich abgebaute Blöcke, 25)), z. B. rund 4,24 bei vollem 3×3 mit Durchbruch I; mit Radius greift die Obergrenze 25.",
             "Welche Blöcke der Schichten tatsächlich fallen, entscheidet weiterhin die Übersteuerungs-Regel.",
-            "Highlight und Riss-Vorschau (Fabric und NeoForge) zeigen auch die hinteren Schichten.",
-            "Der Test der Mod belegt: Blick nach unten mit Durchbruch I nimmt die Schicht darunter mit, Schleichen lässt sie stehen.",
+            "Highlight und Riss-Vorschau (Fabric, NeoForge und Forge) zeigen auch die hinteren Schichten.",
+            "Der Test der Mod belegt: Blick nach unten mit Durchbruch I nimmt die Schicht darunter mit, Schleichen lässt alles außer dem Zielblock stehen.",
             "Truhen (nur bei enableLootTableChanges): Bastion (Schatz- und sonstige Truhen) Buch I (Gewicht 5), Bastion-Schatzraum Buch II (3); Netherfestung I (2); Verlies I (8).",
             "Händler (nur bei enableVillagerTrades): Werkzeugschmied Stufe 4 – Eisen-Vorschlaghammer (16 Smaragde + Eisenspitzhacke) und Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke) mit Durchbruch I (Gewicht 5) im Verzauberungspool.",
             "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools als Code vor (ModTradeDefinitions).",
@@ -21154,9 +21154,9 @@ window.WIKI_DATA = {
           "caveats": [
             "Nicht an der Verzauberungstabelle erhältlich (nicht im Tag minecraft:in_enchanting_table).",
             "Stufe II gibt es nur aus dem Kreativ-Inventar; Truhen und Händler liefern ausschließlich Stufe I.",
-            "Der Geschwindigkeitsbonus unterscheidet nicht zwischen Stufe I und II und gilt auch beim Schleichen.",
+            "Die Verlangsamung zählt die Blöcke, die wirklich brechen; Stufe II verlangsamt also stärker als Stufe I (bis zur Obergrenze); beim Schleichen gibt es keine.",
             "Das generierte Exklusiv-Tag exclusive_set/break_through_group enthält nur Durchbruch selbst und wird von keiner Verzauberungsdefinition und keiner Code-Stelle verwendet – es hat keine Wirkung.",
-            "Auf Forge gibt es weder Highlight noch Riss-Vorschau noch die eigene Buchtextur."
+            "Auf Forge fehlt die eigene Buchtextur."
           ]
         },
         "sources": [
@@ -22396,7 +22396,7 @@ window.WIKI_DATA = {
             "Level II on top of that: the hammer counts as the correct tool for blocks from mineable/axe, mineable/shovel and mineable/hoe (drops); if its normal speed there is at most 1.0, it is set to the base speed of its material and then multiplied by the area factor as usual.",
             "Without level II the area effect only works when the struck block itself is a mineable/pickaxe block the hammer can harvest; hit dirt, for example, and the hammer breaks only that one block.",
             "Durability per extra block destroyed: 1 point, 2 points if the hammer is not the correct tool for that block; with level II axe/shovel/hoe blocks count as the correct tool and cost 1 point.",
-            "The hammer's highlight outline and crack preview (Fabric and NeoForge) follow the same selection rules as the mining itself (SledgehammerUtils.shouldBreak).",
+            "The hammer's highlight outline and crack preview (Fabric, NeoForge and Forge) follow the same selection rules as the mining itself (SledgehammerUtils.shouldBreak).",
             "The mod's test proves all three tiers on a field of stone, cobblestone and dirt.",
             "Chests (only with enableLootTableChanges): end city treasure chest book II (weight 5).",
             "Traders (only with enableVillagerTrades): a level 4 librarian sells a book for 25 emeralds from the pool Linear I (25) / Override I (20), at most 2 uses; a level 4 toolsmith sells the Iron Sledgehammer for 16 emeralds + an iron pickaxe and the Diamond Sledgehammer for 28 emeralds + a diamond pickaxe, each with one enchantment out of Override I (15), Break Through I (5), Range I (10), Unbreaking II (50), Efficiency III (50); chance of a second, different enchantment: iron 0.01, diamond 0.15.",
@@ -22427,7 +22427,7 @@ window.WIKI_DATA = {
             "Stufe II zusätzlich: Der Hammer gilt für Blöcke aus mineable/axe, mineable/shovel und mineable/hoe als richtiges Werkzeug (Drops); liegt seine normale Geschwindigkeit dort bei höchstens 1,0, wird sie auf die Grundgeschwindigkeit seines Materials gesetzt und anschließend wie üblich mit dem Flächen-Multiplikator verrechnet.",
             "Ohne Stufe II arbeitet die Flächenwirkung nur, wenn der angeschlagene Block selbst ein mineable/pickaxe-Block ist, den der Hammer abbauen kann; schlägt man z. B. Erde an, bricht der Hammer nur diesen einen Block.",
             "Haltbarkeit pro zusätzlich zerstörtem Block: 1 Punkt, 2 Punkte wenn der Hammer für diesen Block nicht das richtige Werkzeug ist; mit Stufe II zählen Axt-/Schaufel-/Hacken-Blöcke als richtiges Werkzeug und kosten 1 Punkt.",
-            "Highlight-Umriss und Riss-Vorschau des Hammers (Fabric und NeoForge) folgen denselben Auswahlregeln wie der Abbau (SledgehammerUtils.shouldBreak).",
+            "Highlight-Umriss und Riss-Vorschau des Hammers (Fabric, NeoForge und Forge) folgen denselben Auswahlregeln wie der Abbau (SledgehammerUtils.shouldBreak).",
             "Der Test der Mod belegt alle drei Stufen an einem Feld aus Stein, Bruchstein und Erde.",
             "Truhen (nur bei enableLootTableChanges): Endsiedlung Buch II (Gewicht 5).",
             "Händler (nur bei enableVillagerTrades): Bibliothekar Stufe 4 verkauft für 25 Smaragde ein Buch aus dem Pool Linear I (25) / Übersteuerung I (20), maximal 2 Käufe; Werkzeugschmied Stufe 4 verkauft den Eisen-Vorschlaghammer für 16 Smaragde + Eisenspitzhacke und den Diamant-Vorschlaghammer für 28 Smaragde + Diamantspitzhacke, jeweils mit einer Verzauberung aus Übersteuerung I (15), Durchbruch I (5), Reichweite I (10), Haltbarkeit II (50), Effizienz III (50); Chance auf eine zweite, andere Verzauberung: Eisen 0,01, Diamant 0,15.",
@@ -22503,11 +22503,11 @@ window.WIKI_DATA = {
           "details": [
             "Can be applied to the sledgehammers from stone through enderite (tag simplebuilding:sledgehammer_tools). Definition: max level I; weight 1; min cost 25 (+20 per level above the first), max cost 75 (+20 per level above the first); anvil cost 8; slot mainhand. It never shows up at the enchanting table (not in the tag minecraft:in_enchanting_table).",
             "Face: base range 1 (3x3) plus the enchantment level - so range 2 with Radius I, that is 5x5 blocks around the block struck.",
-            "Sneaking switches the bonus off; the hammer then works with 3x3 again.",
+            "While sneaking the hammer mines a single block only.",
             "Which blocks in the larger face actually drop is still decided by the Override rule (without Override only the same block type).",
-            "Mining speed: the block count in the speed formula rises from 9 to 25; factor = 1.25 + ((min(block count, 25) - 1) / 24) x 0.6 on the base speed, applied only when that base speed is above 1.0.",
-            "The speed bonus depends only on the enchantment being on the hammer - not on sneaking.",
-            "Highlight (black outline at alpha 0.3 plus a grey fill) and crack preview show the 5x5 face on Fabric and NeoForge; the fill strength follows the buildingHighlightOpacity option (default 40); the targeted block itself is left out of the highlight.",
+            "Mining speed: with up to 25 blocks per swing the hammer is slower - speed divided by sqrt(25) = 5 on a full 5x5 instead of 3 on a 3x3.",
+            "Only blocks that really break count towards the slowdown; while sneaking there is none.",
+            "Highlight (black outline at alpha 0.3 plus a grey fill) and crack preview show the 5x5 face on Fabric, NeoForge and Forge; the fill strength follows the buildingHighlightOpacity option (default 40); the targeted block itself is left out of the highlight.",
             "Durability: every extra block costs 1 point, 2 points if the hammer is not the matching tool for it.",
             "The mod's test proves the 5x5 face, that the ring at distance 3 stays standing, and that sneaking falls back to 3x3.",
             "Chests (only with enableLootTableChanges): ancient city book I (weight 4).",
@@ -22522,10 +22522,10 @@ window.WIKI_DATA = {
           "caveats": [
             "Not obtainable at the enchanting table (not in the tag minecraft:in_enchanting_table).",
             "Only one level; higher levels are not defined.",
-            "Together with Break Through the block count for the speed formula doubles to 50, but the formula caps it at 25 - that does not make the hammer any faster than Radius alone.",
+            "Together with Break Through up to 50 blocks break, but the slowdown is capped at 25 blocks - the hammer is no slower than with Radius alone.",
             "Villagers do not offer Radius, only the wandering trader does (the toolsmith hammers carry \"range\", which is the Range enchantment, not Radius).",
             "The generated exclusive tag exclusive_set/radius_group contains only Radius itself; no enchantment definition references it and no gameplay code reads it (only the datagen provider that writes the file) - it has no effect.",
-            "On Forge there is neither the highlight nor the crack preview nor the dedicated book texture."
+            "On Forge the dedicated book texture is missing."
           ]
         },
         "de": {
@@ -22533,11 +22533,11 @@ window.WIKI_DATA = {
           "details": [
             "Verzauberbar auf Stein- bis Enderit-Vorschlaghammer (Tag simplebuilding:sledgehammer_tools). Definition: Höchststufe I; Gewicht 1; Mindestkosten 25 (+20), Höchstkosten 75 (+20); Amboss-Kosten 8; Slot Haupthand. An der Verzauberungstabelle erscheint die Verzauberung nicht (nicht im Tag minecraft:in_enchanting_table).",
             "Fläche: Grundreichweite 1 (3×3) plus Verzauberungsstufe – mit Radius I also Reichweite 2, d. h. 5×5 Blöcke um den angeschlagenen Block.",
-            "Beim Schleichen wird der Bonus abgeschaltet; der Hammer arbeitet dann wieder mit 3×3.",
+            "Beim Schleichen baut der Hammer nur einen einzelnen Block ab.",
             "Welche Blöcke in der größeren Fläche tatsächlich fallen, entscheidet weiterhin die Übersteuerungs-Regel (ohne Übersteuerung nur derselbe Blocktyp).",
-            "Abbaugeschwindigkeit: Die Blockzahl in der Geschwindigkeitsformel steigt von 9 auf 25; Faktor = 1,25 + ((min(Blockzahl, 25) − 1) / 24) × 0,6 auf die Grundgeschwindigkeit, angewendet nur wenn diese über 1,0 liegt.",
-            "Der Geschwindigkeitsbonus hängt nur davon ab, ob die Verzauberung auf dem Hammer ist – nicht vom Schleichen.",
-            "Highlight (schwarzer Umriss mit Alpha 0,3 plus graue Füllung) und Riss-Vorschau zeigen auf Fabric und NeoForge die 5×5-Fläche; die Füllstärke folgt der Option buildingHighlightOpacity (Standard 40); der Zielblock selbst wird im Highlight ausgelassen.",
+            "Abbaugeschwindigkeit: Mit bis zu 25 Blöcken je Schlag wird der Hammer langsamer - Tempo geteilt durch Wurzel(25) = 5 bei voller 5×5-Fläche statt 3 bei 3×3.",
+            "Zur Verlangsamung zählen nur Blöcke, die wirklich brechen; beim Schleichen gibt es keine.",
+            "Highlight (schwarzer Umriss mit Alpha 0,3 plus graue Füllung) und Riss-Vorschau zeigen auf Fabric, NeoForge und Forge die 5×5-Fläche; die Füllstärke folgt der Option buildingHighlightOpacity (Standard 40); der Zielblock selbst wird im Highlight ausgelassen.",
             "Haltbarkeit: jeder zusätzliche Block kostet 1 Punkt, 2 Punkte wenn der Hammer für ihn nicht das passende Werkzeug ist.",
             "Der Test der Mod belegt die 5×5-Fläche, dass der Ring in Abstand 3 stehen bleibt, und dass Schleichen auf 3×3 zurückschaltet.",
             "Truhen (nur bei enableLootTableChanges): Antike Stadt Buch I (Gewicht 4).",
@@ -22552,10 +22552,10 @@ window.WIKI_DATA = {
           "caveats": [
             "Nicht an der Verzauberungstabelle erhältlich (nicht im Tag minecraft:in_enchanting_table).",
             "Nur eine Stufe; höhere Stufen sind nicht definiert.",
-            "Zusammen mit Durchbruch verdoppelt sich die Blockzahl für die Geschwindigkeitsformel auf 50, wird dort aber auf 25 gedeckelt – schneller als mit Radius allein wird der Hammer dadurch nicht.",
+            "Zusammen mit Durchbruch brechen bis zu 50 Blöcke, die Verlangsamung ist aber bei 25 Blöcken gedeckelt – langsamer als mit Radius allein wird der Hammer dadurch nicht.",
             "Dorfbewohner bieten Radius nicht an, nur der Wanderhändler (die Werkzeugschmied-Hämmer enthalten „range“ = Reichweite, nicht Radius).",
             "Das generierte Exklusiv-Tag exclusive_set/radius_group enthält nur Radius selbst und wird von keiner Verzauberungsdefinition und keiner Code-Stelle verwendet – es hat keine Wirkung.",
-            "Auf Forge gibt es weder Highlight noch Riss-Vorschau noch die eigene Buchtextur."
+            "Auf Forge fehlt die eigene Buchtextur."
           ]
         },
         "sources": [
@@ -22713,7 +22713,7 @@ window.WIKI_DATA = {
             "The tunnel stops at the first obstacle: air, an unbreakable block (negative destroy speed) or a block the pickaxe is not the correct tool for; it also ends if the pickaxe breaks on one of them.",
             "Durability discount: after the tunnel the pickaxe's damage is reduced by (extra blocks broken + 1) / 3 points (integer division, damage value never below 0); so 1 point at 2 extra blocks.",
             "Speed penalty: a pickaxe with Strip Miner mines every block it is the correct tool for more slowly - the mining speed is divided by 2 (I), 3 (II) or 4 (III) (mixin on Player.getDestroySpeed).",
-            "Preview (Fabric and NeoForge): while you sneak, the client shows the breaking cracks on all tunnel blocks at the same time.",
+            "Preview (Fabric, NeoForge and Forge): while you sneak, the client shows the breaking cracks on all tunnel blocks at the same time.",
             "The mod's test proves: looking down digs 4 blocks deep at level III, a dirt block (the pickaxe is not the correct tool there) ends the tunnel, and horizontally the tunnel follows the facing and stops at a gap.",
             "Chests (only with enableLootTableChanges): nether fortress book I (weight 6), II (3); abandoned mineshaft I (8), III (3).",
             "Traders (only with enableVillagerTrades): a level 5 toolsmith sells a diamond pickaxe for 15 emeralds with Strip Miner I/II/III (weights 40/30/10) or Vein Miner (0.1 chance of a second, different enchantment); a level 5 librarian sells a book for 25 emeralds with Strip Miner I (20), II (10), III (5) in the pool.",
@@ -22735,7 +22735,7 @@ window.WIKI_DATA = {
             "The tunnel breaks off at the first obstacle; blocks behind it are not taken any more.",
             "Level III digs 4 extra blocks, not 3.",
             "The trade function weighted_enchant does not check the exclusive set: the toolsmith's second roll (0.1 chance) puts Vein Miner next to Strip Miner on the same pickaxe.",
-            "On Forge there is neither the crack preview nor the dedicated book texture."
+            "On Forge the dedicated book texture is missing."
           ]
         },
         "de": {
@@ -22749,7 +22749,7 @@ window.WIKI_DATA = {
             "Der Tunnel stoppt am ersten Hindernis: Luft, unzerstörbarer Block (negative Abbauzeit) oder ein Block, für den die Spitzhacke nicht das richtige Werkzeug ist; ebenso, wenn der Spitzhacken-Stack nach einem Abbau leer ist.",
             "Haltbarkeits-Rabatt: Nach dem Tunnel wird der Schaden der Spitzhacke um (zusätzlich abgebaute Blöcke + 1) / 3 Punkte verringert (ganzzahlig, Schadenswert nie unter 0); bei 2 zusätzlichen Blöcken also 1 Punkt.",
             "Geschwindigkeitsstrafe: Eine Spitzhacke mit Tunnelgräber baut jeden Block, für den sie das richtige Werkzeug ist, langsamer ab – die Abbaugeschwindigkeit wird durch 2 (I), 3 (II) bzw. 4 (III) geteilt (Mixin auf Player.getDestroySpeed).",
-            "Vorschau (Fabric und NeoForge): Beim Schleichen zeigt der Client den Abbau-Riss gleichzeitig auf allen Tunnelblöcken.",
+            "Vorschau (Fabric, NeoForge und Forge): Beim Schleichen zeigt der Client den Abbau-Riss gleichzeitig auf allen Tunnelblöcken.",
             "Der Test der Mod belegt: Blick nach unten gräbt mit Stufe III 4 Blöcke tief, ein Erdblock (Spitzhacke ist dort nicht das richtige Werkzeug) beendet den Tunnel, horizontal folgt der Tunnel der Blickrichtung und endet an einer Lücke.",
             "Truhen (nur bei enableLootTableChanges): Netherfestung Buch I (Gewicht 6), II (3); verlassene Mine I (8), III (3).",
             "Händler (nur bei enableVillagerTrades): Werkzeugschmied Stufe 5 verkauft für 15 Smaragde eine Diamantspitzhacke mit Tunnelgräber I/II/III (Gewichte 40/30/10) oder Aderabbau (Chance 0,1 auf eine zweite, andere Verzauberung); Bibliothekar Stufe 5 verkauft für 25 Smaragde ein Buch mit Tunnelgräber I (20), II (10), III (5) im Pool.",
@@ -22771,7 +22771,7 @@ window.WIKI_DATA = {
             "Der Tunnel bricht am ersten Hindernis ab; dahinter liegende Blöcke werden nicht mehr geholt.",
             "Stufe III gräbt 4 zusätzliche Blöcke, nicht 3.",
             "Die Handels-Funktion weighted_enchant prüft das Exklusiv-Set nicht: Die Zweit-Verzauberung des Werkzeugschmieds (Chance 0,1) legt Aderabbau neben Tunnelgräber auf dieselbe Spitzhacke.",
-            "Auf Forge gibt es weder die Riss-Vorschau noch die eigene Buchtextur."
+            "Auf Forge fehlt die eigene Buchtextur."
           ]
         },
         "sources": [
@@ -22834,7 +22834,7 @@ window.WIKI_DATA = {
             "The search runs over all 26 neighbours of a block, diagonals included, and spreads out from there as a breadth-first search.",
             "Block budget per level, the struck block included: I = 3, II = 6, III = 9, IV = 12, V = 18.",
             "The extra blocks are destroyed one after another through the player's normal breaking routine (gameMode.destroyBlock); if the tool breaks partway through, the chain stops there and then.",
-            "Preview (Fabric and NeoForge): while you sneak, the client shows the breaking cracks on every block that would go with it at the same time.",
+            "Preview (Fabric, NeoForge and Forge): while you sneak, the client shows the breaking cracks on every block that would go with it at the same time.",
             "The mining code is the same on Fabric, Forge and NeoForge and hangs off the player's block break event (PlayerBlockBreakEvents.BEFORE / BlockEvent.BreakEvent / BreakBlockEvent).",
             "Chests (only with the enableLootTableChanges option on): woodland mansion book V (weight 1) and IV (3); dungeon II (12), III (8), IV (3); abandoned mineshaft III (4), IV (3).",
             "Traders (only with the enableVillagerTrades option on): a level 5 toolsmith sells a diamond pickaxe for 15 emeralds carrying one enchantment out of Strip Miner/Vein Miner I-III (weights 40/30/10, 0.1 chance of a second, different enchantment from the same pool); a level 5 librarian sells a book for 25 emeralds whose pool holds Vein Miner I (10), II (7), III (5) (0.1 chance of a second one).",
@@ -22857,7 +22857,7 @@ window.WIKI_DATA = {
             "Traders only offer levels I-III; level IV comes only from chests (woodland mansion, dungeon, mineshaft), level V from the woodland mansion chest and the creative inventory.",
             "The trade function weighted_enchant does not check the exclusive set: the toolsmith's pool holds nothing but these two enchantments, so the second roll (0.1 chance) can only be the other one and the pickaxe comes out with Strip Miner and Vein Miner on it at once; both event handlers then run independently of each other.",
             "No bonus to mining speed or durability; every extra block goes through the normal breaking routine.",
-            "On Forge there is neither the crack preview nor the dedicated book texture (no renderer and no enchant_type property wired up)."
+            "On Forge the dedicated book texture is missing (no enchant_type property wired up)."
           ]
         },
         "de": {
@@ -22873,7 +22873,7 @@ window.WIKI_DATA = {
             "Die Suche läuft über alle 26 Nachbarn eines Blocks, also auch diagonal, und arbeitet sich von dort per Breitensuche weiter.",
             "Blockbudget je Stufe, den angeschlagenen Block eingerechnet: I = 3, II = 6, III = 9, IV = 12, V = 18.",
             "Die zusätzlichen Blöcke werden nacheinander über den normalen Abbauvorgang des Spielers (gameMode.destroyBlock) zerstört; ist der Werkzeug-Stack leer geworden, endet die Kette sofort.",
-            "Vorschau (Fabric und NeoForge): Beim Schleichen zeigt der Client den Abbau-Riss gleichzeitig auf allen Blöcken, die mit abgebaut würden.",
+            "Vorschau (Fabric, NeoForge und Forge): Beim Schleichen zeigt der Client den Abbau-Riss gleichzeitig auf allen Blöcken, die mit abgebaut würden.",
             "Der Abbau-Code ist auf Fabric, Forge und NeoForge derselbe und hängt am Block-Break-Ereignis des Spielers (PlayerBlockBreakEvents.BEFORE / BlockEvent.BreakEvent / BreakBlockEvent).",
             "Truhen (nur bei aktivierter Option enableLootTableChanges): Waldanwesen Buch V (Gewicht 1) und IV (Gewicht 3); Verlies II (12), III (8), IV (3); verlassene Mine III (4), IV (3).",
             "Händler (nur bei aktivierter Option enableVillagerTrades): Werkzeugschmied Stufe 5 verkauft für 15 Smaragde eine Diamantspitzhacke mit einer Verzauberung aus Tunnelgräber/Aderabbau I–III (Gewichte 40/30/10, Chance 0,1 auf eine zweite, andere Verzauberung aus demselben Pool); Bibliothekar Stufe 5 verkauft für 25 Smaragde ein Buch, in dessen Pool Aderabbau I (10), II (7), III (5) liegt (Chance 0,1 auf eine zweite).",
@@ -22896,7 +22896,7 @@ window.WIKI_DATA = {
             "Händler bieten nur Stufe I–III; Stufe IV liegt nur in Truhen (Waldanwesen, Verlies, Mine), Stufe V in der Waldanwesen-Truhe und im Kreativ-Inventar.",
             "Die Handels-Funktion weighted_enchant prüft das Exklusiv-Set nicht: Bei der Zweit-Verzauberung des Werkzeugschmieds (Chance 0,1) landet zwangsläufig Tunnelgräber neben Aderabbau auf derselben Spitzhacke; beide Ereignis-Handler laufen dann unabhängig voneinander.",
             "Kein Bonus auf Abbaugeschwindigkeit oder Haltbarkeit; jeder zusätzliche Block läuft über den normalen Abbauvorgang.",
-            "Auf Forge gibt es weder die Riss-Vorschau noch die eigene Buchtextur (kein Renderer und keine enchant_type-Property verdrahtet)."
+            "Auf Forge fehlt die eigene Buchtextur (keine enchant_type-Property verdrahtet)."
           ]
         },
         "sources": [
@@ -24332,6 +24332,39 @@ window.WIKI_DATA = {
             ]
           }
         }
+      },
+      {
+        "id": "shear_wool",
+        "facts": {
+          "tag": "minecraft:wool"
+        },
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/util/ShearsWoolInteraction.java",
+            "common/src/shared/java/com/simplebuilding/mixin/ShearsItemMixin.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          ],
+          "en": {
+            "title": "Shearing wool",
+            "summary": "Right-click a placed wool block (any colour) with shears: the block disappears and drops 4 String. The shears lose 1 durability; you hear the shearing sound and see the wool's particles.",
+            "details": [
+              "Works on every block in the tag minecraft:wool - all sixteen colours; carpets are not wool blocks and stay untouched.",
+              "4 String is exactly what a wool block costs in the crafting table, so nothing is gained or lost.",
+              "Costs 1 durability per block; in creative mode none.",
+              "Everything else shears do on right-click (trimming vines and other growing plants) is unchanged."
+            ]
+          },
+          "de": {
+            "title": "Wolle scheren",
+            "summary": "Rechtsklick mit der Schere auf einen platzierten Wollblock (jede Farbe): Der Block verschwindet und lässt 4 Fäden fallen. Die Schere verliert 1 Haltbarkeit; dazu gibt es das Scher-Geräusch und Partikel der Wolle.",
+            "details": [
+              "Wirkt auf jeden Block im Tag minecraft:wool - alle sechzehn Farben; Teppiche sind keine Wollblöcke und bleiben unberührt.",
+              "4 Fäden kostet ein Wollblock auch an der Werkbank, es geht also nichts verloren und nichts wird gewonnen.",
+              "Kostet 1 Haltbarkeit je Block; im Kreativmodus nichts.",
+              "Alles andere, was die Schere per Rechtsklick tut (Ranken und andere wachsende Pflanzen stutzen), bleibt unverändert."
+            ]
+          }
+        }
       }
     ],
     "entries": [
@@ -24636,6 +24669,43 @@ window.WIKI_DATA = {
         "output": {
           "id": "simplebuilding:diamond_pebble",
           "count": 81
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "shear_wool",
+        "kind": "shear_wool",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:white_wool",
+              "minecraft:orange_wool",
+              "minecraft:magenta_wool",
+              "minecraft:light_blue_wool",
+              "minecraft:yellow_wool",
+              "minecraft:lime_wool",
+              "minecraft:pink_wool",
+              "minecraft:gray_wool",
+              "minecraft:light_gray_wool",
+              "minecraft:cyan_wool",
+              "minecraft:purple_wool",
+              "minecraft:blue_wool",
+              "minecraft:brown_wool",
+              "minecraft:green_wool",
+              "minecraft:red_wool",
+              "minecraft:black_wool"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:shears"
+        ],
+        "output": {
+          "id": "minecraft:string",
+          "count": 4
         },
         "stats": {
           "damage": 1
@@ -32759,7 +32829,7 @@ window.WIKI_DATA = {
     "enchantments": 19,
     "tags": 26,
     "config": 14,
-    "inWorld": 342,
+    "inWorld": 343,
     "features": 31,
     "undocumented": 0,
     "incompleteProse": 0

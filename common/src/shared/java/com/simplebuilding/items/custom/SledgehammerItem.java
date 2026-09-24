@@ -6,7 +6,6 @@ import com.simplebuilding.util.SledgehammerUpgrades;
 import com.simplebuilding.util.SledgehammerUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -27,7 +26,6 @@ import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -134,31 +132,10 @@ public class SledgehammerItem extends Item {
             }
         }
 
-        // 3. Deine existierende Multiplier-Logik (unverändert, nutzt jetzt aber den korrigierten baseSpeed)
-        if (baseSpeed > 1.0F) {
-            int blockCount = getBlockCountForSpeed(stack);
-            float cappedCount = Math.min(blockCount, 25);
-            float speedMultiplier = 1.25F + ((cappedCount - 1) / 24.0F) * 0.6F;
-            return baseSpeed * speedMultiplier;
-        }
+        // Kein Tempo-Bonus mehr: das Item liefert das Tempo einer Spitzhacke seines Materials.
+        // Die Verlangsamung je mitabgebautem Block rechnet SledgehammerUtils#miningSpeedDivisor,
+        // angewendet in BlockStateBaseMixin, weil erst dort Spieler und Position bekannt sind.
         return baseSpeed;
-    }
-
-    public static int getBlockCountForSpeed(ItemStack stack) {
-        ItemEnchantments enchantments = stack.get(DataComponents.ENCHANTMENTS);
-        if (enchantments == null) return 9;
-
-        boolean hasRadius = false;
-        boolean hasBreakThrough = false;
-
-        for (var entry : enchantments.entrySet()) {
-            if (entry.getKey().is(ModEnchantments.RADIUS)) {hasRadius = true;}
-            if (entry.getKey().is(ModEnchantments.BREAK_THROUGH)) {hasBreakThrough = true;}
-        }
-        int blockCount = 9;
-        if (hasRadius) blockCount = 25;
-        if (hasBreakThrough) blockCount *= 2;
-        return blockCount;
     }
 
     @Override
@@ -394,17 +371,23 @@ public class SledgehammerItem extends Item {
             return positions;
         }
 
-        boolean isPlayerSneaking = player.isShiftKeyDown();
+        // Schleichen baut genau einen Block ab - wie eine Spitzhacke gleichen Materials. Server-
+        // Abbau, Riss-Overlay und Highlight lesen alle diese Liste und folgen damit von selbst.
+        if (player.isShiftKeyDown()) {
+            positions.add(initialPos);
+            return positions;
+        }
+
         Direction sideHit = getHitSideFromPlayer(player);
 
         var registry = world.registryAccess();
         var enchantLookup = registry.lookupOrThrow(Registries.ENCHANTMENT);
 
         var radiusKey = enchantLookup.get(ModEnchantments.RADIUS);
-        int range = baseRange + ((!isPlayerSneaking && radiusKey.isPresent()) ? EnchantmentHelper.getItemEnchantmentLevel(radiusKey.get(), stack) : 0);
+        int range = baseRange + (radiusKey.isPresent() ? EnchantmentHelper.getItemEnchantmentLevel(radiusKey.get(), stack) : 0);
 
         var breakThroughKey = enchantLookup.get(ModEnchantments.BREAK_THROUGH);
-        int depth = ((!isPlayerSneaking && breakThroughKey.isPresent()) ? EnchantmentHelper.getItemEnchantmentLevel(breakThroughKey.get(), stack) : 0);
+        int depth = (breakThroughKey.isPresent() ? EnchantmentHelper.getItemEnchantmentLevel(breakThroughKey.get(), stack) : 0);
 
         // Positionen berechnen
         for(int x = -range; x <= range; x++) {

@@ -60,9 +60,9 @@ public final class EnchantmentEffectTests {
     // =====================================================================================
 
     /**
-     * Radius widens the mined face from 3x3 to 5x5. Sneaking has to suppress it - that is the
-     * player's only way to take a single block with an enchanted hammer, so if the sneak check
-     * is lost the enchantment becomes impossible to switch off.
+     * Radius widens the mined face from 3x3 to 5x5. Sneaking has to suppress it - and the base
+     * 3x3 with it: a sneaking hammer takes a single block, which is the player's only way to mine
+     * one block with a hammer at all.
      */
     public static void radiusWidensTheSledgehammerFaceAndSneakingSuppressesIt(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, 90.0F);
@@ -89,12 +89,13 @@ public final class EnchantmentEffectTests {
         helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(3, 0, 0));
         helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(0, 0, 3));
 
-        // --- sneaking cancels the bonus, back to 3x3 ---
+        // --- sneaking takes a single block: neither the ring nor the 3x3 goes ---
         fillLayer(helper, 2, 0, 6, 0, 6, Blocks.STONE);
         player.setShiftKeyDown(true);
         swing(helper, player, hammerWith(helper, ModEnchantments.RADIUS, 1));
 
-        helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(1, 0, 0));
+        helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(1, 0, 0));
+        helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(1, 0, 1));
         helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(2, 0, 0));
         player.setShiftKeyDown(false);
 
@@ -153,12 +154,12 @@ public final class EnchantmentEffectTests {
         // could be wired to the maximum level instead of the level on the stack.
         helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(0, -2, 0));
 
-        // --- sneaking cancels it ---
+        // --- sneaking cancels it, and the 3x3 with it: a single block ---
         fillCube(helper, 1, 5, 0, 2, 1, 5, Blocks.STONE);
         player.setShiftKeyDown(true);
         swing(helper, player, hammerWith(helper, ModEnchantments.BREAK_THROUGH, 1));
 
-        helper.assertBlockPresent(Blocks.AIR, HAMMER_CENTRE.offset(1, 0, 0));
+        helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(1, 0, 0));
         helper.assertBlockPresent(Blocks.STONE, HAMMER_CENTRE.offset(1, -1, 0));
         player.setShiftKeyDown(false);
 

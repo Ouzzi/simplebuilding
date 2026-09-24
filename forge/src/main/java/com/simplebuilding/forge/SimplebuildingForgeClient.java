@@ -25,10 +25,14 @@ import org.lwjgl.glfw.GLFW;
  * mappings, menu screen, and tooltip components. Game-bus client events (tick,
  * login, highlight) live in {@link ForgeClientGameEvents}.
  *
- * Not yet ported (no clean Forge 26.1.2 equivalent / cosmetic): in-world build
- * highlight rendering (Forge has no RenderLevelStageEvent), HUD overlays
- * (AddGuiOverlayLayersEvent has a different API), and the enchant_type select
- * item-model property (no Forge registration event).
+ * In-world highlights (sledgehammer field, vein/strip miner, building wand preview)
+ * and the extra breaking cracks have no Forge 65 event (no extract/submit hook like
+ * NeoForge's ExtractLevelRenderStateEvent / SubmitCustomGeometryEvent); they are wired
+ * by the client mixins LevelExtractorMixin and LevelRendererMixin in
+ * com.simplebuilding.mixin.forge (simplebuilding.forge.mixins.json).
+ *
+ * Not yet ported (cosmetic): HUD overlays (AddGuiOverlayLayersEvent has a different
+ * API) and the enchant_type select item-model property (no Forge registration event).
  */
 @Mod.EventBusSubscriber(modid = Simplebuilding.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class SimplebuildingForgeClient {
