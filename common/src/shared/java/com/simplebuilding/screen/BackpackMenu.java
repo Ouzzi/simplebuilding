@@ -1,6 +1,8 @@
 package com.simplebuilding.screen;
 
 import com.simplebuilding.items.custom.BackpackTier;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import net.minecraft.resources.Identifier;
@@ -57,6 +59,7 @@ public class BackpackMenu extends AbstractCraftingMenu {
     private final BackpackOpenData data;
     private final BackpackLayout layout;
     private final int backpackSlotEnd;
+    private final List<Slot> storageSlots;
 
     /** Client: der Server schickt Stufe und Faktor, den Inhalt liefern die normalen Slot-Pakete. */
     public BackpackMenu(int containerId, Inventory inventory, BackpackOpenData data) {
@@ -115,6 +118,12 @@ public class BackpackMenu extends AbstractCraftingMenu {
             this.addSlot(new BackpackSlot(backpack, i, this.layout.backpackSlotX(i), this.layout.backpackSlotY(i)));
         }
         this.backpackSlotEnd = this.slots.size();
+
+        // Hauptinventar + Rucksack als ein Lager in Bildreihenfolge (oben nach unten, links nach rechts).
+        List<Slot> storage = new ArrayList<>(this.slots.subList(INV_SLOT_START, INV_SLOT_END));
+        storage.addAll(this.slots.subList(BACKPACK_SLOT_START, this.backpackSlotEnd));
+        storage.sort(Comparator.<Slot>comparingInt(s -> s.y).thenComparingInt(s -> s.x));
+        this.storageSlots = List.copyOf(storage);
     }
 
     public BackpackTier tier() {
@@ -185,14 +194,15 @@ public class BackpackMenu extends AbstractCraftingMenu {
     }
 
     /**
-     * Schnellverschieben (Shift-Klick):
+     * Schnellverschieben (Shift-Klick) - wie Vanillas {@code InventoryMenu}, nur dass Hauptinventar
+     * und Rucksack <em>ein</em> Lager sind ({@link #storageSlots()}): erst werden vorhandene Stapel
+     * aufgefuellt, dann leere Slots von oben links nach unten rechts in Bildreihenfolge, egal ob
+     * sie zum Rucksack, zum Hauptinventar oder zu einer Zusatzspalte gehoeren.
      * <ul>
-     *   <li>aus Hauptinventar und Hotbar zuerst in den Rucksack, was dort nicht hinpasst wie im
-     *       Vanilla-Inventar (Ruestung anlegen, Hauptinventar/Hotbar);</li>
-     *   <li>aus dem Rucksack ins Hauptinventar, dann in die Hotbar - nie direkt in einen
-     *       Ruestungs-Slot, wie bei einer Truhe;</li>
-     *   <li>Ergebnis, Raster, Ruestung und Nebenhand wie Vanilla ins Inventar, notfalls in den
-     *       Rucksack.</li>
+     *   <li>Hotbar -> Lager; Lager (Hauptinventar wie Rucksack) -> Hotbar;</li>
+     *   <li>Ruestung und Schild aus Hotbar oder Lager in ihren leeren Slot, wie Vanilla;</li>
+     *   <li>Raster, Ruestung und Nebenhand -> Lager, dann Hotbar; das Ergebnis wie Vanilla
+     *       rueckwaerts (Hotbar von rechts, dann das Lager von unten).</li>
      * </ul>
      */
     @Override
@@ -204,47 +214,39 @@ public class BackpackMenu extends AbstractCraftingMenu {
         ItemStack stack = slot.getItem();
         ItemStack clicked = stack.copy();
         EquipmentSlot equipmentSlot = player.getEquipmentSlotForItem(clicked);
-        int start = BACKPACK_SLOT_START;
-        int end = this.backpackSlotEnd;
+        boolean hotbar = slotIndex >= USE_ROW_SLOT_START && slotIndex < USE_ROW_SLOT_END;
+        boolean storage = slotIndex >= INV_SLOT_START && slotIndex < INV_SLOT_END || isBackpackSlot(slotIndex);
 
         if (slotIndex == RESULT_SLOT) {
-            if (!this.moveItemStackTo(stack, INV_SLOT_START, USE_ROW_SLOT_END, true)
-                    && !this.moveItemStackTo(stack, start, end, false)) {
+            List<Slot> targets = new ArrayList<>(this.slots.subList(USE_ROW_SLOT_START, USE_ROW_SLOT_END).reversed());
+            targets.addAll(this.storageSlots.reversed());
+            if (!moveItemStackTo(stack, targets)) {
                 return ItemStack.EMPTY;
             }
             slot.onQuickCraft(stack, clicked);
         } else if (slotIndex > RESULT_SLOT && slotIndex < INV_SLOT_START) {
-            if (!this.moveItemStackTo(stack, INV_SLOT_START, USE_ROW_SLOT_END, false)
-                    && !this.moveItemStackTo(stack, start, end, false)) {
+            if (!moveItemStackTo(stack, storageThenHotbar())) {
                 return ItemStack.EMPTY;
             }
-        } else if (isBackpackSlot(slotIndex)) {
-            if (!this.moveItemStackTo(stack, INV_SLOT_START, INV_SLOT_END, false)
-                    && !this.moveItemStackTo(stack, USE_ROW_SLOT_START, USE_ROW_SLOT_END, false)) {
-                return ItemStack.EMPTY;
-            }
-        } else if (slotIndex < USE_ROW_SLOT_END && this.moveItemStackTo(stack, start, end, false)) {
-            // Hauptinventar/Hotbar -> Rucksack hat (wenigstens teilweise) gegriffen.
         } else if (equipmentSlot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR
                 && !this.slots.get(8 - equipmentSlot.getIndex()).hasItem()) {
             int pos = 8 - equipmentSlot.getIndex();
             if (!this.moveItemStackTo(stack, pos, pos + 1, false)) {
                 return ItemStack.EMPTY;
             }
-        } else if (equipmentSlot == EquipmentSlot.OFFHAND && !this.slots.get(SHIELD_SLOT).hasItem() && slotIndex != SHIELD_SLOT) {
+        } else if (equipmentSlot == EquipmentSlot.OFFHAND && !this.slots.get(SHIELD_SLOT).hasItem()) {
             if (!this.moveItemStackTo(stack, SHIELD_SLOT, SHIELD_SLOT + 1, false)) {
                 return ItemStack.EMPTY;
             }
-        } else if (slotIndex >= INV_SLOT_START && slotIndex < INV_SLOT_END) {
+        } else if (storage) {
             if (!this.moveItemStackTo(stack, USE_ROW_SLOT_START, USE_ROW_SLOT_END, false)) {
                 return ItemStack.EMPTY;
             }
-        } else if (slotIndex >= USE_ROW_SLOT_START && slotIndex < USE_ROW_SLOT_END) {
-            if (!this.moveItemStackTo(stack, INV_SLOT_START, INV_SLOT_END, false)) {
+        } else if (hotbar) {
+            if (!moveItemStackTo(stack, this.storageSlots)) {
                 return ItemStack.EMPTY;
             }
-        } else if (!this.moveItemStackTo(stack, INV_SLOT_START, USE_ROW_SLOT_END, false)
-                && !this.moveItemStackTo(stack, start, end, false)) {
+        } else if (!moveItemStackTo(stack, storageThenHotbar())) {
             return ItemStack.EMPTY;
         }
 
@@ -261,6 +263,65 @@ public class BackpackMenu extends AbstractCraftingMenu {
             player.drop(stack, false);
         }
         return clicked;
+    }
+
+    /**
+     * Hauptinventar und Rucksack als ein Lager, in Bildreihenfolge: Reihe fuer Reihe von oben nach
+     * unten, in jeder Reihe von links nach rechts (Enderit-Spalte, Raster, Netherit-Spalte). Diese
+     * Reihenfolge nutzt das Schnellverschieben; eine Sortierfunktion sollte sie ebenso nutzen.
+     */
+    public List<Slot> storageSlots() {
+        return this.storageSlots;
+    }
+
+    private List<Slot> storageThenHotbar() {
+        List<Slot> targets = new ArrayList<>(this.storageSlots);
+        targets.addAll(this.slots.subList(USE_ROW_SLOT_START, USE_ROW_SLOT_END));
+        return targets;
+    }
+
+    /**
+     * Vanillas {@code moveItemStackTo} ueber eine beliebige Slot-Folge statt eines Index-Bereichs:
+     * erst vorhandene gleiche Stapel bis zu ihrer Grenze auffuellen, dann den Rest in den ersten
+     * leeren Slot legen, der ihn annimmt.
+     */
+    private static boolean moveItemStackTo(ItemStack stack, List<Slot> targets) {
+        boolean changed = false;
+        if (stack.isStackable()) {
+            for (Slot target : targets) {
+                if (stack.isEmpty()) {
+                    break;
+                }
+                ItemStack present = target.getItem();
+                if (present.isEmpty() || !ItemStack.isSameItemSameComponents(stack, present)) {
+                    continue;
+                }
+                int max = target.getMaxStackSize(present);
+                int total = present.getCount() + stack.getCount();
+                if (total <= max) {
+                    stack.setCount(0);
+                    present.setCount(total);
+                    target.setChanged();
+                    changed = true;
+                } else if (present.getCount() < max) {
+                    stack.shrink(max - present.getCount());
+                    present.setCount(max);
+                    target.setChanged();
+                    changed = true;
+                }
+            }
+        }
+        if (!stack.isEmpty()) {
+            for (Slot target : targets) {
+                if (target.getItem().isEmpty() && target.mayPlace(stack)) {
+                    target.setByPlayer(stack.split(Math.min(stack.getCount(), target.getMaxStackSize(stack))));
+                    target.setChanged();
+                    changed = true;
+                    break;
+                }
+            }
+        }
+        return changed;
     }
 
     @Override
