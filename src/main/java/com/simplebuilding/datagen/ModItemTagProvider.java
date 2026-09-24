@@ -105,6 +105,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.NETHERITE_QUIVER))
                 .add(key(ModItems.ENDERITE_QUIVER))
                 .add(key(Items.SHULKER_BOX))
+                .addTag(ModTags.Items.BACKPACKS)
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
                 .addTag(ModTags.Items.BUILDING_WAND_ENCHANTABLE)
@@ -114,6 +115,22 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(key(Items.STICK));
 
+        // Rucksaecke: eigene Tags fuer Tiefe Taschen, Trichter und Meisterbauer, damit Schublade
+        // (bundle_enchantable) und Farbpalette (extra_inventory_items) sie nicht mitbekommen.
+        builder(ModTags.Items.BACKPACKS)
+                .add(key(ModItems.BACKPACK))
+                .add(key(ModItems.REINFORCED_BACKPACK))
+                .add(key(ModItems.NETHERITE_BACKPACK))
+                .add(key(ModItems.ENDERITE_BACKPACK));
+        builder(ModTags.Items.DEEP_POCKETS_ENCHANTABLE)
+                .addTag(ModTags.Items.BUNDLE_ENCHANTABLE)
+                .addTag(ModTags.Items.BACKPACKS);
+        builder(ModTags.Items.FUNNEL_ENCHANTABLE)
+                .addTag(ModTags.Items.BUNDLE_ENCHANTABLE)
+                .addTag(ModTags.Items.BACKPACKS);
+        builder(ModTags.Items.MASTER_BUILDER_ENCHANTABLE)
+                .addTag(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE)
+                .addTag(ModTags.Items.BACKPACKS);
         builder(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
                 .add(key(ModItems.STONE_SLEDGEHAMMER))
                 .add(key(ModItems.COPPER_SLEDGEHAMMER))

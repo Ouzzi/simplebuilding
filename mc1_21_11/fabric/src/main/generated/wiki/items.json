@@ -28,7 +28,11 @@
     "simplebuilding:netherite_blast_furnace",
     "simplebuilding:astral_purpur_block",
     "simplebuilding:reinforced_furnace",
-    "simplebuilding:cracked_diamond_block"
+    "simplebuilding:cracked_diamond_block",
+    "simplebuilding:backpack",
+    "simplebuilding:enderite_backpack",
+    "simplebuilding:netherite_backpack",
+    "simplebuilding:reinforced_backpack"
   ],
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
   "items": [
@@ -43,6 +47,10 @@
     },
     {
       "id": "simplebuilding:astralit_ore"
+    },
+    {
+      "id": "simplebuilding:backpack",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:basic_upgrade_template"
@@ -150,6 +158,10 @@
       "durability": 2530,
       "enchantability": 18,
       "id": "simplebuilding:enderite_axe",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_backpack",
       "maxStackSize": 1
     },
     {
@@ -348,6 +360,9 @@
       "id": "simplebuilding:lapis_quartz_checker"
     },
     {
+      "id": "simplebuilding:leather_sheet"
+    },
+    {
       "id": "simplebuilding:levitating_gravel"
     },
     {
@@ -359,6 +374,10 @@
     },
     {
       "id": "simplebuilding:netherite_apple"
+    },
+    {
+      "id": "simplebuilding:netherite_backpack",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:netherite_blast_furnace"
@@ -559,6 +578,10 @@
     },
     {
       "id": "simplebuilding:raw_enderite"
+    },
+    {
+      "id": "simplebuilding:reinforced_backpack",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:reinforced_blast_furnace"

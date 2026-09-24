@@ -77,6 +77,20 @@ public final class ForgeModRegistries {
                     (syncId, inventory, buffer) -> new NetheriteHopperScreenHandler(syncId, inventory, buffer.readBlockPos())
             ));
 
+    public static final RegistryObject<MenuType<com.simplebuilding.screen.BackpackMenu>> BACKPACK_MENU =
+            MENUS.register("backpack", () -> IForgeMenuType.create(
+                    (syncId, inventory, buffer) -> new com.simplebuilding.screen.BackpackMenu(syncId, inventory,
+                            com.simplebuilding.screen.BackpackOpenData.STREAM_CODEC.decode(buffer))
+            ));
+
+    public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.BackpackBlockEntity>> BACKPACK_BE =
+            BLOCK_ENTITIES.register("backpack", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.BackpackBlockEntity>(
+                    com.simplebuilding.blocks.entity.custom.BackpackBlockEntity::new,
+                    Set.of(ModBlocks.BACKPACK, ModBlocks.REINFORCED_BACKPACK, ModBlocks.NETHERITE_BACKPACK, ModBlocks.ENDERITE_BACKPACK)));
+
+    public static final RegistryObject<RecipeSerializer<com.simplebuilding.recipe.BackpackUpgradeRecipe>> BACKPACK_UPGRADE_SERIALIZER =
+            RECIPE_SERIALIZERS.register("backpack_upgrade", () -> com.simplebuilding.recipe.BackpackUpgradeRecipe.SERIALIZER);
+
     public static final RegistryObject<BlockEntityType<ModHopperBlockEntity>> MOD_HOPPER_BE =
             BLOCK_ENTITIES.register("mod_hopper", () -> new BlockEntityType<ModHopperBlockEntity>(
                     ModHopperBlockEntity::new, Set.of(ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER)));
@@ -147,6 +161,8 @@ public final class ForgeModRegistries {
 
     public static void assignStaticFields() {
         ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER = NETHERITE_HOPPER_MENU.get();
+        ModScreenHandlers.BACKPACK_MENU = BACKPACK_MENU.get();
+        ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
         ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
         ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();

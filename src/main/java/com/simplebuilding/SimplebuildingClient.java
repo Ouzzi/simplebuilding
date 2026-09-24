@@ -20,6 +20,7 @@ import com.simplebuilding.networking.*;
 import com.simplebuilding.screen.ModScreenHandlers;
 import com.simplebuilding.util.BundleTooltipAccessor;
 import com.simplebuilding.util.SurvivalTracerAccessor;
+import com.simplebuilding.client.BackpackKeyHandler;
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.client.DoubleJumpController;
 import com.simplebuilding.platform.ClientNetworking;
@@ -83,6 +84,14 @@ public class SimplebuildingClient implements ClientModInitializer {
                 GLFW.GLFW_KEY_G,
             KEY_CATEGORY_SIMPLEMODS
         ));
+        ClientState.backpackKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+                "key.simplebuilding.open_backpack",
+                InputConstants.Type.KEYSYM,
+                GLFW.GLFW_KEY_B,
+                KEY_CATEGORY_SIMPLEMODS
+        ));
+        // Rucksack-Taste: gemeinsamer Handler mit NeoForge (BackpackKeyHandler).
+        ClientTickEvents.END_CLIENT_TICK.register(BackpackKeyHandler::tick);
 
         // --- Event Loop (Tick) ---
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -177,6 +186,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         });
 
         MenuScreens.register(ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER, NetheriteHopperScreen::new);
+        MenuScreens.register(ModScreenHandlers.BACKPACK_MENU, BackpackScreen::new);
 
         // --- NETZWERK REGISTRIERUNG CLIENT-SEITE ---
         registerClientReceivers();

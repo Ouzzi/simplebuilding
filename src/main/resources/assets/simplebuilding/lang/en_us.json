@@ -326,5 +326,19 @@
   "commands.simplebuilding.trim_multiplier.set": "Trim multiplier set to: %s",
   "commands.simplebuilding.trim_multiplier.get": "Current trim multiplier: %s",
   "block.simplebuilding.enderite_block": "Enderite Block",
-  "block.simplebuilding.netherite_piston_head": "Netherite Piston Head"
+  "block.simplebuilding.netherite_piston_head": "Netherite Piston Head",
+  "item.simplebuilding.leather_sheet": "Leather Sheet",
+  "item.simplebuilding.backpack": "Backpack",
+  "item.simplebuilding.reinforced_backpack": "Reinforced Backpack",
+  "item.simplebuilding.netherite_backpack": "Netherite Backpack",
+  "item.simplebuilding.enderite_backpack": "Enderite Backpack",
+  "block.simplebuilding.backpack": "Backpack",
+  "block.simplebuilding.reinforced_backpack": "Reinforced Backpack",
+  "block.simplebuilding.netherite_backpack": "Netherite Backpack",
+  "block.simplebuilding.enderite_backpack": "Enderite Backpack",
+  "key.simplebuilding.open_backpack": "Open Backpack",
+  "tooltip.simplebuilding.backpack.slots": "%s / %s slots used",
+  "tooltip.simplebuilding.backpack.more": "...and %s more",
+  "tooltip.simplebuilding.backpack.open_hint": "Wear it and press %s to open it",
+  "tooltip.simplebuilding.backpack.place_hint": "Sneak + right-click a block to set it down"
 }

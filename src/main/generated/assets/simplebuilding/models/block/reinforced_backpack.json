@@ -1,0 +1,10 @@
+{
+  "parent": "simplebuilding:block/template_backpack",
+  "textures": {
+    "back": "simplebuilding:block/reinforced_backpack_back",
+    "front": "simplebuilding:block/reinforced_backpack_front",
+    "particle": "simplebuilding:block/reinforced_backpack_side",
+    "side": "simplebuilding:block/reinforced_backpack_side",
+    "top": "simplebuilding:block/reinforced_backpack_top"
+  }
+}

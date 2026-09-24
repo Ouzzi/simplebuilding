@@ -846,9 +846,11 @@ public final class BundleWiringTests {
     /**
      * Every bundle feature that matters - Drawer, Deep Pockets, Funnel, Master Builder, Colour
      * Palette - is only reachable if the anvil considers the bundle a legal target for that
-     * enchantment, and that is decided by two item tags the mod ships:
-     * {@code simplebuilding:bundle_enchantable} carries Drawer, Deep Pockets and Funnel,
-     * {@code simplebuilding:extra_inventory_items} carries Master Builder and Colour Palette. A
+     * enchantment, and that is decided by the item tags the mod ships:
+     * {@code simplebuilding:bundle_enchantable} carries Drawer and is pulled into the tags of Deep
+     * Pockets and Funnel ({@code deep_pockets_enchantable}, {@code funnel_enchantable}, which add
+     * the backpacks), {@code simplebuilding:extra_inventory_items} carries Colour Palette and is
+     * pulled into Master Builder's {@code master_builder_enchantable} (again plus the backpacks). A
      * bundle that falls out of them keeps every line of its behaviour and still becomes useless,
      * because the player can no longer put the enchantment on it.
      *
@@ -864,7 +866,8 @@ public final class BundleWiringTests {
      *       tags would be wildcards and the positive answers would mean nothing;</li>
      *   <li>the diamond building wand is in {@code extra_inventory_items} only - it enters through
      *       {@code #simplebuilding:building_wand_enchantable} and is nowhere in
-     *       {@code bundle_enchantable}. So it has to be accepted by Master Builder and Colour
+     *       {@code bundle_enchantable} (nor in the backpack tags built on it). So it has to be
+     *       accepted by Master Builder and Colour
      *       Palette and refused by Drawer, Deep Pockets and Funnel. Moving one of the five
      *       enchantments onto the other tag leaves every bundle assertion green and turns this
      *       one red.</li>

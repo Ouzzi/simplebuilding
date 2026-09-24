@@ -42,8 +42,10 @@ public final class SimplebuildingForgeClient {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         ClientNetworking.setSender(ForgeNetworkRegistration::sendToServer);
-        event.enqueueWork(() ->
-                MenuScreens.register(ForgeModRegistries.NETHERITE_HOPPER_MENU.get(), NetheriteHopperScreen::new));
+        event.enqueueWork(() -> {
+            MenuScreens.register(ForgeModRegistries.NETHERITE_HOPPER_MENU.get(), NetheriteHopperScreen::new);
+            MenuScreens.register(ForgeModRegistries.BACKPACK_MENU.get(), com.simplebuilding.client.gui.BackpackScreen::new);
+        });
     }
 
     @SubscribeEvent
@@ -65,9 +67,16 @@ public final class SimplebuildingForgeClient {
                 GLFW.GLFW_KEY_G,
                 KEY_CATEGORY_SIMPLEMODS
         );
+        ClientState.backpackKey = new KeyMapping(
+                "key.simplebuilding.open_backpack",
+                InputConstants.Type.KEYSYM,
+                GLFW.GLFW_KEY_B,
+                KEY_CATEGORY_SIMPLEMODS
+        );
         event.register(ClientState.highlightToggleKey);
         event.register(ClientState.octantFigureToggleKey);
         event.register(ClientState.settingsKey);
+        event.register(ClientState.backpackKey);
     }
 
     @SubscribeEvent

@@ -34,6 +34,12 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityTypes;
 
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.core.Holder;
+import net.minecraft.sounds.SoundEvent;
 
 import net.minecraft.world.food.FoodProperties;
 
@@ -201,6 +207,7 @@ public class ModItems {
     public static final Item DIAMOND_PEBBLE = registerItem("diamond_pebble", settings -> new Item(settings));
 
     public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
+    public static final Item LEATHER_SHEET = registerItem("leather_sheet", Item::new);
 
     public static final Item CRACKED_DIAMOND_BLOCK = registerItem("cracked_diamond_block", settings -> new BlockItem(ModBlocks.CRACKED_DIAMOND_BLOCK, settings)); // todo: wie diamond_block nur härter
 
@@ -383,6 +390,16 @@ public class ModItems {
     public static final Item ENDERITE_BUNDLE = registerItem("enderite_bundle", settings -> new ReinforcedBundleItem(settings.stacksTo(1).fireResistant().rarity(Rarity.EPIC)));
 
     public static final Item ENDERITE_QUIVER = registerItem("enderite_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().rarity(Rarity.EPIC).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
+    // Rucksaecke: im Brust-Slot getragen (Rechtsklick legt an), per Schleichen + Rechtsklick als
+    // Block abstellbar; backpack(...) sagt, was die Komponenten mitbringen.
+    public static final Item BACKPACK = registerItem("backpack", settings -> new BackpackItem(BackpackTier.BASIC, ModBlocks.BACKPACK,
+            backpack(settings, BackpackTier.BASIC, SoundEvents.ARMOR_EQUIP_LEATHER)));
+    public static final Item REINFORCED_BACKPACK = registerItem("reinforced_backpack", settings -> new BackpackItem(BackpackTier.REINFORCED, ModBlocks.REINFORCED_BACKPACK,
+            backpack(settings.rarity(UNCOMMON), BackpackTier.REINFORCED, SoundEvents.ARMOR_EQUIP_LEATHER)));
+    public static final Item NETHERITE_BACKPACK = registerItem("netherite_backpack", settings -> new BackpackItem(BackpackTier.NETHERITE, ModBlocks.NETHERITE_BACKPACK,
+            backpack(settings.fireResistant().rarity(UNCOMMON), BackpackTier.NETHERITE, SoundEvents.ARMOR_EQUIP_NETHERITE)));
+    public static final Item ENDERITE_BACKPACK = registerItem("enderite_backpack", settings -> new BackpackItem(BackpackTier.ENDERITE, ModBlocks.ENDERITE_BACKPACK,
+            backpack(settings.fireResistant().rarity(Rarity.EPIC), BackpackTier.ENDERITE, SoundEvents.ARMOR_EQUIP_NETHERITE)));
 
 
 
@@ -773,6 +790,38 @@ public class ModItems {
     }
 
 
+
+    /**
+     * Die Komponenten eines Rucksacks.
+     *
+     * <ul>
+     *   <li>Stapelgroesse 1, keine Haltbarkeit.</li>
+     *   <li>{@code EQUIPPABLE} fuer den Brust-Slot, <b>swappable</b>: ein Rechtsklick legt den
+     *       Rucksack an wie einen Brustpanzer (und tauscht ihn gegen Brustpanzer oder Elytra). Er
+     *       schliesst sich damit mit beiden aus. {@code damageOnHurt} aus - Treffer kosten nichts.
+     *       Nur Spieler, damit kein Zombie einen herumliegenden Rucksack samt Inhalt anzieht. Kein
+     *       Asset: am Spieler ist (noch) nichts zu sehen, wie beim Koecher.</li>
+     *   <li>Ruestung 1/2/3/4 je Stufe als Attribut-Modifikator fuer die Brust.</li>
+     * </ul>
+     *
+     * <p>Kein Standardwert fuer {@code simplebuilding:backpack_contents}: ein leerer Rucksack hat
+     * die Komponente gar nicht, so bleibt der Stapel kanonisch.
+     */
+    private static Item.Properties backpack(Item.Properties settings, BackpackTier tier, Holder<SoundEvent> equipSound) {
+        return settings.stacksTo(1)
+                .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.CHEST)
+                        .setEquipSound(equipSound)
+                        .setAllowedEntities(EntityTypes.PLAYER)
+                        .setDamageOnHurt(false)
+                        .setSwappable(true)
+                        .build())
+                .attributes(ItemAttributeModifiers.builder()
+                        .add(Attributes.ARMOR,
+                                new AttributeModifier(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "armor.backpack"),
+                                        tier.armor(), AttributeModifier.Operation.ADD_VALUE),
+                                EquipmentSlotGroup.CHEST)
+                        .build());
+    }
 
     private static Item registerItem(String name, Function<Item.Properties, Item> function) {
 

@@ -1,9 +1,11 @@
 package com.simplebuilding.neoforge;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.client.BackpackKeyHandler;
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.client.ClientToggleKeys;
 import com.simplebuilding.client.DoubleJumpController;
+import com.simplebuilding.client.gui.BackpackScreen;
 import com.simplebuilding.client.gui.BuildingWandScreen;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.client.gui.OctantScreen;
@@ -109,6 +111,7 @@ public final class SimplebuildingNeoForgeClient {
 
     public static void registerMenus(RegisterMenuScreensEvent event) {
         event.register(NeoForgeModRegistries.NETHERITE_HOPPER_MENU.get(), NetheriteHopperScreen::new);
+        event.register(NeoForgeModRegistries.BACKPACK_MENU.get(), BackpackScreen::new);
     }
 
     public static void registerKeys(RegisterKeyMappingsEvent event) {
@@ -129,9 +132,16 @@ public final class SimplebuildingNeoForgeClient {
                 GLFW.GLFW_KEY_G,
                 KEY_CATEGORY_SIMPLEMODS
         );
+        ClientState.backpackKey = new KeyMapping(
+                "key.simplebuilding.open_backpack",
+                InputConstants.Type.KEYSYM,
+                GLFW.GLFW_KEY_B,
+                KEY_CATEGORY_SIMPLEMODS
+        );
         event.register(ClientState.highlightToggleKey);
         event.register(ClientState.octantFigureToggleKey);
         event.register(ClientState.settingsKey);
+        event.register(ClientState.backpackKey);
     }
 
     public static void registerHudLayers(RegisterGuiLayersEvent event) {
@@ -166,6 +176,8 @@ public final class SimplebuildingNeoForgeClient {
 
         // Shared with Fabric (see ClientToggleKeys) — both toggles report on the actionbar.
         ClientToggleKeys.tick(client);
+        // Rucksack-Taste, ebenfalls gemeinsam mit Fabric.
+        BackpackKeyHandler.tick(client);
 
         while (ClientState.settingsKey != null && ClientState.settingsKey.consumeClick()) {
             ItemStack stack = client.player.getMainHandItem();

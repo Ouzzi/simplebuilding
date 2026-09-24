@@ -57,6 +57,13 @@ public class ModRecipes {
             }
         );
 
+        // Rucksack-Aufwertung, die Inhalt und Verzauberungen mitnimmt (reinforced_backpack).
+        Registry.register(
+            BuiltInRegistries.RECIPE_SERIALIZER,
+            Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "backpack_upgrade"),
+            BackpackUpgradeRecipe.SERIALIZER
+        );
+
         COUNT_BASED_SMITHING = Registry.register(
             BuiltInRegistries.RECIPE_TYPE,
             Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "count_based_smithing"),

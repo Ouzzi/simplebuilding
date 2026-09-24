@@ -6,6 +6,7 @@ import net.minecraft.world.inventory.MenuType;
 public final class ModScreenHandlers {
 
     public static MenuType<NetheriteHopperScreenHandler> NETHERITE_HOPPER_SCREEN_HANDLER;
+    public static MenuType<BackpackMenu> BACKPACK_MENU;
 
     private ModScreenHandlers() {
     }

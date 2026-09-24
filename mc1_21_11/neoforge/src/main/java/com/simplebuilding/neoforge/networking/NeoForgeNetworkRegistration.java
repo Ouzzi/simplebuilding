@@ -85,6 +85,8 @@ public final class NeoForgeNetworkRegistration {
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleBuildingWandConfigure(payload, player)));
         registrar.playToServer(MasterBuilderPickPayload.ID, MasterBuilderPickPayload.CODEC,
                 (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleMasterBuilderPick(payload, player)));
+        registrar.playToServer(OpenBackpackPayload.ID, OpenBackpackPayload.CODEC,
+                (payload, context) -> runOnPlayer(context, player -> ModMessageHandlers.handleOpenBackpack(payload, player)));
 
         registrar.playToClient(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC, (payload, context) -> context.enqueueWork(() -> {
             Minecraft client = Minecraft.getInstance();

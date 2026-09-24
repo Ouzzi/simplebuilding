@@ -3,15 +3,21 @@ package com.simplebuilding.datagen;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.recipe.BackpackUpgradeRecipe;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 // MC 1.21.11: Die Kriterien-Trigger liegen noch im alten Paket
 // net.minecraft.advancements.criterion (erst 26.2 verschiebt sie nach ...advancements.triggers).
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -28,7 +34,9 @@ import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.ShapedRecipePattern;
 // MC 1.21.11: Das Gegenstueck zu ItemStackTemplate (26.2) heisst hier TransmuteResult und
 // traegt exakt dieselben drei Felder (Holder<Item>, count, DataComponentPatch).
 import net.minecraft.world.item.crafting.TransmuteResult;
@@ -234,6 +242,59 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .save(output);
 
                 createSmithing(ModItems.QUIVER, ModItems.NETHERITE_QUIVER, RecipeCategory.TOOLS);
+
+                // =================================================================
+                // RUCKSAECKE
+                // =================================================================
+                shaped(RecipeCategory.MISC, ModItems.LEATHER_SHEET)
+                        .pattern("LLL")
+                        .pattern("LLL")
+                        .pattern("LLL")
+                        .define('L', Items.LEATHER)
+                        .unlockedBy(getHasName(Items.LEATHER), has(Items.LEATHER))
+                        .save(output);
+
+                shaped(RecipeCategory.TOOLS, ModItems.BACKPACK)
+                        .pattern("NSN")
+                        .pattern("PPP")
+                        .pattern("III")
+                        .define('N', Items.COPPER_NUGGET)
+                        .define('S', Items.STRING)
+                        .define('P', ModItems.LEATHER_SHEET)
+                        .define('I', Items.IRON_BARS)
+                        .unlockedBy(getHasName(ModItems.LEATHER_SHEET), has(ModItems.LEATHER_SHEET))
+                        .save(output);
+
+                // Verstaerkter Rucksack: eigener Rezepttyp, der den Rucksack aus dem Raster mit
+                // Inhalt, Verzauberungen und Name uebernimmt (ein crafting_shaped wuerde ihn leeren).
+                // MC 1.21.11: Das Freischalt-Advancement wird hier von Hand gebaut, wie es
+                // ShapedRecipeBuilder#save tut (RecipeUnlockAdvancementBuilder gibt es erst ab 26.2).
+                ShapedRecipePattern reinforcedPattern = ShapedRecipePattern.of(java.util.Map.of(
+                                'D', Ingredient.of(ModItems.DIAMOND_PEBBLE),
+                                'L', Ingredient.of(ModItems.LEATHER_SHEET),
+                                'B', Ingredient.of(ModItems.BACKPACK)),
+                        "DLD",
+                        "LBL",
+                        "LLL");
+                ResourceKey<Recipe<?>> reinforcedId = ResourceKey.create(Registries.RECIPE,
+                        Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "reinforced_backpack"));
+                Advancement.Builder reinforcedUnlock = output.advancement()
+                        .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(reinforcedId))
+                        .rewards(AdvancementRewards.Builder.recipe(reinforcedId))
+                        .requirements(AdvancementRequirements.Strategy.OR)
+                        .addCriterion(getHasName(ModItems.BACKPACK), has(ModItems.BACKPACK));
+                output.accept(reinforcedId,
+                        new BackpackUpgradeRecipe(
+                                "",
+                                RecipeBuilder.determineBookCategory(RecipeCategory.TOOLS),
+                                reinforcedPattern,
+                                new ItemStack(ModItems.REINFORCED_BACKPACK),
+                                true),
+                        reinforcedUnlock.build(reinforcedId.identifier().withPrefix("recipes/" + RecipeCategory.TOOLS.getFolderName() + "/")));
+
+                // Netherit und Enderit am Schmiedetisch; smithing_transform behaelt alle Komponenten.
+                createSmithing(ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, RecipeCategory.TOOLS);
+                createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_BACKPACK);
 
 
                 // =================================================================

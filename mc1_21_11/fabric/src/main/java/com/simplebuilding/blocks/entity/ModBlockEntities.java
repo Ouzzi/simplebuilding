@@ -2,6 +2,7 @@ package com.simplebuilding.blocks.entity;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.blocks.entity.custom.BackpackBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModBlastFurnaceBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModFurnaceBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
@@ -19,6 +20,7 @@ public class ModBlockEntities {
     public static BlockEntityType<ModHopperBlockEntity> MOD_HOPPER_BE;
     public static BlockEntityType<ModFurnaceBlockEntity> MOD_FURNACE_BE;
     public static BlockEntityType<ModSmokerBlockEntity> MOD_SMOKER_BE;
+    public static BlockEntityType<BackpackBlockEntity> BACKPACK_BE;
 
     public static void registerBlockEntities() {
         MOD_HOPPER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
@@ -50,5 +52,11 @@ public class ModBlockEntities {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_smoker"),
                 FabricBlockEntityTypeBuilder.create(ModSmokerBlockEntity::new,
                         ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER).build());
+
+        BACKPACK_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "backpack"),
+                FabricBlockEntityTypeBuilder.create(BackpackBlockEntity::new,
+                        ModBlocks.BACKPACK, ModBlocks.REINFORCED_BACKPACK,
+                        ModBlocks.NETHERITE_BACKPACK, ModBlocks.ENDERITE_BACKPACK).build());
     }
 }

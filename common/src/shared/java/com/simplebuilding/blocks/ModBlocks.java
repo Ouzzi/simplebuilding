@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
+import com.simplebuilding.items.custom.BackpackTier;
 import java.util.function.Function;
 
 public class ModBlocks {
@@ -68,6 +70,15 @@ public class ModBlocks {
     public static final Block REINFORCED_BLAST_FURNACE = registerBlock("reinforced_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(3.5F).sound(SoundType.METAL)));
     public static final Block NETHERITE_BLAST_FURNACE = registerBlock("netherite_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
 
+    // --- 5. RUCKSAECKE (abgestellt) ---
+    // Aus der Glas-Vorlage (keine Verdeckung, kein Ersticken, kein Redstone-Leiter - passend zur
+    // kleinen Form), dann Wolle-Klang, weich wie Wolle und von Kolben zerstoert statt geschoben.
+    // Netherit und Enderit halten Explosionen aus wie ihre Items.
+    public static final Block BACKPACK = registerBlock("backpack", s -> new BackpackBlock(BackpackTier.BASIC, backpackProperties(s, false)));
+    public static final Block REINFORCED_BACKPACK = registerBlock("reinforced_backpack", s -> new BackpackBlock(BackpackTier.REINFORCED, backpackProperties(s, false)));
+    public static final Block NETHERITE_BACKPACK = registerBlock("netherite_backpack", s -> new BackpackBlock(BackpackTier.NETHERITE, backpackProperties(s, true)));
+    public static final Block ENDERITE_BACKPACK = registerBlock("enderite_backpack", s -> new BackpackBlock(BackpackTier.ENDERITE, backpackProperties(s, true)));
+
 
     // --- 1. DECORATION BLOCKS --- // todo add stonecutting and crafting recipie like vanilla
     public static final Block POLISHED_END_STONE = registerBlock("polished_end_stone", unused -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops().strength(3.0F, 9.0F).sound(SoundType.STONE).setId(keyOf("polished_end_stone"))));
@@ -112,6 +123,13 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         Simplebuilding.LOGGER.info("Registering Mod Blocks for " + Simplebuilding.MOD_ID);
+    }
+
+    private static BlockBehaviour.Properties backpackProperties(BlockBehaviour.Properties settings, boolean blastProof) {
+        return settings.strength(0.8F, blastProof ? 1200.0F : 0.8F)
+                .sound(SoundType.WOOL)
+                .mapColor(MapColor.COLOR_BROWN)
+                .pushReaction(PushReaction.DESTROY);
     }
 
     private static ResourceKey<Block> keyOf(String name) {

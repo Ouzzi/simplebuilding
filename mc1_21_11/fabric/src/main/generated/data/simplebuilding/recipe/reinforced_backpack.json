@@ -1,0 +1,18 @@
+{
+  "type": "simplebuilding:backpack_upgrade",
+  "category": "equipment",
+  "key": {
+    "B": "simplebuilding:backpack",
+    "D": "simplebuilding:diamond_pebble",
+    "L": "simplebuilding:leather_sheet"
+  },
+  "pattern": [
+    "DLD",
+    "LBL",
+    "LLL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:reinforced_backpack"
+  }
+}

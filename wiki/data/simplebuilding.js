@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 116,
+      "count": 121,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -969,6 +969,102 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "backpacks",
+      "related": [
+        "simplebuilding:backpack",
+        "simplebuilding:reinforced_backpack",
+        "simplebuilding:netherite_backpack",
+        "simplebuilding:enderite_backpack",
+        "simplebuilding:leather_sheet",
+        "simplebuilding:diamond_pebble",
+        "simplebuilding:deep_pockets",
+        "simplebuilding:funnel",
+        "simplebuilding:master_builder",
+        "simplebuilding:constructors_touch",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:enderite_ingot"
+      ],
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/component/BackpackContents.java",
+        "common/src/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+        "common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java",
+        "common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java",
+        "common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java",
+        "common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java",
+        "common/src/shared/java/com/simplebuilding/screen/BackpackLayout.java",
+        "common/src/shared/java/com/simplebuilding/screen/BackpackMenuProviders.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java",
+        "common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java",
+        "common/src/shared/java/com/simplebuilding/networking/OpenBackpackPayload.java",
+        "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+        "common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/BlockItemMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
+        "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
+        "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+        "src/main/java/com/simplebuilding/SimplebuildingClient.java",
+        "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+        "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+        "src/main/generated/data/simplebuilding/recipe/backpack.json",
+        "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
+        "src/main/generated/data/simplebuilding/recipe/netherite_backpack_smithing.json",
+        "src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
+        "src/main/generated/data/simplebuilding/loot_table/blocks/backpack.json",
+        "src/main/generated/data/simplebuilding/tags/item/backpacks.json",
+        "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json",
+        "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json",
+        "src/main/generated/data/simplebuilding/tags/item/master_builder_enchantable.json",
+        "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+        "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+        "src/main/resources/assets/simplebuilding/models/block/template_backpack.json",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+      ],
+      "en": {
+        "title": "Backpacks",
+        "summary": "Backpacks are storage you wear in the chest slot: four tiers from 9 to 50 slots, opened with their own key (default B) as your normal inventory plus the backpack's slots. They can also be set down as a block and picked up again with everything inside. Deep Pockets, Funnel, Master Builder and Constructor's Touch give them bigger stacks, automatic pickup, a material source for the Building Wand and pick block, and a hand that refills itself while building.",
+        "details": [
+          "Getting started: craft Leather Sheets from 9 Leather each, then the Backpack from 2 Copper Nuggets, String, 3 Leather Sheets and 3 Iron Bars. The Reinforced Backpack is crafted around a Backpack (Diamond Pebbles and Leather Sheets) and keeps everything the Backpack had; Netherite and Enderite Backpack follow at the smithing table like the other tool families, again with their contents.",
+          "Tiers: Backpack 9 slots (1 row), Reinforced 18 (2 rows), Netherite 33 (3 rows plus one extra column of 6 on the right), Enderite 50 (4 rows plus two extra columns of 7, right and left). Worn they give 1 / 2 / 3 / 4 armor points and take no damage.",
+          "Wearing it: right-click puts it into the chest slot, swapping with a worn chestplate or elytra - a backpack takes their place. Nothing is drawn on the player.",
+          "Opening: press the backpack key while wearing it. The screen is the vanilla inventory with the backpack rows between the crafting area and the main inventory; backpack rows are tinted brown, extra columns purple. The chest slot is locked while it is open. Without a backpack the key simply opens the normal inventory; E never changes.",
+          "Shift-click moves items from the inventory into the backpack first, and from the backpack into the inventory.",
+          "Setting it down: sneak + right-click on a block. The placed backpack opens with a right-click, is invisible to hoppers and comparators, and always drops as the full backpack item when broken - with a tool or without, by explosion or piston.",
+          "Safety: a destroyed backpack item spills its contents like a shulker box; Netherite and Enderite Backpack resist fire and explosions as items, and the Enderite Backpack is protected from the void.",
+          "Enchantments (anvil only): Deep Pockets I/II doubles or quadruples the stack limit of stackable items in the backpack; Funnel lets the worn backpack vacuum up items after your bundles; Master Builder on the backpack makes it a material source for the Building Wand and for pick block; Constructor's Touch refills your hand from the backpack when a block stack runs out while placing. Drawer and Color Palette do not go on backpacks.",
+          "Limits for now: the extra columns are plain storage (they are meant to become special slots later), a backpack can only be opened while worn or placed, and the recipe book does not draw from the backpack."
+        ]
+      },
+      "de": {
+        "title": "Rucksäcke",
+        "summary": "Rucksäcke sind Stauraum, den man im Brust-Slot trägt: vier Stufen von 9 bis 50 Plätzen, geöffnet mit einer eigenen Taste (Standard B) als normales Inventar plus Rucksack-Plätze. Man kann sie auch als Block abstellen und mit allem Inhalt wieder aufnehmen. Tiefe Taschen, Trichter, Baumeister und Berührung des Konstrukteurs geben ihnen größere Stapel, automatisches Aufsammeln, eine Materialquelle für Baustab und Blockauswahl und eine Hand, die sich beim Bauen selbst nachfüllt.",
+        "details": [
+          "Einstieg: Lederplatten aus je 9 Leder herstellen, dann den Rucksack aus 2 Kupferklumpen, Faden, 3 Lederplatten und 3 Eisengittern. Der Verstärkte Rucksack wird um einen Rucksack herum gebaut (Diamantkiesel und Lederplatten) und behält alles, was der Rucksack hatte; Netherit- und Enderit-Rucksack folgen am Schmiedetisch wie bei den anderen Werkzeugfamilien, ebenfalls mit Inhalt.",
+          "Stufen: Rucksack 9 Plätze (1 Reihe), Verstärkt 18 (2 Reihen), Netherit 33 (3 Reihen plus eine Zusatzspalte mit 6 Plätzen rechts), Enderit 50 (4 Reihen plus zwei Zusatzspalten mit je 7 Plätzen, rechts und links). Getragen geben sie 1 / 2 / 3 / 4 Rüstungspunkte und nehmen keinen Schaden.",
+          "Tragen: Rechtsklick legt ihn in den Brust-Slot und tauscht dabei mit einem getragenen Brustpanzer oder einer Elytra – der Rucksack nimmt deren Platz ein. Am Spieler wird nichts gezeichnet.",
+          "Öffnen: mit getragenem Rucksack die Rucksack-Taste drücken. Der Bildschirm ist das Vanilla-Inventar mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar; Rucksack-Reihen sind braun getönt, Zusatzspalten violett. Solange er offen ist, ist der Brust-Slot gesperrt. Ohne Rucksack öffnet die Taste einfach das normale Inventar; E ändert sich nie.",
+          "Shift-Klick verschiebt aus dem Inventar zuerst in den Rucksack und aus dem Rucksack ins Inventar.",
+          "Abstellen: Schleichen + Rechtsklick auf einen Block. Der abgestellte Rucksack öffnet sich per Rechtsklick, ist für Trichter und Komparatoren unsichtbar und droppt beim Abbauen immer als volles Rucksack-Item – mit oder ohne Werkzeug, durch Explosion oder Kolben.",
+          "Sicherheit: Ein zerstörtes Rucksack-Item verstreut seinen Inhalt wie eine Shulkerkiste; Netherit- und Enderit-Rucksack widerstehen als Item Feuer und Explosionen, und der Enderit-Rucksack ist vor der Leere geschützt.",
+          "Verzauberungen (nur Amboss): Tiefe Taschen I/II verdoppelt bzw. vervierfacht die Stapelgrenze stapelbarer Items im Rucksack; mit Trichter saugt der getragene Rucksack Items nach den Bündeln auf; Baumeister auf dem Rucksack macht ihn zur Materialquelle für Baustab und Blockauswahl; Berührung des Konstrukteurs füllt die Hand aus dem Rucksack nach, wenn beim Platzieren ein Blockstapel aufgebraucht ist. Schublade und Farbpalette gehen nicht auf Rucksäcke.",
+          "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), ein Rucksack lässt sich nur getragen oder abgestellt öffnen, und das Rezeptbuch greift nicht auf den Rucksack zu."
+        ]
+      }
+    },
+    {
       "id": "hoppers",
       "related": [
         "simplebuilding:reinforced_hopper",
@@ -1508,7 +1604,11 @@ window.WIKI_DATA = {
         "simplebuilding:magnet",
         "simplebuilding:master_builder",
         "simplebuilding:color_palette",
-        "simplebuilding:constructors_touch"
+        "simplebuilding:constructors_touch",
+        "simplebuilding:backpack",
+        "simplebuilding:reinforced_backpack",
+        "simplebuilding:netherite_backpack",
+        "simplebuilding:enderite_backpack"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java",
@@ -1553,13 +1653,16 @@ window.WIKI_DATA = {
         "mc1_21_11/shared/java/com/simplebuilding/trade/ModTradeDefinitions.java",
         "src/main/resources/assets/minecraft/items/enchanted_book.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json",
+        "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json",
+        "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java"
       ],
       "en": {
         "title": "Storage and Player Enchantments",
         "summary": "This family bundles six enchantments that improve not the building itself but everything around it: Deep Pockets, Drawer and Funnel make the mod's bundles and quivers bigger, tidier and self-filling. Air Jump, Kinetic Protection and Range act directly on the player: a second jump in mid-air, protection when you slam into a wall, and more block reach for tools. None of the six is in the enchanting table tag; they come from chests, from traders, from the creative inventory, or at random on enchanted loot items.",
         "details": [
-          "The storage enchantments (Deep Pockets, Drawer, Funnel) sit on all three bundle and all three quiver tiers; simplebuilding:bundle_enchantable lists the Enderite Bundle and Enderite Quiver as well, matching the capacity code, which knows them with a factor of 3.",
+          "The storage enchantments (Deep Pockets, Drawer, Funnel) sit on all three bundle and all three quiver tiers; simplebuilding:bundle_enchantable lists the Enderite Bundle and Enderite Quiver as well, matching the capacity code, which knows them with a factor of 3. Deep Pockets and Funnel also go on the four backpacks (tags deep_pockets_enchantable and funnel_enchantable), Drawer does not.",
           "Bundle capacity counts in stack fractions and starts, per the code comment, at 96 (Reinforced), 192 (Netherite) and 288 (Enderite) items; quivers only get the tier factor (64/128/192 arrows). Deep Pockets (times 2 or 4) and Drawer (times (16 + level)/8) multiply together.",
           "Using a bundle: left-click inserts, right-click with an empty cursor takes one item out; the config option tools.invertBundleInteractions swaps the two. On insertion, identical items are merged and the full stacks end up on top.",
           "Funnel turns the bundle into a vacuum cleaner: level I only picks up item types that are already inside, level II picks up everything; sneaking pauses the pickup; quivers only vacuum up arrows; your hands are checked before the rest of the inventory.",
@@ -1578,7 +1681,7 @@ window.WIKI_DATA = {
         "title": "Verzauberungen für Lager und Spieler",
         "summary": "Diese Familie bündelt sechs Verzauberungen, die nicht das Bauen selbst, sondern das Drumherum verbessern: Tiefe Taschen, Schublade und Trichter machen die Bündel und Köcher der Mod größer, sortierter und selbstfüllend. Luftsprung, Kinetischer Schutz und Reichweite wirken direkt auf die Spielerin oder den Spieler: ein zweiter Sprung in der Luft, Schutz beim Aufprall an Wänden und mehr Blockreichweite für Werkzeuge. Keine der sechs steht im Zaubertisch-Tag; sie kommen aus Truhen, vom Händler, aus dem Kreativ-Inventar oder zufällig auf verzauberten Loot-Items.",
         "details": [
-          "Lager-Verzauberungen (Tiefe Taschen, Schublade, Trichter) sitzen auf allen drei Bündel- und allen drei Köcher-Stufen; simplebuilding:bundle_enchantable führt auch Enderite Bundle und Enderite Quiver - passend zum Kapazitätscode, der sie mit Faktor 3 kennt.",
+          "Lager-Verzauberungen (Tiefe Taschen, Schublade, Trichter) sitzen auf allen drei Bündel- und allen drei Köcher-Stufen; simplebuilding:bundle_enchantable führt auch Enderite Bundle und Enderite Quiver - passend zum Kapazitätscode, der sie mit Faktor 3 kennt. Tiefe Taschen und Trichter gehen auch auf die vier Rucksäcke (Tags deep_pockets_enchantable und funnel_enchantable), Schublade nicht.",
           "Die Bündel-Kapazität zählt in Stapel-Anteilen und beginnt laut Code-Kommentar bei 96 (Verstärkt), 192 (Netherit) und 288 (Enderit) Items; Köcher haben nur den Stufenfaktor (64/128/192 Pfeile). Tiefe Taschen (mal 2 oder 4) und Schublade (mal (16 + Stufe)/8) multiplizieren sich.",
           "Bündel bedienen: Linksklick legt ein, Rechtsklick mit leerem Cursor entnimmt; die Config-Option tools.invertBundleInteractions vertauscht beides. Beim Einfüllen werden gleiche Sorten zusammengeführt, volle Stapel liegen oben.",
           "Trichter macht das Bündel zum Staubsauger: Stufe I nur für Sorten, die schon drin sind, Stufe II für alles; Schleichen pausiert das Aufsaugen; Köcher saugen nur Pfeile; Hände werden vor dem restlichen Inventar geprüft.",
@@ -1700,7 +1803,9 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/SimplebuildingClient.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java"
       ],
       "en": {
         "title": "Armor Trim Benefits (Resonance)",
@@ -1712,7 +1817,7 @@ window.WIKI_DATA = {
           "Combat factor: combat score = monster kills x 1.0 + animal kills x 0.2 + damage taken (raw value of the vanilla statistic) x 0.05, each counted since your last death, fed into the same curve with scale 100.",
           "On death (respawn) distance, time, damage taken and the kill baselines are reset; the counters are stored in the player's save data under \"SimpleBuildingData\", and the live values are sent to the client once a second (every 20 ticks).",
           "Anything that is not a server player uses a fixed progress factor of 0.2 instead: every mob, and the client-side tooltip calculation. The resonance panel in the inventory and the reference screen are the exception - they compute the real multiplier on the client from the synced counters.",
-          "Inventory: 24 pixels to the left of the inventory (20x20 pixels) sits a button showing the Ward Armor Trim Smithing Template with the tooltip \"Toggle Resonance Stats\"; it toggles a panel showing L (experience) x S (survival) x C (combat) = total factor, and hovering the panel adds details (level, distance, time alive, hostiles, passives, damage taken).",
+          "Inventory: 24 pixels to the left of the inventory (20x20 pixels) sits a button showing the Ward Armor Trim Smithing Template with the tooltip \"Toggle Resonance Stats\"; it toggles a panel showing L (experience) x S (survival) x C (combat) = total factor, and hovering the panel adds details (level, distance, time alive, hostiles, passives, damage taken). The backpack screen shows the same button and panel (shared class TrimStatsPanel).",
           "Smithing table: 25 pixels to the left of the interface there is a button that cycles through the trim templates in the #minecraft:trim_templates tag (plus Enderscape's Stasis template if that mod is installed); it opens the \"Trim Resonance Reference\" screen with base and current values (base x multiplier).",
           "Damage reduction by pattern (per counted piece, times the multiplier): Sentry 5% against projectiles; Vex 6% against magic damage (direct or indirect) and against hits from a Vex; Wild 10% against cactus, sweet berry bush and stalagmite; Dune 8% against explosions; Coast 10% against drowning; Ward 3% against everything; Silence 20% against the Warden's sonic boom; Snout 5% against fire; Rib 10% against wither damage; Eye 10% against dragon breath; Spire 8% against fall damage; Flow 10% against wind charges (any entity whose type id contains \"wind_charge\", so the Breeze's charge counts too); Bolt 25% against lightning.",
           "Pattern counting: a piece counts as 1.0; if its trim material is Netherite it counts 1.75, if it is Enderite 3.5.",
@@ -1750,7 +1855,7 @@ window.WIKI_DATA = {
           "Kampffaktor: Kampfpunkte = Monster-Kills × 1,0 + Tier-Kills × 0,2 + erlittener Schaden (Rohwert der Vanilla-Statistik) × 0,05, jeweils seit dem letzten Tod, auf dieselbe Kurve mit Skala 100 gelegt.",
           "Beim Tod (Respawn) werden Strecke, Zeit, erlittener Schaden und die Kill-Basiswerte neu gesetzt; die Zähler werden im Spielerdatensatz unter „SimpleBuildingData“ gespeichert und die Live-Werte dem Client jede Sekunde (alle 20 Ticks) übermittelt.",
           "Für alles, was kein Serverspieler ist, gilt fest ein Fortschrittsfaktor von 0,2: jedes Mob und die clientseitige Tooltip-Berechnung. Ausgenommen sind das Resonanz-Panel im Inventar und der Referenzbildschirm – sie rechnen den echten Multiplikator auf dem Client aus den synchronisierten Zählern.",
-          "Inventar: Links neben dem Inventar (24 Pixel links vom Rand, 20×20 Pixel) sitzt ein Knopf mit dem Symbol der Schutz-Schmiedevorlage (Ward) und dem Tooltip „Toggle Resonance Stats“; er blendet ein Feld mit L (Erfahrung) × S (Überleben) × C (Kampf) = Gesamtfaktor ein; beim Überfahren des Feldes erscheinen Details (Stufe, Strecke, Zeit am Leben, Monster, Tiere, erlittener Schaden).",
+          "Inventar: Links neben dem Inventar (24 Pixel links vom Rand, 20×20 Pixel) sitzt ein Knopf mit dem Symbol der Schutz-Schmiedevorlage (Ward) und dem Tooltip „Toggle Resonance Stats“; er blendet ein Feld mit L (Erfahrung) × S (Überleben) × C (Kampf) = Gesamtfaktor ein; beim Überfahren des Feldes erscheinen Details (Stufe, Strecke, Zeit am Leben, Monster, Tiere, erlittener Schaden). Der Rucksack-Bildschirm zeigt denselben Knopf samt Feld (gemeinsame Klasse TrimStatsPanel).",
           "Schmiedetisch: 25 Pixel links neben der Oberfläche gibt es einen Knopf, der durch die Besatz-Vorlagen des Tags #minecraft:trim_templates wechselt (zuzüglich der Stasis-Vorlage von Enderscape, falls diese Mod installiert ist); er öffnet den Referenzbildschirm „Trim Resonance Reference“ mit Basis- und aktuellen Werten (Basis × Multiplikator).",
           "Schadensminderung nach Muster (je Teil, mal Multiplikator): Sentry 5 % gegen Geschosse; Vex 6 % gegen Magie und direkte Vex-Angriffe; Wild 10 % gegen Kaktus, Süßbeerenbusch und Stalagmit; Dune 8 % gegen Explosionen; Coast 10 % gegen Ertrinken; Ward 3 % gegen alles; Silence 20 % gegen den Sonic Boom des Wardens; Snout 5 % gegen Feuer; Rib 10 % gegen Wither-Schaden; Eye 10 % gegen Drachenatem; Spire 8 % gegen Fallschaden; Flow 10 % gegen Windkugeln; Bolt 25 % gegen Blitze.",
           "Musterzählung: Ein Teil zählt 1,0; ist das Besatzmaterial Netherit, zählt es 1,75; ist es Enderit, zählt es 3,5.",
@@ -1791,7 +1896,8 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_chestplate",
         "simplebuilding:enderite_leggings",
         "simplebuilding:enderite_boots",
-        "simplebuilding:enderite_upgrade_template"
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:enderite_backpack"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
@@ -1810,7 +1916,7 @@ window.WIKI_DATA = {
         "title": "Enderite Void Protection",
         "summary": "Enderite items are not lost to the void: if they drop below the world's bottom they hang in place and are pulled back up when needed. Enderite armor also slows void damage for the wearer and lets you drift down gently while the jump key is held.",
         "details": [
-          "Everything in the simplebuilding:void_protected item tag is protected; datagen fills the tag automatically from every mod item whose id starts with \"enderite_\", plus raw_enderite - currently 24 entries (ingot, scrap, raw enderite, nugget, block, sword, spear, pickaxe, axe, shovel, hoe, chisel, sledgehammer, building wand, bundle, quiver, core, apple, carrot, the four armor pieces, upgrade template).",
+          "Everything in the simplebuilding:void_protected item tag is protected; datagen fills the tag automatically from every mod item whose id starts with \"enderite_\", plus raw_enderite - currently 25 entries (ingot, scrap, raw enderite, nugget, block, sword, spear, pickaxe, axe, shovel, hoe, chisel, sledgehammer, building wand, bundle, quiver, backpack, core, apple, carrot, the four armor pieces, upgrade template).",
           "If such an item falls below the dimension's minimum height, its motion is zeroed and gravity is switched off - it floats.",
           "If it ends up more than 10 blocks below the minimum height, it is moved back to 5 blocks above the minimum height.",
           "The check runs on the server only, on every tick of the item entity.",
@@ -1825,7 +1931,7 @@ window.WIKI_DATA = {
         "title": "Enderit-Schutz vor der Leere",
         "summary": "Enderit-Gegenstände gehen in der Leere nicht verloren: Fallen sie unter die Weltgrenze, bleiben sie schweben und werden bei Bedarf wieder nach oben geholt. Zusätzlich verlangsamt Enderit-Rüstung den Leere-Schaden für den Träger und erlaubt bei gedrückter Sprungtaste sanftes Fallen.",
         "details": [
-          "Geschützt sind alle Items im Tag simplebuilding:void_protected; er wird per Datagen automatisch aus allen Mod-Items gefüllt, deren Kennung mit „enderite_“ beginnt, plus raw_enderite – zurzeit 24 Einträge (Barren, Schrott, Roh-Enderit, Nugget, Block, Schwert, Speer, Spitzhacke, Axt, Schaufel, Hacke, Meißel, Vorschlaghammer, Baustab, Bündel, Köcher, Kern, Apfel, Karotte, vier Rüstungsteile, Upgrade-Vorlage).",
+          "Geschützt sind alle Items im Tag simplebuilding:void_protected; er wird per Datagen automatisch aus allen Mod-Items gefüllt, deren Kennung mit „enderite_“ beginnt, plus raw_enderite – zurzeit 25 Einträge (Barren, Schrott, Roh-Enderit, Nugget, Block, Schwert, Speer, Spitzhacke, Axt, Schaufel, Hacke, Meißel, Vorschlaghammer, Baustab, Bündel, Köcher, Rucksack, Kern, Apfel, Karotte, vier Rüstungsteile, Upgrade-Vorlage).",
           "Fällt ein solches Item unter die Mindesthöhe der jeweiligen Dimension, wird seine Bewegung gestoppt und die Schwerkraft abgeschaltet – es schwebt.",
           "Liegt es mehr als 10 Blöcke unter der Mindesthöhe, wird es auf 5 Blöcke über der Mindesthöhe zurückversetzt.",
           "Die Prüfung erfolgt nur auf dem Server, jeden Tick des Item-Objekts.",
@@ -2315,6 +2421,176 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:backpack",
+      "name": {
+        "en_us": "Backpack",
+        "de_de": "Rucksack"
+      },
+      "texture": "assets/textures/item/backpack.png",
+      "craftedBy": [
+        "simplebuilding:backpack"
+      ],
+      "usedIn": [
+        "simplebuilding:reinforced_backpack"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/component/BackpackContents.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackLayout.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenuProviders.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java",
+          "common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java",
+          "common/src/shared/java/com/simplebuilding/networking/OpenBackpackPayload.java",
+          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+          "common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/BlockItemMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
+          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+          "src/main/generated/data/simplebuilding/recipe/backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/netherite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/backpack.json",
+          "src/main/generated/data/simplebuilding/tags/item/backpacks.json",
+          "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/master_builder_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/models/block/template_backpack.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ],
+        "en": {
+          "summary": "Backpacks are wearable storage in four tiers with 9, 18, 33 and 50 slots. Right-click one to put it into the chest slot, then press the backpack key (default B) to open your inventory with the backpack's slots added. Sneak + right-click on a block sets it down as a block, which opens with a right-click and drops back as the item with everything inside when it is broken.",
+          "details": [
+            "Class BackpackItem (a BlockItem for the block BackpackBlock); stack size 1, no durability. The contents live in the item component simplebuilding:backpack_contents, so they travel with the item: death drops, setting it down, the crafting upgrade and the smithing upgrades all keep them.",
+            "Putting it on: right-clicking with a backpack in hand - in the air, or on a block without sneaking - puts it into the chest slot through vanilla's equippable component (swappable, like a chestplate); a worn chestplate or elytra is swapped into your hand. A backpack and a chestplate or elytra therefore exclude each other. The component allows players only, takes no damage from hits (damageOnHurt off) and has no equipment asset, so nothing is drawn on the player.",
+            "Armor while worn: 1 / 2 / 3 / 4 armor points by tier, as an attribute modifier for the chest slot group.",
+            "Opening: only while worn. The key \"Open Backpack\" (key.simplebuilding.open_backpack, default B, in the mod's key category) asks the server for the backpack screen, and the server checks again that you are alive, not a spectator, have no other container open and wear a backpack. Without a worn backpack the key opens the normal inventory, exactly like E. E itself is unchanged and always opens the normal inventory.",
+            "The backpack screen is the player inventory as vanilla lays it out - 2x2 crafting grid with recipe book, armor, off-hand, player model, active effects and the mod's resonance stats button - with the backpack rows inserted between the crafting area and the main inventory. Backpack rows are tinted light brown, the extra columns purple; for now the extra columns are ordinary storage slots.",
+            "Extra columns run alongside the backpack rows and the three main inventory rows, not alongside the hotbar. The Netherite Backpack has one column to the right of the grid (3 + 3 = 6 slots); the Enderite Backpack has one on the right and a second one on the left (4 + 3 = 7 slots each).",
+            "While the screen of the worn backpack is open, the chest slot is locked: the backpack can be neither taken out nor replaced - not by clicking, shift-clicking, number keys or dropping.",
+            "Shift-click in the backpack screen: from the main inventory or hotbar into the backpack first; whatever does not fit goes the vanilla way (armor into its slot, main inventory and hotbar into each other). From the backpack into the main inventory, then the hotbar - never straight into an armor slot, as with a chest. The crafting result, the grid, the armor slots and the off-hand move as in the vanilla inventory and, when main inventory and hotbar are full, into the backpack.",
+            "The 2x2 grid and the recipe book work as in the inventory; the recipe book only counts and fills from the player inventory, not from the backpack.",
+            "Setting it down: sneak + right-click on a block places the backpack as a block with its front facing you (outside creative the item is used up). Without sneaking the same click puts it on instead.",
+            "Placed backpack: a right-click opens its storage in the same screen, here without a locked slot; the screen closes when the block is gone or you move out of reach (block interaction range plus 4 blocks, as with a chest). Breaking it always drops the backpack item with all components of the block (loot function copy_components from the block entity: contents, name, enchantments) - no tool needed and no explosion condition. In creative a backpack with contents still drops, an empty one does not.",
+            "The placed backpack is not a container for hoppers or comparators: they neither see nor move its contents.",
+            "Block: hardness 0.8, wool sound, brown map colour; a piston destroys it instead of pushing it, and it drops. Blast resistance 0.8 (Backpack, Reinforced Backpack) or 1200 (Netherite, Enderite). Shape: a 10 x 13 x 6 pixel bag with an 8 x 8 x 2 front pocket, turned with its facing.",
+            "What goes in: everything that may go into container items, except backpacks - so no shulker boxes and no second backpack; bundles and quivers do fit. A backpack itself fits into no container item: not into shulker boxes, bundles or other backpacks.",
+            "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
+            "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
+            "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
+            "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
+            "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
+            "Deep Pockets raises the stack limit of the backpack slots: level I doubles, level II quadruples it - the same steps Deep Pockets uses for bundle capacity, and 4x is also the most the stored format holds for 99-stacks (count limit 396). Only stackable items grow: cobblestone 64 / 128 / 256, ender pearls 16 / 32 / 64; unstackable items stay at 1.",
+            "Big stacks never leave the backpack oversized: picking up, dropping and double-click collecting take at most one normal stack; a number key moves one normal stack into an empty hotbar or off-hand slot only; clicking such a stack with a different item on the cursor does nothing. If Deep Pockets is removed later (grindstone), oversized stacks stay and can still be taken out; only adding beyond the normal limit stops.",
+            "Funnel (worn backpack): an item you touch goes into the backpack only after all bundle checks - hands and bundles in the inventory come first - and only once its pickup delay has run out. Level I only takes types already inside (same item and components), level II everything allowed. Matching stacks are filled up to the slot limit first, then empty slots; the bundle insert sound plays. Nothing is vacuumed while sneaking, and whatever does not fit is picked up the normal way.",
+            "Master Builder (on the backpack itself): the Building Wand uses the worn backpack as its last material source - after off-hand, hotbar and, with Master Builder on the wand, the rest of the inventory and bundles - and takes one item per placed block out of it. Master Builder on the wand alone does not reach into the backpack, and the wand never uses a backpack as a building block.",
+            "Master Builder and pick block (survival): if the targeted block is neither in the inventory nor in a Master Builder bundle but in a worn Master Builder backpack, one normal stack of it comes out of the backpack into the selected hotbar slot; an item held there moves to a free slot first, and without a free slot nothing happens.",
+            "Constructor's Touch (worn backpack): when placing a block from your hand uses up that stack, a matching stack (same item and components) from the backpack refills the hand - at most one normal stack, not in creative mode, and only for placements straight from the hand (BlockItem.place), not for blocks the wand or a Master Builder bundle places.",
+            "Smithing trims: because of the equippable component the mod's trim check (SmithingScreenHandlerMixin.isValidArmor) accepts backpacks, so the Glowing and Emitting Trim Upgrade Templates work on them; worn, the emission level counts towards the dynamic light like on any armor piece (DynamicLightHandler adds up all four armor slots)."
+          ],
+          "controls": [
+            "Right-click with the backpack in hand (not sneaking): put it on.",
+            "Backpack key (default B) while wearing one: open the backpack screen; the same key, E or Esc closes it. Without a backpack the key opens the normal inventory.",
+            "Sneak + right-click on a block: set the backpack down. Right-click the placed backpack: open it. Break it: get it back with everything inside."
+          ],
+          "tiers": [
+            "Backpack: 1 row, 9 slots, 1 armor point; crafted.",
+            "Reinforced Backpack: 2 rows, 18 slots, 2 armor points; crafted from a Backpack, rarity uncommon.",
+            "Netherite Backpack: 3 rows plus 1 extra column (6 slots), 33 slots, 3 armor points; smithed from the Reinforced Backpack, fire resistant, explosion-proof as an item, rarity uncommon.",
+            "Enderite Backpack: 4 rows plus 2 extra columns (7 slots each), 50 slots, 4 armor points; smithed from the Netherite Backpack, fire resistant, explosion-proof as an item, void protected, rarity epic."
+          ],
+          "caveats": [
+            "Nothing is drawn on the player yet: a worn backpack is invisible, like a worn quiver.",
+            "The worn backpack's contents are part of the chest item and therefore reach nearby players with every equipment update, as a held shulker box would.",
+            "A backpack is always opened through the key while worn or as a placed block; a backpack elsewhere in the inventory cannot be opened."
+          ]
+        },
+        "de": {
+          "summary": "Rucksäcke sind tragbarer Stauraum in vier Stufen mit 9, 18, 33 und 50 Plätzen. Ein Rechtsklick legt einen Rucksack in den Brust-Slot, danach öffnet die Rucksack-Taste (Standard B) das Inventar samt den Rucksack-Plätzen. Schleichen + Rechtsklick auf einen Block stellt ihn als Block ab; der öffnet sich per Rechtsklick und fällt beim Abbauen als Item mit allem Inhalt zurück.",
+          "details": [
+            "Klasse BackpackItem (ein BlockItem zum Block BackpackBlock); Stapelgröße 1, keine Haltbarkeit. Der Inhalt steckt in der Item-Komponente simplebuilding:backpack_contents und reist mit dem Item: Todes-Drop, Abstellen, die Aufwertung am Werkbank und die Schmiede-Aufwertungen behalten ihn.",
+            "Anziehen: Rechtsklick mit dem Rucksack in der Hand – in die Luft oder ohne Schleichen auf einen Block – legt ihn über Vanillas Ausrüstungs-Komponente (swappable, wie ein Brustpanzer) in den Brust-Slot; ein getragener Brustpanzer oder eine Elytra wandert dabei in die Hand. Rucksack und Brustpanzer bzw. Elytra schließen sich also aus. Die Komponente erlaubt nur Spieler, Treffer kosten nichts (damageOnHurt aus), und sie hat kein Ausrüstungs-Asset, am Spieler ist also nichts zu sehen.",
+            "Rüstung beim Tragen: 1 / 2 / 3 / 4 Rüstungspunkte je Stufe, als Attribut-Modifikator für die Brust-Slotgruppe.",
+            "Öffnen: nur getragen. Die Taste „Rucksack öffnen“ (key.simplebuilding.open_backpack, Standard B, in der Tastenkategorie der Mod) fragt den Server nach dem Rucksack-Bildschirm; der prüft selbst noch einmal, dass man lebt, kein Zuschauer ist, kein anderes Menü offen hat und einen Rucksack trägt. Ohne getragenen Rucksack öffnet die Taste das normale Inventar, genau wie E. E selbst bleibt unverändert und öffnet immer das normale Inventar.",
+            "Der Rucksack-Bildschirm ist das Spielerinventar in Vanillas Anordnung – 2x2-Werkbank mit Rezeptbuch, Rüstung, Nebenhand, Spielermodell, aktive Effekte und der Resonanz-Knopf der Mod – mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar. Rucksack-Reihen sind hellbraun getönt, die Zusatzspalten violett; vorerst sind die Zusatzspalten gewöhnliche Lagerplätze.",
+            "Zusatzspalten laufen neben den Rucksack-Reihen und den drei Hauptinventar-Reihen entlang, nicht neben der Hotbar. Der Netherit-Rucksack hat eine Spalte rechts vom Raster (3 + 3 = 6 Plätze); der Enderit-Rucksack eine rechts und eine zweite links (je 4 + 3 = 7 Plätze).",
+            "Solange der Bildschirm des getragenen Rucksacks offen ist, ist der Brust-Slot gesperrt: Der Rucksack lässt sich weder herausnehmen noch ersetzen – weder per Klick, Shift-Klick, Zifferntaste noch Wegwerfen.",
+            "Shift-Klick im Rucksack-Bildschirm: aus Hauptinventar oder Hotbar zuerst in den Rucksack; was nicht passt, geht den Vanilla-Weg (Rüstung in ihren Slot, Hauptinventar und Hotbar gegeneinander). Aus dem Rucksack ins Hauptinventar, dann in die Hotbar – nie direkt in einen Rüstungs-Slot, wie bei einer Truhe. Werkbank-Ergebnis, Raster, Rüstungs-Slots und Nebenhand verschieben wie im Vanilla-Inventar und, wenn Hauptinventar und Hotbar voll sind, in den Rucksack.",
+            "Das 2x2-Raster und das Rezeptbuch funktionieren wie im Inventar; das Rezeptbuch zählt und befüllt nur aus dem Spielerinventar, nicht aus dem Rucksack.",
+            "Abstellen: Schleichen + Rechtsklick auf einen Block stellt den Rucksack als Block ab, mit der Vorderseite zum Spieler (außerhalb des Kreativmodus wird das Item verbraucht). Ohne Schleichen zieht derselbe Klick ihn stattdessen an.",
+            "Abgestellter Rucksack: Rechtsklick öffnet seinen Stauraum im selben Bildschirm, hier ohne gesperrten Slot; der Bildschirm schließt, wenn der Block weg ist oder man sich entfernt (Block-Interaktionsreichweite plus 4 Blöcke, wie bei einer Truhe). Abbauen droppt immer das Rucksack-Item mit allen Komponenten des Blocks (Loot-Funktion copy_components vom Blockobjekt: Inhalt, Name, Verzauberungen) – ohne Werkzeug und ohne Explosionsbedingung. Im Kreativmodus fällt ein Rucksack mit Inhalt trotzdem heraus, ein leerer nicht.",
+            "Für Trichter und Komparatoren ist der abgestellte Rucksack kein Behälter: Sie sehen und bewegen seinen Inhalt nicht.",
+            "Block: Härte 0,8, Wolle-Klang, braune Kartenfarbe; ein Kolben zerstört ihn, statt ihn zu schieben, und er droppt. Explosionswiderstand 0,8 (Rucksack, Verstärkter Rucksack) bzw. 1200 (Netherit, Enderit). Form: ein 10 x 13 x 6 Pixel großer Sack mit 8 x 8 x 2 Pixel Vordertasche, mit der Blickrichtung gedreht.",
+            "Was hineinpasst: alles, was in Behälter-Items darf, außer Rucksäcken – also keine Shulkerkisten und kein zweiter Rucksack; Bündel und Köcher passen. Ein Rucksack selbst passt in kein Behälter-Item: nicht in Shulkerkisten, Bündel oder andere Rucksäcke.",
+            "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
+            "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
+            "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
+            "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
+            "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
+            "Tiefe Taschen hebt die Stapelgrenze der Rucksack-Plätze: Stufe I verdoppelt, Stufe II vervierfacht sie – dieselben Stufen, mit denen Tiefe Taschen die Bündel-Kapazität erhöht, und das Vierfache ist zugleich das Höchste, was das Speicherformat für 99er-Stapel fasst (Zählgrenze 396). Nur stapelbare Items wachsen: Bruchstein 64 / 128 / 256, Enderperlen 16 / 32 / 64; nicht stapelbare bleiben bei 1.",
+            "Große Stapel verlassen den Rucksack nie übergroß: Aufnehmen, Wegwerfen und Doppelklick-Sammeln nehmen höchstens einen normalen Stapel; eine Zifferntaste legt einen normalen Stapel nur in einen leeren Hotbar- oder Nebenhand-Platz; ein Klick mit einem anderen Item am Cursor auf so einen Stapel bewirkt nichts. Wird Tiefe Taschen später entfernt (Schleifstein), bleiben übergroße Stapel liegen und lassen sich weiter herausnehmen; nur Nachlegen über die normale Grenze geht dann nicht mehr.",
+            "Trichter (getragener Rucksack): Ein berührtes Item landet erst nach allen Bündel-Prüfungen im Rucksack – Hände und Bündel im Inventar kommen zuerst – und erst, wenn seine Aufhebe-Sperre abgelaufen ist. Stufe I nimmt nur Sorten, die schon drin liegen (gleiches Item, gleiche Komponenten), Stufe II alles Erlaubte. Zuerst werden passende Stapel bis zur Platzgrenze aufgefüllt, dann leere Plätze; dabei ertönt der Bündel-Einlege-Klang. Beim Schleichen wird nichts aufgesaugt, und was nicht passt, wird normal aufgehoben.",
+            "Baumeister (auf dem Rucksack selbst): Der Baustab nutzt den getragenen Rucksack als letzte Materialquelle – nach Nebenhand, Hotbar und, mit Baumeister auf dem Stab, dem restlichen Inventar samt Bündeln – und nimmt je gesetztem Block ein Stück heraus. Baumeister nur auf dem Stab greift nicht in den Rucksack, und einen Rucksack verbaut der Stab nie als Baublock.",
+            "Baumeister und Blockauswahl (Überlebensmodus): Liegt der anvisierte Block weder im Inventar noch in einem Baumeister-Bündel, aber in einem getragenen Baumeister-Rucksack, kommt ein normaler Stapel davon aus dem Rucksack in den gewählten Hotbar-Slot; ein dort gehaltenes Item wandert vorher in einen freien Platz, ohne freien Platz passiert nichts.",
+            "Berührung des Konstrukteurs (getragener Rucksack): Verbraucht das Platzieren eines Blocks aus der Hand den letzten Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place), nicht bei Blöcken, die der Baustab oder ein Baumeister-Bündel setzt.",
+            "Besätze am Schmiedetisch: Wegen der Ausrüstungs-Komponente akzeptiert die Besatz-Prüfung der Mod (SmithingScreenHandlerMixin.isValidArmor) Rucksäcke, die Leucht- und die Strahl-Aufwertungsvorlage wirken also auf sie; getragen zählt die Strahlstufe wie bei jedem Rüstungsteil zum dynamischen Licht (DynamicLightHandler summiert alle vier Rüstungs-Slots)."
+          ],
+          "controls": [
+            "Rechtsklick mit dem Rucksack in der Hand (ohne Schleichen): anziehen.",
+            "Rucksack-Taste (Standard B) mit getragenem Rucksack: Rucksack-Bildschirm öffnen; dieselbe Taste, E oder Esc schließt ihn. Ohne Rucksack öffnet die Taste das normale Inventar.",
+            "Schleichen + Rechtsklick auf einen Block: Rucksack abstellen. Rechtsklick auf den abgestellten Rucksack: öffnen. Abbauen: mit allem Inhalt zurückbekommen."
+          ],
+          "tiers": [
+            "Rucksack: 1 Reihe, 9 Plätze, 1 Rüstungspunkt; an der Werkbank hergestellt.",
+            "Verstärkter Rucksack: 2 Reihen, 18 Plätze, 2 Rüstungspunkte; aus einem Rucksack hergestellt, Seltenheit ungewöhnlich.",
+            "Netherit-Rucksack: 3 Reihen plus 1 Zusatzspalte (6 Plätze), 33 Plätze, 3 Rüstungspunkte; aus dem Verstärkten Rucksack geschmiedet, feuerfest, als Item explosionsfest, Seltenheit ungewöhnlich.",
+            "Enderit-Rucksack: 4 Reihen plus 2 Zusatzspalten (je 7 Plätze), 50 Plätze, 4 Rüstungspunkte; aus dem Netherit-Rucksack geschmiedet, feuerfest, als Item explosionsfest, vor der Leere geschützt, Seltenheit episch."
+          ],
+          "caveats": [
+            "Am Spieler wird noch nichts gezeichnet: Ein getragener Rucksack ist unsichtbar, wie ein getragener Köcher.",
+            "Der Inhalt des getragenen Rucksacks gehört zum Brust-Item und erreicht deshalb mit jeder Ausrüstungs-Aktualisierung die Spieler in der Nähe, wie eine gehaltene Shulkerkiste.",
+            "Geöffnet wird ein Rucksack immer über die Taste, während er getragen wird, oder als abgestellter Block; ein Rucksack woanders im Inventar lässt sich nicht öffnen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:basic_upgrade_template",
@@ -3610,7 +3886,8 @@ window.WIKI_DATA = {
       "texture": "assets/textures/item/diamond_pebble.png",
       "craftedBy": [],
       "usedIn": [
-        "simplebuilding:cracked_diamond"
+        "simplebuilding:cracked_diamond",
+        "simplebuilding:reinforced_backpack"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -3938,6 +4215,174 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_backpack",
+      "name": {
+        "en_us": "Enderite Backpack",
+        "de_de": "Enderit-Rucksack"
+      },
+      "texture": "assets/textures/item/enderite_backpack.png",
+      "craftedBy": [
+        "simplebuilding:enderite_backpack_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/component/BackpackContents.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackLayout.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenuProviders.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java",
+          "common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java",
+          "common/src/shared/java/com/simplebuilding/networking/OpenBackpackPayload.java",
+          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+          "common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/BlockItemMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
+          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+          "src/main/generated/data/simplebuilding/recipe/backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/netherite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/backpack.json",
+          "src/main/generated/data/simplebuilding/tags/item/backpacks.json",
+          "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/master_builder_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/models/block/template_backpack.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ],
+        "en": {
+          "summary": "Backpacks are wearable storage in four tiers with 9, 18, 33 and 50 slots. Right-click one to put it into the chest slot, then press the backpack key (default B) to open your inventory with the backpack's slots added. Sneak + right-click on a block sets it down as a block, which opens with a right-click and drops back as the item with everything inside when it is broken.",
+          "details": [
+            "Class BackpackItem (a BlockItem for the block BackpackBlock); stack size 1, no durability. The contents live in the item component simplebuilding:backpack_contents, so they travel with the item: death drops, setting it down, the crafting upgrade and the smithing upgrades all keep them.",
+            "Putting it on: right-clicking with a backpack in hand - in the air, or on a block without sneaking - puts it into the chest slot through vanilla's equippable component (swappable, like a chestplate); a worn chestplate or elytra is swapped into your hand. A backpack and a chestplate or elytra therefore exclude each other. The component allows players only, takes no damage from hits (damageOnHurt off) and has no equipment asset, so nothing is drawn on the player.",
+            "Armor while worn: 1 / 2 / 3 / 4 armor points by tier, as an attribute modifier for the chest slot group.",
+            "Opening: only while worn. The key \"Open Backpack\" (key.simplebuilding.open_backpack, default B, in the mod's key category) asks the server for the backpack screen, and the server checks again that you are alive, not a spectator, have no other container open and wear a backpack. Without a worn backpack the key opens the normal inventory, exactly like E. E itself is unchanged and always opens the normal inventory.",
+            "The backpack screen is the player inventory as vanilla lays it out - 2x2 crafting grid with recipe book, armor, off-hand, player model, active effects and the mod's resonance stats button - with the backpack rows inserted between the crafting area and the main inventory. Backpack rows are tinted light brown, the extra columns purple; for now the extra columns are ordinary storage slots.",
+            "Extra columns run alongside the backpack rows and the three main inventory rows, not alongside the hotbar. The Netherite Backpack has one column to the right of the grid (3 + 3 = 6 slots); the Enderite Backpack has one on the right and a second one on the left (4 + 3 = 7 slots each).",
+            "While the screen of the worn backpack is open, the chest slot is locked: the backpack can be neither taken out nor replaced - not by clicking, shift-clicking, number keys or dropping.",
+            "Shift-click in the backpack screen: from the main inventory or hotbar into the backpack first; whatever does not fit goes the vanilla way (armor into its slot, main inventory and hotbar into each other). From the backpack into the main inventory, then the hotbar - never straight into an armor slot, as with a chest. The crafting result, the grid, the armor slots and the off-hand move as in the vanilla inventory and, when main inventory and hotbar are full, into the backpack.",
+            "The 2x2 grid and the recipe book work as in the inventory; the recipe book only counts and fills from the player inventory, not from the backpack.",
+            "Setting it down: sneak + right-click on a block places the backpack as a block with its front facing you (outside creative the item is used up). Without sneaking the same click puts it on instead.",
+            "Placed backpack: a right-click opens its storage in the same screen, here without a locked slot; the screen closes when the block is gone or you move out of reach (block interaction range plus 4 blocks, as with a chest). Breaking it always drops the backpack item with all components of the block (loot function copy_components from the block entity: contents, name, enchantments) - no tool needed and no explosion condition. In creative a backpack with contents still drops, an empty one does not.",
+            "The placed backpack is not a container for hoppers or comparators: they neither see nor move its contents.",
+            "Block: hardness 0.8, wool sound, brown map colour; a piston destroys it instead of pushing it, and it drops. Blast resistance 0.8 (Backpack, Reinforced Backpack) or 1200 (Netherite, Enderite). Shape: a 10 x 13 x 6 pixel bag with an 8 x 8 x 2 front pocket, turned with its facing.",
+            "What goes in: everything that may go into container items, except backpacks - so no shulker boxes and no second backpack; bundles and quivers do fit. A backpack itself fits into no container item: not into shulker boxes, bundles or other backpacks.",
+            "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
+            "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
+            "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
+            "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
+            "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
+            "Deep Pockets raises the stack limit of the backpack slots: level I doubles, level II quadruples it - the same steps Deep Pockets uses for bundle capacity, and 4x is also the most the stored format holds for 99-stacks (count limit 396). Only stackable items grow: cobblestone 64 / 128 / 256, ender pearls 16 / 32 / 64; unstackable items stay at 1.",
+            "Big stacks never leave the backpack oversized: picking up, dropping and double-click collecting take at most one normal stack; a number key moves one normal stack into an empty hotbar or off-hand slot only; clicking such a stack with a different item on the cursor does nothing. If Deep Pockets is removed later (grindstone), oversized stacks stay and can still be taken out; only adding beyond the normal limit stops.",
+            "Funnel (worn backpack): an item you touch goes into the backpack only after all bundle checks - hands and bundles in the inventory come first - and only once its pickup delay has run out. Level I only takes types already inside (same item and components), level II everything allowed. Matching stacks are filled up to the slot limit first, then empty slots; the bundle insert sound plays. Nothing is vacuumed while sneaking, and whatever does not fit is picked up the normal way.",
+            "Master Builder (on the backpack itself): the Building Wand uses the worn backpack as its last material source - after off-hand, hotbar and, with Master Builder on the wand, the rest of the inventory and bundles - and takes one item per placed block out of it. Master Builder on the wand alone does not reach into the backpack, and the wand never uses a backpack as a building block.",
+            "Master Builder and pick block (survival): if the targeted block is neither in the inventory nor in a Master Builder bundle but in a worn Master Builder backpack, one normal stack of it comes out of the backpack into the selected hotbar slot; an item held there moves to a free slot first, and without a free slot nothing happens.",
+            "Constructor's Touch (worn backpack): when placing a block from your hand uses up that stack, a matching stack (same item and components) from the backpack refills the hand - at most one normal stack, not in creative mode, and only for placements straight from the hand (BlockItem.place), not for blocks the wand or a Master Builder bundle places.",
+            "Smithing trims: because of the equippable component the mod's trim check (SmithingScreenHandlerMixin.isValidArmor) accepts backpacks, so the Glowing and Emitting Trim Upgrade Templates work on them; worn, the emission level counts towards the dynamic light like on any armor piece (DynamicLightHandler adds up all four armor slots)."
+          ],
+          "controls": [
+            "Right-click with the backpack in hand (not sneaking): put it on.",
+            "Backpack key (default B) while wearing one: open the backpack screen; the same key, E or Esc closes it. Without a backpack the key opens the normal inventory.",
+            "Sneak + right-click on a block: set the backpack down. Right-click the placed backpack: open it. Break it: get it back with everything inside."
+          ],
+          "tiers": [
+            "Backpack: 1 row, 9 slots, 1 armor point; crafted.",
+            "Reinforced Backpack: 2 rows, 18 slots, 2 armor points; crafted from a Backpack, rarity uncommon.",
+            "Netherite Backpack: 3 rows plus 1 extra column (6 slots), 33 slots, 3 armor points; smithed from the Reinforced Backpack, fire resistant, explosion-proof as an item, rarity uncommon.",
+            "Enderite Backpack: 4 rows plus 2 extra columns (7 slots each), 50 slots, 4 armor points; smithed from the Netherite Backpack, fire resistant, explosion-proof as an item, void protected, rarity epic."
+          ],
+          "caveats": [
+            "Nothing is drawn on the player yet: a worn backpack is invisible, like a worn quiver.",
+            "The worn backpack's contents are part of the chest item and therefore reach nearby players with every equipment update, as a held shulker box would.",
+            "A backpack is always opened through the key while worn or as a placed block; a backpack elsewhere in the inventory cannot be opened."
+          ]
+        },
+        "de": {
+          "summary": "Rucksäcke sind tragbarer Stauraum in vier Stufen mit 9, 18, 33 und 50 Plätzen. Ein Rechtsklick legt einen Rucksack in den Brust-Slot, danach öffnet die Rucksack-Taste (Standard B) das Inventar samt den Rucksack-Plätzen. Schleichen + Rechtsklick auf einen Block stellt ihn als Block ab; der öffnet sich per Rechtsklick und fällt beim Abbauen als Item mit allem Inhalt zurück.",
+          "details": [
+            "Klasse BackpackItem (ein BlockItem zum Block BackpackBlock); Stapelgröße 1, keine Haltbarkeit. Der Inhalt steckt in der Item-Komponente simplebuilding:backpack_contents und reist mit dem Item: Todes-Drop, Abstellen, die Aufwertung am Werkbank und die Schmiede-Aufwertungen behalten ihn.",
+            "Anziehen: Rechtsklick mit dem Rucksack in der Hand – in die Luft oder ohne Schleichen auf einen Block – legt ihn über Vanillas Ausrüstungs-Komponente (swappable, wie ein Brustpanzer) in den Brust-Slot; ein getragener Brustpanzer oder eine Elytra wandert dabei in die Hand. Rucksack und Brustpanzer bzw. Elytra schließen sich also aus. Die Komponente erlaubt nur Spieler, Treffer kosten nichts (damageOnHurt aus), und sie hat kein Ausrüstungs-Asset, am Spieler ist also nichts zu sehen.",
+            "Rüstung beim Tragen: 1 / 2 / 3 / 4 Rüstungspunkte je Stufe, als Attribut-Modifikator für die Brust-Slotgruppe.",
+            "Öffnen: nur getragen. Die Taste „Rucksack öffnen“ (key.simplebuilding.open_backpack, Standard B, in der Tastenkategorie der Mod) fragt den Server nach dem Rucksack-Bildschirm; der prüft selbst noch einmal, dass man lebt, kein Zuschauer ist, kein anderes Menü offen hat und einen Rucksack trägt. Ohne getragenen Rucksack öffnet die Taste das normale Inventar, genau wie E. E selbst bleibt unverändert und öffnet immer das normale Inventar.",
+            "Der Rucksack-Bildschirm ist das Spielerinventar in Vanillas Anordnung – 2x2-Werkbank mit Rezeptbuch, Rüstung, Nebenhand, Spielermodell, aktive Effekte und der Resonanz-Knopf der Mod – mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar. Rucksack-Reihen sind hellbraun getönt, die Zusatzspalten violett; vorerst sind die Zusatzspalten gewöhnliche Lagerplätze.",
+            "Zusatzspalten laufen neben den Rucksack-Reihen und den drei Hauptinventar-Reihen entlang, nicht neben der Hotbar. Der Netherit-Rucksack hat eine Spalte rechts vom Raster (3 + 3 = 6 Plätze); der Enderit-Rucksack eine rechts und eine zweite links (je 4 + 3 = 7 Plätze).",
+            "Solange der Bildschirm des getragenen Rucksacks offen ist, ist der Brust-Slot gesperrt: Der Rucksack lässt sich weder herausnehmen noch ersetzen – weder per Klick, Shift-Klick, Zifferntaste noch Wegwerfen.",
+            "Shift-Klick im Rucksack-Bildschirm: aus Hauptinventar oder Hotbar zuerst in den Rucksack; was nicht passt, geht den Vanilla-Weg (Rüstung in ihren Slot, Hauptinventar und Hotbar gegeneinander). Aus dem Rucksack ins Hauptinventar, dann in die Hotbar – nie direkt in einen Rüstungs-Slot, wie bei einer Truhe. Werkbank-Ergebnis, Raster, Rüstungs-Slots und Nebenhand verschieben wie im Vanilla-Inventar und, wenn Hauptinventar und Hotbar voll sind, in den Rucksack.",
+            "Das 2x2-Raster und das Rezeptbuch funktionieren wie im Inventar; das Rezeptbuch zählt und befüllt nur aus dem Spielerinventar, nicht aus dem Rucksack.",
+            "Abstellen: Schleichen + Rechtsklick auf einen Block stellt den Rucksack als Block ab, mit der Vorderseite zum Spieler (außerhalb des Kreativmodus wird das Item verbraucht). Ohne Schleichen zieht derselbe Klick ihn stattdessen an.",
+            "Abgestellter Rucksack: Rechtsklick öffnet seinen Stauraum im selben Bildschirm, hier ohne gesperrten Slot; der Bildschirm schließt, wenn der Block weg ist oder man sich entfernt (Block-Interaktionsreichweite plus 4 Blöcke, wie bei einer Truhe). Abbauen droppt immer das Rucksack-Item mit allen Komponenten des Blocks (Loot-Funktion copy_components vom Blockobjekt: Inhalt, Name, Verzauberungen) – ohne Werkzeug und ohne Explosionsbedingung. Im Kreativmodus fällt ein Rucksack mit Inhalt trotzdem heraus, ein leerer nicht.",
+            "Für Trichter und Komparatoren ist der abgestellte Rucksack kein Behälter: Sie sehen und bewegen seinen Inhalt nicht.",
+            "Block: Härte 0,8, Wolle-Klang, braune Kartenfarbe; ein Kolben zerstört ihn, statt ihn zu schieben, und er droppt. Explosionswiderstand 0,8 (Rucksack, Verstärkter Rucksack) bzw. 1200 (Netherit, Enderit). Form: ein 10 x 13 x 6 Pixel großer Sack mit 8 x 8 x 2 Pixel Vordertasche, mit der Blickrichtung gedreht.",
+            "Was hineinpasst: alles, was in Behälter-Items darf, außer Rucksäcken – also keine Shulkerkisten und kein zweiter Rucksack; Bündel und Köcher passen. Ein Rucksack selbst passt in kein Behälter-Item: nicht in Shulkerkisten, Bündel oder andere Rucksäcke.",
+            "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
+            "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
+            "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
+            "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
+            "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
+            "Tiefe Taschen hebt die Stapelgrenze der Rucksack-Plätze: Stufe I verdoppelt, Stufe II vervierfacht sie – dieselben Stufen, mit denen Tiefe Taschen die Bündel-Kapazität erhöht, und das Vierfache ist zugleich das Höchste, was das Speicherformat für 99er-Stapel fasst (Zählgrenze 396). Nur stapelbare Items wachsen: Bruchstein 64 / 128 / 256, Enderperlen 16 / 32 / 64; nicht stapelbare bleiben bei 1.",
+            "Große Stapel verlassen den Rucksack nie übergroß: Aufnehmen, Wegwerfen und Doppelklick-Sammeln nehmen höchstens einen normalen Stapel; eine Zifferntaste legt einen normalen Stapel nur in einen leeren Hotbar- oder Nebenhand-Platz; ein Klick mit einem anderen Item am Cursor auf so einen Stapel bewirkt nichts. Wird Tiefe Taschen später entfernt (Schleifstein), bleiben übergroße Stapel liegen und lassen sich weiter herausnehmen; nur Nachlegen über die normale Grenze geht dann nicht mehr.",
+            "Trichter (getragener Rucksack): Ein berührtes Item landet erst nach allen Bündel-Prüfungen im Rucksack – Hände und Bündel im Inventar kommen zuerst – und erst, wenn seine Aufhebe-Sperre abgelaufen ist. Stufe I nimmt nur Sorten, die schon drin liegen (gleiches Item, gleiche Komponenten), Stufe II alles Erlaubte. Zuerst werden passende Stapel bis zur Platzgrenze aufgefüllt, dann leere Plätze; dabei ertönt der Bündel-Einlege-Klang. Beim Schleichen wird nichts aufgesaugt, und was nicht passt, wird normal aufgehoben.",
+            "Baumeister (auf dem Rucksack selbst): Der Baustab nutzt den getragenen Rucksack als letzte Materialquelle – nach Nebenhand, Hotbar und, mit Baumeister auf dem Stab, dem restlichen Inventar samt Bündeln – und nimmt je gesetztem Block ein Stück heraus. Baumeister nur auf dem Stab greift nicht in den Rucksack, und einen Rucksack verbaut der Stab nie als Baublock.",
+            "Baumeister und Blockauswahl (Überlebensmodus): Liegt der anvisierte Block weder im Inventar noch in einem Baumeister-Bündel, aber in einem getragenen Baumeister-Rucksack, kommt ein normaler Stapel davon aus dem Rucksack in den gewählten Hotbar-Slot; ein dort gehaltenes Item wandert vorher in einen freien Platz, ohne freien Platz passiert nichts.",
+            "Berührung des Konstrukteurs (getragener Rucksack): Verbraucht das Platzieren eines Blocks aus der Hand den letzten Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place), nicht bei Blöcken, die der Baustab oder ein Baumeister-Bündel setzt.",
+            "Besätze am Schmiedetisch: Wegen der Ausrüstungs-Komponente akzeptiert die Besatz-Prüfung der Mod (SmithingScreenHandlerMixin.isValidArmor) Rucksäcke, die Leucht- und die Strahl-Aufwertungsvorlage wirken also auf sie; getragen zählt die Strahlstufe wie bei jedem Rüstungsteil zum dynamischen Licht (DynamicLightHandler summiert alle vier Rüstungs-Slots)."
+          ],
+          "controls": [
+            "Rechtsklick mit dem Rucksack in der Hand (ohne Schleichen): anziehen.",
+            "Rucksack-Taste (Standard B) mit getragenem Rucksack: Rucksack-Bildschirm öffnen; dieselbe Taste, E oder Esc schließt ihn. Ohne Rucksack öffnet die Taste das normale Inventar.",
+            "Schleichen + Rechtsklick auf einen Block: Rucksack abstellen. Rechtsklick auf den abgestellten Rucksack: öffnen. Abbauen: mit allem Inhalt zurückbekommen."
+          ],
+          "tiers": [
+            "Rucksack: 1 Reihe, 9 Plätze, 1 Rüstungspunkt; an der Werkbank hergestellt.",
+            "Verstärkter Rucksack: 2 Reihen, 18 Plätze, 2 Rüstungspunkte; aus einem Rucksack hergestellt, Seltenheit ungewöhnlich.",
+            "Netherit-Rucksack: 3 Reihen plus 1 Zusatzspalte (6 Plätze), 33 Plätze, 3 Rüstungspunkte; aus dem Verstärkten Rucksack geschmiedet, feuerfest, als Item explosionsfest, Seltenheit ungewöhnlich.",
+            "Enderit-Rucksack: 4 Reihen plus 2 Zusatzspalten (je 7 Plätze), 50 Plätze, 4 Rüstungspunkte; aus dem Netherit-Rucksack geschmiedet, feuerfest, als Item explosionsfest, vor der Leere geschützt, Seltenheit episch."
+          ],
+          "caveats": [
+            "Am Spieler wird noch nichts gezeichnet: Ein getragener Rucksack ist unsichtbar, wie ein getragener Köcher.",
+            "Der Inhalt des getragenen Rucksacks gehört zum Brust-Item und erreicht deshalb mit jeder Ausrüstungs-Aktualisierung die Spieler in der Nähe, wie eine gehaltene Shulkerkiste.",
+            "Geöffnet wird ein Rucksack immer über die Taste, während er getragen wird, oder als abgestellter Block; ein Rucksack woanders im Inventar lässt sich nicht öffnen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:enderite_block",
       "name": {
         "en_us": "Enderite Block",
@@ -4232,7 +4677,7 @@ window.WIKI_DATA = {
             "Handling (inserting, removing, mouse wheel selection, right-click) is identical to the Reinforced Bundle, because both use the same item class.",
             "The capacity calculation would count Deep Pockets (576 or 1152) and Drawer in, and would evaluate Funnel, Master Builder and Color Palette, if those enchantments were ever on the item.",
             "Offered in the mod's creative tab among the storage items.",
-            "The Enderite Bundle is in the item tags bundle_enchantable, extra_inventory_items and constructors_touch_enchantable; the first two are how Deep Pockets, Funnel, Drawer, Master Builder and Color Palette declare what they belong on. The bundle enchantments are therefore available for the Enderite Bundle at an anvil, the same as for the tiers below it; the enchanting table stays shut for every bundle tier, because no bundle carries an enchantable component.",
+            "The Enderite Bundle is in the item tags bundle_enchantable, extra_inventory_items and constructors_touch_enchantable; the first two are how Deep Pockets, Funnel, Drawer, Master Builder and Color Palette declare what they belong on (Deep Pockets, Funnel and Master Builder through their own tags, which include these two and add the backpacks). The bundle enchantments are therefore available for the Enderite Bundle at an anvil, the same as for the tiers below it; the enchanting table stays shut for every bundle tier, because no bundle carries an enchantable component.",
             "Immune to explosions as a dropped item: ItemEntityMixin forces ItemEntity.ignoreExplosion to true for the Netherite Bundle, the Enderite Bundle and the Enderite Quiver."
           ],
           "controls": [
@@ -4259,7 +4704,7 @@ window.WIKI_DATA = {
             "Bedienung (Einlegen, Entnehmen, Mausrad-Auswahl, Rechtsklick) ist identisch mit dem Verstärkten Bündel, da dieselbe Item-Klasse verwendet wird.",
             "Die Kapazitätsberechnung würde Tiefe Taschen (576 bzw. 1152) und Schublade einrechnen und Trichter, Baumeister und Farbpalette auswerten, falls die Verzauberungen auf dem Item liegen.",
             "Wird im Kreativ-Reiter der Mod unter den Lagerungs-Items angeboten.",
-            "Das Enderite Bundle steht in den Item-Tags bundle_enchantable, extra_inventory_items und constructors_touch_enchantable; über die ersten beiden Tags legen Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette fest, worauf sie gehören. Die Bündel-Verzauberungen sind damit auch für das Enderite Bundle am Amboss erhältlich; der Zaubertisch bleibt für alle Bündelstufen zu, weil kein Bündel eine Verzauberbarkeit trägt.",
+            "Das Enderite Bundle steht in den Item-Tags bundle_enchantable, extra_inventory_items und constructors_touch_enchantable; über die ersten beiden Tags legen Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette fest, worauf sie gehören (Tiefe Taschen, Trichter und Baumeister über eigene Tags, die diese beiden einschließen und die Rucksäcke ergänzen). Die Bündel-Verzauberungen sind damit auch für das Enderite Bundle am Amboss erhältlich; der Zaubertisch bleibt für alle Bündelstufen zu, weil kein Bündel eine Verzauberbarkeit trägt.",
             "Als fallengelassener Gegenstand immun gegen Explosionen: ItemEntityMixin setzt ItemEntity.ignoreExplosion für Netherit-Bündel, Enderite Bundle und Enderite Quiver auf true."
           ],
           "controls": [
@@ -4611,6 +5056,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:enderite_axe_smithing",
+        "simplebuilding:enderite_backpack_smithing",
         "simplebuilding:enderite_block",
         "simplebuilding:enderite_boots_smithing",
         "simplebuilding:enderite_building_wand_smithing",
@@ -5110,6 +5556,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:enderite_axe_smithing",
+        "simplebuilding:enderite_backpack_smithing",
         "simplebuilding:enderite_boots_smithing",
         "simplebuilding:enderite_building_wand_smithing",
         "simplebuilding:enderite_bundle_smithing",
@@ -6585,6 +7032,23 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:leather_sheet",
+      "name": {
+        "en_us": "Leather Sheet",
+        "de_de": "Lederplatte"
+      },
+      "texture": "assets/textures/item/leather_sheet.png",
+      "craftedBy": [
+        "simplebuilding:leather_sheet"
+      ],
+      "usedIn": [
+        "simplebuilding:backpack",
+        "simplebuilding:reinforced_backpack"
+      ],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:levitating_gravel",
       "name": {
         "en_us": "Levitating Gravel",
@@ -6907,6 +7371,176 @@ window.WIKI_DATA = {
       "usedIn": [],
       "trades": [],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:netherite_backpack",
+      "name": {
+        "en_us": "Netherite Backpack",
+        "de_de": "Netherit-Rucksack"
+      },
+      "texture": "assets/textures/item/netherite_backpack.png",
+      "craftedBy": [
+        "simplebuilding:netherite_backpack_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_backpack_smithing"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/component/BackpackContents.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackLayout.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenuProviders.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java",
+          "common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java",
+          "common/src/shared/java/com/simplebuilding/networking/OpenBackpackPayload.java",
+          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+          "common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/BlockItemMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
+          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+          "src/main/generated/data/simplebuilding/recipe/backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/netherite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/backpack.json",
+          "src/main/generated/data/simplebuilding/tags/item/backpacks.json",
+          "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/master_builder_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/models/block/template_backpack.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ],
+        "en": {
+          "summary": "Backpacks are wearable storage in four tiers with 9, 18, 33 and 50 slots. Right-click one to put it into the chest slot, then press the backpack key (default B) to open your inventory with the backpack's slots added. Sneak + right-click on a block sets it down as a block, which opens with a right-click and drops back as the item with everything inside when it is broken.",
+          "details": [
+            "Class BackpackItem (a BlockItem for the block BackpackBlock); stack size 1, no durability. The contents live in the item component simplebuilding:backpack_contents, so they travel with the item: death drops, setting it down, the crafting upgrade and the smithing upgrades all keep them.",
+            "Putting it on: right-clicking with a backpack in hand - in the air, or on a block without sneaking - puts it into the chest slot through vanilla's equippable component (swappable, like a chestplate); a worn chestplate or elytra is swapped into your hand. A backpack and a chestplate or elytra therefore exclude each other. The component allows players only, takes no damage from hits (damageOnHurt off) and has no equipment asset, so nothing is drawn on the player.",
+            "Armor while worn: 1 / 2 / 3 / 4 armor points by tier, as an attribute modifier for the chest slot group.",
+            "Opening: only while worn. The key \"Open Backpack\" (key.simplebuilding.open_backpack, default B, in the mod's key category) asks the server for the backpack screen, and the server checks again that you are alive, not a spectator, have no other container open and wear a backpack. Without a worn backpack the key opens the normal inventory, exactly like E. E itself is unchanged and always opens the normal inventory.",
+            "The backpack screen is the player inventory as vanilla lays it out - 2x2 crafting grid with recipe book, armor, off-hand, player model, active effects and the mod's resonance stats button - with the backpack rows inserted between the crafting area and the main inventory. Backpack rows are tinted light brown, the extra columns purple; for now the extra columns are ordinary storage slots.",
+            "Extra columns run alongside the backpack rows and the three main inventory rows, not alongside the hotbar. The Netherite Backpack has one column to the right of the grid (3 + 3 = 6 slots); the Enderite Backpack has one on the right and a second one on the left (4 + 3 = 7 slots each).",
+            "While the screen of the worn backpack is open, the chest slot is locked: the backpack can be neither taken out nor replaced - not by clicking, shift-clicking, number keys or dropping.",
+            "Shift-click in the backpack screen: from the main inventory or hotbar into the backpack first; whatever does not fit goes the vanilla way (armor into its slot, main inventory and hotbar into each other). From the backpack into the main inventory, then the hotbar - never straight into an armor slot, as with a chest. The crafting result, the grid, the armor slots and the off-hand move as in the vanilla inventory and, when main inventory and hotbar are full, into the backpack.",
+            "The 2x2 grid and the recipe book work as in the inventory; the recipe book only counts and fills from the player inventory, not from the backpack.",
+            "Setting it down: sneak + right-click on a block places the backpack as a block with its front facing you (outside creative the item is used up). Without sneaking the same click puts it on instead.",
+            "Placed backpack: a right-click opens its storage in the same screen, here without a locked slot; the screen closes when the block is gone or you move out of reach (block interaction range plus 4 blocks, as with a chest). Breaking it always drops the backpack item with all components of the block (loot function copy_components from the block entity: contents, name, enchantments) - no tool needed and no explosion condition. In creative a backpack with contents still drops, an empty one does not.",
+            "The placed backpack is not a container for hoppers or comparators: they neither see nor move its contents.",
+            "Block: hardness 0.8, wool sound, brown map colour; a piston destroys it instead of pushing it, and it drops. Blast resistance 0.8 (Backpack, Reinforced Backpack) or 1200 (Netherite, Enderite). Shape: a 10 x 13 x 6 pixel bag with an 8 x 8 x 2 front pocket, turned with its facing.",
+            "What goes in: everything that may go into container items, except backpacks - so no shulker boxes and no second backpack; bundles and quivers do fit. A backpack itself fits into no container item: not into shulker boxes, bundles or other backpacks.",
+            "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
+            "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
+            "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
+            "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
+            "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
+            "Deep Pockets raises the stack limit of the backpack slots: level I doubles, level II quadruples it - the same steps Deep Pockets uses for bundle capacity, and 4x is also the most the stored format holds for 99-stacks (count limit 396). Only stackable items grow: cobblestone 64 / 128 / 256, ender pearls 16 / 32 / 64; unstackable items stay at 1.",
+            "Big stacks never leave the backpack oversized: picking up, dropping and double-click collecting take at most one normal stack; a number key moves one normal stack into an empty hotbar or off-hand slot only; clicking such a stack with a different item on the cursor does nothing. If Deep Pockets is removed later (grindstone), oversized stacks stay and can still be taken out; only adding beyond the normal limit stops.",
+            "Funnel (worn backpack): an item you touch goes into the backpack only after all bundle checks - hands and bundles in the inventory come first - and only once its pickup delay has run out. Level I only takes types already inside (same item and components), level II everything allowed. Matching stacks are filled up to the slot limit first, then empty slots; the bundle insert sound plays. Nothing is vacuumed while sneaking, and whatever does not fit is picked up the normal way.",
+            "Master Builder (on the backpack itself): the Building Wand uses the worn backpack as its last material source - after off-hand, hotbar and, with Master Builder on the wand, the rest of the inventory and bundles - and takes one item per placed block out of it. Master Builder on the wand alone does not reach into the backpack, and the wand never uses a backpack as a building block.",
+            "Master Builder and pick block (survival): if the targeted block is neither in the inventory nor in a Master Builder bundle but in a worn Master Builder backpack, one normal stack of it comes out of the backpack into the selected hotbar slot; an item held there moves to a free slot first, and without a free slot nothing happens.",
+            "Constructor's Touch (worn backpack): when placing a block from your hand uses up that stack, a matching stack (same item and components) from the backpack refills the hand - at most one normal stack, not in creative mode, and only for placements straight from the hand (BlockItem.place), not for blocks the wand or a Master Builder bundle places.",
+            "Smithing trims: because of the equippable component the mod's trim check (SmithingScreenHandlerMixin.isValidArmor) accepts backpacks, so the Glowing and Emitting Trim Upgrade Templates work on them; worn, the emission level counts towards the dynamic light like on any armor piece (DynamicLightHandler adds up all four armor slots)."
+          ],
+          "controls": [
+            "Right-click with the backpack in hand (not sneaking): put it on.",
+            "Backpack key (default B) while wearing one: open the backpack screen; the same key, E or Esc closes it. Without a backpack the key opens the normal inventory.",
+            "Sneak + right-click on a block: set the backpack down. Right-click the placed backpack: open it. Break it: get it back with everything inside."
+          ],
+          "tiers": [
+            "Backpack: 1 row, 9 slots, 1 armor point; crafted.",
+            "Reinforced Backpack: 2 rows, 18 slots, 2 armor points; crafted from a Backpack, rarity uncommon.",
+            "Netherite Backpack: 3 rows plus 1 extra column (6 slots), 33 slots, 3 armor points; smithed from the Reinforced Backpack, fire resistant, explosion-proof as an item, rarity uncommon.",
+            "Enderite Backpack: 4 rows plus 2 extra columns (7 slots each), 50 slots, 4 armor points; smithed from the Netherite Backpack, fire resistant, explosion-proof as an item, void protected, rarity epic."
+          ],
+          "caveats": [
+            "Nothing is drawn on the player yet: a worn backpack is invisible, like a worn quiver.",
+            "The worn backpack's contents are part of the chest item and therefore reach nearby players with every equipment update, as a held shulker box would.",
+            "A backpack is always opened through the key while worn or as a placed block; a backpack elsewhere in the inventory cannot be opened."
+          ]
+        },
+        "de": {
+          "summary": "Rucksäcke sind tragbarer Stauraum in vier Stufen mit 9, 18, 33 und 50 Plätzen. Ein Rechtsklick legt einen Rucksack in den Brust-Slot, danach öffnet die Rucksack-Taste (Standard B) das Inventar samt den Rucksack-Plätzen. Schleichen + Rechtsklick auf einen Block stellt ihn als Block ab; der öffnet sich per Rechtsklick und fällt beim Abbauen als Item mit allem Inhalt zurück.",
+          "details": [
+            "Klasse BackpackItem (ein BlockItem zum Block BackpackBlock); Stapelgröße 1, keine Haltbarkeit. Der Inhalt steckt in der Item-Komponente simplebuilding:backpack_contents und reist mit dem Item: Todes-Drop, Abstellen, die Aufwertung am Werkbank und die Schmiede-Aufwertungen behalten ihn.",
+            "Anziehen: Rechtsklick mit dem Rucksack in der Hand – in die Luft oder ohne Schleichen auf einen Block – legt ihn über Vanillas Ausrüstungs-Komponente (swappable, wie ein Brustpanzer) in den Brust-Slot; ein getragener Brustpanzer oder eine Elytra wandert dabei in die Hand. Rucksack und Brustpanzer bzw. Elytra schließen sich also aus. Die Komponente erlaubt nur Spieler, Treffer kosten nichts (damageOnHurt aus), und sie hat kein Ausrüstungs-Asset, am Spieler ist also nichts zu sehen.",
+            "Rüstung beim Tragen: 1 / 2 / 3 / 4 Rüstungspunkte je Stufe, als Attribut-Modifikator für die Brust-Slotgruppe.",
+            "Öffnen: nur getragen. Die Taste „Rucksack öffnen“ (key.simplebuilding.open_backpack, Standard B, in der Tastenkategorie der Mod) fragt den Server nach dem Rucksack-Bildschirm; der prüft selbst noch einmal, dass man lebt, kein Zuschauer ist, kein anderes Menü offen hat und einen Rucksack trägt. Ohne getragenen Rucksack öffnet die Taste das normale Inventar, genau wie E. E selbst bleibt unverändert und öffnet immer das normale Inventar.",
+            "Der Rucksack-Bildschirm ist das Spielerinventar in Vanillas Anordnung – 2x2-Werkbank mit Rezeptbuch, Rüstung, Nebenhand, Spielermodell, aktive Effekte und der Resonanz-Knopf der Mod – mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar. Rucksack-Reihen sind hellbraun getönt, die Zusatzspalten violett; vorerst sind die Zusatzspalten gewöhnliche Lagerplätze.",
+            "Zusatzspalten laufen neben den Rucksack-Reihen und den drei Hauptinventar-Reihen entlang, nicht neben der Hotbar. Der Netherit-Rucksack hat eine Spalte rechts vom Raster (3 + 3 = 6 Plätze); der Enderit-Rucksack eine rechts und eine zweite links (je 4 + 3 = 7 Plätze).",
+            "Solange der Bildschirm des getragenen Rucksacks offen ist, ist der Brust-Slot gesperrt: Der Rucksack lässt sich weder herausnehmen noch ersetzen – weder per Klick, Shift-Klick, Zifferntaste noch Wegwerfen.",
+            "Shift-Klick im Rucksack-Bildschirm: aus Hauptinventar oder Hotbar zuerst in den Rucksack; was nicht passt, geht den Vanilla-Weg (Rüstung in ihren Slot, Hauptinventar und Hotbar gegeneinander). Aus dem Rucksack ins Hauptinventar, dann in die Hotbar – nie direkt in einen Rüstungs-Slot, wie bei einer Truhe. Werkbank-Ergebnis, Raster, Rüstungs-Slots und Nebenhand verschieben wie im Vanilla-Inventar und, wenn Hauptinventar und Hotbar voll sind, in den Rucksack.",
+            "Das 2x2-Raster und das Rezeptbuch funktionieren wie im Inventar; das Rezeptbuch zählt und befüllt nur aus dem Spielerinventar, nicht aus dem Rucksack.",
+            "Abstellen: Schleichen + Rechtsklick auf einen Block stellt den Rucksack als Block ab, mit der Vorderseite zum Spieler (außerhalb des Kreativmodus wird das Item verbraucht). Ohne Schleichen zieht derselbe Klick ihn stattdessen an.",
+            "Abgestellter Rucksack: Rechtsklick öffnet seinen Stauraum im selben Bildschirm, hier ohne gesperrten Slot; der Bildschirm schließt, wenn der Block weg ist oder man sich entfernt (Block-Interaktionsreichweite plus 4 Blöcke, wie bei einer Truhe). Abbauen droppt immer das Rucksack-Item mit allen Komponenten des Blocks (Loot-Funktion copy_components vom Blockobjekt: Inhalt, Name, Verzauberungen) – ohne Werkzeug und ohne Explosionsbedingung. Im Kreativmodus fällt ein Rucksack mit Inhalt trotzdem heraus, ein leerer nicht.",
+            "Für Trichter und Komparatoren ist der abgestellte Rucksack kein Behälter: Sie sehen und bewegen seinen Inhalt nicht.",
+            "Block: Härte 0,8, Wolle-Klang, braune Kartenfarbe; ein Kolben zerstört ihn, statt ihn zu schieben, und er droppt. Explosionswiderstand 0,8 (Rucksack, Verstärkter Rucksack) bzw. 1200 (Netherit, Enderit). Form: ein 10 x 13 x 6 Pixel großer Sack mit 8 x 8 x 2 Pixel Vordertasche, mit der Blickrichtung gedreht.",
+            "Was hineinpasst: alles, was in Behälter-Items darf, außer Rucksäcken – also keine Shulkerkisten und kein zweiter Rucksack; Bündel und Köcher passen. Ein Rucksack selbst passt in kein Behälter-Item: nicht in Shulkerkisten, Bündel oder andere Rucksäcke.",
+            "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
+            "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
+            "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
+            "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
+            "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
+            "Tiefe Taschen hebt die Stapelgrenze der Rucksack-Plätze: Stufe I verdoppelt, Stufe II vervierfacht sie – dieselben Stufen, mit denen Tiefe Taschen die Bündel-Kapazität erhöht, und das Vierfache ist zugleich das Höchste, was das Speicherformat für 99er-Stapel fasst (Zählgrenze 396). Nur stapelbare Items wachsen: Bruchstein 64 / 128 / 256, Enderperlen 16 / 32 / 64; nicht stapelbare bleiben bei 1.",
+            "Große Stapel verlassen den Rucksack nie übergroß: Aufnehmen, Wegwerfen und Doppelklick-Sammeln nehmen höchstens einen normalen Stapel; eine Zifferntaste legt einen normalen Stapel nur in einen leeren Hotbar- oder Nebenhand-Platz; ein Klick mit einem anderen Item am Cursor auf so einen Stapel bewirkt nichts. Wird Tiefe Taschen später entfernt (Schleifstein), bleiben übergroße Stapel liegen und lassen sich weiter herausnehmen; nur Nachlegen über die normale Grenze geht dann nicht mehr.",
+            "Trichter (getragener Rucksack): Ein berührtes Item landet erst nach allen Bündel-Prüfungen im Rucksack – Hände und Bündel im Inventar kommen zuerst – und erst, wenn seine Aufhebe-Sperre abgelaufen ist. Stufe I nimmt nur Sorten, die schon drin liegen (gleiches Item, gleiche Komponenten), Stufe II alles Erlaubte. Zuerst werden passende Stapel bis zur Platzgrenze aufgefüllt, dann leere Plätze; dabei ertönt der Bündel-Einlege-Klang. Beim Schleichen wird nichts aufgesaugt, und was nicht passt, wird normal aufgehoben.",
+            "Baumeister (auf dem Rucksack selbst): Der Baustab nutzt den getragenen Rucksack als letzte Materialquelle – nach Nebenhand, Hotbar und, mit Baumeister auf dem Stab, dem restlichen Inventar samt Bündeln – und nimmt je gesetztem Block ein Stück heraus. Baumeister nur auf dem Stab greift nicht in den Rucksack, und einen Rucksack verbaut der Stab nie als Baublock.",
+            "Baumeister und Blockauswahl (Überlebensmodus): Liegt der anvisierte Block weder im Inventar noch in einem Baumeister-Bündel, aber in einem getragenen Baumeister-Rucksack, kommt ein normaler Stapel davon aus dem Rucksack in den gewählten Hotbar-Slot; ein dort gehaltenes Item wandert vorher in einen freien Platz, ohne freien Platz passiert nichts.",
+            "Berührung des Konstrukteurs (getragener Rucksack): Verbraucht das Platzieren eines Blocks aus der Hand den letzten Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place), nicht bei Blöcken, die der Baustab oder ein Baumeister-Bündel setzt.",
+            "Besätze am Schmiedetisch: Wegen der Ausrüstungs-Komponente akzeptiert die Besatz-Prüfung der Mod (SmithingScreenHandlerMixin.isValidArmor) Rucksäcke, die Leucht- und die Strahl-Aufwertungsvorlage wirken also auf sie; getragen zählt die Strahlstufe wie bei jedem Rüstungsteil zum dynamischen Licht (DynamicLightHandler summiert alle vier Rüstungs-Slots)."
+          ],
+          "controls": [
+            "Rechtsklick mit dem Rucksack in der Hand (ohne Schleichen): anziehen.",
+            "Rucksack-Taste (Standard B) mit getragenem Rucksack: Rucksack-Bildschirm öffnen; dieselbe Taste, E oder Esc schließt ihn. Ohne Rucksack öffnet die Taste das normale Inventar.",
+            "Schleichen + Rechtsklick auf einen Block: Rucksack abstellen. Rechtsklick auf den abgestellten Rucksack: öffnen. Abbauen: mit allem Inhalt zurückbekommen."
+          ],
+          "tiers": [
+            "Rucksack: 1 Reihe, 9 Plätze, 1 Rüstungspunkt; an der Werkbank hergestellt.",
+            "Verstärkter Rucksack: 2 Reihen, 18 Plätze, 2 Rüstungspunkte; aus einem Rucksack hergestellt, Seltenheit ungewöhnlich.",
+            "Netherit-Rucksack: 3 Reihen plus 1 Zusatzspalte (6 Plätze), 33 Plätze, 3 Rüstungspunkte; aus dem Verstärkten Rucksack geschmiedet, feuerfest, als Item explosionsfest, Seltenheit ungewöhnlich.",
+            "Enderit-Rucksack: 4 Reihen plus 2 Zusatzspalten (je 7 Plätze), 50 Plätze, 4 Rüstungspunkte; aus dem Netherit-Rucksack geschmiedet, feuerfest, als Item explosionsfest, vor der Leere geschützt, Seltenheit episch."
+          ],
+          "caveats": [
+            "Am Spieler wird noch nichts gezeichnet: Ein getragener Rucksack ist unsichtbar, wie ein getragener Köcher.",
+            "Der Inhalt des getragenen Rucksacks gehört zum Brust-Item und erreicht deshalb mit jeder Ausrüstungs-Aktualisierung die Spieler in der Nähe, wie eine gehaltene Shulkerkiste.",
+            "Geöffnet wird ein Rucksack immer über die Taste, während er getragen wird, oder als abgestellter Block; ein Rucksack woanders im Inventar lässt sich nicht öffnen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:netherite_blast_furnace",
@@ -9243,6 +9877,176 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:reinforced_backpack",
+      "name": {
+        "en_us": "Reinforced Backpack",
+        "de_de": "Verstärkter Rucksack"
+      },
+      "texture": "assets/textures/item/reinforced_backpack.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_backpack"
+      ],
+      "usedIn": [
+        "simplebuilding:netherite_backpack_smithing"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/component/BackpackContents.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackLayout.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenuProviders.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java",
+          "common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java",
+          "common/src/shared/java/com/simplebuilding/networking/OpenBackpackPayload.java",
+          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+          "common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/BlockItemMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
+          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+          "src/main/generated/data/simplebuilding/recipe/backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/netherite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/backpack.json",
+          "src/main/generated/data/simplebuilding/tags/item/backpacks.json",
+          "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/master_builder_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/models/block/template_backpack.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ],
+        "en": {
+          "summary": "Backpacks are wearable storage in four tiers with 9, 18, 33 and 50 slots. Right-click one to put it into the chest slot, then press the backpack key (default B) to open your inventory with the backpack's slots added. Sneak + right-click on a block sets it down as a block, which opens with a right-click and drops back as the item with everything inside when it is broken.",
+          "details": [
+            "Class BackpackItem (a BlockItem for the block BackpackBlock); stack size 1, no durability. The contents live in the item component simplebuilding:backpack_contents, so they travel with the item: death drops, setting it down, the crafting upgrade and the smithing upgrades all keep them.",
+            "Putting it on: right-clicking with a backpack in hand - in the air, or on a block without sneaking - puts it into the chest slot through vanilla's equippable component (swappable, like a chestplate); a worn chestplate or elytra is swapped into your hand. A backpack and a chestplate or elytra therefore exclude each other. The component allows players only, takes no damage from hits (damageOnHurt off) and has no equipment asset, so nothing is drawn on the player.",
+            "Armor while worn: 1 / 2 / 3 / 4 armor points by tier, as an attribute modifier for the chest slot group.",
+            "Opening: only while worn. The key \"Open Backpack\" (key.simplebuilding.open_backpack, default B, in the mod's key category) asks the server for the backpack screen, and the server checks again that you are alive, not a spectator, have no other container open and wear a backpack. Without a worn backpack the key opens the normal inventory, exactly like E. E itself is unchanged and always opens the normal inventory.",
+            "The backpack screen is the player inventory as vanilla lays it out - 2x2 crafting grid with recipe book, armor, off-hand, player model, active effects and the mod's resonance stats button - with the backpack rows inserted between the crafting area and the main inventory. Backpack rows are tinted light brown, the extra columns purple; for now the extra columns are ordinary storage slots.",
+            "Extra columns run alongside the backpack rows and the three main inventory rows, not alongside the hotbar. The Netherite Backpack has one column to the right of the grid (3 + 3 = 6 slots); the Enderite Backpack has one on the right and a second one on the left (4 + 3 = 7 slots each).",
+            "While the screen of the worn backpack is open, the chest slot is locked: the backpack can be neither taken out nor replaced - not by clicking, shift-clicking, number keys or dropping.",
+            "Shift-click in the backpack screen: from the main inventory or hotbar into the backpack first; whatever does not fit goes the vanilla way (armor into its slot, main inventory and hotbar into each other). From the backpack into the main inventory, then the hotbar - never straight into an armor slot, as with a chest. The crafting result, the grid, the armor slots and the off-hand move as in the vanilla inventory and, when main inventory and hotbar are full, into the backpack.",
+            "The 2x2 grid and the recipe book work as in the inventory; the recipe book only counts and fills from the player inventory, not from the backpack.",
+            "Setting it down: sneak + right-click on a block places the backpack as a block with its front facing you (outside creative the item is used up). Without sneaking the same click puts it on instead.",
+            "Placed backpack: a right-click opens its storage in the same screen, here without a locked slot; the screen closes when the block is gone or you move out of reach (block interaction range plus 4 blocks, as with a chest). Breaking it always drops the backpack item with all components of the block (loot function copy_components from the block entity: contents, name, enchantments) - no tool needed and no explosion condition. In creative a backpack with contents still drops, an empty one does not.",
+            "The placed backpack is not a container for hoppers or comparators: they neither see nor move its contents.",
+            "Block: hardness 0.8, wool sound, brown map colour; a piston destroys it instead of pushing it, and it drops. Blast resistance 0.8 (Backpack, Reinforced Backpack) or 1200 (Netherite, Enderite). Shape: a 10 x 13 x 6 pixel bag with an 8 x 8 x 2 front pocket, turned with its facing.",
+            "What goes in: everything that may go into container items, except backpacks - so no shulker boxes and no second backpack; bundles and quivers do fit. A backpack itself fits into no container item: not into shulker boxes, bundles or other backpacks.",
+            "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
+            "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
+            "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
+            "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
+            "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
+            "Deep Pockets raises the stack limit of the backpack slots: level I doubles, level II quadruples it - the same steps Deep Pockets uses for bundle capacity, and 4x is also the most the stored format holds for 99-stacks (count limit 396). Only stackable items grow: cobblestone 64 / 128 / 256, ender pearls 16 / 32 / 64; unstackable items stay at 1.",
+            "Big stacks never leave the backpack oversized: picking up, dropping and double-click collecting take at most one normal stack; a number key moves one normal stack into an empty hotbar or off-hand slot only; clicking such a stack with a different item on the cursor does nothing. If Deep Pockets is removed later (grindstone), oversized stacks stay and can still be taken out; only adding beyond the normal limit stops.",
+            "Funnel (worn backpack): an item you touch goes into the backpack only after all bundle checks - hands and bundles in the inventory come first - and only once its pickup delay has run out. Level I only takes types already inside (same item and components), level II everything allowed. Matching stacks are filled up to the slot limit first, then empty slots; the bundle insert sound plays. Nothing is vacuumed while sneaking, and whatever does not fit is picked up the normal way.",
+            "Master Builder (on the backpack itself): the Building Wand uses the worn backpack as its last material source - after off-hand, hotbar and, with Master Builder on the wand, the rest of the inventory and bundles - and takes one item per placed block out of it. Master Builder on the wand alone does not reach into the backpack, and the wand never uses a backpack as a building block.",
+            "Master Builder and pick block (survival): if the targeted block is neither in the inventory nor in a Master Builder bundle but in a worn Master Builder backpack, one normal stack of it comes out of the backpack into the selected hotbar slot; an item held there moves to a free slot first, and without a free slot nothing happens.",
+            "Constructor's Touch (worn backpack): when placing a block from your hand uses up that stack, a matching stack (same item and components) from the backpack refills the hand - at most one normal stack, not in creative mode, and only for placements straight from the hand (BlockItem.place), not for blocks the wand or a Master Builder bundle places.",
+            "Smithing trims: because of the equippable component the mod's trim check (SmithingScreenHandlerMixin.isValidArmor) accepts backpacks, so the Glowing and Emitting Trim Upgrade Templates work on them; worn, the emission level counts towards the dynamic light like on any armor piece (DynamicLightHandler adds up all four armor slots)."
+          ],
+          "controls": [
+            "Right-click with the backpack in hand (not sneaking): put it on.",
+            "Backpack key (default B) while wearing one: open the backpack screen; the same key, E or Esc closes it. Without a backpack the key opens the normal inventory.",
+            "Sneak + right-click on a block: set the backpack down. Right-click the placed backpack: open it. Break it: get it back with everything inside."
+          ],
+          "tiers": [
+            "Backpack: 1 row, 9 slots, 1 armor point; crafted.",
+            "Reinforced Backpack: 2 rows, 18 slots, 2 armor points; crafted from a Backpack, rarity uncommon.",
+            "Netherite Backpack: 3 rows plus 1 extra column (6 slots), 33 slots, 3 armor points; smithed from the Reinforced Backpack, fire resistant, explosion-proof as an item, rarity uncommon.",
+            "Enderite Backpack: 4 rows plus 2 extra columns (7 slots each), 50 slots, 4 armor points; smithed from the Netherite Backpack, fire resistant, explosion-proof as an item, void protected, rarity epic."
+          ],
+          "caveats": [
+            "Nothing is drawn on the player yet: a worn backpack is invisible, like a worn quiver.",
+            "The worn backpack's contents are part of the chest item and therefore reach nearby players with every equipment update, as a held shulker box would.",
+            "A backpack is always opened through the key while worn or as a placed block; a backpack elsewhere in the inventory cannot be opened."
+          ]
+        },
+        "de": {
+          "summary": "Rucksäcke sind tragbarer Stauraum in vier Stufen mit 9, 18, 33 und 50 Plätzen. Ein Rechtsklick legt einen Rucksack in den Brust-Slot, danach öffnet die Rucksack-Taste (Standard B) das Inventar samt den Rucksack-Plätzen. Schleichen + Rechtsklick auf einen Block stellt ihn als Block ab; der öffnet sich per Rechtsklick und fällt beim Abbauen als Item mit allem Inhalt zurück.",
+          "details": [
+            "Klasse BackpackItem (ein BlockItem zum Block BackpackBlock); Stapelgröße 1, keine Haltbarkeit. Der Inhalt steckt in der Item-Komponente simplebuilding:backpack_contents und reist mit dem Item: Todes-Drop, Abstellen, die Aufwertung am Werkbank und die Schmiede-Aufwertungen behalten ihn.",
+            "Anziehen: Rechtsklick mit dem Rucksack in der Hand – in die Luft oder ohne Schleichen auf einen Block – legt ihn über Vanillas Ausrüstungs-Komponente (swappable, wie ein Brustpanzer) in den Brust-Slot; ein getragener Brustpanzer oder eine Elytra wandert dabei in die Hand. Rucksack und Brustpanzer bzw. Elytra schließen sich also aus. Die Komponente erlaubt nur Spieler, Treffer kosten nichts (damageOnHurt aus), und sie hat kein Ausrüstungs-Asset, am Spieler ist also nichts zu sehen.",
+            "Rüstung beim Tragen: 1 / 2 / 3 / 4 Rüstungspunkte je Stufe, als Attribut-Modifikator für die Brust-Slotgruppe.",
+            "Öffnen: nur getragen. Die Taste „Rucksack öffnen“ (key.simplebuilding.open_backpack, Standard B, in der Tastenkategorie der Mod) fragt den Server nach dem Rucksack-Bildschirm; der prüft selbst noch einmal, dass man lebt, kein Zuschauer ist, kein anderes Menü offen hat und einen Rucksack trägt. Ohne getragenen Rucksack öffnet die Taste das normale Inventar, genau wie E. E selbst bleibt unverändert und öffnet immer das normale Inventar.",
+            "Der Rucksack-Bildschirm ist das Spielerinventar in Vanillas Anordnung – 2x2-Werkbank mit Rezeptbuch, Rüstung, Nebenhand, Spielermodell, aktive Effekte und der Resonanz-Knopf der Mod – mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar. Rucksack-Reihen sind hellbraun getönt, die Zusatzspalten violett; vorerst sind die Zusatzspalten gewöhnliche Lagerplätze.",
+            "Zusatzspalten laufen neben den Rucksack-Reihen und den drei Hauptinventar-Reihen entlang, nicht neben der Hotbar. Der Netherit-Rucksack hat eine Spalte rechts vom Raster (3 + 3 = 6 Plätze); der Enderit-Rucksack eine rechts und eine zweite links (je 4 + 3 = 7 Plätze).",
+            "Solange der Bildschirm des getragenen Rucksacks offen ist, ist der Brust-Slot gesperrt: Der Rucksack lässt sich weder herausnehmen noch ersetzen – weder per Klick, Shift-Klick, Zifferntaste noch Wegwerfen.",
+            "Shift-Klick im Rucksack-Bildschirm: aus Hauptinventar oder Hotbar zuerst in den Rucksack; was nicht passt, geht den Vanilla-Weg (Rüstung in ihren Slot, Hauptinventar und Hotbar gegeneinander). Aus dem Rucksack ins Hauptinventar, dann in die Hotbar – nie direkt in einen Rüstungs-Slot, wie bei einer Truhe. Werkbank-Ergebnis, Raster, Rüstungs-Slots und Nebenhand verschieben wie im Vanilla-Inventar und, wenn Hauptinventar und Hotbar voll sind, in den Rucksack.",
+            "Das 2x2-Raster und das Rezeptbuch funktionieren wie im Inventar; das Rezeptbuch zählt und befüllt nur aus dem Spielerinventar, nicht aus dem Rucksack.",
+            "Abstellen: Schleichen + Rechtsklick auf einen Block stellt den Rucksack als Block ab, mit der Vorderseite zum Spieler (außerhalb des Kreativmodus wird das Item verbraucht). Ohne Schleichen zieht derselbe Klick ihn stattdessen an.",
+            "Abgestellter Rucksack: Rechtsklick öffnet seinen Stauraum im selben Bildschirm, hier ohne gesperrten Slot; der Bildschirm schließt, wenn der Block weg ist oder man sich entfernt (Block-Interaktionsreichweite plus 4 Blöcke, wie bei einer Truhe). Abbauen droppt immer das Rucksack-Item mit allen Komponenten des Blocks (Loot-Funktion copy_components vom Blockobjekt: Inhalt, Name, Verzauberungen) – ohne Werkzeug und ohne Explosionsbedingung. Im Kreativmodus fällt ein Rucksack mit Inhalt trotzdem heraus, ein leerer nicht.",
+            "Für Trichter und Komparatoren ist der abgestellte Rucksack kein Behälter: Sie sehen und bewegen seinen Inhalt nicht.",
+            "Block: Härte 0,8, Wolle-Klang, braune Kartenfarbe; ein Kolben zerstört ihn, statt ihn zu schieben, und er droppt. Explosionswiderstand 0,8 (Rucksack, Verstärkter Rucksack) bzw. 1200 (Netherit, Enderit). Form: ein 10 x 13 x 6 Pixel großer Sack mit 8 x 8 x 2 Pixel Vordertasche, mit der Blickrichtung gedreht.",
+            "Was hineinpasst: alles, was in Behälter-Items darf, außer Rucksäcken – also keine Shulkerkisten und kein zweiter Rucksack; Bündel und Köcher passen. Ein Rucksack selbst passt in kein Behälter-Item: nicht in Shulkerkisten, Bündel oder andere Rucksäcke.",
+            "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
+            "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
+            "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
+            "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
+            "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
+            "Tiefe Taschen hebt die Stapelgrenze der Rucksack-Plätze: Stufe I verdoppelt, Stufe II vervierfacht sie – dieselben Stufen, mit denen Tiefe Taschen die Bündel-Kapazität erhöht, und das Vierfache ist zugleich das Höchste, was das Speicherformat für 99er-Stapel fasst (Zählgrenze 396). Nur stapelbare Items wachsen: Bruchstein 64 / 128 / 256, Enderperlen 16 / 32 / 64; nicht stapelbare bleiben bei 1.",
+            "Große Stapel verlassen den Rucksack nie übergroß: Aufnehmen, Wegwerfen und Doppelklick-Sammeln nehmen höchstens einen normalen Stapel; eine Zifferntaste legt einen normalen Stapel nur in einen leeren Hotbar- oder Nebenhand-Platz; ein Klick mit einem anderen Item am Cursor auf so einen Stapel bewirkt nichts. Wird Tiefe Taschen später entfernt (Schleifstein), bleiben übergroße Stapel liegen und lassen sich weiter herausnehmen; nur Nachlegen über die normale Grenze geht dann nicht mehr.",
+            "Trichter (getragener Rucksack): Ein berührtes Item landet erst nach allen Bündel-Prüfungen im Rucksack – Hände und Bündel im Inventar kommen zuerst – und erst, wenn seine Aufhebe-Sperre abgelaufen ist. Stufe I nimmt nur Sorten, die schon drin liegen (gleiches Item, gleiche Komponenten), Stufe II alles Erlaubte. Zuerst werden passende Stapel bis zur Platzgrenze aufgefüllt, dann leere Plätze; dabei ertönt der Bündel-Einlege-Klang. Beim Schleichen wird nichts aufgesaugt, und was nicht passt, wird normal aufgehoben.",
+            "Baumeister (auf dem Rucksack selbst): Der Baustab nutzt den getragenen Rucksack als letzte Materialquelle – nach Nebenhand, Hotbar und, mit Baumeister auf dem Stab, dem restlichen Inventar samt Bündeln – und nimmt je gesetztem Block ein Stück heraus. Baumeister nur auf dem Stab greift nicht in den Rucksack, und einen Rucksack verbaut der Stab nie als Baublock.",
+            "Baumeister und Blockauswahl (Überlebensmodus): Liegt der anvisierte Block weder im Inventar noch in einem Baumeister-Bündel, aber in einem getragenen Baumeister-Rucksack, kommt ein normaler Stapel davon aus dem Rucksack in den gewählten Hotbar-Slot; ein dort gehaltenes Item wandert vorher in einen freien Platz, ohne freien Platz passiert nichts.",
+            "Berührung des Konstrukteurs (getragener Rucksack): Verbraucht das Platzieren eines Blocks aus der Hand den letzten Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place), nicht bei Blöcken, die der Baustab oder ein Baumeister-Bündel setzt.",
+            "Besätze am Schmiedetisch: Wegen der Ausrüstungs-Komponente akzeptiert die Besatz-Prüfung der Mod (SmithingScreenHandlerMixin.isValidArmor) Rucksäcke, die Leucht- und die Strahl-Aufwertungsvorlage wirken also auf sie; getragen zählt die Strahlstufe wie bei jedem Rüstungsteil zum dynamischen Licht (DynamicLightHandler summiert alle vier Rüstungs-Slots)."
+          ],
+          "controls": [
+            "Rechtsklick mit dem Rucksack in der Hand (ohne Schleichen): anziehen.",
+            "Rucksack-Taste (Standard B) mit getragenem Rucksack: Rucksack-Bildschirm öffnen; dieselbe Taste, E oder Esc schließt ihn. Ohne Rucksack öffnet die Taste das normale Inventar.",
+            "Schleichen + Rechtsklick auf einen Block: Rucksack abstellen. Rechtsklick auf den abgestellten Rucksack: öffnen. Abbauen: mit allem Inhalt zurückbekommen."
+          ],
+          "tiers": [
+            "Rucksack: 1 Reihe, 9 Plätze, 1 Rüstungspunkt; an der Werkbank hergestellt.",
+            "Verstärkter Rucksack: 2 Reihen, 18 Plätze, 2 Rüstungspunkte; aus einem Rucksack hergestellt, Seltenheit ungewöhnlich.",
+            "Netherit-Rucksack: 3 Reihen plus 1 Zusatzspalte (6 Plätze), 33 Plätze, 3 Rüstungspunkte; aus dem Verstärkten Rucksack geschmiedet, feuerfest, als Item explosionsfest, Seltenheit ungewöhnlich.",
+            "Enderit-Rucksack: 4 Reihen plus 2 Zusatzspalten (je 7 Plätze), 50 Plätze, 4 Rüstungspunkte; aus dem Netherit-Rucksack geschmiedet, feuerfest, als Item explosionsfest, vor der Leere geschützt, Seltenheit episch."
+          ],
+          "caveats": [
+            "Am Spieler wird noch nichts gezeichnet: Ein getragener Rucksack ist unsichtbar, wie ein getragener Köcher.",
+            "Der Inhalt des getragenen Rucksacks gehört zum Brust-Item und erreicht deshalb mit jeder Ausrüstungs-Aktualisierung die Spieler in der Nähe, wie eine gehaltene Shulkerkiste.",
+            "Geöffnet wird ein Rucksack immer über die Taste, während er getragen wird, oder als abgestellter Block; ein Rucksack woanders im Inventar lässt sich nicht öffnen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:reinforced_blast_furnace",
       "name": {
         "en_us": "Reinforced Blast Furnace",
@@ -10689,6 +11493,180 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:backpack",
+      "name": {
+        "en_us": "Backpack",
+        "de_de": "Rucksack"
+      },
+      "texture": "assets/textures/block/backpack_side.png",
+      "craftedBy": [
+        "simplebuilding:backpack"
+      ],
+      "usedIn": [
+        "simplebuilding:reinforced_backpack"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/backpack",
+      "drops": [
+        "simplebuilding:backpack"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/component/BackpackContents.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackLayout.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenuProviders.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java",
+          "common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java",
+          "common/src/shared/java/com/simplebuilding/networking/OpenBackpackPayload.java",
+          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+          "common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/BlockItemMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
+          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+          "src/main/generated/data/simplebuilding/recipe/backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/netherite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/backpack.json",
+          "src/main/generated/data/simplebuilding/tags/item/backpacks.json",
+          "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/master_builder_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/models/block/template_backpack.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ],
+        "en": {
+          "summary": "Backpacks are wearable storage in four tiers with 9, 18, 33 and 50 slots. Right-click one to put it into the chest slot, then press the backpack key (default B) to open your inventory with the backpack's slots added. Sneak + right-click on a block sets it down as a block, which opens with a right-click and drops back as the item with everything inside when it is broken.",
+          "details": [
+            "Class BackpackItem (a BlockItem for the block BackpackBlock); stack size 1, no durability. The contents live in the item component simplebuilding:backpack_contents, so they travel with the item: death drops, setting it down, the crafting upgrade and the smithing upgrades all keep them.",
+            "Putting it on: right-clicking with a backpack in hand - in the air, or on a block without sneaking - puts it into the chest slot through vanilla's equippable component (swappable, like a chestplate); a worn chestplate or elytra is swapped into your hand. A backpack and a chestplate or elytra therefore exclude each other. The component allows players only, takes no damage from hits (damageOnHurt off) and has no equipment asset, so nothing is drawn on the player.",
+            "Armor while worn: 1 / 2 / 3 / 4 armor points by tier, as an attribute modifier for the chest slot group.",
+            "Opening: only while worn. The key \"Open Backpack\" (key.simplebuilding.open_backpack, default B, in the mod's key category) asks the server for the backpack screen, and the server checks again that you are alive, not a spectator, have no other container open and wear a backpack. Without a worn backpack the key opens the normal inventory, exactly like E. E itself is unchanged and always opens the normal inventory.",
+            "The backpack screen is the player inventory as vanilla lays it out - 2x2 crafting grid with recipe book, armor, off-hand, player model, active effects and the mod's resonance stats button - with the backpack rows inserted between the crafting area and the main inventory. Backpack rows are tinted light brown, the extra columns purple; for now the extra columns are ordinary storage slots.",
+            "Extra columns run alongside the backpack rows and the three main inventory rows, not alongside the hotbar. The Netherite Backpack has one column to the right of the grid (3 + 3 = 6 slots); the Enderite Backpack has one on the right and a second one on the left (4 + 3 = 7 slots each).",
+            "While the screen of the worn backpack is open, the chest slot is locked: the backpack can be neither taken out nor replaced - not by clicking, shift-clicking, number keys or dropping.",
+            "Shift-click in the backpack screen: from the main inventory or hotbar into the backpack first; whatever does not fit goes the vanilla way (armor into its slot, main inventory and hotbar into each other). From the backpack into the main inventory, then the hotbar - never straight into an armor slot, as with a chest. The crafting result, the grid, the armor slots and the off-hand move as in the vanilla inventory and, when main inventory and hotbar are full, into the backpack.",
+            "The 2x2 grid and the recipe book work as in the inventory; the recipe book only counts and fills from the player inventory, not from the backpack.",
+            "Setting it down: sneak + right-click on a block places the backpack as a block with its front facing you (outside creative the item is used up). Without sneaking the same click puts it on instead.",
+            "Placed backpack: a right-click opens its storage in the same screen, here without a locked slot; the screen closes when the block is gone or you move out of reach (block interaction range plus 4 blocks, as with a chest). Breaking it always drops the backpack item with all components of the block (loot function copy_components from the block entity: contents, name, enchantments) - no tool needed and no explosion condition. In creative a backpack with contents still drops, an empty one does not.",
+            "The placed backpack is not a container for hoppers or comparators: they neither see nor move its contents.",
+            "Block: hardness 0.8, wool sound, brown map colour; a piston destroys it instead of pushing it, and it drops. Blast resistance 0.8 (Backpack, Reinforced Backpack) or 1200 (Netherite, Enderite). Shape: a 10 x 13 x 6 pixel bag with an 8 x 8 x 2 front pocket, turned with its facing.",
+            "What goes in: everything that may go into container items, except backpacks - so no shulker boxes and no second backpack; bundles and quivers do fit. A backpack itself fits into no container item: not into shulker boxes, bundles or other backpacks.",
+            "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
+            "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
+            "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
+            "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
+            "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
+            "Deep Pockets raises the stack limit of the backpack slots: level I doubles, level II quadruples it - the same steps Deep Pockets uses for bundle capacity, and 4x is also the most the stored format holds for 99-stacks (count limit 396). Only stackable items grow: cobblestone 64 / 128 / 256, ender pearls 16 / 32 / 64; unstackable items stay at 1.",
+            "Big stacks never leave the backpack oversized: picking up, dropping and double-click collecting take at most one normal stack; a number key moves one normal stack into an empty hotbar or off-hand slot only; clicking such a stack with a different item on the cursor does nothing. If Deep Pockets is removed later (grindstone), oversized stacks stay and can still be taken out; only adding beyond the normal limit stops.",
+            "Funnel (worn backpack): an item you touch goes into the backpack only after all bundle checks - hands and bundles in the inventory come first - and only once its pickup delay has run out. Level I only takes types already inside (same item and components), level II everything allowed. Matching stacks are filled up to the slot limit first, then empty slots; the bundle insert sound plays. Nothing is vacuumed while sneaking, and whatever does not fit is picked up the normal way.",
+            "Master Builder (on the backpack itself): the Building Wand uses the worn backpack as its last material source - after off-hand, hotbar and, with Master Builder on the wand, the rest of the inventory and bundles - and takes one item per placed block out of it. Master Builder on the wand alone does not reach into the backpack, and the wand never uses a backpack as a building block.",
+            "Master Builder and pick block (survival): if the targeted block is neither in the inventory nor in a Master Builder bundle but in a worn Master Builder backpack, one normal stack of it comes out of the backpack into the selected hotbar slot; an item held there moves to a free slot first, and without a free slot nothing happens.",
+            "Constructor's Touch (worn backpack): when placing a block from your hand uses up that stack, a matching stack (same item and components) from the backpack refills the hand - at most one normal stack, not in creative mode, and only for placements straight from the hand (BlockItem.place), not for blocks the wand or a Master Builder bundle places.",
+            "Smithing trims: because of the equippable component the mod's trim check (SmithingScreenHandlerMixin.isValidArmor) accepts backpacks, so the Glowing and Emitting Trim Upgrade Templates work on them; worn, the emission level counts towards the dynamic light like on any armor piece (DynamicLightHandler adds up all four armor slots)."
+          ],
+          "controls": [
+            "Right-click with the backpack in hand (not sneaking): put it on.",
+            "Backpack key (default B) while wearing one: open the backpack screen; the same key, E or Esc closes it. Without a backpack the key opens the normal inventory.",
+            "Sneak + right-click on a block: set the backpack down. Right-click the placed backpack: open it. Break it: get it back with everything inside."
+          ],
+          "tiers": [
+            "Backpack: 1 row, 9 slots, 1 armor point; crafted.",
+            "Reinforced Backpack: 2 rows, 18 slots, 2 armor points; crafted from a Backpack, rarity uncommon.",
+            "Netherite Backpack: 3 rows plus 1 extra column (6 slots), 33 slots, 3 armor points; smithed from the Reinforced Backpack, fire resistant, explosion-proof as an item, rarity uncommon.",
+            "Enderite Backpack: 4 rows plus 2 extra columns (7 slots each), 50 slots, 4 armor points; smithed from the Netherite Backpack, fire resistant, explosion-proof as an item, void protected, rarity epic."
+          ],
+          "caveats": [
+            "Nothing is drawn on the player yet: a worn backpack is invisible, like a worn quiver.",
+            "The worn backpack's contents are part of the chest item and therefore reach nearby players with every equipment update, as a held shulker box would.",
+            "A backpack is always opened through the key while worn or as a placed block; a backpack elsewhere in the inventory cannot be opened."
+          ]
+        },
+        "de": {
+          "summary": "Rucksäcke sind tragbarer Stauraum in vier Stufen mit 9, 18, 33 und 50 Plätzen. Ein Rechtsklick legt einen Rucksack in den Brust-Slot, danach öffnet die Rucksack-Taste (Standard B) das Inventar samt den Rucksack-Plätzen. Schleichen + Rechtsklick auf einen Block stellt ihn als Block ab; der öffnet sich per Rechtsklick und fällt beim Abbauen als Item mit allem Inhalt zurück.",
+          "details": [
+            "Klasse BackpackItem (ein BlockItem zum Block BackpackBlock); Stapelgröße 1, keine Haltbarkeit. Der Inhalt steckt in der Item-Komponente simplebuilding:backpack_contents und reist mit dem Item: Todes-Drop, Abstellen, die Aufwertung am Werkbank und die Schmiede-Aufwertungen behalten ihn.",
+            "Anziehen: Rechtsklick mit dem Rucksack in der Hand – in die Luft oder ohne Schleichen auf einen Block – legt ihn über Vanillas Ausrüstungs-Komponente (swappable, wie ein Brustpanzer) in den Brust-Slot; ein getragener Brustpanzer oder eine Elytra wandert dabei in die Hand. Rucksack und Brustpanzer bzw. Elytra schließen sich also aus. Die Komponente erlaubt nur Spieler, Treffer kosten nichts (damageOnHurt aus), und sie hat kein Ausrüstungs-Asset, am Spieler ist also nichts zu sehen.",
+            "Rüstung beim Tragen: 1 / 2 / 3 / 4 Rüstungspunkte je Stufe, als Attribut-Modifikator für die Brust-Slotgruppe.",
+            "Öffnen: nur getragen. Die Taste „Rucksack öffnen“ (key.simplebuilding.open_backpack, Standard B, in der Tastenkategorie der Mod) fragt den Server nach dem Rucksack-Bildschirm; der prüft selbst noch einmal, dass man lebt, kein Zuschauer ist, kein anderes Menü offen hat und einen Rucksack trägt. Ohne getragenen Rucksack öffnet die Taste das normale Inventar, genau wie E. E selbst bleibt unverändert und öffnet immer das normale Inventar.",
+            "Der Rucksack-Bildschirm ist das Spielerinventar in Vanillas Anordnung – 2x2-Werkbank mit Rezeptbuch, Rüstung, Nebenhand, Spielermodell, aktive Effekte und der Resonanz-Knopf der Mod – mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar. Rucksack-Reihen sind hellbraun getönt, die Zusatzspalten violett; vorerst sind die Zusatzspalten gewöhnliche Lagerplätze.",
+            "Zusatzspalten laufen neben den Rucksack-Reihen und den drei Hauptinventar-Reihen entlang, nicht neben der Hotbar. Der Netherit-Rucksack hat eine Spalte rechts vom Raster (3 + 3 = 6 Plätze); der Enderit-Rucksack eine rechts und eine zweite links (je 4 + 3 = 7 Plätze).",
+            "Solange der Bildschirm des getragenen Rucksacks offen ist, ist der Brust-Slot gesperrt: Der Rucksack lässt sich weder herausnehmen noch ersetzen – weder per Klick, Shift-Klick, Zifferntaste noch Wegwerfen.",
+            "Shift-Klick im Rucksack-Bildschirm: aus Hauptinventar oder Hotbar zuerst in den Rucksack; was nicht passt, geht den Vanilla-Weg (Rüstung in ihren Slot, Hauptinventar und Hotbar gegeneinander). Aus dem Rucksack ins Hauptinventar, dann in die Hotbar – nie direkt in einen Rüstungs-Slot, wie bei einer Truhe. Werkbank-Ergebnis, Raster, Rüstungs-Slots und Nebenhand verschieben wie im Vanilla-Inventar und, wenn Hauptinventar und Hotbar voll sind, in den Rucksack.",
+            "Das 2x2-Raster und das Rezeptbuch funktionieren wie im Inventar; das Rezeptbuch zählt und befüllt nur aus dem Spielerinventar, nicht aus dem Rucksack.",
+            "Abstellen: Schleichen + Rechtsklick auf einen Block stellt den Rucksack als Block ab, mit der Vorderseite zum Spieler (außerhalb des Kreativmodus wird das Item verbraucht). Ohne Schleichen zieht derselbe Klick ihn stattdessen an.",
+            "Abgestellter Rucksack: Rechtsklick öffnet seinen Stauraum im selben Bildschirm, hier ohne gesperrten Slot; der Bildschirm schließt, wenn der Block weg ist oder man sich entfernt (Block-Interaktionsreichweite plus 4 Blöcke, wie bei einer Truhe). Abbauen droppt immer das Rucksack-Item mit allen Komponenten des Blocks (Loot-Funktion copy_components vom Blockobjekt: Inhalt, Name, Verzauberungen) – ohne Werkzeug und ohne Explosionsbedingung. Im Kreativmodus fällt ein Rucksack mit Inhalt trotzdem heraus, ein leerer nicht.",
+            "Für Trichter und Komparatoren ist der abgestellte Rucksack kein Behälter: Sie sehen und bewegen seinen Inhalt nicht.",
+            "Block: Härte 0,8, Wolle-Klang, braune Kartenfarbe; ein Kolben zerstört ihn, statt ihn zu schieben, und er droppt. Explosionswiderstand 0,8 (Rucksack, Verstärkter Rucksack) bzw. 1200 (Netherit, Enderit). Form: ein 10 x 13 x 6 Pixel großer Sack mit 8 x 8 x 2 Pixel Vordertasche, mit der Blickrichtung gedreht.",
+            "Was hineinpasst: alles, was in Behälter-Items darf, außer Rucksäcken – also keine Shulkerkisten und kein zweiter Rucksack; Bündel und Köcher passen. Ein Rucksack selbst passt in kein Behälter-Item: nicht in Shulkerkisten, Bündel oder andere Rucksäcke.",
+            "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
+            "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
+            "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
+            "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
+            "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
+            "Tiefe Taschen hebt die Stapelgrenze der Rucksack-Plätze: Stufe I verdoppelt, Stufe II vervierfacht sie – dieselben Stufen, mit denen Tiefe Taschen die Bündel-Kapazität erhöht, und das Vierfache ist zugleich das Höchste, was das Speicherformat für 99er-Stapel fasst (Zählgrenze 396). Nur stapelbare Items wachsen: Bruchstein 64 / 128 / 256, Enderperlen 16 / 32 / 64; nicht stapelbare bleiben bei 1.",
+            "Große Stapel verlassen den Rucksack nie übergroß: Aufnehmen, Wegwerfen und Doppelklick-Sammeln nehmen höchstens einen normalen Stapel; eine Zifferntaste legt einen normalen Stapel nur in einen leeren Hotbar- oder Nebenhand-Platz; ein Klick mit einem anderen Item am Cursor auf so einen Stapel bewirkt nichts. Wird Tiefe Taschen später entfernt (Schleifstein), bleiben übergroße Stapel liegen und lassen sich weiter herausnehmen; nur Nachlegen über die normale Grenze geht dann nicht mehr.",
+            "Trichter (getragener Rucksack): Ein berührtes Item landet erst nach allen Bündel-Prüfungen im Rucksack – Hände und Bündel im Inventar kommen zuerst – und erst, wenn seine Aufhebe-Sperre abgelaufen ist. Stufe I nimmt nur Sorten, die schon drin liegen (gleiches Item, gleiche Komponenten), Stufe II alles Erlaubte. Zuerst werden passende Stapel bis zur Platzgrenze aufgefüllt, dann leere Plätze; dabei ertönt der Bündel-Einlege-Klang. Beim Schleichen wird nichts aufgesaugt, und was nicht passt, wird normal aufgehoben.",
+            "Baumeister (auf dem Rucksack selbst): Der Baustab nutzt den getragenen Rucksack als letzte Materialquelle – nach Nebenhand, Hotbar und, mit Baumeister auf dem Stab, dem restlichen Inventar samt Bündeln – und nimmt je gesetztem Block ein Stück heraus. Baumeister nur auf dem Stab greift nicht in den Rucksack, und einen Rucksack verbaut der Stab nie als Baublock.",
+            "Baumeister und Blockauswahl (Überlebensmodus): Liegt der anvisierte Block weder im Inventar noch in einem Baumeister-Bündel, aber in einem getragenen Baumeister-Rucksack, kommt ein normaler Stapel davon aus dem Rucksack in den gewählten Hotbar-Slot; ein dort gehaltenes Item wandert vorher in einen freien Platz, ohne freien Platz passiert nichts.",
+            "Berührung des Konstrukteurs (getragener Rucksack): Verbraucht das Platzieren eines Blocks aus der Hand den letzten Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place), nicht bei Blöcken, die der Baustab oder ein Baumeister-Bündel setzt.",
+            "Besätze am Schmiedetisch: Wegen der Ausrüstungs-Komponente akzeptiert die Besatz-Prüfung der Mod (SmithingScreenHandlerMixin.isValidArmor) Rucksäcke, die Leucht- und die Strahl-Aufwertungsvorlage wirken also auf sie; getragen zählt die Strahlstufe wie bei jedem Rüstungsteil zum dynamischen Licht (DynamicLightHandler summiert alle vier Rüstungs-Slots)."
+          ],
+          "controls": [
+            "Rechtsklick mit dem Rucksack in der Hand (ohne Schleichen): anziehen.",
+            "Rucksack-Taste (Standard B) mit getragenem Rucksack: Rucksack-Bildschirm öffnen; dieselbe Taste, E oder Esc schließt ihn. Ohne Rucksack öffnet die Taste das normale Inventar.",
+            "Schleichen + Rechtsklick auf einen Block: Rucksack abstellen. Rechtsklick auf den abgestellten Rucksack: öffnen. Abbauen: mit allem Inhalt zurückbekommen."
+          ],
+          "tiers": [
+            "Rucksack: 1 Reihe, 9 Plätze, 1 Rüstungspunkt; an der Werkbank hergestellt.",
+            "Verstärkter Rucksack: 2 Reihen, 18 Plätze, 2 Rüstungspunkte; aus einem Rucksack hergestellt, Seltenheit ungewöhnlich.",
+            "Netherit-Rucksack: 3 Reihen plus 1 Zusatzspalte (6 Plätze), 33 Plätze, 3 Rüstungspunkte; aus dem Verstärkten Rucksack geschmiedet, feuerfest, als Item explosionsfest, Seltenheit ungewöhnlich.",
+            "Enderit-Rucksack: 4 Reihen plus 2 Zusatzspalten (je 7 Plätze), 50 Plätze, 4 Rüstungspunkte; aus dem Netherit-Rucksack geschmiedet, feuerfest, als Item explosionsfest, vor der Leere geschützt, Seltenheit episch."
+          ],
+          "caveats": [
+            "Am Spieler wird noch nichts gezeichnet: Ein getragener Rucksack ist unsichtbar, wie ein getragener Köcher.",
+            "Der Inhalt des getragenen Rucksacks gehört zum Brust-Item und erreicht deshalb mit jeder Ausrüstungs-Aktualisierung die Spieler in der Nähe, wie eine gehaltene Shulkerkiste.",
+            "Geöffnet wird ein Rucksack immer über die Taste, während er getragen wird, oder als abgestellter Block; ein Rucksack woanders im Inventar lässt sich nicht öffnen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:blackstone_quartz_checker",
       "name": {
         "en_us": "Blackstone Quartz Checker",
@@ -10758,6 +11736,178 @@ window.WIKI_DATA = {
         "simplebuilding:cracked_diamond_block"
       ],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_backpack",
+      "name": {
+        "en_us": "Enderite Backpack",
+        "de_de": "Enderit-Rucksack"
+      },
+      "texture": "assets/textures/block/enderite_backpack_side.png",
+      "craftedBy": [
+        "simplebuilding:enderite_backpack_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/enderite_backpack",
+      "drops": [
+        "simplebuilding:enderite_backpack"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/component/BackpackContents.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackLayout.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenuProviders.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java",
+          "common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java",
+          "common/src/shared/java/com/simplebuilding/networking/OpenBackpackPayload.java",
+          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+          "common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/BlockItemMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
+          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+          "src/main/generated/data/simplebuilding/recipe/backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/netherite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/backpack.json",
+          "src/main/generated/data/simplebuilding/tags/item/backpacks.json",
+          "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/master_builder_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/models/block/template_backpack.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ],
+        "en": {
+          "summary": "Backpacks are wearable storage in four tiers with 9, 18, 33 and 50 slots. Right-click one to put it into the chest slot, then press the backpack key (default B) to open your inventory with the backpack's slots added. Sneak + right-click on a block sets it down as a block, which opens with a right-click and drops back as the item with everything inside when it is broken.",
+          "details": [
+            "Class BackpackItem (a BlockItem for the block BackpackBlock); stack size 1, no durability. The contents live in the item component simplebuilding:backpack_contents, so they travel with the item: death drops, setting it down, the crafting upgrade and the smithing upgrades all keep them.",
+            "Putting it on: right-clicking with a backpack in hand - in the air, or on a block without sneaking - puts it into the chest slot through vanilla's equippable component (swappable, like a chestplate); a worn chestplate or elytra is swapped into your hand. A backpack and a chestplate or elytra therefore exclude each other. The component allows players only, takes no damage from hits (damageOnHurt off) and has no equipment asset, so nothing is drawn on the player.",
+            "Armor while worn: 1 / 2 / 3 / 4 armor points by tier, as an attribute modifier for the chest slot group.",
+            "Opening: only while worn. The key \"Open Backpack\" (key.simplebuilding.open_backpack, default B, in the mod's key category) asks the server for the backpack screen, and the server checks again that you are alive, not a spectator, have no other container open and wear a backpack. Without a worn backpack the key opens the normal inventory, exactly like E. E itself is unchanged and always opens the normal inventory.",
+            "The backpack screen is the player inventory as vanilla lays it out - 2x2 crafting grid with recipe book, armor, off-hand, player model, active effects and the mod's resonance stats button - with the backpack rows inserted between the crafting area and the main inventory. Backpack rows are tinted light brown, the extra columns purple; for now the extra columns are ordinary storage slots.",
+            "Extra columns run alongside the backpack rows and the three main inventory rows, not alongside the hotbar. The Netherite Backpack has one column to the right of the grid (3 + 3 = 6 slots); the Enderite Backpack has one on the right and a second one on the left (4 + 3 = 7 slots each).",
+            "While the screen of the worn backpack is open, the chest slot is locked: the backpack can be neither taken out nor replaced - not by clicking, shift-clicking, number keys or dropping.",
+            "Shift-click in the backpack screen: from the main inventory or hotbar into the backpack first; whatever does not fit goes the vanilla way (armor into its slot, main inventory and hotbar into each other). From the backpack into the main inventory, then the hotbar - never straight into an armor slot, as with a chest. The crafting result, the grid, the armor slots and the off-hand move as in the vanilla inventory and, when main inventory and hotbar are full, into the backpack.",
+            "The 2x2 grid and the recipe book work as in the inventory; the recipe book only counts and fills from the player inventory, not from the backpack.",
+            "Setting it down: sneak + right-click on a block places the backpack as a block with its front facing you (outside creative the item is used up). Without sneaking the same click puts it on instead.",
+            "Placed backpack: a right-click opens its storage in the same screen, here without a locked slot; the screen closes when the block is gone or you move out of reach (block interaction range plus 4 blocks, as with a chest). Breaking it always drops the backpack item with all components of the block (loot function copy_components from the block entity: contents, name, enchantments) - no tool needed and no explosion condition. In creative a backpack with contents still drops, an empty one does not.",
+            "The placed backpack is not a container for hoppers or comparators: they neither see nor move its contents.",
+            "Block: hardness 0.8, wool sound, brown map colour; a piston destroys it instead of pushing it, and it drops. Blast resistance 0.8 (Backpack, Reinforced Backpack) or 1200 (Netherite, Enderite). Shape: a 10 x 13 x 6 pixel bag with an 8 x 8 x 2 front pocket, turned with its facing.",
+            "What goes in: everything that may go into container items, except backpacks - so no shulker boxes and no second backpack; bundles and quivers do fit. A backpack itself fits into no container item: not into shulker boxes, bundles or other backpacks.",
+            "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
+            "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
+            "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
+            "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
+            "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
+            "Deep Pockets raises the stack limit of the backpack slots: level I doubles, level II quadruples it - the same steps Deep Pockets uses for bundle capacity, and 4x is also the most the stored format holds for 99-stacks (count limit 396). Only stackable items grow: cobblestone 64 / 128 / 256, ender pearls 16 / 32 / 64; unstackable items stay at 1.",
+            "Big stacks never leave the backpack oversized: picking up, dropping and double-click collecting take at most one normal stack; a number key moves one normal stack into an empty hotbar or off-hand slot only; clicking such a stack with a different item on the cursor does nothing. If Deep Pockets is removed later (grindstone), oversized stacks stay and can still be taken out; only adding beyond the normal limit stops.",
+            "Funnel (worn backpack): an item you touch goes into the backpack only after all bundle checks - hands and bundles in the inventory come first - and only once its pickup delay has run out. Level I only takes types already inside (same item and components), level II everything allowed. Matching stacks are filled up to the slot limit first, then empty slots; the bundle insert sound plays. Nothing is vacuumed while sneaking, and whatever does not fit is picked up the normal way.",
+            "Master Builder (on the backpack itself): the Building Wand uses the worn backpack as its last material source - after off-hand, hotbar and, with Master Builder on the wand, the rest of the inventory and bundles - and takes one item per placed block out of it. Master Builder on the wand alone does not reach into the backpack, and the wand never uses a backpack as a building block.",
+            "Master Builder and pick block (survival): if the targeted block is neither in the inventory nor in a Master Builder bundle but in a worn Master Builder backpack, one normal stack of it comes out of the backpack into the selected hotbar slot; an item held there moves to a free slot first, and without a free slot nothing happens.",
+            "Constructor's Touch (worn backpack): when placing a block from your hand uses up that stack, a matching stack (same item and components) from the backpack refills the hand - at most one normal stack, not in creative mode, and only for placements straight from the hand (BlockItem.place), not for blocks the wand or a Master Builder bundle places.",
+            "Smithing trims: because of the equippable component the mod's trim check (SmithingScreenHandlerMixin.isValidArmor) accepts backpacks, so the Glowing and Emitting Trim Upgrade Templates work on them; worn, the emission level counts towards the dynamic light like on any armor piece (DynamicLightHandler adds up all four armor slots)."
+          ],
+          "controls": [
+            "Right-click with the backpack in hand (not sneaking): put it on.",
+            "Backpack key (default B) while wearing one: open the backpack screen; the same key, E or Esc closes it. Without a backpack the key opens the normal inventory.",
+            "Sneak + right-click on a block: set the backpack down. Right-click the placed backpack: open it. Break it: get it back with everything inside."
+          ],
+          "tiers": [
+            "Backpack: 1 row, 9 slots, 1 armor point; crafted.",
+            "Reinforced Backpack: 2 rows, 18 slots, 2 armor points; crafted from a Backpack, rarity uncommon.",
+            "Netherite Backpack: 3 rows plus 1 extra column (6 slots), 33 slots, 3 armor points; smithed from the Reinforced Backpack, fire resistant, explosion-proof as an item, rarity uncommon.",
+            "Enderite Backpack: 4 rows plus 2 extra columns (7 slots each), 50 slots, 4 armor points; smithed from the Netherite Backpack, fire resistant, explosion-proof as an item, void protected, rarity epic."
+          ],
+          "caveats": [
+            "Nothing is drawn on the player yet: a worn backpack is invisible, like a worn quiver.",
+            "The worn backpack's contents are part of the chest item and therefore reach nearby players with every equipment update, as a held shulker box would.",
+            "A backpack is always opened through the key while worn or as a placed block; a backpack elsewhere in the inventory cannot be opened."
+          ]
+        },
+        "de": {
+          "summary": "Rucksäcke sind tragbarer Stauraum in vier Stufen mit 9, 18, 33 und 50 Plätzen. Ein Rechtsklick legt einen Rucksack in den Brust-Slot, danach öffnet die Rucksack-Taste (Standard B) das Inventar samt den Rucksack-Plätzen. Schleichen + Rechtsklick auf einen Block stellt ihn als Block ab; der öffnet sich per Rechtsklick und fällt beim Abbauen als Item mit allem Inhalt zurück.",
+          "details": [
+            "Klasse BackpackItem (ein BlockItem zum Block BackpackBlock); Stapelgröße 1, keine Haltbarkeit. Der Inhalt steckt in der Item-Komponente simplebuilding:backpack_contents und reist mit dem Item: Todes-Drop, Abstellen, die Aufwertung am Werkbank und die Schmiede-Aufwertungen behalten ihn.",
+            "Anziehen: Rechtsklick mit dem Rucksack in der Hand – in die Luft oder ohne Schleichen auf einen Block – legt ihn über Vanillas Ausrüstungs-Komponente (swappable, wie ein Brustpanzer) in den Brust-Slot; ein getragener Brustpanzer oder eine Elytra wandert dabei in die Hand. Rucksack und Brustpanzer bzw. Elytra schließen sich also aus. Die Komponente erlaubt nur Spieler, Treffer kosten nichts (damageOnHurt aus), und sie hat kein Ausrüstungs-Asset, am Spieler ist also nichts zu sehen.",
+            "Rüstung beim Tragen: 1 / 2 / 3 / 4 Rüstungspunkte je Stufe, als Attribut-Modifikator für die Brust-Slotgruppe.",
+            "Öffnen: nur getragen. Die Taste „Rucksack öffnen“ (key.simplebuilding.open_backpack, Standard B, in der Tastenkategorie der Mod) fragt den Server nach dem Rucksack-Bildschirm; der prüft selbst noch einmal, dass man lebt, kein Zuschauer ist, kein anderes Menü offen hat und einen Rucksack trägt. Ohne getragenen Rucksack öffnet die Taste das normale Inventar, genau wie E. E selbst bleibt unverändert und öffnet immer das normale Inventar.",
+            "Der Rucksack-Bildschirm ist das Spielerinventar in Vanillas Anordnung – 2x2-Werkbank mit Rezeptbuch, Rüstung, Nebenhand, Spielermodell, aktive Effekte und der Resonanz-Knopf der Mod – mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar. Rucksack-Reihen sind hellbraun getönt, die Zusatzspalten violett; vorerst sind die Zusatzspalten gewöhnliche Lagerplätze.",
+            "Zusatzspalten laufen neben den Rucksack-Reihen und den drei Hauptinventar-Reihen entlang, nicht neben der Hotbar. Der Netherit-Rucksack hat eine Spalte rechts vom Raster (3 + 3 = 6 Plätze); der Enderit-Rucksack eine rechts und eine zweite links (je 4 + 3 = 7 Plätze).",
+            "Solange der Bildschirm des getragenen Rucksacks offen ist, ist der Brust-Slot gesperrt: Der Rucksack lässt sich weder herausnehmen noch ersetzen – weder per Klick, Shift-Klick, Zifferntaste noch Wegwerfen.",
+            "Shift-Klick im Rucksack-Bildschirm: aus Hauptinventar oder Hotbar zuerst in den Rucksack; was nicht passt, geht den Vanilla-Weg (Rüstung in ihren Slot, Hauptinventar und Hotbar gegeneinander). Aus dem Rucksack ins Hauptinventar, dann in die Hotbar – nie direkt in einen Rüstungs-Slot, wie bei einer Truhe. Werkbank-Ergebnis, Raster, Rüstungs-Slots und Nebenhand verschieben wie im Vanilla-Inventar und, wenn Hauptinventar und Hotbar voll sind, in den Rucksack.",
+            "Das 2x2-Raster und das Rezeptbuch funktionieren wie im Inventar; das Rezeptbuch zählt und befüllt nur aus dem Spielerinventar, nicht aus dem Rucksack.",
+            "Abstellen: Schleichen + Rechtsklick auf einen Block stellt den Rucksack als Block ab, mit der Vorderseite zum Spieler (außerhalb des Kreativmodus wird das Item verbraucht). Ohne Schleichen zieht derselbe Klick ihn stattdessen an.",
+            "Abgestellter Rucksack: Rechtsklick öffnet seinen Stauraum im selben Bildschirm, hier ohne gesperrten Slot; der Bildschirm schließt, wenn der Block weg ist oder man sich entfernt (Block-Interaktionsreichweite plus 4 Blöcke, wie bei einer Truhe). Abbauen droppt immer das Rucksack-Item mit allen Komponenten des Blocks (Loot-Funktion copy_components vom Blockobjekt: Inhalt, Name, Verzauberungen) – ohne Werkzeug und ohne Explosionsbedingung. Im Kreativmodus fällt ein Rucksack mit Inhalt trotzdem heraus, ein leerer nicht.",
+            "Für Trichter und Komparatoren ist der abgestellte Rucksack kein Behälter: Sie sehen und bewegen seinen Inhalt nicht.",
+            "Block: Härte 0,8, Wolle-Klang, braune Kartenfarbe; ein Kolben zerstört ihn, statt ihn zu schieben, und er droppt. Explosionswiderstand 0,8 (Rucksack, Verstärkter Rucksack) bzw. 1200 (Netherit, Enderit). Form: ein 10 x 13 x 6 Pixel großer Sack mit 8 x 8 x 2 Pixel Vordertasche, mit der Blickrichtung gedreht.",
+            "Was hineinpasst: alles, was in Behälter-Items darf, außer Rucksäcken – also keine Shulkerkisten und kein zweiter Rucksack; Bündel und Köcher passen. Ein Rucksack selbst passt in kein Behälter-Item: nicht in Shulkerkisten, Bündel oder andere Rucksäcke.",
+            "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
+            "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
+            "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
+            "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
+            "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
+            "Tiefe Taschen hebt die Stapelgrenze der Rucksack-Plätze: Stufe I verdoppelt, Stufe II vervierfacht sie – dieselben Stufen, mit denen Tiefe Taschen die Bündel-Kapazität erhöht, und das Vierfache ist zugleich das Höchste, was das Speicherformat für 99er-Stapel fasst (Zählgrenze 396). Nur stapelbare Items wachsen: Bruchstein 64 / 128 / 256, Enderperlen 16 / 32 / 64; nicht stapelbare bleiben bei 1.",
+            "Große Stapel verlassen den Rucksack nie übergroß: Aufnehmen, Wegwerfen und Doppelklick-Sammeln nehmen höchstens einen normalen Stapel; eine Zifferntaste legt einen normalen Stapel nur in einen leeren Hotbar- oder Nebenhand-Platz; ein Klick mit einem anderen Item am Cursor auf so einen Stapel bewirkt nichts. Wird Tiefe Taschen später entfernt (Schleifstein), bleiben übergroße Stapel liegen und lassen sich weiter herausnehmen; nur Nachlegen über die normale Grenze geht dann nicht mehr.",
+            "Trichter (getragener Rucksack): Ein berührtes Item landet erst nach allen Bündel-Prüfungen im Rucksack – Hände und Bündel im Inventar kommen zuerst – und erst, wenn seine Aufhebe-Sperre abgelaufen ist. Stufe I nimmt nur Sorten, die schon drin liegen (gleiches Item, gleiche Komponenten), Stufe II alles Erlaubte. Zuerst werden passende Stapel bis zur Platzgrenze aufgefüllt, dann leere Plätze; dabei ertönt der Bündel-Einlege-Klang. Beim Schleichen wird nichts aufgesaugt, und was nicht passt, wird normal aufgehoben.",
+            "Baumeister (auf dem Rucksack selbst): Der Baustab nutzt den getragenen Rucksack als letzte Materialquelle – nach Nebenhand, Hotbar und, mit Baumeister auf dem Stab, dem restlichen Inventar samt Bündeln – und nimmt je gesetztem Block ein Stück heraus. Baumeister nur auf dem Stab greift nicht in den Rucksack, und einen Rucksack verbaut der Stab nie als Baublock.",
+            "Baumeister und Blockauswahl (Überlebensmodus): Liegt der anvisierte Block weder im Inventar noch in einem Baumeister-Bündel, aber in einem getragenen Baumeister-Rucksack, kommt ein normaler Stapel davon aus dem Rucksack in den gewählten Hotbar-Slot; ein dort gehaltenes Item wandert vorher in einen freien Platz, ohne freien Platz passiert nichts.",
+            "Berührung des Konstrukteurs (getragener Rucksack): Verbraucht das Platzieren eines Blocks aus der Hand den letzten Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place), nicht bei Blöcken, die der Baustab oder ein Baumeister-Bündel setzt.",
+            "Besätze am Schmiedetisch: Wegen der Ausrüstungs-Komponente akzeptiert die Besatz-Prüfung der Mod (SmithingScreenHandlerMixin.isValidArmor) Rucksäcke, die Leucht- und die Strahl-Aufwertungsvorlage wirken also auf sie; getragen zählt die Strahlstufe wie bei jedem Rüstungsteil zum dynamischen Licht (DynamicLightHandler summiert alle vier Rüstungs-Slots)."
+          ],
+          "controls": [
+            "Rechtsklick mit dem Rucksack in der Hand (ohne Schleichen): anziehen.",
+            "Rucksack-Taste (Standard B) mit getragenem Rucksack: Rucksack-Bildschirm öffnen; dieselbe Taste, E oder Esc schließt ihn. Ohne Rucksack öffnet die Taste das normale Inventar.",
+            "Schleichen + Rechtsklick auf einen Block: Rucksack abstellen. Rechtsklick auf den abgestellten Rucksack: öffnen. Abbauen: mit allem Inhalt zurückbekommen."
+          ],
+          "tiers": [
+            "Rucksack: 1 Reihe, 9 Plätze, 1 Rüstungspunkt; an der Werkbank hergestellt.",
+            "Verstärkter Rucksack: 2 Reihen, 18 Plätze, 2 Rüstungspunkte; aus einem Rucksack hergestellt, Seltenheit ungewöhnlich.",
+            "Netherit-Rucksack: 3 Reihen plus 1 Zusatzspalte (6 Plätze), 33 Plätze, 3 Rüstungspunkte; aus dem Verstärkten Rucksack geschmiedet, feuerfest, als Item explosionsfest, Seltenheit ungewöhnlich.",
+            "Enderit-Rucksack: 4 Reihen plus 2 Zusatzspalten (je 7 Plätze), 50 Plätze, 4 Rüstungspunkte; aus dem Netherit-Rucksack geschmiedet, feuerfest, als Item explosionsfest, vor der Leere geschützt, Seltenheit episch."
+          ],
+          "caveats": [
+            "Am Spieler wird noch nichts gezeichnet: Ein getragener Rucksack ist unsichtbar, wie ein getragener Köcher.",
+            "Der Inhalt des getragenen Rucksacks gehört zum Brust-Item und erreicht deshalb mit jeder Ausrüstungs-Aktualisierung die Spieler in der Nähe, wie eine gehaltene Shulkerkiste.",
+            "Geöffnet wird ein Rucksack immer über die Taste, während er getragen wird, oder als abgestellter Block; ein Rucksack woanders im Inventar lässt sich nicht öffnen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:enderite_block",
@@ -10982,6 +12132,180 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json"
         ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:netherite_backpack",
+      "name": {
+        "en_us": "Netherite Backpack",
+        "de_de": "Netherit-Rucksack"
+      },
+      "texture": "assets/textures/block/netherite_backpack_side.png",
+      "craftedBy": [
+        "simplebuilding:netherite_backpack_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_backpack_smithing"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/netherite_backpack",
+      "drops": [
+        "simplebuilding:netherite_backpack"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/component/BackpackContents.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackLayout.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenuProviders.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java",
+          "common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java",
+          "common/src/shared/java/com/simplebuilding/networking/OpenBackpackPayload.java",
+          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+          "common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/BlockItemMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
+          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+          "src/main/generated/data/simplebuilding/recipe/backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/netherite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/backpack.json",
+          "src/main/generated/data/simplebuilding/tags/item/backpacks.json",
+          "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/master_builder_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/models/block/template_backpack.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ],
+        "en": {
+          "summary": "Backpacks are wearable storage in four tiers with 9, 18, 33 and 50 slots. Right-click one to put it into the chest slot, then press the backpack key (default B) to open your inventory with the backpack's slots added. Sneak + right-click on a block sets it down as a block, which opens with a right-click and drops back as the item with everything inside when it is broken.",
+          "details": [
+            "Class BackpackItem (a BlockItem for the block BackpackBlock); stack size 1, no durability. The contents live in the item component simplebuilding:backpack_contents, so they travel with the item: death drops, setting it down, the crafting upgrade and the smithing upgrades all keep them.",
+            "Putting it on: right-clicking with a backpack in hand - in the air, or on a block without sneaking - puts it into the chest slot through vanilla's equippable component (swappable, like a chestplate); a worn chestplate or elytra is swapped into your hand. A backpack and a chestplate or elytra therefore exclude each other. The component allows players only, takes no damage from hits (damageOnHurt off) and has no equipment asset, so nothing is drawn on the player.",
+            "Armor while worn: 1 / 2 / 3 / 4 armor points by tier, as an attribute modifier for the chest slot group.",
+            "Opening: only while worn. The key \"Open Backpack\" (key.simplebuilding.open_backpack, default B, in the mod's key category) asks the server for the backpack screen, and the server checks again that you are alive, not a spectator, have no other container open and wear a backpack. Without a worn backpack the key opens the normal inventory, exactly like E. E itself is unchanged and always opens the normal inventory.",
+            "The backpack screen is the player inventory as vanilla lays it out - 2x2 crafting grid with recipe book, armor, off-hand, player model, active effects and the mod's resonance stats button - with the backpack rows inserted between the crafting area and the main inventory. Backpack rows are tinted light brown, the extra columns purple; for now the extra columns are ordinary storage slots.",
+            "Extra columns run alongside the backpack rows and the three main inventory rows, not alongside the hotbar. The Netherite Backpack has one column to the right of the grid (3 + 3 = 6 slots); the Enderite Backpack has one on the right and a second one on the left (4 + 3 = 7 slots each).",
+            "While the screen of the worn backpack is open, the chest slot is locked: the backpack can be neither taken out nor replaced - not by clicking, shift-clicking, number keys or dropping.",
+            "Shift-click in the backpack screen: from the main inventory or hotbar into the backpack first; whatever does not fit goes the vanilla way (armor into its slot, main inventory and hotbar into each other). From the backpack into the main inventory, then the hotbar - never straight into an armor slot, as with a chest. The crafting result, the grid, the armor slots and the off-hand move as in the vanilla inventory and, when main inventory and hotbar are full, into the backpack.",
+            "The 2x2 grid and the recipe book work as in the inventory; the recipe book only counts and fills from the player inventory, not from the backpack.",
+            "Setting it down: sneak + right-click on a block places the backpack as a block with its front facing you (outside creative the item is used up). Without sneaking the same click puts it on instead.",
+            "Placed backpack: a right-click opens its storage in the same screen, here without a locked slot; the screen closes when the block is gone or you move out of reach (block interaction range plus 4 blocks, as with a chest). Breaking it always drops the backpack item with all components of the block (loot function copy_components from the block entity: contents, name, enchantments) - no tool needed and no explosion condition. In creative a backpack with contents still drops, an empty one does not.",
+            "The placed backpack is not a container for hoppers or comparators: they neither see nor move its contents.",
+            "Block: hardness 0.8, wool sound, brown map colour; a piston destroys it instead of pushing it, and it drops. Blast resistance 0.8 (Backpack, Reinforced Backpack) or 1200 (Netherite, Enderite). Shape: a 10 x 13 x 6 pixel bag with an 8 x 8 x 2 front pocket, turned with its facing.",
+            "What goes in: everything that may go into container items, except backpacks - so no shulker boxes and no second backpack; bundles and quivers do fit. A backpack itself fits into no container item: not into shulker boxes, bundles or other backpacks.",
+            "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
+            "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
+            "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
+            "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
+            "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
+            "Deep Pockets raises the stack limit of the backpack slots: level I doubles, level II quadruples it - the same steps Deep Pockets uses for bundle capacity, and 4x is also the most the stored format holds for 99-stacks (count limit 396). Only stackable items grow: cobblestone 64 / 128 / 256, ender pearls 16 / 32 / 64; unstackable items stay at 1.",
+            "Big stacks never leave the backpack oversized: picking up, dropping and double-click collecting take at most one normal stack; a number key moves one normal stack into an empty hotbar or off-hand slot only; clicking such a stack with a different item on the cursor does nothing. If Deep Pockets is removed later (grindstone), oversized stacks stay and can still be taken out; only adding beyond the normal limit stops.",
+            "Funnel (worn backpack): an item you touch goes into the backpack only after all bundle checks - hands and bundles in the inventory come first - and only once its pickup delay has run out. Level I only takes types already inside (same item and components), level II everything allowed. Matching stacks are filled up to the slot limit first, then empty slots; the bundle insert sound plays. Nothing is vacuumed while sneaking, and whatever does not fit is picked up the normal way.",
+            "Master Builder (on the backpack itself): the Building Wand uses the worn backpack as its last material source - after off-hand, hotbar and, with Master Builder on the wand, the rest of the inventory and bundles - and takes one item per placed block out of it. Master Builder on the wand alone does not reach into the backpack, and the wand never uses a backpack as a building block.",
+            "Master Builder and pick block (survival): if the targeted block is neither in the inventory nor in a Master Builder bundle but in a worn Master Builder backpack, one normal stack of it comes out of the backpack into the selected hotbar slot; an item held there moves to a free slot first, and without a free slot nothing happens.",
+            "Constructor's Touch (worn backpack): when placing a block from your hand uses up that stack, a matching stack (same item and components) from the backpack refills the hand - at most one normal stack, not in creative mode, and only for placements straight from the hand (BlockItem.place), not for blocks the wand or a Master Builder bundle places.",
+            "Smithing trims: because of the equippable component the mod's trim check (SmithingScreenHandlerMixin.isValidArmor) accepts backpacks, so the Glowing and Emitting Trim Upgrade Templates work on them; worn, the emission level counts towards the dynamic light like on any armor piece (DynamicLightHandler adds up all four armor slots)."
+          ],
+          "controls": [
+            "Right-click with the backpack in hand (not sneaking): put it on.",
+            "Backpack key (default B) while wearing one: open the backpack screen; the same key, E or Esc closes it. Without a backpack the key opens the normal inventory.",
+            "Sneak + right-click on a block: set the backpack down. Right-click the placed backpack: open it. Break it: get it back with everything inside."
+          ],
+          "tiers": [
+            "Backpack: 1 row, 9 slots, 1 armor point; crafted.",
+            "Reinforced Backpack: 2 rows, 18 slots, 2 armor points; crafted from a Backpack, rarity uncommon.",
+            "Netherite Backpack: 3 rows plus 1 extra column (6 slots), 33 slots, 3 armor points; smithed from the Reinforced Backpack, fire resistant, explosion-proof as an item, rarity uncommon.",
+            "Enderite Backpack: 4 rows plus 2 extra columns (7 slots each), 50 slots, 4 armor points; smithed from the Netherite Backpack, fire resistant, explosion-proof as an item, void protected, rarity epic."
+          ],
+          "caveats": [
+            "Nothing is drawn on the player yet: a worn backpack is invisible, like a worn quiver.",
+            "The worn backpack's contents are part of the chest item and therefore reach nearby players with every equipment update, as a held shulker box would.",
+            "A backpack is always opened through the key while worn or as a placed block; a backpack elsewhere in the inventory cannot be opened."
+          ]
+        },
+        "de": {
+          "summary": "Rucksäcke sind tragbarer Stauraum in vier Stufen mit 9, 18, 33 und 50 Plätzen. Ein Rechtsklick legt einen Rucksack in den Brust-Slot, danach öffnet die Rucksack-Taste (Standard B) das Inventar samt den Rucksack-Plätzen. Schleichen + Rechtsklick auf einen Block stellt ihn als Block ab; der öffnet sich per Rechtsklick und fällt beim Abbauen als Item mit allem Inhalt zurück.",
+          "details": [
+            "Klasse BackpackItem (ein BlockItem zum Block BackpackBlock); Stapelgröße 1, keine Haltbarkeit. Der Inhalt steckt in der Item-Komponente simplebuilding:backpack_contents und reist mit dem Item: Todes-Drop, Abstellen, die Aufwertung am Werkbank und die Schmiede-Aufwertungen behalten ihn.",
+            "Anziehen: Rechtsklick mit dem Rucksack in der Hand – in die Luft oder ohne Schleichen auf einen Block – legt ihn über Vanillas Ausrüstungs-Komponente (swappable, wie ein Brustpanzer) in den Brust-Slot; ein getragener Brustpanzer oder eine Elytra wandert dabei in die Hand. Rucksack und Brustpanzer bzw. Elytra schließen sich also aus. Die Komponente erlaubt nur Spieler, Treffer kosten nichts (damageOnHurt aus), und sie hat kein Ausrüstungs-Asset, am Spieler ist also nichts zu sehen.",
+            "Rüstung beim Tragen: 1 / 2 / 3 / 4 Rüstungspunkte je Stufe, als Attribut-Modifikator für die Brust-Slotgruppe.",
+            "Öffnen: nur getragen. Die Taste „Rucksack öffnen“ (key.simplebuilding.open_backpack, Standard B, in der Tastenkategorie der Mod) fragt den Server nach dem Rucksack-Bildschirm; der prüft selbst noch einmal, dass man lebt, kein Zuschauer ist, kein anderes Menü offen hat und einen Rucksack trägt. Ohne getragenen Rucksack öffnet die Taste das normale Inventar, genau wie E. E selbst bleibt unverändert und öffnet immer das normale Inventar.",
+            "Der Rucksack-Bildschirm ist das Spielerinventar in Vanillas Anordnung – 2x2-Werkbank mit Rezeptbuch, Rüstung, Nebenhand, Spielermodell, aktive Effekte und der Resonanz-Knopf der Mod – mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar. Rucksack-Reihen sind hellbraun getönt, die Zusatzspalten violett; vorerst sind die Zusatzspalten gewöhnliche Lagerplätze.",
+            "Zusatzspalten laufen neben den Rucksack-Reihen und den drei Hauptinventar-Reihen entlang, nicht neben der Hotbar. Der Netherit-Rucksack hat eine Spalte rechts vom Raster (3 + 3 = 6 Plätze); der Enderit-Rucksack eine rechts und eine zweite links (je 4 + 3 = 7 Plätze).",
+            "Solange der Bildschirm des getragenen Rucksacks offen ist, ist der Brust-Slot gesperrt: Der Rucksack lässt sich weder herausnehmen noch ersetzen – weder per Klick, Shift-Klick, Zifferntaste noch Wegwerfen.",
+            "Shift-Klick im Rucksack-Bildschirm: aus Hauptinventar oder Hotbar zuerst in den Rucksack; was nicht passt, geht den Vanilla-Weg (Rüstung in ihren Slot, Hauptinventar und Hotbar gegeneinander). Aus dem Rucksack ins Hauptinventar, dann in die Hotbar – nie direkt in einen Rüstungs-Slot, wie bei einer Truhe. Werkbank-Ergebnis, Raster, Rüstungs-Slots und Nebenhand verschieben wie im Vanilla-Inventar und, wenn Hauptinventar und Hotbar voll sind, in den Rucksack.",
+            "Das 2x2-Raster und das Rezeptbuch funktionieren wie im Inventar; das Rezeptbuch zählt und befüllt nur aus dem Spielerinventar, nicht aus dem Rucksack.",
+            "Abstellen: Schleichen + Rechtsklick auf einen Block stellt den Rucksack als Block ab, mit der Vorderseite zum Spieler (außerhalb des Kreativmodus wird das Item verbraucht). Ohne Schleichen zieht derselbe Klick ihn stattdessen an.",
+            "Abgestellter Rucksack: Rechtsklick öffnet seinen Stauraum im selben Bildschirm, hier ohne gesperrten Slot; der Bildschirm schließt, wenn der Block weg ist oder man sich entfernt (Block-Interaktionsreichweite plus 4 Blöcke, wie bei einer Truhe). Abbauen droppt immer das Rucksack-Item mit allen Komponenten des Blocks (Loot-Funktion copy_components vom Blockobjekt: Inhalt, Name, Verzauberungen) – ohne Werkzeug und ohne Explosionsbedingung. Im Kreativmodus fällt ein Rucksack mit Inhalt trotzdem heraus, ein leerer nicht.",
+            "Für Trichter und Komparatoren ist der abgestellte Rucksack kein Behälter: Sie sehen und bewegen seinen Inhalt nicht.",
+            "Block: Härte 0,8, Wolle-Klang, braune Kartenfarbe; ein Kolben zerstört ihn, statt ihn zu schieben, und er droppt. Explosionswiderstand 0,8 (Rucksack, Verstärkter Rucksack) bzw. 1200 (Netherit, Enderit). Form: ein 10 x 13 x 6 Pixel großer Sack mit 8 x 8 x 2 Pixel Vordertasche, mit der Blickrichtung gedreht.",
+            "Was hineinpasst: alles, was in Behälter-Items darf, außer Rucksäcken – also keine Shulkerkisten und kein zweiter Rucksack; Bündel und Köcher passen. Ein Rucksack selbst passt in kein Behälter-Item: nicht in Shulkerkisten, Bündel oder andere Rucksäcke.",
+            "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
+            "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
+            "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
+            "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
+            "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
+            "Tiefe Taschen hebt die Stapelgrenze der Rucksack-Plätze: Stufe I verdoppelt, Stufe II vervierfacht sie – dieselben Stufen, mit denen Tiefe Taschen die Bündel-Kapazität erhöht, und das Vierfache ist zugleich das Höchste, was das Speicherformat für 99er-Stapel fasst (Zählgrenze 396). Nur stapelbare Items wachsen: Bruchstein 64 / 128 / 256, Enderperlen 16 / 32 / 64; nicht stapelbare bleiben bei 1.",
+            "Große Stapel verlassen den Rucksack nie übergroß: Aufnehmen, Wegwerfen und Doppelklick-Sammeln nehmen höchstens einen normalen Stapel; eine Zifferntaste legt einen normalen Stapel nur in einen leeren Hotbar- oder Nebenhand-Platz; ein Klick mit einem anderen Item am Cursor auf so einen Stapel bewirkt nichts. Wird Tiefe Taschen später entfernt (Schleifstein), bleiben übergroße Stapel liegen und lassen sich weiter herausnehmen; nur Nachlegen über die normale Grenze geht dann nicht mehr.",
+            "Trichter (getragener Rucksack): Ein berührtes Item landet erst nach allen Bündel-Prüfungen im Rucksack – Hände und Bündel im Inventar kommen zuerst – und erst, wenn seine Aufhebe-Sperre abgelaufen ist. Stufe I nimmt nur Sorten, die schon drin liegen (gleiches Item, gleiche Komponenten), Stufe II alles Erlaubte. Zuerst werden passende Stapel bis zur Platzgrenze aufgefüllt, dann leere Plätze; dabei ertönt der Bündel-Einlege-Klang. Beim Schleichen wird nichts aufgesaugt, und was nicht passt, wird normal aufgehoben.",
+            "Baumeister (auf dem Rucksack selbst): Der Baustab nutzt den getragenen Rucksack als letzte Materialquelle – nach Nebenhand, Hotbar und, mit Baumeister auf dem Stab, dem restlichen Inventar samt Bündeln – und nimmt je gesetztem Block ein Stück heraus. Baumeister nur auf dem Stab greift nicht in den Rucksack, und einen Rucksack verbaut der Stab nie als Baublock.",
+            "Baumeister und Blockauswahl (Überlebensmodus): Liegt der anvisierte Block weder im Inventar noch in einem Baumeister-Bündel, aber in einem getragenen Baumeister-Rucksack, kommt ein normaler Stapel davon aus dem Rucksack in den gewählten Hotbar-Slot; ein dort gehaltenes Item wandert vorher in einen freien Platz, ohne freien Platz passiert nichts.",
+            "Berührung des Konstrukteurs (getragener Rucksack): Verbraucht das Platzieren eines Blocks aus der Hand den letzten Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place), nicht bei Blöcken, die der Baustab oder ein Baumeister-Bündel setzt.",
+            "Besätze am Schmiedetisch: Wegen der Ausrüstungs-Komponente akzeptiert die Besatz-Prüfung der Mod (SmithingScreenHandlerMixin.isValidArmor) Rucksäcke, die Leucht- und die Strahl-Aufwertungsvorlage wirken also auf sie; getragen zählt die Strahlstufe wie bei jedem Rüstungsteil zum dynamischen Licht (DynamicLightHandler summiert alle vier Rüstungs-Slots)."
+          ],
+          "controls": [
+            "Rechtsklick mit dem Rucksack in der Hand (ohne Schleichen): anziehen.",
+            "Rucksack-Taste (Standard B) mit getragenem Rucksack: Rucksack-Bildschirm öffnen; dieselbe Taste, E oder Esc schließt ihn. Ohne Rucksack öffnet die Taste das normale Inventar.",
+            "Schleichen + Rechtsklick auf einen Block: Rucksack abstellen. Rechtsklick auf den abgestellten Rucksack: öffnen. Abbauen: mit allem Inhalt zurückbekommen."
+          ],
+          "tiers": [
+            "Rucksack: 1 Reihe, 9 Plätze, 1 Rüstungspunkt; an der Werkbank hergestellt.",
+            "Verstärkter Rucksack: 2 Reihen, 18 Plätze, 2 Rüstungspunkte; aus einem Rucksack hergestellt, Seltenheit ungewöhnlich.",
+            "Netherit-Rucksack: 3 Reihen plus 1 Zusatzspalte (6 Plätze), 33 Plätze, 3 Rüstungspunkte; aus dem Verstärkten Rucksack geschmiedet, feuerfest, als Item explosionsfest, Seltenheit ungewöhnlich.",
+            "Enderit-Rucksack: 4 Reihen plus 2 Zusatzspalten (je 7 Plätze), 50 Plätze, 4 Rüstungspunkte; aus dem Netherit-Rucksack geschmiedet, feuerfest, als Item explosionsfest, vor der Leere geschützt, Seltenheit episch."
+          ],
+          "caveats": [
+            "Am Spieler wird noch nichts gezeichnet: Ein getragener Rucksack ist unsichtbar, wie ein getragener Köcher.",
+            "Der Inhalt des getragenen Rucksacks gehört zum Brust-Item und erreicht deshalb mit jeder Ausrüstungs-Aktualisierung die Spieler in der Nähe, wie eine gehaltene Shulkerkiste.",
+            "Geöffnet wird ein Rucksack immer über die Taste, während er getragen wird, oder als abgestellter Block; ein Rucksack woanders im Inventar lässt sich nicht öffnen."
+          ]
+        }
       },
       "hasCustomBehaviour": true
     },
@@ -11679,6 +13003,180 @@ window.WIKI_DATA = {
         "simplebuilding:purpur_quartz_checker"
       ],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:reinforced_backpack",
+      "name": {
+        "en_us": "Reinforced Backpack",
+        "de_de": "Verstärkter Rucksack"
+      },
+      "texture": "assets/textures/block/reinforced_backpack_side.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_backpack"
+      ],
+      "usedIn": [
+        "simplebuilding:netherite_backpack_smithing"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "lootTable": "simplebuilding:blocks/reinforced_backpack",
+      "drops": [
+        "simplebuilding:reinforced_backpack"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/component/BackpackContents.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackArmorSlot.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/WornBackpackContainer.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackLayout.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackMenuProviders.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/BackpackScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java",
+          "common/src/shared/java/com/simplebuilding/client/BackpackKeyHandler.java",
+          "common/src/shared/java/com/simplebuilding/networking/OpenBackpackPayload.java",
+          "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+          "common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/BlockItemMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
+          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+          "src/main/generated/data/simplebuilding/recipe/backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
+          "src/main/generated/data/simplebuilding/recipe/netherite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/backpack.json",
+          "src/main/generated/data/simplebuilding/tags/item/backpacks.json",
+          "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/master_builder_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/models/block/template_backpack.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ],
+        "en": {
+          "summary": "Backpacks are wearable storage in four tiers with 9, 18, 33 and 50 slots. Right-click one to put it into the chest slot, then press the backpack key (default B) to open your inventory with the backpack's slots added. Sneak + right-click on a block sets it down as a block, which opens with a right-click and drops back as the item with everything inside when it is broken.",
+          "details": [
+            "Class BackpackItem (a BlockItem for the block BackpackBlock); stack size 1, no durability. The contents live in the item component simplebuilding:backpack_contents, so they travel with the item: death drops, setting it down, the crafting upgrade and the smithing upgrades all keep them.",
+            "Putting it on: right-clicking with a backpack in hand - in the air, or on a block without sneaking - puts it into the chest slot through vanilla's equippable component (swappable, like a chestplate); a worn chestplate or elytra is swapped into your hand. A backpack and a chestplate or elytra therefore exclude each other. The component allows players only, takes no damage from hits (damageOnHurt off) and has no equipment asset, so nothing is drawn on the player.",
+            "Armor while worn: 1 / 2 / 3 / 4 armor points by tier, as an attribute modifier for the chest slot group.",
+            "Opening: only while worn. The key \"Open Backpack\" (key.simplebuilding.open_backpack, default B, in the mod's key category) asks the server for the backpack screen, and the server checks again that you are alive, not a spectator, have no other container open and wear a backpack. Without a worn backpack the key opens the normal inventory, exactly like E. E itself is unchanged and always opens the normal inventory.",
+            "The backpack screen is the player inventory as vanilla lays it out - 2x2 crafting grid with recipe book, armor, off-hand, player model, active effects and the mod's resonance stats button - with the backpack rows inserted between the crafting area and the main inventory. Backpack rows are tinted light brown, the extra columns purple; for now the extra columns are ordinary storage slots.",
+            "Extra columns run alongside the backpack rows and the three main inventory rows, not alongside the hotbar. The Netherite Backpack has one column to the right of the grid (3 + 3 = 6 slots); the Enderite Backpack has one on the right and a second one on the left (4 + 3 = 7 slots each).",
+            "While the screen of the worn backpack is open, the chest slot is locked: the backpack can be neither taken out nor replaced - not by clicking, shift-clicking, number keys or dropping.",
+            "Shift-click in the backpack screen: from the main inventory or hotbar into the backpack first; whatever does not fit goes the vanilla way (armor into its slot, main inventory and hotbar into each other). From the backpack into the main inventory, then the hotbar - never straight into an armor slot, as with a chest. The crafting result, the grid, the armor slots and the off-hand move as in the vanilla inventory and, when main inventory and hotbar are full, into the backpack.",
+            "The 2x2 grid and the recipe book work as in the inventory; the recipe book only counts and fills from the player inventory, not from the backpack.",
+            "Setting it down: sneak + right-click on a block places the backpack as a block with its front facing you (outside creative the item is used up). Without sneaking the same click puts it on instead.",
+            "Placed backpack: a right-click opens its storage in the same screen, here without a locked slot; the screen closes when the block is gone or you move out of reach (block interaction range plus 4 blocks, as with a chest). Breaking it always drops the backpack item with all components of the block (loot function copy_components from the block entity: contents, name, enchantments) - no tool needed and no explosion condition. In creative a backpack with contents still drops, an empty one does not.",
+            "The placed backpack is not a container for hoppers or comparators: they neither see nor move its contents.",
+            "Block: hardness 0.8, wool sound, brown map colour; a piston destroys it instead of pushing it, and it drops. Blast resistance 0.8 (Backpack, Reinforced Backpack) or 1200 (Netherite, Enderite). Shape: a 10 x 13 x 6 pixel bag with an 8 x 8 x 2 front pocket, turned with its facing.",
+            "What goes in: everything that may go into container items, except backpacks - so no shulker boxes and no second backpack; bundles and quivers do fit. A backpack itself fits into no container item: not into shulker boxes, bundles or other backpacks.",
+            "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
+            "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
+            "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
+            "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
+            "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
+            "Deep Pockets raises the stack limit of the backpack slots: level I doubles, level II quadruples it - the same steps Deep Pockets uses for bundle capacity, and 4x is also the most the stored format holds for 99-stacks (count limit 396). Only stackable items grow: cobblestone 64 / 128 / 256, ender pearls 16 / 32 / 64; unstackable items stay at 1.",
+            "Big stacks never leave the backpack oversized: picking up, dropping and double-click collecting take at most one normal stack; a number key moves one normal stack into an empty hotbar or off-hand slot only; clicking such a stack with a different item on the cursor does nothing. If Deep Pockets is removed later (grindstone), oversized stacks stay and can still be taken out; only adding beyond the normal limit stops.",
+            "Funnel (worn backpack): an item you touch goes into the backpack only after all bundle checks - hands and bundles in the inventory come first - and only once its pickup delay has run out. Level I only takes types already inside (same item and components), level II everything allowed. Matching stacks are filled up to the slot limit first, then empty slots; the bundle insert sound plays. Nothing is vacuumed while sneaking, and whatever does not fit is picked up the normal way.",
+            "Master Builder (on the backpack itself): the Building Wand uses the worn backpack as its last material source - after off-hand, hotbar and, with Master Builder on the wand, the rest of the inventory and bundles - and takes one item per placed block out of it. Master Builder on the wand alone does not reach into the backpack, and the wand never uses a backpack as a building block.",
+            "Master Builder and pick block (survival): if the targeted block is neither in the inventory nor in a Master Builder bundle but in a worn Master Builder backpack, one normal stack of it comes out of the backpack into the selected hotbar slot; an item held there moves to a free slot first, and without a free slot nothing happens.",
+            "Constructor's Touch (worn backpack): when placing a block from your hand uses up that stack, a matching stack (same item and components) from the backpack refills the hand - at most one normal stack, not in creative mode, and only for placements straight from the hand (BlockItem.place), not for blocks the wand or a Master Builder bundle places.",
+            "Smithing trims: because of the equippable component the mod's trim check (SmithingScreenHandlerMixin.isValidArmor) accepts backpacks, so the Glowing and Emitting Trim Upgrade Templates work on them; worn, the emission level counts towards the dynamic light like on any armor piece (DynamicLightHandler adds up all four armor slots)."
+          ],
+          "controls": [
+            "Right-click with the backpack in hand (not sneaking): put it on.",
+            "Backpack key (default B) while wearing one: open the backpack screen; the same key, E or Esc closes it. Without a backpack the key opens the normal inventory.",
+            "Sneak + right-click on a block: set the backpack down. Right-click the placed backpack: open it. Break it: get it back with everything inside."
+          ],
+          "tiers": [
+            "Backpack: 1 row, 9 slots, 1 armor point; crafted.",
+            "Reinforced Backpack: 2 rows, 18 slots, 2 armor points; crafted from a Backpack, rarity uncommon.",
+            "Netherite Backpack: 3 rows plus 1 extra column (6 slots), 33 slots, 3 armor points; smithed from the Reinforced Backpack, fire resistant, explosion-proof as an item, rarity uncommon.",
+            "Enderite Backpack: 4 rows plus 2 extra columns (7 slots each), 50 slots, 4 armor points; smithed from the Netherite Backpack, fire resistant, explosion-proof as an item, void protected, rarity epic."
+          ],
+          "caveats": [
+            "Nothing is drawn on the player yet: a worn backpack is invisible, like a worn quiver.",
+            "The worn backpack's contents are part of the chest item and therefore reach nearby players with every equipment update, as a held shulker box would.",
+            "A backpack is always opened through the key while worn or as a placed block; a backpack elsewhere in the inventory cannot be opened."
+          ]
+        },
+        "de": {
+          "summary": "Rucksäcke sind tragbarer Stauraum in vier Stufen mit 9, 18, 33 und 50 Plätzen. Ein Rechtsklick legt einen Rucksack in den Brust-Slot, danach öffnet die Rucksack-Taste (Standard B) das Inventar samt den Rucksack-Plätzen. Schleichen + Rechtsklick auf einen Block stellt ihn als Block ab; der öffnet sich per Rechtsklick und fällt beim Abbauen als Item mit allem Inhalt zurück.",
+          "details": [
+            "Klasse BackpackItem (ein BlockItem zum Block BackpackBlock); Stapelgröße 1, keine Haltbarkeit. Der Inhalt steckt in der Item-Komponente simplebuilding:backpack_contents und reist mit dem Item: Todes-Drop, Abstellen, die Aufwertung am Werkbank und die Schmiede-Aufwertungen behalten ihn.",
+            "Anziehen: Rechtsklick mit dem Rucksack in der Hand – in die Luft oder ohne Schleichen auf einen Block – legt ihn über Vanillas Ausrüstungs-Komponente (swappable, wie ein Brustpanzer) in den Brust-Slot; ein getragener Brustpanzer oder eine Elytra wandert dabei in die Hand. Rucksack und Brustpanzer bzw. Elytra schließen sich also aus. Die Komponente erlaubt nur Spieler, Treffer kosten nichts (damageOnHurt aus), und sie hat kein Ausrüstungs-Asset, am Spieler ist also nichts zu sehen.",
+            "Rüstung beim Tragen: 1 / 2 / 3 / 4 Rüstungspunkte je Stufe, als Attribut-Modifikator für die Brust-Slotgruppe.",
+            "Öffnen: nur getragen. Die Taste „Rucksack öffnen“ (key.simplebuilding.open_backpack, Standard B, in der Tastenkategorie der Mod) fragt den Server nach dem Rucksack-Bildschirm; der prüft selbst noch einmal, dass man lebt, kein Zuschauer ist, kein anderes Menü offen hat und einen Rucksack trägt. Ohne getragenen Rucksack öffnet die Taste das normale Inventar, genau wie E. E selbst bleibt unverändert und öffnet immer das normale Inventar.",
+            "Der Rucksack-Bildschirm ist das Spielerinventar in Vanillas Anordnung – 2x2-Werkbank mit Rezeptbuch, Rüstung, Nebenhand, Spielermodell, aktive Effekte und der Resonanz-Knopf der Mod – mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar. Rucksack-Reihen sind hellbraun getönt, die Zusatzspalten violett; vorerst sind die Zusatzspalten gewöhnliche Lagerplätze.",
+            "Zusatzspalten laufen neben den Rucksack-Reihen und den drei Hauptinventar-Reihen entlang, nicht neben der Hotbar. Der Netherit-Rucksack hat eine Spalte rechts vom Raster (3 + 3 = 6 Plätze); der Enderit-Rucksack eine rechts und eine zweite links (je 4 + 3 = 7 Plätze).",
+            "Solange der Bildschirm des getragenen Rucksacks offen ist, ist der Brust-Slot gesperrt: Der Rucksack lässt sich weder herausnehmen noch ersetzen – weder per Klick, Shift-Klick, Zifferntaste noch Wegwerfen.",
+            "Shift-Klick im Rucksack-Bildschirm: aus Hauptinventar oder Hotbar zuerst in den Rucksack; was nicht passt, geht den Vanilla-Weg (Rüstung in ihren Slot, Hauptinventar und Hotbar gegeneinander). Aus dem Rucksack ins Hauptinventar, dann in die Hotbar – nie direkt in einen Rüstungs-Slot, wie bei einer Truhe. Werkbank-Ergebnis, Raster, Rüstungs-Slots und Nebenhand verschieben wie im Vanilla-Inventar und, wenn Hauptinventar und Hotbar voll sind, in den Rucksack.",
+            "Das 2x2-Raster und das Rezeptbuch funktionieren wie im Inventar; das Rezeptbuch zählt und befüllt nur aus dem Spielerinventar, nicht aus dem Rucksack.",
+            "Abstellen: Schleichen + Rechtsklick auf einen Block stellt den Rucksack als Block ab, mit der Vorderseite zum Spieler (außerhalb des Kreativmodus wird das Item verbraucht). Ohne Schleichen zieht derselbe Klick ihn stattdessen an.",
+            "Abgestellter Rucksack: Rechtsklick öffnet seinen Stauraum im selben Bildschirm, hier ohne gesperrten Slot; der Bildschirm schließt, wenn der Block weg ist oder man sich entfernt (Block-Interaktionsreichweite plus 4 Blöcke, wie bei einer Truhe). Abbauen droppt immer das Rucksack-Item mit allen Komponenten des Blocks (Loot-Funktion copy_components vom Blockobjekt: Inhalt, Name, Verzauberungen) – ohne Werkzeug und ohne Explosionsbedingung. Im Kreativmodus fällt ein Rucksack mit Inhalt trotzdem heraus, ein leerer nicht.",
+            "Für Trichter und Komparatoren ist der abgestellte Rucksack kein Behälter: Sie sehen und bewegen seinen Inhalt nicht.",
+            "Block: Härte 0,8, Wolle-Klang, braune Kartenfarbe; ein Kolben zerstört ihn, statt ihn zu schieben, und er droppt. Explosionswiderstand 0,8 (Rucksack, Verstärkter Rucksack) bzw. 1200 (Netherit, Enderit). Form: ein 10 x 13 x 6 Pixel großer Sack mit 8 x 8 x 2 Pixel Vordertasche, mit der Blickrichtung gedreht.",
+            "Was hineinpasst: alles, was in Behälter-Items darf, außer Rucksäcken – also keine Shulkerkisten und kein zweiter Rucksack; Bündel und Köcher passen. Ein Rucksack selbst passt in kein Behälter-Item: nicht in Shulkerkisten, Bündel oder andere Rucksäcke.",
+            "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
+            "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
+            "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
+            "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
+            "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
+            "Tiefe Taschen hebt die Stapelgrenze der Rucksack-Plätze: Stufe I verdoppelt, Stufe II vervierfacht sie – dieselben Stufen, mit denen Tiefe Taschen die Bündel-Kapazität erhöht, und das Vierfache ist zugleich das Höchste, was das Speicherformat für 99er-Stapel fasst (Zählgrenze 396). Nur stapelbare Items wachsen: Bruchstein 64 / 128 / 256, Enderperlen 16 / 32 / 64; nicht stapelbare bleiben bei 1.",
+            "Große Stapel verlassen den Rucksack nie übergroß: Aufnehmen, Wegwerfen und Doppelklick-Sammeln nehmen höchstens einen normalen Stapel; eine Zifferntaste legt einen normalen Stapel nur in einen leeren Hotbar- oder Nebenhand-Platz; ein Klick mit einem anderen Item am Cursor auf so einen Stapel bewirkt nichts. Wird Tiefe Taschen später entfernt (Schleifstein), bleiben übergroße Stapel liegen und lassen sich weiter herausnehmen; nur Nachlegen über die normale Grenze geht dann nicht mehr.",
+            "Trichter (getragener Rucksack): Ein berührtes Item landet erst nach allen Bündel-Prüfungen im Rucksack – Hände und Bündel im Inventar kommen zuerst – und erst, wenn seine Aufhebe-Sperre abgelaufen ist. Stufe I nimmt nur Sorten, die schon drin liegen (gleiches Item, gleiche Komponenten), Stufe II alles Erlaubte. Zuerst werden passende Stapel bis zur Platzgrenze aufgefüllt, dann leere Plätze; dabei ertönt der Bündel-Einlege-Klang. Beim Schleichen wird nichts aufgesaugt, und was nicht passt, wird normal aufgehoben.",
+            "Baumeister (auf dem Rucksack selbst): Der Baustab nutzt den getragenen Rucksack als letzte Materialquelle – nach Nebenhand, Hotbar und, mit Baumeister auf dem Stab, dem restlichen Inventar samt Bündeln – und nimmt je gesetztem Block ein Stück heraus. Baumeister nur auf dem Stab greift nicht in den Rucksack, und einen Rucksack verbaut der Stab nie als Baublock.",
+            "Baumeister und Blockauswahl (Überlebensmodus): Liegt der anvisierte Block weder im Inventar noch in einem Baumeister-Bündel, aber in einem getragenen Baumeister-Rucksack, kommt ein normaler Stapel davon aus dem Rucksack in den gewählten Hotbar-Slot; ein dort gehaltenes Item wandert vorher in einen freien Platz, ohne freien Platz passiert nichts.",
+            "Berührung des Konstrukteurs (getragener Rucksack): Verbraucht das Platzieren eines Blocks aus der Hand den letzten Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place), nicht bei Blöcken, die der Baustab oder ein Baumeister-Bündel setzt.",
+            "Besätze am Schmiedetisch: Wegen der Ausrüstungs-Komponente akzeptiert die Besatz-Prüfung der Mod (SmithingScreenHandlerMixin.isValidArmor) Rucksäcke, die Leucht- und die Strahl-Aufwertungsvorlage wirken also auf sie; getragen zählt die Strahlstufe wie bei jedem Rüstungsteil zum dynamischen Licht (DynamicLightHandler summiert alle vier Rüstungs-Slots)."
+          ],
+          "controls": [
+            "Rechtsklick mit dem Rucksack in der Hand (ohne Schleichen): anziehen.",
+            "Rucksack-Taste (Standard B) mit getragenem Rucksack: Rucksack-Bildschirm öffnen; dieselbe Taste, E oder Esc schließt ihn. Ohne Rucksack öffnet die Taste das normale Inventar.",
+            "Schleichen + Rechtsklick auf einen Block: Rucksack abstellen. Rechtsklick auf den abgestellten Rucksack: öffnen. Abbauen: mit allem Inhalt zurückbekommen."
+          ],
+          "tiers": [
+            "Rucksack: 1 Reihe, 9 Plätze, 1 Rüstungspunkt; an der Werkbank hergestellt.",
+            "Verstärkter Rucksack: 2 Reihen, 18 Plätze, 2 Rüstungspunkte; aus einem Rucksack hergestellt, Seltenheit ungewöhnlich.",
+            "Netherit-Rucksack: 3 Reihen plus 1 Zusatzspalte (6 Plätze), 33 Plätze, 3 Rüstungspunkte; aus dem Verstärkten Rucksack geschmiedet, feuerfest, als Item explosionsfest, Seltenheit ungewöhnlich.",
+            "Enderit-Rucksack: 4 Reihen plus 2 Zusatzspalten (je 7 Plätze), 50 Plätze, 4 Rüstungspunkte; aus dem Netherit-Rucksack geschmiedet, feuerfest, als Item explosionsfest, vor der Leere geschützt, Seltenheit episch."
+          ],
+          "caveats": [
+            "Am Spieler wird noch nichts gezeichnet: Ein getragener Rucksack ist unsichtbar, wie ein getragener Köcher.",
+            "Der Inhalt des getragenen Rucksacks gehört zum Brust-Item und erreicht deshalb mit jeder Ausrüstungs-Aktualisierung die Spieler in der Nähe, wie eine gehaltene Shulkerkiste.",
+            "Geöffnet wird ein Rucksack immer über die Taste, während er getragen wird, oder als abgestellter Block; ein Rucksack woanders im Inventar lässt sich nicht öffnen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:reinforced_blast_furnace",
@@ -12402,6 +13900,42 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:backpack",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:backpack",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/backpack.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:iron_bars",
+        "minecraft:string",
+        "simplebuilding:leather_sheet"
+      ],
+      "pattern": [
+        "NSN",
+        "PPP",
+        "III"
+      ],
+      "key": {
+        "I": [
+          "minecraft:iron_bars"
+        ],
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "P": [
+          "simplebuilding:leather_sheet"
+        ],
+        "S": [
+          "minecraft:string"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:basic_upgrade_template",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -12895,6 +14429,33 @@ window.WIKI_DATA = {
         ],
         "base": [
           "minecraft:netherite_axe"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:enderite_backpack_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_backpack",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_backpack_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_backpack"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_backpack"
         ],
         "addition": [
           "simplebuilding:enderite_ingot"
@@ -13773,6 +15334,30 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:leather_sheet",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:leather_sheet",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+      "ingredients": [
+        "minecraft:leather"
+      ],
+      "pattern": [
+        "LLL",
+        "LLL",
+        "LLL"
+      ],
+      "key": {
+        "L": [
+          "minecraft:leather"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:levitating_gravel",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -13889,6 +15474,33 @@ window.WIKI_DATA = {
         ],
         "N": [
           "simplebuilding:netherite_nugget"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:netherite_backpack_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_backpack",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_backpack_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:reinforced_backpack"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:reinforced_backpack"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
         ]
       }
     },
@@ -14887,6 +16499,38 @@ window.WIKI_DATA = {
           "minecraft:ender_pearl"
         ]
       ]
+    },
+    {
+      "id": "simplebuilding:reinforced_backpack",
+      "type": "simplebuilding:backpack_upgrade",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_backpack",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
+      "ingredients": [
+        "simplebuilding:backpack",
+        "simplebuilding:diamond_pebble",
+        "simplebuilding:leather_sheet"
+      ],
+      "pattern": [
+        "DLD",
+        "LBL",
+        "LLL"
+      ],
+      "key": {
+        "B": [
+          "simplebuilding:backpack"
+        ],
+        "D": [
+          "simplebuilding:diamond_pebble"
+        ],
+        "L": [
+          "simplebuilding:leather_sheet"
+        ]
+      }
     },
     {
       "id": "simplebuilding:reinforced_blast_furnace",
@@ -15983,6 +17627,22 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_ore.json"
     },
     {
+      "id": "simplebuilding:blocks/backpack",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:backpack"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/backpack.json"
+    },
+    {
       "id": "simplebuilding:blocks/blackstone_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -16035,6 +17695,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/cracked_diamond_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/enderite_backpack",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_backpack"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_backpack.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_block",
@@ -16107,6 +17783,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/levitating_sand.json"
+    },
+    {
+      "id": "simplebuilding:blocks/netherite_backpack",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:netherite_backpack"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_backpack.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_blast_furnace",
@@ -16286,6 +17978,22 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/purpur_quartz_checker.json"
+    },
+    {
+      "id": "simplebuilding:blocks/reinforced_backpack",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:reinforced_backpack"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_backpack.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_blast_furnace",
@@ -17395,7 +19103,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Constructor's Touch is the mod's all-purpose enchantment: on each tool it unlocks a different extra ability - cycling block states with a plain stick, extra chisel conversions, the Building Wand's settings menu, and more.",
           "details": [
-            "Can be applied (item tag constructors_touch_enchantable) to: Reinforced Bundle, Netherite Bundle, Enderite Bundle, Quiver, Netherite Quiver, Enderite Quiver, Shulker Box, chisels Stone through Enderite (#chisel_tools), sledgehammers Stone through Enderite (#sledgehammer_tools), Building Wands Copper through Enderite (#building_wand_enchantable), Velocity Gauge, Ore Detector, Magnet, all 17 Octants (#octants_enchantable) and the plain Stick (minecraft:stick). Slot: main hand; max level I; anvil cost 1; weight 1; enchanting cost 20 (+10 per level above the first) to 50 (+10 per level above the first).",
+            "Can be applied (item tag constructors_touch_enchantable) to: Reinforced Bundle, Netherite Bundle, Enderite Bundle, Quiver, Netherite Quiver, Enderite Quiver, Shulker Box, the four backpacks (#backpacks), chisels Stone through Enderite (#chisel_tools), sledgehammers Stone through Enderite (#sledgehammer_tools), Building Wands Copper through Enderite (#building_wand_enchantable), Velocity Gauge, Ore Detector, Magnet, all 17 Octants (#octants_enchantable) and the plain Stick (minecraft:stick). Slot: main hand; max level I; anvil cost 1; weight 1; enchanting cost 20 (+10 per level above the first) to 50 (+10 per level above the first).",
             "Stick: right-clicking a block with an enchanted stick advances its first block property (the first entry of state.getProperties()) to the next value; sneaking goes back to the previous one. The new value appears on the action bar as \"property: value\" (sendOverlayMessage). Blocks with no properties are left unchanged.",
             "Chisel and spatula: the enchantment unlocks an extra set of conversions per tool tier (backwards too, by sneaking or with the spatula). Stone tier: Mud Bricks -> Packed Mud -> Mud; Cobblestone -> Mossy Cobblestone (stairs and slabs as well); every log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak) -> stripped log.",
             "Copper/Iron chisel adds: Bricks -> Mud Bricks (stairs and slabs as well); every wood block (the same nine wood types) -> stripped wood; Crimson and Warped Planks -> Stairs -> Slab.",
@@ -17406,6 +19114,7 @@ window.WIKI_DATA = {
             "Ore Detector: the search's cost factor (costMultiplier) drops from 2.0 to 1.0 - every 0.5-block step along the line of sight (air costs too, density 1.0) now eats only half as much of the search budget (budgets: 24 for Iron/All Ores/Custom, 18 for Gold, 16 for Diamond, 10 for Netherite).",
             "Magnet: pull range 8.0 instead of 4.0 blocks (each Range level adds another 2.0). On top of that, right-clicking an item frame that holds an item with the enchanted Magnet sets the magnet filter to that item (action bar \"Magnet Filter set to: ...\", ItemFrameEntityMixin).",
             "Quiver: when shooting a bow (BowItemMixin), arrows are also drawn from quivers lying anywhere else in the inventory (slot 9 and up) - but only if that quiver carries the enchantment. Offhand, chest armor slot and hotbar work without it.",
+            "Backpack (worn): when placing a block from your hand uses up that stack, a matching stack (same item and components) from the worn backpack refills the hand - at most one normal stack, not in creative mode, and only for placements straight from the hand (BlockItem.place).",
             "Octant: the filled-in area/figure preview is shown when the octant carries the enchantment (with the \"Invert Octant Sneak\" option on it is exactly the other way round: showFill = invert XOR enchantment); on top of that both positions must be set and the highlights (ClientState.showHighlights) must be switched on.",
             "An enchanted book gets its own book model (\"constructors_touch\").",
             "Not in the enchanting table (minecraft:in_enchanting_table contains only Fast Chiseling from the mod); no villager offer in the trade files.",
@@ -17419,7 +19128,7 @@ window.WIKI_DATA = {
             "Magnet: right-click an item frame holding an item = set the filter (only with the enchantment); sneak + right-click with no block targeted = clear the filter (works without the enchantment too)."
           ],
           "caveats": [
-            "Shulker Box, Velocity Gauge, Reinforced Bundle and Netherite Bundle: it can be applied, but no code reads it there, so it does nothing (every reader of CONSTRUCTORS_TOUCH is ChiselItem, SledgehammerItem, OreDetectorItem, MagnetItem, QuiverItem, ItemFrameEntityMixin, BlockHighlightRenderer, the stick handlers and the Building Wand key check).",
+            "Shulker Box, Velocity Gauge, Reinforced Bundle and Netherite Bundle: it can be applied, but no code reads it there, so it does nothing (every reader of CONSTRUCTORS_TOUCH is ChiselItem, SledgehammerItem, OreDetectorItem, MagnetItem, QuiverItem, BackpackItem (through BlockItemMixin), ItemFrameEntityMixin, BlockHighlightRenderer, the stick handlers and the Building Wand key check).",
             "The stick only ever cycles the FIRST property of a block; further properties cannot be reached with it. On top of that the enchanted stick swallows every right-click block interaction (it returns SUCCESS even on blocks with no properties), so the block's normal use is skipped.",
             "Every spatula (item ids *_spatula, untranslated in both language files) is missing from #chisel_tools; the enchantment cannot be put on them at an anvil, even though ChiselItem would read it there. The spatulas are legacy items that LegacySpatulaMigration turns into the chisel of the same tier."
           ]
@@ -17427,7 +19136,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "„Berührung des Konstrukteurs“ ist die Allzweck-Verzauberung der Mod: Auf jedem Werkzeug schaltet sie eine andere Zusatzfunktion frei – vom Umschalten von Blockzuständen mit einem Stock über Extra-Umwandlungen beim Meißel bis zum Einstellungsmenü des Baustabs.",
           "details": [
-            "Anbringbar (Item-Tag constructors_touch_enchantable) auf: Verstärktes Bündel, Netherit-Bündel, Enderite Bundle, Köcher, Netherit-Köcher, Enderite Quiver, Shulker-Kiste, Meißel Stein bis Enderit (#chisel_tools), Vorschlaghämmer Stein bis Enderit (#sledgehammer_tools), Baustäbe Kupfer bis Enderit (#building_wand_enchantable), Geschwindigkeitsmesser, Erzdetektor, Magnet, alle 17 Oktanten (#octants_enchantable) und den gewöhnlichen Stock (minecraft:stick). Slot: Haupthand; maximale Stufe I; Amboss-Kosten 1; Gewicht 1; Kostenbereich 20 (+10) bis 50 (+10).",
+            "Anbringbar (Item-Tag constructors_touch_enchantable) auf: Verstärktes Bündel, Netherit-Bündel, Enderite Bundle, Köcher, Netherit-Köcher, Enderite Quiver, Shulker-Kiste, die vier Rucksäcke (#backpacks), Meißel Stein bis Enderit (#chisel_tools), Vorschlaghämmer Stein bis Enderit (#sledgehammer_tools), Baustäbe Kupfer bis Enderit (#building_wand_enchantable), Geschwindigkeitsmesser, Erzdetektor, Magnet, alle 17 Oktanten (#octants_enchantable) und den gewöhnlichen Stock (minecraft:stick). Slot: Haupthand; maximale Stufe I; Amboss-Kosten 1; Gewicht 1; Kostenbereich 20 (+10) bis 50 (+10).",
             "Stock: Rechtsklick mit einem verzauberten Stock auf einen Block schaltet dessen erste Blockeigenschaft (erster Eintrag von state.getProperties()) auf den nächsten Wert; mit Schleichen auf den vorherigen. Der neue Wert erscheint in der Aktionsleiste als „Eigenschaft: Wert“ (sendOverlayMessage). Blöcke ohne Eigenschaften bleiben unverändert.",
             "Meißel und Spatel: Die Verzauberung schaltet je Werkzeugstufe zusätzliche Umwandlungsreihen frei (auch rückwärts per Schleichen bzw. mit dem Spatel). Steinstufe: Schlammziegel → gepackter Schlamm → Schlamm; Bruchstein → bemooster Bruchstein (auch Treppen und Stufen); alle Stämme (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche) → entrindete Stämme.",
             "Meißel Kupfer/Eisen zusätzlich: Ziegel → Schlammziegel (auch Treppen und Stufen); alle Holzblöcke (dieselben neun Holzarten) → entrindetes Holz; Karmesin- und Wirrbretter → Treppe → Stufe.",
@@ -17438,6 +19147,7 @@ window.WIKI_DATA = {
             "Erzdetektor: Der Kostenfaktor der Suche (costMultiplier) sinkt von 2.0 auf 1.0 – jeder 0,5-Block-Schritt der Sichtlinie (auch durch Luft, Dichte 1.0) verbraucht nur noch die Hälfte des Suchbudgets (Budgets: 24 bei Eisen/Alle/Eigen, 18 bei Gold, 16 bei Diamant, 10 bei Netherit).",
             "Magnet: Anziehungsreichweite 8.0 statt 4.0 Blöcke (jede Stufe „Reichweite“ addiert weitere 2.0). Außerdem setzt ein Rechtsklick mit dem verzauberten Magneten auf einen Rahmen mit Item den Magnetfilter auf dieses Item (Aktionsleiste „Magnet Filter set to: …“, ItemFrameEntityMixin).",
             "Köcher: Beim Schießen mit dem Bogen (BowItemMixin) werden Pfeile auch aus Köchern gezogen, die irgendwo im restlichen Inventar (ab Slot 9) liegen – aber nur, wenn dieser Köcher die Verzauberung trägt. Nebenhand, Brustplatz und Hotbar funktionieren ohne.",
+            "Rucksack (getragen): Verbraucht das Platzieren eines Blocks aus der Hand den Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem getragenen Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place).",
             "Oktant: Die gefüllte Flächen-/Figur-Vorschau wird angezeigt, wenn der Oktant die Verzauberung trägt (mit aktiver Option „Oktant Schleichen umkehren“ genau umgekehrt: showFill = invert XOR Verzauberung); zusätzlich müssen beide Positionen gesetzt und die Hervorhebungen (ClientState.showHighlights) eingeschaltet sein.",
             "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („constructors_touch“).",
             "Nicht in der Verzauberungstabelle (minecraft:in_enchanting_table enthält aus der Mod nur Schnelles Meißeln); kein Händlerangebot in den Handelsdateien.",
@@ -17451,7 +19161,7 @@ window.WIKI_DATA = {
             "Magnet: Rechtsklick auf Rahmen mit Item = Filter setzen (nur mit Verzauberung); Schleichen + Rechtsklick ohne Blockziel = Filter löschen (funktioniert auch ohne Verzauberung)."
           ],
           "caveats": [
-            "Shulker-Kiste, Geschwindigkeitsmesser, Verstärktes Bündel und Netherit-Bündel: anbringbar, aber kein Code wertet die Verzauberung dort aus – keine Wirkung (alle Leser von CONSTRUCTORS_TOUCH sind ChiselItem, SledgehammerItem, OreDetectorItem, MagnetItem, QuiverItem, ItemFrameEntityMixin, BlockHighlightRenderer, die Stock-Handler und die Baustab-Tastenabfrage).",
+            "Shulker-Kiste, Geschwindigkeitsmesser, Verstärktes Bündel und Netherit-Bündel: anbringbar, aber kein Code wertet die Verzauberung dort aus – keine Wirkung (alle Leser von CONSTRUCTORS_TOUCH sind ChiselItem, SledgehammerItem, OreDetectorItem, MagnetItem, QuiverItem, BackpackItem (über BlockItemMixin), ItemFrameEntityMixin, BlockHighlightRenderer, die Stock-Handler und die Baustab-Tastenabfrage).",
             "Der Stock schaltet immer nur die ERSTE Eigenschaft des Blocks; weitere Eigenschaften sind mit dem Stock nicht erreichbar. Außerdem fängt der verzauberte Stock jede Rechtsklick-Blockinteraktion ab (liefert SUCCESS, auch bei Blöcken ohne Eigenschaften), die normale Benutzung des Blocks entfällt dabei.",
             "Alle Spatel (Item-Ids *_spatula, ohne Übersetzung in den Sprachdateien) fehlen im Tag chisel_tools; auf sie lässt sich die Verzauberung per Amboss nicht anbringen, obwohl ChiselItem sie dort auswerten würde. Die Spatel sind Altlasten, die LegacySpatulaMigration in den Meißel derselben Stufe verwandelt."
           ]
@@ -17490,7 +19200,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
           "common/src/shared/java/com/simplebuilding/client/property/EnchantmentModelProperty.java",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "common/src/shared/java/com/simplebuilding/mixin/BlockItemMixin.java",
+          "src/main/generated/data/simplebuilding/tags/item/backpacks.json"
         ]
       }
     },
@@ -17584,8 +19297,8 @@ window.WIKI_DATA = {
       "slots": [
         "mainhand"
       ],
-      "supportedItems": "#simplebuilding:bundle_enchantable",
-      "primaryItems": "#simplebuilding:bundle_enchantable",
+      "supportedItems": "#simplebuilding:deep_pockets_enchantable",
+      "primaryItems": "#simplebuilding:deep_pockets_enchantable",
       "exclusiveSet": null,
       "effects": [],
       "implementedIn": "code",
@@ -17593,9 +19306,10 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/enchantment/deep_pockets.json",
       "note": {
         "en": {
-          "summary": "Deep Pockets is an enchantment for bundles and quivers that doubles their capacity at level I and quadruples it at level II.",
+          "summary": "Deep Pockets is an enchantment for bundles, quivers and backpacks: it doubles a bundle's or quiver's capacity at level I and quadruples it at level II, and in a backpack it doubles or quadruples the stack limit of the slots.",
           "details": [
-            "Applies to all three bundle tiers and all three quiver tiers (tag simplebuilding:bundle_enchantable); declared slot: mainhand.",
+            "Applies to all three bundle tiers and all three quiver tiers (tag simplebuilding:bundle_enchantable) and to the four backpacks (tag simplebuilding:backpacks); its own tag simplebuilding:deep_pockets_enchantable combines the two, so Drawer, which stays on bundle_enchantable, does not reach the backpacks. Declared slot: mainhand.",
+            "Backpacks: in the slots of a backpack, stackable items stack to 2x (level I) or 4x (level II) their normal maximum - cobblestone 128 or 256, ender pearls 32 or 64; unstackable items stay at 1. Taking out still happens one normal stack at a time (see Backpack). For a worn backpack the level is read when its screen opens, for a placed one from the block.",
             "The capacity effect does not depend on the slot: the code reads the enchantment level straight off the bundle stack, wherever it lies.",
             "Max level 2, weight 2, anvil cost 4; enchanting cost 15 (+10 per further level) to 65 (+10 per further level).",
             "Level I multiplies the capacity by 2, level II (or higher) by 4; the two branches are exclusive, there is no extra doubling on top.",
@@ -17621,9 +19335,10 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Tiefe Taschen ist eine Verzauberung für Bündel und Köcher, die deren Fassungsvermögen auf Stufe I verdoppelt und auf Stufe II vervierfacht.",
+          "summary": "Tiefe Taschen ist eine Verzauberung für Bündel, Köcher und Rucksäcke: Sie verdoppelt das Fassungsvermögen von Bündeln und Köchern auf Stufe I und vervierfacht es auf Stufe II; in einem Rucksack verdoppelt bzw. vervierfacht sie die Stapelgrenze der Plätze.",
           "details": [
-            "Anwendbar auf alle drei Bündel- und alle drei Köcher-Stufen (Tag simplebuilding:bundle_enchantable); definierter Slot: Haupthand.",
+            "Anwendbar auf alle drei Bündel- und alle drei Köcher-Stufen (Tag simplebuilding:bundle_enchantable) und auf die vier Rucksäcke (Tag simplebuilding:backpacks); ihr eigener Tag simplebuilding:deep_pockets_enchantable fasst beide zusammen, damit Schublade, die auf bundle_enchantable bleibt, die Rucksäcke nicht erreicht. Definierter Slot: Haupthand.",
+            "Rucksäcke: In den Plätzen eines Rucksacks stapeln stapelbare Items bis zum Doppelten (Stufe I) bzw. Vierfachen (Stufe II) ihrer normalen Höchstmenge – Bruchstein 128 bzw. 256, Enderperlen 32 bzw. 64; nicht stapelbare bleiben bei 1. Herausgenommen wird weiterhin höchstens ein normaler Stapel auf einmal (siehe Rucksack). Beim getragenen Rucksack wird die Stufe beim Öffnen des Bildschirms gelesen, beim abgestellten vom Block.",
             "Die Kapazitätswirkung hängt nicht vom Slot ab: Der Code liest die Verzauberungsstufe direkt vom Bündel-Stack, egal wo es liegt.",
             "Höchststufe 2, Gewicht 2, Amboss-Kosten 4; Verzauberungskosten 15 (+10 je weiterer Stufe) bis 65 (+10 je weiterer Stufe).",
             "Stufe I multipliziert die Kapazität mit 2, Stufe II (oder höher) mit 4; die beiden Zweige schließen sich aus, es wird nicht zusätzlich verdoppelt.",
@@ -17668,7 +19383,12 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/gametest/ItemBehaviourTests.java",
           "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
           "src/main/resources/data/simplebuilding/villager_trade/librarian/5/emerald_master_book.json",
-          "mc1_21_11/shared/java/com/simplebuilding/trade/ModTradeDefinitions.java"
+          "mc1_21_11/shared/java/com/simplebuilding/trade/ModTradeDefinitions.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/BackpackBlockEntity.java",
+          "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/backpacks.json"
         ]
       }
     },
@@ -17985,8 +19705,8 @@ window.WIKI_DATA = {
       "slots": [
         "mainhand"
       ],
-      "supportedItems": "#simplebuilding:bundle_enchantable",
-      "primaryItems": "#simplebuilding:bundle_enchantable",
+      "supportedItems": "#simplebuilding:funnel_enchantable",
+      "primaryItems": "#simplebuilding:funnel_enchantable",
       "exclusiveSet": null,
       "effects": [],
       "implementedIn": "code",
@@ -17994,14 +19714,15 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/enchantment/funnel.json",
       "note": {
         "en": {
-          "summary": "Funnel is an enchantment for bundles and quivers that vacuums items off the ground into the bundle: level I only types that are already inside, level II everything.",
+          "summary": "Funnel is an enchantment for bundles, quivers and backpacks that vacuums items off the ground into them: level I only types that are already inside, level II everything.",
           "details": [
-            "Applies to all three bundle tiers and all three quiver tiers (tag simplebuilding:bundle_enchantable); declared slot: mainhand.",
+            "Applies to all three bundle tiers and all three quiver tiers (tag simplebuilding:bundle_enchantable) and to the four backpacks (tag simplebuilding:backpacks), combined in its own tag simplebuilding:funnel_enchantable; declared slot: mainhand.",
             "Max level 2, weight 2, anvil cost 4; enchanting cost 15 (+15 per further level) to 55 (+15 per further level).",
             "Level I acts as a filter: an item on the ground is only vacuumed up if the same type (same item, same components) is already in the bundle. An empty bundle with level I takes nothing.",
             "Level II (or higher) vacuums up every item that is allowed inside container items (canFitInsideContainerItems).",
             "What happens when you touch an item entity (a mixin in ItemEntity.playerTouch, server-side only): main hand and off hand are checked first, then every inventory slot in order; the first bundle that is allowed to take the item and has room gets it.",
             "Bundles in your hands are checked even during the pickup lock on freshly dropped items; bundles in the rest of the inventory only once that lock (pickupDelay) has run out.",
+            "A worn backpack with Funnel comes last: only when no bundle took the item and its pickup delay has run out does the backpack in the chest slot get it, with the same level rules; it fills matching stacks up to the slot limit (Deep Pockets included) before empty slots. A backpack that is not worn vacuums up nothing.",
             "Vacuuming plays the collection animation (player.take), counts towards the pickup statistic and plays the bundle insert sound. If the item is vacuumed up completely, the entity is removed and the normal pickup is cancelled; if only part of it fits, the rest is picked up the normal way.",
             "Vacuuming respects the capacity (including Deep Pockets and Drawer) and the Drawer type limit, because the same insertion code runs.",
             "Quivers vacuum up arrows only (tag minecraft:arrows), even at level II.",
@@ -18025,14 +19746,15 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Trichter ist eine Verzauberung für Bündel und Köcher, die Items vom Boden automatisch ins Bündel saugt: Stufe I nur Sorten, die schon drin liegen, Stufe II alles.",
+          "summary": "Trichter ist eine Verzauberung für Bündel, Köcher und Rucksäcke, die Items vom Boden automatisch hineinsaugt: Stufe I nur Sorten, die schon drin liegen, Stufe II alles.",
           "details": [
-            "Anwendbar auf alle drei Bündel- und alle drei Köcher-Stufen (Tag simplebuilding:bundle_enchantable); definierter Slot: Haupthand.",
+            "Anwendbar auf alle drei Bündel- und alle drei Köcher-Stufen (Tag simplebuilding:bundle_enchantable) und auf die vier Rucksäcke (Tag simplebuilding:backpacks), zusammengefasst im eigenen Tag simplebuilding:funnel_enchantable; definierter Slot: Haupthand.",
             "Höchststufe 2, Gewicht 2, Amboss-Kosten 4; Verzauberungskosten 15 (+15 je weiterer Stufe) bis 55 (+15 je weiterer Stufe).",
             "Stufe I wirkt als Filter: Ein Item am Boden wird nur aufgesaugt, wenn dieselbe Sorte (gleiches Item, gleiche Komponenten) bereits im Bündel liegt. Ein leeres Bündel mit Stufe I nimmt nichts.",
             "Stufe II (oder höher) saugt jedes Item auf, das in Behälter-Items passen darf (canFitInsideContainerItems).",
             "Ablauf beim Berühren eines Item-Entities (Mixin in ItemEntity.playerTouch, nur serverseitig): Zuerst werden Haupt- und Nebenhand geprüft, danach jeder Inventarplatz der Reihe nach; das erste Bündel, das darf und Platz hat, nimmt das Item.",
             "Bündel in den Händen werden auch während der Aufhebe-Sperre frisch fallengelassener Items geprüft; Bündel im restlichen Inventar erst, wenn diese Sperre (pickupDelay) abgelaufen ist.",
+            "Ein getragener Rucksack mit Trichter kommt zuletzt: Erst wenn kein Bündel das Item genommen hat und seine Aufhebe-Sperre abgelaufen ist, bekommt es der Rucksack im Brust-Slot, nach denselben Stufenregeln; er füllt passende Stapel bis zur Platzgrenze (mit Tiefe Taschen) vor leeren Plätzen. Ein nicht getragener Rucksack saugt nichts auf.",
             "Beim Aufsaugen gibt es die Einsammel-Animation (player.take), die Aufheben-Statistik und den Bündel-Einlege-Klang. Wird das Item vollständig aufgesaugt, wird das Entity entfernt und das normale Aufheben abgebrochen; passt nur ein Teil, geht der Rest den normalen Weg ins Inventar.",
             "Beim Aufsaugen gelten Kapazität (inklusive Tiefe Taschen und Schublade) und die Schubladen-Sortenbegrenzung, weil derselbe Einfüge-Code läuft.",
             "Köcher saugen auch mit Stufe II nur Pfeile (Tag minecraft:arrows) auf.",
@@ -18071,7 +19793,11 @@ window.WIKI_DATA = {
           "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
           "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
           "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "common/src/shared/java/com/simplebuilding/screen/BackpackContainer.java",
+          "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/backpacks.json"
         ]
       }
     },
@@ -18254,8 +19980,8 @@ window.WIKI_DATA = {
       "slots": [
         "mainhand"
       ],
-      "supportedItems": "#simplebuilding:extra_inventory_items",
-      "primaryItems": "#simplebuilding:extra_inventory_items",
+      "supportedItems": "#simplebuilding:master_builder_enchantable",
+      "primaryItems": "#simplebuilding:master_builder_enchantable",
       "exclusiveSet": null,
       "effects": [],
       "implementedIn": "code",
@@ -18263,14 +19989,16 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/enchantment/master_builder.json",
       "note": {
         "en": {
-          "summary": "Master Builder turns reinforced bundles into building material sources: blocks can be placed straight out of the bundle or pulled out with pick-block, and the building wand may reach into the whole inventory including bundle contents.",
+          "summary": "Master Builder turns reinforced bundles into building material sources: blocks can be placed straight out of the bundle or pulled out with pick-block, and the building wand may reach into the whole inventory including bundle contents. A worn backpack that carries Master Builder itself serves the building wand and pick block as well.",
           "details": [
-            "Applicable to all six building wands (copper through enderite), all three bundles and all three quivers (item tag extra_inventory_items); slot: mainhand; maximum level I; anvil cost 8; weight 1; cost range 25 (+25) to 75 (+25).",
+            "Applicable to all six building wands (copper through enderite), all three bundles, all three quivers (item tag extra_inventory_items) and the four backpacks (tag backpacks), combined in simplebuilding:master_builder_enchantable - Color Palette stays on extra_inventory_items; slot: mainhand; maximum level I; anvil cost 8; weight 1; cost range 25 (+25) to 75 (+25).",
             "The bundle places blocks: right-clicking a block with a Master Builder bundle places the selected entry (with no selection: the first entry) through BlockItem.useOn with a freshly built UseOnContext, i.e. exactly as if the block itself were in your hand; outside creative 1 item is taken out of the bundle. If the entry is not a block, the bundle behaves like a normal bundle (super.useOn).",
             "Selection inside the bundle (applies to every reinforced bundle, registered through HandledScreenMixin): the mouse wheel over the bundle in the inventory picks an entry (ReinforcedBundleSelectionPayload to the server). As soon as the cursor leaves the slot, the selection is reset to -1 ('none') - after that the first entry applies again. Newly inserted stacks are sorted to the front (index 0) and reset the selection as well.",
             "Pick block in survival: if the targeted block (or an entity's pick result) is nowhere in the inventory but is inside a Master Builder bundle, that entry's whole stack is pulled out of the bundle into the selected hotbar slot. An item held there moves to a free slot first; if there is none, nothing happens. The bundle removal sound plays (BUNDLE_REMOVE_ONE). In creative this behaviour is switched off (MinecraftClientMixin aborts on isCreative).",
             "Building wand with Master Builder: the material search goes beyond off-hand and hotbar through the rest of the inventory (from slot 9). Reinforced bundles are used as a source as well - a bundle counts when the wand OR the bundle carries Master Builder; the first matching block is taken from the bundle and removed one at a time.",
             "Building wand without Master Builder: only the off-hand and hotbar (slots 0 to 8) are searched, and a bundle is only opened when the bundle itself carries Master Builder.",
+            "Worn backpack: if the backpack in the chest slot carries Master Builder itself, the building wand uses it as its last material source - after off-hand, hotbar and, with Master Builder on the wand, the rest of the inventory including bundles - and takes one item per block out of it. Master Builder on the wand alone does not reach into a backpack, and the wand never places a backpack as a block.",
+            "Pick block and backpack: if the target is neither in the inventory nor in a Master Builder bundle but in a worn backpack with Master Builder, at most one normal stack comes out of the backpack into the selected hotbar slot (the rest of a Deep Pockets stack stays inside); the free-slot rule is the same as for bundles.",
             "Master Builder is a prerequisite for Color Palette: an anvil result with Color Palette but without Master Builder is discarded (result slot empty, cost 0).",
             "Not combinable with Drawer (whose exclusive set builder_group contains Master Builder); a data integrity test (expectCompatibility DRAWER/MASTER_BUILDER = false) checks this incompatibility.",
             "An enchanted book with Master Builder gets its own book model ('master_builder').",
@@ -18282,7 +20010,8 @@ window.WIKI_DATA = {
             "Right-click a block with the bundle: places the selected, or first, block from the bundle.",
             "Mouse wheel over the bundle in the inventory: pick an entry (the selection expires when you leave the slot).",
             "Pick-block key on a block that is only in the bundle: pulls the stack out of the bundle into your hand (survival only).",
-            "Building wand with Master Builder: right-click as usual; material also comes from the rest of the inventory and from bundles."
+            "Building wand with Master Builder: right-click as usual; material also comes from the rest of the inventory and from bundles.",
+            "Wear a backpack with Master Builder: the building wand and pick block also draw from its contents."
           ],
           "caveats": [
             "Applicable to the Quiver and Netherite Quiver, but without effect: QuiverItem returns PASS on use and useOn, so there is nothing to place, and no code reads Master Builder on a quiver.",
@@ -18290,14 +20019,16 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "„Baumeister“ macht Verstärkte Bündel zu Baumaterial-Quellen: Blöcke lassen sich direkt aus dem Bündel platzieren oder per Blockauswahl herausholen, und der Baustab darf auf das ganze Inventar samt Bündelinhalten zugreifen.",
+          "summary": "„Baumeister“ macht Verstärkte Bündel zu Baumaterial-Quellen: Blöcke lassen sich direkt aus dem Bündel platzieren oder per Blockauswahl herausholen, und der Baustab darf auf das ganze Inventar samt Bündelinhalten zugreifen. Ein getragener Rucksack, der selbst Baumeister trägt, dient Baustab und Blockauswahl ebenfalls als Quelle.",
           "details": [
-            "Anbringbar auf alle sechs Baustäbe (Kupfer bis Enderit), alle drei Bündel und alle drei Köcher (Item-Tag extra_inventory_items); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 8; Gewicht 1; Kostenbereich 25 (+25) bis 75 (+25).",
+            "Anbringbar auf alle sechs Baustäbe (Kupfer bis Enderit), alle drei Bündel, alle drei Köcher (Item-Tag extra_inventory_items) und die vier Rucksäcke (Tag backpacks), zusammengefasst in simplebuilding:master_builder_enchantable – Farbpalette bleibt auf extra_inventory_items; Slot: Haupthand; maximale Stufe I; Amboss-Kosten 8; Gewicht 1; Kostenbereich 25 (+25) bis 75 (+25).",
             "Bündel platziert Blöcke: Rechtsklick mit einem Baumeister-Bündel auf einen Block platziert den ausgewählten Eintrag (ohne Auswahl: den ersten Eintrag) über BlockItem.useOn mit einem neu gebauten UseOnContext, also wie der Block selbst in der Hand; außerhalb des Kreativmodus wird 1 Stück aus dem Bündel abgezogen. Ist der Eintrag kein Block, verhält sich das Bündel wie ein normales Bündel (super.useOn).",
             "Auswahl im Bündel (gilt für jedes Verstärkte Bündel, registriert über HandledScreenMixin): Mausrad über dem Bündel im Inventar wählt einen Eintrag (ReinforcedBundleSelectionPayload an den Server). Sobald der Mauszeiger den Slot verlässt, wird die Auswahl auf -1 („keine“) zurückgesetzt – danach gilt wieder der erste Eintrag. Neu eingefügte Stapel werden vorn (Index 0) einsortiert und setzen die Auswahl ebenfalls zurück.",
             "Blockauswahl (Pick Block) im Überlebensmodus: Liegt der anvisierte Block (bzw. das Auswahl-Ergebnis einer Entität) nirgends im Inventar, aber in einem Baumeister-Bündel, wird der gesamte Stapel dieses Eintrags aus dem Bündel in den gewählten Hotbar-Slot geholt. Ein dort gehaltenes Item wandert vorher in einen freien Slot; gibt es keinen, passiert nichts. Es ertönt der Bündel-Entnahme-Ton (BUNDLE_REMOVE_ONE). Im Kreativmodus ist dieses Verhalten abgeschaltet (MinecraftClientMixin bricht bei isCreative ab).",
             "Baustab mit Baumeister: Die Materialsuche geht über Nebenhand und Hotbar hinaus durch das restliche Inventar (ab Slot 9). Zusätzlich werden Verstärkte Bündel als Quelle genutzt – ein Bündel zählt, wenn der Stab ODER das Bündel Baumeister trägt; aus dem Bündel wird jeweils der erste passende Block genommen und einzeln abgezogen.",
             "Baustab ohne Baumeister: Es werden nur Nebenhand und Hotbar (Slots 0 bis 8) durchsucht, und ein Bündel wird nur dann geöffnet, wenn das Bündel selbst Baumeister trägt.",
+            "Getragener Rucksack: Trägt der Rucksack im Brust-Slot selbst Baumeister, nutzt der Baustab ihn als letzte Materialquelle – nach Nebenhand, Hotbar und, mit Baumeister auf dem Stab, dem restlichen Inventar samt Bündeln – und nimmt je Block ein Stück heraus. Baumeister nur auf dem Stab greift nicht in einen Rucksack, und einen Rucksack setzt der Stab nie als Block.",
+            "Blockauswahl und Rucksack: Liegt das Ziel weder im Inventar noch in einem Baumeister-Bündel, aber in einem getragenen Rucksack mit Baumeister, kommt höchstens ein normaler Stapel aus dem Rucksack in den gewählten Hotbar-Slot (der Rest eines Tiefe-Taschen-Stapels bleibt drin); die Regel mit dem freien Platz ist dieselbe wie bei Bündeln.",
             "Baumeister ist Voraussetzung für Farbpalette: Ein Amboss-Ergebnis mit Farbpalette, aber ohne Baumeister, wird verworfen (Ergebnisfeld leer, Kosten 0).",
             "Nicht kombinierbar mit Schublade (deren Ausschluss-Set builder_group enthält Baumeister); ein Datenintegritäts-Test (expectCompatibility DRAWER/MASTER_BUILDER = false) prüft diese Unverträglichkeit.",
             "Ein verzaubertes Buch mit Baumeister bekommt ein eigenes Buchmodell („master_builder“).",
@@ -18309,7 +20040,8 @@ window.WIKI_DATA = {
             "Rechtsklick mit dem Bündel auf einen Block: platziert den ausgewählten bzw. ersten Block aus dem Bündel.",
             "Mausrad über dem Bündel im Inventar: Eintrag auswählen (Auswahl verfällt beim Verlassen des Slots).",
             "Blockauswahl-Taste auf einen Block, der nur im Bündel liegt: holt den Stapel aus dem Bündel in die Hand (nur Überlebensmodus).",
-            "Baustab mit Baumeister: Rechtsklick wie gewohnt; Material kommt auch aus dem restlichen Inventar und aus Bündeln."
+            "Baustab mit Baumeister: Rechtsklick wie gewohnt; Material kommt auch aus dem restlichen Inventar und aus Bündeln.",
+            "Rucksack mit Baumeister tragen: Baustab und Blockauswahl greifen auch auf seinen Inhalt zu."
           ],
           "caveats": [
             "Auf Köcher und Netherit-Köcher anbringbar, aber wirkungslos: QuiverItem liefert bei use und useOn PASS, es gibt also nichts zu platzieren, und kein Code liest Baumeister auf einem Köcher.",
@@ -18340,7 +20072,10 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/client/property/EnchantmentModelProperty.java",
           "common/src/shared/java/com/simplebuilding/gametest/NetworkHandlerTests.java",
           "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "src/main/generated/data/simplebuilding/tags/item/master_builder_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/backpacks.json"
         ]
       }
     },
@@ -19106,6 +20841,29 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/wand_modifier_group.json"
     },
     {
+      "id": "simplebuilding:item/backpacks",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:backpack",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_backpack",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:netherite_backpack",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_backpack",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/item/backpacks.json"
+    },
+    {
       "id": "simplebuilding:item/building_wand_enchantable",
       "replace": false,
       "values": [
@@ -19258,6 +21016,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "#simplebuilding:backpacks",
+          "required": true
+        },
+        {
           "id": "#simplebuilding:chisel_tools",
           "required": true
         },
@@ -19293,6 +21055,21 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json"
     },
     {
+      "id": "simplebuilding:item/deep_pockets_enchantable",
+      "replace": false,
+      "values": [
+        {
+          "id": "#simplebuilding:bundle_enchantable",
+          "required": true
+        },
+        {
+          "id": "#simplebuilding:backpacks",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json"
+    },
+    {
       "id": "simplebuilding:item/extra_inventory_items",
       "replace": false,
       "values": [
@@ -19326,6 +21103,36 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/extra_inventory_items.json"
+    },
+    {
+      "id": "simplebuilding:item/funnel_enchantable",
+      "replace": false,
+      "values": [
+        {
+          "id": "#simplebuilding:bundle_enchantable",
+          "required": true
+        },
+        {
+          "id": "#simplebuilding:backpacks",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json"
+    },
+    {
+      "id": "simplebuilding:item/master_builder_enchantable",
+      "replace": false,
+      "values": [
+        {
+          "id": "#simplebuilding:extra_inventory_items",
+          "required": true
+        },
+        {
+          "id": "#simplebuilding:backpacks",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/item/master_builder_enchantable.json"
     },
     {
       "id": "simplebuilding:item/octants_enchantable",
@@ -19462,6 +21269,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_axe",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_backpack",
           "required": true
         },
         {
@@ -19661,15 +21472,15 @@ window.WIKI_DATA = {
     }
   ],
   "counts": {
-    "items": 110,
-    "blocks": 29,
-    "recipes": 130,
-    "lootTables": 28,
+    "items": 115,
+    "blocks": 33,
+    "recipes": 135,
+    "lootTables": 32,
     "trades": 20,
     "enchantments": 19,
-    "tags": 17,
+    "tags": 21,
     "config": 13,
-    "features": 26,
+    "features": 27,
     "undocumented": 0,
     "incompleteProse": 0
   },

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "simplebuilding:block/backpack",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "simplebuilding:block/backpack"
+    },
+    "facing=south": {
+      "model": "simplebuilding:block/backpack",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "simplebuilding:block/backpack",
+      "y": 270
+    }
+  }
+}

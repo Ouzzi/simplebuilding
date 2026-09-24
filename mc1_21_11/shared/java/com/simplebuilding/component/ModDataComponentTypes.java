@@ -23,6 +23,14 @@ public class ModDataComponentTypes {
     public static final DataComponentType<BlockPos> COORDINATES =
             register("coordinates", builder -> builder.persistent(BlockPos.CODEC));
 
+    // Rucksack-Inhalt (getragen, im Inventar und als Block-Drop). Eigener Codec statt
+    // minecraft:container, weil Tiefe Taschen Stapel ueber 99 zulaesst; siehe BackpackContents.
+    public static final DataComponentType<BackpackContents> BACKPACK_CONTENTS =
+            register("backpack_contents", builder -> builder
+                    .persistent(BackpackContents.CODEC)
+                    .networkSynchronized(BackpackContents.STREAM_CODEC)
+                    .cacheEncoding());
+
 
     private static <T> DataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name), (builderOperator.apply(DataComponentType.builder())).build());

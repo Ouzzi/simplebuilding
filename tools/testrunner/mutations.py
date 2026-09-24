@@ -259,14 +259,16 @@ MUTATIONS: list[Mutation] = [
              '} else if (false) {',
              'multi-block-breaking', 'MultiBlockBreakingSupport contributed no Vein Miner crack',
              'the preview has a Vein Miner branch'),
+    # Knopf und Panel lagen bis zum Rucksack im InventoryScreenMixin; seitdem teilen ihn das
+    # Inventar und der Rucksack-Bildschirm ueber TrimStatsPanel - der Anker zog mit um.
     Mutation('p4-trim-tooltip-text',
-             'common/src/shared/java/com/simplebuilding/mixin/client/InventoryScreenMixin.java',
+             'common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java',
              'Component.literal("Toggle Resonance Stats")',
              'Component.literal("Toggle Resonance Stat")',
              'hud-and-tooltip', 'Hovering the trim button did not put its tooltip into the render state',
              'the trim button says Toggle Resonance Stats'),
     Mutation('p4-trim-icon-swapped',
-             'common/src/shared/java/com/simplebuilding/mixin/client/InventoryScreenMixin.java',
+             'common/src/shared/java/com/simplebuilding/client/gui/TrimStatsPanel.java',
              'new ItemStack(Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE)',
              'new ItemStack(Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE)',
              'hud-and-tooltip', 'does not carry the ward smithing template',

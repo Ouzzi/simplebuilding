@@ -1,6 +1,7 @@
 package com.simplebuilding.blocks.entity;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.blocks.entity.custom.BackpackBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModBlastFurnaceBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModFurnaceBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
@@ -13,6 +14,7 @@ public class ModBlockEntities {
     public static BlockEntityType<ModBlastFurnaceBlockEntity> MOD_BLAST_FURNACE_BE;
     public static BlockEntityType<ModFurnaceBlockEntity> MOD_FURNACE_BE;
     public static BlockEntityType<ModSmokerBlockEntity> MOD_SMOKER_BE;
+    public static BlockEntityType<BackpackBlockEntity> BACKPACK_BE;
 
     private ModBlockEntities() {
     }

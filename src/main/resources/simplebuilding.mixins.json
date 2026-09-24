@@ -5,6 +5,7 @@
   "mixins": [
     "AnvilScreenHandlerMixin",
     "BlockAttachedEntityTickMixin",
+    "BlockItemMixin",
     "BowItemMixin",
     "BrushItemMixin",
     "EnderiteItemMixin",

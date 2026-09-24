@@ -21,6 +21,7 @@ public final class ModItemGroupsContent {
 // -- Resources ---
                         entries.accept(ModItems.DIAMOND_PEBBLE);
                         entries.accept(ModItems.CRACKED_DIAMOND);
+                        entries.accept(ModItems.LEATHER_SHEET);
                         entries.accept(ModItems.CRACKED_DIAMOND_BLOCK);
                         entries.accept(ModItems.NETHERITE_NUGGET);
                         entries.accept(ModItems.ENDERITE_NUGGET);
@@ -147,6 +148,10 @@ public final class ModItemGroupsContent {
                         entries.accept(ModItems.QUIVER);
                         entries.accept(ModItems.NETHERITE_QUIVER);
                         entries.accept(ModItems.ENDERITE_QUIVER);
+                        entries.accept(ModItems.BACKPACK);
+                        entries.accept(ModItems.REINFORCED_BACKPACK);
+                        entries.accept(ModItems.NETHERITE_BACKPACK);
+                        entries.accept(ModItems.ENDERITE_BACKPACK);
 
                         // --- Enchanted Books ---
                         // 1. Tool Utilities

@@ -54,6 +54,8 @@ public final class ForgeNetworkRegistration {
                             (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleBuildingWandConfigure(payload, player)))
                     .add(MasterBuilderPickPayload.ID, MasterBuilderPickPayload.CODEC,
                             (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleMasterBuilderPick(payload, player)))
+                    .add(OpenBackpackPayload.ID, OpenBackpackPayload.CODEC,
+                            (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleOpenBackpack(payload, player)))
                 .clientbound()
                     .add(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC, (payload, ctx) -> ctx.enqueueWork(() -> {
                         Minecraft client = Minecraft.getInstance();
