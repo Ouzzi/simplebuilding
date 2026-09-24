@@ -139,3 +139,11 @@ F Trims & UI (nach A-D, eigener Agent):
 - OFFEN: Buendel ohne Offen-Textur
 - B-Folgeauftrag (laeuft): Rucksack-Blockfarbe, Buendel-Offen-Textur, Octant-Figure-Taste trennen, NetheriteHopperBlockEntity pruefen
 - NACH Merge von A: Oktant-Waschen behaelt Verzauberungen/Haltbarkeit (OctantCauldronWash)
+
+## Welle 8 (2026-09-25, laeuft)
+- ERLEDIGT auf master (nicht gepusht): A, B (+Folgeauftraege), C, D, E, Oktant-Waschen-Fix
+- Blaupause (Agent): Item aus Enderquarz+Papier+Tintenbeutel, Kartenform; Code-DSL (docs/BLUEPRINT.md); Editor 3-spaltig (Materialliste | Code mit Scrollbar+Highlighting | 3D frei drehbar); Hover-Tooltip mit sich drehender Miniatur; Scannen: Oktant+Blaupause im Kartografentisch; Bauen: Baustab + Blaupause Nebenhand, Vorschau, Strg+Mausrad dreht, nur Vorhandenes, ueberspringt Belegtes; Wuerfel-Limits Kupfer 16 / Eisen 32 / Gold 48 / Diamant 64 / Netherit 96 / Enderit 128
+- Erzsensor (Agent): Durchdringung nach Materialdichte (Antiker Schutt 1-2 Netherrack, mit Reichweite ~4; Luft leicht, aber begrenzt)
+- F (Agent): Radiance-Licht in Rahmen/Ruestungsstaender + Partikel; Besatz-Balance (docs/TRIM-BALANCE.md); Resonanz/Multiplikatoren; UI-Review
+- WARTET auf Besitzer: Zeilen-Layout Maschinen & Lager freigeben -> dann alle Tabs
+- DANN: volles Gate, Push
