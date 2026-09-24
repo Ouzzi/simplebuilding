@@ -2363,7 +2363,7 @@
     "testbarkeit": "blocked-harness",
     "seite": "n-a",
     "verhalten": "Dass die Erze in einer echten End-Welt wirklich gefunden werden (Adernform, tatsächliche Fundrate, genügend Endstein an den Inselunterseiten).",
-    "ort": "common/src/shared/java/com/simplebuilding/util/ModWorldGen.java:53-82",
+    "ort": "common/src/shared/java/com/simplebuilding/util/ModWorldGen.java:53-97",
     "grund": "Alle Erzgenerierungs-Tests laufen in einem 8x8x8-Raum einer bereits generierten Welt; das Klassenjavadoc von OreGenAndItemFrameTests sagt selbst, dass die Suite nicht beweisen kann, dass ein Spieler je eines findet - gedeckt sind die Daten und die Loader-Verdrahtung, nicht das Ergebnis.",
     "p4": {
       "urteil": "blocked-harness",

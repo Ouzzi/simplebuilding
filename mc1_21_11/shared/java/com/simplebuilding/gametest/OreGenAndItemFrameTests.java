@@ -21,11 +21,13 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -57,7 +59,7 @@ import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.phys.Vec3;
@@ -149,33 +151,33 @@ public final class OreGenAndItemFrameTests {
      * the vein sizes in {@code ModWorldGen} and ships the old JSON.
      */
     public static void endOreFeaturesCarryTheRightOreBlockAndVeinSize(GameTestHelper helper) {
-        assertOreFeature(helper, ModWorldGen.ASTRALIT_ORE_KEY, ModBlocks.ASTRALIT_ORE, 3);
+        assertOreFeature(helper, ModWorldGen.ASTRALIT_ORE_KEY, ModBlocks.ASTRALIT_ORE, 4);
         assertOreFeature(helper, ModWorldGen.NIHILITH_ORE_KEY, ModBlocks.NIHILITH_ORE, 5);
         TestCleanup.succeed(helper);
     }
 
     /**
-     * The two ores are deliberately placed in opposite ways: astralit is a rare surface find
-     * (rarity filter plus a heightmap anchor and a "must be replaceable above" predicate),
-     * nihilith is brute forced under the islands (no rarity filter at all, many attempts, a fixed
-     * y band and a "must be replaceable below" predicate).
+     * The two ores are deliberately placed in opposite ways: astralit sits on top of the islands
+     * (one attempt per chunk, anchored on the surface heightmap, with a "must be replaceable
+     * above" predicate), nihilith hangs from their undersides (many attempts in a fixed y band,
+     * accepted only on end stone with a replaceable block directly below, then moved one block
+     * up so the vein grows into the underside instead of out of it).
      *
      * <p>The placement parameters themselves are private fields with no accessors, so each
      * modifier is compared by re-encoding it through its own codec - the exact same shape datagen
      * writes to JSON. That means this test pins the numbers, not just the modifier types: the
-     * rarity of 2, the counts 1 and 13, the y band 0..60 and the direction of the block predicate.
+     * counts 1 and 64, the y band 0..60, the direction of both block predicates, the end stone in
+     * nihilith's filter and its vertical offset of +1. Astralit carries no rarity filter any more;
+     * an extra modifier fails the count check.
      *
      * <p>Breaks if a modifier is added, dropped or reordered, if one of those numbers changes
      * without the JSON being regenerated, or if the two placed features are swapped so that
-     * nihilith ends up on the surface. Note that the German comments in {@code ModWorldGen} do
-     * <em>not</em> match the code (they say rarity 8 and count 160); the code is what ships, so
-     * the code is what this test pins down. {@code PlacementUtils.HEIGHTMAP} is spelled out as
+     * nihilith ends up on the surface. {@code PlacementUtils.HEIGHTMAP} is spelled out as
      * {@code MOTION_BLOCKING} on purpose - if vanilla ever repoints that constant, the JSON in the
      * jar keeps the old heightmap and this test says so.
      */
     public static void endOrePlacementDiffersBetweenAstralitAndNihilith(GameTestHelper helper) {
         assertPlacement(helper, ModWorldGen.ASTRALIT_ORE_PLACED_KEY, ModWorldGen.ASTRALIT_ORE_KEY, List.of(
-                RarityFilter.onAverageOnceEvery(2),
                 CountPlacement.of(1),
                 InSquarePlacement.spread(),
                 HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING),
@@ -183,10 +185,13 @@ public final class OreGenAndItemFrameTests {
                 BiomeFilter.biome()));
 
         assertPlacement(helper, ModWorldGen.NIHILITH_ORE_PLACED_KEY, ModWorldGen.NIHILITH_ORE_KEY, List.of(
-                CountPlacement.of(13),
+                CountPlacement.of(64),
                 InSquarePlacement.spread(),
                 HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(60)),
-                BlockPredicateFilter.forPredicate(BlockPredicate.replaceable(Direction.DOWN.getUnitVec3i())),
+                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                        BlockPredicate.matchesBlocks(Blocks.END_STONE),
+                        BlockPredicate.replaceable(Direction.DOWN.getUnitVec3i()))),
+                RandomOffsetPlacement.vertical(ConstantInt.of(1)),
                 BiomeFilter.biome()));
 
         TestCleanup.succeed(helper);
@@ -692,8 +697,8 @@ public final class OreGenAndItemFrameTests {
                 placedKey.identifier() + " points at " + placed.feature().getRegisteredName()
                         + " instead of " + configuredKey.identifier());
 
-        List<Tag> actual = describe(placed.placement());
-        List<Tag> expected = describe(expectedModifiers);
+        List<Tag> actual = describe(helper, placed.placement());
+        List<Tag> expected = describe(helper, expectedModifiers);
         Assertions.valueEqual(helper, actual.size(), expected.size(),
                 placedKey.identifier() + " placement modifier count; it reads " + actual);
         for (int i = 0; i < expected.size(); i++) {
@@ -707,11 +712,17 @@ public final class OreGenAndItemFrameTests {
      * The modifiers keep their parameters in private fields with no accessors, so this is the only
      * way to compare the actual numbers instead of just the modifier types. Tags are compared
      * rather than their text, so key order inside a modifier cannot make the test flap.
+     *
+     * <p>The encoding goes through the server's {@code RegistryOps}, not plain {@code NbtOps}: a
+     * {@code matching_blocks} predicate writes its blocks as registry ids, and without registry
+     * access that codec refuses with "Can't access registry minecraft:block" - for the expected
+     * list and the actual one alike, so the test would stay red even when everything agrees.
      */
-    private static List<Tag> describe(List<PlacementModifier> modifiers) {
+    private static List<Tag> describe(GameTestHelper helper, List<PlacementModifier> modifiers) {
+        RegistryOps<Tag> ops = helper.getLevel().registryAccess().createSerializationContext(NbtOps.INSTANCE);
         List<Tag> out = new ArrayList<>(modifiers.size());
         for (PlacementModifier modifier : modifiers) {
-            out.add(PlacementModifier.CODEC.encodeStart(NbtOps.INSTANCE, modifier).getOrThrow());
+            out.add(PlacementModifier.CODEC.encodeStart(ops, modifier).getOrThrow());
         }
         return out;
     }
