@@ -120,3 +120,6 @@ C Wiki (Agent C):
   8. Key Feature bei aufgewerteten Maschinen: wie viel schneller als Vanilla (z. B. verstaerkter Schmelzofen)
 DANN: volles Gate + ausstehende Gegenproben (Hammer-Risse, Sand-Levitation, Umformen), Push
 Entscheidungen 2026-09-25 (Interview): Paletten-Kette Grund->poliert->Ziegel bleibt; 4 Material -> 1 Grundblock bleibt; Purpur-Umfaerben nur Enderquarz bleibt; Besatz-Vorlage-im-Rahmen + Oktant-waschen in JEI (Agent A, Punkt 4); Faerben wie Oktanten; keine Rezept-Mod; gruenes Gate = direkt pushen
+D Kreativ-Tabs (Agent D):
+  9. Dev-Tab "Enchanted (Dev)": beste Stufe je Item-Familie, alle kompatiblen Verzauberungen auf Max, je Variante pro sich ausschliessender Verzauberung; nur in Dev-Umgebung oder per Config
+  10. Leere Platzhalter fuer zeilenweises Layout - erst Konzept fuer "Maschinen & Lager", nach Freigabe fuer die anderen Tabs
