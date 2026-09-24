@@ -1528,7 +1528,7 @@ P10_MUTATIONS: list[Mutation] = [
     Mutation('p10-hammer-counts-the-pattern',
              f'{SHARED}/util/SledgehammerUtils.java',
              '            if (pos.equals(origin) || shouldBreak(world, pos, origin, stack)) {',
-             '            if (true) {',
+             '            if (pos.equals(origin) || !world.getBlockState(pos).isAir()) {',
              'sledgehammer_game_test_sledgehammer_field_mines_three_times_slower_than_one_block',
              'mining progress for a 3x3 with four dirt corners',
              'only the blocks that really break slow the hammer down', kind="server"),
