@@ -24,6 +24,11 @@ public final class TradeAndMigrationGameTest {
         TradeAndMigrationTests.tradeDefinitionsProduceTheExpectedOffers(helper);
     }
 
+    @GameTest
+    public void modTradesStayWorthItWithoutBeingExploitable(GameTestHelper helper) {
+        TradeAndMigrationTests.modTradesStayWorthItWithoutBeingExploitable(helper);
+    }
+
     @GameTest(maxTicks = TradeAndMigrationTests.MASON_VILLAGER_MAX_TICKS)
     public void masonVillagerCanRollAModTrade(GameTestHelper helper) {
         TradeAndMigrationTests.masonVillagerCanRollAModTrade(helper);

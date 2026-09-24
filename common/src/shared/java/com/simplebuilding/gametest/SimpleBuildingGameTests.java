@@ -114,6 +114,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trade_and_migration_game_test_trade_definitions_produce_the_expected_offers", TradeAndMigrationTests::tradeDefinitionsProduceTheExpectedOffers)
                     .build(),
+            GameTestSpec.named("trade_and_migration_game_test_mod_trades_stay_worth_it_without_being_exploitable", TradeAndMigrationTests::modTradesStayWorthItWithoutBeingExploitable)
+                    .build(),
             GameTestSpec.named("trade_and_migration_game_test_mason_villager_can_roll_amod_trade", TradeAndMigrationTests::masonVillagerCanRollAModTrade)
                     .maxTicks(TradeAndMigrationTests.MASON_VILLAGER_MAX_TICKS)
                     .build(),
@@ -277,6 +279,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("config_option_game_test_bundle_click_inversion_follows_the_configured_option", ConfigOptionTests::bundleClickInversionFollowsTheConfiguredOption)
                     .build(),
             GameTestSpec.named("config_option_game_test_loot_table_changes_stop_when_the_option_is_switched_off", ConfigOptionTests::lootTableChangesStopWhenTheOptionIsSwitchedOff)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_loot_balance_keeps_every_chest_within_its_budget", ConfigOptionTests::lootBalanceKeepsEveryChestWithinItsBudget)
                     .build(),
             GameTestSpec.named("config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders", ConfigOptionTests::tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders)
                     .build(),

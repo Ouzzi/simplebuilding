@@ -162,7 +162,7 @@ public final class TradeAndMigrationTests {
                             Item gives, int giveCount,
                             int maxUses, int xp, float reputationDiscount) {
 
-        /** A trade with a single cost slot - eighteen of the twenty. */
+        /** A trade with a single cost slot - nineteen of the twenty-one. */
         static TradeRow of(String path, Item wants, int wantCount, Item gives, int giveCount,
                            int maxUses, int xp, float reputationDiscount) {
             return new TradeRow(path, wants, wantCount, null, 0, gives, giveCount,
@@ -180,26 +180,27 @@ public final class TradeAndMigrationTests {
      * builds every row into a real {@link MerchantOffer} and compares it field by field.
      */
     private static final List<TradeRow> TRADE_TABLE = List.of(
-            TradeRow.of("librarian/3/emerald_building_book", Items.EMERALD, 25, Items.ENCHANTED_BOOK, 1, 3, 15, 0.3F),
-            TradeRow.of("librarian/4/emerald_advanced_book", Items.EMERALD, 25, Items.ENCHANTED_BOOK, 1, 2, 25, 0.5F),
-            TradeRow.of("librarian/5/emerald_master_book", Items.EMERALD, 25, Items.ENCHANTED_BOOK, 1, 1, 100, 1.0F),
+            TradeRow.of("librarian/3/emerald_building_book", Items.EMERALD, 25, Items.ENCHANTED_BOOK, 1, 3, 15, 0.2F),
+            TradeRow.of("librarian/4/emerald_advanced_book", Items.EMERALD, 25, Items.ENCHANTED_BOOK, 1, 2, 25, 0.2F),
+            TradeRow.of("librarian/5/emerald_master_book", Items.EMERALD, 25, Items.ENCHANTED_BOOK, 1, 1, 100, 0.2F),
             TradeRow.of("mason/2/emerald_copper_core", Items.EMERALD, 25, ModItems.COPPER_CORE, 1, 2, 10, 0.1F),
-            TradeRow.of("mason/2/netherite_diamond_core", Items.NETHERITE_INGOT, 6, ModItems.DIAMOND_CORE, 1, 2, 15, 0.1F),
+            TradeRow.of("mason/2/netherite_diamond_core", Items.NETHERITE_INGOT, 3, ModItems.DIAMOND_CORE, 1, 2, 15, 0.1F),
             TradeRow.of("mason/4/emerald_copper_building_wand", Items.EMERALD, 62, ModItems.COPPER_BUILDING_WAND, 1, 1, 20, 0.2F),
             TradeRow.of("toolsmith/3/emerald_iron_chisel", Items.EMERALD, 6, ModItems.IRON_CHISEL, 1, 2, 10, 0.2F),
             TradeRow.of("toolsmith/3/emerald_copper_chisel", Items.EMERALD, 6, ModItems.COPPER_CHISEL, 1, 2, 10, 0.2F),
             TradeRow.of("toolsmith/3/emerald_gold_chisel", Items.EMERALD, 6, ModItems.GOLD_CHISEL, 1, 2, 10, 0.2F),
             new TradeRow("toolsmith/4/emerald_diamond_sledgehammer", Items.EMERALD, 28,
-                    Items.DIAMOND_PICKAXE, 1, ModItems.DIAMOND_SLEDGEHAMMER, 1, 1, 30, 0.5F),
+                    Items.DIAMOND_PICKAXE, 1, ModItems.DIAMOND_SLEDGEHAMMER, 1, 1, 30, 0.2F),
             new TradeRow("toolsmith/4/emerald_iron_sledgehammer", Items.EMERALD, 16,
-                    Items.IRON_PICKAXE, 1, ModItems.IRON_SLEDGEHAMMER, 1, 1, 30, 0.5F),
-            TradeRow.of("toolsmith/5/emerald_mining_pickaxe", Items.EMERALD, 15, Items.DIAMOND_PICKAXE, 1, 1, 50, 0.8F),
+                    Items.IRON_PICKAXE, 1, ModItems.IRON_SLEDGEHAMMER, 1, 1, 30, 0.2F),
+            TradeRow.of("toolsmith/5/emerald_mining_pickaxe", Items.EMERALD, 15, Items.DIAMOND_PICKAXE, 1, 1, 50, 0.2F),
             TradeRow.of("wandering_trader/emerald_copper_cores", Items.EMERALD, 46, ModItems.COPPER_CORE, 2, 4, 10, 0.1F),
             TradeRow.of("wandering_trader/emerald_iron_cores", Items.EMERALD, 56, ModItems.IRON_CORE, 2, 4, 10, 0.1F),
+            TradeRow.of("wandering_trader/emerald_diamond_pebbles", Items.EMERALD, 5, ModItems.DIAMOND_PEBBLE, 3, 4, 5, 0.05F),
             TradeRow.of("wandering_trader/emerald_gold_core", Items.EMERALD, 30, ModItems.GOLD_CORE, 1, 1, 5, 0.1F),
             TradeRow.of("wandering_trader/emerald_octant", Items.EMERALD, 10, ModItems.OCTANT, 1, 1, 15, 0.1F),
             TradeRow.of("wandering_trader/emerald_reinforced_bundle", Items.EMERALD, 16, ModItems.REINFORCED_BUNDLE, 1, 1, 15, 0.1F),
-            TradeRow.of("wandering_trader/emerald_wand_book", Items.EMERALD, 60, Items.ENCHANTED_BOOK, 1, 1, 10, 0.2F),
+            TradeRow.of("wandering_trader/emerald_wand_book", Items.EMERALD, 40, Items.ENCHANTED_BOOK, 1, 1, 10, 0.2F),
             TradeRow.of("wandering_trader/octant_emerald", ModItems.OCTANT, 1, Items.EMERALD, 8, 3, 5, 0.1F),
             TradeRow.of("wandering_trader/reinforced_bundle_emerald", ModItems.REINFORCED_BUNDLE, 1, Items.EMERALD, 12, 1, 10, 0.1F));
 
@@ -262,7 +263,7 @@ public final class TradeAndMigrationTests {
 
     /**
      * Every trade whose json carries a {@code simplebuilding:weighted_enchant} function, with the
-     * enchantment/level pairs that file offers. Ten of the twenty trades hand out an enchanted
+     * enchantment/level pairs that file offers. Ten of the twenty-one trades hand out an enchanted
      * result; the other ten must not be in here.
      */
     private static final Map<String, Set<String>> ENCHANT_POOLS = Map.ofEntries(
@@ -378,7 +379,8 @@ public final class TradeAndMigrationTests {
                 "simplebuilding:wandering_trader/octant_emerald");
         assertPoolContains(helper, trades, VillagerTradeTags.WANDERING_TRADER_COMMON,
                 "simplebuilding:wandering_trader/emerald_copper_cores",
-                "simplebuilding:wandering_trader/emerald_iron_cores");
+                "simplebuilding:wandering_trader/emerald_iron_cores",
+                "simplebuilding:wandering_trader/emerald_diamond_pebbles");
         assertPoolContains(helper, trades, VillagerTradeTags.WANDERING_TRADER_UNCOMMON,
                 "simplebuilding:wandering_trader/emerald_octant",
                 "simplebuilding:wandering_trader/emerald_reinforced_bundle",
@@ -424,6 +426,65 @@ public final class TradeAndMigrationTests {
     }
 
     /**
+     * Highest reputation discount a mod trade may carry: vanilla's own for enchanted books and
+     * enchanted tools. The discount is multiplied with the player's reputation, so a trade at 1.0
+     * - the master librarian book used to sit there - drops to a single emerald after a handful
+     * of trades or one cured zombie villager.
+     */
+    private static final float MAX_REPUTATION_DISCOUNT = 0.2F;
+
+    /**
+     * Trades that are worth it but cannot be farmed: no mod trade carries a reputation discount
+     * above {@link #MAX_REPUTATION_DISCOUNT}, and no item can be bought for fewer emeralds than a
+     * trader pays for it - otherwise buying and selling the same item in a loop prints emeralds.
+     *
+     * <p>The arbitrage half needs at least one item that is both bought and sold (the octant and
+     * the reinforced bundle at the wandering trader); a table without such a pair would compare
+     * nothing, so that is asserted first.
+     *
+     * <p>What breaks it: raising any trade's reputation discount above 0.2, or pricing a buy offer
+     * at or below the matching sell offer.
+     */
+    public static void modTradesStayWorthItWithoutBeingExploitable(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        Map<Item, Double> cheapestBuy = new LinkedHashMap<>();
+        Map<Item, Double> bestSale = new LinkedHashMap<>();
+        for (TradeRow row : TRADE_TABLE) {
+            if (row.reputationDiscount() > MAX_REPUTATION_DISCOUNT) {
+                problems.add(row.id() + " has a reputation discount of " + row.reputationDiscount());
+            }
+            if (row.wants() == Items.EMERALD && row.alsoWants() == null && row.gives() != Items.EMERALD) {
+                cheapestBuy.merge(row.gives(), (double) row.wantCount() / row.giveCount(), Math::min);
+            }
+            if (row.gives() == Items.EMERALD) {
+                bestSale.merge(row.wants(), (double) row.giveCount() / row.wantCount(), Math::max);
+            }
+        }
+        checkArbitrage(helper, cheapestBuy, bestSale, problems);
+        helper.assertTrue(problems.isEmpty(), "exploitable mod trades: " + problems);
+        helper.succeed();
+    }
+
+    /** Every sold item must cost more emeralds to buy than any trader pays for it. */
+    private static void checkArbitrage(GameTestHelper helper, java.util.Map<Item, Double> cheapestBuy,
+                                       java.util.Map<Item, Double> bestSale, List<String> problems) {
+        int compared = 0;
+        for (java.util.Map.Entry<Item, Double> sale : bestSale.entrySet()) {
+            Double buy = cheapestBuy.get(sale.getKey());
+            if (buy == null) {
+                continue;
+            }
+            compared++;
+            if (buy <= sale.getValue()) {
+                problems.add(sale.getKey() + " can be bought for " + buy + " emeralds and sold for "
+                        + sale.getValue());
+            }
+        }
+        helper.assertTrue(compared > 0, "no item is both bought and sold by a mod trade, so the "
+                + "arbitrage check compared nothing");
+    }
+
+    /**
      * Turns every shipped trade definition into an actual {@link MerchantOffer} and checks the
      * numbers that came out of the JSON: wanted item + count, the second cost slot (item + count,
      * or the guarantee that there is none), given item + count, max uses, xp, the reputation
@@ -434,7 +495,7 @@ public final class TradeAndMigrationTests {
      * pool. That leaves the entire content of a trade file free to change: the price, the number
      * of uses, the experience, and above all the {@code simplebuilding:weighted_enchant} function
      * - a merchant handing out plain, unenchanted tools looks exactly like a working merchant from
-     * the outside. So all twenty trades are built here, not a sample of them: a sample leaves the
+     * the outside. So all twenty-one trades are built here, not a sample of them: a sample leaves the
      * unsampled files free to be repriced, and that is precisely how the wand, the octant and both
      * reinforced bundle trades stayed unpinned.
      *

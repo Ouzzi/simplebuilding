@@ -58,7 +58,7 @@ import java.util.TreeMap;
  *
  * <p>{@code TradeAndMigrationTests} already answers "does the trade exist, does it sit in the
  * right pool, and does it hand over the numbers its json declares" - its
- * {@code tradeDefinitionsProduceTheExpectedOffers} builds all twenty shipped trades into real
+ * {@code tradeDefinitionsProduceTheExpectedOffers} builds all twenty-one shipped trades into real
  * {@link MerchantOffer}s and compares price, second cost, result count, {@code max_uses},
  * {@code xp} and {@code reputation_discount} field by field. None of that is repeated here. What
  * is left over is:

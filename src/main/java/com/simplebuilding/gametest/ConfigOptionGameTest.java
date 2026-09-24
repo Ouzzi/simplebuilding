@@ -27,6 +27,11 @@ public final class ConfigOptionGameTest {
     }
 
     @GameTest
+    public void lootBalanceKeepsEveryChestWithinItsBudget(GameTestHelper helper) {
+        ConfigOptionTests.lootBalanceKeepsEveryChestWithinItsBudget(helper);
+    }
+
+    @GameTest
     public void tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders(GameTestHelper helper) {
         ConfigOptionTests.tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders(helper);
     }
