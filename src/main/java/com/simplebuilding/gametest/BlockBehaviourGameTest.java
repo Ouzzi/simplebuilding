@@ -60,4 +60,9 @@ public final class BlockBehaviourGameTest {
     public void levitatingSandDropsAsAnItemAtTheBuildLimit(GameTestHelper helper) {
         BlockBehaviourTests.levitatingSandDropsAsAnItemAtTheBuildLimit(helper);
     }
+
+    @GameTest(maxTicks = BlockBehaviourTests.CONSTRUCTION_LIGHT_MAX_TICKS)
+    public void constructionLightShinesButLetsMonstersSpawn(GameTestHelper helper) {
+        BlockBehaviourTests.constructionLightShinesButLetsMonstersSpawn(helper);
+    }
 }

@@ -12,6 +12,7 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.util.ModTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
@@ -1515,5 +1516,51 @@ public final class DataIntegrityTests {
         return Enchantment.DIRECT_CODEC.encodeStart(ops, enchantment)
                 .getOrThrow(message -> helper.assertionException(
                         "could not encode " + key.identifier() + " from " + side + ": " + message));
+    }
+
+    /**
+     * All six quartz checkers - purpur, lapis, blackstone, resin and the new nihilith and astralit
+     * ones - are mined with a pickaxe and drop themselves. They copy blocks that need the right
+     * tool, so without {@code minecraft:mineable/pickaxe} breaking one gave nothing. The two new
+     * ones are crafted like the others, two of the material diagonal to two quartz blocks, four at
+     * a time: nihilith shards and astralit dust stand in for the coloured block.
+     *
+     * <p>What breaks this test: a checker missing from the pickaxe tag or its loot table, and a
+     * missing or changed recipe for the new checkers.
+     */
+    public static void quartzCheckersAreMinedByPickaxeAndCraftedFromTheirMaterial(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ItemStack pickaxe = new ItemStack(Items.IRON_PICKAXE);
+        StringBuilder actual = new StringBuilder();
+        StringBuilder expected = new StringBuilder();
+        for (Block checker : List.of(ModBlocks.PURPUR_QUARTZ_CHECKER, ModBlocks.LAPIS_QUARTZ_CHECKER,
+                ModBlocks.BLACKSTONE_QUARTZ_CHECKER, ModBlocks.RESIN_QUARTZ_CHECKER,
+                ModBlocks.NIHILITH_QUARTZ_CHECKER, ModBlocks.ASTRALIT_QUARTZ_CHECKER)) {
+            BlockState state = checker.defaultBlockState();
+            Identifier id = BuiltInRegistries.BLOCK.getKey(checker);
+            StringBuilder drops = new StringBuilder();
+            for (ItemStack drop : Block.getDrops(state, level, helper.absolutePos(new BlockPos(1, 1, 1)), null, null, pickaxe)) {
+                drops.append(drop.getCount()).append(' ').append(BuiltInRegistries.ITEM.getKey(drop.getItem()));
+            }
+            actual.append(id).append(": ").append(pickaxe.isCorrectToolForDrops(state) ? "pickaxe" : "no tool")
+                    .append(", ").append(drops).append("; ");
+            expected.append(id).append(": pickaxe, 1 ").append(id).append("; ");
+        }
+        Assertions.valueEqual(helper, actual.toString(), expected.toString(), "how the quartz checkers are mined");
+
+        ItemStack quartz = new ItemStack(Items.QUARTZ_BLOCK);
+        for (Item material : List.of(ModItems.NIHILITH_SHARD, ModItems.ASTRALIT_DUST)) {
+            ItemStack m = new ItemStack(material);
+            CraftingInput grid = CraftingInput.of(2, 2, List.of(m, quartz, quartz, m));
+            Optional<RecipeHolder<CraftingRecipe>> match =
+                    level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, grid, level);
+            helper.assertTrue(match.isPresent(), BuiltInRegistries.ITEM.getKey(material) + " and quartz blocks craft nothing");
+            ItemStack result = match.get().value().assemble(grid, level.registryAccess());
+            Assertions.valueEqual(helper, result.getCount() + " " + BuiltInRegistries.ITEM.getKey(result.getItem()),
+                    "4 " + BuiltInRegistries.ITEM.getKey(material).getPath().replaceFirst("_(shard|dust)$", "")
+                            .replaceFirst("^", "simplebuilding:") + "_quartz_checker",
+                    "what " + BuiltInRegistries.ITEM.getKey(material) + " diagonal to two quartz blocks crafts");
+        }
+        TestCleanup.succeed(helper);
     }
 }

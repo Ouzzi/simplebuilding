@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "I": "minecraft:iron_bars",
     "N": "minecraft:copper_nugget",
     "P": "simplebuilding:leather_sheet",
-    "S": "minecraft:string"
+    "S": "minecraft:string",
+    "W": "#minecraft:wooden_pressure_plates"
   },
   "pattern": [
     "NSN",
     "PPP",
-    "III"
+    "WWW"
   ],
   "result": {
     "count": 1,

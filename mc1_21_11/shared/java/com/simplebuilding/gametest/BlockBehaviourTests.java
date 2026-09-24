@@ -6,6 +6,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -892,4 +895,61 @@ public final class BlockBehaviourTests {
         }
     }
 
+
+    /** Tick budget for {@link #constructionLightShinesButLetsMonstersSpawn}: the light engine needs a few ticks. */
+    public static final int CONSTRUCTION_LIGHT_MAX_TICKS = 60;
+
+    /**
+     * The construction light shines with level 15 but does not keep monsters away. Two closed stone
+     * boxes shut out the sky and the neighbouring tests. In the first, a construction light lights the
+     * far corner to 12, and that corner as well as the top of the lamp are still dark enough for
+     * {@code Monster#isDarkEnoughToSpawn}. The second is the control: glowstone next to another
+     * construction light keeps its corner too bright, exactly like vanilla - the construction light
+     * does not switch other light sources off.
+     *
+     * <p>What breaks this test: a construction light without light, a spawn hook that counts its
+     * light again (or only allows spawns directly on top of it, as before), and one that ignores all
+     * block light.
+     */
+    public static void constructionLightShinesButLetsMonstersSpawn(GameTestHelper helper) {
+        darkBox(helper, 0);
+        darkBox(helper, 4);
+        helper.setBlock(new BlockPos(1, 2, 1), ModBlocks.CONSTRUCTION_LIGHT);
+        helper.setBlock(new BlockPos(5, 2, 1), Blocks.GLOWSTONE);
+        helper.setBlock(new BlockPos(5, 3, 1), ModBlocks.CONSTRUCTION_LIGHT);
+        BlockPos corner = new BlockPos(2, 2, 3);
+        BlockPos onTheLamp = new BlockPos(1, 3, 1);
+        BlockPos glowstoneCorner = new BlockPos(6, 2, 3);
+
+        helper.succeedWhen(() -> {
+            ServerLevel level = helper.getLevel();
+            for (BlockPos pos : List.of(corner, onTheLamp, glowstoneCorner)) {
+                helper.assertTrue(level.getBrightness(LightLayer.SKY, helper.absolutePos(pos)) == 0,
+                        "sky light still reaches " + pos + " inside the closed box");
+            }
+            Assertions.valueEqual(helper, level.getBrightness(LightLayer.BLOCK, helper.absolutePos(corner)), 12,
+                    "block light three steps from the construction light");
+            Assertions.valueEqual(helper, "corner " + spawnable(helper, corner) + ", on the lamp " + spawnable(helper, onTheLamp)
+                            + ", glowstone corner " + spawnable(helper, glowstoneCorner),
+                    "corner dark, on the lamp dark, glowstone corner too bright",
+                    "where monsters may spawn next to construction lights");
+        });
+    }
+
+    /** A closed stone box, 4 wide, from x0: interior x0+1..x0+2, y 2..3, z 1..3. */
+    private static void darkBox(GameTestHelper helper, int x0) {
+        for (int x = x0; x <= x0 + 3; x++) {
+            for (int y = 1; y <= 4; y++) {
+                for (int z = 0; z <= 4; z++) {
+                    boolean wall = x == x0 || x == x0 + 3 || y == 1 || y == 4 || z == 0 || z == 4;
+                    helper.setBlock(new BlockPos(x, y, z), wall ? Blocks.STONE : Blocks.AIR);
+                }
+            }
+        }
+    }
+
+    private static String spawnable(GameTestHelper helper, BlockPos pos) {
+        return Monster.isDarkEnoughToSpawn(helper.getLevel(), helper.absolutePos(pos), RandomSource.create(0L))
+                ? "dark" : "too bright";
+    }
 }

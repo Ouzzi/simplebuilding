@@ -60,6 +60,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("block_behaviour_game_test_levitating_sand_drops_as_an_item_at_the_build_limit", BlockBehaviourTests::levitatingSandDropsAsAnItemAtTheBuildLimit)
                     .maxTicks(BlockBehaviourTests.LEVITATING_BLOCK_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("block_behaviour_game_test_construction_light_shines_but_lets_monsters_spawn", BlockBehaviourTests::constructionLightShinesButLetsMonstersSpawn)
+                    .maxTicks(BlockBehaviourTests.CONSTRUCTION_LIGHT_MAX_TICKS)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_every_mod_item_is_in_the_item_registry", DataIntegrityTests::everyModItemIsInTheItemRegistry)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_mod_block_is_registered_and_has_its_block_item", DataIntegrityTests::everyModBlockIsRegisteredAndHasItsBlockItem)
@@ -78,6 +81,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("data_integrity_game_test_mod_enchantment_tags_resolve_to_the_expected_entries", DataIntegrityTests::modEnchantmentTagsResolveToTheExpectedEntries)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_void_protected_tag_is_language_independent", DataIntegrityTests::voidProtectedTagIsLanguageIndependent)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_quartz_checkers_are_mined_by_pickaxe_and_crafted_from_their_material", DataIntegrityTests::quartzCheckersAreMinedByPickaxeAndCraftedFromTheirMaterial)
                     .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
                     .rotation(Rotation.NONE)
@@ -720,6 +725,11 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(EnderiteMachineTests.DROP_MAX_TICKS)
                     .build(),
             GameTestSpec.named("enderite_machine_game_test_enderite_machines_fit_their_block_entity_types_and_titles", EnderiteMachineTests::enderiteMachinesFitTheirBlockEntityTypesAndTitles)
+                    .build(),
+            GameTestSpec.named("enderite_machine_game_test_enderite_gear_inherits_every_netherite_trait", EnderiteMachineTests::enderiteGearInheritsEveryNetheriteTrait)
+                    .build(),
+            GameTestSpec.named("enderite_machine_game_test_enderite_ingot_tier_drops_last_twice_as_long_as_vanilla", EnderiteMachineTests::enderiteIngotTierDropsLastTwiceAsLongAsVanilla)
+                    .maxTicks(EnderiteMachineTests.LIFETIME_MAX_TICKS)
                     .build(),
             GameTestSpec.named("smelting_game_test_raw_enderite_blasts_for_an_hour_and_pays_ten_experience", SmeltingTests::rawEnderiteBlastsForAnHourAndPaysTenExperience)
                     .build(),

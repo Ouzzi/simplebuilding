@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 128,
+      "count": 130,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -403,7 +403,7 @@ window.WIKI_DATA = {
           "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
           "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade Template and 12 ingots or diamonds you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
           "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
-          "Worth knowing: the Enderite Sledgehammer is not fire resistant, but it is the only tier the void_protected tag saves from the void; the other six are not protected."
+          "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected."
         ]
       },
       "de": {
@@ -427,7 +427,7 @@ window.WIKI_DATA = {
           "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
           "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Upgrade-Vorlage und 12 Barren bzw. Diamanten lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
           "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
-          "Wichtig zu wissen: Der Enderite Sledgehammer ist nicht feuerfest, aber nur er ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht."
+          "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht."
         ]
       }
     },
@@ -2194,7 +2194,13 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
         "src/main/java/com/simplebuilding/SimplebuildingClient.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java"
+        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
+        "common/src/shared/java/com/simplebuilding/util/EnderiteLifetime.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "common/src/shared/java/com/simplebuilding/items/ModArmorMaterials.java",
+        "src/main/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json",
+        "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
+        "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java"
       ],
       "en": {
         "title": "Enderite Void Protection",
@@ -2208,7 +2214,9 @@ window.WIKI_DATA = {
           "Void damage on the player: with 1/2/3/4 Enderite armor pieces worn, void damage only lands on ticks whose counter is divisible by 20/40/60/100; every other hit is cancelled.",
           "Slow descent: wearing at least 2 Enderite armor pieces, not on the ground, falling faster than 0.1 blocks per tick and holding the jump key gives you a continuously refreshed Slow Falling effect (2 ticks) on the server; the key state is sent by the client via SpaceKeyPayload whenever it changes.",
           "Limitation: void protection only covers items lying in the world as entities, not items inside chests or inventories.",
-          "Limitation: the Enchanted Enderite Apple (enchanted_enderite_apple) is not in the tag, because its id does not start with \"enderite_\" - so it is not protected from the void."
+          "Limitation: the Enchanted Enderite Apple (enchanted_enderite_apple) is not in the tag, because its id does not start with \"enderite_\" - so it is not protected from the void.",
+          "Enderite is made with netherite and keeps everything netherite gives an item: every enderite item from the ingot upwards, the scrap and the nugget are fire resistant and float on lava; the mod's Netherite Sledgehammer, Chisel, Spatula, Building Wand and Core are too (ModItems#netheriteTraits). Enderite armor resists knockback with 0.2 per piece (netherite: 0.1). The Enderite Bundle, Quiver and Backpack survive explosions as dropped items, like the Netherite Bundle and Backpack.",
+          "Dropped enderite from the ingot upwards lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000. The item tag simplebuilding:enderite_ingot_tier decides; datagen fills it from the void_protected rule minus raw_enderite, enderite_scrap and enderite_upgrade_template. On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime)."
         ]
       },
       "de": {
@@ -2223,7 +2231,9 @@ window.WIKI_DATA = {
           "Leere-Schaden beim Spieler: Mit 1/2/3/4 getragenen Enderit-Rüstungsteilen trifft der Schaden aus der Leere nur noch in Ticks, deren Zähler durch 20/40/60/100 teilbar ist; alle anderen Treffer werden abgefangen.",
           "Sanftes Fallen: Wer mindestens 2 Enderit-Rüstungsteile trägt, nicht am Boden ist, schneller als 0,1 Blöcke pro Tick fällt und die Sprungtaste hält, bekommt serverseitig laufend den Effekt Sanfter Fall (2 Ticks); der Tastenzustand wird vom Client bei jeder Änderung per SpaceKeyPayload übermittelt.",
           "Einschränkung: Der Leere-Schutz gilt nur für Items, die als Gegenstand in der Welt liegen, nicht für Items in Truhen oder Inventaren.",
-          "Einschränkung: Der verzauberte Enderit-Apfel (enchanted_enderite_apple) ist nicht im Tag, weil seine Kennung nicht mit „enderite_“ beginnt – er ist damit nicht vor der Leere geschützt."
+          "Einschränkung: Der verzauberte Enderit-Apfel (enchanted_enderite_apple) ist nicht im Tag, weil seine Kennung nicht mit „enderite_“ beginnt – er ist damit nicht vor der Leere geschützt.",
+          "Enderit wird aus Netherit gemacht und behält alles, was Netherit einem Gegenstand gibt: jeder Enderit-Gegenstand ab dem Barren, dazu Schrott und Nugget, ist feuerfest und schwimmt auf Lava; ebenso Netherit-Vorschlaghammer, -Meißel, -Spachtel, -Baustab und -Kern der Mod (ModItems#netheriteTraits). Enderit-Rüstung widersteht Rückstoß mit 0,2 je Teil (Netherit: 0,1). Enderit-Bündel, -Köcher und -Rucksack überstehen als fallengelassene Gegenstände Explosionen, wie Netherit-Bündel und -Rucksack.",
+          "Fallengelassenes Enderit ab dem Barren bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000. Maßgeblich ist das Item-Tag simplebuilding:enderite_ingot_tier; der Datagen füllt es nach der void_protected-Regel ohne raw_enderite, enderite_scrap und enderite_upgrade_template. Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime)."
         ]
       }
     },
@@ -2257,7 +2267,13 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
         "src/main/java/com/simplebuilding/SimplebuildingClient.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java"
+        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
+        "common/src/shared/java/com/simplebuilding/util/EnderiteLifetime.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "common/src/shared/java/com/simplebuilding/items/ModArmorMaterials.java",
+        "src/main/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json",
+        "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
+        "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java"
       ],
       "en": {
         "title": "Enderite Void Protection",
@@ -2271,7 +2287,9 @@ window.WIKI_DATA = {
           "Void damage on the player: with 1/2/3/4 Enderite armor pieces worn, void damage only lands on ticks whose counter is divisible by 20/40/60/100; every other hit is cancelled.",
           "Slow descent: wearing at least 2 Enderite armor pieces, not on the ground, falling faster than 0.1 blocks per tick and holding the jump key gives you a continuously refreshed Slow Falling effect (2 ticks) on the server; the key state is sent by the client via SpaceKeyPayload whenever it changes.",
           "Limitation: void protection only covers items lying in the world as entities, not items inside chests or inventories.",
-          "Limitation: the Enchanted Enderite Apple (enchanted_enderite_apple) is not in the tag, because its id does not start with \"enderite_\" - so it is not protected from the void."
+          "Limitation: the Enchanted Enderite Apple (enchanted_enderite_apple) is not in the tag, because its id does not start with \"enderite_\" - so it is not protected from the void.",
+          "Enderite is made with netherite and keeps everything netherite gives an item: every enderite item from the ingot upwards, the scrap and the nugget are fire resistant and float on lava; the mod's Netherite Sledgehammer, Chisel, Spatula, Building Wand and Core are too (ModItems#netheriteTraits). Enderite armor resists knockback with 0.2 per piece (netherite: 0.1). The Enderite Bundle, Quiver and Backpack survive explosions as dropped items, like the Netherite Bundle and Backpack.",
+          "Dropped enderite from the ingot upwards lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000. The item tag simplebuilding:enderite_ingot_tier decides; datagen fills it from the void_protected rule minus raw_enderite, enderite_scrap and enderite_upgrade_template. On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime)."
         ]
       },
       "de": {
@@ -2286,7 +2304,9 @@ window.WIKI_DATA = {
           "Leere-Schaden beim Spieler: Mit 1/2/3/4 getragenen Enderit-Rüstungsteilen trifft der Schaden aus der Leere nur noch in Ticks, deren Zähler durch 20/40/60/100 teilbar ist; alle anderen Treffer werden abgefangen.",
           "Sanftes Fallen: Wer mindestens 2 Enderit-Rüstungsteile trägt, nicht am Boden ist, schneller als 0,1 Blöcke pro Tick fällt und die Sprungtaste hält, bekommt serverseitig laufend den Effekt Sanfter Fall (2 Ticks); der Tastenzustand wird vom Client bei jeder Änderung per SpaceKeyPayload übermittelt.",
           "Einschränkung: Der Leere-Schutz gilt nur für Items, die als Gegenstand in der Welt liegen, nicht für Items in Truhen oder Inventaren.",
-          "Einschränkung: Der verzauberte Enderit-Apfel (enchanted_enderite_apple) ist nicht im Tag, weil seine Kennung nicht mit „enderite_“ beginnt – er ist damit nicht vor der Leere geschützt."
+          "Einschränkung: Der verzauberte Enderit-Apfel (enchanted_enderite_apple) ist nicht im Tag, weil seine Kennung nicht mit „enderite_“ beginnt – er ist damit nicht vor der Leere geschützt.",
+          "Enderit wird aus Netherit gemacht und behält alles, was Netherit einem Gegenstand gibt: jeder Enderit-Gegenstand ab dem Barren, dazu Schrott und Nugget, ist feuerfest und schwimmt auf Lava; ebenso Netherit-Vorschlaghammer, -Meißel, -Spachtel, -Baustab und -Kern der Mod (ModItems#netheriteTraits). Enderit-Rüstung widersteht Rückstoß mit 0,2 je Teil (Netherit: 0,1). Enderit-Bündel, -Köcher und -Rucksack überstehen als fallengelassene Gegenstände Explosionen, wie Netherit-Bündel und -Rucksack.",
+          "Fallengelassenes Enderit ab dem Barren bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000. Maßgeblich ist das Item-Tag simplebuilding:enderite_ingot_tier; der Datagen füllt es nach der void_protected-Regel ohne raw_enderite, enderite_scrap und enderite_upgrade_template. Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime)."
         ]
       }
     },
@@ -2754,6 +2774,7 @@ window.WIKI_DATA = {
       "usedIn": [
         "simplebuilding:astral_end_stone",
         "simplebuilding:astral_purpur_block",
+        "simplebuilding:astralit_quartz_checker",
         "simplebuilding:levitating_gravel",
         "simplebuilding:levitating_sand",
         "simplebuilding:raw_enderite_synthesis"
@@ -2771,6 +2792,44 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:astralit_quartz_checker",
+      "name": {
+        "en_us": "Astralit Quartz Checker",
+        "de_de": "Astralit-Quarz-Schachbrett"
+      },
+      "texture": "assets/textures/block/astralit_quartz_checker.png",
+      "craftedBy": [
+        "simplebuilding:astralit_quartz_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -2860,8 +2919,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -2910,8 +2969,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -2994,6 +3053,30 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -3008,6 +3091,31 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/util/ConstructionLightSpawning.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HostileEntityMixin.java"
+        ],
+        "en": {
+          "summary": "The Construction Light is a glass-like lamp that shines with light level 15 but does not stop monsters from spawning: its light is left out of the darkness check for monster spawns.",
+          "details": [
+            "Light level 15, breaks almost instantly (strength 0.3), sounds like glass; mobs may spawn on top of it.",
+            "Monster#isDarkEnoughToSpawn is answered with the block light of all other light sources: ConstructionLightSpawning recomputes it outward from the spawn position, each step costing the light dampening of the block entered (at least 1, full blocks stop it), each other source contributing its brightness minus that cost.",
+            "Other lights keep working: a torch or glowstone next to a construction light still prevents spawns as far as in vanilla. Sky light counts as usual, so a construction light outdoors does not turn day into night.",
+            "Without a construction light within 14 blocks the vanilla check runs unchanged."
+          ]
+        },
+        "de": {
+          "summary": "Das Baulicht ist eine glasartige Lampe, die mit Lichtstufe 15 leuchtet, aber keine Monster-Spawns verhindert: Sein Licht zählt bei der Dunkelheitsprüfung für Monster-Spawns nicht mit.",
+          "details": [
+            "Lichtstufe 15, bricht fast sofort (Härte 0,3), klingt wie Glas; Mobs dürfen darauf spawnen.",
+            "Monster#isDarkEnoughToSpawn wird mit dem Blocklicht aller anderen Lichtquellen beantwortet: ConstructionLightSpawning berechnet es von der Spawnstelle aus neu, jeder Schritt kostet die Lichtdämpfung des betretenen Blocks (mindestens 1, volle Blöcke sperren), jede andere Quelle bringt ihre Leuchtstärke minus diese Kosten.",
+            "Andere Lichter wirken weiter: Eine Fackel oder Leuchtstein neben einem Baulicht verhindert Spawns so weit wie in Vanilla. Himmelslicht zählt wie gewohnt, ein Baulicht im Freien macht den Tag also nicht zur Nacht.",
+            "Ohne Baulicht im Umkreis von 14 Blöcken läuft die Vanilla-Prüfung unverändert."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -3086,7 +3194,7 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
             "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
@@ -3094,7 +3202,7 @@ window.WIKI_DATA = {
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
+            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armour; the lower tiers burn.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
@@ -3158,7 +3266,7 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
             "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
@@ -3166,7 +3274,7 @@ window.WIKI_DATA = {
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
+            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
@@ -3320,7 +3428,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
+            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -3382,7 +3490,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
+            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -3574,7 +3682,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
+            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -3661,7 +3769,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
+            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -3856,7 +3964,7 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
             "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
@@ -3864,7 +3972,7 @@ window.WIKI_DATA = {
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
+            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armour; the lower tiers burn.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
@@ -3928,7 +4036,7 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
             "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
@@ -3936,7 +4044,7 @@ window.WIKI_DATA = {
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
+            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
@@ -4089,7 +4197,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
+            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -4151,7 +4259,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
+            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -4363,7 +4471,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
+            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -4450,7 +4558,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
+            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -4688,8 +4796,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -4738,8 +4846,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -4964,7 +5072,7 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
             "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
@@ -4972,7 +5080,7 @@ window.WIKI_DATA = {
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
+            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armour; the lower tiers burn.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
@@ -5036,7 +5144,7 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
             "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
@@ -5044,7 +5152,7 @@ window.WIKI_DATA = {
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
+            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
@@ -5323,7 +5431,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
+            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -5385,7 +5493,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
+            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -6058,7 +6166,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
+            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -6145,7 +6253,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
+            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -6463,7 +6571,7 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
             "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
@@ -6471,7 +6579,7 @@ window.WIKI_DATA = {
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
+            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armour; the lower tiers burn.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
@@ -6535,7 +6643,7 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
             "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
@@ -6543,7 +6651,7 @@ window.WIKI_DATA = {
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
+            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
@@ -6698,7 +6806,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
+            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -6760,7 +6868,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
+            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -6953,7 +7061,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
+            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -7040,7 +7148,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
+            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -7194,7 +7302,7 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
             "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
@@ -7202,7 +7310,7 @@ window.WIKI_DATA = {
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
+            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armour; the lower tiers burn.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
@@ -7266,7 +7374,7 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
             "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
@@ -7274,7 +7382,7 @@ window.WIKI_DATA = {
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
+            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
@@ -7429,7 +7537,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
+            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -7491,7 +7599,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
+            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -7685,7 +7793,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
+            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -7772,7 +7880,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
+            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -7864,6 +7972,30 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -8329,8 +8461,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -8379,8 +8511,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -8581,7 +8713,7 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
             "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
@@ -8589,7 +8721,7 @@ window.WIKI_DATA = {
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
+            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armour; the lower tiers burn.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
@@ -8653,7 +8785,7 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
             "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
@@ -8661,7 +8793,7 @@ window.WIKI_DATA = {
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
+            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
@@ -8923,7 +9055,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
+            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -8985,7 +9117,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
+            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -9575,7 +9707,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
+            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -9662,7 +9794,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
+            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -9872,6 +10004,44 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihilith_quartz_checker",
+      "name": {
+        "en_us": "Nihilith Quartz Checker",
+        "de_de": "Nihilith-Quarz-Schachbrett"
+      },
+      "texture": "assets/textures/block/nihilith_quartz_checker.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_quartz_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:nihilith_shard",
       "name": {
         "en_us": "Nihilith Shard",
@@ -9882,6 +10052,7 @@ window.WIKI_DATA = {
       "usedIn": [
         "simplebuilding:nihil_end_stone",
         "simplebuilding:nihil_purpur_block",
+        "simplebuilding:nihilith_quartz_checker",
         "simplebuilding:raw_enderite_synthesis",
         "simplebuilding:suspended_gravel",
         "simplebuilding:suspended_sand"
@@ -10599,6 +10770,30 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -10860,8 +11055,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -10910,8 +11105,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -11787,6 +11982,30 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -11991,7 +12210,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
+            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -12053,7 +12272,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
+            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -12221,7 +12440,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
+            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -12308,7 +12527,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
+            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -12608,6 +12827,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:astralit_quartz_checker",
+      "name": {
+        "en_us": "Astralit Quartz Checker",
+        "de_de": "Astralit-Quarz-Schachbrett"
+      },
+      "texture": "assets/textures/block/astralit_quartz_checker.png",
+      "craftedBy": [
+        "simplebuilding:astralit_quartz_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "faces": {
+        "top": "assets/textures/block/astralit_quartz_checker.png",
+        "side": "assets/textures/block/astralit_quartz_checker.png",
+        "front": "assets/textures/block/astralit_quartz_checker_mirror.png"
+      },
+      "lootTable": "simplebuilding:blocks/astralit_quartz_checker",
+      "drops": [
+        "simplebuilding:astralit_quartz_checker"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:backpack",
       "name": {
         "en_us": "Backpack",
@@ -12698,8 +12964,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -12748,8 +13014,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -12802,6 +13068,30 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:blackstone_quartz_checker"
       ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -12825,6 +13115,31 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:construction_light"
       ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/util/ConstructionLightSpawning.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HostileEntityMixin.java"
+        ],
+        "en": {
+          "summary": "The Construction Light is a glass-like lamp that shines with light level 15 but does not stop monsters from spawning: its light is left out of the darkness check for monster spawns.",
+          "details": [
+            "Light level 15, breaks almost instantly (strength 0.3), sounds like glass; mobs may spawn on top of it.",
+            "Monster#isDarkEnoughToSpawn is answered with the block light of all other light sources: ConstructionLightSpawning recomputes it outward from the spawn position, each step costing the light dampening of the block entered (at least 1, full blocks stop it), each other source contributing its brightness minus that cost.",
+            "Other lights keep working: a torch or glowstone next to a construction light still prevents spawns as far as in vanilla. Sky light counts as usual, so a construction light outdoors does not turn day into night.",
+            "Without a construction light within 14 blocks the vanilla check runs unchanged."
+          ]
+        },
+        "de": {
+          "summary": "Das Baulicht ist eine glasartige Lampe, die mit Lichtstufe 15 leuchtet, aber keine Monster-Spawns verhindert: Sein Licht zählt bei der Dunkelheitsprüfung für Monster-Spawns nicht mit.",
+          "details": [
+            "Lichtstufe 15, bricht fast sofort (Härte 0,3), klingt wie Glas; Mobs dürfen darauf spawnen.",
+            "Monster#isDarkEnoughToSpawn wird mit dem Blocklicht aller anderen Lichtquellen beantwortet: ConstructionLightSpawning berechnet es von der Spawnstelle aus neu, jeder Schritt kostet die Lichtdämpfung des betretenen Blocks (mindestens 1, volle Blöcke sperren), jede andere Quelle bringt ihre Leuchtstärke minus diese Kosten.",
+            "Andere Lichter wirken weiter: Eine Fackel oder Leuchtstein neben einem Baulicht verhindert Spawns so weit wie in Vanilla. Himmelslicht zählt wie gewohnt, ein Baulicht im Freien macht den Tag also nicht zur Nacht.",
+            "Ohne Baulicht im Umkreis von 14 Blöcken läuft die Vanilla-Prüfung unverändert."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -12941,8 +13256,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -12991,8 +13306,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -13497,6 +13812,30 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:lapis_quartz_checker"
       ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -13768,8 +14107,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -13818,8 +14157,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -14508,6 +14847,53 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:nihilith_quartz_checker",
+      "name": {
+        "en_us": "Nihilith Quartz Checker",
+        "de_de": "Nihilith-Quarz-Schachbrett"
+      },
+      "texture": "assets/textures/block/nihilith_quartz_checker.png",
+      "craftedBy": [
+        "simplebuilding:nihilith_quartz_checker"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "faces": {
+        "top": "assets/textures/block/nihilith_quartz_checker.png",
+        "side": "assets/textures/block/nihilith_quartz_checker.png",
+        "front": "assets/textures/block/nihilith_quartz_checker_mirror.png"
+      },
+      "lootTable": "simplebuilding:blocks/nihilith_quartz_checker",
+      "drops": [
+        "simplebuilding:nihilith_quartz_checker"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
+          ]
+        }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:polished_end_stone",
       "name": {
         "en_us": "Polished End Stone",
@@ -14554,6 +14940,30 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:purpur_quartz_checker"
       ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -14647,8 +15057,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -14697,8 +15107,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -15341,6 +15751,30 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:resin_quartz_checker"
       ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "tools/textures/generate_textures.py"
+        ],
+        "en": {
+          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
+          "details": [
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
+            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
+            "The Astralit Quartz Checker glows with light level 5."
+          ]
+        },
+        "de": {
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
+          "details": [
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
+            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
+            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
+          ]
+        }
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -15552,6 +15986,33 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:astralit_quartz_checker",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:astralit_quartz_checker",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/astralit_quartz_checker.json",
+      "ingredients": [
+        "minecraft:quartz_block",
+        "simplebuilding:astralit_dust"
+      ],
+      "pattern": [
+        "BQ",
+        "QB"
+      ],
+      "key": {
+        "B": [
+          "simplebuilding:astralit_dust"
+        ],
+        "Q": [
+          "minecraft:quartz_block"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:backpack",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -15562,20 +16023,17 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/backpack.json",
       "ingredients": [
+        "#minecraft:wooden_pressure_plates",
         "minecraft:copper_nugget",
-        "minecraft:iron_bars",
         "minecraft:string",
         "simplebuilding:leather_sheet"
       ],
       "pattern": [
         "NSN",
         "PPP",
-        "III"
+        "WWW"
       ],
       "key": {
-        "I": [
-          "minecraft:iron_bars"
-        ],
         "N": [
           "minecraft:copper_nugget"
         ],
@@ -15584,6 +16042,9 @@ window.WIKI_DATA = {
         ],
         "S": [
           "minecraft:string"
+        ],
+        "W": [
+          "#minecraft:wooden_pressure_plates"
         ]
       }
     },
@@ -17446,6 +17907,33 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:nihilith_quartz_checker",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:nihilith_quartz_checker",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/nihilith_quartz_checker.json",
+      "ingredients": [
+        "minecraft:quartz_block",
+        "simplebuilding:nihilith_shard"
+      ],
+      "pattern": [
+        "BQ",
+        "QB"
+      ],
+      "key": {
+        "B": [
+          "simplebuilding:nihilith_shard"
+        ],
+        "Q": [
+          "minecraft:quartz_block"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:octant",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -18027,13 +18515,14 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
       "ingredients": [
+        "minecraft:string",
         "simplebuilding:backpack",
         "simplebuilding:diamond_pebble",
         "simplebuilding:leather_sheet"
       ],
       "pattern": [
-        "DLD",
-        "LBL",
+        " S ",
+        "DBD",
         "LLL"
       ],
       "key": {
@@ -18045,6 +18534,9 @@ window.WIKI_DATA = {
         ],
         "L": [
           "simplebuilding:leather_sheet"
+        ],
+        "S": [
+          "minecraft:string"
         ]
       }
     },
@@ -19210,6 +19702,24 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_ore.json"
     },
     {
+      "id": "simplebuilding:blocks/astralit_quartz_checker",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:astralit_quartz_checker"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_quartz_checker.json"
+    },
+    {
       "id": "simplebuilding:blocks/backpack",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -19615,6 +20125,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_ore.json"
+    },
+    {
+      "id": "simplebuilding:blocks/nihilith_quartz_checker",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:nihilith_quartz_checker"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_quartz_checker.json"
     },
     {
       "id": "simplebuilding:blocks/polished_end_stone",
@@ -22854,6 +23382,121 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json"
     },
     {
+      "id": "simplebuilding:item/enderite_ingot_tier",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:enderite_apple",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_axe",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_backpack",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_blast_furnace",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_block",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_boots",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_building_wand",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_bundle",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_carrot",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chestplate",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chisel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_furnace",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_helmet",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_hoe",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_hopper",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_ingot",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_leggings",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_nugget",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_pickaxe",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_piston",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_shovel",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_smoker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_spear",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_sword",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json"
+    },
+    {
       "id": "simplebuilding:item/extra_inventory_items",
       "replace": false,
       "values": [
@@ -23298,13 +23941,13 @@ window.WIKI_DATA = {
     }
   ],
   "counts": {
-    "items": 122,
-    "blocks": 39,
-    "recipes": 132,
-    "lootTables": 38,
+    "items": 124,
+    "blocks": 41,
+    "recipes": 134,
+    "lootTables": 40,
     "trades": 20,
     "enchantments": 19,
-    "tags": 25,
+    "tags": 26,
     "config": 14,
     "features": 30,
     "undocumented": 0,
