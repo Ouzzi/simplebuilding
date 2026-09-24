@@ -6,6 +6,7 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.ChiselItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
+import com.simplebuilding.util.InWorldTransformations;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentInitializers;
 import net.minecraft.core.component.DataComponentMap;
@@ -103,13 +104,17 @@ public class WikiDataProvider implements DataProvider {
         // Auch die registrierten Bloecke: das Wiki leitet seine Blockliste aus den
         // Sprachschluesseln ab und zeigte dadurch Bloecke, die es gar nicht gibt
         // (auskommentierte TODOs mit vorhandenem block.*-Schluessel).
-        JsonArray blocks = new JsonArray();
+        // Sortiert: entrySet() folgt der Hash-Reihenfolge, und die wechselte von Lauf zu Lauf.
+        List<String> blockIds = new ArrayList<>();
         for (var entry : BuiltInRegistries.BLOCK.entrySet()) {
             Identifier id = entry.getKey().identifier();
             if (Simplebuilding.MOD_ID.equals(id.getNamespace())) {
-                blocks.add(id.toString());
+                blockIds.add(id.toString());
             }
         }
+        blockIds.sort(Comparator.naturalOrder());
+        JsonArray blocks = new JsonArray();
+        blockIds.forEach(blocks::add);
 
         JsonObject root = new JsonObject();
         root.addProperty("schema", 1);
@@ -118,8 +123,15 @@ public class WikiDataProvider implements DataProvider {
         root.add("items", items);
         root.add("blocks", blocks);
 
-        Path path = this.output.getOutputFolder().resolve("wiki").resolve("items.json");
-        return DataProvider.saveStable(cache, root, path);
+        Path wiki = this.output.getOutputFolder().resolve("wiki");
+        // Umwandlungen in der Welt (Aufwertung, Umformen, Meissel ...): dieselben Tabellen und
+        // Konstanten, die das Spiel benutzt, fuer die Wiki-Kategorie "Umwandlung in der Welt".
+        JsonObject inWorld = InWorldTransformations.describe();
+        inWorld.addProperty("schema", 1);
+        inWorld.addProperty("generator", getClass().getName());
+        return CompletableFuture.allOf(
+                DataProvider.saveStable(cache, root, wiki.resolve("items.json")),
+                DataProvider.saveStable(cache, inWorld, wiki.resolve("inworld.json")));
     }
 
     /**

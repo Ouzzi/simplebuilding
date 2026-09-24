@@ -54,6 +54,10 @@ public class ChiselItem extends Item {
     private Direction chiselDirection = Direction.FORWARD;
     private SoundEvent chiselSound = SoundEvents.UI_STONECUTTER_TAKE_RESULT;
     private int cooldownTicks = 100;
+    /** Haltbarkeit je Umformung in Standardrichtung (Meissel vorwaerts, Spachtel rueckwaerts). */
+    public static final int TRANSFORM_DAMAGE = 1;
+    /** Haltbarkeit je Rueckwaerts-Umformung mit dem Meissel (Schleichen). */
+    public static final int REVERSE_TRANSFORM_DAMAGE = 2;
 
     // Wir speichern das Material selbst, da "Item" kein Material hat.
     private final ToolMaterial material;
@@ -378,6 +382,14 @@ public class ChiselItem extends Item {
     public void setAsDedicatedSpatula(boolean value) { this.isDedicatedSpatula = value; }
     /** Fuer den Wiki-Export: unterscheidet Spachtel von Meissel. */
     public boolean isDedicatedSpatula() { return this.isDedicatedSpatula; }
+    /** Fuer den Wiki-Export (InWorldTransformations): was diese Stufe vorwaerts umformt. */
+    public Map<Block, Block> getForwardMap() { return this.forwardMap; }
+    /** Fuer den Wiki-Export: was diese Stufe rueckwaerts umformt (Spachtel, Meissel mit Schleichen). */
+    public Map<Block, Block> getBackwardMap() { return this.backwardMap; }
+    /** Fuer den Wiki-Export: vorwaerts mit Constructor's Touch (enthaelt die Grundtabelle). */
+    public Map<Block, Block> getTouchForwardMap() { return this.touchForwardMap; }
+    /** Fuer den Wiki-Export: rueckwaerts mit Constructor's Touch (enthaelt die Grundtabelle). */
+    public Map<Block, Block> getTouchBackwardMap() { return this.touchBackwardMap; }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
@@ -467,7 +479,7 @@ public class ChiselItem extends Item {
 
             if (!player.getAbilities().instabuild) {
                 player.getCooldowns().addCooldown(stack, finalCooldown);
-                int damageAmount = isReverseAction ? 2 : 1;
+                int damageAmount = isReverseAction ? REVERSE_TRANSFORM_DAMAGE : TRANSFORM_DAMAGE;
                 // Unbreaking Logik ist in stack.damage enthalten
                 stack.hurtAndBreak(damageAmount, (ServerLevel) world, (ServerPlayer) player,
                         item -> player.onEquippedItemBroken(item, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));

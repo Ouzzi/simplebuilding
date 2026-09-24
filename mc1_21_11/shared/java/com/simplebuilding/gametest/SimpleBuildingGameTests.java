@@ -708,6 +708,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("sledgehammer_upgrade_game_test_netherite_machine_recipes_and_their_unlocks_are_gone", SledgehammerUpgradeTests::netheriteMachineRecipesAndTheirUnlocksAreGone)
                     .build(),
+            GameTestSpec.named("in_world_export_game_test_upgrade_steps_name_the_weakest_hammer_that_works", InWorldExportTests::upgradeStepsNameTheWeakestHammerThatWorks)
+                    .build(),
+            GameTestSpec.named("in_world_export_game_test_reshape_ticks_match_the_use_duration_of_every_hammer", InWorldExportTests::reshapeTicksMatchTheUseDurationOfEveryHammer)
+                    .build(),
+            GameTestSpec.named("in_world_export_game_test_chisel_tables_follow_the_tool_tiers", InWorldExportTests::chiselTablesFollowTheToolTiers)
+                    .build(),
             GameTestSpec.named("enderite_machine_game_test_enderite_hopper_moves_an_item_every_tick", EnderiteMachineTests::enderiteHopperMovesAnItemEveryTick)
                     .maxTicks(EnderiteMachineTests.HOPPER_MAX_TICKS)
                     .build(),

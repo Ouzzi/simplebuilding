@@ -6,8 +6,9 @@ Stellt das Wiki als statische Seite zusammen - genau das, was wiki/index.html la
     python tools/wiki_site.py --out DIR        anderes Ziel
     python tools/wiki_site.py --verify-only    nur pruefen, nichts kopieren
 
-Kopiert werden index.html, data/simplebuilding.js, die eigenen Texturen, auf die die Daten
-verweisen, und eine leere .nojekyll. Bewusst NICHT kopiert:
+Kopiert werden index.html, data/simplebuilding.js, die Vanilla-Rezepte je Minecraft-Linie
+(data/vanilla-<linie>.js, nur Rezeptdaten - der Rezeptbaum laedt sie bei Bedarf), die eigenen
+Texturen, auf die die Daten verweisen, und eine leere .nojekyll. Bewusst NICHT kopiert:
   * wiki/assets/textures/minecraft/ - Mojangs Texturen werden nicht veroeffentlicht. Die Seite
     faengt fehlende Bilder ab und zeigt Vanilla-Zutaten dann als Textkachel;
   * generate.py, manual.json, README.md, HANDOFF.md und data/simplebuilding.json (laedt die
@@ -42,6 +43,7 @@ TEXTURES = WIKI / "assets" / "textures"
 VANILLA_PREFIX = "assets/textures/minecraft/"
 JS_MARKER = "window.WIKI_DATA = "
 DATA_SCRIPT = 'src="data/simplebuilding.js"'
+VANILLA_RECIPES = "data/vanilla-{line}.js"
 MARKER = ".nojekyll"  # liegt in jedem hier gebauten Ordner; nur solche Ordner werden geleert
 
 
@@ -66,6 +68,12 @@ def referenced_textures(data: dict) -> set[str]:
                 refs.add(entry["texture"])
             refs.update(v for v in (entry.get("faces") or {}).values() if v)
     return refs
+
+
+def vanilla_lines(data: dict) -> list[str]:
+    """Die Linien, deren Vanilla-Rezepte der Rezeptbaum nachlaedt."""
+    block = data.get("vanillaRecipes") or {}
+    return [line for line in block.get("lines", []) if isinstance(line, str) and re.fullmatch(r"[0-9.]+", line)]
 
 
 def check_index(html: str) -> list[str]:
@@ -97,6 +105,12 @@ def check_data(data: dict) -> list[str]:
                                 "python wiki/generate.py laufen lassen")
         except json.JSONDecodeError as error:
             problems.append(f"wiki/data/simplebuilding.js ist nach der Markierung kein JSON: {error}")
+    for line in vanilla_lines(data):
+        path = WIKI / VANILLA_RECIPES.format(line=line)
+        text = path.read_text(encoding="utf-8") if path.is_file() else ""
+        if f'window.VANILLA_RECIPES["{line}"] = ' not in text:
+            problems.append(f"wiki/{VANILLA_RECIPES.format(line=line)} fehlt oder setzt "
+                            f'window.VANILLA_RECIPES["{line}"] nicht - python wiki/generate.py laufen lassen')
     for ref in sorted(referenced_textures(data)):
         if (not ref.startswith("assets/textures/") or ref.startswith(VANILLA_PREFIX)
                 or ".." in ref.split("/")):
@@ -122,6 +136,9 @@ def stage(out: Path, data: dict) -> None:
     html = html.replace(DATA_SCRIPT, f'src="data/simplebuilding.js?v={version}"')
     (out / "index.html").write_text(html, encoding="utf-8", newline="\n")
     shutil.copyfile(DATA_JS, out / "data" / "simplebuilding.js")
+    for line in vanilla_lines(data):
+        name = VANILLA_RECIPES.format(line=line)
+        shutil.copyfile(WIKI / name, out / name)
     refs = sorted(referenced_textures(data))
     for ref in refs:
         target = out / ref

@@ -35,6 +35,9 @@ Das ist der Kern des Aufbaus, deshalb ausführlich.
 | Tags | `.../tags/**` (generiert und Ressourcen) |
 | Konfiguration | `common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java` |
 | Haltbarkeit, Stapelgröße, Verzauberbarkeit, Angriffswerte, Zauberstab-Durchmesser, Meißel-Abklingzeit | `src/main/generated/wiki/items.json` – vom Datagen-Provider `WikiDataProvider` aus der **Item-Registry** geschrieben |
+| Umwandlungen in der Welt (Maschinen-Aufwertung, Umformen, Diamantblock, Meißel) | `src/main/generated/wiki/inworld.json` – vom Datagen-Provider über `InWorldTransformations` aus denselben Tabellen und Konstanten geschrieben, die das Spiel benutzt |
+| Umwandlungen ohne Tabelle im Code (Besatzvorlage im Rahmen, Waschen im Kessel) und die Prosa je Art | `wiki/manual.json` → `inWorld` |
+| Vanilla-Rezepte für den Rezeptbaum, je Minecraft-Linie | `minecraft-client.jar` der Linie im Gradle-Cache → `wiki/data/vanilla-<linie>.js` (committet, nur Rezeptdaten und Item-Tags) |
 | Welche Items eigenes Verhalten haben | Registrierungen in `ModItems.java` / `ModBlocks.java` gegen die Klassen in `items/custom/` und `blocks/custom/` |
 
 Ändert sich die Mod, ändert sich beim nächsten Lauf die Doku. Angestoßen wird dieser Lauf von
@@ -66,6 +69,31 @@ Zwei Dinge dazu:
 * `src/main/generated` ist ein Ressourcenverzeichnis, deshalb schließt
   `processResources` in `build.gradle` `wiki/**` aus – der Export ist eine
   Bauzeit-Zutat und gehört nicht ins Mod-Jar.
+
+### Umwandlung in der Welt
+
+Die Kategorie „In der Welt“ (`#/inworld`) und der gleichnamige Abschnitt auf jeder
+Item-Seite zeigen, was sich ohne Werkbank verwandelt – mit Werkzeug, Dauer, Schlägen,
+Haltbarkeit und Mindeststufe. Die Zahlen und Tabellen schreibt der Datagen-Provider aus
+`InWorldTransformations` (geteilter Code, beide Linien) nach
+`src/main/generated/wiki/inworld.json`; die Spieltests `InWorldExportTests` halten den
+Export gegen das Spiel. Was keine Tabelle im Code hat, steht in `manual.json` unter
+`inWorld.entries` mit Quellen, die Prosa je Art unter `inWorld.kinds` (en + de, von
+`--check` verlangt).
+
+### Rezeptbaum und Vanilla-Rezepte
+
+Rechtsklick auf eine Item-Kachel öffnet ein kleines Menü; „Rezeptbaum“ (`#/tree/<id>`)
+zeigt alle Wege zu einem Item – Rezepte der Mod und aus Vanilla, Schmelzen, Umwandlungen
+in der Welt, Drops, Handel – und klappt die Zutaten rekursiv auf. Varianten (beliebige
+Bretter) werden zu einem Zweig zusammengefasst. Linksklick bleibt, wie er war.
+
+Die Vanilla-Rezepte liest `generate.py` je Linie aus dem Client-Jar im Gradle-Cache und
+schreibt sie nach `wiki/data/vanilla-26.2.js` bzw. `vanilla-1.21.11.js` – nur Rezeptdaten
+und die Item-Tags, keine Texturen, keine Sprachdateien. Die Dateien sind committet, weil
+CI keinen Gradle-Cache hat: ohne Jar bleibt die vorhandene Datei stehen, mit Jar prüft
+`--check`, dass sie aktuell ist. Die Seite lädt die Datei der gewählten Linie erst, wenn
+der Baum sie braucht; `tools/wiki_site.py` veröffentlicht beide mit.
 
 ### 3D-Ansicht der Blöcke
 
@@ -240,6 +268,7 @@ Linie im Kopf an.
 | `index.html` | die App, eine Datei, Vanilla-JS | ja, selten |
 | `data/simplebuilding.json` | die Doku als JSON | nein, generiert |
 | `data/simplebuilding.js` | dasselbe als `window.WIKI_DATA`, damit `file://` funktioniert | nein, generiert |
+| `data/vanilla-<linie>.js` | Vanilla-Rezepte je Minecraft-Linie für den Rezeptbaum | nein, generiert |
 | `../tools/wiki_site.py` | stellt die statische Seite für das Hosting zusammen (ohne Vanilla-Texturen) | ja, selten |
 | `../tools/git-hooks/pre-commit` | optionaler Hook: `--check` vor jedem Commit | ja, selten |
 | `../.github/workflows/wiki.yml` | CI: prüfen, auf `master` nach GitHub Pages veröffentlichen | ja, selten |

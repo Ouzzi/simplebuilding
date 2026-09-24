@@ -23297,6 +23297,8755 @@ window.WIKI_DATA = {
       "tooltip": ""
     }
   ],
+  "inWorld": {
+    "kinds": [
+      {
+        "id": "sledgehammer_upgrade",
+        "facts": {
+          "durationTicks": 100,
+          "hitIntervalTicks": 20,
+          "hits": 5,
+          "finishCooldownTicks": 20,
+          "hammers": [
+            {
+              "id": "simplebuilding:diamond_sledgehammer",
+              "rank": 1
+            },
+            {
+              "id": "simplebuilding:enderite_sledgehammer",
+              "rank": 3
+            },
+            {
+              "id": "simplebuilding:netherite_sledgehammer",
+              "rank": 2
+            }
+          ]
+        },
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          ],
+          "en": {
+            "title": "Machine upgrade with the sledgehammer",
+            "summary": "Hold a sledgehammer in the main hand and a Netherite or Enderite Nugget in the off hand, then keep right-click held on a placed machine: after the last blow it becomes the next tier. Time, number of blows, durability and the weakest hammer that works are listed with every step.",
+            "details": [
+              "Reinforced to Netherite takes a Netherite Nugget, Netherite to Enderite an Enderite Nugget; each step names the weakest sledgehammer that can do it, every stronger one works too.",
+              "Upgradeable are the hopper, the furnace, the smoker, the blast furnace and the (non-sticky) piston.",
+              "The hammer strikes once per blow interval; the last blow performs the upgrade. Every blow costs the listed durability.",
+              "Exactly one nugget is consumed, on the last blow. In creative mode neither the nugget nor durability is used.",
+              "The block keeps its properties (facing, lit, enabled) and its block entity: a hopper keeps its items, filter and mode, a furnace keeps cooking.",
+              "The attempt stops without using the nugget when right-click is released, the aim leaves the block, you move out of reach, the block changes, the nugget leaves the off hand or the hammer breaks; blows already struck stay paid.",
+              "A piston that is extended or powered is not upgraded. With the wrong nugget or too weak a hammer a hint appears in the action bar and the machine opens its menu as usual."
+            ]
+          },
+          "de": {
+            "title": "Maschinen-Aufwertung mit dem Vorschlaghammer",
+            "summary": "Vorschlaghammer in die Haupthand, Netherit- oder Enderit-Nugget in die Nebenhand und Rechtsklick auf einer platzierten Maschine gedrückt halten: Nach dem letzten Schlag ist sie eine Stufe höher. Dauer, Schlagzahl, Haltbarkeit und der schwächste passende Hammer stehen bei jeder Stufe.",
+            "details": [
+              "Verstärkt zu Netherit braucht ein Netherit-Nugget, Netherit zu Enderit ein Enderit-Nugget; jede Stufe nennt den schwächsten Vorschlaghammer, der sie schafft, jeder stärkere geht auch.",
+              "Aufwertbar sind Trichter, Ofen, Räucherofen, Schmelzofen und der (nicht klebrige) Kolben.",
+              "Der Hammer schlägt einmal je Schlagabstand zu; der letzte Schlag wertet auf. Jeder Schlag kostet die angegebene Haltbarkeit.",
+              "Verbraucht wird genau ein Nugget, beim letzten Schlag. Im Kreativmodus kostet es weder Nugget noch Haltbarkeit.",
+              "Der Block behält seine Eigenschaften (Blickrichtung, brennend, aktiviert) und seine Block-Entity: Ein Trichter behält Inhalt, Filter und Modus, ein Ofen schmilzt weiter.",
+              "Abgebrochen wird ohne Nugget-Verbrauch, wenn der Rechtsklick losgelassen wird, der Blick den Block verlässt, man außer Reichweite geht, der Block sich ändert, das Nugget die Nebenhand verlässt oder der Hammer zerbricht; schon geschlagene Schläge bleiben bezahlt.",
+              "Ein ausgefahrener oder mit Strom versorgter Kolben wird nicht aufgewertet. Mit falschem Nugget oder zu schwachem Hammer erscheint ein Hinweis in der Aktionsleiste und die Maschine öffnet wie gewohnt ihr Menü."
+            ]
+          }
+        }
+      },
+      {
+        "id": "sledgehammer_reshape",
+        "facts": {
+          "damage": 1,
+          "reverseDamage": 2,
+          "minTicks": 4,
+          "maxTicks": 40,
+          "hammers": [
+            {
+              "id": "simplebuilding:copper_sledgehammer",
+              "ticks": 40
+            },
+            {
+              "id": "simplebuilding:diamond_sledgehammer",
+              "ticks": 25
+            },
+            {
+              "id": "simplebuilding:enderite_sledgehammer",
+              "ticks": 20
+            },
+            {
+              "id": "simplebuilding:gold_sledgehammer",
+              "ticks": 16
+            },
+            {
+              "id": "simplebuilding:iron_sledgehammer",
+              "ticks": 33
+            },
+            {
+              "id": "simplebuilding:netherite_sledgehammer",
+              "ticks": 22
+            },
+            {
+              "id": "simplebuilding:stone_sledgehammer",
+              "ticks": 40
+            }
+          ]
+        },
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          ],
+          "en": {
+            "title": "Reshaping with the sledgehammer",
+            "summary": "Hold right-click with a sledgehammer on a block: when the charge is full, a full block becomes its stairs and stairs become their slab. Sneaking with Constructor's Touch walks back from slab to stairs to full block. This works for every block whose stairs or slab exist under the matching id, vanilla blocks included.",
+            "details": [
+              "Forward (not sneaking): a block with a full collision shape turns into <id>_stairs, stairs turn into <base>_slab - if that block exists.",
+              "Backward (sneaking) needs the Constructor's Touch enchantment: a slab turns into <base>_stairs, stairs into <base>, <base>s or <base>_planks. Without the enchantment, sneaking reshapes nothing.",
+              "The new stairs or slab are oriented by the clicked face and the hit position.",
+              "Charge time in ticks: 200 / (material speed + 5 x Efficiency level), cut off at the lower and upper limit below. The table lists every hammer without Efficiency.",
+              "Every reshape costs the listed durability, a backward reshape more. Creative mode costs none.",
+              "If no matching stairs or slab exists, the hammer does not start charging."
+            ]
+          },
+          "de": {
+            "title": "Umformen mit dem Vorschlaghammer",
+            "summary": "Rechtsklick mit dem Vorschlaghammer auf einem Block halten: Ist die Ladung voll, wird ein Vollblock zu seiner Treppe und eine Treppe zu ihrer Stufe. Schleichen mit Constructor's Touch geht zurück, von der Stufe zur Treppe zum Vollblock. Das gilt für jeden Block, dessen Treppe oder Stufe unter der passenden Id existiert, auch für Vanilla-Blöcke.",
+            "details": [
+              "Vorwärts (ohne Schleichen): Ein Block mit voller Kollisionsform wird zu <id>_stairs, eine Treppe zu <basis>_slab - sofern es diesen Block gibt.",
+              "Rückwärts (Schleichen) braucht die Verzauberung Constructor's Touch: Eine Stufe wird zu <basis>_stairs, eine Treppe zu <basis>, <basis>s oder <basis>_planks. Ohne die Verzauberung formt Schleichen nichts um.",
+              "Die neue Treppe oder Stufe richtet sich nach der angeklickten Fläche und der Trefferstelle aus.",
+              "Ladezeit in Ticks: 200 / (Materialtempo + 5 x Effizienzstufe), auf die untere und obere Grenze unten beschnitten. Die Tabelle nennt jeden Hammer ohne Effizienz.",
+              "Jede Umformung kostet die angegebene Haltbarkeit, rückwärts mehr. Im Kreativmodus kostet sie nichts.",
+              "Gibt es keine passende Treppe oder Stufe, beginnt der Hammer gar nicht zu laden."
+            ]
+          }
+        }
+      },
+      {
+        "id": "diamond_crush",
+        "facts": {},
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          ],
+          "en": {
+            "title": "Crushing a Block of Diamond",
+            "summary": "Hold right-click with any sledgehammer on a Block of Diamond: when the charge is full, the block breaks without its normal drop and releases Diamond Pebbles.",
+            "details": [
+              "The charge takes as long as a reshape with the same hammer.",
+              "The pebbles drop in stacks of at most 64 at the block's position.",
+              "Costs the listed durability; creative mode costs none."
+            ]
+          },
+          "de": {
+            "title": "Diamantblock zerschlagen",
+            "summary": "Rechtsklick mit einem beliebigen Vorschlaghammer auf einem Diamantblock halten: Ist die Ladung voll, zerbricht der Block ohne seinen normalen Drop und gibt Diamantsplitter frei.",
+            "details": [
+              "Die Ladung dauert so lange wie eine Umformung mit demselben Hammer.",
+              "Die Splitter fallen in Stapeln zu höchstens 64 an der Stelle des Blocks.",
+              "Kostet die angegebene Haltbarkeit; im Kreativmodus nichts."
+            ]
+          }
+        }
+      },
+      {
+        "id": "chisel",
+        "facts": {
+          "damage": 1,
+          "tools": [
+            {
+              "id": "simplebuilding:stone_chisel",
+              "cooldownTicks": 30
+            },
+            {
+              "id": "simplebuilding:copper_chisel",
+              "cooldownTicks": 25
+            },
+            {
+              "id": "simplebuilding:iron_chisel",
+              "cooldownTicks": 25
+            },
+            {
+              "id": "simplebuilding:diamond_chisel",
+              "cooldownTicks": 10
+            },
+            {
+              "id": "simplebuilding:gold_chisel",
+              "cooldownTicks": 20
+            },
+            {
+              "id": "simplebuilding:enderite_chisel",
+              "cooldownTicks": 5
+            },
+            {
+              "id": "simplebuilding:netherite_chisel",
+              "cooldownTicks": 5
+            }
+          ]
+        },
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          ],
+          "en": {
+            "title": "Chiseling",
+            "summary": "Right-click a block with a chisel to turn it into the next block of its chain. Which chains a chisel knows depends on its tier; Constructor's Touch adds more. Every step lists all chisels that can do it.",
+            "details": [
+              "A higher tier contains the entries of the lower ones unless it overrides the same source block; the list is computed from each tier's own table.",
+              "Steps marked Constructor's Touch only work with that enchantment on the chisel.",
+              "After a step the chisel has a cooldown (per tool below); Fast Chiseling shortens it by 30% per level, to at least 1 tick.",
+              "Block properties such as waterlogged are carried over, and the new block is oriented by the clicked face.",
+              "In creative mode a step costs neither durability nor cooldown."
+            ]
+          },
+          "de": {
+            "title": "Meißeln",
+            "summary": "Rechtsklick mit einem Meißel verwandelt den Block in den nächsten seiner Kette. Welche Ketten ein Meißel kennt, hängt von seiner Stufe ab; Constructor's Touch fügt weitere hinzu. Jeder Schritt nennt alle Meißel, die ihn können.",
+            "details": [
+              "Eine höhere Stufe enthält die Einträge der niedrigeren, außer sie überschreibt denselben Ausgangsblock; die Liste ist aus der Tabelle jeder Stufe berechnet.",
+              "Schritte mit dem Vermerk Constructor's Touch gehen nur mit dieser Verzauberung auf dem Meißel.",
+              "Nach einem Schritt hat der Meißel eine Abklingzeit (je Werkzeug unten); Fast Chiseling kürzt sie je Stufe um 30 %, auf mindestens 1 Tick.",
+              "Blockeigenschaften wie wassergeflutet werden übernommen, und der neue Block richtet sich nach der angeklickten Fläche aus.",
+              "Im Kreativmodus kostet ein Schritt weder Haltbarkeit noch Abklingzeit."
+            ]
+          }
+        }
+      },
+      {
+        "id": "chisel_reverse",
+        "facts": {
+          "damage": 2,
+          "tools": [
+            {
+              "id": "simplebuilding:stone_chisel",
+              "cooldownTicks": 30
+            },
+            {
+              "id": "simplebuilding:copper_chisel",
+              "cooldownTicks": 25
+            },
+            {
+              "id": "simplebuilding:iron_chisel",
+              "cooldownTicks": 25
+            },
+            {
+              "id": "simplebuilding:diamond_chisel",
+              "cooldownTicks": 10
+            },
+            {
+              "id": "simplebuilding:gold_chisel",
+              "cooldownTicks": 20
+            },
+            {
+              "id": "simplebuilding:enderite_chisel",
+              "cooldownTicks": 5
+            },
+            {
+              "id": "simplebuilding:netherite_chisel",
+              "cooldownTicks": 5
+            }
+          ]
+        },
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+          ],
+          "en": {
+            "title": "Chiseling backwards",
+            "summary": "Sneak and right-click with a chisel to walk a chain backwards. A backward step costs more durability than a forward step.",
+            "details": [
+              "The backward table is filled together with the forward one, so a chain can be walked in both directions; circular chains (coral blocks, nether bricks) turn the other way round.",
+              "Cooldown, Constructor's Touch and creative mode behave as for chiseling forwards."
+            ]
+          },
+          "de": {
+            "title": "Rückwärts meißeln",
+            "summary": "Schleichen und Rechtsklick mit einem Meißel geht eine Kette rückwärts. Ein Rückwärtsschritt kostet mehr Haltbarkeit als ein Vorwärtsschritt.",
+            "details": [
+              "Die Rückwärts-Tabelle wird zusammen mit der Vorwärts-Tabelle gefüllt, eine Kette lässt sich also in beide Richtungen gehen; Ringe (Korallenblöcke, Netherziegel) drehen sich andersherum.",
+              "Abklingzeit, Constructor's Touch und Kreativmodus verhalten sich wie beim Vorwärtsmeißeln."
+            ]
+          }
+        }
+      },
+      {
+        "id": "trim_template",
+        "facts": {},
+        "note": {
+          "sources": [
+            "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java"
+          ],
+          "en": {
+            "title": "Trim template in an item frame",
+            "summary": "Put an armor trim smithing template into an item frame, hold a sledgehammer in the main hand and Glow Ink Sac or Glowstone Dust in the off hand, and hit the item frame (left-click): the template in the frame becomes a Glowing or Emitting Trim Template.",
+            "details": [
+              "Glow Ink Sac gives the Glowing Trim Template, Glowstone Dust the Emitting Trim Template.",
+              "Every item whose id contains trim_smithing_template counts as a template - all vanilla armor trim templates.",
+              "One off-hand item and 1 durability of the hammer are used; nothing in creative mode."
+            ]
+          },
+          "de": {
+            "title": "Besatzvorlage im Rahmen",
+            "summary": "Eine Rüstungsbesatz-Schmiedevorlage in einen Rahmen legen, Vorschlaghammer in die Haupthand, Leuchttintenbeutel oder Glowstonestaub in die Nebenhand und auf den Rahmen schlagen (Linksklick): Die Vorlage im Rahmen wird zur leuchtenden bzw. strahlenden Besatzvorlage.",
+            "details": [
+              "Leuchttintenbeutel ergibt die leuchtende Besatzvorlage, Glowstonestaub die strahlende.",
+              "Als Vorlage zählt jedes Item, dessen Id trim_smithing_template enthält - alle Rüstungsbesatz-Vorlagen aus Vanilla.",
+              "Verbraucht werden ein Item aus der Nebenhand und 1 Haltbarkeit des Hammers; im Kreativmodus nichts."
+            ]
+          }
+        }
+      },
+      {
+        "id": "cauldron_wash",
+        "facts": {},
+        "note": {
+          "sources": [
+            "src/main/java/com/simplebuilding/Simplebuilding.java",
+            "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForge.java"
+          ],
+          "en": {
+            "title": "Washing in a cauldron",
+            "summary": "Use a coloured octant on a water cauldron to wash the colour off: it becomes a plain Octant and keeps its saved data, and the cauldron loses one level of water.",
+            "details": [
+              "Works with all sixteen coloured octants; the plain Octant itself is not washed.",
+              "The custom data of the octant is copied to the new one.",
+              "Counts towards the vanilla statistic for cleaning armor."
+            ]
+          },
+          "de": {
+            "title": "Waschen im Kessel",
+            "summary": "Einen gefärbten Oktanten auf einen Wasserkessel anwenden wäscht die Farbe ab: Er wird zum einfachen Oktanten, behält seine gespeicherten Daten, und der Kessel verliert eine Stufe Wasser.",
+            "details": [
+              "Geht mit allen sechzehn gefärbten Oktanten; der einfache Oktant selbst wird nicht gewaschen.",
+              "Die Zusatzdaten des Oktanten werden auf den neuen übertragen.",
+              "Zählt zur Vanilla-Statistik für gereinigte Rüstung."
+            ]
+          }
+        }
+      }
+    ],
+    "entries": [
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:netherite_blast_furnace",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:netherite_blast_furnace",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:netherite_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:enderite_blast_furnace",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 10,
+          "damage": 50
+        }
+      },
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:netherite_furnace",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:netherite_furnace",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:netherite_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:enderite_furnace",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 10,
+          "damage": 50
+        }
+      },
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:netherite_hopper",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:netherite_hopper",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:netherite_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:enderite_hopper",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 10,
+          "damage": 50
+        }
+      },
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:netherite_piston",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:netherite_piston",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:netherite_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:enderite_piston",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 10,
+          "damage": 50
+        }
+      },
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:netherite_smoker",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:netherite_smoker",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:netherite_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:enderite_smoker",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 10,
+          "damage": 50
+        }
+      },
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:reinforced_blast_furnace",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:reinforced_blast_furnace",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:netherite_blast_furnace",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 4,
+          "damage": 20
+        }
+      },
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:reinforced_furnace",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:reinforced_furnace",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:netherite_furnace",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 4,
+          "damage": 20
+        }
+      },
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:reinforced_hopper",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:reinforced_hopper",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:netherite_hopper",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 4,
+          "damage": 20
+        }
+      },
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:reinforced_piston",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:reinforced_piston",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:netherite_piston",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 4,
+          "damage": 20
+        }
+      },
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:reinforced_smoker",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:reinforced_smoker",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:netherite_smoker",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 4,
+          "damage": 20
+        }
+      },
+      {
+        "id": "diamond_crush",
+        "kind": "diamond_crush",
+        "inputs": [
+          {
+            "id": "minecraft:diamond_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:diamond_pebble",
+          "count": 81
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:acacia_planks/minecraft:acacia_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:acacia_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:acacia_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:acacia_stairs/minecraft:acacia_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:acacia_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:acacia_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:bamboo_planks/minecraft:bamboo_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:bamboo_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:bamboo_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:bamboo_stairs/minecraft:bamboo_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:bamboo_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:bamboo_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:basalt/minecraft:smooth_basalt",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:basalt",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_basalt",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:birch_planks/minecraft:birch_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:birch_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:birch_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:birch_stairs/minecraft:birch_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:birch_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:birch_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:blackstone/minecraft:chiseled_polished_blackstone",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:blackstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_polished_blackstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:blackstone_slab/minecraft:polished_blackstone_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:blackstone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_blackstone_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:blackstone_stairs/minecraft:polished_blackstone_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:blackstone_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_blackstone_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:cherry_planks/minecraft:cherry_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cherry_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cherry_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:cherry_stairs/minecraft:cherry_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cherry_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cherry_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:chiseled_deepslate/minecraft:deepslate_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_deepslate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:chiseled_nether_bricks/minecraft:netherrack",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:netherrack",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:chiseled_polished_blackstone/minecraft:polished_blackstone_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_polished_blackstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_blackstone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:chiseled_quartz_block/minecraft:quartz_block",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_quartz_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:quartz_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:chiseled_red_sandstone/minecraft:red_sand",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_red_sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:red_sand",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:chiseled_sandstone/minecraft:sand",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sand",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:chiseled_stone_bricks/minecraft:stone_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_stone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:chiseled_tuff/minecraft:tuff_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_tuff",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:cracked_deepslate_bricks/minecraft:deepslate_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cracked_deepslate_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_tiles",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:cracked_deepslate_tiles/minecraft:deepslate",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cracked_deepslate_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:cracked_nether_bricks/minecraft:chiseled_nether_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cracked_nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:cracked_stone_bricks/minecraft:cobblestone",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cracked_stone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cobblestone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:cut_red_sandstone/minecraft:red_sandstone",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cut_red_sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:red_sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:cut_red_sandstone_slab/minecraft:smooth_red_sandstone_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cut_red_sandstone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_red_sandstone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:cut_sandstone/minecraft:sandstone",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cut_sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:cut_sandstone_slab/minecraft:smooth_sandstone_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cut_sandstone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_sandstone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:dark_oak_planks/minecraft:dark_oak_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:dark_oak_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dark_oak_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:dark_oak_stairs/minecraft:dark_oak_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:dark_oak_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dark_oak_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:deepslate/minecraft:cobbled_deepslate",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cobbled_deepslate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:deepslate_brick_slab/minecraft:deepslate_tile_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_tile_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:deepslate_brick_stairs/minecraft:deepslate_tile_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_tile_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:deepslate_bricks/minecraft:cracked_deepslate_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cracked_deepslate_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:deepslate_tile_slab/minecraft:cobbled_deepslate_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_tile_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cobbled_deepslate_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:deepslate_tile_stairs/minecraft:cobbled_deepslate_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_tile_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cobbled_deepslate_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:deepslate_tiles/minecraft:cracked_deepslate_tiles",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cracked_deepslate_tiles",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:jungle_planks/minecraft:jungle_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:jungle_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:jungle_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:jungle_stairs/minecraft:jungle_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:jungle_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:jungle_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:mangrove_planks/minecraft:mangrove_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:mangrove_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mangrove_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:mangrove_stairs/minecraft:mangrove_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:mangrove_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mangrove_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:nether_bricks/minecraft:cracked_nether_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cracked_nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:netherrack/minecraft:nether_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:oak_planks/minecraft:oak_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:oak_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:oak_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:oak_stairs/minecraft:oak_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:oak_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:oak_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:pale_oak_planks/minecraft:pale_oak_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:pale_oak_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:pale_oak_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:pale_oak_stairs/minecraft:pale_oak_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:pale_oak_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:pale_oak_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_andesite/minecraft:andesite",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_andesite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:andesite",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_andesite_slab/minecraft:andesite_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_andesite_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:andesite_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_andesite_stairs/minecraft:andesite_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_andesite_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:andesite_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_blackstone/minecraft:blackstone",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_blackstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:blackstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_blackstone_bricks/minecraft:cracked_polished_blackstone_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_blackstone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cracked_polished_blackstone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_blackstone_slab/minecraft:blackstone_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_blackstone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:blackstone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_blackstone_stairs/minecraft:blackstone_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_blackstone_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:blackstone_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_deepslate/minecraft:chiseled_deepslate",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_deepslate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_deepslate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_deepslate_slab/minecraft:deepslate_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_deepslate_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_deepslate_stairs/minecraft:deepslate_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_deepslate_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_diorite/minecraft:diorite",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_diorite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:diorite",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_diorite_slab/minecraft:diorite_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_diorite_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:diorite_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_diorite_stairs/minecraft:diorite_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_diorite_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:diorite_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_granite/minecraft:granite",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_granite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:granite",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_granite_slab/minecraft:granite_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_granite_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:granite_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_granite_stairs/minecraft:granite_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_granite_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:granite_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_tuff/minecraft:tuff",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_tuff",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_tuff_slab/minecraft:tuff_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_tuff_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:polished_tuff_stairs/minecraft:tuff_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:polished_tuff_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:quartz_bricks/minecraft:chiseled_quartz_block",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:quartz_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_quartz_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:quartz_pillar/minecraft:quartz_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:quartz_pillar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:quartz_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:red_sandstone/minecraft:chiseled_red_sandstone",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:red_sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_red_sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:red_sandstone_slab/minecraft:cut_red_sandstone_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:red_sandstone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cut_red_sandstone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:red_sandstone_stairs/minecraft:smooth_red_sandstone_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:red_sandstone_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_red_sandstone_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:resin_bricks/minecraft:chiseled_resin_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:resin_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_resin_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:sandstone/minecraft:chiseled_sandstone",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:sandstone_slab/minecraft:cut_sandstone_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:sandstone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cut_sandstone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:sandstone_stairs/minecraft:smooth_sandstone_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:sandstone_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_sandstone_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:smooth_basalt/minecraft:polished_basalt",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_basalt",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_basalt",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:smooth_quartz/minecraft:quartz_pillar",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_quartz",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:quartz_pillar",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:smooth_quartz_slab/minecraft:quartz_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_quartz_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:quartz_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:smooth_quartz_stairs/minecraft:quartz_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_quartz_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:quartz_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:smooth_red_sandstone/minecraft:cut_red_sandstone",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_red_sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cut_red_sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:smooth_sandstone/minecraft:cut_sandstone",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cut_sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:smooth_stone_slab/minecraft:stone_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_stone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:spruce_planks/minecraft:spruce_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:spruce_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:spruce_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:spruce_stairs/minecraft:spruce_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:spruce_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:spruce_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:stone/minecraft:chiseled_stone_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:stone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_stone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:stone_brick_slab/minecraft:mossy_stone_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:stone_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mossy_stone_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:stone_brick_stairs/minecraft:mossy_stone_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:stone_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mossy_stone_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:stone_bricks/minecraft:cracked_stone_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:stone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cracked_stone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:stone_stairs/minecraft:cobblestone_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:stone_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cobblestone_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:tuff/minecraft:chiseled_tuff",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:tuff",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_tuff",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:tuff_brick_slab/minecraft:polished_tuff_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_tuff_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:tuff_brick_stairs/minecraft:polished_tuff_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_tuff_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:tuff_slab/minecraft:tuff_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:tuff_stairs/minecraft:tuff_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        }
+      },
+      {
+        "id": "chisel/minecraft:acacia_log/minecraft:stripped_acacia_log/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:acacia_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_acacia_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:acacia_wood/minecraft:stripped_acacia_wood/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:acacia_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_acacia_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:birch_log/minecraft:stripped_birch_log/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:birch_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_birch_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:birch_wood/minecraft:stripped_birch_wood/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:birch_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_birch_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:black_concrete/minecraft:black_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:black_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:black_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:blue_concrete/minecraft:blue_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:blue_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:blue_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:brain_coral_block/minecraft:bubble_coral_block/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:brain_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:bubble_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:brick_slab/minecraft:mud_brick_slab/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mud_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:brick_stairs/minecraft:mud_brick_stairs/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mud_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:bricks/minecraft:mud_bricks/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mud_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:brown_concrete/minecraft:brown_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:brown_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:brown_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:bubble_coral_block/minecraft:fire_coral_block/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:bubble_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:fire_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:calcite/minecraft:dripstone_block/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:calcite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dripstone_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:cherry_log/minecraft:stripped_cherry_log/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cherry_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_cherry_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:cherry_wood/minecraft:stripped_cherry_wood/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cherry_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_cherry_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:chiseled_copper/minecraft:copper_grate/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_copper",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:copper_grate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:cobblestone/minecraft:mossy_cobblestone/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mossy_cobblestone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:cobblestone_slab/minecraft:mossy_cobblestone_slab/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cobblestone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mossy_cobblestone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:cobblestone_stairs/minecraft:mossy_cobblestone_stairs/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cobblestone_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mossy_cobblestone_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:copper_block/minecraft:cut_copper/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:copper_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cut_copper",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:crimson_planks/minecraft:crimson_stairs/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:crimson_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:crimson_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:crimson_stairs/minecraft:crimson_slab/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:crimson_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:crimson_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:crimson_stem/minecraft:stripped_crimson_stem/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:crimson_stem",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_crimson_stem",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:cut_copper/minecraft:chiseled_copper/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cut_copper",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_copper",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:cyan_concrete/minecraft:cyan_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:cyan_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cyan_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:dark_oak_log/minecraft:stripped_dark_oak_log/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:dark_oak_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_dark_oak_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:dark_oak_wood/minecraft:stripped_dark_oak_wood/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:dark_oak_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_dark_oak_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:dead_brain_coral_block/minecraft:dead_bubble_coral_block/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:dead_brain_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dead_bubble_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:dead_bubble_coral_block/minecraft:dead_fire_coral_block/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:dead_bubble_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dead_fire_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:dead_fire_coral_block/minecraft:dead_horn_coral_block/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:dead_fire_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dead_horn_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:dead_horn_coral_block/minecraft:dead_tube_coral_block/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:dead_horn_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dead_tube_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:dead_tube_coral_block/minecraft:dead_brain_coral_block/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:dead_tube_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dead_brain_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:diorite/minecraft:calcite/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:diorite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:calcite",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:end_stone/minecraft:end_stone_bricks/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:end_stone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:end_stone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:fire_coral_block/minecraft:horn_coral_block/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:fire_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:horn_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:gray_concrete/minecraft:gray_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:gray_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:gray_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:green_concrete/minecraft:green_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:green_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:green_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:horn_coral_block/minecraft:tube_coral_block/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:horn_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tube_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:jungle_log/minecraft:stripped_jungle_log/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:jungle_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_jungle_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:jungle_wood/minecraft:stripped_jungle_wood/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:jungle_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_jungle_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:light_blue_concrete/minecraft:light_blue_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:light_blue_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:light_blue_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:light_gray_concrete/minecraft:light_gray_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:light_gray_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:light_gray_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:lime_concrete/minecraft:lime_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:lime_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:lime_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:magenta_concrete/minecraft:magenta_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:magenta_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:magenta_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:mangrove_log/minecraft:stripped_mangrove_log/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:mangrove_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_mangrove_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:mangrove_wood/minecraft:stripped_mangrove_wood/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:mangrove_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_mangrove_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:mud_bricks/minecraft:packed_mud/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:mud_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:packed_mud",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:oak_log/minecraft:stripped_oak_log/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:oak_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_oak_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:oak_wood/minecraft:stripped_oak_wood/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:oak_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_oak_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:obsidian/minecraft:crying_obsidian/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:obsidian",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:crying_obsidian",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:orange_concrete/minecraft:orange_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:orange_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:orange_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:packed_mud/minecraft:mud/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:packed_mud",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mud",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:pale_oak_log/minecraft:stripped_pale_oak_log/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:pale_oak_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_pale_oak_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:pale_oak_wood/minecraft:stripped_pale_oak_wood/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:pale_oak_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_pale_oak_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:pink_concrete/minecraft:pink_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:pink_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:pink_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:prismarine/minecraft:prismarine_bricks/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:prismarine",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:prismarine_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:prismarine_slab/minecraft:prismarine_brick_slab/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:prismarine_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:prismarine_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:prismarine_stairs/minecraft:prismarine_brick_stairs/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:prismarine_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:prismarine_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:purple_concrete/minecraft:purple_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:purple_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:purple_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:purpur_pillar/minecraft:purpur_block/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:purpur_pillar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:purpur_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:red_concrete/minecraft:red_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:red_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:red_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:smooth_stone/minecraft:stone/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_stone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:spruce_log/minecraft:stripped_spruce_log/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:spruce_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_spruce_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:spruce_wood/minecraft:stripped_spruce_wood/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:spruce_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_spruce_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:tube_coral_block/minecraft:brain_coral_block/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:tube_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:brain_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:warped_planks/minecraft:warped_stairs/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:warped_planks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:warped_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:warped_stairs/minecraft:warped_slab/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:warped_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:warped_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:warped_stem/minecraft:stripped_warped_stem/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:warped_stem",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stripped_warped_stem",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:white_concrete/minecraft:white_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:white_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:white_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel/minecraft:yellow_concrete/minecraft:yellow_concrete_powder/touch",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "minecraft:yellow_concrete",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:yellow_concrete_powder",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:acacia_slab/minecraft:acacia_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:acacia_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:acacia_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:acacia_stairs/minecraft:acacia_planks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:acacia_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:acacia_planks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:andesite/minecraft:polished_andesite",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:andesite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_andesite",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:andesite_slab/minecraft:polished_andesite_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:andesite_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_andesite_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:andesite_stairs/minecraft:polished_andesite_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:andesite_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_andesite_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:bamboo_slab/minecraft:bamboo_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:bamboo_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:bamboo_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:bamboo_stairs/minecraft:bamboo_planks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:bamboo_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:bamboo_planks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:birch_slab/minecraft:birch_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:birch_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:birch_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:birch_stairs/minecraft:birch_planks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:birch_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:birch_planks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:blackstone/minecraft:polished_blackstone",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:blackstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_blackstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:blackstone_slab/minecraft:polished_blackstone_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:blackstone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_blackstone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:blackstone_stairs/minecraft:polished_blackstone_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:blackstone_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_blackstone_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cherry_slab/minecraft:cherry_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cherry_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cherry_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cherry_stairs/minecraft:cherry_planks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cherry_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cherry_planks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:chiseled_deepslate/minecraft:polished_deepslate",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_deepslate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_deepslate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:chiseled_nether_bricks/minecraft:cracked_nether_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cracked_nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:chiseled_polished_blackstone/minecraft:blackstone",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_polished_blackstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:blackstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:chiseled_quartz_block/minecraft:quartz_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_quartz_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:quartz_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:chiseled_red_sandstone/minecraft:red_sandstone",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_red_sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:red_sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:chiseled_resin_bricks/minecraft:resin_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_resin_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:resin_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:chiseled_sandstone/minecraft:sandstone",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:chiseled_stone_bricks/minecraft:stone",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_stone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:chiseled_tuff/minecraft:tuff",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_tuff",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cobbled_deepslate/minecraft:deepslate",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cobbled_deepslate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cobbled_deepslate_slab/minecraft:deepslate_tile_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cobbled_deepslate_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_tile_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cobbled_deepslate_stairs/minecraft:deepslate_tile_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cobbled_deepslate_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_tile_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cobblestone/minecraft:cracked_stone_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cobblestone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cracked_stone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cobblestone_stairs/minecraft:stone_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cobblestone_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stone_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cracked_deepslate_bricks/minecraft:deepslate_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cracked_deepslate_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cracked_deepslate_tiles/minecraft:deepslate_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cracked_deepslate_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_tiles",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cracked_nether_bricks/minecraft:nether_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cracked_nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cracked_polished_blackstone_bricks/minecraft:polished_blackstone_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cracked_polished_blackstone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_blackstone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cracked_stone_bricks/minecraft:stone_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cracked_stone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cut_red_sandstone/minecraft:smooth_red_sandstone",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cut_red_sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_red_sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cut_red_sandstone_slab/minecraft:red_sandstone_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cut_red_sandstone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:red_sandstone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cut_sandstone/minecraft:smooth_sandstone",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cut_sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cut_sandstone_slab/minecraft:sandstone_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cut_sandstone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sandstone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:dark_oak_slab/minecraft:dark_oak_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:dark_oak_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dark_oak_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:dark_oak_stairs/minecraft:dark_oak_planks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:dark_oak_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dark_oak_planks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:deepslate/minecraft:cracked_deepslate_tiles",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cracked_deepslate_tiles",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:deepslate_brick_slab/minecraft:polished_deepslate_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_deepslate_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:deepslate_brick_stairs/minecraft:polished_deepslate_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_deepslate_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:deepslate_bricks/minecraft:chiseled_deepslate",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_deepslate",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:deepslate_tile_slab/minecraft:deepslate_brick_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_tile_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:deepslate_tile_stairs/minecraft:deepslate_brick_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_tile_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:deepslate_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:deepslate_tiles/minecraft:cracked_deepslate_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:deepslate_tiles",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cracked_deepslate_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:diorite/minecraft:polished_diorite",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:diorite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_diorite",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:diorite_slab/minecraft:polished_diorite_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:diorite_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_diorite_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:diorite_stairs/minecraft:polished_diorite_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:diorite_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_diorite_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:granite/minecraft:polished_granite",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:granite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_granite",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:granite_slab/minecraft:polished_granite_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:granite_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_granite_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:granite_stairs/minecraft:polished_granite_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:granite_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_granite_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:jungle_slab/minecraft:jungle_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:jungle_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:jungle_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:jungle_stairs/minecraft:jungle_planks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:jungle_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:jungle_planks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:mangrove_slab/minecraft:mangrove_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:mangrove_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mangrove_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:mangrove_stairs/minecraft:mangrove_planks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:mangrove_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mangrove_planks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:mossy_stone_brick_slab/minecraft:stone_brick_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:mossy_stone_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stone_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:mossy_stone_brick_stairs/minecraft:stone_brick_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:mossy_stone_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:stone_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:nether_bricks/minecraft:netherrack",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:nether_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:netherrack",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:netherrack/minecraft:chiseled_nether_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:netherrack",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_nether_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:oak_slab/minecraft:oak_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:oak_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:oak_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:oak_stairs/minecraft:oak_planks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:oak_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:oak_planks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:pale_oak_slab/minecraft:pale_oak_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:pale_oak_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:pale_oak_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:pale_oak_stairs/minecraft:pale_oak_planks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:pale_oak_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:pale_oak_planks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:polished_basalt/minecraft:smooth_basalt",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:polished_basalt",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_basalt",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:polished_blackstone_brick_slab/minecraft:blackstone_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:polished_blackstone_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:blackstone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:polished_blackstone_brick_stairs/minecraft:blackstone_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:polished_blackstone_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:blackstone_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:polished_blackstone_bricks/minecraft:chiseled_polished_blackstone",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:polished_blackstone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_polished_blackstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:polished_tuff_slab/minecraft:tuff_brick_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:polished_tuff_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:polished_tuff_stairs/minecraft:tuff_brick_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:polished_tuff_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:quartz_block/minecraft:chiseled_quartz_block",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:quartz_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_quartz_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:quartz_bricks/minecraft:quartz_pillar",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:quartz_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:quartz_pillar",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:quartz_pillar/minecraft:smooth_quartz",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:quartz_pillar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_quartz",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:quartz_slab/minecraft:smooth_quartz_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:quartz_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_quartz_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:quartz_stairs/minecraft:smooth_quartz_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:quartz_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_quartz_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:red_sand/minecraft:chiseled_red_sandstone",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:red_sand",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_red_sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:red_sandstone/minecraft:cut_red_sandstone",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:red_sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cut_red_sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:sand/minecraft:chiseled_sandstone",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:sand",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:sandstone/minecraft:cut_sandstone",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:sandstone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cut_sandstone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:smooth_basalt/minecraft:basalt",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_basalt",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:basalt",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:smooth_red_sandstone_slab/minecraft:cut_red_sandstone_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_red_sandstone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cut_red_sandstone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:smooth_red_sandstone_stairs/minecraft:red_sandstone_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_red_sandstone_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:red_sandstone_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:smooth_sandstone_slab/minecraft:cut_sandstone_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_sandstone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cut_sandstone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:smooth_sandstone_stairs/minecraft:sandstone_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:smooth_sandstone_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:sandstone_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:spruce_slab/minecraft:spruce_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:spruce_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:spruce_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:spruce_stairs/minecraft:spruce_planks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:spruce_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:spruce_planks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stone_bricks/minecraft:chiseled_stone_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_stone_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stone_slab/minecraft:smooth_stone_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_stone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:tuff/minecraft:polished_tuff",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:tuff",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_tuff",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:tuff_brick_slab/minecraft:tuff_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:tuff_brick_stairs/minecraft:tuff_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tuff_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:tuff_bricks/minecraft:chiseled_tuff",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_tuff",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:tuff_slab/minecraft:polished_tuff_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_tuff_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:tuff_stairs/minecraft:polished_tuff_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:tuff_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:polished_tuff_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:black_concrete_powder/minecraft:black_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:black_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:black_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:blue_concrete_powder/minecraft:blue_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:blue_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:blue_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:brain_coral_block/minecraft:tube_coral_block/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:brain_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:tube_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:brown_concrete_powder/minecraft:brown_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:brown_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:brown_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:bubble_coral_block/minecraft:brain_coral_block/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:bubble_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:brain_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:calcite/minecraft:diorite/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:calcite",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:diorite",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:chiseled_copper/minecraft:cut_copper/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:chiseled_copper",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cut_copper",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:copper_grate/minecraft:chiseled_copper/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:copper_grate",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:chiseled_copper",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:crimson_slab/minecraft:crimson_stairs/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:crimson_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:crimson_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:crimson_stairs/minecraft:crimson_planks/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:crimson_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:crimson_planks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:crying_obsidian/minecraft:obsidian/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:crying_obsidian",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:obsidian",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cut_copper/minecraft:copper_block/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cut_copper",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:copper_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:cyan_concrete_powder/minecraft:cyan_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:cyan_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cyan_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:dead_brain_coral_block/minecraft:dead_tube_coral_block/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:dead_brain_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dead_tube_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:dead_bubble_coral_block/minecraft:dead_brain_coral_block/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:dead_bubble_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dead_brain_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:dead_fire_coral_block/minecraft:dead_bubble_coral_block/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:dead_fire_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dead_bubble_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:dead_horn_coral_block/minecraft:dead_fire_coral_block/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:dead_horn_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dead_fire_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:dead_tube_coral_block/minecraft:dead_horn_coral_block/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:dead_tube_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dead_horn_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:dripstone_block/minecraft:calcite/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:dripstone_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:calcite",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:end_stone_bricks/minecraft:end_stone/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:end_stone_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:end_stone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:fire_coral_block/minecraft:bubble_coral_block/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:fire_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:bubble_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:gray_concrete_powder/minecraft:gray_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:gray_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:gray_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:green_concrete_powder/minecraft:green_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:green_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:green_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:horn_coral_block/minecraft:fire_coral_block/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:horn_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:fire_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:light_blue_concrete_powder/minecraft:light_blue_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:light_blue_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:light_blue_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:light_gray_concrete_powder/minecraft:light_gray_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:light_gray_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:light_gray_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:lime_concrete_powder/minecraft:lime_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:lime_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:lime_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:magenta_concrete_powder/minecraft:magenta_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:magenta_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:magenta_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:mossy_cobblestone/minecraft:cobblestone/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:mossy_cobblestone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cobblestone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:mossy_cobblestone_slab/minecraft:cobblestone_slab/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:mossy_cobblestone_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cobblestone_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:mossy_cobblestone_stairs/minecraft:cobblestone_stairs/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:mossy_cobblestone_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cobblestone_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:mud/minecraft:packed_mud/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:mud",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:packed_mud",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:mud_brick_slab/minecraft:brick_slab/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:mud_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:mud_brick_stairs/minecraft:brick_stairs/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:mud_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:mud_bricks/minecraft:bricks/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:mud_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:orange_concrete_powder/minecraft:orange_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:orange_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:orange_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:packed_mud/minecraft:mud_bricks/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:packed_mud",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mud_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:pink_concrete_powder/minecraft:pink_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:pink_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:pink_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:prismarine_brick_slab/minecraft:prismarine_slab/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:prismarine_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:prismarine_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:prismarine_brick_stairs/minecraft:prismarine_stairs/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:prismarine_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:prismarine_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:prismarine_bricks/minecraft:prismarine/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:prismarine_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:prismarine",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:purple_concrete_powder/minecraft:purple_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:purple_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:purple_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:purpur_block/minecraft:purpur_pillar/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:purpur_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:purpur_pillar",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:red_concrete_powder/minecraft:red_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:red_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:red_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stone/minecraft:smooth_stone/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stone",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:smooth_stone",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_acacia_log/minecraft:acacia_log/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_acacia_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:acacia_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_acacia_wood/minecraft:acacia_wood/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_acacia_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:acacia_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_birch_log/minecraft:birch_log/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_birch_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:birch_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_birch_wood/minecraft:birch_wood/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_birch_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:birch_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_cherry_log/minecraft:cherry_log/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_cherry_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cherry_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_cherry_wood/minecraft:cherry_wood/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_cherry_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:cherry_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_crimson_stem/minecraft:crimson_stem/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_crimson_stem",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:crimson_stem",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_dark_oak_log/minecraft:dark_oak_log/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_dark_oak_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dark_oak_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_dark_oak_wood/minecraft:dark_oak_wood/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_dark_oak_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:dark_oak_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_jungle_log/minecraft:jungle_log/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_jungle_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:jungle_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_jungle_wood/minecraft:jungle_wood/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_jungle_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:jungle_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_mangrove_log/minecraft:mangrove_log/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_mangrove_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mangrove_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_mangrove_wood/minecraft:mangrove_wood/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_mangrove_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:mangrove_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_oak_log/minecraft:oak_log/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_oak_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:oak_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_oak_wood/minecraft:oak_wood/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_oak_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:oak_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_pale_oak_log/minecraft:pale_oak_log/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_pale_oak_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:pale_oak_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_pale_oak_wood/minecraft:pale_oak_wood/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_pale_oak_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:pale_oak_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_spruce_log/minecraft:spruce_log/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_spruce_log",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:stone_chisel",
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:spruce_log",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_spruce_wood/minecraft:spruce_wood/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_spruce_wood",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:spruce_wood",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:stripped_warped_stem/minecraft:warped_stem/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:stripped_warped_stem",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:warped_stem",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:tube_coral_block/minecraft:horn_coral_block/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:tube_coral_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:horn_coral_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:warped_slab/minecraft:warped_stairs/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:warped_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:warped_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:warped_stairs/minecraft:warped_planks/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:warped_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_chisel",
+          "simplebuilding:iron_chisel",
+          "simplebuilding:diamond_chisel",
+          "simplebuilding:gold_chisel",
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:warped_planks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:white_concrete_powder/minecraft:white_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:white_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:white_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "chisel_reverse/minecraft:yellow_concrete_powder/minecraft:yellow_concrete/touch",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "minecraft:yellow_concrete_powder",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel",
+          "simplebuilding:netherite_chisel"
+        ],
+        "output": {
+          "id": "minecraft:yellow_concrete",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2,
+          "touch": true
+        }
+      },
+      {
+        "id": "trim_template/simplebuilding:glowing_trim_template/0",
+        "kind": "trim_template",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:bolt_armor_trim_smithing_template",
+              "minecraft:coast_armor_trim_smithing_template",
+              "minecraft:dune_armor_trim_smithing_template",
+              "minecraft:eye_armor_trim_smithing_template",
+              "minecraft:flow_armor_trim_smithing_template",
+              "minecraft:host_armor_trim_smithing_template",
+              "minecraft:raiser_armor_trim_smithing_template",
+              "minecraft:rib_armor_trim_smithing_template",
+              "minecraft:sentry_armor_trim_smithing_template",
+              "minecraft:shaper_armor_trim_smithing_template",
+              "minecraft:silence_armor_trim_smithing_template",
+              "minecraft:snout_armor_trim_smithing_template",
+              "minecraft:spire_armor_trim_smithing_template",
+              "minecraft:tide_armor_trim_smithing_template",
+              "minecraft:vex_armor_trim_smithing_template",
+              "minecraft:ward_armor_trim_smithing_template",
+              "minecraft:wayfinder_armor_trim_smithing_template",
+              "minecraft:wild_armor_trim_smithing_template"
+            ],
+            "count": 1
+          },
+          {
+            "id": "minecraft:glow_ink_sac",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:glowing_trim_template",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java"
+        ]
+      },
+      {
+        "id": "trim_template/simplebuilding:emitting_trim_template/1",
+        "kind": "trim_template",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:bolt_armor_trim_smithing_template",
+              "minecraft:coast_armor_trim_smithing_template",
+              "minecraft:dune_armor_trim_smithing_template",
+              "minecraft:eye_armor_trim_smithing_template",
+              "minecraft:flow_armor_trim_smithing_template",
+              "minecraft:host_armor_trim_smithing_template",
+              "minecraft:raiser_armor_trim_smithing_template",
+              "minecraft:rib_armor_trim_smithing_template",
+              "minecraft:sentry_armor_trim_smithing_template",
+              "minecraft:shaper_armor_trim_smithing_template",
+              "minecraft:silence_armor_trim_smithing_template",
+              "minecraft:snout_armor_trim_smithing_template",
+              "minecraft:spire_armor_trim_smithing_template",
+              "minecraft:tide_armor_trim_smithing_template",
+              "minecraft:vex_armor_trim_smithing_template",
+              "minecraft:ward_armor_trim_smithing_template",
+              "minecraft:wayfinder_armor_trim_smithing_template",
+              "minecraft:wild_armor_trim_smithing_template"
+            ],
+            "count": 1
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer",
+          "simplebuilding:diamond_sledgehammer",
+          "simplebuilding:enderite_sledgehammer",
+          "simplebuilding:gold_sledgehammer",
+          "simplebuilding:iron_sledgehammer",
+          "simplebuilding:netherite_sledgehammer",
+          "simplebuilding:stone_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:emitting_trim_template",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java"
+        ]
+      },
+      {
+        "id": "cauldron_wash/simplebuilding:octant/2",
+        "kind": "cauldron_wash",
+        "inputs": [
+          {
+            "id": [
+              "simplebuilding:octant_black",
+              "simplebuilding:octant_blue",
+              "simplebuilding:octant_brown",
+              "simplebuilding:octant_cyan",
+              "simplebuilding:octant_gray",
+              "simplebuilding:octant_green",
+              "simplebuilding:octant_light_blue",
+              "simplebuilding:octant_light_gray",
+              "simplebuilding:octant_lime",
+              "simplebuilding:octant_magenta",
+              "simplebuilding:octant_orange",
+              "simplebuilding:octant_pink",
+              "simplebuilding:octant_purple",
+              "simplebuilding:octant_red",
+              "simplebuilding:octant_white",
+              "simplebuilding:octant_yellow"
+            ],
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:cauldron"
+        ],
+        "output": {
+          "id": "simplebuilding:octant",
+          "count": 1
+        },
+        "stats": {
+          "waterLevels": 1
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/Simplebuilding.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForge.java"
+        ]
+      }
+    ]
+  },
+  "vanillaRecipes": {
+    "lines": [
+      "1.21.11",
+      "26.2"
+    ],
+    "file": "data/vanilla-{line}.js",
+    "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
+  },
   "counts": {
     "items": 122,
     "blocks": 39,
@@ -23306,6 +32055,7 @@ window.WIKI_DATA = {
     "enchantments": 19,
     "tags": 25,
     "config": 14,
+    "inWorld": 342,
     "features": 30,
     "undocumented": 0,
     "incompleteProse": 0

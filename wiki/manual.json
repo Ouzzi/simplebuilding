@@ -7905,5 +7905,309 @@
         ]
       }
     }
+  },
+  "inWorld": {
+    "_readme": "Umwandlungen in der Welt. kinds: Prosa je Art (en/de). entries: nur, was keine Tabelle im Code hat; Aufwertung, Umformen, Diamantblock und Meissel kommen aus src/main/generated/wiki/inworld.json (InWorldTransformations).",
+    "kinds": {
+      "sledgehammer_upgrade": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+        ],
+        "en": {
+          "title": "Machine upgrade with the sledgehammer",
+          "summary": "Hold a sledgehammer in the main hand and a Netherite or Enderite Nugget in the off hand, then keep right-click held on a placed machine: after the last blow it becomes the next tier. Time, number of blows, durability and the weakest hammer that works are listed with every step.",
+          "details": [
+            "Reinforced to Netherite takes a Netherite Nugget, Netherite to Enderite an Enderite Nugget; each step names the weakest sledgehammer that can do it, every stronger one works too.",
+            "Upgradeable are the hopper, the furnace, the smoker, the blast furnace and the (non-sticky) piston.",
+            "The hammer strikes once per blow interval; the last blow performs the upgrade. Every blow costs the listed durability.",
+            "Exactly one nugget is consumed, on the last blow. In creative mode neither the nugget nor durability is used.",
+            "The block keeps its properties (facing, lit, enabled) and its block entity: a hopper keeps its items, filter and mode, a furnace keeps cooking.",
+            "The attempt stops without using the nugget when right-click is released, the aim leaves the block, you move out of reach, the block changes, the nugget leaves the off hand or the hammer breaks; blows already struck stay paid.",
+            "A piston that is extended or powered is not upgraded. With the wrong nugget or too weak a hammer a hint appears in the action bar and the machine opens its menu as usual."
+          ]
+        },
+        "de": {
+          "title": "Maschinen-Aufwertung mit dem Vorschlaghammer",
+          "summary": "Vorschlaghammer in die Haupthand, Netherit- oder Enderit-Nugget in die Nebenhand und Rechtsklick auf einer platzierten Maschine gedrückt halten: Nach dem letzten Schlag ist sie eine Stufe höher. Dauer, Schlagzahl, Haltbarkeit und der schwächste passende Hammer stehen bei jeder Stufe.",
+          "details": [
+            "Verstärkt zu Netherit braucht ein Netherit-Nugget, Netherit zu Enderit ein Enderit-Nugget; jede Stufe nennt den schwächsten Vorschlaghammer, der sie schafft, jeder stärkere geht auch.",
+            "Aufwertbar sind Trichter, Ofen, Räucherofen, Schmelzofen und der (nicht klebrige) Kolben.",
+            "Der Hammer schlägt einmal je Schlagabstand zu; der letzte Schlag wertet auf. Jeder Schlag kostet die angegebene Haltbarkeit.",
+            "Verbraucht wird genau ein Nugget, beim letzten Schlag. Im Kreativmodus kostet es weder Nugget noch Haltbarkeit.",
+            "Der Block behält seine Eigenschaften (Blickrichtung, brennend, aktiviert) und seine Block-Entity: Ein Trichter behält Inhalt, Filter und Modus, ein Ofen schmilzt weiter.",
+            "Abgebrochen wird ohne Nugget-Verbrauch, wenn der Rechtsklick losgelassen wird, der Blick den Block verlässt, man außer Reichweite geht, der Block sich ändert, das Nugget die Nebenhand verlässt oder der Hammer zerbricht; schon geschlagene Schläge bleiben bezahlt.",
+            "Ein ausgefahrener oder mit Strom versorgter Kolben wird nicht aufgewertet. Mit falschem Nugget oder zu schwachem Hammer erscheint ein Hinweis in der Aktionsleiste und die Maschine öffnet wie gewohnt ihr Menü."
+          ]
+        }
+      },
+      "sledgehammer_reshape": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+        ],
+        "en": {
+          "title": "Reshaping with the sledgehammer",
+          "summary": "Hold right-click with a sledgehammer on a block: when the charge is full, a full block becomes its stairs and stairs become their slab. Sneaking with Constructor's Touch walks back from slab to stairs to full block. This works for every block whose stairs or slab exist under the matching id, vanilla blocks included.",
+          "details": [
+            "Forward (not sneaking): a block with a full collision shape turns into <id>_stairs, stairs turn into <base>_slab - if that block exists.",
+            "Backward (sneaking) needs the Constructor's Touch enchantment: a slab turns into <base>_stairs, stairs into <base>, <base>s or <base>_planks. Without the enchantment, sneaking reshapes nothing.",
+            "The new stairs or slab are oriented by the clicked face and the hit position.",
+            "Charge time in ticks: 200 / (material speed + 5 x Efficiency level), cut off at the lower and upper limit below. The table lists every hammer without Efficiency.",
+            "Every reshape costs the listed durability, a backward reshape more. Creative mode costs none.",
+            "If no matching stairs or slab exists, the hammer does not start charging."
+          ]
+        },
+        "de": {
+          "title": "Umformen mit dem Vorschlaghammer",
+          "summary": "Rechtsklick mit dem Vorschlaghammer auf einem Block halten: Ist die Ladung voll, wird ein Vollblock zu seiner Treppe und eine Treppe zu ihrer Stufe. Schleichen mit Constructor's Touch geht zurück, von der Stufe zur Treppe zum Vollblock. Das gilt für jeden Block, dessen Treppe oder Stufe unter der passenden Id existiert, auch für Vanilla-Blöcke.",
+          "details": [
+            "Vorwärts (ohne Schleichen): Ein Block mit voller Kollisionsform wird zu <id>_stairs, eine Treppe zu <basis>_slab - sofern es diesen Block gibt.",
+            "Rückwärts (Schleichen) braucht die Verzauberung Constructor's Touch: Eine Stufe wird zu <basis>_stairs, eine Treppe zu <basis>, <basis>s oder <basis>_planks. Ohne die Verzauberung formt Schleichen nichts um.",
+            "Die neue Treppe oder Stufe richtet sich nach der angeklickten Fläche und der Trefferstelle aus.",
+            "Ladezeit in Ticks: 200 / (Materialtempo + 5 x Effizienzstufe), auf die untere und obere Grenze unten beschnitten. Die Tabelle nennt jeden Hammer ohne Effizienz.",
+            "Jede Umformung kostet die angegebene Haltbarkeit, rückwärts mehr. Im Kreativmodus kostet sie nichts.",
+            "Gibt es keine passende Treppe oder Stufe, beginnt der Hammer gar nicht zu laden."
+          ]
+        }
+      },
+      "diamond_crush": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+          "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+        ],
+        "en": {
+          "title": "Crushing a Block of Diamond",
+          "summary": "Hold right-click with any sledgehammer on a Block of Diamond: when the charge is full, the block breaks without its normal drop and releases Diamond Pebbles.",
+          "details": [
+            "The charge takes as long as a reshape with the same hammer.",
+            "The pebbles drop in stacks of at most 64 at the block's position.",
+            "Costs the listed durability; creative mode costs none."
+          ]
+        },
+        "de": {
+          "title": "Diamantblock zerschlagen",
+          "summary": "Rechtsklick mit einem beliebigen Vorschlaghammer auf einem Diamantblock halten: Ist die Ladung voll, zerbricht der Block ohne seinen normalen Drop und gibt Diamantsplitter frei.",
+          "details": [
+            "Die Ladung dauert so lange wie eine Umformung mit demselben Hammer.",
+            "Die Splitter fallen in Stapeln zu höchstens 64 an der Stelle des Blocks.",
+            "Kostet die angegebene Haltbarkeit; im Kreativmodus nichts."
+          ]
+        }
+      },
+      "chisel": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+          "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+        ],
+        "en": {
+          "title": "Chiseling",
+          "summary": "Right-click a block with a chisel to turn it into the next block of its chain. Which chains a chisel knows depends on its tier; Constructor's Touch adds more. Every step lists all chisels that can do it.",
+          "details": [
+            "A higher tier contains the entries of the lower ones unless it overrides the same source block; the list is computed from each tier's own table.",
+            "Steps marked Constructor's Touch only work with that enchantment on the chisel.",
+            "After a step the chisel has a cooldown (per tool below); Fast Chiseling shortens it by 30% per level, to at least 1 tick.",
+            "Block properties such as waterlogged are carried over, and the new block is oriented by the clicked face.",
+            "In creative mode a step costs neither durability nor cooldown."
+          ]
+        },
+        "de": {
+          "title": "Meißeln",
+          "summary": "Rechtsklick mit einem Meißel verwandelt den Block in den nächsten seiner Kette. Welche Ketten ein Meißel kennt, hängt von seiner Stufe ab; Constructor's Touch fügt weitere hinzu. Jeder Schritt nennt alle Meißel, die ihn können.",
+          "details": [
+            "Eine höhere Stufe enthält die Einträge der niedrigeren, außer sie überschreibt denselben Ausgangsblock; die Liste ist aus der Tabelle jeder Stufe berechnet.",
+            "Schritte mit dem Vermerk Constructor's Touch gehen nur mit dieser Verzauberung auf dem Meißel.",
+            "Nach einem Schritt hat der Meißel eine Abklingzeit (je Werkzeug unten); Fast Chiseling kürzt sie je Stufe um 30 %, auf mindestens 1 Tick.",
+            "Blockeigenschaften wie wassergeflutet werden übernommen, und der neue Block richtet sich nach der angeklickten Fläche aus.",
+            "Im Kreativmodus kostet ein Schritt weder Haltbarkeit noch Abklingzeit."
+          ]
+        }
+      },
+      "chisel_reverse": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java",
+          "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+        ],
+        "en": {
+          "title": "Chiseling backwards",
+          "summary": "Sneak and right-click with a chisel to walk a chain backwards. A backward step costs more durability than a forward step.",
+          "details": [
+            "The backward table is filled together with the forward one, so a chain can be walked in both directions; circular chains (coral blocks, nether bricks) turn the other way round.",
+            "Cooldown, Constructor's Touch and creative mode behave as for chiseling forwards."
+          ]
+        },
+        "de": {
+          "title": "Rückwärts meißeln",
+          "summary": "Schleichen und Rechtsklick mit einem Meißel geht eine Kette rückwärts. Ein Rückwärtsschritt kostet mehr Haltbarkeit als ein Vorwärtsschritt.",
+          "details": [
+            "Die Rückwärts-Tabelle wird zusammen mit der Vorwärts-Tabelle gefüllt, eine Kette lässt sich also in beide Richtungen gehen; Ringe (Korallenblöcke, Netherziegel) drehen sich andersherum.",
+            "Abklingzeit, Constructor's Touch und Kreativmodus verhalten sich wie beim Vorwärtsmeißeln."
+          ]
+        }
+      },
+      "trim_template": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java"
+        ],
+        "en": {
+          "title": "Trim template in an item frame",
+          "summary": "Put an armor trim smithing template into an item frame, hold a sledgehammer in the main hand and Glow Ink Sac or Glowstone Dust in the off hand, and hit the item frame (left-click): the template in the frame becomes a Glowing or Emitting Trim Template.",
+          "details": [
+            "Glow Ink Sac gives the Glowing Trim Template, Glowstone Dust the Emitting Trim Template.",
+            "Every item whose id contains trim_smithing_template counts as a template - all vanilla armor trim templates.",
+            "One off-hand item and 1 durability of the hammer are used; nothing in creative mode."
+          ]
+        },
+        "de": {
+          "title": "Besatzvorlage im Rahmen",
+          "summary": "Eine Rüstungsbesatz-Schmiedevorlage in einen Rahmen legen, Vorschlaghammer in die Haupthand, Leuchttintenbeutel oder Glowstonestaub in die Nebenhand und auf den Rahmen schlagen (Linksklick): Die Vorlage im Rahmen wird zur leuchtenden bzw. strahlenden Besatzvorlage.",
+          "details": [
+            "Leuchttintenbeutel ergibt die leuchtende Besatzvorlage, Glowstonestaub die strahlende.",
+            "Als Vorlage zählt jedes Item, dessen Id trim_smithing_template enthält - alle Rüstungsbesatz-Vorlagen aus Vanilla.",
+            "Verbraucht werden ein Item aus der Nebenhand und 1 Haltbarkeit des Hammers; im Kreativmodus nichts."
+          ]
+        }
+      },
+      "cauldron_wash": {
+        "sources": [
+          "src/main/java/com/simplebuilding/Simplebuilding.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForge.java"
+        ],
+        "en": {
+          "title": "Washing in a cauldron",
+          "summary": "Use a coloured octant on a water cauldron to wash the colour off: it becomes a plain Octant and keeps its saved data, and the cauldron loses one level of water.",
+          "details": [
+            "Works with all sixteen coloured octants; the plain Octant itself is not washed.",
+            "The custom data of the octant is copied to the new one.",
+            "Counts towards the vanilla statistic for cleaning armor."
+          ]
+        },
+        "de": {
+          "title": "Waschen im Kessel",
+          "summary": "Einen gefärbten Oktanten auf einen Wasserkessel anwenden wäscht die Farbe ab: Er wird zum einfachen Oktanten, behält seine gespeicherten Daten, und der Kessel verliert eine Stufe Wasser.",
+          "details": [
+            "Geht mit allen sechzehn gefärbten Oktanten; der einfache Oktant selbst wird nicht gewaschen.",
+            "Die Zusatzdaten des Oktanten werden auf den neuen übertragen.",
+            "Zählt zur Vanilla-Statistik für gereinigte Rüstung."
+          ]
+        }
+      }
+    },
+    "entries": [
+      {
+        "kind": "trim_template",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:bolt_armor_trim_smithing_template",
+              "minecraft:coast_armor_trim_smithing_template",
+              "minecraft:dune_armor_trim_smithing_template",
+              "minecraft:eye_armor_trim_smithing_template",
+              "minecraft:flow_armor_trim_smithing_template",
+              "minecraft:host_armor_trim_smithing_template",
+              "minecraft:raiser_armor_trim_smithing_template",
+              "minecraft:rib_armor_trim_smithing_template",
+              "minecraft:sentry_armor_trim_smithing_template",
+              "minecraft:shaper_armor_trim_smithing_template",
+              "minecraft:silence_armor_trim_smithing_template",
+              "minecraft:snout_armor_trim_smithing_template",
+              "minecraft:spire_armor_trim_smithing_template",
+              "minecraft:tide_armor_trim_smithing_template",
+              "minecraft:vex_armor_trim_smithing_template",
+              "minecraft:ward_armor_trim_smithing_template",
+              "minecraft:wayfinder_armor_trim_smithing_template",
+              "minecraft:wild_armor_trim_smithing_template"
+            ],
+            "count": 1
+          },
+          {
+            "id": "minecraft:glow_ink_sac",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:*_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:glowing_trim_template",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java"
+        ]
+      },
+      {
+        "kind": "trim_template",
+        "inputs": [
+          {
+            "id": [
+              "minecraft:bolt_armor_trim_smithing_template",
+              "minecraft:coast_armor_trim_smithing_template",
+              "minecraft:dune_armor_trim_smithing_template",
+              "minecraft:eye_armor_trim_smithing_template",
+              "minecraft:flow_armor_trim_smithing_template",
+              "minecraft:host_armor_trim_smithing_template",
+              "minecraft:raiser_armor_trim_smithing_template",
+              "minecraft:rib_armor_trim_smithing_template",
+              "minecraft:sentry_armor_trim_smithing_template",
+              "minecraft:shaper_armor_trim_smithing_template",
+              "minecraft:silence_armor_trim_smithing_template",
+              "minecraft:snout_armor_trim_smithing_template",
+              "minecraft:spire_armor_trim_smithing_template",
+              "minecraft:tide_armor_trim_smithing_template",
+              "minecraft:vex_armor_trim_smithing_template",
+              "minecraft:ward_armor_trim_smithing_template",
+              "minecraft:wayfinder_armor_trim_smithing_template",
+              "minecraft:wild_armor_trim_smithing_template"
+            ],
+            "count": 1
+          },
+          {
+            "id": "minecraft:glowstone_dust",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:*_sledgehammer"
+        ],
+        "output": {
+          "id": "simplebuilding:emitting_trim_template",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java"
+        ]
+      },
+      {
+        "kind": "cauldron_wash",
+        "inputs": [
+          {
+            "id": "simplebuilding:octant_*",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "minecraft:cauldron"
+        ],
+        "output": {
+          "id": "simplebuilding:octant",
+          "count": 1
+        },
+        "stats": {
+          "waterLevels": 1
+        },
+        "sources": [
+          "src/main/java/com/simplebuilding/Simplebuilding.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForge.java"
+        ]
+      }
+    ]
   }
 }
