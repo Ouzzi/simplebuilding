@@ -5,7 +5,7 @@
   "neoforge:conditions": [
     { "type": "simplebuilding:config", "flag": "enableWanderingTrades" }
   ],
-  "wants": { "id": "minecraft:emerald", "count": 60 },
+  "wants": { "id": "minecraft:emerald", "count": 40 },
   "gives": { "id": "minecraft:enchanted_book" },
   "given_item_modifiers": [
     {

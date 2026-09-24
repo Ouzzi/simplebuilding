@@ -304,15 +304,17 @@ public final class WorldAndPlayerTests {
 
     /**
      * Every vanilla loot table {@code ModLootTableModifications} touches, with the exact number of
-     * pools it has to receive. The end city is a three because it takes both pre built pools plus
-     * the builder one, and the trial chamber rare vault is a two because it is the single key that
-     * both vault branches match. Everything else gets exactly one pool.
+     * pools it has to receive. The end city is a four because it takes both pre built pools plus
+     * the End materials pool and the books-and-gear pool, the bastion treasure room is a two
+     * because it gets the pool every bastion chest gets plus its own treasure pool, and the trial
+     * chamber rare vault is a two because it is the single key that both vault branches match.
+     * Everything else gets exactly one pool.
      */
     private static final Map<ResourceKey<LootTable>, Integer> POOLS_PER_TABLE = Map.ofEntries(
             Map.entry(BuiltInLootTables.STRONGHOLD_LIBRARY, 1),
-            Map.entry(BuiltInLootTables.END_CITY_TREASURE, 3),
+            Map.entry(BuiltInLootTables.END_CITY_TREASURE, 4),
             Map.entry(BuiltInLootTables.ANCIENT_CITY, 1),
-            Map.entry(BuiltInLootTables.BASTION_TREASURE, 1),
+            Map.entry(BuiltInLootTables.BASTION_TREASURE, 2),
             Map.entry(BuiltInLootTables.BASTION_OTHER, 1),
             Map.entry(BuiltInLootTables.NETHER_BRIDGE, 1),
             Map.entry(BuiltInLootTables.PILLAGER_OUTPOST, 1),
@@ -324,7 +326,9 @@ public final class WorldAndPlayerTests {
             Map.entry(BuiltInLootTables.ABANDONED_MINESHAFT, 1),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON, 1),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, 2),
-            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, 1));
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, 1),
+            Map.entry(BuiltInLootTables.RUINED_PORTAL, 1),
+            Map.entry(BuiltInLootTables.FISHING_TREASURE, 1));
 
     /**
      * Control group: three vanilla tables that sit right next to a modified one and must stay
@@ -892,8 +896,8 @@ public final class WorldAndPlayerTests {
             }
 
             // --- the air jump books, with the level and the weight they were given ---
-            assertAirJumpBook(helper, ops, BuiltInLootTables.END_CITY_TREASURE, 2, 10,
-                    UniformGenerator.between(0.0F, 4.0F));
+            assertAirJumpBook(helper, ops, BuiltInLootTables.END_CITY_TREASURE, 2, 5,
+                    UniformGenerator.between(0.0F, 3.0F));
             assertAirJumpBook(helper, ops, BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, 1, 7,
                     UniformGenerator.between(0.0F, 1.0F));
             assertAirJumpBook(helper, ops, BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, 1, 7,

@@ -848,7 +848,9 @@ public final class MiningEnchantmentTests {
             expectBook(storedEnchantments(helper, registries, BuiltInLootTables.ANCIENT_CITY),
                     ModEnchantments.RADIUS, Set.of(1), "ancient_city", problems);
             expectBook(storedEnchantments(helper, registries, BuiltInLootTables.BASTION_TREASURE),
-                    ModEnchantments.BREAK_THROUGH, Set.of(1), "bastion_treasure", problems);
+                    ModEnchantments.BREAK_THROUGH, Set.of(1, 2), "bastion_treasure", problems);
+            expectBook(storedEnchantments(helper, registries, BuiltInLootTables.BASTION_OTHER),
+                    ModEnchantments.BREAK_THROUGH, Set.of(1), "bastion_other", problems);
 
             Map<Identifier, Set<Integer>> endCity = storedEnchantments(helper, registries, BuiltInLootTables.END_CITY_TREASURE);
             expectBook(endCity, ModEnchantments.VERSATILITY, Set.of(1, 2), "end_city_treasure", problems);
@@ -859,8 +861,8 @@ public final class MiningEnchantmentTests {
                     Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "diamond_sledgehammer"));
             if (weight == null) {
                 problems.add("the end city treasure has no diamond sledgehammer entry at all");
-            } else if (weight != 20) {
-                problems.add("the end city diamond sledgehammer has weight " + weight + " instead of 20");
+            } else if (weight != 8) {
+                problems.add("the end city diamond sledgehammer has weight " + weight + " instead of 8");
             }
         } finally {
             Simplebuilding.getConfig().worldGen.enableLootTableChanges = original;

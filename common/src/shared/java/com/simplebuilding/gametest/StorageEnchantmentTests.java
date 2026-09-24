@@ -228,6 +228,8 @@ public final class StorageEnchantmentTests {
             new BookCase(BuiltInLootTables.ABANDONED_MINESHAFT, Map.of()),
             new BookCase(BuiltInLootTables.BURIED_TREASURE, Map.of()),
             new BookCase(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, Map.of()),
+            new BookCase(BuiltInLootTables.FISHING_TREASURE, Map.of(ModEnchantments.DEEP_POCKETS, Set.of(1))),
+            new BookCase(BuiltInLootTables.RUINED_PORTAL, Map.of()),
             new BookCase(BuiltInLootTables.SPAWN_BONUS_CHEST, Map.of()));
 
     // =====================================================================================
@@ -577,7 +579,7 @@ public final class StorageEnchantmentTests {
      * {@code BuiltInLootTables.all()} has to hand out none of them - so a book that wanders into
      * another chest is as red as a book that disappears, and a level that changes is red as well.
      * Walking the listed chests alone was the hole: {@code ModLootTableModifications#apply} edits
-     * sixteen tables and only twelve of them are named below, which left the igloo, the shipwreck
+     * eighteen tables and only fourteen of them are named below, which left the igloo, the shipwreck
      * treasure and the common and rare trial chamber vaults free to grow a storage book without a
      * single assertion moving. The mod's other books are deliberately out of scope; see
      * the class javadoc for who owns them.

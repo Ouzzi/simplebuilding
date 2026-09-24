@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * The mod ships 20 data-driven villager trades. This asserts they actually reach the
+ * The mod ships 21 data-driven villager trades. This asserts they actually reach the
  * villager_trade registry of a running server -- which is a different question from
  * whether the vanilla trade tags pick them up (see TradeAndMigrationGameTest).
  *
@@ -41,7 +41,7 @@ public final class TradeRegistryTests {
     private static final String NAMESPACE = "simplebuilding";
 
     /** How many trade files {@code data/simplebuilding/villager_trade/} is supposed to ship. */
-    private static final int EXPECTED_TRADES = 20;
+    private static final int EXPECTED_TRADES = 21;
 
     public static void allModTradesReachTheRegistry(GameTestHelper helper) {
         FileToIdConverter converter = FileToIdConverter.registry(Registries.VILLAGER_TRADE);

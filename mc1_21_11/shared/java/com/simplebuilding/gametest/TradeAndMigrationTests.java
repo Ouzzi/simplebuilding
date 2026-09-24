@@ -276,6 +276,81 @@ public final class TradeAndMigrationTests {
     }
 
     /**
+     * Highest reputation discount a mod trade may carry: vanilla's own for enchanted books and
+     * enchanted tools. The discount is multiplied with the player's reputation, so a trade at 1.0
+     * - the master librarian book used to sit there - drops to a single emerald after a handful
+     * of trades or one cured zombie villager.
+     */
+    private static final float MAX_REPUTATION_DISCOUNT = 0.2F;
+
+    /**
+     * Trades that are worth it but cannot be farmed: no mod trade carries a reputation discount
+     * above {@link #MAX_REPUTATION_DISCOUNT}, and no item can be bought for fewer emeralds than a
+     * trader pays for it - otherwise buying and selling the same item in a loop prints emeralds.
+     *
+     * <p>The arbitrage half needs at least one item that is both bought and sold (the octant and
+     * the reinforced bundle at the wandering trader); a table without such a pair would compare
+     * nothing, so that is asserted first.
+     *
+     * <p>What breaks it: raising any trade's reputation discount above 0.2, or pricing a buy offer
+     * at or below the matching sell offer.
+     */
+    public static void modTradesStayWorthItWithoutBeingExploitable(GameTestHelper helper) {
+        Villager villager = helper.spawnWithNoFreeWill(EntityType.VILLAGER, new BlockPos(1, 2, 1));
+        List<TradeDefinition> all = new ArrayList<>();
+        for (VillagerTradeGroup group : ModTradeDefinitions.villagerTrades()) {
+            all.addAll(group.trades());
+        }
+        for (WanderingTradeGroup group : ModTradeDefinitions.wanderingTraderTrades()) {
+            all.addAll(group.trades());
+        }
+        helper.assertTrue(all.size() >= 21, "only " + all.size() + " mod trades were found");
+
+        List<String> problems = new ArrayList<>();
+        java.util.Map<Item, Double> cheapestBuy = new java.util.LinkedHashMap<>();
+        java.util.Map<Item, Double> bestSale = new java.util.LinkedHashMap<>();
+        Item emerald = net.minecraft.world.item.Items.EMERALD;
+        for (TradeDefinition trade : all) {
+            MerchantOffer offer = trade.toListing().getOffer(helper.getLevel(), villager, RandomSource.create(OFFER_SEED));
+            helper.assertTrue(offer != null, "a mod trade produced no offer");
+            ItemStack costA = offer.getBaseCostA();
+            ItemStack result = offer.getResult();
+            if (offer.getPriceMultiplier() > MAX_REPUTATION_DISCOUNT) {
+                problems.add(result.getItem() + " for " + costA + " has a reputation discount of "
+                        + offer.getPriceMultiplier());
+            }
+            if (costA.is(emerald) && offer.getCostB().isEmpty() && !result.is(emerald)) {
+                cheapestBuy.merge(result.getItem(), (double) costA.getCount() / result.getCount(), Math::min);
+            }
+            if (result.is(emerald)) {
+                bestSale.merge(costA.getItem(), (double) result.getCount() / costA.getCount(), Math::max);
+            }
+        }
+        checkArbitrage(helper, cheapestBuy, bestSale, problems);
+        helper.assertTrue(problems.isEmpty(), "exploitable mod trades: " + problems);
+        TestCleanup.succeed(helper);
+    }
+
+    /** Every sold item must cost more emeralds to buy than any trader pays for it. */
+    private static void checkArbitrage(GameTestHelper helper, java.util.Map<Item, Double> cheapestBuy,
+                                       java.util.Map<Item, Double> bestSale, List<String> problems) {
+        int compared = 0;
+        for (java.util.Map.Entry<Item, Double> sale : bestSale.entrySet()) {
+            Double buy = cheapestBuy.get(sale.getKey());
+            if (buy == null) {
+                continue;
+            }
+            compared++;
+            if (buy <= sale.getValue()) {
+                problems.add(sale.getKey() + " can be bought for " + buy + " emeralds and sold for "
+                        + sale.getValue());
+            }
+        }
+        helper.assertTrue(compared > 0, "no item is both bought and sold by a mod trade, so the "
+                + "arbitrage check compared nothing");
+    }
+
+    /**
      * Turns three trade definitions into actual {@link MerchantOffer}s and checks the numbers:
      * wanted item + count, optional second cost, given item + count, max uses and xp. This is what
      * a player would see in the trade GUI, and the same three trades the 26.2 line pins down.

@@ -121,23 +121,23 @@ public final class ModTradeDefinitions {
                 // librarian/3/emerald_building_book
                 new VillagerTradeGroup(VillagerProfession.LIBRARIAN, 3, List.of(
                         TradeDefinition.enchanted(new ItemCost(Items.EMERALD, 25),
-                                new ItemStack(Items.ENCHANTED_BOOK), librarianBuildingPool(), 3, 15, 0.3F))),
+                                new ItemStack(Items.ENCHANTED_BOOK), librarianBuildingPool(), 3, 15, 0.2F))),
 
                 // librarian/4/emerald_advanced_book
                 new VillagerTradeGroup(VillagerProfession.LIBRARIAN, 4, List.of(
                         TradeDefinition.enchanted(new ItemCost(Items.EMERALD, 25),
-                                new ItemStack(Items.ENCHANTED_BOOK), librarianAdvancedPool(), 2, 25, 0.5F))),
+                                new ItemStack(Items.ENCHANTED_BOOK), librarianAdvancedPool(), 2, 25, 0.2F))),
 
                 // librarian/5/emerald_master_book
                 new VillagerTradeGroup(VillagerProfession.LIBRARIAN, 5, List.of(
                         TradeDefinition.enchanted(new ItemCost(Items.EMERALD, 25),
-                                new ItemStack(Items.ENCHANTED_BOOK), librarianMasterPool(), 1, 100, 1.0F))),
+                                new ItemStack(Items.ENCHANTED_BOOK), librarianMasterPool(), 1, 100, 0.2F))),
 
                 // mason/2/emerald_copper_core + mason/2/netherite_diamond_core
                 new VillagerTradeGroup(VillagerProfession.MASON, 2, List.of(
                         TradeDefinition.of(new ItemCost(Items.EMERALD, 25),
                                 new ItemStack(ModItems.COPPER_CORE), 2, 10, 0.1F),
-                        TradeDefinition.of(new ItemCost(Items.NETHERITE_INGOT, 6),
+                        TradeDefinition.of(new ItemCost(Items.NETHERITE_INGOT, 3),
                                 new ItemStack(ModItems.DIAMOND_CORE), 2, 15, 0.1F))),
 
                 // mason/4/emerald_copper_building_wand
@@ -159,16 +159,16 @@ public final class ModTradeDefinitions {
                         TradeDefinition.enchanted(new ItemCost(Items.EMERALD, 28),
                                 new ItemCost(Items.DIAMOND_PICKAXE, 1),
                                 new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER),
-                                EnchantmentPool.of(0.15F, sledgehammerEntries()), 1, 30, 0.5F),
+                                EnchantmentPool.of(0.15F, sledgehammerEntries()), 1, 30, 0.2F),
                         TradeDefinition.enchanted(new ItemCost(Items.EMERALD, 16),
                                 new ItemCost(Items.IRON_PICKAXE, 1),
                                 new ItemStack(ModItems.IRON_SLEDGEHAMMER),
-                                EnchantmentPool.of(0.01F, sledgehammerEntries()), 1, 30, 0.5F))),
+                                EnchantmentPool.of(0.01F, sledgehammerEntries()), 1, 30, 0.2F))),
 
                 // toolsmith/5/emerald_mining_pickaxe
                 new VillagerTradeGroup(VillagerProfession.TOOLSMITH, 5, List.of(
                         TradeDefinition.enchanted(new ItemCost(Items.EMERALD, 15),
-                                new ItemStack(Items.DIAMOND_PICKAXE), miningPool(), 1, 50, 0.8F))));
+                                new ItemStack(Items.DIAMOND_PICKAXE), miningPool(), 1, 50, 0.2F))));
     }
 
     // ---------------------------------------------------------------- Wandering Trader
@@ -188,7 +188,9 @@ public final class ModTradeDefinitions {
                         TradeDefinition.of(new ItemCost(Items.EMERALD, 46),
                                 new ItemStack(ModItems.COPPER_CORE, 2), 4, 10, 0.1F),
                         TradeDefinition.of(new ItemCost(Items.EMERALD, 56),
-                                new ItemStack(ModItems.IRON_CORE, 2), 4, 10, 0.1F))),
+                                new ItemStack(ModItems.IRON_CORE, 2), 4, 10, 0.1F),
+                        TradeDefinition.of(new ItemCost(Items.EMERALD, 5),
+                                new ItemStack(ModItems.DIAMOND_PEBBLE, 3), 4, 5, 0.05F))),
 
                 // tags/villager_trade/wandering_trader/uncommon
                 new WanderingTradeGroup(WanderingTraderPool.UNCOMMON, List.of(
@@ -198,7 +200,7 @@ public final class ModTradeDefinitions {
                                 new ItemStack(ModItems.REINFORCED_BUNDLE), 1, 15, 0.1F),
                         TradeDefinition.of(new ItemCost(Items.EMERALD, 30),
                                 new ItemStack(ModItems.GOLD_CORE), 1, 5, 0.1F),
-                        TradeDefinition.enchanted(new ItemCost(Items.EMERALD, 60),
+                        TradeDefinition.enchanted(new ItemCost(Items.EMERALD, 40),
                                 new ItemStack(Items.ENCHANTED_BOOK), wandBookPool(), 1, 10, 0.2F))));
     }
 }

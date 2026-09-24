@@ -111,7 +111,7 @@ public final class ConfigOptionTests {
             "com.simplebuilding.neoforge.ConfigLoadCondition");
 
     /**
-     * Every vanilla loot table the mod hands pools to - all sixteen keys
+     * Every vanilla loot table the mod hands pools to - all eighteen keys
      * {@code ModLootTableModifications.apply} names, not a sample of them.
      *
      * <p>The list has to be complete, because it is what the switched-off half of
@@ -135,7 +135,9 @@ public final class ConfigOptionTests {
             BuiltInLootTables.ABANDONED_MINESHAFT,
             BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON,
             BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE,
-            BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS);
+            BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS,
+            BuiltInLootTables.RUINED_PORTAL,
+            BuiltInLootTables.FISHING_TREASURE);
 
     /** The bastion pool, which one condition hands to both {@code BASTION_*} keys. */
     private static final Set<String> BASTION_LOOT = Set.of(
@@ -143,15 +145,25 @@ public final class ConfigOptionTests {
             book(ModEnchantments.BREAK_THROUGH, 1),
             id(ModItems.GOLD_SLEDGEHAMMER),
             id(ModItems.GOLD_CORE),
-            id(ModItems.NETHERITE_CORE),
             id(ModItems.NETHERITE_NUGGET),
-            id(ModItems.NETHERITE_CARROT),
+            id(ModItems.NETHERITE_CARROT));
+
+    /**
+     * The second pool only the bastion treasure room gets on top of {@link #BASTION_LOOT}: the
+     * netherite core and the apples sit there so that the many ordinary bastion chests do not
+     * hand them out by the dozen.
+     */
+    private static final Set<String> BASTION_TREASURE_ONLY_LOOT = Set.of(
+            book(ModEnchantments.BREAK_THROUGH, 2),
+            id(ModItems.NETHERITE_CORE),
+            id(ModItems.NETHERITE_APPLE),
             id(ModItems.ENCHANTED_NETHERITE_APPLE));
 
     /** The vault pool behind {@code TRIAL_CHAMBERS_REWARD_COMMON} - and the rare vault. */
     private static final Set<String> VAULT_COMMON_LOOT = Set.of(
             book(ModEnchantments.CONSTRUCTORS_TOUCH, 1),
-            book(ModEnchantments.FAST_CHISELING, 2));
+            book(ModEnchantments.FAST_CHISELING, 2),
+            id(ModItems.DIAMOND_PEBBLE));
 
     /** The vault pool behind {@code TRIAL_CHAMBERS_REWARD_OMINOUS} - and the rare vault. */
     private static final Set<String> VAULT_OMINOUS_LOOT = Set.of(
@@ -193,6 +205,11 @@ public final class ConfigOptionTests {
                     // the two pre built pools - the only place addBuiltPool is used at all
                     id(ModItems.ENDERITE_SCRAP),
                     id(ModItems.ENDERITE_UPGRADE_TEMPLATE),
+                    // the End materials pool
+                    id(ModItems.RAW_ENDERITE),
+                    id(ModItems.ENDERITE_NUGGET),
+                    id(ModItems.ASTRALIT_DUST),
+                    id(ModItems.NIHILITH_SHARD),
                     book(ModEnchantments.RANGE, 3),
                     book(ModEnchantments.MASTER_BUILDER, 1),
                     book(ModEnchantments.OVERRIDE, 2),
@@ -201,6 +218,7 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.VERSATILITY, 2),
                     id(ModItems.DIAMOND_BUILDING_WAND),
                     id(ModItems.DIAMOND_SLEDGEHAMMER),
+                    id(ModItems.ENDERITE_APPLE),
                     id(ModItems.ENCHANTED_ENDERITE_APPLE))),
             Map.entry(BuiltInLootTables.ANCIENT_CITY, Set.of(
                     book(ModEnchantments.DEEP_POCKETS, 2),
@@ -210,8 +228,9 @@ public final class ConfigOptionTests {
                     id(ModItems.QUIVER),
                     id(ModItems.NETHERITE_APPLE),
                     id(ModItems.ENCHANTED_NETHERITE_APPLE),
-                    id(ModItems.NETHERITE_NUGGET))),
-            Map.entry(BuiltInLootTables.BASTION_TREASURE, BASTION_LOOT),
+                    id(ModItems.NETHERITE_NUGGET),
+                    id(ModItems.DIAMOND_PEBBLE))),
+            Map.entry(BuiltInLootTables.BASTION_TREASURE, union(BASTION_LOOT, BASTION_TREASURE_ONLY_LOOT)),
             // The same pool, reached through the second half of the same condition. Rolling it is
             // what makes deleting "|| BASTION_OTHER.equals(key)" a red test.
             Map.entry(BuiltInLootTables.BASTION_OTHER, BASTION_LOOT),
@@ -229,7 +248,8 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.COVER, 1),
                     book(ModEnchantments.LINEAR, 1),
                     id(ModItems.OCTANT),
-                    id(ModItems.QUIVER))),
+                    id(ModItems.QUIVER),
+                    id(ModItems.COPPER_CHISEL))),
             Map.entry(BuiltInLootTables.WOODLAND_MANSION, Set.of(
                     book(ModEnchantments.COLOR_PALETTE, 1),
                     book(ModEnchantments.COVER, 1),
@@ -243,7 +263,8 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.CONSTRUCTORS_TOUCH, 1),
                     book(ModEnchantments.FAST_CHISELING, 2),
                     id(ModItems.GOLD_CHISEL),
-                    id(ModItems.DIAMOND_CHISEL))),
+                    id(ModItems.DIAMOND_CHISEL),
+                    id(ModItems.DIAMOND_PEBBLE))),
             Map.entry(BuiltInLootTables.SIMPLE_DUNGEON, Set.of(
                     book(ModEnchantments.FAST_CHISELING, 1),
                     book(ModEnchantments.FUNNEL, 1),
@@ -252,10 +273,12 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.VEIN_MINER, 3),
                     book(ModEnchantments.VEIN_MINER, 4),
                     id(ModItems.REINFORCED_BUNDLE),
-                    id(ModItems.BASIC_UPGRADE_TEMPLATE))),
+                    id(ModItems.BASIC_UPGRADE_TEMPLATE),
+                    id(ModItems.DIAMOND_PEBBLE))),
             Map.entry(BuiltInLootTables.SHIPWRECK_TREASURE, Set.of(
                     book(ModEnchantments.FAST_CHISELING, 1),
-                    id(ModItems.REINFORCED_BUNDLE))),
+                    id(ModItems.REINFORCED_BUNDLE),
+                    id(ModItems.DIAMOND_PEBBLE))),
             Map.entry(BuiltInLootTables.IGLOO_CHEST, Set.of(
                     book(ModEnchantments.CONSTRUCTORS_TOUCH, 1),
                     book(ModEnchantments.FAST_CHISELING, 1),
@@ -266,11 +289,23 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.STRIP_MINER, 3),
                     book(ModEnchantments.VEIN_MINER, 3),
                     book(ModEnchantments.VEIN_MINER, 4),
-                    id(ModItems.REINFORCED_BUNDLE))),
+                    id(ModItems.REINFORCED_BUNDLE),
+                    id(ModItems.DIAMOND_PEBBLE))),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON, VAULT_COMMON_LOOT),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, VAULT_OMINOUS_LOOT),
             // The rare vault is the one key both vault conditions match, so it gets both pools.
-            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, union(VAULT_COMMON_LOOT, VAULT_OMINOUS_LOOT)));
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, union(VAULT_COMMON_LOOT, VAULT_OMINOUS_LOOT)),
+            Map.entry(BuiltInLootTables.RUINED_PORTAL, Set.of(
+                    id(ModItems.NETHERITE_NUGGET),
+                    id(ModItems.GOLD_CHISEL),
+                    id(ModItems.NETHERITE_CARROT))),
+            // Fishing: every treasure catch rolls this pool once on top of the vanilla item.
+            Map.entry(BuiltInLootTables.FISHING_TREASURE, Set.of(
+                    book(ModEnchantments.FAST_CHISELING, 1),
+                    book(ModEnchantments.CONSTRUCTORS_TOUCH, 1),
+                    book(ModEnchantments.DEEP_POCKETS, 1),
+                    book(ModEnchantments.LINEAR, 1),
+                    id(ModItems.DIAMOND_PEBBLE))));
 
     /** Separator {@link #book} puts between an enchantment id and its level. */
     private static final String BOOK_MARKER = "@";
@@ -297,15 +332,50 @@ public final class ConfigOptionTests {
      * <p>The thinnest wanted entry decides this number. That is the enchanted netherite apple in
      * the ominous vault: 1 of that pool's 57 weight, drawn {@code between(0, 1)} times, so this
      * many rolls are worth about 18 expected hits and missing it by chance is one in a hundred
-     * million. Runner up is the basic upgrade template in the simple dungeon (1 of 96, rolled
-     * {@code between(0, 2)}) at about 21. Everything else in {@link #EXPECTED_LOOT} sits far above
-     * that - the mansion's iron building wand is worth about 320.
+     * million. Everything else in {@link #EXPECTED_LOOT} sits at roughly twice that or more - the
+     * next thinnest are the single-weight entries of the bastion (gold core, 1 of 60), the ancient
+     * city (enchanted netherite apple, 1 of 58) and the mansion (iron core and Vein Miner V, 1 of
+     * 55), each rolled {@code between(0, 2)} and worth 34 to 37 hits.
      *
      * <p>Those margins are the reason a thin entry may be listed at all; they are computed from
      * the weights in {@code ModLootTableModifications}, so a balance change that makes an entry
      * much rarer has to be reflected here.
      */
     private static final int POOL_ROLLS = 2048;
+
+    /**
+     * How many mod stacks one chest of each table may bring on average, as {@code [min, max]}.
+     *
+     * <p>This is the balance sheet of {@code docs/LOOT-BALANCE.md} turned into numbers. Tables a
+     * structure has many of - the mineshaft, the mansion, the ancient city, the ordinary bastion
+     * chests, the dungeon - sit at about half a mod stack per chest; single chests such as the
+     * bastion treasure room or an end city chest may give more. The bands are wide enough for the
+     * dice ({@link #POOL_ROLLS} chests, fixed seed) and narrow enough that the old weights - the
+     * mansion at more than two mod stacks per chest, the ancient city at almost one and a half -
+     * are red.
+     */
+    private record Budget(double min, double max) {
+    }
+
+    private static final Map<ResourceKey<LootTable>, Budget> CHEST_BUDGETS = Map.ofEntries(
+            Map.entry(BuiltInLootTables.STRONGHOLD_LIBRARY, new Budget(0.3, 1.0)),
+            Map.entry(BuiltInLootTables.END_CITY_TREASURE, new Budget(1.3, 2.5)),
+            Map.entry(BuiltInLootTables.ANCIENT_CITY, new Budget(0.35, 0.7)),
+            Map.entry(BuiltInLootTables.BASTION_TREASURE, new Budget(0.8, 1.6)),
+            Map.entry(BuiltInLootTables.BASTION_OTHER, new Budget(0.35, 0.7)),
+            Map.entry(BuiltInLootTables.NETHER_BRIDGE, new Budget(0.4, 0.8)),
+            Map.entry(BuiltInLootTables.PILLAGER_OUTPOST, new Budget(0.4, 1.0)),
+            Map.entry(BuiltInLootTables.WOODLAND_MANSION, new Budget(0.25, 0.7)),
+            Map.entry(BuiltInLootTables.BURIED_TREASURE, new Budget(0.3, 1.0)),
+            Map.entry(BuiltInLootTables.SIMPLE_DUNGEON, new Budget(0.35, 0.7)),
+            Map.entry(BuiltInLootTables.SHIPWRECK_TREASURE, new Budget(0.15, 0.6)),
+            Map.entry(BuiltInLootTables.IGLOO_CHEST, new Budget(0.15, 0.6)),
+            Map.entry(BuiltInLootTables.ABANDONED_MINESHAFT, new Budget(0.3, 0.7)),
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON, new Budget(0.1, 0.4)),
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, new Budget(0.2, 0.6)),
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, new Budget(0.1, 0.4)),
+            Map.entry(BuiltInLootTables.RUINED_PORTAL, new Budget(0.1, 0.4)),
+            Map.entry(BuiltInLootTables.FISHING_TREASURE, new Budget(0.2, 0.6)));
 
     /** Seed for the loot rolls, so a failure is reproducible instead of a coin flip. */
     private static final long POOL_ROLL_SEED = 20260904L;
@@ -1015,6 +1085,87 @@ public final class ConfigOptionTests {
     }
 
     /** Runs the mod's loot table hook for one table and counts what it handed over. */
+    /**
+     * The loot balance: every table the mod edits hands out, per chest, an amount of mod stacks
+     * inside its {@link #CHEST_BUDGETS} band, and the ordinary bastion chests never hand out what
+     * is meant for the treasure room.
+     *
+     * <p>{@link #lootTableChangesStopWhenTheOptionIsSwitchedOff} proves what can come out of a
+     * chest, not how much of it: an empty weight dropped from 30 to 5 or a {@code between(0, 2)}
+     * turned into {@code between(1, 4)} keeps every listed entry and every pool count. This test
+     * rolls each table like {@link #POOL_ROLLS} chests - every mod pool once per chest, the way a
+     * real chest is filled - and compares the mean number of stacks with the band. Both bounds
+     * matter: the upper one is "not too much", the lower one catches a pool whose entries were
+     * starved by an oversized empty weight.
+     *
+     * <p>The bastion half pins the split into a shared pool and a treasure-only pool. The treasure
+     * items are lower bounds in {@link #EXPECTED_LOOT}, so moving the netherite core back into the
+     * shared pool - every one of the dozen ordinary chests of a bastion - leaves that test green.
+     *
+     * <p>What breaks it: an empty weight or a roll count changed far enough to leave a band, a
+     * table added to {@link #MODIFIED_TABLES} without a budget, or a treasure-room item in the
+     * pool every bastion chest gets.
+     */
+    public static void lootBalanceKeepsEveryChestWithinItsBudget(GameTestHelper helper) {
+        HolderLookup.Provider registries = helper.getLevel().registryAccess();
+        boolean original = Simplebuilding.getConfig().worldGen.enableLootTableChanges;
+        helper.runBeforeTestEnd(() -> Simplebuilding.getConfig().worldGen.enableLootTableChanges = original);
+
+        helper.assertTrue(CHEST_BUDGETS.keySet().equals(Set.copyOf(MODIFIED_TABLES)),
+                "CHEST_BUDGETS and MODIFIED_TABLES name different tables; every table the mod edits "
+                        + "needs a budget, budgets " + CHEST_BUDGETS.keySet() + ", tables " + MODIFIED_TABLES);
+
+        List<String> problems = new ArrayList<>();
+        try {
+            setLootTableChanges(helper, true);
+            for (ResourceKey<LootTable> key : MODIFIED_TABLES) {
+                Budget budget = CHEST_BUDGETS.get(key);
+                double mean = meanStacksPerChest(helper, recordPools(key, registries));
+                if (mean < budget.min() || mean > budget.max()) {
+                    problems.add(tableName(key) + " gives " + String.format(java.util.Locale.ROOT, "%.3f", mean)
+                            + " mod stacks per chest, outside " + budget.min() + ".." + budget.max());
+                }
+            }
+
+            Set<String> ordinary = rollContents(helper, recordPools(BuiltInLootTables.BASTION_OTHER, registries));
+            Set<String> treasure = rollContents(helper, recordPools(BuiltInLootTables.BASTION_TREASURE, registries));
+            for (String entry : BASTION_TREASURE_ONLY_LOOT) {
+                if (ordinary.contains(entry)) {
+                    problems.add("the ordinary bastion chests hand out " + entry
+                            + ", which belongs to the treasure room only");
+                }
+                // Control: the same roll finds it in the treasure room, so "absent" above is not
+                // just a roller that finds nothing.
+                if (!treasure.contains(entry)) {
+                    problems.add("the bastion treasure room never hands out " + entry);
+                }
+            }
+        } finally {
+            Simplebuilding.getConfig().worldGen.enableLootTableChanges = original;
+        }
+
+        helper.assertTrue(problems.isEmpty(), "loot balance problems: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * Mean number of stacks one chest gets from the mod: every recorded pool rolled once per
+     * chest, {@link #POOL_ROLLS} chests, fixed seed.
+     */
+    private static double meanStacksPerChest(GameTestHelper helper, PoolRecorder recorder) {
+        LootParams params = new LootParams.Builder(helper.getLevel()).create(LootContextParamSets.EMPTY);
+        LootContext context = new LootContext.Builder(params)
+                .withOptionalRandomSeed(POOL_ROLL_SEED)
+                .create(Optional.empty());
+        int[] stacks = {0};
+        for (int chest = 0; chest < POOL_ROLLS; chest++) {
+            for (LootPool pool : recorder.pools) {
+                pool.addRandomItems(stack -> stacks[0]++, context);
+            }
+        }
+        return (double) stacks[0] / POOL_ROLLS;
+    }
+
     private static PoolRecorder recordPools(ResourceKey<LootTable> key, HolderLookup.Provider registries) {
         PoolRecorder recorder = new PoolRecorder();
         ModLootTableModifications.apply(key, recorder, registries);

@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 130,
+      "count": 128,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -89,7 +89,7 @@ window.WIKI_DATA = {
           "Items section: every tool and storage item, sorted by family (Sledgehammer, Chisel, Building Wand, Octant and dyed Octants, bundles, quivers), plus the standalone tools Magnet, Rotator and Ore Detector.",
           "Blocks section: hoppers, furnaces, pistons, gravity blocks and ores, with hardness, tool tags, loot tables and the differences between the Reinforced and Netherite tiers.",
           "Recipes section: crafting recipes, smithing table upgrades (Netherite Upgrade Smithing Template and Enderite Upgrade Template) and the mod's own recipe type for the Basic Upgrade Template, which upgrades copper, iron and gold tools one tier at a time without losing enchantments, damage or the name.",
-          "Loot section: which structure chests (among them Buried Treasure, Igloo, Dungeon, Abandoned Mineshaft, Shipwreck, Pillager Outpost, Woodland Mansion, Stronghold Library, End City, Ancient City, Bastion, Nether Fortress, Trial Chambers) hold mod items and books; every entry only applies while the enableLootTableChanges option is on.",
+          "Loot section: which structure chests (among them Buried Treasure, Igloo, Dungeon, Abandoned Mineshaft, Shipwreck, Pillager Outpost, Woodland Mansion, Stronghold Library, End City, Ancient City, Bastion, Nether Fortress, Ruined Portal, Trial Chambers) and the treasure catch of fishing hold mod items and books; every entry only applies while the enableLootTableChanges option is on.",
           "Trades section: offers from the Librarian (levels 3 to 5), the Mason (levels 2 and 4), the Toolsmith (levels 3 to 5) and the Wandering Trader, switchable off via enableVillagerTrades and enableWanderingTrades.",
           "Enchantments section: effect per level, cost, exclusive sets and where to find them. Important: only Fast Chiseling appears at the enchanting table; every other mod enchantment comes as a book from chests, from a trader or from the creative tab and is applied at the anvil.",
           "Tags section: tags decide which items accept an enchantment (e.g. sledgehammer_tools, chisel_tools, building_wand_enchantable, bundle_enchantable, constructors_touch_enchantable, octants_enchantable) or gain special properties (void_protected). If an item refuses an enchantment, it is almost always because it is missing from one of these tags; that now affects the Enderite building wand, chisel and sledgehammer and the legacy spatulas - the Enderite Bundle and Enderite Quiver are in the container tags.",
@@ -113,7 +113,7 @@ window.WIKI_DATA = {
           "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Magnet, Rotator und Erzdetektor.",
           "Bereich Blöcke: Trichter, Öfen, Kolben, Schwerkraftblöcke und Erze samt Härte, Werkzeug-Tags, Beutetabellen und den Unterschieden zwischen Verstärkt- und Netherit-Stufe.",
           "Bereich Rezepte: Werkbank-Rezepte, Schmiedetisch-Aufwertungen (Netherit-Aufwertungs-Schmiedevorlage bzw. Enderite Upgrade Template) und der eigene Rezepttyp für die Basis-Upgrade-Vorlage, mit dem du Kupfer-, Eisen- und Gold-Werkzeuge stufenweise aufwertest, ohne Verzauberungen, Schaden oder Namen zu verlieren.",
-          "Bereich Loot: welche Strukturtruhen (u. a. Vergrabener Schatz, Iglu, Verlies, Verlassene Mine, Schiffswrack, Plünderer-Außenposten, Waldanwesen, Festungsbibliothek, Endsiedlung, Antike Stadt, Bastion, Netherfestung, Prüfungskammer) Mod-Gegenstände und Bücher enthalten; alle Einträge gelten nur bei aktiver Option enableLootTableChanges.",
+          "Bereich Loot: welche Strukturtruhen (u. a. Vergrabener Schatz, Iglu, Verlies, Verlassene Mine, Schiffswrack, Plünderer-Außenposten, Waldanwesen, Festungsbibliothek, Endsiedlung, Antike Stadt, Bastion, Netherfestung, Portalruine, Prüfungskammer) und der Schatzfang beim Angeln Mod-Gegenstände und Bücher enthalten; alle Einträge gelten nur bei aktiver Option enableLootTableChanges.",
           "Bereich Handel: Angebote von Bibliothekar (Stufe 3 bis 5), Steinmetz (Stufe 2 und 4), Werkzeugschmied (Stufe 3 bis 5) und fahrendem Händler, abschaltbar über enableVillagerTrades bzw. enableWanderingTrades.",
           "Bereich Verzauberungen: Wirkung je Stufe, Kosten, Ausschluss-Sets und Fundorte. Wichtig: Nur Schnelles Meißeln erscheint am Zaubertisch; alle anderen Mod-Verzauberungen kommen als Bücher aus Truhen, vom Händler oder aus dem Kreativ-Reiter und werden am Amboss angebracht.",
           "Bereich Tags: Tags legen fest, welche Gegenstände eine Verzauberung annehmen (z. B. sledgehammer_tools, chisel_tools, building_wand_enchantable, bundle_enchantable, constructors_touch_enchantable, octants_enchantable) oder besondere Eigenschaften bekommen (void_protected). Nimmt ein Gegenstand eine Verzauberung nicht an, liegt es fast immer daran, dass er in einem dieser Tags fehlt; das betrifft jetzt Enderit-Baustab, -Meißel und -Vorschlaghammer sowie die alten Spatel - Enderite Bundle und Enderite Quiver stehen in den Behälter-Tags.",
@@ -291,12 +291,12 @@ window.WIKI_DATA = {
           "The Building Wand is your first area tool: the Copper Building Wand is built from a Copper Core (top right) and two sticks diagonally below it. The Mason sells Copper Cores from level 2 for 25 emeralds (2 uses) and the Wandering Trader for 46 emeralds as a pair; the finished Copper Building Wand is also available from the Mason at level 4 for 62 emeralds. With blocks in your offhand or on your hotbar, right-click places a 3x3 face against the side of the block you clicked.",
           "A bit of iron brings the helpers: the Magnet (4 iron ingots, a lodestone, redstone, lapis lazuli; pulls in items within 4 blocks and never wears out) and the Rotator (5 iron ingots + an ender pearl; turns logs, furnaces, pistons and hoppers in place with a right-click). The Ore Detector (calibrated sculk sensor on top, compass in the middle, Gold Core at the bottom) is worth it once you have a Gold Core; the Wandering Trader sells a Gold Core for 30 emeralds.",
           "Material tiers for the Sledgehammer and Chisel: stone, copper, iron, gold, diamond, netherite, enderite; for the Building Wand the series starts at copper (3x3) and grows through iron (5x5), gold (7x7), diamond (9x9) and netherite (11x11) up to enderite (13x13). Higher hammer tiers are crafted with the matching block plus two ingots or diamonds, chisels with the ingot or diamond in the middle, building wands with the core of that tier.",
-          "Upgrade instead of rebuild: with the Basic Upgrade Template at the smithing table, copper becomes iron, iron becomes gold and gold becomes diamond; a chisel needs 2 ingots or diamonds for that, a sledgehammer 12. Enchantments, damage and the name are kept. The Stone Sledgehammer cannot be upgraded, and the Diamond Core for the Diamond Building Wand is sold by the Mason (level 2) for 6 netherite ingots.",
+          "Upgrade instead of rebuild: with the Basic Upgrade Template at the smithing table, copper becomes iron, iron becomes gold and gold becomes diamond; a chisel needs 2 ingots or diamonds for that, a sledgehammer 12. Enchantments, damage and the name are kept. The Stone Sledgehammer cannot be upgraded, and the Diamond Core for the Diamond Building Wand is sold by the Mason (level 2) for 3 netherite ingots.",
           "Netherite and enderite only exist at the smithing table: Netherite Upgrade Smithing Template + diamond tool + netherite ingot, then Enderite Upgrade Template + netherite tool + Enderite Ingot. Enderite items are not lost in the void; the Enderite Bundle and the Enderite Quiver take the mod's enchantments at an anvil like the tiers below them, while the Enderite building wand, chisel and sledgehammer are still missing from the enchantment tags and cannot be given them by normal means.",
           "The road to the machines runs through the Sledgehammer: holding right-click on a diamond block breaks it into 81 Diamond Pebbles, and 9 pebbles make one Cracked Diamond in the crafting grid (a single pebble also goes into the Reinforced Bundle and the Reinforced Quiver). With those you build Reinforced Furnaces, Blast Furnaces and Smokers (3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds yield 3), Reinforced Hoppers (5 hoppers, a name tag, 3 Cracked Diamonds yield 5) and Reinforced Pistons (3 Cracked Diamonds, 2 pistons, 4 iron ingots yield 2). The netherite tiers are not crafted: hold right-click for five seconds on a placed Reinforced machine with a Diamond Sledgehammer (or better) in your main hand and a Netherite Nugget in your off hand, and it is hammered into the Netherite machine; a Netherite Sledgehammer (or better) with an Enderite Nugget does the same from Netherite to Enderite. Leftover Cracked Diamonds go back to diamonds in the blast furnace.",
           "Enchantments: only Fast Chiseling appears at the enchanting table. Every other mod enchantment is found as a book and applied at the anvil; the creative tab has every book ready at maximum level.",
-          "At the traders: the Toolsmith sells copper, iron and gold chisels with Fast Chiseling from level 3 for 6 emeralds, from level 4 iron and diamond sledgehammers with one enchantment out of Break Through, Override, Range, Unbreaking or Efficiency (16 emeralds + an iron pickaxe, or 28 emeralds + a diamond pickaxe), and from level 5 a diamond pickaxe with Strip Miner or Vein Miner for 15 emeralds. The Librarian offers books with Color Palette, Fast Chiseling or Linear from level 3, Linear or Override from level 4, and Master Builder, Range, Funnel, Strip Miner or Vein Miner from level 5, each for 25 emeralds. The Wandering Trader has a book with Radius for 60 emeralds.",
-          "In chests: Constructor's Touch, the mod's key enchantment (it unlocks the Building Wand menu, extra chisel conversions, reverse reshaping on the Sledgehammer, the magnet filter and the Octant preview), exists only as a book in Buried Treasure, in igloo chests and in the vaults of the trial chambers; no trader offers it. Break Through, Funnel, Vein Miner and Fast Chiseling lie in dungeons, Color Palette, Cover and Linear in pillager outposts and woodland mansions, Master Builder, Versatility and Range in stronghold libraries and end cities, Override II and Air Jump II in end cities, Radius and Deep Pockets in ancient cities, Strip Miner in nether fortresses and abandoned mineshafts.",
+          "At the traders: the Toolsmith sells copper, iron and gold chisels with Fast Chiseling from level 3 for 6 emeralds, from level 4 iron and diamond sledgehammers with one enchantment out of Break Through, Override, Range, Unbreaking or Efficiency (16 emeralds + an iron pickaxe, or 28 emeralds + a diamond pickaxe), and from level 5 a diamond pickaxe with Strip Miner or Vein Miner for 15 emeralds. The Librarian offers books with Color Palette, Fast Chiseling or Linear from level 3, Linear or Override from level 4, and Master Builder, Range, Funnel, Strip Miner or Vein Miner from level 5, each for 25 emeralds. The Wandering Trader has a book with Radius for 40 emeralds and Diamond Pebbles (3 for 5 emeralds).",
+          "In chests: Constructor's Touch, the mod's key enchantment (it unlocks the Building Wand menu, extra chisel conversions, reverse reshaping on the Sledgehammer, the magnet filter and the Octant preview), exists only as a book in Buried Treasure, in igloo chests, in the vaults of the trial chambers and in the treasure catch of fishing; no trader offers it. Break Through, Funnel, Vein Miner and Fast Chiseling lie in dungeons, Color Palette, Cover and Linear in pillager outposts and woodland mansions, Master Builder, Versatility and Range in stronghold libraries and end cities, Override II and Air Jump II in end cities, Radius and Deep Pockets in ancient cities, Strip Miner in nether fortresses and abandoned mineshafts. End cities additionally hand out raw enderite, enderite nuggets, astralit dust and nihilith shards; many chests hold Diamond Pebbles.",
           "Finished tools lie around too: Gold and Diamond Chisels in Buried Treasure, a Diamond Chisel in the igloo, a Gold Sledgehammer in bastions, a Diamond Sledgehammer in end cities and ancient cities, an Iron Building Wand in woodland mansions, a Diamond Building Wand in end cities, an Octant in ancient cities, nether fortresses and pillager outposts, a Reinforced Bundle in dungeons, shipwrecks and abandoned mineshafts, a Quiver in ancient cities, pillager outposts and woodland mansions.",
           "Drawer and Kinetic Protection have no dedicated source other than the creative tab; randomly enchanted loot items (Quiver, Reinforced Bundle, Octant, Diamond Sledgehammer, Diamond Building Wand) can however carry any enchantment that fits them.",
           "Loot and trades hang on three config switches (enableLootTableChanges, enableVillagerTrades, enableWanderingTrades), which are on by default and are evaluated when datapacks load (world start, /reload). If the vanilla \"Trade Rebalance\" datapack is active, the mod's Librarian offers disappear; the Mason, the Toolsmith and the Wandering Trader are unaffected."
@@ -314,12 +314,12 @@ window.WIKI_DATA = {
           "Der Baustab ist dein erstes Flächenwerkzeug: Der Kupfer-Baustab wird aus einem Kupferkern (oben rechts) und zwei Stöcken diagonal darunter gebaut. Kupferkerne verkauft der Steinmetz ab Stufe 2 für 25 Smaragde (2 Nutzungen) und der fahrende Händler für 46 Smaragde im Doppelpack; den fertigen Kupfer-Baustab gibt es auch beim Steinmetz ab Stufe 4 für 62 Smaragde. Mit Blöcken in Zweithand oder Hotbar setzt er per Rechtsklick eine 3x3-Fläche vor die angeklickte Blockseite.",
           "Mit etwas Eisen kommen die Helfer dazu: der Magnet (4 Eisenbarren, Leitstein, Redstone, Lapislazuli; zieht Items im Umkreis von 4 Blöcken an und nutzt sich nie ab) und der Rotator (5 Eisenbarren + Enderperle; dreht Stämme, Öfen, Kolben und Trichter per Rechtsklick an Ort und Stelle). Der Erzdetektor (kalibrierter Sculk-Sensor oben, Kompass in der Mitte, Goldkern unten) lohnt sich, sobald du einen Goldkern hast; den verkauft der fahrende Händler für 30 Smaragde.",
           "Materialstufen bei Vorschlaghammer und Meißel: Stein, Kupfer, Eisen, Gold, Diamant, Netherit, Enderit; beim Baustab beginnt die Reihe bei Kupfer (3x3) und wächst über Eisen (5x5), Gold (7x7), Diamant (9x9) und Netherit (11x11) bis Enderit (13x13). Höhere Hammerstufen werden mit dem jeweiligen Block plus zwei Barren bzw. Diamanten gebaut, Meißel mit dem Barren bzw. Diamanten in der Mitte, Baustäbe mit dem Kern der Stufe.",
-          "Aufwerten statt neu bauen: Mit der Basis-Upgrade-Vorlage am Schmiedetisch wird Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant; ein Meißel braucht dafür 2 Barren bzw. Diamanten, ein Vorschlaghammer 12. Verzauberungen, Schaden und Name bleiben dabei erhalten. Der Stein-Vorschlaghammer lässt sich nicht aufwerten, und den Diamantkern für den Diamant-Baustab verkauft der Steinmetz (Stufe 2) für 6 Netheritbarren.",
+          "Aufwerten statt neu bauen: Mit der Basis-Upgrade-Vorlage am Schmiedetisch wird Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant; ein Meißel braucht dafür 2 Barren bzw. Diamanten, ein Vorschlaghammer 12. Verzauberungen, Schaden und Name bleiben dabei erhalten. Der Stein-Vorschlaghammer lässt sich nicht aufwerten, und den Diamantkern für den Diamant-Baustab verkauft der Steinmetz (Stufe 2) für 3 Netheritbarren.",
           "Netherit und Enderit gibt es nur am Schmiedetisch: Netherit-Aufwertungs-Schmiedevorlage + Diamant-Werkzeug + Netheritbarren, danach Enderite Upgrade Template + Netherit-Werkzeug + Enderite Ingot. Enderit-Gegenstände gehen in der Leere nicht verloren; Enderite Bundle und Enderite Quiver nehmen die Mod-Verzauberungen am Amboss an wie die Stufen darunter, während Enderit-Baustab, -Meißel und -Vorschlaghammer weiterhin in den Verzauberungs-Tags fehlen und sich auf normalem Weg nicht verzaubern lassen.",
           "Der Weg zu den Maschinen führt über den Vorschlaghammer: Rechtsklick halten auf einen Diamantblock zerlegt ihn in 81 Diamantkiesel, und je 9 Kiesel ergeben in der Werkbank einen Rissigen Diamanten (ein einzelner Kiesel steckt außerdem im Verstärkten Bündel und im Verstärkten Köcher). Damit baust du Verstärkte Öfen, Schmelzöfen und Räucheröfen (3 Rissige Diamanten, 3 Geräte, 3 Rissige Diamanten ergeben 3 Stück), Verstärkte Trichter (5 Trichter, Namensschild, 3 Rissige Diamanten ergeben 5 Stück) und Verstärkte Kolben (3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren ergeben 2 Stück). Die Netherit-Stufen werden nicht gecraftet: Halte mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netherit-Nugget in der Nebenhand fünf Sekunden lang Rechtsklick auf die gesetzte Verstärkt-Maschine, dann wird sie zur Netherit-Maschine geschmiedet; ein Netherit-Vorschlaghammer (oder besser) mit einem Enderiten-Nugget macht dasselbe von Netherit zu Enderit. Übrige Rissige Diamanten werden im Hochofen wieder zu Diamanten.",
           "Verzauberungen: Nur Schnelles Meißeln erscheint am Zaubertisch. Alle anderen Mod-Verzauberungen findest du als Bücher und bringst sie am Amboss an; im Kreativ-Reiter liegen alle Bücher auf Höchststufe bereit.",
-          "Beim Händler: Der Werkzeugschmied verkauft ab Stufe 3 Kupfer-, Eisen- und Goldmeißel mit Schnelles Meißeln für 6 Smaragde, ab Stufe 4 Eisen- und Diamant-Vorschlaghämmer mit einer Verzauberung aus Durchbruch, Übersteuerung, Reichweite, Haltbarkeit oder Effizienz (16 Smaragde + Eisenspitzhacke bzw. 28 Smaragde + Diamantspitzhacke) und ab Stufe 5 eine Diamantspitzhacke mit Tunnelgräber oder Aderabbau für 15 Smaragde. Der Bibliothekar bietet ab Stufe 3 Bücher mit Farbpalette, Schnelles Meißeln oder Linear, ab Stufe 4 Linear oder Übersteuerung und ab Stufe 5 Baumeister, Reichweite, Trichter, Tunnelgräber oder Aderabbau, jeweils für 25 Smaragde. Der fahrende Händler hat für 60 Smaragde ein Buch mit Radius.",
-          "In Truhen: Berührung des Konstrukteurs, die Schlüssel-Verzauberung der Mod (schaltet das Baustab-Menü, zusätzliche Meißel-Umwandlungen, das Rückwärts-Umformen beim Vorschlaghammer, den Magnetfilter und die Oktant-Vorschau frei), gibt es nur als Buch im Vergrabenen Schatz, in Iglu-Truhen und in den Tresoren der Prüfungskammern; kein Händler bietet sie an. Durchbruch, Trichter, Aderabbau und Schnelles Meißeln liegen in Verliesen, Farbpalette, Abdeckung und Linear in Plünderer-Außenposten und Waldanwesen, Baumeister, Vielseitigkeit und Reichweite in Festungsbibliotheken und Endsiedlungen, Übersteuerung II und Luftsprung II in Endsiedlungen, Radius und Tiefe Taschen in Antiken Städten, Tunnelgräber in Netherfestungen und verlassenen Minen.",
+          "Beim Händler: Der Werkzeugschmied verkauft ab Stufe 3 Kupfer-, Eisen- und Goldmeißel mit Schnelles Meißeln für 6 Smaragde, ab Stufe 4 Eisen- und Diamant-Vorschlaghämmer mit einer Verzauberung aus Durchbruch, Übersteuerung, Reichweite, Haltbarkeit oder Effizienz (16 Smaragde + Eisenspitzhacke bzw. 28 Smaragde + Diamantspitzhacke) und ab Stufe 5 eine Diamantspitzhacke mit Tunnelgräber oder Aderabbau für 15 Smaragde. Der Bibliothekar bietet ab Stufe 3 Bücher mit Farbpalette, Schnelles Meißeln oder Linear, ab Stufe 4 Linear oder Übersteuerung und ab Stufe 5 Baumeister, Reichweite, Trichter, Tunnelgräber oder Aderabbau, jeweils für 25 Smaragde. Der fahrende Händler hat für 40 Smaragde ein Buch mit Radius und Diamantkiesel (3 Stück für 5 Smaragde).",
+          "In Truhen: Berührung des Konstrukteurs, die Schlüssel-Verzauberung der Mod (schaltet das Baustab-Menü, zusätzliche Meißel-Umwandlungen, das Rückwärts-Umformen beim Vorschlaghammer, den Magnetfilter und die Oktant-Vorschau frei), gibt es nur als Buch im Vergrabenen Schatz, in Iglu-Truhen, in den Tresoren der Prüfungskammern und im Schatzfang beim Angeln; kein Händler bietet sie an. Durchbruch, Trichter, Aderabbau und Schnelles Meißeln liegen in Verliesen, Farbpalette, Abdeckung und Linear in Plünderer-Außenposten und Waldanwesen, Baumeister, Vielseitigkeit und Reichweite in Festungsbibliotheken und Endsiedlungen, Übersteuerung II und Luftsprung II in Endsiedlungen, Radius und Tiefe Taschen in Antiken Städten, Tunnelgräber in Netherfestungen und verlassenen Minen. Endsiedlungen geben zusätzlich Roh-Enderit, Enderit-Nuggets, Astralitstaub und Nihilith-Splitter aus; viele Truhen enthalten Diamantkiesel.",
           "Auch fertige Werkzeuge liegen herum: Gold- und Diamantmeißel im Vergrabenen Schatz, Diamantmeißel im Iglu, Gold-Vorschlaghammer in Bastionen, Diamant-Vorschlaghammer in Endsiedlungen und Antiken Städten, Eisen-Baustab in Waldanwesen, Diamant-Baustab in Endsiedlungen, Oktant in Antiken Städten, Netherfestungen und Plünderer-Außenposten, Verstärktes Bündel in Verliesen, Schiffswracks und verlassenen Minen, Köcher in Antiken Städten, Plünderer-Außenposten und Waldanwesen.",
           "Schublade und Kinetischer Schutz haben keine gezielte Fundquelle außer dem Kreativ-Reiter; zufällig verzauberte Loot-Gegenstände (Köcher, Verstärktes Bündel, Oktant, Diamant-Vorschlaghammer, Diamant-Baustab) können aber jede auf sie passende Verzauberung tragen.",
           "Loot und Handel hängen an drei Konfigurationsschaltern (enableLootTableChanges, enableVillagerTrades, enableWanderingTrades), die standardmäßig eingeschaltet sind und beim Laden der Datenpakete (Weltstart, /reload) ausgewertet werden. Ist das Vanilla-Datenpaket „Trade Rebalance“ aktiv, verschwinden die Bibliothekar-Angebote der Mod; Steinmetz, Werkzeugschmied und fahrender Händler bleiben davon unberührt."
@@ -403,7 +403,7 @@ window.WIKI_DATA = {
           "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
           "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade Template and 12 ingots or diamonds you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
           "Where to get them: Diamond Sledgehammers lie in end city treasure chests and ancient cities, Gold Sledgehammers in bastions; from level 4 the toolsmith sells an Iron Sledgehammer (16 emeralds + iron pickaxe) and a Diamond Sledgehammer (28 emeralds + diamond pickaxe), each with a random enchantment from a weighted pool.",
-          "Worth knowing: the Netherite and Enderite Sledgehammers are fire resistant like vanilla netherite tools; only the Enderite Sledgehammer is saved from the void by the void_protected tag, the other six are not protected."
+          "Worth knowing: the Enderite Sledgehammer is not fire resistant, but it is the only tier the void_protected tag saves from the void; the other six are not protected."
         ]
       },
       "de": {
@@ -427,7 +427,7 @@ window.WIKI_DATA = {
           "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
           "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Upgrade-Vorlage und 12 Barren bzw. Diamanten lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
           "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
-          "Wichtig zu wissen: Netherit- und Enderit-Vorschlaghammer sind feuerfest wie Vanillas Netheritwerkzeuge; nur der Enderit-Vorschlaghammer ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht."
+          "Wichtig zu wissen: Der Enderite Sledgehammer ist nicht feuerfest, aber nur er ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht."
         ]
       }
     },
@@ -488,7 +488,7 @@ window.WIKI_DATA = {
           "Items section: every tool and storage item, sorted by family (Sledgehammer, Chisel, Building Wand, Octant and dyed Octants, bundles, quivers), plus the standalone tools Magnet, Rotator and Ore Detector.",
           "Blocks section: hoppers, furnaces, pistons, gravity blocks and ores, with hardness, tool tags, loot tables and the differences between the Reinforced and Netherite tiers.",
           "Recipes section: crafting recipes, smithing table upgrades (Netherite Upgrade Smithing Template and Enderite Upgrade Template) and the mod's own recipe type for the Basic Upgrade Template, which upgrades copper, iron and gold tools one tier at a time without losing enchantments, damage or the name.",
-          "Loot section: which structure chests (among them Buried Treasure, Igloo, Dungeon, Abandoned Mineshaft, Shipwreck, Pillager Outpost, Woodland Mansion, Stronghold Library, End City, Ancient City, Bastion, Nether Fortress, Trial Chambers) hold mod items and books; every entry only applies while the enableLootTableChanges option is on.",
+          "Loot section: which structure chests (among them Buried Treasure, Igloo, Dungeon, Abandoned Mineshaft, Shipwreck, Pillager Outpost, Woodland Mansion, Stronghold Library, End City, Ancient City, Bastion, Nether Fortress, Ruined Portal, Trial Chambers) and the treasure catch of fishing hold mod items and books; every entry only applies while the enableLootTableChanges option is on.",
           "Trades section: offers from the Librarian (levels 3 to 5), the Mason (levels 2 and 4), the Toolsmith (levels 3 to 5) and the Wandering Trader, switchable off via enableVillagerTrades and enableWanderingTrades.",
           "Enchantments section: effect per level, cost, exclusive sets and where to find them. Important: only Fast Chiseling appears at the enchanting table; every other mod enchantment comes as a book from chests, from a trader or from the creative tab and is applied at the anvil.",
           "Tags section: tags decide which items accept an enchantment (e.g. sledgehammer_tools, chisel_tools, building_wand_enchantable, bundle_enchantable, constructors_touch_enchantable, octants_enchantable) or gain special properties (void_protected). If an item refuses an enchantment, it is almost always because it is missing from one of these tags; that now affects the Enderite building wand, chisel and sledgehammer and the legacy spatulas - the Enderite Bundle and Enderite Quiver are in the container tags.",
@@ -512,7 +512,7 @@ window.WIKI_DATA = {
           "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Magnet, Rotator und Erzdetektor.",
           "Bereich Blöcke: Trichter, Öfen, Kolben, Schwerkraftblöcke und Erze samt Härte, Werkzeug-Tags, Beutetabellen und den Unterschieden zwischen Verstärkt- und Netherit-Stufe.",
           "Bereich Rezepte: Werkbank-Rezepte, Schmiedetisch-Aufwertungen (Netherit-Aufwertungs-Schmiedevorlage bzw. Enderite Upgrade Template) und der eigene Rezepttyp für die Basis-Upgrade-Vorlage, mit dem du Kupfer-, Eisen- und Gold-Werkzeuge stufenweise aufwertest, ohne Verzauberungen, Schaden oder Namen zu verlieren.",
-          "Bereich Loot: welche Strukturtruhen (u. a. Vergrabener Schatz, Iglu, Verlies, Verlassene Mine, Schiffswrack, Plünderer-Außenposten, Waldanwesen, Festungsbibliothek, Endsiedlung, Antike Stadt, Bastion, Netherfestung, Prüfungskammer) Mod-Gegenstände und Bücher enthalten; alle Einträge gelten nur bei aktiver Option enableLootTableChanges.",
+          "Bereich Loot: welche Strukturtruhen (u. a. Vergrabener Schatz, Iglu, Verlies, Verlassene Mine, Schiffswrack, Plünderer-Außenposten, Waldanwesen, Festungsbibliothek, Endsiedlung, Antike Stadt, Bastion, Netherfestung, Portalruine, Prüfungskammer) und der Schatzfang beim Angeln Mod-Gegenstände und Bücher enthalten; alle Einträge gelten nur bei aktiver Option enableLootTableChanges.",
           "Bereich Handel: Angebote von Bibliothekar (Stufe 3 bis 5), Steinmetz (Stufe 2 und 4), Werkzeugschmied (Stufe 3 bis 5) und fahrendem Händler, abschaltbar über enableVillagerTrades bzw. enableWanderingTrades.",
           "Bereich Verzauberungen: Wirkung je Stufe, Kosten, Ausschluss-Sets und Fundorte. Wichtig: Nur Schnelles Meißeln erscheint am Zaubertisch; alle anderen Mod-Verzauberungen kommen als Bücher aus Truhen, vom Händler oder aus dem Kreativ-Reiter und werden am Amboss angebracht.",
           "Bereich Tags: Tags legen fest, welche Gegenstände eine Verzauberung annehmen (z. B. sledgehammer_tools, chisel_tools, building_wand_enchantable, bundle_enchantable, constructors_touch_enchantable, octants_enchantable) oder besondere Eigenschaften bekommen (void_protected). Nimmt ein Gegenstand eine Verzauberung nicht an, liegt es fast immer daran, dass er in einem dieser Tags fehlt; das betrifft jetzt Enderit-Baustab, -Meißel und -Vorschlaghammer sowie die alten Spatel - Enderite Bundle und Enderite Quiver stehen in den Behälter-Tags.",
@@ -838,7 +838,7 @@ window.WIKI_DATA = {
           "Hearing the distance: the pitch of the ping (1.8 minus distance/32, clamped to 0.6 to 2.0) is high for near targets and low for distant ones; the break sound of the block that was found plays as well, so the material can be guessed at.",
           "Sonar trail: particles of the found block every 0.4 blocks along the line of sight, 3 end rod and 5 wax particles at the target; the sound and the particles are heard and seen by other players nearby too.",
           "The detector's own display texts (mode names, overlays, tooltip) are hardcoded in English; only the item name and the enchantment name are translated, and the tooltip entry from the language file is not shown.",
-          "Enchantable with Constructor's Touch (level I, a pure Java query without effect components) and, through the vanilla tag enchantable/durability, with durability enchantments; enchantability 15, so an enchanting table takes the detector as well. Books with Constructor's Touch are found in buried treasure, igloo chests and trial chamber vaults, as long as the loot table modification is enabled in the config."
+          "Enchantable with Constructor's Touch (level I, a pure Java query without effect components) and, through the vanilla tag enchantable/durability, with durability enchantments; enchantability 15, so an enchanting table takes the detector as well. Books with Constructor's Touch are found in buried treasure, igloo chests, trial chamber vaults and the treasure catch of fishing, as long as the loot table modification is enabled in the config."
         ]
       },
       "de": {
@@ -853,7 +853,7 @@ window.WIKI_DATA = {
           "Entfernung hören: Die Tonhöhe des Pings (1.8 minus Entfernung/32, begrenzt auf 0.6 bis 2.0) ist bei nahen Zielen hoch und bei fernen tief; zusätzlich erklingt das Abbaugeräusch des gefundenen Blocks, sodass sich das Material erahnen lässt.",
           "Sonar-Spur: Partikel des gefundenen Blocks alle 0.4 Blöcke entlang der Sichtlinie, am Ziel 3 Endstab- und 5 Wachs-Partikel; Ton und Partikel sehen und hören auch andere Spieler in der Nähe.",
           "Die eigenen Anzeigetexte des Detektors (Modusnamen, Einblendungen, Tooltip) sind fest auf Englisch hinterlegt; nur der Item-Name und der Verzauberungsname sind übersetzt, der deutsche Tooltip-Eintrag aus der Sprachdatei wird nicht angezeigt.",
-          "Verzauberbar mit Berührung des Konstrukteurs (Stufe I, reine Java-Abfrage ohne Effekt-Komponenten) sowie über den Vanilla-Tag enchantable/durability mit Haltbarkeits-Verzauberungen; Verzauberbarkeit 15, der Verzauberungstisch nimmt den Detektor also ebenfalls an. Bücher mit Berührung des Konstrukteurs finden sich in vergrabenen Schätzen, Iglu-Truhen und Prüfungskammer-Tresoren, solange die Beutetabellen-Anpassung in der Konfiguration aktiv ist."
+          "Verzauberbar mit Berührung des Konstrukteurs (Stufe I, reine Java-Abfrage ohne Effekt-Komponenten) sowie über den Vanilla-Tag enchantable/durability mit Haltbarkeits-Verzauberungen; Verzauberbarkeit 15, der Verzauberungstisch nimmt den Detektor also ebenfalls an. Bücher mit Berührung des Konstrukteurs finden sich in vergrabenen Schätzen, Iglu-Truhen, Prüfungskammer-Tresoren und im Schatzfang beim Angeln, solange die Beutetabellen-Anpassung in der Konfiguration aktiv ist."
         ]
       }
     },
@@ -1582,7 +1582,7 @@ window.WIKI_DATA = {
           "Preview (Fabric: LevelRenderEvents.COLLECT_SUBMITS / END_EXTRACTION; NeoForge: SubmitCustomGeometryEvent / ExtractLevelRenderStateEvent): the client draws breaking cracks on all connected blocks (hammer, Strip Miner, Vein Miner) and, for the hammer, an outline with a fill on top; the fill strength is steered by the buildingHighlightOpacity option (default 40). The extra cracks follow the crack vanilla itself draws at the targeted block: they also appear when vanilla mines on after the crosshair slipped off the block for a tick (it does that without its isDestroying flag), and never around a block vanilla is not mining.",
           "Forge module: none of the in-world renderers is wired up and the enchant_type property for the book textures is not registered; the loot function simplebuilding:weighted_enchant is registered (ForgeRegistryBootstrap), and the mining handlers themselves (hammer, Strip Miner, Vein Miner, Versatility) are hooked up on Forge.",
           "Where to find them: enchanted books sit in chests (woodland mansion, dungeon, abandoned mineshaft, nether fortress, bastion, ancient city, end city, stronghold library) and with traders (toolsmith level 4/5, librarian level 4/5, wandering trader); the loot entries hang off the enableLootTableChanges option, the traders off enableVillagerTrades and enableWanderingTrades respectively.",
-          "The end city treasure chest also holds a Diamond Sledgehammer (weight 20) with a random enchantment (EnchantRandomlyFunction.randomEnchantment()).",
+          "The end city treasure chest also holds a Diamond Sledgehammer (weight 8) with a random enchantment (EnchantRandomlyFunction.randomEnchantment()).",
           "In the creative inventory there is a book at max level for each of the six enchantments; on Fabric and NeoForge every book has its own texture (select model minecraft:enchanted_book with the property simplebuilding:enchant_type).",
           "The mining code lives once in the shared tree and is the same on Fabric, Forge and NeoForge. In the 1.21.11 branch MiningUtils differs only in how it reaches the ore tags (BlockTags instead of BlockItemTags) - VeinMinerUsageEvent asks MiningUtils.isOre and is byte-identical on both lines - and MultiBlockBreakingSupport differs in its render-state imports, in the BlockBreakingRenderState constructor it calls and in how it reads the position of vanilla's crack (a blockPos field instead of the record accessor); the trader pools are code there (ModTradeDefinitions) with the same weights."
         ]
@@ -1603,7 +1603,7 @@ window.WIKI_DATA = {
           "Vorschau (Fabric: LevelRenderEvents.COLLECT_SUBMITS / END_EXTRACTION; NeoForge: SubmitCustomGeometryEvent / ExtractLevelRenderStateEvent): Der Client zeichnet Abbau-Risse auf allen verbundenen Blöcken (Hammer, Tunnelgräber, Aderabbau) und beim Hammer zusätzlich einen Umriss mit Füllung; die Füllstärke steuert die Option buildingHighlightOpacity (Standard 40). Die zusätzlichen Risse folgen dem Riss, den Vanilla selbst am anvisierten Block zeichnet: Sie erscheinen auch, wenn Vanilla weiter abbaut, nachdem das Fadenkreuz für einen Tick vom Block gerutscht ist (das tut es ohne sein isDestroying-Flag), und nie um einen Block, den Vanilla gar nicht abbaut.",
           "Forge-Modul: keiner der In-Welt-Renderer ist verdrahtet, und die enchant_type-Property für die Buchtexturen ist nicht registriert; die Loot-Funktion simplebuilding:weighted_enchant wird registriert (ForgeRegistryBootstrap), und die Abbau-Handler selbst (Hammer, Tunnelgräber, Aderabbau, Vielseitigkeit) sind auf Forge angebunden.",
           "Fundorte: verzauberte Bücher liegen in Truhen (Waldanwesen, Verlies, verlassene Mine, Netherfestung, Bastion, Antike Stadt, Endsiedlung, Festungsbibliothek) und bei Händlern (Werkzeugschmied Stufe 4/5, Bibliothekar Stufe 4/5, Wanderhändler); die Loot-Einträge hängen an der Option enableLootTableChanges, die Händler an enableVillagerTrades bzw. enableWanderingTrades.",
-          "Die Endsiedlungs-Truhe enthält außerdem einen Diamant-Vorschlaghammer (Gewicht 20) mit Zufallsverzauberung (EnchantRandomlyFunction.randomEnchantment()).",
+          "Die Endsiedlungs-Truhe enthält außerdem einen Diamant-Vorschlaghammer (Gewicht 8) mit Zufallsverzauberung (EnchantRandomlyFunction.randomEnchantment()).",
           "Im Kreativ-Inventar liegt zu jeder der sechs Verzauberungen ein Buch auf Höchststufe; auf Fabric und NeoForge hat jedes Buch eine eigene Textur (Select-Modell minecraft:enchanted_book mit Property simplebuilding:enchant_type).",
           "Der Abbau-Code liegt einmal im gemeinsamen Baum und ist auf Fabric, Forge und NeoForge derselbe. Im 1.21.11-Zweig unterscheidet sich MiningUtils nur im Zugriff auf die Erz-Tags (BlockTags statt BlockItemTags) – VeinMinerUsageEvent fragt MiningUtils.isOre und ist auf beiden Linien Byte für Byte gleich –, MultiBlockBreakingSupport zusätzlich in den Render-State-Importen, im Aufruf des BlockBreakingRenderState-Konstruktors, im Lesen der Position des Vanilla-Risses (Feld blockPos statt Record-Accessor) und in einem Kommentar (LevelRenderEvents gegen WorldRenderEvents); die Händler-Pools liegen dort als Code (ModTradeDefinitions) mit denselben Gewichten vor."
         ]
@@ -1846,7 +1846,7 @@ window.WIKI_DATA = {
           "Master Builder on a reinforced bundle: right-clicking a block places blocks straight out of the bundle; in survival the pick-block key pulls blocks that are only in the bundle into your hand.",
           "Constructor's Touch is not one single effect but a different one per tool: a stick cycles block states, the chisel gains extra conversion rows, the sledgehammer can convert stairs and slabs back, the building wand gets its settings menu, the ore detector searches with halved step costs (factor 1.0 instead of 2.0), the magnet pulls from 8 instead of 4 blocks and learns filters from item frames, enchanted quivers feed arrows from the whole inventory, octants show the filled preview.",
           "Fast Chiseling shortens the chisel's cooldown (base x (1 - 0.3 x level), at least 1 tick) and speeds up breaking blocks with it (+5.0 or +17.0 on the material speed, then halved).",
-          "Getting them: only Fast Chiseling is available at the enchanting table (the mod's only entry in the minecraft:in_enchanting_table tag). Everything else comes exclusively as books from structure chests (pillager outpost, woodland mansion, stronghold library, end city, buried treasure, igloo and trial chambers among others; option enableLootTableChanges), from librarians (levels 3 to 5) and toolsmiths (pre-enchanted chisels; option enableVillagerTrades), as well as from the mod's creative tab as books at maximum level. Bridge is the exception: no chest and no trade offer holds a Bridge book any more, so the creative tab is the only source of the book - the wandering trader's 60-emerald book (option enableWanderingTrades) now holds only Radius, a sledgehammer enchantment. Bridge can still land on the randomly enchanted Diamond Building Wand from end city treasure.",
+          "Getting them: only Fast Chiseling is available at the enchanting table (the mod's only entry in the minecraft:in_enchanting_table tag). Everything else comes exclusively as books from structure chests (pillager outpost, woodland mansion, stronghold library, end city, buried treasure, igloo and trial chambers among others; option enableLootTableChanges), from the treasure catch of fishing, from librarians (levels 3 to 5) and toolsmiths (pre-enchanted chisels; option enableVillagerTrades), as well as from the mod's creative tab as books at maximum level. Bridge is the exception: no chest and no trade offer holds a Bridge book, so the creative tab is the only source of the book - the wandering trader's 40-emerald book (option enableWanderingTrades) holds only Radius, a sledgehammer enchantment. Bridge can still land on the randomly enchanted Diamond Building Wand from end city treasure.",
           "Compatibility: Cover excludes Bridge and Linear; Bridge and Linear get along. Drawer excludes Master Builder and Color Palette. Color Palette can only be put on an item in the anvil that already carries Master Builder or gains it at the same time - otherwise the result slot stays empty.",
           "Without effect: Cover and Bridge are evaluated by no game code and carry no effect; the gametest coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown pins this state down explicitly. Linear only makes the ring build faster, although its description promises a line while sneaking.",
           "Tag gap: the spatulas (which have no display name in either language file) are missing from the chisel_tools tag, so its enchantments cannot be applied to them in an anvil, even though the tool code would evaluate them; the spatulas are legacy items that the migration turns into chisels.",
@@ -1863,7 +1863,7 @@ window.WIKI_DATA = {
           "Baumeister auf einem Verstärkten Bündel: Rechtsklick auf einen Block platziert Blöcke direkt aus dem Bündel; die Blockauswahl-Taste holt im Überlebensmodus Blöcke, die nur im Bündel liegen, in die Hand.",
           "Berührung des Konstrukteurs ist kein einzelner Effekt, sondern je Werkzeug ein anderer: Stock schaltet Blockzustände um, Meißel bekommt zusätzliche Umwandlungsreihen, Vorschlaghammer kann Treppen und Stufen zurückverwandeln, Baustab bekommt sein Einstellungsmenü, Erzdetektor sucht mit halbierten Schrittkosten (Faktor 1.0 statt 2.0), Magnet zieht auf 8 statt 4 Blöcke und lernt Filter vom Rahmen, verzauberte Köcher liefern Pfeile aus dem ganzen Inventar, Oktanten zeigen die gefüllte Vorschau.",
           "Schnelles Meißeln verkürzt die Abklingzeit des Meißels (Basis × (1 − 0,3 × Stufe), mindestens 1 Tick) und beschleunigt den Blockabbau mit ihm (+5.0 bzw. +17.0 auf die Materialgeschwindigkeit, dann halbiert).",
-          "Beschaffung: Nur Schnelles Meißeln steht an der Verzauberungstabelle (einziger Mod-Eintrag im Tag minecraft:in_enchanting_table). Alle anderen gibt es ausschließlich als Bücher aus Strukturtruhen (u. a. Plünderer-Außenposten, Waldanwesen, Festungs-Bibliothek, Endsiedlung, vergrabener Schatz, Iglu, Prüfungskammer; Option enableLootTableChanges), von Bibliothekaren (Stufen 3 bis 5) und Werkzeugschmieden (vorverzauberte Meißel; Option enableVillagerTrades) sowie im Kreativ-Reiter der Mod als Buch auf Höchststufe. Ausnahme ist Brücke: Weder eine Truhe noch ein Handelsangebot enthält noch ein Brücke-Buch, einzige Quelle des Buchs ist der Kreativ-Reiter – das 60-Smaragde-Buch des Fahrenden Händlers (Option enableWanderingTrades) enthält jetzt nur noch Radius, eine Vorschlaghammer-Verzauberung. Auf dem zufällig verzauberten Diamant-Baustab aus dem Endsiedlungs-Schatz kann Brücke weiterhin auftauchen.",
+          "Beschaffung: Nur Schnelles Meißeln steht an der Verzauberungstabelle (einziger Mod-Eintrag im Tag minecraft:in_enchanting_table). Alle anderen gibt es ausschließlich als Bücher aus Strukturtruhen (u. a. Plünderer-Außenposten, Waldanwesen, Festungs-Bibliothek, Endsiedlung, vergrabener Schatz, Iglu, Prüfungskammer; Option enableLootTableChanges), aus dem Schatzfang beim Angeln, von Bibliothekaren (Stufen 3 bis 5) und Werkzeugschmieden (vorverzauberte Meißel; Option enableVillagerTrades) sowie im Kreativ-Reiter der Mod als Buch auf Höchststufe. Ausnahme ist Brücke: Weder eine Truhe noch ein Handelsangebot enthält ein Brücke-Buch, einzige Quelle des Buchs ist der Kreativ-Reiter – das 40-Smaragde-Buch des Fahrenden Händlers (Option enableWanderingTrades) enthält nur Radius, eine Vorschlaghammer-Verzauberung. Auf dem zufällig verzauberten Diamant-Baustab aus dem Endsiedlungs-Schatz kann Brücke weiterhin auftauchen.",
           "Verträglichkeit: Abdeckung schließt Brücke und Linear aus; Brücke und Linear vertragen sich. Schublade schließt Baumeister und Farbpalette aus. Farbpalette lässt sich im Amboss nur auf ein Item bringen, das Baumeister trägt oder gleichzeitig bekommt – sonst bleibt das Ergebnisfeld leer.",
           "Wirkungslos: Abdeckung und Brücke werden von keinem Spielcode ausgewertet und tragen keinen Effekt; der Spieltest coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown hält diesen Zustand ausdrücklich fest. Linear macht nur den Ring-Aufbau schneller, obwohl die Beschreibung eine Linie beim Schleichen verspricht.",
           "Tag-Lücke: Die Spatel (ohne Übersetzung) fehlen im Tag chisel_tools; dessen Verzauberungen lassen sich per Amboss nicht auf sie anbringen, obwohl der Werkzeug-Code sie auswerten würde. Die Spatel sind Altlasten, die die Umwandlung in Meißel verwandelt.",
@@ -2014,7 +2014,7 @@ window.WIKI_DATA = {
           "HUD: as long as the remaining cooldown is greater than 0, an 80x5 pixel bar appears centred above the hotbar (top edge 55 pixels from the bottom of the screen) with the hard-coded, untranslated label \"Air Jump\"; it fills amber (0xFFFFC83C) in step with the cooldown running down.",
           "The green \"full charge\" colour held in the code (0xFF4CFF4C) is practically never visible: the fill only reaches 100% at 0 remaining, and at exactly that point the display already hides the bar.",
           "If enableDoubleJump is switched off in the configuration, no air jumps are triggered and a running cooldown is reset to 0.",
-          "Loot table sources (only with enableLootTableChanges): an \"Air Jump II\" enchanted book in the extra pool of End City treasure chests (weight 10, 0-4 rolls), \"Air Jump I\" in the extra pool of the rare and ominous trial chamber reward vaults (weight 7, 0-1 rolls).",
+          "Loot table sources (only with enableLootTableChanges): an \"Air Jump II\" enchanted book in the extra pool of End City treasure chests (weight 5, 0-3 rolls), \"Air Jump I\" in the extra pool of the rare and ominous trial chamber reward vaults (weight 7, 0-1 rolls).",
           "Enchanted books with Air Jump get their own book model (model variant \"double_jump\" -> simplebuilding:item/enchanted_book_double_jump).",
           "The logic is identical on all three loaders: Fabric, NeoForge and Forge call the same shared controller (DoubleJumpController.tick) once per client tick; Fabric and NeoForge also register the same HUD layer, Forge registers none."
         ]
@@ -2034,7 +2034,7 @@ window.WIKI_DATA = {
           "HUD: Solange die Restabklingzeit größer als 0 ist, erscheint ein 80×5 Pixel großer Balken mittig über der Hotbar (Oberkante 55 Pixel vom unteren Rand) mit der fest im Code hinterlegten, nicht übersetzten Beschriftung „Air Jump“; er füllt sich bernsteinfarben (0xFFFFC83C) in dem Maß, wie die Abklingzeit abläuft.",
           "Die im Code hinterlegte grüne Farbe für „volle Ladung“ (0xFF4CFF4C) wird praktisch nie sichtbar: Der Füllstand erreicht 100 % erst bei Restzeit 0, und genau dann blendet die Anzeige den Balken bereits aus.",
           "Ist enableDoubleJump in der Konfiguration ausgeschaltet, werden keine Luftsprünge ausgelöst und die laufende Abklingzeit wird auf 0 zurückgesetzt.",
-          "Fundorte per Beutetabelle (nur mit enableLootTableChanges): Verzaubertes Buch „Luftsprung II“ im Zusatzpool der Endsiedlungs-Schatztruhen (Gewicht 10, 0–4 Würfe), „Luftsprung I“ im Zusatzpool der seltenen und unheilvollen Tresore der Prüfungskammern (Gewicht 7, 0–1 Würfe).",
+          "Fundorte per Beutetabelle (nur mit enableLootTableChanges): Verzaubertes Buch „Luftsprung II“ im Zusatzpool der Endsiedlungs-Schatztruhen (Gewicht 5, 0–3 Würfe), „Luftsprung I“ im Zusatzpool der seltenen und unheilvollen Tresore der Prüfungskammern (Gewicht 7, 0–1 Würfe).",
           "Verzauberte Bücher mit Luftsprung bekommen ein eigenes Buchmodell (Modellvariante „double_jump“ → simplebuilding:item/enchanted_book_double_jump).",
           "Die Logik ist auf allen drei Loadern identisch: Fabric, NeoForge und Forge rufen pro Client-Tick dieselbe geteilte Steuerung (DoubleJumpController.tick) auf; Fabric und NeoForge registrieren zudem dieselbe HUD-Ebene, Forge keine."
         ]
@@ -2194,13 +2194,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
         "src/main/java/com/simplebuilding/SimplebuildingClient.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
-        "common/src/shared/java/com/simplebuilding/util/EnderiteLifetime.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/items/ModArmorMaterials.java",
-        "src/main/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json",
-        "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
-        "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java"
+        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java"
       ],
       "en": {
         "title": "Enderite Void Protection",
@@ -2214,9 +2208,7 @@ window.WIKI_DATA = {
           "Void damage on the player: with 1/2/3/4 Enderite armor pieces worn, void damage only lands on ticks whose counter is divisible by 20/40/60/100; every other hit is cancelled.",
           "Slow descent: wearing at least 2 Enderite armor pieces, not on the ground, falling faster than 0.1 blocks per tick and holding the jump key gives you a continuously refreshed Slow Falling effect (2 ticks) on the server; the key state is sent by the client via SpaceKeyPayload whenever it changes.",
           "Limitation: void protection only covers items lying in the world as entities, not items inside chests or inventories.",
-          "Limitation: the Enchanted Enderite Apple (enchanted_enderite_apple) is not in the tag, because its id does not start with \"enderite_\" - so it is not protected from the void.",
-          "Enderite is made with netherite and keeps everything netherite gives an item: every enderite item from the ingot upwards, the scrap and the nugget are fire resistant and float on lava; the mod's Netherite Sledgehammer, Chisel, Spatula, Building Wand and Core are too (ModItems#netheriteTraits). Enderite armor resists knockback with 0.2 per piece (netherite: 0.1). The Enderite Bundle, Quiver and Backpack survive explosions as dropped items, like the Netherite Bundle and Backpack.",
-          "Dropped enderite from the ingot upwards lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000. The item tag simplebuilding:enderite_ingot_tier decides; datagen fills it from the void_protected rule minus raw_enderite, enderite_scrap and enderite_upgrade_template. On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime)."
+          "Limitation: the Enchanted Enderite Apple (enchanted_enderite_apple) is not in the tag, because its id does not start with \"enderite_\" - so it is not protected from the void."
         ]
       },
       "de": {
@@ -2231,9 +2223,7 @@ window.WIKI_DATA = {
           "Leere-Schaden beim Spieler: Mit 1/2/3/4 getragenen Enderit-Rüstungsteilen trifft der Schaden aus der Leere nur noch in Ticks, deren Zähler durch 20/40/60/100 teilbar ist; alle anderen Treffer werden abgefangen.",
           "Sanftes Fallen: Wer mindestens 2 Enderit-Rüstungsteile trägt, nicht am Boden ist, schneller als 0,1 Blöcke pro Tick fällt und die Sprungtaste hält, bekommt serverseitig laufend den Effekt Sanfter Fall (2 Ticks); der Tastenzustand wird vom Client bei jeder Änderung per SpaceKeyPayload übermittelt.",
           "Einschränkung: Der Leere-Schutz gilt nur für Items, die als Gegenstand in der Welt liegen, nicht für Items in Truhen oder Inventaren.",
-          "Einschränkung: Der verzauberte Enderit-Apfel (enchanted_enderite_apple) ist nicht im Tag, weil seine Kennung nicht mit „enderite_“ beginnt – er ist damit nicht vor der Leere geschützt.",
-          "Enderit wird aus Netherit gemacht und behält alles, was Netherit einem Gegenstand gibt: jeder Enderit-Gegenstand ab dem Barren, dazu Schrott und Nugget, ist feuerfest und schwimmt auf Lava; ebenso Netherit-Vorschlaghammer, -Meißel, -Spachtel, -Baustab und -Kern der Mod (ModItems#netheriteTraits). Enderit-Rüstung widersteht Rückstoß mit 0,2 je Teil (Netherit: 0,1). Enderit-Bündel, -Köcher und -Rucksack überstehen als fallengelassene Gegenstände Explosionen, wie Netherit-Bündel und -Rucksack.",
-          "Fallengelassenes Enderit ab dem Barren bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000. Maßgeblich ist das Item-Tag simplebuilding:enderite_ingot_tier; der Datagen füllt es nach der void_protected-Regel ohne raw_enderite, enderite_scrap und enderite_upgrade_template. Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime)."
+          "Einschränkung: Der verzauberte Enderit-Apfel (enchanted_enderite_apple) ist nicht im Tag, weil seine Kennung nicht mit „enderite_“ beginnt – er ist damit nicht vor der Leere geschützt."
         ]
       }
     },
@@ -2267,13 +2257,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
         "src/main/java/com/simplebuilding/SimplebuildingClient.java",
         "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
-        "common/src/shared/java/com/simplebuilding/util/EnderiteLifetime.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/items/ModArmorMaterials.java",
-        "src/main/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json",
-        "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
-        "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java"
+        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java"
       ],
       "en": {
         "title": "Enderite Void Protection",
@@ -2287,9 +2271,7 @@ window.WIKI_DATA = {
           "Void damage on the player: with 1/2/3/4 Enderite armor pieces worn, void damage only lands on ticks whose counter is divisible by 20/40/60/100; every other hit is cancelled.",
           "Slow descent: wearing at least 2 Enderite armor pieces, not on the ground, falling faster than 0.1 blocks per tick and holding the jump key gives you a continuously refreshed Slow Falling effect (2 ticks) on the server; the key state is sent by the client via SpaceKeyPayload whenever it changes.",
           "Limitation: void protection only covers items lying in the world as entities, not items inside chests or inventories.",
-          "Limitation: the Enchanted Enderite Apple (enchanted_enderite_apple) is not in the tag, because its id does not start with \"enderite_\" - so it is not protected from the void.",
-          "Enderite is made with netherite and keeps everything netherite gives an item: every enderite item from the ingot upwards, the scrap and the nugget are fire resistant and float on lava; the mod's Netherite Sledgehammer, Chisel, Spatula, Building Wand and Core are too (ModItems#netheriteTraits). Enderite armor resists knockback with 0.2 per piece (netherite: 0.1). The Enderite Bundle, Quiver and Backpack survive explosions as dropped items, like the Netherite Bundle and Backpack.",
-          "Dropped enderite from the ingot upwards lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000. The item tag simplebuilding:enderite_ingot_tier decides; datagen fills it from the void_protected rule minus raw_enderite, enderite_scrap and enderite_upgrade_template. On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime)."
+          "Limitation: the Enchanted Enderite Apple (enchanted_enderite_apple) is not in the tag, because its id does not start with \"enderite_\" - so it is not protected from the void."
         ]
       },
       "de": {
@@ -2304,9 +2286,44 @@ window.WIKI_DATA = {
           "Leere-Schaden beim Spieler: Mit 1/2/3/4 getragenen Enderit-Rüstungsteilen trifft der Schaden aus der Leere nur noch in Ticks, deren Zähler durch 20/40/60/100 teilbar ist; alle anderen Treffer werden abgefangen.",
           "Sanftes Fallen: Wer mindestens 2 Enderit-Rüstungsteile trägt, nicht am Boden ist, schneller als 0,1 Blöcke pro Tick fällt und die Sprungtaste hält, bekommt serverseitig laufend den Effekt Sanfter Fall (2 Ticks); der Tastenzustand wird vom Client bei jeder Änderung per SpaceKeyPayload übermittelt.",
           "Einschränkung: Der Leere-Schutz gilt nur für Items, die als Gegenstand in der Welt liegen, nicht für Items in Truhen oder Inventaren.",
-          "Einschränkung: Der verzauberte Enderit-Apfel (enchanted_enderite_apple) ist nicht im Tag, weil seine Kennung nicht mit „enderite_“ beginnt – er ist damit nicht vor der Leere geschützt.",
-          "Enderit wird aus Netherit gemacht und behält alles, was Netherit einem Gegenstand gibt: jeder Enderit-Gegenstand ab dem Barren, dazu Schrott und Nugget, ist feuerfest und schwimmt auf Lava; ebenso Netherit-Vorschlaghammer, -Meißel, -Spachtel, -Baustab und -Kern der Mod (ModItems#netheriteTraits). Enderit-Rüstung widersteht Rückstoß mit 0,2 je Teil (Netherit: 0,1). Enderit-Bündel, -Köcher und -Rucksack überstehen als fallengelassene Gegenstände Explosionen, wie Netherit-Bündel und -Rucksack.",
-          "Fallengelassenes Enderit ab dem Barren bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000. Maßgeblich ist das Item-Tag simplebuilding:enderite_ingot_tier; der Datagen füllt es nach der void_protected-Regel ohne raw_enderite, enderite_scrap und enderite_upgrade_template. Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime)."
+          "Einschränkung: Der verzauberte Enderit-Apfel (enchanted_enderite_apple) ist nicht im Tag, weil seine Kennung nicht mit „enderite_“ beginnt – er ist damit nicht vor der Leere geschützt."
+        ]
+      }
+    },
+    {
+      "id": "loot_balance",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "mc1_21_11/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "common/src/shared/java/com/simplebuilding/gametest/ConfigOptionTests.java",
+        "docs/LOOT-BALANCE.md"
+      ],
+      "en": {
+        "title": "Loot Balance",
+        "summary": "How much mod loot a chest brings: structures with many chests (mineshaft, woodland mansion, ancient city, ordinary bastion chests, dungeon) give about half a mod stack per chest, single chests such as the bastion treasure room, a stronghold library or an end city chest give more. Everything here only applies while enableLootTableChanges is on.",
+        "details": [
+          "Every mod pool is rolled once per chest on top of the vanilla loot. Most pools roll 0 to 2 times and carry a large empty weight, so a chest sometimes holds nothing from the mod - that is intended.",
+          "End city treasure: 15% Enderite Scrap, 30% Enderite Upgrade Template, one roll of End materials (Raw Enderite 1-2 weight 4, Enderite Nuggets 2-5 weight 6, Astralit Dust 2-6 weight 6, Nihilith Shards 1-4 weight 6, empty 14) and 0 to 3 rolls of books and gear (Range III 4, Master Builder 3, Override II 5, Air Jump II 5, Versatility I 6 / II 3, randomly enchanted Diamond Building Wand 6 and Diamond Sledgehammer 8, Enderite Apple 3, Enchanted Enderite Apple 1, empty 40).",
+          "Bastion: every bastion chest rolls 0 to 2 times from Funnel I 5, Break Through I 5, Gold Sledgehammer 6, Gold Core 1, Netherite Nuggets 1-4 weight 12, Netherite Carrots 1-2 weight 6, empty 25. Only the treasure room additionally rolls once from Netherite Core 2, Netherite Apple 4, Enchanted Netherite Apple 2, Break Through II book 3, empty 7.",
+          "Diamond Pebbles (nine make a Cracked Diamond, which smelts into a diamond) are the common filler: ancient city 2-5, buried treasure 2-6, dungeon 1-3, shipwreck treasure 1-4, abandoned mineshaft 1-3, common/rare trial chamber vault 2-4 and fishing treasure 1-3.",
+          "Ruined portals roll 0 to 1 time from Netherite Nuggets 1-2 weight 3, Gold Chisel 3, Netherite Carrot 2, empty 12.",
+          "Fishing: every treasure catch rolls the mod pool once more - Fast Chiseling I book 3, Constructor's Touch I book 2, Deep Pockets I book 2, Linear I book 2, 1-3 Diamond Pebbles 4, empty 20 - so roughly two treasure catches in five bring an extra mod item.",
+          "Cores contain a nether star in their recipe and therefore stay rare in chests: Iron Core weight 1 in the woodland mansion, Gold Core weight 1 in bastions and nether fortresses, Diamond Core 2 in ominous and rare vaults, Netherite Core 2 in the bastion treasure room only.",
+          "Trades: no mod trade has a reputation discount above 0.2 (vanilla's value for books and enchanted tools), and every item a trader buys costs more emeralds to buy back than the trader pays, so buying and selling in a loop loses emeralds. The Diamond Core costs 3 netherite ingots at the mason, the Radius book 40 emeralds at the wandering trader, who also sells 3 Diamond Pebbles for 5 emeralds."
+        ]
+      },
+      "de": {
+        "title": "Loot-Balance",
+        "summary": "Wie viel Mod-Beute eine Truhe bringt: Strukturen mit vielen Truhen (verlassene Mine, Waldanwesen, Antike Stadt, gewöhnliche Bastion-Truhen, Verlies) geben etwa einen halben Mod-Stapel pro Truhe, Einzeltruhen wie der Bastion-Schatzraum, eine Festungsbibliothek oder eine Endsiedlungs-Truhe mehr. Alles hier gilt nur bei aktiver Option enableLootTableChanges.",
+        "details": [
+          "Jeder Mod-Pool wird pro Truhe einmal zusätzlich zur Vanilla-Beute gewürfelt. Die meisten Pools würfeln 0 bis 2 Mal und haben ein großes Leer-Gewicht, sodass eine Truhe manchmal nichts von der Mod enthält – das ist gewollt.",
+          "Endsiedlungs-Schatz: 15 % Enderit-Schrott, 30 % Enderit-Upgrade-Vorlage, ein Wurf End-Rohstoffe (Roh-Enderit 1–2 Gewicht 4, Enderit-Nuggets 2–5 Gewicht 6, Astralitstaub 2–6 Gewicht 6, Nihilith-Splitter 1–4 Gewicht 6, leer 14) und 0 bis 3 Würfe Bücher und Ausrüstung (Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, zufällig verzauberter Diamant-Baustab 6 und Diamant-Vorschlaghammer 8, Enderit-Apfel 3, verzauberter Enderit-Apfel 1, leer 40).",
+          "Bastion: Jede Bastion-Truhe würfelt 0 bis 2 Mal aus Trichter I 5, Durchbruch I 5, Gold-Vorschlaghammer 6, Goldkern 1, Netherit-Nuggets 1–4 Gewicht 12, Netherit-Karotten 1–2 Gewicht 6, leer 25. Nur der Schatzraum würfelt zusätzlich einmal aus Netheritkern 2, Netherit-Apfel 4, verzaubertem Netherit-Apfel 2, Buch Durchbruch II 3, leer 7.",
+          "Diamantkiesel (neun ergeben einen rissigen Diamanten, der zu einem Diamanten geschmolzen wird) sind der häufige Füller: Antike Stadt 2–5, vergrabener Schatz 2–6, Verlies 1–3, Schiffswrack-Schatz 1–4, verlassene Mine 1–3, normaler/seltener Prüfungskammer-Tresor 2–4 und Angel-Schatz 1–3.",
+          "Portalruinen würfeln 0 bis 1 Mal aus Netherit-Nuggets 1–2 Gewicht 3, Goldmeißel 3, Netherit-Karotte 2, leer 12.",
+          "Angeln: Jeder Schatzfang würfelt den Mod-Pool einmal zusätzlich – Buch Schnelles Meißeln I 3, Buch Berührung des Konstrukteurs I 2, Buch Tiefe Taschen I 2, Buch Linear I 2, 1–3 Diamantkiesel 4, leer 20 –, sodass etwa zwei von fünf Schatzfängen ein zusätzliches Mod-Item bringen.",
+          "Kerne haben einen Netherstern im Rezept und bleiben in Truhen deshalb selten: Eisenkern Gewicht 1 im Waldanwesen, Goldkern Gewicht 1 in Bastionen und Netherfestungen, Diamantkern 2 in unheilvollen und seltenen Tresoren, Netheritkern 2 nur im Bastion-Schatzraum.",
+          "Handel: Kein Mod-Angebot hat einen Rabattfaktor über 0,2 (der Vanilla-Wert für Bücher und verzauberte Werkzeuge), und jedes Item, das ein Händler ankauft, kostet beim Rückkauf mehr Smaragde, als er zahlt – Kaufen und Verkaufen im Kreis verliert also Smaragde. Der Diamantkern kostet beim Steinmetz 3 Netheritbarren, das Radius-Buch beim fahrenden Händler 40 Smaragde; dieser verkauft außerdem 3 Diamantkiesel für 5 Smaragde."
         ]
       }
     },
@@ -2383,16 +2400,16 @@ window.WIKI_DATA = {
         "title": "Villager and Wandering Trader Offers",
         "summary": "Librarians, masons, toolsmiths and the wandering trader offer mod items and enchanted books. The offers are data-driven, are mixed into the vanilla trade tiers, and can be switched off separately for villagers and for the wandering trader in the config.",
         "details": [
-          "Librarian, level 3: 25 Emeralds -> enchanted book with Color Palette I (weight 30), Fast Chiseling I (30) or Linear I (25); 3 uses, 15 XP, reputation discount 0.3.",
-          "Librarian, level 4: 25 Emeralds -> book with Linear I (25) or Override I (20); 2 uses, 25 XP, reputation discount 0.5.",
-          "Librarian, level 5: 25 Emeralds -> book with Master Builder I (10), Range I (10)/II (10)/III (3), Funnel I (30), Strip Miner I (20)/II (10)/III (5) or Vein Miner I (10)/II (7)/III (5); 10% chance of a second, different enchantment; 1 use, 100 XP, reputation discount 1.0.",
-          "Mason, level 2: 25 Emeralds -> Copper Core (2 uses, 10 XP) and 6 Netherite Ingots -> Diamond Core (2 uses, 15 XP); reputation discount 0.1 each.",
+          "Librarian, level 3: 25 Emeralds -> enchanted book with Color Palette I (weight 30), Fast Chiseling I (30) or Linear I (25); 3 uses, 15 XP, reputation discount 0.2.",
+          "Librarian, level 4: 25 Emeralds -> book with Linear I (25) or Override I (20); 2 uses, 25 XP, reputation discount 0.2.",
+          "Librarian, level 5: 25 Emeralds -> book with Master Builder I (10), Range I (10)/II (10)/III (3), Funnel I (30), Strip Miner I (20)/II (10)/III (5) or Vein Miner I (10)/II (7)/III (5); 10% chance of a second, different enchantment; 1 use, 100 XP, reputation discount 0.2.",
+          "Mason, level 2: 25 Emeralds -> Copper Core (2 uses, 10 XP) and 3 Netherite Ingots -> Diamond Core (2 uses, 15 XP); reputation discount 0.1 each.",
           "Mason, level 4: 62 Emeralds -> Copper Building Wand; 1 use, 20 XP, reputation discount 0.2.",
           "Toolsmith, level 3: 6 Emeralds each -> Copper Chisel, Iron Chisel or Gold Chisel with Fast Chiseling I (weight 50) or II (30); 2 uses each, 10 XP, reputation discount 0.2.",
-          "Toolsmith, level 4: 16 Emeralds + Iron Pickaxe -> Iron Sledgehammer (second enchantment 1%) and 28 Emeralds + Diamond Pickaxe -> Diamond Sledgehammer (second enchantment 15%); pool: Break Through I (5), Override I (15), Range I (10), Unbreaking II (50), Efficiency III (50); 1 use each, 30 XP, reputation discount 0.5.",
-          "Toolsmith, level 5: 15 Emeralds -> Diamond Pickaxe with Strip Miner I (40)/II (30)/III (10) or Vein Miner I (40)/II (30)/III (10); 10% chance of a second enchantment; 1 use, 50 XP, reputation discount 0.8.",
-          "Wandering trader (common): 46 Emeralds -> 2 Copper Cores and 56 Emeralds -> 2 Iron Cores; 4 uses each, 10 XP, reputation discount 0.1.",
-          "Wandering trader (uncommon): 10 Emeralds -> Octant (15 XP), 16 Emeralds -> Reinforced Bundle (15 XP), 30 Emeralds -> Gold Core (5 XP), 60 Emeralds -> book with Radius I (20) (10 XP); 1 use each, reputation discount 0.1 (0.2 for the book).",
+          "Toolsmith, level 4: 16 Emeralds + Iron Pickaxe -> Iron Sledgehammer (second enchantment 1%) and 28 Emeralds + Diamond Pickaxe -> Diamond Sledgehammer (second enchantment 15%); pool: Break Through I (5), Override I (15), Range I (10), Unbreaking II (50), Efficiency III (50); 1 use each, 30 XP, reputation discount 0.2.",
+          "Toolsmith, level 5: 15 Emeralds -> Diamond Pickaxe with Strip Miner I (40)/II (30)/III (10) or Vein Miner I (40)/II (30)/III (10); 10% chance of a second enchantment; 1 use, 50 XP, reputation discount 0.2.",
+          "Wandering trader (common): 46 Emeralds -> 2 Copper Cores and 56 Emeralds -> 2 Iron Cores (4 uses each, 10 XP, reputation discount 0.1), 5 Emeralds -> 3 Diamond Pebbles (4 uses, 5 XP, reputation discount 0.05).",
+          "Wandering trader (uncommon): 10 Emeralds -> Octant (15 XP), 16 Emeralds -> Reinforced Bundle (15 XP), 30 Emeralds -> Gold Core (5 XP), 40 Emeralds -> book with Radius I (20) (10 XP); 1 use each, reputation discount 0.1 (0.2 for the book).",
           "The wandering trader buys: 1 Octant -> 8 Emeralds (3 uses, 5 XP) and 1 Reinforced Bundle -> 12 Emeralds (1 use, 10 XP); reputation discount 0.1 each.",
           "The enchantment pick is handled by the loot function simplebuilding:weighted_enchant: it draws from the given pool by weight and applies the enchantment at a fixed level; with \"second_chance\" a second, different enchantment from the same pool can be added (up to 10 re-draws, otherwise no second one). The book offers hand out minecraft:enchanted_book directly; the function could additionally turn a plain book into an enchanted one, but the trade JSONs do not use that.",
           "The offers are mixed into the vanilla pools through tags (minecraft:villager_trade/librarian/level_3-5, mason/level_2 and level_4, toolsmith/level_3-5, and wandering_trader/common, uncommon, buying) as optional entries (\"required\": false).",
@@ -2405,16 +2422,16 @@ window.WIKI_DATA = {
         "title": "Dorfbewohner- und Wanderhändler-Angebote",
         "summary": "Bibliothekare, Steinmetze, Werkzeugschmiede und der fahrende Händler bieten Mod-Gegenstände und verzauberte Bücher an. Die Angebote sind datengetrieben, werden in die Vanilla-Handelsstufen eingemischt und lassen sich über die Konfiguration getrennt für Dorfbewohner und fahrenden Händler abschalten.",
         "details": [
-          "Bibliothekar Stufe 3: 25 Smaragde → verzaubertes Buch mit Farbpalette I (Gewicht 30), Schnelles Meißeln I (30) oder Linear I (25); 3 Nutzungen, 15 EP, Rabattfaktor 0,3.",
-          "Bibliothekar Stufe 4: 25 Smaragde → Buch mit Linear I (25) oder Übersteuerung I (20); 2 Nutzungen, 25 EP, Rabattfaktor 0,5.",
-          "Bibliothekar Stufe 5: 25 Smaragde → Buch mit Baumeister I (10), Reichweite I (10)/II (10)/III (3), Trichter I (30), Tunnelgräber I (20)/II (10)/III (5) oder Aderabbau I (10)/II (7)/III (5); 10 % Chance auf eine zweite, andere Verzauberung; 1 Nutzung, 100 EP, Rabattfaktor 1,0.",
-          "Steinmetz Stufe 2: 25 Smaragde → Kupferkern (2 Nutzungen, 10 EP) und 6 Netheritbarren → Diamantkern (2 Nutzungen, 15 EP); Rabattfaktor je 0,1.",
+          "Bibliothekar Stufe 3: 25 Smaragde → verzaubertes Buch mit Farbpalette I (Gewicht 30), Schnelles Meißeln I (30) oder Linear I (25); 3 Nutzungen, 15 EP, Rabattfaktor 0,2.",
+          "Bibliothekar Stufe 4: 25 Smaragde → Buch mit Linear I (25) oder Übersteuerung I (20); 2 Nutzungen, 25 EP, Rabattfaktor 0,2.",
+          "Bibliothekar Stufe 5: 25 Smaragde → Buch mit Baumeister I (10), Reichweite I (10)/II (10)/III (3), Trichter I (30), Tunnelgräber I (20)/II (10)/III (5) oder Aderabbau I (10)/II (7)/III (5); 10 % Chance auf eine zweite, andere Verzauberung; 1 Nutzung, 100 EP, Rabattfaktor 0,2.",
+          "Steinmetz Stufe 2: 25 Smaragde → Kupferkern (2 Nutzungen, 10 EP) und 3 Netheritbarren → Diamantkern (2 Nutzungen, 15 EP); Rabattfaktor je 0,1.",
           "Steinmetz Stufe 4: 62 Smaragde → Kupfer-Baustab; 1 Nutzung, 20 EP, Rabattfaktor 0,2.",
           "Werkzeugschmied Stufe 3: je 6 Smaragde → Kupfermeißel, Eisenmeißel oder Goldmeißel mit Schnelles Meißeln I (Gewicht 50) oder II (30); je 2 Nutzungen, 10 EP, Rabattfaktor 0,2.",
-          "Werkzeugschmied Stufe 4: 16 Smaragde + Eisenspitzhacke → Eisen-Vorschlaghammer (Zweitverzauberung 1 %) und 28 Smaragde + Diamantspitzhacke → Diamant-Vorschlaghammer (Zweitverzauberung 15 %); Pool: Durchbruch I (5), Übersteuerung I (15), Reichweite I (10), Haltbarkeit II (50), Effizienz III (50); je 1 Nutzung, 30 EP, Rabattfaktor 0,5.",
-          "Werkzeugschmied Stufe 5: 15 Smaragde → Diamantspitzhacke mit Tunnelgräber I (40)/II (30)/III (10) oder Aderabbau I (40)/II (30)/III (10); 10 % Chance auf eine zweite Verzauberung; 1 Nutzung, 50 EP, Rabattfaktor 0,8.",
-          "Fahrender Händler (häufig): 46 Smaragde → 2 Kupferkerne und 56 Smaragde → 2 Eisenkerne; je 4 Nutzungen, 10 EP, Rabattfaktor je 0,1.",
-          "Fahrender Händler (selten): 10 Smaragde → Oktant (15 EP), 16 Smaragde → Verstärktes Bündel (15 EP), 30 Smaragde → Goldkern (5 EP), 60 Smaragde → Buch mit Radius I (20) (10 EP); je 1 Nutzung, Rabattfaktor 0,1 (0,2 beim Buch).",
+          "Werkzeugschmied Stufe 4: 16 Smaragde + Eisenspitzhacke → Eisen-Vorschlaghammer (Zweitverzauberung 1 %) und 28 Smaragde + Diamantspitzhacke → Diamant-Vorschlaghammer (Zweitverzauberung 15 %); Pool: Durchbruch I (5), Übersteuerung I (15), Reichweite I (10), Haltbarkeit II (50), Effizienz III (50); je 1 Nutzung, 30 EP, Rabattfaktor 0,2.",
+          "Werkzeugschmied Stufe 5: 15 Smaragde → Diamantspitzhacke mit Tunnelgräber I (40)/II (30)/III (10) oder Aderabbau I (40)/II (30)/III (10); 10 % Chance auf eine zweite Verzauberung; 1 Nutzung, 50 EP, Rabattfaktor 0,2.",
+          "Fahrender Händler (häufig): 46 Smaragde → 2 Kupferkerne und 56 Smaragde → 2 Eisenkerne (je 4 Nutzungen, 10 EP, Rabattfaktor 0,1), 5 Smaragde → 3 Diamantkiesel (4 Nutzungen, 5 EP, Rabattfaktor 0,05).",
+          "Fahrender Händler (selten): 10 Smaragde → Oktant (15 EP), 16 Smaragde → Verstärktes Bündel (15 EP), 30 Smaragde → Goldkern (5 EP), 40 Smaragde → Buch mit Radius I (20) (10 EP); je 1 Nutzung, Rabattfaktor 0,1 (0,2 beim Buch).",
           "Fahrender Händler kauft: 1 Oktant → 8 Smaragde (3 Nutzungen, 5 EP) und 1 Verstärktes Bündel → 12 Smaragde (1 Nutzung, 10 EP); Rabattfaktor je 0,1.",
           "Die Verzauberungsauswahl übernimmt die Beutefunktion simplebuilding:weighted_enchant: Sie wählt gewichtet aus dem jeweiligen Pool und setzt die Verzauberung mit fester Stufe; mit „second_chance“ kann eine zweite, andere Verzauberung aus demselben Pool hinzukommen (bis zu 10 Ziehversuche, sonst keine zweite). Die Buch-Angebote geben direkt minecraft:enchanted_book aus; die Funktion könnte zusätzlich ein normales Buch in ein verzaubertes umwandeln, was die Handels-JSONs aber nicht nutzen.",
           "Die Angebote werden über Tags (minecraft:villager_trade/librarian/level_3–5, mason/level_2 und level_4, toolsmith/level_3–5 bzw. wandering_trader/common, uncommon, buying) als optionale Einträge („required“: false) in die Vanilla-Pools gemischt.",
@@ -2704,7 +2721,7 @@ window.WIKI_DATA = {
           "Tool Settings → Invert Bundle Interactions (invertBundleInteractions, default off): swaps insert (left click) and extract (right click) on the mod's bundles (Reinforced, Netherite, Enderite); the tooltip talks about sneaking, but the code only checks the click type.",
           "World Generation & Economy → Enable Villager Trades (enableVillagerTrades, default on): loads the Librarian, Mason and Toolsmith offers; evaluated when datapacks load (world start, /reload).",
           "World Generation & Economy → Enable Wandering Trader (enableWanderingTrades, default on): loads the Wandering Trader offers; evaluated when datapacks load as well.",
-          "World Generation & Economy → Enable Loot Chests (enableLootTableChanges, default on): adds the mod pools to the stronghold library, end city treasure, ancient city, bastion (treasure and other), nether fortress, pillager outpost, woodland mansion, buried treasure, dungeon, shipwreck treasure, igloo, abandoned mineshaft and the trial chamber vaults (common, rare, ominous).",
+          "World Generation & Economy → Enable Loot Chests (enableLootTableChanges, default on): adds the mod pools to the stronghold library, end city treasure, ancient city, bastion (treasure and other), nether fortress, pillager outpost, woodland mansion, buried treasure, dungeon, shipwreck treasure, igloo, abandoned mineshaft, ruined portal, the trial chamber vaults (common, rare, ominous) and the fishing treasure.",
           "Fabric: settings screen via ModMenu (AutoConfigClient.getConfigScreen); NeoForge: config button in the mod list (IConfigScreenFactory); both build the AutoConfig screen.",
           "On NeoForge the mod keeps a default config around in case loading fails (fallback new SimplebuildingConfig()).",
           "The End ore generation has no config switch."
@@ -2726,7 +2743,7 @@ window.WIKI_DATA = {
           "Werkzeugeinstellungen → Bündel-Interaktion umkehren (invertBundleInteractions, Standard aus): tauscht beim Verstärkten Bündel Einfügen (Linksklick) und Entnehmen (Rechtsklick); der Tooltip spricht von Schleichen, der Code prüft aber nur die Klickart.",
           "Weltgenerierung & Wirtschaft → Dorfbewohner-Handel aktivieren (enableVillagerTrades, Standard an): lädt die Angebote von Bibliothekar, Steinmetz und Werkzeugschmied; wird beim Laden der Datenpakete ausgewertet (Weltstart, /reload).",
           "Weltgenerierung & Wirtschaft → Fahrender Händler aktivieren (enableWanderingTrades, Standard an): lädt die Angebote des fahrenden Händlers; ebenfalls beim Laden der Datenpakete ausgewertet.",
-          "Weltgenerierung & Wirtschaft → Beutetruhen aktivieren (enableLootTableChanges, Standard an): fügt die Mod-Pools zu Festungsbibliothek, Endsiedlung, Tiefe Stadt, Bastion (Schatz und Sonstige), Netherfestung, Plünderer-Außenposten, Waldanwesen, vergrabenem Schatz, Verlies, Schiffswrack-Schatz, Iglu, verlassener Mine und den Tresoren der Prüfungskammern (normal, selten, unheilvoll) hinzu.",
+          "Weltgenerierung & Wirtschaft → Beutetruhen aktivieren (enableLootTableChanges, Standard an): fügt die Mod-Pools zu Festungsbibliothek, Endsiedlung, Tiefe Stadt, Bastion (Schatz und Sonstige), Netherfestung, Plünderer-Außenposten, Waldanwesen, vergrabenem Schatz, Verlies, Schiffswrack-Schatz, Iglu, verlassener Mine, Portalruine, den Tresoren der Prüfungskammern (normal, selten, unheilvoll) und dem Angel-Schatz hinzu.",
           "Fabric: Einstellungsbildschirm über ModMenu (AutoConfigClient.getConfigScreen); NeoForge: Konfigurationsknopf in der Mod-Liste (IConfigScreenFactory); beide bauen den AutoConfig-Bildschirm auf.",
           "Auf NeoForge hält die Mod eine Standard-Konfiguration vor, falls das Laden fehlschlägt (Fallback new SimplebuildingConfig()).",
           "Die Erzgenerierung im End besitzt keinen Konfigurationsschalter."
@@ -2774,7 +2791,6 @@ window.WIKI_DATA = {
       "usedIn": [
         "simplebuilding:astral_end_stone",
         "simplebuilding:astral_purpur_block",
-        "simplebuilding:astralit_quartz_checker",
         "simplebuilding:levitating_gravel",
         "simplebuilding:levitating_sand",
         "simplebuilding:raw_enderite_synthesis"
@@ -2792,44 +2808,6 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:astralit_quartz_checker",
-      "name": {
-        "en_us": "Astralit Quartz Checker",
-        "de_de": "Astralit-Quarz-Schachbrett"
-      },
-      "texture": "assets/textures/block/astralit_quartz_checker.png",
-      "craftedBy": [
-        "simplebuilding:astralit_quartz_checker"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "tools/textures/generate_textures.py"
-        ],
-        "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
-          "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
-            "The Astralit Quartz Checker glows with light level 5."
-          ]
-        },
-        "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
-          "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
-            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -2919,8 +2897,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -2969,8 +2947,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -3053,30 +3031,6 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "tools/textures/generate_textures.py"
-        ],
-        "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
-          "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
-            "The Astralit Quartz Checker glows with light level 5."
-          ]
-        },
-        "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
-          "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
-            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -3091,31 +3045,6 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/util/ConstructionLightSpawning.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HostileEntityMixin.java"
-        ],
-        "en": {
-          "summary": "The Construction Light is a glass-like lamp that shines with light level 15 but does not stop monsters from spawning: its light is left out of the darkness check for monster spawns.",
-          "details": [
-            "Light level 15, breaks almost instantly (strength 0.3), sounds like glass; mobs may spawn on top of it.",
-            "Monster#isDarkEnoughToSpawn is answered with the block light of all other light sources: ConstructionLightSpawning recomputes it outward from the spawn position, each step costing the light dampening of the block entered (at least 1, full blocks stop it), each other source contributing its brightness minus that cost.",
-            "Other lights keep working: a torch or glowstone next to a construction light still prevents spawns as far as in vanilla. Sky light counts as usual, so a construction light outdoors does not turn day into night.",
-            "Without a construction light within 14 blocks the vanilla check runs unchanged."
-          ]
-        },
-        "de": {
-          "summary": "Das Baulicht ist eine glasartige Lampe, die mit Lichtstufe 15 leuchtet, aber keine Monster-Spawns verhindert: Sein Licht zählt bei der Dunkelheitsprüfung für Monster-Spawns nicht mit.",
-          "details": [
-            "Lichtstufe 15, bricht fast sofort (Härte 0,3), klingt wie Glas; Mobs dürfen darauf spawnen.",
-            "Monster#isDarkEnoughToSpawn wird mit dem Blocklicht aller anderen Lichtquellen beantwortet: ConstructionLightSpawning berechnet es von der Spawnstelle aus neu, jeder Schritt kostet die Lichtdämpfung des betretenen Blocks (mindestens 1, volle Blöcke sperren), jede andere Quelle bringt ihre Leuchtstärke minus diese Kosten.",
-            "Andere Lichter wirken weiter: Eine Fackel oder Leuchtstein neben einem Baulicht verhindert Spawns so weit wie in Vanilla. Himmelslicht zählt wie gewohnt, ein Baulicht im Freien macht den Tag also nicht zur Nacht.",
-            "Ohne Baulicht im Umkreis von 14 Blöcken läuft die Vanilla-Prüfung unverändert."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -3172,11 +3101,11 @@ window.WIKI_DATA = {
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
             "Enderite Building Wand: smithing table with the Enderite Upgrade Template, the Netherite Building Wand and an Enderite Ingot.",
-            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 10), Iron Building Wand in woodland mansion chests (weight 15).",
-            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 1), end city treasure (10) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (10/15/15) and woodland mansions (3/7/7); Constructor's Touch in buried treasure (3), igloo chests (3) and trial chamber rewards (2). No loot table hands out a Bridge book any more.",
+            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
+            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 3), end city treasure (3) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (6/8/8) and woodland mansions (3/5/5), Linear also in fishing treasure (2); Constructor's Touch in buried treasure (3), igloo chests (3), trial chamber rewards (3) and fishing treasure (2). No loot table hands out a Bridge book.",
             "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
             "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
-            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 60 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it any more.",
+            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
             "All six wands are in the mod's creative tab, together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
             "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5."
           ],
@@ -3194,7 +3123,7 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
             "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
@@ -3202,7 +3131,7 @@ window.WIKI_DATA = {
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armour; the lower tiers burn.",
+            "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
@@ -3244,11 +3173,11 @@ window.WIKI_DATA = {
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
             "Enderite Building Wand: Schmiedetisch mit Enderite Upgrade Template, Netherit-Baustab und Enderite Ingot.",
-            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 10), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 15).",
-            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 1), Endsiedlungen (10) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (10/15/15) und Waldanwesen (3/7/7); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3) und Prüfungskammer-Belohnungen (2). Ein Brücke-Buch gibt keine Beutetabelle mehr aus.",
+            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
+            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 3), Endsiedlungen (3) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (6/8/8) und Waldanwesen (3/5/5), Linear zusätzlich im Angel-Schatz (2); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3), Prüfungskammer-Belohnungen (3) und im Angel-Schatz (2). Ein Brücke-Buch gibt keine Beutetabelle aus.",
             "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
             "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Override (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
-            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 60 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur noch Radius (Gewicht 20), also keine Baustab-Verzauberung mehr.",
+            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
             "Alle sechs Stäbe stehen im Kreativ-Tab der Mod, zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
             "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt."
           ],
@@ -3266,7 +3195,7 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
             "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
@@ -3274,7 +3203,7 @@ window.WIKI_DATA = {
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
+            "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
@@ -3402,8 +3331,8 @@ window.WIKI_DATA = {
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (its own recipe type simplebuilding:count_based_smithing): Copper Chisel + 2 Iron Ingots -> Iron Chisel, Iron Chisel + 2 Gold Ingots -> Gold Chisel, Gold Chisel + 2 Diamonds -> Diamond Chisel; the components of the old chisel (damage, name, enchantments) are copied onto the result, and taking the result uses up both ingots (or both diamonds), not just one.",
             "Creative tab \"Building Items\" (\"SimpleBuilding Items\" in German): the icon is the Iron Chisel, and all seven chisels are listed.",
-            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 15, Diamond Chisel 12, Constructor's Touch I book 3, Fast Chiseling II book 2, empty 50; igloo chest (0-1 roll) with Diamond Chisel 10, Constructor's Touch I book 3, Fast Chiseling I book 2, empty 5; Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 15), abandoned mineshafts (I, 2) and in the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2).",
-            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.3.",
+            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 10, Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling II book 2, 2-6 Diamond Pebbles 10, empty 30; igloo chest (0-1 roll) with Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling I book 3, empty 8; a plain Copper Chisel in pillager outposts (weight 4) and a Gold Chisel in ruined portals (weight 3); Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 10), abandoned mineshafts (I, 2), the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2) and fishing treasure (I, 3).",
+            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.2.",
             "Versatility: when the enchantment swaps tools automatically, the chisel has the lowest priority (bonus 0, against 2000 for sledgehammers, 1000 for pickaxe/axe/shovel and 500 for any other suitable tool).",
             "The Enderite Chisel is void protected (tag simplebuilding:void_protected): below the world's minimum height a dropped one floats without gravity, and as soon as it is more than 10 blocks below the minimum height it is reset to minimum height + 5.",
             "Automated game tests cover the Stone Chisel's forward step (Stone -> Chiseled Stone Bricks), the Stone Spatula's backward step (Chiseled Stone Bricks -> Stone) and the tier gating (the Stone Chisel leaves polished deepslate alone, the Diamond Chisel turns it into Chiseled Deepslate)."
@@ -3428,7 +3357,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
+            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -3464,8 +3393,8 @@ window.WIKI_DATA = {
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
             "Aufwertung am Schmiedetisch mit der Basis-Upgrade-Vorlage (eigener Rezepttyp simplebuilding:count_based_smithing): Kupfermeißel + 2 Eisenbarren → Eisenmeißel, Eisenmeißel + 2 Goldbarren → Goldmeißel, Goldmeißel + 2 Diamanten → Diamantmeißel; die Komponenten des alten Meißels (Schaden, Name, Verzauberungen) werden auf das Ergebnis kopiert, und beim Entnehmen werden die 2 Zutaten verbraucht.",
             "Kreativ-Tab „SimpleBuilding Items“ (englisch „Building Items“): Das Symbol ist der Eisenmeißel, alle sieben Meißel sind gelistet.",
-            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 15, Diamantmeißel 12, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, leer 50; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 10, Buch Berührung I 3, Buch Schnelles Meißeln I 2, leer 5; Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 15), verlassenen Minenschacht (I, 2) und in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 1; Berührung I, 2).",
-            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,3.",
+            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 10, Diamantmeißel 6, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, 2–6 Diamantkiesel 10, leer 30; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 6, Buch Berührung I 3, Buch Schnelles Meißeln I 3, leer 8; ein unverzauberter Kupfermeißel in Plünderer-Außenposten (Gewicht 4) und ein Goldmeißel in Portalruinen (Gewicht 3); Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 10), verlassenen Minenschacht (I, 2), in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 2; Berührung I, 3) und im Angel-Schatz (I, 3).",
+            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,2.",
             "Vielseitigkeit: Beim automatischen Werkzeugwechsel hat der Meißel die niedrigste Priorität (Bonus 0 gegenüber 2000 für Vorschlaghämmer, 1000 für Spitzhacke/Axt/Schaufel und 500 für sonstige geeignete Werkzeuge).",
             "Der Enderit-Meißel ist void-geschützt (Tag simplebuilding:void_protected): Unterhalb der Mindesthöhe der Welt schwebt er ohne Schwerkraft und wird, sobald er mehr als 10 Blöcke unter der Mindesthöhe liegt, auf Mindesthöhe + 5 zurückgesetzt.",
             "Automatisierte Spieltests prüfen den Vorwärtsschritt des Steinmeißels (Stein → Gemeißelte Steinziegel), den Rückwärtsschritt mit dem Steinspatel (Gemeißelte Steinziegel → Stein) sowie die Stufenbeschränkung (der Steinmeißel lässt polierten Tiefenschiefer unverändert, der Diamantmeißel wandelt ihn in gemeißelten Tiefenschiefer)."
@@ -3490,7 +3419,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
+            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -3654,8 +3583,8 @@ window.WIKI_DATA = {
             "Crafting in the crafting table (pattern BMM / .S. / .S.): a block (B) top left, twice the material (M) next to it, two sticks centred below. Stone: iron ingot + 2 cobblestone; Copper: copper block + 2 copper ingots; Iron: iron block + 2 iron ingots; Gold: gold block + 2 gold ingots; Diamond: diamond block + 2 diamonds.",
             "Netherite Sledgehammer: smithing table with a netherite upgrade smithing template, the Diamond Sledgehammer and a netherite ingot. Enderite Sledgehammer: smithing table with the Enderite Upgrade Template, the Netherite Sledgehammer and an Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (recipe type simplebuilding:count_based_smithing): copper to iron with 12 iron ingots, iron to gold with 12 gold ingots, gold to diamond with 12 diamonds; at least 12 have to sit in the slot and exactly 12 are used up; all components of the old hammer (enchantments, damage, name) carry over.",
-            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 20, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in bastions (treasure and other chests, two entries with weights 6 and 8).",
-            "Enchanted books: Override II in end cities (weight 10), Radius I in ancient cities (weight 4), Break Through I in bastions (8), nether fortresses (2) and dungeons (10).",
+            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 8, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in every bastion chest (weight 6).",
+            "Enchanted books: Override II in end cities (weight 5), Radius I in ancient cities (weight 4), Break Through I in bastions (5), nether fortresses (2) and dungeons (8), Break Through II in the bastion treasure room (3).",
             "Toolsmith level 4 (with the setting enableVillagerTrades on): Iron Sledgehammer for 16 emeralds + 1 iron pickaxe, Diamond Sledgehammer for 28 emeralds + 1 diamond pickaxe; 1 use each, 30 experience; simplebuilding:weighted_enchant gives the hammer one enchantment from a weighted pool (Break Through I weight 5, Override I 15, Range I 10, Unbreaking II 50, Efficiency III 50), with a 0.01 (iron) or 0.15 (diamond) chance of a second, different enchantment from the same pool.",
             "Only the Enderite Sledgehammer is in the void_protected tag (the tag is generated from the name prefix enderite_); the other six tiers are not protected against the void."
           ],
@@ -3682,7 +3611,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
+            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -3743,8 +3672,8 @@ window.WIKI_DATA = {
             "Herstellung in der Werkbank (Muster BMM / .S. / .S.): oben links ein Block (B), daneben zweimal Material (M), darunter zwei Stöcke mittig. Stein: Eisenbarren + 2 Bruchstein; Kupfer: Kupferblock + 2 Kupferbarren; Eisen: Eisenblock + 2 Eisenbarren; Gold: Goldblock + 2 Goldbarren; Diamant: Diamantblock + 2 Diamanten.",
             "Netherit-Vorschlaghammer: Schmiedetisch mit Netherit-Schmiedevorlage, Diamant-Vorschlaghammer und Netheritbarren. Enderite Sledgehammer: Schmiedetisch mit Enderite Upgrade Template, Netherit-Vorschlaghammer und Enderite Ingot.",
             "Aufwerten im Schmiedetisch mit Basis-Upgrade-Vorlage (Rezepttyp simplebuilding:count_based_smithing): Kupfer zu Eisen mit 12 Eisenbarren, Eisen zu Gold mit 12 Goldbarren, Gold zu Diamant mit 12 Diamanten; es müssen mindestens 12 im Slot liegen, genau 12 werden verbraucht; alle Komponenten des alten Hammers (Verzauberungen, Schaden, Name) werden übernommen.",
-            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 20, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in Bastionen (Schatz- und sonstige Truhen, zwei Einträge mit Gewichten 6 und 8).",
-            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 10), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (8), Netherfestungen (2) und Verliesen (10).",
+            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 8, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in jeder Bastion-Truhe (Gewicht 6).",
+            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 5), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (5), Netherfestungen (2) und Verliesen (8), Durchbruch II im Bastion-Schatzraum (3).",
             "Werkzeugschmied Stufe 4 (bei aktivierter Einstellung enableVillagerTrades): Eisen-Vorschlaghammer für 16 Smaragde + 1 Eisenspitzhacke, Diamant-Vorschlaghammer für 28 Smaragde + 1 Diamantspitzhacke; je 1 Nutzung, 30 Erfahrung; der Hammer bekommt über simplebuilding:weighted_enchant eine Verzauberung aus einem gewichteten Pool (Durchbruch I Gewicht 5, Übersteuerung I 15, Reichweite I 10, Haltbarkeit II 50, Effizienz III 50) mit Zweitchance 0,01 (Eisen) bzw. 0,15 (Diamant).",
             "Nur der Enderite Sledgehammer steht im Tag void_protected (der Tag wird aus dem Namenspräfix enderite_ erzeugt); die anderen sechs Stufen sind nicht gegen den Void geschützt."
           ],
@@ -3769,7 +3698,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
+            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -3942,11 +3871,11 @@ window.WIKI_DATA = {
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
             "Enderite Building Wand: smithing table with the Enderite Upgrade Template, the Netherite Building Wand and an Enderite Ingot.",
-            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 10), Iron Building Wand in woodland mansion chests (weight 15).",
-            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 1), end city treasure (10) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (10/15/15) and woodland mansions (3/7/7); Constructor's Touch in buried treasure (3), igloo chests (3) and trial chamber rewards (2). No loot table hands out a Bridge book any more.",
+            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
+            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 3), end city treasure (3) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (6/8/8) and woodland mansions (3/5/5), Linear also in fishing treasure (2); Constructor's Touch in buried treasure (3), igloo chests (3), trial chamber rewards (3) and fishing treasure (2). No loot table hands out a Bridge book.",
             "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
             "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
-            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 60 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it any more.",
+            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
             "All six wands are in the mod's creative tab, together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
             "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5."
           ],
@@ -3964,7 +3893,7 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
             "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
@@ -3972,7 +3901,7 @@ window.WIKI_DATA = {
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armour; the lower tiers burn.",
+            "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
@@ -4014,11 +3943,11 @@ window.WIKI_DATA = {
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
             "Enderite Building Wand: Schmiedetisch mit Enderite Upgrade Template, Netherit-Baustab und Enderite Ingot.",
-            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 10), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 15).",
-            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 1), Endsiedlungen (10) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (10/15/15) und Waldanwesen (3/7/7); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3) und Prüfungskammer-Belohnungen (2). Ein Brücke-Buch gibt keine Beutetabelle mehr aus.",
+            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
+            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 3), Endsiedlungen (3) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (6/8/8) und Waldanwesen (3/5/5), Linear zusätzlich im Angel-Schatz (2); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3), Prüfungskammer-Belohnungen (3) und im Angel-Schatz (2). Ein Brücke-Buch gibt keine Beutetabelle aus.",
             "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
             "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Override (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
-            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 60 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur noch Radius (Gewicht 20), also keine Baustab-Verzauberung mehr.",
+            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
             "Alle sechs Stäbe stehen im Kreativ-Tab der Mod, zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
             "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt."
           ],
@@ -4036,7 +3965,7 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
             "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
@@ -4044,7 +3973,7 @@ window.WIKI_DATA = {
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
+            "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
@@ -4171,8 +4100,8 @@ window.WIKI_DATA = {
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (its own recipe type simplebuilding:count_based_smithing): Copper Chisel + 2 Iron Ingots -> Iron Chisel, Iron Chisel + 2 Gold Ingots -> Gold Chisel, Gold Chisel + 2 Diamonds -> Diamond Chisel; the components of the old chisel (damage, name, enchantments) are copied onto the result, and taking the result uses up both ingots (or both diamonds), not just one.",
             "Creative tab \"Building Items\" (\"SimpleBuilding Items\" in German): the icon is the Iron Chisel, and all seven chisels are listed.",
-            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 15, Diamond Chisel 12, Constructor's Touch I book 3, Fast Chiseling II book 2, empty 50; igloo chest (0-1 roll) with Diamond Chisel 10, Constructor's Touch I book 3, Fast Chiseling I book 2, empty 5; Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 15), abandoned mineshafts (I, 2) and in the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2).",
-            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.3.",
+            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 10, Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling II book 2, 2-6 Diamond Pebbles 10, empty 30; igloo chest (0-1 roll) with Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling I book 3, empty 8; a plain Copper Chisel in pillager outposts (weight 4) and a Gold Chisel in ruined portals (weight 3); Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 10), abandoned mineshafts (I, 2), the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2) and fishing treasure (I, 3).",
+            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.2.",
             "Versatility: when the enchantment swaps tools automatically, the chisel has the lowest priority (bonus 0, against 2000 for sledgehammers, 1000 for pickaxe/axe/shovel and 500 for any other suitable tool).",
             "The Enderite Chisel is void protected (tag simplebuilding:void_protected): below the world's minimum height a dropped one floats without gravity, and as soon as it is more than 10 blocks below the minimum height it is reset to minimum height + 5.",
             "Automated game tests cover the Stone Chisel's forward step (Stone -> Chiseled Stone Bricks), the Stone Spatula's backward step (Chiseled Stone Bricks -> Stone) and the tier gating (the Stone Chisel leaves polished deepslate alone, the Diamond Chisel turns it into Chiseled Deepslate)."
@@ -4197,7 +4126,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
+            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -4233,8 +4162,8 @@ window.WIKI_DATA = {
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
             "Aufwertung am Schmiedetisch mit der Basis-Upgrade-Vorlage (eigener Rezepttyp simplebuilding:count_based_smithing): Kupfermeißel + 2 Eisenbarren → Eisenmeißel, Eisenmeißel + 2 Goldbarren → Goldmeißel, Goldmeißel + 2 Diamanten → Diamantmeißel; die Komponenten des alten Meißels (Schaden, Name, Verzauberungen) werden auf das Ergebnis kopiert, und beim Entnehmen werden die 2 Zutaten verbraucht.",
             "Kreativ-Tab „SimpleBuilding Items“ (englisch „Building Items“): Das Symbol ist der Eisenmeißel, alle sieben Meißel sind gelistet.",
-            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 15, Diamantmeißel 12, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, leer 50; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 10, Buch Berührung I 3, Buch Schnelles Meißeln I 2, leer 5; Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 15), verlassenen Minenschacht (I, 2) und in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 1; Berührung I, 2).",
-            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,3.",
+            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 10, Diamantmeißel 6, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, 2–6 Diamantkiesel 10, leer 30; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 6, Buch Berührung I 3, Buch Schnelles Meißeln I 3, leer 8; ein unverzauberter Kupfermeißel in Plünderer-Außenposten (Gewicht 4) und ein Goldmeißel in Portalruinen (Gewicht 3); Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 10), verlassenen Minenschacht (I, 2), in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 2; Berührung I, 3) und im Angel-Schatz (I, 3).",
+            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,2.",
             "Vielseitigkeit: Beim automatischen Werkzeugwechsel hat der Meißel die niedrigste Priorität (Bonus 0 gegenüber 2000 für Vorschlaghämmer, 1000 für Spitzhacke/Axt/Schaufel und 500 für sonstige geeignete Werkzeuge).",
             "Der Enderit-Meißel ist void-geschützt (Tag simplebuilding:void_protected): Unterhalb der Mindesthöhe der Welt schwebt er ohne Schwerkraft und wird, sobald er mehr als 10 Blöcke unter der Mindesthöhe liegt, auf Mindesthöhe + 5 zurückgesetzt.",
             "Automatisierte Spieltests prüfen den Vorwärtsschritt des Steinmeißels (Stein → Gemeißelte Steinziegel), den Rückwärtsschritt mit dem Steinspatel (Gemeißelte Steinziegel → Stein) sowie die Stufenbeschränkung (der Steinmeißel lässt polierten Tiefenschiefer unverändert, der Diamantmeißel wandelt ihn in gemeißelten Tiefenschiefer)."
@@ -4259,7 +4188,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
+            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -4368,7 +4297,9 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_bundle",
         "simplebuilding:reinforced_quiver"
       ],
-      "trades": [],
+      "trades": [
+        "simplebuilding:wandering_trader/emerald_diamond_pebbles"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -4443,8 +4374,8 @@ window.WIKI_DATA = {
             "Crafting in the crafting table (pattern BMM / .S. / .S.): a block (B) top left, twice the material (M) next to it, two sticks centred below. Stone: iron ingot + 2 cobblestone; Copper: copper block + 2 copper ingots; Iron: iron block + 2 iron ingots; Gold: gold block + 2 gold ingots; Diamond: diamond block + 2 diamonds.",
             "Netherite Sledgehammer: smithing table with a netherite upgrade smithing template, the Diamond Sledgehammer and a netherite ingot. Enderite Sledgehammer: smithing table with the Enderite Upgrade Template, the Netherite Sledgehammer and an Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (recipe type simplebuilding:count_based_smithing): copper to iron with 12 iron ingots, iron to gold with 12 gold ingots, gold to diamond with 12 diamonds; at least 12 have to sit in the slot and exactly 12 are used up; all components of the old hammer (enchantments, damage, name) carry over.",
-            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 20, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in bastions (treasure and other chests, two entries with weights 6 and 8).",
-            "Enchanted books: Override II in end cities (weight 10), Radius I in ancient cities (weight 4), Break Through I in bastions (8), nether fortresses (2) and dungeons (10).",
+            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 8, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in every bastion chest (weight 6).",
+            "Enchanted books: Override II in end cities (weight 5), Radius I in ancient cities (weight 4), Break Through I in bastions (5), nether fortresses (2) and dungeons (8), Break Through II in the bastion treasure room (3).",
             "Toolsmith level 4 (with the setting enableVillagerTrades on): Iron Sledgehammer for 16 emeralds + 1 iron pickaxe, Diamond Sledgehammer for 28 emeralds + 1 diamond pickaxe; 1 use each, 30 experience; simplebuilding:weighted_enchant gives the hammer one enchantment from a weighted pool (Break Through I weight 5, Override I 15, Range I 10, Unbreaking II 50, Efficiency III 50), with a 0.01 (iron) or 0.15 (diamond) chance of a second, different enchantment from the same pool.",
             "Only the Enderite Sledgehammer is in the void_protected tag (the tag is generated from the name prefix enderite_); the other six tiers are not protected against the void."
           ],
@@ -4471,7 +4402,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
+            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -4532,8 +4463,8 @@ window.WIKI_DATA = {
             "Herstellung in der Werkbank (Muster BMM / .S. / .S.): oben links ein Block (B), daneben zweimal Material (M), darunter zwei Stöcke mittig. Stein: Eisenbarren + 2 Bruchstein; Kupfer: Kupferblock + 2 Kupferbarren; Eisen: Eisenblock + 2 Eisenbarren; Gold: Goldblock + 2 Goldbarren; Diamant: Diamantblock + 2 Diamanten.",
             "Netherit-Vorschlaghammer: Schmiedetisch mit Netherit-Schmiedevorlage, Diamant-Vorschlaghammer und Netheritbarren. Enderite Sledgehammer: Schmiedetisch mit Enderite Upgrade Template, Netherit-Vorschlaghammer und Enderite Ingot.",
             "Aufwerten im Schmiedetisch mit Basis-Upgrade-Vorlage (Rezepttyp simplebuilding:count_based_smithing): Kupfer zu Eisen mit 12 Eisenbarren, Eisen zu Gold mit 12 Goldbarren, Gold zu Diamant mit 12 Diamanten; es müssen mindestens 12 im Slot liegen, genau 12 werden verbraucht; alle Komponenten des alten Hammers (Verzauberungen, Schaden, Name) werden übernommen.",
-            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 20, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in Bastionen (Schatz- und sonstige Truhen, zwei Einträge mit Gewichten 6 und 8).",
-            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 10), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (8), Netherfestungen (2) und Verliesen (10).",
+            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 8, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in jeder Bastion-Truhe (Gewicht 6).",
+            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 5), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (5), Netherfestungen (2) und Verliesen (8), Durchbruch II im Bastion-Schatzraum (3).",
             "Werkzeugschmied Stufe 4 (bei aktivierter Einstellung enableVillagerTrades): Eisen-Vorschlaghammer für 16 Smaragde + 1 Eisenspitzhacke, Diamant-Vorschlaghammer für 28 Smaragde + 1 Diamantspitzhacke; je 1 Nutzung, 30 Erfahrung; der Hammer bekommt über simplebuilding:weighted_enchant eine Verzauberung aus einem gewichteten Pool (Durchbruch I Gewicht 5, Übersteuerung I 15, Reichweite I 10, Haltbarkeit II 50, Effizienz III 50) mit Zweitchance 0,01 (Eisen) bzw. 0,15 (Diamant).",
             "Nur der Enderite Sledgehammer steht im Tag void_protected (der Tag wird aus dem Namenspräfix enderite_ erzeugt); die anderen sechs Stufen sind nicht gegen den Void geschützt."
           ],
@@ -4558,7 +4489,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
+            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -4796,8 +4727,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -4846,8 +4777,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -5050,11 +4981,11 @@ window.WIKI_DATA = {
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
             "Enderite Building Wand: smithing table with the Enderite Upgrade Template, the Netherite Building Wand and an Enderite Ingot.",
-            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 10), Iron Building Wand in woodland mansion chests (weight 15).",
-            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 1), end city treasure (10) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (10/15/15) and woodland mansions (3/7/7); Constructor's Touch in buried treasure (3), igloo chests (3) and trial chamber rewards (2). No loot table hands out a Bridge book any more.",
+            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
+            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 3), end city treasure (3) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (6/8/8) and woodland mansions (3/5/5), Linear also in fishing treasure (2); Constructor's Touch in buried treasure (3), igloo chests (3), trial chamber rewards (3) and fishing treasure (2). No loot table hands out a Bridge book.",
             "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
             "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
-            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 60 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it any more.",
+            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
             "All six wands are in the mod's creative tab, together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
             "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5."
           ],
@@ -5072,7 +5003,7 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
             "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
@@ -5080,7 +5011,7 @@ window.WIKI_DATA = {
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armour; the lower tiers burn.",
+            "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
@@ -5122,11 +5053,11 @@ window.WIKI_DATA = {
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
             "Enderite Building Wand: Schmiedetisch mit Enderite Upgrade Template, Netherit-Baustab und Enderite Ingot.",
-            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 10), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 15).",
-            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 1), Endsiedlungen (10) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (10/15/15) und Waldanwesen (3/7/7); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3) und Prüfungskammer-Belohnungen (2). Ein Brücke-Buch gibt keine Beutetabelle mehr aus.",
+            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
+            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 3), Endsiedlungen (3) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (6/8/8) und Waldanwesen (3/5/5), Linear zusätzlich im Angel-Schatz (2); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3), Prüfungskammer-Belohnungen (3) und im Angel-Schatz (2). Ein Brücke-Buch gibt keine Beutetabelle aus.",
             "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
             "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Override (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
-            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 60 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur noch Radius (Gewicht 20), also keine Baustab-Verzauberung mehr.",
+            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
             "Alle sechs Stäbe stehen im Kreativ-Tab der Mod, zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
             "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt."
           ],
@@ -5144,7 +5075,7 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
             "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
@@ -5152,7 +5083,7 @@ window.WIKI_DATA = {
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
+            "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
@@ -5405,8 +5336,8 @@ window.WIKI_DATA = {
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (its own recipe type simplebuilding:count_based_smithing): Copper Chisel + 2 Iron Ingots -> Iron Chisel, Iron Chisel + 2 Gold Ingots -> Gold Chisel, Gold Chisel + 2 Diamonds -> Diamond Chisel; the components of the old chisel (damage, name, enchantments) are copied onto the result, and taking the result uses up both ingots (or both diamonds), not just one.",
             "Creative tab \"Building Items\" (\"SimpleBuilding Items\" in German): the icon is the Iron Chisel, and all seven chisels are listed.",
-            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 15, Diamond Chisel 12, Constructor's Touch I book 3, Fast Chiseling II book 2, empty 50; igloo chest (0-1 roll) with Diamond Chisel 10, Constructor's Touch I book 3, Fast Chiseling I book 2, empty 5; Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 15), abandoned mineshafts (I, 2) and in the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2).",
-            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.3.",
+            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 10, Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling II book 2, 2-6 Diamond Pebbles 10, empty 30; igloo chest (0-1 roll) with Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling I book 3, empty 8; a plain Copper Chisel in pillager outposts (weight 4) and a Gold Chisel in ruined portals (weight 3); Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 10), abandoned mineshafts (I, 2), the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2) and fishing treasure (I, 3).",
+            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.2.",
             "Versatility: when the enchantment swaps tools automatically, the chisel has the lowest priority (bonus 0, against 2000 for sledgehammers, 1000 for pickaxe/axe/shovel and 500 for any other suitable tool).",
             "The Enderite Chisel is void protected (tag simplebuilding:void_protected): below the world's minimum height a dropped one floats without gravity, and as soon as it is more than 10 blocks below the minimum height it is reset to minimum height + 5.",
             "Automated game tests cover the Stone Chisel's forward step (Stone -> Chiseled Stone Bricks), the Stone Spatula's backward step (Chiseled Stone Bricks -> Stone) and the tier gating (the Stone Chisel leaves polished deepslate alone, the Diamond Chisel turns it into Chiseled Deepslate)."
@@ -5431,7 +5362,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
+            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -5467,8 +5398,8 @@ window.WIKI_DATA = {
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
             "Aufwertung am Schmiedetisch mit der Basis-Upgrade-Vorlage (eigener Rezepttyp simplebuilding:count_based_smithing): Kupfermeißel + 2 Eisenbarren → Eisenmeißel, Eisenmeißel + 2 Goldbarren → Goldmeißel, Goldmeißel + 2 Diamanten → Diamantmeißel; die Komponenten des alten Meißels (Schaden, Name, Verzauberungen) werden auf das Ergebnis kopiert, und beim Entnehmen werden die 2 Zutaten verbraucht.",
             "Kreativ-Tab „SimpleBuilding Items“ (englisch „Building Items“): Das Symbol ist der Eisenmeißel, alle sieben Meißel sind gelistet.",
-            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 15, Diamantmeißel 12, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, leer 50; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 10, Buch Berührung I 3, Buch Schnelles Meißeln I 2, leer 5; Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 15), verlassenen Minenschacht (I, 2) und in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 1; Berührung I, 2).",
-            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,3.",
+            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 10, Diamantmeißel 6, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, 2–6 Diamantkiesel 10, leer 30; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 6, Buch Berührung I 3, Buch Schnelles Meißeln I 3, leer 8; ein unverzauberter Kupfermeißel in Plünderer-Außenposten (Gewicht 4) und ein Goldmeißel in Portalruinen (Gewicht 3); Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 10), verlassenen Minenschacht (I, 2), in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 2; Berührung I, 3) und im Angel-Schatz (I, 3).",
+            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,2.",
             "Vielseitigkeit: Beim automatischen Werkzeugwechsel hat der Meißel die niedrigste Priorität (Bonus 0 gegenüber 2000 für Vorschlaghämmer, 1000 für Spitzhacke/Axt/Schaufel und 500 für sonstige geeignete Werkzeuge).",
             "Der Enderit-Meißel ist void-geschützt (Tag simplebuilding:void_protected): Unterhalb der Mindesthöhe der Welt schwebt er ohne Schwerkraft und wird, sobald er mehr als 10 Blöcke unter der Mindesthöhe liegt, auf Mindesthöhe + 5 zurückgesetzt.",
             "Automatisierte Spieltests prüfen den Vorwärtsschritt des Steinmeißels (Stein → Gemeißelte Steinziegel), den Rückwärtsschritt mit dem Steinspatel (Gemeißelte Steinziegel → Stein) sowie die Stufenbeschränkung (der Steinmeißel lässt polierten Tiefenschiefer unverändert, der Diamantmeißel wandelt ihn in gemeißelten Tiefenschiefer)."
@@ -5493,7 +5424,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
+            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -6138,8 +6069,8 @@ window.WIKI_DATA = {
             "Crafting in the crafting table (pattern BMM / .S. / .S.): a block (B) top left, twice the material (M) next to it, two sticks centred below. Stone: iron ingot + 2 cobblestone; Copper: copper block + 2 copper ingots; Iron: iron block + 2 iron ingots; Gold: gold block + 2 gold ingots; Diamond: diamond block + 2 diamonds.",
             "Netherite Sledgehammer: smithing table with a netherite upgrade smithing template, the Diamond Sledgehammer and a netherite ingot. Enderite Sledgehammer: smithing table with the Enderite Upgrade Template, the Netherite Sledgehammer and an Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (recipe type simplebuilding:count_based_smithing): copper to iron with 12 iron ingots, iron to gold with 12 gold ingots, gold to diamond with 12 diamonds; at least 12 have to sit in the slot and exactly 12 are used up; all components of the old hammer (enchantments, damage, name) carry over.",
-            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 20, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in bastions (treasure and other chests, two entries with weights 6 and 8).",
-            "Enchanted books: Override II in end cities (weight 10), Radius I in ancient cities (weight 4), Break Through I in bastions (8), nether fortresses (2) and dungeons (10).",
+            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 8, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in every bastion chest (weight 6).",
+            "Enchanted books: Override II in end cities (weight 5), Radius I in ancient cities (weight 4), Break Through I in bastions (5), nether fortresses (2) and dungeons (8), Break Through II in the bastion treasure room (3).",
             "Toolsmith level 4 (with the setting enableVillagerTrades on): Iron Sledgehammer for 16 emeralds + 1 iron pickaxe, Diamond Sledgehammer for 28 emeralds + 1 diamond pickaxe; 1 use each, 30 experience; simplebuilding:weighted_enchant gives the hammer one enchantment from a weighted pool (Break Through I weight 5, Override I 15, Range I 10, Unbreaking II 50, Efficiency III 50), with a 0.01 (iron) or 0.15 (diamond) chance of a second, different enchantment from the same pool.",
             "Only the Enderite Sledgehammer is in the void_protected tag (the tag is generated from the name prefix enderite_); the other six tiers are not protected against the void."
           ],
@@ -6166,7 +6097,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
+            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -6227,8 +6158,8 @@ window.WIKI_DATA = {
             "Herstellung in der Werkbank (Muster BMM / .S. / .S.): oben links ein Block (B), daneben zweimal Material (M), darunter zwei Stöcke mittig. Stein: Eisenbarren + 2 Bruchstein; Kupfer: Kupferblock + 2 Kupferbarren; Eisen: Eisenblock + 2 Eisenbarren; Gold: Goldblock + 2 Goldbarren; Diamant: Diamantblock + 2 Diamanten.",
             "Netherit-Vorschlaghammer: Schmiedetisch mit Netherit-Schmiedevorlage, Diamant-Vorschlaghammer und Netheritbarren. Enderite Sledgehammer: Schmiedetisch mit Enderite Upgrade Template, Netherit-Vorschlaghammer und Enderite Ingot.",
             "Aufwerten im Schmiedetisch mit Basis-Upgrade-Vorlage (Rezepttyp simplebuilding:count_based_smithing): Kupfer zu Eisen mit 12 Eisenbarren, Eisen zu Gold mit 12 Goldbarren, Gold zu Diamant mit 12 Diamanten; es müssen mindestens 12 im Slot liegen, genau 12 werden verbraucht; alle Komponenten des alten Hammers (Verzauberungen, Schaden, Name) werden übernommen.",
-            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 20, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in Bastionen (Schatz- und sonstige Truhen, zwei Einträge mit Gewichten 6 und 8).",
-            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 10), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (8), Netherfestungen (2) und Verliesen (10).",
+            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 8, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in jeder Bastion-Truhe (Gewicht 6).",
+            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 5), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (5), Netherfestungen (2) und Verliesen (8), Durchbruch II im Bastion-Schatzraum (3).",
             "Werkzeugschmied Stufe 4 (bei aktivierter Einstellung enableVillagerTrades): Eisen-Vorschlaghammer für 16 Smaragde + 1 Eisenspitzhacke, Diamant-Vorschlaghammer für 28 Smaragde + 1 Diamantspitzhacke; je 1 Nutzung, 30 Erfahrung; der Hammer bekommt über simplebuilding:weighted_enchant eine Verzauberung aus einem gewichteten Pool (Durchbruch I Gewicht 5, Übersteuerung I 15, Reichweite I 10, Haltbarkeit II 50, Effizienz III 50) mit Zweitchance 0,01 (Eisen) bzw. 0,15 (Diamant).",
             "Nur der Enderite Sledgehammer steht im Tag void_protected (der Tag wird aus dem Namenspräfix enderite_ erzeugt); die anderen sechs Stufen sind nicht gegen den Void geschützt."
           ],
@@ -6253,7 +6184,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
+            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -6549,11 +6480,11 @@ window.WIKI_DATA = {
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
             "Enderite Building Wand: smithing table with the Enderite Upgrade Template, the Netherite Building Wand and an Enderite Ingot.",
-            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 10), Iron Building Wand in woodland mansion chests (weight 15).",
-            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 1), end city treasure (10) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (10/15/15) and woodland mansions (3/7/7); Constructor's Touch in buried treasure (3), igloo chests (3) and trial chamber rewards (2). No loot table hands out a Bridge book any more.",
+            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
+            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 3), end city treasure (3) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (6/8/8) and woodland mansions (3/5/5), Linear also in fishing treasure (2); Constructor's Touch in buried treasure (3), igloo chests (3), trial chamber rewards (3) and fishing treasure (2). No loot table hands out a Bridge book.",
             "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
             "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
-            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 60 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it any more.",
+            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
             "All six wands are in the mod's creative tab, together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
             "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5."
           ],
@@ -6571,7 +6502,7 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
             "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
@@ -6579,7 +6510,7 @@ window.WIKI_DATA = {
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armour; the lower tiers burn.",
+            "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
@@ -6621,11 +6552,11 @@ window.WIKI_DATA = {
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
             "Enderite Building Wand: Schmiedetisch mit Enderite Upgrade Template, Netherit-Baustab und Enderite Ingot.",
-            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 10), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 15).",
-            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 1), Endsiedlungen (10) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (10/15/15) und Waldanwesen (3/7/7); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3) und Prüfungskammer-Belohnungen (2). Ein Brücke-Buch gibt keine Beutetabelle mehr aus.",
+            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
+            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 3), Endsiedlungen (3) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (6/8/8) und Waldanwesen (3/5/5), Linear zusätzlich im Angel-Schatz (2); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3), Prüfungskammer-Belohnungen (3) und im Angel-Schatz (2). Ein Brücke-Buch gibt keine Beutetabelle aus.",
             "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
             "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Override (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
-            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 60 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur noch Radius (Gewicht 20), also keine Baustab-Verzauberung mehr.",
+            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
             "Alle sechs Stäbe stehen im Kreativ-Tab der Mod, zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
             "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt."
           ],
@@ -6643,7 +6574,7 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
             "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
@@ -6651,7 +6582,7 @@ window.WIKI_DATA = {
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
+            "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
@@ -6780,8 +6711,8 @@ window.WIKI_DATA = {
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (its own recipe type simplebuilding:count_based_smithing): Copper Chisel + 2 Iron Ingots -> Iron Chisel, Iron Chisel + 2 Gold Ingots -> Gold Chisel, Gold Chisel + 2 Diamonds -> Diamond Chisel; the components of the old chisel (damage, name, enchantments) are copied onto the result, and taking the result uses up both ingots (or both diamonds), not just one.",
             "Creative tab \"Building Items\" (\"SimpleBuilding Items\" in German): the icon is the Iron Chisel, and all seven chisels are listed.",
-            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 15, Diamond Chisel 12, Constructor's Touch I book 3, Fast Chiseling II book 2, empty 50; igloo chest (0-1 roll) with Diamond Chisel 10, Constructor's Touch I book 3, Fast Chiseling I book 2, empty 5; Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 15), abandoned mineshafts (I, 2) and in the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2).",
-            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.3.",
+            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 10, Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling II book 2, 2-6 Diamond Pebbles 10, empty 30; igloo chest (0-1 roll) with Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling I book 3, empty 8; a plain Copper Chisel in pillager outposts (weight 4) and a Gold Chisel in ruined portals (weight 3); Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 10), abandoned mineshafts (I, 2), the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2) and fishing treasure (I, 3).",
+            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.2.",
             "Versatility: when the enchantment swaps tools automatically, the chisel has the lowest priority (bonus 0, against 2000 for sledgehammers, 1000 for pickaxe/axe/shovel and 500 for any other suitable tool).",
             "The Enderite Chisel is void protected (tag simplebuilding:void_protected): below the world's minimum height a dropped one floats without gravity, and as soon as it is more than 10 blocks below the minimum height it is reset to minimum height + 5.",
             "Automated game tests cover the Stone Chisel's forward step (Stone -> Chiseled Stone Bricks), the Stone Spatula's backward step (Chiseled Stone Bricks -> Stone) and the tier gating (the Stone Chisel leaves polished deepslate alone, the Diamond Chisel turns it into Chiseled Deepslate)."
@@ -6806,7 +6737,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
+            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -6842,8 +6773,8 @@ window.WIKI_DATA = {
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
             "Aufwertung am Schmiedetisch mit der Basis-Upgrade-Vorlage (eigener Rezepttyp simplebuilding:count_based_smithing): Kupfermeißel + 2 Eisenbarren → Eisenmeißel, Eisenmeißel + 2 Goldbarren → Goldmeißel, Goldmeißel + 2 Diamanten → Diamantmeißel; die Komponenten des alten Meißels (Schaden, Name, Verzauberungen) werden auf das Ergebnis kopiert, und beim Entnehmen werden die 2 Zutaten verbraucht.",
             "Kreativ-Tab „SimpleBuilding Items“ (englisch „Building Items“): Das Symbol ist der Eisenmeißel, alle sieben Meißel sind gelistet.",
-            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 15, Diamantmeißel 12, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, leer 50; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 10, Buch Berührung I 3, Buch Schnelles Meißeln I 2, leer 5; Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 15), verlassenen Minenschacht (I, 2) und in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 1; Berührung I, 2).",
-            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,3.",
+            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 10, Diamantmeißel 6, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, 2–6 Diamantkiesel 10, leer 30; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 6, Buch Berührung I 3, Buch Schnelles Meißeln I 3, leer 8; ein unverzauberter Kupfermeißel in Plünderer-Außenposten (Gewicht 4) und ein Goldmeißel in Portalruinen (Gewicht 3); Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 10), verlassenen Minenschacht (I, 2), in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 2; Berührung I, 3) und im Angel-Schatz (I, 3).",
+            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,2.",
             "Vielseitigkeit: Beim automatischen Werkzeugwechsel hat der Meißel die niedrigste Priorität (Bonus 0 gegenüber 2000 für Vorschlaghämmer, 1000 für Spitzhacke/Axt/Schaufel und 500 für sonstige geeignete Werkzeuge).",
             "Der Enderit-Meißel ist void-geschützt (Tag simplebuilding:void_protected): Unterhalb der Mindesthöhe der Welt schwebt er ohne Schwerkraft und wird, sobald er mehr als 10 Blöcke unter der Mindesthöhe liegt, auf Mindesthöhe + 5 zurückgesetzt.",
             "Automatisierte Spieltests prüfen den Vorwärtsschritt des Steinmeißels (Stein → Gemeißelte Steinziegel), den Rückwärtsschritt mit dem Steinspatel (Gemeißelte Steinziegel → Stein) sowie die Stufenbeschränkung (der Steinmeißel lässt polierten Tiefenschiefer unverändert, der Diamantmeißel wandelt ihn in gemeißelten Tiefenschiefer)."
@@ -6868,7 +6799,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
+            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -7033,8 +6964,8 @@ window.WIKI_DATA = {
             "Crafting in the crafting table (pattern BMM / .S. / .S.): a block (B) top left, twice the material (M) next to it, two sticks centred below. Stone: iron ingot + 2 cobblestone; Copper: copper block + 2 copper ingots; Iron: iron block + 2 iron ingots; Gold: gold block + 2 gold ingots; Diamond: diamond block + 2 diamonds.",
             "Netherite Sledgehammer: smithing table with a netherite upgrade smithing template, the Diamond Sledgehammer and a netherite ingot. Enderite Sledgehammer: smithing table with the Enderite Upgrade Template, the Netherite Sledgehammer and an Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (recipe type simplebuilding:count_based_smithing): copper to iron with 12 iron ingots, iron to gold with 12 gold ingots, gold to diamond with 12 diamonds; at least 12 have to sit in the slot and exactly 12 are used up; all components of the old hammer (enchantments, damage, name) carry over.",
-            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 20, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in bastions (treasure and other chests, two entries with weights 6 and 8).",
-            "Enchanted books: Override II in end cities (weight 10), Radius I in ancient cities (weight 4), Break Through I in bastions (8), nether fortresses (2) and dungeons (10).",
+            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 8, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in every bastion chest (weight 6).",
+            "Enchanted books: Override II in end cities (weight 5), Radius I in ancient cities (weight 4), Break Through I in bastions (5), nether fortresses (2) and dungeons (8), Break Through II in the bastion treasure room (3).",
             "Toolsmith level 4 (with the setting enableVillagerTrades on): Iron Sledgehammer for 16 emeralds + 1 iron pickaxe, Diamond Sledgehammer for 28 emeralds + 1 diamond pickaxe; 1 use each, 30 experience; simplebuilding:weighted_enchant gives the hammer one enchantment from a weighted pool (Break Through I weight 5, Override I 15, Range I 10, Unbreaking II 50, Efficiency III 50), with a 0.01 (iron) or 0.15 (diamond) chance of a second, different enchantment from the same pool.",
             "Only the Enderite Sledgehammer is in the void_protected tag (the tag is generated from the name prefix enderite_); the other six tiers are not protected against the void."
           ],
@@ -7061,7 +6992,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
+            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -7122,8 +7053,8 @@ window.WIKI_DATA = {
             "Herstellung in der Werkbank (Muster BMM / .S. / .S.): oben links ein Block (B), daneben zweimal Material (M), darunter zwei Stöcke mittig. Stein: Eisenbarren + 2 Bruchstein; Kupfer: Kupferblock + 2 Kupferbarren; Eisen: Eisenblock + 2 Eisenbarren; Gold: Goldblock + 2 Goldbarren; Diamant: Diamantblock + 2 Diamanten.",
             "Netherit-Vorschlaghammer: Schmiedetisch mit Netherit-Schmiedevorlage, Diamant-Vorschlaghammer und Netheritbarren. Enderite Sledgehammer: Schmiedetisch mit Enderite Upgrade Template, Netherit-Vorschlaghammer und Enderite Ingot.",
             "Aufwerten im Schmiedetisch mit Basis-Upgrade-Vorlage (Rezepttyp simplebuilding:count_based_smithing): Kupfer zu Eisen mit 12 Eisenbarren, Eisen zu Gold mit 12 Goldbarren, Gold zu Diamant mit 12 Diamanten; es müssen mindestens 12 im Slot liegen, genau 12 werden verbraucht; alle Komponenten des alten Hammers (Verzauberungen, Schaden, Name) werden übernommen.",
-            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 20, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in Bastionen (Schatz- und sonstige Truhen, zwei Einträge mit Gewichten 6 und 8).",
-            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 10), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (8), Netherfestungen (2) und Verliesen (10).",
+            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 8, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in jeder Bastion-Truhe (Gewicht 6).",
+            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 5), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (5), Netherfestungen (2) und Verliesen (8), Durchbruch II im Bastion-Schatzraum (3).",
             "Werkzeugschmied Stufe 4 (bei aktivierter Einstellung enableVillagerTrades): Eisen-Vorschlaghammer für 16 Smaragde + 1 Eisenspitzhacke, Diamant-Vorschlaghammer für 28 Smaragde + 1 Diamantspitzhacke; je 1 Nutzung, 30 Erfahrung; der Hammer bekommt über simplebuilding:weighted_enchant eine Verzauberung aus einem gewichteten Pool (Durchbruch I Gewicht 5, Übersteuerung I 15, Reichweite I 10, Haltbarkeit II 50, Effizienz III 50) mit Zweitchance 0,01 (Eisen) bzw. 0,15 (Diamant).",
             "Nur der Enderite Sledgehammer steht im Tag void_protected (der Tag wird aus dem Namenspräfix enderite_ erzeugt); die anderen sechs Stufen sind nicht gegen den Void geschützt."
           ],
@@ -7148,7 +7079,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
+            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -7280,11 +7211,11 @@ window.WIKI_DATA = {
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
             "Enderite Building Wand: smithing table with the Enderite Upgrade Template, the Netherite Building Wand and an Enderite Ingot.",
-            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 10), Iron Building Wand in woodland mansion chests (weight 15).",
-            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 1), end city treasure (10) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (10/15/15) and woodland mansions (3/7/7); Constructor's Touch in buried treasure (3), igloo chests (3) and trial chamber rewards (2). No loot table hands out a Bridge book any more.",
+            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
+            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 3), end city treasure (3) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (6/8/8) and woodland mansions (3/5/5), Linear also in fishing treasure (2); Constructor's Touch in buried treasure (3), igloo chests (3), trial chamber rewards (3) and fishing treasure (2). No loot table hands out a Bridge book.",
             "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
             "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
-            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 60 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it any more.",
+            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
             "All six wands are in the mod's creative tab, together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
             "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5."
           ],
@@ -7302,7 +7233,7 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
             "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
@@ -7310,7 +7241,7 @@ window.WIKI_DATA = {
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armour; the lower tiers burn.",
+            "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
@@ -7352,11 +7283,11 @@ window.WIKI_DATA = {
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
             "Enderite Building Wand: Schmiedetisch mit Enderite Upgrade Template, Netherit-Baustab und Enderite Ingot.",
-            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 10), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 15).",
-            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 1), Endsiedlungen (10) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (10/15/15) und Waldanwesen (3/7/7); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3) und Prüfungskammer-Belohnungen (2). Ein Brücke-Buch gibt keine Beutetabelle mehr aus.",
+            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
+            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 3), Endsiedlungen (3) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (6/8/8) und Waldanwesen (3/5/5), Linear zusätzlich im Angel-Schatz (2); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3), Prüfungskammer-Belohnungen (3) und im Angel-Schatz (2). Ein Brücke-Buch gibt keine Beutetabelle aus.",
             "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
             "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Override (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
-            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 60 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur noch Radius (Gewicht 20), also keine Baustab-Verzauberung mehr.",
+            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
             "Alle sechs Stäbe stehen im Kreativ-Tab der Mod, zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
             "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt."
           ],
@@ -7374,7 +7305,7 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
             "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
@@ -7382,7 +7313,7 @@ window.WIKI_DATA = {
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
+            "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
@@ -7511,8 +7442,8 @@ window.WIKI_DATA = {
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (its own recipe type simplebuilding:count_based_smithing): Copper Chisel + 2 Iron Ingots -> Iron Chisel, Iron Chisel + 2 Gold Ingots -> Gold Chisel, Gold Chisel + 2 Diamonds -> Diamond Chisel; the components of the old chisel (damage, name, enchantments) are copied onto the result, and taking the result uses up both ingots (or both diamonds), not just one.",
             "Creative tab \"Building Items\" (\"SimpleBuilding Items\" in German): the icon is the Iron Chisel, and all seven chisels are listed.",
-            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 15, Diamond Chisel 12, Constructor's Touch I book 3, Fast Chiseling II book 2, empty 50; igloo chest (0-1 roll) with Diamond Chisel 10, Constructor's Touch I book 3, Fast Chiseling I book 2, empty 5; Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 15), abandoned mineshafts (I, 2) and in the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2).",
-            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.3.",
+            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 10, Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling II book 2, 2-6 Diamond Pebbles 10, empty 30; igloo chest (0-1 roll) with Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling I book 3, empty 8; a plain Copper Chisel in pillager outposts (weight 4) and a Gold Chisel in ruined portals (weight 3); Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 10), abandoned mineshafts (I, 2), the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2) and fishing treasure (I, 3).",
+            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.2.",
             "Versatility: when the enchantment swaps tools automatically, the chisel has the lowest priority (bonus 0, against 2000 for sledgehammers, 1000 for pickaxe/axe/shovel and 500 for any other suitable tool).",
             "The Enderite Chisel is void protected (tag simplebuilding:void_protected): below the world's minimum height a dropped one floats without gravity, and as soon as it is more than 10 blocks below the minimum height it is reset to minimum height + 5.",
             "Automated game tests cover the Stone Chisel's forward step (Stone -> Chiseled Stone Bricks), the Stone Spatula's backward step (Chiseled Stone Bricks -> Stone) and the tier gating (the Stone Chisel leaves polished deepslate alone, the Diamond Chisel turns it into Chiseled Deepslate)."
@@ -7537,7 +7468,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
+            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -7573,8 +7504,8 @@ window.WIKI_DATA = {
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
             "Aufwertung am Schmiedetisch mit der Basis-Upgrade-Vorlage (eigener Rezepttyp simplebuilding:count_based_smithing): Kupfermeißel + 2 Eisenbarren → Eisenmeißel, Eisenmeißel + 2 Goldbarren → Goldmeißel, Goldmeißel + 2 Diamanten → Diamantmeißel; die Komponenten des alten Meißels (Schaden, Name, Verzauberungen) werden auf das Ergebnis kopiert, und beim Entnehmen werden die 2 Zutaten verbraucht.",
             "Kreativ-Tab „SimpleBuilding Items“ (englisch „Building Items“): Das Symbol ist der Eisenmeißel, alle sieben Meißel sind gelistet.",
-            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 15, Diamantmeißel 12, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, leer 50; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 10, Buch Berührung I 3, Buch Schnelles Meißeln I 2, leer 5; Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 15), verlassenen Minenschacht (I, 2) und in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 1; Berührung I, 2).",
-            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,3.",
+            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 10, Diamantmeißel 6, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, 2–6 Diamantkiesel 10, leer 30; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 6, Buch Berührung I 3, Buch Schnelles Meißeln I 3, leer 8; ein unverzauberter Kupfermeißel in Plünderer-Außenposten (Gewicht 4) und ein Goldmeißel in Portalruinen (Gewicht 3); Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 10), verlassenen Minenschacht (I, 2), in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 2; Berührung I, 3) und im Angel-Schatz (I, 3).",
+            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,2.",
             "Vielseitigkeit: Beim automatischen Werkzeugwechsel hat der Meißel die niedrigste Priorität (Bonus 0 gegenüber 2000 für Vorschlaghämmer, 1000 für Spitzhacke/Axt/Schaufel und 500 für sonstige geeignete Werkzeuge).",
             "Der Enderit-Meißel ist void-geschützt (Tag simplebuilding:void_protected): Unterhalb der Mindesthöhe der Welt schwebt er ohne Schwerkraft und wird, sobald er mehr als 10 Blöcke unter der Mindesthöhe liegt, auf Mindesthöhe + 5 zurückgesetzt.",
             "Automatisierte Spieltests prüfen den Vorwärtsschritt des Steinmeißels (Stein → Gemeißelte Steinziegel), den Rückwärtsschritt mit dem Steinspatel (Gemeißelte Steinziegel → Stein) sowie die Stufenbeschränkung (der Steinmeißel lässt polierten Tiefenschiefer unverändert, der Diamantmeißel wandelt ihn in gemeißelten Tiefenschiefer)."
@@ -7599,7 +7530,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
+            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -7765,8 +7696,8 @@ window.WIKI_DATA = {
             "Crafting in the crafting table (pattern BMM / .S. / .S.): a block (B) top left, twice the material (M) next to it, two sticks centred below. Stone: iron ingot + 2 cobblestone; Copper: copper block + 2 copper ingots; Iron: iron block + 2 iron ingots; Gold: gold block + 2 gold ingots; Diamond: diamond block + 2 diamonds.",
             "Netherite Sledgehammer: smithing table with a netherite upgrade smithing template, the Diamond Sledgehammer and a netherite ingot. Enderite Sledgehammer: smithing table with the Enderite Upgrade Template, the Netherite Sledgehammer and an Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (recipe type simplebuilding:count_based_smithing): copper to iron with 12 iron ingots, iron to gold with 12 gold ingots, gold to diamond with 12 diamonds; at least 12 have to sit in the slot and exactly 12 are used up; all components of the old hammer (enchantments, damage, name) carry over.",
-            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 20, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in bastions (treasure and other chests, two entries with weights 6 and 8).",
-            "Enchanted books: Override II in end cities (weight 10), Radius I in ancient cities (weight 4), Break Through I in bastions (8), nether fortresses (2) and dungeons (10).",
+            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 8, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in every bastion chest (weight 6).",
+            "Enchanted books: Override II in end cities (weight 5), Radius I in ancient cities (weight 4), Break Through I in bastions (5), nether fortresses (2) and dungeons (8), Break Through II in the bastion treasure room (3).",
             "Toolsmith level 4 (with the setting enableVillagerTrades on): Iron Sledgehammer for 16 emeralds + 1 iron pickaxe, Diamond Sledgehammer for 28 emeralds + 1 diamond pickaxe; 1 use each, 30 experience; simplebuilding:weighted_enchant gives the hammer one enchantment from a weighted pool (Break Through I weight 5, Override I 15, Range I 10, Unbreaking II 50, Efficiency III 50), with a 0.01 (iron) or 0.15 (diamond) chance of a second, different enchantment from the same pool.",
             "Only the Enderite Sledgehammer is in the void_protected tag (the tag is generated from the name prefix enderite_); the other six tiers are not protected against the void."
           ],
@@ -7793,7 +7724,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
+            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -7854,8 +7785,8 @@ window.WIKI_DATA = {
             "Herstellung in der Werkbank (Muster BMM / .S. / .S.): oben links ein Block (B), daneben zweimal Material (M), darunter zwei Stöcke mittig. Stein: Eisenbarren + 2 Bruchstein; Kupfer: Kupferblock + 2 Kupferbarren; Eisen: Eisenblock + 2 Eisenbarren; Gold: Goldblock + 2 Goldbarren; Diamant: Diamantblock + 2 Diamanten.",
             "Netherit-Vorschlaghammer: Schmiedetisch mit Netherit-Schmiedevorlage, Diamant-Vorschlaghammer und Netheritbarren. Enderite Sledgehammer: Schmiedetisch mit Enderite Upgrade Template, Netherit-Vorschlaghammer und Enderite Ingot.",
             "Aufwerten im Schmiedetisch mit Basis-Upgrade-Vorlage (Rezepttyp simplebuilding:count_based_smithing): Kupfer zu Eisen mit 12 Eisenbarren, Eisen zu Gold mit 12 Goldbarren, Gold zu Diamant mit 12 Diamanten; es müssen mindestens 12 im Slot liegen, genau 12 werden verbraucht; alle Komponenten des alten Hammers (Verzauberungen, Schaden, Name) werden übernommen.",
-            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 20, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in Bastionen (Schatz- und sonstige Truhen, zwei Einträge mit Gewichten 6 und 8).",
-            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 10), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (8), Netherfestungen (2) und Verliesen (10).",
+            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 8, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in jeder Bastion-Truhe (Gewicht 6).",
+            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 5), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (5), Netherfestungen (2) und Verliesen (8), Durchbruch II im Bastion-Schatzraum (3).",
             "Werkzeugschmied Stufe 4 (bei aktivierter Einstellung enableVillagerTrades): Eisen-Vorschlaghammer für 16 Smaragde + 1 Eisenspitzhacke, Diamant-Vorschlaghammer für 28 Smaragde + 1 Diamantspitzhacke; je 1 Nutzung, 30 Erfahrung; der Hammer bekommt über simplebuilding:weighted_enchant eine Verzauberung aus einem gewichteten Pool (Durchbruch I Gewicht 5, Übersteuerung I 15, Reichweite I 10, Haltbarkeit II 50, Effizienz III 50) mit Zweitchance 0,01 (Eisen) bzw. 0,15 (Diamant).",
             "Nur der Enderite Sledgehammer steht im Tag void_protected (der Tag wird aus dem Namenspräfix enderite_ erzeugt); die anderen sechs Stufen sind nicht gegen den Void geschützt."
           ],
@@ -7880,7 +7811,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
+            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -7972,30 +7903,6 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "tools/textures/generate_textures.py"
-        ],
-        "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
-          "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
-            "The Astralit Quartz Checker glows with light level 5."
-          ]
-        },
-        "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
-          "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
-            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -8250,7 +8157,7 @@ window.WIKI_DATA = {
             "Clearing the filter: sneak + right-click with the Magnet while not pointing at an item frame. 'Magnet Filter cleared.' appears in yellow on the action bar and the UI button click sound (volume 0.5, pitch 1.0, sound category Players) is played for everyone nearby. With no filter set, sneak + right-click does nothing.",
             "Tooltip: shows 'Filtering: <id>' (gold) or 'No Filter active' (gray), and below that 'Sneak + Right Click to clear' (dark gray).",
             "Right-clicking animals or monsters: the Magnet itself does nothing (returns PASS); the mob's normal interaction runs exactly as it would without the Magnet.",
-            "The Magnet is one of the items Constructor's Touch can go on (tag constructors_touch_enchantable): max level I, weight 1, cost 20 to 50, anvil cost 1. It can only be applied at the anvil with an enchanted book; books are available in the mod's creative tab and as chest loot (buried treasure, igloo, trial chamber reward common/rare).",
+            "The Magnet is one of the items Constructor's Touch can go on (tag constructors_touch_enchantable): max level I, weight 1, cost 20 to 50, anvil cost 1. It can only be applied at the anvil with an enchanted book; books are available in the mod's creative tab, as chest loot (buried treasure, igloo, trial chamber reward common/rare) and from fishing treasure.",
             "A gametest (registered on all four targets, 200 tick budget) confirms the behaviour: a diamond 3 blocks away is pulled into the player's inventory, while a gold ingot 6 blocks away on both horizontal axes stays where it dropped (less than 0.5 blocks of drift allowed).",
             "Behaviour is identical on every loader (Fabric and NeoForge, MC 26.2 as well as 1.21.11): MagnetItem is the same in both version lines apart from the action bar API, and the frame filter runs through the ItemFrameEntityMixin in simplebuilding.mixins.json, which both fabric.mod.json and neoforge.mods.toml of both lines load (the NeoForge modules take the Fabric resources folder as a source)."
           ],
@@ -8297,7 +8204,7 @@ window.WIKI_DATA = {
             "Filter löschen: Schleichen + Rechtsklick mit dem Magneten, ohne auf einen Rahmen zu zeigen. In der Aktionsleiste erscheint gelb 'Magnet Filter cleared.' und ein Knopf-Klickgeräusch (Lautstärke 0,5, Tonhöhe 1,0, Kanal Spieler) wird für alle in der Nähe abgespielt. Ohne gesetzten Filter passiert bei Schleichen + Rechtsklick nichts.",
             "Tooltip: zeigt 'Filtering: <Kennung>' (gold) bzw. 'No Filter active' (grau) und darunter 'Sneak + Right Click to clear' (dunkelgrau).",
             "Rechtsklick auf Tiere oder Monster: Der Magnet selbst tut nichts (gibt PASS zurück); die normale Interaktion des Lebewesens läuft wie ohne Magnet ab.",
-            "Der Magnet gehört zu den Zielitems von Berührung des Konstrukteurs (Tag constructors_touch_enchantable): Höchststufe I, Gewicht 1, Kosten 20 bis 50, Amboss-Kosten 1. Anlegbar nur am Amboss per verzaubertem Buch; Bücher gibt es im Kreativ-Tab der Mod und als Truhenloot (Vergrabener Schatz, Iglu, Prüfungskammer-Belohnung gewöhnlich/selten).",
+            "Der Magnet gehört zu den Zielitems von Berührung des Konstrukteurs (Tag constructors_touch_enchantable): Höchststufe I, Gewicht 1, Kosten 20 bis 50, Amboss-Kosten 1. Anlegbar nur am Amboss per verzaubertem Buch; Bücher gibt es im Kreativ-Tab der Mod, als Truhenloot (Vergrabener Schatz, Iglu, Prüfungskammer-Belohnung gewöhnlich/selten) und im Schatzfang beim Angeln.",
             "Ein Spieltest (auf allen vier Zielen registriert, Zeitbudget 200 Ticks) belegt das Verhalten: Ein Diamant 3 Blöcke entfernt wird in das Inventar des Spielers gezogen, ein Goldbarren 6 Blöcke entfernt (auf beiden waagerechten Achsen) bleibt liegen (weniger als 0,5 Blöcke Drift erlaubt).",
             "Verhalten ist auf allen Loadern gleich (Fabric und NeoForge, MC 26.2 sowie 1.21.11): MagnetItem ist in beiden Versionslinien bis auf die Aktionsleisten-API identisch, und der Rahmen-Filter läuft über den Mixin ItemFrameEntityMixin in simplebuilding.mixins.json, die sowohl fabric.mod.json als auch neoforge.mods.toml beider Linien einbinden (die NeoForge-Module übernehmen den Fabric-Ressourcenordner als Quelle)."
           ],
@@ -8461,8 +8368,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -8511,8 +8418,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -8691,11 +8598,11 @@ window.WIKI_DATA = {
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
             "Enderite Building Wand: smithing table with the Enderite Upgrade Template, the Netherite Building Wand and an Enderite Ingot.",
-            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 10), Iron Building Wand in woodland mansion chests (weight 15).",
-            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 1), end city treasure (10) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (10/15/15) and woodland mansions (3/7/7); Constructor's Touch in buried treasure (3), igloo chests (3) and trial chamber rewards (2). No loot table hands out a Bridge book any more.",
+            "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
+            "Enchanted books for the wand: Master Builder in stronghold libraries (weight 3), end city treasure (3) and trial chamber rewards (10); Color Palette, Cover and Linear in pillager outposts (6/8/8) and woodland mansions (3/5/5), Linear also in fishing treasure (2); Constructor's Touch in buried treasure (3), igloo chests (3), trial chamber rewards (3) and fishing treasure (2). No loot table hands out a Bridge book.",
             "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
             "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
-            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 60 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it any more.",
+            "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
             "All six wands are in the mod's creative tab, together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
             "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5."
           ],
@@ -8713,7 +8620,7 @@ window.WIKI_DATA = {
             "Gold Building Wand: diameter 7 (radius 3, 7x7 area), durability 32*4*2 = 256, enchantability 22.",
             "Diamond Building Wand: diameter 9 (radius 4, 9x9 area), durability 1561*4*2 = 12488, enchantability 10.",
             "Netherite Building Wand: diameter 11 (radius 5, 11x11 area), durability 2031*4*2 = 16248, enchantability 15.",
-            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, fire resistant and protected from the void.",
+            "Enderite Building Wand: diameter 13 (radius 6, 13x13 area), durability 2500*4*2 = 20000, enchantability 18; in the same enchantment tags as the other wands, not fire resistant, but protected from the void.",
             "All tiers build at the same speed (4 ticks per ring, 2 with Linear) and cost 1 durability per block; only area size, durability and enchantability differ, and only the enderite wand is protected from the void."
           ],
           "caveats": [
@@ -8721,7 +8628,7 @@ window.WIKI_DATA = {
             "Linear places no line and never checks sneaking, although the description promises 'Places blocks in a straight line when sneaking'; in code it only shortens the pause between rings from 4 to 2 ticks.",
             "Color Palette does not build the way the preview shows it: the preview mixes the block types, but the build always takes the first block stack found (off-hand, then hotbar) until it is empty; only then does the next one follow.",
             "Without the Constructor's Touch enchantment on the wand the settings menu does not open. A wand with no saved settings builds at the tier maximum and on the automatic axis; but SettingsRadius/SettingsAxis, once saved, stay in effect even without the enchantment, because inventoryTick reads them independently of it.",
-            "The Netherite and Enderite Building Wands are registered fire resistant (ModItems#netheriteTraits), like enderite tools and armour; the lower tiers burn.",
+            "The enderite wand is not registered as fire resistant (registerBuildingWand sets no fireResistant), unlike enderite tools and armour.",
             "The tooltip strings 'Places a %s x %s area of blocks.', 'Places a line of %s blocks.' and 'Use to place more blocks at once.' sit in the language files, but no code (no appendHoverText, no reference to the keys) ever shows them on the item.",
             "The axis label 'Face (Auto)' in the menu is hard-coded English and is not translated.",
             "Blocks are always placed in their default state (defaultBlockState): stairs, logs and other oriented blocks get no orientation from the click or from where you are looking; the hit position stored on the click (HitX/HitY/HitZ) is never evaluated.",
@@ -8763,11 +8670,11 @@ window.WIKI_DATA = {
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
             "Enderite Building Wand: Schmiedetisch mit Enderite Upgrade Template, Netherit-Baustab und Enderite Ingot.",
-            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 10), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 15).",
-            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 1), Endsiedlungen (10) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (10/15/15) und Waldanwesen (3/7/7); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3) und Prüfungskammer-Belohnungen (2). Ein Brücke-Buch gibt keine Beutetabelle mehr aus.",
+            "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
+            "Verzauberte Bücher für den Stab: Baumeister in Festungsbibliotheken (Gewicht 3), Endsiedlungen (3) und Prüfungskammer-Belohnungen (10); Farbpalette, Abdeckung und Linear in Plünderer-Außenposten (6/8/8) und Waldanwesen (3/5/5), Linear zusätzlich im Angel-Schatz (2); Berührung des Konstrukteurs in vergrabenen Schätzen (3), Iglu-Kisten (3), Prüfungskammer-Belohnungen (3) und im Angel-Schatz (2). Ein Brücke-Buch gibt keine Beutetabelle aus.",
             "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
             "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Override (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
-            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 60 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur noch Radius (Gewicht 20), also keine Baustab-Verzauberung mehr.",
+            "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
             "Alle sechs Stäbe stehen im Kreativ-Tab der Mod, zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
             "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt."
           ],
@@ -8785,7 +8692,7 @@ window.WIKI_DATA = {
             "Gold-Baustab: Durchmesser 7 (Radius 3, Fläche 7x7), Haltbarkeit 32·4·2 = 256, Verzauberbarkeit 22.",
             "Diamant-Baustab: Durchmesser 9 (Radius 4, Fläche 9x9), Haltbarkeit 1561·4·2 = 12488, Verzauberbarkeit 10.",
             "Netherit-Baustab: Durchmesser 11 (Radius 5, Fläche 11x11), Haltbarkeit 2031·4·2 = 16248, Verzauberbarkeit 15.",
-            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist feuerfest und vor der Leere geschützt.",
+            "Enderit-Baustab: Durchmesser 13 (Radius 6, Fläche 13x13), Haltbarkeit 2500·4·2 = 20000, Verzauberbarkeit 18; steht in denselben Verzauberungs-Tags wie die übrigen Stäbe, ist nicht feuerfest, aber vor der Leere geschützt.",
             "Alle Stufen bauen gleich schnell (4 Ticks pro Ring, 2 mit Linear) und verbrauchen 1 Haltbarkeit pro Block; es unterscheiden sich nur Flächengröße, Haltbarkeit und Verzauberbarkeit, und nur der Enderit-Stab ist vor der Leere geschützt."
           ],
           "caveats": [
@@ -8793,7 +8700,7 @@ window.WIKI_DATA = {
             "Linear platziert keine Linie und prüft nicht das Schleichen, obwohl die Beschreibung 'Platziert Blöcke in einer geraden Linie beim Schleichen' verspricht; im Code verkürzt es nur die Pause zwischen den Ringen von 4 auf 2 Ticks.",
             "Farbpalette baut nicht so, wie die Vorschau es zeigt: die Vorschau mischt die Blockarten, der Bau nimmt jedoch immer den ersten gefundenen Blockstapel (Zweithand, dann Hotbar), bis er leer ist; erst dann kommt der nächste dran.",
             "Ohne die Verzauberung Berührung des Konstrukteurs auf dem Stab öffnet sich das Einstellungsmenü nicht. Ein Stab ohne gespeicherte Einstellungen baut mit dem Stufenmaximum und automatischer Achse; einmal gespeicherte SettingsRadius/SettingsAxis bleiben aber auch ohne die Verzauberung wirksam, weil inventoryTick sie unabhängig davon liest.",
-            "Netherit- und Enderit-Baustab sind feuerfest registriert (ModItems#netheriteTraits), wie Enderit-Werkzeuge und -Rüstung; die unteren Stufen verbrennen.",
+            "Der Enderit-Stab ist nicht feuerfest registriert (registerBuildingWand setzt kein fireResistant), anders als Enderit-Werkzeuge und -Rüstung.",
             "Die Tooltip-Texte 'Platziert eine %s x %s Fläche.', 'Platziert eine Linie von %s Blöcken.' und 'Benutzen, um mehrere Blöcke gleichzeitig zu platzieren.' liegen in der Sprachdatei, aber kein Code (kein appendHoverText, keine Referenz auf die Keys) zeigt sie am Gegenstand an.",
             "Der Achsen-Text 'Face (Auto)' im Menü ist fest auf Englisch hinterlegt und wird nicht übersetzt.",
             "Blöcke werden immer in ihrem Standardzustand gesetzt (defaultBlockState): Treppen, Stämme und andere ausgerichtete Blöcke erhalten keine Ausrichtung nach Klick oder Blickrichtung; die beim Klick gespeicherte Trefferposition (HitX/HitY/HitZ) wird nie ausgewertet.",
@@ -9029,8 +8936,8 @@ window.WIKI_DATA = {
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (its own recipe type simplebuilding:count_based_smithing): Copper Chisel + 2 Iron Ingots -> Iron Chisel, Iron Chisel + 2 Gold Ingots -> Gold Chisel, Gold Chisel + 2 Diamonds -> Diamond Chisel; the components of the old chisel (damage, name, enchantments) are copied onto the result, and taking the result uses up both ingots (or both diamonds), not just one.",
             "Creative tab \"Building Items\" (\"SimpleBuilding Items\" in German): the icon is the Iron Chisel, and all seven chisels are listed.",
-            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 15, Diamond Chisel 12, Constructor's Touch I book 3, Fast Chiseling II book 2, empty 50; igloo chest (0-1 roll) with Diamond Chisel 10, Constructor's Touch I book 3, Fast Chiseling I book 2, empty 5; Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 15), abandoned mineshafts (I, 2) and in the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2).",
-            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.3.",
+            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 10, Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling II book 2, 2-6 Diamond Pebbles 10, empty 30; igloo chest (0-1 roll) with Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling I book 3, empty 8; a plain Copper Chisel in pillager outposts (weight 4) and a Gold Chisel in ruined portals (weight 3); Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 10), abandoned mineshafts (I, 2), the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2) and fishing treasure (I, 3).",
+            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.2.",
             "Versatility: when the enchantment swaps tools automatically, the chisel has the lowest priority (bonus 0, against 2000 for sledgehammers, 1000 for pickaxe/axe/shovel and 500 for any other suitable tool).",
             "The Enderite Chisel is void protected (tag simplebuilding:void_protected): below the world's minimum height a dropped one floats without gravity, and as soon as it is more than 10 blocks below the minimum height it is reset to minimum height + 5.",
             "Automated game tests cover the Stone Chisel's forward step (Stone -> Chiseled Stone Bricks), the Stone Spatula's backward step (Chiseled Stone Bricks -> Stone) and the tier gating (the Stone Chisel leaves polished deepslate alone, the Diamond Chisel turns it into Chiseled Deepslate)."
@@ -9055,7 +8962,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
+            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -9091,8 +8998,8 @@ window.WIKI_DATA = {
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
             "Aufwertung am Schmiedetisch mit der Basis-Upgrade-Vorlage (eigener Rezepttyp simplebuilding:count_based_smithing): Kupfermeißel + 2 Eisenbarren → Eisenmeißel, Eisenmeißel + 2 Goldbarren → Goldmeißel, Goldmeißel + 2 Diamanten → Diamantmeißel; die Komponenten des alten Meißels (Schaden, Name, Verzauberungen) werden auf das Ergebnis kopiert, und beim Entnehmen werden die 2 Zutaten verbraucht.",
             "Kreativ-Tab „SimpleBuilding Items“ (englisch „Building Items“): Das Symbol ist der Eisenmeißel, alle sieben Meißel sind gelistet.",
-            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 15, Diamantmeißel 12, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, leer 50; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 10, Buch Berührung I 3, Buch Schnelles Meißeln I 2, leer 5; Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 15), verlassenen Minenschacht (I, 2) und in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 1; Berührung I, 2).",
-            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,3.",
+            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 10, Diamantmeißel 6, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, 2–6 Diamantkiesel 10, leer 30; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 6, Buch Berührung I 3, Buch Schnelles Meißeln I 3, leer 8; ein unverzauberter Kupfermeißel in Plünderer-Außenposten (Gewicht 4) und ein Goldmeißel in Portalruinen (Gewicht 3); Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 10), verlassenen Minenschacht (I, 2), in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 2; Berührung I, 3) und im Angel-Schatz (I, 3).",
+            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,2.",
             "Vielseitigkeit: Beim automatischen Werkzeugwechsel hat der Meißel die niedrigste Priorität (Bonus 0 gegenüber 2000 für Vorschlaghämmer, 1000 für Spitzhacke/Axt/Schaufel und 500 für sonstige geeignete Werkzeuge).",
             "Der Enderit-Meißel ist void-geschützt (Tag simplebuilding:void_protected): Unterhalb der Mindesthöhe der Welt schwebt er ohne Schwerkraft und wird, sobald er mehr als 10 Blöcke unter der Mindesthöhe liegt, auf Mindesthöhe + 5 zurückgesetzt.",
             "Automatisierte Spieltests prüfen den Vorwärtsschritt des Steinmeißels (Stein → Gemeißelte Steinziegel), den Rückwärtsschritt mit dem Steinspatel (Gemeißelte Steinziegel → Stein) sowie die Stufenbeschränkung (der Steinmeißel lässt polierten Tiefenschiefer unverändert, der Diamantmeißel wandelt ihn in gemeißelten Tiefenschiefer)."
@@ -9117,7 +9024,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
+            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -9679,8 +9586,8 @@ window.WIKI_DATA = {
             "Crafting in the crafting table (pattern BMM / .S. / .S.): a block (B) top left, twice the material (M) next to it, two sticks centred below. Stone: iron ingot + 2 cobblestone; Copper: copper block + 2 copper ingots; Iron: iron block + 2 iron ingots; Gold: gold block + 2 gold ingots; Diamond: diamond block + 2 diamonds.",
             "Netherite Sledgehammer: smithing table with a netherite upgrade smithing template, the Diamond Sledgehammer and a netherite ingot. Enderite Sledgehammer: smithing table with the Enderite Upgrade Template, the Netherite Sledgehammer and an Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (recipe type simplebuilding:count_based_smithing): copper to iron with 12 iron ingots, iron to gold with 12 gold ingots, gold to diamond with 12 diamonds; at least 12 have to sit in the slot and exactly 12 are used up; all components of the old hammer (enchantments, damage, name) carry over.",
-            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 20, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in bastions (treasure and other chests, two entries with weights 6 and 8).",
-            "Enchanted books: Override II in end cities (weight 10), Radius I in ancient cities (weight 4), Break Through I in bastions (8), nether fortresses (2) and dungeons (10).",
+            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 8, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in every bastion chest (weight 6).",
+            "Enchanted books: Override II in end cities (weight 5), Radius I in ancient cities (weight 4), Break Through I in bastions (5), nether fortresses (2) and dungeons (8), Break Through II in the bastion treasure room (3).",
             "Toolsmith level 4 (with the setting enableVillagerTrades on): Iron Sledgehammer for 16 emeralds + 1 iron pickaxe, Diamond Sledgehammer for 28 emeralds + 1 diamond pickaxe; 1 use each, 30 experience; simplebuilding:weighted_enchant gives the hammer one enchantment from a weighted pool (Break Through I weight 5, Override I 15, Range I 10, Unbreaking II 50, Efficiency III 50), with a 0.01 (iron) or 0.15 (diamond) chance of a second, different enchantment from the same pool.",
             "Only the Enderite Sledgehammer is in the void_protected tag (the tag is generated from the name prefix enderite_); the other six tiers are not protected against the void."
           ],
@@ -9707,7 +9614,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
+            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -9768,8 +9675,8 @@ window.WIKI_DATA = {
             "Herstellung in der Werkbank (Muster BMM / .S. / .S.): oben links ein Block (B), daneben zweimal Material (M), darunter zwei Stöcke mittig. Stein: Eisenbarren + 2 Bruchstein; Kupfer: Kupferblock + 2 Kupferbarren; Eisen: Eisenblock + 2 Eisenbarren; Gold: Goldblock + 2 Goldbarren; Diamant: Diamantblock + 2 Diamanten.",
             "Netherit-Vorschlaghammer: Schmiedetisch mit Netherit-Schmiedevorlage, Diamant-Vorschlaghammer und Netheritbarren. Enderite Sledgehammer: Schmiedetisch mit Enderite Upgrade Template, Netherit-Vorschlaghammer und Enderite Ingot.",
             "Aufwerten im Schmiedetisch mit Basis-Upgrade-Vorlage (Rezepttyp simplebuilding:count_based_smithing): Kupfer zu Eisen mit 12 Eisenbarren, Eisen zu Gold mit 12 Goldbarren, Gold zu Diamant mit 12 Diamanten; es müssen mindestens 12 im Slot liegen, genau 12 werden verbraucht; alle Komponenten des alten Hammers (Verzauberungen, Schaden, Name) werden übernommen.",
-            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 20, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in Bastionen (Schatz- und sonstige Truhen, zwei Einträge mit Gewichten 6 und 8).",
-            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 10), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (8), Netherfestungen (2) und Verliesen (10).",
+            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 8, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in jeder Bastion-Truhe (Gewicht 6).",
+            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 5), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (5), Netherfestungen (2) und Verliesen (8), Durchbruch II im Bastion-Schatzraum (3).",
             "Werkzeugschmied Stufe 4 (bei aktivierter Einstellung enableVillagerTrades): Eisen-Vorschlaghammer für 16 Smaragde + 1 Eisenspitzhacke, Diamant-Vorschlaghammer für 28 Smaragde + 1 Diamantspitzhacke; je 1 Nutzung, 30 Erfahrung; der Hammer bekommt über simplebuilding:weighted_enchant eine Verzauberung aus einem gewichteten Pool (Durchbruch I Gewicht 5, Übersteuerung I 15, Reichweite I 10, Haltbarkeit II 50, Effizienz III 50) mit Zweitchance 0,01 (Eisen) bzw. 0,15 (Diamant).",
             "Nur der Enderite Sledgehammer steht im Tag void_protected (der Tag wird aus dem Namenspräfix enderite_ erzeugt); die anderen sechs Stufen sind nicht gegen den Void geschützt."
           ],
@@ -9794,7 +9701,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
+            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -10004,44 +9911,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:nihilith_quartz_checker",
-      "name": {
-        "en_us": "Nihilith Quartz Checker",
-        "de_de": "Nihilith-Quarz-Schachbrett"
-      },
-      "texture": "assets/textures/block/nihilith_quartz_checker.png",
-      "craftedBy": [
-        "simplebuilding:nihilith_quartz_checker"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "tools/textures/generate_textures.py"
-        ],
-        "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
-          "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
-            "The Astralit Quartz Checker glows with light level 5."
-          ]
-        },
-        "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
-          "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
-            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:nihilith_shard",
       "name": {
         "en_us": "Nihilith Shard",
@@ -10052,7 +9921,6 @@ window.WIKI_DATA = {
       "usedIn": [
         "simplebuilding:nihil_end_stone",
         "simplebuilding:nihil_purpur_block",
-        "simplebuilding:nihilith_quartz_checker",
         "simplebuilding:raw_enderite_synthesis",
         "simplebuilding:suspended_gravel",
         "simplebuilding:suspended_sand"
@@ -10130,7 +9998,7 @@ window.WIKI_DATA = {
             "Constructor's Touch on the octant: unlocks the area figure (see above); it also gives the octant the aqua HUD label that every enchanted octant gets.",
             "Range on the octant: the enchantment carries an attribute effect on minecraft:block_interaction_range (+2 at level I, +6 at II, +10 at III; base 2, +4 per further level) for the main hand. That lets you set corners from further away; in the off hand it does nothing.",
             "Trading (only with the config switch \"enableWanderingTrades\" on): the wandering trader sells 1 octant for 10 emeralds (1 use, 15 XP, pool \"uncommon\") and buys 1 octant for 8 emeralds (3 uses, 5 XP, pool \"buying\"); both offers with reputation discount 0.1.",
-            "Loot (only with the config switch \"enableLootTableChanges\" on): ancient city (weight 6, randomly enchanted, 0 to 3 rolls), nether fortress (weight 3, randomly enchanted, 0 to 2 rolls), pillager outpost (weight 4, unenchanted, 1 to 3 rolls).",
+            "Loot (only with the config switch \"enableLootTableChanges\" on): ancient city (weight 5, randomly enchanted, 0 to 2 rolls), nether fortress (weight 3, randomly enchanted, 0 to 2 rolls), pillager outpost (weight 5, unenchanted, 0 to 2 rolls).",
             "Creative inventory: in the mod tab \"Building Items\" directly after the sledgehammers, followed by the 16 dyed octants."
           ],
           "controls": [
@@ -10193,7 +10061,7 @@ window.WIKI_DATA = {
             "Berührung des Konstrukteurs auf dem Oktanten: schaltet die Flächenfigur frei (siehe oben); außerdem bekommt der Oktant dadurch das türkise HUD-Label wie jeder verzauberte Oktant.",
             "Reichweite auf dem Oktanten: Die Verzauberung trägt einen Attribut-Effekt auf minecraft:block_interaction_range (+2 auf Stufe I, +6 auf Stufe II, +10 auf Stufe III; Basis 2, +4 je weiterer Stufe) für die Haupthand. Damit lassen sich Eckpunkte aus größerer Entfernung setzen; in der Nebenhand wirkt sie nicht.",
             "Handel (nur bei aktivem Config-Schalter \"enableWanderingTrades\"): Der fahrende Händler verkauft 1 Oktant für 10 Smaragde (1 Verwendung, 15 XP, Pool \"uncommon\") und kauft 1 Oktant für 8 Smaragde (3 Verwendungen, 5 XP, Pool \"buying\"); beide Angebote mit Rufrabatt 0,1.",
-            "Beute (nur bei aktivem Config-Schalter \"enableLootTableChanges\"): Antike Stadt (Gewicht 6, zufällig verzaubert, 0 bis 3 Würfe), Netherfestung (Gewicht 3, zufällig verzaubert, 0 bis 2 Würfe), Plünderer-Außenposten (Gewicht 4, unverzaubert, 1 bis 3 Würfe).",
+            "Beute (nur bei aktivem Config-Schalter \"enableLootTableChanges\"): Antike Stadt (Gewicht 5, zufällig verzaubert, 0 bis 2 Würfe), Netherfestung (Gewicht 3, zufällig verzaubert, 0 bis 2 Würfe), Plünderer-Außenposten (Gewicht 5, unverzaubert, 0 bis 2 Würfe).",
             "Kreativinventar: im Mod-Tab \"SimpleBuilding Items\" direkt nach den Vorschlaghämmern, gefolgt von den 16 gefärbten Oktanten."
           ],
           "controls": [
@@ -10634,7 +10502,7 @@ window.WIKI_DATA = {
             "The tooltip shows \"Mode: <mode>\", in Custom mode \"Target: <block name>\" (green) or \"Target: None (Sneak-Use on block)\" (red), in every other mode \"Sneak + Use to cycle modes\" (dark gray), then a blank line, \"Power: <scan power>\" (dark aqua) and \"Penetrates dense blocks slower.\" (gray).",
             "Can be enchanted with Constructor's Touch (max level I, anvil cost 1, min cost 20, max cost 50, weight 1) through the tag simplebuilding:constructors_touch_enchantable; the enchantment file contains no effect components, the detector reads the enchantment straight off the item stack in Java (EnchantmentHelper.hasEnchantment), which is why it also works in the off hand.",
             "It is also in the vanilla tag minecraft:enchantable/durability, the tag for durability enchantments; the item settings carry enchantable(15), so the enchanting table accepts the detector as well.",
-            "Books with Constructor's Touch I are placed by loot table modification into buried treasure (weight 3, 0 to 2 rolls), igloo chests (weight 3, 0 to 1 roll) and the common and rare vaults of the trial chambers (weight 2, 0 to 1 roll); that only applies as long as the config option worldGen.enableLootTableChanges (default: true) is on.",
+            "Books with Constructor's Touch I are placed by loot table modification into buried treasure (weight 3, 0 to 2 rolls), igloo chests (weight 3, 0 to 1 roll), the common and rare vaults of the trial chambers (weight 3, 0 to 1 roll) and the fishing treasure (weight 2, one extra roll per treasure catch); that only applies as long as the config option worldGen.enableLootTableChanges (default: true) is on.",
             "A gametest (item_behaviour_game_test_ore_detector_cycles_modes_and_learns_acustom_block) checks that the mode switch wraps around and that calibrating stores a diamond ore block as CustomBlock.",
             "The build for Minecraft 1.21.11 behaves identically; it differs only in the internal game interfaces it uses (BlockTags instead of BlockItemTags, displayClientMessage instead of sendOverlayMessage)."
           ],
@@ -10692,7 +10560,7 @@ window.WIKI_DATA = {
             "Der Tooltip zeigt \"Mode: <Modus>\", im Modus Custom \"Target: <Blockname>\" (grün) oder \"Target: None (Sneak-Use on block)\" (rot), in allen anderen Modi \"Sneak + Use to cycle modes\" (dunkelgrau), dann eine Leerzeile, \"Power: <Suchleistung>\" (dunkeltürkis) und \"Penetrates dense blocks slower.\" (grau).",
             "Kann mit Berührung des Konstrukteurs verzaubert werden (Höchststufe I, Amboss-Kosten 1, Mindestkosten 20, Höchstkosten 50, Gewicht 1) über den Tag simplebuilding:constructors_touch_enchantable; die Verzauberungsdatei enthält keine Effekt-Komponenten, der Detektor liest die Verzauberung direkt in Java vom Item-Stack (EnchantmentHelper.hasEnchantment), daher wirkt sie auch in der Nebenhand.",
             "Steht zudem im Vanilla-Tag minecraft:enchantable/durability, dem Tag für Haltbarkeits-Verzauberungen; die Item-Einstellungen setzen enchantable(15), sodass auch der Verzauberungstisch den Detektor annimmt.",
-            "Bücher mit Berührung des Konstrukteurs I werden per Beutetabellen-Anpassung in vergrabene Schätze (Gewicht 3, 0 bis 2 Würfe), Iglu-Truhen (Gewicht 3, 0 bis 1 Wurf) und die gewöhnlichen und seltenen Tresore der Prüfungskammern (Gewicht 2, 0 bis 1 Wurf) gelegt; das gilt nur, solange die Konfigurationsoption worldGen.enableLootTableChanges (Standard: true) aktiv ist.",
+            "Bücher mit Berührung des Konstrukteurs I werden per Beutetabellen-Anpassung in vergrabene Schätze (Gewicht 3, 0 bis 2 Würfe), Iglu-Truhen (Gewicht 3, 0 bis 1 Wurf), die gewöhnlichen und seltenen Tresore der Prüfungskammern (Gewicht 3, 0 bis 1 Wurf) und den Angel-Schatz (Gewicht 2, ein zusätzlicher Wurf je Schatzfang) gelegt; das gilt nur, solange die Konfigurationsoption worldGen.enableLootTableChanges (Standard: true) aktiv ist.",
             "Ein Spieltest (item_behaviour_game_test_ore_detector_cycles_modes_and_learns_acustom_block) prüft, dass der Moduswechsel im Kreis läuft und das Kalibrieren einen Diamanterz-Block als CustomBlock speichert.",
             "Die Fassung für Minecraft 1.21.11 verhält sich identisch; sie unterscheidet sich nur in den intern verwendeten Spiel-Schnittstellen (BlockTags statt BlockItemTags, displayClientMessage statt sendOverlayMessage)."
           ],
@@ -10770,30 +10638,6 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "tools/textures/generate_textures.py"
-        ],
-        "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
-          "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
-            "The Astralit Quartz Checker glows with light level 5."
-          ]
-        },
-        "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
-          "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
-            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -10840,7 +10684,7 @@ window.WIKI_DATA = {
             "Funnel: arrows on the ground are vacuumed into the quiver server-side when the player touches them (ItemEntity.playerTouch), but not while the player is sneaking. Level 1 only picks up types already in the quiver (same item including components, e.g. the same potion on Tipped Arrows - an empty quiver picks up nothing at level 1); level 2 picks up all arrows. Quivers in both hands are checked first, then all inventory slots, the latter only once the item's pickup delay (pickupDelay) has run out to 0.",
             "Constructor's Touch: quivers in slots 9 and up (the main inventory) supply the bow as well.",
             "The quiver itself can be put inside container items (canFitInsideContainerItems returns true).",
-            "Loot (only with the config option worldGen.enableLootTableChanges on, default: on): Ancient City chests (weight 3, randomly enchanted), Pillager Outpost (weight 4) and Woodland Mansion (weight 3).",
+            "Loot (only with the config option worldGen.enableLootTableChanges on, default: on): Ancient City chests (weight 3, randomly enchanted), Pillager Outpost (weight 5) and Woodland Mansion (weight 3).",
             "The mod's creative tab (itemgroup.simplebuilding.building_items, \"Building Items\" in English): in the Storage section, directly after the three bundles."
           ],
           "controls": [
@@ -10883,7 +10727,7 @@ window.WIKI_DATA = {
             "Trichter: Pfeile vom Boden werden beim Berühren (ItemEntity.playerTouch) serverseitig automatisch in den Köcher gesaugt, aber nicht, während der Spieler schleicht. Stufe 1 nimmt nur Sorten auf, die bereits im Köcher liegen (gleicher Gegenstand samt Komponenten, z. B. gleicher Trank bei getränkten Pfeilen; ein leerer Köcher saugt mit Stufe 1 nichts); Stufe 2 nimmt alle Pfeile. Zuerst werden Köcher in beiden Händen geprüft, dann alle Inventar-Slots, letztere erst wenn die Aufhebe-Verzögerung (pickupDelay) des Gegenstands 0 ist.",
             "Berührung des Konstrukteurs: Köcher in den Slots ab 9 (Hauptinventar) versorgen den Bogen ebenfalls.",
             "Der Köcher kann selbst in Behälter-Gegenstände gesteckt werden (canFitInsideContainerItems liefert true).",
-            "Loot (nur bei eingeschalteter Config-Option worldGen.enableLootTableChanges, Standard: an): Truhen der Antiken Stadt (Gewicht 3, zufällig verzaubert), des Plünderer-Außenpostens (Gewicht 4) und des Waldanwesens (Gewicht 3).",
+            "Loot (nur bei eingeschalteter Config-Option worldGen.enableLootTableChanges, Standard: an): Truhen der Antiken Stadt (Gewicht 3, zufällig verzaubert), des Plünderer-Außenpostens (Gewicht 5) und des Waldanwesens (Gewicht 3).",
             "Kreativ-Tab der Mod (itemgroup.simplebuilding.building_items, deutsch \"SimpleBuilding Items\"): im Abschnitt Storage direkt hinter den drei Bündeln."
           ],
           "controls": [
@@ -11055,8 +10899,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -11105,8 +10949,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -11273,7 +11117,7 @@ window.WIKI_DATA = {
             "With Master Builder the Pick Block key fetches a targeted block (or the pick result of a targeted entity) out of a Master Builder bundle in your inventory and into your hand, as long as that item is not already somewhere in the inventory: the whole stack moves out of the bundle into the selected hotbar slot, and anything already in that slot is moved to a free slot; with no free slot nothing happens. Only the item type is compared, not the components. Does not work in Creative mode.",
             "Building wands may use blocks out of a bundle in the inventory as building material if either the wand or the bundle carries Master Builder.",
             "Color Palette (level I, only together with Master Builder): when you place by right-click, a random entry of the bundle is used as the block. The anvil refuses any result that carries Color Palette without Master Builder.",
-            "Chest loot (only with the enableLootTableChanges option on): dungeon chests (weight 10), shipwreck treasure chests (weight 8) and abandoned mineshaft chests (weight 10, with a vanilla random enchantment).",
+            "Chest loot (only with the enableLootTableChanges option on): dungeon chests (weight 8), shipwreck treasure chests (weight 8) and abandoned mineshaft chests (weight 6, with a vanilla random enchantment).",
             "Trades (only with the enableWanderingTrades option on, condition simplebuilding:config): the wandering trader sells a Reinforced Bundle for 16 emeralds (uncommon pool) and buys one for 12 emeralds (buying pool), each only once per trader.",
             "Books for the bundle enchantments in loot chests: Deep Pockets II in ancient cities; Funnel I in bastions, nether fortresses and dungeons; Master Builder I in stronghold libraries, end city treasure and trial chamber vaults (rare and ominous); Color Palette I in pillager outposts and woodland mansions.",
             "Books from the librarian (only with the enableVillagerTrades option on): the tier 3 book for 25 emeralds can carry Color Palette (a pool shared with Fast Chiseling and Linear); the tier 5 book for 25 emeralds can carry Master Builder or Funnel (a pool shared with Range, Strip Miner and Vein Miner).",
@@ -11325,7 +11169,7 @@ window.WIKI_DATA = {
             "Mit Baumeister holt die Taste Block auswählen (Vanilla-Pick-Block) einen anvisierten Block (bzw. das Pick-Ergebnis eines anvisierten Wesens) aus einem Baumeister-Bündel im Inventar in die Hand, wenn dieser Gegenstand nicht schon im Inventar liegt: der gesamte Stapel aus dem Bündel wandert in den aktiven Hotbar-Slot; ein dort liegender Gegenstand wird in einen freien Slot verschoben; ohne freien Slot passiert nichts. Verglichen wird nur der Gegenstandstyp, nicht die Komponenten. Funktioniert nicht im Kreativmodus.",
             "Baustäbe dürfen Blöcke aus einem Bündel im Inventar als Baumaterial verwenden, wenn der Baustab oder das Bündel Baumeister trägt.",
             "Verzauberung Farbpalette (Stufe I, nur zusammen mit Baumeister): Beim Platzieren per Rechtsklick wird ein zufälliger Eintrag des Bündels als Block genommen. Der Amboss verweigert ein Ergebnis, das Farbpalette ohne Baumeister trägt.",
-            "Fundorte (nur bei aktiver Option enableLootTableChanges): Truhen in Verliesen (Gewicht 10), Schiffswrack-Schatztruhen (Gewicht 8) und verlassenen Minen (Gewicht 10, mit einer Vanilla-Zufallsverzauberung).",
+            "Fundorte (nur bei aktiver Option enableLootTableChanges): Truhen in Verliesen (Gewicht 8), Schiffswrack-Schatztruhen (Gewicht 8) und verlassenen Minen (Gewicht 6, mit einer Vanilla-Zufallsverzauberung).",
             "Handel (nur bei aktiver Option enableWanderingTrades, Bedingung simplebuilding:config): Der fahrende Händler verkauft ein Verstärktes Bündel für 16 Smaragde (Pool uncommon) und kauft eines für 12 Smaragde (Pool buying), jeweils nur 1 Mal pro Händler.",
             "Bücher der Bündel-Verzauberungen in Beutetruhen: Tiefe Taschen II in Antiken Stätten; Trichter I in Bastionen, Netherfestungen und Verliesen; Baumeister I in Festungsbibliotheken, Endsiedlungen und Prüfungskammer-Tresoren (rare und ominous); Farbpalette I in Plünderer-Außenposten und Waldanwesen.",
             "Bücher beim Bibliothekar (nur bei aktiver Option enableVillagerTrades): Stufe-3-Buch für 25 Smaragde kann Farbpalette enthalten (Pool mit Schnelles Meißeln und Linear); Stufe-5-Buch für 25 Smaragde kann Baumeister oder Trichter enthalten (Pool mit Reichweite, Streckenschürfer, Adernschürfer).",
@@ -11982,30 +11826,6 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "tools/textures/generate_textures.py"
-        ],
-        "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
-          "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
-            "The Astralit Quartz Checker glows with light level 5."
-          ]
-        },
-        "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
-          "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
-            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -12184,8 +12004,8 @@ window.WIKI_DATA = {
             "Netherite Chisel: smithing table (minecraft:smithing_transform) with the Netherite Upgrade Smithing Template + Diamond Chisel + Netherite Ingot; Enderite Chisel: smithing table with the Enderite Upgrade Template + Netherite Chisel + Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (its own recipe type simplebuilding:count_based_smithing): Copper Chisel + 2 Iron Ingots -> Iron Chisel, Iron Chisel + 2 Gold Ingots -> Gold Chisel, Gold Chisel + 2 Diamonds -> Diamond Chisel; the components of the old chisel (damage, name, enchantments) are copied onto the result, and taking the result uses up both ingots (or both diamonds), not just one.",
             "Creative tab \"Building Items\" (\"SimpleBuilding Items\" in German): the icon is the Iron Chisel, and all seven chisels are listed.",
-            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 15, Diamond Chisel 12, Constructor's Touch I book 3, Fast Chiseling II book 2, empty 50; igloo chest (0-1 roll) with Diamond Chisel 10, Constructor's Touch I book 3, Fast Chiseling I book 2, empty 5; Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 15), abandoned mineshafts (I, 2) and in the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2).",
-            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.3.",
+            "Loot (only with the \"enableLootTableChanges\" option on): buried treasure (0-2 rolls) with Gold Chisel weight 10, Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling II book 2, 2-6 Diamond Pebbles 10, empty 30; igloo chest (0-1 roll) with Diamond Chisel 6, Constructor's Touch I book 3, Fast Chiseling I book 3, empty 8; a plain Copper Chisel in pillager outposts (weight 4) and a Gold Chisel in ruined portals (weight 3); Fast Chiseling books also appear in dungeons (level I, weight 5), shipwreck treasure (I, 10), abandoned mineshafts (I, 2), the common/rare trial chamber rewards (II, 1; Constructor's Touch I, 2) and fishing treasure (I, 3).",
+            "Trading (only with the \"enableVillagerTrades\" option on): from trade level 3 the toolsmith sells a Copper, Iron or Gold Chisel for 6 emeralds, always enchanted with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases, 10 XP, discount factor 0.2; from level 3 the librarian sells a book with Color Palette I (30), Fast Chiseling I (30) or Linear I (25) for 25 emeralds, at most 3 purchases, 15 XP, discount factor 0.2.",
             "Versatility: when the enchantment swaps tools automatically, the chisel has the lowest priority (bonus 0, against 2000 for sledgehammers, 1000 for pickaxe/axe/shovel and 500 for any other suitable tool).",
             "The Enderite Chisel is void protected (tag simplebuilding:void_protected): below the world's minimum height a dropped one floats without gravity, and as soon as it is more than 10 blocks below the minimum height it is reset to minimum height + 5.",
             "Automated game tests cover the Stone Chisel's forward step (Stone -> Chiseled Stone Bricks), the Stone Spatula's backward step (Chiseled Stone Bricks -> Stone) and the tier gating (the Stone Chisel leaves polished deepslate alone, the Diamond Chisel turns it into Chiseled Deepslate)."
@@ -12210,7 +12030,7 @@ window.WIKI_DATA = {
           "caveats": [
             "The tooltip strings \"Use to shape blocks.\" and \"Right-click on a transformable block. Sneak to reverse.\" are present in the language files, but no code displays them; the only tooltip line that comes from code is \"Last Target: x, y, z\" after the first use.",
             "No repair ingredient is set (registration only sets durability and enchantability), so repairing with ingots or diamonds in an anvil is not provided for.",
-            "The Netherite Chisel and Enderite Chisel are fire resistant (ModItems#netheriteTraits), like the Enderite Sword, Pickaxe, armor and Ingot; the lower tiers burn.",
+            "The Netherite Chisel and Enderite Chisel are not fireproof (no such flag at registration), unlike the Enderite Sword, Pickaxe, armor and Ingot, for example.",
             "Chisels are not in the tag \"minecraft:enchantable/mining\" (the mod only puts sledgehammers there); Efficiency is therefore not provided for, and the mining bonus comes from Fast Chiseling alone.",
             "A few entries map a block to itself: Mud Brick Stairs/Slab, End Stone Brick Stairs/Slab, Purpur Stairs/Slab and Cut Copper Stairs/Slab (each with Constructor's Touch) as well as Nether Brick Stairs/Slab and Resin Brick Stairs/Slab (netherite tier). The chisel still spends durability, starts the cooldown and plays the sound and particles; on stairs only the orientation changes, on slabs nothing visible happens.",
             "The orientation of stairs and pillars is not carried over but recomputed from the click position - even stripping a log can change its axis.",
@@ -12246,8 +12066,8 @@ window.WIKI_DATA = {
             "Netheritmeißel: Schmiedetisch (minecraft:smithing_transform) mit Netherit-Aufwertungs-Schmiedevorlage + Diamantmeißel + Netheritbarren; Enderit-Meißel: Schmiedetisch mit der Enderit-Aufwertungsvorlage („Enderite Upgrade Template“) + Netheritmeißel + Enderitbarren („Enderite Ingot“).",
             "Aufwertung am Schmiedetisch mit der Basis-Upgrade-Vorlage (eigener Rezepttyp simplebuilding:count_based_smithing): Kupfermeißel + 2 Eisenbarren → Eisenmeißel, Eisenmeißel + 2 Goldbarren → Goldmeißel, Goldmeißel + 2 Diamanten → Diamantmeißel; die Komponenten des alten Meißels (Schaden, Name, Verzauberungen) werden auf das Ergebnis kopiert, und beim Entnehmen werden die 2 Zutaten verbraucht.",
             "Kreativ-Tab „SimpleBuilding Items“ (englisch „Building Items“): Das Symbol ist der Eisenmeißel, alle sieben Meißel sind gelistet.",
-            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 15, Diamantmeißel 12, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, leer 50; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 10, Buch Berührung I 3, Buch Schnelles Meißeln I 2, leer 5; Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 15), verlassenen Minenschacht (I, 2) und in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 1; Berührung I, 2).",
-            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,3.",
+            "Loot (nur bei aktivierter Option „enableLootTableChanges“): Vergrabener Schatz (0–2 Züge) mit Goldmeißel Gewicht 10, Diamantmeißel 6, Buch Berührung des Konstrukteurs I 3, Buch Schnelles Meißeln II 2, 2–6 Diamantkiesel 10, leer 30; Iglu-Truhe (0–1 Zug) mit Diamantmeißel 6, Buch Berührung I 3, Buch Schnelles Meißeln I 3, leer 8; ein unverzauberter Kupfermeißel in Plünderer-Außenposten (Gewicht 4) und ein Goldmeißel in Portalruinen (Gewicht 3); Bücher Schnelles Meißeln außerdem im Verlies (Stufe I, Gewicht 5), Schiffswrack-Schatz (I, 10), verlassenen Minenschacht (I, 2), in den Prüfungskammer-Belohnungen gewöhnlich/selten (II, 2; Berührung I, 3) und im Angel-Schatz (I, 3).",
+            "Handel (nur bei aktivierter Option „enableVillagerTrades“): Der Werkzeugschmied verkauft ab Handelsstufe 3 Kupfer-, Eisen- oder Goldmeißel für 6 Smaragde, immer verzaubert mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), höchstens 2 Käufe, 10 EP, Rabattfaktor 0,2; der Bibliothekar verkauft ab Stufe 3 für 25 Smaragde ein Buch mit Farbpalette I (30), Schnelles Meißeln I (30) oder Linear I (25), höchstens 3 Käufe, 15 EP, Rabattfaktor 0,2.",
             "Vielseitigkeit: Beim automatischen Werkzeugwechsel hat der Meißel die niedrigste Priorität (Bonus 0 gegenüber 2000 für Vorschlaghämmer, 1000 für Spitzhacke/Axt/Schaufel und 500 für sonstige geeignete Werkzeuge).",
             "Der Enderit-Meißel ist void-geschützt (Tag simplebuilding:void_protected): Unterhalb der Mindesthöhe der Welt schwebt er ohne Schwerkraft und wird, sobald er mehr als 10 Blöcke unter der Mindesthöhe liegt, auf Mindesthöhe + 5 zurückgesetzt.",
             "Automatisierte Spieltests prüfen den Vorwärtsschritt des Steinmeißels (Stein → Gemeißelte Steinziegel), den Rückwärtsschritt mit dem Steinspatel (Gemeißelte Steinziegel → Stein) sowie die Stufenbeschränkung (der Steinmeißel lässt polierten Tiefenschiefer unverändert, der Diamantmeißel wandelt ihn in gemeißelten Tiefenschiefer)."
@@ -12272,7 +12092,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Die Tooltip-Texte „Benutzen, um Blöcke zu formen.“ und „Rechtsklick auf einen formbaren Block. Schleichen zum Umkehren.“ sind in den Sprachdateien hinterlegt, aber kein Code zeigt sie an; die einzige Tooltip-Zeile aus dem Code ist „Last Target: x, y, z“ nach der ersten Benutzung.",
             "Es ist keine Reparaturzutat hinterlegt (die Registrierung setzt nur Haltbarkeit und Verzauberbarkeit); eine Reparatur mit Barren oder Diamanten im Amboss ist damit nicht vorgesehen.",
-            "Netheritmeißel und Enderit-Meißel sind feuerfest (ModItems#netheriteTraits), wie Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren; die unteren Stufen verbrennen.",
+            "Netheritmeißel und Enderit-Meißel sind nicht feuerfest (kein entsprechendes Flag bei der Registrierung), anders als z. B. Enderit-Schwert, -Spitzhacke, -Rüstung und -Barren.",
             "Meißel stehen nicht im Tag „minecraft:enchantable/mining“ (der Mod trägt dort nur Vorschlaghämmer ein); Effizienz ist damit nicht vorgesehen, der Abbau-Bonus kommt allein aus Schnelles Meißeln.",
             "Einige Einträge bilden einen Block auf sich selbst ab: Schlammziegeltreppe/-stufe, Endsteinziegeltreppe/-stufe, Purpurtreppe/-stufe und Geschnittene Kupfertreppe/-stufe (jeweils mit Berührung des Konstrukteurs) sowie Netherziegeltreppe/-stufe und Harzziegeltreppe/-stufe (Netherit-Stufe). Der Meißel verbraucht dabei Haltbarkeit, löst die Abklingzeit aus und spielt Geräusch/Partikel; bei Treppen ändert sich nur die Ausrichtung, bei Stufen sichtbar nichts.",
             "Die Ausrichtung von Treppen und Säulen wird nicht übernommen, sondern aus der Klickposition neu bestimmt – auch beim Entrinden eines Stamms kann sich dessen Achse ändern.",
@@ -12412,8 +12232,8 @@ window.WIKI_DATA = {
             "Crafting in the crafting table (pattern BMM / .S. / .S.): a block (B) top left, twice the material (M) next to it, two sticks centred below. Stone: iron ingot + 2 cobblestone; Copper: copper block + 2 copper ingots; Iron: iron block + 2 iron ingots; Gold: gold block + 2 gold ingots; Diamond: diamond block + 2 diamonds.",
             "Netherite Sledgehammer: smithing table with a netherite upgrade smithing template, the Diamond Sledgehammer and a netherite ingot. Enderite Sledgehammer: smithing table with the Enderite Upgrade Template, the Netherite Sledgehammer and an Enderite Ingot.",
             "Upgrading at the smithing table with the Basic Upgrade Template (recipe type simplebuilding:count_based_smithing): copper to iron with 12 iron ingots, iron to gold with 12 gold ingots, gold to diamond with 12 diamonds; at least 12 have to sit in the slot and exactly 12 are used up; all components of the old hammer (enchantments, damage, name) carry over.",
-            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 20, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in bastions (treasure and other chests, two entries with weights 6 and 8).",
-            "Enchanted books: Override II in end cities (weight 10), Radius I in ancient cities (weight 4), Break Through I in bastions (8), nether fortresses (2) and dungeons (10).",
+            "Where they are found (with the setting enableLootTableChanges on): Diamond Sledgehammer in end city treasure chests (weight 8, randomly enchanted) and ancient cities (weight 3, unenchanted); Gold Sledgehammer in every bastion chest (weight 6).",
+            "Enchanted books: Override II in end cities (weight 5), Radius I in ancient cities (weight 4), Break Through I in bastions (5), nether fortresses (2) and dungeons (8), Break Through II in the bastion treasure room (3).",
             "Toolsmith level 4 (with the setting enableVillagerTrades on): Iron Sledgehammer for 16 emeralds + 1 iron pickaxe, Diamond Sledgehammer for 28 emeralds + 1 diamond pickaxe; 1 use each, 30 experience; simplebuilding:weighted_enchant gives the hammer one enchantment from a weighted pool (Break Through I weight 5, Override I 15, Range I 10, Unbreaking II 50, Efficiency III 50), with a 0.01 (iron) or 0.15 (diamond) chance of a second, different enchantment from the same pool.",
             "Only the Enderite Sledgehammer is in the void_protected tag (the tag is generated from the name prefix enderite_); the other six tiers are not protected against the void."
           ],
@@ -12440,7 +12260,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "No sledgehammer is in the minecraft:pickaxes tag (there is no pickaxes.json in the datagen); enchantments bound to that tag (Strip Miner via #minecraft:pickaxes, Vein Miner via veinmine_enchantable = #pickaxes + #axes) cannot be applied to it.",
-            "The Netherite and Enderite Sledgehammers are registered fire resistant (ModItems#netheriteTraits for every id starting with netherite_ or enderite_), like the enderite sword, pickaxe, axe, shovel and hoe; the lower tiers burn.",
+            "Unlike the enderite sword, pickaxe, axe, shovel and hoe, the Enderite Sledgehammer is not registered as fire resistant (registerSledgehammer never calls fireResistant()).",
             "The tooltip text tooltip.simplebuilding.sledgehammer (Use to break multiple blocks at once.) sits in the language file, but no code displays it on the item; it has no effect.",
             "Forward reshaping only finds the stairs under the exact name registry name plus _stairs in the same namespace; blocks whose stairs are named differently are not reshaped. Only the backward direction stairs to block also knows the name variants with s and _planks; slab to stairs likewise only looks up the base name plus _stairs.",
             "Forward reshaping from block to stairs only works on blocks with a full collision shape (isCollisionShapeFullBlock).",
@@ -12501,8 +12321,8 @@ window.WIKI_DATA = {
             "Herstellung in der Werkbank (Muster BMM / .S. / .S.): oben links ein Block (B), daneben zweimal Material (M), darunter zwei Stöcke mittig. Stein: Eisenbarren + 2 Bruchstein; Kupfer: Kupferblock + 2 Kupferbarren; Eisen: Eisenblock + 2 Eisenbarren; Gold: Goldblock + 2 Goldbarren; Diamant: Diamantblock + 2 Diamanten.",
             "Netherit-Vorschlaghammer: Schmiedetisch mit Netherit-Schmiedevorlage, Diamant-Vorschlaghammer und Netheritbarren. Enderite Sledgehammer: Schmiedetisch mit Enderite Upgrade Template, Netherit-Vorschlaghammer und Enderite Ingot.",
             "Aufwerten im Schmiedetisch mit Basis-Upgrade-Vorlage (Rezepttyp simplebuilding:count_based_smithing): Kupfer zu Eisen mit 12 Eisenbarren, Eisen zu Gold mit 12 Goldbarren, Gold zu Diamant mit 12 Diamanten; es müssen mindestens 12 im Slot liegen, genau 12 werden verbraucht; alle Komponenten des alten Hammers (Verzauberungen, Schaden, Name) werden übernommen.",
-            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 20, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in Bastionen (Schatz- und sonstige Truhen, zwei Einträge mit Gewichten 6 und 8).",
-            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 10), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (8), Netherfestungen (2) und Verliesen (10).",
+            "Fundorte (bei aktivierter Einstellung enableLootTableChanges): Diamant-Vorschlaghammer in Endsiedlungs-Schatztruhen (Gewicht 8, zufällig verzaubert) und Antiken Stätten (Gewicht 3, unverzaubert); Gold-Vorschlaghammer in jeder Bastion-Truhe (Gewicht 6).",
+            "Verzauberte Bücher: Übersteuerung II in Endsiedlungen (Gewicht 5), Radius I in Antiken Stätten (Gewicht 4), Durchbruch I in Bastionen (5), Netherfestungen (2) und Verliesen (8), Durchbruch II im Bastion-Schatzraum (3).",
             "Werkzeugschmied Stufe 4 (bei aktivierter Einstellung enableVillagerTrades): Eisen-Vorschlaghammer für 16 Smaragde + 1 Eisenspitzhacke, Diamant-Vorschlaghammer für 28 Smaragde + 1 Diamantspitzhacke; je 1 Nutzung, 30 Erfahrung; der Hammer bekommt über simplebuilding:weighted_enchant eine Verzauberung aus einem gewichteten Pool (Durchbruch I Gewicht 5, Übersteuerung I 15, Reichweite I 10, Haltbarkeit II 50, Effizienz III 50) mit Zweitchance 0,01 (Eisen) bzw. 0,15 (Diamant).",
             "Nur der Enderite Sledgehammer steht im Tag void_protected (der Tag wird aus dem Namenspräfix enderite_ erzeugt); die anderen sechs Stufen sind nicht gegen den Void geschützt."
           ],
@@ -12527,7 +12347,7 @@ window.WIKI_DATA = {
           ],
           "caveats": [
             "Kein Vorschlaghammer steht im Tag minecraft:pickaxes (keine pickaxes.json im Datagen); Verzauberungen, die an diesen Tag gebunden sind (Streifenschürfer über #minecraft:pickaxes, Adernschürfer über veinmine_enchantable = #pickaxes + #axes), sind auf ihn nicht anwendbar.",
-            "Netherit- und Enderit-Vorschlaghammer sind feuerfest registriert (ModItems#netheriteTraits für jede Kennung, die mit netherite_ oder enderite_ beginnt), wie Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke; die unteren Stufen verbrennen.",
+            "Der Enderite Sledgehammer ist, anders als Enderit-Schwert, -Spitzhacke, -Axt, -Schaufel und -Hacke, nicht feuerfest registriert (registerSledgehammer ruft kein fireResistant()).",
             "Der Tooltip-Text tooltip.simplebuilding.sledgehammer (Benutzen, um mehrere Blöcke gleichzeitig abzubauen) steht in der Sprachdatei, aber kein Code zeigt ihn am Gegenstand an; er hat keine Wirkung.",
             "Vorwärts-Umformen findet die Treppe nur unter dem exakten Namen Registry-Name plus _stairs im selben Namensraum; Blöcke, deren Treppe anders heißt, werden nicht umgeformt. Nur die Rückrichtung Treppe zu Block kennt zusätzlich die Namensvarianten mit s und _planks; Stufe zu Treppe sucht ebenfalls nur Grundname plus _stairs.",
             "Vorwärts-Umformen von Block zu Treppe funktioniert nur bei Blöcken mit voller Kollisionsform (isCollisionShapeFullBlock).",
@@ -12827,53 +12647,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:astralit_quartz_checker",
-      "name": {
-        "en_us": "Astralit Quartz Checker",
-        "de_de": "Astralit-Quarz-Schachbrett"
-      },
-      "texture": "assets/textures/block/astralit_quartz_checker.png",
-      "craftedBy": [
-        "simplebuilding:astralit_quartz_checker"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astralit_quartz_checker.png",
-        "side": "assets/textures/block/astralit_quartz_checker.png",
-        "front": "assets/textures/block/astralit_quartz_checker_mirror.png"
-      },
-      "lootTable": "simplebuilding:blocks/astralit_quartz_checker",
-      "drops": [
-        "simplebuilding:astralit_quartz_checker"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "tools/textures/generate_textures.py"
-        ],
-        "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
-          "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
-            "The Astralit Quartz Checker glows with light level 5."
-          ]
-        },
-        "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
-          "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
-            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:backpack",
       "name": {
         "en_us": "Backpack",
@@ -12964,8 +12737,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -13014,8 +12787,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -13068,30 +12841,6 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:blackstone_quartz_checker"
       ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "tools/textures/generate_textures.py"
-        ],
-        "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
-          "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
-            "The Astralit Quartz Checker glows with light level 5."
-          ]
-        },
-        "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
-          "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
-            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -13115,31 +12864,6 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:construction_light"
       ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "common/src/shared/java/com/simplebuilding/util/ConstructionLightSpawning.java",
-          "common/src/shared/java/com/simplebuilding/mixin/HostileEntityMixin.java"
-        ],
-        "en": {
-          "summary": "The Construction Light is a glass-like lamp that shines with light level 15 but does not stop monsters from spawning: its light is left out of the darkness check for monster spawns.",
-          "details": [
-            "Light level 15, breaks almost instantly (strength 0.3), sounds like glass; mobs may spawn on top of it.",
-            "Monster#isDarkEnoughToSpawn is answered with the block light of all other light sources: ConstructionLightSpawning recomputes it outward from the spawn position, each step costing the light dampening of the block entered (at least 1, full blocks stop it), each other source contributing its brightness minus that cost.",
-            "Other lights keep working: a torch or glowstone next to a construction light still prevents spawns as far as in vanilla. Sky light counts as usual, so a construction light outdoors does not turn day into night.",
-            "Without a construction light within 14 blocks the vanilla check runs unchanged."
-          ]
-        },
-        "de": {
-          "summary": "Das Baulicht ist eine glasartige Lampe, die mit Lichtstufe 15 leuchtet, aber keine Monster-Spawns verhindert: Sein Licht zählt bei der Dunkelheitsprüfung für Monster-Spawns nicht mit.",
-          "details": [
-            "Lichtstufe 15, bricht fast sofort (Härte 0,3), klingt wie Glas; Mobs dürfen darauf spawnen.",
-            "Monster#isDarkEnoughToSpawn wird mit dem Blocklicht aller anderen Lichtquellen beantwortet: ConstructionLightSpawning berechnet es von der Spawnstelle aus neu, jeder Schritt kostet die Lichtdämpfung des betretenen Blocks (mindestens 1, volle Blöcke sperren), jede andere Quelle bringt ihre Leuchtstärke minus diese Kosten.",
-            "Andere Lichter wirken weiter: Eine Fackel oder Leuchtstein neben einem Baulicht verhindert Spawns so weit wie in Vanilla. Himmelslicht zählt wie gewohnt, ein Baulicht im Freien macht den Tag also nicht zur Nacht.",
-            "Ohne Baulicht im Umkreis von 14 Blöcken läuft die Vanilla-Prüfung unverändert."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -13256,8 +12980,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -13306,8 +13030,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -13812,30 +13536,6 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:lapis_quartz_checker"
       ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "tools/textures/generate_textures.py"
-        ],
-        "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
-          "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
-            "The Astralit Quartz Checker glows with light level 5."
-          ]
-        },
-        "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
-          "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
-            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -14107,8 +13807,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -14157,8 +13857,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -14847,53 +14547,6 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:nihilith_quartz_checker",
-      "name": {
-        "en_us": "Nihilith Quartz Checker",
-        "de_de": "Nihilith-Quarz-Schachbrett"
-      },
-      "texture": "assets/textures/block/nihilith_quartz_checker.png",
-      "craftedBy": [
-        "simplebuilding:nihilith_quartz_checker"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihilith_quartz_checker.png",
-        "side": "assets/textures/block/nihilith_quartz_checker.png",
-        "front": "assets/textures/block/nihilith_quartz_checker_mirror.png"
-      },
-      "lootTable": "simplebuilding:blocks/nihilith_quartz_checker",
-      "drops": [
-        "simplebuilding:nihilith_quartz_checker"
-      ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "tools/textures/generate_textures.py"
-        ],
-        "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
-          "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
-            "The Astralit Quartz Checker glows with light level 5."
-          ]
-        },
-        "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
-          "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
-            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
-          ]
-        }
-      },
-      "hasCustomBehaviour": false
-    },
-    {
       "id": "simplebuilding:polished_end_stone",
       "name": {
         "en_us": "Polished End Stone",
@@ -14940,30 +14593,6 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:purpur_quartz_checker"
       ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "tools/textures/generate_textures.py"
-        ],
-        "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
-          "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
-            "The Astralit Quartz Checker glows with light level 5."
-          ]
-        },
-        "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
-          "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
-            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -15057,8 +14686,8 @@ window.WIKI_DATA = {
             "Destroyed as an item (whatever destroys the item entity, for instance lava or a cactus): the contents drop out at that spot like a shulker box's, and stacks made bigger by Deep Pockets are split into normal stacks first.",
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
-            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 wooden pressure plates (any wood, mixing allowed - tag minecraft:wooden_pressure_plates); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Iron Bars; it unlocks with the first Leather Sheet.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, Leather Sheet, Diamond Pebble / Leather Sheet, Backpack, Leather Sheet / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade Smithing Template, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade Template, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -15107,8 +14736,8 @@ window.WIKI_DATA = {
             "Als Item zerstört (was auch immer das Item-Objekt zerstört, etwa Lava oder ein Kaktus): Der Inhalt fällt an der Stelle heraus wie bei einer Shulkerkiste; durch Tiefe Taschen vergrößerte Stapel werden vorher in normale Stapel geteilt.",
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderit-Bündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
-            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Holzdruckplatten (jede Holzart, auch gemischt - Tag minecraft:wooden_pressure_plates); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Eisengitter; freigeschaltet mit der ersten Lederplatte.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Lederplatte, Diamantkiesel / Lederplatte, Rucksack, Lederplatte / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Schmiedevorlage, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -15751,30 +15380,6 @@ window.WIKI_DATA = {
       "drops": [
         "simplebuilding:resin_quartz_checker"
       ],
-      "note": {
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
-          "tools/textures/generate_textures.py"
-        ],
-        "en": {
-          "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith and astralit.",
-          "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker).",
-            "Placed like a log (the pattern follows the axis); no mob spawns on them. All six are mined with a pickaxe and drop themselves.",
-            "The Astralit Quartz Checker glows with light level 5."
-          ]
-        },
-        "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith und Astralit.",
-          "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilith-Splitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett).",
-            "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sechs werden mit der Spitzhacke abgebaut und droppen sich selbst.",
-            "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5."
-          ]
-        }
-      },
       "hasCustomBehaviour": false
     },
     {
@@ -15986,33 +15591,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:astralit_quartz_checker",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:astralit_quartz_checker",
-        "count": 4
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/astralit_quartz_checker.json",
-      "ingredients": [
-        "minecraft:quartz_block",
-        "simplebuilding:astralit_dust"
-      ],
-      "pattern": [
-        "BQ",
-        "QB"
-      ],
-      "key": {
-        "B": [
-          "simplebuilding:astralit_dust"
-        ],
-        "Q": [
-          "minecraft:quartz_block"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:backpack",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -16023,17 +15601,20 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/backpack.json",
       "ingredients": [
-        "#minecraft:wooden_pressure_plates",
         "minecraft:copper_nugget",
+        "minecraft:iron_bars",
         "minecraft:string",
         "simplebuilding:leather_sheet"
       ],
       "pattern": [
         "NSN",
         "PPP",
-        "WWW"
+        "III"
       ],
       "key": {
+        "I": [
+          "minecraft:iron_bars"
+        ],
         "N": [
           "minecraft:copper_nugget"
         ],
@@ -16042,9 +15623,6 @@ window.WIKI_DATA = {
         ],
         "S": [
           "minecraft:string"
-        ],
-        "W": [
-          "#minecraft:wooden_pressure_plates"
         ]
       }
     },
@@ -17907,33 +17485,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:nihilith_quartz_checker",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:nihilith_quartz_checker",
-        "count": 4
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/nihilith_quartz_checker.json",
-      "ingredients": [
-        "minecraft:quartz_block",
-        "simplebuilding:nihilith_shard"
-      ],
-      "pattern": [
-        "BQ",
-        "QB"
-      ],
-      "key": {
-        "B": [
-          "simplebuilding:nihilith_shard"
-        ],
-        "Q": [
-          "minecraft:quartz_block"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:octant",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -18515,14 +18066,13 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_backpack.json",
       "ingredients": [
-        "minecraft:string",
         "simplebuilding:backpack",
         "simplebuilding:diamond_pebble",
         "simplebuilding:leather_sheet"
       ],
       "pattern": [
-        " S ",
-        "DBD",
+        "DLD",
+        "LBL",
         "LLL"
       ],
       "key": {
@@ -18534,9 +18084,6 @@ window.WIKI_DATA = {
         ],
         "L": [
           "simplebuilding:leather_sheet"
-        ],
-        "S": [
-          "minecraft:string"
         ]
       }
     },
@@ -19702,24 +19249,6 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_ore.json"
     },
     {
-      "id": "simplebuilding:blocks/astralit_quartz_checker",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1.0,
-          "items": [
-            "simplebuilding:astralit_quartz_checker"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/astralit_quartz_checker.json"
-    },
-    {
       "id": "simplebuilding:blocks/backpack",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -20127,24 +19656,6 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_ore.json"
     },
     {
-      "id": "simplebuilding:blocks/nihilith_quartz_checker",
-      "kind": "blocks",
-      "type": "minecraft:block",
-      "pools": [
-        {
-          "rolls": 1.0,
-          "items": [
-            "simplebuilding:nihilith_quartz_checker"
-          ],
-          "conditions": [
-            "minecraft:survives_explosion"
-          ],
-          "functions": []
-        }
-      ],
-      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_quartz_checker.json"
-    },
-    {
       "id": "simplebuilding:blocks/polished_end_stone",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -20375,7 +19886,7 @@ window.WIKI_DATA = {
       },
       "maxUses": 3,
       "xp": 15,
-      "reputationDiscount": 0.3,
+      "reputationDiscount": 0.2,
       "enchantmentPool": [
         {
           "enchantment": "simplebuilding:color_palette",
@@ -20413,7 +19924,7 @@ window.WIKI_DATA = {
       },
       "maxUses": 2,
       "xp": 25,
-      "reputationDiscount": 0.5,
+      "reputationDiscount": 0.2,
       "enchantmentPool": [
         {
           "enchantment": "simplebuilding:linear",
@@ -20446,7 +19957,7 @@ window.WIKI_DATA = {
       },
       "maxUses": 1,
       "xp": 100,
-      "reputationDiscount": 1.0,
+      "reputationDiscount": 0.2,
       "enchantmentPool": [
         {
           "enchantment": "simplebuilding:master_builder",
@@ -20537,7 +20048,7 @@ window.WIKI_DATA = {
       "level": 2,
       "wants": {
         "id": "minecraft:netherite_ingot",
-        "count": 6
+        "count": 3
       },
       "alsoWants": null,
       "gives": {
@@ -20689,7 +20200,7 @@ window.WIKI_DATA = {
       },
       "maxUses": 1,
       "xp": 30,
-      "reputationDiscount": 0.5,
+      "reputationDiscount": 0.2,
       "enchantmentPool": [
         {
           "enchantment": "simplebuilding:break_through",
@@ -20737,7 +20248,7 @@ window.WIKI_DATA = {
       },
       "maxUses": 1,
       "xp": 30,
-      "reputationDiscount": 0.5,
+      "reputationDiscount": 0.2,
       "enchantmentPool": [
         {
           "enchantment": "simplebuilding:break_through",
@@ -20785,7 +20296,7 @@ window.WIKI_DATA = {
       },
       "maxUses": 1,
       "xp": 50,
-      "reputationDiscount": 0.8,
+      "reputationDiscount": 0.2,
       "enchantmentPool": [
         {
           "enchantment": "simplebuilding:strip_miner",
@@ -20844,6 +20355,28 @@ window.WIKI_DATA = {
         "enableWanderingTrades"
       ],
       "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_copper_cores.json"
+    },
+    {
+      "id": "simplebuilding:wandering_trader/emerald_diamond_pebbles",
+      "profession": "wandering_trader",
+      "level": null,
+      "wants": {
+        "id": "minecraft:emerald",
+        "count": 5
+      },
+      "alsoWants": null,
+      "gives": {
+        "id": "simplebuilding:diamond_pebble",
+        "count": 3
+      },
+      "maxUses": 4,
+      "xp": 5,
+      "reputationDiscount": 0.05,
+      "enchantmentPool": [],
+      "configFlags": [
+        "enableWanderingTrades"
+      ],
+      "source": "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_diamond_pebbles.json"
     },
     {
       "id": "simplebuilding:wandering_trader/emerald_gold_core",
@@ -20939,7 +20472,7 @@ window.WIKI_DATA = {
       "level": null,
       "wants": {
         "id": "minecraft:emerald",
-        "count": 60
+        "count": 40
       },
       "alsoWants": null,
       "gives": {
@@ -21042,7 +20575,7 @@ window.WIKI_DATA = {
             "Which blocks of the layers actually drop is still decided by the Override rule.",
             "Highlight and crack preview (Fabric and NeoForge) show the layers behind as well.",
             "The mod's test proves: looking down with Break Through I takes the layer below along, and sneaking leaves it standing.",
-            "Chests (only with enableLootTableChanges): bastion (treasure and other chests) book I (weight 8); nether fortress I (2); dungeon I (10).",
+            "Chests (only with enableLootTableChanges): bastion (treasure and other chests) book I (weight 5), bastion treasure room book II (3); nether fortress I (2); dungeon I (8).",
             "Traders (only with enableVillagerTrades): level 4 toolsmith - Iron Sledgehammer (16 emeralds + an iron pickaxe) and Diamond Sledgehammer (28 emeralds + a diamond pickaxe) with Break Through I (weight 5) in the enchantment pool.",
             "On the MC 1.21.11 line the same trader pools exist as code (ModTradeDefinitions).",
             "In the creative inventory the book sits at level II; on Fabric and NeoForge the book has its own texture (enchanted_book_break_through.png)."
@@ -21076,7 +20609,7 @@ window.WIKI_DATA = {
             "Welche Blöcke der Schichten tatsächlich fallen, entscheidet weiterhin die Übersteuerungs-Regel.",
             "Highlight und Riss-Vorschau (Fabric und NeoForge) zeigen auch die hinteren Schichten.",
             "Der Test der Mod belegt: Blick nach unten mit Durchbruch I nimmt die Schicht darunter mit, Schleichen lässt sie stehen.",
-            "Truhen (nur bei enableLootTableChanges): Bastion (Schatz- und sonstige Truhen) Buch I (Gewicht 8); Netherfestung I (2); Verlies I (10).",
+            "Truhen (nur bei enableLootTableChanges): Bastion (Schatz- und sonstige Truhen) Buch I (Gewicht 5), Bastion-Schatzraum Buch II (3); Netherfestung I (2); Verlies I (8).",
             "Händler (nur bei enableVillagerTrades): Werkzeugschmied Stufe 4 – Eisen-Vorschlaghammer (16 Smaragde + Eisenspitzhacke) und Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke) mit Durchbruch I (Gewicht 5) im Verzauberungspool.",
             "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools als Code vor (ModTradeDefinitions).",
             "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric und NeoForge hat das Buch eine eigene Textur (enchanted_book_break_through.png)."
@@ -21154,8 +20687,8 @@ window.WIKI_DATA = {
             "The generated enchantment definition bridge.json carries no effects entry; the gametest coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown states explicitly that Bridge and Cover have no effect, and fails as soon as either of them gains one.",
             "An enchanted book gets its own book model ('bridge').",
             "Not available at the enchanting table (minecraft:in_enchanting_table holds only Fast Chiseling from the mod).",
-            "No longer found as a book in any chest - neither the stronghold library pool nor the end city treasure pool carries a Bridge book any more; the mod's creative tab is the only place a Bridge book comes from. The enchantment can still reach a survival world one way: the randomly enchanted Diamond Building Wand in end city treasure (weight 10) rolls any enchantment that fits the item, and Bridge fits.",
-            "Traders: no offer any more - the wandering trader's 60-emerald book (1 use, option enableWanderingTrades) now draws from a pool holding only Radius (weight 20)."
+            "No longer found as a book in any chest - neither the stronghold library pool nor the end city treasure pool carries a Bridge book; the mod's creative tab is the only place a Bridge book comes from. The enchantment can still reach a survival world one way: the randomly enchanted Diamond Building Wand in end city treasure (weight 6) rolls any enchantment that fits the item, and Bridge fits.",
+            "Traders: no offer - the wandering trader's 40-emerald book (1 use, option enableWanderingTrades) draws from a pool holding only Radius (weight 20)."
           ],
           "caveats": [
             "Currently has no effect: outside registration, the book model, the creative tab, tags and tests, ModEnchantments.BRIDGE is read by no code, and the definition carries no effect. A building wand with Bridge behaves exactly like an unenchanted one.",
@@ -21171,8 +20704,8 @@ window.WIKI_DATA = {
             "Die generierte Verzauberungsdefinition bridge.json enthält keinen effects-Eintrag; der Spieltest coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown hält ausdrücklich fest, dass Brücke und Abdeckung wirkungslos sind, und schlägt fehl, sobald eine der beiden einen Effekt bekommt.",
             "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („bridge“).",
             "Nicht in der Verzauberungstabelle (minecraft:in_enchanting_table enthält aus der Mod nur Schnelles Meißeln).",
-            "Als Buch in keiner Truhe mehr zu finden – weder der Pool der Festungs-Bibliothek noch der des Endsiedlungs-Schatzes enthält noch ein Brücke-Buch; ein solches Buch gibt es nur noch im Kreativ-Reiter der Mod. Ins Überlebensspiel kann die Verzauberung trotzdem gelangen: Der zufällig verzauberte Diamant-Baustab im Endsiedlungs-Schatz (Gewicht 10) würfelt jede Verzauberung aus, die auf das Item passt – und Brücke passt.",
-            "Händler: kein Angebot mehr – das 60-Smaragde-Buch des Fahrenden Händlers (1 Nutzung, Option enableWanderingTrades) zieht jetzt aus einem Pool, der nur noch Radius (Gewicht 20) enthält."
+            "Als Buch in keiner Truhe zu finden – weder der Pool der Festungs-Bibliothek noch der des Endsiedlungs-Schatzes enthält ein Brücke-Buch; ein solches Buch gibt es nur im Kreativ-Reiter der Mod. Ins Überlebensspiel kann die Verzauberung trotzdem gelangen: Der zufällig verzauberte Diamant-Baustab im Endsiedlungs-Schatz (Gewicht 6) würfelt jede Verzauberung aus, die auf das Item passt – und Brücke passt.",
+            "Händler: kein Angebot – das 40-Smaragde-Buch des Fahrenden Händlers (1 Nutzung, Option enableWanderingTrades) zieht aus einem Pool, der nur Radius (Gewicht 20) enthält."
           ],
           "caveats": [
             "Hat derzeit keine Wirkung: ModEnchantments.BRIDGE wird außerhalb von Registrierung, Buchmodell, Kreativ-Reiter, Tags und Tests von keinem Code gelesen, und die Definition trägt keinen Effekt. Ein Baustab mit Brücke verhält sich exakt wie ein unverzauberter.",
@@ -21236,7 +20769,7 @@ window.WIKI_DATA = {
             "Reinforced Bundle: if the bundle carries Master Builder AND Color Palette, every right-click on a block picks a random entry of the bundle (getRandom().nextInt(size) per click) and places it, instead of the selected or the first entry. If the rolled entry is not a block, the normal bundle action runs.",
             "An enchanted book with Color Palette gets its own book model ('color_palette').",
             "Not available at the enchanting table (minecraft:in_enchanting_table holds only Fast Chiseling from the mod).",
-            "Found as a book (option enableLootTableChanges): pillager outposts (weight 10), woodland mansions (weight 3); the mod's creative tab.",
+            "Found as a book (option enableLootTableChanges): pillager outposts (weight 6), woodland mansions (weight 3); the mod's creative tab.",
             "Traders: level 3 librarian, 25 emeralds, pool Color Palette (30) / Fast Chiseling (30) / Linear (25), 3 uses (option enableVillagerTrades)."
           ],
           "controls": [
@@ -21261,7 +20794,7 @@ window.WIKI_DATA = {
             "Verstärktes Bündel: Trägt das Bündel Baumeister UND Farbpalette, wählt jeder Rechtsklick auf einen Block einen zufälligen Eintrag des Bündels (getRandom().nextInt(size) pro Klick) und platziert ihn, statt des ausgewählten bzw. ersten Eintrags. Ist der gewürfelte Eintrag kein Block, läuft die normale Bündel-Aktion.",
             "Ein verzaubertes Buch mit Farbpalette bekommt ein eigenes Buchmodell („color_palette“).",
             "Nicht in der Verzauberungstabelle (minecraft:in_enchanting_table enthält aus der Mod nur Schnelles Meißeln).",
-            "Fundorte als Buch (Option enableLootTableChanges): Plünderer-Außenposten (Gewicht 10), Waldanwesen (Gewicht 3); Kreativ-Reiter der Mod.",
+            "Fundorte als Buch (Option enableLootTableChanges): Plünderer-Außenposten (Gewicht 6), Waldanwesen (Gewicht 3); Kreativ-Reiter der Mod.",
             "Händler: Bibliothekar Stufe 3, 25 Smaragde, Pool Farbpalette (30) / Schnelles Meißeln (30) / Linear (25), 3 Nutzungen (Option enableVillagerTrades)."
           ],
           "controls": [
@@ -21337,7 +20870,7 @@ window.WIKI_DATA = {
             "Octant: the filled-in area/figure preview is shown when the octant carries the enchantment (with the \"Invert Octant Sneak\" option on it is exactly the other way round: showFill = invert XOR enchantment); on top of that both positions must be set and the highlights (ClientState.showHighlights) must be switched on.",
             "An enchanted book gets its own book model (\"constructors_touch\").",
             "Not in the enchanting table (minecraft:in_enchanting_table contains only Fast Chiseling from the mod); no villager offer in the trade files.",
-            "Where to find it as a book (option enableLootTableChanges): buried treasure (weight 3), igloo (weight 3), common and rare trial chamber reward vaults (weight 2); plus the mod's creative tab."
+            "Where to find it as a book (option enableLootTableChanges): buried treasure (weight 3), igloo (weight 3), common and rare trial chamber reward vaults (weight 3), fishing treasure (weight 2); plus the mod's creative tab."
           ],
           "controls": [
             "Stick: right-click a block = next value of the first block property; sneak + right-click = previous value.",
@@ -21370,7 +20903,7 @@ window.WIKI_DATA = {
             "Oktant: Die gefüllte Flächen-/Figur-Vorschau wird angezeigt, wenn der Oktant die Verzauberung trägt (mit aktiver Option „Oktant Schleichen umkehren“ genau umgekehrt: showFill = invert XOR Verzauberung); zusätzlich müssen beide Positionen gesetzt und die Hervorhebungen (ClientState.showHighlights) eingeschaltet sein.",
             "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („constructors_touch“).",
             "Nicht in der Verzauberungstabelle (minecraft:in_enchanting_table enthält aus der Mod nur Schnelles Meißeln); kein Händlerangebot in den Handelsdateien.",
-            "Fundorte als Buch (Option enableLootTableChanges): vergrabener Schatz (Gewicht 3), Iglu (Gewicht 3), Prüfungskammer normal/selten (Gewicht 2); Kreativ-Reiter der Mod."
+            "Fundorte als Buch (Option enableLootTableChanges): vergrabener Schatz (Gewicht 3), Iglu (Gewicht 3), Prüfungskammer normal/selten (Gewicht 3), Angel-Schatz (Gewicht 2); Kreativ-Reiter der Mod."
           ],
           "controls": [
             "Stock: Rechtsklick auf Block = nächster Wert der ersten Blockeigenschaft; Schleichen + Rechtsklick = vorheriger Wert.",
@@ -21457,7 +20990,7 @@ window.WIKI_DATA = {
             "The generated enchantment definition cover.json carries no effects entry; the gametest coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown states explicitly that Cover and Bridge have no effect, and fails as soon as either of them gains one.",
             "An enchanted book gets its own book model ('cover').",
             "Not available at the enchanting table (minecraft:in_enchanting_table holds only Fast Chiseling from the mod); no trade offer in the trade files.",
-            "Found as a book (option enableLootTableChanges): pillager outposts (weight 15), woodland mansions (weight 7); the mod's creative tab."
+            "Found as a book (option enableLootTableChanges): pillager outposts (weight 8), woodland mansions (weight 5); the mod's creative tab."
           ],
           "caveats": [
             "Currently has no effect: outside registration, the book model, loot, the creative tab, tags and tests, ModEnchantments.COVER is read by no code, and the definition carries no effect. A building wand with Cover behaves exactly like an unenchanted one.",
@@ -21473,7 +21006,7 @@ window.WIKI_DATA = {
             "Die generierte Verzauberungsdefinition cover.json enthält keinen effects-Eintrag; der Spieltest coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown hält ausdrücklich fest, dass Abdeckung und Brücke wirkungslos sind, und schlägt fehl, sobald eine der beiden einen Effekt bekommt.",
             "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („cover“).",
             "Nicht in der Verzauberungstabelle (minecraft:in_enchanting_table enthält aus der Mod nur Schnelles Meißeln); kein Händlerangebot in den Handelsdateien.",
-            "Fundorte als Buch (Option enableLootTableChanges): Plünderer-Außenposten (Gewicht 15), Waldanwesen (Gewicht 7); Kreativ-Reiter der Mod."
+            "Fundorte als Buch (Option enableLootTableChanges): Plünderer-Außenposten (Gewicht 8), Waldanwesen (Gewicht 5); Kreativ-Reiter der Mod."
           ],
           "caveats": [
             "Hat derzeit keine Wirkung: ModEnchantments.COVER wird außerhalb von Registrierung, Buchmodell, Beute, Kreativ-Reiter, Tags und Tests von keinem Code gelesen, und die Definition trägt keinen Effekt. Ein Baustab mit Abdeckung verhält sich exakt wie ein unverzauberter.",
@@ -21540,8 +21073,8 @@ window.WIKI_DATA = {
             "The bonus is multiplied with the Drawer bonus; both enchantments can be combined (they share no exclusive set).",
             "The fill bar on the item (width from the exact fraction, color from green when empty to red when full) counts the enlarged capacity in.",
             "The tooltip with the contents preview is given the enlarged capacity (fraction times 64); the client mixin divides the displayed occupancy by the factor capacity/64 rounded down to a whole number, so at non-integer factors the preview is only roughly scaled (96 capacity: factor 1.5, rounded down to 1, i.e. not scaled at all).",
-            "Chest loot: a level II book in ancient city chests (weight 5 in a pool with 0 to 3 rolls), only if the config option worldGen.enableLootTableChanges is on.",
-            "Indirectly: the mod loot enchants quivers (ancient city, weight 3) and Reinforced Bundles (abandoned mineshaft, weight 10) with EnchantRandomlyFunction.randomEnchantment() and no enchantment list; by vanilla logic any enchantment applicable to the item can turn up that way at a random level.",
+            "Chest loot: a level II book in ancient city chests (weight 5 in a pool with 0 to 2 rolls) and a level I book in the fishing treasure (weight 2, one extra roll per treasure catch), only if the config option worldGen.enableLootTableChanges is on.",
+            "Indirectly: the mod loot enchants quivers (ancient city, weight 3) and Reinforced Bundles (abandoned mineshaft, weight 6) with EnchantRandomlyFunction.randomEnchantment() and no enchantment list; by vanilla logic any enchantment applicable to the item can turn up that way at a random level.",
             "A book at max level (II) sits in the creative inventory.",
             "Books with this enchantment have their own book model (simplebuilding:item/enchanted_book_deep_pockets, selected through the item property simplebuilding:enchant_type).",
             "A gametest checks that level I holds more than unenchanted and level II more than level I."
@@ -21570,8 +21103,8 @@ window.WIKI_DATA = {
             "Der Bonus wird mit dem Schubladen-Bonus multipliziert; beide Verzauberungen sind kombinierbar (kein gemeinsames Ausschluss-Set).",
             "Der Füllbalken auf dem Item (Breite aus exaktem Bruch, Farbe von Grün bei leer nach Rot bei voll) rechnet die vergrößerte Kapazität ein.",
             "Der Tooltip mit Inhaltsvorschau erhält die vergrößerte Kapazität (Bruch mal 64); der Client-Mixin teilt die angezeigte Belegung durch den auf eine ganze Zahl abgerundeten Faktor Kapazität/64, bei nicht ganzzahligen Faktoren ist die Vorschau daher nur näherungsweise skaliert (96er-Kapazität: Faktor 1,5, abgerundet 1, also ungeskaliert).",
-            "Truhen-Loot: Buch Stufe II in Ancient-City-Truhen (Gewicht 5 in einem Pool mit 0 bis 3 Würfen), nur wenn die Config-Option worldGen.enableLootTableChanges aktiv ist.",
-            "Indirekt: Der Mod-Loot verzaubert Köcher (Ancient City, Gewicht 3) und Verstärkte Bündel (verlassene Mine, Gewicht 10) mit EnchantRandomlyFunction.randomEnchantment() ohne Verzauberungsliste; nach Vanilla-Logik kann so jede auf das Item anwendbare Verzauberung mit zufälliger Stufe erscheinen.",
+            "Truhen-Loot: Buch Stufe II in Ancient-City-Truhen (Gewicht 5 in einem Pool mit 0 bis 2 Würfen) und Buch Stufe I im Angel-Schatz (Gewicht 2, ein zusätzlicher Wurf je Schatzfang), nur wenn die Config-Option worldGen.enableLootTableChanges aktiv ist.",
+            "Indirekt: Der Mod-Loot verzaubert Köcher (Ancient City, Gewicht 3) und Verstärkte Bündel (verlassene Mine, Gewicht 6) mit EnchantRandomlyFunction.randomEnchantment() ohne Verzauberungsliste; nach Vanilla-Logik kann so jede auf das Item anwendbare Verzauberung mit zufälliger Stufe erscheinen.",
             "Im Kreativ-Inventar liegt ein verzaubertes Buch auf Höchststufe (II).",
             "Bücher mit dieser Verzauberung haben ein eigenes Buch-Modell (simplebuilding:item/enchanted_book_deep_pockets, Auswahl über die Item-Eigenschaft simplebuilding:enchant_type).",
             "Ein Gametest prüft, dass Stufe I mehr fasst als unverzaubert und Stufe II mehr als Stufe I."
@@ -21649,7 +21182,7 @@ window.WIKI_DATA = {
             "The cooldown counts down every client tick, including after you land; touching the ground does not reset it.",
             "HUD display (Fabric and NeoForge, only while the cooldown is running): an 80 by 5 pixel bar with a 1-pixel border, centred with its top edge 55 pixels above the bottom of the screen, and 10 pixels above that the label \"Air Jump\"; the bar fills amber as the charge builds and disappears once the cooldown has run out.",
             "Turning off the config option enableDoubleJump (default: on) disables the feature entirely on the client and clears any running cooldown.",
-            "Chest loot (only with worldGen.enableLootTableChanges): a level II book in End City treasure chests (weight 10, 0 to 4 rolls), a level I book in the rare and ominous trial chamber reward vaults (weight 7, 0 to 1 roll).",
+            "Chest loot (only with worldGen.enableLootTableChanges): a level II book in End City treasure chests (weight 5, 0 to 3 rolls), a level I book in the rare and ominous trial chamber reward vaults (weight 7, 0 to 1 roll).",
             "The creative inventory holds an enchanted book at max level (II).",
             "Books with this enchantment have their own book model (simplebuilding:item/enchanted_book_double_jump).",
             "A gametest confirms: with unenchanted boots, or barefoot, the server leaves the fall distance alone; with the enchantment it is set to 0; in creative the boots stay undamaged."
@@ -21680,7 +21213,7 @@ window.WIKI_DATA = {
             "Die Abklingzeit zählt jeden Client-Tick herunter, auch nach der Landung; man kann sie nicht durch Bodenkontakt zurücksetzen.",
             "HUD-Anzeige (Fabric und NeoForge, nur während die Abklingzeit läuft): mittig, 55 Pixel über dem unteren Rand ein 80 mal 5 Pixel großer Balken mit 1-Pixel-Rahmen, darüber (10 Pixel höher) die Beschriftung \"Air Jump\"; der Balken füllt sich bernsteinfarben mit dem Fortschritt der Aufladung und verschwindet, sobald die Abklingzeit abgelaufen ist.",
             "Die Config-Option enableDoubleJump (Standard: an) schaltet die Funktion auf dem Client komplett ab und setzt die Abklingzeit zurück.",
-            "Truhen-Loot (nur mit worldGen.enableLootTableChanges): Buch Stufe II in End-City-Truhen (Gewicht 10, 0 bis 4 Würfe), Buch Stufe I in seltenen und unheilvollen Trial-Chamber-Belohnungen (Gewicht 7, 0 bis 1 Wurf).",
+            "Truhen-Loot (nur mit worldGen.enableLootTableChanges): Buch Stufe II in End-City-Truhen (Gewicht 5, 0 bis 3 Würfe), Buch Stufe I in seltenen und unheilvollen Trial-Chamber-Belohnungen (Gewicht 7, 0 bis 1 Wurf).",
             "Im Kreativ-Inventar liegt ein verzaubertes Buch auf Höchststufe (II).",
             "Bücher mit dieser Verzauberung haben ein eigenes Buch-Modell (simplebuilding:item/enchanted_book_double_jump).",
             "Ein Gametest bestätigt: ohne verzauberte Stiefel oder barfuß ändert der Server nichts an der Fallhöhe; mit Verzauberung wird sie auf 0 gesetzt; im Kreativmodus bleiben die Stiefel unbeschädigt."
@@ -21857,7 +21390,7 @@ window.WIKI_DATA = {
             "Mining speed when breaking blocks with the chisel: +5.0 at level I and +17.0 from level II up are added to the material speed (per the code comment that corresponds to Efficiency II and IV); the result is then halved (x 0.5).",
             "The mining bonus only applies to blocks mineable with a pickaxe, axe or shovel; on everything else the speed stays 1.0.",
             "An enchanted book gets its own book model (\"fast_chiseling\").",
-            "Where to find it as a book (option enableLootTableChanges): buried treasure (level II, weight 2), dungeon (I, 5), shipwreck treasure (I, 15), igloo (I, 2), abandoned mineshaft (I, 2), trial chamber common/rare (II, 1); and the mod's creative tab.",
+            "Where to find it as a book (option enableLootTableChanges): buried treasure (level II, weight 2), dungeon (I, 5), shipwreck treasure (I, 10), igloo (I, 3), abandoned mineshaft (I, 2), trial chamber common/rare (II, 2), fishing treasure (I, 3); and the mod's creative tab.",
             "Traders: a level 3 toolsmith sells a Copper Chisel, Iron Chisel or Gold Chisel for 6 emeralds with Fast Chiseling I (weight 50) or II (weight 30), at most 2 purchases; a level 3 librarian offers the book (weight 30) for 25 emeralds (option enableVillagerTrades)."
           ],
           "controls": [
@@ -21878,7 +21411,7 @@ window.WIKI_DATA = {
             "Abbaugeschwindigkeit beim Blockabbau mit dem Meißel: Zur Materialgeschwindigkeit kommen +5.0 bei Stufe I und +17.0 ab Stufe II (laut Code-Kommentar entspricht das Effizienz II bzw. IV); das Ergebnis wird anschließend halbiert (× 0.5).",
             "Der Abbau-Bonus gilt nur für Blöcke, die mit Spitzhacke, Axt oder Schaufel abbaubar sind; bei allen anderen bleibt die Geschwindigkeit 1.0.",
             "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („fast_chiseling“).",
-            "Fundorte als Buch (Option enableLootTableChanges): vergrabener Schatz (Stufe II, Gewicht 2), Verlies (I, 5), Schiffswrack-Schatz (I, 15), Iglu (I, 2), verlassene Mine (I, 2), Prüfungskammer normal/selten (II, 1); Kreativ-Reiter der Mod.",
+            "Fundorte als Buch (Option enableLootTableChanges): vergrabener Schatz (Stufe II, Gewicht 2), Verlies (I, 5), Schiffswrack-Schatz (I, 10), Iglu (I, 3), verlassene Mine (I, 2), Prüfungskammer normal/selten (II, 2), Angel-Schatz (I, 3); Kreativ-Reiter der Mod.",
             "Händler: Werkzeugschmied Stufe 3 verkauft für 6 Smaragde Kupfermeißel, Eisenmeißel oder Goldmeißel mit Schnelles Meißeln I (Gewicht 50) oder II (Gewicht 30), 2 Nutzungen; Bibliothekar Stufe 3 bietet das Buch (Gewicht 30) für 25 Smaragde (Option enableVillagerTrades)."
           ],
           "controls": [
@@ -21948,7 +21481,7 @@ window.WIKI_DATA = {
             "Vacuuming plays the collection animation (player.take), counts towards the pickup statistic and plays the bundle insert sound. If the item is vacuumed up completely, the entity is removed and the normal pickup is cancelled; if only part of it fits, the rest is picked up the normal way.",
             "Vacuuming respects the capacity (including Deep Pockets and Drawer) and the Drawer type limit, because the same insertion code runs.",
             "Quivers vacuum up arrows only (tag minecraft:arrows), even at level II.",
-            "Chest loot (only with worldGen.enableLootTableChanges): a level I book in bastions (treasure and other chests, weight 6, 0 to 3 rolls), nether fortresses (weight 2, 0 to 2 rolls) and dungeons (weight 10, 0 to 2 rolls).",
+            "Chest loot (only with worldGen.enableLootTableChanges): a level I book in bastions (treasure and other chests, weight 5, 0 to 2 rolls), nether fortresses (weight 2, 0 to 2 rolls) and dungeons (weight 8, 0 to 2 rolls).",
             "Villager trade: the tier 5 (master) librarian sells a book for 25 emeralds (1 use) whose enchantment is drawn from a pool in which Funnel I has weight 30. The 1.21.11 line holds the same pool in ModTradeDefinitions. Only with the enableVillagerTrades config option.",
             "Indirectly: the randomly enchanted quivers (ancient city) and Reinforced Bundles (abandoned mineshaft) in the mod loot are enchanted with randomEnchantment() and no enchantment list, so they can carry Funnel too.",
             "A book at max level (II) sits in the creative inventory.",
@@ -21981,7 +21514,7 @@ window.WIKI_DATA = {
             "Beim Aufsaugen gibt es die Einsammel-Animation (player.take), die Aufheben-Statistik und den Bündel-Einlege-Klang. Wird das Item vollständig aufgesaugt, wird das Entity entfernt und das normale Aufheben abgebrochen; passt nur ein Teil, geht der Rest den normalen Weg ins Inventar.",
             "Beim Aufsaugen gelten Kapazität (inklusive Tiefe Taschen und Schublade) und die Schubladen-Sortenbegrenzung, weil derselbe Einfüge-Code läuft.",
             "Köcher saugen auch mit Stufe II nur Pfeile (Tag minecraft:arrows) auf.",
-            "Truhen-Loot (nur mit worldGen.enableLootTableChanges): Buch Stufe I in Bastionen (Schatz- und sonstige Truhen, Gewicht 6, 0 bis 3 Würfe), Nether-Festungen (Gewicht 2, 0 bis 2 Würfe) und Verliesen (Gewicht 10, 0 bis 2 Würfe).",
+            "Truhen-Loot (nur mit worldGen.enableLootTableChanges): Buch Stufe I in Bastionen (Schatz- und sonstige Truhen, Gewicht 5, 0 bis 2 Würfe), Nether-Festungen (Gewicht 2, 0 bis 2 Würfe) und Verliesen (Gewicht 8, 0 bis 2 Würfe).",
             "Dorfbewohner-Handel: Der Bibliothekar auf Stufe 5 (Meister) verkauft für 25 Smaragde ein Buch (1 Nutzung), dessen Verzauberung aus einem Pool gezogen wird; Trichter I hat dort Gewicht 30. In der 1.21.11-Linie steht derselbe Pool in ModTradeDefinitions. Nur mit Config-Option enableVillagerTrades.",
             "Indirekt: Zufällig verzauberte Köcher (Ancient City) und Verstärkte Bündel (verlassene Mine) im Mod-Loot werden mit randomEnchantment() ohne Verzauberungsliste verzaubert und können daher auch Trichter tragen.",
             "Im Kreativ-Inventar liegt ein verzaubertes Buch auf Höchststufe (II).",
@@ -22133,7 +21666,7 @@ window.WIKI_DATA = {
             "Not combinable with Cover: Linear's exclusive set (wand_modifier_group) contains Cover, and Cover's exclusive set (cover_group) contains Linear.",
             "Combinable with Bridge - Bridge and Linear do not list each other in their exclusive sets; a data integrity test (expectCompatibility BRIDGE/LINEAR = true) checks exactly this compatibility.",
             "Not available at the enchanting table: the minecraft:in_enchanting_table tag holds only Fast Chiseling from this mod.",
-            "Found as a book (option enableLootTableChanges): pillager outposts (weight 15 in the mod pool) and woodland mansions (weight 7); also in the mod's creative tab as a book at maximum level.",
+            "Found as a book (option enableLootTableChanges): pillager outposts (weight 8 in the mod pool), woodland mansions (weight 5) and fishing treasure (weight 2, one extra roll per treasure catch); also in the mod's creative tab as a book at maximum level.",
             "Traders: a level 3 librarian sells for 25 emeralds a book from the pool Color Palette (30) / Fast Chiseling (30) / Linear (25), 3 uses; a level 4 librarian for 25 emeralds from the pool Linear (25) / Override (20), 2 uses. Both offers hang on the enableVillagerTrades config option.",
             "An enchanted book with Linear gets its own book model (case 'linear' in the model property for enchanted books)."
           ],
@@ -22154,7 +21687,7 @@ window.WIKI_DATA = {
             "Nicht kombinierbar mit Abdeckung: Das Ausschluss-Set von Linear (wand_modifier_group) enthält Abdeckung, und das Ausschluss-Set von Abdeckung (cover_group) enthält Linear.",
             "Kombinierbar mit Brücke – Brücke und Linear führen sich gegenseitig nicht im Ausschluss-Set; ein Datenintegritäts-Test (expectCompatibility BRIDGE/LINEAR = true) prüft genau diese Verträglichkeit.",
             "Nicht in der Verzauberungstabelle erhältlich: Das Tag minecraft:in_enchanting_table enthält aus dieser Mod nur Schnelles Meißeln.",
-            "Fundorte als Buch (Option enableLootTableChanges): Plünderer-Außenposten (Gewicht 15 im Mod-Pool) und Waldanwesen (Gewicht 7); außerdem im Kreativ-Reiter der Mod als Buch auf Höchststufe.",
+            "Fundorte als Buch (Option enableLootTableChanges): Plünderer-Außenposten (Gewicht 8 im Mod-Pool), Waldanwesen (Gewicht 5) und Angel-Schatz (Gewicht 2, ein zusätzlicher Wurf je Schatzfang); außerdem im Kreativ-Reiter der Mod als Buch auf Höchststufe.",
             "Händler: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch aus dem Pool Farbpalette (30) / Schnelles Meißeln (30) / Linear (25), 3 Nutzungen; Bibliothekar Stufe 4 für 25 Smaragde aus dem Pool Linear (25) / Übersteuerung (20), 2 Nutzungen. Beide Angebote hängen an der Konfigurationsoption enableVillagerTrades.",
             "Ein verzaubertes Buch mit Linear bekommt ein eigenes Buchmodell (Auswahl „linear“ in der Modell-Eigenschaft für Verzauberungsbücher)."
           ],
@@ -22226,7 +21759,7 @@ window.WIKI_DATA = {
             "Not combinable with Drawer (whose exclusive set builder_group contains Master Builder); a data integrity test (expectCompatibility DRAWER/MASTER_BUILDER = false) checks this incompatibility.",
             "An enchanted book with Master Builder gets its own book model ('master_builder').",
             "Not available at the enchanting table (minecraft:in_enchanting_table holds only Fast Chiseling from the mod).",
-            "Found as a book (option enableLootTableChanges): stronghold library (weight 1), end city treasure (weight 10), trial chambers ominous/rare (weight 10); the mod's creative tab.",
+            "Found as a book (option enableLootTableChanges): stronghold library (weight 3), end city treasure (weight 3), trial chambers ominous/rare (weight 10); the mod's creative tab.",
             "Traders: level 5 librarian, 25 emeralds, Master Builder with weight 10 in a pool alongside Range, Funnel, Strip Miner and Vein Miner, 1 use (option enableVillagerTrades)."
           ],
           "controls": [
@@ -22256,7 +21789,7 @@ window.WIKI_DATA = {
             "Nicht kombinierbar mit Schublade (deren Ausschluss-Set builder_group enthält Baumeister); ein Datenintegritäts-Test (expectCompatibility DRAWER/MASTER_BUILDER = false) prüft diese Unverträglichkeit.",
             "Ein verzaubertes Buch mit Baumeister bekommt ein eigenes Buchmodell („master_builder“).",
             "Nicht in der Verzauberungstabelle (minecraft:in_enchanting_table enthält aus der Mod nur Schnelles Meißeln).",
-            "Fundorte als Buch (Option enableLootTableChanges): Festungs-Bibliothek (Gewicht 1), Endsiedlungs-Schatz (Gewicht 10), Prüfungskammer ominös/selten (Gewicht 10); Kreativ-Reiter der Mod.",
+            "Fundorte als Buch (Option enableLootTableChanges): Festungs-Bibliothek (Gewicht 3), Endsiedlungs-Schatz (Gewicht 3), Prüfungskammer ominös/selten (Gewicht 10); Kreativ-Reiter der Mod.",
             "Händler: Bibliothekar Stufe 5, 25 Smaragde, Baumeister mit Gewicht 10 in einem Pool mit Reichweite, Trichter, Tunnelgräber und Aderabbau, 1 Nutzung (Option enableVillagerTrades)."
           ],
           "controls": [
@@ -22337,7 +21870,7 @@ window.WIKI_DATA = {
             "Durability per extra block destroyed: 1 point, 2 points if the hammer is not the correct tool for that block; with level II axe/shovel/hoe blocks count as the correct tool and cost 1 point.",
             "The hammer's highlight outline and crack preview (Fabric and NeoForge) follow the same selection rules as the mining itself (SledgehammerUtils.shouldBreak).",
             "The mod's test proves all three tiers on a field of stone, cobblestone and dirt.",
-            "Chests (only with enableLootTableChanges): end city treasure chest book II (weight 10).",
+            "Chests (only with enableLootTableChanges): end city treasure chest book II (weight 5).",
             "Traders (only with enableVillagerTrades): a level 4 librarian sells a book for 25 emeralds from the pool Linear I (25) / Override I (20), at most 2 uses; a level 4 toolsmith sells the Iron Sledgehammer for 16 emeralds + an iron pickaxe and the Diamond Sledgehammer for 28 emeralds + a diamond pickaxe, each with one enchantment out of Override I (15), Break Through I (5), Range I (10), Unbreaking II (50), Efficiency III (50); chance of a second, different enchantment: iron 0.01, diamond 0.15.",
             "On the MC 1.21.11 line the same trader pools exist as code (ModTradeDefinitions).",
             "In the creative inventory the book sits at level II; on Fabric and NeoForge the book has its own texture (enchanted_book_override.png)."
@@ -22368,7 +21901,7 @@ window.WIKI_DATA = {
             "Haltbarkeit pro zusätzlich zerstörtem Block: 1 Punkt, 2 Punkte wenn der Hammer für diesen Block nicht das richtige Werkzeug ist; mit Stufe II zählen Axt-/Schaufel-/Hacken-Blöcke als richtiges Werkzeug und kosten 1 Punkt.",
             "Highlight-Umriss und Riss-Vorschau des Hammers (Fabric und NeoForge) folgen denselben Auswahlregeln wie der Abbau (SledgehammerUtils.shouldBreak).",
             "Der Test der Mod belegt alle drei Stufen an einem Feld aus Stein, Bruchstein und Erde.",
-            "Truhen (nur bei enableLootTableChanges): Endsiedlung Buch II (Gewicht 10).",
+            "Truhen (nur bei enableLootTableChanges): Endsiedlung Buch II (Gewicht 5).",
             "Händler (nur bei enableVillagerTrades): Bibliothekar Stufe 4 verkauft für 25 Smaragde ein Buch aus dem Pool Linear I (25) / Übersteuerung I (20), maximal 2 Käufe; Werkzeugschmied Stufe 4 verkauft den Eisen-Vorschlaghammer für 16 Smaragde + Eisenspitzhacke und den Diamant-Vorschlaghammer für 28 Smaragde + Diamantspitzhacke, jeweils mit einer Verzauberung aus Übersteuerung I (15), Durchbruch I (5), Reichweite I (10), Haltbarkeit II (50), Effizienz III (50); Chance auf eine zweite, andere Verzauberung: Eisen 0,01, Diamant 0,15.",
             "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools als Code vor (ModTradeDefinitions).",
             "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric und NeoForge hat das Buch eine eigene Textur (enchanted_book_override.png)."
@@ -22450,7 +21983,7 @@ window.WIKI_DATA = {
             "Durability: every extra block costs 1 point, 2 points if the hammer is not the matching tool for it.",
             "The mod's test proves the 5x5 face, that the ring at distance 3 stays standing, and that sneaking falls back to 3x3.",
             "Chests (only with enableLootTableChanges): ancient city book I (weight 4).",
-            "Traders (only with enableWanderingTrades): the wandering trader (\"uncommon\" pool) sells a book for 60 emeralds from a pool that now holds only Radius I (weight 20), 1 use.",
+            "Traders (only with enableWanderingTrades): the wandering trader (\"uncommon\" pool) sells a book for 40 emeralds from a pool that holds only Radius I (weight 20), 1 use.",
             "On the MC 1.21.11 line the same wandering trader pool exists as code (ModTradeDefinitions).",
             "In the creative inventory the book sits at level I; on Fabric and NeoForge the book has its own texture (enchanted_book_radius.png)."
           ],
@@ -22480,7 +22013,7 @@ window.WIKI_DATA = {
             "Haltbarkeit: jeder zusätzliche Block kostet 1 Punkt, 2 Punkte wenn der Hammer für ihn nicht das passende Werkzeug ist.",
             "Der Test der Mod belegt die 5×5-Fläche, dass der Ring in Abstand 3 stehen bleibt, und dass Schleichen auf 3×3 zurückschaltet.",
             "Truhen (nur bei enableLootTableChanges): Antike Stadt Buch I (Gewicht 4).",
-            "Händler (nur bei enableWanderingTrades): Wanderhändler (Pool „uncommon“) verkauft für 60 Smaragde ein Buch aus einem Pool, der nur noch Radius I (Gewicht 20) enthält, 1 Kauf.",
+            "Händler (nur bei enableWanderingTrades): Wanderhändler (Pool „uncommon“) verkauft für 40 Smaragde ein Buch aus einem Pool, der nur Radius I (Gewicht 20) enthält, 1 Kauf.",
             "Auf der MC-1.21.11-Linie liegt derselbe Wanderhändler-Pool als Code vor (ModTradeDefinitions).",
             "Im Kreativ-Inventar liegt das Buch auf Stufe I; auf Fabric und NeoForge hat das Buch eine eigene Textur (enchanted_book_radius.png)."
           ],
@@ -22556,8 +22089,8 @@ window.WIKI_DATA = {
             "Max level 3, weight 1, anvil cost 4; enchanting cost 15 (+9 per level above the first) to 65 (+9 per level above the first).",
             "The effect is data driven (effect component minecraft:attributes): attribute minecraft:block_interaction_range, operation add_value, 2.0 at level I and +4.0 per further level, so +2 / +6 / +10 blocks.",
             "Magnet: MagnetItem adds 2.0 blocks to its pull radius per Range level (base radius 4.0; 8.0 with Constructor's Touch) - but the Magnet cannot normally be given the enchantment at all (see caveats).",
-            "Chest loot (only with worldGen.enableLootTableChanges): a level II book in stronghold libraries (weight 2, 0 to 5 rolls), a level III book in End City treasure chests (weight 10, 0 to 4 rolls).",
-            "Indirectly: the randomly enchanted Octants (Ancient City weight 6, Nether Fortress weight 3) and Diamond Sledgehammers (End City weight 20) in the mod's loot are enchanted with randomEnchantment() without an enchantment list, so they can come out carrying Range as well.",
+            "Chest loot (only with worldGen.enableLootTableChanges): a level II book in stronghold libraries (weight 4, 0 to 2 rolls), a level III book in End City treasure chests (weight 4, 0 to 3 rolls).",
+            "Indirectly: the randomly enchanted Octants (Ancient City weight 5, Nether Fortress weight 3) and Diamond Sledgehammers (End City weight 8) in the mod's loot are enchanted with randomEnchantment() without an enchantment list, so they can come out carrying Range as well.",
             "Villager trades (only with enableVillagerTrades): a master-level (5) librarian sells a book for 25 emeralds from a pool holding Range I (weight 10), II (weight 10) and III (weight 3); a level 4 toolsmith sells an Iron Sledgehammer (16 emeralds + an iron pickaxe) or a Diamond Sledgehammer (28 emeralds + a diamond pickaxe) whose enchantment is drawn from a pool in which Range I has weight 10. The same pools sit in ModTradeDefinitions on the 1.21.11 line.",
             "The creative inventory holds an enchanted book at max level (III).",
             "Books with this enchantment have their own book model (simplebuilding:item/enchanted_book_range).",
@@ -22578,8 +22111,8 @@ window.WIKI_DATA = {
             "Höchststufe 3, Gewicht 1, Amboss-Kosten 4; Verzauberungskosten 15 (+9 je weiterer Stufe) bis 65 (+9 je weiterer Stufe).",
             "Wirkung ist datengetrieben (Effekt-Komponente minecraft:attributes): Attribut minecraft:block_interaction_range, Operation add_value, 2,0 auf Stufe I und +4,0 je weiterer Stufe, also +2 / +6 / +10 Blöcke.",
             "Magnet: MagnetItem addiert je Reichweite-Stufe 2,0 Blöcke auf seinen Anziehungsradius (Grundradius 4,0; 8,0 mit Berührung des Konstrukteurs); regulär ist der Magnet aber nicht verzauberbar damit (siehe Einschränkungen).",
-            "Truhen-Loot (nur mit worldGen.enableLootTableChanges): Buch Stufe II in Festungs-Bibliotheken (Gewicht 2, 0 bis 5 Würfe), Buch Stufe III in End-City-Truhen (Gewicht 10, 0 bis 4 Würfe).",
-            "Indirekt: Zufällig verzauberte Oktanten (Ancient City Gewicht 6, Nether-Festung Gewicht 3) und Diamant-Vorschlaghämmer (End City Gewicht 20) im Mod-Loot werden mit randomEnchantment() ohne Verzauberungsliste verzaubert und können daher auch Reichweite tragen.",
+            "Truhen-Loot (nur mit worldGen.enableLootTableChanges): Buch Stufe II in Festungs-Bibliotheken (Gewicht 4, 0 bis 2 Würfe), Buch Stufe III in End-City-Truhen (Gewicht 4, 0 bis 3 Würfe).",
+            "Indirekt: Zufällig verzauberte Oktanten (Ancient City Gewicht 5, Nether-Festung Gewicht 3) und Diamant-Vorschlaghämmer (End City Gewicht 8) im Mod-Loot werden mit randomEnchantment() ohne Verzauberungsliste verzaubert und können daher auch Reichweite tragen.",
             "Dorfbewohner-Handel (nur mit enableVillagerTrades): Bibliothekar Stufe 5 (Meister) verkauft für 25 Smaragde ein Buch aus einem Pool, in dem Reichweite I (Gewicht 10), II (Gewicht 10) und III (Gewicht 3) stehen; Werkzeugschmied Stufe 4 verkauft einen Eisen-Vorschlaghammer (16 Smaragde + Eisenspitzhacke) bzw. Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), dessen Verzauberung aus einem Pool gezogen wird, in dem Reichweite I Gewicht 10 hat. Dieselben Pools stehen in der 1.21.11-Linie in ModTradeDefinitions.",
             "Im Kreativ-Inventar liegt ein verzaubertes Buch auf Höchststufe (III).",
             "Bücher mit dieser Verzauberung haben ein eigenes Buch-Modell (simplebuilding:item/enchanted_book_range).",
@@ -22654,7 +22187,7 @@ window.WIKI_DATA = {
             "Speed penalty: a pickaxe with Strip Miner mines every block it is the correct tool for more slowly - the mining speed is divided by 2 (I), 3 (II) or 4 (III) (mixin on Player.getDestroySpeed).",
             "Preview (Fabric and NeoForge): while you sneak, the client shows the breaking cracks on all tunnel blocks at the same time.",
             "The mod's test proves: looking down digs 4 blocks deep at level III, a dirt block (the pickaxe is not the correct tool there) ends the tunnel, and horizontally the tunnel follows the facing and stops at a gap.",
-            "Chests (only with enableLootTableChanges): nether fortress book I (weight 6), II (3); abandoned mineshaft I (10), III (5).",
+            "Chests (only with enableLootTableChanges): nether fortress book I (weight 6), II (3); abandoned mineshaft I (8), III (3).",
             "Traders (only with enableVillagerTrades): a level 5 toolsmith sells a diamond pickaxe for 15 emeralds with Strip Miner I/II/III (weights 40/30/10) or Vein Miner (0.1 chance of a second, different enchantment); a level 5 librarian sells a book for 25 emeralds with Strip Miner I (20), II (10), III (5) in the pool.",
             "On the MC 1.21.11 line the same trader pools exist as code with the same weights (ModTradeDefinitions).",
             "In the creative inventory the book sits at level III; on Fabric and NeoForge the book has its own texture (enchanted_book_strip_miner.png)."
@@ -22690,7 +22223,7 @@ window.WIKI_DATA = {
             "Geschwindigkeitsstrafe: Eine Spitzhacke mit Tunnelgräber baut jeden Block, für den sie das richtige Werkzeug ist, langsamer ab – die Abbaugeschwindigkeit wird durch 2 (I), 3 (II) bzw. 4 (III) geteilt (Mixin auf Player.getDestroySpeed).",
             "Vorschau (Fabric und NeoForge): Beim Schleichen zeigt der Client den Abbau-Riss gleichzeitig auf allen Tunnelblöcken.",
             "Der Test der Mod belegt: Blick nach unten gräbt mit Stufe III 4 Blöcke tief, ein Erdblock (Spitzhacke ist dort nicht das richtige Werkzeug) beendet den Tunnel, horizontal folgt der Tunnel der Blickrichtung und endet an einer Lücke.",
-            "Truhen (nur bei enableLootTableChanges): Netherfestung Buch I (Gewicht 6), II (3); verlassene Mine I (10), III (5).",
+            "Truhen (nur bei enableLootTableChanges): Netherfestung Buch I (Gewicht 6), II (3); verlassene Mine I (8), III (3).",
             "Händler (nur bei enableVillagerTrades): Werkzeugschmied Stufe 5 verkauft für 15 Smaragde eine Diamantspitzhacke mit Tunnelgräber I/II/III (Gewichte 40/30/10) oder Aderabbau (Chance 0,1 auf eine zweite, andere Verzauberung); Bibliothekar Stufe 5 verkauft für 25 Smaragde ein Buch mit Tunnelgräber I (20), II (10), III (5) im Pool.",
             "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools mit denselben Gewichten als Code vor (ModTradeDefinitions).",
             "Im Kreativ-Inventar liegt das Buch auf Stufe III; auf Fabric und NeoForge hat das Buch eine eigene Textur (enchanted_book_strip_miner.png)."
@@ -22775,7 +22308,7 @@ window.WIKI_DATA = {
             "The extra blocks are destroyed one after another through the player's normal breaking routine (gameMode.destroyBlock); if the tool breaks partway through, the chain stops there and then.",
             "Preview (Fabric and NeoForge): while you sneak, the client shows the breaking cracks on every block that would go with it at the same time.",
             "The mining code is the same on Fabric, Forge and NeoForge and hangs off the player's block break event (PlayerBlockBreakEvents.BEFORE / BlockEvent.BreakEvent / BreakBlockEvent).",
-            "Chests (only with the enableLootTableChanges option on): woodland mansion book V (weight 8) and IV (2); dungeon II (15), III (10), IV (5); abandoned mineshaft III (2), IV (5).",
+            "Chests (only with the enableLootTableChanges option on): woodland mansion book V (weight 1) and IV (3); dungeon II (12), III (8), IV (3); abandoned mineshaft III (4), IV (3).",
             "Traders (only with the enableVillagerTrades option on): a level 5 toolsmith sells a diamond pickaxe for 15 emeralds carrying one enchantment out of Strip Miner/Vein Miner I-III (weights 40/30/10, 0.1 chance of a second, different enchantment from the same pool); a level 5 librarian sells a book for 25 emeralds whose pool holds Vein Miner I (10), II (7), III (5) (0.1 chance of a second one).",
             "On the MC 1.21.11 line the same trader pools exist as code with the same weights (ModTradeDefinitions).",
             "In the creative inventory the enchanted book sits at max level V; on Fabric and NeoForge the book has its own texture (enchanted_book_vein_miner.png via the property simplebuilding:enchant_type)."
@@ -22814,7 +22347,7 @@ window.WIKI_DATA = {
             "Die zusätzlichen Blöcke werden nacheinander über den normalen Abbauvorgang des Spielers (gameMode.destroyBlock) zerstört; ist der Werkzeug-Stack leer geworden, endet die Kette sofort.",
             "Vorschau (Fabric und NeoForge): Beim Schleichen zeigt der Client den Abbau-Riss gleichzeitig auf allen Blöcken, die mit abgebaut würden.",
             "Der Abbau-Code ist auf Fabric, Forge und NeoForge derselbe und hängt am Block-Break-Ereignis des Spielers (PlayerBlockBreakEvents.BEFORE / BlockEvent.BreakEvent / BreakBlockEvent).",
-            "Truhen (nur bei aktivierter Option enableLootTableChanges): Waldanwesen Buch V (Gewicht 8) und IV (Gewicht 2); Verlies II (15), III (10), IV (5); verlassene Mine III (2), IV (5).",
+            "Truhen (nur bei aktivierter Option enableLootTableChanges): Waldanwesen Buch V (Gewicht 1) und IV (Gewicht 3); Verlies II (12), III (8), IV (3); verlassene Mine III (4), IV (3).",
             "Händler (nur bei aktivierter Option enableVillagerTrades): Werkzeugschmied Stufe 5 verkauft für 15 Smaragde eine Diamantspitzhacke mit einer Verzauberung aus Tunnelgräber/Aderabbau I–III (Gewichte 40/30/10, Chance 0,1 auf eine zweite, andere Verzauberung aus demselben Pool); Bibliothekar Stufe 5 verkauft für 25 Smaragde ein Buch, in dessen Pool Aderabbau I (10), II (7), III (5) liegt (Chance 0,1 auf eine zweite).",
             "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools mit denselben Gewichten als Code vor (ModTradeDefinitions).",
             "Im Kreativ-Inventar liegt das verzauberte Buch auf Höchststufe V; auf Fabric und NeoForge hat das Buch eine eigene Textur (enchanted_book_vein_miner.png über die Property simplebuilding:enchant_type)."
@@ -22904,7 +22437,7 @@ window.WIKI_DATA = {
             "Found in the rest of the inventory (level II only): the item in hand and the item found swap places; the inventory changes are sent to the client.",
             "On Forge and NeoForge only the first click counts (LeftClickBlock.Action.START), not every tick of a held break; on Fabric it hangs off AttackBlockCallback.",
             "The mod's test proves: no switch without the enchantment; level I finds the pickaxe in the hotbar but not in slot 20; level II swaps it in from slot 20; no switch without sneaking.",
-            "Chests (only with enableLootTableChanges): stronghold library book I (weight 1) and II (1); end city treasure chest I (10) and II (10).",
+            "Chests (only with enableLootTableChanges): stronghold library book I (weight 4) and II (2); end city treasure chest I (6) and II (3).",
             "No trader offers Versatility (no trade file and no 1.21.11 pool contains versatility).",
             "In the creative inventory the book sits at level II; on Fabric and NeoForge the book has its own texture (enchanted_book_versatility.png)."
           ],
@@ -22937,7 +22470,7 @@ window.WIKI_DATA = {
             "Fund im restlichen Inventar (nur Stufe II): Item in der Hand und gefundenes Item tauschen die Plätze; Inventar-Änderungen werden an den Client gesendet.",
             "Auf Forge und NeoForge zählt nur der erste Klick (LeftClickBlock.Action.START), nicht jeder Tick des gehaltenen Abbaus; auf Fabric hängt es an AttackBlockCallback.",
             "Der Test der Mod belegt: ohne Verzauberung kein Wechsel; Stufe I findet die Spitzhacke in der Hotbar, aber nicht in Slot 20; Stufe II tauscht sie aus Slot 20 ein; ohne Schleichen kein Wechsel.",
-            "Truhen (nur bei enableLootTableChanges): Festungsbibliothek Buch I (Gewicht 1) und II (1); Endsiedlung I (10) und II (10).",
+            "Truhen (nur bei enableLootTableChanges): Festungsbibliothek Buch I (Gewicht 4) und II (2); Endsiedlung I (6) und II (3).",
             "Kein Händler bietet Vielseitigkeit an (keine Trade-Datei und kein 1.21.11-Pool enthält versatility).",
             "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric und NeoForge hat das Buch eine eigene Textur (enchanted_book_versatility.png)."
           ],
@@ -23380,121 +22913,6 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/deep_pockets_enchantable.json"
-    },
-    {
-      "id": "simplebuilding:item/enderite_ingot_tier",
-      "replace": false,
-      "values": [
-        {
-          "id": "simplebuilding:enderite_apple",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_axe",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_backpack",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_blast_furnace",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_block",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_boots",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_building_wand",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_bundle",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_carrot",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_chestplate",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_chisel",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_core",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_furnace",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_helmet",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_hoe",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_hopper",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_ingot",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_leggings",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_nugget",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_pickaxe",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_piston",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_quiver",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_shovel",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_sledgehammer",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_smoker",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_spear",
-          "required": true
-        },
-        {
-          "id": "simplebuilding:enderite_sword",
-          "required": true
-        }
-      ],
-      "source": "src/main/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json"
     },
     {
       "id": "simplebuilding:item/extra_inventory_items",
@@ -23941,15 +23359,15 @@ window.WIKI_DATA = {
     }
   ],
   "counts": {
-    "items": 124,
-    "blocks": 41,
-    "recipes": 134,
-    "lootTables": 40,
-    "trades": 20,
+    "items": 122,
+    "blocks": 39,
+    "recipes": 132,
+    "lootTables": 38,
+    "trades": 21,
     "enchantments": 19,
-    "tags": 26,
+    "tags": 25,
     "config": 14,
-    "features": 30,
+    "features": 31,
     "undocumented": 0,
     "incompleteProse": 0
   },
