@@ -97,7 +97,7 @@ import net.minecraft.world.phys.Vec3;
  *   <li><b>The loot tables themselves</b> and <b>the three crafting patterns</b>.
  *       {@code DataIntegrityTests} drives both to the ground already - it rolls every table and
  *       compares the items that fall out, and it matches every pattern through the live
- *       {@code RecipeManager} including the result count. {@link #allSixFurnacesDropThemselvesWhenBroken}
+ *       {@code RecipeManager} including the result count. {@link #allNineFurnacesDropThemselvesWhenBroken}
  *       and {@link #furnaceRecipesKeepTheirBookCategoryAndRejectNearMissGrids} are cut back to what
  *       is left over there, and each says so in its own javadoc.</li>
  *   <li><b>The screens themselves</b>, the lit texture, the fire and smoke particles and the
@@ -118,7 +118,7 @@ public final class FurnaceTests {
     /** Tick budget for {@link #boostNeverPushesCookingProgressToTheFullCookTime}. */
     public static final int COOK_CAP_MAX_TICKS = 200;
 
-    /** Tick budget for {@link #allSixFurnacesDropThemselvesWhenBroken} (nine devices by now). */
+    /** Tick budget for {@link #allNineFurnacesDropThemselvesWhenBroken}. */
     public static final int DROP_MAX_TICKS = 60;
 
     /** Tick budget for {@link #oneCoalFeedsSeveralNetheriteSmeltsWhereVanillaManagesOne}. */
@@ -615,7 +615,7 @@ public final class FurnaceTests {
 
     /**
      * Only the three netherite and the three enderite block items are registered
-     * {@code fireResistant()} (the name predates the enderite tier).
+     * {@code fireResistant()}.
      *
      * <p>The component is compared against a netherite ingot's rather than asserted by shape, and
      * then driven: a dropped netherite or enderite device has to survive lava but not drowning, so
@@ -626,7 +626,7 @@ public final class FurnaceTests {
      * <p>What breaks this test: dropping {@code fireResistant()} from one of the six netherite or
      * enderite items in {@code ModItems}, or adding it to a reinforced one.
      */
-    public static void onlyNetheriteFurnaceItemsSurviveLava(GameTestHelper helper) {
+    public static void onlyNetheriteAndEnderiteFurnaceItemsSurviveLava(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
 
         DamageResistant netheriteIngot = new ItemStack(Items.NETHERITE_INGOT).get(DataComponents.DAMAGE_RESISTANT);
@@ -668,7 +668,7 @@ public final class FurnaceTests {
 
     /**
      * The one thing about the nine loot tables that rolling them cannot show: breaking the block in a
-     * live world really does put an item entity on the ground (the name predates the enderite tier).
+     * live world really does put an item entity on the ground.
      *
      * <p>The tables themselves are not claimed here.
      * {@code DataIntegrityTests#everyModBlockLootTableLoads} covers them harder than its name
@@ -690,7 +690,7 @@ public final class FurnaceTests {
      * <p>What breaks this test: one of the nine losing its loot table entirely, or gaining a
      * condition that a break with no player and no tool does not satisfy.
      */
-    public static void allSixFurnacesDropThemselvesWhenBroken(GameTestHelper helper) {
+    public static void allNineFurnacesDropThemselvesWhenBroken(GameTestHelper helper) {
         for (int index = 0; index < ALL_DEVICES.size(); index++) {
             BlockPos pos = NINE_SPOTS.get(index);
             helper.setBlock(pos, ALL_DEVICES.get(index).block());

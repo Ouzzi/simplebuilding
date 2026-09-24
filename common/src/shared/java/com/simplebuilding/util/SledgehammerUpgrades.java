@@ -411,8 +411,11 @@ public final class SledgehammerUpgrades {
         player.swing(InteractionHand.MAIN_HAND, true);
         hammer.hurtAndBreak(job.upgrade.damagePerHit(), player, EquipmentSlot.MAINHAND);
         if (hammer.isEmpty()) {
-            // Zerbrochen: die Benutzung endet im naechsten Tick von selbst (anderes Item in der Hand).
+            // Zerbrochen: Auftrag und Benutzung enden hier. Von selbst endete die Benutzung nicht -
+            // der geleerte Stapel in der Hand und der in Benutzung sind derselbe, beide sind fuer
+            // Vanillas isSameItem "Luft", und der Server hielte den Spieler weiter fuer benutzend.
             SERVER_JOBS.remove(player.getUUID());
+            player.stopUsingItem();
         }
     }
 

@@ -689,15 +689,57 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("furnace_game_test_furnace_blocks_carry_their_registered_hardness_resistance_and_tags", FurnaceTests::furnaceBlocksCarryTheirRegisteredHardnessResistanceAndTags)
                     .build(),
-            GameTestSpec.named("furnace_game_test_only_netherite_furnace_items_survive_lava", FurnaceTests::onlyNetheriteFurnaceItemsSurviveLava)
+            GameTestSpec.named("furnace_game_test_only_netherite_and_enderite_furnace_items_survive_lava", FurnaceTests::onlyNetheriteAndEnderiteFurnaceItemsSurviveLava)
                     .build(),
-            GameTestSpec.named("furnace_game_test_all_six_furnaces_drop_themselves_when_broken", FurnaceTests::allSixFurnacesDropThemselvesWhenBroken)
+            GameTestSpec.named("furnace_game_test_all_nine_furnaces_drop_themselves_when_broken", FurnaceTests::allNineFurnacesDropThemselvesWhenBroken)
                     .maxTicks(FurnaceTests.DROP_MAX_TICKS)
                     .build(),
             GameTestSpec.named("furnace_game_test_furnace_recipes_keep_their_book_category_and_reject_near_miss_grids", FurnaceTests::furnaceRecipesKeepTheirBookCategoryAndRejectNearMissGrids)
                     .build(),
             GameTestSpec.named("furnace_game_test_one_coal_feeds_several_netherite_smelts_where_vanilla_manages_one", FurnaceTests::oneCoalFeedsSeveralNetheriteSmeltsWhereVanillaManagesOne)
                     .maxTicks(FurnaceTests.FUEL_PARITY_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("sledgehammer_upgrade_game_test_every_machine_climbs_from_reinforced_to_netherite_to_enderite", SledgehammerUpgradeTests::everyMachineClimbsFromReinforcedToNetheriteToEnderite)
+                    .build(),
+            GameTestSpec.named("sledgehammer_upgrade_game_test_upgraded_furnace_keeps_cooking_the_same_item_at_the_new_pace", SledgehammerUpgradeTests::upgradedFurnaceKeepsCookingTheSameItemAtTheNewPace)
+                    .maxTicks(SledgehammerUpgradeTests.FURNACE_PACE_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("sledgehammer_upgrade_game_test_upgraded_hopper_keeps_its_items_filter_and_mode", SledgehammerUpgradeTests::upgradedHopperKeepsItsItemsFilterAndMode)
+                    .build(),
+            GameTestSpec.named("sledgehammer_upgrade_game_test_creative_upgrade_keeps_the_nugget_and_the_hammer", SledgehammerUpgradeTests::creativeUpgradeKeepsTheNuggetAndTheHammer)
+                    .build(),
+            GameTestSpec.named("sledgehammer_upgrade_game_test_refused_upgrades_never_start_the_hammer", SledgehammerUpgradeTests::refusedUpgradesNeverStartTheHammer)
+                    .maxTicks(SledgehammerUpgradeTests.REFUSAL_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("sledgehammer_upgrade_game_test_interrupted_upgrades_consume_no_nugget", SledgehammerUpgradeTests::interruptedUpgradesConsumeNoNugget)
+                    .build(),
+            GameTestSpec.named("sledgehammer_upgrade_game_test_netherite_machine_recipes_and_their_unlocks_are_gone", SledgehammerUpgradeTests::netheriteMachineRecipesAndTheirUnlocksAreGone)
+                    .build(),
+            GameTestSpec.named("enderite_machine_game_test_enderite_hopper_moves_an_item_every_tick", EnderiteMachineTests::enderiteHopperMovesAnItemEveryTick)
+                    .maxTicks(EnderiteMachineTests.HOPPER_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("enderite_machine_game_test_enderite_furnaces_cook_eight_times_as_fast_as_vanilla", EnderiteMachineTests::enderiteFurnacesCookEightTimesAsFastAsVanilla)
+                    .maxTicks(EnderiteMachineTests.FURNACE_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("enderite_machine_game_test_enderite_machine_items_are_fire_resistant_epic_and_void_protected", EnderiteMachineTests::enderiteMachineItemsAreFireResistantEpicAndVoidProtected)
+                    .build(),
+            GameTestSpec.named("enderite_machine_game_test_enderite_hopper_and_piston_drop_themselves_when_broken", EnderiteMachineTests::enderiteHopperAndPistonDropThemselvesWhenBroken)
+                    .maxTicks(EnderiteMachineTests.DROP_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("enderite_machine_game_test_enderite_machines_fit_their_block_entity_types_and_titles", EnderiteMachineTests::enderiteMachinesFitTheirBlockEntityTypesAndTitles)
+                    .build(),
+            GameTestSpec.named("smelting_game_test_raw_enderite_blasts_for_an_hour_and_pays_ten_experience", SmeltingTests::rawEnderiteBlastsForAnHourAndPaysTenExperience)
+                    .build(),
+            GameTestSpec.named("smelting_game_test_long_cook_timers_survive_the_save_and_load_as_ints", SmeltingTests::longCookTimersSurviveTheSaveAndLoadAsInts)
+                    .maxTicks(SmeltingTests.ROUND_TRIP_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("smelting_game_test_furnace_menu_scales_long_cooks_into_the_short_range", SmeltingTests::furnaceMenuScalesLongCooksIntoTheShortRange)
+                    .build(),
+            GameTestSpec.named("smelting_game_test_upper_tier_furnaces_pay_double_experience", SmeltingTests::upperTierFurnacesPayDoubleExperience)
+                    .maxTicks(SmeltingTests.EXPERIENCE_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("smelting_game_test_blast_furnace_bonus_pays_raw_metals_every_fourth_or_second_smelt", SmeltingTests::blastFurnaceBonusPaysRawMetalsEveryFourthOrSecondSmelt)
+                    .maxTicks(SmeltingTests.BONUS_MAX_TICKS)
                     .build(),
             GameTestSpec.named("trade_offer_game_test_master_book_trade_draws_every_enchantment_in_its_pool", TradeOfferTests::masterBookTradeDrawsEveryEnchantmentInItsPool)
                     .build(),

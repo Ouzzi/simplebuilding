@@ -68,6 +68,9 @@
       "com.simplebuilding.gametest.StorageEnchantmentGameTest",
       "com.simplebuilding.gametest.OctantGameTest",
       "com.simplebuilding.gametest.FurnaceGameTest",
+      "com.simplebuilding.gametest.SledgehammerUpgradeGameTest",
+      "com.simplebuilding.gametest.EnderiteMachineGameTest",
+      "com.simplebuilding.gametest.SmeltingGameTest",
       "com.simplebuilding.gametest.TradeOfferGameTest"
     ]
   },
