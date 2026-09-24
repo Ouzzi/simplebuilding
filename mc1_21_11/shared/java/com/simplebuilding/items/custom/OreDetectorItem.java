@@ -34,49 +34,110 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.util.Mth;
 
 import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 
 public class OreDetectorItem extends Item {
 
+    // =====================================================================================
+    // STELLSCHRAUBEN - die einzige Stelle, an der der Detektor abgestimmt wird (2026-09-25)
+    // =====================================================================================
+
     /**
-     * Balancing nach Seltenheit (2026-09): wie weit der Detektor ein Erz sieht, haengt an der Klasse
-     * des GEFUNDENEN Erzes, nicht am Modus. Das Budget ist zugleich Suchradius (in Bloecken) und
-     * Kostendeckel des Strahls: jeder halbe Block kostet {@code 0.5 * Dichte * 2}, also Luft 2 je
-     * Block, Stein 6, Netherrack 3, Tiefenschiefer/Basalt/Schwarzstein 12; Konstrukteurs Beruehrung
-     * halbiert das. Radius (dieselbe Verzauberung wie am Vorschlaghammer) legt vor allem bei den
-     * seltenen Klassen zu:
+     * Signal und Reichweite je Seltenheitsklasse des GEFUNDENEN Erzes (nicht des Modus).
+     *
+     * <p>Ein Erz wird gefunden, wenn es hoechstens {@link #range} Bloecke vom Augenblock entfernt
+     * liegt UND sein Signal den Weg dorthin uebersteht: jeder Block, den die Sichtlinie zwischen
+     * Augenblock und Erz schneidet, zieht den Verlust seines {@link Material}s ab (Augenblock und
+     * Erz selbst zaehlen nicht). Die Reichweite ist zugleich der Radius der Suchkugel, also die
+     * groesste Entfernung, ueber die der Detektor selbst durch offene Hoehlen etwas meldet.
+     * Radius (dieselbe Verzauberung wie am Vorschlaghammer) hebt beides an, das Signal der
+     * seltenen Klassen am staerksten.
      * <pre>
-     *   Klasse     Erze                                           Budget  mit Radius
-     *   COMMON     Kohle, Kupfer, Eisen, Redstone, Lapis, Quarz     24        24
-     *   MEDIUM     Gold (auch Nethergold)                           18        20
-     *   RARE       Diamant, Smaragd                                 12        18
-     *   VERY_RARE  Antiker Schrott, Astralit-, Nihilitherz           8        14
+     *   Klasse     Erze                                          Signal Reichweite | mit Radius
+     *   COMMON     Kohle, Kupfer, Eisen, Redstone, Lapis, Quarz    18      24      |  22    28
+     *   MEDIUM     Gold (auch Nethergold)                          13      20      |  17    24
+     *   RARE       Diamant, Smaragd                                 9      16      |  17    24
+     *   VERY_RARE  Antiker Schrott, Astralit-, Nihiliterz           5      16      |   9    20
      * </pre>
-     * Ein kalibrierter Block, der keines dieser Erze ist, zaehlt als COMMON.
+     * Mit den Verlusten aus {@link Material} heisst das ohne Radius: gewoehnliche Erze durch 4
+     * Stein, Gold durch 3, Diamant und Smaragd durch 2, Antiker Schrott durch 2 Netherrack (die
+     * End-Erze durch 2 Endstein) oder 1 Stein - jeweils mit bis zu 8 Bloecken Luft dazu. Mit
+     * Radius: 5 / 4 / 4 Stein und 4 Netherrack. Ein kalibrierter Block, der keines dieser Erze
+     * ist, zaehlt als COMMON.
      */
     public enum OreClass {
-        COMMON(24, 0),
-        MEDIUM(18, 2),
-        RARE(12, 6),
-        VERY_RARE(8, 6);
+        COMMON(18, 24, 22, 28),
+        MEDIUM(13, 20, 17, 24),
+        RARE(9, 16, 17, 24),
+        VERY_RARE(5, 16, 9, 20);
 
-        public final int budget;
-        public final int radiusBonus;
+        private final int signal;
+        private final int range;
+        private final int signalWithRadius;
+        private final int rangeWithRadius;
 
-        OreClass(int budget, int radiusBonus) {
-            this.budget = budget;
-            this.radiusBonus = radiusBonus;
+        OreClass(int signal, int range, int signalWithRadius, int rangeWithRadius) {
+            this.signal = signal;
+            this.range = range;
+            this.signalWithRadius = signalWithRadius;
+            this.rangeWithRadius = rangeWithRadius;
         }
 
-        public int budget(boolean radius) {
-            return budget + (radius ? radiusBonus : 0);
+        /** Wie viel Materialverlust das Signal dieser Klasse verkraftet. */
+        public int signal(boolean radius) {
+            return radius ? signalWithRadius : signal;
+        }
+
+        /** Groesste Entfernung in Bloecken (Augenblock bis Erz), auch durch reine Luft. */
+        public int range(boolean radius) {
+            return radius ? rangeWithRadius : range;
         }
     }
+
+    /**
+     * Signalverlust je Block, den die Sichtlinie schneidet. Welche Stufe ein Block hat, entscheidet
+     * {@link #material}: Luft und alles, was nicht verdeckt (Glas, Laub, Wasser), ist fast frei;
+     * sonst die Abbauhaerte des Blocks, mit Endstein als einziger Ausnahme.
+     * <pre>
+     *   AIR         0.125   Luft, nicht verdeckende Bloecke, Fluessigkeiten
+     *   SOFT        2       Haerte unter 1.0 (Netherrack, Erde, Sand, Kies) und Endstein
+     *   STONE       4       Haerte 1.0 bis unter 3.0 (Stein, Bruchstein, Tuff, Basalt, Schwarzstein, Holz)
+     *   DENSE       6       Haerte 3.0 bis unter 10 (Tiefenschiefer, Erze)
+     *   VERY_DENSE  16      Haerte ab 10 oder unzerstoerbar (Obsidian, Antiker Schrott, Grundgestein)
+     * </pre>
+     * Endstein zaehlt als SOFT, obwohl er Haerte 3.0 hat: er ist das Wirtsgestein der End-Erze wie
+     * Netherrack das des Antiken Schrotts, und die End-Erze sollen sich genauso anfuehlen.
+     */
+    public enum Material {
+        AIR(0.125),
+        SOFT(2.0),
+        STONE(4.0),
+        DENSE(6.0),
+        VERY_DENSE(16.0);
+
+        public final double loss;
+
+        Material(double loss) {
+            this.loss = loss;
+        }
+    }
+
+    /** Untere Haertegrenzen der Stufen STONE, DENSE und VERY_DENSE, siehe {@link Material}. */
+    private static final float STONE_HARDNESS = 1.0f;
+    private static final float DENSE_HARDNESS = 3.0f;
+    private static final float VERY_DENSE_HARDNESS = 10.0f;
+
+    /** Konstrukteurs Beruehrung: jeder Blockverlust zaehlt nur so viel, das Signal traegt doppelt so weit durch Gestein. */
+    public static final double TOUCH_LOSS_FACTOR = 0.5;
+
+    // =====================================================================================
 
     private static final int SCAN_INTERVAL = 20;   // Ping alle 1 Sekunde
 
@@ -99,11 +160,11 @@ public class OreDetectorItem extends Item {
             this.oreClass = oreClass;
         }
 
-        /** Suchradius: das groesste Budget, das ein Treffer dieses Modus haben kann. */
+        /** Suchradius: die groesste Reichweite, die ein Treffer dieses Modus haben kann. */
         int scanRadius(@Nullable BlockState customTarget, boolean radius) {
-            if (oreClass != null) return oreClass.budget(radius);
-            if (this == CUSTOM && customTarget != null) return classify(customTarget).budget(radius);
-            return OreClass.COMMON.budget(radius);
+            if (oreClass != null) return oreClass.range(radius);
+            if (this == CUSTOM && customTarget != null) return classify(customTarget).range(radius);
+            return OreClass.COMMON.range(radius);
         }
     }
 
@@ -155,9 +216,22 @@ public class OreDetectorItem extends Item {
      */
     @Nullable
     public BlockPos findTarget(ServerLevel world, ItemStack stack, Vec3 eyesPos) {
-        double costMultiplier = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH) ? 1.0 : 2.0;
-        boolean radius = hasEnchantment(stack, world, ModEnchantments.RADIUS);
-        return findNearestOreWithRaycast(world, eyesPos, getMode(stack), stack, costMultiplier, radius);
+        return findTarget(world, world, stack, eyesPos);
+    }
+
+    /**
+     * Dieselbe Suche auf einer beliebigen Blockquelle: {@code blocks} liefert die Bloecke,
+     * {@code level} nur Verzauberungen und Registry. Die Server-Variante oben reicht beide Male
+     * die Welt durch; die Tests geben hier eine eigene Blockquelle, um Sichtlinien ueber 20 und
+     * mehr Bloecke zu legen, die in keinen Testraum passen.
+     */
+    @Nullable
+    public BlockPos findTarget(BlockGetter blocks, Level level, ItemStack stack, Vec3 eyesPos) {
+        double lossFactor = hasEnchantment(stack, level, ModEnchantments.CONSTRUCTORS_TOUCH) ? TOUCH_LOSS_FACTOR : 1.0;
+        boolean radius = hasEnchantment(stack, level, ModEnchantments.RADIUS);
+        DetectMode mode = getMode(stack);
+        BlockState customTarget = (mode == DetectMode.CUSTOM) ? getCustomBlock(stack, level.registryAccess()) : null;
+        return findNearestReachable(blocks, eyesPos, mode, customTarget, lossFactor, radius);
     }
 
     private static boolean isHeldInHands(@Nullable EquipmentSlot slot) {
@@ -202,19 +276,19 @@ public class OreDetectorItem extends Item {
         return super.useOn(context);
     }
 
-    private BlockPos findNearestOreWithRaycast(Level world, Vec3 eyesPos, DetectMode mode, ItemStack stack, double costMultiplier, boolean radius) {
+    private static BlockPos findNearestReachable(BlockGetter world, Vec3 eyesPos, DetectMode mode,
+                                                 @Nullable BlockState customTarget, double lossFactor, boolean radius) {
         BlockPos origin = BlockPos.containing(eyesPos);
-        BlockState customTarget = (mode == DetectMode.CUSTOM) ? getCustomBlock(stack, world.registryAccess()) : null;
 
         int scanRadius = mode.scanRadius(customTarget, radius);
         double maxScanDistanceSq = scanRadius * scanRadius;
         BlockPos bestTarget = null;
         double bestDistanceSq = Double.MAX_VALUE;
 
-        // Ein einziger wandernder Cursor statt eines BlockPos je Wuerfelzelle: bei Radius 24 sind
-        // das 117.649 Zellen pro Scan und pro gehaltenem Detektor. Der Cursor wird bei jedem
+        // Ein einziger wandernder Cursor statt eines BlockPos je Wuerfelzelle: bei Radius 28 sind
+        // das 185.193 Zellen pro Scan und pro gehaltenem Detektor. Der Cursor wird bei jedem
         // Schritt ueberschrieben, darf also weder weitergereicht noch behalten werden - siehe das
-        // immutable() unten. Weitergereicht wird er nur an getBlockState und canReach, und beide
+        // immutable() unten. Weitergereicht wird er nur an getBlockState und pathLoss, und beide
         // lesen ihn bloss.
         BlockPos.MutableBlockPos checkPos = new BlockPos.MutableBlockPos();
 
@@ -233,12 +307,14 @@ public class OreDetectorItem extends Item {
                     BlockState state = world.getBlockState(checkPos);
                     if (!isTarget(state, mode, customTarget)) continue;
 
-                    // Budget des gefundenen Erzes: im ALL-Modus sieht derselbe Detektor Eisen
-                    // weiter als Diamant. Ausserhalb seines eigenen Radius zaehlt ein Treffer nicht.
-                    int budget = classify(state).budget(radius);
-                    if (distanceSq > (double) budget * budget) continue;
+                    // Reichweite und Signal des gefundenen Erzes: im ALL-Modus sieht derselbe
+                    // Detektor Eisen weiter und durch mehr Gestein als Diamant.
+                    OreClass oreClass = classify(state);
+                    int range = oreClass.range(radius);
+                    if (distanceSq > (double) range * range) continue;
 
-                    if (canReach(world, eyesPos, checkPos, budget, costMultiplier)) {
+                    int signal = oreClass.signal(radius);
+                    if (pathLoss(world, eyesPos, checkPos, lossFactor, signal) <= signal) {
                         // Der naechste Schleifenschritt ueberschreibt den Cursor; behalten werden
                         // darf nur eine Kopie.
                         bestTarget = checkPos.immutable();
@@ -251,61 +327,71 @@ public class OreDetectorItem extends Item {
         return bestTarget;
     }
 
-    private boolean canReach(Level world, Vec3 start, BlockPos target, double budget, double costMultiplier) {
-        // MC 26.2: BlockPos.getCenter() entfiel; Vec3.atCenterOf(Vec3i) ist der identische Ersatz
-        // (die alte Methode delegierte 1:1 dorthin).
+    /**
+     * Was das Signal auf dem Weg von {@code start} zur Mitte von {@code target} verliert: die
+     * Summe der {@link Material}-Verluste jedes Blocks, den die Sichtlinie schneidet, mal
+     * {@code lossFactor}. Der Block von {@code start} und das Ziel selbst zaehlen nicht. Sobald
+     * die Summe {@code limit} uebersteigt, bricht die Rechnung ab und liefert den Zwischenstand.
+     *
+     * <p>Die Bloecke werden exakt abgelaufen (Amanatides-Woo): die Linie endet in der Mitte des
+     * Ziels, kreuzt also genau so viele Blockgrenzen, wie Augen- und Zielblock in x, y und z
+     * zusammen auseinanderliegen; alle Bloecke davor sind die dazwischen. Laeuft sie genau durch
+     * eine Kante, zaehlt einer der beiden angrenzenden Bloecke.
+     */
+    public static double pathLoss(BlockGetter world, Vec3 start, BlockPos target, double lossFactor, double limit) {
+        // MC 26.2: BlockPos.getCenter() entfiel; Vec3.atCenterOf(Vec3i) ist der identische Ersatz.
         Vec3 end = Vec3.atCenterOf(target);
-        Vec3 vector = end.subtract(start);
-        double distance = vector.length();
-        Vec3 direction = vector.normalize();
+        int x = Mth.floor(start.x);
+        int y = Mth.floor(start.y);
+        int z = Mth.floor(start.z);
+        double dx = end.x - start.x;
+        double dy = end.y - start.y;
+        double dz = end.z - start.z;
+        int stepX = dx > 0 ? 1 : -1;
+        int stepY = dy > 0 ? 1 : -1;
+        int stepZ = dz > 0 ? 1 : -1;
+        double deltaX = dx == 0 ? Double.POSITIVE_INFINITY : 1.0 / Math.abs(dx);
+        double deltaY = dy == 0 ? Double.POSITIVE_INFINITY : 1.0 / Math.abs(dy);
+        double deltaZ = dz == 0 ? Double.POSITIVE_INFINITY : 1.0 / Math.abs(dz);
+        double nextX = dx == 0 ? Double.POSITIVE_INFINITY : (dx > 0 ? x + 1 - start.x : start.x - x) * deltaX;
+        double nextY = dy == 0 ? Double.POSITIVE_INFINITY : (dy > 0 ? y + 1 - start.y : start.y - y) * deltaY;
+        double nextZ = dz == 0 ? Double.POSITIVE_INFINITY : (dz > 0 ? z + 1 - start.z : start.z - z) * deltaZ;
+        int crossings = Math.abs(target.getX() - x) + Math.abs(target.getY() - y) + Math.abs(target.getZ() - z);
 
-        double accumulatedCost = 0;
-        double stepSize = 0.5;
-
-        for (double d = 0; d < distance; d += stepSize) {
-            Vec3 currentPos = start.add(direction.scale(d));
-            BlockPos bPos = BlockPos.containing(currentPos);
-
-            if (bPos.equals(target)) break;
-
-            BlockState state = world.getBlockState(bPos);
-
-            double blockDensity = getBlockDensity(state);
-
-            accumulatedCost += (stepSize * blockDensity * costMultiplier);
-
-            if (accumulatedCost > budget) return false;
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+        double loss = 0;
+        for (int i = 1; i < crossings; i++) {
+            if (nextX <= nextY && nextX <= nextZ) {
+                x += stepX;
+                nextX += deltaX;
+            } else if (nextY <= nextZ) {
+                y += stepY;
+                nextY += deltaY;
+            } else {
+                z += stepZ;
+                nextZ += deltaZ;
+            }
+            cursor.set(x, y, z);
+            loss += lossFactor * material(world, cursor, world.getBlockState(cursor)).loss;
+            if (loss > limit) return loss;
         }
-
-        return accumulatedCost <= budget;
+        return loss;
     }
 
-    private double getBlockDensity(BlockState state) {
-        if (state.isAir() || !state.canOcclude()) {
-            return 1.0;
-        }
-
-        if (state.is(Blocks.NETHERRACK)) {
-            return 1.5;
-        }
-
-        if (state.is(BlockTags.DEEPSLATE_ORE_REPLACEABLES)
-                || state.is(Blocks.BASALT)
-                || state.is(Blocks.POLISHED_BASALT)
-                || state.is(Blocks.BLACKSTONE)) {
-            return 6.0;
-        }
-
-        if (state.is(BlockTags.BASE_STONE_OVERWORLD)) {
-            return 3.0;
-        }
-
-        return 3.0;
+    /** Die Verluststufe eines Blocks, siehe {@link Material}. */
+    public static Material material(BlockGetter world, BlockPos pos, BlockState state) {
+        if (state.isAir() || !state.canOcclude()) return Material.AIR;
+        if (state.is(Blocks.END_STONE)) return Material.SOFT;
+        float hardness = state.getDestroySpeed(world, pos);
+        if (hardness < 0 || hardness >= VERY_DENSE_HARDNESS) return Material.VERY_DENSE;
+        if (hardness >= DENSE_HARDNESS) return Material.DENSE;
+        if (hardness >= STONE_HARDNESS) return Material.STONE;
+        return Material.SOFT;
     }
 
     // MC 1.21.11: Die Erz-Block-Tags stehen noch komplett in BlockTags; BlockItemTags (gepaarte
     // Block-/Item-Tags) gibt es erst ab 26.2. Tag-IDs und -Inhalte sind identisch.
-    private boolean isTarget(BlockState state, DetectMode mode, BlockState customTarget) {
+    private static boolean isTarget(BlockState state, DetectMode mode, @Nullable BlockState customTarget) {
         return switch (mode) {
             case IRON -> state.is(BlockTags.IRON_ORES);
             case GOLD -> state.is(BlockTags.GOLD_ORES);
@@ -374,7 +460,7 @@ public class OreDetectorItem extends Item {
     }
 
     private void spawnSonarBeam(ServerLevel world, Vec3 startPos, BlockPos endPos, BlockState targetState) {
-        // MC 26.2: siehe canReach() — BlockPos.getCenter() -> Vec3.atCenterOf(Vec3i)
+        // MC 26.2: siehe pathLoss() — BlockPos.getCenter() -> Vec3.atCenterOf(Vec3i)
         Vec3 targetCenter = Vec3.atCenterOf(endPos);
         Vec3 direction = targetCenter.subtract(startPos).normalize();
         double distance = startPos.distanceTo(targetCenter);
@@ -431,7 +517,7 @@ public class OreDetectorItem extends Item {
         );
     }
 
-    private BlockState getCustomBlock(ItemStack stack, HolderLookup.Provider registryLookup) {
+    private static BlockState getCustomBlock(ItemStack stack, HolderLookup.Provider registryLookup) {
         if (registryLookup == null) return null;
 
         CompoundTag nbt = getCustomData(stack);
@@ -472,11 +558,19 @@ public class OreDetectorItem extends Item {
         textConsumer.accept(Component.empty());
         boolean radius = stack.getEnchantments().keySet().stream().anyMatch(h -> h.is(ModEnchantments.RADIUS));
         BlockState custom = mode == DetectMode.CUSTOM ? getCustomBlock(stack, context.registries()) : null;
-        textConsumer.accept(Component.literal("Power: " + mode.scanRadius(custom, radius)).withStyle(ChatFormatting.DARK_AQUA));
+        OreClass shown = mode.oreClass != null ? mode.oreClass
+                : (custom != null ? classify(custom) : OreClass.COMMON);
+        textConsumer.accept(Component.literal("Signal: " + shown.signal(radius) + ", Range: " + shown.range(radius))
+                .withStyle(ChatFormatting.DARK_AQUA));
         if (mode == DetectMode.ALL) {
-            textConsumer.accept(Component.literal("Gold " + OreClass.MEDIUM.budget(radius) + ", Diamond/Emerald " + OreClass.RARE.budget(radius)
-                    + ", Debris/End ores " + OreClass.VERY_RARE.budget(radius)).withStyle(ChatFormatting.DARK_AQUA));
+            textConsumer.accept(Component.literal("Gold " + describe(OreClass.MEDIUM, radius)
+                    + ", Diamond/Emerald " + describe(OreClass.RARE, radius)
+                    + ", Debris/End ores " + describe(OreClass.VERY_RARE, radius)).withStyle(ChatFormatting.DARK_AQUA));
         }
-        textConsumer.accept(Component.literal("Penetrates dense blocks slower.").withStyle(ChatFormatting.GRAY));
+        textConsumer.accept(Component.literal("Rock damps the signal, dense rock more.").withStyle(ChatFormatting.GRAY));
+    }
+
+    private static String describe(OreClass oreClass, boolean radius) {
+        return oreClass.signal(radius) + "/" + oreClass.range(radius);
     }
 }

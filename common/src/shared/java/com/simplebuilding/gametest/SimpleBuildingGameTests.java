@@ -345,6 +345,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("ore_detector_game_test_all_ores_reach_follows_the_ore_rarity_and_radius_stretches_the_rare_ones", OreDetectorTests::allOresReachFollowsTheOreRarityAndRadiusStretchesTheRareOnes)
                     .build(),
+            GameTestSpec.named("ore_detector_game_test_open_air_reach_ends_at_the_range_of_each_ore_class", OreDetectorTests::openAirReachEndsAtTheRangeOfEachOreClass)
+                    .build(),
             GameTestSpec.named("ore_detector_game_test_calibrated_detector_glimmers_in_the_colour_of_its_target", OreDetectorTests::calibratedDetectorGlimmersInTheColourOfItsTarget)
                     .build(),
             GameTestSpec.named("quiver_game_test_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder)
