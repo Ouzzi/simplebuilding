@@ -280,14 +280,27 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
         @Override
         public boolean packetsSettled() {
             // 1.21.11 runs against fabric-client-gametest-api-v1 4.3.5, which has neither
-            // TestSingleplayerContext#getConnection() nor waitForClientboundPackets(). There is
-            // therefore nothing exact to wait for here, and inventing a poll would only look like
-            // one - so this answers the same way the NeoForge driver does, and the idle steps
-            // around every awaitPackets call are what actually give the packets time. See
-            // Harness#packetsSettled, which describes exactly this case.
+            // TestSingleplayerContext#getConnection() nor waitForClientboundPackets(), and its
+            // network synchronizer is switched off in build.gradle (it deadlocks joins). Until
+            // 2026-09-24 this answered "yes" straight away and left the waiting to the idle steps
+            // around the call - the race the NeoForge 26.2 driver lost on a loaded machine. Now it
+            // builds the same barrier that driver does (two server ticks, then a ping round the
+            // client handles in order - see PacketBarrier), polled on the client thread because
+            // Fabric forbids Minecraft.getInstance() on the test thread.
             requireWorld("packetsSettled");
-            return true;
+            if (packetBarrier == null) {
+                packetBarrier = new PacketBarrier();
+            }
+            PacketBarrier barrier = packetBarrier;
+            if (context.computeOnClient(client -> barrier.poll())) {
+                packetBarrier = null;
+                return true;
+            }
+            return false;
         }
+
+        /** The packet barrier of the current "wait for the server's packets" step, if one is running. */
+        private PacketBarrier packetBarrier;
 
         @Override
         public boolean chunksRendered() {

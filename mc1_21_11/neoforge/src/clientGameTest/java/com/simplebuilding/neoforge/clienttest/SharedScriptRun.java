@@ -51,6 +51,8 @@ final class SharedScriptRun implements Harness {
     private final List<ClientTests.Entry> inWorld = new ArrayList<>(ClientTests.inWorld());
     private final Map<String, Shot> shots = new LinkedHashMap<>();
     private final Map<String, CommandJob> commands = new LinkedHashMap<>();
+    /** The packet barrier of the current "wait for the server's packets" step, if one is running. */
+    private PacketBarrier packetBarrier;
 
     private Phase phase = Phase.BEFORE_WORLD;
     private int listIndex;
@@ -181,6 +183,7 @@ final class SharedScriptRun implements Harness {
             String where = scriptName + " at step '" + script.currentStepName() + "'";
             Log.info("FAILED in " + where + ": " + t);
             failures.add(where + ": " + t);
+            packetBarrier = null;
             try {
                 releaseAllInput();
             } catch (Throwable cleanup) {
@@ -217,11 +220,17 @@ final class SharedScriptRun implements Harness {
 
     @Override
     public boolean packetsSettled() {
-        // NeoForge has no way to know when the client has drained what the server sent - Fabric
-        // knows because its framework runs the two task queues in a fixed order. Saying "yes"
-        // straight away is honest about that: the idle steps around this call are what actually
-        // give the packets time, and the scripts are written with that in mind.
-        return true;
+        // A real barrier since 2026-09-24, the same as on the 26.2 line (two server ticks, then a
+        // ping round - see PacketBarrier). The old unconditional "yes" left the waiting to the
+        // idle steps around this call, and on a loaded machine that race was lost on 26.2.
+        if (packetBarrier == null) {
+            packetBarrier = new PacketBarrier();
+        }
+        if (packetBarrier.poll()) {
+            packetBarrier = null;
+            return true;
+        }
+        return false;
     }
 
     @Override

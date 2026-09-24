@@ -6,6 +6,9 @@
   "mixins": [
     "SpaceKeyHandlerMixin"
   ],
+  "client": [
+    "PingHandledMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
