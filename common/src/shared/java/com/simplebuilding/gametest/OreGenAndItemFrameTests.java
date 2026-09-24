@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,6 +24,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.ProblemReporter;
@@ -58,6 +60,7 @@ import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementContext;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.storage.TagValueInput;
@@ -77,7 +80,9 @@ import net.minecraft.world.phys.Vec3;
  * leaving the feature pointing at nothing, and a loader port where the biome injection (Fabric
  * {@code BiomeModifications} vs. the NeoForge {@code biome_modifier} JSON) was forgotten or
  * widened on one side. It does <em>not</em> prove vein shape, real spawn rates, or that the End
- * islands offer enough end stone for the placement to succeed.
+ * islands offer enough end stone for the placement to succeed. The one piece of placement
+ * behaviour it does drive is nihilith's filter and offset, on hand-built blocks
+ * ({@link #nihilithPlacementOnlyAcceptsEndStoneUndersidesAndLiftsTheOrigin}).
  *
  * <p><b>Item frame.</b> This half is a real behaviour test: frames are spawned, the interactions
  * are driven server side and the resulting state is read back out of the entity.
@@ -237,6 +242,77 @@ public final class OreGenAndItemFrameTests {
             assertOreNowhereOutsideTheEnd(helper, ore);
         }
         helper.succeed();
+    }
+
+    /**
+     * What the nihilith placement does with a position, not only which numbers it carries: the
+     * filter and the offset of {@code nihilith_ore_placed} are taken out of the running server's
+     * registry and run on hand-built blocks.
+     *
+     * <ul>
+     *   <li><b>End stone with air below</b> - an island underside - passes the filter.</li>
+     *   <li><b>End stone with end stone below</b> - the top or the inside of an island - does not.</li>
+     *   <li><b>Stone with air below</b> does not: only end stone may carry the ore.</li>
+     *   <li><b>Air over air</b> - the void, which the old filter let through - does not.</li>
+     *   <li><b>The offset</b> moves an accepted underside exactly one block up, so the vein starts
+     *       inside the island instead of hanging below it.</li>
+     * </ul>
+     * {@link #endOrePlacementDiffersBetweenAstralitAndNihilith} compares the encoded modifiers with
+     * the expected ones; this test is what fails if both sides of that comparison agree on something
+     * that does not do what the wiki says.
+     *
+     * <p>What breaks this test: dropping the end stone predicate from the filter, turning its
+     * "replaceable below" around, and an offset other than +1.
+     */
+    public static void nihilithPlacementOnlyAcceptsEndStoneUndersidesAndLiftsTheOrigin(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        PlacedFeature placed = level.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE)
+                .getOrThrow(ModWorldGen.NIHILITH_ORE_PLACED_KEY).value();
+        PlacementModifier filter = null;
+        PlacementModifier offset = null;
+        for (PlacementModifier modifier : placed.placement()) {
+            if (filter == null && modifier instanceof BlockPredicateFilter) {
+                filter = modifier;
+            }
+            if (offset == null && modifier instanceof RandomOffsetPlacement) {
+                offset = modifier;
+            }
+        }
+        helper.assertTrue(filter != null && offset != null,
+                "nihilith_ore_placed has lost its block predicate filter or its random offset: " + placed.placement());
+        PlacementContext context = new PlacementContext(level, level.getChunkSource().getGenerator(), Optional.of(placed));
+
+        BlockPos underside = new BlockPos(2, 4, 2);
+        BlockPos islandTop = new BlockPos(5, 4, 2);
+        BlockPos stoneUnderside = new BlockPos(2, 4, 5);
+        BlockPos inTheVoid = new BlockPos(5, 4, 5);
+        helper.setBlock(underside, Blocks.END_STONE);
+        helper.setBlock(underside.below(), Blocks.AIR);
+        helper.setBlock(islandTop, Blocks.END_STONE);
+        helper.setBlock(islandTop.below(), Blocks.END_STONE);
+        helper.setBlock(stoneUnderside, Blocks.STONE);
+        helper.setBlock(stoneUnderside.below(), Blocks.AIR);
+        helper.setBlock(inTheVoid, Blocks.AIR);
+        helper.setBlock(inTheVoid.below(), Blocks.AIR);
+
+        helper.assertTrue(passes(filter, context, helper.absolutePos(underside)),
+                "the nihilith filter refused end stone with air below it - an island underside");
+        helper.assertTrue(!passes(filter, context, helper.absolutePos(islandTop)),
+                "the nihilith filter accepted end stone with end stone below it - the top or inside of an island");
+        helper.assertTrue(!passes(filter, context, helper.absolutePos(stoneUnderside)),
+                "the nihilith filter accepted a stone underside; only end stone may carry the ore");
+        helper.assertTrue(!passes(filter, context, helper.absolutePos(inTheVoid)),
+                "the nihilith filter accepted a position in the void");
+
+        List<BlockPos> moved = offset.getPositions(context, RandomSource.create(1L), helper.absolutePos(underside)).toList();
+        helper.assertTrue(moved.equals(List.of(helper.absolutePos(underside).above())),
+                "the nihilith offset did not move the underside exactly one block up, it gave " + moved);
+
+        helper.succeed();
+    }
+
+    private static boolean passes(PlacementModifier filter, PlacementContext context, BlockPos absolute) {
+        return filter.getPositions(context, RandomSource.create(0L), absolute).findAny().isPresent();
     }
 
     // =====================================================================================

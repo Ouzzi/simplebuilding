@@ -32,6 +32,11 @@ public final class OreGenAndItemFrameGameTest {
         OreGenAndItemFrameTests.bothEndOresReachTheEndBiomesAndStayOutOfTheOverworld(helper);
     }
 
+    @GameTest
+    public void nihilithPlacementOnlyAcceptsEndStoneUndersidesAndLiftsTheOrigin(GameTestHelper helper) {
+        OreGenAndItemFrameTests.nihilithPlacementOnlyAcceptsEndStoneUndersidesAndLiftsTheOrigin(helper);
+    }
+
     @GameTest(rotation = Rotation.NONE)
     public void glassPaneLocksTheFrameAndTheLockSurvivesTheSaveRoundTrip(GameTestHelper helper) {
         OreGenAndItemFrameTests.glassPaneLocksTheFrameAndTheLockSurvivesTheSaveRoundTrip(helper);

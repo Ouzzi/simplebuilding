@@ -252,6 +252,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_both_end_ores_reach_the_end_biomes_and_stay_out_of_the_overworld", OreGenAndItemFrameTests::bothEndOresReachTheEndBiomesAndStayOutOfTheOverworld)
                     .build(),
+            GameTestSpec.named("ore_gen_and_item_frame_game_test_nihilith_placement_only_accepts_end_stone_undersides_and_lifts_the_origin", OreGenAndItemFrameTests::nihilithPlacementOnlyAcceptsEndStoneUndersidesAndLiftsTheOrigin)
+                    .build(),
             GameTestSpec.named("ore_gen_and_item_frame_game_test_glass_pane_locks_the_frame_and_the_lock_survives_the_save_round_trip", OreGenAndItemFrameTests::glassPaneLocksTheFrameAndTheLockSurvivesTheSaveRoundTrip)
                     .rotation(Rotation.NONE)
                     .build(),
@@ -505,6 +507,69 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("gravity_block_game_test_gravity_blocks_and_pistons_carry_their_registered_strength_and_tags", GravityBlockTests::gravityBlocksAndPistonsCarryTheirRegisteredStrengthAndTags)
                     .build(),
             GameTestSpec.named("gravity_block_game_test_gravity_block_recipes_craft_from_their_documented_patterns", GravityBlockTests::gravityBlockRecipesCraftFromTheirDocumentedPatterns)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_reinforced_pistons_push_one_unbreakable_only_when_the_redstone_block_pays", PistonBreachTests::reinforcedPistonsPushOneUnbreakableOnlyWhenTheRedstoneBlockPays)
+                    .maxTicks(PistonBreachTests.PAID_PUSH_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_reinforced_breach_counts_towards_the_limit_and_only_reaches_the_front_block", PistonBreachTests::reinforcedBreachCountsTowardsTheLimitAndOnlyReachesTheFrontBlock)
+                    .maxTicks(PistonBreachTests.LIMIT_MAX_TICKS)
+                    .skyAccess(true)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_sticky_reinforced_piston_pushes_the_unbreakable_but_never_pulls_it_back", PistonBreachTests::stickyReinforcedPistonPushesTheUnbreakableButNeverPullsItBack)
+                    .maxTicks(PistonBreachTests.STICKY_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_netherite_piston_sacrifice_leaves_nothing_behind_and_needs_the_redstone_block", PistonBreachTests::netheritePistonSacrificeLeavesNothingBehindAndNeedsTheRedstoneBlock)
+                    .maxTicks(PistonBreachTests.SACRIFICE_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_enderite_piston_breaches_three_cells_skipping_air_and_stopping_at_immune_blocks", PistonBreachTests::enderitePistonBreachesThreeCellsSkippingAirAndStoppingAtImmuneBlocks)
+                    .maxTicks(PistonBreachTests.ENDERITE_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_breaking_the_head_of_mod_pistons_breaks_the_piston_too", PistonBreachTests::breakingTheHeadOfModPistonsBreaksThePistonToo)
+                    .maxTicks(PistonBreachTests.HEAD_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_immune_blocks_never_move_or_break", PistonBreachTests::immuneBlocksNeverMoveOrBreak)
+                    .maxTicks(PistonBreachTests.IMMUNE_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_explosions_cannot_delete_unbreakable_blocks_while_they_move", PistonBreachTests::explosionsCannotDeleteUnbreakableBlocksWhileTheyMove)
+                    .maxTicks(PistonBreachTests.EXPLOSION_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_end_portal_frames_breach_only_while_their_config_option_is_on", PistonBreachTests::endPortalFramesBreachOnlyWhileTheirConfigOptionIsOn)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_reinforced_sticky_piston_crafts_from_slime_and_drops_itself", PistonBreachTests::reinforcedStickyPistonCraftsFromSlimeAndDropsItself)
+                    .build(),
+            GameTestSpec.named("leather_and_quiver_game_test_leather_sheet_takes_exactly_nine_leather", LeatherAndQuiverTests::leatherSheetTakesExactlyNineLeather)
+                    .build(),
+            GameTestSpec.named("leather_and_quiver_game_test_reinforced_quiver_crafts_from_the_plain_quiver_with_sheet_pebble_and_nugget", LeatherAndQuiverTests::reinforcedQuiverCraftsFromThePlainQuiverWithSheetPebbleAndNugget)
+                    .build(),
+            GameTestSpec.named("leather_and_quiver_game_test_netherite_quiver_smiths_only_from_the_reinforced_quiver", LeatherAndQuiverTests::netheriteQuiverSmithsOnlyFromTheReinforcedQuiver)
+                    .build(),
+            GameTestSpec.named("leather_and_quiver_game_test_upgrades_keep_contents_enchantments_and_name", LeatherAndQuiverTests::upgradesKeepContentsEnchantmentsAndName)
+                    .build(),
+            GameTestSpec.named("leather_and_quiver_game_test_reinforced_quiver_is_an_ordinary_tier_in_the_container_tags", LeatherAndQuiverTests::reinforcedQuiverIsAnOrdinaryTierInTheContainerTags)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_right_click_wears_the_backpack_and_swaps_it_with_the_chestplate", BackpackTests::rightClickWearsTheBackpackAndSwapsItWithTheChestplate)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_tiers_carry_their_armor_slot_count_and_slot_layout", BackpackTests::tiersCarryTheirArmorSlotCountAndSlotLayout)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_contents_survive_the_reinforced_recipe_and_both_smithing_upgrades", BackpackTests::contentsSurviveTheReinforcedRecipeAndBothSmithingUpgrades)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_sneak_right_click_places_the_backpack_and_breaking_it_drops_everything", BackpackTests::sneakRightClickPlacesTheBackpackAndBreakingItDropsEverything)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_open_key_opens_the_menu_only_for_the_worn_backpack", BackpackTests::openKeyOpensTheMenuOnlyForTheWornBackpack)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_shift_click_fills_the_backpack_first_and_empties_it_into_the_main_inventory", BackpackTests::shiftClickFillsTheBackpackFirstAndEmptiesItIntoTheMainInventory)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_deep_pockets_raises_stack_limits_only_for_stackables", BackpackTests::deepPocketsRaisesStackLimitsOnlyForStackables)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_funnel_pulls_picked_up_items_into_the_worn_backpack", BackpackTests::funnelPullsPickedUpItemsIntoTheWornBackpack)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_master_builder_opens_the_backpack_only_when_the_backpack_carries_it", BackpackTests::masterBuilderOpensTheBackpackOnlyWhenTheBackpackCarriesIt)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_constructors_touch_refills_the_empty_hand_from_the_worn_backpack", BackpackTests::constructorsTouchRefillsTheEmptyHandFromTheWornBackpack)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_backpacks_take_their_four_enchantments_but_neither_drawer_nor_color_palette", BackpackTests::backpacksTakeTheirFourEnchantmentsButNeitherDrawerNorColorPalette)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_upper_tiers_survive_fire_and_explosions_and_lower_ones_spill_their_contents", BackpackTests::upperTiersSurviveFireAndExplosionsAndLowerOnesSpillTheirContents)
                     .build(),
             GameTestSpec.named("hopper_game_test_redstone_power_stops_every_hopper_transfer", HopperTests::redstonePowerStopsEveryHopperTransfer)
                     .maxTicks(HopperTests.REDSTONE_LOCK_MAX_TICKS)
