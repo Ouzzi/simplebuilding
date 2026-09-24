@@ -27,4 +27,9 @@ public final class InWorldExportGameTest {
     public void chiselTablesFollowTheToolTiers(GameTestHelper helper) {
         InWorldExportTests.chiselTablesFollowTheToolTiers(helper);
     }
+
+    @GameTest
+    public void jeiCatalogCoversEveryInWorldEntry(GameTestHelper helper) {
+        InWorldExportTests.jeiCatalogCoversEveryInWorldEntry(helper);
+    }
 }

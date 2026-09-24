@@ -2799,6 +2799,55 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "recipe_viewer_jei",
+      "related": [
+        "simplebuilding:netherite_sledgehammer",
+        "simplebuilding:iron_chisel",
+        "simplebuilding:diamond_pebble",
+        "simplebuilding:constructors_touch"
+      ],
+      "sources": [
+        "common/src/jei/java/com/simplebuilding/compat/jei/SimplebuildingJeiPlugin.java",
+        "common/src/jei/java/com/simplebuilding/compat/jei/InWorldCategory.java",
+        "common/src/jei/java/com/simplebuilding/compat/jei/CountBasedSmithingExtension.java",
+        "common/src/shared/java/com/simplebuilding/compat/InWorldRecipeCatalog.java",
+        "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
+        "common/src/shared/java/com/simplebuilding/gametest/InWorldExportTests.java",
+        "src/main/resources/fabric.mod.json",
+        "neoforge/src/main/resources/META-INF/neoforge.mods.toml",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+      ],
+      "en": {
+        "title": "Recipe Viewer (JEI)",
+        "summary": "With Just Enough Items (JEI) installed, the mod adds five categories for its in-world transformations and shows its count-based smithing recipes. JEI is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no JEI for MinecraftForge 26.2.",
+        "details": [
+          "Machine Upgrade (Sledgehammer): machine and nugget, every sledgehammer strong enough for the step (weakest first) and the upgraded machine, with the number of hits, the duration (the arrow fills over the same 100 ticks) and the durability per hit and in total.",
+          "Reshaping (Sledgehammer): every full block the hammer turns into stairs and every stairs it turns into a slab; sneaking with Constructor's Touch, slabs back into stairs and stairs into the full block. Worked out with the same naming rule the hammer uses, so blocks of other mods show up as well.",
+          "Crushing (Sledgehammer): a Diamond Block becomes 81 Diamond Pebbles.",
+          "Chiseling: every chisel step forward (right-click) and backward (sneak + right-click), with the chisels whose tier can do it and a note when it needs Constructor's Touch.",
+          "Shearing Wool: shears used on any placed wool drop 4 String.",
+          "Count-based smithing (for example copper to iron tools with several ingots) appears in JEI's smithing category with the real number of additions.",
+          "The categories are built from the same export as this wiki's in-world transformation pages; a server game test checks that every entry of that export arrives in JEI.",
+          "Turning a trim template in an item frame into a Glowing or Emitting Trim Upgrade Template and washing a coloured octant in a cauldron are only described in this wiki: they have no table in the code and therefore no JEI category yet."
+        ]
+      },
+      "de": {
+        "title": "Rezeptanzeige (JEI)",
+        "summary": "Ist Just Enough Items (JEI) installiert, bringt die Mod fünf Kategorien für ihre Umwandlungen in der Welt mit und zeigt ihre Schmiederezepte mit Mengenangabe. JEI ist optional: ohne JEI ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein JEI.",
+        "details": [
+          "Maschinen-Aufwertung (Vorschlaghammer): Maschine und Nugget, jeder Vorschlaghammer, der für die Stufe stark genug ist (der schwächste zuerst), und die aufgewertete Maschine, dazu Schlagzahl, Dauer (der Pfeil füllt sich über dieselben 100 Ticks) und die Haltbarkeit je Schlag und insgesamt.",
+          "Umformen (Vorschlaghammer): jeder volle Block, den der Hammer zur Treppe macht, und jede Treppe, die er zur Stufe macht; schleichend mit Constructor's Touch Stufen zurück zur Treppe und Treppen zum vollen Block. Ermittelt mit derselben Namensregel, die der Hammer benutzt, deshalb erscheinen auch Blöcke anderer Mods.",
+          "Zerschlagen (Vorschlaghammer): ein Diamantblock wird zu 81 Diamantklumpen.",
+          "Meißeln: jeder Meißelschritt vorwärts (Rechtsklick) und rückwärts (Schleichen + Rechtsklick), mit den Meißeln, deren Stufe ihn kann, und einem Hinweis, wenn er Constructor's Touch braucht.",
+          "Wolle scheren: eine Schere auf beliebiger platzierter Wolle lässt 4 Fäden fallen.",
+          "Schmiederezepte mit Mengenangabe (etwa Kupfer- zu Eisenwerkzeug mit mehreren Barren) erscheinen in JEIs Schmiede-Kategorie mit der echten Anzahl Zutaten.",
+          "Die Kategorien entstehen aus demselben Export wie die Seiten dieses Wikis zu den Umwandlungen in der Welt; ein Server-Spieltest prüft, dass jeder Eintrag dieses Exports in JEI ankommt.",
+          "Eine Besatzvorlage im Rahmen zur Leuchtenden oder Strahlenden Schmiedevorlage machen und einen gefärbten Oktanten im Kessel waschen stehen nur in diesem Wiki: sie haben keine Tabelle im Code und darum noch keine JEI-Kategorie."
+        ]
+      }
+    },
+    {
       "id": "configuration",
       "related": [
         "simplebuilding:double_jump",
@@ -38489,7 +38538,7 @@ window.WIKI_DATA = {
     "tags": 27,
     "config": 14,
     "inWorld": 343,
-    "features": 32,
+    "features": 33,
     "undocumented": 0,
     "incompleteProse": 0
   },

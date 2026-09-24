@@ -110,6 +110,11 @@ public class CountBasedSmithingRecipe implements SmithingRecipe {
         return additionCount;
     }
 
+    /** Das Ergebnis ohne Eingabe (ohne die Komponenten des Basis-Stacks) - fuer die JEI-Anzeige. */
+    public ItemStack getResultStack() {
+        return new ItemStack(this.result.item(), this.result.count(), this.result.components());
+    }
+
     private static void write(RegistryFriendlyByteBuf buf, CountBasedSmithingRecipe recipe) {
         Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.template);
         Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.base);

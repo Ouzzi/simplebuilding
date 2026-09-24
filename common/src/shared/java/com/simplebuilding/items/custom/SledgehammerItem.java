@@ -288,72 +288,77 @@ public class SledgehammerItem extends Item {
         // STRIKTE TRENNUNG:
         if (player.isShiftKeyDown()) {
             // === SNEAKING = REVERSE ===
-
-            // 1. Voraussetzung: Constructor's Touch
+            // Voraussetzung: Constructor's Touch
             if (!hasConstructorsTouch(stack, world)) {
                 return null; // Keine Reparatur ohne Enchantment -> Keine Animation
             }
-
-            // 2. Slab -> Stairs
-            if (block instanceof SlabBlock) {
-                String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath();
-                String baseName = id.replace("_slab", "");
-                Optional<Block> stairs = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
-                        net.minecraft.resources.Identifier.fromNamespaceAndPath(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace(), baseName + "_stairs")
-                );
-                if (stairs.isPresent()) {
-                    BlockState stairState = stairs.get().defaultBlockState();
-                    return ChiselItem.applyIntuitiveOrientation(stairState, side, hit, player);
-                }
+            Optional<Block> target = reshapeTarget(block, true, false);
+            if (target.isEmpty()) {
+                return null;
             }
-
-            // 3. Stairs -> Block
-            if (block instanceof StairBlock) {
-                String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath();
-                String baseName = id.replace("_stairs", "");
-                Optional<Block> fullBlock = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
-                        net.minecraft.resources.Identifier.fromNamespaceAndPath(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace(), baseName)
-                );
-                // Fallbacks prüfen (plural 's' oder '_planks')
-                if (fullBlock.isEmpty()) fullBlock = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace(), baseName + "s"));
-                if (fullBlock.isEmpty()) fullBlock = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(net.minecraft.resources.Identifier.fromNamespaceAndPath(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace(), baseName + "_planks"));
-
-                if (fullBlock.isPresent()) {
-                    return fullBlock.get().defaultBlockState();
-                }
-            }
-
-        } else {
-            // === NICHT SNEAKING = FORWARD ===
-
-            // 1. Block -> Stairs
-            // FIX: world und pos an isFullCube übergeben, statt null
-            if (state.isCollisionShapeFullBlock(world, pos)) {
-                String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath();
-                Optional<Block> stairs = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
-                        net.minecraft.resources.Identifier.fromNamespaceAndPath(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace(), id + "_stairs")
-                );
-                if (stairs.isPresent()) {
-                    BlockState stairState = stairs.get().defaultBlockState();
-                    return ChiselItem.applyIntuitiveOrientation(stairState, side, hit, player);
-                }
-            }
-
-            // 2. Stairs -> Slab
-            if (block instanceof StairBlock) {
-                String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getPath();
-                String baseName = id.replace("_stairs", "");
-                Optional<Block> slab = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
-                        net.minecraft.resources.Identifier.fromNamespaceAndPath(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block).getNamespace(), baseName + "_slab")
-                );
-                if (slab.isPresent()) {
-                    BlockState slabState = slab.get().defaultBlockState();
-                    return ChiselItem.applyIntuitiveOrientation(slabState, side, hit, player);
-                }
-            }
+            // Treppe -> voller Block ohne Ausrichtung; Stufe -> Treppe ausgerichtet wie beim Setzen.
+            BlockState targetState = target.get().defaultBlockState();
+            return block instanceof StairBlock ? targetState : ChiselItem.applyIntuitiveOrientation(targetState, side, hit, player);
         }
 
-        return null;
+        // === NICHT SNEAKING = FORWARD ===
+        // FIX: world und pos an isFullCube übergeben, statt null
+        Optional<Block> target = reshapeTarget(block, false, state.isCollisionShapeFullBlock(world, pos));
+        return target.map(b -> ChiselItem.applyIntuitiveOrientation(b.defaultBlockState(), side, hit, player)).orElse(null);
+    }
+
+    /**
+     * Zielblock einer Umformung, ohne Ausrichtung: die Namensregel, nach der
+     * {@link #getTransformationState} umformt. Eigene Methode, damit der JEI-Katalog
+     * ({@code InWorldTransformations#reshapePairs}) dieselbe Regel benutzt wie das Spiel.
+     *
+     * <ul>
+     *   <li>vorwaerts: voller Block {@code x} -&gt; {@code x_stairs}; Treppe {@code x_stairs} -&gt; {@code x_slab};</li>
+     *   <li>rueckwaerts (Schleichen + Constructor's Touch): Stufe {@code x_slab} -&gt; {@code x_stairs};
+     *       Treppe {@code x_stairs} -&gt; {@code x}, ersatzweise {@code xs} oder {@code x_planks}.</li>
+     * </ul>
+     *
+     * @param fullBlock ob der Ausgangsblock ein voller Kollisionswuerfel ist (nur vorwaerts von Belang)
+     */
+    public static Optional<Block> reshapeTarget(Block block, boolean reverse, boolean fullBlock) {
+        net.minecraft.resources.Identifier key = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block);
+        String namespace = key.getNamespace();
+        String id = key.getPath();
+        if (reverse) {
+            // 1. Slab -> Stairs
+            if (block instanceof SlabBlock) {
+                Optional<Block> stairs = reshapeLookup(namespace, id.replace("_slab", "") + "_stairs");
+                if (stairs.isPresent()) {
+                    return stairs;
+                }
+            }
+            // 2. Stairs -> Block, Fallbacks: plural 's' oder '_planks'
+            if (block instanceof StairBlock) {
+                String baseName = id.replace("_stairs", "");
+                Optional<Block> fullBlockTarget = reshapeLookup(namespace, baseName);
+                if (fullBlockTarget.isEmpty()) fullBlockTarget = reshapeLookup(namespace, baseName + "s");
+                if (fullBlockTarget.isEmpty()) fullBlockTarget = reshapeLookup(namespace, baseName + "_planks");
+                return fullBlockTarget;
+            }
+            return Optional.empty();
+        }
+        // 1. Block -> Stairs
+        if (fullBlock) {
+            Optional<Block> stairs = reshapeLookup(namespace, id + "_stairs");
+            if (stairs.isPresent()) {
+                return stairs;
+            }
+        }
+        // 2. Stairs -> Slab
+        if (block instanceof StairBlock) {
+            return reshapeLookup(namespace, id.replace("_stairs", "") + "_slab");
+        }
+        return Optional.empty();
+    }
+
+    private static Optional<Block> reshapeLookup(String namespace, String path) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath(namespace, path));
     }
 
     public static List<BlockPos> getBlocksToBeDestroyed(int baseRange, BlockPos initialPos, Player player) {

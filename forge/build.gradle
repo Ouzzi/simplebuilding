@@ -120,12 +120,46 @@ repositories {
     maven fg.forgeMaven
     maven fg.minecraftLibsMaven
     maven { url = 'https://maven.shedaniel.me/' }
+    exclusiveContent {
+        forRepository { maven { url = 'https://api.modrinth.com/maven' } }
+        filter { includeGroup 'maven.modrinth' }
+    }
     mavenCentral()
+}
+
+// Dev-only runtime mods. Of JEI, Jade, Mouse Tweaks and AppleSkin only Mouse Tweaks has a
+// MinecraftForge 26.2 build (checked on Modrinth and maven.blamejared.com, 2026-09-24). It goes
+// into the mods folder of the working directory the client and server runs share (run/mods);
+// runGameTestServer works in run-gametest/ and never sees it. Sync only manages the files named
+// like the dev mods; everything else in run/mods stays. Only wired when the runs exist
+// (-Pforge_runs=true). Switch off: -Pdev_mods=false.
+def devModsEnabled = (project.findProperty('dev_mods') ?: 'true').toString().toBoolean()
+configurations {
+    devMods {
+        canBeConsumed = false
+        canBeResolved = true
+        transitive = false
+    }
+}
+def syncDevMods = tasks.register('syncDevMods', Sync) {
+    description = 'Copies the dev-only runtime mods (Mouse Tweaks) into run/mods for runClient/runServer.'
+    from configurations.devMods
+    into layout.projectDirectory.dir('run/mods')
+    preserve {
+        include '**'
+        exclude 'MouseTweaks-*.jar'
+    }
+}
+if (devModsEnabled) {
+    tasks.matching { it.name in ['runClient', 'runServer'] }.configureEach {
+        dependsOn syncDevMods
+    }
 }
 
 dependencies {
     implementation project(':common')
     implementation minecraft.dependency("net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}")
+    devMods "maven.modrinth:mouse-tweaks:${rootProject.dev_mousetweaks_forge}"
     // NOTE: cloth-config has no MinecraftForge build for the 26.x line (Fabric +
     // NeoForge only). A minimal me.shedaniel.autoconfig shim is bundled in this
     // module (see src/main/java/me/shedaniel/autoconfig) so the shared config code

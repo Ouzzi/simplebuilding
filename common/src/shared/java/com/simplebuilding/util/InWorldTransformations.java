@@ -10,11 +10,13 @@ import java.util.Comparator;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.EmptyBlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
@@ -120,6 +122,35 @@ public final class InWorldTransformations {
         o.addProperty("maxTicks", SledgehammerItem.RESHAPE_MAX_TICKS);
         o.add("hammers", hammers);
         return o;
+    }
+
+    /**
+     * Die Umform-Paare des Vorschlaghammers als {@code [von, nach]}, vorwaerts (Block -&gt; Treppe
+     * -&gt; Stufe) oder rueckwaerts (Schleichen + Constructor's Touch), nach derselben Namensregel
+     * wie im Spiel ({@link SledgehammerItem#reshapeTarget}). Ueber alle registrierten Bloecke, also
+     * auch die anderer Mods. Nicht Teil von {@link #describe()} - das Wiki nennt fuers Umformen nur
+     * die Zahlen; der JEI-Katalog ({@code InWorldRecipeCatalog}) liest die Paare hier.
+     *
+     * <p>Vorwaerts wird ein Block nur dann zur Treppe, wenn er ein voller Kollisionswuerfel ist; das
+     * Spiel fragt den Zustand in der Welt, hier zaehlt der Grundzustand.
+     */
+    public static List<Block[]> reshapePairs(boolean reverse) {
+        List<Block[]> out = new ArrayList<>();
+        for (Block block : BuiltInRegistries.BLOCK) {
+            boolean full = !reverse && isFullBlock(block);
+            SledgehammerItem.reshapeTarget(block, reverse, full).ifPresent(target -> out.add(new Block[]{block, target}));
+        }
+        out.sort(Comparator.<Block[], String>comparing(p -> id(p[0])).thenComparing(p -> id(p[1])));
+        return out;
+    }
+
+    private static boolean isFullBlock(Block block) {
+        try {
+            return block.defaultBlockState().isCollisionShapeFullBlock(EmptyBlockGetter.INSTANCE, BlockPos.ZERO);
+        } catch (RuntimeException e) {
+            // Ein Fremdblock, dessen Form eine echte Welt braucht, ist fuer den Katalog kein voller Block.
+            return false;
+        }
     }
 
     /** Diamantblock mit dem Vorschlaghammer zerschlagen. */

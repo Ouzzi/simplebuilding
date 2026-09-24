@@ -758,6 +758,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("in_world_export_game_test_chisel_tables_follow_the_tool_tiers", InWorldExportTests::chiselTablesFollowTheToolTiers)
                     .build(),
+            GameTestSpec.named("in_world_export_game_test_jei_catalog_covers_every_in_world_entry", InWorldExportTests::jeiCatalogCoversEveryInWorldEntry)
+                    .build(),
             GameTestSpec.named("enderite_machine_game_test_enderite_hopper_moves_an_item_every_tick", EnderiteMachineTests::enderiteHopperMovesAnItemEveryTick)
                     .maxTicks(EnderiteMachineTests.HOPPER_MAX_TICKS)
                     .build(),

@@ -38,9 +38,41 @@ versionRange="${minecraftVersionRange}"
 ordering="NONE"
 side="BOTH"
 
+# Required: the config (SimplebuildingConfig) is registered with cloth's AutoConfig on startup,
+# unconditionally, and cloth-config is not bundled (no jarJar).
 [[dependencies.${modId}]]
 modId="cloth_config"
-type="optional"
+type="required"
 versionRange="[21.11,)"
 ordering="NONE"
 side="BOTH"
+
+# Optional integrations. type="optional": not needed, but if present the version must fit.
+# JEI: the mod ships a JEI plugin (in-world transformation categories, count-based smithing).
+[[dependencies.${modId}]]
+modId="jei"
+type="optional"
+versionRange="[27,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
+modId="jade"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
+modId="appleskin"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
+modId="mousetweaks"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"

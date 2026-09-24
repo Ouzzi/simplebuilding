@@ -35,6 +35,8 @@ sourceSets {
         java {
             srcDir 'src/main/java'
             srcDir rootProject.layout.projectDirectory.dir('common/src/shared/java')
+            // JEI plugin, compileOnly JEI API (see the root build.gradle)
+            srcDir rootProject.layout.projectDirectory.dir('common/src/jei/java')
         }
         resources {
             srcDir 'src/main/resources'
@@ -160,11 +162,56 @@ neoForge {
 
 repositories {
     maven { url = 'https://maven.shedaniel.me/' }
+    maven { url = 'https://maven.blamejared.com/' }
+    exclusiveContent {
+        forRepository { maven { url = 'https://api.modrinth.com/maven' } }
+        filter { includeGroup 'maven.modrinth' }
+    }
+}
+
+// Dev-only runtime mods: JEI, Jade, Mouse Tweaks, AppleSkin - only for the 'client' and 'server'
+// runs, never for gameTest or clientGameTest (their results and screenshots must not change).
+//
+// How: MDG builds a run's classpath from the run's SOURCE SET (the mods themselves come from
+// loadedMods). runtimeOnly/localRuntime would therefore reach gameTest (main source set) and
+// clientGameTest (clientGameTestRuntimeOnly extends runtimeOnly), and the per-run
+// additionalRuntimeClasspath is ignored for these Minecraft versions (MDG only reads it where a
+// legacy classpath exists). So 'client' and 'server' get their own, source-less set 'devRuns': main's
+// dependencies plus the dev mods. FML finds mods on the classpath and unpacks JEI's jar-in-jar
+// mezz_config itself, hence transitive = false on every entry. Switch off: -Pdev_mods=false.
+def devModsEnabled = (project.findProperty('dev_mods') ?: 'true').toString().toBoolean()
+configurations {
+    devMods {
+        canBeConsumed = false
+        canBeResolved = false
+    }
+}
+if (devModsEnabled) {
+    sourceSets {
+        devRuns {
+        }
+    }
+    configurations {
+        devRunsImplementation.extendsFrom implementation
+        devRunsRuntimeOnly.extendsFrom runtimeOnly, devMods
+    }
+    neoForge.addModdingDependenciesTo(sourceSets.devRuns)
+    ['client', 'server'].each { runName ->
+        neoForge.runs.getByName(runName).sourceSet = sourceSets.devRuns
+    }
 }
 
 dependencies {
     implementation project(':common')
     implementation 'me.shedaniel.cloth:cloth-config-neoforge:26.2.155'
+
+    // JEI plugin API (common/src/jei/java). compileOnly: the mod runs without JEI.
+    compileOnly "mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}"
+
+    devMods("mezz.jei:jei-${rootProject.minecraft_version}-neoforge:${rootProject.jei_version}") { transitive = false }
+    devMods("maven.modrinth:jade:${rootProject.dev_jade_neoforge}") { transitive = false }
+    devMods("maven.modrinth:mouse-tweaks:${rootProject.dev_mousetweaks_neoforge}") { transitive = false }
+    devMods("maven.modrinth:appleskin:${rootProject.dev_appleskin_neoforge}") { transitive = false }
 }
 
 tasks.named('processResources', ProcessResources).configure {

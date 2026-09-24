@@ -18,6 +18,8 @@ sourceSets {
 			// Down-ported copy of the shared game code. The 26.2 tree cannot be reused:
 			// the two Minecraft versions differ in real APIs, not just mappings.
 			srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/shared/java')
+			// JEI plugin, compileOnly JEI API (see the root build.gradle)
+			srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/jei/java')
 		}
 		resources {
 			// Datagen output for this Minecraft line. Copied from the 26.2 tree as a
@@ -102,6 +104,37 @@ loom {
 repositories {
 	maven { url = "https://maven.shedaniel.me/" }
 	maven { url = "https://maven.terraformersmc.com/releases/" }
+	maven { url = "https://maven.blamejared.com/" }
+	exclusiveContent {
+		forRepository { maven { url = "https://api.modrinth.com/maven" } }
+		filter { includeGroup "maven.modrinth" }
+	}
+}
+
+// Dev-only runtime mods: JEI, Jade, Mouse Tweaks, AppleSkin - same scheme as the root build.gradle:
+// synced into build/devMods and passed with -Dfabric.addMods to the runClient/runServer TASKS only,
+// never to gametest/clientGameTest (modLocalRuntime would reach both). The jars are the published
+// intermediary ones; Fabric Loader remaps mods from fabric.addMods at runtime in a dev environment,
+// exactly like mods dropped into run/mods. Switch off: -Pdev_mods=false.
+def devModsEnabled = (project.findProperty('dev_mods') ?: 'true').toString().toBoolean()
+configurations {
+	devMods {
+		canBeConsumed = false
+		canBeResolved = true
+		transitive = false
+	}
+}
+def syncDevMods = tasks.register('syncDevMods', Sync) {
+	description = 'Copies the dev-only runtime mods (JEI, Jade, Mouse Tweaks, AppleSkin) for runClient/runServer.'
+	from configurations.devMods
+	into layout.buildDirectory.dir('devMods')
+}
+if (devModsEnabled) {
+	def devModsDir = layout.buildDirectory.dir('devMods').get().asFile.absolutePath
+	tasks.matching { it.name in ['runClient', 'runServer'] }.configureEach {
+		dependsOn syncDevMods
+		systemProperty 'fabric.addMods', devModsDir
+	}
 }
 
 dependencies {
@@ -118,6 +151,15 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 	modImplementation "com.terraformersmc:modmenu:${project.mc11_modmenu_version}"
+
+	// JEI plugin API (mc1_21_11/jei/java). compileOnly and NOT modCompileOnly: JEI's common API is
+	// published in Mojang names, which is what this module compiles against.
+	compileOnly "mezz.jei:jei-${project.mc11_minecraft_version}-common-api:${project.mc11_jei_version}"
+
+	devMods "mezz.jei:jei-${project.mc11_minecraft_version}-fabric:${project.mc11_jei_version}"
+	devMods "maven.modrinth:jade:${project.mc11_dev_jade_fabric}"
+	devMods "maven.modrinth:mouse-tweaks:${project.mc11_dev_mousetweaks_fabric}"
+	devMods "maven.modrinth:appleskin:${project.mc11_dev_appleskin_fabric}"
 
 	// In-game test framework. Unlike the 26.2 root project, which can use a plain
 	// 'implementation' because its Fabric API artifacts are already in the official
