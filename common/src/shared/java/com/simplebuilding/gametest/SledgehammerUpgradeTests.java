@@ -4,6 +4,7 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.HopperFilterMode;
+import com.simplebuilding.util.SledgehammerProgress;
 import com.simplebuilding.util.SledgehammerUpgrades;
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -12,6 +13,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
@@ -65,8 +68,9 @@ import net.minecraft.world.phys.Vec3;
  * failure message shows all of them and no assertion hides behind another.
  *
  * <p><b>Not covered:</b> the sounds, particles and arm swings of the blows (their packets go out, but
- * nothing here listens), the hint in the action bar on a refusal, the client half of the job map and
- * the first and third person animation.
+ * nothing here listens), the hint in the action bar on a refusal or on the progress, the cracks the
+ * saved progress shows, the client half of the job map and what the first and third person
+ * animation draw (their timing is pinned here, the picture in {@code ItemRenderingClientTest}).
  */
 public final class SledgehammerUpgradeTests {
 
@@ -78,6 +82,15 @@ public final class SledgehammerUpgradeTests {
 
     /** Tick budget for {@link #refusedUpgradesNeverStartTheHammer}. */
     public static final int REFUSAL_MAX_TICKS = 40;
+
+    /** Tick budget for {@link #upgradeProgressLastsUntilTheBlockChanges}. */
+    public static final int PROGRESS_MAX_TICKS = 60;
+
+    /** A little more than the one second between two checks of the saved progress. */
+    private static final int PROGRESS_CHECK_TICKS = 25;
+
+    /** The hammer draws back through 16 of the 20 ticks of every blow and swings through the rest. */
+    private static final int DRAW_TICKS = 16;
 
     /** Length of one upgrade: five seconds. */
     private static final int UPGRADE_TICKS = 100;
@@ -558,6 +571,203 @@ public final class SledgehammerUpgradeTests {
                 "the rig after the blow that broke the hammer (it has to complete the upgrade)");
 
         helper.succeed();
+    }
+
+    // =====================================================================================
+    // PROGRESS KEPT ON THE BLOCK
+    // =====================================================================================
+
+    /**
+     * An upgrade that is let go after two blows leaves those two blows on the furnace, and the next
+     * attempt picks up from there.
+     *
+     * <p>After the release before tick 50: the furnace is still reinforced, both nuggets are there,
+     * the hammer has paid two blows, and the level's saved progress holds exactly "this furnace, two
+     * blows" - marked dirty, so it is written with the world, and the same after a trip through its
+     * own codec (what a restart reads back). The next click on the furnace starts a use of only the
+     * 60 ticks the three missing blows take; the blows land on the same second boundaries as before
+     * (wear after every tick is two paid blows plus one per 20 ticks), and after tick 60 the furnace
+     * is netherite, the hammer has paid five blows in all, one nugget is gone, and the saved progress
+     * is empty again.
+     *
+     * <p>What breaks this test: a blow that is not recorded, a resume that starts from zero (100 ticks,
+     * and three blows too many), a resume that skips further than recorded, a finished upgrade that
+     * leaves its entry behind, and an entry the codec does not carry.
+     */
+    public static void abortedUpgradeKeepsItsBlowsAndResumesThere(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(3, 1, 3);
+        helper.setBlock(pos, ModBlocks.REINFORCED_FURNACE);
+        ServerPlayer player = smith(helper, false);
+        ItemStack hammer = prepareCase(helper, player, pos);
+
+        startHammering(helper, player, pos, "the furnace that is let go after two blows");
+        holdClick(player, 49, tick -> {
+        });
+        player.releaseUsingItem();
+        helper.assertValueEqual(rig(helper, player, pos, player.getOffhandItem(), hammer),
+                rigLine(ModBlocks.REINFORCED_FURNACE, NUGGETS, 2 * NETHERITE_STEP_WEAR, false, false),
+                "the rig after letting go before tick 50");
+        helper.assertValueEqual(storedProgress(helper, pos), progressLine(ModBlocks.REINFORCED_FURNACE, 2),
+                "the progress saved on the furnace after two blows");
+
+        SledgehammerProgress data = helper.getLevel().getDataStorage().get(SledgehammerProgress.TYPE);
+        helper.assertTrue(data != null && data.isDirty(),
+                "the saved progress is not marked dirty, so the world save would not write it");
+        Tag saved = SledgehammerProgress.CODEC.encodeStart(NbtOps.INSTANCE, data).getOrThrow();
+        SledgehammerProgress reloaded = SledgehammerProgress.CODEC.parse(NbtOps.INSTANCE, saved).getOrThrow();
+        helper.assertTrue(reloaded.entries().contains(
+                        new SledgehammerProgress.Entry(helper.absolutePos(pos), ModBlocks.REINFORCED_FURNACE, 2)),
+                "the saved progress does not survive its own codec: " + saved);
+
+        // --- the second attempt ---
+        standOn(helper, player, pos);
+        player.containerMenu = player.inventoryMenu;
+        click(helper, player, pos);
+        helper.assertTrue(player.isUsingItem() && SledgehammerUpgrades.hasJob(player),
+                "the second click on the half hammered furnace did not start the hammer");
+        int missing = UPGRADE_TICKS - 2 * HIT_EVERY;
+        helper.assertValueEqual(player.getUseItemRemainingTicks(), missing,
+                "ticks the resumed hammering is set to last (three blows left)");
+        for (int tick = 1; tick < missing; tick++) {
+            player.connection.tick();
+            int blows = 2 + tick / HIT_EVERY;
+            helper.assertValueEqual(hammer.getDamageValue(), blows * NETHERITE_STEP_WEAR,
+                    "durability spent after " + tick + " ticks of resumed hammering (" + blows + " blows)");
+        }
+        player.connection.tick();
+        helper.assertValueEqual(rig(helper, player, pos, player.getOffhandItem(), hammer),
+                rigLine(ModBlocks.NETHERITE_FURNACE, NUGGETS - 1, BLOWS * NETHERITE_STEP_WEAR, false, false),
+                "the rig after the resumed hammering");
+        helper.assertValueEqual(storedProgress(helper, pos), "nothing",
+                "the progress saved on the furnace after it was upgraded");
+
+        helper.succeed();
+    }
+
+    /**
+     * Saved progress stays as long as the block stays, and goes as soon as it is another block.
+     *
+     * <p>Three furnaces carry three blows each. One is lit (a state change of the same block), one is
+     * replaced by a smoker, one is broken. A little more than one check interval later the lit one
+     * still carries its three blows, the other two carry nothing - and a reinforced furnace put back
+     * where the smoker stood starts from zero, so the old blows did not wait for it.
+     *
+     * <p>This goes through the server tick every loader wires up, so it also fails where that hook is
+     * missing.
+     *
+     * <p>What breaks this test: progress that decays on any state change, progress that survives a
+     * different block or an empty spot, and a loader without the tick hook.
+     */
+    public static void upgradeProgressLastsUntilTheBlockChanges(GameTestHelper helper) {
+        BlockPos lit = new BlockPos(1, 1, 1);
+        BlockPos replaced = new BlockPos(3, 1, 1);
+        BlockPos broken = new BlockPos(5, 1, 1);
+        for (BlockPos pos : List.of(lit, replaced, broken)) {
+            helper.setBlock(pos, ModBlocks.REINFORCED_FURNACE);
+            SledgehammerProgress.record(helper.getLevel(), helper.absolutePos(pos), ModBlocks.REINFORCED_FURNACE, 3);
+        }
+        helper.setBlock(lit, ModBlocks.REINFORCED_FURNACE.defaultBlockState().setValue(AbstractFurnaceBlock.LIT, true));
+        helper.setBlock(replaced, ModBlocks.REINFORCED_SMOKER);
+        helper.getLevel().destroyBlock(helper.absolutePos(broken), false);
+
+        helper.startSequence()
+                .thenIdle(PROGRESS_CHECK_TICKS)
+                .thenExecute(() -> {
+                    helper.assertValueEqual(storedProgress(helper, lit), progressLine(ModBlocks.REINFORCED_FURNACE, 3),
+                            "the progress on the furnace that was only lit");
+                    helper.assertValueEqual(storedProgress(helper, replaced), "nothing",
+                            "the progress where the furnace was replaced by a smoker");
+                    helper.assertValueEqual(storedProgress(helper, broken), "nothing",
+                            "the progress where the furnace was broken");
+                    helper.setBlock(replaced, ModBlocks.REINFORCED_FURNACE);
+                    helper.assertValueEqual(SledgehammerProgress.hits(helper.getLevel(), helper.absolutePos(replaced),
+                                    ModBlocks.REINFORCED_FURNACE), 0,
+                            "blows found on a new furnace placed where the old one was replaced");
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * The pose the render mixins read, pinned on the server's own view of a hammering player (it is
+     * not the local player, so it goes by what is in the hands - the path every other player on a
+     * client takes).
+     *
+     * <p>Before the click the hammer shows the upgrade hint on the furnace with the netherite nugget,
+     * and not with an enderite nugget. While hammering: no hint, and the blow phase after every tick
+     * is that tick's place in its second; the hammer draws back through the first 80 % of every second
+     * (rising, the third person arm raised) and swings through the last 20 % (falling to nothing, the
+     * arm down), the blow itself landing on the second boundary.
+     *
+     * <p>What breaks this test: a hint that ignores the nugget or stays on while hammering, a phase
+     * that is not tied to the blows, and a draw back that does not rise and fall around the strike.
+     */
+    public static void hammerDrawsBackBetweenBlowsAndHintsBeforehand(GameTestHelper helper) {
+        BlockPos pos = new BlockPos(3, 1, 3);
+        helper.setBlock(pos, ModBlocks.REINFORCED_FURNACE);
+        ServerPlayer player = smith(helper, false);
+        BlockPos absolute = helper.absolutePos(pos);
+
+        arm(player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), new ItemStack(ModItems.ENDERITE_NUGGET, NUGGETS));
+        standOn(helper, player, pos);
+        helper.assertFalse(SledgehammerUpgrades.showsUpgradeHint(helper.getLevel(), absolute, player),
+                "the hammer hints at an upgrade with the wrong nugget in the off hand");
+        ItemStack hammer = prepareCase(helper, player, pos);
+        helper.assertTrue(SledgehammerUpgrades.showsUpgradeHint(helper.getLevel(), absolute, player),
+                "the hammer does not hint at the upgrade it could start");
+        helper.assertValueEqual(SledgehammerUpgrades.blowPhase(player, 0.0F), -1.0F,
+                "the blow phase before hammering");
+
+        startHammering(helper, player, pos, "the furnace whose pose is watched");
+        helper.assertFalse(SledgehammerUpgrades.showsUpgradeHint(helper.getLevel(), absolute, player),
+                "the hammer still hints at the upgrade while it is hammering");
+        float previous = 0.0F;
+        for (int tick = 1; tick < UPGRADE_TICKS; tick++) {
+            player.connection.tick();
+            int inSecond = tick % HIT_EVERY;
+            float phase = SledgehammerUpgrades.blowPhase(player, 0.0F);
+            helper.assertValueEqual(phase, inSecond / (float) HIT_EVERY, "the blow phase after " + tick + " ticks");
+            float drawBack = SledgehammerUpgrades.drawBack(phase);
+            boolean drawing = inSecond < DRAW_TICKS;
+            helper.assertValueEqual(SledgehammerUpgrades.isDrawingBack(player, 0.0F), drawing,
+                    "drawing back (third person arm raised) after " + tick + " ticks");
+            if (inSecond == 0) {
+                helper.assertValueEqual(drawBack, 0.0F, "the draw back right after the blow of tick " + tick);
+            } else if (inSecond <= DRAW_TICKS) {
+                helper.assertTrue(drawBack > previous,
+                        "the hammer does not keep drawing back at tick " + tick + ": " + previous + " -> " + drawBack);
+            } else {
+                helper.assertTrue(drawBack < previous,
+                        "the hammer does not swing forward at tick " + tick + ": " + previous + " -> " + drawBack);
+            }
+            previous = drawBack;
+        }
+        helper.assertTrue(SledgehammerUpgrades.drawBack(0.999F) < 0.05F,
+                "the swing has not come down by the end of the second: " + SledgehammerUpgrades.drawBack(0.999F));
+        player.connection.tick();
+        helper.assertTrue(helper.getBlockState(pos).is(ModBlocks.NETHERITE_FURNACE),
+                "test setup broken: the watched hammering did not upgrade the furnace");
+        clearCooldown(player, hammer);
+
+        helper.succeed();
+    }
+
+    /** One entry of the saved progress at {@code pos}, as one line, or "nothing". */
+    private static String storedProgress(GameTestHelper helper, BlockPos pos) {
+        SledgehammerProgress data = helper.getLevel().getDataStorage().get(SledgehammerProgress.TYPE);
+        if (data == null) {
+            return "nothing";
+        }
+        BlockPos absolute = helper.absolutePos(pos);
+        for (SledgehammerProgress.Entry entry : data.entries()) {
+            if (entry.pos().equals(absolute)) {
+                return progressLine(entry.block(), entry.hits());
+            }
+        }
+        return "nothing";
+    }
+
+    private static String progressLine(Block block, int hits) {
+        return BuiltInRegistries.BLOCK.getKey(block) + " x" + hits;
     }
 
     /**

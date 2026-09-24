@@ -249,7 +249,8 @@ public class SledgehammerItem extends Item {
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity user) {
         if (user instanceof Player player && SledgehammerUpgrades.hasJob(player)) {
-            return SledgehammerUpgrades.UPGRADE_TICKS; // Aufwertung: fest fuenf Sekunden
+            // Aufwertung: fuenf Sekunden, eine fortgesetzte nur die fehlenden Schlaege
+            return SledgehammerUpgrades.useDuration(player);
         }
         int efficiencyLevel = 0;
         var registry = user.registryAccess().lookup(Registries.ENCHANTMENT);

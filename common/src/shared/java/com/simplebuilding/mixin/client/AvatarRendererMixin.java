@@ -14,7 +14,10 @@ import org.spongepowered.asm.mixin.injection.At;
  * Dritte Person: Wer mit dem Vorschlaghammer eine Maschine aufwertet, haelt den Hammer wie einen
  * Hammer, nicht wie einen gespannten Bogen. Die Benutzungsanimation BOW wuerde die Arm-Pose
  * BOW_AND_ARROW waehlen; BUNDLE faellt in {@code getArmPose} auf ITEM durch, und der Armschwung, den
- * der Server bei jedem Schlag schickt, liest sich dann als Hammerschlag.
+ * der Server bei jedem Schlag schickt, liest sich dann als Hammerschlag. Zwischen zwei Schlaegen
+ * holt der Arm aus: waehrend {@link SledgehammerUpgrades#isDrawingBack} gilt TRIDENT, also die Pose
+ * des Dreizack-Wurfs mit dem Arm ueber dem Kopf; kurz vor dem Schlag faellt er in die Halte-Pose, und
+ * der Armschwung des Schlags setzt dort an.
  *
  * <p>{@code @ModifyExpressionValue} statt {@code @Redirect} (MixinExtras 0.5.4 mit Mixin 0.17.4
  * stuerzt bei jedem Redirect ab). Das Ziel ist der einzige {@code getUseAnimation()}-Aufruf der
@@ -29,6 +32,9 @@ public abstract class AvatarRendererMixin {
     private static ItemUseAnimation simplebuilding$hammerPose(ItemUseAnimation original,
                                                               @Local(argsOnly = true) Avatar avatar,
                                                               @Local(argsOnly = true) InteractionHand hand) {
-        return hand == InteractionHand.MAIN_HAND && SledgehammerUpgrades.isHammering(avatar) ? ItemUseAnimation.BUNDLE : original;
+        if (hand != InteractionHand.MAIN_HAND || !SledgehammerUpgrades.isHammering(avatar)) {
+            return original;
+        }
+        return SledgehammerUpgrades.isDrawingBack(avatar, 0.0F) ? ItemUseAnimation.TRIDENT : ItemUseAnimation.BUNDLE;
     }
 }

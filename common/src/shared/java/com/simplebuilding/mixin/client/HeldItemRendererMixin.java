@@ -35,6 +35,11 @@ public class HeldItemRendererMixin {
 
     @Unique private float mainHandChiselProgress = 0.0F;
     @Unique private float offHandChiselProgress = 0.0F;
+    /**
+     * Wie weit der Hammer im letzten Frame ausgeholt war (0..1), siehe
+     * {@link SledgehammerUpgrades#drawBack}. Nur gespeichert, damit der Client-Test es lesen kann.
+     */
+    @Unique private float mainHandHammerDrawBack = 0.0F;
 
     @Inject(
             method = "submitArmWithItem",
@@ -71,8 +76,13 @@ public class HeldItemRendererMixin {
                         targetProgress = 1.0F;
                     }
                 }
-                // SLEDGEHAMMER
+                // SLEDGEHAMMER: neigt sich vor einer Maschine, die er mit dem Nugget in der
+                // Nebenhand jetzt aufwerten koennte, genau wie vor einem umformbaren Block
                 else if (item.getItem() instanceof SledgehammerItem sledgehammerItem) {
+                    if (hand == InteractionHand.MAIN_HAND
+                            && SledgehammerUpgrades.showsUpgradeHint(this.minecraft.level, blockHit.getBlockPos(), player)) {
+                        targetProgress = 1.0F;
+                    }
                     net.minecraft.world.phys.Vec3 relativeHit = blockHit.getLocation().subtract(net.minecraft.world.phys.Vec3.atLowerCornerOf(blockHit.getBlockPos()));
                     if (sledgehammerItem.getTransformationState(
                             this.minecraft.level.getBlockState(blockHit.getBlockPos()),
@@ -88,12 +98,25 @@ public class HeldItemRendererMixin {
             }
         }
 
+        // Waehrend einer Aufwertung holt der Hammer aus, statt sich zu neigen.
+        if (hand == InteractionHand.MAIN_HAND && SledgehammerUpgrades.isHammering(player)) {
+            targetProgress = 0.0F;
+        }
+
         float smoothingSpeed = 0.15F;
 
         if (hand == InteractionHand.MAIN_HAND) {
             this.mainHandChiselProgress += (targetProgress - this.mainHandChiselProgress) * smoothingSpeed;
             if (this.mainHandChiselProgress > 0.001F) {
                 this.applyChiselTransform(matrices, this.mainHandChiselProgress);
+            }
+            // Aufwertung: zwischen zwei Schlaegen wie ein Bogen ausholen, kurz vor dem Schlag nach
+            // vorn sausen; den Schlag selbst zeigt der Armschwung, den der Server schickt.
+            float drawBack = config.tools.enableToolAnimations
+                    ? SledgehammerUpgrades.drawBack(SledgehammerUpgrades.blowPhase(player, tickProgress)) : 0.0F;
+            this.mainHandHammerDrawBack = drawBack;
+            if (drawBack > 0.001F) {
+                this.applyHammerDrawBack(matrices, drawBack);
             }
         } else {
             this.offHandChiselProgress += (targetProgress - this.offHandChiselProgress) * smoothingSpeed;
@@ -117,6 +140,13 @@ public class HeldItemRendererMixin {
                                                         @Local(argsOnly = true) AbstractClientPlayer player,
                                                         @Local(argsOnly = true) InteractionHand hand) {
         return hand == InteractionHand.MAIN_HAND && SledgehammerUpgrades.isHammering(player) ? ItemUseAnimation.BUNDLE : original;
+    }
+
+    /** Hammer nach hinten oben ziehen: Kopf zurueck ueber die Schulter, Griff angehoben. */
+    @Unique
+    private void applyHammerDrawBack(PoseStack matrices, float drawBack) {
+        matrices.translate(0.0, 0.18 * drawBack, 0.12 * drawBack);
+        matrices.mulPose(Axis.XP.rotationDegrees(45.0F * drawBack));
     }
 
     @Unique

@@ -56,6 +56,16 @@ import org.jetbrains.annotations.Nullable;
  * {@code shouldChangedStateKeepBlockEntity} in den vier Mod-Blockklassen), und ein Nugget wird
  * verbraucht - im Kreativmodus weder Nugget noch Haltbarkeit.
  *
+ * <p><b>Fortschritt.</b> Jeder Schlag 1..4 landet in {@link SledgehammerProgress} (je Block,
+ * gespeichert, fuer alle sichtbar als Risse im Block, Stufe 1/3/5/7). Wer abbricht und spaeter wieder
+ * haemmert, setzt dort fort: die Benutzung dauert nur noch die fehlenden Schlaege, und nur die kosten
+ * Haltbarkeit. Die Aktionsleiste nennt den Stand bei jedem Schlag, beim Fortsetzen und beim Abbruch.
+ * Der Stand verfaellt erst, wenn der Block abgebaut oder ein anderer wird (siehe dort). Der Client
+ * kennt den gespeicherten Stand nicht und rechnet immer mit vollen 100 Ticks; der Server beendet
+ * eine fortgesetzte Aufwertung frueher, der Client merkt das am getauschten Block und laesst los.
+ * Die Schlaege fallen trotzdem auf beiden Seiten in denselben Ticks, weil ein Neuanfang und eine
+ * Fortsetzung beide auf einer Sekundengrenze beginnen.
+ *
  * <p><b>Abbruch</b>, ohne Nugget und ohne Umbau (schon geschlagene Schlaege bleiben bezahlt):
  * Rechtsklick losgelassen, Blick fuer mehr als {@value #AIM_GRACE_TICKS} Ticks nicht mehr auf dem
  * Block, ausser Reichweite, der Block ist nicht mehr die Ausgangsstufe, das Nugget ist nicht mehr in
@@ -104,19 +114,34 @@ public final class SledgehammerUpgrades {
     public record Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite) {
     }
 
+    /** Fuenf Schlaege je Aufwertung; der fuenfte ist der Umbau. */
+    public static final int BLOWS = UPGRADE_TICKS / HIT_INTERVAL;
+    /**
+     * Anteil eines Schlag-Zyklus, ueber den der Hammer ausgeholt wird; der Rest ist der Schlag.
+     * Die Render-Mixins lesen ihn ueber {@link #blowPhase} und {@link #drawBack}.
+     */
+    public static final float STRIKE_PHASE = 0.8F;
+
     /** Ein laufender Auftrag eines Spielers. */
     private static final class Job {
         final BlockPos pos;
         final Upgrade upgrade;
         final Vec3 hitPoint;
         final Direction face;
+        /** Schon gespeicherte Schlaege, bei denen dieser Auftrag fortsetzt (Client: immer 0). */
+        final int startHits;
         int missedAimTicks;
 
-        Job(BlockPos pos, Upgrade upgrade, Vec3 hitPoint, Direction face) {
+        Job(BlockPos pos, Upgrade upgrade, Vec3 hitPoint, Direction face, int startHits) {
             this.pos = pos;
             this.upgrade = upgrade;
             this.hitPoint = hitPoint;
             this.face = face;
+            this.startHits = startHits;
+        }
+
+        int duration() {
+            return UPGRADE_TICKS - startHits * HIT_INTERVAL;
         }
     }
 
@@ -265,6 +290,63 @@ public final class SledgehammerUpgrades {
     }
 
     /**
+     * Benutzungsdauer der laufenden Aufwertung: 100 Ticks, bei einer Fortsetzung nur die fehlenden
+     * Schlaege. -1 ohne Auftrag.
+     */
+    public static int useDuration(Player player) {
+        Job job = jobs(player.level()).get(player.getUUID());
+        return job == null ? -1 : job.duration();
+    }
+
+    /**
+     * Wo im aktuellen Schlag-Zyklus (0..1) ein haemmerndes Wesen steht: 0 direkt nach einem Schlag,
+     * gegen 1 kurz vor dem naechsten. -1, wenn es nicht haemmert. Nur die Phase innerhalb der Sekunde
+     * zaehlt, deshalb stimmt sie auch fuer fremde Spieler, deren Benutzungsdauer der Client nicht kennt.
+     */
+    public static float blowPhase(LivingEntity entity, float partialTick) {
+        if (!isHammering(entity)) {
+            return -1.0F;
+        }
+        int ticks = Math.max(0, entity.getTicksUsingItem());
+        return Math.min(0.999F, ((ticks % HIT_INTERVAL) + partialTick) / HIT_INTERVAL);
+    }
+
+    /**
+     * Wie weit der Hammer in dieser Phase ausgeholt ist (0..1): bis {@link #STRIKE_PHASE} zieht er
+     * wie ein Bogen immer langsamer nach hinten, danach saust er in einem Bruchteil davon nach vorn,
+     * genau bis zum Schlag. Ausserhalb einer Aufwertung 0.
+     */
+    public static float drawBack(float phase) {
+        if (phase < 0.0F) {
+            return 0.0F;
+        }
+        if (phase < STRIKE_PHASE) {
+            float t = phase / STRIKE_PHASE;
+            return 1.0F - (1.0F - t) * (1.0F - t);
+        }
+        float t = (phase - STRIKE_PHASE) / (1.0F - STRIKE_PHASE);
+        return Math.max(0.0F, 1.0F - t * t);
+    }
+
+    /**
+     * Fuer die Arm-Pose in der dritten Person: waehrend des Ausholens die Pose des Dreizack-Wurfs
+     * (Arm ueber dem Kopf), im Schlag die gewoehnliche Halte-Pose, in die der Armschwung faellt.
+     */
+    public static boolean isDrawingBack(LivingEntity entity, float partialTick) {
+        float phase = blowPhase(entity, partialTick);
+        return phase >= 0.0F && phase < STRIKE_PHASE;
+    }
+
+    /**
+     * Fuer den Hand-Renderer: ob der Hammer anzeigen soll, dass die Maschine unter dem Fadenkreuz
+     * mit diesem Hammer und diesem Nugget jetzt aufgewertet werden koennte - wie die Neigung des
+     * Meissels vor einem umformbaren Block. Waehrend einer Aufwertung nicht, da holt er aus.
+     */
+    public static boolean showsUpgradeHint(Level level, BlockPos pos, Player player) {
+        return !isHammering(player) && canBegin(level.getBlockState(pos), level, pos, player);
+    }
+
+    /**
      * Fuer die Render-Mixins: haut dieses Wesen gerade mit dem Hammer auf eine Maschine? Beim
      * eigenen Spieler entscheidet der Auftrag, bei allen anderen, was sie in den Haenden halten.
      */
@@ -315,8 +397,13 @@ public final class SledgehammerUpgrades {
         if (!player.mayUseItemAt(pos, context.getClickedFace(), context.getItemInHand())) {
             return InteractionResult.FAIL;
         }
-        jobs(level).put(player.getUUID(), new Job(pos.immutable(), upgrade, context.getClickLocation(), context.getClickedFace()));
+        int startHits = level instanceof ServerLevel serverLevel
+                ? Math.clamp(SledgehammerProgress.hits(serverLevel, pos, upgrade.from()), 0, BLOWS - 1) : 0;
+        jobs(level).put(player.getUUID(), new Job(pos.immutable(), upgrade, context.getClickLocation(), context.getClickedFace(), startHits));
         player.startUsingItem(InteractionHand.MAIN_HAND);
+        if (startHits > 0) {
+            progressMessage(player, "resumed", startHits, ChatFormatting.GOLD);
+        }
         return InteractionResult.CONSUME;
     }
 
@@ -351,6 +438,7 @@ public final class SledgehammerUpgrades {
         BlockState old = level.getBlockState(job.pos);
         BlockState upgraded = job.upgrade.to().withPropertiesOf(old);
         level.setBlock(job.pos, upgraded, Block.UPDATE_ALL);
+        SledgehammerProgress.clear(serverLevel, job.pos);
         level.gameEvent(GameEvent.BLOCK_CHANGE, job.pos, GameEvent.Context.of(player, upgraded));
         // Im Kreativmodus verbraucht consume nichts, hurtAndBreak kostet nichts.
         player.getOffhandItem().consume(1, player);
@@ -363,10 +451,19 @@ public final class SledgehammerUpgrades {
         return true;
     }
 
-    /** Rechtsklick losgelassen oder Benutzung sonst beendet: Auftrag verwerfen. */
+    /**
+     * Rechtsklick losgelassen oder Benutzung sonst beendet: Auftrag verwerfen. Der gespeicherte
+     * Fortschritt bleibt am Block; die Aktionsleiste sagt, wo es weitergeht.
+     */
     public static void clear(LivingEntity entity) {
         if (entity instanceof Player player) {
-            jobs(player.level()).remove(player.getUUID());
+            Job job = jobs(player.level()).remove(player.getUUID());
+            if (job != null && player.level() instanceof ServerLevel serverLevel) {
+                int hits = SledgehammerProgress.hits(serverLevel, job.pos, job.upgrade.from());
+                if (hits > 0) {
+                    progressMessage(player, "paused", hits, ChatFormatting.YELLOW);
+                }
+            }
         }
     }
 
@@ -412,6 +509,10 @@ public final class SledgehammerUpgrades {
         } else {
             burst(level, ParticleTypes.LAVA, at, 2, 0.1, 0.0);
         }
+
+        // Erst merken, dann bezahlen: der Schlag ist gefallen, auch wenn der Hammer dabei zerbricht.
+        SledgehammerProgress.record(level, job.pos, job.upgrade.from(), hitNumber);
+        progressMessage(player, "progress", hitNumber, ChatFormatting.GOLD);
 
         player.swing(InteractionHand.MAIN_HAND, true);
         hammer.hurtAndBreak(job.upgrade.damagePerHit(), player, EquipmentSlot.MAINHAND);
@@ -459,6 +560,15 @@ public final class SledgehammerUpgrades {
 
     private static boolean hasConnection(Player player) {
         return !(player instanceof ServerPlayer serverPlayer) || serverPlayer.connection != null;
+    }
+
+    /** Stand der Aufwertung in der Aktionsleiste: "progress", "resumed" oder "paused", n von 5. */
+    private static void progressMessage(Player player, String kind, int hits, ChatFormatting color) {
+        if (!(player instanceof ServerPlayer serverPlayer) || serverPlayer.connection == null) {
+            return;
+        }
+        MutableComponent message = Component.translatable("message.simplebuilding.smithing." + kind, hits, BLOWS);
+        serverPlayer.sendOverlayMessage(message.withStyle(color));
     }
 
     private static void hint(Level level, Player player, String reason, Upgrade upgrade) {

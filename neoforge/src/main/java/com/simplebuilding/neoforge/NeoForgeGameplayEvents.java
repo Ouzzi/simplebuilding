@@ -113,6 +113,7 @@ public final class NeoForgeGameplayEvents {
 
     @SubscribeEvent
     public static void onServerTick(net.neoforged.neoforge.event.tick.ServerTickEvent.Post event) {
+        com.simplebuilding.util.SledgehammerProgress.tick(event.getServer());
         if (event.getServer().getTickCount() % 2 != 0) {
             return;
         }
