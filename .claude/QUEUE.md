@@ -104,3 +104,18 @@ D Astralit/Nihilith-Baubloecke (Endstein/Purpur-Palette); mehrere Creative-Tabs 
 - LAEUFT: recommends/suggests bzw. optionale Abhaengigkeiten in allen Metadaten, Pflicht-Abhaengigkeiten pruefen, docs/PUBLISHING.md
 - Besitzer bestaetigen: Paletten-Rezeptkette (Grund->poliert->Ziegel), 4 Material -> 1 Grundblock, Purpurblock-Umfaerben nur Enderquarz
 - DANN TESTEN: Gegenprobe Hammer-Risse + Levitations-Haelfte Sand-Test, volles Gate, Push
+
+## Welle 7 (2026-09-25) - Reihenfolge der Umsetzung
+Testregel ab jetzt: waehrend der Umsetzung nur Teiltests (Kompilierung + gefilterte Server-Tests der neuen/geaenderten Features auf einem Ziel pro Linie); das volle Gate nur einmal am Ende.
+A Inhalt (Agent A):
+  1. Basic Upgrade Template: Upgrade kostet 2x Vanilla-Material (Spitzhacke/Axt 6, Schwert/Hacke 4, Schaufel 2; Mod-Werkzeuge 2x ihr Rezeptmaterial)
+  2. Enderquarz aus Quarz: 8 Quarz-Variante + 1 Enderquarz -> 8 Enderquarz-Variante (Quarzblock, -ziegel, -saeule, -treppe, -stufe, glatter Quarz ...)
+  3. Gemeisselter Nihilith: dezente Gravur wie Vanilla statt Enderman-Gesicht (Shulker/Drache ebenfalls auf Dezenz pruefen)
+B Faerben (Agent B):
+  4. Gefaerbte Rucksaecke und Buendel wie die Oktanten: dezente Slot-Tönung in der Farbe, Inhalt bleibt beim Faerben
+C Wiki (Agent C):
+  5. Rezept-Ansicht: eigener Tab "All recipes" mit Karten (Werkbank, Ofen, Schmiedetisch, Steinmetz, In-World ...), Filter, Varianten zusammengefasst, pro Item alle Rezepte wie JEI
+  6. Rezept-Abschnitte (Werkbank, Ofen, Schmiedetisch ...) einklappbar
+  7. Bloecke als 3D-Modell rendern wie im Inventar
+  8. Key Feature bei aufgewerteten Maschinen: wie viel schneller als Vanilla (z. B. verstaerkter Schmelzofen)
+DANN: volles Gate + ausstehende Gegenproben (Hammer-Risse, Sand-Levitation, Umformen), Push
