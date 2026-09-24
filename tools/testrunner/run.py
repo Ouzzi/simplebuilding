@@ -486,6 +486,9 @@ def run_client_target(target: Target, run_id: str, timeout: int) -> dict:
     exit_code, output, timed_out = run_capture(command, timeout)
     duration_ms = int((now_utc() - started_at).total_seconds() * 1000)
 
+    # testing/runs is git-ignored, so a fresh checkout or worktree does not have it; a client
+    # only run used to die here after the first target's nine minutes, its result unwritten.
+    RUNS_DIR.mkdir(parents=True, exist_ok=True)
     log_path = RUNS_DIR / f"{run_id}-{target.id}.log"
     log_path.write_text(strip_ansi(output), encoding="utf-8")
 

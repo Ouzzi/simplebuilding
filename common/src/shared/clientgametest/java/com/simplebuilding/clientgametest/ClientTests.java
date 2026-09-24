@@ -75,6 +75,9 @@ public final class ClientTests {
                 new Entry("air-jump", AirJumpClientTest::inWorld),
                 new Entry("hud-and-tooltip", HudAndTooltipClientTest::inWorld),
                 new Entry("item-rendering", ItemRenderingClientTest::inWorld),
-                new Entry("mod-screens", ModScreensClientTest::inWorld));
+                new Entry("mod-screens", ModScreensClientTest::inWorld),
+                new Entry("backpack", BackpackClientTest::inWorld),
+                // Reads only the baked block models, so it needs no scene and leaves none behind.
+                new Entry("piston-textures", PistonTextureClientTest::inWorld));
     }
 }
