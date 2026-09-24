@@ -77,10 +77,20 @@ public class QuiverItem extends ReinforcedBundleItem {
         if (item == ModItems.NETHERITE_QUIVER) {
             return Fraction.getFraction(2, 1);
         }
+        // Der verstaerkte Koecher sitzt zwischen Koecher und Netherit-Koecher; 3/2 entspricht dem
+        // Abstand vom Vanilla-Buendel zum verstaerkten Buendel und laesst die anderen drei Stufen,
+        // wie sie waren.
+        if (item == ModItems.REINFORCED_QUIVER) {
+            return Fraction.getFraction(3, 2);
+        }
         return Fraction.getFraction(1, 1);
     }
 
-    /** Koecher bekommen den 1,5-Faktor des Buendels NICHT: 64 / 128 / 192 Pfeile. */
+    /**
+     * Koecher bekommen den 1,5-Faktor des Buendels NICHT obendrauf: ihre Grundkapazitaet ist allein
+     * der Stufenfaktor, also 64 / 96 / 128 / 192 Pfeile. Die 3/2 des verstaerkten Koechers sind sein
+     * Stufenfaktor, kein Buendel-Bonus.
+     */
     @Override
     protected Fraction getBaseCapacity(Item item) {
         return getTierCapacityMultiplier(item);
@@ -153,7 +163,7 @@ public class QuiverItem extends ReinforcedBundleItem {
         ItemStack arrow = findArrowInQuiver(player.getOffhandItem());
         if (!arrow.isEmpty()) return arrow;
 
-        // 2. Brustslot. Erreichbar, weil die drei Koecher in ModItems eine EQUIPPABLE-Komponente
+        // 2. Brustslot. Erreichbar, weil die vier Koecher in ModItems eine EQUIPPABLE-Komponente
         // fuer EquipmentSlot.CHEST tragen; ohne sie nimmt Vanillas Ruestungsslot keinen Koecher an
         // und diese Stufe waere toter Code.
         arrow = findArrowInQuiver(player.getItemBySlot(EquipmentSlot.CHEST));

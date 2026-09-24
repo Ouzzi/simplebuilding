@@ -671,9 +671,9 @@ public final class StorageEnchantmentTests {
      *       quiver from there has to come out clean - otherwise "enchanted" would say nothing.</li>
      * </ol>
      *
-     * <p>All three quivers are asserted, the enderite one included: it joined the three tags in
+     * <p>All four quivers are asserted, the enderite one included: it joined the three tags in
      * 61d0a14 (enderite is a full tier), and the top tier is the one an upgrade must not strip of
-     * its enchantments.
+     * its enchantments. The reinforced quiver sits in the same three tags as the others.
      *
      * <p>What breaks it: the quiver dropping out of one of its item tags (step 1 and 3), the
      * random enchantment function disappearing from the ancient city entry or being narrowed to a
@@ -693,7 +693,8 @@ public final class StorageEnchantmentTests {
             for (ResourceKey<Enchantment> key : QUIVER_ENCHANTMENTS) {
                 expected.add(key.identifier());
             }
-            for (Item quiver : List.of(ModItems.QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER)) {
+            for (Item quiver : List.of(ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER,
+                    ModItems.ENDERITE_QUIVER)) {
                 Set<Identifier> accepting = enchantmentsAccepting(helper, quiver);
                 helper.assertTrue(accepting.equals(expected),
                         BuiltInRegistries.ITEM.getKey(quiver) + " is a legal target for " + accepting

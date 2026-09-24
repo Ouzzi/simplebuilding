@@ -105,6 +105,7 @@ Hinweise:
 - netherite_bundle
 - enderite_bundle
 - quiver
+- reinforced_quiver
 - netherite_quiver
 - enderite_quiver
 
@@ -138,6 +139,7 @@ Hinweise:
 - enchanted_netherite_apple
 - enchanted_enderite_apple
 - Weitere Materialien:
+- leather_sheet
 - diamond_pebble
 - cracked_diamond
 

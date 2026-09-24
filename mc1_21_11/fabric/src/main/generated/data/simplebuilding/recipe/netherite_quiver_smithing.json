@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smithing_transform",
   "addition": "minecraft:netherite_ingot",
-  "base": "simplebuilding:quiver",
+  "base": "simplebuilding:reinforced_quiver",
   "result": {
     "id": "simplebuilding:netherite_quiver"
   },

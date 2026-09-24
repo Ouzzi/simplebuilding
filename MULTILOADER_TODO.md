@@ -159,6 +159,7 @@ alten Yarn-Branch hochgezogen). Verzeichnis `mc1_21_11/` mit `shared/java` + `fa
   663 Dateien rein, 663 raus; die einzigen 54 Abweichungen sind kosmetisch (53 Rezepte mit
   explizitem `"count": 1`, ein Tag nur in anderer Reihenfolge).
 - [ ] **Kein Gameplay-Test** — bisher nur Boot-Tests auf beiden Loadern.
-- [ ] Kosmetik: 6 Spatula-Items sind bewusst ohne Modell registriert (fuer
-  `LegacySpatulaMigration`) und erzeugen beim Start "No model loaded"-Warnungen.
-  Betrifft beide Minecraft-Versionen.
+- [x] Kosmetik: 6 Spatula-Items waren ohne Modell registriert (fuer
+  `LegacySpatulaMigration`) und erzeugten beim Start "No model loaded"-Warnungen.
+  Seit 2026-09-24 haben sie auf beiden Minecraft-Versionen eine Item-Modelldefinition
+  (ModModelProvider, gehalten wie die Meissel, Textur textures/item/<stufe>_spatula.png).

@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 118,
+      "count": 120,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -78,8 +78,8 @@ window.WIKI_DATA = {
         "summary": "SimpleBuilding is a Minecraft mod for anyone who likes to build, dig and keep their storage under control: it brings tools like the Sledgehammer, Chisel, Building Wand and Octant, larger bundles and quivers, faster furnaces, hoppers and pistons, and a whole set of custom enchantments. This wiki describes every feature the way it actually behaves in game, including controls, tiers, where things are found, and the parts that do not (yet) work. This page sums up what is in the mod and where to find each topic in the wiki.",
         "details": [
           "SimpleBuilding adds building tools to Minecraft: the Sledgehammer (mines a 3x3 face in one go and reshapes blocks into stairs and slabs), the Chisel (converts blocks in place into related variants), the Building Wand (places whole faces with one click), the Octant (measures distances, areas and volumes and previews shapes), the Rotator (turns orientable blocks), the Magnet (pulls in dropped items) and the Ore Detector (locates the nearest ore by sound and a particle trail).",
-          "For storage there are the Reinforced Bundle, the Netherite Bundle and the Enderite Bundle (96, 192 and 288 items at a stack size of 64), plus three Quiver tiers that only take arrows and feed the bow automatically.",
-          "The blocks are faster hoppers (Reinforced, Netherite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite), four stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
+          "For storage there are the Reinforced Bundle, the Netherite Bundle and the Enderite Bundle (96, 192 and 288 items at a stack size of 64), plus four Quiver tiers (64, 96, 128 and 192 arrows) that only take arrows and feed the bow automatically.",
+          "The blocks are faster hoppers (Reinforced, Netherite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite), two stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
           "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the mining preview of the Sledgehammer, Strip Miner and Vein Miner, the Building Wand preview, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
@@ -102,8 +102,8 @@ window.WIKI_DATA = {
         "summary": "SimpleBuilding ist eine Minecraft-Mod für alle, die gern bauen, graben und ihr Lager im Griff haben wollen: Sie bringt Werkzeuge wie Vorschlaghammer, Meißel, Baustab und Oktant, größere Bündel und Köcher, schnellere Öfen, Trichter und Kolben sowie eine ganze Reihe eigener Verzauberungen mit. Dieses Wiki beschreibt jede Funktion so, wie sie tatsächlich im Spiel funktioniert, inklusive Bedienung, Stufen, Fundorten und der Dinge, die (noch) nicht funktionieren. Hier erfährst du, was drin ist und wo du im Wiki was findest.",
         "details": [
           "SimpleBuilding erweitert Minecraft um Bauwerkzeuge: Vorschlaghammer (baut ein 3x3-Feld auf einmal ab und formt Blöcke zu Treppen und Stufen), Meißel (formt Blöcke an Ort und Stelle in verwandte Varianten um), Baustab (setzt ganze Flächen mit einem Klick), Oktant (misst Abstände, Flächen und Volumen und zeichnet Formen vor), Rotator (dreht ausrichtbare Blöcke), Magnet (zieht herumliegende Items an) und Erzdetektor (ortet das nächste Erz per Ton und Partikelspur).",
-          "Für das Lager gibt es das Verstärkte Bündel, das Netherit-Bündel und das Enderite Bundle (96, 192 und 288 Gegenstände bei 64er-Stapeln) sowie drei Köcher-Stufen, die nur Pfeile aufnehmen und den Bogen automatisch versorgen.",
-          "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit), vier stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
+          "Für das Lager gibt es das Verstärkte Bündel, das Netherit-Bündel und das Enderite Bundle (96, 192 und 288 Gegenstände bei 64er-Stapeln) sowie vier Köcher-Stufen (64, 96, 128 und 192 Pfeile), die nur Pfeile aufnehmen und den Bogen automatisch versorgen.",
+          "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit), zwei stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
           "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Abbau-Vorschau von Vorschlaghammer, Tunnelgräber und Aderabbau, die Baustab-Vorschau, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
@@ -155,6 +155,8 @@ window.WIKI_DATA = {
         "simplebuilding:ore_detector",
         "simplebuilding:reinforced_bundle",
         "simplebuilding:quiver",
+        "simplebuilding:reinforced_quiver",
+        "simplebuilding:leather_sheet",
         "simplebuilding:diamond_pebble",
         "simplebuilding:cracked_diamond",
         "simplebuilding:reinforced_furnace",
@@ -286,14 +288,14 @@ window.WIKI_DATA = {
           "Your first tool is the Stone Chisel: a stick in the bottom left, cobblestone in the middle, and one copper nugget each to the left of and below the cobblestone. Right-click with it to turn stone into chiseled stone bricks or smooth sandstone into cut sandstone; sneak + right-click walks the chain back (costing 2 durability instead of 1). After every conversion the Stone Chisel goes on a 30-tick cooldown (1.5 seconds).",
           "As soon as you have an iron ingot to spare, craft the Stone Sledgehammer: an iron ingot top left, two cobblestone next to it, two sticks in the middle column below. It mines like a stone pickaxe but takes a whole 3x3 face of identical blocks per swing, and holding right-click turns a full block into stairs and stairs into a slab. Every extra block broken costs 1 durability, so keep an eye on those 760 points.",
           "Sneaking is the mod's universal modifier: on the Chisel it reverses the direction, on the Sledgehammer it switches Radius and Break Through off, on enchanted pickaxes and axes it triggers Vein Miner, Strip Miner and Versatility, on the Octant it sets Pos 2, and the Magnet and a Funnel bundle pause while you do it.",
-          "More room: the Reinforced Bundle is made from a bundle in the middle with one copper nugget left and right, string on top and three leather below, and holds 96 items (at a stack size of 64). The Quiver (bundle, string, leather, copper nugget) only takes arrows and feeds the bow automatically when it is in your offhand, in your chest slot or on your hotbar.",
+          "More room: the Reinforced Bundle is made from a bundle in the middle with a Diamond Pebble beside it, string on top and a Leather Sheet (nine leather in the crafting grid) below, and holds 96 items (at a stack size of 64); whatever the bundle held, its enchantments and its name carry over. The Quiver (bundle, string, leather, copper nugget) only takes arrows and feeds the bow automatically when it is in your offhand, in your chest slot or on your hotbar; the same crafting upgrade with a Quiver, a Leather Sheet and a Diamond Pebble makes the Reinforced Quiver (96 arrows, arrows and enchantments kept). The Diamond Pebble has one source, the Sledgehammer crushing a diamond block (see below).",
           "For planning the build site: the Octant needs gold nuggets, a lead, gold ingots, a compass and a copper ingot; alternatively the Wandering Trader sells it for 10 emeralds. Right-click sets Pos 1, sneak + right-click sets Pos 2, the HUD (on Fabric and NeoForge) shows you distance, area or volume; G opens the Octant Manager.",
           "The Building Wand is your first area tool: the Copper Building Wand is built from a Copper Core (top right) and two sticks diagonally below it. The Mason sells Copper Cores from level 2 for 25 emeralds (2 uses) and the Wandering Trader for 46 emeralds as a pair; the finished Copper Building Wand is also available from the Mason at level 4 for 62 emeralds. With blocks in your offhand or on your hotbar, right-click places a 3x3 face against the side of the block you clicked.",
           "A bit of iron brings the helpers: the Magnet (4 iron ingots, a lodestone, redstone, lapis lazuli; pulls in items within 4 blocks and never wears out) and the Rotator (5 iron ingots + an ender pearl; turns logs, furnaces, pistons and hoppers in place with a right-click). The Ore Detector (calibrated sculk sensor on top, compass in the middle, Gold Core at the bottom) is worth it once you have a Gold Core; the Wandering Trader sells a Gold Core for 30 emeralds.",
           "Material tiers for the Sledgehammer and Chisel: stone, copper, iron, gold, diamond, netherite, enderite; for the Building Wand the series starts at copper (3x3) and grows through iron (5x5), gold (7x7), diamond (9x9) and netherite (11x11) up to enderite (13x13). Higher hammer tiers are crafted with the matching block plus two ingots or diamonds, chisels with the ingot or diamond in the middle, building wands with the core of that tier.",
           "Upgrade instead of rebuild: with the Basic Upgrade Template at the smithing table, copper becomes iron, iron becomes gold and gold becomes diamond; a chisel needs 2 ingots or diamonds for that, a sledgehammer 12. Enchantments, damage and the name are kept. The Stone Sledgehammer cannot be upgraded, and the Diamond Core for the Diamond Building Wand is sold by the Mason (level 2) for 6 netherite ingots.",
           "Netherite and enderite only exist at the smithing table: Netherite Upgrade Smithing Template + diamond tool + netherite ingot, then Enderite Upgrade Template + netherite tool + Enderite Ingot. Enderite items are not lost in the void; the Enderite Bundle and the Enderite Quiver take the mod's enchantments at an anvil like the tiers below them, while the Enderite building wand, chisel and sledgehammer are still missing from the enchantment tags and cannot be given them by normal means.",
-          "The road to the machines runs through the Sledgehammer: holding right-click on a diamond block breaks it into 81 Diamond Pebbles, and 9 pebbles make one Cracked Diamond in the crafting grid. With those you build Reinforced Furnaces, Blast Furnaces and Smokers (3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds yield 3), Reinforced Hoppers (5 hoppers, a name tag, 3 Cracked Diamonds yield 5) and Reinforced Pistons (3 Cracked Diamonds, 2 pistons, 4 iron ingots yield 2). The netherite tiers each need one Netherite Nugget. Leftover Cracked Diamonds go back to diamonds in the blast furnace.",
+          "The road to the machines runs through the Sledgehammer: holding right-click on a diamond block breaks it into 81 Diamond Pebbles, and 9 pebbles make one Cracked Diamond in the crafting grid (a single pebble also goes into the Reinforced Bundle and the Reinforced Quiver). With those you build Reinforced Furnaces, Blast Furnaces and Smokers (3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds yield 3), Reinforced Hoppers (5 hoppers, a name tag, 3 Cracked Diamonds yield 5) and Reinforced Pistons (3 Cracked Diamonds, 2 pistons, 4 iron ingots yield 2). The netherite tiers each need one Netherite Nugget. Leftover Cracked Diamonds go back to diamonds in the blast furnace.",
           "Enchantments: only Fast Chiseling appears at the enchanting table. Every other mod enchantment is found as a book and applied at the anvil; the creative tab has every book ready at maximum level.",
           "At the traders: the Toolsmith sells copper, iron and gold chisels with Fast Chiseling from level 3 for 6 emeralds, from level 4 iron and diamond sledgehammers with one enchantment out of Break Through, Override, Range, Unbreaking or Efficiency (16 emeralds + an iron pickaxe, or 28 emeralds + a diamond pickaxe), and from level 5 a diamond pickaxe with Strip Miner or Vein Miner for 15 emeralds. The Librarian offers books with Color Palette, Fast Chiseling or Linear from level 3, Linear or Override from level 4, and Master Builder, Range, Funnel, Strip Miner or Vein Miner from level 5, each for 25 emeralds. The Wandering Trader has a book with Radius for 60 emeralds.",
           "In chests: Constructor's Touch, the mod's key enchantment (it unlocks the Building Wand menu, extra chisel conversions, reverse reshaping on the Sledgehammer, the magnet filter and the Octant preview), exists only as a book in Buried Treasure, in igloo chests and in the vaults of the trial chambers; no trader offers it. Break Through, Funnel, Vein Miner and Fast Chiseling lie in dungeons, Color Palette, Cover and Linear in pillager outposts and woodland mansions, Master Builder, Versatility and Range in stronghold libraries and end cities, Override II and Air Jump II in end cities, Radius and Deep Pockets in ancient cities, Strip Miner in nether fortresses and abandoned mineshafts.",
@@ -309,14 +311,14 @@ window.WIKI_DATA = {
           "Dein erstes Werkzeug ist der Steinmeißel: Stock unten links, Bruchstein in der Mitte, je ein Kupferklumpen links vom und unter dem Bruchstein. Damit wandelst du per Rechtsklick Stein in gemeißelte Steinziegel oder glatten Sandstein in geschnittenen Sandstein um; Schleichen + Rechtsklick geht die Kette zurück (kostet 2 statt 1 Haltbarkeit). Nach jeder Umwandlung wartet der Steinmeißel 30 Ticks.",
           "Sobald du einen Eisenbarren übrig hast, baust du den Stein-Vorschlaghammer: Eisenbarren oben links, daneben zwei Bruchstein, darunter zwei Stöcke mittig. Er baut wie eine Steinspitzhacke, nimmt aber pro Schlag ein ganzes 3x3-Feld gleicher Blöcke mit, und mit gedrücktem Rechtsklick machst du aus einem vollen Block eine Treppe und aus der Treppe eine Stufe. Jeder zusätzlich abgebaute Block kostet 1 Haltbarkeit, also behalte die 760 Punkte im Blick.",
           "Schleichen ist der Universal-Modifikator der Mod: Beim Meißel kehrt es die Richtung um, beim Vorschlaghammer schaltet es Radius und Durchbruch ab, bei verzauberten Spitzhacken und Äxten löst es Aderabbau, Tunnelgräber und Vielseitigkeit aus, beim Oktanten setzt es Pos 2, und Magnet sowie Trichter-Bündel pausieren dabei.",
-          "Mehr Platz: Das Verstärkte Bündel entsteht aus einem Bündel in der Mitte mit je einem Kupferklumpen links und rechts, Faden oben und drei Leder unten und fasst 96 Gegenstände (bei 64er-Stapeln). Der Köcher (Bündel, Faden, Leder, Kupfer-Nugget) nimmt nur Pfeile auf und versorgt den Bogen automatisch, wenn er in der Nebenhand, im Brustpanzer-Slot oder der Schnellzugriffsleiste liegt.",
+          "Mehr Platz: Das Verstärkte Bündel entsteht aus einem Bündel in der Mitte mit einem Diamantkiesel daneben, Faden oben und einer Lederplatte (neun Leder in der Werkbank) unten und fasst 96 Gegenstände (bei 64er-Stapeln); Inhalt, Verzauberungen und Name des Bündels bleiben dabei erhalten. Der Köcher (Bündel, Faden, Leder, Kupfer-Nugget) nimmt nur Pfeile auf und versorgt den Bogen automatisch, wenn er in der Nebenhand, im Brustpanzer-Slot oder der Schnellzugriffsleiste liegt; dieselbe Werkbank-Aufwertung mit Köcher, Lederplatte und Diamantkiesel ergibt den Verstärkten Köcher (96 Pfeile, Pfeile und Verzauberungen bleiben). Den Diamantkiesel gibt es nur auf einem Weg: der Vorschlaghammer zerkleinert einen Diamantblock (siehe unten).",
           "Zum Planen der Baustelle: Der Oktant braucht Goldklumpen, Leine, Goldbarren, Kompass und Kupferbarren; alternativ verkauft ihn der fahrende Händler für 10 Smaragde. Rechtsklick setzt Pos 1, Schleichen + Rechtsklick Pos 2, das HUD (auf Fabric und NeoForge) zeigt dir Abstand, Fläche oder Volumen; mit G öffnest du den Oktant-Manager.",
           "Der Baustab ist dein erstes Flächenwerkzeug: Der Kupfer-Baustab wird aus einem Kupferkern (oben rechts) und zwei Stöcken diagonal darunter gebaut. Kupferkerne verkauft der Steinmetz ab Stufe 2 für 25 Smaragde (2 Nutzungen) und der fahrende Händler für 46 Smaragde im Doppelpack; den fertigen Kupfer-Baustab gibt es auch beim Steinmetz ab Stufe 4 für 62 Smaragde. Mit Blöcken in Zweithand oder Hotbar setzt er per Rechtsklick eine 3x3-Fläche vor die angeklickte Blockseite.",
           "Mit etwas Eisen kommen die Helfer dazu: der Magnet (4 Eisenbarren, Leitstein, Redstone, Lapislazuli; zieht Items im Umkreis von 4 Blöcken an und nutzt sich nie ab) und der Rotator (5 Eisenbarren + Enderperle; dreht Stämme, Öfen, Kolben und Trichter per Rechtsklick an Ort und Stelle). Der Erzdetektor (kalibrierter Sculk-Sensor oben, Kompass in der Mitte, Goldkern unten) lohnt sich, sobald du einen Goldkern hast; den verkauft der fahrende Händler für 30 Smaragde.",
           "Materialstufen bei Vorschlaghammer und Meißel: Stein, Kupfer, Eisen, Gold, Diamant, Netherit, Enderit; beim Baustab beginnt die Reihe bei Kupfer (3x3) und wächst über Eisen (5x5), Gold (7x7), Diamant (9x9) und Netherit (11x11) bis Enderit (13x13). Höhere Hammerstufen werden mit dem jeweiligen Block plus zwei Barren bzw. Diamanten gebaut, Meißel mit dem Barren bzw. Diamanten in der Mitte, Baustäbe mit dem Kern der Stufe.",
           "Aufwerten statt neu bauen: Mit der Basis-Upgrade-Vorlage am Schmiedetisch wird Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant; ein Meißel braucht dafür 2 Barren bzw. Diamanten, ein Vorschlaghammer 12. Verzauberungen, Schaden und Name bleiben dabei erhalten. Der Stein-Vorschlaghammer lässt sich nicht aufwerten, und den Diamantkern für den Diamant-Baustab verkauft der Steinmetz (Stufe 2) für 6 Netheritbarren.",
           "Netherit und Enderit gibt es nur am Schmiedetisch: Netherit-Aufwertungs-Schmiedevorlage + Diamant-Werkzeug + Netheritbarren, danach Enderite Upgrade Template + Netherit-Werkzeug + Enderite Ingot. Enderit-Gegenstände gehen in der Leere nicht verloren; Enderite Bundle und Enderite Quiver nehmen die Mod-Verzauberungen am Amboss an wie die Stufen darunter, während Enderit-Baustab, -Meißel und -Vorschlaghammer weiterhin in den Verzauberungs-Tags fehlen und sich auf normalem Weg nicht verzaubern lassen.",
-          "Der Weg zu den Maschinen führt über den Vorschlaghammer: Rechtsklick halten auf einen Diamantblock zerlegt ihn in 81 Diamantkiesel, und je 9 Kiesel ergeben in der Werkbank einen Rissigen Diamanten. Damit baust du Verstärkte Öfen, Schmelzöfen und Räucheröfen (3 Rissige Diamanten, 3 Geräte, 3 Rissige Diamanten ergeben 3 Stück), Verstärkte Trichter (5 Trichter, Namensschild, 3 Rissige Diamanten ergeben 5 Stück) und Verstärkte Kolben (3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren ergeben 2 Stück). Die Netherit-Stufen brauchen jeweils ein Netherite Nugget. Übrige Rissige Diamanten werden im Hochofen wieder zu Diamanten.",
+          "Der Weg zu den Maschinen führt über den Vorschlaghammer: Rechtsklick halten auf einen Diamantblock zerlegt ihn in 81 Diamantkiesel, und je 9 Kiesel ergeben in der Werkbank einen Rissigen Diamanten (ein einzelner Kiesel steckt außerdem im Verstärkten Bündel und im Verstärkten Köcher). Damit baust du Verstärkte Öfen, Schmelzöfen und Räucheröfen (3 Rissige Diamanten, 3 Geräte, 3 Rissige Diamanten ergeben 3 Stück), Verstärkte Trichter (5 Trichter, Namensschild, 3 Rissige Diamanten ergeben 5 Stück) und Verstärkte Kolben (3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren ergeben 2 Stück). Die Netherit-Stufen brauchen jeweils ein Netherite Nugget. Übrige Rissige Diamanten werden im Hochofen wieder zu Diamanten.",
           "Verzauberungen: Nur Schnelles Meißeln erscheint am Zaubertisch. Alle anderen Mod-Verzauberungen findest du als Bücher und bringst sie am Amboss an; im Kreativ-Reiter liegen alle Bücher auf Höchststufe bereit.",
           "Beim Händler: Der Werkzeugschmied verkauft ab Stufe 3 Kupfer-, Eisen- und Goldmeißel mit Schnelles Meißeln für 6 Smaragde, ab Stufe 4 Eisen- und Diamant-Vorschlaghämmer mit einer Verzauberung aus Durchbruch, Übersteuerung, Reichweite, Haltbarkeit oder Effizienz (16 Smaragde + Eisenspitzhacke bzw. 28 Smaragde + Diamantspitzhacke) und ab Stufe 5 eine Diamantspitzhacke mit Tunnelgräber oder Aderabbau für 15 Smaragde. Der Bibliothekar bietet ab Stufe 3 Bücher mit Farbpalette, Schnelles Meißeln oder Linear, ab Stufe 4 Linear oder Übersteuerung und ab Stufe 5 Baumeister, Reichweite, Trichter, Tunnelgräber oder Aderabbau, jeweils für 25 Smaragde. Der fahrende Händler hat für 60 Smaragde ein Buch mit Radius.",
           "In Truhen: Berührung des Konstrukteurs, die Schlüssel-Verzauberung der Mod (schaltet das Baustab-Menü, zusätzliche Meißel-Umwandlungen, das Rückwärts-Umformen beim Vorschlaghammer, den Magnetfilter und die Oktant-Vorschau frei), gibt es nur als Buch im Vergrabenen Schatz, in Iglu-Truhen und in den Tresoren der Prüfungskammern; kein Händler bietet sie an. Durchbruch, Trichter, Aderabbau und Schnelles Meißeln liegen in Verliesen, Farbpalette, Abdeckung und Linear in Plünderer-Außenposten und Waldanwesen, Baumeister, Vielseitigkeit und Reichweite in Festungsbibliotheken und Endsiedlungen, Übersteuerung II und Luftsprung II in Endsiedlungen, Radius und Tiefe Taschen in Antiken Städten, Tunnelgräber in Netherfestungen und verlassenen Minen.",
@@ -388,7 +390,7 @@ window.WIKI_DATA = {
           "Cost: every additional block destroyed uses 1 durability (2 with the wrong tool); in exchange each hammer has four times the durability of its base value (Diamond 6244, Netherite 8124, Enderite 10000) and mines at 1.45x (3x3) up to 1.85x (25 blocks) its material speed.",
           "Preview: before the swing you see every neighbouring block that will be taken with a black outline and a grey fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
-          "Diamond Pebbles: charging a right-click on a diamond block breaks it down into 81 Diamond Pebbles; 9 pebbles make one Cracked Diamond, which turns back into a diamond in the blast furnace.",
+          "Diamond Pebbles: charging a right-click on a diamond block breaks it down into 81 Diamond Pebbles; 9 pebbles make one Cracked Diamond, which turns back into a diamond in the blast furnace. One pebble is also an ingredient of the Reinforced Bundle and the Reinforced Quiver.",
           "Smithing templates: hit an item frame holding a smithing template with the hammer while a Glow Ink Sac or Glowstone Dust sits in your off hand, and you get a Glowing or an Emitting Trim Upgrade Template.",
           "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
           "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade Template and 12 ingots or diamonds you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
@@ -406,12 +408,102 @@ window.WIKI_DATA = {
           "Kosten: Jeder zusätzlich zerstörte Block verbraucht 1 Haltbarkeit (2 bei unpassendem Werkzeug); dafür haben die Hämmer einen mit 4 multiplizierten Haltbarkeits-Basiswert (z. B. Diamant 6244, Netherit 8124, Enderit 10000) und bauen mit Faktor 1,45 (3x3) bis 1,85 (25 Blöcke) schneller ab als ihre Materialgeschwindigkeit.",
           "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
-          "Diamantkiesel: Rechtsklick-Aufladen auf einem Diamantblock zerlegt ihn in 81 Diamantkiesel; 9 Kiesel ergeben einen Rissigen Diamanten, der im Hochofen wieder zum Diamanten wird.",
+          "Diamantkiesel: Rechtsklick-Aufladen auf einem Diamantblock zerlegt ihn in 81 Diamantkiesel; 9 Kiesel ergeben einen Rissigen Diamanten, der im Hochofen wieder zum Diamanten wird. Ein Kiesel ist außerdem Zutat des Verstärkten Bündels und des Verstärkten Köchers.",
           "Schmiedevorlagen: Schlägst du mit dem Hammer auf einen Rahmen mit einer Schmiedevorlage und hast einen Leuchttintenbeutel bzw. Leuchtsteinstaub in der Nebenhand, entsteht eine Leuchtende bzw. Strahlende Schmiedevorlage.",
           "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
           "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Upgrade-Vorlage und 12 Barren bzw. Diamanten lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
           "Beschaffung: Diamant-Vorschlaghämmer liegen in Endsiedlungs-Schatztruhen und Antiken Stätten, Gold-Vorschlaghämmer in Bastionen; der Werkzeugschmied verkauft ab Stufe 4 einen Eisen- (16 Smaragde + Eisenspitzhacke) und einen Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke), jeweils mit einer zufälligen Verzauberung aus einem gewichteten Pool.",
           "Wichtig zu wissen: Der Enderite Sledgehammer ist nicht feuerfest, aber nur er ist per Tag void_protected gegen den Void geschützt, die anderen Stufen nicht."
+        ]
+      }
+    },
+    {
+      "id": "welcome",
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+        "src/main/java/com/simplebuilding/items/ModItemGroups.java",
+        "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "common/src/shared/java/com/simplebuilding/util/ModTags.java",
+        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "common/src/shared/java/com/simplebuilding/recipe/CountBasedSmithingRecipe.java",
+        "src/main/java/com/simplebuilding/condition/ConfigResourceCondition.java",
+        "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
+        "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
+        "src/main/generated/data/simplebuilding/tags/item/chisel_tools.json",
+        "src/main/generated/data/simplebuilding/tags/item/building_wand_enchantable.json",
+        "src/main/generated/data/simplebuilding/tags/item/bundle_enchantable.json",
+        "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+        "src/main/generated/data/simplebuilding/tags/item/octants_enchantable.json",
+        "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+        "common/src/shared/java/com/simplebuilding/util/LegacySpatulaMigration.java",
+        "common/src/shared/java/com/simplebuilding/util/TrimMultiplierLogic.java",
+        "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ItemFrameEntityMixin.java",
+        "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
+        "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
+        "common/src/shared/java/com/simplebuilding/client/render/MultiBlockBreakingSupport.java",
+        "src/main/java/com/simplebuilding/compat/ModMenuIntegration.java",
+        "src/main/java/com/simplebuilding/SimplebuildingClient.java",
+        "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
+        "forge/src/main/java/com/simplebuilding/forge/SimplebuildingForgeClient.java",
+        "forge/src/main/java/com/simplebuilding/forge/ForgeClientGameEvents.java",
+        "mc1_21_11/shared/java/com/simplebuilding/trade/ModTradeDefinitions.java",
+        "src/main/resources/fabric.mod.json",
+        "neoforge/src/main/resources/META-INF/neoforge.mods.toml",
+        "src/main/resources/assets/simplebuilding/lang/de_de.json",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+      ],
+      "en": {
+        "title": "Welcome",
+        "summary": "SimpleBuilding is a Minecraft mod for anyone who likes to build, dig and keep their storage under control: it brings tools like the Sledgehammer, Chisel, Building Wand and Octant, larger bundles and quivers, faster furnaces, hoppers and pistons, and a whole set of custom enchantments. This wiki describes every feature the way it actually behaves in game, including controls, tiers, where things are found, and the parts that do not (yet) work. This page sums up what is in the mod and where to find each topic in the wiki.",
+        "details": [
+          "SimpleBuilding adds building tools to Minecraft: the Sledgehammer (mines a 3x3 face in one go and reshapes blocks into stairs and slabs), the Chisel (converts blocks in place into related variants), the Building Wand (places whole faces with one click), the Octant (measures distances, areas and volumes and previews shapes), the Rotator (turns orientable blocks), the Magnet (pulls in dropped items) and the Ore Detector (locates the nearest ore by sound and a particle trail).",
+          "For storage there are the Reinforced Bundle, the Netherite Bundle and the Enderite Bundle (96, 192 and 288 items at a stack size of 64), plus three Quiver tiers that only take arrows and feed the bow automatically.",
+          "The blocks are faster hoppers (Reinforced, Netherite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite), four stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
+          "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
+          "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
+          "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the mining preview of the Sledgehammer, Strip Miner and Vein Miner, the Building Wand preview, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
+          "Every item and block is in the creative tab \"Building Items\" (called \"SimpleBuilding Items\" in German; icon: the Iron Chisel), together with enchanted books of every mod enchantment at maximum level.",
+          "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. Many menu and status strings (in the hopper filter, on the Ore Detector, in the Octant HUD and on the Magnet) are hardcoded in English and cannot be translated at all.",
+          "Every chapter follows the same layout: summary, details, controls (which key or click does what), a tier overview for tier families, and a limitations section. That section states plainly what does not (yet) work, e.g. tooltip texts that are never shown, or enchantments with no effect such as Cover and Bridge. Each chapter ends with the source files its statements come from.",
+          "Items section: every tool and storage item, sorted by family (Sledgehammer, Chisel, Building Wand, Octant and dyed Octants, bundles, quivers), plus the standalone tools Magnet, Rotator and Ore Detector.",
+          "Blocks section: hoppers, furnaces, pistons, gravity blocks and ores, with hardness, tool tags, loot tables and the differences between the Reinforced and Netherite tiers.",
+          "Recipes section: crafting recipes, smithing table upgrades (Netherite Upgrade Smithing Template and Enderite Upgrade Template) and the mod's own recipe type for the Basic Upgrade Template, which upgrades copper, iron and gold tools one tier at a time without losing enchantments, damage or the name.",
+          "Loot section: which structure chests (among them Buried Treasure, Igloo, Dungeon, Abandoned Mineshaft, Shipwreck, Pillager Outpost, Woodland Mansion, Stronghold Library, End City, Ancient City, Bastion, Nether Fortress, Trial Chambers) hold mod items and books; every entry only applies while the enableLootTableChanges option is on.",
+          "Trades section: offers from the Librarian (levels 3 to 5), the Mason (levels 2 and 4), the Toolsmith (levels 3 to 5) and the Wandering Trader, switchable off via enableVillagerTrades and enableWanderingTrades.",
+          "Enchantments section: effect per level, cost, exclusive sets and where to find them. Important: only Fast Chiseling appears at the enchanting table; every other mod enchantment comes as a book from chests, from a trader or from the creative tab and is applied at the anvil.",
+          "Tags section: tags decide which items accept an enchantment (e.g. sledgehammer_tools, chisel_tools, building_wand_enchantable, bundle_enchantable, constructors_touch_enchantable, octants_enchantable) or gain special properties (void_protected). If an item refuses an enchantment, it is almost always because it is missing from one of these tags; that now affects the Enderite building wand, chisel and sledgehammer and the legacy spatulas - the Enderite Bundle and Enderite Quiver are in the container tags.",
+          "Config section: switches for the air jump and its cooldown, armor trim benefits, tool animations, preview opacity, Octant and bundle controls, plus the three switches for loot, villager trades and the wandering trader; reachable through ModMenu on Fabric and through the config button in the mod list on NeoForge.",
+          "For players coming from older versions: legacy spatulas are converted automatically into the chisel of the same tier on server start (dropped items) and on join (inventory and open menu); chest contents are not covered."
+        ]
+      },
+      "de": {
+        "title": "Willkommen",
+        "summary": "SimpleBuilding ist eine Minecraft-Mod für alle, die gern bauen, graben und ihr Lager im Griff haben wollen: Sie bringt Werkzeuge wie Vorschlaghammer, Meißel, Baustab und Oktant, größere Bündel und Köcher, schnellere Öfen, Trichter und Kolben sowie eine ganze Reihe eigener Verzauberungen mit. Dieses Wiki beschreibt jede Funktion so, wie sie tatsächlich im Spiel funktioniert, inklusive Bedienung, Stufen, Fundorten und der Dinge, die (noch) nicht funktionieren. Hier erfährst du, was drin ist und wo du im Wiki was findest.",
+        "details": [
+          "SimpleBuilding erweitert Minecraft um Bauwerkzeuge: Vorschlaghammer (baut ein 3x3-Feld auf einmal ab und formt Blöcke zu Treppen und Stufen), Meißel (formt Blöcke an Ort und Stelle in verwandte Varianten um), Baustab (setzt ganze Flächen mit einem Klick), Oktant (misst Abstände, Flächen und Volumen und zeichnet Formen vor), Rotator (dreht ausrichtbare Blöcke), Magnet (zieht herumliegende Items an) und Erzdetektor (ortet das nächste Erz per Ton und Partikelspur).",
+          "Für das Lager gibt es das Verstärkte Bündel, das Netherit-Bündel und das Enderite Bundle (96, 192 und 288 Gegenstände bei 64er-Stapeln) sowie drei Köcher-Stufen, die nur Pfeile aufnehmen und den Bogen automatisch versorgen.",
+          "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit), vier stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
+          "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
+          "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
+          "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Abbau-Vorschau von Vorschlaghammer, Tunnelgräber und Aderabbau, die Baustab-Vorschau, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
+          "Alle Gegenstände und Blöcke findest du im Kreativmodus im Reiter „SimpleBuilding Items“ (englisch „Building Items“, Symbol: Eisenmeißel), zusammen mit verzauberten Büchern aller Mod-Verzauberungen auf Höchststufe.",
+          "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Viele Menü- und Statustexte (etwa im Trichter-Filter, beim Erzdetektor, beim Oktant-HUD und beim Magneten) sind fest auf Englisch hinterlegt.",
+          "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden, oder Verzauberungen ohne Wirkung wie Abdeckung und Brücke. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
+          "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Magnet, Rotator und Erzdetektor.",
+          "Bereich Blöcke: Trichter, Öfen, Kolben, Schwerkraftblöcke und Erze samt Härte, Werkzeug-Tags, Beutetabellen und den Unterschieden zwischen Verstärkt- und Netherit-Stufe.",
+          "Bereich Rezepte: Werkbank-Rezepte, Schmiedetisch-Aufwertungen (Netherit-Aufwertungs-Schmiedevorlage bzw. Enderite Upgrade Template) und der eigene Rezepttyp für die Basis-Upgrade-Vorlage, mit dem du Kupfer-, Eisen- und Gold-Werkzeuge stufenweise aufwertest, ohne Verzauberungen, Schaden oder Namen zu verlieren.",
+          "Bereich Loot: welche Strukturtruhen (u. a. Vergrabener Schatz, Iglu, Verlies, Verlassene Mine, Schiffswrack, Plünderer-Außenposten, Waldanwesen, Festungsbibliothek, Endsiedlung, Antike Stadt, Bastion, Netherfestung, Prüfungskammer) Mod-Gegenstände und Bücher enthalten; alle Einträge gelten nur bei aktiver Option enableLootTableChanges.",
+          "Bereich Handel: Angebote von Bibliothekar (Stufe 3 bis 5), Steinmetz (Stufe 2 und 4), Werkzeugschmied (Stufe 3 bis 5) und fahrendem Händler, abschaltbar über enableVillagerTrades bzw. enableWanderingTrades.",
+          "Bereich Verzauberungen: Wirkung je Stufe, Kosten, Ausschluss-Sets und Fundorte. Wichtig: Nur Schnelles Meißeln erscheint am Zaubertisch; alle anderen Mod-Verzauberungen kommen als Bücher aus Truhen, vom Händler oder aus dem Kreativ-Reiter und werden am Amboss angebracht.",
+          "Bereich Tags: Tags legen fest, welche Gegenstände eine Verzauberung annehmen (z. B. sledgehammer_tools, chisel_tools, building_wand_enchantable, bundle_enchantable, constructors_touch_enchantable, octants_enchantable) oder besondere Eigenschaften bekommen (void_protected). Nimmt ein Gegenstand eine Verzauberung nicht an, liegt es fast immer daran, dass er in einem dieser Tags fehlt; das betrifft jetzt Enderit-Baustab, -Meißel und -Vorschlaghammer sowie die alten Spatel - Enderite Bundle und Enderite Quiver stehen in den Behälter-Tags.",
+          "Bereich Konfiguration: Schalter für Luftsprung und dessen Abklingzeit, Rüstungsbesatz-Vorteile, Werkzeuganimationen, Deckkraft der Vorschau, Oktant- und Bündel-Bedienung sowie die drei Schalter für Loot, Dorfbewohner-Handel und fahrenden Händler; auf Fabric über ModMenu, auf NeoForge über den Konfigurationsknopf der Mod-Liste erreichbar.",
+          "Für Umsteiger aus älteren Versionen: Alte Spatel werden beim Serverstart (herumliegende Gegenstände) und beim Betreten (Inventar und offenes Menü) automatisch in den gleichstufigen Meißel umgewandelt; Truheninhalte werden dabei nicht erfasst."
         ]
       }
     },
@@ -752,6 +844,180 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "bundles",
+      "related": [
+        "simplebuilding:reinforced_bundle",
+        "simplebuilding:netherite_bundle",
+        "simplebuilding:enderite_bundle",
+        "simplebuilding:leather_sheet",
+        "simplebuilding:deep_pockets",
+        "simplebuilding:funnel",
+        "simplebuilding:drawer",
+        "simplebuilding:master_builder",
+        "simplebuilding:color_palette"
+      ],
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/tooltip/ReinforcedBundleTooltipSubmenuHandler.java",
+        "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/client/HandledScreenMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/client/BundleTooltipComponentMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AnvilScreenHandlerMixin.java",
+        "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModEnchantmentTagProvider.java",
+        "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+        "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
+        "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_reinforced_bundle.json",
+        "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/reinforced_bundle_emerald.json",
+        "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+      ],
+      "en": {
+        "title": "Bundles: Reinforced, Netherite, Enderite",
+        "summary": "SimpleBuilding extends the vanilla bundle into a three-tier family: the Reinforced Bundle holds 1.5x as much (96 items), the Netherite Bundle twice that (192) and the Enderite Bundle three times as much (288). All three handle the same way, let you pick an entry with the mouse wheel, and can be built out with Deep Pockets, Funnel, Drawer, Master Builder and Color Palette.",
+        "details": [
+          "Upgrade path: Reinforced Bundle at a crafting table from a bundle, string, a Diamond Pebble and a Leather Sheet (the bundle's contents, enchantments and name carry over); Netherite Bundle at a smithing table with a netherite upgrade smithing template and a netherite ingot; Enderite Bundle at a smithing table with an Enderite Upgrade Template and an Enderite Ingot.",
+          "Capacity: 96 / 192 / 288 items of stack size 64; items with a smaller stack size take up correspondingly more room.",
+          "Inserting: left-click the bundle onto an item, or an item onto the bundle. Removing: right-click the bundle onto an empty slot, or an empty cursor onto the bundle; the selected (otherwise topmost) entry always comes out as a whole stack.",
+          "The mouse wheel over the bundle picks an entry; the selection is sent to the server and cleared when the mouse leaves the slot.",
+          "Identical items are merged on insertion and sorted to the top as one block: full stacks first, the partial remainder directly below.",
+          "Right-click in hand drops the selected stack as long as it is not a block; blocks can only be placed straight out of the bundle with Master Builder (1 item used up per placement, none in Creative mode).",
+          "With Master Builder the Pick Block key fetches a targeted block out of the bundle and into your hand if it is not already in the inventory (not in Creative mode); building wands may use blocks from Master Builder bundles as material.",
+          "Color Palette (only with Master Builder) places a random entry of the bundle; the anvil rejects Color Palette without Master Builder.",
+          "Deep Pockets doubles (I) or quadruples (II) the capacity. Drawer raises it by the factor (16 + level) / 8 up to level VIII, but limits the contents to 5 item types and rules out Master Builder and Color Palette.",
+          "Funnel vacuums items lying on the ground into the bundle: level I only types already inside, level II everything; nothing while sneaking.",
+          "On the item a fill bar from green to red shows how full it is; the tooltip shows the contents with a bar scaled to the capacity, but the scale factor is truncated to a whole number, so the tooltip bar of the Reinforced Bundle (factor 1.5) and the Enderite Bundle (factor 4.5) fills up too early.",
+          "Netherite Bundle and Enderite Bundle are fire resistant and explosion-protected as dropped items; the Enderite Bundle is additionally kept out of the void through the void_protected tag.",
+          "The bundle enchantments are not available at the enchanting table, only as books from loot chests and from the librarian; Drawer has no book of its own in loot or trades. All three bundle tiers are in the tags through which the enchantments declare their items.",
+          "The Reinforced Bundle turns up in dungeon chests, shipwreck treasure and abandoned mineshafts, and the wandering trader sells one for 16 emeralds and buys one for 12 emeralds (depending on the config options enableLootTableChanges and enableWanderingTrades).",
+          "The Invert Bundle Interactions config option swaps left and right click for inserting and removing.",
+          "The mod's quivers inherit from the same item class (QuiverItem extends ReinforcedBundleItem) but only accept arrows (tag minecraft:arrows) and are described separately."
+        ]
+      },
+      "de": {
+        "title": "Bündel: Verstärkt, Netherit, Enderit",
+        "summary": "SimpleBuilding erweitert das Vanilla-Bündel zu einer dreistufigen Familie: Das Verstärkte Bündel fasst das 1,5-fache (96 Gegenstände), das Netherit-Bündel das Doppelte davon (192) und das Enderite Bundle das Dreifache (288). Alle drei bedienen sich gleich, lassen per Mausrad einen Eintrag auswählen und lassen sich mit Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette ausbauen.",
+        "details": [
+          "Aufstieg: Verstärktes Bündel in der Werkbank aus Bündel, Faden, Diamantkiesel und Lederplatte (Inhalt, Verzauberungen und Name des Bündels bleiben erhalten); Netherit-Bündel am Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage und Netheritbarren; Enderite Bundle am Schmiedetisch mit Enderite Upgrade Template und Enderite Ingot.",
+          "Kapazität: 96 / 192 / 288 Gegenstände der Stapelgröße 64; Gegenstände mit kleinerer Stapelgröße belegen entsprechend mehr Platz.",
+          "Einlegen: Linksklick mit dem Bündel auf einen Gegenstand oder mit einem Gegenstand auf das Bündel. Entnehmen: Rechtsklick mit dem Bündel auf einen leeren Slot oder mit leerem Cursor auf das Bündel; es wird immer der ausgewählte (sonst oberste) Eintrag als ganzer Stapel entnommen.",
+          "Mausrad über dem Bündel wählt einen Eintrag aus; die Auswahl wird an den Server gesendet und beim Verlassen des Slots aufgehoben.",
+          "Gleiche Gegenstände werden beim Einlegen zusammengeführt und als Block nach oben sortiert: volle Stapel zuerst, der angebrochene Rest direkt darunter.",
+          "Rechtsklick in der Hand lässt den ausgewählten Stapel fallen, sofern es kein Block ist; Blöcke werden nur mit Baumeister direkt aus dem Bündel platziert (1 Stück pro Platzierung verbraucht, im Kreativmodus nichts).",
+          "Mit Baumeister holt die Taste Block auswählen einen anvisierten Block aus dem Bündel in die Hand, wenn er nicht schon im Inventar liegt (nicht im Kreativmodus); Baustäbe dürfen Blöcke aus Baumeister-Bündeln als Material verwenden.",
+          "Farbpalette (nur mit Baumeister) platziert einen zufälligen Eintrag des Bündels; der Amboss lehnt Farbpalette ohne Baumeister ab.",
+          "Tiefe Taschen verdoppelt (I) oder vervierfacht (II) die Kapazität. Schublade erhöht sie um den Faktor (16 + Stufe) / 8 bis Stufe VIII, begrenzt den Inhalt aber auf 5 Gegenstandsarten und schließt Baumeister und Farbpalette aus.",
+          "Trichter saugt am Boden liegende Gegenstände ins Bündel: Stufe I nur bereits enthaltene Arten, Stufe II alles; nicht beim Schleichen.",
+          "Am Item zeigt ein Füllbalken von Grün nach Rot den Füllstand; der Tooltip zeigt den Inhalt mit einer an die Kapazität angepassten Leiste (bei 1,5- und 4,5-facher Kapazität wird der Faktor auf ganze Zahlen abgeschnitten).",
+          "Netherit-Bündel und Enderite Bundle sind feuerfest und als Drop explosionsgeschützt; das Enderite Bundle wird als Drop zusätzlich über den Tag void_protected vor dem Void bewahrt.",
+          "Die Bündel-Verzauberungen sind nicht am Zaubertisch erhältlich, sondern als Bücher aus Beutetruhen und vom Bibliothekar; Schublade hat kein eigenes Buch in Beute oder Handel. Alle drei Bündelstufen stehen in den Tags, über die die Verzauberungen ihre Gegenstände festlegen.",
+          "Das Verstärkte Bündel liegt in Verliesen, Schiffswracks und verlassenen Minen und wird vom fahrenden Händler für 16 Smaragde verkauft bzw. für 12 Smaragde gekauft (abhängig von den Config-Optionen enableLootTableChanges und enableWanderingTrades).",
+          "Die Config-Option Bündel-Interaktion umkehren vertauscht Links- und Rechtsklick für Einlegen und Entnehmen.",
+          "Die Köcher der Mod erben von derselben Item-Klasse (QuiverItem extends ReinforcedBundleItem), nehmen aber nur Pfeile (Tag minecraft:arrows) an und werden gesondert beschrieben."
+        ]
+      }
+    },
+    {
+      "id": "quivers",
+      "related": [
+        "simplebuilding:quiver",
+        "simplebuilding:reinforced_quiver",
+        "simplebuilding:netherite_quiver",
+        "simplebuilding:enderite_quiver",
+        "simplebuilding:reinforced_bundle",
+        "simplebuilding:netherite_bundle",
+        "simplebuilding:enderite_bundle",
+        "simplebuilding:leather_sheet",
+        "simplebuilding:diamond_pebble",
+        "simplebuilding:drawer",
+        "simplebuilding:deep_pockets",
+        "simplebuilding:funnel",
+        "simplebuilding:constructors_touch",
+        "simplebuilding:master_builder",
+        "simplebuilding:color_palette",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:enderite_ingot"
+      ],
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java",
+        "common/src/shared/java/com/simplebuilding/mixin/BowItemMixin.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/client/HandledScreenMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/tooltip/ReinforcedBundleTooltipSubmenuHandler.java",
+        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+        "common/src/shared/java/com/simplebuilding/gametest/ItemBehaviourTests.java",
+        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/generated/data/simplebuilding/recipe/quiver.json",
+        "src/main/generated/data/simplebuilding/recipe/netherite_quiver_smithing.json",
+        "src/main/generated/data/simplebuilding/recipe/enderite_quiver_smithing.json",
+        "src/main/generated/data/simplebuilding/tags/item/bundle_enchantable.json",
+        "src/main/generated/data/simplebuilding/tags/item/extra_inventory_items.json",
+        "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+        "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+        "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/builder_group.json",
+        "src/main/generated/data/simplebuilding/enchantment/drawer.json",
+        "src/main/generated/data/simplebuilding/enchantment/deep_pockets.json",
+        "src/main/generated/data/simplebuilding/enchantment/funnel.json",
+        "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
+        "src/main/resources/assets/simplebuilding/lang/de_de.json",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "common/src/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java",
+        "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json"
+      ],
+      "en": {
+        "title": "Quivers",
+        "summary": "Quivers are arrow bundles: they take only arrows and supply a bow automatically as soon as they sit in the off-hand, in the chest slot, in the hotbar or - with Constructor's Touch - anywhere in the inventory. There are four tiers with the capacity factors 1, 3/2, 2 and 3: the Quiver and the Reinforced Quiver come from the crafting table, the Netherite and the Enderite Quiver build on them at the smithing table. The bundle enchantments Drawer, Deep Pockets, Funnel and Constructor's Touch work on all four quiver tiers.",
+        "details": [
+          "Getting started: craft the Quiver at the crafting table from a Bundle, String, Leather and a Copper Nugget, and upgrade it at the crafting table to the Reinforced Quiver - the same pattern with the Quiver where the Bundle was, a Leather Sheet in the centre instead of the two Leather and a Diamond Pebble top right; arrows, enchantments and name carry over. After that the Netherite Quiver (Netherite Upgrade Smithing Template + Reinforced Quiver + Netherite Ingot) and the Enderite Quiver (Enderite Upgrade Template + Netherite Quiver + Enderite Ingot) at the smithing table. The plain Quiver has no smithing recipe; no tier can be skipped.",
+          "Capacity: Quiver factor 1, Reinforced Quiver factor 3/2, Netherite Quiver factor 2, Enderite Quiver factor 3; the tooltip shows factor x 64 (64 / 96 / 128 / 192 units, and since arrows stack to 64 that is the same number of arrows). Unlike the Reinforced Bundle, quivers get no x3/2 bonus on top of their tier factor - the Reinforced Quiver's 3/2 is its tier factor.",
+          "Arrows only: anything without the tag minecraft:arrows is refused both on insertion by click and on pickup from the ground; the click filter follows the configured insert click, so it holds with tools.invertBundleInteractions on as well.",
+          "Bow priority: when a bow is drawn and released the quiver is searched before every arrow in the inventory, in the order off-hand, chest slot, hotbar, then - only with Constructor's Touch - the rest of the inventory. The bow always fires the topmost arrow stack in the quiver.",
+          "Wearing one: all four quivers can be put into the chest slot, so the second stage of the bow search is reachable without commands. The quiver is a carrier there and nothing else - it gives no armor points, nothing is drawn on the player, and the price is the chestplate slot it occupies. Only players can equip one themselves, and a dispenser refuses to; an armor stand takes one anyway, because ArmorStand.interact picks the slot through canUseSlot and never asks the component's allowed entities, and a dispenser will equip a quiver onto a player standing in front of it.",
+          "Consumption: one arrow disappears from the quiver per successful shot - none in creative mode, and none when the shot costs no ammunition anyway, for instance with Infinity on a plain arrow, which vanilla shoots for free.",
+          "Enchantments (all four tiers): Drawer multiplies capacity by (16 + level)/8 and caps the quiver at 5 different types, Deep Pockets doubles (level 1) or quadruples (level 2) it, Funnel vacuums arrows off the ground (level 1 only types already inside, level 2 all of them; never while sneaking), and Constructor's Touch lets the quiver feed the bow from anywhere in the inventory. Drawer excludes Master Builder and Color Palette.",
+          "Inventory handling as on the Reinforced Bundle: left-click inserts, right-click takes out, the mouse wheel over the quiver picks the stack; the config option tools.invertBundleInteractions swaps the clicks.",
+          "Right-clicking with the quiver in hand does nothing - it does not put the quiver on either; the quiver goes into the chest slot in the inventory screen, dragged there or shift-clicked. Master Builder and Color Palette can be applied but do nothing on a quiver as long as it only holds arrows.",
+          "Limits: no crossbow code; the tooltip lines in the language file are never shown.",
+          "Where to find them: only the plain Quiver lies in loot chests (Ancient City, Pillager Outpost, Woodland Mansion), provided the loot changes are enabled in the config (default: on).",
+          "The Netherite and Enderite tiers are registered with fireResistant(); the Quiver and the Reinforced Quiver are not. The Enderite Quiver additionally floats via the tag void_protected instead of vanishing into the void. The Enderite Quiver is immune to explosions as a dropped item, like the Netherite Bundle; the Quiver, the Reinforced Quiver and the Netherite Quiver are not."
+        ]
+      },
+      "de": {
+        "title": "Köcher",
+        "summary": "Köcher sind Pfeil-Bündel: Sie nehmen nur Pfeile auf und versorgen den Bogen automatisch, sobald sie in der Nebenhand, im Brustpanzer-Slot, in der Schnellzugriffsleiste oder (mit Berührung des Konstrukteurs) irgendwo im Inventar liegen. Es gibt vier Stufen mit den Kapazitätsfaktoren 1, 3/2, 2 und 3: Köcher und Verstärkter Köcher entstehen an der Werkbank, Netherit- und Enderite-Köcher bauen am Schmiedetisch darauf auf. Die Bündel-Verzauberungen Schublade, Tiefe Taschen, Trichter und Berührung des Konstrukteurs funktionieren auf allen vier Köcher-Stufen.",
+        "details": [
+          "Einstieg: Köcher an der Werkbank aus Bündel, Faden, Leder und Kupfer-Nugget bauen und ebenfalls an der Werkbank zum Verstärkten Köcher aufwerten - dasselbe Muster mit dem Köcher an der Stelle des Bündels, einer Lederplatte in der Mitte statt der zwei Leder und einem Diamantkiesel oben rechts; Pfeile, Verzauberungen und Name bleiben erhalten. Danach Netherit-Köcher (Netherit-Aufwertungs-Schmiedevorlage + Verstärkter Köcher + Netheritbarren) und Enderite Quiver (Enderite Upgrade Template + Netherit-Köcher + Enderite Ingot) am Schmiedetisch. Für den einfachen Köcher gibt es kein Schmiederezept; keine Stufe lässt sich überspringen.",
+          "Kapazität: Köcher Faktor 1, Verstärkter Köcher Faktor 3/2, Netherit-Köcher Faktor 2, Enderite Quiver Faktor 3; der Tooltip zeigt Faktor x 64 (64 / 96 / 128 / 192). Anders als das verstärkte Bündel bekommen Köcher keinen x3/2-Bonus zusätzlich zu ihrem Stufenfaktor - die 3/2 des Verstärkten Köchers sind sein Stufenfaktor.",
+          "Nur Pfeile: Alles, was nicht das Tag minecraft:arrows trägt, wird beim Einlegen per Klick und beim Aufsaugen vom Boden abgewiesen; der Klick-Filter folgt dem konfigurierten Einlege-Klick und greift daher auch bei eingeschalteter Option tools.invertBundleInteractions.",
+          "Bogen-Vorrang: Beim Spannen und Loslassen eines Bogens wird der Köcher vor allen Pfeilen im Inventar durchsucht, in der Reihenfolge Nebenhand, Brustpanzer-Slot, Schnellzugriffsleiste, dann (nur mit Berührung des Konstrukteurs) restliches Inventar. Verschossen wird immer der oberste Stapel im Köcher.",
+          "Anlegen: Alle vier Köcher passen in den Brustpanzer-Slot, damit ist die zweite Stufe der Bogen-Suche ohne Befehle erreichbar. Der Köcher ist dort reiner Träger - er gibt keine Rüstungspunkte, wird auf dem Spieler nicht dargestellt, und der Preis ist der belegte Brustpanzer-Slot. Tragen können ihn nur Spieler, keine Mobs und keine Rüstungsständer; ein Spender legt einen Köcher einem davorstehenden Spieler an.",
+          "Verbrauch: Pro erfolgreichem Schuss verschwindet ein Pfeil aus dem Köcher – keiner im Kreativmodus und keiner, wenn der Schuss ohnehin keine Munition kostet, etwa mit Unendlichkeit auf einem einfachen Pfeil, den Vanilla gratis verschießt.",
+          "Verzauberungen (alle vier Stufen): Schublade multipliziert die Kapazität mit (16 + Stufe)/8 und begrenzt auf 5 Sorten, Tiefe Taschen verdoppelt (Stufe 1) oder vervierfacht (Stufe 2), Trichter saugt Pfeile vom Boden an (Stufe 1 nur bereits enthaltene Sorten, Stufe 2 alle; nicht beim Schleichen), Berührung des Konstrukteurs erlaubt den Köcher überall im Inventar. Schublade schließt Baumeister und Farbpalette aus.",
+          "Bedienung im Inventar wie beim verstärkten Bündel: Linksklick legt ein, Rechtsklick nimmt heraus, Mausrad über dem Köcher wählt den Stapel; die Config-Option tools.invertBundleInteractions vertauscht die Klicks.",
+          "Rechtsklick mit dem Köcher in der Hand tut nichts - er legt den Köcher auch nicht an; in den Brustpanzer-Slot kommt der Köcher im Inventarbildschirm, per Ziehen oder Umschalt-Klick. Baumeister und Farbpalette sind zwar auflegbar, bewirken beim Köcher aber nichts, solange nur Pfeile darin liegen.",
+          "Grenzen: Kein Code für Armbrüste; die Tooltip-Texte der Sprachdatei werden nicht angezeigt.",
+          "Fundorte: Nur der einfache Köcher liegt in Loot-Truhen (Antike Stadt, Plünderer-Außenposten, Waldanwesen), sofern die Loot-Änderungen in der Config aktiv sind (Standard: an).",
+          "Netherit- und Enderite-Stufe sind mit fireResistant() registriert, Köcher und Verstärkter Köcher nicht; der Enderite Quiver schwebt zusätzlich über das Tag void_protected, statt in der Leere zu verschwinden. Der Enderite Quiver ist als Drop explosionsimmun wie das Netherit-Bündel; Köcher, Verstärkter Köcher und Netherit-Köcher sind es nicht."
+        ]
+      }
+    },
+    {
       "id": "rotator",
       "related": [
         "simplebuilding:rotator"
@@ -799,174 +1065,6 @@ window.WIKI_DATA = {
           "Ausgefahrene Kolben, Kolbenköpfe und bewegte Blöcke werden nie gedreht: Ein gedrehter ausgefahrener Kolben verlöre seinen Kopf und würde beim Einfahren den Block löschen, auf den seine Kopfzelle dann zeigt.",
           "Der Tooltip aus der Sprachdatei wird derzeit nicht angezeigt, weil ihn kein Code an das Item hängt.",
           "Zu finden im Kreativ-Tab \"SimpleBuilding Items\" (englisch \"Building Items\"), direkt hinter dem Magneten."
-        ]
-      }
-    },
-    {
-      "id": "bundles",
-      "related": [
-        "simplebuilding:reinforced_bundle",
-        "simplebuilding:netherite_bundle",
-        "simplebuilding:enderite_bundle",
-        "simplebuilding:deep_pockets",
-        "simplebuilding:funnel",
-        "simplebuilding:drawer",
-        "simplebuilding:master_builder",
-        "simplebuilding:color_palette"
-      ],
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/client/gui/tooltip/ReinforcedBundleTooltipSubmenuHandler.java",
-        "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
-        "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/HandledScreenMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/BundleTooltipComponentMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/AnvilScreenHandlerMixin.java",
-        "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
-        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-        "src/main/java/com/simplebuilding/datagen/ModEnchantmentTagProvider.java",
-        "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-        "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
-        "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_reinforced_bundle.json",
-        "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/reinforced_bundle_emerald.json",
-        "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json"
-      ],
-      "en": {
-        "title": "Bundles: Reinforced, Netherite, Enderite",
-        "summary": "SimpleBuilding extends the vanilla bundle into a three-tier family: the Reinforced Bundle holds 1.5x as much (96 items), the Netherite Bundle twice that (192) and the Enderite Bundle three times as much (288). All three handle the same way, let you pick an entry with the mouse wheel, and can be built out with Deep Pockets, Funnel, Drawer, Master Builder and Color Palette.",
-        "details": [
-          "Upgrade path: Reinforced Bundle at a crafting table from a bundle, string, two copper nuggets and three leather; Netherite Bundle at a smithing table with a netherite upgrade smithing template and a netherite ingot; Enderite Bundle at a smithing table with an Enderite Upgrade Template and an Enderite Ingot.",
-          "Capacity: 96 / 192 / 288 items of stack size 64; items with a smaller stack size take up correspondingly more room.",
-          "Inserting: left-click the bundle onto an item, or an item onto the bundle. Removing: right-click the bundle onto an empty slot, or an empty cursor onto the bundle; the selected (otherwise topmost) entry always comes out as a whole stack.",
-          "The mouse wheel over the bundle picks an entry; the selection is sent to the server and cleared when the mouse leaves the slot.",
-          "Identical items are merged on insertion and sorted to the top as one block: full stacks first, the partial remainder directly below.",
-          "Right-click in hand drops the selected stack as long as it is not a block; blocks can only be placed straight out of the bundle with Master Builder (1 item used up per placement, none in Creative mode).",
-          "With Master Builder the Pick Block key fetches a targeted block out of the bundle and into your hand if it is not already in the inventory (not in Creative mode); building wands may use blocks from Master Builder bundles as material.",
-          "Color Palette (only with Master Builder) places a random entry of the bundle; the anvil rejects Color Palette without Master Builder.",
-          "Deep Pockets doubles (I) or quadruples (II) the capacity. Drawer raises it by the factor (16 + level) / 8 up to level VIII, but limits the contents to 5 item types and rules out Master Builder and Color Palette.",
-          "Funnel vacuums items lying on the ground into the bundle: level I only types already inside, level II everything; nothing while sneaking.",
-          "On the item a fill bar from green to red shows how full it is; the tooltip shows the contents with a bar scaled to the capacity, but the scale factor is truncated to a whole number, so the tooltip bar of the Reinforced Bundle (factor 1.5) and the Enderite Bundle (factor 4.5) fills up too early.",
-          "Netherite Bundle and Enderite Bundle are fire resistant and explosion-protected as dropped items; the Enderite Bundle is additionally kept out of the void through the void_protected tag.",
-          "The bundle enchantments are not available at the enchanting table, only as books from loot chests and from the librarian; Drawer has no book of its own in loot or trades. All three bundle tiers are in the tags through which the enchantments declare their items.",
-          "The Reinforced Bundle turns up in dungeon chests, shipwreck treasure and abandoned mineshafts, and the wandering trader sells one for 16 emeralds and buys one for 12 emeralds (depending on the config options enableLootTableChanges and enableWanderingTrades).",
-          "The Invert Bundle Interactions config option swaps left and right click for inserting and removing.",
-          "The mod's quivers inherit from the same item class (QuiverItem extends ReinforcedBundleItem) but only accept arrows (tag minecraft:arrows) and are described separately."
-        ]
-      },
-      "de": {
-        "title": "Bündel: Verstärkt, Netherit, Enderit",
-        "summary": "SimpleBuilding erweitert das Vanilla-Bündel zu einer dreistufigen Familie: Das Verstärkte Bündel fasst das 1,5-fache (96 Gegenstände), das Netherit-Bündel das Doppelte davon (192) und das Enderite Bundle das Dreifache (288). Alle drei bedienen sich gleich, lassen per Mausrad einen Eintrag auswählen und lassen sich mit Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette ausbauen.",
-        "details": [
-          "Aufstieg: Verstärktes Bündel in der Werkbank aus Bündel, Faden, zwei Kupferklumpen und drei Leder; Netherit-Bündel am Schmiedetisch mit Netherit-Aufwertungs-Schmiedevorlage und Netheritbarren; Enderite Bundle am Schmiedetisch mit Enderite Upgrade Template und Enderite Ingot.",
-          "Kapazität: 96 / 192 / 288 Gegenstände der Stapelgröße 64; Gegenstände mit kleinerer Stapelgröße belegen entsprechend mehr Platz.",
-          "Einlegen: Linksklick mit dem Bündel auf einen Gegenstand oder mit einem Gegenstand auf das Bündel. Entnehmen: Rechtsklick mit dem Bündel auf einen leeren Slot oder mit leerem Cursor auf das Bündel; es wird immer der ausgewählte (sonst oberste) Eintrag als ganzer Stapel entnommen.",
-          "Mausrad über dem Bündel wählt einen Eintrag aus; die Auswahl wird an den Server gesendet und beim Verlassen des Slots aufgehoben.",
-          "Gleiche Gegenstände werden beim Einlegen zusammengeführt und als Block nach oben sortiert: volle Stapel zuerst, der angebrochene Rest direkt darunter.",
-          "Rechtsklick in der Hand lässt den ausgewählten Stapel fallen, sofern es kein Block ist; Blöcke werden nur mit Baumeister direkt aus dem Bündel platziert (1 Stück pro Platzierung verbraucht, im Kreativmodus nichts).",
-          "Mit Baumeister holt die Taste Block auswählen einen anvisierten Block aus dem Bündel in die Hand, wenn er nicht schon im Inventar liegt (nicht im Kreativmodus); Baustäbe dürfen Blöcke aus Baumeister-Bündeln als Material verwenden.",
-          "Farbpalette (nur mit Baumeister) platziert einen zufälligen Eintrag des Bündels; der Amboss lehnt Farbpalette ohne Baumeister ab.",
-          "Tiefe Taschen verdoppelt (I) oder vervierfacht (II) die Kapazität. Schublade erhöht sie um den Faktor (16 + Stufe) / 8 bis Stufe VIII, begrenzt den Inhalt aber auf 5 Gegenstandsarten und schließt Baumeister und Farbpalette aus.",
-          "Trichter saugt am Boden liegende Gegenstände ins Bündel: Stufe I nur bereits enthaltene Arten, Stufe II alles; nicht beim Schleichen.",
-          "Am Item zeigt ein Füllbalken von Grün nach Rot den Füllstand; der Tooltip zeigt den Inhalt mit einer an die Kapazität angepassten Leiste (bei 1,5- und 4,5-facher Kapazität wird der Faktor auf ganze Zahlen abgeschnitten).",
-          "Netherit-Bündel und Enderite Bundle sind feuerfest und als Drop explosionsgeschützt; das Enderite Bundle wird als Drop zusätzlich über den Tag void_protected vor dem Void bewahrt.",
-          "Die Bündel-Verzauberungen sind nicht am Zaubertisch erhältlich, sondern als Bücher aus Beutetruhen und vom Bibliothekar; Schublade hat kein eigenes Buch in Beute oder Handel. Alle drei Bündelstufen stehen in den Tags, über die die Verzauberungen ihre Gegenstände festlegen.",
-          "Das Verstärkte Bündel liegt in Verliesen, Schiffswracks und verlassenen Minen und wird vom fahrenden Händler für 16 Smaragde verkauft bzw. für 12 Smaragde gekauft (abhängig von den Config-Optionen enableLootTableChanges und enableWanderingTrades).",
-          "Die Config-Option Bündel-Interaktion umkehren vertauscht Links- und Rechtsklick für Einlegen und Entnehmen.",
-          "Die Köcher der Mod erben von derselben Item-Klasse (QuiverItem extends ReinforcedBundleItem), nehmen aber nur Pfeile (Tag minecraft:arrows) an und werden gesondert beschrieben."
-        ]
-      }
-    },
-    {
-      "id": "quivers",
-      "related": [
-        "simplebuilding:quiver",
-        "simplebuilding:netherite_quiver",
-        "simplebuilding:enderite_quiver",
-        "simplebuilding:reinforced_bundle",
-        "simplebuilding:netherite_bundle",
-        "simplebuilding:enderite_bundle",
-        "simplebuilding:drawer",
-        "simplebuilding:deep_pockets",
-        "simplebuilding:funnel",
-        "simplebuilding:constructors_touch",
-        "simplebuilding:master_builder",
-        "simplebuilding:color_palette",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:enderite_ingot"
-      ],
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java",
-        "common/src/shared/java/com/simplebuilding/mixin/BowItemMixin.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/HandledScreenMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/MinecraftClientMixin.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
-        "common/src/shared/java/com/simplebuilding/client/gui/tooltip/ReinforcedBundleTooltipSubmenuHandler.java",
-        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-        "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-        "common/src/shared/java/com/simplebuilding/gametest/ItemBehaviourTests.java",
-        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/generated/data/simplebuilding/recipe/quiver.json",
-        "src/main/generated/data/simplebuilding/recipe/netherite_quiver_smithing.json",
-        "src/main/generated/data/simplebuilding/recipe/enderite_quiver_smithing.json",
-        "src/main/generated/data/simplebuilding/tags/item/bundle_enchantable.json",
-        "src/main/generated/data/simplebuilding/tags/item/extra_inventory_items.json",
-        "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
-        "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
-        "src/main/generated/data/simplebuilding/tags/enchantment/exclusive_set/builder_group.json",
-        "src/main/generated/data/simplebuilding/enchantment/drawer.json",
-        "src/main/generated/data/simplebuilding/enchantment/deep_pockets.json",
-        "src/main/generated/data/simplebuilding/enchantment/funnel.json",
-        "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
-      ],
-      "en": {
-        "title": "Quivers",
-        "summary": "Quivers are arrow bundles: they take only arrows and supply a bow automatically as soon as they sit in the off-hand, in the chest slot, in the hotbar or - with Constructor's Touch - anywhere in the inventory. There are three tiers with the capacity factors 1, 2 and 3, which build on one another at the smithing table. The bundle enchantments Drawer, Deep Pockets, Funnel and Constructor's Touch work on all three quiver tiers.",
-        "details": [
-          "Getting started: craft the Quiver at the crafting table from a Bundle, String, Leather and a Copper Nugget; after that the Netherite Quiver (Netherite Upgrade Smithing Template + Netherite Ingot) and the Enderite Quiver (Enderite Upgrade Template + Enderite Ingot) at the smithing table.",
-          "Capacity: Quiver factor 1, Netherite Quiver factor 2, Enderite Quiver factor 3; the tooltip shows factor x 64 (64 / 128 / 192 units, and since arrows stack to 64 that is the same number of arrows). Unlike the Reinforced Bundle, quivers get no x3/2 bonus.",
-          "Arrows only: anything without the tag minecraft:arrows is refused both on insertion by click and on pickup from the ground; the click filter follows the configured insert click, so it holds with tools.invertBundleInteractions on as well.",
-          "Bow priority: when a bow is drawn and released the quiver is searched before every arrow in the inventory, in the order off-hand, chest slot, hotbar, then - only with Constructor's Touch - the rest of the inventory. The bow always fires the topmost arrow stack in the quiver.",
-          "Wearing one: all three quivers can be put into the chest slot, so the second stage of the bow search is reachable without commands. The quiver is a carrier there and nothing else - it gives no armor points, nothing is drawn on the player, and the price is the chestplate slot it occupies. Only players can equip one themselves, and a dispenser refuses to; an armor stand takes one anyway, because ArmorStand.interact picks the slot through canUseSlot and never asks the component's allowed entities, and a dispenser will equip a quiver onto a player standing in front of it.",
-          "Consumption: one arrow disappears from the quiver per successful shot - none in creative mode, and none when the shot costs no ammunition anyway, for instance with Infinity on a plain arrow, which vanilla shoots for free.",
-          "Enchantments (all three tiers): Drawer multiplies capacity by (16 + level)/8 and caps the quiver at 5 different types, Deep Pockets doubles (level 1) or quadruples (level 2) it, Funnel vacuums arrows off the ground (level 1 only types already inside, level 2 all of them; never while sneaking), and Constructor's Touch lets the quiver feed the bow from anywhere in the inventory. Drawer excludes Master Builder and Color Palette.",
-          "Inventory handling as on the Reinforced Bundle: left-click inserts, right-click takes out, the mouse wheel over the quiver picks the stack; the config option tools.invertBundleInteractions swaps the clicks.",
-          "Right-clicking with the quiver in hand does nothing - it does not put the quiver on either; the quiver goes into the chest slot in the inventory screen, dragged there or shift-clicked. Master Builder and Color Palette can be applied but do nothing on a quiver as long as it only holds arrows.",
-          "Limits: no crossbow code; the tooltip lines in the language file are never shown.",
-          "Where to find them: only the plain Quiver lies in loot chests (Ancient City, Pillager Outpost, Woodland Mansion), provided the loot changes are enabled in the config (default: on).",
-          "The Netherite and Enderite tiers are registered with fireResistant(); the Enderite Quiver additionally floats via the tag void_protected instead of vanishing into the void. The Enderite Quiver is immune to explosions as a dropped item, like the Netherite Bundle; the Quiver and the Netherite Quiver are not."
-        ]
-      },
-      "de": {
-        "title": "Köcher",
-        "summary": "Köcher sind Pfeil-Bündel: Sie nehmen nur Pfeile auf und versorgen den Bogen automatisch, sobald sie in der Nebenhand, im Brustpanzer-Slot, in der Schnellzugriffsleiste oder (mit Berührung des Konstrukteurs) irgendwo im Inventar liegen. Es gibt drei Stufen mit den Kapazitätsfaktoren 1, 2 und 3, die am Schmiedetisch aufeinander aufbauen. Die Bündel-Verzauberungen Schublade, Tiefe Taschen, Trichter und Berührung des Konstrukteurs funktionieren auf allen drei Köcher-Stufen.",
-        "details": [
-          "Einstieg: Köcher an der Werkbank aus Bündel, Faden, Leder und Kupfer-Nugget bauen; danach Netherit-Köcher (Netherit-Aufwertungs-Schmiedevorlage + Netheritbarren) und Enderite Quiver (Enderite Upgrade Template + Enderite Ingot) am Schmiedetisch.",
-          "Kapazität: Köcher Faktor 1, Netherit-Köcher Faktor 2, Enderite Quiver Faktor 3; der Tooltip zeigt Faktor x 64 (64 / 128 / 192). Anders als das verstärkte Bündel bekommen Köcher keinen x3/2-Bonus.",
-          "Nur Pfeile: Alles, was nicht das Tag minecraft:arrows trägt, wird beim Einlegen per Klick und beim Aufsaugen vom Boden abgewiesen; der Klick-Filter folgt dem konfigurierten Einlege-Klick und greift daher auch bei eingeschalteter Option tools.invertBundleInteractions.",
-          "Bogen-Vorrang: Beim Spannen und Loslassen eines Bogens wird der Köcher vor allen Pfeilen im Inventar durchsucht, in der Reihenfolge Nebenhand, Brustpanzer-Slot, Schnellzugriffsleiste, dann (nur mit Berührung des Konstrukteurs) restliches Inventar. Verschossen wird immer der oberste Stapel im Köcher.",
-          "Anlegen: Alle drei Köcher passen in den Brustpanzer-Slot, damit ist die zweite Stufe der Bogen-Suche ohne Befehle erreichbar. Der Köcher ist dort reiner Träger - er gibt keine Rüstungspunkte, wird auf dem Spieler nicht dargestellt, und der Preis ist der belegte Brustpanzer-Slot. Tragen können ihn nur Spieler, keine Mobs und keine Rüstungsständer; ein Spender legt einen Köcher einem davorstehenden Spieler an.",
-          "Verbrauch: Pro erfolgreichem Schuss verschwindet ein Pfeil aus dem Köcher – keiner im Kreativmodus und keiner, wenn der Schuss ohnehin keine Munition kostet, etwa mit Unendlichkeit auf einem einfachen Pfeil, den Vanilla gratis verschießt.",
-          "Verzauberungen (alle drei Stufen): Schublade multipliziert die Kapazität mit (16 + Stufe)/8 und begrenzt auf 5 Sorten, Tiefe Taschen verdoppelt (Stufe 1) oder vervierfacht (Stufe 2), Trichter saugt Pfeile vom Boden an (Stufe 1 nur bereits enthaltene Sorten, Stufe 2 alle; nicht beim Schleichen), Berührung des Konstrukteurs erlaubt den Köcher überall im Inventar. Schublade schließt Baumeister und Farbpalette aus.",
-          "Bedienung im Inventar wie beim verstärkten Bündel: Linksklick legt ein, Rechtsklick nimmt heraus, Mausrad über dem Köcher wählt den Stapel; die Config-Option tools.invertBundleInteractions vertauscht die Klicks.",
-          "Rechtsklick mit dem Köcher in der Hand tut nichts - er legt den Köcher auch nicht an; in den Brustpanzer-Slot kommt der Köcher im Inventarbildschirm, per Ziehen oder Umschalt-Klick. Baumeister und Farbpalette sind zwar auflegbar, bewirken beim Köcher aber nichts, solange nur Pfeile darin liegen.",
-          "Grenzen: Kein Code für Armbrüste; die Tooltip-Texte der Sprachdatei werden nicht angezeigt.",
-          "Fundorte: Nur der einfache Köcher liegt in Loot-Truhen (Antike Stadt, Plünderer-Außenposten, Waldanwesen), sofern die Loot-Änderungen in der Config aktiv sind (Standard: an).",
-          "Netherit- und Enderite-Stufe sind mit fireResistant() registriert; der Enderite Quiver schwebt zusätzlich über das Tag void_protected, statt in der Leere zu verschwinden. Der Enderite Quiver ist als Drop explosionsimmun wie das Netherit-Bündel; Köcher und Netherit-Köcher sind es nicht."
         ]
       }
     },
@@ -1403,6 +1501,7 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_bundle",
         "simplebuilding:enderite_bundle",
         "simplebuilding:quiver",
+        "simplebuilding:reinforced_quiver",
         "simplebuilding:netherite_quiver",
         "simplebuilding:enderite_quiver",
         "simplebuilding:magnet",
@@ -1531,6 +1630,7 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_bundle",
         "simplebuilding:enderite_bundle",
         "simplebuilding:quiver",
+        "simplebuilding:reinforced_quiver",
         "simplebuilding:netherite_quiver",
         "simplebuilding:enderite_quiver",
         "simplebuilding:magnet",
@@ -1587,8 +1687,8 @@ window.WIKI_DATA = {
         "title": "Storage and Player Enchantments",
         "summary": "This family bundles six enchantments that improve not the building itself but everything around it: Deep Pockets, Drawer and Funnel make the mod's bundles and quivers bigger, tidier and self-filling. Air Jump, Kinetic Protection and Range act directly on the player: a second jump in mid-air, protection when you slam into a wall, and more block reach for tools. None of the six is in the enchanting table tag; they come from chests, from traders, from the creative inventory, or at random on enchanted loot items.",
         "details": [
-          "The storage enchantments (Deep Pockets, Drawer, Funnel) sit on all three bundle and all three quiver tiers; simplebuilding:bundle_enchantable lists the Enderite Bundle and Enderite Quiver as well, matching the capacity code, which knows them with a factor of 3.",
-          "Bundle capacity counts in stack fractions and starts, per the code comment, at 96 (Reinforced), 192 (Netherite) and 288 (Enderite) items; quivers only get the tier factor (64/128/192 arrows). Deep Pockets (times 2 or 4) and Drawer (times (16 + level)/8) multiply together.",
+          "The storage enchantments (Deep Pockets, Drawer, Funnel) sit on all three bundle and all four quiver tiers; simplebuilding:bundle_enchantable lists the Enderite Bundle and Enderite Quiver as well, matching the capacity code, which knows them with a factor of 3.",
+          "Bundle capacity counts in stack fractions and starts, per the code comment, at 96 (Reinforced), 192 (Netherite) and 288 (Enderite) items; quivers only get the tier factor (64/96/128/192 arrows). Deep Pockets (times 2 or 4) and Drawer (times (16 + level)/8) multiply together.",
           "Using a bundle: left-click inserts, right-click with an empty cursor takes one item out; the config option tools.invertBundleInteractions swaps the two. On insertion, identical items are merged and the full stacks end up on top.",
           "Funnel turns the bundle into a vacuum cleaner: level I only picks up item types that are already inside, level II picks up everything; sneaking pauses the pickup; quivers only vacuum up arrows; your hands are checked before the rest of the inventory.",
           "Drawer allows up to 5 different item types according to the code (the language file wrongly says \"the specific item\" and \"chests\") and cannot be combined with Master Builder or Color Palette; there is no chest effect.",
@@ -1606,8 +1706,8 @@ window.WIKI_DATA = {
         "title": "Verzauberungen für Lager und Spieler",
         "summary": "Diese Familie bündelt sechs Verzauberungen, die nicht das Bauen selbst, sondern das Drumherum verbessern: Tiefe Taschen, Schublade und Trichter machen die Bündel und Köcher der Mod größer, sortierter und selbstfüllend. Luftsprung, Kinetischer Schutz und Reichweite wirken direkt auf die Spielerin oder den Spieler: ein zweiter Sprung in der Luft, Schutz beim Aufprall an Wänden und mehr Blockreichweite für Werkzeuge. Keine der sechs steht im Zaubertisch-Tag; sie kommen aus Truhen, vom Händler, aus dem Kreativ-Inventar oder zufällig auf verzauberten Loot-Items.",
         "details": [
-          "Lager-Verzauberungen (Tiefe Taschen, Schublade, Trichter) sitzen auf allen drei Bündel- und allen drei Köcher-Stufen; simplebuilding:bundle_enchantable führt auch Enderite Bundle und Enderite Quiver - passend zum Kapazitätscode, der sie mit Faktor 3 kennt.",
-          "Die Bündel-Kapazität zählt in Stapel-Anteilen und beginnt laut Code-Kommentar bei 96 (Verstärkt), 192 (Netherit) und 288 (Enderit) Items; Köcher haben nur den Stufenfaktor (64/128/192 Pfeile). Tiefe Taschen (mal 2 oder 4) und Schublade (mal (16 + Stufe)/8) multiplizieren sich.",
+          "Lager-Verzauberungen (Tiefe Taschen, Schublade, Trichter) sitzen auf allen drei Bündel- und allen vier Köcher-Stufen; simplebuilding:bundle_enchantable führt auch Enderite Bundle und Enderite Quiver - passend zum Kapazitätscode, der sie mit Faktor 3 kennt.",
+          "Die Bündel-Kapazität zählt in Stapel-Anteilen und beginnt laut Code-Kommentar bei 96 (Verstärkt), 192 (Netherit) und 288 (Enderit) Items; Köcher haben nur den Stufenfaktor (64/96/128/192 Pfeile). Tiefe Taschen (mal 2 oder 4) und Schublade (mal (16 + Stufe)/8) multiplizieren sich.",
           "Bündel bedienen: Linksklick legt ein, Rechtsklick mit leerem Cursor entnimmt; die Config-Option tools.invertBundleInteractions vertauscht beides. Beim Einfüllen werden gleiche Sorten zusammengeführt, volle Stapel liegen oben.",
           "Trichter macht das Bündel zum Staubsauger: Stufe I nur für Sorten, die schon drin sind, Stufe II für alles; Schleichen pausiert das Aufsaugen; Köcher saugen nur Pfeile; Hände werden vor dem restlichen Inventar geprüft.",
           "Schublade erlaubt laut Code bis zu 5 verschiedene Sorten (Sprachdatei sagt fälschlich \"ein Item\" und \"Truhen\") und ist nicht mit Baumeister oder Farbpalette kombinierbar; einen Truhen-Effekt gibt es nicht.",
@@ -2108,7 +2208,8 @@ window.WIKI_DATA = {
         "src/main/generated/data/simplebuilding/advancement/recipes/misc/glowing_armor_upgrade_dummy.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java"
+        "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
+        "src/main/generated/data/simplebuilding/recipe/netherite_quiver_smithing.json"
       ],
       "en": {
         "title": "Glowing Armor and a Wearable Light Source",
@@ -2116,7 +2217,7 @@ window.WIKI_DATA = {
         "details": [
           "Raising radiance: in the smithing table, Emitting Trim Upgrade Template + armor piece + Glowstone Dust raises the piece's radiance (NBT key \"SimpleBuildingEmissionLevel\") by 1, up to a maximum of 5; at level 5 no result is produced any more.",
           "The mod's check accepts every item in the #minecraft:trimmable_armor tag as well as any item that carries an equippable component.",
-          "The three quivers carry an equippable component as well, so the check accepts them: at the smithing table the Quiver and the Netherite Quiver take radiance and glow just like an armor piece. The Enderite Quiver does not - the smithing table's base slot only accepts items that are the base ingredient of some smithing recipe, and the Enderite Quiver only ever appears as a result.",
+          "The four quivers carry an equippable component as well, so the check accepts them: at the smithing table the Reinforced Quiver and the Netherite Quiver take radiance and glow just like an armor piece. The plain Quiver and the Enderite Quiver do not - the smithing table's base slot only accepts items that are the base ingredient of some smithing recipe; the Enderite Quiver only ever appears as a result, and the plain Quiver is the base of none, because the Netherite Quiver is smithed from the Reinforced Quiver.",
           "The tooltip shows \"Radiance Level: X/5\" (gold).",
           "Light level = the summed radiance of all four armor slots x 3, capped at 15 (a single piece at level 5 already reaches 15).",
           "Every 2 server ticks each player is checked: if the light level is > 0, the server places a light block (minecraft:light) one block above the player position (head height).",
@@ -2138,7 +2239,7 @@ window.WIKI_DATA = {
         "details": [
           "Strahlkraft aufwerten: Im Schmiedetisch „Strahlende Schmiedevorlage“ + Rüstungsteil + Glowstone-Staub erhöht die Strahlkraft des Teils (NBT-Schlüssel „SimpleBuildingEmissionLevel“) um 1, bis höchstens 5; bei Stufe 5 entsteht kein Ergebnis mehr.",
           "Gültig sind alle Teile im Tag #minecraft:trimmable_armor sowie jedes Item mit Ausrüstungs-Komponente (equippable).",
-          "Auch die drei Köcher tragen eine Ausrüstungs-Komponente, die Prüfung nimmt sie also an: Am Schmiedetisch bekommen Köcher und Netherit-Köcher Strahlkraft und Leuchten wie ein Rüstungsteil. Der Enderite Quiver nicht - der Basis-Slot des Schmiedetischs nimmt nur Gegenstände an, die in irgendeinem Schmiederezept als Basis stehen, und der Enderite Quiver kommt dort nur als Ergebnis vor.",
+          "Auch die vier Köcher tragen eine Ausrüstungs-Komponente, die Prüfung nimmt sie also an: Am Schmiedetisch bekommen Verstärkter Köcher und Netherit-Köcher Strahlkraft und Leuchten wie ein Rüstungsteil. Köcher und Enderite Quiver nicht - der Basis-Slot des Schmiedetischs nimmt nur Gegenstände an, die in irgendeinem Schmiederezept als Basis stehen; der Enderite Quiver kommt dort nur als Ergebnis vor, und der einfache Köcher ist Basis keines Rezepts, weil der Netherit-Köcher aus dem Verstärkten Köcher geschmiedet wird.",
           "Der Tooltip zeigt „Strahlkraft: X/5“ (goldfarben).",
           "Lichtstärke = Summe der Strahlkraft aller vier Rüstungs-Slots × 3, höchstens 15 (ein Teil mit Stufe 5 erreicht bereits 15).",
           "Alle 2 Server-Ticks wird für jeden Spieler geprüft: Ist die Lichtstärke > 0, setzt der Server einen Lichtblock (minecraft:light) einen Block über der Spielerposition (Kopfhöhe).",
@@ -3641,7 +3742,9 @@ window.WIKI_DATA = {
       "texture": "assets/textures/item/diamond_pebble.png",
       "craftedBy": [],
       "usedIn": [
-        "simplebuilding:cracked_diamond"
+        "simplebuilding:cracked_diamond",
+        "simplebuilding:reinforced_bundle",
+        "simplebuilding:reinforced_quiver"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -4834,7 +4937,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Appears in no loot chest.",
             "All of the Quiver's limits apply as well: there is no crossbow code, and the description line in the language file (tooltip.simplebuilding.enderite_quiver: \"Holds the most arrows. Works in Offhand or Chest slot.\") is shown by no code.",
-            "No glowing or emitting trim: the smithing table's base slot only takes items that are the base ingredient of some smithing recipe, and the Enderite Quiver only ever appears as a result. The Quiver and the Netherite Quiver are the bases of their own upgrade recipes and are accepted there, so those two do take both trim upgrades."
+            "No glowing or emitting trim: the smithing table's base slot only takes items that are the base ingredient of some smithing recipe, and the Enderite Quiver only ever appears as a result. The Reinforced Quiver and the Netherite Quiver are the bases of the next upgrade recipe and are accepted there, so those two do take both trim upgrades; the plain Quiver is the base of none and does not."
           ]
         },
         "de": {
@@ -4857,7 +4960,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Kommt in keiner Loot-Truhe vor.",
             "Alle Einschränkungen des Köchers gelten ebenfalls: kein Armbrust-Code; der Beschreibungstext in der Sprachdatei (tooltip.simplebuilding.enderite_quiver: \"Hält die meisten Pfeile. Funktioniert in der Nebenhand oder im Brustpanzer-Slot.\") wird von keinem Code angezeigt.",
-            "Kein leuchtender und kein strahlender Besatz: Der Basis-Slot des Schmiedetischs nimmt nur Gegenstände an, die in irgendeinem Schmiederezept als Basis stehen, und der Enderite Quiver kommt dort nur als Ergebnis vor. Köcher und Netherit-Köcher sind die Basis ihrer eigenen Aufwertungsrezepte und werden angenommen, sie nehmen beide Besatz-Aufwertungen also an."
+            "Kein leuchtender und kein strahlender Besatz: Der Basis-Slot des Schmiedetischs nimmt nur Gegenstände an, die in irgendeinem Schmiederezept als Basis stehen, und der Enderite Quiver kommt dort nur als Ergebnis vor. Verstärkter Köcher und Netherit-Köcher sind die Basis des jeweils nächsten Aufwertungsrezepts und werden angenommen, sie nehmen beide Besatz-Aufwertungen also an; der einfache Köcher ist Basis keines Rezepts und nimmt sie nicht."
           ]
         },
         "sources": [
@@ -6693,6 +6796,56 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:leather_sheet",
+      "name": {
+        "en_us": "Leather Sheet",
+        "de_de": "Lederplatte"
+      },
+      "texture": "assets/textures/item/leather_sheet.png",
+      "craftedBy": [
+        "simplebuilding:leather_sheet"
+      ],
+      "usedIn": [
+        "simplebuilding:reinforced_bundle",
+        "simplebuilding:reinforced_quiver"
+      ],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "The Leather Sheet is a crafting material: nine leather pressed into one sheet, used for the Reinforced Bundle and the Reinforced Quiver.",
+          "details": [
+            "Crafting table recipe (shaped, 3x3): nine Leather (minecraft:leather) filling the whole grid give one Leather Sheet. The recipe unlocks as soon as you own leather.",
+            "There is no way back: no recipe turns a Leather Sheet into leather again.",
+            "Used in two recipes: the Reinforced Bundle (bundle, string, Diamond Pebble, Leather Sheet) and the Reinforced Quiver (Quiver, string, Diamond Pebble, Leather Sheet, copper nugget).",
+            "A plain item without behaviour of its own; stacks to 64.",
+            "The mod's creative tab: first entry of the resources section, before the Diamond Pebble."
+          ]
+        },
+        "de": {
+          "summary": "Die Lederplatte ist ein Handwerksmaterial: neun Leder zu einer Platte gepresst, gebraucht für das Verstärkte Bündel und den Verstärkten Köcher.",
+          "details": [
+            "Rezept an der Werkbank (geformt, 3x3): neun Leder (minecraft:leather), die das ganze Raster füllen, ergeben eine Lederplatte. Das Rezept wird freigeschaltet, sobald man Leder besitzt.",
+            "Es gibt keinen Rückweg: Kein Rezept macht aus einer Lederplatte wieder Leder.",
+            "Zutat in zwei Rezepten: Verstärktes Bündel (Bündel, Faden, Diamantkiesel, Lederplatte) und Verstärkter Köcher (Köcher, Faden, Diamantkiesel, Lederplatte, Kupfer-Nugget).",
+            "Ein einfacher Gegenstand ohne eigenes Verhalten; Stapelgröße 64.",
+            "Kreativ-Tab der Mod: erster Eintrag im Abschnitt Ressourcen, vor dem Diamantkiesel."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_bundle.json",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
+          "src/main/generated/wiki/items.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:levitating_gravel",
       "name": {
         "en_us": "Levitating Gravel",
@@ -8026,16 +8179,16 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Netherite Quiver is the smithing table upgrade of the Quiver, with capacity factor 2, the fireResistant() property set and rarity UNCOMMON.",
+          "summary": "The Netherite Quiver is the smithing table upgrade of the Reinforced Quiver, with capacity factor 2, the fireResistant() property set and rarity UNCOMMON.",
           "details": [
-            "Smithing table recipe (smithing_transform): Netherite Upgrade Smithing Template (minecraft:netherite_upgrade_smithing_template) + Quiver + Netherite Ingot (minecraft:netherite_ingot).",
+            "Smithing table recipe (smithing_transform): Netherite Upgrade Smithing Template (minecraft:netherite_upgrade_smithing_template) + Reinforced Quiver + Netherite Ingot (minecraft:netherite_ingot). The plain Quiver is not accepted, so the Reinforced Quiver cannot be skipped; contents, enchantments and name carry over (smithing_transform keeps the base item's components).",
             "Capacity factor 2 (tooltip: 128 units, so 128 arrows). The enchantment formulas (Drawer, Deep Pockets) multiply that factor exactly as they do on the Quiver.",
             "Registered with fireResistant(): as a dropped item it is protected from fire and lava damage.",
             "Rarity UNCOMMON.",
             "Stack size 1.",
             "Same enchantment tags as the Quiver (bundle_enchantable, extra_inventory_items, constructors_touch_enchantable): Drawer, Deep Pockets, Funnel, Constructor's Touch, Master Builder, Color Palette; Drawer excludes Master Builder and Color Palette.",
             "Arrow filter, bow search order, consumption on the shot, click handling and mouse-wheel selection are identical to the Quiver (same class QuiverItem).",
-            "Creative tab: directly after the Quiver."
+            "Creative tab: directly after the Reinforced Quiver."
           ],
           "controls": [
             "Handled like the Quiver: left-click inserts, right-click takes out, the mouse wheel picks the stack; drawing and releasing a bow consumes arrows automatically."
@@ -8048,16 +8201,16 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Netherit-Köcher ist die Schmiedetisch-Aufwertung des Köchers mit Kapazitätsfaktor 2, gesetzter fireResistant()-Eigenschaft und der Seltenheit UNCOMMON.",
+          "summary": "Der Netherit-Köcher ist die Schmiedetisch-Aufwertung des Verstärkten Köchers mit Kapazitätsfaktor 2, gesetzter fireResistant()-Eigenschaft und der Seltenheit UNCOMMON.",
           "details": [
-            "Rezept am Schmiedetisch (smithing_transform): Netherit-Aufwertungs-Schmiedevorlage (minecraft:netherite_upgrade_smithing_template) + Köcher + Netheritbarren (minecraft:netherite_ingot).",
+            "Rezept am Schmiedetisch (smithing_transform): Netherit-Aufwertungs-Schmiedevorlage (minecraft:netherite_upgrade_smithing_template) + Verstärkter Köcher + Netheritbarren (minecraft:netherite_ingot). Der einfache Köcher wird nicht angenommen, der Verstärkte Köcher lässt sich also nicht überspringen; Inhalt, Verzauberungen und Name bleiben erhalten (smithing_transform übernimmt die Komponenten des Basis-Gegenstands).",
             "Kapazitätsfaktor 2 (Tooltip: 128 Einheiten). Die Verzauberungs-Formeln (Schublade, Tiefe Taschen) multiplizieren diesen Faktor genauso wie beim Köcher.",
             "Registrierung mit fireResistant(): Als fallengelassener Gegenstand ist er gegen Feuer- und Lavaschaden geschützt.",
             "Seltenheit UNCOMMON.",
             "Stapelgröße 1.",
             "Gleiche Verzauberungs-Tags wie der Köcher (bundle_enchantable, extra_inventory_items, constructors_touch_enchantable): Schublade, Tiefe Taschen, Trichter, Berührung des Konstrukteurs, Baumeister, Farbpalette; Schublade schließt Baumeister und Farbpalette aus.",
             "Pfeil-Filter, Suchreihenfolge für den Bogen, Verbrauch beim Schuss, Klick-Bedienung und Mausrad-Auswahl sind identisch mit dem Köcher (gleiche Klasse QuiverItem).",
-            "Kreativ-Tab: direkt hinter dem Köcher."
+            "Kreativ-Tab: direkt hinter dem Verstärkten Köcher."
           ],
           "controls": [
             "Bedienung wie beim Köcher: Linksklick legt ein, Rechtsklick nimmt heraus, Mausrad wählt den Stapel; Bogen spannen und loslassen verbraucht Pfeile automatisch."
@@ -9205,7 +9358,7 @@ window.WIKI_DATA = {
         "simplebuilding:quiver"
       ],
       "usedIn": [
-        "simplebuilding:netherite_quiver_smithing"
+        "simplebuilding:reinforced_quiver"
       ],
       "trades": [],
       "properties": {
@@ -9219,12 +9372,13 @@ window.WIKI_DATA = {
             "Stack size 1 (registered with stacksTo(1)).",
             "Only items in the tag minecraft:arrows get in (checked in overrideStackedOnOther, overrideOtherStackedOnMe and tryInsertStackFromWorld); the game test quiverTakesArrowsAndRefusesEverythingElse proves it through the pickup path: Arrow, Spectral Arrow and Tipped Arrow are accepted, Stone and a Bow are refused.",
             "Crafting table recipe (shaped, 3x3): row 1 \" SL\", row 2 \"SLN\", row 3 \"B  \", with S = String (minecraft:string), L = Leather (minecraft:leather), N = Copper Nugget (minecraft:copper_nugget) and B = Bundle (minecraft:bundle). The recipe unlocks as soon as you own a Bundle.",
+            "Upgrade: at the crafting table a Quiver becomes a Reinforced Quiver (96 arrows) and keeps its arrows, enchantments and name; see the Reinforced Quiver. The Netherite Quiver is smithed from the Reinforced Quiver, not from the Quiver.",
             "Base capacity: factor 1. The tooltip turns the factor into units by multiplying by 64, so 64 units. Every item inserted costs 1 divided by its own maximum stack size, so an arrow costs 1/64 and a plain Quiver holds 64 arrows.",
             "The Quiver does not get the Reinforced Bundle's x3/2 capacity bonus: QuiverItem.getMaxCapacity and getMaxCapacityForVisuals override the bundle methods without that multiplication.",
             "Bow: when a bow is drawn (use) and released (releaseUsing), the mixin redirects the vanilla Player.getProjectile call - a quiver is searched first, and the normal arrow lookup only runs if no quiver holds an arrow. The quiver therefore takes priority over arrows in your hand and in your inventory.",
             "Search order for the bow: 1. off-hand, 2. chest slot, 3. hotbar (slots 0 to 8), 4. the rest of the inventory (slots 9 and up), that last step only for quivers carrying Constructor's Touch.",
-            "Chest slot: all three quivers carry an equippable component for EquipmentSlot.CHEST (ModItems.quiverChestSlot), and that is what makes step 2 of that search reachable. The component brings the slot and nothing else: no equipment asset (nothing is drawn on the player), no attribute modifiers (no armor points), damageOnHurt off, swappable off - a right click does not put the quiver on, it goes in through the inventory screen by dragging or shift-clicking - and the allowed entities restricted to players, so mobs and armor stands cannot wear one. A dispenser does equip a quiver onto a player standing in front of it whose chest slot is empty.",
-            "Smithing trims: because of that component the mod's trim check (SmithingScreenHandlerMixin.isValidArmor: in #minecraft:trimmable_armor or carrying an equippable component) accepts a quiver, so the Glowing Trim Upgrade Template with a Glow Ink Sac and the Emitting Trim Upgrade Template with Glowstone Dust work on the Quiver and the Netherite Quiver. Worn, an emitting quiver really does give light; a glowing one only gains its tooltip line, because no equipment model of it is drawn.",
+            "Chest slot: all four quivers carry an equippable component for EquipmentSlot.CHEST (ModItems.quiverChestSlot), and that is what makes step 2 of that search reachable. The component brings the slot and nothing else: no equipment asset (nothing is drawn on the player), no attribute modifiers (no armor points), damageOnHurt off, swappable off - a right click does not put the quiver on, it goes in through the inventory screen by dragging or shift-clicking - and the allowed entities restricted to players, so mobs and armor stands cannot wear one. A dispenser does equip a quiver onto a player standing in front of it whose chest slot is empty.",
+            "Smithing trims: because of that component the mod's trim check (SmithingScreenHandlerMixin.isValidArmor: in #minecraft:trimmable_armor or carrying an equippable component) would accept a quiver, but the smithing table's base slot only takes items that are the base of some smithing recipe. The plain Quiver is the base of none - the Netherite Quiver is smithed from the Reinforced Quiver - so the Glowing and the Emitting Trim Upgrade Template do not work on it; they do work on the Reinforced Quiver and the Netherite Quiver. Worn, an emitting quiver really does give light; a glowing one only gains its tooltip line, because no equipment model of it is drawn.",
             "The bow fires the topmost arrow stack in the quiver - the first entry that is an arrow, normally index 0; the stack picked with the mouse wheel is not read by the bow code.",
             "Newly inserted arrows are merged with all identical arrows already inside (same item including components), split into stacks up to the maximum stack size and placed on top; that makes the arrow type you inserted last the first one fired. Inserting also resets the mouse-wheel selection.",
             "After a successful shot exactly one arrow is removed from the first quiver in the search order that holds an arrow; nothing is removed in creative mode (instabuild), when releaseUsing returns false, on the client side, or when EnchantmentHelper.processAmmoUse - the same call vanilla's ProjectileWeaponItem.useAmmo makes in that shot - answers 0 for that bow and that arrow, which is what Infinity does on a plain arrow.",
@@ -9261,12 +9415,13 @@ window.WIKI_DATA = {
             "Stapelgröße 1 (Registrierung mit stacksTo(1)).",
             "Nimmt nur Gegenstände mit dem Tag minecraft:arrows an (Prüfung in overrideStackedOnOther, overrideOtherStackedOnMe und tryInsertStackFromWorld); der Spieltest quiverTakesArrowsAndRefusesEverythingElse belegt über den Aufsaug-Pfad: Pfeil, Spektralpfeil und getränkter Pfeil werden angenommen, Stein und Bogen abgewiesen.",
             "Rezept an der Werkbank (3x3): Reihe 1 \" SL\", Reihe 2 \"SLN\", Reihe 3 \"B  \" mit S = Faden (minecraft:string), L = Leder (minecraft:leather), N = Kupfer-Nugget (minecraft:copper_nugget), B = Bündel (minecraft:bundle). Das Rezept wird freigeschaltet, sobald man ein Bündel besitzt.",
+            "Aufwertung: An der Werkbank wird ein Köcher zum Verstärkten Köcher (96 Pfeile) und behält Pfeile, Verzauberungen und Namen; siehe Verstärkter Köcher. Der Netherit-Köcher wird aus dem Verstärkten Köcher geschmiedet, nicht aus dem Köcher.",
             "Grundkapazität: Faktor 1. Der Tooltip rechnet Faktor x 64, also 64 Einheiten. Bei der Einlege-Prüfung belegt jeder Gegenstand 1 geteilt durch seine Maximalstapelgröße.",
             "Der Köcher erhält nicht den x3/2-Kapazitätsbonus des verstärkten Bündels: QuiverItem.getMaxCapacity und getMaxCapacityForVisuals überschreiben die Bündel-Methoden ohne diese Multiplikation.",
             "Bogen: Beim Spannen (use) und beim Loslassen (releaseUsing) eines Bogens wird der Aufruf von Player.getProjectile umgeleitet; zuerst wird ein Köcher durchsucht, erst wenn dort kein Pfeil liegt, greift die normale Pfeilsuche. Der Köcher hat also Vorrang vor Pfeilen in Hand und Inventar.",
             "Suchreihenfolge für den Bogen: 1. Nebenhand, 2. Brustpanzer-Slot, 3. Schnellzugriffsleiste (Slots 0 bis 8), 4. restliches Inventar (Slots ab 9) nur, wenn der Köcher die Verzauberung Berührung des Konstrukteurs trägt.",
-            "Brustpanzer-Slot: Alle drei Köcher tragen eine Equippable-Komponente für EquipmentSlot.CHEST (ModItems.quiverChestSlot); erst dadurch ist Stufe 2 dieser Suche erreichbar. Die Komponente bringt nur den Slot mit: kein Ausrüstungsmodell (auf dem Spieler wird nichts dargestellt), keine Attribut-Modifikatoren (keine Rüstungspunkte), damageOnHurt aus, swappable aus - ein Rechtsklick legt den Köcher nicht an, er kommt im Inventarbildschirm per Ziehen oder Umschalt-Klick hinein - und als erlaubte Wesen nur Spieler; Mobs können ihn deshalb nicht anlegen und ein Spender legt ihn nicht an. Ein Rüstungsständer nimmt ihn trotzdem: ArmorStand.interact wählt den Slot über canUseSlot und fragt die erlaubten Wesen gar nicht. Ein Spender legt einen Köcher einem davorstehenden Spieler mit leerem Brustpanzer-Slot an.",
-            "Besatz am Schmiedetisch: Wegen dieser Komponente nimmt die Besatz-Prüfung der Mod (SmithingScreenHandlerMixin.isValidArmor: im Tag #minecraft:trimmable_armor oder mit Ausrüstungs-Komponente) einen Köcher an; Leuchtende Schmiedevorlage mit Leuchttintenbeutel und Strahlende Schmiedevorlage mit Glowstone-Staub wirken also auf Köcher und Netherit-Köcher. Getragen gibt ein strahlender Köcher tatsächlich Licht ab; ein leuchtender bekommt nur seine Tooltip-Zeile, weil von ihm kein Ausrüstungsmodell gezeichnet wird.",
+            "Brustpanzer-Slot: Alle vier Köcher tragen eine Equippable-Komponente für EquipmentSlot.CHEST (ModItems.quiverChestSlot); erst dadurch ist Stufe 2 dieser Suche erreichbar. Die Komponente bringt nur den Slot mit: kein Ausrüstungsmodell (auf dem Spieler wird nichts dargestellt), keine Attribut-Modifikatoren (keine Rüstungspunkte), damageOnHurt aus, swappable aus - ein Rechtsklick legt den Köcher nicht an, er kommt im Inventarbildschirm per Ziehen oder Umschalt-Klick hinein - und als erlaubte Wesen nur Spieler; Mobs können ihn deshalb nicht anlegen und ein Spender legt ihn nicht an. Ein Rüstungsständer nimmt ihn trotzdem: ArmorStand.interact wählt den Slot über canUseSlot und fragt die erlaubten Wesen gar nicht. Ein Spender legt einen Köcher einem davorstehenden Spieler mit leerem Brustpanzer-Slot an.",
+            "Besatz am Schmiedetisch: Wegen dieser Komponente würde die Besatz-Prüfung der Mod (SmithingScreenHandlerMixin.isValidArmor: im Tag #minecraft:trimmable_armor oder mit Ausrüstungs-Komponente) einen Köcher annehmen, der Basis-Slot des Schmiedetischs nimmt aber nur Gegenstände, die in irgendeinem Schmiederezept als Basis stehen. Der einfache Köcher ist Basis keines Rezepts - der Netherit-Köcher wird aus dem Verstärkten Köcher geschmiedet -, Leuchtende und Strahlende Schmiedevorlage wirken auf ihn also nicht; auf Verstärkten Köcher und Netherit-Köcher schon. Getragen gibt ein strahlender Köcher tatsächlich Licht ab; ein leuchtender bekommt nur seine Tooltip-Zeile, weil von ihm kein Ausrüstungsmodell gezeichnet wird.",
             "Verschossen wird der oberste Pfeil-Stapel im Köcher (Index 0); die per Mausrad gewählte Position wird vom Bogen-Code nicht ausgewertet.",
             "Neu eingelegte Pfeile werden mit allen gleichen Pfeilen (gleicher Gegenstand samt Komponenten) zusammengelegt, in Stapel bis zur Maximalstapelgröße aufgeteilt und ganz oben einsortiert; dadurch wird die zuletzt eingelegte Pfeilsorte zuerst verschossen. Beim Einlegen wird die Mausrad-Auswahl zurückgesetzt.",
             "Nach einem erfolgreichen Schuss wird genau ein Pfeil aus dem ersten Köcher der Suchreihenfolge entfernt; nichts entfernt wird im Kreativmodus (instabuild), wenn releaseUsing false liefert, auf der Client-Seite oder wenn EnchantmentHelper.processAmmoUse – derselbe Aufruf, den Vanillas ProjectileWeaponItem.useAmmo in diesem Schuss macht – für diesen Bogen und diesen Pfeil 0 liefert, was Unendlichkeit auf einem einfachen Pfeil tut.",
@@ -9341,7 +9496,9 @@ window.WIKI_DATA = {
           "mc1_21_11/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
           "mc1_21_11/shared/java/com/simplebuilding/mixin/BowItemMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
-          "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java"
+          "common/src/shared/java/com/simplebuilding/util/DynamicLightHandler.java",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
+          "src/main/generated/data/simplebuilding/recipe/netherite_quiver_smithing.json"
         ]
       },
       "hasCustomBehaviour": true
@@ -9476,7 +9633,8 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Reinforced Bundle is an upgraded bundle with 1.5x the capacity of a vanilla one. In the inventory the mouse wheel picks which entry it hands back, and it is the base item for the bundle enchantments Deep Pockets, Funnel, Drawer, Master Builder and Color Palette.",
           "details": [
-            "Crafted at a crafting table: string in the top middle, a vanilla bundle in the center with a copper nugget either side, three leather along the bottom; the recipe unlocks as soon as you own a bundle.",
+            "Crafted at a crafting table: string in the top middle, a vanilla bundle in the center with a Diamond Pebble to its left, a Leather Sheet below the bundle (pattern \" S \" / \"DB \" / \" X \"; the pattern is two slots wide, and the mirrored layout with the pebble on the right works as well); the recipe unlocks as soon as you own a bundle. The Diamond Pebble only comes from a Sledgehammer crushing a diamond block, the Leather Sheet from nine leather.",
+            "The recipe has the type simplebuilding:reinforced_bundle (class ReinforcedBundleRecipe): the result takes over the whole component patch of the vanilla bundle in the grid - contents, enchantments, custom name - the same way the smithing table does for the netherite upgrade. A filled bundle therefore keeps what it holds when it is upgraded.",
             "Stack size 1.",
             "Base capacity: 1.5x a vanilla bundle (fraction 3/2), so 96 items of stack size 64. On insertion an item weighs 1 / (its maximum stack size), so a non-stackable item takes up as much room as a full stack of 64.",
             "Only items that are allowed inside container items may go in (canFitInsideContainerItems); the Reinforced Bundle is itself allowed inside container items, so it can go into another bundle.",
@@ -9521,14 +9679,14 @@ window.WIKI_DATA = {
             "The tooltip's fill bar truncates the capacity factor to a whole number and does not scale at all at a factor of 1 or less (1.5 becomes 1): on an unenchanted Reinforced Bundle the tooltip bar is therefore left unscaled and already shows full at 64 items. The fill bar on the item itself does the maths correctly.",
             "The tooltip text \"Can hold more items if enchanted.\" sits in the language file but is displayed by no code (appendHoverText only calls super).",
             "Right-click does not drop a selected block; blocks have to be taken out in the inventory or placed with Master Builder.",
-            "The code contains and registers a recipe type (ReinforcedBundleRecipe, serializer simplebuilding:reinforced_bundle) that would carry the contents and the custom name of the vanilla bundle over into the result, but the shipped recipe uses minecraft:crafting_shaped and so never runs it. The contents and the name of a filled vanilla bundle are lost when you upgrade it.",
             "Funnel picks up nothing while you sneak; a bundle in the inventory (rather than in hand) only vacuums once the drop's pickup delay has run out."
           ]
         },
         "de": {
           "summary": "Das Verstärkte Bündel ist ein aufgerüstetes Bündel mit 1,5-facher Kapazität, das im Inventar per Mausrad einen Eintrag auswählen lässt und die Grundlage für die Bündel-Verzauberungen Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette bildet.",
           "details": [
-            "Herstellung in der Werkbank: oben mittig Faden, in der Mitte ein Vanilla-Bündel mit je einem Kupferklumpen links und rechts, unten drei Leder; das Rezept wird freigeschaltet, sobald man ein Bündel besitzt.",
+            "Herstellung in der Werkbank: oben mittig Faden, in der Mitte ein Vanilla-Bündel mit einem Diamantkiesel links daneben, unter dem Bündel eine Lederplatte (Muster \" S \" / \"DB \" / \" X \"; das Muster ist zwei Felder breit, und die gespiegelte Anordnung mit dem Kiesel rechts gilt ebenso); das Rezept wird freigeschaltet, sobald man ein Bündel besitzt. Den Diamantkiesel gibt es nur vom Vorschlaghammer, der einen Diamantblock zerkleinert, die Lederplatte aus neun Leder.",
+            "Das Rezept hat den Typ simplebuilding:reinforced_bundle (Klasse ReinforcedBundleRecipe): Das Ergebnis übernimmt den ganzen Komponenten-Patch des Vanilla-Bündels im Raster - Inhalt, Verzauberungen, eigenen Namen -, so wie es der Schmiedetisch bei der Netherit-Aufwertung tut. Ein gefülltes Bündel behält beim Aufwerten also seinen Inhalt.",
             "Stapelgröße 1.",
             "Grundkapazität: das 1,5-fache eines Vanilla-Bündels (Bruch 3/2), also 96 Gegenstände der Stapelgröße 64; beim Einlegen wiegt jeder Gegenstand 1 / (seine Stapelgröße), ein nicht stapelbarer Gegenstand füllt also ein ganzes 64er-Fach.",
             "Es dürfen nur Gegenstände hinein, die in Behälter-Items passen (canFitInsideContainerItems); das Verstärkte Bündel selbst darf in andere Behälter-Items (auch ein weiteres Bündel) gelegt werden.",
@@ -9573,7 +9731,6 @@ window.WIKI_DATA = {
             "Die Füllleiste im Tooltip schneidet den Kapazitätsfaktor auf eine ganze Zahl ab und skaliert bei Faktor <= 1 gar nicht (1,5 wird zu 1): Beim unverzauberten Verstärkten Bündel wird die Tooltip-Leiste deshalb nicht skaliert und zeigt schon bei 64 Gegenständen voll an. Der Füllbalken am Item selbst rechnet korrekt.",
             "Der Tooltip-Text Kann mehr Items halten, wenn verzaubert. steht in der Sprachdatei, wird aber von keinem Code angezeigt (appendHoverText ruft nur super auf).",
             "Rechtsklick lässt einen ausgewählten Block nicht fallen; Blöcke müssen im Inventar entnommen oder mit Baumeister platziert werden.",
-            "Ein Rezept-Typ (ReinforcedBundleRecipe, Serializer simplebuilding:reinforced_bundle), der Inhalt und eigenen Namen des eingesetzten Vanilla-Bündels ins Ergebnis übernehmen würde, ist im Code vorhanden und registriert; das ausgelieferte Rezept verwendet aber minecraft:crafting_shaped und damit nicht diesen Code. Inhalt und Name eines gefüllten Vanilla-Bündels gehen beim Aufwerten deshalb verloren.",
             "Trichter hebt beim Schleichen nichts auf; ein Bündel im Inventar (nicht in der Hand) saugt erst, wenn die Aufhebeverzögerung des Drops abgelaufen ist."
           ]
         },
@@ -9625,7 +9782,9 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
           "config/simplebuilding.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
+          "mc1_21_11/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -9910,6 +10069,106 @@ window.WIKI_DATA = {
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
           "src/main/resources/simplebuilding.mixins.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:reinforced_quiver",
+      "name": {
+        "en_us": "Reinforced Quiver",
+        "de_de": "Verstärkter Köcher"
+      },
+      "texture": "assets/textures/item/reinforced_quiver.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_quiver"
+      ],
+      "usedIn": [
+        "simplebuilding:netherite_quiver_smithing"
+      ],
+      "trades": [],
+      "properties": {
+        "bundleCapacityItems": 96,
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "The Reinforced Quiver is the second quiver tier, between the Quiver and the Netherite Quiver: a QuiverItem with capacity factor 3/2 (96 arrows), crafted from a Quiver at the crafting table without losing its arrows, and the only item the Netherite Quiver is smithed from.",
+          "details": [
+            "Stack size 1 (stacksTo(1)); ordinary rarity; not fireResistant().",
+            "Crafting table recipe (type simplebuilding:reinforced_bundle, 3x3): row 1 \" SD\", row 2 \"SXN\", row 3 \"Q  \" with S = String (minecraft:string), D = Diamond Pebble, X = Leather Sheet, N = Copper Nugget (minecraft:copper_nugget) and Q = Quiver - the Quiver's own pattern with the Quiver where the Bundle goes, one Leather Sheet in the centre instead of the two Leather and a Diamond Pebble in the top right corner. The recipe unlocks as soon as you own a Quiver; the mirrored layout works as well.",
+            "The upgrade keeps everything on the Quiver: ReinforcedBundleRecipe takes over the whole component patch of the first bundle-type ingredient in the grid (the Quiver is one, through ReinforcedBundleItem) - arrows, enchantments, custom name - as the smithing table does for the netherite upgrade.",
+            "Capacity factor 3/2 (QuiverItem.getTierCapacityMultiplier). Quivers use the tier factor as their base capacity without the bundle's extra 3/2, so the Reinforced Quiver holds 96 units, i.e. 96 arrows. By calculation Deep Pockets I and II make that 192 and 384, Drawer I 204 and Drawer VIII 288.",
+            "Next tier: Netherite Upgrade Smithing Template + Reinforced Quiver + Netherite Ingot give the Netherite Quiver, which keeps the components as well. The plain Quiver has no smithing recipe any more.",
+            "Arrow filter, bow search order, consumption on the shot, click handling and mouse-wheel selection are identical to the Quiver (same class QuiverItem).",
+            "Chest slot: it carries the same equippable component as the other quivers (ModItems.quiverChestSlot), so it can be worn in the chest slot and feeds the bow from there.",
+            "Enchantable at an anvil through the tags bundle_enchantable, extra_inventory_items and constructors_touch_enchantable: Drawer, Deep Pockets, Funnel, Constructor's Touch, Master Builder and Color Palette; Drawer excludes Master Builder and Color Palette. The enchanting table stays shut, because no quiver carries an enchantable component.",
+            "Smithing trims: it is the base of the netherite quiver recipe, so the smithing table's base slot takes it, and its equippable component passes the mod's trim check - the Glowing and the Emitting Trim Upgrade Template both work on it.",
+            "The mod's creative tab: in the Storage section, directly after the Quiver."
+          ],
+          "controls": [
+            "Handled like the Quiver: left-click inserts arrows, right-click takes a stack out, the mouse wheel picks the stack; drawing and releasing a bow uses arrows from it automatically."
+          ],
+          "caveats": [
+            "Not fire resistant, not blast-proof as a dropped item (ItemEntityMixin only protects the Netherite Bundle, the Enderite Bundle and the Enderite Quiver) and not void protected (void_protected only takes ids starting with enderite_).",
+            "Appears in no loot table and no trade.",
+            "The tooltip's fill bar divides only by the integer part of the capacity factor (1.5 becomes 1): on an unenchanted Reinforced Quiver the tooltip bar therefore already reads full at 64 of its 96 arrows. The bar on the item in the slot computes it exactly.",
+            "The description line in the language file (tooltip.simplebuilding.reinforced_quiver) is shown by no code.",
+            "All of the Quiver's limits apply as well: there is no crossbow code, and Master Builder and Color Palette do nothing on a quiver."
+          ]
+        },
+        "de": {
+          "summary": "Der Verstärkte Köcher ist die zweite Köcher-Stufe zwischen Köcher und Netherit-Köcher: ein QuiverItem mit Kapazitätsfaktor 3/2 (96 Pfeile), an der Werkbank aus einem Köcher gebaut, ohne dessen Pfeile zu verlieren, und der einzige Gegenstand, aus dem der Netherit-Köcher geschmiedet wird.",
+          "details": [
+            "Stapelgröße 1 (stacksTo(1)); gewöhnliche Seltenheit; nicht fireResistant().",
+            "Rezept an der Werkbank (Typ simplebuilding:reinforced_bundle, 3x3): Reihe 1 \" SD\", Reihe 2 \"SXN\", Reihe 3 \"Q  \" mit S = Faden (minecraft:string), D = Diamantkiesel, X = Lederplatte, N = Kupfer-Nugget (minecraft:copper_nugget) und Q = Köcher - das Köcher-Muster mit dem Köcher an der Stelle des Bündels, einer Lederplatte in der Mitte statt der zwei Leder und einem Diamantkiesel oben rechts. Das Rezept wird freigeschaltet, sobald man einen Köcher besitzt; die gespiegelte Anordnung gilt ebenso.",
+            "Die Aufwertung behält alles, was am Köcher hängt: ReinforcedBundleRecipe übernimmt den ganzen Komponenten-Patch der ersten Bündel-Zutat im Raster (der Köcher ist über ReinforcedBundleItem eine) - Pfeile, Verzauberungen, eigenen Namen -, so wie der Schmiedetisch bei der Netherit-Aufwertung.",
+            "Kapazitätsfaktor 3/2 (QuiverItem.getTierCapacityMultiplier). Köcher nehmen den Stufenfaktor als Grundkapazität ohne den zusätzlichen Bündel-Faktor 3/2, der Verstärkte Köcher fasst also 96 Einheiten, d. h. 96 Pfeile. Rechnerisch werden daraus mit Tiefe Taschen I und II 192 und 384, mit Schublade I 204 und mit Schublade VIII 288.",
+            "Nächste Stufe: Netherit-Aufwertungs-Schmiedevorlage + Verstärkter Köcher + Netheritbarren ergeben den Netherit-Köcher, der die Komponenten ebenfalls behält. Für den einfachen Köcher gibt es kein Schmiederezept mehr.",
+            "Pfeil-Filter, Suchreihenfolge für den Bogen, Verbrauch beim Schuss, Klick-Bedienung und Mausrad-Auswahl sind identisch mit dem Köcher (gleiche Klasse QuiverItem).",
+            "Brustpanzer-Slot: Er trägt dieselbe Ausrüstungs-Komponente wie die anderen Köcher (ModItems.quiverChestSlot), lässt sich also im Brustpanzer-Slot tragen und versorgt von dort den Bogen.",
+            "Am Amboss verzauberbar über die Tags bundle_enchantable, extra_inventory_items und constructors_touch_enchantable: Schublade, Tiefe Taschen, Trichter, Berührung des Konstrukteurs, Baumeister und Farbpalette; Schublade schließt Baumeister und Farbpalette aus. Der Zaubertisch bleibt zu, weil kein Köcher eine Verzauberbarkeit trägt.",
+            "Besatz am Schmiedetisch: Er ist Basis des Netherit-Köcher-Rezepts, der Basis-Slot des Schmiedetischs nimmt ihn also an, und seine Ausrüstungs-Komponente besteht die Besatz-Prüfung der Mod - Leuchtende und Strahlende Schmiedevorlage wirken beide auf ihn.",
+            "Kreativ-Tab der Mod: im Abschnitt Storage direkt hinter dem Köcher."
+          ],
+          "controls": [
+            "Bedienung wie beim Köcher: Linksklick legt Pfeile ein, Rechtsklick nimmt einen Stapel heraus, Mausrad wählt den Stapel; Bogen spannen und loslassen verbraucht Pfeile daraus automatisch."
+          ],
+          "caveats": [
+            "Nicht feuerfest, als fallengelassener Gegenstand nicht explosionsgeschützt (ItemEntityMixin schützt nur Netherit-Bündel, Enderite Bundle und Enderite Quiver) und nicht vor dem Void geschützt (void_protected nimmt nur Kennungen, die mit enderite_ beginnen).",
+            "Kommt in keiner Loot-Tabelle und keinem Handel vor.",
+            "Die Füllleiste im Tooltip teilt nur durch den ganzzahligen Teil des Kapazitätsfaktors (1,5 wird zu 1): Beim unverzauberten Verstärkten Köcher zeigt die Tooltip-Leiste deshalb schon bei 64 von 96 Pfeilen voll an. Der Balken am Item im Slot rechnet exakt.",
+            "Der Beschreibungstext in der Sprachdatei (tooltip.simplebuilding.reinforced_quiver) wird von keinem Code angezeigt.",
+            "Alle Einschränkungen des Köchers gelten ebenfalls: kein Armbrust-Code, und Baumeister und Farbpalette bewirken auf einem Köcher nichts."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/ReinforcedBundleItem.java",
+          "common/src/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java",
+          "mc1_21_11/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/BowItemMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/SmithingScreenHandlerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/BundleTooltipComponentMixin.java",
+          "mc1_21_11/shared/java/com/simplebuilding/mixin/client/BundleTooltipComponentMixin.java",
+          "common/src/shared/java/com/simplebuilding/util/ModTags.java",
+          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+          "src/main/java/com/simplebuilding/SimplebuildingClient.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
+          "src/main/generated/data/simplebuilding/recipe/netherite_quiver_smithing.json",
+          "src/main/generated/data/simplebuilding/advancement/recipes/tools/reinforced_quiver.json",
+          "src/main/generated/data/simplebuilding/tags/item/bundle_enchantable.json",
+          "src/main/generated/data/simplebuilding/tags/item/extra_inventory_items.json",
+          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+          "src/main/generated/wiki/items.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json"
         ]
@@ -14172,6 +14431,30 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:leather_sheet",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:leather_sheet",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+      "ingredients": [
+        "minecraft:leather"
+      ],
+      "pattern": [
+        "LLL",
+        "LLL",
+        "LLL"
+      ],
+      "key": {
+        "L": [
+          "minecraft:leather"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:levitating_gravel",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -14592,14 +14875,14 @@ window.WIKI_DATA = {
       "ingredients": [
         "minecraft:netherite_ingot",
         "minecraft:netherite_upgrade_smithing_template",
-        "simplebuilding:quiver"
+        "simplebuilding:reinforced_quiver"
       ],
       "slots": {
         "template": [
           "minecraft:netherite_upgrade_smithing_template"
         ],
         "base": [
-          "simplebuilding:quiver"
+          "simplebuilding:reinforced_quiver"
         ],
         "addition": [
           "minecraft:netherite_ingot"
@@ -15317,7 +15600,7 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:reinforced_bundle",
-      "type": "minecraft:crafting_shaped",
+      "type": "simplebuilding:reinforced_bundle",
       "category": "equipment",
       "group": null,
       "result": {
@@ -15327,27 +15610,27 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_bundle.json",
       "ingredients": [
         "minecraft:bundle",
-        "minecraft:copper_nugget",
-        "minecraft:leather",
-        "minecraft:string"
+        "minecraft:string",
+        "simplebuilding:diamond_pebble",
+        "simplebuilding:leather_sheet"
       ],
       "pattern": [
         " S ",
-        "NBN",
-        "LLL"
+        "DB ",
+        " X "
       ],
       "key": {
         "B": [
           "minecraft:bundle"
         ],
-        "L": [
-          "minecraft:leather"
-        ],
-        "N": [
-          "minecraft:copper_nugget"
+        "D": [
+          "simplebuilding:diamond_pebble"
         ],
         "S": [
           "minecraft:string"
+        ],
+        "X": [
+          "simplebuilding:leather_sheet"
         ]
       }
     },
@@ -15440,6 +15723,46 @@ window.WIKI_DATA = {
         ],
         "P": [
           "minecraft:piston"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:reinforced_quiver",
+      "type": "simplebuilding:reinforced_bundle",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_quiver",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
+      "ingredients": [
+        "minecraft:copper_nugget",
+        "minecraft:string",
+        "simplebuilding:diamond_pebble",
+        "simplebuilding:leather_sheet",
+        "simplebuilding:quiver"
+      ],
+      "pattern": [
+        " SD",
+        "SXN",
+        "Q  "
+      ],
+      "key": {
+        "D": [
+          "simplebuilding:diamond_pebble"
+        ],
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "Q": [
+          "simplebuilding:quiver"
+        ],
+        "S": [
+          "minecraft:string"
+        ],
+        "X": [
+          "simplebuilding:leather_sheet"
         ]
       }
     },
@@ -17762,7 +18085,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Color Palette stops the building wand and the reinforced bundle from insisting on one fixed block and lets them place any of the building blocks you carry - genuinely at random on the bundle, in inventory order on the wand.",
           "details": [
-            "Applicable to all six building wands (copper through enderite), all three bundles and all three quivers (item tag extra_inventory_items); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15) to 65 (+15).",
+            "Applicable to all six building wands (copper through enderite), all three bundles and all four quivers (item tag extra_inventory_items); slot: mainhand; maximum level I; anvil cost 4; weight 2; cost range 15 (+15) to 65 (+15).",
             "Anvil rule (AnvilScreenHandlerMixin, at the end of createResult): an anvil result that carries Color Palette but not Master Builder is discarded (result slot empty, cost 0). Color Palette can therefore only be put on an item that already has Master Builder or gains it in the same step.",
             "Not combinable with Drawer: Drawer's exclusive set (builder_group) contains Master Builder, Color Palette and Drawer itself.",
             "Wand preview (ghost blocks): with Color Palette all building blocks from the off-hand and hotbar are collected (with Master Builder on the wand the rest of the inventory as well; reinforced bundle contents count when the wand OR the bundle carries Master Builder), and every position is assigned one of them - computed from pos.asLong() modulo the palette size, so the preview does not flicker.",
@@ -17781,13 +18104,13 @@ window.WIKI_DATA = {
           "caveats": [
             "Nothing is actually rolled when the wand places: per position the code takes the first available building block in inventory order; a mix only appears once a stack is used up and the next one comes around. The preview, by contrast, shows a position-dependent mix - preview and result can therefore differ.",
             "On the bundle, Color Palette only works together with Master Builder; the random pick sits inside the Master Builder branch of ReinforcedBundleItem.useOn.",
-            "Applicable to the Quiver and Netherite Quiver, but without effect: QuiverItem returns PASS on use and useOn, so nothing is placed, and no code evaluates Color Palette on it."
+            "Applicable to every quiver tier, but without effect: QuiverItem returns PASS on use and useOn, so nothing is placed, and no code evaluates Color Palette on it."
           ]
         },
         "de": {
           "summary": "„Farbpalette“ lässt Baustab und Verstärktes Bündel nicht auf einem festen Block bestehen, sondern irgendeinen der mitgeführten Baublöcke setzen – beim Bündel echt zufällig, beim Baustab in der Reihenfolge des Inventars.",
           "details": [
-            "Anbringbar auf alle sechs Baustäbe (Kupfer bis Enderit), alle drei Bündel und alle drei Köcher (Item-Tag extra_inventory_items); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15) bis 65 (+15).",
+            "Anbringbar auf alle sechs Baustäbe (Kupfer bis Enderit), alle drei Bündel und alle vier Köcher (Item-Tag extra_inventory_items); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 4; Gewicht 2; Kostenbereich 15 (+15) bis 65 (+15).",
             "Amboss-Regel (AnvilScreenHandlerMixin, am Ende von createResult): Ein Amboss-Ergebnis, das Farbpalette trägt, aber nicht Baumeister, wird verworfen (Ergebnisfeld leer, Kosten 0). Farbpalette lässt sich also nur auf ein Item bringen, das Baumeister bereits hat oder im selben Schritt bekommt.",
             "Nicht kombinierbar mit Schublade: Das Ausschluss-Set von Schublade (builder_group) enthält Baumeister, Farbpalette und Schublade selbst.",
             "Baustab-Vorschau (Geisterblöcke): Mit Farbpalette werden alle Baublöcke aus Nebenhand und Hotbar gesammelt (mit Baumeister auf dem Stab zusätzlich das restliche Inventar; Inhalte Verstärkter Bündel zählen, wenn der Stab ODER das Bündel Baumeister trägt), und jede Position bekommt einen davon zugeteilt – berechnet aus pos.asLong() modulo Palettengröße, damit die Vorschau nicht flackert.",
@@ -17806,7 +18129,7 @@ window.WIKI_DATA = {
           "caveats": [
             "Beim tatsächlichen Platzieren mit dem Baustab wird nicht gewürfelt: Der Code nimmt pro Position den ersten verfügbaren Baublock in Inventarreihenfolge; eine Mischung entsteht erst, wenn ein Stapel aufgebraucht ist und der nächste an die Reihe kommt. Die Vorschau zeigt dagegen eine positionsabhängige Mischung – Vorschau und Ergebnis können daher voneinander abweichen.",
             "Auf dem Bündel wirkt Farbpalette nur zusammen mit Baumeister; die Zufallswahl steckt im Baumeister-Zweig von ReinforcedBundleItem.useOn.",
-            "Auf Köcher und Netherit-Köcher anbringbar, aber wirkungslos: QuiverItem liefert bei use und useOn PASS, es wird nichts platziert; kein Code wertet Farbpalette auf ihm aus."
+            "Auf jede Köcher-Stufe anbringbar, aber wirkungslos: QuiverItem liefert bei use und useOn PASS, es wird nichts platziert; kein Code wertet Farbpalette auf ihm aus."
           ]
         },
         "sources": [
@@ -17857,7 +18180,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Constructor's Touch is the mod's all-purpose enchantment: on each tool it unlocks a different extra ability - cycling block states with a plain stick, extra chisel conversions, the Building Wand's settings menu, and more.",
           "details": [
-            "Can be applied (item tag constructors_touch_enchantable) to: Reinforced Bundle, Netherite Bundle, Enderite Bundle, Quiver, Netherite Quiver, Enderite Quiver, Shulker Box, chisels Stone through Enderite (#chisel_tools), sledgehammers Stone through Enderite (#sledgehammer_tools), Building Wands Copper through Enderite (#building_wand_enchantable), Velocity Gauge, Ore Detector, Magnet, all 17 Octants (#octants_enchantable) and the plain Stick (minecraft:stick). Slot: main hand; max level I; anvil cost 1; weight 1; enchanting cost 20 (+10 per level above the first) to 50 (+10 per level above the first).",
+            "Can be applied (item tag constructors_touch_enchantable) to: Reinforced Bundle, Netherite Bundle, Enderite Bundle, Quiver, Reinforced Quiver, Netherite Quiver, Enderite Quiver, Shulker Box, chisels Stone through Enderite (#chisel_tools), sledgehammers Stone through Enderite (#sledgehammer_tools), Building Wands Copper through Enderite (#building_wand_enchantable), Velocity Gauge, Ore Detector, Magnet, all 17 Octants (#octants_enchantable) and the plain Stick (minecraft:stick). Slot: main hand; max level I; anvil cost 1; weight 1; enchanting cost 20 (+10 per level above the first) to 50 (+10 per level above the first).",
             "Stick: right-clicking a block with an enchanted stick advances its first block property (the first entry of state.getProperties()) to the next value; sneaking goes back to the previous one. The new value appears on the action bar as \"property: value\" (sendOverlayMessage). Blocks with no properties are left unchanged.",
             "Chisel and spatula: the enchantment unlocks an extra set of conversions per tool tier (backwards too, by sneaking or with the spatula). Stone tier: Mud Bricks -> Packed Mud -> Mud; Cobblestone -> Mossy Cobblestone (stairs and slabs as well); every log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak) -> stripped log.",
             "Copper/Iron chisel adds: Bricks -> Mud Bricks (stairs and slabs as well); every wood block (the same nine wood types) -> stripped wood; Crimson and Warped Planks -> Stairs -> Slab.",
@@ -17889,7 +18212,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "„Berührung des Konstrukteurs“ ist die Allzweck-Verzauberung der Mod: Auf jedem Werkzeug schaltet sie eine andere Zusatzfunktion frei – vom Umschalten von Blockzuständen mit einem Stock über Extra-Umwandlungen beim Meißel bis zum Einstellungsmenü des Baustabs.",
           "details": [
-            "Anbringbar (Item-Tag constructors_touch_enchantable) auf: Verstärktes Bündel, Netherit-Bündel, Enderite Bundle, Köcher, Netherit-Köcher, Enderite Quiver, Shulker-Kiste, Meißel Stein bis Enderit (#chisel_tools), Vorschlaghämmer Stein bis Enderit (#sledgehammer_tools), Baustäbe Kupfer bis Enderit (#building_wand_enchantable), Geschwindigkeitsmesser, Erzdetektor, Magnet, alle 17 Oktanten (#octants_enchantable) und den gewöhnlichen Stock (minecraft:stick). Slot: Haupthand; maximale Stufe I; Amboss-Kosten 1; Gewicht 1; Kostenbereich 20 (+10) bis 50 (+10).",
+            "Anbringbar (Item-Tag constructors_touch_enchantable) auf: Verstärktes Bündel, Netherit-Bündel, Enderite Bundle, Köcher, Verstärkter Köcher, Netherit-Köcher, Enderite Quiver, Shulker-Kiste, Meißel Stein bis Enderit (#chisel_tools), Vorschlaghämmer Stein bis Enderit (#sledgehammer_tools), Baustäbe Kupfer bis Enderit (#building_wand_enchantable), Geschwindigkeitsmesser, Erzdetektor, Magnet, alle 17 Oktanten (#octants_enchantable) und den gewöhnlichen Stock (minecraft:stick). Slot: Haupthand; maximale Stufe I; Amboss-Kosten 1; Gewicht 1; Kostenbereich 20 (+10) bis 50 (+10).",
             "Stock: Rechtsklick mit einem verzauberten Stock auf einen Block schaltet dessen erste Blockeigenschaft (erster Eintrag von state.getProperties()) auf den nächsten Wert; mit Schleichen auf den vorherigen. Der neue Wert erscheint in der Aktionsleiste als „Eigenschaft: Wert“ (sendOverlayMessage). Blöcke ohne Eigenschaften bleiben unverändert.",
             "Meißel und Spatel: Die Verzauberung schaltet je Werkzeugstufe zusätzliche Umwandlungsreihen frei (auch rückwärts per Schleichen bzw. mit dem Spatel). Steinstufe: Schlammziegel → gepackter Schlamm → Schlamm; Bruchstein → bemooster Bruchstein (auch Treppen und Stufen); alle Stämme (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche) → entrindete Stämme.",
             "Meißel Kupfer/Eisen zusätzlich: Ziegel → Schlammziegel (auch Treppen und Stufen); alle Holzblöcke (dieselben neun Holzarten) → entrindetes Holz; Karmesin- und Wirrbretter → Treppe → Stufe.",
@@ -18057,12 +18380,12 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Deep Pockets is an enchantment for bundles and quivers that doubles their capacity at level I and quadruples it at level II.",
           "details": [
-            "Applies to all three bundle tiers and all three quiver tiers (tag simplebuilding:bundle_enchantable); declared slot: mainhand.",
+            "Applies to all three bundle tiers and all four quiver tiers (tag simplebuilding:bundle_enchantable); declared slot: mainhand.",
             "The capacity effect does not depend on the slot: the code reads the enchantment level straight off the bundle stack, wherever it lies.",
             "Max level 2, weight 2, anvil cost 4; enchanting cost 15 (+10 per further level) to 65 (+10 per further level).",
             "Level I multiplies the capacity by 2, level II (or higher) by 4; the two branches are exclusive, there is no extra doubling on top.",
             "Base capacity of the bundles: the tier factor (Reinforced 1, Netherite 2, Enderite 3) times 3/2, which comes to 96, 192 and 288 items of stack size 64.",
-            "Base capacity of the quivers: the tier factor alone, 1, 2 or 3 stack equivalents with no 3/2 factor, so 64, 128 and 192 arrows by calculation.",
+            "Base capacity of the quivers: the tier factor alone, 1, 3/2, 2 or 3 stack equivalents with no extra 3/2 bundle factor on top, so 64, 96, 128 and 192 arrows by calculation.",
             "By calculation (base value times factor) a Reinforced Bundle with Deep Pockets I holds 192 items and with level II 384; a Netherite Bundle 384 or 768; an Enderite Bundle 576 or 1152.",
             "Capacity counts in stack fractions: one item takes up 1 / (its maximum stack size), so an item that only stacks to 16 needs four times as much room as a 64-stack item.",
             "The bonus is multiplied with the Drawer bonus; both enchantments can be combined (they share no exclusive set).",
@@ -18085,12 +18408,12 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Tiefe Taschen ist eine Verzauberung für Bündel und Köcher, die deren Fassungsvermögen auf Stufe I verdoppelt und auf Stufe II vervierfacht.",
           "details": [
-            "Anwendbar auf alle drei Bündel- und alle drei Köcher-Stufen (Tag simplebuilding:bundle_enchantable); definierter Slot: Haupthand.",
+            "Anwendbar auf alle drei Bündel- und alle vier Köcher-Stufen (Tag simplebuilding:bundle_enchantable); definierter Slot: Haupthand.",
             "Die Kapazitätswirkung hängt nicht vom Slot ab: Der Code liest die Verzauberungsstufe direkt vom Bündel-Stack, egal wo es liegt.",
             "Höchststufe 2, Gewicht 2, Amboss-Kosten 4; Verzauberungskosten 15 (+10 je weiterer Stufe) bis 65 (+10 je weiterer Stufe).",
             "Stufe I multipliziert die Kapazität mit 2, Stufe II (oder höher) mit 4; die beiden Zweige schließen sich aus, es wird nicht zusätzlich verdoppelt.",
             "Grundkapazität der Bündel: Stufenfaktor (Verstärkt 1, Netherit 2, Enderit 3) mal 3/2; laut Code-Kommentar sind das 96, 192 bzw. 288 Items bei 64er-Stapeln.",
-            "Grundkapazität der Köcher: nur der Stufenfaktor 1, 2 bzw. 3 Stapel-Äquivalente (kein Faktor 3/2), also rechnerisch 64, 128 bzw. 192 Pfeile.",
+            "Grundkapazität der Köcher: nur der Stufenfaktor 1, 3/2, 2 bzw. 3 Stapel-Äquivalente (kein zusätzlicher Bündel-Faktor 3/2), also rechnerisch 64, 96, 128 bzw. 192 Pfeile.",
             "Rechnerisch (Grundwert mal Faktor) fasst ein Verstärktes Bündel mit Tiefe Taschen I 192 und mit Stufe II 384 Items; ein Netherit-Bündel 384 bzw. 768; ein Enderite Bundle 576 bzw. 1152.",
             "Die Kapazität zählt in Stapel-Anteilen: Ein Item belegt 1/(maximale Stapelgröße), ein nur bis 16 stapelbares Item braucht also viermal so viel Platz wie ein 64er-Item.",
             "Der Bonus wird mit dem Schubladen-Bonus multipliziert; beide Verzauberungen sind kombinierbar (kein gemeinsames Ausschluss-Set).",
@@ -18269,7 +18592,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Drawer is an enchantment for bundles and quivers that raises the capacity to between 2.125x and 3x, but in exchange limits the bundle to at most 5 different item types.",
           "details": [
-            "Applies to all three bundle tiers and all three quiver tiers (tag simplebuilding:bundle_enchantable); declared slot: mainhand.",
+            "Applies to all three bundle tiers and all four quiver tiers (tag simplebuilding:bundle_enchantable); declared slot: mainhand.",
             "Max level 8, weight 1, anvil cost 8; enchanting cost 25 (+25 per further level) to 75 (+25 per further level).",
             "Capacity formula in the code: base capacity times (16 + level) / 8. Level I gives factor 2.125, level VIII factor 3.0.",
             "By calculation (base value times factor) a Reinforced Bundle with Drawer VIII holds 288 items, a Netherite Bundle 576 and an Enderite Bundle 864.",
@@ -18297,7 +18620,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Schublade ist eine Verzauberung für Bündel und Köcher, die die Kapazität auf das 2,125- bis 3-Fache erhöht, dafür aber die Zahl unterschiedlicher Item-Sorten im Bündel auf höchstens 5 begrenzt.",
           "details": [
-            "Anwendbar auf alle drei Bündel- und alle drei Köcher-Stufen (Tag simplebuilding:bundle_enchantable); definierter Slot: Haupthand.",
+            "Anwendbar auf alle drei Bündel- und alle vier Köcher-Stufen (Tag simplebuilding:bundle_enchantable); definierter Slot: Haupthand.",
             "Höchststufe 8, Gewicht 1, Amboss-Kosten 8; Verzauberungskosten 25 (+25 je weiterer Stufe) bis 75 (+25 je weiterer Stufe).",
             "Kapazitätsformel im Code: Grundkapazität mal (16 + Stufe)/8. Stufe I ergibt Faktor 2,125, Stufe VIII Faktor 3,0.",
             "Rechnerisch (Grundwert mal Faktor) fasst ein Verstärktes Bündel mit Schublade VIII 288 Items, ein Netherit-Bündel 576, ein Enderite Bundle 864.",
@@ -18458,7 +18781,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Funnel is an enchantment for bundles and quivers that vacuums items off the ground into the bundle: level I only types that are already inside, level II everything.",
           "details": [
-            "Applies to all three bundle tiers and all three quiver tiers (tag simplebuilding:bundle_enchantable); declared slot: mainhand.",
+            "Applies to all three bundle tiers and all four quiver tiers (tag simplebuilding:bundle_enchantable); declared slot: mainhand.",
             "Max level 2, weight 2, anvil cost 4; enchanting cost 15 (+15 per further level) to 55 (+15 per further level).",
             "Level I acts as a filter: an item on the ground is only vacuumed up if the same type (same item, same components) is already in the bundle. An empty bundle with level I takes nothing.",
             "Level II (or higher) vacuums up every item that is allowed inside container items (canFitInsideContainerItems).",
@@ -18489,7 +18812,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Trichter ist eine Verzauberung für Bündel und Köcher, die Items vom Boden automatisch ins Bündel saugt: Stufe I nur Sorten, die schon drin liegen, Stufe II alles.",
           "details": [
-            "Anwendbar auf alle drei Bündel- und alle drei Köcher-Stufen (Tag simplebuilding:bundle_enchantable); definierter Slot: Haupthand.",
+            "Anwendbar auf alle drei Bündel- und alle vier Köcher-Stufen (Tag simplebuilding:bundle_enchantable); definierter Slot: Haupthand.",
             "Höchststufe 2, Gewicht 2, Amboss-Kosten 4; Verzauberungskosten 15 (+15 je weiterer Stufe) bis 55 (+15 je weiterer Stufe).",
             "Stufe I wirkt als Filter: Ein Item am Boden wird nur aufgesaugt, wenn dieselbe Sorte (gleiches Item, gleiche Komponenten) bereits im Bündel liegt. Ein leeres Bündel mit Stufe I nimmt nichts.",
             "Stufe II (oder höher) saugt jedes Item auf, das in Behälter-Items passen darf (canFitInsideContainerItems).",
@@ -18727,7 +19050,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Master Builder turns reinforced bundles into building material sources: blocks can be placed straight out of the bundle or pulled out with pick-block, and the building wand may reach into the whole inventory including bundle contents.",
           "details": [
-            "Applicable to all six building wands (copper through enderite), all three bundles and all three quivers (item tag extra_inventory_items); slot: mainhand; maximum level I; anvil cost 8; weight 1; cost range 25 (+25) to 75 (+25).",
+            "Applicable to all six building wands (copper through enderite), all three bundles and all four quivers (item tag extra_inventory_items); slot: mainhand; maximum level I; anvil cost 8; weight 1; cost range 25 (+25) to 75 (+25).",
             "The bundle places blocks: right-clicking a block with a Master Builder bundle places the selected entry (with no selection: the first entry) through BlockItem.useOn with a freshly built UseOnContext, i.e. exactly as if the block itself were in your hand; outside creative 1 item is taken out of the bundle. If the entry is not a block, the bundle behaves like a normal bundle (super.useOn).",
             "Selection inside the bundle (applies to every reinforced bundle, registered through HandledScreenMixin): the mouse wheel over the bundle in the inventory picks an entry (ReinforcedBundleSelectionPayload to the server). As soon as the cursor leaves the slot, the selection is reset to -1 ('none') - after that the first entry applies again. Newly inserted stacks are sorted to the front (index 0) and reset the selection as well.",
             "Pick block in survival: if the targeted block (or an entity's pick result) is nowhere in the inventory but is inside a Master Builder bundle, that entry's whole stack is pulled out of the bundle into the selected hotbar slot. An item held there moves to a free slot first; if there is none, nothing happens. The bundle removal sound plays (BUNDLE_REMOVE_ONE). In creative this behaviour is switched off (MinecraftClientMixin aborts on isCreative).",
@@ -18747,14 +19070,14 @@ window.WIKI_DATA = {
             "Building wand with Master Builder: right-click as usual; material also comes from the rest of the inventory and from bundles."
           ],
           "caveats": [
-            "Applicable to the Quiver and Netherite Quiver, but without effect: QuiverItem returns PASS on use and useOn, so there is nothing to place, and no code reads Master Builder on a quiver.",
+            "Applicable to every quiver tier, but without effect: QuiverItem returns PASS on use and useOn, so there is nothing to place, and no code reads Master Builder on a quiver.",
             "Pick-block takes the entry's whole stack out, not a single item."
           ]
         },
         "de": {
           "summary": "„Baumeister“ macht Verstärkte Bündel zu Baumaterial-Quellen: Blöcke lassen sich direkt aus dem Bündel platzieren oder per Blockauswahl herausholen, und der Baustab darf auf das ganze Inventar samt Bündelinhalten zugreifen.",
           "details": [
-            "Anbringbar auf alle sechs Baustäbe (Kupfer bis Enderit), alle drei Bündel und alle drei Köcher (Item-Tag extra_inventory_items); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 8; Gewicht 1; Kostenbereich 25 (+25) bis 75 (+25).",
+            "Anbringbar auf alle sechs Baustäbe (Kupfer bis Enderit), alle drei Bündel und alle vier Köcher (Item-Tag extra_inventory_items); Slot: Haupthand; maximale Stufe I; Amboss-Kosten 8; Gewicht 1; Kostenbereich 25 (+25) bis 75 (+25).",
             "Bündel platziert Blöcke: Rechtsklick mit einem Baumeister-Bündel auf einen Block platziert den ausgewählten Eintrag (ohne Auswahl: den ersten Eintrag) über BlockItem.useOn mit einem neu gebauten UseOnContext, also wie der Block selbst in der Hand; außerhalb des Kreativmodus wird 1 Stück aus dem Bündel abgezogen. Ist der Eintrag kein Block, verhält sich das Bündel wie ein normales Bündel (super.useOn).",
             "Auswahl im Bündel (gilt für jedes Verstärkte Bündel, registriert über HandledScreenMixin): Mausrad über dem Bündel im Inventar wählt einen Eintrag (ReinforcedBundleSelectionPayload an den Server). Sobald der Mauszeiger den Slot verlässt, wird die Auswahl auf -1 („keine“) zurückgesetzt – danach gilt wieder der erste Eintrag. Neu eingefügte Stapel werden vorn (Index 0) einsortiert und setzen die Auswahl ebenfalls zurück.",
             "Blockauswahl (Pick Block) im Überlebensmodus: Liegt der anvisierte Block (bzw. das Auswahl-Ergebnis einer Entität) nirgends im Inventar, aber in einem Baumeister-Bündel, wird der gesamte Stapel dieses Eintrags aus dem Bündel in den gewählten Hotbar-Slot geholt. Ein dort gehaltenes Item wandert vorher in einen freien Slot; gibt es keinen, passiert nichts. Es ertönt der Bündel-Entnahme-Ton (BUNDLE_REMOVE_ONE). Im Kreativmodus ist dieses Verhalten abgeschaltet (MinecraftClientMixin bricht bei isCreative ab).",
@@ -18774,7 +19097,7 @@ window.WIKI_DATA = {
             "Baustab mit Baumeister: Rechtsklick wie gewohnt; Material kommt auch aus dem restlichen Inventar und aus Bündeln."
           ],
           "caveats": [
-            "Auf Köcher und Netherit-Köcher anbringbar, aber wirkungslos: QuiverItem liefert bei use und useOn PASS, es gibt also nichts zu platzieren, und kein Code liest Baumeister auf einem Köcher.",
+            "Auf jede Köcher-Stufe anbringbar, aber wirkungslos: QuiverItem liefert bei use und useOn PASS, es gibt also nichts zu platzieren, und kein Code liest Baumeister auf einem Köcher.",
             "Bei der Blockauswahl wird der komplette Stapel des Eintrags entnommen, nicht ein einzelnes Stück."
           ]
         },
@@ -19681,6 +20004,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:reinforced_quiver",
+          "required": true
+        },
+        {
           "id": "simplebuilding:netherite_quiver",
           "required": true
         },
@@ -19770,6 +20097,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:reinforced_quiver",
+          "required": true
+        },
+        {
           "id": "simplebuilding:netherite_quiver",
           "required": true
         },
@@ -19838,6 +20169,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:quiver",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:reinforced_quiver",
           "required": true
         },
         {
@@ -20196,15 +20531,15 @@ window.WIKI_DATA = {
     }
   ],
   "counts": {
-    "items": 112,
+    "items": 114,
     "blocks": 31,
-    "recipes": 131,
+    "recipes": 133,
     "lootTables": 30,
     "trades": 20,
     "enchantments": 19,
     "tags": 19,
     "config": 14,
-    "features": 26,
+    "features": 27,
     "undocumented": 0,
     "incompleteProse": 0
   },

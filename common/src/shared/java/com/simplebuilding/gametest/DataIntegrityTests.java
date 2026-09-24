@@ -562,14 +562,16 @@ public final class DataIntegrityTests {
                 ModItems.ENDERITE_INGOT,
                 "the enderite chisel upgrade under the netherite template", shapes);
 
-        // Quiver: a vanilla bundle, two string, two leather and a copper nugget, then the same two
-        // smithing steps the bundles use. Nothing else in the suite looks at these three files.
+        // Quiver: a vanilla bundle, two string, two leather and a copper nugget. The netherite step
+        // starts from the reinforced quiver, the tier in between (crafted from the quiver), just as
+        // the netherite bundle starts from the reinforced bundle; enderite follows as for the
+        // bundles. Nothing else in the suite looks at these three files.
         assertShapedRecipe(helper, modRecipes, "quiver", ModItems.QUIVER, 1,
                 new String[]{" SL", "SLN", "B  "},
                 Map.of('S', Items.STRING, 'L', Items.LEATHER, 'N', Items.COPPER_NUGGET, 'B', Items.BUNDLE),
                 shapes);
         assertSmithingRecipe(helper, modRecipes, "netherite_quiver_smithing",
-                Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.QUIVER, Items.NETHERITE_INGOT,
+                Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.REINFORCED_QUIVER, Items.NETHERITE_INGOT,
                 ModItems.NETHERITE_QUIVER, shapes);
         assertSmithingRecipe(helper, modRecipes, "enderite_quiver_smithing",
                 ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_INGOT,

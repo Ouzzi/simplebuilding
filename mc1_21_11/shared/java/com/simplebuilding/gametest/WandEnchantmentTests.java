@@ -704,7 +704,7 @@ public final class WandEnchantmentTests {
         touchReaders.addAll(sledgehammers);
         touchReaders.addAll(List.of(
                 ModItems.MAGNET, ModItems.ORE_DETECTOR,
-                ModItems.QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER,
+                ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER,
                 Items.STICK));
         for (Item reader : touchReaders) {
             if (!constructorsTouch.canEnchant(new ItemStack(reader))) {

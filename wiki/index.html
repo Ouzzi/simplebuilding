@@ -311,6 +311,7 @@ en: {
 
   /* Rezepte */
   'recipe.minecraft:crafting_shaped': 'Crafting Table (shaped)',
+  'recipe.simplebuilding:reinforced_bundle': 'Crafting Table (shaped, keeps what the container holds)',
   'recipe.minecraft:crafting_shapeless': 'Crafting Table (shapeless)',
   'recipe.minecraft:smithing_transform': 'Smithing Table',
   'recipe.minecraft:smithing_trim': 'Smithing Table (trim)',
@@ -594,6 +595,7 @@ de: {
 
   /* Rezepte */
   'recipe.minecraft:crafting_shaped': 'Werkbank (geformt)',
+  'recipe.simplebuilding:reinforced_bundle': 'Werkbank (geformt, behält den Behälterinhalt)',
   'recipe.minecraft:crafting_shapeless': 'Werkbank (formlos)',
   'recipe.minecraft:smithing_transform': 'Schmiedetisch',
   'recipe.minecraft:smithing_trim': 'Schmiedetisch (Verzierung)',
@@ -1100,12 +1102,13 @@ function featureCard(f, full) {
 /* Rezepte                                                            */
 /* ------------------------------------------------------------------ */
 /* Reihenfolge der Gruppen auf der Rezeptseite; die Beschriftung kommt aus STR. */
-var RECIPE_TYPE_ORDER = ['minecraft:crafting_shaped', 'minecraft:crafting_shapeless', 'minecraft:smithing_transform', 'minecraft:smithing_trim', 'simplebuilding:count_based_smithing', 'minecraft:blasting', 'minecraft:smelting', 'minecraft:smoking', 'minecraft:campfire_cooking', 'minecraft:stonecutting'];
+var RECIPE_TYPE_ORDER = ['minecraft:crafting_shaped', 'simplebuilding:reinforced_bundle', 'minecraft:crafting_shapeless', 'minecraft:smithing_transform', 'minecraft:smithing_trim', 'simplebuilding:count_based_smithing', 'minecraft:blasting', 'minecraft:smelting', 'minecraft:smoking', 'minecraft:campfire_cooking', 'minecraft:stonecutting'];
 var COOK_DEFAULT = { 'minecraft:blasting': 100, 'minecraft:smelting': 200, 'minecraft:smoking': 100, 'minecraft:campfire_cooking': 600 };
 function recipeTypeLabel(type) { return tId('recipe.', type, prettyFromId(type || T('unknown'))); }
 function recipeKind(t) {
   t = String(t || '');
-  if (/crafting_shaped$/.test(t)) return 'shaped';
+  // simplebuilding:reinforced_bundle ist ein geformtes Werkbank-Rezept, das den Behaelter-Inhalt mitnimmt.
+  if (/crafting_shaped$/.test(t) || t === 'simplebuilding:reinforced_bundle') return 'shaped';
   if (/crafting_shapeless$/.test(t)) return 'shapeless';
   if (/smithing/.test(t)) return 'smithing';
   if (COOK_DEFAULT[t] != null || /smelting|blasting|smoking|cooking/.test(t)) return 'cooking';

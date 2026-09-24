@@ -115,28 +115,8 @@ public final class NeoForgeModRegistries {
             RECIPE_SERIALIZERS.register("upgrade_smithing", () ->
                     new RecipeSerializer<>(UPGRADE_SMITHING_CODEC, UPGRADE_SMITHING_STREAM_CODEC));
     public static final Supplier<RecipeSerializer<ReinforcedBundleRecipe>> REINFORCED_BUNDLE_SERIALIZER =
-            RECIPE_SERIALIZERS.register("reinforced_bundle", () -> new RecipeSerializer<>(
-                    RecordCodecBuilder.mapCodec(instance -> instance.group(
-                            Codec.STRING.optionalFieldOf("group", "").forGetter(ShapedRecipe::group),
-                            CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(ShapedRecipe::category),
-                            ShapedRecipePattern.MAP_CODEC.forGetter(recipe -> ((ReinforcedBundleRecipe) recipe).getRaw()),
-                            ItemStack.CODEC.fieldOf("result").forGetter(ReinforcedBundleRecipe::getResultStack)
-                    ).apply(instance, ReinforcedBundleRecipe::new)),
-                    StreamCodec.of(
-                            (buf, recipe) -> {
-                                buf.writeUtf(recipe.group());
-                                buf.writeEnum(recipe.category());
-                                ShapedRecipePattern.STREAM_CODEC.encode(buf, recipe.getRaw());
-                                ItemStack.STREAM_CODEC.encode(buf, recipe.getResultStack());
-                            },
-                            buf -> new ReinforcedBundleRecipe(
-                                    buf.readUtf(),
-                                    buf.readEnum(CraftingBookCategory.class),
-                                    ShapedRecipePattern.STREAM_CODEC.decode(buf),
-                                    ItemStack.STREAM_CODEC.decode(buf)
-                            )
-                    )
-            ));
+            RECIPE_SERIALIZERS.register("reinforced_bundle", () ->
+                    new RecipeSerializer<>(ReinforcedBundleRecipe.MAP_CODEC, ReinforcedBundleRecipe.STREAM_CODEC));
 
     public static final Supplier<CreativeModeTab> BUILDING_ITEMS_TAB =
             CREATIVE_TABS.register("building_items", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
