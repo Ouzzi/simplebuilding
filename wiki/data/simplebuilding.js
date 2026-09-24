@@ -82,7 +82,7 @@ window.WIKI_DATA = {
           "The blocks are faster hoppers (Reinforced, Netherite, Enderite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite, Enderite), two stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
-          "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
+          "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles and its dev client starts, but no test runs on it. Its client-side displays are wired as on the other loaders: the Octant HUD, the Velocity Gauge's speed display and the Air Jump bar through Forge's HUD layers (AddGuiOverlayLayersEvent), the in-world markers and extra breaking cracks through the mixins LevelRendererMixin / LevelExtractorMixin, the enchantments' own book textures through SelectItemModelPropertiesMixin.",
           "The creative inventory has four tabs of its own: \"SimpleBuilding: Tools & Enchanting\" (chisels, building wands, sledgehammers, octants, Velocity Gauge, Ore Detector, Magnet, Rotator, Enderite tools and armour, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBuilding: Building Blocks\" (end stone, the Astralit, Nihilith and Ender Quartz palettes, quartz checkers, gravity blocks, Cracked Diamond Block, Enderite Block and Construction Light; icon: Astralit Bricks), \"SimpleBuilding: Materials\" (ores, shards, dust, Ender Quartz, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleBuilding: Machines & Storage\" (hoppers, pistons, furnaces, bundles, quivers and backpacks; icon: Netherite Hopper). Every item except the six legacy spatulas sits in exactly one of them.",
           "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. Many menu and status strings (in the hopper filter, on the Ore Detector, in the Octant HUD and on the Magnet) are hardcoded in English and cannot be translated at all.",
           "Every chapter follows the same layout: summary, details, controls (which key or click does what), a tier overview for tier families, and a limitations section. That section states plainly what does not (yet) work, e.g. tooltip texts that are never shown, or enchantments with no effect such as Cover and Bridge. Each chapter ends with the source files its statements come from.",
@@ -106,7 +106,7 @@ window.WIKI_DATA = {
           "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit, Enderit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit, Enderit), zwei stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
-          "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
+          "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert und sein Dev-Client startet, aber kein Test läuft darauf. Seine Client-Anzeigen sind wie auf den anderen Loadern verdrahtet: Oktant-HUD, Tacho-Anzeige des Geschwindigkeitsmessers und Luftsprung-Balken über Forges HUD-Ebenen (AddGuiOverlayLayersEvent), Weltmarkierungen und zusätzliche Abbau-Risse über die Mixins LevelRendererMixin / LevelExtractorMixin, die eigenen Buchtexturen der Verzauberungen über SelectItemModelPropertiesMixin.",
           "Das Kreativinventar hat vier eigene Reiter: „SimpleBuilding: Werkzeuge & Verzauberung“ (Meißel, Baustäbe, Vorschlaghämmer, Oktanten, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Enderit-Werkzeuge und -Rüstung sowie verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBuilding: Baublöcke“ (Endstein, die Astralit-, Nihilith- und Enderquarz-Paletten, Quarz-Schachbretter, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralit-Ziegel), „SimpleBuilding: Materialien“ (Erze, Splitter, Staub, Enderquarz, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleBuilding: Maschinen & Lager“ (Trichter, Kolben, Öfen, Bündel, Köcher und Rucksäcke; Symbol: Netherittrichter). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon.",
           "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Viele Menü- und Statustexte (etwa im Trichter-Filter, beim Erzdetektor, beim Oktant-HUD und beim Magneten) sind fest auf Englisch hinterlegt.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden, oder Verzauberungen ohne Wirkung wie Abdeckung und Brücke. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
@@ -287,7 +287,7 @@ window.WIKI_DATA = {
           "As soon as you have an iron ingot to spare, craft the Stone Sledgehammer: an iron ingot top left, two cobblestone next to it, two sticks in the middle column below. It mines like a stone pickaxe but takes a whole 3x3 face of identical blocks per swing, and holding right-click turns a full block into stairs and stairs into a slab. Every extra block broken costs 1 durability, so keep an eye on those 760 points.",
           "Sneaking is the mod's universal modifier: on the Chisel it reverses the direction, on the Sledgehammer it mines a single block, on enchanted pickaxes and axes it triggers Vein Miner, Strip Miner and Versatility, on the Octant it sets Pos 2, and the Magnet and a Funnel bundle pause while you do it.",
           "More room: the Reinforced Bundle is made from a bundle in the middle with a Diamond Pebble beside it, string on top and a Leather Sheet (nine leather in the crafting grid) below, and holds 96 items (at a stack size of 64); whatever the bundle held, its enchantments and its name carry over. The Quiver (bundle, string, leather, copper nugget) only takes arrows and feeds the bow automatically when it is in your offhand, in your chest slot or on your hotbar; the same crafting upgrade with a Quiver, a Leather Sheet and a Diamond Pebble makes the Reinforced Quiver (96 arrows, arrows and enchantments kept). The Diamond Pebble has one source, the Sledgehammer crushing a diamond block (see below).",
-          "For planning the build site: the Octant needs gold nuggets, a lead, gold ingots, a compass and a copper ingot; alternatively the Wandering Trader sells it for 10 emeralds. Right-click sets Pos 1, sneak + right-click sets Pos 2, the HUD (on Fabric and NeoForge) shows you distance, area or volume; G opens the Octant Manager.",
+          "For planning the build site: the Octant needs gold nuggets, a lead, gold ingots, a compass and a copper ingot; alternatively the Wandering Trader sells it for 10 emeralds. Right-click sets Pos 1, sneak + right-click sets Pos 2, the HUD shows you distance, area or volume; G opens the Octant Manager.",
           "The Building Wand is your first area tool: the Copper Building Wand is built from a Copper Core (top right) and two sticks diagonally below it. The Mason sells Copper Cores from level 2 for 25 emeralds (2 uses) and the Wandering Trader for 46 emeralds as a pair; the finished Copper Building Wand is also available from the Mason at level 4 for 62 emeralds. With blocks in your offhand or on your hotbar, right-click places a 3x3 face against the side of the block you clicked.",
           "A bit of iron brings the helpers: the Magnet (4 iron ingots, a lodestone, redstone, lapis lazuli; pulls in items within 4 blocks and never wears out) and the Rotator (5 iron ingots + an ender pearl; turns logs, furnaces, pistons and hoppers in place with a right-click). The Ore Detector (calibrated sculk sensor on top, compass in the middle, Gold Core at the bottom) is worth it once you have a Gold Core; the Wandering Trader sells a Gold Core for 30 emeralds.",
           "Material tiers for the Sledgehammer and Chisel: stone, copper, iron, gold, diamond, netherite, enderite; for the Building Wand the series starts at copper (3x3) and grows through iron (5x5), gold (7x7), diamond (9x9) and netherite (11x11) up to enderite (13x13). Higher hammer tiers are crafted with the matching block plus two ingots or diamonds, chisels with the ingot or diamond in the middle, building wands with the core of that tier.",
@@ -310,7 +310,7 @@ window.WIKI_DATA = {
           "Sobald du einen Eisenbarren übrig hast, baust du den Stein-Vorschlaghammer: Eisenbarren oben links, daneben zwei Bruchstein, darunter zwei Stöcke mittig. Er baut wie eine Steinspitzhacke, nimmt aber pro Schlag ein ganzes 3x3-Feld gleicher Blöcke mit, und mit gedrücktem Rechtsklick machst du aus einem vollen Block eine Treppe und aus der Treppe eine Stufe. Jeder zusätzlich abgebaute Block kostet 1 Haltbarkeit, also behalte die 760 Punkte im Blick.",
           "Schleichen ist der Universal-Modifikator der Mod: Beim Meißel kehrt es die Richtung um, beim Vorschlaghammer baut es nur einen Block ab, bei verzauberten Spitzhacken und Äxten löst es Aderabbau, Tunnelgräber und Vielseitigkeit aus, beim Oktanten setzt es Pos 2, und Magnet sowie Trichter-Bündel pausieren dabei.",
           "Mehr Platz: Das Verstärkte Bündel entsteht aus einem Bündel in der Mitte mit einem Diamantkiesel daneben, Faden oben und einer Lederplatte (neun Leder in der Werkbank) unten und fasst 96 Gegenstände (bei 64er-Stapeln); Inhalt, Verzauberungen und Name des Bündels bleiben dabei erhalten. Der Köcher (Bündel, Faden, Leder, Kupfer-Nugget) nimmt nur Pfeile auf und versorgt den Bogen automatisch, wenn er in der Nebenhand, im Brustpanzer-Slot oder der Schnellzugriffsleiste liegt; dieselbe Werkbank-Aufwertung mit Köcher, Lederplatte und Diamantkiesel ergibt den Verstärkten Köcher (96 Pfeile, Pfeile und Verzauberungen bleiben). Den Diamantkiesel gibt es nur auf einem Weg: der Vorschlaghammer zerkleinert einen Diamantblock (siehe unten).",
-          "Zum Planen der Baustelle: Der Oktant braucht Goldklumpen, Leine, Goldbarren, Kompass und Kupferbarren; alternativ verkauft ihn der fahrende Händler für 10 Smaragde. Rechtsklick setzt Pos 1, Schleichen + Rechtsklick Pos 2, das HUD (auf Fabric und NeoForge) zeigt dir Abstand, Fläche oder Volumen; mit G öffnest du den Oktant-Manager.",
+          "Zum Planen der Baustelle: Der Oktant braucht Goldklumpen, Leine, Goldbarren, Kompass und Kupferbarren; alternativ verkauft ihn der fahrende Händler für 10 Smaragde. Rechtsklick setzt Pos 1, Schleichen + Rechtsklick Pos 2, das HUD zeigt dir Abstand, Fläche oder Volumen; mit G öffnest du den Oktant-Manager.",
           "Der Baustab ist dein erstes Flächenwerkzeug: Der Kupfer-Baustab wird aus einem Kupferkern (oben rechts) und zwei Stöcken diagonal darunter gebaut. Kupferkerne verkauft der Steinmetz ab Stufe 2 für 25 Smaragde (2 Nutzungen) und der fahrende Händler für 46 Smaragde im Doppelpack; den fertigen Kupfer-Baustab gibt es auch beim Steinmetz ab Stufe 4 für 62 Smaragde. Mit Blöcken in Zweithand oder Hotbar setzt er per Rechtsklick eine 3x3-Fläche vor die angeklickte Blockseite.",
           "Mit etwas Eisen kommen die Helfer dazu: der Magnet (4 Eisenbarren, Leitstein, Redstone, Lapislazuli; zieht Items im Umkreis von 4 Blöcken an und nutzt sich nie ab) und der Rotator (5 Eisenbarren + Enderperle; dreht Stämme, Öfen, Kolben und Trichter per Rechtsklick an Ort und Stelle). Der Erzdetektor (kalibrierter Sculk-Sensor oben, Kompass in der Mitte, Goldkern unten) lohnt sich, sobald du einen Goldkern hast; den verkauft der fahrende Händler für 30 Smaragde.",
           "Materialstufen bei Vorschlaghammer und Meißel: Stein, Kupfer, Eisen, Gold, Diamant, Netherit, Enderit; beim Baustab beginnt die Reihe bei Kupfer (3x3) und wächst über Eisen (5x5), Gold (7x7), Diamant (9x9) und Netherit (11x11) bis Enderit (13x13). Höhere Hammerstufen werden mit dem jeweiligen Block plus zwei Barren bzw. Diamanten gebaut, Meißel mit dem Barren bzw. Diamanten in der Mitte, Baustäbe mit dem Kern der Stufe.",
@@ -487,7 +487,7 @@ window.WIKI_DATA = {
           "The blocks are faster hoppers (Reinforced, Netherite, Enderite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite, Enderite), four stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
-          "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
+          "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles and its dev client starts, but no test runs on it. Its client-side displays are wired as on the other loaders: the Octant HUD, the Velocity Gauge's speed display and the Air Jump bar through Forge's HUD layers (AddGuiOverlayLayersEvent), the in-world markers and extra breaking cracks through the mixins LevelRendererMixin / LevelExtractorMixin, the enchantments' own book textures through SelectItemModelPropertiesMixin.",
           "The creative inventory has four tabs of its own: \"SimpleBuilding: Tools & Enchanting\" (chisels, building wands, sledgehammers, octants, Velocity Gauge, Ore Detector, Magnet, Rotator, Enderite tools and armour, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBuilding: Building Blocks\" (end stone, the Astralit, Nihilith and Ender Quartz palettes, quartz checkers, gravity blocks, Cracked Diamond Block, Enderite Block and Construction Light; icon: Astralit Bricks), \"SimpleBuilding: Materials\" (ores, shards, dust, Ender Quartz, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleBuilding: Machines & Storage\" (hoppers, pistons, furnaces, bundles, quivers and backpacks; icon: Netherite Hopper). Every item except the six legacy spatulas sits in exactly one of them.",
           "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. Many menu and status strings (in the hopper filter, on the Ore Detector, in the Octant HUD and on the Magnet) are hardcoded in English and cannot be translated at all.",
           "Every chapter follows the same layout: summary, details, controls (which key or click does what), a tier overview for tier families, and a limitations section. That section states plainly what does not (yet) work, e.g. tooltip texts that are never shown, or enchantments with no effect such as Cover and Bridge. Each chapter ends with the source files its statements come from.",
@@ -511,7 +511,7 @@ window.WIKI_DATA = {
           "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit, Enderit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit, Enderit), vier stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
-          "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
+          "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert und sein Dev-Client startet, aber kein Test läuft darauf. Seine Client-Anzeigen sind wie auf den anderen Loadern verdrahtet: Oktant-HUD, Tacho-Anzeige des Geschwindigkeitsmessers und Luftsprung-Balken über Forges HUD-Ebenen (AddGuiOverlayLayersEvent), Weltmarkierungen und zusätzliche Abbau-Risse über die Mixins LevelRendererMixin / LevelExtractorMixin, die eigenen Buchtexturen der Verzauberungen über SelectItemModelPropertiesMixin.",
           "Das Kreativinventar hat vier eigene Reiter: „SimpleBuilding: Werkzeuge & Verzauberung“ (Meißel, Baustäbe, Vorschlaghämmer, Oktanten, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Enderit-Werkzeuge und -Rüstung sowie verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBuilding: Baublöcke“ (Endstein, die Astralit-, Nihilith- und Enderquarz-Paletten, Quarz-Schachbretter, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralit-Ziegel), „SimpleBuilding: Materialien“ (Erze, Splitter, Staub, Enderquarz, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleBuilding: Maschinen & Lager“ (Trichter, Kolben, Öfen, Bündel, Köcher und Rucksäcke; Symbol: Netherittrichter). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon.",
           "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Viele Menü- und Statustexte (etwa im Trichter-Filter, beim Erzdetektor, beim Oktant-HUD und beim Magneten) sind fest auf Englisch hinterlegt.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden, oder Verzauberungen ohne Wirkung wie Abdeckung und Brücke. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
@@ -744,7 +744,7 @@ window.WIKI_DATA = {
           "Dyed octants (octant + dye) have their own colour for the HUD and the markers and the same 128 durability as the plain octant; the colour can be washed off in a water cauldron, and the selection survives that (enchantments and damage do not).",
           "Sneak + right-click in the air resets the octant completely. The lock protects the selection from accidental clicking and scrolling (not from changes in the manager).",
           "Important: the octant does not build anything. It only measures and displays. The fill options Hollow, Layer Mode and Order on page 2 of the manager are stored, but no part of the mod evaluates them.",
-          "Loader note: HUD and world markers currently exist only on Fabric and NeoForge; on Forge they are not hooked up."
+          "Loader note: HUD and world markers exist on Fabric, NeoForge and Forge alike."
         ]
       },
       "de": {
@@ -761,7 +761,7 @@ window.WIKI_DATA = {
           "Gefärbte Oktanten (Oktant + Farbstoff) haben eine eigene Farbe für HUD und Markierungen und dieselbe Haltbarkeit von 128 wie der normale Oktant; im Wasserkessel lässt sich die Farbe wieder abwaschen, die Auswahl bleibt dabei erhalten (Verzauberungen und Schaden nicht).",
           "Schleichen + Rechtsklick in die Luft setzt den Oktanten komplett zurück. Die Sperre schützt die Auswahl vor versehentlichem Klicken und Scrollen (nicht vor Änderungen im Manager).",
           "Wichtig: Der Oktant baut nichts. Er misst und zeigt nur an. Die Fülloptionen Hohl, Ebenenmodus und Reihenfolge auf Seite 2 des Managers werden zwar gespeichert, aber von keinem Teil der Mod ausgewertet.",
-          "Loader-Hinweis: HUD und Weltmarkierungen gibt es derzeit nur auf Fabric und NeoForge; auf Forge sind sie nicht eingebunden."
+          "Loader-Hinweis: HUD und Weltmarkierungen gibt es auf Fabric, NeoForge und Forge gleichermaßen."
         ]
       }
     },
@@ -1683,10 +1683,10 @@ window.WIKI_DATA = {
           "The three hammer enchantments are bound to the tag sledgehammer_tools (Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer).",
           "None of the six enchantments is in the tag minecraft:in_enchanting_table (the mod only adds fast_chiseling there) - they never appear at the enchanting table; the cost values come from the definitions.",
           "Preview (Fabric: LevelRenderEvents.COLLECT_SUBMITS / END_EXTRACTION; NeoForge: SubmitCustomGeometryEvent / ExtractLevelRenderStateEvent; Forge, which has no such events: the mixins LevelRendererMixin / LevelExtractorMixin): the client draws breaking cracks on all connected blocks (hammer, Strip Miner, Vein Miner) and, for the hammer, an outline with a fill on top; the fill strength is steered by the buildingHighlightOpacity option (default 40). The extra cracks follow the crack vanilla itself draws at the targeted block: they also appear when vanilla mines on after the crosshair slipped off the block for a tick (it does that without its isDestroying flag), and never around a block vanilla is not mining.",
-          "Forge module: none of the in-world renderers is wired up and the enchant_type property for the book textures is not registered; the loot function simplebuilding:weighted_enchant is registered (ForgeRegistryBootstrap), and the mining handlers themselves (hammer, Strip Miner, Vein Miner, Versatility) are hooked up on Forge.",
+          "Forge module: the in-world renderers are wired through the mixins named above and the enchant_type property for the book textures through SelectItemModelPropertiesMixin; the loot function simplebuilding:weighted_enchant is registered (ForgeRegistryBootstrap), and the mining handlers themselves (hammer, Strip Miner, Vein Miner, Versatility) are hooked up on Forge.",
           "Where to find them: enchanted books sit in chests (woodland mansion, dungeon, abandoned mineshaft, nether fortress, bastion, ancient city, end city, stronghold library) and with traders (toolsmith level 4/5, librarian level 4/5, wandering trader); the loot entries hang off the enableLootTableChanges option, the traders off enableVillagerTrades and enableWanderingTrades respectively.",
           "The end city treasure chest also holds a Diamond Sledgehammer (weight 8) with a random enchantment (EnchantRandomlyFunction.randomEnchantment()).",
-          "In the creative inventory there is a book at max level for each of the six enchantments; on Fabric and NeoForge every book has its own texture (select model minecraft:enchanted_book with the property simplebuilding:enchant_type).",
+          "In the creative inventory there is a book at max level for each of the six enchantments; on Fabric, NeoForge and Forge every book has its own texture (select model minecraft:enchanted_book with the property simplebuilding:enchant_type).",
           "The mining code lives once in the shared tree and is the same on Fabric, Forge and NeoForge. In the 1.21.11 branch MiningUtils differs only in how it reaches the ore tags (BlockTags instead of BlockItemTags) - VeinMinerUsageEvent asks MiningUtils.isOre and is byte-identical on both lines - and MultiBlockBreakingSupport differs in its render-state imports, in the BlockBreakingRenderState constructor it calls and in how it reads the position of vanilla's crack (a blockPos field instead of the record accessor); the trader pools are code there (ModTradeDefinitions) with the same weights."
         ]
       },
@@ -1704,10 +1704,10 @@ window.WIKI_DATA = {
           "Die drei Hammer-Verzauberungen sind an das Tag sledgehammer_tools gebunden (Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit- und Enderit-Vorschlaghammer).",
           "Keine der sechs Verzauberungen steht im Tag minecraft:in_enchanting_table (die Mod trägt dort nur fast_chiseling ein) – sie erscheinen nicht an der Verzauberungstabelle; die Kostenwerte stammen aus den Definitionen.",
           "Vorschau (Fabric: LevelRenderEvents.COLLECT_SUBMITS / END_EXTRACTION; NeoForge: SubmitCustomGeometryEvent / ExtractLevelRenderStateEvent; Forge, das solche Events nicht hat: die Mixins LevelRendererMixin / LevelExtractorMixin): Der Client zeichnet Abbau-Risse auf allen verbundenen Blöcken (Hammer, Tunnelgräber, Aderabbau) und beim Hammer zusätzlich einen Umriss mit Füllung; die Füllstärke steuert die Option buildingHighlightOpacity (Standard 40). Die zusätzlichen Risse folgen dem Riss, den Vanilla selbst am anvisierten Block zeichnet: Sie erscheinen auch, wenn Vanilla weiter abbaut, nachdem das Fadenkreuz für einen Tick vom Block gerutscht ist (das tut es ohne sein isDestroying-Flag), und nie um einen Block, den Vanilla gar nicht abbaut.",
-          "Forge-Modul: keiner der In-Welt-Renderer ist verdrahtet, und die enchant_type-Property für die Buchtexturen ist nicht registriert; die Loot-Funktion simplebuilding:weighted_enchant wird registriert (ForgeRegistryBootstrap), und die Abbau-Handler selbst (Hammer, Tunnelgräber, Aderabbau, Vielseitigkeit) sind auf Forge angebunden.",
+          "Forge-Modul: die In-Welt-Renderer sind über die oben genannten Mixins verdrahtet, die enchant_type-Property für die Buchtexturen über SelectItemModelPropertiesMixin; die Loot-Funktion simplebuilding:weighted_enchant wird registriert (ForgeRegistryBootstrap), und die Abbau-Handler selbst (Hammer, Tunnelgräber, Aderabbau, Vielseitigkeit) sind auf Forge angebunden.",
           "Fundorte: verzauberte Bücher liegen in Truhen (Waldanwesen, Verlies, verlassene Mine, Netherfestung, Bastion, Antike Stadt, Endsiedlung, Festungsbibliothek) und bei Händlern (Werkzeugschmied Stufe 4/5, Bibliothekar Stufe 4/5, Wanderhändler); die Loot-Einträge hängen an der Option enableLootTableChanges, die Händler an enableVillagerTrades bzw. enableWanderingTrades.",
           "Die Endsiedlungs-Truhe enthält außerdem einen Diamant-Vorschlaghammer (Gewicht 8) mit Zufallsverzauberung (EnchantRandomlyFunction.randomEnchantment()).",
-          "Im Kreativ-Inventar liegt zu jeder der sechs Verzauberungen ein Buch auf Höchststufe; auf Fabric und NeoForge hat jedes Buch eine eigene Textur (Select-Modell minecraft:enchanted_book mit Property simplebuilding:enchant_type).",
+          "Im Kreativ-Inventar liegt zu jeder der sechs Verzauberungen ein Buch auf Höchststufe; auf Fabric, NeoForge und Forge hat jedes Buch eine eigene Textur (Select-Modell minecraft:enchanted_book mit Property simplebuilding:enchant_type).",
           "Der Abbau-Code liegt einmal im gemeinsamen Baum und ist auf Fabric, Forge und NeoForge derselbe. Im 1.21.11-Zweig unterscheidet sich MiningUtils nur im Zugriff auf die Erz-Tags (BlockTags statt BlockItemTags) – VeinMinerUsageEvent fragt MiningUtils.isOre und ist auf beiden Linien Byte für Byte gleich –, MultiBlockBreakingSupport zusätzlich in den Render-State-Importen, im Aufruf des BlockBreakingRenderState-Konstruktors, im Lesen der Position des Vanilla-Risses (Feld blockPos statt Record-Accessor) und in einem Kommentar (LevelRenderEvents gegen WorldRenderEvents); die Händler-Pools liegen dort als Code (ModTradeDefinitions) mit denselben Gewichten vor."
         ]
       }
@@ -1793,7 +1793,7 @@ window.WIKI_DATA = {
           "Using a bundle: left-click inserts, right-click with an empty cursor takes one item out; the config option tools.invertBundleInteractions swaps the two. On insertion, identical items are merged and the full stacks end up on top.",
           "Funnel turns the bundle into a vacuum cleaner: level I only picks up item types that are already inside, level II picks up everything; sneaking pauses the pickup; quivers only vacuum up arrows; your hands are checked before the rest of the inventory.",
           "Drawer allows up to 5 different item types according to the code (the language file wrongly says \"the specific item\" and \"chests\") and cannot be combined with Master Builder or Color Palette; there is no chest effect.",
-          "Air Jump (boots): press the jump key again while airborne; upward velocity 0.5, fall distance cleared, boots lose 1 durability; cooldown 100 ticks (config airJumpCooldownTicks), halved at level II, with an \"Air Jump\" HUD bar above the hotbar. Forge runs the same controller (level, cooldown, durability) but registers no HUD bar.",
+          "Air Jump (boots): press the jump key again while airborne; upward velocity 0.5, fall distance cleared, boots lose 1 durability; cooldown 100 ticks (config airJumpCooldownTicks), halved at level II, with an \"Air Jump\" HUD bar above the hotbar. Forge runs the same controller (level, cooldown, durability) and registers the same HUD bar.",
           "Kinetic Protection (armor, up to level IV): 2.5 protection points per level, but only against damage sources in the tag simplebuilding:kinetic_damage - and that one contains only minecraft:fly_into_wall; no Java code reads the enchantment.",
           "Range (chisels, sledgehammers, octants, mining tools; up to level III): +2 / +6 / +10 blocks of block interaction range in the main hand; the Magnet code would additionally grant 2 blocks of radius per level, but the Magnet is not in the target group.",
           "Targeted sources in the code: Deep Pockets II in Ancient Cities; Funnel I in bastions, Nether fortresses, dungeons and from the master librarian; Air Jump II in End Cities and I in trial chamber reward vaults; Range II in stronghold libraries, III in End Cities, I through III from the master librarian and I on the toolsmith's sledgehammers. Drawer and Kinetic Protection have no targeted source beyond the creative inventory.",
@@ -1812,7 +1812,7 @@ window.WIKI_DATA = {
           "Bündel bedienen: Linksklick legt ein, Rechtsklick mit leerem Cursor entnimmt; die Config-Option tools.invertBundleInteractions vertauscht beides. Beim Einfüllen werden gleiche Sorten zusammengeführt, volle Stapel liegen oben.",
           "Trichter macht das Bündel zum Staubsauger: Stufe I nur für Sorten, die schon drin sind, Stufe II für alles; Schleichen pausiert das Aufsaugen; Köcher saugen nur Pfeile; Hände werden vor dem restlichen Inventar geprüft.",
           "Schublade erlaubt laut Code bis zu 5 verschiedene Sorten (Sprachdatei sagt fälschlich \"ein Item\" und \"Truhen\") und ist nicht mit Baumeister oder Farbpalette kombinierbar; einen Truhen-Effekt gibt es nicht.",
-          "Luftsprung (Stiefel): In der Luft die Sprungtaste erneut drücken; Aufwärtsgeschwindigkeit 0,5, Fallhöhe wird gelöscht, Stiefel verlieren 1 Haltbarkeit; Abklingzeit 100 Ticks (Config airJumpCooldownTicks), auf Stufe II die Hälfte, mit HUD-Balken \"Air Jump\" über der Hotbar. Forge nutzt dieselbe Steuerung (Stufe, Abklingzeit, Haltbarkeit), registriert aber keinen HUD-Balken.",
+          "Luftsprung (Stiefel): In der Luft die Sprungtaste erneut drücken; Aufwärtsgeschwindigkeit 0,5, Fallhöhe wird gelöscht, Stiefel verlieren 1 Haltbarkeit; Abklingzeit 100 Ticks (Config airJumpCooldownTicks), auf Stufe II die Hälfte, mit HUD-Balken \"Air Jump\" über der Hotbar. Forge nutzt dieselbe Steuerung (Stufe, Abklingzeit, Haltbarkeit) und registriert denselben HUD-Balken.",
           "Kinetischer Schutz (Rüstung, bis Stufe IV): 2,5 Schutzpunkte je Stufe, aber nur gegen Schadensquellen im Tag simplebuilding:kinetic_damage, und der enthält nur minecraft:fly_into_wall; kein Java-Code wertet die Verzauberung aus.",
           "Reichweite (Meißel, Vorschlaghämmer, Oktanten, Abbauwerkzeuge; bis Stufe III): +2 / +6 / +10 Blöcke Block-Interaktionsreichweite in der Haupthand; der Magnet-Code würde zusätzlich 2 Blöcke Radius je Stufe geben, der Magnet ist aber nicht in der Zielgruppe.",
           "Gezielte Fundorte im Code: Tiefe Taschen II in Ancient Citys; Trichter I in Bastionen, Nether-Festungen, Verliesen und beim Meister-Bibliothekar; Luftsprung II in End Citys und I in Trial-Chamber-Belohnungen; Reichweite II in Festungs-Bibliotheken, III in End Citys, I bis III beim Meister-Bibliothekar und I auf Vorschlaghämmern des Werkzeugschmieds. Schublade und Kinetischer Schutz haben keine gezielte Fundquelle außer dem Kreativ-Inventar.",
@@ -2049,7 +2049,7 @@ window.WIKI_DATA = {
           "Using a bundle: left-click inserts, right-click with an empty cursor takes one item out; the config option tools.invertBundleInteractions swaps the two. On insertion, identical items are merged and the full stacks end up on top.",
           "Funnel turns the bundle into a vacuum cleaner: level I only picks up item types that are already inside, level II picks up everything; sneaking pauses the pickup; quivers only vacuum up arrows; your hands are checked before the rest of the inventory.",
           "Drawer allows up to 5 different item types according to the code (the language file wrongly says \"the specific item\" and \"chests\") and cannot be combined with Master Builder or Color Palette; there is no chest effect.",
-          "Air Jump (boots): press the jump key again while airborne; upward velocity 0.5, fall distance cleared, boots lose 1 durability; cooldown 100 ticks (config airJumpCooldownTicks), halved at level II, with an \"Air Jump\" HUD bar above the hotbar. Forge runs the same controller (level, cooldown, durability) but registers no HUD bar.",
+          "Air Jump (boots): press the jump key again while airborne; upward velocity 0.5, fall distance cleared, boots lose 1 durability; cooldown 100 ticks (config airJumpCooldownTicks), halved at level II, with an \"Air Jump\" HUD bar above the hotbar. Forge runs the same controller (level, cooldown, durability) and registers the same HUD bar.",
           "Kinetic Protection (armor, up to level IV): 2.5 protection points per level, but only against damage sources in the tag simplebuilding:kinetic_damage - and that one contains only minecraft:fly_into_wall; no Java code reads the enchantment.",
           "Range (chisels, sledgehammers, octants, mining tools; up to level III): +2 / +6 / +10 blocks of block interaction range in the main hand; the Magnet code would additionally grant 2 blocks of radius per level, but the Magnet is not in the target group.",
           "Targeted sources in the code: Deep Pockets II in Ancient Cities; Funnel I in bastions, Nether fortresses, dungeons and from the master librarian; Air Jump II in End Cities and I in trial chamber reward vaults; Range II in stronghold libraries, III in End Cities, I through III from the master librarian and I on the toolsmith's sledgehammers. Drawer and Kinetic Protection have no targeted source beyond the creative inventory.",
@@ -2068,7 +2068,7 @@ window.WIKI_DATA = {
           "Bündel bedienen: Linksklick legt ein, Rechtsklick mit leerem Cursor entnimmt; die Config-Option tools.invertBundleInteractions vertauscht beides. Beim Einfüllen werden gleiche Sorten zusammengeführt, volle Stapel liegen oben.",
           "Trichter macht das Bündel zum Staubsauger: Stufe I nur für Sorten, die schon drin sind, Stufe II für alles; Schleichen pausiert das Aufsaugen; Köcher saugen nur Pfeile; Hände werden vor dem restlichen Inventar geprüft.",
           "Schublade erlaubt laut Code bis zu 5 verschiedene Sorten (Sprachdatei sagt fälschlich \"ein Item\" und \"Truhen\") und ist nicht mit Baumeister oder Farbpalette kombinierbar; einen Truhen-Effekt gibt es nicht.",
-          "Luftsprung (Stiefel): In der Luft die Sprungtaste erneut drücken; Aufwärtsgeschwindigkeit 0,5, Fallhöhe wird gelöscht, Stiefel verlieren 1 Haltbarkeit; Abklingzeit 100 Ticks (Config airJumpCooldownTicks), auf Stufe II die Hälfte, mit HUD-Balken \"Air Jump\" über der Hotbar. Forge nutzt dieselbe Steuerung (Stufe, Abklingzeit, Haltbarkeit), registriert aber keinen HUD-Balken.",
+          "Luftsprung (Stiefel): In der Luft die Sprungtaste erneut drücken; Aufwärtsgeschwindigkeit 0,5, Fallhöhe wird gelöscht, Stiefel verlieren 1 Haltbarkeit; Abklingzeit 100 Ticks (Config airJumpCooldownTicks), auf Stufe II die Hälfte, mit HUD-Balken \"Air Jump\" über der Hotbar. Forge nutzt dieselbe Steuerung (Stufe, Abklingzeit, Haltbarkeit) und registriert denselben HUD-Balken.",
           "Kinetischer Schutz (Rüstung, bis Stufe IV): 2,5 Schutzpunkte je Stufe, aber nur gegen Schadensquellen im Tag simplebuilding:kinetic_damage, und der enthält nur minecraft:fly_into_wall; kein Java-Code wertet die Verzauberung aus.",
           "Reichweite (Meißel, Vorschlaghämmer, Oktanten, Abbauwerkzeuge; bis Stufe III): +2 / +6 / +10 Blöcke Block-Interaktionsreichweite in der Haupthand; der Magnet-Code würde zusätzlich 2 Blöcke Radius je Stufe geben, der Magnet ist aber nicht in der Zielgruppe.",
           "Gezielte Fundorte im Code: Tiefe Taschen II in Ancient Citys; Trichter I in Bastionen, Nether-Festungen, Verliesen und beim Meister-Bibliothekar; Luftsprung II in End Citys und I in Trial-Chamber-Belohnungen; Reichweite II in Festungs-Bibliotheken, III in End Citys, I bis III beim Meister-Bibliothekar und I auf Vorschlaghämmern des Werkzeugschmieds. Schublade und Kinetischer Schutz haben keine gezielte Fundquelle außer dem Kreativ-Inventar.",
@@ -2119,7 +2119,7 @@ window.WIKI_DATA = {
           "If enableDoubleJump is switched off in the configuration, no air jumps are triggered and a running cooldown is reset to 0.",
           "Loot table sources (only with enableLootTableChanges): an \"Air Jump II\" enchanted book in the extra pool of End City treasure chests (weight 5, 0-3 rolls), \"Air Jump I\" in the extra pool of the rare and ominous trial chamber reward vaults (weight 7, 0-1 rolls).",
           "Enchanted books with Air Jump get their own book model (model variant \"double_jump\" -> simplebuilding:item/enchanted_book_double_jump).",
-          "The logic is identical on all three loaders: Fabric, NeoForge and Forge call the same shared controller (DoubleJumpController.tick) once per client tick; Fabric and NeoForge also register the same HUD layer, Forge registers none."
+          "The logic is identical on all three loaders: Fabric, NeoForge and Forge call the same shared controller (DoubleJumpController.tick) once per client tick; all three also register the same HUD layer (Forge through AddGuiOverlayLayersEvent)."
         ]
       },
       "de": {
@@ -2139,7 +2139,7 @@ window.WIKI_DATA = {
           "Ist enableDoubleJump in der Konfiguration ausgeschaltet, werden keine Luftsprünge ausgelöst und die laufende Abklingzeit wird auf 0 zurückgesetzt.",
           "Fundorte per Beutetabelle (nur mit enableLootTableChanges): Verzaubertes Buch „Luftsprung II“ im Zusatzpool der Endsiedlungs-Schatztruhen (Gewicht 5, 0–3 Würfe), „Luftsprung I“ im Zusatzpool der seltenen und unheilvollen Tresore der Prüfungskammern (Gewicht 7, 0–1 Würfe).",
           "Verzauberte Bücher mit Luftsprung bekommen ein eigenes Buchmodell (Modellvariante „double_jump“ → simplebuilding:item/enchanted_book_double_jump).",
-          "Die Logik ist auf allen drei Loadern identisch: Fabric, NeoForge und Forge rufen pro Client-Tick dieselbe geteilte Steuerung (DoubleJumpController.tick) auf; Fabric und NeoForge registrieren zudem dieselbe HUD-Ebene, Forge keine."
+          "Die Logik ist auf allen drei Loadern identisch: Fabric, NeoForge und Forge rufen pro Client-Tick dieselbe geteilte Steuerung (DoubleJumpController.tick) auf; alle drei registrieren zudem dieselbe HUD-Ebene (Forge über AddGuiOverlayLayersEvent)."
         ]
       }
     },
@@ -10916,7 +10916,7 @@ window.WIKI_DATA = {
             "While the octant is locked, right-clicking a block only puts a red lock icon on the action bar: it costs no durability and changes nothing. Clearing the selection with a sneak-click in the air is blocked as well.",
             "The item name shows the selected shape in brackets as soon as it is not Cuboid, e.g. \"Octant (Cylinder)\".",
             "Tooltip: a locked octant shows a red, bold lock; Pos 1 is listed in yellow and Pos 2 in green as coordinates (Pos 2 only when Pos 1 exists).",
-            "HUD (Fabric and NeoForge) on the left edge of the screen (x = 10, vertically centred) as soon as an octant is in your main hand or off hand (the main hand wins); it is hidden while the Octant Manager is open.",
+            "HUD on the left edge of the screen (x = 10, vertically centred) as soon as an octant is in your main hand or off hand (the main hand wins); it is hidden while the Octant Manager is open.",
             "HUD content: item name (aqua when enchanted, otherwise white), Pos 1, Pos 2, or the hints \"Right-Click block to set Pos 1\" and \"Sneak + R-Click to set Pos 2\" (the latter only once Pos 1 is set).",
             "HUD measurement with two positions: if both sit at the same height and in a line it reads \"Distance: N blocks\"; at the same height but as an area, \"Area: N blocks²\" with \"(width x depth)\"; otherwise \"Volume: N blocks³\" with \"(width x height x depth)\". Both corner blocks count (edge length = difference + 1).",
             "If a Velocity Gauge is held at the same time, the octant box moves 35 pixels up and the speedometer box 35 pixels down so the two do not overlap.",
@@ -10964,8 +10964,8 @@ window.WIKI_DATA = {
             "Rectangle (2D) and Ellipse (2D) do not force a flat selection: they use the same box built from P1 and P2. Rectangle is drawn exactly like Cuboid, Ellipse exactly like Cylinder.",
             "The axis only affects Cylinder, Ellipse, Pyramid and Prism; Cuboid, Rectangle and Sphere ignore it.",
             "The HUD texts (\"Pos 1\", \"Distance\", \"Area\", \"Volume\", the hints), the manager's page buttons (\">> Settings\", \"<< Selection\") and the ON/OFF values of Hollow and Layer Mode are hard-coded English, independent of the game language.",
-            "On Forge the HUD and the world markers (corner outlines and area figure) are missing entirely: the Forge client hooks up neither the HUD overlay nor the in-world renderer (not yet ported, according to the class comment). Setting corners, the manager, the mouse wheel and the tooltip still work there.",
-            "On Forge the status messages of the toggle keys (\"Highlights: ON/OFF\", \"Octant Figure: ON/OFF\") land in chat, on Fabric and NeoForge on the action bar."
+            "On Forge the HUD hangs in Forge's HUD layers (AddGuiOverlayLayersEvent) and the world markers (corner outlines and area figure) are drawn through LevelRendererMixin, so everything works as on Fabric and NeoForge.",
+            "The status messages of the toggle keys (\"Highlights: ON/OFF\", \"Octant Figure: ON/OFF\") land on the action bar on every loader."
           ]
         },
         "de": {
@@ -10979,7 +10979,7 @@ window.WIKI_DATA = {
             "Ist der Oktant gesperrt, zeigt ein Rechtsklick auf einen Block nur ein rotes Schloss-Symbol in der Aktionsleiste, kostet keine Haltbarkeit und ändert nichts; auch das Löschen per Schleichen in die Luft ist dann nicht möglich.",
             "Der Item-Name zeigt die gewählte Form in Klammern an, sobald sie nicht Quader ist, z.B. \"Oktant (Zylinder)\".",
             "Tooltip: gesperrte Oktanten zeigen ein rotes, fettes Schloss; Pos 1 wird gelb, Pos 2 grün als Koordinaten angezeigt (Pos 2 nur, wenn Pos 1 vorhanden ist).",
-            "HUD-Anzeige (Fabric und NeoForge) links am Bildschirmrand (x = 10, vertikal zentriert), sobald ein Oktant in Haupt- oder Nebenhand liegt (Haupthand hat Vorrang); sie ist ausgeblendet, solange der Oktant-Manager offen ist.",
+            "HUD-Anzeige links am Bildschirmrand (x = 10, vertikal zentriert), sobald ein Oktant in Haupt- oder Nebenhand liegt (Haupthand hat Vorrang); sie ist ausgeblendet, solange der Oktant-Manager offen ist.",
             "HUD-Inhalt: Item-Name (türkis, wenn verzaubert, sonst weiß), Pos 1, Pos 2 oder die Hinweise \"Right-Click block to set Pos 1\" bzw. \"Sneak + R-Click to set Pos 2\" (letzterer nur, wenn Pos 1 schon gesetzt ist).",
             "HUD-Messwert bei zwei Positionen: Liegen beide auf gleicher Höhe und in einer Linie, steht dort \"Distance: N blocks\"; auf gleicher Höhe, aber als Fläche, \"Area: N blocks²\" mit \"(Breite x Tiefe)\"; sonst \"Volume: N blocks³\" mit \"(Breite x Höhe x Tiefe)\". Beide Eckblöcke zählen mit (Kantenlänge = Differenz + 1).",
             "Wird gleichzeitig ein Geschwindigkeitsmesser gehalten, rückt die Oktant-Box um 35 Pixel nach oben und die Tacho-Box um 35 Pixel nach unten, damit sich beide nicht überlappen.",
@@ -11027,8 +11027,8 @@ window.WIKI_DATA = {
             "Rechteck (2D) und Ellipse (2D) erzwingen keine flache Auswahl: Sie nutzen denselben Kasten aus P1 und P2. Rechteck wird genauso gezeichnet wie Quader, Ellipse genauso wie Zylinder.",
             "Die Achse wirkt nur auf Zylinder, Ellipse, Pyramide und Prisma; Quader, Rechteck und Kugel ignorieren sie.",
             "HUD-Texte (\"Pos 1\", \"Distance\", \"Area\", \"Volume\", die Hinweise), die Seitenknöpfe des Managers (\">> Settings\", \"<< Selection\") sowie die ON/OFF-Werte von Hohl und Ebenenmodus sind fest englisch, unabhängig von der Spielsprache.",
-            "Auf Forge fehlen die HUD-Anzeige und die Weltmarkierungen (Eckpunkt-Umrisse und Flächenfigur) komplett: Der Forge-Client bindet weder das HUD-Overlay noch den In-World-Renderer ein (laut Klassenkommentar noch nicht portiert). Setzen, Manager, Mausrad und Tooltip funktionieren dort trotzdem.",
-            "Auf Forge landen die Statusmeldungen der Umschalttasten (\"Highlights: ON/OFF\", \"Octant Figure: ON/OFF\") im Chat, auf Fabric und NeoForge in der Aktionsleiste."
+            "Auf Forge hängt die HUD-Anzeige in Forges HUD-Ebenen (AddGuiOverlayLayersEvent), die Weltmarkierungen (Eckpunkt-Umrisse und Flächenfigur) zeichnet LevelRendererMixin; alles funktioniert wie auf Fabric und NeoForge.",
+            "Die Statusmeldungen der Umschalttasten (\"Highlights: ON/OFF\", \"Octant Figure: ON/OFF\") landen auf jedem Loader in der Aktionsleiste."
           ]
         },
         "sources": [
@@ -26792,7 +26792,7 @@ window.WIKI_DATA = {
             "Chests (only with enableLootTableChanges): bastion (treasure and other chests) book I (weight 5), bastion treasure room book II (3); nether fortress I (2); dungeon I (8).",
             "Traders (only with enableVillagerTrades): level 4 toolsmith - Iron Sledgehammer (16 emeralds + an iron pickaxe) and Diamond Sledgehammer (28 emeralds + a diamond pickaxe) with Break Through I (weight 5) in the enchantment pool.",
             "On the MC 1.21.11 line the same trader pools exist as code (ModTradeDefinitions).",
-            "In the creative inventory the book sits at level II; on Fabric and NeoForge the book has its own texture (enchanted_book_break_through.png)."
+            "In the creative inventory the book sits at level II; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_break_through.png)."
           ],
           "controls": [
             "No controls of its own; it works automatically while mining with the sledgehammer.",
@@ -26808,7 +26808,7 @@ window.WIKI_DATA = {
             "Level II only comes from the creative inventory; chests and traders deliver level I exclusively.",
             "The slowdown counts the blocks that really break, so level II slows more than level I (up to the cap); while sneaking there is none.",
             "The generated exclusive tag exclusive_set/break_through_group contains only Break Through itself; no enchantment definition references it and no gameplay code reads it (only the datagen provider that writes the file) - it has no effect.",
-            "On Forge the dedicated book texture is missing."
+            "On Forge the dedicated book texture comes through SelectItemModelPropertiesMixin."
           ]
         },
         "de": {
@@ -26826,7 +26826,7 @@ window.WIKI_DATA = {
             "Truhen (nur bei enableLootTableChanges): Bastion (Schatz- und sonstige Truhen) Buch I (Gewicht 5), Bastion-Schatzraum Buch II (3); Netherfestung I (2); Verlies I (8).",
             "Händler (nur bei enableVillagerTrades): Werkzeugschmied Stufe 4 – Eisen-Vorschlaghammer (16 Smaragde + Eisenspitzhacke) und Diamant-Vorschlaghammer (28 Smaragde + Diamantspitzhacke) mit Durchbruch I (Gewicht 5) im Verzauberungspool.",
             "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools als Code vor (ModTradeDefinitions).",
-            "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric und NeoForge hat das Buch eine eigene Textur (enchanted_book_break_through.png)."
+            "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_break_through.png)."
           ],
           "controls": [
             "Keine eigene Bedienung; wirkt automatisch beim Abbauen mit dem Vorschlaghammer.",
@@ -26842,7 +26842,7 @@ window.WIKI_DATA = {
             "Stufe II gibt es nur aus dem Kreativ-Inventar; Truhen und Händler liefern ausschließlich Stufe I.",
             "Die Verlangsamung zählt die Blöcke, die wirklich brechen; Stufe II verlangsamt also stärker als Stufe I (bis zur Obergrenze); beim Schleichen gibt es keine.",
             "Das generierte Exklusiv-Tag exclusive_set/break_through_group enthält nur Durchbruch selbst und wird von keiner Verzauberungsdefinition und keiner Code-Stelle verwendet – es hat keine Wirkung.",
-            "Auf Forge fehlt die eigene Buchtextur."
+            "Auf Forge kommt die eigene Buchtextur über SelectItemModelPropertiesMixin."
           ]
         },
         "sources": [
@@ -27394,7 +27394,7 @@ window.WIKI_DATA = {
             "Effect on the server (ModMessageHandlers.handleDoubleJump, plus an inline copy in ModMessages on the Fabric line): if the boots slot carries the enchantment, fall distance is set to 0 (any fall damage built up so far is wiped) and the boots lose 1 durability; no wear in creative mode.",
             "Cooldown: the config value airJumpCooldownTicks (default 100 ticks; per the code comment 20 ticks is one second, so 5 seconds) at level I; at level II or higher half of that (at least 1 tick), so 50 ticks at the default value.",
             "The cooldown counts down every client tick, including after you land; touching the ground does not reset it.",
-            "HUD display (Fabric and NeoForge, only while the cooldown is running): an 80 by 5 pixel bar with a 1-pixel border, centred with its top edge 55 pixels above the bottom of the screen, and 10 pixels above that the label \"Air Jump\"; the bar fills amber as the charge builds and disappears once the cooldown has run out.",
+            "HUD display (only while the cooldown is running): an 80 by 5 pixel bar with a 1-pixel border, centred with its top edge 55 pixels above the bottom of the screen, and 10 pixels above that the label \"Air Jump\"; the bar fills amber as the charge builds and disappears once the cooldown has run out.",
             "Turning off the config option enableDoubleJump (default: on) disables the feature entirely on the client and clears any running cooldown.",
             "Chest loot (only with worldGen.enableLootTableChanges): a level II book in End City treasure chests (weight 5, 0 to 3 rolls), a level I book in the rare and ominous trial chamber reward vaults (weight 7, 0 to 1 roll).",
             "The creative inventory holds an enchanted book at max level (II).",
@@ -27406,7 +27406,7 @@ window.WIKI_DATA = {
             "Holding the jump key down does nothing - the key has to be pressed afresh."
           ],
           "caveats": [
-            "Forge loader (folder forge/): the air jump itself runs through the shared DoubleJumpController as on Fabric and NeoForge, with the same cooldown; only the HUD bar is missing, because the Forge client registers no HUD layer (SimplebuildingForgeClient).",
+            "Forge loader (folder forge/): the air jump itself runs through the shared DoubleJumpController as on Fabric and NeoForge, with the same cooldown; the HUD bar is registered as a Forge HUD layer (AddGuiOverlayLayersEvent in SimplebuildingForgeClient).",
             "The cooldown is tracked on the client only; the server handler checks neither the cooldown nor the enableDoubleJump config option.",
             "The green \"fully charged\" colour defined in the HUD code (FILL_READY) is never actually drawn: the bar is only rendered while the cooldown is running, and the fill is then always below 100%.",
             "Not in the tag minecraft:in_enchanting_table (the mod only puts Fast Chiseling in there).",
@@ -27425,7 +27425,7 @@ window.WIKI_DATA = {
             "Wirkung auf dem Server (ModMessageHandlers.handleDoubleJump, in der Fabric-Linie zusätzlich inline in ModMessages): Trägt der Stiefel-Slot die Verzauberung, wird die Fallhöhe auf 0 gesetzt (bisher gesammelter Fallschaden entfällt) und die Stiefel verlieren 1 Haltbarkeit; im Kreativmodus keine Abnutzung.",
             "Abklingzeit: Config-Wert airJumpCooldownTicks (Standard 100 Ticks; laut Code-Kommentar sind 20 Ticks eine Sekunde, also 5 Sekunden) auf Stufe I; auf Stufe II oder höher die Hälfte (mindestens 1 Tick), bei Standardwert also 50 Ticks.",
             "Die Abklingzeit zählt jeden Client-Tick herunter, auch nach der Landung; man kann sie nicht durch Bodenkontakt zurücksetzen.",
-            "HUD-Anzeige (Fabric und NeoForge, nur während die Abklingzeit läuft): mittig, 55 Pixel über dem unteren Rand ein 80 mal 5 Pixel großer Balken mit 1-Pixel-Rahmen, darüber (10 Pixel höher) die Beschriftung \"Air Jump\"; der Balken füllt sich bernsteinfarben mit dem Fortschritt der Aufladung und verschwindet, sobald die Abklingzeit abgelaufen ist.",
+            "HUD-Anzeige (nur während die Abklingzeit läuft): mittig, 55 Pixel über dem unteren Rand ein 80 mal 5 Pixel großer Balken mit 1-Pixel-Rahmen, darüber (10 Pixel höher) die Beschriftung \"Air Jump\"; der Balken füllt sich bernsteinfarben mit dem Fortschritt der Aufladung und verschwindet, sobald die Abklingzeit abgelaufen ist.",
             "Die Config-Option enableDoubleJump (Standard: an) schaltet die Funktion auf dem Client komplett ab und setzt die Abklingzeit zurück.",
             "Truhen-Loot (nur mit worldGen.enableLootTableChanges): Buch Stufe II in End-City-Truhen (Gewicht 5, 0 bis 3 Würfe), Buch Stufe I in seltenen und unheilvollen Trial-Chamber-Belohnungen (Gewicht 7, 0 bis 1 Wurf).",
             "Im Kreativ-Inventar liegt ein verzaubertes Buch auf Höchststufe (II).",
@@ -27437,7 +27437,7 @@ window.WIKI_DATA = {
             "Sprungtaste gedrückt halten: kein Luftsprung, die Taste muss neu gedrückt werden."
           ],
           "caveats": [
-            "Forge-Loader (Ordner forge/): Der Luftsprung selbst läuft wie auf Fabric und NeoForge über den geteilten DoubleJumpController, mit derselben Abklingzeit; es fehlt nur der HUD-Balken, weil der Forge-Client keine HUD-Ebene registriert (SimplebuildingForgeClient).",
+            "Forge-Loader (Ordner forge/): Der Luftsprung selbst läuft wie auf Fabric und NeoForge über den geteilten DoubleJumpController, mit derselben Abklingzeit; der HUD-Balken hängt als Forge-HUD-Ebene (AddGuiOverlayLayersEvent in SimplebuildingForgeClient).",
             "Die Abklingzeit wird nur auf dem Client geführt; der Server-Handler prüft weder die Abklingzeit noch die Config-Option enableDoubleJump.",
             "Die im HUD-Code definierte grüne Farbe für \"voll aufgeladen\" (FILL_READY) wird nie gezeichnet: Der Balken wird nur bei laufender Abklingzeit gerendert, und dann ist der Füllstand immer unter 100 %.",
             "Nicht im Tag minecraft:in_enchanting_table (die Mod trägt dort nur Schnelles Meißeln ein).",
@@ -28087,7 +28087,7 @@ window.WIKI_DATA = {
             "Chests (only with enableLootTableChanges): end city treasure chest book II (weight 5).",
             "Traders (only with enableVillagerTrades): a level 4 librarian sells a book for 25 emeralds from the pool Linear I (25) / Override I (20), at most 2 uses; a level 4 toolsmith sells the Iron Sledgehammer for 16 emeralds + an iron pickaxe and the Diamond Sledgehammer for 28 emeralds + a diamond pickaxe, each with one enchantment out of Override I (15), Break Through I (5), Range I (10), Unbreaking II (50), Efficiency III (50); chance of a second, different enchantment: iron 0.01, diamond 0.15.",
             "On the MC 1.21.11 line the same trader pools exist as code (ModTradeDefinitions).",
-            "In the creative inventory the book sits at level II; on Fabric and NeoForge the book has its own texture (enchanted_book_override.png)."
+            "In the creative inventory the book sits at level II; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_override.png)."
           ],
           "controls": [
             "No controls of its own; it works automatically while mining with the sledgehammer, whether you sneak or not.",
@@ -28118,7 +28118,7 @@ window.WIKI_DATA = {
             "Truhen (nur bei enableLootTableChanges): Endsiedlung Buch II (Gewicht 5).",
             "Händler (nur bei enableVillagerTrades): Bibliothekar Stufe 4 verkauft für 25 Smaragde ein Buch aus dem Pool Linear I (25) / Übersteuerung I (20), maximal 2 Käufe; Werkzeugschmied Stufe 4 verkauft den Eisen-Vorschlaghammer für 16 Smaragde + Eisenspitzhacke und den Diamant-Vorschlaghammer für 28 Smaragde + Diamantspitzhacke, jeweils mit einer Verzauberung aus Übersteuerung I (15), Durchbruch I (5), Reichweite I (10), Haltbarkeit II (50), Effizienz III (50); Chance auf eine zweite, andere Verzauberung: Eisen 0,01, Diamant 0,15.",
             "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools als Code vor (ModTradeDefinitions).",
-            "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric und NeoForge hat das Buch eine eigene Textur (enchanted_book_override.png)."
+            "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_override.png)."
           ],
           "controls": [
             "Keine eigene Bedienung; wirkt automatisch beim Abbauen mit dem Vorschlaghammer, unabhängig vom Schleichen.",
@@ -28199,7 +28199,7 @@ window.WIKI_DATA = {
             "Chests (only with enableLootTableChanges): ancient city book I (weight 4).",
             "Traders (only with enableWanderingTrades): the wandering trader (\"uncommon\" pool) sells a book for 40 emeralds from a pool that holds only Radius I (weight 20), 1 use.",
             "On the MC 1.21.11 line the same wandering trader pool exists as code (ModTradeDefinitions).",
-            "In the creative inventory the book sits at level I; on Fabric and NeoForge the book has its own texture (enchanted_book_radius.png).",
+            "In the creative inventory the book sits at level I; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_radius.png).",
             "Radius also fits the Ore Detector (item tag simplebuilding:radius_enchantable = the sledgehammers plus the Ore Detector); there it raises the scan power of gold by 2 and of diamond, emerald, ancient debris and the End ores by 6, and leaves the common ores at 24."
           ],
           "controls": [
@@ -28212,7 +28212,7 @@ window.WIKI_DATA = {
             "Together with Break Through up to 50 blocks break, but the slowdown is capped at 25 blocks - the hammer is no slower than with Radius alone.",
             "Villagers do not offer Radius, only the wandering trader does (the toolsmith hammers carry \"range\", which is the Range enchantment, not Radius).",
             "The generated exclusive tag exclusive_set/radius_group contains only Radius itself; no enchantment definition references it and no gameplay code reads it (only the datagen provider that writes the file) - it has no effect.",
-            "On Forge the dedicated book texture is missing."
+            "On Forge the dedicated book texture comes through SelectItemModelPropertiesMixin."
           ]
         },
         "de": {
@@ -28230,7 +28230,7 @@ window.WIKI_DATA = {
             "Truhen (nur bei enableLootTableChanges): Antike Stadt Buch I (Gewicht 4).",
             "Händler (nur bei enableWanderingTrades): Wanderhändler (Pool „uncommon“) verkauft für 40 Smaragde ein Buch aus einem Pool, der nur Radius I (Gewicht 20) enthält, 1 Kauf.",
             "Auf der MC-1.21.11-Linie liegt derselbe Wanderhändler-Pool als Code vor (ModTradeDefinitions).",
-            "Im Kreativ-Inventar liegt das Buch auf Stufe I; auf Fabric und NeoForge hat das Buch eine eigene Textur (enchanted_book_radius.png).",
+            "Im Kreativ-Inventar liegt das Buch auf Stufe I; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_radius.png).",
             "Radius passt auch auf den Erzdetektor (Item-Tag simplebuilding:radius_enchantable = die Vorschlaghämmer plus der Erzdetektor); dort hebt er die Suchleistung für Gold um 2 und für Diamant, Smaragd, Antiken Schrott und die End-Erze um 6 und lässt die gewöhnlichen Erze bei 24."
           ],
           "controls": [
@@ -28243,7 +28243,7 @@ window.WIKI_DATA = {
             "Zusammen mit Durchbruch brechen bis zu 50 Blöcke, die Verlangsamung ist aber bei 25 Blöcken gedeckelt – langsamer als mit Radius allein wird der Hammer dadurch nicht.",
             "Dorfbewohner bieten Radius nicht an, nur der Wanderhändler (die Werkzeugschmied-Hämmer enthalten „range“ = Reichweite, nicht Radius).",
             "Das generierte Exklusiv-Tag exclusive_set/radius_group enthält nur Radius selbst und wird von keiner Verzauberungsdefinition und keiner Code-Stelle verwendet – es hat keine Wirkung.",
-            "Auf Forge fehlt die eigene Buchtextur."
+            "Auf Forge kommt die eigene Buchtextur über SelectItemModelPropertiesMixin."
           ]
         },
         "sources": [
@@ -28408,7 +28408,7 @@ window.WIKI_DATA = {
             "Chests (only with enableLootTableChanges): nether fortress book I (weight 6), II (3); abandoned mineshaft I (8), III (3).",
             "Traders (only with enableVillagerTrades): a level 5 toolsmith sells a diamond pickaxe for 15 emeralds with Strip Miner I/II/III (weights 40/30/10) or Vein Miner (0.1 chance of a second, different enchantment); a level 5 librarian sells a book for 25 emeralds with Strip Miner I (20), II (10), III (5) in the pool.",
             "On the MC 1.21.11 line the same trader pools exist as code with the same weights (ModTradeDefinitions).",
-            "In the creative inventory the book sits at level III; on Fabric and NeoForge the book has its own texture (enchanted_book_strip_miner.png)."
+            "In the creative inventory the book sits at level III; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_strip_miner.png)."
           ],
           "controls": [
             "Hold sneak (Shift) and mine with the pickaxe; the tunnel opens up in the direction you are looking.",
@@ -28425,7 +28425,7 @@ window.WIKI_DATA = {
             "The tunnel breaks off at the first obstacle; blocks behind it are not taken any more.",
             "Level III digs 4 extra blocks, not 3.",
             "The trade function weighted_enchant does not check the exclusive set: the toolsmith's second roll (0.1 chance) puts Vein Miner next to Strip Miner on the same pickaxe.",
-            "On Forge the dedicated book texture is missing."
+            "On Forge the dedicated book texture comes through SelectItemModelPropertiesMixin."
           ]
         },
         "de": {
@@ -28444,7 +28444,7 @@ window.WIKI_DATA = {
             "Truhen (nur bei enableLootTableChanges): Netherfestung Buch I (Gewicht 6), II (3); verlassene Mine I (8), III (3).",
             "Händler (nur bei enableVillagerTrades): Werkzeugschmied Stufe 5 verkauft für 15 Smaragde eine Diamantspitzhacke mit Tunnelgräber I/II/III (Gewichte 40/30/10) oder Aderabbau (Chance 0,1 auf eine zweite, andere Verzauberung); Bibliothekar Stufe 5 verkauft für 25 Smaragde ein Buch mit Tunnelgräber I (20), II (10), III (5) im Pool.",
             "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools mit denselben Gewichten als Code vor (ModTradeDefinitions).",
-            "Im Kreativ-Inventar liegt das Buch auf Stufe III; auf Fabric und NeoForge hat das Buch eine eigene Textur (enchanted_book_strip_miner.png)."
+            "Im Kreativ-Inventar liegt das Buch auf Stufe III; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_strip_miner.png)."
           ],
           "controls": [
             "Schleichen (Shift) gedrückt halten und mit der Spitzhacke abbauen; der Tunnel entsteht in Blickrichtung.",
@@ -28461,7 +28461,7 @@ window.WIKI_DATA = {
             "Der Tunnel bricht am ersten Hindernis ab; dahinter liegende Blöcke werden nicht mehr geholt.",
             "Stufe III gräbt 4 zusätzliche Blöcke, nicht 3.",
             "Die Handels-Funktion weighted_enchant prüft das Exklusiv-Set nicht: Die Zweit-Verzauberung des Werkzeugschmieds (Chance 0,1) legt Aderabbau neben Tunnelgräber auf dieselbe Spitzhacke.",
-            "Auf Forge fehlt die eigene Buchtextur."
+            "Auf Forge kommt die eigene Buchtextur über SelectItemModelPropertiesMixin."
           ]
         },
         "sources": [
@@ -28529,7 +28529,7 @@ window.WIKI_DATA = {
             "Chests (only with the enableLootTableChanges option on): woodland mansion book V (weight 1) and IV (3); dungeon II (12), III (8), IV (3); abandoned mineshaft III (4), IV (3).",
             "Traders (only with the enableVillagerTrades option on): a level 5 toolsmith sells a diamond pickaxe for 15 emeralds carrying one enchantment out of Strip Miner/Vein Miner I-III (weights 40/30/10, 0.1 chance of a second, different enchantment from the same pool); a level 5 librarian sells a book for 25 emeralds whose pool holds Vein Miner I (10), II (7), III (5) (0.1 chance of a second one).",
             "On the MC 1.21.11 line the same trader pools exist as code with the same weights (ModTradeDefinitions).",
-            "In the creative inventory the enchanted book sits at max level V; on Fabric and NeoForge the book has its own texture (enchanted_book_vein_miner.png via the property simplebuilding:enchant_type)."
+            "In the creative inventory the enchanted book sits at max level V; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_vein_miner.png via the property simplebuilding:enchant_type)."
           ],
           "controls": [
             "Hold sneak (Shift) and mine the ore or the log with a pickaxe or an axe as usual.",
@@ -28547,7 +28547,7 @@ window.WIKI_DATA = {
             "Traders only offer levels I-III; level IV comes only from chests (woodland mansion, dungeon, mineshaft), level V from the woodland mansion chest and the creative inventory.",
             "The trade function weighted_enchant does not check the exclusive set: the toolsmith's pool holds nothing but these two enchantments, so the second roll (0.1 chance) can only be the other one and the pickaxe comes out with Strip Miner and Vein Miner on it at once; both event handlers then run independently of each other.",
             "No bonus to mining speed or durability; every extra block goes through the normal breaking routine.",
-            "On Forge the dedicated book texture is missing (no enchant_type property wired up)."
+            "On Forge the dedicated book texture comes through SelectItemModelPropertiesMixin (enchant_type property)."
           ]
         },
         "de": {
@@ -28568,7 +28568,7 @@ window.WIKI_DATA = {
             "Truhen (nur bei aktivierter Option enableLootTableChanges): Waldanwesen Buch V (Gewicht 1) und IV (Gewicht 3); Verlies II (12), III (8), IV (3); verlassene Mine III (4), IV (3).",
             "Händler (nur bei aktivierter Option enableVillagerTrades): Werkzeugschmied Stufe 5 verkauft für 15 Smaragde eine Diamantspitzhacke mit einer Verzauberung aus Tunnelgräber/Aderabbau I–III (Gewichte 40/30/10, Chance 0,1 auf eine zweite, andere Verzauberung aus demselben Pool); Bibliothekar Stufe 5 verkauft für 25 Smaragde ein Buch, in dessen Pool Aderabbau I (10), II (7), III (5) liegt (Chance 0,1 auf eine zweite).",
             "Auf der MC-1.21.11-Linie liegen dieselben Händler-Pools mit denselben Gewichten als Code vor (ModTradeDefinitions).",
-            "Im Kreativ-Inventar liegt das verzauberte Buch auf Höchststufe V; auf Fabric und NeoForge hat das Buch eine eigene Textur (enchanted_book_vein_miner.png über die Property simplebuilding:enchant_type)."
+            "Im Kreativ-Inventar liegt das verzauberte Buch auf Höchststufe V; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_vein_miner.png über die Property simplebuilding:enchant_type)."
           ],
           "controls": [
             "Schleichen (Shift) gedrückt halten und das Erz bzw. den Stamm wie gewohnt mit Spitzhacke oder Axt abbauen.",
@@ -28586,7 +28586,7 @@ window.WIKI_DATA = {
             "Händler bieten nur Stufe I–III; Stufe IV liegt nur in Truhen (Waldanwesen, Verlies, Mine), Stufe V in der Waldanwesen-Truhe und im Kreativ-Inventar.",
             "Die Handels-Funktion weighted_enchant prüft das Exklusiv-Set nicht: Bei der Zweit-Verzauberung des Werkzeugschmieds (Chance 0,1) landet zwangsläufig Tunnelgräber neben Aderabbau auf derselben Spitzhacke; beide Ereignis-Handler laufen dann unabhängig voneinander.",
             "Kein Bonus auf Abbaugeschwindigkeit oder Haltbarkeit; jeder zusätzliche Block läuft über den normalen Abbauvorgang.",
-            "Auf Forge fehlt die eigene Buchtextur (keine enchant_type-Property verdrahtet)."
+            "Auf Forge kommt die eigene Buchtextur über SelectItemModelPropertiesMixin (enchant_type-Property)."
           ]
         },
         "sources": [
@@ -28657,7 +28657,7 @@ window.WIKI_DATA = {
             "The mod's test proves: no switch without the enchantment; level I finds the pickaxe in the hotbar but not in slot 20; level II swaps it in from slot 20; no switch without sneaking.",
             "Chests (only with enableLootTableChanges): stronghold library book I (weight 4) and II (2); end city treasure chest I (6) and II (3).",
             "No trader offers Versatility (no trade file and no 1.21.11 pool contains versatility).",
-            "In the creative inventory the book sits at level II; on Fabric and NeoForge the book has its own texture (enchanted_book_versatility.png)."
+            "In the creative inventory the book sits at level II; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_versatility.png)."
           ],
           "controls": [
             "Hold sneak (Shift) and hit the block with a left-click; the better tool ends up in your hand.",
@@ -28673,7 +28673,7 @@ window.WIKI_DATA = {
             "The sledgehammer outranks every pickaxe (bonus 2000 against 1000) as soon as it can break the block.",
             "It only switches to items that can break the block at all; if none can, the current tool stays in hand.",
             "Sources in the code: chests (stronghold library, end city) and the creative inventory; traders do not offer it.",
-            "On Forge the dedicated book texture is missing (enchant_type property not registered)."
+            "On Forge the dedicated book texture comes through SelectItemModelPropertiesMixin (enchant_type property)."
           ]
         },
         "de": {
@@ -28690,7 +28690,7 @@ window.WIKI_DATA = {
             "Der Test der Mod belegt: ohne Verzauberung kein Wechsel; Stufe I findet die Spitzhacke in der Hotbar, aber nicht in Slot 20; Stufe II tauscht sie aus Slot 20 ein; ohne Schleichen kein Wechsel.",
             "Truhen (nur bei enableLootTableChanges): Festungsbibliothek Buch I (Gewicht 4) und II (2); Endsiedlung I (6) und II (3).",
             "Kein Händler bietet Vielseitigkeit an (keine Trade-Datei und kein 1.21.11-Pool enthält versatility).",
-            "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric und NeoForge hat das Buch eine eigene Textur (enchanted_book_versatility.png)."
+            "Im Kreativ-Inventar liegt das Buch auf Stufe II; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_versatility.png)."
           ],
           "controls": [
             "Schleichen (Shift) halten und den Block mit Linksklick anschlagen; das bessere Werkzeug landet in der Hand.",
@@ -28706,7 +28706,7 @@ window.WIKI_DATA = {
             "Der Vorschlaghammer wird jeder Spitzhacke vorgezogen (Bonus 2000 gegenüber 1000), sobald er den Block abbauen kann.",
             "Es wird nur zu Items gewechselt, die den Block überhaupt abbauen können; kann es keines, bleibt das aktuelle Werkzeug in der Hand.",
             "Bezugsquellen im Code: Truhen (Festungsbibliothek, Endsiedlung) und das Kreativ-Inventar; Händler bieten sie nicht an.",
-            "Auf Forge fehlt die eigene Buchtextur (enchant_type-Property nicht registriert)."
+            "Auf Forge kommt die eigene Buchtextur über SelectItemModelPropertiesMixin (enchant_type-Property)."
           ]
         },
         "sources": [
