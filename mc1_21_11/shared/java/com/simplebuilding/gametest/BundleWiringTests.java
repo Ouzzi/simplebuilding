@@ -659,7 +659,7 @@ public final class BundleWiringTests {
      * inputs, so this asserts what the player can actually craft rather than restating the recipe
      * files.
      *
-     * <p>Every positive case comes with the matching negative one: the same nine items in the wrong
+     * <p>Every positive case comes with the matching negative one: the same four items in the wrong
      * places must not craft a bundle (otherwise the pattern would be decoration), the enderite
      * transform must refuse a reinforced bundle as its base (no tier skipping), and it must refuse
      * the netherite ingot as its addition (no template/addition mix-up).
@@ -673,30 +673,30 @@ public final class BundleWiringTests {
         RecipeManager recipes = level.getServer().getRecipeManager();
 
         ItemStack string = new ItemStack(Items.STRING);
-        ItemStack nugget = new ItemStack(Items.COPPER_NUGGET);
-        ItemStack leather = new ItemStack(Items.LEATHER);
+        ItemStack pebble = new ItemStack(ModItems.DIAMOND_PEBBLE);
+        ItemStack sheet = new ItemStack(ModItems.LEATHER_SHEET);
         ItemStack vanillaBundle = new ItemStack(Items.BUNDLE);
 
-        // " S " / "NBN" / "LLL"
+        // " S " / "DB " / " X "
         CraftingInput asShipped = CraftingInput.of(3, 3, List.of(
                 ItemStack.EMPTY, string, ItemStack.EMPTY,
-                nugget, vanillaBundle, nugget,
-                leather, leather, leather));
+                pebble, vanillaBundle, ItemStack.EMPTY,
+                ItemStack.EMPTY, sheet, ItemStack.EMPTY));
 
         Optional<RecipeHolder<net.minecraft.world.item.crafting.CraftingRecipe>> crafted =
                 recipes.getRecipeFor(RecipeType.CRAFTING, asShipped, level);
         helper.assertTrue(crafted.isPresent(),
-                "string / copper nugget - bundle - copper nugget / three leather crafts nothing at all");
+                "string / diamond pebble - bundle / leather sheet crafts nothing at all");
         // 1.21.11 still passes the registries into assemble; 26.2 dropped that parameter.
         ItemStack result = crafted.get().value().assemble(asShipped, level.registryAccess());
         helper.assertTrue(result.is(ModItems.REINFORCED_BUNDLE),
                 "the bundle pattern crafts " + result + " instead of a reinforced bundle");
         Assertions.valueEqual(helper, result.getCount(), 1, "reinforced bundles produced per craft");
 
-        // Same nine items, string and leather swapped: a pattern that is only a checklist would match.
+        // Same four items, string and leather sheet swapped: a pattern that is only a checklist would match.
         CraftingInput upsideDown = CraftingInput.of(3, 3, List.of(
-                leather, leather, leather,
-                nugget, vanillaBundle, nugget,
+                ItemStack.EMPTY, sheet, ItemStack.EMPTY,
+                pebble, vanillaBundle, ItemStack.EMPTY,
                 ItemStack.EMPTY, string, ItemStack.EMPTY));
         helper.assertTrue(recipes.getRecipeFor(RecipeType.CRAFTING, upsideDown, level).isEmpty(),
                 "the same ingredients in the wrong rows still crafted something; the pattern is not "
@@ -883,7 +883,7 @@ public final class BundleWiringTests {
      *
      * <p>All three tiers are asserted, the enderite one included: the tiers are separate lines in
      * {@code ModItemTagProvider} and the top tier is the one an upgrade must not silently
-     * downgrade, so the netherite bundle passing says nothing about it. The three quivers are
+     * downgrade, so the netherite bundle passing says nothing about it. The four quivers are
      * asserted the same way - they are {@code ReinforcedBundleItem}s, sit on their own lines in both
      * tags, and read all five enchantments through the same code.
      *
@@ -905,7 +905,8 @@ public final class BundleWiringTests {
         containerEnchantments.addAll(extraInventoryTagEnchantments);
 
         for (Item bundle : List.of(ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE,
-                ModItems.ENDERITE_BUNDLE, ModItems.QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER)) {
+                ModItems.ENDERITE_BUNDLE, ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER,
+                ModItems.ENDERITE_QUIVER)) {
             ItemStack stack = new ItemStack(bundle);
             for (ResourceKey<Enchantment> key : containerEnchantments) {
                 helper.assertTrue(enchantment(helper, key).value().canEnchant(stack),

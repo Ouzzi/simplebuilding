@@ -4,14 +4,20 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
+import com.simplebuilding.recipe.ReinforcedBundleRecipe;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRewards;
 // MC 26.2: Kriterien-Trigger wurden von net.minecraft.advancements.criterion nach
 // net.minecraft.advancements.triggers verschoben (Criterion liegt jetzt ebenfalls dort).
 import net.minecraft.advancements.triggers.InventoryChangeTrigger;
+import net.minecraft.advancements.triggers.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -29,8 +35,11 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.level.ItemLike;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
@@ -199,18 +208,27 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .save(output);
 
                 // =================================================================
+                // LEATHER SHEET (neun Leder, kein Rueckweg)
+                // =================================================================
+                shaped(RecipeCategory.MISC, ModItems.LEATHER_SHEET)
+                        .pattern("LLL")
+                        .pattern("LLL")
+                        .pattern("LLL")
+                        .define('L', Items.LEATHER)
+                        .unlockedBy(getHasName(Items.LEATHER), has(Items.LEATHER))
+                        .save(output);
+
+                // =================================================================
                 // REINFORCED BUNDLE
                 // =================================================================
-                shaped(RecipeCategory.TOOLS, ModItems.REINFORCED_BUNDLE)
-                        .pattern(" S ")
-                        .pattern("NBN")
-                        .pattern("LLL")
-                        .define('S', Items.STRING)
-                        .define('N', Items.COPPER_NUGGET)
-                        .define('B', Items.BUNDLE)
-                        .define('L', Items.LEATHER)
-                        .unlockedBy( getHasName(Items.BUNDLE), has(Items.BUNDLE))
-                        .save(output);
+                // Eine Lederplatte statt drei Leder, ein Diamantkiesel statt zwei Kupfer-Nuggets;
+                // Faden oben und Buendel in der Mitte bleiben. Als Aufwertung behaelt das Ergebnis
+                // Inhalt, Verzauberungen und Namen des Vanilla-Buendels (ReinforcedBundleRecipe).
+                createContainerUpgrade(ModItems.REINFORCED_BUNDLE, Items.BUNDLE,
+                        Map.of('S', Items.STRING, 'D', ModItems.DIAMOND_PEBBLE, 'B', Items.BUNDLE, 'X', ModItems.LEATHER_SHEET),
+                        " S ",
+                        "DB ",
+                        " X ");
 
 
                 createSmithing(ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, RecipeCategory.TOOLS);
@@ -230,7 +248,19 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.BUNDLE), has(Items.BUNDLE))
                         .save(output);
 
-                createSmithing(ModItems.QUIVER, ModItems.NETHERITE_QUIVER, RecipeCategory.TOOLS);
+                // Das Koecher-Muster mit dem Koecher an der Stelle des Buendels, einer Lederplatte in
+                // der Mitte statt der zwei Leder und einem Diamantkiesel oben rechts; Faden und
+                // Kupfer-Nugget bleiben, wo sie waren. Behaelt Pfeile, Verzauberungen und Namen.
+                createContainerUpgrade(ModItems.REINFORCED_QUIVER, ModItems.QUIVER,
+                        Map.of('S', Items.STRING, 'D', ModItems.DIAMOND_PEBBLE, 'X', ModItems.LEATHER_SHEET,
+                                'N', Items.COPPER_NUGGET, 'Q', ModItems.QUIVER),
+                        " SD",
+                        "SXN",
+                        "Q  ");
+
+                // Keine Stufe ueberspringen - wie bei den Buendeln wird nur der verstaerkte Koecher
+                // zum Netherit-Koecher.
+                createSmithing(ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, RecipeCategory.TOOLS);
 
 
                 // =================================================================
@@ -670,6 +700,32 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         result)
                         .unlocks("has_netherite_ingot", has(Items.NETHERITE_INGOT))
                         .save(output, getItemName(result) + "_smithing");
+            }
+
+            /**
+             * Geformtes Werkbank-Rezept vom Typ simplebuilding:reinforced_bundle: wie ein
+             * crafting_shaped, nur dass das Ergebnis den Komponenten-Patch des eingelegten Behaelters
+             * uebernimmt (siehe ReinforcedBundleRecipe). ShapedRecipeBuilder kann nur Vanillas
+             * ShapedRecipe schreiben; Rezept-Id, Buchkategorie und Freischalt-Fortschritt sind hier
+             * deshalb genau so gebaut wie in ShapedRecipeBuilder#save.
+             */
+            private void createContainerUpgrade(Item result, Item unlockedBy, Map<Character, ItemLike> key, String... rows) {
+                Map<Character, Ingredient> ingredients = new LinkedHashMap<>();
+                key.forEach((symbol, item) -> ingredients.put(symbol, Ingredient.of(item)));
+                ShapedRecipePattern pattern = ShapedRecipePattern.of(ingredients, rows);
+
+                ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE,
+                        Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, getItemName(result)));
+                ReinforcedBundleRecipe recipe = new ReinforcedBundleRecipe("",
+                        RecipeBuilder.determineCraftingBookCategory(RecipeCategory.TOOLS), pattern, new ItemStackTemplate(result));
+
+                Advancement.Builder advancement = output.advancement()
+                        .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeKey))
+                        .rewards(AdvancementRewards.Builder.recipe(recipeKey))
+                        .requirements(AdvancementRequirements.Strategy.OR)
+                        .addCriterion(getHasName(unlockedBy), has(unlockedBy));
+                output.accept(recipeKey, recipe, advancement.build(
+                        recipeKey.identifier().withPrefix("recipes/" + RecipeCategory.TOOLS.getFolderName() + "/")));
             }
 
             // NEU: Helper für Massen-Upgrade (8 Items + 1 Ingot -> 8 Items)

@@ -1,0 +1,20 @@
+{
+  "type": "simplebuilding:reinforced_bundle",
+  "category": "equipment",
+  "key": {
+    "D": "simplebuilding:diamond_pebble",
+    "N": "minecraft:copper_nugget",
+    "Q": "simplebuilding:quiver",
+    "S": "minecraft:string",
+    "X": "simplebuilding:leather_sheet"
+  },
+  "pattern": [
+    " SD",
+    "SXN",
+    "Q  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:reinforced_quiver"
+  }
+}

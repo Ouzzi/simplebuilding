@@ -123,7 +123,8 @@ bauen – dessen Konstruktor liest ab MC 26.2 die dort noch nicht gebundenen
 Komponenten. `ReinforcedBundleItem` schlägt die Stufe deshalb item- statt
 stackbasiert nach und die Stack-Variante delegiert dorthin, also bleibt es bei
 einer Tabelle. `QuiverItem` überschreibt die Grundkapazität, weil Köcher den
-1,5-Faktor der Bündel nicht bekommen: 64/128/192 statt 96/192/288.
+1,5-Faktor der Bündel nicht obendrauf bekommen: 64/96/128/192 statt 96/192/288 (die 3/2 des
+Verstärkten Köchers sind sein Stufenfaktor).
 
 **Das Einzige, was von Hand gepflegt wird, ist `wiki/manual.json`:** Fließtext, den keine
 Datei der Mod enthält – was ein Werkzeug *tut*, wie man es bedient, was sich je Stufe ändert.

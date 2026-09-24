@@ -198,6 +198,9 @@ public class ModItems {
 
     // Materials and Blocks Components
 
+    // Neun Leder in einer Platte: Zutat des verstaerkten Buendels und des verstaerkten Koechers.
+    public static final Item LEATHER_SHEET = registerItem("leather_sheet", settings -> new Item(settings));
+
     public static final Item DIAMOND_PEBBLE = registerItem("diamond_pebble", settings -> new Item(settings));
 
     public static final Item CRACKED_DIAMOND = registerItem("cracked_diamond", settings -> new Item(settings));
@@ -373,10 +376,14 @@ public class ModItems {
 
     public static final Item NETHERITE_BUNDLE = registerItem("netherite_bundle", settings -> new ReinforcedBundleItem(settings.stacksTo(1).fireResistant().rarity(UNCOMMON)));
 
-    // The three quivers are worn in the chest slot - that is the bow search's second stage;
+    // The four quivers are worn in the chest slot - that is the bow search's second stage;
     // quiverChestSlot() says what that component may and may not bring with it.
 
     public static final Item QUIVER = registerItem("quiver", settings -> new QuiverItem(settings.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
+
+    // Die Stufe zwischen Koecher und Netherit-Koecher: wie der Koecher weder feuerfest noch
+    // explosionssicher (ItemEntityMixin nennt ihn nicht), gewoehnliche Seltenheit.
+    public static final Item REINFORCED_QUIVER = registerItem("reinforced_quiver", settings -> new QuiverItem(settings.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
 
     public static final Item NETHERITE_QUIVER = registerItem("netherite_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().rarity(UNCOMMON).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
 
@@ -727,7 +734,7 @@ public class ModItems {
 
 
     /**
-     * The chest slot of the three quivers: a carrier, not a piece of armour.
+     * The chest slot of the four quivers: a carrier, not a piece of armour.
      *
      * <p>{@code QuiverItem#findProjectileForBow} and {@code #consumeProjectileForBow} read
      * {@code getItemBySlot(CHEST)} as their second step, and vanilla's armour slot takes exactly

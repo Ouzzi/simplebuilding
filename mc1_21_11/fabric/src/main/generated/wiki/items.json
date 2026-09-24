@@ -348,6 +348,9 @@
       "id": "simplebuilding:lapis_quartz_checker"
     },
     {
+      "id": "simplebuilding:leather_sheet"
+    },
+    {
       "id": "simplebuilding:levitating_gravel"
     },
     {
@@ -576,6 +579,11 @@
     },
     {
       "id": "simplebuilding:reinforced_piston"
+    },
+    {
+      "bundleCapacityItems": 96,
+      "id": "simplebuilding:reinforced_quiver",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:reinforced_smoker"

@@ -179,6 +179,16 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CHISEL, ModelTemplates.FLAT_HANDHELD_ITEM); // NEW
 
+        // Die sechs Alt-Spatel (LegacySpatulaMigration) waren bisher modelllos, und jeder Start
+        // meldete sie mit "No model loaded". Gehalten wie die Meissel, deren Variante sie sind;
+        // die Textur ist textures/item/<stufe>_spatula.png.
+        itemModelGenerator.generateFlatItem(ModItems.STONE_SPATULA, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.COPPER_SPATULA, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.IRON_SPATULA, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLD_SPATULA, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DIAMOND_SPATULA, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_SPATULA, ModelTemplates.FLAT_HANDHELD_ITEM);
+
         // --- WANDS ---
         itemModelGenerator.generateFlatItem(ModItems.COPPER_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.IRON_BUILDING_WAND, ModelTemplates.FLAT_HANDHELD_ITEM);
@@ -234,7 +244,9 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.REINFORCED_BUNDLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_BUNDLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.QUIVER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.REINFORCED_QUIVER, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_QUIVER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.LEATHER_SHEET, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_PEBBLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.CRACKED_DIAMOND, ModelTemplates.FLAT_ITEM);
 

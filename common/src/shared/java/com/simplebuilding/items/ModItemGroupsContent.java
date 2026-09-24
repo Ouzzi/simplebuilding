@@ -19,6 +19,7 @@ public final class ModItemGroupsContent {
     public static void populate(CreativeModeTab.Output entries, HolderLookup.Provider lookup) {
         HolderLookup<Enchantment> enchantmentRegistry = lookup.lookupOrThrow(Registries.ENCHANTMENT);
 // -- Resources ---
+                        entries.accept(ModItems.LEATHER_SHEET);
                         entries.accept(ModItems.DIAMOND_PEBBLE);
                         entries.accept(ModItems.CRACKED_DIAMOND);
                         entries.accept(ModItems.CRACKED_DIAMOND_BLOCK);
@@ -145,6 +146,7 @@ public final class ModItemGroupsContent {
                         entries.accept(ModItems.NETHERITE_BUNDLE);
                         entries.accept(ModItems.ENDERITE_BUNDLE);
                         entries.accept(ModItems.QUIVER);
+                        entries.accept(ModItems.REINFORCED_QUIVER);
                         entries.accept(ModItems.NETHERITE_QUIVER);
                         entries.accept(ModItems.ENDERITE_QUIVER);
 

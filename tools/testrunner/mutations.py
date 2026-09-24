@@ -638,7 +638,7 @@ P6B_MUTATIONS: list[Mutation] = [
              '        return getTierCapacityMultiplier(item).multiplyBy(Fraction.getFraction(3, 2));',
              'quiver_game_test_capacity_drops_the_bundle_bonus_and_follows_tier_and_enchantments',
              'arrows a plain quiver takes',
-             "a quiver does not get the bundle's 1.5x - it holds exactly one vanilla stack per tier",
+             "a quiver does not get the bundle's 1.5x on top of its tier - its base capacity is the tier factor alone (64/96/128/192)",
              kind="server"),
     Mutation('quiver-consume-hotbar-short',
              'common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java',

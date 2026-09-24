@@ -67,7 +67,7 @@ import net.minecraft.world.phys.Vec3;
  *
  * <p><b>A quiver is worn, and the chest slot stage of the bow search is reachable in normal
  * play.</b> {@code QuiverItem#findProjectileForBow} and {@code #consumeProjectileForBow} both read
- * {@code player.getItemBySlot(EquipmentSlot.CHEST)} as their second step, and all three quivers
+ * {@code player.getItemBySlot(EquipmentSlot.CHEST)} as their second step, and all four quivers
  * carry an {@code EQUIPPABLE} component for that slot ({@code ModItems#quiverChestSlot}). Vanilla's
  * armour slot accepts exactly what {@code LivingEntity#isEquippableInSlot} answers for, so the
  * player puts a quiver on in the inventory screen the way a chestplate goes on. It is a carrier and
@@ -115,7 +115,7 @@ import net.minecraft.world.phys.Vec3;
  *       hands over, not read the items inside them - and rolling a weight-3 entry out of a vanilla
  *       chest table is statistics, not an assertion. What is testable there (the mod adds pools at
  *       all, and stops when the config switch is off) already is, in {@code ConfigOptionTests}.</li>
- *   <li><b>{@code stacksTo(1)} and {@code fireResistant()}</b> on the three quivers. Both are
+ *   <li><b>{@code stacksTo(1)} on the four quivers and {@code fireResistant()} on the upper two</b>. Both are
  *       vanilla-evaluated item properties; a test on them would restate the registration line in
  *       {@code ModItems} and could only ever go red for that line.</li>
  *   <li><b>The click that puts the quiver on</b>, and the dispenser that now equips one onto a
@@ -125,7 +125,7 @@ import net.minecraft.world.phys.Vec3;
  *       {@link #bowTakesTheTopmostArrowAndSearchesOffhandChestHotbarThenBackpack} asserts directly.
  *       What the mod owns here is the component, not the machinery that reads it.</li>
  *   <li><b>Item tag membership</b> ({@code bundle_enchantable},
- *       {@code constructors_touch_enchantable} - all three quivers are in both since 61d0a14;
+ *       {@code constructors_touch_enchantable} - every quiver tier is in both since 61d0a14;
  *       asserted in {@code StorageEnchantmentTests} and {@code WandEnchantmentTests}) and the
  *       crafting and smithing recipes. Those are datapack claims evaluated by vanilla's enchanting
  *       and recipe machinery; the data layer of this mod is checked in {@link DataIntegrityTests}.</li>
@@ -155,6 +155,9 @@ public final class QuiverTests {
 
     /** Arrows a plain quiver holds: one vanilla stack, i.e. the bundle's 1.5x bonus dropped. */
     private static final int QUIVER_ARROWS = 64;
+
+    /** Arrows the reinforced quiver holds - tier factor 3/2, its own tier and not the bundle bonus. */
+    private static final int REINFORCED_QUIVER_ARROWS = 96;
 
     /** Arrows the netherite quiver holds - tier factor 2. */
     private static final int NETHERITE_QUIVER_ARROWS = 128;
@@ -367,8 +370,9 @@ public final class QuiverTests {
     /**
      * How much a quiver holds. Three claims in one, because they come out of the same two methods:
      * <ul>
-     *   <li>a quiver does <b>not</b> get the bundle's 1.5x - it holds exactly one, two, three
-     *       vanilla stacks by tier, where a reinforced bundle of the same tier holds 1.5;</li>
+     *   <li>a quiver does <b>not</b> get the bundle's 1.5x on top of its tier - it holds exactly
+     *       one, one and a half, two, three vanilla stacks by tier (the reinforced quiver's 3/2 is
+     *       its tier factor), where a reinforced bundle holds 1.5 stacks per tier;</li>
      *   <li>Drawer and Deep Pockets multiply that, with the same factors the bundle uses;</li>
      *   <li>{@code getBaseCapacityItems()} - the number the wiki export prints, computed without an
      *       {@code ItemStack} - agrees with what the player can actually push in.</li>
@@ -381,7 +385,7 @@ public final class QuiverTests {
      * produce.
      *
      * <p>The enchanted cases use the plain quiver: the Drawer and Deep Pockets factors do not
-     * depend on the tier, and all three quivers can carry them (they are in
+     * depend on the tier, and every quiver tier can carry them (they are in
      * {@code bundle_enchantable} since 61d0a14).
      *
      * <p>Drawer is measured twice, on level 1 and on its highest level, because the two numbers
@@ -418,6 +422,8 @@ public final class QuiverTests {
         // --- tier, and the bonus the quiver gives up ---
         helper.assertValueEqual(fillWithArrows(helper, player, new ItemStack(ModItems.QUIVER)),
                 QUIVER_ARROWS, "arrows a plain quiver takes");
+        helper.assertValueEqual(fillWithArrows(helper, player, new ItemStack(ModItems.REINFORCED_QUIVER)),
+                REINFORCED_QUIVER_ARROWS, "arrows a reinforced quiver takes");
         helper.assertValueEqual(fillWithArrows(helper, player, new ItemStack(ModItems.NETHERITE_QUIVER)),
                 NETHERITE_QUIVER_ARROWS, "arrows a netherite quiver takes");
         helper.assertValueEqual(fillWithArrows(helper, player, new ItemStack(ModItems.ENDERITE_QUIVER)),
@@ -428,6 +434,8 @@ public final class QuiverTests {
         // --- the same table again, through the stackless path the wiki export uses ---
         helper.assertValueEqual(baseCapacityItems(ModItems.QUIVER), QUIVER_ARROWS,
                 "getBaseCapacityItems() of the quiver");
+        helper.assertValueEqual(baseCapacityItems(ModItems.REINFORCED_QUIVER), REINFORCED_QUIVER_ARROWS,
+                "getBaseCapacityItems() of the reinforced quiver");
         helper.assertValueEqual(baseCapacityItems(ModItems.NETHERITE_QUIVER), NETHERITE_QUIVER_ARROWS,
                 "getBaseCapacityItems() of the netherite quiver");
         helper.assertValueEqual(baseCapacityItems(ModItems.ENDERITE_QUIVER), ENDERITE_QUIVER_ARROWS,
@@ -552,7 +560,7 @@ public final class QuiverTests {
      * would leave a shortened loop indistinguishable from the whole one.
      *
      * <p>The chest stage is checked from the registration side as well, because a search step is
-     * only worth as much as the slot it reads: all three quivers have to be equippable in the chest
+     * only worth as much as the slot it reads: all four quivers have to be equippable in the chest
      * slot, in that slot and no other, without a model on the body, and by players only. That is
      * the whole contract of {@code ModItems#quiverChestSlot}, and every half of it is a way the
      * feature can be lost or overshot without a single line of the search changing.
@@ -591,8 +599,8 @@ public final class QuiverTests {
         // click that puts the quiver on. The component's other three halves are pinned next to it -
         // a quiver that lands in another slot, draws a model on the body or can be worn by a mob is
         // a different feature from the carrier slot the bow search was written for.
-        for (Item quiverItem : new Item[] {ModItems.QUIVER, ModItems.NETHERITE_QUIVER,
-                ModItems.ENDERITE_QUIVER}) {
+        for (Item quiverItem : new Item[] {ModItems.QUIVER, ModItems.REINFORCED_QUIVER,
+                ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER}) {
             ItemStack worn = new ItemStack(quiverItem);
             helper.assertTrue(player.isEquippableInSlot(worn, EquipmentSlot.CHEST),
                     quiverItem + " cannot be put into the chest slot, so the chest stage of the search is out "
