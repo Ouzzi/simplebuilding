@@ -57,7 +57,9 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         dropSelf(ModBlocks.NETHERITE_HOPPER);
 
         dropSelf(ModBlocks.REINFORCED_PISTON);
+        dropSelf(ModBlocks.REINFORCED_STICKY_PISTON);
         dropSelf(ModBlocks.NETHERITE_PISTON);
+        dropSelf(ModBlocks.ENDERITE_PISTON);
 
         dropSelf(ModBlocks.REINFORCED_BLAST_FURNACE);
         dropSelf(ModBlocks.NETHERITE_BLAST_FURNACE);

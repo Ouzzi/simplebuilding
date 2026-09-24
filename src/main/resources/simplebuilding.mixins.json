@@ -13,6 +13,7 @@
     "ItemEntityMixin",
     "ItemFrameEntityMixin",
     "LivingEntityMixin",
+    "MovingPistonExplosionMixin",
     "PistonBlockMixin",
     "PistonHandlerMixin",
     "PistonHeadBlockMixin",

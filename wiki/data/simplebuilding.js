@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 116,
+      "count": 118,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -79,7 +79,7 @@ window.WIKI_DATA = {
         "details": [
           "SimpleBuilding adds building tools to Minecraft: the Sledgehammer (mines a 3x3 face in one go and reshapes blocks into stairs and slabs), the Chisel (converts blocks in place into related variants), the Building Wand (places whole faces with one click), the Octant (measures distances, areas and volumes and previews shapes), the Rotator (turns orientable blocks), the Magnet (pulls in dropped items) and the Ore Detector (locates the nearest ore by sound and a particle trail).",
           "For storage there are the Reinforced Bundle, the Netherite Bundle and the Enderite Bundle (96, 192 and 288 items at a stack size of 64), plus three Quiver tiers that only take arrows and feed the bow automatically.",
-          "The blocks are faster hoppers (Reinforced, Netherite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite), two stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
+          "The blocks are faster hoppers (Reinforced, Netherite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite), four stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
           "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the mining preview of the Sledgehammer, Strip Miner and Vein Miner, the Building Wand preview, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
@@ -103,7 +103,7 @@ window.WIKI_DATA = {
         "details": [
           "SimpleBuilding erweitert Minecraft um Bauwerkzeuge: Vorschlaghammer (baut ein 3x3-Feld auf einmal ab und formt Blöcke zu Treppen und Stufen), Meißel (formt Blöcke an Ort und Stelle in verwandte Varianten um), Baustab (setzt ganze Flächen mit einem Klick), Oktant (misst Abstände, Flächen und Volumen und zeichnet Formen vor), Rotator (dreht ausrichtbare Blöcke), Magnet (zieht herumliegende Items an) und Erzdetektor (ortet das nächste Erz per Ton und Partikelspur).",
           "Für das Lager gibt es das Verstärkte Bündel, das Netherit-Bündel und das Enderite Bundle (96, 192 und 288 Gegenstände bei 64er-Stapeln) sowie drei Köcher-Stufen, die nur Pfeile aufnehmen und den Bogen automatisch versorgen.",
-          "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit), zwei stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
+          "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit), vier stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
           "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Abbau-Vorschau von Vorschlaghammer, Tunnelgräber und Aderabbau, die Baustab-Vorschau, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
@@ -780,6 +780,7 @@ window.WIKI_DATA = {
           "Logs and pillars: clicking the middle of a face lays the axis in the direction of that face; if it already lies that way, it moves on in the cycle X -> Y -> Z -> X.",
           "Blocks with a facing: clicking the middle turns them clockwise around the axis of the clicked face; if the block points along that axis or cannot take the new direction, it snaps to an allowed starting direction or steps through its allowed directions in turn.",
           "A rotation plays the spyglass sound; blocks without an orientation (stone, for example) do not react at all, and then no durability is lost either.",
+          "Extended pistons, piston heads and moving blocks are never turned: a turned extended piston would lose its head and, on retracting, delete whatever block its head cell then points at.",
           "The tooltip from the language file is currently not shown, because no code attaches it to the item.",
           "Found in the creative tab \"Building Items\" (German \"SimpleBuilding Items\"), right after the Magnet."
         ]
@@ -795,6 +796,7 @@ window.WIKI_DATA = {
           "Stämme und Säulen: Klick auf die Mitte einer Fläche legt die Achse in die Richtung dieser Fläche; liegt sie schon so, geht es weiter im Zyklus X -> Y -> Z -> X.",
           "Blöcke mit Blickrichtung: Klick auf die Mitte dreht im Uhrzeigersinn um die Achse der angeklickten Fläche; zeigt der Block entlang dieser Achse oder kann er die neue Richtung nicht annehmen, springt er auf eine erlaubte Startrichtung oder schaltet der Reihe nach durch seine erlaubten Richtungen.",
           "Bei einer Drehung ertönt der Fernrohr-Klang; Blöcke ohne Ausrichtung (z.B. Stein) reagieren gar nicht, und dann geht auch keine Haltbarkeit verloren.",
+          "Ausgefahrene Kolben, Kolbenköpfe und bewegte Blöcke werden nie gedreht: Ein gedrehter ausgefahrener Kolben verlöre seinen Kopf und würde beim Einfahren den Block löschen, auf den seine Kopfzelle dann zeigt.",
           "Der Tooltip aus der Sprachdatei wird derzeit nicht angezeigt, weil ihn kein Code an das Item hängt.",
           "Zu finden im Kreativ-Tab \"SimpleBuilding Items\" (englisch \"Building Items\"), direkt hinter dem Magneten."
         ]
@@ -1156,7 +1158,9 @@ window.WIKI_DATA = {
       "id": "pistons_and_falling",
       "related": [
         "simplebuilding:reinforced_piston",
+        "simplebuilding:reinforced_sticky_piston",
         "simplebuilding:netherite_piston",
+        "simplebuilding:enderite_piston",
         "simplebuilding:netherite_piston_head",
         "simplebuilding:levitating_sand",
         "simplebuilding:levitating_gravel",
@@ -1169,6 +1173,10 @@ window.WIKI_DATA = {
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/ReinforcedPistonBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java",
+        "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+        "common/src/shared/java/com/simplebuilding/util/ModTags.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/NetheritePistonHeadBlock.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/LevitatingBlock.java",
         "common/src/shared/java/com/simplebuilding/entity/LevitatingBlockEntity.java",
@@ -1177,13 +1185,19 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/mixin/PistonBlockMixin.java",
         "common/src/shared/java/com/simplebuilding/mixin/PistonHandlerMixin.java",
         "common/src/shared/java/com/simplebuilding/mixin/PistonHeadBlockMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/MovingPistonExplosionMixin.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java",
+        "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
         "common/src/shared/java/com/simplebuilding/items/ModItems.java",
         "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
         "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
         "src/main/generated/data/simplebuilding/recipe/reinforced_piston.json",
+        "src/main/generated/data/simplebuilding/recipe/reinforced_sticky_piston.json",
         "src/main/generated/data/simplebuilding/recipe/netherite_piston_bulk.json",
+        "src/main/generated/data/simplebuilding/tags/block/piston_breach_immune.json",
+        "src/main/generated/data/simplebuilding/tags/block/piston_breachable_extra.json",
         "src/main/generated/data/simplebuilding/recipe/levitating_sand.json",
         "src/main/generated/data/simplebuilding/recipe/levitating_gravel.json",
         "src/main/generated/data/simplebuilding/recipe/suspended_sand.json",
@@ -1196,42 +1210,56 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Pistons and Gravity Blocks",
-        "summary": "SimpleBuilding extends redstone builds with two stronger pistons and turns gravity on its head for sand and gravel. The Reinforced Piston pushes longer block lines, the Netherite Piston destroys blocks depending on redstone strength, and four new sand and gravel variants either hang in mid-air or climb upwards on their own.",
+        "summary": "SimpleBuilding extends redstone builds with four stronger pistons and turns gravity on its head for sand and gravel. The Reinforced Piston and its sticky twin push longer block lines and, paid with a Redstone Block, even one unbreakable block; the Netherite and Enderite Pistons destroy blocks depending on redstone strength and, paid the same way, sacrifice themselves to break through unbreakable blocks. Four new sand and gravel variants either hang in mid-air or climb upwards on their own.",
         "details": [
-          "The Reinforced Piston raises the push limit from 12 to 18 blocks via a mixin; recipe: 3 Cracked Diamonds, 2 Pistons and 4 Iron Ingots yield 2 (unlocked with a Piston).",
+          "The Reinforced Piston and the Reinforced Sticky Piston raise the push limit from 12 to 18 blocks via a mixin. Recipes: 3 Cracked Diamonds, 2 Pistons and 4 Iron Ingots yield 2 Reinforced Pistons (unlocked with a Piston); a Slime Ball on top of a Reinforced Piston yields 1 Reinforced Sticky Piston (unlocked with a Reinforced Piston). The sticky one pulls a block back when it retracts and uses the sticky vanilla piston head.",
+          "Unbreakable blocks, as the mod's pistons see them (PistonBreach): a negative destroy speed or the tag simplebuilding:piston_breachable_extra (Reinforced Deepslate), but not the tag simplebuilding:piston_breach_immune (barrier, light, the three command blocks, structure block, jigsaw, test block, test instance block, moving piston, #minecraft:portals) and never a block with a block entity. In vanilla that leaves Bedrock, Reinforced Deepslate and End Portal Frames - the frames only while the config option pistonsBreachEndPortalFrames is on (default).",
+          "A Redstone Block directly next to the piston pays for them: the one directly behind first, otherwise one of the four sides across the facing direction. Never the front, and not a Redstone Block that only powers the piston through quasi-connectivity (next to the block above it). Without such a Redstone Block - with a lever, for example - an unbreakable block in front stops every mod piston exactly as before.",
+          "Reinforced (and Reinforced Sticky) Piston: the unbreakable block directly in front is pushed like an ordinary one, the rest of the line follows the normal rules and it counts toward the 18. Only after the push succeeded is the Redstone Block used up (no drop). A second unbreakable block further along the line, obsidian, the build limit, the world border or a block entity still refuse the push, and so does a slime structure that would move the paying Redstone Block along. Retracting never pulls the unbreakable block back.",
+          "Consuming the Redstone Block usually cuts the Reinforced Piston's only power, so it retracts again in the same tick: the sticky one leaves the pushed block at its new place, the normal one lets it finish its move.",
           "The Netherite Piston is crafted from 3 Reinforced Pistons and 1 Netherite Nugget (yields 3) and, as it extends, destroys the block in front of it if that block's hardness is at most (signal strength / 15) x 50 - so up to hardness 50 at full strength; otherwise it pushes like an ordinary piston. Destroyed blocks drop their normal loot.",
-          "Both pistons are non-sticky, cannot be moved by other pistons while extended, and use the ordinary vanilla piston head, which a mixin keeps attached to them.",
-          "Both pistons are in the mineable/pickaxe tag; the Netherite Piston has hardness 5 and blast resistance 1200 and its item is fire resistant, while the Reinforced Piston has hardness 1.5.",
+          "With an unbreakable block directly in front and a paying Redstone Block the Netherite Piston sacrifices itself: it queues an extend event of its own, and when that runs the unbreakable block, the Redstone Block and the piston are destroyed, all without drops. No piston head or moving block is left behind, and what lies behind the target (push limit, obsidian, build height) does not matter.",
+          "The Enderite Piston breaks ordinary blocks exactly like the Netherite Piston. Its breach reaches up to 3 blocks deep in its facing direction: air is skipped, unbreakable blocks vanish without drops, ordinary blocks the breaker could break at the signal it gets are destroyed with their loot, and anything else (an immune block, a block that is too hard, a liquid) ends the breach. Then the Redstone Block and the piston itself are destroyed without drops. It has no crafting recipe yet.",
+          "All four pistons cannot be moved by other pistons while extended and use the ordinary vanilla piston head (the sticky one for the Reinforced Sticky Piston). A mixin on PistonHeadBlock.isFittingBase accepts the mod piston behind as the head's base - extended, facing the same way, matching head type - so breaking the head breaks the piston too, dropping it in survival and not in creative, as with vanilla pistons.",
+          "While a pushed unbreakable block is on its way (two ticks inside a moving piston) explosions leave the moving piston alone, and the Rotator refuses extended pistons, piston heads and moving blocks - both would otherwise delete an unbreakable block for free.",
+          "All pistons are in the mineable/pickaxe tag. The Netherite Piston has hardness 5 and blast resistance 1200, the Enderite Piston hardness 6 and blast resistance 1500, and both items are fire resistant; the Reinforced and the Reinforced Sticky Piston have hardness 1.5.",
           "The block \"netherite_piston_head\" is registered but placed by no code, and it has neither an item nor a loot table.",
           "Suspended Sand and Suspended Gravel (8 Sand/Gravel + 1 Nihilith Shard each = 8) are ordinary blocks with no falling logic; Suspended Sand additionally has no collision box.",
           "Levitating Sand and Levitating Gravel (8 Sand/Gravel + 1 Astralit Dust each = 8) fall upwards: two ticks after being placed, and again whenever a neighbour changes and the space above is free, the block turns into a levitating_block entity and rises. The entity uses vanilla's falling-block physics with the sign of gravity flipped (v = 0.98 x v + 0.04 per tick, limit 2 blocks per tick), so it starts slowly and accelerates exactly like falling sand.",
           "A rising block that runs into a ceiling turns back into a block in the free space below it - the mirror image of sand landing on the ground. If it cannot be placed there, it drops as an item. Remove the obstacle again and it carries on rising; the blocks never come back down on their own.",
           "Above the build limit the rising block breaks and drops as an item, the way falling sand is lost in the void. Unlike vanilla, there is no 100 tick grace period before that happens, so the block breaks at the limit instead of about 115 blocks above it.",
-          "All six blocks that have an item sit in the \"Building Items\" creative group (\"SimpleBuilding Items\" in German); in the code the pistons are filed under \"Machines & Storage\" and the sand/gravel under \"Gravity Blocks\".",
+          "All eight blocks that have an item sit in the \"Building Items\" creative group (\"SimpleBuilding Items\" in German); in the code the pistons are filed under \"Machines & Storage\" and the sand/gravel under \"Gravity Blocks\".",
           "None of the four sand and gravel variants is in any tool tag the mod generates.",
           "All four sand and gravel variants ship byte-identical copies of the vanilla sand and gravel textures (checked by SHA-256 against the client jar). In game they therefore cannot be told apart from ordinary sand and gravel - on blocks whose whole point is the changed gravity.",
           "The Netherite Piston tooltip present in the language files is displayed by no code.",
-          "Game tests prove it: a 13-block column is only pushable by the Reinforced Piston, the Netherite Piston destroys stone at full signal strength, the suspended blocks stay in mid-air, the levitating blocks rise measurably faster over each of three samples (which a constant-rate movement could not do), turn back into a block under a ceiling, and drop as an item at the build limit."
+          "Game tests prove it: a 13-block column is only pushable by the Reinforced Piston, the Netherite Piston destroys stone at full signal strength and, with a Redstone Block beside it, breaks through bedrock, leaving neither itself nor the Redstone Block behind and dropping no piston, the suspended blocks stay in mid-air, the levitating blocks rise measurably faster over each of three samples (which a constant-rate movement could not do), turn back into a block under a ceiling, and drop as an item at the build limit."
         ]
       },
       "de": {
         "title": "Kolben und Schwerkraftblöcke",
-        "summary": "SimpleBuilding erweitert Redstone-Bauten um zwei stärkere Kolben und hebt die Schwerkraft von Sand und Kies aus den Angeln. Der Verstärkte Kolben schiebt längere Blockreihen, der Netheritkolben zerstört Blöcke je nach Redstone-Stärke, und vier neue Sand- und Kiesvarianten bleiben entweder in der Luft hängen oder steigen von selbst nach oben.",
+        "summary": "SimpleBuilding erweitert Redstone-Bauten um vier stärkere Kolben und hebt die Schwerkraft von Sand und Kies aus den Angeln. Der Verstärkte Kolben und sein klebriger Zwilling schieben längere Blockreihen und, mit einem Redstoneblock bezahlt, sogar einen unzerstörbaren Block; Netherit- und Enderitkolben zerstören Blöcke je nach Redstone-Stärke und opfern sich, genauso bezahlt, um unzerstörbare Blöcke zu durchbrechen. Vier neue Sand- und Kiesvarianten bleiben entweder in der Luft hängen oder steigen von selbst nach oben.",
         "details": [
-          "Der Verstärkte Kolben hebt das Schublimit per Mixin von 12 auf 18 Blöcke an; Rezept: 3 Rissige Diamanten, 2 Kolben und 4 Eisenbarren ergeben 2 Stück (freigeschaltet mit einem Kolben).",
+          "Der Verstärkte Kolben und der Verstärkte klebrige Kolben heben das Schublimit per Mixin von 12 auf 18 Blöcke an. Rezepte: 3 Rissige Diamanten, 2 Kolben und 4 Eisenbarren ergeben 2 Verstärkte Kolben (freigeschaltet mit einem Kolben); ein Schleimball über einem Verstärkten Kolben ergibt 1 Verstärkten klebrigen Kolben (freigeschaltet mit einem Verstärkten Kolben). Der klebrige zieht beim Einfahren einen Block zurück und benutzt den klebrigen Vanilla-Kolbenkopf.",
+          "Unzerstörbar aus Sicht der Mod-Kolben (PistonBreach) sind Blöcke mit negativer Abbaugeschwindigkeit oder im Tag simplebuilding:piston_breachable_extra (Verstärkter Tiefenschiefer), aber nicht im Tag simplebuilding:piston_breach_immune (Barriere, Licht, die drei Befehlsblöcke, Konstruktionsblock, Verbund, Testblock, Testinstanzblock, bewegter Kolben, #minecraft:portals) und nie ein Block mit Block-Entity. In Vanilla bleiben damit Grundgestein, Verstärkter Tiefenschiefer und Endportalrahmen - die Rahmen nur, solange die Konfigurationsoption pistonsBreachEndPortalFrames an ist (Standard).",
+          "Bezahlt wird mit einem Redstoneblock direkt neben dem Kolben: zuerst der direkt dahinter, sonst einer der vier Seiten quer zur Blickrichtung. Nie die Front, und kein Redstoneblock, der den Kolben nur über die Quasi-Konnektivität (neben dem Block darüber) schaltet. Ohne einen solchen Redstoneblock - etwa mit einem Hebel - hält ein unzerstörbarer Block vorn jeden Mod-Kolben genau wie bisher auf.",
+          "Verstärkter (und Verstärkter klebriger) Kolben: Der unzerstörbare Block direkt davor wird wie ein normaler geschoben, der Rest der Reihe folgt den normalen Regeln, und er zählt zu den 18. Erst wenn der Schub gelungen ist, wird der Redstoneblock verbraucht (ohne Drop). Ein zweiter unzerstörbarer Block weiter hinten in der Reihe, Obsidian, das Baulimit, die Weltgrenze oder eine Block-Entity verweigern den Schub weiterhin, ebenso ein Schleimaufbau, der den bezahlenden Redstoneblock mitschieben würde. Beim Einfahren wird der unzerstörbare Block nie zurückgezogen.",
+          "Der verbrauchte Redstoneblock ist meist die einzige Stromquelle, also fährt der Verstärkte Kolben im selben Tick wieder ein: Der klebrige lässt den geschobenen Block an seinem neuen Platz, der normale lässt ihn seine Bewegung zu Ende führen.",
           "Der Netheritkolben wird aus 3 Verstärkten Kolben und 1 Netherite Nugget hergestellt (ergibt 3) und zerstört beim Ausfahren den Block vor sich, wenn dessen Härte höchstens (Signalstärke / 15) × 50 beträgt – bei voller Stärke also bis Härte 50; ansonsten schiebt er wie ein normaler Kolben. Zerstörte Blöcke lassen ihre normalen Drops fallen.",
-          "Beide Kolben sind nicht klebrig, lassen sich ausgefahren nicht von anderen Kolben verschieben und benutzen den normalen Vanilla-Kolbenkopf, der per Mixin an ihnen haften bleibt.",
-          "Beide Kolben sind im Tag mineable/pickaxe; der Netheritkolben hat Härte 5 und Explosionswiderstand 1200, sein Item ist feuerfest; der Verstärkte Kolben hat Härte 1,5.",
+          "Mit einem unzerstörbaren Block direkt davor und einem bezahlenden Redstoneblock opfert sich der Netheritkolben: Er reiht ein eigenes Ausfahr-Ereignis ein, und wenn es läuft, werden der unzerstörbare Block, der Redstoneblock und der Kolben zerstört, alle ohne Drop. Es bleibt weder Kolbenkopf noch bewegter Block zurück, und was hinter dem Ziel liegt (Schublimit, Obsidian, Bauhöhe), spielt keine Rolle.",
+          "Der Enderitkolben bricht gewöhnliche Blöcke genau wie der Netheritkolben. Sein Durchbruch reicht bis zu 3 Blöcke tief in Blickrichtung: Luft wird übersprungen, unzerstörbare Blöcke verschwinden ohne Drop, gewöhnliche Blöcke, die der Brecher bei seinem Signal brechen darf, werden mit ihren Drops zerstört, und alles andere (ein immuner Block, ein zu harter Block, eine Flüssigkeit) beendet den Durchbruch. Danach werden der Redstoneblock und der Kolben selbst ohne Drop zerstört. Ein Rezept hat er noch nicht.",
+          "Alle vier Kolben lassen sich ausgefahren nicht von anderen Kolben verschieben und benutzen den normalen Vanilla-Kolbenkopf (den klebrigen beim Verstärkten klebrigen Kolben). Ein Mixin auf PistonHeadBlock.isFittingBase erkennt den Mod-Kolben dahinter als Basis des Kopfes an - ausgefahren, gleiche Blickrichtung, passender Kopftyp -, deshalb bricht mit dem Kopf auch der Kolben, im Überlebensmodus mit Drop, im Kreativmodus ohne, wie bei Vanilla-Kolben.",
+          "Solange ein geschobener unzerstörbarer Block unterwegs ist (zwei Ticks in einem bewegten Kolben), lassen Explosionen den bewegten Kolben in Ruhe, und der Rotator verweigert ausgefahrene Kolben, Kolbenköpfe und bewegte Blöcke - beides würde sonst einen unzerstörbaren Block umsonst löschen.",
+          "Alle Kolben sind im Tag mineable/pickaxe. Der Netheritkolben hat Härte 5 und Explosionswiderstand 1200, der Enderitkolben Härte 6 und Explosionswiderstand 1500, beide Items sind feuerfest; der Verstärkte und der Verstärkte klebrige Kolben haben Härte 1,5.",
           "Der Block „netherite_piston_head“ ist registriert, wird aber von keinem Code platziert und hat weder Item noch Beutetabelle.",
           "Suspended Sand und Suspended Gravel (je 8 Sand/Kies + 1 Nihilith Shard = 8 Stück) sind gewöhnliche Blöcke ohne Fall-Logik; Suspended Sand hat zusätzlich keine Kollision.",
           "Levitating Sand und Levitating Gravel (je 8 Sand/Kies + 1 Astralit Dust = 8 Stück) fallen nach oben: zwei Ticks nach dem Setzen – und erneut, sobald sich ein Nachbar ändert und der Platz darüber frei ist – wird aus dem Block eine levitating_block-Entity, die aufsteigt. Sie benutzt Vanillas Fallphysik mit umgedrehtem Vorzeichen der Schwerkraft (v = 0,98 × v + 0,04 pro Tick, Grenzwert 2 Blöcke pro Tick) und beschleunigt daher genauso wie fallender Sand.",
           "Stößt ein aufsteigender Block an eine Decke, wird er in der freien Zelle darunter wieder zum Block – das Spiegelbild von Sand, der auf dem Boden landet. Passt er dort nicht hin, fällt er als Gegenstand. Wird das Hindernis entfernt, steigt er weiter; von selbst kommen die Blöcke nie wieder herunter.",
           "Über dem Baulimit zerbricht der aufsteigende Block und fällt als Gegenstand, so wie fallender Sand in der Leere verloren geht. Anders als bei Vanilla gibt es davor keine Schonfrist von 100 Ticks, der Block zerbricht also am Limit statt rund 115 Blöcke darüber.",
-          "Alle sechs Blöcke mit Item liegen im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“); im Code sind die Kolben unter „Machines & Storage“ und Sand/Kies unter „Gravity Blocks“ einsortiert.",
+          "Alle acht Blöcke mit Item liegen im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“); im Code sind die Kolben unter „Machines & Storage“ und Sand/Kies unter „Gravity Blocks“ einsortiert.",
           "Die vier Sand- und Kiesvarianten stehen in keinem vom Mod erzeugten Werkzeug-Tag.",
           "Alle vier Sand- und Kiesvarianten liefern byte-identische Kopien der Vanilla-Texturen von Sand und Kies aus (per SHA-256 gegen das Client-Jar geprüft). Im Spiel lassen sie sich daher nicht von gewöhnlichem Sand und Kies unterscheiden – bei Blöcken, deren ganzer Sinn die veränderte Schwerkraft ist.",
           "Der in den Sprachdateien vorhandene Tooltip zum Netheritkolben wird von keinem Code angezeigt.",
-          "Spieltests belegen: 13er-Säule nur mit Verstärktem Kolben schiebbar, Netheritkolben zerstört Stein bei voller Signalstärke, Suspended-Blöcke bleiben in der Luft, Levitating-Blöcke legen über drei Messpunkte hinweg jeweils mehr Strecke zurück (was eine gleichförmige Bewegung nicht könnte), werden unter einer Decke wieder zum Block und fallen am Baulimit als Gegenstand."
+          "Spieltests belegen: 13er-Säule nur mit Verstärktem Kolben schiebbar, Netheritkolben zerstört Stein bei voller Signalstärke und durchbricht mit einem Redstoneblock daneben Grundgestein, ohne dass er selbst oder der Redstoneblock übrig bleibt oder ein Kolben fällt, Suspended-Blöcke bleiben in der Luft, Levitating-Blöcke legen über drei Messpunkte hinweg jeweils mehr Strecke zurück (was eine gleichförmige Bewegung nicht könnte), werden unter einer Decke wieder zum Block und fallen am Baulimit als Gegenstand."
         ]
       }
     },
@@ -1810,7 +1838,7 @@ window.WIKI_DATA = {
         "title": "Enderite Void Protection",
         "summary": "Enderite items are not lost to the void: if they drop below the world's bottom they hang in place and are pulled back up when needed. Enderite armor also slows void damage for the wearer and lets you drift down gently while the jump key is held.",
         "details": [
-          "Everything in the simplebuilding:void_protected item tag is protected; datagen fills the tag automatically from every mod item whose id starts with \"enderite_\", plus raw_enderite - currently 24 entries (ingot, scrap, raw enderite, nugget, block, sword, spear, pickaxe, axe, shovel, hoe, chisel, sledgehammer, building wand, bundle, quiver, core, apple, carrot, the four armor pieces, upgrade template).",
+          "Everything in the simplebuilding:void_protected item tag is protected; datagen fills the tag automatically from every mod item whose id starts with \"enderite_\", plus raw_enderite - currently 25 entries (ingot, scrap, raw enderite, nugget, block, sword, spear, pickaxe, axe, shovel, hoe, chisel, sledgehammer, building wand, bundle, quiver, core, apple, carrot, the four armor pieces, upgrade template, piston).",
           "If such an item falls below the dimension's minimum height, its motion is zeroed and gravity is switched off - it floats.",
           "If it ends up more than 10 blocks below the minimum height, it is moved back to 5 blocks above the minimum height.",
           "The check runs on the server only, on every tick of the item entity.",
@@ -1825,7 +1853,7 @@ window.WIKI_DATA = {
         "title": "Enderit-Schutz vor der Leere",
         "summary": "Enderit-Gegenstände gehen in der Leere nicht verloren: Fallen sie unter die Weltgrenze, bleiben sie schweben und werden bei Bedarf wieder nach oben geholt. Zusätzlich verlangsamt Enderit-Rüstung den Leere-Schaden für den Träger und erlaubt bei gedrückter Sprungtaste sanftes Fallen.",
         "details": [
-          "Geschützt sind alle Items im Tag simplebuilding:void_protected; er wird per Datagen automatisch aus allen Mod-Items gefüllt, deren Kennung mit „enderite_“ beginnt, plus raw_enderite – zurzeit 24 Einträge (Barren, Schrott, Roh-Enderit, Nugget, Block, Schwert, Speer, Spitzhacke, Axt, Schaufel, Hacke, Meißel, Vorschlaghammer, Baustab, Bündel, Köcher, Kern, Apfel, Karotte, vier Rüstungsteile, Upgrade-Vorlage).",
+          "Geschützt sind alle Items im Tag simplebuilding:void_protected; er wird per Datagen automatisch aus allen Mod-Items gefüllt, deren Kennung mit „enderite_“ beginnt, plus raw_enderite – zurzeit 25 Einträge (Barren, Schrott, Roh-Enderit, Nugget, Block, Schwert, Speer, Spitzhacke, Axt, Schaufel, Hacke, Meißel, Vorschlaghammer, Baustab, Bündel, Köcher, Kern, Apfel, Karotte, vier Rüstungsteile, Upgrade-Vorlage, Kolben).",
           "Fällt ein solches Item unter die Mindesthöhe der jeweiligen Dimension, wird seine Bewegung gestoppt und die Schwerkraft abgeschaltet – es schwebt.",
           "Liegt es mehr als 10 Blöcke unter der Mindesthöhe, wird es auf 5 Blöcke über der Mindesthöhe zurückversetzt.",
           "Die Prüfung erfolgt nur auf dem Server, jeden Tick des Item-Objekts.",
@@ -2193,6 +2221,7 @@ window.WIKI_DATA = {
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+        "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
         "common/src/shared/java/com/simplebuilding/client/DoubleJumpController.java",
         "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java",
         "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
@@ -2220,6 +2249,7 @@ window.WIKI_DATA = {
           "Enable Double Jump Enchantment (enableDoubleJump, default on): switches the air jump off entirely, client-side.",
           "Air Jump Cooldown (Ticks) (airJumpCooldownTicks, default 100): cooldown in ticks at Air Jump level 1 (20 ticks = 1 s); level 2 uses half of it; negative values are treated as 0.",
           "Enable Armor Trim Benefits (enableArmorTrimBenefits, default on): reported by the client to the server when joining a world, and switches the pattern and material bonuses for that player; a change only takes effect after rejoining, because the value is only sent at login.",
+          "Pistons Breach End Portal Frames (pistonsBreachEndPortalFrames, default on): whether the mod's pistons treat End Portal Frames as breachable unbreakable blocks (a paid Reinforced Piston pushes one, a Netherite or Enderite Piston destroys it); off, the frame counts as immune. Read on the server by PistonBreach.",
           "Trim Benefit Base Multiplier (trimBenefitBaseMultiplier, default 2.0): base of the resonance multiplier; changeable at runtime with /simplebuilding config setTrimMultiplier <value> (operators only), /simplebuilding config getTrimMultiplier shows it; the command does not write the value back into the config file.",
           "Max Multiplier Limit (maxMultiplierLimit, default 10.0): upper bound for the value in the setTrimMultiplier command (read when the command is registered); otherwise it has no effect.",
           "Tool Settings → Invert Octant Sneak (invertOctantSneak, default off): inverts whether the Octant's area fill is shown with or without Constructor's Touch (showFill = inverted XOR enchantment present).",
@@ -2241,6 +2271,7 @@ window.WIKI_DATA = {
           "Luftsprung-Verzauberung aktivieren (enableDoubleJump, Standard an): schaltet den Luftsprung clientseitig komplett ab.",
           "Luftsprung-Abklingzeit (airJumpCooldownTicks, Standard 100): Abklingzeit in Ticks bei Luftsprung-Stufe 1 (20 Ticks = 1 s); Stufe 2 nutzt die Hälfte; negative Werte werden als 0 behandelt.",
           "Rüstungsbesatz-Vorteile aktivieren (enableArmorTrimBenefits, Standard an): wird beim Betreten einer Welt vom Client an den Server gemeldet und schaltet die Muster- und Material-Boni für diesen Spieler; eine Änderung wirkt erst nach erneutem Betreten, da der Wert nur beim Login gesendet wird.",
+          "Kolben durchbrechen Endportalrahmen (pistonsBreachEndPortalFrames, Standard an): ob die Kolben der Mod Endportalrahmen als durchbrechbare unzerstörbare Blöcke behandeln (ein bezahlter Verstärkter Kolben schiebt einen, ein Netherit- oder Enderitkolben zerstört ihn); aus, gilt der Rahmen als immun. Wird serverseitig von PistonBreach gelesen.",
           "trimBenefitBaseMultiplier (Standard 2,0): Basis des Resonanz-Multiplikators; per Befehl /simplebuilding config setTrimMultiplier <Wert> (nur Operatoren) zur Laufzeit änderbar, /simplebuilding config getTrimMultiplier zeigt ihn; der Befehl schreibt den Wert nicht in die Konfigurationsdatei zurück.",
           "maxMultiplierLimit (Standard 10,0): Obergrenze für den Wert im Befehl setTrimMultiplier (wird bei der Befehlsregistrierung ausgelesen); sonst ohne Wirkung.",
           "Werkzeugeinstellungen → Oktant Schleichen umkehren (invertOctantSneak, Standard aus): kehrt um, ob die Oktant-Flächenfüllung mit oder ohne „Berührung des Konstrukteurs“ angezeigt wird (showFill = invertiert XOR Verzauberung vorhanden).",
@@ -4688,6 +4719,83 @@ window.WIKI_DATA = {
         "maxStackSize": 1
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_piston",
+      "name": {
+        "en_us": "Enderite Piston",
+        "de_de": "Enderitkolben"
+      },
+      "texture": "assets/textures/block/enderite_piston_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "The Enderite Piston breaks the block in front of it like the Netherite Piston, and, paid with a Redstone Block next to it, sacrifices itself to break up to three blocks deep through unbreakable blocks such as bedrock.",
+          "details": [
+            "Its own class EnderitePistonBlock, a subclass of the Netherite Piston's NetheriteBreakerPistonBlock; non-sticky.",
+            "Ordinary blocks: exactly the Netherite Piston's rule - as it extends it destroys the block in front if that block's hardness is at most (signal strength / 15) x 50 and its push reaction is not BLOCK, with its normal drops; otherwise it pushes like an ordinary piston (push limit 12).",
+            "Breach: with an unbreakable block directly in front (negative destroy speed or Reinforced Deepslate, not in simplebuilding:piston_breach_immune, no block entity; see PistonBreach) and a Redstone Block directly next to it paying (behind first, then the four sides across its facing, never the front), it works through up to 3 cells in its facing direction (EnderitePistonBlock.BREACH_DEPTH).",
+            "Per cell: air is skipped; an unbreakable block is removed without drops; an ordinary block that the breaker could break at the signal it gets (the paying Redstone Block gives 15, so hardness up to 50, push reaction not BLOCK) is destroyed with its normal drops; a block in simplebuilding:piston_breach_immune ends the breach even if the breaker could break it, and so does anything else - an unbreakable block with a block entity, a block harder than that, a block with push reaction BLOCK, a liquid.",
+            "Afterwards the Redstone Block and the piston itself are destroyed without drops. The breach runs on the piston's own block event (queued whenever a neighbour changes or it is placed), so no piston head or moving block is left and nothing behind the breached cells matters.",
+            "Hardness 6, blast resistance 1500, netherite block sounds; the item is fire resistant and, since its id starts with enderite_, in the simplebuilding:void_protected tag.",
+            "An extended Enderite Piston cannot be moved by other pistons; it uses the ordinary vanilla piston head, which the PistonHeadBlock.isFittingBase mixin accepts, so breaking the head breaks the piston as well.",
+            "In the mineable/pickaxe tag, no minimum tool tier; loot table: drops itself (survives_explosion condition).",
+            "In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after the Netherite Piston."
+          ],
+          "controls": [
+            "Apply a redstone signal: it extends and breaks or pushes the block in front, like the Netherite Piston.",
+            "Redstone Block directly next to it and an unbreakable block in front: breach up to 3 blocks deep; the Redstone Block and the piston are used up."
+          ],
+          "caveats": [
+            "There is no crafting recipe yet; it is only available from the creative tab or by command.",
+            "The breach checks neither height nor dimension: the bottom bedrock layer of the world and the Nether roof can be breached.",
+            "The breach fires no NeoForge PistonEvent, so mods listening to it cannot cancel it."
+          ]
+        },
+        "de": {
+          "summary": "Der Enderitkolben bricht den Block vor sich wie der Netheritkolben und opfert sich, mit einem Redstoneblock daneben bezahlt, um bis zu drei Blöcke tief durch unzerstörbare Blöcke wie Grundgestein zu brechen.",
+          "details": [
+            "Eigene Klasse EnderitePistonBlock, eine Unterklasse von NetheriteBreakerPistonBlock (Netheritkolben); nicht klebrig.",
+            "Gewöhnliche Blöcke: genau die Regel des Netheritkolbens - beim Ausfahren zerstört er den Block davor, wenn dessen Härte höchstens (Signalstärke / 15) × 50 beträgt und seine Push-Reaktion nicht BLOCK ist, mit den normalen Drops; sonst schiebt er wie ein gewöhnlicher Kolben (Schublimit 12).",
+            "Durchbruch: Steht ein unzerstörbarer Block direkt davor (negative Abbaugeschwindigkeit oder Verstärkter Tiefenschiefer, nicht in simplebuilding:piston_breach_immune, keine Block-Entity; siehe PistonBreach) und bezahlt ein Redstoneblock direkt daneben (zuerst dahinter, dann die vier Seiten quer zur Blickrichtung, nie die Front), arbeitet er sich bis zu 3 Zellen in Blickrichtung vor (EnderitePistonBlock.BREACH_DEPTH).",
+            "Je Zelle: Luft wird übersprungen; ein unzerstörbarer Block verschwindet ohne Drop; ein gewöhnlicher Block, den der Brecher bei seinem Signal brechen darf (der bezahlende Redstoneblock liefert 15, also Härte bis 50, Push-Reaktion nicht BLOCK), wird mit seinen normalen Drops zerstört; ein Block aus simplebuilding:piston_breach_immune beendet den Durchbruch, selbst wenn der Brecher ihn brechen dürfte, ebenso alles andere - ein unzerstörbarer Block mit Block-Entity, ein härterer Block, ein Block mit Push-Reaktion BLOCK, eine Flüssigkeit.",
+            "Danach werden der Redstoneblock und der Kolben selbst ohne Drop zerstört. Der Durchbruch läuft über ein eigenes Block-Ereignis des Kolbens (eingereiht bei jeder Nachbaränderung und beim Setzen), es bleibt also weder Kolbenkopf noch bewegter Block zurück, und was hinter den durchbrochenen Zellen liegt, spielt keine Rolle.",
+            "Härte 6, Explosionswiderstand 1500, Geräusch wie ein Netheritblock; das Item ist feuerfest und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected.",
+            "Ein ausgefahrener Enderitkolben kann von anderen Kolben nicht verschoben werden; er benutzt den normalen Vanilla-Kolbenkopf, den das Mixin auf PistonHeadBlock.isFittingBase anerkennt, wer den Kopf abbaut, bricht also auch den Kolben.",
+            "Im Tag mineable/pickaxe, kein Mindestwerkzeug; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion).",
+            "Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach dem Netheritkolben."
+          ],
+          "controls": [
+            "Redstone-Signal anlegen: Er fährt aus und bricht oder schiebt den Block davor, wie der Netheritkolben.",
+            "Redstoneblock direkt daneben und ein unzerstörbarer Block davor: Durchbruch bis zu 3 Blöcke tief; Redstoneblock und Kolben werden verbraucht."
+          ],
+          "caveats": [
+            "Es gibt noch kein Rezept; er ist nur über den Kreativ-Reiter oder per Befehl erhältlich.",
+            "Der Durchbruch prüft weder Höhe noch Dimension: Die unterste Grundgesteinsschicht der Welt und das Netherdach lassen sich durchbrechen.",
+            "Der Durchbruch feuert kein NeoForge-PistonEvent, Mods, die darauf hören, können ihn also nicht absagen."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/PistonBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/PistonHeadBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "common/src/shared/java/com/simplebuilding/util/ModTags.java",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_piston.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:enderite_quiver",
@@ -7799,7 +7907,7 @@ window.WIKI_DATA = {
       "trades": [],
       "note": {
         "en": {
-          "summary": "The Netherite Piston destroys the block directly in front of it as it extends, provided the redstone signal is strong enough for that block's hardness; otherwise it works like an ordinary piston.",
+          "summary": "The Netherite Piston destroys the block directly in front of it as it extends, provided the redstone signal is strong enough for that block's hardness; otherwise it works like an ordinary piston. Paid with a Redstone Block next to it, it sacrifices itself to destroy an unbreakable block such as bedrock.",
           "details": [
             "Its own class NetheriteBreakerPistonBlock, extending the vanilla piston; non-sticky (sticky = false).",
             "On piston block event type 0 (extending), and only while the piston is currently retracted (EXTENDED = false), it inspects the block directly in front of its face.",
@@ -7810,8 +7918,10 @@ window.WIKI_DATA = {
             "When a block is destroyed, the server plays the sound of a zombie rattling an iron door at the piston (ZOMBIE_ATTACK_IRON_DOOR, volume 0.5, pitch 0.8).",
             "After the check the normal piston logic carries on (super.triggerEvent): if the signal is too weak, the block is pushed like by an ordinary piston instead of being destroyed.",
             "Nothing is destroyed unless the piston really extends: before breaking, it repeats vanilla's own extend check (the signal from every side but the push direction, plus quasi-connectivity from above). A signal that disappears between the block event being queued and being run therefore costs nothing.",
+            "Breach (sacrifice): with an unbreakable block directly in front (negative destroy speed or Reinforced Deepslate, not in simplebuilding:piston_breach_immune, no block entity; see PistonBreach) and a Redstone Block directly next to it paying (behind first, then the four sides across its facing, never the front), the piston queues an extend event of its own whenever a neighbour changes or it is placed. When the event runs, the unbreakable block, the Redstone Block and the piston itself are destroyed without drops; no piston head or moving block is left, and nothing behind the target matters (push limit, obsidian, build height).",
+            "Without such a Redstone Block - only a lever, say - an unbreakable block in front stays untouched and the piston does not extend, as before. If the queued event finds its Redstone Block already gone (two pistons sharing one), the breaking formula still refuses the unbreakable block (negative hardness, or 55 for Reinforced Deepslate, above the highest threshold of 50).",
             "An extended Netherite Piston cannot be moved by other pistons (mixin on PistonBaseBlock.isPushable).",
-            "Extending places the ordinary vanilla piston head; it stays attached to the Netherite Piston because a mixin on PistonHeadBlock.canSurvive accepts the Netherite Piston as a valid base.",
+            "Extending places the ordinary vanilla piston head. A mixin on PistonHeadBlock.isFittingBase accepts the Netherite Piston as its base (extended, same facing, normal head), so the head stays attached and breaking the head breaks the piston as well, as with a vanilla piston.",
             "Hardness 5.0, blast resistance 1200, netherite block sounds; the item is fire resistant (fireResistant).",
             "In the mineable/pickaxe tag (a pickaxe mines it faster), no minimum tool tier set; loot table: drops itself (survives_explosion condition).",
             "Recipe \"netherite_piston_bulk\" (crafting table, redstone category, 2x2 pattern): 1 Netherite Nugget in the top left and a Reinforced Piston in each of the other three squares (3 in total); yields 3 Netherite Pistons. Unlocked as soon as you own a Reinforced Piston.",
@@ -7820,19 +7930,22 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Apply a redstone signal: the piston extends; if the signal is strong enough for the hardness of the block in front, that block is destroyed, otherwise it is pushed.",
-            "Remove the signal: the piston retracts."
+            "Remove the signal: the piston retracts.",
+            "Redstone Block directly next to it and bedrock (or another unbreakable block) in front: the bedrock, the Redstone Block and the piston are destroyed, without drops."
           ],
           "caveats": [
-            "Unbreakable blocks (negative hardness) and air are never destroyed.",
+            "The breaking formula never destroys unbreakable blocks (negative hardness) or air; unbreakable blocks only go through the paid breach.",
             "Blocks that block piston movement outright (push reaction BLOCK) are not destroyed, even when the signal would be strong enough.",
             "The signal strength is only measured on the six direct neighbour blocks.",
-            "The Reinforced Piston's raised push limit of 18 does NOT apply to the Netherite Piston; the mixin only checks for the Reinforced Piston.",
+            "The Reinforced Piston's raised push limit of 18 does NOT apply to the Netherite Piston; the mixin only checks for ReinforcedPistonBlock (the two Reinforced Pistons).",
             "The tooltip text \"Breaks blocks based on Redstone strength (1-15).\" is present in both language files, but no code displays it (the item is a plain BlockItem and no Java code references the key); it never shows up in game.",
-            "The mod's own \"netherite_piston_head\" block is not used by the Netherite Piston; it uses the ordinary piston head."
+            "The mod's own \"netherite_piston_head\" block is not used by the Netherite Piston; it uses the ordinary piston head.",
+            "The breach checks neither height nor dimension: the bottom bedrock layer of the world and the Nether roof can be breached.",
+            "The breach fires no NeoForge PistonEvent (the event is fired inside vanilla's triggerEvent, which the breach never reaches), so mods listening to it cannot cancel it; the normal breaking has the same gap."
           ]
         },
         "de": {
-          "summary": "Der Netheritkolben zerstört beim Ausfahren den Block direkt vor sich, wenn das Redstone-Signal stark genug für dessen Härte ist, und arbeitet ansonsten wie ein normaler Kolben.",
+          "summary": "Der Netheritkolben zerstört beim Ausfahren den Block direkt vor sich, wenn das Redstone-Signal stark genug für dessen Härte ist, und arbeitet ansonsten wie ein normaler Kolben. Mit einem Redstoneblock daneben bezahlt, opfert er sich, um einen unzerstörbaren Block wie Grundgestein zu zerstören.",
           "details": [
             "Eigene Klasse NetheriteBreakerPistonBlock, die vom Vanilla-Kolben erbt; nicht klebrig (sticky = false).",
             "Beim Kolben-Blockevent Typ 0 (Ausfahren) und nur, wenn der Kolben gerade eingefahren ist (EXTENDED = false), prüft er den Block direkt vor seiner Vorderseite.",
@@ -7843,8 +7956,10 @@ window.WIKI_DATA = {
             "Beim Zerstören ertönt serverseitig das Geräusch eines Zombies, der an einer Eisentür rüttelt (ZOMBIE_ATTACK_IRON_DOOR, Lautstärke 0,5, Tonhöhe 0,8).",
             "Nach der Prüfung läuft die normale Kolbenlogik weiter (super.triggerEvent): Ist das Signal zu schwach, wird der Block wie bei einem gewöhnlichen Kolben geschoben statt zerstört.",
             "Zerstört wird nur, wenn der Kolben wirklich ausfährt: Vor dem Brechen wiederholt er Vanillas eigene Ausfahrprüfung (Signal von jeder Seite außer der Schubrichtung, dazu Quasi-Konnektivität von oben). Ein Signal, das zwischen Einreihen und Ausführen des Block-Ereignisses verschwindet, kostet also nichts.",
+            "Durchbruch (Opfer): Steht ein unzerstörbarer Block direkt davor (negative Abbaugeschwindigkeit oder Verstärkter Tiefenschiefer, nicht in simplebuilding:piston_breach_immune, keine Block-Entity; siehe PistonBreach) und bezahlt ein Redstoneblock direkt daneben (zuerst dahinter, dann die vier Seiten quer zur Blickrichtung, nie die Front), reiht der Kolben bei jeder Nachbaränderung und beim Setzen ein eigenes Ausfahr-Ereignis ein. Läuft es, werden der unzerstörbare Block, der Redstoneblock und der Kolben selbst ohne Drop zerstört; es bleibt weder Kolbenkopf noch bewegter Block zurück, und was hinter dem Ziel liegt, spielt keine Rolle (Schublimit, Obsidian, Bauhöhe).",
+            "Ohne einen solchen Redstoneblock - etwa nur mit einem Hebel - bleibt ein unzerstörbarer Block davor unberührt, und der Kolben fährt nicht aus, wie bisher. Findet das eingereihte Ereignis seinen Redstoneblock schon nicht mehr vor (zwei Kolben teilen sich einen), verweigert die Zerstörungsformel den unzerstörbaren Block trotzdem (negative Härte, bei Verstärktem Tiefenschiefer 55, über der höchsten Grenze von 50).",
             "Ein ausgefahrener Netheritkolben kann von anderen Kolben nicht verschoben werden (Mixin auf PistonBaseBlock.isPushable).",
-            "Beim Ausfahren erscheint der normale Vanilla-Kolbenkopf; er bleibt am Netheritkolben haften, weil ein Mixin auf PistonHeadBlock.canSurvive den Netheritkolben als gültige Basis anerkennt.",
+            "Beim Ausfahren erscheint der normale Vanilla-Kolbenkopf. Ein Mixin auf PistonHeadBlock.isFittingBase erkennt den Netheritkolben als seine Basis an (ausgefahren, gleiche Blickrichtung, normaler Kopf), deshalb bleibt der Kopf haften, und wer den Kopf abbaut, bricht wie bei einem Vanilla-Kolben auch den Kolben.",
             "Härte 5,0, Explosionswiderstand 1200, Geräusch wie ein Netheritblock; das Item ist feuerfest (fireResistant).",
             "Im Tag mineable/pickaxe (mit der Spitzhacke schneller abbaubar), kein Mindestwerkzeug hinterlegt; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion).",
             "Rezept „netherite_piston_bulk“ (Werkbank, Kategorie Redstone, 2×2-Muster): 1 Netherite Nugget oben links, die übrigen drei Felder je ein Verstärkter Kolben (Muster NR / RR, also insgesamt 3); ergibt 3 Netheritkolben. Freigeschaltet, sobald man einen Verstärkten Kolben besitzt.",
@@ -7853,19 +7968,24 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Redstone-Signal anlegen: Kolben fährt aus; ist das Signal stark genug für die Härte des Blocks davor, wird dieser zerstört, sonst geschoben.",
-            "Signal wegnehmen: Kolben fährt ein."
+            "Signal wegnehmen: Kolben fährt ein.",
+            "Redstoneblock direkt daneben und Grundgestein (oder ein anderer unzerstörbarer Block) davor: Grundgestein, Redstoneblock und Kolben werden zerstört, ohne Drops."
           ],
           "caveats": [
-            "Unzerstörbare Blöcke (negative Härte) und Luft werden nie zerstört.",
+            "Die Zerstörungsformel zerstört nie unzerstörbare Blöcke (negative Härte) oder Luft; unzerstörbare Blöcke gehen nur über den bezahlten Durchbruch.",
             "Blöcke, die Kolbenbewegung grundsätzlich blockieren (Push-Reaktion BLOCK), werden nicht zerstört, auch wenn das Signal reichen würde.",
             "Die Signalstärke wird nur an den sechs direkten Nachbarblöcken gemessen.",
-            "Das erhöhte Schublimit von 18 des Verstärkten Kolbens gilt NICHT für den Netheritkolben; das Mixin prüft nur auf den Verstärkten Kolben.",
+            "Das erhöhte Schublimit von 18 des Verstärkten Kolbens gilt NICHT für den Netheritkolben; das Mixin prüft nur auf ReinforcedPistonBlock (die beiden Verstärkten Kolben).",
             "Der Tooltip-Text „Baut Blöcke basierend auf Redstone-Stärke (1-15) ab.“ ist zwar in beiden Sprachdateien hinterlegt, wird aber von keinem Code angezeigt (das Item ist ein einfaches BlockItem, kein Java-Code referenziert den Schlüssel); im Spiel erscheint dieser Hinweis nicht.",
-            "Der eigene Block „netherite_piston_head“ wird vom Netheritkolben nicht verwendet; er nutzt den normalen Kolbenkopf."
+            "Der eigene Block „netherite_piston_head“ wird vom Netheritkolben nicht verwendet; er nutzt den normalen Kolbenkopf.",
+            "Der Durchbruch prüft weder Höhe noch Dimension: Die unterste Grundgesteinsschicht der Welt und das Netherdach lassen sich durchbrechen.",
+            "Der Durchbruch feuert kein NeoForge-PistonEvent (das Ereignis wird in Vanillas triggerEvent gefeuert, das der Durchbruch nie erreicht), Mods, die darauf hören, können ihn also nicht absagen; das normale Brechen hat dieselbe Lücke."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GravityBlockTests.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/mixin/PistonBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/PistonHandlerMixin.java",
@@ -9715,60 +9835,69 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_piston"
       ],
       "usedIn": [
-        "simplebuilding:netherite_piston_bulk"
+        "simplebuilding:netherite_piston_bulk",
+        "simplebuilding:reinforced_sticky_piston"
       ],
       "trades": [],
       "note": {
         "en": {
-          "summary": "The Reinforced Piston is a plain (non-sticky) piston that can push a line of up to 18 blocks instead of the usual 12.",
+          "summary": "The Reinforced Piston is a plain (non-sticky) piston that can push a line of up to 18 blocks instead of the usual 12, and, paid with a Redstone Block next to it, one unbreakable block such as bedrock.",
           "details": [
-            "Registered as an ordinary vanilla piston block (PistonBaseBlock), explicitly non-sticky (sticky = false).",
-            "A mixin on PistonStructureResolver.addBlockLine replaces the vanilla constant 12 (the push limit) with 18, but only while the pushing piston is a Reinforced Piston; every other piston keeps 12.",
+            "Its own class ReinforcedPistonBlock, extending the vanilla piston, non-sticky (sticky = false); the Reinforced Sticky Piston is the same class with sticky = true.",
+            "A mixin on PistonStructureResolver.addBlockLine replaces the vanilla constant 12 (the push limit) with 18, but only while the block at the piston's position is a ReinforcedPistonBlock (the Reinforced or the Reinforced Sticky Piston); every other piston keeps 12.",
             "An extended Reinforced Piston cannot be moved by other pistons (a mixin on PistonBaseBlock.isPushable returns false for it); while it is retracted the normal vanilla check applies.",
-            "Extending places the ordinary vanilla piston head; it stays attached to the Reinforced Piston because a mixin on PistonHeadBlock.canSurvive accepts the Reinforced Piston as a valid base.",
+            "Breach: with an unbreakable block directly in front (negative destroy speed or Reinforced Deepslate, not in simplebuilding:piston_breach_immune, no block entity; see PistonBreach) and a Redstone Block directly next to it paying (behind first, then the four sides across its facing, never the front), the structure resolver of this one extension treats that block as pushable. Build limit, world border, push reaction and block entities still apply, the rest of the line follows the normal rules, and the block counts toward the 18.",
+            "The Redstone Block is destroyed (no drop) only after the extension succeeded; if the push fails - too long, a second unbreakable block in the line, obsidian, a cancelled NeoForge PistonEvent, or a slime structure that would move the Redstone Block itself - it stays. The retracting resolver is never armed, so nothing unbreakable is ever pulled back.",
+            "Extending places the ordinary vanilla piston head. A mixin on PistonHeadBlock.isFittingBase accepts the Reinforced Piston as its base (extended, same facing, normal head), so the head stays attached and breaking the head breaks the piston as well, as with a vanilla piston.",
             "Hardness 1.5, metallic block sounds; in the mineable/pickaxe tag (a pickaxe mines it faster), with no minimum tool tier and no requiresCorrectToolForDrops, so it drops no matter what you break it with.",
             "Loot table: drops itself (survives_explosion condition).",
             "Recipe (crafting table, redstone category): top row three Cracked Diamonds, middle row Piston - Iron Ingot - Piston, bottom row three Iron Ingots (3 Cracked Diamonds, 2 Pistons and 4 Iron Ingots in total); yields 2 Reinforced Pistons. Unlocked as soon as you own a Piston.",
-            "Serves as the ingredient for the Netherite Piston (3 Reinforced Pistons + 1 Netherite Nugget).",
+            "Serves as the ingredient for the Netherite Piston (3 Reinforced Pistons + 1 Netherite Nugget) and for the Reinforced Sticky Piston (a Slime Ball on top).",
             "The item is a plain BlockItem with no fire resistance and no tooltip.",
             "In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German), filed under \"Machines & Storage\" in the code.",
             "A game test proves it: a column of 13 stone blocks is pushed upwards by the Reinforced Piston (piston extended, ordinary piston head in front of it), while a vanilla piston in an identical setup does not extend at all."
           ],
           "controls": [
             "Apply a redstone signal: the piston extends and pushes up to 18 blocks.",
-            "Remove the signal: the piston retracts (it is not sticky, so it pulls nothing back)."
+            "Remove the signal: the piston retracts (it is not sticky, so it pulls nothing back).",
+            "Redstone Block directly behind it (or on a side) and an unbreakable block such as bedrock directly in front: it pushes that block one further and uses up the Redstone Block."
           ],
           "caveats": [
-            "The raised push limit of 18 applies only to the Reinforced Piston, not to the Netherite Piston.",
-            "There is no sticky variant."
+            "The raised push limit of 18 applies only to the Reinforced and the Reinforced Sticky Piston, not to the Netherite or the Enderite Piston.",
+            "Only the block directly in front may be the unbreakable one, and the Redstone Block has to touch the piston (not its front); a Redstone Block that only powers it through quasi-connectivity pays nothing. Since the consumed Redstone Block is often the only power source, the piston usually retracts again right away."
           ]
         },
         "de": {
-          "summary": "Der Verstärkte Kolben ist ein normaler (nicht klebriger) Kolben, der statt 12 bis zu 18 Blöcke in einer Reihe schieben kann.",
+          "summary": "Der Verstärkte Kolben ist ein normaler (nicht klebriger) Kolben, der statt 12 bis zu 18 Blöcke in einer Reihe schieben kann und, mit einem Redstoneblock daneben bezahlt, einen unzerstörbaren Block wie Grundgestein.",
           "details": [
-            "Wird als gewöhnlicher Vanilla-Kolbenblock (PistonBaseBlock) registriert, ausdrücklich nicht klebrig (sticky = false).",
-            "Ein Mixin auf PistonStructureResolver.addBlockLine ersetzt die Vanilla-Konstante 12 (Schublimit) durch 18, aber nur, wenn der schiebende Kolben ein Verstärkter Kolben ist; für alle anderen Kolben bleibt es bei 12.",
+            "Eigene Klasse ReinforcedPistonBlock, die vom Vanilla-Kolben erbt, nicht klebrig (sticky = false); der Verstärkte klebrige Kolben ist dieselbe Klasse mit sticky = true.",
+            "Ein Mixin auf PistonStructureResolver.addBlockLine ersetzt die Vanilla-Konstante 12 (Schublimit) durch 18, aber nur, wenn der Block an der Kolbenposition ein ReinforcedPistonBlock ist (Verstärkter oder Verstärkter klebriger Kolben); für alle anderen Kolben bleibt es bei 12.",
             "Ein ausgefahrener Verstärkter Kolben kann von anderen Kolben nicht verschoben werden (Mixin auf PistonBaseBlock.isPushable liefert dann false); im eingefahrenen Zustand greift die normale Vanilla-Prüfung.",
-            "Beim Ausfahren erscheint der normale Vanilla-Kolbenkopf; er bleibt am Verstärkten Kolben haften, weil ein Mixin auf PistonHeadBlock.canSurvive den Verstärkten Kolben als gültige Basis anerkennt.",
+            "Durchbruch: Steht ein unzerstörbarer Block direkt davor (negative Abbaugeschwindigkeit oder Verstärkter Tiefenschiefer, nicht in simplebuilding:piston_breach_immune, keine Block-Entity; siehe PistonBreach) und bezahlt ein Redstoneblock direkt daneben (zuerst dahinter, dann die vier Seiten quer zur Blickrichtung, nie die Front), behandelt der Struktur-Resolver genau dieses Ausfahrens den Block als schiebbar. Baulimit, Weltgrenze, Push-Reaktion und Block-Entities gelten weiter, der Rest der Reihe folgt den normalen Regeln, und der Block zählt zu den 18.",
+            "Der Redstoneblock wird erst nach gelungenem Ausfahren zerstört (ohne Drop); scheitert der Schub - zu lang, ein zweiter unzerstörbarer Block in der Reihe, Obsidian, ein abgesagtes NeoForge-PistonEvent oder ein Schleimaufbau, der den Redstoneblock selbst verschieben würde -, bleibt er liegen. Der Resolver des Einfahrens wird nie scharf geschaltet, es wird also nie etwas Unzerstörbares zurückgezogen.",
+            "Beim Ausfahren erscheint der normale Vanilla-Kolbenkopf. Ein Mixin auf PistonHeadBlock.isFittingBase erkennt den Verstärkten Kolben als seine Basis an (ausgefahren, gleiche Blickrichtung, normaler Kopf), deshalb bleibt der Kopf haften, und wer den Kopf abbaut, bricht wie bei einem Vanilla-Kolben auch den Kolben.",
             "Härte 1,5, Geräusch wie Metall; im Tag mineable/pickaxe (mit der Spitzhacke schneller abbaubar), kein Mindestwerkzeug und kein requiresCorrectToolForDrops hinterlegt.",
             "Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion).",
             "Rezept (Werkbank, Kategorie Redstone): oben drei Rissige Diamanten, mittlere Reihe Kolben – Eisenbarren – Kolben, unten drei Eisenbarren (insgesamt 3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren); ergibt 2 Verstärkte Kolben. Freigeschaltet, sobald man einen Kolben besitzt.",
-            "Dient als Zutat für den Netheritkolben (3 Verstärkte Kolben + 1 Netherite Nugget).",
+            "Dient als Zutat für den Netheritkolben (3 Verstärkte Kolben + 1 Netherite Nugget) und für den Verstärkten klebrigen Kolben (ein Schleimball darüber).",
             "Das Item ist ein einfaches BlockItem ohne Feuerfestigkeit und ohne Tooltip.",
             "Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“), im Code unter „Machines & Storage“ einsortiert.",
             "Ein Spieltest belegt: Eine Säule aus 13 Steinblöcken wird vom Verstärkten Kolben nach oben geschoben (Kolben ausgefahren, normaler Kolbenkopf davor), während ein Vanilla-Kolben in identischem Aufbau nicht ausfährt."
           ],
           "controls": [
             "Redstone-Signal anlegen: Kolben fährt aus und schiebt bis zu 18 Blöcke.",
-            "Signal wegnehmen: Kolben fährt ein (nicht klebrig, zieht nichts zurück)."
+            "Signal wegnehmen: Kolben fährt ein (nicht klebrig, zieht nichts zurück).",
+            "Redstoneblock direkt dahinter (oder seitlich) und ein unzerstörbarer Block wie Grundgestein direkt davor: Er schiebt diesen Block um eins weiter und verbraucht den Redstoneblock."
           ],
           "caveats": [
-            "Das erhöhte Schublimit von 18 gilt nur für den Verstärkten Kolben, nicht für den Netheritkolben.",
-            "Es gibt keine klebrige Variante."
+            "Das erhöhte Schublimit von 18 gilt nur für den Verstärkten und den Verstärkten klebrigen Kolben, nicht für den Netherit- oder den Enderitkolben.",
+            "Nur der Block direkt davor darf der unzerstörbare sein, und der Redstoneblock muss den Kolben berühren (nicht seine Front); ein Redstoneblock, der ihn nur über die Quasi-Konnektivität schaltet, bezahlt nichts. Weil der verbrauchte Redstoneblock oft die einzige Stromquelle ist, fährt der Kolben meist gleich wieder ein."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ReinforcedPistonBlock.java",
           "common/src/shared/java/com/simplebuilding/mixin/PistonHandlerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/PistonBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/PistonHeadBlockMixin.java",
@@ -9785,7 +9914,7 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json"
         ]
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:reinforced_smoker",
@@ -9877,6 +10006,87 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:reinforced_sticky_piston",
+      "name": {
+        "en_us": "Reinforced Sticky Piston",
+        "de_de": "Verstärkter klebriger Kolben"
+      },
+      "texture": "assets/textures/block/reinforced_piston_side.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_sticky_piston"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "The Reinforced Sticky Piston is the sticky version of the Reinforced Piston: it pushes up to 18 blocks, pulls a block back when it retracts, and, paid with a Redstone Block next to it, pushes one unbreakable block such as bedrock.",
+          "details": [
+            "The same class as the Reinforced Piston (ReinforcedPistonBlock) with sticky = true, registered as simplebuilding:reinforced_sticky_piston; hardness 1.5, metallic block sounds, built from the same glass-based properties as the Reinforced Piston, so a retracted one can be pushed by other pistons.",
+            "Push limit 18: the mixin on PistonStructureResolver.addBlockLine applies to every ReinforcedPistonBlock. An extended one cannot be moved by other pistons (mixin on PistonBaseBlock.isPushable).",
+            "Extending places the sticky vanilla piston head (piston_head with type sticky). A mixin on PistonHeadBlock.isFittingBase accepts this piston as the base of a sticky head only (extended, same facing), so the head stays attached and breaking the head breaks the piston as well.",
+            "Retracting pulls the block in front of the head back, like a vanilla sticky piston.",
+            "Breach: exactly as with the Reinforced Piston, an unbreakable block directly in front (see PistonBreach) is pushed once a Redstone Block directly next to the piston pays, and the Redstone Block is destroyed (no drop) only if the push succeeded. Retracting never pulls the unbreakable block back: if the consumed Redstone Block was the only power, the piston retracts in the same tick and leaves the block at its new place; if something else keeps it powered, it stays extended.",
+            "Recipe (crafting table, redstone category): a Slime Ball above a Reinforced Piston; yields 1. Unlocked as soon as you own a Reinforced Piston.",
+            "In the mineable/pickaxe tag, no minimum tool tier; loot table: drops itself (survives_explosion condition). The item is a plain BlockItem without fire resistance.",
+            "Model: the Reinforced Piston's bottom and side textures and its extended base model, with the sticky push plate texture reinforced_piston_top_sticky.",
+            "In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after the Reinforced Piston."
+          ],
+          "controls": [
+            "Apply a redstone signal: the piston extends and pushes up to 18 blocks.",
+            "Remove the signal: the piston retracts and pulls the block in front of its head back.",
+            "Redstone Block directly behind it (or on a side) and an unbreakable block directly in front: it pushes that block one further and uses up the Redstone Block."
+          ],
+          "caveats": [
+            "Pulling back uses vanilla's limit of 12: while it retracts, the block at the piston's position is already a moving piston, and the 18-block mixin only recognises a ReinforcedPistonBlock there.",
+            "Only the block directly in front may be the unbreakable one, and the Redstone Block has to touch the piston (not its front)."
+          ]
+        },
+        "de": {
+          "summary": "Der Verstärkte klebrige Kolben ist die klebrige Ausführung des Verstärkten Kolbens: Er schiebt bis zu 18 Blöcke, zieht beim Einfahren einen Block zurück und schiebt, mit einem Redstoneblock daneben bezahlt, einen unzerstörbaren Block wie Grundgestein.",
+          "details": [
+            "Dieselbe Klasse wie der Verstärkte Kolben (ReinforcedPistonBlock) mit sticky = true, registriert als simplebuilding:reinforced_sticky_piston; Härte 1,5, Geräusch wie Metall, aus denselben glasbasierten Eigenschaften gebaut wie der Verstärkte Kolben, eingefahren lässt er sich also von anderen Kolben schieben.",
+            "Schublimit 18: Das Mixin auf PistonStructureResolver.addBlockLine gilt für jeden ReinforcedPistonBlock. Ausgefahren kann er von anderen Kolben nicht verschoben werden (Mixin auf PistonBaseBlock.isPushable).",
+            "Beim Ausfahren erscheint der klebrige Vanilla-Kolbenkopf (piston_head mit type sticky). Ein Mixin auf PistonHeadBlock.isFittingBase erkennt diesen Kolben nur als Basis eines klebrigen Kopfes an (ausgefahren, gleiche Blickrichtung), deshalb bleibt der Kopf haften, und wer den Kopf abbaut, bricht auch den Kolben.",
+            "Beim Einfahren zieht er den Block vor dem Kopf zurück, wie ein klebriger Vanilla-Kolben.",
+            "Durchbruch: Genau wie beim Verstärkten Kolben wird ein unzerstörbarer Block direkt davor (siehe PistonBreach) geschoben, sobald ein Redstoneblock direkt neben dem Kolben bezahlt, und der Redstoneblock wird nur bei gelungenem Schub zerstört (ohne Drop). Beim Einfahren wird der unzerstörbare Block nie zurückgezogen: War der verbrauchte Redstoneblock die einzige Stromquelle, fährt der Kolben im selben Tick wieder ein und lässt den Block an seinem neuen Platz; hält ihn etwas anderes unter Strom, bleibt er ausgefahren.",
+            "Rezept (Werkbank, Kategorie Redstone): ein Schleimball über einem Verstärkten Kolben; ergibt 1. Freigeschaltet, sobald man einen Verstärkten Kolben besitzt.",
+            "Im Tag mineable/pickaxe, kein Mindestwerkzeug; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Das Item ist ein einfaches BlockItem ohne Feuerfestigkeit.",
+            "Modell: Boden- und Seitentextur sowie das ausgefahrene Basismodell des Verstärkten Kolbens, dazu die klebrige Schubplatten-Textur reinforced_piston_top_sticky.",
+            "Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach dem Verstärkten Kolben."
+          ],
+          "controls": [
+            "Redstone-Signal anlegen: Kolben fährt aus und schiebt bis zu 18 Blöcke.",
+            "Signal wegnehmen: Kolben fährt ein und zieht den Block vor seinem Kopf zurück.",
+            "Redstoneblock direkt dahinter (oder seitlich) und ein unzerstörbarer Block direkt davor: Er schiebt diesen Block um eins weiter und verbraucht den Redstoneblock."
+          ],
+          "caveats": [
+            "Beim Zurückziehen gilt Vanillas Limit von 12: Während er einfährt, steht an der Kolbenposition schon ein bewegter Kolben, und das 18er-Mixin erkennt dort nur einen ReinforcedPistonBlock.",
+            "Nur der Block direkt davor darf der unzerstörbare sein, und der Redstoneblock muss den Kolben berühren (nicht seine Front)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ReinforcedPistonBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/PistonHandlerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/PistonBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/PistonHeadBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_sticky_piston.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_sticky_piston.json",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
+          "src/main/resources/simplebuilding.mixins.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:resin_quartz_checker",
       "name": {
         "en_us": "Resin Quartz Checker",
@@ -9948,7 +10158,8 @@ window.WIKI_DATA = {
             "For facing blocks only a property named facing, horizontal_facing or hopper_facing with direction values is recognised; blocks that store their orientation under another name cannot be turned.",
             "If a facing block already points toward the clicked edge, a rim click changes nothing (same state), so neither durability is taken nor a sound played.",
             "The durability cost is billed to the hand that was used (hurtAndBreak(1, player, context.getHand().asEquipmentSlot())) and taken off that stack (context.getItemInHand()).",
-            "There is no cooldown and no reach change: the Rotator only works on the block you can click normally."
+            "There is no cooldown and no reach change: the Rotator only works on the block you can click normally.",
+            "Extended pistons (any block whose extended property is true), piston heads (PistonHeadBlock) and moving blocks (MovingPistonBlock) are refused, so no durability is taken and no sound plays. Turning an extended piston would detach its head, and its retraction deletes the block in the head cell without any hardness check - bedrock included."
           ]
         },
         "de": {
@@ -9991,7 +10202,8 @@ window.WIKI_DATA = {
             "Bei Blickrichtungs-Blöcken wird nur eine Eigenschaft mit dem Namen facing, horizontal_facing oder hopper_facing und Richtungswerten erkannt; Blöcke, deren Ausrichtung unter einem anderen Namen gespeichert ist, lassen sich nicht drehen.",
             "Zeigt ein Blickrichtungs-Block bereits zur angeklickten Kante, ändert ein Randklick nichts (gleicher Zustand), es wird weder Haltbarkeit abgezogen noch ein Klang gespielt.",
             "Der Haltbarkeitsabzug wird an der benutzten Hand abgerechnet (hurtAndBreak(1, player, context.getHand().asEquipmentSlot())) und vom dort liegenden Stapel abgezogen (context.getItemInHand()).",
-            "Es gibt keine Abklingzeit und keine Reichweitenänderung: Der Rotator wirkt nur auf den Block, den man normal anklicken kann."
+            "Es gibt keine Abklingzeit und keine Reichweitenänderung: Der Rotator wirkt nur auf den Block, den man normal anklicken kann.",
+            "Ausgefahrene Kolben (jeder Block, dessen Eigenschaft extended wahr ist), Kolbenköpfe (PistonHeadBlock) und bewegte Blöcke (MovingPistonBlock) werden verweigert; es wird weder Haltbarkeit abgezogen noch ein Klang gespielt. Ein gedrehter ausgefahrener Kolben verlöre seinen Kopf, und sein Einfahren löscht den Block in der Kopfzelle ohne jede Härteprüfung - auch Grundgestein."
           ]
         },
         "sources": [
@@ -10785,6 +10997,87 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_piston",
+      "name": {
+        "en_us": "Enderite Piston",
+        "de_de": "Enderitkolben"
+      },
+      "texture": "assets/textures/block/enderite_piston_side.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/enderite_piston",
+      "drops": [
+        "simplebuilding:enderite_piston"
+      ],
+      "note": {
+        "en": {
+          "summary": "The Enderite Piston breaks the block in front of it like the Netherite Piston, and, paid with a Redstone Block next to it, sacrifices itself to break up to three blocks deep through unbreakable blocks such as bedrock.",
+          "details": [
+            "Its own class EnderitePistonBlock, a subclass of the Netherite Piston's NetheriteBreakerPistonBlock; non-sticky.",
+            "Ordinary blocks: exactly the Netherite Piston's rule - as it extends it destroys the block in front if that block's hardness is at most (signal strength / 15) x 50 and its push reaction is not BLOCK, with its normal drops; otherwise it pushes like an ordinary piston (push limit 12).",
+            "Breach: with an unbreakable block directly in front (negative destroy speed or Reinforced Deepslate, not in simplebuilding:piston_breach_immune, no block entity; see PistonBreach) and a Redstone Block directly next to it paying (behind first, then the four sides across its facing, never the front), it works through up to 3 cells in its facing direction (EnderitePistonBlock.BREACH_DEPTH).",
+            "Per cell: air is skipped; an unbreakable block is removed without drops; an ordinary block that the breaker could break at the signal it gets (the paying Redstone Block gives 15, so hardness up to 50, push reaction not BLOCK) is destroyed with its normal drops; a block in simplebuilding:piston_breach_immune ends the breach even if the breaker could break it, and so does anything else - an unbreakable block with a block entity, a block harder than that, a block with push reaction BLOCK, a liquid.",
+            "Afterwards the Redstone Block and the piston itself are destroyed without drops. The breach runs on the piston's own block event (queued whenever a neighbour changes or it is placed), so no piston head or moving block is left and nothing behind the breached cells matters.",
+            "Hardness 6, blast resistance 1500, netherite block sounds; the item is fire resistant and, since its id starts with enderite_, in the simplebuilding:void_protected tag.",
+            "An extended Enderite Piston cannot be moved by other pistons; it uses the ordinary vanilla piston head, which the PistonHeadBlock.isFittingBase mixin accepts, so breaking the head breaks the piston as well.",
+            "In the mineable/pickaxe tag, no minimum tool tier; loot table: drops itself (survives_explosion condition).",
+            "In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after the Netherite Piston."
+          ],
+          "controls": [
+            "Apply a redstone signal: it extends and breaks or pushes the block in front, like the Netherite Piston.",
+            "Redstone Block directly next to it and an unbreakable block in front: breach up to 3 blocks deep; the Redstone Block and the piston are used up."
+          ],
+          "caveats": [
+            "There is no crafting recipe yet; it is only available from the creative tab or by command.",
+            "The breach checks neither height nor dimension: the bottom bedrock layer of the world and the Nether roof can be breached.",
+            "The breach fires no NeoForge PistonEvent, so mods listening to it cannot cancel it."
+          ]
+        },
+        "de": {
+          "summary": "Der Enderitkolben bricht den Block vor sich wie der Netheritkolben und opfert sich, mit einem Redstoneblock daneben bezahlt, um bis zu drei Blöcke tief durch unzerstörbare Blöcke wie Grundgestein zu brechen.",
+          "details": [
+            "Eigene Klasse EnderitePistonBlock, eine Unterklasse von NetheriteBreakerPistonBlock (Netheritkolben); nicht klebrig.",
+            "Gewöhnliche Blöcke: genau die Regel des Netheritkolbens - beim Ausfahren zerstört er den Block davor, wenn dessen Härte höchstens (Signalstärke / 15) × 50 beträgt und seine Push-Reaktion nicht BLOCK ist, mit den normalen Drops; sonst schiebt er wie ein gewöhnlicher Kolben (Schublimit 12).",
+            "Durchbruch: Steht ein unzerstörbarer Block direkt davor (negative Abbaugeschwindigkeit oder Verstärkter Tiefenschiefer, nicht in simplebuilding:piston_breach_immune, keine Block-Entity; siehe PistonBreach) und bezahlt ein Redstoneblock direkt daneben (zuerst dahinter, dann die vier Seiten quer zur Blickrichtung, nie die Front), arbeitet er sich bis zu 3 Zellen in Blickrichtung vor (EnderitePistonBlock.BREACH_DEPTH).",
+            "Je Zelle: Luft wird übersprungen; ein unzerstörbarer Block verschwindet ohne Drop; ein gewöhnlicher Block, den der Brecher bei seinem Signal brechen darf (der bezahlende Redstoneblock liefert 15, also Härte bis 50, Push-Reaktion nicht BLOCK), wird mit seinen normalen Drops zerstört; ein Block aus simplebuilding:piston_breach_immune beendet den Durchbruch, selbst wenn der Brecher ihn brechen dürfte, ebenso alles andere - ein unzerstörbarer Block mit Block-Entity, ein härterer Block, ein Block mit Push-Reaktion BLOCK, eine Flüssigkeit.",
+            "Danach werden der Redstoneblock und der Kolben selbst ohne Drop zerstört. Der Durchbruch läuft über ein eigenes Block-Ereignis des Kolbens (eingereiht bei jeder Nachbaränderung und beim Setzen), es bleibt also weder Kolbenkopf noch bewegter Block zurück, und was hinter den durchbrochenen Zellen liegt, spielt keine Rolle.",
+            "Härte 6, Explosionswiderstand 1500, Geräusch wie ein Netheritblock; das Item ist feuerfest und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected.",
+            "Ein ausgefahrener Enderitkolben kann von anderen Kolben nicht verschoben werden; er benutzt den normalen Vanilla-Kolbenkopf, den das Mixin auf PistonHeadBlock.isFittingBase anerkennt, wer den Kopf abbaut, bricht also auch den Kolben.",
+            "Im Tag mineable/pickaxe, kein Mindestwerkzeug; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion).",
+            "Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach dem Netheritkolben."
+          ],
+          "controls": [
+            "Redstone-Signal anlegen: Er fährt aus und bricht oder schiebt den Block davor, wie der Netheritkolben.",
+            "Redstoneblock direkt daneben und ein unzerstörbarer Block davor: Durchbruch bis zu 3 Blöcke tief; Redstoneblock und Kolben werden verbraucht."
+          ],
+          "caveats": [
+            "Es gibt noch kein Rezept; er ist nur über den Kreativ-Reiter oder per Befehl erhältlich.",
+            "Der Durchbruch prüft weder Höhe noch Dimension: Die unterste Grundgesteinsschicht der Welt und das Netherdach lassen sich durchbrechen.",
+            "Der Durchbruch feuert kein NeoForge-PistonEvent, Mods, die darauf hören, können ihn also nicht absagen."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/PistonBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/PistonHeadBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "common/src/shared/java/com/simplebuilding/util/ModTags.java",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_piston.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:lapis_quartz_checker",
       "name": {
         "en_us": "Lapis Quartz Checker",
@@ -11307,7 +11600,7 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "The Netherite Piston destroys the block directly in front of it as it extends, provided the redstone signal is strong enough for that block's hardness; otherwise it works like an ordinary piston.",
+          "summary": "The Netherite Piston destroys the block directly in front of it as it extends, provided the redstone signal is strong enough for that block's hardness; otherwise it works like an ordinary piston. Paid with a Redstone Block next to it, it sacrifices itself to destroy an unbreakable block such as bedrock.",
           "details": [
             "Its own class NetheriteBreakerPistonBlock, extending the vanilla piston; non-sticky (sticky = false).",
             "On piston block event type 0 (extending), and only while the piston is currently retracted (EXTENDED = false), it inspects the block directly in front of its face.",
@@ -11318,8 +11611,10 @@ window.WIKI_DATA = {
             "When a block is destroyed, the server plays the sound of a zombie rattling an iron door at the piston (ZOMBIE_ATTACK_IRON_DOOR, volume 0.5, pitch 0.8).",
             "After the check the normal piston logic carries on (super.triggerEvent): if the signal is too weak, the block is pushed like by an ordinary piston instead of being destroyed.",
             "Nothing is destroyed unless the piston really extends: before breaking, it repeats vanilla's own extend check (the signal from every side but the push direction, plus quasi-connectivity from above). A signal that disappears between the block event being queued and being run therefore costs nothing.",
+            "Breach (sacrifice): with an unbreakable block directly in front (negative destroy speed or Reinforced Deepslate, not in simplebuilding:piston_breach_immune, no block entity; see PistonBreach) and a Redstone Block directly next to it paying (behind first, then the four sides across its facing, never the front), the piston queues an extend event of its own whenever a neighbour changes or it is placed. When the event runs, the unbreakable block, the Redstone Block and the piston itself are destroyed without drops; no piston head or moving block is left, and nothing behind the target matters (push limit, obsidian, build height).",
+            "Without such a Redstone Block - only a lever, say - an unbreakable block in front stays untouched and the piston does not extend, as before. If the queued event finds its Redstone Block already gone (two pistons sharing one), the breaking formula still refuses the unbreakable block (negative hardness, or 55 for Reinforced Deepslate, above the highest threshold of 50).",
             "An extended Netherite Piston cannot be moved by other pistons (mixin on PistonBaseBlock.isPushable).",
-            "Extending places the ordinary vanilla piston head; it stays attached to the Netherite Piston because a mixin on PistonHeadBlock.canSurvive accepts the Netherite Piston as a valid base.",
+            "Extending places the ordinary vanilla piston head. A mixin on PistonHeadBlock.isFittingBase accepts the Netherite Piston as its base (extended, same facing, normal head), so the head stays attached and breaking the head breaks the piston as well, as with a vanilla piston.",
             "Hardness 5.0, blast resistance 1200, netherite block sounds; the item is fire resistant (fireResistant).",
             "In the mineable/pickaxe tag (a pickaxe mines it faster), no minimum tool tier set; loot table: drops itself (survives_explosion condition).",
             "Recipe \"netherite_piston_bulk\" (crafting table, redstone category, 2x2 pattern): 1 Netherite Nugget in the top left and a Reinforced Piston in each of the other three squares (3 in total); yields 3 Netherite Pistons. Unlocked as soon as you own a Reinforced Piston.",
@@ -11328,19 +11623,22 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Apply a redstone signal: the piston extends; if the signal is strong enough for the hardness of the block in front, that block is destroyed, otherwise it is pushed.",
-            "Remove the signal: the piston retracts."
+            "Remove the signal: the piston retracts.",
+            "Redstone Block directly next to it and bedrock (or another unbreakable block) in front: the bedrock, the Redstone Block and the piston are destroyed, without drops."
           ],
           "caveats": [
-            "Unbreakable blocks (negative hardness) and air are never destroyed.",
+            "The breaking formula never destroys unbreakable blocks (negative hardness) or air; unbreakable blocks only go through the paid breach.",
             "Blocks that block piston movement outright (push reaction BLOCK) are not destroyed, even when the signal would be strong enough.",
             "The signal strength is only measured on the six direct neighbour blocks.",
-            "The Reinforced Piston's raised push limit of 18 does NOT apply to the Netherite Piston; the mixin only checks for the Reinforced Piston.",
+            "The Reinforced Piston's raised push limit of 18 does NOT apply to the Netherite Piston; the mixin only checks for ReinforcedPistonBlock (the two Reinforced Pistons).",
             "The tooltip text \"Breaks blocks based on Redstone strength (1-15).\" is present in both language files, but no code displays it (the item is a plain BlockItem and no Java code references the key); it never shows up in game.",
-            "The mod's own \"netherite_piston_head\" block is not used by the Netherite Piston; it uses the ordinary piston head."
+            "The mod's own \"netherite_piston_head\" block is not used by the Netherite Piston; it uses the ordinary piston head.",
+            "The breach checks neither height nor dimension: the bottom bedrock layer of the world and the Nether roof can be breached.",
+            "The breach fires no NeoForge PistonEvent (the event is fired inside vanilla's triggerEvent, which the breach never reaches), so mods listening to it cannot cancel it; the normal breaking has the same gap."
           ]
         },
         "de": {
-          "summary": "Der Netheritkolben zerstört beim Ausfahren den Block direkt vor sich, wenn das Redstone-Signal stark genug für dessen Härte ist, und arbeitet ansonsten wie ein normaler Kolben.",
+          "summary": "Der Netheritkolben zerstört beim Ausfahren den Block direkt vor sich, wenn das Redstone-Signal stark genug für dessen Härte ist, und arbeitet ansonsten wie ein normaler Kolben. Mit einem Redstoneblock daneben bezahlt, opfert er sich, um einen unzerstörbaren Block wie Grundgestein zu zerstören.",
           "details": [
             "Eigene Klasse NetheriteBreakerPistonBlock, die vom Vanilla-Kolben erbt; nicht klebrig (sticky = false).",
             "Beim Kolben-Blockevent Typ 0 (Ausfahren) und nur, wenn der Kolben gerade eingefahren ist (EXTENDED = false), prüft er den Block direkt vor seiner Vorderseite.",
@@ -11351,8 +11649,10 @@ window.WIKI_DATA = {
             "Beim Zerstören ertönt serverseitig das Geräusch eines Zombies, der an einer Eisentür rüttelt (ZOMBIE_ATTACK_IRON_DOOR, Lautstärke 0,5, Tonhöhe 0,8).",
             "Nach der Prüfung läuft die normale Kolbenlogik weiter (super.triggerEvent): Ist das Signal zu schwach, wird der Block wie bei einem gewöhnlichen Kolben geschoben statt zerstört.",
             "Zerstört wird nur, wenn der Kolben wirklich ausfährt: Vor dem Brechen wiederholt er Vanillas eigene Ausfahrprüfung (Signal von jeder Seite außer der Schubrichtung, dazu Quasi-Konnektivität von oben). Ein Signal, das zwischen Einreihen und Ausführen des Block-Ereignisses verschwindet, kostet also nichts.",
+            "Durchbruch (Opfer): Steht ein unzerstörbarer Block direkt davor (negative Abbaugeschwindigkeit oder Verstärkter Tiefenschiefer, nicht in simplebuilding:piston_breach_immune, keine Block-Entity; siehe PistonBreach) und bezahlt ein Redstoneblock direkt daneben (zuerst dahinter, dann die vier Seiten quer zur Blickrichtung, nie die Front), reiht der Kolben bei jeder Nachbaränderung und beim Setzen ein eigenes Ausfahr-Ereignis ein. Läuft es, werden der unzerstörbare Block, der Redstoneblock und der Kolben selbst ohne Drop zerstört; es bleibt weder Kolbenkopf noch bewegter Block zurück, und was hinter dem Ziel liegt, spielt keine Rolle (Schublimit, Obsidian, Bauhöhe).",
+            "Ohne einen solchen Redstoneblock - etwa nur mit einem Hebel - bleibt ein unzerstörbarer Block davor unberührt, und der Kolben fährt nicht aus, wie bisher. Findet das eingereihte Ereignis seinen Redstoneblock schon nicht mehr vor (zwei Kolben teilen sich einen), verweigert die Zerstörungsformel den unzerstörbaren Block trotzdem (negative Härte, bei Verstärktem Tiefenschiefer 55, über der höchsten Grenze von 50).",
             "Ein ausgefahrener Netheritkolben kann von anderen Kolben nicht verschoben werden (Mixin auf PistonBaseBlock.isPushable).",
-            "Beim Ausfahren erscheint der normale Vanilla-Kolbenkopf; er bleibt am Netheritkolben haften, weil ein Mixin auf PistonHeadBlock.canSurvive den Netheritkolben als gültige Basis anerkennt.",
+            "Beim Ausfahren erscheint der normale Vanilla-Kolbenkopf. Ein Mixin auf PistonHeadBlock.isFittingBase erkennt den Netheritkolben als seine Basis an (ausgefahren, gleiche Blickrichtung, normaler Kopf), deshalb bleibt der Kopf haften, und wer den Kopf abbaut, bricht wie bei einem Vanilla-Kolben auch den Kolben.",
             "Härte 5,0, Explosionswiderstand 1200, Geräusch wie ein Netheritblock; das Item ist feuerfest (fireResistant).",
             "Im Tag mineable/pickaxe (mit der Spitzhacke schneller abbaubar), kein Mindestwerkzeug hinterlegt; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion).",
             "Rezept „netherite_piston_bulk“ (Werkbank, Kategorie Redstone, 2×2-Muster): 1 Netherite Nugget oben links, die übrigen drei Felder je ein Verstärkter Kolben (Muster NR / RR, also insgesamt 3); ergibt 3 Netheritkolben. Freigeschaltet, sobald man einen Verstärkten Kolben besitzt.",
@@ -11361,19 +11661,24 @@ window.WIKI_DATA = {
           ],
           "controls": [
             "Redstone-Signal anlegen: Kolben fährt aus; ist das Signal stark genug für die Härte des Blocks davor, wird dieser zerstört, sonst geschoben.",
-            "Signal wegnehmen: Kolben fährt ein."
+            "Signal wegnehmen: Kolben fährt ein.",
+            "Redstoneblock direkt daneben und Grundgestein (oder ein anderer unzerstörbarer Block) davor: Grundgestein, Redstoneblock und Kolben werden zerstört, ohne Drops."
           ],
           "caveats": [
-            "Unzerstörbare Blöcke (negative Härte) und Luft werden nie zerstört.",
+            "Die Zerstörungsformel zerstört nie unzerstörbare Blöcke (negative Härte) oder Luft; unzerstörbare Blöcke gehen nur über den bezahlten Durchbruch.",
             "Blöcke, die Kolbenbewegung grundsätzlich blockieren (Push-Reaktion BLOCK), werden nicht zerstört, auch wenn das Signal reichen würde.",
             "Die Signalstärke wird nur an den sechs direkten Nachbarblöcken gemessen.",
-            "Das erhöhte Schublimit von 18 des Verstärkten Kolbens gilt NICHT für den Netheritkolben; das Mixin prüft nur auf den Verstärkten Kolben.",
+            "Das erhöhte Schublimit von 18 des Verstärkten Kolbens gilt NICHT für den Netheritkolben; das Mixin prüft nur auf ReinforcedPistonBlock (die beiden Verstärkten Kolben).",
             "Der Tooltip-Text „Baut Blöcke basierend auf Redstone-Stärke (1-15) ab.“ ist zwar in beiden Sprachdateien hinterlegt, wird aber von keinem Code angezeigt (das Item ist ein einfaches BlockItem, kein Java-Code referenziert den Schlüssel); im Spiel erscheint dieser Hinweis nicht.",
-            "Der eigene Block „netherite_piston_head“ wird vom Netheritkolben nicht verwendet; er nutzt den normalen Kolbenkopf."
+            "Der eigene Block „netherite_piston_head“ wird vom Netheritkolben nicht verwendet; er nutzt den normalen Kolbenkopf.",
+            "Der Durchbruch prüft weder Höhe noch Dimension: Die unterste Grundgesteinsschicht der Welt und das Netherdach lassen sich durchbrechen.",
+            "Der Durchbruch feuert kein NeoForge-PistonEvent (das Ereignis wird in Vanillas triggerEvent gefeuert, das der Durchbruch nie erreicht), Mods, die darauf hören, können ihn also nicht absagen; das normale Brechen hat dieselbe Lücke."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GravityBlockTests.java",
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
           "common/src/shared/java/com/simplebuilding/mixin/PistonBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/PistonHandlerMixin.java",
@@ -11996,7 +12301,8 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_piston"
       ],
       "usedIn": [
-        "simplebuilding:netherite_piston_bulk"
+        "simplebuilding:netherite_piston_bulk",
+        "simplebuilding:reinforced_sticky_piston"
       ],
       "trades": [],
       "lootTable": "simplebuilding:blocks/reinforced_piston",
@@ -12005,55 +12311,63 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "The Reinforced Piston is a plain (non-sticky) piston that can push a line of up to 18 blocks instead of the usual 12.",
+          "summary": "The Reinforced Piston is a plain (non-sticky) piston that can push a line of up to 18 blocks instead of the usual 12, and, paid with a Redstone Block next to it, one unbreakable block such as bedrock.",
           "details": [
-            "Registered as an ordinary vanilla piston block (PistonBaseBlock), explicitly non-sticky (sticky = false).",
-            "A mixin on PistonStructureResolver.addBlockLine replaces the vanilla constant 12 (the push limit) with 18, but only while the pushing piston is a Reinforced Piston; every other piston keeps 12.",
+            "Its own class ReinforcedPistonBlock, extending the vanilla piston, non-sticky (sticky = false); the Reinforced Sticky Piston is the same class with sticky = true.",
+            "A mixin on PistonStructureResolver.addBlockLine replaces the vanilla constant 12 (the push limit) with 18, but only while the block at the piston's position is a ReinforcedPistonBlock (the Reinforced or the Reinforced Sticky Piston); every other piston keeps 12.",
             "An extended Reinforced Piston cannot be moved by other pistons (a mixin on PistonBaseBlock.isPushable returns false for it); while it is retracted the normal vanilla check applies.",
-            "Extending places the ordinary vanilla piston head; it stays attached to the Reinforced Piston because a mixin on PistonHeadBlock.canSurvive accepts the Reinforced Piston as a valid base.",
+            "Breach: with an unbreakable block directly in front (negative destroy speed or Reinforced Deepslate, not in simplebuilding:piston_breach_immune, no block entity; see PistonBreach) and a Redstone Block directly next to it paying (behind first, then the four sides across its facing, never the front), the structure resolver of this one extension treats that block as pushable. Build limit, world border, push reaction and block entities still apply, the rest of the line follows the normal rules, and the block counts toward the 18.",
+            "The Redstone Block is destroyed (no drop) only after the extension succeeded; if the push fails - too long, a second unbreakable block in the line, obsidian, a cancelled NeoForge PistonEvent, or a slime structure that would move the Redstone Block itself - it stays. The retracting resolver is never armed, so nothing unbreakable is ever pulled back.",
+            "Extending places the ordinary vanilla piston head. A mixin on PistonHeadBlock.isFittingBase accepts the Reinforced Piston as its base (extended, same facing, normal head), so the head stays attached and breaking the head breaks the piston as well, as with a vanilla piston.",
             "Hardness 1.5, metallic block sounds; in the mineable/pickaxe tag (a pickaxe mines it faster), with no minimum tool tier and no requiresCorrectToolForDrops, so it drops no matter what you break it with.",
             "Loot table: drops itself (survives_explosion condition).",
             "Recipe (crafting table, redstone category): top row three Cracked Diamonds, middle row Piston - Iron Ingot - Piston, bottom row three Iron Ingots (3 Cracked Diamonds, 2 Pistons and 4 Iron Ingots in total); yields 2 Reinforced Pistons. Unlocked as soon as you own a Piston.",
-            "Serves as the ingredient for the Netherite Piston (3 Reinforced Pistons + 1 Netherite Nugget).",
+            "Serves as the ingredient for the Netherite Piston (3 Reinforced Pistons + 1 Netherite Nugget) and for the Reinforced Sticky Piston (a Slime Ball on top).",
             "The item is a plain BlockItem with no fire resistance and no tooltip.",
             "In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German), filed under \"Machines & Storage\" in the code.",
             "A game test proves it: a column of 13 stone blocks is pushed upwards by the Reinforced Piston (piston extended, ordinary piston head in front of it), while a vanilla piston in an identical setup does not extend at all."
           ],
           "controls": [
             "Apply a redstone signal: the piston extends and pushes up to 18 blocks.",
-            "Remove the signal: the piston retracts (it is not sticky, so it pulls nothing back)."
+            "Remove the signal: the piston retracts (it is not sticky, so it pulls nothing back).",
+            "Redstone Block directly behind it (or on a side) and an unbreakable block such as bedrock directly in front: it pushes that block one further and uses up the Redstone Block."
           ],
           "caveats": [
-            "The raised push limit of 18 applies only to the Reinforced Piston, not to the Netherite Piston.",
-            "There is no sticky variant."
+            "The raised push limit of 18 applies only to the Reinforced and the Reinforced Sticky Piston, not to the Netherite or the Enderite Piston.",
+            "Only the block directly in front may be the unbreakable one, and the Redstone Block has to touch the piston (not its front); a Redstone Block that only powers it through quasi-connectivity pays nothing. Since the consumed Redstone Block is often the only power source, the piston usually retracts again right away."
           ]
         },
         "de": {
-          "summary": "Der Verstärkte Kolben ist ein normaler (nicht klebriger) Kolben, der statt 12 bis zu 18 Blöcke in einer Reihe schieben kann.",
+          "summary": "Der Verstärkte Kolben ist ein normaler (nicht klebriger) Kolben, der statt 12 bis zu 18 Blöcke in einer Reihe schieben kann und, mit einem Redstoneblock daneben bezahlt, einen unzerstörbaren Block wie Grundgestein.",
           "details": [
-            "Wird als gewöhnlicher Vanilla-Kolbenblock (PistonBaseBlock) registriert, ausdrücklich nicht klebrig (sticky = false).",
-            "Ein Mixin auf PistonStructureResolver.addBlockLine ersetzt die Vanilla-Konstante 12 (Schublimit) durch 18, aber nur, wenn der schiebende Kolben ein Verstärkter Kolben ist; für alle anderen Kolben bleibt es bei 12.",
+            "Eigene Klasse ReinforcedPistonBlock, die vom Vanilla-Kolben erbt, nicht klebrig (sticky = false); der Verstärkte klebrige Kolben ist dieselbe Klasse mit sticky = true.",
+            "Ein Mixin auf PistonStructureResolver.addBlockLine ersetzt die Vanilla-Konstante 12 (Schublimit) durch 18, aber nur, wenn der Block an der Kolbenposition ein ReinforcedPistonBlock ist (Verstärkter oder Verstärkter klebriger Kolben); für alle anderen Kolben bleibt es bei 12.",
             "Ein ausgefahrener Verstärkter Kolben kann von anderen Kolben nicht verschoben werden (Mixin auf PistonBaseBlock.isPushable liefert dann false); im eingefahrenen Zustand greift die normale Vanilla-Prüfung.",
-            "Beim Ausfahren erscheint der normale Vanilla-Kolbenkopf; er bleibt am Verstärkten Kolben haften, weil ein Mixin auf PistonHeadBlock.canSurvive den Verstärkten Kolben als gültige Basis anerkennt.",
+            "Durchbruch: Steht ein unzerstörbarer Block direkt davor (negative Abbaugeschwindigkeit oder Verstärkter Tiefenschiefer, nicht in simplebuilding:piston_breach_immune, keine Block-Entity; siehe PistonBreach) und bezahlt ein Redstoneblock direkt daneben (zuerst dahinter, dann die vier Seiten quer zur Blickrichtung, nie die Front), behandelt der Struktur-Resolver genau dieses Ausfahrens den Block als schiebbar. Baulimit, Weltgrenze, Push-Reaktion und Block-Entities gelten weiter, der Rest der Reihe folgt den normalen Regeln, und der Block zählt zu den 18.",
+            "Der Redstoneblock wird erst nach gelungenem Ausfahren zerstört (ohne Drop); scheitert der Schub - zu lang, ein zweiter unzerstörbarer Block in der Reihe, Obsidian, ein abgesagtes NeoForge-PistonEvent oder ein Schleimaufbau, der den Redstoneblock selbst verschieben würde -, bleibt er liegen. Der Resolver des Einfahrens wird nie scharf geschaltet, es wird also nie etwas Unzerstörbares zurückgezogen.",
+            "Beim Ausfahren erscheint der normale Vanilla-Kolbenkopf. Ein Mixin auf PistonHeadBlock.isFittingBase erkennt den Verstärkten Kolben als seine Basis an (ausgefahren, gleiche Blickrichtung, normaler Kopf), deshalb bleibt der Kopf haften, und wer den Kopf abbaut, bricht wie bei einem Vanilla-Kolben auch den Kolben.",
             "Härte 1,5, Geräusch wie Metall; im Tag mineable/pickaxe (mit der Spitzhacke schneller abbaubar), kein Mindestwerkzeug und kein requiresCorrectToolForDrops hinterlegt.",
             "Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion).",
             "Rezept (Werkbank, Kategorie Redstone): oben drei Rissige Diamanten, mittlere Reihe Kolben – Eisenbarren – Kolben, unten drei Eisenbarren (insgesamt 3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren); ergibt 2 Verstärkte Kolben. Freigeschaltet, sobald man einen Kolben besitzt.",
-            "Dient als Zutat für den Netheritkolben (3 Verstärkte Kolben + 1 Netherite Nugget).",
+            "Dient als Zutat für den Netheritkolben (3 Verstärkte Kolben + 1 Netherite Nugget) und für den Verstärkten klebrigen Kolben (ein Schleimball darüber).",
             "Das Item ist ein einfaches BlockItem ohne Feuerfestigkeit und ohne Tooltip.",
             "Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“), im Code unter „Machines & Storage“ einsortiert.",
             "Ein Spieltest belegt: Eine Säule aus 13 Steinblöcken wird vom Verstärkten Kolben nach oben geschoben (Kolben ausgefahren, normaler Kolbenkopf davor), während ein Vanilla-Kolben in identischem Aufbau nicht ausfährt."
           ],
           "controls": [
             "Redstone-Signal anlegen: Kolben fährt aus und schiebt bis zu 18 Blöcke.",
-            "Signal wegnehmen: Kolben fährt ein (nicht klebrig, zieht nichts zurück)."
+            "Signal wegnehmen: Kolben fährt ein (nicht klebrig, zieht nichts zurück).",
+            "Redstoneblock direkt dahinter (oder seitlich) und ein unzerstörbarer Block wie Grundgestein direkt davor: Er schiebt diesen Block um eins weiter und verbraucht den Redstoneblock."
           ],
           "caveats": [
-            "Das erhöhte Schublimit von 18 gilt nur für den Verstärkten Kolben, nicht für den Netheritkolben.",
-            "Es gibt keine klebrige Variante."
+            "Das erhöhte Schublimit von 18 gilt nur für den Verstärkten und den Verstärkten klebrigen Kolben, nicht für den Netherit- oder den Enderitkolben.",
+            "Nur der Block direkt davor darf der unzerstörbare sein, und der Redstoneblock muss den Kolben berühren (nicht seine Front); ein Redstoneblock, der ihn nur über die Quasi-Konnektivität schaltet, bezahlt nichts. Weil der verbrauchte Redstoneblock oft die einzige Stromquelle ist, fährt der Kolben meist gleich wieder ein."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ReinforcedPistonBlock.java",
           "common/src/shared/java/com/simplebuilding/mixin/PistonHandlerMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/PistonBlockMixin.java",
           "common/src/shared/java/com/simplebuilding/mixin/PistonHeadBlockMixin.java",
@@ -12070,7 +12384,7 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json"
         ]
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:reinforced_smoker",
@@ -12164,6 +12478,91 @@ window.WIKI_DATA = {
           "src/main/generated/data/minecraft/tags/block/needs_iron_tool.json",
           "src/main/generated/data/minecraft/tags/block/needs_diamond_tool.json",
           "src/main/generated/assets/simplebuilding/blockstates/reinforced_smoker.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:reinforced_sticky_piston",
+      "name": {
+        "en_us": "Reinforced Sticky Piston",
+        "de_de": "Verstärkter klebriger Kolben"
+      },
+      "texture": "assets/textures/block/reinforced_piston_side.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_sticky_piston"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/reinforced_sticky_piston",
+      "drops": [
+        "simplebuilding:reinforced_sticky_piston"
+      ],
+      "note": {
+        "en": {
+          "summary": "The Reinforced Sticky Piston is the sticky version of the Reinforced Piston: it pushes up to 18 blocks, pulls a block back when it retracts, and, paid with a Redstone Block next to it, pushes one unbreakable block such as bedrock.",
+          "details": [
+            "The same class as the Reinforced Piston (ReinforcedPistonBlock) with sticky = true, registered as simplebuilding:reinforced_sticky_piston; hardness 1.5, metallic block sounds, built from the same glass-based properties as the Reinforced Piston, so a retracted one can be pushed by other pistons.",
+            "Push limit 18: the mixin on PistonStructureResolver.addBlockLine applies to every ReinforcedPistonBlock. An extended one cannot be moved by other pistons (mixin on PistonBaseBlock.isPushable).",
+            "Extending places the sticky vanilla piston head (piston_head with type sticky). A mixin on PistonHeadBlock.isFittingBase accepts this piston as the base of a sticky head only (extended, same facing), so the head stays attached and breaking the head breaks the piston as well.",
+            "Retracting pulls the block in front of the head back, like a vanilla sticky piston.",
+            "Breach: exactly as with the Reinforced Piston, an unbreakable block directly in front (see PistonBreach) is pushed once a Redstone Block directly next to the piston pays, and the Redstone Block is destroyed (no drop) only if the push succeeded. Retracting never pulls the unbreakable block back: if the consumed Redstone Block was the only power, the piston retracts in the same tick and leaves the block at its new place; if something else keeps it powered, it stays extended.",
+            "Recipe (crafting table, redstone category): a Slime Ball above a Reinforced Piston; yields 1. Unlocked as soon as you own a Reinforced Piston.",
+            "In the mineable/pickaxe tag, no minimum tool tier; loot table: drops itself (survives_explosion condition). The item is a plain BlockItem without fire resistance.",
+            "Model: the Reinforced Piston's bottom and side textures and its extended base model, with the sticky push plate texture reinforced_piston_top_sticky.",
+            "In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after the Reinforced Piston."
+          ],
+          "controls": [
+            "Apply a redstone signal: the piston extends and pushes up to 18 blocks.",
+            "Remove the signal: the piston retracts and pulls the block in front of its head back.",
+            "Redstone Block directly behind it (or on a side) and an unbreakable block directly in front: it pushes that block one further and uses up the Redstone Block."
+          ],
+          "caveats": [
+            "Pulling back uses vanilla's limit of 12: while it retracts, the block at the piston's position is already a moving piston, and the 18-block mixin only recognises a ReinforcedPistonBlock there.",
+            "Only the block directly in front may be the unbreakable one, and the Redstone Block has to touch the piston (not its front)."
+          ]
+        },
+        "de": {
+          "summary": "Der Verstärkte klebrige Kolben ist die klebrige Ausführung des Verstärkten Kolbens: Er schiebt bis zu 18 Blöcke, zieht beim Einfahren einen Block zurück und schiebt, mit einem Redstoneblock daneben bezahlt, einen unzerstörbaren Block wie Grundgestein.",
+          "details": [
+            "Dieselbe Klasse wie der Verstärkte Kolben (ReinforcedPistonBlock) mit sticky = true, registriert als simplebuilding:reinforced_sticky_piston; Härte 1,5, Geräusch wie Metall, aus denselben glasbasierten Eigenschaften gebaut wie der Verstärkte Kolben, eingefahren lässt er sich also von anderen Kolben schieben.",
+            "Schublimit 18: Das Mixin auf PistonStructureResolver.addBlockLine gilt für jeden ReinforcedPistonBlock. Ausgefahren kann er von anderen Kolben nicht verschoben werden (Mixin auf PistonBaseBlock.isPushable).",
+            "Beim Ausfahren erscheint der klebrige Vanilla-Kolbenkopf (piston_head mit type sticky). Ein Mixin auf PistonHeadBlock.isFittingBase erkennt diesen Kolben nur als Basis eines klebrigen Kopfes an (ausgefahren, gleiche Blickrichtung), deshalb bleibt der Kopf haften, und wer den Kopf abbaut, bricht auch den Kolben.",
+            "Beim Einfahren zieht er den Block vor dem Kopf zurück, wie ein klebriger Vanilla-Kolben.",
+            "Durchbruch: Genau wie beim Verstärkten Kolben wird ein unzerstörbarer Block direkt davor (siehe PistonBreach) geschoben, sobald ein Redstoneblock direkt neben dem Kolben bezahlt, und der Redstoneblock wird nur bei gelungenem Schub zerstört (ohne Drop). Beim Einfahren wird der unzerstörbare Block nie zurückgezogen: War der verbrauchte Redstoneblock die einzige Stromquelle, fährt der Kolben im selben Tick wieder ein und lässt den Block an seinem neuen Platz; hält ihn etwas anderes unter Strom, bleibt er ausgefahren.",
+            "Rezept (Werkbank, Kategorie Redstone): ein Schleimball über einem Verstärkten Kolben; ergibt 1. Freigeschaltet, sobald man einen Verstärkten Kolben besitzt.",
+            "Im Tag mineable/pickaxe, kein Mindestwerkzeug; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Das Item ist ein einfaches BlockItem ohne Feuerfestigkeit.",
+            "Modell: Boden- und Seitentextur sowie das ausgefahrene Basismodell des Verstärkten Kolbens, dazu die klebrige Schubplatten-Textur reinforced_piston_top_sticky.",
+            "Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach dem Verstärkten Kolben."
+          ],
+          "controls": [
+            "Redstone-Signal anlegen: Kolben fährt aus und schiebt bis zu 18 Blöcke.",
+            "Signal wegnehmen: Kolben fährt ein und zieht den Block vor seinem Kopf zurück.",
+            "Redstoneblock direkt dahinter (oder seitlich) und ein unzerstörbarer Block direkt davor: Er schiebt diesen Block um eins weiter und verbraucht den Redstoneblock."
+          ],
+          "caveats": [
+            "Beim Zurückziehen gilt Vanillas Limit von 12: Während er einfährt, steht an der Kolbenposition schon ein bewegter Kolben, und das 18er-Mixin erkennt dort nur einen ReinforcedPistonBlock.",
+            "Nur der Block direkt davor darf der unzerstörbare sein, und der Redstoneblock muss den Kolben berühren (nicht seine Front)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ReinforcedPistonBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/PistonHandlerMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/PistonBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/PistonHeadBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/reinforced_sticky_piston.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_sticky_piston.json",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
+          "src/main/resources/simplebuilding.mixins.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json"
         ]
@@ -15073,6 +15472,33 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:reinforced_sticky_piston",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_sticky_piston",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_sticky_piston.json",
+      "ingredients": [
+        "minecraft:slime_ball",
+        "simplebuilding:reinforced_piston"
+      ],
+      "pattern": [
+        "S",
+        "P"
+      ],
+      "key": {
+        "P": [
+          "simplebuilding:reinforced_piston"
+        ],
+        "S": [
+          "minecraft:slime_ball"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:resin_quartz_checker",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -16055,6 +16481,24 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_block.json"
     },
     {
+      "id": "simplebuilding:blocks/enderite_piston",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_piston"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_piston.json"
+    },
+    {
       "id": "simplebuilding:blocks/lapis_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -16376,6 +16820,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_smoker.json"
+    },
+    {
+      "id": "simplebuilding:blocks/reinforced_sticky_piston",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:reinforced_sticky_piston"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_sticky_piston.json"
     },
     {
       "id": "simplebuilding:blocks/resin_quartz_checker",
@@ -19024,6 +19486,68 @@ window.WIKI_DATA = {
   ],
   "tags": [
     {
+      "id": "simplebuilding:block/piston_breach_immune",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:barrier",
+          "required": true
+        },
+        {
+          "id": "minecraft:light",
+          "required": true
+        },
+        {
+          "id": "minecraft:command_block",
+          "required": true
+        },
+        {
+          "id": "minecraft:repeating_command_block",
+          "required": true
+        },
+        {
+          "id": "minecraft:chain_command_block",
+          "required": true
+        },
+        {
+          "id": "minecraft:structure_block",
+          "required": true
+        },
+        {
+          "id": "minecraft:jigsaw",
+          "required": true
+        },
+        {
+          "id": "minecraft:test_block",
+          "required": true
+        },
+        {
+          "id": "minecraft:test_instance_block",
+          "required": true
+        },
+        {
+          "id": "minecraft:moving_piston",
+          "required": true
+        },
+        {
+          "id": "#minecraft:portals",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/block/piston_breach_immune.json"
+    },
+    {
+      "id": "simplebuilding:block/piston_breachable_extra",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:reinforced_deepslate",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/block/piston_breachable_extra.json"
+    },
+    {
       "id": "simplebuilding:enchantment/exclusive_set/break_through_group",
       "replace": false,
       "values": [
@@ -19521,6 +20045,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_piston",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_quiver",
           "required": true
         },
@@ -19588,6 +20116,13 @@ window.WIKI_DATA = {
       "default": "true",
       "note": null,
       "tooltip": "Enable Armor Trim Benefits"
+    },
+    {
+      "name": "pistonsBreachEndPortalFrames",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "tooltip": "Pistons Breach End Portal Frames"
     },
     {
       "name": "trimBenefitBaseMultiplier",
@@ -19661,14 +20196,14 @@ window.WIKI_DATA = {
     }
   ],
   "counts": {
-    "items": 110,
-    "blocks": 29,
-    "recipes": 130,
-    "lootTables": 28,
+    "items": 112,
+    "blocks": 31,
+    "recipes": 131,
+    "lootTables": 30,
     "trades": 20,
     "enchantments": 19,
-    "tags": 17,
-    "config": 13,
+    "tags": 19,
+    "config": 14,
     "features": 26,
     "undocumented": 0,
     "incompleteProse": 0

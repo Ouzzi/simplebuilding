@@ -1,6 +1,7 @@
 package com.simplebuilding.datagen;
 
 import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.util.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
@@ -8,6 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
@@ -38,7 +40,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(key(ModBlocks.REINFORCED_BLAST_FURNACE))
                 .add(key(ModBlocks.NETHERITE_BLAST_FURNACE))
                 .add(key(ModBlocks.REINFORCED_PISTON))
+                .add(key(ModBlocks.REINFORCED_STICKY_PISTON))
                 .add(key(ModBlocks.NETHERITE_PISTON))
+                .add(key(ModBlocks.ENDERITE_PISTON))
                 .add(key(ModBlocks.NETHERITE_PISTON_HEAD))
                 .add(key(ModBlocks.REINFORCED_FURNACE))
                 .add(key(ModBlocks.NETHERITE_FURNACE))
@@ -66,5 +70,26 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         // BEACON BASE (Wichtig für dein Feature)
         builder(BlockTags.BEACON_BASE_BLOCKS)
                 .add(key(ModBlocks.ENDERITE_BLOCK));
+
+        // Kolben-Durchbruch (PistonBreach): unzerstoerbare Bloecke, die trotzdem kein Kolben der
+        // Mod schiebt oder zerstoert. Bloecke mit Block-Entity (Befehls-, Struktur-, Verbund-,
+        // Testbloecke, bewegter Kolben) nimmt PistonBreach zusaetzlich auch ohne diesen Tag aus.
+        builder(ModTags.Blocks.PISTON_BREACH_IMMUNE)
+                .add(key(Blocks.BARRIER))
+                .add(key(Blocks.LIGHT))
+                .add(key(Blocks.COMMAND_BLOCK))
+                .add(key(Blocks.REPEATING_COMMAND_BLOCK))
+                .add(key(Blocks.CHAIN_COMMAND_BLOCK))
+                .add(key(Blocks.STRUCTURE_BLOCK))
+                .add(key(Blocks.JIGSAW))
+                .add(key(Blocks.TEST_BLOCK))
+                .add(key(Blocks.TEST_INSTANCE_BLOCK))
+                .add(key(Blocks.MOVING_PISTON))
+                .forceAddTag(BlockTags.PORTALS);
+
+        // ... und abbaubare Bloecke, die trotzdem als unzerstoerbar gelten (isPushable
+        // verweigert verstaerkten Tiefenschiefer beim Namen).
+        builder(ModTags.Blocks.PISTON_BREACHABLE_EXTRA)
+                .add(key(Blocks.REINFORCED_DEEPSLATE));
     }
 }

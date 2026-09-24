@@ -24,6 +24,11 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableArmorTrimBenefits = true;
 
+    // Ob die Kolben der Mod Endportalrahmen schieben (verstaerkte Kolben) bzw. zerstoeren
+    // (Netherit-/Enderitkolben). Aus: der Rahmen zaehlt wie ein immuner Block, siehe PistonBreach.
+    @ConfigEntry.Gui.Tooltip
+    public boolean pistonsBreachEndPortalFrames = true;
+
     @ConfigEntry.Gui.Tooltip
     public static double trimBenefitBaseMultiplier = 2.0;
     @ConfigEntry.Gui.Tooltip
