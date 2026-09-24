@@ -39,6 +39,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -642,14 +643,34 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createCoatingRecipe(output, ModBlocks.ASTRAL_END_STONE, ModBlocks.POLISHED_END_STONE, ModItems.ASTRALIT_DUST);
                 createCoatingRecipe(output, ModBlocks.NIHIL_END_STONE, ModBlocks.POLISHED_END_STONE, ModItems.NIHILITH_SHARD);
 
-                // --- ASTRALIT / NIHILITH BAUSATZ ---
-                // Ziegel 2x2 aus dem beschichteten Endstein (4), Saeule 2 uebereinander (2), gemeisselt aus
-                // zwei Ziegelstufen; Treppe/Stufe/Mauer wie bei Vanilla. Der Steinmetz schneidet alles 1:1
-                // (Stufen 1:2) aus dem beschichteten Endstein und Treppe/Stufe/Mauer/gemeisselt aus den Ziegeln.
-                createBrickSetRecipes(output, ModBlocks.ASTRAL_END_STONE, ModBlocks.ASTRALIT_BRICKS, ModBlocks.ASTRALIT_BRICK_STAIRS,
-                        ModBlocks.ASTRALIT_BRICK_SLAB, ModBlocks.ASTRALIT_BRICK_WALL, ModBlocks.ASTRALIT_PILLAR, ModBlocks.CHISELED_ASTRALIT_BRICKS);
-                createBrickSetRecipes(output, ModBlocks.NIHIL_END_STONE, ModBlocks.NIHILITH_BRICKS, ModBlocks.NIHILITH_BRICK_STAIRS,
-                        ModBlocks.NIHILITH_BRICK_SLAB, ModBlocks.NIHILITH_BRICK_WALL, ModBlocks.NIHILITH_PILLAR, ModBlocks.CHISELED_NIHILITH_BRICKS);
+                // --- ENDERQUARZ ---
+                // Formlos 1 Astralitstaub + 1 Nihilithsplitter + 1 Quarz -> 2 Enderquarz.
+                shapeless(RecipeCategory.MISC, ModItems.ENDER_QUARTZ, 2)
+                        .requires(ModItems.ASTRALIT_DUST)
+                        .requires(ModItems.NIHILITH_SHARD)
+                        .requires(Items.QUARTZ)
+                        .unlockedBy(getHasName(ModItems.ASTRALIT_DUST), has(ModItems.ASTRALIT_DUST))
+                        .unlockedBy(getHasName(ModItems.NIHILITH_SHARD), has(ModItems.NIHILITH_SHARD))
+                        .save(output);
+
+                // --- END-PALETTEN (Astralit, Nihilith, Enderquarz) ---
+                // Werkbank wie Vanilla: 4 Material im Quadrat -> 1 Grundblock (wie Quarz- und
+                // Amethystblock), Grundblock 2x2 -> 4 poliert, poliert 2x2 -> 4 Ziegel (Kette wie bei
+                // Tiefenschiefer), 2 poliert uebereinander -> 2 Saeulen (wie Quarzsaeule), 2 Ziegelstufen
+                // uebereinander -> 1 gemeisselte Ziegel; Treppe 6 -> 4, Stufe 3 -> 6, Mauer 6 -> 6.
+                // Steinmetz: der Grundblock schneidet alles, der polierte Block seine Familie, die
+                // Ziegelfamilie, Saeule und gemeisselte Ziegel, die Ziegel ihre Familie und gemeisselte.
+                // Umfaerben: 8 Endstein-/Purpur-Variante um 1 Material -> 8 der passenden Palettenvariante.
+                createEndPaletteRecipes(output, ModBlocks.ASTRALIT_PALETTE, ModItems.ASTRALIT_DUST, false);
+                createEndPaletteRecipes(output, ModBlocks.NIHILITH_PALETTE, ModItems.NIHILITH_SHARD, false);
+                createEndPaletteRecipes(output, ModBlocks.ENDER_QUARTZ_PALETTE, ModItems.ENDER_QUARTZ, true);
+
+                // Der beschichtete Endstein (aeltere Grundlage der Ziegel) schneidet weiter in den ganzen
+                // Ziegelbausatz und dazu in den Grundblock; der beschichtete Purpurblock schneidet in den
+                // polierten Block. Letzteres ersetzt das Umfaerben von Purpurbloecken, das bei Astralit
+                // und Nihilith schon als Beschichtungsrezept (-> Astral-/Nihil-Purpurblock) belegt ist.
+                createCoatedStoneCuts(ModBlocks.ASTRAL_END_STONE, ModBlocks.ASTRAL_PURPUR_BLOCK, ModBlocks.ASTRALIT_PALETTE);
+                createCoatedStoneCuts(ModBlocks.NIHIL_END_STONE, ModBlocks.NIHIL_PURPUR_BLOCK, ModBlocks.NIHILITH_PALETTE);
 
                 // --- GRAVITY BLOCKS ---
                 // Nihilith -> No Gravity (Suspended)
@@ -667,36 +688,99 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_QUIVER);
             }
 
-            // Helper für Checker (4 Base + 4 Quartz)
-            private void createBrickSetRecipes(RecipeOutput exporter, ItemLike base, ItemLike bricks, ItemLike stairs,
-                                               ItemLike slab, ItemLike wall, ItemLike pillar, ItemLike chiseled) {
-                shaped(RecipeCategory.BUILDING_BLOCKS, bricks, 4)
+            /** Werkbank-, Steinmetz- und Umfaerbe-Rezepte einer End-Palette (siehe Kommentar am Aufruf). */
+            private void createEndPaletteRecipes(RecipeOutput exporter, ModBlocks.EndPalette p, ItemLike material,
+                                                 boolean recolourPurpurBlock) {
+                shaped(RecipeCategory.BUILDING_BLOCKS, p.block())
                         .pattern("##")
                         .pattern("##")
-                        .define('#', base)
-                        .unlockedBy(getHasName(base), has(base))
+                        .define('#', material)
+                        .unlockedBy(getHasName(material), has(material))
                         .save(exporter);
-                stairBuilder(stairs, Ingredient.of(bricks)).unlockedBy(getHasName(bricks), has(bricks)).save(exporter);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, slab, Ingredient.of(bricks)).unlockedBy(getHasName(bricks), has(bricks)).save(exporter);
-                wallBuilder(RecipeCategory.DECORATIONS, wall, Ingredient.of(bricks)).unlockedBy(getHasName(bricks), has(bricks)).save(exporter);
-                shaped(RecipeCategory.BUILDING_BLOCKS, pillar, 2)
+                shaped(RecipeCategory.BUILDING_BLOCKS, p.polished(), 4)
+                        .pattern("##")
+                        .pattern("##")
+                        .define('#', p.block())
+                        .unlockedBy(getHasName(p.block()), has(p.block()))
+                        .save(exporter);
+                shaped(RecipeCategory.BUILDING_BLOCKS, p.bricks(), 4)
+                        .pattern("##")
+                        .pattern("##")
+                        .define('#', p.polished())
+                        .unlockedBy(getHasName(p.polished()), has(p.polished()))
+                        .save(exporter);
+                shaped(RecipeCategory.BUILDING_BLOCKS, p.pillar(), 2)
                         .pattern("#")
                         .pattern("#")
-                        .define('#', base)
-                        .unlockedBy(getHasName(base), has(base))
+                        .define('#', p.polished())
+                        .unlockedBy(getHasName(p.polished()), has(p.polished()))
                         .save(exporter);
-                chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, chiseled, Ingredient.of(slab)).unlockedBy(getHasName(slab), has(slab)).save(exporter);
+                for (Block[] family : new Block[][]{
+                        {p.bricks(), p.brickStairs(), p.brickSlab(), p.brickWall()},
+                        {p.polished(), p.polishedStairs(), p.polishedSlab(), p.polishedWall()}}) {
+                    Block full = family[0];
+                    stairBuilder(family[1], Ingredient.of(full)).unlockedBy(getHasName(full), has(full)).save(exporter);
+                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, family[2], Ingredient.of(full)).unlockedBy(getHasName(full), has(full)).save(exporter);
+                    wallBuilder(RecipeCategory.DECORATIONS, family[3], Ingredient.of(full)).unlockedBy(getHasName(full), has(full)).save(exporter);
+                }
+                chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, p.chiseled(), Ingredient.of(p.brickSlab()))
+                        .unlockedBy(getHasName(p.brickSlab()), has(p.brickSlab())).save(exporter);
 
-                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, bricks, base);
-                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, stairs, base);
-                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, slab, base, 2);
-                stonecutterResultFromBase(RecipeCategory.DECORATIONS, wall, base);
-                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, pillar, base);
-                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, chiseled, base);
-                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, stairs, bricks);
-                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, slab, bricks, 2);
-                stonecutterResultFromBase(RecipeCategory.DECORATIONS, wall, bricks);
-                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, chiseled, bricks);
+                // Steinmetz: Grundblock -> alles, poliert -> polierte Familie + Ziegelfamilie + Saeule +
+                // gemeisselt, Ziegel -> Ziegelfamilie + gemeisselt
+                for (Block base : List.of(p.block(), p.polished(), p.bricks())) {
+                    if (base != p.bricks()) {
+                        if (base != p.polished()) {
+                            stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.polished(), base);
+                        }
+                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.polishedStairs(), base);
+                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.polishedSlab(), base, 2);
+                        stonecutterResultFromBase(RecipeCategory.DECORATIONS, p.polishedWall(), base);
+                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.bricks(), base);
+                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.pillar(), base);
+                    }
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.brickStairs(), base);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.brickSlab(), base, 2);
+                    stonecutterResultFromBase(RecipeCategory.DECORATIONS, p.brickWall(), base);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.chiseled(), base);
+                }
+
+                // Umfaerben wie mit Farbstoff, nur wo es eine passende Vanilla-Variante gibt
+                createRecolourRecipe(exporter, p.block(), Items.END_STONE, material);
+                createRecolourRecipe(exporter, p.bricks(), Items.END_STONE_BRICKS, material);
+                createRecolourRecipe(exporter, p.brickStairs(), Items.END_STONE_BRICK_STAIRS, material);
+                createRecolourRecipe(exporter, p.brickSlab(), Items.END_STONE_BRICK_SLAB, material);
+                createRecolourRecipe(exporter, p.brickWall(), Items.END_STONE_BRICK_WALL, material);
+                if (recolourPurpurBlock) {
+                    createRecolourRecipe(exporter, p.polished(), Items.PURPUR_BLOCK, material);
+                }
+                createRecolourRecipe(exporter, p.polishedStairs(), Items.PURPUR_STAIRS, material);
+                createRecolourRecipe(exporter, p.polishedSlab(), Items.PURPUR_SLAB, material);
+                createRecolourRecipe(exporter, p.pillar(), Items.PURPUR_PILLAR, material);
+            }
+
+            private void createCoatedStoneCuts(Block coatedEndStone, Block coatedPurpur, ModBlocks.EndPalette p) {
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.block(), coatedEndStone);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.bricks(), coatedEndStone);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.brickStairs(), coatedEndStone);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.brickSlab(), coatedEndStone, 2);
+                stonecutterResultFromBase(RecipeCategory.DECORATIONS, p.brickWall(), coatedEndStone);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.pillar(), coatedEndStone);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.chiseled(), coatedEndStone);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.polished(), coatedPurpur);
+            }
+
+            /** 8 einer Vanilla-Variante um 1 Material -> 8 der Palettenvariante, wie Farbstoff an Glas oder Ton. */
+            private void createRecolourRecipe(RecipeOutput exporter, ItemLike result, ItemLike vanilla, ItemLike material) {
+                shaped(RecipeCategory.BUILDING_BLOCKS, result, 8)
+                        .pattern("###")
+                        .pattern("#M#")
+                        .pattern("###")
+                        .define('#', vanilla)
+                        .define('M', material)
+                        .unlockedBy(getHasName(material), has(material))
+                        .save(exporter, BuiltInRegistries.ITEM.getKey(result.asItem()).getPath() + "_from_"
+                                + BuiltInRegistries.ITEM.getKey(vanilla.asItem()).getPath());
             }
 
             private void createCheckerRecipe(RecipeOutput exporter, ItemLike output, ItemLike base) {

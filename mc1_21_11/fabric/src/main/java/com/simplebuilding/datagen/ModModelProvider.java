@@ -65,8 +65,9 @@ public class ModModelProvider extends FabricModelProvider {
 
         // Astralit-/Nihilith-Bausatz: Ziegelfamilie (Treppe, Stufe, Mauer samt Inventarmodell),
         // Saeule mit eigener Stirnseite (_top) und gemeisselte Ziegel als einfacher Wuerfel.
-        registerBrickSet(blockStateModelGenerator, ModBlocks.ASTRALIT_BRICKS, ModBlocks.ASTRALIT_BRICK_STAIRS, ModBlocks.ASTRALIT_BRICK_SLAB, ModBlocks.ASTRALIT_BRICK_WALL, ModBlocks.ASTRALIT_PILLAR, ModBlocks.CHISELED_ASTRALIT_BRICKS);
-        registerBrickSet(blockStateModelGenerator, ModBlocks.NIHILITH_BRICKS, ModBlocks.NIHILITH_BRICK_STAIRS, ModBlocks.NIHILITH_BRICK_SLAB, ModBlocks.NIHILITH_BRICK_WALL, ModBlocks.NIHILITH_PILLAR, ModBlocks.CHISELED_NIHILITH_BRICKS);
+        for (ModBlocks.EndPalette palette : ModBlocks.END_PALETTES) {
+            registerEndPalette(blockStateModelGenerator, palette);
+        }
 
         blockStateModelGenerator.createTrivialCube(ModBlocks.SUSPENDED_SAND);
         blockStateModelGenerator.createTrivialCube(ModBlocks.SUSPENDED_GRAVEL);
@@ -293,6 +294,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SCRAP, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NIHILITH_SHARD, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ASTRALIT_DUST, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDER_QUARTZ, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_UPGRADE_TEMPLATE, ModelTemplates.FLAT_ITEM);
 
 
@@ -370,10 +372,13 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM);
     }
 
-    private void registerBrickSet(BlockModelGenerators generator, Block bricks, Block stairs, Block slab, Block wall, Block pillar, Block chiseled) {
-        generator.family(bricks).stairs(stairs).slab(slab).wall(wall);
-        generator.createAxisAlignedPillarBlock(pillar, TexturedModel.COLUMN_ALT);
-        generator.createTrivialCube(chiseled);
+    /** Grundblock und gemeisselte Ziegel als Wuerfel, Ziegel und polierter Block je als Familie, Saeule mit Stirnseite. */
+    private void registerEndPalette(BlockModelGenerators generator, ModBlocks.EndPalette palette) {
+        generator.createTrivialCube(palette.block());
+        generator.family(palette.bricks()).stairs(palette.brickStairs()).slab(palette.brickSlab()).wall(palette.brickWall());
+        generator.family(palette.polished()).stairs(palette.polishedStairs()).slab(palette.polishedSlab()).wall(palette.polishedWall());
+        generator.createAxisAlignedPillarBlock(palette.pillar(), TexturedModel.COLUMN_ALT);
+        generator.createTrivialCube(palette.chiseled());
     }
 
     private void registerMirroredChecker(BlockModelGenerators generator, Block block) {

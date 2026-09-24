@@ -1,6 +1,10 @@
 {
   "values": [
     "simplebuilding:astralit_brick_wall",
-    "simplebuilding:nihilith_brick_wall"
+    "simplebuilding:polished_astralit_wall",
+    "simplebuilding:nihilith_brick_wall",
+    "simplebuilding:polished_nihilith_wall",
+    "simplebuilding:ender_quartz_brick_wall",
+    "simplebuilding:polished_ender_quartz_wall"
   ]
 }

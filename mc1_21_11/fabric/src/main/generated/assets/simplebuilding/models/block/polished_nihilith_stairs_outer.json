@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "simplebuilding:block/polished_nihilith",
+    "side": "simplebuilding:block/polished_nihilith",
+    "top": "simplebuilding:block/polished_nihilith"
+  }
+}

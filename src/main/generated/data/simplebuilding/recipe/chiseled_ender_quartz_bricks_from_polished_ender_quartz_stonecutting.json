@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:polished_ender_quartz",
+  "result": {
+    "id": "simplebuilding:chiseled_ender_quartz_bricks"
+  }
+}

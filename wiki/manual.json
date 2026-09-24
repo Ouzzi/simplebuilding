@@ -52,7 +52,7 @@
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
           "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
-          "The creative inventory has four tabs of its own: \"SimpleBuilding: Tools & Enchanting\" (chisels, building wands, sledgehammers, octants, Velocity Gauge, Ore Detector, Magnet, Rotator, Enderite tools and armour, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBuilding: Building Blocks\" (end stone, Astralit and Nihilith blocks, quartz checkers, gravity blocks, Cracked Diamond Block, Enderite Block and Construction Light; icon: Astralit Bricks), \"SimpleBuilding: Materials\" (ores, shards, dust, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleBuilding: Machines & Storage\" (hoppers, pistons, furnaces, bundles, quivers and backpacks; icon: Netherite Hopper). Every item except the six legacy spatulas sits in exactly one of them.",
+          "The creative inventory has four tabs of its own: \"SimpleBuilding: Tools & Enchanting\" (chisels, building wands, sledgehammers, octants, Velocity Gauge, Ore Detector, Magnet, Rotator, Enderite tools and armour, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBuilding: Building Blocks\" (end stone, the Astralit, Nihilith and Ender Quartz palettes, quartz checkers, gravity blocks, Cracked Diamond Block, Enderite Block and Construction Light; icon: Astralit Bricks), \"SimpleBuilding: Materials\" (ores, shards, dust, Ender Quartz, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleBuilding: Machines & Storage\" (hoppers, pistons, furnaces, bundles, quivers and backpacks; icon: Netherite Hopper). Every item except the six legacy spatulas sits in exactly one of them.",
           "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. Many menu and status strings (in the hopper filter, on the Ore Detector, in the Octant HUD and on the Magnet) are hardcoded in English and cannot be translated at all.",
           "Every chapter follows the same layout: summary, details, controls (which key or click does what), a tier overview for tier families, and a limitations section. That section states plainly what does not (yet) work, e.g. tooltip texts that are never shown, or enchantments with no effect such as Cover and Bridge. Each chapter ends with the source files its statements come from.",
           "Items section: every tool and storage item, sorted by family (Sledgehammer, Chisel, Building Wand, Octant and dyed Octants, bundles, quivers), plus the standalone tools Magnet, Rotator and Ore Detector.",
@@ -76,7 +76,7 @@
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
           "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
-          "Das Kreativinventar hat vier eigene Reiter: „SimpleBuilding: Werkzeuge & Verzauberung“ (Meißel, Baustäbe, Vorschlaghämmer, Oktanten, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Enderit-Werkzeuge und -Rüstung sowie verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBuilding: Baublöcke“ (Endstein, Astralit- und Nihilith-Blöcke, Quarz-Schachbretter, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralit-Ziegel), „SimpleBuilding: Materialien“ (Erze, Splitter, Staub, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleBuilding: Maschinen & Lager“ (Trichter, Kolben, Öfen, Bündel, Köcher und Rucksäcke; Symbol: Netherittrichter). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon.",
+          "Das Kreativinventar hat vier eigene Reiter: „SimpleBuilding: Werkzeuge & Verzauberung“ (Meißel, Baustäbe, Vorschlaghämmer, Oktanten, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Enderit-Werkzeuge und -Rüstung sowie verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBuilding: Baublöcke“ (Endstein, die Astralit-, Nihilith- und Enderquarz-Paletten, Quarz-Schachbretter, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralit-Ziegel), „SimpleBuilding: Materialien“ (Erze, Splitter, Staub, Enderquarz, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleBuilding: Maschinen & Lager“ (Trichter, Kolben, Öfen, Bündel, Köcher und Rucksäcke; Symbol: Netherittrichter). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon.",
           "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Viele Menü- und Statustexte (etwa im Trichter-Filter, beim Erzdetektor, beim Oktant-HUD und beim Magneten) sind fest auf Englisch hinterlegt.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden, oder Verzauberungen ohne Wirkung wie Abdeckung und Brücke. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
           "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Magnet, Rotator und Erzdetektor.",
@@ -457,7 +457,7 @@
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
           "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
-          "The creative inventory has four tabs of its own: \"SimpleBuilding: Tools & Enchanting\" (chisels, building wands, sledgehammers, octants, Velocity Gauge, Ore Detector, Magnet, Rotator, Enderite tools and armour, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBuilding: Building Blocks\" (end stone, Astralit and Nihilith blocks, quartz checkers, gravity blocks, Cracked Diamond Block, Enderite Block and Construction Light; icon: Astralit Bricks), \"SimpleBuilding: Materials\" (ores, shards, dust, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleBuilding: Machines & Storage\" (hoppers, pistons, furnaces, bundles, quivers and backpacks; icon: Netherite Hopper). Every item except the six legacy spatulas sits in exactly one of them.",
+          "The creative inventory has four tabs of its own: \"SimpleBuilding: Tools & Enchanting\" (chisels, building wands, sledgehammers, octants, Velocity Gauge, Ore Detector, Magnet, Rotator, Enderite tools and armour, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBuilding: Building Blocks\" (end stone, the Astralit, Nihilith and Ender Quartz palettes, quartz checkers, gravity blocks, Cracked Diamond Block, Enderite Block and Construction Light; icon: Astralit Bricks), \"SimpleBuilding: Materials\" (ores, shards, dust, Ender Quartz, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleBuilding: Machines & Storage\" (hoppers, pistons, furnaces, bundles, quivers and backpacks; icon: Netherite Hopper). Every item except the six legacy spatulas sits in exactly one of them.",
           "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. Many menu and status strings (in the hopper filter, on the Ore Detector, in the Octant HUD and on the Magnet) are hardcoded in English and cannot be translated at all.",
           "Every chapter follows the same layout: summary, details, controls (which key or click does what), a tier overview for tier families, and a limitations section. That section states plainly what does not (yet) work, e.g. tooltip texts that are never shown, or enchantments with no effect such as Cover and Bridge. Each chapter ends with the source files its statements come from.",
           "Items section: every tool and storage item, sorted by family (Sledgehammer, Chisel, Building Wand, Octant and dyed Octants, bundles, quivers), plus the standalone tools Magnet, Rotator and Ore Detector.",
@@ -481,7 +481,7 @@
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
           "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
-          "Das Kreativinventar hat vier eigene Reiter: „SimpleBuilding: Werkzeuge & Verzauberung“ (Meißel, Baustäbe, Vorschlaghämmer, Oktanten, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Enderit-Werkzeuge und -Rüstung sowie verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBuilding: Baublöcke“ (Endstein, Astralit- und Nihilith-Blöcke, Quarz-Schachbretter, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralit-Ziegel), „SimpleBuilding: Materialien“ (Erze, Splitter, Staub, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleBuilding: Maschinen & Lager“ (Trichter, Kolben, Öfen, Bündel, Köcher und Rucksäcke; Symbol: Netherittrichter). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon.",
+          "Das Kreativinventar hat vier eigene Reiter: „SimpleBuilding: Werkzeuge & Verzauberung“ (Meißel, Baustäbe, Vorschlaghämmer, Oktanten, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Enderit-Werkzeuge und -Rüstung sowie verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBuilding: Baublöcke“ (Endstein, die Astralit-, Nihilith- und Enderquarz-Paletten, Quarz-Schachbretter, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralit-Ziegel), „SimpleBuilding: Materialien“ (Erze, Splitter, Staub, Enderquarz, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleBuilding: Maschinen & Lager“ (Trichter, Kolben, Öfen, Bündel, Köcher und Rucksäcke; Symbol: Netherittrichter). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon.",
           "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Viele Menü- und Statustexte (etwa im Trichter-Filter, beim Erzdetektor, beim Oktant-HUD und beim Magneten) sind fest auf Englisch hinterlegt.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden, oder Verzauberungen ohne Wirkung wie Abdeckung und Brücke. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
           "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Magnet, Rotator und Erzdetektor.",
@@ -1452,7 +1452,7 @@
           "While a pushed unbreakable block is on its way (two ticks inside a moving piston) explosions leave the moving piston alone, and the Rotator refuses extended pistons, piston heads and moving blocks - both would otherwise delete an unbreakable block for free.",
           "All pistons are in the mineable/pickaxe tag. The Netherite Piston has hardness 5 and blast resistance 1200, the Enderite Piston hardness 6 and blast resistance 1500, and both items are fire resistant (the Enderite Piston's of rarity Epic); the Reinforced and the Reinforced Sticky Piston have hardness 1.5.",
           "The block \"netherite_piston_head\" is registered but placed by no code, and it has neither an item nor a loot table.",
-          "Suspended Sand and Suspended Gravel (8 Sand/Gravel + 1 Nihilith Shard each = 8) are ordinary blocks with no falling logic; Suspended Sand additionally has no collision box.",
+          "Suspended Sand and Suspended Gravel (8 Sand/Gravel + 1 Nihilith Shard each = 8) are ordinary blocks with no falling logic and the full collision box of sand and gravel: you can stand on both, items rest on them and a rising Levitating block lands underneath them.",
           "Levitating Sand and Levitating Gravel (8 Sand/Gravel + 1 Astralit Dust each = 8) fall upwards: two ticks after being placed, and again whenever a neighbour changes and the space above is free, the block turns into a levitating_block entity and rises. The entity uses vanilla's falling-block physics with the sign of gravity flipped (v = 0.98 x v + 0.04 per tick, limit 2 blocks per tick), so it starts slowly and accelerates exactly like falling sand.",
           "A rising block that runs into a ceiling turns back into a block in the free space below it - the mirror image of sand landing on the ground. If it cannot be placed there, it drops as an item. Remove the obstacle again and it carries on rising; the blocks never come back down on their own.",
           "Above the build limit the rising block breaks and drops as an item, the way falling sand is lost in the void. Unlike vanilla, there is no 100 tick grace period before that happens, so the block breaks at the limit instead of about 115 blocks above it.",
@@ -1479,7 +1479,7 @@
           "Solange ein geschobener unzerstörbarer Block unterwegs ist (zwei Ticks in einem bewegten Kolben), lassen Explosionen den bewegten Kolben in Ruhe, und der Rotator verweigert ausgefahrene Kolben, Kolbenköpfe und bewegte Blöcke - beides würde sonst einen unzerstörbaren Block umsonst löschen.",
           "Alle Kolben sind im Tag mineable/pickaxe. Der Netheritkolben hat Härte 5 und Explosionswiderstand 1200, der Enderitkolben Härte 6 und Explosionswiderstand 1500, beide Items sind feuerfest (das des Enderitkolbens von der Seltenheit Episch); der Verstärkte und der Verstärkte klebrige Kolben haben Härte 1,5.",
           "Der Block „netherite_piston_head“ ist registriert, wird aber von keinem Code platziert und hat weder Item noch Beutetabelle.",
-          "Suspended Sand und Suspended Gravel (je 8 Sand/Kies + 1 Nihilith Shard = 8 Stück) sind gewöhnliche Blöcke ohne Fall-Logik; Suspended Sand hat zusätzlich keine Kollision.",
+          "Suspended Sand und Suspended Gravel (je 8 Sand/Kies + 1 Nihilith Shard = 8 Stück) sind gewöhnliche Blöcke ohne Fall-Logik und mit der vollen Kollisionsbox von Sand und Kies: Man steht auf beiden, Gegenstände bleiben darauf liegen und ein aufsteigender Levitating-Block landet darunter.",
           "Levitating Sand und Levitating Gravel (je 8 Sand/Kies + 1 Astralit Dust = 8 Stück) fallen nach oben: zwei Ticks nach dem Setzen – und erneut, sobald sich ein Nachbar ändert und der Platz darüber frei ist – wird aus dem Block eine levitating_block-Entity, die aufsteigt. Sie benutzt Vanillas Fallphysik mit umgedrehtem Vorzeichen der Schwerkraft (v = 0,98 × v + 0,04 pro Tick, Grenzwert 2 Blöcke pro Tick) und beschleunigt daher genauso wie fallender Sand.",
           "Stößt ein aufsteigender Block an eine Decke, wird er in der freien Zelle darunter wieder zum Block – das Spiegelbild von Sand, der auf dem Boden landet. Passt er dort nicht hin, fällt er als Gegenstand. Wird das Hindernis entfernt, steigt er weiter; von selbst kommen die Blöcke nie wieder herunter.",
           "Über dem Baulimit zerbricht der aufsteigende Block und fällt als Gegenstand, so wie fallender Sand in der Leere verloren geht. Anders als bei Vanilla gibt es davor keine Schonfrist von 100 Ticks, der Block zerbricht also am Limit statt rund 115 Blöcke darüber.",
@@ -1494,18 +1494,40 @@
     {
       "id": "end_building_blocks",
       "related": [
+        "simplebuilding:astralit_block",
         "simplebuilding:astralit_bricks",
         "simplebuilding:astralit_brick_stairs",
         "simplebuilding:astralit_brick_slab",
         "simplebuilding:astralit_brick_wall",
+        "simplebuilding:polished_astralit",
+        "simplebuilding:polished_astralit_stairs",
+        "simplebuilding:polished_astralit_slab",
+        "simplebuilding:polished_astralit_wall",
         "simplebuilding:astralit_pillar",
         "simplebuilding:chiseled_astralit_bricks",
+        "simplebuilding:nihilith_block",
         "simplebuilding:nihilith_bricks",
         "simplebuilding:nihilith_brick_stairs",
         "simplebuilding:nihilith_brick_slab",
         "simplebuilding:nihilith_brick_wall",
+        "simplebuilding:polished_nihilith",
+        "simplebuilding:polished_nihilith_stairs",
+        "simplebuilding:polished_nihilith_slab",
+        "simplebuilding:polished_nihilith_wall",
         "simplebuilding:nihilith_pillar",
         "simplebuilding:chiseled_nihilith_bricks",
+        "simplebuilding:ender_quartz_block",
+        "simplebuilding:ender_quartz_bricks",
+        "simplebuilding:ender_quartz_brick_stairs",
+        "simplebuilding:ender_quartz_brick_slab",
+        "simplebuilding:ender_quartz_brick_wall",
+        "simplebuilding:polished_ender_quartz",
+        "simplebuilding:polished_ender_quartz_stairs",
+        "simplebuilding:polished_ender_quartz_slab",
+        "simplebuilding:polished_ender_quartz_wall",
+        "simplebuilding:ender_quartz_pillar",
+        "simplebuilding:chiseled_ender_quartz_bricks",
+        "simplebuilding:ender_quartz",
         "simplebuilding:astral_end_stone",
         "simplebuilding:nihil_end_stone",
         "simplebuilding:polished_end_stone"
@@ -1520,32 +1542,37 @@
         "src/main/generated/data/simplebuilding/recipe/astralit_bricks.json",
         "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
         "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-        "tools/textures/generate_textures.py"
+        "tools/textures/generate_textures.py",
+        "src/main/generated/data/simplebuilding/recipe/astralit_block_from_end_stone.json",
+        "src/main/generated/data/simplebuilding/recipe/ender_quartz.json",
+        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java"
       ],
       "en": {
-        "title": "Astralit and Nihilith Building Blocks",
-        "summary": "Astralit Dust and Nihilith Shards coat polished end stone, and the coated end stone opens a full building set per material, like vanilla's end stone and purpur families: bricks with stairs, slab and wall, a pillar and chiseled bricks. Every Astralit block glows.",
+        "title": "End Palettes: Astralit, Nihilith and Ender Quartz",
+        "summary": "Three building palettes modelled on vanilla's end stone and purpur: pink Astralit, blue Nihilith and purple Ender Quartz. Each has a base block, bricks with stairs, slab and wall, a polished block with stairs, slab and wall, a pillar and chiseled bricks. Every Astralit block glows.",
         "details": [
-          "Base: 4 End Stone in a square make 4 Polished End Stone; 8 Polished End Stone around 1 Astralit Dust or 1 Nihilith Shard make 8 Astral or Nihil End Stone.",
-          "Crafting: 4 coated end stone in a square make 4 Bricks; 6 Bricks in a stair shape make 4 Brick Stairs, 3 in a row 6 Brick Slabs, 6 in two rows 6 Brick Walls; 2 coated end stone on top of each other make 2 Pillars; 2 Brick Slabs on top of each other make 1 Chiseled Bricks.",
-          "Stonecutter: the coated end stone cuts into every block of its set, one for one and slabs two for one; the Bricks cut into Brick Stairs, Brick Slabs (two), Brick Wall and Chiseled Bricks.",
-          "All twelve copy their coated end stone: hardness 3, blast resistance 9, and a pickaxe is needed for the drop. Astralit blocks emit light level 10 like Astral End Stone, Nihilith blocks none.",
+          "Materials: Astralit Dust, Nihilith Shard and Ender Quartz (1 Astralit Dust + 1 Nihilith Shard + 1 Quartz, shapeless, make 2).",
+          "Crafting: 4 of the material in a square make 1 base block (like quartz and amethyst); 4 base blocks make 4 Polished; 4 Polished make 4 Bricks; 2 Polished on top of each other make 2 Pillars; 6 Bricks or Polished in a stair shape make 4 Stairs, 3 in a row 6 Slabs, 6 in two rows 6 Walls; 2 Brick Slabs on top of each other make 1 Chiseled Bricks.",
+          "Recolouring like dye: 8 of a vanilla end stone or purpur block around 1 of the material make 8 of the matching palette block - End Stone to the base block, End Stone Bricks and their stairs, slab and wall to the Bricks and theirs, Purpur Stairs and Slab to the Polished Stairs and Slab, the Purpur Pillar to the Pillar, and the Purpur Block to Polished Ender Quartz. For Astralit and Nihilith the Purpur Block grid stays the older coating recipe (Astral or Nihil Purpur Block), which the stonecutter turns into the Polished block.",
+          "Stonecutter: the base block cuts into every other block of its palette; the Polished block into its stairs, slab and wall, the Bricks and their stairs, slab and wall, the Pillar and the Chiseled Bricks; the Bricks into their stairs, slab, wall and the Chiseled Bricks. Slabs always come two for one. The older coated end stone (Astral and Nihil End Stone: 8 Polished End Stone around 1 dust or shard) still cuts into the brick set and the base block.",
+          "All blocks: hardness 3, blast resistance 9, a pickaxe is needed for the drop. Astralit blocks emit light level 10, Nihilith and Ender Quartz blocks none.",
           "Pillars can be placed along any axis; a double slab drops two slabs; stairs, slabs and walls are in the vanilla block and item tags of their shape, so the walls connect like any vanilla wall.",
-          "Polished, Astral and Nihil End Stone and the Astral and Nihil Purpur Blocks are in the mineable/pickaxe tag as well now; before, breaking them dropped nothing.",
-          "All of them sit in the creative tab \"SimpleBuilding: Building Blocks\". The textures are new pixel art in the colours of the coated end stone: Astralit with pink star sparks, Nihilith with turquoise shard specks."
+          "Polished, Astral and Nihil End Stone and the Astral and Nihil Purpur Blocks are in the mineable/pickaxe tag as well.",
+          "All of them sit in the creative tab \"SimpleBuilding: Building Blocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilith turquoise shards and Ender Quartz veins; the Chiseled Bricks show a Shulker, an Enderman and the Ender Dragon."
         ]
       },
       "de": {
-        "title": "Astralit- und Nihilith-Baublöcke",
-        "summary": "Astralitstaub und Nihilithsplitter beschichten polierten Endstein, und der beschichtete Endstein öffnet je Material einen ganzen Bausatz wie die Endstein- und Purpur-Familien von Vanilla: Ziegel mit Treppe, Stufe und Mauer, eine Säule und gemeißelte Ziegel. Jeder Astralit-Block leuchtet.",
+        "title": "End-Paletten: Astralit, Nihilith und Enderquarz",
+        "summary": "Drei Bau-Paletten nach dem Vorbild von Endstein und Purpur: rosa Astralit, blaues Nihilith und violetter Enderquarz. Jede hat einen Grundblock, Ziegel mit Treppe, Stufe und Mauer, einen polierten Block mit Treppe, Stufe und Mauer, eine Säule und gemeißelte Ziegel. Jeder Astralit-Block leuchtet.",
         "details": [
-          "Grundlage: 4 Endstein im Quadrat ergeben 4 polierten Endstein; 8 polierter Endstein um 1 Astralitstaub bzw. 1 Nihilithsplitter ergeben 8 Astral- bzw. Nihil-Endstein.",
-          "Herstellung: 4 beschichteter Endstein im Quadrat ergeben 4 Ziegel; 6 Ziegel in Treppenform ergeben 4 Ziegeltreppen, 3 in einer Reihe 6 Ziegelstufen, 6 in zwei Reihen 6 Ziegelmauern; 2 beschichteter Endstein übereinander ergeben 2 Säulen; 2 Ziegelstufen übereinander ergeben 1 gemeißelte Ziegel.",
-          "Steinmetz: Der beschichtete Endstein lässt sich in jeden Block seines Bausatzes schneiden, eins zu eins und Stufen zwei zu eins; die Ziegel in Ziegeltreppe, Ziegelstufe (zwei), Ziegelmauer und gemeißelte Ziegel.",
-          "Alle zwölf übernehmen die Werte ihres beschichteten Endsteins: Härte 3, Explosionsfestigkeit 9, und für den Drop braucht es eine Spitzhacke. Astralit-Blöcke leuchten mit Lichtstufe 10 wie Astral-Endstein, Nihilith-Blöcke gar nicht.",
+          "Materialien: Astralitstaub, Nihilithsplitter und Enderquarz (1 Astralitstaub + 1 Nihilithsplitter + 1 Quarz, formlos, ergeben 2).",
+          "Herstellung: 4 Material im Quadrat ergeben 1 Grundblock (wie bei Quarz und Amethyst); 4 Grundblöcke ergeben 4 polierte; 4 polierte ergeben 4 Ziegel; 2 polierte übereinander ergeben 2 Säulen; 6 Ziegel oder polierte in Treppenform ergeben 4 Treppen, 3 in einer Reihe 6 Stufen, 6 in zwei Reihen 6 Mauern; 2 Ziegelstufen übereinander ergeben 1 gemeißelte Ziegel.",
+          "Umfärben wie mit Farbstoff: 8 eines Vanilla-Endstein- oder -Purpurblocks um 1 Material ergeben 8 des passenden Palettenblocks – Endstein zum Grundblock, Endsteinziegel samt Treppe, Stufe und Mauer zu den Ziegeln samt Treppe, Stufe und Mauer, Purpurtreppe und -stufe zur polierten Treppe und Stufe, die Purpursäule zur Säule und der Purpurblock zu poliertem Enderquarz. Bei Astralit und Nihilith bleibt das Purpurblock-Raster das ältere Beschichtungsrezept (Astral- bzw. Nihil-Purpurblock), das der Steinmetz in den polierten Block schneidet.",
+          "Steinmetz: Der Grundblock lässt sich in jeden anderen Block seiner Palette schneiden; der polierte Block in seine Treppe, Stufe und Mauer, die Ziegel samt Treppe, Stufe und Mauer, die Säule und die gemeißelten Ziegel; die Ziegel in ihre Treppe, Stufe, Mauer und die gemeißelten Ziegel. Stufen immer zwei zu eins. Der ältere beschichtete Endstein (Astral- und Nihil-Endstein: 8 polierter Endstein um 1 Staub bzw. Splitter) schneidet weiterhin in den Ziegelbausatz und den Grundblock.",
+          "Alle Blöcke: Härte 3, Explosionsfestigkeit 9, für den Drop braucht es eine Spitzhacke. Astralit-Blöcke leuchten mit Lichtstufe 10, Nihilith- und Enderquarz-Blöcke gar nicht.",
           "Säulen lassen sich in jeder Achse setzen; eine Doppelstufe lässt zwei Stufen fallen; Treppen, Stufen und Mauern stehen in den Vanilla-Block- und -Item-Tags ihrer Form, die Mauern verbinden sich also wie jede Vanilla-Mauer.",
-          "Polierter, Astral- und Nihil-Endstein sowie Astral- und Nihil-Purpurblock stehen jetzt ebenfalls im Tag mineable/pickaxe; vorher fiel beim Abbau nichts heraus.",
-          "Alle liegen im Kreativ-Tab „SimpleBuilding: Baublöcke“. Die Texturen sind neue Pixelkunst in den Farben des beschichteten Endsteins: Astralit mit rosa Sternfunken, Nihilith mit türkisen Splittersprenkeln."
+          "Polierter, Astral- und Nihil-Endstein sowie Astral- und Nihil-Purpurblock stehen ebenfalls im Tag mineable/pickaxe.",
+          "Alle liegen im Kreativ-Tab „SimpleBuilding: Baublöcke“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilith-Splittern und Enderquarz-Adern; die gemeißelten Ziegel zeigen einen Shulker, einen Enderman und den Enderdrachen."
         ]
       }
     },
@@ -5879,39 +5906,39 @@
     },
     "suspended_sand": {
       "en": {
-        "summary": "Suspended Sand is sand without gravity: it stays exactly where you put it, and it has no collision box, so you walk straight through it.",
+        "summary": "Suspended Sand is sand without gravity: it stays exactly where you put it, and like Suspended Gravel it is solid - you can stand on it.",
         "details": [
           "An ordinary block (class Block) with the properties copied from sand (hardness, sound, map colour), but with no falling logic - it never falls.",
-          "Registered with noCollision(): players and mobs walk or fall straight through it.",
+          "It keeps the full collision box of sand (until 2026-09-24 it was registered with noCollision() and could be walked through): players and mobs stand on it, dropped items come to rest on top, and a Levitating block rising from below stops underneath it and turns back into a block.",
           "Loot table: drops itself (survives_explosion condition).",
           "Recipe (crafting table, building blocks category): 8 Sand around 1 Nihilith Shard; yields 8. Unlocked as soon as you own a Nihilith Shard.",
           "In creative it sits in the tab \"SimpleBuilding: Building Blocks\" (German \"SimpleBuilding: Baublöcke\"), in the gravity block group.",
-          "A game test proves it: placed in mid-air it is still in the same spot after 40 ticks, while ordinary sand next to it falls to the ground."
+          "Game tests prove it: placed in mid-air it is still in the same spot after 40 ticks while ordinary sand next to it falls to the ground; an item dropped onto it stays on top, and Levitating Sand rising from two blocks below lands in the cell directly underneath it."
         ],
         "controls": [
           "Place it: the block hangs freely in mid-air."
         ],
         "caveats": [
-          "Unlike Suspended Gravel, this block has no collision box; you cannot stand on it.",
+          "It behaves exactly like Suspended Gravel; the two differ only in look, sound and recipe.",
           "It is in none of the tool tags the mod generates - not even mineable/shovel - so no tool mines it any faster.",
           "Its texture is a byte-for-byte copy of the vanilla sand texture (assets/minecraft/textures/block/sand.png), so in the world the block cannot be told apart from ordinary sand."
         ]
       },
       "de": {
-        "summary": "Schwebend fixierter Sand („Suspended Sand“) ist Sand ohne Schwerkraft: Er bleibt genau dort, wo man ihn setzt, und hat keine Kollision.",
+        "summary": "Schwebend fixierter Sand („Suspended Sand“) ist Sand ohne Schwerkraft: Er bleibt genau dort, wo man ihn setzt, und ist wie der Suspended Gravel fest – man kann darauf stehen.",
         "details": [
           "Ein gewöhnlicher Block (Klasse Block) mit den kopierten Eigenschaften von Sand (Härte, Geräusch, Farbe), aber ohne Fall-Logik – er fällt nie.",
-          "Registriert mit noCollision(): Spieler und Kreaturen laufen bzw. fallen hindurch.",
+          "Er hat die volle Kollisionsbox von Sand (bis 2026-09-24 war er mit noCollision() registriert und man lief hindurch): Spieler und Kreaturen stehen darauf, fallengelassene Gegenstände bleiben oben liegen, und ein von unten aufsteigender Levitating-Block hält darunter an und wird wieder zum Block.",
           "Beutetabelle: lässt sich selbst fallen.",
           "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Sand rund um 1 Nihilith Shard; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilith Shard besitzt.",
           "Im Kreativmodus im Reiter „SimpleBuilding: Baublöcke“ (englisch „SimpleBuilding: Building Blocks“), in der Gruppe der Schwerkraftblöcke.",
-          "Ein Spieltest belegt: In der Luft platziert bleibt er nach 40 Ticks an Ort und Stelle, während normaler Sand daneben zu Boden fällt."
+          "Spieltests belegen: In der Luft platziert bleibt er nach 40 Ticks an Ort und Stelle, während normaler Sand daneben zu Boden fällt; ein daraufgeworfener Gegenstand bleibt oben liegen, und Levitating Sand, der zwei Blöcke tiefer startet, landet im Feld direkt darunter."
         ],
         "controls": [
           "Platzieren: Der Block bleibt frei in der Luft hängen."
         ],
         "caveats": [
-          "Im Gegensatz zum Suspended Gravel hat dieser Block keine Kollision; man kann nicht darauf stehen.",
+          "Er verhält sich genau wie der Suspended Gravel; beide unterscheiden sich nur in Aussehen, Geräusch und Rezept.",
           "In keinem vom Mod erzeugten Werkzeug-Tag eingetragen (auch nicht „mit Schaufel abbaubar“).",
           "Seine Textur ist eine byte-genaue Kopie der Vanilla-Sandtextur (assets/minecraft/textures/block/sand.png); im Spiel lässt sich der Block deshalb nicht von gewöhnlichem Sand unterscheiden."
         ]
@@ -5926,7 +5953,8 @@
         "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
         "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "common/src/shared/java/com/simplebuilding/gametest/GravityBlockTests.java"
       ]
     },
     "suspended_gravel": {
@@ -5934,7 +5962,7 @@
         "summary": "Suspended Gravel is gravel without gravity: it stays exactly where you put it.",
         "details": [
           "An ordinary block (class Block) with the properties copied from gravel (hardness, sound, map colour), but with no falling logic - it never falls.",
-          "No noCollision(): it keeps the normal collision box, so you can stand on it.",
+          "It keeps the normal collision box, so you can stand on it, items rest on it and a rising Levitating block lands underneath it - exactly like Suspended Sand.",
           "Loot table: drops itself (survives_explosion condition).",
           "Recipe (crafting table, building blocks category): 8 Gravel around 1 Nihilith Shard; yields 8. Unlocked as soon as you own a Nihilith Shard.",
           "In creative it sits in the tab \"SimpleBuilding: Building Blocks\" (German \"SimpleBuilding: Baublöcke\"), in the gravity block group.",
@@ -5953,7 +5981,7 @@
         "summary": "Schwebend fixierter Kies („Suspended Gravel“) ist Kies ohne Schwerkraft: Er bleibt genau dort, wo man ihn setzt.",
         "details": [
           "Ein gewöhnlicher Block (Klasse Block) mit den kopierten Eigenschaften von Kies (Härte, Geräusch, Farbe), aber ohne Fall-Logik – er fällt nie.",
-          "Kein noCollision(): Er hat die normale Kollisionsbox, man kann darauf stehen.",
+          "Er hat die normale Kollisionsbox: Man kann darauf stehen, Gegenstände bleiben liegen und ein aufsteigender Levitating-Block landet darunter – genau wie beim Suspended Sand.",
           "Beutetabelle: lässt sich selbst fallen.",
           "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Kies rund um 1 Nihilith Shard; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilith Shard besitzt.",
           "Im Kreativmodus im Reiter „SimpleBuilding: Baublöcke“ (englisch „SimpleBuilding: Building Blocks“), in der Gruppe der Schwerkraftblöcke.",
@@ -5978,7 +6006,8 @@
         "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
         "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "common/src/shared/java/com/simplebuilding/gametest/GravityBlockTests.java"
       ]
     },
     "vein_miner": {
@@ -8103,19 +8132,44 @@
         "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
       ],
       "en": {
-        "summary": "The decorative block of the Astralit and Nihilith building sets (see Astralit and Nihilith Building Blocks): a framed face with a raised star (Astralit) or crystal (Nihilith).",
+        "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed, recessed face with a creature of the End in relief - a Shulker peeking out of its shell (Astralit), the black face and violet eyes of an Enderman (Nihilith) and the horned head of the Ender Dragon with glowing eyes (Ender Quartz).",
         "details": [
-          "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the coated end stone or from the Bricks.",
-          "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith version not at all.",
+          "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone).",
+          "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
           "Despite the name it has nothing to do with the Chisel tool: the Chisel does not convert it into anything."
         ]
       },
       "de": {
-        "summary": "Der Zierblock der Astralit- und Nihilith-Bausätze (siehe Astralit- und Nihilith-Baublöcke): eine gerahmte Fläche mit erhabenem Stern (Astralit) bzw. Kristall (Nihilith).",
+        "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte, vertiefte Fläche mit einem Wesen aus dem End als Relief – ein Shulker, der aus seiner Schale lugt (Astralit), das schwarze Gesicht mit den violetten Augen eines Endermans (Nihilith) und der gehörnte Kopf des Enderdrachen mit glühenden Augen (Enderquarz).",
         "details": [
-          "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem beschichteten Endstein bzw. aus den Ziegeln geschnitten.",
-          "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith-Fassung gar nicht.",
+          "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein).",
+          "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",
           "Trotz des Namens hat er mit dem Werkzeug Meißel nichts zu tun: Der Meißel formt ihn in nichts um."
+        ]
+      }
+    },
+    "ender_quartz": {
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/generated/data/simplebuilding/recipe/ender_quartz.json",
+        "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+        "tools/textures/generate_textures.py"
+      ],
+      "en": {
+        "summary": "Ender Quartz is the material of the purple end palette: a crystal of quartz with Astralit and Nihilith in it.",
+        "details": [
+          "Crafting (shapeless): 1 Astralit Dust + 1 Nihilith Shard + 1 Quartz anywhere in the grid make 2 Ender Quartz.",
+          "4 Ender Quartz in a square make 1 Block of Ender Quartz; 8 End Stone, End Stone Bricks (and their stairs, slab and wall), Purpur Blocks, Purpur Stairs, Purpur Slabs or Purpur Pillars around 1 Ender Quartz recolour them into 8 of the matching Ender Quartz block.",
+          "It sits in the creative tab \"SimpleBuilding: Materials\", next to Astralit Dust."
+        ]
+      },
+      "de": {
+        "summary": "Enderquarz ist das Material der violetten End-Palette: ein Quarzkristall mit Astralit und Nihilith darin.",
+        "details": [
+          "Herstellung (formlos): 1 Astralitstaub + 1 Nihilithsplitter + 1 Quarz an beliebiger Stelle ergeben 2 Enderquarz.",
+          "4 Enderquarz im Quadrat ergeben 1 Enderquarzblock; 8 Endstein, Endsteinziegel (samt Treppe, Stufe und Mauer), Purpurblöcke, Purpurtreppen, Purpurstufen oder Purpursäulen um 1 Enderquarz färben sie in 8 des passenden Enderquarz-Blocks um.",
+          "Er liegt im Kreativ-Tab „SimpleBuilding: Materialien“, neben dem Astralitstaub."
         ]
       }
     }

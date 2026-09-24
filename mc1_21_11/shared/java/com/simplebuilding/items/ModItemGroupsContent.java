@@ -152,23 +152,46 @@ public final class ModItemGroupsContent {
 
         // --- Astralit ---
         entries.accept(ModItems.ASTRAL_END_STONE);
+        entries.accept(ModItems.ASTRALIT_BLOCK);
         entries.accept(ModItems.ASTRALIT_BRICKS);
         entries.accept(ModItems.ASTRALIT_BRICK_STAIRS);
         entries.accept(ModItems.ASTRALIT_BRICK_SLAB);
         entries.accept(ModItems.ASTRALIT_BRICK_WALL);
+        entries.accept(ModItems.POLISHED_ASTRALIT);
+        entries.accept(ModItems.POLISHED_ASTRALIT_STAIRS);
+        entries.accept(ModItems.POLISHED_ASTRALIT_SLAB);
+        entries.accept(ModItems.POLISHED_ASTRALIT_WALL);
         entries.accept(ModItems.ASTRALIT_PILLAR);
         entries.accept(ModItems.CHISELED_ASTRALIT_BRICKS);
         entries.accept(ModItems.ASTRAL_PURPUR_BLOCK);
 
         // --- Nihilith ---
         entries.accept(ModItems.NIHIL_END_STONE);
+        entries.accept(ModItems.NIHILITH_BLOCK);
         entries.accept(ModItems.NIHILITH_BRICKS);
         entries.accept(ModItems.NIHILITH_BRICK_STAIRS);
         entries.accept(ModItems.NIHILITH_BRICK_SLAB);
         entries.accept(ModItems.NIHILITH_BRICK_WALL);
+        entries.accept(ModItems.POLISHED_NIHILITH);
+        entries.accept(ModItems.POLISHED_NIHILITH_STAIRS);
+        entries.accept(ModItems.POLISHED_NIHILITH_SLAB);
+        entries.accept(ModItems.POLISHED_NIHILITH_WALL);
         entries.accept(ModItems.NIHILITH_PILLAR);
         entries.accept(ModItems.CHISELED_NIHILITH_BRICKS);
         entries.accept(ModItems.NIHIL_PURPUR_BLOCK);
+
+        // --- Enderquarz ---
+        entries.accept(ModItems.ENDER_QUARTZ_BLOCK);
+        entries.accept(ModItems.ENDER_QUARTZ_BRICKS);
+        entries.accept(ModItems.ENDER_QUARTZ_BRICK_STAIRS);
+        entries.accept(ModItems.ENDER_QUARTZ_BRICK_SLAB);
+        entries.accept(ModItems.ENDER_QUARTZ_BRICK_WALL);
+        entries.accept(ModItems.POLISHED_ENDER_QUARTZ);
+        entries.accept(ModItems.POLISHED_ENDER_QUARTZ_STAIRS);
+        entries.accept(ModItems.POLISHED_ENDER_QUARTZ_SLAB);
+        entries.accept(ModItems.POLISHED_ENDER_QUARTZ_WALL);
+        entries.accept(ModItems.ENDER_QUARTZ_PILLAR);
+        entries.accept(ModItems.CHISELED_ENDER_QUARTZ_BRICKS);
 
         // --- Checkers ---
         entries.accept(ModItems.PURPUR_QUARTZ_CHECKER);
@@ -203,6 +226,7 @@ public final class ModItemGroupsContent {
         entries.accept(ModItems.ENDERITE_NUGGET);
         entries.accept(ModItems.NIHILITH_SHARD);
         entries.accept(ModItems.ASTRALIT_DUST);
+        entries.accept(ModItems.ENDER_QUARTZ);
         entries.accept(ModItems.RAW_ENDERITE);
         entries.accept(ModItems.ENDERITE_SCRAP);
         entries.accept(ModItems.ENDERITE_INGOT);

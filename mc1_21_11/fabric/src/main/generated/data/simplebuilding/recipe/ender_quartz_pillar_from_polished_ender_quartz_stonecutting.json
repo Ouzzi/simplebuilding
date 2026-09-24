@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:polished_ender_quartz",
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:ender_quartz_pillar"
+  }
+}

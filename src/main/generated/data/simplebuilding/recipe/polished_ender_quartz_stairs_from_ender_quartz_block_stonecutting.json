@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:ender_quartz_block",
+  "result": {
+    "id": "simplebuilding:polished_ender_quartz_stairs"
+  }
+}

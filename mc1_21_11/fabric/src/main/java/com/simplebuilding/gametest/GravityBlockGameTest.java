@@ -52,8 +52,8 @@ public final class GravityBlockGameTest {
     }
 
     @GameTest(maxTicks = GravityBlockTests.COLLISION_MAX_TICKS)
-    public void suspendedSandLetsItemsThroughWhileSuspendedGravelHoldsThem(GameTestHelper helper) {
-        GravityBlockTests.suspendedSandLetsItemsThroughWhileSuspendedGravelHoldsThem(helper);
+    public void suspendedSandAndGravelHoldItemsAndStopLevitatingBlocks(GameTestHelper helper) {
+        GravityBlockTests.suspendedSandAndGravelHoldItemsAndStopLevitatingBlocks(helper);
     }
 
     @GameTest

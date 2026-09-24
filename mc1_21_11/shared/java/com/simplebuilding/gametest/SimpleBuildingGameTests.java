@@ -86,6 +86,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_end_brick_sets_are_crafted_cut_mined_and_tagged_like_vanilla", DataIntegrityTests::endBrickSetsAreCraftedCutMinedAndTaggedLikeVanilla)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_end_palettes_are_recoloured_from_end_stone_and_purpur_like_dye", DataIntegrityTests::endPalettesAreRecolouredFromEndStoneAndPurpurLikeDye)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_ender_quartz_is_crafted_from_astralit_dust_nihilith_shard_and_quartz", DataIntegrityTests::enderQuartzIsCraftedFromAstralitDustNihilithShardAndQuartz)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_every_mod_item_is_in_exactly_one_creative_tab", DataIntegrityTests::everyModItemIsInExactlyOneCreativeTab)
                     .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
@@ -524,7 +528,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("gravity_block_game_test_blocked_landing_spots_drop_the_block_or_keep_it_flying", GravityBlockTests::blockedLandingSpotsDropTheBlockOrKeepItFlying)
                     .maxTicks(GravityBlockTests.BLOCKED_LANDING_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("gravity_block_game_test_suspended_sand_lets_items_through_while_suspended_gravel_holds_them", GravityBlockTests::suspendedSandLetsItemsThroughWhileSuspendedGravelHoldsThem)
+            GameTestSpec.named("gravity_block_game_test_suspended_sand_and_gravel_hold_items_and_stop_levitating_blocks", GravityBlockTests::suspendedSandAndGravelHoldItemsAndStopLevitatingBlocks)
                     .maxTicks(GravityBlockTests.COLLISION_MAX_TICKS)
                     .build(),
             GameTestSpec.named("gravity_block_game_test_gravity_blocks_and_pistons_carry_their_registered_strength_and_tags", GravityBlockTests::gravityBlocksAndPistonsCarryTheirRegisteredStrengthAndTags)

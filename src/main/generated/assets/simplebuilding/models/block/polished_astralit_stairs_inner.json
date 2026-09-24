@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "simplebuilding:block/polished_astralit",
+    "side": "simplebuilding:block/polished_astralit",
+    "top": "simplebuilding:block/polished_astralit"
+  }
+}

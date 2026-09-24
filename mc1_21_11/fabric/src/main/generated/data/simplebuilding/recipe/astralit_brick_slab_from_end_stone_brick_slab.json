@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "minecraft:end_stone_brick_slab",
+    "M": "simplebuilding:astralit_dust"
+  },
+  "pattern": [
+    "###",
+    "#M#",
+    "###"
+  ],
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:astralit_brick_slab"
+  }
+}

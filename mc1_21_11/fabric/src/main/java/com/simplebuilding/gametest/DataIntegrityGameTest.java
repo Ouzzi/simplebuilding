@@ -65,6 +65,16 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void endPalettesAreRecolouredFromEndStoneAndPurpurLikeDye(GameTestHelper helper) {
+        DataIntegrityTests.endPalettesAreRecolouredFromEndStoneAndPurpurLikeDye(helper);
+    }
+
+    @GameTest
+    public void enderQuartzIsCraftedFromAstralitDustNihilithShardAndQuartz(GameTestHelper helper) {
+        DataIntegrityTests.enderQuartzIsCraftedFromAstralitDustNihilithShardAndQuartz(helper);
+    }
+
+    @GameTest
     public void everyModItemIsInExactlyOneCreativeTab(GameTestHelper helper) {
         DataIntegrityTests.everyModItemIsInExactlyOneCreativeTab(helper);
     }

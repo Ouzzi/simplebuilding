@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:nihilith_block",
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:polished_nihilith_stairs"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simplebuilding:block/ender_quartz_brick_slab"
+    },
+    "type=double": {
+      "model": "simplebuilding:block/ender_quartz_bricks"
+    },
+    "type=top": {
+      "model": "simplebuilding:block/ender_quartz_brick_slab_top"
+    }
+  }
+}

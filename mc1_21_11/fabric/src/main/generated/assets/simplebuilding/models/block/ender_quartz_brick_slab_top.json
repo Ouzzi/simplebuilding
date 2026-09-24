@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "simplebuilding:block/ender_quartz_bricks",
+    "side": "simplebuilding:block/ender_quartz_bricks",
+    "top": "simplebuilding:block/ender_quartz_bricks"
+  }
+}

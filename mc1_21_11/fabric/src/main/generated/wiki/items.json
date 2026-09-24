@@ -2,6 +2,7 @@
   "blocks": [
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_purpur_block",
+    "simplebuilding:astralit_block",
     "simplebuilding:astralit_brick_slab",
     "simplebuilding:astralit_brick_stairs",
     "simplebuilding:astralit_brick_wall",
@@ -12,9 +13,16 @@
     "simplebuilding:backpack",
     "simplebuilding:blackstone_quartz_checker",
     "simplebuilding:chiseled_astralit_bricks",
+    "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
     "simplebuilding:construction_light",
     "simplebuilding:cracked_diamond_block",
+    "simplebuilding:ender_quartz_block",
+    "simplebuilding:ender_quartz_brick_slab",
+    "simplebuilding:ender_quartz_brick_stairs",
+    "simplebuilding:ender_quartz_brick_wall",
+    "simplebuilding:ender_quartz_bricks",
+    "simplebuilding:ender_quartz_pillar",
     "simplebuilding:enderite_backpack",
     "simplebuilding:enderite_blast_furnace",
     "simplebuilding:enderite_block",
@@ -34,6 +42,7 @@
     "simplebuilding:netherite_smoker",
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_purpur_block",
+    "simplebuilding:nihilith_block",
     "simplebuilding:nihilith_brick_slab",
     "simplebuilding:nihilith_brick_stairs",
     "simplebuilding:nihilith_brick_wall",
@@ -41,7 +50,19 @@
     "simplebuilding:nihilith_ore",
     "simplebuilding:nihilith_pillar",
     "simplebuilding:nihilith_quartz_checker",
+    "simplebuilding:polished_astralit",
+    "simplebuilding:polished_astralit_slab",
+    "simplebuilding:polished_astralit_stairs",
+    "simplebuilding:polished_astralit_wall",
     "simplebuilding:polished_end_stone",
+    "simplebuilding:polished_ender_quartz",
+    "simplebuilding:polished_ender_quartz_slab",
+    "simplebuilding:polished_ender_quartz_stairs",
+    "simplebuilding:polished_ender_quartz_wall",
+    "simplebuilding:polished_nihilith",
+    "simplebuilding:polished_nihilith_slab",
+    "simplebuilding:polished_nihilith_stairs",
+    "simplebuilding:polished_nihilith_wall",
     "simplebuilding:purpur_quartz_checker",
     "simplebuilding:reinforced_backpack",
     "simplebuilding:reinforced_blast_furnace",
@@ -61,6 +82,9 @@
     },
     {
       "id": "simplebuilding:astral_purpur_block"
+    },
+    {
+      "id": "simplebuilding:astralit_block"
     },
     {
       "id": "simplebuilding:astralit_brick_slab"
@@ -98,6 +122,9 @@
     },
     {
       "id": "simplebuilding:chiseled_astralit_bricks"
+    },
+    {
+      "id": "simplebuilding:chiseled_ender_quartz_bricks"
     },
     {
       "id": "simplebuilding:chiseled_nihilith_bricks"
@@ -192,6 +219,27 @@
     },
     {
       "id": "simplebuilding:enchanted_netherite_apple"
+    },
+    {
+      "id": "simplebuilding:ender_quartz"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_block"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_brick_slab"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_brick_stairs"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_brick_wall"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_bricks"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_pillar"
     },
     {
       "id": "simplebuilding:enderite_apple"
@@ -511,6 +559,9 @@
       "id": "simplebuilding:nihil_purpur_block"
     },
     {
+      "id": "simplebuilding:nihilith_block"
+    },
+    {
       "id": "simplebuilding:nihilith_brick_slab"
     },
     {
@@ -643,7 +694,43 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:polished_astralit"
+    },
+    {
+      "id": "simplebuilding:polished_astralit_slab"
+    },
+    {
+      "id": "simplebuilding:polished_astralit_stairs"
+    },
+    {
+      "id": "simplebuilding:polished_astralit_wall"
+    },
+    {
       "id": "simplebuilding:polished_end_stone"
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz"
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_slab"
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_stairs"
+    },
+    {
+      "id": "simplebuilding:polished_ender_quartz_wall"
+    },
+    {
+      "id": "simplebuilding:polished_nihilith"
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_slab"
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_stairs"
+    },
+    {
+      "id": "simplebuilding:polished_nihilith_wall"
     },
     {
       "id": "simplebuilding:purpur_quartz_checker"

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "simplebuilding:block/polished_ender_quartz",
+    "side": "simplebuilding:block/polished_ender_quartz",
+    "top": "simplebuilding:block/polished_ender_quartz"
+  }
+}

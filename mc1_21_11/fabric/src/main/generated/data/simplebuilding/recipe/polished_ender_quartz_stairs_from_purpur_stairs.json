@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "minecraft:purpur_stairs",
+    "M": "simplebuilding:ender_quartz"
+  },
+  "pattern": [
+    "###",
+    "#M#",
+    "###"
+  ],
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:polished_ender_quartz_stairs"
+  }
+}

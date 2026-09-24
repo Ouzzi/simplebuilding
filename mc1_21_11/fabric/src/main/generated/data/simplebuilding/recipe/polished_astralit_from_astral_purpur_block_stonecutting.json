@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:astral_purpur_block",
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:polished_astralit"
+  }
+}

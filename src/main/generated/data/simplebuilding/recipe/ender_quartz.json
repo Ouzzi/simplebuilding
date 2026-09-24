@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "simplebuilding:astralit_dust",
+    "simplebuilding:nihilith_shard",
+    "minecraft:quartz"
+  ],
+  "result": {
+    "count": 2,
+    "id": "simplebuilding:ender_quartz"
+  }
+}

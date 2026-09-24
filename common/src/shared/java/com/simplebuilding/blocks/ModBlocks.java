@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import com.simplebuilding.items.custom.BackpackTier;
+import java.util.List;
 import java.util.function.Function;
 
 public class ModBlocks {
@@ -132,8 +133,77 @@ public class ModBlocks {
     public static final Block NIHILITH_PILLAR = registerBlock("nihilith_pillar", NIHIL_END_STONE, RotatedPillarBlock::new);
     public static final Block CHISELED_NIHILITH_BRICKS = registerBlock("chiseled_nihilith_bricks", NIHIL_END_STONE, Block::new);
 
+    // Die Paletten vervollstaendigt (2026-09-24): je Material ein Grundblock (Gegenstueck zu Endstein),
+    // polierter Block samt Treppe, Stufe und Mauer (Gegenstueck zum Purpurblock) neben den Ziegeln,
+    // der Saeule und den gemeisselten Ziegeln oben. Astralit und Nihilith kopieren weiter ihren
+    // beschichteten Endstein (Astralit leuchtet mit 10); Enderquarz ist die dritte, violette Palette
+    // aus Astralit, Nihilith und Quarz, ohne Leuchten.
+    public static final Block ASTRALIT_BLOCK = registerBlock("astralit_block", ASTRAL_END_STONE, Block::new);
+    public static final Block POLISHED_ASTRALIT = registerBlock("polished_astralit", ASTRAL_END_STONE, Block::new);
+    public static final Block POLISHED_ASTRALIT_STAIRS = registerBlock("polished_astralit_stairs", POLISHED_ASTRALIT, s -> new StairBlock(POLISHED_ASTRALIT.defaultBlockState(), s));
+    public static final Block POLISHED_ASTRALIT_SLAB = registerBlock("polished_astralit_slab", POLISHED_ASTRALIT, SlabBlock::new);
+    public static final Block POLISHED_ASTRALIT_WALL = registerBlock("polished_astralit_wall", POLISHED_ASTRALIT, s -> new WallBlock(s.forceSolidOn()));
+    public static final Block NIHILITH_BLOCK = registerBlock("nihilith_block", NIHIL_END_STONE, Block::new);
+    public static final Block POLISHED_NIHILITH = registerBlock("polished_nihilith", NIHIL_END_STONE, Block::new);
+    public static final Block POLISHED_NIHILITH_STAIRS = registerBlock("polished_nihilith_stairs", POLISHED_NIHILITH, s -> new StairBlock(POLISHED_NIHILITH.defaultBlockState(), s));
+    public static final Block POLISHED_NIHILITH_SLAB = registerBlock("polished_nihilith_slab", POLISHED_NIHILITH, SlabBlock::new);
+    public static final Block POLISHED_NIHILITH_WALL = registerBlock("polished_nihilith_wall", POLISHED_NIHILITH, s -> new WallBlock(s.forceSolidOn()));
+    public static final Block ENDER_QUARTZ_BLOCK = registerBlock("ender_quartz_block", NIHIL_END_STONE, s -> new Block(s.mapColor(MapColor.COLOR_PURPLE)));
+    public static final Block ENDER_QUARTZ_BRICKS = registerBlock("ender_quartz_bricks", ENDER_QUARTZ_BLOCK, Block::new);
+    public static final Block ENDER_QUARTZ_BRICK_STAIRS = registerBlock("ender_quartz_brick_stairs", ENDER_QUARTZ_BRICKS, s -> new StairBlock(ENDER_QUARTZ_BRICKS.defaultBlockState(), s));
+    public static final Block ENDER_QUARTZ_BRICK_SLAB = registerBlock("ender_quartz_brick_slab", ENDER_QUARTZ_BRICKS, SlabBlock::new);
+    public static final Block ENDER_QUARTZ_BRICK_WALL = registerBlock("ender_quartz_brick_wall", ENDER_QUARTZ_BRICKS, s -> new WallBlock(s.forceSolidOn()));
+    public static final Block POLISHED_ENDER_QUARTZ = registerBlock("polished_ender_quartz", ENDER_QUARTZ_BLOCK, Block::new);
+    public static final Block POLISHED_ENDER_QUARTZ_STAIRS = registerBlock("polished_ender_quartz_stairs", POLISHED_ENDER_QUARTZ, s -> new StairBlock(POLISHED_ENDER_QUARTZ.defaultBlockState(), s));
+    public static final Block POLISHED_ENDER_QUARTZ_SLAB = registerBlock("polished_ender_quartz_slab", POLISHED_ENDER_QUARTZ, SlabBlock::new);
+    public static final Block POLISHED_ENDER_QUARTZ_WALL = registerBlock("polished_ender_quartz_wall", POLISHED_ENDER_QUARTZ, s -> new WallBlock(s.forceSolidOn()));
+    public static final Block ENDER_QUARTZ_PILLAR = registerBlock("ender_quartz_pillar", ENDER_QUARTZ_BLOCK, RotatedPillarBlock::new);
+    public static final Block CHISELED_ENDER_QUARTZ_BRICKS = registerBlock("chiseled_ender_quartz_bricks", ENDER_QUARTZ_BLOCK, Block::new);
 
-    public static final Block SUSPENDED_SAND = registerBlock("suspended_sand", unused -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).noCollision().setId(keyOf("suspended_sand"))));
+    /**
+     * Eine End-Palette nach dem Vorbild von Endstein und Purpur: Grundblock, Ziegel samt Treppe,
+     * Stufe und Mauer, polierter Block samt Treppe, Stufe und Mauer, Saeule und gemeisselte Ziegel.
+     * Datagen (Modelle, Tags, Beute, Rezepte) und die Spieltests laufen ueber {@link #END_PALETTES},
+     * damit keine der drei Paletten an einer Stelle vergessen wird.
+     */
+    public record EndPalette(String material, Block block, Block bricks, Block brickStairs, Block brickSlab,
+                             Block brickWall, Block polished, Block polishedStairs, Block polishedSlab,
+                             Block polishedWall, Block pillar, Block chiseled) {
+        /** Alle elf Bloecke in der Reihenfolge des Kreativ-Tabs. */
+        public List<Block> blocks() {
+            return List.of(block, bricks, brickStairs, brickSlab, brickWall, polished, polishedStairs, polishedSlab,
+                    polishedWall, pillar, chiseled);
+        }
+
+        public List<Block> stairs() {
+            return List.of(brickStairs, polishedStairs);
+        }
+
+        public List<Block> slabs() {
+            return List.of(brickSlab, polishedSlab);
+        }
+
+        public List<Block> walls() {
+            return List.of(brickWall, polishedWall);
+        }
+    }
+
+    public static final EndPalette ASTRALIT_PALETTE = new EndPalette("astralit", ASTRALIT_BLOCK, ASTRALIT_BRICKS,
+            ASTRALIT_BRICK_STAIRS, ASTRALIT_BRICK_SLAB, ASTRALIT_BRICK_WALL, POLISHED_ASTRALIT, POLISHED_ASTRALIT_STAIRS,
+            POLISHED_ASTRALIT_SLAB, POLISHED_ASTRALIT_WALL, ASTRALIT_PILLAR, CHISELED_ASTRALIT_BRICKS);
+    public static final EndPalette NIHILITH_PALETTE = new EndPalette("nihilith", NIHILITH_BLOCK, NIHILITH_BRICKS,
+            NIHILITH_BRICK_STAIRS, NIHILITH_BRICK_SLAB, NIHILITH_BRICK_WALL, POLISHED_NIHILITH, POLISHED_NIHILITH_STAIRS,
+            POLISHED_NIHILITH_SLAB, POLISHED_NIHILITH_WALL, NIHILITH_PILLAR, CHISELED_NIHILITH_BRICKS);
+    public static final EndPalette ENDER_QUARTZ_PALETTE = new EndPalette("ender_quartz", ENDER_QUARTZ_BLOCK, ENDER_QUARTZ_BRICKS,
+            ENDER_QUARTZ_BRICK_STAIRS, ENDER_QUARTZ_BRICK_SLAB, ENDER_QUARTZ_BRICK_WALL, POLISHED_ENDER_QUARTZ,
+            POLISHED_ENDER_QUARTZ_STAIRS, POLISHED_ENDER_QUARTZ_SLAB, POLISHED_ENDER_QUARTZ_WALL, ENDER_QUARTZ_PILLAR,
+            CHISELED_ENDER_QUARTZ_BRICKS);
+    public static final List<EndPalette> END_PALETTES = List.of(ASTRALIT_PALETTE, NIHILITH_PALETTE, ENDER_QUARTZ_PALETTE);
+
+
+    // Beide schwebenden Bloecke haben eine volle Kollisionsbox: Man steht auf ihnen, Gegenstaende
+    // bleiben liegen und aufsteigende Bloecke landen darunter. Bis 2026-09-24 war Sand noCollision().
+    public static final Block SUSPENDED_SAND = registerBlock("suspended_sand", unused -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).setId(keyOf("suspended_sand"))));
     public static final Block SUSPENDED_GRAVEL = registerBlock("suspended_gravel", unused -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GRAVEL).setId(keyOf("suspended_gravel"))));
     public static final Block LEVITATING_SAND = registerBlock("levitating_sand", unused -> new LevitatingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).setId(keyOf("levitating_sand"))));
     public static final Block LEVITATING_GRAVEL = registerBlock("levitating_gravel", unused -> new LevitatingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRAVEL).setId(keyOf("levitating_gravel"))));

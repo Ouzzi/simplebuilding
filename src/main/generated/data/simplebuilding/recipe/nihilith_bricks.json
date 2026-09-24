@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "simplebuilding:nihil_end_stone"
+    "#": "simplebuilding:polished_nihilith"
   },
   "pattern": [
     "##",

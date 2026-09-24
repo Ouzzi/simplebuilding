@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "simplebuilding:block/ender_quartz_pillar_top",
+    "side": "simplebuilding:block/ender_quartz_pillar"
+  }
+}

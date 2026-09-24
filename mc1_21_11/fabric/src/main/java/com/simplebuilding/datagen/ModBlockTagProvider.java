@@ -82,28 +82,17 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(key(ModBlocks.ASTRAL_END_STONE))
                 .add(key(ModBlocks.NIHIL_END_STONE))
                 .add(key(ModBlocks.ASTRAL_PURPUR_BLOCK))
-                .add(key(ModBlocks.NIHIL_PURPUR_BLOCK))
-                .add(key(ModBlocks.ASTRALIT_BRICKS))
-                .add(key(ModBlocks.ASTRALIT_BRICK_STAIRS))
-                .add(key(ModBlocks.ASTRALIT_BRICK_SLAB))
-                .add(key(ModBlocks.ASTRALIT_BRICK_WALL))
-                .add(key(ModBlocks.ASTRALIT_PILLAR))
-                .add(key(ModBlocks.CHISELED_ASTRALIT_BRICKS))
-                .add(key(ModBlocks.NIHILITH_BRICKS))
-                .add(key(ModBlocks.NIHILITH_BRICK_STAIRS))
-                .add(key(ModBlocks.NIHILITH_BRICK_SLAB))
-                .add(key(ModBlocks.NIHILITH_BRICK_WALL))
-                .add(key(ModBlocks.NIHILITH_PILLAR))
-                .add(key(ModBlocks.CHISELED_NIHILITH_BRICKS));
-        builder(BlockTags.STAIRS)
-                .add(key(ModBlocks.ASTRALIT_BRICK_STAIRS))
-                .add(key(ModBlocks.NIHILITH_BRICK_STAIRS));
-        builder(BlockTags.SLABS)
-                .add(key(ModBlocks.ASTRALIT_BRICK_SLAB))
-                .add(key(ModBlocks.NIHILITH_BRICK_SLAB));
-        builder(BlockTags.WALLS)
-                .add(key(ModBlocks.ASTRALIT_BRICK_WALL))
-                .add(key(ModBlocks.NIHILITH_BRICK_WALL));
+                .add(key(ModBlocks.NIHIL_PURPUR_BLOCK));
+
+        // End-Paletten (Astralit, Nihilith, Enderquarz): alle verlangen eine Spitzhacke; Treppen,
+        // Stufen und Mauern stehen in den Vanilla-Tags ihrer Form (eine Mauer ausserhalb von
+        // minecraft:walls verbindet sich nicht mit ihren Nachbarn).
+        for (ModBlocks.EndPalette palette : ModBlocks.END_PALETTES) {
+            palette.blocks().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));
+            palette.stairs().forEach(block -> builder(BlockTags.STAIRS).add(key(block)));
+            palette.slabs().forEach(block -> builder(BlockTags.SLABS).add(key(block)));
+            palette.walls().forEach(block -> builder(BlockTags.WALLS).add(key(block)));
+        }
 
         // Needs Diamond Tool (oder Netherite)
         builder(BlockTags.NEEDS_DIAMOND_TOOL)

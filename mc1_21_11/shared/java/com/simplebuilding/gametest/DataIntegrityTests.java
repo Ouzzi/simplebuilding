@@ -49,6 +49,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.item.crafting.SmithingRecipe;
 import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
@@ -1560,16 +1561,22 @@ public final class DataIntegrityTests {
     }
 
     /**
-     * The astralit and nihilith building sets - bricks, brick stairs, slab and wall, pillar and
-     * chiseled bricks - are crafted, cut, mined and tagged like vanilla's end stone and purpur
-     * families.
+     * The three end palettes - astralit, nihilith and ender quartz - are crafted, cut, mined and
+     * tagged like vanilla's end stone and purpur families. Each palette has eleven blocks: the
+     * base block, bricks with stairs, slab and wall, the polished block with stairs, slab and wall,
+     * a pillar and chiseled bricks.
      *
      * <p><b>Crafting</b>, every recipe by its documented pattern and count, through the real
-     * recipe manager: four coated end stone make four bricks, six bricks four stairs, three six
-     * slabs, six six walls, two coated end stone on top of each other two pillars, and two brick
-     * slabs one chiseled block. <b>Stonecutting</b>: the coated end stone cuts into every one of the
-     * six (slabs two at a time), the bricks into stairs, slab, wall and chiseled bricks. Read from
-     * the loaded stonecutter recipes' displays, so a missing, doubled or miscounted cut shows up.
+     * recipe manager (so a pattern that crafts something else shows up too): four of the material
+     * in a square make one base block (like quartz and amethyst), four base blocks four polished,
+     * four polished four bricks (the deepslate chain), two polished on top of each other two
+     * pillars, six bricks or polished four stairs, three six slabs, six six walls, and two brick
+     * slabs one chiseled block. <b>Stonecutting</b>, read from the loaded stonecutter recipes'
+     * displays so a missing, doubled or miscounted cut shows up: the base block cuts into all ten
+     * others, the polished block into its stairs, slab and wall, the bricks family, the pillar and
+     * the chiseled bricks, the bricks into their stairs, slab, wall and the chiseled bricks - slabs
+     * always two at a time. The older coated end stone still cuts into the brick set and into the
+     * base block, the coated purpur block into the polished block.
      *
      * <p><b>Mining</b>: each block needs the right tool, an iron pickaxe is that tool (the
      * {@code minecraft:mineable/pickaxe} tag), and what it breaks drops the block itself - a double
@@ -1577,23 +1584,19 @@ public final class DataIntegrityTests {
      * polished end stone or purpur, so they need a pickaxe too, and until 2026-09 they were missing
      * from the pickaxe tag and dropped nothing at all.
      *
-     * <p><b>Tags and light</b>: stairs, slabs and walls sit in the vanilla block and item tags of
-     * their shape (a wall outside {@code minecraft:walls} does not connect to its neighbours), and
-     * every astralit block glows at 10 like the coated astralit blocks while nihilith stays dark.
+     * <p><b>Tags and light</b>: both stairs, both slabs and both walls of each palette sit in the
+     * vanilla block and item tags of their shape (a wall outside {@code minecraft:walls} does not
+     * connect to its neighbours), and every astralit block glows at 10 like the coated astralit
+     * blocks while nihilith and ender quartz stay dark.
      *
-     * <p>What breaks this: a removed or changed recipe, a stonecutter cut that went missing or
-     * changed its count, a block dropped from the pickaxe tag or its shape tag, a slab that drops
-     * one item as a double slab, a light level that no longer follows the material.
+     * <p>What breaks this: a removed or changed recipe, a stonecutter cut that went missing,
+     * appeared or changed its count, a block dropped from the pickaxe tag or its shape tag, a slab
+     * that drops one item as a double slab, a light level that no longer follows the material.
      */
     public static void endBrickSetsAreCraftedCutMinedAndTaggedLikeVanilla(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         RecipeManager recipeManager = level.getServer().getRecipeManager();
-        Map<Identifier, RecipeHolder<?>> modRecipes = new HashMap<>();
-        for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
-            if (MOD_ID.equals(holder.id().identifier().getNamespace())) {
-                modRecipes.put(holder.id().identifier(), holder);
-            }
-        }
+        Map<Identifier, RecipeHolder<?>> modRecipes = modRecipes(recipeManager);
         List<String> problems = new ArrayList<>();
 
         // Stonecutter cuts as "input -> count result", from the loaded recipes' displays.
@@ -1625,56 +1628,85 @@ public final class DataIntegrityTests {
         TagKey<Item> slabItems = TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("slabs"));
         TagKey<Item> wallItems = TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("walls"));
 
-        record BrickSet(String material, Block base, Block bricks, Block stairs, Block slab, Block wall, Block pillar,
-                        Block chiseled, int light) {
-        }
-        List<BrickSet> sets = List.of(
-                new BrickSet("astralit", ModBlocks.ASTRAL_END_STONE, ModBlocks.ASTRALIT_BRICKS, ModBlocks.ASTRALIT_BRICK_STAIRS,
-                        ModBlocks.ASTRALIT_BRICK_SLAB, ModBlocks.ASTRALIT_BRICK_WALL, ModBlocks.ASTRALIT_PILLAR,
-                        ModBlocks.CHISELED_ASTRALIT_BRICKS, 10),
-                new BrickSet("nihilith", ModBlocks.NIHIL_END_STONE, ModBlocks.NIHILITH_BRICKS, ModBlocks.NIHILITH_BRICK_STAIRS,
-                        ModBlocks.NIHILITH_BRICK_SLAB, ModBlocks.NIHILITH_BRICK_WALL, ModBlocks.NIHILITH_PILLAR,
-                        ModBlocks.CHISELED_NIHILITH_BRICKS, 0));
-
-        for (BrickSet set : sets) {
-            String m = set.material();
-            Item base = set.base().asItem();
-            Item bricks = set.bricks().asItem();
-            assertShapedRecipe(helper, modRecipes, m + "_bricks", bricks, 4, new String[]{"##", "##"}, Map.of('#', base), problems);
-            assertShapedRecipe(helper, modRecipes, m + "_brick_stairs", set.stairs().asItem(), 4,
-                    new String[]{"#  ", "## ", "###"}, Map.of('#', bricks), problems);
-            assertShapedRecipe(helper, modRecipes, m + "_brick_slab", set.slab().asItem(), 6, new String[]{"###"}, Map.of('#', bricks), problems);
-            assertShapedRecipe(helper, modRecipes, m + "_brick_wall", set.wall().asItem(), 6, new String[]{"###", "###"}, Map.of('#', bricks), problems);
-            assertShapedRecipe(helper, modRecipes, m + "_pillar", set.pillar().asItem(), 2, new String[]{"#", "#"}, Map.of('#', base), problems);
-            assertShapedRecipe(helper, modRecipes, "chiseled_" + m + "_bricks", set.chiseled().asItem(), 1,
-                    new String[]{"#", "#"}, Map.of('#', set.slab().asItem()), problems);
-
-            String basePath = BuiltInRegistries.ITEM.getKey(base).getPath();
-            for (Block cut : List.of(set.bricks(), set.stairs(), set.wall(), set.pillar(), set.chiseled())) {
-                expectedCuts.add(basePath + " -> 1 " + BuiltInRegistries.BLOCK.getKey(cut).getPath());
+        for (EndPaletteMaterial material : END_PALETTE_MATERIALS) {
+            ModBlocks.EndPalette p = material.palette();
+            String m = p.material();
+            Item block = p.block().asItem();
+            Item polished = p.polished().asItem();
+            Item bricks = p.bricks().asItem();
+            String[] square = {"##", "##"};
+            assertShapedRecipe(helper, modRecipes, m + "_block", block, 1, square, Map.of('#', material.item()), problems);
+            assertShapedRecipe(helper, modRecipes, "polished_" + m, polished, 4, square, Map.of('#', block), problems);
+            assertShapedRecipe(helper, modRecipes, m + "_bricks", bricks, 4, square, Map.of('#', polished), problems);
+            assertShapedRecipe(helper, modRecipes, m + "_pillar", p.pillar().asItem(), 2, new String[]{"#", "#"},
+                    Map.of('#', polished), problems);
+            for (Block[] family : new Block[][]{
+                    {p.bricks(), p.brickStairs(), p.brickSlab(), p.brickWall()},
+                    {p.polished(), p.polishedStairs(), p.polishedSlab(), p.polishedWall()}}) {
+                Item full = family[0].asItem();
+                assertShapedRecipe(helper, modRecipes, path(family[1]), family[1].asItem(), 4,
+                        new String[]{"#  ", "## ", "###"}, Map.of('#', full), problems);
+                assertShapedRecipe(helper, modRecipes, path(family[2]), family[2].asItem(), 6, new String[]{"###"},
+                        Map.of('#', full), problems);
+                assertShapedRecipe(helper, modRecipes, path(family[3]), family[3].asItem(), 6,
+                        new String[]{"###", "###"}, Map.of('#', full), problems);
             }
-            expectedCuts.add(basePath + " -> 2 " + BuiltInRegistries.BLOCK.getKey(set.slab()).getPath());
-            for (Block cut : List.of(set.stairs(), set.wall(), set.chiseled())) {
-                expectedCuts.add(m + "_bricks -> 1 " + BuiltInRegistries.BLOCK.getKey(cut).getPath());
-            }
-            expectedCuts.add(m + "_bricks -> 2 " + BuiltInRegistries.BLOCK.getKey(set.slab()).getPath());
+            assertShapedRecipe(helper, modRecipes, "chiseled_" + m + "_bricks", p.chiseled().asItem(), 1,
+                    new String[]{"#", "#"}, Map.of('#', p.brickSlab().asItem()), problems);
 
-            for (Block block : List.of(set.bricks(), set.stairs(), set.slab(), set.wall(), set.pillar(), set.chiseled())) {
-                describeMining(helper, level, at, pickaxe, block.defaultBlockState(), mined);
-                expectMining(block, set.light(), 1, minedExpected);
+            // block -> everything, polished -> its family + bricks family + pillar + chiseled,
+            // bricks -> their family + chiseled
+            List<Block> fromPolished = List.of(p.polishedStairs(), p.polishedSlab(), p.polishedWall(), p.bricks(),
+                    p.brickStairs(), p.brickSlab(), p.brickWall(), p.pillar(), p.chiseled());
+            for (Block cut : p.blocks()) {
+                if (cut != p.block()) {
+                    expectCut(expectedCuts, p.block(), cut, p);
+                }
             }
-            BlockState doubleSlab = set.slab().defaultBlockState().setValue(SlabBlock.TYPE, SlabType.DOUBLE);
-            describeMining(helper, level, at, pickaxe, doubleSlab, mined);
-            expectMining(set.slab(), set.light(), 2, minedExpected);
+            fromPolished.forEach(cut -> expectCut(expectedCuts, p.polished(), cut, p));
+            for (Block cut : List.of(p.brickStairs(), p.brickSlab(), p.brickWall(), p.chiseled())) {
+                expectCut(expectedCuts, p.bricks(), cut, p);
+            }
 
-            String shapes = (set.stairs().defaultBlockState().is(BlockTags.STAIRS) ? "stairs " : "")
-                    + (set.slab().defaultBlockState().is(BlockTags.SLABS) ? "slabs " : "")
-                    + (set.wall().defaultBlockState().is(BlockTags.WALLS) ? "walls " : "")
-                    + (set.stairs().asItem().builtInRegistryHolder().is(stairsItems) ? "stairs-item " : "")
-                    + (set.slab().asItem().builtInRegistryHolder().is(slabItems) ? "slabs-item " : "")
-                    + (set.wall().asItem().builtInRegistryHolder().is(wallItems) ? "walls-item" : "");
-            Assertions.valueEqual(helper, shapes, "stairs slabs walls stairs-item slabs-item walls-item",
+            for (Block each : p.blocks()) {
+                describeMining(helper, level, at, pickaxe, each.defaultBlockState(), mined);
+                expectMining(each, material.light(), 1, minedExpected);
+            }
+            for (Block slab : p.slabs()) {
+                BlockState doubleSlab = slab.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.DOUBLE);
+                describeMining(helper, level, at, pickaxe, doubleSlab, mined);
+                expectMining(slab, material.light(), 2, minedExpected);
+            }
+
+            StringBuilder shapes = new StringBuilder();
+            for (Block stairs : p.stairs()) {
+                shapes.append(stairs.defaultBlockState().is(BlockTags.STAIRS) ? "stairs " : "")
+                        .append(stairs.asItem().builtInRegistryHolder().is(stairsItems) ? "stairs-item " : "");
+            }
+            for (Block slab : p.slabs()) {
+                shapes.append(slab.defaultBlockState().is(BlockTags.SLABS) ? "slabs " : "")
+                        .append(slab.asItem().builtInRegistryHolder().is(slabItems) ? "slabs-item " : "");
+            }
+            for (Block wall : p.walls()) {
+                shapes.append(wall.defaultBlockState().is(BlockTags.WALLS) ? "walls " : "")
+                        .append(wall.asItem().builtInRegistryHolder().is(wallItems) ? "walls-item " : "");
+            }
+            Assertions.valueEqual(helper, shapes.toString().trim(),
+                    "stairs stairs-item stairs stairs-item slabs slabs-item slabs slabs-item walls walls-item walls walls-item",
                     "the vanilla shape tags the " + m + " stairs, slab and wall belong to");
+        }
+
+        // The coated end stone opened the astralit and nihilith brick sets before the palettes had a
+        // base block; its cuts stay, and it cuts into the base block too. The coated purpur block
+        // cuts into the polished block.
+        for (Block[] coated : new Block[][]{
+                {ModBlocks.ASTRAL_END_STONE, ModBlocks.ASTRAL_PURPUR_BLOCK},
+                {ModBlocks.NIHIL_END_STONE, ModBlocks.NIHIL_PURPUR_BLOCK}}) {
+            ModBlocks.EndPalette p = coated[0] == ModBlocks.ASTRAL_END_STONE ? ModBlocks.ASTRALIT_PALETTE : ModBlocks.NIHILITH_PALETTE;
+            for (Block cut : List.of(p.block(), p.bricks(), p.brickStairs(), p.brickSlab(), p.brickWall(), p.pillar(), p.chiseled())) {
+                expectCut(expectedCuts, coated[0], cut, p);
+            }
+            expectCut(expectedCuts, coated[1], p.polished(), p);
         }
 
         for (Block older : List.of(ModBlocks.POLISHED_END_STONE, ModBlocks.ASTRAL_END_STONE, ModBlocks.NIHIL_END_STONE,
@@ -1687,7 +1719,7 @@ public final class DataIntegrityTests {
         missingCuts.removeAll(cuts);
         Set<String> strayCuts = new TreeSet<>();
         for (String cut : cuts) {
-            if ((cut.contains("astral") || cut.contains("nihil")) && !expectedCuts.contains(cut)) {
+            if ((cut.contains("astral") || cut.contains("nihil") || cut.contains("ender_quartz")) && !expectedCuts.contains(cut)) {
                 strayCuts.add(cut);
             }
         }
@@ -1695,12 +1727,142 @@ public final class DataIntegrityTests {
             problems.add("stonecutter cuts missing: " + missingCuts);
         }
         if (!strayCuts.isEmpty()) {
-            problems.add("unexpected astralit/nihilith stonecutter cuts: " + strayCuts);
+            problems.add("unexpected end palette stonecutter cuts: " + strayCuts);
         }
 
         Assertions.valueEqual(helper, mined.toString(), minedExpected.toString(), "how the end stone family is mined");
         helper.assertTrue(problems.isEmpty(), "end brick set recipes: " + problems);
         TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Every block of the three end palettes that has a vanilla end stone or purpur counterpart is
+     * recoloured at the crafting table the way dye recolours glass or terracotta: eight of the
+     * vanilla block around one of the material make eight of the palette block. End stone becomes
+     * the base block, end stone bricks, their stairs, slab and wall the palette's bricks, stairs,
+     * slab and wall, purpur stairs and slab the polished stairs and slab, the purpur pillar the
+     * pillar.
+     *
+     * <p>The purpur block itself is recoloured into polished ender quartz only. For astralit and
+     * nihilith the same eight purpur blocks around the dust or shard have been the coating recipe
+     * of the astral and nihil purpur block for a long time; a second recipe on the same grid would
+     * make one of the two unreachable, so the test pins that the coating recipe still wins there.
+     * (The coated purpur block then cuts into the polished block, see
+     * {@link #endBrickSetsAreCraftedCutMinedAndTaggedLikeVanilla}.)
+     *
+     * <p>Each grid goes through the real recipe manager, which also proves that no two recipes
+     * compete for it.
+     *
+     * <p>What breaks this: a recolour recipe that is missing, yields another block or another
+     * count than eight, takes another material, or a new recipe that takes over the purpur coating
+     * grid.
+     */
+    public static void endPalettesAreRecolouredFromEndStoneAndPurpurLikeDye(GameTestHelper helper) {
+        Map<Identifier, RecipeHolder<?>> modRecipes = modRecipes(helper.getLevel().getServer().getRecipeManager());
+        List<String> problems = new ArrayList<>();
+        String[] ring = {"###", "#M#", "###"};
+        int recipes = 0;
+        for (EndPaletteMaterial material : END_PALETTE_MATERIALS) {
+            ModBlocks.EndPalette p = material.palette();
+            Map<Item, Block> pairs = new LinkedHashMap<>();
+            pairs.put(Items.END_STONE, p.block());
+            pairs.put(Items.END_STONE_BRICKS, p.bricks());
+            pairs.put(Items.END_STONE_BRICK_STAIRS, p.brickStairs());
+            pairs.put(Items.END_STONE_BRICK_SLAB, p.brickSlab());
+            pairs.put(Items.END_STONE_BRICK_WALL, p.brickWall());
+            if (p == ModBlocks.ENDER_QUARTZ_PALETTE) {
+                pairs.put(Items.PURPUR_BLOCK, p.polished());
+            }
+            pairs.put(Items.PURPUR_STAIRS, p.polishedStairs());
+            pairs.put(Items.PURPUR_SLAB, p.polishedSlab());
+            pairs.put(Items.PURPUR_PILLAR, p.pillar());
+            for (Map.Entry<Item, Block> pair : pairs.entrySet()) {
+                assertShapedRecipe(helper, modRecipes,
+                        path(pair.getValue()) + "_from_" + BuiltInRegistries.ITEM.getKey(pair.getKey()).getPath(),
+                        pair.getValue().asItem(), 8, ring, Map.of('#', pair.getKey(), 'M', material.item()), problems);
+                recipes++;
+            }
+        }
+        assertShapedRecipe(helper, modRecipes, "astral_purpur_block", ModItems.ASTRAL_PURPUR_BLOCK, 8, ring,
+                Map.of('#', Items.PURPUR_BLOCK, 'M', ModItems.ASTRALIT_DUST), problems);
+        assertShapedRecipe(helper, modRecipes, "nihil_purpur_block", ModItems.NIHIL_PURPUR_BLOCK, 8, ring,
+                Map.of('#', Items.PURPUR_BLOCK, 'M', ModItems.NIHILITH_SHARD), problems);
+
+        Assertions.valueEqual(helper, recipes, 25, "recolour recipes checked (8 + 8 + 9)");
+        helper.assertTrue(problems.isEmpty(), "end palette recolouring: " + problems);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Ender quartz, the material of the purple palette: one astralit dust, one nihilith shard and
+     * one quartz, anywhere in the grid (shapeless), make two. Four of them in a square make the
+     * palette's base block.
+     *
+     * <p>Two different arrangements go through the real recipe manager, so the recipe is shown to
+     * be shapeless rather than merely matching one layout; the loaded recipe must also be a
+     * shapeless one. Each of the three ingredients is then left out once: two of three must craft
+     * nothing, or the recipe would hand out ender quartz for less than it costs.
+     *
+     * <p>What breaks this: a changed count, a changed or dropped ingredient, a recipe that became
+     * shaped, or the item missing from the materials tab's registry.
+     */
+    public static void enderQuartzIsCraftedFromAstralitDustNihilithShardAndQuartz(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        RecipeManager recipeManager = level.getServer().getRecipeManager();
+        Map<Identifier, RecipeHolder<?>> modRecipes = modRecipes(recipeManager);
+        List<String> problems = new ArrayList<>();
+        Map<Character, Item> key = Map.of('A', ModItems.ASTRALIT_DUST, 'N', ModItems.NIHILITH_SHARD, 'Q', Items.QUARTZ);
+
+        assertShapedRecipe(helper, modRecipes, "ender_quartz", ModItems.ENDER_QUARTZ, 2, new String[]{"ANQ"}, key, problems);
+        assertShapedRecipe(helper, modRecipes, "ender_quartz", ModItems.ENDER_QUARTZ, 2,
+                new String[]{"Q  ", "   ", " NA"}, key, problems);
+        RecipeHolder<?> holder = modRecipes.get(Identifier.fromNamespaceAndPath(MOD_ID, "ender_quartz"));
+        helper.assertTrue(holder != null && holder.value() instanceof ShapelessRecipe,
+                "simplebuilding:ender_quartz should be a shapeless crafting recipe, but it is "
+                        + (holder == null ? "missing" : holder.value().getClass().getSimpleName()));
+
+        for (String twoOfThree : List.of("NQ", "AQ", "AN")) {
+            CraftingInput grid = grid(new String[]{twoOfThree}, key);
+            Optional<RecipeHolder<CraftingRecipe>> match = recipeManager.getRecipeFor(RecipeType.CRAFTING, grid, level);
+            if (match.isPresent()) {
+                problems.add("only " + twoOfThree + " (A dust, N shard, Q quartz) already crafts " + match.get().id().identifier());
+            }
+        }
+
+        assertShapedRecipe(helper, modRecipes, "ender_quartz_block", ModItems.ENDER_QUARTZ_BLOCK, 1,
+                new String[]{"##", "##"}, Map.of('#', ModItems.ENDER_QUARTZ), problems);
+        helper.assertTrue(problems.isEmpty(), "ender quartz recipes: " + problems);
+        TestCleanup.succeed(helper);
+    }
+
+    /** The mod's own loaded recipes by id. */
+    private static Map<Identifier, RecipeHolder<?>> modRecipes(RecipeManager recipeManager) {
+        Map<Identifier, RecipeHolder<?>> modRecipes = new HashMap<>();
+        for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
+            if (MOD_ID.equals(holder.id().identifier().getNamespace())) {
+                modRecipes.put(holder.id().identifier(), holder);
+            }
+        }
+        return modRecipes;
+    }
+
+    /** A palette with the item it is made from and the light its blocks give off. */
+    private record EndPaletteMaterial(ModBlocks.EndPalette palette, Item item, int light) {
+    }
+
+    private static final List<EndPaletteMaterial> END_PALETTE_MATERIALS = List.of(
+            new EndPaletteMaterial(ModBlocks.ASTRALIT_PALETTE, ModItems.ASTRALIT_DUST, 10),
+            new EndPaletteMaterial(ModBlocks.NIHILITH_PALETTE, ModItems.NIHILITH_SHARD, 0),
+            new EndPaletteMaterial(ModBlocks.ENDER_QUARTZ_PALETTE, ModItems.ENDER_QUARTZ, 0));
+
+    private static String path(Block block) {
+        return BuiltInRegistries.BLOCK.getKey(block).getPath();
+    }
+
+    /** One stonecutter cut "base -> count result"; slabs come two at a time. */
+    private static void expectCut(Set<String> expected, Block base, Block result, ModBlocks.EndPalette p) {
+        int count = p.slabs().contains(result) ? 2 : 1;
+        expected.add(path(base) + " -> " + count + " " + path(result));
     }
 
     private static void describeMining(GameTestHelper helper, ServerLevel level, BlockPos at, ItemStack pickaxe,
@@ -1806,12 +1968,14 @@ public final class DataIntegrityTests {
                 ModItems.ASTRALIT_BRICK_WALL, ModItems.ASTRALIT_PILLAR, ModItems.CHISELED_ASTRALIT_BRICKS,
                 ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS, ModItems.NIHILITH_BRICK_SLAB,
                 ModItems.NIHILITH_BRICK_WALL, ModItems.NIHILITH_PILLAR, ModItems.CHISELED_NIHILITH_BRICKS,
+                ModItems.ASTRALIT_BLOCK, ModItems.POLISHED_NIHILITH_WALL, ModItems.ENDER_QUARTZ_BLOCK,
+                ModItems.POLISHED_ENDER_QUARTZ_SLAB, ModItems.CHISELED_ENDER_QUARTZ_BRICKS,
                 ModItems.ASTRAL_END_STONE, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.LEVITATING_SAND));
         pinned.put(ModItemGroupsContent.Tab.TOOLS, List.of(
                 ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, ModItems.ENDERITE_SLEDGEHAMMER,
                 ModItems.DIAMOND_BUILDING_WAND, ModItems.OCTANT, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_HELMET));
         pinned.put(ModItemGroupsContent.Tab.MATERIALS, List.of(
-                ModItems.ENDERITE_INGOT, ModItems.ASTRALIT_DUST, ModItems.NIHILITH_ORE_ITEM, ModItems.IRON_CORE,
+                ModItems.ENDERITE_INGOT, ModItems.ASTRALIT_DUST, ModItems.ENDER_QUARTZ, ModItems.NIHILITH_ORE_ITEM, ModItems.IRON_CORE,
                 ModItems.BASIC_UPGRADE_TEMPLATE, ModItems.GLOWING_TRIM_TEMPLATE,
                 ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE));
         pinned.put(ModItemGroupsContent.Tab.FUNCTIONAL, List.of(

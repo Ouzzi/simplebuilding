@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:astralit_block",
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:astralit_pillar"
+  }
+}

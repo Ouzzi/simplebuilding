@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_nihil_end_stone": {
+    "has_polished_nihilith": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:nihil_end_stone"
+            "items": "simplebuilding:polished_nihilith"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_nihil_end_stone"
+      "has_polished_nihilith"
     ]
   ],
   "rewards": {

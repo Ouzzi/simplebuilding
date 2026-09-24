@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_astralit": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:polished_astralit"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplebuilding:astralit_pillar_from_polished_astralit_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_polished_astralit"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:astralit_pillar_from_polished_astralit_stonecutting"
+    ]
+  }
+}

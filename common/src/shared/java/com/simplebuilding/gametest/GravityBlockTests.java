@@ -9,6 +9,7 @@ import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -163,7 +164,7 @@ public final class GravityBlockTests {
     /** Tick budget for {@link #blockedLandingSpotsDropTheBlockOrKeepItFlying}. */
     public static final int BLOCKED_LANDING_MAX_TICKS = 80;
 
-    /** Tick budget for {@link #suspendedSandLetsItemsThroughWhileSuspendedGravelHoldsThem}. */
+    /** Tick budget for {@link #suspendedSandAndGravelHoldItemsAndStopLevitatingBlocks}. */
     public static final int COLLISION_MAX_TICKS = 80;
 
     /**
@@ -1044,59 +1045,85 @@ public final class GravityBlockTests {
     }
 
     // =====================================================================================
-    // SUSPENDED BLOCKS: THE ONE DIFFERENCE BETWEEN THE TWO
+    // SUSPENDED BLOCKS: BOTH ARE SOLID
     // =====================================================================================
 
     /**
-     * Suspended sand is registered with {@code noCollision()} and suspended gravel is not, and that
-     * single call is the only thing separating the two blocks. {@code BlockBehaviourTests} proves
-     * both of them stay in the air; neither it nor anything else ever touches anything.
+     * Suspended sand and suspended gravel both keep the full collision box of their vanilla
+     * originals. Until 2026-09-24 suspended sand was registered with {@code noCollision()} and let
+     * everything straight through; the owner decided that the pair should behave alike, so a
+     * builder can stand on either.
      *
-     * <p>The shapes are asserted and then driven: an item is dropped down each column. Over the
-     * sand it has to fall straight through and land on the floor; over the gravel it has to come to
-     * rest on top. Without the behavioural half the test would only be reading the same field back
-     * out of the registry, and would still pass if the shape were correct but never consulted.
+     * <p>The shapes are asserted and then driven twice per block. <b>Items</b> are dropped onto
+     * each block from above and have to come to rest on top of it. <b>Levitating blocks</b> rise
+     * from two blocks below each suspended block: the {@link LevitatingBlockEntity} moves by
+     * vanilla's collision, so it has to hit the underside of the suspended block, stop there and
+     * turn back into a block in the cell directly underneath - with nothing left flying and nothing
+     * dropped. Without the behavioural half the test would only be reading the shape back out of
+     * the registry, and would still pass if the shape were right but never consulted.
      *
-     * <p>What breaks this test: dropping {@code noCollision()} from suspended sand, or adding it to
-     * suspended gravel.
+     * <p>What breaks this test: {@code noCollision()} on suspended sand or suspended gravel (the
+     * item falls through to the floor, the levitating block flies on past it).
      */
-    public static void suspendedSandLetsItemsThroughWhileSuspendedGravelHoldsThem(GameTestHelper helper) {
+    public static void suspendedSandAndGravelHoldItemsAndStopLevitatingBlocks(GameTestHelper helper) {
         BlockPos sand = new BlockPos(1, 3, 1);
         BlockPos gravel = new BlockPos(5, 3, 1);
+        BlockPos sandCeiling = new BlockPos(1, 3, 4);
+        BlockPos gravelCeiling = new BlockPos(5, 3, 4);
+        BlockPos sandRiser = new BlockPos(1, 1, 4);
+        BlockPos gravelRiser = new BlockPos(5, 1, 4);
 
         helper.setBlock(new BlockPos(1, 0, 1), Blocks.STONE);
         helper.setBlock(new BlockPos(5, 0, 1), Blocks.STONE);
         helper.setBlock(sand, ModBlocks.SUSPENDED_SAND);
         helper.setBlock(gravel, ModBlocks.SUSPENDED_GRAVEL);
+        helper.setBlock(sandCeiling, ModBlocks.SUSPENDED_SAND);
+        helper.setBlock(gravelCeiling, ModBlocks.SUSPENDED_GRAVEL);
 
         ServerLevel level = helper.getLevel();
-        BlockState sandState = helper.getBlockState(sand);
-        BlockState gravelState = helper.getBlockState(gravel);
-        helper.assertTrue(
-                sandState.getCollisionShape(level, helper.absolutePos(sand), CollisionContext.empty()).isEmpty(),
-                "suspended sand should have no collision box at all");
-        helper.assertFalse(
-                gravelState.getCollisionShape(level, helper.absolutePos(gravel), CollisionContext.empty()).isEmpty(),
-                "suspended gravel should keep its collision box - it is the one block of the pair that "
-                        + "you can still stand on");
+        for (BlockPos pos : List.of(sand, gravel)) {
+            BlockState state = helper.getBlockState(pos);
+            helper.assertTrue(state.isCollisionShapeFullBlock(level, helper.absolutePos(pos)),
+                    BuiltInRegistries.BLOCK.getKey(state.getBlock()) + " should have a full collision box "
+                            + "like the vanilla block it copies, but its collision shape is "
+                            + state.getCollisionShape(level, helper.absolutePos(pos), CollisionContext.empty()));
+        }
 
-        ItemEntity throughSand = helper.spawnItem(Items.STONE, new Vec3(1.5D, 6.0D, 1.5D));
+        ItemEntity ontoSand = helper.spawnItem(Items.STONE, new Vec3(1.5D, 6.0D, 1.5D));
         ItemEntity ontoGravel = helper.spawnItem(Items.STONE, new Vec3(5.5D, 6.0D, 1.5D));
+        helper.setBlock(sandRiser, ModBlocks.LEVITATING_SAND);
+        helper.setBlock(gravelRiser, ModBlocks.LEVITATING_GRAVEL);
 
         helper.startSequence()
                 .thenExecuteAfter(60, () -> {
-                    double throughY = helper.relativeVec(throughSand.position()).y;
-                    double ontoY = helper.relativeVec(ontoGravel.position()).y;
-                    helper.assertTrue(throughY < 2.0D,
-                            "the item should have fallen through the suspended sand at y=3 down onto the "
-                                    + "floor, but it rests at y=" + throughY);
-                    helper.assertTrue(ontoY > 3.5D,
-                            "the item should be lying on top of the suspended gravel at y=3, but it is "
-                                    + "at y=" + ontoY);
+                    double sandY = helper.relativeVec(ontoSand.position()).y;
+                    double gravelY = helper.relativeVec(ontoGravel.position()).y;
+                    helper.assertTrue(sandY > 3.5D,
+                            "the item should be lying on top of the suspended sand at y=3, but it is at y="
+                                    + sandY + " - it fell through");
+                    helper.assertTrue(gravelY > 3.5D,
+                            "the item should be lying on top of the suspended gravel at y=3, but it is at y="
+                                    + gravelY + " - it fell through");
+
+                    List<LevitatingBlockEntity> flying = risingEntities(helper);
+                    helper.assertTrue(flying.isEmpty(),
+                            "both levitating blocks should have landed under the suspended blocks, but "
+                                    + flying.size() + " are still flying at "
+                                    + flying.stream().map(e -> helper.relativeVec(e.position()).toString()).toList());
+                    helper.assertBlockPresent(ModBlocks.LEVITATING_SAND, sandCeiling.below());
+                    helper.assertBlockPresent(ModBlocks.LEVITATING_GRAVEL, gravelCeiling.below());
+                    helper.assertBlockPresent(ModBlocks.SUSPENDED_SAND, sandCeiling);
+                    helper.assertBlockPresent(ModBlocks.SUSPENDED_GRAVEL, gravelCeiling);
+                    List<ItemEntity> dropped = helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds(),
+                            item -> !item.getItem().is(Items.STONE));
+                    helper.assertTrue(dropped.isEmpty(),
+                            "landing under a suspended block must not break the levitating block, but "
+                                    + dropped.size() + " item(s) were dropped");
                 })
                 .thenExecute(() -> {
-                    throughSand.discard();
+                    ontoSand.discard();
                     ontoGravel.discard();
+                    risingEntities(helper).forEach(LevitatingBlockEntity::discard);
                 })
                 .thenSucceed();
     }

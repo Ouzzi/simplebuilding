@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "minecraft:end_stone_bricks",
+    "M": "simplebuilding:nihilith_shard"
+  },
+  "pattern": [
+    "###",
+    "#M#",
+    "###"
+  ],
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:nihilith_bricks"
+  }
+}

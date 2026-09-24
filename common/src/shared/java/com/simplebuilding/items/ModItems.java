@@ -189,6 +189,28 @@ public class ModItems {
     public static final Item NIHILITH_BRICK_WALL = registerItem("nihilith_brick_wall", s -> new BlockItem(ModBlocks.NIHILITH_BRICK_WALL, s));
     public static final Item NIHILITH_PILLAR = registerItem("nihilith_pillar", s -> new BlockItem(ModBlocks.NIHILITH_PILLAR, s));
     public static final Item CHISELED_NIHILITH_BRICKS = registerItem("chiseled_nihilith_bricks", s -> new BlockItem(ModBlocks.CHISELED_NIHILITH_BRICKS, s));
+    // Vervollstaendigte End-Paletten (siehe ModBlocks.END_PALETTES)
+    public static final Item ASTRALIT_BLOCK = registerItem("astralit_block", s -> new BlockItem(ModBlocks.ASTRALIT_BLOCK, s));
+    public static final Item POLISHED_ASTRALIT = registerItem("polished_astralit", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT, s));
+    public static final Item POLISHED_ASTRALIT_STAIRS = registerItem("polished_astralit_stairs", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT_STAIRS, s));
+    public static final Item POLISHED_ASTRALIT_SLAB = registerItem("polished_astralit_slab", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT_SLAB, s));
+    public static final Item POLISHED_ASTRALIT_WALL = registerItem("polished_astralit_wall", s -> new BlockItem(ModBlocks.POLISHED_ASTRALIT_WALL, s));
+    public static final Item NIHILITH_BLOCK = registerItem("nihilith_block", s -> new BlockItem(ModBlocks.NIHILITH_BLOCK, s));
+    public static final Item POLISHED_NIHILITH = registerItem("polished_nihilith", s -> new BlockItem(ModBlocks.POLISHED_NIHILITH, s));
+    public static final Item POLISHED_NIHILITH_STAIRS = registerItem("polished_nihilith_stairs", s -> new BlockItem(ModBlocks.POLISHED_NIHILITH_STAIRS, s));
+    public static final Item POLISHED_NIHILITH_SLAB = registerItem("polished_nihilith_slab", s -> new BlockItem(ModBlocks.POLISHED_NIHILITH_SLAB, s));
+    public static final Item POLISHED_NIHILITH_WALL = registerItem("polished_nihilith_wall", s -> new BlockItem(ModBlocks.POLISHED_NIHILITH_WALL, s));
+    public static final Item ENDER_QUARTZ_BLOCK = registerItem("ender_quartz_block", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_BLOCK, s));
+    public static final Item ENDER_QUARTZ_BRICKS = registerItem("ender_quartz_bricks", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_BRICKS, s));
+    public static final Item ENDER_QUARTZ_BRICK_STAIRS = registerItem("ender_quartz_brick_stairs", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_BRICK_STAIRS, s));
+    public static final Item ENDER_QUARTZ_BRICK_SLAB = registerItem("ender_quartz_brick_slab", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_BRICK_SLAB, s));
+    public static final Item ENDER_QUARTZ_BRICK_WALL = registerItem("ender_quartz_brick_wall", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_BRICK_WALL, s));
+    public static final Item POLISHED_ENDER_QUARTZ = registerItem("polished_ender_quartz", s -> new BlockItem(ModBlocks.POLISHED_ENDER_QUARTZ, s));
+    public static final Item POLISHED_ENDER_QUARTZ_STAIRS = registerItem("polished_ender_quartz_stairs", s -> new BlockItem(ModBlocks.POLISHED_ENDER_QUARTZ_STAIRS, s));
+    public static final Item POLISHED_ENDER_QUARTZ_SLAB = registerItem("polished_ender_quartz_slab", s -> new BlockItem(ModBlocks.POLISHED_ENDER_QUARTZ_SLAB, s));
+    public static final Item POLISHED_ENDER_QUARTZ_WALL = registerItem("polished_ender_quartz_wall", s -> new BlockItem(ModBlocks.POLISHED_ENDER_QUARTZ_WALL, s));
+    public static final Item ENDER_QUARTZ_PILLAR = registerItem("ender_quartz_pillar", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_PILLAR, s));
+    public static final Item CHISELED_ENDER_QUARTZ_BRICKS = registerItem("chiseled_ender_quartz_bricks", s -> new BlockItem(ModBlocks.CHISELED_ENDER_QUARTZ_BRICKS, s));
 
 
 
@@ -244,6 +266,9 @@ public class ModItems {
         public static final Item ASTRALIT_DUST = registerItem("astralit_dust", s -> new Item(s
 
             .trimMaterial(ModTrimMaterials.ASTRALIT)));
+
+    // Enderquarz: 1 Astralitstaub + 1 Nihilithsplitter + 1 Quarz ergeben 2; Material der violetten End-Palette.
+    public static final Item ENDER_QUARTZ = registerItem("ender_quartz", s -> new Item(s));
 
     public static final Item RAW_ENDERITE = registerItem("raw_enderite", s -> new Item(s));     // Fix: s nutzen!
 

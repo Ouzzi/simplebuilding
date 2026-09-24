@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_astral_end_stone": {
+    "has_polished_astralit": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:astral_end_stone"
+            "items": "simplebuilding:polished_astralit"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_astral_end_stone"
+      "has_polished_astralit"
     ]
   ],
   "rewards": {

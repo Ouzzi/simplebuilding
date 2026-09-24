@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:polished_nihilith",
+  "result": {
+    "id": "simplebuilding:nihilith_pillar"
+  }
+}

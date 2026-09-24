@@ -1,5 +1,6 @@
 package com.simplebuilding.datagen;
 
+import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -123,16 +124,12 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(key(Items.STICK));
 
-        // Astralit-/Nihilith-Bausatz: Treppen, Stufen und Mauern auch als Item-Tags wie bei Vanilla.
-        builder(BlockItemTags.STAIRS.item())
-                .add(key(ModItems.ASTRALIT_BRICK_STAIRS))
-                .add(key(ModItems.NIHILITH_BRICK_STAIRS));
-        builder(BlockItemTags.SLABS.item())
-                .add(key(ModItems.ASTRALIT_BRICK_SLAB))
-                .add(key(ModItems.NIHILITH_BRICK_SLAB));
-        builder(BlockItemTags.WALLS.item())
-                .add(key(ModItems.ASTRALIT_BRICK_WALL))
-                .add(key(ModItems.NIHILITH_BRICK_WALL));
+        // End-Paletten: Treppen, Stufen und Mauern auch als Item-Tags wie bei Vanilla.
+        for (ModBlocks.EndPalette palette : ModBlocks.END_PALETTES) {
+            palette.stairs().forEach(block -> builder(BlockItemTags.STAIRS.item()).add(key(block.asItem())));
+            palette.slabs().forEach(block -> builder(BlockItemTags.SLABS.item()).add(key(block.asItem())));
+            palette.walls().forEach(block -> builder(BlockItemTags.WALLS.item()).add(key(block.asItem())));
+        }
 
         // Rucksaecke: eigene Tags fuer Tiefe Taschen, Trichter und Meisterbauer, damit Schublade
         // (bundle_enchantable) und Farbpalette (extra_inventory_items) sie nicht mitbekommen.
