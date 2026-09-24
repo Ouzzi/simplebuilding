@@ -91,6 +91,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_end_palettes_are_recoloured_from_end_stone_and_purpur_like_dye", DataIntegrityTests::endPalettesAreRecolouredFromEndStoneAndPurpurLikeDye)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_ender_quartz_palette_is_recoloured_from_quartz_like_dye", DataIntegrityTests::enderQuartzPaletteIsRecolouredFromQuartzLikeDye)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_basic_upgrade_template_costs_twice_the_crafting_material", DataIntegrityTests::basicUpgradeTemplateCostsTwiceTheCraftingMaterial)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_ender_quartz_is_crafted_from_astralit_dust_nihilith_shard_and_quartz", DataIntegrityTests::enderQuartzIsCraftedFromAstralitDustNihilithShardAndQuartz)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_mod_item_is_in_exactly_one_creative_tab", DataIntegrityTests::everyModItemIsInExactlyOneCreativeTab)

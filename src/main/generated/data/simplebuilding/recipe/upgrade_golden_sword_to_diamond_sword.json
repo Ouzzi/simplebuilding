@@ -1,7 +1,7 @@
 {
   "type": "simplebuilding:count_based_smithing",
   "addition": "minecraft:diamond",
-  "addition_count": 3,
+  "addition_count": 4,
   "base": "minecraft:golden_sword",
   "result": {
     "id": "minecraft:diamond_sword"

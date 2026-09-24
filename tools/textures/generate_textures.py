@@ -1106,9 +1106,10 @@ def checker_textures():
 # Nihil-Endstein) mit tuerkisen Splittern aus item/nihilith_shard, Enderquarz violett. Akzente je
 # Material: Astralit weisse Sternfunken (der Block leuchtet ohnehin mit 10), Nihilith tuerkise
 # Splitter, Enderquarz helle Quarzadern.
-# Die gemeisselten Ziegel zeigen je ein End-Wesen: Astralit einen Shulker (Deckel, Spalt, Kopf),
-# Nihilith das dunkle Enderman-Gesicht mit den violetten Augen, Enderquarz den gehoernten Kopf des
-# Enderdrachen mit gluehenden Augen.
+# Die gemeisselten Ziegel tragen je ein End-Wesen als leise Steinmetzarbeit wie die gemeisselten
+# Vanilla-Bloecke (Steinziegel, Quarz, Tuff): nur Relief in der Rampe des Materials, keine
+# Fremdfarben. Astralit eine Shulkerschale, Nihilith ein Enderman-Auge, Enderquarz einen
+# gehoernten Drachenkopf.
 END_PALETTE_RAMPS = {
     "astralit": ["#a24f8c", "#bb62a2", "#cc77b4", "#d98cc4", "#e4a2d2", "#edb8df", "#f5cdea", "#fbe2f4"],
     "nihilith": ["#4a64a3", "#5b78b8", "#6e8bc8", "#829ed5", "#97b1e0", "#adc3e9", "#c3d5f2", "#dae6fa"],
@@ -1119,9 +1120,6 @@ END_PALETTE_ACCENTS = {
     "nihilith": {"hi": "#8fd3d0", "mid": "#5fa9b0", "lo": "#356889"},
     "ender_quartz": {"hi": "#efe4fa", "mid": "#d9c6ee", "lo": "#3e2656"},
 }
-# Motivfarben: Enderman-/Drachenschwarz und das Violett ihrer Augen (Vanilla entity/enderman/enderman_eyes).
-END_CREATURE = {"black": "#1b1824", "black2": "#262233", "black3": "#322c42",
-                "eye": "#cc00fa", "eye_hi": "#e079fa"}
 END_PALETTE_SEED = {"astralit": 11, "nihilith": 23, "ender_quartz": 37}
 
 
@@ -1337,73 +1335,75 @@ def end_palette_pillar_top(mat):
     return _paint(v, END_PALETTE_RAMPS[mat], centre)
 
 
-# Motive der gemeisselten Ziegel, 12x12 innerhalb des Rahmens (Spalte/Zeile 2..13).
-#   '.' vertiefter Grund   '#' erhabener Stein   'h' erhabener Akzent (Shulkerkopf)
-#   'z' dunkles Schaleninneres   'k' dunkles Wesen      'K' Wesen, Glanzkante   'e'/'E' Augen (violett / hell)   'n' Nuestern
+# Motive der gemeisselten Ziegel, 12x12 innerhalb des Rahmens (Spalte/Zeile 2..13), als Hoehenkarte:
+#   '#' Plattenoberflaeche   '.' flach vertieft   '-' eingeschlagene Rille   'o' tiefste Stelle
+# Licht faellt wie bei Vanilla von oben links: eine Kante, ueber/links der es tiefer liegt, wird hell,
+# eine, ueber/links der es hoeher liegt, liegt im Schatten. Keine Fremdfarben - das Motiv lebt nur
+# vom Relief, wie bei gemeisseltem Steinziegel, Quarz oder Tuff.
 CHISELED_MOTIFS = {
-    # Shulker von vorn: Deckel mit Mittelrippe, Spalt mit dem hervorlugenden Kopf, Unterschale.
+    # Shulkerschale: gewoelbter Deckel mit Mittelrippe, die offene Fuge, die Unterschale.
     "astralit": [
-        "............",
-        "..########..",
-        ".##########.",
-        ".##########.",
         "############",
-        ".zzzhhhhzzz.",
-        ".zzhkhhkhzz.",
-        ".zzzhhhhzzz.",
-        ".##########.",
-        ".##########.",
-        "..########..",
-        "............",
+        "###------###",
+        "##-######-##",
+        "#-###--###-#",
+        "#-########-#",
+        "#----------#",
+        "#-...oo...-#",
+        "#----------#",
+        "#-########-#",
+        "##-######-##",
+        "###------###",
+        "############",
     ],
-    # Enderman: schwarzes Gesicht, die zwei violetten Augenschlitze.
+    # Enderman-Auge: eine eingeschlagene Mandel, darin der flach vertiefte Augapfel mit dem Schlitz.
     "nihilith": [
-        "............",
-        "..kkkkkkkk..",
-        "..KKKKKKKK..",
-        "..kkkkkkkk..",
-        "..kkkkkkkk..",
-        "..keEekeEe..",
-        "..kkkkkkkk..",
-        "..kkkkkkkk..",
-        "..kkkkkkkk..",
-        "..kkkkkkkk..",
-        "..kkkkkkkk..",
-        "............",
+        "############",
+        "############",
+        "####----####",
+        "##--####--##",
+        "#-##....##-#",
+        "-##.oooo.##-",
+        "-##.oooo.##-",
+        "#-##....##-#",
+        "##--####--##",
+        "####----####",
+        "############",
+        "############",
     ],
-    # Enderdrache von vorn: zwei Hoerner, breiter Kopf, gluehende Schlitzaugen, lange Schnauze.
+    # Drachenkopf von vorn: zwei Hoerner, die Kopfkontur, Schlitzaugen, Nuestern an der Schnauze.
     "ender_quartz": [
-        ".k........k.",
-        ".kk......kk.",
-        "..kKKKKKKk..",
-        ".kkkkkkkkkk.",
-        ".keEkkkkEek.",
-        ".kkkkkkkkkk.",
-        "..kkkkkkkk..",
-        "...kkkkkk...",
-        "...kKKKKk...",
-        "...knkknk...",
-        "...kkkkkk...",
-        "............",
+        "#-########-#",
+        "#--######--#",
+        "##-######-##",
+        "##--------##",
+        "#-########-#",
+        "#-#oo##oo#-#",
+        "#-########-#",
+        "##-######-##",
+        "###-####-###",
+        "###-#..#-###",
+        "####----####",
+        "############",
     ],
 }
+CHISELED_HEIGHT = {"#": 2, ".": 1, "-": 0, "o": 0}
+CHISELED_BASE = {2: 4.5, 1: 3.6, 0: 2.9}
 
 
 def end_palette_chiseled(mat):
-    """Gemeisselte Ziegel: gefaster Rahmen wie die polierte Platte, vertiefter Grund, darin das Motiv
-    als Relief (Licht oben/links, Schlagschatten unten/rechts)."""
+    """Gemeisselte Ziegel: gefaster Rahmen wie die polierte Platte, darin eine Platte mit dem Motiv
+    als eingeschlagenes Relief (Licht oben/links). Nur die Rampe des Materials, geringer Kontrast."""
     seed = END_PALETTE_SEED[mat] + 500
     coarse, fine = _noise(seed), _noise(seed + 1, 0, 0)
     motif = CHISELED_MOTIFS[mat]
 
-    def cell(x, y):
+    def height(x, y):
         if 2 <= x <= 13 and 2 <= y <= 13:
-            return motif[y - 2][x - 2]
-        return None
+            return CHISELED_HEIGHT[motif[y - 2][x - 2]]
+        return 2
 
     v = [[0.0] * 16 for _ in range(16)]
-    overrides = {}
-    acc = END_PALETTE_ACCENTS[mat]
     for y in range(16):
         for x in range(16):
             d = ring(x, y)
@@ -1415,40 +1415,13 @@ def end_palette_chiseled(mat):
             if d == 1:
                 v[y][x] = (4.9 if lit else 2.4) + n
                 continue
-            c = cell(x, y)
-            if c == "." or c is None:
-                val = 2.9 + n
-                if cell(x - 1, y - 1) not in (".", None) or cell(x, y - 1) not in (".", None):
-                    val -= 1.1                                 # Schlagschatten des Reliefs
-                if d == 2 and lit:
-                    val -= 0.9                                 # Innenkante des Rahmens im Schatten
-                v[y][x] = val
-            elif c in "#-":
-                val = 4.9 + n
-                if cell(x, y - 1) in (".", None) or cell(x - 1, y) in (".", None):
-                    val += 1.3
-                if cell(x, y + 1) in (".", None) or cell(x + 1, y) in (".", None):
-                    val -= 1.4
-                if c == "-":
-                    val = 2.2
-                v[y][x] = val
-            else:
-                v[y][x] = 3.0
-                colour = {
-                    "h": acc["mid"], "k": END_CREATURE["black"], "K": END_CREATURE["black3"],
-                    "e": END_CREATURE["eye"], "E": END_CREATURE["eye_hi"], "n": END_CREATURE["black"],
-                    "z": "#5a2150",
-                }[c]
-                if c == "k" and _hash01(seed, x, y) > 0.72:
-                    colour = END_CREATURE["black2"]
-                if c == "h" and (cell(x, y - 1) in ".#z" or cell(x - 1, y) in ".z"):
-                    colour = acc["hi"]
-                if c == "k" and mat == "astralit":
-                    colour = acc["lo"]
-                if c == "n":
-                    colour = "#0f0d15"
-                overrides[(x, y)] = colour
-    return _paint(v, END_PALETTE_RAMPS[mat], overrides)
+            h = height(x, y)
+            val = CHISELED_BASE[h] + n
+            val += 0.5 * (h - height(x - 1, y)) + 0.5 * (h - height(x, y - 1))
+            if motif[y - 2][x - 2] == "o":
+                val -= 0.5
+            v[y][x] = val
+    return _paint(v, END_PALETTE_RAMPS[mat])
 
 
 def ring(x, y):

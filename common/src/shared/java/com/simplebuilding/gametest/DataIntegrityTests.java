@@ -10,6 +10,7 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItemGroupsContent;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
+import com.simplebuilding.recipe.CountBasedSmithingRecipe;
 import com.simplebuilding.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
@@ -1790,6 +1791,161 @@ public final class DataIntegrityTests {
         helper.assertValueEqual(recipes, 25, "recolour recipes checked (8 + 8 + 9)");
         helper.assertTrue(problems.isEmpty(), "end palette recolouring: " + problems);
         helper.succeed();
+    }
+
+    /**
+     * The ender quartz palette is also recoloured from vanilla quartz, the same way dye recolours
+     * glass: eight of a quartz block around one ender quartz make eight of the matching palette
+     * block. The quartz block becomes the base block, quartz bricks the bricks, the quartz pillar
+     * the pillar, the chiseled quartz block the chiseled bricks and smooth quartz the polished
+     * block. Smooth quartz stairs and slab become the polished stairs and slab; plain quartz
+     * stairs and slab do too, since the base block has no stairs or slab of its own and quartz and
+     * smooth quartz look almost the same.
+     *
+     * <p>Astralit and nihilith are not made from quartz: the same ring around their dust or shard
+     * must craft nothing, or quartz would turn into a palette that has nothing to do with it.
+     *
+     * <p>Each grid goes through the real recipe manager, which also proves that no other recipe
+     * takes the same grid.
+     *
+     * <p>What breaks this: a recolour recipe that is missing, yields another block or another
+     * count than eight, takes another material, or competes with another recipe on its grid.
+     */
+    public static void enderQuartzPaletteIsRecolouredFromQuartzLikeDye(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        RecipeManager recipeManager = level.getServer().getRecipeManager();
+        Map<Identifier, RecipeHolder<?>> modRecipes = modRecipes(recipeManager);
+        List<String> problems = new ArrayList<>();
+        String[] ring = {"###", "#M#", "###"};
+        ModBlocks.EndPalette p = ModBlocks.ENDER_QUARTZ_PALETTE;
+        Map<Item, Block> pairs = new LinkedHashMap<>();
+        pairs.put(Items.QUARTZ_BLOCK, p.block());
+        pairs.put(Items.QUARTZ_BRICKS, p.bricks());
+        pairs.put(Items.QUARTZ_PILLAR, p.pillar());
+        pairs.put(Items.CHISELED_QUARTZ_BLOCK, p.chiseled());
+        pairs.put(Items.SMOOTH_QUARTZ, p.polished());
+        pairs.put(Items.SMOOTH_QUARTZ_STAIRS, p.polishedStairs());
+        pairs.put(Items.SMOOTH_QUARTZ_SLAB, p.polishedSlab());
+        pairs.put(Items.QUARTZ_STAIRS, p.polishedStairs());
+        pairs.put(Items.QUARTZ_SLAB, p.polishedSlab());
+        for (Map.Entry<Item, Block> pair : pairs.entrySet()) {
+            assertShapedRecipe(helper, modRecipes,
+                    path(pair.getValue()) + "_from_" + BuiltInRegistries.ITEM.getKey(pair.getKey()).getPath(),
+                    pair.getValue().asItem(), 8, ring, Map.of('#', pair.getKey(), 'M', ModItems.ENDER_QUARTZ), problems);
+            for (Item other : List.of(ModItems.ASTRALIT_DUST, ModItems.NIHILITH_SHARD)) {
+                CraftingInput grid = grid(ring, Map.of('#', pair.getKey(), 'M', other));
+                Optional<RecipeHolder<CraftingRecipe>> match = recipeManager.getRecipeFor(RecipeType.CRAFTING, grid, level);
+                if (match.isPresent()) {
+                    problems.add("eight " + BuiltInRegistries.ITEM.getKey(pair.getKey()) + " around "
+                            + BuiltInRegistries.ITEM.getKey(other) + " craft " + match.get().id().identifier());
+                }
+            }
+        }
+
+        helper.assertValueEqual(pairs.size(), 9, "quartz recolour recipes checked");
+        helper.assertTrue(problems.isEmpty(), "ender quartz from quartz: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * The Basic Upgrade Template costs twice the material the crafting table asks for the target
+     * tool (the owner's decision): a pickaxe or an axe takes 6, a sword or a hoe 4, a shovel 2 -
+     * the vanilla recipes use 3, 2 and 1. The mod's tools follow the same rule: the chisel takes 2
+     * (one ingot or diamond in its recipe), the sledgehammer 22 (one block plus two ingots, eleven
+     * ingots' worth) and the building wand 8 (four ingots around the nether star of its core; the
+     * star is already in the wand being upgraded).
+     *
+     * <p>Every rung is walked through the real recipe manager: the priced stack forges the next
+     * tier with this very recipe, one item fewer forges nothing. Then every count based smithing
+     * recipe the mod loads must be in this table, so an upgrade added later cannot slip in at a
+     * price nobody decided.
+     *
+     * <p>What breaks this: a changed count, a missing rung (hoes and building wands were missing
+     * until 2026-09-25), an upgrade that takes another material or yields another tool, or a new
+     * count based recipe that is not priced here.
+     */
+    public static void basicUpgradeTemplateCostsTwiceTheCraftingMaterial(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        RecipeManager recipeManager = level.getServer().getRecipeManager();
+        Map<Identifier, RecipeHolder<?>> modRecipes = modRecipes(recipeManager);
+        List<String> problems = new ArrayList<>();
+        Map<Item[], Integer> ladder = new LinkedHashMap<>();
+        for (Item[] tiers : new Item[][]{
+                {Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE},
+                {Items.WOODEN_AXE, Items.STONE_AXE, Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE}}) {
+            addLadder(ladder, tiers, true, 6);
+        }
+        ladder.put(new Item[]{Items.COPPER_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT}, 6);
+        for (Item[] tiers : new Item[][]{
+                {Items.WOODEN_SWORD, Items.STONE_SWORD, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD},
+                {Items.WOODEN_HOE, Items.STONE_HOE, Items.IRON_HOE, Items.GOLDEN_HOE, Items.DIAMOND_HOE}}) {
+            addLadder(ladder, tiers, true, 4);
+        }
+        addLadder(ladder, new Item[]{Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.IRON_SHOVEL,
+                Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL}, true, 2);
+        addLadder(ladder, new Item[]{ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
+                ModItems.DIAMOND_CHISEL}, false, 2);
+        addLadder(ladder, new Item[]{ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
+                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER}, false, 22);
+        addLadder(ladder, new Item[]{ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND,
+                ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND}, false, 8);
+
+        Set<Identifier> priced = new HashSet<>();
+        for (Map.Entry<Item[], Integer> rung : ladder.entrySet()) {
+            Item base = rung.getKey()[0];
+            Item result = rung.getKey()[1];
+            Item material = rung.getKey()[2];
+            int count = rung.getValue();
+            Identifier id = Identifier.fromNamespaceAndPath(MOD_ID, "upgrade_"
+                    + BuiltInRegistries.ITEM.getKey(base).getPath() + "_to_" + BuiltInRegistries.ITEM.getKey(result).getPath());
+            priced.add(id);
+            RecipeHolder<?> holder = modRecipes.get(id);
+            if (holder == null || !(holder.value() instanceof CountBasedSmithingRecipe recipe)) {
+                problems.add(id + " is " + (holder == null ? "not loaded" : "not a count based smithing recipe"));
+                continue;
+            }
+            if (recipe.getAdditionCount() != count) {
+                problems.add(id + " takes " + recipe.getAdditionCount() + " instead of " + count);
+            }
+            if (!recipe.getResultStack().is(result)) {
+                problems.add(id + " yields " + recipe.getResultStack() + " instead of " + result);
+            }
+            SmithingRecipeInput enough = new SmithingRecipeInput(new ItemStack(ModItems.BASIC_UPGRADE_TEMPLATE),
+                    new ItemStack(base), new ItemStack(material, count));
+            Optional<RecipeHolder<SmithingRecipe>> match = recipeManager.getRecipeFor(RecipeType.SMITHING, enough, level);
+            if (match.isEmpty() || !match.get().id().identifier().equals(id)) {
+                problems.add(count + " " + material + " on " + base + " forge "
+                        + (match.isEmpty() ? "nothing" : match.get().id().identifier().toString()) + " instead of " + id);
+            }
+            SmithingRecipeInput oneShort = new SmithingRecipeInput(new ItemStack(ModItems.BASIC_UPGRADE_TEMPLATE),
+                    new ItemStack(base), new ItemStack(material, count - 1));
+            if (recipeManager.getRecipeFor(RecipeType.SMITHING, oneShort, level).isPresent()) {
+                problems.add((count - 1) + " " + material + " on " + base + " already forge something");
+            }
+        }
+        for (RecipeHolder<?> holder : modRecipes.values()) {
+            if (holder.value() instanceof CountBasedSmithingRecipe && !priced.contains(holder.id().identifier())) {
+                problems.add(holder.id().identifier() + " is a count based upgrade nobody priced here");
+            }
+        }
+
+        helper.assertValueEqual(priced.size(), 30, "upgrade rungs checked (5 + 4 + 4 + 4 + 4 + 3 + 3 + 3)");
+        helper.assertTrue(problems.isEmpty(), "basic upgrade template costs: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * Adds the rungs of one tool ladder: each tier upgrades into the next with the material of
+     * the next. {@code vanilla} picks cobblestone, iron, gold, diamond (wood - stone - iron - gold -
+     * diamond); otherwise iron, gold, diamond (copper - iron - gold - diamond).
+     */
+    private static void addLadder(Map<Item[], Integer> ladder, Item[] tiers, boolean vanilla, int count) {
+        Item[] materials = vanilla
+                ? new Item[]{Items.COBBLESTONE, Items.IRON_INGOT, Items.GOLD_INGOT, Items.DIAMOND}
+                : new Item[]{Items.IRON_INGOT, Items.GOLD_INGOT, Items.DIAMOND};
+        for (int i = 0; i + 1 < tiers.length; i++) {
+            ladder.put(new Item[]{tiers[i], tiers[i + 1], materials[i]}, count);
+        }
     }
 
     /**

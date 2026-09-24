@@ -1,0 +1,10 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:iron_ingot",
+  "addition_count": 8,
+  "base": "simplebuilding:copper_building_wand",
+  "result": {
+    "id": "simplebuilding:iron_building_wand"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}
