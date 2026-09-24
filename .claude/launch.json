@@ -28,6 +28,46 @@
         "art/alt-textures"
       ],
       "port": 8766
+    },
+    {
+      "name": "forge-client",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "Set-Location -LiteralPath 'C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding'; .\\gradlew.bat :forge:runClient -Pforge_runs=true \"-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431\""
+      ],
+      "port": 25600
+    },
+    {
+      "name": "forge-server",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "Set-Location -LiteralPath 'C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding'; .\\gradlew.bat :forge:runServer -Pforge_runs=true \"-Porg.gradle.java.installations.paths=C:/Program Files/Java/jre1.8.0_431\""
+      ],
+      "port": 25565
+    },
+    {
+      "name": "fabric-client",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "Set-Location -LiteralPath 'C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding'; .\\gradlew.bat :runClient"
+      ],
+      "port": 25601
+    },
+    {
+      "name": "neoforge-client",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "Set-Location -LiteralPath 'C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding'; .\\gradlew.bat :neoforge:runClient"
+      ],
+      "port": 25602
     }
   ]
 }

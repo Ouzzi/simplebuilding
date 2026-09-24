@@ -232,28 +232,35 @@ public final class ModItemGroupsContent {
 
     private static void functional(CreativeModeTab.Output entries) {
         // --- Hoppers ---
+        entries.accept(Items.HOPPER);
         entries.accept(ModItems.REINFORCED_HOPPER);
         entries.accept(ModItems.NETHERITE_HOPPER);
         entries.accept(ModItems.ENDERITE_HOPPER);
 
         // --- Pistons ---
+        entries.accept(Items.PISTON);
+        entries.accept(Items.STICKY_PISTON);
         entries.accept(ModItems.REINFORCED_PISTON);
         entries.accept(ModItems.REINFORCED_STICKY_PISTON);
         entries.accept(ModItems.NETHERITE_PISTON);
         entries.accept(ModItems.ENDERITE_PISTON);
 
         // --- Furnaces ---
+        entries.accept(Items.FURNACE);
         entries.accept(ModItems.REINFORCED_FURNACE);
         entries.accept(ModItems.NETHERITE_FURNACE);
         entries.accept(ModItems.ENDERITE_FURNACE);
+        entries.accept(Items.SMOKER);
         entries.accept(ModItems.REINFORCED_SMOKER);
         entries.accept(ModItems.NETHERITE_SMOKER);
         entries.accept(ModItems.ENDERITE_SMOKER);
+        entries.accept(Items.BLAST_FURNACE);
         entries.accept(ModItems.REINFORCED_BLAST_FURNACE);
         entries.accept(ModItems.NETHERITE_BLAST_FURNACE);
         entries.accept(ModItems.ENDERITE_BLAST_FURNACE);
 
         // --- Storage ---
+        entries.accept(Items.BUNDLE);
         entries.accept(ModItems.REINFORCED_BUNDLE);
         entries.accept(ModItems.NETHERITE_BUNDLE);
         entries.accept(ModItems.ENDERITE_BUNDLE);
