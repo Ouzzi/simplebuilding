@@ -100,6 +100,9 @@ public final class ModItemGroupsContent {
             }
         }
 
+        // --- Blueprint ---
+        entries.accept(ModItems.BLUEPRINT);
+
         // --- Gadgets ---
         entries.accept(ModItems.VELOCITY_GAUGE);
         entries.accept(ModItems.ORE_DETECTOR);

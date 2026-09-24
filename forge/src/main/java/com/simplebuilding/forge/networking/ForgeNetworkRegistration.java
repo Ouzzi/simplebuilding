@@ -56,6 +56,10 @@ public final class ForgeNetworkRegistration {
                             (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleMasterBuilderPick(payload, player)))
                     .add(OpenBackpackPayload.ID, OpenBackpackPayload.CODEC,
                             (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleOpenBackpack(payload, player)))
+                    .add(com.simplebuilding.networking.BlueprintEditPayload.ID, com.simplebuilding.networking.BlueprintEditPayload.CODEC,
+                            (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleBlueprintEdit(payload, player)))
+                    .add(com.simplebuilding.networking.BlueprintRotatePayload.ID, com.simplebuilding.networking.BlueprintRotatePayload.CODEC,
+                            (payload, ctx) -> runOnPlayer(ctx, player -> ModMessageHandlers.handleBlueprintRotate(payload, player)))
                 .clientbound()
                     .add(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC, (payload, ctx) -> handled(ctx).enqueueWork(() -> {
                         Minecraft client = Minecraft.getInstance();

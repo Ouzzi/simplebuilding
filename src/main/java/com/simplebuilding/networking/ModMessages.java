@@ -34,6 +34,8 @@ public class ModMessages {
         PayloadTypeRegistry.serverboundPlay().register(BuildingWandConfigurePayload.ID, BuildingWandConfigurePayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(MasterBuilderPickPayload.ID, MasterBuilderPickPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(OpenBackpackPayload.ID, OpenBackpackPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(BlueprintEditPayload.ID, BlueprintEditPayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(BlueprintRotatePayload.ID, BlueprintRotatePayload.CODEC);
 
 
         // Server -> Client (S2C)
@@ -59,6 +61,8 @@ public class ModMessages {
         receive(BuildingWandConfigurePayload.ID, ModMessageHandlers::handleBuildingWandConfigure);
         receive(MasterBuilderPickPayload.ID, ModMessageHandlers::handleMasterBuilderPick);
         receive(OpenBackpackPayload.ID, ModMessageHandlers::handleOpenBackpack);
+        receive(BlueprintEditPayload.ID, ModMessageHandlers::handleBlueprintEdit);
+        receive(BlueprintRotatePayload.ID, ModMessageHandlers::handleBlueprintRotate);
 
         // Events
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {

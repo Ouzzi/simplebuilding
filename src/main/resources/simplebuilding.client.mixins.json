@@ -12,6 +12,7 @@
     "ClientSpeedometerMixin",
     "ClientSurvivalTracerMixin",
     "EquipmentRendererMixin",
+    "GuiGraphicsExtractorAccessor",
     "HandledScreenMixin",
     "HeldItemRendererMixin",
     "InventoryScreenMixin",
@@ -20,6 +21,7 @@
     "ItemMixin",
     "MinecraftClientMixin",
     "MouseMixin",
+    "MultilineTextFieldAccessor",
     "SmithingScreenMixin"
   ]
 }

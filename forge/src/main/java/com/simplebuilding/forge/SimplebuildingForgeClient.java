@@ -52,6 +52,7 @@ public final class SimplebuildingForgeClient {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        com.simplebuilding.client.blueprint.BlueprintClient.init();
         ClientNetworking.setSender(ForgeNetworkRegistration::sendToServer);
         event.enqueueWork(() -> {
             MenuScreens.register(ForgeModRegistries.NETHERITE_HOPPER_MENU.get(), NetheriteHopperScreen::new);
@@ -146,6 +147,7 @@ public final class SimplebuildingForgeClient {
     @SubscribeEvent
     public static void onRegisterTooltips(RegisterClientTooltipComponentFactoriesEvent event) {
         event.register(ReinforcedBundleTooltipData.class, ReinforcedBundleTooltips::create);
+        event.register(com.simplebuilding.items.tooltip.BlueprintTooltipData.class, com.simplebuilding.client.blueprint.BlueprintTooltip::create);
     }
     }
 }
