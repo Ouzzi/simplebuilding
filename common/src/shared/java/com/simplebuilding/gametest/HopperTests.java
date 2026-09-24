@@ -1130,10 +1130,12 @@ public final class HopperTests {
     // =====================================================================================
 
     /**
-     * The registration lines behind the two blocks: the strength they are built with, the sound
+     * The registration lines behind the three blocks: the strength they are built with, the sound
      * they carry, the mining tag they are listed under and the fire resistance of the netherite
-     * hopper's item (ModBlocks.java:53-54, ModItems.java:388,
-     * {@code tags/block/mineable/pickaxe.json}). All of it is declared or generated data that a
+     * and enderite hoppers' items ({@code ModBlocks}, {@code ModItems},
+     * {@code tags/block/mineable/pickaxe.json}). The enderite hopper is made only in the world
+     * (sledgehammer and enderite nugget on a netherite hopper) and is built to 6.0 / 1500 like the
+     * enderite piston. All of it is declared or generated data that a
      * port can drop without a single behaviour test noticing.
      *
      * <p>Vanilla's hopper is measured in the same breath and used as the yardstick for the
@@ -1157,10 +1159,10 @@ public final class HopperTests {
      * <p>Both hoppers are built from vanilla's hopper (until 2026-09: from glass, so a bare hand
      * dropped them), and the tool requirement that copy brings is pinned against vanilla's hopper.
      *
-     * <p>What breaks this test: any edit to the two {@code strength(...)} or {@code sound(...)}
+     * <p>What breaks this test: any edit to the three {@code strength(...)} or {@code sound(...)}
      * calls, removing a hopper from the tag provider or failing to regenerate the data, building a
      * hopper from another base than vanilla's hopper, and dropping {@code fireResistant()} from the
-     * netherite hopper item.
+     * netherite or the enderite hopper item.
      */
     public static void hopperBlocksCarryTheirRegisteredStrengthSoundAndTags(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -1177,6 +1179,10 @@ public final class HopperTests {
         helper.assertTrue(netheriteSpeed > reinforcedSpeed,
                 "the netherite hopper should be the harder one, " + netheriteSpeed + " against "
                         + reinforcedSpeed);
+        float enderiteSpeed = ModBlocks.ENDERITE_HOPPER.defaultBlockState().getDestroySpeed(level, probe);
+        helper.assertValueEqual(enderiteSpeed, 6.0F, "the enderite hopper's hardness");
+        helper.assertValueEqual(ModBlocks.ENDERITE_HOPPER.getExplosionResistance(), 1500.0F,
+                "the enderite hopper's blast resistance");
 
         // --- blast resistance ---
         helper.assertValueEqual(ModBlocks.REINFORCED_HOPPER.getExplosionResistance(),
@@ -1195,17 +1201,20 @@ public final class HopperTests {
                 "the reinforced hopper lost its metal sound");
         helper.assertTrue(ModBlocks.NETHERITE_HOPPER.defaultBlockState().getSoundType() == SoundType.NETHERITE_BLOCK,
                 "the netherite hopper lost its netherite block sound");
+        helper.assertTrue(ModBlocks.ENDERITE_HOPPER.defaultBlockState().getSoundType() == SoundType.NETHERITE_BLOCK,
+                "the enderite hopper lost its netherite block sound");
 
         // --- mining tag, with a control on both sides ---
         assertPickaxeMineable(helper, ModBlocks.REINFORCED_HOPPER, true);
         assertPickaxeMineable(helper, ModBlocks.NETHERITE_HOPPER, true);
+        assertPickaxeMineable(helper, ModBlocks.ENDERITE_HOPPER, true);
         assertPickaxeMineable(helper, Blocks.HOPPER, true);
         // Dirt, not end stone: end stone is a plain value in vanilla's own pickaxe tag (see the
         // javadoc), so it can never be the "the lookup says no" side of this pair.
         assertPickaxeMineable(helper, Blocks.DIRT, false);
 
         // --- the tool requirement vanilla's hopper has: a bare hand drops nothing ---
-        for (Block hopper : List.of(ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER)) {
+        for (Block hopper : List.of(ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER)) {
             helper.assertTrue(hopper.defaultBlockState().requiresCorrectToolForDrops()
                             && Blocks.HOPPER.defaultBlockState().requiresCorrectToolForDrops(),
                     BuiltInRegistries.BLOCK.getKey(hopper) + " drops to a bare hand "
@@ -1219,6 +1228,8 @@ public final class HopperTests {
                     "the reinforced hopper was put into " + tier.location());
             helper.assertFalse(ModBlocks.NETHERITE_HOPPER.defaultBlockState().is(tier),
                     "the netherite hopper was put into " + tier.location());
+            helper.assertFalse(ModBlocks.ENDERITE_HOPPER.defaultBlockState().is(tier),
+                    "the enderite hopper was put into " + tier.location());
         }
 
         // --- fire resistance of the netherite hopper's item ---
@@ -1239,6 +1250,9 @@ public final class HopperTests {
         helper.assertFalse(netheriteHopper.isResistantTo(level.damageSources().drown()),
                 "the netherite hopper resists drowning as well, so its resistance is not the fire "
                         + "tag any more and the lava assertion above proves nothing");
+        DamageResistant enderiteHopper = new ItemStack(ModItems.ENDERITE_HOPPER).get(DataComponents.DAMAGE_RESISTANT);
+        helper.assertTrue(enderiteHopper != null && enderiteHopper.isResistantTo(level.damageSources().lava()),
+                "a dropped enderite hopper should survive lava like the netherite one");
         helper.assertTrue(
                 new ItemStack(ModItems.REINFORCED_HOPPER).get(DataComponents.DAMAGE_RESISTANT) == null,
                 "the reinforced hopper item is fire resistant too, which makes the assertions above "
@@ -1248,20 +1262,26 @@ public final class HopperTests {
     }
 
     /**
-     * The two crafting recipes, driven through the live {@code RecipeManager} with a real
+     * The one hopper crafting recipe, driven through the live {@code RecipeManager} with a real
      * crafting grid: pattern, ingredients, result and - the part
      * {@code DataIntegrityTests#modRecipesOnlyReferenceRegisteredItems} never reads - the count.
-     * Five reinforced hoppers per craft and two netherite ones are what make the chain worth
-     * running at all; a recipe that silently yielded one would pass every other test in the tree.
+     * Five reinforced hoppers per craft are what make the chain worth running at all; a recipe
+     * that silently yielded one would pass every other test in the tree.
      *
-     * <p>Each recipe is also offered upside down. Vanilla matches a shaped recipe against its own
-     * pattern and the mirror of it, never against a vertical flip, so a match on the flipped
-     * grids would mean the shape is not being checked at all. The reinforced pattern's rows are
-     * palindromes, which is why the flip - and not the mirror - is the control that says
-     * something here.
+     * <p>The recipe is also offered upside down. Vanilla matches a shaped recipe against its own
+     * pattern and the mirror of it, never against a vertical flip, so a match on the flipped grid
+     * would mean the shape is not being checked at all. The pattern's rows are palindromes, which
+     * is why the flip - and not the mirror - is the control that says something here.
      *
-     * <p>What breaks this test: any edit to the two generated recipe JSONs - a different pattern,
-     * a swapped ingredient, another count - and either of them failing to load.
+     * <p>The netherite hopper has had no crafting recipe since 2026-09: it is made in the world
+     * with a sledgehammer and a netherite nugget ({@code SledgehammerUpgrades}). The column the old
+     * {@code netherite_hopper_from_crafting} recipe used - two reinforced hoppers around a nugget -
+     * therefore has to craft nothing, and the recipe id has to be gone; the reinforced grid above
+     * is the positive control that the lookup still answers "yes".
+     *
+     * <p>What breaks this test: any edit to the reinforced recipe JSON - a different pattern, a
+     * swapped ingredient, another count - or it failing to load, and a crafting recipe for the
+     * netherite hopper coming back.
      */
     public static void hopperRecipesCraftFromTheirDocumentedPatterns(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -1281,20 +1301,18 @@ public final class HopperTests {
         assertCraftsNothing(helper, level, reinforcedFlipped,
                 "the reinforced hopper pattern turned upside down");
 
-        // "H" / "N" / "H": two reinforced hoppers around one netherite nugget.
+        // "H" / "N" / "H", the old netherite hopper recipe: two reinforced hoppers around one
+        // netherite nugget. The netherite hopper is hammered in the world now, so nothing may craft.
         CraftingInput netherite = CraftingInput.of(1, 3, List.of(
                 stack(ModItems.REINFORCED_HOPPER),
                 stack(ModItems.NETHERITE_NUGGET),
                 stack(ModItems.REINFORCED_HOPPER)));
-        assertCrafts(helper, level, netherite, "simplebuilding:netherite_hopper_from_crafting",
-                ModItems.NETHERITE_HOPPER, 2);
-
-        CraftingInput netheriteShuffled = CraftingInput.of(1, 3, List.of(
-                stack(ModItems.NETHERITE_NUGGET),
-                stack(ModItems.REINFORCED_HOPPER),
-                stack(ModItems.REINFORCED_HOPPER)));
-        assertCraftsNothing(helper, level, netheriteShuffled,
-                "the netherite hopper column with the nugget on top");
+        assertCraftsNothing(helper, level, netherite,
+                "the old netherite hopper column (two reinforced hoppers around a nugget)");
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipes().stream()
+                        .noneMatch(holder -> holder.id().identifier().getPath().equals("netherite_hopper_from_crafting")),
+                "simplebuilding:netherite_hopper_from_crafting is loaded again, but the netherite "
+                        + "hopper is meant to be made with the sledgehammer only");
 
         helper.succeed();
     }

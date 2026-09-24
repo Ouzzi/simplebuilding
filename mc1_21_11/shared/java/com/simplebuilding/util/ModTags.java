@@ -38,6 +38,20 @@ public class ModTags {
         public static final TagKey<Item> TRIM_MATERIALS = createTag("trim_materials");
 
         /**
+         * Zutaten, fuer die der Netherit- und der Enderit-Schmelzofen mehr Ausbeute geben (jeder
+         * vierte bzw. zweite Vorgang +1): die Rohmetalle. Ein Rezept bekommt den Bonus nur, wenn
+         * jede Zutat, die es annimmt, hier drin steht; siehe
+         * {@code com.simplebuilding.blocks.entity.custom.FurnaceTierPerks}.
+         */
+        public static final TagKey<Item> BLAST_FURNACE_BONUS = createTag("blast_furnace_bonus");
+
+        /**
+         * Zutaten, die von keinem Ofen-Bonus profitieren - weder doppelte Erfahrung noch mehr
+         * Ausbeute -, weil sie sich verlustfrei im Kreis fuehren liessen: der rissige Diamant.
+         */
+        public static final TagKey<Item> FURNACE_BONUS_EXCLUDED = createTag("furnace_bonus_excluded");
+
+        /**
          * Items, die im Void nicht verloren gehen duerfen; ausgewertet von
          * {@code com.simplebuilding.mixin.EnderiteItemMixin}.
          *

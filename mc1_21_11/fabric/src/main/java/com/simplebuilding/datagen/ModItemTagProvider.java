@@ -176,6 +176,18 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(key(ModItems.ENDERITE_LEGGINGS))
                 .add(key(ModItems.ENDERITE_BOOTS));
 
+        // Ofen-Boni (FurnaceTierPerks): mehr Ausbeute im Netherit- und Enderit-Schmelzofen nur fuer
+        // Rohmetalle; der rissige Diamant bekommt keinen Bonus, weil er sich verlustfrei im Kreis
+        // fuehren laesst (Diamantblock -> 81 Splitter -> 9 rissige Diamanten -> 9 Diamanten).
+        // Roh-Enderit bleibt bewusst draussen: die Stunde im Schmelzofen soll eine Stunde bleiben.
+        builder(ModTags.Items.BLAST_FURNACE_BONUS)
+                .add(key(Items.RAW_IRON))
+                .add(key(Items.RAW_GOLD))
+                .add(key(Items.RAW_COPPER));
+
+        builder(ModTags.Items.FURNACE_BONUS_EXCLUDED)
+                .add(key(ModItems.CRACKED_DIAMOND));
+
         addVoidProtected();
     }
 

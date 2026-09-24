@@ -1,40 +1,44 @@
 {
   "blocks": [
-    "simplebuilding:lapis_quartz_checker",
-    "simplebuilding:polished_end_stone",
-    "simplebuilding:reinforced_hopper",
-    "simplebuilding:astralit_ore",
-    "simplebuilding:backpack",
-    "simplebuilding:netherite_piston_head",
-    "simplebuilding:reinforced_sticky_piston",
-    "simplebuilding:netherite_hopper",
-    "simplebuilding:levitating_gravel",
-    "simplebuilding:enderite_piston",
+    "simplebuilding:enderite_blast_furnace",
     "simplebuilding:levitating_sand",
-    "simplebuilding:enderite_block",
-    "simplebuilding:suspended_sand",
-    "simplebuilding:netherite_backpack",
-    "simplebuilding:reinforced_backpack",
-    "simplebuilding:netherite_furnace",
-    "simplebuilding:astral_purpur_block",
-    "simplebuilding:reinforced_furnace",
-    "simplebuilding:reinforced_blast_furnace",
     "simplebuilding:enderite_backpack",
+    "simplebuilding:lapis_quartz_checker",
     "simplebuilding:nihil_end_stone",
-    "simplebuilding:resin_quartz_checker",
-    "simplebuilding:nihilith_ore",
-    "simplebuilding:nihil_purpur_block",
-    "simplebuilding:netherite_blast_furnace",
-    "simplebuilding:astral_end_stone",
-    "simplebuilding:netherite_smoker",
-    "simplebuilding:reinforced_smoker",
-    "simplebuilding:reinforced_piston",
-    "simplebuilding:suspended_gravel",
+    "simplebuilding:reinforced_backpack",
+    "simplebuilding:reinforced_hopper",
+    "simplebuilding:enderite_piston",
+    "simplebuilding:construction_light",
+    "simplebuilding:astralit_ore",
     "simplebuilding:blackstone_quartz_checker",
-    "simplebuilding:netherite_piston",
     "simplebuilding:purpur_quartz_checker",
+    "simplebuilding:netherite_backpack",
+    "simplebuilding:netherite_blast_furnace",
+    "simplebuilding:nihilith_ore",
+    "simplebuilding:resin_quartz_checker",
     "simplebuilding:cracked_diamond_block",
-    "simplebuilding:construction_light"
+    "simplebuilding:enderite_block",
+    "simplebuilding:astral_end_stone",
+    "simplebuilding:netherite_hopper",
+    "simplebuilding:enderite_furnace",
+    "simplebuilding:netherite_piston",
+    "simplebuilding:enderite_smoker",
+    "simplebuilding:levitating_gravel",
+    "simplebuilding:reinforced_furnace",
+    "simplebuilding:reinforced_piston",
+    "simplebuilding:suspended_sand",
+    "simplebuilding:nihil_purpur_block",
+    "simplebuilding:netherite_furnace",
+    "simplebuilding:backpack",
+    "simplebuilding:netherite_smoker",
+    "simplebuilding:reinforced_sticky_piston",
+    "simplebuilding:enderite_hopper",
+    "simplebuilding:reinforced_smoker",
+    "simplebuilding:astral_purpur_block",
+    "simplebuilding:polished_end_stone",
+    "simplebuilding:suspended_gravel",
+    "simplebuilding:netherite_piston_head",
+    "simplebuilding:reinforced_blast_furnace"
   ],
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
   "items": [
@@ -167,6 +171,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:enderite_blast_furnace"
+    },
+    {
       "id": "simplebuilding:enderite_block"
     },
     {
@@ -209,6 +216,9 @@
       "maxStackSize": 16
     },
     {
+      "id": "simplebuilding:enderite_furnace"
+    },
+    {
       "durability": 462,
       "enchantability": 18,
       "id": "simplebuilding:enderite_helmet",
@@ -221,6 +231,9 @@
       "enchantability": 18,
       "id": "simplebuilding:enderite_hoe",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_hopper"
     },
     {
       "id": "simplebuilding:enderite_ingot"
@@ -268,6 +281,9 @@
       "enchantability": 18,
       "id": "simplebuilding:enderite_sledgehammer",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_smoker"
     },
     {
       "attackDamage": 6.0,

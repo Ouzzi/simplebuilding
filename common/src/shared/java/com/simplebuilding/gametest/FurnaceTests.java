@@ -36,15 +36,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * The six reinforced and netherite cooking devices: furnace, smoker and blast furnace.
+ * The nine reinforced, netherite and enderite cooking devices: furnace, smoker and blast furnace.
  *
- * <p>What the mod actually adds is one short block of code, copied verbatim into three files:
+ * <p>The speed-up is one short block of code, copied verbatim into three files:
  * {@code ModFurnaceBlockEntity#tick}, {@code ModSmokerBlockEntity#tick} and
  * {@code ModBlastFurnaceBlockEntity#tick}. After vanilla's {@code serverTick} has run, extra cooking
  * progress is written back into the container data - one tick per server tick for the reinforced
- * tier, three for the netherite one - but only
+ * tier, three for the netherite one, seven for the enderite one - but only
  * {@code if (isBurning && cookTime > 0 && totalTime > 0)}, and never past {@code totalTime - 1}.
- * Everything else about these blocks is registration data.
+ * The upper tiers' rewards (double experience, more output from raw metals in the netherite and
+ * enderite blast furnace, see {@code FurnaceTierPerks}) sit in {@code setRecipeUsed}; this file
+ * does not measure them yet. The netherite and enderite devices have no crafting recipe - they are
+ * hammered in the world ({@code SledgehammerUpgrades}). Everything else about these blocks is
+ * registration data.
  *
  * <p><b>Three copies, not one helper.</b> That is why
  * {@link #progressCoolsDownAtTheVanillaRateOnceTheFuelIsSpent} drives one device of every family
@@ -55,8 +59,9 @@ import net.minecraft.world.phys.Vec3;
  * gap either: its {@code loadFurnace} puts eight coal in every device, so {@code isBurning} is true
  * there from the first tick to the last and the guard is never asked.
  *
- * <p>{@code BlockBehaviourTests} already proves the coarse claim, that all six finish a real recipe
- * measurably earlier than their vanilla counterpart. This file looks at the parts of the same code
+ * <p>{@code BlockBehaviourTests} already proves the coarse claim, that the six reinforced and
+ * netherite devices finish a real recipe measurably earlier than their vanilla counterpart (the
+ * enderite tier has no timing test yet). This file looks at the parts of the same code
  * that a faster stopwatch cannot see: the guard, the cap, and what the blocks are made of. One
  * timing comparison is deliberately repeated -
  * {@link #oneCoalFeedsSeveralNetheriteSmeltsWhereVanillaManagesOne} - because it is run on a single
@@ -73,7 +78,7 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Built from the vanilla block, not from glass</h2>
  *
- * <p>Until 2026-09 {@code ModBlocks#registerBlock} handed the six factories
+ * <p>Until 2026-09 {@code ModBlocks#registerBlock} handed the six factories of the time
  * {@code BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)}: no tool requirement (a bare hand
  * dropped them), no light while burning, no occlusion, glass's map colour. Each is now copied
  * from its vanilla counterpart and only overrides strength and sound, and
@@ -83,23 +88,18 @@ import net.minecraft.world.phys.Vec3;
  *
  * <h2>Not covered, and why</h2>
  * <ul>
- *   <li><b>Creative tab membership.</b> {@code ModItemGroupsContent} lists the six with plain
+ *   <li><b>Creative tab membership.</b> {@code ModItemGroupsContent} lists the nine with plain
  *       {@code entries.accept(...)} calls; an assertion on them would restate the source line it
  *       guards rather than pin a behaviour. The same call was declined for the same reason in
- *       {@code BundleWiringTests} and {@code RotatorTests}. That the six are registered and each
+ *       {@code BundleWiringTests} and {@code RotatorTests}. That the nine are registered and each
  *       has its {@code BlockItem} is already covered by
  *       {@code DataIntegrityTests#everyModBlockIsRegisteredAndHasItsBlockItem}.</li>
- *   <li><b>The loot tables themselves</b> and <b>the six crafting patterns</b>.
+ *   <li><b>The loot tables themselves</b> and <b>the three crafting patterns</b>.
  *       {@code DataIntegrityTests} drives both to the ground already - it rolls every table and
  *       compares the items that fall out, and it matches every pattern through the live
  *       {@code RecipeManager} including the result count. {@link #allSixFurnacesDropThemselvesWhenBroken}
  *       and {@link #furnaceRecipesKeepTheirBookCategoryAndRejectNearMissGrids} are cut back to what
  *       is left over there, and each says so in its own javadoc.</li>
- *   <li><b>The absent {@code category} field</b> in the three netherite recipe files. An absent
- *       field and {@code "category": "misc"} both load as {@code CraftingBookCategory.MISC}, so no
- *       server side assertion can tell them apart.
- *       {@link #furnaceRecipesKeepTheirBookCategoryAndRejectNearMissGrids} pins the loaded category
- *       instead and says so.</li>
  *   <li><b>The screens themselves</b>, the lit texture, the fire and smoke particles and the
  *       crackling sound. All client side.</li>
  * </ul>
@@ -118,7 +118,7 @@ public final class FurnaceTests {
     /** Tick budget for {@link #boostNeverPushesCookingProgressToTheFullCookTime}. */
     public static final int COOK_CAP_MAX_TICKS = 200;
 
-    /** Tick budget for {@link #allSixFurnacesDropThemselvesWhenBroken}. */
+    /** Tick budget for {@link #allSixFurnacesDropThemselvesWhenBroken} (nine devices by now). */
     public static final int DROP_MAX_TICKS = 60;
 
     /** Tick budget for {@link #oneCoalFeedsSeveralNetheriteSmeltsWhereVanillaManagesOne}. */
@@ -141,7 +141,7 @@ public final class FurnaceTests {
     /** This mod's namespace, for the recipe lookups by id. */
     private static final String MOD_ID = "simplebuilding";
 
-    /** The six devices, tier by tier, with the item each of them drops. */
+    /** The nine devices, tier by tier, with the item each of them drops. */
     private record Device(String label, Block block, Item item, Block vanilla) {
     }
 
@@ -151,12 +151,16 @@ public final class FurnaceTests {
             new Device("reinforced smoker", ModBlocks.REINFORCED_SMOKER, ModItems.REINFORCED_SMOKER, Blocks.SMOKER),
             new Device("netherite smoker", ModBlocks.NETHERITE_SMOKER, ModItems.NETHERITE_SMOKER, Blocks.SMOKER),
             new Device("reinforced blast furnace", ModBlocks.REINFORCED_BLAST_FURNACE, ModItems.REINFORCED_BLAST_FURNACE, Blocks.BLAST_FURNACE),
-            new Device("netherite blast furnace", ModBlocks.NETHERITE_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE, Blocks.BLAST_FURNACE));
+            new Device("netherite blast furnace", ModBlocks.NETHERITE_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE, Blocks.BLAST_FURNACE),
+            new Device("enderite furnace", ModBlocks.ENDERITE_FURNACE, ModItems.ENDERITE_FURNACE, Blocks.FURNACE),
+            new Device("enderite smoker", ModBlocks.ENDERITE_SMOKER, ModItems.ENDERITE_SMOKER, Blocks.SMOKER),
+            new Device("enderite blast furnace", ModBlocks.ENDERITE_BLAST_FURNACE, ModItems.ENDERITE_BLAST_FURNACE, Blocks.BLAST_FURNACE));
 
-    /** Six spots, two blocks apart, that all fit inside the 8x8x8 test room. */
-    private static final List<BlockPos> SIX_SPOTS = List.of(
+    /** Nine spots, at least two blocks apart, that all fit inside the 8x8x8 test room. */
+    private static final List<BlockPos> NINE_SPOTS = List.of(
             new BlockPos(1, 1, 1), new BlockPos(3, 1, 1), new BlockPos(5, 1, 1),
-            new BlockPos(1, 1, 4), new BlockPos(3, 1, 4), new BlockPos(5, 1, 4));
+            new BlockPos(1, 1, 4), new BlockPos(3, 1, 4), new BlockPos(5, 1, 4),
+            new BlockPos(1, 1, 7), new BlockPos(3, 1, 7), new BlockPos(5, 1, 7));
 
     /**
      * One device family's cool down case: which of the three copied {@code tick} methods it runs
@@ -427,7 +431,7 @@ public final class FurnaceTests {
     // =====================================================================================
 
     /**
-     * Right clicking any of the six has to open the very menu its vanilla counterpart opens - a
+     * Right clicking any of the nine has to open the very menu its vanilla counterpart opens - a
      * furnace screen, a smoker screen or a blast furnace screen - because that menu type is what
      * decides which screen the client puts up and which recipe book tab it shows.
      *
@@ -438,8 +442,8 @@ public final class FurnaceTests {
      *
      * <p>The container title is checked in the same pass: every device has to carry a translatable
      * title from this mod's namespace, that key has to be the one named after the device itself
-     * ({@code container.simplebuilding.netherite_smoker} for a netherite smoker), and all six keys
-     * have to differ from one another - the two tiers of one family included, which is where the
+     * ({@code container.simplebuilding.netherite_smoker} for a netherite smoker), and all nine keys
+     * have to differ from one another - the three tiers of one family included, which is where the
      * netherite devices used to answer with their reinforced sibling's key.
      *
      * <p>The namespace prefix on its own said nothing about the rest of the key:
@@ -451,7 +455,7 @@ public final class FurnaceTests {
      * {@code FurnaceMenu}, say - the recipe book would then offer smelting recipes a smoker cannot
      * run), a {@code useWithoutItem} that stops opening anything, and a {@code getDefaultName} that
      * returns a literal, a vanilla key, a key from this namespace that no language file defines, or
-     * the same key for two of the six devices.
+     * the same key for two of the nine devices.
      */
     public static void everyTierOpensTheMenuOfItsVanillaCounterpart(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
@@ -459,12 +463,13 @@ public final class FurnaceTests {
         List<MenuType<?>> expectedMenus = List.<MenuType<?>>of(
                 MenuType.FURNACE, MenuType.FURNACE,
                 MenuType.SMOKER, MenuType.SMOKER,
-                MenuType.BLAST_FURNACE, MenuType.BLAST_FURNACE);
+                MenuType.BLAST_FURNACE, MenuType.BLAST_FURNACE,
+                MenuType.FURNACE, MenuType.SMOKER, MenuType.BLAST_FURNACE);
         List<String> titleKeys = new ArrayList<>();
 
         for (int index = 0; index < ALL_DEVICES.size(); index++) {
             Device device = ALL_DEVICES.get(index);
-            BlockPos pos = SIX_SPOTS.get(index);
+            BlockPos pos = NINE_SPOTS.get(index);
             helper.setBlock(pos, device.block());
 
             player.containerMenu = player.inventoryMenu;
@@ -483,7 +488,7 @@ public final class FurnaceTests {
 
         player.containerMenu = player.inventoryMenu;
 
-        // Tiers as well as families: no two of the six may answer with the same key, so a netherite
+        // Tiers as well as families: no two of the nine may answer with the same key, so a netherite
         // device falling back on its reinforced sibling's title is caught here too.
         for (int first = 0; first < titleKeys.size(); first++) {
             for (int second = first + 1; second < titleKeys.size(); second++) {
@@ -508,7 +513,7 @@ public final class FurnaceTests {
      * tier's 3.5 is stated as "the same as vanilla's furnace" rather than as a copied number, so a
      * change on either side shows up. The netherite tier's blast resistance of 1200 is compared
      * against vanilla's furnace as well - the whole point of that number is that it is out of
-     * proportion.
+     * proportion. The enderite tier is built to 6.0 / 1500, like the enderite piston.
      *
      * <p>The tag half is a real datapack lookup, so it also proves the generated
      * {@code mineable/pickaxe} JSON is inside the jar and loaded; a vanilla furnace is the positive
@@ -518,14 +523,14 @@ public final class FurnaceTests {
      * <p>The properties the vanilla copy brings are asserted against the vanilla block itself:
      * {@code requiresCorrectToolForDrops()} (so a bare hand no longer drops them, exactly like a
      * vanilla furnace), light level 13 in the {@code LIT} state and 0 without it, and
-     * {@code canOcclude()}. None of the six is in a {@code needs_*_tool} tag - neither is the
+     * {@code canOcclude()}. None of the nine is in a {@code needs_*_tool} tag - neither is the
      * vanilla furnace - and the rule that ties the two together is checked as well: a block listed
      * in {@code needs_stone_tool}, {@code needs_iron_tool} or {@code needs_diamond_tool} while
      * {@code requiresCorrectToolForDrops()} is false has a tag that gates nothing at all.
      * {@code ModBlocks#CRACKED_DIAMOND_BLOCK} is the mod block that satisfies the rule today and is
      * checked alongside, so the rule is known to be more than an empty implication.
      *
-     * <p>What breaks this test: editing either {@code strength(...)} call, dropping a block from
+     * <p>What breaks this test: editing any of the three {@code strength(...)} calls, dropping a block from
      * {@code ModBlockTagProvider} or failing to regenerate the data, building a device from any
      * other base than its vanilla counterpart (glass, as it used to be, fails all three property
      * checks), and adding any block covered here to a {@code needs_*_tool} tag without also giving
@@ -541,10 +546,15 @@ public final class FurnaceTests {
         for (Device device : ALL_DEVICES) {
             BlockState state = device.block().defaultBlockState();
             boolean netherite = device.label().startsWith("netherite");
+            boolean enderite = device.label().startsWith("enderite");
             float hardness = state.getDestroySpeed(level, probe);
             float resistance = device.block().getExplosionResistance();
 
-            if (netherite) {
+            if (enderite) {
+                helper.assertValueEqual(hardness, 6.0F, "the " + device.label() + "'s hardness");
+                helper.assertValueEqual(resistance, 1500.0F,
+                        "the " + device.label() + "'s blast resistance");
+            } else if (netherite) {
                 helper.assertValueEqual(hardness, 5.0F, "the " + device.label() + "'s hardness");
                 helper.assertValueEqual(resistance, 1200.0F,
                         "the " + device.label() + "'s blast resistance");
@@ -591,7 +601,7 @@ public final class FurnaceTests {
         assertVanillaTagMember(helper, Blocks.DIAMOND_ORE, BlockTags.NEEDS_IRON_TOOL);
         assertVanillaTagMember(helper, Blocks.ANCIENT_DEBRIS, BlockTags.NEEDS_DIAMOND_TOOL);
 
-        // None of the six is in a needs_*_tool tag today, so the rule is quiet on them. This is the
+        // None of the nine is in a needs_*_tool tag today, so the rule is quiet on them. This is the
         // mod block that IS in one: running the same rule over it keeps the check from being an
         // implication that no block in this mod has ever had to satisfy.
         BlockState crackedDiamond = ModBlocks.CRACKED_DIAMOND_BLOCK.defaultBlockState();
@@ -604,15 +614,17 @@ public final class FurnaceTests {
     }
 
     /**
-     * Only the three netherite block items are registered {@code fireResistant()}.
+     * Only the three netherite and the three enderite block items are registered
+     * {@code fireResistant()} (the name predates the enderite tier).
      *
      * <p>The component is compared against a netherite ingot's rather than asserted by shape, and
-     * then driven: a dropped netherite device has to survive lava but not drowning, so the claim is
-     * about behaviour and not only about a stored tag name. The three reinforced items are required
-     * to carry no such component at all, which is what gives the netherite half something to say.
+     * then driven: a dropped netherite or enderite device has to survive lava but not drowning, so
+     * the claim is about behaviour and not only about a stored tag name. The three reinforced items
+     * are required to carry no such component at all, which is what gives the other half something
+     * to say.
      *
-     * <p>What breaks this test: dropping {@code fireResistant()} from one of the three netherite
-     * items in {@code ModItems}, or adding it to a reinforced one.
+     * <p>What breaks this test: dropping {@code fireResistant()} from one of the six netherite or
+     * enderite items in {@code ModItems}, or adding it to a reinforced one.
      */
     public static void onlyNetheriteFurnaceItemsSurviveLava(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -624,7 +636,7 @@ public final class FurnaceTests {
 
         for (Device device : ALL_DEVICES) {
             DamageResistant resistant = new ItemStack(device.item()).get(DataComponents.DAMAGE_RESISTANT);
-            if (device.label().startsWith("netherite")) {
+            if (device.label().startsWith("netherite") || device.label().startsWith("enderite")) {
                 helper.assertTrue(resistant != null,
                         "the " + device.label() + " item carries no DAMAGE_RESISTANT component at "
                                 + "all, so fireResistant() is gone from its registration and a "
@@ -642,8 +654,8 @@ public final class FurnaceTests {
             } else {
                 helper.assertTrue(resistant == null,
                         "the " + device.label() + " item is fire resistant too, which makes the "
-                                + "netherite assertions meaningless - it is the netherite tier that "
-                                + "is supposed to survive lava");
+                                + "netherite and enderite assertions meaningless - it is those tiers "
+                                + "that are supposed to survive lava");
             }
         }
 
@@ -655,12 +667,12 @@ public final class FurnaceTests {
     // =====================================================================================
 
     /**
-     * The one thing about the six loot tables that rolling them cannot show: breaking the block in a
-     * live world really does put an item entity on the ground.
+     * The one thing about the nine loot tables that rolling them cannot show: breaking the block in a
+     * live world really does put an item entity on the ground (the name predates the enderite tier).
      *
      * <p>The tables themselves are not claimed here.
      * {@code DataIntegrityTests#everyModBlockLootTableLoads} covers them harder than its name
-     * suggests: it walks every {@code ModBlocks} field by reflection - the six are in, the only
+     * suggests: it walks every {@code ModBlocks} field by reflection - the nine are in, the only
      * exemption is {@code netherite_piston_head} - rolls each table several times with an empty tool
      * through its {@code rollBlockLoot}, and requires the set of items that comes out to be exactly
      * the block's own {@code BlockItem}. A table that rolls nothing and a table regenerated with the
@@ -675,17 +687,17 @@ public final class FurnaceTests {
      * table still rolls correctly. {@code GameTestHelper#destroyBlock} deliberately drops nothing,
      * hence the level call.
      *
-     * <p>What breaks this test: one of the six losing its loot table entirely, or gaining a
+     * <p>What breaks this test: one of the nine losing its loot table entirely, or gaining a
      * condition that a break with no player and no tool does not satisfy.
      */
     public static void allSixFurnacesDropThemselvesWhenBroken(GameTestHelper helper) {
         for (int index = 0; index < ALL_DEVICES.size(); index++) {
-            BlockPos pos = SIX_SPOTS.get(index);
+            BlockPos pos = NINE_SPOTS.get(index);
             helper.setBlock(pos, ALL_DEVICES.get(index).block());
             helper.assertBlockPresent(ALL_DEVICES.get(index).block(), pos);
         }
 
-        for (BlockPos pos : SIX_SPOTS) {
+        for (BlockPos pos : NINE_SPOTS) {
             boolean destroyed = helper.getLevel().destroyBlock(helper.absolutePos(pos), true);
             helper.assertTrue(destroyed, "could not break the device at " + pos);
         }
@@ -693,9 +705,9 @@ public final class FurnaceTests {
         helper.runAfterDelay(3, () -> {
             for (int index = 0; index < ALL_DEVICES.size(); index++) {
                 Device device = ALL_DEVICES.get(index);
-                BlockPos pos = SIX_SPOTS.get(index);
+                BlockPos pos = NINE_SPOTS.get(index);
                 helper.assertBlockNotPresent(device.block(), pos);
-                // The six spots are two blocks apart, so the search radius stays at one block:
+                // The nine spots are at least two blocks apart, so the search radius stays at one block:
                 // anything wider would reach into the neighbouring spot's drop.
                 helper.assertItemEntityPresent(device.item(), pos, 1.0D);
             }
@@ -704,40 +716,36 @@ public final class FurnaceTests {
     }
 
     /**
-     * What the six generated recipe files say beyond their pattern.
+     * What the three reinforced recipe files say beyond their pattern, and that the netherite tier
+     * has none any more.
      *
      * <p>The patterns are not claimed here.
-     * {@code DataIntegrityTests#modRecipesOnlyReferenceRegisteredItems} already pins all six through
-     * the live {@code RecipeManager}: the pattern, the ingredient key, the recipe id, the result
-     * item and the count of three - its {@code assertShapedRecipe} compares
-     * {@code crafted.getCount()} against the expected count - plus a near miss on the netherite 2x2
-     * with one reinforced device missing. Repeating any of that here would be a second copy of the
-     * same assertion, not a second claim.
+     * {@code DataIntegrityTests#modRecipesOnlyReferenceRegisteredItems} already pins all three
+     * through the live {@code RecipeManager}: the pattern, the ingredient key, the recipe id, the
+     * result item and the count of three - plus that no crafting recipe at all produces a netherite
+     * or enderite machine. Repeating any of that here would be a second copy of the same assertion,
+     * not a second claim.
      *
-     * <p>Three things are left over, and they live nowhere else in the suite:
+     * <p>Three things are left over:
      * <ul>
-     *   <li><b>The recipe book category</b> - {@code redstone} for the three reinforced files,
-     *       {@code misc} for the three netherite ones. Read straight off the loaded recipe by id
-     *       rather than through a grid, so it does not restate a pattern to get at it. Note that
-     *       {@code misc} is also what an absent {@code category} field loads as, so this pins the
-     *       loaded value and not the shape of the json.</li>
-     *   <li><b>A reinforced grid one cracked diamond short</b>, which must craft nothing. The near
-     *       miss over in {@code DataIntegrityTests} is on the netherite 2x2, so the 3x3 pattern has
-     *       none of its own.</li>
-     *   <li><b>The netherite 2x2 with the nugget moved from the top left to the bottom left.</b>
-     *       That is a vertical flip, which vanilla does not accept, unlike the horizontal mirror it
-     *       matches for every shaped recipe - so this is what says the nugget is pinned to one
-     *       corner and not merely to "somewhere on the left".</li>
+     *   <li><b>The recipe book category</b> - {@code redstone} for the three reinforced files. Read
+     *       straight off the loaded recipe by id rather than through a grid, so it does not restate
+     *       a pattern to get at it.</li>
+     *   <li><b>A reinforced grid one cracked diamond short</b>, which must craft nothing.</li>
+     *   <li><b>The old netherite 2x2</b> - one nugget top left, three reinforced furnaces - must
+     *       craft nothing: since 2026-09 the netherite and enderite devices are hammered in the
+     *       world ({@code SledgehammerUpgrades}), and the three {@code netherite_*_bulk} recipes are
+     *       gone.</li>
      * </ul>
      *
      * <p>A vanilla grid that has to match carries the two negative controls: without it they would
      * also pass against a recipe manager that answered "nothing" to every lookup. It is deliberately
-     * a vanilla recipe, so it restates none of the six.
+     * a vanilla recipe, so it restates none of the mod's.
      *
-     * <p>What breaks this test: editing {@code "category"} in one of the six generated files, or
+     * <p>What breaks this test: editing {@code "category"} in one of the three generated files, or
      * regenerating them from a provider that passes a different {@code RecipeCategory}; a deleted
-     * recipe file; and any change that widens one of the two patterns into accepting a grid it
-     * should not.
+     * recipe file; a change that widens the reinforced pattern into accepting a grid it should not;
+     * and a crafting recipe for the netherite furnace coming back.
      */
     public static void furnaceRecipesKeepTheirBookCategoryAndRejectNearMissGrids(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -745,13 +753,10 @@ public final class FurnaceTests {
         assertRecipeCategory(helper, level, "reinforced_furnace", CraftingBookCategory.REDSTONE);
         assertRecipeCategory(helper, level, "reinforced_smoker", CraftingBookCategory.REDSTONE);
         assertRecipeCategory(helper, level, "reinforced_blast_furnace", CraftingBookCategory.REDSTONE);
-        assertRecipeCategory(helper, level, "netherite_furnace_bulk", CraftingBookCategory.MISC);
-        assertRecipeCategory(helper, level, "netherite_smoker_bulk", CraftingBookCategory.MISC);
-        assertRecipeCategory(helper, level, "netherite_blast_furnace_bulk", CraftingBookCategory.MISC);
 
         // The grid lookup has to be able to answer "yes", or the two "crafts nothing" controls
         // below would pass against a recipe manager that had stopped matching altogether. A plain
-        // vanilla furnace ring, so nothing about the mod's six is restated.
+        // vanilla furnace ring, so nothing about the mod's recipes is restated.
         ItemStack cobble = new ItemStack(Items.COBBLESTONE);
         assertCrafts(helper, level, CraftingInput.of(3, 3, List.of(
                         cobble.copy(), cobble.copy(), cobble.copy(),
@@ -767,12 +772,12 @@ public final class FurnaceTests {
                         new ItemStack(diamond), new ItemStack(diamond), ItemStack.EMPTY)),
                 "a reinforced furnace grid with only five cracked diamonds");
 
-        // The nugget moved from the top left to the bottom left - a vertical flip, which vanilla
-        // does not accept, unlike the horizontal mirror it always matches.
+        // The old netherite furnace 2x2: one nugget top left, three reinforced furnaces. The
+        // netherite tier is hammered in the world now, so the grid has to craft nothing.
         assertCraftsNothing(helper, level, CraftingInput.of(2, 2, List.of(
-                        new ItemStack(ModItems.REINFORCED_FURNACE), new ItemStack(ModItems.REINFORCED_FURNACE),
-                        new ItemStack(ModItems.NETHERITE_NUGGET), new ItemStack(ModItems.REINFORCED_FURNACE))),
-                "the netherite furnace pattern with the nugget in the bottom left corner");
+                        new ItemStack(ModItems.NETHERITE_NUGGET), new ItemStack(ModItems.REINFORCED_FURNACE),
+                        new ItemStack(ModItems.REINFORCED_FURNACE), new ItemStack(ModItems.REINFORCED_FURNACE))),
+                "the old netherite furnace grid (one nugget, three reinforced furnaces)");
 
         helper.succeed();
     }
@@ -979,7 +984,7 @@ public final class FurnaceTests {
      * has already decided that a tool matters at all. A block in {@code needs_iron_tool} without it
      * still drops to a bare hand, and the tag then advertises a mining tier that does not exist.
      *
-     * <p>Says nothing when the block is in none of the three tags - which is where the six devices
+     * <p>Says nothing when the block is in none of the three tags - which is where the nine devices
      * stand, like their vanilla counterparts.
      */
     private static void assertToolTagMatchesToolRequirement(GameTestHelper helper, String label, BlockState state) {

@@ -2,7 +2,10 @@ package com.simplebuilding.blocks.custom;
 
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.blocks.entity.custom.ModFurnaceBlockEntity;
+import com.simplebuilding.util.SledgehammerUpgrades;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -25,6 +28,30 @@ public class ModFurnaceBlock extends FurnaceBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new ModFurnaceBlockEntity(pos, state);
+    }
+
+    /**
+     * Vorschlaghammer in der Haupthand und Nugget in der Nebenhand: kann die Aufwertung beginnen
+     * (oder kuehlt der Hammer nach einer fertigen noch ab), geht der Rechtsklick am Menue vorbei an
+     * den Hammer weiter. Sonst oeffnet das Menue wie immer. Siehe {@link SledgehammerUpgrades}.
+     */
+    @Override
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (SledgehammerUpgrades.shouldSkipBlockUse(state, world, pos, player, hand)) {
+            return InteractionResult.PASS;
+        }
+        return super.useItemOn(stack, state, world, pos, player, hand, hit);
+    }
+
+    /**
+     * Stufenwechsel innerhalb der Familie - die Aufwertung mit dem Vorschlaghammer, aber auch ein
+     * {@code /setblock} - behaelt die Block-Entity mit Inhalt und Fortschritt bei: alle Stufen
+     * teilen sich denselben Block-Entity-Typ. Ohne das entfernt {@code LevelChunk#setBlockState}
+     * sie bei jedem Blockwechsel und wirft den Inhalt aus.
+     */
+    @Override
+    protected boolean shouldChangedStateKeepBlockEntity(BlockState oldState) {
+        return oldState.getBlock() instanceof ModFurnaceBlock;
     }
 
     @Override

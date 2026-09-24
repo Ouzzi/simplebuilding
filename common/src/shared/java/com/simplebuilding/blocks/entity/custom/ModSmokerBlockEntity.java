@@ -9,9 +9,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SmokerMenu;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
 public class ModSmokerBlockEntity extends AbstractFurnaceBlockEntity {
 
@@ -21,8 +23,11 @@ public class ModSmokerBlockEntity extends AbstractFurnaceBlockEntity {
 
     @Override
     protected Component getDefaultName() {
-        // Beide Stufen teilen sich diese Block-Entity; der Titel unterscheidet sie am Blockzustand,
-        // genau wie tick() es fuer den Boost tut. Beide Schluessel stehen in en_us und de_de.
+        // Alle drei Stufen teilen sich diese Block-Entity; der Titel unterscheidet sie am Blockzustand,
+        // genau wie tick() es fuer den Boost tut. Alle drei Schluessel stehen in en_us und de_de.
+        if (this.getBlockState().is(ModBlocks.ENDERITE_SMOKER)) {
+            return Component.translatable("container.simplebuilding.enderite_smoker");
+        }
         return Component.translatable(this.getBlockState().is(ModBlocks.NETHERITE_SMOKER)
                 ? "container.simplebuilding.netherite_smoker"
                 : "container.simplebuilding.reinforced_smoker");
@@ -31,6 +36,18 @@ public class ModSmokerBlockEntity extends AbstractFurnaceBlockEntity {
     @Override
     protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
         return new SmokerMenu(syncId, playerInventory, this, this.dataAccess);
+    }
+
+    /**
+     * Ein fertig geschmolzener Gegenstand. Netherit- und Enderit-Stufe zaehlen das Rezept doppelt
+     * und verdoppeln damit die Erfahrung, siehe {@link FurnaceTierPerks}.
+     */
+    @Override
+    public void setRecipeUsed(@Nullable RecipeHolder<?> recipe) {
+        super.setRecipeUsed(recipe);
+        if (FurnaceTierPerks.doublesExperience(this.getBlockState(), recipe)) {
+            super.setRecipeUsed(recipe);
+        }
     }
 
     public static void tick(ServerLevel world, BlockPos pos, BlockState state, ModSmokerBlockEntity blockEntity) {
@@ -48,6 +65,9 @@ public class ModSmokerBlockEntity extends AbstractFurnaceBlockEntity {
                 extraTicks = 3;
             } else if (state.is(ModBlocks.REINFORCED_SMOKER)) {
                 extraTicks = 1;
+            } else if (state.is(ModBlocks.ENDERITE_SMOKER)) {
+                // Enderit-Stufe: 1 + 7 = achtfache Geschwindigkeit, ebenfalls ohne Brennstoffkosten.
+                extraTicks = 7;
             }
 
             if (extraTicks > 0) {

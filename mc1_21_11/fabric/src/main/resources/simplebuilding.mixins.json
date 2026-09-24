@@ -3,6 +3,8 @@
   "package": "com.simplebuilding.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AbstractFurnaceBlockEntityMixin",
+    "AbstractFurnaceMenuMixin",
     "AnvilScreenHandlerMixin",
     "BlockAttachedEntityTickMixin",
     "BlockItemMixin",

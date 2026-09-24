@@ -73,12 +73,16 @@ public final class ModItemGroupsContent {
                         entries.accept(ModItems.NETHERITE_PISTON);
                         entries.accept(ModItems.ENDERITE_PISTON);
                         entries.accept(ModItems.NETHERITE_HOPPER);
+                        entries.accept(ModItems.ENDERITE_HOPPER);
                         entries.accept(ModItems.REINFORCED_FURNACE);
                         entries.accept(ModItems.NETHERITE_FURNACE);
+                        entries.accept(ModItems.ENDERITE_FURNACE);
                         entries.accept(ModItems.REINFORCED_SMOKER);
                         entries.accept(ModItems.NETHERITE_SMOKER);
+                        entries.accept(ModItems.ENDERITE_SMOKER);
                         entries.accept(ModItems.REINFORCED_BLAST_FURNACE);
                         entries.accept(ModItems.NETHERITE_BLAST_FURNACE);
+                        entries.accept(ModItems.ENDERITE_BLAST_FURNACE);
 
                         // --- Tools ---
                         entries.accept(ModItems.STONE_CHISEL);

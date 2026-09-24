@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 124,
+      "count": 128,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -79,7 +79,7 @@ window.WIKI_DATA = {
         "details": [
           "SimpleBuilding adds building tools to Minecraft: the Sledgehammer (mines a 3x3 face in one go and reshapes blocks into stairs and slabs), the Chisel (converts blocks in place into related variants), the Building Wand (places whole faces with one click), the Octant (measures distances, areas and volumes and previews shapes), the Rotator (turns orientable blocks), the Magnet (pulls in dropped items) and the Ore Detector (locates the nearest ore by sound and a particle trail).",
           "For storage there are the Reinforced Bundle, the Netherite Bundle and the Enderite Bundle (96, 192 and 288 items at a stack size of 64), plus four Quiver tiers (64, 96, 128 and 192 arrows) that only take arrows and feed the bow automatically.",
-          "The blocks are faster hoppers (Reinforced, Netherite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite), two stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
+          "The blocks are faster hoppers (Reinforced, Netherite, Enderite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite, Enderite), two stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
           "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the mining preview of the Sledgehammer, Strip Miner and Vein Miner, the Building Wand preview, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
@@ -103,7 +103,7 @@ window.WIKI_DATA = {
         "details": [
           "SimpleBuilding erweitert Minecraft um Bauwerkzeuge: Vorschlaghammer (baut ein 3x3-Feld auf einmal ab und formt Blöcke zu Treppen und Stufen), Meißel (formt Blöcke an Ort und Stelle in verwandte Varianten um), Baustab (setzt ganze Flächen mit einem Klick), Oktant (misst Abstände, Flächen und Volumen und zeichnet Formen vor), Rotator (dreht ausrichtbare Blöcke), Magnet (zieht herumliegende Items an) und Erzdetektor (ortet das nächste Erz per Ton und Partikelspur).",
           "Für das Lager gibt es das Verstärkte Bündel, das Netherit-Bündel und das Enderite Bundle (96, 192 und 288 Gegenstände bei 64er-Stapeln) sowie vier Köcher-Stufen (64, 96, 128 und 192 Pfeile), die nur Pfeile aufnehmen und den Bogen automatisch versorgen.",
-          "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit), zwei stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
+          "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit, Enderit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit, Enderit), zwei stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
           "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Abbau-Vorschau von Vorschlaghammer, Tunnelgräber und Aderabbau, die Baustab-Vorschau, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
@@ -247,11 +247,8 @@ window.WIKI_DATA = {
         "src/main/generated/data/simplebuilding/recipe/reinforced_furnace.json",
         "src/main/generated/data/simplebuilding/recipe/reinforced_blast_furnace.json",
         "src/main/generated/data/simplebuilding/recipe/reinforced_smoker.json",
-        "src/main/generated/data/simplebuilding/recipe/netherite_furnace_bulk.json",
         "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
-        "src/main/generated/data/simplebuilding/recipe/netherite_hopper_from_crafting.json",
         "src/main/generated/data/simplebuilding/recipe/reinforced_piston.json",
-        "src/main/generated/data/simplebuilding/recipe/netherite_piston_bulk.json",
         "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json",
         "src/main/generated/data/simplebuilding/tags/item/chisel_tools.json",
         "src/main/generated/data/simplebuilding/tags/item/building_wand_enchantable.json",
@@ -279,7 +276,8 @@ window.WIKI_DATA = {
         "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_wand_book.json",
         "mc1_21_11/shared/java/com/simplebuilding/trade/ModTradeDefinitions.java",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
       ],
       "en": {
         "title": "Getting Started",
@@ -295,7 +293,7 @@ window.WIKI_DATA = {
           "Material tiers for the Sledgehammer and Chisel: stone, copper, iron, gold, diamond, netherite, enderite; for the Building Wand the series starts at copper (3x3) and grows through iron (5x5), gold (7x7), diamond (9x9) and netherite (11x11) up to enderite (13x13). Higher hammer tiers are crafted with the matching block plus two ingots or diamonds, chisels with the ingot or diamond in the middle, building wands with the core of that tier.",
           "Upgrade instead of rebuild: with the Basic Upgrade Template at the smithing table, copper becomes iron, iron becomes gold and gold becomes diamond; a chisel needs 2 ingots or diamonds for that, a sledgehammer 12. Enchantments, damage and the name are kept. The Stone Sledgehammer cannot be upgraded, and the Diamond Core for the Diamond Building Wand is sold by the Mason (level 2) for 6 netherite ingots.",
           "Netherite and enderite only exist at the smithing table: Netherite Upgrade Smithing Template + diamond tool + netherite ingot, then Enderite Upgrade Template + netherite tool + Enderite Ingot. Enderite items are not lost in the void; the Enderite Bundle and the Enderite Quiver take the mod's enchantments at an anvil like the tiers below them, while the Enderite building wand, chisel and sledgehammer are still missing from the enchantment tags and cannot be given them by normal means.",
-          "The road to the machines runs through the Sledgehammer: holding right-click on a diamond block breaks it into 81 Diamond Pebbles, and 9 pebbles make one Cracked Diamond in the crafting grid (a single pebble also goes into the Reinforced Bundle and the Reinforced Quiver). With those you build Reinforced Furnaces, Blast Furnaces and Smokers (3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds yield 3), Reinforced Hoppers (5 hoppers, a name tag, 3 Cracked Diamonds yield 5) and Reinforced Pistons (3 Cracked Diamonds, 2 pistons, 4 iron ingots yield 2). The netherite tiers each need one Netherite Nugget. Leftover Cracked Diamonds go back to diamonds in the blast furnace.",
+          "The road to the machines runs through the Sledgehammer: holding right-click on a diamond block breaks it into 81 Diamond Pebbles, and 9 pebbles make one Cracked Diamond in the crafting grid (a single pebble also goes into the Reinforced Bundle and the Reinforced Quiver). With those you build Reinforced Furnaces, Blast Furnaces and Smokers (3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds yield 3), Reinforced Hoppers (5 hoppers, a name tag, 3 Cracked Diamonds yield 5) and Reinforced Pistons (3 Cracked Diamonds, 2 pistons, 4 iron ingots yield 2). The netherite tiers are not crafted: hold right-click for five seconds on a placed Reinforced machine with a Diamond Sledgehammer (or better) in your main hand and a Netherite Nugget in your off hand, and it is hammered into the Netherite machine; a Netherite Sledgehammer (or better) with an Enderite Nugget does the same from Netherite to Enderite. Leftover Cracked Diamonds go back to diamonds in the blast furnace.",
           "Enchantments: only Fast Chiseling appears at the enchanting table. Every other mod enchantment is found as a book and applied at the anvil; the creative tab has every book ready at maximum level.",
           "At the traders: the Toolsmith sells copper, iron and gold chisels with Fast Chiseling from level 3 for 6 emeralds, from level 4 iron and diamond sledgehammers with one enchantment out of Break Through, Override, Range, Unbreaking or Efficiency (16 emeralds + an iron pickaxe, or 28 emeralds + a diamond pickaxe), and from level 5 a diamond pickaxe with Strip Miner or Vein Miner for 15 emeralds. The Librarian offers books with Color Palette, Fast Chiseling or Linear from level 3, Linear or Override from level 4, and Master Builder, Range, Funnel, Strip Miner or Vein Miner from level 5, each for 25 emeralds. The Wandering Trader has a book with Radius for 60 emeralds.",
           "In chests: Constructor's Touch, the mod's key enchantment (it unlocks the Building Wand menu, extra chisel conversions, reverse reshaping on the Sledgehammer, the magnet filter and the Octant preview), exists only as a book in Buried Treasure, in igloo chests and in the vaults of the trial chambers; no trader offers it. Break Through, Funnel, Vein Miner and Fast Chiseling lie in dungeons, Color Palette, Cover and Linear in pillager outposts and woodland mansions, Master Builder, Versatility and Range in stronghold libraries and end cities, Override II and Air Jump II in end cities, Radius and Deep Pockets in ancient cities, Strip Miner in nether fortresses and abandoned mineshafts.",
@@ -318,7 +316,7 @@ window.WIKI_DATA = {
           "Materialstufen bei Vorschlaghammer und Meißel: Stein, Kupfer, Eisen, Gold, Diamant, Netherit, Enderit; beim Baustab beginnt die Reihe bei Kupfer (3x3) und wächst über Eisen (5x5), Gold (7x7), Diamant (9x9) und Netherit (11x11) bis Enderit (13x13). Höhere Hammerstufen werden mit dem jeweiligen Block plus zwei Barren bzw. Diamanten gebaut, Meißel mit dem Barren bzw. Diamanten in der Mitte, Baustäbe mit dem Kern der Stufe.",
           "Aufwerten statt neu bauen: Mit der Basis-Upgrade-Vorlage am Schmiedetisch wird Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant; ein Meißel braucht dafür 2 Barren bzw. Diamanten, ein Vorschlaghammer 12. Verzauberungen, Schaden und Name bleiben dabei erhalten. Der Stein-Vorschlaghammer lässt sich nicht aufwerten, und den Diamantkern für den Diamant-Baustab verkauft der Steinmetz (Stufe 2) für 6 Netheritbarren.",
           "Netherit und Enderit gibt es nur am Schmiedetisch: Netherit-Aufwertungs-Schmiedevorlage + Diamant-Werkzeug + Netheritbarren, danach Enderite Upgrade Template + Netherit-Werkzeug + Enderite Ingot. Enderit-Gegenstände gehen in der Leere nicht verloren; Enderite Bundle und Enderite Quiver nehmen die Mod-Verzauberungen am Amboss an wie die Stufen darunter, während Enderit-Baustab, -Meißel und -Vorschlaghammer weiterhin in den Verzauberungs-Tags fehlen und sich auf normalem Weg nicht verzaubern lassen.",
-          "Der Weg zu den Maschinen führt über den Vorschlaghammer: Rechtsklick halten auf einen Diamantblock zerlegt ihn in 81 Diamantkiesel, und je 9 Kiesel ergeben in der Werkbank einen Rissigen Diamanten (ein einzelner Kiesel steckt außerdem im Verstärkten Bündel und im Verstärkten Köcher). Damit baust du Verstärkte Öfen, Schmelzöfen und Räucheröfen (3 Rissige Diamanten, 3 Geräte, 3 Rissige Diamanten ergeben 3 Stück), Verstärkte Trichter (5 Trichter, Namensschild, 3 Rissige Diamanten ergeben 5 Stück) und Verstärkte Kolben (3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren ergeben 2 Stück). Die Netherit-Stufen brauchen jeweils ein Netherite Nugget. Übrige Rissige Diamanten werden im Hochofen wieder zu Diamanten.",
+          "Der Weg zu den Maschinen führt über den Vorschlaghammer: Rechtsklick halten auf einen Diamantblock zerlegt ihn in 81 Diamantkiesel, und je 9 Kiesel ergeben in der Werkbank einen Rissigen Diamanten (ein einzelner Kiesel steckt außerdem im Verstärkten Bündel und im Verstärkten Köcher). Damit baust du Verstärkte Öfen, Schmelzöfen und Räucheröfen (3 Rissige Diamanten, 3 Geräte, 3 Rissige Diamanten ergeben 3 Stück), Verstärkte Trichter (5 Trichter, Namensschild, 3 Rissige Diamanten ergeben 5 Stück) und Verstärkte Kolben (3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren ergeben 2 Stück). Die Netherit-Stufen werden nicht gecraftet: Halte mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netherit-Nugget in der Nebenhand fünf Sekunden lang Rechtsklick auf die gesetzte Verstärkt-Maschine, dann wird sie zur Netherit-Maschine geschmiedet; ein Netherit-Vorschlaghammer (oder besser) mit einem Enderiten-Nugget macht dasselbe von Netherit zu Enderit. Übrige Rissige Diamanten werden im Hochofen wieder zu Diamanten.",
           "Verzauberungen: Nur Schnelles Meißeln erscheint am Zaubertisch. Alle anderen Mod-Verzauberungen findest du als Bücher und bringst sie am Amboss an; im Kreativ-Reiter liegen alle Bücher auf Höchststufe bereit.",
           "Beim Händler: Der Werkzeugschmied verkauft ab Stufe 3 Kupfer-, Eisen- und Goldmeißel mit Schnelles Meißeln für 6 Smaragde, ab Stufe 4 Eisen- und Diamant-Vorschlaghämmer mit einer Verzauberung aus Durchbruch, Übersteuerung, Reichweite, Haltbarkeit oder Effizienz (16 Smaragde + Eisenspitzhacke bzw. 28 Smaragde + Diamantspitzhacke) und ab Stufe 5 eine Diamantspitzhacke mit Tunnelgräber oder Aderabbau für 15 Smaragde. Der Bibliothekar bietet ab Stufe 3 Bücher mit Farbpalette, Schnelles Meißeln oder Linear, ab Stufe 4 Linear oder Übersteuerung und ab Stufe 5 Baumeister, Reichweite, Trichter, Tunnelgräber oder Aderabbau, jeweils für 25 Smaragde. Der fahrende Händler hat für 60 Smaragde ein Buch mit Radius.",
           "In Truhen: Berührung des Konstrukteurs, die Schlüssel-Verzauberung der Mod (schaltet das Baustab-Menü, zusätzliche Meißel-Umwandlungen, das Rückwärts-Umformen beim Vorschlaghammer, den Magnetfilter und die Oktant-Vorschau frei), gibt es nur als Buch im Vergrabenen Schatz, in Iglu-Truhen und in den Tresoren der Prüfungskammern; kein Händler bietet sie an. Durchbruch, Trichter, Aderabbau und Schnelles Meißeln liegen in Verliesen, Farbpalette, Abdeckung und Linear in Plünderer-Außenposten und Waldanwesen, Baumeister, Vielseitigkeit und Reichweite in Festungsbibliotheken und Endsiedlungen, Übersteuerung II und Luftsprung II in Endsiedlungen, Radius und Tiefe Taschen in Antiken Städten, Tunnelgräber in Netherfestungen und verlassenen Minen.",
@@ -350,7 +348,9 @@ window.WIKI_DATA = {
         "simplebuilding:emitting_trim_template",
         "simplebuilding:basic_upgrade_template",
         "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:enderite_ingot"
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:netherite_nugget",
+        "simplebuilding:enderite_nugget"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
@@ -378,11 +378,13 @@ window.WIKI_DATA = {
         "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_diamond_sledgehammer.json",
         "src/main/resources/data/simplebuilding/villager_trade/toolsmith/4/emerald_iron_sledgehammer.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+        "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java"
       ],
       "en": {
         "title": "Sledgehammer",
-        "summary": "The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is.",
+        "summary": "The sledgehammer is SimpleBuilding's heavy pickaxe: one swing takes a whole 3x3 area instead of a single block, and holding right-click reshapes full blocks into stairs and stairs into slabs. It comes in seven tiers from stone to enderite, and three enchantments of its own (Override, Radius, Break Through) control how large and how picky the area mining is. With a Netherite or Enderite Nugget in the off hand it also hammers the mod's machines up a tier.",
         "details": [
           "The basics: when you mine a block with the hammer in your main hand, the eight neighbouring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
           "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
@@ -391,6 +393,12 @@ window.WIKI_DATA = {
           "Preview: before the swing you see every neighbouring block that will be taken with a black outline and a grey fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
           "Diamond Pebbles: charging a right-click on a diamond block breaks it down into 81 Diamond Pebbles; 9 pebbles make one Cracked Diamond, which turns back into a diamond in the blast furnace. One pebble is also an ingredient of the Reinforced Bundle and the Reinforced Quiver.",
+          "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+          "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
+          "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
+          "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
+          "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, or a piston that is extended or powered by redstone leaves a hint in the action bar (at most every 3 seconds); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
+          "While hammering, the hammer is held normally instead of in the bow pose, in first and in third person, so every strike reads as a hammer blow (HeldItemRendererMixin, AvatarRendererMixin).",
           "Smithing templates: hit an item frame holding a smithing template with the hammer while a Glow Ink Sac or Glowstone Dust sits in your off hand, and you get a Glowing or an Emitting Trim Upgrade Template.",
           "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
           "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade Template and 12 ingots or diamonds you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
@@ -400,7 +408,7 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Vorschlaghammer",
-        "summary": "Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist.",
+        "summary": "Der Vorschlaghammer ist die schwere Spitzhacke von SimpleBuilding: Ein Schlag nimmt statt eines Blocks ein ganzes 3x3-Feld mit, per Rechtsklick formt er volle Blöcke zu Treppen und Treppen zu Stufen um. Es gibt ihn in sieben Stufen von Stein bis Enderit, und drei eigene Verzauberungen (Übersteuerung, Radius, Durchbruch) steuern, wie groß und wie wählerisch der Flächenabbau ist. Mit einem Netherit- oder Enderiten-Nugget in der Nebenhand schmiedet er außerdem die Maschinen der Mod eine Stufe höher.",
         "details": [
           "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
           "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
@@ -409,6 +417,12 @@ window.WIKI_DATA = {
           "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
           "Diamantkiesel: Rechtsklick-Aufladen auf einem Diamantblock zerlegt ihn in 81 Diamantkiesel; 9 Kiesel ergeben einen Rissigen Diamanten, der im Hochofen wieder zum Diamanten wird. Ein Kiesel ist außerdem Zutat des Verstärkten Bündels und des Verstärkten Köchers.",
+          "Maschinen aufwerten: Mit einem Netherit-Nugget in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderiten-Nugget wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+          "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
+          "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht ein Nugget (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
+          "Abgebrochen wird ohne Nugget-Verbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, das Nugget die Nebenhand verlässt oder der Hammer zerbricht.",
+          "Mit einem Nugget in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Nugget und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falsches Nugget, ein zu schwacher Hammer oder ein ausgefahrener bzw. mit Redstone versorgter Kolben ergeben einen Hinweis in der Aktionsleiste (höchstens alle 3 Sekunden); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
+          "Beim Schmieden hält die Hand den Hammer normal statt in der Bogen-Pose, in der Ich- wie in der Außenansicht, sodass jeder Schlag als Hammerschlag zu sehen ist (HeldItemRendererMixin, AvatarRendererMixin).",
           "Schmiedevorlagen: Schlägst du mit dem Hammer auf einen Rahmen mit einer Schmiedevorlage und hast einen Leuchttintenbeutel bzw. Leuchtsteinstaub in der Nebenhand, entsteht eine Leuchtende bzw. Strahlende Schmiedevorlage.",
           "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
           "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Upgrade-Vorlage und 12 Barren bzw. Diamanten lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
@@ -464,7 +478,7 @@ window.WIKI_DATA = {
         "details": [
           "SimpleBuilding adds building tools to Minecraft: the Sledgehammer (mines a 3x3 face in one go and reshapes blocks into stairs and slabs), the Chisel (converts blocks in place into related variants), the Building Wand (places whole faces with one click), the Octant (measures distances, areas and volumes and previews shapes), the Rotator (turns orientable blocks), the Magnet (pulls in dropped items) and the Ore Detector (locates the nearest ore by sound and a particle trail).",
           "For storage there are the Reinforced Bundle, the Netherite Bundle and the Enderite Bundle (96, 192 and 288 items at a stack size of 64), plus three Quiver tiers that only take arrows and feed the bow automatically.",
-          "The blocks are faster hoppers (Reinforced, Netherite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite), four stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
+          "The blocks are faster hoppers (Reinforced, Netherite, Enderite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite, Enderite), four stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Upgrade Template turns armor into a portable light source.",
           "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles, but it has never been started and no test runs on it. Its known gaps are client-side displays: the Octant HUD together with its in-world markers, the mining preview of the Sledgehammer, Strip Miner and Vein Miner, the Building Wand preview, the Velocity Gauge's speed display, the enchantments' own book textures, and the Air Jump bar.",
@@ -488,7 +502,7 @@ window.WIKI_DATA = {
         "details": [
           "SimpleBuilding erweitert Minecraft um Bauwerkzeuge: Vorschlaghammer (baut ein 3x3-Feld auf einmal ab und formt Blöcke zu Treppen und Stufen), Meißel (formt Blöcke an Ort und Stelle in verwandte Varianten um), Baustab (setzt ganze Flächen mit einem Klick), Oktant (misst Abstände, Flächen und Volumen und zeichnet Formen vor), Rotator (dreht ausrichtbare Blöcke), Magnet (zieht herumliegende Items an) und Erzdetektor (ortet das nächste Erz per Ton und Partikelspur).",
           "Für das Lager gibt es das Verstärkte Bündel, das Netherit-Bündel und das Enderite Bundle (96, 192 und 288 Gegenstände bei 64er-Stapeln) sowie drei Köcher-Stufen, die nur Pfeile aufnehmen und den Bogen automatisch versorgen.",
-          "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit), vier stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
+          "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit, Enderit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit, Enderit), vier stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
           "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert, wurde aber nie gestartet, und kein Test läuft darauf. Seine bekannten Lücken sind Client-Anzeigen: das Oktant-HUD samt Weltmarkierungen, die Abbau-Vorschau von Vorschlaghammer, Tunnelgräber und Aderabbau, die Baustab-Vorschau, die Tacho-Anzeige des Geschwindigkeitsmessers, die eigenen Buchtexturen der Verzauberungen und der Luftsprung-Balken.",
@@ -1168,7 +1182,10 @@ window.WIKI_DATA = {
       "id": "hoppers",
       "related": [
         "simplebuilding:reinforced_hopper",
-        "simplebuilding:netherite_hopper"
+        "simplebuilding:netherite_hopper",
+        "simplebuilding:enderite_hopper",
+        "simplebuilding:netherite_nugget",
+        "simplebuilding:enderite_nugget"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -1195,20 +1212,21 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/items/ModItemGroups.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
-        "src/main/generated/data/simplebuilding/recipe/netherite_hopper_from_crafting.json",
         "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_hopper.json",
         "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_hopper.json",
         "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-        "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java"
+        "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java",
+        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+        "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
       ],
       "en": {
-        "title": "Reinforced and Netherite Hoppers",
-        "summary": "SimpleBuilding adds two faster hoppers: the Reinforced Hopper (4 ticks of cooldown per transfer) and the Netherite Hopper (2 ticks). Both have a filter button in their menu with the modes Disabled, Exact Match and Type Match, plus one filter item per slot that decides what may enter that slot. The Netherite Hopper is crafted from Reinforced Hoppers, has blast resistance 1200 and its item is fire resistant.",
+        "title": "Reinforced, Netherite and Enderite Hoppers",
+        "summary": "SimpleBuilding adds three faster hoppers: the Reinforced Hopper (4 ticks of cooldown per transfer), the Netherite Hopper (2 ticks) and the Enderite Hopper (1 tick). All three have a filter button in their menu with the modes Disabled, Exact Match and Type Match, plus one filter item per slot that decides what may enter that slot. The Netherite Hopper is hammered out of a Reinforced Hopper with a sledgehammer and a Netherite Nugget, the Enderite Hopper out of a Netherite Hopper with an Enderite Nugget; both are highly blast resistant and their items are fire resistant.",
         "details": [
-          "Two tiers: Reinforced Hopper with 4 ticks and Netherite Hopper with 2 ticks of cooldown after every successful transfer; the fallback value in the shared block logic is 8 ticks, but that logic is only registered for these two blocks (the test comment compares 2 with the vanilla hopper's 8 ticks).",
+          "Three tiers: Reinforced Hopper with 4 ticks, Netherite Hopper with 2 ticks and Enderite Hopper with 1 tick of cooldown after every successful transfer - the Enderite Hopper moves an item every tick; the fallback value in the shared block logic is 8 ticks, but that logic is only registered for these three blocks (the test comment compares 2 with the vanilla hopper's 8 ticks).",
           "A transfer pushes one item into the container the hopper faces and pulls items in from above; both only when no cooldown is running and the hopper is not powered by redstone ('enabled').",
           "The filter has three modes that the button in the menu cycles through in order (HopperFilterMode.next): Disabled -> Exact Match -> Type Match -> Disabled.",
           "Disabled: canPlaceItem always returns true, the hopper behaves like a normal hopper.",
@@ -1225,17 +1243,17 @@ window.WIKI_DATA = {
           "Mode, filter items and cooldown are saved with the block ('FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload; a 'FilterMode' outside the three known modes (a hand-edited region file, a downgrade) falls back to Disabled instead of throwing, so the hopper keeps its contents and its filter items.",
           "The menu uses the vanilla hopper background (hopper.png); the filter button (18x18) sits to the right of the five slots and shows a barrier item (Disabled), a green check mark (Exact Match) or an orange T (Type Match); the tooltips name the mode in red, green and yellow respectively.",
           "The menu texts ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') are hard-coded English.",
-          "Recipe chain: 5 Hoppers + 1 Name Tag + 3 Cracked Diamonds yield 5 Reinforced Hoppers; 2 Reinforced Hoppers + 1 Netherite Nugget yield 2 Netherite Hoppers.",
-          "Reinforced Hopper: hardness 3.0, blast resistance 4.8, metal sound. Netherite Hopper: hardness 5.0, blast resistance 1200, netherite block sound, fire resistant item. Both are in the pickaxe mining tag, both drop themselves, and neither has requiresCorrectToolForDrops set.",
-          "Both blocks share their block logic (block entity type simplebuilding:mod_hopper) and their menu (menu type simplebuilding:netherite_hopper); the cooldown depends only on which of the two blocks is placed. A separate file NetheriteHopperBlockEntity.java exists but is never used.",
+          "Getting them: 5 Hoppers + 1 Name Tag + 3 Cracked Diamonds yield 5 Reinforced Hoppers at the crafting table. The Netherite and Enderite Hoppers have no crafting recipe: a placed Reinforced Hopper becomes a Netherite Hopper after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, a Netherite Hopper becomes an Enderite Hopper with a Netherite Sledgehammer (or better) and an Enderite Nugget; items, filter items and filter mode stay in the hopper (see the Sledgehammer). The Reinforced and Netherite Hopper items say so in their tooltip.",
+          "Reinforced Hopper: hardness 3.0, blast resistance 4.8, metal sound. Netherite Hopper: hardness 5.0, blast resistance 1200, netherite block sound, fire resistant item. Enderite Hopper: hardness 6.0, blast resistance 1500, netherite block sound, fire resistant item of rarity Epic. All three are in the pickaxe mining tag and drop themselves; like the vanilla hopper they are built from, they only drop when mined with a pickaxe.",
+          "All three blocks share their block logic (block entity type simplebuilding:mod_hopper) and their menu (menu type simplebuilding:netherite_hopper, titled like the vanilla hopper); the cooldown depends only on which of the three blocks is placed. A separate file NetheriteHopperBlockEntity.java exists but is never used.",
           "Game tests prove: the Netherite Hopper is faster than the Reinforced Hopper, which is faster than the vanilla hopper, and the Netherite Hopper needs at most half the vanilla hopper's time; the three filter modes behave as described; and the network payloads only take effect while a hopper menu is open."
         ]
       },
       "de": {
-        "title": "Verstärkte Trichter und Netherittrichter",
-        "summary": "SimpleBuilding fügt zwei schnellere Trichter hinzu: den Verstärkten Trichter (4 Ticks Wartezeit pro Transfer) und den Netherittrichter (2 Ticks). Beide haben im Menü einen Filter-Knopf mit den Modi Disabled, Exact Match und Type Match sowie pro Slot ein Filter-Item, das festlegt, was in diesen Slot hinein darf. Der Netherittrichter wird aus Verstärkten Trichtern gebaut, hat Explosionswiderstand 1200 und ist als Item feuerfest.",
+        "title": "Verstärkte Trichter, Netherit- und Enderittrichter",
+        "summary": "SimpleBuilding fügt drei schnellere Trichter hinzu: den Verstärkten Trichter (4 Ticks Wartezeit pro Transfer), den Netherittrichter (2 Ticks) und den Enderittrichter (1 Tick). Alle drei haben im Menü einen Filter-Knopf mit den Modi Disabled, Exact Match und Type Match sowie pro Slot ein Filter-Item, das festlegt, was in diesen Slot hinein darf. Der Netherittrichter wird mit Vorschlaghammer und Netherit-Nugget aus einem Verstärkten Trichter geschmiedet, der Enderittrichter mit einem Enderiten-Nugget aus einem Netherittrichter; beide halten Explosionen stand und sind als Item feuerfest.",
         "details": [
-          "Zwei Stufen: Verstärkter Trichter mit 4 Ticks und Netherittrichter mit 2 Ticks Wartezeit nach jedem erfolgreichen Transfer; der Fallback-Wert der gemeinsamen Blocklogik ist 8 Ticks, die Logik ist aber nur für diese beiden Blöcke registriert (der Testkommentar vergleicht 2 mit 8 Ticks des normalen Trichters).",
+          "Drei Stufen: Verstärkter Trichter mit 4 Ticks, Netherittrichter mit 2 Ticks und Enderittrichter mit 1 Tick Wartezeit nach jedem erfolgreichen Transfer - der Enderittrichter bewegt also in jedem Tick ein Item; der Fallback-Wert der gemeinsamen Blocklogik ist 8 Ticks, die Logik ist aber nur für diese drei Blöcke registriert (der Testkommentar vergleicht 2 mit 8 Ticks des normalen Trichters).",
           "Ein Transfer schiebt ein Item in den Behälter, auf den der Trichter zeigt, und zieht Items von oben ein; beides nur, wenn keine Wartezeit läuft und der Trichter nicht per Redstone gesperrt ist ('enabled').",
           "Der Filter hat drei Modi, die der Knopf im Menü der Reihe nach durchschaltet (HopperFilterMode.next): Disabled → Exact Match → Type Match → Disabled.",
           "Disabled: canPlaceItem liefert immer true, der Trichter verhält sich wie ein normaler Trichter.",
@@ -1252,9 +1270,9 @@ window.WIKI_DATA = {
           "Modus, Filter-Items und Wartezeit werden mit dem Block gespeichert ('FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt; ein 'FilterMode' außerhalb der drei bekannten Modi (von Hand bearbeitete Regionsdatei, Rückstufung) fällt auf Disabled zurück, statt zu werfen – Inhalt und Filter-Items des Trichters bleiben also erhalten.",
           "Das Menü nutzt die Trichter-Oberfläche des Spiels (hopper.png); der Filter-Knopf (18x18) sitzt rechts neben den fünf Slots und zeigt ein Barrier-Item (Disabled), ein grünes Häkchen (Exact Match) oder ein oranges T (Type Match); Tooltips nennen den Modus in Rot, Grün bzw. Gelb.",
           "Die Menü-Texte ('Filter:', 'Disabled', 'Exact Match', 'Type Match', 'Filtered Item:') sind fest auf Englisch hinterlegt.",
-          "Rezeptkette: 5 Trichter + 1 Namensschild + 3 Rissige Diamanten ergeben 5 Verstärkte Trichter; 2 Verstärkte Trichter + 1 Netherite Nugget ergeben 2 Netherittrichter.",
-          "Verstärkter Trichter: Härte 3,0, Explosionswiderstand 4,8, Metallklang. Netherittrichter: Härte 5,0, Explosionswiderstand 1200, Netheritblock-Klang, Item feuerfest. Beide im Spitzhacken-Abbau-Tag, beide droppen sich selbst, bei beiden ist requiresCorrectToolForDrops nicht gesetzt.",
-          "Beide Blöcke teilen Blocklogik (Block-Entity-Typ simplebuilding:mod_hopper) und Menü (Menütyp simplebuilding:netherite_hopper); die Wartezeit hängt nur davon ab, welcher der beiden Blöcke gesetzt ist. Eine separate Datei NetheriteHopperBlockEntity.java existiert, wird aber nirgends benutzt.",
+          "Beschaffung: 5 Trichter + 1 Namensschild + 3 Rissige Diamanten ergeben an der Werkbank 5 Verstärkte Trichter. Für Netherit- und Enderittrichter gibt es kein Werkbankrezept: Ein gesetzter Verstärkter Trichter wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zum Netherittrichter, ein Netherittrichter mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget zum Enderittrichter; Items, Filter-Items und Filtermodus bleiben im Trichter (siehe Vorschlaghammer). Die Items des Verstärkten und des Netherittrichters weisen im Tooltip darauf hin.",
+          "Verstärkter Trichter: Härte 3,0, Explosionswiderstand 4,8, Metallklang. Netherittrichter: Härte 5,0, Explosionswiderstand 1200, Netheritblock-Klang, Item feuerfest. Enderittrichter: Härte 6,0, Explosionswiderstand 1500, Netheritblock-Klang, Item feuerfest und von der Seltenheit Episch. Alle drei im Spitzhacken-Abbau-Tag, alle drei droppen sich selbst; wie der Vanilla-Trichter, von dem sie kopiert sind, nur beim Abbau mit einer Spitzhacke.",
+          "Alle drei Blöcke teilen Blocklogik (Block-Entity-Typ simplebuilding:mod_hopper) und Menü (Menütyp simplebuilding:netherite_hopper, Titel wie beim Vanilla-Trichter); die Wartezeit hängt nur davon ab, welcher der drei Blöcke gesetzt ist. Eine separate Datei NetheriteHopperBlockEntity.java existiert, wird aber nirgends benutzt.",
           "Spieltests belegen: Netherittrichter schneller als Verstärkter Trichter, dieser schneller als der normale Trichter, Netherittrichter höchstens halbe Zeit des normalen; die drei Filtermodi verhalten sich wie beschrieben; die Netzwerkpakete wirken nur bei geöffnetem Trichter-Menü."
         ]
       }
@@ -1269,7 +1287,13 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_smoker",
         "simplebuilding:netherite_smoker",
         "simplebuilding:cracked_diamond",
-        "simplebuilding:netherite_nugget"
+        "simplebuilding:netherite_nugget",
+        "simplebuilding:enderite_furnace",
+        "simplebuilding:enderite_blast_furnace",
+        "simplebuilding:enderite_smoker",
+        "simplebuilding:enderite_nugget",
+        "simplebuilding:raw_enderite",
+        "simplebuilding:enderite_scrap"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/ModFurnaceBlock.java",
@@ -1299,52 +1323,74 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
         "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
         "src/main/generated/data/simplebuilding/advancement/recipes/redstone/reinforced_furnace.json",
-        "src/main/generated/data/simplebuilding/advancement/recipes/decorations/netherite_furnace_bulk.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AbstractFurnaceBlockEntityMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AbstractFurnaceMenuMixin.java",
+        "common/src/shared/java/com/simplebuilding/util/LongCookContainerData.java",
+        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+        "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_raw_enderite.json",
+        "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
+        "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
+        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
       ],
       "en": {
-        "title": "Faster Furnaces: Reinforced and Netherite",
-        "summary": "SimpleBuilding adds two upgraded tiers to the furnace, the blast furnace and the smoker: Reinforced and Netherite. They behave exactly like their vanilla counterparts, with the same recipe types and the same menus, but they run faster. The Reinforced tier is crafted from the vanilla machine plus Cracked Diamonds, the Netherite tier from three Reinforced machines plus one Netherite Nugget.",
+        "title": "Faster Furnaces: Reinforced, Netherite and Enderite",
+        "summary": "SimpleBuilding adds three upgraded tiers to the furnace, the blast furnace and the smoker: Reinforced, Netherite and Enderite. They use the same recipe types and menus as their vanilla counterparts but run 2, 4 and 8 times as fast, and the mod's blast furnaces and smokers burn fuel twice as long as the vanilla ones. The Reinforced tier is crafted from the vanilla machine plus Cracked Diamonds; the Netherite and Enderite tiers have no crafting recipe and are hammered in the world with a sledgehammer and a nugget. Netherite and Enderite machines give double experience, and their blast furnaces extra output from raw metals.",
         "details": [
-          "Six blocks: Reinforced Furnace, Netherite Furnace, Reinforced Blast Furnace, Netherite Blast Furnace, Reinforced Smoker, Netherite Smoker.",
+          "Nine blocks: Reinforced, Netherite and Enderite Furnace, Blast Furnace and Smoker.",
           "Every tier runs the vanilla furnace logic (AbstractFurnaceBlockEntity.serverTick) and uses the same menu as the matching vanilla machine (FurnaceMenu, BlastFurnaceMenu, SmokerMenu).",
-          "Each machine type has one shared block class and one shared block entity (mod_furnace, mod_blast_furnace, mod_smoker) covering both tiers; the tick reads the block state to tell the two tiers apart.",
-          "Speed-up: while fuel is burning and the cook has started (progress > 0), the Reinforced tier gets 1 extra progress tick per server tick and the Netherite tier 3 extra progress ticks.",
+          "Each machine type has one shared block class and one shared block entity (mod_furnace, mod_blast_furnace, mod_smoker) covering all three tiers; the tick reads the block state to tell the tiers apart.",
+          "Speed-up: while fuel is burning and the cook has started (progress > 0), the Reinforced tier gets 1 extra progress tick per server tick , the Netherite tier 3 and the Enderite tier 7 extra progress ticks - 2, 4 and 8 times the vanilla speed.",
           "That extra progress is capped at total time minus 1, so the final step is taken by the vanilla furnace logic and the result appears as usual.",
-          "Game tests lock in the order Netherite faster than Reinforced faster than vanilla; for the furnace they require at least 1.5x (Reinforced) and 3x (Netherite) speed, for the blast furnace and the smoker at least 2.5x speed for the Netherite tier. Tick budgets: 320 ticks (furnace) and 220 ticks (blast furnace and smoker).",
+          "Game tests lock in the order Netherite faster than Reinforced faster than vanilla; for the furnace they require at least 1.5x (Reinforced) and 3x (Netherite) speed, for the blast furnace and the smoker at least 2.5x speed for the Netherite tier. Tick budgets: 320 ticks (furnace) and 220 ticks (blast furnace and smoker). The Enderite tier has no timing test yet.",
           "Reinforced recipe: 3 Cracked Diamonds, 3 vanilla machines, 3 Cracked Diamonds in three rows yield 3 pieces (recipe book category Redstone); unlocked as soon as you own the vanilla machine.",
-          "Netherite recipe (bulk upgrade): 1 Netherite Nugget top left plus 3 Reinforced machines filling the rest of a 2x2 grid yield 3 pieces (datagen category RecipeCategory.DECORATIONS, so the advancement sits under recipes/decorations; the recipe file itself carries no category, so the recipe book lists it under Miscellaneous); unlocked as soon as you own the Reinforced machine.",
-          "Reinforced tier: hardness 3.5, sound type Metal. Netherite tier: hardness 5.0, blast resistance 1200, sound type Netherite Block, item fire resistant. Every other block property is copied from the matching vanilla block (furnace, blast furnace or smoker).",
-          "All six blocks are in the mineable/pickaxe tag and in no needs_*_tool tag and, like their vanilla counterparts, only drop themselves when mined with a pickaxe (any tier).",
-          "Blockstates and models of all six blocks are generated by datagen exactly like the vanilla furnace (unlit/lit, four facings).",
-          "All six sit in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons.",
-          "Fuel consumption is not changed anywhere in the code.",
-          "While burning, all six give off light level 13, like the vanilla furnace.",
-          "Each tier carries its own menu title: the shared block entity reads the block state, so a Netherite Furnace opens a screen titled \"Netherite Furnace\" and the Reinforced tier one titled \"Reinforced Furnace\"; all six container keys are defined in en_us and de_de.",
-          "The furnace code (block classes, block entities, registration in ModBlocks and ModItems) is identical in both supported Minecraft versions (26.2 under common/src/shared and 1.21.11 under mc1_21_11/shared)."
+          "Netherite and Enderite tiers: no crafting recipe. A placed Reinforced machine becomes the Netherite machine after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand; a Netherite machine becomes the Enderite machine with a Netherite Sledgehammer (or better) and an Enderite Nugget. The block keeps its facing and lit state and its block entity, so input, fuel, result, cooking progress and stored experience stay (see the Sledgehammer); the Reinforced and Netherite items say so in their tooltip.",
+          "Reinforced tier: hardness 3.5, sound type Metal. Netherite tier: hardness 5.0, blast resistance 1200, sound type Netherite Block, item fire resistant. Enderite tier: hardness 6.0, blast resistance 1500, sound type Netherite Block, item fire resistant and of rarity Epic. Every other block property is copied from the matching vanilla block (furnace, blast furnace or smoker).",
+          "All nine blocks are in the mineable/pickaxe tag and in no needs_*_tool tag and, like their vanilla counterparts, only drop themselves when mined with a pickaxe (any tier).",
+          "Blockstates and models of all nine blocks are generated by datagen exactly like the vanilla furnace (unlit/lit, four facings).",
+          "All nine sit in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons.",
+          "Fuel: the speed-up costs no fuel, so every tier gets more smelts out of one piece of fuel. The mod's blast furnaces and smokers also burn fuel for the full furnace duration (coal 1600 ticks), while vanilla's blast furnace and smoker halve it (their getBurnDuration returns half; the mod's block entities do not override it). Per item the Reinforced tier therefore needs about a quarter of a vanilla blast furnace's or smoker's fuel, the Netherite tier about an eighth and the Enderite tier about a fourteenth on a 100 tick recipe (a sixteenth on long ones, since the last step is always vanilla's single tick); the mod furnaces need about half, a quarter and an eighth of a vanilla furnace's fuel.",
+          "While burning, all nine give off light level 13, like the vanilla furnace.",
+          "Each tier carries its own menu title: the shared block entity reads the block state, so a Netherite Furnace opens a screen titled \"Netherite Furnace\" the Enderite tier one titled \"Enderite Furnace\" and the Reinforced tier one titled \"Reinforced Furnace\"; all nine container keys are defined in en_us and de_de.",
+          "The furnace code (block classes, block entities, registration in ModBlocks and ModItems) is identical in both supported Minecraft versions (26.2 under common/src/shared and 1.21.11 under mc1_21_11/shared).",
+          "Rewards of the upper tiers (FurnaceTierPerks, called from setRecipeUsed): every item a Netherite or Enderite furnace, smoker or blast furnace finishes counts its recipe twice, so taking the result out pays double experience.",
+          "The Netherite Blast Furnace gives one extra item on every 4th finished smelt (+25 %), the Enderite Blast Furnace on every 2nd (+50 %) - but only for recipes whose ingredient consists only of items in simplebuilding:blast_furnace_bonus: Raw Iron, Raw Gold and Raw Copper. If the result slot is full the bonus waits for the next such smelt; the count is saved with the block (simplebuilding:bonus_progress).",
+          "Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded) get neither double experience nor extra output: a diamond block crushed into 81 pebbles makes 9 Cracked Diamonds and those make 9 diamonds again, so any bonus would be an endless source. Raw Enderite is not in the bonus tag either.",
+          "Enderite Scrap: blasting Raw Enderite takes 72000 ticks and gives 10 experience - one hour in a vanilla blast furnace, 36001 ticks (30 minutes) in the Reinforced, 18001 ticks (15 minutes) in the Netherite and 9001 ticks (about 7.5 minutes) in the Enderite Blast Furnace, the last two with double experience. It is a blasting recipe only, so furnaces and smokers cannot process it.",
+          "Cook times above 32767 ticks: vanilla saves the four furnace timers as shorts and sends the menu data as shorts, which would cut 72000 down to 6464. AbstractFurnaceBlockEntityMixin saves them as ints under the same keys (NeoForge and Forge already do that themselves), and AbstractFurnaceMenuMixin divides long times before they are sent, keeping the ratio the progress arrow and the flame are drawn from; both apply to every furnace, vanilla ones included.",
+          "Changing between the tiers of one family - by hammering or by /setblock in replace mode - keeps the block entity with its contents (shouldChangedStateKeepBlockEntity); the block entity types accept all three tiers on every loader.",
+          "With a sledgehammer in the main hand and a nugget in the off hand, right-clicking a machine that can be upgraded starts the upgrade instead of opening the menu; if it cannot be upgraded with that nugget and hammer, the menu opens as usual."
         ]
       },
       "de": {
-        "title": "Schnellere Öfen: Verstärkt und Netherit",
-        "summary": "SimpleBuilding fügt zu Ofen, Schmelzofen und Räucherofen je zwei aufgewertete Stufen hinzu: Verstärkt und Netherit. Sie funktionieren genau wie ihre normalen Vorbilder mit denselben Rezepttypen und Menüs, arbeiten aber schneller. Die Verstärkt-Stufe entsteht aus dem normalen Gerät und Rissigen Diamanten, die Netherit-Stufe aus drei Verstärkt-Geräten und einem Netherite Nugget.",
+        "title": "Schnellere Öfen: Verstärkt, Netherit und Enderit",
+        "summary": "SimpleBuilding fügt zu Ofen, Schmelzofen und Räucherofen je drei aufgewertete Stufen hinzu: Verstärkt, Netherit und Enderit. Sie nutzen dieselben Rezepttypen und Menüs wie ihre Vorbilder, arbeiten aber doppelt, viermal und achtmal so schnell, und Schmelz- und Räucheröfen der Mod lassen Brennstoff doppelt so lange brennen wie die Vanilla-Geräte. Die Verstärkt-Stufe entsteht aus dem normalen Gerät und Rissigen Diamanten; Netherit- und Enderit-Stufe haben kein Werkbankrezept und werden in der Welt mit Vorschlaghammer und Nugget geschmiedet. Netherit- und Enderit-Geräte geben doppelte Erfahrung, ihre Schmelzöfen zusätzliche Ausbeute aus Rohmetallen.",
         "details": [
-          "Sechs Blöcke: Verstärkter Ofen, Netheritofen, Verstärkter Schmelzofen, Netherit-Schmelzofen, Verstärkter Räucherofen, Netherit-Räucherofen.",
+          "Neun Blöcke: Verstärkter Ofen, Netheritofen, Enderitofen, Verstärkter Schmelzofen, Netherit-Schmelzofen, Enderit-Schmelzofen, Verstärkter Räucherofen, Netherit-Räucherofen, Enderit-Räucherofen.",
           "Jede Stufe nutzt die normale Ofenlogik (AbstractFurnaceBlockEntity.serverTick) und dasselbe Menü wie das jeweilige Vanilla-Gerät (FurnaceMenu, BlastFurnaceMenu, SmokerMenu).",
-          "Pro Gerätetyp gibt es eine gemeinsame Block-Klasse und eine gemeinsame Block-Entity (mod_furnace, mod_blast_furnace, mod_smoker), die beide Stufen abdeckt; die Stufe wird im Tick über den Blockzustand unterschieden.",
-          "Beschleunigung: Solange Brennstoff brennt und der Vorgang begonnen hat (Fortschritt > 0), bekommt die Verstärkt-Stufe pro Server-Tick 1 zusätzlichen Fortschritts-Tick, die Netherit-Stufe 3 zusätzliche Fortschritts-Ticks.",
+          "Pro Gerätetyp gibt es eine gemeinsame Block-Klasse und eine gemeinsame Block-Entity (mod_furnace, mod_blast_furnace, mod_smoker), die alle drei Stufen abdeckt; die Stufe wird im Tick über den Blockzustand unterschieden.",
+          "Beschleunigung: Solange Brennstoff brennt und der Vorgang begonnen hat (Fortschritt > 0), bekommt die Verstärkt-Stufe pro Server-Tick 1 zusätzlichen Fortschritts-Tick, die Netherit-Stufe 3 und die Enderit-Stufe 7 - doppelte, vierfache und achtfache Vanilla-Geschwindigkeit.",
           "Der Zusatz-Fortschritt wird auf Gesamtzeit minus 1 gedeckelt; den letzten Schritt macht die normale Ofenlogik, damit das Ergebnis wie gewohnt erscheint.",
-          "Spieltests sichern die Rangfolge Netherit schneller als Verstärkt schneller als normal; für den Ofen fordern sie mindestens 1,5-fache (Verstärkt) und 3-fache (Netherit) Geschwindigkeit, für Schmelzofen und Räucherofen mindestens 2,5-fache Geschwindigkeit der Netherit-Stufe. Zeitbudgets: 320 Ticks (Ofen) bzw. 220 Ticks (Schmelzofen und Räucherofen).",
+          "Spieltests sichern die Rangfolge Netherit schneller als Verstärkt schneller als normal; für den Ofen fordern sie mindestens 1,5-fache (Verstärkt) und 3-fache (Netherit) Geschwindigkeit, für Schmelzofen und Räucherofen mindestens 2,5-fache Geschwindigkeit der Netherit-Stufe. Zeitbudgets: 320 Ticks (Ofen) bzw. 220 Ticks (Schmelzofen und Räucherofen). Für die Enderit-Stufe gibt es noch keinen Zeittest.",
           "Rezept Verstärkt: 3 Rissige Diamanten, 3 normale Geräte, 3 Rissige Diamanten in drei Reihen ergeben 3 Stück (Rezeptbuch-Kategorie Redstone); freigeschaltet, sobald man das normale Gerät besitzt.",
-          "Rezept Netherit (Bulk-Upgrade): 1 Netherite Nugget oben links plus 3 Verstärkt-Geräte im 2x2-Muster ergeben 3 Stück (im Rezeptbuch unter Verschiedenes: die erzeugte Datei trägt kein category-Feld); freigeschaltet, sobald man das Verstärkt-Gerät besitzt.",
-          "Verstärkt-Stufe: Härte 3,5, Klang Metall. Netherit-Stufe: Härte 5,0, Explosionswiderstand 1200, Klang Netheritblock, Item feuerfest. Alle übrigen Blockeigenschaften werden vom passenden Vanilla-Block kopiert (Ofen, Schmelzofen oder Räucherofen).",
-          "Alle sechs Blöcke sind im Tag mineable/pickaxe und in keinem needs_*_tool-Tag und lassen sich wie ihre Vanilla-Vorbilder nur mit einer Spitzhacke (beliebige Stufe) abgebaut selbst fallen.",
-          "Blockstates und Modelle aller sechs Blöcke werden per Datagen wie beim Vanilla-Ofen erzeugt (aus/an, vier Blickrichtungen).",
-          "Alle sechs liegen im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen neben Trichtern und Kolben.",
-          "Der Brennstoffverbrauch wird im Code nicht verändert.",
-          "Im Betrieb leuchten alle sechs mit Stärke 13, wie der Vanilla-Ofen.",
-          "Jede Stufe hat ihre eigene Menü-Überschrift: die gemeinsame Block-Entity liest den Blockzustand, ein Netheritofen öffnet also ein Fenster mit dem Titel „Netheritofen“, die Verstärkt-Stufe eines mit „Verstärkter Ofen“; alle sechs Container-Schlüssel sind in en_us und de_de vorhanden.",
-          "Der Code für die Öfen (Block-Klassen, Block-Entities, Registrierung in ModBlocks und ModItems) ist in beiden unterstützten Minecraft-Linien (26.2 unter common/src/shared und 1.21.11 unter mc1_21_11/shared) identisch."
+          "Netherit- und Enderit-Stufe: kein Werkbankrezept. Eine gesetzte Verstärkt-Maschine wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zur Netherit-Maschine, eine Netherit-Maschine mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget zur Enderit-Maschine. Der Block behält Blickrichtung, Leuchtzustand und seine Block-Entity, Eingabe, Brennstoff, Ergebnis, Kochfortschritt und gespeicherte Erfahrung bleiben also erhalten (siehe Vorschlaghammer); die Items der Verstärkt- und der Netherit-Stufe weisen im Tooltip darauf hin.",
+          "Verstärkt-Stufe: Härte 3,5, Klang Metall. Netherit-Stufe: Härte 5,0, Explosionswiderstand 1200, Klang Netheritblock, Item feuerfest. Enderit-Stufe: Härte 6,0, Explosionswiderstand 1500, Klang Netheritblock, Item feuerfest und von der Seltenheit Episch. Alle übrigen Blockeigenschaften werden vom passenden Vanilla-Block kopiert (Ofen, Schmelzofen oder Räucherofen).",
+          "Alle neun Blöcke sind im Tag mineable/pickaxe und in keinem needs_*_tool-Tag und lassen sich wie ihre Vanilla-Vorbilder nur mit einer Spitzhacke (beliebige Stufe) abgebaut selbst fallen.",
+          "Blockstates und Modelle aller neun Blöcke werden per Datagen wie beim Vanilla-Ofen erzeugt (aus/an, vier Blickrichtungen).",
+          "Alle neun liegen im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen neben Trichtern und Kolben.",
+          "Brennstoff: Die Beschleunigung kostet keinen Brennstoff, jede Stufe holt also mehr Vorgänge aus einem Stück Brennstoff. Schmelz- und Räucheröfen der Mod lassen Brennstoff außerdem die volle Ofendauer brennen (Kohle 1600 Ticks), während Vanillas Schmelzofen und Räucherofen sie halbieren (ihr getBurnDuration liefert die Hälfte; die Block-Entities der Mod überschreiben es nicht). Pro Gegenstand braucht die Verstärkt-Stufe deshalb etwa ein Viertel des Brennstoffs eines Vanilla-Schmelz- oder -Räucherofens, die Netherit-Stufe etwa ein Achtel und die Enderit-Stufe bei einem 100-Tick-Rezept etwa ein Vierzehntel (bei langen Rezepten ein Sechzehntel, weil den letzten Schritt immer Vanillas einzelner Tick macht); die Mod-Öfen brauchen etwa die Hälfte, ein Viertel und ein Achtel des Brennstoffs eines Vanilla-Ofens.",
+          "Im Betrieb leuchten alle neun mit Stärke 13, wie der Vanilla-Ofen.",
+          "Jede Stufe hat ihre eigene Menü-Überschrift: die gemeinsame Block-Entity liest den Blockzustand, ein Netheritofen öffnet also ein Fenster mit dem Titel „Netheritofen“, die Enderit-Stufe eines mit „Enderitofen“, die Verstärkt-Stufe eines mit „Verstärkter Ofen“; alle neun Container-Schlüssel sind in en_us und de_de vorhanden.",
+          "Der Code für die Öfen (Block-Klassen, Block-Entities, Registrierung in ModBlocks und ModItems) ist in beiden unterstützten Minecraft-Linien (26.2 unter common/src/shared und 1.21.11 unter mc1_21_11/shared) identisch.",
+          "Belohnungen der oberen Stufen (FurnaceTierPerks, aufgerufen aus setRecipeUsed): Jeder Gegenstand, den ein Netherit- oder Enderit-Ofen, -Räucherofen oder -Schmelzofen fertigstellt, zählt sein Rezept doppelt, beim Herausnehmen gibt es also doppelte Erfahrung.",
+          "Der Netherit-Schmelzofen gibt bei jedem 4. fertigen Schmelzvorgang einen Gegenstand mehr (+25 %), der Enderit-Schmelzofen bei jedem 2. (+50 %) - aber nur für Rezepte, deren Zutat ausschließlich aus Gegenständen im Tag simplebuilding:blast_furnace_bonus besteht: Roheisen, Rohgold und Rohkupfer. Ist der Ausgabeslot voll, wartet der Bonus auf den nächsten solchen Vorgang; der Zähler wird mit dem Block gespeichert (simplebuilding:bonus_progress).",
+          "Rissige Diamanten (Tag simplebuilding:furnace_bonus_excluded) bekommen weder doppelte Erfahrung noch mehr Ausbeute: Ein zu 81 Kieseln zerschlagener Diamantblock ergibt 9 Rissige Diamanten und die wieder 9 Diamanten, jeder Bonus wäre also eine Endlosquelle. Roh-Enderit steht ebenfalls nicht im Bonus-Tag.",
+          "Enderit-Schrott: Roh-Enderit braucht im Schmelzofen 72000 Ticks und gibt 10 Erfahrung - eine Stunde im Vanilla-Schmelzofen, 36001 Ticks (30 Minuten) im verstärkten, 18001 Ticks (15 Minuten) im Netherit- und 9001 Ticks (rund 7,5 Minuten) im Enderit-Schmelzofen, die letzten beiden mit doppelter Erfahrung. Es ist nur ein Schmelzofen-Rezept, Öfen und Räucheröfen können es nicht verarbeiten.",
+          "Kochzeiten über 32767 Ticks: Vanilla speichert die vier Ofen-Zeiten als short und schickt die Menüdaten als short, aus 72000 würde so 6464. AbstractFurnaceBlockEntityMixin speichert sie als int unter denselben Schlüsseln (NeoForge und Forge tun das bereits selbst), und AbstractFurnaceMenuMixin teilt lange Zeiten vor dem Senden herunter und erhält das Verhältnis, aus dem Pfeil und Flamme gezeichnet werden; beide gelten für jeden Ofen, auch für die Vanilla-Öfen.",
+          "Ein Wechsel zwischen den Stufen einer Familie - durch Hämmern oder per /setblock im Modus replace - behält die Block-Entity samt Inhalt (shouldChangedStateKeepBlockEntity); die Block-Entity-Typen nehmen auf jedem Loader alle drei Stufen an.",
+          "Mit Vorschlaghammer in der Haupthand und Nugget in der Nebenhand startet ein Rechtsklick auf eine aufwertbare Maschine die Aufwertung statt das Menü zu öffnen; lässt sie sich mit diesem Nugget und Hammer nicht aufwerten, öffnet das Menü wie gewohnt."
         ]
       }
     },
@@ -1363,7 +1409,8 @@ window.WIKI_DATA = {
         "simplebuilding:cracked_diamond",
         "simplebuilding:netherite_nugget",
         "simplebuilding:astralit_dust",
-        "simplebuilding:nihilith_shard"
+        "simplebuilding:nihilith_shard",
+        "simplebuilding:enderite_nugget"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java",
@@ -1389,7 +1436,6 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
         "src/main/generated/data/simplebuilding/recipe/reinforced_piston.json",
         "src/main/generated/data/simplebuilding/recipe/reinforced_sticky_piston.json",
-        "src/main/generated/data/simplebuilding/recipe/netherite_piston_bulk.json",
         "src/main/generated/data/simplebuilding/tags/block/piston_breach_immune.json",
         "src/main/generated/data/simplebuilding/tags/block/piston_breachable_extra.json",
         "src/main/generated/data/simplebuilding/recipe/levitating_sand.json",
@@ -1400,7 +1446,8 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java",
         "src/main/resources/simplebuilding.mixins.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
       ],
       "en": {
         "title": "Pistons and Gravity Blocks",
@@ -1411,12 +1458,12 @@ window.WIKI_DATA = {
           "A Redstone Block directly next to the piston pays for them: the one directly behind first, otherwise one of the four sides across the facing direction. Never the front, and not a Redstone Block that only powers the piston through quasi-connectivity (next to the block above it). Without such a Redstone Block - with a lever, for example - an unbreakable block in front stops every mod piston exactly as before.",
           "Reinforced (and Reinforced Sticky) Piston: the unbreakable block directly in front is pushed like an ordinary one, the rest of the line follows the normal rules and it counts toward the 18. Only after the push succeeded is the Redstone Block used up (no drop). A second unbreakable block further along the line, obsidian, the build limit, the world border or a block entity still refuse the push, and so does a slime structure that would move the paying Redstone Block along. Retracting never pulls the unbreakable block back.",
           "Consuming the Redstone Block usually cuts the Reinforced Piston's only power, so it retracts again in the same tick: the sticky one leaves the pushed block at its new place, the normal one lets it finish its move.",
-          "The Netherite Piston is crafted from 3 Reinforced Pistons and 1 Netherite Nugget (yields 3) and, as it extends, destroys the block in front of it if that block's hardness is at most (signal strength / 15) x 50 - so up to hardness 50 at full strength; otherwise it pushes like an ordinary piston. Destroyed blocks drop their normal loot.",
+          "The Netherite Piston has no crafting recipe: a placed Reinforced Piston becomes one after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, as long as it is neither extended nor powered. As it extends, it destroys the block in front of it if that block's hardness is at most (signal strength / 15) x 50 - so up to hardness 50 at full strength; otherwise it pushes like an ordinary piston. Destroyed blocks drop their normal loot.",
           "With an unbreakable block directly in front and a paying Redstone Block the Netherite Piston sacrifices itself: it queues an extend event of its own, and when that runs the unbreakable block, the Redstone Block and the piston are destroyed, all without drops. No piston head or moving block is left behind, and what lies behind the target (push limit, obsidian, build height) does not matter.",
-          "The Enderite Piston breaks ordinary blocks exactly like the Netherite Piston. Its breach reaches up to 3 blocks deep in its facing direction: air is skipped, unbreakable blocks vanish without drops, ordinary blocks the breaker could break at the signal it gets are destroyed with their loot, and anything else (an immune block, a block that is too hard, a liquid) ends the breach. Then the Redstone Block and the piston itself are destroyed without drops. It has no crafting recipe yet.",
+          "The Enderite Piston breaks ordinary blocks exactly like the Netherite Piston. Its breach reaches up to 3 blocks deep in its facing direction: air is skipped, unbreakable blocks vanish without drops, ordinary blocks the breaker could break at the signal it gets are destroyed with their loot, and anything else (an immune block, a block that is too hard, a liquid) ends the breach. Then the Redstone Block and the piston itself are destroyed without drops. It has no crafting recipe either: a Netherite Piston becomes one after 5 seconds of hammering with a Netherite Sledgehammer (or better) and an Enderite Nugget in the off hand, again only while it is neither extended nor powered.",
           "All four pistons cannot be moved by other pistons while extended and use the ordinary vanilla piston head (the sticky one for the Reinforced Sticky Piston). A mixin on PistonHeadBlock.isFittingBase accepts the mod piston behind as the head's base - extended, facing the same way, matching head type - so breaking the head breaks the piston too, dropping it in survival and not in creative, as with vanilla pistons.",
           "While a pushed unbreakable block is on its way (two ticks inside a moving piston) explosions leave the moving piston alone, and the Rotator refuses extended pistons, piston heads and moving blocks - both would otherwise delete an unbreakable block for free.",
-          "All pistons are in the mineable/pickaxe tag. The Netherite Piston has hardness 5 and blast resistance 1200, the Enderite Piston hardness 6 and blast resistance 1500, and both items are fire resistant; the Reinforced and the Reinforced Sticky Piston have hardness 1.5.",
+          "All pistons are in the mineable/pickaxe tag. The Netherite Piston has hardness 5 and blast resistance 1200, the Enderite Piston hardness 6 and blast resistance 1500, and both items are fire resistant (the Enderite Piston's of rarity Epic); the Reinforced and the Reinforced Sticky Piston have hardness 1.5.",
           "The block \"netherite_piston_head\" is registered but placed by no code, and it has neither an item nor a loot table.",
           "Suspended Sand and Suspended Gravel (8 Sand/Gravel + 1 Nihilith Shard each = 8) are ordinary blocks with no falling logic; Suspended Sand additionally has no collision box.",
           "Levitating Sand and Levitating Gravel (8 Sand/Gravel + 1 Astralit Dust each = 8) fall upwards: two ticks after being placed, and again whenever a neighbour changes and the space above is free, the block turns into a levitating_block entity and rises. The entity uses vanilla's falling-block physics with the sign of gravity flipped (v = 0.98 x v + 0.04 per tick, limit 2 blocks per tick), so it starts slowly and accelerates exactly like falling sand.",
@@ -1438,12 +1485,12 @@ window.WIKI_DATA = {
           "Bezahlt wird mit einem Redstoneblock direkt neben dem Kolben: zuerst der direkt dahinter, sonst einer der vier Seiten quer zur Blickrichtung. Nie die Front, und kein Redstoneblock, der den Kolben nur über die Quasi-Konnektivität (neben dem Block darüber) schaltet. Ohne einen solchen Redstoneblock - etwa mit einem Hebel - hält ein unzerstörbarer Block vorn jeden Mod-Kolben genau wie bisher auf.",
           "Verstärkter (und Verstärkter klebriger) Kolben: Der unzerstörbare Block direkt davor wird wie ein normaler geschoben, der Rest der Reihe folgt den normalen Regeln, und er zählt zu den 18. Erst wenn der Schub gelungen ist, wird der Redstoneblock verbraucht (ohne Drop). Ein zweiter unzerstörbarer Block weiter hinten in der Reihe, Obsidian, das Baulimit, die Weltgrenze oder eine Block-Entity verweigern den Schub weiterhin, ebenso ein Schleimaufbau, der den bezahlenden Redstoneblock mitschieben würde. Beim Einfahren wird der unzerstörbare Block nie zurückgezogen.",
           "Der verbrauchte Redstoneblock ist meist die einzige Stromquelle, also fährt der Verstärkte Kolben im selben Tick wieder ein: Der klebrige lässt den geschobenen Block an seinem neuen Platz, der normale lässt ihn seine Bewegung zu Ende führen.",
-          "Der Netheritkolben wird aus 3 Verstärkten Kolben und 1 Netherite Nugget hergestellt (ergibt 3) und zerstört beim Ausfahren den Block vor sich, wenn dessen Härte höchstens (Signalstärke / 15) × 50 beträgt – bei voller Stärke also bis Härte 50; ansonsten schiebt er wie ein normaler Kolben. Zerstörte Blöcke lassen ihre normalen Drops fallen.",
+          "Der Netheritkolben hat kein Werkbankrezept: Ein gesetzter Verstärkter Kolben wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zu einem, solange er weder ausgefahren ist noch Strom bekommt. Beim Ausfahren zerstört er den Block vor sich, wenn dessen Härte höchstens (Signalstärke / 15) × 50 beträgt – bei voller Stärke also bis Härte 50; ansonsten schiebt er wie ein normaler Kolben. Zerstörte Blöcke lassen ihre normalen Drops fallen.",
           "Mit einem unzerstörbaren Block direkt davor und einem bezahlenden Redstoneblock opfert sich der Netheritkolben: Er reiht ein eigenes Ausfahr-Ereignis ein, und wenn es läuft, werden der unzerstörbare Block, der Redstoneblock und der Kolben zerstört, alle ohne Drop. Es bleibt weder Kolbenkopf noch bewegter Block zurück, und was hinter dem Ziel liegt (Schublimit, Obsidian, Bauhöhe), spielt keine Rolle.",
-          "Der Enderitkolben bricht gewöhnliche Blöcke genau wie der Netheritkolben. Sein Durchbruch reicht bis zu 3 Blöcke tief in Blickrichtung: Luft wird übersprungen, unzerstörbare Blöcke verschwinden ohne Drop, gewöhnliche Blöcke, die der Brecher bei seinem Signal brechen darf, werden mit ihren Drops zerstört, und alles andere (ein immuner Block, ein zu harter Block, eine Flüssigkeit) beendet den Durchbruch. Danach werden der Redstoneblock und der Kolben selbst ohne Drop zerstört. Ein Rezept hat er noch nicht.",
+          "Der Enderitkolben bricht gewöhnliche Blöcke genau wie der Netheritkolben. Sein Durchbruch reicht bis zu 3 Blöcke tief in Blickrichtung: Luft wird übersprungen, unzerstörbare Blöcke verschwinden ohne Drop, gewöhnliche Blöcke, die der Brecher bei seinem Signal brechen darf, werden mit ihren Drops zerstört, und alles andere (ein immuner Block, ein zu harter Block, eine Flüssigkeit) beendet den Durchbruch. Danach werden der Redstoneblock und der Kolben selbst ohne Drop zerstört. Auch er hat kein Werkbankrezept: Ein Netheritkolben wird nach 5 Sekunden Hämmern mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget in der Nebenhand zu einem, ebenfalls nur, solange er weder ausgefahren ist noch Strom bekommt.",
           "Alle vier Kolben lassen sich ausgefahren nicht von anderen Kolben verschieben und benutzen den normalen Vanilla-Kolbenkopf (den klebrigen beim Verstärkten klebrigen Kolben). Ein Mixin auf PistonHeadBlock.isFittingBase erkennt den Mod-Kolben dahinter als Basis des Kopfes an - ausgefahren, gleiche Blickrichtung, passender Kopftyp -, deshalb bricht mit dem Kopf auch der Kolben, im Überlebensmodus mit Drop, im Kreativmodus ohne, wie bei Vanilla-Kolben.",
           "Solange ein geschobener unzerstörbarer Block unterwegs ist (zwei Ticks in einem bewegten Kolben), lassen Explosionen den bewegten Kolben in Ruhe, und der Rotator verweigert ausgefahrene Kolben, Kolbenköpfe und bewegte Blöcke - beides würde sonst einen unzerstörbaren Block umsonst löschen.",
-          "Alle Kolben sind im Tag mineable/pickaxe. Der Netheritkolben hat Härte 5 und Explosionswiderstand 1200, der Enderitkolben Härte 6 und Explosionswiderstand 1500, beide Items sind feuerfest; der Verstärkte und der Verstärkte klebrige Kolben haben Härte 1,5.",
+          "Alle Kolben sind im Tag mineable/pickaxe. Der Netheritkolben hat Härte 5 und Explosionswiderstand 1200, der Enderitkolben Härte 6 und Explosionswiderstand 1500, beide Items sind feuerfest (das des Enderitkolbens von der Seltenheit Episch); der Verstärkte und der Verstärkte klebrige Kolben haben Härte 1,5.",
           "Der Block „netherite_piston_head“ ist registriert, wird aber von keinem Code platziert und hat weder Item noch Beutetabelle.",
           "Suspended Sand und Suspended Gravel (je 8 Sand/Kies + 1 Nihilith Shard = 8 Stück) sind gewöhnliche Blöcke ohne Fall-Logik; Suspended Sand hat zusätzlich keine Kollision.",
           "Levitating Sand und Levitating Gravel (je 8 Sand/Kies + 1 Astralit Dust = 8 Stück) fallen nach oben: zwei Ticks nach dem Setzen – und erneut, sobald sich ein Nachbar ändert und der Platz darüber frei ist – wird aus dem Block eine levitating_block-Entity, die aufsteigt. Sie benutzt Vanillas Fallphysik mit umgedrehtem Vorzeichen der Schwerkraft (v = 0,98 × v + 0,04 pro Tick, Grenzwert 2 Blöcke pro Tick) und beschleunigt daher genauso wie fallender Sand.",
@@ -2129,7 +2176,12 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_leggings",
         "simplebuilding:enderite_boots",
         "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:enderite_backpack"
+        "simplebuilding:enderite_backpack",
+        "simplebuilding:enderite_hopper",
+        "simplebuilding:enderite_furnace",
+        "simplebuilding:enderite_smoker",
+        "simplebuilding:enderite_blast_furnace",
+        "simplebuilding:enderite_piston"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
@@ -2148,7 +2200,7 @@ window.WIKI_DATA = {
         "title": "Enderite Void Protection",
         "summary": "Enderite items are not lost to the void: if they drop below the world's bottom they hang in place and are pulled back up when needed. Enderite armor also slows void damage for the wearer and lets you drift down gently while the jump key is held.",
         "details": [
-          "Everything in the simplebuilding:void_protected item tag is protected; datagen fills the tag automatically from every mod item whose id starts with \"enderite_\", plus raw_enderite - currently 25 entries (ingot, scrap, raw enderite, nugget, block, sword, spear, pickaxe, axe, shovel, hoe, chisel, sledgehammer, building wand, bundle, quiver, backpack, core, apple, carrot, the four armor pieces, upgrade template).",
+          "Everything in the simplebuilding:void_protected item tag is protected; datagen fills the tag automatically from every mod item whose id starts with \"enderite_\", plus raw_enderite - currently 30 entries (ingot, scrap, raw enderite, nugget, block, sword, spear, pickaxe, axe, shovel, hoe, chisel, sledgehammer, building wand, bundle, quiver, backpack, core, apple, carrot, the four armor pieces, upgrade template, piston, hopper, furnace, smoker, blast furnace).",
           "If such an item falls below the dimension's minimum height, its motion is zeroed and gravity is switched off - it floats.",
           "If it ends up more than 10 blocks below the minimum height, it is moved back to 5 blocks above the minimum height.",
           "The check runs on the server only, on every tick of the item entity.",
@@ -2163,7 +2215,7 @@ window.WIKI_DATA = {
         "title": "Enderit-Schutz vor der Leere",
         "summary": "Enderit-Gegenstände gehen in der Leere nicht verloren: Fallen sie unter die Weltgrenze, bleiben sie schweben und werden bei Bedarf wieder nach oben geholt. Zusätzlich verlangsamt Enderit-Rüstung den Leere-Schaden für den Träger und erlaubt bei gedrückter Sprungtaste sanftes Fallen.",
         "details": [
-          "Geschützt sind alle Items im Tag simplebuilding:void_protected; er wird per Datagen automatisch aus allen Mod-Items gefüllt, deren Kennung mit „enderite_“ beginnt, plus raw_enderite – zurzeit 25 Einträge (Barren, Schrott, Roh-Enderit, Nugget, Block, Schwert, Speer, Spitzhacke, Axt, Schaufel, Hacke, Meißel, Vorschlaghammer, Baustab, Bündel, Köcher, Rucksack, Kern, Apfel, Karotte, vier Rüstungsteile, Upgrade-Vorlage).",
+          "Geschützt sind alle Items im Tag simplebuilding:void_protected; er wird per Datagen automatisch aus allen Mod-Items gefüllt, deren Kennung mit „enderite_“ beginnt, plus raw_enderite – zurzeit 30 Einträge (Barren, Schrott, Roh-Enderit, Nugget, Block, Schwert, Speer, Spitzhacke, Axt, Schaufel, Hacke, Meißel, Vorschlaghammer, Baustab, Bündel, Köcher, Rucksack, Kern, Apfel, Karotte, vier Rüstungsteile, Upgrade-Vorlage, Kolben, Trichter, Ofen, Räucherofen, Schmelzofen).",
           "Fällt ein solches Item unter die Mindesthöhe der jeweiligen Dimension, wird seine Bewegung gestoppt und die Schwerkraft abgeschaltet – es schwebt.",
           "Liegt es mehr als 10 Blöcke unter der Mindesthöhe, wird es auf 5 Blöcke über der Mindesthöhe zurückversetzt.",
           "Die Prüfung erfolgt nur auf dem Server, jeden Tick des Item-Objekts.",
@@ -2187,7 +2239,12 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_chestplate",
         "simplebuilding:enderite_leggings",
         "simplebuilding:enderite_boots",
-        "simplebuilding:enderite_upgrade_template"
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:enderite_hopper",
+        "simplebuilding:enderite_furnace",
+        "simplebuilding:enderite_smoker",
+        "simplebuilding:enderite_blast_furnace",
+        "simplebuilding:enderite_piston"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
@@ -2206,7 +2263,7 @@ window.WIKI_DATA = {
         "title": "Enderite Void Protection",
         "summary": "Enderite items are not lost to the void: if they drop below the world's bottom they hang in place and are pulled back up when needed. Enderite armor also slows void damage for the wearer and lets you drift down gently while the jump key is held.",
         "details": [
-          "Everything in the simplebuilding:void_protected item tag is protected; datagen fills the tag automatically from every mod item whose id starts with \"enderite_\", plus raw_enderite - currently 25 entries (ingot, scrap, raw enderite, nugget, block, sword, spear, pickaxe, axe, shovel, hoe, chisel, sledgehammer, building wand, bundle, quiver, core, apple, carrot, the four armor pieces, upgrade template, piston).",
+          "Everything in the simplebuilding:void_protected item tag is protected; datagen fills the tag automatically from every mod item whose id starts with \"enderite_\", plus raw_enderite - currently 30 entries (ingot, scrap, raw enderite, nugget, block, sword, spear, pickaxe, axe, shovel, hoe, chisel, sledgehammer, building wand, bundle, quiver, backpack, core, apple, carrot, the four armor pieces, upgrade template, piston, hopper, furnace, smoker, blast furnace).",
           "If such an item falls below the dimension's minimum height, its motion is zeroed and gravity is switched off - it floats.",
           "If it ends up more than 10 blocks below the minimum height, it is moved back to 5 blocks above the minimum height.",
           "The check runs on the server only, on every tick of the item entity.",
@@ -2221,7 +2278,7 @@ window.WIKI_DATA = {
         "title": "Enderit-Schutz vor der Leere",
         "summary": "Enderit-Gegenstände gehen in der Leere nicht verloren: Fallen sie unter die Weltgrenze, bleiben sie schweben und werden bei Bedarf wieder nach oben geholt. Zusätzlich verlangsamt Enderit-Rüstung den Leere-Schaden für den Träger und erlaubt bei gedrückter Sprungtaste sanftes Fallen.",
         "details": [
-          "Geschützt sind alle Items im Tag simplebuilding:void_protected; er wird per Datagen automatisch aus allen Mod-Items gefüllt, deren Kennung mit „enderite_“ beginnt, plus raw_enderite – zurzeit 25 Einträge (Barren, Schrott, Roh-Enderit, Nugget, Block, Schwert, Speer, Spitzhacke, Axt, Schaufel, Hacke, Meißel, Vorschlaghammer, Baustab, Bündel, Köcher, Kern, Apfel, Karotte, vier Rüstungsteile, Upgrade-Vorlage, Kolben).",
+          "Geschützt sind alle Items im Tag simplebuilding:void_protected; er wird per Datagen automatisch aus allen Mod-Items gefüllt, deren Kennung mit „enderite_“ beginnt, plus raw_enderite – zurzeit 30 Einträge (Barren, Schrott, Roh-Enderit, Nugget, Block, Schwert, Speer, Spitzhacke, Axt, Schaufel, Hacke, Meißel, Vorschlaghammer, Baustab, Bündel, Köcher, Rucksack, Kern, Apfel, Karotte, vier Rüstungsteile, Upgrade-Vorlage, Kolben, Trichter, Ofen, Räucherofen, Schmelzofen).",
           "Fällt ein solches Item unter die Mindesthöhe der jeweiligen Dimension, wird seine Bewegung gestoppt und die Schwerkraft abgeschaltet – es schwebt.",
           "Liegt es mehr als 10 Blöcke unter der Mindesthöhe, wird es auf 5 Blöcke über der Mindesthöhe zurückversetzt.",
           "Die Prüfung erfolgt nur auf dem Server, jeden Tick des Item-Objekts.",
@@ -3443,7 +3500,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, and upgrades smithing templates in item frames with an ingredient in your off hand.",
+          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, upgrades smithing templates in item frames with an ingredient in your off hand, and hammers the mod's machines up a tier with a Netherite or Enderite Nugget in the off hand.",
           "details": [
             "There are seven tiers: Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Every hammer is built as a pickaxe of its material through settings.pickaxe(material, ...): mining speed, correct blocks, repair material and enchantability all follow the pickaxe material of that tier; only the durability is set separately afterwards.",
@@ -3472,6 +3529,13 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
+            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
+            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
+            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, or a piston that is extended or powered by redstone leaves a hint in the action bar (at most every 3 seconds); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
+            "While hammering, the hammer is held normally instead of in the bow pose, in first and in third person, so every strike reads as a hammer blow (HeldItemRendererMixin, AvatarRendererMixin).",
+            "The use behind an upgrade is a fixed 100 ticks (getUseDuration returns SledgehammerUpgrades.UPGRADE_TICKS while an upgrade job exists for the player); onUseTick checks the job every tick on both sides, and finishUsingItem runs the fifth strike instead of the reshape or crush code whenever a job existed - also when it was cancelled, so an upgrade never reshapes or crushes the block you happen to look at.",
             "Upgrading smithing templates: left-click (AttackEntity) an item frame that holds a smithing template (item id contains trim_smithing_template) with the hammer in your main hand while a Glow Ink Sac sits in your off hand, and it becomes a Glowing Trim Upgrade Template; with Glowstone Dust in the off hand you get an Emitting Trim Upgrade Template.",
             "The upgrade uses up 1 ingredient from the off hand and 1 durability (not in creative mode), and plays the amethyst sound (pitch 1.5) plus the glow ink sac or blaze shoot sound.",
             "Anvil, hammer + hammer: the remaining durability of both hammers is added up, plus 12 percent of the left hammer's maximum durability as a bonus (capped at the maximum durability); enchantments are merged (equal levels give one level more, otherwise the higher one wins, never above the maximum level); it costs 1 level (AnvilScreenHandlerMixin).",
@@ -3493,7 +3557,8 @@ window.WIKI_DATA = {
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
-            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template."
+            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template.",
+            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -3524,7 +3589,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
+          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt und mit einem Netherit- oder Enderiten-Nugget in der Nebenhand die Maschinen der Mod eine Stufe höher schmiedet.",
           "details": [
             "Es gibt sieben Stufen: Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit-Vorschlaghammer und Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Jeder Hammer wird über settings.pickaxe(material, ...) als Spitzhacke seines Materials angelegt: Abbaugeschwindigkeit, geeignete Blöcke und Reparaturmaterial folgen dem Spitzhacken-Material der Stufe.",
@@ -3553,6 +3618,13 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
+            "Maschinen aufwerten: Mit einem Netherit-Nugget in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderiten-Nugget wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
+            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht ein Nugget (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
+            "Abgebrochen wird ohne Nugget-Verbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, das Nugget die Nebenhand verlässt oder der Hammer zerbricht.",
+            "Mit einem Nugget in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Nugget und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falsches Nugget, ein zu schwacher Hammer oder ein ausgefahrener bzw. mit Redstone versorgter Kolben ergeben einen Hinweis in der Aktionsleiste (höchstens alle 3 Sekunden); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
+            "Beim Schmieden hält die Hand den Hammer normal statt in der Bogen-Pose, in der Ich- wie in der Außenansicht, sodass jeder Schlag als Hammerschlag zu sehen ist (HeldItemRendererMixin, AvatarRendererMixin).",
+            "Die Benutzung hinter einer Aufwertung dauert fest 100 Ticks (getUseDuration liefert SledgehammerUpgrades.UPGRADE_TICKS, solange für den Spieler ein Aufwertungsauftrag besteht); onUseTick prüft den Auftrag auf beiden Seiten in jedem Tick, und finishUsingItem führt statt Umformen oder Zerschlagen den fünften Schlag aus, sobald ein Auftrag bestand - auch wenn er abgebrochen wurde, eine Aufwertung formt also nie den Block um, auf den man zufällig schaut.",
             "Schmiedevorlagen veredeln: Linksklick (AttackEntity) mit dem Hammer in der Haupthand auf einen Rahmen, der eine Schmiedevorlage (Item-Id enthält trim_smithing_template) enthält, während in der Nebenhand ein Leuchttintenbeutel liegt, verwandelt sie in eine Leuchtende Schmiedevorlage; mit Leuchtsteinstaub in der Nebenhand entsteht eine Strahlende Schmiedevorlage.",
             "Das Veredeln verbraucht 1 Zutat aus der Nebenhand und 1 Haltbarkeit (nicht im Kreativmodus) und spielt Amethyst-Klang (Tonhöhe 1,5) plus Leuchttinten- bzw. Lohen-Schussgeräusch.",
             "Amboss, Hammer + Hammer: Die Resthaltbarkeit beider Hämmer wird addiert, plus 12 Prozent der Maximalhaltbarkeit des linken Hammers als Bonus (gedeckelt bei der Maximalhaltbarkeit); Verzauberungen werden zusammengeführt (gleiche Stufe ergibt eine Stufe mehr, sonst die höhere, nie über die Maximalstufe); Kosten 1 Level (AnvilScreenHandlerMixin).",
@@ -3574,7 +3646,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage."
+            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage.",
+            "Netherit-Nugget in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderiten-Nugget auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -3661,7 +3734,9 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
           "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java"
+          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -4214,7 +4289,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, and upgrades smithing templates in item frames with an ingredient in your off hand.",
+          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, upgrades smithing templates in item frames with an ingredient in your off hand, and hammers the mod's machines up a tier with a Netherite or Enderite Nugget in the off hand.",
           "details": [
             "There are seven tiers: Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Every hammer is built as a pickaxe of its material through settings.pickaxe(material, ...): mining speed, correct blocks, repair material and enchantability all follow the pickaxe material of that tier; only the durability is set separately afterwards.",
@@ -4243,6 +4318,13 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
+            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
+            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
+            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, or a piston that is extended or powered by redstone leaves a hint in the action bar (at most every 3 seconds); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
+            "While hammering, the hammer is held normally instead of in the bow pose, in first and in third person, so every strike reads as a hammer blow (HeldItemRendererMixin, AvatarRendererMixin).",
+            "The use behind an upgrade is a fixed 100 ticks (getUseDuration returns SledgehammerUpgrades.UPGRADE_TICKS while an upgrade job exists for the player); onUseTick checks the job every tick on both sides, and finishUsingItem runs the fifth strike instead of the reshape or crush code whenever a job existed - also when it was cancelled, so an upgrade never reshapes or crushes the block you happen to look at.",
             "Upgrading smithing templates: left-click (AttackEntity) an item frame that holds a smithing template (item id contains trim_smithing_template) with the hammer in your main hand while a Glow Ink Sac sits in your off hand, and it becomes a Glowing Trim Upgrade Template; with Glowstone Dust in the off hand you get an Emitting Trim Upgrade Template.",
             "The upgrade uses up 1 ingredient from the off hand and 1 durability (not in creative mode), and plays the amethyst sound (pitch 1.5) plus the glow ink sac or blaze shoot sound.",
             "Anvil, hammer + hammer: the remaining durability of both hammers is added up, plus 12 percent of the left hammer's maximum durability as a bonus (capped at the maximum durability); enchantments are merged (equal levels give one level more, otherwise the higher one wins, never above the maximum level); it costs 1 level (AnvilScreenHandlerMixin).",
@@ -4264,7 +4346,8 @@ window.WIKI_DATA = {
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
-            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template."
+            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template.",
+            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -4295,7 +4378,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
+          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt und mit einem Netherit- oder Enderiten-Nugget in der Nebenhand die Maschinen der Mod eine Stufe höher schmiedet.",
           "details": [
             "Es gibt sieben Stufen: Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit-Vorschlaghammer und Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Jeder Hammer wird über settings.pickaxe(material, ...) als Spitzhacke seines Materials angelegt: Abbaugeschwindigkeit, geeignete Blöcke und Reparaturmaterial folgen dem Spitzhacken-Material der Stufe.",
@@ -4324,6 +4407,13 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
+            "Maschinen aufwerten: Mit einem Netherit-Nugget in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderiten-Nugget wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
+            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht ein Nugget (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
+            "Abgebrochen wird ohne Nugget-Verbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, das Nugget die Nebenhand verlässt oder der Hammer zerbricht.",
+            "Mit einem Nugget in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Nugget und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falsches Nugget, ein zu schwacher Hammer oder ein ausgefahrener bzw. mit Redstone versorgter Kolben ergeben einen Hinweis in der Aktionsleiste (höchstens alle 3 Sekunden); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
+            "Beim Schmieden hält die Hand den Hammer normal statt in der Bogen-Pose, in der Ich- wie in der Außenansicht, sodass jeder Schlag als Hammerschlag zu sehen ist (HeldItemRendererMixin, AvatarRendererMixin).",
+            "Die Benutzung hinter einer Aufwertung dauert fest 100 Ticks (getUseDuration liefert SledgehammerUpgrades.UPGRADE_TICKS, solange für den Spieler ein Aufwertungsauftrag besteht); onUseTick prüft den Auftrag auf beiden Seiten in jedem Tick, und finishUsingItem führt statt Umformen oder Zerschlagen den fünften Schlag aus, sobald ein Auftrag bestand - auch wenn er abgebrochen wurde, eine Aufwertung formt also nie den Block um, auf den man zufällig schaut.",
             "Schmiedevorlagen veredeln: Linksklick (AttackEntity) mit dem Hammer in der Haupthand auf einen Rahmen, der eine Schmiedevorlage (Item-Id enthält trim_smithing_template) enthält, während in der Nebenhand ein Leuchttintenbeutel liegt, verwandelt sie in eine Leuchtende Schmiedevorlage; mit Leuchtsteinstaub in der Nebenhand entsteht eine Strahlende Schmiedevorlage.",
             "Das Veredeln verbraucht 1 Zutat aus der Nebenhand und 1 Haltbarkeit (nicht im Kreativmodus) und spielt Amethyst-Klang (Tonhöhe 1,5) plus Leuchttinten- bzw. Lohen-Schussgeräusch.",
             "Amboss, Hammer + Hammer: Die Resthaltbarkeit beider Hämmer wird addiert, plus 12 Prozent der Maximalhaltbarkeit des linken Hammers als Bonus (gedeckelt bei der Maximalhaltbarkeit); Verzauberungen werden zusammengeführt (gleiche Stufe ergibt eine Stufe mehr, sonst die höhere, nie über die Maximalstufe); Kosten 1 Level (AnvilScreenHandlerMixin).",
@@ -4345,7 +4435,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage."
+            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage.",
+            "Netherit-Nugget in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderiten-Nugget auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -4432,7 +4523,9 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
           "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java"
+          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -4673,6 +4766,90 @@ window.WIKI_DATA = {
             "Am Spieler wird noch nichts gezeichnet: Ein getragener Rucksack ist unsichtbar, wie ein getragener Köcher.",
             "Der Inhalt des getragenen Rucksacks gehört zum Brust-Item und erreicht deshalb mit jeder Ausrüstungs-Aktualisierung die Spieler in der Nähe, wie eine gehaltene Shulkerkiste.",
             "Geöffnet wird ein Rucksack immer über die Taste, während er getragen wird, oder als abgestellter Block; ein Rucksack woanders im Inventar lässt sich nicht öffnen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:enderite_blast_furnace",
+      "name": {
+        "en_us": "Enderite Blast Furnace",
+        "de_de": "Enderit-Schmelzofen"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ModBlastFurnaceBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+          "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
+          "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_raw_enderite.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
+        ],
+        "en": {
+          "summary": "The Enderite Blast Furnace is the fastest blast furnace tier: 8 times the vanilla speed, double experience, extra output from raw metals. It is hammered out of a Netherite Blast Furnace.",
+          "details": [
+            "Behaves like a vanilla blast furnace: same recipe type (RecipeType.BLASTING) and the same menu (BlastFurnaceMenu); same block class (ModBlastFurnaceBlock) and block entity (ModBlastFurnaceBlockEntity) as the Reinforced and Netherite tiers, which read the block state to tell the tiers apart.",
+            "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 7 extra progress ticks per server tick (extraTicks = 7), capped at total time minus 1 - 8 times the vanilla speed; a 200 tick recipe finishes in 26 ticks, a 100 tick recipe in 14.",
+            "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
+            "Extra output: every 2nd finished smelt of a recipe whose ingredient is only Raw Iron, Raw Gold or Raw Copper (tag simplebuilding:blast_furnace_bonus) yields one item more (+50 %); with a full result slot the bonus waits for the next one, and the count is saved with the block.",
+            "Enderite Scrap (72000 ticks in a vanilla blast furnace) takes 9001 ticks here, about 7.5 minutes, and pays 20 experience instead of 10.",
+            "Menu title: \"Enderite Blast Furnace\" (translation key container.simplebuilding.enderite_blast_furnace).",
+            "Made only in the world: hold right-click for 5 seconds on a placed Netherite Blast Furnace with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items, cooking progress and stored experience stay in the block.",
+            "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla blast furnace (ofFullCopy(Blocks.BLAST_FURNACE)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. It gives off light level 13 while it burns.",
+            "The item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag, so it is not lost in the void.",
+            "In the mineable/pickaxe tag and in no needs_*_tool tag; loot table: drops itself (survives_explosion condition). In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after its Netherite sibling.",
+            "Its textures follow the file names of the Netherite machine's textures with enderite_ instead of netherite_."
+          ],
+          "controls": [
+            "Right-click the block to open the blast furnace menu."
+          ],
+          "caveats": [
+            "Fuel burns for the full furnace duration (coal 1600 ticks), where the vanilla device halves it; together with the free speed-up one piece of fuel covers about 14 times as many 100 tick recipes as in the vanilla device, and up to 16 times as many long ones.",
+            "It is the top tier: a sledgehammer with a nugget does nothing special on it, and right-clicking opens the menu as usual.",
+            "No game test measures its speed or its rewards yet."
+          ]
+        },
+        "de": {
+          "summary": "Der Enderit-Schmelzofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung, zusätzliche Ausbeute aus Rohmetallen. Er wird aus einem Netherit-Schmelzofen geschmiedet.",
+          "details": [
+            "Verhält sich wie ein Vanilla-Schmelzofen: gleicher Rezepttyp (RecipeType.BLASTING) und dasselbe Menü (BlastFurnaceMenu); dieselbe Blockklasse (ModBlastFurnaceBlock) und Block-Entity (ModBlastFurnaceBlockEntity) wie Verstärkt- und Netherit-Stufe, die Stufe wird am Blockzustand unterschieden.",
+            "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 7 zusätzliche Fortschritts-Ticks (extraTicks = 7), gedeckelt auf Gesamtzeit minus 1 - achtfache Vanilla-Geschwindigkeit; ein 200-Tick-Rezept ist nach 26 Ticks fertig, ein 100-Tick-Rezept nach 14.",
+            "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
+            "Mehr Ausbeute: Jeder 2. fertige Schmelzvorgang eines Rezepts, dessen Zutat nur Roheisen, Rohgold oder Rohkupfer ist (Tag simplebuilding:blast_furnace_bonus), gibt einen Gegenstand mehr (+50 %); bei vollem Ausgabeslot wartet der Bonus auf den nächsten, der Zähler wird mit dem Block gespeichert.",
+            "Enderit-Schrott (72000 Ticks im Vanilla-Schmelzofen) braucht hier 9001 Ticks, rund 7,5 Minuten, und bringt 20 statt 10 Erfahrung.",
+            "Menü-Titel: „Enderit-Schmelzofen“ (Übersetzungsschlüssel container.simplebuilding.enderite_blast_furnace).",
+            "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderiten-Nugget in der Nebenhand auf einen gesetzten Netherit-Schmelzofen halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Nugget wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Inhalt, Kochfortschritt und gespeicherte Erfahrung bleiben im Block.",
+            "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Schmelzofen kopiert (ofFullCopy(Blocks.BLAST_FURNACE)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. Beim Brennen leuchtet er mit Stärke 13.",
+            "Das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected, geht in der Leere also nicht verloren.",
+            "Im Tag mineable/pickaxe und in keinem needs_*_tool-Tag; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach seinem Netherit-Geschwister.",
+            "Seine Texturen folgen den Dateinamen der Netherit-Maschine, mit enderite_ statt netherite_."
+          ],
+          "controls": [
+            "Rechtsklick auf den Block öffnet das Menü."
+          ],
+          "caveats": [
+            "Brennstoff brennt die volle Ofendauer (Kohle 1600 Ticks), wo das Vanilla-Gerät sie halbiert; zusammen mit der kostenlosen Beschleunigung reicht ein Stück Brennstoff für etwa 14-mal so viele 100-Tick-Rezepte wie im Vanilla-Gerät, bei langen Rezepten für bis zu 16-mal so viele.",
+            "Er ist die oberste Stufe: Ein Vorschlaghammer mit Nugget bewirkt an ihm nichts Besonderes, und ein Rechtsklick öffnet wie gewohnt das Menü.",
+            "Noch kein Spieltest misst seine Geschwindigkeit oder seine Belohnungen."
           ]
         }
       },
@@ -5299,6 +5476,84 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_furnace",
+      "name": {
+        "en_us": "Enderite Furnace",
+        "de_de": "Enderitofen"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ModFurnaceBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModFurnaceBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+          "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_furnace.json"
+        ],
+        "en": {
+          "summary": "The Enderite Furnace is the fastest furnace tier: 8 times the vanilla speed, double experience. It is hammered out of a Netherite Furnace.",
+          "details": [
+            "Behaves like a vanilla furnace: same recipe type (RecipeType.SMELTING) and the same menu (FurnaceMenu); same block class (ModFurnaceBlock) and block entity (ModFurnaceBlockEntity) as the Reinforced and Netherite tiers, which read the block state to tell the tiers apart.",
+            "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 7 extra progress ticks per server tick (extraTicks = 7), capped at total time minus 1 - 8 times the vanilla speed; a 200 tick recipe finishes in 26 ticks, a 100 tick recipe in 14.",
+            "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
+            "Menu title: \"Enderite Furnace\" (translation key container.simplebuilding.enderite_furnace).",
+            "Made only in the world: hold right-click for 5 seconds on a placed Netherite Furnace with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items, cooking progress and stored experience stay in the block.",
+            "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla furnace (ofFullCopy(Blocks.FURNACE)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. It gives off light level 13 while it burns.",
+            "The item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag, so it is not lost in the void.",
+            "In the mineable/pickaxe tag and in no needs_*_tool tag; loot table: drops itself (survives_explosion condition). In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after its Netherite sibling.",
+            "Its textures follow the file names of the Netherite machine's textures with enderite_ instead of netherite_."
+          ],
+          "controls": [
+            "Right-click the block to open the furnace menu."
+          ],
+          "caveats": [
+            "The speed-up costs no fuel, so one piece of fuel smelts about eight times as many items as in a vanilla furnace.",
+            "It is the top tier: a sledgehammer with a nugget does nothing special on it, and right-clicking opens the menu as usual.",
+            "No game test measures its speed or its rewards yet."
+          ]
+        },
+        "de": {
+          "summary": "Der Enderitofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung. Er wird aus einem Netheritofen geschmiedet.",
+          "details": [
+            "Verhält sich wie ein Vanilla-Ofen: gleicher Rezepttyp (RecipeType.SMELTING) und dasselbe Menü (FurnaceMenu); dieselbe Blockklasse (ModFurnaceBlock) und Block-Entity (ModFurnaceBlockEntity) wie Verstärkt- und Netherit-Stufe, die Stufe wird am Blockzustand unterschieden.",
+            "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 7 zusätzliche Fortschritts-Ticks (extraTicks = 7), gedeckelt auf Gesamtzeit minus 1 - achtfache Vanilla-Geschwindigkeit; ein 200-Tick-Rezept ist nach 26 Ticks fertig, ein 100-Tick-Rezept nach 14.",
+            "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
+            "Menü-Titel: „Enderitofen“ (Übersetzungsschlüssel container.simplebuilding.enderite_furnace).",
+            "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderiten-Nugget in der Nebenhand auf einen gesetzten Netheritofen halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Nugget wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Inhalt, Kochfortschritt und gespeicherte Erfahrung bleiben im Block.",
+            "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Ofen kopiert (ofFullCopy(Blocks.FURNACE)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. Beim Brennen leuchtet er mit Stärke 13.",
+            "Das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected, geht in der Leere also nicht verloren.",
+            "Im Tag mineable/pickaxe und in keinem needs_*_tool-Tag; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach seinem Netherit-Geschwister.",
+            "Seine Texturen folgen den Dateinamen der Netherit-Maschine, mit enderite_ statt netherite_."
+          ],
+          "controls": [
+            "Rechtsklick auf den Block öffnet das Menü."
+          ],
+          "caveats": [
+            "Die Beschleunigung kostet keinen Brennstoff, ein Stück Brennstoff reicht also für etwa achtmal so viele Gegenstände wie im Vanilla-Ofen.",
+            "Er ist die oberste Stufe: Ein Vorschlaghammer mit Nugget bewirkt an ihm nichts Besonderes, und ein Rechtsklick öffnet wie gewohnt das Menü.",
+            "Noch kein Spieltest misst seine Geschwindigkeit oder seine Belohnungen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:enderite_helmet",
       "name": {
         "en_us": "Enderite Helmet",
@@ -5337,6 +5592,80 @@ window.WIKI_DATA = {
         "maxStackSize": 1
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_hopper",
+      "name": {
+        "en_us": "Enderite Hopper",
+        "de_de": "Enderittrichter"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
+          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
+        ],
+        "en": {
+          "summary": "The Enderite Hopper is the fastest hopper: it waits only 1 tick after every transfer, so it moves an item every tick, with the same item filter as the Reinforced and Netherite Hoppers. It is hammered out of a Netherite Hopper.",
+          "details": [
+            "After every successful transfer it waits 1 tick (ModHopperBlockEntity.insertAndExtract: speed = 1 for ENDERITE_HOPPER; Netherite 2, Reinforced 4, fallback 8).",
+            "Per transfer it pushes exactly one item into the container it faces and in the same tick pulls items in from above as long as it is not full; the cooldown is only set when something actually moved. It only moves items while it is not powered by redstone.",
+            "Same block class (ModHopperBlock), block entity type (simplebuilding:mod_hopper) and menu (menu type simplebuilding:netherite_hopper, titled like the vanilla hopper) as the other two tiers: 5 slots, filter button with Disabled, Exact Match and Type Match, one filter item per slot, saved as 'FilterMode', 'GhostItems' and 'TransferCooldown'.",
+            "Made only in the world: hold right-click for 5 seconds on a placed Netherite Hopper with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items, filter items and filter mode stay in the hopper.",
+            "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. noOcclusion is set.",
+            "The item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag, so it is not lost in the void.",
+            "In the mineable/pickaxe tag and in no needs_*_tool tag; loot table: drops itself (survives_explosion condition). In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after its Netherite sibling.",
+            "Its textures follow the file names of the Netherite machine's textures with enderite_ instead of netherite_."
+          ],
+          "controls": [
+            "Right-click the block to open the filter menu, as on the other mod hoppers."
+          ],
+          "caveats": [
+            "It is the top tier: a sledgehammer with a nugget does nothing special on it, and right-clicking opens the menu as usual.",
+            "No game test measures its speed yet."
+          ]
+        },
+        "de": {
+          "summary": "Der Enderittrichter ist der schnellste Trichter: Nach jedem Transfer wartet er nur 1 Tick, er bewegt also in jedem Tick ein Item, mit demselben Item-Filter wie der Verstärkte und der Netherittrichter. Er wird aus einem Netherittrichter geschmiedet.",
+          "details": [
+            "Nach jedem erfolgreichen Transfer wartet er 1 Tick (ModHopperBlockEntity.insertAndExtract: speed = 1 für ENDERITE_HOPPER; Netherit 2, Verstärkt 4, Fallback 8).",
+            "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt, und zieht im selben Tick Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn wirklich etwas bewegt wurde. Er bewegt nur Items, solange er nicht per Redstone gesperrt ist.",
+            "Dieselbe Blockklasse (ModHopperBlock), derselbe Block-Entity-Typ (simplebuilding:mod_hopper) und dasselbe Menü (Menütyp simplebuilding:netherite_hopper, Titel wie beim Vanilla-Trichter) wie die anderen beiden Stufen: 5 Slots, Filter-Knopf mit Disabled, Exact Match und Type Match, ein Filter-Item pro Slot, gespeichert als 'FilterMode', 'GhostItems' und 'TransferCooldown'.",
+            "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderiten-Nugget in der Nebenhand auf einen gesetzten Netherittrichter halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Nugget wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Items, Filter-Items und Filtermodus bleiben im Trichter.",
+            "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Trichter kopiert (ofFullCopy(Blocks.HOPPER)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. noOcclusion ist gesetzt.",
+            "Das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected, geht in der Leere also nicht verloren.",
+            "Im Tag mineable/pickaxe und in keinem needs_*_tool-Tag; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach seinem Netherit-Geschwister.",
+            "Seine Texturen folgen den Dateinamen der Netherit-Maschine, mit enderite_ statt netherite_."
+          ],
+          "controls": [
+            "Rechtsklick auf den Block öffnet das Filter-Menü, wie bei den anderen Mod-Trichtern."
+          ],
+          "caveats": [
+            "Er ist die oberste Stufe: Ein Vorschlaghammer mit Nugget bewirkt an ihm nichts Besonderes, und ein Rechtsklick öffnet wie gewohnt das Menü.",
+            "Noch kein Spieltest misst seine Geschwindigkeit."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:enderite_ingot",
@@ -5450,7 +5779,7 @@ window.WIKI_DATA = {
             "Breach: with an unbreakable block directly in front (negative destroy speed or Reinforced Deepslate, not in simplebuilding:piston_breach_immune, no block entity; see PistonBreach) and a Redstone Block directly next to it paying (behind first, then the four sides across its facing, never the front), it works through up to 3 cells in its facing direction (EnderitePistonBlock.BREACH_DEPTH).",
             "Per cell: air is skipped; an unbreakable block is removed without drops; an ordinary block that the breaker could break at the signal it gets (the paying Redstone Block gives 15, so hardness up to 50, push reaction not BLOCK) is destroyed with its normal drops; a block in simplebuilding:piston_breach_immune ends the breach even if the breaker could break it, and so does anything else - an unbreakable block with a block entity, a block harder than that, a block with push reaction BLOCK, a liquid.",
             "Afterwards the Redstone Block and the piston itself are destroyed without drops. The breach runs on the piston's own block event (queued whenever a neighbour changes or it is placed), so no piston head or moving block is left and nothing behind the breached cells matters.",
-            "Hardness 6, blast resistance 1500, netherite block sounds; the item is fire resistant and, since its id starts with enderite_, in the simplebuilding:void_protected tag.",
+            "Hardness 6, blast resistance 1500, netherite block sounds; the item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag.",
             "An extended Enderite Piston cannot be moved by other pistons; it uses the ordinary vanilla piston head, which the PistonHeadBlock.isFittingBase mixin accepts, so breaking the head breaks the piston as well.",
             "In the mineable/pickaxe tag, no minimum tool tier; loot table: drops itself (survives_explosion condition).",
             "In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after the Netherite Piston."
@@ -5460,7 +5789,7 @@ window.WIKI_DATA = {
             "Redstone Block directly next to it and an unbreakable block in front: breach up to 3 blocks deep; the Redstone Block and the piston are used up."
           ],
           "caveats": [
-            "There is no crafting recipe yet; it is only available from the creative tab or by command.",
+            "There is no crafting recipe: a Netherite Piston becomes an Enderite Piston after 5 seconds of hammering with a Netherite Sledgehammer (or better) and an Enderite Nugget in the off hand, as long as it is neither extended nor powered (SledgehammerUpgrades).",
             "The breach checks neither height nor dimension: the bottom bedrock layer of the world and the Nether roof can be breached.",
             "The breach fires no NeoForge PistonEvent, so mods listening to it cannot cancel it."
           ]
@@ -5473,7 +5802,7 @@ window.WIKI_DATA = {
             "Durchbruch: Steht ein unzerstörbarer Block direkt davor (negative Abbaugeschwindigkeit oder Verstärkter Tiefenschiefer, nicht in simplebuilding:piston_breach_immune, keine Block-Entity; siehe PistonBreach) und bezahlt ein Redstoneblock direkt daneben (zuerst dahinter, dann die vier Seiten quer zur Blickrichtung, nie die Front), arbeitet er sich bis zu 3 Zellen in Blickrichtung vor (EnderitePistonBlock.BREACH_DEPTH).",
             "Je Zelle: Luft wird übersprungen; ein unzerstörbarer Block verschwindet ohne Drop; ein gewöhnlicher Block, den der Brecher bei seinem Signal brechen darf (der bezahlende Redstoneblock liefert 15, also Härte bis 50, Push-Reaktion nicht BLOCK), wird mit seinen normalen Drops zerstört; ein Block aus simplebuilding:piston_breach_immune beendet den Durchbruch, selbst wenn der Brecher ihn brechen dürfte, ebenso alles andere - ein unzerstörbarer Block mit Block-Entity, ein härterer Block, ein Block mit Push-Reaktion BLOCK, eine Flüssigkeit.",
             "Danach werden der Redstoneblock und der Kolben selbst ohne Drop zerstört. Der Durchbruch läuft über ein eigenes Block-Ereignis des Kolbens (eingereiht bei jeder Nachbaränderung und beim Setzen), es bleibt also weder Kolbenkopf noch bewegter Block zurück, und was hinter den durchbrochenen Zellen liegt, spielt keine Rolle.",
-            "Härte 6, Explosionswiderstand 1500, Geräusch wie ein Netheritblock; das Item ist feuerfest und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected.",
+            "Härte 6, Explosionswiderstand 1500, Geräusch wie ein Netheritblock; das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected.",
             "Ein ausgefahrener Enderitkolben kann von anderen Kolben nicht verschoben werden; er benutzt den normalen Vanilla-Kolbenkopf, den das Mixin auf PistonHeadBlock.isFittingBase anerkennt, wer den Kopf abbaut, bricht also auch den Kolben.",
             "Im Tag mineable/pickaxe, kein Mindestwerkzeug; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion).",
             "Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach dem Netheritkolben."
@@ -5483,7 +5812,7 @@ window.WIKI_DATA = {
             "Redstoneblock direkt daneben und ein unzerstörbarer Block davor: Durchbruch bis zu 3 Blöcke tief; Redstoneblock und Kolben werden verbraucht."
           ],
           "caveats": [
-            "Es gibt noch kein Rezept; er ist nur über den Kreativ-Reiter oder per Befehl erhältlich.",
+            "Es gibt kein Werkbankrezept: Ein Netheritkolben wird nach 5 Sekunden Hämmern mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget in der Nebenhand zum Enderitkolben, solange er weder ausgefahren ist noch Strom bekommt (SledgehammerUpgrades).",
             "Der Durchbruch prüft weder Höhe noch Dimension: Die unterste Grundgesteinsschicht der Welt und das Netherdach lassen sich durchbrechen.",
             "Der Durchbruch feuert kein NeoForge-PistonEvent, Mods, die darauf hören, können ihn also nicht absagen."
           ]
@@ -5503,7 +5832,8 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -5654,7 +5984,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, and upgrades smithing templates in item frames with an ingredient in your off hand.",
+          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, upgrades smithing templates in item frames with an ingredient in your off hand, and hammers the mod's machines up a tier with a Netherite or Enderite Nugget in the off hand.",
           "details": [
             "There are seven tiers: Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Every hammer is built as a pickaxe of its material through settings.pickaxe(material, ...): mining speed, correct blocks, repair material and enchantability all follow the pickaxe material of that tier; only the durability is set separately afterwards.",
@@ -5683,6 +6013,13 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
+            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
+            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
+            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, or a piston that is extended or powered by redstone leaves a hint in the action bar (at most every 3 seconds); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
+            "While hammering, the hammer is held normally instead of in the bow pose, in first and in third person, so every strike reads as a hammer blow (HeldItemRendererMixin, AvatarRendererMixin).",
+            "The use behind an upgrade is a fixed 100 ticks (getUseDuration returns SledgehammerUpgrades.UPGRADE_TICKS while an upgrade job exists for the player); onUseTick checks the job every tick on both sides, and finishUsingItem runs the fifth strike instead of the reshape or crush code whenever a job existed - also when it was cancelled, so an upgrade never reshapes or crushes the block you happen to look at.",
             "Upgrading smithing templates: left-click (AttackEntity) an item frame that holds a smithing template (item id contains trim_smithing_template) with the hammer in your main hand while a Glow Ink Sac sits in your off hand, and it becomes a Glowing Trim Upgrade Template; with Glowstone Dust in the off hand you get an Emitting Trim Upgrade Template.",
             "The upgrade uses up 1 ingredient from the off hand and 1 durability (not in creative mode), and plays the amethyst sound (pitch 1.5) plus the glow ink sac or blaze shoot sound.",
             "Anvil, hammer + hammer: the remaining durability of both hammers is added up, plus 12 percent of the left hammer's maximum durability as a bonus (capped at the maximum durability); enchantments are merged (equal levels give one level more, otherwise the higher one wins, never above the maximum level); it costs 1 level (AnvilScreenHandlerMixin).",
@@ -5704,7 +6041,8 @@ window.WIKI_DATA = {
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
-            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template."
+            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template.",
+            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -5735,7 +6073,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
+          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt und mit einem Netherit- oder Enderiten-Nugget in der Nebenhand die Maschinen der Mod eine Stufe höher schmiedet.",
           "details": [
             "Es gibt sieben Stufen: Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit-Vorschlaghammer und Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Jeder Hammer wird über settings.pickaxe(material, ...) als Spitzhacke seines Materials angelegt: Abbaugeschwindigkeit, geeignete Blöcke und Reparaturmaterial folgen dem Spitzhacken-Material der Stufe.",
@@ -5764,6 +6102,13 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
+            "Maschinen aufwerten: Mit einem Netherit-Nugget in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderiten-Nugget wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
+            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht ein Nugget (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
+            "Abgebrochen wird ohne Nugget-Verbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, das Nugget die Nebenhand verlässt oder der Hammer zerbricht.",
+            "Mit einem Nugget in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Nugget und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falsches Nugget, ein zu schwacher Hammer oder ein ausgefahrener bzw. mit Redstone versorgter Kolben ergeben einen Hinweis in der Aktionsleiste (höchstens alle 3 Sekunden); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
+            "Beim Schmieden hält die Hand den Hammer normal statt in der Bogen-Pose, in der Ich- wie in der Außenansicht, sodass jeder Schlag als Hammerschlag zu sehen ist (HeldItemRendererMixin, AvatarRendererMixin).",
+            "Die Benutzung hinter einer Aufwertung dauert fest 100 Ticks (getUseDuration liefert SledgehammerUpgrades.UPGRADE_TICKS, solange für den Spieler ein Aufwertungsauftrag besteht); onUseTick prüft den Auftrag auf beiden Seiten in jedem Tick, und finishUsingItem führt statt Umformen oder Zerschlagen den fünften Schlag aus, sobald ein Auftrag bestand - auch wenn er abgebrochen wurde, eine Aufwertung formt also nie den Block um, auf den man zufällig schaut.",
             "Schmiedevorlagen veredeln: Linksklick (AttackEntity) mit dem Hammer in der Haupthand auf einen Rahmen, der eine Schmiedevorlage (Item-Id enthält trim_smithing_template) enthält, während in der Nebenhand ein Leuchttintenbeutel liegt, verwandelt sie in eine Leuchtende Schmiedevorlage; mit Leuchtsteinstaub in der Nebenhand entsteht eine Strahlende Schmiedevorlage.",
             "Das Veredeln verbraucht 1 Zutat aus der Nebenhand und 1 Haltbarkeit (nicht im Kreativmodus) und spielt Amethyst-Klang (Tonhöhe 1,5) plus Leuchttinten- bzw. Lohen-Schussgeräusch.",
             "Amboss, Hammer + Hammer: Die Resthaltbarkeit beider Hämmer wird addiert, plus 12 Prozent der Maximalhaltbarkeit des linken Hammers als Bonus (gedeckelt bei der Maximalhaltbarkeit); Verzauberungen werden zusammengeführt (gleiche Stufe ergibt eine Stufe mehr, sonst die höhere, nie über die Maximalstufe); Kosten 1 Level (AnvilScreenHandlerMixin).",
@@ -5785,7 +6130,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage."
+            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage.",
+            "Netherit-Nugget in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderiten-Nugget auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -5872,8 +6218,88 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
           "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java"
+          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java"
         ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:enderite_smoker",
+      "name": {
+        "en_us": "Enderite Smoker",
+        "de_de": "Enderit-Räucherofen"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ModSmokerBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+          "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_smoker.json"
+        ],
+        "en": {
+          "summary": "The Enderite Smoker is the fastest smoker tier: 8 times the vanilla speed, double experience. It is hammered out of a Netherite Smoker.",
+          "details": [
+            "Behaves like a vanilla smoker: same recipe type (RecipeType.SMOKING) and the same menu (SmokerMenu); same block class (ModSmokerBlock) and block entity (ModSmokerBlockEntity) as the Reinforced and Netherite tiers, which read the block state to tell the tiers apart.",
+            "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 7 extra progress ticks per server tick (extraTicks = 7), capped at total time minus 1 - 8 times the vanilla speed; a 200 tick recipe finishes in 26 ticks, a 100 tick recipe in 14.",
+            "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
+            "Menu title: \"Enderite Smoker\" (translation key container.simplebuilding.enderite_smoker).",
+            "Made only in the world: hold right-click for 5 seconds on a placed Netherite Smoker with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items, cooking progress and stored experience stay in the block.",
+            "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla smoker (ofFullCopy(Blocks.SMOKER)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. It gives off light level 13 while it burns.",
+            "The item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag, so it is not lost in the void.",
+            "In the mineable/pickaxe tag and in no needs_*_tool tag; loot table: drops itself (survives_explosion condition). In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after its Netherite sibling.",
+            "Its textures follow the file names of the Netherite machine's textures with enderite_ instead of netherite_."
+          ],
+          "controls": [
+            "Right-click the block to open the smoker menu."
+          ],
+          "caveats": [
+            "Fuel burns for the full furnace duration (coal 1600 ticks), where the vanilla device halves it; together with the free speed-up one piece of fuel covers about 14 times as many 100 tick recipes as in the vanilla device, and up to 16 times as many long ones.",
+            "It is the top tier: a sledgehammer with a nugget does nothing special on it, and right-clicking opens the menu as usual.",
+            "No game test measures its speed or its rewards yet."
+          ]
+        },
+        "de": {
+          "summary": "Der Enderit-Räucherofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung. Er wird aus einem Netherit-Räucherofen geschmiedet.",
+          "details": [
+            "Verhält sich wie ein Vanilla-Räucherofen: gleicher Rezepttyp (RecipeType.SMOKING) und dasselbe Menü (SmokerMenu); dieselbe Blockklasse (ModSmokerBlock) und Block-Entity (ModSmokerBlockEntity) wie Verstärkt- und Netherit-Stufe, die Stufe wird am Blockzustand unterschieden.",
+            "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 7 zusätzliche Fortschritts-Ticks (extraTicks = 7), gedeckelt auf Gesamtzeit minus 1 - achtfache Vanilla-Geschwindigkeit; ein 200-Tick-Rezept ist nach 26 Ticks fertig, ein 100-Tick-Rezept nach 14.",
+            "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
+            "Menü-Titel: „Enderit-Räucherofen“ (Übersetzungsschlüssel container.simplebuilding.enderite_smoker).",
+            "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderiten-Nugget in der Nebenhand auf einen gesetzten Netherit-Räucherofen halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Nugget wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Inhalt, Kochfortschritt und gespeicherte Erfahrung bleiben im Block.",
+            "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Räucherofen kopiert (ofFullCopy(Blocks.SMOKER)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. Beim Brennen leuchtet er mit Stärke 13.",
+            "Das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected, geht in der Leere also nicht verloren.",
+            "Im Tag mineable/pickaxe und in keinem needs_*_tool-Tag; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach seinem Netherit-Geschwister.",
+            "Seine Texturen folgen den Dateinamen der Netherit-Maschine, mit enderite_ statt netherite_."
+          ],
+          "controls": [
+            "Rechtsklick auf den Block öffnet das Menü."
+          ],
+          "caveats": [
+            "Brennstoff brennt die volle Ofendauer (Kohle 1600 Ticks), wo das Vanilla-Gerät sie halbiert; zusammen mit der kostenlosen Beschleunigung reicht ein Stück Brennstoff für etwa 14-mal so viele 100-Tick-Rezepte wie im Vanilla-Gerät, bei langen Rezepten für bis zu 16-mal so viele.",
+            "Er ist die oberste Stufe: Ein Vorschlaghammer mit Nugget bewirkt an ihm nichts Besonderes, und ein Rechtsklick öffnet wie gewohnt das Menü.",
+            "Noch kein Spieltest misst seine Geschwindigkeit oder seine Belohnungen."
+          ]
+        }
       },
       "hasCustomBehaviour": true
     },
@@ -6453,7 +6879,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, and upgrades smithing templates in item frames with an ingredient in your off hand.",
+          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, upgrades smithing templates in item frames with an ingredient in your off hand, and hammers the mod's machines up a tier with a Netherite or Enderite Nugget in the off hand.",
           "details": [
             "There are seven tiers: Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Every hammer is built as a pickaxe of its material through settings.pickaxe(material, ...): mining speed, correct blocks, repair material and enchantability all follow the pickaxe material of that tier; only the durability is set separately afterwards.",
@@ -6482,6 +6908,13 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
+            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
+            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
+            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, or a piston that is extended or powered by redstone leaves a hint in the action bar (at most every 3 seconds); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
+            "While hammering, the hammer is held normally instead of in the bow pose, in first and in third person, so every strike reads as a hammer blow (HeldItemRendererMixin, AvatarRendererMixin).",
+            "The use behind an upgrade is a fixed 100 ticks (getUseDuration returns SledgehammerUpgrades.UPGRADE_TICKS while an upgrade job exists for the player); onUseTick checks the job every tick on both sides, and finishUsingItem runs the fifth strike instead of the reshape or crush code whenever a job existed - also when it was cancelled, so an upgrade never reshapes or crushes the block you happen to look at.",
             "Upgrading smithing templates: left-click (AttackEntity) an item frame that holds a smithing template (item id contains trim_smithing_template) with the hammer in your main hand while a Glow Ink Sac sits in your off hand, and it becomes a Glowing Trim Upgrade Template; with Glowstone Dust in the off hand you get an Emitting Trim Upgrade Template.",
             "The upgrade uses up 1 ingredient from the off hand and 1 durability (not in creative mode), and plays the amethyst sound (pitch 1.5) plus the glow ink sac or blaze shoot sound.",
             "Anvil, hammer + hammer: the remaining durability of both hammers is added up, plus 12 percent of the left hammer's maximum durability as a bonus (capped at the maximum durability); enchantments are merged (equal levels give one level more, otherwise the higher one wins, never above the maximum level); it costs 1 level (AnvilScreenHandlerMixin).",
@@ -6503,7 +6936,8 @@ window.WIKI_DATA = {
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
-            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template."
+            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template.",
+            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -6534,7 +6968,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
+          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt und mit einem Netherit- oder Enderiten-Nugget in der Nebenhand die Maschinen der Mod eine Stufe höher schmiedet.",
           "details": [
             "Es gibt sieben Stufen: Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit-Vorschlaghammer und Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Jeder Hammer wird über settings.pickaxe(material, ...) als Spitzhacke seines Materials angelegt: Abbaugeschwindigkeit, geeignete Blöcke und Reparaturmaterial folgen dem Spitzhacken-Material der Stufe.",
@@ -6563,6 +6997,13 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
+            "Maschinen aufwerten: Mit einem Netherit-Nugget in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderiten-Nugget wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
+            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht ein Nugget (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
+            "Abgebrochen wird ohne Nugget-Verbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, das Nugget die Nebenhand verlässt oder der Hammer zerbricht.",
+            "Mit einem Nugget in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Nugget und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falsches Nugget, ein zu schwacher Hammer oder ein ausgefahrener bzw. mit Redstone versorgter Kolben ergeben einen Hinweis in der Aktionsleiste (höchstens alle 3 Sekunden); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
+            "Beim Schmieden hält die Hand den Hammer normal statt in der Bogen-Pose, in der Ich- wie in der Außenansicht, sodass jeder Schlag als Hammerschlag zu sehen ist (HeldItemRendererMixin, AvatarRendererMixin).",
+            "Die Benutzung hinter einer Aufwertung dauert fest 100 Ticks (getUseDuration liefert SledgehammerUpgrades.UPGRADE_TICKS, solange für den Spieler ein Aufwertungsauftrag besteht); onUseTick prüft den Auftrag auf beiden Seiten in jedem Tick, und finishUsingItem führt statt Umformen oder Zerschlagen den fünften Schlag aus, sobald ein Auftrag bestand - auch wenn er abgebrochen wurde, eine Aufwertung formt also nie den Block um, auf den man zufällig schaut.",
             "Schmiedevorlagen veredeln: Linksklick (AttackEntity) mit dem Hammer in der Haupthand auf einen Rahmen, der eine Schmiedevorlage (Item-Id enthält trim_smithing_template) enthält, während in der Nebenhand ein Leuchttintenbeutel liegt, verwandelt sie in eine Leuchtende Schmiedevorlage; mit Leuchtsteinstaub in der Nebenhand entsteht eine Strahlende Schmiedevorlage.",
             "Das Veredeln verbraucht 1 Zutat aus der Nebenhand und 1 Haltbarkeit (nicht im Kreativmodus) und spielt Amethyst-Klang (Tonhöhe 1,5) plus Leuchttinten- bzw. Lohen-Schussgeräusch.",
             "Amboss, Hammer + Hammer: Die Resthaltbarkeit beider Hämmer wird addiert, plus 12 Prozent der Maximalhaltbarkeit des linken Hammers als Bonus (gedeckelt bei der Maximalhaltbarkeit); Verzauberungen werden zusammengeführt (gleiche Stufe ergibt eine Stufe mehr, sonst die höhere, nie über die Maximalstufe); Kosten 1 Level (AnvilScreenHandlerMixin).",
@@ -6584,7 +7025,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage."
+            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage.",
+            "Netherit-Nugget in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderiten-Nugget auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -6671,7 +7113,9 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
           "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java"
+          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -7167,7 +7611,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, and upgrades smithing templates in item frames with an ingredient in your off hand.",
+          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, upgrades smithing templates in item frames with an ingredient in your off hand, and hammers the mod's machines up a tier with a Netherite or Enderite Nugget in the off hand.",
           "details": [
             "There are seven tiers: Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Every hammer is built as a pickaxe of its material through settings.pickaxe(material, ...): mining speed, correct blocks, repair material and enchantability all follow the pickaxe material of that tier; only the durability is set separately afterwards.",
@@ -7196,6 +7640,13 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
+            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
+            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
+            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, or a piston that is extended or powered by redstone leaves a hint in the action bar (at most every 3 seconds); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
+            "While hammering, the hammer is held normally instead of in the bow pose, in first and in third person, so every strike reads as a hammer blow (HeldItemRendererMixin, AvatarRendererMixin).",
+            "The use behind an upgrade is a fixed 100 ticks (getUseDuration returns SledgehammerUpgrades.UPGRADE_TICKS while an upgrade job exists for the player); onUseTick checks the job every tick on both sides, and finishUsingItem runs the fifth strike instead of the reshape or crush code whenever a job existed - also when it was cancelled, so an upgrade never reshapes or crushes the block you happen to look at.",
             "Upgrading smithing templates: left-click (AttackEntity) an item frame that holds a smithing template (item id contains trim_smithing_template) with the hammer in your main hand while a Glow Ink Sac sits in your off hand, and it becomes a Glowing Trim Upgrade Template; with Glowstone Dust in the off hand you get an Emitting Trim Upgrade Template.",
             "The upgrade uses up 1 ingredient from the off hand and 1 durability (not in creative mode), and plays the amethyst sound (pitch 1.5) plus the glow ink sac or blaze shoot sound.",
             "Anvil, hammer + hammer: the remaining durability of both hammers is added up, plus 12 percent of the left hammer's maximum durability as a bonus (capped at the maximum durability); enchantments are merged (equal levels give one level more, otherwise the higher one wins, never above the maximum level); it costs 1 level (AnvilScreenHandlerMixin).",
@@ -7217,7 +7668,8 @@ window.WIKI_DATA = {
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
-            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template."
+            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template.",
+            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -7248,7 +7700,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
+          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt und mit einem Netherit- oder Enderiten-Nugget in der Nebenhand die Maschinen der Mod eine Stufe höher schmiedet.",
           "details": [
             "Es gibt sieben Stufen: Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit-Vorschlaghammer und Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Jeder Hammer wird über settings.pickaxe(material, ...) als Spitzhacke seines Materials angelegt: Abbaugeschwindigkeit, geeignete Blöcke und Reparaturmaterial folgen dem Spitzhacken-Material der Stufe.",
@@ -7277,6 +7729,13 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
+            "Maschinen aufwerten: Mit einem Netherit-Nugget in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderiten-Nugget wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
+            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht ein Nugget (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
+            "Abgebrochen wird ohne Nugget-Verbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, das Nugget die Nebenhand verlässt oder der Hammer zerbricht.",
+            "Mit einem Nugget in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Nugget und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falsches Nugget, ein zu schwacher Hammer oder ein ausgefahrener bzw. mit Redstone versorgter Kolben ergeben einen Hinweis in der Aktionsleiste (höchstens alle 3 Sekunden); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
+            "Beim Schmieden hält die Hand den Hammer normal statt in der Bogen-Pose, in der Ich- wie in der Außenansicht, sodass jeder Schlag als Hammerschlag zu sehen ist (HeldItemRendererMixin, AvatarRendererMixin).",
+            "Die Benutzung hinter einer Aufwertung dauert fest 100 Ticks (getUseDuration liefert SledgehammerUpgrades.UPGRADE_TICKS, solange für den Spieler ein Aufwertungsauftrag besteht); onUseTick prüft den Auftrag auf beiden Seiten in jedem Tick, und finishUsingItem führt statt Umformen oder Zerschlagen den fünften Schlag aus, sobald ein Auftrag bestand - auch wenn er abgebrochen wurde, eine Aufwertung formt also nie den Block um, auf den man zufällig schaut.",
             "Schmiedevorlagen veredeln: Linksklick (AttackEntity) mit dem Hammer in der Haupthand auf einen Rahmen, der eine Schmiedevorlage (Item-Id enthält trim_smithing_template) enthält, während in der Nebenhand ein Leuchttintenbeutel liegt, verwandelt sie in eine Leuchtende Schmiedevorlage; mit Leuchtsteinstaub in der Nebenhand entsteht eine Strahlende Schmiedevorlage.",
             "Das Veredeln verbraucht 1 Zutat aus der Nebenhand und 1 Haltbarkeit (nicht im Kreativmodus) und spielt Amethyst-Klang (Tonhöhe 1,5) plus Leuchttinten- bzw. Lohen-Schussgeräusch.",
             "Amboss, Hammer + Hammer: Die Resthaltbarkeit beider Hämmer wird addiert, plus 12 Prozent der Maximalhaltbarkeit des linken Hammers als Bonus (gedeckelt bei der Maximalhaltbarkeit); Verzauberungen werden zusammengeführt (gleiche Stufe ergibt eine Stufe mehr, sonst die höhere, nie über die Maximalstufe); Kosten 1 Level (AnvilScreenHandlerMixin).",
@@ -7298,7 +7757,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage."
+            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage.",
+            "Netherit-Nugget in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderiten-Nugget auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -7385,7 +7845,9 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
           "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java"
+          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -7957,9 +8419,7 @@ window.WIKI_DATA = {
         "de_de": "Netherit-Schmelzofen"
       },
       "texture": "assets/textures/block/netherite_blast_furnace_side.png",
-      "craftedBy": [
-        "simplebuilding:netherite_blast_furnace_bulk"
-      ],
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "note": {
@@ -7972,22 +8432,22 @@ window.WIKI_DATA = {
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 3 extra progress ticks per server tick (extraTicks = 3).",
             "That extra progress is capped at total time minus 1.",
             "The game test requires it to be at least 2.5 times as fast as a vanilla blast furnace and faster than the Reinforced Blast Furnace (Raw Iron into an Iron Ingot). The test's tick budget is 220 ticks.",
-            "Crafting recipe (bulk upgrade, file netherite_blast_furnace_bulk): in a 2x2 grid, 1 Netherite Nugget top left and 3 Reinforced Blast Furnaces in the other three slots yield 3 Netherite Blast Furnaces (datagen category RecipeCategory.DECORATIONS, so the recipe advancement sits under recipes/decorations).",
-            "The recipe unlocks as soon as you have a Reinforced Blast Furnace in your inventory.",
+            "No crafting recipe: a placed Reinforced Blast Furnace becomes the Netherite Blast Furnace after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its items, cooking progress and stored experience (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Blast Furnace; the item's tooltip says so.",
             "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from the vanilla blast furnace (ofFullCopy(Blocks.BLAST_FURNACE)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
             "The item is fire resistant (fireResistant).",
             "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla blast furnace it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
             "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
-            "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\")."
+            "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
+            "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
+            "Extra output: every 4th finished smelt of a recipe whose ingredient is only Raw Iron, Raw Gold or Raw Copper (tag simplebuilding:blast_furnace_bonus) yields one item more (+25 %); with a full result slot the bonus waits for the next one. Enderite Scrap takes 18001 ticks (15 minutes) here instead of an hour in a vanilla blast furnace."
           ],
           "controls": [
             "Right-click the block to open the blast furnace menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "Fuel consumption is not changed anywhere in the code.",
-            "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "The generated recipe file netherite_blast_furnace_bulk.json carries no category field, so the crafting recipe book lists it under Miscellaneous; RecipeCategory.DECORATIONS only decides the advancement folder."
+            "Fuel burns for the full furnace duration (coal 1600 ticks), where vanilla's blast furnace and smoker halve it; together with the free speed-up one piece of fuel covers about eight times as many items as in the vanilla device.",
+            "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
         "de": {
@@ -7999,20 +8459,21 @@ window.WIKI_DATA = {
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 3 zusätzliche Fortschritts-Ticks (extraTicks = 3).",
             "Der Zusatz-Fortschritt wird auf höchstens Gesamtzeit minus 1 gedeckelt.",
             "Der Spieltest fordert, dass er mindestens 2,5-mal so schnell wie ein normaler Schmelzofen ist und schneller als der Verstärkte Schmelzofen (Roheisen zu Eisenbarren). Zeitbudget des Tests: 220 Ticks.",
-            "Rezept (Bulk-Upgrade, Datei netherite_blast_furnace_bulk): 1 Netherite Nugget oben links und 3 Verstärkte Schmelzöfen im 2x2-Muster ergeben 3 Netherit-Schmelzöfen (Advancement unter recipes/decorations; im Rezeptbuch steht es unter Verschiedenes, weil die erzeugte Datei kein category-Feld trägt und RecipeCategory.DECORATIONS nur den Advancement-Ordner bestimmt).",
-            "Das Rezept wird freigeschaltet, sobald der Spieler einen Verstärkten Schmelzofen im Inventar hat.",
+            "Kein Werkbankrezept: Ein gesetzter Verstärkter Schmelzofen wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zum Netherit-Schmelzofen und behält Inhalt, Kochfortschritt und gespeicherte Erfahrung (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget wird er weiter zum Enderit-Schmelzofen geschmiedet; der Tooltip des Items weist darauf hin.",
             "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden vom Vanilla-Schmelzofen kopiert (ofFullCopy(Blocks.BLAST_FURNACE)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
             "Das Item ist feuerfest (fireResistant).",
             "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Schmelzofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
             "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
-            "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“)."
+            "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
+            "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
+            "Mehr Ausbeute: Jeder 4. fertige Schmelzvorgang eines Rezepts, dessen Zutat nur Roheisen, Rohgold oder Rohkupfer ist (Tag simplebuilding:blast_furnace_bonus), gibt einen Gegenstand mehr (+25 %); bei vollem Ausgabeslot wartet der Bonus auf den nächsten. Enderit-Schrott braucht hier 18001 Ticks (15 Minuten) statt einer Stunde im Vanilla-Schmelzofen."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Schmelzofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Der Brennstoffverbrauch wird im Code nicht verändert.",
+            "Brennstoff brennt die volle Ofendauer (Kohle 1600 Ticks), wo Vanillas Schmelz- und Räucherofen sie halbieren; zusammen mit der kostenlosen Beschleunigung reicht ein Stück Brennstoff für etwa achtmal so viele Gegenstände wie im Vanilla-Gerät.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
@@ -8027,15 +8488,19 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/netherite_blast_furnace_bulk.json",
-          "src/main/generated/data/simplebuilding/advancement/recipes/decorations/netherite_blast_furnace_bulk.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_blast_furnace.json",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/generated/data/minecraft/tags/block/needs_iron_tool.json",
           "src/main/generated/data/minecraft/tags/block/needs_diamond_tool.json",
           "src/main/generated/assets/simplebuilding/blockstates/netherite_blast_furnace.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
+          "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
+          "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_raw_enderite.json"
         ]
       },
       "hasCustomBehaviour": true
@@ -8619,9 +9084,7 @@ window.WIKI_DATA = {
         "de_de": "Netheritofen"
       },
       "texture": "assets/textures/block/netherite_furnace_side.png",
-      "craftedBy": [
-        "simplebuilding:netherite_furnace_bulk"
-      ],
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "note": {
@@ -8634,22 +9097,21 @@ window.WIKI_DATA = {
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), the furnace gains 3 extra progress ticks per server tick (extraTicks = 3).",
             "That extra progress is capped at total time minus 1.",
             "The game test requires it to be at least 3 times as fast as a vanilla furnace and faster than the Reinforced Furnace; the comment in the test puts the expected gain at roughly quadruple speed. The test's tick budget is 320 ticks.",
-            "Crafting recipe (bulk upgrade, file netherite_furnace_bulk): in a 2x2 grid, 1 Netherite Nugget top left and 3 Reinforced Furnaces in the other three slots yield 3 Netherite Furnaces (datagen category RecipeCategory.DECORATIONS, so the recipe advancement sits under recipes/decorations).",
-            "The recipe unlocks as soon as you have a Reinforced Furnace in your inventory.",
+            "No crafting recipe: a placed Reinforced Furnace becomes the Netherite Furnace after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its items, cooking progress and stored experience (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Furnace; the item's tooltip says so.",
             "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from the vanilla furnace (ofFullCopy(Blocks.FURNACE)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
             "The item is fire resistant (fireResistant).",
             "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla furnace it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
             "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
-            "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\")."
+            "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
+            "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded)."
           ],
           "controls": [
             "Right-click the block to open the furnace menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "Fuel consumption is not changed anywhere in the code.",
-            "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "The generated recipe file netherite_furnace_bulk.json carries no category field, so the crafting recipe book lists it under Miscellaneous; RecipeCategory.DECORATIONS only decides the advancement folder."
+            "The speed-up costs no fuel, so one piece of fuel smelts about four times as many items as in a vanilla furnace.",
+            "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
         "de": {
@@ -8661,20 +9123,20 @@ window.WIKI_DATA = {
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält der Ofen in jedem Server-Tick 3 zusätzliche Fortschritts-Ticks (extraTicks = 3).",
             "Der Zusatz-Fortschritt wird auf höchstens Gesamtzeit minus 1 gedeckelt.",
             "Der Spieltest fordert, dass er mindestens 3-mal so schnell wie ein normaler Ofen ist und schneller als der Verstärkte Ofen; im Testkommentar steht als Erwartung etwa vierfache Geschwindigkeit. Zeitbudget des Tests: 320 Ticks.",
-            "Rezept (Bulk-Upgrade, Datei netherite_furnace_bulk): 1 Netherite Nugget oben links und 3 Verstärkte Öfen im 2x2-Muster ergeben 3 Netheritöfen (Advancement unter recipes/decorations; im Rezeptbuch steht es unter Verschiedenes, weil die erzeugte Datei kein category-Feld trägt und RecipeCategory.DECORATIONS nur den Advancement-Ordner bestimmt).",
-            "Das Rezept wird freigeschaltet, sobald der Spieler einen Verstärkten Ofen im Inventar hat.",
+            "Kein Werkbankrezept: Ein gesetzter Verstärkter Ofen wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zum Netheritofen und behält Inhalt, Kochfortschritt und gespeicherte Erfahrung (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget wird er weiter zum Enderitofen geschmiedet; der Tooltip des Items weist darauf hin.",
             "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden vom Vanilla-Ofen kopiert (ofFullCopy(Blocks.FURNACE)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
             "Das Item ist feuerfest (fireResistant).",
             "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Ofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
             "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
-            "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“)."
+            "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
+            "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded)."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Ofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Der Brennstoffverbrauch wird im Code nicht verändert.",
+            "Die Beschleunigung kostet keinen Brennstoff, ein Stück Brennstoff reicht also für etwa viermal so viele Gegenstände wie im Vanilla-Ofen.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
@@ -8689,15 +9151,17 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/netherite_furnace_bulk.json",
-          "src/main/generated/data/simplebuilding/advancement/recipes/decorations/netherite_furnace_bulk.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_furnace.json",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/generated/data/minecraft/tags/block/needs_iron_tool.json",
           "src/main/generated/data/minecraft/tags/block/needs_diamond_tool.json",
           "src/main/generated/assets/simplebuilding/blockstates/netherite_furnace.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
+          "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json"
         ]
       },
       "hasCustomBehaviour": true
@@ -8709,16 +9173,14 @@ window.WIKI_DATA = {
         "de_de": "Netherittrichter"
       },
       "texture": "assets/textures/item/netherite_hopper.png",
-      "craftedBy": [
-        "simplebuilding:netherite_hopper_from_crafting"
-      ],
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "note": {
         "en": {
-          "summary": "The Netherite Hopper is the fastest hopper tier: it waits only 2 ticks between transfers, has hardness 5.0 and blast resistance 1200, its item is fire resistant, and it offers the same item filter as the Reinforced Hopper.",
+          "summary": "The Netherite Hopper is the second fastest hopper tier after the Enderite Hopper: it waits only 2 ticks between transfers, has hardness 5.0 and blast resistance 1200, its item is fire resistant, and it offers the same item filter as the Reinforced Hopper.",
           "details": [
-            "After every successful transfer the Netherite Hopper waits 2 ticks (Reinforced Hopper 4 ticks; the fallback of 8 ticks in the code would only be reached if the logic ran on some other block).",
+            "After every successful transfer the Netherite Hopper waits 2 ticks (Reinforced Hopper 4 ticks, Enderite Hopper 1 tick; the fallback of 8 ticks in the code would only be reached if the logic ran on some other block).",
             "Per transfer it pushes exactly one item into the container it faces and in the same tick pulls items in from above as long as it is not full; the cooldown is only set when something actually moved.",
             "It only moves items while it is not powered by redstone (the 'enabled' block state); the ticker runs on the server only.",
             "Hardness 5.0 and blast resistance 1200; SoundType.NETHERITE_BLOCK; noOcclusion set.",
@@ -8726,7 +9188,7 @@ window.WIKI_DATA = {
             "5 slots; menu, filter button, filter items and storage ('FilterMode', 'GhostItems', 'TransferCooldown') are identical to the Reinforced Hopper, because both blocks use the same block entity type (simplebuilding:mod_hopper) and the same menu type (simplebuilding:netherite_hopper).",
             "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
             "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
-            "Recipe (yields 2, category redstone): a vertical column of Reinforced Hopper - Netherite Nugget (simplebuilding:netherite_nugget; 'Netherite Nugget' in en_us.json, 'Netherit-Nugget' in de_de.json) - Reinforced Hopper; unlocked as soon as you own a Reinforced Hopper.",
+            "No crafting recipe: a placed Reinforced Hopper becomes a Netherite Hopper after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its items, filter items and filter mode (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Hopper (1 tick of cooldown); the item's tooltip says so.",
             "Listed in the mod's creative tab (simplebuilding:building_items; 'Building Items' in English, 'SimpleBuilding Items' in German); the item-group code puts it in the 'Machines & Storage' block of entries.",
             "A game test (BlockBehaviourTests) requires the Netherite Hopper to deliver 5 items faster than the Reinforced Hopper and in at most half the time the vanilla hopper needs.",
             "The game tests for the three filter modes and for the menu binding of the network payloads (HopperAndTrimTests) are run on a placed Netherite Hopper."
@@ -8747,9 +9209,9 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Netherittrichter ist die schnellste Trichterstufe: er wartet nur 2 Ticks zwischen zwei Transfers, hat Härte 5,0 und Explosionswiderstand 1200, sein Item ist feuerfest, und er bietet denselben Item-Filter wie der Verstärkte Trichter.",
+          "summary": "Der Netherittrichter ist nach dem Enderittrichter die zweitschnellste Trichterstufe: er wartet nur 2 Ticks zwischen zwei Transfers, hat Härte 5,0 und Explosionswiderstand 1200, sein Item ist feuerfest, und er bietet denselben Item-Filter wie der Verstärkte Trichter.",
           "details": [
-            "Nach jedem erfolgreichen Transfer wartet der Netherittrichter 2 Ticks (Verstärkter Trichter 4 Ticks; Fallback im Code 8 Ticks, der nur erreicht würde, wenn die Logik an einem anderen Block liefe).",
+            "Nach jedem erfolgreichen Transfer wartet der Netherittrichter 2 Ticks (Verstärkter Trichter 4 Ticks, Enderittrichter 1 Tick; Fallback im Code 8 Ticks, der nur erreicht würde, wenn die Logik an einem anderen Block liefe).",
             "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt, und zieht im selben Tick Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn tatsächlich etwas bewegt wurde.",
             "Er arbeitet nur, wenn er nicht per Redstone gesperrt ist (Blockzustand 'enabled'); der Ticker läuft nur serverseitig.",
             "Härte 5,0 und Explosionswiderstand 1200; Klang SoundType.NETHERITE_BLOCK; noOcclusion gesetzt.",
@@ -8757,7 +9219,7 @@ window.WIKI_DATA = {
             "5 Slots; Menü, Filter-Knopf, Filter-Items und Speicherung ('FilterMode', 'GhostItems', 'TransferCooldown') sind identisch mit dem Verstärkten Trichter, da beide Blöcke denselben Block-Entity-Typ (simplebuilding:mod_hopper) und denselben Menütyp (simplebuilding:netherite_hopper) nutzen.",
             "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
             "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
-            "Rezept (ergibt 2 Stück, Kategorie redstone): senkrecht in einer Spalte Verstärkter Trichter – Netherite Nugget (simplebuilding:netherite_nugget; de_de: 'Netherit-Nugget', en_us: 'Netherite Nugget') – Verstärkter Trichter; freigeschaltet, sobald man einen Verstärkten Trichter besitzt.",
+            "Kein Werkbankrezept: Ein gesetzter Verstärkter Trichter wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zum Netherittrichter und behält Items, Filter-Items und Filtermodus (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget wird er weiter zum Enderittrichter geschmiedet (1 Tick Wartezeit); der Tooltip des Items weist darauf hin.",
             "Im Kreativ-Tab der Mod (simplebuilding:building_items; deutsch 'SimpleBuilding Items', englisch 'Building Items') einsortiert; \"Machines & Storage\" ist dabei nur eine Gliederung im Code (ModItemGroupsContent), im Spiel zeigt der Tab keine solche Abschnittsüberschrift.",
             "Ein Spieltest (BlockBehaviourTests) verlangt, dass der Netherittrichter 5 Items schneller liefert als der Verstärkte Trichter und dafür höchstens die halbe Zeit des normalen Trichters braucht.",
             "Die Spieltests zu den drei Filtermodi und zur Menü-Bindung der Netzwerkpakete (HopperAndTrimTests) werden an einem gesetzten Netherittrichter ausgeführt."
@@ -8793,13 +9255,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
           "src/main/java/com/simplebuilding/items/ModItemGroups.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/netherite_hopper_from_crafting.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_hopper.json",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java"
+          "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -8816,13 +9279,8 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:netherite_apple",
-        "simplebuilding:netherite_blast_furnace_bulk",
         "simplebuilding:netherite_carrot",
-        "simplebuilding:netherite_furnace_bulk",
-        "simplebuilding:netherite_hopper_from_crafting",
-        "simplebuilding:netherite_ingot",
-        "simplebuilding:netherite_piston_bulk",
-        "simplebuilding:netherite_smoker_bulk"
+        "simplebuilding:netherite_ingot"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -8834,9 +9292,7 @@ window.WIKI_DATA = {
         "de_de": "Netheritkolben"
       },
       "texture": "assets/textures/block/netherite_piston_side.png",
-      "craftedBy": [
-        "simplebuilding:netherite_piston_bulk"
-      ],
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "note": {
@@ -8858,7 +9314,7 @@ window.WIKI_DATA = {
             "Extending places the ordinary vanilla piston head. A mixin on PistonHeadBlock.isFittingBase accepts the Netherite Piston as its base (extended, same facing, normal head), so the head stays attached and breaking the head breaks the piston as well, as with a vanilla piston.",
             "Hardness 5.0, blast resistance 1200, netherite block sounds; the item is fire resistant (fireResistant).",
             "In the mineable/pickaxe tag (a pickaxe mines it faster), no minimum tool tier set; loot table: drops itself (survives_explosion condition).",
-            "Recipe \"netherite_piston_bulk\" (crafting table, redstone category, 2x2 pattern): 1 Netherite Nugget in the top left and a Reinforced Piston in each of the other three squares (3 in total); yields 3 Netherite Pistons. Unlocked as soon as you own a Reinforced Piston.",
+            "No crafting recipe: a placed Reinforced Piston becomes a Netherite Piston after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, as long as it is neither extended nor powered (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Piston; the item's tooltip says so.",
             "In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German), filed under \"Machines & Storage\" in the code.",
             "A game test proves it: at full signal strength (redstone block beside it) a stone block (hardness 1.5) in front of the piston is destroyed, while a vanilla piston simply pushes the same block one block further."
           ],
@@ -8872,7 +9328,7 @@ window.WIKI_DATA = {
             "Blocks that block piston movement outright (push reaction BLOCK) are not destroyed, even when the signal would be strong enough.",
             "The signal strength is only measured on the six direct neighbour blocks.",
             "The Reinforced Piston's raised push limit of 18 does NOT apply to the Netherite Piston; the mixin only checks for ReinforcedPistonBlock (the two Reinforced Pistons).",
-            "The tooltip text \"Breaks blocks based on Redstone strength (1-15).\" is present in both language files, but no code displays it (the item is a plain BlockItem and no Java code references the key); it never shows up in game.",
+            "The tooltip text \"Breaks blocks based on Redstone strength (1-15).\" is present in both language files, but no code displays it (the item is a plain BlockItem and no Java code references the key; the only tooltip line it shows is the sledgehammer upgrade hint); it never shows up in game.",
             "The mod's own \"netherite_piston_head\" block is not used by the Netherite Piston; it uses the ordinary piston head.",
             "The breach checks neither height nor dimension: the bottom bedrock layer of the world and the Nether roof can be breached.",
             "The breach fires no NeoForge PistonEvent (the event is fired inside vanilla's triggerEvent, which the breach never reaches), so mods listening to it cannot cancel it; the normal breaking has the same gap."
@@ -8896,7 +9352,7 @@ window.WIKI_DATA = {
             "Beim Ausfahren erscheint der normale Vanilla-Kolbenkopf. Ein Mixin auf PistonHeadBlock.isFittingBase erkennt den Netheritkolben als seine Basis an (ausgefahren, gleiche Blickrichtung, normaler Kopf), deshalb bleibt der Kopf haften, und wer den Kopf abbaut, bricht wie bei einem Vanilla-Kolben auch den Kolben.",
             "Härte 5,0, Explosionswiderstand 1200, Geräusch wie ein Netheritblock; das Item ist feuerfest (fireResistant).",
             "Im Tag mineable/pickaxe (mit der Spitzhacke schneller abbaubar), kein Mindestwerkzeug hinterlegt; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion).",
-            "Rezept „netherite_piston_bulk“ (Werkbank, Kategorie Redstone, 2×2-Muster): 1 Netherite Nugget oben links, die übrigen drei Felder je ein Verstärkter Kolben (Muster NR / RR, also insgesamt 3); ergibt 3 Netheritkolben. Freigeschaltet, sobald man einen Verstärkten Kolben besitzt.",
+            "Kein Werkbankrezept: Ein gesetzter Verstärkter Kolben wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zum Netheritkolben, solange er weder ausgefahren ist noch Strom bekommt (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget wird er weiter zum Enderitkolben geschmiedet; der Tooltip des Items weist darauf hin.",
             "Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“), im Code unter „Machines & Storage“ einsortiert.",
             "Ein Spieltest belegt: Bei voller Signalstärke (Redstoneblock daneben) wird ein Steinblock (Härte 1,5) vor dem Kolben zerstört, während ein Vanilla-Kolben denselben Block einfach um eins weiterschiebt."
           ],
@@ -8928,14 +9384,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/netherite_piston_bulk.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_piston.json",
           "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
           "src/main/resources/simplebuilding.mixins.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -9045,7 +9501,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, and upgrades smithing templates in item frames with an ingredient in your off hand.",
+          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, upgrades smithing templates in item frames with an ingredient in your off hand, and hammers the mod's machines up a tier with a Netherite or Enderite Nugget in the off hand.",
           "details": [
             "There are seven tiers: Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Every hammer is built as a pickaxe of its material through settings.pickaxe(material, ...): mining speed, correct blocks, repair material and enchantability all follow the pickaxe material of that tier; only the durability is set separately afterwards.",
@@ -9074,6 +9530,13 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
+            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
+            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
+            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, or a piston that is extended or powered by redstone leaves a hint in the action bar (at most every 3 seconds); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
+            "While hammering, the hammer is held normally instead of in the bow pose, in first and in third person, so every strike reads as a hammer blow (HeldItemRendererMixin, AvatarRendererMixin).",
+            "The use behind an upgrade is a fixed 100 ticks (getUseDuration returns SledgehammerUpgrades.UPGRADE_TICKS while an upgrade job exists for the player); onUseTick checks the job every tick on both sides, and finishUsingItem runs the fifth strike instead of the reshape or crush code whenever a job existed - also when it was cancelled, so an upgrade never reshapes or crushes the block you happen to look at.",
             "Upgrading smithing templates: left-click (AttackEntity) an item frame that holds a smithing template (item id contains trim_smithing_template) with the hammer in your main hand while a Glow Ink Sac sits in your off hand, and it becomes a Glowing Trim Upgrade Template; with Glowstone Dust in the off hand you get an Emitting Trim Upgrade Template.",
             "The upgrade uses up 1 ingredient from the off hand and 1 durability (not in creative mode), and plays the amethyst sound (pitch 1.5) plus the glow ink sac or blaze shoot sound.",
             "Anvil, hammer + hammer: the remaining durability of both hammers is added up, plus 12 percent of the left hammer's maximum durability as a bonus (capped at the maximum durability); enchantments are merged (equal levels give one level more, otherwise the higher one wins, never above the maximum level); it costs 1 level (AnvilScreenHandlerMixin).",
@@ -9095,7 +9558,8 @@ window.WIKI_DATA = {
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
-            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template."
+            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template.",
+            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -9126,7 +9590,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
+          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt und mit einem Netherit- oder Enderiten-Nugget in der Nebenhand die Maschinen der Mod eine Stufe höher schmiedet.",
           "details": [
             "Es gibt sieben Stufen: Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit-Vorschlaghammer und Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Jeder Hammer wird über settings.pickaxe(material, ...) als Spitzhacke seines Materials angelegt: Abbaugeschwindigkeit, geeignete Blöcke und Reparaturmaterial folgen dem Spitzhacken-Material der Stufe.",
@@ -9155,6 +9619,13 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
+            "Maschinen aufwerten: Mit einem Netherit-Nugget in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderiten-Nugget wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
+            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht ein Nugget (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
+            "Abgebrochen wird ohne Nugget-Verbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, das Nugget die Nebenhand verlässt oder der Hammer zerbricht.",
+            "Mit einem Nugget in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Nugget und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falsches Nugget, ein zu schwacher Hammer oder ein ausgefahrener bzw. mit Redstone versorgter Kolben ergeben einen Hinweis in der Aktionsleiste (höchstens alle 3 Sekunden); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
+            "Beim Schmieden hält die Hand den Hammer normal statt in der Bogen-Pose, in der Ich- wie in der Außenansicht, sodass jeder Schlag als Hammerschlag zu sehen ist (HeldItemRendererMixin, AvatarRendererMixin).",
+            "Die Benutzung hinter einer Aufwertung dauert fest 100 Ticks (getUseDuration liefert SledgehammerUpgrades.UPGRADE_TICKS, solange für den Spieler ein Aufwertungsauftrag besteht); onUseTick prüft den Auftrag auf beiden Seiten in jedem Tick, und finishUsingItem führt statt Umformen oder Zerschlagen den fünften Schlag aus, sobald ein Auftrag bestand - auch wenn er abgebrochen wurde, eine Aufwertung formt also nie den Block um, auf den man zufällig schaut.",
             "Schmiedevorlagen veredeln: Linksklick (AttackEntity) mit dem Hammer in der Haupthand auf einen Rahmen, der eine Schmiedevorlage (Item-Id enthält trim_smithing_template) enthält, während in der Nebenhand ein Leuchttintenbeutel liegt, verwandelt sie in eine Leuchtende Schmiedevorlage; mit Leuchtsteinstaub in der Nebenhand entsteht eine Strahlende Schmiedevorlage.",
             "Das Veredeln verbraucht 1 Zutat aus der Nebenhand und 1 Haltbarkeit (nicht im Kreativmodus) und spielt Amethyst-Klang (Tonhöhe 1,5) plus Leuchttinten- bzw. Lohen-Schussgeräusch.",
             "Amboss, Hammer + Hammer: Die Resthaltbarkeit beider Hämmer wird addiert, plus 12 Prozent der Maximalhaltbarkeit des linken Hammers als Bonus (gedeckelt bei der Maximalhaltbarkeit); Verzauberungen werden zusammengeführt (gleiche Stufe ergibt eine Stufe mehr, sonst die höhere, nie über die Maximalstufe); Kosten 1 Level (AnvilScreenHandlerMixin).",
@@ -9176,7 +9647,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage."
+            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage.",
+            "Netherit-Nugget in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderiten-Nugget auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -9263,7 +9735,9 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
           "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java"
+          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -9275,9 +9749,7 @@ window.WIKI_DATA = {
         "de_de": "Netherit-Räucherofen"
       },
       "texture": "assets/textures/block/netherite_smoker_side.png",
-      "craftedBy": [
-        "simplebuilding:netherite_smoker_bulk"
-      ],
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "note": {
@@ -9290,22 +9762,21 @@ window.WIKI_DATA = {
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 3 extra progress ticks per server tick (extraTicks = 3).",
             "That extra progress is capped at total time minus 1.",
             "The game test requires it to be at least 2.5 times as fast as a vanilla smoker and faster than the Reinforced Smoker (Raw Beef into Steak). The test's tick budget is 220 ticks.",
-            "Crafting recipe (bulk upgrade, file netherite_smoker_bulk): in a 2x2 grid, 1 Netherite Nugget top left and 3 Reinforced Smokers in the other three slots yield 3 Netherite Smokers (datagen category RecipeCategory.DECORATIONS, so the recipe advancement sits under recipes/decorations).",
-            "The recipe unlocks as soon as you have a Reinforced Smoker in your inventory.",
+            "No crafting recipe: a placed Reinforced Smoker becomes the Netherite Smoker after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its items, cooking progress and stored experience (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Smoker; the item's tooltip says so.",
             "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from the vanilla smoker (ofFullCopy(Blocks.SMOKER)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
             "The item is fire resistant (fireResistant).",
             "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla smoker it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
             "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
-            "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\")."
+            "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
+            "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded)."
           ],
           "controls": [
             "Right-click the block to open the smoker menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "Fuel consumption is not changed anywhere in the code.",
-            "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "The generated recipe file netherite_smoker_bulk.json carries no category field, so the crafting recipe book lists it under Miscellaneous; RecipeCategory.DECORATIONS only decides the advancement folder."
+            "Fuel burns for the full furnace duration (coal 1600 ticks), where vanilla's blast furnace and smoker halve it; together with the free speed-up one piece of fuel covers about eight times as many items as in the vanilla device.",
+            "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
         "de": {
@@ -9317,20 +9788,20 @@ window.WIKI_DATA = {
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 3 zusätzliche Fortschritts-Ticks (extraTicks = 3).",
             "Der Zusatz-Fortschritt wird auf höchstens Gesamtzeit minus 1 gedeckelt.",
             "Der Spieltest fordert, dass er mindestens 2,5-mal so schnell wie ein normaler Räucherofen ist und schneller als der Verstärkte Räucherofen (rohes Rindfleisch zu Steak). Zeitbudget des Tests: 220 Ticks.",
-            "Rezept (Bulk-Upgrade, Datei netherite_smoker_bulk): 1 Netherite Nugget oben links und 3 Verstärkte Räucheröfen im 2x2-Muster ergeben 3 Netherit-Räucheröfen (Advancement unter recipes/decorations; im Rezeptbuch steht es unter Verschiedenes, weil die erzeugte Datei kein category-Feld trägt und RecipeCategory.DECORATIONS nur den Advancement-Ordner bestimmt).",
-            "Das Rezept wird freigeschaltet, sobald der Spieler einen Verstärkten Räucherofen im Inventar hat.",
+            "Kein Werkbankrezept: Ein gesetzter Verstärkter Räucherofen wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zum Netherit-Räucherofen und behält Inhalt, Kochfortschritt und gespeicherte Erfahrung (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget wird er weiter zum Enderit-Räucherofen geschmiedet; der Tooltip des Items weist darauf hin.",
             "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden vom Vanilla-Räucherofen kopiert (ofFullCopy(Blocks.SMOKER)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
             "Das Item ist feuerfest (fireResistant).",
             "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Räucherofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
             "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
-            "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“)."
+            "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
+            "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded)."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Räucherofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Der Brennstoffverbrauch wird im Code nicht verändert.",
+            "Brennstoff brennt die volle Ofendauer (Kohle 1600 Ticks), wo Vanillas Schmelz- und Räucherofen sie halbieren; zusammen mit der kostenlosen Beschleunigung reicht ein Stück Brennstoff für etwa achtmal so viele Gegenstände wie im Vanilla-Gerät.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
@@ -9345,15 +9816,17 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/netherite_smoker_bulk.json",
-          "src/main/generated/data/simplebuilding/advancement/recipes/decorations/netherite_smoker_bulk.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_smoker.json",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/generated/data/minecraft/tags/block/needs_iron_tool.json",
           "src/main/generated/data/minecraft/tags/block/needs_diamond_tool.json",
           "src/main/generated/assets/simplebuilding/blockstates/netherite_smoker.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
+          "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json"
         ]
       },
       "hasCustomBehaviour": true
@@ -10480,9 +10953,7 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:reinforced_blast_furnace"
       ],
-      "usedIn": [
-        "simplebuilding:netherite_blast_furnace_bulk"
-      ],
+      "usedIn": [],
       "trades": [],
       "note": {
         "en": {
@@ -10500,13 +10971,14 @@ window.WIKI_DATA = {
             "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
-            "Menu title: \"Reinforced Blast Furnace\" (translation key container.simplebuilding.reinforced_blast_furnace)."
+            "Menu title: \"Reinforced Blast Furnace\" (translation key container.simplebuilding.reinforced_blast_furnace).",
+            "Upgrade: hold right-click for 5 seconds on a placed Reinforced Blast Furnace with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes the Netherite Blast Furnace with its items and cooking progress (SledgehammerUpgrades; the item's tooltip says so)."
           ],
           "controls": [
             "Right-click the block to open the blast furnace menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "Fuel consumption is not changed anywhere in the code.",
+            "Fuel burns for the full furnace duration (coal 1600 ticks), where vanilla's blast furnace and smoker halve it; together with the free speed-up one piece of fuel covers about four times as many items as in the vanilla device.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
@@ -10525,13 +10997,14 @@ window.WIKI_DATA = {
             "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
-            "Menü-Überschrift: „Verstärkter Schmelzofen“ (Sprachschlüssel container.simplebuilding.reinforced_blast_furnace)."
+            "Menü-Überschrift: „Verstärkter Schmelzofen“ (Sprachschlüssel container.simplebuilding.reinforced_blast_furnace).",
+            "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netherit-Nugget in der Nebenhand auf den gesetzten Verstärkten Schmelzofen halten, dann wird er samt Inhalt und Kochfortschritt zur Netherit-Stufe (SledgehammerUpgrades; der Tooltip des Items weist darauf hin)."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Schmelzofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Der Brennstoffverbrauch wird im Code nicht verändert.",
+            "Brennstoff brennt die volle Ofendauer (Kohle 1600 Ticks), wo Vanillas Schmelz- und Räucherofen sie halbieren; zusammen mit der kostenlosen Beschleunigung reicht ein Stück Brennstoff für etwa viermal so viele Gegenstände wie im Vanilla-Gerät.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
@@ -10554,7 +11027,9 @@ window.WIKI_DATA = {
           "src/main/generated/data/minecraft/tags/block/needs_diamond_tool.json",
           "src/main/generated/assets/simplebuilding/blockstates/reinforced_blast_furnace.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -10750,9 +11225,7 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:reinforced_furnace"
       ],
-      "usedIn": [
-        "simplebuilding:netherite_furnace_bulk"
-      ],
+      "usedIn": [],
       "trades": [],
       "note": {
         "en": {
@@ -10770,13 +11243,14 @@ window.WIKI_DATA = {
             "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings; the item model reuses the block model.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
-            "Menu title: \"Reinforced Furnace\" (translation key container.simplebuilding.reinforced_furnace)."
+            "Menu title: \"Reinforced Furnace\" (translation key container.simplebuilding.reinforced_furnace).",
+            "Upgrade: hold right-click for 5 seconds on a placed Reinforced Furnace with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes the Netherite Furnace with its items and cooking progress (SledgehammerUpgrades; the item's tooltip says so)."
           ],
           "controls": [
             "Right-click the block to open the furnace menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "Fuel consumption is not changed anywhere in the code.",
+            "The speed-up costs no fuel, so one piece of fuel smelts about twice as many items as in a vanilla furnace.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
@@ -10795,13 +11269,14 @@ window.WIKI_DATA = {
             "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen (facing); das Item-Modell zeigt das Blockmodell.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
-            "Menü-Überschrift: „Verstärkter Ofen“ (Sprachschlüssel container.simplebuilding.reinforced_furnace)."
+            "Menü-Überschrift: „Verstärkter Ofen“ (Sprachschlüssel container.simplebuilding.reinforced_furnace).",
+            "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netherit-Nugget in der Nebenhand auf den gesetzten Verstärkten Ofen halten, dann wird er samt Inhalt und Kochfortschritt zur Netherit-Stufe (SledgehammerUpgrades; der Tooltip des Items weist darauf hin)."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Ofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Der Brennstoffverbrauch wird im Code nicht verändert.",
+            "Die Beschleunigung kostet keinen Brennstoff, ein Stück Brennstoff reicht also für etwa doppelt so viele Gegenstände wie im Vanilla-Ofen.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
@@ -10825,7 +11300,9 @@ window.WIKI_DATA = {
           "src/main/generated/assets/simplebuilding/blockstates/reinforced_furnace.json",
           "src/main/generated/assets/simplebuilding/items/reinforced_furnace.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -10840,15 +11317,13 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:reinforced_hopper_from_crafting"
       ],
-      "usedIn": [
-        "simplebuilding:netherite_hopper_from_crafting"
-      ],
+      "usedIn": [],
       "trades": [],
       "note": {
         "en": {
           "summary": "The Reinforced Hopper is a faster hopper: it waits only 4 ticks after every successful item transfer, and it adds an item filter with three modes that you set up in its menu.",
           "details": [
-            "After every successful transfer the Reinforced Hopper waits 4 ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 for REINFORCED_HOPPER, 2 for NETHERITE_HOPPER, fallback 8; the block logic is only registered for those two blocks).",
+            "After every successful transfer the Reinforced Hopper waits 4 ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 for REINFORCED_HOPPER, 2 for NETHERITE_HOPPER, 1 for ENDERITE_HOPPER, fallback 8; the block logic is only registered for those three blocks).",
             "Per transfer it pushes exactly one item into the container it faces (insert() removes 1 item and stops after the first success) and in the same tick pulls items in from above via HopperBlockEntity.suckInItems as long as it is not full; the cooldown is only set when something actually moved.",
             "It only moves items while it is not powered by redstone (the 'enabled' block state is checked before every transfer); the ticker runs on the server only (getTicker returns null on the client).",
             "5 slots (getContainerSize = 5); the menu uses the vanilla hopper background (textures/gui/container/hopper.png) and the vanilla hopper title (container.hopper).",
@@ -10857,7 +11332,7 @@ window.WIKI_DATA = {
             "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
             "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
             "Recipe (yields 5, category redstone): top row Hopper - Name Tag - Hopper, middle row three Cracked Diamonds (simplebuilding:cracked_diamond), bottom row three Hoppers; unlocked as soon as you own a minecraft:hopper.",
-            "The Reinforced Hopper is an ingredient for the Netherite Hopper (two Reinforced Hoppers plus one Netherite Nugget yield two Netherite Hoppers).",
+            "Upgrade: hold right-click for 5 seconds on a placed Reinforced Hopper with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes a Netherite Hopper with its items, filter items and filter mode (SledgehammerUpgrades; the item's tooltip says so). There is no crafting recipe for the Netherite Hopper any more.",
             "Filter mode, filter items and the transfer cooldown are saved with the block (keys 'FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload; an unknown 'FilterMode' falls back to Disabled rather than throwing, so nothing is lost.",
             "Listed in the mod's creative tab (simplebuilding:building_items; 'Building Items' in English, 'SimpleBuilding Items' in German); the item-group code puts it in the 'Machines & Storage' block of entries.",
             "A game test (BlockBehaviourTests) times how long each hopper needs to move 5 items into the destination chest and requires the Reinforced Hopper to be faster than the vanilla hopper and slower than the Netherite Hopper."
@@ -10879,7 +11354,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Der Verstärkte Trichter ist ein Trichter, der nach jedem erfolgreichen Item-Transfer nur 4 Ticks wartet und zusätzlich einen im Menü einstellbaren Item-Filter mit drei Modi besitzt.",
           "details": [
-            "Nach jedem erfolgreichen Transfer wartet der Verstärkte Trichter 4 Ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 für REINFORCED_HOPPER, 2 für NETHERITE_HOPPER, Fallback 8; die Blocklogik ist nur für diese beiden Blöcke registriert).",
+            "Nach jedem erfolgreichen Transfer wartet der Verstärkte Trichter 4 Ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 für REINFORCED_HOPPER, 2 für NETHERITE_HOPPER, 1 für ENDERITE_HOPPER, Fallback 8; die Blocklogik ist nur für diese drei Blöcke registriert).",
             "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt (insert() entfernt 1 Item und bricht nach dem ersten Erfolg ab), und zieht im selben Tick über HopperBlockEntity.suckInItems Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn tatsächlich etwas bewegt wurde.",
             "Er arbeitet nur, wenn er nicht per Redstone gesperrt ist (Blockzustand 'enabled' wird vor jedem Transfer geprüft); der Ticker läuft ausschließlich serverseitig (getTicker liefert auf dem Client null).",
             "5 Slots (getContainerSize = 5); das Menü verwendet die Trichter-Oberfläche des Spiels (textures/gui/container/hopper.png) und den Titel des normalen Trichters (container.hopper).",
@@ -10888,7 +11363,7 @@ window.WIKI_DATA = {
             "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
             "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
             "Rezept (ergibt 5 Stück, Kategorie redstone): obere Reihe Trichter – Namensschild – Trichter, mittlere Reihe drei Rissige Diamanten (simplebuilding:cracked_diamond), untere Reihe drei Trichter; freigeschaltet, sobald man einen minecraft:hopper besitzt.",
-            "Der Verstärkte Trichter ist Zutat für den Netherittrichter (zwei Verstärkte Trichter + ein Netherite Nugget ergeben zwei Netherittrichter).",
+            "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netherit-Nugget in der Nebenhand auf einen gesetzten Verstärkten Trichter halten, dann wird er samt Items, Filter-Items und Filtermodus zum Netherittrichter (SledgehammerUpgrades; der Tooltip des Items weist darauf hin). Ein Werkbankrezept für den Netherittrichter gibt es nicht mehr.",
             "Filtermodus, Filter-Items und Wartezeit werden mit dem Block gespeichert (Schlüssel 'FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt; ein unbekannter 'FilterMode' fällt auf Disabled zurück, statt zu werfen – es geht nichts verloren.",
             "Im Kreativ-Tab der Mod (simplebuilding:building_items; deutsch 'SimpleBuilding Items', englisch 'Building Items') einsortiert; \"Machines & Storage\" ist dabei nur eine Gliederung im Code (ModItemGroupsContent), im Spiel zeigt der Tab keine solche Abschnittsüberschrift.",
             "Ein Spieltest (BlockBehaviourTests) misst, wann 5 Items in der Zielkiste liegen, und verlangt: Verstärkter Trichter schneller als der normale Trichter und langsamer als der Netherittrichter."
@@ -10924,12 +11399,13 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/platform/HopperMenus.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
-          "src/main/generated/data/simplebuilding/recipe/netherite_hopper_from_crafting.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_hopper.json",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java"
+          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -10945,7 +11421,6 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_piston"
       ],
       "usedIn": [
-        "simplebuilding:netherite_piston_bulk",
         "simplebuilding:reinforced_sticky_piston"
       ],
       "trades": [],
@@ -10962,8 +11437,8 @@ window.WIKI_DATA = {
             "Hardness 1.5, metallic block sounds; in the mineable/pickaxe tag (a pickaxe mines it faster), with no minimum tool tier and no requiresCorrectToolForDrops, so it drops no matter what you break it with.",
             "Loot table: drops itself (survives_explosion condition).",
             "Recipe (crafting table, redstone category): top row three Cracked Diamonds, middle row Piston - Iron Ingot - Piston, bottom row three Iron Ingots (3 Cracked Diamonds, 2 Pistons and 4 Iron Ingots in total); yields 2 Reinforced Pistons. Unlocked as soon as you own a Piston.",
-            "Serves as the ingredient for the Netherite Piston (3 Reinforced Pistons + 1 Netherite Nugget) and for the Reinforced Sticky Piston (a Slime Ball on top).",
-            "The item is a plain BlockItem with no fire resistance and no tooltip.",
+            "Serves as the ingredient for the Reinforced Sticky Piston (a Slime Ball on top). It becomes a Netherite Piston after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, as long as it is neither extended nor powered (SledgehammerUpgrades); there is no crafting recipe for the Netherite Piston any more.",
+            "The item is a plain BlockItem with no fire resistance; its tooltip has one line about the sledgehammer upgrade (client ItemMixin).",
             "In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German), filed under \"Machines & Storage\" in the code.",
             "A game test proves it: a column of 13 stone blocks is pushed upwards by the Reinforced Piston (piston extended, ordinary piston head in front of it), while a vanilla piston in an identical setup does not extend at all."
           ],
@@ -10989,8 +11464,8 @@ window.WIKI_DATA = {
             "Härte 1,5, Geräusch wie Metall; im Tag mineable/pickaxe (mit der Spitzhacke schneller abbaubar), kein Mindestwerkzeug und kein requiresCorrectToolForDrops hinterlegt.",
             "Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion).",
             "Rezept (Werkbank, Kategorie Redstone): oben drei Rissige Diamanten, mittlere Reihe Kolben – Eisenbarren – Kolben, unten drei Eisenbarren (insgesamt 3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren); ergibt 2 Verstärkte Kolben. Freigeschaltet, sobald man einen Kolben besitzt.",
-            "Dient als Zutat für den Netheritkolben (3 Verstärkte Kolben + 1 Netherite Nugget) und für den Verstärkten klebrigen Kolben (ein Schleimball darüber).",
-            "Das Item ist ein einfaches BlockItem ohne Feuerfestigkeit und ohne Tooltip.",
+            "Dient als Zutat für den Verstärkten klebrigen Kolben (ein Schleimball darüber). Nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand wird er zum Netheritkolben, solange er weder ausgefahren ist noch Strom bekommt (SledgehammerUpgrades); ein Werkbankrezept für den Netheritkolben gibt es nicht mehr.",
+            "Das Item ist ein einfaches BlockItem ohne Feuerfestigkeit; sein Tooltip trägt eine Zeile zur Aufwertung mit dem Vorschlaghammer (clientseitiges ItemMixin).",
             "Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“), im Code unter „Machines & Storage“ einsortiert.",
             "Ein Spieltest belegt: Eine Säule aus 13 Steinblöcken wird vom Verstärkten Kolben nach oben geschoben (Kolben ausgefahren, normaler Kolbenkopf davor), während ein Vanilla-Kolben in identischem Aufbau nicht ausfährt."
           ],
@@ -11021,7 +11496,9 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
           "src/main/resources/simplebuilding.mixins.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -11136,9 +11613,7 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:reinforced_smoker"
       ],
-      "usedIn": [
-        "simplebuilding:netherite_smoker_bulk"
-      ],
+      "usedIn": [],
       "trades": [],
       "note": {
         "en": {
@@ -11156,13 +11631,14 @@ window.WIKI_DATA = {
             "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
-            "Menu title: \"Reinforced Smoker\" (translation key container.simplebuilding.reinforced_smoker)."
+            "Menu title: \"Reinforced Smoker\" (translation key container.simplebuilding.reinforced_smoker).",
+            "Upgrade: hold right-click for 5 seconds on a placed Reinforced Smoker with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes the Netherite Smoker with its items and cooking progress (SledgehammerUpgrades; the item's tooltip says so)."
           ],
           "controls": [
             "Right-click the block to open the smoker menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "Fuel consumption is not changed anywhere in the code.",
+            "Fuel burns for the full furnace duration (coal 1600 ticks), where vanilla's blast furnace and smoker halve it; together with the free speed-up one piece of fuel covers about four times as many items as in the vanilla device.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
@@ -11181,13 +11657,14 @@ window.WIKI_DATA = {
             "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
-            "Menü-Überschrift: „Verstärkter Räucherofen“ (Sprachschlüssel container.simplebuilding.reinforced_smoker)."
+            "Menü-Überschrift: „Verstärkter Räucherofen“ (Sprachschlüssel container.simplebuilding.reinforced_smoker).",
+            "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netherit-Nugget in der Nebenhand auf den gesetzten Verstärkten Räucherofen halten, dann wird er samt Inhalt und Kochfortschritt zur Netherit-Stufe (SledgehammerUpgrades; der Tooltip des Items weist darauf hin)."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Räucherofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Der Brennstoffverbrauch wird im Code nicht verändert.",
+            "Brennstoff brennt die volle Ofendauer (Kohle 1600 Ticks), wo Vanillas Schmelz- und Räucherofen sie halbieren; zusammen mit der kostenlosen Beschleunigung reicht ein Stück Brennstoff für etwa viermal so viele Gegenstände wie im Vanilla-Gerät.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
@@ -11210,7 +11687,9 @@ window.WIKI_DATA = {
           "src/main/generated/data/minecraft/tags/block/needs_diamond_tool.json",
           "src/main/generated/assets/simplebuilding/blockstates/reinforced_smoker.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -11668,7 +12147,7 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, and upgrades smithing templates in item frames with an ingredient in your off hand.",
+          "summary": "The sledgehammer is a pickaxe that mines a whole 3x3 area at once, reshapes blocks into stairs and slabs when you hold right-click, crushes diamond blocks into Diamond Pebbles, upgrades smithing templates in item frames with an ingredient in your off hand, and hammers the mod's machines up a tier with a Netherite or Enderite Nugget in the off hand.",
           "details": [
             "There are seven tiers: Stone, Copper, Iron, Gold, Diamond, Netherite and Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Every hammer is built as a pickaxe of its material through settings.pickaxe(material, ...): mining speed, correct blocks, repair material and enchantability all follow the pickaxe material of that tier; only the durability is set separately afterwards.",
@@ -11697,6 +12176,13 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
+            "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
+            "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
+            "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, or a piston that is extended or powered by redstone leaves a hint in the action bar (at most every 3 seconds); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
+            "While hammering, the hammer is held normally instead of in the bow pose, in first and in third person, so every strike reads as a hammer blow (HeldItemRendererMixin, AvatarRendererMixin).",
+            "The use behind an upgrade is a fixed 100 ticks (getUseDuration returns SledgehammerUpgrades.UPGRADE_TICKS while an upgrade job exists for the player); onUseTick checks the job every tick on both sides, and finishUsingItem runs the fifth strike instead of the reshape or crush code whenever a job existed - also when it was cancelled, so an upgrade never reshapes or crushes the block you happen to look at.",
             "Upgrading smithing templates: left-click (AttackEntity) an item frame that holds a smithing template (item id contains trim_smithing_template) with the hammer in your main hand while a Glow Ink Sac sits in your off hand, and it becomes a Glowing Trim Upgrade Template; with Glowstone Dust in the off hand you get an Emitting Trim Upgrade Template.",
             "The upgrade uses up 1 ingredient from the off hand and 1 durability (not in creative mode), and plays the amethyst sound (pitch 1.5) plus the glow ink sac or blaze shoot sound.",
             "Anvil, hammer + hammer: the remaining durability of both hammers is added up, plus 12 percent of the left hammer's maximum durability as a bonus (capped at the maximum durability); enchantments are merged (equal levels give one level more, otherwise the higher one wins, never above the maximum level); it costs 1 level (AnvilScreenHandlerMixin).",
@@ -11718,7 +12204,8 @@ window.WIKI_DATA = {
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
             "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
-            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template."
+            "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Trim Upgrade Template; with Glowstone Dust: Emitting Trim Upgrade Template.",
+            "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
           "tiers": [
             "Stone Sledgehammer: durability 760 (190 times 4), base attack damage 4, attack speed -3.4 (-3.0 minus the 0.4 offset), enchantability 5, stone material; no smithing table upgrade.",
@@ -11749,7 +12236,7 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt.",
+          "summary": "Der Vorschlaghammer ist eine Spitzhacke, die beim Abbauen ein ganzes 3x3-Feld mitnimmt, per Rechtsklick Blöcke in Treppen und Stufen umformt, Diamantblöcke zu Diamantkieseln zerkleinert und mit Nebenhand-Zutat Schmiedevorlagen im Rahmen veredelt und mit einem Netherit- oder Enderiten-Nugget in der Nebenhand die Maschinen der Mod eine Stufe höher schmiedet.",
           "details": [
             "Es gibt sieben Stufen: Stein-, Kupfer-, Eisen-, Gold-, Diamant-, Netherit-Vorschlaghammer und Enderite Sledgehammer (ModItems, registerSledgehammer).",
             "Jeder Hammer wird über settings.pickaxe(material, ...) als Spitzhacke seines Materials angelegt: Abbaugeschwindigkeit, geeignete Blöcke und Reparaturmaterial folgen dem Spitzhacken-Material der Stufe.",
@@ -11778,6 +12265,13 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
+            "Maschinen aufwerten: Mit einem Netherit-Nugget in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderiten-Nugget wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
+            "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht ein Nugget (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
+            "Abgebrochen wird ohne Nugget-Verbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, das Nugget die Nebenhand verlässt oder der Hammer zerbricht.",
+            "Mit einem Nugget in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Nugget und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falsches Nugget, ein zu schwacher Hammer oder ein ausgefahrener bzw. mit Redstone versorgter Kolben ergeben einen Hinweis in der Aktionsleiste (höchstens alle 3 Sekunden); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
+            "Beim Schmieden hält die Hand den Hammer normal statt in der Bogen-Pose, in der Ich- wie in der Außenansicht, sodass jeder Schlag als Hammerschlag zu sehen ist (HeldItemRendererMixin, AvatarRendererMixin).",
+            "Die Benutzung hinter einer Aufwertung dauert fest 100 Ticks (getUseDuration liefert SledgehammerUpgrades.UPGRADE_TICKS, solange für den Spieler ein Aufwertungsauftrag besteht); onUseTick prüft den Auftrag auf beiden Seiten in jedem Tick, und finishUsingItem führt statt Umformen oder Zerschlagen den fünften Schlag aus, sobald ein Auftrag bestand - auch wenn er abgebrochen wurde, eine Aufwertung formt also nie den Block um, auf den man zufällig schaut.",
             "Schmiedevorlagen veredeln: Linksklick (AttackEntity) mit dem Hammer in der Haupthand auf einen Rahmen, der eine Schmiedevorlage (Item-Id enthält trim_smithing_template) enthält, während in der Nebenhand ein Leuchttintenbeutel liegt, verwandelt sie in eine Leuchtende Schmiedevorlage; mit Leuchtsteinstaub in der Nebenhand entsteht eine Strahlende Schmiedevorlage.",
             "Das Veredeln verbraucht 1 Zutat aus der Nebenhand und 1 Haltbarkeit (nicht im Kreativmodus) und spielt Amethyst-Klang (Tonhöhe 1,5) plus Leuchttinten- bzw. Lohen-Schussgeräusch.",
             "Amboss, Hammer + Hammer: Die Resthaltbarkeit beider Hämmer wird addiert, plus 12 Prozent der Maximalhaltbarkeit des linken Hammers als Bonus (gedeckelt bei der Maximalhaltbarkeit); Verzauberungen werden zusammengeführt (gleiche Stufe ergibt eine Stufe mehr, sonst die höhere, nie über die Maximalstufe); Kosten 1 Level (AnvilScreenHandlerMixin).",
@@ -11799,7 +12293,8 @@ window.WIKI_DATA = {
             "Rechtsklick halten auf vollen Block: wird zur Treppe; auf Treppe: wird zur Stufe.",
             "Schleichen + Rechtsklick halten (nur mit Berührung des Konstrukteurs): Stufe wird zur Treppe, Treppe zum vollen Block.",
             "Rechtsklick halten auf Diamantblock (mit oder ohne Schleichen): zerkleinert ihn zu 81 Diamantkieseln.",
-            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage."
+            "Linksklick auf Rahmen mit Schmiedevorlage, Leuchttintenbeutel in der Nebenhand: Leuchtende Schmiedevorlage; mit Leuchtsteinstaub: Strahlende Schmiedevorlage.",
+            "Netherit-Nugget in der Nebenhand, 5 Sekunden Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben halten (Diamant-Vorschlaghammer oder besser): er wird zur Netherit-Maschine; Enderiten-Nugget auf einer Netherit-Maschine (Netherit-Vorschlaghammer oder besser): die Enderit-Maschine."
           ],
           "tiers": [
             "Stein-Vorschlaghammer: Haltbarkeit 760 (190 mal 4), Angriffsschaden-Basiswert 4, Angriffsgeschwindigkeit -3,4 (-3,0 minus Versatz 0,4), Verzauberbarkeit 5, Material Stein (die in ModItems uebergebenen 15 setzt settings.pickaxe(...) auf den Wert des Werkstoffs zurueck); keine Aufwertung im Schmiedetisch.",
@@ -11886,7 +12381,9 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
           "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java",
-          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java"
+          "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -12528,6 +13025,94 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_blast_furnace",
+      "name": {
+        "en_us": "Enderite Blast Furnace",
+        "de_de": "Enderit-Schmelzofen"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/enderite_blast_furnace",
+      "drops": [
+        "simplebuilding:enderite_blast_furnace"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ModBlastFurnaceBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+          "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
+          "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_raw_enderite.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
+        ],
+        "en": {
+          "summary": "The Enderite Blast Furnace is the fastest blast furnace tier: 8 times the vanilla speed, double experience, extra output from raw metals. It is hammered out of a Netherite Blast Furnace.",
+          "details": [
+            "Behaves like a vanilla blast furnace: same recipe type (RecipeType.BLASTING) and the same menu (BlastFurnaceMenu); same block class (ModBlastFurnaceBlock) and block entity (ModBlastFurnaceBlockEntity) as the Reinforced and Netherite tiers, which read the block state to tell the tiers apart.",
+            "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 7 extra progress ticks per server tick (extraTicks = 7), capped at total time minus 1 - 8 times the vanilla speed; a 200 tick recipe finishes in 26 ticks, a 100 tick recipe in 14.",
+            "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
+            "Extra output: every 2nd finished smelt of a recipe whose ingredient is only Raw Iron, Raw Gold or Raw Copper (tag simplebuilding:blast_furnace_bonus) yields one item more (+50 %); with a full result slot the bonus waits for the next one, and the count is saved with the block.",
+            "Enderite Scrap (72000 ticks in a vanilla blast furnace) takes 9001 ticks here, about 7.5 minutes, and pays 20 experience instead of 10.",
+            "Menu title: \"Enderite Blast Furnace\" (translation key container.simplebuilding.enderite_blast_furnace).",
+            "Made only in the world: hold right-click for 5 seconds on a placed Netherite Blast Furnace with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items, cooking progress and stored experience stay in the block.",
+            "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla blast furnace (ofFullCopy(Blocks.BLAST_FURNACE)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. It gives off light level 13 while it burns.",
+            "The item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag, so it is not lost in the void.",
+            "In the mineable/pickaxe tag and in no needs_*_tool tag; loot table: drops itself (survives_explosion condition). In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after its Netherite sibling.",
+            "Its textures follow the file names of the Netherite machine's textures with enderite_ instead of netherite_."
+          ],
+          "controls": [
+            "Right-click the block to open the blast furnace menu."
+          ],
+          "caveats": [
+            "Fuel burns for the full furnace duration (coal 1600 ticks), where the vanilla device halves it; together with the free speed-up one piece of fuel covers about 14 times as many 100 tick recipes as in the vanilla device, and up to 16 times as many long ones.",
+            "It is the top tier: a sledgehammer with a nugget does nothing special on it, and right-clicking opens the menu as usual.",
+            "No game test measures its speed or its rewards yet."
+          ]
+        },
+        "de": {
+          "summary": "Der Enderit-Schmelzofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung, zusätzliche Ausbeute aus Rohmetallen. Er wird aus einem Netherit-Schmelzofen geschmiedet.",
+          "details": [
+            "Verhält sich wie ein Vanilla-Schmelzofen: gleicher Rezepttyp (RecipeType.BLASTING) und dasselbe Menü (BlastFurnaceMenu); dieselbe Blockklasse (ModBlastFurnaceBlock) und Block-Entity (ModBlastFurnaceBlockEntity) wie Verstärkt- und Netherit-Stufe, die Stufe wird am Blockzustand unterschieden.",
+            "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 7 zusätzliche Fortschritts-Ticks (extraTicks = 7), gedeckelt auf Gesamtzeit minus 1 - achtfache Vanilla-Geschwindigkeit; ein 200-Tick-Rezept ist nach 26 Ticks fertig, ein 100-Tick-Rezept nach 14.",
+            "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
+            "Mehr Ausbeute: Jeder 2. fertige Schmelzvorgang eines Rezepts, dessen Zutat nur Roheisen, Rohgold oder Rohkupfer ist (Tag simplebuilding:blast_furnace_bonus), gibt einen Gegenstand mehr (+50 %); bei vollem Ausgabeslot wartet der Bonus auf den nächsten, der Zähler wird mit dem Block gespeichert.",
+            "Enderit-Schrott (72000 Ticks im Vanilla-Schmelzofen) braucht hier 9001 Ticks, rund 7,5 Minuten, und bringt 20 statt 10 Erfahrung.",
+            "Menü-Titel: „Enderit-Schmelzofen“ (Übersetzungsschlüssel container.simplebuilding.enderite_blast_furnace).",
+            "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderiten-Nugget in der Nebenhand auf einen gesetzten Netherit-Schmelzofen halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Nugget wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Inhalt, Kochfortschritt und gespeicherte Erfahrung bleiben im Block.",
+            "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Schmelzofen kopiert (ofFullCopy(Blocks.BLAST_FURNACE)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. Beim Brennen leuchtet er mit Stärke 13.",
+            "Das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected, geht in der Leere also nicht verloren.",
+            "Im Tag mineable/pickaxe und in keinem needs_*_tool-Tag; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach seinem Netherit-Geschwister.",
+            "Seine Texturen folgen den Dateinamen der Netherit-Maschine, mit enderite_ statt netherite_."
+          ],
+          "controls": [
+            "Rechtsklick auf den Block öffnet das Menü."
+          ],
+          "caveats": [
+            "Brennstoff brennt die volle Ofendauer (Kohle 1600 Ticks), wo das Vanilla-Gerät sie halbiert; zusammen mit der kostenlosen Beschleunigung reicht ein Stück Brennstoff für etwa 14-mal so viele 100-Tick-Rezepte wie im Vanilla-Gerät, bei langen Rezepten für bis zu 16-mal so viele.",
+            "Er ist die oberste Stufe: Ein Vorschlaghammer mit Nugget bewirkt an ihm nichts Besonderes, und ein Rechtsklick öffnet wie gewohnt das Menü.",
+            "Noch kein Spieltest misst seine Geschwindigkeit oder seine Belohnungen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:enderite_block",
       "name": {
         "en_us": "Enderite Block",
@@ -12553,6 +13138,166 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_furnace",
+      "name": {
+        "en_us": "Enderite Furnace",
+        "de_de": "Enderitofen"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/enderite_furnace",
+      "drops": [
+        "simplebuilding:enderite_furnace"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ModFurnaceBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModFurnaceBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+          "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_furnace.json"
+        ],
+        "en": {
+          "summary": "The Enderite Furnace is the fastest furnace tier: 8 times the vanilla speed, double experience. It is hammered out of a Netherite Furnace.",
+          "details": [
+            "Behaves like a vanilla furnace: same recipe type (RecipeType.SMELTING) and the same menu (FurnaceMenu); same block class (ModFurnaceBlock) and block entity (ModFurnaceBlockEntity) as the Reinforced and Netherite tiers, which read the block state to tell the tiers apart.",
+            "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 7 extra progress ticks per server tick (extraTicks = 7), capped at total time minus 1 - 8 times the vanilla speed; a 200 tick recipe finishes in 26 ticks, a 100 tick recipe in 14.",
+            "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
+            "Menu title: \"Enderite Furnace\" (translation key container.simplebuilding.enderite_furnace).",
+            "Made only in the world: hold right-click for 5 seconds on a placed Netherite Furnace with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items, cooking progress and stored experience stay in the block.",
+            "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla furnace (ofFullCopy(Blocks.FURNACE)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. It gives off light level 13 while it burns.",
+            "The item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag, so it is not lost in the void.",
+            "In the mineable/pickaxe tag and in no needs_*_tool tag; loot table: drops itself (survives_explosion condition). In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after its Netherite sibling.",
+            "Its textures follow the file names of the Netherite machine's textures with enderite_ instead of netherite_."
+          ],
+          "controls": [
+            "Right-click the block to open the furnace menu."
+          ],
+          "caveats": [
+            "The speed-up costs no fuel, so one piece of fuel smelts about eight times as many items as in a vanilla furnace.",
+            "It is the top tier: a sledgehammer with a nugget does nothing special on it, and right-clicking opens the menu as usual.",
+            "No game test measures its speed or its rewards yet."
+          ]
+        },
+        "de": {
+          "summary": "Der Enderitofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung. Er wird aus einem Netheritofen geschmiedet.",
+          "details": [
+            "Verhält sich wie ein Vanilla-Ofen: gleicher Rezepttyp (RecipeType.SMELTING) und dasselbe Menü (FurnaceMenu); dieselbe Blockklasse (ModFurnaceBlock) und Block-Entity (ModFurnaceBlockEntity) wie Verstärkt- und Netherit-Stufe, die Stufe wird am Blockzustand unterschieden.",
+            "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 7 zusätzliche Fortschritts-Ticks (extraTicks = 7), gedeckelt auf Gesamtzeit minus 1 - achtfache Vanilla-Geschwindigkeit; ein 200-Tick-Rezept ist nach 26 Ticks fertig, ein 100-Tick-Rezept nach 14.",
+            "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
+            "Menü-Titel: „Enderitofen“ (Übersetzungsschlüssel container.simplebuilding.enderite_furnace).",
+            "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderiten-Nugget in der Nebenhand auf einen gesetzten Netheritofen halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Nugget wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Inhalt, Kochfortschritt und gespeicherte Erfahrung bleiben im Block.",
+            "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Ofen kopiert (ofFullCopy(Blocks.FURNACE)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. Beim Brennen leuchtet er mit Stärke 13.",
+            "Das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected, geht in der Leere also nicht verloren.",
+            "Im Tag mineable/pickaxe und in keinem needs_*_tool-Tag; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach seinem Netherit-Geschwister.",
+            "Seine Texturen folgen den Dateinamen der Netherit-Maschine, mit enderite_ statt netherite_."
+          ],
+          "controls": [
+            "Rechtsklick auf den Block öffnet das Menü."
+          ],
+          "caveats": [
+            "Die Beschleunigung kostet keinen Brennstoff, ein Stück Brennstoff reicht also für etwa achtmal so viele Gegenstände wie im Vanilla-Ofen.",
+            "Er ist die oberste Stufe: Ein Vorschlaghammer mit Nugget bewirkt an ihm nichts Besonderes, und ein Rechtsklick öffnet wie gewohnt das Menü.",
+            "Noch kein Spieltest misst seine Geschwindigkeit oder seine Belohnungen."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:enderite_hopper",
+      "name": {
+        "en_us": "Enderite Hopper",
+        "de_de": "Enderittrichter"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/enderite_hopper",
+      "drops": [
+        "simplebuilding:enderite_hopper"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ModHopperBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/java/com/simplebuilding/screen/ModScreenHandlers.java",
+          "common/src/shared/java/com/simplebuilding/screen/NetheriteHopperScreenHandler.java",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
+        ],
+        "en": {
+          "summary": "The Enderite Hopper is the fastest hopper: it waits only 1 tick after every transfer, so it moves an item every tick, with the same item filter as the Reinforced and Netherite Hoppers. It is hammered out of a Netherite Hopper.",
+          "details": [
+            "After every successful transfer it waits 1 tick (ModHopperBlockEntity.insertAndExtract: speed = 1 for ENDERITE_HOPPER; Netherite 2, Reinforced 4, fallback 8).",
+            "Per transfer it pushes exactly one item into the container it faces and in the same tick pulls items in from above as long as it is not full; the cooldown is only set when something actually moved. It only moves items while it is not powered by redstone.",
+            "Same block class (ModHopperBlock), block entity type (simplebuilding:mod_hopper) and menu (menu type simplebuilding:netherite_hopper, titled like the vanilla hopper) as the other two tiers: 5 slots, filter button with Disabled, Exact Match and Type Match, one filter item per slot, saved as 'FilterMode', 'GhostItems' and 'TransferCooldown'.",
+            "Made only in the world: hold right-click for 5 seconds on a placed Netherite Hopper with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items, filter items and filter mode stay in the hopper.",
+            "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. noOcclusion is set.",
+            "The item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag, so it is not lost in the void.",
+            "In the mineable/pickaxe tag and in no needs_*_tool tag; loot table: drops itself (survives_explosion condition). In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after its Netherite sibling.",
+            "Its textures follow the file names of the Netherite machine's textures with enderite_ instead of netherite_."
+          ],
+          "controls": [
+            "Right-click the block to open the filter menu, as on the other mod hoppers."
+          ],
+          "caveats": [
+            "It is the top tier: a sledgehammer with a nugget does nothing special on it, and right-clicking opens the menu as usual.",
+            "No game test measures its speed yet."
+          ]
+        },
+        "de": {
+          "summary": "Der Enderittrichter ist der schnellste Trichter: Nach jedem Transfer wartet er nur 1 Tick, er bewegt also in jedem Tick ein Item, mit demselben Item-Filter wie der Verstärkte und der Netherittrichter. Er wird aus einem Netherittrichter geschmiedet.",
+          "details": [
+            "Nach jedem erfolgreichen Transfer wartet er 1 Tick (ModHopperBlockEntity.insertAndExtract: speed = 1 für ENDERITE_HOPPER; Netherit 2, Verstärkt 4, Fallback 8).",
+            "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt, und zieht im selben Tick Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn wirklich etwas bewegt wurde. Er bewegt nur Items, solange er nicht per Redstone gesperrt ist.",
+            "Dieselbe Blockklasse (ModHopperBlock), derselbe Block-Entity-Typ (simplebuilding:mod_hopper) und dasselbe Menü (Menütyp simplebuilding:netherite_hopper, Titel wie beim Vanilla-Trichter) wie die anderen beiden Stufen: 5 Slots, Filter-Knopf mit Disabled, Exact Match und Type Match, ein Filter-Item pro Slot, gespeichert als 'FilterMode', 'GhostItems' und 'TransferCooldown'.",
+            "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderiten-Nugget in der Nebenhand auf einen gesetzten Netherittrichter halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Nugget wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Items, Filter-Items und Filtermodus bleiben im Trichter.",
+            "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Trichter kopiert (ofFullCopy(Blocks.HOPPER)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. noOcclusion ist gesetzt.",
+            "Das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected, geht in der Leere also nicht verloren.",
+            "Im Tag mineable/pickaxe und in keinem needs_*_tool-Tag; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach seinem Netherit-Geschwister.",
+            "Seine Texturen folgen den Dateinamen der Netherit-Maschine, mit enderite_ statt netherite_."
+          ],
+          "controls": [
+            "Rechtsklick auf den Block öffnet das Filter-Menü, wie bei den anderen Mod-Trichtern."
+          ],
+          "caveats": [
+            "Er ist die oberste Stufe: Ein Vorschlaghammer mit Nugget bewirkt an ihm nichts Besonderes, und ein Rechtsklick öffnet wie gewohnt das Menü.",
+            "Noch kein Spieltest misst seine Geschwindigkeit."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:enderite_piston",
       "name": {
         "en_us": "Enderite Piston",
@@ -12575,7 +13320,7 @@ window.WIKI_DATA = {
             "Breach: with an unbreakable block directly in front (negative destroy speed or Reinforced Deepslate, not in simplebuilding:piston_breach_immune, no block entity; see PistonBreach) and a Redstone Block directly next to it paying (behind first, then the four sides across its facing, never the front), it works through up to 3 cells in its facing direction (EnderitePistonBlock.BREACH_DEPTH).",
             "Per cell: air is skipped; an unbreakable block is removed without drops; an ordinary block that the breaker could break at the signal it gets (the paying Redstone Block gives 15, so hardness up to 50, push reaction not BLOCK) is destroyed with its normal drops; a block in simplebuilding:piston_breach_immune ends the breach even if the breaker could break it, and so does anything else - an unbreakable block with a block entity, a block harder than that, a block with push reaction BLOCK, a liquid.",
             "Afterwards the Redstone Block and the piston itself are destroyed without drops. The breach runs on the piston's own block event (queued whenever a neighbour changes or it is placed), so no piston head or moving block is left and nothing behind the breached cells matters.",
-            "Hardness 6, blast resistance 1500, netherite block sounds; the item is fire resistant and, since its id starts with enderite_, in the simplebuilding:void_protected tag.",
+            "Hardness 6, blast resistance 1500, netherite block sounds; the item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag.",
             "An extended Enderite Piston cannot be moved by other pistons; it uses the ordinary vanilla piston head, which the PistonHeadBlock.isFittingBase mixin accepts, so breaking the head breaks the piston as well.",
             "In the mineable/pickaxe tag, no minimum tool tier; loot table: drops itself (survives_explosion condition).",
             "In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after the Netherite Piston."
@@ -12585,7 +13330,7 @@ window.WIKI_DATA = {
             "Redstone Block directly next to it and an unbreakable block in front: breach up to 3 blocks deep; the Redstone Block and the piston are used up."
           ],
           "caveats": [
-            "There is no crafting recipe yet; it is only available from the creative tab or by command.",
+            "There is no crafting recipe: a Netherite Piston becomes an Enderite Piston after 5 seconds of hammering with a Netherite Sledgehammer (or better) and an Enderite Nugget in the off hand, as long as it is neither extended nor powered (SledgehammerUpgrades).",
             "The breach checks neither height nor dimension: the bottom bedrock layer of the world and the Nether roof can be breached.",
             "The breach fires no NeoForge PistonEvent, so mods listening to it cannot cancel it."
           ]
@@ -12598,7 +13343,7 @@ window.WIKI_DATA = {
             "Durchbruch: Steht ein unzerstörbarer Block direkt davor (negative Abbaugeschwindigkeit oder Verstärkter Tiefenschiefer, nicht in simplebuilding:piston_breach_immune, keine Block-Entity; siehe PistonBreach) und bezahlt ein Redstoneblock direkt daneben (zuerst dahinter, dann die vier Seiten quer zur Blickrichtung, nie die Front), arbeitet er sich bis zu 3 Zellen in Blickrichtung vor (EnderitePistonBlock.BREACH_DEPTH).",
             "Je Zelle: Luft wird übersprungen; ein unzerstörbarer Block verschwindet ohne Drop; ein gewöhnlicher Block, den der Brecher bei seinem Signal brechen darf (der bezahlende Redstoneblock liefert 15, also Härte bis 50, Push-Reaktion nicht BLOCK), wird mit seinen normalen Drops zerstört; ein Block aus simplebuilding:piston_breach_immune beendet den Durchbruch, selbst wenn der Brecher ihn brechen dürfte, ebenso alles andere - ein unzerstörbarer Block mit Block-Entity, ein härterer Block, ein Block mit Push-Reaktion BLOCK, eine Flüssigkeit.",
             "Danach werden der Redstoneblock und der Kolben selbst ohne Drop zerstört. Der Durchbruch läuft über ein eigenes Block-Ereignis des Kolbens (eingereiht bei jeder Nachbaränderung und beim Setzen), es bleibt also weder Kolbenkopf noch bewegter Block zurück, und was hinter den durchbrochenen Zellen liegt, spielt keine Rolle.",
-            "Härte 6, Explosionswiderstand 1500, Geräusch wie ein Netheritblock; das Item ist feuerfest und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected.",
+            "Härte 6, Explosionswiderstand 1500, Geräusch wie ein Netheritblock; das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected.",
             "Ein ausgefahrener Enderitkolben kann von anderen Kolben nicht verschoben werden; er benutzt den normalen Vanilla-Kolbenkopf, den das Mixin auf PistonHeadBlock.isFittingBase anerkennt, wer den Kopf abbaut, bricht also auch den Kolben.",
             "Im Tag mineable/pickaxe, kein Mindestwerkzeug; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion).",
             "Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach dem Netheritkolben."
@@ -12608,7 +13353,7 @@ window.WIKI_DATA = {
             "Redstoneblock direkt daneben und ein unzerstörbarer Block davor: Durchbruch bis zu 3 Blöcke tief; Redstoneblock und Kolben werden verbraucht."
           ],
           "caveats": [
-            "Es gibt noch kein Rezept; er ist nur über den Kreativ-Reiter oder per Befehl erhältlich.",
+            "Es gibt kein Werkbankrezept: Ein Netheritkolben wird nach 5 Sekunden Hämmern mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget in der Nebenhand zum Enderitkolben, solange er weder ausgefahren ist noch Strom bekommt (SledgehammerUpgrades).",
             "Der Durchbruch prüft weder Höhe noch Dimension: Die unterste Grundgesteinsschicht der Welt und das Netherdach lassen sich durchbrechen.",
             "Der Durchbruch feuert kein NeoForge-PistonEvent, Mods, die darauf hören, können ihn also nicht absagen."
           ]
@@ -12628,8 +13373,91 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
         ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:enderite_smoker",
+      "name": {
+        "en_us": "Enderite Smoker",
+        "de_de": "Enderit-Räucherofen"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/enderite_smoker",
+      "drops": [
+        "simplebuilding:enderite_smoker"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ModSmokerBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "src/main/java/com/simplebuilding/blocks/entity/ModBlockEntities.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
+          "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModLootTableProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
+          "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+          "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
+          "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_smoker.json"
+        ],
+        "en": {
+          "summary": "The Enderite Smoker is the fastest smoker tier: 8 times the vanilla speed, double experience. It is hammered out of a Netherite Smoker.",
+          "details": [
+            "Behaves like a vanilla smoker: same recipe type (RecipeType.SMOKING) and the same menu (SmokerMenu); same block class (ModSmokerBlock) and block entity (ModSmokerBlockEntity) as the Reinforced and Netherite tiers, which read the block state to tell the tiers apart.",
+            "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 7 extra progress ticks per server tick (extraTicks = 7), capped at total time minus 1 - 8 times the vanilla speed; a 200 tick recipe finishes in 26 ticks, a 100 tick recipe in 14.",
+            "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
+            "Menu title: \"Enderite Smoker\" (translation key container.simplebuilding.enderite_smoker).",
+            "Made only in the world: hold right-click for 5 seconds on a placed Netherite Smoker with a Netherite Sledgehammer (or better) in the main hand and an Enderite Nugget in the off hand; five strikes cost the hammer 10 durability each (50 in total, none in creative) and one nugget is used up (SledgehammerUpgrades). There is no crafting recipe. Items, cooking progress and stored experience stay in the block.",
+            "Hardness 6.0 and blast resistance 1500 (like the Enderite Piston), netherite block sounds; every other block property is copied from the vanilla smoker (ofFullCopy(Blocks.SMOKER)), including the correct-tool requirement: only a pickaxe (any tier) gets it back. It gives off light level 13 while it burns.",
+            "The item is fire resistant, of rarity Epic and, since its id starts with enderite_, in the simplebuilding:void_protected tag, so it is not lost in the void.",
+            "In the mineable/pickaxe tag and in no needs_*_tool tag; loot table: drops itself (survives_explosion condition). In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German) right after its Netherite sibling.",
+            "Its textures follow the file names of the Netherite machine's textures with enderite_ instead of netherite_."
+          ],
+          "controls": [
+            "Right-click the block to open the smoker menu."
+          ],
+          "caveats": [
+            "Fuel burns for the full furnace duration (coal 1600 ticks), where the vanilla device halves it; together with the free speed-up one piece of fuel covers about 14 times as many 100 tick recipes as in the vanilla device, and up to 16 times as many long ones.",
+            "It is the top tier: a sledgehammer with a nugget does nothing special on it, and right-clicking opens the menu as usual.",
+            "No game test measures its speed or its rewards yet."
+          ]
+        },
+        "de": {
+          "summary": "Der Enderit-Räucherofen ist die schnellste Stufe: achtfache Vanilla-Geschwindigkeit, doppelte Erfahrung. Er wird aus einem Netherit-Räucherofen geschmiedet.",
+          "details": [
+            "Verhält sich wie ein Vanilla-Räucherofen: gleicher Rezepttyp (RecipeType.SMOKING) und dasselbe Menü (SmokerMenu); dieselbe Blockklasse (ModSmokerBlock) und Block-Entity (ModSmokerBlockEntity) wie Verstärkt- und Netherit-Stufe, die Stufe wird am Blockzustand unterschieden.",
+            "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 7 zusätzliche Fortschritts-Ticks (extraTicks = 7), gedeckelt auf Gesamtzeit minus 1 - achtfache Vanilla-Geschwindigkeit; ein 200-Tick-Rezept ist nach 26 Ticks fertig, ein 100-Tick-Rezept nach 14.",
+            "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
+            "Menü-Titel: „Enderit-Räucherofen“ (Übersetzungsschlüssel container.simplebuilding.enderite_smoker).",
+            "Entsteht nur in der Welt: 5 Sekunden Rechtsklick mit einem Netherit-Vorschlaghammer (oder besser) in der Haupthand und einem Enderiten-Nugget in der Nebenhand auf einen gesetzten Netherit-Räucherofen halten; fünf Schläge kosten den Hammer je 10 Haltbarkeit (50 insgesamt, im Kreativmodus nichts), und ein Nugget wird verbraucht (SledgehammerUpgrades). Ein Werkbankrezept gibt es nicht. Inhalt, Kochfortschritt und gespeicherte Erfahrung bleiben im Block.",
+            "Härte 6,0 und Explosionswiderstand 1500 (wie der Enderitkolben), Geräusch wie ein Netheritblock; alle übrigen Blockeigenschaften werden vom Vanilla-Räucherofen kopiert (ofFullCopy(Blocks.SMOKER)), auch die Werkzeugpflicht: nur eine Spitzhacke (beliebige Stufe) holt ihn zurück. Beim Brennen leuchtet er mit Stärke 13.",
+            "Das Item ist feuerfest, von der Seltenheit Episch und, weil seine Kennung mit enderite_ beginnt, im Tag simplebuilding:void_protected, geht in der Leere also nicht verloren.",
+            "Im Tag mineable/pickaxe und in keinem needs_*_tool-Tag; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion). Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“) direkt nach seinem Netherit-Geschwister.",
+            "Seine Texturen folgen den Dateinamen der Netherit-Maschine, mit enderite_ statt netherite_."
+          ],
+          "controls": [
+            "Rechtsklick auf den Block öffnet das Menü."
+          ],
+          "caveats": [
+            "Brennstoff brennt die volle Ofendauer (Kohle 1600 Ticks), wo das Vanilla-Gerät sie halbiert; zusammen mit der kostenlosen Beschleunigung reicht ein Stück Brennstoff für etwa 14-mal so viele 100-Tick-Rezepte wie im Vanilla-Gerät, bei langen Rezepten für bis zu 16-mal so viele.",
+            "Er ist die oberste Stufe: Ein Vorschlaghammer mit Nugget bewirkt an ihm nichts Besonderes, und ein Rechtsklick öffnet wie gewohnt das Menü.",
+            "Noch kein Spieltest misst seine Geschwindigkeit oder seine Belohnungen."
+          ]
+        }
       },
       "hasCustomBehaviour": true
     },
@@ -13015,9 +13843,7 @@ window.WIKI_DATA = {
         "de_de": "Netherit-Schmelzofen"
       },
       "texture": "assets/textures/block/netherite_blast_furnace_side.png",
-      "craftedBy": [
-        "simplebuilding:netherite_blast_furnace_bulk"
-      ],
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "faces": {
@@ -13039,22 +13865,22 @@ window.WIKI_DATA = {
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 3 extra progress ticks per server tick (extraTicks = 3).",
             "That extra progress is capped at total time minus 1.",
             "The game test requires it to be at least 2.5 times as fast as a vanilla blast furnace and faster than the Reinforced Blast Furnace (Raw Iron into an Iron Ingot). The test's tick budget is 220 ticks.",
-            "Crafting recipe (bulk upgrade, file netherite_blast_furnace_bulk): in a 2x2 grid, 1 Netherite Nugget top left and 3 Reinforced Blast Furnaces in the other three slots yield 3 Netherite Blast Furnaces (datagen category RecipeCategory.DECORATIONS, so the recipe advancement sits under recipes/decorations).",
-            "The recipe unlocks as soon as you have a Reinforced Blast Furnace in your inventory.",
+            "No crafting recipe: a placed Reinforced Blast Furnace becomes the Netherite Blast Furnace after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its items, cooking progress and stored experience (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Blast Furnace; the item's tooltip says so.",
             "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from the vanilla blast furnace (ofFullCopy(Blocks.BLAST_FURNACE)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
             "The item is fire resistant (fireResistant).",
             "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla blast furnace it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
             "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
-            "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\")."
+            "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
+            "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded).",
+            "Extra output: every 4th finished smelt of a recipe whose ingredient is only Raw Iron, Raw Gold or Raw Copper (tag simplebuilding:blast_furnace_bonus) yields one item more (+25 %); with a full result slot the bonus waits for the next one. Enderite Scrap takes 18001 ticks (15 minutes) here instead of an hour in a vanilla blast furnace."
           ],
           "controls": [
             "Right-click the block to open the blast furnace menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "Fuel consumption is not changed anywhere in the code.",
-            "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "The generated recipe file netherite_blast_furnace_bulk.json carries no category field, so the crafting recipe book lists it under Miscellaneous; RecipeCategory.DECORATIONS only decides the advancement folder."
+            "Fuel burns for the full furnace duration (coal 1600 ticks), where vanilla's blast furnace and smoker halve it; together with the free speed-up one piece of fuel covers about eight times as many items as in the vanilla device.",
+            "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
         "de": {
@@ -13066,20 +13892,21 @@ window.WIKI_DATA = {
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 3 zusätzliche Fortschritts-Ticks (extraTicks = 3).",
             "Der Zusatz-Fortschritt wird auf höchstens Gesamtzeit minus 1 gedeckelt.",
             "Der Spieltest fordert, dass er mindestens 2,5-mal so schnell wie ein normaler Schmelzofen ist und schneller als der Verstärkte Schmelzofen (Roheisen zu Eisenbarren). Zeitbudget des Tests: 220 Ticks.",
-            "Rezept (Bulk-Upgrade, Datei netherite_blast_furnace_bulk): 1 Netherite Nugget oben links und 3 Verstärkte Schmelzöfen im 2x2-Muster ergeben 3 Netherit-Schmelzöfen (Advancement unter recipes/decorations; im Rezeptbuch steht es unter Verschiedenes, weil die erzeugte Datei kein category-Feld trägt und RecipeCategory.DECORATIONS nur den Advancement-Ordner bestimmt).",
-            "Das Rezept wird freigeschaltet, sobald der Spieler einen Verstärkten Schmelzofen im Inventar hat.",
+            "Kein Werkbankrezept: Ein gesetzter Verstärkter Schmelzofen wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zum Netherit-Schmelzofen und behält Inhalt, Kochfortschritt und gespeicherte Erfahrung (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget wird er weiter zum Enderit-Schmelzofen geschmiedet; der Tooltip des Items weist darauf hin.",
             "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden vom Vanilla-Schmelzofen kopiert (ofFullCopy(Blocks.BLAST_FURNACE)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
             "Das Item ist feuerfest (fireResistant).",
             "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Schmelzofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
             "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
-            "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“)."
+            "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
+            "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded).",
+            "Mehr Ausbeute: Jeder 4. fertige Schmelzvorgang eines Rezepts, dessen Zutat nur Roheisen, Rohgold oder Rohkupfer ist (Tag simplebuilding:blast_furnace_bonus), gibt einen Gegenstand mehr (+25 %); bei vollem Ausgabeslot wartet der Bonus auf den nächsten. Enderit-Schrott braucht hier 18001 Ticks (15 Minuten) statt einer Stunde im Vanilla-Schmelzofen."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Schmelzofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Der Brennstoffverbrauch wird im Code nicht verändert.",
+            "Brennstoff brennt die volle Ofendauer (Kohle 1600 Ticks), wo Vanillas Schmelz- und Räucherofen sie halbieren; zusammen mit der kostenlosen Beschleunigung reicht ein Stück Brennstoff für etwa achtmal so viele Gegenstände wie im Vanilla-Gerät.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
@@ -13094,15 +13921,19 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/netherite_blast_furnace_bulk.json",
-          "src/main/generated/data/simplebuilding/advancement/recipes/decorations/netherite_blast_furnace_bulk.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_blast_furnace.json",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/generated/data/minecraft/tags/block/needs_iron_tool.json",
           "src/main/generated/data/minecraft/tags/block/needs_diamond_tool.json",
           "src/main/generated/assets/simplebuilding/blockstates/netherite_blast_furnace.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
+          "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
+          "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_raw_enderite.json"
         ]
       },
       "hasCustomBehaviour": true
@@ -13114,9 +13945,7 @@ window.WIKI_DATA = {
         "de_de": "Netheritofen"
       },
       "texture": "assets/textures/block/netherite_furnace_side.png",
-      "craftedBy": [
-        "simplebuilding:netherite_furnace_bulk"
-      ],
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "faces": {
@@ -13138,22 +13967,21 @@ window.WIKI_DATA = {
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), the furnace gains 3 extra progress ticks per server tick (extraTicks = 3).",
             "That extra progress is capped at total time minus 1.",
             "The game test requires it to be at least 3 times as fast as a vanilla furnace and faster than the Reinforced Furnace; the comment in the test puts the expected gain at roughly quadruple speed. The test's tick budget is 320 ticks.",
-            "Crafting recipe (bulk upgrade, file netherite_furnace_bulk): in a 2x2 grid, 1 Netherite Nugget top left and 3 Reinforced Furnaces in the other three slots yield 3 Netherite Furnaces (datagen category RecipeCategory.DECORATIONS, so the recipe advancement sits under recipes/decorations).",
-            "The recipe unlocks as soon as you have a Reinforced Furnace in your inventory.",
+            "No crafting recipe: a placed Reinforced Furnace becomes the Netherite Furnace after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its items, cooking progress and stored experience (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Furnace; the item's tooltip says so.",
             "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from the vanilla furnace (ofFullCopy(Blocks.FURNACE)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
             "The item is fire resistant (fireResistant).",
             "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla furnace it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
             "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
-            "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\")."
+            "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
+            "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded)."
           ],
           "controls": [
             "Right-click the block to open the furnace menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "Fuel consumption is not changed anywhere in the code.",
-            "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "The generated recipe file netherite_furnace_bulk.json carries no category field, so the crafting recipe book lists it under Miscellaneous; RecipeCategory.DECORATIONS only decides the advancement folder."
+            "The speed-up costs no fuel, so one piece of fuel smelts about four times as many items as in a vanilla furnace.",
+            "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
         "de": {
@@ -13165,20 +13993,20 @@ window.WIKI_DATA = {
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält der Ofen in jedem Server-Tick 3 zusätzliche Fortschritts-Ticks (extraTicks = 3).",
             "Der Zusatz-Fortschritt wird auf höchstens Gesamtzeit minus 1 gedeckelt.",
             "Der Spieltest fordert, dass er mindestens 3-mal so schnell wie ein normaler Ofen ist und schneller als der Verstärkte Ofen; im Testkommentar steht als Erwartung etwa vierfache Geschwindigkeit. Zeitbudget des Tests: 320 Ticks.",
-            "Rezept (Bulk-Upgrade, Datei netherite_furnace_bulk): 1 Netherite Nugget oben links und 3 Verstärkte Öfen im 2x2-Muster ergeben 3 Netheritöfen (Advancement unter recipes/decorations; im Rezeptbuch steht es unter Verschiedenes, weil die erzeugte Datei kein category-Feld trägt und RecipeCategory.DECORATIONS nur den Advancement-Ordner bestimmt).",
-            "Das Rezept wird freigeschaltet, sobald der Spieler einen Verstärkten Ofen im Inventar hat.",
+            "Kein Werkbankrezept: Ein gesetzter Verstärkter Ofen wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zum Netheritofen und behält Inhalt, Kochfortschritt und gespeicherte Erfahrung (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget wird er weiter zum Enderitofen geschmiedet; der Tooltip des Items weist darauf hin.",
             "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden vom Vanilla-Ofen kopiert (ofFullCopy(Blocks.FURNACE)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
             "Das Item ist feuerfest (fireResistant).",
             "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Ofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
             "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
-            "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“)."
+            "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
+            "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded)."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Ofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Der Brennstoffverbrauch wird im Code nicht verändert.",
+            "Die Beschleunigung kostet keinen Brennstoff, ein Stück Brennstoff reicht also für etwa viermal so viele Gegenstände wie im Vanilla-Ofen.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
@@ -13193,15 +14021,17 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/netherite_furnace_bulk.json",
-          "src/main/generated/data/simplebuilding/advancement/recipes/decorations/netherite_furnace_bulk.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_furnace.json",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/generated/data/minecraft/tags/block/needs_iron_tool.json",
           "src/main/generated/data/minecraft/tags/block/needs_diamond_tool.json",
           "src/main/generated/assets/simplebuilding/blockstates/netherite_furnace.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
+          "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json"
         ]
       },
       "hasCustomBehaviour": true
@@ -13213,9 +14043,7 @@ window.WIKI_DATA = {
         "de_de": "Netherittrichter"
       },
       "texture": "assets/textures/block/netherite_hopper_outside.png",
-      "craftedBy": [
-        "simplebuilding:netherite_hopper_from_crafting"
-      ],
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "lootTable": "simplebuilding:blocks/netherite_hopper",
@@ -13224,9 +14052,9 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "The Netherite Hopper is the fastest hopper tier: it waits only 2 ticks between transfers, has hardness 5.0 and blast resistance 1200, its item is fire resistant, and it offers the same item filter as the Reinforced Hopper.",
+          "summary": "The Netherite Hopper is the second fastest hopper tier after the Enderite Hopper: it waits only 2 ticks between transfers, has hardness 5.0 and blast resistance 1200, its item is fire resistant, and it offers the same item filter as the Reinforced Hopper.",
           "details": [
-            "After every successful transfer the Netherite Hopper waits 2 ticks (Reinforced Hopper 4 ticks; the fallback of 8 ticks in the code would only be reached if the logic ran on some other block).",
+            "After every successful transfer the Netherite Hopper waits 2 ticks (Reinforced Hopper 4 ticks, Enderite Hopper 1 tick; the fallback of 8 ticks in the code would only be reached if the logic ran on some other block).",
             "Per transfer it pushes exactly one item into the container it faces and in the same tick pulls items in from above as long as it is not full; the cooldown is only set when something actually moved.",
             "It only moves items while it is not powered by redstone (the 'enabled' block state); the ticker runs on the server only.",
             "Hardness 5.0 and blast resistance 1200; SoundType.NETHERITE_BLOCK; noOcclusion set.",
@@ -13234,7 +14062,7 @@ window.WIKI_DATA = {
             "5 slots; menu, filter button, filter items and storage ('FilterMode', 'GhostItems', 'TransferCooldown') are identical to the Reinforced Hopper, because both blocks use the same block entity type (simplebuilding:mod_hopper) and the same menu type (simplebuilding:netherite_hopper).",
             "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
             "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
-            "Recipe (yields 2, category redstone): a vertical column of Reinforced Hopper - Netherite Nugget (simplebuilding:netherite_nugget; 'Netherite Nugget' in en_us.json, 'Netherit-Nugget' in de_de.json) - Reinforced Hopper; unlocked as soon as you own a Reinforced Hopper.",
+            "No crafting recipe: a placed Reinforced Hopper becomes a Netherite Hopper after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its items, filter items and filter mode (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Hopper (1 tick of cooldown); the item's tooltip says so.",
             "Listed in the mod's creative tab (simplebuilding:building_items; 'Building Items' in English, 'SimpleBuilding Items' in German); the item-group code puts it in the 'Machines & Storage' block of entries.",
             "A game test (BlockBehaviourTests) requires the Netherite Hopper to deliver 5 items faster than the Reinforced Hopper and in at most half the time the vanilla hopper needs.",
             "The game tests for the three filter modes and for the menu binding of the network payloads (HopperAndTrimTests) are run on a placed Netherite Hopper."
@@ -13255,9 +14083,9 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Der Netherittrichter ist die schnellste Trichterstufe: er wartet nur 2 Ticks zwischen zwei Transfers, hat Härte 5,0 und Explosionswiderstand 1200, sein Item ist feuerfest, und er bietet denselben Item-Filter wie der Verstärkte Trichter.",
+          "summary": "Der Netherittrichter ist nach dem Enderittrichter die zweitschnellste Trichterstufe: er wartet nur 2 Ticks zwischen zwei Transfers, hat Härte 5,0 und Explosionswiderstand 1200, sein Item ist feuerfest, und er bietet denselben Item-Filter wie der Verstärkte Trichter.",
           "details": [
-            "Nach jedem erfolgreichen Transfer wartet der Netherittrichter 2 Ticks (Verstärkter Trichter 4 Ticks; Fallback im Code 8 Ticks, der nur erreicht würde, wenn die Logik an einem anderen Block liefe).",
+            "Nach jedem erfolgreichen Transfer wartet der Netherittrichter 2 Ticks (Verstärkter Trichter 4 Ticks, Enderittrichter 1 Tick; Fallback im Code 8 Ticks, der nur erreicht würde, wenn die Logik an einem anderen Block liefe).",
             "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt, und zieht im selben Tick Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn tatsächlich etwas bewegt wurde.",
             "Er arbeitet nur, wenn er nicht per Redstone gesperrt ist (Blockzustand 'enabled'); der Ticker läuft nur serverseitig.",
             "Härte 5,0 und Explosionswiderstand 1200; Klang SoundType.NETHERITE_BLOCK; noOcclusion gesetzt.",
@@ -13265,7 +14093,7 @@ window.WIKI_DATA = {
             "5 Slots; Menü, Filter-Knopf, Filter-Items und Speicherung ('FilterMode', 'GhostItems', 'TransferCooldown') sind identisch mit dem Verstärkten Trichter, da beide Blöcke denselben Block-Entity-Typ (simplebuilding:mod_hopper) und denselben Menütyp (simplebuilding:netherite_hopper) nutzen.",
             "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
             "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
-            "Rezept (ergibt 2 Stück, Kategorie redstone): senkrecht in einer Spalte Verstärkter Trichter – Netherite Nugget (simplebuilding:netherite_nugget; de_de: 'Netherit-Nugget', en_us: 'Netherite Nugget') – Verstärkter Trichter; freigeschaltet, sobald man einen Verstärkten Trichter besitzt.",
+            "Kein Werkbankrezept: Ein gesetzter Verstärkter Trichter wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zum Netherittrichter und behält Items, Filter-Items und Filtermodus (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget wird er weiter zum Enderittrichter geschmiedet (1 Tick Wartezeit); der Tooltip des Items weist darauf hin.",
             "Im Kreativ-Tab der Mod (simplebuilding:building_items; deutsch 'SimpleBuilding Items', englisch 'Building Items') einsortiert; \"Machines & Storage\" ist dabei nur eine Gliederung im Code (ModItemGroupsContent), im Spiel zeigt der Tab keine solche Abschnittsüberschrift.",
             "Ein Spieltest (BlockBehaviourTests) verlangt, dass der Netherittrichter 5 Items schneller liefert als der Verstärkte Trichter und dafür höchstens die halbe Zeit des normalen Trichters braucht.",
             "Die Spieltests zu den drei Filtermodi und zur Menü-Bindung der Netzwerkpakete (HopperAndTrimTests) werden an einem gesetzten Netherittrichter ausgeführt."
@@ -13301,13 +14129,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
           "src/main/java/com/simplebuilding/items/ModItemGroups.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/netherite_hopper_from_crafting.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_hopper.json",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java"
+          "common/src/shared/java/com/simplebuilding/gametest/HopperAndTrimTests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -13319,9 +14148,7 @@ window.WIKI_DATA = {
         "de_de": "Netheritkolben"
       },
       "texture": "assets/textures/block/netherite_piston_side.png",
-      "craftedBy": [
-        "simplebuilding:netherite_piston_bulk"
-      ],
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "lootTable": "simplebuilding:blocks/netherite_piston",
@@ -13347,7 +14174,7 @@ window.WIKI_DATA = {
             "Extending places the ordinary vanilla piston head. A mixin on PistonHeadBlock.isFittingBase accepts the Netherite Piston as its base (extended, same facing, normal head), so the head stays attached and breaking the head breaks the piston as well, as with a vanilla piston.",
             "Hardness 5.0, blast resistance 1200, netherite block sounds; the item is fire resistant (fireResistant).",
             "In the mineable/pickaxe tag (a pickaxe mines it faster), no minimum tool tier set; loot table: drops itself (survives_explosion condition).",
-            "Recipe \"netherite_piston_bulk\" (crafting table, redstone category, 2x2 pattern): 1 Netherite Nugget in the top left and a Reinforced Piston in each of the other three squares (3 in total); yields 3 Netherite Pistons. Unlocked as soon as you own a Reinforced Piston.",
+            "No crafting recipe: a placed Reinforced Piston becomes a Netherite Piston after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, as long as it is neither extended nor powered (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Piston; the item's tooltip says so.",
             "In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German), filed under \"Machines & Storage\" in the code.",
             "A game test proves it: at full signal strength (redstone block beside it) a stone block (hardness 1.5) in front of the piston is destroyed, while a vanilla piston simply pushes the same block one block further."
           ],
@@ -13361,7 +14188,7 @@ window.WIKI_DATA = {
             "Blocks that block piston movement outright (push reaction BLOCK) are not destroyed, even when the signal would be strong enough.",
             "The signal strength is only measured on the six direct neighbour blocks.",
             "The Reinforced Piston's raised push limit of 18 does NOT apply to the Netherite Piston; the mixin only checks for ReinforcedPistonBlock (the two Reinforced Pistons).",
-            "The tooltip text \"Breaks blocks based on Redstone strength (1-15).\" is present in both language files, but no code displays it (the item is a plain BlockItem and no Java code references the key); it never shows up in game.",
+            "The tooltip text \"Breaks blocks based on Redstone strength (1-15).\" is present in both language files, but no code displays it (the item is a plain BlockItem and no Java code references the key; the only tooltip line it shows is the sledgehammer upgrade hint); it never shows up in game.",
             "The mod's own \"netherite_piston_head\" block is not used by the Netherite Piston; it uses the ordinary piston head.",
             "The breach checks neither height nor dimension: the bottom bedrock layer of the world and the Nether roof can be breached.",
             "The breach fires no NeoForge PistonEvent (the event is fired inside vanilla's triggerEvent, which the breach never reaches), so mods listening to it cannot cancel it; the normal breaking has the same gap."
@@ -13385,7 +14212,7 @@ window.WIKI_DATA = {
             "Beim Ausfahren erscheint der normale Vanilla-Kolbenkopf. Ein Mixin auf PistonHeadBlock.isFittingBase erkennt den Netheritkolben als seine Basis an (ausgefahren, gleiche Blickrichtung, normaler Kopf), deshalb bleibt der Kopf haften, und wer den Kopf abbaut, bricht wie bei einem Vanilla-Kolben auch den Kolben.",
             "Härte 5,0, Explosionswiderstand 1200, Geräusch wie ein Netheritblock; das Item ist feuerfest (fireResistant).",
             "Im Tag mineable/pickaxe (mit der Spitzhacke schneller abbaubar), kein Mindestwerkzeug hinterlegt; Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion).",
-            "Rezept „netherite_piston_bulk“ (Werkbank, Kategorie Redstone, 2×2-Muster): 1 Netherite Nugget oben links, die übrigen drei Felder je ein Verstärkter Kolben (Muster NR / RR, also insgesamt 3); ergibt 3 Netheritkolben. Freigeschaltet, sobald man einen Verstärkten Kolben besitzt.",
+            "Kein Werkbankrezept: Ein gesetzter Verstärkter Kolben wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zum Netheritkolben, solange er weder ausgefahren ist noch Strom bekommt (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget wird er weiter zum Enderitkolben geschmiedet; der Tooltip des Items weist darauf hin.",
             "Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“), im Code unter „Machines & Storage“ einsortiert.",
             "Ein Spieltest belegt: Bei voller Signalstärke (Redstoneblock daneben) wird ein Steinblock (Härte 1,5) vor dem Kolben zerstört, während ein Vanilla-Kolben denselben Block einfach um eins weiterschiebt."
           ],
@@ -13417,14 +14244,14 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/netherite_piston_bulk.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_piston.json",
           "src/main/java/com/simplebuilding/datagen/ModBlockTagProvider.java",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
           "src/main/resources/simplebuilding.mixins.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -13506,9 +14333,7 @@ window.WIKI_DATA = {
         "de_de": "Netherit-Räucherofen"
       },
       "texture": "assets/textures/block/netherite_smoker_side.png",
-      "craftedBy": [
-        "simplebuilding:netherite_smoker_bulk"
-      ],
+      "craftedBy": [],
       "usedIn": [],
       "trades": [],
       "faces": {
@@ -13530,22 +14355,21 @@ window.WIKI_DATA = {
             "While fuel is burning and a cook is already under way (progress > 0, total time > 0), it gains 3 extra progress ticks per server tick (extraTicks = 3).",
             "That extra progress is capped at total time minus 1.",
             "The game test requires it to be at least 2.5 times as fast as a vanilla smoker and faster than the Reinforced Smoker (Raw Beef into Steak). The test's tick budget is 220 ticks.",
-            "Crafting recipe (bulk upgrade, file netherite_smoker_bulk): in a 2x2 grid, 1 Netherite Nugget top left and 3 Reinforced Smokers in the other three slots yield 3 Netherite Smokers (datagen category RecipeCategory.DECORATIONS, so the recipe advancement sits under recipes/decorations).",
-            "The recipe unlocks as soon as you have a Reinforced Smoker in your inventory.",
+            "No crafting recipe: a placed Reinforced Smoker becomes the Netherite Smoker after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its items, cooking progress and stored experience (SledgehammerUpgrades). With a Netherite Sledgehammer (or better) and an Enderite Nugget it is hammered on into the Enderite Smoker; the item's tooltip says so.",
             "Hardness 5.0 and blast resistance 1200 (strength(5.0F, 1200.0F)), sound type Netherite Block (SoundType.NETHERITE_BLOCK); every other block property is copied from the vanilla smoker (ofFullCopy(Blocks.SMOKER)): stone map colour, the correct-tool requirement for drops and light level 13 while it burns.",
             "The item is fire resistant (fireResistant).",
             "Listed in the mineable/pickaxe tag and in no needs_*_tool tag; like the vanilla smoker it needs the correct tool to drop anything, so any pickaxe gets it back and a bare hand gets nothing.",
             "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
-            "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\")."
+            "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
+            "Double experience: every finished item counts its recipe twice (FurnaceTierPerks), except for Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded)."
           ],
           "controls": [
             "Right-click the block to open the smoker menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "Fuel consumption is not changed anywhere in the code.",
-            "The speed-up only applies while fuel is burning AND progress is already greater than 0.",
-            "The generated recipe file netherite_smoker_bulk.json carries no category field, so the crafting recipe book lists it under Miscellaneous; RecipeCategory.DECORATIONS only decides the advancement folder."
+            "Fuel burns for the full furnace duration (coal 1600 ticks), where vanilla's blast furnace and smoker halve it; together with the free speed-up one piece of fuel covers about eight times as many items as in the vanilla device.",
+            "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
         "de": {
@@ -13557,20 +14381,20 @@ window.WIKI_DATA = {
             "Solange Brennstoff brennt und ein Vorgang bereits begonnen hat (Fortschritt > 0, Gesamtzeit > 0), erhält er in jedem Server-Tick 3 zusätzliche Fortschritts-Ticks (extraTicks = 3).",
             "Der Zusatz-Fortschritt wird auf höchstens Gesamtzeit minus 1 gedeckelt.",
             "Der Spieltest fordert, dass er mindestens 2,5-mal so schnell wie ein normaler Räucherofen ist und schneller als der Verstärkte Räucherofen (rohes Rindfleisch zu Steak). Zeitbudget des Tests: 220 Ticks.",
-            "Rezept (Bulk-Upgrade, Datei netherite_smoker_bulk): 1 Netherite Nugget oben links und 3 Verstärkte Räucheröfen im 2x2-Muster ergeben 3 Netherit-Räucheröfen (Advancement unter recipes/decorations; im Rezeptbuch steht es unter Verschiedenes, weil die erzeugte Datei kein category-Feld trägt und RecipeCategory.DECORATIONS nur den Advancement-Ordner bestimmt).",
-            "Das Rezept wird freigeschaltet, sobald der Spieler einen Verstärkten Räucherofen im Inventar hat.",
+            "Kein Werkbankrezept: Ein gesetzter Verstärkter Räucherofen wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand zum Netherit-Räucherofen und behält Inhalt, Kochfortschritt und gespeicherte Erfahrung (SledgehammerUpgrades). Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderiten-Nugget wird er weiter zum Enderit-Räucherofen geschmiedet; der Tooltip des Items weist darauf hin.",
             "Härte 5,0, Explosionswiderstand 1200 (strength(5.0F, 1200.0F)), Klang Netheritblock (SoundType.NETHERITE_BLOCK); die übrigen Blockeigenschaften werden vom Vanilla-Räucherofen kopiert (ofFullCopy(Blocks.SMOKER)): Kartenfarbe Stein, Werkzeugzwang für den Drop und Leuchtstärke 13 im Betrieb.",
             "Das Item ist feuerfest (fireResistant).",
             "Ist im Tag mineable/pickaxe und in keinem needs_*_tool-Tag eingetragen; wie der Vanilla-Räucherofen braucht er für einen Drop das richtige Werkzeug: Jede Spitzhacke bekommt ihn zurück, die bloße Hand nichts.",
             "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
-            "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“)."
+            "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
+            "Doppelte Erfahrung: Jeder fertige Gegenstand zählt sein Rezept doppelt (FurnaceTierPerks), außer Rissigen Diamanten (Tag simplebuilding:furnace_bonus_excluded)."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Räucherofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Der Brennstoffverbrauch wird im Code nicht verändert.",
+            "Brennstoff brennt die volle Ofendauer (Kohle 1600 Ticks), wo Vanillas Schmelz- und Räucherofen sie halbieren; zusammen mit der kostenlosen Beschleunigung reicht ein Stück Brennstoff für etwa achtmal so viele Gegenstände wie im Vanilla-Gerät.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
@@ -13585,15 +14409,17 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/netherite_smoker_bulk.json",
-          "src/main/generated/data/simplebuilding/advancement/recipes/decorations/netherite_smoker_bulk.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_smoker.json",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/generated/data/minecraft/tags/block/needs_iron_tool.json",
           "src/main/generated/data/minecraft/tags/block/needs_diamond_tool.json",
           "src/main/generated/assets/simplebuilding/blockstates/netherite_smoker.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
+          "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json"
         ]
       },
       "hasCustomBehaviour": true
@@ -13899,9 +14725,7 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:reinforced_blast_furnace"
       ],
-      "usedIn": [
-        "simplebuilding:netherite_blast_furnace_bulk"
-      ],
+      "usedIn": [],
       "trades": [],
       "faces": {
         "top": "assets/textures/block/reinforced_blast_furnace_top.png",
@@ -13928,13 +14752,14 @@ window.WIKI_DATA = {
             "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
-            "Menu title: \"Reinforced Blast Furnace\" (translation key container.simplebuilding.reinforced_blast_furnace)."
+            "Menu title: \"Reinforced Blast Furnace\" (translation key container.simplebuilding.reinforced_blast_furnace).",
+            "Upgrade: hold right-click for 5 seconds on a placed Reinforced Blast Furnace with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes the Netherite Blast Furnace with its items and cooking progress (SledgehammerUpgrades; the item's tooltip says so)."
           ],
           "controls": [
             "Right-click the block to open the blast furnace menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "Fuel consumption is not changed anywhere in the code.",
+            "Fuel burns for the full furnace duration (coal 1600 ticks), where vanilla's blast furnace and smoker halve it; together with the free speed-up one piece of fuel covers about four times as many items as in the vanilla device.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
@@ -13953,13 +14778,14 @@ window.WIKI_DATA = {
             "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
-            "Menü-Überschrift: „Verstärkter Schmelzofen“ (Sprachschlüssel container.simplebuilding.reinforced_blast_furnace)."
+            "Menü-Überschrift: „Verstärkter Schmelzofen“ (Sprachschlüssel container.simplebuilding.reinforced_blast_furnace).",
+            "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netherit-Nugget in der Nebenhand auf den gesetzten Verstärkten Schmelzofen halten, dann wird er samt Inhalt und Kochfortschritt zur Netherit-Stufe (SledgehammerUpgrades; der Tooltip des Items weist darauf hin)."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Schmelzofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Der Brennstoffverbrauch wird im Code nicht verändert.",
+            "Brennstoff brennt die volle Ofendauer (Kohle 1600 Ticks), wo Vanillas Schmelz- und Räucherofen sie halbieren; zusammen mit der kostenlosen Beschleunigung reicht ein Stück Brennstoff für etwa viermal so viele Gegenstände wie im Vanilla-Gerät.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
@@ -13982,7 +14808,9 @@ window.WIKI_DATA = {
           "src/main/generated/data/minecraft/tags/block/needs_diamond_tool.json",
           "src/main/generated/assets/simplebuilding/blockstates/reinforced_blast_furnace.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -13997,9 +14825,7 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:reinforced_furnace"
       ],
-      "usedIn": [
-        "simplebuilding:netherite_furnace_bulk"
-      ],
+      "usedIn": [],
       "trades": [],
       "faces": {
         "top": "assets/textures/block/reinforced_furnace_top.png",
@@ -14026,13 +14852,14 @@ window.WIKI_DATA = {
             "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings; the item model reuses the block model.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
-            "Menu title: \"Reinforced Furnace\" (translation key container.simplebuilding.reinforced_furnace)."
+            "Menu title: \"Reinforced Furnace\" (translation key container.simplebuilding.reinforced_furnace).",
+            "Upgrade: hold right-click for 5 seconds on a placed Reinforced Furnace with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes the Netherite Furnace with its items and cooking progress (SledgehammerUpgrades; the item's tooltip says so)."
           ],
           "controls": [
             "Right-click the block to open the furnace menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "Fuel consumption is not changed anywhere in the code.",
+            "The speed-up costs no fuel, so one piece of fuel smelts about twice as many items as in a vanilla furnace.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
@@ -14051,13 +14878,14 @@ window.WIKI_DATA = {
             "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen (facing); das Item-Modell zeigt das Blockmodell.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
-            "Menü-Überschrift: „Verstärkter Ofen“ (Sprachschlüssel container.simplebuilding.reinforced_furnace)."
+            "Menü-Überschrift: „Verstärkter Ofen“ (Sprachschlüssel container.simplebuilding.reinforced_furnace).",
+            "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netherit-Nugget in der Nebenhand auf den gesetzten Verstärkten Ofen halten, dann wird er samt Inhalt und Kochfortschritt zur Netherit-Stufe (SledgehammerUpgrades; der Tooltip des Items weist darauf hin)."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Ofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Der Brennstoffverbrauch wird im Code nicht verändert.",
+            "Die Beschleunigung kostet keinen Brennstoff, ein Stück Brennstoff reicht also für etwa doppelt so viele Gegenstände wie im Vanilla-Ofen.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
@@ -14081,7 +14909,9 @@ window.WIKI_DATA = {
           "src/main/generated/assets/simplebuilding/blockstates/reinforced_furnace.json",
           "src/main/generated/assets/simplebuilding/items/reinforced_furnace.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -14096,9 +14926,7 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:reinforced_hopper_from_crafting"
       ],
-      "usedIn": [
-        "simplebuilding:netherite_hopper_from_crafting"
-      ],
+      "usedIn": [],
       "trades": [],
       "lootTable": "simplebuilding:blocks/reinforced_hopper",
       "drops": [
@@ -14108,7 +14936,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Reinforced Hopper is a faster hopper: it waits only 4 ticks after every successful item transfer, and it adds an item filter with three modes that you set up in its menu.",
           "details": [
-            "After every successful transfer the Reinforced Hopper waits 4 ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 for REINFORCED_HOPPER, 2 for NETHERITE_HOPPER, fallback 8; the block logic is only registered for those two blocks).",
+            "After every successful transfer the Reinforced Hopper waits 4 ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 for REINFORCED_HOPPER, 2 for NETHERITE_HOPPER, 1 for ENDERITE_HOPPER, fallback 8; the block logic is only registered for those three blocks).",
             "Per transfer it pushes exactly one item into the container it faces (insert() removes 1 item and stops after the first success) and in the same tick pulls items in from above via HopperBlockEntity.suckInItems as long as it is not full; the cooldown is only set when something actually moved.",
             "It only moves items while it is not powered by redstone (the 'enabled' block state is checked before every transfer); the ticker runs on the server only (getTicker returns null on the client).",
             "5 slots (getContainerSize = 5); the menu uses the vanilla hopper background (textures/gui/container/hopper.png) and the vanilla hopper title (container.hopper).",
@@ -14117,7 +14945,7 @@ window.WIKI_DATA = {
             "Listed in the pickaxe mining tag (minecraft:mineable/pickaxe); its loot table drops the block itself (survives_explosion condition).",
             "The block copies its base properties from the vanilla hopper (ofFullCopy(Blocks.HOPPER)), the correct-tool requirement included: only a pickaxe (any tier) gets it back, a bare hand gets nothing.",
             "Recipe (yields 5, category redstone): top row Hopper - Name Tag - Hopper, middle row three Cracked Diamonds (simplebuilding:cracked_diamond), bottom row three Hoppers; unlocked as soon as you own a minecraft:hopper.",
-            "The Reinforced Hopper is an ingredient for the Netherite Hopper (two Reinforced Hoppers plus one Netherite Nugget yield two Netherite Hoppers).",
+            "Upgrade: hold right-click for 5 seconds on a placed Reinforced Hopper with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes a Netherite Hopper with its items, filter items and filter mode (SledgehammerUpgrades; the item's tooltip says so). There is no crafting recipe for the Netherite Hopper any more.",
             "Filter mode, filter items and the transfer cooldown are saved with the block (keys 'FilterMode', 'GhostItems', 'TransferCooldown') and survive a world reload; an unknown 'FilterMode' falls back to Disabled rather than throwing, so nothing is lost.",
             "Listed in the mod's creative tab (simplebuilding:building_items; 'Building Items' in English, 'SimpleBuilding Items' in German); the item-group code puts it in the 'Machines & Storage' block of entries.",
             "A game test (BlockBehaviourTests) times how long each hopper needs to move 5 items into the destination chest and requires the Reinforced Hopper to be faster than the vanilla hopper and slower than the Netherite Hopper."
@@ -14139,7 +14967,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Der Verstärkte Trichter ist ein Trichter, der nach jedem erfolgreichen Item-Transfer nur 4 Ticks wartet und zusätzlich einen im Menü einstellbaren Item-Filter mit drei Modi besitzt.",
           "details": [
-            "Nach jedem erfolgreichen Transfer wartet der Verstärkte Trichter 4 Ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 für REINFORCED_HOPPER, 2 für NETHERITE_HOPPER, Fallback 8; die Blocklogik ist nur für diese beiden Blöcke registriert).",
+            "Nach jedem erfolgreichen Transfer wartet der Verstärkte Trichter 4 Ticks (ModHopperBlockEntity.insertAndExtract: speed = 4 für REINFORCED_HOPPER, 2 für NETHERITE_HOPPER, 1 für ENDERITE_HOPPER, Fallback 8; die Blocklogik ist nur für diese drei Blöcke registriert).",
             "Pro Transfer schiebt er genau ein Item in den Behälter, auf den er zeigt (insert() entfernt 1 Item und bricht nach dem ersten Erfolg ab), und zieht im selben Tick über HopperBlockEntity.suckInItems Items von oben ein, solange er nicht voll ist; die Wartezeit wird nur gesetzt, wenn tatsächlich etwas bewegt wurde.",
             "Er arbeitet nur, wenn er nicht per Redstone gesperrt ist (Blockzustand 'enabled' wird vor jedem Transfer geprüft); der Ticker läuft ausschließlich serverseitig (getTicker liefert auf dem Client null).",
             "5 Slots (getContainerSize = 5); das Menü verwendet die Trichter-Oberfläche des Spiels (textures/gui/container/hopper.png) und den Titel des normalen Trichters (container.hopper).",
@@ -14148,7 +14976,7 @@ window.WIKI_DATA = {
             "Im Abbau-Tag für Spitzhacken (minecraft:mineable/pickaxe) eingetragen; Loot-Tabelle lässt den Block selbst fallen (Bedingung survives_explosion).",
             "Der Block übernimmt die Grundeigenschaften vom Vanilla-Trichter (ofFullCopy(Blocks.HOPPER)), samt Werkzeugzwang: Nur eine Spitzhacke (beliebige Stufe) bekommt ihn zurück, die bloße Hand nichts.",
             "Rezept (ergibt 5 Stück, Kategorie redstone): obere Reihe Trichter – Namensschild – Trichter, mittlere Reihe drei Rissige Diamanten (simplebuilding:cracked_diamond), untere Reihe drei Trichter; freigeschaltet, sobald man einen minecraft:hopper besitzt.",
-            "Der Verstärkte Trichter ist Zutat für den Netherittrichter (zwei Verstärkte Trichter + ein Netherite Nugget ergeben zwei Netherittrichter).",
+            "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netherit-Nugget in der Nebenhand auf einen gesetzten Verstärkten Trichter halten, dann wird er samt Items, Filter-Items und Filtermodus zum Netherittrichter (SledgehammerUpgrades; der Tooltip des Items weist darauf hin). Ein Werkbankrezept für den Netherittrichter gibt es nicht mehr.",
             "Filtermodus, Filter-Items und Wartezeit werden mit dem Block gespeichert (Schlüssel 'FilterMode', 'GhostItems', 'TransferCooldown') und überstehen das Neuladen der Welt; ein unbekannter 'FilterMode' fällt auf Disabled zurück, statt zu werfen – es geht nichts verloren.",
             "Im Kreativ-Tab der Mod (simplebuilding:building_items; deutsch 'SimpleBuilding Items', englisch 'Building Items') einsortiert; \"Machines & Storage\" ist dabei nur eine Gliederung im Code (ModItemGroupsContent), im Spiel zeigt der Tab keine solche Abschnittsüberschrift.",
             "Ein Spieltest (BlockBehaviourTests) misst, wann 5 Items in der Zielkiste liegen, und verlangt: Verstärkter Trichter schneller als der normale Trichter und langsamer als der Netherittrichter."
@@ -14184,12 +15012,13 @@ window.WIKI_DATA = {
           "src/main/java/com/simplebuilding/platform/HopperMenus.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "src/main/generated/data/simplebuilding/recipe/reinforced_hopper_from_crafting.json",
-          "src/main/generated/data/simplebuilding/recipe/netherite_hopper_from_crafting.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_hopper.json",
           "src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
-          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java"
+          "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -14205,7 +15034,6 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_piston"
       ],
       "usedIn": [
-        "simplebuilding:netherite_piston_bulk",
         "simplebuilding:reinforced_sticky_piston"
       ],
       "trades": [],
@@ -14226,8 +15054,8 @@ window.WIKI_DATA = {
             "Hardness 1.5, metallic block sounds; in the mineable/pickaxe tag (a pickaxe mines it faster), with no minimum tool tier and no requiresCorrectToolForDrops, so it drops no matter what you break it with.",
             "Loot table: drops itself (survives_explosion condition).",
             "Recipe (crafting table, redstone category): top row three Cracked Diamonds, middle row Piston - Iron Ingot - Piston, bottom row three Iron Ingots (3 Cracked Diamonds, 2 Pistons and 4 Iron Ingots in total); yields 2 Reinforced Pistons. Unlocked as soon as you own a Piston.",
-            "Serves as the ingredient for the Netherite Piston (3 Reinforced Pistons + 1 Netherite Nugget) and for the Reinforced Sticky Piston (a Slime Ball on top).",
-            "The item is a plain BlockItem with no fire resistance and no tooltip.",
+            "Serves as the ingredient for the Reinforced Sticky Piston (a Slime Ball on top). It becomes a Netherite Piston after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, as long as it is neither extended nor powered (SledgehammerUpgrades); there is no crafting recipe for the Netherite Piston any more.",
+            "The item is a plain BlockItem with no fire resistance; its tooltip has one line about the sledgehammer upgrade (client ItemMixin).",
             "In creative it sits in the \"Building Items\" group (\"SimpleBuilding Items\" in German), filed under \"Machines & Storage\" in the code.",
             "A game test proves it: a column of 13 stone blocks is pushed upwards by the Reinforced Piston (piston extended, ordinary piston head in front of it), while a vanilla piston in an identical setup does not extend at all."
           ],
@@ -14253,8 +15081,8 @@ window.WIKI_DATA = {
             "Härte 1,5, Geräusch wie Metall; im Tag mineable/pickaxe (mit der Spitzhacke schneller abbaubar), kein Mindestwerkzeug und kein requiresCorrectToolForDrops hinterlegt.",
             "Beutetabelle: lässt sich selbst fallen (Bedingung survives_explosion).",
             "Rezept (Werkbank, Kategorie Redstone): oben drei Rissige Diamanten, mittlere Reihe Kolben – Eisenbarren – Kolben, unten drei Eisenbarren (insgesamt 3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren); ergibt 2 Verstärkte Kolben. Freigeschaltet, sobald man einen Kolben besitzt.",
-            "Dient als Zutat für den Netheritkolben (3 Verstärkte Kolben + 1 Netherite Nugget) und für den Verstärkten klebrigen Kolben (ein Schleimball darüber).",
-            "Das Item ist ein einfaches BlockItem ohne Feuerfestigkeit und ohne Tooltip.",
+            "Dient als Zutat für den Verstärkten klebrigen Kolben (ein Schleimball darüber). Nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netherit-Nugget in der Nebenhand wird er zum Netheritkolben, solange er weder ausgefahren ist noch Strom bekommt (SledgehammerUpgrades); ein Werkbankrezept für den Netheritkolben gibt es nicht mehr.",
+            "Das Item ist ein einfaches BlockItem ohne Feuerfestigkeit; sein Tooltip trägt eine Zeile zur Aufwertung mit dem Vorschlaghammer (clientseitiges ItemMixin).",
             "Im Kreativmodus in der Gruppe „SimpleBuilding Items“ (englisch „Building Items“), im Code unter „Machines & Storage“ einsortiert.",
             "Ein Spieltest belegt: Eine Säule aus 13 Steinblöcken wird vom Verstärkten Kolben nach oben geschoben (Kolben ausgefahren, normaler Kolbenkopf davor), während ein Vanilla-Kolben in identischem Aufbau nicht ausfährt."
           ],
@@ -14285,7 +15113,9 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/gametest/BlockBehaviourTests.java",
           "src/main/resources/simplebuilding.mixins.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -14300,9 +15130,7 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:reinforced_smoker"
       ],
-      "usedIn": [
-        "simplebuilding:netherite_smoker_bulk"
-      ],
+      "usedIn": [],
       "trades": [],
       "faces": {
         "top": "assets/textures/block/reinforced_smoker_top.png",
@@ -14329,13 +15157,14 @@ window.WIKI_DATA = {
             "Drops itself when mined with a pickaxe (loot table with the survives_explosion condition).",
             "Blockstate and models are generated by datagen exactly like the vanilla furnace (createFurnace): one model for the unlit block and one for the lit block, each in four facings.",
             "Appears in the mod's creative tab (English \"Building Items\", German \"SimpleBuilding Items\") in the machines section, next to the hoppers and pistons (code comment \"Machines & Storage\").",
-            "Menu title: \"Reinforced Smoker\" (translation key container.simplebuilding.reinforced_smoker)."
+            "Menu title: \"Reinforced Smoker\" (translation key container.simplebuilding.reinforced_smoker).",
+            "Upgrade: hold right-click for 5 seconds on a placed Reinforced Smoker with a Diamond Sledgehammer (or better) in the main hand and a Netherite Nugget in the off hand, and it becomes the Netherite Smoker with its items and cooking progress (SledgehammerUpgrades; the item's tooltip says so)."
           ],
           "controls": [
             "Right-click the block to open the smoker menu (useWithoutItem; the menu is only opened on the server side)."
           ],
           "caveats": [
-            "Fuel consumption is not changed anywhere in the code.",
+            "Fuel burns for the full furnace duration (coal 1600 ticks), where vanilla's blast furnace and smoker halve it; together with the free speed-up one piece of fuel covers about four times as many items as in the vanilla device.",
             "The speed-up only applies while fuel is burning AND progress is already greater than 0."
           ]
         },
@@ -14354,13 +15183,14 @@ window.WIKI_DATA = {
             "Mit einer Spitzhacke abgebaut, lässt er sich selbst fallen (Loot-Table mit Bedingung survives_explosion).",
             "Modelle werden per Datagen wie beim Vanilla-Ofen erzeugt (createFurnace): je ein Modell für aus und an (lit) sowie vier Blickrichtungen.",
             "Erscheint im Kreativ-Tab der Mod (deutsch „SimpleBuilding Items“, englisch „Building Items“) in der Gruppe der Maschinen zusammen mit Trichtern und Kolben (Code-Kommentar „Machines & Storage“).",
-            "Menü-Überschrift: „Verstärkter Räucherofen“ (Sprachschlüssel container.simplebuilding.reinforced_smoker)."
+            "Menü-Überschrift: „Verstärkter Räucherofen“ (Sprachschlüssel container.simplebuilding.reinforced_smoker).",
+            "Aufwertung: 5 Sekunden Rechtsklick mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netherit-Nugget in der Nebenhand auf den gesetzten Verstärkten Räucherofen halten, dann wird er samt Inhalt und Kochfortschritt zur Netherit-Stufe (SledgehammerUpgrades; der Tooltip des Items weist darauf hin)."
           ],
           "controls": [
             "Rechtsklick auf den Block öffnet das Räucherofen-Menü (useWithoutItem, nur serverseitig geöffnet)."
           ],
           "caveats": [
-            "Der Brennstoffverbrauch wird im Code nicht verändert.",
+            "Brennstoff brennt die volle Ofendauer (Kohle 1600 Ticks), wo Vanillas Schmelz- und Räucherofen sie halbieren; zusammen mit der kostenlosen Beschleunigung reicht ein Stück Brennstoff für etwa viermal so viele Gegenstände wie im Vanilla-Gerät.",
             "Die Beschleunigung greift nur, wenn Brennstoff brennt UND der Fortschritt bereits größer als 0 ist."
           ]
         },
@@ -14383,7 +15213,9 @@ window.WIKI_DATA = {
           "src/main/generated/data/minecraft/tags/block/needs_diamond_tool.json",
           "src/main/generated/assets/simplebuilding/blockstates/reinforced_smoker.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -15728,8 +16560,8 @@ window.WIKI_DATA = {
           "simplebuilding:raw_enderite"
         ]
       },
-      "cookingtime": 200,
-      "experience": 2.0
+      "cookingtime": 72000,
+      "experience": 10.0
     },
     {
       "id": "simplebuilding:enderite_shovel_smithing",
@@ -16310,33 +17142,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:netherite_blast_furnace_bulk",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_blast_furnace",
-        "count": 3
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_blast_furnace_bulk.json",
-      "ingredients": [
-        "simplebuilding:netherite_nugget",
-        "simplebuilding:reinforced_blast_furnace"
-      ],
-      "pattern": [
-        "NR",
-        "RR"
-      ],
-      "key": {
-        "N": [
-          "simplebuilding:netherite_nugget"
-        ],
-        "R": [
-          "simplebuilding:reinforced_blast_furnace"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:netherite_building_wand_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -16473,61 +17278,6 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "simplebuilding:netherite_furnace_bulk",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_furnace",
-        "count": 3
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_furnace_bulk.json",
-      "ingredients": [
-        "simplebuilding:netherite_nugget",
-        "simplebuilding:reinforced_furnace"
-      ],
-      "pattern": [
-        "NR",
-        "RR"
-      ],
-      "key": {
-        "N": [
-          "simplebuilding:netherite_nugget"
-        ],
-        "R": [
-          "simplebuilding:reinforced_furnace"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:netherite_hopper_from_crafting",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_hopper",
-        "count": 2
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_hopper_from_crafting.json",
-      "ingredients": [
-        "simplebuilding:netherite_nugget",
-        "simplebuilding:reinforced_hopper"
-      ],
-      "pattern": [
-        "H",
-        "N",
-        "H"
-      ],
-      "key": {
-        "H": [
-          "simplebuilding:reinforced_hopper"
-        ],
-        "N": [
-          "simplebuilding:netherite_nugget"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:netherite_ingot",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -16569,33 +17319,6 @@ window.WIKI_DATA = {
           "minecraft:netherite_ingot"
         ]
       ]
-    },
-    {
-      "id": "simplebuilding:netherite_piston_bulk",
-      "type": "minecraft:crafting_shaped",
-      "category": "redstone",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_piston",
-        "count": 3
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_piston_bulk.json",
-      "ingredients": [
-        "simplebuilding:netherite_nugget",
-        "simplebuilding:reinforced_piston"
-      ],
-      "pattern": [
-        "NR",
-        "RR"
-      ],
-      "key": {
-        "N": [
-          "simplebuilding:netherite_nugget"
-        ],
-        "R": [
-          "simplebuilding:reinforced_piston"
-        ]
-      }
     },
     {
       "id": "simplebuilding:netherite_quiver_smithing",
@@ -16648,33 +17371,6 @@ window.WIKI_DATA = {
         ],
         "addition": [
           "minecraft:netherite_ingot"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:netherite_smoker_bulk",
-      "type": "minecraft:crafting_shaped",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_smoker",
-        "count": 3
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_smoker_bulk.json",
-      "ingredients": [
-        "simplebuilding:netherite_nugget",
-        "simplebuilding:reinforced_smoker"
-      ],
-      "pattern": [
-        "NR",
-        "RR"
-      ],
-      "key": {
-        "N": [
-          "simplebuilding:netherite_nugget"
-        ],
-        "R": [
-          "simplebuilding:reinforced_smoker"
         ]
       }
     },
@@ -18585,6 +19281,24 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_backpack.json"
     },
     {
+      "id": "simplebuilding:blocks/enderite_blast_furnace",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_blast_furnace"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
+    },
+    {
       "id": "simplebuilding:blocks/enderite_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -18603,6 +19317,42 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_block.json"
     },
     {
+      "id": "simplebuilding:blocks/enderite_furnace",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_furnace"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_furnace.json"
+    },
+    {
+      "id": "simplebuilding:blocks/enderite_hopper",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_hopper"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
+    },
+    {
       "id": "simplebuilding:blocks/enderite_piston",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -18619,6 +19369,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_piston.json"
+    },
+    {
+      "id": "simplebuilding:blocks/enderite_smoker",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_smoker"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_smoker.json"
     },
     {
       "id": "simplebuilding:blocks/lapis_quartz_checker",
@@ -21838,6 +22606,25 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/tags/item/backpacks.json"
     },
     {
+      "id": "simplebuilding:item/blast_furnace_bonus",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:raw_iron",
+          "required": true
+        },
+        {
+          "id": "minecraft:raw_gold",
+          "required": true
+        },
+        {
+          "id": "minecraft:raw_copper",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json"
+    },
+    {
       "id": "simplebuilding:item/building_wand_enchantable",
       "replace": false,
       "values": [
@@ -22106,6 +22893,17 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/tags/item/funnel_enchantable.json"
     },
     {
+      "id": "simplebuilding:item/furnace_bonus_excluded",
+      "replace": false,
+      "values": [
+        {
+          "id": "simplebuilding:cracked_diamond",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json"
+    },
+    {
       "id": "simplebuilding:item/master_builder_enchantable",
       "replace": false,
       "values": [
@@ -22262,6 +23060,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_blast_furnace",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_block",
           "required": true
         },
@@ -22294,11 +23096,19 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_furnace",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_helmet",
           "required": true
         },
         {
           "id": "simplebuilding:enderite_hoe",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_hopper",
           "required": true
         },
         {
@@ -22335,6 +23145,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_sledgehammer",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_smoker",
           "required": true
         },
         {
@@ -22469,13 +23283,13 @@ window.WIKI_DATA = {
     }
   ],
   "counts": {
-    "items": 118,
-    "blocks": 35,
-    "recipes": 137,
-    "lootTables": 34,
+    "items": 122,
+    "blocks": 39,
+    "recipes": 132,
+    "lootTables": 38,
     "trades": 20,
     "enchantments": 19,
-    "tags": 23,
+    "tags": 25,
     "config": 14,
     "features": 30,
     "undocumented": 0,

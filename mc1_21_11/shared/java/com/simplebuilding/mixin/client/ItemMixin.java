@@ -1,6 +1,7 @@
 package com.simplebuilding.mixin.client;
 
 import com.simplebuilding.util.GlowingTrimUtils;
+import com.simplebuilding.util.SledgehammerUpgrades;
 import com.simplebuilding.util.TrimEffectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,6 +31,13 @@ public class ItemMixin {
             TooltipFlag type,
             CallbackInfo ci
     ) {
+        // Aufwertbare Maschinen (verstaerkt und Netherit): Hinweis auf den Vorschlaghammer, seit
+        // es fuer die Netherit- und Enderit-Stufe kein Werkbankrezept mehr gibt.
+        Component upgradeHint = SledgehammerUpgrades.tooltipHint(stack);
+        if (upgradeHint != null) {
+            textConsumer.accept(upgradeHint);
+        }
+
         // Client-Side Check für den Player (für Multiplikator)
         Player player = Minecraft.getInstance().player;
         if (player == null) return;

@@ -1,6 +1,10 @@
 package com.simplebuilding.mixin.client;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.simplebuilding.items.custom.ChiselItem;
+import com.simplebuilding.util.SledgehammerUpgrades;
+import net.minecraft.world.item.ItemUseAnimation;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import me.shedaniel.autoconfig.AutoConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -97,6 +101,22 @@ public class HeldItemRendererMixin {
                 this.applyChiselTransform(matrices, this.offHandChiselProgress);
             }
         }
+    }
+
+    /**
+     * Erste Person: waehrend einer Aufwertung mit dem Vorschlaghammer zeigt die Hand statt der
+     * gespannten Bogen-Pose (BOW) die Bundle-Pose - und nur deren Zweig wendet im Benutzen den
+     * Armschwung an. Jeder Hammerschlag, dessen Schwung der Server auch an den Spieler selbst
+     * schickt, wird so in der eigenen Hand sichtbar. Unabhaengig von der Animations-Einstellung,
+     * damit die Bogen-Pose nie erscheint. {@code @ModifyExpressionValue}, nie {@code @Redirect}.
+     */
+    @ModifyExpressionValue(
+            method = "submitArmWithItem",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getUseAnimation()Lnet/minecraft/world/item/ItemUseAnimation;"))
+    private ItemUseAnimation simplebuilding$hammerBlows(ItemUseAnimation original,
+                                                        @Local(argsOnly = true) AbstractClientPlayer player,
+                                                        @Local(argsOnly = true) InteractionHand hand) {
+        return hand == InteractionHand.MAIN_HAND && SledgehammerUpgrades.isHammering(player) ? ItemUseAnimation.BUNDLE : original;
     }
 
     @Unique

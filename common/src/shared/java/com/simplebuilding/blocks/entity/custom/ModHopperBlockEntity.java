@@ -331,6 +331,9 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
                     speed = 2;
                 } else if (block == ModBlocks.REINFORCED_HOPPER) {
                     speed = 4;
+                } else if (block == ModBlocks.ENDERITE_HOPPER) {
+                    // Enderit-Stufe: jeden Tick ein Transfer.
+                    speed = 1;
                 }
 
                 blockEntity.setTransferCooldown(speed);

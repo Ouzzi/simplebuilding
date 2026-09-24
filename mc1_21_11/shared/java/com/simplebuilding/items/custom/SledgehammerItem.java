@@ -2,6 +2,7 @@ package com.simplebuilding.items.custom;
 
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.SledgehammerUpgrades;
 import com.simplebuilding.util.SledgehammerUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -160,6 +161,13 @@ public class SledgehammerItem extends Item {
         ItemStack stack = context.getItemInHand();
         BlockState state = world.getBlockState(pos);
 
+        // Nugget in der Nebenhand und eine aufwertbare Maschine: schmieden statt umformen. Null
+        // heisst "nicht aufwertbar" - dann bleibt es beim gewohnten Verhalten darunter.
+        InteractionResult smithing = SledgehammerUpgrades.tryBegin(context);
+        if (smithing != null) {
+            return smithing;
+        }
+
         if (state.is(net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK)) {
             player.startUsingItem(context.getHand());
             return InteractionResult.CONSUME;
@@ -182,13 +190,28 @@ public class SledgehammerItem extends Item {
     }
 
     @Override
+    public void onUseTick(Level world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
+        // Nur eine laufende Aufwertung tickt; eine Umform-Ladung hat keinen Auftrag.
+        if (user instanceof Player player) {
+            SledgehammerUpgrades.tick(world, player, stack, remainingUseTicks);
+        }
+    }
+
+    @Override
     public boolean releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
+        SledgehammerUpgrades.clear(user); // eine abgebrochene Aufwertung verfaellt
         return false; // Nichts tun, wenn vorzeitig abgebrochen
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
         if (!(user instanceof Player player)) return stack;
+
+        // Lief eine Aufwertung, ist das der fuenfte Schlag - und nie ein Umformen oder Zerschlagen
+        // des Blocks, auf den der Spieler zufaellig gerade schaut.
+        if (SledgehammerUpgrades.finish(world, player, stack)) {
+            return stack;
+        }
 
         var hitResult = player.pick(5.0, 0.0f, false);
         if (hitResult.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) {
@@ -236,6 +259,9 @@ public class SledgehammerItem extends Item {
 
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity user) {
+        if (user instanceof Player player && SledgehammerUpgrades.hasJob(player)) {
+            return SledgehammerUpgrades.UPGRADE_TICKS; // Aufwertung: fest fuenf Sekunden
+        }
         float baseTime = 20.0f;
         int efficiencyLevel = 0;
         var registry = user.registryAccess().lookup(Registries.ENCHANTMENT);

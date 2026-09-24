@@ -1225,20 +1225,23 @@ public final class GravityBlockTests {
      * <p><b>Every recipe gets a rearranged grid as well</b>, because driving only the documented
      * layout says nothing about the recipe still being shaped: switching a JSON to
      * {@code crafting_shapeless} keeps the id, the result and the count, and the documented grid
-     * goes on matching. What the counter grid has to avoid is the x mirror, which
-     * {@code ShapedRecipePattern#matches} accepts alongside the pattern itself - so the netherite
-     * piston's nugget moves to the <em>bottom</em> left rather than to the top right. The coating
-     * ring is invariant under every rotation and mirror there is, so for those four the only grid
-     * that can separate shaped from shapeless is the one with the material out of the middle.
+     * goes on matching. The coating ring is invariant under every rotation and mirror there is, so
+     * for those four the only grid that can separate shaped from shapeless is the one with the
+     * material out of the middle.
+     *
+     * <p><b>The netherite piston has no crafting recipe any more</b> (since 2026-09 it is hammered
+     * in the world from a reinforced piston with a netherite nugget, {@code SledgehammerUpgrades}).
+     * The old {@code netherite_piston_bulk} grid - one nugget and three reinforced pistons - must
+     * therefore craft nothing, in both of its old orientations.
      *
      * <p><b>And one grid of red sand</b>, which is what a widened ingredient looks like: turning
      * {@code "B": "minecraft:sand"} into {@code "#minecraft:sand"} lets red sand craft suspended
      * and levitating sand, and every assertion above stays green because none of them ever offers
      * an ingredient the recipe is supposed to refuse.
      *
-     * <p>What breaks this test: any edit to the six generated recipe JSONs - a different pattern, a
-     * swapped or widened ingredient, another count, another recipe type - and any of them failing
-     * to load.
+     * <p>What breaks this test: any edit to the five generated recipe JSONs - a different pattern, a
+     * swapped or widened ingredient, another count, another recipe type - any of them failing to
+     * load, and a crafting recipe for the netherite piston coming back.
      */
     public static void gravityBlockRecipesCraftFromTheirDocumentedPatterns(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -1262,23 +1265,20 @@ public final class GravityBlockTests {
                 "the reinforced piston pattern turned upside down crafts something as well, so the "
                         + "recipe is not shaped the way the data says it is");
 
-        // "NR" / "RR"
+        // "NR" / "RR", the old netherite piston recipe, and the same four items with the nugget in
+        // the bottom left: the netherite piston is hammered in the world now, so neither crafts.
         CraftingInput bulk = CraftingInput.of(2, 2, List.of(
                 new ItemStack(ModItems.NETHERITE_NUGGET), new ItemStack(ModItems.REINFORCED_PISTON),
                 new ItemStack(ModItems.REINFORCED_PISTON), new ItemStack(ModItems.REINFORCED_PISTON)));
-        assertCrafts(helper, level, bulk, "simplebuilding:netherite_piston_bulk",
-                ModItems.NETHERITE_PISTON, 3);
-
-        // The same four items with the nugget in the BOTTOM left. "RN"/"RR" would still match,
-        // because a shaped recipe is tried against its x mirror too; this one is neither the
-        // pattern nor its mirror, and only a shapeless copy of the recipe would take it.
+        assertMatchesNothing(helper, level, bulk,
+                "the old netherite piston grid (one nugget, three reinforced pistons) crafts "
+                        + "something, but the netherite piston is meant to be made with the "
+                        + "sledgehammer only");
         CraftingInput bulkShuffled = CraftingInput.of(2, 2, List.of(
                 new ItemStack(ModItems.REINFORCED_PISTON), new ItemStack(ModItems.REINFORCED_PISTON),
                 new ItemStack(ModItems.NETHERITE_NUGGET), new ItemStack(ModItems.REINFORCED_PISTON)));
         assertMatchesNothing(helper, level, bulkShuffled,
-                "the netherite piston pattern with the nugget moved to the bottom left crafts "
-                        + "something too, so netherite_piston_bulk is not the shaped NR/RR the "
-                        + "data declares");
+                "the old netherite piston grid with the nugget in the bottom left crafts something");
 
         // "BBB" / "BMB" / "BBB", eight of the coated block per craft.
         assertCoating(helper, level, Items.SAND, ModItems.NIHILITH_SHARD,

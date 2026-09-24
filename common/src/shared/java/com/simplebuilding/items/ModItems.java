@@ -425,7 +425,7 @@ public class ModItems {
 
     public static final Item NETHERITE_PISTON = registerItem("netherite_piston", s -> new BlockItem(ModBlocks.NETHERITE_PISTON, s.fireResistant()));
 
-    public static final Item ENDERITE_PISTON = registerItem("enderite_piston", s -> new BlockItem(ModBlocks.ENDERITE_PISTON, s.fireResistant()));
+    public static final Item ENDERITE_PISTON = registerItem("enderite_piston", s -> new BlockItem(ModBlocks.ENDERITE_PISTON, s.fireResistant().rarity(Rarity.EPIC)));
 
     public static final Item REINFORCED_BLAST_FURNACE = registerItem("reinforced_blast_furnace", s -> new BlockItem(ModBlocks.REINFORCED_BLAST_FURNACE, s));
 
@@ -438,6 +438,17 @@ public class ModItems {
     public static final Item REINFORCED_SMOKER = registerItem("reinforced_smoker", s -> new BlockItem(ModBlocks.REINFORCED_SMOKER, s));
 
     public static final Item NETHERITE_SMOKER = registerItem("netherite_smoker", s -> new BlockItem(ModBlocks.NETHERITE_SMOKER, s.fireResistant()));
+
+    // Enderit-Maschinen: feuerfest und EPIC wie die uebrigen Enderit-Gegenstaende (Buendel, Koecher,
+    // Rucksack, Enderitkolben). Kein Werkbankrezept - sie entstehen nur in der Welt, siehe
+    // SledgehammerUpgrades.
+    public static final Item ENDERITE_HOPPER = registerItem("enderite_hopper", s -> new BlockItem(ModBlocks.ENDERITE_HOPPER, s.fireResistant().rarity(Rarity.EPIC)));
+
+    public static final Item ENDERITE_FURNACE = registerItem("enderite_furnace", s -> new BlockItem(ModBlocks.ENDERITE_FURNACE, s.fireResistant().rarity(Rarity.EPIC)));
+
+    public static final Item ENDERITE_SMOKER = registerItem("enderite_smoker", s -> new BlockItem(ModBlocks.ENDERITE_SMOKER, s.fireResistant().rarity(Rarity.EPIC)));
+
+    public static final Item ENDERITE_BLAST_FURNACE = registerItem("enderite_blast_furnace", s -> new BlockItem(ModBlocks.ENDERITE_BLAST_FURNACE, s.fireResistant().rarity(Rarity.EPIC)));
 
 
 

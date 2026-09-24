@@ -60,6 +60,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
 
         dropSelf(ModBlocks.REINFORCED_HOPPER);
         dropSelf(ModBlocks.NETHERITE_HOPPER);
+        dropSelf(ModBlocks.ENDERITE_HOPPER);
 
         dropSelf(ModBlocks.REINFORCED_PISTON);
         dropSelf(ModBlocks.REINFORCED_STICKY_PISTON);
@@ -68,12 +69,15 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
 
         dropSelf(ModBlocks.REINFORCED_BLAST_FURNACE);
         dropSelf(ModBlocks.NETHERITE_BLAST_FURNACE);
+        dropSelf(ModBlocks.ENDERITE_BLAST_FURNACE);
 
         dropSelf(ModBlocks.REINFORCED_FURNACE);
         dropSelf(ModBlocks.NETHERITE_FURNACE);
+        dropSelf(ModBlocks.ENDERITE_FURNACE);
 
         dropSelf(ModBlocks.REINFORCED_SMOKER);
         dropSelf(ModBlocks.NETHERITE_SMOKER);
+        dropSelf(ModBlocks.ENDERITE_SMOKER);
 
         // Nihilith Ore -> Droppt Shard
         add(ModBlocks.NIHILITH_ORE, createOreDrop(ModBlocks.NIHILITH_ORE, ModItems.NIHILITH_SHARD));

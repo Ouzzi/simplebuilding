@@ -365,14 +365,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.HOPPER), has(Items.HOPPER))
                         .save(output, "reinforced_hopper_from_crafting");
 
-                ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.REDSTONE, ModItems.NETHERITE_HOPPER, 2)
-                        .pattern("H")
-                        .pattern("N")
-                        .pattern("H")
-                        .define('H', ModItems.REINFORCED_HOPPER)
-                        .define('N', ModItems.NETHERITE_NUGGET)
-                        .unlockedBy(getHasName(ModItems.REINFORCED_HOPPER), has(ModItems.REINFORCED_HOPPER))
-                        .save(output, "netherite_hopper_from_crafting");
+                // Netherit- und Enderit-Trichter (wie alle Netherit- und Enderit-Maschinen) haben kein
+                // Werkbankrezept mehr: sie entstehen in der Welt, per Vorschlaghammer und Nugget
+                // (SledgehammerUpgrades).
 
 
                 // =================================================================
@@ -387,7 +382,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .define('I', Items.IRON_INGOT)
                         .unlockedBy(getHasName(Items.PISTON), has(Items.PISTON))
                         .save(output);
-                createBulkUpgrade(ModItems.REINFORCED_PISTON, ModItems.NETHERITE_PISTON, RecipeCategory.REDSTONE);
                 // Klebrig wie bei Vanilla: Schleimball ueber dem Kolben.
                 ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_STICKY_PISTON)
                         .pattern("S")
@@ -409,7 +403,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .define('B', Items.BLAST_FURNACE)
                         .unlockedBy(getHasName(Items.BLAST_FURNACE), has(Items.BLAST_FURNACE))
                         .save(output);
-                createBulkUpgrade(ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE, RecipeCategory.DECORATIONS);
 
 
                 // =================================================================
@@ -423,7 +416,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .define('F', Items.FURNACE)
                         .unlockedBy(getHasName(Items.FURNACE), has(Items.FURNACE))
                         .save(output);
-                createBulkUpgrade(ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, RecipeCategory.DECORATIONS);
 
 
                 // =================================================================
@@ -437,7 +429,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .define('S', Items.SMOKER)
                         .unlockedBy(getHasName(Items.SMOKER), has(Items.SMOKER))
                         .save(output);
-                createBulkUpgrade(ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, RecipeCategory.DECORATIONS);
 
                 shaped(RecipeCategory.MISC, ModItems.BASIC_UPGRADE_TEMPLATE, 2)
                         .pattern("ABA")
@@ -573,7 +564,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .save(output, "raw_enderite_synthesis");
 
                 // --- 2. Schmelzen: Raw -> Scrap ---
-                oreBlasting(List.of(ModItems.RAW_ENDERITE), RecipeCategory.MISC, net.minecraft.world.item.crafting.CookingBookCategory.MISC, ModItems.ENDERITE_SCRAP, 2.0f, 200, "enderite_scrap");
+                // Eine Stunde (72000 Ticks) in einem Vanilla-Schmelzofen: 30 min verstaerkt, 15 min Netherit,
+                // rund 7,5 min Enderit. Laengere Zeiten als 32767 Ticks ueberleben Speichern und Menue-Sync
+                // nur dank AbstractFurnaceBlockEntityMixin / AbstractFurnaceMenuMixin.
+                oreBlasting(List.of(ModItems.RAW_ENDERITE), RecipeCategory.MISC, net.minecraft.world.item.crafting.CookingBookCategory.MISC, ModItems.ENDERITE_SCRAP, 10.0f, 72000, "enderite_scrap");
 
                 // --- 3. Barren: Enderite Ingot (4 Scrap + 4 Diamond) ---
                 // Hinweis: Du wolltest Diamanten statt Netherite, um Netherite nicht zu entwerten.
@@ -778,16 +772,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         recipeKey.identifier().withPrefix("recipes/" + RecipeCategory.TOOLS.getFolderName() + "/")));
             }
 
-            // NEU: Helper für Massen-Upgrade (8 Items + 1 Ingot -> 8 Items)
-            private void createBulkUpgrade(Item input, Item result, RecipeCategory category) {
-                ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), category, result, 3)
-                        .pattern("NR")
-                        .pattern("RR")
-                        .define('R', input)
-                        .define('N', ModItems.NETHERITE_NUGGET)
-                        .unlockedBy(getHasName(input), has(input))
-                        .save(output, getItemName(result) + "_bulk");
-            }
         };
     }
 

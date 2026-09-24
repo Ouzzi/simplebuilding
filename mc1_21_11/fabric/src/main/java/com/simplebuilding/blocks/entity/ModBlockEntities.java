@@ -27,7 +27,8 @@ public class ModBlockEntities {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_hopper"),
                 FabricBlockEntityTypeBuilder.create(ModHopperBlockEntity::new,
                         ModBlocks.REINFORCED_HOPPER,
-                        ModBlocks.NETHERITE_HOPPER
+                        ModBlocks.NETHERITE_HOPPER,
+                        ModBlocks.ENDERITE_HOPPER
                 ).build());
 
         /* todo chest:
@@ -41,17 +42,17 @@ public class ModBlockEntities {
         MOD_BLAST_FURNACE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_blast_furnace"),
                 FabricBlockEntityTypeBuilder.create(ModBlastFurnaceBlockEntity::new,
-                        ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE).build());
+                        ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE).build());
 
         MOD_FURNACE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_furnace"),
                 FabricBlockEntityTypeBuilder.create(ModFurnaceBlockEntity::new,
-                        ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE).build());
+                        ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE).build());
 
         MOD_SMOKER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_smoker"),
                 FabricBlockEntityTypeBuilder.create(ModSmokerBlockEntity::new,
-                        ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER).build());
+                        ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER).build());
 
         BACKPACK_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "backpack"),

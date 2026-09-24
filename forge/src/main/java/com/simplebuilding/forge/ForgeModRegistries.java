@@ -93,16 +93,16 @@ public final class ForgeModRegistries {
 
     public static final RegistryObject<BlockEntityType<ModHopperBlockEntity>> MOD_HOPPER_BE =
             BLOCK_ENTITIES.register("mod_hopper", () -> new BlockEntityType<ModHopperBlockEntity>(
-                    ModHopperBlockEntity::new, Set.of(ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER)));
+                    ModHopperBlockEntity::new, Set.of(ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER, ModBlocks.ENDERITE_HOPPER)));
     public static final RegistryObject<BlockEntityType<ModBlastFurnaceBlockEntity>> MOD_BLAST_FURNACE_BE =
             BLOCK_ENTITIES.register("mod_blast_furnace", () -> new BlockEntityType<ModBlastFurnaceBlockEntity>(
-                    ModBlastFurnaceBlockEntity::new, Set.of(ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE)));
+                    ModBlastFurnaceBlockEntity::new, Set.of(ModBlocks.REINFORCED_BLAST_FURNACE, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE)));
     public static final RegistryObject<BlockEntityType<ModFurnaceBlockEntity>> MOD_FURNACE_BE =
             BLOCK_ENTITIES.register("mod_furnace", () -> new BlockEntityType<ModFurnaceBlockEntity>(
-                    ModFurnaceBlockEntity::new, Set.of(ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE)));
+                    ModFurnaceBlockEntity::new, Set.of(ModBlocks.REINFORCED_FURNACE, ModBlocks.NETHERITE_FURNACE, ModBlocks.ENDERITE_FURNACE)));
     public static final RegistryObject<BlockEntityType<ModSmokerBlockEntity>> MOD_SMOKER_BE =
             BLOCK_ENTITIES.register("mod_smoker", () -> new BlockEntityType<ModSmokerBlockEntity>(
-                    ModSmokerBlockEntity::new, Set.of(ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER)));
+                    ModSmokerBlockEntity::new, Set.of(ModBlocks.REINFORCED_SMOKER, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER)));
 
     public static final RegistryObject<RecipeSerializer<CountBasedSmithingRecipe>> COUNT_BASED_SMITHING_SERIALIZER =
             RECIPE_SERIALIZERS.register("count_based_smithing", () ->

@@ -157,14 +157,17 @@ import net.minecraft.world.phys.HitResult;
  */
 public final class SmokeClientTest {
 
-    /** The six furnace family blocks {@code ModModelProvider} drives through {@code createFurnace}. */
+    /** The nine furnace family blocks {@code ModModelProvider} drives through {@code createFurnace}. */
     private static final List<Block> FURNACES = List.of(
             ModBlocks.REINFORCED_FURNACE,
             ModBlocks.NETHERITE_FURNACE,
+            ModBlocks.ENDERITE_FURNACE,
             ModBlocks.REINFORCED_SMOKER,
             ModBlocks.NETHERITE_SMOKER,
+            ModBlocks.ENDERITE_SMOKER,
             ModBlocks.REINFORCED_BLAST_FURNACE,
-            ModBlocks.NETHERITE_BLAST_FURNACE);
+            ModBlocks.NETHERITE_BLAST_FURNACE,
+            ModBlocks.ENDERITE_BLAST_FURNACE);
 
     /**
      * The z plane one block in front of the wall - the free air the working volume is built in.
@@ -342,9 +345,9 @@ public final class SmokeClientTest {
      *
      * <p>The whole walk is a single {@code act} step. It touches only the baked model set, which is
      * client state, and it is cheap enough to finish inside one tick - splitting it per block would
-     * buy six step names and cost the single message that lists every wrong state at once.
+     * buy nine step names and cost the single message that lists every wrong state at once.
      *
-     * <p>The screenshot at the end is documentary: the six unlit fronts, side by side, one block
+     * <p>The screenshot at the end is documentary: the nine unlit fronts, side by side, one block
      * above the line of sight so the crosshair keeps its target. Nothing is asserted on it - see
      * the class javadoc for why an animated lit texture rules a pixel comparison out here.
      *
@@ -357,7 +360,7 @@ public final class SmokeClientTest {
     private static void furnaceBlockStatesBakeIntoOrientedModels(Script script) {
         TestScene.build(script, "minecraft:stone", "creative");
 
-        script.act("all 48 furnace states bake into an oriented model", client -> {
+        script.act("all 72 furnace states bake into an oriented model", client -> {
             BlockModelShaper models = client.getModelManager().getBlockModelShaper();
             List<String> found = new ArrayList<>();
 
@@ -407,12 +410,13 @@ public final class SmokeClientTest {
 
         for (int i = 0; i < FURNACES.size(); i++) {
             Identifier id = BuiltInRegistries.BLOCK.getKey(FURNACES.get(i));
-            script.command("setblock " + (8 + i) + " 2 " + FRONT_Z + " " + id + "[facing=north,lit=false]");
+            // x 7..15: inside the volume clearWorkingVolume empties again.
+            script.command("setblock " + (7 + i) + " 2 " + FRONT_Z + " " + id + "[facing=north,lit=false]");
         }
 
         script.awaitPackets();
-        script.idle("let the six furnaces reach the client", 20);
-        script.shot("furnace-a-six-fronts");
+        script.idle("let the nine furnaces reach the client", 20);
+        script.shot("furnace-a-nine-fronts");
 
         clearWorkingVolume(script);
     }

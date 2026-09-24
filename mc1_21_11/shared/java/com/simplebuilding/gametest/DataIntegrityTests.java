@@ -408,13 +408,19 @@ public final class DataIntegrityTests {
      * nothing, which is what separates "the pattern still is what it says" from "the recipe merely
      * still exists".
      *
-     * <p>The same treatment is given to the three families whose <em>output count</em> is part of
-     * the deal - a player crafts five reinforced hoppers, two netherite hoppers and three of every
-     * reinforced or netherite furnace at a time - and to the quiver, whose smithing chain nothing
-     * else touched. A count is the easiest thing in a recipe file to change by accident and the
-     * hardest to notice, so every one of them is asserted, not just the result item.
+     * <p>The same treatment is given to the families whose <em>output count</em> is part of the
+     * deal - a player crafts five reinforced hoppers and three of every reinforced furnace at a
+     * time - and to the quiver, whose smithing chain nothing else touched. A count is the easiest
+     * thing in a recipe file to change by accident and the hardest to notice, so every one of them
+     * is asserted, not just the result item.
      *
-     * <p>That is twenty-four of the mod's roughly 130 recipes. Everything else here - wands,
+     * <p>The netherite and enderite machines have no crafting recipe at all since 2026-09: they are
+     * made in the world with a sledgehammer and a nugget ({@code SledgehammerUpgrades}). The old
+     * netherite grids - the hopper column and the 2x2 of one nugget and three reinforced machines -
+     * must therefore craft nothing, and no loaded crafting recipe may produce any of the ten
+     * netherite or enderite machine items.
+     *
+     * <p>That is twenty of the mod's roughly 130 recipes. Everything else here - wands,
      * octants, the enderite armour and tools, the block and nugget conversions - is still covered
      * only by the dangling reference walk above, which says nothing about their shape; the three
      * bundle recipes have a home of their own in
@@ -581,21 +587,21 @@ public final class DataIntegrityTests {
                 "the enderite quiver upgrade straight from the plain quiver", shapes);
 
         // Hoppers: five at a time out of five vanilla hoppers, a name tag and three cracked
-        // diamonds; two netherite ones out of two of those and a netherite nugget.
+        // diamonds. The old netherite column (two of those around a nugget) crafts nothing now.
         assertShapedRecipe(helper, modRecipes, "reinforced_hopper_from_crafting", ModItems.REINFORCED_HOPPER, 5,
                 new String[]{"HNH", "DDD", "HHH"},
                 Map.of('H', Items.HOPPER, 'N', Items.NAME_TAG, 'D', ModItems.CRACKED_DIAMOND), shapes);
-        assertShapedRecipe(helper, modRecipes, "netherite_hopper_from_crafting", ModItems.NETHERITE_HOPPER, 2,
-                new String[]{"H", "N", "H"},
-                Map.of('H', ModItems.REINFORCED_HOPPER, 'N', ModItems.NETHERITE_NUGGET), shapes);
+        assertNoCraftingRecipe(helper, new String[]{"H", "N", "H"},
+                Map.of('H', ModItems.REINFORCED_HOPPER, 'N', ModItems.NETHERITE_NUGGET),
+                "the old netherite hopper column", shapes);
 
         // The name tag is what makes the hopper recipe cost something; a stick may not stand in.
         assertNoCraftingRecipe(helper, new String[]{"HNH", "DDD", "HHH"},
                 Map.of('H', Items.HOPPER, 'N', Items.STICK, 'D', ModItems.CRACKED_DIAMOND),
                 "the reinforced hopper grid with a stick where the name tag belongs", shapes);
 
-        // The six furnace blocks: three at a time from three vanilla appliances and six cracked
-        // diamonds, three netherite ones from three of those and a netherite nugget.
+        // The three reinforced furnace blocks: three at a time from three vanilla appliances and
+        // six cracked diamonds.
         String[] appliancePattern = {"DDD", "AAA", "DDD"};
         assertShapedRecipe(helper, modRecipes, "reinforced_furnace", ModItems.REINFORCED_FURNACE, 3,
                 appliancePattern, Map.of('D', ModItems.CRACKED_DIAMOND, 'A', Items.FURNACE), shapes);
@@ -604,18 +610,34 @@ public final class DataIntegrityTests {
         assertShapedRecipe(helper, modRecipes, "reinforced_blast_furnace", ModItems.REINFORCED_BLAST_FURNACE, 3,
                 appliancePattern, Map.of('D', ModItems.CRACKED_DIAMOND, 'A', Items.BLAST_FURNACE), shapes);
 
+        // The old netherite 2x2 - one nugget, three reinforced machines - crafts nothing for any of
+        // the four families it used to exist for: the netherite tier is hammered in the world now.
         String[] bulkPattern = {"NR", "RR"};
-        assertShapedRecipe(helper, modRecipes, "netherite_furnace_bulk", ModItems.NETHERITE_FURNACE, 3,
-                bulkPattern, Map.of('N', ModItems.NETHERITE_NUGGET, 'R', ModItems.REINFORCED_FURNACE), shapes);
-        assertShapedRecipe(helper, modRecipes, "netherite_smoker_bulk", ModItems.NETHERITE_SMOKER, 3,
-                bulkPattern, Map.of('N', ModItems.NETHERITE_NUGGET, 'R', ModItems.REINFORCED_SMOKER), shapes);
-        assertShapedRecipe(helper, modRecipes, "netherite_blast_furnace_bulk", ModItems.NETHERITE_BLAST_FURNACE, 3,
-                bulkPattern, Map.of('N', ModItems.NETHERITE_NUGGET, 'R', ModItems.REINFORCED_BLAST_FURNACE), shapes);
+        for (Item reinforced : List.of(ModItems.REINFORCED_FURNACE, ModItems.REINFORCED_SMOKER,
+                ModItems.REINFORCED_BLAST_FURNACE, ModItems.REINFORCED_PISTON)) {
+            assertNoCraftingRecipe(helper, bulkPattern, Map.of('N', ModItems.NETHERITE_NUGGET, 'R', reinforced),
+                    "the old netherite 2x2 with " + BuiltInRegistries.ITEM.getKey(reinforced), shapes);
+        }
 
-        // One reinforced furnace short of the 2x2: the upgrade may not get cheaper by accident.
-        assertNoCraftingRecipe(helper, new String[]{"NR", "R "},
-                Map.of('N', ModItems.NETHERITE_NUGGET, 'R', ModItems.REINFORCED_FURNACE),
-                "a netherite furnace grid with only two reinforced furnaces", shapes);
+        // And no crafting recipe anywhere produces a netherite or enderite machine.
+        Set<Item> worldOnly = Set.of(
+                ModItems.NETHERITE_HOPPER, ModItems.NETHERITE_FURNACE, ModItems.NETHERITE_SMOKER,
+                ModItems.NETHERITE_BLAST_FURNACE, ModItems.NETHERITE_PISTON,
+                ModItems.ENDERITE_HOPPER, ModItems.ENDERITE_FURNACE, ModItems.ENDERITE_SMOKER,
+                ModItems.ENDERITE_BLAST_FURNACE, ModItems.ENDERITE_PISTON);
+        for (RecipeHolder<?> holder : recipeManager.getRecipes()) {
+            if (holder.value().getType() != RecipeType.CRAFTING) {
+                continue;
+            }
+            for (RecipeDisplay display : holder.value().display()) {
+                for (ItemStack stack : display.result().resolveForStacks(displayContext)) {
+                    if (worldOnly.contains(stack.getItem())) {
+                        shapes.add(holder.id().identifier() + " crafts " + BuiltInRegistries.ITEM.getKey(stack.getItem())
+                                + ", which is meant to be made with the sledgehammer only");
+                    }
+                }
+            }
+        }
 
         helper.assertTrue(shapes.isEmpty(), "recipe shape problems: " + shapes);
         TestCleanup.succeed(helper);

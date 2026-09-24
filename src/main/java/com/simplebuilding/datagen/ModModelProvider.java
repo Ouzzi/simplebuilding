@@ -87,18 +87,24 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createFurnace(ModBlocks.NETHERITE_BLAST_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.REINFORCED_BLAST_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.REINFORCED_BLAST_FURNACE));
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NETHERITE_BLAST_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.NETHERITE_BLAST_FURNACE));
+        blockStateModelGenerator.createFurnace(ModBlocks.ENDERITE_BLAST_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ENDERITE_BLAST_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.ENDERITE_BLAST_FURNACE));
 
         // --- Standard Furnaces ---
         blockStateModelGenerator.createFurnace(ModBlocks.REINFORCED_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
         blockStateModelGenerator.createFurnace(ModBlocks.NETHERITE_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.REINFORCED_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.REINFORCED_FURNACE));
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NETHERITE_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.NETHERITE_FURNACE));
+        blockStateModelGenerator.createFurnace(ModBlocks.ENDERITE_FURNACE, TexturedModel.ORIENTABLE_ONLY_TOP);
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ENDERITE_FURNACE, ModelLocationUtils.getModelLocation(ModBlocks.ENDERITE_FURNACE));
 
         // --- Smokers ---
         blockStateModelGenerator.createFurnace(ModBlocks.REINFORCED_SMOKER, TexturedModel.ORIENTABLE_ONLY_TOP);
         blockStateModelGenerator.createFurnace(ModBlocks.NETHERITE_SMOKER, TexturedModel.ORIENTABLE_ONLY_TOP);
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.REINFORCED_SMOKER, ModelLocationUtils.getModelLocation(ModBlocks.REINFORCED_SMOKER));
         blockStateModelGenerator.registerSimpleItemModel(ModBlocks.NETHERITE_SMOKER, ModelLocationUtils.getModelLocation(ModBlocks.NETHERITE_SMOKER));
+        blockStateModelGenerator.createFurnace(ModBlocks.ENDERITE_SMOKER, TexturedModel.ORIENTABLE_ONLY_TOP);
+        blockStateModelGenerator.registerSimpleItemModel(ModBlocks.ENDERITE_SMOKER, ModelLocationUtils.getModelLocation(ModBlocks.ENDERITE_SMOKER));
 
 
 
@@ -114,6 +120,7 @@ public class ModModelProvider extends FabricModelProvider {
         // --- 4. Hoppers ---
         registerCustomHopper(blockStateModelGenerator, ModBlocks.REINFORCED_HOPPER);
         registerCustomHopper(blockStateModelGenerator, ModBlocks.NETHERITE_HOPPER);
+        registerCustomHopper(blockStateModelGenerator, ModBlocks.ENDERITE_HOPPER);
 
         // --- 5. Pistons ---
         // Reinforced Piston is a real Piston (has EXTENDED property)
@@ -303,6 +310,7 @@ public class ModModelProvider extends FabricModelProvider {
         // Hoppers hier auch, da Generated Item Model für Inventory
         itemModelGenerator.generateFlatItem(ModItems.REINFORCED_HOPPER, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_HOPPER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HOPPER, ModelTemplates.FLAT_ITEM);
 
         itemModelGenerator.generateFlatItem(ModItems.GLOWING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.EMITTING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
