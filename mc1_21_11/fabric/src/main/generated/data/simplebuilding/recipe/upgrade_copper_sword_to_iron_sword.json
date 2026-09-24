@@ -1,0 +1,10 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "minecraft:iron_ingot",
+  "addition_count": 4,
+  "base": "minecraft:copper_sword",
+  "result": {
+    "id": "minecraft:iron_sword"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

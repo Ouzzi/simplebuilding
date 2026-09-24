@@ -1273,10 +1273,11 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
 
     Code-derived parts come from src/main/generated/wiki/inworld.json, which
     WikiDataProvider writes from the same tables and constants the game uses
-    (InWorldTransformations). What has no table in code - the item frame
-    template upgrade, washing in a cauldron - is listed in manual.json under
-    inWorld.entries, with its sources. Prose for every kind lives in
-    manual.json under inWorld.kinds.
+    (InWorldTransformations) - since 2026-09-25 including the item frame
+    template upgrade and washing in a cauldron, so the JEI plugin shows them
+    from the same source. Anything that still has no table in code can be
+    listed in manual.json under inWorld.entries, with its sources. Prose for
+    every kind lives in manual.json under inWorld.kinds.
     """
     problems: list[str] = []
     section = manual.get("inWorld", {}) if isinstance(manual.get("inWorld"), dict) else {}
@@ -1335,6 +1336,34 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                 "tools": [shear["tool"]],
                 "output": {"id": shear["result"], "count": shear["count"]},
                 "stats": {"damage": shear["damage"]},
+            })
+
+        trim = exported.get("trimTemplate")
+        if trim:
+            facts["trim_template"] = {}
+            templates = [t for t in trim["templates"] if t in item_ids]
+            trim_hammers = [h for h in trim["hammers"] if h in item_ids]
+            for upgrade in trim["upgrades"]:
+                entries.append({
+                    "id": f"trim_template/{upgrade['result']}",
+                    "kind": "trim_template",
+                    "inputs": [{"id": templates, "count": 1},
+                               {"id": upgrade["catalyst"], "count": upgrade["catalystCount"]}],
+                    "tools": trim_hammers,
+                    "output": {"id": upgrade["result"], "count": 1},
+                    "stats": {"damage": trim["damage"]},
+                })
+
+        wash = exported.get("cauldronWash")
+        if wash:
+            facts["cauldron_wash"] = {}
+            entries.append({
+                "id": "cauldron_wash",
+                "kind": "cauldron_wash",
+                "inputs": [{"id": [o for o in wash["octants"] if o in item_ids], "count": 1}],
+                "tools": [wash["cauldron"]],
+                "output": {"id": wash["result"], "count": 1},
+                "stats": {"waterLevels": wash["waterLevels"]},
             })
 
         chisel = exported.get("chisel", {})

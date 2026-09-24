@@ -1,7 +1,7 @@
 {
   "type": "simplebuilding:count_based_smithing",
   "addition": "minecraft:gold_ingot",
-  "addition_count": 3,
+  "addition_count": 4,
   "base": "minecraft:iron_sword",
   "result": {
     "id": "minecraft:golden_sword"

@@ -1,5 +1,6 @@
 package com.simplebuilding;
 
+import com.simplebuilding.util.OctantCauldronWash;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.command.ModCommands;
@@ -15,7 +16,6 @@ import com.simplebuilding.enchantment.ModEnchantmentEffects;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.entity.ModEntities;
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.networking.ModMessages;
 import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.screen.ModScreenHandlers;
@@ -36,14 +36,8 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.core.cauldron.CauldronInteraction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.LayeredCauldronBlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -158,29 +152,12 @@ public class Simplebuilding implements ModInitializer {
     }
 
     private void registerCauldronBehavior() {
-        // Rangefinder reinigen:
-        CauldronInteraction cleanRangefinder = (state, world, pos, player, hand, stack) -> {
-            Item item = stack.getItem();
-            if (!(item instanceof OctantItem) || item == ModItems.OCTANT) {return InteractionResult.PASS;}
-            if (!world.isClientSide()) {
-                ItemStack newStack = new ItemStack(ModItems.OCTANT);
-                if (stack.has(DataComponents.CUSTOM_DATA)) {
-                    newStack.set(DataComponents.CUSTOM_DATA, stack.get(DataComponents.CUSTOM_DATA));
-                }
-                player.setItemInHand(hand, newStack);
-                player.awardStat(Stats.CLEAN_ARMOR);
-                LayeredCauldronBlock.lowerFillLevel(state, world, pos);
-            }
-            return InteractionResult.SUCCESS;
-        };
-
-        for (DyeColor color : DyeColor.values()) {
-            Item coloredItem = ModItems.COLORED_OCTANT_ITEMS.get(color);
-            if (coloredItem != null) {
-                // MC 1.21.11: CauldronInteraction.WATER ist eine InteractionMap mit oeffentlich
-                // zugaenglicher, veraenderbarer map() -- der Dispatcher-Accessor-Mixin aus 26.2 entfaellt.
-                CauldronInteraction.WATER.map().put(coloredItem, cleanRangefinder);
-            }
+        // Gefaerbte Oktanten im Wasserkessel waschen - Interaktion und Liste in OctantCauldronWash,
+        // aus derselben Quelle lesen Wiki und JEI.
+        for (Item coloredItem : OctantCauldronWash.washableOctants()) {
+            // MC 1.21.11: CauldronInteraction.WATER ist eine InteractionMap mit oeffentlich
+            // zugaenglicher, veraenderbarer map() -- der Dispatcher-Accessor-Mixin aus 26.2 entfaellt.
+            CauldronInteraction.WATER.map().put(coloredItem, OctantCauldronWash.INTERACTION);
         }
     }
 

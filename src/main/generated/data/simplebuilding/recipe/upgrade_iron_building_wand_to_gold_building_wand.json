@@ -1,0 +1,10 @@
+{
+  "type": "simplebuilding:count_based_smithing",
+  "addition": "simplebuilding:gold_core",
+  "addition_count": 1,
+  "base": "simplebuilding:iron_building_wand",
+  "result": {
+    "id": "simplebuilding:gold_building_wand"
+  },
+  "template": "simplebuilding:basic_upgrade_template"
+}

@@ -1,7 +1,7 @@
 {
   "type": "simplebuilding:count_based_smithing",
   "addition": "minecraft:gold_ingot",
-  "addition_count": 12,
+  "addition_count": 22,
   "base": "simplebuilding:iron_sledgehammer",
   "result": {
     "id": "simplebuilding:gold_sledgehammer"

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "minecraft:chiseled_quartz_block",
+    "M": "simplebuilding:ender_quartz"
+  },
+  "pattern": [
+    "###",
+    "#M#",
+    "###"
+  ],
+  "result": {
+    "count": 8,
+    "id": "simplebuilding:chiseled_ender_quartz_bricks"
+  }
+}

@@ -182,6 +182,8 @@ public final class ModItemGroupsContent {
 
         // --- Enderquarz ---
         entries.accept(ModItems.ENDER_QUARTZ_BLOCK);
+        entries.accept(ModItems.ENDER_QUARTZ_STAIRS);
+        entries.accept(ModItems.ENDER_QUARTZ_SLAB);
         entries.accept(ModItems.ENDER_QUARTZ_BRICKS);
         entries.accept(ModItems.ENDER_QUARTZ_BRICK_STAIRS);
         entries.accept(ModItems.ENDER_QUARTZ_BRICK_SLAB);

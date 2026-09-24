@@ -67,6 +67,8 @@ final class InWorldCategory implements IRecipeCategory<InWorldRecipeCatalog.Entr
             case DIAMOND_CRUSH -> ModItems.DIAMOND_PEBBLE;
             case CHISEL -> ModItems.IRON_CHISEL;
             case SHEAR_WOOL -> Items.SHEARS;
+            case TRIM_TEMPLATE -> ModItems.GLOWING_TRIM_TEMPLATE;
+            case CAULDRON_WASH -> Items.CAULDRON;
         };
     }
 

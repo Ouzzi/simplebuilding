@@ -518,41 +518,56 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // UPGRADE RECIPES FÜR WERKZEUGE
                 // =================================================================
 
-                // Spitzhacken (Crafting: 3 -> Upgrade: 4)
-                createUpgradeRecipe(registries, output, Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.COBBLESTONE, 4);
-                createUpgradeRecipe(registries, output, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 4);
-                createUpgradeRecipe(registries, output, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.GOLD_INGOT, 4);
-                createUpgradeRecipe(registries, output, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.DIAMOND, 4);
-                createUpgradeRecipe(registries, output, Items.COPPER_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 4);
+                // Kosten (Entscheidung des Besitzers): das Doppelte des Materials, das die Werkbank fuer das
+                // Ziel-Werkzeug verlangt. Aufwerten behaelt Verzauberungen, Schaden und Namen - dafuer ist
+                // es teurer als neu bauen.
+                // Spitzhacken und Aexte (Werkbank: 3 -> Aufwerten: 6)
+                createUpgradeRecipe(registries, output, Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.COBBLESTONE, 6);
+                createUpgradeRecipe(registries, output, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(registries, output, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.GOLD_INGOT, 6);
+                createUpgradeRecipe(registries, output, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.DIAMOND, 6);
+                createUpgradeRecipe(registries, output, Items.COPPER_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(registries, output, Items.COPPER_AXE, Items.IRON_AXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(registries, output, Items.WOODEN_AXE, Items.STONE_AXE, Items.COBBLESTONE, 6);
+                createUpgradeRecipe(registries, output, Items.STONE_AXE, Items.IRON_AXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(registries, output, Items.IRON_AXE, Items.GOLDEN_AXE, Items.GOLD_INGOT, 6);
+                createUpgradeRecipe(registries, output, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.DIAMOND, 6);
 
-                // Äxte (Crafting: 3 -> Upgrade: 4)
-                createUpgradeRecipe(registries, output, Items.WOODEN_AXE, Items.STONE_AXE, Items.COBBLESTONE, 4);
-                createUpgradeRecipe(registries, output, Items.STONE_AXE, Items.IRON_AXE, Items.IRON_INGOT, 4);
-                createUpgradeRecipe(registries, output, Items.IRON_AXE, Items.GOLDEN_AXE, Items.GOLD_INGOT, 4);
-                createUpgradeRecipe(registries, output, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.DIAMOND, 4);
+                // Schwerter und Hacken (Werkbank: 2 -> Aufwerten: 4)
+                createUpgradeRecipe(registries, output, Items.WOODEN_SWORD, Items.STONE_SWORD, Items.COBBLESTONE, 4);
+                createUpgradeRecipe(registries, output, Items.STONE_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 4);
+                createUpgradeRecipe(registries, output, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.GOLD_INGOT, 4);
+                createUpgradeRecipe(registries, output, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD, Items.DIAMOND, 4);
+                createUpgradeRecipe(registries, output, Items.COPPER_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 4);
+                createUpgradeRecipe(registries, output, Items.WOODEN_HOE, Items.STONE_HOE, Items.COBBLESTONE, 4);
+                createUpgradeRecipe(registries, output, Items.STONE_HOE, Items.IRON_HOE, Items.IRON_INGOT, 4);
+                createUpgradeRecipe(registries, output, Items.IRON_HOE, Items.GOLDEN_HOE, Items.GOLD_INGOT, 4);
+                createUpgradeRecipe(registries, output, Items.GOLDEN_HOE, Items.DIAMOND_HOE, Items.DIAMOND, 4);
+                createUpgradeRecipe(registries, output, Items.COPPER_HOE, Items.IRON_HOE, Items.IRON_INGOT, 4);
 
-                // Schwerter / Hacken (Crafting: 2 -> Upgrade: 3)
-                createUpgradeRecipe(registries, output, Items.WOODEN_SWORD, Items.STONE_SWORD, Items.COBBLESTONE, 3);
-                createUpgradeRecipe(registries, output, Items.STONE_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 3);
-                createUpgradeRecipe(registries, output, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.GOLD_INGOT, 3);
-                createUpgradeRecipe(registries, output, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD, Items.DIAMOND, 3);
-
-                // Schaufeln (Crafting: 1 -> Upgrade: 2)
+                // Schaufeln (Werkbank: 1 -> Aufwerten: 2)
                 createUpgradeRecipe(registries, output, Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.COBBLESTONE, 2);
                 createUpgradeRecipe(registries, output, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
                 createUpgradeRecipe(registries, output, Items.IRON_SHOVEL, Items.GOLDEN_SHOVEL, Items.GOLD_INGOT, 2);
                 createUpgradeRecipe(registries, output, Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL, Items.DIAMOND, 2);
+                createUpgradeRecipe(registries, output, Items.COPPER_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
 
-                // Mod Tools (Beispiele)
-                // Chisel (Crafting: 1 -> Upgrade: 2)
+                // Mod-Werkzeuge
+                // Meissel (Werkbank: 1 Barren/Diamant -> Aufwerten: 2)
                 createUpgradeRecipe(registries, output, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, Items.IRON_INGOT, 2);
                 createUpgradeRecipe(registries, output, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL, Items.GOLD_INGOT, 2);
                 createUpgradeRecipe(registries, output, ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL, Items.DIAMOND, 2);
 
-                // Sledgehammer (Crafting: 5 -> Upgrade: 6)
-                createUpgradeRecipe(registries, output, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, 12);
-                createUpgradeRecipe(registries, output, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, 12);
-                createUpgradeRecipe(registries, output, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, 12);
+                // Vorschlaghammer (Werkbank: 1 Block + 2 Barren = 11 Barren -> Aufwerten: 22)
+                createUpgradeRecipe(registries, output, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, 22);
+                createUpgradeRecipe(registries, output, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, 22);
+                createUpgradeRecipe(registries, output, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, 22);
+
+                // Baustab: kein Barren-Preis - ein Baustab braucht einen Kern (Late-Game), also kostet das
+                // Aufwerten genau einen Kern der Zielstufe (Entscheidung des Besitzers, 2026-09-25).
+                createUpgradeRecipe(registries, output, ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE, 1);
+                createUpgradeRecipe(registries, output, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE, 1);
+                createUpgradeRecipe(registries, output, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE, 1);
 
 
 
@@ -725,6 +740,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 }
                 chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, p.chiseled(), Ingredient.of(p.brickSlab()))
                         .unlockedBy(getHasName(p.brickSlab()), has(p.brickSlab())).save(exporter);
+                if (p.blockStairs() != null) {
+                    // Wie quartz_stairs/quartz_slab: Treppe 6 -> 4, Stufe 3 -> 6, Steinmetz 1 -> 1 bzw. 1 -> 2
+                    stairBuilder(p.blockStairs(), Ingredient.of(p.block())).unlockedBy(getHasName(p.block()), has(p.block())).save(exporter);
+                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, p.blockSlab(), Ingredient.of(p.block())).unlockedBy(getHasName(p.block()), has(p.block())).save(exporter);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.blockStairs(), p.block());
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.blockSlab(), p.block(), 2);
+                }
 
                 // Steinmetz: Grundblock -> alles, poliert -> polierte Familie + Ziegelfamilie + Saeule +
                 // gemeisselt, Ziegel -> Ziegelfamilie + gemeisselt
@@ -757,6 +779,18 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createRecolourRecipe(exporter, p.polishedStairs(), Items.PURPUR_STAIRS, material);
                 createRecolourRecipe(exporter, p.polishedSlab(), Items.PURPUR_SLAB, material);
                 createRecolourRecipe(exporter, p.pillar(), Items.PURPUR_PILLAR, material);
+                if (recolourPurpurBlock) {
+                    // Enderquarz auch aus Quarz: jede Quarz-Variante mit Gegenstueck in der Palette
+                    createRecolourRecipe(exporter, p.block(), Items.QUARTZ_BLOCK, material);
+                    createRecolourRecipe(exporter, p.bricks(), Items.QUARTZ_BRICKS, material);
+                    createRecolourRecipe(exporter, p.pillar(), Items.QUARTZ_PILLAR, material);
+                    createRecolourRecipe(exporter, p.chiseled(), Items.CHISELED_QUARTZ_BLOCK, material);
+                    createRecolourRecipe(exporter, p.polished(), Items.SMOOTH_QUARTZ, material);
+                    createRecolourRecipe(exporter, p.polishedStairs(), Items.SMOOTH_QUARTZ_STAIRS, material);
+                    createRecolourRecipe(exporter, p.polishedSlab(), Items.SMOOTH_QUARTZ_SLAB, material);
+                    createRecolourRecipe(exporter, p.blockStairs(), Items.QUARTZ_STAIRS, material);
+                    createRecolourRecipe(exporter, p.blockSlab(), Items.QUARTZ_SLAB, material);
+                }
             }
 
             private void createCoatedStoneCuts(Block coatedEndStone, Block coatedPurpur, ModBlocks.EndPalette p) {

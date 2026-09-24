@@ -77,6 +77,16 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void enderQuartzPaletteIsRecolouredFromQuartzLikeDye(GameTestHelper helper) {
+        DataIntegrityTests.enderQuartzPaletteIsRecolouredFromQuartzLikeDye(helper);
+    }
+
+    @GameTest
+    public void basicUpgradeTemplateCostsTwiceTheCraftingMaterial(GameTestHelper helper) {
+        DataIntegrityTests.basicUpgradeTemplateCostsTwiceTheCraftingMaterial(helper);
+    }
+
+    @GameTest
     public void enderQuartzIsCraftedFromAstralitDustNihilithShardAndQuartz(GameTestHelper helper) {
         DataIntegrityTests.enderQuartzIsCraftedFromAstralitDustNihilithShardAndQuartz(helper);
     }

@@ -1,7 +1,7 @@
 {
   "type": "simplebuilding:count_based_smithing",
   "addition": "minecraft:cobblestone",
-  "addition_count": 4,
+  "addition_count": 6,
   "base": "minecraft:wooden_axe",
   "result": {
     "id": "minecraft:stone_axe"
