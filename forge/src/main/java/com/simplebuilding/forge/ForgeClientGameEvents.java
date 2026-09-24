@@ -25,7 +25,7 @@ import net.minecraftforge.fml.common.Mod;
 /**
  * Forge client game-bus events: key polling, double jump, trim sync, outline suppression. The double
  * jump runs through the shared {@link DoubleJumpController} like on Fabric and NeoForge (level, cooldown,
- * payload); only its HUD bar is not registered on Forge.
+ * payload); its HUD bar is registered in {@link SimplebuildingForgeClient.DefaultBusEvents}.
  */
 @Mod.EventBusSubscriber(modid = Simplebuilding.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class ForgeClientGameEvents {
@@ -43,11 +43,11 @@ public final class ForgeClientGameEvents {
 
         while (ClientState.highlightToggleKey != null && ClientState.highlightToggleKey.consumeClick()) {
             ClientState.showHighlights = !ClientState.showHighlights;
-            client.player.sendSystemMessage(Component.literal("Highlights: " + (ClientState.showHighlights ? "ON" : "OFF")));
+            client.player.sendOverlayMessage(Component.literal("Highlights: " + (ClientState.showHighlights ? "ON" : "OFF")));
         }
         while (ClientState.octantFigureToggleKey != null && ClientState.octantFigureToggleKey.consumeClick()) {
             ClientState.showHighlights = !ClientState.showHighlights;
-            client.player.sendSystemMessage(Component.literal("Octant Figure: " + (ClientState.showHighlights ? "ON" : "OFF")));
+            client.player.sendOverlayMessage(Component.literal("Octant Figure: " + (ClientState.showHighlights ? "ON" : "OFF")));
         }
         while (ClientState.settingsKey != null && ClientState.settingsKey.consumeClick()) {
             ItemStack stack = client.player.getMainHandItem();

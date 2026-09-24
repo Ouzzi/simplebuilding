@@ -3,7 +3,10 @@ package com.simplebuilding.forge;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
+import com.simplebuilding.client.gui.DoubleJumpHudOverlay;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
+import com.simplebuilding.client.gui.RangefinderHudOverlay;
+import com.simplebuilding.client.gui.SpeedometerHudOverlay;
 import com.simplebuilding.forge.networking.ForgeNetworkRegistration;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.platform.ClientNetworking;
@@ -13,9 +16,11 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.resources.Identifier;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.AddGuiOverlayLayersEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.gui.overlay.ForgeLayeredDraw;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -32,8 +37,9 @@ import org.lwjgl.glfw.GLFW;
  * by the client mixins LevelExtractorMixin and LevelRendererMixin in
  * com.simplebuilding.mixin.forge (simplebuilding.forge.mixins.json).
  *
- * Not yet ported (cosmetic): HUD overlays (AddGuiOverlayLayersEvent has a different
- * API). The enchant_type select item-model property has no Forge registration event and is
+ * HUD overlays (octant rangefinder, speedometer, air-jump bar) hang in Forge's layered HUD via
+ * AddGuiOverlayLayersEvent, like Fabric's HudElementRegistry and NeoForge's RegisterGuiLayersEvent.
+ * The enchant_type select item-model property has no Forge registration event and is
  * registered by SelectItemModelPropertiesMixin.
  */
 @Mod.EventBusSubscriber(modid = Simplebuilding.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -112,6 +118,22 @@ public final class SimplebuildingForgeClient {
         event.register(ClientState.octantFigureToggleKey);
         event.register(ClientState.settingsKey);
         event.register(ClientState.backpackKey);
+    }
+
+    /**
+     * HUD-Overlays wie auf NeoForge ueber dem Chat, im Post-Sleep-Stapel von Forges Schicht-HUD.
+     * Das Event feuert einmal beim Aufbau des Hud (Minecraft-Konstruktor), wie die Tastenregistrierung.
+     */
+    @SubscribeEvent
+    public static void onAddGuiLayers(AddGuiOverlayLayersEvent event) {
+        Identifier rangefinder = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "rangefinder_hud");
+        Identifier speedometer = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "speedometer_hud");
+        Identifier airJump = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "air_jump_cooldown_hud");
+        ForgeLayeredDraw root = event.getLayeredDraw();
+        Identifier stack = ForgeLayeredDraw.POST_SLEEP_STACK;
+        root.addAbove(stack, rangefinder, ForgeLayeredDraw.CHAT_OVERLAY, (gg, dt) -> RangefinderHudOverlay.render(gg));
+        root.addAbove(stack, speedometer, rangefinder, (gg, dt) -> SpeedometerHudOverlay.render(gg));
+        root.addAbove(stack, airJump, speedometer, (gg, dt) -> DoubleJumpHudOverlay.render(gg));
     }
 
     @SubscribeEvent
