@@ -397,6 +397,7 @@ public final class ConfigOptionTests {
             "root.airJumpCooldownTicks int=100",
             "root.enableArmorTrimBenefits boolean=true",
             "root.pistonsBreachEndPortalFrames boolean=true",
+            "root.showDevEnchantedTab boolean=false",
             "root.trimBenefitBaseMultiplier double runtime-only(static)",
             "root.maxMultiplierLimit double runtime-only(static)",
             "tools.invertOctantSneak boolean=false",

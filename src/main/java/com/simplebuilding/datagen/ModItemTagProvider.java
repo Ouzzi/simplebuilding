@@ -124,6 +124,10 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(key(Items.STICK));
 
+        // Layout-Platzhalter der Kreativ-Tabs: in JEI, REI und EMI versteckt (Konventions-Tag).
+        builder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers")))
+                .add(key(ModItems.CREATIVE_SPACER));
+
         // End-Paletten: Treppen, Stufen und Mauern auch als Item-Tags wie bei Vanilla.
         for (ModBlocks.EndPalette palette : ModBlocks.END_PALETTES) {
             palette.stairs().forEach(block -> builder(BlockItemTags.STAIRS.item()).add(key(block.asItem())));
@@ -167,6 +171,19 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         builder(ModTags.Items.VEINMINE_ENCHANTABLE)
                 .forceAddTag(ItemTags.PICKAXES)
                 .forceAddTag(ItemTags.AXES);
+
+        // Enderit-Werkzeuge und -Ruestung in die Vanilla-Werkzeug-/Ruestungs-Tags: aus ihnen leiten sich
+        // die enchantable/*-Tags ab, ohne sie liess sich keine Verzauberung (ausser Haltbarkeit) anbringen.
+        // (Den Speer traegt schon das handgeschriebene data/minecraft/tags/item/spears.json.)
+        builder(ItemTags.SWORDS).add(key(ModItems.ENDERITE_SWORD));
+        builder(ItemTags.PICKAXES).add(key(ModItems.ENDERITE_PICKAXE));
+        builder(ItemTags.AXES).add(key(ModItems.ENDERITE_AXE));
+        builder(ItemTags.SHOVELS).add(key(ModItems.ENDERITE_SHOVEL));
+        builder(ItemTags.HOES).add(key(ModItems.ENDERITE_HOE));
+        builder(ItemTags.HEAD_ARMOR).add(key(ModItems.ENDERITE_HELMET));
+        builder(ItemTags.CHEST_ARMOR).add(key(ModItems.ENDERITE_CHESTPLATE));
+        builder(ItemTags.LEG_ARMOR).add(key(ModItems.ENDERITE_LEGGINGS));
+        builder(ItemTags.FOOT_ARMOR).add(key(ModItems.ENDERITE_BOOTS));
 
         TagKey<Item> TRIM_TEMPLATES = TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("trim_templates"));
 

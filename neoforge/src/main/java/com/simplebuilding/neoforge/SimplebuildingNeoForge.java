@@ -34,6 +34,7 @@ import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 public final class SimplebuildingNeoForge {
     public SimplebuildingNeoForge(IEventBus modEventBus, ModContainer modContainer) {
         ModEnvironment.setModLoadedCheck(modId -> ModList.get().isLoaded(modId));
+        ModEnvironment.setDevelopmentEnvironment(!net.neoforged.fml.loading.FMLEnvironment.isProduction());
         NeoForgeModRegistries.register(modEventBus);
         modEventBus.addListener(NeoForgeRegistryBootstrap::onRegister);
         modEventBus.addListener(this::commonSetup);

@@ -176,6 +176,10 @@
       "id": "simplebuilding:cracked_diamond_block"
     },
     {
+      "id": "simplebuilding:creative_spacer",
+      "maxStackSize": 1
+    },
+    {
       "durability": 12488,
       "enchantability": 10,
       "id": "simplebuilding:diamond_building_wand",

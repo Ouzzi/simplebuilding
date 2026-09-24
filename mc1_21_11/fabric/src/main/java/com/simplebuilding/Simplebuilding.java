@@ -54,6 +54,7 @@ public class Simplebuilding implements ModInitializer {
     @Override
     public void onInitialize() {
         ModEnvironment.setModLoadedCheck(modId -> FabricLoader.getInstance().isModLoaded(modId));
+        ModEnvironment.setDevelopmentEnvironment(FabricLoader.getInstance().isDevelopmentEnvironment());
         LOGGER.info("Starting Simplebuilding initialization...");
         LOGGER.info(SimplebuildingBootstrap.initialize(SimplebuildingLoader.FABRIC, buildStartupPlan()));
     }
