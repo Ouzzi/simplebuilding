@@ -48,6 +48,15 @@ public final class SimplebuildingForgeClient {
         });
     }
 
+    /**
+     * Forge 65 fuehrt Tasten- und Tooltip-Registrierung auf dem Standard-Bus, nicht auf dem Mod-Bus -
+     * ein Mod-Bus-Abonnent dafuer bricht das Laden ab. Darum eine eigene Klasse ohne bus-Parameter.
+     */
+    @Mod.EventBusSubscriber(modid = Simplebuilding.MOD_ID, value = Dist.CLIENT)
+    public static final class DefaultBusEvents {
+        private DefaultBusEvents() {
+        }
+
     @SubscribeEvent
     public static void onRegisterKeys(RegisterKeyMappingsEvent event) {
         ClientState.highlightToggleKey = new KeyMapping(
@@ -87,5 +96,6 @@ public final class SimplebuildingForgeClient {
             ((BundleTooltipAccessor) component).simplebuilding$setCapacityScale(scale);
             return component;
         });
+    }
     }
 }
