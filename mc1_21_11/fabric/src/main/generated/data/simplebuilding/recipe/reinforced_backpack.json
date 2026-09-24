@@ -4,11 +4,12 @@
   "key": {
     "B": "simplebuilding:backpack",
     "D": "simplebuilding:diamond_pebble",
-    "L": "simplebuilding:leather_sheet"
+    "L": "simplebuilding:leather_sheet",
+    "S": "minecraft:string"
   },
   "pattern": [
-    "DLD",
-    "LBL",
+    " S ",
+    "DBD",
     "LLL"
   ],
   "result": {

@@ -64,6 +64,16 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(key(ModBlocks.ASTRALIT_ORE))
                 .add(key(ModBlocks.ENDERITE_BLOCK));
 
+        // Quarz-Schachbretter kopieren Lapis-, Purpur-, Schwarzstein- bzw. Endstein-Eigenschaften und
+        // verlangen damit das passende Werkzeug; ohne diesen Tag liessen sie sich nicht abbauen.
+        builder(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(key(ModBlocks.PURPUR_QUARTZ_CHECKER))
+                .add(key(ModBlocks.LAPIS_QUARTZ_CHECKER))
+                .add(key(ModBlocks.BLACKSTONE_QUARTZ_CHECKER))
+                .add(key(ModBlocks.RESIN_QUARTZ_CHECKER))
+                .add(key(ModBlocks.NIHILITH_QUARTZ_CHECKER))
+                .add(key(ModBlocks.ASTRALIT_QUARTZ_CHECKER));
+
         // Needs Diamond Tool (oder Netherite)
         builder(BlockTags.NEEDS_DIAMOND_TOOL)
                 .add(key(ModBlocks.NIHILITH_ORE))

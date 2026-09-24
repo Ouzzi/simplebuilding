@@ -7,6 +7,13 @@ import com.simplebuilding.util.ModTags;
 import java.util.Arrays;
 import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.item.equipment.ArmorMaterials;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.resources.Identifier;
+import net.minecraft.nbt.CompoundTag;
+import com.simplebuilding.items.ModArmorMaterials;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -59,6 +66,13 @@ public final class EnderiteMachineTests {
 
     /** Tick budget for {@link #enderiteHopperAndPistonDropThemselvesWhenBroken}. */
     public static final int DROP_MAX_TICKS = 40;
+
+    /** Tick budget for {@link #enderiteIngotTierDropsLastTwiceAsLongAsVanilla}. */
+    public static final int LIFETIME_MAX_TICKS = 40;
+
+    /** Netherite tools of the mod that vanilla's netherite rule (fire resistant) applies to as well. */
+    private static final List<String> NETHERITE_MOD_GEAR = List.of(
+            "netherite_sledgehammer", "netherite_chisel", "netherite_spatula", "netherite_building_wand", "netherite_core");
 
     /** Items that must arrive before a hopper's cadence is read. */
     private static final int HOPPER_SAMPLE_SIZE = 5;
@@ -347,6 +361,100 @@ public final class EnderiteMachineTests {
     }
 
     /** What an item is, in the words the assertions compare: fire resistance, rarity, void protection. */
+    /**
+     * Enderite is made with netherite, so every enderite item from the ingot upwards keeps what
+     * netherite gives an item: it survives fire and lava. The mod's own netherite tools follow
+     * vanilla's netherite tools too. Enderite armour resists knockback at least as much as netherite
+     * armour. {@code simplebuilding:enderite_ingot_tier} holds exactly what
+     * {@code ModTags.Items#isEnderiteIngotTierByRule} names - the ingot and everything made from it,
+     * not raw enderite, scrap or the upgrade template.
+     *
+     * <p>What breaks this test: a sledgehammer, chisel, wand or block item registered without
+     * {@code fireResistant()} (the enderite sledgehammer burned before), a weaker enderite armour
+     * material, and a tier tag that was not regenerated.
+     */
+    public static void enderiteGearInheritsEveryNetheriteTrait(GameTestHelper helper) {
+        StringBuilder burning = new StringBuilder();
+        StringBuilder tagDrift = new StringBuilder();
+        for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            Item item = BuiltInRegistries.ITEM.getValue(id);
+            boolean rule = ModTags.Items.isEnderiteIngotTierByRule(id);
+            if (rule != new ItemStack(item).is(ModTags.Items.ENDERITE_INGOT_TIER)) {
+                tagDrift.append(id).append(' ');
+            }
+            boolean netheriteInside = rule || id.getPath().equals("enderite_scrap")
+                    || (id.getNamespace().equals("simplebuilding") && NETHERITE_MOD_GEAR.contains(id.getPath()));
+            if (netheriteInside && !traits(helper, item).contains("fire resistant")) {
+                burning.append(id).append(' ');
+            }
+        }
+        Assertions.valueEqual(helper, burning.toString(), "", "enderite and netherite gear that burns in fire and lava");
+        Assertions.valueEqual(helper, tagDrift.toString(), "", "items whose enderite_ingot_tier membership disagrees with the rule");
+        helper.assertTrue(new ItemStack(ModItems.ENDERITE_INGOT).is(ModTags.Items.ENDERITE_INGOT_TIER) && !new ItemStack(ModItems.ENDERITE_SCRAP).is(ModTags.Items.ENDERITE_INGOT_TIER),
+                "control broken: the ingot must be in the tier tag and the scrap must not");
+
+        helper.assertTrue(ModArmorMaterials.ENDERITE.knockbackResistance() >= ArmorMaterials.NETHERITE.knockbackResistance(),
+                "enderite armour resists knockback less than netherite armour: "
+                        + ModArmorMaterials.ENDERITE.knockbackResistance() + " < " + ArmorMaterials.NETHERITE.knockbackResistance());
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Dropped enderite from the ingot upwards lies twice as long as vanilla allows: 12000 ticks
+     * instead of 6000. Four drops start at age 5999: the enderite sledgehammer and ingot outlive
+     * the next tick, enderite scrap (before the ingot) and a netherite ingot vanish like vanilla.
+     * Set to 11999, the enderite drops vanish on the next tick too - longer, not forever.
+     *
+     * <p>What breaks this test: the lifetime hook in {@code EnderiteItemMixin} missing or matching
+     * the wrong items, and a lifetime other than twice vanilla.
+     */
+    public static void enderiteIngotTierDropsLastTwiceAsLongAsVanilla(GameTestHelper helper) {
+        ItemEntity hammer = drop(helper, new BlockPos(1, 2, 1), ModItems.ENDERITE_SLEDGEHAMMER);
+        ItemEntity ingot = drop(helper, new BlockPos(3, 2, 1), ModItems.ENDERITE_INGOT);
+        ItemEntity scrap = drop(helper, new BlockPos(5, 2, 1), ModItems.ENDERITE_SCRAP);
+        ItemEntity netherite = drop(helper, new BlockPos(1, 2, 4), Items.NETHERITE_INGOT);
+        for (ItemEntity entity : List.of(hammer, ingot, scrap, netherite)) {
+            setAge(helper, entity, 5999);
+        }
+        helper.assertTrue(hammer.getAge() == 5999, "the age could not be set, it reads " + hammer.getAge());
+
+        helper.runAfterDelay(2, () -> {
+            Assertions.valueEqual(helper, "hammer " + state(hammer) + ", ingot " + state(ingot) + ", scrap " + state(scrap)
+                            + ", netherite ingot " + state(netherite),
+                    "hammer lying, ingot lying, scrap gone, netherite ingot gone",
+                    "the drops two ticks after reaching age 5999");
+            setAge(helper, hammer, 11999);
+            setAge(helper, ingot, 11999);
+            helper.runAfterDelay(2, () -> {
+                Assertions.valueEqual(helper, "hammer " + state(hammer) + ", ingot " + state(ingot),
+                        "hammer gone, ingot gone", "the enderite drops two ticks after reaching age 11999");
+                TestCleanup.succeed(helper);
+            });
+        });
+    }
+
+    private static ItemEntity drop(GameTestHelper helper, BlockPos relative, Item item) {
+        BlockPos pos = helper.absolutePos(relative);
+        ItemEntity entity = new ItemEntity(helper.getLevel(), pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new ItemStack(item));
+        entity.setDeltaMovement(0, 0, 0);
+        entity.setNeverPickUp();
+        helper.getLevel().addFreshEntity(entity);
+        return entity;
+    }
+
+    /** Sets the private age through a save and load round trip, the way a chunk reload would. */
+    private static void setAge(GameTestHelper helper, ItemEntity entity, int age) {
+        TagValueOutput out = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
+        entity.saveWithoutId(out);
+        CompoundTag tag = out.buildResult();
+        tag.putShort("Age", (short) age);
+        entity.load(TagValueInput.create(ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), tag));
+    }
+
+    private static String state(ItemEntity entity) {
+        return entity.isRemoved() ? "gone" : "lying";
+    }
+
     private static String traits(GameTestHelper helper, Item item) {
         ItemStack stack = new ItemStack(item);
         DamageResistant resistant = stack.get(DataComponents.DAMAGE_RESISTANT);

@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.item.ItemExpireEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -117,6 +118,15 @@ public final class NeoForgeGameplayEvents {
         }
         for (ServerPlayer player : event.getServer().getPlayerList().getPlayers()) {
             DynamicLightHandler.tick(player);
+        }
+    }
+
+    /** Enderit ab dem Barren liegt doppelt so lange, siehe {@link EnderiteLifetime}. */
+    @SubscribeEvent
+    public static void onItemExpire(ItemExpireEvent event) {
+        int extra = EnderiteLifetime.extraLife(event.getEntity().getItem(), event.getEntity().lifespan);
+        if (extra > 0) {
+            event.addExtraLife(extra);
         }
     }
 }

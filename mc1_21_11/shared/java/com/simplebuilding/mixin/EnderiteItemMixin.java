@@ -1,5 +1,6 @@
 package com.simplebuilding.mixin;
 
+import com.simplebuilding.util.EnderiteLifetime;
 import com.simplebuilding.util.ModTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -9,7 +10,9 @@ import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemEntity.class)
@@ -51,5 +54,18 @@ public abstract class EnderiteItemMixin extends Entity {
                 this.setDeltaMovement(0, 0, 0); // Reset Velocity nach TP
             }
         }
+    }
+
+    /**
+     * Enderit ab dem Barren enthaelt Netherit und ist teurer: liegengelassen verschwindet es erst
+     * nach der doppelten Vanilla-Zeit. Vanilla prueft die Lebensdauer als Literal 6000 an zwei
+     * Stellen - beim Entfernen in {@code tick} und in {@code isMergable} (sonst wuerde ein altes
+     * Item zwischen 6000 und 12000 Ticks nicht mehr mit Nachbarn verschmelzen). NeoForge und Forge
+     * ersetzen das Literal in {@code tick} durch ihr Feld {@code lifespan}; dort verlaengern die
+     * {@code ItemExpireEvent}-Handler, daher {@code require = 0}.
+     */
+    @ModifyConstant(method = {"tick", "isMergable"}, constant = @Constant(intValue = 6000), require = 0)
+    private int simplebuilding$enderiteLifetime(int vanillaLifetime) {
+        return EnderiteLifetime.lifetime(this.getItem(), vanillaLifetime);
     }
 }

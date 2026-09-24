@@ -20,6 +20,12 @@
     "simplebuilding:enderite_blast_furnace",
     "simplebuilding:nihilith_ore",
     "simplebuilding:astralit_ore",
-    "simplebuilding:enderite_block"
+    "simplebuilding:enderite_block",
+    "simplebuilding:purpur_quartz_checker",
+    "simplebuilding:lapis_quartz_checker",
+    "simplebuilding:blackstone_quartz_checker",
+    "simplebuilding:resin_quartz_checker",
+    "simplebuilding:nihilith_quartz_checker",
+    "simplebuilding:astralit_quartz_checker"
   ]
 }

@@ -270,22 +270,24 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 shaped(RecipeCategory.TOOLS, ModItems.BACKPACK)
                         .pattern("NSN")
                         .pattern("PPP")
-                        .pattern("III")
+                        .pattern("WWW")
                         .define('N', Items.COPPER_NUGGET)
                         .define('S', Items.STRING)
                         .define('P', ModItems.LEATHER_SHEET)
-                        .define('I', Items.IRON_BARS)
+                        // Holzdruckplatten als steifer Boden: jede Holzart per Tag, billiger als Eisengitter
+                        .define('W', tag(ItemTags.WOODEN_PRESSURE_PLATES))
                         .unlockedBy(getHasName(ModItems.LEATHER_SHEET), has(ModItems.LEATHER_SHEET))
                         .save(output);
 
                 // Verstaerkter Rucksack: eigener Rezepttyp, der den Rucksack aus dem Raster mit
                 // Inhalt, Verzauberungen und Name uebernimmt (ein crafting_shaped wuerde ihn leeren).
                 ShapedRecipePattern reinforcedPattern = ShapedRecipePattern.of(java.util.Map.of(
+                                'S', Ingredient.of(Items.STRING),
                                 'D', Ingredient.of(ModItems.DIAMOND_PEBBLE),
                                 'L', Ingredient.of(ModItems.LEATHER_SHEET),
                                 'B', Ingredient.of(ModItems.BACKPACK)),
-                        "DLD",
-                        "LBL",
+                        " S ",
+                        "DBD",
                         "LLL");
                 ResourceKey<Recipe<?>> reinforcedId = ResourceKey.create(Registries.RECIPE,
                         Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "reinforced_backpack"));
@@ -630,6 +632,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createCheckerRecipe(output, ModBlocks.BLACKSTONE_QUARTZ_CHECKER, Items.BLACKSTONE);
                 // Resin Placeholder (z.B. Red Nether Bricks)
                 createCheckerRecipe(output, ModBlocks.RESIN_QUARTZ_CHECKER, Items.RED_NETHER_BRICKS);
+                // End-Schachbretter: Splitter bzw. Staub stehen direkt fuer den farbigen Block
+                createCheckerRecipe(output, ModBlocks.NIHILITH_QUARTZ_CHECKER, ModItems.NIHILITH_SHARD);
+                createCheckerRecipe(output, ModBlocks.ASTRALIT_QUARTZ_CHECKER, ModItems.ASTRALIT_DUST);
 
                 // --- ASTRAL / NIHIL BLOCKS (8 Block + 1 Powder/Shard) ---
                 createCoatingRecipe(output, ModBlocks.ASTRAL_PURPUR_BLOCK, Items.PURPUR_BLOCK, ModItems.ASTRALIT_DUST);

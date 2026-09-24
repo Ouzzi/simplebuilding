@@ -3,6 +3,7 @@ package com.simplebuilding.forge;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.util.ConstructorsTouchInteraction;
 import com.simplebuilding.util.DynamicLightHandler;
+import com.simplebuilding.util.EnderiteLifetime;
 import com.simplebuilding.util.LegacySpatulaMigration;
 import com.simplebuilding.util.SledgehammerEntityInteraction;
 import com.simplebuilding.util.SledgehammerUsageEvent;
@@ -15,6 +16,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -119,5 +121,19 @@ public final class ForgeGameplayEvents {
         for (ServerPlayer player : event.server().getPlayerList().getPlayers()) {
             DynamicLightHandler.tick(player);
         }
+    }
+
+    /**
+     * Enderit ab dem Barren liegt doppelt so lange, siehe {@link EnderiteLifetime}. Abbrechen
+     * verlaengert die Lebensdauer um {@code extraLife} (EventBus 7: true = abbrechen).
+     */
+    @SubscribeEvent
+    public static boolean onItemExpire(ItemExpireEvent event) {
+        int extra = EnderiteLifetime.extraLife(event.getEntity().getItem(), event.getEntity().lifespan);
+        if (extra <= 0) {
+            return false;
+        }
+        event.setExtraLife(extra);
+        return true;
     }
 }

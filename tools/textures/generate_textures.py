@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
-Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel und die Enderit-Maschinen.
+Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Maschinen und die
+Nihilith-/Astralit-Quarz-Schachbretter.
 
 Aufruf (aus dem Repo-Wurzelverzeichnis oder von ueberall):
 
@@ -1012,6 +1013,80 @@ def render_strip(name, frames, palette):
 
 # Animationsparameter wie bei den netherite_*-Gegenstuecken; der Generator schreibt die
 # .png.mcmeta mit, sonst zeigte Minecraft den Streifen gestaucht als ein Bild.
+# ---------------------------------------------------------------------------
+# Quarz-Schachbretter aus End-Material (Nihilith, Astralit)
+# ---------------------------------------------------------------------------
+# Aufbau wie die bestehenden, von Hand gemalten Schachbretter (lapis_quartz_checker usw.):
+# vier 8x8-Felder, oben links und unten rechts Quarz, sonst das farbige Material; die
+# _mirror-Variante ist die waagerecht gespiegelte Flaeche (die Seiten des Saeulenblocks).
+# Das Quarzfeld ist aus lapis_quartz_checker uebernommen, damit alle Schachbretter dasselbe
+# Quarz zeigen; die Materialfelder sind neu gezeichnet.
+CHECKER_QUARTZ = [
+    "abaaaaaa",
+    "afgbbbbh",
+    "abbbbbfl",
+    "abbffffl",
+    "agfggggh",
+    "abbbbggh",
+    "bgbffffl",
+    "hhhhllll",
+]
+CHECKER_QUARTZ_PAL = {
+    "a": "#f2efed", "b": "#eeeae6", "f": "#eee6de", "g": "#eae2da", "h": "#e2ded0", "l": "#ddd9cb",
+}
+
+# Nihilith: dunkler, kristalliner Splitter - diagonale Bruchkanten mit tuerkisem Glanz, die
+# Farben stammen aus item/nihilith_shard (plus ein tieferer Randton).
+NIHILITH_CHECKER_FIELD = [
+    "22322234",
+    "21443546",
+    "34135446",
+    "24354156",
+    "35441367",
+    "24513457",
+    "35135657",
+    "46667677",
+]
+NIHILITH_CHECKER_PAL = {
+    "1": "#7bb4b8", "2": "#5f93a3", "3": "#4b8f93", "4": "#356889",
+    "5": "#48516f", "6": "#3f4b71", "7": "#2c3552",
+}
+
+# Astralit: rosa Sternenstaub - ein Vierzackstern oben links und ein Funke unten rechts,
+# Farben aus item/astralit_dust (plus hellster Sternton und tiefster Randton).
+ASTRALIT_CHECKER_FIELD = [
+    "23223224",
+    "34144346",
+    "21114456",
+    "34145446",
+    "24454356",
+    "35443147",
+    "24544357",
+    "46676677",
+]
+ASTRALIT_CHECKER_PAL = {
+    "1": "#f6d6e8", "2": "#d890b1", "3": "#cc8299", "4": "#ba7d8e",
+    "5": "#b16086", "6": "#a8527a", "7": "#8a3f63",
+}
+
+
+def checker_rows(field):
+    """Setzt Quarz- und Materialfeld zum 16x16-Schachbrett zusammen (Quarz oben links)."""
+    return [q + m for q, m in zip(CHECKER_QUARTZ, field)] + [m + q for q, m in zip(CHECKER_QUARTZ, field)]
+
+
+def checker_textures():
+    tex = {}
+    for name, field, pal in (("nihilith_quartz_checker", NIHILITH_CHECKER_FIELD, NIHILITH_CHECKER_PAL),
+                             ("astralit_quartz_checker", ASTRALIT_CHECKER_FIELD, ASTRALIT_CHECKER_PAL)):
+        palette = dict(CHECKER_QUARTZ_PAL)
+        palette.update(pal)
+        img = render(name, checker_rows(field), palette, True)
+        tex[f"block/{name}.png"] = img
+        tex[f"block/{name}_mirror.png"] = img.transpose(Image.FLIP_LEFT_RIGHT)
+    return tex
+
+
 ENDERITE_ANIMATIONS = {
     "block/enderite_smoker_front_on.png": {"interpolate": False, "frametime": 4},
     "block/enderite_blast_furnace_front_on.png": {"frametime": 20, "interpolate": True},
@@ -1103,6 +1178,7 @@ def build():
         tex[f"item/{metal}_spatula.png"] = render(f"{metal}_spatula", SPATULA, pal, False)
 
     tex.update(enderite_machine_textures())
+    tex.update(checker_textures())
     return tex
 
 
@@ -1317,6 +1393,15 @@ def machine_preview_groups(tex):
     return groups
 
 
+def checker_wall(img, scale=4):
+    """2x2 gekachelte Flaeche, damit man das Muster ueber Blockgrenzen hinweg sieht."""
+    wall = Image.new("RGBA", (32, 32))
+    for dx in (0, 16):
+        for dy in (0, 16):
+            wall.paste(img.convert("RGBA"), (dx, dy))
+    return wall.resize((32 * scale, 32 * scale), Image.NEAREST)
+
+
 def build_preview(tex):
     scale = 8
     cell = 16 * scale
@@ -1341,6 +1426,10 @@ def build_preview(tex):
                                                   for f in ("front", "back", "side", "top")],
                        [render_iso(faces, back) for back in (False, True)]))
     groups += machine_preview_groups(tex)
+    groups.append(("Quarz-Schachbrett", [("block/lapis_quartz_checker.png", None)]
+                   + [(k, tex[k]) for k in ("block/nihilith_quartz_checker.png", "block/nihilith_quartz_checker_mirror.png",
+                                            "block/astralit_quartz_checker.png", "block/astralit_quartz_checker_mirror.png")],
+                   [checker_wall(tex[f"block/{n}_quartz_checker.png"]) for n in ("nihilith", "astralit")]))
     width = max(pad + len(items) * (cell + pad) + sum(iso.width + pad for iso in isos) + pad
                 for _, items, isos in groups)
     height = pad + len(groups) * (16 + cell + label_h + pad + 4)

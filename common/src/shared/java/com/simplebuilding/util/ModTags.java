@@ -85,6 +85,30 @@ public class ModTags {
                             || VOID_PROTECTED_EXTRA_PATHS.contains(id.getPath()));
         }
 
+        /**
+         * Alles ab dem Enderit-Barren aufwaerts (Barren, Nugget, Block, Werkzeuge, Ruestung,
+         * aufgewertete Gegenstaende und Maschinen). Als liegengelassenes Item verschwindet es erst
+         * nach {@link #ENDERITE_INGOT_TIER_LIFETIME} statt nach den 6000 Vanilla-Ticks;
+         * ausgewertet von {@code com.simplebuilding.mixin.EnderiteItemMixin}. Befuellt wird der
+         * Tag per Datagen ueber {@link #isEnderiteIngotTierByRule(Identifier)}.
+         */
+        public static final TagKey<Item> ENDERITE_INGOT_TIER = createTag("enderite_ingot_tier");
+
+        /** Doppelte Vanilla-Lebensdauer eines Item-Entities (6000 Ticks = 5 Minuten). */
+        public static final int ENDERITE_INGOT_TIER_LIFETIME = 12000;
+
+        /**
+         * Enderit-Pfade vor dem Barren (Rohstoff und Schrott) und die Schmiedevorlage, die nicht
+         * aus dem Barren entsteht, sondern aus Diamanten und Endstein kopiert wird.
+         */
+        public static final Set<String> ENDERITE_INGOT_TIER_EXCLUDED_PATHS =
+                Set.of("raw_enderite", "enderite_scrap", "enderite_upgrade_template");
+
+        /** Die Regel fuer {@link #ENDERITE_INGOT_TIER}; Datagen und Gametest teilen sie. */
+        public static boolean isEnderiteIngotTierByRule(Identifier id) {
+            return isVoidProtectedByRule(id) && !ENDERITE_INGOT_TIER_EXCLUDED_PATHS.contains(id.getPath());
+        }
+
         private static TagKey<Item> createTag(String name) {
             return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name));
         }

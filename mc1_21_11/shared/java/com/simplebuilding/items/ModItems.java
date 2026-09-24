@@ -172,6 +172,10 @@ public class ModItems {
 
     public static final Item RESIN_QUARTZ_CHECKER = registerItem("resin_quartz_checker", s -> new BlockItem(ModBlocks.RESIN_QUARTZ_CHECKER, s));
 
+    public static final Item NIHILITH_QUARTZ_CHECKER = registerItem("nihilith_quartz_checker", s -> new BlockItem(ModBlocks.NIHILITH_QUARTZ_CHECKER, s));
+
+    public static final Item ASTRALIT_QUARTZ_CHECKER = registerItem("astralit_quartz_checker", s -> new BlockItem(ModBlocks.ASTRALIT_QUARTZ_CHECKER, s));
+
 
 
     public static final Item ASTRAL_PURPUR_BLOCK = registerItem("astral_purpur_block", s -> new BlockItem(ModBlocks.ASTRAL_PURPUR_BLOCK, s));
@@ -239,7 +243,7 @@ public class ModItems {
 
 
 
-    public static final Item ENDERITE_BLOCK_ITEM = registerItem("enderite_block", s -> new BlockItem(ModBlocks.ENDERITE_BLOCK, s));
+    public static final Item ENDERITE_BLOCK_ITEM = registerItem("enderite_block", s -> new BlockItem(ModBlocks.ENDERITE_BLOCK, s.fireResistant()));
 
     public static final Item NIHILITH_ORE_ITEM = registerItem("nihilith_ore", s -> new BlockItem(ModBlocks.NIHILITH_ORE, s));
 
@@ -263,9 +267,9 @@ public class ModItems {
 
     public static final Item DIAMOND_CORE = registerItem("diamond_core", s -> new Item(s.stacksTo(16)));
 
-    public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new Item(s.stacksTo(16)));
+    public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new Item(s.stacksTo(16).fireResistant()));
 
-    public static final Item ENDERITE_CORE = registerItem("enderite_core", s -> new Item(s.stacksTo(16)));
+    public static final Item ENDERITE_CORE = registerItem("enderite_core", s -> new Item(s.stacksTo(16).fireResistant()));
 
 
 
@@ -714,9 +718,18 @@ public class ModItems {
 
 
 
+    /**
+     * Netherit- und Enderit-Werkzeuge der Mod erben die Netherit-Eigenschaft, in Feuer und Lava
+     * nicht zu verbrennen - wie Vanilla-Netheritwerkzeuge; Enderit enthaelt Netherit. Frueher
+     * fehlte sie etwa dem Enderit-Vorschlaghammer, waehrend Enderit-Schwert und -Spitzhacke sie hatten.
+     */
+    private static Item.Properties netheriteTraits(String name, Item.Properties settings) {
+        return name.startsWith("netherite_") || name.startsWith("enderite_") ? settings.fireResistant() : settings;
+    }
+
     private static ChiselItem registerChisel(String name, int maxDamage, int cooldownTicks, int enchantability, ToolMaterial tier) {
 
-        ChiselItem chisel = (ChiselItem) registerItem(name, settings -> new ChiselItem(tier, settings.durability(maxDamage).enchantable(enchantability)));
+        ChiselItem chisel = (ChiselItem) registerItem(name, settings -> new ChiselItem(tier, netheriteTraits(name, settings).durability(maxDamage).enchantable(enchantability)));
 
         chisel.setCooldownTicks(cooldownTicks);
 
@@ -728,7 +741,7 @@ public class ModItems {
 
     private static ChiselItem registerSpatula(String name, int maxDamage, int cooldownTicks, int enchantability, ToolMaterial tier) {
 
-        ChiselItem spatula = (ChiselItem) registerItem(name, settings -> new ChiselItem(tier, settings.durability(maxDamage).enchantable(enchantability)));
+        ChiselItem spatula = (ChiselItem) registerItem(name, settings -> new ChiselItem(tier, netheriteTraits(name, settings).durability(maxDamage).enchantable(enchantability)));
 
         spatula.setCooldownTicks(cooldownTicks);
 
@@ -746,7 +759,7 @@ public class ModItems {
 
     private static BuildingWandItem registerBuildingWand(String name, int maxDamage, int wandSquareDiameter, int enchantability) {
 
-        BuildingWandItem wand = (BuildingWandItem) registerItem(name, settings -> new BuildingWandItem(settings.durability(maxDamage).enchantable(enchantability)));
+        BuildingWandItem wand = (BuildingWandItem) registerItem(name, settings -> new BuildingWandItem(netheriteTraits(name, settings).durability(maxDamage).enchantable(enchantability)));
 
         wand.setWandSquareDiameter(wandSquareDiameter);
 
@@ -758,7 +771,7 @@ public class ModItems {
 
     private static SledgehammerItem registerSledgehammer(String name, int durability, int enchantability, ToolMaterial toolMaterial, int attackDamage, float attackSpeed) {
 
-        return (SledgehammerItem) registerItem(name, settings -> new SledgehammerItem(toolMaterial, attackDamage, attackSpeed, durability, settings.durability(durability).enchantable(enchantability)));
+        return (SledgehammerItem) registerItem(name, settings -> new SledgehammerItem(toolMaterial, attackDamage, attackSpeed, durability, netheriteTraits(name, settings).durability(durability).enchantable(enchantability)));
 
     }
 

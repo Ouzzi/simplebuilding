@@ -268,9 +268,10 @@ public final class BackpackTests {
      * Crafting and smithing a backpack up keeps everything it carries.
      *
      * <ul>
-     *   <li><b>Basic recipe:</b> {@code NSN / PPP / III} (copper nuggets, string, leather sheets, iron
-     *       bars) crafts one empty backpack.</li>
-     *   <li><b>Reinforced recipe</b> ({@code simplebuilding:backpack_upgrade}, {@code DLD / LBL / LLL}):
+     *   <li><b>Basic recipe:</b> {@code NSN / PPP / WWW} (copper nuggets, string, leather sheets, any
+     *       wooden pressure plates, mixed woods allowed) crafts one empty backpack; the former iron
+     *       bars no longer do.</li>
+     *   <li><b>Reinforced recipe</b> ({@code simplebuilding:backpack_upgrade}, {@code " S " / DBD / LLL}):
      *       contents, name and enchantments of the backpack in the middle arrive on the reinforced one.
      *       The same items with the backpack in a corner craft nothing.</li>
      *   <li><b>Netherite and enderite smithing</b> keep them too, and an item in the netherite
@@ -289,9 +290,15 @@ public final class BackpackTests {
         ItemStack n = new ItemStack(Items.COPPER_NUGGET);
         ItemStack s = new ItemStack(Items.STRING);
         ItemStack p = new ItemStack(ModItems.LEATHER_SHEET);
-        ItemStack b = new ItemStack(Items.IRON_BARS);
-        ItemStack basic = craft(helper, level, CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, b, b, b)),
-                "copper nuggets, string, leather sheets and iron bars", "simplebuilding:backpack");
+        ItemStack oak = new ItemStack(Items.OAK_PRESSURE_PLATE);
+        ItemStack cherry = new ItemStack(Items.CHERRY_PRESSURE_PLATE);
+        ItemStack crimson = new ItemStack(Items.CRIMSON_PRESSURE_PLATE);
+        ItemStack basic = craft(helper, level, CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, oak, cherry, crimson)),
+                "copper nuggets, string, leather sheets and mixed wooden pressure plates", "simplebuilding:backpack");
+        ItemStack bars = new ItemStack(Items.IRON_BARS);
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
+                        CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, bars, bars, bars)), level).isEmpty(),
+                "the old backpack pattern with iron bars still crafts something");
         helper.assertTrue(basic.is(ModItems.BACKPACK) && basic.getCount() == 1,
                 "the backpack pattern crafts " + basic + " instead of one backpack");
         helper.assertTrue(BackpackItem.contents(basic).isEmpty(), "a freshly crafted backpack is not empty");
@@ -303,7 +310,7 @@ public final class BackpackTests {
         worn.enchant(enchantment(helper, ModEnchantments.FUNNEL), 1);
 
         ItemStack d = new ItemStack(ModItems.DIAMOND_PEBBLE);
-        ItemStack reinforced = craft(helper, level, CraftingInput.of(3, 3, List.of(d, p, d, p, worn, p, p, p, p)),
+        ItemStack reinforced = craft(helper, level, CraftingInput.of(3, 3, List.of(ItemStack.EMPTY, s, ItemStack.EMPTY, d, worn, d, p, p, p)),
                 "the reinforced backpack pattern", "simplebuilding:reinforced_backpack");
         helper.assertTrue(reinforced.is(ModItems.REINFORCED_BACKPACK),
                 "the reinforced backpack pattern crafts " + reinforced);
@@ -311,7 +318,7 @@ public final class BackpackTests {
                 "contents the reinforced backpack kept from the backpack it was made of");
         assertKeptNameAndFunnel(helper, reinforced, "Kit", "the reinforced backpack");
         helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
-                        CraftingInput.of(3, 3, List.of(worn, p, d, p, d, p, p, p, p)), level).isEmpty(),
+                        CraftingInput.of(3, 3, List.of(ItemStack.EMPTY, s, ItemStack.EMPTY, worn, d, d, p, p, p)), level).isEmpty(),
                 "the reinforced backpack pattern with the backpack in a corner crafts something, so the "
                         + "upgrade recipe is not shaped");
 

@@ -188,6 +188,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(key(ModItems.CRACKED_DIAMOND));
 
         addVoidProtected();
+        addEnderiteIngotTier();
     }
 
     /**
@@ -209,6 +210,21 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         var voidProtected = builder(ModTags.Items.VOID_PROTECTED);
         for (Identifier id : ids) {
             voidProtected.add(ResourceKey.create(Registries.ITEM, id));
+        }
+    }
+
+    /** Befuellt {@link ModTags.Items#ENDERITE_INGOT_TIER} nach derselben Art wie den Void-Tag. */
+    private void addEnderiteIngotTier() {
+        Set<Identifier> ids = new TreeSet<>(Comparator.comparing(Identifier::toString));
+        for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            if (ModTags.Items.isEnderiteIngotTierByRule(id)) {
+                ids.add(id);
+            }
+        }
+
+        var tier = builder(ModTags.Items.ENDERITE_INGOT_TIER);
+        for (Identifier id : ids) {
+            tier.add(ResourceKey.create(Registries.ITEM, id));
         }
     }
 }

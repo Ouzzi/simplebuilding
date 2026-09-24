@@ -60,4 +60,9 @@ public final class DataIntegrityGameTest {
     public void generatedEnchantmentFilesStillMatchTheirSource(GameTestHelper helper) {
         DataIntegrityTests.generatedEnchantmentFilesStillMatchTheirSource(helper);
     }
+
+    @GameTest
+    public void quartzCheckersAreMinedByPickaxeAndCraftedFromTheirMaterial(GameTestHelper helper) {
+        DataIntegrityTests.quartzCheckersAreMinedByPickaxeAndCraftedFromTheirMaterial(helper);
+    }
 }

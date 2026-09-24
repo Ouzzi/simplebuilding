@@ -40,4 +40,14 @@ public final class EnderiteMachineGameTest {
     public void enderiteMachinesFitTheirBlockEntityTypesAndTitles(GameTestHelper helper) {
         EnderiteMachineTests.enderiteMachinesFitTheirBlockEntityTypesAndTitles(helper);
     }
+
+    @GameTest(maxTicks = EnderiteMachineTests.LIFETIME_MAX_TICKS)
+    public void enderiteIngotTierDropsLastTwiceAsLongAsVanilla(GameTestHelper helper) {
+        EnderiteMachineTests.enderiteIngotTierDropsLastTwiceAsLongAsVanilla(helper);
+    }
+
+    @GameTest
+    public void enderiteGearInheritsEveryNetheriteTrait(GameTestHelper helper) {
+        EnderiteMachineTests.enderiteGearInheritsEveryNetheriteTrait(helper);
+    }
 }

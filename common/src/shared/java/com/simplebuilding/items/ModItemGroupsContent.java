@@ -52,6 +52,8 @@ public final class ModItemGroupsContent {
                         entries.accept(ModItems.LAPIS_QUARTZ_CHECKER);
                         entries.accept(ModItems.BLACKSTONE_QUARTZ_CHECKER);
                         entries.accept(ModItems.RESIN_QUARTZ_CHECKER);
+                        entries.accept(ModItems.NIHILITH_QUARTZ_CHECKER);
+                        entries.accept(ModItems.ASTRALIT_QUARTZ_CHECKER);
 
                         // --- Astral / Nihil Blocks ---
                         entries.accept(ModItems.ASTRAL_PURPUR_BLOCK);
