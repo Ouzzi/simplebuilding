@@ -1128,8 +1128,10 @@ public final class FurnaceTests {
     /**
      * Pipes and other mods reach a block through the loader's item transfer API, not through the
      * {@code Container} a vanilla hopper talks to - NeoForge's {@code Capabilities.Item.BLOCK},
-     * Fabric's {@code ItemStorage.SIDED}. NeoForge attaches that capability to the vanilla block entity
-     * types only, so the mod's four block entity types need it registered explicitly. Every one of the
+     * Fabric's {@code ItemStorage.SIDED}, Forge's {@code ForgeCapabilities.ITEM_HANDLER}. NeoForge
+     * attaches that capability to the vanilla block entity types only, so the mod's four block entity
+     * types need it registered explicitly; Forge attaches it in the patched vanilla base classes the
+     * machines extend, so there it is inherited. Every one of the
      * twelve machines is asked through that API, face by face, with vanilla's furnace semantics: the
      * input goes in from above, coal from the side, the input is refused at the side, the result comes
      * out at the bottom and the fuel does not. The hoppers take an item from above and give it back at

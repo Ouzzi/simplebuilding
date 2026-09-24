@@ -1032,17 +1032,10 @@ LOADER_ONLY_TESTS: dict[str, dict[str, str]] = {
 #: LINE_DIFFERENCES, per loader: a declared, explained gap instead of a red run nobody reads any
 #: more. The runner records them as "known" while they fail and turns the entry into an error the
 #: moment such a test passes.
-LOADER_KNOWN_FAILURES: dict[str, dict[str, str]] = {
-    "forge-262": {
-        "config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders":
-            "Forge 65 has no config load condition for the trade jsons (they carry "
-            "fabric:load_conditions and neoforge:conditions only), so the trade switches of the "
-            "config have no effect on Forge yet",
-        "furnace_game_test_every_machine_offers_its_slots_to_pipes_through_the_loader_api":
-            "Forge installs no ItemAutomation yet (NeoForge: NeoForgeItemAutomation, Fabric: "
-            "FabricItemAutomation) - hoppers and pipes of other mods do not see the machine slots",
-    },
-}
+#: EMPTY since 2026-09-24: the two Forge gaps it held are closed - the trade jsons carry a
+#: "forge:condition" read by com.simplebuilding.forge.ConfigLoadCondition, and ForgeItemAutomation
+#: answers through ForgeCapabilities.ITEM_HANDLER.
+LOADER_KNOWN_FAILURES: dict[str, dict[str, str]] = {}
 
 
 #: How far each client target is behind the richest one right now, and why that is still
