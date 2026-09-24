@@ -561,21 +561,30 @@ def run_target(
     test_filter: str | None,
     timeout: int,
     on_line: callable | None = None,
+    shared_run: tuple[int, str, bool, int, float] | None = None,
 ) -> dict:
-    """Runs one target and returns its part of the record."""
-    command = [*gradlew(), target.gradle_task]
-    if test_filter:
-        command.append(f"-PgametestFilter={test_filter}")
+    """Runs one target and returns its part of the record.
 
-    started_at = now_utc()
-    # A one second slack: the report is written moments before Gradle returns,
-    # and file system timestamps are not always finer grained than a second.
-    fresh_after = time.time() - 1.0
+    With ``shared_run`` the target already ran inside one parallel Gradle call together with
+    the other server targets (see ``run_server_targets_in_parallel``); only the evaluation of
+    its own report happens here.
+    """
+    if shared_run is not None:
+        exit_code, output, timed_out, duration_ms, fresh_after = shared_run
+    else:
+        command = [*gradlew(), target.gradle_task]
+        if test_filter:
+            command.append(f"-PgametestFilter={test_filter}")
 
-    if on_line:
-        on_line(f"$ {' '.join(command)}")
-    exit_code, output, timed_out = run_capture(command, timeout)
-    duration_ms = int((now_utc() - started_at).total_seconds() * 1000)
+        started_at = now_utc()
+        # A one second slack: the report is written moments before Gradle returns,
+        # and file system timestamps are not always finer grained than a second.
+        fresh_after = time.time() - 1.0
+
+        if on_line:
+            on_line(f"$ {' '.join(command)}")
+        exit_code, output, timed_out = run_capture(command, timeout)
+        duration_ms = int((now_utc() - started_at).total_seconds() * 1000)
 
     RUNS_DIR.mkdir(parents=True, exist_ok=True)
     log_path = RUNS_DIR / f"{run_id}-{target.id}.log"
@@ -647,6 +656,29 @@ def run_target(
     }
 
 
+def run_server_targets_in_parallel(
+    servers: list[Target], test_filter: str | None, timeout: int, on_line: callable | None
+) -> tuple[int, str, bool, int, float]:
+    """Runs all server targets in ONE Gradle call with --parallel.
+
+    The server targets live in different Gradle projects with their own run directories and
+    worlds, so Gradle may run them side by side. One call instead of several parallel calls:
+    separate Gradle processes on the same build would fight over its locks. The client targets
+    stay serial - each one steers mouse and focus of its own window.
+    Opt out with SIMPLEBUILDING_SERIAL_TESTS=1.
+    """
+    command = [*gradlew(), "--parallel", "--continue", *[t.gradle_task for t in servers]]
+    if test_filter:
+        command.append(f"-PgametestFilter={test_filter}")
+    started_at = now_utc()
+    fresh_after = time.time() - 1.0
+    if on_line:
+        on_line(f"$ {' '.join(command)}")
+    exit_code, output, timed_out = run_capture(command, timeout * len(servers))
+    duration_ms = int((now_utc() - started_at).total_seconds() * 1000)
+    return exit_code, output, timed_out, duration_ms, fresh_after
+
+
 def execute(
     selected: list[Target],
     test_filter: str | None,
@@ -661,10 +693,16 @@ def execute(
     props = gradle_properties()
 
     target_records: list[dict] = []
+    servers = [t for t in selected if t.kind != "client"]
+    shared = None
+    if len(servers) > 1 and os.environ.get("SIMPLEBUILDING_SERIAL_TESTS") != "1":
+        shared = run_server_targets_in_parallel(servers, test_filter, timeout, on_line)
     for target in selected:
         if on_target:
             on_target(target)
-        if target.kind == "client":
+        if shared is not None and target in servers:
+            target_records.append(run_target(target, run_id, test_filter, timeout, on_line, shared))
+        elif target.kind == "client":
             # A test selector means nothing here: the client tests are whole scenes, not a
             # catalogue of ids that can be picked from.
             target_records.append(run_client_target(target, run_id, timeout))
