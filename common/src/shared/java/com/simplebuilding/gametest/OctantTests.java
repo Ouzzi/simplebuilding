@@ -648,6 +648,8 @@ public final class OctantTests {
             fillCauldron(helper, cauldron, 3);
             ItemStack stack = new ItemStack(dyed);
             setSelection(stack, FIRST_CORNER, SECOND_CORNER, true);
+            stack.setDamageValue(3);
+            stack.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Survey"));
             player.setItemInHand(InteractionHand.MAIN_HAND, stack);
 
             InteractionResult washed = useBlockWithHeldItem(helper, player, cauldron);
@@ -670,6 +672,12 @@ public final class OctantTests {
                     || !carried.getBooleanOr("Locked", false)) {
                 problems.add(name + " lost data in the wash; the whole custom_data component is "
                         + "supposed to carry over untouched, it now holds " + carried);
+            }
+
+            // Verzauberungen und Haltbarkeit fehlten frueher nach dem Waschen (neuer Stack statt transmuteCopy).
+            if (afterwards.getDamageValue() != 3 || !afterwards.has(net.minecraft.core.component.DataComponents.CUSTOM_NAME)) {
+                problems.add(name + " lost its damage or name in the wash: damage " + afterwards.getDamageValue()
+                        + ", name " + afterwards.get(net.minecraft.core.component.DataComponents.CUSTOM_NAME));
             }
 
             if (!levelChecked) {

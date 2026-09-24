@@ -5,7 +5,6 @@ import com.simplebuilding.items.custom.OctantItem;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.cauldron.CauldronInteraction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.DyeColor;
@@ -30,10 +29,9 @@ public final class OctantCauldronWash {
             return InteractionResult.PASS;
         }
         if (!world.isClientSide()) {
-            ItemStack newStack = new ItemStack(ModItems.OCTANT);
-            if (stack.has(DataComponents.CUSTOM_DATA)) {
-                newStack.set(DataComponents.CUSTOM_DATA, stack.get(DataComponents.CUSTOM_DATA));
-            }
+            // transmuteCopy uebernimmt alle geaenderten Komponenten (Ecken, Verzauberungen, Haltbarkeit, Name) -
+            // ein neuer Oktant mit nur CUSTOM_DATA verlor beim Waschen Verzauberungen und Schaden.
+            ItemStack newStack = stack.transmuteCopy(ModItems.OCTANT, stack.getCount());
             player.setItemInHand(hand, newStack);
             player.awardStat(Stats.CLEAN_ARMOR);
             LayeredCauldronBlock.lowerFillLevel(state, world, pos);
