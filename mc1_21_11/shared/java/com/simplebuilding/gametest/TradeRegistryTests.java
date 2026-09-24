@@ -18,12 +18,12 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.trading.ItemCost;
 
 /**
- * The mod ships 20 villager trades. On the 26.2 line those are data files and the test asks the
+ * The mod ships 21 villager trades. On the 26.2 line those are data files and the test asks the
  * {@code villager_trade} datapack registry for them; MC 1.21.11 has no such registry - trades are
  * plain {@code VillagerTrades.ItemListing}s built from the loader-neutral table in
  * {@link ModTradeDefinitions}.
  *
- * <p>The equivalent question here is therefore: does that table still describe all 20 offers, and
+ * <p>The equivalent question here is therefore: does that table still describe all 21 offers, and
  * does every item / enchantment it names actually exist in the running server? A typo in an
  * enchantment key or an item that lost its registration would otherwise only blow up when a
  * merchant happens to roll that offer.
@@ -34,7 +34,7 @@ import net.minecraft.world.item.trading.ItemCost;
 public final class TradeRegistryTests {
 
     private static final int EXPECTED_VILLAGER_TRADES = 12;
-    private static final int EXPECTED_WANDERING_TRADES = 8;
+    private static final int EXPECTED_WANDERING_TRADES = 9;
     private static final int EXPECTED_TRADES = EXPECTED_VILLAGER_TRADES + EXPECTED_WANDERING_TRADES;
 
     public static void allModTradesResolveAgainstTheServerRegistries(GameTestHelper helper) {
