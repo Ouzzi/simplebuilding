@@ -16,7 +16,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
@@ -95,6 +100,19 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         dropSelf(ModBlocks.LEVITATING_SAND);
         dropSelf(ModBlocks.LEVITATING_GRAVEL);
 
+        // Rucksaecke: immer das Rucksack-Item mit allen Komponenten des Blocks (Inhalt, Name,
+        // Verzauberungen). Bewusst ohne survives_explosion und ohne Werkzeugbedingung.
+        add(ModBlocks.BACKPACK, backpackDrop(ModBlocks.BACKPACK));
+        add(ModBlocks.REINFORCED_BACKPACK, backpackDrop(ModBlocks.REINFORCED_BACKPACK));
+        add(ModBlocks.NETHERITE_BACKPACK, backpackDrop(ModBlocks.NETHERITE_BACKPACK));
+        add(ModBlocks.ENDERITE_BACKPACK, backpackDrop(ModBlocks.ENDERITE_BACKPACK));
+    }
+
+    private static LootTable.Builder backpackDrop(Block block) {
+        return LootTable.lootTable().withPool(LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(block)
+                        .apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY))));
     }
 
     public static void modifyLootTables() {

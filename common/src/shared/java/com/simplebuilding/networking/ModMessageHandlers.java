@@ -2,7 +2,10 @@ package com.simplebuilding.networking;
 
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.items.custom.BackpackItem;
 import com.simplebuilding.items.custom.BuildingWandItem;
+import com.simplebuilding.platform.BackpackMenus;
+import com.simplebuilding.screen.BackpackMenuProviders;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.screen.ModHopperScreenHandler;
@@ -236,5 +239,48 @@ public final class ModMessageHandlers {
                 return;
             }
         }
+
+        // Getragener Rucksack - wie bei Buendeln nur mit Meisterbauer auf dem Rucksack selbst.
+        // Genommen wird hoechstens ein normaler Stapel (ein Tiefe-Taschen-Stapel kann groesser sein).
+        ItemStack backpack = BackpackItem.wornBackpackWith(player, ModEnchantments.MASTER_BUILDER);
+        if (backpack.isEmpty()) {
+            return;
+        }
+        int entry = BackpackItem.findEntry(backpack, s -> ItemStack.isSameItem(s, requestedItem));
+        if (entry < 0) {
+            return;
+        }
+        int selectedSlot = inv.getSelectedSlot();
+        ItemStack currentHandStack = player.getMainHandItem();
+        int freeSlot = -1;
+        if (!currentHandStack.isEmpty()) {
+            freeSlot = inv.getFreeSlot();
+            if (freeSlot == -1) {
+                return;
+            }
+        }
+        ItemStack picked = BackpackItem.take(backpack, entry, BackpackItem.entryStack(backpack, entry).getMaxStackSize());
+        if (picked.isEmpty()) {
+            return;
+        }
+        if (freeSlot != -1) {
+            inv.setItem(freeSlot, currentHandStack);
+        }
+        inv.setItem(selectedSlot, picked);
+        player.level().playSound(null, player.getX(), player.getY(), player.getZ(), net.minecraft.sounds.SoundEvents.BUNDLE_REMOVE_ONE, player.getSoundSource(), 1.0f, 1.0f);
+        inv.setChanged();
+        player.inventoryMenu.broadcastChanges();
+    }
+
+    /**
+     * Rucksack-Taste: oeffnet das Menue des getragenen Rucksacks. Ohne getragenen Rucksack, tot,
+     * als Zuschauer oder bei schon offenem Menue passiert nichts
+     * ({@link BackpackMenuProviders#canOpenWorn}).
+     */
+    public static void handleOpenBackpack(OpenBackpackPayload payload, ServerPlayer player) {
+        if (!BackpackMenuProviders.canOpenWorn(player)) {
+            return;
+        }
+        BackpackMenus.openWorn(player);
     }
 }

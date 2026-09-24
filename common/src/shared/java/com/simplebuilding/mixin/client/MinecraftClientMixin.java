@@ -1,6 +1,7 @@
 package com.simplebuilding.mixin.client;
 
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.items.custom.BackpackItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.networking.MasterBuilderPickPayload;
 import com.simplebuilding.platform.ClientNetworking;
@@ -78,11 +79,21 @@ public abstract class MinecraftClientMixin {
 
                         if (foundInBundle) {
                             ClientNetworking.send(new MasterBuilderPickPayload(targetStack));
-                            ci.cancel(); 
+                            ci.cancel();
                             return;
                         }
                     }
                 }
+            }
+        }
+
+        // Getragener Rucksack - wie bei Buendeln nur mit Meisterbauer auf dem Rucksack selbst.
+        ItemStack backpack = BackpackItem.wornBackpackWith(this.player, ModEnchantments.MASTER_BUILDER);
+        if (!backpack.isEmpty()) {
+            final ItemStack target = targetStack;
+            if (BackpackItem.findEntry(backpack, s -> ItemStack.isSameItem(s, target)) >= 0) {
+                ClientNetworking.send(new MasterBuilderPickPayload(targetStack));
+                ci.cancel();
             }
         }
     }

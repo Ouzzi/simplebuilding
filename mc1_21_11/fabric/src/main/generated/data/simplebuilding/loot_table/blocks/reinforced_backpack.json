@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "source": "block_entity"
+            }
+          ],
+          "name": "simplebuilding:reinforced_backpack"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

@@ -59,6 +59,8 @@ public final class ForgeClientGameEvents {
             }
         }
 
+        com.simplebuilding.client.BackpackKeyHandler.tick(client);
+
         boolean isJumpPressed = client.options.keyJump.isDown();
         if (isJumpPressed != wasJumpPressed) {
             ClientNetworking.send(new SpaceKeyPayload(isJumpPressed));

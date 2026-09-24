@@ -151,6 +151,10 @@ public final class ModItemGroupsContent {
                         entries.accept(ModItems.REINFORCED_QUIVER);
                         entries.accept(ModItems.NETHERITE_QUIVER);
                         entries.accept(ModItems.ENDERITE_QUIVER);
+                        entries.accept(ModItems.BACKPACK);
+                        entries.accept(ModItems.REINFORCED_BACKPACK);
+                        entries.accept(ModItems.NETHERITE_BACKPACK);
+                        entries.accept(ModItems.ENDERITE_BACKPACK);
 
                         // --- Enchanted Books ---
                         // 1. Tool Utilities

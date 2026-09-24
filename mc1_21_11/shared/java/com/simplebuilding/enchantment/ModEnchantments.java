@@ -104,8 +104,8 @@ public class ModEnchantments {
 
         // Deep Pockets (Max Level II -> Bundle 128 items, II -> Bundle 256 items, Treasure, Rare) [BUNDLE]
         register(registerable, DEEP_POCKETS, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
-                items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.DEEP_POCKETS_ENCHANTABLE), // Buendel, Koecher, Rucksaecke
+                items.getOrThrow(ModTags.Items.DEEP_POCKETS_ENCHANTABLE),
                 2, // Weight (Rare)
                 2, // Max Level
                 Enchantment.dynamicCost(15, 10),
@@ -116,8 +116,8 @@ public class ModEnchantments {
 
         // Master Builder (Max Level I, allows bundle and shulker to place blocks, Treasure, Very Rare) [BUNDLE, SHULKER, BUILDING_WAND]
         register(registerable, MASTER_BUILDER, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE),
-                items.getOrThrow(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.MASTER_BUILDER_ENCHANTABLE), // wie extra_inventory_items, plus Rucksaecke
+                items.getOrThrow(ModTags.Items.MASTER_BUILDER_ENCHANTABLE),
                 1, // Weight (Very Rare)
                 1, // Max Level
                 Enchantment.dynamicCost(25, 25),
@@ -140,8 +140,8 @@ public class ModEnchantments {
 
         // Funnel
         register(registerable, FUNNEL, Enchantment.enchantment(Enchantment.definition(
-                items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE), // Nur Bundles/Shulker
-                items.getOrThrow(ModTags.Items.BUNDLE_ENCHANTABLE),
+                items.getOrThrow(ModTags.Items.FUNNEL_ENCHANTABLE), // Buendel, Koecher, Rucksaecke
+                items.getOrThrow(ModTags.Items.FUNNEL_ENCHANTABLE),
                 2, // Weight rare
                 2, // Max Level
                 Enchantment.dynamicCost(15, 15),

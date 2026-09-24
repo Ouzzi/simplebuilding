@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": "minecraft:iron_bars",
+    "N": "minecraft:copper_nugget",
+    "P": "simplebuilding:leather_sheet",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    "NSN",
+    "PPP",
+    "III"
+  ],
+  "result": {
+    "id": "simplebuilding:backpack"
+  }
+}

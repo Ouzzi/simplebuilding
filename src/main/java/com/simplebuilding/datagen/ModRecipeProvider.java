@@ -3,6 +3,7 @@ package com.simplebuilding.datagen;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.recipe.BackpackUpgradeRecipe;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
 import com.simplebuilding.recipe.ReinforcedBundleRecipe;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -19,6 +20,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeUnlockAdvancementBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
@@ -261,6 +263,46 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // Keine Stufe ueberspringen - wie bei den Buendeln wird nur der verstaerkte Koecher
                 // zum Netherit-Koecher.
                 createSmithing(ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, RecipeCategory.TOOLS);
+
+                // =================================================================
+                // RUCKSAECKE (die Lederplatte steht oben bei den Buendeln)
+                // =================================================================
+                shaped(RecipeCategory.TOOLS, ModItems.BACKPACK)
+                        .pattern("NSN")
+                        .pattern("PPP")
+                        .pattern("III")
+                        .define('N', Items.COPPER_NUGGET)
+                        .define('S', Items.STRING)
+                        .define('P', ModItems.LEATHER_SHEET)
+                        .define('I', Items.IRON_BARS)
+                        .unlockedBy(getHasName(ModItems.LEATHER_SHEET), has(ModItems.LEATHER_SHEET))
+                        .save(output);
+
+                // Verstaerkter Rucksack: eigener Rezepttyp, der den Rucksack aus dem Raster mit
+                // Inhalt, Verzauberungen und Name uebernimmt (ein crafting_shaped wuerde ihn leeren).
+                ShapedRecipePattern reinforcedPattern = ShapedRecipePattern.of(java.util.Map.of(
+                                'D', Ingredient.of(ModItems.DIAMOND_PEBBLE),
+                                'L', Ingredient.of(ModItems.LEATHER_SHEET),
+                                'B', Ingredient.of(ModItems.BACKPACK)),
+                        "DLD",
+                        "LBL",
+                        "LLL");
+                ResourceKey<Recipe<?>> reinforcedId = ResourceKey.create(Registries.RECIPE,
+                        Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "reinforced_backpack"));
+                RecipeUnlockAdvancementBuilder reinforcedUnlock = new RecipeUnlockAdvancementBuilder();
+                reinforcedUnlock.unlockedBy(getHasName(ModItems.BACKPACK), has(ModItems.BACKPACK));
+                output.accept(reinforcedId,
+                        new BackpackUpgradeRecipe(
+                                RecipeBuilder.createCraftingCommonInfo(true),
+                                RecipeBuilder.createCraftingBookInfo(RecipeCategory.TOOLS, null),
+                                reinforcedPattern,
+                                new ItemStackTemplate(itemRegistry.getOrThrow(BuiltInRegistries.ITEM.getResourceKey(ModItems.REINFORCED_BACKPACK).orElseThrow()),
+                                        1, DataComponentPatch.EMPTY)),
+                        reinforcedUnlock.build(output, reinforcedId, RecipeCategory.TOOLS));
+
+                // Netherit und Enderit am Schmiedetisch; smithing_transform behaelt alle Komponenten.
+                createSmithing(ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, RecipeCategory.TOOLS);
+                createSmithingTransform(output, ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_INGOT, RecipeCategory.TOOLS, ModItems.ENDERITE_BACKPACK);
 
 
                 // =================================================================

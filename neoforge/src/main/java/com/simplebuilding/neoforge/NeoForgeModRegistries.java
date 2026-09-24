@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
+import com.simplebuilding.blocks.entity.custom.BackpackBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModBlastFurnaceBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModFurnaceBlockEntity;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
@@ -13,10 +14,13 @@ import com.simplebuilding.blocks.entity.custom.ModSmokerBlockEntity;
 import com.simplebuilding.items.ModItemGroups;
 import com.simplebuilding.items.ModItemGroupsContent;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.recipe.BackpackUpgradeRecipe;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
 import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.recipe.ReinforcedBundleRecipe;
 import com.simplebuilding.recipe.UpgradeSmithingRecipe;
+import com.simplebuilding.screen.BackpackMenu;
+import com.simplebuilding.screen.BackpackOpenData;
 import com.simplebuilding.screen.ModScreenHandlers;
 import com.simplebuilding.screen.NetheriteHopperScreenHandler;
 import com.simplebuilding.util.ModRegistries;
@@ -88,6 +92,18 @@ public final class NeoForgeModRegistries {
                     (syncId, inventory, buffer) -> new NetheriteHopperScreenHandler(syncId, inventory, buffer.readBlockPos())
             ));
 
+    public static final Supplier<MenuType<BackpackMenu>> BACKPACK_MENU =
+            MENUS.register("backpack", () -> IMenuTypeExtension.create(
+                    (syncId, inventory, buffer) -> new BackpackMenu(syncId, inventory, BackpackOpenData.STREAM_CODEC.decode(buffer))
+            ));
+
+    public static final Supplier<BlockEntityType<BackpackBlockEntity>> BACKPACK_BE =
+            BLOCK_ENTITIES.register("backpack", () -> new BlockEntityType<>(BackpackBlockEntity::new,
+                    ModBlocks.BACKPACK, ModBlocks.REINFORCED_BACKPACK, ModBlocks.NETHERITE_BACKPACK, ModBlocks.ENDERITE_BACKPACK));
+
+    public static final Supplier<RecipeSerializer<BackpackUpgradeRecipe>> BACKPACK_UPGRADE_SERIALIZER =
+            RECIPE_SERIALIZERS.register("backpack_upgrade", () -> BackpackUpgradeRecipe.SERIALIZER);
+
     public static final Supplier<BlockEntityType<ModHopperBlockEntity>> MOD_HOPPER_BE =
             BLOCK_ENTITIES.register("mod_hopper", () -> new BlockEntityType<>(
                     ModHopperBlockEntity::new, ModBlocks.REINFORCED_HOPPER, ModBlocks.NETHERITE_HOPPER));
@@ -139,6 +155,8 @@ public final class NeoForgeModRegistries {
 
     public static void assignStaticFields() {
         ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER = NETHERITE_HOPPER_MENU.get();
+        ModScreenHandlers.BACKPACK_MENU = BACKPACK_MENU.get();
+        ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
         ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
         ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();

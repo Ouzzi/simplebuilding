@@ -16,6 +16,20 @@ public class ModTags {
         public static final TagKey<Item> BUNDLE_ENCHANTABLE = createTag("bundle_enchantable");
         public static final TagKey<Item> EXTRA_INVENTORY_ITEMS_ENCHANTABLE = createTag("extra_inventory_items");
         public static final TagKey<Item> CONSTRUCTORS_TOUCH_ENCHANTABLE = createTag("constructors_touch_enchantable");
+        /** Die vier Rucksaecke. */
+        public static final TagKey<Item> BACKPACKS = createTag("backpacks");
+        /**
+         * supported_items von Tiefe Taschen und Trichter: {@code #bundle_enchantable} plus
+         * {@code #backpacks}. Eigene Tags statt die Rucksaecke in {@code bundle_enchantable} zu legen,
+         * weil dort auch die Schublade haengt - und die soll auf keinen Rucksack.
+         */
+        public static final TagKey<Item> DEEP_POCKETS_ENCHANTABLE = createTag("deep_pockets_enchantable");
+        public static final TagKey<Item> FUNNEL_ENCHANTABLE = createTag("funnel_enchantable");
+        /**
+         * supported_items von Meisterbauer: {@code #extra_inventory_items} plus {@code #backpacks}.
+         * Eigener Tag, weil an {@code extra_inventory_items} auch die Farbpalette haengt.
+         */
+        public static final TagKey<Item> MASTER_BUILDER_ENCHANTABLE = createTag("master_builder_enchantable");
         public static final TagKey<Item> OCTANTS_ENCHANTABLE = createTag("octants_enchantable");
         public static final TagKey<Item> SLEDGEHAMMER_ENCHANTABLE = createTag("sledgehammer_tools");
         public static final TagKey<Item> BUILDING_WAND_ENCHANTABLE = createTag("building_wand_enchantable");

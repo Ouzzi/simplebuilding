@@ -12,10 +12,10 @@
     "base": 25,
     "per_level_above_first": 25
   },
-  "primary_items": "#simplebuilding:extra_inventory_items",
+  "primary_items": "#simplebuilding:master_builder_enchantable",
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#simplebuilding:extra_inventory_items",
+  "supported_items": "#simplebuilding:master_builder_enchantable",
   "weight": 1
 }

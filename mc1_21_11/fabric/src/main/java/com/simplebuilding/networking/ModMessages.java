@@ -33,6 +33,7 @@ public class ModMessages {
         PayloadTypeRegistry.playC2S().register(OctantScrollPayload.ID, OctantScrollPayload.CODEC);
         PayloadTypeRegistry.playC2S().register(BuildingWandConfigurePayload.ID, BuildingWandConfigurePayload.CODEC);
         PayloadTypeRegistry.playC2S().register(MasterBuilderPickPayload.ID, MasterBuilderPickPayload.CODEC);
+        PayloadTypeRegistry.playC2S().register(OpenBackpackPayload.ID, OpenBackpackPayload.CODEC);
 
 
         // Server -> Client (S2C)
@@ -57,6 +58,7 @@ public class ModMessages {
         receive(OctantScrollPayload.ID, ModMessageHandlers::handleOctantScroll);
         receive(BuildingWandConfigurePayload.ID, ModMessageHandlers::handleBuildingWandConfigure);
         receive(MasterBuilderPickPayload.ID, ModMessageHandlers::handleMasterBuilderPick);
+        receive(OpenBackpackPayload.ID, ModMessageHandlers::handleOpenBackpack);
 
         // Events
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {

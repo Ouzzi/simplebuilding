@@ -335,5 +335,18 @@
   "commands.simplebuilding.trim_multiplier.set": "Besatz-Multiplikator gesetzt auf: %s",
   "commands.simplebuilding.trim_multiplier.get": "Aktueller Besatz-Multiplikator: %s",
   "block.simplebuilding.enderite_block": "Enderitblock",
-  "block.simplebuilding.netherite_piston_head": "Netherit-Kolbenkopf"
+  "block.simplebuilding.netherite_piston_head": "Netherit-Kolbenkopf",
+  "item.simplebuilding.backpack": "Rucksack",
+  "item.simplebuilding.reinforced_backpack": "Verstärkter Rucksack",
+  "item.simplebuilding.netherite_backpack": "Netherit-Rucksack",
+  "item.simplebuilding.enderite_backpack": "Enderit-Rucksack",
+  "block.simplebuilding.backpack": "Rucksack",
+  "block.simplebuilding.reinforced_backpack": "Verstärkter Rucksack",
+  "block.simplebuilding.netherite_backpack": "Netherit-Rucksack",
+  "block.simplebuilding.enderite_backpack": "Enderit-Rucksack",
+  "key.simplebuilding.open_backpack": "Rucksack öffnen",
+  "tooltip.simplebuilding.backpack.slots": "%s / %s Plätze belegt",
+  "tooltip.simplebuilding.backpack.more": "...und %s weitere",
+  "tooltip.simplebuilding.backpack.open_hint": "Anziehen und %s drücken, um ihn zu öffnen",
+  "tooltip.simplebuilding.backpack.place_hint": "Schleichen + Rechtsklick auf einen Block stellt ihn ab"
 }

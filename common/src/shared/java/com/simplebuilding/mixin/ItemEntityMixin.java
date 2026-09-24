@@ -1,6 +1,7 @@
 package com.simplebuilding.mixin;
 
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.items.custom.BackpackItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -35,14 +36,17 @@ public abstract class ItemEntityMixin extends Entity {
      * hatte ihn von Anfang an, und eine Aufwertung darf nichts wegnehmen - deshalb tragen ihn das
      * Enderit-Buendel und der Enderit-Koecher als hoechste Stufe genauso. Der Netherit-Koecher steht
      * bewusst nicht in der Liste: er hatte den Schutz nie, und ihn hier zu ergaenzen waere eine
-     * Balance-Entscheidung, die niemand getroffen hat.
+     * Balance-Entscheidung, die niemand getroffen hat. Netherit- und Enderit-Rucksack sind auf
+     * Wunsch des Mod-Autors explosionsfest wie die passenden Buendel.
      */
     @Inject(method = "ignoreExplosion", at = @At("HEAD"), cancellable = true)
     private void isTopTierContainerImmune(Explosion explosion, CallbackInfoReturnable<Boolean> cir) {
         ItemStack droppedStack = this.getItem();
         if (droppedStack.is(ModItems.NETHERITE_BUNDLE)
                 || droppedStack.is(ModItems.ENDERITE_BUNDLE)
-                || droppedStack.is(ModItems.ENDERITE_QUIVER)) {
+                || droppedStack.is(ModItems.ENDERITE_QUIVER)
+                || droppedStack.is(ModItems.NETHERITE_BACKPACK)
+                || droppedStack.is(ModItems.ENDERITE_BACKPACK)) {
             cir.setReturnValue(true);
         }
     }
@@ -75,6 +79,12 @@ public abstract class ItemEntityMixin extends Entity {
                     handlePickupSuccess(player, itemOnGround, ci);
                     return;
                 }
+            }
+
+            // 3. Getragener Rucksack mit Trichter - nach allen Buendeln, wie das Inventar erst
+            // nach Ablauf der Aufhebeverzoegerung.
+            if (BackpackItem.tryFunnelPickup(player, itemOnGround)) {
+                handlePickupSuccess(player, itemOnGround, ci);
             }
         }
     }

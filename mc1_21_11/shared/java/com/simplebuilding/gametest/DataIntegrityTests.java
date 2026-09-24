@@ -149,10 +149,10 @@ public final class DataIntegrityTests {
             Map.entry(ModEnchantments.FAST_CHISELING, ModTags.Items.CHISEL_TOOLS),
             Map.entry(ModEnchantments.CONSTRUCTORS_TOUCH, ModTags.Items.CONSTRUCTORS_TOUCH_ENCHANTABLE),
             Map.entry(ModEnchantments.RANGE, ModTags.Items.CHISEL_AND_MINING_TOOLS),
-            Map.entry(ModEnchantments.DEEP_POCKETS, ModTags.Items.BUNDLE_ENCHANTABLE),
-            Map.entry(ModEnchantments.FUNNEL, ModTags.Items.BUNDLE_ENCHANTABLE),
+            Map.entry(ModEnchantments.DEEP_POCKETS, ModTags.Items.DEEP_POCKETS_ENCHANTABLE),
+            Map.entry(ModEnchantments.FUNNEL, ModTags.Items.FUNNEL_ENCHANTABLE),
             Map.entry(ModEnchantments.DRAWER, ModTags.Items.BUNDLE_ENCHANTABLE),
-            Map.entry(ModEnchantments.MASTER_BUILDER, ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE),
+            Map.entry(ModEnchantments.MASTER_BUILDER, ModTags.Items.MASTER_BUILDER_ENCHANTABLE),
             Map.entry(ModEnchantments.COLOR_PALETTE, ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE),
             Map.entry(ModEnchantments.BREAK_THROUGH, ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
             Map.entry(ModEnchantments.RADIUS, ModTags.Items.SLEDGEHAMMER_ENCHANTABLE),
@@ -973,13 +973,13 @@ public final class DataIntegrityTests {
      * <p>"Its tag resolved to something" was all this used to ask, and that is blind to the whole
      * decision: which items an enchantment may go on is a single {@code items.getOrThrow(...)}
      * argument in {@code ModEnchantments}, and swapping Deep Pockets from
-     * {@code simplebuilding:bundle_enchantable} to {@code minecraft:pickaxes} leaves a non-empty
+     * {@code simplebuilding:deep_pockets_enchantable} to {@code minecraft:pickaxes} leaves a non-empty
      * tag with nothing but bound holders behind. {@link #SUPPORTED_ITEM_TAGS} therefore names the
      * tag each enchantment hangs on, and the check reads it back off the loaded enchantment.
      *
      * <p>The tag key, not its contents: what is <em>in</em> those tags is
      * {@code ModItemTagProvider}'s business and is pinned where the behaviour is - see
-     * {@link BundleWiringTests#containerEnchantmentsAcceptTheBundlesTheyAreMeantFor} for the two
+     * {@link BundleWiringTests#containerEnchantmentsAcceptTheBundlesTheyAreMeantFor} for the
      * container tags. This is the wire between the two, and it is checked for all of them.
      *
      * <p>What breaks it: an enchantment missing from the registry or loaded without a key in

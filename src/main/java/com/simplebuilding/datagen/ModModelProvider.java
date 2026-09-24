@@ -35,6 +35,9 @@ public class ModModelProvider extends FabricModelProvider {
     private static final ModelTemplate HOPPER_MODEL = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("block/hopper")), Optional.empty(), TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, TextureSlot.INSIDE);
     private static final ModelTemplate HOPPER_SIDE_MODEL = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("block/hopper_side")), Optional.empty(), TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, TextureSlot.INSIDE);
     private static final ModelTemplate PISTON_BASE_MODEL = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("block/piston_base")), Optional.empty(), TextureSlot.BOTTOM, TextureSlot.SIDE, TextureSlot.PLATFORM);
+    // Handgeschriebene Vorlage (assets/simplebuilding/models/block/template_backpack.json): Sack
+    // plus Vordertasche, Vorderseite nach Norden; die Stufen setzen nur ihre Texturen ein.
+    private static final ModelTemplate BACKPACK_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_backpack")), Optional.empty(), TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.PARTICLE);
 
     public ModModelProvider(FabricPackOutput output) {
         super(output);
@@ -120,6 +123,29 @@ public class ModModelProvider extends FabricModelProvider {
         registerCustomPiston(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON);
         blockStateModelGenerator.createTrivialCube(ModBlocks.NETHERITE_PISTON_HEAD);
 
+        // --- 6. Rucksaecke (abgestellt) ---
+        registerBackpack(blockStateModelGenerator, ModBlocks.BACKPACK);
+        registerBackpack(blockStateModelGenerator, ModBlocks.REINFORCED_BACKPACK);
+        registerBackpack(blockStateModelGenerator, ModBlocks.NETHERITE_BACKPACK);
+        registerBackpack(blockStateModelGenerator, ModBlocks.ENDERITE_BACKPACK);
+    }
+
+    /** Ein Blockmodell je Stufe aus der Vorlage, gedreht nach HORIZONTAL_FACING (Norden = 0). */
+    private void registerBackpack(BlockModelGenerators generator, Block block) {
+        TextureMapping textures = new TextureMapping()
+                .put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, "_front"))
+                .put(TextureSlot.BACK, TextureMapping.getBlockTexture(block, "_back"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side"))
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"))
+                .put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(block, "_side"));
+        Identifier model = BACKPACK_MODEL.create(block, textures, generator.modelOutput);
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block)
+                .with(PropertyDispatch.initial(BlockStateProperties.HORIZONTAL_FACING)
+                        .select(Direction.NORTH, BlockModelGenerators.plainVariant(model))
+                        .select(Direction.EAST, BlockModelGenerators.plainVariant(model).with(BlockModelGenerators.Y_ROT_90))
+                        .select(Direction.SOUTH, BlockModelGenerators.plainVariant(model).with(BlockModelGenerators.Y_ROT_180))
+                        .select(Direction.WEST, BlockModelGenerators.plainVariant(model).with(BlockModelGenerators.Y_ROT_270))
+                ));
     }
 
     private void registerCustomHopper(BlockModelGenerators generator, Block block) {
@@ -308,6 +334,11 @@ public class ModModelProvider extends FabricModelProvider {
 
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_BUNDLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_QUIVER, ModelTemplates.FLAT_ITEM);
+        // Rucksaecke: flaches Symbol im Inventar (textures/item/<id>.png), nicht das Blockmodell.
+        itemModelGenerator.generateFlatItem(ModItems.BACKPACK, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.REINFORCED_BACKPACK, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_BACKPACK, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_BACKPACK, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CARROT, ModelTemplates.FLAT_ITEM);
 

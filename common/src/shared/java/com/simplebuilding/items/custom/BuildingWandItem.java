@@ -49,8 +49,32 @@ public class BuildingWandItem extends Item {
         ItemStack sourceStack;
         int bundleIndex;
         boolean fromBundle;
+        // Getragener Rucksack: sourceStack ist der Rucksack, bundleIndex der Eintrag in seiner Komponente.
+        boolean fromBackpack;
         BlockState stateToPlace;
-        public void consume() { if (fromBundle) removeOneFromBundle(sourceStack, bundleIndex); else sourceStack.shrink(1); }
+        public void consume() {
+            if (fromBackpack) BackpackItem.consumeOne(sourceStack, bundleIndex);
+            else if (fromBundle) removeOneFromBundle(sourceStack, bundleIndex);
+            else sourceStack.shrink(1);
+        }
+    }
+
+    /**
+     * Baumaterial ist jedes {@link BlockItem} ausser einem Rucksack: Rucksaecke sind BlockItems
+     * (sie lassen sich abstellen), der Zauberstab darf sie aber nie als Baublock verbauen - er
+     * wuerde sie samt Inhalt in einen leeren Block verwandeln.
+     */
+    private static boolean isBuildingBlock(ItemStack stack) {
+        return stack.getItem() instanceof BlockItem && !(stack.getItem() instanceof BackpackItem);
+    }
+
+    /**
+     * Der getragene Rucksack als letzte Materialquelle - wie bei Buendeln nur, wenn der Rucksack
+     * selbst Meisterbauer traegt (Entscheidung des Mod-Autors: nicht schon durch Meisterbauer auf
+     * dem Zauberstab).
+     */
+    private static ItemStack masterBuilderBackpack(Player player) {
+        return BackpackItem.wornBackpackWith(player, ModEnchantments.MASTER_BUILDER);
     }
 
     public BuildingWandItem(Properties settings) {
@@ -147,6 +171,12 @@ public class BuildingWandItem extends Item {
                 if (res != null) return res;
             }
         }
+        // 4. Getragener Rucksack mit Meisterbauer
+        ItemStack backpack = masterBuilderBackpack(player);
+        if (!backpack.isEmpty()) {
+            int index = BackpackItem.findEntry(backpack, BuildingWandItem::isBuildingBlock);
+            if (index >= 0) return ((BlockItem) BackpackItem.entryStack(backpack, index).getItem()).getBlock().defaultBlockState();
+        }
         return null;
     }
 
@@ -163,13 +193,20 @@ public class BuildingWandItem extends Item {
         for (int i = 0; i < limit; i++) {
             collectBlocksFromStack(player.getInventory().getItem(i), world, hasMasterBuilder, blocks);
         }
+        // Getragener Rucksack mit Meisterbauer
+        ItemStack backpack = masterBuilderBackpack(player);
+        if (!backpack.isEmpty()) {
+            for (ItemStack s : BackpackItem.entryStacks(backpack)) {
+                if (isBuildingBlock(s)) blocks.add(((BlockItem) s.getItem()).getBlock().defaultBlockState());
+            }
+        }
         return blocks;
     }
 
     private static void collectBlocksFromStack(ItemStack stack, Level world, boolean masterBuilder, List<BlockState> list) {
         if (stack.isEmpty()) return;
-        if (stack.getItem() instanceof BlockItem bi) {
-            list.add(bi.getBlock().defaultBlockState());
+        if (isBuildingBlock(stack)) {
+            list.add(((BlockItem) stack.getItem()).getBlock().defaultBlockState());
         } else if (stack.getItem() instanceof ReinforcedBundleItem) {
             boolean bundleHasMB = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
             if (masterBuilder || bundleHasMB) {
@@ -188,8 +225,8 @@ public class BuildingWandItem extends Item {
 
     private static BlockState checkStackIsBlockState(ItemStack stack, Level world, boolean wandHasMasterBuilder) {
         if (stack.isEmpty()) return null;
-        if (stack.getItem() instanceof BlockItem bi) {
-            return bi.getBlock().defaultBlockState();
+        if (isBuildingBlock(stack)) {
+            return ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
         }
         if (stack.getItem() instanceof ReinforcedBundleItem) {
             boolean bundleHasMasterBuilder = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
@@ -227,18 +264,33 @@ public class BuildingWandItem extends Item {
                 if (res != null) return res;
             }
         }
-        return null;
+        // 4. Getragener Rucksack mit Meisterbauer
+        return findInBackpack(player, BuildingWandItem::isBuildingBlock);
+    }
+
+    /** Erster passender Eintrag im getragenen Meisterbauer-Rucksack, sonst null. */
+    private static MaterialResult findInBackpack(Player player, java.util.function.Predicate<ItemStack> test) {
+        ItemStack backpack = masterBuilderBackpack(player);
+        if (backpack.isEmpty()) return null;
+        int index = BackpackItem.findEntry(backpack, test);
+        if (index < 0) return null;
+        MaterialResult res = new MaterialResult();
+        res.sourceStack = backpack;
+        res.fromBackpack = true;
+        res.bundleIndex = index;
+        res.stateToPlace = ((BlockItem) BackpackItem.entryStack(backpack, index).getItem()).getBlock().defaultBlockState();
+        return res;
     }
 
     private MaterialResult checkStackIsBlock(ItemStack stack, Level world, boolean wandHasMasterBuilder) {
         if (stack.isEmpty()) return null;
 
         // Ist es ein Block?
-        if (stack.getItem() instanceof BlockItem bi) {
+        if (isBuildingBlock(stack)) {
             MaterialResult res = new MaterialResult();
             res.sourceStack = stack;
             res.fromBundle = false;
-            res.stateToPlace = bi.getBlock().defaultBlockState();
+            res.stateToPlace = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
             return res;
         }
 
@@ -300,12 +352,13 @@ public class BuildingWandItem extends Item {
                 if (res != null) return res;
             }
         }
-        return null;
+        // Getragener Rucksack mit Meisterbauer
+        return findInBackpack(player, s -> isBuildingBlock(s) && ((BlockItem) s.getItem()).getBlock() == targetBlock);
     }
 
     private MaterialResult checkStackForSpecificBlock(ItemStack stack, Block targetBlock, ItemStack wandStack, Level world, boolean wandHasMasterBuilder) {
         if (stack.isEmpty()) return null;
-        if (stack.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
+        if (isBuildingBlock(stack) && stack.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
             MaterialResult res = new MaterialResult(); res.sourceStack = stack; res.fromBundle = false; res.stateToPlace = bi.getBlock().defaultBlockState(); return res;
         }
         if (stack.getItem() instanceof ReinforcedBundleItem) {

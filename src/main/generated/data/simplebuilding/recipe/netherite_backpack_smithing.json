@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simplebuilding:reinforced_backpack",
+  "result": {
+    "id": "simplebuilding:netherite_backpack"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}
