@@ -174,13 +174,18 @@ public final class SledgehammerUpgrades {
 
     /** Diamant 1, Netherit 2, Enderit 3, jede andere Stufe (und jedes andere Item) 0. */
     public static int hammerRank(ItemStack stack) {
-        if (stack.is(ModItems.ENDERITE_SLEDGEHAMMER)) {
+        return hammerRank(stack.getItem());
+    }
+
+    /** Wie {@link #hammerRank(ItemStack)}, ohne Stapel - der Wiki-Export kann im Datagen keinen bauen. */
+    public static int hammerRank(Item item) {
+        if (item == ModItems.ENDERITE_SLEDGEHAMMER) {
             return RANK_ENDERITE;
         }
-        if (stack.is(ModItems.NETHERITE_SLEDGEHAMMER)) {
+        if (item == ModItems.NETHERITE_SLEDGEHAMMER) {
             return RANK_NETHERITE;
         }
-        if (stack.is(ModItems.DIAMOND_SLEDGEHAMMER)) {
+        if (item == ModItems.DIAMOND_SLEDGEHAMMER) {
             return RANK_DIAMOND;
         }
         return 0;

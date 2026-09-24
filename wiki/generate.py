@@ -24,6 +24,10 @@ Outputs
                                     app also works when opened straight from
                                     disk, where fetch() of a local file is
                                     blocked by the browser
+    wiki/data/vanilla-<line>.js     vanilla recipes and item tags of each
+                                    Minecraft line for the crafting tree, read
+                                    from the client jar in the Gradle cache
+                                    (left alone when the jar is missing)
 """
 
 from __future__ import annotations
@@ -311,6 +315,49 @@ def ingredient_ids(value) -> list[str]:
     return []
 
 
+def recipe_entry(data: dict, recipe_id: str, source: str | None) -> dict:
+    """One recipe file in the wiki's shape. Shared by the mod's recipes and the vanilla export."""
+    result = data.get("result", {})
+    if isinstance(result, str):
+        result = {"id": result}
+
+    entry = {
+        "id": recipe_id,
+        "type": data.get("type", "unknown"),
+        "category": data.get("category"),
+        "group": data.get("group"),
+        "result": {
+            "id": result.get("id") or result.get("item"),
+            "count": result.get("count", 1),
+        },
+        "source": source,
+        "ingredients": [],
+    }
+
+    if "pattern" in data:
+        entry["pattern"] = data["pattern"]
+        entry["key"] = {k: ingredient_ids(v) for k, v in (data.get("key") or {}).items()}
+        for ids in entry["key"].values():
+            entry["ingredients"].extend(ids)
+    elif "ingredients" in data:
+        entry["ingredientGroups"] = [ingredient_ids(i) for i in data["ingredients"]]
+        for ids in entry["ingredientGroups"]:
+            entry["ingredients"].extend(ids)
+    else:
+        # smithing, cooking, stonecutting and transmute shapes
+        for key in ("template", "base", "addition", "ingredient", "input", "material"):
+            if key in data:
+                ids = ingredient_ids(data[key])
+                entry.setdefault("slots", {})[key] = ids
+                entry["ingredients"].extend(ids)
+        for key in ("cookingtime", "experience", "count", "base_count", "addition_count"):
+            if key in data:
+                entry[key] = data[key]
+
+    entry["ingredients"] = sorted(set(entry["ingredients"]))
+    return entry
+
+
 def collect_recipes(roots: dict) -> list[dict]:
     recipes = []
     for base in (roots["generated_data"], roots["resource_data"]):
@@ -323,45 +370,7 @@ def collect_recipes(roots: dict) -> list[dict]:
             except json.JSONDecodeError:
                 continue
             recipe_id = f"{NS}:{path.relative_to(root).with_suffix('').as_posix()}"
-            result = data.get("result", {})
-            if isinstance(result, str):
-                result = {"id": result}
-
-            entry = {
-                "id": recipe_id,
-                "type": data.get("type", "unknown"),
-                "category": data.get("category"),
-                "group": data.get("group"),
-                "result": {
-                    "id": result.get("id") or result.get("item"),
-                    "count": result.get("count", 1),
-                },
-                "source": rel(path),
-                "ingredients": [],
-            }
-
-            if "pattern" in data:
-                entry["pattern"] = data["pattern"]
-                entry["key"] = {k: ingredient_ids(v) for k, v in (data.get("key") or {}).items()}
-                for ids in entry["key"].values():
-                    entry["ingredients"].extend(ids)
-            elif "ingredients" in data:
-                entry["ingredientGroups"] = [ingredient_ids(i) for i in data["ingredients"]]
-                for ids in entry["ingredientGroups"]:
-                    entry["ingredients"].extend(ids)
-            else:
-                # smithing and cooking shapes
-                for key in ("template", "base", "addition", "ingredient"):
-                    if key in data:
-                        ids = ingredient_ids(data[key])
-                        entry.setdefault("slots", {})[key] = ids
-                        entry["ingredients"].extend(ids)
-                for key in ("cookingtime", "experience", "count", "base_count", "addition_count"):
-                    if key in data:
-                        entry[key] = data[key]
-
-            entry["ingredients"] = sorted(set(entry["ingredients"]))
-            recipes.append(entry)
+            recipes.append(recipe_entry(data, recipe_id, rel(path)))
     recipes.sort(key=lambda r: r["id"])
     return recipes
 
@@ -828,18 +837,26 @@ def copy_vanilla_textures(roots: dict, ids: set[str]) -> dict:
                 yield f"assets/minecraft/textures/{folder}/{name}.png"
             for folder in ("item", "block"):
                 model_entry = f"assets/minecraft/models/{folder}/{name}.json"
-                if model_entry not in names:
-                    continue
-                try:
-                    model = json.loads(archive.read(model_entry).decode("utf-8"))
-                except (json.JSONDecodeError, UnicodeDecodeError):
-                    continue
-                textures = model.get("textures", {})
-                ordered = [textures[k] for k in ("layer0", "all", "front", "side", "top", "end", "particle")
-                           if isinstance(textures.get(k), str)]
-                ordered += [v for v in textures.values() if isinstance(v, str)]
-                for reference in ordered:
-                    yield f"assets/minecraft/textures/{short(reference)}.png"
+                # Zaeune, Mauern, Banner: das Item-Modell hat nur ein parent
+                # (block/<x>_inventory) - dem ein paar Stufen weit folgen.
+                for _ in range(4):
+                    if model_entry not in names:
+                        break
+                    try:
+                        model = json.loads(archive.read(model_entry).decode("utf-8"))
+                    except (json.JSONDecodeError, UnicodeDecodeError):
+                        break
+                    textures = model.get("textures", {})
+                    ordered = [textures[k] for k in ("layer0", "all", "texture", "front", "side", "top", "end", "wool", "particle")
+                               if isinstance(textures.get(k), str)]
+                    ordered += [v for v in textures.values() if isinstance(v, str)]
+                    for reference in ordered:
+                        if not reference.startswith("#"):
+                            yield f"assets/minecraft/textures/{short(reference)}.png"
+                    parent = model.get("parent")
+                    if not isinstance(parent, str) or textures:
+                        break
+                    model_entry = f"assets/minecraft/models/{short(parent)}.json"
             # Animierte Items (Kompass, Uhr) haben nur nummerierte Einzelbilder.
             yield f"assets/minecraft/textures/item/{name}_00.png"
 
@@ -857,6 +874,304 @@ def copy_vanilla_textures(roots: dict, ids: set[str]) -> dict:
             else:
                 state["missing"].append(identifier)
     return state
+
+
+# ---------------------------------------------------------------------------
+# vanilla recipes for the crafting tree, one file per Minecraft line
+# ---------------------------------------------------------------------------
+
+VANILLA_RECIPE_FILE = "data/vanilla-{line}.js"
+VANILLA_RECIPE_MARKER = "window.VANILLA_RECIPES["
+
+
+def client_jar(version: str) -> Path:
+    return Path.home() / ".gradle" / "caches" / "fabric-loom" / str(version) / "minecraft-client.jar"
+
+
+def strip_minecraft(value):
+    """minecraft:stick -> stick, #minecraft:planks -> #planks, recursively. The app adds it back."""
+    if isinstance(value, str):
+        if value.startswith("minecraft:"):
+            return value[len("minecraft:"):]
+        if value.startswith("#minecraft:"):
+            return "#" + value[len("#minecraft:"):]
+        return value
+    if isinstance(value, list):
+        return [strip_minecraft(v) for v in value]
+    if isinstance(value, dict):
+        return {k: strip_minecraft(v) for k, v in value.items()}
+    return value
+
+
+def vanilla_recipe_payload(line: str) -> str | None:
+    """
+    The vanilla recipes of one Minecraft line as a small script for the crafting
+    tree - recipe data and the item tags those recipes name, nothing else (no
+    textures, no language files). Read from the client jar in the Gradle cache;
+    None when that jar is missing, in which case the committed file stays as it is.
+
+    The output is deterministic (sorted, one recipe per line) so a regenerated
+    file only differs when Mojang's data did.
+    """
+    jar = client_jar(LINES[line]["client_jar_version"])
+    if not jar.exists():
+        return None
+    recipes = []
+    raw_tags: dict[str, list] = {}
+    with zipfile.ZipFile(jar) as archive:
+        for name in sorted(archive.namelist()):
+            if name.startswith("data/minecraft/recipe/") and name.endswith(".json"):
+                try:
+                    data = json.loads(archive.read(name).decode("utf-8"))
+                except (json.JSONDecodeError, UnicodeDecodeError):
+                    continue
+                recipe_id = "minecraft:" + name[len("data/minecraft/recipe/"):-len(".json")]
+                entry = recipe_entry(data, recipe_id, None)
+                if not entry["result"]["id"]:
+                    continue  # special recipes (map cloning, trims) have no fixed result
+                compact = {k: v for k, v in entry.items()
+                           if k not in ("source", "ingredients", "category") and v is not None}
+                if compact["result"].get("count", 1) == 1:
+                    compact["result"] = {"id": compact["result"]["id"]}
+                recipes.append(strip_minecraft(compact))
+            elif name.startswith("data/minecraft/tags/item/") and name.endswith(".json"):
+                try:
+                    data = json.loads(archive.read(name).decode("utf-8"))
+                except (json.JSONDecodeError, UnicodeDecodeError):
+                    continue
+                raw_tags["#minecraft:" + name[len("data/minecraft/tags/item/"):-len(".json")]] = data.get("values", [])
+
+    def flatten(ref: str, seen: set) -> list[str]:
+        out = []
+        for value in raw_tags.get(ref, []):
+            value = value.get("id") if isinstance(value, dict) else value
+            if not isinstance(value, str):
+                continue
+            if value.startswith("#"):
+                if value not in seen:
+                    seen.add(value)
+                    out.extend(flatten(value, seen))
+            elif value not in out:
+                out.append(value)
+        return out
+
+    tags = {strip_minecraft(ref): strip_minecraft(flatten(ref, {ref})) for ref in sorted(raw_tags)}
+    head = {"line": line, "source": f"minecraft-client.jar {LINES[line]['client_jar_version']}",
+            "note": "recipe data only - generated by wiki/generate.py, do not edit",
+            "recipes": len(recipes)}
+    lines = [
+        "// Generated by wiki/generate.py from the Minecraft client jar - recipe data only, do not edit.",
+        "// Loaded on demand by the crafting tree in index.html (one file per Minecraft line).",
+        f"window.VANILLA_RECIPES = window.VANILLA_RECIPES || {{}};",
+        f"{VANILLA_RECIPE_MARKER}{json.dumps(line)}] = {{",
+        f'"meta": {json.dumps(head, sort_keys=True, ensure_ascii=False)},',
+        f'"tags": {json.dumps(tags, sort_keys=True, separators=(",", ":"), ensure_ascii=False)},',
+        '"recipes": [',
+    ]
+    lines += [json.dumps(r, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+              + ("," if i < len(recipes) - 1 else "") for i, r in enumerate(recipes)]
+    lines += ["]};", ""]
+    return "\n".join(lines)
+
+
+def vanilla_recipe_ids(roots: dict) -> set[str]:
+    """Every item a vanilla recipe of this line makes or uses - for the texture copy only."""
+    jar = client_jar(roots["client_jar_version"])
+    found: set[str] = set()
+    if not jar.exists():
+        return found
+    with zipfile.ZipFile(jar) as archive:
+        for name in archive.namelist():
+            if not (name.startswith("data/minecraft/recipe/") and name.endswith(".json")):
+                continue
+            try:
+                entry = recipe_entry(json.loads(archive.read(name).decode("utf-8")), name, None)
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                continue
+            for value in entry["ingredients"] + [entry["result"]["id"]]:
+                if isinstance(value, str) and value.startswith("minecraft:"):
+                    found.add(value)
+    return found
+
+
+def sync_vanilla_recipes(check: bool) -> list[str]:
+    """
+    Writes (or, with check, compares) data/vanilla-<line>.js for every line.
+    Without a client jar the committed file is left alone - CI has no Gradle
+    cache - but it has to exist, or the crafting tree has no vanilla recipes.
+    """
+    problems = []
+    for line in sorted(LINES):
+        target = WIKI / VANILLA_RECIPE_FILE.format(line=line)
+        payload = vanilla_recipe_payload(line)
+        if payload is None:
+            if not target.exists():
+                problems.append(f"wiki/{VANILLA_RECIPE_FILE.format(line=line)} is missing and there is no "
+                                f"client jar for {line} to build it from (build the mod once).")
+            continue
+        current = target.read_text(encoding="utf-8") if target.exists() else ""
+        if current == payload:
+            continue
+        if check:
+            problems.append(f"wiki/{VANILLA_RECIPE_FILE.format(line=line)} is OUT OF DATE with the {line} "
+                            "client jar.   Fix:  python wiki/generate.py")
+        else:
+            write_atomic(target, payload)
+    return problems
+
+
+# ---------------------------------------------------------------------------
+# in-world transformations
+# ---------------------------------------------------------------------------
+
+INWORLD_KINDS = ("sledgehammer_upgrade", "sledgehammer_reshape", "diamond_crush",
+                 "chisel", "chisel_reverse", "trim_template", "cauldron_wash")
+
+
+def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dict, list[str]]:
+    """
+    The "In-world transformation" category: what turns into what in the world,
+    with tool, time, hits and durability.
+
+    Code-derived parts come from src/main/generated/wiki/inworld.json, which
+    WikiDataProvider writes from the same tables and constants the game uses
+    (InWorldTransformations). What has no table in code - the item frame
+    template upgrade, washing in a cauldron - is listed in manual.json under
+    inWorld.entries, with its sources. Prose for every kind lives in
+    manual.json under inWorld.kinds.
+    """
+    problems: list[str] = []
+    section = manual.get("inWorld", {}) if isinstance(manual.get("inWorld"), dict) else {}
+    prose = section.get("kinds", {})
+    entries: list[dict] = []
+    facts: dict[str, dict] = {}
+
+    path = REPO / Path(roots["item_properties"]).with_name("inworld.json")
+    exported = read_json(path) if path.exists() else None
+    if exported is None:
+        problems.append(f"{rel(path)} is MISSING - run  gradlew runDatagen")
+    else:
+        up = exported.get("sledgehammerUpgrade", {})
+        facts["sledgehammer_upgrade"] = {
+            k: up.get(k) for k in ("durationTicks", "hitIntervalTicks", "hits", "finishCooldownTicks")}
+        facts["sledgehammer_upgrade"]["hammers"] = [
+            h for h in up.get("hammers", []) if h.get("rank", 0) > 0 and h["id"] in item_ids]
+        for step in up.get("steps", []):
+            entries.append({
+                "id": f"sledgehammer_upgrade/{step['from']}",
+                "kind": "sledgehammer_upgrade",
+                "inputs": [{"id": step["from"], "count": 1}, {"id": step["nugget"], "count": step["nuggetCount"]}],
+                "tools": [step["minimumHammer"]],
+                "toolOrBetter": True,
+                "output": {"id": step["to"], "count": 1},
+                "stats": {"ticks": up.get("durationTicks"), "hits": up.get("hits"),
+                          "damagePerHit": step["damagePerHit"], "damage": step["totalDamage"]},
+            })
+
+        reshape = exported.get("sledgehammerReshape", {})
+        facts["sledgehammer_reshape"] = {
+            "damage": reshape.get("damage"), "reverseDamage": reshape.get("reverseDamage"),
+            "minTicks": reshape.get("minTicks"), "maxTicks": reshape.get("maxTicks"),
+            "hammers": [h for h in reshape.get("hammers", []) if h["id"] in item_ids]}
+        hammers = [h["id"] for h in facts["sledgehammer_reshape"]["hammers"]]
+
+        crush = exported.get("diamondCrush")
+        if crush:
+            facts["diamond_crush"] = {}
+            entries.append({
+                "id": "diamond_crush",
+                "kind": "diamond_crush",
+                "inputs": [{"id": crush["block"], "count": 1}],
+                "tools": hammers,
+                "output": {"id": crush["result"], "count": crush["count"]},
+                "stats": {"damage": crush["damage"]},
+            })
+
+        chisel = exported.get("chisel", {})
+        tables = chisel.get("tables", [])
+        # Stufenfolge: die kleinste Tabelle ist die niedrigste Stufe (jede hoehere
+        # enthaelt die niedrigeren). Legacy-Spachtel ohne Namen sind kein Werkzeug.
+        order = sorted(range(len(tables)), key=lambda i: len(tables[i]["forward"]) + len(tables[i]["touchForward"]))
+        rank_of = {table: rank for rank, table in enumerate(order)}
+        tools = sorted((t for t in chisel.get("tools", []) if not t["spatula"] and t["id"] in item_ids),
+                       key=lambda t: (rank_of[t["table"]], t["id"]))
+        by_rank: dict[int, list[str]] = {}
+        for tool in tools:
+            by_rank.setdefault(rank_of[tool["table"]], []).append(tool["id"])
+        tool_facts = [{"id": t["id"], "cooldownTicks": t["cooldownTicks"]} for t in tools]
+        facts["chisel"] = {"damage": chisel.get("damage"), "tools": tool_facts}
+        facts["chisel_reverse"] = {"damage": chisel.get("reverseDamage"), "tools": tool_facts}
+        for kind, normal_key, touch_key, damage in (
+                ("chisel", "forward", "touchForward", chisel.get("damage")),
+                ("chisel_reverse", "backward", "touchBackward", chisel.get("reverseDamage"))):
+            normal_ranks: dict[tuple, list[int]] = {}
+            touch_ranks: dict[tuple, list[int]] = {}
+            for rank, table_index in enumerate(order):
+                if rank not in by_rank:
+                    continue
+                table = tables[table_index]
+                normal = {tuple(p) for p in table[normal_key]}
+                for pair in normal:
+                    normal_ranks.setdefault(pair, []).append(rank)
+                for pair in {tuple(p) for p in table[touch_key]} - normal:
+                    touch_ranks.setdefault(pair, []).append(rank)
+            for touch, found in ((False, normal_ranks), (True, touch_ranks)):
+                for (source, target), ranks in sorted(found.items()):
+                    entry_tools = [tool for rank in ranks for tool in by_rank[rank]]
+                    stats = {"damage": damage}
+                    if touch:
+                        stats["touch"] = True
+                    entries.append({
+                        "id": f"{kind}/{source}/{target}" + ("/touch" if touch else ""),
+                        "kind": kind,
+                        "inputs": [{"id": source, "count": 1}],
+                        "tools": entry_tools,
+                        "output": {"id": target, "count": 1},
+                        "stats": stats,
+                    })
+
+    def expand(value):
+        """Globs in manual entries ("simplebuilding:octant_*") against the registered items."""
+        if isinstance(value, list):
+            out = []
+            for v in value:
+                out.extend(expand(v))
+            return out
+        if isinstance(value, str) and "*" in value:
+            matches = sorted(i for i in item_ids if fnmatch.fnmatch(i, value))
+            if not matches:
+                problems.append(f"manual.json inWorld: {value!r} matches no registered item")
+            return matches
+        return [value]
+
+    for index, raw in enumerate(section.get("entries", [])):
+        if not isinstance(raw, dict) or raw.get("kind") not in INWORLD_KINDS:
+            problems.append(f"manual.json inWorld.entries[{index}]: unknown kind {raw.get('kind')!r}")
+            continue
+        inputs = []
+        for stack in raw.get("inputs", []):
+            ids = expand(stack["id"])
+            inputs.append({"id": ids[0] if len(ids) == 1 else ids, "count": stack.get("count", 1)})
+        output = raw["output"]
+        entries.append({
+            "id": f"{raw['kind']}/{output['id']}/{index}",
+            "kind": raw["kind"],
+            "inputs": inputs,
+            "tools": expand(raw.get("tools", [])),
+            "output": {"id": output["id"], "count": output.get("count", 1)},
+            "stats": raw.get("stats", {}),
+            "sources": raw.get("sources", []),
+        })
+
+    used = [kind for kind in INWORLD_KINDS if kind in facts or any(e["kind"] == kind for e in entries)]
+    kinds = []
+    for kind in used:
+        note = prose.get(kind)
+        kind_entry = {"id": kind, "facts": facts.get(kind, {})}
+        if note:
+            kind_entry["note"] = note
+        kinds.append(kind_entry)
+    return {"kinds": kinds, "entries": entries}, problems
 
 
 # ---------------------------------------------------------------------------
@@ -932,8 +1247,6 @@ def build(line: str) -> tuple[dict, list[str]]:
     # minecraft:stick nicht als Textkachel erscheinen. Bewusst nicht im
     # Payload: der Jar-Pfad ist maschinenabhaengig und der Cache kann fehlen -
     # beides wuerde checkWiki zwischen Rechnern flattern lassen.
-    vanilla = copy_vanilla_textures(roots, vanilla_ids(recipes, loot_tables, trades, tags))
-
     item_properties = load_item_properties(roots)
     registered = registered_ids(roots)
     items, blocks, phantom, unnamed = collect_items_and_blocks(
@@ -964,6 +1277,19 @@ def build(line: str) -> tuple[dict, list[str]]:
             note, _ = note_for(entry["id"])
             if note:
                 entry["note"] = note
+
+    in_world, in_world_problems = collect_in_world(roots, manual, {e["id"] for e in items})
+
+    # Vanilla-Texturen erst jetzt: auch die Zutaten der Umwandlungen in der Welt
+    # und der Vanilla-Rezepte fuer den Rezeptbaum sollen ein Bild bekommen.
+    referenced = vanilla_ids(recipes, loot_tables, trades, tags)
+    for entry in in_world["entries"]:
+        for value in [s["id"] for s in entry["inputs"]] + entry["tools"] + [entry["output"]["id"]]:
+            for v in (value if isinstance(value, list) else [value]):
+                if isinstance(v, str) and v.startswith("minecraft:"):
+                    referenced.add(v)
+    referenced |= vanilla_recipe_ids(roots)
+    vanilla = copy_vanilla_textures(roots, referenced)
 
     # Which entries actually owe the reader an explanation. A plain building
     # block is described well enough by its recipe and its drop; a tool with its
@@ -1003,6 +1329,10 @@ def build(line: str) -> tuple[dict, list[str]]:
     for feature in manual.get("features", []):
         if isinstance(feature, dict) and feature.get("id"):
             record(feature["id"], feature)
+
+    # Jede Art von Umwandlung in der Welt braucht Prosa in beiden Sprachen.
+    for kind in in_world["kinds"]:
+        record(f"inWorld:{kind['id']}", kind.get("note"))
 
     undocumented = sorted(set(undocumented))
     incomplete = dict(sorted(incomplete.items()))
@@ -1047,6 +1377,12 @@ def build(line: str) -> tuple[dict, list[str]]:
         "enchantments": enchantments,
         "tags": tags,
         "config": config,
+        "inWorld": in_world,
+        "vanillaRecipes": {
+            "lines": sorted(LINES),
+            "file": VANILLA_RECIPE_FILE,
+            "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)",
+        },
         "counts": {
             "items": len(items),
             "blocks": len(blocks),
@@ -1056,6 +1392,7 @@ def build(line: str) -> tuple[dict, list[str]]:
             "enchantments": len(enchantments),
             "tags": len(tags),
             "config": len(config),
+            "inWorld": len(in_world["entries"]),
             "features": len(manual.get("features", [])),
             "undocumented": len(undocumented),
             "incompleteProse": len(incomplete),
@@ -1063,7 +1400,7 @@ def build(line: str) -> tuple[dict, list[str]]:
         "undocumented": undocumented,
         "incompleteProse": incomplete,
     }
-    return data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed
+    return data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed, in_world_problems
 
 
 def main() -> int:
@@ -1078,7 +1415,10 @@ def main() -> int:
                              "the Gradle checkWiki task runs.")
     args = parser.parse_args()
 
-    data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed = build(args.line)
+    data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed, in_world_problems = build(args.line)
+    vanilla_problems = sync_vanilla_recipes(check=args.check)
+    for problem in in_world_problems + vanilla_problems:
+        print("PROBLEM:", problem)
     payload = json.dumps(data, indent=2, ensure_ascii=False, sort_keys=False)
 
     for warning in enchantment_warnings:
@@ -1117,7 +1457,7 @@ def main() -> int:
             if len(incomplete) > 20:
                 print(f"   ... and {len(incomplete) - 20} more")
             print("Fix: the wiki is bilingual - every entry needs an \"en\" and a \"de\" block.")
-        if stale or undocumented or incomplete or missing_props:
+        if stale or undocumented or incomplete or missing_props or in_world_problems or vanilla_problems:
             return 1
         print("wiki: up to date, everything documented.")
         return 0
@@ -1146,7 +1486,7 @@ def main() -> int:
 
     counts = data["counts"]
     print(f"SimpleBuilding wiki, Minecraft line {args.line}")
-    for key in ("items", "blocks", "recipes", "lootTables", "trades", "enchantments", "tags", "config", "features"):
+    for key in ("items", "blocks", "recipes", "lootTables", "trades", "enchantments", "tags", "config", "inWorld", "features"):
         print(f"  {counts[key]:5d}  {key}")
 
     if undocumented:

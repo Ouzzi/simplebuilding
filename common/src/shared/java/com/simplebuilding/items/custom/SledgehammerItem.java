@@ -71,6 +71,18 @@ public class SledgehammerItem extends Item {
     public static final int DURABILITY_NETHERITE_SLEDGEHAMMER = 2031 * BASE_DURABILITY_MULTIPLIER;
     public static final int DURABILITY_ENDERITE_SLEDGEHAMMER = 2500 * BASE_DURABILITY_MULTIPLIER;
 
+    /** Haltbarkeit je Umformung (Block -> Treppe -> Stufe). */
+    public static final int RESHAPE_DAMAGE = 1;
+    /** Haltbarkeit je Rueckwaerts-Umformung mit Schleichen und Constructor's Touch. */
+    public static final int RESHAPE_REVERSE_DAMAGE = 2;
+    /** Diamantsplitter aus einem zerschlagenen Diamantblock. */
+    public static final int DIAMOND_BLOCK_PEBBLES = 81;
+    /** Haltbarkeit fuer das Zerschlagen eines Diamantblocks. */
+    public static final int DIAMOND_CRUSH_DAMAGE = 1;
+    /** Grenzen der Umform-Ladezeit in Ticks. */
+    public static final int RESHAPE_MIN_TICKS = 4;
+    public static final int RESHAPE_MAX_TICKS = 40;
+
     private final ToolMaterial material;
 
     public SledgehammerItem(ToolMaterial material, float attackDamage, float attackSpeed, int durability, Properties settings) {
@@ -248,7 +260,7 @@ public class SledgehammerItem extends Item {
                     if (!player.isCreative()) {
                         // Prüfen ob Reverse Action (teurer)
                         boolean isReverse = player.isShiftKeyDown() && hasConstructorsTouch(stack, world);
-                        int damage = isReverse ? 2 : 1;
+                        int damage = isReverse ? RESHAPE_REVERSE_DAMAGE : RESHAPE_DAMAGE;
                         stack.hurtAndBreak(damage, player, player.getUsedItemHand().asEquipmentSlot());
                     }
                 }
@@ -262,7 +274,6 @@ public class SledgehammerItem extends Item {
         if (user instanceof Player player && SledgehammerUpgrades.hasJob(player)) {
             return SledgehammerUpgrades.UPGRADE_TICKS; // Aufwertung: fest fuenf Sekunden
         }
-        float baseTime = 20.0f;
         int efficiencyLevel = 0;
         var registry = user.registryAccess().lookup(Registries.ENCHANTMENT);
         if (registry.isPresent()) {
@@ -272,10 +283,19 @@ public class SledgehammerItem extends Item {
              }
         }
 
-        float speed = this.getMaterial().speed();
-        float factor = speed + (efficiencyLevel * 5.0f);
+        return reshapeTicks(this.getMaterial().speed(), efficiencyLevel);
+    }
+
+    /**
+     * Ladezeit einer Umformung in Ticks: 200 / (Materialtempo + 5 je Effizienzstufe), auf
+     * {@value #RESHAPE_MIN_TICKS}..{@value #RESHAPE_MAX_TICKS} begrenzt. Eigene Methode, damit der
+     * Wiki-Export dieselbe Rechnung benutzt wie das Spiel.
+     */
+    public static int reshapeTicks(float materialSpeed, int efficiencyLevel) {
+        float baseTime = 20.0f;
+        float factor = materialSpeed + (efficiencyLevel * 5.0f);
         int time = (int) (baseTime * 10.0f / factor);
-        return Math.clamp(time, 4, 40);
+        return Math.clamp(time, RESHAPE_MIN_TICKS, RESHAPE_MAX_TICKS);
     }
 
     @Override
@@ -426,7 +446,7 @@ public class SledgehammerItem extends Item {
 
         world.destroyBlock(pos, false, player);
 
-        int totalPebbles = 81;
+        int totalPebbles = DIAMOND_BLOCK_PEBBLES;
         while (totalPebbles > 0) {
             int batch = Math.min(totalPebbles, 64);
             ItemEntity itemEntity = new ItemEntity(
@@ -443,7 +463,7 @@ public class SledgehammerItem extends Item {
         world.playSound(null, pos, SoundEvents.METAL_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
 
         if (!player.isCreative()) {
-            stack.hurtAndBreak(1, world, (ServerPlayer) player,
+            stack.hurtAndBreak(DIAMOND_CRUSH_DAMAGE, world, (ServerPlayer) player,
                     item -> player.onEquippedItemBroken(item, EquipmentSlot.MAINHAND));
         }
     }

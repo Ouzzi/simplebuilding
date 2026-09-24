@@ -206,6 +206,47 @@ details summary { cursor: pointer; color: var(--accent); }
 .search-group { margin-top: 1.4rem; }
 mark { background: var(--warn-bg); color: inherit; padding: 0 .1em; border-radius: 2px; }
 .notfound { padding: 2rem; text-align: center; color: var(--muted); }
+
+/* Leere Abschnitte gesammelt am Seitenende */
+.empty-sections { margin-top: 1.6rem; border-top: 1px dashed var(--border); padding-top: .4rem; }
+.section-empty { margin: .3rem 0; }
+.section-empty h2 { font-size: .95rem; color: var(--muted); border: 0; margin: .5rem 0 .1rem; padding: 0; }
+.section-empty .hint { margin: 0; }
+.tree-hint { margin: .2rem 0 .6rem; }
+
+/* Umwandlung in der Welt */
+.iw-entry { flex-wrap: wrap; align-items: center; cursor: default; }
+.iw-slots { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.iw-tool { display: inline-flex; align-items: center; padding: 0 .3rem; border-left: 1px dashed var(--border); border-right: 1px dashed var(--border); margin: 0 .2rem; }
+.iw-entry .slot { width: 40px; height: 40px; }
+.iw-entry .slot img { width: 28px; height: 28px; }
+.iw-meta { font-size: .82rem; color: var(--muted); }
+.slot-tool { opacity: .9; }
+
+/* Kontextmenue */
+.ctxmenu { position: fixed; z-index: 1000; min-width: 170px; background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 6px 24px rgba(0,0,0,.25); padding: .25rem 0; font-size: .9rem; }
+.ctxmenu .ctx-title { padding: .3rem .8rem; font-size: .75rem; color: var(--muted); border-bottom: 1px solid var(--border); margin-bottom: .2rem; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ctxmenu a { display: block; padding: .35rem .8rem; color: var(--text); }
+.ctxmenu a:hover, .ctxmenu a:focus { background: var(--slot-bg); text-decoration: none; outline: none; }
+
+/* Rezeptbaum */
+.tree-controls { display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; font-size: .9rem; }
+.tree-controls input, .tree-controls select { padding: .25rem .4rem; border: 1px solid var(--border); border-radius: 6px; background: var(--panel); color: var(--text); font: inherit; }
+.tree-controls input { width: 5.5rem; min-width: 0; }
+.tree-node { margin: .15rem 0 .15rem 0; }
+.tree-node > summary { display: flex; align-items: center; gap: .45rem; list-style: none; padding: .15rem .3rem; border-radius: 6px; color: var(--text); }
+.tree-node > summary::-webkit-details-marker { display: none; }
+.tree-node > summary::before { content: '▸'; color: var(--muted); width: .8rem; flex: none; }
+.tree-node[open] > summary::before { content: '▾'; }
+.tree-node > summary:hover { background: var(--panel); }
+.tree-node > summary .slot { width: 32px; height: 32px; }
+.tree-node > summary .slot img { width: 24px; height: 24px; }
+.tree-node > summary .slot-text { font-size: 7px; -webkit-line-clamp: 3; }
+.tree-need { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 600; min-width: 2.5rem; text-align: right; }
+.tree-body { margin-left: 1.1rem; padding-left: .7rem; border-left: 1px solid var(--border); }
+.tree-way { margin: .3rem 0 .5rem; }
+.tree-way-head { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; margin: .2rem 0; }
+.tree-members { margin: .2rem 0; }
 </style>
 </head>
 <body>
@@ -553,7 +594,54 @@ en: {
   titleRecipePrefix: 'Recipe {0}',
   titleLootPrefix: 'Loot {0}',
   titleTradePrefix: 'Trade {0}',
-  titleTagPrefix: 'Tag {0}'
+  titleTagPrefix: 'Tag {0}',
+  /* Umwandlung in der Welt */
+  navInWorld: 'In-world',
+  secInWorld: 'In-world transformation',
+  iwIntro: 'What turns into what in the world instead of at a crafting table: tool in hand, block or item frame in front of you. Numbers come from the mod\'s own tables and constants (datagen export).',
+  iwNoneForItem: 'Not part of any in-world transformation.',
+  iwAsTool: 'As a tool this item takes part in {0} in-world transformations:',
+  iwTool: 'Tool',
+  iwOrBetter: 'or better',
+  iwAndMore: '(+{0} more)',
+  iwStatTime: 'time {0} s ({1} ticks)',
+  iwStatHits: '{0} blows',
+  iwStatDamagePerHit: '{0} durability per blow',
+  iwStatDamageTotal: '{0} durability in total',
+  iwStatDamage: '{0} durability',
+  iwStatWater: '{0} water level',
+  iwStatTouch: 'needs Constructor\'s Touch',
+  iwTicks: '{0} ticks ({1} s)',
+  iwFactsUpgrade: 'An upgrade takes {0} ticks ({1} s): one blow every {2} ticks, {3} blows in all, the last one upgrades. Afterwards the hammer cools down for {4} ticks. Hammers that can upgrade:',
+  iwFactsReshape: 'Durability per reshape: {0}, backwards: {1}. The charge time is kept between {2} and {3} ticks.',
+  iwFactsChisel: 'Durability per step: {0}.',
+  thChargeTime: 'Charge time (no Efficiency)',
+  thCooldown: 'Cooldown',
+  /* Rezeptbaum und Kontextmenue */
+  ctxTree: 'Crafting tree',
+  ctxOpen: 'Open page',
+  treeCrumb: 'Crafting tree',
+  treeTitle: 'How to get {0}',
+  treeHintItem: 'Right-click any item tile for its crafting tree, or {0}.',
+  treeHintLink: 'open the crafting tree of this item',
+  treeIntro: 'Every way to obtain it - mod and vanilla recipes, smelting, in-world transformations, drops and trades - with the ingredients one level further down on click. Variants of a group (any planks) are merged into one branch. Vanilla recipes follow the chosen Minecraft version.',
+  treeAmount: 'Amount',
+  treeLoading: 'Loading vanilla recipes …',
+  treeNoVanilla: 'The vanilla recipes for Minecraft {0} could not be loaded (wiki/data/vanilla-{0}.js); only the mod\'s own ways are shown.',
+  treeNoItem: 'No item chosen.',
+  treeAnyOf: 'any of {1} (e.g. {0})',
+  treeAnyTag: '{0} - any of {1}',
+  treeVariantMerged: 'Variants merged; the recipes below are those of {0}, the others work the same way.',
+  treeTagUnknown: 'Unknown tag - its members are not in the data.',
+  treeCycle: 'Already higher up in this branch.',
+  treeTooDeep: 'Branch too deep - open the item on its own.',
+  treeBaseVanilla: 'No recipe: gathered, mined or found in the world.',
+  treeBaseMod: 'No known way to obtain it in the data.',
+  treeCrafts: '{0}× craft, {1} each',
+  treeTimes: '{0}×, {1} each',
+  treeFuel: 'plus fuel',
+  treeTradeFor: 'for {0}× {1}',
+  treeOpenPage: 'page'
 },
 de: {
   /* Kopf und Navigation */
@@ -837,7 +925,54 @@ de: {
   titleRecipePrefix: 'Rezept {0}',
   titleLootPrefix: 'Loot {0}',
   titleTradePrefix: 'Handel {0}',
-  titleTagPrefix: 'Tag {0}'
+  titleTagPrefix: 'Tag {0}',
+  /* Umwandlung in der Welt */
+  navInWorld: 'In der Welt',
+  secInWorld: 'Umwandlung in der Welt',
+  iwIntro: 'Was sich in der Welt statt an der Werkbank verwandelt: Werkzeug in der Hand, Block oder Rahmen vor dir. Die Zahlen stammen aus den Tabellen und Konstanten der Mod selbst (Datagen-Export).',
+  iwNoneForItem: 'Kommt in keiner Umwandlung in der Welt vor.',
+  iwAsTool: 'Als Werkzeug wirkt dieses Item an {0} Umwandlungen in der Welt mit:',
+  iwTool: 'Werkzeug',
+  iwOrBetter: 'oder besser',
+  iwAndMore: '(+{0} weitere)',
+  iwStatTime: 'Dauer {0} s ({1} Ticks)',
+  iwStatHits: '{0} Schläge',
+  iwStatDamagePerHit: '{0} Haltbarkeit je Schlag',
+  iwStatDamageTotal: '{0} Haltbarkeit insgesamt',
+  iwStatDamage: '{0} Haltbarkeit',
+  iwStatWater: '{0} Stufe Wasser',
+  iwStatTouch: 'braucht Constructor\'s Touch',
+  iwTicks: '{0} Ticks ({1} s)',
+  iwFactsUpgrade: 'Eine Aufwertung dauert {0} Ticks ({1} s): alle {2} Ticks ein Schlag, {3} Schläge insgesamt, der letzte wertet auf. Danach kühlt der Hammer {4} Ticks ab. Hämmer, die aufwerten können:',
+  iwFactsReshape: 'Haltbarkeit je Umformung: {0}, rückwärts: {1}. Die Ladezeit bleibt zwischen {2} und {3} Ticks.',
+  iwFactsChisel: 'Haltbarkeit je Schritt: {0}.',
+  thChargeTime: 'Ladezeit (ohne Effizienz)',
+  thCooldown: 'Abklingzeit',
+  /* Rezeptbaum und Kontextmenue */
+  ctxTree: 'Rezeptbaum',
+  ctxOpen: 'Seite öffnen',
+  treeCrumb: 'Rezeptbaum',
+  treeTitle: 'So bekommst du {0}',
+  treeHintItem: 'Rechtsklick auf eine Item-Kachel zeigt ihren Rezeptbaum, oder {0}.',
+  treeHintLink: 'Rezeptbaum dieses Items öffnen',
+  treeIntro: 'Jeder Weg, es zu bekommen - Rezepte der Mod und aus Vanilla, Schmelzen, Umwandlungen in der Welt, Drops und Handel -, die Zutaten per Klick eine Ebene tiefer. Varianten einer Gruppe (beliebige Bretter) sind zu einem Zweig zusammengefasst. Die Vanilla-Rezepte folgen der gewählten Minecraft-Version.',
+  treeAmount: 'Menge',
+  treeLoading: 'Vanilla-Rezepte werden geladen …',
+  treeNoVanilla: 'Die Vanilla-Rezepte für Minecraft {0} ließen sich nicht laden (wiki/data/vanilla-{0}.js); gezeigt werden nur die Wege der Mod.',
+  treeNoItem: 'Kein Item gewählt.',
+  treeAnyOf: 'eines von {1} (z. B. {0})',
+  treeAnyTag: '{0} - eines von {1}',
+  treeVariantMerged: 'Varianten zusammengefasst; darunter stehen die Rezepte von {0}, die anderen gehen genauso.',
+  treeTagUnknown: 'Unbekannter Tag - seine Mitglieder stehen nicht in den Daten.',
+  treeCycle: 'Steht in diesem Zweig schon weiter oben.',
+  treeTooDeep: 'Zweig zu tief - das Item einzeln öffnen.',
+  treeBaseVanilla: 'Kein Rezept: wird gesammelt, abgebaut oder in der Welt gefunden.',
+  treeBaseMod: 'In den Daten ist kein Weg bekannt, es zu bekommen.',
+  treeCrafts: '{0}× herstellen, je {1}',
+  treeTimes: '{0}×, je {1}',
+  treeFuel: 'dazu Brennstoff',
+  treeTradeFor: 'für {0}× {1}',
+  treeOpenPage: 'Seite'
 }
 };
 
@@ -975,9 +1110,9 @@ function refLink(id, opts) {
   var label = isTag ? id : displayName(id);
   var showId = !isTag && !opts.noId && label !== id;
   var inner = '<span class="ref-name">' + esc(label) + '</span>' + (showId ? '<code class="ref-id">' + esc(id) + '</code>' : '');
-  if (href) return '<a class="ref" href="' + esc(href) + '" title="' + esc(id) + '">' + inner + '</a>';
+  if (href) return '<a class="ref" href="' + esc(href) + '" data-id="' + esc(id) + '" title="' + esc(id) + '">' + inner + '</a>';
   var ext = isTag ? T('refExtTag') : (isVanilla(id) ? T('refExtVanilla') : T('refExtUnknown'));
-  return '<span class="ref ref-ext" title="' + esc(id + ' – ' + ext) + '">' + inner + '</span>';
+  return '<span class="ref ref-ext" data-id="' + esc(id) + '" title="' + esc(id + ' – ' + ext) + '">' + inner + '</span>';
 }
 function idLink(id, hint) {
   var href = hrefFor(id, hint);
@@ -1024,7 +1159,7 @@ function slotHtml(ref, count, opts) {
   var cnt = c > 1 ? '<span class="slot-count">' + c + '</span>' : '';
   var alt = alts.length > 1 ? '<span class="slot-alt">+' + (alts.length - 1) + '</span>' : '';
   var tag = href && !opts.noLink ? 'a' : 'span';
-  return '<' + tag + ' class="' + cls + '"' + (tag === 'a' ? ' href="' + esc(href) + '"' : '') + ' title="' + esc(title) + '">' + body + cnt + alt + '</' + tag + '>';
+  return '<' + tag + ' class="' + cls + '"' + (tag === 'a' ? ' href="' + esc(href) + '"' : '') + ' data-id="' + esc(first) + '" title="' + esc(title) + '">' + body + cnt + alt + '</' + tag + '>';
 }
 function slotCol(ref, count, label, opts) {
   return '<span class="slotcol">' + slotHtml(ref, count, opts) + (label ? '<span class="slot-label">' + esc(label) + '</span>' : '') + '</span>';
@@ -1449,7 +1584,7 @@ function entryPage(id, kind) {
   var tex = textureOf(id);
   var h = crumbs([{ label: isBlock ? T('navBlocks') : T('navItems'), href: '#/' + kind }, { label: main }]);
   var cube = isBlock ? cubeHtml(e.faces) : '';
-  h += '<div class="hero"><div class="hero-tex' + (cube ? ' is-cube' : '') + '">'
+  h += '<div class="hero"><div class="hero-tex' + (cube ? ' is-cube' : '') + '" data-id="' + esc(id) + '">'
      + (cube || (tex ? '<img src="' + esc(tex) + '" alt="' + esc(main) + '" data-name="' + esc(main) + '">' : T('noTexture')))
      + '</div><div>';
   h += '<h1>' + esc(main) + '</h1>';
@@ -1465,17 +1600,22 @@ function entryPage(id, kind) {
   h += '<div class="badges">' + badges.join('') + '</div>';
   h += '</div></div>';
 
-  h += section(T('secDescription'), noteBlock(e.note, e.hasCustomBehaviour ? T('hintCustomBehaviour') : T('hintPlainBlock')));
-  h += propertiesSection(e);
+  /* Reihenfolge nach Wunsch des Besitzers: Rezepte zuerst, dann Beschreibung,
+     dann Drops, Handel, Verwendung ... Abschnitte ohne Eintrag wandern
+     gesammelt ans Ende, mit ihrem "kein Rezept"-Hinweis. */
+  var parts = [];
+  function part(title, has, body, empty, opts) { parts.push({ title: title, has: has, body: has ? body : '<p class="hint">' + empty + '</p>', opts: opts || {} }); }
 
   var crafted = strs(e.craftedBy);
-  h += section(T('secCrafting'), crafted.length ? crafted.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeCard(r) : '<p class="hint">' + T('recipeNotInData', esc(rid)) + '</p>'; }).join('') : '<p class="hint">' + esc(T('noRecipe')) + '</p>', { count: crafted.length });
+  part(T('secCrafting'), crafted.length > 0, crafted.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeCard(r) : '<p class="hint">' + T('recipeNotInData', esc(rid)) + '</p>'; }).join(''), esc(T('noRecipe')), { count: crafted.length });
 
-  var used = strs(e.usedIn);
-  h += section(T('secUsedIn'), used.length ? '<div class="rows">' + used.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeRow(r) : '<div class="row"><code>' + esc(rid) + '</code></div>'; }).join('') + '</div>' : '<p class="hint">' + esc(T('notAnIngredient')) + '</p>', { count: used.length });
+  var hasNote = noteHasContent(e.note);
+  parts.push({ title: T('secDescription'), has: hasNote, body: noteBlock(e.note, e.hasCustomBehaviour ? T('hintCustomBehaviour') : T('hintPlainBlock')), opts: {} });
+  var props = propertiesSection(e);
+  if (props) parts.push({ raw: props, has: true });
 
-  var trades = strs(e.trades);
-  h += section(T('secTrades'), trades.length ? trades.map(function (tid) { var tc = IX.trades.get(tid); return tc ? tradeCard(tc) : '<p class="hint">' + T('tradeNotInData', esc(tid)) + '</p>'; }).join('') : '<p class="hint">' + esc(T('notTraded')) + '</p>', { count: trades.length });
+  var iw = inWorldForItem(id);
+  part(T('secInWorld'), iw.length > 0, iw, esc(T('iwNoneForItem')), {});
 
   if (isBlock) {
     var lt = e.lootTable ? IX.loot.get(e.lootTable) : null;
@@ -1484,17 +1624,29 @@ function entryPage(id, kind) {
     if (drops.length) body += '<p>' + esc(T('dropsPrefix', '')) + '<span class="reflist">' + drops.map(function (d) { return refLink(d); }).join('') + '</span></p>';
     if (lt) body += lootBlock(lt);
     else if (e.lootTable) body += '<p class="hint">' + T('lootNotInDataOne', esc(e.lootTable)) + '</p>';
-    else body += '<p class="hint">' + esc(T('noLootTable')) + (drops.length ? '' : esc(T('noLootTableTail'))) + '.</p>';
-    h += section(T('secDrops'), body);
+    var hasDrops = !!(lt || e.lootTable || drops.length);
+    part(T('secDrops'), hasDrops, body, esc(T('noLootTable')) + (drops.length ? '' : esc(T('noLootTableTail'))) + '.', {});
   }
   var dropsFrom = (IX.dropsOf.get(id) || []).filter(function (lid) { return !(isBlock && lid === e.lootTable); });
-  if (dropsFrom.length) h += section(T('secDropsFrom'), '<div class="rows">' + dropsFrom.map(function (lid) { return lootRow(IX.loot.get(lid)); }).join('') + '</div>', { count: dropsFrom.length });
+  if (dropsFrom.length) part(T('secDropsFrom'), true, '<div class="rows">' + dropsFrom.map(function (lid) { return lootRow(IX.loot.get(lid)); }).join('') + '</div>', '', { count: dropsFrom.length });
+
+  var trades = strs(e.trades);
+  part(T('secTrades'), trades.length > 0, trades.map(function (tid) { var tc = IX.trades.get(tid); return tc ? tradeCard(tc) : '<p class="hint">' + T('tradeNotInData', esc(tid)) + '</p>'; }).join(''), esc(T('notTraded')), { count: trades.length });
+
+  var used = strs(e.usedIn);
+  part(T('secUsedIn'), used.length > 0, '<div class="rows">' + used.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeRow(r) : '<div class="row"><code>' + esc(rid) + '</code></div>'; }).join('') + '</div>', esc(T('notAnIngredient')), { count: used.length });
 
   var inTags = IX.tagsContaining.get(id) || [];
-  if (inTags.length) h += section(T('secInTags'), '<div class="reflist">' + inTags.map(function (tid) { return '<a href="#/tags/' + esc(tid) + '"><code>' + esc(tid) + '</code></a>'; }).join('') + '</div>', { count: inTags.length });
+  if (inTags.length) part(T('secInTags'), true, '<div class="reflist">' + inTags.map(function (tid) { return '<a href="#/tags/' + esc(tid) + '"><code>' + esc(tid) + '</code></a>'; }).join('') + '</div>', '', { count: inTags.length });
 
   var feats = arr(D.features).filter(function (f) { return isObj(f) && strs(f.related).indexOf(id) >= 0; });
-  if (feats.length) h += section(T('secFeatures'), '<div class="reflist">' + feats.map(function (f) { return '<a href="#/features/' + esc(f.id) + '">' + esc(featureTitle(f)) + '</a>'; }).join('') + '</div>');
+  if (feats.length) part(T('secFeatures'), true, '<div class="reflist">' + feats.map(function (f) { return '<a href="#/features/' + esc(f.id) + '">' + esc(featureTitle(f)) + '</a>'; }).join('') + '</div>', '', {});
+
+  h += '<p class="tree-hint tiny muted">' + T('treeHintItem', '<a href="#/tree/' + esc(encodeURIComponent(id)) + '">' + esc(T('treeHintLink')) + '</a>') + '</p>';
+  function out(p) { return p.raw != null ? p.raw : section(p.title, p.body, p.opts); }
+  parts.filter(function (p) { return p.has; }).forEach(function (p) { h += out(p); });
+  var empty = parts.filter(function (p) { return !p.has; });
+  if (empty.length) h += '<div class="empty-sections">' + empty.map(function (p) { return '<section class="section section-empty"><h2>' + esc(p.title) + '</h2>' + p.body + '</section>'; }).join('') + '</div>';
   return h;
 }
 
@@ -1655,6 +1807,303 @@ function pageConfig(highlightName) {
   return h + '</tbody></table></div>';
 }
 
+/* ------------------------------------------------------------------ */
+/* Umwandlung in der Welt                                             */
+/* ------------------------------------------------------------------ */
+/* Aus D.inWorld: generate.py liest dafuer inworld.json (vom Datagen aus
+   den Tabellen und Konstanten des Spiels geschrieben) und die wenigen
+   Handeintraege aus manual.json. */
+var IW = { kinds: new Map(), entries: [], byOutput: new Map(), byInput: new Map(), byTool: new Map() };
+function buildInWorld() {
+  var src = D && isObj(D.inWorld) ? D.inWorld : {};
+  arr(src.kinds).forEach(function (k) { if (isObj(k) && k.id) IW.kinds.set(k.id, k); });
+  arr(src.entries).forEach(function (e) {
+    if (!isObj(e) || !e.kind) return;
+    IW.entries.push(e);
+    var o = normStack(e.output); if (o) push(IW.byOutput, o.id, e);
+    arr(e.inputs).forEach(function (s) { arr(s && s.id).forEach(function (id) { push(IW.byInput, id, e); }); });
+    arr(e.tools).forEach(function (id) { push(IW.byTool, id, e); });
+  });
+}
+function iwKindTitle(kind) {
+  var k = IW.kinds.get(kind), v = k ? localised(k.note).v : null;
+  return (isObj(v) && v.title) || prettyFromId(kind);
+}
+function secondsOf(ticks) { return fmtNum(num(ticks, 0) / 20); }
+function iwStats(e) {
+  var s = isObj(e.stats) ? e.stats : {}, out = [];
+  if (s.ticks != null) out.push(T('iwStatTime', secondsOf(s.ticks), s.ticks));
+  if (s.hits != null) out.push(T('iwStatHits', s.hits));
+  if (s.damagePerHit != null) out.push(T('iwStatDamagePerHit', s.damagePerHit));
+  if (s.damage != null) out.push(s.damagePerHit != null ? T('iwStatDamageTotal', s.damage) : T('iwStatDamage', s.damage));
+  if (s.waterLevels != null) out.push(T('iwStatWater', s.waterLevels));
+  return out;
+}
+function iwEntryHtml(e, opts) {
+  opts = opts || {};
+  var h = '<div class="iw-entry row" data-s="' + esc(norm([displayName(normStack(e.output).id)].concat(arr(e.inputs).map(function (s) { return arr(s.id).map(displayName).join(' '); }), arr(e.tools).map(displayName), [e.output.id]).join(' '))) + '">';
+  h += '<div class="iw-slots">';
+  h += arr(e.inputs).map(function (s) { return slotHtml(s.id, s.count); }).join('<span class="plus">+</span>');
+  var tools = arr(e.tools);
+  if (tools.length) h += '<span class="iw-tool" title="' + esc(T('iwTool')) + '">' + slotHtml(tools, 1, { cls: 'slot-tool' }) + '</span>';
+  var o = normStack(e.output);
+  h += '<span class="arrow">→</span>' + slotHtml(o.id, o.count, { cls: 'slot-result' }) + '</div>';
+  var meta = [];
+  if (opts.kindLabel) meta.push('<a href="#/inworld/' + esc(e.kind) + '">' + esc(iwKindTitle(e.kind)) + '</a>');
+  if (tools.length) meta.push(esc(T('iwTool')) + ': ' + esc(displayName(tools[0])) + (e.toolOrBetter ? ' ' + esc(T('iwOrBetter')) : (tools.length > 1 ? ' ' + esc(T('iwAndMore', tools.length - 1)) : '')));
+  iwStats(e).forEach(function (x) { meta.push(esc(x)); });
+  if (isObj(e.stats) && e.stats.touch) meta.push(badge(T('iwStatTouch'), 'warn'));
+  h += '<div class="row-main iw-meta">' + meta.join(' · ') + '</div></div>';
+  return h;
+}
+/* Abschnitt auf der Item-Seite: alles, wo das Item herauskommt oder hineingeht.
+   Als Werkzeug (Meissel, Hammer) waeren das Hunderte - dafuer ein Verweis. */
+function inWorldForItem(id) {
+  var list = (IW.byOutput.get(id) || []).concat((IW.byInput.get(id) || []).filter(function (e) { return (IW.byOutput.get(id) || []).indexOf(e) < 0; }));
+  var h = list.length ? '<div class="rows">' + list.map(function (e) { return iwEntryHtml(e, { kindLabel: true }); }).join('') + '</div>' : '';
+  var asTool = IW.byTool.get(id) || [];
+  if (asTool.length) {
+    var kinds = []; asTool.forEach(function (e) { if (kinds.indexOf(e.kind) < 0) kinds.push(e.kind); });
+    h += '<p>' + T('iwAsTool', asTool.length) + ' ' + kinds.map(function (k) { return '<a href="#/inworld/' + esc(k) + '">' + esc(iwKindTitle(k)) + '</a>'; }).join(', ') + '</p>';
+  }
+  return h;
+}
+function iwFactsHtml(k) {
+  var f = isObj(k.facts) ? k.facts : {}, h = '';
+  if (k.id === 'sledgehammer_upgrade' && f.durationTicks != null) {
+    h += '<p>' + esc(T('iwFactsUpgrade', f.durationTicks, secondsOf(f.durationTicks), f.hitIntervalTicks, f.hits, f.finishCooldownTicks)) + '</p>';
+    if (arr(f.hammers).length) h += '<div class="reflist">' + arr(f.hammers).map(function (x) { return refLink(x.id, { noId: true }); }).join('') + '</div>';
+  }
+  if (k.id === 'sledgehammer_reshape') {
+    h += '<p>' + esc(T('iwFactsReshape', f.damage, f.reverseDamage, f.minTicks, f.maxTicks)) + '</p>';
+    h += toolTable(f.hammers, 'ticks', T('thChargeTime'));
+  }
+  if ((k.id === 'chisel' || k.id === 'chisel_reverse') && f.damage != null) {
+    h += '<p>' + esc(T('iwFactsChisel', f.damage)) + '</p>';
+    if (k.id === 'chisel') h += toolTable(f.tools, 'cooldownTicks', T('thCooldown'));
+  }
+  return h;
+}
+function toolTable(rows, field, label) {
+  rows = arr(rows); if (!rows.length) return '';
+  return '<div class="table-wrap"><table class="table"><thead><tr><th>' + esc(T('iwTool')) + '</th><th>' + esc(label) + '</th></tr></thead><tbody>' +
+    rows.map(function (r) { return '<tr><td>' + refLink(r.id, { noId: true }) + '</td><td>' + esc(T('iwTicks', r[field], secondsOf(r[field]))) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+}
+function pageInWorld(kindId) {
+  var kinds = Array.from(IW.kinds.values());
+  var h = '<div class="listhead"><h1>' + esc(T('navInWorld')) + ' <span class="muted tiny" style="font-weight:400">' + IW.entries.length + '</span></h1>' + (IW.entries.length > 8 ? '<input type="search" data-filter placeholder="' + esc(T('filterPlaceholder')) + '" aria-label="' + esc(T('filterAria')) + '">' : '') + '</div>';
+  h += '<p class="muted">' + esc(T('iwIntro')) + '</p>';
+  h += '<div class="reflist" style="margin-bottom:1rem">' + kinds.map(function (k) { return '<a href="#/inworld/' + esc(k.id) + '">' + esc(iwKindTitle(k.id)) + '</a>'; }).join('') + '</div>';
+  kinds.forEach(function (k) {
+    if (kindId && k.id !== kindId) return;
+    var list = IW.entries.filter(function (e) { return e.kind === k.id; });
+    var body = noteBlock(k.note, '') + iwFactsHtml(k);
+    if (list.length) body += '<div class="rows" data-filter-target>' + list.map(function (e) { return iwEntryHtml(e); }).join('') + '</div>';
+    h += section(iwKindTitle(k.id), body, { count: list.length || null, id: 'iw-' + k.id });
+  });
+  h += '<p class="hint" data-filter-empty hidden>' + esc(T('filterEmpty')) + '</p>';
+  return h;
+}
+
+/* ------------------------------------------------------------------ */
+/* Vanilla-Rezepte je Minecraft-Linie (fuer den Rezeptbaum)           */
+/* ------------------------------------------------------------------ */
+/* generate.py zieht sie aus dem Client-Jar der Linie nach
+   data/vanilla-<linie>.js - nur Rezeptdaten und die Item-Tags, die sie
+   nennen. Geladen wird erst, wenn der Baum sie braucht; ein Script-Element statt
+   fetch(), damit es auch per file:// geht. */
+var MC_LINE_STORE = 'simplebuilding-wiki-mcline';
+var VR = { loaded: {}, failed: {}, waiting: {} };
+function mcLines() { var l = D && isObj(D.vanillaRecipes) ? arr(D.vanillaRecipes.lines) : []; return l.length ? l : arr(MOD.minecraftLines); }
+function currentMcLine() {
+  var lines = mcLines(), stored = null;
+  try { stored = window.localStorage ? window.localStorage.getItem(MC_LINE_STORE) : null; } catch (err) { /* ohne Storage: Standard */ }
+  if (lines.indexOf(stored) >= 0) return stored;
+  var g = D && isObj(D.generatedFrom) ? D.generatedFrom.line : null;
+  return lines.indexOf(g) >= 0 ? g : lines[0];
+}
+function mcId(x) {
+  x = String(x || '');
+  if (x.charAt(0) === '#') return x.indexOf(':') < 0 ? '#minecraft:' + x.slice(1) : x;
+  return x.indexOf(':') < 0 ? 'minecraft:' + x : x;
+}
+function normVanilla(raw, line) {
+  var out = { line: line, byResult: new Map(), tags: new Map(), count: 0 };
+  function ids(v) { return arr(v).map(mcId); }
+  Object.keys(raw.tags || {}).forEach(function (k) { out.tags.set(mcId(k), ids(raw.tags[k])); });
+  arr(raw.recipes).forEach(function (r) {
+    if (!isObj(r) || !isObj(r.result)) return;
+    var n = { id: mcId(r.id), type: mcId(r.type), group: r.group, result: { id: mcId(r.result.id), count: num(r.result.count, 1) }, vanilla: true };
+    if (r.pattern) { n.pattern = r.pattern; n.key = {}; Object.keys(r.key || {}).forEach(function (c) { n.key[c] = ids(r.key[c]); }); }
+    if (r.ingredientGroups) n.ingredientGroups = r.ingredientGroups.map(ids);
+    if (r.slots) { n.slots = {}; Object.keys(r.slots).forEach(function (s) { n.slots[s] = ids(r.slots[s]); }); }
+    ['cookingtime', 'experience', 'count', 'addition_count'].forEach(function (k) { if (r[k] != null) n[k] = r[k]; });
+    push(out.byResult, n.result.id, n);
+    out.count++;
+  });
+  return out;
+}
+function loadVanilla(line, done) {
+  if (VR.loaded[line] || VR.failed[line]) { done(VR.loaded[line] || null); return; }
+  var pre = window.VANILLA_RECIPES && window.VANILLA_RECIPES[line];
+  if (pre) { VR.loaded[line] = normVanilla(pre, line); done(VR.loaded[line]); return; }
+  if (VR.waiting[line]) { VR.waiting[line].push(done); return; }
+  VR.waiting[line] = [done];
+  var s = document.createElement('script');
+  s.src = 'data/vanilla-' + encodeURIComponent(line) + '.js';
+  function finish() {
+    var raw = window.VANILLA_RECIPES && window.VANILLA_RECIPES[line];
+    if (raw) VR.loaded[line] = normVanilla(raw, line); else VR.failed[line] = true;
+    var cbs = VR.waiting[line] || []; delete VR.waiting[line];
+    cbs.forEach(function (cb) { cb(VR.loaded[line] || null); });
+  }
+  s.onload = finish; s.onerror = finish;
+  document.head.appendChild(s);
+}
+
+/* ------------------------------------------------------------------ */
+/* Rezeptbaum: "Wie bekomme ich X?"                                   */
+/* ------------------------------------------------------------------ */
+var TREE = { id: null, amount: 1, v: null };
+var TREE_MAX_DEPTH = 12;
+function modRecipesFor(id) { var out = []; IX.recipes.forEach(function (r) { var s = normStack(r.result); if (s && s.id === id) out.push(r); }); return out; }
+function tradesGiving(id) { var out = []; IX.trades.forEach(function (t) { var g = normStack(t.gives); if (g && g.id === id) out.push(t); }); return out; }
+function tagMembers(ref) {
+  var seen = {}, out = [];
+  function walk(r) {
+    if (seen[r]) return; seen[r] = true;
+    var t = resolveTag(r, 'item'), vals = t ? arr(t.values).map(tagValueId) : (TREE.v && TREE.v.tags.get(mcId(r))) || [];
+    vals.forEach(function (v) { if (!v) return; if (v.charAt(0) === '#') walk(v); else if (out.indexOf(v) < 0) out.push(v); });
+  }
+  walk(ref);
+  return out;
+}
+/* Stellvertreter einer Variantengruppe ("irgendwelche Bretter"): lieber Eiche,
+   sonst das erste Mitglied. */
+function representative(members) {
+  for (var i = 0; i < members.length; i++) if (/:oak_/.test(members[i])) return members[i];
+  return members[0];
+}
+function waysToGet(id) {
+  var ways = [];
+  modRecipesFor(id).forEach(function (r) { ways.push({ t: 'recipe', r: r }); });
+  if (TREE.v) arr(TREE.v.byResult.get(id)).forEach(function (r) { ways.push({ t: 'recipe', r: r }); });
+  arr(IW.byOutput.get(id)).forEach(function (e) { ways.push({ t: 'inworld', e: e }); });
+  /* Der eigene Block-Drop ("abbauen gibt sich selbst") hilft beim Planen nicht. */
+  arr(IX.dropsOf.get(id)).forEach(function (lid) { if (IX.lootOfBlock.get(id) !== lid) ways.push({ t: 'loot', l: IX.loot.get(lid) }); });
+  tradesGiving(id).forEach(function (tr) { ways.push({ t: 'trade', tr: tr }); });
+  return ways;
+}
+/* Wie ingredientCounts, aber auch fuer Steinsaege und Umfaerben (transmute):
+   deren Zutaten liegen in slots, nicht in einer Zutatenliste. */
+function treeIngredients(r) {
+  if (recipeKind(r.type) === 'generic' && isObj(r.slots)) return Object.keys(r.slots).map(function (s) { return { ref: arr(r.slots[s]), n: 1 }; }).filter(function (x) { return x.ref.length; });
+  return ingredientCounts(r);
+}
+function ceilDiv(a, b) { return Math.ceil(a / Math.max(1, b)); }
+/* Ein Knoten: ein Item (oder eine Tag-Gruppe) mit der benoetigten Menge.
+   Kinder werden erst beim Aufklappen gebaut - sonst liefe der Baum ueber
+   Vanilla-Rezepte schnell in die Tausende. */
+function treeNode(ref, need, path, open, role) {
+  var alts = arr(ref).filter(Boolean);
+  var first = alts[0];
+  var label, members = null;
+  if (alts.length > 1) { members = alts; label = T('treeAnyOf', displayName(representative(alts)), alts.length); }
+  else if (first && first.charAt(0) === '#') { members = tagMembers(first); label = T('treeAnyTag', first, members.length); }
+  else label = displayName(first);
+  var h = '<details class="tree-node"' + (open ? ' open' : '') + ' data-ref="' + esc(alts.join('|')) + '" data-need="' + need + '" data-path="' + esc(path.join('|')) + '">';
+  h += '<summary>' + slotHtml(alts, 1, { noLink: true }) + '<span class="tree-need">' + need + '×</span> <span class="tree-name">' + esc(label) + '</span>' + (role ? ' <span class="badge">' + esc(role) + '</span>' : '') + (first && first.charAt(0) !== '#' && alts.length === 1 && hrefFor(first) ? ' <a class="tiny" href="' + esc(hrefFor(first)) + '">' + esc(T('treeOpenPage')) + '</a>' : '') + '</summary>';
+  h += '<div class="tree-body">' + (open ? treeChildren(alts, need, path) : '') + '</div></details>';
+  return h;
+}
+function treeChildren(alts, need, path) {
+  var target = alts[0];
+  var h = '';
+  if (alts.length > 1 || (target && target.charAt(0) === '#')) {
+    var members = alts.length > 1 ? alts : tagMembers(target);
+    if (!members.length) return '<p class="hint tiny">' + esc(T('treeTagUnknown')) + '</p>';
+    h += '<div class="tree-members reflist">' + members.slice(0, 40).map(function (m) { return refLink(m, { noId: true }); }).join('') + (members.length > 40 ? ' …' : '') + '</div>';
+    var rep = representative(members);
+    h += '<p class="tiny muted">' + esc(T('treeVariantMerged', displayName(rep))) + '</p>';
+    return h + treeNode(rep, need, path, false);
+  }
+  if (path.indexOf(target) >= 0) return '<p class="hint tiny">' + esc(T('treeCycle')) + '</p>';
+  if (path.length >= TREE_MAX_DEPTH) return '<p class="hint tiny">' + esc(T('treeTooDeep')) + '</p>';
+  var ways = waysToGet(target);
+  if (!ways.length) return '<p class="hint tiny">' + esc(isVanilla(target) ? T('treeBaseVanilla') : T('treeBaseMod')) + '</p>';
+  var next = path.concat([target]);
+  ways.forEach(function (w, i) { h += treeWay(w, need, next, i === 0 && ways.length === 1); });
+  return h;
+}
+function treeWay(w, need, path, open) {
+  var h = '<div class="tree-way">';
+  if (w.t === 'recipe') {
+    var r = w.r, res = normStack(r.result) || { count: 1 };
+    var crafts = ceilDiv(need, res.count);
+    h += '<div class="tree-way-head">' + badge(recipeTypeLabel(r.type)) + (r.vanilla ? badge('Minecraft ' + TREE.v.line) : badge(MOD.name || 'SimpleBuilding', 'ok')) + ' <span class="tiny muted">' + esc(T('treeCrafts', crafts, res.count)) + '</span> ' + (r.vanilla ? '<code class="tiny">' + esc(r.id) + '</code>' : '<a class="tiny" href="#/recipes/' + esc(r.id) + '"><code>' + esc(r.id) + '</code></a>') + '</div>';
+    treeIngredients(r).forEach(function (ic) { h += treeNode(ic.ref, ic.n * crafts, path, false); });
+    if (recipeKind(r.type) === 'cooking') h += '<p class="tiny muted">' + esc(T('treeFuel')) + '</p>';
+  } else if (w.t === 'inworld') {
+    var e = w.e, o = normStack(e.output), times = ceilDiv(need, o.count);
+    h += '<div class="tree-way-head">' + badge(T('secInWorld'), 'ok') + ' <a class="tiny" href="#/inworld/' + esc(e.kind) + '">' + esc(iwKindTitle(e.kind)) + '</a> <span class="tiny muted">' + esc(T('treeTimes', times, o.count)) + (iwStats(e).length ? ' · ' + esc(iwStats(e).join(' · ')) : '') + '</span></div>';
+    arr(e.inputs).forEach(function (s) { h += treeNode(s.id, num(s.count, 1) * times, path, false); });
+    if (arr(e.tools).length) h += treeNode(arr(e.tools), 1, path, false, T('iwTool') + (e.toolOrBetter ? ' ' + T('iwOrBetter') : ''));
+  } else if (w.t === 'loot' && w.l) {
+    var owner = null; IX.lootOfBlock.forEach(function (lid, bid) { if (lid === w.l.id) owner = bid; });
+    h += '<div class="tree-way-head">' + badge(T('secDropsFrom')) + ' <a class="tiny" href="#/loot/' + esc(w.l.id) + '">' + esc(owner ? displayName(owner) : prettyFromId(w.l.id)) + '</a> <code class="tiny">' + esc(w.l.id) + '</code></div>';
+  } else if (w.t === 'trade') {
+    var tr = w.tr, want = normStack(tr.wants);
+    h += '<div class="tree-way-head">' + badge(T('secTrades')) + ' <a class="tiny" href="#/trades/' + esc(tr.id) + '">' + esc(professionLabel(tr.profession) + ', ' + levelLabel(tr.level)) + '</a>' + (want ? ' <span class="tiny muted">' + esc(T('treeTradeFor', want.count, displayName(want.id))) + '</span>' : '') + '</div>';
+  }
+  return h + '</div>';
+}
+function pageTree(id) {
+  TREE.id = id;
+  var line = currentMcLine();
+  var h = crumbs([{ label: T('treeCrumb') }, { label: id ? displayName(id) : '?' }]);
+  if (!id) return h + '<p class="hint">' + esc(T('treeNoItem')) + '</p>';
+  h += '<div class="listhead"><h1>' + esc(T('treeTitle', displayName(id))) + '</h1><div class="tree-controls">' +
+    '<label>' + esc(T('treeAmount')) + ' <input type="number" min="1" max="4096" value="' + TREE.amount + '" data-tree-amount></label> ' +
+    '<label>Minecraft <select data-tree-line>' + mcLines().map(function (l) { return '<option value="' + esc(l) + '"' + (l === line ? ' selected' : '') + '>' + esc(l) + '</option>'; }).join('') + '</select></label></div></div>';
+  h += '<p class="muted">' + esc(T('treeIntro')) + '</p>';
+  h += '<div id="tree-root"><p class="hint">' + esc(T('treeLoading')) + '</p></div>';
+  return h;
+}
+function fillTree() {
+  var root = document.getElementById('tree-root');
+  if (!root || !TREE.id) return;
+  var line = currentMcLine();
+  loadVanilla(line, function (v) {
+    var el = document.getElementById('tree-root');
+    if (!el || TREE.id == null) return;
+    TREE.v = v;
+    var h = v ? '' : '<p class="hint">' + esc(T('treeNoVanilla', line)) + '</p>';
+    h += treeNode(TREE.id, TREE.amount, [], true);
+    el.innerHTML = h;
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/* Kontextmenue auf Item-Kacheln                                      */
+/* ------------------------------------------------------------------ */
+var $ctx = null;
+function closeCtx() { if ($ctx) { $ctx.remove(); $ctx = null; } }
+function openCtx(id, x, y) {
+  closeCtx();
+  $ctx = document.createElement('div');
+  $ctx.className = 'ctxmenu';
+  $ctx.setAttribute('role', 'menu');
+  var href = id.charAt(0) === '#' ? hrefFor(id, 'item') : hrefFor(id);
+  var items = [{ label: T('ctxTree'), href: '#/tree/' + encodeURIComponent(id) }];
+  if (href) items.push({ label: T('ctxOpen'), href: href });
+  $ctx.innerHTML = '<div class="ctx-title">' + esc(displayName(id)) + '</div>' + items.map(function (it) { return '<a role="menuitem" href="' + esc(it.href) + '">' + esc(it.label) + '</a>'; }).join('');
+  document.body.appendChild($ctx);
+  var w = $ctx.offsetWidth, hh = $ctx.offsetHeight;
+  $ctx.style.left = Math.max(4, Math.min(x, window.innerWidth - w - 4)) + 'px';
+  $ctx.style.top = Math.max(4, Math.min(y, window.innerHeight - hh - 4)) + 'px';
+  var firstLink = $ctx.querySelector('a'); if (firstLink) firstLink.focus();
+}
+
 function notFound(what, id) {
   var q = String(id || '').split(':').pop().split('/').pop();
   return '<div class="notfound"><h1>' + esc(T('notFoundTitle', what)) + '</h1><p>' + T('notFoundBody', esc(id)) + '</p><p><a href="#/search/' + encodeURIComponent(q) + '">' + esc(T('notFoundSearch', q)) + '</a> · <a href="#/">' + esc(T('notFoundOverview')) + '</a></p></div>';
@@ -1664,8 +2113,8 @@ function notFound(what, id) {
 /* Suche                                                              */
 /* ------------------------------------------------------------------ */
 var SEARCH = [];
-var SECTION_ORDER = ['features', 'items', 'blocks', 'recipes', 'loot', 'trades', 'enchantments', 'tags', 'config'];
-var SECTION_KEYS = { features: 'secFeatures', items: 'navItems', blocks: 'navBlocks', recipes: 'navRecipes', loot: 'navLoot', trades: 'navTrades', enchantments: 'navEnchantments', tags: 'navTags', config: 'navConfig' };
+var SECTION_ORDER = ['features', 'items', 'blocks', 'recipes', 'inworld', 'loot', 'trades', 'enchantments', 'tags', 'config'];
+var SECTION_KEYS = { features: 'secFeatures', items: 'navItems', blocks: 'navBlocks', recipes: 'navRecipes', inworld: 'navInWorld', loot: 'navLoot', trades: 'navTrades', enchantments: 'navEnchantments', tags: 'navTags', config: 'navConfig' };
 function sectionLabel(s) { return T(SECTION_KEYS[s] || 'unknown'); }
 /* Titel eines Features in der gewaehlten Sprache. */
 function featureTitle(f) { if (!isObj(f)) return ''; var v = localised(f).v; return (isObj(v) && v.title) || f.title || prettyFromId(f.id || 'feature'); }
@@ -1689,6 +2138,7 @@ function buildSearch() {
   arr(D.trades).filter(isObj).forEach(function (t) { var g = normStack(t.gives), w = normStack(t.wants); add('trades', t.id, (g ? displayName(g.id) : t.id) + ' – ' + professionLabel(t.profession) + ', ' + levelLabel(t.level), t.id, [g && g.id, w && displayName(w.id), w && w.id, t.profession].concat(arr(t.enchantmentPool).map(function (p) { return isObj(p) ? displayName(p.enchantment) + ' ' + p.enchantment : ''; }), strs(t.configFlags)).filter(Boolean).join(' '), '#/trades/' + t.id); });
   arr(D.enchantments).filter(isObj).forEach(function (e) { add('enchantments', e.id, nameOf(e) || prettyFromId(e.id), [nameEn(e) !== nameOf(e) ? nameEn(e) : '', e.id].filter(Boolean).join(' · '), enchDescription(e).map(function (d) { return d.t; }).join(' ') + ' ' + noteText(e.note) + ' ' + [e.supportedItems, e.exclusiveSet].join(' ') + ' implemented-in-' + implOf(e) + (implOf(e) === 'none' ? ' not implemented nicht implementiert ohne wirkung' : ''), '#/enchantments/' + e.id); });
   arr(D.tags).filter(isObj).forEach(function (t) { var info = tagRefOf(t); add('tags', t.id, info.ref, t.id, arr(t.values).map(function (v) { var id = tagValueId(v); return id + ' ' + displayName(id); }).join(' '), '#/tags/' + t.id); });
+  IW.kinds.forEach(function (k) { add('inworld', k.id, iwKindTitle(k.id), T('navInWorld'), noteText(k.note), '#/inworld/' + k.id); });
   arr(D.config).filter(isObj).forEach(function (c) { add('config', c.name, c.name, [c.type, c.default].filter(Boolean).join(' = '), [c.tooltip, c.note].filter(Boolean).join(' '), '#/config/' + c.name); });
 }
 function search(q) {
@@ -1777,6 +2227,7 @@ var NAV = [
   { key: 'items', labelKey: 'navItems', count: function () { return arr(D.items).length; } },
   { key: 'blocks', labelKey: 'navBlocks', count: function () { return arr(D.blocks).length; } },
   { key: 'recipes', labelKey: 'navRecipes', count: function () { return arr(D.recipes).length; } },
+  { key: 'inworld', labelKey: 'navInWorld', count: function () { return IW.entries.length; } },
   { key: 'loot', labelKey: 'navLoot', count: function () { return arr(D.lootTables).length; } },
   { key: 'trades', labelKey: 'navTrades', count: function () { return arr(D.trades).length; } },
   { key: 'enchantments', labelKey: 'navEnchantments', count: function () { return arr(D.enchantments).length; } },
@@ -1826,6 +2277,8 @@ function render() {
       case 'enchantments': html = r.id ? pageEnchantment(r.id) : pageEnchantments(); title = r.id ? displayName(r.id) : T('navEnchantments'); break;
       case 'tags': html = r.id ? pageTag(r.id) : pageTags(); title = r.id ? T('titleTagPrefix', r.id) : T('navTags'); break;
       case 'config': html = pageConfig(r.id); title = T('navConfig'); break;
+      case 'inworld': html = pageInWorld(r.id); title = r.id ? iwKindTitle(r.id) : T('navInWorld'); break;
+      case 'tree': html = pageTree(r.id); title = T('treeTitle', r.id ? displayName(r.id) : '?'); active = ''; break;
       case 'search': html = pageSearch(r.id); title = T('titleSearch'); active = ''; if (document.activeElement !== $q) $q.value = r.id || ''; break;
       default: html = notFound(T('wordSection'), r.section); title = T('titleNotFound'); active = '';
     }
@@ -1835,12 +2288,17 @@ function render() {
     if (window.console) console.error(err);
   }
   if (!html) html = '<div class="notfound">' + T('emptyPage') + '</div>';
+  closeCtx();
   $main.innerHTML = html;
+  if (r.section === 'tree') fillTree();
   renderSidebar(active);
   document.title = (title ? title + ' – ' : '') + (MOD.name || 'SimpleBuilding') + ' Wiki';
   if (r.section === 'config' && r.id) {
     var row = document.getElementById('cfg-' + r.id);
     if (row && row.scrollIntoView) row.scrollIntoView({ block: 'center' });
+  } else if (r.section === 'inworld' && r.id) {
+    var sec = document.getElementById('iw-' + r.id);
+    if (sec && sec.scrollIntoView) sec.scrollIntoView({ block: 'start' });
   } else if (r.section !== 'search') {
     window.scrollTo(0, 0);
   }
@@ -1899,6 +2357,49 @@ document.addEventListener('keydown', function (ev) {
 
 window.addEventListener('hashchange', render);
 
+/* Rechtsklick auf eine Item-Kachel: eigenes kleines Menue mit "Rezeptbaum".
+   Linksklick bleibt, wie er ist. Tastatur: Kontextmenue-Taste/Shift+F10. */
+document.addEventListener('contextmenu', function (ev) {
+  var el = ev.target && ev.target.closest ? ev.target.closest('[data-id]') : null;
+  if (!el || !$main.contains(el)) { closeCtx(); return; }
+  var id = el.getAttribute('data-id');
+  if (!id) return;
+  ev.preventDefault();
+  var x = ev.clientX, y = ev.clientY;
+  if (!x && !y) { var rc = el.getBoundingClientRect(); x = rc.left; y = rc.bottom; }
+  openCtx(id, x, y);
+});
+document.addEventListener('click', function (ev) { if ($ctx && !$ctx.contains(ev.target)) closeCtx(); });
+document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') closeCtx(); });
+window.addEventListener('scroll', closeCtx, { passive: true });
+window.addEventListener('resize', closeCtx);
+/* Baum: Kinder erst beim Aufklappen bauen. toggle blubbert nicht - daher capture. */
+$main.addEventListener('toggle', function (ev) {
+  var d = ev.target;
+  if (!d || !d.classList || !d.classList.contains('tree-node') || !d.open) return;
+  var body = d.querySelector(':scope > .tree-body');
+  if (!body || body.getAttribute('data-filled')) return;
+  body.setAttribute('data-filled', '1');
+  if (body.children.length) return;
+  var ref = (d.getAttribute('data-ref') || '').split('|').filter(Boolean);
+  var path = (d.getAttribute('data-path') || '').split('|').filter(Boolean);
+  body.innerHTML = treeChildren(ref, num(d.getAttribute('data-need'), 1), path);
+}, true);
+$main.addEventListener('change', function (ev) {
+  var t = ev.target;
+  if (t && t.hasAttribute && t.hasAttribute('data-tree-line')) {
+    try { if (window.localStorage) window.localStorage.setItem(MC_LINE_STORE, t.value); } catch (err) { /* nur fuer diese Sitzung */ }
+    fillTree();
+  }
+});
+$main.addEventListener('input', function (ev) {
+  var t = ev.target;
+  if (t && t.hasAttribute && t.hasAttribute('data-tree-amount')) {
+    var n = Math.floor(num(t.value, 0));
+    if (n >= 1 && n <= 4096) { TREE.amount = n; fillTree(); }
+  }
+});
+
 /* Beschriftungen ausserhalb von #main und der Seitenleiste - die schreibt
    render() nicht, sie muessen von Hand nachgezogen werden. */
 function applyStaticText() {
@@ -1928,6 +2429,7 @@ function setLang(next) {
 $lang.addEventListener('change', function () { setLang($lang.value); });
 
 buildIndex();
+buildInWorld();
 applyStaticText();
 buildSearch();
 renderMeta();
