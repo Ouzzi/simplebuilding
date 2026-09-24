@@ -57,6 +57,11 @@ public final class OreDetectorGameTest {
     }
 
     @GameTest
+    public void openAirReachEndsAtTheRangeOfEachOreClass(GameTestHelper helper) {
+        OreDetectorTests.openAirReachEndsAtTheRangeOfEachOreClass(helper);
+    }
+
+    @GameTest
     public void calibratedDetectorGlimmersInTheColourOfItsTarget(GameTestHelper helper) {
         OreDetectorTests.calibratedDetectorGlimmersInTheColourOfItsTarget(helper);
     }
