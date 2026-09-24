@@ -143,18 +143,42 @@ test {
 }
 
 // The wiki under wiki/ is generated out of the mod's own data files, so it can only be
-// wrong in one way: someone changed the mod and did not regenerate. This task turns
-// that into a build failure instead of a stale page nobody notices. It writes nothing;
-// it only compares what the mod would generate now with what is committed, and lists
-// anything in the game that wiki/manual.json does not describe.
+// wrong in one way: someone changed the mod and did not regenerate.
+//   generateWiki  regenerates wiki/data (python wiki/generate.py). Runs by itself after
+//                 runDatagen: datagen is the step that turns Java constants into files, so
+//                 one datagen run now updates mod data and wiki together.
+//   checkWiki     turns a stale wiki into a build failure instead of a page nobody notices:
+//                 it compares what the mod would generate now with what is committed and
+//                 lists anything in the game that wiki/manual.json does not describe. It
+//                 writes no wiki/data, but generate.py re-copies changed textures into
+//                 wiki/assets on the way (the CI workflow .github/workflows/wiki.yml catches
+//                 that with a git diff).
 //   fix:   python wiki/generate.py        (regenerate)
-//   skip:  gradlew build -PskipWiki       (only if python is unavailable on this machine)
+//   skip:  gradlew ... -PskipWiki         (both tasks; only if python is unavailable here)
+//   python elsewhere:  -PwikiPython=<path>
+def wikiPython = project.findProperty('wikiPython') ?: 'python'
+def wikiTaskGraph = gradle.taskGraph
+
+tasks.register('generateWiki', Exec) {
+	group = 'documentation'
+	description = 'Regenerates wiki/data from the mod (python wiki/generate.py). Runs after runDatagen.'
+	workingDir = rootDir
+	commandLine wikiPython, 'wiki/generate.py'
+	onlyIf { !project.hasProperty('skipWiki') }
+	// A finalizer runs even when runDatagen failed; half-written datagen output is no base
+	// for a wiki.
+	onlyIf { !wikiTaskGraph.allTasks.any { it.name == 'runDatagen' && it.state.failure != null } }
+}
+// Loom registers runDatagen itself; matching() also catches a task registered later.
+tasks.matching { it.name == 'runDatagen' }.configureEach { finalizedBy 'generateWiki' }
+
 tasks.register('checkWiki', Exec) {
 	group = 'verification'
 	description = 'Fails when wiki/data is out of date with the mod or something is undocumented.'
 	workingDir = rootDir
-	commandLine project.findProperty('wikiPython') ?: 'python', 'wiki/generate.py', '--check'
+	commandLine wikiPython, 'wiki/generate.py', '--check'
 	onlyIf { !project.hasProperty('skipWiki') }
+	mustRunAfter 'generateWiki'
 	inputs.dir('wiki')
 	inputs.dir('src/main/generated')
 	inputs.dir('src/main/resources/data')

@@ -1,0 +1,128 @@
+# Prueft das Wiki bei jedem Push auf master und bei jedem Pull Request und veroeffentlicht es
+# von master aus auf GitHub Pages - aber nur, wenn die Pruefung gruen ist. Ist sie rot, bleibt die
+# zuletzt veroeffentlichte Fassung online.
+# Nur Python und ein einzelner JUnit-Test: kein Gradle, kein Minecraft, rund eine Minute.
+# Einmalig einrichten: Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
+# Mehr dazu: docs/WIKI-HOSTING.md
+name: Wiki
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    # Ausdruecklich bash = bash -eo pipefail. Die Standard-Shell hat kein pipefail; ein Befehl
+    # vor einer Pipe koennte dann fehlschlagen, ohne dass der Schritt rot wird.
+    shell: bash
+
+jobs:
+  check:
+    name: Wiki aktuell und statisch hostbar
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Dasselbe Gate wie 'gradlew checkWiki': wiki/data entspricht dem, was die committeten
+      # Datagen-Ausgaben, Ressourcen, die Config-Klasse und manual.json ergeben; jedes Item mit
+      # eigenem Verhalten und jedes Feature hat Prosa auf Englisch und Deutsch.
+      - name: python wiki/generate.py --check
+        run: python wiki/generate.py --check
+
+      # Was --check nicht vergleicht: die .js, die die Seite tatsaechlich laedt, und die
+      # Texturkopien unter wiki/assets (die --check nebenbei neu schreibt).
+      - name: Neu erzeugen aendert nichts
+        run: |
+          python wiki/generate.py > /dev/null
+          if ! git diff --quiet -- wiki; then
+            git diff --stat -- wiki
+            echo "::error::wiki/ aendert sich beim Neuerzeugen - 'python wiki/generate.py' laufen lassen und wiki/ committen"
+            exit 1
+          fi
+          untracked="$(git ls-files --others --exclude-standard -- wiki)"
+          if [ -n "$untracked" ]; then
+            printf '%s\n' "$untracked"
+            echo "::error::Neuerzeugen legt Dateien unter wiki/ an, die nicht committet sind"
+            exit 1
+          fi
+
+      # Nur was index.html laedt, ohne Mojangs Vanilla-Texturen (die liegen ohnehin nicht im
+      # Repository; die Seite zeigt Vanilla-Zutaten dann als Textkachel).
+      - name: Statische Seite pruefen und zusammenstellen
+        run: python tools/wiki_site.py --out build/wiki-site
+
+      - name: Pages-Artefakt hochladen
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/wiki-site
+
+  # Die Sprachdatei-Pruefung aus src/test (en_us/de_de gueltiges JSON, keine doppelten Schluessel,
+  # en_us und de_de mit denselben Schluesseln - je Linie, fuer 26.2 und 1.21.11). Sie braucht nur
+  # JUnit und Gson, deshalb laeuft sie hier
+  # ohne Gradle-Setup mit dem JUnit-Konsolenstarter. Sie blockiert das Veroeffentlichen nicht,
+  # macht den Lauf aber rot.
+  lang:
+    name: Sprachdateien (LanguageFilesTest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: LanguageFilesTest ohne Minecraft
+        run: |
+          # Versionen aus build.gradle, damit CI und 'gradlew test' dieselben benutzen.
+          jupiter=$(sed -n 's/.*"org\.junit\.jupiter:junit-jupiter:\([0-9.]*\)".*/\1/p' build.gradle | head -n 1)
+          gson=$(sed -n 's/.*"com\.google\.code\.gson:gson:\([0-9.]*\)".*/\1/p' build.gradle | head -n 1)
+          if [ -z "$jupiter" ] || [ -z "$gson" ]; then
+            echo "::error::JUnit- oder Gson-Version in build.gradle nicht gefunden"
+            exit 1
+          fi
+          platform="1.${jupiter#5.}"
+          mkdir -p build/lang-test/classes
+          central=https://repo1.maven.org/maven2
+          curl -fsSL -o build/lang-test/junit.jar \
+            "$central/org/junit/platform/junit-platform-console-standalone/$platform/junit-platform-console-standalone-$platform.jar"
+          curl -fsSL -o build/lang-test/gson.jar \
+            "$central/com/google/code/gson/gson/$gson/gson-$gson.jar"
+          javac -encoding UTF-8 -d build/lang-test/classes \
+            -cp build/lang-test/junit.jar:build/lang-test/gson.jar \
+            src/test/java/com/simplebuilding/LanguageFilesTest.java
+          java -jar build/lang-test/junit.jar execute \
+            --class-path build/lang-test/classes:build/lang-test/gson.jar \
+            --select-class com.simplebuilding.LanguageFilesTest \
+            --fail-if-no-tests --disable-banner --details=tree
+
+  deploy:
+    name: Auf GitHub Pages veroeffentlichen
+    needs: check
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
