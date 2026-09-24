@@ -38,14 +38,16 @@ entfernt) macht ihn rot.
 
 | Ziel | Prüfpunkte | Rückstand |
 |---|---:|---:|
-| Fabric · MC 26.2 | **102** | — |
-| Fabric · MC 1.21.11 | **102** | — |
-| NeoForge · MC 26.2 | **102** | — |
-| NeoForge · MC 1.21.11 | **102** | — |
+| Fabric · MC 26.2 | **104** | — |
+| Fabric · MC 1.21.11 | **104** | — |
+| NeoForge · MC 26.2 | **104** | — |
+| NeoForge · MC 1.21.11 | **104** | — |
 
 (85 nach P2/P3; 94 nach den 21 clientseitigen P7-Schärfungen; 100 mit den sechs P4-Bildern —
 fünf Oktant-Formen, ein Vein-Miner-Riss; 102 nach der Mutations-Gegenprobe, die zwei Fälle
-nachschärfen ließ — Werkzeugwache am Vein-Miner-Zweig, Geister-Schwerpunkt auf der 3×3-Ebene.)
+nachschärfen ließ — Werkzeugwache am Vein-Miner-Zweig, Geister-Schwerpunkt auf der 3×3-Ebene;
+104 seit dem 2026-09-24 mit `BackpackClientTest` — zwei Bilder, getragener Enderit- und
+abgestellter Netherit-Rucksack — und `PistonTextureClientTest`, das ohne Bild auskommt.)
 
 Alle vier Ziele fahren **dieselben Testkörper**: einmal als Schrittliste geschrieben, je Ziel ein
 dünner Treiber. `CLIENT_PARITY_DEBT` ist leer — nicht erlassen, sondern bezahlt. Das Tor fällt ab
