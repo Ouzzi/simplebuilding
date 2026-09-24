@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 
 /**
- * Fabric adapter for the reinforced and netherite furnaces.
+ * Fabric adapter for the reinforced, netherite and enderite furnaces.
  *
  * <p>This class holds no test logic. Every method delegates to the loader-neutral body in
  * {@link FurnaceTests}; the annotation only restates the runner parameters, and the tick
@@ -42,13 +42,13 @@ public final class FurnaceGameTest {
     }
 
     @GameTest
-    public void onlyNetheriteFurnaceItemsSurviveLava(GameTestHelper helper) {
-        FurnaceTests.onlyNetheriteFurnaceItemsSurviveLava(helper);
+    public void onlyNetheriteAndEnderiteFurnaceItemsSurviveLava(GameTestHelper helper) {
+        FurnaceTests.onlyNetheriteAndEnderiteFurnaceItemsSurviveLava(helper);
     }
 
     @GameTest(maxTicks = FurnaceTests.DROP_MAX_TICKS)
-    public void allSixFurnacesDropThemselvesWhenBroken(GameTestHelper helper) {
-        FurnaceTests.allSixFurnacesDropThemselvesWhenBroken(helper);
+    public void allNineFurnacesDropThemselvesWhenBroken(GameTestHelper helper) {
+        FurnaceTests.allNineFurnacesDropThemselvesWhenBroken(helper);
     }
 
     @GameTest
