@@ -6,6 +6,7 @@ import com.simplebuilding.items.custom.BackpackTier;
 import com.simplebuilding.screen.BackpackLayout;
 import com.simplebuilding.screen.BackpackMenu;
 import com.simplebuilding.screen.BackpackSlot;
+import com.simplebuilding.util.DyedStorage;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -28,7 +29,8 @@ import net.minecraft.world.item.crafting.display.RecipeDisplay;
 /**
  * Der Rucksack-Bildschirm: exakt das Vanilla-Inventar (2x2-Crafting samt Rezeptbuch, Ruestung,
  * Nebenhand, Hauptinventar, Hotbar, Spielermodell, Effekte und der Besatz-Knopf der Mod) plus die
- * Rucksack-Slots. Rucksack-Reihen sind leicht braun getoent, Zusatzspalten violett.
+ * Rucksack-Slots. Rucksack-Reihen sind leicht braun getoent (ein gefaerbter Rucksack: leicht in
+ * seiner Farbe), Zusatzspalten violett.
  *
  * <p>Warum nicht von {@code InventoryScreen}/{@code AbstractRecipeBookScreen} geerbt: auf 26.2
  * sind {@code imageWidth}/{@code imageHeight} final und nur ueber den 5-Argument-Konstruktor von
@@ -161,10 +163,12 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implem
         graphics.blit(RenderPipelines.GUI_TEXTURED, INVENTORY_LOCATION, x + TOP_INNER_X, y + TOP_INNER_Y, TOP_INNER_X, TOP_INNER_Y,
                 TOP_INNER_WIDTH, TOP_INNER_HEIGHT, 256, 256);
 
-        // Toenung unter den Items (dieser Durchgang liegt vor den Slots).
+        // Toenung unter den Items (dieser Durchgang liegt vor den Slots). Ein gefaerbter Rucksack
+        // toent seine Reihen leicht in seiner Farbe statt braun; die Zusatzspalten bleiben violett.
+        int rowTint = rowTint(this.menu.openData().dyeColor());
         for (Slot slot : this.menu.slots) {
             if (slot instanceof BackpackSlot backpackSlot) {
-                int color = backpackSlot.isExtraColumn() ? TINT_EXTRA_COLUMN : TINT_BACKPACK_ROW;
+                int color = backpackSlot.isExtraColumn() ? TINT_EXTRA_COLUMN : rowTint;
                 int sx = this.leftPos + slot.x;
                 int sy = this.topPos + slot.y;
                 graphics.fill(sx, sy, sx + 16, sy + 16, color);
@@ -173,6 +177,11 @@ public class BackpackScreen extends AbstractContainerScreen<BackpackMenu> implem
 
         InventoryScreen.extractEntityInInventoryFollowsMouse(graphics, x + 26, y + 8, x + 75, y + 78, 30, 0.0625F,
                 this.xMouse, this.yMouse, this.minecraft.player);
+    }
+
+    /** Toenung der Rucksack-Reihen: braun ohne Farbstoff, sonst die Farbe mit geringer Deckkraft. */
+    public static int rowTint(int dyeColor) {
+        return DyedStorage.slotTint(dyeColor, TINT_BACKPACK_ROW);
     }
 
     private static Identifier background(String tier) {

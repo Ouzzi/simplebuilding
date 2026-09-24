@@ -182,6 +182,8 @@ public class Simplebuilding implements ModInitializer {
                 CauldronInteraction.WATER.map().put(coloredItem, cleanRangefinder);
             }
         }
+        // Gefaerbte Rucksaecke und Buendel: nur die Farbe abwaschen.
+        com.simplebuilding.util.DyedStorageWashing.register();
     }
 
     public static SimplebuildingConfig getConfig() {

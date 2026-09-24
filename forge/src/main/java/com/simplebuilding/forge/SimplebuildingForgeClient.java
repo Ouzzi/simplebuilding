@@ -6,11 +6,10 @@ import com.simplebuilding.client.ClientState;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.forge.networking.ForgeNetworkRegistration;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
+import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltips;
 import com.simplebuilding.platform.ClientNetworking;
-import com.simplebuilding.util.BundleTooltipAccessor;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.resources.Identifier;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -116,12 +115,7 @@ public final class SimplebuildingForgeClient {
 
     @SubscribeEvent
     public static void onRegisterTooltips(RegisterClientTooltipComponentFactoriesEvent event) {
-        event.register(ReinforcedBundleTooltipData.class, data -> {
-            ClientBundleTooltip component = new ClientBundleTooltip(data.contents());
-            float scale = (float) data.maxCapacity() / 64.0f;
-            ((BundleTooltipAccessor) component).simplebuilding$setCapacityScale(scale);
-            return component;
-        });
+        event.register(ReinforcedBundleTooltipData.class, ReinforcedBundleTooltips::create);
     }
     }
 }

@@ -2,6 +2,7 @@ package com.simplebuilding.screen;
 
 import com.simplebuilding.blocks.entity.custom.BackpackBlockEntity;
 import com.simplebuilding.items.custom.BackpackItem;
+import com.simplebuilding.util.DyedStorage;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
@@ -40,7 +41,7 @@ public final class BackpackMenuProviders {
         ItemStack chest = BackpackItem.wornBackpack(player);
         BackpackItem item = (BackpackItem) chest.getItem();
         int multiplier = BackpackItem.stackMultiplier(chest, player.level());
-        BackpackOpenData data = BackpackOpenData.worn(item.getTier(), multiplier);
+        BackpackOpenData data = BackpackOpenData.worn(item.getTier(), multiplier, DyedStorage.colour(chest));
         MenuProvider provider = new SimpleMenuProvider(
                 (containerId, inventory, menuPlayer) -> new BackpackMenu(containerId, inventory,
                         new WornBackpackContainer(menuPlayer, chest, multiplier), data),
@@ -50,7 +51,8 @@ public final class BackpackMenuProviders {
 
     /** Menue eines abgestellten Rucksacks. */
     public static Opening placed(BackpackBlockEntity backpack) {
-        BackpackOpenData data = BackpackOpenData.placed(backpack.getBlockPos(), backpack.tier(), backpack.stackMultiplier());
+        BackpackOpenData data = BackpackOpenData.placed(backpack.getBlockPos(), backpack.tier(), backpack.stackMultiplier(),
+                DyedStorage.colour(backpack.components()));
         MenuProvider provider = new SimpleMenuProvider(
                 (containerId, inventory, menuPlayer) -> new BackpackMenu(containerId, inventory, backpack.container(), data),
                 backpack.getDisplayName());

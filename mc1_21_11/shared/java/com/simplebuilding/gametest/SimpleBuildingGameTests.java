@@ -600,6 +600,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("backpack_game_test_upper_tiers_survive_fire_and_explosions_and_lower_ones_spill_their_contents", BackpackTests::upperTiersSurviveFireAndExplosionsAndLowerOnesSpillTheirContents)
                     .build(),
+            GameTestSpec.named("dyed_storage_game_test_dyeing_colours_every_backpack_and_bundle_and_keeps_its_components", DyedStorageTests::dyeingColoursEveryBackpackAndBundleAndKeepsItsComponents)
+                    .build(),
+            GameTestSpec.named("dyed_storage_game_test_water_cauldron_washes_only_the_dye_off_backpacks_and_bundles", DyedStorageTests::waterCauldronWashesOnlyTheDyeOffBackpacksAndBundles)
+                    .build(),
+            GameTestSpec.named("dyed_storage_game_test_the_dye_colour_reaches_the_backpack_menu_and_the_bundle_tooltip", DyedStorageTests::theDyeColourReachesTheBackpackMenuAndTheBundleTooltip)
+                    .build(),
             GameTestSpec.named("hopper_game_test_redstone_power_stops_every_hopper_transfer", HopperTests::redstonePowerStopsEveryHopperTransfer)
                     .maxTicks(HopperTests.REDSTONE_LOCK_MAX_TICKS)
                     .build(),

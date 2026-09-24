@@ -118,10 +118,11 @@ MUTATIONS: list[Mutation] = [
              "",
              "hud-and-tooltip", "With the octant in the OFF hand the rangefinder HUD draws nothing",
              "an off hand octant shows the HUD too"),
+    # Seit den gefaerbten Buendeln baut eine gemeinsame Fabrik das Tooltip fuer alle Loader.
     Mutation("bundle-scale",
-             f"{CLIENT_MAIN}/SimplebuildingClient.java",
-             "float scale = (float) reinforcedData.maxCapacity() / 64.0f;",
-             "float scale = (float) reinforcedData.maxCapacity() / 32.0f;",
+             f"{SHARED}/client/gui/tooltip/ReinforcedBundleTooltips.java",
+             "accessor.simplebuilding$setCapacityScale((float) data.maxCapacity() / 64.0f);",
+             "accessor.simplebuilding$setCapacityScale((float) data.maxCapacity() / 32.0f);",
              "hud-and-tooltip", "does not draw like a component scaled by maxCapacity / 64",
              "the tooltip bar scale is the capacity in stacks"),
     Mutation("wand-needs-block-hit",
@@ -1821,7 +1822,7 @@ ON_1_21_11: dict[str, dict[str, str]] = {
         "new": ""},
 }
 
-#: The five client mutations that live in the Fabric entry point (src/main/java) have their
+#: The client mutations that live in the Fabric entry point (src/main/java) have their
 #: NeoForge twin in neoforge/src/main/java/.../SimplebuildingNeoForgeClient.java, same rule,
 #: different spelling. Everything else the client catalogue touches is shared code.
 NEOFORGE_CLIENT = "neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java"
@@ -1830,9 +1831,6 @@ ON_NEOFORGE: dict[str, dict[str, str]] = {
     "p9-config-button-throws": {"file": NEOFORGE_CLIENT,
         "old": "                (container, parent) -> buildConfigScreen(parent));",
         "new": "                (container, parent) -> { throw new IllegalStateException(\"Failed to open Simplebuilding config screen\"); });"},
-    "bundle-scale": {"file": NEOFORGE_CLIENT,
-        "old": "float scale = (float) data.maxCapacity() / 64.0f;",
-        "new": "float scale = (float) data.maxCapacity() / 32.0f;"},
     "settings-key-offhand": {"file": NEOFORGE_CLIENT,
         "old": "            ItemStack stack = client.player.getMainHandItem();\n            if (stack.getItem() instanceof OctantItem) {",
         "new": "            ItemStack stack = client.player.getMainHandItem().isEmpty() ? client.player.getOffhandItem() : client.player.getMainHandItem();\n            if (stack.getItem() instanceof OctantItem) {"},

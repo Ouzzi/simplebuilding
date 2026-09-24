@@ -18,10 +18,10 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
+import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltips;
 import com.simplebuilding.networking.*;
 import com.simplebuilding.platform.ClientNetworking;
 import com.simplebuilding.neoforge.NeoForgeModRegistries;
-import com.simplebuilding.util.BundleTooltipAccessor;
 import com.simplebuilding.util.EnchantmentHelper;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.serialization.Codec;
@@ -34,7 +34,6 @@ import me.shedaniel.autoconfig.gui.registry.GuiRegistry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -170,12 +169,7 @@ public final class SimplebuildingNeoForgeClient {
     }
 
     public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
-        event.register(ReinforcedBundleTooltipData.class, data -> {
-            ClientBundleTooltip component = new ClientBundleTooltip(data.contents());
-            float scale = (float) data.maxCapacity() / 64.0f;
-            ((BundleTooltipAccessor) component).simplebuilding$setCapacityScale(scale);
-            return component;
-        });
+        event.register(ReinforcedBundleTooltipData.class, ReinforcedBundleTooltips::create);
     }
 
     private void onPlayerLogin(ClientPlayerNetworkEvent.LoggingIn event) {

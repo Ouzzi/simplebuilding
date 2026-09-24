@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simplebuilding:item/netherite_bundle_dyed",
+    "layer1": "simplebuilding:item/netherite_bundle_dyed_overlay"
+  }
+}

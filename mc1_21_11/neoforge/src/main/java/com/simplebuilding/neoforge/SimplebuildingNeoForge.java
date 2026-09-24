@@ -110,5 +110,7 @@ public final class SimplebuildingNeoForge {
                 CauldronInteraction.WATER.map().put(coloredItem, cleanRangefinder);
             }
         }
+        // Gefaerbte Rucksaecke und Buendel: nur die Farbe abwaschen.
+        com.simplebuilding.util.DyedStorageWashing.register();
     }
 }

@@ -936,7 +936,9 @@ window.WIKI_DATA = {
         "src/main/generated/data/simplebuilding/tags/item/void_protected.json",
         "src/main/resources/assets/simplebuilding/models/block/template_backpack.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        "src/main/resources/assets/simplebuilding/lang/de_de.json",
+        "src/main/generated/data/minecraft/tags/item/cauldron_can_remove_dye.json",
+        "common/src/shared/java/com/simplebuilding/util/DyedStorage.java"
       ],
       "en": {
         "title": "Backpacks",
@@ -950,6 +952,7 @@ window.WIKI_DATA = {
           "Setting it down: sneak + right-click on a block. The placed backpack opens with a right-click, is invisible to hoppers and comparators, and always drops as the full backpack item when broken - with a tool or without, by explosion or piston.",
           "Safety: a destroyed backpack item spills its contents like a shulker box; Netherite and Enderite Backpack resist fire and explosions as items, and the Enderite Backpack is protected from the void.",
           "Enchantments (anvil only): Deep Pockets I/II doubles or quadruples the stack limit of stackable items in the backpack; Funnel lets the worn backpack vacuum up items after your bundles; Master Builder on the backpack makes it a material source for the Building Wand and for pick block; Constructor's Touch refills your hand from the backpack when a block stack runs out while placing. Drawer and Color Palette do not go on backpacks.",
+          "Dyeing: a backpack takes dye like leather armour - put it into the crafting grid with one or more dyes (colours mix, and a dyed backpack can be dyed again). Contents, name and enchantments stay; the colour shows on the item, on the worn backpack and as a faint tint of the backpack rows in its screen (the extra columns keep their purple). A water cauldron washes the colour off again and leaves everything else. The colour survives upgrades and setting the backpack down; the placed block itself shows its tier's look.",
           "Limits for now: the extra columns are plain storage (they are meant to become special slots later), a backpack can only be opened while worn or placed, and the recipe book does not draw from the backpack."
         ]
       },
@@ -965,6 +968,7 @@ window.WIKI_DATA = {
           "Abstellen: Schleichen + Rechtsklick auf einen Block. Der abgestellte Rucksack öffnet sich per Rechtsklick, ist für Trichter und Komparatoren unsichtbar und droppt beim Abbauen immer als volles Rucksack-Item – mit oder ohne Werkzeug, durch Explosion oder Kolben.",
           "Sicherheit: Ein zerstörtes Rucksack-Item verstreut seinen Inhalt wie eine Shulkerkiste; Netherit- und Enderit-Rucksack widerstehen als Item Feuer und Explosionen, und der Enderit-Rucksack ist vor der Leere geschützt.",
           "Verzauberungen (nur Amboss): Tiefe Taschen I/II verdoppelt bzw. vervierfacht die Stapelgrenze stapelbarer Items im Rucksack; mit Trichter saugt der getragene Rucksack Items nach den Bündeln auf; Baumeister auf dem Rucksack macht ihn zur Materialquelle für Baustab und Blockauswahl; Berührung des Konstrukteurs füllt die Hand aus dem Rucksack nach, wenn beim Platzieren ein Blockstapel aufgebraucht ist. Schublade und Farbpalette gehen nicht auf Rucksäcke.",
+          "Färben: Ein Rucksack nimmt Farbstoff an wie Lederrüstung – mit einem oder mehreren Farbstoffen in die Werkbank legen (Farben mischen sich, ein gefärbter Rucksack lässt sich weiter färben). Inhalt, Name und Verzauberungen bleiben; die Farbe zeigt sich am Item, am getragenen Rucksack und als leichte Tönung der Rucksack-Reihen im Bildschirm (die Zusatzspalten bleiben violett). Ein Wasserkessel wäscht die Farbe wieder ab und lässt alles andere. Die Farbe übersteht Aufwertungen und das Abstellen; der abgestellte Block selbst zeigt das Aussehen seiner Stufe.",
           "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), ein Rucksack lässt sich nur getragen oder abgestellt öffnen, und das Rezeptbuch greift nicht auf den Rucksack zu."
         ]
       }
@@ -1005,7 +1009,9 @@ window.WIKI_DATA = {
         "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/emerald_reinforced_bundle.json",
         "src/main/resources/data/simplebuilding/villager_trade/wandering_trader/reinforced_bundle_emerald.json",
         "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        "src/main/resources/assets/simplebuilding/lang/de_de.json",
+        "src/main/generated/data/minecraft/tags/item/cauldron_can_remove_dye.json",
+        "common/src/shared/java/com/simplebuilding/util/DyedStorage.java"
       ],
       "en": {
         "title": "Bundles: Reinforced, Netherite, Enderite",
@@ -1026,7 +1032,8 @@ window.WIKI_DATA = {
           "The bundle enchantments are not available at the enchanting table, only as books from loot chests and from the librarian; Drawer has no book of its own in loot or trades. All three bundle tiers are in the tags through which the enchantments declare their items.",
           "The Reinforced Bundle turns up in dungeon chests, shipwreck treasure and abandoned mineshafts, and the wandering trader sells one for 16 emeralds and buys one for 12 emeralds (depending on the config options enableLootTableChanges and enableWanderingTrades).",
           "The Invert Bundle Interactions config option swaps left and right click for inserting and removing.",
-          "The mod's quivers inherit from the same item class (QuiverItem extends ReinforcedBundleItem) but only accept arrows (tag minecraft:arrows) and are described separately."
+          "The mod's quivers inherit from the same item class (QuiverItem extends ReinforcedBundleItem) but only accept arrows (tag minecraft:arrows) and are described separately.",
+          "Dyeing: Reinforced, Netherite and Enderite Bundle take dye like leather armour rather than turning into separate coloured items like the vanilla bundle - bundle plus one or more dyes in the crafting grid, colours mix, contents, name and enchantments stay. The colour shows on the item and as a faint tint of the item slots in the tooltip; a water cauldron washes it off again."
         ]
       },
       "de": {
@@ -1048,7 +1055,8 @@ window.WIKI_DATA = {
           "Die Bündel-Verzauberungen sind nicht am Zaubertisch erhältlich, sondern als Bücher aus Beutetruhen und vom Bibliothekar; Schublade hat kein eigenes Buch in Beute oder Handel. Alle drei Bündelstufen stehen in den Tags, über die die Verzauberungen ihre Gegenstände festlegen.",
           "Das Verstärkte Bündel liegt in Verliesen, Schiffswracks und verlassenen Minen und wird vom fahrenden Händler für 16 Smaragde verkauft bzw. für 12 Smaragde gekauft (abhängig von den Config-Optionen enableLootTableChanges und enableWanderingTrades).",
           "Die Config-Option Bündel-Interaktion umkehren vertauscht Links- und Rechtsklick für Einlegen und Entnehmen.",
-          "Die Köcher der Mod erben von derselben Item-Klasse (QuiverItem extends ReinforcedBundleItem), nehmen aber nur Pfeile (Tag minecraft:arrows) an und werden gesondert beschrieben."
+          "Die Köcher der Mod erben von derselben Item-Klasse (QuiverItem extends ReinforcedBundleItem), nehmen aber nur Pfeile (Tag minecraft:arrows) an und werden gesondert beschrieben.",
+          "Färben: Verstärktes, Netherit- und Enderit-Bündel nehmen Farbstoff an wie Lederrüstung, statt wie das Vanilla-Bündel zu eigenen farbigen Items zu werden – Bündel plus ein oder mehrere Farbstoffe in die Werkbank, Farben mischen sich, Inhalt, Name und Verzauberungen bleiben. Die Farbe zeigt sich am Item und als leichte Tönung der Felder im Tooltip; ein Wasserkessel wäscht sie wieder ab."
         ]
       }
     },
@@ -3182,7 +3190,8 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/backpack.png",
       "craftedBy": [
-        "simplebuilding:backpack"
+        "simplebuilding:backpack",
+        "simplebuilding:backpack_dyed"
       ],
       "usedIn": [
         "simplebuilding:reinforced_backpack"
@@ -5365,6 +5374,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/enderite_backpack.png",
       "craftedBy": [
+        "simplebuilding:enderite_backpack_dyed",
         "simplebuilding:enderite_backpack_smithing"
       ],
       "usedIn": [],
@@ -5882,6 +5892,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/enderite_bundle.png",
       "craftedBy": [
+        "simplebuilding:enderite_bundle_dyed",
         "simplebuilding:enderite_bundle_smithing"
       ],
       "usedIn": [],
@@ -9035,6 +9046,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/netherite_backpack.png",
       "craftedBy": [
+        "simplebuilding:netherite_backpack_dyed",
         "simplebuilding:netherite_backpack_smithing"
       ],
       "usedIn": [
@@ -9530,6 +9542,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/netherite_bundle.png",
       "craftedBy": [
+        "simplebuilding:netherite_bundle_dyed",
         "simplebuilding:netherite_bundle_smithing"
       ],
       "usedIn": [
@@ -12026,7 +12039,8 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/reinforced_backpack.png",
       "craftedBy": [
-        "simplebuilding:reinforced_backpack"
+        "simplebuilding:reinforced_backpack",
+        "simplebuilding:reinforced_backpack_dyed"
       ],
       "usedIn": [
         "simplebuilding:netherite_backpack_smithing"
@@ -12288,7 +12302,8 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/reinforced_bundle.png",
       "craftedBy": [
-        "simplebuilding:reinforced_bundle"
+        "simplebuilding:reinforced_bundle",
+        "simplebuilding:reinforced_bundle_dyed"
       ],
       "usedIn": [
         "simplebuilding:netherite_bundle_smithing"
@@ -14118,7 +14133,8 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/backpack_side.png",
       "craftedBy": [
-        "simplebuilding:backpack"
+        "simplebuilding:backpack",
+        "simplebuilding:backpack_dyed"
       ],
       "usedIn": [
         "simplebuilding:reinforced_backpack"
@@ -14726,6 +14742,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/enderite_backpack_side.png",
       "craftedBy": [
+        "simplebuilding:enderite_backpack_dyed",
         "simplebuilding:enderite_backpack_smithing"
       ],
       "usedIn": [],
@@ -15576,6 +15593,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/netherite_backpack_side.png",
       "craftedBy": [
+        "simplebuilding:netherite_backpack_dyed",
         "simplebuilding:netherite_backpack_smithing"
       ],
       "usedIn": [
@@ -17013,7 +17031,8 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/reinforced_backpack_side.png",
       "craftedBy": [
-        "simplebuilding:reinforced_backpack"
+        "simplebuilding:reinforced_backpack",
+        "simplebuilding:reinforced_backpack_dyed"
       ],
       "usedIn": [
         "simplebuilding:netherite_backpack_smithing"
@@ -18758,6 +18777,18 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:backpack_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_backpack",
+      "result": {
+        "id": "simplebuilding:backpack",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/backpack_dyed.json",
+      "ingredients": []
+    },
+    {
       "id": "simplebuilding:basic_upgrade_template",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -20116,6 +20147,18 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:enderite_backpack_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_backpack",
+      "result": {
+        "id": "simplebuilding:enderite_backpack",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_backpack_dyed.json",
+      "ingredients": []
+    },
+    {
       "id": "simplebuilding:enderite_backpack_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -20219,6 +20262,18 @@ window.WIKI_DATA = {
           "simplebuilding:enderite_ingot"
         ]
       }
+    },
+    {
+      "id": "simplebuilding:enderite_bundle_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_bundle",
+      "result": {
+        "id": "simplebuilding:enderite_bundle",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_bundle_dyed.json",
+      "ingredients": []
     },
     {
       "id": "simplebuilding:enderite_bundle_smithing",
@@ -21158,6 +21213,18 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:netherite_backpack_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_backpack",
+      "result": {
+        "id": "simplebuilding:netherite_backpack",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_backpack_dyed.json",
+      "ingredients": []
+    },
+    {
       "id": "simplebuilding:netherite_backpack_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -21210,6 +21277,18 @@ window.WIKI_DATA = {
           "minecraft:netherite_ingot"
         ]
       }
+    },
+    {
+      "id": "simplebuilding:netherite_bundle_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_bundle",
+      "result": {
+        "id": "simplebuilding:netherite_bundle",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_bundle_dyed.json",
+      "ingredients": []
     },
     {
       "id": "simplebuilding:netherite_bundle_smithing",
@@ -23684,6 +23763,18 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "simplebuilding:reinforced_backpack_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_backpack",
+      "result": {
+        "id": "simplebuilding:reinforced_backpack",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_backpack_dyed.json",
+      "ingredients": []
+    },
+    {
       "id": "simplebuilding:reinforced_blast_furnace",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -23746,6 +23837,18 @@ window.WIKI_DATA = {
           "simplebuilding:leather_sheet"
         ]
       }
+    },
+    {
+      "id": "simplebuilding:reinforced_bundle_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_bundle",
+      "result": {
+        "id": "simplebuilding:reinforced_bundle",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_bundle_dyed.json",
+      "ingredients": []
     },
     {
       "id": "simplebuilding:reinforced_furnace",
@@ -38531,7 +38634,7 @@ window.WIKI_DATA = {
   "counts": {
     "items": 158,
     "blocks": 74,
-    "recipes": 278,
+    "recipes": 285,
     "lootTables": 73,
     "trades": 21,
     "enchantments": 19,

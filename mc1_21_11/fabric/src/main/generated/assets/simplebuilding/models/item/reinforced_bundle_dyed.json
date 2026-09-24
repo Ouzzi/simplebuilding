@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simplebuilding:item/reinforced_bundle_dyed",
+    "layer1": "simplebuilding:item/reinforced_bundle_dyed_overlay"
+  }
+}

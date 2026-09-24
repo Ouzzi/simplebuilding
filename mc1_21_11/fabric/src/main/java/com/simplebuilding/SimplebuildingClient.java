@@ -15,9 +15,9 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
+import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltips;
 import com.simplebuilding.networking.*;
 import com.simplebuilding.screen.ModScreenHandlers;
-import com.simplebuilding.util.BundleTooltipAccessor;
 import com.simplebuilding.util.SurvivalTracerAccessor;
 import com.simplebuilding.client.BackpackKeyHandler;
 import com.simplebuilding.client.ClientState;
@@ -40,7 +40,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
 import net.minecraft.network.chat.Component;
@@ -152,10 +151,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         // --- Tooltips ---
         TooltipComponentCallback.EVENT.register(data -> {
             if (data instanceof ReinforcedBundleTooltipData reinforcedData) {
-                ClientBundleTooltip component = new ClientBundleTooltip(reinforcedData.contents());
-                float scale = (float) reinforcedData.maxCapacity() / 64.0f;
-                ((BundleTooltipAccessor) component).simplebuilding$setCapacityScale(scale);
-                return component;
+                return ReinforcedBundleTooltips.create(reinforcedData);
             }
             return null;
         });

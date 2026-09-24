@@ -4,7 +4,8 @@ Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Ma
 Nihilith-/Astralit-Quarz-Schachbretter und das Enderquarz-Item; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
 Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
-den Blockflaechen) und die Fenster des Rucksack-Bildschirms (gui/container/backpack/*).
+den Blockflaechen), die Fenster des Rucksack-Bildschirms (gui/container/backpack/*) und die
+Leder- und Beschlag-Ebenen gefaerbter Rucksaecke und Buendel (*_dyed.png, *_dyed_overlay.png).
 
 Aufruf (aus dem Repo-Wurzelverzeichnis oder von ueberall):
 
@@ -1586,9 +1587,11 @@ BACKPACK_ENTITY_SIZE = (64, 32)
 
 
 def backpack_entity_texture(faces, pal):
-    """faces: {"front"|"back"|"side"|"top": Image 16x16} der Blockflaechen einer Stufe."""
+    """faces: {"front"|"back"|"side"|"top": Image 16x16} der Blockflaechen einer Stufe.
+    Ungenutzte Flaechen bekommen die Farbe "2" der Palette; steht dort None (Ebene eines
+    gefaerbten Rucksacks ohne Leder), bleiben sie durchsichtig."""
     img = Image.new("RGBA", BACKPACK_ENTITY_SIZE, (0, 0, 0, 0))
-    filler = hexrgb(pal["2"]) + (255,)
+    filler = hexrgb(pal["2"]) + (255,) if pal["2"] else (0, 0, 0, 0)
 
     def copy(region, face):
         x0, y0, w, h = region
@@ -1759,6 +1762,126 @@ def backpack_worn_textures(tex):
     return out
 
 
+# ---------------------------------------------------------------------------
+# Gefaerbte Rucksaecke und Buendel (Komponente minecraft:dyed_color)
+# ---------------------------------------------------------------------------
+# Wie Vanillas Lederruestung zwei Ebenen je Textur: *_dyed.png traegt das Leder in Grau - das
+# Item-Modell (Farbquelle minecraft:dye) bzw. BackpackLayer multipliziert es mit der Farbe -,
+# *_dyed_overlay.png alles, was die Farbe nicht annimmt (Umriss, Riemen, Schnalle, Beschlaege,
+# Nieten), unveraendert. Die Ebenen ergaenzen sich pixelgenau: jedes deckende Pixel des
+# Originals steht in genau einer von beiden.
+#
+# Rucksack: getoent werden Randton, Schlagschatten und die Lederrampe (R d 1-5), bei der
+# Grundstufe auch die Eckkappen (dort Leder). Die Grauwerte behalten die Rangfolge der Rampe;
+# dunklere Stufen sind etwas dunkler, damit ein gefaerbter Netheritrucksack schwerer wirkt
+# als ein gefaerbter Lederrucksack.
+DYE_GREYS = {"d": 0x6a, "R": 0x7e, "1": 0x92, "2": 0xa6, "3": 0xbc, "4": 0xd0, "5": 0xe6}
+DYE_SHADE = {"basic": 1.0, "reinforced": 0.92, "netherite": 0.78, "enderite": 0.8}
+
+
+def grey(value):
+    return "#%02x%02x%02x" % (value, value, value)
+
+
+def backpack_dye_palettes(tier):
+    """(Leder-Palette, Beschlag-Palette) einer Stufe; None = in dieser Ebene durchsichtig."""
+    pal = LEATHER_TIERS[tier]
+    dyed = set(DYE_GREYS)
+    if pal["x"] == pal["2"]:  # Grundstufe: die Eckkappen sind aus Leder
+        dyed.add("x")
+    leather, fittings = {}, {}
+    for key, colour in pal.items():
+        if key in dyed:
+            leather[key] = grey(round(DYE_GREYS["2" if key == "x" else key] * DYE_SHADE[tier]))
+            fittings[key] = None
+        else:
+            leather[key] = None
+            fittings[key] = colour
+    return leather, fittings
+
+
+def render_layer(name, rows, palette):
+    """Wie render() fuer Items, aber Schluessel mit None bleiben durchsichtig."""
+    check_map(name, rows, palette, allow_transparent=True)
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    px = img.load()
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch != "." and palette[ch]:
+                px[x, y] = hexrgb(palette[ch]) + (255,)
+    return img
+
+
+def backpack_dyed_textures():
+    out = {}
+    faces_rows = (("front", BACKPACK_FRONT), ("back", BACKPACK_BACK), ("side", BACKPACK_SIDE), ("top", BACKPACK_TOP))
+    for tier, prefix in (("basic", ""), ("reinforced", "reinforced_"), ("netherite", "netherite_"), ("enderite", "enderite_")):
+        for suffix, pal in zip(("_dyed", "_dyed_overlay"), backpack_dye_palettes(tier)):
+            out[f"item/{prefix}backpack{suffix}.png"] = render_layer(f"{prefix}backpack{suffix}", BACKPACK_ITEM, pal)
+            faces = {face: render_layer(f"{prefix}backpack_{face}{suffix}", rows, pal) for face, rows in faces_rows}
+            out[f"entity/backpack/{prefix}backpack{suffix}.png"] = backpack_entity_texture(faces, pal)
+    return out
+
+
+# Buendel: die drei handgemalten Texturen des Mods (reinforced/netherite/enderite_bundle.png)
+# teilen sich einen Umriss. Ungefaerbt bleiben der Umriss (jedes Pixel mit durchsichtigem
+# Nachbarn) und Riemen samt Schliesse in der Mitte (BUNDLE_STRAP, an allen drei Texturen
+# nachgezaehlt); der Rest ist Leder und wird nach seiner Helligkeit auf dieselbe Grau-Spanne
+# wie beim Rucksack gelegt.
+BUNDLE_STRAP = {(6, 5), (7, 6), (8, 6), (9, 6), (10, 6), (7, 7), (8, 7), (9, 7), (10, 7),
+                (8, 8), (9, 8), (8, 9), (9, 9), (10, 9), (9, 10), (9, 11)}
+BUNDLE_DYE_SHADE = {"reinforced": 1.0, "netherite": 0.8, "enderite": 0.82}
+
+
+def bundle_dyed_textures():
+    out = {}
+    lo, hi = DYE_GREYS["d"], DYE_GREYS["5"]
+    for tier, shade in BUNDLE_DYE_SHADE.items():
+        src = Image.open(os.path.join(TREES[0], "item", f"{tier}_bundle.png")).convert("RGBA")
+        spx = src.load()
+
+        def opaque(x, y):
+            return 0 <= x < 16 and 0 <= y < 16 and spx[x, y][3] > 0
+
+        leather = {(x, y) for y in range(16) for x in range(16)
+                   if opaque(x, y) and (x, y) not in BUNDLE_STRAP
+                   and all(opaque(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))}
+        lum = {p: 0.299 * spx[p][0] + 0.587 * spx[p][1] + 0.114 * spx[p][2] for p in leather}
+        lmin, lmax = min(lum.values()), max(lum.values())
+        dyed = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+        overlay = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+        for y in range(16):
+            for x in range(16):
+                if not opaque(x, y):
+                    continue
+                if (x, y) in leather:
+                    value = round((lo + (hi - lo) * (lum[(x, y)] - lmin) / (lmax - lmin)) * shade)
+                    dyed.putpixel((x, y), (value, value, value, 255))
+                else:
+                    overlay.putpixel((x, y), spx[x, y][:3] + (255,))
+        out[f"item/{tier}_bundle_dyed.png"] = dyed
+        out[f"item/{tier}_bundle_dyed_overlay.png"] = overlay
+    return out
+
+
+def dye_sample(tex, base, rgb):
+    """Vorschau: die Leder-Ebene mit rgb multipliziert, die Beschlag-Ebene darueber."""
+    tinted = tex[f"{base}_dyed.png"].copy()
+    px = tinted.load()
+    for y in range(tinted.height):
+        for x in range(tinted.width):
+            r, g, b, a = px[x, y]
+            if a:
+                px[x, y] = (r * rgb[0] // 255, g * rgb[1] // 255, b * rgb[2] // 255, a)
+    tinted.alpha_composite(tex[f"{base}_dyed_overlay.png"])
+    return tinted
+
+
+# Vanillas Farbstoff-Farben (DyeColor#getTextureDiffuseColor) fuer die Vorschau
+PREVIEW_DYES = {"red": (0xB0, 0x2E, 0x26), "blue": (0x3C, 0x44, 0xAA), "lime": (0x80, 0xC7, 0x1F),
+                "yellow": (0xFE, 0xD8, 0x3D), "white": (0xF9, 0xFF, 0xFE), "black": (0x1D, 0x1D, 0x21)}
+
+
 def build():
     tex = {}  # relpath -> Image
     tex["item/leather_sheet.png"] = render("leather_sheet", LEATHER_SHEET, LEATHER_SHEET_PAL, False)
@@ -1786,6 +1909,8 @@ def build():
     tex.update(enderite_machine_textures())
     tex.update(checker_textures())
     tex.update(backpack_worn_textures(tex))
+    tex.update(backpack_dyed_textures())
+    tex.update(bundle_dyed_textures())
     tex.update(backpack_gui_textures())
     tex.update(end_palette_textures())
     return tex
@@ -2034,6 +2159,10 @@ def build_preview(tex):
         groups.append((f"{prefix}backpack Block", [(f"block/{prefix}backpack_{f}.png", faces[f])
                                                   for f in ("front", "back", "side", "top")],
                        [render_iso(faces, back) for back in (False, True)]))
+    for base in ("item/backpack", "item/reinforced_backpack", "item/netherite_backpack", "item/enderite_backpack",
+                 "item/reinforced_bundle", "item/netherite_bundle", "item/enderite_bundle"):
+        groups.append((f"{base[5:]} gefaerbt", [(f"{base}_{dye}.png", dye_sample(tex, base, rgb))
+                                               for dye, rgb in PREVIEW_DYES.items()], []))
     groups += machine_preview_groups(tex)
     groups.append(("Quarz-Schachbrett", [("block/lapis_quartz_checker.png", None)]
                    + [(k, tex[k]) for k in ("block/nihilith_quartz_checker.png", "block/nihilith_quartz_checker_mirror.png",

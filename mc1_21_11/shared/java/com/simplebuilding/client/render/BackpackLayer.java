@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.custom.BackpackItem;
 import com.simplebuilding.items.custom.BackpackTier;
+import com.simplebuilding.util.DyedStorage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -20,6 +21,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,6 +37,11 @@ import org.jetbrains.annotations.Nullable;
  * Die Texturen {@code textures/entity/backpack/*.png} setzt {@code tools/textures/generate_textures.py}
  * Pixel fuer Pixel aus den Blockflaechen derselben Stufe zusammen; die Quader hier und
  * {@code BACKPACK_ENTITY_BOXES} dort muessen uebereinstimmen.
+ *
+ * <p>Ein gefaerbter Rucksack ({@code minecraft:dyed_color}, siehe {@link DyedStorage}) wird wie
+ * Vanillas Lederruestung in zwei Durchgaengen gezeichnet: die Leder-Ebene {@code *_dyed} mit der
+ * Farbe multipliziert, darueber {@code *_dyed_overlay} mit Umriss, Riemen und Beschlaegen ungefaerbt.
+ * Beide Ebenen ergaenzen sich pixelgenau, es gibt also nichts, was sich ueberdeckt.
  *
  * <p>Der Rucksack traegt keine Ausruestungs-Grafik ({@code EQUIPPABLE} ohne {@code asset_id}), daher
  * liefert der Render-Zustand ihn nicht als {@code chestEquipment}. Die Ebene fragt stattdessen die
@@ -52,6 +59,14 @@ public class BackpackLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
 
     private static final Identifier[] TEXTURES = {
             texture("backpack"), texture("reinforced_backpack"), texture("netherite_backpack"), texture("enderite_backpack")};
+    /** Gefaerbt: das Leder in Grau, wird mit der Farbe multipliziert ... */
+    private static final Identifier[] DYED_TEXTURES = {
+            texture("backpack_dyed"), texture("reinforced_backpack_dyed"), texture("netherite_backpack_dyed"),
+            texture("enderite_backpack_dyed")};
+    /** ... und alles andere (Umriss, Riemen, Schnallen, Beschlaege) ungefaerbt. */
+    private static final Identifier[] DYED_OVERLAY_TEXTURES = {
+            texture("backpack_dyed_overlay"), texture("reinforced_backpack_dyed_overlay"),
+            texture("netherite_backpack_dyed_overlay"), texture("enderite_backpack_dyed_overlay")};
 
     private final ModelPart model = createLayer().bakeRoot();
 
@@ -83,39 +98,64 @@ public class BackpackLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
     @Override
     public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, AvatarRenderState state,
                        float yRot, float xRot) {
-        Identifier texture = textureFor(state);
-        if (texture == null) {
+        ItemStack worn = wornBackpack(state);
+        if (worn.isEmpty()) {
             return;
         }
+        int tier = ((BackpackItem) worn.getItem()).getTier().ordinal();
+        int dyeColor = DyedStorage.colour(worn);
+        int overlay = LivingEntityRenderer.getOverlayCoords(state, 0.0F);
         poseStack.pushPose();
         this.getParentModel().body.translateAndRotate(poseStack);
         // Die Riemen liegen an der Rueckseite des Oberkoerpers (z = 2 Pixel), der Griff auf Schulterhoehe.
         poseStack.translate(0.0F, 0.0F, 2.0F / 16.0F);
         poseStack.scale(SCALE, SCALE, SCALE);
-        submitNodeCollector.submitModelPart(this.model, poseStack, RenderTypes.entityCutout(texture), lightCoords,
-                LivingEntityRenderer.getOverlayCoords(state, 0.0F), null);
+        if (dyeColor == DyedStorage.UNDYED) {
+            submitNodeCollector.submitModelPart(this.model, poseStack, RenderTypes.entityCutout(TEXTURES[tier]), lightCoords,
+                    overlay, null);
+        } else {
+            submitNodeCollector.submitModelPart(this.model, poseStack, RenderTypes.entityCutout(DYED_TEXTURES[tier]), lightCoords,
+                    overlay, null, ARGB.opaque(dyeColor), null);
+            submitNodeCollector.submitModelPart(this.model, poseStack, RenderTypes.entityCutout(DYED_OVERLAY_TEXTURES[tier]),
+                    lightCoords, overlay, null);
+        }
         poseStack.popPose();
     }
 
-    /** Die Textur des Rucksacks, den die Entity hinter {@code state} traegt, oder null. */
+    /**
+     * Die Textur des Rucksacks, den die Entity hinter {@code state} traegt, oder null. Bei einem
+     * gefaerbten Rucksack die Leder-Ebene ({@code *_dyed}); die Beschlag-Ebene kommt in
+     * {@link #submit} dazu.
+     */
     @Nullable
     public static Identifier textureFor(AvatarRenderState state) {
-        if (state.isInvisible) {
+        ItemStack worn = wornBackpack(state);
+        if (worn.isEmpty()) {
             return null;
         }
-        BackpackTier tier = wornTier(state.id);
-        return tier == null ? null : TEXTURES[tier.ordinal()];
+        int tier = ((BackpackItem) worn.getItem()).getTier().ordinal();
+        return DyedStorage.colour(worn) == DyedStorage.UNDYED ? TEXTURES[tier] : DYED_TEXTURES[tier];
+    }
+
+    /** Der sichtbar getragene Rucksack der Entity hinter {@code state}, sonst ein leerer Stapel. */
+    public static ItemStack wornBackpack(AvatarRenderState state) {
+        if (state.isInvisible) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack chest = wornChest(state.id);
+        return chest.getItem() instanceof BackpackItem ? chest : ItemStack.EMPTY;
     }
 
     /** Die Stufe des Rucksacks im Brust-Slot der Entity mit dieser Id, oder null. */
     @Nullable
     public static BackpackTier wornTier(int entityId) {
+        ItemStack chest = wornChest(entityId);
+        return chest.getItem() instanceof BackpackItem backpack ? backpack.getTier() : null;
+    }
+
+    private static ItemStack wornChest(int entityId) {
         ClientLevel level = Minecraft.getInstance().level;
         Entity entity = level == null ? null : level.getEntity(entityId);
-        if (!(entity instanceof LivingEntity living)) {
-            return null;
-        }
-        ItemStack chest = living.getItemBySlot(EquipmentSlot.CHEST);
-        return chest.getItem() instanceof BackpackItem backpack ? backpack.getTier() : null;
+        return entity instanceof LivingEntity living ? living.getItemBySlot(EquipmentSlot.CHEST) : ItemStack.EMPTY;
     }
 }

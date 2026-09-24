@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_dye",
+  "dye": "#minecraft:dyes",
+  "group": "dyed_bundle",
+  "result": {
+    "id": "simplebuilding:enderite_bundle"
+  },
+  "target": "simplebuilding:enderite_bundle"
+}
