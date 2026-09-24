@@ -123,3 +123,9 @@ Entscheidungen 2026-09-25 (Interview): Paletten-Kette Grund->poliert->Ziegel ble
 D Kreativ-Tabs (Agent D):
   9. Dev-Tab "Enchanted (Dev)": beste Stufe je Item-Familie, alle kompatiblen Verzauberungen auf Max, je Variante pro sich ausschliessender Verzauberung; nur in Dev-Umgebung oder per Config
   10. Leere Platzhalter fuer zeilenweises Layout - erst Konzept fuer "Maschinen & Lager", nach Freigabe fuer die anderen Tabs
+E Forge-HUD (Agent laeuft): Oktant-HUD, Velocity Gauge, Luftsprung-Balken, Weltmarkierungen + alle fehlenden Client-Registrierungen auf Forge
+F Trims & UI (nach A-D, eigener Agent):
+  11. Radiance-Ruestung: Licht auch im Item-Rahmen und auf dem Ruestungsstaender (wie Glowing Item); Partikel, damit leuchtende Teile erkennbar sind
+  12. Balancing-Review der Schmiede-/Besatz-Boni je Material (nicht OP, lohnend: laenger ueberleben, teures vs. guenstiges Material situativ) - Vorschlag + klare Punkte umsetzen, Ermessensfragen an den Besitzer
+  13. "Resonanz"-Werte / Multiplikatoren (Besatz-Boni ueber Ueberlebens-Statistik) vanilla-naeher ueberarbeiten
+  14. Alle UI-Flaechen gegen Vanilla pruefen (Rucksack, Trichter-Filter, Oktant, HUD, Tooltips) und angleichen
