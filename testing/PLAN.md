@@ -8,14 +8,16 @@ Verhalten kaputtgeht — und dass alles, was das nicht sein kann, benannt ist st
 
 ## 1. Wo wir stehen
 
+**Nachtrag 2026-09-24 (Feature-Paket):** Kolben-Durchbruch, verstärkter klebriger Kolben, Enderitkolben, Rucksäcke (4 Stufen, Taste B), Lederplatte, verstärkter Köcher, Hammer-Aufwertung der Maschinen, Enderit-Maschinen, 1-h-Enderit-Schrott, Ofen-Boni und die neue End-Erzgenerierung - mit 45 neuen Servertests, 2 neuen Client-Prüfpunkten (104 je Ziel) und dem Mutationskatalog `P10_MUTATIONS` (47 Server-Gegenproben, rot auf beiden Linien: `testing/mutations/2026-09-24T04-09-12Z.json`, `04-24-56Z`). Gate-Lauf `2026-09-24T05-52-08Z-4b18`: 1676/1676, GO.
+
 ### Serverseitig: fertig
 
 | Ziel | Tests |
 |---|---:|
-| Fabric · MC 26.2 | 271 |
-| NeoForge · MC 26.2 | 271 |
-| Fabric · MC 1.21.11 | 269 |
-| NeoForge · MC 1.21.11 | 269 |
+| Fabric · MC 26.2 | 316 |
+| NeoForge · MC 26.2 | 316 |
+| Fabric · MC 1.21.11 | 314 |
+| NeoForge · MC 1.21.11 | 314 |
 
 **266 Tests tragen auf beiden Linien dieselbe Id** — ein Bericht der einen Linie lässt sich Zeile
 für Zeile neben den der anderen legen. Die fünf Abweichungen stehen als `LINE_DIFFERENCES` in
