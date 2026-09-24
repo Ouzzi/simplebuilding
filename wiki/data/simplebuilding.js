@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 167,
+      "count": 168,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -3637,6 +3637,23 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:blueprint",
+      "name": {
+        "en_us": "Blueprint",
+        "de_de": "Blaupause"
+      },
+      "texture": "assets/textures/item/blueprint.png",
+      "craftedBy": [
+        "simplebuilding:blueprint"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:chiseled_astralit_bricks",
       "name": {
         "en_us": "Chiseled Astralit Bricks",
@@ -5427,6 +5444,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz"
       ],
       "usedIn": [
+        "simplebuilding:blueprint",
         "simplebuilding:chiseled_ender_quartz_bricks_from_chiseled_quartz_block",
         "simplebuilding:ender_quartz_block",
         "simplebuilding:ender_quartz_block_from_end_stone",
@@ -19502,6 +19520,36 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:blueprint",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:blueprint",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/blueprint.json",
+      "ingredients": [
+        "minecraft:ink_sac",
+        "minecraft:paper",
+        "simplebuilding:ender_quartz"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:ender_quartz"
+        ],
+        [
+          "minecraft:paper"
+        ],
+        [
+          "minecraft:ink_sac"
+        ]
+      ],
+      "lines": [
         "26.2"
       ]
     },
@@ -42379,9 +42427,9 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 161,
+    "items": 162,
     "blocks": 76,
-    "recipes": 309,
+    "recipes": 310,
     "lootTables": 75,
     "trades": 21,
     "enchantments": 19,
@@ -42389,9 +42437,11 @@ window.WIKI_DATA = {
     "config": 15,
     "inWorld": 343,
     "features": 35,
-    "undocumented": 0,
+    "undocumented": 1,
     "incompleteProse": 0
   },
-  "undocumented": [],
+  "undocumented": [
+    "simplebuilding:blueprint"
+  ],
   "incompleteProse": {}
 };
