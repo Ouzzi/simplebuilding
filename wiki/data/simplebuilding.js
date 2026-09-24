@@ -4777,7 +4777,7 @@ window.WIKI_DATA = {
         "en_us": "Enderite Blast Furnace",
         "de_de": "Enderit-Schmelzofen"
       },
-      "texture": null,
+      "texture": "assets/textures/block/enderite_blast_furnace_side.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -5481,7 +5481,7 @@ window.WIKI_DATA = {
         "en_us": "Enderite Furnace",
         "de_de": "Enderitofen"
       },
-      "texture": null,
+      "texture": "assets/textures/block/enderite_furnace_side.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -5599,7 +5599,7 @@ window.WIKI_DATA = {
         "en_us": "Enderite Hopper",
         "de_de": "Enderittrichter"
       },
-      "texture": null,
+      "texture": "assets/textures/item/enderite_hopper.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -6231,7 +6231,7 @@ window.WIKI_DATA = {
         "en_us": "Enderite Smoker",
         "de_de": "Enderit-Räucherofen"
       },
-      "texture": null,
+      "texture": "assets/textures/block/enderite_smoker_side.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -13030,10 +13030,15 @@ window.WIKI_DATA = {
         "en_us": "Enderite Blast Furnace",
         "de_de": "Enderit-Schmelzofen"
       },
-      "texture": null,
+      "texture": "assets/textures/block/enderite_blast_furnace_side.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/enderite_blast_furnace_top.png",
+        "side": "assets/textures/block/enderite_blast_furnace_side.png",
+        "front": "assets/textures/block/enderite_blast_furnace_front.png"
+      },
       "lootTable": "simplebuilding:blocks/enderite_blast_furnace",
       "drops": [
         "simplebuilding:enderite_blast_furnace"
@@ -13143,10 +13148,15 @@ window.WIKI_DATA = {
         "en_us": "Enderite Furnace",
         "de_de": "Enderitofen"
       },
-      "texture": null,
+      "texture": "assets/textures/block/enderite_furnace_side.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/enderite_furnace_top.png",
+        "side": "assets/textures/block/enderite_furnace_side.png",
+        "front": "assets/textures/block/enderite_furnace_front.png"
+      },
       "lootTable": "simplebuilding:blocks/enderite_furnace",
       "drops": [
         "simplebuilding:enderite_furnace"
@@ -13225,7 +13235,7 @@ window.WIKI_DATA = {
         "en_us": "Enderite Hopper",
         "de_de": "Enderittrichter"
       },
-      "texture": null,
+      "texture": "assets/textures/block/enderite_hopper_outside.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -13385,10 +13395,15 @@ window.WIKI_DATA = {
         "en_us": "Enderite Smoker",
         "de_de": "Enderit-Räucherofen"
       },
-      "texture": null,
+      "texture": "assets/textures/block/enderite_smoker_side.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "faces": {
+        "top": "assets/textures/block/enderite_smoker_top.png",
+        "side": "assets/textures/block/enderite_smoker_side.png",
+        "front": "assets/textures/block/enderite_smoker_front.png"
+      },
       "lootTable": "simplebuilding:blocks/enderite_smoker",
       "drops": [
         "simplebuilding:enderite_smoker"
