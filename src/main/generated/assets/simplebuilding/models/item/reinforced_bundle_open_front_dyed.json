@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/template_bundle_open_front",
+  "textures": {
+    "layer0": "simplebuilding:item/reinforced_bundle_open_front_dyed",
+    "layer1": "simplebuilding:item/reinforced_bundle_open_front_dyed_overlay"
+  }
+}

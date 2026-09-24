@@ -831,7 +831,11 @@ public final class BlockHighlightClientTest {
         }
 
         if (!ClientState.showHighlights) {
-            return "ClientState.showHighlights is off, which suppresses the area fill";
+            return "ClientState.showHighlights is off, which suppresses every highlight";
+        }
+
+        if (!ClientState.showOctantFigure) {
+            return "ClientState.showOctantFigure is off, which suppresses the area fill";
         }
 
         if (Simplebuilding.getConfig().tools.invertOctantSneak != expectedInvert) {

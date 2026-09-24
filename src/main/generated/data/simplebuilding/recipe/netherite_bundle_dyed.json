@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_dye",
+  "dye": "#minecraft:dyes",
+  "group": "dyed_bundle",
+  "result": {
+    "id": "simplebuilding:netherite_bundle"
+  },
+  "target": "simplebuilding:netherite_bundle"
+}

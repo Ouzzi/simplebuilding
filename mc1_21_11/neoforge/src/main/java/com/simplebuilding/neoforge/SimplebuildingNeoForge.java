@@ -87,5 +87,7 @@ public final class SimplebuildingNeoForge {
             // zugaenglicher, veraenderbarer map() -- der Dispatcher-Accessor-Mixin aus 26.2 entfaellt.
             CauldronInteraction.WATER.map().put(coloredItem, OctantCauldronWash.INTERACTION);
         }
+        // Gefaerbte Rucksaecke und Buendel: nur die Farbe abwaschen.
+        com.simplebuilding.util.DyedStorageWashing.register();
     }
 }

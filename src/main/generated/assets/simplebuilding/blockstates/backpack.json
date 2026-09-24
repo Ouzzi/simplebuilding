@@ -1,18 +1,33 @@
 {
   "variants": {
-    "facing=east": {
+    "dyed=false,facing=east": {
       "model": "simplebuilding:block/backpack",
       "y": 90
     },
-    "facing=north": {
+    "dyed=false,facing=north": {
       "model": "simplebuilding:block/backpack"
     },
-    "facing=south": {
+    "dyed=false,facing=south": {
       "model": "simplebuilding:block/backpack",
       "y": 180
     },
-    "facing=west": {
+    "dyed=false,facing=west": {
       "model": "simplebuilding:block/backpack",
+      "y": 270
+    },
+    "dyed=true,facing=east": {
+      "model": "simplebuilding:block/backpack_dyed",
+      "y": 90
+    },
+    "dyed=true,facing=north": {
+      "model": "simplebuilding:block/backpack_dyed"
+    },
+    "dyed=true,facing=south": {
+      "model": "simplebuilding:block/backpack_dyed",
+      "y": 180
+    },
+    "dyed=true,facing=west": {
+      "model": "simplebuilding:block/backpack_dyed",
       "y": 270
     }
   }

@@ -160,6 +160,8 @@ public class Simplebuilding implements ModInitializer {
             // zugaenglicher, veraenderbarer map() -- der Dispatcher-Accessor-Mixin aus 26.2 entfaellt.
             CauldronInteraction.WATER.map().put(coloredItem, OctantCauldronWash.INTERACTION);
         }
+        // Gefaerbte Rucksaecke und Buendel: nur die Farbe abwaschen.
+        com.simplebuilding.util.DyedStorageWashing.register();
     }
 
     public static SimplebuildingConfig getConfig() {

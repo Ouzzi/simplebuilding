@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/template_bundle_open_back",
+  "textures": {
+    "layer0": "simplebuilding:item/netherite_bundle_open_back_dyed",
+    "layer1": "simplebuilding:item/netherite_bundle_open_back_dyed_overlay"
+  }
+}

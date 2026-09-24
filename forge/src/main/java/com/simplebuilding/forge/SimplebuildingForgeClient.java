@@ -9,11 +9,10 @@ import com.simplebuilding.client.gui.RangefinderHudOverlay;
 import com.simplebuilding.client.gui.SpeedometerHudOverlay;
 import com.simplebuilding.forge.networking.ForgeNetworkRegistration;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
+import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltips;
 import com.simplebuilding.platform.ClientNetworking;
-import com.simplebuilding.util.BundleTooltipAccessor;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.resources.Identifier;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.AddGuiOverlayLayersEvent;
@@ -136,14 +135,17 @@ public final class SimplebuildingForgeClient {
         root.addAbove(stack, airJump, speedometer, (gg, dt) -> DoubleJumpHudOverlay.render(gg));
     }
 
+    /** Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity. */
+    @SubscribeEvent
+    public static void onRegisterBlockColors(net.minecraftforge.client.event.RegisterColorHandlersEvent.Block event) {
+        event.register(java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
+                com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
+    }
+
     @SubscribeEvent
     public static void onRegisterTooltips(RegisterClientTooltipComponentFactoriesEvent event) {
-        event.register(ReinforcedBundleTooltipData.class, data -> {
-            ClientBundleTooltip component = new ClientBundleTooltip(data.contents());
-            float scale = (float) data.maxCapacity() / 64.0f;
-            ((BundleTooltipAccessor) component).simplebuilding$setCapacityScale(scale);
-            return component;
-        });
+        event.register(ReinforcedBundleTooltipData.class, ReinforcedBundleTooltips::create);
     }
     }
 }

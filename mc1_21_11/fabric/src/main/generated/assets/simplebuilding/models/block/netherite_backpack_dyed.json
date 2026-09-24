@@ -1,0 +1,14 @@
+{
+  "parent": "simplebuilding:block/template_backpack_dyed",
+  "textures": {
+    "back": "simplebuilding:block/netherite_backpack_back_dyed",
+    "back_overlay": "simplebuilding:block/netherite_backpack_back_dyed_overlay",
+    "front": "simplebuilding:block/netherite_backpack_front_dyed",
+    "front_overlay": "simplebuilding:block/netherite_backpack_front_dyed_overlay",
+    "particle": "simplebuilding:block/netherite_backpack_side",
+    "side": "simplebuilding:block/netherite_backpack_side_dyed",
+    "side_overlay": "simplebuilding:block/netherite_backpack_side_dyed_overlay",
+    "top": "simplebuilding:block/netherite_backpack_top_dyed",
+    "top_overlay": "simplebuilding:block/netherite_backpack_top_dyed_overlay"
+  }
+}

@@ -15,9 +15,9 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
+import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltips;
 import com.simplebuilding.networking.*;
 import com.simplebuilding.screen.ModScreenHandlers;
-import com.simplebuilding.util.BundleTooltipAccessor;
 import com.simplebuilding.util.SurvivalTracerAccessor;
 import com.simplebuilding.client.BackpackKeyHandler;
 import com.simplebuilding.client.ClientState;
@@ -40,7 +40,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
 import net.minecraft.network.chat.Component;
@@ -69,6 +68,16 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Der aufsteigende Block wird wie fallender Sand gezeichnet.
         EntityRendererRegistry.register(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
         // Der getragene Rucksack auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
+        // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity; die Ebenen
+        // brauchen Cutout (26.2 erkennt das an den Texturen selbst, 1.21.11 nicht).
+        net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register(
+                com.simplebuilding.client.render.BackpackBlockTint.INSTANCE,
+                com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(
+                net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
+                com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
                 helper.register(new com.simplebuilding.client.render.BackpackLayer(avatar));
@@ -110,9 +119,9 @@ public class SimplebuildingClient implements ClientModInitializer {
             }
 
             while (ClientState.octantFigureToggleKey.consumeClick()) {
-                ClientState.showHighlights = !ClientState.showHighlights;
+                ClientState.showOctantFigure = !ClientState.showOctantFigure;
                 if (client.player != null) {
-                    client.player.displayClientMessage(Component.literal("Octant Figure: " + (ClientState.showHighlights ? "ON" : "OFF")), true);
+                    client.player.displayClientMessage(Component.literal("Octant Figure: " + (ClientState.showOctantFigure ? "ON" : "OFF")), true);
                 }
             }
 
@@ -152,10 +161,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         // --- Tooltips ---
         TooltipComponentCallback.EVENT.register(data -> {
             if (data instanceof ReinforcedBundleTooltipData reinforcedData) {
-                ClientBundleTooltip component = new ClientBundleTooltip(reinforcedData.contents());
-                float scale = (float) reinforcedData.maxCapacity() / 64.0f;
-                ((BundleTooltipAccessor) component).simplebuilding$setCapacityScale(scale);
-                return component;
+                return ReinforcedBundleTooltips.create(reinforcedData);
             }
             return null;
         });

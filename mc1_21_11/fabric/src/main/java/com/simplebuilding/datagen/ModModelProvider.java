@@ -2,6 +2,7 @@ package com.simplebuilding.datagen;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.blocks.custom.BackpackBlock;
 import com.simplebuilding.items.ModArmorMaterials;
 import com.simplebuilding.items.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -11,7 +12,16 @@ import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import com.simplebuilding.util.DyedStorage;
+import net.minecraft.client.color.item.Dye;
+import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.renderer.item.BundleSelectedItemSpecialRenderer;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.properties.conditional.BundleHasSelectedItem;
+import net.minecraft.client.renderer.item.properties.select.DisplayContext;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
@@ -41,6 +51,12 @@ public class ModModelProvider extends FabricModelProvider {
     // Handgeschriebene Vorlage (assets/simplebuilding/models/block/template_backpack.json): Sack
     // plus Vordertasche, Vorderseite nach Norden; die Stufen setzen nur ihre Texturen ein.
     private static final ModelTemplate BACKPACK_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_backpack")), Optional.empty(), TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.PARTICLE);
+    private static final TextureSlot FRONT_OVERLAY = TextureSlot.create("front_overlay");
+    private static final TextureSlot BACK_OVERLAY = TextureSlot.create("back_overlay");
+    private static final TextureSlot SIDE_OVERLAY = TextureSlot.create("side_overlay");
+    private static final TextureSlot TOP_OVERLAY = TextureSlot.create("top_overlay");
+    /** Zwei-Ebenen-Vorlage des gefaerbten abgestellten Rucksacks (Ressource, nicht aus Datagen). */
+    private static final ModelTemplate BACKPACK_DYED_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_backpack_dyed")), Optional.of("_dyed"), TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.SIDE, TextureSlot.TOP, FRONT_OVERLAY, BACK_OVERLAY, SIDE_OVERLAY, TOP_OVERLAY, TextureSlot.PARTICLE);
 
     public ModModelProvider(FabricDataOutput output) {
         super(output);
@@ -148,6 +164,60 @@ public class ModModelProvider extends FabricModelProvider {
         registerBackpack(blockStateModelGenerator, ModBlocks.ENDERITE_BACKPACK);
     }
 
+    /** Zwei-Schicht-Vorlagen fuer die offenen gefaerbten Buendel (Vanillas Anzeige-Versatz, dazu layer1). */
+    private static final ModelTemplate BUNDLE_OPEN_FRONT_DYED = new ModelTemplate(
+            Optional.of(Identifier.withDefaultNamespace("item/template_bundle_open_front")), Optional.empty(),
+            TextureSlot.LAYER0, TextureSlot.LAYER1);
+    private static final ModelTemplate BUNDLE_OPEN_BACK_DYED = new ModelTemplate(
+            Optional.of(Identifier.withDefaultNamespace("item/template_bundle_open_back")), Optional.empty(),
+            TextureSlot.LAYER0, TextureSlot.LAYER1);
+
+    /**
+     * Buendel der Mod wie Vanillas Buendel: geschlossen das flache Symbol, im Inventar mit
+     * ausgewaehltem Eintrag offen (Rueckseite, der ausgewaehlte Gegenstand, Vorderseite). Jede
+     * der drei Flaechen gibt es ungefaerbt und - mit {@code minecraft:dyed_color} - als
+     * Leder-Ebene mit Farbquelle {@code minecraft:dye} plus ungefaerbter Beschlag-Ebene.
+     */
+    private static void generateDyeableBundle(ItemModelGenerators generator, Item item) {
+        ItemModel.Unbaked closed = dyeable(generator, item, "", ModelTemplates.FLAT_ITEM, ModelTemplates.TWO_LAYERED_ITEM);
+        ItemModel.Unbaked back = dyeable(generator, item, "_open_back", ModelTemplates.BUNDLE_OPEN_BACK_INVENTORY, BUNDLE_OPEN_BACK_DYED);
+        ItemModel.Unbaked front = dyeable(generator, item, "_open_front", ModelTemplates.BUNDLE_OPEN_FRONT_INVENTORY, BUNDLE_OPEN_FRONT_DYED);
+        ItemModel.Unbaked open = ItemModelUtils.composite(back, new BundleSelectedItemSpecialRenderer.Unbaked(), front);
+        ItemModel.Unbaked inGui = ItemModelUtils.conditional(new BundleHasSelectedItem(), open, closed);
+        generator.itemModelOutput.accept(item, ItemModelUtils.select(new DisplayContext(), closed,
+                ItemModelUtils.when(ItemDisplayContext.GUI, inGui)));
+    }
+
+    /** Eine Flaeche {@code <id><suffix>}: ungefaerbt, oder mit Farbe aus _dyed (getoent) und _dyed_overlay. */
+    private static ItemModel.Unbaked dyeable(ItemModelGenerators generator, Item item, String suffix,
+                                             ModelTemplate plainTemplate, ModelTemplate dyedTemplate) {
+        Identifier plain = plainTemplate.create(ModelLocationUtils.getModelLocation(item, suffix),
+                TextureMapping.layer0(TextureMapping.getItemTexture(item, suffix)), generator.modelOutput);
+        Identifier dyed = dyedTemplate.create(ModelLocationUtils.getModelLocation(item, suffix + "_dyed"),
+                TextureMapping.layered(TextureMapping.getItemTexture(item, suffix + "_dyed"),
+                        TextureMapping.getItemTexture(item, suffix + "_dyed_overlay")),
+                generator.modelOutput);
+        return ItemModelUtils.conditional(ItemModelUtils.hasComponent(DataComponents.DYED_COLOR),
+                ItemModelUtils.tintedModel(dyed, new Dye(DyedStorage.UNDYED)), ItemModelUtils.plainModel(plain));
+    }
+
+    /**
+     * Faerbbarer Rucksack bzw. faerbbares Buendel: ohne {@code minecraft:dyed_color} das flache
+     * Symbol der Stufe, mit Farbe wie Vanillas Lederruestung die Leder-Ebene {@code <id>_dyed}
+     * (Farbquelle {@code minecraft:dye}) und darueber die ungefaerbte Beschlag-Ebene
+     * {@code <id>_dyed_overlay} (beide aus tools/textures/generate_textures.py).
+     */
+    private static void generateDyeableItem(ItemModelGenerators generator, Item item) {
+        Identifier plain = ModelTemplates.FLAT_ITEM.create(item, TextureMapping.layer0(item), generator.modelOutput);
+        Identifier dyed = ModelTemplates.TWO_LAYERED_ITEM.create(ModelLocationUtils.getModelLocation(item, "_dyed"),
+                TextureMapping.layered(TextureMapping.getItemTexture(item, "_dyed"), TextureMapping.getItemTexture(item, "_dyed_overlay")),
+                generator.modelOutput);
+        generator.itemModelOutput.accept(item, ItemModelUtils.conditional(
+                ItemModelUtils.hasComponent(DataComponents.DYED_COLOR),
+                ItemModelUtils.tintedModel(dyed, new Dye(DyedStorage.UNDYED)),
+                ItemModelUtils.plainModel(plain)));
+    }
+
     /** Ein Blockmodell je Stufe aus der Vorlage, gedreht nach HORIZONTAL_FACING (Norden = 0). */
     private void registerBackpack(BlockModelGenerators generator, Block block) {
         TextureMapping textures = new TextureMapping()
@@ -157,12 +227,29 @@ public class ModModelProvider extends FabricModelProvider {
                 .put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"))
                 .put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(block, "_side"));
         Identifier model = BACKPACK_MODEL.create(block, textures, generator.modelOutput);
+        // Gefaerbt (BackpackBlock.DYED): Leder-Ebene (getoent, tintindex 0) und Beschlag-Ebene.
+        TextureMapping dyedTextures = new TextureMapping()
+                .put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, "_front_dyed"))
+                .put(TextureSlot.BACK, TextureMapping.getBlockTexture(block, "_back_dyed"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side_dyed"))
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top_dyed"))
+                .put(FRONT_OVERLAY, TextureMapping.getBlockTexture(block, "_front_dyed_overlay"))
+                .put(BACK_OVERLAY, TextureMapping.getBlockTexture(block, "_back_dyed_overlay"))
+                .put(SIDE_OVERLAY, TextureMapping.getBlockTexture(block, "_side_dyed_overlay"))
+                .put(TOP_OVERLAY, TextureMapping.getBlockTexture(block, "_top_dyed_overlay"))
+                .put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(block, "_side"));
+        Identifier dyedModel = BACKPACK_DYED_MODEL.create(block, dyedTextures, generator.modelOutput);
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block)
-                .with(PropertyDispatch.initial(BlockStateProperties.HORIZONTAL_FACING)
-                        .select(Direction.NORTH, BlockModelGenerators.plainVariant(model))
-                        .select(Direction.EAST, BlockModelGenerators.plainVariant(model).with(BlockModelGenerators.Y_ROT_90))
-                        .select(Direction.SOUTH, BlockModelGenerators.plainVariant(model).with(BlockModelGenerators.Y_ROT_180))
-                        .select(Direction.WEST, BlockModelGenerators.plainVariant(model).with(BlockModelGenerators.Y_ROT_270))
+                .with(PropertyDispatch.initial(BlockStateProperties.HORIZONTAL_FACING, BackpackBlock.DYED)
+                        .generate((facing, dyed) -> {
+                            Identifier id = dyed ? dyedModel : model;
+                            return switch (facing) {
+                                case EAST -> BlockModelGenerators.plainVariant(id).with(BlockModelGenerators.Y_ROT_90);
+                                case SOUTH -> BlockModelGenerators.plainVariant(id).with(BlockModelGenerators.Y_ROT_180);
+                                case WEST -> BlockModelGenerators.plainVariant(id).with(BlockModelGenerators.Y_ROT_270);
+                                default -> BlockModelGenerators.plainVariant(id);
+                            };
+                        })
                 ));
     }
 
@@ -310,8 +397,8 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_CORE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_CORE, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.generateFlatItem(ModItems.REINFORCED_BUNDLE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_BUNDLE, ModelTemplates.FLAT_ITEM);
+        generateDyeableBundle(itemModelGenerator, ModItems.REINFORCED_BUNDLE);
+        generateDyeableBundle(itemModelGenerator, ModItems.NETHERITE_BUNDLE);
         itemModelGenerator.generateFlatItem(ModItems.QUIVER, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.REINFORCED_QUIVER, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NETHERITE_QUIVER, ModelTemplates.FLAT_ITEM);
@@ -354,13 +441,13 @@ public class ModModelProvider extends FabricModelProvider {
             );
         }
 
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_BUNDLE, ModelTemplates.FLAT_ITEM);
+        generateDyeableBundle(itemModelGenerator, ModItems.ENDERITE_BUNDLE);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_QUIVER, ModelTemplates.FLAT_ITEM);
         // Rucksaecke: flaches Symbol im Inventar (textures/item/<id>.png), nicht das Blockmodell.
-        itemModelGenerator.generateFlatItem(ModItems.BACKPACK, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.REINFORCED_BACKPACK, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_BACKPACK, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_BACKPACK, ModelTemplates.FLAT_ITEM);
+        generateDyeableItem(itemModelGenerator, ModItems.BACKPACK);
+        generateDyeableItem(itemModelGenerator, ModItems.REINFORCED_BACKPACK);
+        generateDyeableItem(itemModelGenerator, ModItems.NETHERITE_BACKPACK);
+        generateDyeableItem(itemModelGenerator, ModItems.ENDERITE_BACKPACK);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CARROT, ModelTemplates.FLAT_ITEM);
 

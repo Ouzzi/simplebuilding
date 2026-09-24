@@ -25,7 +25,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -44,6 +46,12 @@ import org.jetbrains.annotations.Nullable;
  */
 public class BackpackBlock extends BaseEntityBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+    /**
+     * Gefaerbt ({@code minecraft:dyed_color} am abgestellten Item): waehlt das Zwei-Ebenen-Modell
+     * {@code block/template_backpack_dyed}; die Farbe selbst liegt in der Block-Entity und kommt
+     * clientseitig ueber {@code BackpackBlockTint} ins Modell.
+     */
+    public static final BooleanProperty DYED = BooleanProperty.create("dyed");
 
     private static final Codec<BackpackTier> TIER_CODEC = Codec.INT.xmap(BackpackTier::byId, BackpackTier::ordinal);
     public static final MapCodec<BackpackBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
@@ -60,7 +68,7 @@ public class BackpackBlock extends BaseEntityBlock {
     public BackpackBlock(BackpackTier tier, BlockBehaviour.Properties properties) {
         super(properties);
         this.tier = tier;
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(DYED, false));
     }
 
     public BackpackTier getTier() {
@@ -79,12 +87,13 @@ public class BackpackBlock extends BaseEntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(DYED, context.getItemInHand().has(DataComponents.DYED_COLOR));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING, DYED);
     }
 
     @Override

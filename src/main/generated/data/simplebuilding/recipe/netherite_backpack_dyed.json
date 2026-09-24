@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_dye",
+  "dye": "#minecraft:dyes",
+  "group": "dyed_backpack",
+  "result": {
+    "id": "simplebuilding:netherite_backpack"
+  },
+  "target": "simplebuilding:netherite_backpack"
+}

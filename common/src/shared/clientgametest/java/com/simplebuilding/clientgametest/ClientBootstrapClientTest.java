@@ -112,12 +112,13 @@ import org.lwjgl.glfw.GLFW;
  *
  * <p><b>Known defect</b> (reported, not written into an assertion):
  * <ul>
- *   <li>{@code key.simplebuilding.toggle_octant_figure} and {@code key.simplebuilding.toggle_highlight}
- *       flip the very same field, {@code ClientState.showHighlights}, and that field gates only the
- *       octant area fill in {@code BlockHighlightRenderer}. So the key named "toggle highlight"
- *       does not touch the sledgehammer highlight it is named after, and the octant figure key is
- *       a second, unbound copy of it. Only the bound key's documented effect is asserted below;
- *       the duplication is deliberately left unpinned.</li>
+ *   <li>(Fixed 2026-09-25.) {@code key.simplebuilding.toggle_octant_figure} and
+ *       {@code key.simplebuilding.toggle_highlight} used to flip the very same field. Now the
+ *       highlight key flips {@code ClientState.showHighlights}, which switches every block
+ *       highlight of the mod, and the octant figure key (and the figure button of the octant
+ *       screen) flip {@code ClientState.showOctantFigure}, which gates the octant area fill only.
+ *       The toggle test below asserts that the highlight key leaves the figure flag alone; the
+ *       figure key itself ships unbound and cannot be pressed by the harness.</li>
  *   <li>{@code ClientToggleKeys} exists to keep both loaders on one implementation and NeoForge
  *       calls it, but Fabric never does - it keeps an inline copy in
  *       {@code SimplebuildingClient.onInitializeClient}. The copies already differ: the shared
@@ -421,8 +422,11 @@ public final class ClientBootstrapClientTest {
         boolean[] before = new boolean[1];
         boolean[] afterFirst = new boolean[1];
 
-        script.act("read ClientState.showHighlights before the first press", client ->
-                before[0] = ClientState.showHighlights);
+        boolean[] figureBefore = new boolean[1];
+        script.act("read ClientState.showHighlights before the first press", client -> {
+            before[0] = ClientState.showHighlights;
+            figureBefore[0] = ClientState.showOctantFigure;
+        });
 
         script.harness("press the highlight toggle key", harness -> harness.pressKey(HIGHLIGHT_TOGGLE_KEY));
         script.idle("let the client tick loop drain the key", 5);
@@ -434,6 +438,10 @@ public final class ClientBootstrapClientTest {
                 throw new AssertionError("The highlight toggle key did not flip ClientState.showHighlights "
                         + "(still " + before[0] + "). Either the key mapping is not registered with the client "
                         + "or the client tick loop that drains it is gone.");
+            }
+            if (ClientState.showOctantFigure != figureBefore[0]) {
+                throw new AssertionError("The highlight toggle key also flipped ClientState.showOctantFigure; "
+                        + "the octant figure has its own key and its own flag");
             }
         });
 

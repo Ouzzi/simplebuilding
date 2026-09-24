@@ -151,6 +151,15 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         builder(ModTags.Items.MASTER_BUILDER_ENCHANTABLE)
                 .addTag(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE)
                 .addTag(ModTags.Items.BACKPACKS);
+        // Gefaerbte Rucksaecke und Buendel (minecraft:dyed_color). MC 1.21.11: Vanillas
+        // Sonderrezept armor_dye nimmt jedes Item aus minecraft:dyeable (auf 26.2 statt dessen
+        // je Item ein crafting_dye-Rezept). Den Kessel registriert 1.21.11 je Item, nicht per Tag
+        // (DyedStorageWashing, von beiden Loadern aufgerufen).
+        builder(ItemTags.DYEABLE)
+                .addTag(ModTags.Items.BACKPACKS)
+                .add(key(ModItems.REINFORCED_BUNDLE))
+                .add(key(ModItems.NETHERITE_BUNDLE))
+                .add(key(ModItems.ENDERITE_BUNDLE));
         builder(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
                 .add(key(ModItems.STONE_SLEDGEHAMMER))
                 .add(key(ModItems.COPPER_SLEDGEHAMMER))

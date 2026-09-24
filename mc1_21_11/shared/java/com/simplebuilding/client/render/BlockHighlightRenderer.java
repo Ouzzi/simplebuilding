@@ -44,7 +44,7 @@ public class BlockHighlightRenderer {
     /** NeoForge 26: pose stack is camera-relative; subtract camera before drawing world-space boxes. */
     public static void renderInWorldWithCamera(SubmitNodeCollector collector, PoseStack poseStack, Vec3 cameraPos) {
         Minecraft client = Minecraft.getInstance();
-        if (client.player == null || client.level == null) {
+        if (client.player == null || client.level == null || !ClientState.showHighlights) {
             return;
         }
 
@@ -180,7 +180,7 @@ public class BlockHighlightRenderer {
         if (pos1 != null) drawBoxOutline(matrices, lines, new AABB(pos1).inflate(0.001), colors.r1(), colors.g1(), colors.b1(), lineAlpha);
         if (pos2 != null) drawBoxOutline(matrices, lines, new AABB(pos2).inflate(0.002), colors.r2(), colors.g2(), colors.b2(), lineAlpha);
 
-        if (pos1 != null && pos2 != null && showFill && ClientState.showHighlights) {
+        if (pos1 != null && pos2 != null && showFill && ClientState.showOctantFigure) {
             AABB bounds = getFullArea(pos1, pos2);
 
             Predicate<BlockPos> shapeFunc = switch (shape) {

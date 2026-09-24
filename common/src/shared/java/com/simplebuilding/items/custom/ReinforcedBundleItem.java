@@ -4,6 +4,7 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
+import com.simplebuilding.util.DyedStorage;
 import org.apache.commons.lang3.math.Fraction;
 
 import java.util.ArrayList;
@@ -269,7 +270,7 @@ public class ReinforcedBundleItem extends BundleItem {
         Fraction frac = getMaxCapacityForVisuals(stack);
         int maxCapacity = (int) (frac.doubleValue() * 64);
 
-        return Optional.of(new ReinforcedBundleTooltipData(contents, maxCapacity));
+        return Optional.of(new ReinforcedBundleTooltipData(contents, maxCapacity, DyedStorage.colour(stack)));
     }
 
     protected int insertItemIntoBundle(ItemStack bundle, BundleContents contents, ItemStack stackToAdd, Fraction maxCap) {

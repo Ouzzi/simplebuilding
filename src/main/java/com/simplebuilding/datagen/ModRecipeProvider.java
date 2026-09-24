@@ -18,7 +18,9 @@ import net.minecraft.advancements.triggers.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.CustomCraftingRecipeBuilder;
 import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.world.item.crafting.DyeRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeUnlockAdvancementBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -171,6 +173,22 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                 .unlockedBy(getHasName(dyeItem), has(dyeItem))
                                 .save(output, getSimpleRecipeName(resultItem) + "_from_dye");
                     }
+                }
+
+                // =================================================================
+                // GEFAERBTE RUCKSAECKE UND BUENDEL: Vanillas Farbstoff-Rezept wie fuer
+                // Lederruestung (crafting_dye, <item>_dyed) - Item + ein oder mehrere Farbstoffe,
+                // Farben mischen sich, alle anderen Komponenten (Inhalt, Name, Verzauberungen)
+                // bleiben. Gewaschen wird im Kessel (Tag cauldron_can_remove_dye).
+                // =================================================================
+                // Vanillas dyedItem(...) speichert unter minecraft:<id>_dyed; hier dasselbe Rezept
+                // unter simplebuilding:<id>_dyed.
+                for (Item backpack : new Item[]{ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK,
+                        ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK}) {
+                    modDyedItem(backpack, "dyed_backpack");
+                }
+                for (Item bundle : new Item[]{ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE}) {
+                    modDyedItem(bundle, "dyed_bundle");
                 }
 
                 // =================================================================
@@ -850,6 +868,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         )
                         .unlocks(getHasName(addition), has(addition))
                         .save(exporter, getItemName(result) + "_smithing");
+            }
+
+            /** Wie Vanillas {@code dyedItem}, aber unter {@code simplebuilding:<id>_dyed}. */
+            private void modDyedItem(Item target, String group) {
+                CustomCraftingRecipeBuilder.customCrafting(RecipeCategory.MISC,
+                                (commonInfo, bookInfo) -> new DyeRecipe(commonInfo, bookInfo, Ingredient.of(target),
+                                        tag(ItemTags.DYES), new ItemStackTemplate(target)))
+                        .unlockedBy(getHasName(target), has(target))
+                        .group(group)
+                        .save(output, Simplebuilding.MOD_ID + ":" + getItemName(target) + "_dyed");
             }
 
             private void createChiselRecipe(Item resultItem, Item material, Item nugget) {
