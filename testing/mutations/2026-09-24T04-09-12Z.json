@@ -1,0 +1,857 @@
+{
+  "catalogue": "p10",
+  "targets": [
+    "fabric-262"
+  ],
+  "lines": [
+    "26.2"
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-54-48Z-aaa3",
+      "log": "runs/2026-09-24T03-54-48Z-aaa3-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-breach-leaves-the-payer",
+          "script": "piston_breach_game_test_reinforced_pistons_push_one_unbreakable_only_when_the_redstone_block_pays",
+          "file": "common/src/shared/java/com/simplebuilding/blocks/custom/ReinforcedPistonBlock.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-12116109, -59, -5746886) the redstone block that paid for pushing the bedrock is still there - the breach was free on tick 20"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 2,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-55-06Z-aa10",
+      "log": "runs/2026-09-24T03-55-06Z-aa10-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-breach-charges-ordinary-pushes",
+          "script": "piston_breach_game_test_reinforced_pistons_push_one_unbreakable_only_when_the_redstone_block_pays",
+          "file": "common/src/shared/java/com/simplebuilding/blocks/custom/ReinforcedPistonBlock.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-8826346, -59, -10967436) an ordinary push used up the redstone block behind the reinforced piston; only a breach may cost it on tick 20"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 3,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-55-23Z-502a",
+      "log": "runs/2026-09-24T03-55-23Z-502a-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-breach-extra-tag-dropped",
+          "script": "piston_breach_game_test_reinforced_pistons_push_one_unbreakable_only_when_the_redstone_block_pays",
+          "file": "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-10107935, -59, 1566510) the reinforced piston did not push the reinforced deepslate; it counts as unbreakable only through simplebuilding:piston_breachable_extra on tick 20"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 4,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-55-41Z-9e79",
+      "log": "runs/2026-09-24T03-55-41Z-9e79-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-breach-past-the-front",
+          "script": "piston_breach_game_test_reinforced_breach_counts_towards_the_limit_and_only_reaches_the_front_block",
+          "file": "common/src/shared/java/com/simplebuilding/mixin/PistonHandlerMixin.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(14209467, -59, 12805745) the reinforced piston pushed a second unbreakable block behind the first - the breach reaches further than the block in front on tick 20"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 5,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-55-59Z-124b",
+      "log": "runs/2026-09-24T03-55-59Z-124b-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-breach-limit-nineteen",
+          "script": "piston_breach_game_test_reinforced_breach_counts_towards_the_limit_and_only_reaches_the_front_block",
+          "file": "common/src/shared/java/com/simplebuilding/mixin/PistonHandlerMixin.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(10175612, -59, 8996630) bedrock plus eighteen stones moved - the breached block no longer counts towards the limit of 18, or the limit is higher on tick 20"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 6,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-56-17Z-5539",
+      "log": "runs/2026-09-24T03-56-17Z-5539-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-breach-immune-tag-dropped",
+          "script": "piston_breach_game_test_immune_blocks_never_move_or_break",
+          "file": "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-1198608, -59, -1220645) a reinforced piston moved the light block, which piston_breach_immune lists (target Block{minecraft:air}, piston Block{simplebuilding:reinforced_piston}[extended=false,facing=up], payer Block{minecraft:air}) on tick 20"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 7,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-56-34Z-9e13",
+      "log": "runs/2026-09-24T03-56-34Z-9e13-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-breach-frames-ignore-the-option",
+          "script": "piston_breach_game_test_end_portal_frames_breach_only_while_their_config_option_is_on",
+          "file": "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-14804397, -59, -739244) with pistonsBreachEndPortalFrames switched off the end portal frame still counts as breachable on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 8,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-56-52Z-9461",
+      "log": "runs/2026-09-24T03-56-52Z-9461-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-breach-side-payer-first",
+          "script": "piston_breach_game_test_netherite_piston_sacrifice_leaves_nothing_behind_and_needs_the_redstone_block",
+          "file": "common/src/shared/java/com/simplebuilding/util/PistonBreach.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-14511593, -59, -7848021) the redstone block beside the netherite piston paid although one sat directly behind it - the one behind has to be taken first on tick 10"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 9,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-57-09Z-16e2",
+      "log": "runs/2026-09-24T03-57-09Z-16e2-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-sacrifice-keeps-the-payer",
+          "script": "piston_breach_game_test_netherite_piston_sacrifice_leaves_nothing_behind_and_needs_the_redstone_block",
+          "file": "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-1059898, -59, -782158) the redstone block that paid the netherite piston's breach is still there on tick 10"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 10,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-57-27Z-489a",
+      "log": "runs/2026-09-24T03-57-27Z-489a-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-sacrifice-spares-the-piston",
+          "script": "piston_breach_game_test_netherite_piston_sacrifice_leaves_nothing_behind_and_needs_the_redstone_block",
+          "file": "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-2571610, -59, 7036658) the netherite piston survived its own breach; it is supposed to be used up on tick 10"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 11,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-57-44Z-b056",
+      "log": "runs/2026-09-24T03-57-44Z-b056-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-sacrifice-drops-the-piston",
+          "script": "piston_breach_game_test_netherite_piston_sacrifice_leaves_nothing_behind_and_needs_the_redstone_block",
+          "file": "common/src/shared/java/com/simplebuilding/blocks/custom/NetheriteBreakerPistonBlock.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-7637283, -59, -3017635) the sacrifice dropped items, but the unbreakable, the redstone block and the piston are destroyed without drops: [ItemEntity['Netherite Piston'/1, l='ServerLevel[Test Level]', x=-7637280.53, y=-55.84, z=-3017631.21], ItemEntity['Netherite Piston'/3, l='ServerLevel[Test Level]', x=-7637280.13, y=-56.11, z=-3017627.48], ItemEntity['Netherite Piston'/2, l='ServerLevel[Test Level]', x=-7637277.12, y=-53.65, z=-3017632.42]] on tick 10"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 12,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-58-07Z-055f",
+      "log": "runs/2026-09-24T03-58-07Z-055f-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-enderite-four-deep",
+          "script": "piston_breach_game_test_enderite_piston_breaches_three_cells_skipping_air_and_stopping_at_immune_blocks",
+          "file": "common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-6662222, -59, 7208928) the enderite piston reached a fourth cell; its breach is three cells deep on tick 10"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 13,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-58-24Z-6a11",
+      "log": "runs/2026-09-24T03-58-24Z-6a11-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-enderite-air-ends-it",
+          "script": "piston_breach_game_test_enderite_piston_breaches_three_cells_skipping_air_and_stopping_at_immune_blocks",
+          "file": "common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(6522890, -59, 2660610) the enderite breach stopped at the air gap instead of skipping it - the stone in the third cell is still there on tick 10"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 14,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-58-41Z-6fe8",
+      "log": "runs/2026-09-24T03-58-41Z-6fe8-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-enderite-skips-immune",
+          "script": "piston_breach_game_test_enderite_piston_breaches_three_cells_skipping_air_and_stopping_at_immune_blocks",
+          "file": "common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(12636458, -59, -10246476) the enderite breach went on past the immune light block; an immune block has to end it on tick 10"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 15,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-58-59Z-794a",
+      "log": "runs/2026-09-24T03-58-59Z-794a-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-enderite-drops-lost",
+          "script": "piston_breach_game_test_enderite_piston_breaches_three_cells_skipping_air_and_stopping_at_immune_blocks",
+          "file": "common/src/shared/java/com/simplebuilding/blocks/custom/EnderitePistonBlock.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(449646, -59, 1199177) the stone the enderite breach broke did not drop its cobblestone - ordinary blocks on the way are mined, not deleted on tick 10"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 16,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-59-16Z-de97",
+      "log": "runs/2026-09-24T03-59-16Z-de97-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-head-sticky-mismatch",
+          "script": "piston_breach_game_test_breaking_the_head_of_mod_pistons_breaks_the_piston_too",
+          "file": "common/src/shared/java/com/simplebuilding/mixin/PistonHeadBlockMixin.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(4406345, -59, 1498509) the reinforced sticky piston did not extend with a sticky head in front of it, found Block{minecraft:air} on tick 20"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 17,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-59-33Z-04bd",
+      "log": "runs/2026-09-24T03-59-33Z-04bd-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-explosion-unguarded",
+          "script": "piston_breach_game_test_explosions_cannot_delete_unbreakable_blocks_while_they_move",
+          "file": "common/src/shared/java/com/simplebuilding/mixin/MovingPistonExplosionMixin.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-1427999, -59, -2812282) the explosion deleted the bedrock while it was moving, found Block{minecraft:air} on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 18,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T03-59-51Z-5877",
+      "log": "runs/2026-09-24T03-59-51Z-5877-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-sticky-recipe-key",
+          "script": "piston_breach_game_test_reinforced_sticky_piston_crafts_from_slime_and_drops_itself",
+          "file": "src/main/generated/data/simplebuilding/recipe/reinforced_sticky_piston.json",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(13483070, -59, 4085073) slime ball over a reinforced piston crafts nothing at all on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 19,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-00-09Z-fdcc",
+      "log": "runs/2026-09-24T04-00-09Z-fdcc-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-sticky-loot-wrong-item",
+          "script": "piston_breach_game_test_reinforced_sticky_piston_crafts_from_slime_and_drops_itself",
+          "file": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_sticky_piston.json",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(6474693, -59, -2366681) the broken reinforced sticky piston did not drop itself on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 20,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-00-27Z-abc9",
+      "log": "runs/2026-09-24T04-00-27Z-abc9-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-leather-sheet-eight",
+          "script": "leather_and_quiver_game_test_leather_sheet_takes_exactly_nine_leather",
+          "file": "src/main/generated/data/simplebuilding/recipe/leather_sheet.json",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-12559042, -59, -8383133) nine leather crafts nothing at all on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 21,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-00-45Z-5766",
+      "log": "runs/2026-09-24T04-00-45Z-5766-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-reinforced-quiver-from-bundle",
+          "script": "leather_and_quiver_game_test_reinforced_quiver_crafts_from_the_plain_quiver_with_sheet_pebble_and_nugget",
+          "file": "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(9140466, -59, 2650377) string, diamond pebble, leather sheet, copper nugget and a quiver crafts nothing at all on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 22,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-01-04Z-d46e",
+      "log": "runs/2026-09-24T04-01-04Z-d46e-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-netherite-quiver-from-plain",
+          "script": "leather_and_quiver_game_test_netherite_quiver_smiths_only_from_the_reinforced_quiver",
+          "file": "src/main/generated/data/simplebuilding/recipe/netherite_quiver_smithing.json",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(12062963, -59, 11209181) a reinforced quiver on the netherite template matches no smithing recipe at all on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 23,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-01-23Z-77fa",
+      "log": "runs/2026-09-24T04-01-23Z-77fa-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-upgrade-builds-fresh",
+          "script": "leather_and_quiver_game_test_upgrades_keep_contents_enchantments_and_name",
+          "file": "common/src/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(11542159, -59, -2017194) Expected stone the reinforced bundle kept from the vanilla bundle it was made of to be 5: was 0 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 24,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-01-46Z-b351",
+      "log": "runs/2026-09-24T04-01-46Z-b351-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-reinforced-quiver-factor",
+          "script": "leather_and_quiver_game_test_upgrades_keep_contents_enchantments_and_name",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/QuiverItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-12517267, -59, 12990666) Expected arrows the crafted reinforced quiver holds once it is topped up to be 96: was 64 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 25,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-02-04Z-5d35",
+      "log": "runs/2026-09-24T04-02-04Z-5d35-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-reinforced-quiver-fireproof",
+          "script": "leather_and_quiver_game_test_reinforced_quiver_is_an_ordinary_tier_in_the_container_tags",
+          "file": "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(2325674, -59, -8115363) the reinforced quiver resists fire; it is an ordinary tier like the plain quiver on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 26,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-02-23Z-5bbb",
+      "log": "runs/2026-09-24T04-02-23Z-5bbb-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-not-swappable",
+          "script": "backpack_game_test_right_click_wears_the_backpack_and_swaps_it_with_the_chestplate",
+          "file": "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(3131459, -59, 14368543) a right click with the backpack did not put it into the chest slot, the chest holds 0 minecraft:air on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 27,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-02-41Z-f10c",
+      "log": "runs/2026-09-24T04-02-41Z-f10c-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-armor-off-by-one",
+          "script": "backpack_game_test_tiers_carry_their_armor_slot_count_and_slot_layout",
+          "file": "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-8293085, -59, -4092861) Expected armor of the worn simplebuilding:backpack to be 1.0: was 2.0 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 28,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-03-00Z-83e1",
+      "log": "runs/2026-09-24T04-03-00Z-83e1-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-enderite-one-column",
+          "script": "backpack_game_test_tiers_carry_their_armor_slot_count_and_slot_layout",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-7071310, -59, 5796435) Expected slots of simplebuilding:enderite_backpack to be 50: was 43 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 29,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-03-19Z-1c10",
+      "log": "runs/2026-09-24T04-03-19Z-1c10-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-column-ids-per-tier",
+          "script": "backpack_game_test_tiers_carry_their_armor_slot_count_and_slot_layout",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/BackpackTier.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(6550516, -59, -2476657) Expected component id of the netherite backpack's first column slot to be 36: was 27 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 30,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-03-37Z-0935",
+      "log": "runs/2026-09-24T04-03-37Z-0935-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-upgrade-builds-fresh",
+          "script": "backpack_game_test_contents_survive_the_reinforced_recipe_and_both_smithing_upgrades",
+          "file": "common/src/shared/java/com/simplebuilding/recipe/BackpackUpgradeRecipe.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(642349, -59, 3326211) Expected contents the reinforced backpack kept from the backpack it was made of to be BackpackContents[Entry[slot=0, stack=ItemStackTemplate[item=Reference{ResourceKey[minecraft:item / minecraft:cobblestone]=minecraft:cobblestone}, count=64, components={}]], Entry[slot=1, stack=ItemStackTemplate[item=Reference{ResourceKey[minecraft:item / minecraft:diamond]=minecraft:diamond}, count=3, components={}]]]: was BackpackContents[] on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 31,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-03-55Z-96c0",
+      "log": "runs/2026-09-24T04-03-55Z-96c0-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-placed-without-sneaking",
+          "script": "backpack_game_test_sneak_right_click_places_the_backpack_and_breaking_it_drops_everything",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-1836840, -59, 12881661) a right click without sneaking placed the backpack; only sneak + right click may set it down on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 32,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-04-12Z-a911",
+      "log": "runs/2026-09-24T04-04-12Z-a911-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-loot-loses-contents",
+          "script": "backpack_game_test_sneak_right_click_places_the_backpack_and_breaking_it_drops_everything",
+          "file": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_backpack.json",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-9694685, -59, -4058759) Expected contents of the backpack that dropped from the broken block to be BackpackContents[Entry[slot=0, stack=ItemStackTemplate[item=Reference{ResourceKey[minecraft:item / minecraft:cobblestone]=minecraft:cobblestone}, count=64, components={}]], Entry[slot=1, stack=ItemStackTemplate[item=Reference{ResourceKey[minecraft:item / minecraft:diamond]=minecraft:diamond}, count=3, components={}]]]: was BackpackContents[] on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 33,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-04-32Z-afc7",
+      "log": "runs/2026-09-24T04-04-32Z-afc7-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-key-ignores-the-chest",
+          "script": "backpack_game_test_open_key_opens_the_menu_only_for_the_worn_backpack",
+          "file": "common/src/shared/java/com/simplebuilding/screen/BackpackMenuProviders.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(3655537, -59, -8935090) the backpack key may open a menu for a player with nothing on the chest on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 34,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-04-51Z-8c79",
+      "log": "runs/2026-09-24T04-04-51Z-8c79-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-shift-click-vanilla-first",
+          "script": "backpack_game_test_shift_click_fills_the_backpack_first_and_empties_it_into_the_main_inventory",
+          "file": "common/src/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(7777286, -59, 7355194) shift-click from the main inventory did not put the cobblestone into the backpack; the first backpack slot holds 0 minecraft:air on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 35,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-05-09Z-ef2a",
+      "log": "runs/2026-09-24T04-05-09Z-ef2a-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-shift-click-out-to-hotbar",
+          "script": "backpack_game_test_shift_click_fills_the_backpack_first_and_empties_it_into_the_main_inventory",
+          "file": "common/src/shared/java/com/simplebuilding/screen/BackpackMenu.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-9278849, -59, -14463123) shift-click out of the backpack did not put the cobblestone into the first main inventory slot; the hotbar is only the fallback on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 36,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-05-28Z-e3aa",
+      "log": "runs/2026-09-24T04-05-28Z-e3aa-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-deep-pockets-stacks-swords",
+          "script": "backpack_game_test_deep_pockets_raises_stack_limits_only_for_stackables",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(11270486, -59, 14219522) Expected swords per backpack slot at Deep Pockets 1 - unstackable items never stack to be 1: was 2 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 37,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-05-46Z-4d72",
+      "log": "runs/2026-09-24T04-05-46Z-4d72-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-oversized-leaves-whole",
+          "script": "backpack_game_test_deep_pockets_raises_stack_limits_only_for_stackables",
+          "file": "common/src/shared/java/com/simplebuilding/screen/BackpackSlot.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(8897403, -59, 10289105) Expected cobblestone on the cursor after picking up the oversized stack to be 64: was 256 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 38,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-06-04Z-3a6b",
+      "log": "runs/2026-09-24T04-06-04Z-3a6b-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-funnel-ignored",
+          "script": "backpack_game_test_funnel_pulls_picked_up_items_into_the_worn_backpack",
+          "file": "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-13185610, -59, 14462560) Expected cobblestone a worn Funnel II backpack took from the ground to be 8: was 0 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 39,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-06-22Z-2243",
+      "log": "runs/2026-09-24T04-06-22Z-2243-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-funnel-one-takes-anything",
+          "script": "backpack_game_test_funnel_pulls_picked_up_items_into_the_worn_backpack",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-13416673, -59, -8700755) Expected stone a Funnel I backpack took although it held none - Funnel I only takes sorts that are already in to be 0: was 5 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 40,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-06-40Z-5c05",
+      "log": "runs/2026-09-24T04-06-40Z-5c05-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-master-builder-any-backpack",
+          "script": "backpack_game_test_master_builder_opens_the_backpack_only_when_the_backpack_carries_it",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(6022666, -59, 10324202) a backpack without Master Builder supplied the wand - Master Builder on the wand must not open the backpack, it returned Success[swingSource=NONE, itemContext=ItemContext[wasItemInteraction=true, heldItemTransformedTo=null]] on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 41,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-07-00Z-5219",
+      "log": "runs/2026-09-24T04-07-00Z-5219-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-wand-builds-backpacks",
+          "script": "backpack_game_test_master_builder_opens_the_backpack_only_when_the_backpack_carries_it",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/BuildingWandItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-14820635, -59, 6295349) the wand treated a backpack in the hotbar as building material, it returned Success[swingSource=NONE, itemContext=ItemContext[wasItemInteraction=true, heldItemTransformedTo=null]] and placed Block{minecraft:air} on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 42,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-07-20Z-3128",
+      "log": "runs/2026-09-24T04-07-20Z-3128-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-constructors-touch-no-refill",
+          "script": "backpack_game_test_constructors_touch_refills_the_empty_hand_from_the_worn_backpack",
+          "file": "common/src/shared/java/com/simplebuilding/mixin/BlockItemMixin.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-2151535, -59, -14882905) Constructor's Touch did not refill the empty hand from the worn backpack, the hand holds 0 minecraft:air on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 43,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-07-39Z-8c38",
+      "log": "runs/2026-09-24T04-07-39Z-8c38-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-drawer-allowed",
+          "script": "backpack_game_test_backpacks_take_their_four_enchantments_but_neither_drawer_nor_color_palette",
+          "file": "src/main/generated/data/simplebuilding/tags/item/bundle_enchantable.json",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-1866217, -59, -3179238) simplebuilding:drawer can be put on simplebuilding:backpack, but it means nothing on a backpack on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 44,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-07-58Z-cfdc",
+      "log": "runs/2026-09-24T04-07-58Z-cfdc-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-netherite-blast",
+          "script": "backpack_game_test_upper_tiers_survive_fire_and_explosions_and_lower_ones_spill_their_contents",
+          "file": "common/src/shared/java/com/simplebuilding/mixin/ItemEntityMixin.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-12041313, -59, 8376160) the netherite backpack was destroyed by the explosion it is supposed to ignore on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 45,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-08-17Z-d4cb",
+      "log": "runs/2026-09-24T04-08-17Z-d4cb-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-backpack-spill-lost",
+          "script": "backpack_game_test_upper_tiers_survive_fire_and_explosions_and_lower_ones_spill_their_contents",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/BackpackItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-14960674, -59, -8953239) Expected diamonds the destroyed backpack spilled to be 3: was 0 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 46,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-08-34Z-595d",
+      "log": "runs/2026-09-24T04-08-34Z-595d-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-nihilith-any-underside",
+          "script": "ore_gen_and_item_frame_game_test_nihilith_placement_only_accepts_end_stone_undersides_and_lifts_the_origin",
+          "file": "src/main/generated/data/simplebuilding/worldgen/placed_feature/nihilith_ore_placed.json",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(792897, -59, -6978363) the nihilith filter accepted a stone underside; only end stone may carry the ore on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 47,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-24T04-08-54Z-003d",
+      "log": "runs/2026-09-24T04-08-54Z-003d-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p10-nihilith-no-lift",
+          "script": "ore_gen_and_item_frame_game_test_nihilith_placement_only_accepts_end_stone_undersides_and_lifts_the_origin",
+          "file": "src/main/generated/data/simplebuilding/worldgen/placed_feature/nihilith_ore_placed.json",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-4154015, -59, 9818036) the nihilith offset did not move the underside exactly one block up, it gave [BlockPos{x=-4154012, y=-53, z=9818040}] on tick 0"
+        }
+      ],
+      "collateral": null
+    }
+  ]
+}

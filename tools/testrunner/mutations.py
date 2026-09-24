@@ -27,6 +27,7 @@ Usage
     python tools/testrunner/mutations.py --p6 --run --line 1.21.11   # the same round on the 1.21.11 copy
     python tools/testrunner/mutations.py --p6b --run            # the remaining areas (server)
     python tools/testrunner/mutations.py --p9 --run             # the fixes of 2026-09-24 (server + client)
+    python tools/testrunner/mutations.py --p10 --run            # the tests of the first feature wave (server)
 
 Results land in testing/mutations/<timestamp>.json and are summarised on stdout.
 """
@@ -1118,6 +1119,390 @@ P9_MUTATIONS: list[Mutation] = [
              'a stale destroy stage cracks nothing around another block'),
 ]
 
+#: P10 (2026-09-24): the counter-checks for the tests of the first feature wave - the pistons that
+#: push or break unbreakable blocks, the leather sheet and the reinforced quiver, the backpacks and
+#: nihilith's placement. Server entries only; each puts one plausible slip into the feature and
+#: names the new test whose sentence has to go red on it. The anchors read the same on both lines
+#: (the piston, backpack and generated files are identical there); the two upgrade recipes are the
+#: exception and re-spell in ON_1_21_11.
+_PB = "piston_breach_game_test_"
+_LQ = "leather_and_quiver_game_test_"
+_BP = "backpack_game_test_"
+_GEN = "src/main/generated/data/simplebuilding"
+P10_MUTATIONS: list[Mutation] = [
+    # --- pistons: the reinforced breach -------------------------------------------------------
+    Mutation('p10-breach-leaves-the-payer',
+             f'{SHARED}/blocks/custom/ReinforcedPistonBlock.java',
+             '            world.destroyBlock(fuel, false);',
+             '            // payer kept',
+             _PB + 'reinforced_pistons_push_one_unbreakable_only_when_the_redstone_block_pays',
+             'the redstone block that paid for pushing the bedrock is still there',
+             'a breach uses up the redstone block that paid for it', kind="server"),
+    Mutation('p10-breach-charges-ordinary-pushes',
+             f'{SHARED}/blocks/custom/ReinforcedPistonBlock.java',
+             '            if (PistonBreach.isBreachable(world, pos.relative(facing))) {\n'
+             '                fuel = PistonBreach.findFuel(world, pos, facing);\n'
+             '            }',
+             '            fuel = PistonBreach.findFuel(world, pos, facing);',
+             _PB + 'reinforced_pistons_push_one_unbreakable_only_when_the_redstone_block_pays',
+             'an ordinary push used up the redstone block behind the reinforced piston',
+             'only a breach costs the redstone block, an ordinary push is free', kind="server"),
+    Mutation('p10-breach-extra-tag-dropped',
+             f'{SHARED}/util/PistonBreach.java',
+             'return state.getDestroySpeed(level, pos) < 0.0F || state.is(ModTags.Blocks.PISTON_BREACHABLE_EXTRA);',
+             'return state.getDestroySpeed(level, pos) < 0.0F;',
+             _PB + 'reinforced_pistons_push_one_unbreakable_only_when_the_redstone_block_pays',
+             'the reinforced piston did not push the reinforced deepslate',
+             'reinforced deepslate is breachable through simplebuilding:piston_breachable_extra', kind="server"),
+    Mutation('p10-breach-past-the-front',
+             f'{SHARED}/mixin/PistonHandlerMixin.java',
+             'if (this.simplebuilding$fuel != null && pos.equals(this.startPos) && PistonBreach.isBreachable(state, level, pos)) {',
+             'if (this.simplebuilding$fuel != null && PistonBreach.isBreachable(state, level, pos)) {',
+             _PB + 'reinforced_breach_counts_towards_the_limit_and_only_reaches_the_front_block',
+             'the reinforced piston pushed a second unbreakable block behind the first',
+             'only the block directly in front may be an unbreakable one', kind="server"),
+    Mutation('p10-breach-limit-nineteen',
+             f'{SHARED}/mixin/PistonHandlerMixin.java',
+             'return 18; // Das neue Limit',
+             'return 19; // Das neue Limit',
+             _PB + 'reinforced_breach_counts_towards_the_limit_and_only_reaches_the_front_block',
+             'bedrock plus eighteen stones moved',
+             'the breached block counts towards the limit of 18', kind="server"),
+    Mutation('p10-breach-immune-tag-dropped',
+             f'{SHARED}/util/PistonBreach.java',
+             'if (state.isAir() || state.is(ModTags.Blocks.PISTON_BREACH_IMMUNE) || state.hasBlockEntity()) {',
+             'if (state.isAir() || state.hasBlockEntity()) {',
+             _PB + 'immune_blocks_never_move_or_break',
+             'a reinforced piston moved the light block',
+             'simplebuilding:piston_breach_immune keeps the light block out of every breach', kind="server"),
+    Mutation('p10-breach-frames-ignore-the-option',
+             f'{SHARED}/util/PistonBreach.java',
+             'if (state.is(Blocks.END_PORTAL_FRAME) && !endPortalFramesBreachable()) {',
+             'if (false && state.is(Blocks.END_PORTAL_FRAME) && !endPortalFramesBreachable()) {',
+             _PB + 'end_portal_frames_breach_only_while_their_config_option_is_on',
+             'with pistonsBreachEndPortalFrames switched off the end portal frame still counts as breachable',
+             'pistonsBreachEndPortalFrames decides whether end portal frames are breachable', kind="server"),
+    Mutation('p10-breach-side-payer-first',
+             f'{SHARED}/util/PistonBreach.java',
+             '        BlockPos behind = piston.relative(facing.getOpposite());\n'
+             '        if (level.getBlockState(behind).is(Blocks.REDSTONE_BLOCK)) {\n'
+             '            return behind;\n'
+             '        }\n'
+             '        for (Direction side : Direction.values()) {\n'
+             '            if (side.getAxis() != facing.getAxis()) {\n'
+             '                BlockPos candidate = piston.relative(side);\n'
+             '                if (level.getBlockState(candidate).is(Blocks.REDSTONE_BLOCK)) {\n'
+             '                    return candidate;\n'
+             '                }\n'
+             '            }\n'
+             '        }\n'
+             '        return null;',
+             '        for (Direction side : Direction.values()) {\n'
+             '            if (side.getAxis() != facing.getAxis()) {\n'
+             '                BlockPos candidate = piston.relative(side);\n'
+             '                if (level.getBlockState(candidate).is(Blocks.REDSTONE_BLOCK)) {\n'
+             '                    return candidate;\n'
+             '                }\n'
+             '            }\n'
+             '        }\n'
+             '        BlockPos behind = piston.relative(facing.getOpposite());\n'
+             '        if (level.getBlockState(behind).is(Blocks.REDSTONE_BLOCK)) {\n'
+             '            return behind;\n'
+             '        }\n'
+             '        return null;',
+             _PB + 'netherite_piston_sacrifice_leaves_nothing_behind_and_needs_the_redstone_block',
+             'the redstone block beside the netherite piston paid although one sat directly behind it',
+             'the redstone block directly behind the piston pays first', kind="server"),
+    # --- pistons: the netherite sacrifice and the enderite breach -----------------------------
+    Mutation('p10-sacrifice-keeps-the-payer',
+             f'{SHARED}/blocks/custom/NetheriteBreakerPistonBlock.java',
+             '        world.destroyBlock(fuel, false);\n',
+             '',
+             _PB + 'netherite_piston_sacrifice_leaves_nothing_behind_and_needs_the_redstone_block',
+             "the redstone block that paid the netherite piston's breach is still there",
+             'the sacrifice uses up the redstone block', kind="server"),
+    Mutation('p10-sacrifice-spares-the-piston',
+             f'{SHARED}/blocks/custom/NetheriteBreakerPistonBlock.java',
+             '        world.destroyBlock(pos, false);\n        return true;',
+             '        return true;',
+             _PB + 'netherite_piston_sacrifice_leaves_nothing_behind_and_needs_the_redstone_block',
+             'the netherite piston survived its own breach',
+             'the netherite piston is used up by its breach', kind="server"),
+    Mutation('p10-sacrifice-drops-the-piston',
+             f'{SHARED}/blocks/custom/NetheriteBreakerPistonBlock.java',
+             '        world.destroyBlock(pos, false);\n        return true;',
+             '        world.destroyBlock(pos, true);\n        return true;',
+             _PB + 'netherite_piston_sacrifice_leaves_nothing_behind_and_needs_the_redstone_block',
+             'the sacrifice dropped items',
+             'the sacrificed piston drops nothing', kind="server"),
+    Mutation('p10-enderite-four-deep',
+             f'{SHARED}/blocks/custom/EnderitePistonBlock.java',
+             'public static final int BREACH_DEPTH = 3;',
+             'public static final int BREACH_DEPTH = 4;',
+             _PB + 'enderite_piston_breaches_three_cells_skipping_air_and_stopping_at_immune_blocks',
+             'the enderite piston reached a fourth cell',
+             'the enderite breach is three cells deep', kind="server"),
+    Mutation('p10-enderite-air-ends-it',
+             f'{SHARED}/blocks/custom/EnderitePistonBlock.java',
+             '            if (targetState.isAir()) {\n                continue;\n            }',
+             '            if (targetState.isAir()) {\n                return;\n            }',
+             _PB + 'enderite_piston_breaches_three_cells_skipping_air_and_stopping_at_immune_blocks',
+             'the enderite breach stopped at the air gap instead of skipping it',
+             'air on the way is skipped, not a stop', kind="server"),
+    Mutation('p10-enderite-skips-immune',
+             f'{SHARED}/blocks/custom/EnderitePistonBlock.java',
+             '            if (targetState.is(ModTags.Blocks.PISTON_BREACH_IMMUNE)) {\n                return;\n            }',
+             '            if (targetState.is(ModTags.Blocks.PISTON_BREACH_IMMUNE)) {\n                continue;\n            }',
+             _PB + 'enderite_piston_breaches_three_cells_skipping_air_and_stopping_at_immune_blocks',
+             'the enderite breach went on past the immune light block',
+             'an immune block ends the enderite breach', kind="server"),
+    Mutation('p10-enderite-drops-lost',
+             f'{SHARED}/blocks/custom/EnderitePistonBlock.java',
+             '                world.destroyBlock(target, true);',
+             '                world.destroyBlock(target, false);',
+             _PB + 'enderite_piston_breaches_three_cells_skipping_air_and_stopping_at_immune_blocks',
+             'the stone the enderite breach broke did not drop its cobblestone',
+             'ordinary blocks on the way are mined with their drop', kind="server"),
+    # --- pistons: head, explosion, the sticky piston as an item --------------------------------
+    Mutation('p10-head-sticky-mismatch',
+             f'{SHARED}/mixin/PistonHeadBlockMixin.java',
+             '            sticky = reinforced.isStickyPiston();',
+             '            sticky = false;',
+             _PB + 'breaking_the_head_of_mod_pistons_breaks_the_piston_too',
+             'the reinforced sticky piston did not extend with a sticky head',
+             'the sticky head fits the reinforced sticky piston', kind="server"),
+    Mutation('p10-explosion-unguarded',
+             f'{SHARED}/mixin/MovingPistonExplosionMixin.java',
+             '            ci.cancel();\n',
+             '',
+             _PB + 'explosions_cannot_delete_unbreakable_blocks_while_they_move',
+             'the explosion deleted the bedrock while it was moving',
+             'a moving unbreakable block ignores explosions', kind="server"),
+    Mutation('p10-sticky-recipe-key',
+             f'{_GEN}/recipe/reinforced_sticky_piston.json',
+             '"S": "minecraft:slime_ball"',
+             '"S": "minecraft:honey_bottle"',
+             _PB + 'reinforced_sticky_piston_crafts_from_slime_and_drops_itself',
+             'slime ball over a reinforced piston crafts nothing at all',
+             'a slime ball over a reinforced piston makes the sticky one', kind="server"),
+    Mutation('p10-sticky-loot-wrong-item',
+             f'{_GEN}/loot_table/blocks/reinforced_sticky_piston.json',
+             '"name": "simplebuilding:reinforced_sticky_piston"',
+             '"name": "simplebuilding:reinforced_piston"',
+             _PB + 'reinforced_sticky_piston_crafts_from_slime_and_drops_itself',
+             'the broken reinforced sticky piston did not drop itself',
+             'the reinforced sticky piston drops itself', kind="server"),
+    # --- leather sheet and reinforced quiver ---------------------------------------------------
+    Mutation('p10-leather-sheet-eight',
+             f'{_GEN}/recipe/leather_sheet.json',
+             '"LLL",\n    "LLL",\n    "LLL"',
+             '"LLL",\n    "LLL",\n    "LL "',
+             _LQ + 'leather_sheet_takes_exactly_nine_leather',
+             'nine leather crafts nothing at all',
+             'a leather sheet is nine leather in a full grid', kind="server"),
+    Mutation('p10-reinforced-quiver-from-bundle',
+             f'{_GEN}/recipe/reinforced_quiver.json',
+             '"Q": "simplebuilding:quiver"',
+             '"Q": "minecraft:bundle"',
+             _LQ + 'reinforced_quiver_crafts_from_the_plain_quiver_with_sheet_pebble_and_nugget',
+             'string, diamond pebble, leather sheet, copper nugget and a quiver crafts nothing at all',
+             'the reinforced quiver is made from the plain quiver', kind="server"),
+    Mutation('p10-netherite-quiver-from-plain',
+             f'{_GEN}/recipe/netherite_quiver_smithing.json',
+             '"base": "simplebuilding:reinforced_quiver"',
+             '"base": "simplebuilding:quiver"',
+             _LQ + 'netherite_quiver_smiths_only_from_the_reinforced_quiver',
+             'a reinforced quiver on the netherite template matches no smithing recipe at all',
+             'the netherite quiver is smithed from the reinforced quiver', kind="server"),
+    Mutation('p10-upgrade-builds-fresh',
+             f'{SHARED}/recipe/ReinforcedBundleRecipe.java',
+             '                return TransmuteRecipe.createWithOriginalComponents(this.result, stack);',
+             '                return this.result.create();',
+             _LQ + 'upgrades_keep_contents_enchantments_and_name',
+             'stone the reinforced bundle kept from the vanilla bundle it was made of',
+             'the reinforced recipes carry the container over, contents included', kind="server"),
+    Mutation('p10-reinforced-quiver-factor',
+             f'{SHARED}/items/custom/QuiverItem.java',
+             '            return Fraction.getFraction(3, 2);',
+             '            return Fraction.getFraction(1, 1);',
+             _LQ + 'upgrades_keep_contents_enchantments_and_name',
+             'arrows the crafted reinforced quiver holds once it is topped up',
+             'a crafted reinforced quiver holds 96 arrows', kind="server"),
+    Mutation('p10-reinforced-quiver-fireproof',
+             f'{SHARED}/items/ModItems.java',
+             'registerItem("reinforced_quiver", settings -> new QuiverItem(settings.stacksTo(1).component(',
+             'registerItem("reinforced_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().component(',
+             _LQ + 'reinforced_quiver_is_an_ordinary_tier_in_the_container_tags',
+             'the reinforced quiver resists fire',
+             'the reinforced quiver burns like the plain one', kind="server"),
+    # --- backpacks -----------------------------------------------------------------------------
+    Mutation('p10-backpack-not-swappable',
+             f'{SHARED}/items/ModItems.java',
+             '                        .setSwappable(true)',
+             '                        .setSwappable(false)',
+             _BP + 'right_click_wears_the_backpack_and_swaps_it_with_the_chestplate',
+             'a right click with the backpack did not put it into the chest slot',
+             'a right click wears the backpack', kind="server"),
+    Mutation('p10-backpack-armor-off-by-one',
+             f'{SHARED}/items/ModItems.java',
+             'tier.armor(), AttributeModifier.Operation.ADD_VALUE),',
+             'tier.armor() + 1, AttributeModifier.Operation.ADD_VALUE),',
+             _BP + 'tiers_carry_their_armor_slot_count_and_slot_layout',
+             'armor of the worn',
+             'armour 1 / 2 / 3 / 4', kind="server"),
+    Mutation('p10-backpack-enderite-one-column',
+             f'{SHARED}/items/custom/BackpackTier.java',
+             '    ENDERITE(4, 2, 4);',
+             '    ENDERITE(4, 1, 4);',
+             _BP + 'tiers_carry_their_armor_slot_count_and_slot_layout',
+             'Expected slots of',
+             'the enderite backpack has 50 slots', kind="server"),
+    Mutation('p10-backpack-column-ids-per-tier',
+             f'{SHARED}/items/custom/BackpackTier.java',
+             '        return COLUMN_SLOT_BASE + column * MAX_COLUMN_HEIGHT + row;',
+             '        return containerIndex;',
+             _BP + 'tiers_carry_their_armor_slot_count_and_slot_layout',
+             "component id of the netherite backpack's first column slot",
+             'slot ids in the contents mean the same on every tier', kind="server"),
+    Mutation('p10-backpack-upgrade-builds-fresh',
+             f'{SHARED}/recipe/BackpackUpgradeRecipe.java',
+             '                return stack.transmuteCopy(this.result.item().value(), this.result.count());',
+             '                return this.result.create();',
+             _BP + 'contents_survive_the_reinforced_recipe_and_both_smithing_upgrades',
+             'contents the reinforced backpack kept from the backpack it was made of',
+             'the reinforced backpack recipe keeps the contents', kind="server"),
+    Mutation('p10-backpack-placed-without-sneaking',
+             f'{SHARED}/items/custom/BackpackItem.java',
+             '        if (player != null && player.isSecondaryUseActive()) {',
+             '        if (player != null) {',
+             _BP + 'sneak_right_click_places_the_backpack_and_breaking_it_drops_everything',
+             'a right click without sneaking placed the backpack',
+             'only sneak + right click sets the backpack down', kind="server"),
+    Mutation('p10-backpack-loot-loses-contents',
+             f'{_GEN}/loot_table/blocks/reinforced_backpack.json',
+             '          "functions": [\n'
+             '            {\n'
+             '              "function": "minecraft:copy_components",\n'
+             '              "source": "block_entity"\n'
+             '            }\n'
+             '          ],\n',
+             '',
+             _BP + 'sneak_right_click_places_the_backpack_and_breaking_it_drops_everything',
+             'contents of the backpack that dropped from the broken block',
+             'a broken backpack drops with its contents', kind="server"),
+    Mutation('p10-backpack-key-ignores-the-chest',
+             f'{SHARED}/screen/BackpackMenuProviders.java',
+             '                && !BackpackItem.wornBackpack(player).isEmpty();',
+             '                ;',
+             _BP + 'open_key_opens_the_menu_only_for_the_worn_backpack',
+             'the backpack key may open a menu for a player with nothing on the chest',
+             'the backpack key needs a worn backpack', kind="server"),
+    Mutation('p10-backpack-shift-click-vanilla-first',
+             f'{SHARED}/screen/BackpackMenu.java',
+             '        } else if (slotIndex < USE_ROW_SLOT_END && this.moveItemStackTo(stack, start, end, false)) {',
+             '        } else if (false && slotIndex < USE_ROW_SLOT_END && this.moveItemStackTo(stack, start, end, false)) {',
+             _BP + 'shift_click_fills_the_backpack_first_and_empties_it_into_the_main_inventory',
+             'shift-click from the main inventory did not put the cobblestone into the backpack',
+             'shift-click fills the backpack first', kind="server"),
+    Mutation('p10-backpack-shift-click-out-to-hotbar',
+             f'{SHARED}/screen/BackpackMenu.java',
+             '            if (!this.moveItemStackTo(stack, INV_SLOT_START, INV_SLOT_END, false)\n'
+             '                    && !this.moveItemStackTo(stack, USE_ROW_SLOT_START, USE_ROW_SLOT_END, false)) {',
+             '            if (!this.moveItemStackTo(stack, USE_ROW_SLOT_START, USE_ROW_SLOT_END, false)\n'
+             '                    && !this.moveItemStackTo(stack, INV_SLOT_START, INV_SLOT_END, false)) {',
+             _BP + 'shift_click_fills_the_backpack_first_and_empties_it_into_the_main_inventory',
+             'shift-click out of the backpack did not put the cobblestone into the first main inventory slot',
+             'shift-click out of the backpack goes to the main inventory first', kind="server"),
+    Mutation('p10-backpack-deep-pockets-stacks-swords',
+             f'{SHARED}/items/custom/BackpackItem.java',
+             '        return normal > 1 ? normal * multiplier : 1;',
+             '        return normal * multiplier;',
+             _BP + 'deep_pockets_raises_stack_limits_only_for_stackables',
+             'swords per backpack slot at Deep Pockets 1',
+             'Deep Pockets never stacks unstackable items', kind="server"),
+    Mutation('p10-backpack-oversized-leaves-whole',
+             f'{SHARED}/screen/BackpackSlot.java',
+             '        int limit = current.isEmpty() ? amount : Math.min(amount, Math.max(1, current.getMaxStackSize()));',
+             '        int limit = amount;',
+             _BP + 'deep_pockets_raises_stack_limits_only_for_stackables',
+             'cobblestone on the cursor after picking up the oversized stack',
+             'an oversized stack leaves one normal stack at a time', kind="server"),
+    Mutation('p10-backpack-funnel-ignored',
+             f'{SHARED}/mixin/ItemEntityMixin.java',
+             '            if (BackpackItem.tryFunnelPickup(player, itemOnGround)) {',
+             '            if (false && BackpackItem.tryFunnelPickup(player, itemOnGround)) {',
+             _BP + 'funnel_pulls_picked_up_items_into_the_worn_backpack',
+             'cobblestone a worn Funnel II backpack took from the ground',
+             'Funnel on the worn backpack vacuums pickups', kind="server"),
+    Mutation('p10-backpack-funnel-one-takes-anything',
+             f'{SHARED}/items/custom/BackpackItem.java',
+             '        if (funnel == 1 && !view.containsSameItem(ground)) {',
+             '        if (false && funnel == 1 && !view.containsSameItem(ground)) {',
+             _BP + 'funnel_pulls_picked_up_items_into_the_worn_backpack',
+             'stone a Funnel I backpack took although it held none',
+             'Funnel I only takes sorts already in the backpack', kind="server"),
+    Mutation('p10-backpack-master-builder-any-backpack',
+             f'{SHARED}/items/custom/BuildingWandItem.java',
+             '        return BackpackItem.wornBackpackWith(player, ModEnchantments.MASTER_BUILDER);',
+             '        return BackpackItem.wornBackpack(player);',
+             _BP + 'master_builder_opens_the_backpack_only_when_the_backpack_carries_it',
+             'a backpack without Master Builder supplied the wand',
+             'only Master Builder on the backpack opens it to the wand', kind="server"),
+    Mutation('p10-backpack-wand-builds-backpacks',
+             f'{SHARED}/items/custom/BuildingWandItem.java',
+             '        return stack.getItem() instanceof BlockItem && !(stack.getItem() instanceof BackpackItem);',
+             '        return stack.getItem() instanceof BlockItem;',
+             _BP + 'master_builder_opens_the_backpack_only_when_the_backpack_carries_it',
+             'the wand treated a backpack in the hotbar as building material',
+             'a backpack is never building material', kind="server"),
+    Mutation('p10-backpack-constructors-touch-no-refill',
+             f'{SHARED}/mixin/BlockItemMixin.java',
+             '        BackpackItem.refillHandFromWornBackpack(player, hand, before);\n',
+             '',
+             _BP + 'constructors_touch_refills_the_empty_hand_from_the_worn_backpack',
+             "Constructor's Touch did not refill the empty hand from the worn backpack",
+             "Constructor's Touch refills the hand from the worn backpack", kind="server"),
+    Mutation('p10-backpack-drawer-allowed',
+             f'{_GEN}/tags/item/bundle_enchantable.json',
+             '    "simplebuilding:enderite_quiver"\n  ]',
+             '    "simplebuilding:enderite_quiver",\n    "#simplebuilding:backpacks"\n  ]',
+             _BP + 'backpacks_take_their_four_enchantments_but_neither_drawer_nor_color_palette',
+             'simplebuilding:drawer can be put on',
+             'Drawer stays off the backpacks', kind="server"),
+    Mutation('p10-backpack-netherite-blast',
+             f'{SHARED}/mixin/ItemEntityMixin.java',
+             '                || droppedStack.is(ModItems.NETHERITE_BACKPACK)\n',
+             '',
+             _BP + 'upper_tiers_survive_fire_and_explosions_and_lower_ones_spill_their_contents',
+             'the netherite backpack was destroyed by the explosion it is supposed to ignore',
+             'the netherite backpack ignores explosions', kind="server"),
+    Mutation('p10-backpack-spill-lost',
+             f'{SHARED}/items/custom/BackpackItem.java',
+             '                        level.addFreshEntity(new ItemEntity(level, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(), part));\n',
+             '',
+             _BP + 'upper_tiers_survive_fire_and_explosions_and_lower_ones_spill_their_contents',
+             'diamonds the destroyed backpack spilled',
+             'a destroyed backpack spills its contents', kind="server"),
+    # --- nihilith placement --------------------------------------------------------------------
+    Mutation('p10-nihilith-any-underside',
+             f'{_GEN}/worldgen/placed_feature/nihilith_ore_placed.json',
+             '          {\n'
+             '            "type": "minecraft:matching_blocks",\n'
+             '            "blocks": "minecraft:end_stone"\n'
+             '          },\n',
+             '',
+             'ore_gen_and_item_frame_game_test_nihilith_placement_only_accepts_end_stone_undersides_and_lifts_the_origin',
+             'the nihilith filter accepted a stone underside',
+             'nihilith only starts on end stone', kind="server"),
+    Mutation('p10-nihilith-no-lift',
+             f'{_GEN}/worldgen/placed_feature/nihilith_ore_placed.json',
+             '"y_spread": 1',
+             '"y_spread": 0',
+             'ore_gen_and_item_frame_game_test_nihilith_placement_only_accepts_end_stone_undersides_and_lifts_the_origin',
+             'the nihilith offset did not move the underside exactly one block up',
+             'the nihilith origin moves one block into the island', kind="server"),
+]
+
 #: The 1.21.11 line keeps its own copy of the shared mod sources (mc1_21_11/shared/java, mirrored
 #: by hand) and its own Fabric module. A server mutation proved on 26.2 says nothing about
 #: whether the TRANSLATED test body on 1.21.11 bites - the bodies are within the drift tolerance,
@@ -1157,6 +1542,15 @@ ON_1_21_11: dict[str, dict[str, str]] = {
     "hopper-ghost-in-occupied-slot": {
         "old": "                    if (slot.getItem().isEmpty()) {\n                        context.renderItem(ghostStack, slotX, slotY);",
         "new": "                    if (true) {\n                        context.renderItem(ghostStack, slotX, slotY);"},
+    # The two upgrade recipes build their result differently there: an ItemStack field instead of
+    # an ItemStackTemplate (1.21.11 has no ItemStackTemplate), so the "build a fresh result" slip
+    # is spelled with copy() - the same mistake, the same test.
+    "p10-upgrade-builds-fresh": {
+        "old": "                ItemStack upgraded = stack.transmuteCopy(this.resultStack.getItem(), this.resultStack.getCount());",
+        "new": "                ItemStack upgraded = this.resultStack.copy();"},
+    "p10-backpack-upgrade-builds-fresh": {
+        "old": "                return stack.transmuteCopy(this.result.getItem(), this.result.getCount());",
+        "new": "                return this.result.copy();"},
     "p4-overlay-ignores-f1": {
         "old": "        if (client.options.hideGui) {\n            // Fabric's element registry hangs the mod's overlays inside vanilla's own layers,\n            // which F1 switches off as a whole; NeoForge's layer event does not, and there the\n            // air jump bar, the speedometer and the rangefinder stayed on a hidden HUD. The\n            // question has to be asked here, once, so both loaders give the same answer.\n            return;\n        }\n",
         "new": ""},
@@ -1475,7 +1869,8 @@ def reread(dataset: Path) -> int:
     """
     data = json.loads(dataset.read_text(encoding="utf-8"))
     runs_dir = REPO / "testing" / "runs"
-    catalogue = {"p6": P6_MUTATIONS, "p6b": P6B_MUTATIONS, "p9": P9_MUTATIONS}.get(data.get("catalogue"), MUTATIONS)
+    catalogue = {"p6": P6_MUTATIONS, "p6b": P6B_MUTATIONS, "p9": P9_MUTATIONS,
+                 "p10": P10_MUTATIONS}.get(data.get("catalogue"), MUTATIONS)
     by_id = {m.id: m for m in catalogue}
     stamp = dataset.stem
     rounds_out = []
@@ -1548,6 +1943,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="the P6b round over the remaining areas (server side)")
     parser.add_argument("--p9", action="store_true",
                         help="the P9 counter-checks for the fixes of 2026-09-24 (server and client)")
+    parser.add_argument("--p10", action="store_true",
+                        help="the P10 counter-checks for the tests of the first feature wave (server)")
     parser.add_argument("--all-catalogues", action="store_true",
                         help="with --check: every catalogue on both lines, the way the release gate asks")
     parser.add_argument("--reread", default="",
@@ -1560,7 +1957,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.check and args.all_catalogues:
         problems = 0
         for name, cat in (("false-greens", MUTATIONS), ("p6", P6_MUTATIONS), ("p6b", P6B_MUTATIONS),
-                          ("p9", P9_MUTATIONS)):
+                          ("p9", P9_MUTATIONS), ("p10", P10_MUTATIONS)):
             for line in ("26.2", LINE_1_21_11):
                 chosen = [on_line(m, line) for m in cat if m.kind == "server"]
                 print(f"{name} (Server) auf {line}: {len(chosen)} Mutationen")
@@ -1576,8 +1973,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.reread:
         return reread(REPO / args.reread)
 
-    catalogue = (P9_MUTATIONS if args.p9 else P6B_MUTATIONS if args.p6b else P6_MUTATIONS if args.p6
-                 else MUTATIONS)
+    catalogue = (P10_MUTATIONS if args.p10 else P9_MUTATIONS if args.p9 else P6B_MUTATIONS if args.p6b
+                 else P6_MUTATIONS if args.p6 else MUTATIONS)
     # Server mutations are proved per LINE, on that line's Fabric server: with --line 1.21.11,
     # and likewise inside a run for a 1.21.11 client target, they go to fabric-12111. A server
     # target on the other line than the mutated copy would run one thing and mutate another.
@@ -1629,7 +2026,8 @@ def main(argv: list[str] | None = None) -> int:
     for i, r in enumerate(client_rounds, 1):
         results.append(run_round(i, r, args.target, args.timeout))
 
-    out = write_dataset(results, "p9" if args.p9 else "p6b" if args.p6b else "p6" if args.p6 else "false-greens")
+    out = write_dataset(results, "p10" if args.p10 else "p9" if args.p9 else "p6b" if args.p6b
+                        else "p6" if args.p6 else "false-greens")
     return summarise(results, out)
 
 

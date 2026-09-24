@@ -77,7 +77,9 @@ import net.minecraft.world.phys.Vec3;
  * {@code Simplebuilding.getConfig()} in the mod sits in {@code client/} or in a client mixin. That
  * is written down per option in the javadoc below rather than papered over with a test that would
  * pass either way. The exception since 2026-09 is {@code pistonsBreachEndPortalFrames}, read
- * server side by {@code PistonBreach}; it is only pinned by name and default here so far.
+ * server side by {@code PistonBreach}; its behaviour is driven in
+ * {@code PistonBreachTests#endPortalFramesBreachOnlyWhileTheirConfigOptionIsOn}, and only its name
+ * and default are pinned here.
  */
 public final class ConfigOptionTests {
 

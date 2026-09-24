@@ -136,7 +136,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
  *   <li><b>{@code PistonHeadBlockMixin}.</b> It accepts the mod pistons in vanilla's
  *       {@code PistonHeadBlock#isFittingBase}, which is what keeps the extended mod pistons in this
  *       file intact - every extend/retract test here would fail without it. What it does beyond
- *       that (breaking the head breaks the base, as with vanilla pistons) is not pinned here.</li>
+ *       that (breaking the head breaks the base, as with vanilla pistons) is pinned in
+ *       {@code PistonBreachTests#breakingTheHeadOfModPistonsBreaksThePistonToo}.</li>
  * </ul>
  */
 public final class GravityBlockTests {
