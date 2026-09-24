@@ -1413,6 +1413,11 @@ public final class ClientBootstrapClientTest {
     private static void scrollAndSettle(Script script, double amount) {
         script.harness("scroll the wheel by " + amount, harness -> harness.scroll(amount));
         script.idle("let the scroll payload travel and come back", 10);
+        // Ten idle ticks are not a barrier: on NeoForge the integrated server runs on its own
+        // thread, and a lagging one had not applied the payload yet (Pos1 still unmoved). The
+        // packet barrier waits for server ticks after the scroll, so the payload is handled - and
+        // an "unchanged" assertion below really means the mod refused it.
+        script.awaitPackets();
     }
 
     private static void selectHotbarSlot(Script script, int slot) {

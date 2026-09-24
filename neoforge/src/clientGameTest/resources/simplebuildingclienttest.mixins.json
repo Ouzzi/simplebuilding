@@ -6,6 +6,7 @@
   "client": [
     "MouseHandlerAccessor",
     "InputConstantsMixin",
+    "PingHandledMixin",
     "WindowFocusMixin"
   ],
   "injectors": {

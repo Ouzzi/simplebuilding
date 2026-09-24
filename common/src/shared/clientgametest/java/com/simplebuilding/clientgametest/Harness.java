@@ -57,12 +57,12 @@ public interface Harness {
     /**
      * Works towards "everything the server sent has arrived and been handled"; true when settled.
      *
-     *
      * <p>Fabric answers this exactly, because its framework runs the client and server task queues
-     * in a fixed order and knows when they are empty. NeoForge has no such knowledge and says so:
-     * its implementation answers true straight away, and the {@code idle} steps around the call
-     * are what actually give the packets time. That is weaker, and it is written down here rather
-     * than papered over.
+     * in a fixed order and knows when they are empty. NeoForge 26.2 builds its own barrier since
+     * 2026-09-24 (two server ticks, then a ping round the client handles in order - see its
+     * {@code PacketBarrier}); before that it answered true straight away, and on a loaded machine
+     * that race was lost. The 1.21.11 drivers still answer true straight away, and there the
+     * {@code idle} steps around the call are what give the packets time.
      */
     boolean packetsSettled() throws Exception;
 
